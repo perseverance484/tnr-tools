@@ -1,10 +1,11 @@
-// TNR content builder bundle v4.5 - loaded via @require by the tiny VM loader.
+// TNR content builder bundle v4.6 - loaded via @require by the tiny VM loader.
 // One manifest, mixed entities: jutsu, quest, asset (gameAsset), and item.
 // Entry: {name, entity:"jutsu"|"quest"|"asset"|"item", slot:"create"|"convert", srcId?, targetId?, data}.
-//   jutsu: create+fill, or convert-by-id. v4.5: jutsu convert now FETCH-MERGES like the asset path -
-//          it loads the full jutsu catalog once per run (jutsu.getAll, mapped by id), merges your
-//          partial `data` over the live record, strips the read-only `bloodline` join, then updates.
-//          So a partial convert ({targetId, data:{description:"..."}}) is safe; full-record data still works.
+//   jutsu: create+fill, or convert-by-id. Convert FETCH-MERGES like the asset path: it loads the full
+//          jutsu catalog once per run (jutsu.getAll, two passes - default + hidden:true so hidden AI
+//          jutsu are included - mapped by id), merges your partial `data` over the live record, strips
+//          the read-only `bloodline` join, preserves createdAt, then updates. So a partial convert
+//          ({targetId, data:{description:"..."}}) is safe; full-record data still works.
 //   quest: create (null) then update (auto flatten + referentialEqualities meta), or update-by-id.
 //   asset: gameAsset.create (null) -> get the new row (falls back to a default row if get misses)
 //          -> merge your data fields -> gameAsset.update. You supply the image URL (uploaded by hand).
@@ -24,7 +25,8 @@ const gjson=t=>{try{return JSON.parse(t)[0].result.data.json}catch(e){return nul
 const mk=wf=>postRL('jutsu.create',{"0":{json:null,meta:{values:["undefined"],v:1}}},wf);
 const up=(id,d,wf)=>{const ca=d.createdAt||now();return postRL('jutsu.update',{"0":{json:{id,data:Object.assign({},d,{id,createdAt:ca,updatedAt:now()})},meta:MT}},wf)};
 let jcat=null;const JLIM=100;// full-catalog cache for convert fetch-merge (loaded once per run)
-const loadJutsu=async wf=>{const map={};let cur=null,n=0;while(n<2000){n++;const r=await getRL('jutsu.getAll',{cursor:cur,limit:JLIM},wf);const p=gjson(r.text);if(!p||!p.data)break;for(const j of p.data)map[j.id]=j;if(p.nextCursor==null)break;cur=p.nextCursor;await sleep(THR)}return map};
+const pageAll=async(extra,wf,map)=>{let cur=null,n=0;while(n<2000){n++;const r=await getRL('jutsu.getAll',Object.assign({cursor:cur,limit:JLIM,direction:'forward'},extra),wf);const p=gjson(r.text);if(!p||!p.data)break;for(const j of p.data)map[j.id]=j;if(p.nextCursor==null)break;cur=p.nextCursor;await sleep(THR)}return map};
+const loadJutsu=async wf=>{const map={};await pageAll({},wf,map);await pageAll({hidden:true},wf,map);return map};
 const ensureJcat=async wf=>{if(!jcat)jcat=await loadJutsu(wf);return jcat};
 // --- item (mirrors jutsu; item.create takes {type}, NOT null) ---
 const mki=(t,wf)=>postRL('item.create',{"0":{json:{type:t||"CONSUMABLE"}}},wf);
