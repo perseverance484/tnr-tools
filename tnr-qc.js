@@ -18,8 +18,15 @@
   /* ---------- tRPC ---------- */
   function tq(proc, input) {
     var u = API + proc + '?batch=1&input=' + encodeURIComponent(JSON.stringify({ 0: { json: input } }));
-    return fetch(u, { credentials: 'include' }).then(function (r) { return r.json(); })
-      .then(function (j) { return j[0].result.data.json; });
+    return fetch(u, { credentials: 'include' })
+      .then(function (r) {
+        if (!r.ok) throw new Error(proc + ' HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (j) {
+        try { return j[0].result.data.json; }
+        catch (e) { throw new Error(proc + ' bad shape: ' + JSON.stringify(j).slice(0, 180)); }
+      });
   }
   function tm(proc, input) {
     return fetch(API + proc + '?batch=1', {
@@ -231,7 +238,11 @@
       if (!bid) { finishFight(true); return; } // battle gone; outcome refined below via hp
       S.battleId = bid;
       return tq('combat.getBattle', { battleId: bid }).then(function (res) {
-        var b = res && res.battle; if (!b) { S.battleId = null; return; }
+        if (!S.sawBattleShape) {
+          S.sawBattleShape = true;
+          status('getBattle shape: ' + (res ? Object.keys(res).join(',').slice(0, 120) : 'null'));
+        }
+        var b = res && res.battle; if (!b) { status('no .battle in payload'); S.battleId = null; return; }
         var my = me(b); if (!my) { S.battleId = null; return; }
         var foe = aiFoe(b, my);
         if (!foe) { finishFight(true); S.battleId = null; return; }
@@ -272,6 +283,7 @@
     S.fight.turns.push({ snap: snap(b, my, foe), chose: 'observe', action: null });
     tq('combat.getBattleEntries', { battleId: b.id, refreshKey: 1, checkBattle: false, limit: 1000 })
       .then(function (list) {
+        if (!S.sawEntriesShape) { S.sawEntriesShape = true; status('entries type: ' + (Array.isArray(list) ? 'array ' + list.length : typeof list)); }
         var fresh = [];
         (Array.isArray(list) ? list : []).forEach(function (le) {
           var key = le.id || (le.createdAt + '|' + (le.description || '').slice(0, 40));
@@ -279,7 +291,7 @@
           seenEntries[key] = 1; fresh.push(le);
         });
         if (fresh.length) judgeBossTurn(preStateFor(b, my, foe), fresh, S.fight);
-      }).catch(function () {});
+      }).catch(function (e) { status('tick error: ' + (e && e.message || e)); });
   }
   function phaseRules() {
     var p = phase();
