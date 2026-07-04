@@ -11,7 +11,7 @@
   var S = {
     running: false, dryRun: true, spec: null, names: null, idByName: null,
     battleId: null, lastVersion: -1, acting: false, timer: null,
-    fight: null, fights: [], phaseIdx: 0, fightNum: 0, maxFights: 10,
+    fight: null, fights: [], events: [], phaseIdx: 0, fightNum: 0, maxFights: 10,
     pollMs: 1500, actDelay: 800, errStreak: 0
   };
 
@@ -216,12 +216,15 @@
         S.battleId = null; S.lastVersion = -1;
         status('fight ' + S.fightNum + ' started (' + S.fight.phase + ')');
       })
-      .catch(function (e) { status('start error: ' + e); S.errStreak++; if (S.errStreak > 3) stop(); });
+      .catch(function (e) { status('START ERROR: ' + (e && e.message || e)); S.errStreak++; if (S.errStreak > 3) { stop(); status('stopped after repeated start errors'); } });
   }
 
   function tick() {
     if (!S.running || S.acting) return;
-    if (!S.fight) { S.acting = true; startNextFight(); setTimeout(function () { S.acting = false; }, 2500); return; }
+    if (!S.fight) {
+      if (S.dryRun) { dryAttach(); return; }
+      S.acting = true; startNextFight(); setTimeout(function () { S.acting = false; }, 2500); return;
+    }
     var getBid = S.battleId ? Promise.resolve(S.battleId)
       : tq('profile.getUser', {}).then(function (u) { return u && u.userData && u.userData.battleId; });
     getBid.then(function (bid) {
@@ -235,6 +238,7 @@
         if (my.curHealth <= 0) { finishFight(false); S.battleId = null; return; }
         S.fight.rounds = b.round;
         if (b.version === S.lastVersion) return;
+        if (S.dryRun) { S.lastVersion = b.version; dryObserve(b, my, foe); return; }
         if (b.activeUserId !== my.userId) { S.lastVersion = b.version; return; }
         var ctx = { b: b, my: my, foe: foe };
         var pre = preStateFor(b, my, foe);
@@ -254,6 +258,29 @@
       });
     }).catch(function () {});
   }
+  var seenEntries = {};
+  function dryAttach() {
+    tq('profile.getUser', {}).then(function (u) {
+      var bid = u && u.userData && u.userData.battleId;
+      if (!bid) { status('DRY: start a battle manually'); return; }
+      S.battleId = bid; S.fight = newFight({ name: 'dry_observe' });
+      status('DRY: observing battle');
+    }).catch(function (e) { status('DRY attach error: ' + e); });
+  }
+  function dryObserve(b, my, foe) {
+    S.fight.rounds = b.round;
+    S.fight.turns.push({ snap: snap(b, my, foe), chose: 'observe', action: null });
+    tq('combat.getBattleEntries', { battleId: b.id, refreshKey: 1, checkBattle: false, limit: 1000 })
+      .then(function (list) {
+        var fresh = [];
+        (Array.isArray(list) ? list : []).forEach(function (le) {
+          var key = le.id || (le.createdAt + '|' + (le.description || '').slice(0, 40));
+          if (seenEntries[key]) return;
+          seenEntries[key] = 1; fresh.push(le);
+        });
+        if (fresh.length) judgeBossTurn(preStateFor(b, my, foe), fresh, S.fight);
+      }).catch(function () {});
+  }
   function phaseRules() {
     var p = phase();
     if (S.fight) { for (var i = 0; i < (S.spec.phases || []).length; i++) if (S.spec.phases[i].name === S.fight.phase) return S.spec.phases[i].rules; }
@@ -269,7 +296,11 @@
     if (css) Object.keys(css).forEach(function (k) { e.style[k] = css[k]; });
     if (txt) e.textContent = txt; return e;
   }
-  function status(t) { if (statusEl) statusEl.textContent = 'QC: ' + t; }
+  function status(t) {
+    if (statusEl) statusEl.textContent = 'QC: ' + t;
+    S.events.push({ t: new Date().toISOString(), msg: String(t) });
+    if (S.events.length > 800) S.events.shift();
+  }
   function btn(label, fn) {
     var b = el('button', { margin: '2px', padding: '4px 8px', fontSize: '11px', background: '#1a1028', color: '#eee', border: '1px solid #5a4a7a', borderRadius: '4px' }, label);
     b.addEventListener('click', fn); return b;
@@ -295,7 +326,7 @@
     row.appendChild(btn('Dry:ON', function () { S.dryRun = !S.dryRun; this.textContent = S.dryRun ? 'Dry:ON' : 'Dry:OFF'; }));
     row.appendChild(btn('Verdict', function () {
       var out = { spec: S.spec && S.spec.name, generatedAt: new Date().toISOString(),
-        fights: S.fights, summary: summarize() };
+        fights: S.fights, partialFight: S.fight, events: S.events, summary: summarize() };
       var blob = new Blob([JSON.stringify(out, null, 1)], { type: 'application/json' });
       var a = el('a', {}); a.href = URL.createObjectURL(blob);
       a.download = 'tnr-qc-verdict-' + Date.now() + '.json';
