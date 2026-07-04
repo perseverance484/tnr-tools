@@ -1,4 +1,4 @@
-/* TNR Quality Control (QC) v1.0 - unattended AI battle testing.
+/* TNR Quality Control (QC) v1.3 - unattended AI battle testing.
    Fetches a testspec (policies + assertions) and runs fight campaigns against a quest-gated AI,
    judging boss behavior live and exporting one verdict file per campaign.
    PvE only. Dry-run ON by default. */
@@ -151,7 +151,6 @@
       foeFx: foe ? fxOn(b, foe.userId).map(function (e) { return e.type + ':' + e.power; }) : [] };
   }
   function judgeBossTurn(preState, entries, f) {
-    // record casts + evaluate assertions from the spec against the pre-turn state
     var casts = [];
     (entries || []).forEach(function (le) {
       var d = le.description || '';
@@ -190,7 +189,6 @@
   function finishFight(won) {
     var f = S.fight; if (!f) return;
     f.result = won ? 'win' : 'loss';
-    // flags
     var kit = S.spec.bossKit || [];
     f.deadJutsu = kit.filter(function (k) { return !f.bossCasts[k]; });
     var bossTotal = 0; f.hits.forEach(function (h) { if (h.victim !== S.spec.bossName) bossTotal += h.dmg; });
@@ -235,7 +233,7 @@
     var getBid = S.battleId ? Promise.resolve(S.battleId)
       : tq('profile.getUser', {}).then(function (u) { return u && u.userData && u.userData.battleId; });
     getBid.then(function (bid) {
-      if (!bid) { finishFight(true); return; } // battle gone; outcome refined below via hp
+      if (!bid) { finishFight(true); return; }
       S.battleId = bid;
       return tq('combat.getBattle', { battleId: bid }).then(function (res) {
         if (!S.sawBattleShape) {
@@ -243,14 +241,29 @@
           status('getBattle shape: ' + (res ? Object.keys(res).join(',').slice(0, 120) : 'null'));
         }
         var b = res && res.battle; if (!b) { status('no .battle in payload'); S.battleId = null; return; }
-        var my = me(b); if (!my) { S.battleId = null; return; }
+        var my = me(b);
+        if (!my) {
+          if (!S.saidNoMe) { S.saidNoMe = true;
+            status('no iAmHere; users: ' + b.usersState.map(function (u) { return u.username + (u.isAi ? '(ai)' : '') + (u.iAmHere ? '(me)' : ''); }).join(', ').slice(0, 140)); }
+          var humans = b.usersState.filter(function (u) { return !u.isAi; });
+          if (humans.length === 1) my = humans[0]; else { S.battleId = null; return; }
+        }
         var foe = aiFoe(b, my);
         if (!foe) { finishFight(true); S.battleId = null; return; }
         if (my.curHealth <= 0) { finishFight(false); S.battleId = null; return; }
         S.fight.rounds = b.round;
         if (b.version === S.lastVersion) return;
         if (S.dryRun) { S.lastVersion = b.version; dryObserve(b, my, foe); return; }
-        if (b.activeUserId !== my.userId) { S.lastVersion = b.version; return; }
+        if (b.activeUserId !== my.userId) {
+          S.lastVersion = b.version;
+          if (S.waitTicks === undefined) S.waitTicks = 0;
+          if (++S.waitTicks % 8 === 1) {
+            var act = b.usersState.filter(function (u) { return u.userId === b.activeUserId; })[0];
+            status('waiting r' + b.round + ': active=' + (act ? act.username : b.activeUserId).toString().slice(0, 30));
+          }
+          return;
+        }
+        S.waitTicks = 0;
         var ctx = { b: b, my: my, foe: foe };
         var pre = preStateFor(b, my, foe);
         var d = decide(ctx, phaseRules());
@@ -325,7 +338,7 @@
     panel.appendChild(statusEl);
     var row = el('div', {});
     row.appendChild(btn('Spec', function () {
-      fetch(window.TNR_QC_SPEC_URL || 'https://raw.githubusercontent.com/perseverance484/tnr-tools/main/qc/testspec_endless_night.json?v=1')
+      fetch(window.TNR_QC_SPEC_URL || 'https://raw.githubusercontent.com/perseverance484/tnr-tools/main/testspec_endless_night.json?v=1')
         .then(function (r) { return r.json(); })
         .then(function (s) { S.spec = s; S.maxFights = s.maxFights || 10; status('spec ' + s.name + ' (' + (s.phases || []).length + ' phases)'); })
         .catch(function () { status('spec fetch failed'); });
