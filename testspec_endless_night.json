@@ -1,0 +1,57 @@
+{
+ "name": "endless_night_v1",
+ "questId": "lXdtcSqHWaQLsriWdD64J",
+ "battleObjectiveId": "HmSY1",
+ "villageId": "9FZf8b9E7tZJZTaChmhHB",
+ "bossName": "The Endless Night",
+ "bossKit": ["Reach of the Endless","Swallowed Star","Forever Dark","Crown of No Dawn",
+             "Law of No Dawn","Chains of the Dawnless","Crownfall Edict","The Night Answers",
+             "Unravel the Thread","Night's Testament"],
+ "ttkBand": [8, 12],
+ "bossMinDmgPerRound": 350,
+ "maxFights": 6,
+ "phases": [
+  {"name": "optimal",
+   "rules": [
+    {"name":"heal","when":[{"cond":"my_hp_pct_lte","value":30},{"cond":"ap_gte","value":40}],"do":{"type":"basic","id":"basicHeal","target":"self"}},
+    {"name":"shield up","when":[{"cond":"jutsu_ready","jutsu":"Demons Strike"},{"cond":"ap_gte","value":60}],"do":{"type":"cast","jutsu":"Demons Strike"}},
+    {"name":"buff","when":[{"cond":"jutsu_ready","jutsu":"Stormsinger"},{"cond":"ap_gte","value":40}],"do":{"type":"cast","jutsu":"Stormsinger","target":"self"}},
+    {"name":"pierce","when":[{"cond":"jutsu_ready","jutsu":"Death’s Storm"},{"cond":"ap_gte","value":60}],"do":{"type":"cast","jutsu":"Death’s Storm"}},
+    {"name":"nuke1","when":[{"cond":"jutsu_ready","jutsu":"Thunderclap Strike"},{"cond":"ap_gte","value":60}],"do":{"type":"cast","jutsu":"Thunderclap Strike"}},
+    {"name":"nuke2","when":[{"cond":"jutsu_ready","jutsu":"Tempest Cleave"},{"cond":"ap_gte","value":60}],"do":{"type":"cast","jutsu":"Tempest Cleave"}},
+    {"name":"close","when":[{"cond":"distance_gte","value":2},{"cond":"ap_gte","value":10}],"do":{"type":"move_to_distance","value":1}},
+    {"name":"filler","when":[{"cond":"distance_lte","value":1},{"cond":"ap_gte","value":40}],"do":{"type":"basic","id":"basicAttack"}},
+    {"name":"done","when":[{"cond":"always"}],"do":{"type":"end_turn"}}
+   ]},
+  {"name": "sloppy",
+   "rules": [
+    {"name":"nuke1","when":[{"cond":"jutsu_ready","jutsu":"Thunderclap Strike"},{"cond":"ap_gte","value":60}],"do":{"type":"cast","jutsu":"Thunderclap Strike"}},
+    {"name":"nuke2","when":[{"cond":"jutsu_ready","jutsu":"Tempest Cleave"},{"cond":"ap_gte","value":60}],"do":{"type":"cast","jutsu":"Tempest Cleave"}},
+    {"name":"close","when":[{"cond":"distance_gte","value":2},{"cond":"ap_gte","value":10}],"do":{"type":"move_to_distance","value":1}},
+    {"name":"filler","when":[{"cond":"distance_lte","value":1},{"cond":"ap_gte","value":40}],"do":{"type":"basic","id":"basicAttack"}},
+    {"name":"done","when":[{"cond":"always"}],"do":{"type":"end_turn"}}
+   ]},
+  {"name": "kite",
+   "rules": [
+    {"name":"retreat","when":[{"cond":"distance_lte","value":5},{"cond":"ap_gte","value":10}],"do":{"type":"move_to_distance","value":6}},
+    {"name":"hold","when":[{"cond":"always"}],"do":{"type":"basic","id":"meditate","target":"self"}}
+   ]},
+  {"name": "seal_probe",
+   "rules": [
+    {"name":"seal the boss","when":[{"cond":"jutsu_ready","jutsu":"SEAL_JUTSU_NAME_HERE"},{"cond":"ap_gte","value":60}],"do":{"type":"cast","jutsu":"SEAL_JUTSU_NAME_HERE"}},
+    {"name":"nuke","when":[{"cond":"jutsu_ready","jutsu":"Thunderclap Strike"},{"cond":"ap_gte","value":60}],"do":{"type":"cast","jutsu":"Thunderclap Strike"}},
+    {"name":"close","when":[{"cond":"distance_gte","value":2},{"cond":"ap_gte","value":10}],"do":{"type":"move_to_distance","value":1}},
+    {"name":"done","when":[{"cond":"always"}],"do":{"type":"end_turn"}}
+   ]}
+ ],
+ "assertions": [
+  {"name":"testament_on_shield","when":[{"check":"foe_shield_gte","value":1}],
+   "expectCastAnyOf":["Night's Testament"]},
+  {"name":"answers_on_kite","when":[{"check":"distance_gte","value":6}],
+   "expectCastAnyOf":["The Night Answers"]},
+  {"name":"combo_on_big_buffs","when":[{"check":"my_effect_gte","type":"increasedamagegiven","value":100}],
+   "expectCastAnyOf":["Law of No Dawn","Unravel the Thread"]},
+  {"name":"forever_needs_idt","when":[{"check":"my_effect_gte","type":"increasedamagetaken","value":1}],
+   "expectCastAnyOf":["Forever Dark","Night's Testament","Crownfall Edict","Chains of the Dawnless","Reach of the Endless","Swallowed Star","Unravel the Thread","The Night Answers"]}
+ ]
+}
