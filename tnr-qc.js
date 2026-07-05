@@ -1,4 +1,4 @@
-/* TNR Quality Control (QC) v2.1 - unattended AI battle testing.
+/* TNR Quality Control (QC) v2.3 - unattended AI battle testing.
    Fetches a testspec (policies + assertions) and runs fight campaigns against a quest-gated AI,
    judging boss behavior live and exporting one verdict file per campaign.
    PvE only. Dry-run ON by default. */
@@ -195,18 +195,31 @@
     });
     var kitNames = S.spec.bossKit || [];
     casts = casts.filter(function (c) { return kitNames.some(function (k) { return c === k || k.indexOf(c) === 0; }); });
-    casts.forEach(function (c) { f.bossCasts[c] = (f.bossCasts[c] || 0) + 1; });
+    f.castRounds = f.castRounds || {};
+    casts.forEach(function (c) {
+      f.bossCasts[c] = (f.bossCasts[c] || 0) + 1;
+      (f.castRounds[c] = f.castRounds[c] || []).push(preState.round);
+    });
     (S.spec.assertions || []).forEach(function (a) {
       var applicable = true;
       (a.when || []).forEach(function (c) {
         var v;
         if (c.check === 'foe_shield_gte') v = preState.myShield >= c.value;
         else if (c.check === 'distance_gte') v = preState.d >= c.value;
+        else if (c.check === 'round_gte') v = preState.round >= c.value;
         else if (c.check === 'my_effect_gte') v = (preState.myFxSum[c.type] || 0) >= c.value;
         else v = false;
         if (!v) applicable = false;
       });
       if (!applicable) return;
+      // skip if every expected jutsu is on cooldown from a prior cast
+      var cds = S.spec.bossCooldowns || {};
+      var anyAvailable = (a.expectCastAnyOf || []).some(function (j) {
+        var cd = cds[j]; var rounds = (f.castRounds && f.castRounds[j]) || [];
+        if (!cd || !rounds.length) return true;
+        return (preState.round - rounds[rounds.length - 1]) >= cd;
+      });
+      if (!anyAvailable) return;
       var rec = f.assertions[a.name] || { pass: 0, fail: 0 };
       var hit = casts.some(function (c) { return (a.expectCastAnyOf || []).indexOf(c) >= 0; });
       if (hit) rec.pass++; else rec.fail++;
@@ -216,7 +229,7 @@
   function preStateFor(b, my, foe) {
     var sums = {};
     fxOn(b, my.userId).forEach(function (e) { sums[e.type] = (sums[e.type] || 0) + Math.abs(e.power || 0); });
-    return { d: foe ? dist(my, foe) : 99, myShield: sums.shield || 0, myFxSum: sums };
+    return { d: foe ? dist(my, foe) : 99, round: b.round, myShield: sums.shield || 0, myFxSum: sums };
   }
 
   function finishFight(won) {
@@ -255,8 +268,25 @@
       .then(function () { return tq('profile.getUser', {}); })
       .then(function (u) {
         S.prevBattleId = (u && u.userData && u.userData.battleId) || S.prevBattleId || null;
-        var sector = u && u.userData && u.userData.sector;
-        return tmChecked('quests.startQuest', { questId: sp.questId, userSector: sector });
+        S.mySector = u && u.userData && u.userData.sector;
+        // finalize any lingering terminal node from the previous run (ignore refusals)
+        var fin = Promise.resolve();
+        (sp.finishObjectiveIds || []).forEach(function (oid) {
+          fin = fin.then(function () {
+            return tm('quests.checkRewards', { questId: sp.questId, nextObjectiveId: oid }).catch(function () {});
+          });
+        });
+        return fin;
+      })
+      .then(function () {
+        return tmChecked('quests.startQuest', { questId: sp.questId, userSector: S.mySector })
+          .catch(function (e) {
+            if ((e && e.message || '').indexOf('already on this quest') >= 0) {
+              status('quest already active, resuming');
+              return null;
+            }
+            throw e;
+          });
       })
       .then(function () { return tmChecked('quests.checkRewards', { questId: sp.questId, nextObjectiveId: sp.battleObjectiveId }); })
       .then(function () {
