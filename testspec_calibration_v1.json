@@ -1,0 +1,1026 @@
+{
+ "name": "calibration_v1",
+ "questId": "lXdtcSqHWaQLsriWdD64J",
+ "battleObjectiveId": "HmSY1",
+ "villageId": "9FZf8b9E7tZJZTaChmhHB",
+ "bossName": "The Endless Night",
+ "bossKit": [
+  "Reach of the Endless",
+  "Swallowed Star",
+  "Forever Dark",
+  "Crown of No Dawn",
+  "Law of No Dawn",
+  "Chains of the Dawnless",
+  "Crownfall Edict",
+  "The Night Answers",
+  "Unravel the Thread",
+  "Night's Testament"
+ ],
+ "ttkBand": [
+  1,
+  60
+ ],
+ "bossMinDmgPerRound": 0,
+ "maxFights": 11,
+ "phases": [
+  {
+   "name": "baseline",
+   "rules": [
+    {
+     "name": "heal",
+     "when": [
+      {
+       "cond": "my_hp_pct_lte",
+       "value": 25
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicHeal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "attack",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Typhon Burst"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Typhon Burst"
+     }
+    },
+    {
+     "name": "close",
+     "when": [
+      {
+       "cond": "distance_gte",
+       "value": 5
+      },
+      {
+       "cond": "ap_gte",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 3
+     }
+    },
+    {
+     "name": "done",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     }
+    }
+   ]
+  },
+  {
+   "name": "buff_overflow",
+   "rules": [
+    {
+     "name": "heal",
+     "when": [
+      {
+       "cond": "my_hp_pct_lte",
+       "value": 25
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicHeal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "the one buff",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Chakra Overflow"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Chakra Overflow",
+      "target": "self"
+     }
+    },
+    {
+     "name": "attack",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Typhon Burst"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Typhon Burst"
+     }
+    },
+    {
+     "name": "close",
+     "when": [
+      {
+       "cond": "distance_gte",
+       "value": 5
+      },
+      {
+       "cond": "ap_gte",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 3
+     }
+    },
+    {
+     "name": "done",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     }
+    }
+   ]
+  },
+  {
+   "name": "buff_eclipse",
+   "rules": [
+    {
+     "name": "heal",
+     "when": [
+      {
+       "cond": "my_hp_pct_lte",
+       "value": 25
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicHeal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "the one buff",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Eclipse Drain"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Eclipse Drain",
+      "target": "self"
+     }
+    },
+    {
+     "name": "attack",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Typhon Burst"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Typhon Burst"
+     }
+    },
+    {
+     "name": "close",
+     "when": [
+      {
+       "cond": "distance_gte",
+       "value": 5
+      },
+      {
+       "cond": "ap_gte",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 3
+     }
+    },
+    {
+     "name": "done",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     }
+    }
+   ]
+  },
+  {
+   "name": "buff_whirlwind",
+   "rules": [
+    {
+     "name": "heal",
+     "when": [
+      {
+       "cond": "my_hp_pct_lte",
+       "value": 25
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicHeal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "the one buff",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Wind Release: Whirlwind Demise"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Wind Release: Whirlwind Demise",
+      "target": "self"
+     }
+    },
+    {
+     "name": "attack",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Typhon Burst"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Typhon Burst"
+     }
+    },
+    {
+     "name": "close",
+     "when": [
+      {
+       "cond": "distance_gte",
+       "value": 5
+      },
+      {
+       "cond": "ap_gte",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 3
+     }
+    },
+    {
+     "name": "done",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     }
+    }
+   ]
+  },
+  {
+   "name": "ddt_stormguard",
+   "rules": [
+    {
+     "name": "heal",
+     "when": [
+      {
+       "cond": "my_hp_pct_lte",
+       "value": 25
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicHeal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "the one buff",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Stormguard Aura"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Stormguard Aura",
+      "target": "self"
+     }
+    },
+    {
+     "name": "attack",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Typhon Burst"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Typhon Burst"
+     }
+    },
+    {
+     "name": "close",
+     "when": [
+      {
+       "cond": "distance_gte",
+       "value": 5
+      },
+      {
+       "cond": "ap_gte",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 3
+     }
+    },
+    {
+     "name": "done",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     }
+    }
+   ]
+  },
+  {
+   "name": "idt_quaking",
+   "rules": [
+    {
+     "name": "heal",
+     "when": [
+      {
+       "cond": "my_hp_pct_lte",
+       "value": 25
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicHeal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "mark",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Quaking Earth Strike"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Quaking Earth Strike"
+     }
+    },
+    {
+     "name": "attack",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Typhon Burst"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Typhon Burst"
+     }
+    },
+    {
+     "name": "close",
+     "when": [
+      {
+       "cond": "distance_gte",
+       "value": 5
+      },
+      {
+       "cond": "ap_gte",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 3
+     }
+    },
+    {
+     "name": "done",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     }
+    }
+   ]
+  },
+  {
+   "name": "threshold_staircase",
+   "rules": [
+    {
+     "name": "heal",
+     "when": [
+      {
+       "cond": "my_hp_pct_lte",
+       "value": 25
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicHeal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "step1",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Chakra Overflow"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Chakra Overflow",
+      "target": "self"
+     }
+    },
+    {
+     "name": "step2",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Drops of Renewal"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Drops of Renewal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "step3",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Wind Release: Whirlwind Demise"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Wind Release: Whirlwind Demise",
+      "target": "self"
+     }
+    },
+    {
+     "name": "stay close",
+     "when": [
+      {
+       "cond": "distance_gte",
+       "value": 4
+      },
+      {
+       "cond": "ap_gte",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 2
+     }
+    },
+    {
+     "name": "done",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     }
+    }
+   ]
+  },
+  {
+   "name": "kite_ladder",
+   "rules": [
+    {
+     "name": "heal",
+     "when": [
+      {
+       "cond": "my_hp_pct_lte",
+       "value": 25
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicHeal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "rung d5",
+     "when": [
+      {
+       "cond": "round_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 5
+     }
+    },
+    {
+     "name": "rung d6",
+     "when": [
+      {
+       "cond": "round_lte",
+       "value": 8
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 6
+     }
+    },
+    {
+     "name": "rung d7",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 7
+     }
+    },
+    {
+     "name": "idle",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "meditate",
+      "target": "self"
+     }
+    }
+   ]
+  },
+  {
+   "name": "shield_cadence",
+   "rules": [
+    {
+     "name": "heal",
+     "when": [
+      {
+       "cond": "my_hp_pct_lte",
+       "value": 25
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicHeal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "shield1",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Stormguard Aura"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Stormguard Aura",
+      "target": "self"
+     }
+    },
+    {
+     "name": "shield2",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Boulder Barrage"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Boulder Barrage"
+     }
+    },
+    {
+     "name": "attack",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Typhon Burst"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Typhon Burst"
+     }
+    },
+    {
+     "name": "close",
+     "when": [
+      {
+       "cond": "distance_gte",
+       "value": 5
+      },
+      {
+       "cond": "ap_gte",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 3
+     }
+    },
+    {
+     "name": "done",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     }
+    }
+   ]
+  },
+  {
+   "name": "stun_probe",
+   "rules": [
+    {
+     "name": "heal",
+     "when": [
+      {
+       "cond": "my_hp_pct_lte",
+       "value": 25
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicHeal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "stun",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Earth Release: Boulder Crush"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Earth Release: Boulder Crush"
+     }
+    },
+    {
+     "name": "close",
+     "when": [
+      {
+       "cond": "distance_gte",
+       "value": 5
+      },
+      {
+       "cond": "ap_gte",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 3
+     }
+    },
+    {
+     "name": "done",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     }
+    }
+   ]
+  },
+  {
+   "name": "afterburn_probe",
+   "rules": [
+    {
+     "name": "heal",
+     "when": [
+      {
+       "cond": "my_hp_pct_lte",
+       "value": 25
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicHeal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "burn",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Tempestual Fury"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Tempestual Fury"
+     }
+    },
+    {
+     "name": "close",
+     "when": [
+      {
+       "cond": "distance_gte",
+       "value": 5
+      },
+      {
+       "cond": "ap_gte",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 3
+     }
+    },
+    {
+     "name": "done",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     }
+    }
+   ]
+  }
+ ],
+ "assertions": [
+  {
+   "name": "testament_on_shield",
+   "when": [
+    {
+     "check": "foe_shield_gte",
+     "value": 1
+    }
+   ],
+   "expectCastAnyOf": [
+    "Night's Testament"
+   ]
+  },
+  {
+   "name": "answers_on_kite",
+   "when": [
+    {
+     "check": "distance_gte",
+     "value": 6
+    }
+   ],
+   "expectCastAnyOf": [
+    "The Night Answers"
+   ]
+  },
+  {
+   "name": "combo_on_big_buffs",
+   "when": [
+    {
+     "check": "my_effect_gte",
+     "type": "increasedamagegiven",
+     "value": 100
+    }
+   ],
+   "expectCastAnyOf": [
+    "Law of No Dawn",
+    "Unravel the Thread"
+   ]
+  }
+ ]
+}
