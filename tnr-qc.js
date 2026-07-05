@@ -1,4 +1,4 @@
-/* TNR Quality Control (QC) v1.5 - unattended AI battle testing.
+/* TNR Quality Control (QC) v1.6 - unattended AI battle testing.
    Fetches a testspec (policies + assertions) and runs fight campaigns against a quest-gated AI,
    judging boss behavior live and exporting one verdict file per campaign.
    PvE only. Dry-run ON by default. */
@@ -100,7 +100,7 @@
     return ok;
   }
 
-  /* ---------- policy interpreter ---------- */
+  /* ---------- policy interpreter (same vocabulary as pilot v1) ---------- */
   function condOk(c, ctx) {
     var b = ctx.b, my = ctx.my, foe = ctx.foe;
     switch (c.cond) {
@@ -181,6 +181,7 @@
       foeFx: foe ? fxOn(b, foe.userId).map(function (e) { return e.type + ':' + e.power; }) : [] };
   }
   function judgeBossTurn(preState, entries, f) {
+    // record casts + evaluate assertions from the spec against the pre-turn state
     var casts = [];
     (entries || []).forEach(function (le) {
       var d = le.description || '';
@@ -219,6 +220,7 @@
   function finishFight(won) {
     var f = S.fight; if (!f) return;
     f.result = won ? 'win' : 'loss';
+    // flags
     var kit = S.spec.bossKit || [];
     f.deadJutsu = kit.filter(function (k) { return !f.bossCasts[k]; });
     var bossTotal = 0; f.hits.forEach(function (h) { if (h.victim !== S.spec.bossName) bossTotal += h.dmg; });
@@ -248,7 +250,7 @@
       .then(function () { return tm('quests.checkRewards', { questId: sp.questId, nextObjectiveId: sp.battleObjectiveId }); })
       .then(function () {
         S.fight = newFight(phase()); S.phaseIdx++; S.usedBasics = {}; S.saidKit = false;
-        S.battleId = null; S.lastVersion = -1;
+        S.battleId = null; S.lastVersion = -1; S.sawBattleThisFight = false;
         status('fight ' + S.fightNum + ' started (' + S.fight.phase + ')');
       })
       .catch(function (e) { status('START ERROR: ' + (e && e.message || e)); S.errStreak++; if (S.errStreak > 3) { stop(); status('stopped after repeated start errors'); } });
@@ -263,7 +265,15 @@
     var getBid = S.battleId ? Promise.resolve(S.battleId)
       : tq('profile.getUser', {}).then(function (u) { return u && u.userData && u.userData.battleId; });
     getBid.then(function (bid) {
-      if (!bid) { finishFight(true); return; } // battle gone; outcome refined below via hp
+      if (!bid) {
+        if (!S.sawBattleThisFight) {
+          S.noBidTicks = (S.noBidTicks || 0) + 1;
+          if (S.noBidTicks > 12) { status('fight never materialized; aborting'); S.fight = null; S.noBidTicks = 0; }
+          return;
+        }
+        finishFight(true); return;
+      }
+      S.noBidTicks = 0;
       S.battleId = bid;
       return tq('combat.getBattle', { battleId: bid }).then(function (res) {
         if (!S.sawBattleShape) {
@@ -271,10 +281,12 @@
           status('getBattle shape: ' + (res ? Object.keys(res).join(',').slice(0, 120) : 'null'));
         }
         var b = res && res.battle; if (!b) { status('no .battle in payload'); S.battleId = null; return; }
+        S.sawBattleThisFight = true;
         var my = me(b);
         if (!my) {
           if (!S.saidNoMe) { S.saidNoMe = true;
             status('no iAmHere; users: ' + b.usersState.map(function (u) { return u.username + (u.isAi ? '(ai)' : '') + (u.iAmHere ? '(me)' : ''); }).join(', ').slice(0, 140)); }
+          // fallback: the sole non-AI combatant is me
           var humans = b.usersState.filter(function (u) { return !u.isAi; });
           if (humans.length === 1) my = humans[0]; else { S.battleId = null; return; }
         }
@@ -294,7 +306,6 @@
           return;
         }
         S.waitTicks = 0;
-        if (b.version === S.loopVersion) { S.loopCount++; } else { S.loopVersion = b.version; S.loopCount = 0; S.badTiles = {}; }
         if (!S.saidKit) {
           S.saidKit = true;
           var eq = (my.jutsus || []).filter(function (j) { return j.equipped; }).length;
@@ -391,7 +402,7 @@
     panel.appendChild(statusEl);
     var row = el('div', {});
     row.appendChild(btn('Spec', function () {
-      fetch(window.TNR_QC_SPEC_URL || 'https://raw.githubusercontent.com/perseverance484/tnr-tools/main/testspec_endless_night.json?v=1')
+      fetch(window.TNR_QC_SPEC_URL || 'https://raw.githubusercontent.com/perseverance484/tnr-tools/main/qc/testspec_endless_night.json?v=1')
         .then(function (r) { return r.json(); })
         .then(function (s) { S.spec = s; S.maxFights = s.maxFights || 10; status('spec ' + s.name + ' (' + (s.phases || []).length + ' phases)'); })
         .catch(function () { status('spec fetch failed'); });
