@@ -2264,6 +2264,10 @@
     {
      "check": "distance_gte",
      "value": 6
+    },
+    {
+     "check": "round_gte",
+     "value": 2
     }
    ],
    "expectCastAnyOf": [
@@ -2284,5 +2288,21 @@
     "Unravel the Thread"
    ]
   }
- ]
+ ],
+ "finishObjectiveIds": [
+  "TWIN1",
+  "TFAIL"
+ ],
+ "bossCooldowns": {
+  "The Night Answers": 4,
+  "Night's Testament": 4,
+  "Forever Dark": 5,
+  "Crownfall Edict": 6,
+  "Chains of the Dawnless": 5,
+  "Law of No Dawn": 6,
+  "Unravel the Thread": 5,
+  "Swallowed Star": 4,
+  "Reach of the Endless": 3,
+  "Crown of No Dawn": 6
+ }
 }
