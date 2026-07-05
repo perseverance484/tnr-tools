@@ -1,4 +1,4 @@
-/* TNR Quality Control (QC) v1.6 - unattended AI battle testing.
+/* TNR Quality Control (QC) v1.9 - unattended AI battle testing.
    Fetches a testspec (policies + assertions) and runs fight campaigns against a quest-gated AI,
    judging boss behavior live and exporting one verdict file per campaign.
    PvE only. Dry-run ON by default. */
@@ -12,7 +12,7 @@
     running: false, dryRun: true, spec: null, names: null, idByName: null,
     battleId: null, lastVersion: -1, acting: false, timer: null,
     fight: null, fights: [], events: [], phaseIdx: 0, fightNum: 0, maxFights: 10,
-    pollMs: 1500, actDelay: 800, errStreak: 0, usedBasics: {}, hexParity: 1, badTiles: {}, loopVersion: -9, loopCount: 0
+    pollMs: 2500, actDelay: 3200, backoff: 0, errStreak: 0, usedBasics: {}, hexParity: 1, badTiles: {}, loopVersion: -9, loopCount: 0
   };
 
   /* ---------- tRPC ---------- */
@@ -69,9 +69,9 @@
     return f;
   }
   function axial(x, y) {
-    var par = S.hexParity; // 1 = odd rows shifted, 0 = even rows shifted
-    var q = x - (y - (par ? (y & 1) : -(y & 1))) / 2;
-    return { q: q, r: y };
+    var par = S.hexParity; // 1 = odd columns shifted, 0 = even columns shifted (odd-q, flat-top)
+    var r = y - (x - (par ? (x & 1) : -(x & 1))) / 2;
+    return { q: x, r: r };
   }
   function dist(a, b) {
     var A = axial(a.longitude, a.latitude), B = axial(b.longitude, b.latitude);
@@ -193,6 +193,8 @@
                              dmg: parseFloat(m[2].replace(/,/g, '')), kind: m[3] });
       });
     });
+    var kitNames = S.spec.bossKit || [];
+    casts = casts.filter(function (c) { return kitNames.some(function (k) { return c === k || k.indexOf(c) === 0; }); });
     casts.forEach(function (c) { f.bossCasts[c] = (f.bossCasts[c] || 0) + 1; });
     (S.spec.assertions || []).forEach(function (a) {
       var applicable = true;
@@ -238,7 +240,7 @@
   /* ---------- campaign loop ---------- */
   function phase() { var ps = S.spec.phases || []; return ps[S.phaseIdx % ps.length]; }
   function startNextFight() {
-    if (S.fightNum >= S.maxFights) { stop(); status('campaign done: ' + S.fights.length + ' fights'); return; }
+    if (S.fightNum >= S.maxFights) { stop(); status('campaign done: ' + S.fights.length + ' fights'); campaignDone(); return; }
     S.fightNum++;
     var sp = S.spec;
     tm('hospital.npcHeal', { villageId: sp.villageId }).catch(function () {})
@@ -257,6 +259,9 @@
   }
 
   function tick() {
+    var now = Date.now();
+    if (S.lastTickAt && now - S.lastTickAt > 10000) status('tab was throttled ' + Math.round((now - S.lastTickAt) / 1000) + 's - keep QC foreground');
+    S.lastTickAt = now;
     if (!S.running || S.acting) return;
     if (!S.fight) {
       if (S.dryRun) { dryAttach(); return; }
@@ -294,6 +299,9 @@
         if (!foe) { finishFight(true); S.battleId = null; return; }
         if (my.curHealth <= 0) { finishFight(false); S.battleId = null; return; }
         S.fight.rounds = b.round;
+        progress('F' + S.fightNum + '/' + S.maxFights + ' ' + (S.fight.phase || '') + ' r' + b.round +
+          ' | boss ' + Math.round(100 * foe.curHealth / foe.maxHealth) + '% me ' +
+          Math.round(100 * my.curHealth / my.maxHealth) + '% | v' + b.version);
         if (b.version === S.lastVersion) return;
         if (S.dryRun) { S.lastVersion = b.version; dryObserve(b, my, foe); return; }
         if (b.activeUserId !== my.userId) {
@@ -306,6 +314,7 @@
           return;
         }
         S.waitTicks = 0;
+        if (b.version === S.loopVersion) { S.loopCount++; } else { S.loopVersion = b.version; S.loopCount = 0; S.badTiles = {}; }
         if (!S.saidKit) {
           S.saidKit = true;
           var eq = (my.jutsus || []).filter(function (j) { return j.equipped; }).length;
@@ -328,21 +337,33 @@
           S.loopCount = 0;
         }
         S.fight.turns.push({ snap: snap(b, my, foe), chose: d.name, action: S.names && S.names[d.actionId] || d.actionId });
+        status('r' + b.round + ' ' + d.name + ' -> ' + (S.names && S.names[d.actionId] || d.actionId));
         if (S.dryRun) { S.lastVersion = b.version; status('DRY r' + b.round + ' ' + d.name); return; }
         S.acting = true;
         tm('combat.performAction', { battleId: b.id, userId: my.userId, actionId: d.actionId,
           longitude: d.longitude, latitude: d.latitude, version: b.version })
           .then(function (out) {
+            var newV = out && out.battleUpdate && out.battleUpdate.version;
             if (out && out.result === false) {
               status('action rejected: ' + String(out.message || '(no message)').slice(0, 100));
               if (d.actionId === 'move') S.badTiles[d.longitude + ',' + d.latitude] = 1;
+            } else if (newV !== undefined && newV === b.version) {
+              status('action no-op v' + b.version + ' (' + (S.names && S.names[d.actionId] || d.actionId) + ')');
+              if (d.actionId === 'move') { S.badTiles[d.longitude + ',' + d.latitude] = 1; S.loopCount++; }
             } else { S.errStreak = 0; }
             S.usedBasics[d.actionId + '|' + b.round] = 1;
             judgeBossTurn(pre, out && out.logEntries, S.fight);
             S.lastVersion = -1;
           })
-          .catch(function (e) { S.errStreak++; status('action error: ' + (e && e.message || e).toString().slice(0, 110)); if (S.errStreak > 5) stop(); })
-          .then(function () { setTimeout(function () { S.acting = false; }, S.actDelay); });
+          .catch(function (e) {
+            var m = (e && e.message || e).toString();
+            if (m.indexOf('too fast') >= 0 || m.indexOf('acting too fast') >= 0) {
+              S.backoff = Math.min((S.backoff || S.actDelay) * 2, 20000);
+              status('rate limited, backing off ' + Math.round(S.backoff / 1000) + 's');
+              S.lastVersion = -1; // retry this turn after backoff
+            } else { S.errStreak++; status('action error: ' + m.slice(0, 110)); if (S.errStreak > 5) stop(); }
+          })
+          .then(function () { var d2 = S.backoff || S.actDelay; S.backoff = 0; setTimeout(function () { S.acting = false; }, d2); });
       });
     }).catch(function () {});
   }
@@ -375,11 +396,26 @@
     if (S.fight) { for (var i = 0; i < (S.spec.phases || []).length; i++) if (S.spec.phases[i].name === S.fight.phase) return S.spec.phases[i].rules; }
     return p ? p.rules : [];
   }
+  function exportVerdict() {
+    var out = { spec: S.spec && S.spec.name, generatedAt: new Date().toISOString(),
+      fights: S.fights, partialFight: S.fight, events: S.events, summary: summarize() };
+    var blob = new Blob([JSON.stringify(out, null, 1)], { type: 'application/json' });
+    var a = el('a', {}); a.href = URL.createObjectURL(blob);
+    a.download = 'tnr-qc-verdict-' + Date.now() + '.json';
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+  function campaignDone() {
+    document.title = '[QC DONE] ' + document.title.replace('[QC DONE] ', '');
+    if (panel) panel.style.border = '2px solid #6f6';
+    progress('CAMPAIGN DONE: ' + S.fights.length + ' fights - verdict downloaded');
+    exportVerdict();
+  }
   function start() { if (S.running) return; S.running = true; S.timer = setInterval(tick, S.pollMs); status('QC running'); }
   function stop() { S.running = false; if (S.timer) clearInterval(S.timer); status('stopped'); }
 
   /* ---------- UI ---------- */
-  var panel, statusEl;
+  var panel, statusEl, progressEl;
+  function progress(t) { if (progressEl) progressEl.textContent = t; }
   function el(tag, css, txt) {
     var e = document.createElement(tag);
     if (css) Object.keys(css).forEach(function (k) { e.style[k] = css[k]; });
@@ -398,8 +434,10 @@
     panel = el('div', { position: 'fixed', bottom: '8px', left: '8px', zIndex: 99999,
       background: 'rgba(12,8,20,0.94)', color: '#eee', padding: '6px', borderRadius: '8px',
       fontFamily: 'monospace', fontSize: '11px', maxWidth: '260px' });
-    statusEl = el('div', { marginBottom: '4px' }, 'QC: idle');
+    statusEl = el('div', { marginBottom: '2px' }, 'QC: idle');
     panel.appendChild(statusEl);
+    progressEl = el('div', { marginBottom: '4px', color: '#9d8fc9' }, '-');
+    panel.appendChild(progressEl);
     var row = el('div', {});
     row.appendChild(btn('Spec', function () {
       fetch(window.TNR_QC_SPEC_URL || 'https://raw.githubusercontent.com/perseverance484/tnr-tools/main/qc/testspec_endless_night.json?v=1')
@@ -413,14 +451,7 @@
     }));
     row.appendChild(btn('Stop', stop));
     row.appendChild(btn('Dry:ON', function () { S.dryRun = !S.dryRun; this.textContent = S.dryRun ? 'Dry:ON' : 'Dry:OFF'; }));
-    row.appendChild(btn('Verdict', function () {
-      var out = { spec: S.spec && S.spec.name, generatedAt: new Date().toISOString(),
-        fights: S.fights, partialFight: S.fight, events: S.events, summary: summarize() };
-      var blob = new Blob([JSON.stringify(out, null, 1)], { type: 'application/json' });
-      var a = el('a', {}); a.href = URL.createObjectURL(blob);
-      a.download = 'tnr-qc-verdict-' + Date.now() + '.json';
-      document.body.appendChild(a); a.click(); a.remove();
-    }));
+    row.appendChild(btn('Verdict', exportVerdict));
     panel.appendChild(row);
     document.body.appendChild(panel);
   }
