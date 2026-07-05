@@ -1,4 +1,4 @@
-/* TNR Quality Control (QC) v1.9 - unattended AI battle testing.
+/* TNR Quality Control (QC) v2.1 - unattended AI battle testing.
    Fetches a testspec (policies + assertions) and runs fight campaigns against a quest-gated AI,
    judging boss behavior live and exporting one verdict file per campaign.
    PvE only. Dry-run ON by default. */
@@ -233,29 +233,45 @@
     if (f.deadJutsu.length) f.flags.push('DEAD_JUTSU: ' + f.deadJutsu.join(', '));
     if (won && (f.ttk < band[0] || f.ttk > band[1])) f.flags.push('TTK_OUT_OF_BAND: ' + f.ttk);
     if (f.bossDmgPerRound < (S.spec.bossMinDmgPerRound || 0)) f.flags.push('BOSS_TOO_SOFT: ' + f.bossDmgPerRound);
+    S.prevBattleId = S.battleId || S.prevBattleId;
     S.fights.push(f); S.fight = null;
     status('fight ' + S.fightNum + ' ' + f.result + ' r' + f.ttk);
   }
 
+  function tmChecked(proc, input) {
+    return tm(proc, input).then(function (j) {
+      if (j && j.success === false) throw new Error(proc + ' refused: ' + String(j.message || '').slice(0, 120));
+      return j;
+    });
+  }
   /* ---------- campaign loop ---------- */
   function phase() { var ps = S.spec.phases || []; return ps[S.phaseIdx % ps.length]; }
   function startNextFight() {
     if (S.fightNum >= S.maxFights) { stop(); status('campaign done: ' + S.fights.length + ' fights'); campaignDone(); return; }
     S.fightNum++;
+    S.starting = true;
     var sp = S.spec;
     tm('hospital.npcHeal', { villageId: sp.villageId }).catch(function () {})
       .then(function () { return tq('profile.getUser', {}); })
       .then(function (u) {
+        S.prevBattleId = (u && u.userData && u.userData.battleId) || S.prevBattleId || null;
         var sector = u && u.userData && u.userData.sector;
-        return tm('quests.startQuest', { questId: sp.questId, userSector: sector });
+        return tmChecked('quests.startQuest', { questId: sp.questId, userSector: sector });
       })
-      .then(function () { return tm('quests.checkRewards', { questId: sp.questId, nextObjectiveId: sp.battleObjectiveId }); })
+      .then(function () { return tmChecked('quests.checkRewards', { questId: sp.questId, nextObjectiveId: sp.battleObjectiveId }); })
       .then(function () {
         S.fight = newFight(phase()); S.phaseIdx++; S.usedBasics = {}; S.saidKit = false;
         S.battleId = null; S.lastVersion = -1; S.sawBattleThisFight = false;
+        S.errStreak = 0;
         status('fight ' + S.fightNum + ' started (' + S.fight.phase + ')');
       })
-      .catch(function (e) { status('START ERROR: ' + (e && e.message || e)); S.errStreak++; if (S.errStreak > 3) { stop(); status('stopped after repeated start errors'); } });
+      .catch(function (e) {
+        S.fightNum--; // this attempt did not consume a fight slot
+        status('START ERROR: ' + (e && e.message || e).toString().slice(0, 130));
+        S.errStreak++;
+        if (S.errStreak > 6) { stop(); status('stopped after repeated start errors'); }
+      })
+      .then(function () { setTimeout(function () { S.starting = false; S.acting = false; }, 5000); });
   }
 
   function tick() {
@@ -265,7 +281,7 @@
     if (!S.running || S.acting) return;
     if (!S.fight) {
       if (S.dryRun) { dryAttach(); return; }
-      S.acting = true; startNextFight(); setTimeout(function () { S.acting = false; }, 2500); return;
+      S.acting = true; startNextFight(); return;
     }
     var getBid = S.battleId ? Promise.resolve(S.battleId)
       : tq('profile.getUser', {}).then(function (u) { return u && u.userData && u.userData.battleId; });
@@ -273,12 +289,22 @@
       if (!bid) {
         if (!S.sawBattleThisFight) {
           S.noBidTicks = (S.noBidTicks || 0) + 1;
-          if (S.noBidTicks > 12) { status('fight never materialized; aborting'); S.fight = null; S.noBidTicks = 0; }
+          if (S.noBidTicks % 5 === 1) status('waiting for battle to spawn (' + S.noBidTicks + ')');
+          if (S.noBidTicks > 20) { status('fight never materialized; aborting'); S.fight = null; S.noBidTicks = 0; }
           return;
         }
-        finishFight(true); return;
+        var won = true;
+        if (S.fight && S.fight.lastMyHpPct !== undefined && S.fight.lastFoeHpPct !== undefined)
+          won = S.fight.lastFoeHpPct <= S.fight.lastMyHpPct;
+        finishFight(won); return;
       }
       S.noBidTicks = 0;
+      if (!S.sawBattleThisFight && S.prevBattleId && bid === S.prevBattleId) {
+        S.noBidTicks = (S.noBidTicks || 0) + 1;
+        if (S.noBidTicks % 5 === 1) status('waiting for new battle (stale id)');
+        if (S.noBidTicks > 20) { status('fight never materialized; aborting'); S.fight = null; S.noBidTicks = 0; }
+        return;
+      }
       S.battleId = bid;
       return tq('combat.getBattle', { battleId: bid }).then(function (res) {
         if (!S.sawBattleShape) {
@@ -299,6 +325,8 @@
         if (!foe) { finishFight(true); S.battleId = null; return; }
         if (my.curHealth <= 0) { finishFight(false); S.battleId = null; return; }
         S.fight.rounds = b.round;
+        S.fight.lastMyHpPct = Math.round(100 * my.curHealth / my.maxHealth);
+        S.fight.lastFoeHpPct = Math.round(100 * foe.curHealth / foe.maxHealth);
         progress('F' + S.fightNum + '/' + S.maxFights + ' ' + (S.fight.phase || '') + ' r' + b.round +
           ' | boss ' + Math.round(100 * foe.curHealth / foe.maxHealth) + '% me ' +
           Math.round(100 * my.curHealth / my.maxHealth) + '% | v' + b.version);
