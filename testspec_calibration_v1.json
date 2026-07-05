@@ -1,5 +1,5 @@
 {
- "name": "calibration_v1",
+ "name": "calibration_v3",
  "questId": "lXdtcSqHWaQLsriWdD64J",
  "battleObjectiveId": "HmSY1",
  "villageId": "9FZf8b9E7tZJZTaChmhHB",
@@ -45,7 +45,7 @@
      }
     },
     {
-     "name": "attack",
+     "name": "atk typhon",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -66,6 +66,111 @@
      }
     },
     {
+     "name": "atk multi-layered",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Multi-Layered Gale"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Multi-Layered Gale"
+     }
+    },
+    {
+     "name": "atk tempestual",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Tempestual Fury"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Tempestual Fury"
+     }
+    },
+    {
+     "name": "atk boulder",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Boulder Barrage"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Boulder Barrage"
+     }
+    },
+    {
+     "name": "atk quaking",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Quaking Earth Strike"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Quaking Earth Strike"
+     }
+    },
+    {
+     "name": "atk earth",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Earth Release: Boulder Crush"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Earth Release: Boulder Crush"
+     }
+    },
+    {
      "name": "close",
      "when": [
       {
@@ -80,6 +185,23 @@
      "do": {
       "type": "move_to_distance",
       "value": 3
+     }
+    },
+    {
+     "name": "basic filler",
+     "when": [
+      {
+       "cond": "distance_lte",
+       "value": 2
+      },
+      {
+       "cond": "ap_gte",
+       "value": 20
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicAttack"
      }
     },
     {
@@ -117,7 +239,7 @@
      }
     },
     {
-     "name": "the one buff",
+     "name": "probe chakra",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -135,7 +257,7 @@
      }
     },
     {
-     "name": "attack",
+     "name": "atk typhon",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -156,6 +278,111 @@
      }
     },
     {
+     "name": "atk multi-layered",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Multi-Layered Gale"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Multi-Layered Gale"
+     }
+    },
+    {
+     "name": "atk tempestual",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Tempestual Fury"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Tempestual Fury"
+     }
+    },
+    {
+     "name": "atk boulder",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Boulder Barrage"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Boulder Barrage"
+     }
+    },
+    {
+     "name": "atk quaking",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Quaking Earth Strike"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Quaking Earth Strike"
+     }
+    },
+    {
+     "name": "atk earth",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Earth Release: Boulder Crush"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Earth Release: Boulder Crush"
+     }
+    },
+    {
      "name": "close",
      "when": [
       {
@@ -170,6 +397,23 @@
      "do": {
       "type": "move_to_distance",
       "value": 3
+     }
+    },
+    {
+     "name": "basic filler",
+     "when": [
+      {
+       "cond": "distance_lte",
+       "value": 2
+      },
+      {
+       "cond": "ap_gte",
+       "value": 20
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicAttack"
      }
     },
     {
@@ -207,7 +451,7 @@
      }
     },
     {
-     "name": "the one buff",
+     "name": "probe eclipse",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -225,7 +469,7 @@
      }
     },
     {
-     "name": "attack",
+     "name": "atk typhon",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -246,6 +490,111 @@
      }
     },
     {
+     "name": "atk multi-layered",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Multi-Layered Gale"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Multi-Layered Gale"
+     }
+    },
+    {
+     "name": "atk tempestual",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Tempestual Fury"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Tempestual Fury"
+     }
+    },
+    {
+     "name": "atk boulder",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Boulder Barrage"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Boulder Barrage"
+     }
+    },
+    {
+     "name": "atk quaking",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Quaking Earth Strike"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Quaking Earth Strike"
+     }
+    },
+    {
+     "name": "atk earth",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Earth Release: Boulder Crush"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Earth Release: Boulder Crush"
+     }
+    },
+    {
      "name": "close",
      "when": [
       {
@@ -260,6 +609,23 @@
      "do": {
       "type": "move_to_distance",
       "value": 3
+     }
+    },
+    {
+     "name": "basic filler",
+     "when": [
+      {
+       "cond": "distance_lte",
+       "value": 2
+      },
+      {
+       "cond": "ap_gte",
+       "value": 20
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicAttack"
      }
     },
     {
@@ -297,7 +663,7 @@
      }
     },
     {
-     "name": "the one buff",
+     "name": "probe wind",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -315,7 +681,7 @@
      }
     },
     {
-     "name": "attack",
+     "name": "atk typhon",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -336,6 +702,111 @@
      }
     },
     {
+     "name": "atk multi-layered",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Multi-Layered Gale"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Multi-Layered Gale"
+     }
+    },
+    {
+     "name": "atk tempestual",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Tempestual Fury"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Tempestual Fury"
+     }
+    },
+    {
+     "name": "atk boulder",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Boulder Barrage"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Boulder Barrage"
+     }
+    },
+    {
+     "name": "atk quaking",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Quaking Earth Strike"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Quaking Earth Strike"
+     }
+    },
+    {
+     "name": "atk earth",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Earth Release: Boulder Crush"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Earth Release: Boulder Crush"
+     }
+    },
+    {
      "name": "close",
      "when": [
       {
@@ -350,6 +821,23 @@
      "do": {
       "type": "move_to_distance",
       "value": 3
+     }
+    },
+    {
+     "name": "basic filler",
+     "when": [
+      {
+       "cond": "distance_lte",
+       "value": 2
+      },
+      {
+       "cond": "ap_gte",
+       "value": 20
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicAttack"
      }
     },
     {
@@ -387,7 +875,7 @@
      }
     },
     {
-     "name": "the one buff",
+     "name": "probe stormguard",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -405,7 +893,7 @@
      }
     },
     {
-     "name": "attack",
+     "name": "atk typhon",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -426,6 +914,111 @@
      }
     },
     {
+     "name": "atk multi-layered",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Multi-Layered Gale"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Multi-Layered Gale"
+     }
+    },
+    {
+     "name": "atk tempestual",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Tempestual Fury"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Tempestual Fury"
+     }
+    },
+    {
+     "name": "atk boulder",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Boulder Barrage"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Boulder Barrage"
+     }
+    },
+    {
+     "name": "atk quaking",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Quaking Earth Strike"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Quaking Earth Strike"
+     }
+    },
+    {
+     "name": "atk earth",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Earth Release: Boulder Crush"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Earth Release: Boulder Crush"
+     }
+    },
+    {
      "name": "close",
      "when": [
       {
@@ -440,6 +1033,23 @@
      "do": {
       "type": "move_to_distance",
       "value": 3
+     }
+    },
+    {
+     "name": "basic filler",
+     "when": [
+      {
+       "cond": "distance_lte",
+       "value": 2
+      },
+      {
+       "cond": "ap_gte",
+       "value": 20
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicAttack"
      }
     },
     {
@@ -477,7 +1087,7 @@
      }
     },
     {
-     "name": "mark",
+     "name": "mark first",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -498,7 +1108,7 @@
      }
     },
     {
-     "name": "attack",
+     "name": "atk typhon",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -519,6 +1129,111 @@
      }
     },
     {
+     "name": "atk multi-layered",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Multi-Layered Gale"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Multi-Layered Gale"
+     }
+    },
+    {
+     "name": "atk tempestual",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Tempestual Fury"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Tempestual Fury"
+     }
+    },
+    {
+     "name": "atk boulder",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Boulder Barrage"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Boulder Barrage"
+     }
+    },
+    {
+     "name": "atk quaking",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Quaking Earth Strike"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Quaking Earth Strike"
+     }
+    },
+    {
+     "name": "atk earth",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Earth Release: Boulder Crush"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Earth Release: Boulder Crush"
+     }
+    },
+    {
      "name": "close",
      "when": [
       {
@@ -533,6 +1248,23 @@
      "do": {
       "type": "move_to_distance",
       "value": 3
+     }
+    },
+    {
+     "name": "basic filler",
+     "when": [
+      {
+       "cond": "distance_lte",
+       "value": 2
+      },
+      {
+       "cond": "ap_gte",
+       "value": 20
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicAttack"
      }
     },
     {
@@ -570,7 +1302,7 @@
      }
     },
     {
-     "name": "step1",
+     "name": "probe chakra",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -588,7 +1320,7 @@
      }
     },
     {
-     "name": "step2",
+     "name": "probe drops",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -606,7 +1338,7 @@
      }
     },
     {
-     "name": "step3",
+     "name": "probe wind",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -624,6 +1356,132 @@
      }
     },
     {
+     "name": "atk typhon",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Typhon Burst"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Typhon Burst"
+     }
+    },
+    {
+     "name": "atk multi-layered",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Multi-Layered Gale"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Multi-Layered Gale"
+     }
+    },
+    {
+     "name": "atk tempestual",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Tempestual Fury"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Tempestual Fury"
+     }
+    },
+    {
+     "name": "atk boulder",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Boulder Barrage"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Boulder Barrage"
+     }
+    },
+    {
+     "name": "atk quaking",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Quaking Earth Strike"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Quaking Earth Strike"
+     }
+    },
+    {
+     "name": "atk earth",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Earth Release: Boulder Crush"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Earth Release: Boulder Crush"
+     }
+    },
+    {
      "name": "stay close",
      "when": [
       {
@@ -638,6 +1496,23 @@
      "do": {
       "type": "move_to_distance",
       "value": 2
+     }
+    },
+    {
+     "name": "basic filler",
+     "when": [
+      {
+       "cond": "distance_lte",
+       "value": 2
+      },
+      {
+       "cond": "ap_gte",
+       "value": 20
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicAttack"
      }
     },
     {
@@ -749,7 +1624,7 @@
      }
     },
     {
-     "name": "shield1",
+     "name": "probe stormguard",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -767,28 +1642,7 @@
      }
     },
     {
-     "name": "shield2",
-     "when": [
-      {
-       "cond": "jutsu_ready",
-       "jutsu": "Boulder Barrage"
-      },
-      {
-       "cond": "ap_gte",
-       "value": 60
-      },
-      {
-       "cond": "distance_lte",
-       "value": 4
-      }
-     ],
-     "do": {
-      "type": "cast",
-      "jutsu": "Boulder Barrage"
-     }
-    },
-    {
-     "name": "attack",
+     "name": "atk typhon",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -809,58 +1663,91 @@
      }
     },
     {
-     "name": "close",
+     "name": "atk multi-layered",
      "when": [
       {
-       "cond": "distance_gte",
-       "value": 5
+       "cond": "jutsu_ready",
+       "jutsu": "Multi-Layered Gale"
       },
       {
        "cond": "ap_gte",
-       "value": 10
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
       }
      ],
      "do": {
-      "type": "move_to_distance",
-      "value": 3
+      "type": "cast",
+      "jutsu": "Multi-Layered Gale"
      }
     },
     {
-     "name": "done",
+     "name": "atk tempestual",
      "when": [
       {
-       "cond": "always"
-      }
-     ],
-     "do": {
-      "type": "end_turn"
-     }
-    }
-   ]
-  },
-  {
-   "name": "stun_probe",
-   "rules": [
-    {
-     "name": "heal",
-     "when": [
-      {
-       "cond": "my_hp_pct_lte",
-       "value": 25
+       "cond": "jutsu_ready",
+       "jutsu": "Tempestual Fury"
       },
       {
        "cond": "ap_gte",
-       "value": 40
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
       }
      ],
      "do": {
-      "type": "basic",
-      "id": "basicHeal",
-      "target": "self"
+      "type": "cast",
+      "jutsu": "Tempestual Fury"
      }
     },
     {
-     "name": "stun",
+     "name": "atk boulder",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Boulder Barrage"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Boulder Barrage"
+     }
+    },
+    {
+     "name": "atk quaking",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Quaking Earth Strike"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Quaking Earth Strike"
+     }
+    },
+    {
+     "name": "atk earth",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -898,6 +1785,238 @@
      }
     },
     {
+     "name": "basic filler",
+     "when": [
+      {
+       "cond": "distance_lte",
+       "value": 2
+      },
+      {
+       "cond": "ap_gte",
+       "value": 20
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicAttack"
+     }
+    },
+    {
+     "name": "done",
+     "when": [
+      {
+       "cond": "always"
+      }
+     ],
+     "do": {
+      "type": "end_turn"
+     }
+    }
+   ]
+  },
+  {
+   "name": "stun_probe",
+   "rules": [
+    {
+     "name": "heal",
+     "when": [
+      {
+       "cond": "my_hp_pct_lte",
+       "value": 25
+      },
+      {
+       "cond": "ap_gte",
+       "value": 40
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicHeal",
+      "target": "self"
+     }
+    },
+    {
+     "name": "stun first",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Earth Release: Boulder Crush"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Earth Release: Boulder Crush"
+     }
+    },
+    {
+     "name": "atk typhon",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Typhon Burst"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Typhon Burst"
+     }
+    },
+    {
+     "name": "atk multi-layered",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Multi-Layered Gale"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Multi-Layered Gale"
+     }
+    },
+    {
+     "name": "atk tempestual",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Tempestual Fury"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Tempestual Fury"
+     }
+    },
+    {
+     "name": "atk boulder",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Boulder Barrage"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Boulder Barrage"
+     }
+    },
+    {
+     "name": "atk quaking",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Quaking Earth Strike"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Quaking Earth Strike"
+     }
+    },
+    {
+     "name": "atk earth",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Earth Release: Boulder Crush"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Earth Release: Boulder Crush"
+     }
+    },
+    {
+     "name": "close",
+     "when": [
+      {
+       "cond": "distance_gte",
+       "value": 5
+      },
+      {
+       "cond": "ap_gte",
+       "value": 10
+      }
+     ],
+     "do": {
+      "type": "move_to_distance",
+      "value": 3
+     }
+    },
+    {
+     "name": "basic filler",
+     "when": [
+      {
+       "cond": "distance_lte",
+       "value": 2
+      },
+      {
+       "cond": "ap_gte",
+       "value": 20
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicAttack"
+     }
+    },
+    {
      "name": "done",
      "when": [
       {
@@ -932,7 +2051,7 @@
      }
     },
     {
-     "name": "burn",
+     "name": "burn first",
      "when": [
       {
        "cond": "jutsu_ready",
@@ -953,6 +2072,132 @@
      }
     },
     {
+     "name": "atk typhon",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Typhon Burst"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Typhon Burst"
+     }
+    },
+    {
+     "name": "atk multi-layered",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Multi-Layered Gale"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Multi-Layered Gale"
+     }
+    },
+    {
+     "name": "atk tempestual",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Tempestual Fury"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Tempestual Fury"
+     }
+    },
+    {
+     "name": "atk boulder",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Boulder Barrage"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Boulder Barrage"
+     }
+    },
+    {
+     "name": "atk quaking",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Quaking Earth Strike"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Quaking Earth Strike"
+     }
+    },
+    {
+     "name": "atk earth",
+     "when": [
+      {
+       "cond": "jutsu_ready",
+       "jutsu": "Earth Release: Boulder Crush"
+      },
+      {
+       "cond": "ap_gte",
+       "value": 60
+      },
+      {
+       "cond": "distance_lte",
+       "value": 4
+      }
+     ],
+     "do": {
+      "type": "cast",
+      "jutsu": "Earth Release: Boulder Crush"
+     }
+    },
+    {
      "name": "close",
      "when": [
       {
@@ -967,6 +2212,23 @@
      "do": {
       "type": "move_to_distance",
       "value": 3
+     }
+    },
+    {
+     "name": "basic filler",
+     "when": [
+      {
+       "cond": "distance_lte",
+       "value": 2
+      },
+      {
+       "cond": "ap_gte",
+       "value": 20
+      }
+     ],
+     "do": {
+      "type": "basic",
+      "id": "basicAttack"
      }
     },
     {
