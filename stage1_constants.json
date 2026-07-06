@@ -1,0 +1,21 @@
+{
+ "stage1_constants": {
+  "comment": "damage = raw(damage_calc) x in-battle scoped multipliers x k. Fitted 2026-07-06 kitchen fight, validated vs baseline fight. Armor-break shifts defender regime x1.43 (per piece lost, this build).",
+  "player_to_boss": {
+   "jutsu": 1.0467,
+   "basic": 0.3209
+  },
+  "boss_to_player": {
+   "jutsu": 0.0749,
+   "basic": 0.0281
+  },
+  "notes": [
+   "b->p ks embed the floored regime (player slotted DDT 69 + OOC 50 breaches 90% cap): floor = post-boost x0.5 x0.1",
+   "AI attacker OOC increase decomposes as +50 pts (1.5x), player +60 pts; passives x4 inside b->p jutsu k",
+   "boss AI Heavy Armor 20% DDT is real (item.get confirmed); inside p->b k",
+   "player gear IDG lanes (55 BGNT + 10 Highest) inside p->b k",
+   "pierce bypasses everything: damage = raw exactly",
+   "in-battle multipliers are one-sided-None scoped, multiplicative, proven exact (x1.302 Overflow, x1.519 Whirlwind, x1.25/1.3 IDT, x1.3 stances/Crown)"
+  ]
+ }
+}
