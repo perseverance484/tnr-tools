@@ -1,4 +1,4 @@
-/* TNR Quality Control (QC) v2.3 - unattended AI battle testing.
+/* TNR Quality Control (QC) v2.5 - unattended AI battle testing.
    Fetches a testspec (policies + assertions) and runs fight campaigns against a quest-gated AI,
    judging boss behavior live and exporting one verdict file per campaign.
    PvE only. Dry-run ON by default. */
@@ -12,7 +12,7 @@
     running: false, dryRun: true, spec: null, names: null, idByName: null,
     battleId: null, lastVersion: -1, acting: false, timer: null,
     fight: null, fights: [], events: [], phaseIdx: 0, fightNum: 0, maxFights: 10,
-    pollMs: 2500, actDelay: 3200, backoff: 0, errStreak: 0, usedBasics: {}, hexParity: 1, badTiles: {}, loopVersion: -9, loopCount: 0
+    pollMs: 1500, actDelay: 1200, backoff: 0, errStreak: 0, usedBasics: {}, hexParity: 1, badTiles: {}, loopVersion: -9, loopCount: 0
   };
 
   /* ---------- tRPC ---------- */
@@ -336,7 +336,8 @@
         return;
       }
       S.battleId = bid;
-      return tq('combat.getBattle', { battleId: bid }).then(function (res) {
+      var pend = S.pendingBattle; S.pendingBattle = null;
+      return (pend ? Promise.resolve({ battle: pend }) : tq('combat.getBattle', { battleId: bid })).then(function (res) {
         if (!S.sawBattleShape) {
           S.sawBattleShape = true;
           status('getBattle shape: ' + (res ? Object.keys(res).join(',').slice(0, 120) : 'null'));
@@ -388,6 +389,11 @@
         var ctx = { b: b, my: my, foe: foe };
         var pre = preStateFor(b, my, foe);
         var d = decide(ctx, phaseRules());
+        var cap = (S.spec && S.spec.maxRounds) || 0;
+        if (cap && b.round > cap) {
+          d = { name: 'datacap flee', actionId: 'flee', longitude: my.longitude, latitude: my.latitude };
+          if (!basicReady(b, my, 'flee')) d = { name: 'datacap wait', actionId: 'wait', longitude: my.longitude, latitude: my.latitude };
+        }
         if (S.loopCount >= 6) {
           status('loop breaker r' + b.round + ' after ' + d.name);
           if (d.actionId === 'move') { S.hexParity = S.hexParity ? 0 : 1; status('hex parity flipped'); }
@@ -412,6 +418,7 @@
             S.usedBasics[d.actionId + '|' + b.round] = 1;
             judgeBossTurn(pre, out && out.logEntries, S.fight);
             S.lastVersion = -1;
+            if (out && out.battleUpdate && out.battleUpdate.usersState) S.pendingBattle = out.battleUpdate;
           })
           .catch(function (e) {
             var m = (e && e.message || e).toString();
@@ -421,7 +428,7 @@
               S.lastVersion = -1; // retry this turn after backoff
             } else { S.errStreak++; status('action error: ' + m.slice(0, 110)); if (S.errStreak > 5) stop(); }
           })
-          .then(function () { var d2 = S.backoff || S.actDelay; S.backoff = 0; setTimeout(function () { S.acting = false; }, d2); });
+          .then(function () { var d2 = S.backoff || S.actDelay; S.backoff = 0; setTimeout(function () { S.acting = false; tick(); }, d2); });
       });
     }).catch(function () {});
   }
@@ -496,7 +503,17 @@
     panel.appendChild(statusEl);
     progressEl = el('div', { marginBottom: '4px', color: '#9d8fc9' }, '-');
     panel.appendChild(progressEl);
+    var ta = el('textarea', { width: '240px', height: '48px', fontSize: '10px', background: '#110a1c', color: '#ccc', border: '1px solid #3a2a5a' });
+    ta.setAttribute('placeholder', 'paste testspec JSON here (overrides URL)');
+    panel.appendChild(ta);
     var row = el('div', {});
+    row.appendChild(btn('Load', function () {
+      try {
+        S.spec = JSON.parse(ta.value);
+        S.maxFights = S.spec.maxFights || 10;
+        status('spec ' + S.spec.name + ' (' + (S.spec.phases || []).length + ' phases) [pasted]');
+      } catch (e) { status('bad spec JSON'); }
+    }));
     row.appendChild(btn('Spec', function () {
       fetch(window.TNR_QC_SPEC_URL || 'https://raw.githubusercontent.com/perseverance484/tnr-tools/main/qc/testspec_endless_night.json?v=1')
         .then(function (r) { return r.json(); })
