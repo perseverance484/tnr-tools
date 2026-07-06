@@ -1,4 +1,4 @@
-/* TNR Quality Control (QC) v2.5 - unattended AI battle testing.
+/* TNR Quality Control (QC) v2.6 - unattended AI battle testing.
    Fetches a testspec (policies + assertions) and runs fight campaigns against a quest-gated AI,
    judging boss behavior live and exporting one verdict file per campaign.
    PvE only. Dry-run ON by default. */
@@ -365,9 +365,27 @@
         if (S.dryRun) { S.lastVersion = b.version; dryObserve(b, my, foe); return; }
         if (b.activeUserId !== my.userId) {
           S.lastVersion = b.version;
+          var act = b.usersState.filter(function (u) { return u.userId === b.activeUserId; })[0];
+          if (act && act.isAi && !S.dryRun) {
+            // nudge: an actionId-less performAction makes the server execute the AI turn
+            S.acting = true;
+            var pre2 = preStateFor(b, my, foe);
+            tm('combat.performAction', { battleId: b.id, userId: my.userId, version: b.version })
+              .then(function (out) {
+                judgeBossTurn(pre2, out && out.logEntries, S.fight);
+                if (out && out.battleUpdate && out.battleUpdate.usersState) S.pendingBattle = out.battleUpdate;
+                S.lastVersion = -1;
+              })
+              .catch(function (e) {
+                var m = (e && e.message || e).toString();
+                if (m.indexOf('too fast') >= 0) { S.backoff = Math.min((S.backoff || S.actDelay) * 2, 20000); }
+                else status('nudge error: ' + m.slice(0, 100));
+              })
+              .then(function () { var d3 = S.backoff || S.actDelay; S.backoff = 0; setTimeout(function () { S.acting = false; tick(); }, d3); });
+            return;
+          }
           if (S.waitTicks === undefined) S.waitTicks = 0;
           if (++S.waitTicks % 8 === 1) {
-            var act = b.usersState.filter(function (u) { return u.userId === b.activeUserId; })[0];
             status('waiting r' + b.round + ': active=' + (act ? act.username : b.activeUserId).toString().slice(0, 30));
           }
           return;
