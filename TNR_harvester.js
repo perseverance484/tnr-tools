@@ -1,8 +1,13 @@
-/* TNR Harvester v1.2 (hosted body; loaded via @require loader)
+/* TNR Harvester v1.3 (hosted body; loaded via @require loader)
  * v1.2: + battlelogs collector; restores the v1.1 additions: history set (content change
  * log, war kill stats, raid leaderboards, meta windows), deep set (AI full kits),
  * craftables + bank flow in economy, item/BL/skilltree balance stats in pulse.
  * Deep is excluded from the All preset (slow); run it on demand.
+ * v1.3: battlelogs collector absorbs the standalone bundle: 'bl targets'
+ * (usernames or userIds, space/comma sep, blank=self) pulls each target's
+ * full retained history (names resolve via profile.getPublicUsers
+ * {username}); 'bl ids' (battlelog URLs or ids) fetches pasted battles
+ * via getBattleHistoryEntry + getBattleEntries. Shared tnr_bl_seen dedup.
  * Full-site read harvest via tRPC replay. Supersedes TNR Pulse (its collectors are included).
  * Contracts per 49_DATA_read_contracts.json + repo verification 2026-08-06.
  * Pace: >=1.15s/call (60/60s limiter). Resumable: completed collectors checkpoint to localStorage.
@@ -382,8 +387,16 @@
         if (!wars[k].id) { out.push(wars[k]); continue; }
         setStatus("warStats: kills " + (k + 1) + "/" + wars.length);
         try {
-          var stats = await call("war.getWarKillStats", { warId: wars[k].id });
-          out.push({ war: wars[k], kills: stats });
+          var stats = await call("war.getWarKillStats",
+            { warId: wars[k].id, aggregateBy: "totalKills" });
+          var wslim = {};
+          for (var f in wars[k]) {
+            if (f === "attackerVillage" || f === "defenderVillage") {
+              var vv = wars[k][f] || {};
+              wslim[f] = { id: vv.id, name: vv.name, sector: vv.sector, type: vv.type };
+            } else if (f !== "warAllies") { wslim[f] = wars[k][f]; }
+          }
+          out.push({ war: wslim, kills: stats });
         } catch (e) {
           out.push({ war: wars[k], error: String(e.message || e) });
         }
@@ -513,19 +526,62 @@
       var seen;
       try { seen = new Set(JSON.parse(localStorage.getItem(SEEN_KEY) || "[]")); }
       catch (e) { seen = new Set(); }
-      var windows = [31536000, 2592000, 604800, 86400, 10800];
-      var hist = null, used = 0;
-      for (var w = 0; w < windows.length; w++) {
+      // SOURCE (combat.ts:489): secondsBack's VALUE is ignored; if present the
+      // filter clamps to 3h. Omit it entirely for the full retained window
+      // (battleAction cleaner deletes at 72h; history follows).
+      // getBattleHistory accepts userId (any player); getPublicUsers resolves
+      // usernames (validators/user.ts:134).
+      var rawTargets = (blTargetsInput.value || "").trim();
+      var targets = rawTargets ? rawTargets.split(/[\s,]+/).filter(Boolean) : [null];
+      var hist = [];
+      var seenHist = {};
+      for (var t = 0; t < targets.length; t++) {
+        if (state.stop) break;
+        var uid = targets[t];
+        if (uid !== null && !/^user_[A-Za-z0-9]+$/.test(uid)) {
+          try {
+            var found = await call("profile.getPublicUsers",
+              { limit: 5, isAi: false, orderBy: "Strongest", username: uid });
+            var rowsF = (found && found.data) || [];
+            var match = null;
+            for (var f = 0; f < rowsF.length; f++) {
+              if ((rowsF[f].username || "").toLowerCase() === uid.toLowerCase()) {
+                match = rowsF[f].userId;
+              }
+            }
+            if (!match) { setStatus("battlelogs: no match for " + uid); uid = undefined; }
+            else { uid = match; }
+          } catch (e) { setStatus("battlelogs: resolve failed " + uid); uid = undefined; }
+          await sleep(PACE_MS);
+        }
+        if (uid === undefined) continue;
         try {
-          var res = await call("combat.getBattleHistory", { secondsBack: windows[w] });
-          if (Array.isArray(res)) { hist = res; used = windows[w]; break; }
+          var hres = await call("combat.getBattleHistory", uid ? { userId: uid } : {});
+          if (Array.isArray(hres)) {
+            for (var hh = 0; hh < hres.length; hh++) {
+              if (!seenHist[hres[hh].battleId]) {
+                seenHist[hres[hh].battleId] = true;
+                hist.push(hres[hh]);
+              }
+            }
+          }
         } catch (e) {
           if (String(e.message).indexOf("stopped") >= 0) throw e;
-          setStatus("battlelogs: window " + windows[w] + "s failed, stepping down");
+          setStatus("battlelogs: history failed for " + (targets[t] || "self"));
         }
         await sleep(PACE_MS);
       }
-      if (!hist) throw new Error("battlelogs: history unavailable at all windows");
+      var used = rawTargets || "self";
+      // Pasted ids: meta via getBattleHistoryEntry (may be null after purge)
+      var rawIds = (blIdsInput.value || "").trim();
+      var pastedIds = [];
+      if (rawIds) {
+        rawIds.split(/[\s,]+/).forEach(function (tok) {
+          var mm = tok.match(/battlelog\/([A-Za-z0-9_-]{10,})/);
+          var pid = mm ? mm[1] : (tok.match(/^[A-Za-z0-9_-]{15,}$/) ? tok : null);
+          if (pid && pastedIds.indexOf(pid) < 0 && !seenHist[pid]) pastedIds.push(pid);
+        });
+      }
       var oldest = null;
       for (var h = 0; h < hist.length; h++) {
         if (!oldest || hist[h].createdAt < oldest) oldest = hist[h].createdAt;
@@ -535,7 +591,7 @@
         if (!seen.has(hist[i].battleId)) todo.push(hist[i]);
       }
       setStatus("battlelogs: " + todo.length + " new of " + hist.length +
-        " rows, window " + used + "s, oldest " + (oldest || "?"));
+        " rows, window " + used + ", oldest " + (oldest || "?"));
       var out = [];
       for (var j = 0; j < todo.length; j++) {
         if (state.stop) break;
@@ -555,7 +611,33 @@
           out.push({ meta: row, error: String(e.message || e) });
         }
       }
-      return { rows: out, windowSeconds: used, seenSkipped: hist.length - todo.length };
+      for (var q = 0; q < pastedIds.length; q++) {
+        if (state.stop) break;
+        var pid = pastedIds[q];
+        if (seen.has(pid)) continue;
+        var pmeta = null;
+        try {
+          pmeta = await call("combat.getBattleHistoryEntry", { battleId: pid });
+        } catch (e) { /* meta may be purged; keep going */ }
+        await sleep(PACE_MS);
+        try {
+          var pentries = await call("combat.getBattleEntries",
+            { battleId: pid, refreshKey: 0, checkBattle: false, limit: 1000 });
+          out.push({ meta: pmeta || { battleId: pid },
+                     entries: Array.isArray(pentries) ? pentries : [] });
+          seen.add(pid);
+          var arr2 = Array.from(seen);
+          if (arr2.length > 4000) arr2 = arr2.slice(arr2.length - 4000);
+          localStorage.setItem(SEEN_KEY, JSON.stringify(arr2));
+          setStatus("battlelogs ids: " + (q + 1) + "/" + pastedIds.length + " " + pid);
+        } catch (e) {
+          if (String(e.message).indexOf("stopped") >= 0) break;
+          out.push({ meta: pmeta || { battleId: pid }, error: String(e.message || e) });
+        }
+        await sleep(PACE_MS);
+      }
+      return { rows: out, targets: used, pastedIds: pastedIds.length,
+               seenSkipped: hist.length - todo.length };
     } },
   ];
 
@@ -660,7 +742,7 @@
     boxShadow: "0 2px 10px rgba(0,0,0,0.6)",
   });
 
-  panel.appendChild(el("div", { fontWeight: "bold", marginBottom: "2px" }, "TNR Harvester v1.2"));
+  panel.appendChild(el("div", { fontWeight: "bold", marginBottom: "2px" }, "TNR Harvester v1.3"));
   panel.appendChild(el("div", { color: "#9ca3af", marginBottom: "6px" },
     "Stay parked while it runs. Files download per collector."));
 
@@ -730,6 +812,18 @@
   var censusCapInput = mkNum("census pgs:", 300);
   var threadCapInput = mkNum("thr/board:", 20);
   var commentPagesInput = mkNum("cmt pgs:", 1);
+  function mkText(label, rows) {
+    optRow.appendChild(el("div", {}, label));
+    var inp = el(rows > 1 ? "textarea" : "input", {
+      width: "95%", background: "#1f2937", color: "#e5e7eb",
+      border: "1px solid #4b5563", borderRadius: "3px", marginBottom: "3px",
+    });
+    if (rows > 1) inp.rows = rows; else inp.type = "text";
+    optRow.appendChild(inp);
+    return inp;
+  }
+  var blTargetsInput = mkText("bl targets (names/userIds, blank=self):", 1);
+  var blIdsInput = mkText("bl ids (battlelog URLs or ids):", 2);
   var autoDl = el("input");
   autoDl.type = "checkbox"; autoDl.checked = true;
   optRow.appendChild(autoDl);
