@@ -1,4 +1,8 @@
-/* TNR Harvester v1.0 (hosted body; loaded via @require loader)
+/* TNR Harvester v1.2 (hosted body; loaded via @require loader)
+ * v1.2: + battlelogs collector; restores the v1.1 additions: history set (content change
+ * log, war kill stats, raid leaderboards, meta windows), deep set (AI full kits),
+ * craftables + bank flow in economy, item/BL/skilltree balance stats in pulse.
+ * Deep is excluded from the All preset (slow); run it on demand.
  * Full-site read harvest via tRPC replay. Supersedes TNR Pulse (its collectors are included).
  * Contracts per 49_DATA_read_contracts.json + repo verification 2026-08-06.
  * Pace: >=1.15s/call (60/60s limiter). Resumable: completed collectors checkpoint to localStorage.
@@ -285,9 +289,277 @@
       }
       return out;
     } },
+    // PULSE addition (restored v1.1)
+    { id: "balanceStats", set: "pulse", label: "Item/BL/skilltree balance", run: async function () {
+      var seq = [
+        ["itemBalance", "data.getItemBalanceStatistics", { minCount: 3 }],
+        ["bloodlineBalance", "data.getBloodlineBalanceStatistics", { minCount: 3 }],
+        ["skillTreeBalance", "data.getSkillTreeBalanceStatistics", { minCount: 3 }],
+      ];
+      var t = {};
+      for (var i = 0; i < seq.length; i++) {
+        if (state.stop) break;
+        setStatus("balanceStats: " + seq[i][1] + " (" + (i + 1) + "/" + seq.length + ")");
+        try {
+          t[seq[i][0]] = await call(seq[i][1], seq[i][2]);
+        } catch (e) {
+          t[seq[i][0]] = { error: String(e.message || e) };
+        }
+        await sleep(PACE_MS);
+      }
+      return t;
+    } },
+    // ECONOMY additions (restored v1.1)
+    { id: "craftables", set: "economy", label: "Craftable items (one call)", run: async function () {
+      var r = await call("occupation.getCraftableItems", undefined);
+      return Array.isArray(r) ? { rows: r } : r;
+    } },
+    { id: "bankFlow", set: "economy", label: "Bank transfer graph", run: async function () {
+      // Input shape reconstructed: void first (blackmarket.getGraph pattern), {days:90} fallback.
+      try {
+        var g = await call("bank.getGraph", undefined);
+        return Array.isArray(g) ? { rows: g } : { graph: g };
+      } catch (e) {
+        await sleep(PACE_MS);
+        var g2 = await call("bank.getGraph", { days: 90 });
+        return { graph: g2, input: { days: 90 },
+          note: "void input rejected: " + String(e.message || e).slice(0, 120) };
+      }
+    } },
+    // HISTORY set (restored v1.1)
+    { id: "contentChanges", set: "history", label: "Content change log", run: async function () {
+      // LOG_TYPES (45b) minus user/userjutsu/battleAction: player logs excluded by design.
+      // Cap: 100/page x 30 pages = 3000 recent entries per logtype.
+      var types = ["ai", "badge", "bloodline", "clan", "item", "jutsu", "poll", "war"];
+      var out = {};
+      for (var i = 0; i < types.length; i++) {
+        if (state.stop) break;
+        setStatus("contentChanges: " + types[i] + " (" + (i + 1) + "/" + types.length + ")");
+        try {
+          out[types[i]] = await paged("logs.getContentChanges",
+            { logtype: types[i], limit: 100 },
+            { pageCap: 30, progress: pr("log:" + types[i]) });
+        } catch (e) {
+          out[types[i]] = { error: String(e.message || e) };
+        }
+        await sleep(PACE_MS);
+      }
+      return out;
+    } },
+    { id: "warStats", set: "history", label: "War kill stats (<=25 wars)", run: async function () {
+      var villages = [];
+      if (state.results.villages && state.results.villages.payload &&
+          Array.isArray(state.results.villages.payload.rows)) {
+        villages = state.results.villages.payload.rows;
+      } else {
+        villages = (await call("village.getAll", undefined)) || [];
+        await sleep(PACE_MS);
+      }
+      var seenWar = {};
+      var wars = [];
+      for (var v = 0; v < villages.length; v++) {
+        if (state.stop) break;
+        setStatus("warStats: village " + (v + 1) + "/" + villages.length);
+        try {
+          var ended = await call("war.getEndedWars", { villageId: villages[v].id });
+          if (Array.isArray(ended)) {
+            for (var w = 0; w < ended.length; w++) {
+              if (ended[w] && ended[w].id && !seenWar[ended[w].id]) {
+                seenWar[ended[w].id] = true;
+                wars.push(ended[w]);
+              }
+            }
+          }
+        } catch (e) {
+          wars.push({ villageId: villages[v].id, error: String(e.message || e) });
+        }
+        await sleep(PACE_MS);
+      }
+      wars = wars.slice(0, 25);
+      var out = [];
+      for (var k = 0; k < wars.length; k++) {
+        if (state.stop) break;
+        if (!wars[k].id) { out.push(wars[k]); continue; }
+        setStatus("warStats: kills " + (k + 1) + "/" + wars.length);
+        try {
+          var stats = await call("war.getWarKillStats", { warId: wars[k].id });
+          out.push({ war: wars[k], kills: stats });
+        } catch (e) {
+          out.push({ war: wars[k], error: String(e.message || e) });
+        }
+        await sleep(PACE_MS);
+      }
+      return { rows: out };
+    } },
+    { id: "raidBoard", set: "history", label: "Raid leaderboards", run: async function () {
+      var out = { completed: null, boards: [] };
+      try {
+        out.completed = await call("raids.getCompletedRaids", undefined);
+      } catch (e) {
+        out.completed = { error: String(e.message || e) };
+      }
+      await sleep(PACE_MS);
+      var quests = [];
+      if (state.results.quests && state.results.quests.payload &&
+          Array.isArray(state.results.quests.payload.rows)) {
+        quests = state.results.quests.payload.rows;
+      } else {
+        try {
+          quests = await paged("quests.getAll", { limit: 100 },
+            { pageCap: 30, progress: pr("raidBoard:quests") });
+        } catch (e) { quests = []; }
+      }
+      var raids = [];
+      for (var i = 0; i < quests.length; i++) {
+        if (quests[i] && quests[i].questType === "raid") raids.push(quests[i]);
+      }
+      for (var r = 0; r < raids.length; r++) {
+        if (state.stop) break;
+        setStatus("raidBoard: " + (r + 1) + "/" + raids.length + " " + raids[r].name);
+        try {
+          var lb = await call("raids.getRaidLeaderboard", { questId: raids[r].id });
+          out.boards.push({ questId: raids[r].id, name: raids[r].name, leaderboard: lb });
+        } catch (e) {
+          out.boards.push({ questId: raids[r].id, name: raids[r].name,
+            error: String(e.message || e) });
+        }
+        await sleep(PACE_MS);
+      }
+      return out;
+    } },
+    { id: "metaWindows", set: "history", label: "Meta windows (top-20 jutsu)", run: async function () {
+      // Seed: open-world jutsu balance -> top 20 by summed count; then
+      // data.getStatistics per jutsu over last 30d and the 30d before.
+      var top = [];
+      try {
+        var stats = await call("data.getJutsuBalanceStatistics",
+          { battleTypes: ["COMBAT"], minCount: 3 });
+        var byId = {};
+        if (Array.isArray(stats)) {
+          for (var i = 0; i < stats.length; i++) {
+            var row = stats[i];
+            if (!row || !row.jutsuId) continue;
+            if (!byId[row.jutsuId]) {
+              byId[row.jutsuId] = { jutsuId: row.jutsuId, name: row.name, count: 0 };
+            }
+            byId[row.jutsuId].count += row.count || 0;
+          }
+        }
+        for (var k in byId) top.push(byId[k]);
+        top.sort(function (a, b) { return b.count - a.count; });
+        top = top.slice(0, 20);
+      } catch (e) {
+        return { error: "seed failed: " + String(e.message || e) };
+      }
+      await sleep(PACE_MS);
+      var d30 = 30 * 86400000;
+      var now = Date.now();
+      var winA = { startDate: new Date(now - d30).toISOString(),
+                   endDate: new Date(now).toISOString() };
+      var winB = { startDate: new Date(now - 2 * d30).toISOString(),
+                   endDate: new Date(now - d30).toISOString() };
+      var out = [];
+      for (var j = 0; j < top.length; j++) {
+        if (state.stop) break;
+        setStatus("metaWindows: " + (j + 1) + "/" + top.length + " " + top[j].name);
+        var entry = { jutsuId: top[j].jutsuId, name: top[j].name,
+                      openWorldCount: top[j].count };
+        try {
+          entry.last30 = await call("data.getStatistics",
+            { id: top[j].jutsuId, type: "jutsu", battleType: "COMBAT",
+              startDate: winA.startDate, endDate: winA.endDate });
+        } catch (e) { entry.last30 = { error: String(e.message || e) }; }
+        await sleep(PACE_MS);
+        if (state.stop) { out.push(entry); break; }
+        try {
+          entry.prior30 = await call("data.getStatistics",
+            { id: top[j].jutsuId, type: "jutsu", battleType: "COMBAT",
+              startDate: winB.startDate, endDate: winB.endDate });
+        } catch (e) { entry.prior30 = { error: String(e.message || e) }; }
+        await sleep(PACE_MS);
+        out.push(entry);
+      }
+      return { rows: out, windows: { last30: winA, prior30: winB } };
+    } },
+    // DEEP set (restored v1.1, verbatim from the v1.1 build session)
+    { id: "aiDeep", set: "deep", label: "AI full kits (slow ~12min)", run: async function () {
+      var list = [];
+      if (state.results.ais) list = state.results.ais.payload.rows || [];
+      else {
+        list = await paged("profile.getPublicUsers",
+          { limit: 100, isAi: true, orderBy: "Strongest" }, { map: stripUser, progress: pr("aiDeep:list") });
+      }
+      var out = [];
+      for (var i = 0; i < list.length; i++) {
+        if (state.stop) break;
+        setStatus("aiDeep: " + (i + 1) + "/" + list.length);
+        try {
+          var ai = await call("profile.getAi", { userId: list[i].userId });
+          if (ai) {
+            delete ai.avatar; delete ai.avatar3d; delete ai.avatarLight;
+            out.push(ai);
+          }
+        } catch (e) { out.push({ userId: list[i].userId, error: String(e.message || e) }); }
+        await sleep(PACE_MS);
+      }
+      return { rows: out };
+    } },
+    // HISTORY set (v1.2)
+    { id: "battlelogs", set: "history", label: "Battle logs (bulk, 7d window)", run: async function () {
+      // combat.getBattleHistory {secondsBack} -> [historyRow]; attackedId = ATTACKER userId (capture-verified).
+      // combat.getBattleEntries {battleId, refreshKey:0, checkBattle:false, limit:1000} -> full log.
+      // Seen-set tnr_bl_seen shared with the standalone battlelogs bundle. Pulls ALL battle types.
+      var SEEN_KEY = "tnr_bl_seen";
+      var seen;
+      try { seen = new Set(JSON.parse(localStorage.getItem(SEEN_KEY) || "[]")); }
+      catch (e) { seen = new Set(); }
+      var windows = [31536000, 2592000, 604800, 86400, 10800];
+      var hist = null, used = 0;
+      for (var w = 0; w < windows.length; w++) {
+        try {
+          var res = await call("combat.getBattleHistory", { secondsBack: windows[w] });
+          if (Array.isArray(res)) { hist = res; used = windows[w]; break; }
+        } catch (e) {
+          if (String(e.message).indexOf("stopped") >= 0) throw e;
+          setStatus("battlelogs: window " + windows[w] + "s failed, stepping down");
+        }
+        await sleep(PACE_MS);
+      }
+      if (!hist) throw new Error("battlelogs: history unavailable at all windows");
+      var oldest = null;
+      for (var h = 0; h < hist.length; h++) {
+        if (!oldest || hist[h].createdAt < oldest) oldest = hist[h].createdAt;
+      }
+      var todo = [];
+      for (var i = 0; i < hist.length; i++) {
+        if (!seen.has(hist[i].battleId)) todo.push(hist[i]);
+      }
+      setStatus("battlelogs: " + todo.length + " new of " + hist.length +
+        " rows, window " + used + "s, oldest " + (oldest || "?"));
+      var out = [];
+      for (var j = 0; j < todo.length; j++) {
+        if (state.stop) break;
+        var row = todo[j];
+        await sleep(PACE_MS);
+        try {
+          var entries = await call("combat.getBattleEntries",
+            { battleId: row.battleId, refreshKey: 0, checkBattle: false, limit: 1000 });
+          out.push({ meta: row, entries: Array.isArray(entries) ? entries : [] });
+          seen.add(row.battleId);
+          var arr = Array.from(seen);
+          if (arr.length > 4000) arr = arr.slice(arr.length - 4000);
+          localStorage.setItem(SEEN_KEY, JSON.stringify(arr));
+          setStatus("battlelogs: " + (j + 1) + "/" + todo.length + " " + row.battleId);
+        } catch (e) {
+          if (String(e.message).indexOf("stopped") >= 0) break;
+          out.push({ meta: row, error: String(e.message || e) });
+        }
+      }
+      return { rows: out, windowSeconds: used, seenSkipped: hist.length - todo.length };
+    } },
   ];
 
-  var SETS = ["content", "pulse", "economy", "world", "sentiment"];
+  var SETS = ["content", "pulse", "economy", "world", "sentiment", "history", "deep"];
 
   /* ---------------- Runner ---------------- */
 
@@ -388,7 +660,7 @@
     boxShadow: "0 2px 10px rgba(0,0,0,0.6)",
   });
 
-  panel.appendChild(el("div", { fontWeight: "bold", marginBottom: "2px" }, "TNR Harvester v1.0"));
+  panel.appendChild(el("div", { fontWeight: "bold", marginBottom: "2px" }, "TNR Harvester v1.2"));
   panel.appendChild(el("div", { color: "#9ca3af", marginBottom: "6px" },
     "Stay parked while it runs. Files download per collector."));
 
@@ -409,7 +681,7 @@
   function selectSet(setName) {
     for (var i = 0; i < COLLECTORS.length; i++) {
       var c = COLLECTORS[i];
-      rowChecks[c.id].checked = setName === "all" ? true : c.set === setName;
+      rowChecks[c.id].checked = setName === "all" ? c.set !== "deep" : c.set === setName;
     }
   }
 
@@ -419,6 +691,8 @@
   mkBtn("Econ", function () { selectSet("economy"); });
   mkBtn("World", function () { selectSet("world"); });
   mkBtn("Sentim", function () { selectSet("sentiment"); });
+  mkBtn("Hist", function () { selectSet("history"); });
+  mkBtn("Deep", function () { selectSet("deep"); });
 
   var runBar = el("div", { display: "flex", flexWrap: "wrap", gap: "3px", marginBottom: "6px" });
   panel.appendChild(runBar);
