@@ -1,4 +1,4 @@
-/* TNR Harvester v1.3 (hosted body; loaded via @require loader)
+/* TNR Harvester v1.4 (hosted body; loaded via @require loader)
  * v1.2: + battlelogs collector; restores the v1.1 additions: history set (content change
  * log, war kill stats, raid leaderboards, meta windows), deep set (AI full kits),
  * craftables + bank flow in economy, item/BL/skilltree balance stats in pulse.
@@ -8,6 +8,10 @@
  * full retained history (names resolve via profile.getPublicUsers
  * {username}); 'bl ids' (battlelog URLs or ids) fetches pasted battles
  * via getBattleHistoryEntry + getBattleEntries. Shared tnr_bl_seen dedup.
+ * v1.4: ais = profile.getAllAiNames union paged roster (paged sort is unstable:
+ * repeats + drops rows), deduped by userId; jutsu/items add a hidden:true pass
+ * merged by id; aiDeep dedupes and fetches ai.getAiProfile per distinct profile;
+ * new deep collector aiRelations (ai.getAiRelations per AI, the delete gate).
  * Full-site read harvest via tRPC replay. Supersedes TNR Pulse (its collectors are included).
  * Contracts per 49_DATA_read_contracts.json + repo verification 2026-08-06.
  * Pace: >=1.15s/call (60/60s limiter). Resumable: completed collectors checkpoint to localStorage.
@@ -156,21 +160,63 @@
     };
   }
 
+  function mergeHidden(base, hid, label) {
+    var byId = {}, out = [], hiddenTrue = 0, added = 0;
+    for (var i = 0; i < base.length; i++) { var r = base[i]; if (r && r.id && !byId[r.id]) { byId[r.id] = 1; out.push(r); if (r.hidden) hiddenTrue += 1; } }
+    for (var j = 0; j < hid.length; j++) { var h = hid[j]; if (h && h.id && !byId[h.id]) { byId[h.id] = 1; out.push(h); added += 1; if (h.hidden) hiddenTrue += 1; } }
+    var note = hid.length === 0 ? "hidden pass returned nothing (call failed or filter rejected)"
+      : (added === 0 ? "hidden pass added no rows (filter ignored by schema, or no hidden records)" : "");
+    setStatus(label + ": " + out.length + " unique, hidden:true " + hiddenTrue + ", hidden pass added " + added);
+    return { rows: out, defaultRows: base.length, hiddenPassRows: hid.length, hiddenPassAdded: added, hiddenTrueCount: hiddenTrue, note: note };
+  }
+
   var COLLECTORS = [
     // CONTENT
-    { id: "jutsu", set: "content", label: "Jutsu catalog", run: async function () {
-      return { rows: await paged("jutsu.getAll", { limit: 200 }, { progress: pr("jutsu") }) };
+    { id: "jutsu", set: "content", label: "Jutsu catalog (+hidden pass)", run: async function () {
+      var a = await paged("jutsu.getAll", { limit: 200 }, { progress: pr("jutsu") });
+      await sleep(PACE_MS);
+      var b = [];
+      try { b = await paged("jutsu.getAll", { limit: 200, hidden: true }, { progress: pr("jutsu:hidden") }); }
+      catch (e) { b = []; }
+      return mergeHidden(a, b, "jutsu");
     } },
-    { id: "items", set: "content", label: "Item catalog", run: async function () {
-      return { rows: await paged("item.getAll", { limit: 200 }, { progress: pr("items") }) };
+    { id: "items", set: "content", label: "Item catalog (+hidden pass)", run: async function () {
+      var a = await paged("item.getAll", { limit: 200 }, { progress: pr("items") });
+      await sleep(PACE_MS);
+      var b = [];
+      try { b = await paged("item.getAll", { limit: 200, hidden: true }, { progress: pr("items:hidden") }); }
+      catch (e) { b = []; }
+      return mergeHidden(a, b, "items");
     } },
     { id: "quests", set: "content", label: "Quest catalog", run: async function () {
       return { rows: await paged("quests.getAll", { limit: 100 }, { progress: pr("quests") }) };
     } },
-    { id: "ais", set: "content", label: "AI roster", run: async function () {
-      return { rows: await paged("profile.getPublicUsers",
+    { id: "ais", set: "content", label: "AI roster (names union)", run: async function () {
+      var names = [];
+      try { names = await call("profile.getAllAiNames", undefined) || []; }
+      catch (e) { names = []; setStatus("ais: getAllAiNames failed (" + String(e.message || e) + "), paging only"); }
+      if (names && !Array.isArray(names) && names.data) names = names.data;
+      await sleep(PACE_MS);
+      var rows = await paged("profile.getPublicUsers",
         { limit: 100, isAi: true, orderBy: "Strongest" },
-        { progress: pr("ais"), map: stripUser }) };
+        { progress: pr("ais"), map: stripUser });
+      var byId = {}, out = [];
+      for (var i = 0; i < rows.length; i++) {
+        var u = rows[i];
+        if (u && u.userId && !byId[u.userId]) { byId[u.userId] = 1; out.push(u); }
+      }
+      var dupes = rows.length - out.length, namesOnly = 0;
+      for (var j = 0; j < names.length; j++) {
+        var n = names[j] || {};
+        var id = n.userId || n.id;
+        if (id && !byId[id]) {
+          byId[id] = 1; namesOnly += 1;
+          out.push({ userId: id, username: n.username || n.name || "", fromNamesOnly: true });
+        }
+      }
+      setStatus("ais: " + out.length + " unique (paged " + rows.length + ", dupes " + dupes + ", names-only " + namesOnly + ")");
+      return { rows: out, pagedRows: rows.length, pagedDupes: dupes, namesTotal: names.length, namesOnly: namesOnly,
+               note: names.length ? "" : "getAllAiNames unavailable; paged list only (unstable sort, may be short)" };
     } },
     { id: "badges", set: "content", label: "Badges", run: async function () {
       return { rows: await paged("badge.getAll", { limit: 500 }, { progress: pr("badges") }) };
@@ -495,27 +541,65 @@
       return { rows: out, windows: { last30: winA, prior30: winB } };
     } },
     // DEEP set (restored v1.1, verbatim from the v1.1 build session)
-    { id: "aiDeep", set: "deep", label: "AI full kits (slow ~12min)", run: async function () {
+    { id: "aiDeep", set: "deep", label: "AI full kits + profiles (slow)", run: async function () {
       var list = [];
       if (state.results.ais) list = state.results.ais.payload.rows || [];
       else {
-        list = await paged("profile.getPublicUsers",
-          { limit: 100, isAi: true, orderBy: "Strongest" }, { map: stripUser, progress: pr("aiDeep:list") });
+        try { list = await call("profile.getAllAiNames", undefined) || []; } catch (e) { list = []; }
+        if (list && !Array.isArray(list) && list.data) list = list.data;
+        if (!list.length) {
+          list = await paged("profile.getPublicUsers",
+            { limit: 100, isAi: true, orderBy: "Strongest" }, { map: stripUser, progress: pr("aiDeep:list") });
+        }
       }
-      var out = [];
-      for (var i = 0; i < list.length; i++) {
+      var seenId = {}, ids = [];
+      for (var q = 0; q < list.length; q++) {
+        var uid = list[q] && (list[q].userId || list[q].id);
+        if (uid && !seenId[uid]) { seenId[uid] = 1; ids.push(uid); }
+      }
+      var out = [], profiles = {}, errors = [];
+      for (var i = 0; i < ids.length; i++) {
         if (state.stop) break;
-        setStatus("aiDeep: " + (i + 1) + "/" + list.length);
+        setStatus("aiDeep: " + (i + 1) + "/" + ids.length + " (profiles " + Object.keys(profiles).length + ")");
         try {
-          var ai = await call("profile.getAi", { userId: list[i].userId });
+          var ai = await call("profile.getAi", { userId: ids[i] });
           if (ai) {
             delete ai.avatar; delete ai.avatar3d; delete ai.avatarLight;
             out.push(ai);
+            var pid = ai.aiProfileId;
+            if (pid && !profiles[pid]) {
+              await sleep(PACE_MS);
+              try { profiles[pid] = await call("ai.getAiProfile", { id: pid }); }
+              catch (e2) { profiles[pid] = { error: String(e2.message || e2) }; errors.push({ userId: ids[i], aiProfileId: pid, error: String(e2.message || e2) }); }
+            }
           }
-        } catch (e) { out.push({ userId: list[i].userId, error: String(e.message || e) }); }
+        } catch (e) { out.push({ userId: ids[i], error: String(e.message || e) }); errors.push({ userId: ids[i], error: String(e.message || e) }); }
         await sleep(PACE_MS);
       }
-      return { rows: out };
+      return { rows: out, profiles: profiles, errors: errors, idsTotal: ids.length, listSource: state.results.ais ? "ais" : "getAllAiNames/paged" };
+    } },
+    { id: "aiRelations", set: "deep", label: "AI relations (where used)", run: async function () {
+      var list = [];
+      if (state.results.ais) list = state.results.ais.payload.rows || [];
+      else if (state.results.aiDeep) list = state.results.aiDeep.payload.rows || [];
+      else {
+        try { list = await call("profile.getAllAiNames", undefined) || []; } catch (e) { list = []; }
+        if (list && !Array.isArray(list) && list.data) list = list.data;
+      }
+      var seenId = {}, ids = [];
+      for (var q = 0; q < list.length; q++) {
+        var uid = list[q] && (list[q].userId || list[q].id);
+        if (uid && !seenId[uid]) { seenId[uid] = 1; ids.push(uid); }
+      }
+      var out = [];
+      for (var i = 0; i < ids.length; i++) {
+        if (state.stop) break;
+        setStatus("aiRelations: " + (i + 1) + "/" + ids.length);
+        try { out.push({ userId: ids[i], relations: await call("ai.getAiRelations", { aiId: ids[i] }) }); }
+        catch (e) { out.push({ userId: ids[i], error: String(e.message || e) }); }
+        await sleep(PACE_MS);
+      }
+      return { rows: out, idsTotal: ids.length };
     } },
     // HISTORY set (v1.2)
     { id: "battlelogs", set: "history", label: "Battle logs (bulk, 7d window)", run: async function () {
@@ -742,7 +826,7 @@
     boxShadow: "0 2px 10px rgba(0,0,0,0.6)",
   });
 
-  panel.appendChild(el("div", { fontWeight: "bold", marginBottom: "2px" }, "TNR Harvester v1.3"));
+  panel.appendChild(el("div", { fontWeight: "bold", marginBottom: "2px" }, "TNR Harvester v1.4"));
   panel.appendChild(el("div", { color: "#9ca3af", marginBottom: "6px" },
     "Stay parked while it runs. Files download per collector."));
 
