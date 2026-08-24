@@ -1,4 +1,4 @@
-/* TNR Deleter v1.0 (hosted body; loaded via @require loader)
+/* TNR Deleter v1.1 (hosted body; loaded via @require loader)
  * Batch content deletion with per-record gates. Never runs on load; DRY RUN default.
  * Entities: quest, jutsu, ai, aiProfile, item. Pre-checks: ai -> getAiRelations must
  * return zero questsUsingAi; jutsu -> getJutsuRelations must be empty; others ->
@@ -56,6 +56,7 @@
   }
   var GATES = {
     quest: { pre: function (id) { return gcall("quests.get", { id: id }); }, del: "quests.delete", key: "id" },
+    asset: { pre: function (id) { return gcall("asset.get", { id: id }); }, del: "asset.delete", key: "id" },
     jutsu: { pre: async function (id) {
         var rel = await gcall("jutsu.getJutsuRelations", { jutsuId: id });
         if (!emptyRelations(rel)) throw new Error("BLOCKED: relations not empty " + JSON.stringify(rel).slice(0, 120));
@@ -73,7 +74,7 @@
   var panel = el("div", { position: "fixed", right: "8px", bottom: "8px", zIndex: 99999, background: "#131722",
     color: "#eee", font: "12px monospace", padding: "8px", border: "1px solid #444", borderRadius: "8px",
     width: "300px", maxHeight: "70vh", overflow: "auto" });
-  panel.appendChild(el("div", { fontWeight: "bold", marginBottom: "4px" }, "TNR Deleter v1.0"));
+  panel.appendChild(el("div", { fontWeight: "bold", marginBottom: "4px" }, "TNR Deleter v1.1"));
   var sel = document.createElement("select");
   ["quest", "jutsu", "ai", "aiProfile", "item"].forEach(function (t) {
     var o = document.createElement("option"); o.value = t; o.textContent = t; sel.appendChild(o);
