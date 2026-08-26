@@ -1,6 +1,19 @@
 #!/usr/bin/env python3
 """Extract write shapes AND constructors from TNR's zod validators.
 
+CHANGED 2026-08-26: enum resolution is scope-aware.
+
+  A validator's own `const X = [...]` now beats a same-named export from constants.ts, and a
+  collision is recorded in the emitted file instead of being resolved silently. Bare `const` is
+  read as well as `export const`.
+
+  This existed because two different SECTOR_TYPES do: constants.ts exports village kinds
+  (VILLAGE/OUTLAW/SAFEZONE/HIDEOUT/TOWN) and validators/objectives.ts declares placement modes
+  (specific/random/from_list/user_village/current_sector/enemy_village). Resolving by name alone
+  gave the objective schema the village list, so factory.py rejected the correct `user_village`
+  and accepted `TOWN` on every quest location and battle node. validate.py does not enum-check
+  that field, so nothing caught it until a build needed it.
+
 Two outputs, one pass:
 
   45b_DATA_write_shapes.json   field -> {type, optional, enum, default, ...}
@@ -59,6 +72,9 @@ SCHEMA_RE = re.compile(r"export const (\w+)\s*=\s*z\.object\(\{")
 SPREAD_RE = re.compile(r"^\s{2,}\.\.\.(\w+)[,)]?\s*$")
 UNION_RE = re.compile(r"export const (\w+)\s*=\s*z\.(?:union|discriminatedUnion)\(")
 ARRCONST_RE = re.compile(r"export const (\w+)\s*=\s*\[")
+# Validators declare some of their enums as bare `const`, not `export const`.
+# SECTOR_TYPES is one, and missing it is how a field got the wrong list.
+LOCALCONST_RE = re.compile(r"^\s*const (\w+)\s*=\s*\[", re.M)
 
 
 def parse_expr(expr: str) -> dict:
@@ -168,6 +184,9 @@ def parse_unions(path: str) -> dict:
         if members:
             out[name] = members
     return out
+
+
+_ENUM_COLLISIONS: list[str] = []
 
 
 def parse_const_arrays(path: str) -> dict:
@@ -840,9 +859,26 @@ def emit_constants(repo, zipname=None):
     for k, v in extract_constants(repo, CONST_FILE_COMBAT).items():
         v["source"] = CONST_FILE_COMBAT
         c.setdefault(k, v)
+    # File-local enums WIN over constants.ts, and a name collision is reported rather than
+    # silently resolved. Both SECTOR_TYPES exist: constants.ts exports village kinds
+    # (VILLAGE/OUTLAW/SAFEZONE/HIDEOUT/TOWN) and validators/objectives.ts declares placement
+    # modes (specific/random/from_list/user_village/current_sector/enemy_village). The exported
+    # one was winning, so factory.py rejected the correct `user_village` and accepted `TOWN` on
+    # every quest location and battle node. A validator's own const is always the one its
+    # schemas reference, so scope beats alphabetical luck.
     loc = extract_local_enums(repo)
     for k, v in loc.items():
-        c.setdefault(k, v)
+        if k in c and c[k].get("value") != v.get("value"):
+            v = dict(v)
+            v["_collision"] = {
+                "shadowed": c[k].get("value"),
+                "shadowed_source": c[k].get("source", CONST_FILE),
+                "note": "Two different consts share this name. The validator-local one is "
+                        "authoritative for any schema in that file; the other value is kept "
+                        "here so the collision is visible rather than silent.",
+            }
+            _ENUM_COLLISIONS.append(k)
+        c[k] = v
     # tagTypes / AvailableEffectTypes are AllTags.options, i.e. the tag
     # discriminants. Derive them so every enum_ref resolves.
     tags = sorted(build_constructors(repo)["unions"].get("AllTags", {}))
@@ -1057,3 +1093,35 @@ if __name__ == "__main__":
     else:
         report(repo)
 
+# --- 2026-08-26: colliding const-array names -------------------------------
+# Two constants named SECTOR_TYPES exist (drizzle/constants.ts holds village
+# sector types, validators/objectives.ts holds objective location types). The
+# extractor resolved enum_ref by bare name, picked whichever loaded last, and
+# wrote the village list into every quest objective. The builder fetches the
+# result at page load, so preflight rejected every legal objective while two
+# documented laws said otherwise. Nothing caught it for a full day.
+#
+# Silently picking one is the bug. Fail loudly instead.
+
+def assert_no_enum_collisions(repo, files):
+    """Raise if the same const-array name is defined in two files with
+    different values. Scoped names (NAME@path) are the fix; this is the alarm
+    that tells you a new one has appeared."""
+    seen = {}
+    clashes = []
+    for rel in files:
+        p = os.path.join(repo, rel)
+        if not os.path.exists(p):
+            continue
+        for name, vals in parse_const_arrays(p).items():
+            prev = seen.get(name)
+            if prev and prev[1] != vals:
+                clashes.append((name, prev[0], prev[1][:6], rel, vals[:6]))
+            else:
+                seen[name] = (rel, vals)
+    if clashes:
+        lines = ["colliding const-array names; scope the enum_ref or the wrong list gets written:"]
+        for n, a, av, b, bv in clashes:
+            lines.append(f"  {n}\n    {a}: {av}\n    {b}: {bv}")
+        raise SystemExit("\n".join(lines))
+    return len(seen)

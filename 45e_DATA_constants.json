@@ -12,12 +12,16 @@
    "app/src/validators/quest.ts": "7e8d877078f933f6",
    "app/src/validators/item.ts": "53b3e9b89e330f54"
   },
-  "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
+  "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale.",
+  "caveats": [
+   "law 83: DMG_* are defaults, overridden at runtime from gameSetting"
+  ]
  },
  "_contract": {
   "purpose": "Every export from app/drizzle/constants.ts with its value, kind and the doc comment above it.",
   "kinds": "number|string|boolean|list|array_expr|expr. `value` present only when statically resolvable; `raw` is always the source text.",
-  "local_enums": "Entries carrying `source` are const arrays defined inside a validator file, not constants.ts. They are folded in here so every enum_ref in 45c/45d resolves in one place."
+  "local_enums": "Entries carrying `source` are const arrays defined inside a validator file, not constants.ts. They are folded in here so every enum_ref in 45c/45d resolves in one place.",
+  "runtime_override_caveat": "LAW 83. The DMG_* family are compiled-in DEFAULTS, not live values. app/src/libs/gamesettings.ts reads each one from the `gameSetting` table by name, inserting the default only when the row is missing. A value can therefore change in production with no source change and no regeneration of this file. Every damage figure derived from here is a default-case estimate; when the number matters, take it from a fight capture. This is also why the simulator's live-fitted overlay in stage1_constants.json differs from these values without either being wrong."
  },
  "count": 936,
  "constants": {

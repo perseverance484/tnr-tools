@@ -1,4 +1,11 @@
 {
+ "_provenance": {
+  "generator": "schema_extract.py v2.1",
+  "extracted": "2026-08-26",
+  "source_drop": "TheNinjaRPG-main__3_.zip",
+  "content_sha256_16": "8c8fa77e6e48fed6",
+  "contract": "GENERATED. Do not hand-edit. content_sha256_16 fingerprints the payload, not the stamp: two files claiming the same generator, drop and date but differing in content are detectable by comparing this field. That failure occurred on 2026-08-26 and went unnoticed because stamps agreed while contents did not."
+ },
  "_generated_from": [
   "app/src/validators/ai.ts",
   "app/src/validators/objectives.ts",
@@ -1006,14 +1013,16 @@
      "sectorType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "SECTOR_TYPES",
+      "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "HIDEOUT",
-       "OUTLAW",
-       "SAFEZONE",
-       "TOWN",
-       "VILLAGE"
-      ]
+       "specific",
+       "random",
+       "from_list",
+       "user_village",
+       "current_sector",
+       "enemy_village"
+      ],
+      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
      },
      "locationType": {
       "type": "enum",
@@ -1124,14 +1133,16 @@
      "sectorType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "SECTOR_TYPES",
+      "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "HIDEOUT",
-       "OUTLAW",
-       "SAFEZONE",
-       "TOWN",
-       "VILLAGE"
-      ]
+       "specific",
+       "random",
+       "from_list",
+       "user_village",
+       "current_sector",
+       "enemy_village"
+      ],
+      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
      },
      "locationType": {
       "type": "enum",
@@ -1239,14 +1250,16 @@
      "sectorType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "SECTOR_TYPES",
+      "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "HIDEOUT",
-       "OUTLAW",
-       "SAFEZONE",
-       "TOWN",
-       "VILLAGE"
-      ]
+       "specific",
+       "random",
+       "from_list",
+       "user_village",
+       "current_sector",
+       "enemy_village"
+      ],
+      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
      },
      "locationType": {
       "type": "enum",
@@ -1379,14 +1392,16 @@
      "sectorType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "SECTOR_TYPES",
+      "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "HIDEOUT",
-       "OUTLAW",
-       "SAFEZONE",
-       "TOWN",
-       "VILLAGE"
-      ]
+       "specific",
+       "random",
+       "from_list",
+       "user_village",
+       "current_sector",
+       "enemy_village"
+      ],
+      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
      },
      "locationType": {
       "type": "enum",
@@ -1563,14 +1578,16 @@
      "sectorType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "SECTOR_TYPES",
+      "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "HIDEOUT",
-       "OUTLAW",
-       "SAFEZONE",
-       "TOWN",
-       "VILLAGE"
-      ]
+       "specific",
+       "random",
+       "from_list",
+       "user_village",
+       "current_sector",
+       "enemy_village"
+      ],
+      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
      },
      "sectorList": {
       "type": "array",
@@ -2368,14 +2385,16 @@
      "sectorType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "SECTOR_TYPES",
+      "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "HIDEOUT",
-       "OUTLAW",
-       "SAFEZONE",
-       "TOWN",
-       "VILLAGE"
-      ]
+       "specific",
+       "random",
+       "from_list",
+       "user_village",
+       "current_sector",
+       "enemy_village"
+      ],
+      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
      },
      "locationType": {
       "type": "enum",
@@ -2486,14 +2505,16 @@
      "sectorType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "SECTOR_TYPES",
+      "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "HIDEOUT",
-       "OUTLAW",
-       "SAFEZONE",
-       "TOWN",
-       "VILLAGE"
-      ]
+       "specific",
+       "random",
+       "from_list",
+       "user_village",
+       "current_sector",
+       "enemy_village"
+      ],
+      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
      },
      "locationType": {
       "type": "enum",
@@ -2601,14 +2622,16 @@
      "sectorType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "SECTOR_TYPES",
+      "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "HIDEOUT",
-       "OUTLAW",
-       "SAFEZONE",
-       "TOWN",
-       "VILLAGE"
-      ]
+       "specific",
+       "random",
+       "from_list",
+       "user_village",
+       "current_sector",
+       "enemy_village"
+      ],
+      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
      },
      "locationType": {
       "type": "enum",
@@ -2741,14 +2764,16 @@
      "sectorType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "SECTOR_TYPES",
+      "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "HIDEOUT",
-       "OUTLAW",
-       "SAFEZONE",
-       "TOWN",
-       "VILLAGE"
-      ]
+       "specific",
+       "random",
+       "from_list",
+       "user_village",
+       "current_sector",
+       "enemy_village"
+      ],
+      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
      },
      "locationType": {
       "type": "enum",
