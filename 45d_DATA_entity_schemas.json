@@ -1,0 +1,1415 @@
+{
+ "_provenance": {
+  "generator": "schema_extract.py v2.0",
+  "extracted": "2026-08-26",
+  "source_drop": "TheNinjaRPG-main__3_.zip",
+  "source_sha256_16": {
+   "app/drizzle/constants.ts": "9ce4b865b1b28e05",
+   "app/src/validators/ai.ts": "56f0719ad861591c",
+   "app/src/validators/asset.ts": "b4a1cb632651922e",
+   "app/src/validators/combat.ts": "56e2e5cef6b28412",
+   "app/src/validators/objectives.ts": "bfb97953c942b06a"
+  },
+  "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
+ },
+ "_contract": {
+  "purpose": "Server write validators per entity: every field, type, bound, default, nullability. Replaces hand-authored 45_DATA_field_schemas.json.",
+  "reading": "optional=key may be omitted. nullable=explicit null is accepted. Both true means the field was declared .nullish(). min_ref/max_ref name the constant a bound came from; see 45e.",
+  "superRefine": "Cross-field checks run after field validation; their rules are NOT in this file. They live in the named function in source."
+ },
+ "entities": {
+  "jutsu": {
+   "source": "app/src/validators/combat.ts",
+   "schema": "JutsuValidatorRawSchema",
+   "superRefine": [
+    "SuperRefineBase",
+    "SuperRefineJutsu"
+   ],
+   "fields": {
+    "name": {
+     "raw": "z.string().trim()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "image": {
+     "raw": "z.string()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "description": {
+     "raw": "z.string()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "battleDescription": {
+     "raw": "z.string()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "extraBaseCost": {
+     "raw": "z.coerce.number().min(0).max(65_535)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "min": 0
+    },
+    "jutsuWeapon": {
+     "raw": "z.enum(WeaponTypes)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "WeaponTypes"
+    },
+    "jutsuType": {
+     "raw": "z.enum(JutsuTypes)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "JutsuTypes"
+    },
+    "jutsuRank": {
+     "raw": "z.enum(LetterRanks)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "LetterRanks"
+    },
+    "requiredRank": {
+     "raw": "z.enum(UserRanks)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "UserRanks"
+    },
+    "requiredLevel": {
+     "raw": "z.coerce.number().min(1).max(100)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "min": 1,
+     "max": 100
+    },
+    "method": {
+     "raw": "z.enum(AttackMethods)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "AttackMethods"
+    },
+    "target": {
+     "raw": "z.enum(AttackTargets)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "AttackTargets"
+    },
+    "range": {
+     "raw": "z.coerce.number().int().min(0).max(5)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0,
+     "max": 5
+    },
+    "statClassification": {
+     "raw": "z.enum(StatTypes).nullish().transform((v) => v ?? \"Highest\")",
+     "type": "enum",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "enum_ref": "StatTypes",
+     "_transform": true,
+     "doc": "The column is nullable, so rows stored before this field existed - and any\n  // write that leaves it out - arrive as null. Fall back to the catch-all\n  // classification rather than blocking the save.\n  statClassification: z\n    .enum(StatTypes)\n    .nullish()\n    .transform((v) => v ?? \"Highest\")"
+    },
+    "hidden": {
+     "raw": "z.coerce.boolean().optional()",
+     "type": "boolean",
+     "coerce": true,
+     "optional": true,
+     "nullable": false
+    },
+    "injectableInBattle": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "healthCost": {
+     "raw": "z.coerce.number().min(0).max(10000)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "min": 0,
+     "max": 10000
+    },
+    "chakraCost": {
+     "raw": "z.coerce.number().min(0).max(10000)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "min": 0,
+     "max": 10000
+    },
+    "staminaCost": {
+     "raw": "z.coerce.number().min(0).max(10000)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "min": 0,
+     "max": 10000
+    },
+    "healthCostReducePerLvl": {
+     "raw": "z.coerce.number().min(0).max(10000)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "min": 0,
+     "max": 10000
+    },
+    "chakraCostReducePerLvl": {
+     "raw": "z.coerce.number().min(0).max(10000)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "min": 0,
+     "max": 10000
+    },
+    "staminaCostReducePerLvl": {
+     "raw": "z.coerce.number().min(0).max(10000)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "min": 0,
+     "max": 10000
+    },
+    "actionCostPerc": {
+     "raw": "z.coerce.number().int().min(10).max(100)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 10,
+     "max": 100
+    },
+    "cooldown": {
+     "raw": "z.coerce.number().int().min(0).max(300)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0,
+     "max": 300
+    },
+    "bloodlineId": {
+     "raw": "z.string().nullable()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true
+    },
+    "requiredBloodlineItemId": {
+     "raw": "z.string().nullable().transform((val) => (val === \"\" ? null : val))",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true,
+     "_transform": true
+    },
+    "villageId": {
+     "raw": "z.string().nullable()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true
+    },
+    "effects": {
+     "raw": "z.array(AllTags).superRefine(SuperRefineEffects)",
+     "type": "array",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "items_ref": "AllTags",
+     "_superRefine": "SuperRefineEffects"
+    },
+    "battleUsageType": {
+     "raw": "z.enum(BattleUsageTypes).prefault(\"BOTH\")",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": "BOTH",
+     "enum_ref": "BattleUsageTypes"
+    },
+    "parentJutsuId": {
+     "raw": "z.string().nullable().optional().transform((v) => (v === \"\" ? null : v) ?? null)",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "_transform": true
+    },
+    "requiredNinjutsuOffence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredNinjutsuDefence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredGenjutsuOffence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredGenjutsuDefence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredTaijutsuOffence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredTaijutsuDefence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredBukijutsuOffence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredBukijutsuDefence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredStrength": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredSpeed": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredIntelligence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredWillpower": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    }
+   }
+  },
+  "item": {
+   "source": "app/src/validators/combat.ts",
+   "schema": "ItemValidatorRawSchema",
+   "superRefine": [
+    "SuperRefineBase",
+    "SuperRefineItem"
+   ],
+   "fields": {
+    "name": {
+     "raw": "z.string().trim()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "image": {
+     "raw": "z.string()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "description": {
+     "raw": "z.string()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "battleDescription": {
+     "raw": "z.string()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "stackSize": {
+     "raw": "z.coerce.number().int().min(1).max(MAX_ITEM_STACK_SIZE)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 1,
+     "max_ref": "MAX_ITEM_STACK_SIZE",
+     "max": 9999
+    },
+    "destroyOnUse": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "chakraCost": {
+     "raw": "z.coerce.number().int().min(0).max(10000)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0,
+     "max": 10000
+    },
+    "healthCost": {
+     "raw": "z.coerce.number().int().min(0).max(10000)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0,
+     "max": 10000
+    },
+    "staminaCost": {
+     "raw": "z.coerce.number().int().min(0).max(10000)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0,
+     "max": 10000
+    },
+    "healthCostReducePerLvl": {
+     "raw": "z.coerce.number().min(0).max(10000)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "min": 0,
+     "max": 10000
+    },
+    "chakraCostReducePerLvl": {
+     "raw": "z.coerce.number().min(0).max(10000)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "min": 0,
+     "max": 10000
+    },
+    "staminaCostReducePerLvl": {
+     "raw": "z.coerce.number().min(0).max(10000)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "min": 0,
+     "max": 10000
+    },
+    "actionCostPerc": {
+     "raw": "z.coerce.number().int().min(1).max(100)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 1,
+     "max": 100
+    },
+    "canStack": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "maxImbueNumber": {
+     "raw": "z.coerce.number().int().min(1).max(3)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 1,
+     "max": 3
+    },
+    "maxDurability": {
+     "raw": "z.coerce.number().int().min(1).max(100)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 1,
+     "max": 100
+    },
+    "inShop": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "isEventItem": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "preventBattleUsage": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "hidden": {
+     "raw": "z.coerce.boolean()",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false
+    },
+    "cooldown": {
+     "raw": "z.coerce.number().int().min(0).max(300)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0,
+     "max": 300
+    },
+    "cost": {
+     "raw": "z.coerce.number().int().min(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0
+    },
+    "repsCost": {
+     "raw": "z.coerce.number().int().min(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0
+    },
+    "seichiSilverCost": {
+     "raw": "z.coerce.number().int().min(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0
+    },
+    "range": {
+     "raw": "z.coerce.number().int().min(0).max(10)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0,
+     "max": 10
+    },
+    "maxEquips": {
+     "raw": "z.coerce.number().int().min(0).max(10)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0,
+     "max": 10
+    },
+    "method": {
+     "raw": "z.enum(AttackMethods)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "AttackMethods"
+    },
+    "target": {
+     "raw": "z.enum(AttackTargets)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "AttackTargets"
+    },
+    "itemType": {
+     "raw": "z.enum(ItemTypes)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "ItemTypes"
+    },
+    "weaponType": {
+     "raw": "z.enum(WeaponTypes)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "WeaponTypes"
+    },
+    "rarity": {
+     "raw": "z.enum(ItemRarities)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "ItemRarities"
+    },
+    "slot": {
+     "raw": "z.enum(ItemSlotTypes)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "ItemSlotTypes"
+    },
+    "requiredLevel": {
+     "raw": "z.coerce.number().int().min(1).max(100).prefault(1)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 1,
+     "int": true,
+     "min": 1,
+     "max": 100
+    },
+    "xpToLevel": {
+     "raw": "z.coerce.number().int().min(1).max(100000).prefault(ITEM_XP_TO_LEVEL)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": "ITEM_XP_TO_LEVEL",
+     "int": true,
+     "min": 1,
+     "max": 100000
+    },
+    "parentItemId": {
+     "raw": "z.string().nullable().optional().transform((v) => (v === \"\" ? null : v) ?? null)",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "_transform": true
+    },
+    "requiredNinjutsuOffence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredNinjutsuDefence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredGenjutsuOffence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredGenjutsuDefence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredTaijutsuOffence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredTaijutsuDefence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredBukijutsuOffence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredBukijutsuDefence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredStrength": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredSpeed": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredIntelligence": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "requiredWillpower": {
+     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "WeaponTypes",
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber"
+    },
+    "expireFromStoreAt": {
+     "raw": "z.string().regex(DateTimeRegExp, \"Must be of format YYYY-MM-DD\").nullable()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true
+    },
+    "effects": {
+     "raw": "z.array(AllTags).superRefine(SuperRefineEffects)",
+     "type": "array",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "items_ref": "AllTags",
+     "_superRefine": "SuperRefineEffects"
+    },
+    "canBeImbued": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "canBeCrafted": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "canBeHunted": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "canBeGathered": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "canBeTraded": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "craftingExperience": {
+     "raw": "z.coerce.number().int().min(0).prefault(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 0,
+     "int": true,
+     "min": 0
+    },
+    "crystalTargetTypes": {
+     "raw": "z.enum(ItemTypes).nullable()",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": true,
+     "enum_ref": "ItemTypes"
+    },
+    "bloodlineId": {
+     "raw": "z.string().nullable()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true
+    },
+    "battleUsageType": {
+     "raw": "z.enum(BattleUsageTypes).prefault(\"BOTH\")",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": "BOTH",
+     "enum_ref": "BattleUsageTypes"
+    },
+    "craftingRequirements": {
+     "raw": "z.array( z.object({ ids: z.array(z.string()), number: z.coerce.number().int().min(1).max(MAX_ITEM_CRAFTING_REQUIREMENT_QUANTITY), }), ).prefault([]).optional().nullish()",
+     "type": "array",
+     "coerce": true,
+     "optional": true,
+     "nullable": true,
+     "default": [],
+     "int": true,
+     "min": 1,
+     "max_ref": "MAX_ITEM_CRAFTING_REQUIREMENT_QUANTITY",
+     "max": 9999
+    }
+   }
+  },
+  "bloodline": {
+   "source": "app/src/validators/combat.ts",
+   "schema": "BloodlineValidator",
+   "superRefine": [],
+   "fields": {
+    "name": {
+     "raw": "z.string().trim()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "image": {
+     "raw": "z.string()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "description": {
+     "raw": "z.string()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "rank": {
+     "raw": "z.enum(LetterRanks)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "LetterRanks"
+    },
+    "regenIncrease": {
+     "raw": "z.coerce.number().int().min(0).max(100)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 0,
+     "max": 100
+    },
+    "statClassification": {
+     "raw": "z.enum(StatTypes).nullish().transform((v) => v ?? \"Highest\")",
+     "type": "enum",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "enum_ref": "StatTypes",
+     "_transform": true,
+     "doc": "Nullable in the schema for the same reason as on jutsu - see JutsuValidatorRawSchema.\n  statClassification: z\n    .enum(StatTypes)\n    .nullish()\n    .transform((v) => v ?? \"Highest\")"
+    },
+    "villageId": {
+     "raw": "z.string().nullable()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true
+    },
+    "hidden": {
+     "raw": "z.coerce.boolean().optional()",
+     "type": "boolean",
+     "coerce": true,
+     "optional": true,
+     "nullable": false
+    },
+    "difficulty": {
+     "raw": "z.enum(BloodlineDifficultyRatings).nullable().optional()",
+     "type": "enum",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "enum_ref": "BloodlineDifficultyRatings"
+    },
+    "traits": {
+     "raw": "z.string().max(256).nullable().optional()",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "max": 256
+    },
+    "effects": {
+     "raw": "z.array(AllTags).superRefine(SuperRefineEffects)",
+     "type": "array",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "items_ref": "AllTags",
+     "_superRefine": "SuperRefineEffects"
+    }
+   }
+  },
+  "quest": {
+   "source": "app/src/validators/objectives.ts",
+   "schema": "QuestValidatorRawSchema",
+   "superRefine": [
+    "questSuperRefine"
+   ],
+   "fields": {
+    "name": {
+     "raw": "z.string().min(1).max(191)",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "min": 1,
+     "max": 191
+    },
+    "image": {
+     "raw": "z.url().optional().nullish()",
+     "type": "url",
+     "coerce": false,
+     "optional": true,
+     "nullable": true
+    },
+    "description": {
+     "raw": "z.string().min(1).max(5000).nullable()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true,
+     "min": 1,
+     "max": 5000
+    },
+    "successDescription": {
+     "raw": "z.string().min(1).max(5000).nullable()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true,
+     "min": 1,
+     "max": 5000
+    },
+    "questRank": {
+     "raw": "z.enum(LetterRanks).optional()",
+     "type": "enum",
+     "coerce": false,
+     "optional": true,
+     "nullable": false,
+     "enum_ref": "LetterRanks"
+    },
+    "medicalRank": {
+     "raw": "z.enum(MEDNIN_RANKS).optional().nullish()",
+     "type": "enum",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "enum_ref": "MEDNIN_RANKS"
+    },
+    "huntingRank": {
+     "raw": "z.enum(HUNTING_RANKS).optional().nullish()",
+     "type": "enum",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "enum_ref": "HUNTING_RANKS"
+    },
+    "gatheringRank": {
+     "raw": "z.enum(GATHERING_RANKS).optional().nullish()",
+     "type": "enum",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "enum_ref": "GATHERING_RANKS"
+    },
+    "requiredLevel": {
+     "raw": "z.coerce.number().min(0).max(100).optional()",
+     "type": "number",
+     "coerce": true,
+     "optional": true,
+     "nullable": false,
+     "min": 0,
+     "max": 100
+    },
+    "maxLevel": {
+     "raw": "z.coerce.number().min(0).max(100).optional()",
+     "type": "number",
+     "coerce": true,
+     "optional": true,
+     "nullable": false,
+     "min": 0,
+     "max": 100
+    },
+    "maxAttempts": {
+     "raw": "z.coerce.number().min(0).max(100).prefault(1)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 1,
+     "min": 0,
+     "max": 100
+    },
+    "maxCompletes": {
+     "raw": "z.coerce.number().min(0).max(100).prefault(1)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 1,
+     "min": 0,
+     "max": 100
+    },
+    "requiredVillage": {
+     "raw": "z.string().min(0).max(30).optional().nullish()",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "min": 0,
+     "max": 30
+    },
+    "requiredBloodlineId": {
+     "raw": "z.string().min(0).max(191).optional().nullish()",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "min": 0,
+     "max": 191
+    },
+    "requiredSageModeId": {
+     "raw": "z.string().min(0).max(191).optional().nullish()",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "min": 0,
+     "max": 191,
+     "doc": "Exact equipped sage mode required to take the quest; unset = no mode gate."
+    },
+    "requiredSageRank": {
+     "raw": "z.preprocess( (v) => (v === \"\" ? null : v), z.enum(SAGE_MASTERY_RANKS).nullish(), )",
+     "type": "preprocess",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "enum_ref": "SAGE_MASTERY_RANKS",
+     "doc": "Minimum mastery rank (`NONE`\u2026`LEGENDARY`); unset / empty = no rank gate."
+    },
+    "prerequisiteQuestId": {
+     "raw": "z.string().min(0).max(191).optional().nullish()",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "min": 0,
+     "max": 191
+    },
+    "tierLevel": {
+     "raw": "z.coerce.number().min(0).max(100).nullable()",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "min": 0,
+     "max": 100
+    },
+    "questType": {
+     "raw": "z.enum(QuestTypes)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "QuestTypes"
+    },
+    "content": {
+     "raw": "z.object({ objectives: z.array(AllObjectives), reward: ObjectiveReward, sceneBackground: z.string().prefault(\"\"), sceneCharacters: z.array(z.string()).prefault([]), })",
+     "type": "array",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": "",
+     "items_ref": "AllObjectives"
+    },
+    "hidden": {
+     "raw": "z.coerce.boolean()",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false
+    },
+    "retryDelay": {
+     "raw": "z.enum(RetryQuestDelays).optional()",
+     "type": "enum",
+     "coerce": false,
+     "optional": true,
+     "nullable": false,
+     "enum_ref": "RetryQuestDelays"
+    },
+    "attemptDelay": {
+     "raw": "z.enum(RetryQuestDelays).optional()",
+     "type": "enum",
+     "coerce": false,
+     "optional": true,
+     "nullable": false,
+     "enum_ref": "RetryQuestDelays"
+    },
+    "consecutiveObjectives": {
+     "raw": "z.coerce.boolean()",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false
+    },
+    "endsAt": {
+     "raw": "z.string().regex(DateTimeRegExp, \"Must be of format YYYY-MM-DD\").nullable()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true
+    },
+    "startsAt": {
+     "raw": "z.string().regex(DateTimeRegExp, \"Must be of format YYYY-MM-DD\").nullable()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true
+    },
+    "raidBossMaxHealth": {
+     "raw": "z.coerce.number().min(1).optional().nullish()",
+     "type": "number",
+     "coerce": true,
+     "optional": true,
+     "nullable": true,
+     "min": 1,
+     "doc": "Raid-specific fields (only persisted data, AI and sector come from objective)\n  raidBossMaxHealth: z.coerce.number().min(1).optional().nullish()"
+    },
+    "raidBossCurrentHealth": {
+     "raw": "z.coerce.number().min(0).optional().nullish()",
+     "type": "number",
+     "coerce": true,
+     "optional": true,
+     "nullable": true,
+     "min": 0
+    }
+   }
+  },
+  "gameAsset": {
+   "source": "app/src/validators/asset.ts",
+   "schema": "gameAssetValidator",
+   "superRefine": [],
+   "fields": {
+    "name": {
+     "raw": "z.string().min(1).max(191)",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "min": 1,
+     "max": 191
+    },
+    "image": {
+     "raw": "z.url()",
+     "type": "url",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "frames": {
+     "raw": "z.coerce.number().int().min(1).max(100)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 1,
+     "max": 100
+    },
+    "speed": {
+     "raw": "z.coerce.number().int().min(1).max(100)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "int": true,
+     "min": 1,
+     "max": 100
+    },
+    "type": {
+     "raw": "z.enum(GameAssetTypes)",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "enum_ref": "GameAssetTypes"
+    },
+    "licenseDetails": {
+     "raw": "z.string().min(1).max(512)",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "min": 1,
+     "max": 512
+    },
+    "onInitialBattleField": {
+     "raw": "z.boolean()",
+     "type": "boolean",
+     "coerce": false,
+     "optional": false,
+     "nullable": false
+    },
+    "hidden": {
+     "raw": "z.coerce.boolean().optional()",
+     "type": "boolean",
+     "coerce": true,
+     "optional": true,
+     "nullable": false
+    },
+    "url": {
+     "raw": "z.url().optional()",
+     "type": "url",
+     "coerce": false,
+     "optional": true,
+     "nullable": false
+    },
+    "folder": {
+     "raw": "z.string().regex(/^[a-zA-Z0-9]*$/, \"Folder name can only contain letters and numbers\").optional()",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": false
+    }
+   }
+  },
+  "aiRule": {
+   "source": "app/src/validators/ai.ts",
+   "schema": "AiRule",
+   "superRefine": [],
+   "fields": {
+    "conditions": {
+     "raw": "z.array(ZodAllAiConditions)",
+     "type": "array",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "items_ref": "ZodAllAiConditions"
+    },
+    "action": {
+     "type": "object",
+     "schema_ref": "ZodAllAiActions",
+     "raw": "ZodAllAiActions"
+    }
+   }
+  }
+ }
+}

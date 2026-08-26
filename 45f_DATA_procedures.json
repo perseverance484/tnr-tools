@@ -1,0 +1,4245 @@
+{
+ "_provenance": {
+  "generator": "schema_extract.py v2.0",
+  "extracted": "2026-08-26",
+  "source_drop": "TheNinjaRPG-main__3_.zip",
+  "source_sha256_16": {
+   "app/src/server/api/routers/ (57 files)": "a4a08f1e77e94dd7"
+  },
+  "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
+ },
+ "_contract": {
+  "purpose": "The tRPC surface the builder replays. Router -> procedure -> {procedure guard, query|mutation, input schema, mcp description}.",
+  "input": "Verbatim source text of the .input() expression, truncated at 600 chars. Named schema references resolve in 45d or 45c.",
+  "guard": "publicProcedure = no auth. protectedProcedure = session required. The guard is not the permission check; staff gating happens in the body."
+ },
+ "counts": {
+  "routers": 57,
+  "procedures": 672,
+  "described": 444
+ },
+ "routers": {
+  "activityStreak": {
+   "getUserStreaks": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's active activity streaks"
+   },
+   "getAvailablePasses": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get available event passes for purchase"
+   },
+   "purchaseEventPass": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Purchase an event pass",
+    "input": "purchaseEventPassSchema"
+   },
+   "claimStreakDay": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Claim daily streak reward",
+    "input": "claimStreakDaySchema"
+   },
+   "getConfigs": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z .object({ streakType: z.enum([\"RECURRING\", \"EVENT_PASS\"]).optional(), }) .optional(),"
+   },
+   "getConfig": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ id: z.string() })"
+   },
+   "createConfig": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "activityStreakConfigSchema"
+   },
+   "updateConfig": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "activityStreakConfigUpdateSchema"
+   },
+   "deleteConfig": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "toggleConfigActive": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   }
+  },
+  "ai": {
+   "getAiProfile": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get AI profile by ID",
+    "input": "z.object({ id: z.string() })"
+   },
+   "createAiProfile": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string(), rules: z.array(AiRule) })"
+   },
+   "updateAiProfile": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), rules: z.array(AiRule), includeDefaultRules: z.boolean(), }),"
+   },
+   "toggleAiProfile": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ aiId: z.string() })"
+   },
+   "getAiRelations": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get quests referencing an AI",
+    "input": "z.object({ aiId: z.string() })"
+   }
+  },
+  "anbu": {
+   "get": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get ANBU squad details",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getAll": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all ANBU squads for village",
+    "input": "z.object({ villageId: z.string() })"
+   },
+   "getAllNames": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all ANBU squad names"
+   },
+   "getRequests": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get ANBU join requests",
+    "input": "z.object({ squadId: z.string().optional() }).nullish()"
+   },
+   "createRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Request to join an ANBU squad",
+    "input": "z.object({ squadId: z.string() })"
+   },
+   "rejectRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Reject ANBU join request",
+    "input": "z.object({ id: z.string() })"
+   },
+   "cancelRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Cancel ANBU join request",
+    "input": "z.object({ id: z.string() })"
+   },
+   "acceptRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Accept ANBU join request",
+    "input": "z.object({ id: z.string() })"
+   },
+   "createSquad": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create new ANBU squad",
+    "input": "anbuCreateSchema"
+   },
+   "disbandSquad": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Disband ANBU squad",
+    "input": "z.object({ squadId: z.string() })"
+   },
+   "editSquad": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Edit ANBU squad name and image",
+    "input": "anbuEditSchema"
+   },
+   "promoteMember": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Promote ANBU member to leader",
+    "input": "z.object({ squadId: z.string(), memberId: z.string() })"
+   },
+   "kickMember": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Kick member from ANBU squad",
+    "input": "z.object({ squadId: z.string(), memberId: z.string() })"
+   },
+   "leaveSquad": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Leave ANBU squad",
+    "input": "z.object({ squadId: z.string() })"
+   },
+   "upsertNotice": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update ANBU squad notice",
+    "input": "z.object({ content: z.string(), squadId: z.string(), type: z.enum([\"KAGE\", \"LEADER\"]), }),"
+   },
+   "purchaseEspionageUpgrade": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Upgrade squad espionage level",
+    "input": "z.object({ squadId: z.string() })"
+   },
+   "purchaseStealthUpgrade": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Upgrade squad stealth level",
+    "input": "z.object({ squadId: z.string() })"
+   },
+   "performEspionage": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Perform espionage on enemy village",
+    "input": "z.object({ villageId: z.string(), anbuId: z.string() })"
+   }
+  },
+  "applications": {
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create a new staff application",
+    "input": "createApplicationSchema"
+   },
+   "get": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a staff application by ID",
+    "input": "z.object({ id: z.string() })"
+   },
+   "list": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "List staff applications with filters",
+    "input": "listApplicationsInfiniteSchema"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "approve": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "reject": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), reason: z.string().min(1).max(2000).optional(), }),"
+   }
+  },
+  "asset": {
+   "getNameTags": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get game asset name tags",
+    "input": "z.object({ type: z.enum(GameAssetTypes).optional(), selected: z.array(z.string()).optional(), }),"
+   },
+   "getAllNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all game asset names",
+    "input": "z.object({ type: z.enum(GameAssetTypes).optional(), folderPrefix: z.boolean().optional(), }),"
+   },
+   "getAllGameAssetContentTagNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all game asset content tag names"
+   },
+   "getAllFolders": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all game asset folders"
+   },
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all game assets with filtering",
+    "input": "gameAssetSchema.extend({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), nameTokens: z.array(z.string()).optional(), }),"
+   },
+   "getSceneAssets": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get scene assets by IDs",
+    "input": "z.object({ assetIds: z.array(z.string()) })"
+   },
+   "get": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a game asset by ID",
+    "input": "z.object({ id: z.string() })"
+   },
+   "update": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), data: gameAssetValidator })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   }
+  },
+  "auction": {
+   "getAuctionListing": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get auction listing details and bids",
+    "input": "z.object({ auctionId: z.string() })"
+   },
+   "getAuctionListings": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get paginated auction listings",
+    "input": "getAuctionListingsSchema"
+   },
+   "createAuctionListing": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create new auction listing for item",
+    "input": "createAuctionListingSchema"
+   },
+   "placeBid": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Place bid on auction listing",
+    "input": "z.object({ auctionId: z.string(), amount: z.number().int().min(1), }),"
+   },
+   "completeAuction": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Complete expired auction",
+    "input": "z.object({ auctionId: z.string() })"
+   },
+   "cancelAuction": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Cancel your auction listing with no bids",
+    "input": "z.object({ auctionId: z.string() })"
+   }
+  },
+  "audio": {
+   "generate": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "generateAudioSchema"
+   },
+   "getHistorical": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ relationId: z.string().optional(), limit: z.number().min(1).max(100).optional(), cursor: z.number().optional(), }),"
+   }
+  },
+  "avatar": {
+   "createAvatar": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Generate a new AI avatar"
+   },
+   "getHistoricalAvatars": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's historical avatars",
+    "input": "z.object({ relationId: z.string().nullish(), limit: z.number().min(1).max(100).nullish(), cursor: z.number().nullish(), }),"
+   },
+   "updateAvatar": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Set active avatar from history",
+    "input": "z.object({ avatar: z.number(), type: z.enum(ContentTypes) })"
+   },
+   "deleteAvatar": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Delete an avatar from history",
+    "input": "z.object({ avatar: z.number() })"
+   }
+  },
+  "badge": {
+   "getAllNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all badge names and images"
+   },
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all badges with pagination",
+    "input": "z .object({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), }) .optional(),"
+   },
+   "get": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get badge by ID",
+    "input": "z.object({ id: z.string() })"
+   },
+   "update": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), data: BadgeValidator })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   }
+  },
+  "bank": {
+   "toBank": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Deposit ryo from pocket to bank",
+    "input": "z.object({ amount: z.number().min(0) })"
+   },
+   "toPocket": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Withdraw ryo from bank to pocket",
+    "input": "z.object({ amount: z.number().min(0) })"
+   },
+   "transfer": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Transfer ryo from your bank to another user",
+    "input": "z.object({ amount: z.number().min(0), targetId: z.string() })"
+   },
+   "getGraph": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get bank transfer graph data",
+    "input": "z .object({ minAmount: z.number().min(1).prefault(100), dayLimit: z.number().min(1).max(365).prefault(30), }) .optional() .prefault({}),"
+   },
+   "getTransfers": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get paginated bank transfer history",
+    "input": "z.object({ senderId: z.string().optional().nullish(), receiverId: z.string().optional().nullish(), cursor: z.number().nullish(), limit: z.number().min(1).max(100), }),"
+   },
+   "getPendingInterest": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get pending daily bank interest"
+   },
+   "claimInterest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Claim accumulated daily bank interest"
+   }
+  },
+  "blackmarket": {
+   "getRyoOffers": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get ryo trade offers",
+    "input": "z.object({ cursor: z.number().nullish(), limit: z.number().min(1).max(100).nullish(), activeToggle: z.boolean().nullish(), creator: z.string().nullish(), buyer: z.string().nullish(), }),"
+   },
+   "getGraph": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get ryo trade graph data"
+   },
+   "createOffer": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create a ryo trade offer",
+    "input": "z.object({ reps: z.coerce.number().int().min(1), ryo: z.coerce.number().int().min(1), allowedUser: z.string().nullish(), }),"
+   },
+   "delistOffer": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Remove a ryo trade offer",
+    "input": "z.object({ offerId: z.string() })"
+   },
+   "takeOffer": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Purchase a ryo trade offer",
+    "input": "z.object({ offerId: z.string() })"
+   },
+   "updateCustomTitle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update user's custom title",
+    "input": "z.object({ title: z.string().min(1).max(15) })"
+   },
+   "changeUserGender": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Change user's gender",
+    "input": "z.object({ gender: z.enum(genders) })"
+   },
+   "buyItemSlot": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Purchase an extra item slot"
+   },
+   "buyJutsuSlot": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Purchase an extra jutsu slot"
+   },
+   "rerollElement": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Reroll primary or secondary element",
+    "input": "z.object({ elementType: z.enum([\"primary\", \"secondary\"]) })"
+   },
+   "updateStats": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Redistribute user stats",
+    "input": "statSchema"
+   }
+  },
+  "bloodline": {
+   "getAllNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all bloodline names and images"
+   },
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get paginated bloodlines with filters",
+    "input": "bloodlineFilteringSchema.extend({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), }),"
+   },
+   "get": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a specific bloodline by ID",
+    "input": "z.object({ id: z.string() })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "getUserHistoricBloodlines": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's historic bloodlines"
+   },
+   "getUserHistoricBloodlinesForStaff": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a user's historic bloodlines (staff)",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "getSwapInfo": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get bloodline swap availability and cost info"
+   },
+   "swapBloodline": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Swap to a previously owned bloodline",
+    "input": "z.object({ bloodlineId: z.string() })"
+   },
+   "createReskin": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "bloodlineReskinCreateSchema"
+   },
+   "updateReskin": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ reskinId: z.string(), data: bloodlineReskinUpdateSchema })"
+   },
+   "deleteReskin": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ reskinId: z.string() })"
+   },
+   "removeBloodlineFromPool": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "removeBloodlineFromPoolSchema"
+   },
+   "getReskin": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a specific bloodline reskin",
+    "input": "z.object({ reskinId: z.string() })"
+   },
+   "getReskinsForBloodline": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all reskins for a bloodline",
+    "input": "z.object({ bloodlineId: z.string() })"
+   },
+   "getAllReskins": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get paginated bloodline reskins",
+    "input": "bloodlineFilteringSchema.extend({ cursor: z.number().nullish(), limit: z.number().min(1).max(1000), }),"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "update": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), data: BloodlineValidator })"
+   },
+   "getNaturalRolls": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's natural bloodline roll"
+   },
+   "getItemRolls": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's item bloodline rolls"
+   },
+   "getNaturalRollStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get bloodline roll statistics by rank"
+   },
+   "roll": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Roll for a natural bloodline"
+   },
+   "pityRoll": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Use pity roll for a bloodline",
+    "input": "z.object({ rank: z.enum(LetterRanks).optional().nullish() })"
+   },
+   "removeBloodline": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Remove current bloodline"
+   },
+   "purchaseBloodline": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Purchase a bloodline with reputation",
+    "input": "z.object({ bloodlineId: z.string() })"
+   }
+  },
+  "bounty": {
+   "board": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get bounty board listings",
+    "input": "bountyBoardFilterSchema"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create bounty on target user",
+    "input": "createBountySchema"
+   },
+   "signup": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Sign up to track a bounty",
+    "input": "signupBountySchema"
+   },
+   "resign": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Resign from bounty tracking",
+    "input": "resignBountySchema"
+   },
+   "stopTracking": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Stop tracking a bounty",
+    "input": "z.object({ bountyId: z.string() })"
+   },
+   "collect": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Collect bounty reward after kill",
+    "input": "collectBountySchema"
+   },
+   "addMoney": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Add ryo to existing bounty",
+    "input": "addBountyMoneySchema"
+   },
+   "retract": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Retract bounty and get refund",
+    "input": "retractBountySchema"
+   },
+   "removeAllTrackers": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ bountyId: z.string() })"
+   },
+   "getTrackedBounties": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get bounties you are tracking"
+   }
+  },
+  "clan": {
+   "purchaseHideout": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Purchase faction hideout",
+    "input": "z.object({ clanId: z.string(), sector: z.number() })"
+   },
+   "upgradeHideoutToTown": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Upgrade hideout to town",
+    "input": "z.object({ clanId: z.string() })"
+   },
+   "clanDonate": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Donate reputation to faction treasury",
+    "input": "z.object({ reputationPoints: z.number().min(0), clanId: z.string(), }),"
+   },
+   "get": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get clan/faction details",
+    "input": "z.object({ clanId: z.string() })"
+   },
+   "getAll": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all clans/factions in village",
+    "input": "z.object({ villageId: z.string(), isOutlaw: z.boolean() })"
+   },
+   "getAllNames": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all clan/faction names"
+   },
+   "getRequests": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get pending clan join requests",
+    "input": "clanGetRequestSchema"
+   },
+   "searchClans": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Search clans/factions by name",
+    "input": "z.object({ name: z.string().trim() })"
+   },
+   "createRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Request to join clan/faction",
+    "input": "z.object({ clanId: z.string() })"
+   },
+   "rejectRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Reject clan join request",
+    "input": "z.object({ id: z.string() })"
+   },
+   "cancelRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Cancel your clan join request",
+    "input": "z.object({ id: z.string() })"
+   },
+   "acceptRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Accept clan join request",
+    "input": "z.object({ id: z.string() })"
+   },
+   "createClan": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create new clan/faction",
+    "input": "clanCreateSchema"
+   },
+   "editClan": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Edit clan/faction name and image",
+    "input": "factionEditSchema"
+   },
+   "editClanColor": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Change faction color",
+    "input": "z.object({ clanId: z.string(), color: z.string() })"
+   },
+   "promoteMember": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Promote clan member to leadership",
+    "input": "z.object({ clanId: z.string(), memberId: z.string() })"
+   },
+   "demoteMember": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Demote clan member from leadership",
+    "input": "z.object({ clanId: z.string(), memberId: z.string() })"
+   },
+   "kickMember": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Kick member from clan",
+    "input": "z.object({ clanId: z.string(), memberId: z.string() })"
+   },
+   "leaveClan": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Leave current clan/faction",
+    "input": "z.object({ clanId: z.string() })"
+   },
+   "upsertNotice": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update clan notice/order",
+    "input": "z.object({ content: z.string(), clanId: z.string() })"
+   },
+   "fightLeader": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Challenge clan leader for leadership",
+    "input": "z.object({ clanId: z.string(), villageId: z.string() })"
+   },
+   "toBank": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Deposit ryo to clan bank",
+    "input": "z.object({ amount: z.number().min(0), clanId: z.string() })"
+   },
+   "purchaseBoost": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Purchase clan stat boost",
+    "input": "z.object({ clanId: z.string(), boostType: clanBoostTypeSchema })"
+   },
+   "nominateElder": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Nominate clan member for village elder",
+    "input": "z.object({ clanId: z.string(), nomineeId: z.string() })"
+   },
+   "getClanBattles": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get clan battle history",
+    "input": "z.object({ clanId: z.string() })"
+   },
+   "challengeClan": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Challenge another clan to battle",
+    "input": "z.object({ challengerClanId: z.string(), targetClanId: z.string() })"
+   },
+   "joinClanBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Join ongoing clan battle queue",
+    "input": "z.object({ clanBattleId: z.string() })"
+   },
+   "leaveClanBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Leave clan battle queue",
+    "input": "z.object({ clanBattleId: z.string() })"
+   },
+   "kickFromClanBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Kick member from clan battle queue",
+    "input": "z.object({ clanBattleId: z.string(), targetId: z.string(), clanId: z.string() }),"
+   },
+   "initiateClanBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start clan battle combat",
+    "input": "z.object({ clanBattleId: z.string() })"
+   },
+   "instantJoinAndLead": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ clanId: z.string() })"
+   },
+   "clearLeadership": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ clanId: z.string() })"
+   }
+  },
+  "combat": {
+   "getBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get current battle state",
+    "input": "z.object({ battleId: z.string().optional().nullable() })"
+   },
+   "getBattleEntries": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get battle action log entries",
+    "input": "z.object({ battleId: z.string(), refreshKey: z.number().optional(), checkBattle: z.boolean().optional(), limit: z.number().optional(), offset: z.number().optional(), // Filter: \"all\" = no filter, \"user\" = only current user, \"opponents\" = exclude current user userFilter: z.enum([\"all\", \"user\", \"opponents\"]).optional(), // Whether to include basic actions (move, wait, etc.) in results showBasicActions: z.boolean().optional(), }),"
+   },
+   "getGraph": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get battle history graph data",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "getBattleHistoryEntry": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get specific battle history entry",
+    "input": "z.object({ battleId: z.string() })"
+   },
+   "getBattleHistory": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user battle history",
+    "input": "z.object({ userId: z.string().optional(), secondsBack: z.number().optional(), combatTypes: z.array(z.enum(BattleTypes)).optional(), }),"
+   },
+   "performAction": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Perform action in battle",
+    "input": "performActionSchema"
+   },
+   "battleArenaHeal": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Heal in battle arena for ryo"
+   },
+   "startArenaBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start battle arena fight against AI",
+    "input": "z.object({ aiId: z.string(), stats: statSchema.nullish() })"
+   },
+   "attackUser": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Attack another user to initiate combat",
+    "input": "z.object({ // Coordinate bounds are enforced here (zod), so no sector-map read is // needed to validate reachability: the target is another player, who can // only ever stand on a walkable, in-bounds tile. longitude: z .int() .min(0) .max(SECTOR_WIDTH - 1), latitude: z .int() .min(0) .max(SECTOR_HEIGHT - 1), sector: sectorIdSchema, userId: z.string(), asset: z.enum(COMBAT_BIOMES).optional(), }),"
+   },
+   "updateCombatLoadout": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update jutsu/item loadout in combat lobby",
+    "input": "z.object({ battleId: z.string(), jutsuLoadoutId: z.string().optional(), itemLoadoutId: z.string().optional(), }),"
+   },
+   "iAmHere": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Mark ready in combat lobby",
+    "input": "z.object({ battleId: z.string() })"
+   },
+   "startShrineBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start battle at war shrine",
+    "input": "z.object({ sector: sectorIdSchema })"
+   },
+   "listOngoingBattles": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ battleType: z.enum(BattleTypes).prefault(\"RANKED_PVP\"), limit: z.number().min(1).max(100).prefault(20), offset: z.number().min(0).prefault(0), }),"
+   }
+  },
+  "comments": {
+   "getReportComments": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get comments on a user report",
+    "input": "z.object({ id: z.string(), cursor: z.number().nullish(), limit: z.number().min(1).max(100), }),"
+   },
+   "createReportComment": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Add a comment to a user report",
+    "input": "reportCommentSchema"
+   },
+   "getForumComments": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get comments on a forum thread",
+    "input": "z.object({ thread_id: z.string(), cursor: z.number().nullish(), limit: z.number().min(1).max(100), }),"
+   },
+   "createForumComment": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Post a comment on a forum thread",
+    "input": "mutateCommentSchema"
+   },
+   "editForumComment": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Edit your forum comment",
+    "input": "mutateCommentSchema"
+   },
+   "deleteForumComment": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Delete your forum comment",
+    "input": "deleteCommentSchema"
+   },
+   "getUserConversations": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's conversations",
+    "input": "z.object({ selectedConvo: z.string().nullish().optional() })"
+   },
+   "createConversation": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create a new private conversation",
+    "input": "createConversationSchema"
+   },
+   "exitConversation": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Leave a conversation",
+    "input": "z.object({ convo_id: z.string() })"
+   },
+   "fetchConversationComment": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Fetch a single conversation comment",
+    "input": "z.object({ commentId: z.string() })"
+   },
+   "getConversationComments": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get messages in a conversation",
+    "input": "z .object({ convo_id: z.string().optional(), convo_title: z.string().min(1).max(30).optional(), cursor: z.number().nullish(), limit: z.number().min(1).max(100), refreshKey: z.number().optional(), searchQuery: z.string().optional(), }) .refine( (data) => !!data.convo_id || !!data.convo_title, \"Either convo_id or convo_title is required\", ),"
+   },
+   "createConversationComment": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Send a message in a conversation",
+    "input": "mutateCommentSchema"
+   },
+   "reactConversationComment": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Add emoji reaction to a message",
+    "input": "z.object({ commentId: z.string(), emoji: z.string() })"
+   },
+   "sendTypingIndicator": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Send typing indicator to conversation",
+    "input": "z.object({ conversationId: z.string() })"
+   },
+   "editConversationComment": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Edit your conversation message",
+    "input": "mutateCommentSchema"
+   },
+   "deleteConversationComment": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Delete your conversation message",
+    "input": "deleteCommentSchema"
+   }
+  },
+  "conceptart": {
+   "toggleEmotion": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ imageId: z.string(), type: z.enum(SmileyEmotions) })"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "conceptArtPromptSchema"
+   },
+   "createVideo": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "conceptVideoPromptSchema"
+   },
+   "checkVideoStatusRead": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ id: z.string() })"
+   },
+   "finalizeVideoUpload": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z .object({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), }) .extend(conceptArtFilterSchema.shape),"
+   },
+   "get": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ id: z.string() })"
+   }
+  },
+  "data": {
+   "getAbTests": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ startDate: z.string().optional(), endDate: z.string().optional(), utmSource: z.string().optional(), deviceType: z.array(z.enum([\"mobile\", \"desktop\", \"unknown\"])).optional(), }),"
+   },
+   "getVisitorUtmSources": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "getRecruitmentMainMetrics": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ startDate: z.string().optional(), endDate: z.string().optional(), utmSource: z.string().optional(), deviceType: z.array(z.enum([\"mobile\", \"desktop\", \"unknown\"])).optional(), questFunnels: z.array(z.string()).optional(), includeTutorialDisabled: z.boolean().optional(), includeTierTutorialDisabled: z.boolean().optional(), }),"
+   },
+   "getReferralSources": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "getRevenueByReferralSource": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ startDate: z.string().optional(), endDate: z.string().optional() }),"
+   },
+   "getRecruitmentLevelDistribution": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ sources: z.array(z.string()).optional(), startDate: z.string().optional(), endDate: z.string().optional(), metric: z.enum(RecruitmentMetrics).optional(), }),"
+   },
+   "getRecruitmentDailyLevelStats": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ sources: z.array(z.string()).optional(), startDate: z.string().optional(), endDate: z.string().optional(), }),"
+   },
+   "getRecruitmentDailyCountsBySource": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ sources: z.array(z.string()).optional(), startDate: z.string().optional(), endDate: z.string().optional(), }),"
+   },
+   "deleteSingleDataBattleAction": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ contentId: z.string(), type: z.enum(BattleDataEntryType), }),"
+   },
+   "deleteAllDataBattleAction": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ type: z.enum(BattleDataEntryType) })"
+   },
+   "getBloodlineBalanceStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), bloodlineRanks: z.array(z.string()).optional(), statClassifications: z.array(z.string()).optional(), }),"
+   },
+   "getJutsuBalanceStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), jutsuEffects: z.array(z.string()).optional(), bloodlineIds: z.array(z.string()).optional(), }),"
+   },
+   "getJutsuEffectsBalanceStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "jutsuFilteringSchema"
+   },
+   "getItemEffectsBalanceStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "itemFilteringSchema.omit({ limit: true })"
+   },
+   "getBloodlineEffectsBalanceStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "bloodlineFilteringSchema"
+   },
+   "getAiEffectsBalanceStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "getPublicUsersSchema.extend({ effect: z.array(z.string()) })"
+   },
+   "getSkillTreeBalanceStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ minCount: z.number().min(1).default(1), skillEffects: z.array(z.string()).optional(), tiers: z.array(z.number()).optional(), }),"
+   },
+   "getSkillTreeEffectsBalanceStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "skillTreeFilteringSchema"
+   },
+   "getItemBalanceStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), itemTypes: z.array(z.string()).optional(), bloodlineIds: z.array(z.string()).optional(), }),"
+   },
+   "getAiBalanceStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), userRanks: z.array(z.string()).optional(), villages: z.array(z.string()).optional(), minLevel: z.number().min(1).default(1), maxLevel: z.number().max(100).default(100), }),"
+   },
+   "getBattleLengthStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get battle length distribution data",
+    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), minWinnerLevel: z.number().min(1).max(100).optional(), maxWinnerLevel: z.number().min(1).max(100).optional(), minLoserLevel: z.number().min(1).max(100).optional(), maxLoserLevel: z.number().min(1).max(100).optional(), }),"
+   },
+   "getQueueLengthStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ rankedRanks: z.array(z.enum(RANKED_RANKS)).optional(), minCount: z.number().min(1).default(1), }),"
+   },
+   "clearAllBattleLengths": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "clearAllQueueLengths": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "getRankedLoadoutStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ minCount: z.number().min(1).default(1), limit: z.number().min(1).max(100).default(50), types: z.array(z.string()).optional(), name: z.string().optional(), }),"
+   },
+   "getRankedRankDistributionStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ minCount: z.number().min(1).default(1), minLevel: z.number().min(1).max(100).optional(), maxLevel: z.number().min(1).max(100).optional(), }),"
+   },
+   "getQuestRewardStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ reward: z.enum(QuestRewardMetrics).default(\"reward_money\"), questTypes: z.array(z.enum(QuestTypes)).optional(), }),"
+   },
+   "getStatistics": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ id: z.string(), type: z.enum([\"jutsu\", \"item\", \"bloodline\", \"basic\", \"ai\"]), battleType: z.enum(BattleTypes).optional(), startDate: z.string().optional(), endDate: z.string().optional(), }),"
+   }
+  },
+  "forum": {
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all forum boards"
+   },
+   "readNews": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Mark news as read for current user"
+   },
+   "getThreads": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get threads for a forum board",
+    "input": "z.object({ boardId: z.string().optional(), boardName: z.string().optional(), cursor: z.number().nullish(), limit: z.number().min(1).max(100), }),"
+   },
+   "createThread": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create a new forum thread",
+    "input": "forumBoardSchema"
+   },
+   "pinThread": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Pin or unpin a forum thread (requires moderation permissions)",
+    "input": "z.object({ thread_id: z.string(), status: z.boolean() })"
+   },
+   "lockThread": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Lock or unlock a forum thread (requires moderation permissions)",
+    "input": "z.object({ thread_id: z.string(), status: z.boolean() })"
+   },
+   "deleteThread": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Delete a forum thread (requires moderation permissions)",
+    "input": "z.object({ thread_id: z.string() })"
+   }
+  },
+  "home": {
+   "toggleSleep": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Toggle between awake and asleep status"
+   },
+   "getUserHome": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get current user home info"
+   },
+   "getAvailableUpgrades": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get available home upgrades"
+   },
+   "upgradeHome": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Upgrade or downgrade home",
+    "input": "z.object({ homeType: z.enum(HomeTypes) })"
+   },
+   "toggleStoreItem": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Store or retrieve item from home",
+    "input": "z.object({ userItemId: z.string() })"
+   }
+  },
+  "hospital": {
+   "getHospitalizedUsers": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get hospitalized users in current sector"
+   },
+   "userHeal": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Heal another user using chakra",
+    "input": "z.object({ userId: z.string(), healPercentage: z.int().min(1).max(100), }),"
+   },
+   "npcHeal": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Pay NPC to heal and leave hospital",
+    "input": "z.object({ villageId: z.string().nullish() })"
+   }
+  },
+  "item": {
+   "getAllNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all item names and images"
+   },
+   "getBloodlineItemNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get names of items associated with a bloodline",
+    "input": "z.object({ bloodlineId: z.string().nullish() })"
+   },
+   "get": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a specific item by ID, or null if no such item exists",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getItemWithCraftingRequirements": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get item with crafting requirements",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getUserItem": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a specific user item",
+    "input": "z.object({ id: z.string() })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ type: z.enum(ItemTypes) })"
+   },
+   "clone": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "update": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), data: ItemValidator })"
+   },
+   "getEvolutions": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all evolution items for a parent item",
+    "input": "getItemEvolutionsSchema"
+   },
+   "evolveItem": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Evolve an item into its evolution",
+    "input": "evolveItemSchema"
+   },
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get paginated items with filters",
+    "input": "itemFilteringSchema.extend({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), }),"
+   },
+   "getUserItemCounts": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user item counts by item ID"
+   },
+   "getUserItems": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all user items"
+   },
+   "getUserItemsWithVariants": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all user items including variant data"
+   },
+   "getPublicUserItems": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "getPublicUserItemsSchema"
+   },
+   "adjustUserItem": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "adjustUserItemSchema"
+   },
+   "getItemVariants": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ itemId: z.string() })"
+   },
+   "getUserUnlockedVariants": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ itemId: z.string() })"
+   },
+   "upsertItemVariant": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ itemId: z.string(), variant: ItemVariantValidator })"
+   },
+   "deleteItemVariant": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ variantId: z.string() })"
+   },
+   "purchaseVariant": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ variantId: z.string() })"
+   },
+   "selectVariant": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userItemId: z.string(), variantId: z.string().nullable(), }),"
+   },
+   "consumeVariantToken": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ tokenUserItemId: z.string(), variantId: z.string() })"
+   },
+   "getItemRelations": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get item relations and dependencies",
+    "input": "z.object({ itemId: z.string() })"
+   },
+   "mergeStacks": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Merge carried stacks for one item type (storedAtHome=false). Per (storedAtHome+equipped) bucket; home storage is not included",
+    "input": "z.object({ itemId: z.string() })"
+   },
+   "mergeAllStacks": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Merge all mergeable item stacks in carried inventory (storedAtHome=false) or home storage (storedAtHome=true)",
+    "input": "z.object({ storedAtHome: z.boolean().optional() }).nullish()"
+   },
+   "splitStack": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Split an item stack",
+    "input": "z.object({ userItemId: z.string(), quantityToKeep: z.int().min(1), }),"
+   },
+   "sellUserItem": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Sell or drop a user item",
+    "input": "z.object({ userItemId: z.string() })"
+   },
+   "toggleEquip": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Toggle item equip status",
+    "input": "z.object({ userItemId: z.string(), slot: z.enum(ItemSlots).optional() })"
+   },
+   "unequipAllItems": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Unequip all items on the character and clear the active item loadout"
+   },
+   "consume": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Consume a consumable item",
+    "input": "z.object({ userItemId: z.string() })"
+   },
+   "repair": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Repair an item with ryo",
+    "input": "z.object({ userItemId: z.string() })"
+   },
+   "repairAll": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Repair all items with ryo"
+   },
+   "useRepairItem": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Use repair kit on an item",
+    "input": "z.object({ repairItemId: z.string(), targetItemId: z.string() })"
+   },
+   "useRepairAll": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Use repair kits to fix all items"
+   },
+   "buy": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Buy an item from shop",
+    "input": "itemBuySchema"
+   },
+   "autoEquipOptimal": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Auto-equip best items by cost"
+   },
+   "getItemLoadouts": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's item loadouts"
+   },
+   "selectItemLoadout": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Select an item loadout",
+    "input": "z.object({ id: z.string() })"
+   },
+   "renameLoadout": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Rename an item loadout",
+    "input": "renameLoadoutSchema"
+   }
+  },
+  "jutsu": {
+   "getRecentTransfers": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's recent jutsu level transfers"
+   },
+   "transferLevel": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Transfer levels between jutsus",
+    "input": "z.object({ fromJutsuId: z.string(), toJutsuId: z.string(), transferLevels: z.number().min(1, \"Must transfer at least 1 level\"), }),"
+   },
+   "getAllNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all jutsu names and images"
+   },
+   "get": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a specific jutsu by ID",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get paginated jutsus with filters",
+    "input": "jutsuFilteringSchema.extend({ cursor: z.number().nullish(), limit: z.number().min(1).max(1000), hideAi: z.boolean().optional(), }),"
+   },
+   "getLoadouts": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's jutsu loadouts"
+   },
+   "selectJutsuLoadout": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Select a jutsu loadout",
+    "input": "z.object({ id: z.string() })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "forget": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Forget a learned jutsu",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getEvolutions": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all evolution jutsus for a parent jutsu",
+    "input": "getEvolutionsSchema"
+   },
+   "evolveJutsu": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Evolve a jutsu into its evolution",
+    "input": "evolveJutsuSchema"
+   },
+   "update": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), data: JutsuValidator })"
+   },
+   "getUserJutsus": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get current user's jutsus",
+    "input": "jutsuFilteringSchema"
+   },
+   "getUserJutsuOwnership": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get current user's jutsu ownership (ids + ancestor ids)"
+   },
+   "getPublicUserJutsus": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "adjustUserJutsu": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string(), jutsuId: z.string(), level: z.number(), reskinId: z.string().nullable().optional(), }),"
+   },
+   "startTraining": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start training a jutsu",
+    "input": "z.object({ jutsuId: z.string() })"
+   },
+   "stopTraining": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Stop training current jutsu"
+   },
+   "unequipAll": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Unequip all jutsus"
+   },
+   "toggleEquip": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Toggle jutsu equip status",
+    "input": "z.object({ userJutsuId: z.string() })"
+   },
+   "updateUserJutsuOrder": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Reorder jutsu in loadout",
+    "input": "z.object({ jutsuId: z.string(), loadoutId: z.string(), moveForward: z.boolean(), }),"
+   },
+   "renameLoadout": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Rename a jutsu loadout",
+    "input": "renameLoadoutSchema"
+   },
+   "createReskin": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create a jutsu reskin",
+    "input": "jutsuReskinCreateSchema"
+   },
+   "updateReskin": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ reskinId: z.string(), data: jutsuReskinUpdateSchema })"
+   },
+   "getAllReskins": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get paginated jutsu reskins",
+    "input": "jutsuFilteringSchema.extend({ cursor: z.number().nullish(), limit: z.number().min(1).max(1000), hideAi: z.boolean().optional(), }),"
+   },
+   "getUserReskins": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's jutsu reskins"
+   },
+   "getReskinsForJutsu": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all reskins for a jutsu",
+    "input": "z.object({ jutsuId: z.string() })"
+   },
+   "getReskin": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a specific jutsu reskin",
+    "input": "z.object({ reskinId: z.string() })"
+   },
+   "removeReskin": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Remove reskin from a jutsu",
+    "input": "z.object({ userJutsuId: z.string() })"
+   },
+   "getJutsuRelations": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get jutsu relations and dependencies",
+    "input": "z.object({ jutsuId: z.string() })"
+   }
+  },
+  "kage": {
+   "getDailyLockedTime": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get kage daily locked time"
+   },
+   "getUserChallenges": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's kage challenges"
+   },
+   "createChallenge": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Challenge the kage for position",
+    "input": "z.object({ kageId: z.string(), villageId: z.string() })"
+   },
+   "acceptChallenge": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Accept a kage challenge",
+    "input": "z.object({ id: z.string() })"
+   },
+   "rejectChallenge": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Reject a kage challenge",
+    "input": "z.object({ id: z.string() })"
+   },
+   "cancelChallenge": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Cancel a kage challenge",
+    "input": "z.object({ id: z.string() })"
+   },
+   "resignKage": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Resign from kage position",
+    "input": "z.object({ villageId: z.string() })"
+   },
+   "sendKagePrestige": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Send prestige to the kage as elder",
+    "input": "z.object({ kageId: z.string(), amount: z.number() })"
+   },
+   "takeKage": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ reason: z .string() .min(10, \"Reason must be at least 10 characters\") .transform((val) => val.trim()), }),"
+   },
+   "upsertNotice": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update village notice as kage",
+    "input": "z.object({ content: z.string() })"
+   },
+   "getElders": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get village elders",
+    "input": "z.object({ villageId: z.string() })"
+   },
+   "upgradeStructure": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Upgrade village structure as kage",
+    "input": "z.object({ structureId: z.string(), villageId: z.string(), clanId: z.string().nullish(), }),"
+   },
+   "toggleOpenForChallenges": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Toggle kage challenge availability",
+    "input": "z.object({ villageId: z.string() })"
+   },
+   "initiateKageRemovalVote": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Initiate a vote to remove the current kage",
+    "input": "z.object({ villageId: z.string() })"
+   },
+   "voteOnKageRemoval": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Vote on a pending kage removal motion",
+    "input": "z.object({ voteId: z.string(), vote: z.enum([\"YES\", \"NO\"]) })"
+   }
+  },
+  "linkpromotion": {
+   "getLinkPromotions": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), userId: z.string(), }),"
+   },
+   "submitLinkPromotion": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "linkPromotionSchema"
+   },
+   "reviewLinkPromotion": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "linkPromotionReviewSchema"
+   }
+  },
+  "logs": {
+   "getContentChanges": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "actionLogSchema.extend({ cursor: z.number().nullish(), limit: z.number().min(1).max(100), relatedId: z.string().optional(), username: z.string().optional(), }),"
+   },
+   "getBloodlineHistory": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ userId: z.string() })"
+   }
+  },
+  "mapAsset": {
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all map decoration assets (the shared sprite library)"
+   },
+   "get": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ id: z.string() })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "update": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), data: mapAssetValidator })"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   }
+  },
+  "mapTerrain": {
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all map terrain kinds (the shared terrain library)"
+   },
+   "get": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ id: z.string() })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "update": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), data: mapTerrainValidator })"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   }
+  },
+  "marriage": {
+   "createRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Send a marriage proposal to another user",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "getRequests": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get pending marriage requests"
+   },
+   "rejectRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Reject a marriage proposal",
+    "input": "z.object({ id: z.string() })"
+   },
+   "cancelRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Cancel your marriage proposal",
+    "input": "z.object({ id: z.string() })"
+   },
+   "acceptRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Accept a marriage proposal",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getMarriedUsers": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get list of married users",
+    "input": "z.object({ id: z.string().optional() })"
+   },
+   "getDivorcedAssociations": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get divorce history"
+   },
+   "divorce": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Divorce a married user",
+    "input": "z.object({ userId: z.string() })"
+   }
+  },
+  "misc": {
+   "trackVisitor": {
+    "procedure": "publicProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Track visitor for analytics",
+    "input": "z.object({ ref: z.string().max(191).optional(), utmSource: z.string().max(191).optional(), }),"
+   },
+   "getAllGameAssetNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all game asset names",
+    "input": "z.object({ ids: z.array(z.string()) }).nullish()"
+   },
+   "getCaptcha": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get captcha for verification"
+   },
+   "submitNotification": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ content: z.string().min(2).max(10000), senderId: z.string() })"
+   },
+   "getPreviousNotifications": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get paginated notifications history",
+    "input": "z.object({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), }),"
+   },
+   "getSetting": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a game setting by name",
+    "input": "z.object({ name: z.string() })"
+   },
+   "getGlobalTavernEnabled": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Check if global tavern is enabled"
+   },
+   "toggleGlobalTavern": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ enabled: z.boolean() })"
+   },
+   "getActivePlayers24h": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get active players in last 24 hours"
+   },
+   "setEventGameSetting": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "changeSettingSchema"
+   },
+   "getDmgConfig": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get the current damage formula config"
+   },
+   "setDmgConfig": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "confSchema"
+   },
+   "awardReputation": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "awardSchema"
+   },
+   "getAllAwards": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all reputation awards",
+    "input": "awardsFilteringSchema.extend({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), }),"
+   },
+   "getPersonalEmailReminder": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's email reminder settings"
+   },
+   "getEmailReminder": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get email reminder by secret",
+    "input": "z.object({ email: z.email(), secret: z.string() })"
+   },
+   "toggleEmailReminder": {
+    "procedure": "publicProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Toggle email reminder on/off",
+    "input": "z.object({ email: z.email(), secret: z.string(), disabled: z.boolean(), }),"
+   },
+   "deleteEmailReminder": {
+    "procedure": "publicProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Delete email reminder",
+    "input": "z.object({ email: z.email(), secret: z.string(), }),"
+   },
+   "reviewSupportWithAI": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Submit AI support chat review",
+    "input": "z.object({ apiRoute: z.string(), chatHistory: z.array(z.any()), sentiment: z.enum(Sentiment), }),"
+   }
+  },
+  "occupation": {
+   "getCraftableItems": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all craftable items"
+   },
+   "selectOccupation": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Select a crafting occupation",
+    "input": "z.object({ occupation: z.enum(OCCUPATIONS) })"
+   },
+   "craftItem": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Craft an item using materials",
+    "input": "z.object({ itemId: z.string(), quantity: z.int().min(1).max(10).prefault(1), }),"
+   },
+   "imbueItem": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Imbue an item with a crystal",
+    "input": "z.object({ userItemId: z.string(), userCrystalItemId: z.string(), }),"
+   },
+   "finishCraftingImmediately": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userItemId: z.string() })"
+   },
+   "finishImbuingImmediately": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userItemImbuementId: z.string() })"
+   },
+   "removeImbuement": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Remove an imbuement from an item",
+    "input": "z.object({ userItemImbuementId: z.string() })"
+   }
+  },
+  "openai": {
+   "create3dModel": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ imgUrl: z.url(\"imgUrl must be a valid http/https URL\"), field: z.string(), }),"
+   },
+   "createImg": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ preprompt: z.string(), prompt: z.string(), previousImg: z.string().optional(), removeBg: z.boolean(), relationId: z.string(), size: z.enum(IMG_ORIENTATIONS), maxDim: z.number(), }),"
+   }
+  },
+  "overworldAi": {
+   "getPlacementsForAi": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ aiTemplateUserId: z.string() })"
+   },
+   "getAllPlacementNames": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "getAssignableQuestNames": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "upsertPlacement": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string().optional(), data: OverworldPlacementSchema })"
+   },
+   "deletePlacement": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "interactWithOverworldAi": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ placementId: z.string(), positionVersion: z.number(), dialogContentId: z.string().optional(), }),"
+   }
+  },
+  "paypal": {
+   "resolveOrder": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ startDate: z.date().optional(), endDate: z.date().optional(), orderId: z.string().min(15).max(20), }),"
+   },
+   "resolveTransaction": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "searchPaypalTransactionSchema"
+   },
+   "resolveSubscription": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ subscriptionId: z.string(), orderId: z.string().optional(), }),"
+   },
+   "getRecentRepsCount": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "getPaypalTransactions": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ cursor: z.number().nullish(), limit: z.number().min(1).max(100), userId: z.string().optional(), }),"
+   },
+   "getPaypalSubscriptions": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "subscribeWithReps": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string(), status: z.enum(FederalStatuses) })"
+   },
+   "upgradeSubscription": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string(), plan: z.enum(FederalStatuses) })"
+   },
+   "cancelPaypalSubscription": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ subscriptionId: z.string() })"
+   }
+  },
+  "poll": {
+   "createPoll": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "createPollSchema"
+   },
+   "updatePoll": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "updatePollSchema"
+   },
+   "vote": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "votePollSchema"
+   },
+   "addOption": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "addPollOptionSchema"
+   },
+   "getPolls": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "getPollsSchema"
+   },
+   "getUserVote": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ pollId: z.string() })"
+   },
+   "retractVote": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "retractVoteSchema"
+   },
+   "closePoll": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "closePollSchema"
+   },
+   "deletePollOption": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "deletePollOptionSchema"
+   }
+  },
+  "profile": {
+   "updateBattleDescription": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Toggle battle description visibility",
+    "input": "z.object({ showBattleDescription: z.boolean() })"
+   },
+   "updateTutorialStep": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update user's tutorial progress step",
+    "input": "z.object({ step: z.number() })"
+   },
+   "updatePreferences": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update user game preferences",
+    "input": "updateUserPreferencesSchema"
+   },
+   "getBlacklist": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's blocked players list"
+   },
+   "toggleBlacklistEntry": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Add or remove a player from blacklist",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "getAllAiNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get list of all AI character names"
+   },
+   "levelUp": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Level up user when experience threshold met"
+   },
+   "getUser": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get current user's full profile data"
+   },
+   "getAi": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get AI character details by ID",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create a new AI character (content editors)"
+   },
+   "cloneAi": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Clone an existing AI character (content editors)",
+    "input": "z.object({ id: z.string() })"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Delete an AI character (content editors)",
+    "input": "z.object({ id: z.string() })"
+   },
+   "updateUser": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update user profile data (content editors)",
+    "input": "z.object({ id: z.string(), data: updateUserSchema })"
+   },
+   "updateAi": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update AI character data (content editors)",
+    "input": "z.object({ id: z.string(), data: insertAiSchema })"
+   },
+   "getUserAttributes": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's character attributes"
+   },
+   "getUsername": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Check if a username is taken",
+    "input": "z.object({ username: z.string().trim(), }),"
+   },
+   "updateUsername": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Change user's username for reputation cost",
+    "input": "z.object({ username: usernameSchema })"
+   },
+   "useUnusedExperiencePoints": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Assign earned experience to stats",
+    "input": "createStatSchema(0, 0).schema"
+   },
+   "getNindo": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's nindo (way of ninja) text",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "updateNindo": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update user's nindo text",
+    "input": "mutateContentSchema.extend({ userId: z.string() })"
+   },
+   "insertAttribute": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Add a character attribute to user",
+    "input": "z.object({ attribute: z.enum([...attributes, \"Hair\", \"Skin\", \"Eyes\"]), color: z.enum([...colors, ...skin_colors]).optional(), }),"
+   },
+   "deleteAttribute": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Remove a character attribute from user",
+    "input": "z.object({ attribute: z.string() })"
+   },
+   "searchUsers": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Search users by username",
+    "input": "z.object({ username: z.string().trim(), showYourself: z.boolean(), showAi: z.boolean(), }),"
+   },
+   "getPublicUser": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get public profile info for a user",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "countOnlineUsers": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get count of currently online users"
+   },
+   "getPublicUsers": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get paginated list of users with filters",
+    "input": "getPublicUsersSchema"
+   },
+   "getRecruitmentRewards": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's recruitment bonus history",
+    "input": "z.object({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), }),"
+   },
+   "toggleDeletionTimer": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "confirmDeletion": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Confirm and execute account deletion",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "claimVotes": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Claim reputation points for voting"
+   },
+   "getSeichiSilverForStaff": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a user's Seichi Silver balance (staff)",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "adjustSeichiSilver": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "adjustSeichiSilverSchema"
+   },
+   "awardExperience": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ targetUserId: z.string(), amount: z.number().min(1).max(100000), }),"
+   },
+   "awardExperienceToAll": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ amount: z.number().min(1).max(100000), }),"
+   }
+  },
+  "pvprank": {
+   "getUnclaimedUserSeasonRewards": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get unclaimed ranked season rewards"
+   },
+   "claimSeasonRewards": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Claim ranked season rewards"
+   },
+   "getSeasons": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all ranked PvP seasons"
+   },
+   "getSeason": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a specific ranked season",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getCurrentSeason": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get the current active ranked season"
+   },
+   "getCurrentTopPlayers": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get LP values of the top Legend players used for Sannin rank"
+   },
+   "createSeason": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "rankedSeasonSchema"
+   },
+   "updateSeason": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() }).extend(rankedSeasonSchema.shape)"
+   },
+   "deleteSeason": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "endSeason": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getRankedLoadout": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's ranked PvP loadout"
+   },
+   "getRankedPvpQueue": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's ranked PvP queue status"
+   },
+   "updateRankedLoadout": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update user's ranked PvP loadout",
+    "input": "rankedLoadoutSchema"
+   },
+   "enterRankedSeason": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Enter the current ranked season"
+   },
+   "queueForRankedPvp": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Join the ranked PvP matchmaking queue"
+   },
+   "leaveRankedPvpQueue": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Leave the ranked PvP matchmaking queue"
+   },
+   "checkRankedPvpMatches": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Check for available ranked PvP matches"
+   }
+  },
+  "quests": {
+   "getAllNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all quest names and IDs"
+   },
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get paginated list of quests with filters",
+    "input": "questFilteringSchema.extend({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), }),"
+   },
+   "get": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a single quest by ID",
+    "input": "z.object({ id: z.string() })"
+   },
+   "allianceBuilding": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get available event quests from alliance building",
+    "input": "z.object({ villageId: z.string().optional().nullish(), level: z.number().optional().nullish(), rank: z.array(z.enum(LetterRanks)).optional(), }),"
+   },
+   "missionHall": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get available missions from mission hall",
+    "input": "z.object({ villageId: z.string(), level: z.number() })"
+   },
+   "specificQuests": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get quests filtered by type and level",
+    "input": "z.object({ level: z.number(), questType: z.enum(QuestTypes) })"
+   },
+   "startRandom": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start a random mission or errand",
+    "input": "z.object({ type: z.enum([\"errand\", \"mission\", \"crime\", \"medical\", \"pvp\"]), rank: z.enum(LetterRanks), userLevel: z.number(), userSector: z.number(), userVillageId: z.string().nullish(), }),"
+   },
+   "startQuest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start a specific quest by ID",
+    "input": "z.object({ questId: z.string(), userSector: z.number() })"
+   },
+   "abandon": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Abandon an active quest",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getQuestHistory": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's quest history",
+    "input": "z.object({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), }),"
+   },
+   "update": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update quest content (content editors)",
+    "input": "z.object({ id: z.string(), data: QuestValidator })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create a new quest (content editors)"
+   },
+   "clone": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Clone an existing quest (content editors)",
+    "input": "z.object({ id: z.string() })"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Delete a quest (content editors)",
+    "input": "z.object({ id: z.string() })"
+   },
+   "checkRewards": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Check and claim quest rewards",
+    "input": "z.object({ questId: z.string(), nextObjectiveId: z.string().optional() })"
+   },
+   "checkLocationQuest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update quest progress for location-based objectives"
+   },
+   "getUserQuests": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "deleteUserQuest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string(), questId: z.string() })"
+   },
+   "retryBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Retry a quest battle after failure",
+    "input": "z.object({ questId: z.string() })"
+   }
+  },
+  "raids": {
+   "getCompletedRaids": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get completed raids for history and rewards",
+    "input": "z.object({ limit: z.number().min(1).max(50).prefault(20) }).nullish()"
+   },
+   "getAvailableRaids": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get available raids for current user",
+    "input": "z.object({ sector: z.number().optional() }).nullish()"
+   },
+   "getRaidDetails": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get details for a specific raid",
+    "input": "z.object({ questId: z.string() })"
+   },
+   "getRaidLeaderboard": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get raid damage leaderboard",
+    "input": "z.object({ questId: z.string(), limit: z.number().min(1).max(100).prefault(50), cursor: z.number().nullish(), }),"
+   },
+   "getUserRaidQueue": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's current raid queue status"
+   },
+   "getUserRaidBuffs": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's active raid buffs"
+   },
+   "getQuestThresholds": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get damage thresholds for a raid",
+    "input": "z.object({ questId: z.string() })"
+   },
+   "createDamageThreshold": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ questId: z.string(), damageRequired: z.number().min(1), sortOrder: z.number().min(0).max(255).prefault(0), rewards: ObjectiveReward, effects: z.array(AllTags).prefault([]), effectDurationMinutes: z.number().min(1).max(10080).prefault(60), }),"
+   },
+   "updateDamageThreshold": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ thresholdId: z.string(), damageRequired: z.number().min(1), sortOrder: z.number().min(0).max(255), rewards: ObjectiveReward, effects: z.array(AllTags).prefault([]), effectDurationMinutes: z.number().min(1).max(10080).prefault(60), }),"
+   },
+   "deleteDamageThreshold": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ thresholdId: z.string() })"
+   },
+   "getActiveRaidTeams": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get active teams for a raid",
+    "input": "z.object({ questId: z.string() })"
+   },
+   "readyToQueue": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "joinRaidQueue": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Join or create a raid team queue",
+    "input": "z.object({ questId: z.string(), teamId: z.string().optional(), // If provided, join existing team }),"
+   },
+   "leaveRaidQueue": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Leave the raid queue"
+   },
+   "startRaidBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start a raid battle with the team",
+    "input": "z.object({ teamId: z.string() })"
+   },
+   "claimDamageReward": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Claim raid damage threshold rewards",
+    "input": "z.object({ questId: z.string(), thresholdId: z.string(), }),"
+   }
+  },
+  "register": {
+   "setReferralSource": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Set referral source for analytics",
+    "input": "z.object({ utmSource: utmSourceSchema })"
+   },
+   "createCharacter": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create a new character",
+    "input": "registrationSchema"
+   }
+  },
+  "reports": {
+   "getReportSystemNames": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "getReportStatistics": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "getModBotPerformance": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ timeframe: z.enum([\"daily\", \"weekly\"]) })"
+   },
+   "getUserReports": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "getAll": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "reportFilteringSchema.extend({ cursor: z.number().nullish(), limit: z.number().min(1).max(100), }),"
+   },
+   "getBan": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "acceptWarning": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "get": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ id: z.string() })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "userReportSchema"
+   },
+   "ban": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "reportCommentSchema"
+   },
+   "silence": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "reportCommentSchema"
+   },
+   "timeout": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "reportTimeoutSchema"
+   },
+   "warn": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "reportCommentSchema"
+   },
+   "escalate": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "reportCommentSchema"
+   },
+   "clear": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "reportCommentSchema"
+   },
+   "updateUserAvatar": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "clearNindo": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "getUserStaffReviews": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "upsertStaffReview": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "userReviewSchema"
+   },
+   "getUserModerationSummary": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ userId: z.string().optional() })"
+   },
+   "tradeBan": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "reportCommentSchema"
+   }
+  },
+  "sageMode": {
+   "getAllNames": {
+    "procedure": "publicProcedure",
+    "kind": "query"
+   },
+   "getAllNamesForEdit": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "sageModeFilteringSchema.extend({ cursor: z.number().int().nonnegative().nullish(), limit: z.number().int().min(1).max(500), }),"
+   },
+   "get": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "z.object({ id: z.string() })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "update": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), data: SageModeValidator })"
+   },
+   "removeSageMode": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   }
+  },
+  "sensei": {
+   "getStudents": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get students of a sensei",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "getRequests": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get pending sensei requests"
+   },
+   "createRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Request to become sensei or student",
+    "input": "z.object({ targetId: z.string() })"
+   },
+   "rejectRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Reject a sensei request",
+    "input": "z.object({ id: z.string() })"
+   },
+   "cancelRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Cancel your sensei request",
+    "input": "z.object({ id: z.string() })"
+   },
+   "acceptRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Accept a sensei request",
+    "input": "z.object({ id: z.string() })"
+   },
+   "removeStudent": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Remove a student from your training",
+    "input": "z.object({ studentId: z.string() })"
+   },
+   "leaveSensei": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Leave your current sensei"
+   }
+  },
+  "shrine": {
+   "getShrineAis": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all shrine AI defenders"
+   },
+   "getCapturedSectors": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get captured sectors for a village",
+    "input": "z.object({ villageId: z.string() })"
+   },
+   "upgradeShrine": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Upgrade a shrine level (Kage only)",
+    "input": "z.object({ sectorNumber: z.number() })"
+   },
+   "activateBoost": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Activate village-wide shrine boost",
+    "input": "z.object({ boostType: z.enum(SHRINE_BOOST_TYPES), villageId: z.string() })"
+   },
+   "unlockAiDefender": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Unlock an AI defender for village",
+    "input": "z.object({ aiId: z.string() })"
+   },
+   "toggleVillageAiDefender": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Toggle AI defender active status",
+    "input": "z.object({ aiId: z.string() })"
+   },
+   "payWeeklyMaintenance": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Pay weekly shrine maintenance",
+    "input": "z.object({ sectorId: z.number() })"
+   },
+   "getBoostTemplate": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get boost template for a village",
+    "input": "getBoostTemplateSchema"
+   },
+   "setBoostTemplate": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Set boost template for a village (Kage/Elder only)",
+    "input": "setBoostTemplateSchema"
+   },
+   "getShrineBattles": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get active shrine battles for sector",
+    "input": "z.object({ sectorNumber: z.number() })"
+   },
+   "getUserQueuedShrineBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's queued shrine battle"
+   },
+   "challengeShrine": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Challenge a shrine to battle",
+    "input": "z.object({ sectorNumber: z.number() })"
+   },
+   "joinShrineBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Join a shrine battle queue",
+    "input": "z.object({ shrineBattleId: z.string(), side: z.enum([\"ATTACKER\", \"DEFENDER\"]), }),"
+   },
+   "leaveShrineBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Leave a shrine battle queue",
+    "input": "z.object({ shrineBattleId: z.string() })"
+   },
+   "initiateShrineBattle": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start a shrine battle",
+    "input": "z.object({ shrineBattleId: z.string() })"
+   }
+  },
+  "simulator": {
+   "getDamageSimulations": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's damage simulations"
+   },
+   "getDamageSimulation": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a specific damage simulation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "createDamageSimulation": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create a new damage simulation",
+    "input": "z.object({ attacker: statSchema, defender: statSchema, action: actSchema, }),"
+   },
+   "updateDamageSimulation": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update damage simulation active state",
+    "input": "z.object({ id: z.string().optional(), active: z.boolean() })"
+   },
+   "deleteDamageSimulation": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Delete a damage simulation",
+    "input": "z.object({ id: z.string() })"
+   }
+  },
+  "skillTree": {
+   "getAllNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all skill names for selectors"
+   },
+   "get": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a skill by ID",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all skills with filtering",
+    "input": "z .object({ cursor: z.number().nullish(), limit: z.number().min(1).max(500), }) .extend(skillTreeFilteringSchema.shape) .optional(),"
+   },
+   "getUserSkills": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's purchased skills"
+   },
+   "purchaseSkill": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Purchase or activate a skill",
+    "input": "z.object({ skillId: z.string() })"
+   },
+   "create": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "update": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), data: SkillTreeValidator })"
+   },
+   "delete": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "resetSkillPoints": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Reset user's skill tree"
+   },
+   "getResetInfo": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get skill reset info and free resets"
+   },
+   "resetAllUsersSkillPoints": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "getAllFolders": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all skill tree folders",
+    "input": "z.object({ includeHidden: z.boolean().optional() }).nullish()"
+   },
+   "getFolderStats": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get skill folder progress stats"
+   },
+   "createFolder": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "skillTreeFolderSchema"
+   },
+   "updateFolder": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), data: skillTreeFolderSchema })"
+   },
+   "deleteFolder": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "reorderFolders": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ folderOrders: z.array(z.object({ id: z.string(), order: z.number() })), }),"
+   }
+  },
+  "sparring": {
+   "getUserChallenges": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get pending sparring challenges"
+   },
+   "createChallenge": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Challenge another user to spar",
+    "input": "z.object({ targetId: z.string(), useRankedRules: z.boolean().optional().prefault(false), spectatable: z.boolean().optional().prefault(false), }),"
+   },
+   "acceptChallenge": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Accept a sparring challenge",
+    "input": "z.object({ id: z.string() })"
+   },
+   "rejectChallenge": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Reject a sparring challenge",
+    "input": "z.object({ id: z.string() })"
+   },
+   "cancelChallenge": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Cancel your sparring challenge",
+    "input": "z.object({ id: z.string() })"
+   }
+  },
+  "staff": {
+   "getBackups": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "createBackup": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ type: z.enum([\"bloodline\", \"jutsu\", \"item\", \"ai\"]) })"
+   },
+   "pushBackupToDev": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "throwError": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "throwTrpcError": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "unequipAllJutsus": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "unequipAllGear": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation"
+   },
+   "forceAwake": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string(), reason: z .string() .min(10, \"Reason must be at least 10 characters\") .transform((val) => val.trim()), }),"
+   },
+   "insertUserBadge": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string(), badgeId: z.string() })"
+   },
+   "removeUserBadge": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string(), badgeId: z.string() })"
+   },
+   "cloneUserForDebug": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "getUserHistoricalIps": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "releaseSector": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ sector: z.int() })"
+   },
+   "getUserActivityEvents": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ userId: z.string() })"
+   },
+   "updateUserId": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string(), newUserId: z.string() })"
+   },
+   "deleteReferral": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ userId: z.string() })"
+   }
+  },
+  "stealth": {
+   "activateStealth": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Activate stealth mode"
+   },
+   "deactivateStealth": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Deactivate stealth mode"
+   },
+   "useSensory": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Scan for stealthed users in sector",
+    "input": "useSensoryInputSchema"
+   },
+   "trainCovert": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start stealth or sensory training",
+    "input": "trainInputSchema"
+   },
+   "stopCovertTraining": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Stop covert training and collect rewards"
+   },
+   "cancelCovertTraining": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Cancel covert training"
+   }
+  },
+  "support": {
+   "getTickets": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "supportTicketFilterSchema"
+   },
+   "getTicket": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ ticketId: z.string() })"
+   },
+   "createTicket": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "createSupportTicketSchema"
+   },
+   "updateTicket": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ ticketId: z.string() }).extend(updateSupportTicketSchema.shape)"
+   },
+   "deleteTicket": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ ticketId: z.string() })"
+   },
+   "getStatistics": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "supportTicketMetricsSchema"
+   },
+   "getCannedResponses": {
+    "procedure": "protectedProcedure",
+    "kind": "query"
+   },
+   "createCannedResponse": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ title: z.string().min(1).max(255), description: z.string().min(1), }),"
+   },
+   "updateCannedResponse": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), title: z.string().min(1).max(255), description: z.string().min(1), }),"
+   },
+   "deleteCannedResponse": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "escalateToGithub": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "escalateToGithubSchema"
+   }
+  },
+  "tournament": {
+   "getTournament": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get tournament details and matches (includes automatic round sync / finalization)",
+    "input": "z.object({ tournamentId: z.string() })"
+   },
+   "syncTournament": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Synchronize tournament progression (also runs when loading tournament details)",
+    "input": "z.object({ tournamentId: z.string() })"
+   },
+   "createTournament": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create a new tournament",
+    "input": "tournamentCreateSchema"
+   },
+   "joinTournament": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Join an existing tournament",
+    "input": "z.object({ tournamentId: z.string() })"
+   },
+   "joinMatch": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Join a tournament match",
+    "input": "z.object({ matchId: z.string(), tournamentId: z.string() })"
+   }
+  },
+  "towerDefense": {
+   "getUpgrades": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all tower defense upgrades"
+   },
+   "getAssetConfigs": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get tower defense asset configs"
+   },
+   "getUserUpgrades": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's tower defense upgrades"
+   },
+   "initiateSecureSession": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start a secure tower defense session"
+   },
+   "initiateGuestSession": {
+    "procedure": "publicProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start a guest tower defense session"
+   },
+   "getRunHistory": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user's tower defense run history",
+    "input": "z.object({ cursor: z.string().optional(), limit: z.number().min(1).max(50).prefault(10), }),"
+   },
+   "getLeaderboard": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get tower defense leaderboard",
+    "input": "z.object({ limit: z.number().min(1).max(100).prefault(20) })"
+   },
+   "purchasePermanentUpgrade": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Purchase tower defense upgrade",
+    "input": "purchaseUpgradeInputSchema"
+   },
+   "claimCompletedRun": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Claim completed tower defense run",
+    "input": "z.object({ spacetimeSessionId: z.string(), // Session signature from SpacetimeDB CompletedRun sessionSignature: z.string().min(1, \"Session signature required\"), nonce: z.string().min(1, \"Session nonce required\"), // Definitions JSON for signature verification upgradeDefinitionsJson: z.string().min(1, \"Upgrade definitions required\"), enemyDefinitionsJson: z.string().min(1, \"Enemy definitions required\"), // All original session params needed to verify the signature abilityDamage: towerDefenseAbilitySchema.shape.damage, abilityRange: towerDefenseAbilitySchema.shape.range, abilityCooldownMs: tower"
+   },
+   "getCharacters": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get tower defense characters",
+    "input": "z .object({ isPlayer: z.boolean().optional(), }) .optional(),"
+   },
+   "getCharacter": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a tower defense character",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getAllCharacterNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get tower defense character names",
+    "input": "z .object({ isPlayer: z.boolean().optional(), }) .optional(),"
+   },
+   "createCharacter": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ isPlayer: z.boolean().prefault(false) })"
+   },
+   "updateCharacter": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), data: insertTowerDefenseCharacterSchema, }),"
+   },
+   "deleteCharacter": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string() })"
+   },
+   "processCharacterZip": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ characterId: z.string(), zipUrl: z.url(), }),"
+   },
+   "updateAssetConfig": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ characterId: z.string(), assetConfig: characterAssetConfigSchema, }),"
+   },
+   "getUpgrade": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get a tower defense upgrade by ID",
+    "input": "z.object({ id: z.string() })"
+   },
+   "updateUpgrade": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string(), data: z.object({ name: z.string().min(1).max(191), description: z.string(), maxLevel: z.int().min(1), baseCost: z.int().min(0), costMultiplier: z.number().min(1), upgradeType: z.enum(TowerDefenseUpgradeTypes), effectValue: z.number().min(0), }), }),"
+   }
+  },
+  "train": {
+   "startTraining": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start training a specific stat",
+    "input": "z.object({ stat: z.enum(UserStatNames) })"
+   },
+   "stopTraining": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Stop training and collect stat gains",
+    "input": "z.object({ guess: z.string().optional(), villageId: z.string().nullable() })"
+   },
+   "updateTrainingSpeed": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Update training speed interval",
+    "input": "z.object({ speed: z.enum(TrainingSpeeds) })"
+   },
+   "getTrainingLog": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get user training history from last 24 hours",
+    "input": "z.object({ userId: z.string() })"
+   }
+  },
+  "travel": {
+   "robPlayer": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Rob another player for ryo",
+    "input": "z.object({ // Coordinate bounds via zod (no sector-map read needed): the co-location // guards below require both robber and victim to stand on this exact tile, // and a player can only ever be on a walkable, in-bounds tile. longitude: z .int() .min(0) .max(SECTOR_WIDTH - 1), latitude: z .int() .min(0) .max(SECTOR_HEIGHT - 1), sector: sectorIdSchema, userId: z.string(), }),"
+   },
+   "getSectorData": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get users and data within current sector",
+    "input": "z.object({ sector: sectorIdSchema })"
+   },
+   "getVillageInSector": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get village and alliance info for sector",
+    "input": "z.object({ sector: sectorIdSchema, isOutlaw: z.boolean().prefault(false) })"
+   },
+   "startGlobalMove": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Start global travel to another sector",
+    "input": "startGlobalMoveSchema"
+   },
+   "finishGlobalMove": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Complete global travel"
+   },
+   "getAllSectors": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all sector ownership info"
+   },
+   "moveInSector": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Move user within current sector",
+    "input": "z.object({ curLongitude: z.int(), curLatitude: z.int(), longitude: z.int().min(-1), latitude: z.int().min(-1), destLongitude: z.int().min(0).nullish(), destLatitude: z.int().min(0).nullish(), sector: sectorIdSchema, villageId: z.string().nullish(), battleId: z.string().nullish(), level: z.int(), avatar: z.preprocess((val) => val || IMG_AVATAR_DEFAULT, z.string().url()), avatarLight: z.preprocess((val) => val || IMG_AVATAR_DEFAULT, z.string().url()), username: z.string(), }),"
+   }
+  },
+  "village": {
+   "getAllNames": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all village names and IDs"
+   },
+   "getAll": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all villages with kage info"
+   },
+   "restoreStructurePoints": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ structureId: z.string() })"
+   },
+   "get": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get village details and structures",
+    "input": "z.object({ id: z.string() })"
+   },
+   "getSectorOwnerships": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get sector ownership and war data",
+    "input": "z.object({ onlyOwnWar: z.boolean() })"
+   },
+   "buyFood": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Buy food at ramen shop to heal",
+    "input": "z.object({ ramen: z.enum(ramenOptions), villageId: z.string().nullish() })"
+   },
+   "leaveVillage": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Leave current village to become outlaw"
+   },
+   "joinVillage": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Join a village as an outlaw",
+    "input": "z.object({ villageId: z.string() })"
+   },
+   "swapVillage": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ villageId: z.string() })"
+   },
+   "getAlliances": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get all village alliances and requests"
+   },
+   "getVillageStructures": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get structures for a village",
+    "input": "z.object({ villageId: z.string() })"
+   },
+   "createRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create alliance or surrender request",
+    "input": "z.object({ targetId: z.string(), type: z.enum(UserRequestTypes) })"
+   },
+   "acceptRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Accept alliance or surrender request",
+    "input": "z.object({ id: z.string() })"
+   },
+   "rejectRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Reject alliance or surrender request",
+    "input": "z.object({ id: z.string() })"
+   },
+   "cancelRequest": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Cancel alliance or surrender request",
+    "input": "z.object({ id: z.string() })"
+   },
+   "leaveAlliance": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Leave an alliance as kage",
+    "input": "z.object({ allianceId: z.string() })"
+   },
+   "releaseSector": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Release sector ownership as kage",
+    "input": "z.object({ sector: z.int() })"
+   },
+   "declareEnemy": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Declare another village as enemy",
+    "input": "z.object({ villageId: z.string() })"
+   }
+  },
+  "war": {
+   "getActiveWars": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get active wars for a village",
+    "input": "z.object({ villageId: z.string() })"
+   },
+   "getEndedWars": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get ended wars for a village",
+    "input": "z.object({ villageId: z.string() })"
+   },
+   "adminEndWar": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ warId: z.string() })"
+   },
+   "buildShrine": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Build a shrine to claim a sector",
+    "input": "z.object({ warId: z.string() })"
+   },
+   "declareSectorWar": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Declare a sector war on a map sector",
+    "input": "z.object({ sectorId: z.number(), userVillageId: z.string().nullable() })"
+   },
+   "declareVillageWarOrRaid": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Declare village war or raid",
+    "input": "z.object({ targetVillageId: z.string(), targetStructureRoute: z.string(), userVillageId: z.string(), }),"
+   },
+   "createAllyOffer": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Create ally offer for war support",
+    "input": "z.object({ warId: z.string(), tokenOffer: z.int().min(1000), targetVillageId: z.string(), }),"
+   },
+   "rejectAllyOffer": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Reject a war ally offer",
+    "input": "z.object({ id: z.string(), }),"
+   },
+   "getAllyOffers": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get pending war ally offers"
+   },
+   "cancelAllyOffer": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Cancel a war ally offer",
+    "input": "z.object({ offerId: z.string() })"
+   },
+   "acceptAllyOffer": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Accept a war ally offer",
+    "input": "z.object({ offerId: z.string() })"
+   },
+   "surrender": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Surrender a war",
+    "input": "z.object({ warId: z.string() })"
+   },
+   "getWarKills": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get war kill records",
+    "input": "z.object({ warId: z.string() })"
+   },
+   "getWarKillStats": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get aggregated war kill statistics",
+    "input": "z.object({ warId: z.string(), aggregateBy: z.enum([\"townhallHpChange\", \"shrineHpChange\", \"totalKills\"]), }),"
+   },
+   "getElderVotes": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "mcp": true,
+    "description": "Get pending elder votes for a village",
+    "input": "z.object({ villageId: z.string() })"
+   },
+   "cancelWarDeclaration": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Cancel a pending war declaration vote (Kage only)",
+    "input": "z.object({ voteId: z.string(), userVillageId: z.string() })"
+   },
+   "voteOnWarDeclaration": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Vote on a pending war declaration as elder",
+    "input": "z.object({ voteId: z.string(), vote: z.enum([\"YES\", \"NO\"]), userVillageId: z.string(), }),"
+   }
+  },
+  "worldMap": {
+   "listSectorMaps": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z .object({ sector: sectorSchema.optional(), status: sectorMapStatusSchema.optional(), }) .optional(),"
+   },
+   "getSectorWindow": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ sector: sectorSchema })"
+   },
+   "getSectorEntries": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ center: sectorSchema, known: z.array(sectorSchema).max(64).default([]), }),"
+   },
+   "getSectorMapById": {
+    "procedure": "protectedProcedure",
+    "kind": "query",
+    "input": "z.object({ id: z.string().min(1) })"
+   },
+   "previewTiledSectorMap": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ sector: sectorSchema, name: z.string().min(1).max(191), tiledJson: z.unknown(), }),"
+   },
+   "saveTiledSectorMap": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ sector: sectorSchema, name: z.string().min(1).max(191), publish: z.boolean().default(false), tiledJson: z.unknown(), }),"
+   },
+   "publishSectorMap": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string().min(1) })"
+   },
+   "archiveSectorMap": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ id: z.string().min(1) })"
+   },
+   "moveStructure": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "z.object({ structureId: z.string().min(1), longitude: z.number().int().min(0), latitude: z.number().int().min(0), }),"
+   }
+  }
+ }
+}
