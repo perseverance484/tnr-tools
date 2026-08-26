@@ -1,0 +1,17 @@
+{
+ "_meta": {
+  "name": "example_capture_usage",
+  "note": "Shows the v4.19 capture block. `before` runs ahead of the build, `after` once it finishes. Delete this file, it is documentation."
+ },
+ "capture": {
+  "before": [
+   {"proc": "quests.get", "input": {"id": "d-94cxrGW91o1SJCr9rsq"}},
+   {"proc": "gameAsset.getAllNames", "input": {"type": "STATIC", "folderPrefix": true}, "select": ["id","name","folder"]}
+  ],
+  "after": [
+   {"proc": "profile.getAllAiNames", "select": ["id","username"]},
+   {"proc": "quests.getAllNames", "select": ["id","name"]}
+  ]
+ },
+ "items": []
+}
