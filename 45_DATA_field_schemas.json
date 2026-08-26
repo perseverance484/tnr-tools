@@ -1,0 +1,2363 @@
+{
+ "_meta": {
+  "source": "TNR source (repo drops 2026-07-10 base + 2026-07-31 for v3 entities) + live-verified overlays (_liveVerified keys)",
+  "authority": "These are the server-side zod write validators; the server rejects anything violating them. Live prod may lag main slightly; on conflict with a live capture, live wins.",
+  "legend": "required=true means the validator has no .optional()/.prefault(); it must be present in the payload. default = prefault value applied when omitted.",
+  "version": 3,
+  "extraction": {
+   "validators": "app/src/validators/{combat,objectives,rewards,quest,ai,asset}.ts",
+   "enums": "app/drizzle/constants.ts (full values in 45b_DATA_enums.json)",
+   "effects": "per-tag schemas moved to 46_DATA_tag_schemas.json (complete, 72 tags, cross-field rules)",
+   "v3_additions": "bloodline + skillTree entities, item variant subsystem, clone contracts. From validators/{combat,item,skillTree}.ts, routers/{bloodline,skillTree,item,quests}.ts, drizzle/{constants,schema}.ts (drop 2026-07-31)."
+  }
+ },
+ "enums": {
+  "ItemTypes": [
+   "WEAPON",
+   "CONSUMABLE",
+   "ARMOR",
+   "ACCESSORY",
+   "MATERIAL",
+   "KEYSTONE",
+   "CRYSTAL",
+   "OTHER"
+  ],
+  "ItemRarities": [
+   "COMMON",
+   "RARE",
+   "EPIC",
+   "LEGENDARY"
+  ],
+  "ItemSlotTypes": [
+   "HEAD",
+   "CHEST",
+   "LEGS",
+   "FEET",
+   "HAND",
+   "THROWN",
+   "ITEM",
+   "WAIST",
+   "KEYSTONE",
+   "NONE"
+  ],
+  "WeaponTypes": [
+   "STAFF",
+   "AXE",
+   "FIST_WEAPON",
+   "SHURIKEN",
+   "SICKLE",
+   "DAGGER",
+   "SWORD",
+   "POLEARM",
+   "FLAIL",
+   "CHAIN",
+   "FAN",
+   "BOW",
+   "HAMMER",
+   "NONE"
+  ],
+  "JutsuTypes": [
+   "NORMAL",
+   "SPECIAL",
+   "BLOODLINE",
+   "FORBIDDEN",
+   "LOYALTY",
+   "CLAN",
+   "EVENT",
+   "AI"
+  ],
+  "LetterRanks": [
+   "D",
+   "C",
+   "B",
+   "A",
+   "S",
+   "H"
+  ],
+  "UserRanks": [
+   "STUDENT",
+   "GENIN",
+   "CHUNIN",
+   "JONIN",
+   "ELITE JONIN",
+   "ELDER",
+   "NONE"
+  ],
+  "StatTypes": [
+   "Highest",
+   "Ninjutsu",
+   "Genjutsu",
+   "Taijutsu",
+   "Bukijutsu"
+  ],
+  "AttackMethods": [
+   "SINGLE",
+   "ALL",
+   "AOE_CIRCLE_SPAWN",
+   "AOE_LINE_SHOOT",
+   "AOE_WALL_SHOOT",
+   "AOE_LARGE_WALL_SHOOT",
+   "AOE_CIRCLE_SHOOT",
+   "AOE_SPIRAL_SHOOT"
+  ],
+  "AttackTargets": [
+   "SELF",
+   "OTHER_USER",
+   "OPPONENT",
+   "ALLY",
+   "CHARACTER",
+   "GROUND",
+   "EMPTY_GROUND"
+  ],
+  "BattleUsageTypes": [
+   "PVE",
+   "PVP",
+   "BOTH"
+  ],
+  "QuestTypes": [
+   "starter",
+   "tier",
+   "daily",
+   "mission",
+   "errand",
+   "crime",
+   "exam",
+   "event",
+   "story",
+   "anbu",
+   "medical",
+   "hunting",
+   "gathering",
+   "battlepyramid",
+   "pvp",
+   "achievement",
+   "war",
+   "raid"
+  ],
+  "RetryQuestDelays": [
+   "daily",
+   "weekly",
+   "monthly",
+   "none"
+  ],
+  "MEDNIN_RANKS": [
+   "NONE",
+   "NOVICE",
+   "APPRENTICE",
+   "MASTER",
+   "LEGENDARY"
+  ],
+  "HUNTING_RANKS": [
+   "NONE",
+   "D RANK",
+   "C RANK",
+   "B RANK",
+   "A RANK",
+   "S RANK"
+  ],
+  "GATHERING_RANKS": [
+   "NONE",
+   "D RANK",
+   "C RANK",
+   "B RANK",
+   "A RANK",
+   "S RANK"
+  ],
+  "STARTER_VILLAGES": [
+   "NONE",
+   "SHIROHANA",
+   "TSUKIMORI",
+   "HYORIN",
+   "AKASUMI",
+   "AKIKAZE"
+  ],
+  "VARIANT_COST_TYPES": [
+   "MONEY",
+   "REPUTATION",
+   "SEICHI_SILVER",
+   "VILLAGE_PRESTIGE",
+   "VARIANT_TOKEN"
+  ],
+  "ElementNames": [
+   "Fire",
+   "Water",
+   "Wind",
+   "Earth",
+   "Lightning",
+   "Ice",
+   "Crystal",
+   "Dust",
+   "Shadow",
+   "Wood",
+   "Scorch",
+   "Storm",
+   "Magnet",
+   "Yin-Yang",
+   "Lava",
+   "Explosion",
+   "Light",
+   "Boil",
+   "Metal",
+   "Sand",
+   "None"
+  ],
+  "GeneralTypes": [
+   "Highest",
+   "Strength",
+   "Intelligence",
+   "Willpower",
+   "Speed"
+  ],
+  "PoolTypes": [
+   "Health",
+   "Chakra",
+   "Stamina"
+  ],
+  "GameAssetTypes": [
+   "STATIC",
+   "ANIMATION",
+   "SCENE_BACKGROUND",
+   "SCENE_CHARACTER",
+   "SFX",
+   "MUSIC"
+  ],
+  "BloodlineDifficultyRatings": [
+   "Easy",
+   "Medium",
+   "Hard",
+   "Expert"
+  ],
+  "SectorTypes": [
+   "specific",
+   "random",
+   "from_list",
+   "user_village",
+   "current_sector",
+   "enemy_village"
+  ],
+  "LocationTypes": [
+   "specific",
+   "random"
+  ],
+  "CompletionOutcomes": [
+   "Win",
+   "Lose",
+   "Flee",
+   "Draw",
+   "Any"
+  ],
+  "AiAvailableTargets": [
+   "BARRIER_BETWEEN",
+   "BARRIER_BLOCKING_CLOSEST_OPPONENT",
+   "CLOSEST_ALLY",
+   "CLOSEST_OPPONENT",
+   "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+   "EMPTY_GROUND_CLOSEST_TO_SELF",
+   "RANDOM_ALLY",
+   "RANDOM_OPPONENT",
+   "SELF"
+  ],
+  "BasicElementNames": [
+   "Fire",
+   "Water",
+   "Wind",
+   "Earth",
+   "Lightning"
+  ],
+  "SkillTreeTargets": [
+   "SELF",
+   "ENEMIES",
+   "ALLIES"
+  ],
+  "SkillTreeEntryTypes": [
+   "DEFAULT",
+   "SPECIAL"
+  ],
+  "VARIANT_COST_TYPES_v3": [
+   "MONEY",
+   "REPUTATION",
+   "SEICHI_SILVER",
+   "VILLAGE_PRESTIGE",
+   "VARIANT_TOKEN"
+  ]
+ },
+ "jutsu": {
+  "contracts": {
+   "create": "jutsu.create POST null body, id in message",
+   "update": "jutsu.update {id, data} full JutsuValidator payload"
+  },
+  "crossFieldValidation": "superRefine runs on top: SuperRefineBase + SuperRefineJutsu",
+  "fields": {
+   "name": {
+    "type": "string",
+    "required": true,
+    "notes": "trimmed; must be unique against live set"
+   },
+   "image": {
+    "type": "string",
+    "required": true
+   },
+   "description": {
+    "type": "string",
+    "required": true
+   },
+   "battleDescription": {
+    "type": "string",
+    "required": true
+   },
+   "extraBaseCost": {
+    "type": "number",
+    "required": true,
+    "min": 0,
+    "max": 65535
+   },
+   "jutsuWeapon": {
+    "type": "enum",
+    "required": true,
+    "enum": "WeaponTypes"
+   },
+   "jutsuType": {
+    "type": "enum",
+    "required": true,
+    "enum": "JutsuTypes"
+   },
+   "jutsuRank": {
+    "type": "enum",
+    "required": true,
+    "enum": "LetterRanks"
+   },
+   "requiredRank": {
+    "type": "enum",
+    "required": true,
+    "enum": "UserRanks"
+   },
+   "requiredLevel": {
+    "type": "number",
+    "required": true,
+    "min": 1,
+    "max": 100
+   },
+   "method": {
+    "type": "enum",
+    "required": true,
+    "enum": "AttackMethods"
+   },
+   "target": {
+    "type": "enum",
+    "required": true,
+    "enum": "AttackTargets"
+   },
+   "range": {
+    "type": "int",
+    "required": true,
+    "min": 0,
+    "max": 5
+   },
+   "statClassification": {
+    "type": "enum",
+    "required": true,
+    "enum": "StatTypes"
+   },
+   "hidden": {
+    "type": "boolean",
+    "required": false
+   },
+   "injectableInBattle": {
+    "type": "boolean",
+    "required": false,
+    "default": false
+   },
+   "healthCost": {
+    "type": "number",
+    "required": true,
+    "min": 0,
+    "max": 10000
+   },
+   "chakraCost": {
+    "type": "number",
+    "required": true,
+    "min": 0,
+    "max": 10000
+   },
+   "staminaCost": {
+    "type": "number",
+    "required": true,
+    "min": 0,
+    "max": 10000
+   },
+   "healthCostReducePerLvl": {
+    "type": "number",
+    "required": true,
+    "min": 0,
+    "max": 10000
+   },
+   "chakraCostReducePerLvl": {
+    "type": "number",
+    "required": true,
+    "min": 0,
+    "max": 10000
+   },
+   "staminaCostReducePerLvl": {
+    "type": "number",
+    "required": true,
+    "min": 0,
+    "max": 10000
+   },
+   "actionCostPerc": {
+    "type": "int",
+    "required": true,
+    "min": 10,
+    "max": 100
+   },
+   "cooldown": {
+    "type": "int",
+    "required": true,
+    "min": 0,
+    "max": 300
+   },
+   "bloodlineId": {
+    "type": "string|null",
+    "required": true,
+    "notes": "nullable but must be present"
+   },
+   "requiredBloodlineItemId": {
+    "type": "string|null",
+    "required": true,
+    "notes": "empty string transformed to null"
+   },
+   "villageId": {
+    "type": "string|null",
+    "required": true,
+    "notes": "nullable but must be present"
+   },
+   "effects": {
+    "type": "AllTags[]",
+    "required": true,
+    "notes": "see effects section"
+   },
+   "battleUsageType": {
+    "type": "enum",
+    "required": false,
+    "enum": "BattleUsageTypes",
+    "default": "BOTH"
+   },
+   "parentJutsuId": {
+    "type": "string|null",
+    "required": false,
+    "default": null
+   },
+   "requiredNinjutsuOffence": {
+    "type": "number|null",
+    "required": false,
+    "notes": "capped at MAX_STATS_CAP"
+   },
+   "requiredNinjutsuDefence": {
+    "type": "number|null",
+    "required": false,
+    "notes": "capped at MAX_STATS_CAP"
+   },
+   "requiredGenjutsuOffence": {
+    "type": "number|null",
+    "required": false,
+    "notes": "capped at MAX_STATS_CAP"
+   },
+   "requiredGenjutsuDefence": {
+    "type": "number|null",
+    "required": false,
+    "notes": "capped at MAX_STATS_CAP"
+   },
+   "requiredTaijutsuOffence": {
+    "type": "number|null",
+    "required": false,
+    "notes": "capped at MAX_STATS_CAP"
+   },
+   "requiredTaijutsuDefence": {
+    "type": "number|null",
+    "required": false,
+    "notes": "capped at MAX_STATS_CAP"
+   },
+   "requiredBukijutsuOffence": {
+    "type": "number|null",
+    "required": false,
+    "notes": "capped at MAX_STATS_CAP"
+   },
+   "requiredBukijutsuDefence": {
+    "type": "number|null",
+    "required": false,
+    "notes": "capped at MAX_STATS_CAP"
+   },
+   "requiredStrength": {
+    "type": "number|null",
+    "required": false,
+    "notes": "capped at MAX_GENS_CAP"
+   },
+   "requiredSpeed": {
+    "type": "number|null",
+    "required": false,
+    "notes": "capped at MAX_GENS_CAP"
+   },
+   "requiredIntelligence": {
+    "type": "number|null",
+    "required": false,
+    "notes": "capped at MAX_GENS_CAP"
+   },
+   "requiredWillpower": {
+    "type": "number|null",
+    "required": false,
+    "notes": "capped at MAX_GENS_CAP"
+   }
+  }
+ },
+ "item": {
+  "contracts": {
+   "create": "item.create {type: ItemTypes enum} returns default row, id in message",
+   "update": "item.update {id, data} full ItemValidator payload",
+   "item.clone": {
+    "input": "{ id }",
+    "gate": "canChangeContent",
+    "behavior": "full copy incl. craftingRequirements; new id; name = '{name} - copy'; hidden:true; reward_reputation zeroed in noncombatconsumereward effects unless caller canAwardReputation."
+   }
+  },
+  "fields": {
+   "name": {
+    "type": "string",
+    "required": true,
+    "notes": "trimmed"
+   },
+   "image": {
+    "type": "string",
+    "required": true
+   },
+   "description": {
+    "type": "string",
+    "required": true
+   },
+   "battleDescription": {
+    "type": "string",
+    "required": true
+   },
+   "stackSize": {
+    "type": "int",
+    "required": true,
+    "min": 1,
+    "max": 999
+   },
+   "destroyOnUse": {
+    "type": "boolean",
+    "required": false,
+    "default": false
+   },
+   "chakraCost": {
+    "type": "int",
+    "required": true,
+    "min": 0,
+    "max": 10000
+   },
+   "healthCost": {
+    "type": "int",
+    "required": true,
+    "min": 0,
+    "max": 10000
+   },
+   "staminaCost": {
+    "type": "int",
+    "required": true,
+    "min": 0,
+    "max": 10000
+   },
+   "healthCostReducePerLvl": {
+    "type": "number",
+    "required": true,
+    "min": 0,
+    "max": 10000
+   },
+   "chakraCostReducePerLvl": {
+    "type": "number",
+    "required": true,
+    "min": 0,
+    "max": 10000
+   },
+   "staminaCostReducePerLvl": {
+    "type": "number",
+    "required": true,
+    "min": 0,
+    "max": 10000
+   },
+   "actionCostPerc": {
+    "type": "int",
+    "required": true,
+    "min": 1,
+    "max": 100
+   },
+   "canStack": {
+    "type": "boolean",
+    "required": false,
+    "default": false
+   },
+   "maxImbueNumber": {
+    "type": "int",
+    "required": true,
+    "min": 1,
+    "max": 3
+   },
+   "maxDurability": {
+    "type": "int",
+    "required": true,
+    "min": 1,
+    "max": 100
+   },
+   "inShop": {
+    "type": "boolean",
+    "required": false,
+    "default": false
+   },
+   "isEventItem": {
+    "type": "boolean",
+    "required": false,
+    "default": false
+   },
+   "preventBattleUsage": {
+    "type": "boolean",
+    "required": false,
+    "default": false
+   },
+   "hidden": {
+    "type": "boolean",
+    "required": true
+   },
+   "cooldown": {
+    "type": "int",
+    "required": true,
+    "min": 0,
+    "max": 300
+   },
+   "cost": {
+    "type": "int",
+    "required": true,
+    "min": 0
+   },
+   "repsCost": {
+    "type": "int",
+    "required": true,
+    "min": 0
+   },
+   "seichiSilverCost": {
+    "type": "int",
+    "required": true,
+    "min": 0
+   },
+   "range": {
+    "type": "int",
+    "required": true,
+    "min": 0,
+    "max": 10
+   },
+   "maxEquips": {
+    "type": "int",
+    "required": true,
+    "min": 0,
+    "max": 10
+   },
+   "method": {
+    "type": "enum",
+    "required": true,
+    "enum": "AttackMethods"
+   },
+   "target": {
+    "type": "enum",
+    "required": true,
+    "enum": "AttackTargets"
+   },
+   "itemType": {
+    "type": "enum",
+    "required": true,
+    "enum": "ItemTypes"
+   },
+   "weaponType": {
+    "type": "enum",
+    "required": true,
+    "enum": "WeaponTypes"
+   },
+   "rarity": {
+    "type": "enum",
+    "required": true,
+    "enum": "ItemRarities"
+   },
+   "slot": {
+    "type": "enum",
+    "required": true,
+    "enum": "ItemSlotTypes"
+   },
+   "requiredLevel": {
+    "type": "int",
+    "required": false,
+    "min": 1,
+    "max": 100,
+    "default": 1
+   },
+   "expireFromStoreAt": {
+    "type": "string|null",
+    "required": true,
+    "notes": "YYYY-MM-DD or null"
+   },
+   "effects": {
+    "type": "AllTags[]",
+    "required": true
+   },
+   "canBeImbued": {
+    "type": "boolean",
+    "required": false,
+    "default": false
+   },
+   "canBeCrafted": {
+    "type": "boolean",
+    "required": false,
+    "default": false
+   },
+   "canBeHunted": {
+    "type": "boolean",
+    "required": false,
+    "default": false
+   },
+   "canBeGathered": {
+    "type": "boolean",
+    "required": false,
+    "default": false
+   },
+   "canBeTraded": {
+    "type": "boolean",
+    "required": false,
+    "default": false
+   },
+   "craftingExperience": {
+    "type": "int",
+    "required": false,
+    "min": 0,
+    "default": 0
+   },
+   "crystalTargetTypes": {
+    "type": "enum|null",
+    "required": true,
+    "enum": "ItemTypes",
+    "notes": "nullable"
+   },
+   "bloodlineId": {
+    "type": "string|null",
+    "required": true,
+    "notes": "nullable but must be present"
+   },
+   "battleUsageType": {
+    "type": "enum",
+    "required": false,
+    "enum": "BattleUsageTypes",
+    "default": "BOTH"
+   },
+   "craftingRequirements": {
+    "type": "array",
+    "required": false,
+    "default": [],
+    "shape": "[{ids: string[], number: int 1-100}]",
+    "notes": "CONFIRMED from source (router flatMaps to per-id rows with quantity=number). Closes the number-vs-quantity unknown.",
+    "_sourceConfirmed": "2026-07-10"
+   }
+  },
+  "crossFieldValidation": {
+   "atLeastOneCost": "at least one of cost/repsCost/seichiSilverCost must be > 0 (SuperRefineItem)",
+   "consumableDestroy": "itemType CONSUMABLE requires destroyOnUse true",
+   "fullRules": "see 46_DATA_tag_schemas.json _crossFieldRules",
+   "_extracted": "2026-07-10"
+  },
+  "variants": {
+   "contracts": {
+    "item.upsertItemVariant": {
+     "input": "{ itemId, variant: ItemVariantValidator }",
+     "gate": "canChangeContent",
+     "notes": "upsert: include variant.id to edit, omit to create"
+    },
+    "item.deleteItemVariant": {
+     "gate": "canChangeContent"
+    },
+    "item.getItemVariants": {
+     "input": "{ itemId }",
+     "returns": "ItemVariantResponseSchema[]"
+    },
+    "player side": "purchaseVariant / selectVariant / consumeVariantToken"
+   },
+   "variantFields": {
+    "id": {
+     "type": "string",
+     "required": false,
+     "notes": "present = edit existing variant"
+    },
+    "name": {
+     "type": "string",
+     "required": true,
+     "min": 1
+    },
+    "image": {
+     "type": "string",
+     "required": true,
+     "min": 1
+    },
+    "costType": {
+     "type": "enum:VARIANT_COST_TYPES",
+     "required": true
+    },
+    "cost": {
+     "type": "int",
+     "required": true,
+     "min": 0
+    },
+    "order": {
+     "type": "int",
+     "required": true,
+     "range": [
+      1,
+      7
+     ],
+     "notes": "MAX_ITEM_VARIANTS = 7 per item"
+    },
+    "description": {
+     "type": "string",
+     "required": false
+    },
+    "battleDescription": {
+     "type": "string",
+     "required": false
+    }
+   },
+   "notes": "This is the proper channel for Hemathorn / Weeping Testament-class variants: cosmetic/named alternates on one base item record, no new item create."
+  }
+ },
+ "quest": {
+  "_liveRules": {
+   "publicQuestSceneCharacters": {
+    "notes": "hidden:false quests require main content.sceneCharacters non-empty OR sceneCharacters on every objective; hidden quests exempt (live 400: 'Quest must have either main sceneCharacters set or all objectives must have sceneCharacters defined')",
+    "_liveVerified": "2026-07-10"
+   },
+   "rankBandGating": {
+    "notes": "startQuest checks quest questRank against availableQuestLetterRanks(user.rank): STUDENT=[D], GENIN=[D,C], CHUNIN=[D,C,B], JONIN/ELITE JONIN/ELDER=[D..H]",
+    "_sourceExtracted": "2026-07-10 app/src/libs/train.ts"
+   },
+   "hiddenQuestRoles": {
+    "notes": "hidden quests playable only by roles: CONTENT, BALANCE, HEAD_CONTENT, HEAD_BALANCE, EVENT, HEAD_EVENT, CODER, OWNER, CODING-ADMIN, CONTENT-ADMIN, EVENT-ADMIN (canPlayHiddenQuests)",
+    "_sourceExtracted": "2026-07-10 app/src/utils/permissions.ts"
+   }
+  },
+  "contracts": {
+   "create": "quests.create null body",
+   "update": "quests.update {id, data: QuestValidator}",
+   "quests.clone": {
+    "input": "{ id }",
+    "gate": "canChangeContent",
+    "behavior": "same clone pattern as item.clone (copy, ' - copy' suffix, hidden:true)."
+   }
+  },
+  "topLevelFields": {
+   "name": {
+    "type": "string",
+    "required": true,
+    "min": 1,
+    "max": 191
+   },
+   "image": {
+    "type": "url|null",
+    "required": false
+   },
+   "description": {
+    "type": "string|null",
+    "required": true,
+    "notes": "1-5000 chars or null"
+   },
+   "successDescription": {
+    "type": "string|null",
+    "required": true,
+    "notes": "1-5000 chars or null; non-empty required in practice"
+   },
+   "questRank": {
+    "type": "enum",
+    "required": false,
+    "enum": "LetterRanks"
+   },
+   "medicalRank": {
+    "type": "enum|null",
+    "required": false,
+    "enum": "MEDNIN_RANKS"
+   },
+   "huntingRank": {
+    "type": "enum|null",
+    "required": false,
+    "enum": "HUNTING_RANKS"
+   },
+   "gatheringRank": {
+    "type": "enum|null",
+    "required": false,
+    "enum": "GATHERING_RANKS"
+   },
+   "requiredLevel": {
+    "type": "number",
+    "required": false,
+    "min": 0,
+    "max": 100
+   },
+   "maxLevel": {
+    "type": "number",
+    "required": false,
+    "min": 0,
+    "max": 100
+   },
+   "maxAttempts": {
+    "type": "number",
+    "required": false,
+    "min": 0,
+    "max": 100,
+    "default": 1
+   },
+   "maxCompletes": {
+    "type": "number",
+    "required": false,
+    "min": 0,
+    "max": 100,
+    "default": 1
+   },
+   "requiredVillage": {
+    "type": "string|null",
+    "required": false,
+    "max": 30
+   },
+   "requiredBloodlineId": {
+    "type": "string|null",
+    "required": false
+   },
+   "prerequisiteQuestId": {
+    "type": "string|null",
+    "required": false
+   },
+   "tierLevel": {
+    "type": "number|null",
+    "required": true,
+    "min": 0,
+    "max": 100
+   },
+   "questType": {
+    "type": "enum",
+    "required": true,
+    "enum": "QuestTypes"
+   },
+   "content": {
+    "type": "object",
+    "required": true,
+    "notes": "{objectives: Objective[], reward: rewardFields, sceneBackground: string, sceneCharacters: string[]}"
+   },
+   "hidden": {
+    "type": "boolean",
+    "required": true
+   },
+   "retryDelay": {
+    "type": "enum",
+    "required": false,
+    "enum": "RetryQuestDelays"
+   },
+   "consecutiveObjectives": {
+    "type": "boolean",
+    "required": true,
+    "_law": "MUST be set true explicitly on every create; DB default false makes all objectives simultaneously live and pays win rewards at tracker ticks (12_TECH law 23). Preserve on every convert."
+   },
+   "endsAt": {
+    "type": "string|null",
+    "required": true,
+    "notes": "YYYY-MM-DD or null",
+    "_format": "plain YYYY-MM-DD only (regex-enforced; ISO datetime 400s)"
+   },
+   "startsAt": {
+    "type": "string|null",
+    "required": true,
+    "notes": "YYYY-MM-DD or null",
+    "_format": "plain YYYY-MM-DD only (regex-enforced; ISO datetime 400s)"
+   },
+   "raidBossMaxHealth": {
+    "type": "number|null",
+    "required": false,
+    "notes": "required >0 for raid quests"
+   },
+   "raidBossCurrentHealth": {
+    "type": "number|null",
+    "required": false,
+    "notes": "required for raid quests"
+   }
+  },
+  "objectives": {
+   "_taskList": [
+    "pvp_kills",
+    "arena_kills",
+    "minutes_passed",
+    "days_as_kage",
+    "errands_total",
+    "a_missions_total",
+    "b_missions_total",
+    "c_missions_total",
+    "d_missions_total",
+    "a_crimes_total",
+    "b_crimes_total",
+    "c_crimes_total",
+    "d_crimes_total",
+    "minutes_training",
+    "stats_trained",
+    "days_in_village",
+    "jutsus_mastered",
+    "user_level",
+    "reputation_points",
+    "random_encounter_wins",
+    "spars_won",
+    "medical_experience",
+    "medical_experience_gained",
+    "crafting_experience",
+    "crafting_experience_gained",
+    "hunting_experience",
+    "hunting_experience_gained",
+    "gathering_experience",
+    "gathering_experience_gained",
+    "move_to_location",
+    "win_encounter_at_location",
+    "collect_item",
+    "deliver_item",
+    "defeat_opponents",
+    "fail_quest",
+    "win_quest",
+    "new_quest",
+    "start_battle",
+    "open_raid",
+    "exclusive_raid",
+    "reset_quest",
+    "dialog"
+   ],
+   "_sharedBlocks": {
+    "baseObjectiveFields": {
+     "id": {
+      "type": "string",
+      "required": true
+     },
+     "description": {
+      "type": "string",
+      "required": false,
+      "default": ""
+     },
+     "successDescription": {
+      "type": "string",
+      "required": false,
+      "default": ""
+     },
+     "nextObjectiveId": {
+      "type": "string",
+      "required": false,
+      "notes": "dialog uses choices array instead"
+     },
+     "sceneBackground": {
+      "type": "string",
+      "required": false,
+      "default": ""
+     },
+     "sceneCharacters": {
+      "type": "string[]",
+      "required": false,
+      "default": []
+     },
+     "sector": {
+      "type": "number",
+      "required": false
+     },
+     "longitude": {
+      "type": "number",
+      "required": false
+     },
+     "latitude": {
+      "type": "number",
+      "required": false
+     }
+    },
+    "rewardFields": {
+     "reward_hunter_items": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+     },
+     "reward_hunter_items_ids": {
+      "type": "string[]",
+      "required": false,
+      "default": []
+     },
+     "reward_gathering_items": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+     },
+     "reward_gathering_items_ids": {
+      "type": "string[]",
+      "required": false,
+      "default": []
+     },
+     "reward_seichi_silver": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_money": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_clanpoints": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_anbupoints": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_exp": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_tokens": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_prestige": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_reputation": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_skillpoints": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_rank": {
+      "type": "enum",
+      "required": false,
+      "enum": "UserRanks",
+      "enumValues": [
+       "STUDENT",
+       "GENIN",
+       "CHUNIN",
+       "JONIN",
+       "ELITE JONIN",
+       "ELDER",
+       "NONE"
+      ],
+      "default": "NONE"
+     },
+     "reward_village_membership": {
+      "type": "enum",
+      "required": false,
+      "enum": "STARTER_VILLAGES",
+      "enumValues": [
+       "NONE",
+       "SHIROHANA",
+       "TSUKIMORI",
+       "HYORIN",
+       "AKASUMI",
+       "AKIKAZE"
+      ],
+      "enumLegacyUnion": [
+       "SHINE",
+       "GLACIER",
+       "SHROUD",
+       "CURRENT"
+      ],
+      "legacyTransformMap": {
+       "SHINE": "SHIROHANA",
+       "GLACIER": "HYORIN",
+       "SHROUD": "AKASUMI",
+       "CURRENT": "AKIKAZE"
+      },
+      "default": "NONE",
+      "notes": "legacy names are accepted and TRANSFORMED to current villages; empty string rejected (live 400)",
+      "_liveVerified": "2026-07-10"
+     },
+     "reward_items": {
+      "type": "idsWithNumber[]",
+      "required": false,
+      "default": [],
+      "notes": "number = drop chance percent, default 100"
+     },
+     "reward_jutsus": {
+      "type": "string[]",
+      "required": false,
+      "default": []
+     },
+     "reward_bloodlines": {
+      "type": "string[]",
+      "required": false,
+      "default": []
+     },
+     "reward_badges": {
+      "type": "string[]",
+      "required": false,
+      "default": []
+     },
+     "reward_medical_experience": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_hunting_experience": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_crafting_experience": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_gathering_experience": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_war_damage": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     },
+     "reward_war_healing": {
+      "type": "number",
+      "required": false,
+      "default": 0
+     }
+    },
+    "attackerFields": {
+     "attackers": {
+      "type": "idsWithNumber[]",
+      "required": false,
+      "default": []
+     },
+     "attackers_scaled_to_user": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+     },
+     "attackers_scale_gains": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 1,
+      "default": 1
+     },
+     "attackers_max_per_battle": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 100,
+      "default": 1
+     }
+    },
+    "battleObjectiveFields": {
+     "failObjectiveId": {
+      "type": "string",
+      "required": false,
+      "notes": "optional in schema, required in practice to avoid re-arm loop"
+     },
+     "opponent_scaled_to_user": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+     },
+     "completionOutcome": {
+      "type": "enum",
+      "required": false,
+      "enum": "CompletionOutcomes",
+      "default": "Win"
+     },
+     "failDescription": {
+      "type": "string",
+      "required": false,
+      "default": "You failed to defeat the opponent"
+     },
+     "fleeDescription": {
+      "type": "string",
+      "required": false,
+      "default": "You fled from the opponent"
+     },
+     "drawDescription": {
+      "type": "string",
+      "required": false,
+      "default": "The battle ended in a draw"
+     },
+     "scaleGains": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 1,
+      "default": 1
+     },
+     "keepOriginalPools": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+     }
+    },
+    "complexObjectiveFields": {
+     "sectorType": {
+      "type": "enum",
+      "required": false,
+      "enum": "SectorTypes",
+      "default": "specific"
+     },
+     "locationType": {
+      "type": "enum",
+      "required": false,
+      "enum": "LocationTypes",
+      "default": "specific"
+     },
+     "sector": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "default": 0
+     },
+     "longitude": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "default": 0
+     },
+     "latitude": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "default": 0
+     },
+     "sectorList": {
+      "type": "string[]",
+      "required": false,
+      "default": []
+     },
+     "hideLocation": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+     },
+     "completed": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 1,
+      "default": 0
+     },
+     "image": {
+      "type": "string",
+      "required": false,
+      "default": ""
+     }
+    }
+   },
+   "simple_counter": {
+    "tasks": [
+     "pvp_kills",
+     "arena_kills",
+     "minutes_passed",
+     "days_as_kage",
+     "errands_total",
+     "a_missions_total",
+     "b_missions_total",
+     "c_missions_total",
+     "d_missions_total",
+     "a_crimes_total",
+     "b_crimes_total",
+     "c_crimes_total",
+     "d_crimes_total",
+     "minutes_training",
+     "stats_trained",
+     "days_in_village",
+     "jutsus_mastered",
+     "user_level",
+     "reputation_points",
+     "random_encounter_wins",
+     "spars_won",
+     "medical_experience",
+     "medical_experience_gained",
+     "crafting_experience",
+     "crafting_experience_gained",
+     "hunting_experience",
+     "hunting_experience_gained",
+     "gathering_experience",
+     "gathering_experience_gained"
+    ],
+    "composition": [
+     "baseObjectiveFields",
+     "rewardFields",
+     "attackerFields"
+    ],
+    "extra": {
+     "value": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "default": 3
+     }
+    }
+   },
+   "dialog": {
+    "composition": [
+     "baseObjectiveFields",
+     "rewardFields",
+     "attackerFields"
+    ],
+    "extra": {
+     "image": {
+      "type": "string",
+      "required": false,
+      "default": ""
+     },
+     "nextObjectiveId": {
+      "type": "choices[]",
+      "required": false,
+      "default": [],
+      "notes": "[{text, nextObjectiveId?}]"
+     }
+    }
+   },
+   "start_battle": {
+    "composition": [
+     "baseObjectiveFields",
+     "battleObjectiveFields",
+     "rewardFields"
+    ],
+    "extra": {
+     "opponentAIs": {
+      "type": "idsWithNumber[]",
+      "required": true,
+      "notes": "must be non-empty"
+     }
+    }
+   },
+   "defeat_opponents": {
+    "composition": [
+     "baseObjectiveFields",
+     "battleObjectiveFields",
+     "complexObjectiveFields",
+     "rewardFields",
+     "attackerFields"
+    ],
+    "extra": {
+     "opponentAIs": {
+      "type": "idsWithNumber[]",
+      "required": false,
+      "default": []
+     }
+    }
+   },
+   "reset_quest": {
+    "composition": [
+     "baseObjectiveFields",
+     "rewardFields"
+    ],
+    "extra": {
+     "resetObjectiveId": {
+      "type": "string",
+      "required": false,
+      "notes": "does NOT count as incoming edge"
+     }
+    }
+   },
+   "win_quest_fail_quest": {
+    "composition": [
+     "baseObjectiveFields",
+     "rewardFields"
+    ],
+    "extra": {}
+   },
+   "new_quest": {
+    "composition": [
+     "baseObjectiveFields",
+     "rewardFields"
+    ],
+    "extra": {
+     "newQuestIds": {
+      "type": "string[]",
+      "required": false,
+      "default": []
+     }
+    }
+   },
+   "move_to_location": {
+    "composition": [
+     "baseObjectiveFields",
+     "complexObjectiveFields",
+     "rewardFields",
+     "attackerFields"
+    ],
+    "extra": {}
+   },
+   "win_encounter_at_location": {
+    "composition": [
+     "baseObjectiveFields",
+     "complexObjectiveFields",
+     "rewardFields",
+     "attackerFields"
+    ],
+    "extra": {},
+    "notes": "locationType defaults to random"
+   },
+   "collect_item": {
+    "composition": [
+     "baseObjectiveFields",
+     "complexObjectiveFields",
+     "rewardFields",
+     "attackerFields"
+    ],
+    "extra": {
+     "item_name": {
+      "type": "string",
+      "required": false,
+      "default": "Secret scroll",
+      "notes": "min 3 chars"
+     },
+     "collectItemIds": {
+      "type": "string[]",
+      "required": false,
+      "default": []
+     },
+     "delete_on_complete": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+     },
+     "collect_time_minutes": {
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 60,
+      "default": 0
+     }
+    }
+   },
+   "deliver_item": {
+    "composition": [
+     "baseObjectiveFields",
+     "complexObjectiveFields",
+     "rewardFields",
+     "attackerFields"
+    ],
+    "extra": {
+     "item_name": {
+      "type": "string",
+      "required": false,
+      "default": "Secret scroll"
+     },
+     "deliverItemIds": {
+      "type": "string[]",
+      "required": false,
+      "default": []
+     },
+     "delete_on_complete": {
+      "type": "boolean",
+      "required": false,
+      "default": true
+     }
+    }
+   },
+   "raids": {
+    "tasks": [
+     "open_raid",
+     "exclusive_raid"
+    ],
+    "composition": [
+     "baseObjectiveFields",
+     "battleObjectiveFields",
+     "rewardFields"
+    ],
+    "extra": {
+     "image": {
+      "type": "string",
+      "required": false,
+      "default": ""
+     },
+     "sector": {
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "notes": "REQUIRED for raids"
+     },
+     "opponentAIs": {
+      "type": "idsWithNumber[]",
+      "required": true,
+      "notes": "non-empty; the raid boss"
+     }
+    }
+   },
+   "_crossFieldRules": [
+    "daily quests: 3-7 objectives",
+    "raid quests: exactly 1 objective of task open_raid/exclusive_raid, sector required, raidBossMaxHealth>0 and raidBossCurrentHealth required at quest level",
+    "exactly one start node (no incoming next/fail edge); resetObjectiveId does not count as edge"
+   ],
+   "_sourceNotes": {
+    "dialogChoices": "dialog nextObjectiveId is an ARRAY of {text: string, nextObjectiveId?: string}, default []",
+    "deliver_item_delete_default": "deliver_item delete_on_complete defaults TRUE (collect_item defaults FALSE)",
+    "start_battle_opponentAIs": "refined non-empty at schema level",
+    "raid_sector_required": "raid objectives override sector to REQUIRED (no default)",
+    "simple_value": "simple counter 'value' min 0 default 3",
+    "_extracted": "2026-07-10 app/src/validators/objectives.ts"
+   }
+  }
+ },
+ "ai": {
+  "contracts": {
+   "create": "profile.create null body",
+   "update": "profile.updateAi {id, data: insertAiSchema}; empty strings coerced to null server-side"
+  },
+  "base": "all UserData insert columns except the omitted list; see userDataColumnDefaults",
+  "omittedColumns": [
+   "trainingStartedAt",
+   "occupationSignupAt",
+   "currentlyTraining",
+   "deletionAt",
+   "travelFinishAt",
+   "questData",
+   "occupation",
+   "stealthActivatedAt",
+   "stealthCooldownAt",
+   "lastSensoryAt",
+   "covertTrainingType",
+   "covertTrainingStartedAt",
+   "covertTrainingMinutes"
+  ],
+  "extendedFields": {
+   "jutsus": {
+    "type": "string[]",
+    "required": false,
+    "notes": "jutsu ids to equip"
+   },
+   "items": {
+    "type": "idsWithNumber-lite[]",
+    "required": false,
+    "notes": "[{ids: string[], number}]"
+   },
+   "primaryElement": {
+    "type": "enum|null",
+    "required": false,
+    "enum": "ElementNames",
+    "notes": "empty string allowed"
+   },
+   "secondaryElement": {
+    "type": "enum|null",
+    "required": false,
+    "enum": "ElementNames"
+   },
+   "level": {
+    "type": "number",
+    "required": true,
+    "min": 1,
+    "max": 200
+   },
+   "regeneration": {
+    "type": "number",
+    "required": true,
+    "min": 1,
+    "max": 100
+   },
+   "ninjutsuOffence": {
+    "type": "number",
+    "required": true,
+    "min": 10
+   },
+   "ninjutsuDefence": {
+    "type": "number",
+    "required": true,
+    "min": 10
+   },
+   "genjutsuOffence": {
+    "type": "number",
+    "required": true,
+    "min": 10
+   },
+   "genjutsuDefence": {
+    "type": "number",
+    "required": true,
+    "min": 10
+   },
+   "taijutsuOffence": {
+    "type": "number",
+    "required": true,
+    "min": 10
+   },
+   "taijutsuDefence": {
+    "type": "number",
+    "required": true,
+    "min": 10
+   },
+   "bukijutsuOffence": {
+    "type": "number",
+    "required": true,
+    "min": 10
+   },
+   "bukijutsuDefence": {
+    "type": "number",
+    "required": true,
+    "min": 10
+   },
+   "statsMultiplier": {
+    "type": "number",
+    "required": true,
+    "min": 1,
+    "max": 50
+   },
+   "poolsMultiplier": {
+    "type": "number",
+    "required": true,
+    "min": 1,
+    "max": 50
+   },
+   "strength": {
+    "type": "number",
+    "required": true,
+    "min": 10
+   },
+   "intelligence": {
+    "type": "number",
+    "required": true,
+    "min": 10
+   },
+   "willpower": {
+    "type": "number",
+    "required": true,
+    "min": 10
+   },
+   "speed": {
+    "type": "number",
+    "required": true,
+    "min": 10
+   },
+   "isSummon": {
+    "type": "boolean",
+    "required": true
+   },
+   "effects": {
+    "type": "AllTags[]",
+    "required": true
+   }
+  },
+  "userDataColumnDefaults": {
+   "userId": "NOT NULL",
+   "recruiterId": "nullable",
+   "anbuId": "nullable",
+   "clanId": "nullable",
+   "jutsuLoadout": "nullable",
+   "itemLoadout": "nullable",
+   "rankedLoadout": "nullable",
+   "nRecruited": "0",
+   "lastIp": "nullable",
+   "username": "NOT NULL",
+   "gender": "NOT NULL",
+   "curHealth": "100",
+   "maxHealth": "100",
+   "curChakra": "100",
+   "maxChakra": "100",
+   "curStamina": "100",
+   "maxStamina": "100",
+   "regeneration": "60",
+   "money": "1000",
+   "bank": "1000",
+   "experience": "0",
+   "earnedExperience": "2000",
+   "rank": "STUDENT",
+   "isOutlaw": "false",
+   "level": "1",
+   "villageId": "nullable",
+   "bloodlineId": "nullable",
+   "bloodlineReskinId": "nullable",
+   "status": "AWAKE",
+   "strength": "10",
+   "intelligence": "10",
+   "willpower": "10",
+   "speed": "10",
+   "ninjutsuOffence": "10",
+   "ninjutsuDefence": "10",
+   "genjutsuOffence": "10",
+   "genjutsuDefence": "10",
+   "taijutsuOffence": "10",
+   "taijutsuDefence": "10",
+   "bukijutsuDefence": "10",
+   "bukijutsuOffence": "10",
+   "statsMultiplier": "1",
+   "poolsMultiplier": "1",
+   "primaryElement": "nullable",
+   "secondaryElement": "nullable",
+   "reputationPoints": "nullable",
+   "reputationPointsTotal": "nullable",
+   "seichiSilver": "0",
+   "villagePrestige": "0",
+   "federalStatus": "nullable",
+   "approvedTos": "false",
+   "avatar": "nullable",
+   "avatarLight": "nullable",
+   "avatar3d": "nullable",
+   "sector": "0",
+   "longitude": "10",
+   "latitude": "7",
+   "location": "",
+   "joinedVillageAt": "nullable",
+   "createdAt": "nullable",
+   "updatedAt": "nullable",
+   "questFinishAt": "nullable",
+   "deletionAt": "nullable",
+   "travelFinishAt": "nullable",
+   "isBanned": "false",
+   "isSilenced": "false",
+   "isWarned": "false",
+   "isTradeBanned": "false",
+   "role": "USER",
+   "battleId": "nullable",
+   "isAi": "false",
+   "isSummon": "false",
+   "isEvent": "false",
+   "inShrines": "false",
+   "inArena": "false",
+   "inboxNews": "0",
+   "regenAt": "nullable",
+   "immunityUntil": "nullable",
+   "robImmunityUntil": "nullable",
+   "bracketImmunityLiftedUntil": "nullable",
+   "warParticipantUntil": "nullable",
+   "trainingStartedAt": "nullable",
+   "trainingSpeed": "nullable",
+   "currentlyTraining": "nullable",
+   "unreadNotifications": "0",
+   "unreadNews": "0",
+   "questData": "nullable",
+   "senseiId": "nullable",
+   "medicalExperience": "0",
+   "craftingExperience": "0",
+   "huntingExperience": "0",
+   "gatheringExperience": "0",
+   "preferredStat": "nullable",
+   "preferredGeneral1": "nullable",
+   "preferredGeneral2": "nullable",
+   "showBattleDescription": "true",
+   "pvpFights": "0",
+   "pveFights": "0",
+   "pvpActivity": "0",
+   "pvpStreak": "0",
+   "errands": "0",
+   "missionsD": "0",
+   "missionsC": "0",
+   "missionsB": "0",
+   "missionsA": "0",
+   "missionsS": "0",
+   "missionsH": "0",
+   "crimesD": "0",
+   "crimesC": "0",
+   "crimesB": "0",
+   "crimesA": "0",
+   "crimesS": "0",
+   "crimesH": "0",
+   "dailyArenaFights": "nullable",
+   "dailyMissions": "0",
+   "dailyErrands": "0",
+   "dailyMedicalMissions": "nullable",
+   "dailyPvpMissions": "nullable",
+   "dailyWarMissions": "nullable",
+   "dailyTrainings": "0",
+   "movedTooFastCount": "0",
+   "extraItemSlots": "0",
+   "extraJutsuSlots": "nullable",
+   "extraReskinSlots": "2",
+   "customTitle": "",
+   "marriageSlots": "1",
+   "aiProfileId": "nullable",
+   "effects": "[]",
+   "aiCalls": "0",
+   "tavernMessages": "0",
+   "musicOn": "true",
+   "sfxOn": "true",
+   "buttonSfxOn": "true",
+   "iframesMuted": "false",
+   "tutorialStep": "0",
+   "tutorialOn": "true",
+   "homeType": "NONE",
+   "staffAccount": "false",
+   "rankedLp": "0",
+   "rankedBattles": "0",
+   "rankedWins": "0",
+   "rankedStreak": "0",
+   "skillPoints": "0",
+   "towerDefensePoints": "0",
+   "occupation": "nullable",
+   "occupationSignupAt": "nullable",
+   "stealth": "consts.STEALTH_SENSORY_DEFAULT",
+   "sensory": "consts.STEALTH_SENSORY_DEFAULT",
+   "stealthActive": "false",
+   "stealthActivatedAt": "nullable",
+   "stealthCooldownAt": "nullable",
+   "lastSensoryAt": "nullable",
+   "covertTrainingType": "nullable",
+   "covertTrainingStartedAt": "nullable",
+   "covertTrainingMinutes": "nullable"
+  },
+  "_trap_2026_07": "DB defaults: rank STUDENT, all stats 10 - a rank-less create is a paper doll. Writing rank triggers server-side stat REGENERATION overwriting explicit stats in the same payload (JONIN -> 556,520 base). Pin stats via a second edit. statsMultiplier is a dead lever past the 450k effective cap. rank/regeneration/preferredStat/preferredGeneral1/2 REQUIRED on create (guide 21 table)."
+ },
+ "aiProfile": {
+  "contracts": {
+   "create": "ai.createAiProfile {userId, rules}",
+   "update": "ai.updateAiProfile {id, rules, includeDefaultRules}",
+   "toggle": "ai.toggleAiProfile {aiId}"
+  },
+  "rule": {
+   "conditions": "AiCondition[]",
+   "action": "AiAction"
+  },
+  "conditionTypes": {
+   "health_below": {
+    "value": "int>0, default 10"
+   },
+   "specific_round": {
+    "value": "int>0, default 10"
+   },
+   "round_greater_than": {
+    "value": "int>0, default 5"
+   },
+   "round_lower_than": {
+    "value": "int>0, default 3"
+   },
+   "distance_higher_than": {
+    "value": "int>0, default 3",
+    "target": "AiAvailableTargets, default RANDOM_OPPONENT"
+   },
+   "distance_lower_than": {
+    "value": "int>0, default 2",
+    "target": "AiAvailableTargets, default RANDOM_OPPONENT"
+   },
+   "does_not_have_summon": {},
+   "has_effect": {
+    "effectType": "tag type, default damage",
+    "threshold": "0-100, default 0"
+   },
+   "target_has_effect": {
+    "effectType": "tag type",
+    "target": "AiAvailableTargets, default CLOSEST_OPPONENT",
+    "threshold": "0-100"
+   }
+  },
+  "actionTypes": {
+   "move_towards_opponent": {
+    "target": "AiAvailableTargets"
+   },
+   "end_turn": {},
+   "use_specific_jutsu": {
+    "jutsuId": "string",
+    "target": "AiAvailableTargets"
+   },
+   "use_specific_item": {
+    "itemId": "string",
+    "target": "AiAvailableTargets"
+   },
+   "use_random_jutsu": {
+    "target": "AiAvailableTargets"
+   },
+   "use_random_item": {
+    "target": "AiAvailableTargets"
+   },
+   "use_highest_power_action": {
+    "effect": "tag type, default damage",
+    "target": "AiAvailableTargets"
+   },
+   "use_highest_power_jutsu": {
+    "effect": "tag type",
+    "target": "AiAvailableTargets"
+   },
+   "use_highest_power_item": {
+    "effect": "tag type",
+    "target": "AiAvailableTargets"
+   },
+   "use_combo_action": {
+    "comboIds": "string[]",
+    "target": "AiAvailableTargets"
+   }
+  }
+ },
+ "asset": {
+  "contracts": {
+   "create": "gameAsset.create null body",
+   "update": "gameAsset.update {id, data: gameAssetValidator}"
+  },
+  "fields": {
+   "name": {
+    "type": "string",
+    "required": true,
+    "min": 1,
+    "max": 191
+   },
+   "image": {
+    "type": "url",
+    "required": true
+   },
+   "frames": {
+    "type": "int",
+    "required": true,
+    "min": 1,
+    "max": 100
+   },
+   "speed": {
+    "type": "int",
+    "required": true,
+    "min": 1,
+    "max": 100
+   },
+   "type": {
+    "type": "enum",
+    "required": true,
+    "enum": "GameAssetTypes"
+   },
+   "licenseDetails": {
+    "type": "string",
+    "required": true,
+    "min": 1,
+    "max": 512,
+    "notes": "REQUIRED non-empty"
+   },
+   "onInitialBattleField": {
+    "type": "boolean",
+    "required": true
+   },
+   "hidden": {
+    "type": "boolean",
+    "required": false
+   },
+   "url": {
+    "type": "url",
+    "required": false
+   },
+   "folder": {
+    "type": "string",
+    "required": false,
+    "notes": "alphanumeric only, no spaces or symbols"
+   }
+  }
+ },
+ "effects": {
+  "tagTypes": [
+   "absorb",
+   "afterburn",
+   "barrier",
+   "buffprevent",
+   "cleanse",
+   "cleanseprevent",
+   "clear",
+   "clearprevent",
+   "clone",
+   "copy",
+   "damage",
+   "debuffprevent",
+   "decreasecooldown",
+   "decreasedamagegiven",
+   "decreasedamagetaken",
+   "decreaseheal",
+   "decreasemaxpools",
+   "decreasepoolcost",
+   "decreasestat",
+   "drain",
+   "elementalseal",
+   "finalstand",
+   "flee",
+   "fleeprevent",
+   "heal",
+   "healprevent",
+   "immunity",
+   "increasecooldown",
+   "increasedamagegiven",
+   "increasedamagetaken",
+   "increaseheal",
+   "increasemaxpools",
+   "increasepoolcost",
+   "increaserange",
+   "increasestat",
+   "injectjutsus",
+   "lifesteal",
+   "marriageslotincrease",
+   "mirror",
+   "move",
+   "moveprevent",
+   "noncombatconsumereward",
+   "noncombatgainskill",
+   "noncombatincreasereskins",
+   "onehitkill",
+   "onehitkillprevent",
+   "pierce",
+   "poison",
+   "recoil",
+   "redirection",
+   "reflect",
+   "removebloodline",
+   "repair",
+   "rob",
+   "robprevent",
+   "rollbloodline",
+   "seal",
+   "sealprevent",
+   "shield",
+   "stealth",
+   "stun",
+   "stunprevent",
+   "summon",
+   "summonprevent",
+   "timecompression",
+   "timedilation",
+   "unknown",
+   "unlockitemvariant",
+   "vamp",
+   "visual",
+   "weakness",
+   "wound"
+  ],
+  "baseAttributes": {
+   "staticAssetPath": "string, default ''",
+   "staticAnimation": "string, default ''",
+   "appearAnimation": "string, default ''",
+   "disappearAnimation": "string, default ''",
+   "appearSfx": "string, default ''",
+   "disappearSfx": "string, default ''",
+   "rounds": "int 0-100, optional",
+   "timeTracker": "record<string,number>, optional",
+   "power": "number -100..100, default 1",
+   "powerPerLevel": "number -1..1, default 0",
+   "direction": "offence|defence per tag",
+   "target": "INHERIT|SELF, default INHERIT",
+   "friendlyFire": "ALL|FRIENDLY|ENEMIES, optional",
+   "calculation": "static (some tags add percentage/formula)"
+  },
+  "includeStats": {
+   "statTypes": "StatTypes[]",
+   "generalTypes": "GeneralTypes[]",
+   "elements": "ElementNames[]"
+  },
+  "notes": "71 tag type literals extracted from z.literal() calls in validators/combat.ts (verified, not inferred from variable names). Per-tag extra fields vary; getTagSchema(type) in validators/combat.ts is source of truth per tag.",
+  "authority": "SUPERSEDED for per-tag schemas by 46_DATA_tag_schemas.json (complete extraction, 72 tags, shared blocks, cross-field rules, polarity lists). tagTypes list retained here for quick reference."
+ },
+ "idsWithNumberShape": {
+  "ids": "string[], default []",
+  "number": "drop chance % 0-100, default 100",
+  "quantity": "how many, default 1"
+ },
+ "bloodline": {
+  "contracts": {
+   "bloodline.create": {
+    "input": "none",
+    "returns": "message = new id",
+    "blankShellDefaults": {
+     "name": "New Bloodline - {id}",
+     "image": "IMG_AVATAR_DEFAULT",
+     "description": "New bloodline description",
+     "effects": [],
+     "rank": "D",
+     "hidden": true
+    },
+    "gate": "canChangeContent"
+   },
+   "bloodline.update": {
+    "input": "{ id, data: BloodlineValidator }",
+    "gate": "canChangeContent",
+    "wholeRecord": "BloodlineValidator has no .partial(): every non-optional field must be present on every update (same whole-record law as quests).",
+    "serverStripsFromEffects": [
+     "rounds",
+     "friendlyFire"
+    ],
+    "stripNote": "The update handler deletes rounds and friendlyFire from every effect object before writing (bloodline.ts:653-657). Bloodline effects are therefore permanent (no round expiry) and friendlyFire is meaningless on them; sending these fields is harmless but they never persist.",
+    "nameDedup": "Server rejects if another bloodline already has data.name ('Bloodline name already exists').",
+    "sideEffects": "actionLog row + Discord content webhook (prod only)."
+   },
+   "bloodline.delete": {
+    "input": "{ id }",
+    "gate": "canChangeContent"
+   },
+   "bloodline.get / getAll / getAllNames": "standard read trio; getAllNames is the dedup source."
+  },
+  "fields": {
+   "name": {
+    "type": "string",
+    "required": true,
+    "notes": "trimmed; unique index Bloodline_name_key"
+   },
+   "image": {
+    "type": "string",
+    "required": true
+   },
+   "description": {
+    "type": "string",
+    "required": true
+   },
+   "rank": {
+    "type": "enum:LetterRanks",
+    "required": true
+   },
+   "regenIncrease": {
+    "type": "int",
+    "required": true,
+    "range": [
+     0,
+     100
+    ]
+   },
+   "statClassification": {
+    "type": "enum:StatTypes",
+    "required": true,
+    "notes": "required by validator even though DB column is nullable"
+   },
+   "villageId": {
+    "type": "string|null",
+    "required": true,
+    "notes": "nullable but the key must be present"
+   },
+   "hidden": {
+    "type": "boolean",
+    "required": false
+   },
+   "difficulty": {
+    "type": "enum:BloodlineDifficultyRatings|null",
+    "required": false
+   },
+   "traits": {
+    "type": "string|null",
+    "required": false,
+    "max": 256
+   },
+   "effects": {
+    "type": "AllTags[]",
+    "required": true,
+    "notes": "SuperRefineEffects applies; rounds/friendlyFire stripped server-side (see contracts). Runtime targeting law: 46b R1."
+   }
+  },
+  "runtime": "Effects realize at battle init, targetId = bearer, fromType 'bloodline'; suppressed entirely in RANKED_PVP and RANKED_SPARRING (combat.ts:2696-2714). Polarity law 46b R1."
+ },
+ "skillTree": {
+  "_status": "SHIPPED ENGINE ENTITY (was proposal-only in 33_PROPOSAL_skill_tree.md). Full staff CRUD + player purchase economy live in source.",
+  "contracts": {
+   "skillTree.create": {
+    "input": "none",
+    "returns": "message = new id",
+    "gate": "canChangeContent",
+    "blankShellDefaults": {
+     "name": "New Skill - {id}",
+     "description": "New skill description",
+     "image": "IMG_AVATAR_DEFAULT",
+     "effects": [],
+     "target": "SELF",
+     "tier": 1,
+     "requiredSkillIds": [],
+     "costSkillPoints": 1,
+     "hidden": true,
+     "skillType": "DEFAULT"
+    }
+   },
+   "skillTree.update": {
+    "input": "{ id, data: SkillTreeValidator }",
+    "gate": "canChangeContent",
+    "wholeRecord": "Handler rebuilds the full column set from input.data: whole-record on every update. No effect-field stripping (unlike bloodline): rounds/friendlyFire persist on skill effects, and friendlyFire is load-bearing for ALLIES/ENEMIES targets.",
+    "nameDedup": "Rejects duplicate name ('Skill name already exists'). Unique index SkillTree_name_key.",
+    "fallbacks": "image falls back to IMG_AVATAR_DEFAULT if empty; folderId empty -> null."
+   },
+   "skillTree.delete": {
+    "input": "{ id }",
+    "gate": "canChangeContent"
+   },
+   "skillTree.get / getAll / getAllNames": "getAll is cursor-paginated (limit 1-500) + skillTreeFilteringSchema (name, effect[], tier, costSkillPoints, hidden, folderId).",
+   "skillTree.createFolder / updateFolder / deleteFolder / reorderFolders / getAllFolders": {
+    "gate": "canChangeContent",
+    "folderSchema": {
+     "name": "string 1-191 required",
+     "image": "string <=512 optional (DB default '')",
+     "description": "string optional",
+     "hidden": "boolean optional (DB default false)",
+     "order": "int optional (DB default 0)"
+    }
+   },
+   "skillTree.purchaseSkill": {
+    "input": "{ skillId }",
+    "gate": "player",
+    "rules": "hidden skills unpurchasable; all requiredSkillIds must be ACTIVATED; available = user.skillPoints - sum(costSkillPoints of activated skills); SPECIAL skillType must already exist in UserSkill (granted, e.g. by quest) before it can be activated; re-activation of a deactivated owned skill is free of a new row (unique userId+skillId)."
+   },
+   "skillTree.resetSkillPoints": "player; deactivates all (COST_SKILL_RESET applies past free resets)."
+  },
+  "fields": {
+   "name": {
+    "type": "string",
+    "required": true,
+    "notes": "trimmed; unique index"
+   },
+   "image": {
+    "type": "string",
+    "required": true,
+    "notes": "empty falls back to IMG_AVATAR_DEFAULT on update"
+   },
+   "description": {
+    "type": "string",
+    "required": true
+   },
+   "target": {
+    "type": "enum:SkillTreeTargets",
+    "required": false,
+    "default": "SELF"
+   },
+   "tier": {
+    "type": "int",
+    "required": true,
+    "range": [
+     1,
+     10
+    ]
+   },
+   "requiredSkillIds": {
+    "type": "string[]",
+    "required": true,
+    "notes": "prereq skill ids; all must be activated to purchase"
+   },
+   "costSkillPoints": {
+    "type": "int",
+    "required": true,
+    "min": 1
+   },
+   "hidden": {
+    "type": "boolean",
+    "required": false
+   },
+   "skillType": {
+    "type": "enum:SkillTreeEntryTypes",
+    "required": false,
+    "default": "DEFAULT",
+    "notes": "SPECIAL = grant-gated, cannot be self-purchased"
+   },
+   "folderId": {
+    "type": "string|null",
+    "required": false
+   },
+   "effects": {
+    "type": "AllTags[]",
+    "required": true,
+    "notes": "SuperRefineEffects applies. friendlyFire on each tag is load-bearing when target is ALLIES/ENEMIES (see runtime)."
+   }
+  },
+  "runtime": {
+   "SELF": "realized at battle init on the bearer only (fromType 'skill'). Polarity law identical to bloodline: offensive tags attack the bearer.",
+   "ALLIES_ENEMIES": "deferred pass after usersState exists: every effect is realized against EVERY living combatant (bearer included), then filtered per-tag by checkFriendlyFire on the tag's friendlyFire field (FRIENDLY = same direction, ENEMIES = different, unset/ALL = everyone). target=ENEMIES with friendlyFire unset still hits the whole field. Source combat.ts:3071-3095, process.ts:140-169.",
+   "suppression": "All skill-tree effects suppressed in RANKED_PVP and RANKED_SPARRING (same clause as bloodline)."
+  },
+  "economyConstants": {
+   "SKILL_POINT_MIN_LEVEL": 21,
+   "SKILL_POINT_MAX_LEVEL": 40,
+   "MAX_SKILL_POINTS_FROM_LEVELING": 20,
+   "MAX_SKILL_POINTS": 100,
+   "note": "100 total = 20 from leveling (levels 21-40) + 80 from quests. COST_SKILL_RESET 30; free resets: normal 0 / silver 1 / gold 2.",
+   "liveState_2026_08_01": "RULED (Brandon): the skill TREE system is live but skill POINTS effectively do not exist in the live game yet. Source confirms why: the leveling grant (+1 per level-up event, Chunin+, L21-40, profile.ts:410-440) fires ONLY inside the level-up mutation with no retroactive backfill - players already past L40 get zero from leveling forever, and even mid-band players get +1 per future level-up with no catch-up to their expected total. The quest channel reward_skillpoints (rewards validator; payout clamped LEAST(current + n, MAX_SKILL_POINTS) at quests.ts:1778) exists and is unused - it is the content-side lever that activates the economy. 33_PROPOSAL v2 = content-fill of this entity + the reward_skillpoints emission plan."
+  }
+ }
+}

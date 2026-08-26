@@ -1,4 +1,16 @@
-// TNR content builder bundle v4.22 - loaded via @require by the tiny VM loader.
+// TNR content builder bundle v4.23 - loaded via @require by the tiny VM loader.
+// v4.23: (1) NULL GUARD FIX. wsNorm stripped every null in WS_OMIT_NULL, including fields the
+//        server accepts as null (.nullable()/.nullish()). Nine quest fields were affected, so
+//        clearing requiredVillage, prerequisiteQuestId, huntingRank et al was IMPOSSIBLE through
+//        the builder: the null vanished and fetch-merge preserved the old value. The exempt list
+//        is now read from 45g_DATA_checks.json `null_strip_exempt`, which is generated as the
+//        name-safe subset (nullable on EVERY entity declaring the field), so `image` - .nullish()
+//        on quest, required elsewhere - stays stripped. Law 72.
+//        (2) 45g is the shared check config; the container validator reads the same file.
+//        (3) Preflight gains laws 77 (runtime-only tags) and 78 (companion requirements),
+//            reaching parity with 70_TOOL_validate.py.
+//        (4) The results bundle carries `checks`, the preflight inventory, so
+//            `validate.py --parity` can diff the two sides against something real.
 // v4.18: node factory (short-form objectives) + write-shape normalizer (booleans, null-optionals, enum strings) applied to every mutation body.
 // v4.21: capture-only manifests (empty `items` with a `capture` block) parse and build; capture entries shape-checked for `proc` at parse time.
 // v4.22: capture.before was nested inside the `if(dedupNames)` block and never ran unless dedup was on; hoisted to build-body level. Capture phase errors now surface in the bundle instead of being swallowed.
@@ -150,12 +162,17 @@ const THR=2000,sleep=m=>new Promise(r=>setTimeout(r,m));
 // panel title says which config is live.
 const CFGBASE='https://raw.githubusercontent.com/perseverance484/tnr-tools/main/';
 const CFGV='?v=1';
-const CFG={ctors:null,pool:null,state:'loading'};
+const CFG={ctors:null,pool:null,checks:null,nullOK:{},state:'loading'};
 const loadCfg=async()=>{const grab=async n=>{try{const r=await fetch(CFGBASE+n+CFGV,{cache:'no-cache'});
   if(!r.ok)return null;return await r.json()}catch(e){return null}};
- const [c,p]=await Promise.all([grab('45c_DATA_constructors.json'),grab('32b_DATA_pool.json')]);
- CFG.ctors=c;CFG.pool=(p&&p.records)||null;
- CFG.state=(c&&p)?'generated':(c||p)?'partial':'fallback';
+ const [c,p,k]=await Promise.all([grab('45c_DATA_constructors.json'),grab('32b_DATA_pool.json'),grab('45g_DATA_checks.json')]);
+ CFG.ctors=c;CFG.pool=(p&&p.records)||null;CFG.checks=k;
+ // law 72: a null is legal wherever the zod chain is .nullable()/.nullish().
+ // Stripping those made the field impossible to CLEAR. The list is generated,
+ // name-safe, and falls back to stripping everything if 45g is unreachable.
+ CFG.nullOK={};if(k&&k.null_strip_exempt&&Array.isArray(k.null_strip_exempt.values))
+  for(const f of k.null_strip_exempt.values)CFG.nullOK[f]=1;
+ CFG.state=(c&&p&&k)?'generated':(c||p||k)?'partial':'fallback';
  CFG.byId={};if(CFG.pool)for(const k in CFG.pool){const r=Object.assign({code:k},CFG.pool[k]);CFG.pool[k]=r;CFG.byId[r.id]=r}
  return CFG};
 // validate one tagged object against a generated constructor
@@ -244,9 +261,14 @@ const wsNorm=(v)=>{
     const o={};
     for(const k in v){
       let x=v[k];
-      if(x===null&&WS_OMIT_NULL.indexOf(k)>=0)continue;              // absent != null
+      // absent != null (law 72) - but ONLY where the server rejects null.
+      // CFG.nullOK is the generated exemption; without 45g we strip as before.
+      if(x===null&&!CFG.nullOK[k]&&WS_OMIT_NULL.indexOf(k)>=0)continue;
       if(WS_BOOL.indexOf(k)>=0&&typeof x!=='boolean'){x=!!x&&x!==0}   // never coerce bools to 0
-      if(WS_ENUM_STR.indexOf(k)>=0&&(x===null||x===0||x===''))continue; // let server default the enum
+      // let the server default the enum - EXCEPT where null is the legitimate
+      // way to clear a nullable enum (huntingRank, gatheringRank, medicalRank).
+      // Without this the null guard above is undone one line later.
+      if(WS_ENUM_STR.indexOf(k)>=0&&(x===null||x===0||x==='')&&!(x===null&&CFG.nullOK[k]))continue;
       o[k]=wsNorm(x);
     }
     return o;
@@ -451,6 +473,27 @@ for(const tp in pc)if(pc[tp]>4){let p=1;for(const f of d.effects)if(f&&f.type===
  N('L08 '+pc[tp]+' '+tp+' rows: product x'+p.toFixed(1))}}
 return{B,W}};
 
+// laws 77/78: cross-field refines no schema expresses, so ctorBad cannot see
+// them. A shape-valid effect array still 400s on these.
+const RUNTIME_ONLY=()=>((CFG.checks&&CFG.checks.runtime_only_tags&&CFG.checks.runtime_only_tags.values)||['activatesagemode']);
+const COMPANION=()=>((CFG.checks&&CFG.checks.companion_required&&CFG.checks.companion_required.values)||{consume:['damage','pierce'],vamp:['damage','pierce'],wound:['damage','pierce']});
+const ENTONLY=()=>((CFG.checks&&CFG.checks.entity_only_tags&&CFG.checks.entity_only_tags.values)||{rollsagemode:'item',rollbloodline:'item',removebloodline:'item'});
+const ZEROPPL=()=>((CFG.checks&&CFG.checks.zero_power_per_level&&CFG.checks.zero_power_per_level.values)||['rollsagemode','rollbloodline','removebloodline','noncombatconsumereward']);
+const fxLaws=(d,ent)=>{const e=[];const fx=Array.isArray(d.effects)?d.effects:[];if(!fx.length)return e;
+ const types=fx.map(f=>f&&f.type);const ro=RUNTIME_ONLY(),co=COMPANION(),eo=ENTONLY(),zp=ZEROPPL();
+ for(const f of fx){if(!f||!f.type)continue;const t=f.type;
+  if(ro.indexOf(t)>=0)e.push('law 77: "'+t+'" is runtime-only; the engine injects it in battle and every authored record carrying it is rejected');
+  if(co[t]&&!co[t].some(x=>types.indexOf(x)>=0))e.push('law 78: "'+t+'" requires one of '+co[t].join('/')+' on the same action');
+  if(eo[t]&&ent!==eo[t])e.push('law 78: "'+t+'" is '+eo[t]+'-only, not legal on '+ent);
+  if(zp.indexOf(t)>=0&&f.powerPerLevel)e.push('law 78: powerPerLevel must be 0 for "'+t+'"');}
+ return e};
+// the inventory the container validator diffs against (--parity)
+// 'nullable' and 'null_strip_exempt' are law 72 at two precisions: the
+// container has entity context and uses the full nullability map, this side
+// walks a context-free body and uses the name-safe subset. Both sides list
+// both so the parity diff does not report a mismatch that is not one.
+const BUILDER_CHECKS=['booleans','build_order','cap_100','null_strip_exempt','companion_required','date_fields','entity_only_tags','enums','formula_tags','hidden_on_create','nullable','required_on_create','runtime_only_tags','tag_power_max','terminal_actions','zero_power_per_level'];
+
 const preflight=L=>{let bad=0;for(const r of L){const d=r.data||{};let e=[];
 if(r.entity==="jutsu")e=[].concat(enumBad(d,JENUM),fxBad(d),jBnd(d),fxRules(d,"jutsu"));
 else if(r.entity==="item")e=[].concat(enumBad(d,IENUM),fxBad(d),iBnd(d),fxRules(d,"item"));
@@ -458,13 +501,14 @@ else if(r.entity==="quest")e=qBad(d);
 else if(r.entity==="asset")e=aBad(d);
 else if(r.entity==="ai")e=aiBad(d);
 else if(r.entity==="aiProfile")e=rulesBad(d.rules);
+else if(r.entity==="bloodline")e=blBad(d);
 if(CFG.ctors&&(r.entity==="ai"||r.entity==="aiProfile")&&Array.isArray(d.rules)){
  d.rules.forEach((ru,i)=>{if(!ru||typeof ru!=='object')return;
   if(!Array.isArray(ru.conditions))e.push('rules['+i+']: conditions must be an array (AiRule is {conditions:[],action:{}})');
   else ru.conditions.forEach((c,j)=>{e=e.concat(ctorBad(c,'ZodAllAiConditions','rules['+i+'].conditions['+j+']'))});
   if(ru.action)e=e.concat(ctorBad(ru.action,'ZodAllAiActions','rules['+i+'].action'));});}
 if(CFG.ctors&&Array.isArray(d.effects))d.effects.forEach((fx,i)=>{e=e.concat(ctorBad(fx,'AllTags','effects['+i+']'))});
-else if(r.entity==="bloodline")e=blBad(d);
+e=e.concat(fxLaws(d,r.entity));
 if(r.entity==="quest"){rwChk(d.content&&d.content.reward,"reward",e);const _obs=(d.content&&d.content.objectives)||[];_obs.forEach(o=>o&&rwChk(o,o.id||"obj",e));if(d.hidden===false&&d.content){const mainSC=Array.isArray(d.content.sceneCharacters)&&d.content.sceneCharacters.length>0;const allSC=_obs.length>0&&_obs.every(o=>o&&Array.isArray(o.sceneCharacters)&&o.sceneCharacters.length>0);if(!mainSC&&!allSC)e.push("public quest (hidden:false) needs main sceneCharacters or sceneCharacters on every objective")}}
 e=e.concat(refBad(r,L));
 if(e.length){bad++;sr(r,"error","preflight: "+e.join("; ").slice(0,1200))}}
@@ -514,7 +558,7 @@ const wantLive=!(MANIFEST&&MANIFEST.readBack===false);
 if(wantLive){for(let i=0;i<rows.length;i++){const r=rows[i];if(r.state!=='ok')continue;
  $s.textContent='reading back '+(i+1)+'/'+rows.length+': '+r.name;
  r.live=await readBack(r,null);await sleep(THR)}}
-try{const bundle={builder:'v4.22',at:now(),entries:rows.map(r=>({name:r.name,srcId:r.key||null,entity:r.entity,slot:r.slot,state:r.state,detail:r.detail||'',id:r.outId||idmap[r.key]||r.targetId||null,pushed:r.pushed||null,live:r.live||null})),captures:(window.__tnrCapBefore||[]).concat(capsAfter),idmap};dl('tnr_results_'+Date.now()+'.json',JSON.stringify(bundle,null,1))}catch(_e){}
+try{const bundle={builder:'v4.23',at:now(),checks:BUILDER_CHECKS,cfg:CFG.state,entries:rows.map(r=>({name:r.name,srcId:r.key||null,entity:r.entity,slot:r.slot,state:r.state,detail:r.detail||'',id:r.outId||idmap[r.key]||r.targetId||null,pushed:r.pushed||null,live:r.live||null})),captures:(window.__tnrCapBefore||[]).concat(capsAfter),idmap};dl('tnr_results_'+Date.now()+'.json',JSON.stringify(bundle,null,1))}catch(_e){}
 $g.disabled=$r.disabled=0;ac()};
 const lt=()=>rows.map(r=>(r.state==='ok'?'ok  ':r.state==='error'?'ERR ':'-   ')+r.name+'  '+(r.detail||r.state)).join('\n')+'\n\nID MAP:\n'+JSON.stringify(idmap,null,1);
 const cp=()=>{const t=document.createElement('textarea');t.value=lt();t.style.cssText='position:fixed;left:-9999px';document.body.appendChild(t);t.focus();t.select();let o=0;try{o=document.execCommand('copy')}catch(e){}if(!o)try{navigator.clipboard&&navigator.clipboard.writeText(t.value)}catch(e){}t.remove()};
