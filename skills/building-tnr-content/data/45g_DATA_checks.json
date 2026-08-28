@@ -1,0 +1,1170 @@
+{
+ "_provenance": {
+  "generator": "schema_extract.py v2.0",
+  "extracted": "2026-08-26",
+  "source_drop": "TheNinjaRPG-main__3_.zip",
+  "source_sha256_16": {
+   "app/drizzle/constants.ts": "9ce4b865b1b28e05",
+   "app/src/validators/combat.ts": "56e2e5cef6b28412",
+   "app/src/validators/objectives.ts": "bfb97953c942b06a",
+   "app/src/validators/ai.ts": "56f0719ad861591c"
+  },
+  "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
+ },
+ "_contract": {
+  "purpose": "One check config, two consumers: the builder preflight and 70_TOOL_validate.py. A check that exists in one must exist in the other, and both read their rules from here.",
+  "blocks": "Each top-level block carries `_class`: 'derived' is computed from the zod validators and changes when the source does; 'law' is hand-held engine behaviour no schema expresses, cited to a law number."
+ },
+ "nullable": {
+  "_class": "derived",
+  "_note": "Explicit null is ACCEPTED. The builder must not strip these (law 72). Everywhere else null must be omitted.",
+  "fields": {
+   "jutsu": [
+    "bloodlineId",
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBukijutsuDefence",
+    "requiredBukijutsuOffence",
+    "requiredGenjutsuDefence",
+    "requiredGenjutsuOffence",
+    "requiredIntelligence",
+    "requiredNinjutsuDefence",
+    "requiredNinjutsuOffence",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuDefence",
+    "requiredTaijutsuOffence",
+    "requiredWillpower",
+    "statClassification",
+    "villageId"
+   ],
+   "item": [
+    "bloodlineId",
+    "craftingRequirements",
+    "crystalTargetTypes",
+    "expireFromStoreAt",
+    "parentItemId",
+    "requiredBukijutsuDefence",
+    "requiredBukijutsuOffence",
+    "requiredGenjutsuDefence",
+    "requiredGenjutsuOffence",
+    "requiredIntelligence",
+    "requiredNinjutsuDefence",
+    "requiredNinjutsuOffence",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuDefence",
+    "requiredTaijutsuOffence",
+    "requiredWillpower"
+   ],
+   "bloodline": [
+    "difficulty",
+    "statClassification",
+    "traits",
+    "villageId"
+   ],
+   "quest": [
+    "description",
+    "endsAt",
+    "gatheringRank",
+    "huntingRank",
+    "image",
+    "medicalRank",
+    "prerequisiteQuestId",
+    "raidBossCurrentHealth",
+    "raidBossMaxHealth",
+    "requiredBloodlineId",
+    "requiredSageModeId",
+    "requiredSageRank",
+    "requiredVillage",
+    "startsAt",
+    "successDescription",
+    "tierLevel"
+   ],
+   "gameAsset": [],
+   "aiRule": []
+  }
+ },
+ "cap_100": {
+  "_class": "derived",
+  "_note": "law 8",
+  "fields": {
+   "jutsu": [
+    "actionCostPerc",
+    "requiredLevel"
+   ],
+   "item": [
+    "actionCostPerc",
+    "maxDurability",
+    "requiredLevel"
+   ],
+   "bloodline": [
+    "regenIncrease"
+   ],
+   "quest": [
+    "maxAttempts",
+    "maxCompletes",
+    "maxLevel",
+    "requiredLevel",
+    "tierLevel"
+   ],
+   "gameAsset": [
+    "frames",
+    "speed"
+   ],
+   "aiRule": []
+  }
+ },
+ "null_strip_exempt": {
+  "_class": "derived",
+  "_note": "Name-safe subset of `nullable`: these are nullable on every entity that declares them, so a context-free normaliser (the builder's wsNorm) can stop stripping them without breaking another entity.",
+  "_splits": {
+   "image": {
+    "jutsu": false,
+    "item": false,
+    "bloodline": false,
+    "quest": true,
+    "gameAsset": false
+   },
+   "description": {
+    "jutsu": false,
+    "item": false,
+    "bloodline": false,
+    "quest": true
+   }
+  },
+  "_splits_note": "Nullable on some entities and required on others. NEVER exempt these by name; they need entity context.",
+  "values": [
+   "bloodlineId",
+   "craftingRequirements",
+   "crystalTargetTypes",
+   "difficulty",
+   "endsAt",
+   "expireFromStoreAt",
+   "gatheringRank",
+   "huntingRank",
+   "medicalRank",
+   "parentItemId",
+   "parentJutsuId",
+   "prerequisiteQuestId",
+   "raidBossCurrentHealth",
+   "raidBossMaxHealth",
+   "requiredBloodlineId",
+   "requiredBloodlineItemId",
+   "requiredBukijutsuDefence",
+   "requiredBukijutsuOffence",
+   "requiredGenjutsuDefence",
+   "requiredGenjutsuOffence",
+   "requiredIntelligence",
+   "requiredNinjutsuDefence",
+   "requiredNinjutsuOffence",
+   "requiredSageModeId",
+   "requiredSageRank",
+   "requiredSpeed",
+   "requiredStrength",
+   "requiredTaijutsuDefence",
+   "requiredTaijutsuOffence",
+   "requiredVillage",
+   "requiredWillpower",
+   "startsAt",
+   "statClassification",
+   "successDescription",
+   "tierLevel",
+   "traits",
+   "villageId"
+  ]
+ },
+ "required_on_create": {
+  "_class": "derived",
+  "_note": "No schema default, so the server has nothing to fall back on. Absent means the create is a paper doll.",
+  "fields": {
+   "jutsu": [
+    "actionCostPerc",
+    "battleDescription",
+    "bloodlineId",
+    "chakraCost",
+    "chakraCostReducePerLvl",
+    "cooldown",
+    "description",
+    "effects",
+    "extraBaseCost",
+    "healthCost",
+    "healthCostReducePerLvl",
+    "image",
+    "jutsuRank",
+    "jutsuType",
+    "jutsuWeapon",
+    "method",
+    "name",
+    "range",
+    "requiredBloodlineItemId",
+    "requiredBukijutsuDefence",
+    "requiredBukijutsuOffence",
+    "requiredGenjutsuDefence",
+    "requiredGenjutsuOffence",
+    "requiredIntelligence",
+    "requiredLevel",
+    "requiredNinjutsuDefence",
+    "requiredNinjutsuOffence",
+    "requiredRank",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuDefence",
+    "requiredTaijutsuOffence",
+    "requiredWillpower",
+    "staminaCost",
+    "staminaCostReducePerLvl",
+    "target",
+    "villageId"
+   ],
+   "item": [
+    "actionCostPerc",
+    "battleDescription",
+    "bloodlineId",
+    "chakraCost",
+    "chakraCostReducePerLvl",
+    "cooldown",
+    "cost",
+    "crystalTargetTypes",
+    "description",
+    "effects",
+    "expireFromStoreAt",
+    "healthCost",
+    "healthCostReducePerLvl",
+    "hidden",
+    "image",
+    "itemType",
+    "maxDurability",
+    "maxEquips",
+    "maxImbueNumber",
+    "method",
+    "name",
+    "range",
+    "rarity",
+    "repsCost",
+    "requiredBukijutsuDefence",
+    "requiredBukijutsuOffence",
+    "requiredGenjutsuDefence",
+    "requiredGenjutsuOffence",
+    "requiredIntelligence",
+    "requiredNinjutsuDefence",
+    "requiredNinjutsuOffence",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuDefence",
+    "requiredTaijutsuOffence",
+    "requiredWillpower",
+    "seichiSilverCost",
+    "slot",
+    "stackSize",
+    "staminaCost",
+    "staminaCostReducePerLvl",
+    "target",
+    "weaponType"
+   ],
+   "bloodline": [
+    "description",
+    "effects",
+    "image",
+    "name",
+    "rank",
+    "regenIncrease",
+    "villageId"
+   ],
+   "quest": [
+    "consecutiveObjectives",
+    "description",
+    "endsAt",
+    "hidden",
+    "name",
+    "questType",
+    "startsAt",
+    "successDescription",
+    "tierLevel"
+   ],
+   "gameAsset": [
+    "frames",
+    "image",
+    "licenseDetails",
+    "name",
+    "onInitialBattleField",
+    "speed",
+    "type"
+   ],
+   "aiRule": [
+    "action",
+    "conditions"
+   ]
+  }
+ },
+ "enums": {
+  "_class": "derived",
+  "fields": {
+   "jutsu": {
+    "jutsuWeapon": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "jutsuType": [
+     "NORMAL",
+     "SPECIAL",
+     "BLOODLINE",
+     "FORBIDDEN",
+     "LOYALTY",
+     "CLAN",
+     "EVENT",
+     "AI"
+    ],
+    "jutsuRank": [
+     "D",
+     "C",
+     "B",
+     "A",
+     "S",
+     "H"
+    ],
+    "requiredRank": [
+     "STUDENT",
+     "GENIN",
+     "CHUNIN",
+     "JONIN",
+     "ELITE JONIN",
+     "ELDER",
+     "NONE"
+    ],
+    "method": [
+     "SINGLE",
+     "ALL",
+     "AOE_CIRCLE_SPAWN",
+     "AOE_LINE_SHOOT",
+     "AOE_WALL_SHOOT",
+     "AOE_LARGE_WALL_SHOOT",
+     "AOE_CIRCLE_SHOOT",
+     "AOE_SPIRAL_SHOOT"
+    ],
+    "target": [
+     "SELF",
+     "OTHER_USER",
+     "OPPONENT",
+     "ALLY",
+     "CHARACTER",
+     "GROUND",
+     "EMPTY_GROUND"
+    ],
+    "statClassification": [
+     "Highest",
+     "Ninjutsu",
+     "Genjutsu",
+     "Taijutsu",
+     "Bukijutsu"
+    ],
+    "battleUsageType": [
+     "PVE",
+     "PVP",
+     "BOTH"
+    ],
+    "requiredNinjutsuOffence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredNinjutsuDefence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredGenjutsuOffence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredGenjutsuDefence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredTaijutsuOffence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredTaijutsuDefence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredBukijutsuOffence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredBukijutsuDefence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredStrength": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredSpeed": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredIntelligence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredWillpower": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ]
+   },
+   "item": {
+    "method": [
+     "SINGLE",
+     "ALL",
+     "AOE_CIRCLE_SPAWN",
+     "AOE_LINE_SHOOT",
+     "AOE_WALL_SHOOT",
+     "AOE_LARGE_WALL_SHOOT",
+     "AOE_CIRCLE_SHOOT",
+     "AOE_SPIRAL_SHOOT"
+    ],
+    "target": [
+     "SELF",
+     "OTHER_USER",
+     "OPPONENT",
+     "ALLY",
+     "CHARACTER",
+     "GROUND",
+     "EMPTY_GROUND"
+    ],
+    "itemType": [
+     "WEAPON",
+     "CONSUMABLE",
+     "ARMOR",
+     "ACCESSORY",
+     "MATERIAL",
+     "KEYSTONE",
+     "CRYSTAL",
+     "OTHER"
+    ],
+    "weaponType": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "rarity": [
+     "COMMON",
+     "RARE",
+     "EPIC",
+     "LEGENDARY"
+    ],
+    "slot": [
+     "HEAD",
+     "CHEST",
+     "LEGS",
+     "FEET",
+     "HAND",
+     "THROWN",
+     "ITEM",
+     "WAIST",
+     "KEYSTONE",
+     "NONE"
+    ],
+    "requiredNinjutsuOffence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredNinjutsuDefence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredGenjutsuOffence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredGenjutsuDefence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredTaijutsuOffence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredTaijutsuDefence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredBukijutsuOffence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredBukijutsuDefence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredStrength": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredSpeed": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredIntelligence": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "requiredWillpower": [
+     "STAFF",
+     "AXE",
+     "FIST_WEAPON",
+     "SHURIKEN",
+     "SICKLE",
+     "DAGGER",
+     "SWORD",
+     "POLEARM",
+     "FLAIL",
+     "CHAIN",
+     "FAN",
+     "BOW",
+     "HAMMER",
+     "NONE"
+    ],
+    "crystalTargetTypes": [
+     "WEAPON",
+     "CONSUMABLE",
+     "ARMOR",
+     "ACCESSORY",
+     "MATERIAL",
+     "KEYSTONE",
+     "CRYSTAL",
+     "OTHER"
+    ],
+    "battleUsageType": [
+     "PVE",
+     "PVP",
+     "BOTH"
+    ]
+   },
+   "bloodline": {
+    "rank": [
+     "D",
+     "C",
+     "B",
+     "A",
+     "S",
+     "H"
+    ],
+    "statClassification": [
+     "Highest",
+     "Ninjutsu",
+     "Genjutsu",
+     "Taijutsu",
+     "Bukijutsu"
+    ],
+    "difficulty": [
+     "Easy",
+     "Medium",
+     "Hard",
+     "Expert"
+    ]
+   },
+   "quest": {
+    "questRank": [
+     "D",
+     "C",
+     "B",
+     "A",
+     "S",
+     "H"
+    ],
+    "medicalRank": [
+     "NONE",
+     "NOVICE",
+     "APPRENTICE",
+     "MASTER",
+     "LEGENDARY"
+    ],
+    "huntingRank": [
+     "NONE",
+     "D RANK",
+     "C RANK",
+     "B RANK",
+     "A RANK",
+     "S RANK"
+    ],
+    "gatheringRank": [
+     "NONE",
+     "D RANK",
+     "C RANK",
+     "B RANK",
+     "A RANK",
+     "S RANK"
+    ],
+    "requiredSageRank": [
+     "NONE",
+     "INITIATE",
+     "ADEPT",
+     "MASTER",
+     "LEGENDARY"
+    ],
+    "questType": [
+     "starter",
+     "tier",
+     "daily",
+     "mission",
+     "errand",
+     "crime",
+     "exam",
+     "event",
+     "story",
+     "anbu",
+     "medical",
+     "hunting",
+     "gathering",
+     "battlepyramid",
+     "pvp",
+     "achievement",
+     "war",
+     "raid",
+     "overworld"
+    ],
+    "retryDelay": [
+     "daily",
+     "weekly",
+     "monthly",
+     "none"
+    ],
+    "attemptDelay": [
+     "daily",
+     "weekly",
+     "monthly",
+     "none"
+    ]
+   },
+   "gameAsset": {
+    "type": [
+     "STATIC",
+     "ANIMATION",
+     "SCENE_BACKGROUND",
+     "SCENE_CHARACTER",
+     "SFX",
+     "MUSIC"
+    ]
+   },
+   "aiRule": {}
+  }
+ },
+ "booleans": {
+  "_class": "derived",
+  "_note": "law 73: never coerce these through a numeric normalisation pass",
+  "fields": {
+   "jutsu": [
+    "hidden",
+    "injectableInBattle"
+   ],
+   "item": [
+    "canBeCrafted",
+    "canBeGathered",
+    "canBeHunted",
+    "canBeImbued",
+    "canBeTraded",
+    "canStack",
+    "destroyOnUse",
+    "hidden",
+    "inShop",
+    "isEventItem",
+    "preventBattleUsage"
+   ],
+   "bloodline": [
+    "hidden"
+   ],
+   "quest": [
+    "consecutiveObjectives",
+    "hidden"
+   ],
+   "gameAsset": [
+    "hidden",
+    "onInitialBattleField"
+   ],
+   "aiRule": []
+  }
+ },
+ "date_fields": {
+  "_class": "derived",
+  "_note": "law 7: plain YYYY-MM-DD only",
+  "fields": {
+   "jutsu": [],
+   "item": [
+    "expireFromStoreAt"
+   ],
+   "bloodline": [],
+   "quest": [
+    "endsAt",
+    "startsAt"
+   ],
+   "gameAsset": [],
+   "aiRule": []
+  }
+ },
+ "tag_power_max": {
+  "_class": "derived",
+  "_note": "law 6",
+  "fields": {
+   "absorb": 100,
+   "activatesagemode": 100,
+   "afterburn": 100,
+   "barrier": 100,
+   "buffprevent": 100,
+   "cleanseprevent": 100,
+   "cleanse": 100,
+   "clearprevent": 100,
+   "clear": 100,
+   "clone": 100,
+   "consume": 100,
+   "copy": 100,
+   "damage": 100,
+   "debuffprevent": 100,
+   "decreasecooldown": 100,
+   "decreasedamagegiven": 100,
+   "decreasedamagetaken": 100,
+   "decreaseheal": 100,
+   "decreasepoolcost": 100,
+   "decreasemaxpools": 100,
+   "decreasestat": 100,
+   "disarm": 100,
+   "drain": 100,
+   "elementalseal": 100,
+   "finalstand": 100,
+   "fleeprevent": 100,
+   "flee": 100,
+   "healprevent": 100,
+   "heal": 100,
+   "increasecooldown": 100,
+   "increasedamagegiven": 100,
+   "increasedamagetaken": 100,
+   "increaseheal": 100,
+   "marriageslotincrease": 100,
+   "noncombatincreasereskins": 100,
+   "injectjutsus": 100,
+   "increasepoolcost": 100,
+   "increasemaxpools": 100,
+   "increaserange": 100,
+   "increasestat": 100,
+   "immunity": 100,
+   "lifesteal": 100,
+   "mirror": 100,
+   "moveprevent": 100,
+   "move": 100,
+   "noncombatconsumereward": 100,
+   "noncombatgainskill": 100,
+   "repair": 100,
+   "onehitkillprevent": 100,
+   "onehitkill": 100,
+   "pierce": 100,
+   "poison": 100,
+   "recoil": 100,
+   "redirection": 100,
+   "reflect": 100,
+   "removebloodline": 100,
+   "robprevent": 100,
+   "rob": 100,
+   "rollbloodline": 100,
+   "rollsagemode": 100,
+   "sealprevent": 100,
+   "seal": 100,
+   "shield": 100,
+   "stealth": 100,
+   "stunprevent": 100,
+   "stun": 100,
+   "summonprevent": 100,
+   "summon": 100,
+   "timecompression": 100,
+   "timedilation": 100,
+   "unlockitemvariant": 100,
+   "unknown": 100,
+   "vamp": 100,
+   "visual": 100,
+   "weakness": 100,
+   "wound": 100
+  }
+ },
+ "runtime_only_tags": {
+  "_class": "law",
+  "_cites": 77,
+  "_note": "Present in AllTags and constructible, but SuperRefineEffects rejects them on every authored record. Shape checks cannot catch these.",
+  "values": [
+   "activatesagemode"
+  ]
+ },
+ "companion_required": {
+  "_class": "law",
+  "_cites": 78,
+  "_note": "Tag is rejected unless one of `needs` is present on the SAME action.",
+  "values": {
+   "consume": [
+    "damage",
+    "pierce"
+   ],
+   "vamp": [
+    "damage",
+    "pierce"
+   ],
+   "wound": [
+    "damage",
+    "pierce"
+   ]
+  }
+ },
+ "entity_only_tags": {
+  "_class": "law",
+  "_cites": 78,
+  "values": {
+   "rollsagemode": "item",
+   "rollbloodline": "item",
+   "removebloodline": "item"
+  }
+ },
+ "zero_power_per_level": {
+  "_class": "law",
+  "_cites": 78,
+  "values": [
+   "rollsagemode",
+   "rollbloodline",
+   "removebloodline",
+   "noncombatconsumereward"
+  ]
+ },
+ "terminal_actions": {
+  "_class": "law",
+  "_cites": "41, 41b",
+  "_note": "Only these genuinely end a rule chain. An unconditional specific-jutsu rule falls through when the jutsu is on cooldown or unaffordable, so it is a priority device, not a terminator.",
+  "values": [
+   "move_towards_opponent",
+   "end_turn",
+   "use_random_jutsu"
+  ]
+ },
+ "formula_tags": {
+  "_class": "law",
+  "_cites": 4,
+  "_note": "Require BOTH statTypes and generalTypes; an empty one detonates the damage formula rather than zeroing it.",
+  "values": [
+   "damage",
+   "pierce",
+   "wound"
+  ]
+ },
+ "hidden_on_create": {
+  "_class": "law",
+  "_cites": "16b",
+  "_note": "Every entity, every create. Where the table lacks the column the key is stripped silently, which is harmless.",
+  "values": true
+ },
+ "build_order": {
+  "_class": "law",
+  "_cites": 17,
+  "values": [
+   "jutsu",
+   "asset",
+   "item",
+   "ai",
+   "aiProfile",
+   "quest"
+  ]
+ }
+}

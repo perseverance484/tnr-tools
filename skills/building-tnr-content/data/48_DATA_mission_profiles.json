@@ -1,0 +1,563 @@
+{
+ "_provenance": {
+  "generated": "2026-08-26",
+  "by": "session: mission design protocol",
+  "quest_fields_from": "45d_DATA_entity_schemas.json -> entities.quest (28 fields)",
+  "reward_fields_from": "app/src/validators/rewards.ts -> rewardFields (27 fields)",
+  "art_from": "25x_DATA_art_spec.json + shotlist.py"
+ },
+ "_contract": "The layer 45d cannot supply. 45d says what is LEGAL for a quest field; this says what is CORRECT for a mission of a given rank. mission.py fills a record from here, so a value present in this file is never decided again at build time. Every value is one of: a literal (fills), null (deliberately unset, fills as null), \"AWAITING_RULING\" (dauntless's to supply; mission.py REFUSES to build until it is replaced), or \"AUTHOR\" (creative, prompted for). There are no defaults invented here and nothing is measured from the live game - the 65 live missions were deliberately not scanned, per instruction.",
+ "_field_routing": {
+  "author": [
+   "name",
+   "description",
+   "successDescription",
+   "content.objectives[].description",
+   "content.objectives[].successDescription"
+  ],
+  "profile": [
+   "questRank",
+   "requiredLevel",
+   "maxLevel",
+   "tierLevel",
+   "maxAttempts",
+   "maxCompletes",
+   "retryDelay",
+   "attemptDelay",
+   "prerequisiteQuestId",
+   "requiredVillage",
+   "content.reward"
+  ],
+  "fixed": {
+   "questType": "mission",
+   "hidden": true,
+   "consecutiveObjectives": true
+  },
+  "generated": {
+   "image": "@img ref from shotlist",
+   "content.sceneBackground": "@scene ref from shotlist",
+   "content.sceneCharacters": "@scene refs from shotlist"
+  },
+  "null_by_design": [
+   "medicalRank",
+   "huntingRank",
+   "gatheringRank",
+   "requiredBloodlineId",
+   "requiredSageModeId",
+   "requiredSageRank",
+   "startsAt",
+   "endsAt",
+   "raidBossMaxHealth",
+   "raidBossCurrentHealth"
+  ]
+ },
+ "_fixed_rationale": {
+  "questType": "The family this file describes.",
+  "hidden": "Standing rule: everything ships hidden. Publishing is dauntless's step, never a build output.",
+  "consecutiveObjectives": "Rewards pay on victory rather than at battle start. Without it a battle mission pays on engage."
+ },
+ "ranks": {
+  "D": {
+   "_live_population": 8,
+   "quest": {
+    "questRank": "D",
+    "requiredLevel": 3,
+    "maxLevel": 100,
+    "tierLevel": null,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "prerequisiteQuestId": null,
+    "requiredVillage": null
+   },
+   "shape": {
+    "objective_count": 4,
+    "battle_nodes": 0,
+    "enemies_per_battle": 1,
+    "enemy_level_band": [
+     10,
+     25
+    ],
+    "max_enemies_per_battle": 1
+   },
+   "reward": {
+    "reward_hunter_items": false,
+    "reward_hunter_items_ids": [],
+    "reward_gathering_items": false,
+    "reward_gathering_items_ids": [],
+    "reward_seichi_silver": 0,
+    "reward_money": 1100,
+    "reward_clanpoints": 100,
+    "reward_anbupoints": 0,
+    "reward_exp": 173,
+    "reward_tokens": 100,
+    "reward_prestige": 14,
+    "reward_reputation": 0,
+    "reward_skillpoints": 0,
+    "reward_rank": "NONE",
+    "reward_village_membership": "NONE",
+    "reward_items": [],
+    "reward_jutsus": [],
+    "reward_bloodlines": [],
+    "reward_sage_modes": [],
+    "reward_badges": [],
+    "reward_medical_experience": 0,
+    "reward_hunting_experience": 0,
+    "reward_crafting_experience": 0,
+    "reward_gathering_experience": 0,
+    "reward_sage_mastery_experience": 0,
+    "reward_war_damage": 0,
+    "reward_war_healing": 0
+   },
+   "_reward_source": "dauntless 2026-08-26, individual mission ladder",
+   "_variant_note": "Basic D. No combat, and no combat is the D default (dauntless 2026-08-27). enemy_level_band is null because a mission with no battle node never consults it - this variant is fully buildable."
+  },
+  "D_story": {
+   "_live_population": 2,
+   "quest": {
+    "questRank": "D",
+    "requiredLevel": 5,
+    "maxLevel": 100,
+    "tierLevel": null,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "prerequisiteQuestId": null,
+    "requiredVillage": null
+   },
+   "shape": {
+    "objective_count": 6,
+    "battle_nodes": 0,
+    "enemies_per_battle": 1,
+    "enemy_level_band": [
+     10,
+     25
+    ],
+    "max_enemies_per_battle": 1
+   },
+   "reward": {
+    "reward_hunter_items": false,
+    "reward_hunter_items_ids": [],
+    "reward_gathering_items": false,
+    "reward_gathering_items_ids": [],
+    "reward_seichi_silver": 0,
+    "reward_money": 1100,
+    "reward_clanpoints": 100,
+    "reward_anbupoints": 0,
+    "reward_exp": 173,
+    "reward_tokens": 100,
+    "reward_prestige": 14,
+    "reward_reputation": 0,
+    "reward_skillpoints": 0,
+    "reward_rank": "NONE",
+    "reward_village_membership": "NONE",
+    "reward_items": [],
+    "reward_jutsus": [],
+    "reward_bloodlines": [],
+    "reward_sage_modes": [],
+    "reward_badges": [],
+    "reward_medical_experience": 0,
+    "reward_hunting_experience": 0,
+    "reward_crafting_experience": 0,
+    "reward_gathering_experience": 0,
+    "reward_sage_mastery_experience": 0,
+    "reward_war_damage": 0,
+    "reward_war_healing": 0
+   },
+   "_reward_source": "dauntless 2026-08-26, individual mission ladder",
+   "_variant_note": "D with extra nodes and story, still no combat. objective_count 6 is the ceiling of our own D content and is PROPOSED, not measured: the two no-combat D records above baseline sit at 5. Fully buildable."
+  },
+  "D_combat": {
+   "_live_population": 6,
+   "quest": {
+    "questRank": "D",
+    "requiredLevel": 20,
+    "maxLevel": 100,
+    "tierLevel": null,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "prerequisiteQuestId": null,
+    "requiredVillage": null
+   },
+   "shape": {
+    "objective_count": 4,
+    "battle_nodes": 1,
+    "enemies_per_battle": 1,
+    "enemy_level_band": [
+     10,
+     25
+    ],
+    "max_enemies_per_battle": 1
+   },
+   "reward": {
+    "reward_hunter_items": false,
+    "reward_hunter_items_ids": [],
+    "reward_gathering_items": false,
+    "reward_gathering_items_ids": [],
+    "reward_seichi_silver": 0,
+    "reward_money": 1100,
+    "reward_clanpoints": 100,
+    "reward_anbupoints": 0,
+    "reward_exp": 173,
+    "reward_tokens": 100,
+    "reward_prestige": 14,
+    "reward_reputation": 0,
+    "reward_skillpoints": 0,
+    "reward_rank": "NONE",
+    "reward_village_membership": "NONE",
+    "reward_items": [],
+    "reward_jutsus": [],
+    "reward_bloodlines": [],
+    "reward_sage_modes": [],
+    "reward_badges": [],
+    "reward_medical_experience": 0,
+    "reward_hunting_experience": 0,
+    "reward_crafting_experience": 0,
+    "reward_gathering_experience": 0,
+    "reward_sage_mastery_experience": 0,
+    "reward_war_damage": 0,
+    "reward_war_healing": 0
+   },
+   "_reward_source": "dauntless 2026-08-26, individual mission ladder",
+   "_variant_note": "D with combat. The exception, not the pattern - six of our fourteen D records carry a fight, kept to spice the board up. Blocked only on enemy_level_band."
+  },
+  "C": {
+   "_live_population": 17,
+   "quest": {
+    "questRank": "C",
+    "requiredLevel": 20,
+    "maxLevel": 100,
+    "tierLevel": null,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "prerequisiteQuestId": null,
+    "requiredVillage": null
+   },
+   "shape": {
+    "objective_count": 4,
+    "battle_nodes": 1,
+    "enemies_per_battle": 1,
+    "enemy_level_band": [
+     25,
+     40
+    ],
+    "max_enemies_per_battle": 2
+   },
+   "reward": {
+    "reward_hunter_items": false,
+    "reward_hunter_items_ids": [],
+    "reward_gathering_items": false,
+    "reward_gathering_items_ids": [],
+    "reward_seichi_silver": 0,
+    "reward_money": 1475,
+    "reward_clanpoints": 100,
+    "reward_anbupoints": 0,
+    "reward_exp": 231,
+    "reward_tokens": 100,
+    "reward_prestige": 19,
+    "reward_reputation": 0,
+    "reward_skillpoints": 0,
+    "reward_rank": "NONE",
+    "reward_village_membership": "NONE",
+    "reward_items": [],
+    "reward_jutsus": [],
+    "reward_bloodlines": [],
+    "reward_sage_modes": [],
+    "reward_badges": [],
+    "reward_medical_experience": 0,
+    "reward_hunting_experience": 0,
+    "reward_crafting_experience": 0,
+    "reward_gathering_experience": 0,
+    "reward_sage_mastery_experience": 0,
+    "reward_war_damage": 0,
+    "reward_war_healing": 0
+   },
+   "_reward_source": "dauntless 2026-08-26, individual mission ladder"
+  },
+  "B": {
+   "_live_population": 5,
+   "quest": {
+    "questRank": "B",
+    "requiredLevel": 25,
+    "maxLevel": 100,
+    "tierLevel": null,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "prerequisiteQuestId": null,
+    "requiredVillage": null
+   },
+   "shape": {
+    "objective_count": 23,
+    "battle_nodes": 3,
+    "enemies_per_battle": 1,
+    "enemy_level_band": [
+     40,
+     55
+    ],
+    "max_enemies_per_battle": 3
+   },
+   "reward": {
+    "reward_hunter_items": false,
+    "reward_hunter_items_ids": [],
+    "reward_gathering_items": false,
+    "reward_gathering_items_ids": [],
+    "reward_seichi_silver": 0,
+    "reward_money": 1970,
+    "reward_clanpoints": 200,
+    "reward_anbupoints": 0,
+    "reward_exp": 308,
+    "reward_tokens": 100,
+    "reward_prestige": 25,
+    "reward_reputation": 0,
+    "reward_skillpoints": 0,
+    "reward_rank": "NONE",
+    "reward_village_membership": "NONE",
+    "reward_items": [],
+    "reward_jutsus": [],
+    "reward_bloodlines": [],
+    "reward_sage_modes": [],
+    "reward_badges": [],
+    "reward_medical_experience": 0,
+    "reward_hunting_experience": 0,
+    "reward_crafting_experience": 0,
+    "reward_gathering_experience": 0,
+    "reward_sage_mastery_experience": 0,
+    "reward_war_damage": 0,
+    "reward_war_healing": 0
+   },
+   "_reward_source": "dauntless 2026-08-26, individual mission ladder"
+  },
+  "A": {
+   "_live_population": 10,
+   "quest": {
+    "questRank": "A",
+    "requiredLevel": 50,
+    "maxLevel": 100,
+    "tierLevel": null,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "prerequisiteQuestId": null,
+    "requiredVillage": null
+   },
+   "shape": {
+    "objective_count": 46,
+    "battle_nodes": 6,
+    "enemies_per_battle": 1,
+    "enemy_level_band": [
+     55,
+     100
+    ],
+    "max_enemies_per_battle": 4
+   },
+   "reward": {
+    "reward_hunter_items": false,
+    "reward_hunter_items_ids": [],
+    "reward_gathering_items": false,
+    "reward_gathering_items_ids": [],
+    "reward_seichi_silver": 0,
+    "reward_money": 2625,
+    "reward_clanpoints": 300,
+    "reward_anbupoints": 0,
+    "reward_exp": 410,
+    "reward_tokens": 100,
+    "reward_prestige": 34,
+    "reward_reputation": 0,
+    "reward_skillpoints": 0,
+    "reward_rank": "NONE",
+    "reward_village_membership": "NONE",
+    "reward_items": [],
+    "reward_jutsus": [],
+    "reward_bloodlines": [],
+    "reward_sage_modes": [],
+    "reward_badges": [],
+    "reward_medical_experience": 0,
+    "reward_hunting_experience": 0,
+    "reward_crafting_experience": 0,
+    "reward_gathering_experience": 0,
+    "reward_sage_mastery_experience": 0,
+    "reward_war_damage": 0,
+    "reward_war_healing": 0
+   },
+   "_reward_source": "dauntless 2026-08-26, individual mission ladder"
+  },
+  "S": {
+   "_live_population": 4,
+   "quest": {
+    "questRank": "S",
+    "requiredLevel": "AWAITING_RULING",
+    "maxLevel": 100,
+    "tierLevel": null,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "prerequisiteQuestId": null,
+    "requiredVillage": null
+   },
+   "shape": {
+    "objective_count": "AWAITING_RULING",
+    "battle_nodes": "AWAITING_RULING",
+    "enemies_per_battle": "AWAITING_RULING",
+    "enemy_level_band": "AWAITING_RULING",
+    "max_enemies_per_battle": "AWAITING_RULING"
+   },
+   "reward": {
+    "reward_hunter_items": false,
+    "reward_hunter_items_ids": [],
+    "reward_gathering_items": false,
+    "reward_gathering_items_ids": [],
+    "reward_seichi_silver": 0,
+    "reward_money": 3500,
+    "reward_clanpoints": 500,
+    "reward_anbupoints": 0,
+    "reward_exp": 547,
+    "reward_tokens": 100,
+    "reward_prestige": 45,
+    "reward_reputation": 0,
+    "reward_skillpoints": 0,
+    "reward_rank": "NONE",
+    "reward_village_membership": "NONE",
+    "reward_items": [],
+    "reward_jutsus": [],
+    "reward_bloodlines": [],
+    "reward_sage_modes": [],
+    "reward_badges": [],
+    "reward_medical_experience": 0,
+    "reward_hunting_experience": 0,
+    "reward_crafting_experience": 0,
+    "reward_gathering_experience": 0,
+    "reward_sage_mastery_experience": 0,
+    "reward_war_damage": 0,
+    "reward_war_healing": 0
+   },
+   "_reward_source": "dauntless 2026-08-26, individual mission ladder",
+   "_deferred": "Deferred by dauntless 2026-08-27. Slots stay AWAITING_RULING deliberately so mission.py keeps refusing S; do not replace them with a sentinel it will not recognise."
+  }
+ },
+ "_awaiting_count": 6,
+ "_reward_ratified": {
+  "_class": "ratified",
+  "by": "dauntless",
+  "date": "2026-08-26",
+  "variant": "individual",
+  "fields_set": [
+   "reward_clanpoints",
+   "reward_exp",
+   "reward_money",
+   "reward_prestige",
+   "reward_tokens"
+  ],
+  "note": "Supplied as a table, not derived. The other 22 reward fields stay at their engine prefaults, which is a deliberate zero rather than an unset value."
+ },
+ "_ratified_2026-08-27": {
+  "_class": "ratified",
+  "by": "dauntless",
+  "date": "2026-08-27",
+  "quest_fields": {
+   "source": "measured, unanimous across all 50 live mission records (maxLevel unanimous at B/A/S, 64-76% dominant at D/C with no competing value)",
+   "fields": [
+    "attemptDelay",
+    "maxAttempts",
+    "maxCompletes",
+    "maxLevel",
+    "retryDelay"
+   ]
+  },
+  "shape_fields": {
+   "source": "dauntless 2026-08-27: derive shape from OUR content only. Legacy records excluded - the ten A duplicates, the four 49-objective S records and the thirteen legacy C stubs outvote our own work and would have encoded the defect.",
+   "populations": {
+    "D": "14 records, all ours",
+    "C": "4 Blacksteel Contracts",
+    "B": "2 records, Copies and Witness Detail, ratified as the B standard"
+   },
+   "weakest": "B objective_count 23 and battle_nodes 3 are means of n=2. There is no mode at n=2 and these are the least evidenced filled values in this file."
+  },
+  "requiredLevel": {
+   "source": "dauntless 2026-08-27, given as a table",
+   "values": {
+    "D": 3,
+    "D_story": 5,
+    "D_combat": 20,
+    "C": 20,
+    "B": 25,
+    "A": 50,
+    "S": "deferred"
+   }
+  },
+  "A_scale": "dauntless 2026-08-27: A is twice B. objective_count 46 and battle_nodes 6 are 2x B's 23 and 3. enemies_per_battle stays 1, INHERITED not doubled - the ruling was about depth, outcomes and story, and per-battle headcount is a separate call.",
+  "D_default": "dauntless 2026-08-27: D has no combat by default. Future D missions are built no-combat; the six live combat Ds are deliberate exceptions.",
+  "enemy_level_band": {
+   "_class": "ratified",
+   "by": "dauntless",
+   "date": "2026-08-27",
+   "given": "10-25 D, 25-40 C, 40-55 B, 55+ A",
+   "bands": {
+    "D": [
+     10,
+     25
+    ],
+    "D_story": [
+     10,
+     25
+    ],
+    "D_combat": [
+     10,
+     25
+    ],
+    "C": [
+     25,
+     40
+    ],
+    "B": [
+     40,
+     55
+    ],
+    "A": [
+     55,
+     100
+    ]
+   },
+   "supersedes": "the measured bands derived earlier the same day (D_combat [10,27], C [10,15], B [40,55]). The measurement is retained below only as the reason the ladder was re-ruled: it was not monotonic, C fought easier enemies than D at the same required level, and B jumped a cliff.",
+   "A_ceiling": "55+ was given open-ended. Written as [55, 100] because LVL_CAP is 100 and mission.py needs a two-element band; the ceiling is an inference, not a ruling.",
+   "no_combat_D": "D and D_story carry the band even though battle_nodes is 0. A band costs nothing when there is no roster (resolve_enemy_level is never called) and bounds the case where someone later adds one. Null would have accepted any level silently.",
+   "live_content_now_outside_its_band": [
+    "Syndicate Thief lvl 27 on Night Watch Shadow (D) - one over the new ceiling of 25.",
+    "KGK Rogue 10, KGK Obelisk 15, KX: Iron Aberration 15 - all four Blacksteel C contracts now sit BELOW the C band of 25-40. The profile governs new builds, so nothing breaks, but our existing C content is under-tuned against the ratified ladder."
+   ]
+  },
+  "encounter_doctrine": {
+   "_class": "ratified",
+   "by": "dauntless",
+   "date": "2026-08-27",
+   "rule": "Route and choice change WHO the player fights and HOW MANY. Going loud, or taking the wrong way in the dark, escalates both. C introduces ambushes; D does not.",
+   "max_enemies_per_battle": {
+    "D": 1,
+    "D_story": 1,
+    "D_combat": 1,
+    "C": 2,
+    "B": 3,
+    "A": 4
+   },
+   "why_a_ceiling_not_a_value": "enemies_per_battle stays the DEFAULT the auto-wirer applies when a sheet node names no opponents. The variation is authored per node in the sheet, because a single profile scalar cannot say 'the roof is one Fleetfoot and the front door is two Ironfoots'. mission.py enforces the ceiling on the SUMMED headcount of each battle node.",
+   "D_caps_proposed": "D at 1 is PROPOSED, not given. dauntless ruled ambushes start at C and said nothing about D; a D_combat fight is a single enemy today."
+  }
+ },
+ "_awaiting": [
+  "S.quest.requiredLevel",
+  "S.shape.battle_nodes",
+  "S.shape.enemies_per_battle",
+  "S.shape.enemy_level_band",
+  "S.shape.max_enemies_per_battle",
+  "S.shape.objective_count"
+ ]
+}

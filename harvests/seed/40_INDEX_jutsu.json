@@ -1,0 +1,13266 @@
+{
+ "_freshness": {
+  "row_count": 1472,
+  "newest_record": "unknown (createdAt not in this trim; next harvest fills it)",
+  "contract": "INDEX ONLY, columnar: cols names the fields, each row is an array in that order. For id/name lookup, dedup and tier routing. Objective graphs, effects, stats and rewards are NOT here; full catalogs live in the tnr-tools repo; the live game is queried via the builder capture block. Absence here proves nothing about the live game: anything created after newest_record is invisible."
+ },
+ "cols": [
+  "id",
+  "n",
+  "rank",
+  "type",
+  "hid",
+  "last_verified",
+  "absent_since"
+ ],
+ "rows": [
+  [
+   "UKRwFavvgnJ6XlLT-PZn_",
+   "A  Frost Dot",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Xd10FzZws6hT-jQiAM7Nb",
+   "Abby Paradox",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "AKRc4ULG12wTCCjicItdN",
+   "Absorption Backlash",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "IBzUgEsvppitn8MILT4tV",
+   "Abysmal End",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "hKIa6427MfcWiWXiJtevp",
+   "Abyssal Guard",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "XB8HnSsqug52TUqfnkk7P",
+   "Abyssal Lure",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "g990x68t7LKZh8Zgt4VGI",
+   "Abyssal Suffocation",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Xd1nYH0TryplDPd6fORFm",
+   "Abyssal Surge",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "57JrAbfLuAliey0TgH2uM",
+   "Abyssal Wraith",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "yFVf94A-GLlO5fOZ_DxmF",
+   "Academy Student Chakra Buff",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "Wg9SddniAFitkQoGzM4w-",
+   "Acidic Premation",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "i4lGrYY5HNN2Q2GPToKUS",
+   "Adamantine Fortress",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "XS08zZhUhK615Dle4j3f3",
+   "Aegis of Shadows",
+   "A",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZWU4IXz8uKDo_1_tc-j8a",
+   "Aeldari Thurst",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "wgAhp0kr7Pk8FlN562v9l",
+   "Aether Bow",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "1PmfvmxrNlJCI2R2rUAeD",
+   "Ageless Lance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "jvZKZf2_xYdQWUXHxtqzq",
+   "AI 20% Placeholder",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "jEQXO9L65azUaxhSN9iJx",
+   "AI Aggressive Conflagration",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "VLNxJ6QLn3hJ0PJfsKy_g",
+   "AI Baha Waller",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "aOjG2285mOBaDnZWZzdTi",
+   "Ai Buff",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "8Y3oi9cRLgZIFoqESaym-",
+   "AI Burning Gaze",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "cPxUrN6rY_LyHvU0JNdgD",
+   "AI Chakra Overflow",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "qrNPubRuMC2PgRro46-3z",
+   "AI Clear",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "8XfrlBh1rTNzt-2K832Aw",
+   "AI Flee",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "aG308bb92Ifur13y6F84T",
+   "Ai Giga Debuff",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "HcZ4_b9yZWc6wAWH1AmqR",
+   "AI Healing",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "JyFW3kfXtHi9H9XPHcMJu",
+   "AI Healing hypnosis",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "RcGibGb_o6WKKp-LbcEP2",
+   "AI Jutsu  Huge Stone Golem 1",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "i8VJdyG1PQdI3ws4U9lDQ",
+   "AI JUTSU Nightmare Cascade",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "am70P4i7qgdMkMTKSZ51N",
+   "Ai Lux",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "kKSyqnCNfxnJ67z1qEv0g",
+   "AI Watery Coffin",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "yhpT8qg0SZK8DerPyBBv4",
+   "Alluring Drain",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "--4VH-OvQdMZg5nH_bs8s",
+   "Amaterasu's Flaming Scimitar",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "a-0YSqVmk8r909Vir4FeH",
+   "Amaterasu's Holy Mirror",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "-b6rDhdrIDL5Ggs6_6xET",
+   "Amaterasu's Renewal",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "8zr8t1p7WUQKqqGXiiXfp",
+   "Anchor the Storm",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "MVuK2hd9e6V7x0r7V1grt",
+   "Ancient Bulwark",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "m13kAq0iWJdcl48r-kbIM",
+   "Ancient Demon Roar",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZvPl6uyJfwF5EjmLHouQR",
+   "Annihilating Wave",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "w4F7-w5ubgKsqYPBPvRuV",
+   "Apex Hunger",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "cUPCLvCCEO9MCSRtFsulW",
+   "Aqua Barrier",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "65FicNSOQQ-otNFZIoacT",
+   "Aqua Dragon Barrage",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "dbIM3tJ3YVjd5C8z1PtWa",
+   "Aqua Fang",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "7cAGPnf455jrmdvt_kmQC",
+   "Aqua Fang Strike",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "epukHI7iUUL2UVbjuL7WX",
+   "Aqua Fist",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ic1eGUF1_9r8YqaKrmoyf",
+   "Aqua Prison",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "ZKxQZOT8pJqv4iq8wSLgZ",
+   "Aqua Serpent Strike",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "eJISnE5IrvC09FuoeuQ5X",
+   "Arashi Ikari",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Fkfa_oRbCPPOnBPPHlikF",
+   "Arc Bolt",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Yp9zmQuJBdL8BmCbQAjTp",
+   "Arcbound Vortex",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "0tPhVC7G21Ej99YSICtJO",
+   "Arctic Frost",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "9lnOQu_4NxzrUKa8E0BAY",
+   "Arctic Rime",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Fw9mlda5fSCtRbsMM-2Jw",
+   "Armor of Protection",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZYrXnLk8PBct1d8JsueD7",
+   "Artifact Hex",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "NE7lnF28TDy-r3pNlYctv",
+   "Asazakura – Sakura Dragon Tree",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "_DulyCEkvIlh6CjNU5RLf",
+   "Ashen Theory",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "IP1_P1vjDWxxlx2tHMHZ4",
+   "Ashes of Eternity",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "YAgt_NrTgtoLBexiXmSgp",
+   "Astral Aura",
+   "C",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "fXyQObyGzdF-t0LFPjee2",
+   "Astral Chains",
+   "C",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "WlVH4nAtoh3Ti5jIENW20",
+   "Astral Energy",
+   "D",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "XnIa5OdNjEulu5OAo4NIt",
+   "Astral Entrapment: Maia",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "nprFbPDU23z14Zgf3HgXN",
+   "Astral Explosion",
+   "A",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "nN_KAEfsAqxEkwXgglo85",
+   "Astral Intent",
+   "A",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "LR-LUQjt2v0rg56uKpJdC",
+   "Astral Nuzzle",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "FlR1zJARgn-6gYh1gXigi",
+   "ATD - Beast Bomb",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Ic0IQIM4AHPcPJ3Q0UwIm",
+   "ATD - Embrace",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "5EfjOd2uIZqcPKv9UdnxL",
+   "ATD - Vitae",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "FGSJC-7Zd0BYh7-tvsUdH",
+   "Atomic Shield",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "N8V10pCnF7sEdrRs-mIdG",
+   "Aura of Despair",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "TZdJh5U2FHEoVXkRySJzO",
+   "Aura of Valor",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "qCyuzdGebFKKf_nMyWzFV",
+   "Axe Swing",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "2cifDtSramYIUkcP8Qoff",
+   "Azure Crimson",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "pBsG-Jw4TTkSjxfqzjG6b",
+   "Azure Dragon Palm",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "pYQxn2wLhoYm4eCdiEmKf",
+   "B crimson",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "08TYziBPTpQfH8UjrAcU6",
+   "B RESONANCE",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "SpIXsqWB1U6xYPTZUWGH_",
+   "Baby Komodo Pepper Breath",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "cfUOxOa6yoelAriui-mbj",
+   "Baha Blast",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "K2P9wxdgEmdoTeh1DLPmM",
+   "Baka Slash: Blade of Rejection",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ciutEMx0X3R_2XEgk0EXu",
+   "Bakuretsu Nendo Tate",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Jw8-5iTGV5cgVaENUnkGl",
+   "Bakuretsu Nendo-Mushi",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "faoDjaab-sMrzFAxi6jYS",
+   "Bakuretsu Nendo-Tori",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "-o7u5fiG90QpuY40H4lS5",
+   "Ballroom Ruin",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Dw_JCfdjFmWYuVsaxKUFf",
+   "Basalt Quake",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "OMEb2dZpnK1oH5a6EBG5u",
+   "Bastion Stance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "sIoZILU2sgWV6CpChFkgu",
+   "Battle Arena Swarm",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "MG9ZujAV8lK7--YxThVbQ",
+   "Battle Trance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "cLnjRpx-py0HhpbmwVsMZ",
+   "Beam of Rending",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "tZdI_p0-tSm7Xafcp3jN_",
+   "Beast Bomb",
+   "S",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "clibzjj4y0000pd7f0x5t2khs",
+   "Beast Claw Illusion",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "0qhjpBMtG9HSWoOWztAB1",
+   "Bedrock Breaker",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "IBBV99kCs0WHMDy37Ibp3",
+   "BEE 1KS",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "_ul5ByAaClYIvKSSsWocO",
+   "BEE1KS",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "kTeze8zA-fE0GEKbDAeZ7",
+   "BEEHEMO",
+   "A",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "Sx8RvLdwcrhod09Zg5jqT",
+   "Bizarre Star",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "BLYX1TJEqZuVkRRO5oRfq",
+   "Bizarre World",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "pgw1adcEFdu-RryCx4pqf",
+   "Black Coffin",
+   "A",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "c-yTyBUJil8MzlAIHApUG",
+   "Black Crow",
+   "D",
+   "FORBIDDEN",
+   false,
+   null,
+   null
+  ],
+  [
+   "JkfpOhOtToB102ttvK1L8",
+   "Black Sun Cataract",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "TFRsEeV-VacukUUop-dtN",
+   "Blade Resonance",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "yjWm3eEV8YThK47wICPEX",
+   "Blades Of Crust",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Awyd1k1-tw4uzn-PLbcdP",
+   "Blast Shield",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ht2NYLeTXTMs2CXJhzRVr",
+   "Blaze Release",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "svWKW06DUuqi0BYhi9ndS",
+   "Blazing Arc",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "ZE88wgnJ_kof64Av88AUS",
+   "Blazing Chains",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "y0fmp1QvVcQnBoVZVLFfL",
+   "Blazing Death Star",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "oPtg5xq6HaYgJBqzKsZUC",
+   "Blazing Edge",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "l3oXmqSJ7L-r4XI9IBIyh",
+   "Blazing Fang Strike",
+   "A",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "-G6SjD-TlQYVACir8wFui",
+   "Blazing Flash",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "CGWAK5O7Rw_hXYjFDq-TG",
+   "Blazing Knuckle",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "YFjF8nfu55sG-AoDcN-LF",
+   "Blazing Mirage",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "g86odp2t1xRm5iFYZbtP1",
+   "Blazing Prison",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "fIn7udQihVEDhMEaAqhul",
+   "Blazing Reprisal",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "2Wlxrz6_VSj8GzBo_Ura1",
+   "Blazing Slash",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "KwP4Qz9rBMv-MlmclYE45",
+   "Bleeding Gale",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "j2An9ofh66SL3XC08tnoL",
+   "Blighted Tree",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "helnFexEO1P2BJOjL79pr",
+   "Blinding Chakra Strike",
+   "A",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "_bb_t15T2F8E6OBEk-S3U",
+   "Blinding Strike",
+   "S",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "Opc90v_92RYn8prteq1MO",
+   "Blinding Sun",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "pS-AzXF4pDkE1F1-f3G6a",
+   "Blistering Rebound",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "r4EI9lxnK3A-k1ntnyWcl",
+   "Blizzard Blitz: Moose on Ice",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "uuEsLeUF8ioGqB1LysbGz",
+   "Blood Edict",
+   "S",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "cioTTqCNM0F4JEzEXJYXK",
+   "Blooming Nightmare",
+   "A",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "_49a40szsCs74WtXQcMSY",
+   "Blow of Devastation",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "3EE00dYbnDWSlTtdLX77O",
+   "BlSeal",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "9E9__eO9GMsGRtirpEzze",
+   "Bludgeoning Pizza Crust",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "bxIPWiqiEaCmPYfAysB5a",
+   "Blue Crimson",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "y39RtS7NN7TdqOgyT52gr",
+   "Body Flicker",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "7_Mxzow6OAyK8UF9-HXgn",
+   "Bolt of Terror",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "GnhjDuiGR1pI4r_CMYF45",
+   "Bone-Rain Lock",
+   "B",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "PB70sBEpFd3AWm81h3w7R",
+   "Bonecrusher Kick",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "fEMP_dLlFKLg-BbQ7S0Hm",
+   "Boulder Barrage",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "EoU5oNp899c5tTXisqkQ2",
+   "Boulder Crush",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "i1KbE0NbN1SWIwHuJgdoT",
+   "Braced Stance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "WvLCyGsPCKSDYl6-e_D9o",
+   "Braced Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Ep5p4vQiWE4CmUe1DRMjW",
+   "Brandish Flames",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "6z15KSDBJPuu7dxYn1PWF",
+   "Breakpoint Genesis",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "borltBqH3sJf_6U_ftk1G",
+   "Breeze Guardian Shield",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Rufs-Y-FZIDooXO7g6k0F",
+   "Bruising Blow",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Iy_OB4l43ktB6o9Z-nEH3",
+   "Brutal Aggression",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "DN9N5xMKGc0dWdIKSQjAb",
+   "Brutal Bastion",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "ai3trthWSPOSnYESWx6UT",
+   "Brutal Hook",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "MOzMOvSfuYOUXhtffYAI-",
+   "Brutal Piledriver",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZOZbN9FR60FaLSbfyMrtZ",
+   "Brutal Swipe",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "CIBux2ajkgkTpy5aAtJd8",
+   "Bubble Armor",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "S_ix-gZcXi6RirSVpSLV0",
+   "Bulwark Charge",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "mYCbcdDwDzJBul52HiwhC",
+   "Burning Coil",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "PPtI3N-X7eoqTfav-s0r3",
+   "Bursting Compressed Air",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "7hmzhDmrAKT1Z2_7p6Zkf",
+   "Byakuho Stealth",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "wxfeh0RhUHqv73XleZztm",
+   "Card Trick",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "h3Vs2lO18I7U-WRxiBy8t",
+   "Carnation Tarnation",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "QyJThCTAAadiIpuPIeXCo",
+   "Carry the Sky",
+   "A",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "JR33Coe9tzgFKN6l1xOjK",
+   "Cascading Fists",
+   "S",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "Y6keZwBeZ-cuI5_a-NcBj",
+   "Case One",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "o-4SCAhJ4LHdCwcBDgJrV",
+   "Cataclysm Detonation",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "I66lzvVHf8v4thxR6tEJn",
+   "Cataclysm Fist",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "hTrdjxWiY1U5lPig5TCjj",
+   "Catnap",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "doB7C1DCPlN1FJNi9rUgl",
+   "Cauterize",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "yFGjsffV6qP_hg4y0i2gJ",
+   "Celestial Binding",
+   "B",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "2vNeMhph6A9Ld--WXa35O",
+   "Celestial Dew",
+   "A",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "Ob6qCzucmHTcS3lYrYjiS",
+   "Celestial Empowerment",
+   "H",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "n75HRCQ7wid3hQdPzL35p",
+   "Celestial Harmony Shield",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "zLa_tASqn4gRa8FYjUoTu",
+   "Celestial Ignition",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "_bAMXhvLHe5R4i4E7coLL",
+   "Celestial Laceration",
+   "H",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "W33sWXvjVhVN48j3N5ZIu",
+   "Celestial Rend",
+   "H",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "q7QKL0ETYGDEawoF_yzkS",
+   "Celestial Sealing",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "5tNMpJ_z02kFc_Who7GVo",
+   "Celestial Singularity",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Dj7EonLMR4F6COCmsYwhF",
+   "Cellular Regeneration",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "wAR9tz3n9dmq_vyQkzLaA",
+   "Cerulean Storm: Avalanche",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "stFIC7WHxb3VHB081kt9h",
+   "Chains of Flame",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "SB6Ko9UY7P6So4KpBnQXq",
+   "Chains of Sorrow",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "9HwIfXZzkgenkpywlEuET",
+   "Chakra Barrier",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ohlJeeZdmv7Q8GA64HS7i",
+   "Chakra Cannon",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "4yeq_OOJuTpGWB4XScUHH",
+   "Chakra Edge",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "FlQ0Mk8CB7afkYqxFempz",
+   "Chakra Enfeeblement",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "TmpS6t8NiLZws6SxzPEnN",
+   "Chakra Ignition Strike",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "AJNmwnlzhqiHzdE84_m9k",
+   "Chakra Invigoration",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "e2eC-x4UXc5m6QexNbx8w",
+   "Chakra Overflow",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "X5vTPwSEcnEsBXRiAYTfy",
+   "Chakra Overload",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "5JCcW9EdcDy7a5-0SiH_W",
+   "Chakra Palm",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "hAyQsDqPQQ0bKn4u1DdRn",
+   "Chakra Resistance",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "LRgY4b-lE1n2gi6_P8B_1",
+   "Chakra Resonance",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "FimDQpYL0LWRv8U81ZP9H",
+   "Chakra Shield",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "bETFmYm_J6RJRZTedogld",
+   "Chakra Siphon",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "MrJo8O-6O_6XIDrg3eVZX",
+   "Chakra Transfer",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "rOqCTqNBSW_A-QYesFBw9",
+   "Charge 4 Explosion",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "AZm5W8qwcKzojY1FMgAyb",
+   "Cheese Coat",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Gt3K13DYlq7IqnQy7EYKG",
+   "Cheesy Hook",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "jKdJSaIj7WA5UlaiPPkcR",
+   "Cherry Blossom Rage",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "5ecumnlAvDvZ_DYzxu8JK",
+   "Children of the Full Moon (Shadow Dance)",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "l3HHIXGlSaXIGuVHfy6oH",
+   "Chomp",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "ZwKVxg1y4C_4mYR23O2iC",
+   "Chouryū Ken",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "OHgrwRZuuE2Pm5OegwBG9",
+   "Chronal Shock",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "DwlD_3kuLUKKaSRCY62ty",
+   "Chrono Arrest",
+   "A",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "F8MfmoTkyLFxRZjHsUMnq",
+   "Chrono Stasis",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "X3KyINRqkCQ50B1fS1mgE",
+   "Chrono Static Abyss",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "8NfEZTMQDK25fgerqjtXB",
+   "Chōha",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Sic286tbCpCjwaic0EX5q",
+   "Cinder Bolt",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "MTH9bqTMRo8yJaD7J5Vx4",
+   "Cleansing Aura",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "brzGw6WgHsrFPkL9JWGir",
+   "Cleaving Line",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "clh4d6phm0000tb0h7wo71p2z",
+   "Clone Technique",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Y_DfU-xF1vTHpy_F79NaJ",
+   "Collapse Into Form",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "QGt-aHk8uKp71wOmLJ7Ax",
+   "Command",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "664OLNQoqNM1Xu5QT5C2J",
+   "Communion of the Crimson Tide",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "2_-CCI3NwgEk4Mrsz7VOh",
+   "Company of Despair",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "6UE5jC71Y6nRjobkJ-UTV",
+   "Compression Barrier",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "BUqaTPiAz5ygYc3SGdTs3",
+   "Concussive Burst",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "EnPA4L0hUSPC48VG3qfZl",
+   "Cool-Blooded Empowerment",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "PlF3Hr6AmtkAY-B9sAhmP",
+   "Core Directive: Reforge",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "zIQeAE-w8rcatje034MIO",
+   "Corona Devourer Palm",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "joE-MVdQImoa1804Ja8Y3",
+   "Corpse Jutsu",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "QDBjjokgbIy3YXJiuO_Ce",
+   "Corrupted Blade Dance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "N0TjZI2hAx2qpXjTiYNn8",
+   "Corrupted Ember Fist",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "7EYsI0PzBNWUzrjUtTk0d",
+   "Corrupted Fireball",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "pfiBpQpHkkCwdvIDP6RES",
+   "Corrupted Flame Dance",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "gUgKvwjhmH8_P2NgZd_KB",
+   "Corrupted Jab",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "cuxFtkTHTRJ3EdW2lwBDa",
+   "Corrupted Mirage",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "B6Ue-VgkZPBAcOPVi7Eaq",
+   "Corrupted Palm Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "sjwQXKYglLj0xLnQ2V9iI",
+   "Corrupting Miasma",
+   "A",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "3tMv0YG_Bagu7JCNyBEUg",
+   "Cosmic Aura",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "yt2c0jYaYQV5HI0gnOWru",
+   "Cosmic CataTism",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "I-8fIrsXs8D4Mn_Q9N66j",
+   "Cosmic Chains",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "m6KFrBr3sNwSfYjFPqVpr",
+   "Cosmic Energy",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "nSHysfzYCvZWm4NpTY903",
+   "Cosmic Explosion",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "lIMJ2-ylj0QS53zMerXVu",
+   "Cosmic Hiss",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "1EAnfNgpjSG3YR5LDNsrA",
+   "Cosmic Intent",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "7Hq94XOSYobMV_8awbK7i",
+   "Counter Helix",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "T3glZGcSd-jS8G-NB43GR",
+   "Counter Stance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "XuX0saKiRCgOrTpSAcVIx",
+   "Crashing Waterfall",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "wEVgBznGHllg6pU-790Ll",
+   "Crashing Wave Palm",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "XU0RiYC92ZeErHT6Q5-oX",
+   "Crep wall",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "cjRErpuffG4GiwIU8OsCw",
+   "Crescent  Reaper Fang",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "sER45bYNHRP6GDk7Zl2Ez",
+   "Crescent Strike",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "lXPJn4z6-tz5s3LLoQCWJ",
+   "Crimson Collision",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "fKEHVLvvj6q_b4l_X_k4k",
+   "Crimson Impact",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "nLGUc1jtYEm9SF_RUfe_y",
+   "Crimson Levy",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "q6dapAxicsEGFthmBiSOP",
+   "Crimson Spires",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "2JqtZoGk8FuMbym6Ng5zc",
+   "Crimson Surge",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "oh9CmLX8nltc2WfrkvswH",
+   "Crimson Thrust",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "dKeYkS3A9dB_eRPoBuFUJ",
+   "Crimson Tides",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "zor6cX3qn2eTObW0fveBk",
+   "Crimson Tithe",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "GGms9iTcZq_gICEuZYF2Q",
+   "Crimson Vein",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "0RrDykUh_IffgNMfIqZKO",
+   "Crimson Verdict",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "YA1ywbR4jfurPmcd9mi_h",
+   "Cringe Step: Glitch Dash Cosplay Drift",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "z17S47TiSnNBgQMVkxsnH",
+   "Crippling Blade",
+   "S",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "rSqj1j27A5GCvp4ch1MNt",
+   "Critical Mass",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "6fDojfUSDTq98gm3m_ggk",
+   "Crown of No Dawn",
+   "S",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "a7Xsm5Zcz9AbKUu_BBlHU",
+   "Crowned Horizon",
+   "S",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "htV7RECwjkyb4xu1F0-BQ",
+   "Cruel Sun",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "-w7xRCVcBU5KT_C1i7TXA",
+   "Crushing Abyss",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "OCUY9iWO5Z2FtZ_M3YSU0",
+   "Crushing Tides",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "0Q4H8lJzhan8iDCktGW3A",
+   "Crust of Healing",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "HCe8aC01xAF6L8RzqXbsb",
+   "Cry of the Waxing Crescent (Shadow Severence)",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "eRMCN2cherQ_lRUUKe96t",
+   "Cryostorm Aegis",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "AggTDO90TarIRTPqGdvvY",
+   "Crystal Cave",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "P_4ZdBPTN34wYWd7UUZyp",
+   "Crystal Lance Strike",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "zKK0rjIJqbpSiTw7McDAv",
+   "Crystal Sphere",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "9bmNlQKZOxEAJ6BS-eKEh",
+   "Curse Empowerment",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "fULBetCe_nZBOo6UZ4f8_",
+   "Curse of the Tree Spirits",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "OfIMyWjZbkhXFjtM6tp70",
+   "Cursed Beast Form",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "AjICE7s8aU9FNbRzL-IIr",
+   "Cursed Enchantment",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "YoAez7wDub1crgIRr5IGb",
+   "Cutting Tempest",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "YGc7EiGlwUvkbSkSQqKFW",
+   "Cyclone",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "hdlYuZCWCXn02GUPBEzBk",
+   "Cyclone Fists",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "pqCqPemRNk3ht-SFrjq5G",
+   "Cyclone Palm Strike",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "F48bNWBwIq71mlPNNchqL",
+   "Cyclone Prison",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "toACbYzFgTFs_ND80JcWo",
+   "Cyclone Shredder",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "5Jgk8YgKQ9qUxOmR2Z0Dc",
+   "Cyclone Slash",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "WESjhBDowxPIQhqRKn5ag",
+   "Cyclone Sweep",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "7M2e9BpeQiCNQAgnFjNTN",
+   "Cyrcle of undying flesh",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "Yl3kee50Z5sF01QQl7wkB",
+   "Dancing Fire Strike",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "tWfDB2Xh5YuoK3mQm0xoH",
+   "Dancing Wind",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "cvLrFEzeNcRogHqyLv0Ig",
+   "Danse Macabre",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "NJMGDcIzIkL9pF5qElwre",
+   "Dark Pact",
+   "A",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "p4N7lt4QgQjLytzkXJTz9",
+   "Dark World",
+   "S",
+   "FORBIDDEN",
+   false,
+   null,
+   null
+  ],
+  [
+   "SUY0Xd2CfDC4RppvQcv-M",
+   "Darkness of the New Moon (Nisshoku no Ichigeki)",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ON2hpePkieR5OyiRUPIWI",
+   "Death Spine of Mictlan",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "0Y10JpChssDwFUxNRk6p3",
+   "Death's Door",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "PdD44PGaNv4MN5fOALhAF",
+   "Death's Grasp",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "UgYXqNIJNjLGkAS5b5udH",
+   "Death's March",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "V9J9spDY8hiZh4TXSVRSW",
+   "Deaths Blossom",
+   "S",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "2aSwt0RxIF4FiYVeIuNU6",
+   "Deaths Countdown",
+   "S",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "KBxDNqaJs_aiMB0kluRC_",
+   "Death’s Storm",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "_BTsbIMz0WUWczPp9iRyW",
+   "Debilitating Sword Strike",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "mXC6PujAXANZwri71jOTZ",
+   "Decapitating Slash",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Zr6Zo2NcXxWuL13ufQsHw",
+   "Decaying Touch",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "A_CU3vbz_MHuLd5rm2zeX",
+   "Decrease damage given",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "m6CPGUWVLADF0Nt8_qNZg",
+   "Delayed Tempest",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "UAgYZvo_7DUtmBsBAaAar",
+   "Deluge Breaker",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "-zBtx8xLFpAiWubxCf10d",
+   "Demolishing Vortex",
+   "S",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "xobCjB5YbUp88ePqumVr0",
+   "Demon Bomb",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "xs-8r_KRJS8QQMpBDyhUv",
+   "Demon Maiden’s Howl",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "hU8tLHHzMEd_QKQR0c7hB",
+   "Demonic Embrace",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "j9cu7m4hAipmrdROt7mFs",
+   "Demonic Vitae",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "A0ukvl7zTXHCLUhTTIeL4",
+   "Demons Strike",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "f9iB9Rz5MYZsBZDGtmm2Y",
+   "Density Collapse",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "1rpa5u_0QW_DMO0NCxdNl",
+   "Descending Annihilation",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "nvx8XngNlfvud-0RRgs1T",
+   "Descent of the Bone Monarch",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "_W_4_BHN10wVMF9wg0t3v",
+   "Descent Through the Nine Gates",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "JlGhMTpr_6c5jer6s-hw1",
+   "Desert Illusions",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "bAqkOi_eb6N_e3D5VjdB_",
+   "Destroyers Shield",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "3p3biFrc0Nxpf4E-2WX_y",
+   "Detour Test 2",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "lft52q7DE_JjhR7PKXimB",
+   "Devouring Grasp",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "-45phqE2baTGC--lNSEx9",
+   "Devouring Wave",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "F8_9b3VNwhl_W8VhgNj2L",
+   "Distorted Memories",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "6X0vyMNes561A8FJ99npX",
+   "Divine Descent",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "XCIjtXReIIyQ3yA8w94wI",
+   "Divine Elements",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "7rYARNUr1kXiJb3VLXqUb",
+   "Divine Pulse",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Je0gvHDVCm__vy2rT8YBB",
+   "Divine Thunder Slap",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "pIWtCmdWvHdx2csl1tgVb",
+   "Doppelgänger",
+   "S",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "M0OjyABeXfCzZGR7Xginp",
+   "Dr. Kim's Detoxifying Solution",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "SqqIcoMbYyNyZ7EzZSElL",
+   "Dr. Kim's Miracle Brew",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "EoPhRA0116ycHlkSo1L2J",
+   "Draco test",
+   "H",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "GfTFDG-XVTA051VDTdqSb",
+   "Draconic Assasult",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ldiaB07FFdTtWja7W2nnN",
+   "Draconic Clash (竜神の衝突)",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ivWNWwn7u8DiYFPWo6ret",
+   "Dragon Breath",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "tQ_oLpiamgRF7CSIFoQfj",
+   "Dragon Emperor’s Edict",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "FytS2iqFInf1go6WhOvUU",
+   "Dragon King's Impact",
+   "S",
+   "FORBIDDEN",
+   false,
+   null,
+   null
+  ],
+  [
+   "d5Uj9MHmF0oSPvQs1ij3z",
+   "Dragon's Fang (竜の牙)",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "GazEyKNZpxgMDuZyAeUfY",
+   "Dragon’s Decree",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "4kQSq3Q52DwyigjTjIoaL",
+   "Draining Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "mIoYqFfLB4HxKZdGkB36t",
+   "Dreadweaver's Torment",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "jkWkH36d6apM11qyt-Zn4",
+   "Dreamshell",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "-7jaNkJCvt3ByWhPJSw3E",
+   "Drops of Renewal",
+   "A",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "hlBkJrdCxQmad4GX6CixQ",
+   "Drowning Illusion",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "VmZzkyfPswbJLXvuB-mcV",
+   "Drowning Mire",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "S1tURF3cVimjzf4fZgJBN",
+   "Drowning Smash",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "eZqJ9qJ_f43VRg_HhRiyb",
+   "Drowning Strike",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "HqJRzmbzyHA5iDbVD19b2",
+   "DStorm",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "76capObojnfMRq_DTiwgo",
+   "DStrike",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "N19J1_5Wlhs-FG9Ibo5EA",
+   "Dust Devil",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "242qP5Yw-4Psxmgt7BjHy",
+   "Dust Dismanting",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "V5lRk5oM3J-n73Vy3gPlF",
+   "Dust Wraith",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "CWdsrv5uM2R3hEyG6fvaX",
+   "Earth Armor",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "d8Z1S1yA_jJ6zU24LOQdX",
+   "Earth Release",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Pvp1t3YrApYswT4xKodnP",
+   "Earth Release: Boulder Crush",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "5-3h2swnwGmc1lvKLGpVV",
+   "Earth Release: Consuming Earth",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "rleP8bgb2nm3va-xRyVtV",
+   "Earth Release: Crushing Boulder",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "9-ppS_Bqy76W5I73hSk7B",
+   "Earth Release: Dragon's Tomb",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "1fkXurgdTdV5QkLZiG0LH",
+   "Earth Release: Earthquake",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "yYoq8sGJLvDFbWkb05W-1",
+   "Earth Release: Ground Chasm",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "cqjy1SyJ5KBt-YlEiPKOu",
+   "Earth Release: Palm Push",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Di74kqz5iVDCYvUT8Cna-",
+   "Earth Release: Sandstorm",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "EVeebYehoHdifIP1gR8b6",
+   "Earth Release: Seismic Echoes",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "0f-qDg-CcolKVZ25lVY7k",
+   "Earth Release: Seven Heavenly Pillars",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "w1QwfBKHCjRMuf4xf_YhD",
+   "Earth Release: Spike Barrage",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "Z7eE7xZPPyNfM02tklN7T",
+   "Earth Release: Stone Fist Strike",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "puCVe6JGZ7YK8DcI11-AM",
+   "Earth Release: The World",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "P299J4VUOJ_Iz5JXhp0XX",
+   "Earth Style: Shattering Kick",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Yxx7TXVhGYs8EC4MZDJT6",
+   "Earth Unbinding",
+   "D",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "TlGiHPdhXbiLMMW7Y4LW0",
+   "Earth Wall",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "_zNMEZqIzgjTqXoXQRWz0",
+   "Earthen Bastion",
+   "A",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "DxxFYYHEMx9TdiHR611Na",
+   "Earthen Blade",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "sySfwVEyy9txso4RsS754",
+   "Earthen Echo",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "bivr5W_X7XnWCn2toGLuf",
+   "Earthen Fortitude",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "c8ifHq5kOk171y_eH8_ob",
+   "Earthly Pierce",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "3JEHDScBO0w4qfrKdFdGk",
+   "EarthPath",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "eX60fhnB15ChiqatViMjS",
+   "Earthquake Fist",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "sBc4_bIw5xCB-39X6FcJy",
+   "Earthquake Guard",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "bKUDFTQoeLDwTQeAKcduk",
+   "Earthquake Phantasm",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "W3DYPc2NbNjFP8KJlrWAG",
+   "Earthquake Slam",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Z4L7CRiZoIr_9nQypU83U",
+   "Earthquake Stomp",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "-eUz-5rp49yp1pX4bmG4k",
+   "Earthshaker Blade",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "kw8dlRl4y5WBg8GkHSEvp",
+   "Earthshatter Strike",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "VHU4A-vVGvUFTasBelWP2",
+   "Echoing Rift",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "jy77jG_yHWnag4xQURz5s",
+   "Echoing Void",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "UgCKhDiEvNuXsrwf85tMM",
+   "Eclipse Cyclone",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ou7VyChQ-SFCm8T8yGS7I",
+   "Eclipse Drain",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "bI455U11ENlfUD4VFusiM",
+   "Eclipse Mandate: Ash Comet Rend",
+   "A",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "bkMpT0FwpDf2X5k4m92mW",
+   "Eclipse Mandate: Choir of Broken Seals",
+   "A",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Qva_jrrcUuCs4BAWN71a9",
+   "Eclipse Mandate: Cinder Debt Guard",
+   "C",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "W65S-c048vnCOUP1IpkhG",
+   "Eclipse Mandate: Glass Funeral Bloom",
+   "B",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "1aOrnCJx37S9Q3t0e_I8c",
+   "Eclipse Mandate: Gutter Star Hex",
+   "B",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "-E9l5YtswUsomvv1kZena",
+   "Eclipse Mandate: Iron Witness Stance",
+   "B",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "_ct9bkYshoptzY1pAt7F0",
+   "Eclipse Mandate: Mercy Through Teeth",
+   "C",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "6zj91fmkAYtNnvE2cKmSQ",
+   "Eclipse Mandate: Moonless Needle",
+   "A",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "WzOLh_ODDrdLX69P_vKSt",
+   "Eclipse Mandate: Null Orchard Wall",
+   "B",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "8rVEH6eMlZnrp2gzaDk3j",
+   "Eclipse Mandate: Severed Sun Brand",
+   "A",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "yxuT2X6jqwnTFNOLT8QLL",
+   "Eclipse Mandate: Storm Coffin Oath",
+   "B",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "ocbiG8o_KWdMs-4rWKVX5",
+   "Eclipse Mandate: Winter Mouth Silence",
+   "A",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "tLXJYjKODy6xRqXnE70Sc",
+   "Eclipsing Gales",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "lMxWWBUV8m62VmX86HrVj",
+   "Edge Resonance",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "0LpgkGVTHrg3mJXFTQPNK",
+   "Eight Fist Style: Earthen Grasp",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "zCmYLVL4JYzfhjPXHi9rH",
+   "Eight Fist Style: Lotus Dance",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "h1GeDuPgHLx-tlmwHINHi",
+   "Elder Flare",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "UC2n5xNpvErlLUl05fr_-",
+   "Electric Ensnare",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "Ti2Q1aLB5aLyLGepoEFkX",
+   "Electric Maul",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Y57kLbqcGN7PYeWBAg0d6",
+   "Electric Prison",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "00-UJnRE9RptoyI8LZvQh",
+   "Electric Surge",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "jG-Lpc8Z7MO75PVFyc2F7",
+   "Electric Surge Kick",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "4BI_Kyk5mJdg0zzXkaSRn",
+   "Electrostatic Veil",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "c9UXLegKtqilQlFcM2Jby",
+   "Element Divine",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "rBf0tFBlAvBxN1orUNdXT",
+   "Element Sacred",
+   "A",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "u8fOhCI3KrGPr1gOSRcch",
+   "Elemental Combo Test",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "MApIOjZE6FWkXlJiblf3a",
+   "Elemental Combo Test 1",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "4RDpMLvYJv4v0OxX-dpek",
+   "Elemental Combo Test 2",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "E7DRBUZynlHZEaF_rZ4Y6",
+   "Elemental Combo Test 3",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "co1iHZRkWPzMU20hiLsTs",
+   "Elemental Harmony Chant",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "6KzasUBLxEykqyl4sBrfW",
+   "Ember Nightmare",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "Dum9gYMAVt7u3YZfFt54G",
+   "Emberbane Cocoon",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "bLBu130QaqCaDlSIcEmUD",
+   "Emberwake",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "FgmIkbsSAulI9c4PZgAyE",
+   "Emperor’s Retribution: Skyward Reversal",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "mEdlGHADZbV4KImY7WekP",
+   "En Ken",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZysflsRCgc0yGRARooBN2",
+   "Endless Drowning",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "8Un5MzB4EiECVOSLwc9bf",
+   "Enduring Resonance Ward",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "7idaA9dUXSWmILp1PbVkE",
+   "Energy drain",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "mpHuTrJX7EonpuW_jBunt",
+   "Enervating Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "PwTpi68-ZNKk5CnsR9Q8_",
+   "Enjin",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "MKTuAn_LLGYkQKvc_ILiN",
+   "Envious Ambush",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "9cUHwa0H7xXZvQF-0rRZP",
+   "Envious Stalk",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "OQqC5LhjVMFMmI_zoR9S7",
+   "Equilibrium Guard Strike",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "bxMYe0eLmXg3HGE87Hfgz",
+   "Eroding Current",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "jBRyl7F4UjTyxG5nnzLqj",
+   "Erupting Ground",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "dUyMUmOqPxBQ6u0Md6tR5",
+   "Eruption Strike",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "eUWCeXAqVdIFHfUpmxQWD",
+   "Eternal Darkness",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "5BIEYE1r1-Tdi0LONTeOX",
+   "Eternal Embrace",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "D3t1nlaVAw8kLfjDO5Wvy",
+   "Eternal Forest",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "pnUW_m7QwO6gHOh6G4nvz",
+   "Eternal Maw (永遠の顎)",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Y7xLmI39li5ZOIL76ZZp-",
+   "Eternal Stillness",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "auDmKIT0q6GswbMmc_ygI",
+   "Eternal Wander",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "9M2vlf596okvpS1OwguoI",
+   "Eternity Flux",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "qje5fC4veKbI0vySyoyDC",
+   "Ethereal Bloom",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "jqJYGCmhORvehz5rxC7Ft",
+   "Ethereal Dragon's Whispers",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "iktsCP-RjIhlYlsTg-JTN",
+   "Ethereal Nexus",
+   "S",
+   "FORBIDDEN",
+   false,
+   null,
+   null
+  ],
+  [
+   "IKv0cRCVTFpFCCEbAbuA7",
+   "Ethereal Particle Storm",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "K0t6Z-Q4lau1jFt8Tkpot",
+   "Ethereal Rebirth",
+   "S",
+   "FORBIDDEN",
+   false,
+   null,
+   null
+  ],
+  [
+   "zzHrgZsonzT4Zi9ESMzYn",
+   "Event Horizon Gate",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "tRwJPlTZK9YSUV_0AacID",
+   "Executioner Seal",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "8MRWPNK3lOxCLVqWrE-xJ",
+   "Exploding Wood Serpent",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "nCQETf-HNnbRec1OSY2-R",
+   "Explosion!",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "cd1fvUfLf2LfM45ZoXBFB",
+   "Exposing Blow",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Z9VamA_7sFzo_A3TObOUe",
+   "Exsanguinate",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "GnuyzNIf-Mdu41dnQv5dH",
+   "Faint Shadow",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "g7nr36h9VVpRKtHicMl2L",
+   "Fan Dance",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "C1S_SGYNao5gc85A7t-OF",
+   "FBA",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ubwtVj1o9q6VQ6VxOczxt",
+   "Feast of Marrow",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "ZgPHFpfdPRM4aq_VuZo-M",
+   "Feint Step",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "mUtFEv_071Qjs6Ta1L6Zr",
+   "Feral Wrath",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "mdiLAXm_MG3dUezIuhwNi",
+   "Festering Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "9h5TeKSJOrYThP-uVQn_F",
+   "Field Test",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "PcZfVLJH9KK3ry9VzLgdK",
+   "Fiend Fire",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "P0GcazZ6yvULoH4kGuh4T",
+   "Fighter's Poise",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "3Bk0eP1OlhJjcNy8b_7kB",
+   "Final Boss Phase 1",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "oFtgWmKCgMq9zLqe6Nt3j",
+   "Final Boss Phase 2",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "y0sHz6ZvBRViC0eWQTgT8",
+   "Final Boss Phase 3",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "C4W8C8spK002Ue7-PXdPW",
+   "Final Phantasm",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "DaX0SIBgE5ah0SBc4C-FN",
+   "Fire Fist",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "oTeTQn5PNuLmxYV93Qysa",
+   "Fire Grunt 1",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "YVGELV7YWpSY5uAVVhANI",
+   "Fire Grunt 2",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "jJfbQCH1--LjLDnQw-cL3",
+   "Fire Release",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "_SVuFFzsZA3jWQ6Gpocpr",
+   "Fire Release: Burning Soil",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ftbGQNjF1AQDN8b-eGI1y",
+   "Fire Release: Dragon Punch",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "jwXvmSztaK81u2k98Hc1Z",
+   "Fire Release: Great Fireball",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "6MRVlYvhkrQlV0iN-2M0H",
+   "Fire Release: Inferno",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "kpdT6C16JpNgG8OAx1USW",
+   "Fire Release: Majestic Fist",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "3umC9IO-yHR_Qa6TQB56W",
+   "Fire Style: Beast",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "p6DJTebNsbYcMQ2Sw0o2-",
+   "Fire Style: Squirrel",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "icFV-Zl5Hy_Sg07wEYXL4",
+   "Fire Talon",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "ECXw34ntBOiJOBl-iuVF0",
+   "Fire Unbinding",
+   "C",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "yDXM0Di4o-RYpw4NHK8Es",
+   "Fire Walking Ninjutsu",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "aGMBd0-ZXn4pv_DMAIYcp",
+   "Fire Wild Blade",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "Hp6Bl4WTnLqgARL-cea37",
+   "Fireball",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "rCmgi5gtJb-wnPfuwruI2",
+   "First Chakra Gate",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "6_yY7S3jwc4mm_9M1hix_",
+   "First Form: Burst",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "JKgaTbuFTeNZjYOXrb49M",
+   "Fist of 10 ,000 Volts",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "OZp6neM54VPLXIzHc713P",
+   "Flame Barrage",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "vNqDxhiAFx9oUQ2vMBOpa",
+   "Flame Burst Punch",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "hTILEGnxudGLPdG0OnEE-",
+   "Flame Crescent Slash",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "V32MasayzHD2us5okaZVI",
+   "Flame Infusion",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "vUNA5R_JVkPpXq_e31Pm7",
+   "Flame Vortex",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "7nOUpQ5hkEAiVpCM77UV9",
+   "Flame Wrapping Sickle Dance",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "Z6D_e97_syaNN11ap_lYO",
+   "Flash Kick",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "URnWntQLeLEdqeW5d3SFE",
+   "Flash Pulse",
+   "S",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "uFamu6lu9MAWVt1whODO3",
+   "Fleeting Strike",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "-MW2e9hVW8rCagtqIAKzU",
+   "Forbidden Art: Black Sun Funeral",
+   "S",
+   "FORBIDDEN",
+   true,
+   null,
+   null
+  ],
+  [
+   "QLERxmHCk2XohG9aiNQ8P",
+   "Forbidden Art: Eclipse Nerve Sutra",
+   "S",
+   "FORBIDDEN",
+   true,
+   null,
+   null
+  ],
+  [
+   "VPx4R9rWKxsx91kVCPgot",
+   "Forbidden Art: Grave Lotus Detonation",
+   "S",
+   "FORBIDDEN",
+   true,
+   null,
+   null
+  ],
+  [
+   "lOZQks4GCxjXsNQxop-zo",
+   "Forbidden Art: Heaven's Rupture Oath",
+   "S",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "TW3ESJVx6dQ5o-_-QXSMi",
+   "Forbidden Art: Soul Furnace Reversal",
+   "S",
+   "FORBIDDEN",
+   true,
+   null,
+   null
+  ],
+  [
+   "LrY6FZShfm3qF0mTk9Zdv",
+   "Forbidden Chakra Dragon",
+   "S",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "Lg_thN-MB8FRAr_Agf9tn",
+   "Forbidden Chakra Fury",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "f_1_leJBO29rTRqPTkOs5",
+   "Force Wave",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "4TM6iS8P0qgNHsFpALFhg",
+   "Forceful Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "DHnc0HNAJh-FisuZEWji_",
+   "Foreboding Interlude",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "gA0K9Kvk1Ug7CSIEgH3Yd",
+   "Forest Snare",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "zZ-QZGRXC-aUiskpZ4Z_3",
+   "Forest Wisdom",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "E_X5Z82vFnLeHDhLRLVfG",
+   "Forever Dark",
+   "S",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Wy7EBGd7gpP96hyumb0Lz",
+   "Forgotten Ember Blade",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "oV5b8Dhc7ii1wFWhvh7GT",
+   "ForSakenReflect",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "hI4pQ8vNat1e76xCOhpeC",
+   "Fortification",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "tpguUE2yX8g5MZe0x6iVh",
+   "Founder’s Fury",
+   "A",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "AK8P4xmHSdbUOh2ywzb1l",
+   "Founder’s Wrath",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "-gP5jnkT_Z-7Js6YNDBST",
+   "Fractured Desire",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "xIe5xySMvGGROYb1eMemR",
+   "Fractured Reflection",
+   "B",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "owBFLBZjXwEx8twhdbPPI",
+   "Frenzy Assault",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "BJk9Awam-JxyOkDxaVevS",
+   "Frictional force",
+   "S",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "RES8ajxppnF3bngpohMkK",
+   "Frost Reflection",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "Y_P_cjtzD-ppxgW16SWY0",
+   "Frostbite Barrage",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "4YRK3dEmikS4VXzQCzTnB",
+   "Frostbite Grip: O Canada Clutch",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "SAxgVk0HyWuAYPqcJ6al1",
+   "Frostbound Ascendancy",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "oBa304e0EfaUCOsMB7XU4",
+   "Frosty Demise",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "Tg8sLSgTTfK7kolyXndgJ",
+   "Frozen Melody",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "CubnPmX8ZY98POMfp0HCS",
+   "Fuchsia Infusion",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "rj5eY-1Psv4kncitsg5zs",
+   "Full Cowling",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "QXE9J0fnu1t-DAGTGbaCX",
+   "Fury of The White Tiger",
+   "S",
+   "FORBIDDEN",
+   false,
+   null,
+   null
+  ],
+  [
+   "fVdo6v4OwxzJ-WamNqXJ4",
+   "Fury of the Wood Dragon",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "2Ye-jrvIAdn2Ckk6lqhiP",
+   "Gaia's Wrath",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "DUl5AGZYhabcVJ4rJkzbi",
+   "Gale Blade",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "SJwW0b5tO4PuBhNrLJIR2",
+   "Gale Bolt",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "1x519sNFVL7DQ-g_gqJ9X",
+   "Gale Dance",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "hPCZDto7aUohVdZ77rYMy",
+   "Gale Echo",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "rBcwIiHjKOF07Yoq4wVqU",
+   "Gale Force Blast",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "V9Kc147t3v6PoBVjZKUzd",
+   "Gale Force Kick",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "yFzR-cwQWXcvRJOKPSkly",
+   "Gale Mirage",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "2YVxpGp4GLMRi-5_0yjzc",
+   "Gale Palm Strike",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "CPKuVxo5AXUMJ_zQaMly6",
+   "Gale Reaver",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "RR7FQMIMhpAtjrIi8q7gM",
+   "Gale Release",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZjrAiI4_djoDdoiEZHSwS",
+   "Gale Scourge",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "36OsNI4eBof0_cMcwi1rR",
+   "Gale Slash",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "YyvGod-dr31VQJQYJKxwC",
+   "Ganpaken",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "UXXs6CZ8NZNjLs9175yZ4",
+   "Gaze into Yomi",
+   "S",
+   "FORBIDDEN",
+   false,
+   null,
+   null
+  ],
+  [
+   "vkHAbmEur-lxO88tib3X5",
+   "Geo Eruption",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "kb6zaZKbkv3U3Lgl0p1Dr",
+   "Ghostly Boarding Hook",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "cRs0e3bzbw1zAQ8Z0ZPgA",
+   "Ghostly Burial Tide",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "wZ20uyFl9jXs31Yrp9t7T",
+   "Ghostly Chain Shot",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "eMNSr1NWubD_IwVYppbkZ",
+   "Ghostly Chart-Pin Barrage",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "bt-LJ22cM2gs_-iVtPsbW",
+   "Ghostly Coin-Weight Maul",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "wMcoazoyXaEXViSCn5weF",
+   "Ghostly Crossed Out",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "lDRZckm05jQEUTyZ0qmGU",
+   "Ghostly Cutlass Slash",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "PqKTMl9XyNXLoJHIsQEas",
+   "Ghostly Dead Reckoning",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "lvzBDmZ1gwOKLPCV0h0cs",
+   "Ghostly Debt Collection",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "ddbIyVtoxdPQwLRXxSBq8",
+   "Ghostly Deep Six",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "X2P22h8ApDmTZHjWpNO87",
+   "Ghostly Final Fathom",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "VTw2FVjsJXOZNr1NyPkoh",
+   "Ghostly Gale Cleaver",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "65D6rTaW7ZlUmZIL4ZMZ_",
+   "Ghostly Grapeshot Volley",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "1ymzIUup_ErD_ruUkOmJV",
+   "Ghostly Grasp of the Buried",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "M17d487aZDuWfS5C_hgeN",
+   "Ghostly Hull-Crush Coil",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "5c9EgF3dOsx9kelnQMfw5",
+   "Ghostly Knotted Lash",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "LIGN4c83NNmv4ea655HGx",
+   "Ghostly Measured Verdict",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "69KaUuqwYMxBtP8cnpSyt",
+   "Ghostly Powder Flash",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "yjsfRGaY1rUwG3FUWeHUW",
+   "Ghostly Redrawn Course",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "1jXfTgrtGUaSfqTPSSa83",
+   "Ghostly Rigging Snare",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "84Ew66RUgE_yzTeb2X4d4",
+   "Ghostly Sand-Choke",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "EQ93LX8wvuIAd5u75q_i1",
+   "Ghostly Shipwreck Delusion",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "JtMuRYsk965ZZD1sSQlrL",
+   "Ghostly Shore-Break",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Jz4Lb55NcpwZn3nUK5PrJ",
+   "Ghostly Strangling Weed",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "mL39bQRcyFtdPUlsJRNsA",
+   "Ghostly Tarred Harpoon",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "YCDM4ZWOWY1d4nqwXpX0j",
+   "Ghostly Thunderhead Brand",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "UrQra0Xfn18ZFEgL38yl1",
+   "Ghostly Tidal Grave",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "HsHQylAuohwyOcMcCOtPA",
+   "Ghostly Undertow Chain",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "jbdOPmLPLvGZjltPvFiAu",
+   "Ghostly Vault-Breaker",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "n08U6tdAPwYPMqcRQmmgb",
+   "Ghostly White-Fire Broadside",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "ZZk2cSkwhzUSdtq6XB72_",
+   "Ghostly White-Fire Riposte",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Q_zY1hK8SeyobEbd37rcq",
+   "Ghosts of the Looking Glass",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "v9HXM2kzqCvmOSGmO6zwQ",
+   "Giant Bash",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "1cN_HSfk-YC0PB5lSixB_",
+   "Glacial Cataclysm",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "WidT6sY0bVZSzmTyvWf8e",
+   "Glacial Descent: Cocytus",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "jpfW93U6h4-ZbQlEu7V38",
+   "Glacial Salvo",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "i-dNeCHi0REjY-5N8JwX1",
+   "Glacial Shatter: Purgatory",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Bw2OBS92Xi-4YlfErS632",
+   "Glacial Volley",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "zzi8FmIN6Ycp06V_k6B_y",
+   "Glacier's Will",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "u7AMx4nbPsU_ev8mfi5yG",
+   "Glancing Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Ll2WobtMgnsB-ADYa0kK4",
+   "Gluttony: Baptism of Excess",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "gy82Qby1ehxXbLtSwQDS-",
+   "Gluttony: Bile Cascade",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "9ayqZ3t82S4AgLT4Fh8CK",
+   "Gluttony: Hungering Mire",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "FN3c0uUI8fOiszUZCooyg",
+   "Glyph Blade",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "VPythOAGgK0y23ZILLcmg",
+   "Gobble Gobble",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "ofoNlx4RYDbvYhPH17jHS",
+   "Godflare Construct",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "AXo72gqY5FkxIm7FLV0GA",
+   "Godstorm Mantle: Heavenbreaker Verdict",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "R8XSX-dWuVBe1YIpsD1PM",
+   "Godstorm Mantle: Raijin's Cage",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "El5x-Zc8wCgDw1IR5vCE1",
+   "Godstorm Mantle: Sky-Splitting Wall",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "krFGqlyaMTHJXwpFPk53v",
+   "Godstorm Mantle: Storm-God's Heart",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "_ouXdbxYhe1aERzuj2CkB",
+   "Godstorm Mantle: Tempest",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZoJTWSfDka_IZb8mvPW7Z",
+   "Godstorm Mantle: Thunder-Crowned Bulwark",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "byzsYCdazLPosP46jDGN0",
+   "Goodius Boyicus Blessing",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "okWPN9O_RkTx0GxBaOdO7",
+   "Goodius Boyicus Howl",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "EYbkuq2AU0vdVxRU4CIAD",
+   "Goodius Boyicus Snarl",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "EsMDQQgBCZjjijV0aG0lt",
+   "Grand Detonation",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "lZKkXHkKlCIbF_S5x7n8d",
+   "Grand Fire Annihilation",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Ad0K8Kgo0WqDgDt5E4lkx",
+   "Graveyard of Stone",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "e2aXCoMWr08f-FX98lnzT",
+   "Great Fire Annihilation",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "xZb-PpWYfSdyalB9H_2Km",
+   "Great Vacuum Bullet",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "9QHri8vzalPajSt75DNq8",
+   "Great White Out: Blizzard Barrage",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "vVvY36iPgBzkaSjEWzOdQ",
+   "Greater Vacuum Bullet",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "TO1BTXAm4pDplVv1n7-Md",
+   "Greed: Covetous Hide",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "Gw2y888teyNBYgdp_cfOI",
+   "Greed: Feast of Pain",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "-tnMBSasrVhDTn2POQ18o",
+   "Greed: Hunger Unchecked",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "Sx_PyN19IdaWEABVJKwje",
+   "Greed: Hunger Unhinged",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "CySQA3zC1e7_g9qoqe-kp",
+   "Grinch Slays Bells",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "sXWYPODx7W6zfl5w9-gSx",
+   "Grinch Steals",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "MBkpfU2oxtJKAMeqxN-d_",
+   "Grinchmas Cheer",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "5ivJffyqOuMcR12e_RH7T",
+   "Grudge",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "lNvXZycno0P0LKOMuo6Zr",
+   "Guard",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "1Iy2Vy5ZvCY9dQsc193NB",
+   "Guarded Stance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "6jxreCs3oWJ9sKPB9Sw4b",
+   "Guardian's Grove",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "NWsPOC8iCVfhLle3mHy6o",
+   "Gust Armor",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "EWc-_JpDadE3QJN0ylV51",
+   "Gust Punch",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "vL3tewd91YlGCWoV8tMbJ",
+   "Hag Lullaby",
+   "S",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "5JS8YjVcanX6Y0LHiRO3l",
+   "Hammer Smash",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "C1SdH7N13naMHG3bKE07k",
+   "Harden Fist",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "FbcVM68Nq7ma3Q2W6Fz7o",
+   "Harmonic Chamber",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "aGHvcy3izzTTcN-yjch33",
+   "Harmonious Slash",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "M0yWshUUcR-ALSGxl7SxE",
+   "Harrying Shot",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "mCWBeISfJQwulnHhfleCj",
+   "Harvest Stun",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "D8WpCZtS0Ma8kQbjpeB-j",
+   "Hayyay JI Self Buff",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "5a29kRBUvOMryRwzzdnWl",
+   "Healy boy 1",
+   "D",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "-k5CBNvdXcB1-GrsP6T2K",
+   "Healy boy 2",
+   "D",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "LXjIbg0we1yD3yCShWAg5",
+   "Healy boy 3",
+   "D",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "JSPgBRJRgFs7HDD0QX1nn",
+   "Healy boy 4",
+   "D",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "6gy0uQNiVNio7Oz-XpwSh",
+   "Healy boy 5",
+   "D",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "hvRTbFtFMoy_9fI9WkMkr",
+   "Heart of Ages",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "gkZYgOkTp8sQ_6qLR0uIy",
+   "Heaven's Blessing",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ndI-iqDLWGvek1qrodG1T",
+   "Heaven's Tempest",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "xPfjuu4WMe786wDVaizik",
+   "Heavenly Constructs",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Q28571ssKCHprvMIFaZfU",
+   "Heavenly Edifices",
+   "C",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "JU83lZnPAsjKWVtxXK-YL",
+   "Heaven’s Call",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Vo8N1luCT0p48y7JzKe84",
+   "Heavy Cut",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "pUrUJX8Jml7fUIBXKsPwv",
+   "Heavy Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "S3Ur7iUqvRfv18dkMEErm",
+   "Heiho",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "LXBw6TW0yRxGOfUhaTMkT",
+   "Hellfire Apparition",
+   "S",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "tZUJ5KQll98TUFbwIAZfE",
+   "Hellfire Bark",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "9VRW6hqSoQuz5PA203jFE",
+   "Hemocure",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "C8iGxqFX7_NM4T3M2F8WX",
+   "Hemorrhaging Slash",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "h2A-bUIdNIfpM4GoQ2q3r",
+   "Hemosalve",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "nWYURXb6gVLvjnVRHsj2_",
+   "Hemostasis",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "WaaADsZD_CtSwyjPDF-M3",
+   "Herald of the Apocalypse",
+   "A",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "6Y4wBoFOoT-oaYK-9pt1B",
+   "Herald of the Black Night",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "_JRHgRL8pfUvt_-q1Xa3H",
+   "Hexweave",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "v6xrznZRrlpipX9azTJrt",
+   "Hindering Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "9FS7OFnZi9pZdK1mFTqOd",
+   "Hiru-Sakura: Sakura-ame",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "tICidMc0AFLnkUOZLYrYZ",
+   "Hiru-Sakura: Sakuragari",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "RL9frAr3PJrbxVc-U8uqj",
+   "Hittakuri",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "JytgVVxD-yqM0iOj5Xn3k",
+   "Hogs gone Wild",
+   "S",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "T-g1xQ3eQWgW5IhOhiA_P",
+   "Hollow Collapse",
+   "A",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "GAhckNCW8xUES4YGTJPGL",
+   "Hollow Veil",
+   "A",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "PsRn-GoR0HoIM1AHWpXXu",
+   "Holy Obliteration",
+   "S",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "qVO2qvGMSDpP_XFqiLDWy",
+   "Houkyu Dance",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "8Xoc-IdRz5pX4zT9LWOSc",
+   "Houkyuken: Magnetic Assignment",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "hW4IV1Hp59BqVFx0u-gTd",
+   "Howitzer Crash",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "-bLYm3cXk9GTpVgeQJdCI",
+   "Howling Onslaught",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "ksKmCtMZUNkH2j8nNfINb",
+   "human ai 1",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "cer9VP2McaS2fYz-DRstq",
+   "Human ai 2",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "fN_TFOjHR_PJu8ewUzNK5",
+   "human ai 3",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "1zWtjrCKkOy73270UOi9T",
+   "human ai 4",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "F6JhAyqBDp-vPIXkDzJ5H",
+   "human ai 5",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "2o7f02qpMUTDHl0XLj_9n",
+   "Hungry Torii",
+   "S",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "p95udTCrsVzXfW4218pGl",
+   "Hurricane Strike",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "cZrZDI-A4fL324nX1CGss",
+   "Hushed Hours",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "BqBjCXSCwtYqbhnH-dSKz",
+   "Hydra Spears",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "5bXmm6HltLiPMzvY2E74m",
+   "Hydro Pressure",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "xfFGA5qPXJG95z4fvYY7R",
+   "Hymn of Absolution",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "l4YdKON9YRCmnhfe8i2FY",
+   "Hypnotic Annihilation (NS- SR Pierce)",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "6L10p21REruuWRdqMJot2",
+   "Hypnotic Prism",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "5O0DO8qhBhbJvDE98zFUT",
+   "Iaido",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "JUOFX1iuHSd_sZPNi3H69",
+   "Iaijutsu",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "4EQ1-sGOjrSz1lPnx1OyC",
+   "Ice Blade Dance",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "NUrtaPLg9lXnQwWTeIxca",
+   "Ice bound fortitude",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "slsn7q125ZKuzjFQeA2AD",
+   "Ice chains",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "RibLgKvjyQrdnGgszuv_n",
+   "Ice Coffin",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Mi_LE06EkP3SKv4eZxbwa",
+   "Ice Fetters",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "IxOMiYJIBoWuG-O9T54Bk",
+   "Ice Flow",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "1Ds-JuqAFyZ0UivUev2Xe",
+   "Ice Palace",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Aff56oo9BFTcoLLeEyOja",
+   "Ice Shackles",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Xd9gpgncFrXnQul8shiZD",
+   "Ice Vortex",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "QQVIGriltkhhpJ1qaqVMd",
+   "Icebound Force",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "YGBz7eIDvLwWXSVFEcK9j",
+   "Icebound Might",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "PzzWw2b0KFr1CBFyrYP2a",
+   "Ichi no Kata: Kusanagi",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "YXTNwSZoct1-4Tjr-PFcq",
+   "Ignition",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "TmPI8fO615KJ8vhZ426fW",
+   "Ignition Kick",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "8wl2YvOZB_WwZx4FXzrlm",
+   "illuminance",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "UEZY8uf5EbpN7_8vIKiKH",
+   "Illusionary Celestial Mirage",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "JDVO3M4YNI0ZOZ2_J0s4C",
+   "Impaling thrust",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "pigIaTGfBQuo7oTyhpo_s",
+   "Imperial Blades",
+   "D",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "b3jNShFpBYHh-4n8G0HVA",
+   "Imperial Freeze",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "l2QF2aUCJO8M9jeSoQscp",
+   "Imperial Swords",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "neqjb39wqtlrm3IV6dLaw",
+   "Impossible AI 5 jutsu",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "yTOIKkCBoxnghEv_jOLO3",
+   "Impossible AI Jutsu #1",
+   "S",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "B6xrDMv4TckvKn_5aImdT",
+   "Incandescent Nova",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "XdkrW_LKgOUm98dw73IZf",
+   "Indra's Storm Cloak",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "1Utdp_1sdXw7CUOB_EXhY",
+   "Infernal Ascension",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Ki9gt7RZI4pGb-ySjG6Zq",
+   "Infernal Combo",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZIg3GOlVdM8evE3-g1bRy",
+   "Infernal Curse",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "akdAdQ10HK0960Go1YJif",
+   "Infernal Mirage",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "P7dryy19LnBbSh1_Tc9K1",
+   "Infernal Stream",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "xq6ebGBs2R0bfvcogHMWn",
+   "Infernal Surge",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "dxPAjw0hO_BpKLMe3FtBA",
+   "Inferno Burst",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "FTTl_wnTlbvOfOyiGCc-b",
+   "Inferno Cataclysm",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "MAmXv0bRXBcmc9wsA9LGX",
+   "Inferno Cyclone",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "iWZyCiq2FBCBZnWiAOIG4",
+   "Inferno Dragon's Wrath",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Y-_dK9pqbeqLCzsfm-pB2",
+   "Inferno Kick",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "iioSrLkg_-jlX5xIycMYr",
+   "Inferno Kunai Barrage",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "0nIgI7oNn-PSesn8T8kGl",
+   "Inferno Leech",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "hjLLwkdeWRV0kN93gyCFm",
+   "Inferno Phantom",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "tzit4QjcSsvXQgVVYy8wr",
+   "Inferno Slash",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "kUcL8K94TW3iCkRcoik_7",
+   "Inner Flame",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "sav_H5tjyeHUIlGNPKC3h",
+   "Inner Peace",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "plFHKpMOwi-H_ap9PS0av",
+   "Invaders Defense",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "xGVqWSX93hXZgfmlKZODp",
+   "Ion Lance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Oi5pYxNaHa-5o737i5gAu",
+   "Iron Fist",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "x5FfBkac3YfROuNojxU8k",
+   "Iron Fist Fury",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "RuWEPO4LteilE7gBD3wJq",
+   "Iron Web Entrapment",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "hSfdJg2IVME8FxZjTD88-",
+   "It's Not Over!",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "8ca2KGTY6bCwhQf9eeI1v",
+   "Izanagi's Hammer",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "amfNI_EJbjh8LFW2XO0d0",
+   "Jade",
+   "B",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "P2Jl3QXRMPAeonxI1azT5",
+   "Joke's on You!",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "q-MTXhSMQx_X_aDBNH0vb",
+   "Judgment Blade",
+   "S",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "6PB8Qr1NmLX_oUakI6f8z",
+   "Judgment of Ages",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "riK0AGn1Zc13fgXh2c49s",
+   "Judgment’s Wrath",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "OJSPwyyzVNtgKlFwE-4KK",
+   "Karmic Correction",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ClfVYHX15l9LiMfJ8SFCg",
+   "Kaze Kama",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ORhBAQbBGxyb3jQhLhBOp",
+   "KGK: Black Fang Lance",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "1iR7QtVJVrOCZa0wgd-Da",
+   "KGK: Flash Step",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "w_2RlQF53f_3YWUKj--T-",
+   "KGK: KX Hollow Surge",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "079PaQmG7JUrZmZHn9HL7",
+   "KGK: Veilguard Pulse",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "tRRmsLHOXMAec5cIxrPQ7",
+   "Kijo's Benevolence",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "-7YQ7RQLKMwGWRFiok37M",
+   "Killer Instinct",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "y8y01n9jz16bz5EBzl4wr",
+   "Kinetic Nova",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "qB550OM_X-Mh0w_KlNNji",
+   "Kinjutsu: Black Thorn Rose",
+   "S",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "jCKcFgvo9fu7QMwZ5YWzA",
+   "Kinmokuzai skeletal bubble",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "mpa8ayIk-TisI3UBuyUnu",
+   "Kinmokuzai skeleton boom",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "igPSz82fa_L2XPrtnMvnz",
+   "Kōsai Shippū",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "NOqYoye8FzL8h1CktnPEa",
+   "Last Stand",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "TnoWY2ZOXkd3Ew6Gn0VOe",
+   "Lava Wave",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "TxLFvx3BpzK1gGOASFGhk",
+   "Law of No Dawn",
+   "S",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "EOgm0Q9z3Gufq4BfyvmKe",
+   "Leviathan's Embrace",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "UHhPQ53NXfN8R24JLC0wn",
+   "Leviathan's Nova",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "jGkCBZsJ1TuyUUwIlSyqh",
+   "Life reaver",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "hsP4OhOhXeiivnuIy2688",
+   "Life Release: Spirit Wall",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "tGz6tBq4EfMNwbH14SdVb",
+   "Life Siphon",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "05rH3kZNXbtFq9a9iRl-W",
+   "Light Barrier",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "HNMweb8uPrZFIJXlMhdkm",
+   "Lightning Blitz Strike",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "rjV6z8ygicPTp1TZ1ybrB",
+   "Lightning Cloak",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "lX0CcSeMf5wBlbXQtSb8b",
+   "Lightning Dance",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "57xgGwYtfhQXFQePC4_V4",
+   "Lightning Drift",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Hj0l8y3PKMH1Mwuf6Au2q",
+   "Lightning Flash Step",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "cAkALDZJM9O8v-Z_Y0dXa",
+   "Lightning Flash Strike",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "XLrUa_lnAbiYPBwNjTufc",
+   "Lightning Release",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "3HoqYq3nE_S6p4eZgkeyl",
+   "Lightning Release: Charged Senbon",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "_LNNwTWdKsUBFfrBnD6Og",
+   "Lightning Release: Holy Strike",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "cEu_gGsh8kJk0JIBI64ga",
+   "Lightning Release: Raijin's Bow",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Wu_QFP86PDhQouwY1jlEF",
+   "Lightning Release: Shockwave Kunai",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "LwCDZpiRgXoApfDUnBNPa",
+   "Lightning Release: Spark Blade",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "BEaaogbbqkL_WeEk95bPH",
+   "Lightning Release: Stormcaller Whip",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "aj1gDBeNKzxWKEPOPiKKp",
+   "Lightning Release: Thunder Edge",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "OqGevgRisdJXE2EpHl5XK",
+   "Lightning Surge",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "MPdM_YflOOnuSqyIhj0sf",
+   "Lightning Threads",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "70uui9rD6yuynS2znlUja",
+   "Lightning Unbinding",
+   "B",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "GsDJufr8bn-55VSGPe0hA",
+   "Lightning Ward",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "DYaMhFDhGH5hARA6oTSaI",
+   "Lightning Whispers",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "3_P4z9KqF2nBYzfikClcv",
+   "LightningPath",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "0DNcJ60n25imm8zeMBASg",
+   "lil push",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "A3pcyo6MCJf3IfOuMWq66",
+   "Lilac Illusion Chains",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZcTwmjhUY-yxSX3zM8CIs",
+   "Lilac Requiem: Thousand Agonies",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "P7dDcC102RhwBTTgA4HU_",
+   "Limit Breaker",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "2wDnr_BcDrVd52klpakYw",
+   "Limited Edition Fanblade",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "YD9GEwXU6LDuIC06TGzWG",
+   "Lingering Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "fWb24FYrbTqYvE9GIEA49",
+   "Liquid Ember Shell",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZZ52uEYFREnL8WZ5N423r",
+   "Liquid Mirage",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "boyPcTIywrR-adY6M6ZAN",
+   "Liquid Palm",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "E8euhHqWfP3ZRIL5YeIQ3",
+   "Liquid Thrashing",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "IJrqLyYMYEcG9taQJdKiv",
+   "Litany of the Devourer",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "xHZPm6r4dq9YhpsohKmtl",
+   "Liver Shot",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ath_7RHrxQWA4XmGjfFeU",
+   "Long Shot",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "iBZ1KyjqzjnVzDWDPNS2p",
+   "Long time no seeeeee (GP - VS Drain)",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ozJtMgqvaq_XJkibOK_R0",
+   "Lord Pengu: Blizzard Barrage",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "UYlp39FtIC9ybcV5gH-IV",
+   "Lord Pengu: Frozen Fang",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "b-q9X9HUKXpA3sLlkp6sc",
+   "Lord Pengu: Glacier Ward",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "kYR7Gnvlj0SMSbRH-uSZm",
+   "Lord Pengu: Tundra Blitz",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "DIlxlbKXu3SOd6Y3M9jRr",
+   "Lullaby",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "_qKjyIKbWXoVR8KVNjQ_N",
+   "Lumen",
+   "A",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "Kl_23tgKbUZVfMlNMCiif",
+   "Luminance",
+   "C",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "yQ1-XsKw2qLiTydKSbOif",
+   "Luminous Illusion Bind",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "sks41OM0PDvM2RH_ECjQh",
+   "Lunar Descent",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "OuS5bX4LllySvwKTFUFB5",
+   "Lunar Howl",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "_nUaGHlWhn3-U0xbxJHFw",
+   "Lunging Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "oS17Ax_EbVg2janbpFh5A",
+   "Lustful Dance",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "cDLtASEGo2_izvGMAqeRf",
+   "Lustful Embrace",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "CY5C6gf_6iQZy8jDjKxyT",
+   "Lustful Punishment",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "PK5mepJ3KwuH0f8FC32FY",
+   "Lustful Wrap",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "HeyLZuk1IdXK0a3fpPJyD",
+   "Lux",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "2n0QbuqkeZqse08vMc2UY",
+   "Mace of Destruction",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "K3xPtMXSV8rYfp5L79H5Y",
+   "Maelstrom's Embrace",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "sxkXLcZM_ajMTNbW1KPWG",
+   "Magma King",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "98Qji30as-AHzsAbke5Z_",
+   "Magma Slayer",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "DEF2BLauG-nis5B0K7ULi",
+   "Magnetic Pulse Strike",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "JA6VZ1QtlXQa48UTic1H2",
+   "Maiming Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "mdIWNxovAIVj_8esBaYGX",
+   "Majestic Flame",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "lDSgbWT7_vjHv3tQd9lnJ",
+   "Mallow Smash",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "fFk51K33d6e_Ns3J1VUcu",
+   "Mantle of the Waning Moon (Eminence)",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "1KxjCTcti4vHa7jatrrgZ",
+   "Maple Lance: Wrath of the North",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "E8fCigSOSptey2wZ5Jnd9",
+   "Mark of Rex",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "mQ7-q8q46ry5njNVBFpGp",
+   "Marking Volley",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "zgljNf3IpK_BWTZqXIFms",
+   "Marrow Eclipse Mantle",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "okEjYlegY_V2Fd46oOHf4",
+   "Marshmallow Blitz Bomb",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "17z4ZrL9FR72nLjgJ0qRg",
+   "Marshmallow Hammer of Doom",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Ll7UGqsaBCbBhdDVa_9xr",
+   "Marshmallow Hug",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "50tpMbnVaa0z5Q7UNtiqj",
+   "Marshmallow Inferno",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "V34OBxnSDj6PfxT4Y3fhx",
+   "Martial Movement",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "kkGDat1XWUxhOQ1_T5025",
+   "Measured Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "dg-I3ff8mWl8i7Nk1fvPj",
+   "Medusa's Gaze",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "UiBR2V2AKkmh64JiYlL3w",
+   "Mental Fortress",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "E0ijDB_k_lh9agWTpTysb",
+   "Mermaid's Lyre",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "IEQ9uPC_Z9e0GWv7Czagb",
+   "Metal Release: Iron Maiden",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "FjDi3AgMbPL1yB3vrKveW",
+   "Metal Release: Tungsten Rods",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "CRWgh_h99ycd6jNk14Pd5",
+   "Metal Release: Uchiwa",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "jqlSPpd3RO0d6KkABDAMh",
+   "Metal Release: Uzumaki",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "cd040js5UeTt0EZ_l0Nop",
+   "Metal Release: Vulcan's Heavenly Forge",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "jjfo6oJG6pSuW3qctEKbZ",
+   "Miasma Dominion",
+   "S",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "d8aM3z0_uqbYbBDR2SbFV",
+   "Michigan Smash",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "tjONXTYqo0moXIr7sLWwu",
+   "Mictlan’s Cursed Road",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Y10xOmrtfFfTr3n8v5K9g",
+   "Midare",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "r2QGirLcf1lpWvYCHS60g",
+   "Middle Guard Stance",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "4CgdVL-I4jxz2rMWxIqZc",
+   "Midnight Verdict",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "bb83BmCIHL2XdajYNf65_",
+   "Mind Blast",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "c_vC7bzoTGu2JszJwyz-6",
+   "Mind Cognizance (EA)",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "BkM8yq3J-P9SkCsCoKrtG",
+   "Mind Flay",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "rVaMOVZeZNcAgrFGvLFJ_",
+   "Mind Trick (EC)",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "oQo27NtvRS29CABHGXP94",
+   "Minor Overflow",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "X9DzKs0buVovdjXCzlLDZ",
+   "Mirage of Brine",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "KCdNjrbSbrE2kbpJhxRuI",
+   "Mirage of the end",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "kGGLmkx8QZqjOkvJc0rzO",
+   "Mirage Step",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "AEeRf7i9215twJ_iEugZT",
+   "Mirror Edge",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "H6ggKaYjdwWLXp_PNOzQe",
+   "Mirror Maze",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Cy9nWGc3zT3-uZHArHF2L",
+   "Mirror of Cinders",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "moybaWSkJgs_8I_VnfVUq",
+   "Mist Veil",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "qe40i5VoewLPvjJfTI4Vi",
+   "Mizukumi",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ULll9S_P3B852zdPP_EIT",
+   "Mizushibari",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "oeDTts3CvQeZmauGBAEPi",
+   "Molten Fury",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "FgIc9MSiKaVZS8QTbsiH4",
+   "Molten Manipulation",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "hebd_Akwy8E32h1D3sQ_3",
+   "Molten slam",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "rVCyLZzMWdhi9HBb8374D",
+   "Momentum Shift",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "gGeYMnYY1COD4Wl1S1paW",
+   "Momo Flees!",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "c8GR2pzLyN6OJqM_jhoZn",
+   "Momo1",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "fDG-wGS1dGAEd_a_ZYdBn",
+   "Momo2",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "JddcgfDdi4A4pJonCNjv1",
+   "Momo3",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "M5GVeVe-pzPkkzmAun1zr",
+   "Moonlit Fury",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "1CCWSHlcGv8l0reCXHOnR",
+   "Moonlit Inferno",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Uc5MJoHt5hfD94PNknAzM",
+   "Moose Cleave",
+   "S",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "pf0a5Kn0XSYsP524xkVn5",
+   "Moose Prime",
+   "S",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "BKWn9a5_zY7QgnCHYGcwh",
+   "Mori no Shugo",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "G2vuPJTsyGHctsLU_g59x",
+   "Morning Star",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "yNyBxYW9BupuWp1R_ssWp",
+   "Mountain Crusher",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "iGN29w7lmh9U8W06L5pZD",
+   "Mr. Waddles",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "QhEDzYwU0ucb0W7Ymib1T",
+   "Multi-Layered Gale",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "R1JS1xUbHPVBqCyV0TZPC",
+   "Muryōkūsho",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "bFdJqGQmpzitAJNo7sb9t",
+   "Nature's Curse",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "SI1hrhBeNyvrDWf3_RCmS",
+   "Nature's Fury",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "FPwcmTvWRhDihNFUjMdTK",
+   "Nature's Hunter",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "NpjOFbGGkFLZheX4LCqHQ",
+   "Nebula Pounce",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Atr1WS1otBcQHe3aJ3Aa8",
+   "Needle and Thread",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "3NTUCmohnrV5UxUQ7qyrI",
+   "Nendo Jirai",
+   "S",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "sKSfJTZUSdQI_EO18fKNP",
+   "NeonFirePath",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "e0bkeiG2euvOJEIgZWEOB",
+   "NeonWater",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "l5kgBGL2CZjzLMW5wFHdP",
+   "Netherblight",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "aFbX6xBg-HdEqlzdMwRqf",
+   "Ni no Kata: Murakumo",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "0FIa9ZvAv5u7tDsRFTptA",
+   "Night's Testament",
+   "S",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "YAIc54VL2s3hUZXBN00xl",
+   "Nin Gen Alliance",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "EQcq7PU7D1ycYIEymUBuy",
+   "Nine Hell's Spear",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "BhCHRQE_8vBbvSuqbeQdK",
+   "Ninja Art: Chakra Barrier",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ML-GEoey-Rrd4P02ErZVw",
+   "Ninja Art: Echo",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "rUNWpXnzMoU-bc17pr2j7",
+   "Ninja Art: Eclipse",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "uKJ9-1o7ZVNVDIaG9zWIm",
+   "Ninja Art: Gates Of Heaven",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "HN0SHsCRn6qWOi1jZbK9y",
+   "Ninja Art: influo",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "9QfsU1lMov3aJRp7ZNjxu",
+   "Ninja Art: Kaleidoscope",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Qk-zVg04DN0jHtVQTUzCV",
+   "Ninja Art: Paralysis",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "nfCXeHX0-qC-RVhtyvbcU",
+   "Ninja Art: Purgatory",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Hwr9ReDB3vbk59XlnYVBn",
+   "Ninja Art: Teleportation",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "57tZ3QOnJyeW0cZu2Rca-",
+   "Nisshoku new",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "JWZYiHKPNwYziWEFjw4Fn",
+   "Nullifying Wave",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "m-ur3A8TS8r5jGb84L9x7",
+   "Numbing Shot",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Qy5D0ZKqpUSFAGjfZm3MD",
+   "Nya Strike",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "dLe0URZ9qitX7sgH_64_B",
+   "Oath of Unravelling",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "AfGmeuZkdGUCwmIA8lrGr",
+   "Obelisk Overflow",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "7dRJKVvNiQxX-5tgIerza",
+   "Obelisk Overload",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "zoycdB--D5ssf7E_GjOEm",
+   "Obsidian Heart: Eclipse",
+   "A",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "_F0qzXFsm6OslLzddwsDB",
+   "Obsidian Tomb",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "fc7DtHKJy50qdmdwLIvaa",
+   "OHKO",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "e4xGYIv7G0EPSgopauqhy",
+   "Old One's Slumber",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "lOZKV2Jsdi3YmGuu9_k_z",
+   "Oni Hammer Swing",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "-YhHk0ic9Yg-clF8RdeNP",
+   "Onibaba's Laughter",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Cw51Wm_Uy0GiIkiEjlQtn",
+   "Opening Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "5eNrb23-iEMkmWVe57mEx",
+   "Otherworldly Conduit",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "hpL9HJyo1CLMRDX9QWNIS",
+   "Overloaded Impact",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "73Sn-ihCNNRwxZ_G_2lTZ",
+   "Parry",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "egtCp5UC5pRwxz7egJm7J",
+   "Particle Cannon",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "O-kZKgbwkBR2DDCFHFFfB",
+   "Penguin Shuffle",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "jhjmPXwx0NflEdCgvEzPs",
+   "Pestilent Swarm",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "_wLE7LmkK889IeKev9O_d",
+   "Petal Nightmare",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Yc5a95dPlR5CQleT0Qvxa",
+   "Petrification Mirage",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "AsZKPnjm4ht3NgwBuoF_l",
+   "Phantom Breeze",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "MzPdazALBQiLZALMbvCHw",
+   "Phantom Gale",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "QtHCw6YREYNtHayQwHBhL",
+   "Phantom Guilt",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "3oveHdjxSHUiGSC9tXXdO",
+   "Phantom Realm Oblivion",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "kbrQuf3nYNHoKEvusATTO",
+   "Phantom Requiem",
+   "S",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "OkPqXUMvbXZPGH3UA-I6M",
+   "Phantom Scythe",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "lXlcfj4ZrhX8mzkOgy0oI",
+   "Phantom Slash",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "GAyHRgaa1lkYGhE9WxlRL",
+   "Phantom Step",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "vnpd9EYGrlrHudotYmLJA",
+   "Phantom Whirlpool",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "tpJLdzg6Gx_en6C9LHddj",
+   "Phoenix Flame Illusion",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "V_VY284CMTuqYqOOX5sa7",
+   "Phoenix Flame Strike",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "969T57fJmysi-1WGpPCpI",
+   "Phoenix Heart",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Zi60d_m2DY4uvPqkcjwTT",
+   "Phoenix's Wrath Strike",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "t0e3vMAgs5E_1lMiSOZkj",
+   "Pickpocket",
+   "A",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "l2juFx6uVneH8GvjnzyF6",
+   "Pierce",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "OyswJoalfNpmz7FsA8Hd8",
+   "Piercing Judgment",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "PUCLw7SVO0u05Abw9KdMO",
+   "Piercing Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "unVRbwMAPDjCdyadLSybP",
+   "Pill Pack: Chakra Pill III",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "hIJ75hKutnqeQNnVrS9b2",
+   "Pill Pack: Large Health Pill",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ARo3wgUkgeVRf3sod3yBR",
+   "Pill Pack: Stamina Pill III",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Ji-Bdyu5KCxJ1qIdQk57x",
+   "Pinning Shot",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "JRWWqRHhtlZKfMICM5kCy",
+   "Pivoting Fortress",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "MYGGhMQZ9Vxv9q-AJJu_w",
+   "Pizza Annihilation",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "5wwHx9LNWEtgaCieT-HGa",
+   "Pizza Piledriver",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "B1VRVmsVadmAQWslxe6f8",
+   "Pizza Power Overflow",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "Fh6mmXjrwoCJu9OlVDdMQ",
+   "Pizzafication",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "J1niuyO-b1luzXVnNJsN-",
+   "Pizzance",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "_PT0SIUUrxc7BhCP6vgf4",
+   "Planetary Devastation",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "1k8RkDKDP2NQ4ShNL-pdG",
+   "Planetary Ruin",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "H9XLJiU1YEro03QJ2mH8q",
+   "Poisonous Senbon",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "MpQ0tVX3TAHF0MDwRvEdN",
+   "Possessing Yurei",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "LDfNKqmaXiQ3ifb-uHXuP",
+   "Pounce of the Lunar Prowler (Shadow Ambush)",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "DjB5A9_aQskTds7A2vnZZ",
+   "Praise The Sun",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "haRHBRJ7ifpnXApDOlSVk",
+   "Pressure Damage",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "vtX2YdphneMesUzAaGgxJ",
+   "Pride: Gaze of Superiority",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "tb7-i1XO8LLU6KyEiok4h",
+   "Pride: Plumage Flare",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "yVKnJCOCjEiTVHlKbNRZ7",
+   "Pride: Plumage Lash",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "9rnfR_4yW5fO-4LHojU--",
+   "Pride: Sovereign Talon",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "cek_I7Yky_h13LqrC8KLW",
+   "Pride: Unbowed",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "dPWS9glSYmcCxKlUbDeVF",
+   "Primal Incineration",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "AFxOB8St3rqdY3xqkBJo4",
+   "Primate Assimilate",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Uu1J0ht_YiSNwUoPca5Jg",
+   "Primordial Blight",
+   "A",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "6XpY1m4rAwrBHBKYsPRDJ",
+   "Prism",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "hC9VSNjIFOJYP37PnvvH0",
+   "Prismatic Ward",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "tiWKegQz8XZ7aIhQ1Cd_k",
+   "Project Trinity",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "XOHWSHj8A_r07ClerzNtE",
+   "ProjectkEC",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "i2pullnHGfJTDZ-gdJsDW",
+   "Promethean Core",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "82QuJQ_t7zWyacbGjPEid",
+   "Prominence",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "8762uSiA_XClK36cuE9Cw",
+   "Pulse Strike",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "_Hhz6aPpNCMc4U7hNzDqe",
+   "Purgatory",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "HcAs8gBtvopPZkjP8HCC2",
+   "Purging Stance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "XQZpHiweUBgAjuyDxgINd",
+   "Purifying Wave",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "EJOCWmrrUnECI2MikM8ho",
+   "Pyre Breaker",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "1fBOcBlz8wKOlV-wTUX1T",
+   "Pyretic Ignition",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "VOS_VDwAUUlpYxYlNSLnt",
+   "Quaking Earth Strike",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "XVHy-OORSuDuZi0U8jXu3",
+   "Quaking Fist",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "fk1XgQ9ojGeN9D27A10m0",
+   "Quaking Mallet",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "U4AG3pUy8f9wA4__nHeS8",
+   "Quantum Overdrive",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "FeYnH7BBw_usnc1K-TM-J",
+   "Quick Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "0d9yZ_BrUTZO7BAm5qJAJ",
+   "Quicksand Illusion",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "oEf8f1hEHz4a0to5YAACt",
+   "Quicksand Mirages",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "-bMd5BPi9nX5SxJodyBU0",
+   "Quicksand Nightmare",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "fv98USDeNTb8DFPgBkfDS",
+   "Quicksand Trap",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "dXOjSl1vNp5G5BsFrNPkh",
+   "Quintessential Flake",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "HoLzjmpzOpQyr4HOOCeyS",
+   "Quintessential Shard",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "PQvt1t-IH4KjzgdbSSakq",
+   "R.E.M",
+   "D",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "Exdgp9NZNS9QrU3hs3Lj-",
+   "Radiant Ashfall",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "H78qBo2-pkuh4_h4lutoR",
+   "Radiant Embers",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "lTgAFUgVj1Erzh6LbzI0w",
+   "Rai Yari",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ixCVqH2jC1nbB2Mul5uSb",
+   "Raijin Puncture",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "DLPaN2DZNtPZawjlczNCE",
+   "Raijin’s Aegis",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "X2frfBlw0Q5k4oMp3DPyr",
+   "Raimei Gen",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "9LcN6zEN4KVodDd34hFBt",
+   "Raiveth's Omen",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "X5rZVSd4HkGJl4OUh7kk_",
+   "Raiveth's Static Veil",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "vIgA8lgTmDXogj7y8Hosa",
+   "Raiveth's Stormfall",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "tq_kaS3nJ4Rv4hDRRJJ6p",
+   "Rallying Spiral",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Nrxc8m9utE9qaD_gWpLgf",
+   "Rapid Fire",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "1DNVrUzBubIMiZXvDNijr",
+   "RaveenaHealing",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "LchwYglcjL-FIbvA_EPgJ",
+   "Razor Vortex",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "4nKhXSVT-LqPul27ljDOf",
+   "Razor Water Whip",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "zRY2kjWo6hLOrrzeuwuX0",
+   "Razor Wind Blade",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "epfIbfFTm8Gpu6VMMZM7v",
+   "Reach of the Endless",
+   "S",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "YoIR7p6urskFzfv8NoLli",
+   "Reaper's Advent",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "HbDUWYWUBFRbIHBuBJVXP",
+   "Reaper's Clasp",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "7RtWUduLzfIPOlWdo-NIu",
+   "Reaper's Embrace",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "XsFfE_DaNchPuXRcCWa7T",
+   "Reapers Storm",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "OtxqI0a-ASWUTgJmTkZ7E",
+   "Reaping Inferno",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "fuPRuLJ0vcBqSjrqdMi7o",
+   "Reaping Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "ElSK-RCrLjddEUm76FZrs",
+   "Recoil Slam",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "YxhaU_PmfYM7BeM2AXW6F",
+   "Reflecting Ground Slam",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "zB_kltN_vkqlD_3wWrgjO",
+   "Rei no Kata: Nukitsuke",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "fAKcf34Vlt_-utDdDdjxH",
+   "Rejuvenating Chakra",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "B6AWSCTjuD_BCcqUU1qZi",
+   "Rending Slash",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "wYVY0O5dJ3wmlPzeiasef",
+   "Rending Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "fKQxOwBqZs8PXvpdGlbPg",
+   "Rengoku Rō",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "TI1JQAG1ltx_uLHE9-UUs",
+   "Rensa Kaminari",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "clh4d6pok0002tb0hx1bxro6l",
+   "Replacement Technique",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "0t6ma2k8Lwydu6oeL2KHI",
+   "Reptile 1: RZ",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "rP2ke6eQCYt9UemVJn52E",
+   "Reptile 3: CBE",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "je0VOoDBn4ybzXLw4Iy2L",
+   "Reptile Chimera",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "1BDtmLoEhwf78FbzAjwFW",
+   "Reptile King Sword",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "74gphPqd_0ldsueBCLoop",
+   "Reptile King Sword v2",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "f6VK870p-LOXB4ckzXg1A",
+   "Reptile King’s Magnificent Roar",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "pFixz1mmXhakevvnVobkB",
+   "Resonance",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "kvuECU_A6qeZYsWwU_Zvq",
+   "Resounding Crescendo",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZnXkvxDfvw6SNtpVj7yhe",
+   "Retribution",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "BfVKLSctKLv92HXky3TQ8",
+   "Retrocausal Blast",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "-HxCa9xbtVATbw-XS3R6c",
+   "Revelation of The Red Monarch",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "cNVnsrANAhtym1JmW1ZJl",
+   "Rib Breaker",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "OeFCfJ--gEL_FioGfQvTY",
+   "Ring of Spilled Blood",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ThirQfzXTn6Dx1p2bF4hB",
+   "Ring of Spilled Vitae",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "CXYtHOI0c-PUYK5y_mtb2",
+   "Riptide Kick",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "NP8BGL5ZxXMyxMT3K8m-G",
+   "Riptide Reaper",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "NB5sGddr-RgH9eEp2L8jL",
+   "Rising Star",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "yN39UePMXL8Pr3WEGjbeN",
+   "Rising Thirst",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "fZ5U-OPvhQ6ilscJr3hru",
+   "Rising Water Slicer",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "xyjrJbVY55eqGnpXP-Oqy",
+   "Rock Barrage",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "bP9QCHwyqyP8nBNDlN9mC",
+   "Rock Cleaver",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "p0-15kTrb_uMirGLE5p5R",
+   "Rock Fortress Strike",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "FxaeTAck6DqJo0LnV37d6",
+   "Rockfall Delusion",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "a5Ck1EBMJr4RP_e_D0x9u",
+   "Rose Sanctuary",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "86njNiYUnLonS3ZYTZPNZ",
+   "Rotate or Die",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "69LbdTR46ecbDsKoP0Lsy",
+   "Rotting Bite",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "XBN-N95eRnezr9SDX5VAb",
+   "RStorm",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "sEDO_J07YRbTqHnxuPUA5",
+   "Ryūsa Kōka",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "88kkR_eQVrvadeILsNBKB",
+   "S Command Pierce",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "0fPAqg0eOUDt60gXa7mpK",
+   "S'more Surprise",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "nBoh0pu2SiWw1YwJ2UFDa",
+   "Sage Mode Test 1",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "s3KPXu1o9FzKhv-1S5Xdp",
+   "Sage Mode Test 2",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "4r6vM3cpT84yjB0q4mWNR",
+   "Sage Mode Test 3",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "PIBxqt-PaxEtwOOrknl3g",
+   "Salamander Scorchbind Affliction",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "0xydcrB6pxFmQG5V7nuRB",
+   "Salamander Vitality Leech",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "EqJ8Pa-Tc_mdrFbvTl18x",
+   "San no Kata: Yasakani",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "M2nd-8WGl--j6fBMwKXwR",
+   "Sand predator",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "Yybc7rG-gXE2kDFDUAUFp",
+   "Sanguine Blight",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "XIcRftgH-UOJCdl91wbRD",
+   "Sanguine Plague",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "gIEy7THAZdXgcak5zs5U6",
+   "Sapphire Command",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "VgliIQhv5gLpmvHHQi5ze",
+   "Sapphire Decree",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "9RWNlpA68F5NDJIvGgG-t",
+   "Savage Blade Cyclone",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "_IZJ9LrCwnMbsYLOxVyoa",
+   "Scalding Jet",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "U3cXiXF3GZAeZsGeOpBVc",
+   "Schrödinger Catboi’s Box",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "6v7dfraXRVo5K3NbgixzT",
+   "Scorch Break",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "AOwUm8cmvXgSF89N4SH1x",
+   "Scorching Illusion",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "h__LxIgfPWwfvPODREGMW",
+   "Scorching Kick",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Uou0sCjZ1rwiMJZ-JWEI_",
+   "Scorching Rend",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "nS-iidYFYqWE9Z-UkC84y",
+   "Scorching Sun Strike",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "KQcChOoAJCsHdabXzN0qx",
+   "Scythe of the Unmade",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "ctZ1EeX8donikuv0HkiQ3",
+   "Sea King's Armor",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "g-b0Fs5o8EzQIphq0YIAX",
+   "Seal of Nullification",
+   "S",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "g6IhRI_4dNXwJcXjrrThL",
+   "Sealing Blade",
+   "S",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "GHfo4oMQSLfuAFTm4Vsw5",
+   "Sealing Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "04HFzvH0IvRZBEc3mGM_r",
+   "Sealing Technique: Lotus Barrier",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "clh4d6q1j0008tb0hzthddb6m",
+   "Searing Might",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "OWAm8o12bkZUMAAHLoGLz",
+   "Searing Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "STu1VHNcfgeC3x-UiQDgt",
+   "Second Wind",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "2bUM8K0jdpBHkPv8-Pqb_",
+   "Seductress' Petal Whisper",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "g6lFjSMDbTmoZ7V74s3Ka",
+   "Seimyaku",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "TUMrox25UkmJlWS0Jp_oB",
+   "Seismic Hammer",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "6M9oX8BvFnU-RtV1rmdo4",
+   "Self-loathing company",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "eGKKXArrxlpzk9iZaWyOo",
+   "Senbon Sakura",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "CLa3bRDJWTO1Y6lWho5Jb",
+   "Sentinel Slam",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "2NFo_tRVf_FursmgexJsf",
+   "Serpent Fang Strike",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "kxtK9kUTK4dRb-WPLo16I",
+   "Severed Pulse",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "8lFpRbDkOxI2-UiyiwDuO",
+   "Shadow Dance",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "TRKFgxKDQx13Un2ucErBX",
+   "Shadow Dance NEW",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "57l-IjMHwWpHhHJ37THE5",
+   "Shadow Domain",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "i_tI_-M-GUfQNn25E7dte",
+   "Shadow Labyrinth",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "TJPycxHHwla84jxdDtYBN",
+   "Shadow Onslaught",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "J6HTCnlUw84zOyaf9xxmD",
+   "Shadow Pierce",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "FzoyNuR7ZKwlHFVsRnz4U",
+   "Shadow Severance",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "LCtUbHkvgWYL_R6o9aJuS",
+   "Shadow Severance NEW",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "u1z88YVy83npU-N81PjLe",
+   "Shadow Shell",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "KcTwbxuRH1UFxUbdUUZd5",
+   "Shadow Step",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "_39qOgDWBatZyxE0xidYx",
+   "Shadow Surge",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "giC6n9sfd7jOOUZJ4WzUL",
+   "Shadow Tendril Technique",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "e0mf1_sZFZbEk9bGHd2d1",
+   "Shadow Tether",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "UycevrlZSLQx80ppFw4P3",
+   "Shadowflame Corruption",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "NRiMYGAqIwCIpLQRbZBDL",
+   "Shadowrend",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "qymEx2jhCwmSZPJOnPuRD",
+   "Shale Bolt",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "qVL7NnmNN949g-VH9lyAN",
+   "Shard Pulse Eruption",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "KIMeKemnXttwOv1Cf-IPS",
+   "Sharpened Focus",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "F1kCgwwTAtZZkn_tdqrp5",
+   "Shattered Reflection",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "UmoH2-f6XhDlph9pU91uv",
+   "Shattering Crystal Storm",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "pnIRw3Fa1Zc4A5ssXTr-q",
+   "Shattering Pizza",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "muGmYnLm8mWFrwoU4zsOE",
+   "Shattering Ring",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "uhEr3x6ucxHJbcjnTs7ps",
+   "Shattering Strike",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZBjzrZSzjWwz3rHR2-uq2",
+   "Shield  Dust",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "DakS3v_mQgopzFf-N3Kg_",
+   "Shield Bash",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "ti-iDCxxIpD1CxNKx1b4i",
+   "Shimmer",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "EDnJIgrOf_4bs9Wy05dl_",
+   "Shippūgeki",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "W4zdFCmPuybGX1aytawAq",
+   "Shocking Discharge",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "nYIA7GSrgBLYLdrOb3BmX",
+   "Shocking Hammer FIst",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "Whm_MG9KPejt78S2p7AvN",
+   "Shocking Torture",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "EOMOSOVn3za-UddIC2hY9",
+   "Shockwave Fist",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "GiKpip6NxsC8QWlZi6l_R",
+   "Shrapnel Clone Barrage",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "lV4KdkRyiI5C7Q6pb3GLi",
+   "Shrine of Radiance -FR",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "za9bG9JZeoH33n28wF0h3",
+   "Shrine Ward",
+   "S",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "_awxVdbjLYE1_Xa2lKZW1",
+   "Shōen Gen'ei",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "A0blfrJ9qMyZ6hlgE2a9L",
+   "Sickle Twist",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "S5Yn5g5CMZE3OnTVFG_3-",
+   "Silent Palm Strike",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "vo_McUgKOINMwUv3CbCie",
+   "Silent Rift",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "lT6E-yJgHCFXxmKjdmKjI",
+   "Silent Tempest",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "VDlEcF_uGVORTDrLSuujZ",
+   "Singularity",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "7GGmPc5Sbp3JSeHGYgaJV",
+   "Singularity",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "wHuNOr_TvalRNAI6fKG2F",
+   "Singularity Grasp",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "-P_CWkZ5t10sbDQjap4cp",
+   "Singularity II",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "tW2j0RptJckkb7HTu2KSg",
+   "Singularity III",
+   "S",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "qG_YpjoIHT6RkuA4T4wJd",
+   "Siren's Allure",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "70M9cOgySI2UKfl-EnVpt",
+   "Siren's Enchantment",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "k2Ux_SvO4gBapsnpIJ2tz",
+   "Siren's Lament",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "sbP1WsPTQN7O5nYlGrdbD",
+   "Siren's Lure",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "0_ip_8I2Dh_Ti2mYUcuAu",
+   "Sixth Man",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "VA7OoqNzO50cYZdmb1PoK",
+   "Skybreaker Palm",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "d85ZZO9LbAQvhfH9i73JX",
+   "Skybreaker Sovereign",
+   "S",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "r5Q9AIVUr5r-ueVNzoIZU",
+   "Slam Dunk",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "VOFucbnFKGihModCgz9aM",
+   "Sloth: Grasp of Weariness",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "5yi6DfUnCsrSl-Z7D0sRj",
+   "Sloth: Lethargic Field",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "W58fO2kX21_85sFQDBCoE",
+   "Sloth: Petrifying Glance",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "Fsh-4HM4s2eyyHjzrupZ0",
+   "Sloth: Quiet Reprieve",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "Fb98tqKP7IbLz-OeP6AHh",
+   "Sloth: Shell of Stagnation",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "RaDkFLHKZBOCmVwSrSyqw",
+   "Small Chakra Barrier",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "jL0hCnAk0vhVWdmNKZIof",
+   "Smokescreen Assault",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "_EgvnWoT6JZv2VSCcZauI",
+   "Snaring Field",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "DreyCm9Mq66LzAMDIZkJh",
+   "Soaring Fujin",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "RSvcF8oOEV_LpmHHdFkXs",
+   "Solar Dragon Strike",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "1xXXGVTa_qw47KPgtw-re",
+   "Solar Flare Kick",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "WCkXkE9Whj6TK5GTBCgP2",
+   "Solar Purification",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "U3LhGFgu1NhumPjluTQxW",
+   "Solar Requiem",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "RvLZQOgJE8D3QtX3LY07_",
+   "Solar Reverb",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "EKxAi1HpHUB2XSBDT-nqC",
+   "Solar Staff Strike - WR",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "clh4d6pxd0006tb0h4y1yudi5",
+   "Sonic Slash",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "A_Z-Y3cQAS_sfMgua5kjf",
+   "Soot Veil Step",
+   "C",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "X5WKm1ZIjE5757RlmkPvV",
+   "SoTempest",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "GlgS3FVoQ6F8k3RAo_Uht",
+   "Soul Laceration Mirage",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "_k79xMkzjjQKYQ79tX1G6",
+   "Soul Mirror Malformation",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "clh4d6psu0004tb0hsa5cshh6",
+   "Soul Shackles",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "fr6xjb6uhXD7KNhKiU1g5",
+   "Soulflame Rend (魂焔の裂き)",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "4dhZXLwIpOg-Too_f4ErG",
+   "Sounds of Tempest",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "yDznlfsnPaOSFtdjfCyTZ",
+   "Sovereign Ascendance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "RPdeeWhFI5AIUUpJXwUlf",
+   "Sovereign Fetters",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "pJXJUSvq2kZU-tmgC12FL",
+   "Sovereign Malediction",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "-M_BxzqB937XCdD1IMWW0",
+   "Sovereign Ruin",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "nOYLPmN3TXj6wEe_oE6HQ",
+   "Sovereign Undertow",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "iOXXR8Otdf-ltCGg-iQW2",
+   "Space Chains",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "bcPi6lirZD2bMlGWjUtzq",
+   "Space Energy",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "NavJ494P96fquk81SQxVF",
+   "Spectral Chain",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "lREYPpgnX_XGY5g0ScCKA",
+   "Spectral Counter",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "NB17HG1UIuokJ2bwiu-F0",
+   "Spiraling Wires",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "JL_zmwGJIyw1iiu9wt5fi",
+   "Spirit of the True North: Unbreakable",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "LQ26G2ANWkbTRL7Ry__F0",
+   "Split Image",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "mOA1hXNf4CcuwOhnnN7ZK",
+   "Springguard",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "nAn6E9KpMuS9aK4MHbVZp",
+   "SSinger",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "4jvmZCrujSGVHPYLcV2VF",
+   "Stalactite Fissure",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "mIGw--K7SlE855eDvh4Zl",
+   "Stalactite Stun",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "kMicCOVRgn_MiMBN4Bu8X",
+   "Star Guardians",
+   "H",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "gOa1OhX13PEOt6hLcS73q",
+   "Star Realignment",
+   "H",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "UEOlrR8wJNZOxcOv9qWHW",
+   "Star's End - Supernova",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "qbnOKnnO16APiN6c4Atj6",
+   "Starlight",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "8_iT9JrlWN7QwRIRVexT9",
+   "Starlight Shroud",
+   "D",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "nvMSommJJLlG5xwT7nQ6b",
+   "Starlight Veil",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "hh7jQ6q7DJK4h2T1XBotm",
+   "Starlit Void",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "UwWqo_4Igdue7-unPXwne",
+   "Static Flicker",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "3hMzYwiV8VOEx2XOm1CJe",
+   "Static Jolt",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "TwmOovQAVFM8wNB6ZbxaD",
+   "Static Tag Test",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "fKvCGRgzGNskgFWocQCAg",
+   "Steady Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "YNz9GIr3YLJqB6Klvt4yv",
+   "Steam Body",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "EMBAVnByHVfka6CDB55N3",
+   "Steam Veil",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "03iizcIURAnCnzT3SYbvK",
+   "Stellar Flashfire",
+   "A",
+   "CLAN",
+   true,
+   null,
+   null
+  ],
+  [
+   "VCRI7Y24RtnzGndzN-Awe",
+   "Stellar Inferno",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "wvmEuCP9hyd19tTgIKLE9",
+   "Sticky Fingers",
+   "D",
+   "LOYALTY",
+   false,
+   null,
+   null
+  ],
+  [
+   "VuFuBtE7h5B1nnA2J1lFZ",
+   "Stolen Form",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "VUDhCjKW-RseBAAl7Ag-b",
+   "Stone Breaker",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "LNqxd5sm6FicSD047XZYs",
+   "Stone Circle",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "kCC4t1r2aWOg33JCmfCDj",
+   "Stone Coffin",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "UMGgKY9iM29Xtcfqb1qyO",
+   "Stone Dance Slash",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "abrg6LVnFhKQWSkIkfj2B",
+   "Stone Edge",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "ixKFXfF3g16_kIj5AksTs",
+   "Stone Hammer Kick",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "T6MwC8Slly28AWYl8nm_K",
+   "Stone Labyrinth",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "CTYkpwuoqS9mJkOB3Lm8U",
+   "Stone of the Withering",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "_v9bedotLR_vy8xm7ybTV",
+   "Stone Pillar Strike",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "eKAI8bZQvR_1M45Y_FFHh",
+   "Stone Release",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "rZXlJv6_AbCLK02zR_J5X",
+   "Stone Shuriken Technique",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ajehm6KDqv-glvYE4WFp6",
+   "Stone Skipping",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "oi7gQl0TuwV8oPcLXGhi6",
+   "Stone Stomp",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "rhXnjfAdFMqYavvjX1Qp_",
+   "Stone Warden",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ntGBMLX_UAwPgGw0vytDU",
+   "Stonebreaker Strike",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "V3WrfQ3pB-eCq2hojsxWe",
+   "Stoneward",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "hxNWprk1AYwH0OVX0rxaR",
+   "Storm Breaker Volt",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "j2H5lwEkOq4HwxgMR9a4j",
+   "Storm Fist",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "exOKjKQiIi0r2xFxGWC6n",
+   "Storm Kick",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "KmUHutuZyicakqXXMGzB7",
+   "Storm Memory Seal",
+   "C",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "s3jVm__LYW5evCsucextO",
+   "Storm Release",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "YiGS5Lgj5Y7zlj0HHcNy_",
+   "Storm Style: Daibutsu Thunder",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "zwAsamVDhEaio_XKhT28O",
+   "Storm Style: Daibutsu Thunder 2",
+   "A",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "d2BiYyD9O_6Qh33lbMsaI",
+   "Storm Style: Divine Railgun",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "WU5_Td4ZmPkL8vB0Hvobs",
+   "Storm Style: Divine Railgun 2",
+   "A",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "FCmBVda7T2tYdr-VvNXKk",
+   "Storm Surge",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "Ac1nbz3RUrPCCWmiOl7Jr",
+   "Storm's Lullaby",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "G6MRbppaDZ2a5Wr0GIjH8",
+   "Stormblade Arc",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "6oEfWeXvDqa-ly9wHSB9Q",
+   "Stormcaller's Wrath",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Mtem6Xk33V_MjxwgRDq4w",
+   "Stormfeed",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "apxcj00JuVF1ostJfom0A",
+   "Stormfury Slash",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "J2KOpNHk5LJthnzb27H1h",
+   "Stormguard Aura",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZDXT84wQHPqA3Lri8u8ue",
+   "Stormguard Retaliation",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "0n6H8m8NNCGgVp9aEVIXq",
+   "Stormsinger",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Iiqy8-WriogHl1aMGLpgz",
+   "Strike: Raijin",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "EYkextA9J413aL1xVt0mm",
+   "Student Chakra Burst",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "VT7oxj_fObWuQa3Rq_BbI",
+   "Stunning Jab",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "1Ww2aIu4Jnx5O9HrOHKt5",
+   "Subaku Buff",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "nr19vX0FD0QGSfV3A5-yj",
+   "Subaku Clear",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "dwNC7AiBbZcU9s9m8utq2",
+   "Subaku Debuff",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "juSaKD8FS6P2JjDUWQD5u",
+   "Subaku Demon Pierce",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "eS2wPXw6E81uVMgGC6gpW",
+   "Subaku Dishonour",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "cXg4YPH4f0mdF9wW4jkKY",
+   "Subaku Fire Bolt",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "boZ2OMsubKhJWWTls36YM",
+   "Subaku Fire Damage",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "x1syNidBTpaa0J_FV-gX4",
+   "Subaku Fire Demon Shield",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "yFYWxycM57lB9mL7vr5Cf",
+   "Subaku Healing",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "jELEiw5W3N4m2R3oJm3Pk",
+   "Subaku Palace",
+   "A",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "ja8zMbWc_173bMkO4FmQq",
+   "Subaku Summon",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "BCXmuXZDtu6JoX3xG_vGu",
+   "Succubus' Lilac Petal Absorption",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "BGeq8KLkX4LxuoBoZDocA",
+   "Sudden Geyser",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "0amTsGDinGJSYQfqDIs4_",
+   "Suijin Gir",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "KlrfXTrfHsrwMNZ_HK030",
+   "Suiryūken",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "fXtjw4544FsoJJZ7VygEK",
+   "Summon Legendary Jabberwocky",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Kiw_Y2vYUcJSuWCbtQrBm",
+   "Summon Living Stalactite",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "S9KYS7BCja2UeaLVRTuzT",
+   "Summon Tsuki",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "TnSBletMXONOwkt_3sfnj",
+   "Summon Wolf Companion",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "DJTj1M6tSLfpiPjhFtc3d",
+   "Summon: Totem of Amaterasu",
+   "A",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "jmsZQvwaRRZ7hMbrGDYc0",
+   "Summon: Totem of Daikokuten",
+   "A",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "weA8AxL_Vco5FdNewRCUI",
+   "Summon: Totem of Fujin",
+   "A",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "qK_NUxkSCq-nf08JH-Jrz",
+   "Summon: Totem of Okami",
+   "A",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "c6Wz7nyb27Tz9YkUpOHb3",
+   "Summon: Totem of Tsukuyomi",
+   "A",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "0GWAnK0gfXrC2U2A0c4x8",
+   "Summon: Totem of Watatsumi",
+   "A",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "GDeWnBBuPxZleTUcgiDIx",
+   "Summoning : Saurus",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "L6zh4c0gGzCqLMEcjOtxh",
+   "Summoning Baby Shark",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "MA4pwj8NPukk7tP3uCWfL",
+   "Summoning Circle : Sandling",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "U5-vqnrE-KqfzURbg-sOR",
+   "Summoning Jutsu: Stein’s Rampage",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "JcZb5OE6sMoDxvOKhuKWv",
+   "Summoning Poison Salamander",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "HQmAR7BnpJ8tJ8JeA8Wis",
+   "Summoning: Chameleon Oddball",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "PbomZbt6C3Y3oL8y7DcPY",
+   "Summoning: Death",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "h5bmKrMQNj-JBCSxT5XnR",
+   "Summoning: Famine",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "kgGrmQNeD1bJHz53rKejt",
+   "Summoning: Gator Gaston",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "kP_KMs7H9wQJwRHeaTGCZ",
+   "Summoning: Hell Hound",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "yuJn_D_zPlHV0xJW01JRA",
+   "Summoning: Jade",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "eyp7n2EBpiRXavV6KG8Wa",
+   "Summoning: Lord Pengu",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "_mTOi6z16b3PNyCSaKcs9",
+   "Summoning: Momo",
+   "S",
+   "FORBIDDEN",
+   false,
+   null,
+   null
+  ],
+  [
+   "HSXAD1h3ImbPvWiCBmbwx",
+   "Summoning: Pestilence",
+   "B",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "R7A2ecVRIm-TvoVPEdAAq",
+   "Summoning: Pity",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "VnLuKCX1hXm1Hqf0k__XB",
+   "Summoning: Reptile King",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "iWoiCf6NcredongvK-pJs",
+   "Summoning: Reptile Zoo",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZeqpsECJ882inNKUu0t3d",
+   "Summoning: Titanoboa",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "-du7rtZzhnMH7gyQebVYL",
+   "Summoning: Toxic Lizard Porcini",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "CBcRFjQB4mxsJNnVIA9Pk",
+   "Summoning: Underworld Gate",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "-Esho03UOPZkziWZnHjvB",
+   "summontester",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "YTeFeT-NhdPy3NiRT7lq9",
+   "Sun Praiser Divinity",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "l-w8Lhwr17efclLi6nH3S",
+   "Sun Praiser's Blessing",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "b7ZOgdZmhZiUbCVrmQiwH",
+   "Sundering Blow",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "kFM4bHXIE8CyYZChySioN",
+   "Sunfire Nebula",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "uPkArGkEHOqEPUjk5JpF3",
+   "Sunlit Empowerment",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "cnVYN8nBYqUOdO4JBS_xj",
+   "Sunshine",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "I0sG1nxNj6PnTLjFpy09v",
+   "Supernova Collapse",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "vWaGTnYOwiTiaMQW10y6A",
+   "Suppressing Roar",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "M-iPxOupEp35-KptpG4DV",
+   "Surfing Strike",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "psZabywkZuBgfW2luOo9w",
+   "Surging Kick",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "AicYoMMpZmHAykb_5hYtY",
+   "Surging Overflow",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "5jgBy1hXseQv4X0_U6wUu",
+   "Surging Sun Dash - LR",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "SBFgb9lkh48LZY3JvWTUP",
+   "Surging Water Slicer",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ngv6qd1Qw80LkO8Yz0gBi",
+   "Swallow's Flight Slice",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "CSJG1B1TIz_s6AmxjQGXk",
+   "Swallowed Star",
+   "S",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "6rbBS--qndzlbbDlauzxE",
+   "Swallow’s Flight",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ngoQnm-PqVMslvj3hcybD",
+   "Swift Combination",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "IYrZNaQoIIQ0_bC0fTsN4",
+   "Symphony of Oblivion",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "DlVHy0UL30IEonaZOrJU_",
+   "Tailed Beast Barrier",
+   "D",
+   "SPECIAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "HqYMTf3u0THuo-7r6dULI",
+   "Tamashī no Hibi",
+   "A",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "Q3hmgslgYbbLHwwOZckT-",
+   "Tamashī no Sakeme",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "VL85zkB3uifqpF2T8OEnE",
+   "Tectonic Ascendancy",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "CXbUs7Ew7JVkh72rRWNrD",
+   "Tectonic Stomp",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "d00wewEL2x6V3Th5gS0dh",
+   "Tempest Breaker",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "Ul83iTziN__Z0i_UOzZTK",
+   "Tempest Cleave",
+   "A",
+   "EVENT",
+   false,
+   null,
+   null
+  ],
+  [
+   "vQ9JMX3sFvg3zqDI9zUHg",
+   "Tempest Dash",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "SDOtQeRgYBrZl16YjHDd4",
+   "Tempest of Shadows",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "j5hPo43OhrI1LP9R0TCl2",
+   "Tempest of the Blade",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "OLlZlbG7AAlqyRMsQ8eqK",
+   "Tempest Shroud",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "_6PY8GqUsMgH8D71ys9VQ",
+   "Tempest Slash",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "-uqfqbCADx_jP-I0O_0rc",
+   "Tempest's Whispers",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "uf5dAzEg_Blu4MBePzx_m",
+   "Tempestual Fury",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "WX0u8rqnRrnScisqU_ScQ",
+   "Tempestual Rend",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "kTLUn6Fj5SB4fNs87pxIY",
+   "Tempestual Torrent",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "bRkM_O27WOimOKAudQWM8",
+   "Tempest’s Whisper",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ecRoSDPCDjO7zH-VBaFyY",
+   "Tempo Fracture",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "g3wqcN_BzdSprujUBN84p",
+   "Temporal Erosion",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "yGt_ShGJRKocgqLsfi2JX",
+   "Terra Crush",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "MB-OBW6vLkAzn1ZP-qDbM",
+   "Terra Shield",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "CLlN7iJPGCGRIDbJTo4P5",
+   "Terra Shift",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "gnNpBL2iUH4HHvhr_STpe",
+   "Terra Spire",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "LMBRBBK5p2-tIkiGSiZKx",
+   "Test AI nuke",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "jYIW6mSeV9-vWHfJdo4_G",
+   "TFG",
+   "S",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "jFhREJjXST3Cls_eqMvs5",
+   "TGC",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "JmbOf1YyZ0FebNhQRUApx",
+   "The Gathering Night",
+   "S",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "o7F-GpGemWheaTp3RKRTG",
+   "The Kiss",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "RHGkVSNfWUvalK9jhMX3w",
+   "The Mighty Axe",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "DMlMp9z27hWYpvXqgtMLB",
+   "The Night Collects",
+   "S",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "A6c_GX5nB2YOnpoXhSz4Z",
+   "Thorn Grasp",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "SbfSwj_3MAfHEaE03czfI",
+   "Thousand Lash",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "znPva-HIAz4EkyuKm2oh0",
+   "Thousand Strike",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "NWsB1wY_rAqPCD_RXl0Dh",
+   "Thousand Strikes",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "J_occ0LcuvtbKyx3CUZ6x",
+   "Thread Verdict",
+   "S",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "p3Lq4ULNopF8n-jm-zwm5",
+   "Thunder Chain Slash",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "WWc1ny_fRgPXEy2N5ZgXU",
+   "Thunder Fist",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ipNt-D4NAs-4r_7rUf873",
+   "Thunder Shockwave",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "CC50vyp4acY70vPQu1sLS",
+   "Thunder Spear",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "eg_dbZ7Ud1aPlICimJDUK",
+   "Thunder's Phantom",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "INuy-ITnPsH22eUoGQgwW",
+   "Thunderbolt Fury",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "WfluLTdmhSRBkOCbLK54Q",
+   "Thunderbolt Fusillade",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "41ZvXLK7xw_Y2ePKdsCSB",
+   "Thunderbolt Spear",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "6qsy5FQd99kTDvd85sfHp",
+   "Thunderclap Barrage",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "cag1bMTspiRzPhpZuROge",
+   "Thunderclap Strike",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "RSnv3h_6-7y4lCvwBLhWr",
+   "Thunderous Echo",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "Ri0tMWYlBxJ3oUsWZUitg",
+   "Thunderous Knee Strike",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "80fuWZZhMMG7PtHFe09Qx",
+   "Thunderstorm Delusion",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "cbgY-Qut9f40m2EZM3piy",
+   "Thunderstorm Illusion",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "DIveDAYAb_4uNUaaSXnRJ",
+   "Thunderstrike Blade",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "6l-E6XDZfGr2h6q_1eQ-K",
+   "Thunderstrike Punch",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "qNeccb2eF20oL0Ws-VhKS",
+   "Thunder’s Judgement",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "qVt6keegjChKW6Y2sy6xS",
+   "Tidal Crash",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZRhOaYAh9SJX1yTb4rmpD",
+   "Tidal Crush",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "GGJTdjQ90dVbOvWLXerlO",
+   "Tidal Shift",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "qh5skzKmzAiIWpmpqoFvH",
+   "Tidal Slice",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "9KNICkEydtF2ZC2IxtV23",
+   "Tidal Surge",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "UnQKfwq_JoRVu10aTX6Uv",
+   "Tide Bolt",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "95KNOTvP_MXvge1ju69qj",
+   "Tide Release",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "7tcIGa47M3B_XEDO_53St",
+   "Tidefall Punch",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "qyhJXIDiArlp3oDPmwfEU",
+   "Tides of Despair",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "SQuwOilXd6w-v0HHKy7yn",
+   "Tides of Sovereignty",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "-ysG8KZ2Or1Xmbnx6kmNI",
+   "Time Shackle",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZSZztzS2N11_rmuNMcwrA",
+   "Timelapse",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "vC546A69X6a2kN_pvVDoF",
+   "Timeshift",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "L6cWz8iJ5F309lJqkT1PM",
+   "Titan Smash",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "j5KBdOYqdbZ20TGt7K5Ml",
+   "Titanboa: Constrictors Rampage",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "PoQdpf2t5hFPzcWYax-xL",
+   "TitanBoa: Venomous Hydra Strike",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "W3TS4KrJlBk8sPynWmna6",
+   "TitanBoa:Viper's Fang",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "YGRVKhjODKD5m1eNjR-sm",
+   "Titanic Defense",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "sqvZBhTNfzmH3VN_mOXLG",
+   "Titanic Stalemate",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "O7OrsmIG5PRewRKSZYBc0",
+   "TnS",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "1Jtd6To2iyRK4ODNlhCHO",
+   "Tor Tor Shell Protection",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZrfglOJoBPJsgUqnhZ16U",
+   "Tornado Fist",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "LJICxH0NvZ2VSQ7EcQttx",
+   "Tornado Vortex",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "SluJDSc03C8gUzlFzi53_",
+   "Torrent Blade",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "4TmYxX_c3CNnAdz3eNzd8",
+   "Torrent Shuriken",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "6O0ZDNYaYHMUQg2xzSlEn",
+   "Torrential Fist",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "XlgQwf4VfQ76OSP-8qHun",
+   "Torturing Flame Coil",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "BfSxxmyVG4jyRWziPiEqh",
+   "Totem of Amaterasu: Inferno",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "uG1sgqm_BkudHBtEpnVTQ",
+   "Totem of Daikokuten - Avarice shift",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "P8GBytx-xxY1xcic6GlFg",
+   "Totem of Fujin: Decay",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "qEIMKGmnmVAh_6smLRDEr",
+   "Totem of Okami: Avalanche",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "hcVQQxtzUHc2fyV2PpyDp",
+   "Totem of Tsukuyomi: Cascade",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "N3SCOs3S9BigWbJ_Ltgg-",
+   "Totem of Watatsumi: Stormeater",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "w7_JcazAiLT3vdLsrC--c",
+   "Tower of Angels",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "HBof21qe_fP_mUE5UNKtR",
+   "Toxic Pool",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "KPq6qR4CQphpiMJQiK3sa",
+   "Tranquil Guard Flowing Form",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "xYZYrNNauD7xifb9-ytZS",
+   "Tsunami's Embrace",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "Vg18mHXFm7ORraFId-lt4",
+   "Twilight Tempest (薄明の嵐)",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "5mk206y9CQrKfEr4wETkN",
+   "Twin Flame Cataclysm",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "3v9c1SHlD2GLPF2HW1_Sc",
+   "Twin Shot",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "ngjolUCm8RIwk6DjkuESu",
+   "Twin Storm Ward",
+   "B",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "PQdSt0IDdYFoR44tC3Hvo",
+   "Typhon Burst",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "G9NyTKDVP4mCFzoZEzPmA",
+   "Typhoon Tear",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "aQFvxHC8k6y7HOK_roOus",
+   "Unavoidable Tragedy",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "lEkVV6vGhmjPX6NAtVsz7",
+   "Unbearable Hunger",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "tkCD_En4j-IMOMxWz-F4h",
+   "Unhallowed Enhancement",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "y4AHhXbxb-MMDsISNtZHz",
+   "Unholy Augment",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Wbww9msvex8fl_lTtHxXg",
+   "Unholy Blight",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "Nn75Lmvaep6oBQYH2BvVT",
+   "Unholy Enhancement",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "EYbKO354IZwNOQytmMrTN",
+   "Unknown1",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "RKcf8R4L1DmzhIiaQ8FOs",
+   "Unknown2",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "-hPEn06u71n40X-u-4mX3",
+   "Unknown3",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "1PTV-L7IA1n0wUeT0zST5",
+   "Unknown4",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "gqhcTWKVfGJALKQJSWn-6",
+   "Unknown5",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "1OhP0StX4VTsosWtCxhsG",
+   "Unraveling Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "QE05DhEhb09fhnC1573Vj",
+   "Vacuum Fan",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "FjD2Y6n66Vy-IsNJSmJ3R",
+   "Vacuum Lance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "VJTgXcLzcsH_UyHjR_uh3",
+   "Vacuum Palm",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "GiVY6xUOBTwanVATi4OlK",
+   "Vanquish",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "l6iUf3mc7LZQQEDDif1zW",
+   "Veil of Shadows",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "IBjVpLutojh3m9PRnIce-",
+   "Veilstep",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "yOgwN1WGkwNL9qMImc9aY",
+   "Veilstrike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "LiVOnYq6qHzjB0XkIIA2e",
+   "Venom Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "9oirFnLa0wejelNYpewq6",
+   "Venomous Phobia.",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "dowpQ_c7jljb8CRUgaHQf",
+   "Verdant Bastion",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "fRiW0t9PqWUYMl25ZiBbg",
+   "Verdant Renewal",
+   "S",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "KepPgJf9TpchcvzuRNKB9",
+   "Violet Coffin Pierce",
+   "A",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "zxZuaPXewJQDrp5sZez8t",
+   "Violet Skybreaker",
+   "A",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "RFRgn2jyFH5EQdE1MFZ21",
+   "Void Crush",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "6SYtNqK72_yN73e6ZE-dP",
+   "Void Monarch's Decree",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "4eDM_5VVZkasBjaW2fEmI",
+   "Void Pulse Barrage",
+   "A",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "_QfGq0SseWD11jHO23pr1",
+   "Void Rend",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "fXpFymFNqyTPNiivQKGnv",
+   "Volt Crash",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "UeSsPxrjc-0yuh3Ia_Tea",
+   "Volt Fang",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "tAV232faDLgzFoYcnkWc3",
+   "Volt Jab Barrage",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZZ3BNMarAAO-G2vI2zvHV",
+   "Volt Reaper",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "AZSGf7Qqu2ZLSRXnYX4TD",
+   "Voltara Blitz",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "uVRjiBKSVATMYxEqPZuFw",
+   "Voltari",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "jTspIqWXU-tc6bQwUYfH2",
+   "Voltaris",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "tbkyh7z1IpYdLhgYsnyma",
+   "Voltblade Barrage",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "g_a4qc7eTbyIViIOCD9xm",
+   "Waifu Hunter’s Spear",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "IWQNQNs0P_pXS_lmiQiEC",
+   "Wail of Despair",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "tu7lVHdSMNq6vUcAXz6Dj",
+   "Wailing Bark",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "pyRve6rA75hofkJKcAUm0",
+   "Walk of the Forgotten",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "xiI1zFHuRKSb-46cwxi8X",
+   "Warden's Zephyr",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "hh-FMFv67CAL10DA35K2T",
+   "Warding Stance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "iQaepLHgk5pQ3efMm8whM",
+   "Warpath",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "taxbZNdm1Q7YL5AxaRssW",
+   "Warrior's Poise",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "FAjw-7aDjr4zvmwcb0WPh",
+   "Warzone",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "F-lCitIYBmYrXZ3845HwW",
+   "Water Dome",
+   "C",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "s5-TZdhcRS0GyepXrYN_O",
+   "Water Release",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "kHtqp4HNxCXO8NHzQ4-Qf",
+   "Water Release: Core Freeze",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "P0A_eFnxd0nIwQsjvNho0",
+   "Water Release: Heavy Rain",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "5pr6XcEuVurUSFgl1S8Ay",
+   "Water Release: Hiding Water Technique",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "1EQgnagxxflO3BzD3oWXN",
+   "Water Release: Riptide",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "wtBwe1DzqnpBy0tZ7zrqj",
+   "Water Release: Water Dragon Blade",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "K4jgu33AsEl6ahuwvze0_",
+   "Water Release: Whirlpool Water Blade",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "Ixz0pPNGtAaXDgBGAQzOr",
+   "Water Shuriken",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "CM_NI6GdHsno1s-p-pQ2e",
+   "Water Style: Water Beast",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "gZLZV_STnBggOnSAQrJZU",
+   "Water Unbinding",
+   "B",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "-8W4JOqG3Cb-oPQtF9rMs",
+   "Water's Domain",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "BCh5TpbqN26edVtuD8sul",
+   "Waterborn Shield",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "fwqYriYXDpCQyqrs9cxwR",
+   "Wave Cleaver",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "YiRdVytsdxFzZtqkEDs5Q",
+   "Weakening Strike",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "8TNJHxH0dswm6Tl52m_vn",
+   "Weary Fists",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "xuER5khWUaZeFh1yAzsc4",
+   "Weight of Midnight",
+   "S",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "X8IfjHK1eBNiBaKyjpPY2",
+   "Whirlpool Grapple",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZRKMTLqO1SBDKS_KMJ2Zi",
+   "Whirlwind Kick",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "JpDQJtPz-pbaGlpkgBOdi",
+   "Whirlwind Strike",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "ZZCt9880dDvxFAO7Bd4Vx",
+   "Whisper of Omen",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "42qhq7MJN1xRkUEMY11JS",
+   "Whispering Duststorm",
+   "A",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "RuGPHn5J21lIG959ShE-v",
+   "Whispering Winds",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "aw1UJ7irh5D63g9nNNsJo",
+   "Widow's bite",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "sel6FvDRFIDiA63y57ajw",
+   "Widow's Maw",
+   "D",
+   "SPECIAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ZkEUw55gKCHbGJKbAbPA4",
+   "Wind Cutter",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "wL3GSeUVnts8GxCZCb4jB",
+   "Wind Dance",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "0t2z6RwzYWSQL_eddco8r",
+   "Wind Dart",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "JH3Tzjwy9HAYPEesixexF",
+   "Wind Release",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "G92DCGepiq6nryDp2dtrn",
+   "Wind Release: Mighty Gust",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "wNuzOUwu1ifZACY15NdVh",
+   "Wind Release: Tempest Edge",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "rkFJGghHPLsaj9S_rVeoV",
+   "Wind Release: Whirlwind Demise",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "LCIa6ZNN9mKocs_olrfC0",
+   "Wind Scythe Barrage",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "AepwCWi31V5e0v6OgIp78",
+   "Wind Step",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "fCWC_ICdWT1bJDkDVq22e",
+   "Wind Style: Sky Dragon",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "nVqtXi-ZPHvof8S2KdM4R",
+   "Wind Unbinding",
+   "A",
+   "BLOODLINE",
+   true,
+   null,
+   null
+  ],
+  [
+   "P31SbGF6-w21A_U3aCXq5",
+   "Wind Vacuum",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "J22hoECm1d4FL6ctAGQgZ",
+   "Wind's Embrace",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "_9k7kSYUgMtB-AEFgRly5",
+   "Windlash Focus",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "DHdRloVz52ZdHxJk7AAa6",
+   "WindPath",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "VmoEzExhfgtzme2b5RuzJ",
+   "Windshear Decay",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "t7OF-sg2Z6tjjhwZAYZfd",
+   "Windslicer Roundhouse",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "5oUpBW-iPQJlHuA5-5ESw",
+   "Windy Fist Slam",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "-CyT8synocIyDrYn1R59o",
+   "Wire Blast Plus",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "X-JqdtJ0JOWUkxb6wRmoZ",
+   "Wither of Ages",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "-kMekZ4rR64vjMF2Jc4pe",
+   "Withering Weave",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "LnzsA7WDqi06AU0s7yrVP",
+   "Wood Style: Wood Warrior Summon",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "NVJ4_u7zE4dy60VOkf2bs",
+   "Wordly Reflect",
+   "A",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "MNBpfABzOWR_jm8-b13nH",
+   "World Smash",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "d2Utx5o3D3dmk7d59m9VS",
+   "World Syntax Unvieled",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "LisNuMJ2gncEByAxG6QPI",
+   "Worldbreaker Chorus",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "axrsF5Xa_hophoC_mCOb1",
+   "Wrath of Avernus",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "XJ93cid7EWUWINgaI0vYY",
+   "Wrathful Spite",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "ViadYlhu0Hf1_9agNeJBs",
+   "Wrathful Strike",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "HEhBwFQzpYxh87z60YWQs",
+   "Wyrmspire Broodcall",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "AnGS09-L5o402EWY_d_vS",
+   "Yandere Kunai Barrage",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "6QTxklHtfwLkvdKOFcexN",
+   "Yata Mirror (EG)",
+   "D",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "LfOvBN_hn5oYJtQfR25ob",
+   "Yeti's Soul",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "QlnUiRjaDDLbHv9Yw9PEK",
+   "Yin-Yang Cascade",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "pECucWwNu1QdGsW2kU6or",
+   "Yon no Kata: Muramasa",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "56iGqDDEmnBExHuRd74tU",
+   "You shall not pass",
+   "D",
+   "AI",
+   false,
+   null,
+   null
+  ],
+  [
+   "ha8WlyNp1jTI-s3TevvWi",
+   "Yozakura: Dancing Embers",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "MV0NM6DA0bLG7Rsfrh4I0",
+   "Yozakura: Sakura Dragon Pearl",
+   "B",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ],
+  [
+   "A5HrHSzx4J3WM4Fln8Lbf",
+   "Zephyr Lance",
+   "D",
+   "AI",
+   true,
+   null,
+   null
+  ],
+  [
+   "bO9ESdxUzL7MNOvgQA7NP",
+   "Zephyr Mirage",
+   "B",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "CAk3t-rGuFcA8hGphP30i",
+   "Zephyr Smash",
+   "B",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "KDjCiZ-3tzuFPX2Wsj5IX",
+   "Zephyr Strike",
+   "D",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "ETJdXNecKAJj6kwdm4Uez",
+   "Zephyr's Grace",
+   "C",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "CFW_DHGiw6hkojiEvGj4m",
+   "Zephyrs Ward",
+   "D",
+   "NORMAL",
+   true,
+   null,
+   null
+  ],
+  [
+   "X_5ssRed5Zu1ZIbQwROgd",
+   "Zephyr’s Judgment",
+   "C",
+   "NORMAL",
+   false,
+   null,
+   null
+  ],
+  [
+   "p0DZmKJtks03WiDHWjuLZ",
+   "Zero Hour Protocol",
+   "A",
+   "BLOODLINE",
+   false,
+   null,
+   null
+  ]
+ ]
+}

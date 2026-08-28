@@ -1,0 +1,236 @@
+{
+ "_provenance": "Every shape below passed the UPDATE-STRICT validator live in the 2026-07 cycle. Compose new effects by copying a shape and changing values only (12_TECH laws 3-4). direction is the literal 'offence' on every tag that carries it.",
+ "damage_formula": {
+  "type": "damage",
+  "power": 45,
+  "powerPerLevel": 0,
+  "rounds": 0,
+  "calculation": "formula",
+  "direction": "offence",
+  "target": "INHERIT",
+  "statTypes": [
+   "Highest"
+  ],
+  "generalTypes": [
+   "Highest"
+  ],
+  "elements": []
+ },
+ "pierce": {
+  "type": "pierce",
+  "power": 60,
+  "powerPerLevel": 0,
+  "rounds": 0,
+  "calculation": "formula",
+  "direction": "offence",
+  "target": "INHERIT",
+  "statTypes": [
+   "Highest"
+  ],
+  "generalTypes": [
+   "Highest"
+  ],
+  "elements": []
+ },
+ "wound": {
+  "type": "wound",
+  "power": 30,
+  "rounds": 3,
+  "calculation": "percentage",
+  "direction": "offence",
+  "target": "INHERIT",
+  "statTypes": [
+   "Highest"
+  ],
+  "generalTypes": [
+   "Highest"
+  ],
+  "_note": "H15 verified: wound = calculation percentage + statTypes array, NO friendlyFire key (adding one fails the strict union). This exemplar is compliant. Runtime: wound snapshots its own cast round's damage - a wound on a zero-damage action ticks zero forever (46b R28-family)."
+ },
+ "increasedamagegiven_pct": {
+  "powerPerLevel": 0,
+  "calculation": "percentage",
+  "statTypes": [
+   "Ninjutsu",
+   "Genjutsu",
+   "Taijutsu",
+   "Bukijutsu"
+  ],
+  "direction": "offence",
+  "target": "INHERIT",
+  "appearSfx": "",
+  "disappearSfx": "",
+  "appearAnimation": "",
+  "disappearAnimation": "",
+  "staticAnimation": "",
+  "staticAssetPath": "",
+  "description": "Increased damage given",
+  "type": "increasedamagegiven",
+  "power": 30,
+  "rounds": 2
+ },
+ "decreasedamagetaken_pct": {
+  "powerPerLevel": 0,
+  "calculation": "percentage",
+  "statTypes": [
+   "Ninjutsu",
+   "Genjutsu",
+   "Taijutsu",
+   "Bukijutsu"
+  ],
+  "direction": "offence",
+  "target": "INHERIT",
+  "appearSfx": "",
+  "disappearSfx": "",
+  "appearAnimation": "",
+  "disappearAnimation": "",
+  "staticAnimation": "",
+  "staticAssetPath": "",
+  "description": "Decreased damage taken",
+  "type": "decreasedamagetaken",
+  "power": 30,
+  "rounds": 2
+ },
+ "increasedamagetaken_pct": {
+  "powerPerLevel": 0,
+  "calculation": "percentage",
+  "statTypes": [
+   "Ninjutsu",
+   "Genjutsu",
+   "Taijutsu",
+   "Bukijutsu"
+  ],
+  "direction": "offence",
+  "target": "INHERIT",
+  "appearSfx": "",
+  "disappearSfx": "",
+  "appearAnimation": "",
+  "disappearAnimation": "",
+  "staticAnimation": "",
+  "staticAssetPath": "",
+  "description": "Increased damage taken",
+  "type": "increasedamagetaken",
+  "power": 25,
+  "rounds": 2
+ },
+ "increasestat_pct": {
+  "type": "increasestat",
+  "power": 25,
+  "powerPerLevel": 0,
+  "rounds": 2,
+  "calculation": "percentage",
+  "direction": "offence",
+  "target": "INHERIT",
+  "statTypes": [
+   "Highest"
+  ],
+  "generalTypes": []
+ },
+ "absorb": {
+  "type": "absorb",
+  "power": 35,
+  "rounds": 2,
+  "calculation": "percentage",
+  "direction": "offence",
+  "target": "INHERIT"
+ },
+ "reflect": {
+  "type": "reflect",
+  "power": 35,
+  "rounds": 2,
+  "calculation": "percentage",
+  "target": "INHERIT"
+ },
+ "shield": {
+  "type": "shield",
+  "power": 2000,
+  "rounds": 2,
+  "calculation": "static",
+  "target": "INHERIT"
+ },
+ "heal_pct": {
+  "type": "heal",
+  "power": 35,
+  "rounds": 0,
+  "calculation": "percentage",
+  "target": "INHERIT",
+  "poolsAffected": [
+   "Health"
+  ]
+ },
+ "stun": {
+  "type": "stun",
+  "power": 100,
+  "apReduction": 20,
+  "rounds": 2,
+  "calculation": "static",
+  "target": "INHERIT"
+ },
+ "seal": {
+  "type": "seal",
+  "power": 90,
+  "rounds": 2,
+  "calculation": "static",
+  "target": "INHERIT"
+ },
+ "moveprevent": {
+  "type": "moveprevent",
+  "power": 100,
+  "rounds": 1,
+  "calculation": "static",
+  "target": "INHERIT"
+ },
+ "drain_static": {
+  "type": "drain",
+  "power": 250,
+  "rounds": 2,
+  "calculation": "static",
+  "target": "INHERIT",
+  "poolsAffected": [
+   "Chakra",
+   "Stamina"
+  ]
+ },
+ "decreasehealgiven": {
+  "type": "decreasehealgiven",
+  "power": 40,
+  "rounds": 2,
+  "calculation": "percentage",
+  "target": "INHERIT"
+ },
+ "increasecooldown": {
+  "type": "increasecooldown",
+  "power": 1,
+  "rounds": 2,
+  "calculation": "static",
+  "target": "INHERIT"
+ },
+ "clear_lean": {
+  "type": "clear",
+  "power": 100,
+  "rounds": 0
+ },
+ "cleanse_lean": {
+  "type": "cleanse",
+  "power": 100,
+  "rounds": 0
+ },
+ "debuffprevent_lean": {
+  "type": "debuffprevent",
+  "power": 100,
+  "rounds": 1
+ },
+ "copy_lean": {
+  "type": "copy",
+  "power": 100,
+  "rounds": 3
+ },
+ "lifesteal": {
+  "type": "lifesteal",
+  "power": 40,
+  "rounds": 2,
+  "calculation": "percentage",
+  "target": "INHERIT"
+ },
+ "_item_side_notes": "Item union excludes clear/copy; cleanse/debuffprevent legal post 2026-07 source patch. Item lean rows {type,power,rounds} validated for increasedamagegiven/decreasedamagetaken. noncombatconsumereward requires parent target SELF. injectjutsus = permanent join (22 sec 9.2). H13 (2026-08-01, item-side shapes verified live, partial - do not treat as full exemplars until captured whole): stunprevent on ITEMS uses calculation 'percentage' (not static) with target INHERIT + friendlyFire FRIENDLY; timedilation on ITEMS uses target INHERIT + friendlyFire FRIENDLY. Full field sets pending a capture; compose from a live item record, not from these fragments (law 3)."
+}

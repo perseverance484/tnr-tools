@@ -1,0 +1,401 @@
+{
+ "_meta": {
+  "file": "46b_DATA_tag_runtime.json",
+  "purpose": "Runtime semantics per effect tag: what the engine DOES with a stored record. Complements 46 (write shapes). Absorbed into 46 v3 when extraction completes.",
+  "repoDrop": "TheNinjaRPG-main, file dates 2026-07-31",
+  "extracted": "2026-08-01, batches 1-6 of 6 COMPLETE",
+  "provenanceRule": "Every entry cites file:line from the drop. UNVERIFIED entries are absent, not guessed.",
+  "status": "EXTRACTION CLOSED. Combat engine (tags, spine, consequences, action layer) + batch 6 (router census in 48, ai_v2 behavior layer, drain, durability constants, bloodline/skillTree init).",
+  "version": 6
+ },
+ "_spine_applyEffects_order": {
+  "source": "process.ts:209-500, util.ts:1096-1175 (sortEffects)",
+  "sequence": [
+   "1. Ground effects convert to user effects for users standing on the tile (sorted by sortEffects). Damage-type ground effects also forwarded to barriers.",
+   "2. mirror and copy realize FIRST so their products join usersEffects this pass.",
+   "3. Non-damage-modifier effects apply in sortEffects order.",
+   "4. Damage-modifier pipeline (dedicated loop): multiplicative IDG/IDT buckets, then shared sequential percentage DR, then static DR, then bloodline increases.",
+   "5. pierce: after damage modifiers, before post-damage family (bypasses mitigation by ordering).",
+   "6. POST_PIERCE_TAGS read post-mitigated damage: lifesteal, drain, poison, afterburn, absorb, recoil, reflect, wound, decreaseheal, increaseheal.",
+   "7. Heal-modifier effects run after the post-damage family (they modify lifesteal_hp / absorb_hp / vampRatio already set).",
+   "8. timecompression / timedilation.",
+   "9. move, visual last."
+  ],
+  "sortEffects_full_order": [
+   "stealth",
+   "buffprevent",
+   "cleanseprevent",
+   "clearprevent",
+   "debuffprevent",
+   "fleeprevent",
+   "healprevent",
+   "moveprevent",
+   "onehitkillprevent",
+   "robprevent",
+   "sealprevent",
+   "stunprevent",
+   "summonprevent",
+   "disarm",
+   "weakness",
+   "elementalseal",
+   "injectjutsus",
+   "cleanse",
+   "clear",
+   "decreasepoolcost",
+   "decreasestat",
+   "increasepoolcost",
+   "increasestat",
+   "barrier",
+   "shield",
+   "finalstand",
+   "clone",
+   "redirection",
+   "damage",
+   "flee",
+   "heal",
+   "onehitkill",
+   "rob",
+   "seal",
+   "stun",
+   "summon",
+   "decreasedamagegiven",
+   "decreasedamagetaken",
+   "increasedamagegiven",
+   "increasedamagetaken",
+   "pierce",
+   "<POST_PIERCE_TAGS>",
+   "copy",
+   "mirror",
+   "timecompression",
+   "timedilation",
+   "move",
+   "visual"
+  ],
+  "tiebreak": "Within decreasedamagetaken and decreasedamagegiven: static sorts BEFORE percentage (util.ts:1135-1146)."
+ },
+ "_laws_source_verified": {
+  "R1_bloodline_self_target": {
+   "law": "Bloodline effects are realized at battle init with targetId = the bearer, unconditionally. Effect polarity is the ONLY thing deciding help vs harm: any offensive tag (damage, poison, stun, ...) in a bloodline effects array attacks its own bearer as a per-round residual. CORRECTED 2026-08-01 batch 6: this is NOT the same path as skill tree - see R47. Additional riders: (a) bloodline effects are suppressed entirely in RANKED_PVP and RANKED_SPARRING; (b) bloodline.update strips `rounds` and `friendlyFire` from every effect before writing, so bloodline effects are permanent and friendlyFire never persists on them.",
+   "consequence": "Bloodline arrays may carry defensive or buff polarity tags ONLY. Damage intent expresses as increasedamagegiven, never damage. Never rely on rounds for a bloodline effect.",
+   "source": "combat.ts:2696-2714 (init + RANKED suppression); bloodline.ts:648-657 (rounds/friendlyFire strip)",
+   "incident": "Beehive bloodline, damage tag as passive, self-residual every round (dauntless, 2026-08-01)"
+  },
+  "R2_ranked_exclusion": {
+   "law": "Bloodline AND skill tree effects are NOT added in battleType RANKED_PVP or RANKED_SPARRING.",
+   "source": "combat.ts:2697-2699, 2718-2722"
+  },
+  "R3_static_heal_x10": {
+   "law": "Static heal = (power + level*powerPerLevel) * applyTimes * 10. The x10 is hardcoded. Percentage heal = maxPool * power/100 * applyTimes. To hit a flat target value with a static heal, write power = target/10.",
+   "asymmetry": "Static DAMAGE has no x10: damageCalc returns dmg = power for calculation static. Same field, 10x different meaning per tag.",
+   "source": "tags.ts:1602-1620 (heal), tags.ts:1327-1340 (damageCalc)",
+   "incident": "250-power static heal healed 2500+ (dauntless, 2026-08-01)"
+  },
+  "R4_residual_timing": {
+   "law": "rounds=0: effect applies on the CAST round only (castThisRound gate). rounds>0: applies ONLY on FOLLOWING rounds, never the cast round. A rounds>0 heal/damage is a pure residual.",
+   "source": "tags.ts:1621-1633 (heal consequence gate; same pattern in damage path)"
+  },
+  "R5_residualModifier": {
+   "law": "residualModifier multiplies damage only when !castThisRound (residual ticks). dmgModifier (e.g. from weakness) multiplies always.",
+   "source": "tags.ts:1387-1395"
+  },
+  "R6_getPower": {
+   "law": "Effective power = power + level * powerPerLevel. For calculation=percentage the result is HARD-CAPPED at 100. Applies to every tag via getPower.",
+   "source": "tags.ts:3208-3218"
+  },
+  "R7_prevent_round_gate": {
+   "law": "UNIVERSAL (generalizes old R7): preventCheck only consults prevents that are (a) NOT castThisRound - a prevent is inert the round it lands, active from the next round - and (b) createdRound < the incoming effect's createdRound. Effects predating the prevent, or landing the same round, pass.",
+   "source": "tags.ts:3290-3309"
+  },
+  "R8_persistent_sources": {
+   "law": "CONFIRMED FULL SET: clear/cleanse cannot remove effects whose fromType is in {bloodline, armor, accessory, keystone, skill, ranked, village}. 'item' is NOT in the set: consumable-sourced effects ARE strippable. Ground effects at the target's tile of matching polarity are ALSO removed on a successful clear/cleanse.",
+   "source": "tags.ts:1134-1143 (persistentEffectSourceTypes), 1082-1132 (removeEffects)"
+  },
+  "R9_formula_damage": {
+   "law": "calculation=formula: dmg = powerEffect(totalAtk, totalDef, level, power, config); stats contribute sqrt(stat) * stats_scaling, generals sqrt(gen) * gen_weight; advantage ratio curve clamped [advantage_min, advantage_max]; baseline = calcHP(attackerLevel)/base_hits; epScale = power/ep_normalization. Confirms 50_DATA pipeline.",
+   "source": "tags.ts:1298-1385"
+  },
+  "R10_prevent_stick_or_fizzle": {
+   "law": "Every prevent handler (all 12) rolls power/100 ONCE on application. Success: the tag's power is promoted to 100 - a hard block for its remaining duration. Failure while isNew: rounds=0, the tag dies instantly. After sticking, preventCheck's own power/100 roll is vacuously guaranteed. Prevents are a coin-flip on arrival, then binary.",
+   "consequence": "Prevent power below 100 is a gamble on application, not a partial resistance. Power 100 = always sticks.",
+   "source": "tags.ts: healPrevent 1636, fleePrevent 1560, stunPrevent 2949, sealPrevent 2485, buffPrevent 196, + 7 more; 14x 'effect.power = 100' pattern"
+  },
+  "R11_immunity_is_antiprevent": {
+   "law": "The immunity tag counters PREVENTS: it carries a 'blocks' field naming a tag type; when a new prevent of that type lands on the immune target, immunity sets its rounds=0 before it can stick.",
+   "source": "tags.ts:169-196 (checkPreventImmunity)"
+  },
+  "R12_clear_cleanse_model": {
+   "law": "clear strips POSITIVE effects (enemy buffs), cleanse strips NEGATIVE (own debuffs); each gated by its own prevent (clearprevent/cleanseprevent). Model: roll power/100 each round the tag lives; failure re-rolls next round; success executes removal immediately (sets matching effects' rounds=0), then the tag self-terminates. Power 100 = instant guaranteed strip.",
+   "source": "tags.ts:1082-1165"
+  },
+  "R13_copy_semantics": {
+   "law": "copy: one-shot power/100 roll on cast. Copies ONLY {increasedamagegiven, increasestat, decreasedamagetaken, reflect, shield} and ONLY jutsu-sourced instances - fromTypes {bloodline, armor, accessory, keystone, item, village, skill} are excluded. Copied effect targets the copier, lives for the COPY tag's rounds, dedups per source effect while a live copy exists. Gated by buffprevent on the COPIER.",
+   "runtime_note": "Handler is entity-agnostic: an item-carried copy tag would execute. Only the write-path legality (H01) remains open.",
+   "source": "tags.ts:219-311"
+  },
+  "R14_mirror_semantics": {
+   "law": "mirror: one-shot power/100 roll. COPIES (does not remove) the caster's own jutsu-sourced NEGATIVE effects onto the target; same seven excluded fromTypes as copy; additionally cannot mirror {damage, pierce, clear, buffprevent, cleanseprevent, moveprevent, healprevent, wound, timecompression}. Gated by debuffprevent on the TARGET. Dedup per source effect.",
+   "source": "tags.ts:311-417"
+  },
+  "R15_redirection_positional": {
+   "law": "redirection is POSITIONAL, not probabilistic: power = number of hex tiles to move the target. direction field 'pull' (default) or 'push' along the caster-target axis; pull stops 1 tile short of the caster; landing on occupied tiles is adjusted. Gated by moveprevent on the target. CRITICAL: fires only when rounds===0 && isNew && castThisRound - a redirection written with rounds>0 is COMPLETELY INERT.",
+   "source": "tags.ts:2687-2949"
+  },
+  "R16_efficiency_tag_overlap": {
+   "law": "Reactive tags (reflect/absorb family) apply to incoming damage only if they share at least one statType/generalType/element with it (binary 0/1 gate; empty elements count as 'None' and match other 'None'). EXCEPTION: pierce damage ALWAYS matches - pierce bypasses damage modifiers but is always reflectable/absorbable.",
+   "source": "tags.ts:3248-3290 (getEfficiencyRatio)"
+  },
+  "R17_stun_two_dials": {
+   "law": "stun: power = one-shot application chance (fail while isNew = tag dies); apReduction = AP drained per round once stuck. Two independent dials. A stun without apReduction self-kills as 'inactive'. AP consumption site: actions/process (batch 5).",
+   "source": "tags.ts:2540-2575"
+  },
+  "R18_seal_bloodline_only": {
+   "law": "seal disables ONLY effects with fromType='bloodline' (sealCheck). Skill-tree, item, armor, and jutsu effects are UNTOUCHED by seal. Power = one-shot application chance.",
+   "source": "tags.ts:2448-2485"
+  },
+  "R19_time_effects": {
+   "law": "timecompression/timedilation: the 10 AP delta is HARDCODED; power is only the application chance. Element-scopable via elements[] (empty = all jutsu). Non-stacking: a second instance on the same target dies on arrival. Compression gates on debuffprevent, dilation on buffprevent.",
+   "source": "tags.ts:2575-2687"
+  },
+  "R20_weakness_matching": {
+   "law": "weakness matches incoming damage/pierce by ANY of five routes: jutsu id in jutsus[], item id in items[], element overlap, statType overlap, generalType overlap. The multiplier is the dmgModifier FIELD (power is only the application roll). Only the single highest-power matching weakness applies - weaknesses NEVER stack. Applies to pierce as well as damage.",
+   "source": "tags.ts:1400-1428, 3139-3158"
+  },
+  "R21_onehitkill": {
+   "law": "onehitkill rolls power/100 on EVERY processing pass (no cast-round gate) and on success sets curHealth=0 directly. onehitkillprevent counters via the standard stick-or-fizzle model.",
+   "source": "tags.ts:2265-2318"
+  },
+  "R22_rob_pvp_only": {
+   "law": "rob: dead vs AIs and dead outside battleType COMBAT (open-world 1v1) - no sparring, ranked, or quest battles. robPercentage = % of target pocket money taken; power = success chance per tick; supports instant (rounds=0) or per-round residual grammar.",
+   "source": "tags.ts:2318-2379"
+  },
+  "R23_clone": {
+   "law": "clone is a GROUND effect spawning a copy of the CASTER at the tile: ALL 12 stats multiplied by power/100 (power 50 = half-stat clone). isSummon/isAi, controllerId = caster.",
+   "source": "tags.ts:1165-1235"
+  },
+  "R24_summon": {
+   "law": "summon spawns the stored AI (aiId) at the tile: stats scaled by power/100 but HP = the tag's aiHp field (NOT scaled). The summon's own bloodline effects are realized onto it at spawn. Dedup: will not spawn while a live same-name summon of the caster exists. Fires once (isNew && castThisRound).",
+   "source": "tags.ts:2972-3093"
+  },
+  "R25_shield": {
+   "law": "shield: power = creation chance; on success effect.power is REPURPOSED to hold the pool from the health field, decremented by absorbed damage, destroyed at <=0. Write shape needs BOTH power (chance) and health (pool).",
+   "source": "tags.ts:2133-2159"
+  },
+  "R26_finalstand": {
+   "law": "finalstand: 1-HP floor while live. power/100 re-rolled on EVERY pass; the first failed roll ends it - power<100 means a per-round chance to drop, not a one-time gate.",
+   "source": "tags.ts:2169-2195"
+  },
+  "R27_markers": {
+   "law": "stealth, elementalseal, disarm, immunity are marker tags consumed elsewhere: stealth (targeting exclusion) and elementalseal (blocks casting listed-element jutsu) roll power on application; disarm blocks weapon use via the prevent stick-or-fizzle model; immunity applies unconditionally with its blocks field (R11). Consumption sites: actions/ai_v2 (batch 5).",
+   "source": "tags.ts:2508-2540, 3116-3139, 2159-2169"
+  },
+  "R28_reactive_timing": {
+   "law": "absorb, reflect, recoil, afterburn, lifesteal, and the healgiven modifiers ALL fire only when !isNew && !castThisRound: a reactive tag does NOTHING the round it is cast and must pre-exist the triggering damage. Exception: wound, which snapshots on its cast round and ticks after.",
+   "source": "tags.ts: shared guard across 100-169, 1684-1943, 995-1054"
+  },
+  "R29_absorb": {
+   "law": "absorb converts incoming post-mitigation packets to pool restore: static = min(power, packetDamage) per packet; percentage = packet x power/100; split EVENLY across poolsAffected; efficiency-ratio gated; healprevent-gated (absorb IS a heal).",
+   "source": "tags.ts:100-169"
+  },
+  "R30_reflect": {
+   "law": "reflect returns floor(min(power, packet) or packet x power/100) x efficiencyRatio to the attacker; buffprevent-gated (pre-existing prevents only).",
+   "source": "tags.ts:1684-1719"
+  },
+  "R31_barrier_model": {
+   "law": "barrierAbsorb (from the barrier crossed) is the split fraction: the barrier takes damage computed against a PHANTOM DEFENDER whose level = the barrier's power (stats scaled from level); the target's INSTANT packet is multiplied by (1 - barrierAbsorb). RESIDUAL ticks are never reduced by barriers. Barrier dies at curHealth<=0.",
+   "source": "tags.ts:1428-1522"
+  },
+  "R32_wound": {
+   "law": "wound snapshots the caster's total damage to the target ON ITS CAST ROUND (timeTracker.originalDamage), then each remaining round on the target's turn deals snapshot x power/100. A wound cast in an action that deals no damage snapshots ZERO and ticks zero forever - wound must ride the same action as its damage.",
+   "source": "tags.ts:1719-1795"
+  },
+  "R33_recoil": {
+   "law": "recoil is a DEBUFF on an enemy: when they deal damage they take min(power, packet) or packet x power/100 back, efficiency-gated. PIERCE packets are EXEMPT. Per-packet value is assigned, not accumulated - multiple recoils do not stack on one packet.",
+   "source": "tags.ts:1795-1833"
+  },
+  "R34_afterburn": {
+   "law": "afterburn accumulates per incoming packet up to a HARD ENGINE CAP of 60% of that packet's damage (confirms the doctrine rule as source law, per-packet). PIERCE packets are EXEMPT.",
+   "source": "tags.ts:1833-1879"
+  },
+  "R35_lifesteal_vamp": {
+   "law": "lifesteal on a unit converts power% of damage THEY DEAL into lifesteal_hp for the dealer (self-cast = your hits heal you). Percentage-only math; healprevent-gated; NO pierce exemption - lifesteal triggers off pierce packets. vamp is the ratio-based variant via vampRatio - applied INSIDE the damage block at ratio x packet, drawing from the shared leech budget FIRST (before lifesteal).",
+   "source": "tags.ts:1879-1943"
+  },
+  "R36_poison": {
+   "law": "poison deals power% of the CHAKRA + STAMINA THE TARGET SPENDS per action (after increase/decreasepoolcost modifiers) as damage. It is spend-punishment, not a flat DoT: a target who stops casting takes nothing; expensive actions hurt most. Cast round is announcement only. Debuffprevent-gated.",
+   "source": "tags.ts:2074-2133"
+  },
+  "R37_drain": {
+   "law": "drain (PARTIAL): residual-only per-round pool drain keyed off the target's MAX pools across poolsAffected; debuffprevent-gated; one consequence per target.",
+   "source": "tags.ts:1943-2027"
+  },
+  "R38_healgiven_modifiers": {
+   "law": "increase/decreasehealgiven adjust heal_hp, lifesteal_hp, AND vampRatio on packets dealt by their target: percentage scales, static adds FLAT power (no x10 here - the x10 is only in the base static heal), and static on vampRatio converts as power/100.",
+   "source": "tags.ts:995-1054"
+  },
+  "R39_consequence_order": {
+   "law": "Per collapsed packet, pools are hit in this order: damage -> vamp heal -> armor durability loss -> residual -> wound -> afterburn -> reflect (to attacker) -> recoil (to attacker) -> lifesteal (to attacker) -> absorb hp/sp/cp (to defender). Every step floors health at 0 and caps heals at max.",
+   "source": "process.ts:640-870"
+  },
+  "R40_leech_budget": {
+   "law": "DAMAGE_LEECH_CAP_RATIO = 0.6: vamp and lifesteal SHARE a per-packet budget of 60% of pre-shield damage. Vamp draws first; lifesteal gets the remainder. Combined leech from one hit can never exceed 60% of it. Neither fires if the leecher is at 0 HP; lifesteal also requires the target alive.",
+   "source": "process.ts:648-652, 700-720; constants.ts:26"
+  },
+  "R41_stun_consumption": {
+   "law": "Stun AP drain: calcApReduction takes the MAX apReduction across all live stuns on the user (including ground-tile stuns passing friendlyFire) - stuns NEVER stack; the biggest wins. Model: stored actionPoints reset to 100 each round; stun subtracts from AVAILABLE AP; canAct requires available-after-cost >= 0.",
+   "source": "util.ts:2470-2496, 2379; actions.ts:1310-1340"
+  },
+  "R42_armor_durability": {
+   "law": "Every direct-damage, residual, AND wound packet costs 1 durability on each equipped ARMOR piece of the victim - three independent decrements per turn if all three land, so DoT-heavy fights burn armor ~3x. At durability <= DURABILITY_USABILITY_THR (= 0) the piece auto-unequips mid-fight. NO_DURABILITY_LOSS_COMBATS = ['SPARRING']: every other battle type (QUEST, RAID, RANDOM_ENCOUNTER, PVP, ...) is lossy. CONSTANTS PINNED batch 6.",
+   "source": "process.ts:697-757 (three branches); drizzle/constants.ts:461 (THR=0), :569 (SPARRING only)"
+  },
+  "R43_stealth_consumption": {
+   "law": "Stealth = pacifist invisibility: a stealthed user cannot be targeted (self-targeting still allowed), AND the stealthed user's own damage-tagged jutsu are filtered from their action list - you cannot attack from stealth.",
+   "source": "actions.ts:161, 950-956"
+  },
+  "R44_disarm_consumption": {
+   "law": "Disarm filters weapon-required jutsu from the action list and hides equipped weapons for the duration.",
+   "source": "actions.ts:176, 222"
+  },
+  "R45_barrierAbsorb_assignment": {
+   "law": "barrierAbsorb on an attack is set from the crossed barrier's absorbPercentage field; crossing multiple barriers ACCUMULATES totalAbsorb. The barrier write shape's absorbPercentage is the split dial R31 consumes.",
+   "source": "actions.ts:890-1005"
+  },
+  "R46_absorb_clamp_quirk": {
+   "law": "SOURCE QUIRK: stamina and chakra absorb clamp against target.maxHEALTH, not maxStamina/maxChakra (process.ts copy-paste artifact). Pool-converted absorbs on high-HP low-pool builds can overfill relative to intent.",
+   "source": "process.ts:840-855"
+  },
+  "R47_skilltree_targeting": {
+   "law": "Skill tree effects are NOT unconditionally self-targeting. SkillTree.target selects the path: SELF realizes at init on the bearer (identical to bloodline, polarity law applies). ALLIES/ENEMIES defer to a second init pass that realizes each effect against EVERY living combatant (bearer included) and filters per-tag with checkFriendlyFire on the tag's friendlyFire field: FRIENDLY = same direction, ENEMIES = different direction, unset or ALL = passes for everyone. A skill with target ENEMIES whose tags omit friendlyFire hits the entire field including the bearer and allies. Skill effects are suppressed in RANKED_PVP/RANKED_SPARRING. Unlike bloodline, skillTree.update does NOT strip rounds/friendlyFire - both persist and friendlyFire is load-bearing.",
+   "consequence": "Offensive tags ARE legal on skill tree entries iff target is ENEMIES AND every offensive tag carries friendlyFire: 'ENEMIES'. Lint: skillTree entry with target ALLIES/ENEMIES must have friendlyFire set on every tag.",
+   "source": "combat.ts:2717-2760 (SELF + pending push), combat.ts:3071-3095 (pending pass), process.ts:140-169 (checkFriendlyFire), skillTree.ts update (no strip)"
+  },
+  "R48_drain_runtime": {
+   "law": "Drain: percentage => floor(power/100 * target MAX pool) per pool in poolsAffected (default [Health]); static => flat power, NO x10 (heal's x10 is unique to heal). No tick on the cast round (isNew/castThisRound skip); ticks on subsequent rounds while rounds > 0, so effective ticks = rounds - 1 relative to naive expectation. Bypasses the entire damage-modifier pipeline (direct pool subtraction, not damage), yet the HP branch credits damage_dealt to the drainer. Multi-drainer quirk: consequences merge by targetId keeping the FIRST creatorId, so a second drainer's share goes uncredited (shared collapseConsequences limitation).",
+   "source": "tags.ts:1943-2018; process.ts:862-880; util.ts:1321-1334"
+  },
+  "R49_ai_distance_semantics": {
+   "law": "AI rule 'distance' is A* PATH LENGTH on the hex grid (path node count incl. endpoints), not hex distance: an ADJACENT enemy reads distance 2. Both conditions are inclusive (distance_higher_than: >=, distance_lower_than: <=). Occupied tiles cost 100 so paths detour around bodies, inflating distance in crowded fields. Gate formula: a jutsu with range R needs distance_lower_than: R+1. Engine's own backup rules confirm (move while >=2, strike while <=2).",
+   "consequence": "Guide 24 'distance gate matching the jutsu range' is off by one. Lint: every use_specific_jutsu/item rule's distance_lower_than value should equal action range + 1 (warn on == range: a melee gate of 1 can NEVER fire).",
+   "source": "ai_v2.ts:538-562 (mapDistancesToTarget path.length), 244-256 (>=/<=), 564-580 (cost 100); validators/ai.ts:241-268 (backup rules)"
+  },
+  "R50_ai_condition_quirks": {
+   "law": "has_effect / target_has_effect with threshold 0 return TRUE unconditionally (explicit early-return) - a no-op condition, not 'has any'. Use threshold >= 1 to actually test presence. Threshold compares against the SUM of matching effects' power on the target. Max threshold 100.",
+   "source": "ai_v2.ts:271-301; validators/ai.ts ConditionHasEffect"
+  },
+  "R51_barrier_between_dead_target": {
+   "law": "BARRIER_BETWEEN is in AvailableTargets but has NO case in ai_v2 getTarget: it always resolves undefined, so any rule using it silently never fires. Only BARRIER_BLOCKING_CLOSEST_OPPONENT works (resolves barriers[0] on the path to closest enemy).",
+   "consequence": "Lint: ban target BARRIER_BETWEEN in aiProfile rules.",
+   "source": "ai_v2.ts:196-234 (switch has no BARRIER_BETWEEN case)"
+  },
+  "R52_ai_rule_list_mechanics": {
+   "law": "Rules evaluate top-down; first rule producing a VALID action wins (invalid actions fall through to the next rule). Backup rules (when includeDefaultRules or the AI is a player-account AI) APPEND AFTER custom rules, not before: custom rules always get first shot. An unconditional end_turn rule is auto-appended whenever any effect-bearing action exists. If NO rule yields a valid action, the AI's curHealth is set to 0 ('%name is exhausted and has to give up') - real suicide. The auto end_turn is NOT appended when only non-effect actions (heal/meditate/flee/wait/move/replacement/cleanse/clear) remain, so an AI that runs out of affordable jutsu with no explicit end_turn/fallback rule kills itself.",
+   "consequence": "Reinforces the existing move-fallback law and adds: every profile should terminate with an unconditional rule that can always fire (move fallback or end_turn).",
+   "source": "ai_v2.ts:130-157 (append order, auto end_turn), 438-441 (suicide)"
+  },
+  "R53_student_action_strip": {
+   "law": "rank STUDENT strips basicHeal, meditate, clear, cleanse, both stances, replacementTechnique, and flee from available actions (basic attack + move survive). Second consequence of the missing-rank AI create law: a defaulted-to-STUDENT AI is also action-crippled, not just stat-floored.",
+   "source": "actions.ts:96-124"
+  },
+  "R54_ai_action_selection_quirks": {
+   "law": "use_highest_power_action/jutsu/item filters candidates by rule.action.effect (a tag type string, default 'damage'); omit or mistype the effect and it matches nothing and falls through. use_combo_action: getComboStatus suffix-matches the AI's action history against a PREFIX of comboIds; any break restarts the combo at comboIds[0]. All steps of a combo share the single rule target and are gated by that one rule's conditions.",
+   "source": "ai_v2.ts:309-323 (getHighestPowerAction), 393-403 + 598-636 (combo)"
+  },
+  "R55_self_cast_reconfirmed": {
+   "law": "getTarget('SELF') returns the acting AI with distance 0; use_specific_jutsu + target SELF is a fully valid, firing path. Reconfirms the 2026-07-31 falsification of the old self-cast law. Diagnostic order stands: a matching-but-inert rule means severed equip link (law 18), not rule grammar.",
+   "source": "ai_v2.ts:205-206"
+  }
+ },
+ "_handlerIndex_tags_ts": {
+  "_use": "sed -n 'START,ENDp' tags.ts to read any handler without re-grepping. Ranges from the 2026-07-31 drop.",
+  "realizeTag": 56,
+  "absorb": 100,
+  "checkPreventImmunity": 169,
+  "buffPrevent": 196,
+  "copy": 219,
+  "mirror": 311,
+  "injectjutsus": 417,
+  "debuffPrevent": 428,
+  "getAffected": 450,
+  "applyPercentageStatModifier": 492,
+  "adjustStats": 513,
+  "increaseStats": 692,
+  "adjustBasicAction": 707,
+  "increaseRange": 748,
+  "increaseCooldown": 761,
+  "decreaseCooldown": 774,
+  "decreaseStats": 786,
+  "adjustDamageGiven": 802,
+  "increaseDamageGiven": 858,
+  "decreaseDamageGiven": 871,
+  "adjustDamageTaken": 887,
+  "increaseDamageTaken": 943,
+  "decreaseDamageTaken": 956,
+  "getDamageModifierPreventState": 972,
+  "adjustHealGiven": 995,
+  "increaseHealGiven": 1054,
+  "decreaseHealGiven": 1067,
+  "removeEffects": 1082,
+  "persistentEffectSourceTypes": 1134,
+  "clear": 1144,
+  "cleanse": 1154,
+  "clone": 1165,
+  "updateStatUsage": 1235,
+  "powerEffect": 1298,
+  "damageCalc": 1327,
+  "calcDmgModifier": 1400,
+  "damageUser": 1428,
+  "damageBarrier": 1483,
+  "flee": 1522,
+  "fleePrevent": 1560,
+  "heal": 1583,
+  "healPrevent": 1636,
+  "pooladjust": 1658,
+  "increasepoolcost": 1673,
+  "decreasepoolcost": 1677,
+  "reflect": 1684,
+  "wound": 1719,
+  "recoil": 1795,
+  "afterburn": 1833,
+  "lifesteal": 1879,
+  "vamp": 1908,
+  "drain": 1943,
+  "adjustMaxPools": 2027,
+  "increaseMaxPools": 2060,
+  "decreaseMaxPools": 2067,
+  "poison": 2074,
+  "shield": 2133,
+  "immunity": 2159,
+  "finalStand": 2169,
+  "move": 2195,
+  "movePrevent": 2237,
+  "onehitkill": 2265,
+  "onehitkillPrevent": 2290,
+  "rob": 2318,
+  "robPrevent": 2379,
+  "cleansePrevent": 2402,
+  "clearPrevent": 2425,
+  "seal": 2448,
+  "sealCheck": 2474,
+  "sealPrevent": 2485,
+  "stealth": 2508,
+  "elementalseal": 2520,
+  "stun": 2540,
+  "timeCompression": 2575,
+  "timeDilation": 2631,
+  "redirection": 2687,
+  "stunPrevent": 2949,
+  "summon": 2972,
+  "summonPrevent": 3093,
+  "disarm": 3116,
+  "weakness": 3139,
+  "preventResponse": 3158,
+  "getLowerGenerals": 3178,
+  "getPower": 3208,
+  "getEfficiencyRatio": 3248,
+  "preventCheck": 3290
+ },
+ "_batchPlan": {
+  "batch6": "EXECUTED 2026-08-01: 48_DATA_mutation_census.json built (55 routers / 654 procs / 406 mutations); 45 v3 (bloodline, skillTree, item variants, clone contracts); ai_v2 verified (R49-R55); drain closed (R48); durability pinned (R42); R1 corrected + R47 added.",
+  "remaining": "Harvest Stage 1 patches (23/30/32/44/90) + lint L29+ (stun no-stack, weakness no-stack, redirection rounds:0, shield two-field, and new from batch 6: distance gate = range+1, has_effect threshold >= 1, ban BARRIER_BETWEEN, require effect on use_highest_power_*, skillTree ALLIES/ENEMIES tags require friendlyFire)."
+ }
+}
