@@ -5,11 +5,14 @@ permissions:
 jobs:
   apply:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-      - name: Apply repo_apply.zip
+      - name: Fetch apply zip from the release
+        run: gh release download stage2-apply --pattern repo_apply.zip --repo "$GITHUB_REPOSITORY"
+      - name: Apply
         run: |
-          test -f repo_apply.zip || { echo "::error::repo_apply.zip not found at repo root"; exit 1; }
           unzip -p repo_apply.zip DELETIONS.txt > /tmp/del.txt
           unzip -o repo_apply.zip -x DELETIONS.txt
           while IFS= read -r f; do
@@ -24,3 +27,5 @@ jobs:
           git add -A
           git commit -m "stage 2: restructure, scrub, workflows, answer layer [bootstrap]"
           git push
+      - name: Delete the release and tag
+        run: gh release delete stage2-apply -y --cleanup-tag
