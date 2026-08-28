@@ -1,0 +1,25 @@
+name: answers
+on:
+  push:
+    paths: ["harvests/**", ".github/scripts/build_answers.py"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: answers
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build answer files
+        run: python3 .github/scripts/build_answers.py --repo . --out answers
+      - name: Commit answers
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "answers: regenerate [auto]"
+          file_pattern: "answers/*"

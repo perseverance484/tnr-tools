@@ -1,0 +1,21 @@
+name: scrub
+on: [push]
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Privacy gate
+        env:
+          S: ${{ secrets.SCRUB_STRING }}
+        run: |
+          if [ -z "$S" ]; then
+            echo "::warning::SCRUB_STRING secret not set; gate skipped"
+            exit 0
+          fi
+          if grep -riq --exclude-dir=.git -- "$S" .; then
+            echo "::error::Privacy scrub hit in the files listed below. Remove and recommit."
+            grep -ril --exclude-dir=.git -- "$S" .
+            exit 1
+          fi
+          echo "scrub clean"
