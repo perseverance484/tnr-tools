@@ -704,6 +704,29 @@
       "type": "number",
       "default": 1,
       "max": 100
+     },
+     "attackers": {
+      "type": "array",
+      "default": [],
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "item": "string",
+        "default": []
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     }
    },
@@ -956,6 +979,31 @@
      },
      "keepOriginalPools": {
       "type": "boolean"
+     },
+     "opponentAIs": {
+      "type": "array",
+      "default": [],
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "item": "string",
+        "default": []
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that.",
+      "min_items": 1,
+      "_refine": "At least one opponent AI is required"
      }
     },
     "discriminant": {
@@ -1060,6 +1108,29 @@
       "type": "number",
       "default": 1,
       "max": 100
+     },
+     "attackers": {
+      "type": "array",
+      "default": [],
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "item": "string",
+        "default": []
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     },
     "discriminant": {
@@ -1180,6 +1251,29 @@
       "type": "number",
       "default": 1,
       "max": 100
+     },
+     "attackers": {
+      "type": "array",
+      "default": [],
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "item": "string",
+        "default": []
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     },
     "discriminant": {
@@ -1297,6 +1391,29 @@
       "type": "number",
       "default": 1,
       "max": 100
+     },
+     "attackers": {
+      "type": "array",
+      "default": [],
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "item": "string",
+        "default": []
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     },
     "discriminant": {
@@ -1439,6 +1556,52 @@
       "type": "number",
       "default": 1,
       "max": 100
+     },
+     "opponentAIs": {
+      "type": "array",
+      "default": [],
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "item": "string",
+        "default": []
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
+     },
+     "attackers": {
+      "type": "array",
+      "default": [],
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "item": "string",
+        "default": []
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     },
     "discriminant": {
@@ -1512,6 +1675,29 @@
       "type": "number",
       "default": 1,
       "max": 100
+     },
+     "attackers": {
+      "type": "array",
+      "default": [],
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "item": "string",
+        "default": []
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     },
     "discriminant": {
@@ -1616,6 +1802,29 @@
       "type": "number",
       "default": 1,
       "max": 100
+     },
+     "attackers": {
+      "type": "array",
+      "default": [],
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "item": "string",
+        "default": []
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     },
     "discriminant": {
@@ -1712,6 +1921,31 @@
      },
      "keepOriginalPools": {
       "type": "boolean"
+     },
+     "opponentAIs": {
+      "type": "array",
+      "default": [],
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "item": "string",
+        "default": []
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that.",
+      "min_items": 1,
+      "_refine": "At least one opponent AI is required"
      }
     }
    },
