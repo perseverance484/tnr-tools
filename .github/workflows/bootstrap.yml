@@ -1,16 +1,37 @@
 name: bootstrap-restructure
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      drive_url:
+        description: "Google Drive share link to repo_apply.zip"
+        required: true
+      sha256:
+        description: "Expected sha256 (leave as-is)"
+        required: true
+        default: "f86c9781e50b54d03f8db76d4776a0179b84b2cd3171c5bd80013567b8a53c89"
 permissions:
   contents: write
 jobs:
   apply:
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch apply zip from the release
-        run: gh release download stage2-apply --pattern repo_apply.zip --repo "$GITHUB_REPOSITORY"
+      - name: Download the zip from Drive
+        env:
+          URL: ${{ inputs.drive_url }}
+        run: |
+          ID=$(echo "$URL" | grep -oE '[-_A-Za-z0-9]{25,}' | head -1)
+          test -n "$ID" || { echo "::error::No file id found in the link"; exit 1; }
+          curl -sL "https://drive.google.com/uc?export=download&id=${ID}" -o repo_apply.zip
+          if file repo_apply.zip | grep -qi html; then
+            curl -sL "https://drive.usercontent.google.com/download?id=${ID}&export=download&confirm=t" -o repo_apply.zip
+          fi
+          ls -la repo_apply.zip
+      - name: Verify integrity before touching anything
+        env:
+          SHA: ${{ inputs.sha256 }}
+        run: |
+          echo "${SHA}  repo_apply.zip" | sha256sum -c -
       - name: Apply
         run: |
           unzip -p repo_apply.zip DELETIONS.txt > /tmp/del.txt
@@ -27,5 +48,3 @@ jobs:
           git add -A
           git commit -m "stage 2: restructure, scrub, workflows, answer layer [bootstrap]"
           git push
-      - name: Delete the release and tag
-        run: gh release delete stage2-apply -y --cleanup-tag
