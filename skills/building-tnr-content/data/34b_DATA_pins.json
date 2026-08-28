@@ -1,0 +1,109 @@
+{
+ "_meta": {
+  "source": "34_REGISTRY_map_pins.md",
+  "generated": "2026-08-26",
+  "note": "Machine twin of the pin library. asset_id null = live id not yet captured; a STATIC-inclusive gameAsset.getAllNames fills them (dauntless confirmed the pins are live). collect_time_minutes is the enforced pairing: quests using a pin MUST use its value.",
+  "resolved_2026-08-27": "dauntless confirmed: a collect_item action SELF-RESOLVES at the timer, and requires the player to remain on the tile for the whole duration. Stepping off cancels it. The low end of the scale therefore holds and needs no refloating.",
+  "design_consequence": "An Action is committed, uninterrupted effort. Never place one where the fiction has the player moving under pressure, being pursued, or reacting; those are dialog or a fight. An Action is the player choosing to stand still and do a thing properly."
+ },
+ "pins": [
+  {
+   "name": "Travel",
+   "task": "move_to_location",
+   "collect_time_minutes": null,
+   "felt_duration": "instant",
+   "used_for": "go here, nothing else",
+   "asset_id": null
+  },
+  {
+   "name": "Search",
+   "task": "collect_item",
+   "collect_time_minutes": 0.2,
+   "felt_duration": "12 sec",
+   "used_for": "look for something in place: tracks, signs, a hidden thing",
+   "asset_id": null
+  },
+  {
+   "name": "Gather",
+   "task": "collect_item",
+   "collect_time_minutes": 0.25,
+   "felt_duration": "15 sec",
+   "used_for": "pick, cut, draw water, harvest",
+   "asset_id": null
+  },
+  {
+   "name": "Repair",
+   "task": "collect_item",
+   "collect_time_minutes": 0.4,
+   "felt_duration": "24 sec",
+   "used_for": "fix, mend, shore up",
+   "asset_id": null
+  },
+  {
+   "name": "Dig",
+   "task": "collect_item",
+   "collect_time_minutes": 0.5,
+   "felt_duration": "30 sec",
+   "used_for": "excavate, unbury, break ground",
+   "asset_id": null
+  },
+  {
+   "name": "Watch",
+   "task": "collect_item",
+   "collect_time_minutes": 0.5,
+   "felt_duration": "30 sec",
+   "used_for": "stand a post, observe, wait out a patrol",
+   "asset_id": null
+  },
+  {
+   "name": "Deliver",
+   "task": "deliver_item",
+   "collect_time_minutes": null,
+   "felt_duration": "instant",
+   "used_for": "hand over what you carry",
+   "asset_id": null
+  },
+  {
+   "name": "Fight",
+   "task": "defeat_opponents",
+   "collect_time_minutes": null,
+   "felt_duration": "instant",
+   "used_for": "someone is here and will not",
+   "asset_id": null
+  },
+  {
+   "name": "Climb",
+   "task": "collect_item",
+   "collect_time_minutes": 0.3,
+   "felt_duration": "18 sec",
+   "used_for": "scale a wall, crawl a duct, squeeze through",
+   "asset_id": null
+  },
+  {
+   "name": "Pick",
+   "task": "collect_item",
+   "collect_time_minutes": 0.2,
+   "felt_duration": "12 sec",
+   "used_for": "locks, seals, wired drawers",
+   "asset_id": null
+  },
+  {
+   "name": "Listen",
+   "task": "collect_item",
+   "collect_time_minutes": 0.15,
+   "felt_duration": "9 sec",
+   "used_for": "eavesdrop, wait out a patrol",
+   "asset_id": null
+  },
+  {
+   "name": "Chase",
+   "task": "collect_item",
+   "collect_time_minutes": 0.4,
+   "felt_duration": "24 sec",
+   "used_for": "run somebody down over ground you do not know",
+   "asset_id": null,
+   "_class": "PROPOSED",
+   "_note": "Twelfth pin, added 2026-08-27. Longer than Climb, shorter than Watch. Awaiting dauntless on the duration and on whether it earns its own art."
+  }
+ ]
+}

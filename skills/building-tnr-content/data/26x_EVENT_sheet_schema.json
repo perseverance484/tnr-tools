@@ -1,0 +1,129 @@
+{
+ "_meta": {
+  "purpose": "Machine-parseable event design sheet - the JSON twin of 26_TEMPLATE_event_design. A filled instance of this schema is the complete input contract for an agentic event build (roadmap Level 4). Prose sheet stays for humans; the pipeline consumes THIS.",
+  "version": "1.0 / 2026-07-18",
+  "fill_semantics": "null or absent = designer's call within doctrine (the AI decides and lists the decision in the delivery summary). The literal string 'NONE' = explicitly excluded. The literal string 'dauntless' = reserved placeholder, carry unfilled and list in the decision summary. Every dauntless field ships as a safe default, flagged.",
+  "validation": "Instances lint against 13_LINT-adjacent checks: required fields present, enums legal, band math coherent, component/recipe factors coprime."
+ },
+ "schema": {
+  "identity": {
+   "name": "string, event title (dedup-checked against live quests)",
+   "theme": "string, one-line premise",
+   "lore_tier": "enum: CANON_ADJACENT | NON_CANON_CANDIDATE (27_LORE rules apply)",
+   "event_type": "enum: daily_repeat | weekend | battlepyramid | story_arc | hidden_discovery | war_support",
+   "window": {
+    "startsAt": "YYYY-MM-DD or dauntless",
+    "endsAt": "YYYY-MM-DD or dauntless"
+   },
+   "gates": {
+    "requiredLevel": "int or null",
+    "questRank": "enum or null",
+    "requiredVillage": "null unless village event",
+    "maxAttempts": "int<=100 or dauntless",
+    "maxCompletes": "int<=100 or dauntless",
+    "retryDelay": "'none' for daily-repeat"
+   }
+  },
+  "structure": {
+   "pattern": "enum: wings_cyoa | linear_gauntlet | pyramid | hub_and_spokes | hunt_gather_mirror",
+   "entrances": "int (wings_cyoa: 2-4; each entrance lists which endings it reaches)",
+   "endings": [
+    {
+     "id": "string",
+     "kind": "enum: combat | social | stealth | puzzle",
+     "reachable_from": [
+      "entrance ids"
+     ],
+     "component": "item srcId or NONE",
+     "knowledge_gate": "null | {question_source: 'node id where the answer is overheard', hi_rate: 'pct or dauntless', lo_rate: 'pct or dauntless'}"
+    }
+   ],
+   "intel_nodes": "list of {id, exclusive: bool} - exclusive intel = one pick per run",
+   "scenes": "map node-group -> asset srcId (art_pack below must cover every value)"
+  },
+  "enemies": {
+   "roster": [
+    {
+     "srcId": "string",
+     "name": "string",
+     "tier": "enum: add | entry | mid | boss | finale",
+     "role": "one-line combat identity",
+     "kit": "list of S-pool ids (32_REGISTRY) - new records ONLY for shapes the pool lacks",
+     "signatures": "0-3 new jutsu specs (EP<=70), or NONE",
+     "windows": "null | {power, rounds} burst windows",
+     "shared_item": "srcId of the roster item (Regalia pattern) or NONE"
+    }
+   ],
+   "scaling": "opponent_scaled_to_user per battle node; finale fights may pin fixed level",
+   "stat_block": "always the full 21-guide payload (rank JONIN default, regeneration 60, preferred stats per role)"
+  },
+  "calibration": {
+   "anchor_ref": "34_CALIBRATION.json entry to tune against (default: current)",
+   "bands_per_hit": {
+    "add": "int or default",
+    "entry": "800-1000 default",
+    "mid": "1500-1800 default",
+    "boss": "2400+ default",
+    "finale": "int or dauntless"
+   },
+   "verification": "one QC fight per tier before CANDIDATE status"
+  },
+  "economy": {
+   "components": [
+    {
+     "srcId": "string",
+     "name": "string",
+     "drops_from": "ending id",
+     "rate": "pct or dauntless",
+     "tradeable": true
+    }
+   ],
+   "binder": "srcId of the shared common material (Thread pattern) or NONE",
+   "recipes": [
+    {
+     "srcId": "string",
+     "name": "string",
+     "requires": [
+      {
+       "srcId": "string",
+       "number": "int"
+      }
+     ],
+     "effects_brief": "one line per effect with values or dauntless",
+     "slot": "equip slot or CONSUMABLE",
+     "battleUsageType": "PVE default",
+     "rarity": "Legendary default"
+    }
+   ],
+   "filler_rewards": "per-ending {money, exp, items} or dauntless (slots always reserved)",
+   "coprime_check": "no drop quantity shares a factor with a recipe requirement"
+  },
+  "art_pack": {
+   "style_register": "default: gritty dark-fantasy pixel (25_GUIDE scaffolds)",
+   "cards": [
+    {
+     "file": "string.png/jpg",
+     "kind": "enum: scene | portrait | sprite | icon | quest_icon | poster",
+     "chroma": "magenta default; NONE for full-bleed scenes/icons",
+     "wired_to": "asset/item/quest srcId"
+    }
+   ],
+   "processing": "component-keyed pipeline (12_TECH 33-35); fresh filenames on corrections"
+  },
+  "dialog": {
+   "register": "one-line voice note (e.g. 'the House speaks in invitations')",
+   "em_dash_ban": "enforced by L11",
+   "commitment_language": "wing hubs must narrate door-closing"
+  },
+  "delivery_contract": {
+   "outputs": [
+    "specs + flow summary",
+    "combined manifest(s) per 10_TECH 1.5",
+    "art card file",
+    "asset pack (processed)",
+    "decision list: every dauntless field with the shipped safe default"
+   ],
+   "status": "everything ships hidden:true CANDIDATE; publishing fields are never filled by the pipeline"
+  }
+ }
+}

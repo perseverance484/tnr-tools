@@ -53,7 +53,7 @@
 //      L15 stun apReduction warn; L16 cooldown floor 3; L17 @img byte-ledger check;
 //      L18 item union (clear/copy excluded; noncombatconsumereward target SELF).
 //      Ref resolution (L02) stays with v4.14's idmap-aware refBad. "skipPreflight": true bypasses
-//      lint too (Brandon-authorized only). Warns never block; they print in row detail.
+//      lint too (dauntless-authorized only). Warns never block; they print in row detail.
 //   2. Results bundle version stamp fixed (was stale 'v4.13').
 // v4.14 changes (62_PLAN Phase 7; schemas sourced from 46_DATA_tag_schemas + 45b_DATA_enums):
 //   1. JUTSU EDIT LIMITER FIX: convert/edit now uses a per-id jutsu.get merge base instead of loading
