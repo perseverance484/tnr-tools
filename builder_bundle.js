@@ -1,4 +1,21 @@
-// TNR content builder bundle v4.23 - loaded via @require by the tiny VM loader.
+// TNR content builder bundle v4.25 - loaded via @require by the tiny VM loader.
+// v4.25: PUSH PACKS. The 📄 Load button also accepts a .zip built by pushpack.py:
+// manifest.json goes to the textarea, every image member lands in filemap under its EXACT
+// name (no picker, no per-file downloads, no Android rename mangling), and extracted byte
+// counts are verified against the manifest's imgSizes ledger - any mismatch or missing
+// @img member hard-stops before a single mutation. Vanilla zip reader (EOCD + central
+// directory), STORED members sliced directly, DEFLATE via DecompressionStream. No zip64,
+// no encryption - pushpack.py never produces either.
+// v4.24: (1) POSTFLIGHT. After read-back, every ok entry is field-diffed pushed-vs-live
+// (subset walk: every key sent must match live; server-owned fields exempt; quest pushed side
+// normalized through the same expansion qupdate applies; ai numeric tolerance 0.5 for the
+// scaleUserStats last-decimal wobble; bloodline effects drop rounds/friendlyFire, which the
+// server strips by design). Verdict lands on the row and in the bundle (entries[].verdict,
+// entries[].diffs, bundle.postflight). BUILDER_CHECKS untouched so validate.py --parity holds.
+// (2) GH SYNC. Optional auto-commit of every results bundle to results/ in the tnr-tools repo
+// via the GitHub contents API. Fine-grained PAT (contents write on that repo ONLY) stored in
+// this browser's localStorage, sent only to api.github.com. Toggle via the Sync button. Never
+// blocks or replaces the local download; failures surface in the status line.
 // v4.23: (1) NULL GUARD FIX. wsNorm stripped every null in WS_OMIT_NULL, including fields the
 //        server accepts as null (.nullable()/.nullish()). Nine quest fields were affected, so
 //        clearing requiredVillage, prerequisiteQuestId, huntingRank et al was IMPOSSIBLE through
@@ -35,6 +52,136 @@
 //      "phase" to override its default. The seven hardcoded push loops are replaced by one
 //      phase-sorted stable pass, which reproduces the exact v4.15 order for any existing manifest.
 //      Rationale: jutsu referencing @item (requiredBloodlineItemId) need items BEFORE jutsu, while
+//      items referencing @jutsu (injectjutsus) need the opposite; a per-entry override serves both.
+//   3. @bloodline: added to the ref whitelist and the unresolved-ref guard. NOTE resolveRefs was
+//      already prefix-agnostic (RFX=/^@\w+:(.+)$/), so the prefix is documentary; the whitelist is
+//      what buys ordering validation in preflight.
+//   4. Preflight blBad(): required fields, rank/statClassification/difficulty enums, regenIncrease
+//      bounds, effect-tag check.
+// v4.15 changes (13_LINT_rules.json integration - the session-law lint, roadmap Level 1):
+//   1. LINT PASS in preflight: enforces the 2026-07 engine laws that v4.14's schema preflight missed:
+//      L01 explicit targetId on convert/edit; L03 consecutiveObjectives:true on quest creates;
+//      L04 plain YYYY-MM-DD quest dates; L05 AI-create rank/regeneration/preferred block;
+//      L06 statTypes+generalTypes on damage/pierce/wound; L07 direction literal "offence";
+//      L08 warn + product printout on >4 same-type percentage rows (multiplicative guard);
+//      L09 effect field-set subset vs the exemplar bank; L10 EP>70 warn; L11 em/en-dash ban in
+//      dialog text; L12b win_quest reachability (BFS; edges/starts already in v4.14 qBad);
+//      L13 hidden:true on creates (injectjutsus wrapper jutsu excepted: must be hidden:false);
+//      L15 stun apReduction warn; L16 cooldown floor 3; L17 @img byte-ledger check;
+//      L18 item union (clear/copy excluded; noncombatconsumereward target SELF).
+//      Ref resolution (L02) stays with v4.14's idmap-aware refBad. "skipPreflight": true bypasses
+//      lint too (dauntless-authorized only). Warns never block; they print in row detail.
+//   2. Results bundle version stamp fixed (was stale 'v4.13').
+// v4.14 changes (62_PLAN Phase 7; schemas sourced from 46_DATA_tag_schemas + 45b_DATA_enums):
+//   1. JUTSU EDIT LIMITER FIX: convert/edit now uses a per-id jutsu.get merge base instead of loading
+//      the full two-pass catalog, so small edit manifests no longer stall on rate-limit retries.
+//   2. DEDUP VIA getAllNames: the opt-in "dedupNames" pass now uses the single-call name-list endpoints
+//      (jutsu/item/gameAsset/profile.getAllAiNames) instead of paged full getAll, and GAINS QUEST
+//      dedup via quests.getAllNames.
+//   3. PREFLIGHT: reward_village_membership validated against the village enum (current + legacy names);
+//      public-quest sceneCharacters rule (hidden:false requires main sceneCharacters or per-objective);
+//      SOURCE CROSS-FIELD RULES from the server's SuperRefines: jutsu-forbidden tags (rollbloodline,
+//      removebloodline, noncombatconsumereward), item cost/consumable/target-SELF constraint sets,
+//      EMPTY_GROUND requirements (barrier/clone/summon/move), damage+move needs AOE, target SELF needs
+//      range 0, wound/vamp require damage|pierce on the same action, barrier needs staticAssetPath,
+//      powerPerLevel=0 rules, clone rounds>0. All presence-gated: a check only fires when the fields
+//      involved are present in the payload (partial converts stay safe).
+// --- v4.13 notes below remain accurate ---
+// v4.13 changes (UPGRADE_ANALYSIS Tier 1 + 2.3):
+//   1. QUEST EDIT FETCH-MERGE: quest slot!=create now GETs quests.get {id} and merges your partial data
+//      over the live record (Howling rule automated). Send only what changes; arrays still replace whole.
+//   2. @quest:/@item: CROSS-REFS: the resolver was already prefix-generic; preflight now VALIDATES every
+//      @jutsu/@ai/@scene/@item/@quest ref (must be an earlier-phase srcId, an earlier same-phase quest,
+//      or an existing idmap key) and a runtime guard blocks any entry whose refs failed to resolve, so
+//      garbage strings can never be saved. Quest->quest forward refs work in one run (manifest order).
+//   3. RESULTS BUNDLE: every build auto-downloads tnr_results_<ts>.json: per-entry {name,srcId,entity,
+//      slot,state,detail,id,pushed(final merged payload)}, plus the full idmap. Hand this file back for
+//      verification and registry updates.
+//   4. LIVE NAME DEDUP (opt-in): top-level "dedupNames": true fetches live name lists for jutsu/item/
+//      asset/ai creates and reds collisions BEFORE pushing (quest dedup pending a confirmed list
+//      endpoint). Off by default to respect the rolling rate budget.
+//   5. AI WRITE-SHAPE SANITIZER: fetched raw jutsus join rows -> string id array; items rows ->
+//      {ids,number}. The 400 landmine class is deleted; explicit manifest values pass through.
+//   6. MANIFEST FILE PICKER: "📄 Load" button loads a manifest JSON from the device (kills the paste cap).
+//   7. FIELD SANITIZERS: empty-string image keys stripped pre-push (DB 500 guard); preflight type-checks
+//      reward_rank/reward_village_membership (string) and reward_gathering_items/hunter_items (boolean)
+//      on quest rewards and objectives.
+//   8. EQUIP REMINDER: jutsu convert success rows carry a re-equip warning (silent link severance guard).
+//   9. IDMAP EXPORT/IMPORT: "🗺 Map" downloads the idmap; "⤒ Map" imports/merges one (device-loss recovery).
+// --- v4.12 notes below remain accurate ---
+// v4.12 changes (all three roadmap items from 10_TECH 1.1a, plus preflight):
+//   1. json.success read per entry: every mutation response is parsed; HTTP 200 with success:false now
+//      shows RED with the server's message (name collisions, flow-invalid, validation errors).
+//   2. Error text widened 300 -> 1200 chars so multi-field quest validation errors show at once.
+//   3. Fetch-merge on CREATE for jutsu, item, and quest: after create, the builder GETs the fresh record
+//      (jutsu.get / item.get / quests.get, all {id}, source-confirmed) and merges your data over its
+//      defaults, like convert and the asset path. Partial create payloads no longer NaN-fail; complete
+//      payloads still recommended. Item edit (slot!=create) also fetch-merges over the live record.
+//   4. Preflight validation before any push, against the source-confirmed write schema
+//      (45_DATA_field_schemas.json): required fields, enum values, effect tag literals, AI rule literals,
+//      quest task vocabulary + flow graph (one start node, edges resolve, battle nodes have
+//      failObjectiveId + opponentAIs, daily 3-7, raid rules). Failing rows go red with named fields and
+//      the build aborts. Escape hatch: top-level "skipPreflight": true in the manifest.
+// One manifest, mixed entities: jutsu, quest, asset (gameAsset), item, ai, aiProfile.
+// Entry: {name, entity, slot:"create"|"convert"|"update", srcId?, targetId?, data}.
+//   Cross-refs: any string value "@jutsu:<srcId>" or "@ai:<srcId>" resolves at run-time to the id that
+//               entry produced (from the persisted idmap, keyed by srcId). Lets one ordered manifest do
+//               the whole pyramid: jutsu create -> ai create (kits + rules pull @jutsu:) -> quest (@ai:).
+//   Build order: jutsu-create, jutsu-convert, asset, item, ai, aiProfile, quest.
+//   Images: a field value "@img:<filename>" pulls a URL the builder uploads itself. Tap the panel's
+//           "Imgs" button and select the files once; on build each referenced file is uploaded to
+//           uploadthing (POST /api/uploadthing?actionType=upload&slug=imageUploader, then PUT to the
+//           signed ingest url) and its https://<app>.ufs.sh/f/<key> url is cached in the idmap under the
+//           filename and written into the field (jutsu.image, ai avatar, quest sceneBackground, etc.).
+//           Cached urls are reused on re-run; picked files live for the session only.
+//   jutsu: create+fill, or convert-by-id. Convert FETCH-MERGES like the asset path: it loads the full
+//          jutsu catalog once per run (jutsu.getAll, two passes - default + hidden:true so hidden AI
+//          jutsu are included - mapped by id), merges your partial `data` over the live record, strips
+//          the read-only `bloodline` join, preserves createdAt, then updates. So a partial convert
+//          ({targetId, data:{description:"..."}}) is safe; full-record data still works.
+//   quest: create (null) then update (auto flatten + referentialEqualities meta), or update-by-id.
+//   asset: gameAsset.create (null) -> get the new row (falls back to a default row if get misses)
+//          -> merge your data fields -> gameAsset.update. You supply the image URL (uploaded by hand).
+//   item:  item.create ({type}) then item.update ({id,data}+Date meta, mirrors jutsu).
+//          You supply the full item fields incl image URL. slot create=new, otherwise update targetId.
+//   ai:    profile.create (null, slot create) -> profile.getAi(userId) -> merge your `data` fields over
+//          the full live record (auto userId/id/isAi:true/isSummon:false) -> profile.updateAi (dynamic
+//          Date meta). Armor is a manual editor step, not a payload field. If `data.rules` is present it
+//          also pushes behavior (ai.updateAiProfile via the record's aiProfileId); rules+includeDefaultRules
+//          are stripped from the AI record before saving. slot create=new user, else update targetId.
+//   aiProfile: behavior-only push. targetId = ai userId (or @ai:<srcId>) -> getAi -> aiProfileId ->
+//          ai.updateAiProfile with {rules, includeDefaultRules}. Use to (re)push rules to an existing AI.
+// --- v4.19 (2026-08-26) ---------------------------------------------------
+//  1. CAPTURE BLOCK. A manifest may carry:
+//       "capture": { "before": [ {proc, input?, select?} ], "after": [ ... ] }
+//     `before` runs ahead of the build (live records to merge against, current
+//     name lists); `after` runs once the build finishes (verification, refreshed
+//     lists). Results land in the results bundle under `captures`, each stamped
+//     with the exact input it was called with and, for list procedures, an
+//     explicit note that absence from a filtered call proves nothing. `select`
+//     trims returned rows to named fields so a 1,490-row name list does not
+//     bloat the bundle. Captures go through getRL, so they respect the limiter.
+//     This retires the separate monitor-capture step for anything predictable.
+//  2. READ-BACK. After a successful write, each entry is re-fetched and the
+//     server's copy stored as `live` alongside `pushed`. Server-side
+//     normalisation is otherwise invisible: scaleUserStats rewrites every AI
+//     stat from level, so `pushed` never shows what the record actually holds.
+//     Opt out with top-level "readBack": false.
+(()=>{'use strict';if(window.__tnrBK)return;window.__tnrBK=1;
+const MT={values:{"data.createdAt":["Date"],"data.updatedAt":["Date"]},v:1},now=()=>new Date().toISOString();
+const THR=2000,sleep=m=>new Promise(r=>setTimeout(r,m));
+
+// --- v4.20 generated config -----------------------------------------------
+// 45c (constructors) and 32b (shared pool) are GENERATED from the TNR source by
+// schema_extract.py. Hosting them beside this bundle means the browser preflight
+// and the container-side validator read the SAME artifact, so the two cannot
+// drift and both track source. Falls back to hand rules if the fetch fails; the
+// panel title says which config is live.
+const CFGBASE='https://raw.githubusercontent.com/perseverance484/tnr-tools/main/';
+const CFGV='?v=1';
+const CFG={ctors:null,pool:null,checks:null,nullOK:{},state:'loading'};
+const loadCfg=async()=>{const grab=async n=>{try{const r=await fetch(CFGBASE+n+CFGV,{cache:'no-cache'});
+  if(//      Rationale: jutsu referencing @item (requiredBloodlineItemId) need items BEFORE jutsu, while
 //      items referencing @jutsu (injectjutsus) need the opposite; a per-entry override serves both.
 //   3. @bloodline: added to the ref whitelist and the unresolved-ref guard. NOTE resolveRefs was
 //      already prefix-agnostic (RFX=/^@\w+:(.+)$/), so the prefix is documentary; the whitelist is
