@@ -181,136 +181,6 @@ const CFGBASE='https://raw.githubusercontent.com/perseverance484/tnr-tools/main/
 const CFGV='?v=1';
 const CFG={ctors:null,pool:null,checks:null,nullOK:{},state:'loading'};
 const loadCfg=async()=>{const grab=async n=>{try{const r=await fetch(CFGBASE+n+CFGV,{cache:'no-cache'});
-  if(//      Rationale: jutsu referencing @item (requiredBloodlineItemId) need items BEFORE jutsu, while
-//      items referencing @jutsu (injectjutsus) need the opposite; a per-entry override serves both.
-//   3. @bloodline: added to the ref whitelist and the unresolved-ref guard. NOTE resolveRefs was
-//      already prefix-agnostic (RFX=/^@\w+:(.+)$/), so the prefix is documentary; the whitelist is
-//      what buys ordering validation in preflight.
-//   4. Preflight blBad(): required fields, rank/statClassification/difficulty enums, regenIncrease
-//      bounds, effect-tag check.
-// v4.15 changes (13_LINT_rules.json integration - the session-law lint, roadmap Level 1):
-//   1. LINT PASS in preflight: enforces the 2026-07 engine laws that v4.14's schema preflight missed:
-//      L01 explicit targetId on convert/edit; L03 consecutiveObjectives:true on quest creates;
-//      L04 plain YYYY-MM-DD quest dates; L05 AI-create rank/regeneration/preferred block;
-//      L06 statTypes+generalTypes on damage/pierce/wound; L07 direction literal "offence";
-//      L08 warn + product printout on >4 same-type percentage rows (multiplicative guard);
-//      L09 effect field-set subset vs the exemplar bank; L10 EP>70 warn; L11 em/en-dash ban in
-//      dialog text; L12b win_quest reachability (BFS; edges/starts already in v4.14 qBad);
-//      L13 hidden:true on creates (injectjutsus wrapper jutsu excepted: must be hidden:false);
-//      L15 stun apReduction warn; L16 cooldown floor 3; L17 @img byte-ledger check;
-//      L18 item union (clear/copy excluded; noncombatconsumereward target SELF).
-//      Ref resolution (L02) stays with v4.14's idmap-aware refBad. "skipPreflight": true bypasses
-//      lint too (dauntless-authorized only). Warns never block; they print in row detail.
-//   2. Results bundle version stamp fixed (was stale 'v4.13').
-// v4.14 changes (62_PLAN Phase 7; schemas sourced from 46_DATA_tag_schemas + 45b_DATA_enums):
-//   1. JUTSU EDIT LIMITER FIX: convert/edit now uses a per-id jutsu.get merge base instead of loading
-//      the full two-pass catalog, so small edit manifests no longer stall on rate-limit retries.
-//   2. DEDUP VIA getAllNames: the opt-in "dedupNames" pass now uses the single-call name-list endpoints
-//      (jutsu/item/gameAsset/profile.getAllAiNames) instead of paged full getAll, and GAINS QUEST
-//      dedup via quests.getAllNames.
-//   3. PREFLIGHT: reward_village_membership validated against the village enum (current + legacy names);
-//      public-quest sceneCharacters rule (hidden:false requires main sceneCharacters or per-objective);
-//      SOURCE CROSS-FIELD RULES from the server's SuperRefines: jutsu-forbidden tags (rollbloodline,
-//      removebloodline, noncombatconsumereward), item cost/consumable/target-SELF constraint sets,
-//      EMPTY_GROUND requirements (barrier/clone/summon/move), damage+move needs AOE, target SELF needs
-//      range 0, wound/vamp require damage|pierce on the same action, barrier needs staticAssetPath,
-//      powerPerLevel=0 rules, clone rounds>0. All presence-gated: a check only fires when the fields
-//      involved are present in the payload (partial converts stay safe).
-// --- v4.13 notes below remain accurate ---
-// v4.13 changes (UPGRADE_ANALYSIS Tier 1 + 2.3):
-//   1. QUEST EDIT FETCH-MERGE: quest slot!=create now GETs quests.get {id} and merges your partial data
-//      over the live record (Howling rule automated). Send only what changes; arrays still replace whole.
-//   2. @quest:/@item: CROSS-REFS: the resolver was already prefix-generic; preflight now VALIDATES every
-//      @jutsu/@ai/@scene/@item/@quest ref (must be an earlier-phase srcId, an earlier same-phase quest,
-//      or an existing idmap key) and a runtime guard blocks any entry whose refs failed to resolve, so
-//      garbage strings can never be saved. Quest->quest forward refs work in one run (manifest order).
-//   3. RESULTS BUNDLE: every build auto-downloads tnr_results_<ts>.json: per-entry {name,srcId,entity,
-//      slot,state,detail,id,pushed(final merged payload)}, plus the full idmap. Hand this file back for
-//      verification and registry updates.
-//   4. LIVE NAME DEDUP (opt-in): top-level "dedupNames": true fetches live name lists for jutsu/item/
-//      asset/ai creates and reds collisions BEFORE pushing (quest dedup pending a confirmed list
-//      endpoint). Off by default to respect the rolling rate budget.
-//   5. AI WRITE-SHAPE SANITIZER: fetched raw jutsus join rows -> string id array; items rows ->
-//      {ids,number}. The 400 landmine class is deleted; explicit manifest values pass through.
-//   6. MANIFEST FILE PICKER: "📄 Load" button loads a manifest JSON from the device (kills the paste cap).
-//   7. FIELD SANITIZERS: empty-string image keys stripped pre-push (DB 500 guard); preflight type-checks
-//      reward_rank/reward_village_membership (string) and reward_gathering_items/hunter_items (boolean)
-//      on quest rewards and objectives.
-//   8. EQUIP REMINDER: jutsu convert success rows carry a re-equip warning (silent link severance guard).
-//   9. IDMAP EXPORT/IMPORT: "🗺 Map" downloads the idmap; "⤒ Map" imports/merges one (device-loss recovery).
-// --- v4.12 notes below remain accurate ---
-// v4.12 changes (all three roadmap items from 10_TECH 1.1a, plus preflight):
-//   1. json.success read per entry: every mutation response is parsed; HTTP 200 with success:false now
-//      shows RED with the server's message (name collisions, flow-invalid, validation errors).
-//   2. Error text widened 300 -> 1200 chars so multi-field quest validation errors show at once.
-//   3. Fetch-merge on CREATE for jutsu, item, and quest: after create, the builder GETs the fresh record
-//      (jutsu.get / item.get / quests.get, all {id}, source-confirmed) and merges your data over its
-//      defaults, like convert and the asset path. Partial create payloads no longer NaN-fail; complete
-//      payloads still recommended. Item edit (slot!=create) also fetch-merges over the live record.
-//   4. Preflight validation before any push, against the source-confirmed write schema
-//      (45_DATA_field_schemas.json): required fields, enum values, effect tag literals, AI rule literals,
-//      quest task vocabulary + flow graph (one start node, edges resolve, battle nodes have
-//      failObjectiveId + opponentAIs, daily 3-7, raid rules). Failing rows go red with named fields and
-//      the build aborts. Escape hatch: top-level "skipPreflight": true in the manifest.
-// One manifest, mixed entities: jutsu, quest, asset (gameAsset), item, ai, aiProfile.
-// Entry: {name, entity, slot:"create"|"convert"|"update", srcId?, targetId?, data}.
-//   Cross-refs: any string value "@jutsu:<srcId>" or "@ai:<srcId>" resolves at run-time to the id that
-//               entry produced (from the persisted idmap, keyed by srcId). Lets one ordered manifest do
-//               the whole pyramid: jutsu create -> ai create (kits + rules pull @jutsu:) -> quest (@ai:).
-//   Build order: jutsu-create, jutsu-convert, asset, item, ai, aiProfile, quest.
-//   Images: a field value "@img:<filename>" pulls a URL the builder uploads itself. Tap the panel's
-//           "Imgs" button and select the files once; on build each referenced file is uploaded to
-//           uploadthing (POST /api/uploadthing?actionType=upload&slug=imageUploader, then PUT to the
-//           signed ingest url) and its https://<app>.ufs.sh/f/<key> url is cached in the idmap under the
-//           filename and written into the field (jutsu.image, ai avatar, quest sceneBackground, etc.).
-//           Cached urls are reused on re-run; picked files live for the session only.
-//   jutsu: create+fill, or convert-by-id. Convert FETCH-MERGES like the asset path: it loads the full
-//          jutsu catalog once per run (jutsu.getAll, two passes - default + hidden:true so hidden AI
-//          jutsu are included - mapped by id), merges your partial `data` over the live record, strips
-//          the read-only `bloodline` join, preserves createdAt, then updates. So a partial convert
-//          ({targetId, data:{description:"..."}}) is safe; full-record data still works.
-//   quest: create (null) then update (auto flatten + referentialEqualities meta), or update-by-id.
-//   asset: gameAsset.create (null) -> get the new row (falls back to a default row if get misses)
-//          -> merge your data fields -> gameAsset.update. You supply the image URL (uploaded by hand).
-//   item:  item.create ({type}) then item.update ({id,data}+Date meta, mirrors jutsu).
-//          You supply the full item fields incl image URL. slot create=new, otherwise update targetId.
-//   ai:    profile.create (null, slot create) -> profile.getAi(userId) -> merge your `data` fields over
-//          the full live record (auto userId/id/isAi:true/isSummon:false) -> profile.updateAi (dynamic
-//          Date meta). Armor is a manual editor step, not a payload field. If `data.rules` is present it
-//          also pushes behavior (ai.updateAiProfile via the record's aiProfileId); rules+includeDefaultRules
-//          are stripped from the AI record before saving. slot create=new user, else update targetId.
-//   aiProfile: behavior-only push. targetId = ai userId (or @ai:<srcId>) -> getAi -> aiProfileId ->
-//          ai.updateAiProfile with {rules, includeDefaultRules}. Use to (re)push rules to an existing AI.
-// --- v4.19 (2026-08-26) ---------------------------------------------------
-//  1. CAPTURE BLOCK. A manifest may carry:
-//       "capture": { "before": [ {proc, input?, select?} ], "after": [ ... ] }
-//     `before` runs ahead of the build (live records to merge against, current
-//     name lists); `after` runs once the build finishes (verification, refreshed
-//     lists). Results land in the results bundle under `captures`, each stamped
-//     with the exact input it was called with and, for list procedures, an
-//     explicit note that absence from a filtered call proves nothing. `select`
-//     trims returned rows to named fields so a 1,490-row name list does not
-//     bloat the bundle. Captures go through getRL, so they respect the limiter.
-//     This retires the separate monitor-capture step for anything predictable.
-//  2. READ-BACK. After a successful write, each entry is re-fetched and the
-//     server's copy stored as `live` alongside `pushed`. Server-side
-//     normalisation is otherwise invisible: scaleUserStats rewrites every AI
-//     stat from level, so `pushed` never shows what the record actually holds.
-//     Opt out with top-level "readBack": false.
-(()=>{'use strict';if(window.__tnrBK)return;window.__tnrBK=1;
-const MT={values:{"data.createdAt":["Date"],"data.updatedAt":["Date"]},v:1},now=()=>new Date().toISOString();
-const THR=2000,sleep=m=>new Promise(r=>setTimeout(r,m));
-
-// --- v4.20 generated config -----------------------------------------------
-// 45c (constructors) and 32b (shared pool) are GENERATED from the TNR source by
-// schema_extract.py. Hosting them beside this bundle means the browser preflight
-// and the container-side validator read the SAME artifact, so the two cannot
-// drift and both track source. Falls back to hand rules if the fetch fails; the
-// panel title says which config is live.
-const CFGBASE='https://raw.githubusercontent.com/perseverance484/tnr-tools/main/';
-const CFGV='?v=1';
-const CFG={ctors:null,pool:null,checks:null,nullOK:{},state:'loading'};
-const loadCfg=async()=>{const grab=async n=>{try{const r=await fetch(CFGBASE+n+CFGV,{cache:'no-cache'});
   if(!r.ok)return null;return await r.json()}catch(e){return null}};
  const [c,p,k]=await Promise.all([grab('45c_DATA_constructors.json'),grab('32b_DATA_pool.json'),grab('45g_DATA_checks.json')]);
  CFG.ctors=c;CFG.pool=(p&&p.records)||null;CFG.checks=k;
@@ -469,6 +339,92 @@ const readBack=async(r,wf)=>{try{const id=r.outId||r.targetId;if(!id)return null
  const proc=LIVEGET[r.entity];if(!proc)return null;return await sget(proc,id,wf)}catch(e){return null}};
 const chk=r=>{if(!r.ok)return{ok:false,msg:'HTTP '+r.status+' '+rerr(r.text)};const j=gjson(r.text);if(j&&typeof j==='object'&&j.success===false)return{ok:false,msg:String(j.message||'success:false').slice(0,1200)};return{ok:true,msg:(j&&j.message)||''}};
 const sget=async(proc,id,wf)=>{const r=await getRL(proc,{id},wf);const o=gjson(r.text);return(o&&o.id)?o:null};
+// --- v4.24 postflight: pushed-vs-live subset diff -------------------------
+const PFEX={id:1,createdAt:1,updatedAt:1,expiresAt:1};
+const PFAI={curHealth:1,curChakra:1,curStamina:1,regenAt:1,questFinishAt:1,immunityUntil:1,robImmunityUntil:1,bracketImmunityLiftedUntil:1,warParticipantUntil:1,travelFinishAt:1,deletionAt:1,latestBattleId:1,pvpActivity:1,status:1,sector:1,longitude:1,latitude:1,location:1,joinedVillageAt:1,aiProfileId:1,trainingStartedAt:1,currentlyTraining:1};
+const pfNum=v=>typeof v==='number'||(typeof v==='string'&&v!==''&&!isNaN(+v));
+const pfEq=(a,b,ent)=>{if(a===b)return 1;if(a==null&&b==null)return 1;
+ if(pfNum(a)&&pfNum(b)){const d=Math.abs((+a)-(+b));return(ent==='ai'?d<=0.5:d===0)?1:0}
+ if((typeof a!=='object')&&(typeof b!=='object'))return String(a)===String(b)?1:0;return 0};
+const pfWalk=(p,l,ent,path,out)=>{if(out.n>400)return;
+ if(Array.isArray(p)){if(!Array.isArray(l)){out.n++;out.d.push(path+' (not array live)');return}
+  if(p.length!==l.length){out.n++;out.d.push(path+'.length '+p.length+'→'+l.length);return}
+  for(let i=0;i<p.length;i++)pfWalk(p[i],l[i],ent,path+'['+i+']',out);return}
+ if(p&&typeof p==='object'){if(!l||typeof l!=='object'){out.n++;out.d.push(path+' (missing live)');return}
+  for(const k in p){if(PFEX[k])continue;if(ent==='ai'&&(PFAI[k]||/At$/.test(k)))continue;
+   if(ent==='bloodline'&&(k==='rounds'||k==='friendlyFire')&&path.indexOf('effects')>=0)continue;
+   const pv=p[k];
+   if(pv===null){if(CFG.nullOK[k]){if(l[k]!=null){out.n++;out.d.push(path+'.'+k+' null→'+String(l[k]).slice(0,30))}}continue}
+   if(pv===undefined)continue;
+   pfWalk(pv,l[k],ent,path?path+'.'+k:k,out)}return}
+ if(!pfEq(p,l,ent)){out.n++;if(out.d.length<12)out.d.push(path+' '+String(p).slice(0,26)+'→'+String(l).slice(0,26))}};
+const pfQNorm=d=>{const o=JSON.parse(JSON.stringify(d));if(o.content){o.content=questExpandContent(o.content);const rw=o.content.reward;if(rw)for(const k in rw)o[k]=rw[k];if(o.content.sceneBackground!==undefined)o.sceneBackground=o.content.sceneBackground;if(o.content.sceneCharacters)o.sceneCharacters=o.content.sceneCharacters}return o};
+const pfAINorm=l=>{const o=Object.assign({},l);
+ if(Array.isArray(o.jutsus))o.jutsus=o.jutsus.map(j=>typeof j==='string'?j:(j&&(j.jutsuId||j.id))).filter(Boolean);
+ if(Array.isArray(o.items))o.items=o.items.map(t=>typeof t==='string'?{ids:[t],number:1}:(t&&t.ids?t:(t?{ids:[t.itemId||t.id].filter(Boolean),number:(t.number!=null?t.number:1)}:null))).filter(Boolean);return o};
+const vfy=r=>{if(r.entity==='aiProfile'||!r.pushed)return{verdict:'skipped',diffs:[]};
+ if(!r.live)return{verdict:'unread',diffs:[]};
+ let p=r.pushed,l=r.live;
+ if(r.entity==='quest'){p=pfQNorm(p);l=pfQNorm(l)}
+ if(r.entity==='ai')l=pfAINorm(l);
+ const out={n:0,d:[]};pfWalk(p,l,r.entity,'',out);
+ return out.n?{verdict:'diff:'+out.n,diffs:out.d}:{verdict:'match',diffs:[]}};
+// --- v4.24 gh sync: auto-commit results bundles to the repo ---------------
+const GH={owner:'perseverance484',repo:'tnr-tools',branch:'main',dir:'results'};
+const GK='tnr_bk_gh_v1';
+const ghGet=()=>{try{return JSON.parse(localStorage.getItem(GK)||'{}')}catch(e){return{}}};
+const ghSet=o=>{try{localStorage.setItem(GK,JSON.stringify(o))}catch(e){}};
+const b64u=s=>{const b=new TextEncoder().encode(s);let o='';for(let i=0;i<b.length;i+=0x8000)o+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return btoa(o)};
+const ghCommit=async(name,body)=>{const g=ghGet();if(!g.on||!g.pat)return null;
+ const res=await fetch('https://api.github.com/repos/'+GH.owner+'/'+GH.repo+'/contents/'+GH.dir+'/'+name,{method:'PUT',headers:{'authorization':'Bearer '+g.pat,'accept':'application/vnd.github+json','content-type':'application/json'},body:JSON.stringify({message:'results: '+name,content:b64u(body),branch:GH.branch})});
+ let t='';try{t=await res.text()}catch(e){}
+ if(res.status===201||res.status===200){const m=t.match(/"sha":"([0-9a-f]{7})/);return{ok:1,sha:m?m[1]:''}}
+ return{ok:0,msg:'HTTP '+res.status+' '+t.slice(0,140)}};
+const ghSync=(name,body)=>{const g=ghGet();if(!g.on||!g.pat)return;
+ $s.textContent=($s.textContent+' · ⇪ committing…').slice(0,220);
+ ghCommit(name,body).then(x=>{if(!x)return;$s.textContent=($s.textContent.replace(' · ⇪ committing…','')+' · '+(x.ok?('⇪ '+GH.dir+'/'+name+(x.sha?' @'+x.sha:'')):('⇪ FAILED '+x.msg))).slice(0,260)}).catch(e=>{try{$s.textContent=($s.textContent.replace(' · ⇪ committing…','')+' · ⇪ FAILED '+((e&&e.message)||e)).slice(0,260)}catch(_e){}})};
+// --- v4.25 push packs: zip = manifest + images, sizes verified ------------
+const zipEOCD=b=>{const v=new DataView(b);const n=b.byteLength;const lo=Math.max(0,n-65557);
+ for(let i=n-22;i>=lo;i--){if(v.getUint32(i,true)===0x06054b50){
+  const cnt=v.getUint16(i+10,true),cdo=v.getUint32(i+16,true);
+  if(cnt===0xFFFF||cdo===0xFFFFFFFF)throw new Error('zip64 not supported');
+  return{cnt,cdo}}}throw new Error('no zip end record')};
+const zipList=b=>{const v=new DataView(b);const{cnt,cdo}=zipEOCD(b);const out=[];let o=cdo;
+ for(let i=0;i<cnt;i++){if(v.getUint32(o,true)!==0x02014b50)throw new Error('bad central entry '+i);
+  const flg=v.getUint16(o+8,true),mth=v.getUint16(o+10,true),csz=v.getUint32(o+20,true),usz=v.getUint32(o+24,true);
+  const nl=v.getUint16(o+28,true),xl=v.getUint16(o+30,true),cl=v.getUint16(o+32,true),lho=v.getUint32(o+42,true);
+  if(flg&1)throw new Error('encrypted member');
+  const name=new TextDecoder().decode(new Uint8Array(b,o+46,nl));
+  out.push({name,mth,csz,usz,lho});o+=46+nl+xl+cl}return out};
+const zipRead=async(b,e)=>{const v=new DataView(b);if(v.getUint32(e.lho,true)!==0x04034b50)throw new Error('bad local header '+e.name);
+ const nl=v.getUint16(e.lho+26,true),xl=v.getUint16(e.lho+28,true);
+ const raw=b.slice(e.lho+30+nl+xl,e.lho+30+nl+xl+e.csz);
+ if(e.mth===0)return raw;
+ if(e.mth===8){if(typeof DecompressionStream==='undefined')throw new Error(e.name+' is deflated and this browser lacks DecompressionStream; re-pack STORED');
+  return await new Response(new Blob([raw]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer()}
+ throw new Error(e.name+' unsupported method '+e.mth)};
+const PKMIME={webp:'image/webp',png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',gif:'image/gif'};
+const packVerify=(sizes,ledger)=>{const e=[];
+ for(const n in ledger){if(!(n in sizes)){e.push('missing member '+n);continue}
+  if(sizes[n]!==ledger[n])e.push(n+' is '+sizes[n]+'B, ledger says '+ledger[n]+'B')}
+ return e};
+const loadPack=async f=>{try{
+ const buf=await f.arrayBuffer();const es=zipList(buf);
+ const mj=es.find(x=>x.name==='manifest.json')||es.find(x=>/(^|\/)manifest\.json$/.test(x.name));
+ if(!mj){$s.textContent='❌ pack: no manifest.json among '+es.length+' member(s)';return}
+ const mtext=new TextDecoder().decode(await zipRead(buf,mj));
+ const imgs=es.filter(x=>x!==mj&&/\.(webp|png|jpe?g|gif)$/i.test(x.name));
+ const sizes={};let nb=0;
+ for(const e of imgs){const nm=e.name.replace(/^.*\//,'');const bytes=await zipRead(buf,e);
+  const ext=(nm.match(/\.(\w+)$/)||[])[1];filemap[nm]=new File([bytes],nm,{type:PKMIME[(ext||'').toLowerCase()]||'application/octet-stream'});
+  sizes[nm]=bytes.byteLength;nb+=bytes.byteLength}
+ $i.value=mtext;if(!parse()){$s.textContent='❌ pack: '+($s.textContent||'manifest did not parse');return}
+ const pv=packVerify(sizes,imgsz||{});
+ if(pv.length){rows=[];$l.textContent='';MANIFEST=null;$s.textContent='❌ pack integrity: '+pv.slice(0,3).join('; ')+(pv.length>3?' +'+(pv.length-3):'');return}
+ const need=[];JSON.stringify(MANIFEST).replace(/@img:([A-Za-z0-9_.\-]+)/g,(_,n)=>{if(!idmap[n]&&!filemap[n])need.push(n);return _});
+ if(need.length){rows=[];$l.textContent='';MANIFEST=null;$s.textContent='❌ pack: @img with no member or idmap url: '+need.slice(0,4).join(', ');return}
+ $s.textContent=('📦 '+f.name+': manifest + '+imgs.length+' image(s), '+Math.round(nb/1024)+'KB, sizes verified · '+$s.textContent).slice(0,220)
+}catch(e){$s.textContent='❌ pack: '+((e&&e.message)||e)}};
 // --- jutsu ---
 const mk=wf=>postRL('jutsu.create',{"0":{json:null,meta:{values:["undefined"],v:1}}},wf);
 const up=(id,d,wf)=>{const ca=d.createdAt||now();return postRL('jutsu.update',{"0":{json:{id,data:Object.assign({},d,{id,createdAt:ca,updatedAt:now()})},meta:MT}},wf)};
@@ -702,10 +658,19 @@ const CAPA=(MANIFEST&&MANIFEST.capture&&MANIFEST.capture.after)||null;
 let capsAfter=[];const capSay=t=>{$s.textContent=t};
 if(CAPA&&CAPA.length){try{capsAfter=await runCapture(CAPA,'after',null,capSay)}catch(_e){}}
 const wantLive=!(MANIFEST&&MANIFEST.readBack===false);
+const pf={match:0,diff:0,unread:0,skipped:0};
 if(wantLive){for(let i=0;i<rows.length;i++){const r=rows[i];if(r.state!=='ok')continue;
  $s.textContent='reading back '+(i+1)+'/'+rows.length+': '+r.name;
- r.live=await readBack(r,null);await sleep(THR)}}
-try{const bundle={builder:'v4.23',at:now(),checks:BUILDER_CHECKS,cfg:CFG.state,entries:rows.map(r=>({name:r.name,srcId:r.key||null,entity:r.entity,slot:r.slot,state:r.state,detail:r.detail||'',id:r.outId||idmap[r.key]||r.targetId||null,pushed:r.pushed||null,live:r.live||null})),captures:(window.__tnrCapBefore||[]).concat(capsAfter),idmap};dl('tnr_results_'+Date.now()+'.json',JSON.stringify(bundle,null,1))}catch(_e){}
+ r.live=await readBack(r,null);
+ const v=vfy(r);r.verdict=v.verdict;r.diffs=v.diffs;
+ if(v.verdict==='match'){pf.match++;sr(r,r.state,(r.detail||'')+' · ✓live')}
+ else if(v.verdict==='unread'){pf.unread++;sr(r,r.state,(r.detail||'')+' · ∅no read')}
+ else if(v.verdict==='skipped'){pf.skipped++}
+ else{pf.diff++;sr(r,r.state,'⚠DIFF '+v.verdict.slice(5)+' '+v.diffs.slice(0,2).join('; ')+' · '+(r.detail||''))}
+ await sleep(THR)}
+ const e2=rows.filter(r=>r.state==='error').length;
+ if(rows.length)$s.textContent=(e2?('⚠ '+e2+' error(s), tap a red row or Retry failed'):('✅ all '+rows.length+' done'))+' · live '+pf.match+'✓ '+pf.diff+'⚠ '+(pf.unread+pf.skipped)+'∅'}
+try{const _bn='tnr_results_'+Date.now()+'.json';const bundle={builder:'v4.25',at:now(),checks:BUILDER_CHECKS,cfg:CFG.state,postflight:pf,entries:rows.map(r=>({name:r.name,srcId:r.key||null,entity:r.entity,slot:r.slot,state:r.state,detail:r.detail||'',verdict:r.verdict||null,diffs:r.diffs||[],id:r.outId||idmap[r.key]||r.targetId||null,pushed:r.pushed||null,live:r.live||null})),captures:(window.__tnrCapBefore||[]).concat(capsAfter),idmap};const _bj=JSON.stringify(bundle,null,1);dl(_bn,_bj);ghSync(_bn,_bj)}catch(_e){}
 $g.disabled=$r.disabled=0;ac()};
 const lt=()=>rows.map(r=>(r.state==='ok'?'ok  ':r.state==='error'?'ERR ':'-   ')+r.name+'  '+(r.detail||r.state)).join('\n')+'\n\nID MAP:\n'+JSON.stringify(idmap,null,1);
 const cp=()=>{const t=document.createElement('textarea');t.value=lt();t.style.cssText='position:fixed;left:-9999px';document.body.appendChild(t);t.focus();t.select();let o=0;try{o=document.execCommand('copy')}catch(e){}if(!o)try{navigator.clipboard&&navigator.clipboard.writeText(t.value)}catch(e){}t.remove()};
@@ -733,19 +698,27 @@ const doctor=async(say)=>{const out=[];
     if(!p)continue;const live=await sget(p,x.targetId,null);if(!live)gone++;await sleep(THR)}
    out.push('manifest targets: '+tg.length+' checked, '+gone+' no longer resolve')}}
  return out};
-const CSS='.k-fab{position:fixed;bottom:12px;left:12px;z-index:2147483000;background:#1f7c3b;color:#fff;border:0;border-radius:10px;padding:11px 16px;font:600 14px system-ui;box-shadow:0 4px 16px #0008}.k-pn{position:fixed;left:8px;right:8px;bottom:8px;z-index:2147483000;display:none;flex-direction:column;max-height:88vh;background:#16171b;color:#e8e8ea;border:1px solid #3a3b44;border-radius:14px;box-shadow:0 12px 44px #000a;font:13px system-ui;overflow:hidden}.k-hd{display:flex;align-items:center;gap:8px;padding:11px 12px;background:#202128;border-bottom:1px solid #34353d}.k-ti{flex:1;font-weight:700;font-size:15px}.k-ic{background:#34353d;color:#e8e8ea;border:0;border-radius:8px;padding:7px 12px;font-size:15px}.k-bw{height:4px;background:#2a2b32}.k-bar{height:100%;width:0;background:#2ec26a}.k-bd{padding:11px 12px;overflow:auto;overscroll-behavior:contain}.k-in{width:100%;box-sizing:border-box;height:13vh;min-height:64px;background:#0e0f12;color:#cde6ff;border:1px solid #34353d;border-radius:8px;padding:8px;font:12px monospace}.k-st2{margin:9px 2px;font-size:12px;min-height:16px}.k-ls{display:flex;flex-direction:column;gap:5px}.k-rw{display:flex;align-items:center;gap:8px;padding:9px 10px;background:#1b1c22;border:1px solid #2a2b33;border-radius:8px}.k-dt{width:9px;height:9px;border-radius:50%;background:#6b6c74;flex:none}.k-nm{flex:1;font:600 12px system-ui;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.k-bg{font-size:10px;padding:2px 8px;border-radius:999px;background:#33343d;flex:none;font-style:normal}.k-st{font-size:11px;opacity:.85;max-width:42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:none;text-decoration:none}.s-running .k-dt{background:#e6b800}.s-ok .k-dt{background:#2ec26a}.s-error .k-dt{background:#ec5b5b}.s-error{border-color:#5a2a2a}.k-ft{display:flex;gap:8px;padding:10px 12px;background:#1b1c22;border-top:1px solid #34353d;flex-wrap:wrap}.k-bt{flex:1;min-width:92px;border:0;border-radius:9px;padding:12px;font:600 13px system-ui;color:#fff}.k-go{background:#1f7c3b}.k-rt{background:#8a5a00;display:none}.k-cp{background:#2b4d70}.k-rs{background:#5a2a2a}.k-im{background:#5a3a7a}.k-dc{background:#2b6f6f}';
+const CSS='.k-fab{position:fixed;bottom:12px;left:12px;z-index:2147483000;background:#1f7c3b;color:#fff;border:0;border-radius:10px;padding:11px 16px;font:600 14px system-ui;box-shadow:0 4px 16px #0008}.k-pn{position:fixed;left:8px;right:8px;bottom:8px;z-index:2147483000;display:none;flex-direction:column;max-height:88vh;background:#16171b;color:#e8e8ea;border:1px solid #3a3b44;border-radius:14px;box-shadow:0 12px 44px #000a;font:13px system-ui;overflow:hidden}.k-hd{display:flex;align-items:center;gap:8px;padding:11px 12px;background:#202128;border-bottom:1px solid #34353d}.k-ti{flex:1;font-weight:700;font-size:15px}.k-ic{background:#34353d;color:#e8e8ea;border:0;border-radius:8px;padding:7px 12px;font-size:15px}.k-bw{height:4px;background:#2a2b32}.k-bar{height:100%;width:0;background:#2ec26a}.k-bd{padding:11px 12px;overflow:auto;overscroll-behavior:contain}.k-in{width:100%;box-sizing:border-box;height:13vh;min-height:64px;background:#0e0f12;color:#cde6ff;border:1px solid #34353d;border-radius:8px;padding:8px;font:12px monospace}.k-st2{margin:9px 2px;font-size:12px;min-height:16px}.k-ls{display:flex;flex-direction:column;gap:5px}.k-rw{display:flex;align-items:center;gap:8px;padding:9px 10px;background:#1b1c22;border:1px solid #2a2b33;border-radius:8px}.k-dt{width:9px;height:9px;border-radius:50%;background:#6b6c74;flex:none}.k-nm{flex:1;font:600 12px system-ui;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.k-bg{font-size:10px;padding:2px 8px;border-radius:999px;background:#33343d;flex:none;font-style:normal}.k-st{font-size:11px;opacity:.85;max-width:42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:none;text-decoration:none}.s-running .k-dt{background:#e6b800}.s-ok .k-dt{background:#2ec26a}.s-error .k-dt{background:#ec5b5b}.s-error{border-color:#5a2a2a}.k-ft{display:flex;gap:8px;padding:10px 12px;background:#1b1c22;border-top:1px solid #34353d;flex-wrap:wrap}.k-bt{flex:1;min-width:92px;border:0;border-radius:9px;padding:12px;font:600 13px system-ui;color:#fff}.k-go{background:#1f7c3b}.k-rt{background:#8a5a00;display:none}.k-cp{background:#2b4d70}.k-rs{background:#5a2a2a}.k-im{background:#5a3a7a}.k-dc{background:#2b6f6f}.k-sy{background:#3b6a2a}';
 const H=document.createElement('div');H.id='tnr-bk-host';const R=H.attachShadow({mode:'open'});
-R.innerHTML='<style>'+CSS+'</style><button class="k-fab">▶ Build</button><div class="k-pn"><div class="k-hd"><span class="k-ti">Content builder v4.22</span><button class="k-ic k-min">▾</button></div><div class="k-bw"><div class="k-bar"></div></div><div class="k-bd"><textarea class="k-in" placeholder="paste a manifest or 📄 Load a JSON file"></textarea><div class="k-st2">paste a manifest to preview</div><div class="k-ls"></div></div><div class="k-ft"><button class="k-bt k-go">▶ Build</button><button class="k-bt k-lm">📄 Load</button><button class="k-bt k-im">🖼 Imgs</button><button class="k-bt k-rt">↻ Retry failed</button><button class="k-bt k-dc">🩺 Doctor</button><button class="k-bt k-cp">⧉ Copy</button><button class="k-bt k-me">🗺 Map</button><button class="k-bt k-mi">⤒ Map</button><button class="k-bt k-rs">⌫ Reset</button><input class="k-fi" type="file" multiple hidden><input class="k-mf" type="file" accept=".json,application/json" hidden><input class="k-mi2" type="file" accept=".json,application/json" hidden></div></div>';
+R.innerHTML='<style>'+CSS+'</style><button class="k-fab">▶ Build</button><div class="k-pn"><div class="k-hd"><span class="k-ti">Content builder v4.25</span><button class="k-ic k-min">▾</button></div><div class="k-bw"><div class="k-bar"></div></div><div class="k-bd"><textarea class="k-in" placeholder="paste a manifest or 📄 Load a JSON file"></textarea><div class="k-st2">paste a manifest to preview</div><div class="k-ls"></div></div><div class="k-ft"><button class="k-bt k-go">▶ Build</button><button class="k-bt k-lm">📄 Load</button><button class="k-bt k-im">🖼 Imgs</button><button class="k-bt k-rt">↻ Retry failed</button><button class="k-bt k-dc">🩺 Doctor</button><button class="k-bt k-cp">⧉ Copy</button><button class="k-bt k-sy">⇪ Sync</button><button class="k-bt k-me">🗺 Map</button><button class="k-bt k-mi">⤒ Map</button><button class="k-bt k-rs">⌫ Reset</button><input class="k-fi" type="file" multiple hidden><input class="k-mf" type="file" accept=".json,.zip,application/json,application/zip" hidden><input class="k-mi2" type="file" accept=".json,application/json" hidden></div></div>';
 document.body.appendChild(H);const q=s=>R.querySelector(s),pn=q('.k-pn'),fb=q('.k-fab');
-loadCfg().then(()=>{try{q('.k-ti').textContent='Content builder v4.22 · cfg '+CFG.state}catch(e){}});
+loadCfg().then(()=>{try{q('.k-ti').textContent='Content builder v4.25 · cfg '+CFG.state}catch(e){}});
 $i=q('.k-in');$l=q('.k-ls');$b=q('.k-bar');$s=q('.k-st2');$g=q('.k-go');$r=q('.k-rt');
 const sh=v=>{pn.style.display=v?'flex':'none';fb.style.display=v?'none':'block'};
 fb.onclick=()=>sh(1);q('.k-min').onclick=()=>sh(0);$i.addEventListener('input',parse);
 $g.onclick=()=>{if(parse())build()};$r.onclick=()=>build(rows.filter(r=>r.state==='error'));
 q('.k-dc').onclick=async()=>{const b=q('.k-dc');b.disabled=1;try{const lines=await doctor(t=>{$s.textContent=t});$s.textContent='🩺 doctor done';alert('DOCTOR\n\n'+lines.join('\n\n'))}catch(e){$s.textContent='doctor: '+((e&&e.message)||e)}b.disabled=0};
 q('.k-cp').onclick=()=>{cp();$s.textContent='📋 copied'};
+const syLbl=()=>{try{const g=ghGet();q('.k-sy').textContent='⇪ Sync·'+((g.on&&g.pat)?'on':'off')}catch(e){}};syLbl();
+q('.k-sy').onclick=()=>{const g=ghGet();
+ if(!g.pat){const p=prompt('GitHub fine-grained PAT with contents read/write on '+GH.owner+'/'+GH.repo+' ONLY. Stored in this browser\'s localStorage, sent only to api.github.com. Blank = cancel.');
+  if(p&&p.trim()){ghSet({pat:p.trim(),on:1});$s.textContent='⇪ auto-commit ON → '+GH.dir+'/'}else{$s.textContent='⇪ unchanged'}}
+ else if(g.on){g.on=0;ghSet(g);$s.textContent='⇪ auto-commit OFF (token kept)'}
+ else{if(confirm('Turn auto-commit ON? Cancel to be asked about forgetting the token.')){g.on=1;ghSet(g);$s.textContent='⇪ auto-commit ON → '+GH.dir+'/'}
+  else if(confirm('Forget the stored token?')){ghSet({});$s.textContent='⇪ token forgotten'}}
+ syLbl()};
 q('.k-rs').onclick=()=>{if(confirm('Clear remembered ids? Next build creates fresh records.')){idmap={};sm(idmap);jcat=null;draw();$s.textContent='memory cleared'}};
-$mf=q('.k-mf');q('.k-lm').onclick=()=>$mf.click();$mf.addEventListener('change',()=>{const f=$mf.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{$i.value=String(rd.result||'');parse();$s.textContent=(($s.textContent||'')+' · loaded '+f.name).slice(0,120)};rd.readAsText(f)});
+$mf=q('.k-mf');q('.k-lm').onclick=()=>$mf.click();$mf.addEventListener('change',async()=>{const f=$mf.files[0];if(!f)return;const head=new Uint8Array(await f.slice(0,4).arrayBuffer());if(head[0]===0x50&&head[1]===0x4b&&head[2]===3&&head[3]===4){await loadPack(f);return}const rd=new FileReader();rd.onload=()=>{$i.value=String(rd.result||'');parse();$s.textContent=(($s.textContent||'')+' · loaded '+f.name).slice(0,120)};rd.readAsText(f)});
 q('.k-me').onclick=()=>{dl('tnr_idmap_'+Date.now()+'.json',JSON.stringify(idmap,null,1));$s.textContent='🗺 idmap exported ('+Object.keys(idmap).length+' keys)'};
 $mi=q('.k-mi2');q('.k-mi').onclick=()=>$mi.click();$mi.addEventListener('change',()=>{const f=$mi.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const m=JSON.parse(String(rd.result||'{}'));const n=Object.keys(m).length;if(confirm('Merge '+n+' idmap key(s) into memory?')){Object.assign(idmap,m);sm(idmap);$s.textContent='⤒ merged '+n+' key(s), idmap now '+Object.keys(idmap).length}}catch(e){$s.textContent='❌ idmap import: '+e.message}};rd.readAsText(f)});
 $fi=q('.k-fi');q('.k-im').onclick=()=>$fi.click();$fi.addEventListener('change',()=>{for(const f of $fi.files)filemap[f.name]=f;$s.textContent=Object.keys(filemap).length+' image(s) loaded: '+Object.keys(filemap).join(', ').slice(0,70)});
