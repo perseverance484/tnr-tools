@@ -1,29 +1,42 @@
-# Active context - post-acceptance (2026-08-30)
+# active-context.md - read this first, then the board
 
-Git-native, round trip proven. Open with: dauntless pastes the tnr-container PAT,
-clone, read state/, work the board.
+**State in one line:** migration ACCEPTED (zero-touch loop proven); law session landed
+(lawmap.py, validators law-annotated, Phase 3 plan in 12b); source audit @bdec2883 landed
+(extractor upgraded, 45c/45e/45f regenerated, SECTOR_TYPES corruption caught pre-adoption);
+law 40 source-verified. ZERO game pushes these sessions. Closed 2026-08-30.
 
-Acceptance PASSED 2026-08-30: ⇩ Repo -> push/smoketest_pack.zip -> Build on v4.27
-(bundle stamped builder v4.27, cfg generated, 0 mutations), results committed to
-harvests/inbox/ by the panel sync token, answers pipeline auto-regenerated behind it,
-container pulled and read the bundle by script (harvest.py index: quests.getAllNames,
-388 rows, 200, unfiltered). Law 29 transcription carve-out: CLOSED. harvest.py patched
-in-repo to read v4.26+ results bundles natively (captures[] normalise like monitor
-calls; index/get/names/assets all work on pulled inbox bundles).
+**Verified at close (exact runs, from data/):** validate.py on push/6_verify_and_fix.json ->
+0 errors, 0 warnings; --parity vs harvests/inbox/tnr_results_1788053115846.json -> 16/16;
+factory.py --selftest -> 20/20; lawmap.py -> 93 laws, 0 errors, 5 known warnings (the open
+reclasses: 16d/37/69 unlocated, 18/61 coded-beyond-matrix).
 
-Board:
-- Source audit 2026-08-30 landed (docs/SOURCE_AUDIT_2026-08-30.md): 45x regenerated
-  @bdec2883, extractor upgraded, guards green. Weekly regen workflow is the keep-fresh
-  mechanism - the PAT Workflows fix just got more valuable.
-- Law session 2026-08-30: lawmap.py landed, validators annotated, Phase 3 plan in
-  12b_LAWS_coverage.md - rulings_open in status.json awaits dauntless.
-- regen_schemas.yml still blocked: add Workflows RW to the tnr-container PAT (or add
-  via web UI), then land + first-run via workflow_dispatch and read the log (extract
-  CLI may need a flag).
-- 6_verify_and_fix.json sits in push/ - HOLD until Terr clears, then ⇩ Repo it.
-- Art next: warehouse clerk portrait (state/prompt_report_clerk.txt); then survivor,
-  principal, deputy. Open rulings: pipelining depth 2, reference-after-1-failure,
-  pin batch exception.
-- Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu).
+**Start ritual next session:** git pull --rebase. Read state/status.json (board), then
+docs/SOURCE_AUDIT_2026-08-30.md, then the Phase 3 + Source-audit sections at the tail of
+skills/building-tnr-content/12b_LAWS_coverage.md. Re-run lawmap.py and the validate --parity
+line above before trusting anything.
 
-Unchanged: real-name ban, hidden-first shipping, dauntless-only game pushes.
+**What exists:** builder v4.27 live (root bundle; ⇩ Repo lists push/). scripts/lawmap.py
+(law audit). schema_extract.py upgraded (derived cross-module refs incl. chained/.refine
+-> min_items, file-local enums @file-qualified, POST_DOCS). 45c/45e/45f stamped
+git:studie-tech/TheNinjaRPG@bdec2883; 45d/45g zero drift. push/6_verify_and_fix.json staged,
+ON HOLD until Terr clears the editor crash.
+
+**Open items, by owner:**
+- dauntless: PAT Workflows RW (lands .github/workflows/regen_schemas.yml - copy in
+  /mnt/user-data/outputs went stale with the container; re-emit from the migration bundle or
+  ask for a rewrite, it is 20 lines). Phase 3 rulings in status.json rulings_open. ⇪ File
+  10_LAWS_core.md to docs/ from a project session. Relay the wedge source note (SOURCE_AUDIT
+  wedge section) to Terr. Art queue: clerk portrait prompt at state/prompt_report_clerk.txt.
+  Borrowed Awakening W4 closes ~Sep 5: hide the 5 cosmic jutsu.
+- Terr: quest-edit crash fix; file 6 stays held until then.
+
+**Laws that bite immediately:** validate.py and factory.py want cwd=data/ (they read 45c/45d/
+45g from the working directory). Extraction owns CONTRACTS; capture-first owns LIVE STATE
+(law 83). A push echo is not a read-back. Everything ships hidden:true. Always
+git pull --rebase before push - the answers/skillpack workflows commit back.
+
+**Failure modes to watch in yourself:** do not adopt a regenerated file without a structural
+diff against the stamped one - the SECTOR_TYPES global/local collision would have shipped
+silent corruption. Patch by exact-match with count==1 asserts, always. Userscript patches
+need \U0001F4C4-style emoji escapes, not surrogate pairs. Test the RIGHT union member before
+declaring a fix failed (SimpleObjective never had sectorType).
