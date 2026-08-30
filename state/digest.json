@@ -1,20 +1,22 @@
 {
   "generated": "2026-08-30",
-  "session": "mounted-3 (Wave 2 executed)",
-  "state_line": "Wave 2 COMPLETE and pushed: WO-04 doctrine single-sourcing (docs/DOCTRINE.md 20 assertions -> mounted paste + SKILL blocks + pipeline version line, --check fail-closed, doctrinemap 0e) @19565a0; WO-05 session pair (digest.json single source, session_close byte-asserted projections, session_open one-command ritual + guard trio + token ledger). state/mounted_instructions.txt is the new paste (PAT slot, @sha7 stamp) - re-paste at leisure.",
+  "session": "mounted-3 (Wave 3 executed)",
+  "state_line": "Wave 3 COMPLETE and pushed: WO-07 validate --laws (laws 9-12 executable specs, 4 green + 4 falsified-variant reds; 12b rows reclassed; lawmap --strict-provenance flips exactly 16d/37/69, default OFF) @ container half; builder v4.29 @2bfd995 (batch Build multi-select one-confirm per-file-isolated, 👁 Reads hard-gated free reads, pfEq ''<->null, numeric picker order). Awaiting live acceptance: VM refresh + batch '7,8' + Reads-refusal red test.",
   "verified_at_close": [
-    "lawmap -> 93 laws, 93 matrix rows, 70 citations across 36 files; 0 errors, 5 warnings",
-    "validate push/7_readback_smoke.json -> 0 errors, 0 warnings",
+    "lawmap -> 93 laws, 93 matrix rows, 74 citations across 36 files; 0 errors, 5 warnings",
+    "validate push/8_reads_names.json -> 0 errors, 0 warnings",
     "parity tnr_results_1788061342415.json -> 0 errors, 0 warnings"
   ],
   "in_progress": {
-    "wave": "Wave 2 closed; Wave 3 next (WO-06 batch Build + free reads, WO-07 --laws + 45g shards, one v4.29 release)",
-    "file": "push/7_readback_smoke.json"
+    "wave": "Wave 3 built; live acceptance pending, then Wave 4 (WO-08 shards, WO-09 packs, WO-11 rawqc, WO-10b relay + jsDelivr pin staged for the second web-UI batch)",
+    "file": "push/8_reads_names.json"
   },
   "decisions": [
     "dauntless approved ALL 5 plan rulings (1-5)"
   ],
   "deployed": [
+    "v4.29 batch+reads+pfEq @2bfd995",
+    "validate --laws + lawmap strict-provenance + 12b 9-12 reclass",
     "WO-01 fallout fix: builder L-lint (v4.15 session-law layer) ported 1:1 into validate.py (L01-L18 blockers+warns; L05 skipped, already enforced); push/7 cooldown 0->3; red fixture lint_l16_red.json frozen from the blocked payload. Proof: port flags exactly L16 on the pre-fix file (panel-identical wording), push/6 regression 0/0, push/7 0/0, parity 16/16, factory 20/20",
     "WO-01 @0e62821: builder v4.28 (asserted-fields verdict avfy, read-back retry, !!UNVERIFIED for live=NONE, HEAD self-check fail-open) + harvest.py verify (exit 1 on FAIL/UNVERIFIED) + fixtures red/green + push/7_readback_smoke.json (factory-built, validate 0/0)",
     "WO-03 @46f72a2: schema_diff.py fail-closed adoption gate (member sets BY VALUE) + invariants I1-I3; SECTOR_TYPES-class fixture exit 1, additive exit 0; live 45c self-diff 0, invariants 0e/128 variants; 00_INDEX regen row mandates the gate",
@@ -26,12 +28,11 @@
     "pushpack.py -> skills/building-tnr-content/scripts/ [mounted:c]",
     "push/: smoketest_pack.zip + 6_verify_and_fix.json (HOLD: wedge probe runs only when Terr clears)",
     "state/: prompt_report_clerk.txt + discord_terr_editor_crash.md relocated from bundle deliverables",
-    "harvest.py: reads v4.26+ results bundles natively (captures[] -> normalised entries) - patched post-acceptance",
-    "lawmap.py: mechanical law audit (ENGINE_LAWS <-> 12b matrix <-> code citations); baseline 93 laws, 0 errors; --parity now runs against inbox bundles (16/16 vs acceptance bundle)",
-    "validate.py + artpreflight.py law-annotated at enforcing sites; distance-gate miscite 39->40 fixed; ENGINE_LAWS quest-flow section renumbered 12->17 and re-seated (heading only)"
+    "harvest.py: reads v4.26+ results bundles natively (captures[] -> normalised entries) - patched post-acceptance"
   ],
   "open_by_owner": {
     "dauntless": [
+      "v4.29 acceptance: refresh, batch '7,8', Reads-refusal red test on 7",
       "re-paste mounted instructions from state/mounted_instructions.txt (insert PAT at the slot) whenever convenient - old paste keeps working, stamp detects staleness",
       "Wave 4 web-UI batch later: skillpack.yml v2 + relay.yml + release-pin (staged as authored)",
       "carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable"
@@ -48,7 +49,7 @@
     "Paste mounted project instructions (delivered 2026-08-30), then DELETE 00_INDEX.md + 10_LAWS_core.md from project knowledge - repo docs/ copies are now canon",
     "lint table now lives in TWO places (builder JS + validate.py port, drift hazard): single-source as shared data both read - fold into WO-04 doctrine work or a builder release?"
   ],
-  "next": "Wave 3 on go: WO-06 batch Build + free-read button (approved), WO-07 validate --laws + 45g shards; single v4.29 release carries the panel halves + pfEq ''<->null equivalence.",
+  "next": "dauntless: VM refresh -> title 'v4.29 · cfg generated'; ⇩ Repo -> select '7,8' -> ONE confirm (7 resumes idempotent, 8 is reads); red test: 👁 Reads -> pick 7 -> must show REFUSED. Then Wave 4 on go.",
   "token_ledger": [
     {
       "path": "state/digest.json",
