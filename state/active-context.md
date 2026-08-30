@@ -5,6 +5,8 @@
 
 **Verified at close (exact runs):**
 - lawmap -> 93 laws, 93 matrix rows, 74 citations across 38 files; 0 errors, 5 warnings
+- doctrine projections -> all projections current (exit 0)
+- packs/TOCs -> all packs and TOCs current (exit 0)
 - parity tnr_results_1788065642059.json -> 0 errors, 0 warnings
 
 **Start ritual next session:** git pull --rebase; set repo-local git identity

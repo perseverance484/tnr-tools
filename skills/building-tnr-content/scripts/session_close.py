@@ -99,6 +99,10 @@ def run_guards(root, d):
         return p.returncode, tail
     rc, t = sh(["python3", os.path.join(HERE, "lawmap.py"), root], root)
     res.append(("lawmap", rc, t))
+    rc, t = sh(["python3", os.path.join(HERE, "render_doctrine.py"), "--check"], root)
+    res.append(("doctrine projections", rc, t))
+    rc, t = sh(["python3", os.path.join(HERE, "build_packs.py"), "--check"], root)
+    res.append(("packs/TOCs", rc, t))
     f = (d.get("in_progress") or {}).get("file")
     if f and os.path.exists(os.path.join(root, f)):
         rc, t = sh(["python3", os.path.join(HERE, "validate.py"),

@@ -4,6 +4,8 @@
   "state_line": "Wave 4 COMPLETE, all four waves of PLAN_2026-08-30 executed: WO-08 hot shard @55d1533 (seed-lag gap CLOSED - SMOKE + 22 delta rows visible in answers, regen idempotent), WO-11 rawqc @d5e8b8d (4/4 synthesized selftest, ledger + escalation-candidate stats), WO-09 packs @fb36aa2 (jutsu-build exemplar 15.6K vs ~68K, --check fail-closed, TOCs for 5 refs), WO-10b @6f764a3 (relay + release-pin staged, rewrite dry-run proven). No live acceptance needed this wave - all container/CI-side; the second web-UI batch (skillpack v2, relay, release_pin) installs at leisure.",
   "verified_at_close": [
     "lawmap -> 93 laws, 93 matrix rows, 74 citations across 38 files; 0 errors, 5 warnings",
+    "doctrine projections -> all projections current (exit 0)",
+    "packs/TOCs -> all packs and TOCs current (exit 0)",
     "parity tnr_results_1788065642059.json -> 0 errors, 0 warnings"
   ],
   "in_progress": {
