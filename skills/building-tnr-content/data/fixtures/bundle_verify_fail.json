@@ -1,0 +1,86 @@
+{
+ "builder": "v4.28",
+ "postflight": {
+  "match": 1,
+  "diff": 1,
+  "unverified": 1,
+  "skipped": 0,
+  "afail": 1
+ },
+ "entries": [
+  {
+   "name": "Clean Row",
+   "srcId": null,
+   "entity": "jutsu",
+   "slot": "create",
+   "state": "ok",
+   "detail": "\u2192 x1",
+   "verdict": "match",
+   "diffs": [],
+   "asserted": {
+    "ok": 4,
+    "fail": []
+   },
+   "id": "x1",
+   "pushed": {
+    "name": "X"
+   },
+   "live": {
+    "id": "x1",
+    "name": "X"
+   }
+  },
+  {
+   "name": "Blanked Row",
+   "srcId": null,
+   "entity": "jutsu",
+   "slot": "create",
+   "state": "ok",
+   "detail": "\u2192 x1",
+   "verdict": "diff:2",
+   "diffs": [],
+   "asserted": {
+    "ok": 2,
+    "fail": [
+     {
+      "k": "battleDescription",
+      "c": "blanked"
+     },
+     {
+      "k": "effects",
+      "c": "mismatch",
+      "d": [
+       "effects[0].power 20\u21920"
+      ]
+     }
+    ]
+   },
+   "id": "x1",
+   "pushed": {
+    "name": "X"
+   },
+   "live": {
+    "id": "x1",
+    "name": "X"
+   }
+  },
+  {
+   "name": "Ghost Row",
+   "srcId": null,
+   "entity": "jutsu",
+   "slot": "create",
+   "state": "ok",
+   "detail": "\u2192 x1",
+   "verdict": "unread",
+   "diffs": [],
+   "asserted": null,
+   "id": "x1",
+   "pushed": {
+    "name": "X"
+   },
+   "live": null
+  }
+ ],
+ "captures": [],
+ "idmap": {}
+}

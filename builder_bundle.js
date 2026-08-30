@@ -1,4 +1,13 @@
-// TNR content builder bundle v4.27 - loaded via @require by the tiny VM loader.
+// TNR content builder bundle v4.28 - loaded via @require by the tiny VM loader.
+// v4.28: READ-BACK HARDENING (plan WO-01). (1) Asserted-fields verdict: every write row is
+// re-checked against ONLY the keys the manifest asserted (r.data), classed missing /
+// blanked / unref (idmap key never resolved) / mismatch; lands as entries[].asserted and
+// as A:n✓ / ‼A:n on the row. Full-record postflight diff (v4.24) stays as the secondary
+// signal. (2) live=NONE is now loud: one automatic read-back retry, then the row says
+// ‼UNVERIFIED and the tail line counts it separately (‼) - "ok with live NONE" can no
+// longer read as success. (3) HEAD self-check: panel fetches builder_bundle.js from the
+// contents API on load and appends ⚠HEAD vX.YY to the title when the running version is
+// not what the repo serves (fail-open: fetch errors stay silent, never block the panel).
 // v4.27: ⇩ REPO LOADER. New ⇩ Repo button lists .json/.zip in a repo directory (default
 // push/) via the GitHub contents API and loads the pick through the EXACT same paths as
 // 📄 Load: .json fills the textarea + parse(), .zip goes through loadPack with its full
@@ -381,6 +390,25 @@ const vfy=r=>{if(r.entity==='aiProfile'||!r.pushed)return{verdict:'skipped',diff
  if(r.entity==='ai')l=pfAINorm(l);
  const out={n:0,d:[]};pfWalk(p,l,r.entity,'',out);
  return out.n?{verdict:'diff:'+out.n,diffs:out.d}:{verdict:'match',diffs:[]}};
+// --- v4.28 asserted-fields verdict: only the keys the manifest sent -------
+const avEmpty=v=>v==null||v===''||(Array.isArray(v)&&!v.length);
+const avfy=(r,idmap)=>{try{
+ if(r.entity==='aiProfile'||!r.live||!r.data)return null;
+ let d=r.data,l=r.live;
+ if(r.entity==='quest'){d=pfQNorm(d);l=pfQNorm(l)}
+ if(r.entity==='ai')l=pfAINorm(l);
+ const out={ok:0,fail:[]};
+ for(const k in d){
+  if(PFEX[k])continue;
+  if(r.entity==='ai'&&(PFAI[k]||/At$/.test(k)))continue;
+  const sv=d[k],lv=l[k];
+  if(sv===undefined||sv===null){continue}
+  if(lv===undefined){out.fail.push({k:k,c:'missing'});continue}
+  if(!avEmpty(sv)&&avEmpty(lv)){out.fail.push({k:k,c:'blanked'});continue}
+  if(typeof sv==='string'&&idmap&&idmap[sv]&&lv===sv){out.fail.push({k:k,c:'unref'});continue}
+  const o2={n:0,d:[]};pfWalk(sv,lv,r.entity,k,o2);
+  if(o2.n)out.fail.push({k:k,c:'mismatch',d:o2.d.slice(0,3)});else out.ok++}
+ return out}catch(e){return null}};
 // --- v4.24 gh sync: auto-commit results bundles to the repo ---------------
 const GH={owner:'perseverance484',repo:'tnr-tools',branch:'main',dir:'harvests/inbox'};
 const GK='tnr_bk_gh_v1';
@@ -397,6 +425,13 @@ const ghPut=async(path,b64,msg)=>{const g=ghGet();if(!g.on||!g.pat)return null;
  if(res.status===201||res.status===200){const m=t.match(/"sha":"([0-9a-f]{7})/);return{ok:1,sha:m?m[1]:''}}
  return{ok:0,msg:'HTTP '+res.status+' '+t.slice(0,140)}};
 const ghCommit=(name,body)=>ghPut(GH.dir+'/'+name,b64u(body),'results: '+name);
+// --- v4.28 HEAD self-check: does the repo serve the version we are running? ----
+const BVER='v4.28';
+const headCheck=async()=>{try{const g=ghGet();const h={'accept':'application/vnd.github+json'};if(g&&g.pat)h.authorization='Bearer '+g.pat;
+ const r=await fetch('https://api.github.com/repos/'+GH.owner+'/'+GH.repo+'/contents/builder_bundle.js?ref='+GH.branch,{headers:h});
+ if(!r.ok)return;const j=await r.json();if(!j||!j.content)return;
+ const head=atob(String(j.content).replace(/\s/g,'').slice(0,400));const m=head.match(/v4\.\d+/);
+ if(m&&m[0]!==BVER){const t=q('.k-ti');if(t)t.textContent+=' ⚠HEAD '+m[0]}}catch(e){}};
 const ghSync=(name,body)=>{const g=ghGet();if(!g.on||!g.pat)return;
  $s.textContent=($s.textContent+' · ⇪ committing…').slice(0,220);
  ghCommit(name,body).then(x=>{if(!x){dl(name,body);return}if(!x.ok)dl(name,body);$s.textContent=($s.textContent.replace(' · ⇪ committing…','')+' · '+(x.ok?('⇪ '+GH.dir+'/'+name+(x.sha?' @'+x.sha:'')):('⇪ FAILED '+x.msg+' · 💾 saved locally'))).slice(0,260)}).catch(e=>{try{dl(name,body);$s.textContent=($s.textContent.replace(' · ⇪ committing…','')+' · ⇪ FAILED '+((e&&e.message)||e)+' · 💾 saved locally').slice(0,260)}catch(_e){}})};
@@ -682,19 +717,23 @@ const CAPA=(MANIFEST&&MANIFEST.capture&&MANIFEST.capture.after)||null;
 let capsAfter=[];const capSay=t=>{$s.textContent=t};
 if(CAPA&&CAPA.length){try{capsAfter=await runCapture(CAPA,'after',null,capSay)}catch(_e){}}
 const wantLive=!(MANIFEST&&MANIFEST.readBack===false);
-const pf={match:0,diff:0,unread:0,skipped:0};
+const pf={match:0,diff:0,unverified:0,skipped:0,afail:0};
 if(wantLive){for(let i=0;i<rows.length;i++){const r=rows[i];if(r.state!=='ok')continue;
  $s.textContent='reading back '+(i+1)+'/'+rows.length+': '+r.name;
  r.live=await readBack(r,null);
+ if(!r.live&&r.entity!=='aiProfile'){await sleep(THR);r.live=await readBack(r,null)}
  const v=vfy(r);r.verdict=v.verdict;r.diffs=v.diffs;
- if(v.verdict==='match'){pf.match++;sr(r,r.state,(r.detail||'')+' · ✓live')}
- else if(v.verdict==='unread'){pf.unread++;sr(r,r.state,(r.detail||'')+' · ∅no read')}
+ const a=avfy(r,idmap);r.asserted=a;
+ const atxt=a?(a.fail.length?(' ‼A:'+a.fail.length+' '+a.fail.slice(0,2).map(f=>f.c+':'+f.k).join(' ')):(' A:'+a.ok+'✓')):'';
+ if(a&&a.fail.length)pf.afail++;
+ if(v.verdict==='match'){pf.match++;sr(r,r.state,(r.detail||'')+' · ✓live'+atxt)}
+ else if(v.verdict==='unread'){pf.unverified++;sr(r,r.state,'‼UNVERIFIED live=NONE · '+(r.detail||''))}
  else if(v.verdict==='skipped'){pf.skipped++}
- else{pf.diff++;sr(r,r.state,'⚠DIFF '+v.verdict.slice(5)+' '+v.diffs.slice(0,2).join('; ')+' · '+(r.detail||''))}
+ else{pf.diff++;sr(r,r.state,'⚠DIFF '+v.verdict.slice(5)+atxt+' '+v.diffs.slice(0,2).join('; ')+' · '+(r.detail||''))}
  await sleep(THR)}
  const e2=rows.filter(r=>r.state==='error').length;
- if(rows.length)$s.textContent=(e2?('⚠ '+e2+' error(s), tap a red row or Retry failed'):('✅ all '+rows.length+' done'))+' · live '+pf.match+'✓ '+pf.diff+'⚠ '+(pf.unread+pf.skipped)+'∅'}
-try{const _bn='tnr_results_'+Date.now()+'.json';const bundle={builder:'v4.27',at:now(),checks:BUILDER_CHECKS,cfg:CFG.state,postflight:pf,entries:rows.map(r=>({name:r.name,srcId:r.key||null,entity:r.entity,slot:r.slot,state:r.state,detail:r.detail||'',verdict:r.verdict||null,diffs:r.diffs||[],id:r.outId||idmap[r.key]||r.targetId||null,pushed:r.pushed||null,live:r.live||null})),captures:(window.__tnrCapBefore||[]).concat(capsAfter),idmap};const _bj=JSON.stringify(bundle,null,1);window.__tnrLastBundle={name:_bn,body:_bj};const _g=ghGet();if(_g.on&&_g.pat){ghSync(_bn,_bj)}else{dl(_bn,_bj)}}catch(_e){}
+ if(rows.length)$s.textContent=(e2?('⚠ '+e2+' error(s), tap a red row or Retry failed'):('✅ all '+rows.length+' done'))+' · live '+pf.match+'✓ '+pf.diff+'⚠ '+pf.afail+'‼A '+pf.unverified+'‼ '+pf.skipped+'∅'}
+try{const _bn='tnr_results_'+Date.now()+'.json';const bundle={builder:'v4.28',at:now(),checks:BUILDER_CHECKS,cfg:CFG.state,postflight:pf,entries:rows.map(r=>({name:r.name,srcId:r.key||null,entity:r.entity,slot:r.slot,state:r.state,detail:r.detail||'',verdict:r.verdict||null,diffs:r.diffs||[],asserted:r.asserted||null,id:r.outId||idmap[r.key]||r.targetId||null,pushed:r.pushed||null,live:r.live||null})),captures:(window.__tnrCapBefore||[]).concat(capsAfter),idmap};const _bj=JSON.stringify(bundle,null,1);window.__tnrLastBundle={name:_bn,body:_bj};const _g=ghGet();if(_g.on&&_g.pat){ghSync(_bn,_bj)}else{dl(_bn,_bj)}}catch(_e){}
 $g.disabled=$r.disabled=0;ac()};
 const lt=()=>rows.map(r=>(r.state==='ok'?'ok  ':r.state==='error'?'ERR ':'-   ')+r.name+'  '+(r.detail||r.state)).join('\n')+'\n\nID MAP:\n'+JSON.stringify(idmap,null,1);
 const cp=()=>{const t=document.createElement('textarea');t.value=lt();t.style.cssText='position:fixed;left:-9999px';document.body.appendChild(t);t.focus();t.select();let o=0;try{o=document.execCommand('copy')}catch(e){}if(!o)try{navigator.clipboard&&navigator.clipboard.writeText(t.value)}catch(e){}t.remove()};
@@ -724,9 +763,9 @@ const doctor=async(say)=>{const out=[];
  return out};
 const CSS='.k-fab{position:fixed;bottom:12px;left:12px;z-index:2147483000;background:#1f7c3b;color:#fff;border:0;border-radius:10px;padding:11px 16px;font:600 14px system-ui;box-shadow:0 4px 16px #0008}.k-pn{position:fixed;left:8px;right:8px;bottom:8px;z-index:2147483000;display:none;flex-direction:column;max-height:88vh;background:#16171b;color:#e8e8ea;border:1px solid #3a3b44;border-radius:14px;box-shadow:0 12px 44px #000a;font:13px system-ui;overflow:hidden}.k-hd{display:flex;align-items:center;gap:8px;padding:11px 12px;background:#202128;border-bottom:1px solid #34353d}.k-ti{flex:1;font-weight:700;font-size:15px}.k-ic{background:#34353d;color:#e8e8ea;border:0;border-radius:8px;padding:7px 12px;font-size:15px}.k-bw{height:4px;background:#2a2b32}.k-bar{height:100%;width:0;background:#2ec26a}.k-bd{padding:11px 12px;overflow:auto;overscroll-behavior:contain}.k-in{width:100%;box-sizing:border-box;height:13vh;min-height:64px;background:#0e0f12;color:#cde6ff;border:1px solid #34353d;border-radius:8px;padding:8px;font:12px monospace}.k-st2{margin:9px 2px;font-size:12px;min-height:16px}.k-ls{display:flex;flex-direction:column;gap:5px}.k-rw{display:flex;align-items:center;gap:8px;padding:9px 10px;background:#1b1c22;border:1px solid #2a2b33;border-radius:8px}.k-dt{width:9px;height:9px;border-radius:50%;background:#6b6c74;flex:none}.k-nm{flex:1;font:600 12px system-ui;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.k-bg{font-size:10px;padding:2px 8px;border-radius:999px;background:#33343d;flex:none;font-style:normal}.k-st{font-size:11px;opacity:.85;max-width:42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:none;text-decoration:none}.s-running .k-dt{background:#e6b800}.s-ok .k-dt{background:#2ec26a}.s-error .k-dt{background:#ec5b5b}.s-error{border-color:#5a2a2a}.k-ft{display:flex;gap:8px;padding:10px 12px;background:#1b1c22;border-top:1px solid #34353d;flex-wrap:wrap}.k-bt{flex:1;min-width:92px;border:0;border-radius:9px;padding:12px;font:600 13px system-ui;color:#fff}.k-go{background:#1f7c3b}.k-rt{background:#8a5a00;display:none}.k-cp{background:#2b4d70}.k-rs{background:#5a2a2a}.k-im{background:#5a3a7a}.k-dc{background:#2b6f6f}.k-sy{background:#3b6a2a}.k-dl2{background:#4a4a58}.k-uf{background:#2a5a5a}.k-rl{background:#2a4d7a}';
 const H=document.createElement('div');H.id='tnr-bk-host';const R=H.attachShadow({mode:'open'});
-R.innerHTML='<style>'+CSS+'</style><button class="k-fab">▶ Build</button><div class="k-pn"><div class="k-hd"><span class="k-ti">Content builder v4.27</span><button class="k-ic k-min">▾</button></div><div class="k-bw"><div class="k-bar"></div></div><div class="k-bd"><textarea class="k-in" placeholder="paste a manifest, 📄 Load a file, or ⇩ Repo"></textarea><div class="k-st2">paste a manifest to preview</div><div class="k-ls"></div></div><div class="k-ft"><button class="k-bt k-go">▶ Build</button><button class="k-bt k-lm">📄 Load</button><button class="k-bt k-rl">⇩ Repo</button><button class="k-bt k-im">🖼 Imgs</button><button class="k-bt k-rt">↻ Retry failed</button><button class="k-bt k-dc">🩺 Doctor</button><button class="k-bt k-cp">⧉ Copy</button><button class="k-bt k-sy">⇪ Sync</button><button class="k-bt k-dl2">💾 Results</button><button class="k-bt k-uf">⇪ File</button><button class="k-bt k-me">🗺 Map</button><button class="k-bt k-mi">⤒ Map</button><button class="k-bt k-rs">⌫ Reset</button><input class="k-fi" type="file" multiple hidden><input class="k-mf" type="file" accept=".json,.zip,application/json,application/zip" hidden><input class="k-mi2" type="file" accept=".json,application/json" hidden><input class="k-uf2" type="file" multiple hidden></div></div>';
+R.innerHTML='<style>'+CSS+'</style><button class="k-fab">▶ Build</button><div class="k-pn"><div class="k-hd"><span class="k-ti">Content builder v4.28</span><button class="k-ic k-min">▾</button></div><div class="k-bw"><div class="k-bar"></div></div><div class="k-bd"><textarea class="k-in" placeholder="paste a manifest, 📄 Load a file, or ⇩ Repo"></textarea><div class="k-st2">paste a manifest to preview</div><div class="k-ls"></div></div><div class="k-ft"><button class="k-bt k-go">▶ Build</button><button class="k-bt k-lm">📄 Load</button><button class="k-bt k-rl">⇩ Repo</button><button class="k-bt k-im">🖼 Imgs</button><button class="k-bt k-rt">↻ Retry failed</button><button class="k-bt k-dc">🩺 Doctor</button><button class="k-bt k-cp">⧉ Copy</button><button class="k-bt k-sy">⇪ Sync</button><button class="k-bt k-dl2">💾 Results</button><button class="k-bt k-uf">⇪ File</button><button class="k-bt k-me">🗺 Map</button><button class="k-bt k-mi">⤒ Map</button><button class="k-bt k-rs">⌫ Reset</button><input class="k-fi" type="file" multiple hidden><input class="k-mf" type="file" accept=".json,.zip,application/json,application/zip" hidden><input class="k-mi2" type="file" accept=".json,application/json" hidden><input class="k-uf2" type="file" multiple hidden></div></div>';
 document.body.appendChild(H);const q=s=>R.querySelector(s),pn=q('.k-pn'),fb=q('.k-fab');
-loadCfg().then(()=>{try{q('.k-ti').textContent='Content builder v4.27 · cfg '+CFG.state}catch(e){}});
+loadCfg().then(()=>{try{q('.k-ti').textContent='Content builder v4.28 · cfg '+CFG.state}catch(e){};headCheck()});
 $i=q('.k-in');$l=q('.k-ls');$b=q('.k-bar');$s=q('.k-st2');$g=q('.k-go');$r=q('.k-rt');
 const sh=v=>{pn.style.display=v?'flex':'none';fb.style.display=v?'none':'block'};
 fb.onclick=()=>sh(1);q('.k-min').onclick=()=>sh(0);$i.addEventListener('input',parse);

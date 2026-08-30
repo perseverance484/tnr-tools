@@ -18,6 +18,7 @@ Usage
   python3 tnr_harvest.py assets  capture.json [--out assets.json]
   python3 tnr_harvest.py names   capture.json --proc jutsu.getAllNames
   python3 tnr_harvest.py diff    results_bundle.json   # pushed vs live, per entry
+  python3 tnr_harvest.py verify  results_bundle.json   # v4.28 asserted-field verdicts; exit 1 on FAIL/UNVERIFIED
   python3 tnr_harvest.py stamp   catalog.json --out stamped.json
 
 `index` first, always. It tells you what the capture can and cannot answer.
@@ -282,6 +283,77 @@ def cmd_diff(path):
             print(f"  ... {len(rows)-30} more")
     return 0
 
+def cmd_verify(path):
+    """Per-entry verification verdict for a results bundle (builder v4.28+).
+
+    Reads entries[].asserted (the manifest-asserted-fields checklist) and the
+    v4.24 full-record verdict, and prints one line per write entry:
+
+      OK          asserted fields all landed (and full-record verdict shown)
+      FAIL        one or more asserted fields missing / blanked / unref /
+                  mismatch on the live read-back
+      UNVERIFIED  the write reported success but the read-back returned no
+                  record (live=NONE) - this is NOT success, treat as unshipped
+
+    Exit code is 1 if any FAIL or UNVERIFIED write entry exists, so this can
+    gate a session close. Bundles older than v4.28 lack `asserted`; those fall
+    back to the full-record verdict only and say so.
+    """
+    d = load(path)
+    es = d.get("entries") or []
+    if not es:
+        if d.get("captures"):
+            print("capture-only bundle (0 write entries): nothing to verify")
+            return 0
+        print("no entries; is this a results bundle?")
+        return 1
+    bver = d.get("builder", "?")
+    bad = 0
+    n_ok = n_fail = n_unv = n_skip = 0
+    for e in es:
+        name = e.get("name") or e.get("id") or "?"
+        ident = e.get("id") or "-"
+        if e.get("state") != "ok":
+            print(f"SKIP        {name}: state={e.get('state')} ({e.get('detail','')[:60]})")
+            n_skip += 1
+            continue
+        v = e.get("verdict")
+        a = e.get("asserted")
+        if v == "skipped" or e.get("entity") == "aiProfile":
+            print(f"SKIP        {name} ({e.get('entity')}): read-back not applicable")
+            n_skip += 1
+            continue
+        if v == "unread" or (e.get("pushed") and e.get("live") is None):
+            print(f"UNVERIFIED  {name} -> {ident}: write ok but live=NONE (read-back empty)")
+            n_unv += 1
+            bad += 1
+            continue
+        if a is None:
+            tag = "OK?" if v == "match" else "FAIL?"
+            print(f"{tag:<11} {name} -> {ident}: pre-v4.28 bundle, no asserted checklist; "
+                  f"full-record verdict={v}")
+            if v != "match":
+                bad += 1
+            continue
+        fails = a.get("fail") or []
+        if fails:
+            n_fail += 1
+            bad += 1
+            det = "  ".join(f"{f.get('c')}:{f.get('k')}" for f in fails[:6])
+            print(f"FAIL        {name} -> {ident}: {len(fails)} asserted field(s) [{det}]"
+                  + (f" +{len(fails)-6} more" if len(fails) > 6 else ""))
+            for f in fails[:6]:
+                for dd in (f.get("d") or [])[:2]:
+                    print(f"              {dd}")
+        else:
+            n_ok += 1
+            extra = "" if v == "match" else f"  (full-record {v}: server rewrote unasserted fields)"
+            print(f"OK          {name} -> {ident}: A:{a.get('ok',0)} asserted field(s) landed{extra}")
+    print(f"\nbuilder {bver}: {n_ok} ok, {n_fail} fail, {n_unv} unverified, {n_skip} skipped"
+          f"  ->  {'VERIFY FAILED' if bad else 'verified'}")
+    return 1 if bad else 0
+
+
 def cmd_stamp(path, out=None):
     """Add a freshness contract to a catalog so staleness is visible."""
     d = load(path)
@@ -325,6 +397,8 @@ def main():
         return cmd_names(path, opt("--proc"), opt("--out"))
     if cmd == "diff":
         return cmd_diff(path)
+    if cmd == "verify":
+        return cmd_verify(path)
     if cmd == "stamp":
         return cmd_stamp(path, opt("--out"))
     print(__doc__)
