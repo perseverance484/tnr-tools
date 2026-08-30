@@ -15,6 +15,11 @@ RULED 2026-08-30: dedicated icon per mission (10). Style call still open
 
 ## Scene portraits — 64 speaking nodes need real art
 FIRM NINE COMPLETE 2026-08-30: all approved; manifest push/16 staged (assets, hidden); sheet posted.
+LAW CANDIDATE (author via law process next session): publish gate on scene characters -
+quests.ts ~757-772: update refuses when !hidden && no main sceneCharacters && not all
+objectives carry sceneCharacters. Hidden records exempt. NO equivalent gate for
+sceneBackground; win/reset control nodes render no dwelt scene and may stay empty.
+Consequence: pack 19 (blank blanket) is REQUIRED before any visibility flip.
 RULED 2026-08-30 (scene completeness): every dialog node gets an explicit sceneBackground
 AND a sceneCharacters entry; no-speaker scenes use a blank character asset. Existing blanks
 found for reuse: ghostship/Blank Scene Character 1YXbXYW2wz3GETVMb6DT6, warmissions/Blank
