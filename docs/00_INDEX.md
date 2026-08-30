@@ -78,7 +78,7 @@ No clone means no state. Say so rather than working from memory.
 | Field shapes, bounds, enums, constants, tRPC surface | `45c` / `45d` / `45e` / `45f` in skill `data/` |
 | Name collision, id lookup, what exists live | `answers/` in the clone; fresher than the last harvest takes a capture |
 | Law coverage vs code | `scripts/lawmap.py <repo-root>` |
-| A source drop or regen | `schema_extract.py <src> --ctors` FIRST; structural diff before adopting anything |
+| A source drop or regen | `schema_extract.py <src> --ctors` FIRST, then the MECHANICAL gate: `schema_diff.py --invariants NEW_45c --constants 45e` and `schema_diff.py diff OLD NEW` per file; adopt only on exit 0 (fail-closed on enum-member/variant/field removal and type changes) |
 | AI enemies, kits, stats, behaviour rules | skill `references/ai.md`; `enemy.py`, `calc.py ai\|kit` |
 | Quests, events, dialog, flow | skill `references/quest.md`; `mission.py`, `storyboard.py` |
 | Items, weapons, chests | skill `references/item.md` |
