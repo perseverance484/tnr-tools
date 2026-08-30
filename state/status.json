@@ -59,40 +59,40 @@
   "token_ledger": [
     {
       "path": "state/digest.json",
-      "bytes": 11259,
-      "at": "20:19Z"
+      "bytes": 11131,
+      "at": "20:22Z"
     },
     {
       "path": "state/active-context.md",
-      "bytes": 3079,
-      "at": "20:19Z"
+      "bytes": 2900,
+      "at": "20:22Z"
     },
     {
       "path": "state/status.json",
-      "bytes": 10648,
-      "at": "20:19Z"
+      "bytes": 10473,
+      "at": "20:22Z"
     },
     {
       "path": "docs/00_INDEX.md",
       "bytes": 8036,
-      "at": "20:19Z"
+      "at": "20:22Z"
     },
     {
       "path": "harvests/inbox/tnr_results_1788121031587.json",
       "bytes": 1702924,
-      "at": "20:19Z"
+      "at": "20:22Z"
     }
   ],
   "next": "Open on backgrounds wave: cut thread init (SCENE_BACKGROUND 3:2, house style, reference attach) + first card from the six specced. Owed (dauntless): VM refresh to v4.31, e16 pronoun sweep, publish flip decision rides content admin. Owed (Claude): law-94 authoring via law process. Parked: Terr relay, WO-08.",
   "blocked": [
     "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
   ],
-  "pending_verification": [
-    "6_verify_and_fix.json wedge probe - when Terr clears or as free probe (⇩ Repo -> push/)"
-  ],
+  "pending_verification": [],
   "wedge": {
-    "state": "escalated, being worked on (dauntless confirmed)",
-    "new_evidence": "quest edit page crashes deploy-wide: Zod 'Duplicate discriminator value undefined', chunk 0n-1xi0p-e_84.js, repro on healthy record (Chalk); Terr addendum delivered with 17:11 deploy-window hypothesis (copy: state/discord_terr_editor_crash.md)"
+    "state": "RETIRED 2026-08-30 (dauntless). Closed in full - do not reopen, do not re-derive.",
+    "what_it_was": "Never a wedge. The Waystation was tripping OUR OWN rate limiter; self-inflicted and since patched. The three missions were never stuck and shipped fine. push/6 (6_verify_and_fix.json) was patched, solved and retired. No Terr dependency.",
+    "editor_crash": "The Zod 'Duplicate discriminator value undefined' crash on the quest edit page is ALSO retired at dauntless's direction. It never touched the builder write path (packs 18/19 wrote quest edits to all ten missions, read-back verified). Note archived to archive/wedge-diagnosis-2026-08-30/.",
+    "residual_open": "quest.get on The Waystation froze pre-patch. Whether that survives the rate-limiter patch is UNCONFIRMED - ask before relying on a Waystation capture."
   },
   "art": {
     "next": "warehouse clerk portrait (Nothing to Report, 2:3 scene char) - prompt at state/prompt_report_clerk.txt; then survivor, principal, deputy; unlocked tail: handler pair (desk+upstairs), Pale Fang, Winter Crow, Keeper, merchant, Old Ghost portrait; finale sets 1 each to spec; 10 icon subjects to propose; pipelining depth-2 + reference-after-1-failure ratified this session? NO - proposed, unruled",
