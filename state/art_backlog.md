@@ -28,7 +28,7 @@ that design exactly (sprite attached as second reference in-thread); register yi
 ### Firm (speaker known)
 | asset | 2:3 portrait | speaks at |
 |---|---|---|
-| Keeper (waystation) | new | Waystation w7 |
+| Keeper (waystation) | APPROVED scene_fsw_keeper.webp | Waystation w7 |
 | Grain merchant | new | Protection p14-p16 |
 | Warehouse clerk | PROCESSED scene_fsw_report_clerk.webp (see state/art_produced.md) | Nothing to Report n4a n9 n12f n19 |
 | Squad survivor | APPROVED scene_fsw_squad_survivor.webp | Three Rounds r13-r16 |
