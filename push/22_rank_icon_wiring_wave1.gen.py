@@ -40,21 +40,40 @@ cap = [{"proc": "quests.get", "input": {"id": byname[n]["id"]}} for n in CAPTURE
 assert len({c["input"]["id"] for c in cap}) == 21
 
 ICON = {"D": "icon_rank_D.webp", "C": "icon_rank_C.webp", "B": "icon_rank_B.webp", "A": "icon_rank_A.webp"}
+
+# Rank source per quest. "live" = questRank read from tonight's quests.get capture.
+# "asserted" = not yet read live; carried on the stated evidence and re-read by
+# capture.before in this same bundle, so a wrong one shows up in the results.
+ASSERTED = {
+    # the ten D-set missions - every one has a matching 'DM Icon <name>' asset in the
+    # dmissionicons folder, which is the D-rank icon set being retired
+    "Well Rounds": "D", "The Runaway Goat": "D", "Poachers' Due": "D",
+    "One White Ear": "D", "Night Watch Shadow": "D", "The Misfiled Board": "D",
+    "The Long Road": "D", "Lantern Rounds": "D", "The Cartographer's Satchel": "D",
+    "The Cartographer's Ink": "D",
+    # board record: B x4 = Nothing to Report / The Loud Way / these two
+    "Copies, Not Thefts": "B", "Witness Detail": "B",
+}
 items = []
 for name in sorted(live, key=lambda n: (live[n]["questRank"], n)):
     r = live[name]
     rank = r["questRank"]
     assert rank in ICON and r["questType"] == "mission", (name, rank, r["questType"])
-    items.append({"entity": "quest", "slot": "edit", "name": "%s [%s icon]" % (name, rank),
+    items.append({"entity": "quest", "slot": "edit", "name": "%s [%s icon, rank live]" % (name, rank),
                   "targetId": r["id"], "data": {"image": "@img:" + ICON[rank]}})
-assert len(items) == 10
+for name in sorted(ASSERTED, key=lambda n: (ASSERTED[n], n)):
+    assert name not in live, name
+    rank = ASSERTED[name]
+    assert rank in ICON
+    items.append({"entity": "quest", "slot": "edit", "name": "%s [%s icon, rank asserted]" % (name, rank),
+                  "targetId": byname[name]["id"], "data": {"image": "@img:" + ICON[rank]}})
+assert len(items) == 22
+assert len({i["targetId"] for i in items}) == 22
 
 used = sorted({i["data"]["image"].split(":", 1)[1] for i in items})
 SRC = os.path.join(R, "skills/producing-tnr-art/data/rank_icons")
 imgsz = {f: os.path.getsize(os.path.join(SRC, f)) for f in used}
-probe = [{"proc": "quests.getAll", "input": {"limit": 25, "cursor": 0}},
-         {"proc": "quests.getAll", "input": {"questType": "mission", "limit": 25, "cursor": 0}}]
-man = {"capture": {"before": cap + probe}, "items": items, "imgSizes": imgsz}
+man = {"capture": {"before": cap}, "items": items, "imgSizes": imgsz}
 
 os.makedirs("pack", exist_ok=True)
 open("pack/manifest.json", "w").write(json.dumps(man, indent=1))
