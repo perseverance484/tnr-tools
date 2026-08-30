@@ -19,6 +19,8 @@ loose robes) vs NINJA (fitted near-black combat wear). Register tagged per portr
 2026-08-30 tuning: faces pixel-simplified (no realistic rendering); footwear widened -
 sandals per character not default, plain pre-modern leather boots/shoes allowed (Seichi
 is its own world); accent colour as thin cord/trim only, never a panel.
+2026-08-30 ruled: civilian brightness ceiling = the deputy (median value ~0.26, dark
+share ~0.46). QC judges civilian gens against that ceiling; prompts still aim darker.
 2026-08-30 identity rule: portraits of characters with existing sprites/avatars match
 that design exactly (sprite attached as second reference in-thread); register yields.
 34 nodes carry the shared stand-in (pqihl43HYROpkIMX172-P), 30 carry nothing.
