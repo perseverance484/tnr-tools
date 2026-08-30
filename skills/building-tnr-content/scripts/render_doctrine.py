@@ -85,8 +85,9 @@ def parse_doctrine():
 
 def render_mounted(assertions, sha7):
     by_id = {a["id"]: a for a in assertions}
-    stamp = ("<!-- projection of docs/DOCTRINE.md@%s - edit DOCTRINE.md and run "
-             "render_doctrine.py --write; never edit this file -->" % sha7)
+    stamp = ("<!-- projection of docs/DOCTRINE.md@%s + mounted_instructions.tmpl@%s"
+             " - edit the sources and run render_doctrine.py --write; never edit"
+             " this file -->" % (sha7, blob_sha7(TMPL)))
     txt = open(TMPL, encoding="utf-8").read()
 
     def sub(m):
