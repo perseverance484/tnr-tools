@@ -1,5 +1,5 @@
 {
- "_note": "Pin wiring phase 1 RECUT: seven clean Forsworn missions only - Protection/Waystation/Loud Way excluded (quests.get wedge; dauntless deleting for remake from Terr DB dumps). push/11 objective-image edits generate from THIS bundle. Supersedes push/10.",
+ "_note": "Combined capture, supersedes 10/10a: seven clean mission reads (pin wiring push/11 generates from these) + live asset sweep (verifies the six scene ids the trio rebuild push/12 references, incl the T1-flagged Waystation id, and yields live pin URLs). Read-only.",
  "capture": {
   "before": [
    {
@@ -50,6 +50,26 @@
      "id": "8ndqsf6RBZ88q3pfyZQQh"
     },
     "_name": "The Tenth Name"
+   },
+   {
+    "proc": "gameAsset.getAllFolders",
+    "input": {}
+   },
+   {
+    "proc": "gameAsset.getAll",
+    "input": {
+     "limit": 100,
+     "direction": "forward",
+     "folder": "forsworn"
+    }
+   },
+   {
+    "proc": "gameAsset.getAll",
+    "input": {
+     "limit": 100,
+     "direction": "forward",
+     "folder": "pins"
+    }
    }
   ]
  },
