@@ -22,8 +22,16 @@ loop; `--stats` prints per-scaffold accept rates and flags candidates for a
 reference-image escalation (the escalation RULE itself is still an open art
 ruling - this builds the evidence, not the policy).
 
+OPAQUE TARGETS  a target whose spec chroma_key is null (SCENE_BACKGROUND), or
+any file passed --opaque (the framed listing icons and map pins, which are ICON
+by filename but painted edge-to-edge), skips COVERAGE and RING entirely - those
+two checks were rejecting every keyless generation twice over - and reports
+exposure instead. Pass --band NAME to judge exposure against a measured band in
+the spec's exposure_bands block.
+
 Usage
   python3 rawqc.py IMAGE.png --scaffold fsw_faceless_stray
+  python3 rawqc.py ICON.png --opaque --band listing_icon_framed
   python3 rawqc.py IMAGE.png --scaffold X --record      # append verdict
   python3 rawqc.py --stats                              # ledger summary
   python3 rawqc.py --selftest                           # synthesized red/green
@@ -140,12 +148,43 @@ def spec_aspect(atype):
     return None
 
 
+def spec_chroma(atype):
+    """-> the target's chroma_key, or None. A null key means the target is
+    opaque and the COVERAGE/RING checks do not apply to it at all."""
+    try:
+        return (json.load(open(SPEC))["targets"].get(atype) or {}).get("chroma_key")
+    except Exception:
+        return None
+
+
+def spec_band(name):
+    """-> (median_luma_max, dark_share_min) from the spec's exposure_bands."""
+    try:
+        b = json.load(open(SPEC))["exposure_bands"][name]
+    except Exception:
+        return None
+    return b.get("median_luma_max"), b.get("dark_share_min")
+
+
+def exposure(px, ch, w, h):
+    """-> (median luma 0-1, share below 0.20). Sampled like coverage."""
+    step = max(1, (w * h) // 20000)
+    lum = []
+    for p in range(0, w * h, step):
+        i = p * ch
+        lum.append((0.2126 * px[i] + 0.7152 * px[i + 1] + 0.0722 * px[i + 2]) / 255.0)
+    lum.sort()
+    med = lum[len(lum) // 2] if lum else 0.0
+    dark = sum(1 for v in lum if v < 0.20) / max(1, len(lum))
+    return med, dark
+
+
 def near(px, i, key):
     return (abs(px[i] - key[0]) <= TOL and abs(px[i + 1] - key[1]) <= TOL
             and abs(px[i + 2] - key[2]) <= TOL)
 
 
-def judge(path):
+def judge(path, opaque=None, band=None):
     reasons, notes = [], []
     w, h, dec = read_png(path)
     atype = infer_type(path)
@@ -165,6 +204,27 @@ def judge(path):
                      "pixel checks skipped, human QC required")
         return reasons, notes, {"w": w, "h": h}
     px, ch = dec
+    if opaque is None:
+        opaque = atype is not None and spec_chroma(atype) is None
+    if opaque:
+        med, dark = exposure(px, ch, w, h)
+        m = {"w": w, "h": h, "opaque": True,
+             "median_luma": round(med, 3), "dark_share": round(dark, 3)}
+        notes.append("opaque target - coverage/ring skipped (no chroma key)")
+        lim = spec_band(band) if band else None
+        if lim:
+            lmax, dmin = lim
+            if lmax is not None and med > lmax:
+                reasons.append("over-exposed median luma %.3f > %.3f (band %s)"
+                               % (med, lmax, band))
+            if dmin is not None and dark < dmin:
+                reasons.append("thin dark share %.3f < %.3f (band %s)"
+                               % (dark, dmin, band))
+        elif band:
+            notes.append("no exposure band '%s' in spec - exposure unjudged" % band)
+        else:
+            notes.append("no --band given - exposure reported, not judged")
+        return reasons, notes, m
     counts = {k: 0 for k in KEYS}
     step = max(1, (w * h) // 20000)        # sample for speed on big images
     total = 0
@@ -287,7 +347,9 @@ def main():
         return stats()
     path = a[0]
     scaffold = a[a.index("--scaffold") + 1] if "--scaffold" in a else "unlabeled"
-    reasons, notes, metrics = judge(path)
+    opaque = True if "--opaque" in a else None
+    band = a[a.index("--band") + 1] if "--band" in a else None
+    reasons, notes, metrics = judge(path, opaque=opaque, band=band)
     for n in notes:
         print("note    " + n)
     for r in reasons:

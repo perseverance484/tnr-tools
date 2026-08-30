@@ -1,797 +1,820 @@
 {
- "_provenance": {
-  "generator": "hand-assembled from source read, 2026-08-26",
-  "source_drop": "TheNinjaRPG-main__3_.zip",
-  "source_sha256_16": {
-   "app/src/layout/Logbook.tsx": "d24a7566900bdb38",
-   "app/src/layout/Avatar.tsx": "1deb978e28d71166",
-   "app/src/layout/Image.tsx": "0680d2e9d2ddff93",
-   "app/src/utils/image.ts": "32c8261d60fc4703",
-   "app/src/hooks/asset.ts": "f70d10e32490bcf5",
-   "app/src/libs/replicate.ts": "f61129e63210f93e",
-   "app/src/layout/ContentImage.tsx": "24ee2d1b711c3492",
-   "app/src/libs/threejs/sector.ts": "308a578a2fffcdbb",
-   "app/src/libs/threejs/util.ts": "e80e94143f953f48",
-   "app/src/app/api/uploadthing/core.ts": "a92761c7debc563d",
-   "app/next.config.mjs": "9e5857266e9f645f"
-  },
-  "contract": "Authority for every art number. A block marked `derived` was read out of the source files above and is regenerable; a block marked `asserted` is a judgment call and carries its rationale. If a guide, scaffold or law disagrees with this file, this file wins.",
-  "also_reads": {
-   "art_index_2026-08-26.json": "409 live asset records with dimensions, bytes and format. Every `measured` block cites it.",
-   "25x skeleton (superseded)": "The 2026-08-26 skeleton's open_questions block is CLOSED by targets.SCENE_CHARACTER.render and law 50."
-  },
-  "status": "RATIFIED 2026-08-26. Every `derived` block was re-read line by line against source drop TheNinjaRPG-main__3_.zip before ratification; `measured` blocks are computed from art_index_2026-08-26.json. The skeleton's one open question is closed.",
-  "verification_pass": {
-   "date": "2026-08-26",
-   "method": "Every derived value re-grepped from the source drop at ratification time, not carried from the first read.",
-   "confirmed": {
-    "delivered widths": "Logbook.tsx width={341}/height={512} (character) and width={512}/height={341} (background); Avatar.tsx AVATAR_FULL_WIDTH = 320 with max-w-80; ContentImage.tsx width={125} with max-w-40 max-h-40; utils/image.ts textureImageUrl width = 50 and threejs/util.ts loadTexture width = 50",
-    "delivery": "next.config.mjs images.unoptimized: true; utils/image.ts searchParams.set(\"width\", ...) on both the bunny and texture paths",
-    "upload cap": "app/api/uploadthing/core.ts imageUploader maxFileSize \"512KB\"; ContentImageSelector.tsx endpoint=\"imageUploader\"",
-    "engine native pipeline": "replicate.ts txt2imgNanoBanana aspectRatio = square 1:1 / portrait 2:3 / landscape 3:2, then sharp .resize({fit:\"inside\"}).webp({quality:70}) in the SAME function (line 386-387), which is the path routers/openai.ts createImg actually calls; hooks/asset.ts maxDim: 512 twice; EditContent.tsx maxDim ?? 256",
-    "render boxes": "Logbook.tsx `relative aspect-3/2 w-full overflow-hidden` container, `relative aspect-3/2 w-full` on the background img, `absolute bottom-0 w-2/5` wrapper, `max-h-full w-auto object-contain` on the character img; ContentImage.tsx `aspect-square h-full w-full`; Avatar.tsx `aspect-square` with ZERO occurrences of any object-* class in the file",
-    "pin behaviour": "sector.ts drawQuest early return on missing objective.image, plus tints 0xf4e365 / 0x6666a3 / 0x9c273a",
-    "animation": "threejs/util.ts createActionSprite(texture, 1, gameAsset.frames) = one column; ContentImage.tsx h = spritesheet.height / props.frames and pixels = 112",
-    "gameAsset validator": "validators/asset.ts licenseDetails z.string().min(1).max(512), folder regex /^[a-zA-Z0-9]*$/",
-    "editor preview": "ContentImageSelector.tsx imports AvatarImage and renders the image field through it, for every gameAsset type"
-   },
-   "one_dependency_not_in_this_drop": {
-    "value": "Tailwind v4 preflight's `img, video { max-width: 100%; height: auto }`",
-    "why_it_matters": "It is what overrides the `height={512}` attribute presentation hint and makes the scene-character box intrinsically sized. Without it the img would be 512px tall regardless of file and the aspect argument would collapse.",
-    "what_IS_verified_here": "styles/globals.css line 1 is `@import \"tailwindcss\"`, which pulls full preflight in v4; there is no @layer base img override anywhere in the file, and no object-fit rule of any kind.",
-    "what_is_NOT": "node_modules is not in the drop, so the preflight rule text itself is from Tailwind v4's published base rather than read from this repo.",
-    "confidence": "High. The live population independently corroborates it: 96.9% of scene characters respect a clipping bound that only exists if the box is intrinsically sized, and the full-body cluster's median is 0.666. Neither would be true if aspect had no effect on layout.",
-    "how_to_close_it": "One screenshot of computed styles on a scene-character img in devtools, or a build with node_modules present."
-   }
-  },
-  "live_verification": {
-   "date": "2026-08-26",
-   "bundle": "tnr_results_1787770299558.json (builder v4.22, 4 captures, all HTTP 200)",
-   "id_join": "409 live gameAsset ids against 409 art_index ids: zero missing either way, zero name mismatches. The index is confirmed against live and can be trusted for population claims.",
-   "row_counts": "SCENE_BACKGROUND 204, SCENE_CHARACTER 98, STATIC 107 - identical to the index",
-   "shotlist": "ran clean against the 25-node Copies graph; every asset already wired, zero shots raised"
-  }
- },
- "_contract": {
-  "purpose": "One spec, three consumers: chroma.py (export), artpreflight.py (acceptance) and shotlist.py (requirements). A number that appears in a prompt scaffold, a script default or a law must be read from here, not restated.",
-  "classes": {
-   "derived": "Computed from the client source. Carries `source` naming file and symbol, and `expression` quoting the line it came from.",
-   "asserted": "Not expressible in source. Carries `rationale` and, where relevant, `ratified` with a date."
-  },
-  "read_order": "delivery -> targets.<TYPE> -> house_style -> chroma. Every target names the client field it feeds; nothing here applies to a field that is not named."
- },
- "delivery": {
-  "_class": "derived",
-  "_note": "How bytes actually reach the player. This block is the reason source resolution above the delivered width buys nothing.",
-  "next_image_optimizer": {
-   "enabled": false,
-   "source": "app/next.config.mjs -> images.unoptimized",
-   "expression": "unoptimized: true",
-   "consequence": "next/image emits no srcset and no density variants. Exactly one URL is fetched per image."
-  },
-  "cdn_rendition": {
-   "mechanism": "bunny_width_param",
-   "source": "app/src/layout/Image.tsx -> Image, app/src/utils/image.ts -> bunnyImageUrl",
-   "expression": "props.width ? bunnyImageUrl(src, Number(props.width)) : transformImageUrl(src)",
-   "detail": "Only `width` is sent; Bunny preserves aspect. Where a rendition is actually generated, the component's `width` prop IS the delivered pixel width.",
-   "bunny_hosts": [
-    "uploadthing.b-cdn.net",
-    "tnr-storage-cdn.b-cdn.net"
-   ],
-   "legacy_hosts_rewritten": [
-    "utfs.io",
-    "ui0arpl8sm.ufs.sh"
-   ],
-   "no_rendition_hosts": [
-    "theninja-user-uploads.s3.amazonaws.com",
-    "theninja-user-uploads.s3.us-west-2.amazonaws.com",
-    "assets.cdndn.com"
-   ],
-   "consequence": "An asset on a non-Bunny host is served at FULL SIZE to every player. Legacy S3 assets pay their whole byte weight on every render.",
-   "rendition_precondition": {
-    "_class": "derived",
-    "source": "app/src/utils/image.ts -> bunnyImageUrl, app/src/libs/uploadthing.ts -> extensionCustomId",
-    "expression": "if (!/\\.[a-z0-9]+$/i.test(url.pathname)) url.searchParams.set(\"optimizer\", \"image\")",
-    "rule": "Bunny only engages on an extensionless key when `optimizer=image` is present. `bunnyImageUrl` adds it; `textureImageUrl` deliberately does not, because forcing it on extensionless keys made Bunny cache a processed rendition instead of the original and broke travel-map portraits (libs/threejs/util.ts).",
-    "consequence": "An EXTENSIONLESS key on the three.js path gets NO rendition at all: no resize, no re-encode. The original file is served whole, and the `width` parameter is inert. This is the only class where source bytes reach the player unmodified.",
-    "fixed_for_new_uploads": "`extensionCustomId` gives every new upload a customId carrying its extension, and `servedUfsUrl` prefers that path, so new URLs carry an extension and the optimizer engages. The affected records are legacy uploads that predate it.",
-    "measured_2026_08_26": {
-     "_class": "measured",
-     "extensionless_STATIC": 52,
-     "total_kb": 3619,
-     "note": "Served whole to draw a 50px sprite."
+  "_provenance": {
+    "generator": "hand-assembled from source read, 2026-08-26",
+    "source_drop": "TheNinjaRPG-main__3_.zip",
+    "source_sha256_16": {
+      "app/src/layout/Logbook.tsx": "d24a7566900bdb38",
+      "app/src/layout/Avatar.tsx": "1deb978e28d71166",
+      "app/src/layout/Image.tsx": "0680d2e9d2ddff93",
+      "app/src/utils/image.ts": "32c8261d60fc4703",
+      "app/src/hooks/asset.ts": "f70d10e32490bcf5",
+      "app/src/libs/replicate.ts": "f61129e63210f93e",
+      "app/src/layout/ContentImage.tsx": "24ee2d1b711c3492",
+      "app/src/libs/threejs/sector.ts": "308a578a2fffcdbb",
+      "app/src/libs/threejs/util.ts": "e80e94143f953f48",
+      "app/src/app/api/uploadthing/core.ts": "a92761c7debc563d",
+      "app/next.config.mjs": "9e5857266e9f645f"
+    },
+    "contract": "Authority for every art number. A block marked `derived` was read out of the source files above and is regenerable; a block marked `asserted` is a judgment call and carries its rationale. If a guide, scaffold or law disagrees with this file, this file wins.",
+    "also_reads": {
+      "art_index_2026-08-26.json": "409 live asset records with dimensions, bytes and format. Every `measured` block cites it.",
+      "25x skeleton (superseded)": "The 2026-08-26 skeleton's open_questions block is CLOSED by targets.SCENE_CHARACTER.render and law 50."
+    },
+    "status": "RATIFIED 2026-08-26. Every `derived` block was re-read line by line against source drop TheNinjaRPG-main__3_.zip before ratification; `measured` blocks are computed from art_index_2026-08-26.json. The skeleton's one open question is closed.",
+    "verification_pass": {
+      "date": "2026-08-26",
+      "method": "Every derived value re-grepped from the source drop at ratification time, not carried from the first read.",
+      "confirmed": {
+        "delivered widths": "Logbook.tsx width={341}/height={512} (character) and width={512}/height={341} (background); Avatar.tsx AVATAR_FULL_WIDTH = 320 with max-w-80; ContentImage.tsx width={125} with max-w-40 max-h-40; utils/image.ts textureImageUrl width = 50 and threejs/util.ts loadTexture width = 50",
+        "delivery": "next.config.mjs images.unoptimized: true; utils/image.ts searchParams.set(\"width\", ...) on both the bunny and texture paths",
+        "upload cap": "app/api/uploadthing/core.ts imageUploader maxFileSize \"512KB\"; ContentImageSelector.tsx endpoint=\"imageUploader\"",
+        "engine native pipeline": "replicate.ts txt2imgNanoBanana aspectRatio = square 1:1 / portrait 2:3 / landscape 3:2, then sharp .resize({fit:\"inside\"}).webp({quality:70}) in the SAME function (line 386-387), which is the path routers/openai.ts createImg actually calls; hooks/asset.ts maxDim: 512 twice; EditContent.tsx maxDim ?? 256",
+        "render boxes": "Logbook.tsx `relative aspect-3/2 w-full overflow-hidden` container, `relative aspect-3/2 w-full` on the background img, `absolute bottom-0 w-2/5` wrapper, `max-h-full w-auto object-contain` on the character img; ContentImage.tsx `aspect-square h-full w-full`; Avatar.tsx `aspect-square` with ZERO occurrences of any object-* class in the file",
+        "pin behaviour": "sector.ts drawQuest early return on missing objective.image, plus tints 0xf4e365 / 0x6666a3 / 0x9c273a",
+        "animation": "threejs/util.ts createActionSprite(texture, 1, gameAsset.frames) = one column; ContentImage.tsx h = spritesheet.height / props.frames and pixels = 112",
+        "gameAsset validator": "validators/asset.ts licenseDetails z.string().min(1).max(512), folder regex /^[a-zA-Z0-9]*$/",
+        "editor preview": "ContentImageSelector.tsx imports AvatarImage and renders the image field through it, for every gameAsset type"
+      },
+      "one_dependency_not_in_this_drop": {
+        "value": "Tailwind v4 preflight's `img, video { max-width: 100%; height: auto }`",
+        "why_it_matters": "It is what overrides the `height={512}` attribute presentation hint and makes the scene-character box intrinsically sized. Without it the img would be 512px tall regardless of file and the aspect argument would collapse.",
+        "what_IS_verified_here": "styles/globals.css line 1 is `@import \"tailwindcss\"`, which pulls full preflight in v4; there is no @layer base img override anywhere in the file, and no object-fit rule of any kind.",
+        "what_is_NOT": "node_modules is not in the drop, so the preflight rule text itself is from Tailwind v4's published base rather than read from this repo.",
+        "confidence": "High. The live population independently corroborates it: 96.9% of scene characters respect a clipping bound that only exists if the box is intrinsically sized, and the full-body cluster's median is 0.666. Neither would be true if aspect had no effect on layout.",
+        "how_to_close_it": "One screenshot of computed styles on a scene-character img in devtools, or a build with node_modules present."
+      }
+    },
+    "live_verification": {
+      "date": "2026-08-26",
+      "bundle": "tnr_results_1787770299558.json (builder v4.22, 4 captures, all HTTP 200)",
+      "id_join": "409 live gameAsset ids against 409 art_index ids: zero missing either way, zero name mismatches. The index is confirmed against live and can be trusted for population claims.",
+      "row_counts": "SCENE_BACKGROUND 204, SCENE_CHARACTER 98, STATIC 107 - identical to the index",
+      "shotlist": "ran clean against the 25-node Copies graph; every asset already wired, zero shots raised"
     }
-   },
-   "supersedes": "The earlier wording ('the width prop IS the delivered width for every asset on a Bunny host') was true only where a rendition is generated. It is false for extensionless three.js textures."
   },
-  "threejs_textures": {
-   "mechanism": "texture_width_param",
-   "source": "app/src/utils/image.ts -> textureImageUrl, app/src/libs/threejs/util.ts -> loadTexture",
-   "expression": "loadTexture = (path, width = 50, mirrored = false)",
-   "detail": "Three.js textures use textureImageUrl, never bunnyImageUrl, and never send optimizer=image. Default width 50."
+  "_contract": {
+    "purpose": "One spec, three consumers: chroma.py (export), artpreflight.py (acceptance) and shotlist.py (requirements). A number that appears in a prompt scaffold, a script default or a law must be read from here, not restated.",
+    "classes": {
+      "derived": "Computed from the client source. Carries `source` naming file and symbol, and `expression` quoting the line it came from.",
+      "asserted": "Not expressible in source. Carries `rationale` and, where relevant, `ratified` with a date."
+    },
+    "read_order": "delivery -> targets.<TYPE> -> house_style -> chroma. Every target names the client field it feeds; nothing here applies to a field that is not named."
   },
-  "raw_fetch_paths": {
-   "detail": "ContentImage's animation branch assigns `spritesheet.src = props.image` directly, bypassing the wrapper. An ANIMATION rendered in a content list downloads the ORIGINAL sheet.",
-   "source": "app/src/layout/ContentImage.tsx",
-   "expression": "spritesheet.src = props.image"
-  }
- },
- "upload": {
-  "_class": "derived",
-  "hard_cap_bytes": 524288,
-  "hard_cap_label": "512KB",
-  "source": "app/src/app/api/uploadthing/core.ts -> ourFileRouter.imageUploader",
-  "expression": "imageUploader: f({ image: { maxFileSize: \"512KB\" } })",
-  "endpoint": "imageUploader",
-  "endpoint_source": "app/src/layout/ContentImageSelector.tsx -> UploadButton endpoint=\"imageUploader\"",
-  "working_ceiling_bytes": 460800,
-  "working_ceiling_label": "450KB",
-  "working_ceiling_class": "asserted",
-  "working_ceiling_rationale": "The presign returns no useful error at the cap, so a file that lands within a few KB of 512 fails opaquely on a phone. 450KB leaves margin for the multipart envelope and for a re-encode that comes back slightly larger.",
-  "other_caps_for_reference": {
-   "conceptArtFrameUploader": "256KB",
-   "tavernUploader": "64KB",
-   "backgroundImageUploader": "8MB",
-   "audioSfxUploader": "64KB"
+  "delivery": {
+    "_class": "derived",
+    "_note": "How bytes actually reach the player. This block is the reason source resolution above the delivered width buys nothing.",
+    "next_image_optimizer": {
+      "enabled": false,
+      "source": "app/next.config.mjs -> images.unoptimized",
+      "expression": "unoptimized: true",
+      "consequence": "next/image emits no srcset and no density variants. Exactly one URL is fetched per image."
+    },
+    "cdn_rendition": {
+      "mechanism": "bunny_width_param",
+      "source": "app/src/layout/Image.tsx -> Image, app/src/utils/image.ts -> bunnyImageUrl",
+      "expression": "props.width ? bunnyImageUrl(src, Number(props.width)) : transformImageUrl(src)",
+      "detail": "Only `width` is sent; Bunny preserves aspect. Where a rendition is actually generated, the component's `width` prop IS the delivered pixel width.",
+      "bunny_hosts": [
+        "uploadthing.b-cdn.net",
+        "tnr-storage-cdn.b-cdn.net"
+      ],
+      "legacy_hosts_rewritten": [
+        "utfs.io",
+        "ui0arpl8sm.ufs.sh"
+      ],
+      "no_rendition_hosts": [
+        "theninja-user-uploads.s3.amazonaws.com",
+        "theninja-user-uploads.s3.us-west-2.amazonaws.com",
+        "assets.cdndn.com"
+      ],
+      "consequence": "An asset on a non-Bunny host is served at FULL SIZE to every player. Legacy S3 assets pay their whole byte weight on every render.",
+      "rendition_precondition": {
+        "_class": "derived",
+        "source": "app/src/utils/image.ts -> bunnyImageUrl, app/src/libs/uploadthing.ts -> extensionCustomId",
+        "expression": "if (!/\\.[a-z0-9]+$/i.test(url.pathname)) url.searchParams.set(\"optimizer\", \"image\")",
+        "rule": "Bunny only engages on an extensionless key when `optimizer=image` is present. `bunnyImageUrl` adds it; `textureImageUrl` deliberately does not, because forcing it on extensionless keys made Bunny cache a processed rendition instead of the original and broke travel-map portraits (libs/threejs/util.ts).",
+        "consequence": "An EXTENSIONLESS key on the three.js path gets NO rendition at all: no resize, no re-encode. The original file is served whole, and the `width` parameter is inert. This is the only class where source bytes reach the player unmodified.",
+        "fixed_for_new_uploads": "`extensionCustomId` gives every new upload a customId carrying its extension, and `servedUfsUrl` prefers that path, so new URLs carry an extension and the optimizer engages. The affected records are legacy uploads that predate it.",
+        "measured_2026_08_26": {
+          "_class": "measured",
+          "extensionless_STATIC": 52,
+          "total_kb": 3619,
+          "note": "Served whole to draw a 50px sprite."
+        }
+      },
+      "supersedes": "The earlier wording ('the width prop IS the delivered width for every asset on a Bunny host') was true only where a rendition is generated. It is false for extensionless three.js textures."
+    },
+    "threejs_textures": {
+      "mechanism": "texture_width_param",
+      "source": "app/src/utils/image.ts -> textureImageUrl, app/src/libs/threejs/util.ts -> loadTexture",
+      "expression": "loadTexture = (path, width = 50, mirrored = false)",
+      "detail": "Three.js textures use textureImageUrl, never bunnyImageUrl, and never send optimizer=image. Default width 50."
+    },
+    "raw_fetch_paths": {
+      "detail": "ContentImage's animation branch assigns `spritesheet.src = props.image` directly, bypassing the wrapper. An ANIMATION rendered in a content list downloads the ORIGINAL sheet.",
+      "source": "app/src/layout/ContentImage.tsx",
+      "expression": "spritesheet.src = props.image"
+    }
   },
-  "live_pressure": {
-   "_class": "measured",
-   "note": "The byte ceiling is NOT a live constraint. Nothing in the 409-asset library exceeds the 512KB hard cap; five records pass the 450KB working ceiling. The format ruling is a page-weight win, not a compliance fix.",
-   "over_450kb": {
-    "SCENE_CHARACTER": 2,
-    "SCENE_BACKGROUND": 3,
-    "STATIC": 0
-   },
-   "over_512kb": 0,
-   "format_debt": {
+  "upload": {
+    "_class": "derived",
+    "hard_cap_bytes": 524288,
+    "hard_cap_label": "512KB",
+    "source": "app/src/app/api/uploadthing/core.ts -> ourFileRouter.imageUploader",
+    "expression": "imageUploader: f({ image: { maxFileSize: \"512KB\" } })",
+    "endpoint": "imageUploader",
+    "endpoint_source": "app/src/layout/ContentImageSelector.tsx -> UploadButton endpoint=\"imageUploader\"",
+    "working_ceiling_bytes": 460800,
+    "working_ceiling_label": "450KB",
+    "working_ceiling_class": "asserted",
+    "working_ceiling_rationale": "The presign returns no useful error at the cap, so a file that lands within a few KB of 512 fails opaquely on a phone. 450KB leaves margin for the multipart envelope and for a re-encode that comes back slightly larger.",
+    "other_caps_for_reference": {
+      "conceptArtFrameUploader": "256KB",
+      "tavernUploader": "64KB",
+      "backgroundImageUploader": "8MB",
+      "audioSfxUploader": "64KB"
+    },
+    "live_pressure": {
+      "_class": "measured",
+      "note": "The byte ceiling is NOT a live constraint. Nothing in the 409-asset library exceeds the 512KB hard cap; five records pass the 450KB working ceiling. The format ruling is a page-weight win, not a compliance fix.",
+      "over_450kb": {
+        "SCENE_CHARACTER": 2,
+        "SCENE_BACKGROUND": 3,
+        "STATIC": 0
+      },
+      "over_512kb": 0,
+      "format_debt": {
+        "SCENE_CHARACTER": {
+          "non_webp": 46,
+          "mb": 9.5
+        },
+        "SCENE_BACKGROUND": {
+          "non_webp": 84,
+          "mb": 14.3
+        },
+        "STATIC": {
+          "non_webp": 34,
+          "mb": 2.2
+        }
+      }
+    }
+  },
+  "engine_native_pipeline": {
+    "_class": "derived",
+    "_note": "What the game's OWN generator produces for each orientation. This is where 341x512 comes from: it is not a chosen number, it is 2:3 fitted inside a 512 box.",
+    "source": "app/src/libs/replicate.ts -> txt2imgNanoBanana + uploadImageFromOpenAI, app/src/hooks/asset.ts -> useAssetEditForm",
+    "aspect_by_orientation": {
+      "square": "1:1",
+      "portrait": "2:3",
+      "landscape": "3:2"
+    },
+    "aspect_expression": "config.size === \"square\" ? \"1:1\" : config.size === \"portrait\" ? \"2:3\" : \"3:2\"",
+    "resize_expression": "sharp(blob).resize({ width, height, fit: \"inside\" }).webp({ quality: 70 })",
+    "output_format": "webp",
+    "output_quality": 70,
+    "maxDim_by_field": {
+      "SCENE_BACKGROUND": 512,
+      "SCENE_CHARACTER": 512,
+      "_default": 256
+    },
+    "maxDim_expression": "hooks/asset.ts sets maxDim: 512 on both scene types; EditContent falls back to `maxDim ?? 256` for every other avatar field (item, jutsu, bloodline, quest node image, sageMode, skillTree).",
+    "derived_dimensions": {
+      "SCENE_CHARACTER": "341x512",
+      "SCENE_BACKGROUND": "512x341",
+      "_default_square": "256x256"
+    }
+  },
+  "targets": {
     "SCENE_CHARACTER": {
-     "non_webp": 46,
-     "mb": 9.5
+      "client_field": "quest.content.sceneCharacters[] and objectives[].sceneCharacters[] -> gameAsset.image",
+      "gameAsset_type": "SCENE_CHARACTER",
+      "render": {
+        "_class": "derived",
+        "component": "app/src/layout/Logbook.tsx -> QuestDialogScene",
+        "also_used_by": [
+          "app/src/layout/Sector.tsx (NPC dialog modal)",
+          "app/src/layout/TutorialAssistant.tsx"
+        ],
+        "wrapper": "absolute bottom-0 w-2/5",
+        "image_classes": "max-h-full w-auto object-contain",
+        "image_props": "width={341} height={512}",
+        "mechanism": "WIDTH-SCALED, NOT LETTERBOXED. The wrapper is absolutely positioned with `bottom-0` only, so its height is auto; `max-h-full` is a percentage against an auto-height containing block and CSS resolves it to `none`. Tailwind v4 preflight (`img { max-width:100%; height:auto }`) overrides the height attribute hint. The box is therefore intrinsically sized and `object-contain` is a no-op.",
+        "consequence": "The client never stretches and never letterboxes a scene character. Displayed width is always 40% of the scene; displayed height follows the FILE's aspect. A wrong aspect makes the figure SHORT, not distorted.",
+        "supersedes": "Law 50's stated mechanism (object-contain padding) is wrong for this field. Its conclusion - target 2:3 - survives for a different reason."
+      },
+      "delivered_width_px": 341,
+      "delivered_width_source": "width={341} on the Image inside QuestDialogScene; unoptimized + bunnyImageUrl means this is the only rendition fetched.",
+      "aspect": {
+        "_class": "measured",
+        "ratified": "2026-08-26, dauntless",
+        "rule": "framing_picks_aspect",
+        "measured_over": "98 live SCENE_CHARACTER records in art_index_2026-08-26.json",
+        "population": {
+          "full_body_band_0.600_to_0.700": {
+            "n": 51,
+            "share": 0.52,
+            "min": 0.625,
+            "median": 0.666,
+            "max": 0.696
+          },
+          "bust_1:1": {
+            "n": 34,
+            "share": 0.347
+          },
+          "between_0.70_and_0.95": {
+            "n": 9,
+            "share": 0.092,
+            "verdict": "the actual drift class - neither register"
+          },
+          "clipped_below_0.600": {
+            "n": 3,
+            "share": 0.031
+          },
+          "wider_than_1:1": {
+            "n": 1,
+            "share": 0.01
+          }
+        },
+        "accepted": [
+          "2:3",
+          "1:1"
+        ],
+        "full_body": "2:3",
+        "full_body_band": [
+          0.6,
+          0.7
+        ],
+        "bust": "1:1",
+        "bust_tolerance": 0.05,
+        "tolerance": 0.05,
+        "rationale": "Displayed height = 0.4 * scene_width * (h/w). A 2:3 file stands at ~90% of scene height (full standing figure); a 1:1 file stands at 60% (correct for a bust). The live population is not drifting between these - it is two tight clusters. The full-body cluster is 51 records spanning 0.625-0.696 with a median of 0.666, which is 2:3 to three decimals. The bust cluster is 34 records at exactly 1:1. Only 9 records sit between the two, and those are the real defect class. The guide named one register, so the other was never wrong and never written down.",
+        "band_not_point": "A single tolerance was going to reject three of the ratified bmissions exemplars (0.594-0.650). The full-body rule is a BAND floored by the clip bound, not a point at 0.6667.",
+        "engine_native_default": "2:3, per engine_native_pipeline - the game's own generator requests portrait for this field."
+      },
+      "max_aspect_h_over_w": {
+        "_class": "derived",
+        "value": 1.6666666666666667,
+        "value_label": "3:5",
+        "derivation": "Scene container is `aspect-3/2` with `overflow-hidden`, so scene_height = scene_width * 2/3. Character height = 0.4 * scene_width * (h/w). Clipping starts when 0.4*(h/w) > 2/3, i.e. h/w > 5/3.",
+        "consequence": "A file taller than 3:5 is CLIPPED at the top, bottom-anchored. 2:3 sits at h/w 1.5, about 10% under the bound.",
+        "live_violations": {
+          "_class": "measured",
+          "n": 3,
+          "note": "96.9% of the live population respects a bound that nothing in the client or the guides ever stated. That is the strongest available evidence the derivation is right: people eyeballed the ceiling and stopped just under it.",
+          "records": [
+            {
+              "name": "warmissions/Blank Character",
+              "px": "256x512",
+              "h_over_w": 2.0,
+              "top_clipped": 0.2,
+              "verdict": "intentional suppressor asset, blank - ignore"
+            },
+            {
+              "name": "hyorin/Mochi",
+              "px": "378x640",
+              "h_over_w": 1.693,
+              "top_clipped": 0.016
+            },
+            {
+              "name": "bmissions/Fleetfoot Scene",
+              "px": "456x768",
+              "h_over_w": 1.684,
+              "top_clipped": 0.011,
+              "verdict": "a ratified exemplar, marginally clipped in game today"
+            }
+          ]
+        }
+      },
+      "min_width_px": {
+        "_class": "asserted",
+        "value": 341,
+        "rationale": "Below the delivered width the CDN cannot resize up and the figure renders soft. Above it, the extra pixels are discarded by Bunny at delivery and paid for only at upload. The ratified exemplars at 456-640 wide are not wrong, they are simply downsampled to 341 before any player sees them.",
+        "live_shortfall": {
+          "_class": "measured",
+          "n": 32,
+          "min_observed_px": 125,
+          "note": "32 of 98 scene characters ship under the 341px delivered width and are upscaled by the browser."
+        }
+      },
+      "recommended_source_px": {
+        "_class": "asserted",
+        "value": "682x1024 for 2:3, 682x682 for 1:1",
+        "rationale": "2x the delivered width. Buys nothing today; buys a component change tomorrow without a regeneration pass, and costs upload bytes only."
+      },
+      "format": "webp",
+      "format_class": "asserted",
+      "format_mode": "lossless",
+      "format_rationale": "Keyed pixel art. Lossy webp rings around the hard edges this style is built from. Ratified 2026-08-26.",
+      "byte_ceiling_bytes": 460800,
+      "chroma_key": "lime",
+      "chroma_key_alt": "magenta",
+      "chroma_key_alt_when": "subject carries foliage, jade or green cloth",
+      "padding_rule": "Pad transparent to the target aspect after keying. A small subject (a cat, a child) needs transparent headroom above it or the client scales it to human height, because apparent size is the subject's share of its own canvas.",
+      "editor_preview_warning": {
+        "_class": "derived",
+        "source": "app/src/hooks/asset.ts -> `{ id: \"image\", type: \"avatar\", size: \"portrait\" }` rendered by app/src/layout/ContentImageSelector.tsx -> AvatarImage",
+        "detail": "The asset editor previews a SCENE_CHARACTER through AvatarImage, which is `aspect-square` with NO object-fit. A correct 2:3 file IS genuinely stretched into a square THERE and nowhere else.",
+        "consequence": "Never judge a scene character by the asset editor preview. This is the observation behind the 2026-08-22 re-export to 1:1, and it explains the whole contradiction: the editor and the game disagree, and the editor is the one that lies."
+      }
     },
     "SCENE_BACKGROUND": {
-     "non_webp": 84,
-     "mb": 14.3
+      "client_field": "quest.content.sceneBackground and objectives[].sceneBackground -> gameAsset.image",
+      "gameAsset_type": "SCENE_BACKGROUND",
+      "render": {
+        "_class": "derived",
+        "component": "app/src/layout/Logbook.tsx -> QuestDialogScene",
+        "container": "relative aspect-3/2 w-full overflow-hidden",
+        "image_classes": "relative aspect-3/2 w-full",
+        "image_props": "width={512} height={341}",
+        "mechanism": "STRETCHED. `aspect-3/2` sits on the <img> itself with no object-fit, so the image content is squashed or pulled to fill a 3:2 box.",
+        "consequence": "A background that is not exactly 3:2 is visibly distorted. This half of law 50 holds."
+      },
+      "delivered_width_px": 512,
+      "aspect": {
+        "_class": "derived",
+        "value": "3:2",
+        "tolerance": 0.02,
+        "note": "The component's own props are 512x341 = 1.5015, so a tolerance band rather than an exact integer match is required.",
+        "tolerance_note": "Audit tolerance. Exact-zero would flag rounding, not defects; anything outside 2% is visibly distorted at the delivered width."
+      },
+      "min_width_px": {
+        "_class": "asserted",
+        "value": 512,
+        "rationale": "The delivered width. Anything less is upscaled by the browser into the largest single image on screen."
+      },
+      "recommended_source_px": {
+        "_class": "asserted",
+        "value": "1024x683 or 1536x1024",
+        "rationale": "2x-3x delivered. Backgrounds are the one place the byte budget has room, since they carry no alpha."
+      },
+      "format": "webp",
+      "format_mode": "lossy_q85",
+      "format_class": "asserted",
+      "format_rationale": "No alpha and no hard keyed edges, so lossy is safe and the byte saving is large. q85 measured indistinguishable at 512 delivered width.",
+      "byte_ceiling_bytes": 460800,
+      "chroma_key": null,
+      "padding_rule": "None. Compose to 3:2 at generation; a crop to 3:2 loses composition the prompt paid for.",
+      "composition_rule": {
+        "_class": "derived",
+        "detail": "The scene character renders at `absolute bottom-0 w-2/5` with no horizontal offset, i.e. bottom-LEFT, occupying the left 40% and up to 90% of the height.",
+        "consequence": "Reserve the lower left of every background. Prompt it explicitly."
+      },
+      "exposure_band": {
+        "_class": "asserted",
+        "detail": "Match the set. Live anchors: Safehouse Room median luma 16.3 with 63% of pixels under 20; Back Alley Night 14.7 / 68%.",
+        "reject_below": "median 8 or over 90% under 20 - that is a black rectangle",
+        "repair": "gamma 0.75-0.82 over the whole image lifts shadows without blowing the light source; a redraw is not needed",
+        "deliberate_variance": "allowed when the fiction demands it (a market lit by many lamps sits near 22), but state the intent"
+      }
+    },
+    "AI_AVATAR": {
+      "client_field": "userData.avatar (AI records and players alike)",
+      "gameAsset_type": null,
+      "render": {
+        "_class": "derived",
+        "component": "app/src/layout/Avatar.tsx -> AvatarImage",
+        "image_classes": "relative max-w-80 m-auto w-5/6 aspect-square rounded-2xl border-2 border-black",
+        "mechanism": "STRETCHED. `aspect-square` is on the <img> with no object-fit, so a non-square file is distorted to 1:1.",
+        "unoptimized_override": "This component passes `unoptimized={true}` explicitly as well."
+      },
+      "delivered_width_px": 320,
+      "delivered_width_source": "AVATAR_FULL_WIDTH = 320, matching `max-w-80`. In light-layout mode the requested width drops to the call-site `size` prop.",
+      "aspect": {
+        "_class": "derived",
+        "value": "1:1",
+        "tolerance": 0.02,
+        "note": "Exact. Anything else is visibly stretched.",
+        "tolerance_note": "Audit tolerance. Exact-zero would flag rounding, not defects; anything outside 2% is visibly distorted at the delivered width."
+      },
+      "min_width_px": {
+        "_class": "asserted",
+        "value": 320,
+        "rationale": "AVATAR_FULL_WIDTH. The avatar is the largest square art in the game."
+      },
+      "recommended_source_px": {
+        "_class": "asserted",
+        "value": "640x640"
+      },
+      "format": "webp",
+      "format_mode": "lossless",
+      "byte_ceiling_bytes": 460800,
+      "chroma_key": "lime",
+      "padding_rule": "Pad transparent to exact square AFTER keying, subject centred. Padding is what makes the aspect right; cropping to square eats the silhouette."
+    },
+    "ICON": {
+      "client_field": "item.image, jutsu.image, bloodline.image",
+      "gameAsset_type": null,
+      "render": {
+        "_class": "derived",
+        "component": "app/src/layout/ContentImage.tsx",
+        "image_classes": "aspect-square h-full w-full",
+        "image_props": "width={125} height={125}",
+        "display_box": "max-w-40 max-h-40 (160px)",
+        "mechanism": "STRETCHED. `aspect-square` on the <img>, no object-fit.",
+        "rarity_frame": "A rarity background is composited BEHIND the icon at the same 125px width for COMMON/RARE/EPIC/LEGENDARY. The icon sits on top, so a full-bleed icon hides the frame."
+      },
+      "delivered_width_px": 125,
+      "display_width_px": 160,
+      "aspect": {
+        "_class": "derived",
+        "value": "1:1",
+        "tolerance": 0.02,
+        "tolerance_note": "Audit tolerance. Exact-zero would flag rounding, not defects; anything outside 2% is visibly distorted at the delivered width."
+      },
+      "min_width_px": {
+        "_class": "asserted",
+        "value": 160,
+        "rationale": "The display box is 160px but the CDN is asked for 125, so the icon is already upscaled by 28% at full size. Supplying 160+ costs nothing at delivery and protects against the component being corrected."
+      },
+      "recommended_source_px": {
+        "_class": "asserted",
+        "value": "256x256",
+        "rationale": "Matches the engine's own default maxDim for these fields."
+      },
+      "format": "webp",
+      "format_mode": "lossless",
+      "byte_ceiling_bytes": 460800,
+      "chroma_key": "lime",
+      "padding_rule": "Pad transparent to exact square. Leave a small margin so the rarity frame reads.",
+      "subject_rule": {
+        "_class": "asserted",
+        "detail": "Concrete holdable objects only. The generator reliably fails on packaging formats, phenomena and amorphous material chunks. After three failed blind re-descriptions, switch to reference-image prompting rather than writing a fourth."
+      }
     },
     "STATIC": {
-     "non_webp": 34,
-     "mb": 2.2
-    }
-   }
-  }
- },
- "engine_native_pipeline": {
-  "_class": "derived",
-  "_note": "What the game's OWN generator produces for each orientation. This is where 341x512 comes from: it is not a chosen number, it is 2:3 fitted inside a 512 box.",
-  "source": "app/src/libs/replicate.ts -> txt2imgNanoBanana + uploadImageFromOpenAI, app/src/hooks/asset.ts -> useAssetEditForm",
-  "aspect_by_orientation": {
-   "square": "1:1",
-   "portrait": "2:3",
-   "landscape": "3:2"
-  },
-  "aspect_expression": "config.size === \"square\" ? \"1:1\" : config.size === \"portrait\" ? \"2:3\" : \"3:2\"",
-  "resize_expression": "sharp(blob).resize({ width, height, fit: \"inside\" }).webp({ quality: 70 })",
-  "output_format": "webp",
-  "output_quality": 70,
-  "maxDim_by_field": {
-   "SCENE_BACKGROUND": 512,
-   "SCENE_CHARACTER": 512,
-   "_default": 256
-  },
-  "maxDim_expression": "hooks/asset.ts sets maxDim: 512 on both scene types; EditContent falls back to `maxDim ?? 256` for every other avatar field (item, jutsu, bloodline, quest node image, sageMode, skillTree).",
-  "derived_dimensions": {
-   "SCENE_CHARACTER": "341x512",
-   "SCENE_BACKGROUND": "512x341",
-   "_default_square": "256x256"
-  }
- },
- "targets": {
-  "SCENE_CHARACTER": {
-   "client_field": "quest.content.sceneCharacters[] and objectives[].sceneCharacters[] -> gameAsset.image",
-   "gameAsset_type": "SCENE_CHARACTER",
-   "render": {
-    "_class": "derived",
-    "component": "app/src/layout/Logbook.tsx -> QuestDialogScene",
-    "also_used_by": [
-     "app/src/layout/Sector.tsx (NPC dialog modal)",
-     "app/src/layout/TutorialAssistant.tsx"
-    ],
-    "wrapper": "absolute bottom-0 w-2/5",
-    "image_classes": "max-h-full w-auto object-contain",
-    "image_props": "width={341} height={512}",
-    "mechanism": "WIDTH-SCALED, NOT LETTERBOXED. The wrapper is absolutely positioned with `bottom-0` only, so its height is auto; `max-h-full` is a percentage against an auto-height containing block and CSS resolves it to `none`. Tailwind v4 preflight (`img { max-width:100%; height:auto }`) overrides the height attribute hint. The box is therefore intrinsically sized and `object-contain` is a no-op.",
-    "consequence": "The client never stretches and never letterboxes a scene character. Displayed width is always 40% of the scene; displayed height follows the FILE's aspect. A wrong aspect makes the figure SHORT, not distorted.",
-    "supersedes": "Law 50's stated mechanism (object-contain padding) is wrong for this field. Its conclusion - target 2:3 - survives for a different reason."
-   },
-   "delivered_width_px": 341,
-   "delivered_width_source": "width={341} on the Image inside QuestDialogScene; unoptimized + bunnyImageUrl means this is the only rendition fetched.",
-   "aspect": {
-    "_class": "measured",
-    "ratified": "2026-08-26, dauntless",
-    "rule": "framing_picks_aspect",
-    "measured_over": "98 live SCENE_CHARACTER records in art_index_2026-08-26.json",
-    "population": {
-     "full_body_band_0.600_to_0.700": {
-      "n": 51,
-      "share": 0.52,
-      "min": 0.625,
-      "median": 0.666,
-      "max": 0.696
-     },
-     "bust_1:1": {
-      "n": 34,
-      "share": 0.347
-     },
-     "between_0.70_and_0.95": {
-      "n": 9,
-      "share": 0.092,
-      "verdict": "the actual drift class - neither register"
-     },
-     "clipped_below_0.600": {
-      "n": 3,
-      "share": 0.031
-     },
-     "wider_than_1:1": {
-      "n": 1,
-      "share": 0.01
-     }
-    },
-    "accepted": [
-     "2:3",
-     "1:1"
-    ],
-    "full_body": "2:3",
-    "full_body_band": [
-     0.6,
-     0.7
-    ],
-    "bust": "1:1",
-    "bust_tolerance": 0.05,
-    "tolerance": 0.05,
-    "rationale": "Displayed height = 0.4 * scene_width * (h/w). A 2:3 file stands at ~90% of scene height (full standing figure); a 1:1 file stands at 60% (correct for a bust). The live population is not drifting between these - it is two tight clusters. The full-body cluster is 51 records spanning 0.625-0.696 with a median of 0.666, which is 2:3 to three decimals. The bust cluster is 34 records at exactly 1:1. Only 9 records sit between the two, and those are the real defect class. The guide named one register, so the other was never wrong and never written down.",
-    "band_not_point": "A single tolerance was going to reject three of the ratified bmissions exemplars (0.594-0.650). The full-body rule is a BAND floored by the clip bound, not a point at 0.6667.",
-    "engine_native_default": "2:3, per engine_native_pipeline - the game's own generator requests portrait for this field."
-   },
-   "max_aspect_h_over_w": {
-    "_class": "derived",
-    "value": 1.6666666666666667,
-    "value_label": "3:5",
-    "derivation": "Scene container is `aspect-3/2` with `overflow-hidden`, so scene_height = scene_width * 2/3. Character height = 0.4 * scene_width * (h/w). Clipping starts when 0.4*(h/w) > 2/3, i.e. h/w > 5/3.",
-    "consequence": "A file taller than 3:5 is CLIPPED at the top, bottom-anchored. 2:3 sits at h/w 1.5, about 10% under the bound.",
-    "live_violations": {
-     "_class": "measured",
-     "n": 3,
-     "note": "96.9% of the live population respects a bound that nothing in the client or the guides ever stated. That is the strongest available evidence the derivation is right: people eyeballed the ceiling and stopped just under it.",
-     "records": [
-      {
-       "name": "warmissions/Blank Character",
-       "px": "256x512",
-       "h_over_w": 2.0,
-       "top_clipped": 0.2,
-       "verdict": "intentional suppressor asset, blank - ignore"
+      "client_field": "objectives[].image and quest.image are RAW URLS (see reference_kinds); effect.staticAssetPath is a gameAsset id",
+      "gameAsset_type": "STATIC",
+      "render": {
+        "_class": "derived",
+        "component": "app/src/libs/threejs/sector.ts -> drawQuest; app/src/libs/threejs/combat.ts",
+        "mechanism": "Three.js Sprite scaled square (`h*0.8*s` on both axes) with a CIRCULAR alpha mask (IMG_SECTOR_USER_SPRITE_MASK) over a tinted plate.",
+        "expression": "loadTexture(objective.image ? `${objective.image}?1=1` : IMG_AVATAR_DEFAULT)",
+        "pin_gate": "drawQuest returns early when the objective has no image. No image means NO PIN.",
+        "marker_tint_by_task": {
+          "move_to_location": "0xf4e365",
+          "collect_item": "0x6666a3",
+          "deliver_item": "0x6666a3",
+          "dialog": "0x6666a3",
+          "defeat_opponents": "0x9c273a"
+        }
       },
-      {
-       "name": "hyorin/Mochi",
-       "px": "378x640",
-       "h_over_w": 1.693,
-       "top_clipped": 0.016
+      "delivered_width_px": 50,
+      "delivered_width_source": "loadTexture default width = 50; textureImageUrl sets ?width=50.",
+      "aspect": {
+        "_class": "derived",
+        "value": "1:1",
+        "tolerance": 0.02,
+        "note": "The sprite is square; a non-square texture is stretched into it.",
+        "tolerance_note": "Audit tolerance. Exact-zero would flag rounding, not defects; anything outside 2% is visibly distorted at the delivered width."
       },
-      {
-       "name": "bmissions/Fleetfoot Scene",
-       "px": "456x768",
-       "h_over_w": 1.684,
-       "top_clipped": 0.011,
-       "verdict": "a ratified exemplar, marginally clipped in game today"
+      "min_width_px": {
+        "_class": "asserted",
+        "value": 128,
+        "rationale": "Delivered at 50, but the source is also the asset-editor preview and the picker thumbnail. 128 keeps those legible while the pin itself only ever sees 50."
+      },
+      "recommended_source_px": {
+        "_class": "asserted",
+        "value": "256x256"
+      },
+      "format": "webp",
+      "format_mode": "lossless",
+      "byte_ceiling_bytes": 460800,
+      "chroma_key": "lime",
+      "padding_rule": "Pad to exact square, subject centred INSIDE the inscribed circle. The corners are masked away.",
+      "design_rule": {
+        "_class": "asserted",
+        "detail": "A pin must read at 50px inside a circle. Silhouette only - no interior detail, no text, no thin lines. Colour cannot carry meaning because the marker behind it is already tinted by task; the pin must say WHAT, the marker says WHICH KIND.",
+        "note": "The logbook objective badge and the world map icon are both static per-task lookups and never consult objective.image, so the pin is the only place this art appears. Roughly 1,150 live dialog nodes carry an image that renders nowhere."
       }
-     ]
-    }
-   },
-   "min_width_px": {
-    "_class": "asserted",
-    "value": 341,
-    "rationale": "Below the delivered width the CDN cannot resize up and the figure renders soft. Above it, the extra pixels are discarded by Bunny at delivery and paid for only at upload. The ratified exemplars at 456-640 wide are not wrong, they are simply downsampled to 341 before any player sees them.",
-    "live_shortfall": {
-     "_class": "measured",
-     "n": 32,
-     "min_observed_px": 125,
-     "note": "32 of 98 scene characters ship under the 341px delivered width and are upscaled by the browser."
-    }
-   },
-   "recommended_source_px": {
-    "_class": "asserted",
-    "value": "682x1024 for 2:3, 682x682 for 1:1",
-    "rationale": "2x the delivered width. Buys nothing today; buys a component change tomorrow without a regeneration pass, and costs upload bytes only."
-   },
-   "format": "webp",
-   "format_class": "asserted",
-   "format_mode": "lossless",
-   "format_rationale": "Keyed pixel art. Lossy webp rings around the hard edges this style is built from. Ratified 2026-08-26.",
-   "byte_ceiling_bytes": 460800,
-   "chroma_key": "lime",
-   "chroma_key_alt": "magenta",
-   "chroma_key_alt_when": "subject carries foliage, jade or green cloth",
-   "padding_rule": "Pad transparent to the target aspect after keying. A small subject (a cat, a child) needs transparent headroom above it or the client scales it to human height, because apparent size is the subject's share of its own canvas.",
-   "editor_preview_warning": {
-    "_class": "derived",
-    "source": "app/src/hooks/asset.ts -> `{ id: \"image\", type: \"avatar\", size: \"portrait\" }` rendered by app/src/layout/ContentImageSelector.tsx -> AvatarImage",
-    "detail": "The asset editor previews a SCENE_CHARACTER through AvatarImage, which is `aspect-square` with NO object-fit. A correct 2:3 file IS genuinely stretched into a square THERE and nowhere else.",
-    "consequence": "Never judge a scene character by the asset editor preview. This is the observation behind the 2026-08-22 re-export to 1:1, and it explains the whole contradiction: the editor and the game disagree, and the editor is the one that lies."
-   }
-  },
-  "SCENE_BACKGROUND": {
-   "client_field": "quest.content.sceneBackground and objectives[].sceneBackground -> gameAsset.image",
-   "gameAsset_type": "SCENE_BACKGROUND",
-   "render": {
-    "_class": "derived",
-    "component": "app/src/layout/Logbook.tsx -> QuestDialogScene",
-    "container": "relative aspect-3/2 w-full overflow-hidden",
-    "image_classes": "relative aspect-3/2 w-full",
-    "image_props": "width={512} height={341}",
-    "mechanism": "STRETCHED. `aspect-3/2` sits on the <img> itself with no object-fit, so the image content is squashed or pulled to fill a 3:2 box.",
-    "consequence": "A background that is not exactly 3:2 is visibly distorted. This half of law 50 holds."
-   },
-   "delivered_width_px": 512,
-   "aspect": {
-    "_class": "derived",
-    "value": "3:2",
-    "tolerance": 0.02,
-    "note": "The component's own props are 512x341 = 1.5015, so a tolerance band rather than an exact integer match is required.",
-    "tolerance_note": "Audit tolerance. Exact-zero would flag rounding, not defects; anything outside 2% is visibly distorted at the delivered width."
-   },
-   "min_width_px": {
-    "_class": "asserted",
-    "value": 512,
-    "rationale": "The delivered width. Anything less is upscaled by the browser into the largest single image on screen."
-   },
-   "recommended_source_px": {
-    "_class": "asserted",
-    "value": "1024x683 or 1536x1024",
-    "rationale": "2x-3x delivered. Backgrounds are the one place the byte budget has room, since they carry no alpha."
-   },
-   "format": "webp",
-   "format_mode": "lossy_q85",
-   "format_class": "asserted",
-   "format_rationale": "No alpha and no hard keyed edges, so lossy is safe and the byte saving is large. q85 measured indistinguishable at 512 delivered width.",
-   "byte_ceiling_bytes": 460800,
-   "chroma_key": null,
-   "padding_rule": "None. Compose to 3:2 at generation; a crop to 3:2 loses composition the prompt paid for.",
-   "composition_rule": {
-    "_class": "derived",
-    "detail": "The scene character renders at `absolute bottom-0 w-2/5` with no horizontal offset, i.e. bottom-LEFT, occupying the left 40% and up to 90% of the height.",
-    "consequence": "Reserve the lower left of every background. Prompt it explicitly."
-   },
-   "exposure_band": {
-    "_class": "asserted",
-    "detail": "Match the set. Live anchors: Safehouse Room median luma 16.3 with 63% of pixels under 20; Back Alley Night 14.7 / 68%.",
-    "reject_below": "median 8 or over 90% under 20 - that is a black rectangle",
-    "repair": "gamma 0.75-0.82 over the whole image lifts shadows without blowing the light source; a redraw is not needed",
-    "deliberate_variance": "allowed when the fiction demands it (a market lit by many lamps sits near 22), but state the intent"
-   }
-  },
-  "AI_AVATAR": {
-   "client_field": "userData.avatar (AI records and players alike)",
-   "gameAsset_type": null,
-   "render": {
-    "_class": "derived",
-    "component": "app/src/layout/Avatar.tsx -> AvatarImage",
-    "image_classes": "relative max-w-80 m-auto w-5/6 aspect-square rounded-2xl border-2 border-black",
-    "mechanism": "STRETCHED. `aspect-square` is on the <img> with no object-fit, so a non-square file is distorted to 1:1.",
-    "unoptimized_override": "This component passes `unoptimized={true}` explicitly as well."
-   },
-   "delivered_width_px": 320,
-   "delivered_width_source": "AVATAR_FULL_WIDTH = 320, matching `max-w-80`. In light-layout mode the requested width drops to the call-site `size` prop.",
-   "aspect": {
-    "_class": "derived",
-    "value": "1:1",
-    "tolerance": 0.02,
-    "note": "Exact. Anything else is visibly stretched.",
-    "tolerance_note": "Audit tolerance. Exact-zero would flag rounding, not defects; anything outside 2% is visibly distorted at the delivered width."
-   },
-   "min_width_px": {
-    "_class": "asserted",
-    "value": 320,
-    "rationale": "AVATAR_FULL_WIDTH. The avatar is the largest square art in the game."
-   },
-   "recommended_source_px": {
-    "_class": "asserted",
-    "value": "640x640"
-   },
-   "format": "webp",
-   "format_mode": "lossless",
-   "byte_ceiling_bytes": 460800,
-   "chroma_key": "lime",
-   "padding_rule": "Pad transparent to exact square AFTER keying, subject centred. Padding is what makes the aspect right; cropping to square eats the silhouette."
-  },
-  "ICON": {
-   "client_field": "item.image, jutsu.image, bloodline.image",
-   "gameAsset_type": null,
-   "render": {
-    "_class": "derived",
-    "component": "app/src/layout/ContentImage.tsx",
-    "image_classes": "aspect-square h-full w-full",
-    "image_props": "width={125} height={125}",
-    "display_box": "max-w-40 max-h-40 (160px)",
-    "mechanism": "STRETCHED. `aspect-square` on the <img>, no object-fit.",
-    "rarity_frame": "A rarity background is composited BEHIND the icon at the same 125px width for COMMON/RARE/EPIC/LEGENDARY. The icon sits on top, so a full-bleed icon hides the frame."
-   },
-   "delivered_width_px": 125,
-   "display_width_px": 160,
-   "aspect": {
-    "_class": "derived",
-    "value": "1:1",
-    "tolerance": 0.02,
-    "tolerance_note": "Audit tolerance. Exact-zero would flag rounding, not defects; anything outside 2% is visibly distorted at the delivered width."
-   },
-   "min_width_px": {
-    "_class": "asserted",
-    "value": 160,
-    "rationale": "The display box is 160px but the CDN is asked for 125, so the icon is already upscaled by 28% at full size. Supplying 160+ costs nothing at delivery and protects against the component being corrected."
-   },
-   "recommended_source_px": {
-    "_class": "asserted",
-    "value": "256x256",
-    "rationale": "Matches the engine's own default maxDim for these fields."
-   },
-   "format": "webp",
-   "format_mode": "lossless",
-   "byte_ceiling_bytes": 460800,
-   "chroma_key": "lime",
-   "padding_rule": "Pad transparent to exact square. Leave a small margin so the rarity frame reads.",
-   "subject_rule": {
-    "_class": "asserted",
-    "detail": "Concrete holdable objects only. The generator reliably fails on packaging formats, phenomena and amorphous material chunks. After three failed blind re-descriptions, switch to reference-image prompting rather than writing a fourth."
-   }
-  },
-  "STATIC": {
-   "client_field": "objectives[].image and quest.image are RAW URLS (see reference_kinds); effect.staticAssetPath is a gameAsset id",
-   "gameAsset_type": "STATIC",
-   "render": {
-    "_class": "derived",
-    "component": "app/src/libs/threejs/sector.ts -> drawQuest; app/src/libs/threejs/combat.ts",
-    "mechanism": "Three.js Sprite scaled square (`h*0.8*s` on both axes) with a CIRCULAR alpha mask (IMG_SECTOR_USER_SPRITE_MASK) over a tinted plate.",
-    "expression": "loadTexture(objective.image ? `${objective.image}?1=1` : IMG_AVATAR_DEFAULT)",
-    "pin_gate": "drawQuest returns early when the objective has no image. No image means NO PIN.",
-    "marker_tint_by_task": {
-     "move_to_location": "0xf4e365",
-     "collect_item": "0x6666a3",
-     "deliver_item": "0x6666a3",
-     "dialog": "0x6666a3",
-     "defeat_opponents": "0x9c273a"
-    }
-   },
-   "delivered_width_px": 50,
-   "delivered_width_source": "loadTexture default width = 50; textureImageUrl sets ?width=50.",
-   "aspect": {
-    "_class": "derived",
-    "value": "1:1",
-    "tolerance": 0.02,
-    "note": "The sprite is square; a non-square texture is stretched into it.",
-    "tolerance_note": "Audit tolerance. Exact-zero would flag rounding, not defects; anything outside 2% is visibly distorted at the delivered width."
-   },
-   "min_width_px": {
-    "_class": "asserted",
-    "value": 128,
-    "rationale": "Delivered at 50, but the source is also the asset-editor preview and the picker thumbnail. 128 keeps those legible while the pin itself only ever sees 50."
-   },
-   "recommended_source_px": {
-    "_class": "asserted",
-    "value": "256x256"
-   },
-   "format": "webp",
-   "format_mode": "lossless",
-   "byte_ceiling_bytes": 460800,
-   "chroma_key": "lime",
-   "padding_rule": "Pad to exact square, subject centred INSIDE the inscribed circle. The corners are masked away.",
-   "design_rule": {
-    "_class": "asserted",
-    "detail": "A pin must read at 50px inside a circle. Silhouette only - no interior detail, no text, no thin lines. Colour cannot carry meaning because the marker behind it is already tinted by task; the pin must say WHAT, the marker says WHICH KIND.",
-    "note": "The logbook objective badge and the world map icon are both static per-task lookups and never consult objective.image, so the pin is the only place this art appears. Roughly 1,150 live dialog nodes carry an image that renders nowhere."
-   }
-  },
-  "ANIMATION": {
-   "client_field": "effect.appearAnimation, effect.disappearAnimation, effect.staticAnimation -> gameAsset.image",
-   "gameAsset_type": "ANIMATION",
-   "render": {
-    "_class": "derived",
-    "component": "app/src/libs/threejs/util.ts -> showAnimation; app/src/layout/ContentImage.tsx animation branch",
-    "sheet_layout": "VERTICAL STRIP, one column. `createActionSprite(texture, 1, frames)` and, in ContentImage, `h = spritesheet.height / frames; w = spritesheet.width`.",
-    "mechanism": "Each frame is drawn into a square target (112x112 canvas in ContentImage; a square sprite in combat), so a non-square frame is stretched.",
-    "frames_field": "gameAsset.frames, int 1-100, required",
-    "speed_field": "gameAsset.speed, int 1-100, required"
-   },
-   "delivered_width_px": 50,
-   "delivered_width_note": "loadTexture default. The WHOLE SHEET is resized to 50px wide, so each frame lands at 50 x (50/frames * sheet_h/sheet_w). ContentImage's canvas branch bypasses the CDN entirely and downloads the original sheet.",
-   "aspect": {
-    "_class": "derived",
-    "value": "per_frame_1:1",
-    "rule": "sheet width : (sheet height / frames) must be 1:1",
-    "tolerance": 0.02
-   },
-   "min_width_px": {
-    "_class": "asserted",
-    "value": 112,
-    "rationale": "The ContentImage canvas is 112x112 and receives the original sheet, so per-frame width below 112 is visibly soft in the content list even though the combat sprite only needs 50."
-   },
-   "format": "webp",
-   "format_mode": "lossless",
-   "byte_ceiling_bytes": 460800,
-   "chroma_key": "lime",
-   "padding_rule": "Every frame padded to the same square footprint before stacking. Frames of unequal height desynchronise the strip."
-  }
- },
- "gameAsset_write": {
-  "_class": "derived",
-  "source": "45d_DATA_entity_schemas.json -> entities.gameAsset (app/src/validators/asset.ts)",
-  "required": [
-   "name",
-   "image",
-   "frames",
-   "speed",
-   "type",
-   "licenseDetails",
-   "onInitialBattleField"
-  ],
-  "name_max": 191,
-  "licenseDetails": {
-   "min": 1,
-   "max": 512,
-   "note": "Non-empty and required. There is no default."
-  },
-  "folder": {
-   "regex": "^[a-zA-Z0-9]*$",
-   "note": "Letters and numbers only. No hyphens, no underscores, no spaces."
-  },
-  "frames_default_for_still": 1,
-  "speed_default_for_still": 1,
-  "hidden": {
-   "note": "Affects LISTING ONLY, never rendering (law 16c). Live public quests render hidden assets today. No unhide step is needed at publish and none should be built.",
-   "ships_as": true
-  },
-  "types": [
-   "STATIC",
-   "ANIMATION",
-   "SCENE_BACKGROUND",
-   "SCENE_CHARACTER",
-   "SFX",
-   "MUSIC"
-  ]
- },
- "house_style": {
-  "_class": "measured+asserted",
-  "ratified": "2026-08-26",
-  "name": "painted figures with pixel discipline",
-  "authority": "This block replaces every style clause in every scaffold. Scaffolds cite it; they do not restate it.",
-  "exemplars": [
-   "ANBU Commander Portrait (499x768, 0.650)",
-   "Fleetfoot Scene (456x768, 0.594)",
-   "Nightfoot Scene (487x768, 0.634)",
-   "The Handler (640x985, 0.650)",
-   "Witness Kanna (640x1022, 0.626)",
-   "Commander Okabe (512x512, 1.000)"
-  ],
-  "measured_signature": {
-   "median_value": 0.13,
-   "share_below_value_0_25": 0.81,
-   "median_saturation": 0.2,
-   "soft_edge_share_max": 0.051,
-   "measured_over": "seven ratified exemplars",
-   "value_range_observed": [
-    0.09,
-    0.17
-   ],
-   "saturation_range_observed": [
-    0.15,
-    0.38
-   ],
-   "soft_edge_note": "Share of alpha pixels that are partially transparent. Above ~6% the subject carries an antialiasing halo that reads as blur against a dark scene. One exemplar (Okabe) sits at 19% and is the weakest of the set for that reason, so the ceiling is set from the other six."
-  },
-  "clauses": {
-   "rendering": "crisp pixel lineart, flat cel shading, limited palette",
-   "lighting": "soft even lighting",
-   "camera": "camera at eye level, flat 3/4 view, no low angle and no foreshortening",
-   "silhouette": "both arms held within the subject's own silhouette and touching nothing",
-   "accent": "at most one restrained elemental glow accent, as rim light on edges only",
-   "palette": "Near-black garment base with ONE accent colour per character. Observed accents: teal, gold, copper, purple, red. The accent appears as piping, trim or a single carried object, never as a field.",
-   "shading": "Cel shading with restrained painterly depth. Defined shadow shapes, flat mid-tones, no airbrush gradients and no bloom.",
-   "anatomy": "Grounded adult proportions. Not chibi, not anime-scaled eyes.",
-   "framing": "Two accepted framings, both in the ratified set: bust-to-waist, and full body."
-  },
-  "struck_clauses": {
-   "_note": "These were in the scaffolds and are now WRONG. Deleted, not rewritten. They are recorded here only so they are not re-derived.",
-   "smooth painterly shading": "contradicts flat cel shading; visible in none of the seven exemplars",
-   "rim lighting": "read as a full rim-light treatment rather than an edge accent, and produced the soft AI-painterly register"
-  },
-  "costume_grammar": "dark layered wrap robe, neck cowl or scarf, one accent colour as piping, wrapped forearms, plain buckled belt",
-  "hard_negatives": "no headband, no forehead protector, no clan symbol, no village mark, no real-world logo, ever. Generic masks, wraps, hoods and blank plates only.",
-  "rejected_registers": {
-   "soft_ai_painterly": {
-    "examples": [
-     "AshenConcord portraits",
-     "Skychain",
-     "Ashen Lung Tetsu"
-    ],
-    "disposition": "cannot be reprocessed - regenerate"
-   },
-   "anime_cel": {
-    "examples": [
-     "BeachDay",
-     "Princess Yumi",
-     "hyorin elders"
-    ],
-    "disposition": "cannot be reprocessed - regenerate"
-   },
-   "chunky_low_res_pixel": {
-    "disposition": "fine for tiles, wrong for characters"
-   }
-  },
-  "policy_defects": {
-   "_note": "Regenerate whatever the register. These are not style faults.",
-   "McRamen": "golden arch, a real-world brand mark",
-   "Dr. Kim's Laboratory": "modern objects",
-   "Field Nugget": "photographic triceratops",
-   "IMG_FARM_GRASS / IMG_FARM_PLOT_SOIL": "photographic turf"
-  }
- },
- "chroma": {
-  "_class": "asserted",
-  "keys": {
-   "lime": "#00FF00",
-   "magenta": "#FF00FF"
-  },
-  "default": "lime",
-  "magenta_when": "subject carries foliage, jade or green cloth",
-  "preferred": "GPT native transparency, when available, over either key",
-  "spill_clamp": 15,
-  "component_threshold_px": 1200,
-  "method": "Flood the background from the canvas borders across key-ish pixels. Classify remaining key components by size: >= component_threshold_px or border-touching is background or enclosed background and goes transparent. Small pockets: a HARD key colour is a hole or openwork and goes transparent; a diluted blend is glow or content and is luminance-matched and remapped.",
-  "unprocessable": {
-   "painted_glow_blocks": "A solid pale disc or rectangle rendered as glow is art in the same palette as the subject. Keying it eats content. Regenerate.",
-   "subject_on_a_surface": "A character leaning on a desk cannot be composited onto any background and there is nothing to key. Regenerate.",
-   "bridging_glow": "The stage-1 flood crosses DILUTED key pixels, so a glow bridging subject to background is keyed away with it. This is the mechanical reason the scaffolds ban auras and light fields."
-  },
-  "qc": "Composite onto a dark background before handover. Spill and chewed edges are invisible on white."
- },
- "filenames": {
-  "_class": "asserted",
-  "contract": "The manifest's @img:<file> references resolve by EXACT filename. Delivery filenames must match the manifest character for character, and must be handed over inside a code block so they are copied rather than retyped.",
-  "correction_rule": "A corrected image gets a FRESH filename (_b, _c), never a reused one. CDN and picker caching mean a reused name serves the old bytes, and the failure looks like the processing did not work.",
-  "ledger": "Record slug, type, output filename, pixel dimensions and KB for every asset. The byte ledger is what the Android picker fallback reads."
- },
- "format_ruling": {
-  "_class": "measured",
-  "ratified": "2026-08-26",
-  "measured_over": "325 real assets in the live library",
-  "bytes_per_1000px": {
-   "scene_character": {
-    "webp": 183,
-    "png": 500
-   },
-   "static": {
-    "webp": 235,
-    "png": 1057
-   },
-   "scene_background": {
-    "webp": 175,
-    "jpeg": 221
-   }
-  },
-  "keyed_pixel_art": "webp lossless. Preserves every hard edge exactly as PNG does, typically 20-30% smaller. Lossy webp rings around hard edges, which is precisely what this style is made of.",
-  "backgrounds": "webp lossy q85. Painterly, no alpha, no hard-edge budget to protect. Measured 1.26x smaller than jpeg across 193 live backgrounds."
- },
- "reference_kinds": {
-  "_class": "derived",
-  "_note": "Confirmed against a live quests.get capture of Copies, Not Thefts, 2026-08-26. Getting this backwards produces a manifest that pushes cleanly and renders nothing.",
-  "by_gameAsset_id": {
-   "fields": [
-    "quest.content.sceneBackground",
-    "objectives[].sceneBackground",
-    "quest.content.sceneCharacters[]",
-    "objectives[].sceneCharacters[]",
-    "effect.staticAssetPath",
-    "effect.appearAnimation",
-    "effect.disappearAnimation",
-    "effect.staticAnimation",
-    "effect.appearSfx",
-    "effect.disappearSfx"
-   ],
-   "resolution": "gameAsset.getSceneAssets / the gameAssets list; the record must exist first",
-   "manifest": "create the asset entry, then reference its produced id"
-  },
-  "by_raw_url": {
-   "fields": [
-    "objectives[].image (sector map pin)",
-    "quest.image (listing icon)",
-    "item.image",
-    "jutsu.image",
-    "bloodline.image",
-    "userData.avatar"
-   ],
-   "resolution": "sector.ts drawQuest passes objective.image straight into loadTexture; quest.image goes to ContentImage via ItemWithEffects. No id lookup happens.",
-   "manifest": "`\"image\": \"@img:file.webp\"` resolves to the stored URL and is done. NO gameAsset record is needed for a pin or a listing icon."
-  },
-  "consequence_for_the_audit": "A record's gameAsset `type` does not decide how it renders; the FIELD that references it does. The dmissionicons records are typed SCENE_BACKGROUND but are picked by URL into quest.image, so they never enter a QuestDialogScene and the square-aspect flag against them is a false positive. Confirmed: quest.image on Copies is a bare ufs.sh URL, not an id."
- },
- "prompt_scaffolds": {
-  "_class": "asserted",
-  "_note": "The five scaffolds, moved out of prompts.md so shotlist.py can render them and prompts.md can cite them. One authority. [STYLE] expands to house_style.clauses verbatim; [SUBJECT] is the only slot a human fills.",
-  "style_token": "[STYLE]",
-  "subject_token": "[SUBJECT]",
-  "style_clause_order": [
-   "rendering",
-   "lighting",
-   "camera",
-   "silhouette",
-   "accent"
-  ],
-  "shared_negatives": "no text, no UI, no watermark, no labels, no asset sheet, no grid, no franchise insignia",
-  "scaffolds": {
-   "AI_AVATAR": {
-    "positive": "single ninja character, full body, dynamic combat stance, [STYLE], one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard, no shadow cast onto the green",
-    "subject_label": "SUBJECT: [SUBJECT]",
-    "negative": "no text, no UI, no watermark, no chibi, no blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo, no light field, no glow disc, no lime spill on the character, no multiple characters, no checkerboard background, no transparent-preview background, no white or grey background, no gradient green, no asset sheet, no grid, no labels, no franchise insignia, no desk, no table, no furniture, no props, nothing resting on a surface",
-    "carries_costume_grammar": true
-   },
-   "SCENE_CHARACTER": {
-    "positive_by_frame": {
-     "full": "single ninja character, full body standing figure, head to feet visible, 2:3 portrait canvas, calm but intimidating characterful pose, [STYLE], one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00), not transparent, not checkerboard",
-     "bust": "single ninja character, BUST-TO-WAIST PORTRAIT ONLY, square canvas, head shoulders and torso visible, no legs or feet, calm but intimidating characterful pose, facing 3/4 or slightly forward, [STYLE], one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00), not transparent, not checkerboard"
     },
-    "default_frame": "full",
-    "subject_label": "SUBJECT: [SUBJECT]",
-    "negative": "no text, no UI, no watermark, no chibi, no blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo, no light field, no glow disc, no lime spill, no multiple characters, no checkerboard background, no transparent-preview background, no asset sheet, no grid, no labels, no franchise insignia, no desk, no table, no furniture, no props, nothing resting on a surface, no low camera angle, no foreshortening",
-    "carries_costume_grammar": true
-   },
-   "SCENE_BACKGROUND": {
-    "positive": "wide game scene background, [SUBJECT], [STYLE], atmospheric depth, foreground lower left kept open and unobstructed, no characters",
-    "subject_label": null,
-    "negative": "no people, no characters, no creatures, no character panels, no asset sheet, no grid, no collage, no UI frame, no text, no labels, no watermark",
-    "reserve_note": "Reserve the lower left: the scene character renders at absolute bottom-0 w-2/5 with no horizontal offset, so it lands over the left 40%.",
-    "carries_costume_grammar": false
-   },
-   "ICON": {
-    "positive": "open square pixel-art [SUBJECT] icon, [STYLE], dark background, strong readable silhouette, no frame, no text",
-    "subject_label": null,
-    "negative": "no asset sheet, no grid, no circular medal frame unless asked, no labels, no title text, no UI caption, no multiple icons, no franchise insignia",
-    "length_rule": "Short concrete prompts beat long multi-clause ones. The generator reliably produces holdable objects and reliably fails on packaging formats, phenomena and amorphous material chunks. After three failed blind re-descriptions, switch to reference-image prompting.",
-    "carries_costume_grammar": false
-   },
-   "STATIC": {
-    "positive": "single centered emblem, [SUBJECT], [STYLE], bold simple silhouette readable at very small size, thick forms, no thin lines, no interior detail, no text, on a true solid flat lime-green chroma key background (#00FF00)",
-    "subject_label": null,
-    "negative": "no text, no labels, no frame, no border, no fine detail, no thin lines, no gradient, no scene, no background, no multiple objects, no franchise insignia",
-    "design_note": "Renders at 50px inside a circular alpha mask over a plate the engine already tints by task. Colour cannot carry meaning and the corners are thrown away. Silhouette only.",
-    "carries_costume_grammar": false
-   }
+    "ANIMATION": {
+      "client_field": "effect.appearAnimation, effect.disappearAnimation, effect.staticAnimation -> gameAsset.image",
+      "gameAsset_type": "ANIMATION",
+      "render": {
+        "_class": "derived",
+        "component": "app/src/libs/threejs/util.ts -> showAnimation; app/src/layout/ContentImage.tsx animation branch",
+        "sheet_layout": "VERTICAL STRIP, one column. `createActionSprite(texture, 1, frames)` and, in ContentImage, `h = spritesheet.height / frames; w = spritesheet.width`.",
+        "mechanism": "Each frame is drawn into a square target (112x112 canvas in ContentImage; a square sprite in combat), so a non-square frame is stretched.",
+        "frames_field": "gameAsset.frames, int 1-100, required",
+        "speed_field": "gameAsset.speed, int 1-100, required"
+      },
+      "delivered_width_px": 50,
+      "delivered_width_note": "loadTexture default. The WHOLE SHEET is resized to 50px wide, so each frame lands at 50 x (50/frames * sheet_h/sheet_w). ContentImage's canvas branch bypasses the CDN entirely and downloads the original sheet.",
+      "aspect": {
+        "_class": "derived",
+        "value": "per_frame_1:1",
+        "rule": "sheet width : (sheet height / frames) must be 1:1",
+        "tolerance": 0.02
+      },
+      "min_width_px": {
+        "_class": "asserted",
+        "value": 112,
+        "rationale": "The ContentImage canvas is 112x112 and receives the original sheet, so per-frame width below 112 is visibly soft in the content list even though the combat sprite only needs 50."
+      },
+      "format": "webp",
+      "format_mode": "lossless",
+      "byte_ceiling_bytes": 460800,
+      "chroma_key": "lime",
+      "padding_rule": "Every frame padded to the same square footprint before stacking. Frames of unequal height desynchronise the strip."
+    }
   },
-  "style_clause_scope": {
-   "_class": "asserted",
-   "_rationale": "The clause set is not global. `silhouette` is about arms and `accent` is about a character's elemental rim light; pasting either into a background, icon or pin prompt spends prompt budget on an instruction with no referent, and the generator answers it anyway. Scoped per target so a rendered prompt only carries clauses that can apply to what it depicts. AWAITING RATIFICATION - dauntless owns art direction.",
-   "by_target": {
-    "AI_AVATAR": [
-     "rendering",
-     "lighting",
-     "camera",
-     "silhouette",
-     "accent"
+  "gameAsset_write": {
+    "_class": "derived",
+    "source": "45d_DATA_entity_schemas.json -> entities.gameAsset (app/src/validators/asset.ts)",
+    "required": [
+      "name",
+      "image",
+      "frames",
+      "speed",
+      "type",
+      "licenseDetails",
+      "onInitialBattleField"
     ],
-    "SCENE_CHARACTER": [
-     "rendering",
-     "lighting",
-     "camera",
-     "silhouette",
-     "accent"
-    ],
-    "SCENE_BACKGROUND": [
-     "rendering",
-     "lighting"
-    ],
-    "ICON": [
-     "rendering",
-     "lighting"
-    ],
-    "STATIC": [
-     "rendering"
+    "name_max": 191,
+    "licenseDetails": {
+      "min": 1,
+      "max": 512,
+      "note": "Non-empty and required. There is no default."
+    },
+    "folder": {
+      "regex": "^[a-zA-Z0-9]*$",
+      "note": "Letters and numbers only. No hyphens, no underscores, no spaces."
+    },
+    "frames_default_for_still": 1,
+    "speed_default_for_still": 1,
+    "hidden": {
+      "note": "Affects LISTING ONLY, never rendering (law 16c). Live public quests render hidden assets today. No unhide step is needed at publish and none should be built.",
+      "ships_as": true
+    },
+    "types": [
+      "STATIC",
+      "ANIMATION",
+      "SCENE_BACKGROUND",
+      "SCENE_CHARACTER",
+      "SFX",
+      "MUSIC"
     ]
-   }
+  },
+  "house_style": {
+    "_class": "measured+asserted",
+    "ratified": "2026-08-26",
+    "name": "painted figures with pixel discipline",
+    "authority": "This block replaces every style clause in every scaffold. Scaffolds cite it; they do not restate it.",
+    "exemplars": [
+      "ANBU Commander Portrait (499x768, 0.650)",
+      "Fleetfoot Scene (456x768, 0.594)",
+      "Nightfoot Scene (487x768, 0.634)",
+      "The Handler (640x985, 0.650)",
+      "Witness Kanna (640x1022, 0.626)",
+      "Commander Okabe (512x512, 1.000)"
+    ],
+    "measured_signature": {
+      "median_value": 0.13,
+      "share_below_value_0_25": 0.81,
+      "median_saturation": 0.2,
+      "soft_edge_share_max": 0.051,
+      "measured_over": "seven ratified exemplars",
+      "value_range_observed": [
+        0.09,
+        0.17
+      ],
+      "saturation_range_observed": [
+        0.15,
+        0.38
+      ],
+      "soft_edge_note": "Share of alpha pixels that are partially transparent. Above ~6% the subject carries an antialiasing halo that reads as blur against a dark scene. One exemplar (Okabe) sits at 19% and is the weakest of the set for that reason, so the ceiling is set from the other six."
+    },
+    "clauses": {
+      "rendering": "crisp pixel lineart, flat cel shading, limited palette",
+      "lighting": "soft even lighting",
+      "camera": "camera at eye level, flat 3/4 view, no low angle and no foreshortening",
+      "silhouette": "both arms held within the subject's own silhouette and touching nothing",
+      "accent": "at most one restrained elemental glow accent, as rim light on edges only",
+      "palette": "Near-black garment base with ONE accent colour per character. Observed accents: teal, gold, copper, purple, red. The accent appears as piping, trim or a single carried object, never as a field.",
+      "shading": "Cel shading with restrained painterly depth. Defined shadow shapes, flat mid-tones, no airbrush gradients and no bloom.",
+      "anatomy": "Grounded adult proportions. Not chibi, not anime-scaled eyes.",
+      "framing": "Two accepted framings, both in the ratified set: bust-to-waist, and full body."
+    },
+    "struck_clauses": {
+      "_note": "These were in the scaffolds and are now WRONG. Deleted, not rewritten. They are recorded here only so they are not re-derived.",
+      "smooth painterly shading": "contradicts flat cel shading; visible in none of the seven exemplars",
+      "rim lighting": "read as a full rim-light treatment rather than an edge accent, and produced the soft AI-painterly register"
+    },
+    "costume_grammar": "dark layered wrap robe, neck cowl or scarf, one accent colour as piping, wrapped forearms, plain buckled belt",
+    "hard_negatives": "no headband, no forehead protector, no clan symbol, no village mark, no real-world logo, ever. Generic masks, wraps, hoods and blank plates only.",
+    "rejected_registers": {
+      "soft_ai_painterly": {
+        "examples": [
+          "AshenConcord portraits",
+          "Skychain",
+          "Ashen Lung Tetsu"
+        ],
+        "disposition": "cannot be reprocessed - regenerate"
+      },
+      "anime_cel": {
+        "examples": [
+          "BeachDay",
+          "Princess Yumi",
+          "hyorin elders"
+        ],
+        "disposition": "cannot be reprocessed - regenerate"
+      },
+      "chunky_low_res_pixel": {
+        "disposition": "fine for tiles, wrong for characters"
+      }
+    },
+    "policy_defects": {
+      "_note": "Regenerate whatever the register. These are not style faults.",
+      "McRamen": "golden arch, a real-world brand mark",
+      "Dr. Kim's Laboratory": "modern objects",
+      "Field Nugget": "photographic triceratops",
+      "IMG_FARM_GRASS / IMG_FARM_PLOT_SOIL": "photographic turf"
+    }
+  },
+  "chroma": {
+    "_class": "asserted",
+    "keys": {
+      "lime": "#00FF00",
+      "magenta": "#FF00FF"
+    },
+    "default": "lime",
+    "magenta_when": "subject carries foliage, jade or green cloth",
+    "preferred": "GPT native transparency, when available, over either key",
+    "spill_clamp": 15,
+    "component_threshold_px": 1200,
+    "method": "Flood the background from the canvas borders across key-ish pixels. Classify remaining key components by size: >= component_threshold_px or border-touching is background or enclosed background and goes transparent. Small pockets: a HARD key colour is a hole or openwork and goes transparent; a diluted blend is glow or content and is luminance-matched and remapped.",
+    "unprocessable": {
+      "painted_glow_blocks": "A solid pale disc or rectangle rendered as glow is art in the same palette as the subject. Keying it eats content. Regenerate.",
+      "subject_on_a_surface": "A character leaning on a desk cannot be composited onto any background and there is nothing to key. Regenerate.",
+      "bridging_glow": "The stage-1 flood crosses DILUTED key pixels, so a glow bridging subject to background is keyed away with it. This is the mechanical reason the scaffolds ban auras and light fields."
+    },
+    "qc": "Composite onto a dark background before handover. Spill and chewed edges are invisible on white."
+  },
+  "filenames": {
+    "_class": "asserted",
+    "contract": "The manifest's @img:<file> references resolve by EXACT filename. Delivery filenames must match the manifest character for character, and must be handed over inside a code block so they are copied rather than retyped.",
+    "correction_rule": "A corrected image gets a FRESH filename (_b, _c), never a reused one. CDN and picker caching mean a reused name serves the old bytes, and the failure looks like the processing did not work.",
+    "ledger": "Record slug, type, output filename, pixel dimensions and KB for every asset. The byte ledger is what the Android picker fallback reads."
+  },
+  "format_ruling": {
+    "_class": "measured",
+    "ratified": "2026-08-26",
+    "measured_over": "325 real assets in the live library",
+    "bytes_per_1000px": {
+      "scene_character": {
+        "webp": 183,
+        "png": 500
+      },
+      "static": {
+        "webp": 235,
+        "png": 1057
+      },
+      "scene_background": {
+        "webp": 175,
+        "jpeg": 221
+      }
+    },
+    "keyed_pixel_art": "webp lossless. Preserves every hard edge exactly as PNG does, typically 20-30% smaller. Lossy webp rings around hard edges, which is precisely what this style is made of.",
+    "backgrounds": "webp lossy q85. Painterly, no alpha, no hard-edge budget to protect. Measured 1.26x smaller than jpeg across 193 live backgrounds."
+  },
+  "reference_kinds": {
+    "_class": "derived",
+    "_note": "Confirmed against a live quests.get capture of Copies, Not Thefts, 2026-08-26. Getting this backwards produces a manifest that pushes cleanly and renders nothing.",
+    "by_gameAsset_id": {
+      "fields": [
+        "quest.content.sceneBackground",
+        "objectives[].sceneBackground",
+        "quest.content.sceneCharacters[]",
+        "objectives[].sceneCharacters[]",
+        "effect.staticAssetPath",
+        "effect.appearAnimation",
+        "effect.disappearAnimation",
+        "effect.staticAnimation",
+        "effect.appearSfx",
+        "effect.disappearSfx"
+      ],
+      "resolution": "gameAsset.getSceneAssets / the gameAssets list; the record must exist first",
+      "manifest": "create the asset entry, then reference its produced id"
+    },
+    "by_raw_url": {
+      "fields": [
+        "objectives[].image (sector map pin)",
+        "quest.image (listing icon)",
+        "item.image",
+        "jutsu.image",
+        "bloodline.image",
+        "userData.avatar"
+      ],
+      "resolution": "sector.ts drawQuest passes objective.image straight into loadTexture; quest.image goes to ContentImage via ItemWithEffects. No id lookup happens.",
+      "manifest": "`\"image\": \"@img:file.webp\"` resolves to the stored URL and is done. NO gameAsset record is needed for a pin or a listing icon."
+    },
+    "consequence_for_the_audit": "A record's gameAsset `type` does not decide how it renders; the FIELD that references it does. The dmissionicons records are typed SCENE_BACKGROUND but are picked by URL into quest.image, so they never enter a QuestDialogScene and the square-aspect flag against them is a false positive. Confirmed: quest.image on Copies is a bare ufs.sh URL, not an id."
+  },
+  "prompt_scaffolds": {
+    "_class": "asserted",
+    "_note": "The five scaffolds, moved out of prompts.md so shotlist.py can render them and prompts.md can cite them. One authority. [STYLE] expands to house_style.clauses verbatim; [SUBJECT] is the only slot a human fills.",
+    "style_token": "[STYLE]",
+    "subject_token": "[SUBJECT]",
+    "style_clause_order": [
+      "rendering",
+      "lighting",
+      "camera",
+      "silhouette",
+      "accent"
+    ],
+    "shared_negatives": "no text, no UI, no watermark, no labels, no asset sheet, no grid, no franchise insignia",
+    "scaffolds": {
+      "AI_AVATAR": {
+        "positive": "single ninja character, full body, dynamic combat stance, [STYLE], one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard, no shadow cast onto the green",
+        "subject_label": "SUBJECT: [SUBJECT]",
+        "negative": "no text, no UI, no watermark, no chibi, no blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo, no light field, no glow disc, no lime spill on the character, no multiple characters, no checkerboard background, no transparent-preview background, no white or grey background, no gradient green, no asset sheet, no grid, no labels, no franchise insignia, no desk, no table, no furniture, no props, nothing resting on a surface",
+        "carries_costume_grammar": true
+      },
+      "SCENE_CHARACTER": {
+        "positive_by_frame": {
+          "full": "single ninja character, full body standing figure, head to feet visible, 2:3 portrait canvas, calm but intimidating characterful pose, [STYLE], one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00), not transparent, not checkerboard",
+          "bust": "single ninja character, BUST-TO-WAIST PORTRAIT ONLY, square canvas, head shoulders and torso visible, no legs or feet, calm but intimidating characterful pose, facing 3/4 or slightly forward, [STYLE], one restrained elemental glow accent as rim light on edges only, centered, on a true solid flat lime-green chroma key background (#00FF00), not transparent, not checkerboard"
+        },
+        "default_frame": "full",
+        "subject_label": "SUBJECT: [SUBJECT]",
+        "negative": "no text, no UI, no watermark, no chibi, no blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo, no light field, no glow disc, no lime spill, no multiple characters, no checkerboard background, no transparent-preview background, no asset sheet, no grid, no labels, no franchise insignia, no desk, no table, no furniture, no props, nothing resting on a surface, no low camera angle, no foreshortening",
+        "carries_costume_grammar": true
+      },
+      "SCENE_BACKGROUND": {
+        "positive": "wide game scene background, [SUBJECT], [STYLE], atmospheric depth, foreground lower left kept open and unobstructed, no characters",
+        "subject_label": null,
+        "negative": "no people, no characters, no creatures, no character panels, no asset sheet, no grid, no collage, no UI frame, no text, no labels, no watermark",
+        "reserve_note": "Reserve the lower left: the scene character renders at absolute bottom-0 w-2/5 with no horizontal offset, so it lands over the left 40%.",
+        "carries_costume_grammar": false
+      },
+      "ICON": {
+        "positive": "open square pixel-art [SUBJECT] icon, [STYLE], dark background, strong readable silhouette, no frame, no text",
+        "subject_label": null,
+        "negative": "no asset sheet, no grid, no circular medal frame unless asked, no labels, no title text, no UI caption, no multiple icons, no franchise insignia",
+        "length_rule": "Short concrete prompts beat long multi-clause ones. The generator reliably produces holdable objects and reliably fails on packaging formats, phenomena and amorphous material chunks. After three failed blind re-descriptions, switch to reference-image prompting.",
+        "carries_costume_grammar": false
+      },
+      "STATIC": {
+        "positive": "single centered emblem, [SUBJECT], [STYLE], bold simple silhouette readable at very small size, thick forms, no thin lines, no interior detail, no text, on a true solid flat lime-green chroma key background (#00FF00)",
+        "subject_label": null,
+        "negative": "no text, no labels, no frame, no border, no fine detail, no thin lines, no gradient, no scene, no background, no multiple objects, no franchise insignia",
+        "design_note": "Renders at 50px inside a circular alpha mask over a plate the engine already tints by task. Colour cannot carry meaning and the corners are thrown away. Silhouette only.",
+        "carries_costume_grammar": false
+      }
+    },
+    "style_clause_scope": {
+      "_class": "asserted",
+      "_rationale": "The clause set is not global. `silhouette` is about arms and `accent` is about a character's elemental rim light; pasting either into a background, icon or pin prompt spends prompt budget on an instruction with no referent, and the generator answers it anyway. Scoped per target so a rendered prompt only carries clauses that can apply to what it depicts. AWAITING RATIFICATION - dauntless owns art direction.",
+      "by_target": {
+        "AI_AVATAR": [
+          "rendering",
+          "lighting",
+          "camera",
+          "silhouette",
+          "accent"
+        ],
+        "SCENE_CHARACTER": [
+          "rendering",
+          "lighting",
+          "camera",
+          "silhouette",
+          "accent"
+        ],
+        "SCENE_BACKGROUND": [
+          "rendering",
+          "lighting"
+        ],
+        "ICON": [
+          "rendering",
+          "lighting"
+        ],
+        "STATIC": [
+          "rendering"
+        ]
+      }
+    }
+  },
+  "exposure_bands": {
+    "listing_icon_framed": {
+      "_class": "measured",
+      "measured_over": "9 live D-rank framed listing icons supplied by dauntless 2026-08-30 (dmissionicons family)",
+      "metric": "luma = 0.2126R+0.7152G+0.0722B, normalised 0-1, whole image including frame",
+      "population": {
+        "median_luma": {
+          "min": 0.087,
+          "max": 0.219,
+          "n": 9
+        },
+        "dark_share_below_0.20": {
+          "min": 0.49,
+          "max": 0.83,
+          "n": 9
+        }
+      },
+      "median_luma_max": 0.25,
+      "dark_share_min": 0.45,
+      "rationale": "Eight of nine sit at or below 0.130 median; the ninth (a pale goat subject) reaches 0.219. The band is floored to the observed spread with a small margin, not tightened to the cluster, so an on-style bright subject is not rejected. A listing icon above this ceiling blows out against the rest of the quest list.",
+      "status": "PROPOSED - measured from precedent, not yet ratified by dauntless"
+    }
   }
- }
 }
