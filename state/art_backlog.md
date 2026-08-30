@@ -50,8 +50,13 @@ x2-x4 x22-x28 (village-official hypothesis DEAD, prose settles it) · Three Roun
 r46 r47 · Old Ghost g32-g35 (RULED same officer - her arc, not a distinct mentor).
 Commander SCOPE NARROWED 2026-08-30: ANBU Commander Portrait ryLnefupONNZKX5hcPWid is
 OLD GHOST MISSION ONLY (she posted it; brief reports directly to her) - g32-g35 + g36.
-Remaining former-officer clusters (NtR, Long Winter w2-w3, Loud Way, Tenth Name, Three
-Rounds debriefs): generic Handler vs third figure - LAST OPEN CAST CALL.
+RULED 2026-08-30 (cast complete): generic Handler takes the remaining clusters.
+RANK HANDOFF CONVENTION (noted per dauntless): higher-rank missions report to the
+Commander - A-rank briefs/debriefs are hers, B and below are the Handler's.
+Sprinkle under that rule (proposal, amend by line): Tenth Name x2-x4 + x22-x28 ->
+Commander (A-rank, bingo-book authority voice). Everything else -> Handler:
+c13 · e16 · Waystation w16 · p14-p15 · n2 n3 n23-n25 · Long Winter w2 w3 · Loud Way
+l2 l3 l24 l25 · Three Rounds r18 r34 r46 r47.
 Desk handler RULED: bmissions/The Handler pqihl43HYROpkIMX172-P - IDENTIFIED as the shared
 stand-in (the 34 stand-in nodes are her; correct on desk nodes, replaced elsewhere). This
 also closes the carried 'verify Waystation scene id' item via the 17 capture read.
