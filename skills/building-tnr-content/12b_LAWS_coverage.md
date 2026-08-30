@@ -38,11 +38,11 @@ paid for in the field, not re-derived this pass. `corrected` = the law changed i
 | 6 | validate | **corrected** | power/apReduction/threshold caps in `45c`; condition `value` has NO max |
 | 7 | validate | verified | `DATE_RE` on startsAt/endsAt |
 | 8 | validate | verified | `CAP_100`; bounds confirmed in `45d` quest (0-100) |
-| 9 | knowledge | carried | Multiplicative stacking; doctrine, not a validator rule |
-| 10 | knowledge | carried | DDT product form |
-| 11 | knowledge | carried | Pierce bypass; calibration discipline |
-| 12 | knowledge | carried | Ramp compounding |
-| 13 | knowledge | carried | Calibration protocol |
+| 9 | validate | validate.py --laws | Executable spec: product of (1+p_i), worked value asserted |
+| 10 | validate | validate.py --laws | Executable spec: 1 - product(1-p_i), .10x.10 -> .19 asserted |
+| 11 | validate | validate.py --laws | Executable spec: pierce == raw base through the modifier pipe |
+| 12 | validate | validate.py --laws | Executable spec: k**n vs the falsified linear form |
+| 13 | knowledge | carried | Calibration PROTOCOL - procedural, deliberately not machine-asserted |
 | 14 | validate | **corrected 2026-08-28** | `check_ai_create`. Was claimed, absent, caught by builder lint L05 |
 | 15 | knowledge | **corrected** | `scaleUserStats` re-read line by line; statMod precision added |
 | 16 | generated | **corrected** | `USER_CAPS` now in `45e`, including the previously unrecorded `LVL_CAP` |

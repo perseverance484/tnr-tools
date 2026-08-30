@@ -28,6 +28,8 @@ A citation is the literal `law NN` (any case, `# law NN` comments included).
 References restate law text by design and are deliberately NOT scanned; this
 audits code, not prose.
 """
+# --strict-provenance (WO-07): claimed-validate with no resolvable citation
+# becomes an ERROR instead of a warn. Default OFF pending the Phase-3 ruling.
 import re, sys
 from pathlib import Path
 
@@ -85,6 +87,9 @@ def scan_code(files):
     return cites
 
 
+STRICT_PROV = "--strict-provenance" in sys.argv
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -125,7 +130,9 @@ def main():
     for i, cls in sorted(matrix.items(), key=lambda kv: (int(re.match(r"\d+", kv[0]).group()), kv[0])):
         where = cites.get(i, set())
         if cls == "validate" and not (where & VALIDATORS):
-            warns.append(f"law {i}: matrix says validate, no citation in {sorted(VALIDATORS)}")
+            (errs if STRICT_PROV else warns).append(
+                f"law {i}: matrix says validate, no citation in {sorted(VALIDATORS)}"
+                + (" [strict-provenance]" if STRICT_PROV else ""))
         if cls == "knowledge" and (where & VALIDATORS):
             warns.append(f"law {i}: matrix says knowledge, but cited by {sorted(where & VALIDATORS)} - reclass candidate")
 
