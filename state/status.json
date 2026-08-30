@@ -1,11 +1,16 @@
 {
   "generated": "2026-08-30",
-  "session": "mounted-3 (plan 3/3)",
+  "session": "mounted-3 (plan 3/3 + Wave 1 executed)",
   "format_note": "git-native board; container Claude reads/writes state/ in-repo, classic bundle retired",
   "ruled_this_session": [
-    "none - planning session, no execution by scope"
+    "dauntless APPROVED plan rulings 1 (one-time web-UI workflow upload batch) and 2 (read-only tap exemption -> v4.29 button)",
+    "rulings 3 (jsDelivr), 4 (PAT relay), 5 (history squash) explained in-thread, pending"
   ],
   "deployed": [
+    "WO-01 @0e62821: builder v4.28 (asserted-fields verdict avfy, read-back retry, !!UNVERIFIED for live=NONE, HEAD self-check fail-open) + harvest.py verify (exit 1 on FAIL/UNVERIFIED) + fixtures red/green + push/7_readback_smoke.json (factory-built, validate 0/0)",
+    "WO-03 @46f72a2: schema_diff.py fail-closed adoption gate (member sets BY VALUE) + invariants I1-I3; SECTOR_TYPES-class fixture exit 1, additive exit 0; live 45c self-diff 0, invariants 0e/128 variants; 00_INDEX regen row mandates the gate",
+    "WO-02 @c0df06d: sentinel_hash.py (canonical, stamp-invariant) + state/schema_sentinel.json baseline + staged_workflows/regen_schemas.yml; dry-run: extraction byte-deterministic x2, shipped-vs-upstream-HEAD = ZERO drift on 45c/45d/45e",
+    "WO-10a @54e4ff6: scrub_check.py local mirror (empty-list exit 1, seeded exit 1, real repo 145 files 0 hits vs actual PAT) + staged_workflows/scrub.yml fail-closed SCRUB_STRINGS multi-pattern",
     "docs/RESEARCH_REPORT_2026-08-30_stack_optimization.md - Session 2 report committed verbatim (152 lines, W1-W12 answered, re-ranked shortlist: W8 up 8->5, W11 down 5->8; PAT grep 0)",
     "docs/PLAN_2026-08-30_stack_optimization.md - 11 work orders + contingent jsDelivr, 4 waves, staged-workflow convention (state/staged_workflows/ authored by container, installed by dauntless via one web-UI batch), builder work batched into v4.28 (Wave 1) + v4.29 (Wave 3)",
     "builder v4.26 -> repo root [mounted:a], superseded same session by v4.27: ⇩ Repo loader (list+fetch .json/.zip from a repo dir via contents API, panel PAT optional, same load paths as 📄) [mounted:e]",
@@ -26,6 +31,9 @@
     "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
   ],
   "pending_verification": [
+    "WO-01 live acceptance: VM refresh -> panel v4.28 + cfg generated, one Build tap on push/7_readback_smoke.json, then harvest.py verify on the inbox bundle",
+    "sentinel first run: after web-UI install, trigger regen-schemas-sentinel via workflow_dispatch (expect: no drift, no commit)",
+    "scrub gate: first push after install runs fail-closed green (SCRUB_STRINGS must be set in the same session)",
     "6_verify_and_fix.json wedge probe - when Terr clears or as free probe (⇩ Repo -> push/)"
   ],
   "wedge": {
@@ -53,8 +61,6 @@
     "audit session: lawmap 93/0e/5w, validate push/6 0/0, --parity 16/16 re-proven at open; brief contains no PAT (grep 0)"
   ],
   "rulings_open": [
-    "PLAN: one-time web-UI workflow upload of state/staged_workflows/* (rec: approve; never add Workflows-RW to container PAT)",
-    "PLAN: read-only tap exemption - surface v4.29 free-read capture button, *.get/list allowlist (rec: approve)",
     "PLAN: jsDelivr commit-pinned loader dependency (rec: approve as pilot, raw fallback)",
     "PLAN: PAT/relay strategy - workflow_dispatch relay + second panel PAT (rec: adopt relay)",
     "PLAN: history squashing per COMPACTION_RUNBOOK (rec: approve manual-only)",
@@ -64,6 +70,6 @@
     "Wedge source note ready for Terr: AllObjectives discriminators clean at HEAD; suspect duplicate zod across chunks - relay?",
     "Paste mounted project instructions (delivered 2026-08-30), then DELETE 00_INDEX.md + 10_LAWS_core.md from project knowledge - repo docs/ copies are now canon"
   ],
-  "closed_out": "2026-08-30: Session 3 plan committed (docs/PLAN_2026-08-30_stack_optimization.md); guards re-proven at open (lawmap 93/0e/5w, validate push/6 0/0, parity 16/16); zero execution by scope",
-  "next": "On approval in-thread: execute Wave 1 (WO-01 builder v4.28 read-back, WO-03 schema_diff gate, WO-02 sentinel staged, WO-10a scrub staged). Upload batch + 4 other plan rulings await dauntless."
+  "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)",
+  "next": "dauntless: VM refresh + push/7 tap; web-UI install batch (regen_schemas.yml + scrub.yml REPLACE) + SCRUB_STRINGS secret same session + sentinel dispatch. Then Wave 2 (WO-04 doctrine projections, WO-05 session pair) on go."
 }
