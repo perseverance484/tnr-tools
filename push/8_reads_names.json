@@ -1,0 +1,10 @@
+{
+ "_note": "v4.29 acceptance for the free-read button: two name-list reads, zero mutations. Also serves as a standing dedup capture. Red test lives elsewhere: picking push/7 through the Reads button must be REFUSED.",
+ "capture": {
+  "after": [
+   {"proc": "jutsu.getAllNames", "input": {}},
+   {"proc": "quests.getAllNames", "input": {}}
+  ]
+ },
+ "items": []
+}
