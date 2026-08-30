@@ -1,4 +1,4 @@
-<!-- RENDERED pack 'ai-build' from ai.md@dffeb23 + pipeline.md@b567313 via build_packs.py - edit the sources, never this file -->
+<!-- RENDERED pack 'ai-build' from ai.md@dffeb23 + pipeline.md@3425705 via build_packs.py - edit the sources, never this file -->
 # Pack: ai-build
 
 Minimal set for an AI enemy create/edit that ends in a push. SKILL doctrine block first, this pack second; factory.py/enemy.py construct, 45c/45d/46b own shapes and vocab. Depth on demand via references/_toc/ai.json slices: infographic workflows, blank template, effect vocabulary 4.2-4.6, targets list, ai_v2 addendum. Pipeline relocated laws enforced by validate --parity + harvest verify.
@@ -409,7 +409,7 @@ owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
 ---
 
-<!-- pack-trace: pipeline.md @b567313 '1.4 Image upload (the builder resolves `@img` refs)' -->
+<!-- pack-trace: pipeline.md @3425705 '1.4 Image upload (the builder resolves `@img` refs)' -->
 ### 1.4 Image upload (the builder resolves `@img` refs)
 
 A manifest field value `@img:<filename>` is uploaded by the builder and replaced with the stored URL, so image assets never have to be uploaded by hand. Upload flow (uploadthing, captured):
@@ -422,7 +422,7 @@ A manifest field value `@img:<filename>` is uploaded by the builder and replaced
 
 ---
 
-<!-- pack-trace: pipeline.md @b567313 '2.1 Request envelope and conventions' -->
+<!-- pack-trace: pipeline.md @3425705 '2.1 Request envelope and conventions' -->
 ### 2.1 Request envelope and conventions
 
 - TNR uses tRPC batch links. **Every POST body is a batch envelope:** `{"0": { "json": <payload>, "meta": <meta> }}`.
@@ -433,7 +433,7 @@ A manifest field value `@img:<filename>` is uploaded by the builder and replaced
 
 ---
 
-<!-- pack-trace: pipeline.md @b567313 '2.4 AI enemy (profile)' -->
+<!-- pack-trace: pipeline.md @3425705 '2.4 AI enemy (profile)' -->
 ### 2.4 AI enemy (profile)
 
 | Op | Method | Shape |
@@ -445,14 +445,14 @@ Edit URL for the in-console editor: `/manual/ai/edit/[id]`. Armor is set in the 
 
 ---
 
-<!-- pack-trace: pipeline.md @b567313 '3. Rate limit' -->
+<!-- pack-trace: pipeline.md @3425705 '3. Rate limit' -->
 ## 3. Rate limit
 
 The limiter is a **rolling cumulative request-count budget**, not per-burst. It drains across repeated sessions and refills over time. Use fewer, larger requests with exponential backoff (the builder does this), and let it refill rather than hammering.
 
 ---
 
-<!-- pack-trace: pipeline.md @b567313 '4. id-fetch and capture-first discipline' -->
+<!-- pack-trace: pipeline.md @3425705 '4. id-fetch and capture-first discipline' -->
 ## 4. id-fetch and capture-first discipline
 
 - Pull live ids from edit URLs (`/manual/ai/edit/[id]`, `/manual/asset/edit/[id]`, the item editor) or from catalog dumps.
@@ -462,7 +462,7 @@ The limiter is a **rolling cumulative request-count budget**, not per-burst. It 
 
 ---
 
-<!-- pack-trace: pipeline.md @b567313 '5. Universal gotcha checklist' -->
+<!-- pack-trace: pipeline.md @3425705 '5. Universal gotcha checklist' -->
 ## 5. Universal gotcha checklist
 
 Run before any push:
@@ -482,7 +482,7 @@ Run before any push:
 
 ---
 
-<!-- pack-trace: pipeline.md @b567313 'Addendum: push-path rules learned in the field (Tower / Howling builds)' -->
+<!-- pack-trace: pipeline.md @3425705 'Addendum: push-path rules learned in the field (Tower / Howling builds)' -->
 ## Addendum: push-path rules learned in the field (Tower / Howling builds)
 
 - **AI edits never rely on fetch-merge for `jutsus` or `items`.** The builder passes live rows through raw (jutsu objects, UserItem rows with `dropChancePerc`), which the server rejects. Every AI edit sends `jutsus` as string id refs AND `items` as ids-with-number explicitly, even when only touching other fields. Bundle fix (row normalization in the edit merge) queued for the next builder rev.
