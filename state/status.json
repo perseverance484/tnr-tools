@@ -1,12 +1,13 @@
 {
   "generated": "2026-08-30",
-  "session": "mounted-3 (Wave 3 executed)",
+  "session": "mounted-3 (Wave 4 executed - plan complete)",
   "format_note": "PROJECTION of state/digest.json - edit the digest, run session_close.py",
-  "state_line": "Wave 3 CLOSED with live acceptance PASSED: batch '2,3' ran push/7+8 sequentially (two v4.29 bundles 5s apart), push/7 resume A:40/0 flags (pfEq ''<->null self-proven live - prior run flagged 2), push/8 free-reads captured both name lists, and the Reads-refusal red test on the write manifest confirmed REFUSED by dauntless. Picker papercut queued: accept filename leading digits, not just menu positions.",
+  "state_line": "Wave 4 COMPLETE, all four waves of PLAN_2026-08-30 executed: WO-08 hot shard @55d1533 (seed-lag gap CLOSED - SMOKE + 22 delta rows visible in answers, regen idempotent), WO-11 rawqc @d5e8b8d (4/4 synthesized selftest, ledger + escalation-candidate stats), WO-09 packs @fb36aa2 (jutsu-build exemplar 15.6K vs ~68K, --check fail-closed, TOCs for 5 refs), WO-10b @6f764a3 (relay + release-pin staged, rewrite dry-run proven). No live acceptance needed this wave - all container/CI-side; the second web-UI batch (skillpack v2, relay, release_pin) installs at leisure.",
   "ruled_this_session": [
     "dauntless approved ALL 5 plan rulings (1-5)"
   ],
   "deployed": [
+    "Wave 4: hot shard, rawqc+ledger, packs+TOCs, relay+pin staged",
     "v4.29 batch+reads+pfEq @2bfd995",
     "validate --laws + lawmap strict-provenance + 12b 9-12 reclass",
     "WO-01 fallout fix: builder L-lint (v4.15 session-law layer) ported 1:1 into validate.py (L01-L18 blockers+warns; L05 skipped, already enforced); push/7 cooldown 0->3; red fixture lint_l16_red.json frozen from the blocked payload. Proof: port flags exactly L16 on the pre-fix file (panel-identical wording), push/6 regression 0/0, push/7 0/0, parity 16/16, factory 20/20",
@@ -18,17 +19,15 @@
     "docs/PLAN_2026-08-30_stack_optimization.md - 11 work orders + contingent jsDelivr, 4 waves, staged-workflow convention (state/staged_workflows/ authored by container, installed by dauntless via one web-UI batch), builder work batched into v4.28 (Wave 1) + v4.29 (Wave 3)",
     "builder v4.26 -> repo root [mounted:a], superseded same session by v4.27: ⇩ Repo loader (list+fetch .json/.zip from a repo dir via contents API, panel PAT optional, same load paths as 📄) [mounted:e]",
     "pushpack.py -> skills/building-tnr-content/scripts/ [mounted:c]",
-    "push/: smoketest_pack.zip + 6_verify_and_fix.json (HOLD: wedge probe runs only when Terr clears)",
-    "state/: prompt_report_clerk.txt + discord_terr_editor_crash.md relocated from bundle deliverables",
-    "harvest.py: reads v4.26+ results bundles natively (captures[] -> normalised entries) - patched post-acceptance"
+    "push/: smoketest_pack.zip + 6_verify_and_fix.json (HOLD: wedge probe runs only when Terr clears)"
   ],
   "in_progress": {
-    "wave": "Wave 4 next on go: WO-08 answer shards+freshness, WO-09 task packs+TOC, WO-11 rawqc+art ledger, WO-10b relay + jsDelivr pin staged (second web-UI batch)"
+    "wave": "Plan executed 11/11 WOs + contingent. Remaining plan-adjacent: pack curation (ai/quest/item/art), relay ritual switch post-install, jsDelivr pilot watch after first pinned release."
   },
   "open_by_owner": {
     "dauntless": [
-      "re-paste mounted instructions from state/mounted_instructions.txt (insert PAT at the slot) whenever convenient - old paste keeps working, stamp detects staleness",
-      "Wave 4 web-UI batch later: skillpack.yml v2 + relay.yml + release-pin (staged as authored)",
+      "second web-UI batch: skillpack v2 (replace) + relay.yml + release_pin.yml (new) - no secrets needed this time",
+      "mounted instructions re-paste from state/mounted_instructions.txt (PAT slot) at leisure",
       "carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable"
     ],
     "terr": [
@@ -44,7 +43,7 @@
     "lint table now lives in TWO places (builder JS + validate.py port, drift hazard): single-source as shared data both read - fold into WO-04 doctrine work or a builder release?"
   ],
   "verified": [
-    "lawmap -> 93 laws, 93 matrix rows, 74 citations across 36 files; 0 errors, 5 warnings",
+    "lawmap -> 93 laws, 93 matrix rows, 74 citations across 38 files; 0 errors, 5 warnings",
     "parity tnr_results_1788065642059.json -> 0 errors, 0 warnings"
   ],
   "token_ledger": [
@@ -74,7 +73,7 @@
       "at": "04:31Z"
     }
   ],
-  "next": "Wave 4 on go.",
+  "next": "dauntless at leisure: second web-UI batch (state/staged_workflows/: skillpack.yml REPLACE, relay.yml new, release_pin.yml new); mounted re-paste. Then normal content work resumes - Forsworn board unchanged (Faceless Stray art, Old Ghost + Tenth Name prose, Terr wedge).",
   "blocked": [
     "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
   ],
@@ -103,7 +102,9 @@
     "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
     "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
     "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited",
-    "v4.30 queue: Repo picker accepts filename leading digits (7,8 would have worked); batch position-vs-file-number papercut"
+    "v4.30 queue: Repo picker accepts filename leading digits (7,8 would have worked); batch position-vs-file-number papercut",
+    "pack curation follow-ups: ai-build, quest-build, item-build, art-session packs (mechanism live, jutsu exemplar proven)",
+    "relay ritual switch is a separate post-install step (container pushes stay direct-to-main until then)"
   ],
   "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)"
 }

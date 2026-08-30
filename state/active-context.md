@@ -1,10 +1,10 @@
 <!-- PROJECTION of state/digest.json - edit the digest, run session_close.py; never edit this file -->
 # active-context.md - read this first, then the board
 
-**State in one line:** Wave 3 CLOSED with live acceptance PASSED: batch '2,3' ran push/7+8 sequentially (two v4.29 bundles 5s apart), push/7 resume A:40/0 flags (pfEq ''<->null self-proven live - prior run flagged 2), push/8 free-reads captured both name lists, and the Reads-refusal red test on the write manifest confirmed REFUSED by dauntless. Picker papercut queued: accept filename leading digits, not just menu positions.
+**State in one line:** Wave 4 COMPLETE, all four waves of PLAN_2026-08-30 executed: WO-08 hot shard @55d1533 (seed-lag gap CLOSED - SMOKE + 22 delta rows visible in answers, regen idempotent), WO-11 rawqc @d5e8b8d (4/4 synthesized selftest, ledger + escalation-candidate stats), WO-09 packs @fb36aa2 (jutsu-build exemplar 15.6K vs ~68K, --check fail-closed, TOCs for 5 refs), WO-10b @6f764a3 (relay + release-pin staged, rewrite dry-run proven). No live acceptance needed this wave - all container/CI-side; the second web-UI batch (skillpack v2, relay, release_pin) installs at leisure.
 
 **Verified at close (exact runs):**
-- lawmap -> 93 laws, 93 matrix rows, 74 citations across 36 files; 0 errors, 5 warnings
+- lawmap -> 93 laws, 93 matrix rows, 74 citations across 38 files; 0 errors, 5 warnings
 - parity tnr_results_1788065642059.json -> 0 errors, 0 warnings
 
 **Start ritual next session:** git pull --rebase; set repo-local git identity
@@ -15,10 +15,10 @@ state, runs the guard trio (lawmap, validate on the in-progress file, parity
 vs the newest inbox bundle), and seeds the token ledger. If a new inbox bundle
 exists: `harvest.py verify` it FIRST. No clone means no state: say so.
 
-**In progress:** wave: Wave 4 next on go: WO-08 answer shards+freshness, WO-09 task packs+TOC, WO-11 rawqc+art ledger, WO-10b relay + jsDelivr pin staged (second web-UI batch)
+**In progress:** wave: Plan executed 11/11 WOs + contingent. Remaining plan-adjacent: pack curation (ai/quest/item/art), relay ritual switch post-install, jsDelivr pilot watch after first pinned release.
 
 **Open items, by owner:**
-- dauntless: re-paste mounted instructions from state/mounted_instructions.txt (insert PAT at the slot) whenever convenient - old paste keeps working, stamp detects staleness; Wave 4 web-UI batch later: skillpack.yml v2 + relay.yml + release-pin (staged as authored); carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable
+- dauntless: second web-UI batch: skillpack v2 (replace) + relay.yml + release_pin.yml (new) - no secrets needed this time; mounted instructions re-paste from state/mounted_instructions.txt (PAT slot) at leisure; carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable
 - terr: quest-edit crash fix; push/6 held until then
 
 **Rulings open:** - Phase 3 T1 scope + whether warnings ship validator-first (12b Phase 3 section)
@@ -28,7 +28,7 @@ exists: `harvest.py verify` it FIRST. No clone means no state: say so.
 - Paste mounted project instructions (delivered 2026-08-30), then DELETE 00_INDEX.md + 10_LAWS_core.md from project knowledge - repo docs/ copies are now canon
 - lint table now lives in TWO places (builder JS + validate.py port, drift hazard): single-source as shared data both read - fold into WO-04 doctrine work or a builder release?
 
-**Next:** Wave 4 on go.
+**Next:** dauntless at leisure: second web-UI batch (state/staged_workflows/: skillpack.yml REPLACE, relay.yml new, release_pin.yml new); mounted re-paste. Then normal content work resumes - Forsworn board unchanged (Faceless Stray art, Old Ghost + Tenth Name prose, Terr wedge).
 
 **Laws that bite immediately:** validate.py/factory.py want cwd=data/; lawmap
 and doctrinemap want no args (paths resolve from the repo). Regen adoption
