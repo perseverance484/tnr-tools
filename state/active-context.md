@@ -23,6 +23,6 @@ session_open.py (verify any new inbox bundle FIRST). No clone means no state.
 - WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?
 - art micro-rulings: g30/g36/x1 silent-portrait per node; x22-x28 speaker handler vs village official; handler pronouns
 
-**Next:** Dauntless presses push/18_scene_wiring.json. Verify its bundle read-backs (per-node sceneCharacters live). Then close out; junk-jutsu deletion still owed; backgrounds + icons waves next on the new loop.
+**Next:** REQUIRED before publish flip: press push/19_blank_blanket.json (verified: engine gate quests.ts ~757-772 refuses visible with empty scene characters; hidden exempt). Then wave CLOSED. Owed: junk-jutsu deletions, VM refresh to v4.31, e16 pronoun sweep (prose lane), law-94 authoring, Terr relay + WO-08. Next waves: backgrounds, icons on state/wave_workflow.md loop.
 
 Container quirks and cross-cutting laws live in the mounted instructions.
