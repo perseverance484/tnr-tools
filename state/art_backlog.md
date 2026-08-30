@@ -14,6 +14,7 @@ RULED 2026-08-30: dedicated icon per mission (10). Style call still open
 (pin house-style family vs per-mission vignette).
 
 ## Scene portraits — 64 speaking nodes need real art
+FIRM NINE COMPLETE 2026-08-30: all approved; manifest push/16 staged (assets, hidden); sheet posted.
 RULED 2026-08-30: two wardrobe registers, instantly distinct - CIVILIAN (earth-tone
 loose robes) vs NINJA (fitted near-black combat wear). Register tagged per portrait.
 2026-08-30 tuning: faces pixel-simplified (no realistic rendering); footwear widened -
@@ -34,7 +35,7 @@ that design exactly (sprite attached as second reference in-thread); register yi
 | Squad survivor | APPROVED scene_fsw_squad_survivor.webp | Three Rounds r13-r16 |
 | Principal (requisition officer) | APPROVED scene_fsw_lw_principal.webp | Long Winter w13 w14 w26-w28 |
 | Deputy (fourth signature) | APPROVED scene_fsw_lw_deputy.webp | Long Winter w10 w12 |
-| Old Ghost scene portrait | new — registry speak-list SANCTIONS Old Ghost | Old Ghost g29_x6, likely g32-g35 debrief cluster |
+| Old Ghost scene portrait | APPROVED scene_fsw_old_ghost.webp | Old Ghost g29_x6, likely g32-g35 debrief cluster |
 
 ### Handler earmark (decision gates several clusters)
 Desk handler vs upstairs officer, one figure or two, plus pronoun sweep. Likely covers:
