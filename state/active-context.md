@@ -1,7 +1,7 @@
 <!-- PROJECTION of state/digest.json - edit the digest, run session_close.py; never edit this file -->
 # active-context.md - read this first, then the board
 
-**State in one line:** Wave 4 COMPLETE, all four waves of PLAN_2026-08-30 executed: WO-08 hot shard @55d1533 (seed-lag gap CLOSED - SMOKE + 22 delta rows visible in answers, regen idempotent), WO-11 rawqc @d5e8b8d (4/4 synthesized selftest, ledger + escalation-candidate stats), WO-09 packs @fb36aa2 (jutsu-build exemplar 15.6K vs ~68K, --check fail-closed, TOCs for 5 refs), WO-10b @6f764a3 (relay + release-pin staged, rewrite dry-run proven). No live acceptance needed this wave - all container/CI-side; the second web-UI batch (skillpack v2, relay, release_pin) installs at leisure.
+**State in one line:** ALL infrastructure landed and live: PLAN_2026-08-30 executed 4/4 waves AND both web-UI batches installed byte-exact (6 workflows total). Skillpack v2 gates BATTLE-TESTED: first run failed correctly on a real coupling (packs stamped pre-doctrine-render), healed + guards extended (session close now runs doctrine + packs checks - drift can't ship). release_pin fires its first [auto] loader pin on the next builder release; relay inert until the ritual switch. Content work resumes on the untouched Forsworn board.
 
 **Verified at close (exact runs):**
 - lawmap -> 93 laws, 93 matrix rows, 74 citations across 38 files; 0 errors, 5 warnings
@@ -17,10 +17,10 @@ state, runs the guard trio (lawmap, validate on the in-progress file, parity
 vs the newest inbox bundle), and seeds the token ledger. If a new inbox bundle
 exists: `harvest.py verify` it FIRST. No clone means no state: say so.
 
-**In progress:** wave: Plan executed 11/11 WOs + contingent. Remaining plan-adjacent: pack curation (ai/quest/item/art), relay ritual switch post-install, jsDelivr pilot watch after first pinned release.
+**In progress:** wave: Infrastructure DONE. Next session: normal content - Faceless Stray avatar (prompted, awaiting generation), Old Ghost + Tenth Name prose, Terr wedge blocking push/6.
 
 **Open items, by owner:**
-- dauntless: second web-UI batch: skillpack v2 (replace) + relay.yml + release_pin.yml (new) - no secrets needed this time; mounted instructions re-paste from state/mounted_instructions.txt (PAT slot) at leisure; carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable
+- dauntless: mounted instructions re-paste from state/mounted_instructions.txt (PAT slot) at leisure; carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable
 - terr: quest-edit crash fix; push/6 held until then
 
 **Rulings open:** - Phase 3 T1 scope + whether warnings ship validator-first (12b Phase 3 section)
@@ -30,7 +30,7 @@ exists: `harvest.py verify` it FIRST. No clone means no state: say so.
 - Paste mounted project instructions (delivered 2026-08-30), then DELETE 00_INDEX.md + 10_LAWS_core.md from project knowledge - repo docs/ copies are now canon
 - lint table now lives in TWO places (builder JS + validate.py port, drift hazard): single-source as shared data both read - fold into WO-04 doctrine work or a builder release?
 
-**Next:** dauntless at leisure: second web-UI batch (state/staged_workflows/: skillpack.yml REPLACE, relay.yml new, release_pin.yml new); mounted re-paste. Then normal content work resumes - Forsworn board unchanged (Faceless Stray art, Old Ghost + Tenth Name prose, Terr wedge).
+**Next:** Back to content on go. Infra follow-ups are ambient: watch first pinned release, relay ritual switch when convenient, pack curation as builds happen.
 
 **Laws that bite immediately:** validate.py/factory.py want cwd=data/; lawmap
 and doctrinemap want no args (paths resolve from the repo). Regen adoption
