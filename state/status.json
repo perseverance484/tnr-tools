@@ -1,8 +1,8 @@
 {
   "generated": "2026-08-30",
-  "session": "mounted-5 (dedup audit)",
+  "session": "mounted-6 (wedge resolution + pin completion)",
   "format_note": "PROJECTION of state/digest.json - edit the digest, run session_close.py",
-  "state_line": "Dedup audit landed: skill doctrine blocks delta-rendered (build 11.7K->7.2K; stake+pointer+pool-codes only), mounted stamp now covers tmpl blob (paste staleness visible), lawmap defaults repo root, bundle-era tools (stack/newstack/audit/closeout + CLOSEOUT.md) and consumed one-shot docs (BRIEF/REPORT/SOURCE_AUDIT) archived. Live paste is pre-dedup stale: re-paste state/mounted_instructions.txt (@17d6a71+06335a4). T1 lint tranche landed: 45h_DATA_lints.json registry (laws 3, 49, 30/66) read by validate.py, builder adopts at v4.29; first run caught an unverifiable Waystation scene id. Forsworn board untouched.",
+  "state_line": "Wedge RESOLVED: builder isLim sniffed limiter phrases in record prose (Waystation 'too many', Protection 'slow down', Loud Way 'too many'); v4.30 gates the sniff to error status + short body; loader @version must rise per pin (workflow gap queued). Ten missions live + verified, pins 12/12 wired (Chase landed), trio rebuilt from recovered closeout bundles, 26 probes deleted, spent manifests archived, duplicate-zod closed FALSE LEAD, server clean. Art census done: 64 speaking nodes need portraits, 6 specced + finale backgrounds, 10 listing icons (all on engine default). Lane ARTWORK ONLY; handler RULED two figures; gates: publish go-ahead (content admin), micro-rulings (silent nodes g30/g36/x1, x22 speaker, pronouns).",
   "ruled_this_session": [
     "memory route: keep memory ON with exclusion edits, not off; flip off only if memory restates laws/board state again (review in a few sessions)",
     "packs front-loaded for ai/quest now rather than curated as builds happen",
@@ -15,7 +15,10 @@
     "2026-08-30: push/11 (seven-mission pin wiring) + push/12 (trio rebuild) packed and staged; Chase verb live on 5 objectives without art - ruling needed; pqihl43 sceneCharacters id snapshot-unknown, carried verbatim (portrait pass territory)",
     "2026-08-30: Chase pin gets its own art per dauntless; packs 11+12 re-cut with pin_chase.webp on acceptance (5 objectives)",
     "2026-08-30 rulings: Pale Fang + Winter Crow speak-list APPROVED (portraits firm, registry speak-list rewrite queued); Old Ghost + Tenth Name get dedicated background sets",
-    "2026-08-30 WEDGE RESOLVED: builder isLim text-sniffed limiter phrases in record bodies; Waystation 'too many', Protection 'slow down', Loud Way 'too many' retried forever on every read. v4.30 gates sniff to error status + short body. duplicate-zod theory closed FALSE LEAD; server exonerated; trio mints healthy pending verify; 26 WEDGE_* probes to delete"
+    "2026-08-30 WEDGE RESOLVED: builder isLim text-sniffed limiter phrases in record bodies; Waystation 'too many', Protection 'slow down', Loud Way 'too many' retried forever on every read. v4.30 gates sniff to error status + short body. duplicate-zod theory closed FALSE LEAD; server exonerated; trio mints healthy pending verify; 26 WEDGE_* probes to delete",
+    "2026-08-30 ruled: listing icons - dedicated icon per mission (10); style = house frame + unique subject per mission",
+    "2026-08-30 ruled: handler = TWO distinct figures (desk handler + upstairs officer); per-node assignment pass needed; pronoun sweep awaits pronouns ruling",
+    "2026-08-30 ruled: Old Ghost + Tenth Name backgrounds - one dedicated set each (assumption: set = one 3:2 background per mission; correct if wider)"
   ],
   "deployed": [
     "doctrine delta-render + dual-blob mounted stamp + lawmap default root (a91310c)",
@@ -23,7 +26,7 @@
     "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93"
   ],
   "in_progress": {
-    "wave": "Ten missions COMPLETE: wired, verified, wedge closed (builder v4.30), 26 probes deleted, spent manifests archived. Lane: ARTWORK ONLY - portraits + backgrounds per state/art_backlog.md; gates: Handler ruling (dauntless), publish gate (content admin)."
+    "wave": "Ten missions COMPLETE: wired, verified, wedge closed (builder v4.30), 26 probes deleted, spent manifests archived. Lane: ARTWORK ONLY - portraits + backgrounds + listing icons per state/art_backlog.md; gates: publish gate (content admin); micro-rulings open (silent nodes g30/g36/x1, x22 speaker, handler pronouns)."
   },
   "open_by_owner": {
     "dauntless": [
@@ -37,42 +40,43 @@
   "rulings_open": [
     "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
     "Wedge source note ready for Terr: AllObjectives discriminators clean at HEAD; suspect duplicate zod across chunks - relay?",
-    "WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?"
+    "WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?",
+    "art micro-rulings: g30/g36/x1 silent-portrait per node; x22-x28 speaker handler vs village official; handler pronouns"
   ],
   "verified": [
     "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
-    "doctrine projections -> all projections current (exit 0)",
-    "packs/TOCs -> all packs and TOCs current (exit 0)",
-    "parity tnr_results_1788065642059.json -> 0 errors, 0 warnings"
+    "doctrine projections -> projections drift from docs/DOCTRINE.md - run --write and commit (exit 1) (EXIT 1)",
+    "packs/TOCs -> packs/TOCs drift from their sources - run --write (exit 1) (EXIT 1)",
+    "parity tnr_results_1788110638381.json -> 0 errors, 0 warnings"
   ],
   "token_ledger": [
     {
       "path": "state/digest.json",
-      "bytes": 7156,
-      "at": "07:37Z"
+      "bytes": 8927,
+      "at": "17:28Z"
     },
     {
       "path": "state/active-context.md",
-      "bytes": 2718,
-      "at": "07:37Z"
+      "bytes": 2846,
+      "at": "17:28Z"
     },
     {
       "path": "state/status.json",
-      "bytes": 6498,
-      "at": "07:37Z"
+      "bytes": 8491,
+      "at": "17:28Z"
     },
     {
       "path": "docs/00_INDEX.md",
-      "bytes": 7651,
-      "at": "07:37Z"
+      "bytes": 8036,
+      "at": "17:28Z"
     },
     {
-      "path": "harvests/inbox/tnr_results_1788065642059.json",
-      "bytes": 356772,
-      "at": "07:37Z"
+      "path": "harvests/inbox/tnr_results_1788110638381.json",
+      "bytes": 40632,
+      "at": "17:28Z"
     }
   ],
-  "next": "Content on go. First: load check - installed SKILL.md must route builds to packs (confirms reinstall took); then Faceless Stray QC when the generation lands, else Old Ghost prose. Ambient: watch first pinned release, relay ritual switch when convenient, memory regeneration review.",
+  "next": "Content on go. First: load check - installed SKILL.md must route builds to packs (confirms reinstall took); then Faceless Stray QC when the generation lands, else cut next portrait prompt in queue (prose lane is coworker's). Ambient: watch first pinned release, relay ritual switch when convenient, memory regeneration review.",
   "blocked": [
     "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
   ],
@@ -84,7 +88,7 @@
     "new_evidence": "quest edit page crashes deploy-wide: Zod 'Duplicate discriminator value undefined', chunk 0n-1xi0p-e_84.js, repro on healthy record (Chalk); Terr addendum delivered with 17:11 deploy-window hypothesis (copy: state/discord_terr_editor_crash.md)"
   },
   "art": {
-    "next": "warehouse clerk portrait (Nothing to Report, 2:3 scene char) - prompt at state/prompt_report_clerk.txt; then survivor, principal, deputy; pipelining depth-2 + reference-after-1-failure ratified this session? NO - proposed, unruled",
+    "next": "warehouse clerk portrait (Nothing to Report, 2:3 scene char) - prompt at state/prompt_report_clerk.txt; then survivor, principal, deputy; unlocked tail: handler pair (desk+upstairs), Pale Fang, Winter Crow, Keeper, merchant, Old Ghost portrait; finale sets 1 each to spec; 10 icon subjects to propose; pipelining depth-2 + reference-after-1-failure ratified this session? NO - proposed, unruled",
     "ruling_open": [
       "art pipelining depth 2",
       "reference-image after 1 failure",
