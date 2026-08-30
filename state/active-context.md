@@ -12,7 +12,7 @@
 **Start ritual:** per the mounted instructions - clone, repo-local identity,
 session_open.py (verify any new inbox bundle FIRST). No clone means no state.
 
-**In progress:** wave: Ten missions complete + verified; wedge closed; probes deleted. Next: artwork (portraits/backgrounds per art_backlog); Handler ruling pending.
+**In progress:** wave: Ten missions COMPLETE: wired, verified, wedge closed (builder v4.30), 26 probes deleted, spent manifests archived. Lane: ARTWORK ONLY - portraits + backgrounds per state/art_backlog.md; gates: Handler ruling (dauntless), publish gate (content admin).
 
 **Open items, by owner:**
 - dauntless: carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable; verify Waystation scene id pqihl43HYROpkIMX172-P on push/6 read-back (T1 law-49 catch: id in no local capture, all of harvests/ scanned); re-paste mounted from state/mounted_instructions.txt (stamp @17d6a71+06335a4); reinstall build skill from dist after skillpack rebuild (doctrine block + stack row changed)
