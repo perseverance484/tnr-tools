@@ -2,7 +2,7 @@
   "generated": "2026-08-30",
   "session": "mounted-3 (Wave 3 executed)",
   "format_note": "PROJECTION of state/digest.json - edit the digest, run session_close.py",
-  "state_line": "Wave 3 COMPLETE and pushed: WO-07 validate --laws (laws 9-12 executable specs, 4 green + 4 falsified-variant reds; 12b rows reclassed; lawmap --strict-provenance flips exactly 16d/37/69, default OFF) @ container half; builder v4.29 @2bfd995 (batch Build multi-select one-confirm per-file-isolated, 👁 Reads hard-gated free reads, pfEq ''<->null, numeric picker order). Awaiting live acceptance: VM refresh + batch '7,8' + Reads-refusal red test.",
+  "state_line": "Wave 3 CLOSED with live acceptance PASSED: batch '2,3' ran push/7+8 sequentially (two v4.29 bundles 5s apart), push/7 resume A:40/0 flags (pfEq ''<->null self-proven live - prior run flagged 2), push/8 free-reads captured both name lists, and the Reads-refusal red test on the write manifest confirmed REFUSED by dauntless. Picker papercut queued: accept filename leading digits, not just menu positions.",
   "ruled_this_session": [
     "dauntless approved ALL 5 plan rulings (1-5)"
   ],
@@ -23,12 +23,10 @@
     "harvest.py: reads v4.26+ results bundles natively (captures[] -> normalised entries) - patched post-acceptance"
   ],
   "in_progress": {
-    "wave": "Wave 3 built; live acceptance pending, then Wave 4 (WO-08 shards, WO-09 packs, WO-11 rawqc, WO-10b relay + jsDelivr pin staged for the second web-UI batch)",
-    "file": "push/8_reads_names.json"
+    "wave": "Wave 4 next on go: WO-08 answer shards+freshness, WO-09 task packs+TOC, WO-11 rawqc+art ledger, WO-10b relay + jsDelivr pin staged (second web-UI batch)"
   },
   "open_by_owner": {
     "dauntless": [
-      "v4.29 acceptance: refresh, batch '7,8', Reads-refusal red test on 7",
       "re-paste mounted instructions from state/mounted_instructions.txt (insert PAT at the slot) whenever convenient - old paste keeps working, stamp detects staleness",
       "Wave 4 web-UI batch later: skillpack.yml v2 + relay.yml + release-pin (staged as authored)",
       "carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable"
@@ -47,8 +45,7 @@
   ],
   "verified": [
     "lawmap -> 93 laws, 93 matrix rows, 74 citations across 36 files; 0 errors, 5 warnings",
-    "validate push/8_reads_names.json -> 0 errors, 0 warnings",
-    "parity tnr_results_1788061342415.json -> 0 errors, 0 warnings"
+    "parity tnr_results_1788065642059.json -> 0 errors, 0 warnings"
   ],
   "token_ledger": [
     {
@@ -77,7 +74,7 @@
       "at": "04:31Z"
     }
   ],
-  "next": "dauntless: VM refresh -> title 'v4.29 · cfg generated'; ⇩ Repo -> select '7,8' -> ONE confirm (7 resumes idempotent, 8 is reads); red test: 👁 Reads -> pick 7 -> must show REFUSED. Then Wave 4 on go.",
+  "next": "Wave 4 on go.",
   "blocked": [
     "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
   ],
@@ -105,7 +102,8 @@
     "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
     "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
     "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
-    "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited"
+    "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited",
+    "v4.30 queue: Repo picker accepts filename leading digits (7,8 would have worked); batch position-vs-file-number papercut"
   ],
   "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)"
 }
