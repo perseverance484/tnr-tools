@@ -15,6 +15,12 @@ RULED 2026-08-30: dedicated icon per mission (10). Style call still open
 
 ## Scene portraits — 64 speaking nodes need real art
 FIRM NINE COMPLETE 2026-08-30: all approved; manifest push/16 staged (assets, hidden); sheet posted.
+RULED 2026-08-30 (scene completeness): every dialog node gets an explicit sceneBackground
+AND a sceneCharacters entry; no-speaker scenes use a blank character asset. Existing blanks
+found for reuse: ghostship/Blank Scene Character 1YXbXYW2wz3GETVMb6DT6, warmissions/Blank
+Character Q-_3WA5kibe_8gI2CgTKl (verify live state before wiring). Census truth today: 34
+nodes on the shared stand-in, 30 nodes carry NO character; backgrounds all covered by the
+five generics. The wiring manifest closes both gaps.
 RULED 2026-08-30: two wardrobe registers, instantly distinct - CIVILIAN (earth-tone
 loose robes) vs NINJA (fitted near-black combat wear). Register tagged per portrait.
 2026-08-30 tuning: faces pixel-simplified (no realistic rendering); footwear widened -
