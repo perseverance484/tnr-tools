@@ -35,8 +35,9 @@ THE LOOP
 Claude builds, validates, commits manifests to push/ (numbered), pushes git,
 then pulls harvests/inbox/ and verifies results with harvest.py verify.
 dauntless taps Repo/Build in the builder panel - the ONLY act that touches
-the game; results auto-commit to inbox via the panel sync token. The v4.28
-builder reads back every write with an asserted-fields verdict.
+the game; results auto-commit to inbox via the panel sync token. The builder
+reads back every write with an asserted-fields verdict; the panel title is
+the version authority.
 A push echo is not a read-back: verify per-entry json.success; state: ok with live: NONE is unverified. A filtered capture proves nothing.
 
 METHOD
