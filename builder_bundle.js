@@ -1,4 +1,17 @@
-// TNR content builder bundle v4.28 - loaded via @require by the tiny VM loader.
+// TNR content builder bundle v4.29 - loaded via @require by the tiny VM loader.
+// v4.29: BATCH BUILD + FREE READS (plan WO-06/07). (1) The Repo picker accepts
+// multi-selection ("1,3", "2-4", "all"): ONE confirm = one write batch, then the
+// files run sequentially in numeric order through the normal build path, each
+// committing its own results bundle; a failing file is reported and the batch
+// continues (per-file isolation). Re-tapping resumes: creates skip via idmap,
+// fills re-assert whole records. (2) New 👁 Reads button: same picker, but every
+// pick is HARD-GATED read-only (zero items, every capture proc matching
+// get*/list*) and runs with no confirm - reads are not writes (approved
+// exemption). A write manifest through 👁 is refused, never run. (3) pfEq treats
+// '' sent vs null stored as equal (per-field server normalization, observed
+// live on jutsu ref ids) so postflight stops flagging the cosmetic pair.
+// (4) 45g stays whole: load is three parallel fetches dominated by 45c, so
+// sharding the smallest file cannot move panel-open latency (measured call).
 // v4.28: READ-BACK HARDENING (plan WO-01). (1) Asserted-fields verdict: every write row is
 // re-checked against ONLY the keys the manifest asserted (r.data), classed missing /
 // blanked / unref (idmap key never resolved) / mismatch; lands as entries[].asserted and
@@ -365,6 +378,8 @@ const PFEX={id:1,createdAt:1,updatedAt:1,expiresAt:1};
 const PFAI={curHealth:1,curChakra:1,curStamina:1,regenAt:1,questFinishAt:1,immunityUntil:1,robImmunityUntil:1,bracketImmunityLiftedUntil:1,warParticipantUntil:1,travelFinishAt:1,deletionAt:1,latestBattleId:1,pvpActivity:1,status:1,sector:1,longitude:1,latitude:1,location:1,joinedVillageAt:1,aiProfileId:1,trainingStartedAt:1,currentlyTraining:1};
 const pfNum=v=>typeof v==='number'||(typeof v==='string'&&v!==''&&!isNaN(+v));
 const pfEq=(a,b,ent)=>{if(a===b)return 1;if(a==null&&b==null)return 1;
+ if((a===''&&b==null)||(a==null&&b===''))return 1; // v4.29: server normalizes '' <-> null per-field
+
  if(pfNum(a)&&pfNum(b)){const d=Math.abs((+a)-(+b));return(ent==='ai'?d<=0.5:d===0)?1:0}
  if((typeof a!=='object')&&(typeof b!=='object'))return String(a)===String(b)?1:0;return 0};
 const pfWalk=(p,l,ent,path,out)=>{if(out.n>400)return;
@@ -426,7 +441,7 @@ const ghPut=async(path,b64,msg)=>{const g=ghGet();if(!g.on||!g.pat)return null;
  return{ok:0,msg:'HTTP '+res.status+' '+t.slice(0,140)}};
 const ghCommit=(name,body)=>ghPut(GH.dir+'/'+name,b64u(body),'results: '+name);
 // --- v4.28 HEAD self-check: does the repo serve the version we are running? ----
-const BVER='v4.28';
+const BVER='v4.29';
 const headCheck=async()=>{try{const g=ghGet();const h={'accept':'application/vnd.github+json'};if(g&&g.pat)h.authorization='Bearer '+g.pat;
  const r=await fetch('https://api.github.com/repos/'+GH.owner+'/'+GH.repo+'/contents/builder_bundle.js?ref='+GH.branch,{headers:h});
  if(!r.ok)return;const j=await r.json();if(!j||!j.content)return;
@@ -733,7 +748,7 @@ if(wantLive){for(let i=0;i<rows.length;i++){const r=rows[i];if(r.state!=='ok')co
  await sleep(THR)}
  const e2=rows.filter(r=>r.state==='error').length;
  if(rows.length)$s.textContent=(e2?('⚠ '+e2+' error(s), tap a red row or Retry failed'):('✅ all '+rows.length+' done'))+' · live '+pf.match+'✓ '+pf.diff+'⚠ '+pf.afail+'‼A '+pf.unverified+'‼ '+pf.skipped+'∅'}
-try{const _bn='tnr_results_'+Date.now()+'.json';const bundle={builder:'v4.28',at:now(),checks:BUILDER_CHECKS,cfg:CFG.state,postflight:pf,entries:rows.map(r=>({name:r.name,srcId:r.key||null,entity:r.entity,slot:r.slot,state:r.state,detail:r.detail||'',verdict:r.verdict||null,diffs:r.diffs||[],asserted:r.asserted||null,id:r.outId||idmap[r.key]||r.targetId||null,pushed:r.pushed||null,live:r.live||null})),captures:(window.__tnrCapBefore||[]).concat(capsAfter),idmap};const _bj=JSON.stringify(bundle,null,1);window.__tnrLastBundle={name:_bn,body:_bj};const _g=ghGet();if(_g.on&&_g.pat){ghSync(_bn,_bj)}else{dl(_bn,_bj)}}catch(_e){}
+try{const _bn='tnr_results_'+Date.now()+'.json';const bundle={builder:'v4.29',at:now(),checks:BUILDER_CHECKS,cfg:CFG.state,postflight:pf,entries:rows.map(r=>({name:r.name,srcId:r.key||null,entity:r.entity,slot:r.slot,state:r.state,detail:r.detail||'',verdict:r.verdict||null,diffs:r.diffs||[],asserted:r.asserted||null,id:r.outId||idmap[r.key]||r.targetId||null,pushed:r.pushed||null,live:r.live||null})),captures:(window.__tnrCapBefore||[]).concat(capsAfter),idmap};const _bj=JSON.stringify(bundle,null,1);window.__tnrLastBundle={name:_bn,body:_bj};const _g=ghGet();if(_g.on&&_g.pat){ghSync(_bn,_bj)}else{dl(_bn,_bj)}}catch(_e){}
 $g.disabled=$r.disabled=0;ac()};
 const lt=()=>rows.map(r=>(r.state==='ok'?'ok  ':r.state==='error'?'ERR ':'-   ')+r.name+'  '+(r.detail||r.state)).join('\n')+'\n\nID MAP:\n'+JSON.stringify(idmap,null,1);
 const cp=()=>{const t=document.createElement('textarea');t.value=lt();t.style.cssText='position:fixed;left:-9999px';document.body.appendChild(t);t.focus();t.select();let o=0;try{o=document.execCommand('copy')}catch(e){}if(!o)try{navigator.clipboard&&navigator.clipboard.writeText(t.value)}catch(e){}t.remove()};
@@ -761,11 +776,11 @@ const doctor=async(say)=>{const out=[];
     if(!p)continue;const live=await sget(p,x.targetId,null);if(!live)gone++;await sleep(THR)}
    out.push('manifest targets: '+tg.length+' checked, '+gone+' no longer resolve')}}
  return out};
-const CSS='.k-fab{position:fixed;bottom:12px;left:12px;z-index:2147483000;background:#1f7c3b;color:#fff;border:0;border-radius:10px;padding:11px 16px;font:600 14px system-ui;box-shadow:0 4px 16px #0008}.k-pn{position:fixed;left:8px;right:8px;bottom:8px;z-index:2147483000;display:none;flex-direction:column;max-height:88vh;background:#16171b;color:#e8e8ea;border:1px solid #3a3b44;border-radius:14px;box-shadow:0 12px 44px #000a;font:13px system-ui;overflow:hidden}.k-hd{display:flex;align-items:center;gap:8px;padding:11px 12px;background:#202128;border-bottom:1px solid #34353d}.k-ti{flex:1;font-weight:700;font-size:15px}.k-ic{background:#34353d;color:#e8e8ea;border:0;border-radius:8px;padding:7px 12px;font-size:15px}.k-bw{height:4px;background:#2a2b32}.k-bar{height:100%;width:0;background:#2ec26a}.k-bd{padding:11px 12px;overflow:auto;overscroll-behavior:contain}.k-in{width:100%;box-sizing:border-box;height:13vh;min-height:64px;background:#0e0f12;color:#cde6ff;border:1px solid #34353d;border-radius:8px;padding:8px;font:12px monospace}.k-st2{margin:9px 2px;font-size:12px;min-height:16px}.k-ls{display:flex;flex-direction:column;gap:5px}.k-rw{display:flex;align-items:center;gap:8px;padding:9px 10px;background:#1b1c22;border:1px solid #2a2b33;border-radius:8px}.k-dt{width:9px;height:9px;border-radius:50%;background:#6b6c74;flex:none}.k-nm{flex:1;font:600 12px system-ui;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.k-bg{font-size:10px;padding:2px 8px;border-radius:999px;background:#33343d;flex:none;font-style:normal}.k-st{font-size:11px;opacity:.85;max-width:42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:none;text-decoration:none}.s-running .k-dt{background:#e6b800}.s-ok .k-dt{background:#2ec26a}.s-error .k-dt{background:#ec5b5b}.s-error{border-color:#5a2a2a}.k-ft{display:flex;gap:8px;padding:10px 12px;background:#1b1c22;border-top:1px solid #34353d;flex-wrap:wrap}.k-bt{flex:1;min-width:92px;border:0;border-radius:9px;padding:12px;font:600 13px system-ui;color:#fff}.k-go{background:#1f7c3b}.k-rt{background:#8a5a00;display:none}.k-cp{background:#2b4d70}.k-rs{background:#5a2a2a}.k-im{background:#5a3a7a}.k-dc{background:#2b6f6f}.k-sy{background:#3b6a2a}.k-dl2{background:#4a4a58}.k-uf{background:#2a5a5a}.k-rl{background:#2a4d7a}';
+const CSS='.k-fab{position:fixed;bottom:12px;left:12px;z-index:2147483000;background:#1f7c3b;color:#fff;border:0;border-radius:10px;padding:11px 16px;font:600 14px system-ui;box-shadow:0 4px 16px #0008}.k-pn{position:fixed;left:8px;right:8px;bottom:8px;z-index:2147483000;display:none;flex-direction:column;max-height:88vh;background:#16171b;color:#e8e8ea;border:1px solid #3a3b44;border-radius:14px;box-shadow:0 12px 44px #000a;font:13px system-ui;overflow:hidden}.k-hd{display:flex;align-items:center;gap:8px;padding:11px 12px;background:#202128;border-bottom:1px solid #34353d}.k-ti{flex:1;font-weight:700;font-size:15px}.k-ic{background:#34353d;color:#e8e8ea;border:0;border-radius:8px;padding:7px 12px;font-size:15px}.k-bw{height:4px;background:#2a2b32}.k-bar{height:100%;width:0;background:#2ec26a}.k-bd{padding:11px 12px;overflow:auto;overscroll-behavior:contain}.k-in{width:100%;box-sizing:border-box;height:13vh;min-height:64px;background:#0e0f12;color:#cde6ff;border:1px solid #34353d;border-radius:8px;padding:8px;font:12px monospace}.k-st2{margin:9px 2px;font-size:12px;min-height:16px}.k-ls{display:flex;flex-direction:column;gap:5px}.k-rw{display:flex;align-items:center;gap:8px;padding:9px 10px;background:#1b1c22;border:1px solid #2a2b33;border-radius:8px}.k-dt{width:9px;height:9px;border-radius:50%;background:#6b6c74;flex:none}.k-nm{flex:1;font:600 12px system-ui;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.k-bg{font-size:10px;padding:2px 8px;border-radius:999px;background:#33343d;flex:none;font-style:normal}.k-st{font-size:11px;opacity:.85;max-width:42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:none;text-decoration:none}.s-running .k-dt{background:#e6b800}.s-ok .k-dt{background:#2ec26a}.s-error .k-dt{background:#ec5b5b}.s-error{border-color:#5a2a2a}.k-ft{display:flex;gap:8px;padding:10px 12px;background:#1b1c22;border-top:1px solid #34353d;flex-wrap:wrap}.k-bt{flex:1;min-width:92px;border:0;border-radius:9px;padding:12px;font:600 13px system-ui;color:#fff}.k-go{background:#1f7c3b}.k-rt{background:#8a5a00;display:none}.k-cp{background:#2b4d70}.k-rs{background:#5a2a2a}.k-im{background:#5a3a7a}.k-dc{background:#2b6f6f}.k-sy{background:#3b6a2a}.k-dl2{background:#4a4a58}.k-uf{background:#2a5a5a}.k-rl{background:#2a4d7a}.k-rd{background:#2a6a4a}';
 const H=document.createElement('div');H.id='tnr-bk-host';const R=H.attachShadow({mode:'open'});
-R.innerHTML='<style>'+CSS+'</style><button class="k-fab">▶ Build</button><div class="k-pn"><div class="k-hd"><span class="k-ti">Content builder v4.28</span><button class="k-ic k-min">▾</button></div><div class="k-bw"><div class="k-bar"></div></div><div class="k-bd"><textarea class="k-in" placeholder="paste a manifest, 📄 Load a file, or ⇩ Repo"></textarea><div class="k-st2">paste a manifest to preview</div><div class="k-ls"></div></div><div class="k-ft"><button class="k-bt k-go">▶ Build</button><button class="k-bt k-lm">📄 Load</button><button class="k-bt k-rl">⇩ Repo</button><button class="k-bt k-im">🖼 Imgs</button><button class="k-bt k-rt">↻ Retry failed</button><button class="k-bt k-dc">🩺 Doctor</button><button class="k-bt k-cp">⧉ Copy</button><button class="k-bt k-sy">⇪ Sync</button><button class="k-bt k-dl2">💾 Results</button><button class="k-bt k-uf">⇪ File</button><button class="k-bt k-me">🗺 Map</button><button class="k-bt k-mi">⤒ Map</button><button class="k-bt k-rs">⌫ Reset</button><input class="k-fi" type="file" multiple hidden><input class="k-mf" type="file" accept=".json,.zip,application/json,application/zip" hidden><input class="k-mi2" type="file" accept=".json,application/json" hidden><input class="k-uf2" type="file" multiple hidden></div></div>';
+R.innerHTML='<style>'+CSS+'</style><button class="k-fab">▶ Build</button><div class="k-pn"><div class="k-hd"><span class="k-ti">Content builder v4.29</span><button class="k-ic k-min">▾</button></div><div class="k-bw"><div class="k-bar"></div></div><div class="k-bd"><textarea class="k-in" placeholder="paste a manifest, 📄 Load a file, or ⇩ Repo"></textarea><div class="k-st2">paste a manifest to preview</div><div class="k-ls"></div></div><div class="k-ft"><button class="k-bt k-go">▶ Build</button><button class="k-bt k-lm">📄 Load</button><button class="k-bt k-rl">⇩ Repo</button><button class="k-bt k-rd">👁 Reads</button><button class="k-bt k-im">🖼 Imgs</button><button class="k-bt k-rt">↻ Retry failed</button><button class="k-bt k-dc">🩺 Doctor</button><button class="k-bt k-cp">⧉ Copy</button><button class="k-bt k-sy">⇪ Sync</button><button class="k-bt k-dl2">💾 Results</button><button class="k-bt k-uf">⇪ File</button><button class="k-bt k-me">🗺 Map</button><button class="k-bt k-mi">⤒ Map</button><button class="k-bt k-rs">⌫ Reset</button><input class="k-fi" type="file" multiple hidden><input class="k-mf" type="file" accept=".json,.zip,application/json,application/zip" hidden><input class="k-mi2" type="file" accept=".json,application/json" hidden><input class="k-uf2" type="file" multiple hidden></div></div>';
 document.body.appendChild(H);const q=s=>R.querySelector(s),pn=q('.k-pn'),fb=q('.k-fab');
-loadCfg().then(()=>{try{q('.k-ti').textContent='Content builder v4.28 · cfg '+CFG.state}catch(e){};headCheck()});
+loadCfg().then(()=>{try{q('.k-ti').textContent='Content builder v4.29 · cfg '+CFG.state}catch(e){};headCheck()});
 $i=q('.k-in');$l=q('.k-ls');$b=q('.k-bar');$s=q('.k-st2');$g=q('.k-go');$r=q('.k-rt');
 const sh=v=>{pn.style.display=v?'flex':'none';fb.style.display=v?'none':'block'};
 fb.onclick=()=>sh(1);q('.k-min').onclick=()=>sh(0);$i.addEventListener('input',parse);
@@ -792,21 +807,71 @@ $uf.addEventListener('change',async()=>{const fs=[...$uf.files];if(!fs.length)re
  $s.textContent=('⇪ '+ok+'/'+fs.length+' committed to '+(dir||'(root)')+(bad.length?' · FAILED: '+bad.slice(0,3).join('; '):'')).slice(0,260);$uf.value=''});
 q('.k-rs').onclick=()=>{if(confirm('Clear remembered ids? Next build creates fresh records.')){idmap={};sm(idmap);jcat=null;draw();$s.textContent='memory cleared'}};
 $mf=q('.k-mf');q('.k-lm').onclick=()=>$mf.click();$mf.addEventListener('change',async()=>{const f=$mf.files[0];if(!f)return;const head=new Uint8Array(await f.slice(0,4).arrayBuffer());if(head[0]===0x50&&head[1]===0x4b&&head[2]===3&&head[3]===4){await loadPack(f);return}const rd=new FileReader();rd.onload=()=>{$i.value=String(rd.result||'');parse();$s.textContent=(($s.textContent||'')+' · loaded '+f.name).slice(0,120)};rd.readAsText(f)});
-q('.k-rl').onclick=async()=>{const bt=q('.k-rl');bt.disabled=1;try{
- let dir=prompt('⇩ Load manifest/pack from repo directory:','push');if(dir==null){bt.disabled=0;return}
+// v4.29: shared repo picker. Multi syntax: "3" / "1,3" / "2-4" / "all".
+const numKey=n=>{const m=String(n).match(/^(\d+)/);return m?parseInt(m[1],10):1e9};
+const repoPick=async title=>{
+ let dir=prompt(title+' from repo directory:','push');if(dir==null)return null;
  dir=String(dir).trim().replace(/^\/+|\/+$/g,'');
  $s.textContent='⇩ listing '+(dir||'(root)')+'…';
- const es=(await ghList(dir)).filter(x=>x.type==='file'&&/\.(json|zip)$/i.test(x.name)).sort((a,b)=>a.name<b.name?-1:1);
- if(!es.length){$s.textContent='⇩ no .json/.zip in '+(dir||'(root)');bt.disabled=0;return}
+ const es=(await ghList(dir)).filter(x=>x.type==='file'&&/\.(json|zip)$/i.test(x.name))
+  .sort((a,b)=>(numKey(a.name)-numKey(b.name))||(a.name<b.name?-1:1));
+ if(!es.length){$s.textContent='⇩ no .json/.zip in '+(dir||'(root)');return null}
  const menu=es.slice(0,30).map((x,i)=>(i+1)+'. '+x.name+' ('+Math.max(1,Math.round(x.size/1024))+'KB)').join('\n');
- const pick=prompt('⇩ '+(dir||'(root)')+' - enter a number:\n'+menu+(es.length>30?'\n…+'+(es.length-30)+' more':''),'1');
- if(pick==null){bt.disabled=0;return}
- const e=es[parseInt(pick,10)-1];if(!e){$s.textContent='⇩ no entry '+pick;bt.disabled=0;return}
- $s.textContent='⇩ fetching '+e.name+'…';
- const buf=await ghFetchRaw(e.path);
- if(/\.zip$/i.test(e.name)){await loadPack(new File([buf],e.name,{type:'application/zip'}))}
- else{$i.value=new TextDecoder().decode(buf);parse();$s.textContent=(($s.textContent||'')+' · ⇩ '+e.path).slice(0,160)}
+ const pick=prompt(title+' '+(dir||'(root)')+' - number, list (1,3), range (2-4), or all:\n'+menu+(es.length>30?'\n…+'+(es.length-30)+' more':''),'1');
+ if(pick==null)return null;
+ let idx=[];const t=pick.trim().toLowerCase();
+ if(t==='all')idx=es.map((_,i)=>i);
+ else for(const part of t.split(',')){const m=part.trim().match(/^(\d+)(?:-(\d+))?$/);if(!m)continue;
+  const a=parseInt(m[1],10)-1,b=m[2]?parseInt(m[2],10)-1:a;for(let i=a;i<=b&&i<es.length;i++)if(i>=0)idx.push(i)}
+ idx=[...new Set(idx)].sort((a,b)=>a-b);
+ if(!idx.length){$s.textContent='⇩ no valid selection';return null}
+ return idx.map(i=>es[i])};
+const loadEntry=async e=>{const buf=await ghFetchRaw(e.path);
+ if(/\.zip$/i.test(e.name)){await loadPack(new File([buf],e.name,{type:'application/zip'}));return rows.length||MANIFEST?1:0}
+ $i.value=new TextDecoder().decode(buf);return parse()};
+const READPROC=/^[A-Za-z]+\.(get([A-Z][A-Za-z]*)?|list([A-Z][A-Za-z]*)?)$/;
+const readOnlyGate=txt=>{let m;try{m=JSON.parse(txt)}catch(e){return 'not JSON: '+e.message}
+ const items=m.items||m.jutsu||[];
+ if(items.length)return items.length+' write entr'+(items.length>1?'ies':'y')+' present';
+ const caps=[].concat((m.capture&&m.capture.before)||[],(m.capture&&m.capture.after)||[]);
+ if(!caps.length)return 'no captures';
+ const bad=caps.filter(c=>!c||!READPROC.test(String(c.proc||c.procedure||'')));
+ if(bad.length)return bad.length+' proc(s) outside the get*/list* allowlist';
+ return null};
+q('.k-rl').onclick=async()=>{const bt=q('.k-rl');bt.disabled=1;try{
+ const picks=await repoPick('⇩ Load');
+ if(!picks){bt.disabled=0;return}
+ if(picks.length===1){const e=picks[0];$s.textContent='⇩ fetching '+e.name+'…';
+  if(await loadEntry(e))$s.textContent=(($s.textContent||'')+' · ⇩ '+e.path).slice(0,160);
+  bt.disabled=0;return}
+ if(!confirm('▶ Build '+picks.length+' manifests in listed order? This is ONE write batch; each file commits its own results bundle.')){bt.disabled=0;return}
+ const rep=[];
+ for(let i=0;i<picks.length;i++){const e=picks[i];
+  $s.textContent='⇩ batch '+(i+1)+'/'+picks.length+': '+e.name;
+  try{const buf=await ghFetchRaw(e.path);
+   if(/\.zip$/i.test(e.name)){await loadPack(new File([buf],e.name,{type:'application/zip'}))}
+   else{$i.value=new TextDecoder().decode(buf);if(!parse()){rep.push('✗ '+e.name+' (parse)');continue}}
+   await build();
+   const er=rows.filter(r=>r.state==='error').length;
+   rep.push((er?'⚠ ':'✓ ')+e.name+(er?' ('+er+' err)':''))}
+  catch(err){rep.push('✗ '+e.name+' ('+String((err&&err.message)||err).slice(0,60)+')')}}
+ $s.textContent=('batch done: '+rep.join('  ')).slice(0,300);
 }catch(err){$s.textContent='⇩ '+((err&&err.message)||err)}bt.disabled=0};
+q('.k-rd').onclick=async()=>{const bt=q('.k-rd');bt.disabled=1;try{
+ const picks=await repoPick('👁 Reads');
+ if(!picks){bt.disabled=0;return}
+ const rep=[];
+ for(let i=0;i<picks.length;i++){const e=picks[i];
+  $s.textContent='👁 '+(i+1)+'/'+picks.length+': '+e.name;
+  try{if(/\.zip$/i.test(e.name)){rep.push('✗ '+e.name+' (zips not allowed on the read path)');continue}
+   const txt=new TextDecoder().decode(await ghFetchRaw(e.path));
+   const why=readOnlyGate(txt);
+   if(why){rep.push('✗ '+e.name+' REFUSED: '+why);continue}
+   $i.value=txt;if(!parse()){rep.push('✗ '+e.name+' (parse)');continue}
+   await build();rep.push('✓ '+e.name)}
+  catch(err){rep.push('✗ '+e.name+' ('+String((err&&err.message)||err).slice(0,60)+')')}}
+ $s.textContent=('👁 '+rep.join('  ')+' · reads are not writes').slice(0,300);
+}catch(err){$s.textContent='👁 '+((err&&err.message)||err)}bt.disabled=0};
 q('.k-me').onclick=()=>{dl('tnr_idmap_'+Date.now()+'.json',JSON.stringify(idmap,null,1));$s.textContent='🗺 idmap exported ('+Object.keys(idmap).length+' keys)'};
 $mi=q('.k-mi2');q('.k-mi').onclick=()=>$mi.click();$mi.addEventListener('change',()=>{const f=$mi.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const m=JSON.parse(String(rd.result||'{}'));const n=Object.keys(m).length;if(confirm('Merge '+n+' idmap key(s) into memory?')){Object.assign(idmap,m);sm(idmap);$s.textContent='⤒ merged '+n+' key(s), idmap now '+Object.keys(idmap).length}}catch(e){$s.textContent='❌ idmap import: '+e.message}};rd.readAsText(f)});
 $fi=q('.k-fi');q('.k-im').onclick=()=>$fi.click();$fi.addEventListener('change',()=>{for(const f of $fi.files)filemap[f.name]=f;$s.textContent=Object.keys(filemap).length+' image(s) loaded: '+Object.keys(filemap).join(', ').slice(0,70)});
