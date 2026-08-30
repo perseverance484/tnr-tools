@@ -37,3 +37,16 @@ Container quirks and cross-cutting laws live in the mounted instructions.
 - Delete list so far: the ten `dmissionicons` gameAssets (ids in the wave-1 handover). Case/Blacksteel icons
   are NOT deletable - reused by Genin Trials. Copies/Witness icon ids pending the capture.
 - validate.py now warns instead of erroring on a quest edit that carries no `content` (fetch-merge patch).
+
+## Hide-wave scope (requested 2026-08-30, not built)
+
+- Ours = the 31 authored missions (12 Forsworn C/B/A, 10 D-set, Case Contract x4, Blacksteel Contract x5).
+- Everything else that is a mission gets `hidden: true`, earmarked for upgrade or retirement.
+- HAZARDS to settle before any hide manifest is built:
+  1. `hidden` fails eligibility EVERYWHERE for non-staff (quest.md 398/409), including a granted ACTIVE quest,
+     which is silently dropped on the next touch. Players mid-mission lose it.
+  2. Our 31 are all still `hidden: true`. Hiding the rest before ours publish leaves the mission hall thin or
+     empty in some level windows, and the random mission generators draw from the same pool.
+  3. Scale: ~380 non-ours missions. Classification must come from a live census, not from names.
+- push 22 carries two `quests.getAll` shape probes (limit 25) to size the census before pulling 500 fat rows
+  through a mobile browser and the sync token.
