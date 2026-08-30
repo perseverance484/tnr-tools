@@ -1,3 +1,10 @@
+> **STALE - archived 2026-08-30. Plan executed and closed.** Stage 0 ruled raw serving
+> 2026-08-28; Stages 1-3 (project slim, repo restructure + answer layer, tools canon +
+> skillpack) landed 2026-08-28; Stage 4 (mounted session ritual) landed 2026-08-29 and
+> acceptance-passed 2026-08-30 (zero-touch round trip, Law 29 carve-out closed).
+> Stage 5 (command relay) remains DEFERRED by its own terms - revive from here if ever.
+> Do not build from this file.
+
 # ROLLOUT_PLAN.md - Three-axis restructure (tokens / throughput / accuracy)
 
 Staged 2026-08-28 from the architecture research report. Owner of every go/no-go: dauntless.
