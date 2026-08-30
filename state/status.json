@@ -32,7 +32,6 @@
     "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
   ],
   "pending_verification": [
-    "WO-01 live acceptance RETRY: re-tap ⇩ Repo -> push/7 -> Build (no VM refresh needed; L16 blocked preflight, nothing was written); then harvest.py verify on the inbox bundle",
     "sentinel first run: after web-UI install, trigger regen-schemas-sentinel via workflow_dispatch (expect: no drift, no commit)",
     "scrub gate: first push after install runs fail-closed green (SCRUB_STRINGS must be set in the same session)",
     "6_verify_and_fix.json wedge probe - when Terr clears or as free probe (⇩ Repo -> push/)"
@@ -53,9 +52,14 @@
     "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
     "Old Ghost + Tenth Name prose passes",
     "registry 38 masks rewrite",
-    "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights"
+    "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights",
+    "v4.29 queue: pfEq gains ''<->null equivalence so the panel stops flagging the normalized pair (rides WO-06 release)",
+    "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
+    "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever"
   ],
   "verified": [
+    "WO-01 LIVE ACCEPTANCE PASSED @tnr_results_1788061342415: full v4.28 loop - panel lint gate (blocked a real L16 first tap) -> build -> auto read-back -> asserted verdict 38 ok + 2 true byte-deltas flagged -> bundle auto-commit -> harvest.py verify green. Smoke jutsu 0QixZN9jD_bqAKTimDafB live, hidden:true, cooldown 3, disposable.",
+    "Server normalization is PER-FIELD: jutsu requiredBloodlineItemId/parentJutsuId '' -> null on write; bloodlineId/villageId keep ''. harvest verify now reclassifies ''<->null as normalized (never a FAIL).",
     "Acceptance PASSED: first zero-touch round trip - v4.27 ⇩ Repo load of push/smoketest_pack.zip, harvests/inbox/ commit via panel sync token, answers [auto] regen, container pull + harvest.py script read (quests.getAllNames, 388 rows). Law 29 transcription carve-out CLOSED",
     "Panel gate confirmed: bundle stamped builder v4.27 · cfg generated",
     "Panel ⇪ Sync token entry (tnr-sync PAT) confirmed working by the inbox commit",
@@ -73,5 +77,5 @@
     "lint table now lives in TWO places (builder JS + validate.py port, drift hazard): single-source as shared data both read - fold into WO-04 doctrine work or a builder release?"
   ],
   "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)",
-  "next": "dauntless: VM refresh + push/7 tap; web-UI install batch (regen_schemas.yml + scrub.yml REPLACE) + SCRUB_STRINGS secret same session + sentinel dispatch. Then Wave 2 (WO-04 doctrine projections, WO-05 session pair) on go."
+  "next": "dauntless: web-UI install batch (regen_schemas.yml new + scrub.yml REPLACE) + SCRUB_STRINGS secret same session + sentinel dispatch first-run; rulings 3/4/5 whenever. Wave 2 (WO-04/WO-05) on go."
 }
