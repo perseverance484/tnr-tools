@@ -1,7 +1,7 @@
 {
   "generated": "2026-08-30",
-  "session": "mounted-8 (backgrounds wave: gen -> full-sweep wiring -> verify, end to end)",
-  "state_line": "Backgrounds wave CLOSED end-to-end: eight scene backgrounds generated/QC'd/approved, sheet posted, shipped via push/21 as ONE pack (8 asset creates + 10 mission wiring, picker-free, single press) - 18 ok / 0 fail, postflight match 18 diff 0, every @scene ref resolved. Full node-by-node sweep of all 272 dialog nodes across ten missions: 144 rewritten (112 onto new plates, 32 generic mismatch repairs approved), 27 control nodes left empty by design. Board corrected: the wedge and push/6 RETIRED as never-real (our own rate limiter, since patched), Zod editor-page crash retired with them. Lane ARTWORK ONLY; publish gate: content admin; everything hidden:true.",
+  "session": "mounted-9 (icons wave: rank icon set, art complete, shipping not started)",
+  "state_line": "ICONS WAVE CLOSED on art: four shared quest-rank icons (D/C/B/A) generated, graded and banked - all four rawqc ACCEPT on listing_icon_framed. Design pivoted mid-wave from dedicated-icon-per-mission to ONE SHARED ICON PER RANK (dauntless): fewer generations, reads at a glance, future quests wire an existing icon with no art work. Rank is carried by the frame finish - bare wood D, red urushi lacquer C, black lacquer + mother-of-pearl inlay B, black lacquer + worn gold leaf A - over a shared interior (overhead mission brief, hanko seal in cinnabar, rank letter in the seal). The rank set REPLACES existing per-mission icons; migration list beyond the twelve not yet enumerated. NOT SHIPPED: no upload, no wiring, no push this session. Lane ARTWORK ONLY; publish gate content admin; everything hidden:true.",
   "verified_at_close": [
     "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
     "doctrine projections -> all projections current (exit 0)",
@@ -9,7 +9,7 @@
     "parity tnr_results_1788128500937.json -> 0 errors, 0 warnings"
   ],
   "in_progress": {
-    "wave": "Backgrounds wave CLOSED. Next wave: LISTING ICONS (10, one per mission) on the wave_workflow loop. RULED: dedicated icon per mission; STYLE CALL STILL OPEN - pin house-style family vs per-mission vignette. Field is quest.image, a RAW URL like pins (@img: resolves direct, no gameAsset record), STATIC target, 1:1."
+    "wave": "wave: ICONS. Art complete, shipping not started. Two methods were built and both are banked. (1) COMPOSITE plates in data/frames/ - the live D-rank border was proven composited (per-pixel std 3.8 in the band vs 40.4 interior across nine live icons), so the wood plate was extracted from their median and three lacquer plates keyed and masked to its alpha. (2) FULLY GENERATED icons in data/rank_icons/ - RULED to supersede (1) for the rank set after the first full gen came back with correct frame geometry AND a crisp letter. Claude argued against generating frames and letters and was wrong on the evidence; the reference image did the constraining, so fresh prompts without it should NOT be expected to behave the same. C/B/A each generated from TWO references: the finished D plus that rank's flattened plate. Grade of record: gamma 0.88 applied post-gen, identical across all four. B's inlay overshoots (frame-band bright 0.079 vs A's 0.036) - LEFT AS IS by ruling. Discord status post written and handed over with contact sheet."
   },
   "decisions": [
     "memory route: keep memory ON with exclusion edits, not off; flip off only if memory restates laws/board state again (review in a few sessions)",
@@ -37,12 +37,22 @@
   "deployed": [
     "doctrine delta-render + dual-blob mounted stamp + lawmap default root (a91310c)",
     "bundle-era retirement + doc archival + reference repoints (2cf0d7e)",
-    "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93"
+    "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93",
+    "rawqc --opaque path (skips coverage/ring on keyless targets) + measured exposure_bands.listing_icon_framed; artpreflight bg_ filename inference (e7a559d)",
+    "four composite frame plates on a softened shared alpha, data/frames/ (8a85084)",
+    "four generated rank icons D/C/B/A + contact sheet, data/rank_icons/ (6c22c64)"
   ],
   "open_by_owner": {
     "dauntless": [
-      "re-paste mounted from state/mounted_instructions.txt (stamp @17d6a71+06335a4); reinstall build skill from dist after skillpack rebuild (doctrine block + stack row changed)",
-      "refresh ViolentMonkey (panel title v4.31; bundles still stamp v4.29)"
+      "VM refresh to v4.31 (bundles still stamp v4.29)",
+      "e16 pronoun sweep (prose, not Claude's lane)",
+      "publish flip rides content admin; everything hidden:true",
+      "enumerate which existing per-mission icons migrate to the rank set"
+    ],
+    "claude": [
+      "law-94 authoring via the law process",
+      "rawqc --frame path: a keyed plate runs to the image edge, so RING rejects every one at 100% dirty-ring; all plates hand-verified on aspect/coverage instead",
+      "port the frame compositing pipeline to stdlib - it ran ad hoc on PIL/numpy and the toolchain is stdlib-only"
     ]
   },
   "rulings_open": [
@@ -50,7 +60,7 @@
     "WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?",
     "art micro-rulings: g30/g36/x1 silent-portrait per node; x22-x28 speaker handler vs village official; handler pronouns"
   ],
-  "next": "Open on the icons wave: settle the style call (pin family vs per-mission vignette) FIRST, then thread init + first card. Carry forward from backgrounds: BRIGHTNESS CAP clause in-card from card 1, style reference attached at thread init, vernacular named explicitly (generic vocabulary read as western barn). Owed (dauntless): VM refresh to v4.31 (bundles still stamp v4.29), e16 pronoun sweep, publish flip decision rides content admin. Owed (Claude): law-94 authoring via law process; rawqc/artpreflight background-target fix (held, see art_backlog queued tool fix) - do it BEFORE the icons wave, icons hit the same filename-inference path.",
+  "next": "Ship the icons: enumerate the FULL migration list from a live capture (the twelve in scope plus every existing per-mission icon being replaced), upload four raw URLs, wire quest.image by rank, verify by read-back per-entry json.success. Twelve in scope: C x4 Chalk and Corner / The Empty Contract / Protection / The Waystation; B x4 Nothing to Report / The Loud Way / Copies Not Thefts (d-94cxrGW91o1SJCr9rsq) / Witness Detail (dfeXwdrnvyvGGETiCMgu-); A x4 Three Rounds / The Long Winter / Old Ghost / The Tenth Name. Owed (dauntless): VM refresh to v4.31 (bundles still stamp v4.29), e16 pronoun sweep, publish flip rides content admin. Owed (Claude): law-94 authoring via law process; rawqc needs a --frame path (a keyed plate runs to the edge, so RING rejects every one at 100% dirty-ring - all plates hand-verified on aspect/coverage instead); port the frame compositing pipeline to stdlib (it ran ad hoc on PIL/numpy, toolchain is stdlib-only). DONE this session: rawqc --opaque path + measured exposure_bands, artpreflight bg_ inference.",
   "token_ledger": [
     {
       "path": "state/digest.json",
@@ -90,7 +100,7 @@
       "residual_open": "quest.get on The Waystation froze pre-patch. Whether that survives the rate-limiter patch is UNCONFIRMED - ask before relying on a Waystation capture."
     },
     "art": {
-      "next": "LISTING ICONS wave (10). Style call open. Backgrounds lane closed - see state/art_backlog.md, state/bg_wiring_sweep.md, state/bg_wiring_map.md."
+      "next": "SHIP the rank icons: enumerate full migration list from a live capture, upload four raw URLs, wire quest.image by rank, verify by read-back. Art itself is done - see skills/producing-tnr-art/data/rank_icons/README.md."
     },
     "board_unchanged": [
       "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
@@ -109,10 +119,14 @@
     "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK) | 2026-08-30: backgrounds wave 8/8 live and verified via push/21 (tnr_results_1788128500937.json) | 2026-08-30: wedge / push/6 / Zod editor crash retired to archive/wedge-diagnosis-2026-08-30/"
   },
   "ruled_this_session": [
-    "backgrounds: hurricane-lantern design ACCEPTED as the set's lantern (warehouse + ambush plates)",
-    "backgrounds: 32 generic-to-generic mismatch repairs approved and shipped with the wave",
-    "backgrounds: control nodes (win_quest/reset_quest) stay empty - no publish gate on sceneBackground",
-    "wedge + push/6 + Zod editor-page crash: all RETIRED, do not reopen",
-    "pass road reads DUSK not day - the daylight exception was cut rather than tightened"
+    "icons: SUPERSEDES dedicated-icon-per-mission - FOUR shared icons, one per quest rank (D/C/B/A), wired by rank",
+    "icons: the rank set REPLACES existing per-mission icons; migration list not yet enumerated",
+    "icons: rank carried by FRAME FINISH - bare wood D, red urushi lacquer C, black lacquer + mother-of-pearl inlay B, black lacquer + worn gold leaf A",
+    "icons: riveted metal banding REJECTED as off-register for the setting; rivets stay on the corner brackets only, matching the live wood frame",
+    "icons: design is an overhead mission brief with a hanko seal pressed in cinnabar, rank letter centred in the seal; seal ~40% of image width or the letter dies at the 125px display size",
+    "icons: round seal + Latin serif letter chosen over square seal + carved seal-script styling",
+    "icons: FULLY GENERATED (frame and letter included) supersedes the composite-plate method for the rank set; plates stay banked as fallback and remain the method for any future per-mission icon",
+    "icons: brightness grade of record = gamma 0.88 post-gen, applied identically to all four",
+    "icons: B's mother-of-pearl inlay overshoots (frame-band bright 0.079 vs A's 0.036) - LEFT AS IS; the inlay is the only frame identifiable at 125px without looking"
   ]
 }
