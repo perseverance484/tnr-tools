@@ -1,0 +1,5 @@
+{
+ "_note": "Names sweep only. Frozen runs never sync, so this recovers by name: probe D + E ids, the three fresh-mint trio ids, and probes B/C for cleanup. Bundle syncs, then 15b reads E FIRST (prose verdict), the two mint bystanders next, and confirmed-hanging D dead last so nothing gets masked.",
+ "capture": { "before": [ { "proc": "quests.getAllNames", "input": {} } ] },
+ "items": []
+}
