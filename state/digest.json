@@ -1,9 +1,17 @@
 {
   "generated": "2026-08-30",
   "session": "mounted-3 (Wave 2 executed)",
-  "format_note": "PROJECTION of state/digest.json - edit the digest, run session_close.py",
   "state_line": "Wave 2 COMPLETE and pushed: WO-04 doctrine single-sourcing (docs/DOCTRINE.md 20 assertions -> mounted paste + SKILL blocks + pipeline version line, --check fail-closed, doctrinemap 0e) @19565a0; WO-05 session pair (digest.json single source, session_close byte-asserted projections, session_open one-command ritual + guard trio + token ledger). state/mounted_instructions.txt is the new paste (PAT slot, @sha7 stamp) - re-paste at leisure.",
-  "ruled_this_session": [
+  "verified_at_close": [
+    "lawmap -> 93 laws, 93 matrix rows, 70 citations across 36 files; 0 errors, 5 warnings",
+    "validate push/7_readback_smoke.json -> 0 errors, 0 warnings",
+    "parity tnr_results_1788061342415.json -> 0 errors, 0 warnings"
+  ],
+  "in_progress": {
+    "wave": "Wave 2 closed; Wave 3 next (WO-06 batch Build + free reads, WO-07 --laws + 45g shards, one v4.29 release)",
+    "file": "push/7_readback_smoke.json"
+  },
+  "decisions": [
     "dauntless approved ALL 5 plan rulings (1-5)"
   ],
   "deployed": [
@@ -22,10 +30,6 @@
     "lawmap.py: mechanical law audit (ENGINE_LAWS <-> 12b matrix <-> code citations); baseline 93 laws, 0 errors; --parity now runs against inbox bundles (16/16 vs acceptance bundle)",
     "validate.py + artpreflight.py law-annotated at enforcing sites; distance-gate miscite 39->40 fixed; ENGINE_LAWS quest-flow section renumbered 12->17 and re-seated (heading only)"
   ],
-  "in_progress": {
-    "wave": "Wave 2 closed; Wave 3 next (WO-06 batch Build + free reads, WO-07 --laws + 45g shards, one v4.29 release)",
-    "file": "push/7_readback_smoke.json"
-  },
   "open_by_owner": {
     "dauntless": [
       "re-paste mounted instructions from state/mounted_instructions.txt (insert PAT at the slot) whenever convenient - old paste keeps working, stamp detects staleness",
@@ -44,41 +48,64 @@
     "Paste mounted project instructions (delivered 2026-08-30), then DELETE 00_INDEX.md + 10_LAWS_core.md from project knowledge - repo docs/ copies are now canon",
     "lint table now lives in TWO places (builder JS + validate.py port, drift hazard): single-source as shared data both read - fold into WO-04 doctrine work or a builder release?"
   ],
-  "verified": [
-    "lawmap -> 93 laws, 93 matrix rows, 70 citations across 36 files; 0 errors, 5 warnings",
-    "validate push/7_readback_smoke.json -> 0 errors, 0 warnings",
-    "parity tnr_results_1788061342415.json -> 0 errors, 0 warnings"
-  ],
-  "token_ledger": [],
   "next": "Wave 3 on go: WO-06 batch Build + free-read button (approved), WO-07 validate --laws + 45g shards; single v4.29 release carries the panel halves + pfEq ''<->null equivalence.",
-  "blocked": [
-    "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
+  "token_ledger": [
+    {
+      "path": "state/digest.json",
+      "bytes": 7730,
+      "at": "04:31Z"
+    },
+    {
+      "path": "state/active-context.md",
+      "bytes": 3869,
+      "at": "04:31Z"
+    },
+    {
+      "path": "state/status.json",
+      "bytes": 7745,
+      "at": "04:31Z"
+    },
+    {
+      "path": "docs/00_INDEX.md",
+      "bytes": 7581,
+      "at": "04:31Z"
+    },
+    {
+      "path": "harvests/inbox/tnr_results_1788061342415.json",
+      "bytes": 315609,
+      "at": "04:31Z"
+    }
   ],
-  "pending_verification": [
-    "6_verify_and_fix.json wedge probe - when Terr clears or as free probe (⇩ Repo -> push/)"
-  ],
-  "wedge": {
-    "state": "escalated, being worked on (dauntless confirmed)",
-    "new_evidence": "quest edit page crashes deploy-wide: Zod 'Duplicate discriminator value undefined', chunk 0n-1xi0p-e_84.js, repro on healthy record (Chalk); Terr addendum delivered with 17:11 deploy-window hypothesis (copy: state/discord_terr_editor_crash.md)"
-  },
-  "art": {
-    "next": "warehouse clerk portrait (Nothing to Report, 2:3 scene char) - prompt at state/prompt_report_clerk.txt; then survivor, principal, deputy; pipelining depth-2 + reference-after-1-failure ratified this session? NO - proposed, unruled",
-    "ruling_open": [
-      "art pipelining depth 2",
-      "reference-image after 1 failure",
-      "pin batch exception"
-    ]
-  },
-  "board_unchanged": [
-    "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
-    "Old Ghost + Tenth Name prose passes",
-    "registry 38 masks rewrite",
-    "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights",
-    "v4.29 queue: pfEq gains ''<->null equivalence so the panel stops flagging the normalized pair (rides WO-06 release)",
-    "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
-    "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
-    "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
-    "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited"
-  ],
-  "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)"
+  "board": {
+    "blocked": [
+      "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
+    ],
+    "pending_verification": [
+      "6_verify_and_fix.json wedge probe - when Terr clears or as free probe (⇩ Repo -> push/)"
+    ],
+    "wedge": {
+      "state": "escalated, being worked on (dauntless confirmed)",
+      "new_evidence": "quest edit page crashes deploy-wide: Zod 'Duplicate discriminator value undefined', chunk 0n-1xi0p-e_84.js, repro on healthy record (Chalk); Terr addendum delivered with 17:11 deploy-window hypothesis (copy: state/discord_terr_editor_crash.md)"
+    },
+    "art": {
+      "next": "warehouse clerk portrait (Nothing to Report, 2:3 scene char) - prompt at state/prompt_report_clerk.txt; then survivor, principal, deputy; pipelining depth-2 + reference-after-1-failure ratified this session? NO - proposed, unruled",
+      "ruling_open": [
+        "art pipelining depth 2",
+        "reference-image after 1 failure",
+        "pin batch exception"
+      ]
+    },
+    "board_unchanged": [
+      "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
+      "Old Ghost + Tenth Name prose passes",
+      "registry 38 masks rewrite",
+      "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights",
+      "v4.29 queue: pfEq gains ''<->null equivalence so the panel stops flagging the normalized pair (rides WO-06 release)",
+      "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
+      "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
+      "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
+      "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited"
+    ],
+    "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)"
+  }
 }
