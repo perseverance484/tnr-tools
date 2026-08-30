@@ -84,7 +84,22 @@ Chalk c13 · Empty Contract e16 · Nothing to Report n2 n3 n23-n25 · Long Winte
 ### Convention review (portrait, no spoken line)
 Old Ghost g30 g36 · Tenth Name x1 — silent presence or breach, rule per node.
 
-## Scene backgrounds — five generic sets carry all ten missions
+## Scene backgrounds — WAVE CLOSED 2026-08-30 (8/8 live, verified)
+Eight plates generated, QC'd, approved and shipped via push/21 (assets + wiring, one press,
+picker-free). Bundle tnr_results_1788128500937.json: 18 ok / 0 fail / 0 unverified, postflight
+match 18 diff 0. Live ids in state/wiring_live_assets.json under forsworn_backgrounds.
+Full node-by-node sweep of all ten missions: state/bg_wiring_sweep.md. Map: state/bg_wiring_map.md.
+144 of 272 dialog nodes rewritten (112 onto new plates, 32 generic mismatch repairs approved by
+dauntless). 27 control nodes (win/reset) deliberately left empty - no publish gate on
+sceneBackground. Chalk and Corner was the only mission already correct on every node.
+Process notes for the icons wave: the thread ran hot on exposure until a BRIGHTNESS CAP clause
+went in-card (overshoot fell from +12 over band to +1); five of eight needed a gamma darkening
+pass; two card faults were mine (generic barn vocabulary read as western, and a daylight OVERRIDE
+that stripped the value anchor). Perceived "too crisp" measured as an exposure artefact, not a
+style drift. Style reference must be attached at thread init - the first gen without one came
+back at median luma 6.6 against a family of 12-22.
+
+## Scene backgrounds — the five generics (superseded as the default, still carry 160 nodes)
 Live ids (usage): wyMQ… 84 · gXpa… 67 · JAh1… 58 · XAjO… 38 · p76e… 35 — the reused back-alley / doorway / market-row family.
 
 ### Specced replacements (from prose pass)
