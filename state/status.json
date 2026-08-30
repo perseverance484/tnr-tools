@@ -1,0 +1,39 @@
+{
+ "generated": "2026-08-29",
+ "session": "mounted-1",
+ "format_note": "git-native board; container Claude reads/writes state/ in-repo, classic bundle retired",
+ "ruled_this_session": [],
+ "deployed": [
+  "builder v4.26 -> repo root [mounted:a], superseded same session by v4.27: ⇩ Repo loader (list+fetch .json/.zip from a repo dir via contents API, panel PAT optional, same load paths as 📄) [mounted:e]",
+  "pushpack.py -> skills/building-tnr-content/scripts/ [mounted:c]",
+  "push/: smoketest_pack.zip + 6_verify_and_fix.json (HOLD: wedge probe runs only when Terr clears)",
+  "state/: prompt_report_clerk.txt + discord_terr_editor_crash.md relocated from bundle deliverables"
+ ],
+ "blocked": [
+  "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
+ ],
+ "pending_verification": [
+  "VM refresh -> panel gate 'Content builder v4.27 · cfg generated' (v4.26 fallback acceptable)",
+  "Panel ⇪ Sync token entry (tnr-sync PAT minted 2026-08-29) still unconfirmed",
+  "Acceptance: ⇩ Repo -> push/smoketest_pack.zip -> Build -> harvests/inbox/ commit; container pulls + harvest.py = first zero-touch round trip, closes Law 29 carve-out",
+  "6_verify_and_fix.json wedge probe - when Terr clears or as free probe"
+ ],
+ "wedge": {
+  "state": "escalated, being worked on (dauntless confirmed)",
+  "new_evidence": "quest edit page crashes deploy-wide: Zod 'Duplicate discriminator value undefined', chunk 0n-1xi0p-e_84.js, repro on healthy record (Chalk); Terr addendum delivered with 17:11 deploy-window hypothesis (copy: state/discord_terr_editor_crash.md)"
+ },
+ "art": {
+  "next": "warehouse clerk portrait (Nothing to Report, 2:3 scene char) - prompt at state/prompt_report_clerk.txt; then survivor, principal, deputy; pipelining depth-2 + reference-after-1-failure ratified this session? NO - proposed, unruled",
+  "ruling_open": [
+   "art pipelining depth 2",
+   "reference-image after 1 failure",
+   "pin batch exception"
+  ]
+ },
+ "board_unchanged": [
+  "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
+  "Old Ghost + Tenth Name prose passes",
+  "registry 38 masks rewrite",
+  "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights"
+ ]
+}
