@@ -1,128 +1,128 @@
 {
- "generated": "2026-08-30",
- "session": "mounted-7 (portrait wave: gen->wire->verify end to end)",
- "state_line": "Portrait wave CLOSED end-to-end: nine speakers generated/QC'd/approved, cast sheet posted, assets live via zip pack (16c, picker-free), all ten missions wired to speakers (18) + blank blanket (19), every write read-back verified; publish gate law candidate cited (quests.ts ~757-772). Builder v4.31 shipped (unknown-entity guard + stale-idmap heal) - VM refresh still owed, bundles stamp v4.29. Cast rulings complete incl rank handoff (A-rank -> Commander). Lane ARTWORK ONLY; publish gate: content admin.",
- "verified_at_close": [
-  "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
-  "doctrine projections -> all projections current (exit 0)",
-  "packs/TOCs -> all packs and TOCs current (exit 0)",
-  "parity tnr_results_1788121031587.json -> 0 errors, 0 warnings"
- ],
- "in_progress": {
-  "wave": "Portrait wave CLOSED. Next wave: SCENE BACKGROUNDS (6 specced + finale pair 1 each) on the wave_workflow loop: thread init + reference, gens with QC, sheet, one zip pack, verify, close. Icons wave after."
- },
- "decisions": [
-  "memory route: keep memory ON with exclusion edits, not off; flip off only if memory restates laws/board state again (review in a few sessions)",
-  "packs front-loaded for ai/quest now rather than curated as builds happen",
-  "container quirks + laws-that-bite single-sourced into mounted instructions; active-context template carries session state only",
-  "prose passes reassigned to coworker (per dauntless 2026-08-30); Claude lane is artwork only",
-  "art submission stays manual per dauntless 2026-08-30: no ?q= links, no half-pipe userscript, no API art tab; do not re-propose unless dauntless raises it",
-  "dauntless ruling 2026-08-30: delete wedged trio (Protection/Waystation/Loud Way) and remake; remake source = Terr DB dumps BEFORE deletion (repo holds no full copy), fallback transcript reconstruction; push/10 superseded by 10a (seven clean)",
-  "2026-08-30: trio DELETED by dauntless pre-dump; rebuild ruled. Source hunt: dauntless-held 08-28 closeout bundle zips (best), else transcript reconstruction; wedge mitigation on rebuild = verified scene ids only",
-  "2026-08-30: closeout bundles recovered from dauntless device; trio rebuilt from 2_forsworn_wave1.json (stable across 08-27/28/29) with Waystation base = push/6 full-record fix; push/10b combined capture supersedes 10a",
-  "2026-08-30: push/11 (seven-mission pin wiring) + push/12 (trio rebuild) packed and staged; Chase verb live on 5 objectives without art - ruling needed; pqihl43 sceneCharacters id snapshot-unknown, carried verbatim (portrait pass territory)",
-  "2026-08-30: Chase pin gets its own art per dauntless; packs 11+12 re-cut with pin_chase.webp on acceptance (5 objectives)",
-  "2026-08-30 rulings: Pale Fang + Winter Crow speak-list APPROVED (portraits firm, registry speak-list rewrite queued); Old Ghost + Tenth Name get dedicated background sets",
-  "2026-08-30 WEDGE RESOLVED: builder isLim text-sniffed limiter phrases in record bodies; Waystation 'too many', Protection 'slow down', Loud Way 'too many' retried forever on every read. v4.30 gates sniff to error status + short body. duplicate-zod theory closed FALSE LEAD; server exonerated; trio mints healthy pending verify; 26 WEDGE_* probes to delete",
-  "2026-08-30 ruled: listing icons - dedicated icon per mission (10); style = house frame + unique subject per mission",
-  "2026-08-30 ruled: handler = TWO distinct figures (desk handler + upstairs officer); per-node assignment pass needed; pronoun sweep awaits pronouns ruling",
-  "2026-08-30 ruled: Old Ghost + Tenth Name backgrounds - one dedicated set each (assumption: set = one 3:2 background per mission; correct if wider)",
-  "2026-08-30 ruled: wardrobe registers - CIVILIAN earth-tone loose robes vs NINJA fitted near-black combat wear, instantly distinct; every portrait subject tagged with its register",
-  "2026-08-30 ruled: scene completeness - every dialog node wires explicit sceneBackground + sceneCharacters; no-speaker nodes use a blank character asset (reuse existing blank records; verify live first)",
-  "2026-08-30 ruled: handler split from prose - desk handler (he) c13/e16/w16/p14-p15; officer (she) all serious-rank clusters incl x22-x28 and Old Ghost g32-g35 (same officer, her arc); officer portrait = The Commander reuse (id confirm pending)",
-  "2026-08-30 ruled: officer portrait = ANBU Commander Portrait ryLnefupONNZKX5hcPWid; desk handler = The Handler pqihl43HYROpkIMX172-P (she; identified as the shared stand-in); silent nodes g30=Old Ghost, g36=Commander, x1=blank; e16 pronoun sweep flagged to prose lane",
-  "2026-08-30 amended: Commander is Old Ghost mission only; other serious-rank clusters pending Handler-vs-third-figure call (last open cast question)",
-  "2026-08-30 ruled: cast complete - Handler takes remaining clusters; RANK HANDOFF noted: A-rank missions report to the Commander (Old Ghost + proposed Tenth Name), B and below to the Handler"
- ],
- "deployed": [
-  "doctrine delta-render + dual-blob mounted stamp + lawmap default root (a91310c)",
-  "bundle-era retirement + doc archival + reference repoints (2cf0d7e)",
-  "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93"
- ],
- "open_by_owner": {
-  "dauntless": [
-   "carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable; verify Waystation scene id pqihl43HYROpkIMX172-P on push/6 read-back (T1 law-49 catch: id in no local capture, all of harvests/ scanned)",
-   "re-paste mounted from state/mounted_instructions.txt (stamp @17d6a71+06335a4); reinstall build skill from dist after skillpack rebuild (doctrine block + stack row changed)",
-   "refresh ViolentMonkey (panel title v4.31; bundles still stamp v4.29)"
+  "generated": "2026-08-30",
+  "session": "mounted-7 (portrait wave: gen->wire->verify end to end)",
+  "state_line": "Portrait wave CLOSED end-to-end: nine speakers generated/QC'd/approved, cast sheet posted, assets live via zip pack (16c, picker-free), all ten missions wired to speakers (18) + blank blanket (19), every write read-back verified; publish gate law candidate cited (quests.ts ~757-772). Builder v4.31 shipped (unknown-entity guard + stale-idmap heal) - VM refresh still owed, bundles stamp v4.29. Cast rulings complete incl rank handoff (A-rank -> Commander). Lane ARTWORK ONLY; publish gate: content admin.",
+  "verified_at_close": [
+    "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
+    "doctrine projections -> all projections current (exit 0)",
+    "packs/TOCs -> all packs and TOCs current (exit 0)",
+    "parity tnr_results_1788121031587.json -> 0 errors, 0 warnings"
   ],
-  "terr": [
-   "quest-edit crash fix; push/6 held until then"
+  "in_progress": {
+    "wave": "Portrait wave CLOSED. Next wave: SCENE BACKGROUNDS (6 specced + finale pair 1 each) on the wave_workflow loop: thread init + reference, gens with QC, sheet, one zip pack, verify, close. Icons wave after."
+  },
+  "decisions": [
+    "memory route: keep memory ON with exclusion edits, not off; flip off only if memory restates laws/board state again (review in a few sessions)",
+    "packs front-loaded for ai/quest now rather than curated as builds happen",
+    "container quirks + laws-that-bite single-sourced into mounted instructions; active-context template carries session state only",
+    "prose passes reassigned to coworker (per dauntless 2026-08-30); Claude lane is artwork only",
+    "art submission stays manual per dauntless 2026-08-30: no ?q= links, no half-pipe userscript, no API art tab; do not re-propose unless dauntless raises it",
+    "dauntless ruling 2026-08-30: delete wedged trio (Protection/Waystation/Loud Way) and remake; remake source = Terr DB dumps BEFORE deletion (repo holds no full copy), fallback transcript reconstruction; push/10 superseded by 10a (seven clean)",
+    "2026-08-30: trio DELETED by dauntless pre-dump; rebuild ruled. Source hunt: dauntless-held 08-28 closeout bundle zips (best), else transcript reconstruction; wedge mitigation on rebuild = verified scene ids only",
+    "2026-08-30: closeout bundles recovered from dauntless device; trio rebuilt from 2_forsworn_wave1.json (stable across 08-27/28/29) with Waystation base = push/6 full-record fix; push/10b combined capture supersedes 10a",
+    "2026-08-30: push/11 (seven-mission pin wiring) + push/12 (trio rebuild) packed and staged; Chase verb live on 5 objectives without art - ruling needed; pqihl43 sceneCharacters id snapshot-unknown, carried verbatim (portrait pass territory)",
+    "2026-08-30: Chase pin gets its own art per dauntless; packs 11+12 re-cut with pin_chase.webp on acceptance (5 objectives)",
+    "2026-08-30 rulings: Pale Fang + Winter Crow speak-list APPROVED (portraits firm, registry speak-list rewrite queued); Old Ghost + Tenth Name get dedicated background sets",
+    "2026-08-30 WEDGE RESOLVED: builder isLim text-sniffed limiter phrases in record bodies; Waystation 'too many', Protection 'slow down', Loud Way 'too many' retried forever on every read. v4.30 gates sniff to error status + short body. duplicate-zod theory closed FALSE LEAD; server exonerated; trio mints healthy pending verify; 26 WEDGE_* probes to delete",
+    "2026-08-30 ruled: listing icons - dedicated icon per mission (10); style = house frame + unique subject per mission",
+    "2026-08-30 ruled: handler = TWO distinct figures (desk handler + upstairs officer); per-node assignment pass needed; pronoun sweep awaits pronouns ruling",
+    "2026-08-30 ruled: Old Ghost + Tenth Name backgrounds - one dedicated set each (assumption: set = one 3:2 background per mission; correct if wider)",
+    "2026-08-30 ruled: wardrobe registers - CIVILIAN earth-tone loose robes vs NINJA fitted near-black combat wear, instantly distinct; every portrait subject tagged with its register",
+    "2026-08-30 ruled: scene completeness - every dialog node wires explicit sceneBackground + sceneCharacters; no-speaker nodes use a blank character asset (reuse existing blank records; verify live first)",
+    "2026-08-30 ruled: handler split from prose - desk handler (he) c13/e16/w16/p14-p15; officer (she) all serious-rank clusters incl x22-x28 and Old Ghost g32-g35 (same officer, her arc); officer portrait = The Commander reuse (id confirm pending)",
+    "2026-08-30 ruled: officer portrait = ANBU Commander Portrait ryLnefupONNZKX5hcPWid; desk handler = The Handler pqihl43HYROpkIMX172-P (she; identified as the shared stand-in); silent nodes g30=Old Ghost, g36=Commander, x1=blank; e16 pronoun sweep flagged to prose lane",
+    "2026-08-30 amended: Commander is Old Ghost mission only; other serious-rank clusters pending Handler-vs-third-figure call (last open cast question)",
+    "2026-08-30 ruled: cast complete - Handler takes remaining clusters; RANK HANDOFF noted: A-rank missions report to the Commander (Old Ghost + proposed Tenth Name), B and below to the Handler"
+  ],
+  "deployed": [
+    "doctrine delta-render + dual-blob mounted stamp + lawmap default root (a91310c)",
+    "bundle-era retirement + doc archival + reference repoints (2cf0d7e)",
+    "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93"
+  ],
+  "open_by_owner": {
+    "dauntless": [
+      "carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable; verify Waystation scene id pqihl43HYROpkIMX172-P on push/6 read-back (T1 law-49 catch: id in no local capture, all of harvests/ scanned)",
+      "re-paste mounted from state/mounted_instructions.txt (stamp @17d6a71+06335a4); reinstall build skill from dist after skillpack rebuild (doctrine block + stack row changed)",
+      "refresh ViolentMonkey (panel title v4.31; bundles still stamp v4.29)"
+    ],
+    "terr": [
+      "quest-edit crash fix; push/6 held until then"
+    ]
+  },
+  "rulings_open": [
+    "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
+    "Wedge source note ready for Terr: AllObjectives discriminators clean at HEAD; suspect duplicate zod across chunks - relay?",
+    "WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?",
+    "art micro-rulings: g30/g36/x1 silent-portrait per node; x22-x28 speaker handler vs village official; handler pronouns"
+  ],
+  "next": "Open on backgrounds wave: cut thread init (SCENE_BACKGROUND 3:2, house style, reference attach) + first card from the six specced. Owed (dauntless): VM refresh to v4.31, e16 pronoun sweep, publish flip decision rides content admin. Owed (Claude): law-94 authoring via law process. Parked: Terr relay, WO-08.",
+  "token_ledger": [
+    {
+      "path": "state/digest.json",
+      "bytes": 11131,
+      "at": "20:22Z"
+    },
+    {
+      "path": "state/active-context.md",
+      "bytes": 2900,
+      "at": "20:22Z"
+    },
+    {
+      "path": "state/status.json",
+      "bytes": 10473,
+      "at": "20:22Z"
+    },
+    {
+      "path": "docs/00_INDEX.md",
+      "bytes": 8036,
+      "at": "20:22Z"
+    },
+    {
+      "path": "harvests/inbox/tnr_results_1788121031587.json",
+      "bytes": 1702924,
+      "at": "20:22Z"
+    }
+  ],
+  "board": {
+    "blocked": [
+      "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
+    ],
+    "pending_verification": [],
+    "wedge": {
+      "state": "RETIRED 2026-08-30 (dauntless). Closed in full - do not reopen, do not re-derive.",
+      "what_it_was": "Never a wedge. The Waystation was tripping OUR OWN rate limiter; self-inflicted and since patched. The three missions were never stuck and shipped fine. push/6 (6_verify_and_fix.json) was patched, solved and retired. No Terr dependency.",
+      "editor_crash": "The Zod 'Duplicate discriminator value undefined' crash on the quest edit page is ALSO retired at dauntless's direction. It never touched the builder write path (packs 18/19 wrote quest edits to all ten missions, read-back verified). Note archived to archive/wedge-diagnosis-2026-08-30/.",
+      "residual_open": "quest.get on The Waystation froze pre-patch. Whether that survives the rate-limiter patch is UNCONFIRMED - ask before relying on a Waystation capture."
+    },
+    "art": {
+      "next": "warehouse clerk portrait (Nothing to Report, 2:3 scene char) - prompt at state/prompt_report_clerk.txt; then survivor, principal, deputy; unlocked tail: handler pair (desk+upstairs), Pale Fang, Winter Crow, Keeper, merchant, Old Ghost portrait; finale sets 1 each to spec; 10 icon subjects to propose; pipelining depth-2 + reference-after-1-failure ratified this session? NO - proposed, unruled",
+      "ruling_open": [
+        "art pipelining depth 2",
+        "reference-image after 1 failure",
+        "pin batch exception"
+      ]
+    },
+    "board_unchanged": [
+      "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
+      "Old Ghost + Tenth Name prose passes",
+      "registry 38 masks rewrite",
+      "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights",
+      "v4.29 queue: pfEq gains ''<->null equivalence so the panel stops flagging the normalized pair (rides WO-06 release)",
+      "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
+      "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
+      "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
+      "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited",
+      "v4.30 queue: Repo picker accepts filename leading digits (7,8 would have worked); batch position-vs-file-number papercut",
+      "pack curation follow-ups: ai-build, quest-build, item-build, art-session packs (mechanism live, jutsu exemplar proven)",
+      "relay ritual switch is a separate post-install step (container pushes stay direct-to-main until then)"
+    ],
+    "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)"
+  },
+  "ruled_this_session": [
+    "skill doctrine block: delta-render (dual/triple targets collapsed to mounted; skill blocks carry stake + pointer + skill-only assertions)",
+    "stack.py: retired to archive/bundle-era-2026-08-30/ with newstack check, audit.py, closeout.py, CLOSEOUT.md",
+    "lint table: single-source as shared data both surfaces read, riding the v4.29 vehicle (WO-06)",
+    "one-shot optimization docs (BRIEF, REPORT, SOURCE_AUDIT) archived; PLAN stays live",
+    "Phase 3 T1: full scope (all four laws), validator-first yes, seeded as the shared registry 45h_DATA_lints.json (builder adopts at v4.29; T3 promotes warn->error by registry edit)"
   ]
- },
- "rulings_open": [
-  "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
-  "Wedge source note ready for Terr: AllObjectives discriminators clean at HEAD; suspect duplicate zod across chunks - relay?",
-  "WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?",
-  "art micro-rulings: g30/g36/x1 silent-portrait per node; x22-x28 speaker handler vs village official; handler pronouns"
- ],
- "next": "Open on backgrounds wave: cut thread init (SCENE_BACKGROUND 3:2, house style, reference attach) + first card from the six specced. Owed (dauntless): VM refresh to v4.31, e16 pronoun sweep, publish flip decision rides content admin. Owed (Claude): law-94 authoring via law process. Parked: Terr relay, WO-08.",
- "token_ledger": [
-  {
-   "path": "state/digest.json",
-   "bytes": 11131,
-   "at": "20:22Z"
-  },
-  {
-   "path": "state/active-context.md",
-   "bytes": 2900,
-   "at": "20:22Z"
-  },
-  {
-   "path": "state/status.json",
-   "bytes": 10473,
-   "at": "20:22Z"
-  },
-  {
-   "path": "docs/00_INDEX.md",
-   "bytes": 8036,
-   "at": "20:22Z"
-  },
-  {
-   "path": "harvests/inbox/tnr_results_1788121031587.json",
-   "bytes": 1702924,
-   "at": "20:22Z"
-  }
- ],
- "board": {
-  "blocked": [
-   "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
-  ],
-  "pending_verification": [],
-  "wedge": {
-   "state": "RETIRED 2026-08-30 (dauntless). Closed in full - do not reopen, do not re-derive.",
-   "what_it_was": "Never a wedge. The Waystation was tripping OUR OWN rate limiter; self-inflicted and since patched. The three missions were never stuck and shipped fine. push/6 (6_verify_and_fix.json) was patched, solved and retired. No Terr dependency.",
-   "editor_crash": "The Zod 'Duplicate discriminator value undefined' crash on the quest edit page is ALSO retired at dauntless's direction. It never touched the builder write path (packs 18/19 wrote quest edits to all ten missions, read-back verified). Note archived to archive/wedge-diagnosis-2026-08-30/.",
-   "residual_open": "quest.get on The Waystation froze pre-patch. Whether that survives the rate-limiter patch is UNCONFIRMED - ask before relying on a Waystation capture."
-  },
-  "art": {
-   "next": "warehouse clerk portrait (Nothing to Report, 2:3 scene char) - prompt at state/prompt_report_clerk.txt; then survivor, principal, deputy; unlocked tail: handler pair (desk+upstairs), Pale Fang, Winter Crow, Keeper, merchant, Old Ghost portrait; finale sets 1 each to spec; 10 icon subjects to propose; pipelining depth-2 + reference-after-1-failure ratified this session? NO - proposed, unruled",
-   "ruling_open": [
-    "art pipelining depth 2",
-    "reference-image after 1 failure",
-    "pin batch exception"
-   ]
-  },
-  "board_unchanged": [
-   "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
-   "Old Ghost + Tenth Name prose passes",
-   "registry 38 masks rewrite",
-   "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights",
-   "v4.29 queue: pfEq gains ''<->null equivalence so the panel stops flagging the normalized pair (rides WO-06 release)",
-   "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
-   "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
-   "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
-   "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited",
-   "v4.30 queue: Repo picker accepts filename leading digits (7,8 would have worked); batch position-vs-file-number papercut",
-   "pack curation follow-ups: ai-build, quest-build, item-build, art-session packs (mechanism live, jutsu exemplar proven)",
-   "relay ritual switch is a separate post-install step (container pushes stay direct-to-main until then)"
-  ],
-  "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)"
- },
- "ruled_this_session": [
-  "skill doctrine block: delta-render (dual/triple targets collapsed to mounted; skill blocks carry stake + pointer + skill-only assertions)",
-  "stack.py: retired to archive/bundle-era-2026-08-30/ with newstack check, audit.py, closeout.py, CLOSEOUT.md",
-  "lint table: single-source as shared data both surfaces read, riding the v4.29 vehicle (WO-06)",
-  "one-shot optimization docs (BRIEF, REPORT, SOURCE_AUDIT) archived; PLAN stays live",
-  "Phase 3 T1: full scope (all four laws), validator-first yes, seeded as the shared registry 45h_DATA_lints.json (builder adopts at v4.29; T3 promotes warn->error by registry edit)"
- ]
 }
