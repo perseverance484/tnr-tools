@@ -25,3 +25,15 @@ session_open.py (verify any new inbox bundle FIRST). No clone means no state.
 **Next:** Ship the icons: enumerate the FULL migration list from a live capture (the twelve in scope plus every existing per-mission icon being replaced), upload four raw URLs, wire quest.image by rank, verify by read-back per-entry json.success. Twelve in scope: C x4 Chalk and Corner / The Empty Contract / Protection / The Waystation; B x4 Nothing to Report / The Loud Way / Copies Not Thefts (d-94cxrGW91o1SJCr9rsq) / Witness Detail (dfeXwdrnvyvGGETiCMgu-); A x4 Three Rounds / The Long Winter / Old Ghost / The Tenth Name. Owed (dauntless): VM refresh to v4.31 (bundles still stamp v4.29), e16 pronoun sweep, publish flip rides content admin. Owed (Claude): law-94 authoring via law process; rawqc needs a --frame path (a keyed plate runs to the edge, so RING rejects every one at 100% dirty-ring - all plates hand-verified on aspect/coverage instead); port the frame compositing pipeline to stdlib (it ran ad hoc on PIL/numpy, toolchain is stdlib-only). DONE this session: rawqc --opaque path + measured exposure_bands, artpreflight bg_ inference.
 
 Container quirks and cross-cutting laws live in the mounted instructions.
+
+## Icons wave - shipping (handed over 2026-08-30)
+
+- `push/22_rank_icon_wiring_wave1.zip` - 10 quest edits (C x4, B x2, A x4, ranks read live from
+  `tnr_results_1788127352899.json`), each setting only `image` to `@img:icon_rank_<R>.webp`. The three icons ride
+  the zip with a byte ledger, so the builder uploads them and no raw URL is passed by hand. Generator:
+  `push/22_rank_icon_wiring_wave1.gen.py` (ids extracted, never transcribed). validate.py: 0 errors.
+- `capture.before` reads 21 quests whose rank is unread: the ten D-set missions, Case Contract x4,
+  Blacksteel Contract x5, Copies Not Thefts, Witness Detail. Wave 2 wires them from that capture.
+- Delete list so far: the ten `dmissionicons` gameAssets (ids in the wave-1 handover). Case/Blacksteel icons
+  are NOT deletable - reused by Genin Trials. Copies/Witness icon ids pending the capture.
+- validate.py now warns instead of erroring on a quest edit that carries no `content` (fetch-merge patch).

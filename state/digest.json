@@ -1,132 +1,132 @@
 {
-  "generated": "2026-08-30",
-  "session": "mounted-9 (icons wave: rank icon set, art complete, shipping not started)",
-  "state_line": "ICONS WAVE CLOSED on art: four shared quest-rank icons (D/C/B/A) generated, graded and banked - all four rawqc ACCEPT on listing_icon_framed. Design pivoted mid-wave from dedicated-icon-per-mission to ONE SHARED ICON PER RANK (dauntless): fewer generations, reads at a glance, future quests wire an existing icon with no art work. Rank is carried by the frame finish - bare wood D, red urushi lacquer C, black lacquer + mother-of-pearl inlay B, black lacquer + worn gold leaf A - over a shared interior (overhead mission brief, hanko seal in cinnabar, rank letter in the seal). The rank set REPLACES existing per-mission icons; migration list beyond the twelve not yet enumerated. NOT SHIPPED: no upload, no wiring, no push this session. Lane ARTWORK ONLY; publish gate content admin; everything hidden:true.",
-  "verified_at_close": [
-    "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
-    "doctrine projections -> all projections current (exit 0)",
-    "packs/TOCs -> all packs and TOCs current (exit 0)",
-    "parity tnr_results_1788128500937.json -> 0 errors, 0 warnings"
+ "generated": "2026-08-30",
+ "session": "mounted-9 (icons wave: rank icon set, art complete, shipping not started)",
+ "state_line": "WAVE ICONS SHIPPING started: push/22_rank_icon_wiring_wave1.zip handed over (validated 0 errors) - 10 verified-rank quest edits wiring quest.image to @img:icon_rank_{C,B,A}.webp (icons upload from the pack, no manual URL step) plus capture.before of 21 quests: the ten D-set missions, Case Contract x4, Blacksteel Contract x5, and Copies Not Thefts + Witness Detail (ranks and current icon URLs unread). Wave 2 wires the rest once that capture lands. || PRIOR: ICONS WAVE CLOSED on art: four shared quest-rank icons (D/C/B/A) generated, graded and banked - all four rawqc ACCEPT on listing_icon_framed. Design pivoted mid-wave from dedicated-icon-per-mission to ONE SHARED ICON PER RANK (dauntless): fewer generations, reads at a glance, future quests wire an existing icon with no art work. Rank is carried by the frame finish - bare wood D, red urushi lacquer C, black lacquer + mother-of-pearl inlay B, black lacquer + worn gold leaf A - over a shared interior (overhead mission brief, hanko seal in cinnabar, rank letter in the seal). The rank set REPLACES existing per-mission icons; migration list beyond the twelve not yet enumerated. NOT SHIPPED: no upload, no wiring, no push this session. Lane ARTWORK ONLY; publish gate content admin; everything hidden:true.",
+ "verified_at_close": [
+  "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
+  "doctrine projections -> all projections current (exit 0)",
+  "packs/TOCs -> all packs and TOCs current (exit 0)",
+  "parity tnr_results_1788128500937.json -> 0 errors, 0 warnings"
+ ],
+ "in_progress": {
+  "wave": "wave: ICONS. Art complete, shipping not started. Two methods were built and both are banked. (1) COMPOSITE plates in data/frames/ - the live D-rank border was proven composited (per-pixel std 3.8 in the band vs 40.4 interior across nine live icons), so the wood plate was extracted from their median and three lacquer plates keyed and masked to its alpha. (2) FULLY GENERATED icons in data/rank_icons/ - RULED to supersede (1) for the rank set after the first full gen came back with correct frame geometry AND a crisp letter. Claude argued against generating frames and letters and was wrong on the evidence; the reference image did the constraining, so fresh prompts without it should NOT be expected to behave the same. C/B/A each generated from TWO references: the finished D plus that rank's flattened plate. Grade of record: gamma 0.88 applied post-gen, identical across all four. B's inlay overshoots (frame-band bright 0.079 vs A's 0.036) - LEFT AS IS by ruling. Discord status post written and handed over with contact sheet."
+ },
+ "decisions": [
+  "memory route: keep memory ON with exclusion edits, not off; flip off only if memory restates laws/board state again (review in a few sessions)",
+  "packs front-loaded for ai/quest now rather than curated as builds happen",
+  "container quirks + laws-that-bite single-sourced into mounted instructions; active-context template carries session state only",
+  "prose passes reassigned to coworker (per dauntless 2026-08-30); Claude lane is artwork only",
+  "art submission stays manual per dauntless 2026-08-30: no ?q= links, no half-pipe userscript, no API art tab; do not re-propose unless dauntless raises it",
+  "dauntless ruling 2026-08-30: delete wedged trio (Protection/Waystation/Loud Way) and remake; remake source = Terr DB dumps BEFORE deletion (repo holds no full copy), fallback transcript reconstruction; push/10 superseded by 10a (seven clean)",
+  "2026-08-30: trio DELETED by dauntless pre-dump; rebuild ruled. Source hunt: dauntless-held 08-28 closeout bundle zips (best), else transcript reconstruction; wedge mitigation on rebuild = verified scene ids only",
+  "2026-08-30: closeout bundles recovered from dauntless device; trio rebuilt from 2_forsworn_wave1.json (stable across 08-27/28/29) with Waystation base = push/6 full-record fix; push/10b combined capture supersedes 10a",
+  "2026-08-30: push/11 (seven-mission pin wiring) + push/12 (trio rebuild) packed and staged; Chase verb live on 5 objectives without art - ruling needed; pqihl43 sceneCharacters id snapshot-unknown, carried verbatim (portrait pass territory)",
+  "2026-08-30: Chase pin gets its own art per dauntless; packs 11+12 re-cut with pin_chase.webp on acceptance (5 objectives)",
+  "2026-08-30 rulings: Pale Fang + Winter Crow speak-list APPROVED (portraits firm, registry speak-list rewrite queued); Old Ghost + Tenth Name get dedicated background sets",
+  "2026-08-30 WEDGE RESOLVED: builder isLim text-sniffed limiter phrases in record bodies; Waystation 'too many', Protection 'slow down', Loud Way 'too many' retried forever on every read. v4.30 gates sniff to error status + short body. duplicate-zod theory closed FALSE LEAD; server exonerated; trio mints healthy pending verify; 26 WEDGE_* probes to delete",
+  "2026-08-30 ruled: listing icons - dedicated icon per mission (10); style = house frame + unique subject per mission",
+  "2026-08-30 ruled: handler = TWO distinct figures (desk handler + upstairs officer); per-node assignment pass needed; pronoun sweep awaits pronouns ruling",
+  "2026-08-30 ruled: Old Ghost + Tenth Name backgrounds - one dedicated set each (assumption: set = one 3:2 background per mission; correct if wider)",
+  "2026-08-30 ruled: wardrobe registers - CIVILIAN earth-tone loose robes vs NINJA fitted near-black combat wear, instantly distinct; every portrait subject tagged with its register",
+  "2026-08-30 ruled: scene completeness - every dialog node wires explicit sceneBackground + sceneCharacters; no-speaker nodes use a blank character asset (reuse existing blank records; verify live first)",
+  "2026-08-30 ruled: handler split from prose - desk handler (he) c13/e16/w16/p14-p15; officer (she) all serious-rank clusters incl x22-x28 and Old Ghost g32-g35 (same officer, her arc); officer portrait = The Commander reuse (id confirm pending)",
+  "2026-08-30 ruled: officer portrait = ANBU Commander Portrait ryLnefupONNZKX5hcPWid; desk handler = The Handler pqihl43HYROpkIMX172-P (she; identified as the shared stand-in); silent nodes g30=Old Ghost, g36=Commander, x1=blank; e16 pronoun sweep flagged to prose lane",
+  "2026-08-30 amended: Commander is Old Ghost mission only; other serious-rank clusters pending Handler-vs-third-figure call (last open cast question)",
+  "2026-08-30 ruled: cast complete - Handler takes remaining clusters; RANK HANDOFF noted: A-rank missions report to the Commander (Old Ghost + proposed Tenth Name), B and below to the Handler"
+ ],
+ "deployed": [
+  "doctrine delta-render + dual-blob mounted stamp + lawmap default root (a91310c)",
+  "bundle-era retirement + doc archival + reference repoints (2cf0d7e)",
+  "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93",
+  "rawqc --opaque path (skips coverage/ring on keyless targets) + measured exposure_bands.listing_icon_framed; artpreflight bg_ filename inference (e7a559d)",
+  "four composite frame plates on a softened shared alpha, data/frames/ (8a85084)",
+  "four generated rank icons D/C/B/A + contact sheet, data/rank_icons/ (6c22c64)"
+ ],
+ "open_by_owner": {
+  "dauntless": [
+   "VM refresh to v4.31 (bundles still stamp v4.29)",
+   "e16 pronoun sweep (prose, not Claude's lane)",
+   "publish flip rides content admin; everything hidden:true",
+   "enumerate which existing per-mission icons migrate to the rank set"
   ],
-  "in_progress": {
-    "wave": "wave: ICONS. Art complete, shipping not started. Two methods were built and both are banked. (1) COMPOSITE plates in data/frames/ - the live D-rank border was proven composited (per-pixel std 3.8 in the band vs 40.4 interior across nine live icons), so the wood plate was extracted from their median and three lacquer plates keyed and masked to its alpha. (2) FULLY GENERATED icons in data/rank_icons/ - RULED to supersede (1) for the rank set after the first full gen came back with correct frame geometry AND a crisp letter. Claude argued against generating frames and letters and was wrong on the evidence; the reference image did the constraining, so fresh prompts without it should NOT be expected to behave the same. C/B/A each generated from TWO references: the finished D plus that rank's flattened plate. Grade of record: gamma 0.88 applied post-gen, identical across all four. B's inlay overshoots (frame-band bright 0.079 vs A's 0.036) - LEFT AS IS by ruling. Discord status post written and handed over with contact sheet."
-  },
-  "decisions": [
-    "memory route: keep memory ON with exclusion edits, not off; flip off only if memory restates laws/board state again (review in a few sessions)",
-    "packs front-loaded for ai/quest now rather than curated as builds happen",
-    "container quirks + laws-that-bite single-sourced into mounted instructions; active-context template carries session state only",
-    "prose passes reassigned to coworker (per dauntless 2026-08-30); Claude lane is artwork only",
-    "art submission stays manual per dauntless 2026-08-30: no ?q= links, no half-pipe userscript, no API art tab; do not re-propose unless dauntless raises it",
-    "dauntless ruling 2026-08-30: delete wedged trio (Protection/Waystation/Loud Way) and remake; remake source = Terr DB dumps BEFORE deletion (repo holds no full copy), fallback transcript reconstruction; push/10 superseded by 10a (seven clean)",
-    "2026-08-30: trio DELETED by dauntless pre-dump; rebuild ruled. Source hunt: dauntless-held 08-28 closeout bundle zips (best), else transcript reconstruction; wedge mitigation on rebuild = verified scene ids only",
-    "2026-08-30: closeout bundles recovered from dauntless device; trio rebuilt from 2_forsworn_wave1.json (stable across 08-27/28/29) with Waystation base = push/6 full-record fix; push/10b combined capture supersedes 10a",
-    "2026-08-30: push/11 (seven-mission pin wiring) + push/12 (trio rebuild) packed and staged; Chase verb live on 5 objectives without art - ruling needed; pqihl43 sceneCharacters id snapshot-unknown, carried verbatim (portrait pass territory)",
-    "2026-08-30: Chase pin gets its own art per dauntless; packs 11+12 re-cut with pin_chase.webp on acceptance (5 objectives)",
-    "2026-08-30 rulings: Pale Fang + Winter Crow speak-list APPROVED (portraits firm, registry speak-list rewrite queued); Old Ghost + Tenth Name get dedicated background sets",
-    "2026-08-30 WEDGE RESOLVED: builder isLim text-sniffed limiter phrases in record bodies; Waystation 'too many', Protection 'slow down', Loud Way 'too many' retried forever on every read. v4.30 gates sniff to error status + short body. duplicate-zod theory closed FALSE LEAD; server exonerated; trio mints healthy pending verify; 26 WEDGE_* probes to delete",
-    "2026-08-30 ruled: listing icons - dedicated icon per mission (10); style = house frame + unique subject per mission",
-    "2026-08-30 ruled: handler = TWO distinct figures (desk handler + upstairs officer); per-node assignment pass needed; pronoun sweep awaits pronouns ruling",
-    "2026-08-30 ruled: Old Ghost + Tenth Name backgrounds - one dedicated set each (assumption: set = one 3:2 background per mission; correct if wider)",
-    "2026-08-30 ruled: wardrobe registers - CIVILIAN earth-tone loose robes vs NINJA fitted near-black combat wear, instantly distinct; every portrait subject tagged with its register",
-    "2026-08-30 ruled: scene completeness - every dialog node wires explicit sceneBackground + sceneCharacters; no-speaker nodes use a blank character asset (reuse existing blank records; verify live first)",
-    "2026-08-30 ruled: handler split from prose - desk handler (he) c13/e16/w16/p14-p15; officer (she) all serious-rank clusters incl x22-x28 and Old Ghost g32-g35 (same officer, her arc); officer portrait = The Commander reuse (id confirm pending)",
-    "2026-08-30 ruled: officer portrait = ANBU Commander Portrait ryLnefupONNZKX5hcPWid; desk handler = The Handler pqihl43HYROpkIMX172-P (she; identified as the shared stand-in); silent nodes g30=Old Ghost, g36=Commander, x1=blank; e16 pronoun sweep flagged to prose lane",
-    "2026-08-30 amended: Commander is Old Ghost mission only; other serious-rank clusters pending Handler-vs-third-figure call (last open cast question)",
-    "2026-08-30 ruled: cast complete - Handler takes remaining clusters; RANK HANDOFF noted: A-rank missions report to the Commander (Old Ghost + proposed Tenth Name), B and below to the Handler"
-  ],
-  "deployed": [
-    "doctrine delta-render + dual-blob mounted stamp + lawmap default root (a91310c)",
-    "bundle-era retirement + doc archival + reference repoints (2cf0d7e)",
-    "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93",
-    "rawqc --opaque path (skips coverage/ring on keyless targets) + measured exposure_bands.listing_icon_framed; artpreflight bg_ filename inference (e7a559d)",
-    "four composite frame plates on a softened shared alpha, data/frames/ (8a85084)",
-    "four generated rank icons D/C/B/A + contact sheet, data/rank_icons/ (6c22c64)"
-  ],
-  "open_by_owner": {
-    "dauntless": [
-      "VM refresh to v4.31 (bundles still stamp v4.29)",
-      "e16 pronoun sweep (prose, not Claude's lane)",
-      "publish flip rides content admin; everything hidden:true",
-      "enumerate which existing per-mission icons migrate to the rank set"
-    ],
-    "claude": [
-      "law-94 authoring via the law process",
-      "rawqc --frame path: a keyed plate runs to the image edge, so RING rejects every one at 100% dirty-ring; all plates hand-verified on aspect/coverage instead",
-      "port the frame compositing pipeline to stdlib - it ran ad hoc on PIL/numpy and the toolchain is stdlib-only"
-    ]
-  },
-  "rulings_open": [
-    "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
-    "WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?",
-    "art micro-rulings: g30/g36/x1 silent-portrait per node; x22-x28 speaker handler vs village official; handler pronouns"
-  ],
-  "next": "Ship the icons: enumerate the FULL migration list from a live capture (the twelve in scope plus every existing per-mission icon being replaced), upload four raw URLs, wire quest.image by rank, verify by read-back per-entry json.success. Twelve in scope: C x4 Chalk and Corner / The Empty Contract / Protection / The Waystation; B x4 Nothing to Report / The Loud Way / Copies Not Thefts (d-94cxrGW91o1SJCr9rsq) / Witness Detail (dfeXwdrnvyvGGETiCMgu-); A x4 Three Rounds / The Long Winter / Old Ghost / The Tenth Name. Owed (dauntless): VM refresh to v4.31 (bundles still stamp v4.29), e16 pronoun sweep, publish flip rides content admin. Owed (Claude): law-94 authoring via law process; rawqc needs a --frame path (a keyed plate runs to the edge, so RING rejects every one at 100% dirty-ring - all plates hand-verified on aspect/coverage instead); port the frame compositing pipeline to stdlib (it ran ad hoc on PIL/numpy, toolchain is stdlib-only). DONE this session: rawqc --opaque path + measured exposure_bands, artpreflight bg_ inference.",
-  "token_ledger": [
-    {
-      "path": "state/digest.json",
-      "bytes": 14125,
-      "at": "23:43Z"
-    },
-    {
-      "path": "state/active-context.md",
-      "bytes": 4600,
-      "at": "23:43Z"
-    },
-    {
-      "path": "state/status.json",
-      "bytes": 12841,
-      "at": "23:43Z"
-    },
-    {
-      "path": "docs/00_INDEX.md",
-      "bytes": 8036,
-      "at": "23:43Z"
-    },
-    {
-      "path": "harvests/inbox/tnr_results_1788128500937.json",
-      "bytes": 1150152,
-      "at": "23:43Z"
-    }
-  ],
-  "board": {
-    "blocked": [
-      "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
-    ],
-    "pending_verification": [],
-    "wedge": {
-      "state": "RETIRED 2026-08-30 (dauntless). Closed in full - do not reopen, do not re-derive.",
-      "what_it_was": "Never a wedge. The Waystation was tripping OUR OWN rate limiter; self-inflicted and since patched. The three missions were never stuck and shipped fine. push/6 (6_verify_and_fix.json) was patched, solved and retired. No Terr dependency.",
-      "editor_crash": "The Zod 'Duplicate discriminator value undefined' crash on the quest edit page is ALSO retired at dauntless's direction. It never touched the builder write path (packs 18/19 wrote quest edits to all ten missions, read-back verified). Note archived to archive/wedge-diagnosis-2026-08-30/.",
-      "residual_open": "quest.get on The Waystation froze pre-patch. Whether that survives the rate-limiter patch is UNCONFIRMED - ask before relying on a Waystation capture."
-    },
-    "art": {
-      "next": "SHIP the rank icons: enumerate full migration list from a live capture, upload four raw URLs, wire quest.image by rank, verify by read-back. Art itself is done - see skills/producing-tnr-art/data/rank_icons/README.md."
-    },
-    "board_unchanged": [
-      "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
-      "Old Ghost + Tenth Name prose passes",
-      "registry 38 masks rewrite",
-      "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights",
-      "v4.29 queue: pfEq gains ''<->null equivalence so the panel stops flagging the normalized pair (rides WO-06 release)",
-      "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
-      "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
-      "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
-      "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited",
-      "v4.30 queue: Repo picker accepts filename leading digits (7,8 would have worked); batch position-vs-file-number papercut",
-      "pack curation follow-ups: ai-build, quest-build, item-build, art-session packs (mechanism live, jutsu exemplar proven)",
-      "relay ritual switch is a separate post-install step (container pushes stay direct-to-main until then)"
-    ],
-    "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK) | 2026-08-30: backgrounds wave 8/8 live and verified via push/21 (tnr_results_1788128500937.json) | 2026-08-30: wedge / push/6 / Zod editor crash retired to archive/wedge-diagnosis-2026-08-30/"
-  },
-  "ruled_this_session": [
-    "icons: SUPERSEDES dedicated-icon-per-mission - FOUR shared icons, one per quest rank (D/C/B/A), wired by rank",
-    "icons: the rank set REPLACES existing per-mission icons; migration list not yet enumerated",
-    "icons: rank carried by FRAME FINISH - bare wood D, red urushi lacquer C, black lacquer + mother-of-pearl inlay B, black lacquer + worn gold leaf A",
-    "icons: riveted metal banding REJECTED as off-register for the setting; rivets stay on the corner brackets only, matching the live wood frame",
-    "icons: design is an overhead mission brief with a hanko seal pressed in cinnabar, rank letter centred in the seal; seal ~40% of image width or the letter dies at the 125px display size",
-    "icons: round seal + Latin serif letter chosen over square seal + carved seal-script styling",
-    "icons: FULLY GENERATED (frame and letter included) supersedes the composite-plate method for the rank set; plates stay banked as fallback and remain the method for any future per-mission icon",
-    "icons: brightness grade of record = gamma 0.88 post-gen, applied identically to all four",
-    "icons: B's mother-of-pearl inlay overshoots (frame-band bright 0.079 vs A's 0.036) - LEFT AS IS; the inlay is the only frame identifiable at 125px without looking"
+  "claude": [
+   "law-94 authoring via the law process",
+   "rawqc --frame path: a keyed plate runs to the image edge, so RING rejects every one at 100% dirty-ring; all plates hand-verified on aspect/coverage instead",
+   "port the frame compositing pipeline to stdlib - it ran ad hoc on PIL/numpy and the toolchain is stdlib-only"
   ]
+ },
+ "rulings_open": [
+  "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
+  "WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?",
+  "art micro-rulings: g30/g36/x1 silent-portrait per node; x22-x28 speaker handler vs village official; handler pronouns"
+ ],
+ "next": "Verify tnr_results for push 22 (per-entry json.success + asserted read-back), read the 21-quest capture for ranks and pre-wire image URLs, then build wave 2 (D-set + any contracts dauntless rules in scope) and hand dauntless the final delete list. Deletion candidates already confirmed: the ten 'dmissionicons' gameAssets. Case/Blacksteel icons stay (reused in Genin Trials).",
+ "token_ledger": [
+  {
+   "path": "state/digest.json",
+   "bytes": 14125,
+   "at": "23:43Z"
+  },
+  {
+   "path": "state/active-context.md",
+   "bytes": 4600,
+   "at": "23:43Z"
+  },
+  {
+   "path": "state/status.json",
+   "bytes": 12841,
+   "at": "23:43Z"
+  },
+  {
+   "path": "docs/00_INDEX.md",
+   "bytes": 8036,
+   "at": "23:43Z"
+  },
+  {
+   "path": "harvests/inbox/tnr_results_1788128500937.json",
+   "bytes": 1150152,
+   "at": "23:43Z"
+  }
+ ],
+ "board": {
+  "blocked": [
+   "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
+  ],
+  "pending_verification": [],
+  "wedge": {
+   "state": "RETIRED 2026-08-30 (dauntless). Closed in full - do not reopen, do not re-derive.",
+   "what_it_was": "Never a wedge. The Waystation was tripping OUR OWN rate limiter; self-inflicted and since patched. The three missions were never stuck and shipped fine. push/6 (6_verify_and_fix.json) was patched, solved and retired. No Terr dependency.",
+   "editor_crash": "The Zod 'Duplicate discriminator value undefined' crash on the quest edit page is ALSO retired at dauntless's direction. It never touched the builder write path (packs 18/19 wrote quest edits to all ten missions, read-back verified). Note archived to archive/wedge-diagnosis-2026-08-30/.",
+   "residual_open": "quest.get on The Waystation froze pre-patch. Whether that survives the rate-limiter patch is UNCONFIRMED - ask before relying on a Waystation capture."
+  },
+  "art": {
+   "next": "SHIP the rank icons: enumerate full migration list from a live capture, upload four raw URLs, wire quest.image by rank, verify by read-back. Art itself is done - see skills/producing-tnr-art/data/rank_icons/README.md."
+  },
+  "board_unchanged": [
+   "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
+   "Old Ghost + Tenth Name prose passes",
+   "registry 38 masks rewrite",
+   "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights",
+   "v4.29 queue: pfEq gains ''<->null equivalence so the panel stops flagging the normalized pair (rides WO-06 release)",
+   "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
+   "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
+   "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
+   "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited",
+   "v4.30 queue: Repo picker accepts filename leading digits (7,8 would have worked); batch position-vs-file-number papercut",
+   "pack curation follow-ups: ai-build, quest-build, item-build, art-session packs (mechanism live, jutsu exemplar proven)",
+   "relay ritual switch is a separate post-install step (container pushes stay direct-to-main until then)"
+  ],
+  "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK) | 2026-08-30: backgrounds wave 8/8 live and verified via push/21 (tnr_results_1788128500937.json) | 2026-08-30: wedge / push/6 / Zod editor crash retired to archive/wedge-diagnosis-2026-08-30/"
+ },
+ "ruled_this_session": [
+  "icons: SUPERSEDES dedicated-icon-per-mission - FOUR shared icons, one per quest rank (D/C/B/A), wired by rank",
+  "icons: the rank set REPLACES existing per-mission icons; migration list not yet enumerated",
+  "icons: rank carried by FRAME FINISH - bare wood D, red urushi lacquer C, black lacquer + mother-of-pearl inlay B, black lacquer + worn gold leaf A",
+  "icons: riveted metal banding REJECTED as off-register for the setting; rivets stay on the corner brackets only, matching the live wood frame",
+  "icons: design is an overhead mission brief with a hanko seal pressed in cinnabar, rank letter centred in the seal; seal ~40% of image width or the letter dies at the 125px display size",
+  "icons: round seal + Latin serif letter chosen over square seal + carved seal-script styling",
+  "icons: FULLY GENERATED (frame and letter included) supersedes the composite-plate method for the rank set; plates stay banked as fallback and remain the method for any future per-mission icon",
+  "icons: brightness grade of record = gamma 0.88 post-gen, applied identically to all four",
+  "icons: B's mother-of-pearl inlay overshoots (frame-band bright 0.079 vs A's 0.036) - LEFT AS IS; the inlay is the only frame identifiable at 125px without looking"
+ ]
 }
