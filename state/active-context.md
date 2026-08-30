@@ -1,7 +1,7 @@
 <!-- PROJECTION of state/digest.json - edit the digest, run session_close.py; never edit this file -->
 # active-context.md - read this first, then the board
 
-**State in one line:** Dedup audit landed: skill doctrine blocks delta-rendered (build 11.7K->7.2K; stake+pointer+pool-codes only), mounted stamp now covers tmpl blob (paste staleness visible), lawmap defaults repo root, bundle-era tools (stack/newstack/audit/closeout + CLOSEOUT.md) and consumed one-shot docs (BRIEF/REPORT/SOURCE_AUDIT) archived. Live paste is pre-dedup stale: re-paste state/mounted_instructions.txt (@17d6a71+06335a4). T1 lint tranche landed: 45h_DATA_lints.json registry (laws 3, 49, 30/66) read by validate.py, builder adopts at v4.29; first run caught an unverifiable Waystation scene id. Forsworn board untouched.
+**State in one line:** Wedge RESOLVED: builder isLim sniffed limiter phrases in record prose (Waystation 'too many', Protection 'slow down', Loud Way 'too many'); v4.30 gates the sniff to error status + short body; loader @version must rise per pin (workflow gap queued). Ten missions live + verified, pins 12/12 wired (Chase landed), trio rebuilt from recovered closeout bundles, 26 probes deleted, spent manifests archived, duplicate-zod closed FALSE LEAD, server clean. Art census done: 64 speaking nodes need portraits, 6 specced + finale backgrounds. Lane ARTWORK ONLY; gates: Handler ruling (dauntless), publish go-ahead (content admin).
 
 **Verified at close (exact runs):**
 - lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings
