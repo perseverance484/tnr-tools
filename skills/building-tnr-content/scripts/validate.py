@@ -1082,6 +1082,11 @@ def check_manifest(path, ctors_path, strict=False):
     man = json.load(open(path))
     ctors = json.load(open(ctors_path))
     items = man.get("items") or []
+    # Builder dialect: entries carry entity "asset"; schemas are keyed
+    # "gameAsset". Normalize for validation only (push/16 misroute fix).
+    for _e in items:
+        if isinstance(_e, dict) and _e.get("entity") == "asset":
+            _e["entity"] = "gameAsset"
     cap = man.get("capture") or {}
     cap_calls = (cap.get("before") or []) + (cap.get("after") or [])
     if not items and not cap_calls:

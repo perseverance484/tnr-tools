@@ -173,6 +173,12 @@ class Factory:
         """A manifest entry. Applies on construction what used to be linted:
         hidden on creates, data.name mirroring, targetId on edits, null
         handling by the generated nullability map."""
+        # Builder dialect: the builder routes gameAsset entries under the
+        # entity name "asset" (builder_bundle.js line ~700); the ctors use the
+        # schema name "gameAsset". Accept either on input, ALWAYS emit "asset".
+        # An unmapped name reached the builder's jutsu fallback once
+        # (push/16 misroute, 2026-08-30); this alias is the fix at the source.
+        entity = {"asset": "gameAsset"}.get(entity, entity)
         fields = self.ents.get(entity)
         if fields is None:
             raise FactoryError(f"unknown entity '{entity}'. Known: {', '.join(sorted(self.ents))}")
@@ -215,7 +221,7 @@ class Factory:
 
         self._effects(entity, data.get("effects"))
 
-        entry = {"entity": entity, "slot": slot}
+        entry = {"entity": ("asset" if entity == "gameAsset" else entity), "slot": slot}
         if name:
             entry["name"] = name
         if srcId:
