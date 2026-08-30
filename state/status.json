@@ -1,62 +1,69 @@
 {
- "generated": "2026-08-30",
- "session": "mounted-2 (audit 1/3)",
- "format_note": "git-native board; container Claude reads/writes state/ in-repo, classic bundle retired",
- "ruled_this_session": [
-  "none - audit session, findings only by scope"
- ],
- "deployed": [
-  "builder v4.26 -> repo root [mounted:a], superseded same session by v4.27: \u21e9 Repo loader (list+fetch .json/.zip from a repo dir via contents API, panel PAT optional, same load paths as \ud83d\udcc4) [mounted:e]",
-  "pushpack.py -> skills/building-tnr-content/scripts/ [mounted:c]",
-  "push/: smoketest_pack.zip + 6_verify_and_fix.json (HOLD: wedge probe runs only when Terr clears)",
-  "state/: prompt_report_clerk.txt + discord_terr_editor_crash.md relocated from bundle deliverables",
-  "harvest.py: reads v4.26+ results bundles natively (captures[] -> normalised entries) - patched post-acceptance",
-  "lawmap.py: mechanical law audit (ENGINE_LAWS <-> 12b matrix <-> code citations); baseline 93 laws, 0 errors; --parity now runs against inbox bundles (16/16 vs acceptance bundle)",
-  "validate.py + artpreflight.py law-annotated at enforcing sites; distance-gate miscite 39->40 fixed; ENGINE_LAWS quest-flow section renumbered 12->17 and re-seated (heading only)",
-  "ROLLOUT_PLAN executed and archived (STALE); committed pycache purged, .gitignore added",
-  "SOURCE AUDIT @bdec2883 (docs/SOURCE_AUDIT_2026-08-30.md): extractor upgraded (derived cross-module refs, file-local enums, min_items from refines, POST_DOCS); all 10 _recovered 45c blocks now true generator output; caught SECTOR_TYPES global/local collision that naive regen would have shipped",
-  "45c/45e/45f regenerated from source git HEAD (45d/45g zero drift); guards: factory 20/20, validate 0/0 on file 6, parity 16/16 vs live bundle; drift adopted: AutoCombatBattleTypes, combat.toggleAutoCombat, startArenaBattle param, sector-227 reservation, overworld questType (NPC-only)",
-  "Law 40 source-walked and VERIFIED @bdec2883: distance conditions inclusive (>= / <=) on A* path length; R+1 exact; obstacle-reroute corollary recorded in law text",
-  "Project-knowledge retirement: 10_LAWS_core.md moved verbatim to docs/ (ruling closed), docs/00_INDEX.md written as the mounted router (precedence + evidence tiers + routing carried, two rows added), ENGINE_LAWS pointer updated",
-  "docs/RESEARCH_BRIEF_2026-08-30_stack_optimization.md (505 lines, 12 weaknesses W1-W12, ranked shortlist, 28-entry SOURCE MAP; 2 map URLs curl-verified 200 unauth)"
- ],
- "blocked": [
-  "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
- ],
- "pending_verification": [
-  "6_verify_and_fix.json wedge probe - when Terr clears or as free probe (\u21e9 Repo -> push/)"
- ],
- "wedge": {
-  "state": "escalated, being worked on (dauntless confirmed)",
-  "new_evidence": "quest edit page crashes deploy-wide: Zod 'Duplicate discriminator value undefined', chunk 0n-1xi0p-e_84.js, repro on healthy record (Chalk); Terr addendum delivered with 17:11 deploy-window hypothesis (copy: state/discord_terr_editor_crash.md)"
- },
- "art": {
-  "next": "warehouse clerk portrait (Nothing to Report, 2:3 scene char) - prompt at state/prompt_report_clerk.txt; then survivor, principal, deputy; pipelining depth-2 + reference-after-1-failure ratified this session? NO - proposed, unruled",
-  "ruling_open": [
-   "art pipelining depth 2",
-   "reference-image after 1 failure",
-   "pin batch exception"
-  ]
- },
- "board_unchanged": [
-  "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
-  "Old Ghost + Tenth Name prose passes",
-  "registry 38 masks rewrite",
-  "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights"
- ],
- "verified": [
-  "Acceptance PASSED: first zero-touch round trip - v4.27 \u21e9 Repo load of push/smoketest_pack.zip, harvests/inbox/ commit via panel sync token, answers [auto] regen, container pull + harvest.py script read (quests.getAllNames, 388 rows). Law 29 transcription carve-out CLOSED",
-  "Panel gate confirmed: bundle stamped builder v4.27 \u00b7 cfg generated",
-  "Panel \u21ea Sync token entry (tnr-sync PAT) confirmed working by the inbox commit",
-  "audit session: lawmap 93/0e/5w, validate push/6 0/0, --parity 16/16 re-proven at open; brief contains no PAT (grep 0)"
- ],
- "rulings_open": [
-  "Phase 3 T1 scope + whether warnings ship validator-first (12b Phase 3 section)",
-  "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
-  "stack.py: retire or re-point (audits retired project-knowledge layout)",
-  "Wedge source note ready for Terr: AllObjectives discriminators clean at HEAD; suspect duplicate zod across chunks - relay?",
-  "Paste mounted project instructions (delivered 2026-08-30), then DELETE 00_INDEX.md + 10_LAWS_core.md from project knowledge - repo docs/ copies are now canon"
- ],
- "closed_out": "2026-08-30: repo+law+source-audit sessions; guards green at close (validate 0/0, parity 16/16, factory 20/20, lawmap 0 err); active-context rewritten as handoff",
- "next": "Session 2: deep-research run, fetch-only, opener emitted in transcript; Session 3: implementation plan consumes brief + research report"
+  "generated": "2026-08-30",
+  "session": "mounted-3 (plan 3/3)",
+  "format_note": "git-native board; container Claude reads/writes state/ in-repo, classic bundle retired",
+  "ruled_this_session": [
+    "none - planning session, no execution by scope"
+  ],
+  "deployed": [
+    "docs/RESEARCH_REPORT_2026-08-30_stack_optimization.md - Session 2 report committed verbatim (152 lines, W1-W12 answered, re-ranked shortlist: W8 up 8->5, W11 down 5->8; PAT grep 0)",
+    "docs/PLAN_2026-08-30_stack_optimization.md - 11 work orders + contingent jsDelivr, 4 waves, staged-workflow convention (state/staged_workflows/ authored by container, installed by dauntless via one web-UI batch), builder work batched into v4.28 (Wave 1) + v4.29 (Wave 3)",
+    "builder v4.26 -> repo root [mounted:a], superseded same session by v4.27: ⇩ Repo loader (list+fetch .json/.zip from a repo dir via contents API, panel PAT optional, same load paths as 📄) [mounted:e]",
+    "pushpack.py -> skills/building-tnr-content/scripts/ [mounted:c]",
+    "push/: smoketest_pack.zip + 6_verify_and_fix.json (HOLD: wedge probe runs only when Terr clears)",
+    "state/: prompt_report_clerk.txt + discord_terr_editor_crash.md relocated from bundle deliverables",
+    "harvest.py: reads v4.26+ results bundles natively (captures[] -> normalised entries) - patched post-acceptance",
+    "lawmap.py: mechanical law audit (ENGINE_LAWS <-> 12b matrix <-> code citations); baseline 93 laws, 0 errors; --parity now runs against inbox bundles (16/16 vs acceptance bundle)",
+    "validate.py + artpreflight.py law-annotated at enforcing sites; distance-gate miscite 39->40 fixed; ENGINE_LAWS quest-flow section renumbered 12->17 and re-seated (heading only)",
+    "ROLLOUT_PLAN executed and archived (STALE); committed pycache purged, .gitignore added",
+    "SOURCE AUDIT @bdec2883 (docs/SOURCE_AUDIT_2026-08-30.md): extractor upgraded (derived cross-module refs, file-local enums, min_items from refines, POST_DOCS); all 10 _recovered 45c blocks now true generator output; caught SECTOR_TYPES global/local collision that naive regen would have shipped",
+    "45c/45e/45f regenerated from source git HEAD (45d/45g zero drift); guards: factory 20/20, validate 0/0 on file 6, parity 16/16 vs live bundle; drift adopted: AutoCombatBattleTypes, combat.toggleAutoCombat, startArenaBattle param, sector-227 reservation, overworld questType (NPC-only)",
+    "Law 40 source-walked and VERIFIED @bdec2883: distance conditions inclusive (>= / <=) on A* path length; R+1 exact; obstacle-reroute corollary recorded in law text",
+    "Project-knowledge retirement: 10_LAWS_core.md moved verbatim to docs/ (ruling closed), docs/00_INDEX.md written as the mounted router (precedence + evidence tiers + routing carried, two rows added), ENGINE_LAWS pointer updated",
+    "docs/RESEARCH_BRIEF_2026-08-30_stack_optimization.md (505 lines, 12 weaknesses W1-W12, ranked shortlist, 28-entry SOURCE MAP; 2 map URLs curl-verified 200 unauth)"
+  ],
+  "blocked": [
+    "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
+  ],
+  "pending_verification": [
+    "6_verify_and_fix.json wedge probe - when Terr clears or as free probe (⇩ Repo -> push/)"
+  ],
+  "wedge": {
+    "state": "escalated, being worked on (dauntless confirmed)",
+    "new_evidence": "quest edit page crashes deploy-wide: Zod 'Duplicate discriminator value undefined', chunk 0n-1xi0p-e_84.js, repro on healthy record (Chalk); Terr addendum delivered with 17:11 deploy-window hypothesis (copy: state/discord_terr_editor_crash.md)"
+  },
+  "art": {
+    "next": "warehouse clerk portrait (Nothing to Report, 2:3 scene char) - prompt at state/prompt_report_clerk.txt; then survivor, principal, deputy; pipelining depth-2 + reference-after-1-failure ratified this session? NO - proposed, unruled",
+    "ruling_open": [
+      "art pipelining depth 2",
+      "reference-image after 1 failure",
+      "pin batch exception"
+    ]
+  },
+  "board_unchanged": [
+    "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
+    "Old Ghost + Tenth Name prose passes",
+    "registry 38 masks rewrite",
+    "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights"
+  ],
+  "verified": [
+    "Acceptance PASSED: first zero-touch round trip - v4.27 ⇩ Repo load of push/smoketest_pack.zip, harvests/inbox/ commit via panel sync token, answers [auto] regen, container pull + harvest.py script read (quests.getAllNames, 388 rows). Law 29 transcription carve-out CLOSED",
+    "Panel gate confirmed: bundle stamped builder v4.27 · cfg generated",
+    "Panel ⇪ Sync token entry (tnr-sync PAT) confirmed working by the inbox commit",
+    "audit session: lawmap 93/0e/5w, validate push/6 0/0, --parity 16/16 re-proven at open; brief contains no PAT (grep 0)"
+  ],
+  "rulings_open": [
+    "PLAN: one-time web-UI workflow upload of state/staged_workflows/* (rec: approve; never add Workflows-RW to container PAT)",
+    "PLAN: read-only tap exemption - surface v4.29 free-read capture button, *.get/list allowlist (rec: approve)",
+    "PLAN: jsDelivr commit-pinned loader dependency (rec: approve as pilot, raw fallback)",
+    "PLAN: PAT/relay strategy - workflow_dispatch relay + second panel PAT (rec: adopt relay)",
+    "PLAN: history squashing per COMPACTION_RUNBOOK (rec: approve manual-only)",
+    "Phase 3 T1 scope + whether warnings ship validator-first (12b Phase 3 section)",
+    "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
+    "stack.py: retire or re-point (audits retired project-knowledge layout)",
+    "Wedge source note ready for Terr: AllObjectives discriminators clean at HEAD; suspect duplicate zod across chunks - relay?",
+    "Paste mounted project instructions (delivered 2026-08-30), then DELETE 00_INDEX.md + 10_LAWS_core.md from project knowledge - repo docs/ copies are now canon"
+  ],
+  "closed_out": "2026-08-30: Session 3 plan committed (docs/PLAN_2026-08-30_stack_optimization.md); guards re-proven at open (lawmap 93/0e/5w, validate push/6 0/0, parity 16/16); zero execution by scope",
+  "next": "On approval in-thread: execute Wave 1 (WO-01 builder v4.28 read-back, WO-03 schema_diff gate, WO-02 sentinel staged, WO-10a scrub staged). Upload batch + 4 other plan rulings await dauntless."
 }
