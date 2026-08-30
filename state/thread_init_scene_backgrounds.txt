@@ -168,38 +168,46 @@ workers, no cats, no rats, no stencilled marks or writing on the crates, no
 crates or barrels or rope coils in the lower left, no second bright light
 source, no daylight, no fire, no smoke, no crushed shadows, no near-black frame.
 
-=================== CARD 2 - pass road, day (overcast) ===================
+=================== CARD 2b - pass road, overcast DUSK - RECUT ===================
 Set: The Waystation w5-w13 (ambush ground, the fork, the neck of the pass, the
-stair cut, the top). One plate carries all nine, so the frame stays the road
-itself and avoids node-specific props.
-Slug: fsw_bg_pass_road_day -> bg_fsw_pass_road_day.webp (name still clean - never
-generated, so nothing is burned)
-Recut 2026-08-30: never launched. Reissued after the STYLE ANCHOR, which it has
-to override - this is the one daylight plate in the set and it sits ABOVE the
-reference's brightness, not at it.
-Exposure intent: DELIBERATE VARIANCE off the dark anchor, stated per spec -
-overcast cold daylight, target median luma low 20s, low contrast, no sunlight.
+stair cut, the top). One plate carries all nine.
+Slug: fsw_bg_pass_road_dusk -> bg_fsw_pass_road_dusk.webp
+The day cut was REJECTED 2026-08-30: median luma 95.5 vs a family that runs
+13.1-21.6, sat 0.07 vs 0.25-0.58, sky third at 219, and a reserve zone at
+median 91 that a near-black character would sit on like a cut-out. It also read
+as rendered realism rather than cel: medStep 5.0 against a family of 2-3.
+DIAGNOSIS: the fault is in the card, not the generator. The daylight OVERRIDE
+removed the value anchor, and flat overcast light has no defined shadow shapes
+by definition - the one clause the house style leans on hardest. A landscape
+with no architecture had nothing left holding the cel register. Cut the
+exception instead of tightening it: dusk restores directional light, real
+shadow shapes, and lands inside the family band with no override at all.
+Exposure intent: NO exception. Family band, aim median luma 15-20.
 
-OVERRIDE: this is a daylight scene and it is BRIGHTER overall than the style
-reference. Flat, even, overcast daylight falls across the whole frame; there is
-no lamp, lantern or warm light anywhere in it. The anchor's brightness match
-does not apply to this image. Everything else from the anchor holds: readable
-detail throughout, no crushed shadows, muted desaturated colour, low contrast.
+RESTATED IN-CARD (the init carries these, repeated because the last cut drifted):
+crisp pixel lineart, flat cel shading, limited palette, defined hard-edged
+shadow shapes, flat mid-tones, no airbrush gradients, no soft atmospheric
+gradients, no photographic haze, no realistic rendering.
 
-SUBJECT: a narrow mountain pass road climbing through high country under heavy
-overcast, seen from the road itself. Packed dirt and broken stone underfoot,
+SUBJECT: a narrow mountain pass road climbing through high country at dusk,
+after sunset, seen from the road itself. Packed dirt and broken stone underfoot,
 the track narrowing as it climbs and bending out of sight around a rock
-shoulder. Dense cut scrub and low brush crowd both verges, dry and colourless.
-Boulders and loose scree on the uphill side; a steep drop and cold grey haze on
-the downhill side. A bare ridge line stands above the road against a flat white
-sky, distant peaks fading into the haze behind it. Colour drained to grey,
-brown and slate. The near left of the road runs bare and open.
+shoulder. Dense cut scrub and low brush crowd both verges, dry and bare.
+Boulders and loose scree on the uphill side; a steep drop into darkness on the
+downhill side. A bare ridge line stands above the road, black against the last
+cold light in the sky, and the sky itself is a deep overcast slate holding only
+a dim band of fading light low on the horizon. The rock faces and the road
+surface fall into deep blue-grey shadow, broken by hard-edged patches of dim
+light where the last of the day still catches the stone. Colour drained to
+slate, deep umber and near-black. The near left of the road runs bare and open.
 
 NEGATIVE ADD: no people, no bandits, no animals, no snow, no ice, no sun, no
-sun disc, no god rays, no blue sky, no autumn colour, no flowers, no green
-foliage, no buildings, no shrine, no signpost, no cart, no fire, no smoke, no
-campfire, no boulders or brush in the lower left foreground, no crushed
-shadows, no near-black frame, no night, no dusk, no lantern light.
+sun disc, no god rays, no bright sky, no white sky, no blue sky, no daylight,
+no midday, no soft haze, no aerial perspective fog, no smooth gradients, no
+photorealism, no autumn colour, no flowers, no green foliage, no buildings, no
+shrine, no signpost, no cart, no fire, no smoke, no campfire, no lantern, no
+boulders or brush in the lower left foreground, no crushed shadows, no
+near-black frame.
 
 =================== QUEUED CARDS - cut one at a time, after QC ===================
 3. Waystation door - The Waystation w14
