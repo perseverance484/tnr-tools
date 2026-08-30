@@ -3,8 +3,7 @@
   "session": "mounted-3 (plan 3/3 + Wave 1 executed)",
   "format_note": "git-native board; container Claude reads/writes state/ in-repo, classic bundle retired",
   "ruled_this_session": [
-    "dauntless APPROVED plan rulings 1 (one-time web-UI workflow upload batch) and 2 (read-only tap exemption -> v4.29 button)",
-    "rulings 3 (jsDelivr), 4 (PAT relay), 5 (history squash) explained in-thread, pending"
+    "dauntless approved ALL 5 plan rulings (1-5)"
   ],
   "deployed": [
     "WO-01 fallout fix: builder L-lint (v4.15 session-law layer) ported 1:1 into validate.py (L01-L18 blockers+warns; L05 skipped, already enforced); push/7 cooldown 0->3; red fixture lint_l16_red.json frozen from the blocked payload. Proof: port flags exactly L16 on the pre-fix file (panel-identical wording), push/6 regression 0/0, push/7 0/0, parity 16/16, factory 20/20",
@@ -32,8 +31,6 @@
     "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
   ],
   "pending_verification": [
-    "sentinel first run: after web-UI install, trigger regen-schemas-sentinel via workflow_dispatch (expect: no drift, no commit)",
-    "scrub gate: first push after install runs fail-closed green (SCRUB_STRINGS must be set in the same session)",
     "6_verify_and_fix.json wedge probe - when Terr clears or as free probe (⇩ Repo -> push/)"
   ],
   "wedge": {
@@ -55,9 +52,13 @@
     "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights",
     "v4.29 queue: pfEq gains ''<->null equivalence so the panel stops flagging the normalized pair (rides WO-06 release)",
     "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
-    "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever"
+    "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
+    "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
+    "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited"
   ],
   "verified": [
+    "WAVE 1 FULLY CLOSED: both workflows installed byte-exact at .github/workflows/ (after a missing-dot path detour, strays cleaned @c6a60a2); NEW fail-closed scrub GREEN on its own install commit 41ba4a8 (= SCRUB_STRINGS proven set); regen-schemas-sentinel dispatch SUCCESS, zero drift, no auto-commit; daily cron live ~06:17 UTC",
+    "ALL FIVE plan rulings approved by dauntless (upload batch, read-tap exemption, jsDelivr pilot, PAT relay, manual-only squash)",
     "WO-01 LIVE ACCEPTANCE PASSED @tnr_results_1788061342415: full v4.28 loop - panel lint gate (blocked a real L16 first tap) -> build -> auto read-back -> asserted verdict 38 ok + 2 true byte-deltas flagged -> bundle auto-commit -> harvest.py verify green. Smoke jutsu 0QixZN9jD_bqAKTimDafB live, hidden:true, cooldown 3, disposable.",
     "Server normalization is PER-FIELD: jutsu requiredBloodlineItemId/parentJutsuId '' -> null on write; bloodlineId/villageId keep ''. harvest verify now reclassifies ''<->null as normalized (never a FAIL).",
     "Acceptance PASSED: first zero-touch round trip - v4.27 ⇩ Repo load of push/smoketest_pack.zip, harvests/inbox/ commit via panel sync token, answers [auto] regen, container pull + harvest.py script read (quests.getAllNames, 388 rows). Law 29 transcription carve-out CLOSED",
@@ -77,5 +78,5 @@
     "lint table now lives in TWO places (builder JS + validate.py port, drift hazard): single-source as shared data both read - fold into WO-04 doctrine work or a builder release?"
   ],
   "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)",
-  "next": "dauntless: web-UI install batch (regen_schemas.yml new + scrub.yml REPLACE) + SCRUB_STRINGS secret same session + sentinel dispatch first-run; rulings 3/4/5 whenever. Wave 2 (WO-04/WO-05) on go."
+  "next": "Wave 2 on go: WO-04 doctrine single-sourcing, then WO-05 session_open/close + digest + token ledger."
 }
