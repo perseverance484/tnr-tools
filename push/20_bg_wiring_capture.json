@@ -1,0 +1,75 @@
+{
+ "_note": "backgrounds wiring capture: live truth for the ten missions (post 18/19, so the scene character wiring is preserved on rewrite) + full asset list to resolve the five live generic SCENE_BACKGROUND ids that the backlog only carries truncated",
+ "capture": {
+  "before": [
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "ATV6Fs3XFqOf7wch99qDW"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "Sx_NfWziba6NYOEsfXrS5"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "s7Lnjsv-9Fvo4_YEzq-3w"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "KmGPDnZnGOCvATQqA5LI8"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "otFtGNvBFn8ZVGlda7UOH"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "9kzvd414kRRXauKSXsGIq"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "WIsqHEoo4c-ToRaV5_cZj"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "ilYoJqbk--np9OSqT9lGx"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "8ndqsf6RBZ88q3pfyZQQh"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "fBQNC1wFqTPYp7reiK79T"
+    }
+   },
+   {
+    "proc": "gameAsset.getAll",
+    "input": {
+     "limit": 500,
+     "cursor": 0
+    }
+   }
+  ]
+ },
+ "items": []
+}
