@@ -1,9 +1,9 @@
 {
   "generated": "2026-08-30",
-  "session": "mounted-4 (token efficiency)",
-  "state_line": "Token-efficiency session landed: ai-build (44K) + quest-build (48K) packs live vs 117K/111K full combos, jutsu-build envelope gap fixed; start ritual is single-entry (session_open only, quirks single-sourced in mounted); SKILL.md routes builds pack-first; chroma.py --qc-scale two-tier QC. dauntless side complete: PK deleted, both skills reinstalled from dist, mounted re-pasted. Memory slimmed to conduct rules + exclusions. Forsworn board untouched.",
+  "session": "mounted-5 (dedup audit)",
+  "state_line": "Dedup audit landed: skill doctrine blocks delta-rendered (build 11.7K->7.2K; stake+pointer+pool-codes only), mounted stamp now covers tmpl blob (paste staleness visible), lawmap defaults repo root, bundle-era tools (stack/newstack/audit/closeout + CLOSEOUT.md) and consumed one-shot docs (BRIEF/REPORT/SOURCE_AUDIT) archived. Live paste is pre-dedup stale: re-paste state/mounted_instructions.txt (@17d6a71+06335a4). Forsworn board untouched.",
   "verified_at_close": [
-    "lawmap -> 93 laws, 93 matrix rows, 74 citations across 38 files; 0 errors, 5 warnings",
+    "lawmap -> 93 laws, 93 matrix rows, 73 citations across 34 files; 0 errors, 5 warnings",
     "doctrine projections -> all projections current (exit 0)",
     "packs/TOCs -> all packs and TOCs current (exit 0)",
     "parity tnr_results_1788065642059.json -> 0 errors, 0 warnings"
@@ -17,13 +17,13 @@
     "container quirks + laws-that-bite single-sourced into mounted instructions; active-context template carries session state only"
   ],
   "deployed": [
-    "packs: ai-build.md + quest-build.md added; jutsu-build missing envelope/contract sections fixed (715489e, dist rebuild c19165b)",
-    "ritual dedup + pack-first SKILL.md routing + stale law-location fix + chroma.py --qc-scale + processing.md two-tier QC doctrine (5a5090e, dist rebuild 9d0547a)",
-    "memory: removed 5 canon-restating edits, added 2 exclusions (engine-law/schema/toolchain text; board state)"
+    "doctrine delta-render + dual-blob mounted stamp + lawmap default root (a91310c)",
+    "bundle-era retirement + doc archival + reference repoints (2cf0d7e)"
   ],
   "open_by_owner": {
     "dauntless": [
-      "carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable"
+      "carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable",
+      "re-paste mounted from state/mounted_instructions.txt (stamp @17d6a71+06335a4); reinstall build skill from dist after skillpack rebuild (doctrine block + stack row changed)"
     ],
     "terr": [
       "quest-edit crash fix; push/6 held until then"
@@ -32,10 +32,8 @@
   "rulings_open": [
     "Phase 3 T1 scope + whether warnings ship validator-first (12b Phase 3 section)",
     "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
-    "stack.py: retire or re-point (audits retired project-knowledge layout)",
     "Wedge source note ready for Terr: AllObjectives discriminators clean at HEAD; suspect duplicate zod across chunks - relay?",
-    "lint table now lives in TWO places (builder JS + validate.py port, drift hazard): single-source as shared data both read - fold into WO-04 doctrine work or a builder release?",
-    "SKILL.md doctrine block duplicates the mounted paste in-project (~4KB/session): drop skill-build target on mounted-shared assertions, or keep for standalone-install completeness?"
+    "WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?"
   ],
   "next": "Content on go. First: load check - installed SKILL.md must route builds to packs (confirms reinstall took); then Faceless Stray QC when the generation lands, else Old Ghost prose. Ambient: watch first pinned release, relay ritual switch when convenient, memory regeneration review.",
   "token_ledger": [
@@ -99,5 +97,11 @@
       "relay ritual switch is a separate post-install step (container pushes stay direct-to-main until then)"
     ],
     "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)"
-  }
+  },
+  "ruled_this_session": [
+    "skill doctrine block: delta-render (dual/triple targets collapsed to mounted; skill blocks carry stake + pointer + skill-only assertions)",
+    "stack.py: retired to archive/bundle-era-2026-08-30/ with newstack check, audit.py, closeout.py, CLOSEOUT.md",
+    "lint table: single-source as shared data both surfaces read, riding the v4.29 vehicle (WO-06)",
+    "one-shot optimization docs (BRIEF, REPORT, SOURCE_AUDIT) archived; PLAN stays live"
+  ]
 }
