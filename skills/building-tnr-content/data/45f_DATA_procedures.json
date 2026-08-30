@@ -1,12 +1,8 @@
 {
  "_provenance": {
-  "generator": "schema_extract.py v2.0",
-  "extracted": "2026-08-26",
-  "source_drop": "TheNinjaRPG-main__3_.zip",
-  "source_sha256_16": {
-   "app/src/server/api/routers/ (57 files)": "a4a08f1e77e94dd7"
-  },
-  "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
+  "generator": "schema_extract.py (mounted 2026-08-30: derived cross-module refs, file-local enums)",
+  "extracted": "2026-08-30",
+  "source_drop": "git:studie-tech/TheNinjaRPG@bdec2883 (2026-08-29)"
  },
  "_contract": {
   "purpose": "The tRPC surface the builder replays. Router -> procedure -> {procedure guard, query|mutation, input schema, mcp description}.",
@@ -15,8 +11,8 @@
  },
  "counts": {
   "routers": 57,
-  "procedures": 672,
-  "described": 444
+  "procedures": 673,
+  "described": 445
  },
  "routers": {
   "activityStreak": {
@@ -1073,7 +1069,7 @@
     "kind": "mutation",
     "mcp": true,
     "description": "Start battle arena fight against AI",
-    "input": "z.object({ aiId: z.string(), stats: statSchema.nullish() })"
+    "input": "z.object({ aiId: z.string(), stats: statSchema.nullish(), autoCombat: z.boolean().nullish(), }),"
    },
    "attackUser": {
     "procedure": "protectedProcedure",
@@ -1095,6 +1091,13 @@
     "mcp": true,
     "description": "Mark ready in combat lobby",
     "input": "z.object({ battleId: z.string() })"
+   },
+   "toggleAutoCombat": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": true,
+    "description": "Hand battle turns to own AI profile or take back control",
+    "input": "z.object({ battleId: z.string(), enabled: z.boolean() })"
    },
    "startShrineBattle": {
     "procedure": "protectedProcedure",

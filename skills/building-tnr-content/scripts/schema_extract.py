@@ -58,7 +58,7 @@ BLOCK_RE = re.compile(r"(?:export )?const (\w+)\s*=\s*\{")
 SCHEMA_RE = re.compile(r"export const (\w+)\s*=\s*z\.object\(\{")
 SPREAD_RE = re.compile(r"^\s{2,}\.\.\.(\w+)[,)]?\s*$")
 UNION_RE = re.compile(r"export const (\w+)\s*=\s*z\.(?:union|discriminatedUnion)\(")
-ARRCONST_RE = re.compile(r"export const (\w+)\s*=\s*\[")
+ARRCONST_RE = re.compile(r"(?:export )?const (\w+)\s*=\s*\[")
 
 
 def parse_expr(expr: str) -> dict:
@@ -131,6 +131,16 @@ def parse_objects(path: str) -> dict:
         fm = FIELD_RE.match(line.rstrip())
         if fm and "z." in fm.group(2):
             blocks[cur][fm.group(1)] = parse_expr(fm.group(2))
+        elif fm:
+            bare = fm.group(2).rstrip(",").strip()
+            cm = re.match(r"([A-Za-z_]\w*)([.(].*)?$", bare)
+            if cm:
+                # cross-module ref, plain or chained (attackers: idsWithNumberField,
+                # opponentAIs: idsWithNumberField.optional()); resolved against
+                # REF_FILES in build_constructors, else dropped
+                blocks[cur][fm.group(1)] = {"raw": bare, "_bare": True,
+                                            "_base": cm.group(1),
+                                            "_chain": cm.group(2) or ""}
     # flatten spreads so composed members carry their inherited fields
     for _ in range(4):
         for name, fields in blocks.items():
@@ -196,8 +206,55 @@ def parse_const_arrays(path: str) -> dict:
     return out
 
 
+REF_FILES = ["app/src/validators/base.ts"]
+POST_DOCS = {  # hand-won semantics that ride the generated shape; law-cited, survives regen
+    ("idsWithNumberField", "number"):
+        "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning.",
+}
+
+
+def parse_ref_schemas(repo: str) -> dict:
+    """Exported z.array(z.object({...})) schemas in REF_FILES, inlined as derived
+    field shapes so cross-module refs like `attackers: idsWithNumberField` resolve
+    instead of vanishing (the gap the 45c `_recovered` blocks documented)."""
+    out = {}
+    for rel in REF_FILES:
+        p = os.path.join(repo, rel)
+        if not os.path.exists(p):
+            continue
+        src = open(p).read()
+        for m in re.finditer(r"export const (\w+)\s*=\s*z([\s\S]*?)(?=\nexport const |\Z)", src):
+            name, body = m.group(1), m.group(2)
+            if ".array(" not in body or "z.object({" not in body:
+                continue
+            item = {}
+            inner = body[body.index("z.object({") + len("z.object({"):]
+            for line in inner.splitlines():
+                if line.strip().startswith("})"):
+                    break
+                fm = FIELD_RE.match(line)
+                if not fm:
+                    continue
+                r = parse_expr(fm.group(2))
+                fs = {"type": r.get("type", "unknown")}
+                if r.get("default") is not None:
+                    fs["default"] = r["default"]
+                if fs["type"] == "array" and "z.array(z.string()" in " ".join(fm.group(2).split()):
+                    fs["item"] = "string"
+                doc = POST_DOCS.get((name, fm.group(1)))
+                if doc:
+                    fs["doc"] = doc
+                item[fm.group(1)] = fs
+            shape = {"type": "array", "_class": "derived",
+                     "_source": rel + " -> " + name, "item": item}
+            if re.search(r"\)\s*\.prefault\(\s*\[\s*\]\s*\)", body) or ".default([])" in body:
+                shape["default"] = []
+            out[name] = shape
+    return out
+
+
 def build_constructors(repo: str) -> dict:
-    objects, unions = {}, {}
+    objects, unions, obj_src = {}, {}, {}
     for rel in CTOR_FILES:
         p = os.path.join(repo, rel)
         if not os.path.exists(p):
@@ -205,13 +262,19 @@ def build_constructors(repo: str) -> dict:
         for k, v in parse_objects(p).items():
             if v:
                 objects.setdefault(k, {}).update(v)
+                obj_src.setdefault(k, rel)
         unions.update(parse_unions(p))
 
     enums = parse_const_arrays(os.path.join(repo, CONST_FILE))
+    file_enums = {}
     for rel in CTOR_FILES:
         p = os.path.join(repo, rel)
         if os.path.exists(p):
-            enums.update(parse_const_arrays(p))
+            local = parse_const_arrays(p)
+            file_enums[rel] = local
+            for k, v in local.items():
+                enums[k + "@" + rel.replace("app/src/", "")] = v
+    derived = parse_ref_schemas(repo)
 
     ctors = {}
     for uname, members in unions.items():
@@ -228,7 +291,26 @@ def build_constructors(repo: str) -> dict:
             spec = {"schema": mem, "fields": {}}
             if disc:
                 spec["discriminant"] = disc
+            local = file_enums.get(obj_src.get(mem, ""), {})
+            lqual = "@" + obj_src.get(mem, "").replace("app/src/", "")
             for f, r in fields.items():
+                base = r.get("_base") or (r.get("raw", "") if re.fullmatch(r"[A-Za-z_]\w*", r.get("raw", "")) else "")
+                if base and base in derived:
+                    shape = json.loads(json.dumps(derived[base]))
+                    chain = r.get("_chain", "")
+                    if ".optional()" in chain or ".nullish()" in chain:
+                        shape["optional"] = True
+                    if ".nullable()" in chain or ".nullish()" in chain:
+                        shape["nullable"] = True
+                    if re.search(r"\.(?:prefault|default)\(\s*\[\s*\]\s*\)", chain):
+                        shape["default"] = []
+                    if ".refine(" in chain and re.search(r"length\s*>\s*0", chain):
+                        shape["min_items"] = 1
+                        shape["_refine"] = "length > 0 (source .refine)" 
+                    spec["fields"][f] = shape
+                    continue
+                if r.get("_bare"):
+                    continue  # unresolved cross-module ref: omit rather than emit junk
                 fs = {"type": r.get("type", "unknown")}
                 for k in ("default", "literal", "min", "max", "int", "optional", "nullable"):
                     if r.get(k) not in (None, False):
@@ -237,16 +319,23 @@ def build_constructors(repo: str) -> dict:
                 if r.get("enum"):
                     fs["enum"] = r["enum"]
                 if ref:
-                    fs["enum_ref"] = ref
-                    if ref in enums:
-                        fs["enum"] = sorted(set(fs.get("enum", []) + enums[ref]))
+                    if ref in local:
+                        fs["enum_ref"] = ref + lqual
+                        fs["enum"] = sorted(set(fs.get("enum", []) + local[ref]))
+                    else:
+                        fs["enum_ref"] = ref
+                        if ref in enums:
+                            fs["enum"] = sorted(set(fs.get("enum", []) + enums[ref]))
                 spec["fields"][f] = fs
             key = disc["value"] if disc else mem
             entries[key] = spec
         if entries:
             ctors[uname] = entries
 
-    return {"unions": ctors, "objects": {k: v for k, v in objects.items()}, "enums": enums}
+    return {"unions": ctors,
+            "objects": {k: {f: r for f, r in v.items() if not r.get("_bare")}
+                        for k, v in objects.items()},
+            "enums": enums}
 
 
 def emit_shapes(repo: str) -> dict:
