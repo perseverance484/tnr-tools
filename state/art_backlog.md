@@ -14,6 +14,8 @@ RULED 2026-08-30: dedicated icon per mission (10). Style call still open
 (pin house-style family vs per-mission vignette).
 
 ## Scene portraits — 64 speaking nodes need real art
+RULED 2026-08-30: two wardrobe registers, instantly distinct - CIVILIAN (earth-tone
+loose robes) vs NINJA (fitted near-black combat wear). Register tagged per portrait.
 34 nodes carry the shared stand-in (pqihl43HYROpkIMX172-P), 30 carry nothing.
 
 ### Firm (speaker known)
