@@ -28,7 +28,7 @@ is its own world); accent colour as thin cord/trim only, never a panel.
 | Grain merchant | new | Protection p14-p16 |
 | Warehouse clerk | PROCESSED scene_fsw_report_clerk.webp (see state/art_produced.md) | Nothing to Report n4a n9 n12f n19 |
 | Squad survivor | APPROVED scene_fsw_squad_survivor.webp | Three Rounds r13-r16 |
-| Principal (requisition officer) | new | Long Winter w13 w14 w26-w28 |
+| Principal (requisition officer) | APPROVED scene_fsw_lw_principal.webp | Long Winter w13 w14 w26-w28 |
 | Deputy (fourth signature) | new | Long Winter w10 w12 |
 | Old Ghost scene portrait | new — registry speak-list SANCTIONS Old Ghost | Old Ghost g29_x6, likely g32-g35 debrief cluster |
 
