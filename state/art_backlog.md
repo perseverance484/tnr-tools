@@ -23,9 +23,9 @@ Source: 10b live capture (seven) + push/12 rebuild manifests (trio) = post-push 
 Desk handler vs upstairs officer, one figure or two, plus pronoun sweep. Likely covers:
 Chalk c13 · Empty Contract e16 · Nothing to Report n2 n3 n23-n25 · Long Winter w2 w3 · Loud Way l2 l3 l24 l25 · Tenth Name x2-x4 x22-x28 (x22+ may instead be a village official — identify) · Old Ghost g32-g35 (unless mentor is distinct) · Three Rounds r18 r34 r46 r47 · Waystation w16 · Protection p14 p15 (if merchant doesn't cover)
 
-### Conditional on registry speak-list ruling
-| Pale Fang portrait | r42-r44 | registry currently allows Faceless Shadow + Old Ghost only |
-| Winter Crow portrait | w16-w25 cluster | same ruling |
+### Ruled firm 2026-08-30 (speak-list expanded; registry rewrite queued)
+| Pale Fang portrait | r42-r44 |
+| Winter Crow portrait | w16-w25 cluster |
 
 ### Convention review (portrait, no spoken line)
 Old Ghost g30 g36 · Tenth Name x1 — silent presence or breach, rule per node.
@@ -42,4 +42,4 @@ Live ids (usage): wyMQ… 84 · gXpa… 67 · JAh1… 58 · XAjO… 38 · p76e�
 | Drying yard, north cut (dusk) 3:2 | Long Winter confrontation ~12 nodes |
 
 ### Unspecced — needs dauntless
-Chalk and Corner, The Empty Contract, Old Ghost (20 nodes on one generic), The Tenth Name (11 on one) have no mission-specific sets. A-rank finale pair arguably deserves them ("A-tier scene needs" was a standing item). Rule: own sets or keep generics.
+Chalk and Corner, The Empty Contract, Old Ghost (20 nodes on one generic), The Tenth Name (11 on one) have no mission-specific sets. A-rank finale pair arguably deserves them ("A-tier scene needs" was a standing item). RULED 2026-08-30: Old Ghost + The Tenth Name get dedicated sets; scene count TBD at art direction.
