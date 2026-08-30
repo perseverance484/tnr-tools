@@ -1,0 +1,36 @@
+# STAGED WORKFLOW - install at .github/workflows/relay.yml (Wave 4 batch)
+# ---------------------------------------------------------------------------
+# Ruling 4 (approved): moves privileged main-writes off the long-lived pasted
+# PAT. Flow AFTER install + ritual switch: the container pushes to a work
+# branch (relay/<topic>) with a branch-scoped PAT, then dauntless triggers
+# this dispatch (or the container calls it if the PAT gains actions:write on
+# this repo only); the merge to main runs under GitHub's auto-minted,
+# auto-expiring GITHUB_TOKEN. Until the ritual switches, the container keeps
+# pushing main directly - installing this is safe and inert.
+# ---------------------------------------------------------------------------
+name: relay
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "work branch to merge into main (e.g. relay/wave5)"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Merge work branch under the expiring token
+        run: |
+          git config user.name "relay[bot]"
+          git config user.email "relay@users.noreply.github.com"
+          git fetch origin "${{ github.event.inputs.branch }}"
+          git merge --no-ff "origin/${{ github.event.inputs.branch }}" \
+            -m "relay: merge ${{ github.event.inputs.branch }} [auto]"
+          git push origin main
