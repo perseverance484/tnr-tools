@@ -1,0 +1,100 @@
+SCENE BACKGROUND THREAD - INIT + CARDS
+Wave: Forsworn backgrounds (6 specced + Old Ghost / Tenth Name 1 each).
+Run: fresh ChatGPT thread. Attach the style reference image, paste the INIT block
+as message one. Wait for its one-line confirm. Then ONE card per message, and
+bring each generation back for QC before sending the next card.
+
+Target numbers (25x_DATA_art_spec.json, SCENE_BACKGROUND): STRETCHED to 3:2 by
+the client, delivered 512px wide, source 1536x1024, webp lossy q85, ceiling
+450KB, no chroma key, no padding (compose to 3:2 at generation - a later crop
+loses composition), lower-left reserved for the scene character (bottom-0 w-2/5).
+Exposure anchors: Safehouse Room median luma 16.3 / 63% under 20; Back Alley
+Night 14.7 / 68%. Reject below median 8.
+Style clauses scoped per spec.style_clause_scope: SCENE_BACKGROUND carries
+rendering + lighting only (silhouette and accent have no referent in an empty
+scene). That scope block is marked AWAITING RATIFICATION - dauntless owns it.
+
+Reference (attach one, your pick):
+  proposed: bmissions/Back Alley Night - darkest live anchor, exterior night
+  https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJP6XkShpKeUGyX2kj6u45AOQiSa1zYH0mqZoc
+  alternate: bmissions/Safehouse Room - interior anchor
+  https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJHT6FceQvYURJhgs76VZtf9wxpMa13Cq0iOnr
+
+=================== INIT - paste as message 1, reference attached ===================
+
+You are generating a series of game scene backgrounds for me in one fixed house
+style. The attached image is the STYLE REFERENCE.
+
+MATCH from the reference, exactly: crisp pixel lineart, flat cel shading,
+limited palette, defined shadow shapes, flat mid-tones, no airbrush gradients,
+no bloom. Match its VALUE REGISTER above all: most of the canvas sits in deep
+shadow, colour is muted and desaturated, and light comes from one or two small
+practical sources - a lantern, a lamp, a doorway, the moon - never from a bright
+global key.
+
+DO NOT copy from the reference: its location, architecture, props, layout or
+composition. Style and value register only.
+
+LOCKED FRAME for every image in this thread: wide landscape scene background,
+exact 3:2 canvas at 1536x1024 pixels, no characters anywhere in the frame,
+camera at standing eye level, clear atmospheric depth with a readable
+foreground, midground and background.
+
+LOCKED RESERVE for every image: the lower LEFT of the frame stays open and
+unobstructed - bare floor, bare ground or open road surface. No stacked objects,
+no furniture, no doorway and no focal detail in that area. A character figure is
+composited over the left portion of the frame in game, and anything drawn there
+is hidden.
+
+LOCKED SETTING for every image: pre-modern Japanese-inspired fantasy world.
+Timber post-and-beam building, plaster, paper screens, tile and thatch, rope,
+cloth, stone, packed earth, oil lamps and paper lanterns. Nothing modern
+anywhere: no electric light, no glass shopfronts, no vehicles, no wires, no
+plastic, no metal railings, no machinery.
+
+LOCKED VALUE for every image: dark register. Where the fiction is daylight, it
+is overcast, cold and low-contrast - never bright blue sky, never warm sunlit
+colour.
+
+LOCKED NEGATIVE for every image: no people, no characters, no figures, no
+human silhouettes, no creatures, no animals, no text, no lettering, no legible
+writing on signs, crates, banners or paper, no labels, no watermark, no UI, no
+frame, no border, no vignette, no asset sheet, no grid, no collage, no panels,
+no franchise insignia, no clan symbol, no emblem, no blur, no bloom, no lens
+flare, no glow disc, no halo, no light field, no photorealism, no chibi, no soft
+pastel, no modern objects.
+
+PROTOCOL: each of my following messages contains one SUBJECT block and
+optionally a NEGATIVE ADD list. Generate exactly ONE image per message: the
+locked frame + the matched style + that subject. Never variants, sheets or
+grids. A NEGATIVE ADD extends the locked negative; an explicit override in the
+message beats a locked rule. Confirm the locked frame back to me in one line and
+wait for the first subject.
+
+=================== CARD 1 - warehouse loading floor (night) ===================
+Set: The Loud Way main set, ~12 nodes (l10-l21 cluster).
+Slug: fsw_bg_loud_way_floor -> bg_fsw_loud_way_floor.webp
+Exposure intent: interior night, on the dark anchor (~15 median).
+
+SUBJECT: interior loading floor of a large bonded canal warehouse at night.
+Heavy timber post-and-beam frame, high dark rafters lost in shadow, wide plank
+floor. Wooden shipping crates stacked four high along the right side and
+receding into the midground, the far half of the floor standing empty. A wide
+shuttered cargo door on the canal side stands partly open onto black water and
+the far bank. One hanging oil lantern near the crates is the only warm light;
+a narrow band of cold moonlight falls through the open door. Still dust in the
+air, deep shadow filling the upper frame, the near left floor bare and empty.
+
+NEGATIVE ADD: no people, no dock workers, no cats, no rats, no stencilled marks
+or writing on the crates, no crates or barrels or rope coils in the lower left,
+no second bright light source, no daylight, no lit windows across the canal, no
+fire, no smoke.
+
+=================== QUEUED CARDS - cut one at a time, after QC ===================
+2. Pass road, day (overcast) - The Waystation w5-w13
+3. Waystation door - The Waystation w14
+4. East road ambush site - Three Rounds r5-r16
+5. Drying shed at first light - Three Rounds r37-r45
+6. Drying yard, north cut (dusk) - Long Winter confrontation, ~12 nodes
+7. Old Ghost dedicated set - scene count at art direction (20 nodes today on one generic)
+8. The Tenth Name dedicated set - scene count at art direction (11 nodes on one)
