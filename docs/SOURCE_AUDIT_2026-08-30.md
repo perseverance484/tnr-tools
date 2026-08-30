@@ -56,3 +56,12 @@ captures. Extract for what the code IS; capture for what the database HAS.
 
 Regen cadence: the blocked regen workflow (PAT needs Workflows RW) is now the mechanism
 that keeps this audit from going stale - weekly extraction lands drift the week it ships.
+
+## Addendum (same day) - law 40 walked
+
+Continued past the report: `ai_v2.ts` distance conditions read `target.distance`, which is
+`astar.getShortestPath(origin, hex).length` on the obstacle-costed grid. Both operators are
+INCLUSIVE (`>=` / `<=`) - the unrecorded precision that makes registry range + 1 exact
+rather than approximately safe. Obstacle rerouting can lengthen the path beyond true hex
+distance, holding gates closed through intervening bodies/barriers. Law 40 stamped VERIFIED
+@bdec2883; no tool change needed - L22 and check_distance_gates already derive R+1.

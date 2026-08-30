@@ -13,7 +13,8 @@
   "validate.py + artpreflight.py law-annotated at enforcing sites; distance-gate miscite 39->40 fixed; ENGINE_LAWS quest-flow section renumbered 12->17 and re-seated (heading only)",
   "ROLLOUT_PLAN executed and archived (STALE); committed pycache purged, .gitignore added",
   "SOURCE AUDIT @bdec2883 (docs/SOURCE_AUDIT_2026-08-30.md): extractor upgraded (derived cross-module refs, file-local enums, min_items from refines, POST_DOCS); all 10 _recovered 45c blocks now true generator output; caught SECTOR_TYPES global/local collision that naive regen would have shipped",
-  "45c/45e/45f regenerated from source git HEAD (45d/45g zero drift); guards: factory 20/20, validate 0/0 on file 6, parity 16/16 vs live bundle; drift adopted: AutoCombatBattleTypes, combat.toggleAutoCombat, startArenaBattle param, sector-227 reservation, overworld questType (NPC-only)"
+  "45c/45e/45f regenerated from source git HEAD (45d/45g zero drift); guards: factory 20/20, validate 0/0 on file 6, parity 16/16 vs live bundle; drift adopted: AutoCombatBattleTypes, combat.toggleAutoCombat, startArenaBattle param, sector-227 reservation, overworld questType (NPC-only)",
+  "Law 40 source-walked and VERIFIED @bdec2883: distance conditions inclusive (>= / <=) on A* path length; R+1 exact; obstacle-reroute corollary recorded in law text"
  ],
  "blocked": [
   "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"

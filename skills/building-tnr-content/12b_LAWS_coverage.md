@@ -72,7 +72,7 @@ paid for in the field, not re-derived this pass. `corrected` = the law changed i
 | 37 | validate | carried | `consecutiveObjectives` at data level, never in `content` |
 | 38 | generated | verified | `prerequisiteQuestId` is `string`, `.nullish()`, single-valued: `45d` |
 | 39 | validate | verified | Rule vocabulary fixed by `45c` `ZodAllAiConditions` / `ZodAllAiActions` |
-| 40 | validate | **corrected 2026-08-28** | `check_distance_gates`, from 32b ranges |
+| 40 | validate | **corrected 2026-08-28; source-verified 2026-08-30** | `check_distance_gates`, from 32b ranges |
 | 41 | validate | carried | Final rule unconditional |
 | 41b | knowledge | carried | Unreachability applies only below always-executable actions |
 | 42 | validate | verified | `NONE` is a real member of `HUNTING_RANKS`/`GATHERING_RANKS` in `45e`; validate now warns |
@@ -214,6 +214,6 @@ reclasses; stack.py retirement; 10_LAWS_core relocation.
 
 45c/45e/45f regenerated @bdec2883 with the upgraded extractor; 45d/45g zero drift. Laws
 44/69's headcount-vs-dropchance doc now rides the GENERATED 45c (POST_DOCS in
-schema_extract.py). Law 40's A* range+1 claim remains carried, not walked, this pass.
+schema_extract.py). Law 40 walked post-audit and VERIFIED @bdec2883: distance conditions are INCLUSIVE (>= / <=) on A* path length, so R+1 closes exactly; obstacle rerouting can hold a gate closed at true hex range (stamp in law text).
 Laws 85-88's flow validator unchanged in the window. Builder qtype enum lacks new
 NPC-only `overworld` - folds into T3 config-driven enums.
