@@ -14,7 +14,11 @@ RULED 2026-08-30: dedicated icon per mission (10). Style call still open
 (pin house-style family vs per-mission vignette).
 
 ## Scene portraits — 64 speaking nodes need real art
-FIRM NINE COMPLETE 2026-08-30: all approved; manifest push/16 staged (assets, hidden); sheet posted.
+PORTRAIT + WIRING WAVE CLOSED 2026-08-30: nine assets live (16c, verified), all ten
+missions wired (18) + blank blanket (19) verified by read-back; publish gate satisfied;
+cast sheet posted. Zero empty sceneCharacters remain. Remaining art lanes: BACKGROUNDS
+(6 specced + Old Ghost/Tenth Name 1 set each) and LISTING ICONS (10, house frame +
+unique subject) - each rides state/wave_workflow.md as its own thread + pack.
 LAW CANDIDATE (author via law process next session): publish gate on scene characters -
 quests.ts ~757-772: update refuses when !hidden && no main sceneCharacters && not all
 objectives carry sceneCharacters. Hidden records exempt. NO equivalent gate for
