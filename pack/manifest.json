@@ -126,21 +126,6 @@
     "input": {
      "id": "dfeXwdrnvyvGGETiCMgu-"
     }
-   },
-   {
-    "proc": "quests.getAll",
-    "input": {
-     "limit": 25,
-     "cursor": 0
-    }
-   },
-   {
-    "proc": "quests.getAll",
-    "input": {
-     "questType": "mission",
-     "limit": 25,
-     "cursor": 0
-    }
    }
   ]
  },
@@ -148,7 +133,7 @@
   {
    "entity": "quest",
    "slot": "edit",
-   "name": "Old Ghost [A icon]",
+   "name": "Old Ghost [A icon, rank live]",
    "targetId": "KmGPDnZnGOCvATQqA5LI8",
    "data": {
     "image": "@img:icon_rank_A.webp"
@@ -157,7 +142,7 @@
   {
    "entity": "quest",
    "slot": "edit",
-   "name": "The Long Winter [A icon]",
+   "name": "The Long Winter [A icon, rank live]",
    "targetId": "WIsqHEoo4c-ToRaV5_cZj",
    "data": {
     "image": "@img:icon_rank_A.webp"
@@ -166,7 +151,7 @@
   {
    "entity": "quest",
    "slot": "edit",
-   "name": "The Tenth Name [A icon]",
+   "name": "The Tenth Name [A icon, rank live]",
    "targetId": "8ndqsf6RBZ88q3pfyZQQh",
    "data": {
     "image": "@img:icon_rank_A.webp"
@@ -175,7 +160,7 @@
   {
    "entity": "quest",
    "slot": "edit",
-   "name": "Three Rounds [A icon]",
+   "name": "Three Rounds [A icon, rank live]",
    "targetId": "fBQNC1wFqTPYp7reiK79T",
    "data": {
     "image": "@img:icon_rank_A.webp"
@@ -184,7 +169,7 @@
   {
    "entity": "quest",
    "slot": "edit",
-   "name": "Nothing to Report [B icon]",
+   "name": "Nothing to Report [B icon, rank live]",
    "targetId": "s7Lnjsv-9Fvo4_YEzq-3w",
    "data": {
     "image": "@img:icon_rank_B.webp"
@@ -193,7 +178,7 @@
   {
    "entity": "quest",
    "slot": "edit",
-   "name": "The Loud Way [B icon]",
+   "name": "The Loud Way [B icon, rank live]",
    "targetId": "ilYoJqbk--np9OSqT9lGx",
    "data": {
     "image": "@img:icon_rank_B.webp"
@@ -202,7 +187,7 @@
   {
    "entity": "quest",
    "slot": "edit",
-   "name": "Chalk and Corner [C icon]",
+   "name": "Chalk and Corner [C icon, rank live]",
    "targetId": "Sx_NfWziba6NYOEsfXrS5",
    "data": {
     "image": "@img:icon_rank_C.webp"
@@ -211,7 +196,7 @@
   {
    "entity": "quest",
    "slot": "edit",
-   "name": "Protection [C icon]",
+   "name": "Protection [C icon, rank live]",
    "targetId": "otFtGNvBFn8ZVGlda7UOH",
    "data": {
     "image": "@img:icon_rank_C.webp"
@@ -220,7 +205,7 @@
   {
    "entity": "quest",
    "slot": "edit",
-   "name": "The Empty Contract [C icon]",
+   "name": "The Empty Contract [C icon, rank live]",
    "targetId": "9kzvd414kRRXauKSXsGIq",
    "data": {
     "image": "@img:icon_rank_C.webp"
@@ -229,16 +214,125 @@
   {
    "entity": "quest",
    "slot": "edit",
-   "name": "The Waystation [C icon]",
+   "name": "The Waystation [C icon, rank live]",
    "targetId": "ATV6Fs3XFqOf7wch99qDW",
    "data": {
     "image": "@img:icon_rank_C.webp"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Copies, Not Thefts [B icon, rank asserted]",
+   "targetId": "d-94cxrGW91o1SJCr9rsq",
+   "data": {
+    "image": "@img:icon_rank_B.webp"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Witness Detail [B icon, rank asserted]",
+   "targetId": "dfeXwdrnvyvGGETiCMgu-",
+   "data": {
+    "image": "@img:icon_rank_B.webp"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Lantern Rounds [D icon, rank asserted]",
+   "targetId": "hRUUTeZ-N0VaSh5tTluVA",
+   "data": {
+    "image": "@img:icon_rank_D.webp"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Night Watch Shadow [D icon, rank asserted]",
+   "targetId": "XYVozogbr0kYY-k0VbTKA",
+   "data": {
+    "image": "@img:icon_rank_D.webp"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "One White Ear [D icon, rank asserted]",
+   "targetId": "STAQqoCbpb6I2W39syED_",
+   "data": {
+    "image": "@img:icon_rank_D.webp"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Poachers' Due [D icon, rank asserted]",
+   "targetId": "SkDKiQMLXLt0t0i6GrxlY",
+   "data": {
+    "image": "@img:icon_rank_D.webp"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Cartographer's Ink [D icon, rank asserted]",
+   "targetId": "ueFeuSqUC5yDbLLUuYZgL",
+   "data": {
+    "image": "@img:icon_rank_D.webp"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Cartographer's Satchel [D icon, rank asserted]",
+   "targetId": "LK9kvaTvX0nUThUJM1FWZ",
+   "data": {
+    "image": "@img:icon_rank_D.webp"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Long Road [D icon, rank asserted]",
+   "targetId": "8C7MyiuvZjU0ueyWx8EF5",
+   "data": {
+    "image": "@img:icon_rank_D.webp"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Misfiled Board [D icon, rank asserted]",
+   "targetId": "cMwD0P4f4QfZOlJyuXptm",
+   "data": {
+    "image": "@img:icon_rank_D.webp"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Runaway Goat [D icon, rank asserted]",
+   "targetId": "zDy-5u2yvLl_AtQmVDKwB",
+   "data": {
+    "image": "@img:icon_rank_D.webp"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Well Rounds [D icon, rank asserted]",
+   "targetId": "rnuuVy-0m4rvb4LYhw_WG",
+   "data": {
+    "image": "@img:icon_rank_D.webp"
    }
   }
  ],
  "imgSizes": {
   "icon_rank_A.webp": 100644,
   "icon_rank_B.webp": 87204,
-  "icon_rank_C.webp": 82198
+  "icon_rank_C.webp": 82198,
+  "icon_rank_D.webp": 82704
  }
 }
