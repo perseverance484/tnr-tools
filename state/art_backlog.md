@@ -39,7 +39,7 @@ Desk handler vs upstairs officer, one figure or two, plus pronoun sweep. Likely 
 Chalk c13 · Empty Contract e16 · Nothing to Report n2 n3 n23-n25 · Long Winter w2 w3 · Loud Way l2 l3 l24 l25 · Tenth Name x2-x4 x22-x28 (x22+ may instead be a village official — identify) · Old Ghost g32-g35 (unless mentor is distinct) · Three Rounds r18 r34 r46 r47 · Waystation w16 · Protection p14 p15 (if merchant doesn't cover)
 
 ### Ruled firm 2026-08-30 (speak-list expanded; registry rewrite queued)
-| Pale Fang portrait | r42-r44 |
+| Pale Fang portrait APPROVED scene_fsw_pale_fang.webp | r42-r44 |
 | Winter Crow portrait | w16-w25 cluster |
 
 ### Convention review (portrait, no spoken line)
