@@ -736,6 +736,167 @@ def load_pool(path):
         POOL_BY_ID[r["id"]] = r
 
 
+# --- builder v4.15 session-law lint, ported 1:1 (WO-01 acceptance fallout) ---
+# SOURCE OF TRUTH: builder_bundle.js lintRun (v4.15 block). The rules are
+# EMBEDDED there, not data-driven, so this port is a deliberate duplication:
+# any edit to the builder lint MUST be mirrored here (drift hazard flagged on
+# the board; single-sourcing the table is WO-04-adjacent work). Rationale: the
+# v4.28 smoke tap proved a manifest can pass validate.py 0/0 and still be
+# BLOCKED at the panel (L16) - "nothing ships unvalidated" requires the
+# container validator to enforce the same blockers the panel does.
+# NOTE: --parity audits the 45g check layer only; it does NOT cover this
+# L-layer. L05 (ai-create fields) is enforced elsewhere in this file already
+# and is deliberately skipped here to avoid double-reporting.
+
+LDECOR = {"appearSfx", "disappearSfx", "appearAnimation", "disappearAnimation",
+          "staticAnimation", "staticAssetPath", "description", "powerPerLevel",
+          "calculation", "direction", "target", "statTypes", "generalTypes",
+          "friendlyFire"}
+LDIR = {"redirection": ["push", "pull"],
+        "increasestat": ["offence", "defence", "both"],
+        "decreasestat": ["offence", "defence", "both"]}
+LCORE = {
+    "damage": {"allowBloodlineDamageDecrease", "allowBloodlineDamageIncrease",
+               "dmgModifier", "elements", "residualModifier", "timeTracker"},
+    "pierce": {"allowBloodlineDamageDecrease", "allowBloodlineDamageIncrease",
+               "dmgModifier", "elements", "residualModifier", "timeTracker"},
+    "wound": {"elements", "timeTracker"},
+    "increasedamagegiven": {"elements", "timeTracker"},
+    "decreasedamagetaken": {"elements", "timeTracker"},
+    "increasedamagetaken": {"elements", "timeTracker"},
+    "increasestat": {"elements", "timeTracker"},
+    "decreasestat": {"elements", "timeTracker"},
+    "absorb": {"elements", "poolsAffected", "timeTracker"},
+    "reflect": {"elements", "timeTracker"},
+    "shield": {"health", "timeTracker"},
+    "heal": {"poolsAffected", "timeTracker"},
+    "stun": {"apReduction", "timeTracker"},
+    "seal": {"timeTracker"},
+    "moveprevent": {"timeTracker"},
+    "drain": {"poolsAffected", "timeTracker"},
+    "decreaseheal": {"timeTracker"},
+    "increasecooldown": {"actionsAffected", "timeTracker"},
+    "clear": {"timeTracker"}, "cleanse": {"timeTracker"},
+    "debuffprevent": {"timeTracker"}, "copy": {"timeTracker"},
+    "lifesteal": {"elements", "timeTracker"},
+}
+LFORM = {"damage", "pierce", "wound"}
+LPCT = {"increasedamagegiven", "decreasedamagetaken", "increasedamagetaken"}
+_DASH = re.compile("[\u2013\u2014]")
+_DATE = re.compile(r"^\d{4}-\d{1,2}-\d{1,2}$")
+
+
+def lint_entries(items, rep, blob):
+    """Blockers mirror the panel's E() (rep.err); soft rules mirror W() (rep.warn)."""
+    inj = set()
+    for r in items:
+        if r.get("entity") == "item":
+            for f in (r.get("data") or {}).get("effects") or []:
+                if isinstance(f, dict) and f.get("type") == "injectjutsus":
+                    inj.update(re.findall(r"@jutsu:([A-Za-z0-9_\-]+)", json.dumps(f)))
+    for r in items:
+        d = r.get("data") or {}
+        name = r.get("name") or r.get("srcId") or r.get("entity") or "?"
+        E = lambda m: rep.err("lint " + name, m)
+        W = lambda m: rep.warn("lint " + name, m)
+        slot, ent = r.get("slot"), r.get("entity")
+        tid = r.get("targetId")
+        if slot in ("convert", "edit") and (not tid or not isinstance(tid, str)
+                                            or tid.startswith("@")):
+            E("L01 convert/edit without literal targetId")
+        if ent == "quest":
+            if slot == "create" and d.get("consecutiveObjectives") is not True:
+                E("L03 quest create needs consecutiveObjectives:true")
+            for k in ("startsAt", "endsAt"):
+                if d.get(k) and not _DATE.match(str(d[k])):
+                    E("L04 " + k + " must be plain YYYY-MM-DD")
+            obs = (d.get("content") or {}).get("objectives") or []
+            if obs:
+                edges, wins, first = {}, [], None
+                for o in obs:
+                    if not isinstance(o, dict) or not o.get("id"):
+                        continue
+                    if first is None:
+                        first = o["id"]
+                    tg, n = [], o.get("nextObjectiveId")
+                    if isinstance(n, str):
+                        tg.append(n)
+                    elif isinstance(n, list):
+                        tg += [c.get("nextObjectiveId") for c in n if isinstance(c, dict)]
+                    if o.get("failObjectiveId"):
+                        tg.append(o["failObjectiveId"])
+                    edges[o["id"]] = [x for x in tg if x]
+                    if o.get("task") == "win_quest":
+                        wins.append(o["id"])
+                    dt = (o.get("description") or "") + "".join(
+                        (c.get("text") or "") for c in (n if isinstance(n, list) else [])
+                        if isinstance(c, dict))
+                    if _DASH.search(dt):
+                        E("L11 em/en dash in dialog node " + o["id"])
+                if first:
+                    seen, stack = set(), [first]
+                    while stack:
+                        u = stack.pop()
+                        if u in seen:
+                            continue
+                        seen.add(u)
+                        stack += edges.get(u, [])
+                    for w0 in wins:
+                        if w0 not in seen:
+                            E("L12b win node " + w0 + " unreachable from the first objective")
+                    for o in obs:
+                        oid = isinstance(o, dict) and o.get("id")
+                        if oid and oid not in seen and oid != first:
+                            W("L12b orphan node " + oid + " (unreachable)")
+        if slot == "create":
+            wrap = ent == "jutsu" and r.get("srcId") in inj
+            if wrap:
+                if d.get("hidden") is not False:
+                    E("L13 injectjutsus wrapper must be hidden:false")
+            elif d.get("hidden") is not True:
+                E("L13 create without hidden:true")
+        if ent == "jutsu":
+            cd = d.get("cooldown")
+            if cd is not None and isinstance(cd, (int, float)) and cd < 3:
+                E("L16 cooldown %s below floor 3" % cd)
+            ep = d.get("actionCostPerc")
+            if ep is not None and isinstance(ep, (int, float)) and ep > 70:
+                W("L10 EP %s above signature ceiling 70" % ep)
+        pc = {}
+        for f in d.get("effects") or []:
+            if not isinstance(f, dict) or not f.get("type"):
+                continue
+            t = f["type"]
+            if t in LFORM and (not f.get("statTypes") or not f.get("generalTypes")):
+                W("L06 " + t + " missing statTypes/generalTypes (generalTypes gap can explode damage)")
+            if "direction" in f:
+                ok = LDIR.get(t, ["offence", "defence"])
+                if f["direction"] not in ok:
+                    E('L07 %s direction "%s" (allowed: %s)' % (t, f["direction"], "/".join(ok)))
+            if t == "stun" and "apReduction" not in f:
+                W("L15 stun without apReduction (defaults 10)")
+            if t in LCORE:
+                for k in f:
+                    if k not in ("type", "power", "rounds") and k not in LDECOR \
+                            and k not in LCORE[t]:
+                        E('L09 %s illegal field "%s"' % (t, k))
+            if t in LPCT and (f.get("calculation") == "percentage" or not f.get("calculation")):
+                pc[t] = pc.get(t, 0) + 1
+            if ent == "item":
+                if t in ("clear", "copy"):
+                    E('L18 item effect "%s" excluded from item union' % t)
+                if t == "noncombatconsumereward" and d.get("target") != "SELF":
+                    E("L18 noncombatconsumereward requires item target SELF")
+        for tp, n in pc.items():
+            if n > 4:
+                p = 1.0
+                for f in d.get("effects") or []:
+                    if isinstance(f, dict) and f.get("type") == tp and \
+                            (f.get("calculation") == "percentage" or not f.get("calculation")):
+                        p *= 1 + (f.get("power") or 0) / 100.0
+                W("L08 %d %s rows: product x%.1f" % (n, tp, p))
+
+
 def check_manifest(path, ctors_path, strict=False):
     rep = Report()
     man = json.load(open(path))
@@ -780,6 +941,8 @@ def check_manifest(path, ctors_path, strict=False):
 
     for e in items:
         check_entry(e, ctors, rep, man)
+
+    lint_entries(items, rep, blob)
 
     if man.get("skipPreflight"):
         rep.warn("manifest", "skipPreflight is set: this bypasses every check and needs an explicit go-ahead before it ships")
