@@ -1,0 +1,103 @@
+# STAGED WORKFLOW - install at .github/workflows/regen_schemas.yml
+# ---------------------------------------------------------------------------
+# The tnr-container PAT has contents-RW only; pushing this file under
+# .github/workflows/ is rejected by GitHub (Workflows permission required).
+# Per ruling (approved 2026-08-30): dauntless installs this ONCE via the web
+# UI (browser session, not the PAT), then triggers the first run with the
+# "Run workflow" button (workflow_dispatch). Never grant Workflows-RW to the
+# container PAT.
+#
+# What it does (plan WO-02): daily cron (off-hour :17, delay-tolerant - GitHub
+# schedules are eventually-consistent, freshness is hours not minutes, which
+# is fine because game pushes stay manual) fetches the public game source,
+# extracts the 45x contracts, runs the invariants gate, and compares canonical
+# hashes to state/schema_sentinel.json. On drift it rewrites the baseline,
+# writes docs/DRIFT.md with the structural diff vs the SHIPPED files, and
+# auto-commits both. SIGNAL ONLY: nothing is ever adopted here - adoption
+# stays manual through the schema_diff gate (00_INDEX regen row).
+# ---------------------------------------------------------------------------
+name: regen-schemas-sentinel
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sentinel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch upstream source (public, read-only)
+        run: |
+          UP_SHA=$(git ls-remote https://github.com/studie-tech/TheNinjaRPG refs/heads/main | cut -f1)
+          echo "UP_SHA=$UP_SHA" >> "$GITHUB_ENV"
+          curl -sL -o /tmp/src.tar.gz "https://codeload.github.com/studie-tech/TheNinjaRPG/tar.gz/$UP_SHA"
+          mkdir -p /tmp/up
+          tar xzf /tmp/src.tar.gz -C /tmp/up --strip-components=1
+
+      - name: Extract contracts
+        run: |
+          S=skills/building-tnr-content/scripts
+          mkdir -p /tmp/x
+          python3 "$S/schema_extract.py" /tmp/up --ctors     > /tmp/x/45_ctors.json
+          python3 "$S/schema_extract.py" /tmp/up --entities  > /tmp/x/45_entities.json
+          python3 "$S/schema_extract.py" /tmp/up --constants > /tmp/x/45_constants.json
+
+      - name: Invariants gate on fresh extraction
+        run: |
+          python3 skills/building-tnr-content/scripts/schema_diff.py \
+            --invariants /tmp/x/45_ctors.json --constants /tmp/x/45_constants.json
+
+      - name: Compare to sentinel baseline
+        id: cmp
+        run: |
+          if python3 skills/building-tnr-content/scripts/sentinel_hash.py \
+               --check state/schema_sentinel.json \
+               /tmp/x/45_ctors.json /tmp/x/45_entities.json /tmp/x/45_constants.json; then
+            echo "drift=0" >> "$GITHUB_OUTPUT"
+          else
+            echo "drift=1" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Record drift (baseline + DRIFT.md, never adopt)
+        if: steps.cmp.outputs.drift == '1'
+        run: |
+          S=skills/building-tnr-content/scripts
+          D=skills/building-tnr-content/data
+          python3 "$S/sentinel_hash.py" --baseline state/schema_sentinel.json \
+            --meta "upstream_sha=$UP_SHA" \
+            /tmp/x/45_ctors.json /tmp/x/45_entities.json /tmp/x/45_constants.json
+          {
+            echo "# DRIFT.md - upstream contract drift ($(date -u +%F))"
+            echo
+            echo "Upstream: studie-tech/TheNinjaRPG@$UP_SHA"
+            echo
+            echo "The extracted 45x contract hashes changed vs the last sentinel"
+            echo "baseline. SIGNAL ONLY: nothing was adopted. Adoption is manual"
+            echo "through the schema_diff gate (docs/00_INDEX.md regen row)."
+            echo
+            echo "Structural diff, SHIPPED vs upstream:"
+            echo
+            echo '~~~'
+            echo "== 45c_DATA_constructors =="
+            python3 "$S/schema_diff.py" diff "$D/45c_DATA_constructors.json" /tmp/x/45_ctors.json || true
+            echo "== 45d_DATA_entity_schemas =="
+            python3 "$S/schema_diff.py" diff "$D/45d_DATA_entity_schemas.json" /tmp/x/45_entities.json || true
+            echo "== 45e_DATA_constants =="
+            python3 "$S/schema_diff.py" diff "$D/45e_DATA_constants.json" /tmp/x/45_constants.json || true
+            echo '~~~'
+          } > docs/DRIFT.md
+
+      - name: Commit sentinel state
+        if: steps.cmp.outputs.drift == '1'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "sentinel: upstream contract drift @${{ env.UP_SHA }} [auto]"
+          file_pattern: "state/schema_sentinel.json docs/DRIFT.md"
