@@ -11,6 +11,26 @@ validators, a PIL pipeline and visual judgement instead. The two sides share exa
 the `@img` filename - which lives in `references/pipeline.md` on the content side and is cited from
 both.
 
+## Doctrine (rendered)
+
+<!-- doctrine:begin @6246ee3 target=skill-art - RENDERED from docs/DOCTRINE.md; edit there, then render_doctrine.py --write -->
+
+**Balance, rewards, rarity, art direction, publishing and final acceptance are
+the user's to finalise.** Propose numbers, carry them as explicit
+placeholders, and list every placeholder in the delivery summary. Do not
+quietly settle a drop rate because a build needs one. Custom user-owned
+bloodlines are never edited without a go-ahead.
+
+**Never reference the Naruto franchise.** TNR is open source; extract facts
+from the source, never copy proprietary text. This binds art prompts as hard
+as it binds prose.
+
+**The real first name never appears in any artifact of any kind** - no
+deliverable, Discord post, doc, code comment, or manifest note. The username
+is dauntless; write "per dauntless" or second person, no authority titles.
+
+<!-- doctrine:end -->
+
 ## The one thing to internalise
 
 **`25x_DATA_art_spec.json` is the authority for every number, and the client field decides which
