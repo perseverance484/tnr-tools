@@ -110,8 +110,7 @@ No clone means no state. Say so rather than working from memory.
 
 ## Deploy notes
 
-Repo: commit, `git pull --rebase`, push; raw CDN caches ~5 min. Builder: refresh via
-ViolentMonkey; the panel title must show the version and `cfg generated`; `partial` means
+Repo: commit, `git pull --rebase`, push; raw CDN caches ~5 min for root fetches (45c/45g/32b). Bundle refresh: the pin workflow rewrites the loader's @require to a commit-pinned jsDelivr URL on every bundle change (immutable, no CDN lag), BUT ViolentMonkey only refetches when the loader @version RISES - bump @version with every pin (workflow gap, fix queued) and update the loader via VM; the panel title must show the version and `cfg generated`; `partial` means
 `45c`, `32b` or `45g` is missing from repo root (skillpack syncs root from skill `data/`).
 Skills: change lands in repo `/skills/` first, the packaging workflow rebuilds `/dist/`,
 download and reinstall; the container copy is never patched in place.
