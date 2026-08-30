@@ -24,7 +24,7 @@ dauntless gates, in order:
 
 Then: warehouse clerk portrait (state/prompt_report_clerk.txt), run 6_verify_and_fix
 via ⇩ Repo when Terr clears, land + first-run the regen workflow (workflow_dispatch;
-read the log, extract CLI may need a flag), fork studie-tech/TheNinjaRPG (needs a
-broader-scope PAT or web UI - tnr-container is contents-only).
+read the log, extract CLI may need a flag). Fork of studie-tech/TheNinjaRPG:
+already exists on the account, off the board.
 
 Unchanged by the mount: real-name ban, hidden-first shipping, dauntless-only game pushes.
