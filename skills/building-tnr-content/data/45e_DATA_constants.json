@@ -1,17 +1,9 @@
 {
  "_provenance": {
-  "generator": "schema_extract.py v2.0",
-  "extracted": "2026-08-26",
-  "source_drop": "TheNinjaRPG-main__3_.zip",
-  "source_sha256_16": {
-   "app/drizzle/constants.ts": "9ce4b865b1b28e05",
-   "app/src/libs/combat/constants.ts": "f0d1b109db98c71f",
-   "app/src/validators/combat.ts": "56e2e5cef6b28412",
-   "app/src/validators/objectives.ts": "bfb97953c942b06a",
-   "app/src/validators/ai.ts": "56f0719ad861591c",
-   "app/src/validators/quest.ts": "7e8d877078f933f6",
-   "app/src/validators/item.ts": "53b3e9b89e330f54"
-  },
+  "generator": "schema_extract.py (mounted 2026-08-30: derived cross-module refs, file-local enums)",
+  "extracted": "2026-08-30",
+  "source_drop": "git:studie-tech/TheNinjaRPG@bdec2883 (2026-08-29)",
+  "source_sha256_16": "905c5c61ecf459a1",
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale.",
   "caveats": [
    "law 83: DMG_* are defaults, overridden at runtime from gameSetting"
@@ -23,7 +15,7 @@
   "local_enums": "Entries carrying `source` are const arrays defined inside a validator file, not constants.ts. They are folded in here so every enum_ref in 45c/45d resolves in one place.",
   "runtime_override_caveat": "LAW 83. The DMG_* family are compiled-in DEFAULTS, not live values. app/src/libs/gamesettings.ts reads each one from the `gameSetting` table by name, inserting the default only when the row is missing. A value can therefore change in production with no source change and no regeneration of this file. Every damage figure derived from here is a default-case estimate; when the number matters, take it from a fight capture. This is also why the simulator's live-fitted overlay in stage1_constants.json differs from these values without either being wrong."
  },
- "count": 936,
+ "count": 937,
  "constants": {
   "OCCUPATIONS": {
    "raw": "[\"GATHERING\", \"HUNTER\", \"CRAFTING\"]",
@@ -233,44 +225,9 @@
    "kind": "list"
   },
   "MAP_RESERVED_SECTORS": {
-   "raw": "[\n  73, 72, 75, 78, 275, 279, 201, 183, 272, 264, 270, 308, 289, 259, 260, 253, 304, 307,\n  283, 284, 340, 334, 330, 331, 332, 337, 342, 336, 341, 335, 113, 109, 443,\n]",
+   "raw": "[\n  73, 72, 75, 78, 275, 279, 201, 183, 272, 264, 270, 308, 289, 259, 260, 253, 304, 307,\n  283, 284, 340, 334, 330, 331, 332, 337, 342, 336, 341, 335, 113, 109, 443,\n  // Home of the starter quest's puppy (migration 0038). Reserved so a shrine,\n  // war or clan hideout cannot take the sector the tutorial sends every new\n  // player into.\n  227,\n]",
    "order": 23,
-   "value": [
-    "73",
-    "72",
-    "75",
-    "78",
-    "275",
-    "279",
-    "201",
-    "183",
-    "272",
-    "264",
-    "270",
-    "308",
-    "289",
-    "259",
-    "260",
-    "253",
-    "304",
-    "307",
-    "283",
-    "284",
-    "340",
-    "334",
-    "330",
-    "331",
-    "332",
-    "337",
-    "342",
-    "336",
-    "341",
-    "335",
-    "113",
-    "109",
-    "443"
-   ],
-   "kind": "list"
+   "kind": "array_expr"
   },
   "MAP_SECTOR_ID_MIN": {
    "raw": "0",
@@ -360,7 +317,7 @@
   "XP_BRACKETS": {
    "raw": "[\n  { bracket: 1, min: 0,         max: 500_000 },\n  { bracket: 2, min: 500_001,   max: 1_000_000 },\n  { bracket: 3, min: 1_000_001, max: 1_500_000 },\n  { bracket: 4, min: 1_500_001, max: 2_000_000 },\n  { bracket: 5, min: 2_000_001, max: 2_500_000 },\n  { bracket: 6, min: 2_500_001, max: 3_000_000 },\n  { bracket: 7, min: 3_000_001, max: Infinity },\n]",
    "order": 37,
-   "doc": "XP Bracket system \u2014 maps experience to protection tiers for PvP eligibility. Bracket 0 is reserved for Academy students & Genin (RANKS_RESTRICTED_FROM_PVP).",
+   "doc": "XP Bracket system — maps experience to protection tiers for PvP eligibility. Bracket 0 is reserved for Academy students & Genin (RANKS_RESTRICTED_FROM_PVP).",
    "kind": "array_expr"
   },
   "BRACKET_IMMUNITY_LIFT_SECS": {
@@ -1167,9 +1124,20 @@
    ],
    "kind": "list"
   },
+  "AutoCombatBattleTypes": {
+   "raw": "[\"ARENA\", \"TRAINING\", \"QUEST\"]",
+   "order": 106,
+   "doc": "Battle types that may be STARTED with auto combat already enabled, from the arena page's toggle or a player's stored defaultAutoCombat. QUEST is in the list because the tutorial introduces auto combat in the arena and then sends the player straight into a quest fight: starting that one manually reads as the setting having failed. PvP types are deliberately absent, so nobody can leave their profile",
+   "value": [
+    "ARENA",
+    "TRAINING",
+    "QUEST"
+   ],
+   "kind": "list"
+  },
   "BattleDataEntryType": {
    "raw": "[\n  \"jutsu\",\n  \"item\",\n  \"bloodline\",\n  \"basic\",\n  \"ai\",\n]",
-   "order": 106,
+   "order": 107,
    "value": [
     "jutsu",
     "item",
@@ -1181,7 +1149,7 @@
   },
   "RetryQuestDelays": {
    "raw": "[\"daily\", \"weekly\", \"monthly\", \"none\"]",
-   "order": 107,
+   "order": 108,
    "value": [
     "daily",
     "weekly",
@@ -1192,7 +1160,7 @@
   },
   "QuestTypes": {
    "raw": "[\n  \"starter\",\n  \"tier\",\n  \"daily\",\n  \"mission\",\n  \"errand\",\n  \"crime\",\n  \"exam\",\n  \"event\",\n  \"story\",\n  \"anbu\",\n  \"medical\",\n  \"hunting\",\n  \"gathering\",\n  \"battlepyramid\",\n  \"pvp\",\n  \"achievement\",\n  \"war\",\n  \"raid\",\n  \"overworld\",\n]",
-   "order": 108,
+   "order": 109,
    "value": [
     "starter",
     "tier",
@@ -1218,7 +1186,7 @@
   },
   "NPC_ONLY_QUEST_TYPES": {
    "raw": "[\"overworld\"]",
-   "order": 109,
+   "order": 110,
    "value": [
     "overworld"
    ],
@@ -1226,13 +1194,13 @@
   },
   "QUESTS_CONCURRENT_LIMIT": {
    "raw": "4",
-   "order": 110,
+   "order": 111,
    "value": 4,
    "kind": "number"
   },
   "OrderedQuestTypesInTutorial": {
    "raw": "[\n  \"starter\",\n  \"tier\",\n  \"daily\",\n  \"mission\",\n  \"errand\",\n  \"crime\",\n  \"exam\",\n  \"event\",\n  \"story\",\n]",
-   "order": 111,
+   "order": 112,
    "ts_type": "QuestType[]",
    "doc": "Ordering here represents the default ordering for tutorial component",
    "value": [
@@ -1250,7 +1218,7 @@
   },
   "QuestRewardMetrics": {
    "raw": "[\n  \"reward_money\",\n  \"reward_seichi_silver\",\n  \"reward_clanpoints\",\n  \"reward_anbupoints\",\n  \"reward_exp\",\n  \"reward_tokens\",\n  \"reward_prestige\",\n  \"reward_reputation\",\n  \"reward_skillpoints\",\n  \"reward_medical_experience\",\n  \"reward_hunting_experience\",\n  \"reward_crafting_experience\",\n  \"reward_gathering_experience\",\n]",
-   "order": 112,
+   "order": 113,
    "doc": "Quest reward metrics used in balance statistics and filters",
    "value": [
     "reward_money",
@@ -1271,7 +1239,7 @@
   },
   "QuestTypesWithMaxAttempts": {
    "raw": "[\n  \"event\",\n  \"story\",\n  \"battlepyramid\",\n  \"starter\",\n  \"raid\",\n  \"overworld\",\n]",
-   "order": 113,
+   "order": 114,
    "value": [
     "event",
     "story",
@@ -1284,7 +1252,7 @@
   },
   "SmileyEmotions": {
    "raw": "[\"like\", \"love\", \"laugh\"]",
-   "order": 114,
+   "order": 115,
    "value": [
     "like",
     "love",
@@ -1294,7 +1262,7 @@
   },
   "TrainingSpeeds": {
    "raw": "[\n  \"15min\",\n  \"1hr\",\n  \"4hrs\",\n  \"8hrs\",\n  \"12hrs\",\n  \"24hrs\",\n]",
-   "order": 115,
+   "order": 116,
    "value": [
     "15min",
     "1hr",
@@ -1307,55 +1275,55 @@
   },
   "JUTSU_MAX_RESIDUAL_EQUIPPED": {
    "raw": "4",
-   "order": 116,
+   "order": 117,
    "value": 4,
    "kind": "number"
   },
   "JUTSU_MAX_PIERCE_EQUIPPED": {
    "raw": "9999",
-   "order": 117,
+   "order": 118,
    "value": 9999,
    "kind": "number"
   },
   "JUTSU_MAX_EVENT_EQUIPPED": {
    "raw": "2",
-   "order": 118,
+   "order": 119,
    "value": 2,
    "kind": "number"
   },
   "JUTSU_MAX_FORBIDDEN_EQUIPPED": {
    "raw": "1",
-   "order": 119,
+   "order": 120,
    "value": 1,
    "kind": "number"
   },
   "JUTSU_MAX_BARRIER_EQUIPPED": {
    "raw": "1",
-   "order": 120,
+   "order": 121,
    "value": 1,
    "kind": "number"
   },
   "JUTSU_MAX_STUN_EQUIPPED": {
    "raw": "2",
-   "order": 121,
+   "order": 122,
    "value": 2,
    "kind": "number"
   },
   "JUTSU_MAX_SHIELD_EQUIPPED": {
    "raw": "2",
-   "order": 122,
+   "order": 123,
    "value": 2,
    "kind": "number"
   },
   "JUTSU_MAX_HEAL_EQUIPPED": {
    "raw": "3",
-   "order": 123,
+   "order": 124,
    "value": 3,
    "kind": "number"
   },
   "BloodlineDifficultyRatings": {
    "raw": "[\"Easy\", \"Medium\", \"Hard\", \"Expert\"]",
-   "order": 124,
+   "order": 125,
    "doc": "Content difficulty ratings",
    "value": [
     "Easy",
@@ -1367,7 +1335,7 @@
   },
   "UserAssociations": {
    "raw": "[\"MARRIAGE\", \"DIVORCED\"]",
-   "order": 125,
+   "order": 126,
    "value": [
     "MARRIAGE",
     "DIVORCED"
@@ -1376,7 +1344,7 @@
   },
   "UserRequestStates": {
    "raw": "[\n  \"PENDING\",\n  \"ACCEPTED\",\n  \"REJECTED\",\n  \"CANCELLED\",\n  \"EXPIRED\",\n]",
-   "order": 126,
+   "order": 127,
    "value": [
     "PENDING",
     "ACCEPTED",
@@ -1388,7 +1356,7 @@
   },
   "UserRequestTypes": {
    "raw": "[\n  \"SPAR\",\n  \"ALLIANCE\",\n  \"SURRENDER\",\n  \"SENSEI\",\n  \"ANBU\",\n  \"CLAN\",\n  \"MARRIAGE\",\n  \"KAGE\",\n  \"WAR_ALLY\",\n]",
-   "order": 127,
+   "order": 128,
    "value": [
     "SPAR",
     "ALLIANCE",
@@ -1404,7 +1372,7 @@
   },
   "AllianceStates": {
    "raw": "[\"NEUTRAL\", \"ALLY\", \"ENEMY\"]",
-   "order": 128,
+   "order": 129,
    "value": [
     "NEUTRAL",
     "ALLY",
@@ -1414,7 +1382,7 @@
   },
   "BasicElementName": {
    "raw": "[\n  \"Fire\",\n  \"Water\",\n  \"Wind\",\n  \"Earth\",\n  \"Lightning\",\n]",
-   "order": 129,
+   "order": 130,
    "value": [
     "Fire",
     "Water",
@@ -1426,7 +1394,7 @@
   },
   "ElementNames": {
    "raw": "[\n  ...BasicElementName,\n  \"Ice\",\n  \"Crystal\",\n  \"Dust\",\n  \"Shadow\",\n  \"Wood\",\n  \"Scorch\",\n  \"Storm\",\n  \"Magnet\",\n  \"Yin-Yang\",\n  \"Lava\",\n  \"Explosion\",\n  \"Light\",\n  \"Boil\",\n  \"Metal\",\n  \"Sand\",\n  \"None\",\n]",
-   "order": 130,
+   "order": 131,
    "value": [
     "...BasicElementName",
     "Ice",
@@ -1450,79 +1418,79 @@
   },
   "HP_PER_LVL": {
    "raw": "50",
-   "order": 131,
+   "order": 132,
    "doc": "User stats config",
    "value": 50,
    "kind": "number"
   },
   "SP_PER_LVL": {
    "raw": "50",
-   "order": 132,
+   "order": 133,
    "value": 50,
    "kind": "number"
   },
   "CP_PER_LVL": {
    "raw": "50",
-   "order": 133,
+   "order": 134,
    "value": 50,
    "kind": "number"
   },
   "MAX_ATTRIBUTES": {
    "raw": "5",
-   "order": 134,
+   "order": 135,
    "value": 5,
    "kind": "number"
   },
   "RYO_CAP": {
    "raw": "3000000000",
-   "order": 135,
+   "order": 136,
    "value": 3000000000,
    "kind": "number"
   },
   "MAX_STATS_CAP": {
    "raw": "450000",
-   "order": 136,
+   "order": 137,
    "value": 450000,
    "kind": "number"
   },
   "MAX_GENS_CAP": {
    "raw": "200000",
-   "order": 137,
+   "order": 138,
    "value": 200000,
    "kind": "number"
   },
   "MAX_DAILY_AI_CALLS": {
    "raw": "100",
-   "order": 138,
+   "order": 139,
    "value": 100,
    "kind": "number"
   },
   "ROLL_CHANCE_PERCENTAGE": {
    "raw": "{\n  [\"H\"]: 0,\n  [\"S\"]: 0.005,\n  [\"A\"]: 0.01,\n  [\"B\"]: 0.05,\n  [\"C\"]: 0.25,\n}",
-   "order": 139,
+   "order": 140,
    "kind": "expr"
   },
   "ROLL_CHANCE": {
    "raw": "{\n  [\"H\"]: 0,\n  [\"S\"]: ROLL_CHANCE_PERCENTAGE.S,\n  [\"A\"]: ROLL_CHANCE_PERCENTAGE.S + ROLL_CHANCE_PERCENTAGE.A,\n  [\"B\"]: ROLL_CHANCE_PERCENTAGE.S + ROLL_CHANCE_PERCENTAGE.A + ROLL_CHANCE_PERCENTAGE.B,\n  [\"C\"]:\n    ROLL_CHANCE_PERCENTAGE.S +\n    ROLL_CHANCE_PERCENTAGE.A +\n    ROLL_CHANCE_PERCENTAGE.B +\n    ROLL_CHANCE_PERCENTAGE.C,\n}",
-   "order": 140,
+   "order": 141,
    "doc": "Calculate cumulative probabilities from individual percentages",
    "kind": "expr"
   },
   "BLOODLINE_COST": {
    "raw": "{\n  [\"H\"]: 999999,\n  [\"S\"]: 999999,\n  [\"A\"]: 200,\n  [\"B\"]: 190,\n  [\"C\"]: 180,\n  [\"D\"]: 170,\n}",
-   "order": 141,
+   "order": 142,
    "doc": "Bloodline Pricing",
    "kind": "expr"
   },
   "REMOVAL_COST": {
    "raw": "5",
-   "order": 142,
+   "order": 143,
    "value": 5,
    "kind": "number"
   },
   "Sentiment": {
    "raw": "[\"POSITIVE\", \"NEGATIVE\", \"NEUTRAL\"]",
-   "order": 143,
+   "order": 144,
    "value": [
     "POSITIVE",
     "NEGATIVE",
@@ -1532,56 +1500,56 @@
   },
   "IMG_URL_ASSISTANT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJrCz0dVhuJPmdY8zI2ptZXAoEj1c6BMKvrQOx.webp\"",
-   "order": 144,
+   "order": 145,
    "doc": "Starter quest used for recruitment analytics",
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJrCz0dVhuJPmdY8zI2ptZXAoEj1c6BMKvrQOx.webp",
    "kind": "string"
   },
   "IMG_URL_ASSISTANT_2": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIG7HmDxfOewksxBoS1HQCihpL7c42Ky9uUFv.webp\"",
-   "order": 145,
+   "order": 146,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIG7HmDxfOewksxBoS1HQCihpL7c42Ky9uUFv.webp",
    "kind": "string"
   },
   "IMG_URL_HANDPOINTER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIvN7gkJxfOewksxBoS1HQCihpL7c42Ky9uUF.webp\"",
-   "order": 146,
+   "order": 147,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIvN7gkJxfOewksxBoS1HQCihpL7c42Ky9uUF.webp",
    "kind": "string"
   },
   "TUTORIAL_JUTSU_ID": {
    "raw": "\"clh4d6pxd0006tb0h4y1yudi5\"",
-   "order": 147,
+   "order": 148,
    "value": "clh4d6pxd0006tb0h4y1yudi5",
    "kind": "string"
   },
   "TUTORIAL_ITEM_ID": {
    "raw": "\"VOditPJ3X2id0yC-F5Kz3\"",
-   "order": 148,
+   "order": 149,
    "value": "VOditPJ3X2id0yC-F5Kz3",
    "kind": "string"
   },
   "TUTORIAL_STARTER_QUEST_ID": {
    "raw": "\"eYDVpL63vPhK3lywMexdv\"",
-   "order": 149,
+   "order": 150,
    "value": "eYDVpL63vPhK3lywMexdv",
    "kind": "string"
   },
   "TUTORIAL_GENIN_EXAM_QUEST_ID": {
    "raw": "\"9-t1rNWEzXbIfdUfxWrny\"",
-   "order": 150,
+   "order": 151,
    "value": "9-t1rNWEzXbIfdUfxWrny",
    "kind": "string"
   },
   "TUTORIAL_ARENA_DUMMY_ID": {
    "raw": "\"ICXb49Z0Jle3GyJ-rosTi\"",
-   "order": 151,
+   "order": 152,
    "value": "ICXb49Z0Jle3GyJ-rosTi",
    "kind": "string"
   },
   "RecruitmentMetrics": {
    "raw": "[\n  \"level\",\n  \"pveFights\",\n  \"pvpFights\",\n  \"missionsD\",\n  \"missionsC\",\n  \"missionsB\",\n  \"missionsA\",\n  \"crimesD\",\n  \"crimesC\",\n  \"crimesB\",\n  \"crimesA\",\n  \"completedQuests\",\n]",
-   "order": 152,
+   "order": 153,
    "doc": "Recruitment analytics metric options (used by frontend and backend)",
    "value": [
     "level",
@@ -1601,26 +1569,26 @@
   },
   "RecruitmentMetricMax": {
    "raw": "{\n  level: 50,\n  pveFights: 50,\n  pvpFights: 50,\n  missionsD: 50,\n  missionsC: 50,\n  missionsB: 50,\n  missionsA: 50,\n  crimesD: 50,\n  crimesC: 50,\n  crimesB: 50,\n  crimesA: 50,\n  completedQuests: 50,\n}",
-   "order": 153,
+   "order": 154,
    "ts_type": "Record<RecruitmentMetric, number>",
    "doc": "Default clamp maxima for recruitment metrics (min is always 0)",
    "kind": "expr"
   },
   "RECRUITMENT_GOALS": {
    "raw": "{\n  SIGNUP_RATE_PERCENT: 20,\n  RANK_RATE_PERCENT: 5,\n  PVP_RATE_PERCENT: 5,\n  TUTORIAL_RATE_PERCENT: 50,\n  SIGNUP_VALUE_USD: 0.5,\n}",
-   "order": 154,
+   "order": 155,
    "kind": "expr"
   },
   "TUTORIAL_STEPS_COUNT": {
    "raw": "52",
-   "order": 155,
+   "order": 156,
    "doc": "Number of tutorial steps used by the onboarding flow (see hooks/tutorial.tsx) IMPORTANT: Keep this in sync with TUTORIAL_STEPS.length in hooks/tutorial.tsx",
    "value": 52,
    "kind": "number"
   },
   "RECRUITMENT_REWARDS": {
    "raw": "[\n  \"MONEY\",\n  \"REPUTATION\",\n  \"PRESTIGE\",\n  \"CLAN_POINTS\",\n]",
-   "order": 156,
+   "order": 157,
    "doc": "Recruitment rewards config",
    "value": [
     "MONEY",
@@ -1632,7 +1600,7 @@
   },
   "BankTransferTypes": {
    "raw": "[\"bank\", \"sensei\", \"recruiter\"]",
-   "order": 157,
+   "order": 158,
    "doc": "Bank config",
    "value": [
     "bank",
@@ -1643,46 +1611,46 @@
   },
   "USER_CAPS": {
    "raw": "{\n  STUDENT: { GENS_CAP: 20000, STATS_CAP: 20000, LVL_CAP: 10 },\n  GENIN: { GENS_CAP: 60000, STATS_CAP: 60000, LVL_CAP: 30 },\n  CHUNIN: { GENS_CAP: MAX_GENS_CAP, STATS_CAP: MAX_STATS_CAP, LVL_CAP: 100 },\n  JONIN: { GENS_CAP: MAX_GENS_CAP, STATS_CAP: MAX_STATS_CAP, LVL_CAP: 100 },\n  \"ELITE JONIN\": { GENS_CAP: MAX_GENS_CAP, STATS_CAP: MAX_STATS_CAP, LVL_CAP: 100 },\n  ELDER: { GENS_CAP: MAX_GENS_CAP, STATS_CAP: MAX_STATS_CAP, LVL_CAP: 100 },\n  NONE: { GENS_CAP: MAX_GENS_CAP, STATS_CAP: MAX_STATS_CAP, LVL_CAP: 100 },\n}",
-   "order": 158,
+   "order": 159,
    "ts_type": "Record< UserRank, { GENS_CAP: number; STATS_CAP: number; LVL_CAP: number } >",
    "doc": "Caps lookup table",
    "kind": "expr"
   },
   "OPENAI_REVIEW_MODEL": {
    "raw": "\"o4-mini\"",
-   "order": 159,
+   "order": 160,
    "doc": "OpenAI models",
    "value": "o4-mini",
    "kind": "string"
   },
   "OPENAI_CONTENT_MODEL": {
    "raw": "\"o4-mini\"",
-   "order": 160,
+   "order": 161,
    "value": "o4-mini",
    "kind": "string"
   },
   "OPENAI_MODERATION_MODEL": {
    "raw": "\"gpt-4o-mini\"",
-   "order": 161,
+   "order": 162,
    "value": "gpt-4o-mini",
    "kind": "string"
   },
   "OPENAI_CHAT_MODEL": {
    "raw": "\"gpt-4o-mini\"",
-   "order": 162,
+   "order": 163,
    "value": "gpt-4o-mini",
    "kind": "string"
   },
   "PAYPAL_DISCOUNT_PERCENT": {
    "raw": "0",
-   "order": 163,
+   "order": 164,
    "doc": "Paypal shop config",
    "value": 0,
    "kind": "number"
   },
   "TRANSACTION_TYPES": {
    "raw": "[\"REP_PURCHASE\", \"REFERRAL\"]",
-   "order": 164,
+   "order": 165,
    "value": [
     "REP_PURCHASE",
     "REFERRAL"
@@ -1691,153 +1659,153 @@
   },
   "ROBBING_SUCCESS_CHANCE": {
    "raw": "0.4",
-   "order": 165,
+   "order": 166,
    "doc": "Outlaw config",
    "value": 0.4,
    "kind": "number"
   },
   "ROBBING_STOLLEN_AMOUNT": {
    "raw": "0.3",
-   "order": 166,
+   "order": 167,
    "value": 0.3,
    "kind": "number"
   },
   "ROBBING_VILLAGE_PRESTIGE_GAIN": {
    "raw": "5",
-   "order": 167,
+   "order": 168,
    "value": 5,
    "kind": "number"
   },
   "ROBBING_IMMUNITY_DURATION": {
    "raw": "90",
-   "order": 168,
+   "order": 169,
    "value": 90,
    "kind": "number"
   },
   "KILLING_NOTORIETY_GAIN": {
    "raw": "5",
-   "order": 169,
+   "order": 170,
    "value": 5,
    "kind": "number"
   },
   "STARTING_REPUTATION_POINTS": {
    "raw": "11",
-   "order": 170,
+   "order": 171,
    "doc": "Reputation cost config",
    "value": 11,
    "kind": "number"
   },
   "COST_CHANGE_USERNAME": {
    "raw": "5",
-   "order": 171,
+   "order": 172,
    "value": 5,
    "kind": "number"
   },
   "COST_CUSTOM_TITLE": {
    "raw": "5",
-   "order": 172,
+   "order": 173,
    "value": 5,
    "kind": "number"
   },
   "COST_CHANGE_GENDER": {
    "raw": "5",
-   "order": 173,
+   "order": 174,
    "value": 5,
    "kind": "number"
   },
   "COST_SWAP_BLOODLINE": {
    "raw": "50",
-   "order": 174,
+   "order": 175,
    "value": 50,
    "kind": "number"
   },
   "COST_SWAP_VILLAGE": {
    "raw": "0",
-   "order": 175,
+   "order": 176,
    "value": 0,
    "kind": "number"
   },
   "COST_RESET_STATS": {
    "raw": "15",
-   "order": 176,
+   "order": 177,
    "value": 15,
    "kind": "number"
   },
   "COST_EXTRA_ITEM_SLOT": {
    "raw": "10",
-   "order": 177,
+   "order": 178,
    "value": 10,
    "kind": "number"
   },
   "COST_EXTRA_JUTSU_SLOT": {
    "raw": "50",
-   "order": 178,
+   "order": 179,
    "value": 50,
    "kind": "number"
   },
   "COST_REROLL_ELEMENT": {
    "raw": "10",
-   "order": 179,
+   "order": 180,
    "value": 10,
    "kind": "number"
   },
   "COST_SKILL_RESET": {
    "raw": "30",
-   "order": 180,
+   "order": 181,
    "value": 30,
    "kind": "number"
   },
   "COST_CONCEPT_IMAGE": {
    "raw": "1",
-   "order": 181,
+   "order": 182,
    "value": 1,
    "kind": "number"
   },
   "COST_CONCEPT_VIDEO": {
    "raw": "15",
-   "order": 182,
+   "order": 183,
    "value": 15,
    "kind": "number"
   },
   "COST_STREAK_CATCHUP_DAY": {
    "raw": "1",
-   "order": 183,
+   "order": 184,
    "value": 1,
    "kind": "number"
   },
   "MAX_EXTRA_JUTSU_SLOTS": {
    "raw": "2",
-   "order": 184,
+   "order": 185,
    "value": 2,
    "kind": "number"
   },
   "BATTLE_LOG_FULL_LIMIT": {
    "raw": "1000",
-   "order": 185,
+   "order": 186,
    "value": 1000,
    "kind": "number"
   },
   "BATTLE_LOG_DEFAULT_LIMIT": {
    "raw": "30",
-   "order": 186,
+   "order": 187,
    "value": 30,
    "kind": "number"
   },
   "MAX_EXTRA_RESKIN_SLOTS": {
    "raw": "255",
-   "order": 187,
+   "order": 188,
    "value": 255,
    "kind": "number"
   },
   "MAX_MARRIAGE_SLOTS": {
    "raw": "7",
-   "order": 188,
+   "order": 189,
    "value": 7,
    "kind": "number"
   },
   "BLOODLINE_ROLL_TYPES": {
    "raw": "[\n  \"NATURAL\",\n  \"ITEM\",\n  \"PITY\",\n  \"DIRECT\",\n  \"QUEST\",\n  \"REGISTRATION\",\n]",
-   "order": 189,
+   "order": 190,
    "value": [
     "NATURAL",
     "ITEM",
@@ -1850,44 +1818,44 @@
   },
   "BLOODLINE_SWAP_COOLDOWN_HOURS": {
    "raw": "120",
-   "order": 190,
+   "order": 191,
    "doc": "Bloodline swap config",
    "value": 120,
    "kind": "number"
   },
   "BLOODLINE_SWAP_FREE_DAYS": {
    "raw": "30",
-   "order": 191,
+   "order": 192,
    "value": 30,
    "kind": "number"
   },
   "BLOODLINE_SWAP_FREE_AMOUNT": {
    "raw": "0",
-   "order": 192,
+   "order": 193,
    "value": 0,
    "kind": "number"
   },
   "BLOODLINE_SWAP_FREE_NORMAL": {
    "raw": "0",
-   "order": 193,
+   "order": 194,
    "value": 0,
    "kind": "number"
   },
   "BLOODLINE_SWAP_FREE_SILVER": {
    "raw": "0",
-   "order": 194,
+   "order": 195,
    "value": 0,
    "kind": "number"
   },
   "BLOODLINE_SWAP_FREE_GOLD": {
    "raw": "1",
-   "order": 195,
+   "order": 196,
    "value": 1,
    "kind": "number"
   },
   "SAGE_MODE_ROLL_TYPES": {
    "raw": "[\"ITEM\", \"QUEST\"]",
-   "order": 196,
+   "order": 197,
    "doc": "Provenance stored on `SageModeRolls.type`. There is no pity or swap path.",
    "value": [
     "ITEM",
@@ -1897,14 +1865,14 @@
   },
   "SAGE_MODE_MAX_LEVEL": {
    "raw": "2",
-   "order": 197,
+   "order": 198,
    "doc": "Combat levels a mode can apply. Catalog `level` is a roll-pool gate, not this.",
    "value": 2,
    "kind": "number"
   },
   "SAGE_MASTERY_RANKS": {
    "raw": "[\n  \"NONE\",\n  \"INITIATE\",\n  \"ADEPT\",\n  \"MASTER\",\n  \"LEGENDARY\",\n]",
-   "order": 198,
+   "order": 199,
    "doc": "Mastery ladder. `NONE` means no mode equipped; INITIATE+ require `sageModeId`.",
    "value": [
     "NONE",
@@ -1917,28 +1885,28 @@
   },
   "SAGE_MASTERY_REQUIRED_EXP": {
    "raw": "{\n  NONE: 0,\n  INITIATE: 0,\n  ADEPT: 150000,\n  MASTER: 250000,\n  LEGENDARY: 450000,\n}",
-   "order": 199,
+   "order": 200,
    "ts_type": "Record<SAGE_MASTERY_RANK, number>",
    "doc": "Experience thresholds for `getSageMasteryRank`. INITIATE and NONE both start at 0.",
    "kind": "expr"
   },
   "SAGE_MASTERY_EXP_CAP": {
    "raw": "450_000",
-   "order": 200,
+   "order": 201,
    "doc": "Hard cap on `userData.sageMasteryExperience` (Legendary threshold).",
    "value": 450000,
    "kind": "number"
   },
   "SAGE_MASTERY_DAILY_ACTIVATIONS": {
    "raw": "{\n  NONE: 10,\n  INITIATE: 10,\n  ADEPT: 12,\n  MASTER: 15,\n  LEGENDARY: 20,\n}",
-   "order": 201,
+   "order": 202,
    "ts_type": "Record<SAGE_MASTERY_RANK, number>",
    "doc": "Daily Activation uses allowed at each mastery rank. NONE and INITIATE share 10.",
    "kind": "expr"
   },
   "SAGE_MODE_DISABLED_BATTLES": {
    "raw": "[\"RANKED_PVP\", \"RANKED_SPARRING\"]",
-   "order": 202,
+   "order": 203,
    "ts_type": "BattleType[]",
    "doc": "Battle types that never offer or accept sage Activation.",
    "value": [
@@ -1949,128 +1917,128 @@
   },
   "SAGE_MODE_ACTIVATION_JUTSU_ID": {
    "raw": "\"cmj8sagemodeactivatejutsu000000\"",
-   "order": 203,
+   "order": 204,
    "doc": "Injectable jutsu that runs sage-mode activation (costs + effects come from `SageMode` row).",
    "value": "cmj8sagemodeactivatejutsu000000",
    "kind": "string"
   },
   "SAGE_MODE_DEFAULT_ACTIVATION_MESSAGE": {
    "raw": "\"%user enters sage mode!\"",
-   "order": 204,
+   "order": 205,
    "doc": "Combat-log line when a mode has no `battleDescription`. `%user` is templated.",
    "value": "%user enters sage mode!",
    "kind": "string"
   },
   "SAGE_MODE_DEFAULT_ACTION_COST_PERC": {
    "raw": "80",
-   "order": 205,
+   "order": 206,
    "doc": "AP cost % of the Activation action when a mode defines no value of its own.",
    "value": 80,
    "kind": "number"
   },
   "SKILL_TREE_RESET_FREE_NORMAL": {
    "raw": "0",
-   "order": 206,
+   "order": 207,
    "doc": "Skill tree config",
    "value": 0,
    "kind": "number"
   },
   "SKILL_TREE_RESET_FREE_SILVER": {
    "raw": "1",
-   "order": 207,
+   "order": 208,
    "value": 1,
    "kind": "number"
   },
   "SKILL_TREE_RESET_FREE_GOLD": {
    "raw": "2",
-   "order": 208,
+   "order": 209,
    "value": 2,
    "kind": "number"
   },
   "JUTSU_TRANSFER_DAYS": {
    "raw": "20",
-   "order": 209,
+   "order": 210,
    "doc": "Jutsu level transfer config",
    "value": 20,
    "kind": "number"
   },
   "JUTSU_TRANSFER_COST": {
    "raw": "20",
-   "order": 210,
+   "order": 211,
    "value": 20,
    "kind": "number"
   },
   "JUTSU_TRANSFER_MAX_LEVEL": {
    "raw": "25",
-   "order": 211,
+   "order": 212,
    "value": 25,
    "kind": "number"
   },
   "JUTSU_TRANSFER_MINIMUM_LEVEL": {
    "raw": "10",
-   "order": 212,
+   "order": 213,
    "value": 10,
    "kind": "number"
   },
   "JUTSU_TRANSFER_FREE_AMOUNT": {
    "raw": "2",
-   "order": 213,
+   "order": 214,
    "value": 2,
    "kind": "number"
   },
   "JUTSU_TRANSFER_FREE_NORMAL": {
    "raw": "3",
-   "order": 214,
+   "order": 215,
    "value": 3,
    "kind": "number"
   },
   "JUTSU_TRANSFER_FREE_SILVER": {
    "raw": "4",
-   "order": 215,
+   "order": 216,
    "value": 4,
    "kind": "number"
   },
   "JUTSU_TRANSFER_FREE_GOLD": {
    "raw": "5",
-   "order": 216,
+   "order": 217,
    "value": 5,
    "kind": "number"
   },
   "RESKIN_LIMIT": {
    "raw": "2",
-   "order": 217,
+   "order": 218,
    "doc": "Jutsu reskin config",
    "value": 2,
    "kind": "number"
   },
   "COST_RESKIN_JUTSU": {
    "raw": "60",
-   "order": 218,
+   "order": 219,
    "value": 60,
    "kind": "number"
   },
   "VILLAGE_LEAVE_REQUIRED_RANK": {
    "raw": "\"CHUNIN\"",
-   "order": 219,
+   "order": 220,
    "doc": "Village config",
    "value": "CHUNIN",
    "kind": "string"
   },
   "VILLAGE_REDUCED_GAINS_DAYS": {
    "raw": "7",
-   "order": 220,
+   "order": 221,
    "value": 7,
    "kind": "number"
   },
   "VILLAGE_SYNDICATE_ID": {
    "raw": "\"ryBk0qD4EgvPPyav2K4OC\"",
-   "order": 221,
+   "order": 222,
    "value": "ryBk0qD4EgvPPyav2K4OC",
    "kind": "string"
   },
   "ALLIANCE_VILLAGE_TYPES": {
    "raw": "[\"VILLAGE\", \"HIDEOUT\", \"TOWN\"]",
-   "order": 222,
+   "order": 223,
    "value": [
     "VILLAGE",
     "HIDEOUT",
@@ -2080,103 +2048,103 @@
   },
   "ANBU_MEMBER_RANK_REQUIREMENT": {
    "raw": "\"CHUNIN\"",
-   "order": 223,
+   "order": 224,
    "doc": "ANBU config",
    "value": "CHUNIN",
    "kind": "string"
   },
   "ANBU_LEADER_RANK_REQUIREMENT": {
    "raw": "\"JONIN\"",
-   "order": 224,
+   "order": 225,
    "value": "JONIN",
    "kind": "string"
   },
   "ANBU_MAX_MEMBERS": {
    "raw": "4",
-   "order": 225,
+   "order": 226,
    "value": 4,
    "kind": "number"
   },
   "ANBU_HOSPITAL_DISCOUNT_PERC": {
    "raw": "5",
-   "order": 226,
+   "order": 227,
    "value": 5,
    "kind": "number"
   },
   "ANBU_ITEMSHOP_DISCOUNT_PERC": {
    "raw": "5",
-   "order": 227,
+   "order": 228,
    "value": 5,
    "kind": "number"
   },
   "ANBU_DELAY_SECS": {
    "raw": "5 * 24 * 3600",
-   "order": 228,
+   "order": 229,
    "kind": "expr"
   },
   "ANBU_MAX_ESPIONAGE_LEVEL": {
-   "raw": "10",
-   "order": 229,
-   "value": 10,
-   "kind": "number"
-  },
-  "ANBU_ESPIONAGE_BASE_CHANCE_PERC": {
    "raw": "10",
    "order": 230,
    "value": 10,
    "kind": "number"
   },
+  "ANBU_ESPIONAGE_BASE_CHANCE_PERC": {
+   "raw": "10",
+   "order": 231,
+   "value": 10,
+   "kind": "number"
+  },
   "ANBU_ESPIONAGE_CHANGE_PER_LEVEL": {
    "raw": "5",
-   "order": 231,
+   "order": 232,
    "value": 5,
    "kind": "number"
   },
   "ANBU_ESPIONAGE_UPGRADE_COST": {
    "raw": "200",
-   "order": 232,
+   "order": 233,
    "value": 200,
    "kind": "number"
   },
   "ANBU_ESPIONAGE_PRESTIGE_COST": {
    "raw": "10000",
-   "order": 233,
+   "order": 234,
    "value": 10000,
    "kind": "number"
   },
   "ANBU_ESPIONAGE_POINTS_COST": {
    "raw": "100",
-   "order": 234,
+   "order": 235,
    "value": 100,
    "kind": "number"
   },
   "ANBU_MAX_STEALTH_LEVEL": {
    "raw": "10",
-   "order": 235,
+   "order": 236,
    "value": 10,
    "kind": "number"
   },
   "ANBU_STEALTH_BASE_CHANCE_PERC": {
    "raw": "10",
-   "order": 236,
+   "order": 237,
    "value": 10,
    "kind": "number"
   },
   "ANBU_STEALTH_CHANGE_PER_LEVEL": {
    "raw": "5",
-   "order": 237,
+   "order": 238,
    "value": 5,
    "kind": "number"
   },
   "ANBU_STEALTH_UPGRADE_COST": {
    "raw": "200",
-   "order": 238,
+   "order": 239,
    "value": 200,
    "kind": "number"
   },
   "SENSEI_RANKS": {
    "raw": "[\"JONIN\", \"ELITE JONIN\", \"ELDER\"]",
-   "order": 239,
+   "order": 240,
    "doc": "Sensei config",
    "value": [
     "JONIN",
@@ -2187,50 +2155,50 @@
   },
   "SENSEI_STUDENT_RYO_PER_MISSION": {
    "raw": "100",
-   "order": 240,
+   "order": 241,
    "value": 100,
    "kind": "number"
   },
   "SENSEI_GENIN_TRAIN_EXP_BOOST_PERC": {
    "raw": "5",
-   "order": 241,
+   "order": 242,
    "value": 5,
    "kind": "number"
   },
   "SENSEI_GENIN_MED_EXP_SHARE_PERC": {
    "raw": "5",
-   "order": 242,
+   "order": 243,
    "value": 5,
    "kind": "number"
   },
   "SENSEI_STUDENT_MISSION_EXP_BOOST_PERC": {
    "raw": "3",
-   "order": 243,
+   "order": 244,
    "value": 3,
    "kind": "number"
   },
   "SENSEI_MAX_STUDENT_LEVEL": {
    "raw": "40",
-   "order": 244,
+   "order": 245,
    "value": 40,
    "kind": "number"
   },
   "SENSEI_JUTSU_TRAIN_COST_REDUCTION_PERC": {
    "raw": "5",
-   "order": 245,
+   "order": 246,
    "value": 5,
    "kind": "number"
   },
   "MEDNIN_HEAL_ITEM_DISCOUNT_PERC": {
    "raw": "30",
-   "order": 246,
+   "order": 247,
    "doc": "Medical Ninja config",
    "value": 30,
    "kind": "number"
   },
   "MEDNIN_HEALABLE_STATES": {
    "raw": "[\"HOSPITALIZED\", \"AWAKE\"]",
-   "order": 247,
+   "order": 248,
    "value": [
     "HOSPITALIZED",
     "AWAKE"
@@ -2239,13 +2207,13 @@
   },
   "MEDNIN_MIN_RANK": {
    "raw": "\"GENIN\"",
-   "order": 248,
+   "order": 249,
    "value": "GENIN",
    "kind": "string"
   },
   "MEDNIN_RANKS": {
    "raw": "[\n  \"NONE\",\n  \"NOVICE\",\n  \"APPRENTICE\",\n  \"MASTER\",\n  \"LEGENDARY\",\n]",
-   "order": 249,
+   "order": 250,
    "value": [
     "NONE",
     "NOVICE",
@@ -2257,43 +2225,43 @@
   },
   "MEDNIN_HEAL_TO_EXP": {
    "raw": "0.1",
-   "order": 250,
+   "order": 251,
    "value": 0.1,
    "kind": "number"
   },
   "MEDNIN_REQUIRED_EXP": {
    "raw": "{\n  NONE: 0,\n  NOVICE: 0,\n  APPRENTICE: 100000,\n  MASTER: 400000,\n  LEGENDARY: 600000,\n}",
-   "order": 251,
+   "order": 252,
    "ts_type": "Record<MEDNIN_RANK, number>",
    "kind": "expr"
   },
   "MEDNIN_EXP_CAP": {
    "raw": "4000000",
-   "order": 252,
+   "order": 253,
    "value": 4000000,
    "kind": "number"
   },
   "MEDNIN_EXP_PER_IMPROVEMENT": {
    "raw": "340000",
-   "order": 253,
+   "order": 254,
    "value": 340000,
    "kind": "number"
   },
   "MEDNIN_CHAKRA_REDUCTION_PER_IMPROVEMENT": {
    "raw": "0.01",
-   "order": 254,
+   "order": 255,
    "value": 0.01,
    "kind": "number"
   },
   "MEDNIN_MIN_CHAKRA_FACTOR": {
    "raw": "0.05",
-   "order": 255,
+   "order": 256,
    "value": 0.05,
    "kind": "number"
   },
   "HUNTING_RANKS": {
    "raw": "[\n  \"NONE\",\n  \"D RANK\",\n  \"C RANK\",\n  \"B RANK\",\n  \"A RANK\",\n  \"S RANK\",\n]",
-   "order": 256,
+   "order": 257,
    "doc": "Hunting config",
    "value": [
     "NONE",
@@ -2307,19 +2275,19 @@
   },
   "HUNTING_REQUIRED_EXP": {
    "raw": "{\n  NONE: 0,\n  \"D RANK\": 0,\n  // Keep job rank progression in line with crafting thresholds\n  \"C RANK\": 100000,\n  \"B RANK\": 300000,\n  \"A RANK\": 600000,\n  \"S RANK\": 900000,\n}",
-   "order": 257,
+   "order": 258,
    "ts_type": "Record<HUNTING_RANK, number>",
    "kind": "expr"
   },
   "HUNTING_ITEM_DROP_CHANCES": {
    "raw": "{\n  NONE: {\n    COMMON: 15,\n    RARE: 0,\n    EPIC: 0,\n    LEGENDARY: 0,\n  },\n  \"D RANK\": {\n    COMMON: 15,\n    RARE: 10,\n    EPIC: 0,\n    LEGENDARY: 0,\n  },\n  \"C RANK\": {\n    COMMON: 20,\n    RARE: 15,\n    EPIC: 5,\n    LEGENDARY: 1,\n  },\n  \"B RANK\": {\n    COMMON: 25,\n    RARE: 20,\n    EPIC: 10,\n    LEGENDARY: 2,\n  },\n  \"A RANK\": {\n    COMMON: 30,\n    RARE: 25,\n    EPIC: 15,\n    LEGENDARY: 5,\n  },\n  \"S RANK\": {\n    COMMON: 40,\n    RARE: 30,\n    EPIC: 20,\n    LEGENDARY: 10,\n  },\n}",
-   "order": 258,
+   "order": 259,
    "ts_type": "Record< HUNTING_RANK, Record<ItemRarity, number> >",
    "kind": "expr"
   },
   "GATHERING_RANKS": {
    "raw": "[\n  \"NONE\",\n  \"D RANK\",\n  \"C RANK\",\n  \"B RANK\",\n  \"A RANK\",\n  \"S RANK\",\n]",
-   "order": 259,
+   "order": 260,
    "doc": "Gathering config",
    "value": [
     "NONE",
@@ -2333,25 +2301,25 @@
   },
   "GATHERING_REQUIRED_EXP": {
    "raw": "{\n  NONE: 0,\n  \"D RANK\": 0,\n  // Keep job rank progression in line with crafting thresholds\n  \"C RANK\": 100000,\n  \"B RANK\": 300000,\n  \"A RANK\": 600000,\n  \"S RANK\": 900000,\n}",
-   "order": 260,
+   "order": 261,
    "ts_type": "Record<GATHERING_RANK, number>",
    "kind": "expr"
   },
   "GATHERING_EXPERIENCE_GAIN": {
    "raw": "{\n  COMMON: 200,\n  RARE: 300,\n  EPIC: 400,\n  LEGENDARY: 500,\n}",
-   "order": 261,
+   "order": 262,
    "ts_type": "Record<ItemRarity, number>",
    "kind": "expr"
   },
   "GATHERING_ITEM_DROP_CHANCES": {
    "raw": "{\n  NONE: {\n    COMMON: 0,\n    RARE: 0,\n    EPIC: 0,\n    LEGENDARY: 0,\n  },\n  \"D RANK\": {\n    COMMON: 15,\n    RARE: 10,\n    EPIC: 0,\n    LEGENDARY: 0,\n  },\n  \"C RANK\": {\n    COMMON: 20,\n    RARE: 15,\n    EPIC: 5,\n    LEGENDARY: 1,\n  },\n  \"B RANK\": {\n    COMMON: 25,\n    RARE: 20,\n    EPIC: 10,\n    LEGENDARY: 2,\n  },\n  \"A RANK\": {\n    COMMON: 30,\n    RARE: 25,\n    EPIC: 15,\n    LEGENDARY: 5,\n  },\n  \"S RANK\": {\n    COMMON: 40,\n    RARE: 30,\n    EPIC: 20,\n    LEGENDARY: 10,\n  },\n}",
-   "order": 262,
+   "order": 263,
    "ts_type": "Record< GATHERING_RANK, Record<ItemRarity, number> >",
    "kind": "expr"
   },
   "CRAFTING_RANKS": {
    "raw": "[\n  \"NOVICE\",\n  \"APPRENTICE\",\n  \"MASTER\",\n  \"FORGEMASTER\",\n]",
-   "order": 263,
+   "order": 264,
    "doc": "Crafting config",
    "value": [
     "NOVICE",
@@ -2363,100 +2331,100 @@
   },
   "CRAFTING_REQUIRED_EXP": {
    "raw": "{\n  NOVICE: 0,\n  APPRENTICE: 100000,\n  MASTER: 300000,\n  FORGEMASTER: 600000,\n}",
-   "order": 264,
+   "order": 265,
    "ts_type": "Record<CRAFTING_RANK, number>",
    "kind": "expr"
   },
   "CRAFTING_EXP_GAIN": {
    "raw": "{\n  NOVICE: 1000,\n  APPRENTICE: 2000,\n  MASTER: 3000,\n  FORGEMASTER: 0,\n}",
-   "order": 265,
+   "order": 266,
    "ts_type": "Record<CRAFTING_RANK, number>",
    "kind": "expr"
   },
   "CRAFTING_MAX_IMBUED_ITEMS": {
    "raw": "{\n  NOVICE: 0,\n  APPRENTICE: 1,\n  MASTER: 2,\n  FORGEMASTER: 3,\n}",
-   "order": 266,
+   "order": 267,
    "ts_type": "Record<CRAFTING_RANK, number>",
    "kind": "expr"
   },
   "CRAFTING_TIMES_MINS": {
    "raw": "{\n  NOVICE: {\n    COMMON: 60,\n    RARE: 0, // Cannot craft rare items\n    EPIC: 0, // Cannot craft epic items\n    LEGENDARY: 0, // Cannot craft legendary items\n  },\n  APPRENTICE: {\n    COMMON: 40,\n    RARE: 65,\n    EPIC: 0, // Cannot craft epic items\n    LEGENDARY: 0, // Cannot craft legendary items\n  },\n  MASTER: {\n    COMMON: 30,\n    RARE: 50,\n    EPIC: 70,\n    LEGENDARY: 0, // Cannot craft legendary items\n  },\n  FORGEMASTER: {\n    COMMON: 15,\n    RARE: 30,\n    EPIC: 60,\n    LEGENDARY: 160,\n  },\n}",
-   "order": 267,
+   "order": 268,
    "ts_type": "Record<CRAFTING_RANK, Record<ItemRarity, number>>",
    "kind": "expr"
   },
   "CONSUMABLE_CRAFTING_TIMES_MINS": {
    "raw": "{\n  COMMON: 5,\n  RARE: 10,\n  EPIC: 15,\n  LEGENDARY: 20,\n}",
-   "order": 268,
+   "order": 269,
    "ts_type": "Record<ItemRarity, number>",
    "doc": "Static crafting times for consumables (doesn't scale with rank)",
    "kind": "expr"
   },
   "AI_PROFILE_MAX_RULES": {
    "raw": "20",
-   "order": 269,
+   "order": 270,
    "doc": "Ai profile config",
    "value": 20,
    "kind": "number"
   },
   "JUTSU_XP_TO_LEVEL": {
    "raw": "1000",
-   "order": 270,
+   "order": 271,
    "doc": "Training config",
    "value": 1000,
    "kind": "number"
   },
   "JUTSU_LEVEL_CAP": {
    "raw": "20",
-   "order": 271,
+   "order": 272,
    "value": 20,
    "kind": "number"
   },
   "JUTSU_TRAIN_LEVEL_CAP": {
    "raw": "25",
-   "order": 272,
+   "order": 273,
    "value": 25,
    "kind": "number"
   },
   "MAX_DAILY_TRAININGS": {
    "raw": "64",
-   "order": 273,
+   "order": 274,
    "value": 64,
    "kind": "number"
   },
   "MAX_JUTSU_TRAIN_TIME_MS": {
    "raw": "60 * 60 * 1000",
-   "order": 274,
+   "order": 275,
    "kind": "expr"
   },
   "ITEM_XP_TO_LEVEL": {
    "raw": "1000",
-   "order": 275,
+   "order": 276,
    "doc": "Default Item.xpToLevel when creating/editing items; each item can override this.",
    "value": 1000,
    "kind": "number"
   },
   "ITEM_LEVEL_CAP": {
    "raw": "25",
-   "order": 276,
+   "order": 277,
    "value": 25,
    "kind": "number"
   },
   "ITEM_XP_ON_WIN": {
    "raw": "200",
-   "order": 277,
+   "order": 278,
    "value": 200,
    "kind": "number"
   },
   "ITEM_XP_ON_LOSS": {
    "raw": "100",
-   "order": 278,
+   "order": 279,
    "value": 100,
    "kind": "number"
   },
   "ITEM_XP_BATTLE_TYPES": {
    "raw": "[\n  \"COMBAT\",\n  \"RANKED_PVP\",\n  \"KAGE_PVP\",\n  \"CLAN_BATTLE\",\n  \"TOURNAMENT\",\n  \"SHRINE_WAR\",\n]",
-   "order": 279,
+   "order": 280,
    "ts_type": "BattleType[]",
    "value": [
     "COMBAT",
@@ -2470,33 +2438,33 @@
   },
   "EVOLUTION_MAX_CHILDREN": {
    "raw": "3",
-   "order": 280,
-   "doc": "Shared evolution graph limits (jutsu, items, \u2026).",
+   "order": 281,
+   "doc": "Shared evolution graph limits (jutsu, items, …).",
    "value": 3,
    "kind": "number"
   },
   "EVOLUTION_MAX_DEPTH": {
    "raw": "3",
-   "order": 281,
+   "order": 282,
    "value": 3,
    "kind": "number"
   },
   "BATTLE_ARENA_DAILY_LIMIT": {
    "raw": "99999",
-   "order": 282,
+   "order": 283,
    "doc": "Combat config",
    "value": 99999,
    "kind": "number"
   },
   "BATTLE_TAG_STACKING": {
    "raw": "true",
-   "order": 283,
+   "order": 284,
    "value": true,
    "kind": "boolean"
   },
   "RANKS_RESTRICTED_FROM_PVP": {
    "raw": "[\"STUDENT\", \"GENIN\"]",
-   "order": 284,
+   "order": 285,
    "value": [
     "STUDENT",
     "GENIN"
@@ -2505,20 +2473,20 @@
   },
   "STREAK_LEVEL_DIFF": {
    "raw": "10",
-   "order": 285,
+   "order": 286,
    "value": 10,
    "kind": "number"
   },
   "SHIELD_MAX_HEALTH": {
    "raw": "100000",
-   "order": 286,
+   "order": 287,
    "doc": "Upper bound on the HP a single shield effect may hold. Enforced by ShieldTag.health and used to clamp shields generated in combat (e.g. by the consume tag) so they can never exceed what the schema accepts.",
    "value": 100000,
    "kind": "number"
   },
   "POST_DAMAGE_MODIFIER_TYPES": {
    "raw": "[\n  \"wound\",\n  \"afterburn\",\n  \"reflect\",\n  \"recoil\",\n  \"lifesteal\",\n  \"absorb\",\n  \"vamp\",\n  \"consume\",\n]",
-   "order": 287,
+   "order": 288,
    "ts_type": "string[]",
    "doc": "Effect types that depend on post-mitigated damage values. These must be processed AFTER damage modifiers and pierce have been applied.",
    "value": [
@@ -2535,235 +2503,235 @@
   },
   "RYO_FOR_REP_DAYS_FROZEN": {
    "raw": "3",
-   "order": 288,
+   "order": 289,
    "doc": "Black market config",
    "value": 3,
    "kind": "number"
   },
   "RYO_FOR_REP_DAYS_AUTO_DELIST": {
    "raw": "30",
-   "order": 289,
+   "order": 290,
    "value": 30,
    "kind": "number"
   },
   "RYO_FOR_REP_MAX_LISTINGS": {
    "raw": "5",
-   "order": 290,
+   "order": 291,
    "value": 5,
    "kind": "number"
   },
   "RYO_FOR_REP_MIN_REPS": {
    "raw": "10",
-   "order": 291,
+   "order": 292,
    "value": 10,
    "kind": "number"
   },
   "PITY_BLOODLINE_ROLLS": {
    "raw": "200",
-   "order": 292,
+   "order": 293,
    "value": 200,
    "kind": "number"
   },
   "PITY_SYSTEM_ENABLED": {
    "raw": "true",
-   "order": 293,
+   "order": 294,
    "value": true,
    "kind": "boolean"
   },
   "MAX_REPS_PER_MONTH": {
    "raw": "4000",
-   "order": 294,
+   "order": 295,
    "doc": "Reputation purchase config",
    "value": 4000,
    "kind": "number"
   },
   "MAX_REPS_EXTRA_PER_MONTH": {
    "raw": "250",
-   "order": 295,
+   "order": 296,
    "value": 250,
    "kind": "number"
   },
   "FED_NORMAL_REPS_COST": {
    "raw": "15",
-   "order": 296,
+   "order": 297,
    "doc": "Federal config",
    "value": 15,
    "kind": "number"
   },
   "FED_SILVER_REPS_COST": {
    "raw": "35",
-   "order": 297,
+   "order": 298,
    "value": 35,
    "kind": "number"
   },
   "FED_GOLD_REPS_COST": {
    "raw": "50",
-   "order": 298,
+   "order": 299,
    "value": 50,
    "kind": "number"
   },
   "FED_NORMAL_BANK_INTEREST": {
    "raw": "2",
-   "order": 299,
+   "order": 300,
    "value": 2,
    "kind": "number"
   },
   "FED_SILVER_BANK_INTEREST": {
    "raw": "5",
-   "order": 300,
+   "order": 301,
    "value": 5,
    "kind": "number"
   },
   "FED_GOLD_BANK_INTEREST": {
    "raw": "8",
-   "order": 301,
+   "order": 302,
    "value": 8,
    "kind": "number"
   },
   "FED_NORMAL_INVENTORY_SLOTS": {
    "raw": "2",
-   "order": 302,
+   "order": 303,
    "value": 2,
    "kind": "number"
   },
   "FED_SILVER_INVENTORY_SLOTS": {
    "raw": "5",
-   "order": 303,
+   "order": 304,
    "value": 5,
    "kind": "number"
   },
   "FED_GOLD_INVENTORY_SLOTS": {
    "raw": "10",
-   "order": 304,
+   "order": 305,
    "value": 10,
    "kind": "number"
   },
   "FED_NORMAL_JUTSU_SLOTS": {
    "raw": "1",
-   "order": 305,
+   "order": 306,
    "value": 1,
    "kind": "number"
   },
   "FED_SILVER_JUTSU_SLOTS": {
    "raw": "2",
-   "order": 306,
+   "order": 307,
    "value": 2,
    "kind": "number"
   },
   "FED_GOLD_JUTSU_SLOTS": {
    "raw": "3",
-   "order": 307,
+   "order": 308,
    "value": 3,
    "kind": "number"
   },
   "FED_JUTSU_LOADOUTS_BASE": {
    "raw": "2",
-   "order": 308,
+   "order": 309,
    "value": 2,
    "kind": "number"
   },
   "FED_NORMAL_JUTSU_LOADOUTS": {
    "raw": "1",
-   "order": 309,
+   "order": 310,
    "value": 1,
    "kind": "number"
   },
   "FED_SILVER_JUTSU_LOADOUTS": {
    "raw": "2",
-   "order": 310,
+   "order": 311,
    "value": 2,
    "kind": "number"
   },
   "FED_GOLD_JUTSU_LOADOUTS": {
    "raw": "3",
-   "order": 311,
+   "order": 312,
    "value": 3,
    "kind": "number"
   },
   "FED_ITEM_LOADOUTS_BASE": {
    "raw": "2",
-   "order": 312,
+   "order": 313,
    "value": 2,
    "kind": "number"
   },
   "FED_NORMAL_ITEM_LOADOUTS": {
    "raw": "1",
-   "order": 313,
+   "order": 314,
    "value": 1,
    "kind": "number"
   },
   "FED_SILVER_ITEM_LOADOUTS": {
    "raw": "2",
-   "order": 314,
+   "order": 315,
    "value": 2,
    "kind": "number"
   },
   "FED_GOLD_ITEM_LOADOUTS": {
    "raw": "3",
-   "order": 315,
+   "order": 316,
    "value": 3,
    "kind": "number"
   },
   "LOADOUT_NAME_MAX_LENGTH": {
    "raw": "24",
-   "order": 316,
+   "order": 317,
    "value": 24,
    "kind": "number"
   },
   "ACTION_LOG_RELATED_MSG_MAX_LENGTH": {
    "raw": "191",
-   "order": 317,
+   "order": 318,
    "doc": "Matches the `actionLog.relatedText` varchar column width; audit text must be clamped to this before insert or a long reason fails the write.",
    "value": 191,
    "kind": "number"
   },
   "SEICHI_SILVER_ADJUST_LIMIT": {
    "raw": "1_000_000",
-   "order": 318,
+   "order": 319,
    "doc": "Max magnitude of a single staff Seichi Silver adjustment (shared by the zod schema and the client-side form validation so the bounds stay in sync).",
    "value": 1000000,
    "kind": "number"
   },
   "FED_EVENT_ITEMS_NORMAL": {
    "raw": "15",
-   "order": 319,
+   "order": 320,
    "value": 15,
    "kind": "number"
   },
   "FED_EVENT_ITEMS_SILVER": {
    "raw": "20",
-   "order": 320,
+   "order": 321,
    "value": 20,
    "kind": "number"
   },
   "FED_EVENT_ITEMS_GOLD": {
    "raw": "25",
-   "order": 321,
+   "order": 322,
    "value": 25,
    "kind": "number"
   },
   "FED_EVENT_ITEMS_DEFAULT": {
    "raw": "10",
-   "order": 322,
+   "order": 323,
    "value": 10,
    "kind": "number"
   },
   "ERRANDS_PER_DAY": {
    "raw": "50",
-   "order": 323,
+   "order": 324,
    "doc": "Missions config",
    "value": 50,
    "kind": "number"
   },
   "MISSIONS_PER_DAY": {
    "raw": "20",
-   "order": 324,
+   "order": 325,
    "value": 20,
    "kind": "number"
   },
   "OVERWORLD_QUEST_ROLLS_PER_DAY": {
    "raw": "MISSIONS_PER_DAY",
-   "order": 325,
+   "order": 326,
    "doc": "Overworld friendly-NPC quest-give attempts a player gets per day; mirrors the daily mission cap.",
    "kind": "number",
    "value": 20,
@@ -2771,14 +2739,14 @@
   },
   "TERMINAL_DIALOG_PREFIX": {
    "raw": "\"__terminal__:\"",
-   "order": 326,
+   "order": 327,
    "doc": "Sentinel a client sends as a dialog \"contentId\"/\"nextObjectiveId\" when the player picks a terminal dialog branch (a branch with no follow-up objective). The suffix is the dialog objective's own id, so the server completes exactly that objective without routing onward. The prefix distinguishes it from a real next-objective id (plain nanoids, never prefixed), so it can never be mistaken for routing.",
    "value": "__terminal__:",
    "kind": "string"
   },
   "OverworldInteractionTypes": {
    "raw": "[\"FRIENDLY\", \"HOSTILE\"]",
-   "order": 327,
+   "order": 328,
    "value": [
     "FRIENDLY",
     "HOSTILE"
@@ -2787,7 +2755,7 @@
   },
   "OverworldSectorTypes": {
    "raw": "[\"specific\", \"random\", \"from_list\"]",
-   "order": 328,
+   "order": 329,
    "value": [
     "specific",
     "random",
@@ -2797,7 +2765,7 @@
   },
   "OverworldLocationTypes": {
    "raw": "[\"specific\", \"random\"]",
-   "order": 329,
+   "order": 330,
    "value": [
     "specific",
     "random"
@@ -2806,265 +2774,265 @@
   },
   "MEDICAL_MISSIONS_PER_DAY": {
    "raw": "9",
-   "order": 330,
+   "order": 331,
    "value": 9,
    "kind": "number"
   },
   "PVP_MISSIONS_PER_DAY": {
    "raw": "12",
-   "order": 331,
+   "order": 332,
    "value": 12,
    "kind": "number"
   },
   "MISSIONS_FULL_REWARD_COUNT": {
    "raw": "9",
-   "order": 332,
+   "order": 333,
    "doc": "Last daily mission that still pays full rewards. The 10th+ pay the reduced multiplier.",
    "value": 9,
    "kind": "number"
   },
   "ADDITIONAL_MISSION_REWARD_MULTIPLIER": {
    "raw": "0.4",
-   "order": 333,
+   "order": 334,
    "value": 0.4,
    "kind": "number"
   },
   "WAR_VILLAGE_MAX_SECTORS": {
    "raw": "12",
-   "order": 334,
+   "order": 335,
    "doc": "War config",
    "value": 12,
    "kind": "number"
   },
   "WAR_FACTION_MAX_SECTORS": {
    "raw": "6",
-   "order": 335,
+   "order": 336,
    "value": 6,
    "kind": "number"
   },
   "WAR_MINIMUM_TOKENS_FOR_BEING_ATTACKABLE": {
    "raw": "10000",
-   "order": 336,
+   "order": 337,
    "value": 10000,
    "kind": "number"
   },
   "WAR_MINIMUM_MEMBERS_REQUIRED": {
    "raw": "10",
-   "order": 337,
+   "order": 338,
    "value": 10,
    "kind": "number"
   },
   "WAR_WINNING_BOOST_DAYS": {
    "raw": "3",
-   "order": 338,
+   "order": 339,
    "value": 3,
    "kind": "number"
   },
   "WAR_WINNING_BOOST_REGEN_PERC": {
    "raw": "40",
-   "order": 339,
+   "order": 340,
    "value": 40,
    "kind": "number"
   },
   "WAR_WINNING_BOOST_TRAINING_PERC": {
    "raw": "20",
-   "order": 340,
+   "order": 341,
    "value": 20,
    "kind": "number"
   },
   "WAR_TOKEN_REDUCTION_INTERVAL_HOURS": {
    "raw": "24",
-   "order": 341,
+   "order": 342,
    "value": 24,
    "kind": "number"
   },
   "WAR_LOSING_COOLDOWN_DAYS": {
    "raw": "10",
-   "order": 342,
+   "order": 343,
    "value": 10,
    "kind": "number"
   },
   "WAR_WINNING_COOLDOWN_DAYS": {
    "raw": "3",
-   "order": 343,
+   "order": 344,
    "value": 3,
    "kind": "number"
   },
   "WAR_STRUCTURE_UPGRADE_BLOCK_DAYS": {
    "raw": "7",
-   "order": 344,
+   "order": 345,
    "value": 7,
    "kind": "number"
   },
   "WAR_VICTORY_TOKEN_BONUS": {
    "raw": "3000000",
-   "order": 345,
+   "order": 346,
    "value": 3000000,
    "kind": "number"
   },
   "WAR_PURCHASE_SHRINE_TOKEN_COST": {
    "raw": "100000",
-   "order": 346,
+   "order": 347,
    "value": 100000,
    "kind": "number"
   },
   "WAR_DECLARATION_COST": {
    "raw": "1000000",
-   "order": 347,
+   "order": 348,
    "value": 1000000,
    "kind": "number"
   },
   "WAR_DECLARATION_COOLDOWN_HOURS": {
    "raw": "24",
-   "order": 348,
+   "order": 349,
    "value": 24,
    "kind": "number"
   },
   "WAR_MISSIONS_PER_DAY": {
    "raw": "5",
-   "order": 349,
+   "order": 350,
    "value": 5,
    "kind": "number"
   },
   "WAR_ATTACKER_EXHAUSTION_MULTIPLIER": {
    "raw": "1.1",
-   "order": 350,
+   "order": 351,
    "value": 1.1,
    "kind": "number"
   },
   "WAR_ALLY_OFFER_MIN": {
    "raw": "1000",
-   "order": 351,
+   "order": 352,
    "value": 1000,
    "kind": "number"
   },
   "WAR_ALLY_MAX_PAYMENT_PERCENTAGE": {
    "raw": "0.2",
-   "order": 352,
+   "order": 353,
    "value": 0.2,
    "kind": "number"
   },
   "WAR_INSTANCE_HEALTH": {
    "raw": "10000",
-   "order": 353,
+   "order": 354,
    "doc": "War health system (per-instance health pools)",
    "value": 10000,
    "kind": "number"
   },
   "WAR_HEALTH_REMOVE": {
    "raw": "5",
-   "order": 354,
+   "order": 355,
    "doc": "War health damage/recovery per kill by rank",
    "value": 5,
    "kind": "number"
   },
   "WAR_HEALTH_RECOVER": {
    "raw": "2",
-   "order": 355,
+   "order": 356,
    "value": 2,
    "kind": "number"
   },
   "WAR_HEALTH_ANBU_REMOVE": {
    "raw": "10",
-   "order": 356,
+   "order": 357,
    "value": 10,
    "kind": "number"
   },
   "WAR_HEALTH_ANBU_RECOVER": {
    "raw": "5",
-   "order": 357,
+   "order": 358,
    "value": 5,
    "kind": "number"
   },
   "WAR_HEALTH_ASSASSIN_REMOVE": {
    "raw": "10",
-   "order": 358,
+   "order": 359,
    "value": 10,
    "kind": "number"
   },
   "WAR_HEALTH_ASSASSIN_RECOVER": {
    "raw": "5",
-   "order": 359,
+   "order": 360,
    "value": 5,
    "kind": "number"
   },
   "WAR_HEALTH_ELDER_REMOVE": {
    "raw": "15",
-   "order": 360,
+   "order": 361,
    "value": 15,
    "kind": "number"
   },
   "WAR_HEALTH_ELDER_RECOVER": {
    "raw": "10",
-   "order": 361,
+   "order": 362,
    "value": 10,
    "kind": "number"
   },
   "WAR_HEALTH_COLEADER_REMOVE": {
    "raw": "15",
-   "order": 362,
+   "order": 363,
    "value": 15,
    "kind": "number"
   },
   "WAR_HEALTH_COLEADER_RECOVER": {
    "raw": "10",
-   "order": 363,
+   "order": 364,
    "value": 10,
    "kind": "number"
   },
   "WAR_HEALTH_KAGE_REMOVE": {
    "raw": "35",
-   "order": 364,
+   "order": 365,
    "value": 35,
    "kind": "number"
   },
   "WAR_HEALTH_KAGE_RECOVER": {
    "raw": "15",
-   "order": 365,
+   "order": 366,
    "value": 15,
    "kind": "number"
   },
   "WAR_HEALTH_KAGEDEATH_REMOVE": {
    "raw": "50",
-   "order": 366,
+   "order": 367,
    "value": 50,
    "kind": "number"
   },
   "WAR_SECTOR_LOSS_TOWNHALL_DAMAGE": {
    "raw": "300",
-   "order": 367,
+   "order": 368,
    "doc": "Sector control impact on townhall",
    "value": 300,
    "kind": "number"
   },
   "WAR_SECTOR_RECAPTURE_TOWNHALL_HEAL": {
    "raw": "150",
-   "order": 368,
+   "order": 369,
    "value": 150,
    "kind": "number"
   },
   "WAR_SECTOR_RECAPTURE_WINDOW_DAYS": {
    "raw": "7",
-   "order": 369,
+   "order": 370,
    "value": 7,
    "kind": "number"
   },
   "WAR_VICTORY_STRUCTURE_BOOST_LEVELS": {
    "raw": "3",
-   "order": 370,
+   "order": 371,
    "doc": "Enhanced rewards",
    "value": 3,
    "kind": "number"
   },
   "WAR_VICTORY_STRUCTURE_BOOST_DAYS": {
    "raw": "5",
-   "order": 371,
+   "order": 372,
    "value": 5,
    "kind": "number"
   },
   "WAR_VICTORY_BOOSTED_STRUCTURES": {
    "raw": "[\n  \"/traininggrounds\",\n  \"/ramenshop\",\n  \"/missionhall\",\n  \"/home\",\n  \"/battlearena\",\n]",
-   "order": 372,
+   "order": 373,
    "value": [
     "/traininggrounds",
     "/ramenshop",
@@ -3076,121 +3044,121 @@
   },
   "WAR_DEFEAT_STRUCTURE_PENALTY_LEVELS": {
    "raw": "3",
-   "order": 373,
+   "order": 374,
    "doc": "Enhanced punishment",
    "value": 3,
    "kind": "number"
   },
   "WAR_DEFEAT_STRUCTURE_PENALTY_DAYS": {
    "raw": "7",
-   "order": 374,
+   "order": 375,
    "value": 7,
    "kind": "number"
   },
   "WAR_DAILY_TOKEN_DECAY_PERCENT_BASE": {
    "raw": "3",
-   "order": 375,
+   "order": 376,
    "doc": "Percentage-based token decay",
    "value": 3,
    "kind": "number"
   },
   "WAR_DAILY_TOKEN_DECAY_PERCENT_DAY_5": {
    "raw": "6",
-   "order": 376,
+   "order": 377,
    "value": 6,
    "kind": "number"
   },
   "WAR_DAILY_TOKEN_DECAY_PERCENT_DAY_8": {
    "raw": "10",
-   "order": 377,
+   "order": 378,
    "value": 10,
    "kind": "number"
   },
   "WAR_DAILY_HEALTH_DRAIN": {
    "raw": "400",
-   "order": 378,
+   "order": 379,
    "doc": "Daily war health drain (affects both sides equally each day)",
    "value": 400,
    "kind": "number"
   },
   "WAR_MAX_DURATION_DAYS": {
    "raw": "14",
-   "order": 379,
+   "order": 380,
    "doc": "War duration limit",
    "value": 14,
    "kind": "number"
   },
   "SKILL_POINT_MIN_LEVEL": {
    "raw": "31",
-   "order": 380,
+   "order": 381,
    "doc": "Skill point leveling constants",
    "value": 31,
    "kind": "number"
   },
   "MAX_SKILL_POINTS_FROM_LEVELING": {
    "raw": "20",
-   "order": 381,
+   "order": 382,
    "value": 20,
    "kind": "number"
   },
   "SKILL_POINT_MAX_LEVEL": {
    "raw": "SKILL_POINT_MIN_LEVEL + MAX_SKILL_POINTS_FROM_LEVELING - 1",
-   "order": 382,
+   "order": 383,
    "kind": "number",
    "value": 50,
    "derived_from": "SKILL_POINT_MIN_LEVEL + MAX_SKILL_POINTS_FROM_LEVELING - 1"
   },
   "WAR_SECTORWAR_AI_SHRINE_REDUCE": {
    "raw": "10",
-   "order": 383,
+   "order": 384,
    "value": 10,
    "kind": "number"
   },
   "WAR_SECTORWAR_AI_SHRINE_RECOVER": {
    "raw": "3",
-   "order": 384,
+   "order": 385,
    "value": 3,
    "kind": "number"
   },
   "WAR_SECTORWAR_PVP_SHRINE_REDUCE": {
    "raw": "20",
-   "order": 385,
+   "order": 386,
    "value": 20,
    "kind": "number"
   },
   "WAR_SECTORWAR_PVP_SHRINE_RECOVER": {
    "raw": "7",
-   "order": 386,
+   "order": 387,
    "value": 7,
    "kind": "number"
   },
   "WAR_RAID_SHRINE_HP": {
    "raw": "500",
-   "order": 387,
+   "order": 388,
    "value": 500,
    "kind": "number"
   },
   "WAR_SHRINE_CAPTURE_WARHEALTH_DMG": {
    "raw": "200",
-   "order": 388,
+   "order": 389,
    "value": 200,
    "kind": "number"
   },
   "WAR_SHRINE_RECAPTURE_WARHEALTH_HEAL": {
    "raw": "150",
-   "order": 389,
+   "order": 390,
    "value": 150,
    "kind": "number"
   },
   "WAR_RECAPTURE_THRESHOLD": {
    "raw": "0.25",
-   "order": 390,
+   "order": 391,
    "value": 0.25,
    "kind": "number"
   },
   "SHRINE_STATUSES": {
    "raw": "[\"ACTIVE\", \"CAPTURED\"]",
-   "order": 391,
+   "order": 392,
    "value": [
     "ACTIVE",
     "CAPTURED"
@@ -3199,26 +3167,26 @@
   },
   "WAR_SHRINE_IMAGE": {
    "raw": "\"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJxtEfghWZsq9k0Von5rUfP6OgQ2TyptCKHS4u.webp\"",
-   "order": 392,
+   "order": 393,
    "value": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJxtEfghWZsq9k0Von5rUfP6OgQ2TyptCKHS4u.webp",
    "kind": "string"
   },
   "WAR_SHRINE_IMAGE_BY_BIOME": {
    "raw": "{\n  ocean:\n    \"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJe7TE7RyV3OvUJQExAi0bGoIZDF74LqSnHRdp.webp\",\n  ground: WAR_SHRINE_IMAGE,\n  dessert:\n    \"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJe7TE7RyV3OvUJQExAi0bGoIZDF74LqSnHRdp.webp\",\n  ice: \"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJco2C06SnxBpQqGNDcTHbLmYz8uXAl3oa54ti.webp\",\n  snow: \"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJco2C06SnxBpQqGNDcTHbLmYz8uXAl3oa54ti.webp\",\n  arena: WAR_SHRINE_IMAGE,\n  default: WAR_SHRINE_IMAGE,\n}",
-   "order": 393,
+   "order": 394,
    "ts_type": "Record<CombatBiome, string>",
    "doc": "Sector-map shrine sprite per sector biome, so the shrine's baked ground patch matches the terrain it stands on (water sectors use the desert variant - the tiles beneath become a sand island).",
    "kind": "expr"
   },
   "WAR_RAMEN_IMAGE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/6407eedd-9382-41e9-b27d-eb02afe87ce9-srb0e7.webp\"",
-   "order": 394,
+   "order": 395,
    "value": "https://uploadthing.b-cdn.net/f/6407eedd-9382-41e9-b27d-eb02afe87ce9-srb0e7.webp",
    "kind": "string"
   },
   "WAR_STATES": {
    "raw": "[\n  \"ACTIVE\",\n  \"ATTACKER_VICTORY\",\n  \"DEFENDER_VICTORY\",\n  \"DRAW\",\n]",
-   "order": 395,
+   "order": 396,
    "value": [
     "ACTIVE",
     "ATTACKER_VICTORY",
@@ -3229,13 +3197,13 @@
   },
   "WAR_SHRINE_MAINTENANCE_DAYS": {
    "raw": "7",
-   "order": 396,
+   "order": 397,
    "value": 7,
    "kind": "number"
   },
   "WAR_TYPES": {
    "raw": "[\"VILLAGE_WAR\", \"SECTOR_WAR\", \"WAR_RAID\"]",
-   "order": 397,
+   "order": 398,
    "value": [
     "VILLAGE_WAR",
     "SECTOR_WAR",
@@ -3245,71 +3213,71 @@
   },
   "SHRINE_MAX_PER_VILLAGE": {
    "raw": "4",
-   "order": 398,
+   "order": 399,
    "value": 4,
    "kind": "number"
   },
   "SHRINE_BOOST_COST": {
    "raw": "15_000",
-   "order": 399,
+   "order": 400,
    "value": 15000,
    "kind": "number"
   },
   "SHRINE_BOOST_BASE_PERC": {
    "raw": "10",
-   "order": 400,
+   "order": 401,
    "value": 10,
    "kind": "number"
   },
   "SHRINE_BOOST_PER_SHRINE_PERC": {
    "raw": "3.33",
-   "order": 401,
+   "order": 402,
    "value": 3.33,
    "kind": "number"
   },
   "SHRINE_UPGRADE_COST": {
    "raw": "60_000",
-   "order": 402,
+   "order": 403,
    "value": 60000,
    "kind": "number"
   },
   "SHRINE_BOOST_DURATION_HOURS": {
    "raw": "2",
-   "order": 403,
+   "order": 404,
    "value": 2,
    "kind": "number"
   },
   "SHRINE_AI_UNLOCK_COST": {
    "raw": "10_000",
-   "order": 404,
+   "order": 405,
    "value": 10000,
    "kind": "number"
   },
   "SHRINE_WEEKLY_MAINTENANCE_COST": {
    "raw": "5_000",
-   "order": 405,
+   "order": 406,
    "value": 5000,
    "kind": "number"
   },
   "SHRINE_MAX_AI_ASSIGNMENTS": {
    "raw": "3",
-   "order": 406,
+   "order": 407,
    "value": 3,
    "kind": "number"
   },
   "SHRINE_HP_BY_LEVEL": {
    "raw": "{ 1: 3000, 2: 4000, 3: 5000 }",
-   "order": 407,
+   "order": 408,
    "kind": "expr"
   },
   "SHRINE_MAX_LEVEL": {
    "raw": "Math.max(\n  ...Object.keys(SHRINE_HP_BY_LEVEL).map(Number),\n)",
-   "order": 408,
+   "order": 409,
    "kind": "expr"
   },
   "SHRINE_BOOST_TYPES": {
    "raw": "[\n  \"Training\",\n  \"PVP\",\n  \"Mission\",\n  \"Errands\",\n  \"Crafting\",\n]",
-   "order": 409,
+   "order": 410,
    "value": [
     "Training",
     "PVP",
@@ -3321,63 +3289,63 @@
   },
   "SHRINE_BOOST_DISPLAY": {
    "raw": "{\n  Training: { color: \"bg-green-700 text-green-200\", abbrev: \"Trn\" },\n  PVP: { color: \"bg-purple-700 text-purple-200\", abbrev: \"PVP\" },\n  Mission: { color: \"bg-orange-700 text-orange-200\", abbrev: \"Mis\" },\n  Errands: { color: \"bg-red-700 text-red-200\", abbrev: \"Err\" },\n  Crafting: { color: \"bg-cyan-700 text-cyan-200\", abbrev: \"Crf\" },\n}",
-   "order": 410,
+   "order": 411,
    "ts_type": "Record< SHRINE_BOOST_TYPE, { color: string; abbrev: string } >",
    "doc": "Display metadata co-located with the canonical type list. Adding a new entry to SHRINE_BOOST_TYPES will produce a TS error here until matching display data is provided.",
    "kind": "expr"
   },
   "PVP_KILL_TOKEN_REWARD": {
    "raw": "300",
-   "order": 411,
+   "order": 412,
    "doc": "PvP Rewards",
    "value": 300,
    "kind": "number"
   },
   "PVP_KILL_TOKEN_REWARD_ANBU": {
    "raw": "500",
-   "order": 412,
+   "order": 413,
    "value": 500,
    "kind": "number"
   },
   "PVP_KILL_TOKEN_REWARD_ASSASSIN": {
    "raw": "500",
-   "order": 413,
+   "order": 414,
    "value": 500,
    "kind": "number"
   },
   "PVP_KILL_PRESTIGE_REWARD": {
    "raw": "150",
-   "order": 414,
+   "order": 415,
    "value": 150,
    "kind": "number"
   },
   "PVP_KILL_PRESTIGE_REWARD_ANBU": {
    "raw": "300",
-   "order": 415,
+   "order": 416,
    "value": 300,
    "kind": "number"
   },
   "PVP_KILL_PRESTIGE_REWARD_ASSASSIN": {
    "raw": "300",
-   "order": 416,
+   "order": 417,
    "value": 300,
    "kind": "number"
   },
   "PVP_KILL_ANBU_POINTS_REWARD": {
    "raw": "5",
-   "order": 417,
+   "order": 418,
    "value": 5,
    "kind": "number"
   },
   "WAR_TORN_SECTOR_BASE_MONEY": {
    "raw": "2000",
-   "order": 418,
+   "order": 419,
    "value": 2000,
    "kind": "number"
   },
   "MPVP_BATTLE_TYPES": {
    "raw": "[\n  \"CLAN_BATTLE\",\n  \"SHRINE_BATTLE\",\n  \"RAID_BATTLE\",\n]",
-   "order": 419,
+   "order": 420,
    "doc": "MPVP Battle Types (for generalized multiplayer PvP battles)",
    "value": [
     "CLAN_BATTLE",
@@ -3388,7 +3356,7 @@
   },
   "MPVP_BATTLE_SIDES": {
    "raw": "[\"ATTACKER\", \"DEFENDER\"]",
-   "order": 420,
+   "order": 421,
    "value": [
     "ATTACKER",
     "DEFENDER"
@@ -3397,125 +3365,125 @@
   },
   "SHRINE_BATTLE_MIN_ATTACKERS": {
    "raw": "2",
-   "order": 421,
+   "order": 422,
    "doc": "Shrine Battle Config",
    "value": 2,
    "kind": "number"
   },
   "SHRINE_BATTLE_MAX_USERS_PER_SIDE": {
    "raw": "3",
-   "order": 422,
+   "order": 423,
    "value": 3,
    "kind": "number"
   },
   "SHRINE_BATTLE_LOBBY_SECONDS": {
    "raw": "60",
-   "order": 423,
+   "order": 424,
    "value": 60,
    "kind": "number"
   },
   "SHRINE_BATTLE_STALE_LOBBY_SECONDS": {
    "raw": "300",
-   "order": 424,
+   "order": 425,
    "value": 300,
    "kind": "number"
   },
   "RAID_BATTLE_MAX_USERS_PER_TEAM": {
    "raw": "3",
-   "order": 425,
+   "order": 426,
    "doc": "Raid Battle Config",
    "value": 3,
    "kind": "number"
   },
   "RAID_MAX_CONCURRENT_TEAMS": {
    "raw": "5",
-   "order": 426,
+   "order": 427,
    "value": 5,
    "kind": "number"
   },
   "RAID_BATTLE_LOBBY_SECONDS": {
    "raw": "60",
-   "order": 427,
+   "order": 428,
    "value": 60,
    "kind": "number"
   },
   "RAID_CLAIMING_TIMEOUT_MS": {
    "raw": "30000",
-   "order": 428,
+   "order": 429,
    "value": 30000,
    "kind": "number"
   },
   "CLAN_MPVP_MAX_USERS_PER_SIDE": {
    "raw": "3",
-   "order": 429,
+   "order": 430,
    "doc": "Clans config",
    "value": 3,
    "kind": "number"
   },
   "CLAN_CREATE_PRESTIGE_REQUIREMENT": {
    "raw": "100",
-   "order": 430,
+   "order": 431,
    "value": 100,
    "kind": "number"
   },
   "CLAN_CREATE_RYO_COST": {
    "raw": "10000000",
-   "order": 431,
+   "order": 432,
    "value": 10000000,
    "kind": "number"
   },
   "CLAN_RANK_REQUIREMENT": {
    "raw": "\"GENIN\"",
-   "order": 432,
+   "order": 433,
    "value": "GENIN",
    "kind": "string"
   },
   "CLAN_MAX_MEMBERS": {
    "raw": "100",
-   "order": 433,
+   "order": 434,
    "value": 100,
    "kind": "number"
   },
   "ELDER_NOMINATION_CUTOFF_DAY": {
    "raw": "25",
-   "order": 434,
+   "order": 435,
    "doc": "Elder nomination schedule",
    "value": 25,
    "kind": "number"
   },
   "ELDER_NOMINATION_DEADLINE_DAY": {
    "raw": "28",
-   "order": 435,
+   "order": 436,
    "value": 28,
    "kind": "number"
   },
   "KAGE_ELDER_REMOVAL_LOCK_SECS": {
    "raw": "4 * 24 * 3600",
-   "order": 436,
+   "order": 437,
    "doc": "Elder governance",
    "kind": "expr"
   },
   "ELDER_MIN_VOTING_COUNT": {
    "raw": "3",
-   "order": 437,
+   "order": 438,
    "value": 3,
    "kind": "number"
   },
   "ELDER_WAR_VOTE_HOURS": {
    "raw": "24",
-   "order": 438,
+   "order": 439,
    "value": 24,
    "kind": "number"
   },
   "ELDER_KAGE_REMOVAL_VOTE_DAYS": {
    "raw": "7",
-   "order": 439,
+   "order": 440,
    "value": 7,
    "kind": "number"
   },
   "ELDER_VOTE_TYPES": {
    "raw": "[\"WAR_DECLARATION\", \"KAGE_REMOVAL\"]",
-   "order": 440,
+   "order": 441,
    "value": [
     "WAR_DECLARATION",
     "KAGE_REMOVAL"
@@ -3524,7 +3492,7 @@
   },
   "ELDER_VOTE_STATUSES": {
    "raw": "[\"PENDING\", \"APPROVED\", \"REJECTED\"]",
-   "order": 441,
+   "order": 442,
    "value": [
     "PENDING",
     "APPROVED",
@@ -3534,134 +3502,134 @@
   },
   "CLANS_PER_STRUCTURE_LEVEL": {
    "raw": "999999",
-   "order": 442,
+   "order": 443,
    "value": 999999,
    "kind": "number"
   },
   "CLAN_LOBBY_SECONDS": {
    "raw": "30",
-   "order": 443,
+   "order": 444,
    "value": 30,
    "kind": "number"
   },
   "CLAN_BATTLE_REWARD_POINTS": {
    "raw": "50",
-   "order": 444,
+   "order": 445,
    "value": 50,
    "kind": "number"
   },
   "CLAN_BOOST_MAX_LEVEL": {
    "raw": "10",
-   "order": 445,
+   "order": 446,
    "doc": "Clan boost system - Ryo-based",
    "value": 10,
    "kind": "number"
   },
   "CLAN_BOOST_PERCENT_PER_LEVEL": {
    "raw": "2",
-   "order": 446,
+   "order": 447,
    "value": 2,
    "kind": "number"
   },
   "CLAN_TRAINING_BOOST_BASE_COST": {
    "raw": "100000",
-   "order": 447,
+   "order": 448,
    "value": 100000,
    "kind": "number"
   },
   "CLAN_TRAINING_BOOST_PER_LEVEL_COST": {
    "raw": "30000",
-   "order": 448,
+   "order": 449,
    "value": 30000,
    "kind": "number"
   },
   "CLAN_RYO_BOOST_BASE_COST": {
    "raw": "50000",
-   "order": 449,
+   "order": 450,
    "value": 50000,
    "kind": "number"
   },
   "CLAN_RYO_BOOST_PER_LEVEL_COST": {
    "raw": "30000",
-   "order": 450,
+   "order": 451,
    "value": 30000,
    "kind": "number"
   },
   "CLAN_REGEN_BOOST_BASE_COST": {
    "raw": "50000",
-   "order": 451,
+   "order": 452,
    "value": 50000,
    "kind": "number"
   },
   "CLAN_REGEN_BOOST_PER_LEVEL_COST": {
    "raw": "20000",
-   "order": 452,
+   "order": 453,
    "value": 20000,
    "kind": "number"
   },
   "CLAN_MISSION_BOOST_BASE_COST": {
    "raw": "100000",
-   "order": 453,
+   "order": 454,
    "value": 100000,
    "kind": "number"
   },
   "CLAN_MISSION_BOOST_PER_LEVEL_COST": {
    "raw": "30000",
-   "order": 454,
+   "order": 455,
    "value": 30000,
    "kind": "number"
   },
   "CLAN_CRAFTING_TIME_BOOST_BASE_COST": {
    "raw": "200000",
-   "order": 455,
+   "order": 456,
    "value": 200000,
    "kind": "number"
   },
   "CLAN_CRAFTING_TIME_BOOST_PER_LEVEL_COST": {
    "raw": "30000",
-   "order": 456,
+   "order": 457,
    "value": 30000,
    "kind": "number"
   },
   "CLAN_CRAFTING_EXP_BOOST_BASE_COST": {
    "raw": "200000",
-   "order": 457,
+   "order": 458,
    "value": 200000,
    "kind": "number"
   },
   "CLAN_CRAFTING_EXP_BOOST_PER_LEVEL_COST": {
    "raw": "40000",
-   "order": 458,
+   "order": 459,
    "value": 40000,
    "kind": "number"
   },
   "CLAN_HUNTER_EXP_BOOST_BASE_COST": {
    "raw": "200000",
-   "order": 459,
+   "order": 460,
    "value": 200000,
    "kind": "number"
   },
   "CLAN_HUNTER_EXP_BOOST_PER_LEVEL_COST": {
    "raw": "40000",
-   "order": 460,
+   "order": 461,
    "value": 40000,
    "kind": "number"
   },
   "CLAN_GATHERER_EXP_BOOST_BASE_COST": {
    "raw": "200000",
-   "order": 461,
+   "order": 462,
    "value": 200000,
    "kind": "number"
   },
   "CLAN_GATHERER_EXP_BOOST_PER_LEVEL_COST": {
    "raw": "40000",
-   "order": 462,
+   "order": 463,
    "value": 40000,
    "kind": "number"
   },
   "ClanBoostTypes": {
    "raw": "[\n  \"trainingBoost\",\n  \"ryoBoost\",\n  \"regenBoost\",\n  \"missionRewardBoost\",\n  \"craftingTimeBoost\",\n  \"craftingExpBoost\",\n  \"hunterExpBoost\",\n  \"gathererExpBoost\",\n]",
-   "order": 463,
+   "order": 464,
    "value": [
     "trainingBoost",
     "ryoBoost",
@@ -3676,19 +3644,19 @@
   },
   "CLAN_BOOST_CONFIG": {
    "raw": "{\n  trainingBoost: {\n    baseCost: CLAN_TRAINING_BOOST_BASE_COST,\n    perLevelCost: CLAN_TRAINING_BOOST_PER_LEVEL_COST,\n    label: \"Training boost\",\n    factionOnly: false,\n  },\n  ryoBoost: {\n    baseCost: CLAN_RYO_BOOST_BASE_COST,\n    perLevelCost: CLAN_RYO_BOOST_PER_LEVEL_COST,\n    label: \"Ryo boost\",\n    factionOnly: false,\n  },\n  regenBoost: {\n    baseCost: CLAN_REGEN_BOOST_BASE_COST,\n    perLevelCost: CLAN_REGEN_BOOST_PER_LEVEL_COST,\n    label: \"Regen boost\",\n    factionOnly: false,\n  },\n  missionRewardBoost: {\n    baseCost: CLAN_MISSION_BOOST_BASE_COST,\n    perLevelCost: CLAN_MISSION_BOOST_PER_LEVEL_COST,\n    label: \"Mission reward boost\",\n    factionOnly: false,\n  },\n  craftingTimeBoost: {\n    baseCost: CLAN_CRAFTING_TIME_BOOST_BASE_COST,\n    perLevelCost: CLAN_CRAFTING_TIME_BOOST_PER_LEVEL_COST,\n    label: \"Crafting time reduction\",\n    factionOnly: false,\n  },\n  craftingExpBoost: {\n    baseCost: CLAN_CRAFTING_EXP_BOOST_BASE_COST,\n    perLevelCost: CLAN_CRAFTING_EXP_BOOST_PER_LEVEL_COST,\n    label: \"Crafting experience boost\",\n    factionOnly: false,\n  },\n  hunterExpBoost: {\n    baseCost: CLAN_HUNTER_EXP_BOOST_BASE_COST,\n    perLevelCost: CLAN_HUNTER_EXP_BOOST_PER_LEVEL_COST,\n    label: \"Hunter experience boost\",\n    factionOnly: false,\n  },\n  gathererExpBoost: {\n    baseCost: CLAN_GATHERER_EXP_BOOST_BASE_COST,\n    perLevelCost: CLAN_GATHERER_EXP_BOOST_PER_LEVEL_COST,\n    label: \"Gatherer experience boost\",\n    factionOnly: false,\n  },\n}",
-   "order": 464,
+   "order": 465,
    "ts_type": "Record< ClanBoostType, { baseCost: number; perLevelCost: number; label: string; factionOnly: boolean } >",
    "kind": "expr"
   },
   "CLAN_COLOR_CHANGE_REP_COST": {
    "raw": "50",
-   "order": 465,
+   "order": 466,
    "value": 50,
    "kind": "number"
   },
   "CLAN_ASSASSIN_SLOTS": {
    "raw": "[\n  \"assassin1\",\n  \"assassin2\",\n  \"assassin3\",\n  \"assassin4\",\n  \"assassin5\",\n  \"assassin6\",\n  \"assassin7\",\n  \"assassin8\",\n  \"assassin9\",\n  \"assassin10\",\n]",
-   "order": 466,
+   "order": 467,
    "value": [
     "assassin1",
     "assassin2",
@@ -3705,57 +3673,57 @@
   },
   "ASSASSIN_MAX_PER_FACTION": {
    "raw": "10",
-   "order": 467,
+   "order": 468,
    "doc": "Assassin config (factions only)",
    "value": 10,
    "kind": "number"
   },
   "HIDEOUT_COST": {
    "raw": "50_000_000",
-   "order": 468,
+   "order": 469,
    "doc": "Hideout and town costs",
    "value": 50000000,
    "kind": "number"
   },
   "HIDEOUT_TOWN_UPGRADE": {
    "raw": "2_000",
-   "order": 469,
+   "order": 470,
    "value": 2000,
    "kind": "number"
   },
   "TOWN_REESTABLISH_COST": {
    "raw": "30_000_000",
-   "order": 470,
+   "order": 471,
    "value": 30000000,
    "kind": "number"
   },
   "TOWN_MONTHLY_MAINTENANCE": {
    "raw": "30_000",
-   "order": 471,
+   "order": 472,
    "value": 30000,
    "kind": "number"
   },
   "FACTION_MIN_POINTS_FOR_TOWN": {
    "raw": "1_000_000",
-   "order": 472,
+   "order": 473,
    "value": 1000000,
    "kind": "number"
   },
   "FACTION_MIN_MEMBERS_FOR_TOWN": {
    "raw": "30",
-   "order": 473,
+   "order": 474,
    "value": 30,
    "kind": "number"
   },
   "TOURNAMENT_ROUND_SECONDS": {
    "raw": "30 * 60",
-   "order": 474,
+   "order": 475,
    "doc": "Tournament Config",
    "kind": "expr"
   },
   "GAME_SETTING_GAINS_MULTIPLIER": {
    "raw": "[\"0\", \"2\", \"4\", \"8\"]",
-   "order": 475,
+   "order": 476,
    "doc": "Training gains",
    "value": [
     "0",
@@ -3767,7 +3735,7 @@
   },
   "SECTOR_TYPES": {
    "raw": "[\n  \"VILLAGE\",\n  \"OUTLAW\",\n  \"SAFEZONE\",\n  \"HIDEOUT\",\n  \"TOWN\",\n]",
-   "order": 476,
+   "order": 477,
    "doc": "Map settings",
    "value": [
     "VILLAGE",
@@ -3780,231 +3748,231 @@
   },
   "CONVERSATION_QUIET_MINS": {
    "raw": "5",
-   "order": 477,
+   "order": 478,
    "doc": "Conversation config",
    "value": 5,
    "kind": "number"
   },
   "MESSAGING_MIN_LEVEL": {
    "raw": "3",
-   "order": 478,
+   "order": 479,
    "value": 3,
    "kind": "number"
   },
   "FORUM_MIN_LEVEL": {
    "raw": "3",
-   "order": 479,
+   "order": 480,
    "value": 3,
    "kind": "number"
   },
   "AUCTION_HOUSE_MIN_LEVEL": {
    "raw": "15",
-   "order": 480,
+   "order": 481,
    "value": 15,
    "kind": "number"
   },
   "REP_TRADE_MIN_LEVEL": {
    "raw": "15",
-   "order": 481,
+   "order": 482,
    "value": 15,
    "kind": "number"
   },
   "messagingLevelMessage": {
    "raw": "`You must reach level ${MESSAGING_MIN_LEVEL} to send messages`",
-   "order": 482,
+   "order": 483,
    "kind": "expr"
   },
   "forumLevelMessage": {
    "raw": "`You must reach level ${FORUM_MIN_LEVEL} to post in the forum`",
-   "order": 483,
+   "order": 484,
    "kind": "expr"
   },
   "auctionHouseLevelMessage": {
    "raw": "`You must reach level ${AUCTION_HOUSE_MIN_LEVEL} to use the auction house`",
-   "order": 484,
+   "order": 485,
    "kind": "expr"
   },
   "repTradeLevelMessage": {
    "raw": "`You must reach level ${REP_TRADE_MIN_LEVEL} to buy or sell reputation with other players`",
-   "order": 485,
+   "order": 486,
    "kind": "expr"
   },
   "REPORT_CONTEXT_WINDOW": {
    "raw": "20",
-   "order": 486,
+   "order": 487,
    "value": 20,
    "kind": "number"
   },
   "FRIENDLY_PRESTIGE_COST": {
    "raw": "10000",
-   "order": 487,
+   "order": 488,
    "doc": "Kage config",
    "value": 10000,
    "kind": "number"
   },
   "KAGE_ANBU_DELETE_COST": {
    "raw": "3000",
-   "order": 488,
+   "order": 489,
    "value": 3000,
    "kind": "number"
   },
   "KAGE_CHALLENGE_MINS": {
    "raw": "10",
-   "order": 489,
+   "order": 490,
    "value": 10,
    "kind": "number"
   },
   "KAGE_CHALLENGE_SECS": {
    "raw": "KAGE_CHALLENGE_MINS * 60",
-   "order": 490,
+   "order": 491,
    "kind": "number",
    "value": 600,
    "derived_from": "KAGE_CHALLENGE_MINS * 60"
   },
   "KAGE_CHALLENGE_TIMEOUT_MINS": {
    "raw": "30",
-   "order": 491,
+   "order": 492,
    "value": 30,
    "kind": "number"
   },
   "KAGE_DAILY_PRESTIGE_LOSS": {
    "raw": "500",
-   "order": 492,
+   "order": 493,
    "value": 500,
    "kind": "number"
   },
   "KAGE_DEFAULT_PRESTIGE": {
    "raw": "5000",
-   "order": 493,
+   "order": 494,
    "value": 5000,
    "kind": "number"
   },
   "KAGE_DELAY_SECS": {
    "raw": "3 * 24 * 3600",
-   "order": 494,
+   "order": 495,
    "kind": "expr"
   },
   "KAGE_ELDER_MIN_DAYS": {
    "raw": "100",
-   "order": 495,
+   "order": 496,
    "value": 100,
    "kind": "number"
   },
   "KAGE_REQUESTS_SHOW_SECONDS": {
    "raw": "24 * 60 * 60",
-   "order": 496,
+   "order": 497,
    "kind": "expr"
   },
   "KAGE_MAX_DAILIES": {
-   "raw": "3",
-   "order": 497,
-   "value": 3,
-   "kind": "number"
-  },
-  "KAGE_MAX_ELDERS": {
    "raw": "3",
    "order": 498,
    "value": 3,
    "kind": "number"
   },
+  "KAGE_MAX_ELDERS": {
+   "raw": "3",
+   "order": 499,
+   "value": 3,
+   "kind": "number"
+  },
   "KAGE_MAX_WEEKLY_PRESTIGE_SEND": {
    "raw": "6000",
-   "order": 499,
+   "order": 500,
    "value": 6000,
    "kind": "number"
   },
   "KAGE_MIN_DAYS_IN_VILLAGE": {
    "raw": "20",
-   "order": 500,
+   "order": 501,
    "value": 20,
    "kind": "number"
   },
   "KAGE_MIN_PRESTIGE": {
    "raw": "10000",
-   "order": 501,
+   "order": 502,
    "value": 10000,
    "kind": "number"
   },
   "KAGE_PRESTIGE_COST": {
    "raw": "10000",
-   "order": 502,
+   "order": 503,
    "value": 10000,
    "kind": "number"
   },
   "KAGE_PRESTIGE_REQUIREMENT": {
    "raw": "100000",
-   "order": 503,
+   "order": 504,
    "value": 100000,
    "kind": "number"
   },
   "KAGE_RANK_REQUIREMENT": {
    "raw": "\"JONIN\"",
-   "order": 504,
+   "order": 505,
    "value": "JONIN",
    "kind": "string"
   },
   "KAGE_WAR_DECLARE_COST": {
    "raw": "10000",
-   "order": 505,
+   "order": 506,
    "value": 10000,
    "kind": "number"
   },
   "KAGE_CHALLENGE_REJECT_COST": {
    "raw": "10000",
-   "order": 506,
+   "order": 507,
    "value": 10000,
    "kind": "number"
   },
   "KAGE_CHALLENGE_ACCEPT_PRESTIGE": {
    "raw": "2000",
-   "order": 507,
+   "order": 508,
    "value": 2000,
    "kind": "number"
   },
   "KAGE_CHALLENGE_WIN_PRESTIGE": {
    "raw": "5000",
-   "order": 508,
+   "order": 509,
    "value": 5000,
    "kind": "number"
   },
   "KAGE_CHALLENGE_LOSE_PRESTIGE_MIN": {
    "raw": "1500",
-   "order": 509,
+   "order": 510,
    "value": 1500,
    "kind": "number"
   },
   "KAGE_CHALLENGE_LOSE_PRESTIGE_PERCENTAGE": {
    "raw": "0.04",
-   "order": 510,
+   "order": 511,
    "value": 0.04,
    "kind": "number"
   },
   "KAGE_CHALLENGE_OPEN_FOR_SECONDS": {
    "raw": "60 * 60",
-   "order": 511,
+   "order": 512,
    "kind": "expr"
   },
   "KAGE_CHALLENGE_MAX_DAILY_LOCKED_HOURS": {
    "raw": "12",
-   "order": 512,
+   "order": 513,
    "value": 12,
    "kind": "number"
   },
   "KAGE_UNACCEPTED_CHALLENGE_COST": {
    "raw": "5000",
-   "order": 513,
+   "order": 514,
    "value": 5000,
    "kind": "number"
   },
   "WAR_FUNDS_COST": {
    "raw": "10000",
-   "order": 514,
+   "order": 515,
    "value": 10000,
    "kind": "number"
   },
   "RANKED_REQUIRED_RANK": {
    "raw": "\"CHUNIN\"",
-   "order": 515,
+   "order": 516,
    "ts_type": "UserRank",
    "doc": "Ranked PVP config",
    "value": "CHUNIN",
@@ -4012,39 +3980,39 @@
   },
   "RANKED_ENTRY_COST": {
    "raw": "40000",
-   "order": 516,
+   "order": 517,
    "value": 40000,
    "kind": "number"
   },
   "RANKED_STREAK_BONUS": {
    "raw": "2",
-   "order": 517,
+   "order": 518,
    "value": 2,
    "kind": "number"
   },
   "RANKED_QUEUE_MAX_WAIT_SECS": {
    "raw": "300",
-   "order": 518,
+   "order": 519,
    "doc": "Max seconds a player waits in the ranked queue before rank is ignored and they are matched with any other queued player.",
    "value": 300,
    "kind": "number"
   },
   "RANKED_MIN_LP_GAIN": {
    "raw": "18",
-   "order": 519,
+   "order": 520,
    "doc": "Minimum LP a player gains from a ranked win, regardless of the Elo delta.",
    "value": 18,
    "kind": "number"
   },
   "RANKED_SANNIN_TOP_PLAYERS": {
    "raw": "10",
-   "order": 520,
+   "order": 521,
    "value": 10,
    "kind": "number"
   },
   "RANKED_RANKS": {
    "raw": "[\n  \"Unranked\",\n  \"Wood\",\n  \"Adept\",\n  \"Master\",\n  \"Legend\",\n  \"Sannin\",\n]",
-   "order": 521,
+   "order": 522,
    "value": [
     "Unranked",
     "Wood",
@@ -4057,1716 +4025,1716 @@
   },
   "RANKED_DIVISIONS": {
    "raw": "[\n  { key: \"UNRANKED\", name: \"Unranked\", rankedLp: 0, kFactor: 40 },\n  { key: \"WOOD\", name: \"Wood\", rankedLp: 150, kFactor: 40 },\n  { key: \"ADEPT\", name: \"Adept\", rankedLp: 300, kFactor: 32 },\n  { key: \"MASTER\", name: \"Master\", rankedLp: 600, kFactor: 24 },\n  { key: \"LEGEND\", name: \"Legend\", rankedLp: 900, kFactor: 16 },\n  { key: \"SANNIN\", name: \"Sannin\", rankedLp: Infinity, kFactor: 16 },\n]",
-   "order": 522,
+   "order": 523,
    "kind": "array_expr"
   },
   "RANKED_LEGEND_LP_REQUIREMENT": {
    "raw": "RANKED_DIVISIONS.find((d) => d.key === \"LEGEND\")?.rankedLp ?? 900",
-   "order": 523,
+   "order": 524,
    "kind": "expr"
   },
   "RANKED_PVP_STATS": {
    "raw": "{\n  strength: MAX_GENS_CAP,\n  intelligence: MAX_GENS_CAP,\n  willpower: MAX_GENS_CAP,\n  speed: MAX_GENS_CAP,\n  ninjutsuOffence: MAX_STATS_CAP,\n  ninjutsuDefence: MAX_STATS_CAP,\n  genjutsuOffence: MAX_STATS_CAP,\n  genjutsuDefence: MAX_STATS_CAP,\n  taijutsuOffence: MAX_STATS_CAP,\n  taijutsuDefence: MAX_STATS_CAP,\n  bukijutsuOffence: MAX_STATS_CAP,\n  bukijutsuDefence: MAX_STATS_CAP,\n}",
-   "order": 524,
+   "order": 525,
    "kind": "expr"
   },
   "RANKED_LOADOUT_MAX_JUTSUS": {
    "raw": "15",
-   "order": 525,
+   "order": 526,
    "value": 15,
    "kind": "number"
   },
   "RANKED_LOADOUT_MAX_WEAPONS": {
    "raw": "2",
-   "order": 526,
+   "order": 527,
    "value": 2,
    "kind": "number"
   },
   "RANKED_LOADOUT_MAX_CONSUMABLES": {
    "raw": "4",
-   "order": 527,
+   "order": 528,
    "value": 4,
    "kind": "number"
   },
   "RANKED_LOADOUT_MAX_RESIDUAL_JUTSUS": {
    "raw": "4",
-   "order": 528,
+   "order": 529,
    "value": 4,
    "kind": "number"
   },
   "RANKED_LOADOUT_MAX_POISON_ITEMS": {
    "raw": "1",
-   "order": 529,
+   "order": 530,
    "value": 1,
    "kind": "number"
   },
   "RANKED_LOADOUT_MAX_POISON_JUTSUS": {
    "raw": "1",
-   "order": 530,
+   "order": 531,
    "value": 1,
    "kind": "number"
   },
   "RANKED_LOADOUT_MAX_INCREASECOST_ITEMS": {
    "raw": "1",
-   "order": 531,
+   "order": 532,
    "value": 1,
    "kind": "number"
   },
   "RANKED_LOADOUT_MAX_INCREASECOST_JUTSUS": {
    "raw": "1",
-   "order": 532,
+   "order": 533,
    "value": 1,
    "kind": "number"
   },
   "RANKED_LOADOUT_MAX_SUMMON_JUTSUS": {
    "raw": "0",
-   "order": 533,
+   "order": 534,
    "value": 0,
    "kind": "number"
   },
   "RANKED_LOADOUT_MAX_BARRIER_JUTSUS": {
    "raw": "1",
-   "order": 534,
+   "order": 535,
    "value": 1,
    "kind": "number"
   },
   "RANKED_LOADOUT_MAX_STUN_JUTSUS": {
    "raw": "2",
-   "order": 535,
+   "order": 536,
    "value": 2,
    "kind": "number"
   },
   "RANKED_LOADOUT_MAX_SHIELD_JUTSUS": {
    "raw": "2",
-   "order": 536,
+   "order": 537,
    "value": 2,
    "kind": "number"
   },
   "RANKED_LOADOUT_MAX_HEAL_JUTSUS": {
    "raw": "3",
-   "order": 537,
+   "order": 538,
    "value": 3,
    "kind": "number"
   },
   "ID_ANIMATION_SMOKE": {
    "raw": "\"gkYHdSzsHu\"",
-   "order": 538,
+   "order": 539,
    "doc": "Game assets",
    "value": "gkYHdSzsHu",
    "kind": "string"
   },
   "ID_ANIMATION_HIT": {
    "raw": "\"oh4kVNrAwF\"",
-   "order": 539,
+   "order": 540,
    "value": "oh4kVNrAwF",
    "kind": "string"
   },
   "ID_ANIMATION_HEAL": {
    "raw": "\"I9aYhT5wMB\"",
-   "order": 540,
+   "order": 541,
    "value": "I9aYhT5wMB",
    "kind": "string"
   },
   "ID_SFX_SMOKE": {
    "raw": "\"16vlpusdcPY8Ki3zE4qOs\"",
-   "order": 541,
+   "order": 542,
    "value": "16vlpusdcPY8Ki3zE4qOs",
    "kind": "string"
   },
   "ID_SFX_HIT": {
    "raw": "\"yGzPWg1cLQc6dYd1EpCsl\"",
-   "order": 542,
+   "order": 543,
    "value": "yGzPWg1cLQc6dYd1EpCsl",
    "kind": "string"
   },
   "ID_SFX_HEAL": {
    "raw": "\"4iG_WpgEmPGUzHn8z129r\"",
-   "order": 543,
+   "order": 544,
    "value": "4iG_WpgEmPGUzHn8z129r",
    "kind": "string"
   },
   "ID_SFX_MOVE": {
    "raw": "\"Tze4i8gvgSHNZ-D4ffcAu\"",
-   "order": 544,
+   "order": 545,
    "value": "Tze4i8gvgSHNZ-D4ffcAu",
    "kind": "string"
   },
   "ID_SFX_CLEANSE": {
    "raw": "\"mOSkDnYv4hchkPbhdpTDd\"",
-   "order": 545,
+   "order": 546,
    "value": "mOSkDnYv4hchkPbhdpTDd",
    "kind": "string"
   },
   "ID_SFX_CLEAR": {
    "raw": "\"mOSkDnYv4hchkPbhdpTDd\"",
-   "order": 546,
+   "order": 547,
    "value": "mOSkDnYv4hchkPbhdpTDd",
    "kind": "string"
   },
   "DISCORD_INVITE_URL": {
    "raw": "\"https://discord.gg/eNtgPdAh7j\"",
-   "order": 547,
+   "order": 548,
    "doc": "Discord invite link",
    "value": "https://discord.gg/eNtgPdAh7j",
    "kind": "string"
   },
   "GITHUB_API_ENDPOINT": {
    "raw": "\"https://api.github.com/repos/studie-tech/TheNinjaRPG\"",
-   "order": 548,
+   "order": 549,
    "doc": "GitHub issue token",
    "value": "https://api.github.com/repos/studie-tech/TheNinjaRPG",
    "kind": "string"
   },
   "DRACO_DECODER_URL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJF0eCaMuG2iOewJtjGzvNcmEX3TBnoSfMDZPH\"",
-   "order": 549,
+   "order": 550,
    "doc": "Draco files (see https://github.com/google/draco/tree/main/javascript)",
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJF0eCaMuG2iOewJtjGzvNcmEX3TBnoSfMDZPH",
    "kind": "string"
   },
   "DRACO_ENCODER_URL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJGexpLZRfoVrha0LP4mAS5KM7wtiZbUNXJxdC\"",
-   "order": 550,
+   "order": 551,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJGexpLZRfoVrha0LP4mAS5KM7wtiZbUNXJxdC",
    "kind": "string"
   },
   "IMG_BG_OCEAN": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIo4wHixfOewksxBoS1HQCihpL7c42Ky9uUFv.webp\"",
-   "order": 551,
+   "order": 552,
    "doc": "Biome backgrounds",
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIo4wHixfOewksxBoS1HQCihpL7c42Ky9uUFv.webp",
    "kind": "string"
   },
   "IMG_BG_GROUND": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJEJszlXPLfKL5D7TAFe29bymSaPCIQ846MdzG.webp\"",
-   "order": 552,
+   "order": 553,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJEJszlXPLfKL5D7TAFe29bymSaPCIQ846MdzG.webp",
    "kind": "string"
   },
   "IMG_BG_DESSERT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnQHU9dvmojJ0EqeDCvBrNmZaXVdY97gSpOWi.webp\"",
-   "order": 553,
+   "order": 554,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnQHU9dvmojJ0EqeDCvBrNmZaXVdY97gSpOWi.webp",
    "kind": "string"
   },
   "IMG_BG_ICE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJRXmgug0udmODoNtpa0FMcwI4k2Eq7nJhyvjl.webp\"",
-   "order": 554,
+   "order": 555,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJRXmgug0udmODoNtpa0FMcwI4k2Eq7nJhyvjl.webp",
    "kind": "string"
   },
   "IMG_BG_SNOW": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJVWyAP1F2veAXohUuE59nTQHRJIYjtiG18aF4.webp\"",
-   "order": 555,
+   "order": 556,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJVWyAP1F2veAXohUuE59nTQHRJIYjtiG18aF4.webp",
    "kind": "string"
   },
   "IMG_BG_DIRT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJob2ojkZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp\"",
-   "order": 556,
+   "order": 557,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJob2ojkZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp",
    "kind": "string"
   },
   "IMG_PLAY_STORE_BANNER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyI5pULukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.png\"",
-   "order": 557,
+   "order": 558,
    "doc": "Images",
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyI5pULukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.png",
    "kind": "string"
   },
   "IMG_APP_STORE_BANNER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJZOcwIVUaYQrBIUTu69nkMxWmS4ah0O7LVCp8.png\"",
-   "order": 558,
+   "order": 559,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJZOcwIVUaYQrBIUTu69nkMxWmS4ah0O7LVCp8.png",
    "kind": "string"
   },
   "IMG_DEFAULT_PROFILE_PICTURE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ19UqON6bo95WClq4K0wxZUmJcvThgdVenO3P.webp\"",
-   "order": 559,
+   "order": 560,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ19UqON6bo95WClq4K0wxZUmJcvThgdVenO3P.webp",
    "kind": "string"
   },
   "IMG_OCCUPATION_GATHERING": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJePgzrqyV3OvUJQExAi0bGoIZDF74LqSnHRdp.webp\"",
-   "order": 560,
+   "order": 561,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJePgzrqyV3OvUJQExAi0bGoIZDF74LqSnHRdp.webp",
    "kind": "string"
   },
   "IMG_OCCUPATION_HUNTER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ2xooNenMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8.webp\"",
-   "order": 561,
+   "order": 562,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ2xooNenMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8.webp",
    "kind": "string"
   },
   "IMG_OCCUPATION_CRAFTING": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ7YhkcAXKPBOUWGyFuM4DlL1v5HNTZhkte0z6.webp\"",
-   "order": 562,
+   "order": 563,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ7YhkcAXKPBOUWGyFuM4DlL1v5HNTZhkte0z6.webp",
    "kind": "string"
   },
   "TOTAL_PLAYERS_MILESTONE": {
    "raw": "1000000",
-   "order": 563,
+   "order": 564,
    "doc": "Marketing constants",
    "value": 1000000,
    "kind": "number"
   },
   "IMG_FRONTPAGE_SCREENSHOT_COMBAT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJliyD90rWYxAsuC7ofQn9pM45OD0ERqkdBXJU.webp\"",
-   "order": 564,
+   "order": 565,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJliyD90rWYxAsuC7ofQn9pM45OD0ERqkdBXJU.webp",
    "kind": "string"
   },
   "IMG_FRONTPAGE_SCREENSHOT_JUTSUS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyD4wioukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp\"",
-   "order": 565,
+   "order": 566,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyD4wioukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp",
    "kind": "string"
   },
   "IMG_FRONTPAGE_SCREENSHOT_GLOBAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeCMiuXvyV3OvUJQExAi0bGoIZDF74LqSnHRd.webp\"",
-   "order": 566,
+   "order": 567,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeCMiuXvyV3OvUJQExAi0bGoIZDF74LqSnHRd.webp",
    "kind": "string"
   },
   "IMG_FRONTPAGE_SCREENSHOT_SECTOR": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJYfcD9oOMAlNnPZ41ev6fCGcFK3hmjX9I8W7d.webp\"",
-   "order": 567,
+   "order": 568,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJYfcD9oOMAlNnPZ41ev6fCGcFK3hmjX9I8W7d.webp",
    "kind": "string"
   },
   "IMG_FRONTPAGE_SCREENSHOT_VILLAGE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJzuU9cvZemvaQu94EYJs8HpxVzofny6iPtbgC.webp\"",
-   "order": 568,
+   "order": 569,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJzuU9cvZemvaQu94EYJs8HpxVzofny6iPtbgC.webp",
    "kind": "string"
   },
   "IMG_FRONTPAGE_SCREENSHOT_COMBAT_HR": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJhuLmX5MfUBdnwAX5LTajlNc4mrgzi0RJtqpM.webp\"",
-   "order": 569,
+   "order": 570,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJhuLmX5MfUBdnwAX5LTajlNc4mrgzi0RJtqpM.webp",
    "kind": "string"
   },
   "IMG_FRONTPAGE_SCREENSHOT_JUTSUS_HR": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJAaVOt2SoZUC4muiGcQNzjfEndY5y1w20B8hT.webp\"",
-   "order": 570,
+   "order": 571,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJAaVOt2SoZUC4muiGcQNzjfEndY5y1w20B8hT.webp",
    "kind": "string"
   },
   "IMG_FRONTPAGE_SCREENSHOT_GLOBAL_HR": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJvSzUp4EmSnXwslYEpV1yOeNL8gMtqhjPdf36.webp\"",
-   "order": 571,
+   "order": 572,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJvSzUp4EmSnXwslYEpV1yOeNL8gMtqhjPdf36.webp",
    "kind": "string"
   },
   "IMG_FRONTPAGE_SCREENSHOT_SECTOR_HR": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJXMBBarqIOpAoLKbZ4nW9Rsil2V67yuFwQhqv.webp\"",
-   "order": 572,
+   "order": 573,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJXMBBarqIOpAoLKbZ4nW9Rsil2V67yuFwQhqv.webp",
    "kind": "string"
   },
   "IMG_FRONTPAGE_SCREENSHOT_VILLAGE_HR": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJRmBtUg0udmODoNtpa0FMcwI4k2Eq7nJhyvjl.webp\"",
-   "order": 573,
+   "order": 574,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJRmBtUg0udmODoNtpa0FMcwI4k2Eq7nJhyvjl.webp",
    "kind": "string"
   },
   "IMG_REGISTRATIN_STEP1": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeKNAEEyV3OvUJQExAi0bGoIZDF74LqSnHRdp.webp\"",
-   "order": 574,
+   "order": 575,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeKNAEEyV3OvUJQExAi0bGoIZDF74LqSnHRdp.webp",
    "kind": "string"
   },
   "IMG_REGISTRATIN_STEP2": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJTOMd6Y5IU29dZYJPoOKSh5vmlqatMub3EigH.webp\"",
-   "order": 575,
+   "order": 576,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJTOMd6Y5IU29dZYJPoOKSh5vmlqatMub3EigH.webp",
    "kind": "string"
   },
   "IMG_REGISTRATIN_STEP3": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJZlINOXaYQrBIUTu69nkMxWmS4ah0O7LVCp8b.webp\"",
-   "order": 576,
+   "order": 577,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJZlINOXaYQrBIUTu69nkMxWmS4ah0O7LVCp8b.webp",
    "kind": "string"
   },
   "IMG_REGISTRATIN_STEP4": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJqppFvGcdkOZgJQ8mGRcdx3SsWvPelyYFTt5V.webp\"",
-   "order": 577,
+   "order": 578,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJqppFvGcdkOZgJQ8mGRcdx3SsWvPelyYFTt5V.webp",
    "kind": "string"
   },
   "IMG_REGISTRATIN_STEP5": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ56sDpz797jl4ubX8xrRqTZasyMp2WA5eLGUP.webp\"",
-   "order": 578,
+   "order": 579,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ56sDpz797jl4ubX8xrRqTZasyMp2WA5eLGUP.webp",
    "kind": "string"
   },
   "IMG_REGISTRATIN_STEP6": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwm1XDCT2j854CWbaITZyegfXimvd7s16cO0h.webp\"",
-   "order": 579,
+   "order": 580,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwm1XDCT2j854CWbaITZyegfXimvd7s16cO0h.webp",
    "kind": "string"
   },
   "IMG_REGISTRATIN_STEP7": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQU7pvzjhzBPya1rwfCIqOTU0cV5xgsMeo3u2.webp\"",
-   "order": 580,
+   "order": 581,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQU7pvzjhzBPya1rwfCIqOTU0cV5xgsMeo3u2.webp",
    "kind": "string"
   },
   "IMG_REGISTRATIN_STEP8": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ8B9jC0rkkp45TvAnoIBa0rtCf1lbyXYjVKQ2.webp\"",
-   "order": 581,
+   "order": 582,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ8B9jC0rkkp45TvAnoIBa0rtCf1lbyXYjVKQ2.webp",
    "kind": "string"
   },
   "IMG_REGISTRATIN_STEP9": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnjHXr3mojJ0EqeDCvBrNmZaXVdY97gSpOWiA.webp\"",
-   "order": 582,
+   "order": 583,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnjHXr3mojJ0EqeDCvBrNmZaXVdY97gSpOWiA.webp",
    "kind": "string"
   },
   "IMG_SCENE_SCROLL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJRceTKeq0udmODoNtpa0FMcwI4k2Eq7nJhyvj.webp\"",
-   "order": 583,
+   "order": 584,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJRceTKeq0udmODoNtpa0FMcwI4k2Eq7nJhyvj.webp",
    "kind": "string"
   },
   "IMG_SCENE_BACKGROUND": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ1HAqWl6bo95WClq4K0wxZUmJcvThgdVenO3P.webp\"",
-   "order": 584,
+   "order": 585,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ1HAqWl6bo95WClq4K0wxZUmJcvThgdVenO3P.webp",
    "kind": "string"
   },
   "IMG_SCENE_CHARACTER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJF08NAw3G2iOewJtjGzvNcmEX3TBnoSfMDZPH.webp\"",
-   "order": 585,
+   "order": 586,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJF08NAw3G2iOewJtjGzvNcmEX3TBnoSfMDZPH.webp",
    "kind": "string"
   },
   "IMG_BADGE_RESET_QUEST": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeCQbfYiyV3OvUJQExAi0bGoIZDF74LqSnHRd.webp\"",
-   "order": 586,
+   "order": 587,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeCQbfYiyV3OvUJQExAi0bGoIZDF74LqSnHRd.webp",
    "kind": "string"
   },
   "IMG_BADGE_FAIL_QUEST": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJuFEUH7CyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp\"",
-   "order": 587,
+   "order": 588,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJuFEUH7CyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp",
    "kind": "string"
   },
   "IMG_BADGE_WIN_QUEST": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnk99IbmojJ0EqeDCvBrNmZaXVdY97gSpOWiA.webp\"",
-   "order": 588,
+   "order": 589,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnk99IbmojJ0EqeDCvBrNmZaXVdY97gSpOWiA.webp",
    "kind": "string"
   },
   "IMG_BADGE_NEW_QUEST": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJneJSZsmojJ0EqeDCvBrNmZaXVdY97gSpOWiA.webp\"",
-   "order": 589,
+   "order": 590,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJneJSZsmojJ0EqeDCvBrNmZaXVdY97gSpOWiA.webp",
    "kind": "string"
   },
   "IMG_BADGE_START_BATTLE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJqZXK1HdkOZgJQ8mGRcdx3SsWvPelyYFTt5Vn.webp\"",
-   "order": 590,
+   "order": 591,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJqZXK1HdkOZgJQ8mGRcdx3SsWvPelyYFTt5Vn.webp",
    "kind": "string"
   },
   "IMG_BADGE_DIALOG": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp\"",
-   "order": 591,
+   "order": 592,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
    "kind": "string"
   },
   "IMG_BADGE_RANDOM_ENCOUNTER_WINS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJqyp2N4dkOZgJQ8mGRcdx3SsWvPelyYFTt5Vn.webp\"",
-   "order": 592,
+   "order": 593,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJqyp2N4dkOZgJQ8mGRcdx3SsWvPelyYFTt5Vn.webp",
    "kind": "string"
   },
   "IMG_BADGE_PVPKILLS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyPU0OdukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp\"",
-   "order": 593,
+   "order": 594,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyPU0OdukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp",
    "kind": "string"
   },
   "IMG_BADGE_ARENAKILLS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJZXqeTaYQrBIUTu69nkMxWmS4ah0O7LVCp8bz.webp\"",
-   "order": 594,
+   "order": 595,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJZXqeTaYQrBIUTu69nkMxWmS4ah0O7LVCp8bz.webp",
    "kind": "string"
   },
   "IMG_BADGE_MINUTES_PASSED": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCmrv4YU26OYrIJuNP1pvSyz29edFtKbngjRc.webp\"",
-   "order": 595,
+   "order": 596,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCmrv4YU26OYrIJuNP1pvSyz29edFtKbngjRc.webp",
    "kind": "string"
   },
   "IMG_BADGE_ERRANDS_TOTAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJFkFklPG2iOewJtjGzvNcmEX3TBnoSfMDZPH4.webp\"",
-   "order": 596,
+   "order": 597,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJFkFklPG2iOewJtjGzvNcmEX3TBnoSfMDZPH4.webp",
    "kind": "string"
   },
   "IMG_BADGE_D_MISSION_TOTAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJuD6udtCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp\"",
-   "order": 597,
+   "order": 598,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJuD6udtCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp",
    "kind": "string"
   },
   "IMG_BADGE_C_MISSION_TOTAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJGudreBRfoVrha0LP4mAS5KM7wtiZbUNXJxdC.webp\"",
-   "order": 598,
+   "order": 599,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJGudreBRfoVrha0LP4mAS5KM7wtiZbUNXJxdC.webp",
    "kind": "string"
   },
   "IMG_BADGE_B_MISSION_TOTAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJy2Uv1s5ukVH2MI5Lo4ehEfAXvZdcmtWqPg7r.webp\"",
-   "order": 599,
+   "order": 600,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJy2Uv1s5ukVH2MI5Lo4ehEfAXvZdcmtWqPg7r.webp",
    "kind": "string"
   },
   "IMG_BADGE_A_MISSION_TOTAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJEJpK3acLfKL5D7TAFe29bymSaPCIQ846MdzG.webp\"",
-   "order": 600,
+   "order": 601,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJEJpK3acLfKL5D7TAFe29bymSaPCIQ846MdzG.webp",
    "kind": "string"
   },
   "IMG_BADGE_D_CRIME_TOTAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDyHMWFlzEwoh0WXMnscL279N8ayVQUCbRzS3.webp\"",
-   "order": 601,
+   "order": 602,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDyHMWFlzEwoh0WXMnscL279N8ayVQUCbRzS3.webp",
    "kind": "string"
   },
   "IMG_BADGE_C_CRIME_TOTAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnJ43OQmojJ0EqeDCvBrNmZaXVdY97gSpOWiA.webp\"",
-   "order": 602,
+   "order": 603,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnJ43OQmojJ0EqeDCvBrNmZaXVdY97gSpOWiA.webp",
    "kind": "string"
   },
   "IMG_BADGE_B_CRIME_TOTAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHS8H1zQvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp\"",
-   "order": 603,
+   "order": 604,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHS8H1zQvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp",
    "kind": "string"
   },
   "IMG_BADGE_A_CRIME_TOTAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQ6PtAxjhzBPya1rwfCIqOTU0cV5xgsMeo3u2.webp\"",
-   "order": 604,
+   "order": 605,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQ6PtAxjhzBPya1rwfCIqOTU0cV5xgsMeo3u2.webp",
    "kind": "string"
   },
   "IMG_BADGE_MINUTES_TRAINING": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJbZSRGyZAtYUndMi56GkX19q0A4PzyeIloBrE.webp\"",
-   "order": 605,
+   "order": 606,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJbZSRGyZAtYUndMi56GkX19q0A4PzyeIloBrE.webp",
    "kind": "string"
   },
   "IMG_BADGE_JUTSUS_MASTERED": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDyHTMUuzEwoh0WXMnscL279N8ayVQUCbRzS3.webp\"",
-   "order": 606,
+   "order": 607,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDyHTMUuzEwoh0WXMnscL279N8ayVQUCbRzS3.webp",
    "kind": "string"
   },
   "IMG_BADGE_STATS_TRAINED": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJVNQSNpF2veAXohUuE59nTQHRJIYjtiG18aF4.webp\"",
-   "order": 607,
+   "order": 608,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJVNQSNpF2veAXohUuE59nTQHRJIYjtiG18aF4.webp",
    "kind": "string"
   },
   "IMG_BADGE_DAYS_IN_VILLAGE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ2HU2el8nMXlcRpYmJ5do0zKw4Qx6PVEtBa9b.webp\"",
-   "order": 608,
+   "order": 609,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ2HU2el8nMXlcRpYmJ5do0zKw4Qx6PVEtBa9b.webp",
    "kind": "string"
   },
   "IMG_BADGE_REPUTATION_POINTS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJxyYNkgWZsq9k0Von5rUfP6OgQ2TyptCKHS4u.webp\"",
-   "order": 609,
+   "order": 610,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJxyYNkgWZsq9k0Von5rUfP6OgQ2TyptCKHS4u.webp",
    "kind": "string"
   },
   "IMG_BADGE_USER_LEVEL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJo6lBgeZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp\"",
-   "order": 610,
+   "order": 611,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJo6lBgeZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp",
    "kind": "string"
   },
   "IMG_BADGE_MOVE_TO_LOCATION": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ5qXZuJi797jl4ubX8xrRqTZasyMp2WA5eLGU.webp\"",
-   "order": 611,
+   "order": 612,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ5qXZuJi797jl4ubX8xrRqTZasyMp2WA5eLGU.webp",
    "kind": "string"
   },
   "IMG_BADGE_COLLECT_ITEM": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJtxtluhUYJDfpFXWm3nrcPluEtIZqyLkaSV1j.webp\"",
-   "order": 612,
+   "order": 613,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJtxtluhUYJDfpFXWm3nrcPluEtIZqyLkaSV1j.webp",
    "kind": "string"
   },
   "IMG_BADGE_DEFEAT_OPPONENTS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJYwI8YKOMAlNnPZ41ev6fCGcFK3hmjX9I8W7d.webp\"",
-   "order": 613,
+   "order": 614,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJYwI8YKOMAlNnPZ41ev6fCGcFK3hmjX9I8W7d.webp",
    "kind": "string"
   },
   "IMG_BADGE_EXCLUSIVE_RAID": {
    "raw": "\"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJw7O7n2PT2j854CWbaITZyegfXimvd7s16cO0.webp\"",
-   "order": 614,
+   "order": 615,
    "value": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJw7O7n2PT2j854CWbaITZyegfXimvd7s16cO0.webp",
    "kind": "string"
   },
   "IMG_BADGE_OPEN_RAID": {
    "raw": "\"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJdEQfdeP62PI3ciLaYzgVX8FopBADxSrGmvQl.webp\"",
-   "order": 615,
+   "order": 616,
    "value": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJdEQfdeP62PI3ciLaYzgVX8FopBADxSrGmvQl.webp",
    "kind": "string"
   },
   "IMG_BADGE_MEDICAL_EXPERIENCE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJzr5NPBemvaQu94EYJs8HpxVzofny6iPtbgCZ.webp\"",
-   "order": 616,
+   "order": 617,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJzr5NPBemvaQu94EYJs8HpxVzofny6iPtbgCZ.webp",
    "kind": "string"
   },
   "IMG_BADGE_GATHERING_EXPERIENCE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJMgUHxAtsO4cexqW2RDgkE3zZbNXSFGitmnar.webp\"",
-   "order": 617,
+   "order": 618,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJMgUHxAtsO4cexqW2RDgkE3zZbNXSFGitmnar.webp",
    "kind": "string"
   },
   "IMG_BADGE_HUNTING_EXPERIENCE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJg0V017cU9cpECTimBdjaqbNn7vQsxGR1wLk4.webp\"",
-   "order": 618,
+   "order": 619,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJg0V017cU9cpECTimBdjaqbNn7vQsxGR1wLk4.webp",
    "kind": "string"
   },
   "IMG_BADGE_CRAFTING_EXPERIENCE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIY2lVjxfOewksxBoS1HQCihpL7c42Ky9uUFv.webp\"",
-   "order": 619,
+   "order": 620,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIY2lVjxfOewksxBoS1HQCihpL7c42Ky9uUFv.webp",
    "kind": "string"
   },
   "IMG_BADGE_ITEMS_CRAFTED": {
    "raw": "IMG_BADGE_CRAFTING_EXPERIENCE",
-   "order": 620,
+   "order": 621,
    "kind": "expr"
   },
   "IMG_BADGE_CREATURES_HUNTED": {
    "raw": "IMG_BADGE_HUNTING_EXPERIENCE",
-   "order": 621,
+   "order": 622,
    "kind": "expr"
   },
   "IMG_BADGE_HERBS_GATHERED": {
    "raw": "IMG_BADGE_GATHERING_EXPERIENCE",
-   "order": 622,
+   "order": 623,
    "kind": "expr"
   },
   "IMG_BADGE_CRAFT_SPECIFIC_ITEM": {
    "raw": "IMG_BADGE_ITEMS_CRAFTED",
-   "order": 623,
+   "order": 624,
    "kind": "expr"
   },
   "IMG_BADGE_TRAIN_SPECIFIC_JUTSU": {
    "raw": "IMG_BADGE_JUTSUS_MASTERED",
-   "order": 624,
+   "order": 625,
    "kind": "expr"
   },
   "IMG_BADGE_COMPLETE_SPECIFIC_QUEST": {
    "raw": "IMG_BADGE_WIN_QUEST",
-   "order": 625,
+   "order": 626,
    "kind": "expr"
   },
   "IMG_BADGE_BUY_ITEM": {
    "raw": "IMG_BADGE_COLLECT_ITEM",
-   "order": 626,
+   "order": 627,
    "kind": "expr"
   },
   "IMG_BADGE_USE_ITEM_COMBAT": {
    "raw": "IMG_BADGE_COLLECT_ITEM",
-   "order": 627,
+   "order": 628,
    "kind": "expr"
   },
   "IMG_BADGE_USE_JUTSU_COMBAT": {
    "raw": "IMG_BADGE_JUTSUS_MASTERED",
-   "order": 628,
+   "order": 629,
    "kind": "expr"
   },
   "IMG_BADGE_TAG_USAGE_WIN": {
    "raw": "IMG_BADGE_START_BATTLE",
-   "order": 629,
+   "order": 630,
    "kind": "expr"
   },
   "IMG_BADGE_DAMAGE_DEALT": {
    "raw": "IMG_BADGE_DEFEAT_OPPONENTS",
-   "order": 630,
+   "order": 631,
    "kind": "expr"
   },
   "IMG_BG_COLISEUM": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJo5wb6hZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp\"",
-   "order": 631,
+   "order": 632,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJo5wb6hZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp",
    "kind": "string"
   },
   "IMG_BG_ARENA_CHRISMAS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQr5mXyjhzBPya1rwfCIqOTU0cV5xgsMeo3u2.webp\"",
-   "order": 632,
+   "order": 633,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQr5mXyjhzBPya1rwfCIqOTU0cV5xgsMeo3u2.webp",
    "kind": "string"
   },
   "IMG_BG_ARENA_KONOKI": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDyj0BtAzEwoh0WXMnscL279N8ayVQUCbRzS3.webp\"",
-   "order": 633,
+   "order": 634,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDyj0BtAzEwoh0WXMnscL279N8ayVQUCbRzS3.webp",
    "kind": "string"
   },
   "IMG_BG_ARENA_SILENCE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJSZtKvF3jWrEB7TyZlmpoAxMK5Qi16kNPVJuH.webp\"",
-   "order": 634,
+   "order": 635,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJSZtKvF3jWrEB7TyZlmpoAxMK5Qi16kNPVJuH.webp",
    "kind": "string"
   },
   "IMG_VILLAGE_FACTION": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyODt1NukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp\"",
-   "order": 635,
+   "order": 636,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyODt1NukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp",
    "kind": "string"
   },
   "IMG_RARITY_RARE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJvSyOMsEmSnXwslYEpV1yOeNL8gMtqhjPdf36.webp\"",
-   "order": 636,
+   "order": 637,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJvSyOMsEmSnXwslYEpV1yOeNL8gMtqhjPdf36.webp",
    "kind": "string"
   },
   "IMG_RARITY_LEGENDARY": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoooBQZ9MPZpHJ7VliuEWDfATdxhv62SXnm4B.webp\"",
-   "order": 637,
+   "order": 638,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoooBQZ9MPZpHJ7VliuEWDfATdxhv62SXnm4B.webp",
    "kind": "string"
   },
   "IMG_RARITY_EPIC": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeCIgGvhyV3OvUJQExAi0bGoIZDF74LqSnHRd.webp\"",
-   "order": 638,
+   "order": 639,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeCIgGvhyV3OvUJQExAi0bGoIZDF74LqSnHRd.webp",
    "kind": "string"
   },
   "IMG_RARITY_COMMON": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQP8otBjhzBPya1rwfCIqOTU0cV5xgsMeo3u2.webp\"",
-   "order": 639,
+   "order": 640,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQP8otBjhzBPya1rwfCIqOTU0cV5xgsMeo3u2.webp",
    "kind": "string"
   },
   "IMG_PROFILE_LEVELUPGUY": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJaeS5LnYYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk.webp\"",
-   "order": 640,
+   "order": 641,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJaeS5LnYYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk.webp",
    "kind": "string"
   },
   "IMG_RAMEN_WELCOME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJmd2fWKHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap.webp\"",
-   "order": 641,
+   "order": 642,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJmd2fWKHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap.webp",
    "kind": "string"
   },
   "IMG_RAMEN_SMALL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJj7ESnm4XzPI8f1v96qBot0Q3wsUp2nxu7SMb.webp\"",
-   "order": 642,
+   "order": 643,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJj7ESnm4XzPI8f1v96qBot0Q3wsUp2nxu7SMb.webp",
    "kind": "string"
   },
   "IMG_RAMEN_MEDIUM": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyoMsmMukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp\"",
-   "order": 643,
+   "order": 644,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyoMsmMukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp",
    "kind": "string"
   },
   "IMG_RAMEN_LARGE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHKlC2sQvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp\"",
-   "order": 644,
+   "order": 645,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHKlC2sQvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp",
    "kind": "string"
   },
   "IMG_REPSHOP_BRONZE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCg005h26OYrIJuNP1pvSyz29edFtKbngjRcA.webp\"",
-   "order": 645,
+   "order": 646,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCg005h26OYrIJuNP1pvSyz29edFtKbngjRcA.webp",
    "kind": "string"
   },
   "IMG_REPSHOP_SILVER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJSk2raeh3jWrEB7TyZlmpoAxMK5Qi16kNPVJu.webp\"",
-   "order": 646,
+   "order": 647,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJSk2raeh3jWrEB7TyZlmpoAxMK5Qi16kNPVJu.webp",
    "kind": "string"
   },
   "IMG_REPSHOP_GOLD": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJebK38NyV3OvUJQExAi0bGoIZDF74LqSnHRdp.webp\"",
-   "order": 647,
+   "order": 648,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJebK38NyV3OvUJQExAi0bGoIZDF74LqSnHRdp.webp",
    "kind": "string"
   },
   "IMG_EQUIP_SILHOUETTE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ6e2pEi7DfT5pyNCaUruzhPtAJqb8Kj9mc1nl.webp\"",
-   "order": 648,
+   "order": 649,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ6e2pEi7DfT5pyNCaUruzhPtAJqb8Kj9mc1nl.webp",
    "kind": "string"
   },
   "IMG_HOME_TRAIN": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ25o9TnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8C.webp\"",
-   "order": 649,
+   "order": 650,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ25o9TnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8C.webp",
    "kind": "string"
   },
   "IMG_HOME_EAT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJbZ8Rz1xAtYUndMi56GkX19q0A4PzyeIloBrE.webp\"",
-   "order": 650,
+   "order": 651,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJbZ8Rz1xAtYUndMi56GkX19q0A4PzyeIloBrE.webp",
    "kind": "string"
   },
   "IMG_HOME_SLEEP": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJu8FpvZCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp\"",
-   "order": 651,
+   "order": 652,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJu8FpvZCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp",
    "kind": "string"
   },
   "IMG_HOME_AWAKE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ1BKctL6bo95WClq4K0wxZUmJcvThgdVenO3P.webp\"",
-   "order": 652,
+   "order": 653,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ1BKctL6bo95WClq4K0wxZUmJcvThgdVenO3P.webp",
    "kind": "string"
   },
   "IMG_MANUAL_ACTIVITY_STREAK": {
    "raw": "\"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTPVewE5IU29dZYJPoOKSh5vmlqatMub3EigH.webp\"",
-   "order": 653,
+   "order": 654,
    "value": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTPVewE5IU29dZYJPoOKSh5vmlqatMub3EigH.webp",
    "kind": "string"
   },
   "IMG_MANUAL_TOWER_UPGRADES": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ2HMAwecnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b.webp\"",
-   "order": 654,
+   "order": 655,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ2HMAwecnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b.webp",
    "kind": "string"
   },
   "IMG_MANUAL_TOWER_ENEMIES": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwA3KPoT2j854CWbaITZyegfXimvd7s16cO0h.webp\"",
-   "order": 655,
+   "order": 656,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwA3KPoT2j854CWbaITZyegfXimvd7s16cO0h.webp",
    "kind": "string"
   },
   "IMG_MANUAL_TOWER_LEADERBOARD": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJGdSeVPRfoVrha0LP4mAS5KM7wtiZbUNXJxdC.webp\"",
-   "order": 656,
+   "order": 657,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJGdSeVPRfoVrha0LP4mAS5KM7wtiZbUNXJxdC.webp",
    "kind": "string"
   },
   "IMG_MANUAL_RANKED": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJAa3ucxOoZUC4muiGcQNzjfEndY5y1w20B8hT.jpg\"",
-   "order": 657,
+   "order": 658,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJAa3ucxOoZUC4muiGcQNzjfEndY5y1w20B8hT.jpg",
    "kind": "string"
   },
   "IMG_MANUAL_AWARDS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJD2QXqVzEwoh0WXMnscL279N8ayVQUCbRzS3p.webp\"",
-   "order": 658,
+   "order": 659,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJD2QXqVzEwoh0WXMnscL279N8ayVQUCbRzS3p.webp",
    "kind": "string"
   },
   "IMG_MANUAL_COMBAT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJUvE8xxILCIhwPniJ69VxpvAbTDWkOyGzS8rM.webp\"",
-   "order": 659,
+   "order": 660,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJUvE8xxILCIhwPniJ69VxpvAbTDWkOyGzS8rM.webp",
    "kind": "string"
   },
   "IMG_MANUAL_TRAVEL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJu1h1uHCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp\"",
-   "order": 660,
+   "order": 661,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJu1h1uHCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp",
    "kind": "string"
   },
   "IMG_MANUAL_BLOODLINE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJaCMo8gYYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk.webp\"",
-   "order": 661,
+   "order": 662,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJaCMo8gYYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk.webp",
    "kind": "string"
   },
   "IMG_MANUAL_SAGE_MODE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/ZV0VxZ-iWF6FW84u-0B4t.webp\"",
-   "order": 662,
+   "order": 663,
    "value": "https://uploadthing.b-cdn.net/f/ZV0VxZ-iWF6FW84u-0B4t.webp",
    "kind": "string"
   },
   "IMG_MANUAL_JUTSU": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJMI7fE4tsO4cexqW2RDgkE3zZbNXSFGitmnar.webp\"",
-   "order": 663,
+   "order": 664,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJMI7fE4tsO4cexqW2RDgkE3zZbNXSFGitmnar.webp",
    "kind": "string"
   },
   "IMG_MANUAL_JUTSU_RESKINS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJEOTlPgLfKL5D7TAFe29bymSaPCIQ846MdzGg.webp\"",
-   "order": 664,
+   "order": 665,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJEOTlPgLfKL5D7TAFe29bymSaPCIQ846MdzGg.webp",
    "kind": "string"
   },
   "IMG_MANUAL_SKILLTREE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQB2gVJjhzBPya1rwfCIqOTU0cV5xgsMeo3u2.webp\"",
-   "order": 665,
+   "order": 666,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQB2gVJjhzBPya1rwfCIqOTU0cV5xgsMeo3u2.webp",
    "kind": "string"
   },
   "IMG_MANUAL_BALANCE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJunxMxUaCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8.webp\"",
-   "order": 666,
+   "order": 667,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJunxMxUaCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8.webp",
    "kind": "string"
   },
   "IMG_MANUAL_BACKUP": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJctH7DQSnxBpQqGNDcTHbLmYz8uXAl3oa54ti.webp\"",
-   "order": 667,
+   "order": 668,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJctH7DQSnxBpQqGNDcTHbLmYz8uXAl3oa54ti.webp",
    "kind": "string"
   },
   "IMG_MANUAL_ITEM": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJb59vlYAtYUndMi56GkX19q0A4PzyeIloBrEa.webp\"",
-   "order": 668,
+   "order": 669,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJb59vlYAtYUndMi56GkX19q0A4PzyeIloBrEa.webp",
    "kind": "string"
   },
   "IMG_MANUAL_CRAFTING_RECIPES": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJrZmM8nhuJPmdY8zI2ptZXAoEj1c6BMKvrQOx.webp\"",
-   "order": 669,
+   "order": 670,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJrZmM8nhuJPmdY8zI2ptZXAoEj1c6BMKvrQOx.webp",
    "kind": "string"
   },
   "IMG_MANUAL_AI": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJuTQifZCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp\"",
-   "order": 670,
+   "order": 671,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJuTQifZCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp",
    "kind": "string"
   },
   "IMG_MANUAL_STAFF": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ3CT6Io8pYHJX5rdkUTfOKtvu2eGIELmSWqBx.webp\"",
-   "order": 671,
+   "order": 672,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ3CT6Io8pYHJX5rdkUTfOKtvu2eGIELmSWqBx.webp",
    "kind": "string"
   },
   "IMG_MANUAL_QUEST": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJmWVaWXHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap.webp\"",
-   "order": 672,
+   "order": 673,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJmWVaWXHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap.webp",
    "kind": "string"
   },
   "IMG_MANUAL_LOGS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwvy6QoT2j854CWbaITZyegfXimvd7s16cO0h.webp\"",
-   "order": 673,
+   "order": 674,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwvy6QoT2j854CWbaITZyegfXimvd7s16cO0h.webp",
    "kind": "string"
   },
   "IMG_MANUAL_DAM_CALCS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQF6qYYjhzBPya1rwfCIqOTU0cV5xgsMeo3u2.webp\"",
-   "order": 674,
+   "order": 675,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQF6qYYjhzBPya1rwfCIqOTU0cV5xgsMeo3u2.webp",
    "kind": "string"
   },
   "IMG_MANUAL_BADGE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJOUM5LPVHevxIThUauQkGJEBY3D2cPqy8f5sp.webp\"",
-   "order": 675,
+   "order": 676,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJOUM5LPVHevxIThUauQkGJEBY3D2cPqy8f5sp.webp",
    "kind": "string"
   },
   "IMG_MANUAL_ASSET": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJaGvHErYYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk.webp\"",
-   "order": 676,
+   "order": 677,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJaGvHErYYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk.webp",
    "kind": "string"
   },
   "IMG_MANUAL_OPINION": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ0dX0Z3grYldRWJcD6vE10SjNsXHeA9pVMfQi.webp\"",
-   "order": 677,
+   "order": 678,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ0dX0Z3grYldRWJcD6vE10SjNsXHeA9pVMfQi.webp",
    "kind": "string"
   },
   "IMG_MANUAL_RECRUITMENT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJTB8H7n5IU29dZYJPoOKSh5vmlqatMub3EigH.webp\"",
-   "order": 678,
+   "order": 679,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJTB8H7n5IU29dZYJPoOKSh5vmlqatMub3EigH.webp",
    "kind": "string"
   },
   "IMG_MANUAL_POLLS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJRc1v3JK0udmODoNtpa0FMcwI4k2Eq7nJhyvj.webp\"",
-   "order": 679,
+   "order": 680,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJRc1v3JK0udmODoNtpa0FMcwI4k2Eq7nJhyvj.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_USERBANNER_MIDDLE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ6sgzOzDfT5pyNCaUruzhPtAJqb8Kj9mc1nlH.webp\"",
-   "order": 680,
+   "order": 681,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ6sgzOzDfT5pyNCaUruzhPtAJqb8Kj9mc1nlH.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_SIDESCROLL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJAElfIGoZUC4muiGcQNzjfEndY5y1w20B8hTW.webp\"",
-   "order": 681,
+   "order": 682,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJAElfIGoZUC4muiGcQNzjfEndY5y1w20B8hTW.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_MOBILE_TOP": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHTt3S9QvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp\"",
-   "order": 682,
+   "order": 683,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHTt3S9QvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_SIDETOPBANNER_CONTENT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJOG9gcTWVHevxIThUauQkGJEBY3D2cPqy8f5s.webp\"",
-   "order": 683,
+   "order": 684,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJOG9gcTWVHevxIThUauQkGJEBY3D2cPqy8f5s.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_SIDETOPBANNER_BOTTOM": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ19AHU06bo95WClq4K0wxZUmJcvThgdVenO3P.webp\"",
-   "order": 684,
+   "order": 685,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ19AHU06bo95WClq4K0wxZUmJcvThgdVenO3P.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_SCROLLBOTTOM_DECOR": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCVjF0e26OYrIJuNP1pvSyz29edFtKbngjRcA.webp\"",
-   "order": 685,
+   "order": 686,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCVjF0e26OYrIJuNP1pvSyz29edFtKbngjRcA.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_USERSBANNER_TOP": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDV31MCzEwoh0WXMnscL279N8ayVQUCbRzS3p.webp\"",
-   "order": 686,
+   "order": 687,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDV31MCzEwoh0WXMnscL279N8ayVQUCbRzS3p.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_USERSBANNER_BOTTOM": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJhWwvubMfUBdnwAX5LTajlNc4mrgzi0RJtqpM.webp\"",
-   "order": 687,
+   "order": 688,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJhWwvubMfUBdnwAX5LTajlNc4mrgzi0RJtqpM.webp",
    "kind": "string"
   },
   "IMG_AVATAR_DEFAULT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp\"",
-   "order": 688,
+   "order": 689,
    "value": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
    "kind": "string"
   },
   "IMG_WALLPAPER_WINTER": {
    "raw": "\"https://tnr-storage-cdn.b-cdn.net/wallpaper-winter.webp\"",
-   "order": 689,
+   "order": 690,
    "value": "https://tnr-storage-cdn.b-cdn.net/wallpaper-winter.webp",
    "kind": "string"
   },
   "IMG_WALLPAPER_SPRING": {
    "raw": "\"https://tnr-storage-cdn.b-cdn.net/wallpaper-spring.webp\"",
-   "order": 690,
+   "order": 691,
    "value": "https://tnr-storage-cdn.b-cdn.net/wallpaper-spring.webp",
    "kind": "string"
   },
   "IMG_WALLPAPER_SUMMER": {
    "raw": "\"https://tnr-storage-cdn.b-cdn.net/wallpaper-summer.webp\"",
-   "order": 691,
+   "order": 692,
    "value": "https://tnr-storage-cdn.b-cdn.net/wallpaper-summer.webp",
    "kind": "string"
   },
   "IMG_WALLPAPER_FALL": {
    "raw": "\"https://tnr-storage-cdn.b-cdn.net/wallpaper-fall.webp\"",
-   "order": 692,
+   "order": 693,
    "value": "https://tnr-storage-cdn.b-cdn.net/wallpaper-fall.webp",
    "kind": "string"
   },
   "IMG_WALLPAPER_HALLOWEEN": {
    "raw": "\"https://tnr-storage-cdn.b-cdn.net/wallpaper-halloween.webp\"",
-   "order": 693,
+   "order": 694,
    "value": "https://tnr-storage-cdn.b-cdn.net/wallpaper-halloween.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_BUTTONDECOR": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJYectQDOMAlNnPZ41ev6fCGcFK3hmjX9I8W7d.webp\"",
-   "order": 694,
+   "order": 695,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJYectQDOMAlNnPZ41ev6fCGcFK3hmjX9I8W7d.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_NAVBAR": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ1znttRb6bo95WClq4K0wxZUmJcvThgdVenO3.webp\"",
-   "order": 695,
+   "order": 696,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ1znttRb6bo95WClq4K0wxZUmJcvThgdVenO3.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_NAVBAR_HALLOWEEN": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJbYxvuGAtYUndMi56GkX19q0A4PzyeIloBrEa.webp\"",
-   "order": 696,
+   "order": 697,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJbYxvuGAtYUndMi56GkX19q0A4PzyeIloBrEa.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_HANDSIGN": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ0hKI3IgrYldRWJcD6vE10SjNsXHeA9pVMfQi.webp\"",
-   "order": 697,
+   "order": 698,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ0hKI3IgrYldRWJcD6vE10SjNsXHeA9pVMfQi.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_HANDSIGN_HALLOWEEN": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJcGYTUXSnxBpQqGNDcTHbLmYz8uXAl3oa54ti.webp\"",
-   "order": 698,
+   "order": 699,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJcGYTUXSnxBpQqGNDcTHbLmYz8uXAl3oa54ti.webp",
    "kind": "string"
   },
   "IMG_LAYOUT_WELCOME_IMG": {
    "raw": "\"https://tnr-storage-cdn.b-cdn.net/welcomeimage_compressed.webp\"",
-   "order": 699,
+   "order": 700,
    "value": "https://tnr-storage-cdn.b-cdn.net/welcomeimage_compressed.webp",
    "kind": "string"
   },
   "IMG_PIXEL_HERO_POSTER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJW2NIKTvszvj71yaSYC0MDOmbko5q9JAGuLHf.jpg\"",
-   "order": 700,
+   "order": 701,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJW2NIKTvszvj71yaSYC0MDOmbko5q9JAGuLHf.jpg",
    "kind": "string"
   },
   "IMG_PIXEL_HERO_POSTER_OPTIMIZED": {
    "raw": "`${IMG_PIXEL_HERO_POSTER}?width=1280&height=720`",
-   "order": 701,
+   "order": 702,
    "kind": "expr"
   },
   "IMG_LOGO_FULL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHeJzt0QvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp\"",
-   "order": 702,
+   "order": 703,
    "doc": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJqbkFzRdkOZgJQ8mGRcdx3SsWvPelyYFTt5Vn.webp\"; export const IMG_LOGO_FULL = \"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ8b0eqBkkp45TvAnoIBa0rtCf1lbyXYjVKQ2q.webp\";",
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHeJzt0QvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp",
    "kind": "string"
   },
   "IMG_LOGO_SHORT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCClYWI26OYrIJuNP1pvSyz29edFtKbngjRcA.webp\"",
-   "order": 703,
+   "order": 704,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCClYWI26OYrIJuNP1pvSyz29edFtKbngjRcA.webp",
    "kind": "string"
   },
   "IMG_LOADER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/4a3100e5-97c6-4e5a-96e2-1c3520838179-gwm3dh.svg\"",
-   "order": 704,
+   "order": 705,
    "value": "https://uploadthing.b-cdn.net/f/4a3100e5-97c6-4e5a-96e2-1c3520838179-gwm3dh.svg",
    "kind": "string"
   },
   "IMG_SECTOR_INFO": {
    "raw": "\"https://uploadthing.b-cdn.net/f/ddab9f31-0491-4445-8e6e-98370533a93d-1xdpq.png\"",
-   "order": 705,
+   "order": 706,
    "value": "https://uploadthing.b-cdn.net/f/ddab9f31-0491-4445-8e6e-98370533a93d-1xdpq.png",
    "kind": "string"
   },
   "IMG_SECTOR_ATTACK": {
    "raw": "\"https://uploadthing.b-cdn.net/f/d6587d1a-c11b-49e3-8e86-74bfb02a80a1-n9ug1k.png\"",
-   "order": 706,
+   "order": 707,
    "value": "https://uploadthing.b-cdn.net/f/d6587d1a-c11b-49e3-8e86-74bfb02a80a1-n9ug1k.png",
    "kind": "string"
   },
   "IMG_SECTOR_ROB": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJvNL3jBEmSnXwslYEpV1yOeNL8gMtqhjPdf36.webp\"",
-   "order": 707,
+   "order": 708,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJvNL3jBEmSnXwslYEpV1yOeNL8gMtqhjPdf36.webp",
    "kind": "string"
   },
   "IMG_SECTOR_USER_MARKER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/cc347416-8bf6-40cf-9184-b4af64e6feae-n771t1.webp\"",
-   "order": 708,
+   "order": 709,
    "value": "https://uploadthing.b-cdn.net/f/cc347416-8bf6-40cf-9184-b4af64e6feae-n771t1.webp",
    "kind": "string"
   },
   "IMG_SECTOR_USER_SPRITE_MASK": {
    "raw": "\"https://uploadthing.b-cdn.net/f/40061bc5-d73c-4265-8eff-4798fd840ae2-x83hc4.webp\"",
-   "order": 709,
+   "order": 710,
    "value": "https://uploadthing.b-cdn.net/f/40061bc5-d73c-4265-8eff-4798fd840ae2-x83hc4.webp",
    "kind": "string"
   },
   "IMG_SECTOR_SHADOW": {
    "raw": "\"https://uploadthing.b-cdn.net/f/bd8d8c75-96a0-4c71-94b6-f02e1ee382b5-exyuao.png\"",
-   "order": 710,
+   "order": 711,
    "value": "https://uploadthing.b-cdn.net/f/bd8d8c75-96a0-4c71-94b6-f02e1ee382b5-exyuao.png",
    "kind": "string"
   },
   "IMG_SECTOR_USERSPRITE_LEFT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/5c812303-70aa-4fc4-982c-6e72eee3c4b6-u7oujn.webp\"",
-   "order": 711,
+   "order": 712,
    "value": "https://uploadthing.b-cdn.net/f/5c812303-70aa-4fc4-982c-6e72eee3c4b6-u7oujn.webp",
    "kind": "string"
   },
   "IMG_SECTOR_USERSPRITE_RIGHT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/b6c5b6ba-99e0-49e5-b4a2-bf6ba9ca1ebc-dbaxa8.webp\"",
-   "order": 712,
+   "order": 713,
    "value": "https://uploadthing.b-cdn.net/f/b6c5b6ba-99e0-49e5-b4a2-bf6ba9ca1ebc-dbaxa8.webp",
    "kind": "string"
   },
   "IMG_SECTOR_VS_ICON": {
    "raw": "\"https://uploadthing.b-cdn.net/f/be789e50-095f-4e50-bffc-fe0fedd8777b-dd7l0q.webp\"",
-   "order": 713,
+   "order": 714,
    "value": "https://uploadthing.b-cdn.net/f/be789e50-095f-4e50-bffc-fe0fedd8777b-dd7l0q.webp",
    "kind": "string"
   },
   "IMG_SECTOR_WALL_STONE_TOWER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/aab037bb-7ac7-48f7-9994-548d87eb55f1-lga892.webp\"",
-   "order": 714,
+   "order": 715,
    "value": "https://uploadthing.b-cdn.net/f/aab037bb-7ac7-48f7-9994-548d87eb55f1-lga892.webp",
    "kind": "string"
   },
   "IMG_MAP_WAR_ICON": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJgipq89cU9cpECTimBdjaqbNn7vQsxGR1wLk4.webp\"",
-   "order": 715,
+   "order": 716,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJgipq89cU9cpECTimBdjaqbNn7vQsxGR1wLk4.webp",
    "kind": "string"
   },
   "IMG_MAP_QUEST_ICON": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJRsb4NN0udmODoNtpa0FMcwI4k2Eq7nJhyvjl.webp\"",
-   "order": 716,
+   "order": 717,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJRsb4NN0udmODoNtpa0FMcwI4k2Eq7nJhyvjl.webp",
    "kind": "string"
   },
   "IMG_TRAIN_INTELLIGENCE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/815a53ea-23d2-4767-9219-a36ed3d4c619-d73vsv.png\"",
-   "order": 717,
+   "order": 718,
    "value": "https://uploadthing.b-cdn.net/f/815a53ea-23d2-4767-9219-a36ed3d4c619-d73vsv.png",
    "kind": "string"
   },
   "IMG_TRAIN_WILLPOWER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/a303f719-e216-4142-b1c2-50b2ac1d98c3-t57iq5.png\"",
-   "order": 718,
+   "order": 719,
    "value": "https://uploadthing.b-cdn.net/f/a303f719-e216-4142-b1c2-50b2ac1d98c3-t57iq5.png",
    "kind": "string"
   },
   "IMG_TRAIN_STRENGTH": {
    "raw": "\"https://uploadthing.b-cdn.net/f/70e251a8-17d2-4d5d-a121-55fb43bf5b37-tmi4ap.png\"",
-   "order": 719,
+   "order": 720,
    "value": "https://uploadthing.b-cdn.net/f/70e251a8-17d2-4d5d-a121-55fb43bf5b37-tmi4ap.png",
    "kind": "string"
   },
   "IMG_TRAIN_SPEED": {
    "raw": "\"https://uploadthing.b-cdn.net/f/893e0cc5-9b53-442c-af5d-9aacd95e6d8b-1ta05j.png\"",
-   "order": 720,
+   "order": 721,
    "value": "https://uploadthing.b-cdn.net/f/893e0cc5-9b53-442c-af5d-9aacd95e6d8b-1ta05j.png",
    "kind": "string"
   },
   "IMG_TRAIN_GEN_OFF": {
    "raw": "\"https://uploadthing.b-cdn.net/f/598a40f5-4cfa-4ad7-8378-eb63f0b28282-f9eh41.png\"",
-   "order": 721,
+   "order": 722,
    "value": "https://uploadthing.b-cdn.net/f/598a40f5-4cfa-4ad7-8378-eb63f0b28282-f9eh41.png",
    "kind": "string"
   },
   "IMG_TRAIN_GEN_DEF": {
    "raw": "\"https://uploadthing.b-cdn.net/f/38463f2d-8c5b-4e4f-b74e-52667469a478-z4l40b.png\"",
-   "order": 722,
+   "order": 723,
    "value": "https://uploadthing.b-cdn.net/f/38463f2d-8c5b-4e4f-b74e-52667469a478-z4l40b.png",
    "kind": "string"
   },
   "IMG_TRAIN_TAI_DEF": {
    "raw": "\"https://uploadthing.b-cdn.net/f/c6091de0-8c6f-4a17-8d75-067338f9fdf0-8ghs8v.png\"",
-   "order": 723,
+   "order": 724,
    "value": "https://uploadthing.b-cdn.net/f/c6091de0-8c6f-4a17-8d75-067338f9fdf0-8ghs8v.png",
    "kind": "string"
   },
   "IMG_TRAIN_TAI_OFF": {
    "raw": "\"https://uploadthing.b-cdn.net/f/6dcf3cfd-0084-49ec-8b5f-36dff3212d35-beounf.png\"",
-   "order": 724,
+   "order": 725,
    "value": "https://uploadthing.b-cdn.net/f/6dcf3cfd-0084-49ec-8b5f-36dff3212d35-beounf.png",
    "kind": "string"
   },
   "IMG_TRAIN_BUKI_OFF": {
    "raw": "\"https://uploadthing.b-cdn.net/f/b6daa0ab-698a-4e13-8e5f-c7560cfdc499-mcc2dc.png\"",
-   "order": 725,
+   "order": 726,
    "value": "https://uploadthing.b-cdn.net/f/b6daa0ab-698a-4e13-8e5f-c7560cfdc499-mcc2dc.png",
    "kind": "string"
   },
   "IMG_TRAIN_BUKI_DEF": {
    "raw": "\"https://uploadthing.b-cdn.net/f/5faa1363-2ecc-4533-9077-b3c14afd58c6-stlcpi.png\"",
-   "order": 726,
+   "order": 727,
    "value": "https://uploadthing.b-cdn.net/f/5faa1363-2ecc-4533-9077-b3c14afd58c6-stlcpi.png",
    "kind": "string"
   },
   "IMG_TRAIN_NIN_OFF": {
    "raw": "\"https://uploadthing.b-cdn.net/f/4727d488-1eb0-475e-adfe-ca26837c45a1-g8pm8u.png\"",
-   "order": 727,
+   "order": 728,
    "value": "https://uploadthing.b-cdn.net/f/4727d488-1eb0-475e-adfe-ca26837c45a1-g8pm8u.png",
    "kind": "string"
   },
   "IMG_TRAIN_NIN_DEF": {
    "raw": "\"https://uploadthing.b-cdn.net/f/308d9bee-5105-4534-b11c-59592db90181-yx7su0.png\"",
-   "order": 728,
+   "order": 729,
    "value": "https://uploadthing.b-cdn.net/f/308d9bee-5105-4534-b11c-59592db90181-yx7su0.png",
    "kind": "string"
   },
   "IMG_ELEMENT_YINYANG": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIlW2BrxfOewksxBoS1HQCihpL7c42Ky9uUFv.webp\"",
-   "order": 729,
+   "order": 730,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIlW2BrxfOewksxBoS1HQCihpL7c42Ky9uUFv.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_SHADOW": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJvSWrdXEmSnXwslYEpV1yOeNL8gMtqhjPdf36.webp\"",
-   "order": 730,
+   "order": 731,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJvSWrdXEmSnXwslYEpV1yOeNL8gMtqhjPdf36.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_NONE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeC2dFWVyV3OvUJQExAi0bGoIZDF74LqSnHRd.webp\"",
-   "order": 731,
+   "order": 732,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeC2dFWVyV3OvUJQExAi0bGoIZDF74LqSnHRd.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_EXPLOSION": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCH1oeV26OYrIJuNP1pvSyz29edFtKbngjRcA.webp\"",
-   "order": 732,
+   "order": 733,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCH1oeV26OYrIJuNP1pvSyz29edFtKbngjRcA.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_WIND": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ2HrMNjAnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b.webp\"",
-   "order": 733,
+   "order": 734,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ2HrMNjAnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_WATER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoYFqRUhZ9MPZpHJ7VliuEWDfATdxhv62SXnm.webp\"",
-   "order": 734,
+   "order": 735,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoYFqRUhZ9MPZpHJ7VliuEWDfATdxhv62SXnm.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_LAVA": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJaK2IZBYYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk.webp\"",
-   "order": 735,
+   "order": 736,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJaK2IZBYYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_ICE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCqHOvc26OYrIJuNP1pvSyz29edFtKbngjRcA.webp\"",
-   "order": 736,
+   "order": 737,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCqHOvc26OYrIJuNP1pvSyz29edFtKbngjRcA.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_WOOD": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJbZYZaSPAtYUndMi56GkX19q0A4PzyeIloBrE.webp\"",
-   "order": 737,
+   "order": 738,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJbZYZaSPAtYUndMi56GkX19q0A4PzyeIloBrE.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_STORM": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJzu4spmSemvaQu94EYJs8HpxVzofny6iPtbgC.webp\"",
-   "order": 738,
+   "order": 739,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJzu4spmSemvaQu94EYJs8HpxVzofny6iPtbgC.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_CRYSTAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJaKoVVmYYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk.webp\"",
-   "order": 739,
+   "order": 740,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJaKoVVmYYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_MAGNET": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJuNr6tnCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp\"",
-   "order": 740,
+   "order": 741,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJuNr6tnCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_FIRE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJAX1vCjoZUC4muiGcQNzjfEndY5y1w20B8hTW.webp\"",
-   "order": 741,
+   "order": 742,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJAX1vCjoZUC4muiGcQNzjfEndY5y1w20B8hTW.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_LIGHT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeVtMZpyV3OvUJQExAi0bGoIZDF74LqSnHRdp.webp\"",
-   "order": 742,
+   "order": 743,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJeVtMZpyV3OvUJQExAi0bGoIZDF74LqSnHRdp.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_EARTH": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJgi7liFcU9cpECTimBdjaqbNn7vQsxGR1wLk4.webp\"",
-   "order": 743,
+   "order": 744,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJgi7liFcU9cpECTimBdjaqbNn7vQsxGR1wLk4.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_SCORCH": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCmW9wm326OYrIJuNP1pvSyz29edFtKbngjRc.webp\"",
-   "order": 744,
+   "order": 745,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCmW9wm326OYrIJuNP1pvSyz29edFtKbngjRc.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_DUST": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJchNmlmSnxBpQqGNDcTHbLmYz8uXAl3oa54ti.webp\"",
-   "order": 745,
+   "order": 746,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJchNmlmSnxBpQqGNDcTHbLmYz8uXAl3oa54ti.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_SAND": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJzu4nv37emvaQu94EYJs8HpxVzofny6iPtbgC.webp\"",
-   "order": 746,
+   "order": 747,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJzu4nv37emvaQu94EYJs8HpxVzofny6iPtbgC.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_LIGHTNING": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ4DIVIclYIif5CL8BKvMsOh2ZnmS7yHt0jTD3.webp\"",
-   "order": 747,
+   "order": 748,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ4DIVIclYIif5CL8BKvMsOh2ZnmS7yHt0jTD3.webp",
    "kind": "string"
   },
   "IMG_ELEMENT_BOIL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ5qAGAlo797jl4ubX8xrRqTZasyMp2WA5eLGU.png\"",
-   "order": 748,
+   "order": 749,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ5qAGAlo797jl4ubX8xrRqTZasyMp2WA5eLGU.png",
    "kind": "string"
   },
   "IMG_ELEMENT_METAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJu0t3mRCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp\"",
-   "order": 749,
+   "order": 750,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJu0t3mRCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp",
    "kind": "string"
   },
   "IMG_BASIC_HEAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnlXNSKmojJ0EqeDCvBrNmZaXVdY97gSpOWiA.webp\"",
-   "order": 750,
+   "order": 751,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnlXNSKmojJ0EqeDCvBrNmZaXVdY97gSpOWiA.webp",
    "kind": "string"
   },
   "IMG_BASIC_MEDITATE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJgt4hLTcU9cpECTimBdjaqbNn7vQsxGR1wLk4.webp\"",
-   "order": 751,
+   "order": 752,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJgt4hLTcU9cpECTimBdjaqbNn7vQsxGR1wLk4.webp",
    "kind": "string"
   },
   "IMG_BASIC_ATTACK": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJdMXlCrP62PI3ciLaYzgVX8FopBADxSrGmvQl.webp\"",
-   "order": 752,
+   "order": 753,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJdMXlCrP62PI3ciLaYzgVX8FopBADxSrGmvQl.webp",
    "kind": "string"
   },
   "IMG_BASIC_OFFENSIVE_STANCE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnBZu0YmojJ0EqeDCvBrNmZaXVdY97gSpOWiA.webp\"",
-   "order": 753,
+   "order": 754,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnBZu0YmojJ0EqeDCvBrNmZaXVdY97gSpOWiA.webp",
    "kind": "string"
   },
   "IMG_BASIC_DEFENSIVE_STANCE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJFr82ddG2iOewJtjGzvNcmEX3TBnoSfMDZPH4.webp\"",
-   "order": 754,
+   "order": 755,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJFr82ddG2iOewJtjGzvNcmEX3TBnoSfMDZPH4.webp",
    "kind": "string"
   },
   "IMG_BASIC_FLEE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJRohRDR0udmODoNtpa0FMcwI4k2Eq7nJhyvjl.webp\"",
-   "order": 755,
+   "order": 756,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJRohRDR0udmODoNtpa0FMcwI4k2Eq7nJhyvjl.webp",
    "kind": "string"
   },
   "IMG_BASIC_STEALTH": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDtLSxhzEwoh0WXMnscL279N8ayVQUCbRzS3p.webp\"",
-   "order": 756,
+   "order": 757,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDtLSxhzEwoh0WXMnscL279N8ayVQUCbRzS3p.webp",
    "kind": "string"
   },
   "IMG_BASIC_WAIT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ8ByNJwOkkp45TvAnoIBa0rtCf1lbyXYjVKQ2.webp\"",
-   "order": 757,
+   "order": 758,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ8ByNJwOkkp45TvAnoIBa0rtCf1lbyXYjVKQ2.webp",
    "kind": "string"
   },
   "IMG_BASIC_MOVE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnQxuGeXmojJ0EqeDCvBrNmZaXVdY97gSpOWi.webp\"",
-   "order": 758,
+   "order": 759,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnQxuGeXmojJ0EqeDCvBrNmZaXVdY97gSpOWi.webp",
    "kind": "string"
   },
   "IMG_BASIC_REPLACEMENT_TECHNIQUE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJZtjLXMaYQrBIUTu69nkMxWmS4ah0O7LVCp8b.png\"",
-   "order": 759,
+   "order": 760,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJZtjLXMaYQrBIUTu69nkMxWmS4ah0O7LVCp8b.png",
    "kind": "string"
   },
   "IMG_BASIC_CLEANSE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ5oYOji797jl4ubX8xrRqTZasyMp2WA5eLGUP.webp\"",
-   "order": 760,
+   "order": 761,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ5oYOji797jl4ubX8xrRqTZasyMp2WA5eLGUP.webp",
    "kind": "string"
   },
   "IMG_BASIC_CLEAR": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJTWnPJE5IU29dZYJPoOKSh5vmlqatMub3EigH.webp\"",
-   "order": 761,
+   "order": 762,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJTWnPJE5IU29dZYJPoOKSh5vmlqatMub3EigH.webp",
    "kind": "string"
   },
   "IMG_ICON_DISCORD": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCZvaND26OYrIJuNP1pvSyz29edFtKbngjRcA.png\"",
-   "order": 762,
+   "order": 763,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCZvaND26OYrIJuNP1pvSyz29edFtKbngjRcA.png",
    "kind": "string"
   },
   "IMG_ICON_FACEBOOK": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ1zjiDxX6bo95WClq4K0wxZUmJcvThgdVenO3.png\"",
-   "order": 763,
+   "order": 764,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ1zjiDxX6bo95WClq4K0wxZUmJcvThgdVenO3.png",
    "kind": "string"
   },
   "IMG_ICON_GITHUB": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJydaEQfukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.png\"",
-   "order": 764,
+   "order": 765,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJydaEQfukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.png",
    "kind": "string"
   },
   "IMG_ICON_GOOGLE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCV0Mc426OYrIJuNP1pvSyz29edFtKbngjRcA.png\"",
-   "order": 765,
+   "order": 766,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJCV0Mc426OYrIJuNP1pvSyz29edFtKbngjRcA.png",
    "kind": "string"
   },
   "IMG_ICON_INSTAGRAM": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJWLbTriPvszvj71yaSYC0MDOmbko5q9JAGuLH.png\"",
-   "order": 766,
+   "order": 767,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJWLbTriPvszvj71yaSYC0MDOmbko5q9JAGuLH.png",
    "kind": "string"
   },
   "IMG_ICON_REDDIT": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJPYJEg8pKeUGyX2kj6u45AOQiSa1zYH0mqZoc.png\"",
-   "order": 767,
+   "order": 768,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJPYJEg8pKeUGyX2kj6u45AOQiSa1zYH0mqZoc.png",
    "kind": "string"
   },
   "IMG_ICON_TIKTOK": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoYcyUDSZ9MPZpHJ7VliuEWDfATdxhv62SXnm.png\"",
-   "order": 768,
+   "order": 769,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoYcyUDSZ9MPZpHJ7VliuEWDfATdxhv62SXnm.png",
    "kind": "string"
   },
   "IMG_ICON_TWITTER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJMi2fCxtsO4cexqW2RDgkE3zZbNXSFGitmnar.png\"",
-   "order": 769,
+   "order": 770,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJMi2fCxtsO4cexqW2RDgkE3zZbNXSFGitmnar.png",
    "kind": "string"
   },
   "IMG_ICON_YOUTUBE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJy7pL6jukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.png\"",
-   "order": 770,
+   "order": 771,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJy7pL6jukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.png",
    "kind": "string"
   },
   "IMG_ICON_FORUM": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJTwT9cY5IU29dZYJPoOKSh5vmlqatMub3EigH.png\"",
-   "order": 771,
+   "order": 772,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJTwT9cY5IU29dZYJPoOKSh5vmlqatMub3EigH.png",
    "kind": "string"
   },
   "IMG_ICON_MOVE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJepKSYSyV3OvUJQExAi0bGoIZDF74LqSnHRdp.png\"",
-   "order": 772,
+   "order": 773,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJepKSYSyV3OvUJQExAi0bGoIZDF74LqSnHRdp.png",
    "kind": "string"
   },
   "IMG_ICON_HEAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJrtRSYfhuJPmdY8zI2ptZXAoEj1c6BMKvrQOx.webp\"",
-   "order": 773,
+   "order": 774,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJrtRSYfhuJPmdY8zI2ptZXAoEj1c6BMKvrQOx.webp",
    "kind": "string"
   },
   "IMG_MISSION_S": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJz3Ph17emvaQu94EYJs8HpxVzofny6iPtbgCZ.webp\"",
-   "order": 774,
+   "order": 775,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJz3Ph17emvaQu94EYJs8HpxVzofny6iPtbgCZ.webp",
    "kind": "string"
   },
   "IMG_MISSION_A": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ0ORGP9grYldRWJcD6vE10SjNsXHeA9pVMfQi.webp\"",
-   "order": 775,
+   "order": 776,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ0ORGP9grYldRWJcD6vE10SjNsXHeA9pVMfQi.webp",
    "kind": "string"
   },
   "IMG_MISSION_B": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoVn7VTZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp\"",
-   "order": 776,
+   "order": 777,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoVn7VTZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp",
    "kind": "string"
   },
   "IMG_MISSION_C": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoe3eJHZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp\"",
-   "order": 777,
+   "order": 778,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJoe3eJHZ9MPZpHJ7VliuEWDfATdxhv62SXnm4.webp",
    "kind": "string"
   },
   "IMG_MISSION_D": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ7r7fFcXKPBOUWGyFuM4DlL1v5HNTZhkte0z6.webp\"",
-   "order": 778,
+   "order": 779,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ7r7fFcXKPBOUWGyFuM4DlL1v5HNTZhkte0z6.webp",
    "kind": "string"
   },
   "IMG_MISSION_E": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJPAguocQpKeUGyX2kj6u45AOQiSa1zYH0mqZo.webp\"",
-   "order": 779,
+   "order": 780,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJPAguocQpKeUGyX2kj6u45AOQiSa1zYH0mqZo.webp",
    "kind": "string"
   },
   "IMG_MISSION_M": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyweIVKukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp\"",
-   "order": 780,
+   "order": 781,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyweIVKukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp",
    "kind": "string"
   },
   "IMG_MISSION_PVP": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJzCBxBXemvaQu94EYJs8HpxVzofny6iPtbgCZ.webp\"",
-   "order": 781,
+   "order": 782,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJzCBxBXemvaQu94EYJs8HpxVzofny6iPtbgCZ.webp",
    "kind": "string"
   },
   "IMG_MISSION_WAR": {
    "raw": "\"/War_mission.webp\"",
-   "order": 782,
+   "order": 783,
    "value": "/War_mission.webp",
    "kind": "string"
   },
   "IMG_BUILDING_MISSIONHALL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ2TCTWInMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8.webp\"",
-   "order": 783,
+   "order": 784,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ2TCTWInMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8.webp",
    "kind": "string"
   },
   "IMG_BUILDING_SCIENCEBUILDING": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwQxr3PT2j854CWbaITZyegfXimvd7s16cO0h.webp\"",
-   "order": 784,
+   "order": 785,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwQxr3PT2j854CWbaITZyegfXimvd7s16cO0h.webp",
    "kind": "string"
   },
   "IMG_BUILDING_NEWS": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJYKooj7OMAlNnPZ41ev6fCGcFK3hmjX9I8W7d.webp\"",
-   "order": 785,
+   "order": 786,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJYKooj7OMAlNnPZ41ev6fCGcFK3hmjX9I8W7d.webp",
    "kind": "string"
   },
   "IMG_BUILDING_SOUVENIER": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHmrEYkQvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp\"",
-   "order": 786,
+   "order": 787,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHmrEYkQvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp",
    "kind": "string"
   },
   "IMG_BUILDING_HOSPITAL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ3n9SmD8pYHJX5rdkUTfOKtvu2eGIELmSWqBx.webp\"",
-   "order": 787,
+   "order": 788,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ3n9SmD8pYHJX5rdkUTfOKtvu2eGIELmSWqBx.webp",
    "kind": "string"
   },
   "IMG_BUILDING_GLOBALANBU": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIfwMDCxfOewksxBoS1HQCihpL7c42Ky9uUFv.webp\"",
-   "order": 788,
+   "order": 789,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJIfwMDCxfOewksxBoS1HQCihpL7c42Ky9uUFv.webp",
    "kind": "string"
   },
   "IMG_BUILDING_ACADEMY": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ5kYqQv797jl4ubX8xrRqTZasyMp2WA5eLGUP.webp\"",
-   "order": 789,
+   "order": 790,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJ5kYqQv797jl4ubX8xrRqTZasyMp2WA5eLGUP.webp",
    "kind": "string"
   },
   "IMG_BUILDING_BANK": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJEHFjuQLfKL5D7TAFe29bymSaPCIQ846MdzGg.webp\"",
-   "order": 790,
+   "order": 791,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJEHFjuQLfKL5D7TAFe29bymSaPCIQ846MdzGg.webp",
    "kind": "string"
   },
   "IMG_BUILDING_ARCHIVE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJXk8AUJqIOpAoLKbZ4nW9Rsil2V67yuFwQhqv.webp\"",
-   "order": 791,
+   "order": 792,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJXk8AUJqIOpAoLKbZ4nW9Rsil2V67yuFwQhqv.webp",
    "kind": "string"
   },
   "IMG_BUILDING_ADMINBUILDING": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJMyfWBKtsO4cexqW2RDgkE3zZbNXSFGitmnar.webp\"",
-   "order": 792,
+   "order": 793,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJMyfWBKtsO4cexqW2RDgkE3zZbNXSFGitmnar.webp",
    "kind": "string"
   },
   "IMG_ACTIONTIMER_BG": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJZNkUoDaYQrBIUTu69nkMxWmS4ah0O7LVCp8b.webp\"",
-   "order": 793,
+   "order": 794,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJZNkUoDaYQrBIUTu69nkMxWmS4ah0O7LVCp8b.webp",
    "kind": "string"
   },
   "IMG_ACTIONTIMER_YELLOW": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJXnRHYeqIOpAoLKbZ4nW9Rsil2V67yuFwQhqv.webp\"",
-   "order": 794,
+   "order": 795,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJXnRHYeqIOpAoLKbZ4nW9Rsil2V67yuFwQhqv.webp",
    "kind": "string"
   },
   "IMG_ACTIONTIMER_RED": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyrbex4ukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp\"",
-   "order": 795,
+   "order": 796,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJyrbex4ukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp.webp",
    "kind": "string"
   },
   "IMG_ACTIONTIMER_BLUE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJqA6PRRdkOZgJQ8mGRcdx3SsWvPelyYFTt5Vn.webp\"",
-   "order": 796,
+   "order": 797,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJqA6PRRdkOZgJQ8mGRcdx3SsWvPelyYFTt5Vn.webp",
    "kind": "string"
   },
   "IMG_ACTIONTIMER_GREEN": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwSFJxPT2j854CWbaITZyegfXimvd7s16cO0h.webp\"",
-   "order": 797,
+   "order": 798,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJwSFJxPT2j854CWbaITZyegfXimvd7s16cO0h.webp",
    "kind": "string"
   },
   "IMG_ACTIONTIMER_OVERLAY": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHVKSE4QvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp\"",
-   "order": 798,
+   "order": 799,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJHVKSE4QvYURJhgs76VZtf9wxpMa13Cq0iOnr.webp",
    "kind": "string"
   },
   "IMG_INITIATIVE_D20": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJE7476GLfKL5D7TAFe29bymSaPCIQ846MdzGg.webp\"",
-   "order": 799,
+   "order": 800,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJE7476GLfKL5D7TAFe29bymSaPCIQ846MdzGg.webp",
    "kind": "string"
   },
   "IMG_BATTLEFIELD_TOMBSTONE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJVVIq2fF2veAXohUuE59nTQHRJIYjtiG18aF4.webp\"",
-   "order": 800,
+   "order": 801,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJVVIq2fF2veAXohUuE59nTQHRJIYjtiG18aF4.webp",
    "kind": "string"
   },
   "IMG_BATTLEFIELD_STAR": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJuGvcEjCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp\"",
-   "order": 801,
+   "order": 802,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJuGvcEjCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b.webp",
    "kind": "string"
   },
   "MUSIC_SHADOW_OF_THE_BLADE": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQCH0mJjhzBPya1rwfCIqOTU0cV5xgsMeo3u2\"",
-   "order": 802,
+   "order": 803,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJQCH0mJjhzBPya1rwfCIqOTU0cV5xgsMeo3u2",
    "kind": "string"
   },
   "MUSIC_WELCOME_TO_SEICHI": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJrwIzM2huJPmdY8zI2ptZXAoEj1c6BMKvrQOx\"",
-   "order": 803,
+   "order": 804,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJrwIzM2huJPmdY8zI2ptZXAoEj1c6BMKvrQOx",
    "kind": "string"
   },
   "MUSIC_SHIROHANA_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnL3NqnmojJ0EqeDCvBrNmZaXVdY97gSpOWiA\"",
-   "order": 804,
+   "order": 805,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJnL3NqnmojJ0EqeDCvBrNmZaXVdY97gSpOWiA",
    "kind": "string"
   },
   "MUSIC_TSUKIMORI_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJE9b6CNLfKL5D7TAFe29bymSaPCIQ846MdzGg\"",
-   "order": 805,
+   "order": 806,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJE9b6CNLfKL5D7TAFe29bymSaPCIQ846MdzGg",
    "kind": "string"
   },
   "MUSIC_AKIKAZE_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJY9DJWIOMAlNnPZ41ev6fCGcFK3hmjX9I8W7d\"",
-   "order": 806,
+   "order": 807,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJY9DJWIOMAlNnPZ41ev6fCGcFK3hmjX9I8W7d",
    "kind": "string"
   },
   "MUSIC_SYNDICATE_THEME": {
    "raw": "\"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJxrcAPUWZsq9k0Von5rUfP6OgQ2TyptCKHS4u\"",
-   "order": 807,
+   "order": 808,
    "value": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJxrcAPUWZsq9k0Von5rUfP6OgQ2TyptCKHS4u",
    "kind": "string"
   },
   "BUTTON_CLICK_SFX_URLS": {
    "raw": "[\n  \"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJSiIRUn3jWrEB7TyZlmpoAxMK5Qi16kNPVJuH\",\n  \"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDaZRDSzEwoh0WXMnscL279N8ayVQUCbRzS3p\",\n  \"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDTV5J0zEwoh0WXMnscL279N8ayVQUCbRzS3p\",\n  \"https://uploadthing.b-cdn.net/f/Hzww9EQvYURJPB6OtxpKeUGyX2kj6u45AOQiSa1zYH0mqZoc\",\n]",
-   "order": 808,
+   "order": 809,
    "value": [
     "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJSiIRUn3jWrEB7TyZlmpoAxMK5Qi16kNPVJuH",
     "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJDaZRDSzEwoh0WXMnscL279N8ayVQUCbRzS3p",
@@ -5777,7 +5745,7 @@
   },
   "HomeTypes": {
    "raw": "[\n  \"NONE\",\n  \"STUDIO_APARTMENT\",\n  \"ONE_BED_APARTMENT\",\n  \"TWO_BED_HOUSE\",\n  \"TOWN_HOUSE\",\n  \"SMALL_MANSION\",\n  \"SMALL_ESTATE\",\n  \"LARGE_ESTATE\",\n  \"PALACE\",\n  \"MARSHMALLOWOPOLIS\",\n]",
-   "order": 809,
+   "order": 810,
    "value": [
     "NONE",
     "STUDIO_APARTMENT",
@@ -5794,19 +5762,19 @@
   },
   "HomeTypeDetails": {
    "raw": "{\n  NONE: { regen: 0, storage: 0, cost: 0, name: \"No Home\" },\n  STUDIO_APARTMENT: { regen: 20, storage: 25, cost: 3000000, name: \"Studio Apartment\" },\n  ONE_BED_APARTMENT: {\n    regen: 50,\n    storage: 30,\n    cost: 10000000,\n    name: \"One Bedroom Apartment\",\n  },\n  TWO_BED_HOUSE: { regen: 70, storage: 35, cost: 20000000, name: \"Two Bedroom House\" },\n  TOWN_HOUSE: { regen: 100, storage: 40, cost: 35000000, name: \"Town House\" },\n  SMALL_MANSION: { regen: 130, storage: 45, cost: 45000000, name: \"Small Mansion\" },\n  SMALL_ESTATE: { regen: 150, storage: 50, cost: 60000000, name: \"Small Estate\" },\n  LARGE_ESTATE: { regen: 200, storage: 60, cost: 100000000, name: \"Large Estate\" },\n  PALACE: { regen: 300, storage: 80, cost: 300000000, name: \"Palace\" },\n  MARSHMALLOWOPOLIS: {\n    regen: 400,\n    storage: 100,\n    cost: 500000000,\n    name: \"Marshmallowopolis\",\n  },\n}",
-   "order": 810,
+   "order": 811,
    "kind": "expr"
   },
   "IMG_AUCTION_HOUSE": {
    "raw": "\"https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJmcDNSqHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap.webp\"",
-   "order": 811,
+   "order": 812,
    "doc": "Auction system constants",
    "value": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJmcDNSqHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap.webp",
    "kind": "string"
   },
   "AUCTION_LISTING_STATES": {
    "raw": "[\n  \"ACTIVE\",\n  \"SOLD\",\n  \"EXPIRED\",\n  \"CANCELLED\",\n]",
-   "order": 812,
+   "order": 813,
    "value": [
     "ACTIVE",
     "SOLD",
@@ -5817,7 +5785,7 @@
   },
   "AUCTION_LISTING_TYPES": {
    "raw": "[\"AUCTION\", \"DIRECT\"]",
-   "order": 813,
+   "order": 814,
    "value": [
     "AUCTION",
     "DIRECT"
@@ -5826,20 +5794,20 @@
   },
   "AUCTION_BIDDER_LEVEL_MIN": {
    "raw": "1",
-   "order": 814,
+   "order": 815,
    "doc": "Allowed bidder character level range for open auctions (absolute bounds).",
    "value": 1,
    "kind": "number"
   },
   "AUCTION_BIDDER_LEVEL_MAX": {
    "raw": "100",
-   "order": 815,
+   "order": 816,
    "value": 100,
    "kind": "number"
   },
   "AUCTION_BID_STATES": {
    "raw": "[\"ACTIVE\", \"REFUNDED\", \"WON\"]",
-   "order": 816,
+   "order": 817,
    "value": [
     "ACTIVE",
     "REFUNDED",
@@ -5849,7 +5817,7 @@
   },
   "BOUNTY_STATUSES": {
    "raw": "[\"OPEN\", \"CLAIMED\", \"EXPIRED\", \"CANCELLED\"]",
-   "order": 817,
+   "order": 818,
    "doc": "Bounty system constants",
    "value": [
     "OPEN",
@@ -5861,26 +5829,26 @@
   },
   "BOUNTY_MAX_HUNTERS": {
    "raw": "3",
-   "order": 818,
+   "order": 819,
    "value": 3,
    "kind": "number"
   },
   "BOUNTY_MIN_AMOUNT": {
    "raw": "1000000",
-   "order": 819,
+   "order": 820,
    "value": 1000000,
    "kind": "number"
   },
   "MAX_SKILL_POINTS": {
    "raw": "100",
-   "order": 820,
+   "order": 821,
    "doc": "Skill system constants",
    "value": 100,
    "kind": "number"
   },
   "SupportTicketCategories": {
    "raw": "[\n  \"BUG_REPORT\",\n  \"FEATURE_REQUEST\",\n  \"ACCOUNT_ISSUE\",\n  \"GAMEPLAY_QUESTION\",\n  \"PAYMENT_ISSUE\",\n  \"TECHNICAL_SUPPORT\",\n  \"MODERATION_SUPPORT\",\n  \"OTHER\",\n]",
-   "order": 821,
+   "order": 822,
    "doc": "Support System Settings",
    "value": [
     "BUG_REPORT",
@@ -5896,7 +5864,7 @@
   },
   "SupportTicketPriorities": {
    "raw": "[\"LOW\", \"MEDIUM\", \"HIGH\", \"URGENT\"]",
-   "order": 822,
+   "order": 823,
    "value": [
     "LOW",
     "MEDIUM",
@@ -5907,7 +5875,7 @@
   },
   "SupportTicketStatuses": {
    "raw": "[\n  \"OPEN\",\n  \"IN_PROGRESS\",\n  \"WAITING_FOR_USER\",\n  \"WAITING_FOR_STAFF\",\n  \"RESOLVED\",\n  \"CLOSED\",\n]",
-   "order": 823,
+   "order": 824,
    "value": [
     "OPEN",
     "IN_PROGRESS",
@@ -5920,7 +5888,7 @@
   },
   "SupportTicketActivityActions": {
    "raw": "[\n  \"CREATED\",\n  \"UPDATED\",\n  \"ASSIGNED\",\n  \"UNASSIGNED\",\n  \"STATUS_CHANGED\",\n  \"PRIORITY_CHANGED\",\n  \"CATEGORY_CHANGED\",\n  \"TAGGED\",\n  \"UNTAGGED\",\n  \"MERGED\",\n  \"ESCALATED_TO_GITHUB\",\n  \"COMMENTED\",\n  \"CLOSED\",\n  \"REOPENED\",\n]",
-   "order": 824,
+   "order": 825,
    "value": [
     "CREATED",
     "UPDATED",
@@ -5941,65 +5909,65 @@
   },
   "SUPPORT_TICKET_LIMITS": {
    "raw": "{\n  TITLE_MIN_LENGTH: 10,\n  TITLE_MAX_LENGTH: 255,\n  DESCRIPTION_MIN_LENGTH: 50,\n  DESCRIPTION_MAX_LENGTH: 5000,\n  COMMENT_MIN_LENGTH: 1,\n  COMMENT_MAX_LENGTH: 5000,\n  MAX_TAGS: 20,\n  MAX_TAG_LENGTH: 50,\n  MAX_ATTACHMENT_SIZE: 10 * 1024 * 1024, // 10MB\n  MAX_SUGGESTIONS: 10,\n  MAX_SEARCH_RESULTS: 50,\n  MAX_BULK_ACTIONS: 100,\n}",
-   "order": 825,
+   "order": 826,
    "doc": "Support Ticket Limits",
    "kind": "expr"
   },
   "SUPPORT_TICKET_STATUS_TRANSITIONS": {
    "raw": "{\n  OPEN: [\"IN_PROGRESS\", \"WAITING_FOR_USER\", \"RESOLVED\", \"CLOSED\", \"OPEN\"],\n  IN_PROGRESS: [\n    \"WAITING_FOR_USER\",\n    \"WAITING_FOR_STAFF\",\n    \"RESOLVED\",\n    \"CLOSED\",\n    \"IN_PROGRESS\",\n  ],\n  WAITING_FOR_USER: [\"IN_PROGRESS\", \"RESOLVED\", \"CLOSED\", \"WAITING_FOR_USER\"],\n  WAITING_FOR_STAFF: [\"IN_PROGRESS\", \"RESOLVED\", \"CLOSED\", \"WAITING_FOR_STAFF\"],\n  RESOLVED: [\"CLOSED\", \"OPEN\", \"RESOLVED\"],\n  CLOSED: [\"OPEN\", \"CLOSED\"],\n}",
-   "order": 826,
+   "order": 827,
    "ts_type": "Record< SupportTicketStatus, SupportTicketStatus[] >",
    "doc": "Support Ticket Status Transitions",
    "kind": "expr"
   },
   "SUPPORT_TICKET_COLORS": {
    "raw": "{\n  CATEGORY: {\n    BUG_REPORT: \"bg-red-100 text-red-800\",\n    FEATURE_REQUEST: \"bg-blue-100 text-blue-800\",\n    ACCOUNT_ISSUE: \"bg-yellow-100 text-yellow-800\",\n    GAMEPLAY_QUESTION: \"bg-green-100 text-green-800\",\n    PAYMENT_ISSUE: \"bg-purple-100 text-purple-800\",\n    TECHNICAL_SUPPORT: \"bg-gray-100 text-gray-800\",\n    MODERATION_SUPPORT: \"bg-orange-100 text-orange-800\",\n    OTHER: \"bg-indigo-100 text-indigo-800\",\n  },\n  PRIORITY: {\n    LOW: \"bg-gray-100 text-gray-800\",\n    MEDIUM: \"bg-blue-100 text-blue-800\",\n    HIGH: \"bg-orange-100 text-orange-800\",\n    URGENT: \"bg-red-100 text-red-800\",\n  },\n  STATUS: {\n    OPEN: \"bg-green-100 text-green-800\",\n    IN_PROGRESS: \"bg-yellow-100 text-yellow-800\",\n    WAITING_FOR_USER: \"bg-blue-100 text-blue-800\",\n    WAITING_FOR_STAFF: \"bg-purple-100 text-purple-800\",\n    RESOLVED: \"bg-teal-100 text-teal-800\",\n    CLOSED: \"bg-gray-100 text-gray-800\",\n  },\n}",
-   "order": 827,
+   "order": 828,
    "doc": "Support Ticket Color Schemes",
    "kind": "expr"
   },
   "SUPPORT_TICKET_CATEGORY_DESCRIPTIONS": {
    "raw": "{\n  BUG_REPORT: \"Report a bug or technical issue with the game\",\n  FEATURE_REQUEST: \"Suggest a new feature or improvement\",\n  ACCOUNT_ISSUE: \"Problems with your account, login, or profile\",\n  GAMEPLAY_QUESTION: \"Questions about game mechanics, rules, or strategies\",\n  PAYMENT_ISSUE: \"Problems with purchases, subscriptions, or payments\",\n  TECHNICAL_SUPPORT: \"Technical problems or performance issues\",\n  MODERATION_SUPPORT: \"Moderation-related issues or questions\",\n  OTHER: \"Any other questions or concerns\",\n}",
-   "order": 828,
+   "order": 829,
    "ts_type": "Record< SupportTicketCategory, string >",
    "doc": "Category descriptions to help users choose the right category",
    "kind": "expr"
   },
   "SUPPORT_TICKET_PRIORITY_DESCRIPTIONS": {
    "raw": "{\n  LOW: \"Minor issue that doesn't affect gameplay\",\n  MEDIUM: \"Standard issue that may affect gameplay\",\n  HIGH: \"Important issue that significantly affects gameplay\",\n  URGENT: \"Critical issue that prevents gameplay\",\n}",
-   "order": 829,
+   "order": 830,
    "ts_type": "Record< SupportTicketPriority, string >",
    "doc": "Priority descriptions",
    "kind": "expr"
   },
   "MATERIALS_BASE_SLOTS": {
    "raw": "25",
-   "order": 830,
+   "order": 831,
    "doc": "Materials inventory config",
    "value": 25,
    "kind": "number"
   },
   "FED_MATERIALS_NORMAL_SLOTS": {
    "raw": "5",
-   "order": 831,
+   "order": 832,
    "value": 5,
    "kind": "number"
   },
   "FED_MATERIALS_SILVER_SLOTS": {
    "raw": "10",
-   "order": 832,
+   "order": 833,
    "value": 10,
    "kind": "number"
   },
   "FED_MATERIALS_GOLD_SLOTS": {
    "raw": "15",
-   "order": 833,
+   "order": 834,
    "value": 15,
    "kind": "number"
   },
   "TD_ENEMY_DIRECTIONS": {
    "raw": "[\n  \"n\",\n  \"ne\",\n  \"e\",\n  \"se\",\n  \"s\",\n  \"sw\",\n  \"w\",\n  \"nw\",\n]",
-   "order": 834,
+   "order": 835,
    "doc": "============================================ Tower Defense Constants ============================================",
    "value": [
     "n",
@@ -6015,7 +5983,7 @@
   },
   "TowerDefenseUpgradeTypes": {
    "raw": "[\n  // Attack upgrades\n  \"DAMAGE\",\n  \"ATTACK_SPEED\",\n  \"RANGE\",\n  \"CRIT_CHANCE\",\n  \"DAMAGE_PER_TILE\",\n  // Defense upgrades\n  \"HEALTH\",\n  \"HEALTH_REGEN\",\n  \"DEFENSE_PERCENT\",\n  \"DEFENSE_FLAT\",\n  \"LIFESTEAL\",\n  \"KNOCKBACK_CHANCE\",\n  \"KNOCKBACK_FORCE\",\n  // Utility upgrades\n  \"TOKENS_PER_WAVE\",\n  \"TOKENS_PER_KILL\",\n  \"INTEREST_PER_WAVE\",\n  \"SKIP_ENEMY_CHANCE\",\n  // Ability unlocks\n  \"ABILITY_UNLOCK\",\n]",
-   "order": 835,
+   "order": 836,
    "value": [
     "// Attack upgrades\n  \"DAMAGE",
     "ATTACK_SPEED",
@@ -6039,14 +6007,14 @@
   },
   "TowerDefenseUpgradeCategories": {
    "raw": "{\n  ATTACK: [\"DAMAGE\", \"ATTACK_SPEED\", \"RANGE\", \"CRIT_CHANCE\", \"DAMAGE_PER_TILE\"],\n  DEFENSE: [\n    \"HEALTH\",\n    \"DEFENSE_FLAT\",\n    \"DEFENSE_PERCENT\",\n    \"HEALTH_REGEN\",\n    \"LIFESTEAL\",\n    \"KNOCKBACK_CHANCE\",\n    \"KNOCKBACK_FORCE\",\n  ],\n  UTILITY: [\n    \"TOKENS_PER_KILL\",\n    \"TOKENS_PER_WAVE\",\n    \"INTEREST_PER_WAVE\",\n    \"SKIP_ENEMY_CHANCE\",\n  ],\n  ABILITIES: [\"ABILITY_UNLOCK\"],\n}",
-   "order": 836,
+   "order": 837,
    "ts_type": "Record< string, readonly TowerDefenseUpgradeType[] >",
    "doc": "Upgrade categories for UI organization",
    "kind": "expr"
   },
   "TowerDefenseRunStatuses": {
    "raw": "[\"ACTIVE\", \"COMPLETED\", \"ABANDONED\"]",
-   "order": 837,
+   "order": 838,
    "value": [
     "ACTIVE",
     "COMPLETED",
@@ -6056,244 +6024,244 @@
   },
   "TD_INITIAL_GRID_SIZE": {
    "raw": "7",
-   "order": 838,
+   "order": 839,
    "doc": "Game balance constants",
    "value": 7,
    "kind": "number"
   },
   "TD_MAX_GRID_SIZE": {
    "raw": "35",
-   "order": 839,
+   "order": 840,
    "value": 35,
    "kind": "number"
   },
   "TD_GRID_EXPAND_EVERY_N_WAVES": {
    "raw": "5",
-   "order": 840,
+   "order": 841,
    "value": 5,
    "kind": "number"
   },
   "TD_WAVE_ENEMY_BASE": {
    "raw": "3",
-   "order": 841,
+   "order": 842,
    "value": 3,
    "kind": "number"
   },
   "TD_WAVE_ENEMY_SCALING": {
    "raw": "1.2",
-   "order": 842,
+   "order": 843,
    "value": 1.2,
    "kind": "number"
   },
   "TD_SCORE_PER_KILL": {
    "raw": "10",
-   "order": 843,
+   "order": 844,
    "value": 10,
    "kind": "number"
   },
   "TD_SCORE_TO_POINTS_RATIO": {
    "raw": "100",
-   "order": 844,
+   "order": 845,
    "value": 100,
    "kind": "number"
   },
   "TD_PLAYER_BASE_HEALTH": {
    "raw": "100",
-   "order": 845,
+   "order": 846,
    "value": 100,
    "kind": "number"
   },
   "TD_SHURIKEN_BASE_DAMAGE": {
    "raw": "10",
-   "order": 846,
+   "order": 847,
    "value": 10,
    "kind": "number"
   },
   "TD_SHURIKEN_BASE_RANGE": {
    "raw": "2",
-   "order": 847,
+   "order": 848,
    "value": 2,
    "kind": "number"
   },
   "TD_SHURIKEN_BASE_COOLDOWN": {
    "raw": "500",
-   "order": 848,
+   "order": 849,
    "value": 500,
    "kind": "number"
   },
   "TD_BASE_CRIT_CHANCE": {
    "raw": "0",
-   "order": 849,
+   "order": 850,
    "value": 0,
    "kind": "number"
   },
   "TD_BASE_DAMAGE_PER_TILE": {
    "raw": "0",
-   "order": 850,
+   "order": 851,
    "value": 0,
    "kind": "number"
   },
   "TD_WAVE_END_GRACE_PERIOD_MS": {
    "raw": "200",
-   "order": 851,
+   "order": 852,
    "value": 200,
    "kind": "number"
   },
   "TD_RANGE_VISUAL_FACTOR": {
    "raw": "0.85",
-   "order": 852,
+   "order": 853,
    "value": 0.85,
    "kind": "number"
   },
   "TD_PROJECTILE_SPEED": {
    "raw": "5.0",
-   "order": 853,
+   "order": 854,
    "value": 5.0,
    "kind": "number"
   },
   "TD_EXISTING_SESSION_CHECK_TIMEOUT_MS": {
    "raw": "500",
-   "order": 854,
+   "order": 855,
    "value": 500,
    "kind": "number"
   },
   "TD_HIT_EVENT_DURATION_MS": {
    "raw": "500",
-   "order": 855,
+   "order": 856,
    "value": 500,
    "kind": "number"
   },
   "TD_ABILITY_IDS": {
    "raw": "{\n  SHURIKEN: \"shuriken\",\n}",
-   "order": 856,
+   "order": 857,
    "doc": "Ability IDs",
    "kind": "expr"
   },
   "TD_DAMAGE_NUMBER_POOL_SIZE": {
    "raw": "20",
-   "order": 857,
+   "order": 858,
    "doc": "Visual & Effect Constants",
    "value": 20,
    "kind": "number"
   },
   "TD_DAMAGE_NUMBER_LIFETIME": {
    "raw": "0.8",
-   "order": 858,
+   "order": 859,
    "value": 0.8,
    "kind": "number"
   },
   "TD_DAMAGE_NUMBER_RISE_SPEED_FACTOR": {
    "raw": "0.48",
-   "order": 859,
+   "order": 860,
    "value": 0.48,
    "kind": "number"
   },
   "TD_SHURIKEN_IMAGE_URL": {
    "raw": "\"https://uploadthing.b-cdn.net/f/4a3100e5-97c6-4e5a-96e2-1c3520838179-gwm3dh.svg\"",
-   "order": 860,
+   "order": 861,
    "value": "https://uploadthing.b-cdn.net/f/4a3100e5-97c6-4e5a-96e2-1c3520838179-gwm3dh.svg",
    "kind": "string"
   },
   "TD_HEX_SIZE": {
    "raw": "100",
-   "order": 861,
+   "order": 862,
    "value": 100,
    "kind": "number"
   },
   "STEALTH_SENSORY_CAP": {
    "raw": "20000",
-   "order": 862,
+   "order": 863,
    "doc": "============================================ Stealth & Sensory System Constants ============================================",
    "value": 20000,
    "kind": "number"
   },
   "STEALTH_SENSORY_DEFAULT": {
    "raw": "1000",
-   "order": 863,
+   "order": 864,
    "value": 1000,
    "kind": "number"
   },
   "STEALTH_BASE_DURATION_SECONDS": {
    "raw": "60",
-   "order": 864,
+   "order": 865,
    "value": 60,
    "kind": "number"
   },
   "STEALTH_DURATION_PER_1000_POINTS": {
    "raw": "60",
-   "order": 865,
+   "order": 866,
    "value": 60,
    "kind": "number"
   },
   "STEALTH_MAX_DURATION_SECONDS": {
    "raw": "1200",
-   "order": 866,
+   "order": 867,
    "value": 1200,
    "kind": "number"
   },
   "STEALTH_BASE_KEEP_CHANCE_PERC": {
    "raw": "5",
-   "order": 867,
+   "order": 868,
    "value": 5,
    "kind": "number"
   },
   "STEALTH_KEEP_CHANCE_PER_1000_POINTS": {
    "raw": "2.75",
-   "order": 868,
+   "order": 869,
    "value": 2.75,
    "kind": "number"
   },
   "STEALTH_POST_COMBAT_COOLDOWN_SECONDS": {
    "raw": "20",
-   "order": 869,
+   "order": 870,
    "value": 20,
    "kind": "number"
   },
   "SENSORY_BASE_DETECT_CHANCE_PERC": {
    "raw": "5",
-   "order": 870,
+   "order": 871,
    "value": 5,
    "kind": "number"
   },
   "SENSORY_DETECT_CHANCE_PER_1000_POINTS": {
    "raw": "2.75",
-   "order": 871,
+   "order": 872,
    "value": 2.75,
    "kind": "number"
   },
   "SENSORY_MAX_DETECT_CHANCE_PERC": {
    "raw": "60",
-   "order": 872,
+   "order": 873,
    "value": 60,
    "kind": "number"
   },
   "SENSORY_BASE_COOLDOWN_SECONDS": {
    "raw": "120",
-   "order": 873,
+   "order": 874,
    "value": 120,
    "kind": "number"
   },
   "SENSORY_COOLDOWN_REDUCTION_PER_1000_POINTS": {
    "raw": "5",
-   "order": 874,
+   "order": 875,
    "value": 5,
    "kind": "number"
   },
   "SENSORY_DETECTION_DURATION_SECONDS": {
    "raw": "30",
-   "order": 875,
+   "order": 876,
    "value": 30,
    "kind": "number"
   },
   "STEALTH_TRAIN_GAIN_PER_MINUTE": {
    "raw": "50",
-   "order": 876,
+   "order": 877,
    "value": 50,
    "kind": "number"
   },
   "CovertTrainingTypes": {
    "raw": "[\"stealth\", \"sensory\"]",
-   "order": 877,
+   "order": 878,
    "doc": "Covert training types enum",
    "value": [
     "stealth",
@@ -6303,74 +6271,74 @@
   },
   "DMG_STATS_SCALING": {
    "raw": "1",
-   "order": 878,
+   "order": 879,
    "doc": "Damage formula constants",
    "value": 1,
    "kind": "number"
   },
   "DMG_BASE_HITS": {
    "raw": "10",
-   "order": 879,
+   "order": 880,
    "value": 10,
    "kind": "number"
   },
   "DMG_CURVE": {
    "raw": "1.6",
-   "order": 880,
+   "order": 881,
    "value": 1.6,
    "kind": "number"
   },
   "DMG_AMPLITUDE": {
    "raw": "0.75",
-   "order": 881,
+   "order": 882,
    "value": 0.75,
    "kind": "number"
   },
   "DMG_EP_NORMALIZATION": {
    "raw": "40",
-   "order": 882,
+   "order": 883,
    "value": 40,
    "kind": "number"
   },
   "DMG_GEN_WEIGHT": {
    "raw": "2.0",
-   "order": 883,
+   "order": 884,
    "value": 2.0,
    "kind": "number"
   },
   "DMG_ADVANTAGE_MIN": {
    "raw": "0.01",
-   "order": 884,
+   "order": 885,
    "value": 0.01,
    "kind": "number"
   },
   "DMG_ADVANTAGE_MAX": {
    "raw": "10.0",
-   "order": 885,
+   "order": 886,
    "value": 10.0,
    "kind": "number"
   },
   "DMG_REDUCTION_CAP": {
    "raw": "0.9",
-   "order": 886,
+   "order": 887,
    "value": 0.9,
    "kind": "number"
   },
   "OUT_OF_COMBAT_BASE_DAMAGE_INCREASE": {
    "raw": "60",
-   "order": 887,
+   "order": 888,
    "value": 60,
    "kind": "number"
   },
   "OUT_OF_COMBAT_BASE_DAMAGE_REDUCTION": {
    "raw": "50",
-   "order": 888,
+   "order": 889,
    "value": 50,
    "kind": "number"
   },
   "preBattleGearFromTypes": {
    "raw": "[\"armor\", \"accessory\"]",
-   "order": 889,
+   "order": 890,
    "doc": "Armor/accessory folded into early pre-battle inc/DR pools in the damage pipeline.",
    "value": [
     "armor",
@@ -6380,7 +6348,7 @@
   },
   "preBattleKeystoneFromTypes": {
    "raw": "[\"keystone\"]",
-   "order": 890,
+   "order": 891,
    "doc": "Keystone % damage mods are consolidated at battle start but applied pre-bloodline.",
    "value": [
     "keystone"
@@ -6389,32 +6357,32 @@
   },
   "isPreBattleGearFromType": {
    "raw": "(\n  fromType?: string,\n): fromType is PreBattleGearFromType =>\n  fromType !== undefined &&\n  (preBattleGearFromTypes as readonly string[]).includes(fromType)",
-   "order": 891,
+   "order": 892,
    "kind": "expr"
   },
   "isPreBattleKeystoneFromType": {
    "raw": "(\n  fromType?: string,\n): fromType is PreBattleKeystoneFromType =>\n  fromType !== undefined &&\n  (preBattleKeystoneFromTypes as readonly string[]).includes(fromType)",
-   "order": 892,
+   "order": 893,
    "kind": "expr"
   },
   "COPY_MAX_TAGS": {
    "raw": "4",
-   "order": 893,
+   "order": 894,
    "doc": "Maximum number of effects the `copy` / `mirror` tags may transfer. This is a PERSISTENT, per-caster ceiling: at most this many copied effects may be active on the caster (mirrored on the target) at once, across any number of casts.",
    "value": 4,
    "kind": "number"
   },
   "MIRROR_MAX_TAGS": {
    "raw": "4",
-   "order": 894,
+   "order": 895,
    "value": 4,
    "kind": "number"
   },
   "COPY_PRIORITY_TIERS": {
    "raw": "[\n  [\"increasedamagegiven\", \"decreasedamagetaken\"],\n  [\"lifesteal\"],\n  [\"absorb\", \"reflect\"],\n  [\"shield\"],\n  [\"increaseheal\"],\n  [\"increasestat\"],\n]",
-   "order": 895,
+   "order": 896,
    "ts_type": "readonly (readonly string[])[]",
-   "doc": "Commitment-priority tiers for the `copy` tag (opponent buffs -> self), highest commitment first. The array index of a tier IS its rank. Same-tier types are independent slots, tie-broken by effect power.  NOTE: This is unrelated to `sortEffects` round-application ordering. These tiers only govern copy/mirror *selection* \u2014 which effects are eligible and which win the capped slots.",
+   "doc": "Commitment-priority tiers for the `copy` tag (opponent buffs -> self), highest commitment first. The array index of a tier IS its rank. Same-tier types are independent slots, tie-broken by effect power.  NOTE: This is unrelated to `sortEffects` round-application ordering. These tiers only govern copy/mirror *selection* — which effects are eligible and which win the capped slots.",
    "value": [
     "[\"increasedamagegiven\", \"decreasedamagetaken\"]",
     "[\"lifesteal\"]",
@@ -6427,7 +6395,7 @@
   },
   "MIRROR_PRIORITY_TIERS": {
    "raw": "[\n  [\"increasedamagetaken\", \"decreasedamagegiven\"],\n  [\"afterburn\"],\n  [\"poison\", \"increasepoolcost\"],\n  [\"wound\"],\n]",
-   "order": 896,
+   "order": 897,
    "ts_type": "readonly (readonly string[])[]",
    "doc": "Commitment-priority tiers for the `mirror` tag (own debuffs -> target). Only the named types are ranked; any other mirror-eligible negative type falls to a tail rank (supplied by the caller) and is tie-broken by power.",
    "value": [
@@ -6440,45 +6408,45 @@
   },
   "COPYABLE_EFFECT_TYPES": {
    "raw": "new Set(\n  COPY_PRIORITY_TIERS.flat(),\n)",
-   "order": 897,
+   "order": 898,
    "ts_type": "ReadonlySet<string>",
    "doc": "Effect types the `copy` tag may transfer (flattened copy priority tiers).",
    "kind": "expr"
   },
   "TRANSFER_EXCLUDED_SOURCE_TYPES": {
    "raw": "new Set([\n  \"bloodline\",\n  \"armor\",\n  \"accessory\",\n  \"keystone\",\n  \"item\",\n  \"village\",\n  \"skill\",\n  \"ranked\",\n  \"sageMode\",\n  \"sageModeAfter\",\n])",
-   "order": 898,
+   "order": 899,
    "ts_type": "ReadonlySet<string>",
-   "doc": "Source (`fromType`) origins that copy/mirror never transfer \u2014 passive/gear effects are not stealable/reflectable. Shared by both tags. Keep in step with the passive/pre-battle sources in `persistentEffectSourceTypes` (tags.ts) and `getEffectStage` (util.ts): a source those treat as passive belongs here too.",
+   "doc": "Source (`fromType`) origins that copy/mirror never transfer — passive/gear effects are not stealable/reflectable. Shared by both tags. Keep in step with the passive/pre-battle sources in `persistentEffectSourceTypes` (tags.ts) and `getEffectStage` (util.ts): a source those treat as passive belongs here too.",
    "kind": "expr"
   },
   "MIRROR_EXCLUDED_EFFECT_TYPES": {
    "raw": "new Set([\n  \"damage\",\n  \"pierce\",\n  \"clear\",\n  \"buffprevent\",\n  \"cleanseprevent\",\n  \"moveprevent\",\n  \"healprevent\",\n  \"timecompression\",\n])",
-   "order": 899,
+   "order": 900,
    "ts_type": "ReadonlySet<string>",
-   "doc": "Negative effect TYPES the `mirror` tag never reflects onto the target (raw damage, hard control, and non-transferable mechanics). This is the effect-type axis (`e.type`) \u2014 distinct from `TRANSFER_EXCLUDED_SOURCE_TYPES`, which excludes by source origin (`e.fromType`); the two lists are not interchangeable. `wound` is intentionally NOT here \u2014 it is mirror-eligible.",
+   "doc": "Negative effect TYPES the `mirror` tag never reflects onto the target (raw damage, hard control, and non-transferable mechanics). This is the effect-type axis (`e.type`) — distinct from `TRANSFER_EXCLUDED_SOURCE_TYPES`, which excludes by source origin (`e.fromType`); the two lists are not interchangeable. `wound` is intentionally NOT here — it is mirror-eligible.",
    "kind": "expr"
   },
   "COPY_PRIORITY_RANK": {
    "raw": "buildTagPriorityRank(COPY_PRIORITY_TIERS)",
-   "order": 900,
+   "order": 901,
    "kind": "expr"
   },
   "MIRROR_PRIORITY_RANK": {
    "raw": "buildTagPriorityRank(MIRROR_PRIORITY_TIERS)",
-   "order": 901,
+   "order": 902,
    "kind": "expr"
   },
   "DMG_SETTING_DEFAULTS": {
    "raw": "{\n  DMG_STATS_SCALING,\n  DMG_BASE_HITS,\n  DMG_CURVE,\n  DMG_AMPLITUDE,\n  DMG_EP_NORMALIZATION,\n  DMG_GEN_WEIGHT,\n  DMG_ADVANTAGE_MIN,\n  DMG_ADVANTAGE_MAX,\n}",
-   "order": 902,
+   "order": 903,
    "ts_type": "Record<string, number>",
    "doc": "Map of DMG setting names to their default values (for gameSetting table storage)",
    "kind": "expr"
   },
   "DMG_SETTING_NAMES": {
    "raw": "Object.keys(DMG_SETTING_DEFAULTS)",
-   "order": 903,
+   "order": 904,
    "kind": "expr"
   },
   "COMBAT_BORDER_LEFT": {
@@ -6552,7 +6520,7 @@
    "source": "app/src/libs/combat/constants.ts"
   },
   "publicState": {
-   "raw": "[\n  \"actionPoints\",\n  \"anbuId\",\n  \"avatar\",\n  \"avatarFacing\",\n  \"basicActions\",\n  \"bloodlineId\",\n  \"clanId\",\n  \"sageModeId\",\n  \"sageModeActivated\",\n  \"sageModeActivatedRound\",\n  \"sageModeExpiresRound\",\n  \"sageModeUsedThisBattle\",\n  \"sageMasteryExperience\",\n  \"dailySageActivations\",\n  \"controllerId\",\n  \"curChakra\",\n  \"curHealth\",\n  \"curStamina\",\n  \"direction\",\n  \"fledBattle\",\n  \"gender\",\n  \"iAmHere\",\n  \"initiative\",\n  \"isAi\",\n  \"isPiloted\",\n  \"isSummon\",\n  \"isOriginal\",\n  \"items\",\n  \"jutsus\",\n  \"keystoneName\",\n  \"keystoneItemId\",\n  \"latitude\",\n  \"leftBattle\",\n  \"level\",\n  \"location\",\n  \"longitude\",\n  \"maxChakra\",\n  \"maxHealth\",\n  \"maxStamina\",\n  \"medicalExperience\",\n  \"rank\",\n  \"relationIds\",\n  \"round\",\n  \"regeneration\",\n  \"sector\",\n  \"updatedAt\",\n  \"userId\",\n  \"username\",\n  \"villageId\",\n  \"warIds\",\n]",
+   "raw": "[\n  \"actionPoints\",\n  \"anbuId\",\n  \"avatar\",\n  \"avatarFacing\",\n  \"basicActions\",\n  \"bloodlineId\",\n  \"clanId\",\n  \"sageModeId\",\n  \"sageModeActivated\",\n  \"sageModeActivatedRound\",\n  \"sageModeExpiresRound\",\n  \"sageModeUsedThisBattle\",\n  \"sageMasteryExperience\",\n  \"dailySageActivations\",\n  \"controllerId\",\n  \"curChakra\",\n  \"curHealth\",\n  \"curStamina\",\n  \"direction\",\n  \"fledBattle\",\n  \"gender\",\n  \"iAmHere\",\n  \"initiative\",\n  \"isAi\",\n  \"isPiloted\",\n  \"isAutoCombat\",\n  \"isSummon\",\n  \"isOriginal\",\n  \"items\",\n  \"jutsus\",\n  \"keystoneName\",\n  \"keystoneItemId\",\n  \"latitude\",\n  \"leftBattle\",\n  \"level\",\n  \"location\",\n  \"longitude\",\n  \"maxChakra\",\n  \"maxHealth\",\n  \"maxStamina\",\n  \"medicalExperience\",\n  \"rank\",\n  \"relationIds\",\n  \"round\",\n  \"regeneration\",\n  \"sector\",\n  \"updatedAt\",\n  \"userId\",\n  \"username\",\n  \"villageId\",\n  \"warIds\",\n]",
    "order": 10,
    "doc": "Which user state is public (using ID references - full data is in extraState)",
    "value": [
@@ -6581,6 +6549,7 @@
     "initiative",
     "isAi",
     "isPiloted",
+    "isAutoCombat",
     "isSummon",
     "isOriginal",
     "items",

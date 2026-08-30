@@ -209,3 +209,11 @@ Conversion tranches, knowledge -> code, smallest risk first:
 
 Rulings OPEN for dauntless: T1 scope; warnings-ship-validator-first y/n; 18/61 and 16d/37/69
 reclasses; stack.py retirement; 10_LAWS_core relocation.
+
+## Source audit 2026-08-30 (docs/SOURCE_AUDIT_2026-08-30.md)
+
+45c/45e/45f regenerated @bdec2883 with the upgraded extractor; 45d/45g zero drift. Laws
+44/69's headcount-vs-dropchance doc now rides the GENERATED 45c (POST_DOCS in
+schema_extract.py). Law 40's A* range+1 claim remains carried, not walked, this pass.
+Laws 85-88's flow validator unchanged in the window. Builder qtype enum lacks new
+NPC-only `overworld` - folds into T3 config-driven enums.

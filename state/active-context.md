@@ -12,6 +12,9 @@ in-repo to read v4.26+ results bundles natively (captures[] normalise like monit
 calls; index/get/names/assets all work on pulled inbox bundles).
 
 Board:
+- Source audit 2026-08-30 landed (docs/SOURCE_AUDIT_2026-08-30.md): 45x regenerated
+  @bdec2883, extractor upgraded, guards green. Weekly regen workflow is the keep-fresh
+  mechanism - the PAT Workflows fix just got more valuable.
 - Law session 2026-08-30: lawmap.py landed, validators annotated, Phase 3 plan in
   12b_LAWS_coverage.md - rulings_open in status.json awaits dauntless.
 - regen_schemas.yml still blocked: add Workflows RW to the tnr-container PAT (or add
