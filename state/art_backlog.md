@@ -43,7 +43,15 @@ that design exactly (sprite attached as second reference in-thread); register yi
 | Deputy (fourth signature) | APPROVED scene_fsw_lw_deputy.webp | Long Winter w10 w12 |
 | Old Ghost scene portrait | APPROVED scene_fsw_old_ghost.webp | Old Ghost g29_x6, likely g32-g35 debrief cluster |
 
-### Handler earmark (decision gates several clusters)
+### Handler earmark — RULED 2026-08-30 (split from prose)
+Desk handler (he): Chalk c13 · Empty Contract e16 · Waystation w16 · Protection p14-p15.
+Officer (she): NtR n2 n3 n23-n25 · Long Winter w2 w3 · Loud Way l2 l3 l24 l25 · Tenth Name
+x2-x4 x22-x28 (village-official hypothesis DEAD, prose settles it) · Three Rounds r18 r34
+r46 r47 · Old Ghost g32-g35 (RULED same officer - her arc, not a distinct mentor).
+Officer portrait: reuse The Commander from Copies, Not Thefts (id confirm pending: three
+Commander SCENE_CHARACTERs in index). Desk portrait source + silent nodes pending.
+
+### Handler earmark (original text, superseded)
 Desk handler vs upstairs officer, one figure or two, plus pronoun sweep. Likely covers:
 Chalk c13 · Empty Contract e16 · Nothing to Report n2 n3 n23-n25 · Long Winter w2 w3 · Loud Way l2 l3 l24 l25 · Tenth Name x2-x4 x22-x28 (x22+ may instead be a village official — identify) · Old Ghost g32-g35 (unless mentor is distinct) · Three Rounds r18 r34 r46 r47 · Waystation w16 · Protection p14 p15 (if merchant doesn't cover)
 
