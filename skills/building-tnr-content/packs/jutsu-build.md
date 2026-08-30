@@ -156,6 +156,35 @@ owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
 ---
 
+<!-- pack-trace: pipeline.md @bb57b3a '2.1 Request envelope and conventions' -->
+### 2.1 Request envelope and conventions
+
+- TNR uses tRPC batch links. **Every POST body is a batch envelope:** `{"0": { "json": <payload>, "meta": <meta> }}`.
+- **Create endpoints take a null-body envelope** (`{"json": null, "meta": {"values": ["undefined"], "v": 1}}`) and **return the new id in the response `message` field** (exception: `item.create`, see 2.3).
+- **Update endpoints** take `{"json": {"id": <id>, "data": <data>}, "meta": <meta>}`. The `meta` typically flags `createdAt`/`updatedAt` as Dates.
+- **GET list endpoints** (`*.getAll`) are `?batch=1&input=<urlencoded {"0":{"json":{cursor,limit}}}>` and page via `nextCursor`.
+- HTTP 200 does not mean success. Read `json.success` and `json.message`.
+
+---
+
+<!-- pack-trace: pipeline.md @bb57b3a '2.2 Jutsu' -->
+### 2.2 Jutsu
+
+| Op | Method | Shape |
+|---|---|---|
+| `jutsu.create` | POST | null-body envelope -> new id in `message`. |
+| `jutsu.update` | POST | `{json:{id,data}, meta:{values:{"data.createdAt":["Date"],"data.updatedAt":["Date"]}, v:1}}`. |
+| `jutsu.getAll` | GET | requires a `limit` (number) in input or it 400s; follow `nextCursor`. |
+
+---
+
+<!-- pack-trace: pipeline.md @bb57b3a '3. Rate limit' -->
+## 3. Rate limit
+
+The limiter is a **rolling cumulative request-count budget**, not per-burst. It drains across repeated sessions and refills over time. Use fewer, larger requests with exponential backoff (the builder does this), and let it refill rather than hammering.
+
+---
+
 <!-- pack-trace: pipeline.md @bb57b3a '4. id-fetch and capture-first discipline' -->
 ## 4. id-fetch and capture-first discipline
 

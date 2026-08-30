@@ -17,8 +17,108 @@
     "file": "references/pipeline.md",
     "sections": [
      "2. Verified tRPC contracts",
+     "2.1 Request envelope",
+     "2.2 Jutsu",
+     "3. Rate limit",
      "4. id-fetch and capture-first",
      "5. Universal gotcha checklist"
+    ]
+   }
+  ]
+ },
+ "ai-build": {
+  "note": "Minimal set for an AI enemy create/edit that ends in a push. SKILL doctrine block first, this pack second; factory.py/enemy.py construct, 45c/45d/46b own shapes and vocab. Depth on demand via references/_toc/ai.json slices: infographic workflows, blank template, effect vocabulary 4.2-4.6, targets list, ai_v2 addendum. Pipeline relocated laws enforced by validate --parity + harvest verify.",
+  "sources": [
+   {
+    "file": "references/ai.md",
+    "sections": [
+     "1. AI Enemy Spec",
+     "1.1 Identity",
+     "1.2 Profile",
+     "1.3 Passive AI Tags",
+     "1.4 Combat Role",
+     "1.5 AI Pattern",
+     "1.6 Jutsu Kit",
+     "1.6.1 Damage tuning",
+     "1.8 Role defaults",
+     "1.9 Reserved",
+     "4.1 AI restrictions",
+     "8. Master QA checklist",
+     "Addendum: effect and edit rules",
+     "Rules live on the AI entry",
+     "1. Contract (verified)",
+     "Pipeline to set behavior",
+     "2. Rule object",
+     "3. Conditions",
+     "4. Actions",
+     "7. Gotchas",
+     "The confirmed rule vocabulary",
+     "Relocated engine laws"
+    ]
+   },
+   {
+    "file": "references/pipeline.md",
+    "sections": [
+     "1.4 Image upload",
+     "2.1 Request envelope",
+     "2.4 AI enemy",
+     "3. Rate limit",
+     "4. id-fetch and capture-first",
+     "5. Universal gotcha checklist",
+     "Addendum: push-path rules"
+    ]
+   }
+  ]
+ },
+ "quest-build": {
+  "note": "Minimal set for a quest/event create or edit that ends in a push. SKILL doctrine block first, this pack second; mission.py/factory.py construct, 45c/45d own shapes. Depth on demand via references/_toc/quest.json slices: sequencing engine internals, eligibility/prune/surfacing, task vocabulary, data-model prose, design philosophy (dauntless directs). Pipeline relocated laws enforced by validate --parity + harvest verify.",
+  "sources": [
+   {
+    "file": "references/quest.md",
+    "sections": [
+     "1. The objective graph",
+     "1.1 Edges",
+     "1.2 Flow validation",
+     "2. Objective types",
+     "3. Battle objectives",
+     "3.1 `start_battle`",
+     "3.2 `defeat_opponents`",
+     "3.3 opponentAIs",
+     "3.4 Same-sector",
+     "3.4b consecutiveObjectives",
+     "3.4b-2 CYOA branch doctrine",
+     "3.4c Quest gate field caps",
+     "3.4d Quest EDITS",
+     "3.4e War reward fields",
+     "3.5 Lose-retry",
+     "3.6 reset_quest node shape",
+     "3.7 The `battlepyramid`",
+     "4.1 Complete top-level create payload",
+     "5. Quest tRPC contract",
+     "5.1 The flatten rule",
+     "5.2 Read json.success",
+     "6.2 Writing rules",
+     "6.2b Dialog text is HTML",
+     "7.1 Reference generic quest",
+     "7.2 Reference battlepyramid",
+     "8. QA checklist",
+     "startQuest guards",
+     "Objective schema corrections",
+     "2. Availability",
+     "6. reset_quest (exact semantics)",
+     "7. The attackers ambush system",
+     "Relocated engine laws"
+    ]
+   },
+   {
+    "file": "references/pipeline.md",
+    "sections": [
+     "2.1 Request envelope",
+     "2.5 Quest",
+     "3. Rate limit",
+     "4. id-fetch and capture-first",
+     "5. Universal gotcha checklist",
+     "Addendum: push-path rules"
     ]
    }
   ]
