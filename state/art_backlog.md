@@ -48,8 +48,13 @@ Desk handler (he): Chalk c13 · Empty Contract e16 · Waystation w16 · Protecti
 Officer (she): NtR n2 n3 n23-n25 · Long Winter w2 w3 · Loud Way l2 l3 l24 l25 · Tenth Name
 x2-x4 x22-x28 (village-official hypothesis DEAD, prose settles it) · Three Rounds r18 r34
 r46 r47 · Old Ghost g32-g35 (RULED same officer - her arc, not a distinct mentor).
-Officer portrait: reuse The Commander from Copies, Not Thefts (id confirm pending: three
-Commander SCENE_CHARACTERs in index). Desk portrait source + silent nodes pending.
+Officer portrait RULED: bmissions/ANBU Commander Portrait ryLnefupONNZKX5hcPWid.
+Desk handler RULED: bmissions/The Handler pqihl43HYROpkIMX172-P - IDENTIFIED as the shared
+stand-in (the 34 stand-in nodes are her; correct on desk nodes, replaced elsewhere). This
+also closes the carried 'verify Waystation scene id' item via the 17 capture read.
+Silent nodes RULED: g30 Old Ghost portrait · g36 Commander · x1 blank.
+Prose flag (not mine to edit): e16 'He reads' vs female desk handler - one-word sweep for
+dauntless/coworker.
 
 ### Handler earmark (original text, superseded)
 Desk handler vs upstairs officer, one figure or two, plus pronoun sweep. Likely covers:

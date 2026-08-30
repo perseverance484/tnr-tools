@@ -23,6 +23,6 @@ session_open.py (verify any new inbox bundle FIRST). No clone means no state.
 - WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?
 - art micro-rulings: g30/g36/x1 silent-portrait per node; x22-x28 speaker handler vs village official; handler pronouns
 
-**Next:** Verify push/16b bundle on landing (expect 9 asset OK with live read-back). Then: Build+harden the wave workflow per state/wave_workflow.md (thread init -> gens -> sheet -> one zip pack -> verify -> close). First: verify push/16 results bundle when it lands. Gated: handler pair (pronouns + exemplar reuse call), silent nodes g30/g36/x1, x22 speaker, backgrounds wave, icons wave.
+**Next:** Dauntless presses push/17_wiring_capture.json (11 reads). From its bundle: build wiring pack 18 (per-node sceneCharacters incl blanks, capture.after read-backs), one press, verify, close. 16c nine verified via the same getAll read.
 
 Container quirks and cross-cutting laws live in the mounted instructions.
