@@ -1,3 +1,5 @@
+**RETIRED 2026-08-30 by dauntless. Archived record only - not an open item, not a Terr relay, not a blocker on anything. Do not re-derive from this file.**
+
 **Addendum to the stuck-rows note: new finding, may connect**
 
 The quest edit page is crashing client-side on **every** quest, not just the three stuck ones. Verified on a known-good record (Chalk and Corner, reads back fine over tRPC).
