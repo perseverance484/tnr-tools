@@ -97,3 +97,17 @@ Live ids (usage): wyMQ… 84 · gXpa… 67 · JAh1… 58 · XAjO… 38 · p76e�
 
 ### Unspecced — needs dauntless
 Chalk and Corner, The Empty Contract, Old Ghost (20 nodes on one generic), The Tenth Name (11 on one) have no mission-specific sets. A-rank finale pair arguably deserves them ("A-tier scene needs" was a standing item). RULED 2026-08-30: Old Ghost + The Tenth Name get dedicated sets; scene count TBD at art direction.
+
+## Queued tool fix — rawqc.py cannot judge SCENE_BACKGROUND (found 2026-08-30)
+Two faults on a keyless target, both hit on the first backgrounds gen:
+1. Aspect unjudged - the script reads `aspect.accepted` (SCENE_CHARACTER shape) and
+   skips SCENE_BACKGROUND's `aspect.value: "3:2"` form, printing "no spec aspect".
+2. Two false REJECTs - lime coverage 0% and dirty-ring 100% are chroma checks run
+   against a target whose spec carries `chroma_key: null`.
+Consequence: the ratified pre-check is unusable for this wave and the next (icons);
+aspect and exposure hand-verified instead. Fix = parse the `value` aspect form, skip
+coverage/ring when chroma_key is null, add an exposure_band check (median luma +
+share under 20 vs the target band). Costs a skillpack rebuild and a skill reinstall,
+so it is HELD until the backgrounds wave closes rather than swapped mid-wave.
+Also: artpreflight.py needs `--type` for a `bg_` filename - infers avatar_/sprite_/
+scene_/icon_/pin_ but not bg_. Same fix batch.
