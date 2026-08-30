@@ -173,3 +173,39 @@ enforces by reading `25x_DATA_art_spec.json` rather than citing law numbers, whi
 stack's own "laws cite, never restate" rule but makes coverage unauditable by grep. Adding a
 `# law NN` comment beside each check would make this matrix mechanically verifiable at no
 behavioural cost.
+
+## Phase 3 - code-based laws (opened 2026-08-30, mounted)
+
+"Verify against the code, not this file" is now a command: `python3 scripts/lawmap.py <repo-root>`
+cross-checks ENGINE_LAWS text, this matrix, and `law NN` citations across both skills' scripts and
+`builder_bundle.js`. Baseline this pass: 93 laws, 93 rows, 70 citations, 0 errors. Parity now runs
+against production evidence directly: `validate.py --parity <inbox results bundle>` reads the
+bundle's own `checks` inventory (proven 2026-08-30 against the acceptance bundle, 16/16).
+
+Audit deltas this pass:
+- validate.py and artpreflight.py annotated at their enforcing sites (`# law NN`), closing 12 of 16
+  grep-blind rows. Miscitation fixed: the distance-gate message cited law 39, is law 40.
+- ENGINE_LAWS structural rot repaired: the 2026-08-28 quest-flow section landed INSIDE section 16
+  as a duplicate `## 12`; renumbered `## 17` and re-seated. Heading only - law text untouched.
+- Laws 18 and 61: cited by validate.py but classed knowledge. Reclass to validate(partial)
+  PROPOSED (18's kit-side check exists in check_pool_kit; live equip state stays unknowable).
+- Laws 16d, 37, 69: matrix claims validate; no enforcing site found by this audit. Annotate the
+  real site or reclass. OPEN.
+- stack.py audits the retired project-knowledge layout and mis-flags repo runtime files.
+  Law-numbering audit now lives in lawmap.py. Retire or re-point: OPEN.
+- 10_LAWS_core.md exists only in project knowledge; under repo canon it needs a repo home
+  (⇪ File it to docs/ next project session). OPEN.
+
+Conversion tranches, knowledge -> code, smallest risk first:
+- **T1 validator warnings** (no builder change, parity untouched): law 3 item-full vs jutsu-lean
+  cosmetics; law 49 sceneCharacters resolve against answers/names_asset; laws 30/66 offline
+  name-collision warn against the answers name files.
+- **T2 executable doctrine**: laws 9-13 as calc.py selftest assertions - each law a failing test
+  the moment the tool stops embodying it.
+- **T3 builder v4.28 + 45g + parity**: promote T1 warnings to errors on both sides; annotate the
+  builder lints (L05, L22...) so lawmap can read that surface too.
+- **Stays knowledge**: rendering/editor/runtime semantics (25, 47, 51-53, 57-60, 62-63, 65, 70-71,
+  75-76, 79-80, 83-84, 89).
+
+Rulings OPEN for dauntless: T1 scope; warnings-ship-validator-first y/n; 18/61 and 16d/37/69
+reclasses; stack.py retirement; 10_LAWS_core relocation.

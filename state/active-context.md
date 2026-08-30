@@ -12,6 +12,8 @@ in-repo to read v4.26+ results bundles natively (captures[] normalise like monit
 calls; index/get/names/assets all work on pulled inbox bundles).
 
 Board:
+- Law session 2026-08-30: lawmap.py landed, validators annotated, Phase 3 plan in
+  12b_LAWS_coverage.md - rulings_open in status.json awaits dauntless.
 - regen_schemas.yml still blocked: add Workflows RW to the tnr-container PAT (or add
   via web UI), then land + first-run via workflow_dispatch and read the log (extract
   CLI may need a flag).

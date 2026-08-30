@@ -8,7 +8,10 @@
   "pushpack.py -> skills/building-tnr-content/scripts/ [mounted:c]",
   "push/: smoketest_pack.zip + 6_verify_and_fix.json (HOLD: wedge probe runs only when Terr clears)",
   "state/: prompt_report_clerk.txt + discord_terr_editor_crash.md relocated from bundle deliverables",
-  "harvest.py: reads v4.26+ results bundles natively (captures[] -> normalised entries) - patched post-acceptance"
+  "harvest.py: reads v4.26+ results bundles natively (captures[] -> normalised entries) - patched post-acceptance",
+  "lawmap.py: mechanical law audit (ENGINE_LAWS <-> 12b matrix <-> code citations); baseline 93 laws, 0 errors; --parity now runs against inbox bundles (16/16 vs acceptance bundle)",
+  "validate.py + artpreflight.py law-annotated at enforcing sites; distance-gate miscite 39->40 fixed; ENGINE_LAWS quest-flow section renumbered 12->17 and re-seated (heading only)",
+  "ROLLOUT_PLAN executed and archived (STALE); committed pycache purged, .gitignore added"
  ],
  "blocked": [
   "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
@@ -38,5 +41,11 @@
   "Acceptance PASSED: first zero-touch round trip - v4.27 ⇩ Repo load of push/smoketest_pack.zip, harvests/inbox/ commit via panel sync token, answers [auto] regen, container pull + harvest.py script read (quests.getAllNames, 388 rows). Law 29 transcription carve-out CLOSED",
   "Panel gate confirmed: bundle stamped builder v4.27 · cfg generated",
   "Panel ⇪ Sync token entry (tnr-sync PAT) confirmed working by the inbox commit"
+ ],
+ "rulings_open": [
+  "Phase 3 T1 scope + whether warnings ship validator-first (12b Phase 3 section)",
+  "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
+  "stack.py: retire or re-point (audits retired project-knowledge layout)",
+  "10_LAWS_core.md: bring into repo via ⇪ File next project session"
  ]
 }

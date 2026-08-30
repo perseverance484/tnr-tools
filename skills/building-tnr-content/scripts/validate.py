@@ -117,7 +117,7 @@ class Report:
 
 # ------------------------------------------------------------------ shapes
 
-def check_member(obj, union, ctors, where, rep):
+def check_member(obj, union, ctors, where, rep):  # law 2: per-tag strict unions
     """Validate one tagged object against its generated constructor."""
     members = ctors["unions"].get(union)
     if not members:
@@ -174,7 +174,7 @@ def check_rules(rules, ctors, where, rep):
         else:
             for j, c in enumerate(r["conditions"]):
                 check_member(c, "ZodAllAiConditions", ctors, f"{w}.conditions[{j}]", rep)
-        check_member(r["action"], "ZodAllAiActions", ctors, f"{w}.action", rep)
+        check_member(r["action"], "ZodAllAiActions", ctors, f"{w}.action", rep)  # laws 39, 64: vocabulary fixed by 45c
     uncond = {"move_towards_opponent", "end_turn", "use_random_jutsu"}
 
     def act_type(r):
@@ -333,7 +333,7 @@ def check_pool_kit(data, where, rep):
         for c in r.get("conditions") or []:
             if c.get("type") == "distance_lower_than" and want and c.get("value") != want:
                 rep.err(f"{where}.rules[{i}]", f"{rec['name']} is range {rec['range']}, so the gate must be "
-                                               f"{want} (range+1, law 39). Found {c.get('value')}. "
+                                               f"{want} (range+1, law 40). Found {c.get('value')}. "
                                                "A higher gate fires out of range and can strand a player in combat")
             if c.get("type") == "distance_lower_than" and rec.get("range") is None:
                 rep.warn(f"{where}.rules[{i}]", f"{rec['name']} is self/ground targeted; a distance gate is "
@@ -417,7 +417,7 @@ def _pool_ranges():
     return out
 
 
-def check_distance_gates(data, where, rep):
+def check_distance_gates(data, where, rep):  # law 40: gate = range + 1
     """Law 40: the distance gate is the jutsu's range + 1. A gate above that can fire out of
     range and strand a human player in combat; a gate of 1 on a melee jutsu can never fire.
     Only checkable for pool jutsu, whose ranges are generated into 32b."""
@@ -444,7 +444,7 @@ def check_distance_gates(data, where, rep):
                        if got > want else " Below range+1 forfeits the outermost band."))
 
 
-def check_entry_laws(entry, ctors, where, rep):
+def check_entry_laws(entry, ctors, where, rep):  # laws 36, 55, 73
     """Laws 36, 55 and 73. All three were classed `validate` in 12b and had no hook in this
     tool; all three were hand-tested clean against the Forsworn wave on 2026-08-28, so they were
     unenforced rather than violated. Closing them so the matrix is true."""
@@ -487,7 +487,7 @@ def check_entry_laws(entry, ctors, where, rep):
         scan(o, f".{o.get('id')}")
 
 
-def check_acyclic(objs, where, rep):
+def check_acyclic(objs, where, rep):  # law 87
     """The builder's q.fill flow validator rejects any cycle: 'Cycle detected in objective
     chain'. Loops are legal but must go through a reset_quest node, whose resetObjectiveId
     is a separate field and not a graph edge. Live Witness Detail loops this way (x1)."""
@@ -525,7 +525,7 @@ def check_acyclic(objs, where, rep):
                 f"resetObjectiveId '{dst}'")
 
 
-def check_reset_targets(objs, where, rep):
+def check_reset_targets(objs, where, rep):  # law 88
     """A reset_quest must not land on a defeat_opponents node. Live practice resets to the
     node BEFORE the fight (Copies, Not Thefts: l4 -> l1 dialog, c6 -> c4 collect_item), never
     onto the fight itself. The one node in the Forsworn wave that reset onto a battle is the
@@ -542,7 +542,7 @@ def check_reset_targets(objs, where, rep):
                     f"resets onto a battle")
 
 
-def check_dialog_options(objs, where, rep):
+def check_dialog_options(objs, where, rep):  # laws 85, 86
     """The builder's q.fill flow validator rejects any dialog objective with no options
     ('Dialog objective X must have at least one option'). Live Witness Detail shows the
     pattern: every dialog carries at least one option and the quest terminates on a
@@ -564,7 +564,7 @@ def check_dialog_options(objs, where, rep):
                         "quest complete")
 
 
-def check_ai_create(data, where, rep):
+def check_ai_create(data, where, rep):  # law 14
     """law 14: rank, regeneration, preferredStat and preferredGeneral1/2 are REQUIRED on
     every AI create. The DB default is STUDENT with every stat 10, so a create missing them
     lands as a paper doll. 12b classes this law 'validate', but the check did not exist here
@@ -581,7 +581,7 @@ def check_ai_create(data, where, rep):
             rep.err(where, f"law 14: '{f}' = {v!r} is not one of {list(allowed)}")
 
 
-def check_nulls(entry, rep):
+def check_nulls(entry, rep):  # law 72: optional vs nullable split
     """Law 72, generated form. An explicit null is legal only where the zod
     chain is .nullable()/.nullish(). Everywhere else the key must be ABSENT,
     and the builder's null-optional guard must not silently strip a null the
@@ -628,7 +628,7 @@ def check_laws(entry, rep):
             v = data.get(f)
             if isinstance(v, (int, float)) and v > 100:
                 rep.err(where, f"law 8: {f}={v} exceeds the cap of 100; the whole fill 400s")
-        if entry.get("slot") == "create" and data.get("consecutiveObjectives") is not True:
+        if entry.get("slot") == "create" and data.get("consecutiveObjectives") is not True:  # law 23
             rep.err(where, "consecutiveObjectives must be set true explicitly on every create: the DB default "
                            "is false, which makes every objective simultaneously claimable")
         content = data.get("content") or {}
@@ -685,9 +685,9 @@ def check_entry(entry, ctors, rep, manifest):
     data = entry.get("data") or {}
     slot = entry.get("slot")
 
-    if slot != "create" and not entry.get("targetId"):
+    if slot != "create" and not entry.get("targetId"):  # law 5
         rep.err(where, "non-create entry without top-level targetId")
-    if slot == "create" and data.get("hidden") is not True:
+    if slot == "create" and data.get("hidden") is not True:  # law 16b (L13)
         rep.err(where, "create without hidden:true. Everything ships hidden, every entity; "
                        "where the column does not exist the key is stripped harmlessly")
 
@@ -775,7 +775,7 @@ def check_manifest(path, ctors_path, strict=False):
             rep.err("manifest", f"@img:{f} has no imgSizes entry (Android picker fallback)")
         elif os.path.exists(f) and sizes[f] != os.path.getsize(f):
             rep.err("manifest", f"imgSizes[{f}]={sizes[f]} but file on disk is {os.path.getsize(f)}")
-        if os.path.exists(f) and os.path.getsize(f) > 512 * 1024:
+        if os.path.exists(f) and os.path.getsize(f) > 512 * 1024:  # law 35
             rep.err("manifest", f"{f} exceeds the 512KB presign cap")
 
     for e in items:
