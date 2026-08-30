@@ -1,4 +1,4 @@
-<!-- RENDERED pack 'jutsu-build' from jutsu.md@f9fa8cc + pipeline.md@bb57b3a via build_packs.py - edit the sources, never this file -->
+<!-- RENDERED pack 'jutsu-build' from jutsu.md@f9fa8cc + pipeline.md@b567313 via build_packs.py - edit the sources, never this file -->
 # Pack: jutsu-build
 
 Minimal set for a jutsu create/edit that ends in a push. Read the SKILL doctrine block first, this pack second, data files as needed. Curation of ai/quest/item/art packs is follow-up work; this pack is the proven exemplar.
@@ -151,12 +151,12 @@ owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
 ---
 
-<!-- pack-trace: pipeline.md @bb57b3a '2. Verified tRPC contracts' -->
+<!-- pack-trace: pipeline.md @b567313 '2. Verified tRPC contracts' -->
 ## 2. Verified tRPC contracts
 
 ---
 
-<!-- pack-trace: pipeline.md @bb57b3a '2.1 Request envelope and conventions' -->
+<!-- pack-trace: pipeline.md @b567313 '2.1 Request envelope and conventions' -->
 ### 2.1 Request envelope and conventions
 
 - TNR uses tRPC batch links. **Every POST body is a batch envelope:** `{"0": { "json": <payload>, "meta": <meta> }}`.
@@ -167,7 +167,7 @@ owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
 ---
 
-<!-- pack-trace: pipeline.md @bb57b3a '2.2 Jutsu' -->
+<!-- pack-trace: pipeline.md @b567313 '2.2 Jutsu' -->
 ### 2.2 Jutsu
 
 | Op | Method | Shape |
@@ -178,14 +178,14 @@ owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
 ---
 
-<!-- pack-trace: pipeline.md @bb57b3a '3. Rate limit' -->
+<!-- pack-trace: pipeline.md @b567313 '3. Rate limit' -->
 ## 3. Rate limit
 
 The limiter is a **rolling cumulative request-count budget**, not per-burst. It drains across repeated sessions and refills over time. Use fewer, larger requests with exponential backoff (the builder does this), and let it refill rather than hammering.
 
 ---
 
-<!-- pack-trace: pipeline.md @bb57b3a '4. id-fetch and capture-first discipline' -->
+<!-- pack-trace: pipeline.md @b567313 '4. id-fetch and capture-first discipline' -->
 ## 4. id-fetch and capture-first discipline
 
 - Pull live ids from edit URLs (`/manual/ai/edit/[id]`, `/manual/asset/edit/[id]`, the item editor) or from catalog dumps.
@@ -195,7 +195,7 @@ The limiter is a **rolling cumulative request-count budget**, not per-burst. It 
 
 ---
 
-<!-- pack-trace: pipeline.md @bb57b3a '5. Universal gotcha checklist' -->
+<!-- pack-trace: pipeline.md @b567313 '5. Universal gotcha checklist' -->
 ## 5. Universal gotcha checklist
 
 Run before any push:
