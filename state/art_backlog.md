@@ -40,7 +40,7 @@ Chalk c13 · Empty Contract e16 · Nothing to Report n2 n3 n23-n25 · Long Winte
 
 ### Ruled firm 2026-08-30 (speak-list expanded; registry rewrite queued)
 | Pale Fang portrait APPROVED scene_fsw_pale_fang.webp | r42-r44 |
-| Winter Crow portrait | w16-w25 cluster |
+| Winter Crow portrait APPROVED scene_fsw_winter_crow.webp | w16-w25 cluster |
 
 ### Convention review (portrait, no spoken line)
 Old Ghost g30 g36 · Tenth Name x1 — silent presence or breach, rule per node.
