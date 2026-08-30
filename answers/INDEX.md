@@ -12,7 +12,7 @@ idempotent. Raw CDN caches ~5 min; fresher than that takes a capture.
 | item | 766 | seed catalog (pre-answers) | 0 | https://raw.githubusercontent.com/perseverance484/tnr-tools/main/answers/names_item.json |
 | ai | 532 | seed catalog (pre-answers) | 0 | https://raw.githubusercontent.com/perseverance484/tnr-tools/main/answers/names_ai.json |
 | asset | 407 | 2026-08-24 | 0 | https://raw.githubusercontent.com/perseverance484/tnr-tools/main/answers/names_asset.json |
-| quest | 400 | seed catalog (pre-answers) | 3 | https://raw.githubusercontent.com/perseverance484/tnr-tools/main/answers/names_quest.json |
+| quest | 400 | seed catalog (pre-answers) | 12 | https://raw.githubusercontent.com/perseverance484/tnr-tools/main/answers/names_quest.json |
 
 Hot shard (delta rows + capture stamps): https://raw.githubusercontent.com/perseverance484/tnr-tools/main/answers/hot.json
 
