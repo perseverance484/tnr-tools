@@ -1,0 +1,51 @@
+# STAGED WORKFLOW - REPLACES .github/workflows/skillpack.yml
+# ---------------------------------------------------------------------------
+# Adds the WO-04 doctrine gates ahead of packaging: doctrinemap.py (every
+# [[D-id]] resolves, ids unique) and render_doctrine.py --check (every
+# projection - mounted paste, SKILL.md blocks, pipeline.md version line -
+# byte-matches docs/DOCTRINE.md). A drifted projection fails the build
+# instead of shipping a stale skill zip. Install via web UI in the Wave 4
+# batch (with relay.yml and the release-pin workflow); until then the
+# container runs both gates in-session.
+# ---------------------------------------------------------------------------
+name: skillpack
+on:
+  push:
+    paths: ["skills/**"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: skillpack
+  cancel-in-progress: true
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Doctrine layer coherent (ids + refs)
+        run: python3 skills/building-tnr-content/scripts/doctrinemap.py
+      - name: Projections current (fail-closed on drift)
+        run: python3 skills/building-tnr-content/scripts/render_doctrine.py --check
+      - name: Zip skills (SKILL.md at zip root)
+        run: |
+          mkdir -p dist
+          for d in skills/*/; do
+            n=$(basename "$d")
+            rm -f "dist/${n}.zip"
+            (cd "$d" && zip -rq "../../dist/${n}.zip" .)
+          done
+          ls -la dist/
+      - name: Sync builder root config from skill data
+        run: |
+          cp skills/building-tnr-content/data/45c_DATA_constructors.json .
+          cp skills/building-tnr-content/data/45g_DATA_checks.json .
+          cp skills/building-tnr-content/data/32b_DATA_pool.json .
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "skillpack: rebuild dist + sync root config [auto]"
+          file_pattern: "dist/* 45c_DATA_constructors.json 45g_DATA_checks.json 32b_DATA_pool.json"

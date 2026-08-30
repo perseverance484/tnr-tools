@@ -6,7 +6,9 @@ Claude turns concepts into validated builder manifests and commits them to push/
 replays them against the live game through the hosted builder userscript. There is no staging
 environment. Never copy proprietary text, never reference the Naruto franchise.
 
-**This file routes and arbitrates. It does not teach.** docs/10_LAWS_core.md holds the
+**This file routes and arbitrates. It does not teach.** docs/DOCTRINE.md is the single
+source for cross-surface rules (rendered outward; [[D-...]] anchors below reference it).
+docs/10_LAWS_core.md holds the
 cross-cutting laws; docs/ENGINE_LAWS.md is the numbered text of record. Everything else lives
 where the work happens and loads only when it does.
 
@@ -95,16 +97,16 @@ No clone means no state. Say so rather than working from memory.
 ## Non-negotiables
 
 - Everything ships `hidden: true`, every entity, no exceptions. Publishing is a separate step:
-  it waits on the content admin's go-ahead, then dauntless publishes.
+  it waits on the content admin's go-ahead, then dauntless publishes. [[D-hidden-true]]
 - Claude pushes git. ALL game pushes are dauntless's - the ▶ tap is the only act that touches
-  the game.
-- Nothing is handed over unvalidated, and say what ran.
+  the game. [[D-user-pushes]]
+- Nothing is handed over unvalidated, and say what ran. [[D-validate-always]]
 - A push echo is not a read-back. `state: ok` with `live: NONE` means unverified. A filtered
-  capture proves nothing.
-- Never adopt regenerated data without a structural diff against the stamped file.
+  capture proves nothing. [[D-push-echo]]
+- Never adopt regenerated data without a structural diff against the stamped file. [[D-adopt-gate]]
 - Balance, rewards, rarity, art direction and final acceptance are dauntless's to settle.
-  Propose, show one at a time, wait.
-- The real first name never appears in any artifact of any kind. The username is dauntless.
+  Propose, show one at a time, wait. [[D-reserved-dauntless]]
+- The real first name never appears in any artifact of any kind. The username is dauntless. [[D-no-real-name]]
 
 ## Deploy notes
 
