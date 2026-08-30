@@ -38,8 +38,26 @@ rank letter centred in the seal in heavy serif. Seal ~40% of image width - below
 the letter dies at the 125px display size. Dark wood margin around the sheet inside
 the frame; without it the paper glares.
 
-## State
-  D  DONE   icon_rank_D.png / .webp (raw: icon_rank_D_raw.png)   512x512, webp 81KB
-  C  todo   red-brown lacquer frame register
-  B  todo
-  A  todo
+## State - SET COMPLETE 2026-08-30, all four rawqc ACCEPT on listing_icon_framed
+  rank  file                median luma  dark share  frame-band bright  webp
+  D     icon_rank_D.*          0.121       0.682         0.0059          81KB
+  C     icon_rank_C.*          0.098       0.733         0.0045          80KB
+  B     icon_rank_B.*          0.126       0.641         0.0792          85KB
+  A     icon_rank_A.*          0.151       0.609         0.0361          98KB
+Raws kept as icon_rank_<R>_raw.png. Contact sheet: rank_icon_sheet.png.
+
+C, B and A were generated with TWO references attached: the finished D (composition,
+lighting, sheet, seal) plus that rank's flattened frame plate from ../frames/. Every
+one came back on-composition first try - sheet extents within a few px of D's.
+
+Frame-band bright share is the rank-legibility proxy. B's mother-of-pearl inlay
+overshoots at 0.079 - it is the loudest frame in the set and outruns A's gold at
+0.036. LEFT AS IS, ruled: the inlay is the only frame identifiable at 125px without
+looking, which is the point of the set, and B otherwise came back clean. Revisit only
+if the four read uneven in the live list.
+
+NOT SHIPPED: upload + wire to twelve missions still pending.
+  C x4  Chalk and Corner, The Empty Contract, Protection, The Waystation
+  B x4  Nothing to Report, The Loud Way, Copies Not Thefts, Witness Detail
+  A x4  Three Rounds, The Long Winter, Old Ghost, The Tenth Name
+No D-rank mission in scope; D exists for the rank set and future missions.
