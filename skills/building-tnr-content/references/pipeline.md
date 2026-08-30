@@ -90,6 +90,10 @@ A manifest field value `@img:<filename>` is uploaded by the builder and replaced
 
 **Picker gotcha (Android).** The Gallery / Photos picker hands the file input MediaStore-numbered names (e.g. `1000007643.jpg`) and re-encodes PNGs to JPG, which destroys sprite transparency. Load images through the **Files / Documents** picker, which preserves the real filename and the raw bytes. The builder's file input carries no `accept` filter specifically to steer Firefox to the document picker. As a safety net the manifest may carry an `imgSizes` map (`{filename: bytes}`); the builder then matches a file by byte size even when the picker renamed it, but this only works on the raw original (document picker), not a re-encoded copy.
 
+### 1.4c Push packs (images ride the manifest, v4.25+)
+
+A `push/` entry may be a **zip** instead of bare JSON: `manifest.json` at zip root plus every referenced image file, also at zip root, with a top-level `imgSizes` ledger (`{filename: bytes}`) in the manifest. The builder extracts the zip, resolves `@img:<file>` against zip members, and runs the 1.4 upload flow itself - the file picker (and its Android Gallery gotcha) applies only to bare-JSON manifests. Reference: `push/smoketest_pack.zip` (v4.25 smoke). Docs before this section describe the v4.12 picker lane.
+
 ### 1.4b The `capture` block (read-only manifests, v4.21+)
 
 A manifest can READ. This section exists because the rest of this file documents v4.12, where it
