@@ -50,3 +50,13 @@ Container quirks and cross-cutting laws live in the mounted instructions.
   3. Scale: ~380 non-ours missions. Classification must come from a live census, not from names.
 - push 22 carries two `quests.getAll` shape probes (limit 25) to size the census before pulling 500 fat rows
   through a mobile browser and the sync token.
+
+## Order of operations (ruled 2026-08-30)
+
+1. `push/23_our_missions_census.json` - capture-only, 32 reads. Live rank for all 31 of ours, plus every
+   mission's pre-swap `image` URL and a fresh 445-row asset table.
+2. Icon swap, all 31, built on live rank only - no asserted ranks this time.
+3. dauntless runs the asset deleter against the final list (the ten `dmissionicons` plus whatever the
+   census turns up; Case/Blacksteel icons excluded, reused by Genin Trials).
+4. Publish + hide as one combined final push. Still gated on the content admin, and on the hazards logged
+   in the hide-wave section above.
