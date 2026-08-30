@@ -1,7 +1,7 @@
 {
   "generated": "2026-08-30",
-  "session": "mounted-3 (Wave 4 executed - plan complete)",
-  "state_line": "ALL infrastructure landed and live: PLAN_2026-08-30 executed 4/4 waves AND both web-UI batches installed byte-exact (6 workflows total). Skillpack v2 gates BATTLE-TESTED: first run failed correctly on a real coupling (packs stamped pre-doctrine-render), healed + guards extended (session close now runs doctrine + packs checks - drift can't ship). release_pin fires its first [auto] loader pin on the next builder release; relay inert until the ritual switch. Content work resumes on the untouched Forsworn board.",
+  "session": "mounted-4 (token efficiency)",
+  "state_line": "Token-efficiency session landed: ai-build (44K) + quest-build (48K) packs live vs 117K/111K full combos, jutsu-build envelope gap fixed; start ritual is single-entry (session_open only, quirks single-sourced in mounted); SKILL.md routes builds pack-first; chroma.py --qc-scale two-tier QC. dauntless side complete: PK deleted, both skills reinstalled from dist, mounted re-pasted. Memory slimmed to conduct rules + exclusions. Forsworn board untouched.",
   "verified_at_close": [
     "lawmap -> 93 laws, 93 matrix rows, 74 citations across 38 files; 0 errors, 5 warnings",
     "doctrine projections -> all projections current (exit 0)",
@@ -9,29 +9,20 @@
     "parity tnr_results_1788065642059.json -> 0 errors, 0 warnings"
   ],
   "in_progress": {
-    "wave": "Infrastructure DONE. Next session: normal content - Faceless Stray avatar (prompted, awaiting generation), Old Ghost + Tenth Name prose, Terr wedge blocking push/6."
+    "wave": "Content resume: Faceless Stray avatar (prompted, awaiting generation); Old Ghost + Tenth Name prose; push/6 held on Terr wedge."
   },
   "decisions": [
-    "dauntless approved ALL 5 plan rulings (1-5)"
+    "memory route: keep memory ON with exclusion edits, not off; flip off only if memory restates laws/board state again (review in a few sessions)",
+    "packs front-loaded for ai/quest now rather than curated as builds happen",
+    "container quirks + laws-that-bite single-sourced into mounted instructions; active-context template carries session state only"
   ],
   "deployed": [
-    "Wave 4: hot shard, rawqc+ledger, packs+TOCs, relay+pin staged",
-    "v4.29 batch+reads+pfEq @2bfd995",
-    "validate --laws + lawmap strict-provenance + 12b 9-12 reclass",
-    "WO-01 fallout fix: builder L-lint (v4.15 session-law layer) ported 1:1 into validate.py (L01-L18 blockers+warns; L05 skipped, already enforced); push/7 cooldown 0->3; red fixture lint_l16_red.json frozen from the blocked payload. Proof: port flags exactly L16 on the pre-fix file (panel-identical wording), push/6 regression 0/0, push/7 0/0, parity 16/16, factory 20/20",
-    "WO-01 @0e62821: builder v4.28 (asserted-fields verdict avfy, read-back retry, !!UNVERIFIED for live=NONE, HEAD self-check fail-open) + harvest.py verify (exit 1 on FAIL/UNVERIFIED) + fixtures red/green + push/7_readback_smoke.json (factory-built, validate 0/0)",
-    "WO-03 @46f72a2: schema_diff.py fail-closed adoption gate (member sets BY VALUE) + invariants I1-I3; SECTOR_TYPES-class fixture exit 1, additive exit 0; live 45c self-diff 0, invariants 0e/128 variants; 00_INDEX regen row mandates the gate",
-    "WO-02 @c0df06d: sentinel_hash.py (canonical, stamp-invariant) + state/schema_sentinel.json baseline + staged_workflows/regen_schemas.yml; dry-run: extraction byte-deterministic x2, shipped-vs-upstream-HEAD = ZERO drift on 45c/45d/45e",
-    "WO-10a @54e4ff6: scrub_check.py local mirror (empty-list exit 1, seeded exit 1, real repo 145 files 0 hits vs actual PAT) + staged_workflows/scrub.yml fail-closed SCRUB_STRINGS multi-pattern",
-    "docs/RESEARCH_REPORT_2026-08-30_stack_optimization.md - Session 2 report committed verbatim (152 lines, W1-W12 answered, re-ranked shortlist: W8 up 8->5, W11 down 5->8; PAT grep 0)",
-    "docs/PLAN_2026-08-30_stack_optimization.md - 11 work orders + contingent jsDelivr, 4 waves, staged-workflow convention (state/staged_workflows/ authored by container, installed by dauntless via one web-UI batch), builder work batched into v4.28 (Wave 1) + v4.29 (Wave 3)",
-    "builder v4.26 -> repo root [mounted:a], superseded same session by v4.27: ⇩ Repo loader (list+fetch .json/.zip from a repo dir via contents API, panel PAT optional, same load paths as 📄) [mounted:e]",
-    "pushpack.py -> skills/building-tnr-content/scripts/ [mounted:c]",
-    "push/: smoketest_pack.zip + 6_verify_and_fix.json (HOLD: wedge probe runs only when Terr clears)"
+    "packs: ai-build.md + quest-build.md added; jutsu-build missing envelope/contract sections fixed (715489e, dist rebuild c19165b)",
+    "ritual dedup + pack-first SKILL.md routing + stale law-location fix + chroma.py --qc-scale + processing.md two-tier QC doctrine (5a5090e, dist rebuild 9d0547a)",
+    "memory: removed 5 canon-restating edits, added 2 exclusions (engine-law/schema/toolchain text; board state)"
   ],
   "open_by_owner": {
     "dauntless": [
-      "mounted instructions re-paste from state/mounted_instructions.txt (PAT slot) at leisure",
       "carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable"
     ],
     "terr": [
@@ -43,10 +34,10 @@
     "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
     "stack.py: retire or re-point (audits retired project-knowledge layout)",
     "Wedge source note ready for Terr: AllObjectives discriminators clean at HEAD; suspect duplicate zod across chunks - relay?",
-    "Paste mounted project instructions (delivered 2026-08-30), then DELETE 00_INDEX.md + 10_LAWS_core.md from project knowledge - repo docs/ copies are now canon",
-    "lint table now lives in TWO places (builder JS + validate.py port, drift hazard): single-source as shared data both read - fold into WO-04 doctrine work or a builder release?"
+    "lint table now lives in TWO places (builder JS + validate.py port, drift hazard): single-source as shared data both read - fold into WO-04 doctrine work or a builder release?",
+    "SKILL.md doctrine block duplicates the mounted paste in-project (~4KB/session): drop skill-build target on mounted-shared assertions, or keep for standalone-install completeness?"
   ],
-  "next": "Back to content on go. Infra follow-ups are ambient: watch first pinned release, relay ritual switch when convenient, pack curation as builds happen.",
+  "next": "Content on go. First: load check - installed SKILL.md must route builds to packs (confirms reinstall took); then Faceless Stray QC when the generation lands, else Old Ghost prose. Ambient: watch first pinned release, relay ritual switch when convenient, memory regeneration review.",
   "token_ledger": [
     {
       "path": "state/digest.json",
