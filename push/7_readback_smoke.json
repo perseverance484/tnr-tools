@@ -1,0 +1,84 @@
+{
+ "_note": "WO-01 acceptance smoke: one hidden jutsu create exercises v4.28 read-back + asserted-fields verdict. Record is disposable; delete after acceptance or leave hidden.",
+ "dedupNames": true,
+ "capture": {
+  "after": [
+   {
+    "proc": "jutsu.getAllNames",
+    "input": {}
+   }
+  ]
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "create",
+   "name": "SMOKE Readback Probe v428",
+   "data": {
+    "name": "SMOKE Readback Probe v428",
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "description": "Builder v4.28 read-back smoke probe. Hidden test record, safe to delete.",
+    "battleDescription": "%user probes the read-back path.",
+    "extraBaseCost": 0,
+    "jutsuWeapon": "NONE",
+    "jutsuType": "NORMAL",
+    "jutsuRank": "D",
+    "requiredRank": "STUDENT",
+    "requiredLevel": 1,
+    "method": "SINGLE",
+    "target": "OPPONENT",
+    "range": 1,
+    "statClassification": "Highest",
+    "hidden": true,
+    "healthCost": 0,
+    "chakraCost": 10,
+    "staminaCost": 0,
+    "healthCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "cooldown": 0,
+    "bloodlineId": "",
+    "requiredBloodlineItemId": "",
+    "villageId": "",
+    "effects": [
+     {
+      "type": "damage",
+      "calculation": "formula",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 20,
+      "target": "INHERIT",
+      "statTypes": [
+       "Highest"
+      ],
+      "generalTypes": [
+       "Strength"
+      ]
+     }
+    ],
+    "parentJutsuId": "",
+    "requiredNinjutsuOffence": 0,
+    "requiredNinjutsuDefence": 0,
+    "requiredGenjutsuOffence": 0,
+    "requiredGenjutsuDefence": 0,
+    "requiredTaijutsuOffence": 0,
+    "requiredTaijutsuDefence": 0,
+    "requiredBukijutsuOffence": 0,
+    "requiredBukijutsuDefence": 0,
+    "requiredStrength": 0,
+    "requiredSpeed": 0,
+    "requiredIntelligence": 0,
+    "requiredWillpower": 0
+   }
+  }
+ ]
+}
