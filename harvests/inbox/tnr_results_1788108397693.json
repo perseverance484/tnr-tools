@@ -1,0 +1,2029 @@
+{
+ "builder": "v4.29",
+ "at": "2026-08-30T16:46:37.694Z",
+ "checks": [
+  "booleans",
+  "build_order",
+  "cap_100",
+  "null_strip_exempt",
+  "companion_required",
+  "date_fields",
+  "entity_only_tags",
+  "enums",
+  "formula_tags",
+  "hidden_on_create",
+  "nullable",
+  "required_on_create",
+  "runtime_only_tags",
+  "tag_power_max",
+  "terminal_actions",
+  "zero_power_per_level"
+ ],
+ "cfg": "generated",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "skipped": 0,
+  "afail": 0
+ },
+ "entries": [],
+ "captures": [
+  {
+   "phase": "before",
+   "proc": "quests.getAllNames",
+   "input": {},
+   "select": null,
+   "at": "2026-08-30T16:46:35.371Z",
+   "status": 200,
+   "rows": 394,
+   "data": [
+    {
+     "id": "T8T7YKNszDr6z6IgzciTY",
+     "name": "[Path of Crimson] [Part I: The Sunset Road]",
+     "questType": "event"
+    },
+    {
+     "id": "simJf04-Kr2mHZOCKf0ym",
+     "name": "[Path of Crimson] [Part II: The Ember Trail]",
+     "questType": "event"
+    },
+    {
+     "id": "k5g8ZbAT07pBlughQ-9RN",
+     "name": "[Path of Crimson] [Part III: Chains of Deception]",
+     "questType": "event"
+    },
+    {
+     "id": "ga3SZhcWqfpxsUb58AWlB",
+     "name": "A  Rank Hunting Supplies  ",
+     "questType": "event"
+    },
+    {
+     "id": "q8csaLhChyxRgnOs89cKi",
+     "name": "A Call for Aid from the Grovetender",
+     "questType": "event"
+    },
+    {
+     "id": "J3d5IplAUSke7-GeBYwST",
+     "name": "A Rank Gatherer",
+     "questType": "achievement"
+    },
+    {
+     "id": "aaGc1IHvrmh5Mx5CVhxJe",
+     "name": "A Rank Gathering Supplies ",
+     "questType": "event"
+    },
+    {
+     "id": "jPpMW_cJl2z5kxhYBuWQh",
+     "name": "A Rank Hunter  ",
+     "questType": "achievement"
+    },
+    {
+     "id": "nBqmFDCtCDQ3YZbHboIig",
+     "name": "A Rank Hunter Mission  - Shigekai (Ofuda Moss)",
+     "questType": "hunting"
+    },
+    {
+     "id": "qcX4ZUaBd-TKcBnVc4mcG",
+     "name": "A Rank Hunter Mission  - Uramaru (Urami Drop)",
+     "questType": "hunting"
+    },
+    {
+     "id": "6W0nnkleYp6GS4mthJHfz",
+     "name": "A Rank Hunter Mission  -Kajioka (Seika Seal Petal) ",
+     "questType": "hunting"
+    },
+    {
+     "id": "1qxKCQhdBA4cqORAhMJ5F",
+     "name": "A Starry Night ",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "A-MwXj8Ik7qcMSpwv70ag",
+     "name": "Aery - The Crystal Dragon",
+     "questType": "story"
+    },
+    {
+     "id": "2A6TY75oV_XqmNUJBwowM",
+     "name": "Aid for the Sun!",
+     "questType": "mission"
+    },
+    {
+     "id": "wc5ghk9OkmkhazrQu28DE",
+     "name": "Akasumi Kage",
+     "questType": "achievement"
+    },
+    {
+     "id": "prviUEylbyYqsTcDIeW-5",
+     "name": "Akasumi Village Loyalty  ",
+     "questType": "achievement"
+    },
+    {
+     "id": "m70w5B8c0WANxnWHkF5FV",
+     "name": "Akasumis Broken Gate",
+     "questType": "errand"
+    },
+    {
+     "id": "N9z8jnYyP01dEymJXwX0V",
+     "name": "Akikaze Kage",
+     "questType": "achievement"
+    },
+    {
+     "id": "16qQU3UJCjFW_4SiLHdqS",
+     "name": "Akikaze Village Loyalty",
+     "questType": "achievement"
+    },
+    {
+     "id": "vbcedPjcQnSd0cRE7Fg6t",
+     "name": "Akikazes Broken Gate",
+     "questType": "errand"
+    },
+    {
+     "id": "3IiSl31OHyj6fTKIvgg7c",
+     "name": "Alpine Lotus",
+     "questType": "gathering"
+    },
+    {
+     "id": "k7Ow4DTdzUN-Cr-9B9ZoW",
+     "name": "Amir-The Hoarder ",
+     "questType": "hunting"
+    },
+    {
+     "id": "K_yJqpJtNfBNsvAYHEZc-",
+     "name": "Apprentice Crafter",
+     "questType": "achievement"
+    },
+    {
+     "id": "WinYivu2zSAv9CuivXnUb",
+     "name": "Arena Champion",
+     "questType": "tier"
+    },
+    {
+     "id": "V765MbIrJd8RrgUrwdgrf",
+     "name": "Azir the Emerald Dragon",
+     "questType": "story"
+    },
+    {
+     "id": "GMk4Fk_38TTIC_WYGzmQp",
+     "name": "B  Rank Hunting Supplies ",
+     "questType": "event"
+    },
+    {
+     "id": "taUNqlZ3AWooaddQktB0K",
+     "name": "B Rank Gatherer",
+     "questType": "achievement"
+    },
+    {
+     "id": "xFIMqK6Goa94XyRBiTE5z",
+     "name": "B Rank Gathering Supplies ",
+     "questType": "event"
+    },
+    {
+     "id": "B_2vLrAh__buHBO3OOFl0",
+     "name": "B Rank Hunter ",
+     "questType": "achievement"
+    },
+    {
+     "id": "RjgzkfMJXYw6t27H5AfOT",
+     "name": "B Rank Hunter Mission - Enrai No Oni (Yamidangan)",
+     "questType": "hunting"
+    },
+    {
+     "id": "llKCp2OuVXNWspw2KqYpU",
+     "name": "B Rank Hunter Mission: Kugatsunagi (Tsukinari Bell)",
+     "questType": "hunting"
+    },
+    {
+     "id": "evdn3PP-kbCW9BvauZZWO",
+     "name": "B Rank Hunter Mission: Tsukihana (Moonpetal Weave)",
+     "questType": "hunting"
+    },
+    {
+     "id": "6bZzBUYiIZGvthNUIezDp",
+     "name": "Baby Diamond Spotted",
+     "questType": "story"
+    },
+    {
+     "id": "3XSo3-RrLIqG1o0Ng-9DL",
+     "name": "Balista - The Diamond Dragon",
+     "questType": "story"
+    },
+    {
+     "id": "C17t8WOdbIue-7da8dHWV",
+     "name": "Battle Arena Legend",
+     "questType": "achievement"
+    },
+    {
+     "id": "Z32quGGEp3ZZDIfAhhCGp",
+     "name": "Battle Arena Master",
+     "questType": "achievement"
+    },
+    {
+     "id": "YqwKvlvzMKNHO3x3Jykx0",
+     "name": "Battle Arena Novice",
+     "questType": "achievement"
+    },
+    {
+     "id": "-RWx3ua-xCyC8yF6DkWua",
+     "name": "Beach Day",
+     "questType": "event"
+    },
+    {
+     "id": "FvcbW7aLiGcJYT5MeMWb7",
+     "name": "Blacksteel Contract: Cleanup Detail",
+     "questType": "mission"
+    },
+    {
+     "id": "JfZ08yMgPgvthpDmO0J8d",
+     "name": "Blacksteel Contract: Iron Hunt",
+     "questType": "mission"
+    },
+    {
+     "id": "diUHUQxtzzCMmmKAeKYLJ",
+     "name": "Blacksteel Contract: Perimeter Breach",
+     "questType": "mission"
+    },
+    {
+     "id": "QAVR7mWpXvrVawLgbRgMo",
+     "name": "Blacksteel Contract: Shard Salvage",
+     "questType": "mission"
+    },
+    {
+     "id": "I8gFtsojmIiYOk_qFyOGW",
+     "name": "Blacksteel Contract: Supply Raid",
+     "questType": "mission"
+    },
+    {
+     "id": "0LcoGMpeBcXVu8p3ISOK7",
+     "name": "Blacksteel Tides",
+     "questType": "event"
+    },
+    {
+     "id": "fyjd5WGEh5outjht89UfM",
+     "name": "Blood for Silver ",
+     "questType": "war"
+    },
+    {
+     "id": "vuC5cX2SuaBpk4DXIwHpT",
+     "name": "Blood of the Tiger",
+     "questType": "achievement"
+    },
+    {
+     "id": "DOiYuFgUVCIKc7ecpLtnD",
+     "name": "Blood of the Tiger, The Dragon's Wrath",
+     "questType": "event"
+    },
+    {
+     "id": "6wN2TN_SFNOY8G2mvHOTJ",
+     "name": "Bloodflower",
+     "questType": "gathering"
+    },
+    {
+     "id": "C_kSNeZZWec1YXqR6XLGD",
+     "name": "Bronze Supporter",
+     "questType": "achievement"
+    },
+    {
+     "id": "R09_H8tCYUEZ9UiqoSkYK",
+     "name": "Bully the weak ",
+     "questType": "crime"
+    },
+    {
+     "id": "w6g6jnzBJ24jumhG-wuc1",
+     "name": "C Rank Gatherer",
+     "questType": "achievement"
+    },
+    {
+     "id": "P8f5UJND73q8EbIy-vBPb",
+     "name": "C Rank Gathering Supplies",
+     "questType": "event"
+    },
+    {
+     "id": "nXu8KYlDEl7AHUPH9KNdG",
+     "name": "C Rank Hunter",
+     "questType": "achievement"
+    },
+    {
+     "id": "pHWBVzgzjoBdCw79JUObD",
+     "name": "C Rank Hunter Mission - Luzzel (Glimmerchitin)",
+     "questType": "hunting"
+    },
+    {
+     "id": "csb7Z12LCH2NEYP1a_brV",
+     "name": "C Rank Hunter Mission - Thornelure (Lurethorne)",
+     "questType": "hunting"
+    },
+    {
+     "id": "S_AY-IESv3UXKYM8jAbJH",
+     "name": "C Rank Hunter Mission -Spintret (Voltleaf Plume)",
+     "questType": "hunting"
+    },
+    {
+     "id": "9E1SJgqxYPhM14QMydDQp",
+     "name": "C Rank Hunter Mission Blazdrift (Ashrend Wing)",
+     "questType": "hunting"
+    },
+    {
+     "id": "Hdnu24p3GswjJ8IJ3UoLI",
+     "name": "C Rank Hunter Mission Brassel (Brassel Spine)",
+     "questType": "hunting"
+    },
+    {
+     "id": "oXqoN-jSKaYlD6-vfq2kK",
+     "name": "C Rank Hunter Mission Cryverin (Frostscale)",
+     "questType": "hunting"
+    },
+    {
+     "id": "l4Xqy_njg1F2a6sk4QNnF",
+     "name": "C Rank Hunter Supplies ",
+     "questType": "event"
+    },
+    {
+     "id": "eqFwr5m6GUP0ME5T6leh4",
+     "name": "Case Contract: Courier Intercept",
+     "questType": "mission"
+    },
+    {
+     "id": "n8r6-Kwmxa1szdRpv8aTp",
+     "name": "Case Contract: Ledger Sweep",
+     "questType": "mission"
+    },
+    {
+     "id": "mlds_FSavrGG0emDImut8",
+     "name": "Case Contract: Route Watch",
+     "questType": "mission"
+    },
+    {
+     "id": "scRI7XJ6AcmsUNxWdjBpG",
+     "name": "Case Contract: Site Sweep",
+     "questType": "mission"
+    },
+    {
+     "id": "2Dr12Fbf3q1p4ic1O_cw6",
+     "name": "Celestial Thristle",
+     "questType": "gathering"
+    },
+    {
+     "id": "Sx_NfWziba6NYOEsfXrS5",
+     "name": "Chalk and Corner",
+     "questType": "mission"
+    },
+    {
+     "id": "cAvG2iXyAucaiXCx_Mfsg",
+     "name": "Chilling Pursuit",
+     "questType": "mission"
+    },
+    {
+     "id": "y5ifRp1eGiewtTf_Ixgv2",
+     "name": "Chime Chase",
+     "questType": "mission"
+    },
+    {
+     "id": "zx-t4K5bZ4DQCWLt1Eryo",
+     "name": "Christmas Present",
+     "questType": "event"
+    },
+    {
+     "id": "aeymfBjvbhzWBl9a7ZagB",
+     "name": "Christmas Present Selection(DO NOT TAKE)",
+     "questType": "event"
+    },
+    {
+     "id": "Nn7ZhVk3qYgVJZ-rX4CS8",
+     "name": "City of Mei's Broken Gate",
+     "questType": "errand"
+    },
+    {
+     "id": "iM0cNA_7KxHE2d_t44CiB",
+     "name": "Contaminated Dirt Sample",
+     "questType": "gathering"
+    },
+    {
+     "id": "d-94cxrGW91o1SJCr9rsq",
+     "name": "Copies, Not Thefts",
+     "questType": "mission"
+    },
+    {
+     "id": "etRS8lEAPgfAf7wl8iyl_",
+     "name": "Copper Gathering",
+     "questType": "gathering"
+    },
+    {
+     "id": "RAkFPSLNisTDuS1g3D18m",
+     "name": "Crackling Spiderwort",
+     "questType": "gathering"
+    },
+    {
+     "id": "FdXjvcH99aG0duIOsmao8",
+     "name": "Creature Hunt Daily: Colossus",
+     "questType": "daily"
+    },
+    {
+     "id": "O_R39WWgXMKFBrfIFeW-Q",
+     "name": "Crime Lord Legend",
+     "questType": "achievement"
+    },
+    {
+     "id": "WYJwdXxBDTYp8hDt9N-UL",
+     "name": "Crime Lord Master",
+     "questType": "achievement"
+    },
+    {
+     "id": "7W1EEMZFghFg5Xiy012_a",
+     "name": "Crime Lord Novice",
+     "questType": "achievement"
+    },
+    {
+     "id": "AUP2t7o3DZv9gPuT7mWRv",
+     "name": "D Rank Gathering Supplies",
+     "questType": "event"
+    },
+    {
+     "id": "-lUARpgbYWNQvhFQF8VZu",
+     "name": "D Rank Hunter Quest  Badgertle (Badger Shell)",
+     "questType": "hunting"
+    },
+    {
+     "id": "CtGNFcGu4UCDFfWl4CSrD",
+     "name": "D Rank Hunter Quest Glimmermoth (Glimmer Dust)",
+     "questType": "hunting"
+    },
+    {
+     "id": "DJx3y7FAwK-vlxKHeNQ23",
+     "name": "D Rank Hunter Quest Moonprowler (Moonlight Antlers)",
+     "questType": "hunting"
+    },
+    {
+     "id": "ltlX-LlgyZEClDnoNmztm",
+     "name": "D Rank Hunter Quest Mosswolf (Mosswolf Tuft)",
+     "questType": "hunting"
+    },
+    {
+     "id": "kavSAOFXadVpAP1uJcO_T",
+     "name": "D Rank Hunter Quest Owlcat (Owlcat Fur)",
+     "questType": "hunting"
+    },
+    {
+     "id": "taLbKUCne5Pvtx1_opVuy",
+     "name": "D Rank Hunter Quest Rust Ferret (Rust Ferret Pelt)",
+     "questType": "hunting"
+    },
+    {
+     "id": "G4IAyvfksC9BWxz93IH-3",
+     "name": "D Rank Hunting Supplies ",
+     "questType": "event"
+    },
+    {
+     "id": "t44i7_DO7vaoejZML8W2r",
+     "name": "Daily Arena Run",
+     "questType": "daily"
+    },
+    {
+     "id": "MJCs2LKXL6A_tVzsXOoXt",
+     "name": "Daily Creature Hunt Aery",
+     "questType": "daily"
+    },
+    {
+     "id": "AhfXsCwOleaXXczu3dj75",
+     "name": "Decapitation Order",
+     "questType": "war"
+    },
+    {
+     "id": "Z6hoO6M0qJDzOJS2fKnAm",
+     "name": "Diamond Supporter",
+     "questType": "achievement"
+    },
+    {
+     "id": "kabU2vB65Jqg_YckeFTkF",
+     "name": "Dusk Workspace (keep out)",
+     "questType": "event"
+    },
+    {
+     "id": "vik7FwnotZXDI6o4pi7MZ",
+     "name": "Dusk's Vigil",
+     "questType": "mission"
+    },
+    {
+     "id": "lvk_8pyOASQg3LGdDb2Gz",
+     "name": "Echoes in the Gust",
+     "questType": "story"
+    },
+    {
+     "id": "cvFbswdbkpJblTrv--xCn",
+     "name": "Echoes in the Gust II: Voices Below",
+     "questType": "story"
+    },
+    {
+     "id": "HHmJrZpTmip_70_No2f6c",
+     "name": "Echoes in the Gust III: Buried Channels",
+     "questType": "story"
+    },
+    {
+     "id": "gdw5q0UKSbX8i_vn1r7Ij",
+     "name": "Echoes in the Gust IV: The Wounded Wind",
+     "questType": "story"
+    },
+    {
+     "id": "hmrHzNi_2gcPAARGFWm3w",
+     "name": "Echoes in the Gust V: Heaven Dragged Down",
+     "questType": "story"
+    },
+    {
+     "id": "MKJ5JP5ZUwRVoG3eTOgiu",
+     "name": "Eclipse Mandate I: Bell of Ash",
+     "questType": "event"
+    },
+    {
+     "id": "rP9tkCX1V62IXW4EhBbDz",
+     "name": "Eclipse Mandate II: Salt Archive",
+     "questType": "event"
+    },
+    {
+     "id": "USUi2Fl-iqYqzwAGX_qhN",
+     "name": "Eclipse Mandate III: Furnace of Names",
+     "questType": "event"
+    },
+    {
+     "id": "us4MkrW5kKmlQs4gQEJS7",
+     "name": "Eclipse Mandate IV: Labyrinth of Borrowed Dawn",
+     "questType": "event"
+    },
+    {
+     "id": "Aq-W7o4g_YpYdXaQk_hy5",
+     "name": "Eclipse Mandate V: The Moon That Would Not Die",
+     "questType": "event"
+    },
+    {
+     "id": "APjejjFCV5Iact4z_9VYU",
+     "name": "Eliminate the Rogue Shinobi",
+     "questType": "mission"
+    },
+    {
+     "id": "rxtawQXxKPMeNTbNwYl3y",
+     "name": "Ember Frond",
+     "questType": "gathering"
+    },
+    {
+     "id": "KoIGPV4hlkeTtKrmTgsLf",
+     "name": "Emergency Hunt: Godstorm",
+     "questType": "hunting"
+    },
+    {
+     "id": "7IDO5-Be9pIh9xYq0briJ",
+     "name": "Engines of Ruin",
+     "questType": "event"
+    },
+    {
+     "id": "v2669jbFTwZunIpNvHQLe",
+     "name": "Epic Mining",
+     "questType": "gathering"
+    },
+    {
+     "id": "GBOK2ANyDdeMh14jVi0Wr",
+     "name": "First Blood",
+     "questType": "pvp"
+    },
+    {
+     "id": "2vZ5uJdzYZXPJ_g37KseQ",
+     "name": "Forbidden Jutsu Trial: Momo",
+     "questType": "event"
+    },
+    {
+     "id": "vEvn1qOMufYcWsUuzv15a",
+     "name": "Forgemaster",
+     "questType": "achievement"
+    },
+    {
+     "id": "2Qxgovq3ieQ1iqBU3bpuK",
+     "name": "Freedom's Scouting Party",
+     "questType": "mission"
+    },
+    {
+     "id": "vWuBke1e6_NxdQDsqhmL3",
+     "name": "Frostbite Leaf",
+     "questType": "gathering"
+    },
+    {
+     "id": "ruIAPMpxt9ggTsNUlchh7",
+     "name": "Fujin's Breath",
+     "questType": "gathering"
+    },
+    {
+     "id": "IZ5JGy9E4GhnrGJj82mzE",
+     "name": "Galecrest Sage",
+     "questType": "gathering"
+    },
+    {
+     "id": "kvbT6THDiBD4DyTlXLmvL",
+     "name": "Genin Life",
+     "questType": "tier"
+    },
+    {
+     "id": "fBl8FVD4ZRDsFiNk4kSC6",
+     "name": "Genin Trials 1: First Steps",
+     "questType": "starter"
+    },
+    {
+     "id": "skI_tgvM3bxxji1Ok0m7w",
+     "name": "Genin Trials 2: Iron Discipline",
+     "questType": "starter"
+    },
+    {
+     "id": "khBAD-GDRwvU2q9_UjQ4H",
+     "name": "Genin Trials 3: Forms of War",
+     "questType": "starter"
+    },
+    {
+     "id": "ps9Li4LSfWC1wkz3Evvh6",
+     "name": "Genin Trials 4: Proving Grounds",
+     "questType": "starter"
+    },
+    {
+     "id": "XGYnC6bQKNK77wYE4NXCM",
+     "name": "Genin Trials 5: The Cold Trail",
+     "questType": "starter"
+    },
+    {
+     "id": "kjzWlxhmRqtw8EnvdNPbZ",
+     "name": "Genin Trials 6: Active Duty",
+     "questType": "starter"
+    },
+    {
+     "id": "I8UmQH2-Hei-hRrA-vP6f",
+     "name": "Genin Trials 7: Sparring Clearance",
+     "questType": "starter"
+    },
+    {
+     "id": "KP0__fXg2i6pLOQ95yTWX",
+     "name": "Genin Trials 8: Deployment",
+     "questType": "event"
+    },
+    {
+     "id": "jYyTQ5Ead2o3i5kzFSH2m",
+     "name": "Genin Trials 9: Debrief",
+     "questType": "starter"
+    },
+    {
+     "id": "eYDVpL63vPhK3lywMexdv",
+     "name": "Getting Started",
+     "questType": "starter"
+    },
+    {
+     "id": "6Ri-W5TtUrEMWpyYlnf_F",
+     "name": "Ghost Ship: Pirate King(Gather)",
+     "questType": "gathering"
+    },
+    {
+     "id": "HckXVOf-qk6ESU9t5rxLh",
+     "name": "Ghost Ship: Pirate King(Hunt)",
+     "questType": "hunting"
+    },
+    {
+     "id": "RZ1Ft8xbMatWgwXYGHunt",
+     "name": "Gold Supporter",
+     "questType": "achievement"
+    },
+    {
+     "id": "rEzOt3O7syg4Z84ImPMbq",
+     "name": "Guardian of the Dunes",
+     "questType": "mission"
+    },
+    {
+     "id": "rkFYvsJ5lin_uc825obqP",
+     "name": "Hag Lullaby",
+     "questType": "mission"
+    },
+    {
+     "id": "feoZJzr3ILb3J0dFb4UnX",
+     "name": "Heart of Kuraokami",
+     "questType": "gathering"
+    },
+    {
+     "id": "lYKrG2rGfdLyAVUHNNQ9M",
+     "name": "Hold the Line",
+     "questType": "war"
+    },
+    {
+     "id": "fzEbIURkNYwRj_dotibrc",
+     "name": "Howling Hills",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "BkNrkqRQGHprSzrXTjT6r",
+     "name": "Hungry Torii",
+     "questType": "mission"
+    },
+    {
+     "id": "rMIc8bYmEPJQZpPFyWHX1",
+     "name": "Hyorin Kage",
+     "questType": "achievement"
+    },
+    {
+     "id": "8KCFcSZr-VRcyIV0cQAIy",
+     "name": "Hyorin Village Loyalty ",
+     "questType": "achievement"
+    },
+    {
+     "id": "A3he5vVNzt5mbQI8JPQj9",
+     "name": "Hyorins Broken Gate",
+     "questType": "errand"
+    },
+    {
+     "id": "wnivsJj9ghUsUH-asVtXk",
+     "name": "Icewarden Root",
+     "questType": "gathering"
+    },
+    {
+     "id": "4UoMSPmAyifHeqK58DJ_d",
+     "name": "Infiltrate the Underworld ",
+     "questType": "anbu"
+    },
+    {
+     "id": "GSjbBr_kAYzgthpm9-dUO",
+     "name": "Iron Ascent",
+     "questType": "war"
+    },
+    {
+     "id": "HPUZcNvaep3HcymPIFbOC",
+     "name": "Iron Gathering",
+     "questType": "gathering"
+    },
+    {
+     "id": "CaoXAT7AjuwAir5GrEHjg",
+     "name": "It's Pizza Time",
+     "questType": "event"
+    },
+    {
+     "id": "z1sKwUM5bjohCFhi8oHqU",
+     "name": "Kaeruun",
+     "questType": "event"
+    },
+    {
+     "id": "GuDXyTxnrSe-3ljTLdcKY",
+     "name": "Kaeruun One Tail - Progression Continued",
+     "questType": "raid"
+    },
+    {
+     "id": "-i3wNG4zgJhtGybbsPU-0",
+     "name": "Kaeruun's Pyramid",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "m_S8FIw6XLg0wuYjcaJDf",
+     "name": "Kidnap the Lord's Daughter",
+     "questType": "crime"
+    },
+    {
+     "id": "g2ilVOzFys21wkEHwfTeE",
+     "name": "Kill the Creator",
+     "questType": "achievement"
+    },
+    {
+     "id": "hPIan_bMv-uiHv7JspddI",
+     "name": "King's Wrath",
+     "questType": "war"
+    },
+    {
+     "id": "ilC3gQ_F4xE6P9w37LYUG",
+     "name": "Kinoko Sample",
+     "questType": "gathering"
+    },
+    {
+     "id": "iQ5tqJaUKSvqbOybqVVDy",
+     "name": "Kuroganekai: The Order of Black Steel CHUNIN",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "iUnQO8Fek3yJ-tL4Djv99",
+     "name": "Kuroganekai: The Order of Black Steel GENIN",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "hRUUTeZ-N0VaSh5tTluVA",
+     "name": "Lantern Rounds",
+     "questType": "mission"
+    },
+    {
+     "id": "6A2KvQNcd7htxCCk3PjKq",
+     "name": "Larry ",
+     "questType": "raid"
+    },
+    {
+     "id": "4pNH8x9ZOOoIyERKSmPa-",
+     "name": "Larry's Undertow",
+     "questType": "overworld"
+    },
+    {
+     "id": "onyWW32gEVA1YqNFA4E-7",
+     "name": "Legendary Mining",
+     "questType": "gathering"
+    },
+    {
+     "id": "GZeNEMk0Qr6DB7Cv_ixA3",
+     "name": "Lunaris Bloom",
+     "questType": "gathering"
+    },
+    {
+     "id": "09U72KTSQHT9xtDue7udy",
+     "name": "Maia",
+     "questType": "raid"
+    },
+    {
+     "id": "hBkhDyjLJcv1lrc6kWRjh",
+     "name": "Master Crafter",
+     "questType": "achievement"
+    },
+    {
+     "id": "NVG2Pn8DYmrHtzHhjZsTs",
+     "name": "Medical Ninja",
+     "questType": "achievement"
+    },
+    {
+     "id": "PYDgipt22B92_vMB54i2X",
+     "name": "Medicinal Gathering",
+     "questType": "mission"
+    },
+    {
+     "id": "GbLSuVGFQU7hH6DPjvfaM",
+     "name": "Mermaid Sighting In Seichi?",
+     "questType": "story"
+    },
+    {
+     "id": "vIC5WUhcn4a6DCOg_e1k-",
+     "name": "Missions Legend",
+     "questType": "achievement"
+    },
+    {
+     "id": "3OoYp9JpM0MbiwzhOng7f",
+     "name": "Missions Master",
+     "questType": "achievement"
+    },
+    {
+     "id": "KZR_uDWcaBc3DFiZOsZBN",
+     "name": "Missions Novice",
+     "questType": "achievement"
+    },
+    {
+     "id": "AfWEBjC0DmrDfovzbLwM1",
+     "name": "Mizu No Odori Sample",
+     "questType": "gathering"
+    },
+    {
+     "id": "4yAxTBSxv0eyTUlMSZ_UA",
+     "name": "Moonveil Moss ",
+     "questType": "gathering"
+    },
+    {
+     "id": "Dp23tz2--m7xMIJiUmaju",
+     "name": "Mountain Madness",
+     "questType": "medical"
+    },
+    {
+     "id": "TXtI1f_Z7XoZMqG4WxGdd",
+     "name": "Murkshade",
+     "questType": "gathering"
+    },
+    {
+     "id": "bmsdeLyWWNcdahBUuJnZq",
+     "name": "Muskshade",
+     "questType": "gathering"
+    },
+    {
+     "id": "gBxJaHwTH7UWiywv74D5Z",
+     "name": "New Quest - gBxJaHwTH7UWiywv74D5Z",
+     "questType": "mission"
+    },
+    {
+     "id": "XYVozogbr0kYY-k0VbTKA",
+     "name": "Night Watch Shadow",
+     "questType": "mission"
+    },
+    {
+     "id": "X9Vzt-dnmG0J0A8hgYsOM",
+     "name": "Nightshade Thorn",
+     "questType": "gathering"
+    },
+    {
+     "id": "ck7BBkjU-AqtvafU4X_lx",
+     "name": "Ninja Gear: Head Guard",
+     "questType": "tier"
+    },
+    {
+     "id": "_mBa7lPnA0AhJq2YKMzzq",
+     "name": "Ninja Gear: Leg Pieces",
+     "questType": "tier"
+    },
+    {
+     "id": "s7Lnjsv-9Fvo4_YEzq-3w",
+     "name": "Nothing to Report",
+     "questType": "mission"
+    },
+    {
+     "id": "gvIXG9nqpOXFSkqqV2GxP",
+     "name": "Novice Crafter",
+     "questType": "achievement"
+    },
+    {
+     "id": "KmGPDnZnGOCvATQqA5LI8",
+     "name": "Old Ghost",
+     "questType": "mission"
+    },
+    {
+     "id": "STAQqoCbpb6I2W39syED_",
+     "name": "One White Ear",
+     "questType": "event"
+    },
+    {
+     "id": "8D1dfiInTyQ6cxJ7iHMuE",
+     "name": "Operation Rusting Serpent - ",
+     "questType": "anbu"
+    },
+    {
+     "id": "ZoPFWVAvWeGlGf4XgmPEZ",
+     "name": "Operation Silent Bell -",
+     "questType": "anbu"
+    },
+    {
+     "id": "rVlxTjcc45snUFk7Q03GE",
+     "name": "Penguin Protector",
+     "questType": "mission"
+    },
+    {
+     "id": "3uok0DABWJzOK0EPrAWGT",
+     "name": "Phoenix Ash Bloom",
+     "questType": "gathering"
+    },
+    {
+     "id": "elopwNBvN0rbuCfzTOo5E",
+     "name": "Pizza Delivery Reward",
+     "questType": "achievement"
+    },
+    {
+     "id": "OmIVLVzj6Se8QG3dX2Vv9",
+     "name": "Pizza Delivery! WIP",
+     "questType": "overworld"
+    },
+    {
+     "id": "7TRFDuLsOXZIV8MtOAmR9",
+     "name": "Platinum Supporter",
+     "questType": "achievement"
+    },
+    {
+     "id": "SkDKiQMLXLt0t0i6GrxlY",
+     "name": "Poachers' Due",
+     "questType": "mission"
+    },
+    {
+     "id": "R_UInVhsCIGFU1nU6BAHS",
+     "name": "Protect the Outpost",
+     "questType": "mission"
+    },
+    {
+     "id": "otFtGNvBFn8ZVGlda7UOH",
+     "name": "Protection",
+     "questType": "mission"
+    },
+    {
+     "id": "trfHHG21iXaCypYx05Q_m",
+     "name": "PVP Master ",
+     "questType": "achievement"
+    },
+    {
+     "id": "TkhF7CD3NjVC0BVVeJItM",
+     "name": "PVP Novice",
+     "questType": "achievement"
+    },
+    {
+     "id": "zvjJaMp-gUIlIgLLZrIoC",
+     "name": "PVP Serial Killer",
+     "questType": "achievement"
+    },
+    {
+     "id": "JujoRaVXqqqEZoS9QGIy_",
+     "name": "PVP Veteran ",
+     "questType": "achievement"
+    },
+    {
+     "id": "wOEUEtWibc5iBUWfLh60Q",
+     "name": "Pyrrakai ",
+     "questType": "event"
+    },
+    {
+     "id": "WtbKMZxx3xRMeNxLfkRjn",
+     "name": "Pyrrakai- The Two Tails",
+     "questType": "raid"
+    },
+    {
+     "id": "1xQsnqEmwB5urFgCW1bt5",
+     "name": "Rainbow Mining",
+     "questType": "gathering"
+    },
+    {
+     "id": "scPu4VqV0dsstQEJO-sQt",
+     "name": "Rare Mining ",
+     "questType": "gathering"
+    },
+    {
+     "id": "_k1L4aOeOixJWrETJ_sDa",
+     "name": "Ravena Bloodsilk",
+     "questType": "raid"
+    },
+    {
+     "id": "qwR7gHQEtKHrKCF-L6GWl",
+     "name": "Ravena Bloodsilk - Event",
+     "questType": "event"
+    },
+    {
+     "id": "LE9EAMblwXOkhjAxh-Mss",
+     "name": "Rebase Canary Gauntlet W1",
+     "questType": "event"
+    },
+    {
+     "id": "hNOLx1MsbLozFWh9-MgSN",
+     "name": "Relic: Mastered Shūren no Yaiba",
+     "questType": "story"
+    },
+    {
+     "id": "g9abd9n7-NRx7gFsGXUwg",
+     "name": "Relic: Refulgent Shūren no Yaiba",
+     "questType": "story"
+    },
+    {
+     "id": "aMWnslQbE8yGU1X2n8X-s",
+     "name": "Relic: Tempered Shūren no Yaiba",
+     "questType": "story"
+    },
+    {
+     "id": "GVedxlwAtCOUglW9O5qHK",
+     "name": "Ren of Wake Island I: The Genin Beneath the Tide",
+     "questType": "story"
+    },
+    {
+     "id": "BfyDC917hIIb4GdoQ3bnS",
+     "name": "Ren of Wake Island II: The Black Water Trial",
+     "questType": "story"
+    },
+    {
+     "id": "OQevmmU2BaQYapUC3fQlJ",
+     "name": "Ren of Wake Island III: The Mask Beyond Borders",
+     "questType": "story"
+    },
+    {
+     "id": "EARtFvZp-fT70PTqriTb9",
+     "name": "Rep for Skill Tree - ",
+     "questType": "event"
+    },
+    {
+     "id": "qwp5ZZxpFwmG0WPc2xPy7",
+     "name": "Revenge? ",
+     "questType": "mission"
+    },
+    {
+     "id": "ANmue35P1QHVimRagpX3p",
+     "name": "Ritual of Sotek",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "19KJYjkIT7GPP3LIvZcd7",
+     "name": "Ritual of Sotek - Lesser",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "9-t1rNWEzXbIfdUfxWrny",
+     "name": "Road to Genin",
+     "questType": "starter"
+    },
+    {
+     "id": "hzUpMC9nimPoWz3SPdhtY",
+     "name": "Round up the Escape Animals",
+     "questType": "event"
+    },
+    {
+     "id": "BpSR6DrYT2Cy-USWCC-Wk",
+     "name": "Rowdy Genin Brawler",
+     "questType": "crime"
+    },
+    {
+     "id": "L8qYjx-ghkobbmUFFr4YD",
+     "name": "S Rank Gatherer",
+     "questType": "achievement"
+    },
+    {
+     "id": "A6ZSwAORLzyYTgOkV4zHt",
+     "name": "S Rank Hunt: Akaibako (Thread Core)",
+     "questType": "hunting"
+    },
+    {
+     "id": "JAAC03SznYkEx9jBUqIzO",
+     "name": "S Rank Hunt: Byakuho (Cracked Auditory Core)",
+     "questType": "hunting"
+    },
+    {
+     "id": "b-0LKdalbAGXMTru1SYu5",
+     "name": "S Rank Hunt: Dojigiri (Shard of Willful Steel)",
+     "questType": "hunting"
+    },
+    {
+     "id": "PPmPwmI13nurR3aoX5NY9",
+     "name": "S Rank Hunt: Kinmokuzai (Seed of False Vitality)",
+     "questType": "hunting"
+    },
+    {
+     "id": "SwuHx-kUuy0MFsuwCdIML",
+     "name": "S Rank Hunt: Somen Shoko (Mask Core)",
+     "questType": "hunting"
+    },
+    {
+     "id": "u8Vgy9yWIF0aehDUB9yk5",
+     "name": "S Rank Hunt: Unkei No Kami (Parchment Core)",
+     "questType": "hunting"
+    },
+    {
+     "id": "lUgAHWyz1dQv3zDuqh7Nw",
+     "name": "S Rank Hunter  ",
+     "questType": "achievement"
+    },
+    {
+     "id": "9FNFNHJfo-ysWruJeJdTx",
+     "name": "Sabotage Run",
+     "questType": "war"
+    },
+    {
+     "id": "jnJYn8TloDVHcEYyWuYg8",
+     "name": "Sad Puppy Revenge",
+     "questType": "event"
+    },
+    {
+     "id": "nwVJG9bsllGo7DefKM2ic",
+     "name": "Salt Gate Phantom",
+     "questType": "event"
+    },
+    {
+     "id": "xZk4qK_k3XEpHBgpYRL2Q",
+     "name": "Seasoned Veteran",
+     "questType": "pvp"
+    },
+    {
+     "id": "3OPbTnmXUPKmfhmVNg9xT",
+     "name": "Serial Killer",
+     "questType": "pvp"
+    },
+    {
+     "id": "qc1_GDR6_nzscDO9SHVUO",
+     "name": "Shadeleaf",
+     "questType": "gathering"
+    },
+    {
+     "id": "t-08THKXHdTq1r-46PxSr",
+     "name": "Shadows in the Updraft: The Lost Current",
+     "questType": "story"
+    },
+    {
+     "id": "L3VnD7qozn5J--JOY4ZrH",
+     "name": "Shadowy Exams",
+     "questType": "mission"
+    },
+    {
+     "id": "a_ZdFgZ6ZrB3FHIXsav4a",
+     "name": "Shaper Attacks Akasumi",
+     "questType": "mission"
+    },
+    {
+     "id": "peNhxU6NDy5sTamjWOlBp",
+     "name": "Shaper Attacks Akikaze",
+     "questType": "mission"
+    },
+    {
+     "id": "-hq6RJAEpnPvV9BhL5434",
+     "name": "Shaper Attacks Hyorin",
+     "questType": "mission"
+    },
+    {
+     "id": "q0xGHNYjlJsQiw0Fa1Xrp",
+     "name": "Shaper Attacks Shirohana",
+     "questType": "mission"
+    },
+    {
+     "id": "zi6L_1aBbr0S6-_dpsKHe",
+     "name": "Shaper Attacks Syndicate",
+     "questType": "crime"
+    },
+    {
+     "id": "-TVOUs1-1VtF8ZBbG5gJi",
+     "name": "Shaper Attacks Tsukimori",
+     "questType": "mission"
+    },
+    {
+     "id": "UGjlfxRBGmjWtXboyJ2iT",
+     "name": "Shinobi Fundamentals: Dragon Hunting",
+     "questType": "daily"
+    },
+    {
+     "id": "A82qEiTdKFf5kRedjIHBd",
+     "name": "Shinobi Fundamentals: Frost Warden",
+     "questType": "daily"
+    },
+    {
+     "id": "caepucHZEbYSBvLLKObWl",
+     "name": "Shinobi Fundamentals: Path To Chunin",
+     "questType": "daily"
+    },
+    {
+     "id": "Zau7fGL0aSjYQo2LPz6Ar",
+     "name": "Shinobi Fundamentals: Path To Jonin",
+     "questType": "daily"
+    },
+    {
+     "id": "CAyZIupDKp6YFqFD-2i9e",
+     "name": "Shirohana Kage",
+     "questType": "achievement"
+    },
+    {
+     "id": "KYvm5YaFn46CzenDzhZP7",
+     "name": "Shirohana Village Loyalty  ",
+     "questType": "achievement"
+    },
+    {
+     "id": "t0YvUu0uZ3H-IxC8wePtq",
+     "name": "Shirohanas Broken Gate",
+     "questType": "errand"
+    },
+    {
+     "id": "ziucpd6c2NALT3_Hfa0Rj",
+     "name": "Shiverthorn",
+     "questType": "gathering"
+    },
+    {
+     "id": "g89glHDOErI0NO_xQ1443",
+     "name": "Shrine Ash",
+     "questType": "mission"
+    },
+    {
+     "id": "ShlMjcHBcjRn48kofMgkU",
+     "name": "Silver Supporter",
+     "questType": "achievement"
+    },
+    {
+     "id": "1hMJgpCBFO-iHdx8SbZcB",
+     "name": "Skill Issue: The Chief",
+     "questType": "event"
+    },
+    {
+     "id": "3QVod_afHa32eUNLrhhyG",
+     "name": "Skirmish",
+     "questType": "war"
+    },
+    {
+     "id": "M85vPxofZIVijLpspm7Uu",
+     "name": "Skychain Monastery",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "_N1TWmzKDwpuo7RGDRn1I",
+     "name": "Solar Petal",
+     "questType": "gathering"
+    },
+    {
+     "id": "6ZJXM2gA85XXlLc5jwjPQ",
+     "name": "Special Gathering: Fractured Ore",
+     "questType": "gathering"
+    },
+    {
+     "id": "5hhk8dx28ZzXMgU3iE5BK",
+     "name": "Special Gathering: Liquid Obsidian",
+     "questType": "gathering"
+    },
+    {
+     "id": "TpPYroVdjMxA6PqEYJ_QM",
+     "name": "Special Hunter Mission - Mōmoku Inoshishi",
+     "questType": "hunting"
+    },
+    {
+     "id": "mOiHn2nfsOSFSGFrSkcax",
+     "name": "Special Hunter Mission - OctiKameá",
+     "questType": "hunting"
+    },
+    {
+     "id": "giOXqrdz9tNzZoF5x7ZlV",
+     "name": "Special Hunter Mission - Tainted Kuma",
+     "questType": "hunting"
+    },
+    {
+     "id": "Adc-xyZa5qgonsQr35YiE",
+     "name": "Special Hunter Mission - Warped Taka",
+     "questType": "hunting"
+    },
+    {
+     "id": "q1sBJ9eSU9wAtVcYgUfqF",
+     "name": "Spy Hunter",
+     "questType": "mission"
+    },
+    {
+     "id": "Ak2VzIKCIAPfmxwBExzVg",
+     "name": "Starfire Petal",
+     "questType": "gathering"
+    },
+    {
+     "id": "UYlTqs-BzK-9JFmSVnP9l",
+     "name": "Story: The Ember Ledger",
+     "questType": "story"
+    },
+    {
+     "id": "VYyZFLrX7xZKxyuYfsUD9",
+     "name": "Strange Tastes",
+     "questType": "event"
+    },
+    {
+     "id": "Br7u84Gq7orlEpu0yqy1A",
+     "name": "Subaku Demon Castle",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "wCuR2gUC5QLwrNVQzrwNc",
+     "name": "Sunroot",
+     "questType": "gathering"
+    },
+    {
+     "id": "LewzMvUvNd-QLl0cZ9VMo",
+     "name": "Susanoo's Tear",
+     "questType": "gathering"
+    },
+    {
+     "id": "4pc6T_Ooxqdiq5dpr8TN7",
+     "name": "Syndicate Loyalty",
+     "questType": "achievement"
+    },
+    {
+     "id": "tLYu5SbRoeVgd99xuEnFD",
+     "name": "Taming the Komodo King",
+     "questType": "mission"
+    },
+    {
+     "id": "VR0tcs597PNuZMsZrOAfX",
+     "name": "Tempest Heart",
+     "questType": "gathering"
+    },
+    {
+     "id": "jLZKhH5HqX_JsOw2msRNX",
+     "name": "Tempest Thorn",
+     "questType": "gathering"
+    },
+    {
+     "id": "vEcZ8tN1y6tm-XcsAaBJ-",
+     "name": "Thalymr-The 3 Tails",
+     "questType": "raid"
+    },
+    {
+     "id": "G9q3pUyurf2iNzadvU1oV",
+     "name": "The Archive Remembers",
+     "questType": "event"
+    },
+    {
+     "id": "8le7lJSWJ3IjR_gyQRS0n",
+     "name": "The Archive Settles Up",
+     "questType": "event"
+    },
+    {
+     "id": "_S3fhIPpNV6jJpPF0czO6",
+     "name": "The Archive Settles Up: Astral Ascendant",
+     "questType": "event"
+    },
+    {
+     "id": "mCa__5A6lMkz6uV8ZxEY2",
+     "name": "The Archive Settles Up: Blood-Enthralled Eyes",
+     "questType": "event"
+    },
+    {
+     "id": "hhfM1xGB8KH4z6C8iu5O9",
+     "name": "The Archive Settles Up: Blue Edge Eyes",
+     "questType": "event"
+    },
+    {
+     "id": "XyCbs2zhfooYhMeOJAzxC",
+     "name": "The Archive Settles Up: Ethereal Regent",
+     "questType": "event"
+    },
+    {
+     "id": "2XgdDhtuwsmYzyRnmLnF4",
+     "name": "The Archive Settles Up: Eyes of the Forsaken Heir",
+     "questType": "event"
+    },
+    {
+     "id": "dIKPMUl7BU3kLNlG4krYo",
+     "name": "The Ascension Ceremony",
+     "questType": "story"
+    },
+    {
+     "id": "b6DKJZB3_6v54RDcBXYWi",
+     "name": "The Ashen Lung",
+     "questType": "medical"
+    },
+    {
+     "id": "Keq_blAw0LiExb1Z4arZZ",
+     "name": "The Borrowed Awakening: Astral Ascendant",
+     "questType": "event"
+    },
+    {
+     "id": "UPKo6TvHk0bSpfm-rI2kr",
+     "name": "The Borrowed Awakening: The Reworked Pair",
+     "questType": "event"
+    },
+    {
+     "id": "An3HqyV6lhWaGeVCkwp8_",
+     "name": "The Broken Gate",
+     "questType": "errand"
+    },
+    {
+     "id": "ueFeuSqUC5yDbLLUuYZgL",
+     "name": "The Cartographer's Ink",
+     "questType": "mission"
+    },
+    {
+     "id": "LK9kvaTvX0nUThUJM1FWZ",
+     "name": "The Cartographer's Satchel",
+     "questType": "mission"
+    },
+    {
+     "id": "iB3mdNvAZfBWVhsMEVBBl",
+     "name": "The Chunin Exams",
+     "questType": "starter"
+    },
+    {
+     "id": "v--6JyIMQQ9fNNs6C6Q0j",
+     "name": "The Concord Table",
+     "questType": "event"
+    },
+    {
+     "id": "90Yas_3N6eAfhUxSbvarz",
+     "name": "The Crimson Bloom",
+     "questType": "medical"
+    },
+    {
+     "id": "1mhanFOPXT3wP0o48B3SW",
+     "name": "The Crimson Harvest",
+     "questType": "pvp"
+    },
+    {
+     "id": "DfHGSi5MlLsLePC-WUSdJ",
+     "name": "The Crimson Masquerade",
+     "questType": "event"
+    },
+    {
+     "id": "n39gs_bqeLgXe6tLcqsPJ",
+     "name": "The Drowned Fleet",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "4j9W0N4Hba24NFffn3ToX",
+     "name": "The Eggs have Hatched",
+     "questType": "story"
+    },
+    {
+     "id": "9kzvd414kRRXauKSXsGIq",
+     "name": "The Empty Contract",
+     "questType": "mission"
+    },
+    {
+     "id": "LKFNCM163M0JRbh8mtD1O",
+     "name": "The Fifth Notice",
+     "questType": "overworld"
+    },
+    {
+     "id": "357bw5fk6kl1FegLFpELH",
+     "name": "The Last Shadow",
+     "questType": "story"
+    },
+    {
+     "id": "E14JYJ46vyq-4jhtAmNz8",
+     "name": "The Last Shadow: Chapter II — The Broken Seal",
+     "questType": "story"
+    },
+    {
+     "id": "fUZc8X8vVuu3Qo6VUlFu9",
+     "name": "The Last Shadow: Chapter III — Toward Justice",
+     "questType": "story"
+    },
+    {
+     "id": "8C7MyiuvZjU0ueyWx8EF5",
+     "name": "The Long Road",
+     "questType": "mission"
+    },
+    {
+     "id": "WIsqHEoo4c-ToRaV5_cZj",
+     "name": "The Long Winter",
+     "questType": "mission"
+    },
+    {
+     "id": "KJ3W_THmpCwJjlIStn10-",
+     "name": "The Lost Sky Maiden",
+     "questType": "story"
+    },
+    {
+     "id": "lLLe_qS8lu4iueA68eQe8",
+     "name": "The Lost Wind",
+     "questType": "story"
+    },
+    {
+     "id": "ilYoJqbk--np9OSqT9lGx",
+     "name": "The Loud Way",
+     "questType": "mission"
+    },
+    {
+     "id": "cMwD0P4f4QfZOlJyuXptm",
+     "name": "The Misfiled Board",
+     "questType": "mission"
+    },
+    {
+     "id": "qn36dRZfTnru7oSgjDElO",
+     "name": "The Nameless Thorn",
+     "questType": "story"
+    },
+    {
+     "id": "rDN4CT1NoWswUk1zCb8Gq",
+     "name": "The Path of a Shinobi ",
+     "questType": "starter"
+    },
+    {
+     "id": "IRXyHKwTGihW8fJwnNd-b",
+     "name": "The Path of a Shinobi: The Jonin Exam",
+     "questType": "starter"
+    },
+    {
+     "id": "M0Lt30YZ7dIRWEL-4v3Rx",
+     "name": "The Path of Envy",
+     "questType": "story"
+    },
+    {
+     "id": "rstId7S5I0Aoi6-lO00kr",
+     "name": "The Path of Envy (Hard)",
+     "questType": "story"
+    },
+    {
+     "id": "nVmdxGDU61tl-b5IraCQT",
+     "name": "The Path of Gluttony",
+     "questType": "story"
+    },
+    {
+     "id": "hRl3SHwOnA_jF1c-N6oOy",
+     "name": "The Path of Gluttony (Hard)",
+     "questType": "story"
+    },
+    {
+     "id": "-8gXrt8u0QzObW5v7I1QN",
+     "name": "The Path of Greed",
+     "questType": "story"
+    },
+    {
+     "id": "TWmUEAPEVWbGIuwee2dTy",
+     "name": "The Path of Greed (Hard)",
+     "questType": "story"
+    },
+    {
+     "id": "RqRxfTEjhY1HuZzbs8Keq",
+     "name": "The Path of Lust",
+     "questType": "story"
+    },
+    {
+     "id": "gXSl56_LkI2sk7AvAwMpD",
+     "name": "The Path of Lust (Hard)",
+     "questType": "story"
+    },
+    {
+     "id": "6FtROCE15qxmNMam4sz0V",
+     "name": "The Path of Pride",
+     "questType": "story"
+    },
+    {
+     "id": "z3ej62ONViP-vZ6q48FX1",
+     "name": "The Path of Pride (Hard)",
+     "questType": "story"
+    },
+    {
+     "id": "0OeXTEaDdy6Vmqnc5jsVY",
+     "name": "The Path of Sloth",
+     "questType": "story"
+    },
+    {
+     "id": "53VgX5dGgOZMggSC7aWsj",
+     "name": "The Path of Sloth (Hard)",
+     "questType": "story"
+    },
+    {
+     "id": "vm-p_BWAWvMBdFGwGIw7P",
+     "name": "The Path of Wrath",
+     "questType": "story"
+    },
+    {
+     "id": "bfBq9JxokqZz4McHul162",
+     "name": "The Path of Wrath (Hard)",
+     "questType": "story"
+    },
+    {
+     "id": "guSLlHTobmxnOqacGIblJ",
+     "name": "The Path to Kitsune",
+     "questType": "event"
+    },
+    {
+     "id": "r9tpM8s1Nt4dwKE_mL3r-",
+     "name": "The Return of Larry ",
+     "questType": "raid"
+    },
+    {
+     "id": "K6J7o_7lDuosovASlwiXG",
+     "name": "The Return of Toto",
+     "questType": "raid"
+    },
+    {
+     "id": "edZIl3pmdApvojXXawyJz",
+     "name": "The Return Of Veylan - Maw of the Pyre ",
+     "questType": "raid"
+    },
+    {
+     "id": "5RiVQKyHtvBFTo4_Tullb",
+     "name": "The Rogue Warden",
+     "questType": "story"
+    },
+    {
+     "id": "zDy-5u2yvLl_AtQmVDKwB",
+     "name": "The Runaway Goat",
+     "questType": "mission"
+    },
+    {
+     "id": "Y1-3FAnTTZevvMQ-aZL-0",
+     "name": "The Shattered Sakura: Part 1 - A Burdened Farewell",
+     "questType": "story"
+    },
+    {
+     "id": "KbJe4-VJagO_zrCX2wN1P",
+     "name": "The Shattered Sakura: Part 2 - Whispers of Home",
+     "questType": "story"
+    },
+    {
+     "id": "H3NFfevet_9qS_hniNZNg",
+     "name": "The Shattered Sakura: Part 3 - A Crossroads of Duty",
+     "questType": "story"
+    },
+    {
+     "id": "uuuicdhG19yFPELQlQo0k",
+     "name": "The Silent Bells of Winter",
+     "questType": "event"
+    },
+    {
+     "id": "QteA6ioBy6e2h6xvQ5qsL",
+     "name": "The Silent Bells of Winter-Hard -",
+     "questType": "event"
+    },
+    {
+     "id": "9NCb8FSTTvJUPq__MqwFa",
+     "name": "The Silent Bloom",
+     "questType": "medical"
+    },
+    {
+     "id": "O7wnClBn9yPVA6Y_4bws5",
+     "name": "The Silken Thread Unravels",
+     "questType": "event"
+    },
+    {
+     "id": "JgI72LR2r5kiJaMVgujM4",
+     "name": "The Snow Amulet(HARD Rec Lvl:80+)",
+     "questType": "event"
+    },
+    {
+     "id": "CqSRJtq1cCmJBblApqopA",
+     "name": "The Snow Tower",
+     "questType": "event"
+    },
+    {
+     "id": "hPoOuObNVVe3HPySDSPWx",
+     "name": "The Tale of Goah Way: An Unwelcome Shadow",
+     "questType": "story"
+    },
+    {
+     "id": "U2fXpSxluwJnlAGX-EBhu",
+     "name": "The Tale of Goah Way: Feon Falls Again",
+     "questType": "event"
+    },
+    {
+     "id": "qaMzIecpcr6MYls1qla72",
+     "name": "The Tale of Goah Way: The Encounter on the Forest Trail",
+     "questType": "story"
+    },
+    {
+     "id": "f4O5oS3OKtLUKJfYyrxsx",
+     "name": "The Tale of Goah Way: The Girl Who Carried Two Storms",
+     "questType": "story"
+    },
+    {
+     "id": "8ndqsf6RBZ88q3pfyZQQh",
+     "name": "The Tenth Name",
+     "questType": "mission"
+    },
+    {
+     "id": "VjT93rkmWlWlrdG6Pp46e",
+     "name": "The Tower of Endless Night: Dawnless Crown",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "2yvE9PUQqlD8lbYNfgX-b",
+     "name": "The Tower of Endless Night: The Marrow Vaults",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "OSADdXqostbyVliCxWk6k",
+     "name": "The Tower of Endless Night: The Stormcourt",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "ATV6Fs3XFqOf7wch99qDW",
+     "name": "The Waystation",
+     "questType": "mission"
+    },
+    {
+     "id": "PEKS8NsQk7PnFLYkG1d2G",
+     "name": "The Wyrmspire Nest",
+     "questType": "event"
+    },
+    {
+     "id": "d9SUQuMStr1qFQYvguphp",
+     "name": "Thread Hunt",
+     "questType": "mission"
+    },
+    {
+     "id": "fBQNC1wFqTPYp7reiK79T",
+     "name": "Three Rounds",
+     "questType": "mission"
+    },
+    {
+     "id": "L4eGwXwaeG10551kKPgIi",
+     "name": "Titan comes for Akasumi!",
+     "questType": "mission"
+    },
+    {
+     "id": "GyI-tbSf04esDJSaMufGV",
+     "name": "Titan comes for Akikaze!",
+     "questType": "mission"
+    },
+    {
+     "id": "WkiYK2ZMuuRuVzl6USGAI",
+     "name": "Titan comes for Hyorin",
+     "questType": "mission"
+    },
+    {
+     "id": "jphpZBHwY85oxz5au7sQM",
+     "name": "Titan comes for Shirohana",
+     "questType": "mission"
+    },
+    {
+     "id": "QRlOMK0NpkagVVvcl2NmF",
+     "name": "Titan comes for Syndicate",
+     "questType": "crime"
+    },
+    {
+     "id": "MRcLJNCevFkiaIhuTgwEh",
+     "name": "Titan comes for Tsukimori",
+     "questType": "mission"
+    },
+    {
+     "id": "G-xcvrVSEHzq0B8Vdeo_r",
+     "name": "Top Tier Rogue",
+     "questType": "achievement"
+    },
+    {
+     "id": "youIZt7PeFaBrGX4DTO8d",
+     "name": "Totem of Amaterasu",
+     "questType": "event"
+    },
+    {
+     "id": "FvnlbkKMrSq9JDk3BHtbz",
+     "name": "Totem of Amaterasu - Story ",
+     "questType": "event"
+    },
+    {
+     "id": "0kK9RA-eYps_kr1CW1fpA",
+     "name": "Totem of Daikokuten ",
+     "questType": "event"
+    },
+    {
+     "id": "dGlQURiHs4KvC1z1hFeLS",
+     "name": "Totem of Daikokuten - Story",
+     "questType": "story"
+    },
+    {
+     "id": "6OTFtfEZ5RxjseDHjn-tN",
+     "name": "Totem of Fujin",
+     "questType": "event"
+    },
+    {
+     "id": "j5xqNG9DAt7O1EFxWHvja",
+     "name": "Totem of Okami",
+     "questType": "event"
+    },
+    {
+     "id": "dTU-4rjNb__r-wAGUUhvR",
+     "name": "Totem of Okami - Story  ",
+     "questType": "event"
+    },
+    {
+     "id": "BfFhPMzvT7bqSmAY735rr",
+     "name": "Totem of Tsukuyomi",
+     "questType": "event"
+    },
+    {
+     "id": "qZ2i0MrfIk7SPmBC_SxMG",
+     "name": "Totem of Tsukuyomi - Story",
+     "questType": "event"
+    },
+    {
+     "id": "tVy3JaeN4QdZ-Oid5VxF6",
+     "name": "Totem of Watatsumi",
+     "questType": "event"
+    },
+    {
+     "id": "hDTD-N98o2-qLlvv0FIAy",
+     "name": "Totem of Watatsumi - Story  ",
+     "questType": "event"
+    },
+    {
+     "id": "cqeeq-iJqeztAlm8u_USl",
+     "name": "Toto The Baby Dragon",
+     "questType": "raid"
+    },
+    {
+     "id": "NO-olqh5Cgn-OU_VuwkSb",
+     "name": "Transport the Potato",
+     "questType": "mission"
+    },
+    {
+     "id": "jPFA3CqCRDR86u6aEfHMd",
+     "name": "Triage Under Fire",
+     "questType": "war"
+    },
+    {
+     "id": "b0DYDsdzwd0s6P7MpO1ws",
+     "name": "Tsukimori Kage",
+     "questType": "achievement"
+    },
+    {
+     "id": "SHhzCiw3eGM8gjCCwnxDO",
+     "name": "Tsukimori Village Loyalty ",
+     "questType": "achievement"
+    },
+    {
+     "id": "H3s7RQ0coL4a4Jlyzc_h-",
+     "name": "Tsukimori's Broken Gate",
+     "questType": "errand"
+    },
+    {
+     "id": "U141C9TzKu4UroZDaVgkU",
+     "name": "Under the Pale Loom",
+     "questType": "event"
+    },
+    {
+     "id": "Ozu56feZyQ1fTOJUSsp0m",
+     "name": "𝚅𝙴𝙸𝙻𝙽𝙸𝙶𝙷𝚃 - 𝙲𝙷𝙰𝚂𝙸𝙽𝙶 𝚃𝙷𝙴 𝙻𝙰𝚄𝙶𝙷𝚃𝙴𝚁",
+     "questType": "story"
+    },
+    {
+     "id": "-3QYgyBeUUO6Sdb3ENqYF",
+     "name": "𝚅𝙴𝙸𝙻𝙽𝙸𝙶𝙷𝚃 - 𝚃𝙷𝙴 𝙻𝙰𝙽𝚃𝙴𝚁𝙽 𝙱𝚄𝚁𝙽𝚂 𝙶𝚁𝙴𝙴𝙽",
+     "questType": "story"
+    },
+    {
+     "id": "1GTgjsBZ2yqpkoGlLefxZ",
+     "name": "𝚅𝙴𝙸𝙻𝙽𝙸𝙶𝙷𝚃 - 𝚆𝙷𝙴𝙽 𝚃𝙷𝙴 𝙻𝙰𝙽𝚃𝙴𝚁𝙽 𝙵𝙻𝙸𝙲𝙺𝙴𝚁𝚂",
+     "questType": "story"
+    },
+    {
+     "id": "0ECopzE1Vauqp3NJSj6QX",
+     "name": "Veylan - Maw of the Pyre",
+     "questType": "raid"
+    },
+    {
+     "id": "jPUDHArBo6jaED_WOzrYC",
+     "name": "Vital plasma sample",
+     "questType": "gathering"
+    },
+    {
+     "id": "n377KcWflKRgMWzVKIl_b",
+     "name": "Voidshade Petal",
+     "questType": "gathering"
+    },
+    {
+     "id": "CvN1ffVKiPD5EHhM_riTQ",
+     "name": "Volcan and the Everlasting Waters",
+     "questType": "battlepyramid"
+    },
+    {
+     "id": "hPPphfPQyVpFKpno6A61o",
+     "name": "Vulcan The Infernal",
+     "questType": "raid"
+    },
+    {
+     "id": "ZpCHLfGJJcR9L7ovcHx6J",
+     "name": "Warpath",
+     "questType": "war"
+    },
+    {
+     "id": "EONHpe2JhRDYzrYnJLXlk",
+     "name": "WEDGE_PROBE_A_ways_noblade",
+     "questType": "mission"
+    },
+    {
+     "id": "Kaywv59qnRM-wPULzVDNp",
+     "name": "WEDGE_PROBE_B_blade_only",
+     "questType": "mission"
+    },
+    {
+     "id": "gJ05vhdN0C1mzuRde8fjZ",
+     "name": "WEDGE_PROBE_C_stray_control",
+     "questType": "mission"
+    },
+    {
+     "id": "A_Pk45u-3vUC4MAFkUEID",
+     "name": "WEDGE_PROBE_D_coordswap",
+     "questType": "mission"
+    },
+    {
+     "id": "Cch0E9oze3-X60vt6fJkL",
+     "name": "WEDGE_PROBE_E_prosestub",
+     "questType": "mission"
+    },
+    {
+     "id": "rnuuVy-0m4rvb4LYhw_WG",
+     "name": "Well Rounds",
+     "questType": "mission"
+    },
+    {
+     "id": "c8iY9Q374-MP-23TZ581Z",
+     "name": "Where Winter's Weave Lies Still",
+     "questType": "event"
+    },
+    {
+     "id": "T4EeHlXK66TUBXm1-Uqwm",
+     "name": "Whistlegrass",
+     "questType": "gathering"
+    },
+    {
+     "id": "fdRCEuN0S2H1Lc9CzgIfE",
+     "name": "Widow's Kiss",
+     "questType": "gathering"
+    },
+    {
+     "id": "dfeXwdrnvyvGGETiCMgu-",
+     "name": "Witness Detail",
+     "questType": "mission"
+    },
+    {
+     "id": "5I6_g-vJQiYm1mgHCBbW5",
+     "name": "Wraithbloom",
+     "questType": "gathering"
+    },
+    {
+     "id": "ulLnWqHpDb8LWM3yGD-K-",
+     "name": "Wrestling the Kappa",
+     "questType": "mission"
+    },
+    {
+     "id": "KJaVpLJiUXQOLTmDjM7Z5",
+     "name": "Xerath the Infernal Talon -",
+     "questType": "raid"
+    },
+    {
+     "id": "EPdPrJ5nfMb8DSLYMj7-9",
+     "name": "Yamauba Awakening",
+     "questType": "event"
+    },
+    {
+     "id": "LXwiSxro5WNHHzFGjmoHf",
+     "name": "Your First Farm",
+     "questType": "starter"
+    },
+    {
+     "id": "Fkttd-Rjptg3MT_LPKdu1",
+     "name": "Yūrei-bana Flower",
+     "questType": "gathering"
+    },
+    {
+     "id": "HDr66lj_pbpBo6NWhy1S2",
+     "name": "Zephyr Seed",
+     "questType": "gathering"
+    }
+   ],
+   "scope": "unfiltered list"
+  }
+ ],
+ "idmap": {
+  "undefined": "0QixZN9jD_bqAKTimDafB",
+  "pin_listen.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJy22plzIukVH2MI5Lo4ehEfAXvZdcmtWqPg7r",
+  "pin_watch.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0HNWcSgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+  "pin_chase.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJOG8ukw7VHevxIThUauQkGJEBY3D2cPqy8f5s",
+  "fsw_q_thinice": "ATV6Fs3XFqOf7wch99qDW",
+  "fsw_q_protection": "otFtGNvBFn8ZVGlda7UOH",
+  "fsw_q_loud": "ilYoJqbk--np9OSqT9lGx",
+  "probe_c": "gJ05vhdN0C1mzuRde8fjZ",
+  "probe_b": "Kaywv59qnRM-wPULzVDNp",
+  "probe_a": "EONHpe2JhRDYzrYnJLXlk",
+  "probe_d": "A_Pk45u-3vUC4MAFkUEID",
+  "probe_e": "Cch0E9oze3-X60vt6fJkL"
+ }
+}
