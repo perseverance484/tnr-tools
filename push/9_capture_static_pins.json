@@ -1,0 +1,9 @@
+{
+ "_note": "STATIC asset sweep - which of the 12 pin verbs are live. folderPrefix true so names come back folder/Name; expect pins/Pin <Verb>. Read-only; syncs stale 34b registry. per dauntless 2026-08-30: some pins already done, generate only the missing.",
+ "capture": {
+  "before": [
+   { "proc": "gameAsset.getAllNames", "input": { "type": "STATIC", "folderPrefix": true } }
+  ]
+ },
+ "items": []
+}
