@@ -32,6 +32,7 @@ POOL = {}          # code -> record, loaded from 32b
 POOL_BY_ID = {}
 ENTITIES = {}      # entity -> field -> rule, loaded from 45d
 CHECKS = {}        # the shared check config, loaded from 45g
+LINTS = {}         # the shared lint registry, loaded from 45h (T1, ruled 2026-08-30)
 RANK_NONE = ("huntingRank", "gatheringRank", "medicalRank")
 # Fallbacks used only when 45g is absent. 45g is the source of truth and the
 # builder preflight reads the same file; anything hardcoded here is a parity
@@ -57,6 +58,125 @@ def load_checks(path):
     return True
 
 
+def load_lints(path):
+    """45h_DATA_lints.json: the shared lint registry (T1, ruled 2026-08-30).
+    Severity/messages/params are data; the builder adopts the same file at
+    v4.29. Missing file degrades to a note, never an error."""
+    if not os.path.exists(path):
+        return False
+    try:
+        LINTS.update(json.load(open(path)))
+    except Exception:
+        return False
+    return True
+
+
+def _answers_dir():
+    """answers/ lives at the repo root; the script at skills/<skill>/scripts/."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    for base in (os.path.join(here, "..", "..", ".."), os.getcwd(),
+                 os.path.join(os.getcwd(), "..", "..", "..")):
+        p = os.path.abspath(os.path.join(base, "answers"))
+        if os.path.isdir(p):
+            return p
+    return None
+
+
+def _answers_names():
+    """-> {pool: {lower(name): (id, hidden)}} from names_*.json + hot shard.
+    rows are [id, name, hidden]."""
+    root = _answers_dir()
+    if not root:
+        return None
+    pools = {}
+    for f in os.listdir(root):
+        m = re.match(r"names_([a-z]+)\.json$", f)
+        if not m:
+            continue
+        try:
+            rows = json.load(open(os.path.join(root, f))).get("rows") or []
+        except Exception:
+            continue
+        pools[m.group(1)] = {str(r[1]).lower(): (r[0], bool(r[2]) if len(r) > 2 else False)
+                             for r in rows if isinstance(r, list) and len(r) > 1 and r[1]}
+    hot = os.path.join(root, "hot.json")
+    if os.path.exists(hot):
+        try:
+            for pool, blk in (json.load(open(hot)).get("entities") or {}).items():
+                d = pools.setdefault(pool, {})
+                for r in (blk.get("rows") or []):
+                    if isinstance(r, list) and len(r) > 1 and r[1]:
+                        d[str(r[1]).lower()] = (r[0], bool(r[2]) if len(r) > 2 else False)
+        except Exception:
+            pass
+    return pools
+
+
+def registry_lints(items, rep):
+    """T1 checks driven by the 45h registry: rule presence, severity and
+    params are data so T3 promotion is a file edit. Each enforcing site is
+    law-annotated for lawmap."""
+    rules = LINTS.get("rules") or {}
+    if not rules:
+        return
+    sev = lambda r: rep.err if r.get("severity") == "error" else rep.warn
+
+    r3 = rules.get("item_effect_full_keys")
+    if r3:  # law 3: jutsu lean, item full (H12)
+        need = tuple((r3.get("params") or {}).get("required_keys") or ())
+        for e in items:
+            if e.get("entity") != "item":
+                continue
+            nm = e.get("name") or e.get("srcId") or "item"
+            for i, f in enumerate((e.get("data") or {}).get("effects") or []):
+                if not isinstance(f, dict):
+                    continue
+                missing = [k for k in need if k not in f]
+                if missing:
+                    sev(r3)(f"lint {nm}", f"T1 law 3: effect[{i}] '{f.get('type','?')}' "
+                            f"missing {missing} - {r3['msg']}")
+
+    r49 = rules.get("scene_char_resolves")
+    r66 = rules.get("name_collision_offline")
+    pools = _answers_names() if (r49 or r66) else None
+    if (r49 or r66) and pools is None:
+        rep.note("lints", "answers/ not found: scene-resolve and name-collision "
+                 "registry checks skipped (standalone install?)")
+        return
+
+    if r49:  # law 49: sceneCharacters resolves gameAsset ids only
+        assets = {v[0] for v in (pools.get("asset") or {}).values()}
+        for e in items:
+            if e.get("entity") != "quest":
+                continue
+            nm = e.get("name") or e.get("srcId") or "quest"
+            content = (e.get("data") or {}).get("content") or {}
+            spots = [("content", content.get("sceneCharacters"))]
+            for o in content.get("objectives") or []:
+                if isinstance(o, dict):
+                    spots.append((f"objective {o.get('id','?')}", o.get("sceneCharacters")))
+            for where, ids in spots:
+                for sid in ids or []:
+                    if not isinstance(sid, str) or sid.startswith("@"):
+                        continue  # @refs are covered by the srcId sweep
+                    if sid not in assets:
+                        sev(r49)(f"lint {nm}", f"T1 law 49: {where} sceneCharacters "
+                                 f"'{sid}' - {r49['msg']}")
+
+    if r66:  # laws 30, 66: offline name-collision, advisory
+        for e in items:
+            if e.get("slot") != "create":
+                continue
+            pool = e.get("entity")
+            name = e.get("name") or (e.get("data") or {}).get("name")
+            if not pool or not name:
+                continue
+            hit = (pools.get(pool) or {}).get(str(name).lower())
+            if hit:
+                sev(r66)(f"lint {name}", f"T1 laws 30/66: collides with {pool} "
+                         f"record {hit[0]}{' (hidden)' if hit[1] else ''} - {r66['msg']}")
+
+
 def check_ids():
     """Every check this validator implements, by the 45g block it comes from.
     The builder exposes the same inventory; `--parity <file>` diffs them."""
@@ -68,7 +188,8 @@ def check_ids():
         "date_fields", "tag_power_max", "runtime_only_tags", "companion_required",
         "entity_only_tags", "zero_power_per_level", "terminal_actions",
         "formula_tags", "hidden_on_create", "build_order",
-    ])
+    ] + [rid for rid, r in (LINTS.get("rules") or {}).items()
+         if "builder" in (r.get("surfaces") or [])])
 
 
 def parity(path, rep):
@@ -1002,6 +1123,7 @@ def check_manifest(path, ctors_path, strict=False):
         check_entry(e, ctors, rep, man)
 
     lint_entries(items, rep, blob)
+    registry_lints(items, rep)
 
     if man.get("skipPreflight"):
         rep.warn("manifest", "skipPreflight is set: this bypasses every check and needs an explicit go-ahead before it ships")
@@ -1030,9 +1152,13 @@ if __name__ == "__main__":
     checks = "45g_DATA_checks.json"
     if "--checks" in sys.argv:
         checks = sys.argv[sys.argv.index("--checks") + 1]
+    lints = "45h_DATA_lints.json"
+    if "--lints" in sys.argv:
+        lints = sys.argv[sys.argv.index("--lints") + 1]
     load_pool(pool)
     load_entities(ents)
     load_checks(checks)
+    load_lints(lints)
     if "--parity" in sys.argv:
         r = Report()
         parity(sys.argv[sys.argv.index("--parity") + 1], r)

@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "file": "45h_DATA_lints.json",
+    "role": "Single source for the shared lint registry (T1 ruled 2026-08-30: full scope, validator-first, seeded as shared data). validate.py reads this now; the builder adopts the SAME file at v4.29, at which point each rule's surfaces gains 'builder' and --parity starts enforcing it on both sides. Severity, messages and params live here; check logic mirrors per surface keyed by rule id. T3 promotes severity warn->error on both sides by editing this file, not code.",
+    "ruled": "2026-08-30",
+    "provenance": {
+      "item_effect_full_keys.params.required_keys": "46_DATA_tag_schemas.json _sharedBlocks.BaseAttributes string-typed presentation fields (generated file, not hand-listed)",
+      "name_pools": "answers/names_<entity>.json rows [id, name, hidden] plus answers/hot.json entities.<entity>.rows"
+    }
+  },
+  "rules": {
+    "item_effect_full_keys": {
+      "laws": [3],
+      "severity": "warn",
+      "surfaces": ["validator"],
+      "entities": ["item"],
+      "params": {
+        "required_keys": ["staticAssetPath", "staticAnimation", "appearAnimation", "disappearAnimation", "appearSfx", "disappearSfx"]
+      },
+      "msg": "item effect missing editor key(s) - the ITEM effects union demands the full set (jutsu lean, item full; H12); lean item shapes fail or blank on fill"
+    },
+    "scene_char_resolves": {
+      "laws": [49],
+      "severity": "warn",
+      "surfaces": ["validator"],
+      "entities": ["quest"],
+      "msg": "sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here"
+    },
+    "name_collision_offline": {
+      "laws": [30, 66],
+      "severity": "warn",
+      "surfaces": ["validator"],
+      "entities": ["jutsu", "asset", "item", "ai", "quest"],
+      "msg": "create name matches an existing record in the answers snapshot (case-insensitive). Advisory only: snapshots are stale for collisions and hidden records collide invisibly (law 30); AI names are additionally global across ALL UserData including players (law 66). The panel live dedup is the gate"
+    }
+  }
+}

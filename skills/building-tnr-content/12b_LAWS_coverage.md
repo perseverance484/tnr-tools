@@ -32,7 +32,7 @@ paid for in the field, not re-derived this pass. `corrected` = the law changed i
 |---|---|---|---|
 | 1 | knowledge | carried | Compose to update-strict standards; no mechanical check exists |
 | 2 | validate | verified | `check_member` per-tag strict union against `45c` |
-| 3 | knowledge | carried | Qualifier H12 (jutsu lean, item full) is not schema-visible |
+| 3 | validate(warn) | verified | `registry_lints` item_effect_full_keys vs 45h (T1, ruled 2026-08-30) |
 | 4 | validate | carried | `check_laws` FORMULA_TAGS statTypes+generalTypes |
 | 5 | validate | carried | `targetId` required on every convert/edit entry |
 | 6 | validate | **corrected** | power/apReduction/threshold caps in `45c`; condition `value` has NO max |
@@ -62,7 +62,7 @@ paid for in the field, not re-derived this pass. `corrected` = the law changed i
 | 27 | knowledge | carried | CYOA doctrine; design law |
 | 28 | builder | carried | Per-entry `json.success` |
 | 29 | builder | carried | Ids extracted from bundles by script |
-| 30 | knowledge | carried | Name-collision fills; catalogs advisory |
+| 30 | validate(warn) | verified | `registry_lints` name_collision_offline vs 45h (advisory by construction) |
 | 31 | knowledge | carried | Law 31, generation from guide templates |
 | 32 | knowledge | carried | Fresh filenames on re-upload |
 | 33 | knowledge | carried | Component-based chroma keying |
@@ -82,7 +82,7 @@ paid for in the field, not re-derived this pass. `corrected` = the law changed i
 | 46 | validate | verified | `image: ""` nulled at write path |
 | 47 | knowledge | carried | reset_quest / win_quest descriptions never display |
 | 48 | validate | verified | One scene character per node |
-| 49 | knowledge | carried | `sceneCharacters` resolves gameAsset ids only |
+| 49 | validate(warn) | verified | `registry_lints` scene_char_resolves vs answers/names_asset + hot |
 | 50 | validate | **corrected** | Three fields, three mechanisms; only avatars/icons/backgrounds stretch. `artpreflight.py` |
 | 51 | knowledge | carried | Scene character canvas share |
 | 52 | knowledge | carried | Node-level `image` is the sector pin |
@@ -99,7 +99,7 @@ paid for in the field, not re-derived this pass. `corrected` = the law changed i
 | 63 | knowledge | carried | Fall-through exhaustion |
 | 64 | validate | **audited 2026-08-28, holds** | `check_member` vs `ZodAllAiConditions`/`ZodAllAiActions` |
 | 65 | knowledge | carried | AI rules can use items |
-| 66 | knowledge | carried | Usernames unique across all UserData |
+| 66 | validate(warn) | verified | `registry_lints` name_collision_offline vs 45h (panel live dedup stays the gate) |
 | 67 | generated | **corrected** | Full six-rank `HUNTING_ITEM_DROP_CHANCES` table in `45e` |
 | 68 | knowledge | carried | `reward_items` with `number: 100` |
 | 69 | validate | carried | AI item `number` = dropChancePerc |
@@ -197,9 +197,12 @@ Audit deltas this pass:
 - 10_LAWS_core.md: FILED to docs/ (repo canon). RESOLVED.
 
 Conversion tranches, knowledge -> code, smallest risk first:
-- **T1 validator warnings** (no builder change, parity untouched): law 3 item-full vs jutsu-lean
-  cosmetics; law 49 sceneCharacters resolve against answers/names_asset; laws 30/66 offline
-  name-collision warn against the answers name files.
+- **T1 validator warnings** - RULED 2026-08-30 (full scope, validator-first, seeded as the
+  shared registry `data/45h_DATA_lints.json`) and LANDED: law 3 item-full vs jutsu-lean, law 49
+  sceneCharacters resolve against answers/names_asset + hot shard, laws 30/66 offline
+  name-collision warn. Severity/params are registry data; the builder adopts the same file at
+  v4.29, when each rule's `surfaces` gains "builder" and `--parity` starts enforcing it. T3
+  promotes warn->error by registry edit.
 - **T2 executable doctrine**: laws 9-13 as calc.py selftest assertions - each law a failing test
   the moment the tool stops embodying it.
 - **T3 builder v4.28 + 45g + parity**: promote T1 warnings to errors on both sides; annotate the
@@ -207,8 +210,8 @@ Conversion tranches, knowledge -> code, smallest risk first:
 - **Stays knowledge**: rendering/editor/runtime semantics (25, 47, 51-53, 57-60, 62-63, 65, 70-71,
   75-76, 79-80, 83-84, 89).
 
-Rulings OPEN for dauntless: T1 scope; warnings-ship-validator-first y/n; 18/61 and 16d/37/69
-reclasses.
+Rulings OPEN for dauntless: 18/61 and 16d/37/69 reclasses. (T1 scope and
+validator-first: RULED 2026-08-30, full scope, yes.)
 
 ## Source audit 2026-08-30 (archive/SOURCE_AUDIT_2026-08-30.md)
 
