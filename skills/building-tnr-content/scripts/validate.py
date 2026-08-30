@@ -818,11 +818,18 @@ def check_entry(entry, ctors, rep, manifest):
 
     check_entry_laws(entry, ctors, where, rep)
     if entry.get("entity") == "quest":
-        check_quest(data, ctors, where, rep)
-        _objs = (data.get("content") or {}).get("objectives") or []
-        check_dialog_options(_objs, where, rep)
-        check_acyclic(_objs, where, rep)
-        check_reset_targets(_objs, where, rep)
+        # A quest edit/convert fetch-merges over the live record, so an entry that
+        # carries no `content` is a field patch, not a flow rewrite: the live flow
+        # is untouched and there is nothing here to check it against.
+        if slot in ("edit", "convert") and "content" not in data:
+            rep.warn(where, "partial quest edit: no 'content' in payload, so the flow is "
+                            "unchecked here. The builder fetch-merges the live objectives")
+        else:
+            check_quest(data, ctors, where, rep)
+            _objs = (data.get("content") or {}).get("objectives") or []
+            check_dialog_options(_objs, where, rep)
+            check_acyclic(_objs, where, rep)
+            check_reset_targets(_objs, where, rep)
     if entry.get("entity") in ("ai", "aiProfile") and "rules" in data:
         check_rules(data["rules"], ctors, where, rep)
         check_distance_gates(data, where, rep)
