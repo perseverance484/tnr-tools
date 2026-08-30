@@ -16,7 +16,8 @@ SUPERSEDED 2026-08-30 (dauntless): NOT per-mission. FOUR shared icons, one per q
 rank (D/C/B/A), wired by rank on every mission present and future. Rationale: unified
 artwork, four high-quality pieces instead of twelve rushed ones, reads at a glance,
 and future quests wire an existing icon with no art work at all. The ~20 existing
-per-mission icons STAY as they are; the rank set covers the twelve in scope.
+per-mission icons are REPLACED by the rank set too - CORRECTED 2026-08-30, they do
+NOT stay. Full migration list to be enumerated from a live capture before wiring.
 SCOPE 2026-08-30: twelve missions, not ten - Copies, Not Thefts (d-94cxrGW91o1SJCr9rsq,
 B, has a wood-framed icon to be replaced) and Witness Detail (dfeXwdrnvyvGGETiCMgu-,
 B, no icon) join the Forsworn ten. Live ranks: C x4 Chalk and Corner / The Empty
