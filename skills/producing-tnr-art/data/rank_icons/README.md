@@ -15,8 +15,10 @@ bands, and a crisp unmistakable letter. Recorded because the reasoning was wrong
 evidence, and because the reference image is what did the constraining: fresh prompts
 without it should NOT be expected to behave the same way.
 
-CONSEQUENCE ACCEPTED: these frames are generated, so they do NOT match the ~20 live
-wood-framed per-mission icons pixel for pixel. The rank set is its own family. Every
+SCOPE CORRECTED 2026-08-30 (dauntless): the rank set REPLACES existing per-mission
+icons - they do NOT stay as they are. Earlier notes in this repo saying otherwise are
+wrong. Migration scope beyond the twelve is not yet enumerated; get the list from a
+live capture before wiring. Every
 rank after D must chain off the approved D image as reference, never a fresh prompt,
 or the four will not match each other either.
 
@@ -60,4 +62,5 @@ NOT SHIPPED: upload + wire to twelve missions still pending.
   C x4  Chalk and Corner, The Empty Contract, Protection, The Waystation
   B x4  Nothing to Report, The Loud Way, Copies Not Thefts, Witness Detail
   A x4  Three Rounds, The Long Winter, Old Ghost, The Tenth Name
-No D-rank mission in scope; D exists for the rank set and future missions.
+No D-rank mission among the twelve; D ships to the existing D-rank missions on
+migration.
