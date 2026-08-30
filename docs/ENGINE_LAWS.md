@@ -2,7 +2,7 @@
 
 Moved here 2026-08-28 (rollout Stage 1). This is the numbered law text of record;
 law numbers cited anywhere resolve here. Workflow-scoped operating copies live in the
-skill references; cross-cutting clusters in project 10_LAWS_core.md. New laws are
+skill references; cross-cutting clusters in docs/10_LAWS_core.md. New laws are
 appended here first, then promoted where they belong.
 
 ---
