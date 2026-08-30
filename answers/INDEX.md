@@ -1,6 +1,6 @@
 # answers/INDEX.md - the lookup layer
 
-generated: 2026-08-30 03:42Z. Raw CDN caches ~5 min; a lookup that must be fresher takes a capture.
+generated: 2026-08-30 04:54Z. Raw CDN caches ~5 min; a lookup that must be fresher takes a capture.
 Rows are `[id, name, hidden]`; `hidden: null` means the source did not carry the flag.
 
 | entity | rows | source | source stamp | fetch |
