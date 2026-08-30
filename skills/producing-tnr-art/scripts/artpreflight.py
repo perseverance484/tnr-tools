@@ -50,7 +50,7 @@ TYPE_HINTS = [
     (re.compile(r"(scene[_-]?char|_char\b|portrait|_sc_)", re.I), "SCENE_CHARACTER"),
     # `_scene_` is deliberately NOT a background hint: it matches `boss_scene_char` too,
     # and the ambiguity guard would then refuse every correctly-named scene character.
-    (re.compile(r"(scene[_-]?bg|background|_bg\b|_bg_)", re.I), "SCENE_BACKGROUND"),
+    (re.compile(r"(scene[_-]?bg|background|_bg\b|_bg_|^bg_)", re.I), "SCENE_BACKGROUND"),
     (re.compile(r"(avatar|_ai_|sprite)", re.I), "AI_AVATAR"),
     (re.compile(r"(icon|_item_|_jutsu_|^img_)", re.I), "ICON"),
     (re.compile(r"(pin|_static_|marker)", re.I), "STATIC"),

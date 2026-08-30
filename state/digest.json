@@ -6,9 +6,7 @@
     "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
     "doctrine projections -> all projections current (exit 0)",
     "packs/TOCs -> all packs and TOCs current (exit 0)",
-    "validate.py push/21 manifest -> 0 errors, 73 warnings (all law-49 snapshot-only, on sceneCharacters fields never touched; every flagged id resolves live in the capture)",
-    "harvest.py verify tnr_results_1788128500937.json -> builder v4.29: 18 ok, 0 fail, 0 unverified, 0 skipped -> verified",
-    "diff of every quest edit against the capture -> nothing changed outside sceneBackground; 299 sceneCharacters preserved byte-identical"
+    "parity tnr_results_1788128500937.json -> 0 errors, 0 warnings"
   ],
   "in_progress": {
     "wave": "Backgrounds wave CLOSED. Next wave: LISTING ICONS (10, one per mission) on the wave_workflow loop. RULED: dedicated icon per mission; STYLE CALL STILL OPEN - pin house-style family vs per-mission vignette. Field is quest.image, a RAW URL like pins (@img: resolves direct, no gameAsset record), STATIC target, 1:1."
@@ -56,28 +54,28 @@
   "token_ledger": [
     {
       "path": "state/digest.json",
-      "bytes": 11131,
-      "at": "20:22Z"
+      "bytes": 11678,
+      "at": "22:29Z"
     },
     {
       "path": "state/active-context.md",
-      "bytes": 2900,
-      "at": "20:22Z"
+      "bytes": 3404,
+      "at": "22:29Z"
     },
     {
       "path": "state/status.json",
-      "bytes": 10473,
-      "at": "20:22Z"
+      "bytes": 11199,
+      "at": "22:29Z"
     },
     {
       "path": "docs/00_INDEX.md",
       "bytes": 8036,
-      "at": "20:22Z"
+      "at": "22:29Z"
     },
     {
-      "path": "harvests/inbox/tnr_results_1788121031587.json",
-      "bytes": 1702924,
-      "at": "20:22Z"
+      "path": "harvests/inbox/tnr_results_1788128500937.json",
+      "bytes": 1150152,
+      "at": "22:29Z"
     }
   ],
   "board": {
