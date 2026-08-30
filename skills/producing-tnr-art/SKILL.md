@@ -13,21 +13,17 @@ both.
 
 ## Doctrine (rendered)
 
-<!-- doctrine:begin @6246ee3 target=skill-art - RENDERED from docs/DOCTRINE.md; edit there, then render_doctrine.py --write -->
+<!-- doctrine:begin @17d6a71 target=skill-art - RENDERED from docs/DOCTRINE.md; edit there, then render_doctrine.py --write -->
 
-**Balance, rewards, rarity, art direction, publishing and final acceptance are
-the user's to finalise.** Propose numbers, carry them as explicit
-placeholders, and list every placeholder in the delivery summary. Do not
-quietly settle a drop rate because a build needs one. Custom user-owned
-bloodlines are never edited without a go-ahead.
+TNR is a live browser game with no staging environment: a bad push lands on
+players. Every rule in the mounted project instructions and in this block
+exists because a push failed, or because a record went live wrong and someone
+had to repair it by hand on a phone.
 
-**Never reference the Naruto franchise.** TNR is open source; extract facts
-from the source, never copy proprietary text. This binds art prompts as hard
-as it binds prose.
-
-**The real first name never appears in any artifact of any kind** - no
-deliverable, Discord post, doc, code comment, or manifest note. The username
-is dauntless; write "per dauntless" or second person, no authority titles.
+**Doctrine rides the mounted project instructions.** docs/DOCTRINE.md is the
+single source; this block carries only what the mounted paste does not. If
+this skill is ever run without the mounted instructions, read
+docs/DOCTRINE.md before building anything.
 
 <!-- doctrine:end -->
 

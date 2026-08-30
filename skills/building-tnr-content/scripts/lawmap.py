@@ -91,10 +91,8 @@ STRICT_PROV = "--strict-provenance" in sys.argv
 
 
 def main():
-    if len(sys.argv) < 2:
-        print(__doc__)
-        return 2
-    root = Path(sys.argv[1])
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    root = Path(args[0]) if args else Path(__file__).resolve().parents[3]
     full = "--full" in sys.argv
     laws_p = root / "docs/ENGINE_LAWS.md"
     matrix_p = root / "skills/building-tnr-content/12b_LAWS_coverage.md"
