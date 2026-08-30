@@ -31,6 +31,11 @@ background (#00FF00) covering the whole canvas, not transparent, not
 checkerboard. This applies even if the reference has a transparent or scenic
 background.
 
+LOCKED SETTING for every image: pre-modern Japanese-inspired fantasy world. All
+clothing, props and materials are period: layered robes, kimono, haori jackets,
+hakama, obi sashes, cloth wraps and bindings, straw or woven sandals, and wood,
+paper, cloth, rope and leather cord. Nothing modern in any garment or object.
+
 Elemental glow: only when a SUBJECT explicitly names an accent, render it as rim
 light on edges only, never as an aura, halo, disc or light field. If the SUBJECT
 names none, there is no glow anywhere.
@@ -40,7 +45,10 @@ blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo,
 no light field, no glow disc, no lime spill, no multiple characters, no
 checkerboard background, no transparent-preview background, no asset sheet, no
 grid, no labels, no franchise insignia, no desk, no table, no furniture, no
-props, nothing resting on a surface, no low camera angle, no foreshortening.
+props, nothing resting on a surface, no low camera angle, no foreshortening,
+no modern clothing, no overcoat, no lapels, no tailored jacket, no belt loops,
+no metal buckles, no zippers, no modern boots or shoes, no wristwatch, no
+denim, no plastic.
 
 PROTOCOL: each of my following messages contains one SUBJECT block, optionally a
 POSE line and a NEGATIVE ADD list. Generate exactly ONE image per message: the
@@ -53,13 +61,16 @@ wait for the first subject.
 
 POSE: anxious but resolved.
 
-SUBJECT: middle-aged civilian warehouse clerk, thin build, tired anxious face,
-round wire spectacles, short receding dark hair, heavy dark wool overcoat over
-plain work clothes, grey scarf at the neck, worn leather document satchel
-clutched to his chest with both hands, copper as the single accent colour on the
-satchel buckles and coat trim.
+SUBJECT: middle-aged civilian records clerk, thin build, tired anxious face,
+round wire spectacles, short receding dark hair, dark padded haori jacket over
+layered plain robes in near-black, narrow obi sash at the waist, grey cloth
+wrap at the neck, loose dark trousers gathered at the ankle, woven straw
+sandals over cloth socks, a cloth-wrapped bundle of ledgers clutched to his
+chest with both hands, copper as the single accent colour on the bundle's cord
+fittings and haori trim.
 
-OVERRIDE: the single carried satchel is allowed; all other props stay banned.
+OVERRIDE: the single carried cloth-wrapped bundle is allowed; all other props
+stay banned.
 
 =================== CARD 2 - squad survivor ===================
 
@@ -67,10 +78,11 @@ POSE: drained, hollow-eyed but composed, weight favouring one leg.
 
 SUBJECT: young adult male squad scout, lean build, exhausted face with dark
 circles, short dark hair matted with dust, soot streaks and light singe marks
-down his left side, plain field fatigues in muted grey-green with scorched
-darkened left sleeve and shoulder, left arm in a simple cloth field sling bound
-close to his chest, dull red as the single accent colour on the sling wrap and
-collar trim.
+down his left side, dark muted grey-green short kimono jacket over a plain
+under-robe, cloth-wrapped shins and right forearm, scorched darkened left
+sleeve and shoulder, loose dark trousers bound with cloth leg wraps, woven
+sandals, left arm in a simple cloth field sling bound close to his chest, dull
+red as the single accent colour on the sling wrap and collar trim.
 
 NEGATIVE ADD: no blood, no open wounds, no gore, no bandaged face, no seated
 pose, no kneeling, no crutch, no weapon, nothing carried in the hands, no rock,
