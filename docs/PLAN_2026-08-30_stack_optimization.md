@@ -1,7 +1,7 @@
 # PLAN 2026-08-30 - TNR content-stack optimization (Session 3 of 3)
 
-Consumes: docs/RESEARCH_BRIEF_2026-08-30_stack_optimization.md (W1-W12, HARD GATES)
-and docs/RESEARCH_REPORT_2026-08-30_stack_optimization.md (answers + re-ranked
+Consumes: archive/RESEARCH_BRIEF_2026-08-30_stack_optimization.md (W1-W12, HARD GATES)
+and archive/RESEARCH_REPORT_2026-08-30_stack_optimization.md (answers + re-ranked
 shortlist). This plan follows the report's re-ranked order; every deviation is stated
 inline. No execution happened this pass. Guards at plan time: lawmap 93 laws / 0
 errors / 5 known warnings; validate.py push/6 0/0; --parity 16/16 vs

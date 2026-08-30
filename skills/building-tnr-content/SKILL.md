@@ -53,7 +53,6 @@ which is the point.
 | `scripts/validate.py manifest.json` | Full preflight: shapes against `45c`, nullability against `45d`, rules from `45g`, quest flow graph, em dashes, id lengths. Zero errors before handover, always. `--parity <builder-checks.json>` proves the builder and this tool implement the same checks. |
 | `scripts/calc.py` | Damage and stacking maths. Multiplicative buckets are easy to get wrong by hand. |
 | `scripts/harvest.py` | Turn a results bundle or capture into catalog rows. |
-| `scripts/stack.py <dir>` | Audit the source stack itself: dangling references, law numbering, id rot. |
 | `scripts/schema_extract.py <repo>` | Regenerate `45c`/`45d`/`45e`/`45f` from a source drop. Run `--ctors` FIRST on any new drop, before trusting anything else. |
 | `scripts/mission.py sheet.json` | **Build a mission from its profile; do not decide it again.** Reads `48_DATA_mission_profiles.json` and a design sheet carrying only the creative half, and emits the quest, its enemies, its wired battle nodes and its art shots as one manifest. A sheet cannot reach a profile field. Refuses while any `AWAITING_RULING` slot remains for that rank, naming all of them at once. Pass `--spec 25x_DATA_art_spec.json` for the art half. |
 | `scripts/enemy.py` | AI records from ratified role defaults. Rank is derived from level, never set: `USER_CAPS` clamps GENIN at 60k, so a level-45 enemy written GENIN passes every check and is gutted at combat time. Kits resolve from pool codes to literal ids. Refuses on unresolved level. |

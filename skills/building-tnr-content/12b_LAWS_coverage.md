@@ -191,10 +191,10 @@ Audit deltas this pass:
   PROPOSED (18's kit-side check exists in check_pool_kit; live equip state stays unknowable).
 - Laws 16d, 37, 69: matrix claims validate; no enforcing site found by this audit. Annotate the
   real site or reclass. OPEN.
-- stack.py audits the retired project-knowledge layout and mis-flags repo runtime files.
-  Law-numbering audit now lives in lawmap.py. Retire or re-point: OPEN.
-- 10_LAWS_core.md exists only in project knowledge; under repo canon it needs a repo home
-  (⇪ File it to docs/ next project session). OPEN.
+- stack.py audited the retired project-knowledge layout. RETIRED 2026-08-30 per dauntless to
+  archive/bundle-era-2026-08-30/ with newstack_stackpy_check, audit.py, closeout.py, CLOSEOUT.md;
+  law-numbering audit lives in lawmap.py, session close in session_close.py.
+- 10_LAWS_core.md: FILED to docs/ (repo canon). RESOLVED.
 
 Conversion tranches, knowledge -> code, smallest risk first:
 - **T1 validator warnings** (no builder change, parity untouched): law 3 item-full vs jutsu-lean
@@ -208,9 +208,9 @@ Conversion tranches, knowledge -> code, smallest risk first:
   75-76, 79-80, 83-84, 89).
 
 Rulings OPEN for dauntless: T1 scope; warnings-ship-validator-first y/n; 18/61 and 16d/37/69
-reclasses; stack.py retirement; 10_LAWS_core relocation.
+reclasses.
 
-## Source audit 2026-08-30 (docs/SOURCE_AUDIT_2026-08-30.md)
+## Source audit 2026-08-30 (archive/SOURCE_AUDIT_2026-08-30.md)
 
 45c/45e/45f regenerated @bdec2883 with the upgraded extractor; 45d/45g zero drift. Laws
 44/69's headcount-vs-dropchance doc now rides the GENERATED 45c (POST_DOCS in
