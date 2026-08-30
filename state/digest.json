@@ -1,108 +1,109 @@
 {
-  "generated": "2026-08-30",
-  "session": "mounted-5 (dedup audit)",
-  "state_line": "Dedup audit landed: skill doctrine blocks delta-rendered (build 11.7K->7.2K; stake+pointer+pool-codes only), mounted stamp now covers tmpl blob (paste staleness visible), lawmap defaults repo root, bundle-era tools (stack/newstack/audit/closeout + CLOSEOUT.md) and consumed one-shot docs (BRIEF/REPORT/SOURCE_AUDIT) archived. Live paste is pre-dedup stale: re-paste state/mounted_instructions.txt (@17d6a71+06335a4). T1 lint tranche landed: 45h_DATA_lints.json registry (laws 3, 49, 30/66) read by validate.py, builder adopts at v4.29; first run caught an unverifiable Waystation scene id. Forsworn board untouched.",
-  "verified_at_close": [
-    "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
-    "doctrine projections -> all projections current (exit 0)",
-    "packs/TOCs -> all packs and TOCs current (exit 0)",
-    "parity tnr_results_1788065642059.json -> 0 errors, 0 warnings"
+ "generated": "2026-08-30",
+ "session": "mounted-5 (dedup audit)",
+ "state_line": "Dedup audit landed: skill doctrine blocks delta-rendered (build 11.7K->7.2K; stake+pointer+pool-codes only), mounted stamp now covers tmpl blob (paste staleness visible), lawmap defaults repo root, bundle-era tools (stack/newstack/audit/closeout + CLOSEOUT.md) and consumed one-shot docs (BRIEF/REPORT/SOURCE_AUDIT) archived. Live paste is pre-dedup stale: re-paste state/mounted_instructions.txt (@17d6a71+06335a4). T1 lint tranche landed: 45h_DATA_lints.json registry (laws 3, 49, 30/66) read by validate.py, builder adopts at v4.29; first run caught an unverifiable Waystation scene id. Forsworn board untouched.",
+ "verified_at_close": [
+  "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
+  "doctrine projections -> all projections current (exit 0)",
+  "packs/TOCs -> all packs and TOCs current (exit 0)",
+  "parity tnr_results_1788065642059.json -> 0 errors, 0 warnings"
+ ],
+ "in_progress": {
+  "wave": "Content: ARTWORK ONLY - prose passes (Old Ghost, Tenth Name) reassigned to coworker per dauntless 2026-08-30. Avatars 9/9 done. Art queue: 12 map pins (34b, all asset_id null), backgrounds, scene portraits (Named-speak ruling pending). push/6 held on Terr wedge."
+ },
+ "decisions": [
+  "memory route: keep memory ON with exclusion edits, not off; flip off only if memory restates laws/board state again (review in a few sessions)",
+  "packs front-loaded for ai/quest now rather than curated as builds happen",
+  "container quirks + laws-that-bite single-sourced into mounted instructions; active-context template carries session state only",
+  "prose passes reassigned to coworker (per dauntless 2026-08-30); Claude lane is artwork only"
+ ],
+ "deployed": [
+  "doctrine delta-render + dual-blob mounted stamp + lawmap default root (a91310c)",
+  "bundle-era retirement + doc archival + reference repoints (2cf0d7e)",
+  "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93"
+ ],
+ "open_by_owner": {
+  "dauntless": [
+   "carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable; verify Waystation scene id pqihl43HYROpkIMX172-P on push/6 read-back (T1 law-49 catch: id in no local capture, all of harvests/ scanned)",
+   "re-paste mounted from state/mounted_instructions.txt (stamp @17d6a71+06335a4); reinstall build skill from dist after skillpack rebuild (doctrine block + stack row changed)"
   ],
-  "in_progress": {
-    "wave": "Content resume: Old Ghost + Tenth Name prose; Forsworn avatars 9/9 complete + wired via profile.updateAi, read-back verified 2026-08-29 (board line was stale; roster sheet exists); remaining art: scene portraits, 12 map pins, backgrounds; push/6 held on Terr wedge."
-  },
-  "decisions": [
-    "memory route: keep memory ON with exclusion edits, not off; flip off only if memory restates laws/board state again (review in a few sessions)",
-    "packs front-loaded for ai/quest now rather than curated as builds happen",
-    "container quirks + laws-that-bite single-sourced into mounted instructions; active-context template carries session state only"
-  ],
-  "deployed": [
-    "doctrine delta-render + dual-blob mounted stamp + lawmap default root (a91310c)",
-    "bundle-era retirement + doc archival + reference repoints (2cf0d7e)",
-    "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93"
-  ],
-  "open_by_owner": {
-    "dauntless": [
-      "carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable; verify Waystation scene id pqihl43HYROpkIMX172-P on push/6 read-back (T1 law-49 catch: id in no local capture, all of harvests/ scanned)",
-      "re-paste mounted from state/mounted_instructions.txt (stamp @17d6a71+06335a4); reinstall build skill from dist after skillpack rebuild (doctrine block + stack row changed)"
-    ],
-    "terr": [
-      "quest-edit crash fix; push/6 held until then"
-    ]
-  },
-  "rulings_open": [
-    "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
-    "Wedge source note ready for Terr: AllObjectives discriminators clean at HEAD; suspect duplicate zod across chunks - relay?",
-    "WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?"
-  ],
-  "next": "Content on go. First: load check - installed SKILL.md must route builds to packs (confirms reinstall took); then Faceless Stray QC when the generation lands, else Old Ghost prose. Ambient: watch first pinned release, relay ritual switch when convenient, memory regeneration review.",
-  "token_ledger": [
-    {
-      "path": "state/digest.json",
-      "bytes": 7156,
-      "at": "07:37Z"
-    },
-    {
-      "path": "state/active-context.md",
-      "bytes": 2718,
-      "at": "07:37Z"
-    },
-    {
-      "path": "state/status.json",
-      "bytes": 6498,
-      "at": "07:37Z"
-    },
-    {
-      "path": "docs/00_INDEX.md",
-      "bytes": 7651,
-      "at": "07:37Z"
-    },
-    {
-      "path": "harvests/inbox/tnr_results_1788065642059.json",
-      "bytes": 356772,
-      "at": "07:37Z"
-    }
-  ],
-  "board": {
-    "blocked": [
-      "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
-    ],
-    "pending_verification": [
-      "6_verify_and_fix.json wedge probe - when Terr clears or as free probe (⇩ Repo -> push/)"
-    ],
-    "wedge": {
-      "state": "escalated, being worked on (dauntless confirmed)",
-      "new_evidence": "quest edit page crashes deploy-wide: Zod 'Duplicate discriminator value undefined', chunk 0n-1xi0p-e_84.js, repro on healthy record (Chalk); Terr addendum delivered with 17:11 deploy-window hypothesis (copy: state/discord_terr_editor_crash.md)"
-    },
-    "art": {
-      "next": "warehouse clerk portrait (Nothing to Report, 2:3 scene char) - prompt at state/prompt_report_clerk.txt; then survivor, principal, deputy; pipelining depth-2 + reference-after-1-failure ratified this session? NO - proposed, unruled",
-      "ruling_open": [
-        "art pipelining depth 2",
-        "reference-image after 1 failure",
-        "pin batch exception"
-      ]
-    },
-    "board_unchanged": [
-      "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
-      "Old Ghost + Tenth Name prose passes",
-      "registry 38 masks rewrite",
-      "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights",
-      "v4.29 queue: pfEq gains ''<->null equivalence so the panel stops flagging the normalized pair (rides WO-06 release)",
-      "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
-      "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
-      "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
-      "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited",
-      "v4.30 queue: Repo picker accepts filename leading digits (7,8 would have worked); batch position-vs-file-number papercut",
-      "pack curation follow-ups: ai-build, quest-build, item-build, art-session packs (mechanism live, jutsu exemplar proven)",
-      "relay ritual switch is a separate post-install step (container pushes stay direct-to-main until then)"
-    ],
-    "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)"
-  },
-  "ruled_this_session": [
-    "skill doctrine block: delta-render (dual/triple targets collapsed to mounted; skill blocks carry stake + pointer + skill-only assertions)",
-    "stack.py: retired to archive/bundle-era-2026-08-30/ with newstack check, audit.py, closeout.py, CLOSEOUT.md",
-    "lint table: single-source as shared data both surfaces read, riding the v4.29 vehicle (WO-06)",
-    "one-shot optimization docs (BRIEF, REPORT, SOURCE_AUDIT) archived; PLAN stays live",
-    "Phase 3 T1: full scope (all four laws), validator-first yes, seeded as the shared registry 45h_DATA_lints.json (builder adopts at v4.29; T3 promotes warn->error by registry edit)"
+  "terr": [
+   "quest-edit crash fix; push/6 held until then"
   ]
+ },
+ "rulings_open": [
+  "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
+  "Wedge source note ready for Terr: AllObjectives discriminators clean at HEAD; suspect duplicate zod across chunks - relay?",
+  "WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?"
+ ],
+ "next": "Content on go. First: load check - installed SKILL.md must route builds to packs (confirms reinstall took); then Faceless Stray QC when the generation lands, else Old Ghost prose. Ambient: watch first pinned release, relay ritual switch when convenient, memory regeneration review.",
+ "token_ledger": [
+  {
+   "path": "state/digest.json",
+   "bytes": 7156,
+   "at": "07:37Z"
+  },
+  {
+   "path": "state/active-context.md",
+   "bytes": 2718,
+   "at": "07:37Z"
+  },
+  {
+   "path": "state/status.json",
+   "bytes": 6498,
+   "at": "07:37Z"
+  },
+  {
+   "path": "docs/00_INDEX.md",
+   "bytes": 7651,
+   "at": "07:37Z"
+  },
+  {
+   "path": "harvests/inbox/tnr_results_1788065642059.json",
+   "bytes": 356772,
+   "at": "07:37Z"
+  }
+ ],
+ "board": {
+  "blocked": [
+   "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
+  ],
+  "pending_verification": [
+   "6_verify_and_fix.json wedge probe - when Terr clears or as free probe (\u21e9 Repo -> push/)"
+  ],
+  "wedge": {
+   "state": "escalated, being worked on (dauntless confirmed)",
+   "new_evidence": "quest edit page crashes deploy-wide: Zod 'Duplicate discriminator value undefined', chunk 0n-1xi0p-e_84.js, repro on healthy record (Chalk); Terr addendum delivered with 17:11 deploy-window hypothesis (copy: state/discord_terr_editor_crash.md)"
+  },
+  "art": {
+   "next": "warehouse clerk portrait (Nothing to Report, 2:3 scene char) - prompt at state/prompt_report_clerk.txt; then survivor, principal, deputy; pipelining depth-2 + reference-after-1-failure ratified this session? NO - proposed, unruled",
+   "ruling_open": [
+    "art pipelining depth 2",
+    "reference-image after 1 failure",
+    "pin batch exception"
+   ]
+  },
+  "board_unchanged": [
+   "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
+   "Old Ghost + Tenth Name prose passes",
+   "registry 38 masks rewrite",
+   "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights",
+   "v4.29 queue: pfEq gains ''<->null equivalence so the panel stops flagging the normalized pair (rides WO-06 release)",
+   "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
+   "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
+   "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
+   "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited",
+   "v4.30 queue: Repo picker accepts filename leading digits (7,8 would have worked); batch position-vs-file-number papercut",
+   "pack curation follow-ups: ai-build, quest-build, item-build, art-session packs (mechanism live, jutsu exemplar proven)",
+   "relay ritual switch is a separate post-install step (container pushes stay direct-to-main until then)"
+  ],
+  "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)"
+ },
+ "ruled_this_session": [
+  "skill doctrine block: delta-render (dual/triple targets collapsed to mounted; skill blocks carry stake + pointer + skill-only assertions)",
+  "stack.py: retired to archive/bundle-era-2026-08-30/ with newstack check, audit.py, closeout.py, CLOSEOUT.md",
+  "lint table: single-source as shared data both surfaces read, riding the v4.29 vehicle (WO-06)",
+  "one-shot optimization docs (BRIEF, REPORT, SOURCE_AUDIT) archived; PLAN stays live",
+  "Phase 3 T1: full scope (all four laws), validator-first yes, seeded as the shared registry 45h_DATA_lints.json (builder adopts at v4.29; T3 promotes warn->error by registry edit)"
+ ]
 }
