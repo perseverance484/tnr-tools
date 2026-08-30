@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-29",
+ "generated": "2026-08-30",
  "session": "mounted-1",
  "format_note": "git-native board; container Claude reads/writes state/ in-repo, classic bundle retired",
  "ruled_this_session": [],
@@ -7,16 +7,14 @@
   "builder v4.26 -> repo root [mounted:a], superseded same session by v4.27: ⇩ Repo loader (list+fetch .json/.zip from a repo dir via contents API, panel PAT optional, same load paths as 📄) [mounted:e]",
   "pushpack.py -> skills/building-tnr-content/scripts/ [mounted:c]",
   "push/: smoketest_pack.zip + 6_verify_and_fix.json (HOLD: wedge probe runs only when Terr clears)",
-  "state/: prompt_report_clerk.txt + discord_terr_editor_crash.md relocated from bundle deliverables"
+  "state/: prompt_report_clerk.txt + discord_terr_editor_crash.md relocated from bundle deliverables",
+  "harvest.py: reads v4.26+ results bundles natively (captures[] -> normalised entries) - patched post-acceptance"
  ],
  "blocked": [
   "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
  ],
  "pending_verification": [
-  "VM refresh -> panel gate 'Content builder v4.27 · cfg generated' (v4.26 fallback acceptable)",
-  "Panel ⇪ Sync token entry (tnr-sync PAT minted 2026-08-29) still unconfirmed",
-  "Acceptance: ⇩ Repo -> push/smoketest_pack.zip -> Build -> harvests/inbox/ commit; container pulls + harvest.py = first zero-touch round trip, closes Law 29 carve-out",
-  "6_verify_and_fix.json wedge probe - when Terr clears or as free probe"
+  "6_verify_and_fix.json wedge probe - when Terr clears or as free probe (⇩ Repo -> push/)"
  ],
  "wedge": {
   "state": "escalated, being worked on (dauntless confirmed)",
@@ -35,5 +33,10 @@
   "Old Ghost + Tenth Name prose passes",
   "registry 38 masks rewrite",
   "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights"
+ ],
+ "verified": [
+  "Acceptance PASSED: first zero-touch round trip - v4.27 ⇩ Repo load of push/smoketest_pack.zip, harvests/inbox/ commit via panel sync token, answers [auto] regen, container pull + harvest.py script read (quests.getAllNames, 388 rows). Law 29 transcription carve-out CLOSED",
+  "Panel gate confirmed: bundle stamped builder v4.27 · cfg generated",
+  "Panel ⇪ Sync token entry (tnr-sync PAT) confirmed working by the inbox commit"
  ]
 }

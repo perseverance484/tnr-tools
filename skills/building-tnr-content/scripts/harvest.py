@@ -21,6 +21,11 @@ Usage
   python3 tnr_harvest.py stamp   catalog.json --out stamped.json
 
 `index` first, always. It tells you what the capture can and cannot answer.
+
+Results bundles from builder v4.26+ (harvests/inbox/) are read natively: their
+captures[] entries normalise exactly like monitor calls, so index/get/names/assets
+work on a pulled inbox bundle without hand-parsing. `diff` still reads the push
+entries of the same bundle.
 """
 import json, os, sys, urllib.parse
 from collections import OrderedDict
@@ -38,6 +43,25 @@ def load(path):
 def entries(cap):
     """Normalise a monitor capture into [{proc, input, data, filtered}]."""
     out = []
+    if isinstance(cap, dict) and isinstance(cap.get("captures"), list) and (
+            "builder" in cap or any(isinstance(c, dict) and "proc" in c for c in cap["captures"])):
+        # v4.26+ results bundle: the builder took these captures itself.
+        for c in cap["captures"]:
+            if not isinstance(c, dict) or "proc" not in c:
+                continue
+            inp = c.get("input") or None
+            data = c.get("data")
+            if data is None and isinstance(c.get("rows"), list):
+                data = c["rows"]
+            out.append({
+                "proc": c["proc"],
+                "input": inp,
+                "filtered": isinstance(inp, dict) and len(inp) > 0,
+                "data": data,
+                "status": c.get("status"),
+                "t": c.get("at"),
+            })
+        return out
     rows = cap if isinstance(cap, list) else cap.get("entries") or []
     for e in rows:
         if not isinstance(e, dict):
