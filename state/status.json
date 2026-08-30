@@ -1,7 +1,8 @@
 {
   "generated": "2026-08-30",
-  "session": "mounted-3 (plan 3/3 + Wave 1 executed)",
-  "format_note": "git-native board; container Claude reads/writes state/ in-repo, classic bundle retired",
+  "session": "mounted-3 (Wave 2 executed)",
+  "format_note": "PROJECTION of state/digest.json - edit the digest, run session_close.py",
+  "state_line": "Wave 2 COMPLETE and pushed: WO-04 doctrine single-sourcing (docs/DOCTRINE.md 20 assertions -> mounted paste + SKILL blocks + pipeline version line, --check fail-closed, doctrinemap 0e) @19565a0; WO-05 session pair (digest.json single source, session_close byte-asserted projections, session_open one-command ritual + guard trio + token ledger). state/mounted_instructions.txt is the new paste (PAT slot, @sha7 stamp) - re-paste at leisure.",
   "ruled_this_session": [
     "dauntless approved ALL 5 plan rulings (1-5)"
   ],
@@ -19,14 +20,37 @@
     "state/: prompt_report_clerk.txt + discord_terr_editor_crash.md relocated from bundle deliverables",
     "harvest.py: reads v4.26+ results bundles natively (captures[] -> normalised entries) - patched post-acceptance",
     "lawmap.py: mechanical law audit (ENGINE_LAWS <-> 12b matrix <-> code citations); baseline 93 laws, 0 errors; --parity now runs against inbox bundles (16/16 vs acceptance bundle)",
-    "validate.py + artpreflight.py law-annotated at enforcing sites; distance-gate miscite 39->40 fixed; ENGINE_LAWS quest-flow section renumbered 12->17 and re-seated (heading only)",
-    "ROLLOUT_PLAN executed and archived (STALE); committed pycache purged, .gitignore added",
-    "SOURCE AUDIT @bdec2883 (docs/SOURCE_AUDIT_2026-08-30.md): extractor upgraded (derived cross-module refs, file-local enums, min_items from refines, POST_DOCS); all 10 _recovered 45c blocks now true generator output; caught SECTOR_TYPES global/local collision that naive regen would have shipped",
-    "45c/45e/45f regenerated from source git HEAD (45d/45g zero drift); guards: factory 20/20, validate 0/0 on file 6, parity 16/16 vs live bundle; drift adopted: AutoCombatBattleTypes, combat.toggleAutoCombat, startArenaBattle param, sector-227 reservation, overworld questType (NPC-only)",
-    "Law 40 source-walked and VERIFIED @bdec2883: distance conditions inclusive (>= / <=) on A* path length; R+1 exact; obstacle-reroute corollary recorded in law text",
-    "Project-knowledge retirement: 10_LAWS_core.md moved verbatim to docs/ (ruling closed), docs/00_INDEX.md written as the mounted router (precedence + evidence tiers + routing carried, two rows added), ENGINE_LAWS pointer updated",
-    "docs/RESEARCH_BRIEF_2026-08-30_stack_optimization.md (505 lines, 12 weaknesses W1-W12, ranked shortlist, 28-entry SOURCE MAP; 2 map URLs curl-verified 200 unauth)"
+    "validate.py + artpreflight.py law-annotated at enforcing sites; distance-gate miscite 39->40 fixed; ENGINE_LAWS quest-flow section renumbered 12->17 and re-seated (heading only)"
   ],
+  "in_progress": {
+    "wave": "Wave 2 closed; Wave 3 next (WO-06 batch Build + free reads, WO-07 --laws + 45g shards, one v4.29 release)",
+    "file": "push/7_readback_smoke.json"
+  },
+  "open_by_owner": {
+    "dauntless": [
+      "re-paste mounted instructions from state/mounted_instructions.txt (insert PAT at the slot) whenever convenient - old paste keeps working, stamp detects staleness",
+      "Wave 4 web-UI batch later: skillpack.yml v2 + relay.yml + release-pin (staged as authored)",
+      "carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable"
+    ],
+    "terr": [
+      "quest-edit crash fix; push/6 held until then"
+    ]
+  },
+  "rulings_open": [
+    "Phase 3 T1 scope + whether warnings ship validator-first (12b Phase 3 section)",
+    "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
+    "stack.py: retire or re-point (audits retired project-knowledge layout)",
+    "Wedge source note ready for Terr: AllObjectives discriminators clean at HEAD; suspect duplicate zod across chunks - relay?",
+    "Paste mounted project instructions (delivered 2026-08-30), then DELETE 00_INDEX.md + 10_LAWS_core.md from project knowledge - repo docs/ copies are now canon",
+    "lint table now lives in TWO places (builder JS + validate.py port, drift hazard): single-source as shared data both read - fold into WO-04 doctrine work or a builder release?"
+  ],
+  "verified": [
+    "lawmap -> 93 laws, 93 matrix rows, 70 citations across 36 files; 0 errors, 5 warnings",
+    "validate push/7_readback_smoke.json -> 0 errors, 0 warnings",
+    "parity tnr_results_1788061342415.json -> 0 errors, 0 warnings"
+  ],
+  "token_ledger": [],
+  "next": "Wave 3 on go: WO-06 batch Build + free-read button (approved), WO-07 validate --laws + 45g shards; single v4.29 release carries the panel halves + pfEq ''<->null equivalence.",
   "blocked": [
     "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
   ],
@@ -56,27 +80,5 @@
     "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
     "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited"
   ],
-  "verified": [
-    "WAVE 1 FULLY CLOSED: both workflows installed byte-exact at .github/workflows/ (after a missing-dot path detour, strays cleaned @c6a60a2); NEW fail-closed scrub GREEN on its own install commit 41ba4a8 (= SCRUB_STRINGS proven set); regen-schemas-sentinel dispatch SUCCESS, zero drift, no auto-commit; daily cron live ~06:17 UTC",
-    "ALL FIVE plan rulings approved by dauntless (upload batch, read-tap exemption, jsDelivr pilot, PAT relay, manual-only squash)",
-    "WO-01 LIVE ACCEPTANCE PASSED @tnr_results_1788061342415: full v4.28 loop - panel lint gate (blocked a real L16 first tap) -> build -> auto read-back -> asserted verdict 38 ok + 2 true byte-deltas flagged -> bundle auto-commit -> harvest.py verify green. Smoke jutsu 0QixZN9jD_bqAKTimDafB live, hidden:true, cooldown 3, disposable.",
-    "Server normalization is PER-FIELD: jutsu requiredBloodlineItemId/parentJutsuId '' -> null on write; bloodlineId/villageId keep ''. harvest verify now reclassifies ''<->null as normalized (never a FAIL).",
-    "Acceptance PASSED: first zero-touch round trip - v4.27 ⇩ Repo load of push/smoketest_pack.zip, harvests/inbox/ commit via panel sync token, answers [auto] regen, container pull + harvest.py script read (quests.getAllNames, 388 rows). Law 29 transcription carve-out CLOSED",
-    "Panel gate confirmed: bundle stamped builder v4.27 · cfg generated",
-    "Panel ⇪ Sync token entry (tnr-sync PAT) confirmed working by the inbox commit",
-    "audit session: lawmap 93/0e/5w, validate push/6 0/0, --parity 16/16 re-proven at open; brief contains no PAT (grep 0)"
-  ],
-  "rulings_open": [
-    "PLAN: jsDelivr commit-pinned loader dependency (rec: approve as pilot, raw fallback)",
-    "PLAN: PAT/relay strategy - workflow_dispatch relay + second panel PAT (rec: adopt relay)",
-    "PLAN: history squashing per COMPACTION_RUNBOOK (rec: approve manual-only)",
-    "Phase 3 T1 scope + whether warnings ship validator-first (12b Phase 3 section)",
-    "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
-    "stack.py: retire or re-point (audits retired project-knowledge layout)",
-    "Wedge source note ready for Terr: AllObjectives discriminators clean at HEAD; suspect duplicate zod across chunks - relay?",
-    "Paste mounted project instructions (delivered 2026-08-30), then DELETE 00_INDEX.md + 10_LAWS_core.md from project knowledge - repo docs/ copies are now canon",
-    "lint table now lives in TWO places (builder JS + validate.py port, drift hazard): single-source as shared data both read - fold into WO-04 doctrine work or a builder release?"
-  ],
-  "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)",
-  "next": "Wave 2 on go: WO-04 doctrine single-sourcing, then WO-05 session_open/close + digest + token ledger."
+  "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK)"
 }
