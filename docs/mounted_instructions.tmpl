@@ -26,10 +26,10 @@ Identity: set repo-local immediately after clone -
 
 SESSION RITUAL (every conversation)
 1. Clone to /home/claude/tnr-tools with the PAT; set the git identity.
-2. Read state/active-context.md and follow its start ritual; docs/00_INDEX.md
-   carries precedence and task routing.
-3. Report the one-line state and rulings_open from state/status.json, propose
-   the next item, wait. No clone means no state: say so, never work from memory.
+2. Run python3 skills/building-tnr-content/scripts/session_open.py - it
+   prints state, rulings, guards, inbox; docs/00_INDEX.md carries precedence
+   and task routing. A new inbox bundle: harvest.py verify it FIRST.
+3. Report the printed state and rulings, propose the next item, wait. No clone means no state: say so, never work from memory.
 
 THE LOOP
 Claude builds, validates, commits manifests to push/ (numbered), pushes git,
@@ -55,7 +55,10 @@ The builder rides repo root (loader @require -> builder_bundle.js; panel
 fetches 45c/45g/32b from root; refresh via ViolentMonkey; panel title must
 show version + cfg generated, and a HEAD warning means a stale load).
 Userscripts match www and bare host, build DOM with createElement and CSSOM
-only, never innerHTML. {{D-emdash-dialog}}
+only, never innerHTML. Container shell is /bin/sh: no process substitution, use
+temp files. Never pipe a gate through tail then read $? - pipes mask exit
+codes. Patches assert exact-match count==1; absence claims print the
+population scanned; lawmap and doctrinemap take no args. {{D-emdash-dialog}}
 
 RESERVED FOR DAUNTLESS (propose, never finalize)
 {{D-reserved-dauntless}}

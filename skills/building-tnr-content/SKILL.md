@@ -109,22 +109,21 @@ against them.
 
 ## Picking a reference
 
-Read the one that owns the task. They are large; reading all of them wastes the context that the
-actual build needs.
+Packs first. A jutsu, AI or quest build that ends in a push reads its pack — the curated
+excerpt set with its pipeline sections already inlined. Depth on demand: slice one section by
+byte range via `references/_toc/<name>.json` instead of reading a whole reference. The full
+references are for deep dives and for editing (packs re-render from them).
 
 | Working on | Read |
 |---|---|
-| Jutsu: fields, converts, mass-edit sweeps | `references/jutsu.md` |
-| AI enemies, stat blocks, behaviour rules, range gating | `references/ai.md` |
-| Items, weapons, loot chests, crafting | `references/item.md` |
-| Quests, events, objective graphs, dialog | `references/quest.md` |
-| Anything that pushes: manifest format, envelopes, capture, image upload | `references/pipeline.md` |
+| Jutsu build/edit that pushes | `packs/jutsu-build.md` |
+| AI enemy build/edit that pushes | `packs/ai-build.md` |
+| Quest/event build/edit that pushes | `packs/quest-build.md` |
+| Items, weapons, loot chests, crafting | `references/item.md` + pipeline sections via `_toc` |
 | Tuning numbers, tiering, reward scale | `references/balance.md` |
 | Processing a submitted staff design sheet into a whole event | `references/event.md` |
 | Reusable enemy lines (Unsigned, Verge, Forsworn) | `references/lines.md` |
-
-`references/pipeline.md` is shared plumbing — read it alongside the entity reference for any build
-that ends in a push, not instead of it.
+| Push mechanics outside a pack (capture, image upload, combined manifest) | `references/pipeline.md` or a `_toc` slice |
 
 ## Bundled scripts
 
@@ -160,10 +159,11 @@ accepting things the container rejects.
 
 ## Engine laws
 
-The laws live in `12_TECH_engine_laws.md` in project knowledge, deliberately outside this skill:
-they are cited by the tools and by the state board, they change as the source is reconciled, and
-they should be loadable without a build in flight. `12b_LAWS_coverage.md` says which laws
-`validate.py` already catches and which ones you have to actually know.
+The numbered text of record is `docs/ENGINE_LAWS.md` in the repo, deliberately outside this
+skill: the laws are cited by the tools and the state board and change as the source is
+reconciled. Grep it by law number; never read it whole. `12b_LAWS_coverage.md` at this skill's
+root says which laws `validate.py` already catches and which ones you have to actually know;
+each reference and pack carries its relocated law text.
 
 Two that bite most often, stated with their reasons because the reason generalises and the rule
 does not:
@@ -176,23 +176,9 @@ does not:
   a buff cast in the same turn as an attack never amplifies that attack, and a rule ordering a
   stance before its attacks gains nothing over ordering it after.
 
-## Working style
-
-The user is terse and action-first. Lead with the answer. At most one question per response — make
-a reasonable assumption and state it rather than stalling. Propose and validate before presenting,
-then action rulings into files immediately. For minor edits hand back only the changed files.
-
-
-## Repo canon and lookups (2026-08-28)
-
-The repo `perseverance484/tnr-tools` is the single source of truth for every tool, reference
-and data file in this skill, under `/skills/building-tnr-content/`. Patches land there first;
-the packaging workflow rebuilds the installable zip in `/dist/`. Never patch the installed
-copy or ship tool patches in the session bundle.
+## Lookups
 
 Live-content lookups (name collision, id, what exists) fetch the repo answer layer:
 `answers/INDEX.md` at the raw URL in the project instructions, then the entity answer file it
-links. A capture beats any answer file. The enforcement matrix for the engine laws sits at
-this skill's root as `12b_LAWS_coverage.md`; each reference carries its relocated law text in
-a "Relocated engine laws" section, and the full numbered text is `/docs/ENGINE_LAWS.md` in
-the repo.
+links. A capture beats any answer file. Working style, repo canon and the push loop are in the
+mounted instructions; this file never restates them.

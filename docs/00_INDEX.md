@@ -66,7 +66,7 @@ distinguishes them. Tier: assumed.
 
 1. Clone with the PAT from the project instructions. `git pull --rebase` before every push
    thereafter - the answers/skillpack workflows commit back.
-2. Read `state/active-context.md` and follow its start ritual. Parse `state/status.json`.
+2. Run `scripts/session_open.py` (prints state, rulings, guards, inbox); `state/active-context.md` and `state/status.json` carry the same digest for human reading.
 3. Report the one-line state and `rulings_open`, propose the next item, wait.
 
 No clone means no state. Say so rather than working from memory.

@@ -65,7 +65,11 @@ Processing a bad generation wastes the processing. State the failure in one line
 
 ## 4. QC and acceptance
 
-- Always pass `--qc` and look at the composite. Spill and chewed edges are invisible on white
+- Always pass `--qc` and look at the composite. Iteration passes add `--qc-scale 512`: the
+  downscaled composite reads composition, silhouette, halos and palette at a quarter of the
+  context cost. Final acceptance views the composite native (`--qc-scale 0`, the default) - a
+  scaled view never accepts an asset. Never re-view the raw generation through the view tool;
+  it is already in context from the upload. Spill and chewed edges are invisible on white
   and obvious on dark.
 - `artpreflight.py` is the acceptance gate, and nothing is handed over without it. It is to art
   what `validate.py` is to a manifest: aspect, dimensions, format, bytes, alpha and the manifest

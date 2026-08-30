@@ -199,7 +199,7 @@ def luma(px):
     return 0.299 * px[0] + 0.587 * px[1] + 0.114 * px[2]
 
 
-def process(path_in, path_out, key="lime", pad=None, max_kb=450, qc=None,
+def process(path_in, path_out, key="lime", pad=None, max_kb=450, qc=None, qc_scale=0,
             fmt="png", fmt_mode="lossless", min_width=None, max_hw=None):
     img = Image.open(path_in).convert("RGBA")
     w, h = img.size
@@ -270,7 +270,15 @@ def process(path_in, path_out, key="lime", pad=None, max_kb=450, qc=None,
     if qc:
         bg = Image.new("RGBA", img.size, (18, 18, 22, 255))
         bg.alpha_composite(img)
-        bg.convert("RGB").save(qc)
+        bg = bg.convert("RGB")
+        if qc_scale and max(bg.size) > qc_scale:
+            # NEAREST keeps pixel edges legible; this composite is a token-cheap
+            # iteration view, never the acceptance surface (native = --qc-scale 0).
+            r = qc_scale / max(bg.size)
+            bg = bg.resize((max(1, round(bg.size[0] * r)),
+                            max(1, round(bg.size[1] * r))), Image.NEAREST)
+            log["qc_scaled_to"] = bg.size
+        bg.save(qc)
         log["qc"] = qc
     return log
 
@@ -325,6 +333,8 @@ if __name__ == "__main__":
     ap.add_argument("--square", action="store_true")
     ap.add_argument("--max-kb", type=int, default=None)
     ap.add_argument("--qc")
+    ap.add_argument("--qc-scale", type=int, default=0,
+                    help="long edge for the QC composite; 0 = native (acceptance)")
     a = ap.parse_args()
 
     if a.target:
@@ -348,7 +358,7 @@ if __name__ == "__main__":
         fmt, fmt_mode = "png", "lossless"
         min_width = max_hw = None
 
-    report = process(a.src, a.dst, key, pad, max_kb, a.qc, fmt, fmt_mode, min_width, max_hw)
+    report = process(a.src, a.dst, key, pad, max_kb, a.qc, a.qc_scale, fmt, fmt_mode, min_width, max_hw)
     if a.target:
         report["target"] = a.target + (f" ({a.frame})" if a.target == "SCENE_CHARACTER" else "")
         report["aspect"] = resolve_target(load_spec(a.spec), a.target, a.frame)["aspect"]
