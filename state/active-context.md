@@ -24,8 +24,9 @@ ON HOLD until Terr clears the editor crash.
 **Open items, by owner:**
 - dauntless: PAT Workflows RW (lands .github/workflows/regen_schemas.yml - copy in
   /mnt/user-data/outputs went stale with the container; re-emit from the migration bundle or
-  ask for a rewrite, it is 20 lines). Phase 3 rulings in status.json rulings_open. ⇪ File
-  10_LAWS_core.md to docs/ from a project session. Relay the wedge source note (SOURCE_AUDIT
+  ask for a rewrite, it is 20 lines). Phase 3 rulings in status.json rulings_open. Paste the mounted
+  project instructions (delivered 2026-08-30) and delete 00_INDEX/10_LAWS from project
+  knowledge - docs/ copies are canon. Relay the wedge source note (SOURCE_AUDIT
   wedge section) to Terr. Art queue: clerk portrait prompt at state/prompt_report_clerk.txt.
   Borrowed Awakening W4 closes ~Sep 5: hide the 5 cosmic jutsu.
 - Terr: quest-edit crash fix; file 6 stays held until then.
