@@ -92,7 +92,7 @@ No clone means no state. Say so rather than working from memory.
 | Any capture or results bundle | `harvest.py` (v4.26+ inbox bundles normalize directly) |
 | Full law text by number | `docs/ENGINE_LAWS.md`; cross-cutting clusters `docs/10_LAWS_core.md` |
 | A mission, any rank | `48_DATA_mission_profiles.json` + `mission.py sheet.json` |
-| Ending a session | rewrite `state/active-context.md` as the handoff, re-run guards, record output (CLOSEOUT.md mounted addendum) |
+| Ending a session | edit `state/digest.json`, run `session_close.py` (projects handoff + board, byte-asserts, re-runs guards) |
 
 ## Non-negotiables
 
