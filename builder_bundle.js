@@ -1,4 +1,11 @@
-// TNR content builder bundle v4.25 - loaded via @require by the tiny VM loader.
+// TNR content builder bundle v4.26 - loaded via @require by the tiny VM loader.
+// v4.26: STAGE 4.5 + ZERO-TOUCH. (1) Results now commit to harvests/inbox/ (the ruled
+// builder-as-database destination), feeding the answers pipeline. (2) Auto-download removed
+// when Sync is ON and the commit succeeds; a 💾 Results button re-downloads the last bundle
+// on demand. If Sync is off OR the commit fails, the bundle still auto-downloads - push
+// evidence must never be losable. (3) NEW ⇪ File button: pick any files, commit them to a
+// repo dir (default state/) via the contents API - sha-aware, so existing files update.
+// This is the general Android-safe GitHub uploader: closeout state, art, packs, anything.
 // v4.25: PUSH PACKS. The 📄 Load button also accepts a .zip built by pushpack.py:
 // manifest.json goes to the textarea, every image member lands in filemap under its EXACT
 // name (no picker, no per-file downloads, no Android rename mangling), and extracted byte
@@ -370,19 +377,24 @@ const vfy=r=>{if(r.entity==='aiProfile'||!r.pushed)return{verdict:'skipped',diff
  const out={n:0,d:[]};pfWalk(p,l,r.entity,'',out);
  return out.n?{verdict:'diff:'+out.n,diffs:out.d}:{verdict:'match',diffs:[]}};
 // --- v4.24 gh sync: auto-commit results bundles to the repo ---------------
-const GH={owner:'perseverance484',repo:'tnr-tools',branch:'main',dir:'results'};
+const GH={owner:'perseverance484',repo:'tnr-tools',branch:'main',dir:'harvests/inbox'};
 const GK='tnr_bk_gh_v1';
 const ghGet=()=>{try{return JSON.parse(localStorage.getItem(GK)||'{}')}catch(e){return{}}};
 const ghSet=o=>{try{localStorage.setItem(GK,JSON.stringify(o))}catch(e){}};
+const b64b=b=>{let o='';for(let i=0;i<b.length;i+=0x8000)o+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return btoa(o)};
 const b64u=s=>{const b=new TextEncoder().encode(s);let o='';for(let i=0;i<b.length;i+=0x8000)o+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return btoa(o)};
-const ghCommit=async(name,body)=>{const g=ghGet();if(!g.on||!g.pat)return null;
- const res=await fetch('https://api.github.com/repos/'+GH.owner+'/'+GH.repo+'/contents/'+GH.dir+'/'+name,{method:'PUT',headers:{'authorization':'Bearer '+g.pat,'accept':'application/vnd.github+json','content-type':'application/json'},body:JSON.stringify({message:'results: '+name,content:b64u(body),branch:GH.branch})});
+const ghHdr=g=>({'authorization':'Bearer '+g.pat,'accept':'application/vnd.github+json','content-type':'application/json'});
+const ghSha=async(g,path)=>{try{const r=await fetch('https://api.github.com/repos/'+GH.owner+'/'+GH.repo+'/contents/'+path+'?ref='+GH.branch,{headers:ghHdr(g)});if(!r.ok)return null;const j=await r.json();return(j&&j.sha)||null}catch(e){return null}};
+const ghPut=async(path,b64,msg)=>{const g=ghGet();if(!g.on||!g.pat)return null;
+ const sha=await ghSha(g,path);const body={message:msg||('put: '+path),content:b64,branch:GH.branch};if(sha)body.sha=sha;
+ const res=await fetch('https://api.github.com/repos/'+GH.owner+'/'+GH.repo+'/contents/'+path,{method:'PUT',headers:ghHdr(g),body:JSON.stringify(body)});
  let t='';try{t=await res.text()}catch(e){}
  if(res.status===201||res.status===200){const m=t.match(/"sha":"([0-9a-f]{7})/);return{ok:1,sha:m?m[1]:''}}
  return{ok:0,msg:'HTTP '+res.status+' '+t.slice(0,140)}};
+const ghCommit=(name,body)=>ghPut(GH.dir+'/'+name,b64u(body),'results: '+name);
 const ghSync=(name,body)=>{const g=ghGet();if(!g.on||!g.pat)return;
  $s.textContent=($s.textContent+' · ⇪ committing…').slice(0,220);
- ghCommit(name,body).then(x=>{if(!x)return;$s.textContent=($s.textContent.replace(' · ⇪ committing…','')+' · '+(x.ok?('⇪ '+GH.dir+'/'+name+(x.sha?' @'+x.sha:'')):('⇪ FAILED '+x.msg))).slice(0,260)}).catch(e=>{try{$s.textContent=($s.textContent.replace(' · ⇪ committing…','')+' · ⇪ FAILED '+((e&&e.message)||e)).slice(0,260)}catch(_e){}})};
+ ghCommit(name,body).then(x=>{if(!x){dl(name,body);return}if(!x.ok)dl(name,body);$s.textContent=($s.textContent.replace(' · ⇪ committing…','')+' · '+(x.ok?('⇪ '+GH.dir+'/'+name+(x.sha?' @'+x.sha:'')):('⇪ FAILED '+x.msg+' · 💾 saved locally'))).slice(0,260)}).catch(e=>{try{dl(name,body);$s.textContent=($s.textContent.replace(' · ⇪ committing…','')+' · ⇪ FAILED '+((e&&e.message)||e)+' · 💾 saved locally').slice(0,260)}catch(_e){}})};
 // --- v4.25 push packs: zip = manifest + images, sizes verified ------------
 const zipEOCD=b=>{const v=new DataView(b);const n=b.byteLength;const lo=Math.max(0,n-65557);
  for(let i=n-22;i>=lo;i--){if(v.getUint32(i,true)===0x06054b50){
@@ -670,7 +682,7 @@ if(wantLive){for(let i=0;i<rows.length;i++){const r=rows[i];if(r.state!=='ok')co
  await sleep(THR)}
  const e2=rows.filter(r=>r.state==='error').length;
  if(rows.length)$s.textContent=(e2?('⚠ '+e2+' error(s), tap a red row or Retry failed'):('✅ all '+rows.length+' done'))+' · live '+pf.match+'✓ '+pf.diff+'⚠ '+(pf.unread+pf.skipped)+'∅'}
-try{const _bn='tnr_results_'+Date.now()+'.json';const bundle={builder:'v4.25',at:now(),checks:BUILDER_CHECKS,cfg:CFG.state,postflight:pf,entries:rows.map(r=>({name:r.name,srcId:r.key||null,entity:r.entity,slot:r.slot,state:r.state,detail:r.detail||'',verdict:r.verdict||null,diffs:r.diffs||[],id:r.outId||idmap[r.key]||r.targetId||null,pushed:r.pushed||null,live:r.live||null})),captures:(window.__tnrCapBefore||[]).concat(capsAfter),idmap};const _bj=JSON.stringify(bundle,null,1);dl(_bn,_bj);ghSync(_bn,_bj)}catch(_e){}
+try{const _bn='tnr_results_'+Date.now()+'.json';const bundle={builder:'v4.26',at:now(),checks:BUILDER_CHECKS,cfg:CFG.state,postflight:pf,entries:rows.map(r=>({name:r.name,srcId:r.key||null,entity:r.entity,slot:r.slot,state:r.state,detail:r.detail||'',verdict:r.verdict||null,diffs:r.diffs||[],id:r.outId||idmap[r.key]||r.targetId||null,pushed:r.pushed||null,live:r.live||null})),captures:(window.__tnrCapBefore||[]).concat(capsAfter),idmap};const _bj=JSON.stringify(bundle,null,1);window.__tnrLastBundle={name:_bn,body:_bj};const _g=ghGet();if(_g.on&&_g.pat){ghSync(_bn,_bj)}else{dl(_bn,_bj)}}catch(_e){}
 $g.disabled=$r.disabled=0;ac()};
 const lt=()=>rows.map(r=>(r.state==='ok'?'ok  ':r.state==='error'?'ERR ':'-   ')+r.name+'  '+(r.detail||r.state)).join('\n')+'\n\nID MAP:\n'+JSON.stringify(idmap,null,1);
 const cp=()=>{const t=document.createElement('textarea');t.value=lt();t.style.cssText='position:fixed;left:-9999px';document.body.appendChild(t);t.focus();t.select();let o=0;try{o=document.execCommand('copy')}catch(e){}if(!o)try{navigator.clipboard&&navigator.clipboard.writeText(t.value)}catch(e){}t.remove()};
@@ -698,11 +710,11 @@ const doctor=async(say)=>{const out=[];
     if(!p)continue;const live=await sget(p,x.targetId,null);if(!live)gone++;await sleep(THR)}
    out.push('manifest targets: '+tg.length+' checked, '+gone+' no longer resolve')}}
  return out};
-const CSS='.k-fab{position:fixed;bottom:12px;left:12px;z-index:2147483000;background:#1f7c3b;color:#fff;border:0;border-radius:10px;padding:11px 16px;font:600 14px system-ui;box-shadow:0 4px 16px #0008}.k-pn{position:fixed;left:8px;right:8px;bottom:8px;z-index:2147483000;display:none;flex-direction:column;max-height:88vh;background:#16171b;color:#e8e8ea;border:1px solid #3a3b44;border-radius:14px;box-shadow:0 12px 44px #000a;font:13px system-ui;overflow:hidden}.k-hd{display:flex;align-items:center;gap:8px;padding:11px 12px;background:#202128;border-bottom:1px solid #34353d}.k-ti{flex:1;font-weight:700;font-size:15px}.k-ic{background:#34353d;color:#e8e8ea;border:0;border-radius:8px;padding:7px 12px;font-size:15px}.k-bw{height:4px;background:#2a2b32}.k-bar{height:100%;width:0;background:#2ec26a}.k-bd{padding:11px 12px;overflow:auto;overscroll-behavior:contain}.k-in{width:100%;box-sizing:border-box;height:13vh;min-height:64px;background:#0e0f12;color:#cde6ff;border:1px solid #34353d;border-radius:8px;padding:8px;font:12px monospace}.k-st2{margin:9px 2px;font-size:12px;min-height:16px}.k-ls{display:flex;flex-direction:column;gap:5px}.k-rw{display:flex;align-items:center;gap:8px;padding:9px 10px;background:#1b1c22;border:1px solid #2a2b33;border-radius:8px}.k-dt{width:9px;height:9px;border-radius:50%;background:#6b6c74;flex:none}.k-nm{flex:1;font:600 12px system-ui;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.k-bg{font-size:10px;padding:2px 8px;border-radius:999px;background:#33343d;flex:none;font-style:normal}.k-st{font-size:11px;opacity:.85;max-width:42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:none;text-decoration:none}.s-running .k-dt{background:#e6b800}.s-ok .k-dt{background:#2ec26a}.s-error .k-dt{background:#ec5b5b}.s-error{border-color:#5a2a2a}.k-ft{display:flex;gap:8px;padding:10px 12px;background:#1b1c22;border-top:1px solid #34353d;flex-wrap:wrap}.k-bt{flex:1;min-width:92px;border:0;border-radius:9px;padding:12px;font:600 13px system-ui;color:#fff}.k-go{background:#1f7c3b}.k-rt{background:#8a5a00;display:none}.k-cp{background:#2b4d70}.k-rs{background:#5a2a2a}.k-im{background:#5a3a7a}.k-dc{background:#2b6f6f}.k-sy{background:#3b6a2a}';
+const CSS='.k-fab{position:fixed;bottom:12px;left:12px;z-index:2147483000;background:#1f7c3b;color:#fff;border:0;border-radius:10px;padding:11px 16px;font:600 14px system-ui;box-shadow:0 4px 16px #0008}.k-pn{position:fixed;left:8px;right:8px;bottom:8px;z-index:2147483000;display:none;flex-direction:column;max-height:88vh;background:#16171b;color:#e8e8ea;border:1px solid #3a3b44;border-radius:14px;box-shadow:0 12px 44px #000a;font:13px system-ui;overflow:hidden}.k-hd{display:flex;align-items:center;gap:8px;padding:11px 12px;background:#202128;border-bottom:1px solid #34353d}.k-ti{flex:1;font-weight:700;font-size:15px}.k-ic{background:#34353d;color:#e8e8ea;border:0;border-radius:8px;padding:7px 12px;font-size:15px}.k-bw{height:4px;background:#2a2b32}.k-bar{height:100%;width:0;background:#2ec26a}.k-bd{padding:11px 12px;overflow:auto;overscroll-behavior:contain}.k-in{width:100%;box-sizing:border-box;height:13vh;min-height:64px;background:#0e0f12;color:#cde6ff;border:1px solid #34353d;border-radius:8px;padding:8px;font:12px monospace}.k-st2{margin:9px 2px;font-size:12px;min-height:16px}.k-ls{display:flex;flex-direction:column;gap:5px}.k-rw{display:flex;align-items:center;gap:8px;padding:9px 10px;background:#1b1c22;border:1px solid #2a2b33;border-radius:8px}.k-dt{width:9px;height:9px;border-radius:50%;background:#6b6c74;flex:none}.k-nm{flex:1;font:600 12px system-ui;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.k-bg{font-size:10px;padding:2px 8px;border-radius:999px;background:#33343d;flex:none;font-style:normal}.k-st{font-size:11px;opacity:.85;max-width:42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:none;text-decoration:none}.s-running .k-dt{background:#e6b800}.s-ok .k-dt{background:#2ec26a}.s-error .k-dt{background:#ec5b5b}.s-error{border-color:#5a2a2a}.k-ft{display:flex;gap:8px;padding:10px 12px;background:#1b1c22;border-top:1px solid #34353d;flex-wrap:wrap}.k-bt{flex:1;min-width:92px;border:0;border-radius:9px;padding:12px;font:600 13px system-ui;color:#fff}.k-go{background:#1f7c3b}.k-rt{background:#8a5a00;display:none}.k-cp{background:#2b4d70}.k-rs{background:#5a2a2a}.k-im{background:#5a3a7a}.k-dc{background:#2b6f6f}.k-sy{background:#3b6a2a}.k-dl2{background:#4a4a58}.k-uf{background:#2a5a5a}';
 const H=document.createElement('div');H.id='tnr-bk-host';const R=H.attachShadow({mode:'open'});
-R.innerHTML='<style>'+CSS+'</style><button class="k-fab">▶ Build</button><div class="k-pn"><div class="k-hd"><span class="k-ti">Content builder v4.25</span><button class="k-ic k-min">▾</button></div><div class="k-bw"><div class="k-bar"></div></div><div class="k-bd"><textarea class="k-in" placeholder="paste a manifest or 📄 Load a JSON file"></textarea><div class="k-st2">paste a manifest to preview</div><div class="k-ls"></div></div><div class="k-ft"><button class="k-bt k-go">▶ Build</button><button class="k-bt k-lm">📄 Load</button><button class="k-bt k-im">🖼 Imgs</button><button class="k-bt k-rt">↻ Retry failed</button><button class="k-bt k-dc">🩺 Doctor</button><button class="k-bt k-cp">⧉ Copy</button><button class="k-bt k-sy">⇪ Sync</button><button class="k-bt k-me">🗺 Map</button><button class="k-bt k-mi">⤒ Map</button><button class="k-bt k-rs">⌫ Reset</button><input class="k-fi" type="file" multiple hidden><input class="k-mf" type="file" accept=".json,.zip,application/json,application/zip" hidden><input class="k-mi2" type="file" accept=".json,application/json" hidden></div></div>';
+R.innerHTML='<style>'+CSS+'</style><button class="k-fab">▶ Build</button><div class="k-pn"><div class="k-hd"><span class="k-ti">Content builder v4.26</span><button class="k-ic k-min">▾</button></div><div class="k-bw"><div class="k-bar"></div></div><div class="k-bd"><textarea class="k-in" placeholder="paste a manifest or 📄 Load a JSON file"></textarea><div class="k-st2">paste a manifest to preview</div><div class="k-ls"></div></div><div class="k-ft"><button class="k-bt k-go">▶ Build</button><button class="k-bt k-lm">📄 Load</button><button class="k-bt k-im">🖼 Imgs</button><button class="k-bt k-rt">↻ Retry failed</button><button class="k-bt k-dc">🩺 Doctor</button><button class="k-bt k-cp">⧉ Copy</button><button class="k-bt k-sy">⇪ Sync</button><button class="k-bt k-dl2">💾 Results</button><button class="k-bt k-uf">⇪ File</button><button class="k-bt k-me">🗺 Map</button><button class="k-bt k-mi">⤒ Map</button><button class="k-bt k-rs">⌫ Reset</button><input class="k-fi" type="file" multiple hidden><input class="k-mf" type="file" accept=".json,.zip,application/json,application/zip" hidden><input class="k-mi2" type="file" accept=".json,application/json" hidden><input class="k-uf2" type="file" multiple hidden></div></div>';
 document.body.appendChild(H);const q=s=>R.querySelector(s),pn=q('.k-pn'),fb=q('.k-fab');
-loadCfg().then(()=>{try{q('.k-ti').textContent='Content builder v4.25 · cfg '+CFG.state}catch(e){}});
+loadCfg().then(()=>{try{q('.k-ti').textContent='Content builder v4.26 · cfg '+CFG.state}catch(e){}});
 $i=q('.k-in');$l=q('.k-ls');$b=q('.k-bar');$s=q('.k-st2');$g=q('.k-go');$r=q('.k-rt');
 const sh=v=>{pn.style.display=v?'flex':'none';fb.style.display=v?'none':'block'};
 fb.onclick=()=>sh(1);q('.k-min').onclick=()=>sh(0);$i.addEventListener('input',parse);
@@ -717,6 +729,16 @@ q('.k-sy').onclick=()=>{const g=ghGet();
  else{if(confirm('Turn auto-commit ON? Cancel to be asked about forgetting the token.')){g.on=1;ghSet(g);$s.textContent='⇪ auto-commit ON → '+GH.dir+'/'}
   else if(confirm('Forget the stored token?')){ghSet({});$s.textContent='⇪ token forgotten'}}
  syLbl()};
+q('.k-dl2').onclick=()=>{const B=window.__tnrLastBundle;if(B){dl(B.name,B.body);$s.textContent='💾 '+B.name}else{$s.textContent='no results bundle this session yet'}};
+const $uf=q('.k-uf2');q('.k-uf').onclick=()=>{const g=ghGet();if(!g.on||!g.pat){$s.textContent='⇪ set up Sync first (token + on)';return}$uf.click()};
+$uf.addEventListener('change',async()=>{const fs=[...$uf.files];if(!fs.length)return;
+ let dir=prompt('Commit '+fs.length+' file(s) to repo directory:','state');if(dir==null)return;dir=String(dir).trim().replace(/^\/+|\/+$/g,'');
+ let ok=0,bad=[];for(let i=0;i<fs.length;i++){const f=fs[i];$s.textContent='⇪ '+(i+1)+'/'+fs.length+': '+f.name;
+  try{const bytes=new Uint8Array(await f.arrayBuffer());const path=(dir?dir+'/':'')+f.name;
+   const r=await ghPut(path,b64b(bytes),'file: '+path);
+   if(r&&r.ok)ok++;else bad.push(f.name+(r?' '+r.msg:''))}catch(e){bad.push(f.name+' '+((e&&e.message)||e))}
+  await sleep(600)}
+ $s.textContent=('⇪ '+ok+'/'+fs.length+' committed to '+(dir||'(root)')+(bad.length?' · FAILED: '+bad.slice(0,3).join('; '):'')).slice(0,260);$uf.value=''});
 q('.k-rs').onclick=()=>{if(confirm('Clear remembered ids? Next build creates fresh records.')){idmap={};sm(idmap);jcat=null;draw();$s.textContent='memory cleared'}};
 $mf=q('.k-mf');q('.k-lm').onclick=()=>$mf.click();$mf.addEventListener('change',async()=>{const f=$mf.files[0];if(!f)return;const head=new Uint8Array(await f.slice(0,4).arrayBuffer());if(head[0]===0x50&&head[1]===0x4b&&head[2]===3&&head[3]===4){await loadPack(f);return}const rd=new FileReader();rd.onload=()=>{$i.value=String(rd.result||'');parse();$s.textContent=(($s.textContent||'')+' · loaded '+f.name).slice(0,120)};rd.readAsText(f)});
 q('.k-me').onclick=()=>{dl('tnr_idmap_'+Date.now()+'.json',JSON.stringify(idmap,null,1));$s.textContent='🗺 idmap exported ('+Object.keys(idmap).length+' keys)'};
