@@ -25,13 +25,13 @@ verify it FIRST (WO-01 acceptance). Re-run lawmap + parity before trusting anyth
    generated" (a ⚠HEAD suffix means the loaded copy is stale vs repo).
 2. DONE - WO-01 acceptance PASSED (bundle 1788061342415, verify green).
    container then runs harvest.py verify on it.
-3. Web-UI install batch (browser, NOT the PAT): state/staged_workflows/
+3. DONE - both workflows installed byte-exact; new scrub gate green on its own install (secret proven).
    regen_schemas.yml -> .github/workflows/ (new) and scrub.yml -> REPLACE
    .github/workflows/scrub.yml. SAME SESSION: set repo secret SCRUB_STRINGS
    (one pattern per line: both PATs at minimum) - gate is fail-closed, unset
    secret = every push fails by design.
-4. First-run regen-schemas-sentinel via workflow_dispatch (expect: no drift).
-5. Rulings 3 (jsDelivr pilot), 4 (PAT relay), 5 (history squash) whenever ready.
+4. DONE - sentinel dispatch success, zero drift; daily cron live ~06:17 UTC.
+5. DONE - all five rulings approved.
 Carried: confirm 00_INDEX/10_LAWS deleted from project knowledge; wedge note to
 Terr; clerk portrait prompt at state/prompt_report_clerk.txt; Borrowed Awakening
 W4 ~Sep 5 (hide 5 cosmic jutsu).
