@@ -5,6 +5,14 @@ Source: 10b live capture (seven) + push/12 rebuild manifests (trio) = post-push 
 - Enemy avatars 9/9 (roster sheet posted)
 - Map pins 12/12 (Chase closed 2026-08-30; Gather rides engine default; action library sheet posted)
 
+## Listing icons — census addendum 2026-08-30
+quest.image (listing icon) on all ten missions = engine default `..._default.webp`
+(verified across inbox captures, 10/10). Field is a RAW URL like pins — `@img:` resolves
+direct, no gameAsset record; STATIC target, 1:1 per art spec. Precedent exists
+(dmissionicons family on other missions).
+NEEDS DAUNTLESS: dedicated icon per mission (10) vs one shared Forsworn series icon (1)
+vs stay on default. Style call open (pin house style family vs per-mission vignette).
+
 ## Scene portraits — 64 speaking nodes need real art
 34 nodes carry the shared stand-in (pqihl43HYROpkIMX172-P), 30 carry nothing.
 
