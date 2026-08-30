@@ -52,7 +52,9 @@ assert len(items) == 10
 used = sorted({i["data"]["image"].split(":", 1)[1] for i in items})
 SRC = os.path.join(R, "skills/producing-tnr-art/data/rank_icons")
 imgsz = {f: os.path.getsize(os.path.join(SRC, f)) for f in used}
-man = {"capture": {"before": cap}, "items": items, "imgSizes": imgsz}
+probe = [{"proc": "quests.getAll", "input": {"limit": 25, "cursor": 0}},
+         {"proc": "quests.getAll", "input": {"questType": "mission", "limit": 25, "cursor": 0}}]
+man = {"capture": {"before": cap + probe}, "items": items, "imgSizes": imgsz}
 
 os.makedirs("pack", exist_ok=True)
 open("pack/manifest.json", "w").write(json.dumps(man, indent=1))
