@@ -178,7 +178,7 @@ def check_file(path: str, target: str, spec: dict, report: Report, img_refs: set
     size_bytes = os.path.getsize(path)
     ext = os.path.splitext(path)[1].lower().lstrip(".")
 
-    # ---- aspect
+    # ---- aspect  (law 50: only avatars/icons/backgrounds stretch)
     aspect = t["aspect"]
     tol = aspect.get("tolerance", 0.01)
     accepted = aspect.get("accepted")
@@ -211,7 +211,7 @@ def check_file(path: str, target: str, spec: dict, report: Report, img_refs: set
         else:
             report.note(path, "aspect", f"{w}x{h} matches {aspect['value']}")
 
-    # ---- clipping bound (scene characters only)
+    # ---- clipping bound (scene characters only)  # law 81
     bound = t.get("max_aspect_h_over_w")
     if bound:
         hw = h / w

@@ -192,8 +192,12 @@ Numbers moved to generated files in the Phase 2 pass. If a figure is wanted, rea
 - damage formula constants (`DMG_*`, 11 of them), stat and general caps, `USER_CAPS` -> `45e_DATA_constants.json`
 - per-field bounds, defaults, nullability, enums for jutsu/item/quest/bloodline/gameAsset -> `45d_DATA_entity_schemas.json`
 - tag, objective, AI condition and AI action shapes -> `45c_DATA_constructors.json`
+- the tRPC surface the builder replays -> `45f_DATA_procedures.json`
 
-## 12. Quest flow (q.fill)
+**With the caveat that law 83 attaches to all of it:** a generated value is what the code compiles in. For the `DMG_*` family that is a default the live database may already have overridden.
+
+
+## 17. Quest flow (q.fill)
 
 The builder runs a flow validator on `quest.fill` that the server write schema knows nothing about.
 A manifest can pass a schema-derived validator and still be refused at push. All five laws below are
@@ -205,7 +209,3 @@ live working record.
 87. **The objective graph must be acyclic.** The flow validator rejects any back edge: *"Cycle detected in objective chain."* Fail loops, dead-end leads returning to a hub, and battle retries are all cycles when expressed as `nextObjectiveId`. Both live quests inspected are completely acyclic. Enforced by `validate.py`.
 88. **Loops are legal only through `reset_quest`, and must never land on a battle node.** `resetObjectiveId` is a separate field, not a graph edge, so it does not close a cycle. Live practice always resets to the node BEFORE the fight: `Copies, Not Thefts` sends `l2` fail to `l4` which resets to `l1` (dialog), and `c5` fail to `c6` which resets to `c4` (collect_item). Resetting onto a `defeat_opponents` node has no live precedent; treat it as illegal. Thirty-seven back edges in one wave collapsed to seventeen shared reset nodes. Enforced by `validate.py`.
 89. **`sector` is a column default, not a value. Never write it.** Every live location node reads `sector: 0` across three different `sectorType` values, including `current_sector` and `random`, where 0 cannot describe the real sector. The engine resolves the sector from `sectorType`. Writing it buys nothing and is actively wrong the moment `sectorType` is not `user_village`. Knowledge only: an omission is not mechanically detectable.
-
-- the tRPC surface the builder replays -> `45f_DATA_procedures.json`
-
-**With the caveat that law 83 attaches to all of it:** a generated value is what the code compiles in. For the `DMG_*` family that is a default the live database may already have overridden.
