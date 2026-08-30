@@ -1,4 +1,5 @@
-// TNR content builder bundle v4.29 - loaded via @require by the tiny VM loader.
+// TNR content builder bundle v4.30 - loaded via @require by the tiny VM loader.
+// v4.30: isLim limiter-phrase sniff gated to error responses; body text in a 200 is DATA (trio wedge fix).
 // v4.29: BATCH BUILD + FREE READS (plan WO-06/07). (1) The Repo picker accepts
 // multi-selection ("1,3", "2-4", "all"): ONE confirm = one write batch, then the
 // files run sequentially in numeric order through the normal build path, each
@@ -249,7 +250,7 @@ const resolvePool=d=>{if(!CFG.pool||!d)return 0;let n=0;
    a.jutsuId=rec.id;delete a.jutsu;n++;
    if(rec.gate)for(const c of (r.conditions||[]))if(c&&c.type==='distance_lower_than'&&c.value==null)c.value=rec.gate}}
  return n};
-const isLim=(s,t)=>s===429||/too fast|too many|rate limit|slow down|infraction/i.test(t||'');
+const isLim=(s,t)=>s===429||(s>=400&&(t||'').length<300&&/too fast|too many|rate limit|slow down|infraction/i.test(t||'')); // v4.30: text sniff only on ERROR status + short body - record prose containing 'too many'/'slow down' froze every read of that record (Forsworn trio wedge, root-caused 2026-08-30)
 
 
 // --- v4.18 node factory: author semantics, builder expands the payload ---
@@ -441,7 +442,7 @@ const ghPut=async(path,b64,msg)=>{const g=ghGet();if(!g.on||!g.pat)return null;
  return{ok:0,msg:'HTTP '+res.status+' '+t.slice(0,140)}};
 const ghCommit=(name,body)=>ghPut(GH.dir+'/'+name,b64u(body),'results: '+name);
 // --- v4.28 HEAD self-check: does the repo serve the version we are running? ----
-const BVER='v4.29';
+const BVER='v4.30';
 const headCheck=async()=>{try{const g=ghGet();const h={'accept':'application/vnd.github+json'};if(g&&g.pat)h.authorization='Bearer '+g.pat;
  const r=await fetch('https://api.github.com/repos/'+GH.owner+'/'+GH.repo+'/contents/builder_bundle.js?ref='+GH.branch,{headers:h});
  if(!r.ok)return;const j=await r.json();if(!j||!j.content)return;
