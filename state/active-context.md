@@ -12,7 +12,7 @@
 **Start ritual:** per the mounted instructions - clone, repo-local identity,
 session_open.py (verify any new inbox bundle FIRST). No clone means no state.
 
-**In progress:** wave: Content resume: Faceless Stray avatar (prompted, awaiting generation); Old Ghost + Tenth Name prose; push/6 held on Terr wedge.
+**In progress:** wave: Content resume: Old Ghost + Tenth Name prose; Forsworn avatars 9/9 complete + wired via profile.updateAi, read-back verified 2026-08-29 (board line was stale; roster sheet exists); remaining art: scene portraits, 12 map pins, backgrounds; push/6 held on Terr wedge.
 
 **Open items, by owner:**
 - dauntless: carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable; verify Waystation scene id pqihl43HYROpkIMX172-P on push/6 read-back (T1 law-49 catch: id in no local capture, all of harvests/ scanned); re-paste mounted from state/mounted_instructions.txt (stamp @17d6a71+06335a4); reinstall build skill from dist after skillpack rebuild (doctrine block + stack row changed)
