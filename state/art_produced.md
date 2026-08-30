@@ -9,3 +9,4 @@ Byte ledger source for pack `imgSizes` at packaging time. Fresh filename (_b, _c
 | fsw_winter_crow | SCENE_CHARACTER full 2:3 | scene_fsw_winter_crow.webp | 973x1459 | 93.1 | rawqc ACCEPT + preflight 0/0 + dark-QC clean (feather edges keyed clean); APPROVED by dauntless 2026-08-30 |
 | fsw_keeper | SCENE_CHARACTER full 2:3 | scene_fsw_keeper.webp | 928x1392 | 114.6 | rawqc ACCEPT + value 0.16/0.85 inside signature + preflight 0/0 + dark-QC clean; APPROVED by dauntless 2026-08-30 |
 | fsw_grain_merchant | SCENE_CHARACTER full 2:3 | scene_fsw_grain_merchant.webp | 945x1417 | 114.3 | rawqc mech REJECT (off-key green again) - keyed clean, value 0.14/0.89, preflight 0/0, dark-QC clean; APPROVED by dauntless 2026-08-30 |
+| fsw_old_ghost | SCENE_CHARACTER full 2:3 | scene_fsw_old_ghost.webp | 967x1450 | 116.0 | rawqc mech REJECT (off-key green) - keyed clean, preflight 0/0, dark-QC clean; APPROVED by dauntless 2026-08-30 |
