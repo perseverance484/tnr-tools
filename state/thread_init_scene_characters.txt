@@ -1,0 +1,77 @@
+SCENE CHARACTER THREAD - INIT + CARDS
+Run: fresh ChatGPT thread. Attach the style reference image, paste the INIT block
+as message one. Wait for its one-line confirm. Then ONE card per message, and
+bring each generation back here for QC before sending the next card.
+
+Reference (attach one, your pick):
+  proposed: bmissions/The Handler (640x985) - ratified exemplar, full-body, closest cast
+  https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ5qZoceH797jl4ubX8xrRqTZasyMp2WA5eLGU
+  alternate: bmissions/Witness Kanna
+  https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeCuah7uyV3OvUJQExAi0bGoIZDF74LqSnHRd
+
+=================== INIT - paste as message 1, reference attached ===================
+
+You are generating a series of game character portraits for me in one fixed house
+style. The attached image is the STYLE REFERENCE.
+
+MATCH from the reference, exactly: crisp pixel lineart, flat cel shading, limited
+palette, defined shadow shapes, flat mid-tones, no airbrush gradients, no bloom.
+Near-black garment base with ONE accent colour per character, appearing only as
+piping, trim or a single carried object, never as a field.
+
+DO NOT copy from the reference: its character, face, clothing, pose, framing,
+background or canvas shape. Style only.
+
+LOCKED FRAME for every image in this thread, regardless of what the reference
+shows: single character, full body standing figure, head to feet visible, 2:3
+portrait canvas, soft even lighting, camera at eye level, flat 3/4 view, no low
+angle and no foreshortening, both arms held within the subject's own silhouette
+and touching nothing, centered, on a true solid flat lime-green chroma key
+background (#00FF00) covering the whole canvas, not transparent, not
+checkerboard. This applies even if the reference has a transparent or scenic
+background.
+
+Elemental glow: only when a SUBJECT explicitly names an accent, render it as rim
+light on edges only, never as an aura, halo, disc or light field. If the SUBJECT
+names none, there is no glow anywhere.
+
+LOCKED NEGATIVE for every image: no text, no UI, no watermark, no chibi, no
+blur, no soft pastel, no muddy dither, no background scenery, no aura, no halo,
+no light field, no glow disc, no lime spill, no multiple characters, no
+checkerboard background, no transparent-preview background, no asset sheet, no
+grid, no labels, no franchise insignia, no desk, no table, no furniture, no
+props, nothing resting on a surface, no low camera angle, no foreshortening.
+
+PROTOCOL: each of my following messages contains one SUBJECT block, optionally a
+POSE line and a NEGATIVE ADD list. Generate exactly ONE image per message: the
+locked frame + the matched style + that subject. Never variants, sheets or
+grids. A NEGATIVE ADD extends the locked negative; an explicit override in the
+message beats a locked rule. Confirm the locked frame back to me in one line and
+wait for the first subject.
+
+=================== CARD 1 - warehouse clerk ===================
+
+POSE: anxious but resolved.
+
+SUBJECT: middle-aged civilian warehouse clerk, thin build, tired anxious face,
+round wire spectacles, short receding dark hair, heavy dark wool overcoat over
+plain work clothes, grey scarf at the neck, worn leather document satchel
+clutched to his chest with both hands, copper as the single accent colour on the
+satchel buckles and coat trim.
+
+OVERRIDE: the single carried satchel is allowed; all other props stay banned.
+
+=================== CARD 2 - squad survivor ===================
+
+POSE: drained, hollow-eyed but composed, weight favouring one leg.
+
+SUBJECT: young adult male squad scout, lean build, exhausted face with dark
+circles, short dark hair matted with dust, soot streaks and light singe marks
+down his left side, plain field fatigues in muted grey-green with scorched
+darkened left sleeve and shoulder, left arm in a simple cloth field sling bound
+close to his chest, dull red as the single accent colour on the sling wrap and
+collar trim.
+
+NEGATIVE ADD: no blood, no open wounds, no gore, no bandaged face, no seated
+pose, no kneeling, no crutch, no weapon, nothing carried in the hands, no rock,
+no overhang, no leaning.
