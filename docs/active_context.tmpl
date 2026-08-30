@@ -6,13 +6,8 @@
 **Verified at close (exact runs):**
 {{verified_at_close}}
 
-**Start ritual next session:** git pull --rebase; set repo-local git identity
-(user.name perseverance484 / user.email
-288385517+perseverance484@users.noreply.github.com); then
-`python3 skills/building-tnr-content/scripts/session_open.py` - it prints this
-state, runs the guard trio (lawmap, validate on the in-progress file, parity
-vs the newest inbox bundle), and seeds the token ledger. If a new inbox bundle
-exists: `harvest.py verify` it FIRST. No clone means no state: say so.
+**Start ritual:** per the mounted instructions - clone, repo-local identity,
+session_open.py (verify any new inbox bundle FIRST). No clone means no state.
 
 **In progress:** {{in_progress}}
 
@@ -23,18 +18,4 @@ exists: `harvest.py verify` it FIRST. No clone means no state: say so.
 
 **Next:** {{next}}
 
-**Laws that bite immediately:** validate.py/factory.py want cwd=data/; lawmap
-and doctrinemap want no args (paths resolve from the repo). Regen adoption
-goes THROUGH schema_diff (00_INDEX row). A push echo is not a read-back;
-harvest.py verify reads the verdicts. Everything ships hidden:true. Always
-git pull --rebase before push - workflows commit back. Doctrine edits happen
-in docs/DOCTRINE.md, then render_doctrine.py --write; rendered blocks are
-never hand-edited.
-
-**Failure modes to watch in yourself:** container shell is /bin/sh - no
-process substitution; use temp files. Inline git -c identity fails inside
-rebase finalization - set repo-local config first. Never pipe a gate's output
-through tail and read $? - the pipe masks the exit code. Never search a
-truncated blob and claim absence - print the population scanned. Exact-match
-count==1 asserts on every patch. Never push under .github/workflows/ - stage
-to state/staged_workflows/.
+Container quirks and cross-cutting laws live in the mounted instructions.
