@@ -1,11 +1,4 @@
 {
- "_provenance": {
-  "generator": "schema_extract.py v2.1",
-  "extracted": "2026-08-26",
-  "source_drop": "TheNinjaRPG-main__3_.zip",
-  "content_sha256_16": "8c8fa77e6e48fed6",
-  "contract": "GENERATED. Do not hand-edit. content_sha256_16 fingerprints the payload, not the stamp: two files claiming the same generator, drop and date but differing in content are detectable by comparing this field. That failure occurred on 2026-08-26 and went unnoticed because stamps agreed while contents did not."
- },
  "_generated_from": [
   "app/src/validators/ai.ts",
   "app/src/validators/objectives.ts",
@@ -141,7 +134,7 @@
      "target": {
       "type": "enum",
       "default": "RANDOM_OPPONENT",
-      "enum_ref": "AvailableTargets",
+      "enum_ref": "AvailableTargets@validators/ai.ts",
       "enum": [
        "BARRIER_BETWEEN",
        "BARRIER_BLOCKING_CLOSEST_OPPONENT",
@@ -181,7 +174,7 @@
      "target": {
       "type": "enum",
       "default": "RANDOM_OPPONENT",
-      "enum_ref": "AvailableTargets",
+      "enum_ref": "AvailableTargets@validators/ai.ts",
       "enum": [
        "BARRIER_BETWEEN",
        "BARRIER_BLOCKING_CLOSEST_OPPONENT",
@@ -266,7 +259,7 @@
      "target": {
       "type": "enum",
       "default": "CLOSEST_OPPONENT",
-      "enum_ref": "AvailableTargets",
+      "enum_ref": "AvailableTargets@validators/ai.ts",
       "enum": [
        "BARRIER_BETWEEN",
        "BARRIER_BLOCKING_CLOSEST_OPPONENT",
@@ -307,7 +300,7 @@
      "target": {
       "type": "enum",
       "default": "RANDOM_OPPONENT",
-      "enum_ref": "AvailableTargets",
+      "enum_ref": "AvailableTargets@validators/ai.ts",
       "enum": [
        "BARRIER_BETWEEN",
        "BARRIER_BLOCKING_CLOSEST_OPPONENT",
@@ -363,7 +356,7 @@
      "target": {
       "type": "enum",
       "default": "RANDOM_OPPONENT",
-      "enum_ref": "AvailableTargets",
+      "enum_ref": "AvailableTargets@validators/ai.ts",
       "enum": [
        "BARRIER_BETWEEN",
        "BARRIER_BLOCKING_CLOSEST_OPPONENT",
@@ -401,7 +394,7 @@
      "target": {
       "type": "enum",
       "default": "RANDOM_OPPONENT",
-      "enum_ref": "AvailableTargets",
+      "enum_ref": "AvailableTargets@validators/ai.ts",
       "enum": [
        "BARRIER_BETWEEN",
        "BARRIER_BLOCKING_CLOSEST_OPPONENT",
@@ -435,7 +428,7 @@
      "target": {
       "type": "enum",
       "default": "RANDOM_OPPONENT",
-      "enum_ref": "AvailableTargets",
+      "enum_ref": "AvailableTargets@validators/ai.ts",
       "enum": [
        "BARRIER_BETWEEN",
        "BARRIER_BLOCKING_CLOSEST_OPPONENT",
@@ -469,7 +462,7 @@
      "target": {
       "type": "enum",
       "default": "RANDOM_OPPONENT",
-      "enum_ref": "AvailableTargets",
+      "enum_ref": "AvailableTargets@validators/ai.ts",
       "enum": [
        "BARRIER_BETWEEN",
        "BARRIER_BLOCKING_CLOSEST_OPPONENT",
@@ -503,7 +496,7 @@
      "target": {
       "type": "enum",
       "default": "RANDOM_OPPONENT",
-      "enum_ref": "AvailableTargets",
+      "enum_ref": "AvailableTargets@validators/ai.ts",
       "enum": [
        "BARRIER_BETWEEN",
        "BARRIER_BLOCKING_CLOSEST_OPPONENT",
@@ -541,7 +534,7 @@
      "target": {
       "type": "enum",
       "default": "RANDOM_OPPONENT",
-      "enum_ref": "AvailableTargets",
+      "enum_ref": "AvailableTargets@validators/ai.ts",
       "enum": [
        "BARRIER_BETWEEN",
        "BARRIER_BLOCKING_CLOSEST_OPPONENT",
@@ -579,7 +572,7 @@
      "target": {
       "type": "enum",
       "default": "RANDOM_OPPONENT",
-      "enum_ref": "AvailableTargets",
+      "enum_ref": "AvailableTargets@validators/ai.ts",
       "enum": [
        "BARRIER_BETWEEN",
        "BARRIER_BLOCKING_CLOSEST_OPPONENT",
@@ -621,7 +614,7 @@
      "target": {
       "type": "enum",
       "default": "RANDOM_OPPONENT",
-      "enum_ref": "AvailableTargets",
+      "enum_ref": "AvailableTargets@validators/ai.ts",
       "enum": [
        "BARRIER_BETWEEN",
        "BARRIER_BLOCKING_CLOSEST_OPPONENT",
@@ -692,6 +685,28 @@
       "type": "string",
       "optional": true
      },
+     "attackers": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
+     },
      "attackers_scaled_to_user": {
       "type": "boolean"
      },
@@ -704,29 +719,6 @@
       "type": "number",
       "default": 1,
       "max": 100
-     },
-     "attackers": {
-      "type": "array",
-      "default": [],
-      "_class": "derived",
-      "_source": "app/src/validators/base.ts -> idsWithNumberField",
-      "item": {
-       "ids": {
-        "type": "array",
-        "item": "string",
-        "default": []
-       },
-       "number": {
-        "type": "number",
-        "default": 100,
-        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
-       },
-       "quantity": {
-        "type": "number",
-        "default": 1
-       }
-      },
-      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     }
    },
@@ -903,6 +895,30 @@
       "default": "start_battle",
       "literal": "start_battle"
      },
+     "opponentAIs": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": [],
+      "min_items": 1,
+      "_refine": "length > 0 (source .refine)"
+     },
      "id": {
       "type": "string"
      },
@@ -979,31 +995,6 @@
      },
      "keepOriginalPools": {
       "type": "boolean"
-     },
-     "opponentAIs": {
-      "type": "array",
-      "default": [],
-      "_class": "derived",
-      "_source": "app/src/validators/base.ts -> idsWithNumberField",
-      "item": {
-       "ids": {
-        "type": "array",
-        "item": "string",
-        "default": []
-       },
-       "number": {
-        "type": "number",
-        "default": 100,
-        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
-       },
-       "quantity": {
-        "type": "number",
-        "default": 1
-       }
-      },
-      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that.",
-      "min_items": 1,
-      "_refine": "At least one opponent AI is required"
      }
     },
     "discriminant": {
@@ -1063,19 +1054,18 @@
       "default": "specific",
       "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "specific",
-       "random",
-       "from_list",
-       "user_village",
        "current_sector",
-       "enemy_village"
-      ],
-      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
+       "enemy_village",
+       "from_list",
+       "random",
+       "specific",
+       "user_village"
+      ]
      },
      "locationType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "LOCATION_TYPES",
+      "enum_ref": "LOCATION_TYPES@validators/objectives.ts",
       "enum": [
        "random",
        "specific"
@@ -1096,6 +1086,28 @@
       "type": "string",
       "default": ""
      },
+     "attackers": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
+     },
      "attackers_scaled_to_user": {
       "type": "boolean"
      },
@@ -1108,29 +1120,6 @@
       "type": "number",
       "default": 1,
       "max": 100
-     },
-     "attackers": {
-      "type": "array",
-      "default": [],
-      "_class": "derived",
-      "_source": "app/src/validators/base.ts -> idsWithNumberField",
-      "item": {
-       "ids": {
-        "type": "array",
-        "item": "string",
-        "default": []
-       },
-       "number": {
-        "type": "number",
-        "default": 100,
-        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
-       },
-       "quantity": {
-        "type": "number",
-        "default": 1
-       }
-      },
-      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     },
     "discriminant": {
@@ -1206,19 +1195,18 @@
       "default": "specific",
       "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "specific",
-       "random",
-       "from_list",
-       "user_village",
        "current_sector",
-       "enemy_village"
-      ],
-      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
+       "enemy_village",
+       "from_list",
+       "random",
+       "specific",
+       "user_village"
+      ]
      },
      "locationType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "LOCATION_TYPES",
+      "enum_ref": "LOCATION_TYPES@validators/objectives.ts",
       "enum": [
        "random",
        "specific"
@@ -1239,6 +1227,28 @@
       "type": "string",
       "default": ""
      },
+     "attackers": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
+     },
      "attackers_scaled_to_user": {
       "type": "boolean"
      },
@@ -1251,29 +1261,6 @@
       "type": "number",
       "default": 1,
       "max": 100
-     },
-     "attackers": {
-      "type": "array",
-      "default": [],
-      "_class": "derived",
-      "_source": "app/src/validators/base.ts -> idsWithNumberField",
-      "item": {
-       "ids": {
-        "type": "array",
-        "item": "string",
-        "default": []
-       },
-       "number": {
-        "type": "number",
-        "default": 100,
-        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
-       },
-       "quantity": {
-        "type": "number",
-        "default": 1
-       }
-      },
-      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     },
     "discriminant": {
@@ -1346,19 +1333,18 @@
       "default": "specific",
       "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "specific",
-       "random",
-       "from_list",
-       "user_village",
        "current_sector",
-       "enemy_village"
-      ],
-      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
+       "enemy_village",
+       "from_list",
+       "random",
+       "specific",
+       "user_village"
+      ]
      },
      "locationType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "LOCATION_TYPES",
+      "enum_ref": "LOCATION_TYPES@validators/objectives.ts",
       "enum": [
        "random",
        "specific"
@@ -1379,6 +1365,28 @@
       "type": "string",
       "default": ""
      },
+     "attackers": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
+     },
      "attackers_scaled_to_user": {
       "type": "boolean"
      },
@@ -1391,29 +1399,6 @@
       "type": "number",
       "default": 1,
       "max": 100
-     },
-     "attackers": {
-      "type": "array",
-      "default": [],
-      "_class": "derived",
-      "_source": "app/src/validators/base.ts -> idsWithNumberField",
-      "item": {
-       "ids": {
-        "type": "array",
-        "item": "string",
-        "default": []
-       },
-       "number": {
-        "type": "number",
-        "default": 100,
-        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
-       },
-       "quantity": {
-        "type": "number",
-        "default": 1
-       }
-      },
-      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     },
     "discriminant": {
@@ -1428,6 +1413,28 @@
       "type": "literal",
       "default": "defeat_opponents",
       "literal": "defeat_opponents"
+     },
+     "opponentAIs": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
      },
      "id": {
       "type": "string"
@@ -1511,19 +1518,18 @@
       "default": "specific",
       "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "specific",
-       "random",
-       "from_list",
-       "user_village",
        "current_sector",
-       "enemy_village"
-      ],
-      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
+       "enemy_village",
+       "from_list",
+       "random",
+       "specific",
+       "user_village"
+      ]
      },
      "locationType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "LOCATION_TYPES",
+      "enum_ref": "LOCATION_TYPES@validators/objectives.ts",
       "enum": [
        "random",
        "specific"
@@ -1544,6 +1550,28 @@
       "type": "string",
       "default": ""
      },
+     "attackers": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
+     },
      "attackers_scaled_to_user": {
       "type": "boolean"
      },
@@ -1556,52 +1584,6 @@
       "type": "number",
       "default": 1,
       "max": 100
-     },
-     "opponentAIs": {
-      "type": "array",
-      "default": [],
-      "_class": "derived",
-      "_source": "app/src/validators/base.ts -> idsWithNumberField",
-      "item": {
-       "ids": {
-        "type": "array",
-        "item": "string",
-        "default": []
-       },
-       "number": {
-        "type": "number",
-        "default": 100,
-        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
-       },
-       "quantity": {
-        "type": "number",
-        "default": 1
-       }
-      },
-      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
-     },
-     "attackers": {
-      "type": "array",
-      "default": [],
-      "_class": "derived",
-      "_source": "app/src/validators/base.ts -> idsWithNumberField",
-      "item": {
-       "ids": {
-        "type": "array",
-        "item": "string",
-        "default": []
-       },
-       "number": {
-        "type": "number",
-        "default": 100,
-        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
-       },
-       "quantity": {
-        "type": "number",
-        "default": 1
-       }
-      },
-      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     },
     "discriminant": {
@@ -1621,12 +1603,12 @@
       "type": "string",
       "default": ""
      },
-     "text": {
-      "type": "string"
-     },
      "nextObjectiveId": {
       "type": "string",
       "optional": true
+     },
+     "text": {
+      "type": "string"
      },
      "id": {
       "type": "string"
@@ -1663,6 +1645,28 @@
       "type": "string",
       "optional": true
      },
+     "attackers": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
+     },
      "attackers_scaled_to_user": {
       "type": "boolean"
      },
@@ -1675,29 +1679,6 @@
       "type": "number",
       "default": 1,
       "max": 100
-     },
-     "attackers": {
-      "type": "array",
-      "default": [],
-      "_class": "derived",
-      "_source": "app/src/validators/base.ts -> idsWithNumberField",
-      "item": {
-       "ids": {
-        "type": "array",
-        "item": "string",
-        "default": []
-       },
-       "number": {
-        "type": "number",
-        "default": 100,
-        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
-       },
-       "quantity": {
-        "type": "number",
-        "default": 1
-       }
-      },
-      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     },
     "discriminant": {
@@ -1711,7 +1692,7 @@
      "locationType": {
       "type": "enum",
       "default": "random",
-      "enum_ref": "LOCATION_TYPES",
+      "enum_ref": "LOCATION_TYPES@validators/objectives.ts",
       "enum": [
        "random",
        "specific"
@@ -1766,14 +1747,13 @@
       "default": "specific",
       "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "specific",
-       "random",
-       "from_list",
-       "user_village",
        "current_sector",
-       "enemy_village"
-      ],
-      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
+       "enemy_village",
+       "from_list",
+       "random",
+       "specific",
+       "user_village"
+      ]
      },
      "sectorList": {
       "type": "array",
@@ -1790,6 +1770,28 @@
       "type": "string",
       "default": ""
      },
+     "attackers": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
+     },
      "attackers_scaled_to_user": {
       "type": "boolean"
      },
@@ -1802,29 +1804,6 @@
       "type": "number",
       "default": 1,
       "max": 100
-     },
-     "attackers": {
-      "type": "array",
-      "default": [],
-      "_class": "derived",
-      "_source": "app/src/validators/base.ts -> idsWithNumberField",
-      "item": {
-       "ids": {
-        "type": "array",
-        "item": "string",
-        "default": []
-       },
-       "number": {
-        "type": "number",
-        "default": 100,
-        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
-       },
-       "quantity": {
-        "type": "number",
-        "default": 1
-       }
-      },
-      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that."
      }
     },
     "discriminant": {
@@ -1848,6 +1827,30 @@
      },
      "sector": {
       "type": "number"
+     },
+     "opponentAIs": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": [],
+      "min_items": 1,
+      "_refine": "length > 0 (source .refine)"
      },
      "failDescription": {
       "type": "string",
@@ -1921,31 +1924,6 @@
      },
      "keepOriginalPools": {
       "type": "boolean"
-     },
-     "opponentAIs": {
-      "type": "array",
-      "default": [],
-      "_class": "derived",
-      "_source": "app/src/validators/base.ts -> idsWithNumberField",
-      "item": {
-       "ids": {
-        "type": "array",
-        "item": "string",
-        "default": []
-       },
-       "number": {
-        "type": "number",
-        "default": 100,
-        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
-       },
-       "quantity": {
-        "type": "number",
-        "default": 1
-       }
-      },
-      "_recovered": "Missing from the generated file: schema_extract.py does not resolve field constants imported from another module, and idsWithNumberField is imported from @/validators/base. Hand-added 2026-08-27 from source. Regenerating 45c will drop it again until the extractor is fixed; selfcheck.py guards against that.",
-      "min_items": 1,
-      "_refine": "At least one opponent AI is required"
      }
     }
    },
@@ -2326,7 +2304,7 @@
      "tagType": {
       "type": "enum",
       "default": "OBJECTIVE_TAG_TYPES[0]",
-      "enum_ref": "OBJECTIVE_TAG_TYPES",
+      "enum_ref": "OBJECTIVE_TAG_TYPES@validators/objectives.ts",
       "enum": [
        "absorb",
        "activatesagemode",
@@ -2554,6 +2532,28 @@
       "type": "string",
       "optional": true
      },
+     "attackers": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
+     },
      "attackers_scaled_to_user": {
       "type": "boolean"
      },
@@ -2621,19 +2621,18 @@
       "default": "specific",
       "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "specific",
-       "random",
-       "from_list",
-       "user_village",
        "current_sector",
-       "enemy_village"
-      ],
-      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
+       "enemy_village",
+       "from_list",
+       "random",
+       "specific",
+       "user_village"
+      ]
      },
      "locationType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "LOCATION_TYPES",
+      "enum_ref": "LOCATION_TYPES@validators/objectives.ts",
       "enum": [
        "random",
        "specific"
@@ -2653,6 +2652,28 @@
      "image": {
       "type": "string",
       "default": ""
+     },
+     "attackers": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
      },
      "attackers_scaled_to_user": {
       "type": "boolean"
@@ -2741,19 +2762,18 @@
       "default": "specific",
       "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "specific",
-       "random",
-       "from_list",
-       "user_village",
        "current_sector",
-       "enemy_village"
-      ],
-      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
+       "enemy_village",
+       "from_list",
+       "random",
+       "specific",
+       "user_village"
+      ]
      },
      "locationType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "LOCATION_TYPES",
+      "enum_ref": "LOCATION_TYPES@validators/objectives.ts",
       "enum": [
        "random",
        "specific"
@@ -2773,6 +2793,28 @@
      "image": {
       "type": "string",
       "default": ""
+     },
+     "attackers": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
      },
      "attackers_scaled_to_user": {
       "type": "boolean"
@@ -2858,19 +2900,18 @@
       "default": "specific",
       "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "specific",
-       "random",
-       "from_list",
-       "user_village",
        "current_sector",
-       "enemy_village"
-      ],
-      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
+       "enemy_village",
+       "from_list",
+       "random",
+       "specific",
+       "user_village"
+      ]
      },
      "locationType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "LOCATION_TYPES",
+      "enum_ref": "LOCATION_TYPES@validators/objectives.ts",
       "enum": [
        "random",
        "specific"
@@ -2890,6 +2931,28 @@
      "image": {
       "type": "string",
       "default": ""
+     },
+     "attackers": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
      },
      "attackers_scaled_to_user": {
       "type": "boolean"
@@ -2917,6 +2980,28 @@
       "type": "literal",
       "default": "defeat_opponents",
       "literal": "defeat_opponents"
+     },
+     "opponentAIs": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
      },
      "id": {
       "type": "string"
@@ -3000,19 +3085,18 @@
       "default": "specific",
       "enum_ref": "SECTOR_TYPES@validators/objectives.ts",
       "enum": [
-       "specific",
-       "random",
-       "from_list",
-       "user_village",
        "current_sector",
-       "enemy_village"
-      ],
-      "_corrected": "2026-08-26: name collision. app/drizzle/constants.ts exports a SECTOR_TYPES of village kinds; validators/objectives.ts declares a file-local one of placement modes. The exported one was resolving and this field got the wrong list."
+       "enemy_village",
+       "from_list",
+       "random",
+       "specific",
+       "user_village"
+      ]
      },
      "locationType": {
       "type": "enum",
       "default": "specific",
-      "enum_ref": "LOCATION_TYPES",
+      "enum_ref": "LOCATION_TYPES@validators/objectives.ts",
       "enum": [
        "random",
        "specific"
@@ -3032,6 +3116,28 @@
      "image": {
       "type": "string",
       "default": ""
+     },
+     "attackers": {
+      "type": "array",
+      "_class": "derived",
+      "_source": "app/src/validators/base.ts -> idsWithNumberField",
+      "item": {
+       "ids": {
+        "type": "array",
+        "default": [],
+        "item": "string"
+       },
+       "number": {
+        "type": "number",
+        "default": 100,
+        "doc": "HEADCOUNT in opponentAIs/attackers; DROP CHANCE % in reward arrays. Same shape, opposite meaning."
+       },
+       "quantity": {
+        "type": "number",
+        "default": 1
+       }
+      },
+      "default": []
      },
      "attackers_scaled_to_user": {
       "type": "boolean"
@@ -3429,7 +3535,7 @@
      "tagType": {
       "type": "enum",
       "default": "OBJECTIVE_TAG_TYPES[0]",
-      "enum_ref": "OBJECTIVE_TAG_TYPES",
+      "enum_ref": "OBJECTIVE_TAG_TYPES@validators/objectives.ts",
       "enum": [
        "absorb",
        "activatesagemode",
@@ -3638,7 +3744,11 @@
       "type": "enum",
       "default": "SELF",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "staticAssetPath": {
       "type": "string",
@@ -3805,7 +3915,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -3894,7 +4008,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -4037,7 +4155,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -4118,7 +4240,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -4199,7 +4325,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -4280,7 +4410,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -4361,7 +4495,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -4442,7 +4580,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -4531,7 +4673,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -4577,7 +4723,11 @@
       "type": "enum",
       "default": "SELF",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "staticAssetPath": {
       "type": "string",
@@ -4698,7 +4848,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -4801,7 +4955,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -4923,7 +5081,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -5027,7 +5189,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -5109,7 +5275,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -5239,7 +5409,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -5369,7 +5543,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -5452,7 +5630,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -5514,7 +5696,11 @@
       "type": "enum",
       "default": "SELF",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "staticAssetPath": {
       "type": "string",
@@ -5650,7 +5836,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -5772,7 +5962,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -5876,7 +6070,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -5977,7 +6175,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -6056,7 +6258,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -6137,7 +6343,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -6218,7 +6428,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -6299,7 +6513,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -6387,7 +6605,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -6497,7 +6719,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -6579,7 +6805,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -6709,7 +6939,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -6839,7 +7073,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -6926,7 +7164,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -7020,7 +7262,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -7105,7 +7351,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -7195,7 +7445,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -7257,7 +7511,11 @@
       "type": "enum",
       "default": "SELF",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "staticAssetPath": {
       "type": "string",
@@ -7399,7 +7657,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -7490,7 +7752,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -7567,12 +7833,16 @@
       "type": "enum",
       "default": "SELF",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "blocks": {
       "type": "enum",
       "default": "buffprevent",
-      "enum_ref": "PreventTagTypes",
+      "enum_ref": "PreventTagTypes@validators/combat.ts",
       "enum": [
        "buffprevent",
        "cleanseprevent",
@@ -7721,7 +7991,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -7851,7 +8125,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -7925,7 +8203,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -8006,7 +8288,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -8087,7 +8373,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -8172,7 +8462,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -8253,7 +8547,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -8334,7 +8632,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -8415,7 +8717,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -8525,7 +8831,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -8669,7 +8979,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -8751,7 +9065,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -8886,7 +9204,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -9016,7 +9338,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -9145,7 +9471,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -9219,7 +9549,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -9306,7 +9640,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -9454,7 +9792,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -9534,7 +9876,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -9608,7 +9954,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -9689,7 +10039,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -9777,7 +10131,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -9858,7 +10216,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -9946,7 +10308,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -10026,7 +10392,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -10107,7 +10477,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -10209,7 +10583,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -10292,7 +10670,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -10423,7 +10805,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -10545,7 +10931,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -10626,7 +11016,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -10714,7 +11108,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -10788,7 +11186,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -10932,7 +11334,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -11021,7 +11427,11 @@
       "type": "enum",
       "default": "INHERIT",
       "optional": true,
-      "enum_ref": "BaseTagTargets"
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "INHERIT",
+       "SELF"
+      ]
      },
      "friendlyFire": {
       "type": "enum",
@@ -11087,5 +11497,12 @@
     }
    }
   }
+ },
+ "_provenance": {
+  "generator": "schema_extract.py (mounted 2026-08-30: derived cross-module refs, file-local enums)",
+  "extracted": "2026-08-30",
+  "source_drop": "git:studie-tech/TheNinjaRPG@bdec2883 (2026-08-29)",
+  "content_sha256_16": "34984a086e2412e9",
+  "contract": "GENERATED. Do not hand-edit. content_sha256_16 fingerprints the payload, not the stamp: two files claiming the same generator, drop and date but differing in content are detectable by comparing this field. That failure occurred on 2026-08-26 and went unnoticed because stamps agreed while contents did not."
  }
 }
