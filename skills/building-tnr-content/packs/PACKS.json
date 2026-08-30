@@ -1,0 +1,26 @@
+{
+ "jutsu-build": {
+  "note": "Minimal set for a jutsu create/edit that ends in a push. Read the SKILL doctrine block first, this pack second, data files as needed. Curation of ai/quest/item/art packs is follow-up work; this pack is the proven exemplar.",
+  "sources": [
+   {
+    "file": "references/jutsu.md",
+    "sections": [
+     "1. Jutsu tRPC contract",
+     "2. Jutsu field schema",
+     "3. Effects and tags",
+     "6. Mass-edit",
+     "8. QA checklist",
+     "Relocated engine laws"
+    ]
+   },
+   {
+    "file": "references/pipeline.md",
+    "sections": [
+     "2. Verified tRPC contracts",
+     "4. id-fetch and capture-first",
+     "5. Universal gotcha checklist"
+    ]
+   }
+  ]
+ }
+}
