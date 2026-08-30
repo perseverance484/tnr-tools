@@ -30,6 +30,8 @@ jobs:
         run: python3 skills/building-tnr-content/scripts/doctrinemap.py
       - name: Projections current (fail-closed on drift)
         run: python3 skills/building-tnr-content/scripts/render_doctrine.py --check
+      - name: Task packs + TOCs current (fail-closed on drift)
+        run: python3 skills/building-tnr-content/scripts/build_packs.py --check
       - name: Zip skills (SKILL.md at zip root)
         run: |
           mkdir -p dist

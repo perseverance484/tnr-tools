@@ -1,0 +1,378 @@
+{
+ "file": "skills/building-tnr-content/references/ai.md",
+ "sha7": "dffeb23",
+ "sections": [
+  {
+   "level": 2,
+   "title": "Contents",
+   "start": 218,
+   "end": 3356
+  },
+  {
+   "level": 2,
+   "title": "0. What this file is for",
+   "start": 3356,
+   "end": 4630
+  },
+  {
+   "level": 2,
+   "title": "1. AI Enemy Spec, full field schema",
+   "start": 4630,
+   "end": 5051
+  },
+  {
+   "level": 3,
+   "title": "1.1 Identity / Header",
+   "start": 5051,
+   "end": 5623
+  },
+  {
+   "level": 3,
+   "title": "1.2 Profile / Stat block",
+   "start": 5623,
+   "end": 10094
+  },
+  {
+   "level": 3,
+   "title": "1.3 Passive AI Tags (0-N; bosses/elites)",
+   "start": 10094,
+   "end": 10554
+  },
+  {
+   "level": 3,
+   "title": "1.4 Combat Role",
+   "start": 10554,
+   "end": 10712
+  },
+  {
+   "level": 3,
+   "title": "1.5 AI Pattern (behavior)",
+   "start": 10712,
+   "end": 12748
+  },
+  {
+   "level": 3,
+   "title": "1.6 Jutsu Kit (AI jutsu sub-schema)",
+   "start": 12748,
+   "end": 14587
+  },
+  {
+   "level": 3,
+   "title": "1.6.1 Damage tuning",
+   "start": 14587,
+   "end": 14781
+  },
+  {
+   "level": 3,
+   "title": "1.7 Tactical Read, counters & footer",
+   "start": 14781,
+   "end": 15346
+  },
+  {
+   "level": 3,
+   "title": "1.8 Role defaults (quick reference)",
+   "start": 15346,
+   "end": 15713
+  },
+  {
+   "level": 3,
+   "title": "1.9 Reserved / `NOT RECORDED` registry",
+   "start": 15713,
+   "end": 16102
+  },
+  {
+   "level": 2,
+   "title": "2. Blank fill-in template (copy-paste)",
+   "start": 16102,
+   "end": 16183
+  },
+  {
+   "level": 2,
+   "title": "Identity",
+   "start": 16183,
+   "end": 16373
+  },
+  {
+   "level": 2,
+   "title": "Profile",
+   "start": 16373,
+   "end": 16889
+  },
+  {
+   "level": 2,
+   "title": "Passive AI Tags (omit if None)",
+   "start": 16889,
+   "end": 17028
+  },
+  {
+   "level": 2,
+   "title": "Combat Role",
+   "start": 17028,
+   "end": 17066
+  },
+  {
+   "level": 2,
+   "title": "AI Pattern",
+   "start": 17066,
+   "end": 17290
+  },
+  {
+   "level": 2,
+   "title": "Jutsu Kit",
+   "start": 17290,
+   "end": 17303
+  },
+  {
+   "level": 3,
+   "title": "<jutsu name>, <AP%> \u2022 <function_label>",
+   "start": 17303,
+   "end": 17562
+  },
+  {
+   "level": 2,
+   "title": "Tactical Read",
+   "start": 17562,
+   "end": 17616
+  },
+  {
+   "level": 2,
+   "title": "Reserved (NOT RECORDED)",
+   "start": 17616,
+   "end": 17751
+  },
+  {
+   "level": 2,
+   "title": "3. Machine record",
+   "start": 17751,
+   "end": 17957
+  },
+  {
+   "level": 2,
+   "title": "4. Effect & tag vocabulary, full canonical list",
+   "start": 17957,
+   "end": 18346
+  },
+  {
+   "level": 3,
+   "title": "4.1 AI restrictions (read first)",
+   "start": 18346,
+   "end": 18748
+  },
+  {
+   "level": 3,
+   "title": "4.2 Offense / damage",
+   "start": 18748,
+   "end": 19690
+  },
+  {
+   "level": 3,
+   "title": "4.3 Defense / sustain",
+   "start": 19690,
+   "end": 20605
+  },
+  {
+   "level": 3,
+   "title": "4.4 Control / disruption",
+   "start": 20605,
+   "end": 21964
+  },
+  {
+   "level": 3,
+   "title": "4.5 Buff / utility / meta",
+   "start": 21964,
+   "end": 22744
+  },
+  {
+   "level": 3,
+   "title": "4.6 Special rules",
+   "start": 22744,
+   "end": 23595
+  },
+  {
+   "level": 2,
+   "title": "5. WORKFLOW A, Author the Spec from a request",
+   "start": 23595,
+   "end": 25052
+  },
+  {
+   "level": 2,
+   "title": "6. WORKFLOW B, Infographic from the Spec",
+   "start": 25052,
+   "end": 25298
+  },
+  {
+   "level": 3,
+   "title": "6.1 Layout contract (clean \"ENEMY SHOWCASE\" boss-guide format)",
+   "start": 25298,
+   "end": 26526
+  },
+  {
+   "level": 3,
+   "title": "6.2 Section \u2192 field map",
+   "start": 26526,
+   "end": 27597
+  },
+  {
+   "level": 3,
+   "title": "6.3 Style rules (TNR established)",
+   "start": 27597,
+   "end": 29100
+  },
+  {
+   "level": 3,
+   "title": "6.4 Character-art prompt template (for the external image model)",
+   "start": 29100,
+   "end": 29756
+  },
+  {
+   "level": 3,
+   "title": "6.4b Full poster master prompt (the default Workflow B output)",
+   "start": 29756,
+   "end": 32510
+  },
+  {
+   "level": 3,
+   "title": "6.4c Element \u2192 palette table (swap by `profile.element`)",
+   "start": 32510,
+   "end": 34045
+  },
+  {
+   "level": 3,
+   "title": "6.6 Infographic QA",
+   "start": 34045,
+   "end": 34375
+  },
+  {
+   "level": 2,
+   "title": "7. WORKFLOW C, ViolentMonkey batch payload from the Spec",
+   "start": 34375,
+   "end": 35400
+  },
+  {
+   "level": 3,
+   "title": "7.1-7.3 Legacy batch script",
+   "start": 35400,
+   "end": 35625
+  },
+  {
+   "level": 3,
+   "title": "7.4 Effect objects",
+   "start": 35625,
+   "end": 35854
+  },
+  {
+   "level": 3,
+   "title": "7.5 Safety",
+   "start": 35854,
+   "end": 36114
+  },
+  {
+   "level": 3,
+   "title": "7.6 (retired with 7.1-7.3)",
+   "start": 36114,
+   "end": 36146
+  },
+  {
+   "level": 2,
+   "title": "8. Master QA checklist (before delivering any AI enemy)",
+   "start": 36146,
+   "end": 37813
+  },
+  {
+   "level": 2,
+   "title": "Addendum: effect and edit rules (live-verified)",
+   "start": 37813,
+   "end": 38461
+  },
+  {
+   "level": 2,
+   "title": "Rules live on the AI entry (added 2026-07-27)",
+   "start": 38461,
+   "end": 38903
+  },
+  {
+   "level": 2,
+   "title": "Addendum: harvest Stage 1 facts (2026-08-01)",
+   "start": 38903,
+   "end": 41418
+  },
+  {
+   "level": 2,
+   "title": "1. Contract (verified)",
+   "start": 41418,
+   "end": 43192
+  },
+  {
+   "level": 3,
+   "title": "Pipeline to set behavior on a fresh enemy",
+   "start": 43192,
+   "end": 43903
+  },
+  {
+   "level": 2,
+   "title": "2. Rule object",
+   "start": 43903,
+   "end": 44725
+  },
+  {
+   "level": 2,
+   "title": "3. Conditions (9 total)",
+   "start": 44725,
+   "end": 46976
+  },
+  {
+   "level": 2,
+   "title": "4. Actions (10 total)",
+   "start": 46976,
+   "end": 48969
+  },
+  {
+   "level": 2,
+   "title": "5. Targets (9 total)",
+   "start": 48969,
+   "end": 49661
+  },
+  {
+   "level": 2,
+   "title": "6. Effect enum (71, used by has_effect / target_has_effect / use_highest_power_*)",
+   "start": 49661,
+   "end": 50942
+  },
+  {
+   "level": 2,
+   "title": "7. Gotchas",
+   "start": 50942,
+   "end": 54008
+  },
+  {
+   "level": 2,
+   "title": "8. Residual unknowns",
+   "start": 54008,
+   "end": 54648
+  },
+  {
+   "level": 2,
+   "title": "Addendum (Jul 10 2026, source extraction): vocabulary VERIFIED",
+   "start": 54648,
+   "end": 55734
+  },
+  {
+   "level": 2,
+   "title": "The confirmed rule vocabulary and the range law (added 2026-07-27)",
+   "start": 55734,
+   "end": 57623
+  },
+  {
+   "level": 2,
+   "title": "Addendum: ai_v2 source verification + harvest facts (2026-08-01)",
+   "start": 57623,
+   "end": 60530
+  },
+  {
+   "level": 2,
+   "title": "Relocated engine laws (2026-08-28)",
+   "start": 60530,
+   "end": 67696
+  }
+ ]
+}

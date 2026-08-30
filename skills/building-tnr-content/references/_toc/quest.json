@@ -1,0 +1,306 @@
+{
+ "file": "skills/building-tnr-content/references/quest.md",
+ "sha7": "c012b6d",
+ "sections": [
+  {
+   "level": 2,
+   "title": "Contents",
+   "start": 81,
+   "end": 2513
+  },
+  {
+   "level": 2,
+   "title": "1. The objective graph",
+   "start": 2513,
+   "end": 2772
+  },
+  {
+   "level": 3,
+   "title": "1.1 Edges and pointers",
+   "start": 2772,
+   "end": 3144
+  },
+  {
+   "level": 3,
+   "title": "1.2 Flow validation (the rule that rejects quests)",
+   "start": 3144,
+   "end": 4012
+  },
+  {
+   "level": 2,
+   "title": "2. Objective types",
+   "start": 4012,
+   "end": 5599
+  },
+  {
+   "level": 3,
+   "title": "2.1 Full task vocabulary (source-confirmed)",
+   "start": 5599,
+   "end": 7464
+  },
+  {
+   "level": 2,
+   "title": "3. Battle objectives",
+   "start": 7464,
+   "end": 7671
+  },
+  {
+   "level": 3,
+   "title": "3.1 `start_battle`: an instant ACTION, legitimate anywhere when dialog-gated (source-verified)",
+   "start": 7671,
+   "end": 9835
+  },
+  {
+   "level": 3,
+   "title": "3.2 `defeat_opponents` is the primitive for scripted and sequential battles (generic quests)",
+   "start": 9835,
+   "end": 10613
+  },
+  {
+   "level": 3,
+   "title": "3.3 opponentAIs encoding",
+   "start": 10613,
+   "end": 11380
+  },
+  {
+   "level": 3,
+   "title": "3.4 Same-sector activation and dispersal (generic quests)",
+   "start": 11380,
+   "end": 11845
+  },
+  {
+   "level": 3,
+   "title": "3.4b The sequencing engine (source-verified, `quest.ts` / `objectives.ts` / `sector.ts` / `quests.ts`)",
+   "start": 11845,
+   "end": 16099
+  },
+  {
+   "level": 3,
+   "title": "3.4b consecutiveObjectives, dates, and the launch fields (2026-07-18, paid for live)",
+   "start": 16099,
+   "end": 17280
+  },
+  {
+   "level": 3,
+   "title": "3.4b-2 CYOA branch doctrine (the wings pattern)",
+   "start": 17280,
+   "end": 17960
+  },
+  {
+   "level": 3,
+   "title": "3.4c Quest gate field caps (server schema, live-verified)",
+   "start": 17960,
+   "end": 18575
+  },
+  {
+   "level": 3,
+   "title": "3.4d Quest EDITS reproduce the full record",
+   "start": 18575,
+   "end": 18944
+  },
+  {
+   "level": 3,
+   "title": "3.4e War reward fields",
+   "start": 18944,
+   "end": 19249
+  },
+  {
+   "level": 3,
+   "title": "3.5 Lose-retry pattern",
+   "start": 19249,
+   "end": 19678
+  },
+  {
+   "level": 3,
+   "title": "3.6 reset_quest node shape",
+   "start": 19678,
+   "end": 20010
+  },
+  {
+   "level": 3,
+   "title": "3.7 The `battlepyramid` quest type (dialog-gated single battles)",
+   "start": 20010,
+   "end": 24026
+  },
+  {
+   "level": 2,
+   "title": "4. Quest-level data model (complete)",
+   "start": 24026,
+   "end": 27548
+  },
+  {
+   "level": 3,
+   "title": "4.1 Complete top-level create payload (copy this shape)",
+   "start": 27548,
+   "end": 28572
+  },
+  {
+   "level": 2,
+   "title": "5. Quest tRPC contract",
+   "start": 28572,
+   "end": 29546
+  },
+  {
+   "level": 3,
+   "title": "5.1 The flatten rule (the builder does this automatically)",
+   "start": 29546,
+   "end": 30614
+  },
+  {
+   "level": 3,
+   "title": "5.2 Read json.success, not the HTTP status",
+   "start": 30614,
+   "end": 31131
+  },
+  {
+   "level": 2,
+   "title": "6. Design",
+   "start": 31131,
+   "end": 31145
+  },
+  {
+   "level": 3,
+   "title": "6.1 The patterns",
+   "start": 31145,
+   "end": 32026
+  },
+  {
+   "level": 3,
+   "title": "6.2 Writing rules",
+   "start": 32026,
+   "end": 32801
+  },
+  {
+   "level": 3,
+   "title": "6.3 Reward philosophy (values are dauntless's call)",
+   "start": 32801,
+   "end": 34137
+  },
+  {
+   "level": 3,
+   "title": "6.4 Asset planning",
+   "start": 34137,
+   "end": 34597
+  },
+  {
+   "level": 2,
+   "title": "7. Reference quests and worked examples",
+   "start": 34597,
+   "end": 34641
+  },
+  {
+   "level": 3,
+   "title": "7.1 Reference generic quest (copy for `defeat_opponents` chains)",
+   "start": 34641,
+   "end": 35149
+  },
+  {
+   "level": 3,
+   "title": "7.2 Reference battlepyramid (copy for chained `start_battle`)",
+   "start": 35149,
+   "end": 35703
+  },
+  {
+   "level": 3,
+   "title": "7.3 Warpath (event, war cache) - id `ZpCHLfGJJcR9L7ovcHx6J`",
+   "start": 35703,
+   "end": 36027
+  },
+  {
+   "level": 3,
+   "title": "7.4 Ashen Lung (story, medical) - id `b6DKJZB3_6v54RDcBXYWi`",
+   "start": 36027,
+   "end": 36287
+  },
+  {
+   "level": 2,
+   "title": "8. QA checklist (before any quest push)",
+   "start": 36287,
+   "end": 38489
+  },
+  {
+   "level": 2,
+   "title": "Addendum (Jul 10 2026): new_quest mechanics, exclusivity findings, two write-validator rules",
+   "start": 38489,
+   "end": 40942
+  },
+  {
+   "level": 2,
+   "title": "Addendum (Jul 10 2026, source extraction): the quest engine from the repo (AUTHORITATIVE)",
+   "start": 40942,
+   "end": 41393
+  },
+  {
+   "level": 3,
+   "title": "The eligibility filter (`isAvailableUserQuests`) - one filter rules everything",
+   "start": 41393,
+   "end": 42882
+  },
+  {
+   "level": 3,
+   "title": "The prune, precisely",
+   "start": 42882,
+   "end": 43304
+  },
+  {
+   "level": 3,
+   "title": "startQuest guards (in order, all live-confirmed contracts)",
+   "start": 43304,
+   "end": 44012
+  },
+  {
+   "level": 3,
+   "title": "Where each questType lists (the surfacing map)",
+   "start": 44012,
+   "end": 44566
+  },
+  {
+   "level": 3,
+   "title": "Objective schema corrections (validators/objectives.ts)",
+   "start": 44566,
+   "end": 45370
+  },
+  {
+   "level": 2,
+   "title": "2. Availability: the gating model (the answer to actions vs gates)",
+   "start": 45370,
+   "end": 46214
+  },
+  {
+   "level": 2,
+   "title": "6. reset_quest (exact semantics)",
+   "start": 46214,
+   "end": 46937
+  },
+  {
+   "level": 2,
+   "title": "7. The attackers ambush system (semantics differ from opponentAIs!)",
+   "start": 46937,
+   "end": 47600
+  },
+  {
+   "level": 2,
+   "title": "Unlock graph, reveal pacing, and profession quests (added 2026-07-27)",
+   "start": 47600,
+   "end": 49529
+  },
+  {
+   "level": 2,
+   "title": "Addendum: harvest Stage 1 facts (2026-08-01, from 52_HARVEST sweep)",
+   "start": 49529,
+   "end": 50903
+  },
+  {
+   "level": 3,
+   "title": "6.2b Dialog text is HTML, and choices must have consequences (2026-08-26)",
+   "start": 50903,
+   "end": 52486
+  },
+  {
+   "level": 2,
+   "title": "Relocated engine laws (2026-08-28)",
+   "start": 52486,
+   "end": 61729
+  }
+ ]
+}
