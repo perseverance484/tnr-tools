@@ -23,7 +23,7 @@ verify it FIRST (WO-01 acceptance). Re-run lawmap + parity before trusting anyth
 **dauntless checklist (all Wave 1 closure items):**
 1. ViolentMonkey refresh -> panel title must read "Content builder v4.28 · cfg
    generated" (a ⚠HEAD suffix means the loaded copy is stale vs repo).
-2. One Build tap on push/7_readback_smoke.json (⇩ Repo) - bundle auto-commits;
+2. DONE - WO-01 acceptance PASSED (bundle 1788061342415, verify green).
    container then runs harvest.py verify on it.
 3. Web-UI install batch (browser, NOT the PAT): state/staged_workflows/
    regen_schemas.yml -> .github/workflows/ (new) and scrub.yml -> REPLACE

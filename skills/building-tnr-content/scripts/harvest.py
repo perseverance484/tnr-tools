@@ -336,6 +336,23 @@ def cmd_verify(path):
                 bad += 1
             continue
         fails = a.get("fail") or []
+        # server normalization: '' sent vs null stored (or vice versa) on the
+        # SAME top-level key is byte-different but semantically identical -
+        # observed live on jutsu requiredBloodlineItemId/parentJutsuId while
+        # bloodlineId/villageId kept ''. Reclassify, never fail on it. The
+        # panel-side comparator (pfEq) gets the same rule in v4.29.
+        norm = []
+        real = []
+        p_, l_ = e.get("pushed") or {}, e.get("live") or {}
+        for f in fails:
+            k = f.get("k")
+            pv, lv = p_.get(k), l_.get(k)
+            if f.get("c") == "mismatch" and (
+                    (pv == "" and lv is None) or (pv is None and lv == "")):
+                norm.append(k)
+            else:
+                real.append(f)
+        fails = real
         if fails:
             n_fail += 1
             bad += 1
@@ -348,6 +365,8 @@ def cmd_verify(path):
         else:
             n_ok += 1
             extra = "" if v == "match" else f"  (full-record {v}: server rewrote unasserted fields)"
+            if norm:
+                extra += "  (%d field(s) ''<->null server-normalized: %s)" % (len(norm), ",".join(norm))
             print(f"OK          {name} -> {ident}: A:{a.get('ok',0)} asserted field(s) landed{extra}")
     print(f"\nbuilder {bver}: {n_ok} ok, {n_fail} fail, {n_unv} unverified, {n_skip} skipped"
           f"  ->  {'VERIFY FAILED' if bad else 'verified'}")
