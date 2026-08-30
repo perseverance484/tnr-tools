@@ -32,7 +32,7 @@
     "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93"
   ],
   "in_progress": {
-    "wave": "Ten missions COMPLETE: wired, verified, wedge closed (builder v4.30), 26 probes deleted, spent manifests archived. Lane: ARTWORK ONLY. Firm nine portraits COMPLETE + cast sheet posted; push/16 MISROUTED (builder ran 'gameAsset' entries through the jutsu fallback: 9 hidden junk jutsu, ids in state/push16_misroute.json, deletion owed). Fixed at source: factory emits builder-dialect 'asset', validate normalizes, builder v4.31 unknown-entity guard (loader 4.31, VM refresh owed). 16b run on stale v4.30 hit idmap poisoning (cached junk-jutsu ids; source-verified: asset.update entry-null path, role fine). v4.31 adds stale-idmap heal; push/16c staged with fresh srcIds, validate 0/0, awaiting VM-refreshed run + verify. Remaining art per state/art_backlog.md; gates: publish gate (content admin); micro-rulings open (silent nodes g30/g36/x1, x22 speaker, handler pronouns)."
+    "wave": "Ten missions COMPLETE: wired, verified, wedge closed (builder v4.30), 26 probes deleted, spent manifests archived. Lane: ARTWORK ONLY. Firm nine portraits COMPLETE + cast sheet posted; push/16 MISROUTED (builder ran 'gameAsset' entries through the jutsu fallback: 9 hidden junk jutsu, ids in state/push16_misroute.json, deletion owed). Fixed at source: factory emits builder-dialect 'asset', validate normalizes, builder v4.31 unknown-entity guard (loader 4.31, VM refresh owed). 16b run on stale v4.30 hit idmap poisoning (cached junk-jutsu ids; source-verified: asset.update entry-null path, role fine). v4.31 adds stale-idmap heal; 16c VERIFIED live via 17 capture (nine SCENE_CHARACTERs hidden, ids in state/wiring_live_assets.json). Cast fully ruled. push/18_scene_wiring staged: 10 quest edits from live 17 truth (64 speaker nodes, 123 blanks, 112 untouched), capture.after read-backs, validate 0 errors / 63 expected-stale law-49 snapshot warnings (all ids proven live in 17). Awaiting the one wiring press + verify. Remaining art per state/art_backlog.md; gates: publish gate (content admin); micro-rulings open (silent nodes g30/g36/x1, x22 speaker, handler pronouns)."
   },
   "open_by_owner": {
     "dauntless": [
@@ -83,7 +83,7 @@
       "at": "17:28Z"
     }
   ],
-  "next": "Dauntless presses push/17_wiring_capture.json (11 reads). From its bundle: build wiring pack 18 (per-node sceneCharacters incl blanks, capture.after read-backs), one press, verify, close. 16c nine verified via the same getAll read.",
+  "next": "Dauntless presses push/18_scene_wiring.json. Verify its bundle read-backs (per-node sceneCharacters live). Then close out; junk-jutsu deletion still owed; backgrounds + icons waves next on the new loop.",
   "blocked": [
     "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
   ],
