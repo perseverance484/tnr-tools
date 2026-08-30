@@ -1,5 +1,13 @@
 # CLOSEOUT.md - how to end a TNR session
 
+> **Mounted addendum 2026-08-30.** Under mounted-repo sessions the repo IS the bundle:
+> laws land in docs/ENGINE_LAWS.md + 12b, tool patches commit straight to /skills/
+> (skillpack rebuilds dist), results ride harvests/inbox/, and NEXT_SESSION.md's job is
+> done by state/active-context.md, rewritten at every close. closeout.py and the forsworn/
+> zip layout below are the pre-mount procedure - use them only from a session that cannot
+> push. The checks still bind: regenerate-don't-copy, validate everything staged and record
+> the exact output, open items with owners.
+
 The test this procedure has to pass: **a fresh session, with no memory of this one, can pick up
 the work from the bundle alone and not repeat a mistake we already paid for.**
 
