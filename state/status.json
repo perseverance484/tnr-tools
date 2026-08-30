@@ -27,12 +27,13 @@
     "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93"
   ],
   "in_progress": {
-    "wave": "Ten missions COMPLETE: wired, verified, wedge closed (builder v4.30), 26 probes deleted, spent manifests archived. Lane: ARTWORK ONLY. Firm nine portraits COMPLETE + cast sheet posted; push/16 staged as v4.25 zip PACK (no picker) awaiting dauntless Repo->Build + bundle verify. Remaining art per state/art_backlog.md; gates: publish gate (content admin); micro-rulings open (silent nodes g30/g36/x1, x22 speaker, handler pronouns)."
+    "wave": "Ten missions COMPLETE: wired, verified, wedge closed (builder v4.30), 26 probes deleted, spent manifests archived. Lane: ARTWORK ONLY. Firm nine portraits COMPLETE + cast sheet posted; push/16 MISROUTED (builder ran 'gameAsset' entries through the jutsu fallback: 9 hidden junk jutsu, ids in state/push16_misroute.json, deletion owed). Fixed at source: factory emits builder-dialect 'asset', validate normalizes, builder v4.31 unknown-entity guard (loader 4.31, VM refresh owed). push/16b pack staged, validate 0/0, awaiting run + verify. Remaining art per state/art_backlog.md; gates: publish gate (content admin); micro-rulings open (silent nodes g30/g36/x1, x22 speaker, handler pronouns)."
   },
   "open_by_owner": {
     "dauntless": [
       "carried: wedge note to Terr; clerk portrait prompt; Borrowed Awakening ~Sep 5 hide 5 cosmic jutsu; smoke jutsu 0QixZN9jD_bqAKTimDafB disposable; verify Waystation scene id pqihl43HYROpkIMX172-P on push/6 read-back (T1 law-49 catch: id in no local capture, all of harvests/ scanned)",
-      "re-paste mounted from state/mounted_instructions.txt (stamp @17d6a71+06335a4); reinstall build skill from dist after skillpack rebuild (doctrine block + stack row changed)"
+      "re-paste mounted from state/mounted_instructions.txt (stamp @17d6a71+06335a4); reinstall build skill from dist after skillpack rebuild (doctrine block + stack row changed)",
+      "refresh ViolentMonkey (panel title must show v4.31); run push/16b pack; delete 9 hidden junk jutsu (edit URLs from state/push16_misroute.json)"
     ],
     "terr": [
       "quest-edit crash fix; push/6 held until then"
@@ -77,7 +78,7 @@
       "at": "17:28Z"
     }
   ],
-  "next": "Build+harden the wave workflow per state/wave_workflow.md (thread init -> gens -> sheet -> one zip pack -> verify -> close). First: verify push/16 results bundle when it lands. Gated: handler pair (pronouns + exemplar reuse call), silent nodes g30/g36/x1, x22 speaker, backgrounds wave, icons wave.",
+  "next": "Verify push/16b bundle on landing (expect 9 asset OK with live read-back). Then: Build+harden the wave workflow per state/wave_workflow.md (thread init -> gens -> sheet -> one zip pack -> verify -> close). First: verify push/16 results bundle when it lands. Gated: handler pair (pronouns + exemplar reuse call), silent nodes g30/g36/x1, x22 speaker, backgrounds wave, icons wave.",
   "blocked": [
     "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
   ],
