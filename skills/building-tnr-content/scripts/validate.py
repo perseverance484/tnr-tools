@@ -897,6 +897,65 @@ def lint_entries(items, rep, blob):
                 W("L08 %d %s rows: product x%.1f" % (n, tp, p))
 
 
+# --- laws 9-12 as executable specs (WO-07; 12b Phase-3 candidates) ---------
+# Each law's formula is implemented here and asserted against its own worked
+# values from docs/ENGINE_LAWS.md (the calibration-protocol entry that follows
+# them is procedural, deliberately unasserted). --break N swaps in the FALSIFIED variant
+# (the reading the law corrected) and must exit 1 - the guard against a lying
+# test that asserts the wrong value. The calibration protocol is not a
+# formula and is procedural; deliberately not asserted here.
+
+def _prod(xs):
+    out = 1.0
+    for x in xs:
+        out *= x
+    return out
+
+
+def laws_mode(break_law=None):
+    checks = []
+
+    # law 9: same-type percentage rows stack multiplicatively:
+    # total = product of (1 + p_i). Worked value: .30,.30 -> x1.69, NOT x1.60.
+    idg = ((lambda ps: 1 + sum(ps)) if break_law == 9
+           else (lambda ps: _prod(1 + p for p in ps)))
+    checks.append(("law 9 IDG product", abs(idg([.30, .30]) - 1.69) < 1e-9
+                   and abs(idg([1.0] * 3) - 8.0) < 1e-9))
+
+    # law 10: DDT rows multiply as products of (1 - p_i):
+    # .10 tag x .10 item -> 19% mitigation, not 20%.
+    ddt = ((lambda ps: sum(ps)) if break_law == 10
+           else (lambda ps: 1 - _prod(1 - p for p in ps)))
+    checks.append(("law 10 DDT product", abs(ddt([.10, .10]) - 0.19) < 1e-9))
+
+    # law 11: pierce bypasses damage modifiers (DDT and IDG amplification):
+    # a pierce hit sits at raw base amid otherwise amplified numbers.
+    def pipe(base, idg_rows, ddt_rows, pierce=False):
+        if pierce and break_law != 11:
+            return float(base)
+        return base * _prod(1 + p for p in idg_rows) * _prod(1 - p for p in ddt_rows)
+    checks.append(("law 11 pierce bypass",
+                   pipe(100, [.5], [.2], pierce=True) == 100.0
+                   and abs(pipe(100, [.5], [.2]) - 120.0) < 1e-9))
+
+    # law 12: stacking ramp effects COMPOUND: n casts of a xk self-buff is
+    # k**n (exponential), not 1 + n*(k-1) (linear).
+    ramp = ((lambda k, n: 1 + n * (k - 1)) if break_law == 12
+            else (lambda k, n: k ** n))
+    checks.append(("law 12 ramp compounds",
+                   abs(ramp(1.2, 5) - 1.2 ** 5) < 1e-9
+                   and abs(ramp(1.2, 5) - (1 + 5 * 0.2)) > 1e-6))
+
+    bad = 0
+    for name, ok in checks:
+        print(("PASS   " if ok else "FAIL   ") + name)
+        bad += 0 if ok else 1
+    print("laws: %d asserted, %d failed%s"
+          % (len(checks), bad,
+             " (--break %s active)" % break_law if break_law else ""))
+    return 1 if bad else 0
+
+
 def check_manifest(path, ctors_path, strict=False):
     rep = Report()
     man = json.load(open(path))
@@ -954,6 +1013,11 @@ def check_manifest(path, ctors_path, strict=False):
 if __name__ == "__main__":
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     strict = "--strict" in sys.argv
+    if "--laws" in sys.argv:
+        b = None
+        if "--break" in sys.argv:
+            b = int(sys.argv[sys.argv.index("--break") + 1])
+        sys.exit(laws_mode(b))
     ctors = "45c_DATA_constructors.json"
     if "--ctors" in sys.argv:
         ctors = sys.argv[sys.argv.index("--ctors") + 1]
