@@ -110,6 +110,7 @@ was being rebuilt from the guide every session, and small drift in the threshold
 looks fine in chat and wrong in game.
 
 ```
+python3 scripts/rawqc.py in.png --scaffold <scaffold_id> --record
 python3 scripts/chroma.py in.png out_scene_char.webp --target SCENE_CHARACTER --frame full --qc qc.png
 python3 scripts/artpreflight.py out_scene_char.webp --manifest manifest.json
 ```
@@ -135,6 +136,7 @@ upload paths.
 | Script | Use |
 |---|---|
 | `scripts/chroma.py` | Key, crop, pad, export. Spec-driven via `--target`. |
+| `scripts/rawqc.py` | Mechanical raw-QC BEFORE any human look: aspect vs spec, chroma coverage band, 2px ring purity; `--record` appends the scaffold ledger, `--stats` prints accept rates and flags escalation candidates, `--selftest` synthesizes its own red/green fixtures. Run it on every generation before chroma.py. |
 | `scripts/artpreflight.py` | Acceptance check before handover. `--index <art_index.json>` audits the whole live library instead of files. |
 | `scripts/shotlist.py` | **Generate the shot list from the quest graph, never author it.** Takes a `quests.get` capture and emits every asset the quest needs with its exact numbers, filename, `@img` ref and its rendered generator prompt, assembled from `spec.prompt_scaffolds` with `[STYLE]` expanded verbatim and scoped per target. Hand-authoring that list is where assets go missing or land with a filename the manifest does not reference. |
 | `scripts/artpreflight_selftest.py` | Exit test: one correct and one deliberately wrong export per asset type. |
