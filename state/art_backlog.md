@@ -12,6 +12,25 @@ direct, no gameAsset record; STATIC target, 1:1 per art spec. Precedent exists
 (dmissionicons family on other missions).
 RULED 2026-08-30: dedicated icon per mission (10). Style call still open
 (pin house-style family vs per-mission vignette).
+SUPERSEDED 2026-08-30 (dauntless): NOT per-mission. FOUR shared icons, one per quest
+rank (D/C/B/A), wired by rank on every mission present and future. Rationale: unified
+artwork, four high-quality pieces instead of twelve rushed ones, reads at a glance,
+and future quests wire an existing icon with no art work at all. The ~20 existing
+per-mission icons STAY as they are; the rank set covers the twelve in scope.
+SCOPE 2026-08-30: twelve missions, not ten - Copies, Not Thefts (d-94cxrGW91o1SJCr9rsq,
+B, has a wood-framed icon to be replaced) and Witness Detail (dfeXwdrnvyvGGETiCMgu-,
+B, no icon) join the Forsworn ten. Live ranks: C x4 Chalk and Corner / The Empty
+Contract / Protection / The Waystation; B x4 Nothing to Report / The Loud Way /
+Copies Not Thefts / Witness Detail; A x4 Three Rounds / The Long Winter / Old Ghost /
+The Tenth Name. No D-rank mission in scope.
+DESIGN RULED 2026-08-30: each icon is a mission brief with a hanko seal pressed into
+it, rank letter front and centre in the seal. Round seal, Latin serif letter (a
+squared seal-script construction was tried and FAILED legibility - D became a box,
+B and A collapsed into bars). The seal must be ~42% of interior width or the letter
+dies at the 125px display size. LETTERS ARE COMPOSITED IN CODE, never generated -
+a malformed letter on a shared icon is a permanent defect on every mission of that
+rank. Cards ask for a blank seal centre.
+FRAMES DONE 2026-08-30: all four banked, see skills/producing-tnr-art/data/frames/.
 
 ## Scene portraits — 64 speaking nodes need real art
 PORTRAIT + WIRING WAVE CLOSED 2026-08-30: nine assets live (16c, verified), all ten
