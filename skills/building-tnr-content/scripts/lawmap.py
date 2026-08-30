@@ -38,7 +38,7 @@ SECTION = re.compile(r"^##\s+(\d{1,3})[.\s]")
 CITE = re.compile(r"(?i)\blaws?[\s:_-]*#?\s*("
                   r"\d{1,3}[a-z]?(?:\s*-\s*\d{1,3})?"
                   r"(?:\s*,\s*\d{1,3}[a-z]?(?:\s*-\s*\d{1,3})?)*)")
-MATRIX_ROW = re.compile(r"^\|\s*(\d{1,3}[a-z]?)\s*\|\s*(\w+)\s*\|")
+MATRIX_ROW = re.compile(r"^\|\s*(\d{1,3}[a-z]?)\s*\|\s*([\w()-]+)\s*\|")
 
 
 def parse_laws(path):
@@ -127,11 +127,12 @@ def main():
     VALIDATORS = {"validate.py", "artpreflight.py"}
     for i, cls in sorted(matrix.items(), key=lambda kv: (int(re.match(r"\d+", kv[0]).group()), kv[0])):
         where = cites.get(i, set())
-        if cls == "validate" and not (where & VALIDATORS):
+        base = cls.split("(")[0]  # validate(warn)/validate(partial) are validate-class
+        if base == "validate" and not (where & VALIDATORS):
             (errs if STRICT_PROV else warns).append(
                 f"law {i}: matrix says validate, no citation in {sorted(VALIDATORS)}"
                 + (" [strict-provenance]" if STRICT_PROV else ""))
-        if cls == "knowledge" and (where & VALIDATORS):
+        if base == "knowledge" and (where & VALIDATORS):
             warns.append(f"law {i}: matrix says knowledge, but cited by {sorted(where & VALIDATORS)} - reclass candidate")
 
     if full:
