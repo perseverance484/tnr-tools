@@ -1,0 +1,174 @@
+{
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Old Ghost [publish A]",
+   "targetId": "KmGPDnZnGOCvATQqA5LI8",
+   "data": {
+    "hidden": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Long Winter [publish A]",
+   "targetId": "WIsqHEoo4c-ToRaV5_cZj",
+   "data": {
+    "hidden": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Tenth Name [publish A]",
+   "targetId": "8ndqsf6RBZ88q3pfyZQQh",
+   "data": {
+    "hidden": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Three Rounds [publish A]",
+   "targetId": "fBQNC1wFqTPYp7reiK79T",
+   "data": {
+    "hidden": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Nothing to Report [publish B]",
+   "targetId": "s7Lnjsv-9Fvo4_YEzq-3w",
+   "data": {
+    "hidden": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Loud Way [publish B]",
+   "targetId": "ilYoJqbk--np9OSqT9lGx",
+   "data": {
+    "hidden": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Witness Detail [publish B]",
+   "targetId": "dfeXwdrnvyvGGETiCMgu-",
+   "data": {
+    "hidden": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Chalk and Corner [publish C]",
+   "targetId": "Sx_NfWziba6NYOEsfXrS5",
+   "data": {
+    "hidden": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Protection [publish C]",
+   "targetId": "otFtGNvBFn8ZVGlda7UOH",
+   "data": {
+    "hidden": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Empty Contract [publish C]",
+   "targetId": "9kzvd414kRRXauKSXsGIq",
+   "data": {
+    "hidden": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "The Waystation [publish C]",
+   "targetId": "ATV6Fs3XFqOf7wch99qDW",
+   "data": {
+    "hidden": false
+   }
+  }
+ ],
+ "skipPreflight": true,
+ "capture": {
+  "after": [
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "KmGPDnZnGOCvATQqA5LI8"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "WIsqHEoo4c-ToRaV5_cZj"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "8ndqsf6RBZ88q3pfyZQQh"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "fBQNC1wFqTPYp7reiK79T"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "s7Lnjsv-9Fvo4_YEzq-3w"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "ilYoJqbk--np9OSqT9lGx"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "dfeXwdrnvyvGGETiCMgu-"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "Sx_NfWziba6NYOEsfXrS5"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "otFtGNvBFn8ZVGlda7UOH"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "9kzvd414kRRXauKSXsGIq"
+    }
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "ATV6Fs3XFqOf7wch99qDW"
+    }
+   }
+  ]
+ }
+}
