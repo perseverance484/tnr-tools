@@ -60,3 +60,16 @@ Container quirks and cross-cutting laws live in the mounted instructions.
    census turns up; Case/Blacksteel icons excluded, reused by Genin Trials).
 4. Publish + hide as one combined final push. Still gated on the content admin, and on the hazards logged
    in the hide-wave section above.
+
+## Census results (2026-08-31, bundle tnr_results_1788134455342)
+
+- Live rank, all 31: **D 15** (10 D-set + Case Contract x4 + Blacksteel Shard Salvage), **C 8**
+  (4 Forsworn + Blacksteel Cleanup/Iron Hunt/Perimeter Breach/Supply Raid), **B 4**, **A 4**.
+- **19 of the 31 are already `hidden:false`** - every contract, eight of the D-set, and Copies Not Thefts.
+  Only 12 remain hidden. The later publish step is smaller than the board assumed.
+- Icon provenance: nine D-set missions point at their `dmissionicons` asset. Everything else points at a raw
+  uploadthing URL with no gameAsset record - the twelve Forsworn at a shared placeholder ('Zeps house' URL),
+  the nine contracts at ONE shared contract icon, and Copies / Witness / One White Ear each at their own.
+- Consequence for the deleter: the list is exactly the ten `dmissionicons` assets and nothing else. The
+  contract icon has no asset record, so it cannot be deleted from the asset manager and the Genin Trials
+  reuse is safe by construction.
