@@ -26,11 +26,14 @@ for c in b["captures"]:
     qs.append(r)
 assert len(qs) == 31
 
-EXCLUDE = {"One White Ear"}          # converging dialog menus, see docstring
+# The release is the ten Forsworn missions only (dauntless). One White Ear is earmarked
+# with the stubs - questType event, and d1/d2/d3 are converging dialog menus. Witness
+# Detail is a bmissions-era B mission, not part of the Forsworn wave, and stays hidden.
+EXCLUDE = {"One White Ear", "Witness Detail"}
 hidden = [q for q in qs if q["hidden"]]
 assert len(hidden) == 12, len(hidden)
 pub = [q for q in hidden if q["name"] not in EXCLUDE]
-assert len(pub) == 11, len(pub)
+assert len(pub) == 10, len(pub)
 
 for q in pub:                        # publish gate: main sceneCharacters OR all objectives carry them
     c = q.get("content") or {}

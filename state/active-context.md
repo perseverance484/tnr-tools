@@ -82,3 +82,10 @@ Container quirks and cross-cutting laws live in the mounted instructions.
 - Manifest carried `skipPreflight:true` (builder qBad gap on partial quest edits). Generator:
   `push/24_rank_icon_swap_all31.gen.py`.
 - The nine D-set `dmissionicons` references are now released; the ten assets are free to delete.
+
+## Earmarked for upgrade or retirement (not in this release)
+
+- **One White Ear** - questType event, d1/d2/d3 converging dialog menus, stray .jpg icon before the swap.
+- **Witness Detail** - bmissions-era B mission, stays hidden.
+- **Copies, Not Thefts** - already public, and its a1/a2/f1 dialog menus converge. Live record fails
+  validate.py today, before any edit of ours.
