@@ -96,3 +96,10 @@ Container quirks and cross-cutting laws live in the mounted instructions.
   (dauntless). Both still appear as live SCENE_CHARACTER rows in the census asset table, folder `bmissions`,
   hidden=false - so the records outlived whatever they pointed at. Worth a look during the deleter pass.
 - Their only references across our 31 were Copies, Not Thefts l1/l2 and c5, retired to Blank Scene Character.
+
+## Forsworn release shipped 2026-08-31
+
+- Public, rank icons wired, verified by read-back and independent pre/post diff: Old Ghost, The Long Winter,
+  The Tenth Name, Three Rounds (A), Nothing to Report, The Loud Way (B), Chalk and Corner, Protection,
+  The Empty Contract, The Waystation (C).
+- Copies, Not Thefts repaired in place and left live. Witness Detail and One White Ear stay hidden, earmarked.
