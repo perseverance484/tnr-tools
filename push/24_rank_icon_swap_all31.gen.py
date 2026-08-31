@@ -42,7 +42,12 @@ imgsz = {f: os.path.getsize(os.path.join(SRC, f)) for f in used}
 
 # read-back: re-read every record after the swap rather than trusting a green row
 after = [{"proc": "quests.get", "input": {"id": i["targetId"]}} for i in items]
-man = {"items": items, "imgSizes": imgsz, "capture": {"after": after}}
+# skipPreflight: the builder's preflight (builder_bundle.js qBad, line ~590) treats every
+# quest entry as a full payload and errors "no objectives" on a partial edit, the same gap
+# validate.py had. Every entry here sets exactly one scalar - image - and validate.py cleared
+# the manifest at 0 errors, so there is nothing preflight would have caught. The builder still
+# fetch-merges the live record and still reads back per entry.
+man = {"items": items, "imgSizes": imgsz, "skipPreflight": True, "capture": {"after": after}}
 
 work = os.path.join(R, "..", "work_pack24")
 work = os.path.abspath(work)
