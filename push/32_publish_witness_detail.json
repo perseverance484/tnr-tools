@@ -1,0 +1,24 @@
+{
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "name": "Witness Detail [publish B]",
+   "targetId": "dfeXwdrnvyvGGETiCMgu-",
+   "data": {
+    "hidden": false
+   }
+  }
+ ],
+ "skipPreflight": true,
+ "capture": {
+  "after": [
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "dfeXwdrnvyvGGETiCMgu-"
+    }
+   }
+  ]
+ }
+}
