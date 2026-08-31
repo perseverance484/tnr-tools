@@ -64,6 +64,22 @@ objs["f1"]["nextObjectiveId"] = [
     {"text": "The index for the year, all of it.", "nextObjectiveId": "f3"},
     {"text": "Whichever one the Kage's office uses.", "nextObjectiveId": "f4"}]
 
+# ruling 4 (dauntless): l4, c6 and d5 carried empty descriptions - both failure resets and
+# the win node showed the player a blank screen. Old Ghost and The Tenth Name both give
+# these a line.
+FILL = {
+    "l4": ("The bell rings twice more before anybody reaches it, and by then the alley is empty "
+           "in both directions. <br> <br> Whatever was worth guarding tonight will not be there "
+           "tomorrow."),
+    "c6": ("You come to on the floor of the stacks with your kit gone and the drawer sealed again. "
+           "<br> <br> The ledger is back on its shelf, in order, as though nobody had ever asked "
+           "for it."),
+    "d5": "Ledger copied. Files out. Nobody knows you were there.",
+}
+for _id, _text in FILL.items():
+    assert not (objs[_id].get("description") or "").strip(), _id
+    objs[_id]["description"] = _text
+
 q["content"]["objectives"].extend(new)
 allids = {o["id"] for o in q["content"]["objectives"]}
 assert len(allids) == 29 == len(q["content"]["objectives"])
