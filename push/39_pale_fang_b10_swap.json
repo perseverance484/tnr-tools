@@ -1,0 +1,119 @@
+{
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "name": "Pale Fang [Veilstrike -> Sovereign Ascendance]",
+   "targetId": "yTHaQ_sdw-JW0C35W-Uo9",
+   "data": {
+    "jutsus": [
+     "Cw51Wm_Uy0GiIkiEjlQtn",
+     "lft52q7DE_JjhR7PKXimB",
+     "OyswJoalfNpmz7FsA8Hd8",
+     "Uou0sCjZ1rwiMJZ-JWEI_",
+     "yDznlfsnPaOSFtdjfCyTZ"
+    ],
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "yDznlfsnPaOSFtdjfCyTZ",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "OyswJoalfNpmz7FsA8Hd8",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "lft52q7DE_JjhR7PKXimB",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Uou0sCjZ1rwiMJZ-JWEI_",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": false
+   }
+  }
+ ],
+ "capture": {
+  "after": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "yTHaQ_sdw-JW0C35W-Uo9"
+    }
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "H0ItJ3_JKIymkKhCpDhVf"
+    }
+   }
+  ]
+ }
+}
