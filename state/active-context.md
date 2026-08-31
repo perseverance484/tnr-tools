@@ -89,3 +89,10 @@ Container quirks and cross-cutting laws live in the mounted instructions.
 - **Witness Detail** - bmissions-era B mission, stays hidden.
 - **Copies, Not Thefts** - already public, and its a1/a2/f1 dialog menus converge. Live record fails
   validate.py today, before any edit of ours.
+
+## Dead scene characters
+
+- **Fleetfoot Scene** `kYX8v4FkO96cZTPF2ORPq` and **Nightfoot Scene** `tUTXsFG4HqESOkTiXz6Fm` no longer exist
+  (dauntless). Both still appear as live SCENE_CHARACTER rows in the census asset table, folder `bmissions`,
+  hidden=false - so the records outlived whatever they pointed at. Worth a look during the deleter pass.
+- Their only references across our 31 were Copies, Not Thefts l1/l2 and c5, retired to Blank Scene Character.
