@@ -32,7 +32,8 @@
   "2026-08-30 ruled: officer portrait = ANBU Commander Portrait ryLnefupONNZKX5hcPWid; desk handler = The Handler pqihl43HYROpkIMX172-P (she; identified as the shared stand-in); silent nodes g30=Old Ghost, g36=Commander, x1=blank; e16 pronoun sweep flagged to prose lane",
   "2026-08-30 amended: Commander is Old Ghost mission only; other serious-rank clusters pending Handler-vs-third-figure call (last open cast question)",
   "2026-08-30 ruled: cast complete - Handler takes remaining clusters; RANK HANDOFF noted: A-rank missions report to the Commander (Old Ghost + proposed Tenth Name), B and below to the Handler",
-  "2026-08-31 (dauntless): prose passes return to Claude; artwork-only lane note retired. Collateral data loss on Freedom's Scouting Party ruled not worth repairing - push/30 stays staged but unrun."
+  "2026-08-31 (dauntless): prose passes return to Claude; artwork-only lane note retired. Collateral data loss on Freedom's Scouting Party ruled not worth repairing - push/30 stays staged but unrun.",
+  "2026-08-31 closed: icon migration list enumerated (all 31); publish flip taken for the ten Forsworn; e16 pronoun sweep returns to Claude with the prose lane; Freedom's Scouting Party repair (push/30) ruled not worth running."
  ],
  "deployed": [
   "doctrine delta-render + dual-blob mounted stamp + lawmap default root (a91310c)",
@@ -44,9 +45,18 @@
  ],
  "open_by_owner": {
   "dauntless": [
-   "e16 pronoun sweep (prose, not Claude's lane)",
-   "publish flip rides content admin; everything hidden:true",
-   "enumerate which existing per-mission icons migrate to the rank set"
+   "PROSE - Old Ghost g30: Option A (split into g30a/b/c, route-specific) or Option B (one route-neutral node)",
+   "PROSE - Tenth Name four fields: add the clan rolls as the fourth source, or cut Clanless from the x20 word list",
+   "PROSE - Tenth Name x25 rewrite and x_win rewrite: take or leave, independent of the fields call",
+   "PROSE - Copies l4/c6/d5 carry EMPTY descriptions (both resets and the win). Add text or leave blank",
+   "ART - if Old Ghost takes Option A, the g30 silent-portrait ruling has to be applied to three nodes not one",
+   "ART/PROSE - x22-x28 speaker: desk handler or village official, and handler pronouns (carried, still open)",
+   "Bingo Book ruling (carried) - Old Ghost g2/g3/g30 and Tenth Name x2 all lean on it",
+   "Named speak-list and vocab sweep (carried)",
+   "Chase pin: does it earn its own art (parked)",
+   "Fleetfoot kYX8v4FkO96cZTPF2ORPq and Nightfoot tUTXsFG4HqESOkTiXz6Fm asset rows are dead but still live - delete or keep",
+   "WO-08 answers sharding: defer/skip as recommended, or proceed as planned",
+   "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass"
   ],
   "claude": [
    "law-94 authoring via the law process",
@@ -56,9 +66,7 @@
   ]
  },
  "rulings_open": [
-  "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
-  "WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?",
-  "art micro-rulings: g30/g36/x1 silent-portrait per node; x22-x28 speaker handler vs village official; handler pronouns"
+  "see open_by_owner.dauntless - consolidated 2026-08-31"
  ],
  "next": "Run push/33 (ungated, validates clean). Mark up the two prose proposals - Old Ghost needs an Option A/B call on g30, Tenth Name needs the four-fields fix chosen - then Claude writes both prose manifests. push/32 (Witness Detail publish) still staged.",
  "token_ledger": [
