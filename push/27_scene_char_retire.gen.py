@@ -25,7 +25,10 @@ RETIRE = {
     "tUTXsFG4HqESOkTiXz6Fm",   # Nightfoot Scene     /bmissions
     "XsLLy8awDAtaE6hXVIi_0",   # DM Mission Clerk    /dmissions
 }
-TARGETS = {"Witness Detail", "Copies, Not Thefts"}
+# Copies, Not Thefts is excluded (dauntless): it is already live with its new icon and
+# is not part of this release. Dropping it also drops the three pre-existing converging
+# menu errors it carried, so this manifest goes green on its own merits.
+TARGETS = {"Witness Detail"}
 
 assets = None
 for c in json.load(open(CEN))["captures"]:
@@ -74,12 +77,9 @@ for name in sorted(TARGETS):
     report.append((name, total, q["hidden"]))
 
 after = [{"proc": "quests.get", "input": {"id": i["targetId"]}} for i in items]
-# skipPreflight: the builder's qBad rejects on Copies' three converging dialog menus
-# (a1, a2, f1). Those are PRE-EXISTING in the live record - validating the untouched
-# capture reproduces the same three errors - so this manifest introduces no regression;
-# it just cannot get past a gate the live record already fails. Earmarked for the same
-# upgrade pass as One White Ear.
-man = {"items": items, "skipPreflight": True, "capture": {"after": after}}
+# No skipPreflight: this entry carries full content, and Witness Detail passes the
+# builder flow checks on its own.
+man = {"items": items, "capture": {"after": after}}
 out = os.path.join(R, "push/27_scene_char_retire.json")
 open(out, "w").write(json.dumps(man, indent=1))
 print("wrote", out)
