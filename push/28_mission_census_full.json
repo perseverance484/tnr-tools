@@ -1,0 +1,31 @@
+{
+ "capture": {
+  "before": [
+   {
+    "proc": "quests.getAll",
+    "input": {
+     "questType": "mission",
+     "limit": 50,
+     "cursor": 0
+    }
+   },
+   {
+    "proc": "quests.getAll",
+    "input": {
+     "questType": "mission",
+     "limit": 50,
+     "cursor": 1
+    }
+   },
+   {
+    "proc": "quests.getAll",
+    "input": {
+     "questType": "mission",
+     "limit": 50,
+     "cursor": 2
+    }
+   }
+  ]
+ },
+ "items": []
+}
