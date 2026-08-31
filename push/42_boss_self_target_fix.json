@@ -1,0 +1,327 @@
+{
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "name": "Winter Crow [SELF target fix]",
+   "targetId": "WxsmoaAoV0y8vqcWYw96y",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "AicYoMMpZmHAykb_5hYtY",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "JWZYiHKPNwYziWEFjw4Fn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "pJXJUSvq2kZU-tmgC12FL",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "_JRHgRL8pfUvt_-q1Xa3H",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "lft52q7DE_JjhR7PKXimB",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "OyswJoalfNpmz7FsA8Hd8",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "name": "Old Ghost [SELF target fix]",
+   "targetId": "g8l7lt-ua1ptrWvhqjrnl",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "w4F7-w5ubgKsqYPBPvRuV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "RPdeeWhFI5AIUUpJXwUlf",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "_JRHgRL8pfUvt_-q1Xa3H",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "ubwtVj1o9q6VQ6VxOczxt",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "JWZYiHKPNwYziWEFjw4Fn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "name": "Pale Fang [SELF target fix]",
+   "targetId": "yTHaQ_sdw-JW0C35W-Uo9",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "yDznlfsnPaOSFtdjfCyTZ",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "OyswJoalfNpmz7FsA8Hd8",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "lft52q7DE_JjhR7PKXimB",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Uou0sCjZ1rwiMJZ-JWEI_",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": false
+   }
+  }
+ ],
+ "capture": {
+  "after": [
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "jCVEoYMOHFQK3SGjnxHoi"
+    }
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "XhEb-qAi6gC_7CyazsTiK"
+    }
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "H0ItJ3_JKIymkKhCpDhVf"
+    }
+   }
+  ]
+ }
+}
