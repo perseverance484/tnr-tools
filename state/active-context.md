@@ -103,3 +103,15 @@ Container quirks and cross-cutting laws live in the mounted instructions.
   The Tenth Name, Three Rounds (A), Nothing to Report, The Loud Way (B), Chalk and Corner, Protection,
   The Empty Contract, The Waystation (C).
 - Copies, Not Thefts repaired in place and left live. Witness Detail and One White Ear stay hidden, earmarked.
+
+## Legacy-record normalization (found 2026-08-31, hide wave)
+
+Any write that round-trips a whole record - which every builder quest edit does, fetch-merge then update -
+makes the server apply schema defaults to fields that are null in an older record. Null -> 0, [], false,
+"NONE" is harmless. The danger is the reverse case: a legacy field holding a value the current schema has no
+default for can come back null. On Freedom's Scouting Party, `opponent_name` and `attackers_chance` were lost
+this way by a manifest that set nothing but `hidden`.
+
+Practice: after any wave that touches records authored before the current schema, run a value->null scan of
+the read-backs against the pre-write capture. Green rows and asserted-field verdicts will not catch this -
+the asserted field landed correctly in all 26 cases.
