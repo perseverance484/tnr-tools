@@ -73,3 +73,12 @@ Container quirks and cross-cutting laws live in the mounted instructions.
 - Consequence for the deleter: the list is exactly the ten `dmissionicons` assets and nothing else. The
   contract icon has no asset record, so it cannot be deleted from the asset manager and the Genin Trials
   reuse is safe by construction.
+
+## Icon swap shipped 2026-08-31 (bundle tnr_results_1788135094828)
+
+- 31 quest edits, 31 ok / 0 fail, asserted read-back per entry, plus an independent pre/post record diff.
+- Four distinct icon URLs, one per rank, wired across A 4 / B 4 / C 8 / D 15.
+- Content, questRank, hidden, description and successDescription byte-identical to the census on all 31.
+- Manifest carried `skipPreflight:true` (builder qBad gap on partial quest edits). Generator:
+  `push/24_rank_icon_swap_all31.gen.py`.
+- The nine D-set `dmissionicons` references are now released; the ten assets are free to delete.
