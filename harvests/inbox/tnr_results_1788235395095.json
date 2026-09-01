@@ -1,0 +1,1595 @@
+{
+ "builder": "v4.29",
+ "at": "2026-09-01T04:03:15.095Z",
+ "checks": [
+  "booleans",
+  "build_order",
+  "cap_100",
+  "null_strip_exempt",
+  "companion_required",
+  "date_fields",
+  "entity_only_tags",
+  "enums",
+  "formula_tags",
+  "hidden_on_create",
+  "nullable",
+  "required_on_create",
+  "runtime_only_tags",
+  "tag_power_max",
+  "terminal_actions",
+  "zero_power_per_level"
+ ],
+ "cfg": "generated",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "skipped": 0,
+  "afail": 0
+ },
+ "entries": [],
+ "captures": [
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "zIxcNQTcZh-SlZGWBmKwW"
+   },
+   "select": null,
+   "at": "2026-09-01T04:02:38.440Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "zIxcNQTcZh-SlZGWBmKwW",
+    "userId": "2ZF5jMvECgiNBgrr4icqk",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "cZrZDI-A4fL324nX1CGss",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "mQ7-q8q46ry5njNVBFpGp",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "WvLCyGsPCKSDYl6-e_D9o",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "_nUaGHlWhn3-U0xbxJHFw",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use action with given effect with highest power"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": true
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "MYtp9yha8MitDBRFIszWO"
+   },
+   "select": null,
+   "at": "2026-09-01T04:02:40.648Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "MYtp9yha8MitDBRFIszWO",
+    "userId": "97U7ui81xEMFFVz1Isn-z",
+    "rules": [
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": true
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "AD74K7k4ZibD16y9hzxq_"
+   },
+   "select": null,
+   "at": "2026-09-01T04:02:42.846Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "AD74K7k4ZibD16y9hzxq_",
+    "userId": "I6bph15IwA0--iAwacxIn",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "b7ZOgdZmhZiUbCVrmQiwH",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "-kMekZ4rR64vjMF2Jc4pe",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "YD9GEwXU6LDuIC06TGzWG",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "taxbZNdm1Q7YL5AxaRssW",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": false
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "gZfc_HxrW2GwC1DavBo3m"
+   },
+   "select": null,
+   "at": "2026-09-01T04:02:45.094Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "gZfc_HxrW2GwC1DavBo3m",
+    "userId": "JBTjl1mvOWRfTPX0Igj03",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Vo8N1luCT0p48y7JzKe84",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "OWAm8o12bkZUMAAHLoGLz",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "mpHuTrJX7EonpuW_jBunt",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "oQo27NtvRS29CABHGXP94",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": false
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "HuwH4VXJsuU6re7FTBUn2"
+   },
+   "select": null,
+   "at": "2026-09-01T04:02:47.328Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "HuwH4VXJsuU6re7FTBUn2",
+    "userId": "Rm9ejZjCEvWZD0JG3Slmm",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "nOYLPmN3TXj6wEe_oE6HQ",
+        "ubwtVj1o9q6VQ6VxOczxt",
+        "Rufs-Y-FZIDooXO7g6k0F"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "KIMeKemnXttwOv1Cf-IPS",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": true
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "gxqt80U43MDYLMiS2CNVE"
+   },
+   "select": null,
+   "at": "2026-09-01T04:02:49.534Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "gxqt80U43MDYLMiS2CNVE",
+    "userId": "SJs7nn-cUwy-VtLt_vMwC",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "WvLCyGsPCKSDYl6-e_D9o",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "vWaGTnYOwiTiaMQW10y6A",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "1OhP0StX4VTsosWtCxhsG",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "AEeRf7i9215twJ_iEugZT",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": false
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "jCVEoYMOHFQK3SGjnxHoi"
+   },
+   "select": null,
+   "at": "2026-09-01T04:02:51.767Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "jCVEoYMOHFQK3SGjnxHoi",
+    "userId": "WxsmoaAoV0y8vqcWYw96y",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "AicYoMMpZmHAykb_5hYtY",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "JWZYiHKPNwYziWEFjw4Fn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "pJXJUSvq2kZU-tmgC12FL",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "_JRHgRL8pfUvt_-q1Xa3H",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "lft52q7DE_JjhR7PKXimB",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "OyswJoalfNpmz7FsA8Hd8",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": false
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "DaFSZJ_nkEKRv_xYOvHzO"
+   },
+   "select": null,
+   "at": "2026-09-01T04:02:54.001Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "DaFSZJ_nkEKRv_xYOvHzO",
+    "userId": "bCTTWqMLn_clRjR21aB2N",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Rufs-Y-FZIDooXO7g6k0F",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "P0GcazZ6yvULoH4kGuh4T",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": false
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "hcoYsoNdrso9ULrZQGBeD"
+   },
+   "select": null,
+   "at": "2026-09-01T04:02:56.217Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "hcoYsoNdrso9ULrZQGBeD",
+    "userId": "fPHbAdToPNequ4j99Cpxp",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 3,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "Nrxc8m9utE9qaD_gWpLgf",
+        "fKvCGRgzGNskgFWocQCAg"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": true
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "XhEb-qAi6gC_7CyazsTiK"
+   },
+   "select": null,
+   "at": "2026-09-01T04:03:01.626Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "XhEb-qAi6gC_7CyazsTiK",
+    "userId": "g8l7lt-ua1ptrWvhqjrnl",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "w4F7-w5ubgKsqYPBPvRuV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "RPdeeWhFI5AIUUpJXwUlf",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "_JRHgRL8pfUvt_-q1Xa3H",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "ubwtVj1o9q6VQ6VxOczxt",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "JWZYiHKPNwYziWEFjw4Fn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": false
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "qhobHhx9tGTF9PISvXnmb"
+   },
+   "select": null,
+   "at": "2026-09-01T04:03:04.018Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "qhobHhx9tGTF9PISvXnmb",
+    "userId": "gocAYWKP6NwO3YXFHfPV_",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Rufs-Y-FZIDooXO7g6k0F",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "KIMeKemnXttwOv1Cf-IPS",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": true
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "sns7ox2fGGUj70JYhcSxy"
+   },
+   "select": null,
+   "at": "2026-09-01T04:03:06.230Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "sns7ox2fGGUj70JYhcSxy",
+    "userId": "n8EP0t5NN3zhzxXiDdZIY",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": true
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "yXmZf1_XWhfXccBFRsoF9"
+   },
+   "select": null,
+   "at": "2026-09-01T04:03:08.464Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "yXmZf1_XWhfXccBFRsoF9",
+    "userId": "rKWmoT0Ez1q4r8jEqprWP",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "IBjVpLutojh3m9PRnIce-",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "P0GcazZ6yvULoH4kGuh4T",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "oQo27NtvRS29CABHGXP94",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "SJwW0b5tO4PuBhNrLJIR2",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use action with given effect with highest power"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": true
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "H0ItJ3_JKIymkKhCpDhVf"
+   },
+   "select": null,
+   "at": "2026-09-01T04:03:10.705Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "H0ItJ3_JKIymkKhCpDhVf",
+    "userId": "yTHaQ_sdw-JW0C35W-Uo9",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "yDznlfsnPaOSFtdjfCyTZ",
+       "description": "Select specific jutsu"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "OyswJoalfNpmz7FsA8Hd8",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "lft52q7DE_JjhR7PKXimB",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Uou0sCjZ1rwiMJZ-JWEI_",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": false
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "jRPh29xRrff5YkQ_XUmrI"
+   },
+   "select": null,
+   "at": "2026-09-01T04:03:12.887Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "jRPh29xRrff5YkQ_XUmrI",
+    "userId": "zBwc727cY8a8tggHngCRz",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "brzGw6WgHsrFPkL9JWGir",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "AfGmeuZkdGUCwmIA8lrGr",
+        "Rufs-Y-FZIDooXO7g6k0F"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "7dRJKVvNiQxX-5tgIerza",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use action with given effect with highest power"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "BARRIER_BLOCKING_CLOSEST_OPPONENT",
+       "description": "Use action with given effect with highest power"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": true
+   },
+   "scope": "record fetch"
+  }
+ ],
+ "idmap": {
+  "undefined": "0QixZN9jD_bqAKTimDafB",
+  "pin_listen.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJy22plzIukVH2MI5Lo4ehEfAXvZdcmtWqPg7r",
+  "pin_watch.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0HNWcSgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+  "pin_chase.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJOG8ukw7VHevxIThUauQkGJEBY3D2cPqy8f5s",
+  "fsw_q_thinice": "ATV6Fs3XFqOf7wch99qDW",
+  "fsw_q_protection": "otFtGNvBFn8ZVGlda7UOH",
+  "fsw_q_loud": "ilYoJqbk--np9OSqT9lGx",
+  "probe_c": "gJ05vhdN0C1mzuRde8fjZ",
+  "probe_b": "Kaywv59qnRM-wPULzVDNp",
+  "probe_a": "EONHpe2JhRDYzrYnJLXlk",
+  "probe_d": "A_Pk45u-3vUC4MAFkUEID",
+  "probe_e": "Cch0E9oze3-X60vt6fJkL",
+  "wn00": "nX1LNp8OnYNwWbgLmyeLG",
+  "wn01": "twsXAgh8CZJMSntUWNctj",
+  "wn02": "6mufJi_eXwAruEGck7DdS",
+  "wn03": "cpTgne86wqYbfhwU6HS_q",
+  "wn04": "TkyR2RJFUQDv3olz96Mro",
+  "wn05": "X5T3vmotm8W5je6sQIiz7",
+  "wn06": "qDorq7Ew_wZSktdAOirK1",
+  "wn07": "cTgptnfFK1YFz09-wy4zJ",
+  "wn08": "nUs1_tNyHYbrWa42_KCG7",
+  "wn09": "AiyL4Yf-YdvKFLsIPFVfq",
+  "wn10": "Qi5tqhWVY--J48sucZZM-",
+  "wn11": "IwAiJ8_X5_X7gkFY8KThA",
+  "wn12": "ov-sjt5hYzBPXFPXF1xZm",
+  "wn13": "6d8VPEGCRC-ySqrcLFwwO",
+  "wn14": "LpYxQPJ3mfBaDpkVqrlI9",
+  "wn15": "jnGvAPy8pISPWYwzkpMoB",
+  "wn16": "fbfbDvD-m-LFeA2AhHncu",
+  "wn17": "KD0vcWSnbq4Cb6Weza5Ny",
+  "wn18": "lN8EHcrklmJ5AQStjeMn1",
+  "wn19": "miwf25XFMiHUKI0NSsAfU",
+  "wn20": "ZdGo_lFPLUH9P1XGzVJ6v",
+  "scene_fsw_report_clerk.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJGuzJ8eRfoVrha0LP4mAS5KM7wtiZbUNXJxdC",
+  "scene_fsw_keeper.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJXPVYNR2qIOpAoLKbZ4nW9Rsil2V67yuFwQhq",
+  "scene_fsw_grain_merchant.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2i6csznMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+  "scene_fsw_squad_survivor.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJPAY1UXMpKeUGyX2kj6u45AOQiSa1zYH0mqZo",
+  "scene_fsw_lw_principal.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJp2BkJQbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D",
+  "scene_fsw_lw_deputy.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJGmh92kRfoVrha0LP4mAS5KM7wtiZbUNXJxdC",
+  "scene_fsw_pale_fang.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJyL48KcukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp",
+  "scene_fsw_winter_crow.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJM7pG84tsO4cexqW2RDgkE3zZbNXSFGitmnar",
+  "scene_fsw_old_ghost.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ6ojyqKDfT5pyNCaUruzhPtAJqb8Kj9mc1nlH",
+  "fsw_scn_clerk": "ElB--mNvncY7x_9VDf9O6",
+  "fsw_scn_keeper": "Kf2D27FAnL_XkbAJruN1y",
+  "fsw_scn_merchant": "RTGdKuVcvDxBIY4Ft25Oe",
+  "fsw_scn_survivor": "RkfgpZX7rqERIiHcALLU-",
+  "fsw_scn_principal": "Mur92ghAmUzQLQlUJlVXy",
+  "fsw_scn_deputy": "wB3RoOJJoQkGlLoNnPjHi",
+  "fsw_scn_pale_fang": "hymq1_ZsBGJ8qsS_Bztco",
+  "fsw_scn_winter_crow": "aU7DBNyBel5q7gyA-Ug9O",
+  "fsw_scn_old_ghost": "Lcsj6Tc1hdaVUEEa74PwH",
+  "fsw2_scn_clerk": "1TjPakroW5q8m6nylQRcT",
+  "fsw2_scn_keeper": "AM0saNTIIl1FPgc5pAzxc",
+  "fsw2_scn_merchant": "8mDurYQYmy3G0vb862mkO",
+  "fsw2_scn_survivor": "asvKeN5HIBRJ2-fzg9Und",
+  "fsw2_scn_principal": "gIU6lE4RWWwV8FbP3Fkvs",
+  "fsw2_scn_deputy": "rkdd7b_84F_NYq1YUMEl_",
+  "fsw2_scn_pale_fang": "CbU3BRjOLX-Ad5PnbUfxM",
+  "fsw2_scn_winter_crow": "cSZBQ23AVVuLmKDaA2jh2",
+  "fsw2_scn_old_ghost": "5QsG6MvGvGlzelOx_g0JN",
+  "bg_fsw_loud_way_floor_c.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJbPoVBYAtYUndMi56GkX19q0A4PzyeIloBrEa",
+  "bg_fsw_pass_road_dusk_d.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTUB2345IU29dZYJPoOKSh5vmlqatMub3EigH",
+  "bg_fsw_waystation_door_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJoidFEoZ9MPZpHJ7VliuEWDfATdxhv62SXnm4",
+  "bg_fsw_ambush_site.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJOGD7OHOVHevxIThUauQkGJEBY3D2cPqy8f5s",
+  "bg_fsw_drying_shed_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJl5JG25rWYxAsuC7ofQn9pM45OD0ERqkdBXJU",
+  "bg_fsw_drying_yard_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeRbH5WyV3OvUJQExAi0bGoIZDF74LqSnHRdp",
+  "bg_fsw_ghost_rooftop.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJH4hvqDOQvYURJhgs76VZtf9wxpMa13Cq0iOn",
+  "bg_fsw_canal_frontage_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJHCDFP9QvYURJhgs76VZtf9wxpMa13Cq0iOnr",
+  "fsw3_bg_loudway": "bBV9I0DcmYGcxVGaBdWL0",
+  "fsw3_bg_passroad": "nmrMHmz9xWojzyIV2mAR8",
+  "fsw3_bg_wsdoor": "kmDsQUEHSub9GIX5ulO6i",
+  "fsw3_bg_ambush": "E4VJ-IeIQMwbmGGfKc-sn",
+  "fsw3_bg_dryshed": "c1e60fERuLUxzt9WY4U37",
+  "fsw3_bg_dryyard": "TUtC7yPymsp2GyWwZhoTf",
+  "fsw3_bg_rooftop": "eXoh3W7Q_KaWec02TB17n",
+  "fsw3_bg_canal": "JUb5wIdMC0o7VwVVOx1zm",
+  "icon_rank_A.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJgkm8F7cU9cpECTimBdjaqbNn7vQsxGR1wLk4",
+  "icon_rank_B.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ3K6O328pYHJX5rdkUTfOKtvu2eGIELmSWqBx",
+  "icon_rank_C.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcz70uPSnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+  "icon_rank_D.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJPzlH3ApKeUGyX2kj6u45AOQiSa1zYH0mqZoc"
+ }
+}
