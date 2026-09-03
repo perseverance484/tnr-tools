@@ -22,22 +22,23 @@ from source, the verdict says so rather than offering a guess.
 
 | Verdict | Count | Means |
 |---|---:|---|
-| `ENGINE` | 32 | Provable from source, with file, line and symbol |
-| `PARTIAL` | 22 | Some clauses provable, some not; the note says which |
-| `CONTRADICTED` | 0 | Source says something different from the law |
-| `NOT_IN_SOURCE` | 28 | Not settleable from the codebase |
+| `ENGINE` | 36 | Provable from source, with file, line and symbol |
+| `PARTIAL` | 19 | Some clauses provable, some not; the note says which |
+| `CONTRADICTED` | 1 | Source says something different from the law |
+| `NOT_IN_SOURCE` | 26 | Not settleable from the codebase |
 | `DOCTRINE` | 11 | Our own choice or convention; no engine fact behind it |
 | **Total** | **93** | |
 
-No law earned a bare `CONTRADICTED`. Three carry a contradicted *clause* inside an
-otherwise sound law, which is why they land on `PARTIAL`; they are called out next
-because they are the findings most worth acting on.
+One law is fully `CONTRADICTED`; three more carry a contradicted *clause* inside a
+law that otherwise verifies, which is why they land on `PARTIAL`. All four are
+called out next, because they are the findings most worth acting on.
 
 ## Contradicted clauses
 
-Three laws state something the source at this commit does not support. In each case
-the rest of the law verifies, and in each case the law's *instruction* survives; it
-is the stated mechanism or reason that is wrong.
+Four laws state something the source at this commit does not support. In each case
+the law's *instruction* survives; it is the stated mechanism, reason or direction
+that is wrong. Law 19 is a full `CONTRADICTED`; the other three carry a contradicted
+clause inside a law that otherwise verifies, which is why they sit at `PARTIAL`.
 
 ### Law 6 - Effect `power` does not cap at 100
 
@@ -53,7 +54,7 @@ is the stated mechanism or reason that is wrong.
 
 **Source says:** `app/drizzle/schema.ts:3622` reads `boolean("consecutiveObjectives").default(true).notNull()`.
 
-**Why it matters:** The law's instruction still holds for a different reason: `validators/objectives.ts:700` is `z.coerce.boolean()` with no prefault, so the write schema does require the field. Set it explicitly because the schema demands it, not because the DB default is unsafe. Law 37 rests on 23's premise and needs re-deriving.
+**Why it matters:** The law's instruction still holds for a different reason: `validators/objectives.ts:700` is `z.coerce.boolean()` with no prefault, so the write schema does require the field. Set it explicitly because the schema demands it, not because the DB default is unsafe. Law 37 rests on 23's premise and needs re-deriving. Re-check found corroboration that true is the intended state: the game's own editor warns when consecutiveObjectives !== true (layout/ContentHelp.tsx:896), and schema.ts:3622 is the only default in the tree.
 
 ### Law 75 - The ground-effect promotion condition is inverted
 
@@ -62,6 +63,14 @@ is the stated mechanism or reason that is wrong.
 **Source says:** `app/src/libs/combat/process.ts:335` reads `createdRound: isInstant ? curRound : curRound - 1` - that is `curRound - 1` when **not** instant. Instant promotions get `curRound` and `rounds: 0`; the source comment above it says so.
 
 **Why it matters:** Everything else in law 75 verifies exactly, including `calcEffectRoundInfo`, the `castThisRound` assignment, all four named consumers, the `isInstant` triple and `passesTiming`. Worth correcting precisely because this law is the model the others are meant to reach.
+
+### Law 19 - The item effects union is not narrower - it is wider
+
+**Law says:** "The item effects union is narrower than the jutsu union."
+
+**Source says:** There is one shared union. Both entities use `effects: z.array(AllTags).superRefine(SuperRefineEffects)` - jutsu at `app/src/validators/combat.ts:1327`, item at `:1491`. The asymmetry comes from the per-entity refinements, and it runs the other way: `SuperRefineJutsu` (`:1218-1220`) rejects `rollbloodline`, `rollsagemode` and `removebloodline` outright, while `SuperRefineItem` (`:1122`) permits all of them and merely constrains `noncombatconsumereward` to a CONSUMABLE targeting SELF (`:1154-1160`).
+
+**Why it matters:** The law's authoring advice (wrap unproven tags in injectjutsus, test with a throwaway record) is still safe. Its stated direction is not, and a tag list derived from it would exclude item-legal tags. The law already notes its membership list drifted once in 2026-07; the direction has now drifted too.
 
 ## Verdicts
 
@@ -103,9 +112,9 @@ Concerns how OUR builder resolves srcId/idmap before the request is sent.
 
 `app/src/validators/combat.ts:111` - `PowerAttributes`
 
-PowerAttributes.power is z.coerce.number().min(0).prefault(1) with NO max, and it is spread AFTER BaseAttributes (combat.ts:164-167), so it overrides the capped BaseAttributes.power at :98.
+PowerAttributes.power is z.coerce.number().min(0).prefault(1) with NO max, and it is spread AFTER BaseAttributes in all 61 tags that use it, so it overrides the capped BaseAttributes.power at :98.
 
-> CONTRADICTED CLAUSE: 'Effect power caps at 100 per row' does not hold. BaseAttributes.power is .min(-100).max(100) at :98, but ~19 tags (absorb, increasedamagegiven, decreasedamagegiven, increasedamagetaken, decreasedamagetaken, increaseheal, decreaseheal, increase/decreasepoolcost, increase/decreasemaxpools, timecompression, timedilation, redirection, increaserange, increase/decreasecooldown, increase/decreasestat, copy) spread PowerAttributes last and are uncapped. CONFIRMED CLAUSES: apReduction .max(100) at :775; has_effect/target_has_effect threshold .max(100) at validators/ai.ts:77,84; condition value has no upper bound at validators/ai.ts:25. See the report's contradictions section.
+> CONTRADICTED CLAUSE: 'Effect power caps at 100 per row' does not hold. BaseAttributes.power is .min(-100).max(100) at :98, but 61 of the 70 tags spread PowerAttributes last and are uncapped - including damage, pierce, heal, shield, stun, absorb and the whole increase/decrease family. Only 9 tags omit it (finalstand, activatesagemode, noncombatconsumereward, repair, visual, weakness, unknown, injectjutsus, unlockitemvariant), and several of those declare their own power with .max(100) instead (e.g. finalstand at :580, rollbloodline at :690). No tag redeclares power after the spread, so nothing restores the cap. CONFIRMED CLAUSES: apReduction .max(100) at :775; has_effect/target_has_effect threshold .max(100) at validators/ai.ts:77,84; condition value has no upper bound at validators/ai.ts:25. See the report's contradictions section.
 
 ### Law 7 - `ENGINE`
 
@@ -119,17 +128,21 @@ z.string().regex(DateTimeRegExp, "Must be of format YYYY-MM-DD").nullable()
 
 All three are z.coerce.number().min(0).max(100) at objectives.ts:676-678.
 
-### Law 9 - `NOT_IN_SOURCE`
+### Law 9 - `ENGINE`
 
-Multiplicative stacking of same-type percentage rows was not located as a single expression at this SHA.
+`app/src/libs/combat/tags.ts:924` - `adjustDamageGiven`
 
-> Behaviour-proven in the laws' own terms (fight captures). The damage-application path was not traced in this pass; the law may well be provable with a deeper read of libs/combat/process.ts. Low confidence, and worth a targeted follow-up.
+const multiplier = 1 + (power / 100) * ratio; consequence[damageKey] = current * multiplier - each percentage row multiplies the running total, so N rows compound as the product of (1 + p_i).
 
-### Law 10 - `NOT_IN_SOURCE`
+> Upgraded from NOT_IN_SOURCE on re-check. The same form appears in adjustDamageTaken at tags.ts:1009. The gate above it, if (!effect.isNew && !effect.castThisRound), independently corroborates law 75.
 
-Same as law 9, for damage-taken rows.
+### Law 10 - `ENGINE`
 
-> Not traced in this pass. Low confidence.
+`app/src/libs/combat/tags.ts:1009` - `adjustDamageTaken`
+
+Same multiplicative form as law 9: multiplier = 1 + (power / 100) * ratio applied to the running consequence. A decrease carries negative power, so the product is of (1 - p_i).
+
+> Upgraded from NOT_IN_SOURCE on re-check. decreasedamagetaken and decreasedamagegiven are damageReductionTypes (libs/combat/constants.ts:155-158), which the constants file documents as applied AFTER all boosts.
 
 ### Law 11 - `NOT_IN_SOURCE`
 
@@ -207,13 +220,13 @@ Editing an equipped jutsu severing the combat link is a runtime/state behaviour 
 
 > Not located as a source expression at this SHA.
 
-### Law 19 - `PARTIAL`
+### Law 19 - `CONTRADICTED`
 
 `app/src/validators/combat.ts:1122` - `SuperRefineItem`
 
-A dedicated item refinement exists and is applied at combat.ts:1529 (ItemValidatorRawSchema.superRefine(SuperRefineBase).superRefine(SuperRefineItem)), so the item union is separately constrained.
+Item and jutsu share ONE union: effects: z.array(AllTags).superRefine(SuperRefineEffects) at combat.ts:1327 (jutsu) and :1491 (item). SuperRefineItem PERMITS rollbloodline, rollsagemode, removebloodline and noncombatconsumereward (it only constrains them, e.g. noncombatconsumereward must be CONSUMABLE and target SELF at :1154-1160), while SuperRefineJutsu REJECTS all of them outright at :1218-1220.
 
-> PROVABLE: the item path carries its own refinement, which is the mechanism the law describes. NOT VERIFIED in this pass: the specific included/excluded tag list. The law's own membership claims are dated to a 2026-07 source patch and should be re-derived from the tag union rather than trusted from this file.
+> Changed from PARTIAL to CONTRADICTED on re-check. At this commit the direction is inverted: there is no narrower item union, and the item path is WIDER than the jutsu path - it accepts the bloodline/sage/non-combat family that jutsu refuse. The law's own text notes its membership list has drifted before; the headline direction is now wrong too. See the report's contradictions section.
 
 ### Law 20 - `ENGINE`
 
@@ -369,13 +382,13 @@ Rule fall-through when an action cannot execute is runtime behaviour in ai_v2.ts
 
 Both fields exist as z.coerce.number().prefault(0) at rewards.ts:50 and :52.
 
-### Law 44 - `PARTIAL`
+### Law 44 - `ENGINE`
 
-`app/src/validators/objectives.ts:357` - `attackers / opponentAIs`
+`app/src/server/api/routers/quests.ts:3184` - `attackers spawn roll`
 
-Both are the SAME schema type, idsWithNumberField: attackers at :357, opponentAIs at :422/:515/:526.
+attackers: .filter((ai) => Math.random() * 100 < ai.number) - a percentage roll. opponentAIs: .flatMap((o) => Array(o.number).fill(o.ids).flat()) at libs/quest.ts:1104 - a repeat count.
 
-> PROVABLE, and it is the dangerous half: the two shapes are literally the same type, so nothing structural distinguishes them. NOT VERIFIED: that attackers[].number is a spawn percentage while opponentAIs[].number is a count - the consuming code was not located at this SHA. The law's warning stands on the confirmed half.
+> Upgraded from PARTIAL to ENGINE on re-check; both halves now proven, from two different files. The shapes are the same type (idsWithNumberField, validators/objectives.ts:357 and :422), so nothing structural distinguishes them - exactly the hazard the law names. A row copied into opponentAIs with number: 100 literally constructs 100 opponents.
 
 ### Law 45 - `NOT_IN_SOURCE`
 
@@ -425,13 +438,13 @@ Displayed width is fixed at 40% of the scene and height follows the file's intri
 
 > PROVABLE: apparent size is set by the file's own aspect, since width is fixed. DOCTRINE: the transparent-padding remedy is our authoring technique.
 
-### Law 52 - `PARTIAL`
+### Law 52 - `ENGINE`
 
-`app/src/libs/threejs/sector.ts:295` - `drawQuest`
+`app/src/libs/threejs/sector.ts:319` - `drawQuest`
 
-drawQuest exists at sector.ts:295 and is the sector-map quest draw path.
+if (!("image" in objective) || !objective.image) return; - the early return the law describes, inside drawQuest (which begins at :295). Per-task marker tinting follows at :329 (move_to_location = 0xf4e365, travel yellow).
 
-> NOT VERIFIED: the early-return-when-no-image behaviour and the per-task marker tinting. The function is where the law says it is; its internals were not read closely enough to cite a line. Flagged as low confidence.
+> Upgraded from PARTIAL to ENGINE on re-check: the function body was read this time, and both clauses hold.
 
 ### Law 53 - `ENGINE`
 
@@ -625,7 +638,7 @@ unoptimized: true at next.config.mjs:35; layout/Image.tsx:25 rewrites Bunny sour
 
 size: "landscape" with maxDim 512 (:69-70) and size: "portrait" with maxDim 512 (:77-78) - these steer generation, as the law says.
 
-> PROVABLE: the size values exist and are generator configuration. NOT VERIFIED: that the editor preview widget beneath them is AvatarImage. The claim is specific and checkable; this pass did not locate the preview component.
+> PROVABLE, and more than the first pass found: the asset form entry is literally type: "avatar" for every scene type (hooks/asset.ts:66-69, :74-77), with size and maxDim carried alongside, which is the mechanism the law describes. NOT VERIFIED: that entry renders through ContentImageSelector (layout/EditContent.tsx:1002-1021), and I did not follow that component to its image element, so the final claim - that the preview is AvatarImage with aspect-square - remains uncited. Still the weakest of the art verdicts.
 
 ### Law 81 - `ENGINE`
 
@@ -661,19 +674,19 @@ url.searchParams.set("optimizer", "image") applied only under the extensionless-
 
 ### Law 85 - `ENGINE`
 
-`app/src/libs/quest.ts:1850` - `dialog option check`
+`app/src/libs/quest.ts:1840` - `verifyDialogBranches`
 
-message: `Dialog objective '${obj.id}' must have at least one option`
+Rejects a dialog whose nextObjectiveId is absent or an empty array with the exact message the law quotes (:1846-1852).
 
-> The quoted error string is exact. NOTE: the section preamble attributes this validator to the builder; it is server-side, in libs/quest.ts. See the report's notes.
+> Re-check found the full function. Its docstring states the rule 'applies to every quest, independent of consecutiveObjectives', so unlike law 87 this one is NOT gated. It also enforces two rules the law does not record: every option must carry a non-empty nextObjectiveId string, and that id must resolve to an existing objective. NOTE: the section preamble attributes this validator to the builder; it is server-side.
 
 ### Law 86 - `PARTIAL`
 
 `app/src/libs/quest.ts:1129` - `terminal task handling`
 
-win_quest, reset_quest and fail_quest are the three tasks handled as terminals in the consequence switch (:1129-1138).
+win_quest, reset_quest and fail_quest are the three tasks handled as terminals in the consequence switch (:1129-1138), and verifyDialogBranches (:1840) forces every dialog to route onward.
 
-> PROVABLE: the three terminals are exactly those the law names. NOT VERIFIED as a single citation: that a dialog may not terminate a quest - that is the flow validator's business and was not located as a distinct check.
+> Much better supported on re-check, and the nuance matters. The verifyDialogBranches docstring reads: 'Legacy terminal branches still complete through the runtime sentinel, but new content must express its flow explicitly.' So the law holds for anything we author, but the engine DOES retain a runtime path where a terminal dialog branch completes - TERMINAL_DIALOG_PREFIX, handled at :1239 and covered by app/tests/libs/quest.dialogterminal.test.ts. PARTIAL rather than ENGINE because 'never on a dialog' is true of new content only.
 
 ### Law 87 - `ENGINE`
 
@@ -681,7 +694,7 @@ win_quest, reset_quest and fail_quest are the three tasks handled as terminals i
 
 throw new Error("Cycle detected in objective chain")
 
-> The quoted error string is exact.
+> The quoted error string is exact. IMPORTANT REFINEMENT from re-check: the check is CONDITIONAL. verifyQuestContentForSave runs the full flow check only under if (consecutiveObjectives) return verifyQuestObjectiveFlow(objectives) at :2053; a non-consecutive quest gets only the dialog-branch scan. The acyclic requirement therefore does not apply to every quest, which the law does not say.
 
 ### Law 88 - `PARTIAL`
 
@@ -712,13 +725,13 @@ Flagged, not resolved.
 The verdicts above are only as good as the reading behind them. These are the ones
 I would re-check first, and why.
 
-- **Law 9.** Multiplicative stacking is the single most load-bearing tuning law and the one this pass verified least. It is behaviour-proven from fight captures, but I could not locate a source expression, and I would not want a NOT_IN_SOURCE verdict read as 'unlikely to be provable'. It probably is provable in libs/combat/process.ts with a deeper read than this pass gave it.
-- **Law 44.** The half that matters for authoring - percentage vs count - is exactly the half I could not verify. The schemas are literally the same type, so nothing distinguishes them structurally, and I did not find the consuming code. The law's warning is still worth obeying.
-- **Law 52.** I confirmed drawQuest exists at the file and line the law names but did not read its body, so the early-return-on-missing-image claim is uncited. This is the one verdict where I had the citation in hand and still could not honestly upgrade it.
-- **Law 80.** A specific, checkable claim (the editor preview widget is AvatarImage) that I did not settle. I verified the surrounding config the law cites, which makes the unverified part look more supported than it is.
-- **Law 19.** The item/jutsu union asymmetry is real and the mechanism is confirmed, but the law's specific included/excluded tag list dates to a 2026-07 patch and I did not re-derive it. Membership claims are the kind that rot silently.
+- **Law 80.** The weakest verdict in the report. I confirmed the asset form entry is type "avatar" with size and maxDim for every scene type, which is the law's mechanism, but I did not follow ContentImageSelector through to its image element, so 'the preview is AvatarImage with aspect-square' is still uncited.
+- **Law 11.** Pierce bypassing damage modifiers. I now know exactly where to settle it - pierce is NOT in damageBoostTypes or damageReductionTypes (libs/combat/constants.ts:146-158), which is suggestive - but suggestive is not proof, and I did not trace the pierce damage path itself.
+- **Law 4.** The fields verify and the schema permits an empty generals list, but the 'detonates into astronomical values' consequence lives in the damage formula and I did not trace it. The authoring instruction is sound regardless.
 - **Law 1.** A cross-cutting generalization that cannot be settled by one citation. NOT_IN_SOURCE is the least wrong verdict available, but it is not the same as 'false' - it means the law is not shaped like something a file:line can prove.
-- **Law 41b/63.** Both describe rule fall-through from different sides and both came back NOT_IN_SOURCE for the same reason: I did not trace the AI action selector in ai_v2.ts. They should be verified together, not separately.
+- **Law 41b/63.** Both describe rule fall-through from different sides and both remain NOT_IN_SOURCE for the same reason: I did not trace the action selector in ai_v2.ts. They should be verified together, not separately. The single largest remaining gap.
+- **Law 14.** The DB default verifies exactly, but 'REQUIRED on every AI create' does not follow from it - createInsertSchema makes defaulted columns optional. I am confident in the split I drew; I am less confident that no other guard enforces requiredness elsewhere in the create path.
+- **Law 54.** The locationType enum and the 0 coordinate default verify, but 'the engine only randomises when locationType is random' is the operative clause and I did not find the placement code.
 
 ## Method
 
@@ -732,3 +745,25 @@ I would re-check first, and why.
 - Where a citation could not be verified, none was written. `NOT_IN_SOURCE` on a
   law that looks engine-shaped means this pass did not settle it, and the note
   says so; it is not a claim that the law is false.
+
+### Re-check pass
+
+The first pass was re-audited against the same commit, attacking its own weakest
+verdicts and re-testing each contradiction claim for a false positive. Six verdicts
+changed, all upgrades except one:
+
+| Law | Was | Now | What settled it |
+|---|---|---|---|
+| 9 | `NOT_IN_SOURCE` | `ENGINE` | `tags.ts:924` multiplicative accumulation |
+| 10 | `NOT_IN_SOURCE` | `ENGINE` | `tags.ts:1009`, same form |
+| 19 | `PARTIAL` | `CONTRADICTED` | one shared union; item path is wider |
+| 44 | `PARTIAL` | `ENGINE` | both halves, from two files |
+| 52 | `PARTIAL` | `ENGINE` | read the `drawQuest` body |
+| 85 | `ENGINE` | `ENGINE` | full `verifyDialogBranches`; two extra rules found |
+
+Law 6's contradiction widened from ~19 tags to 61 of 70. Law 87 gained a material
+refinement: the acyclic check runs only under `consecutiveObjectives`. Law 86 gained
+the legacy terminal-dialog sentinel. No contradiction claim was withdrawn, and one
+candidate contradiction (law 82) was checked and rejected before the first pass
+shipped - `replicate.ts:176` and `:63` belong to other code paths, and the governing
+line `:343` matches the law exactly.
