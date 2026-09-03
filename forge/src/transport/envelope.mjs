@@ -64,14 +64,25 @@ export function decodeResponse(status, text, expectedCount) {
     throw new TransportError("response is not JSON", { httpStatus: status, snippet: String(text).slice(0, 200) });
   }
   if (!Array.isArray(body)) {
-    // A non-batched shape would mean the server is not the one we audited, or an intermediary
-    // answered. Surface loudly; never guess.
+    // A request-level adapter error (bad batch envelope, unsupported media type, oversized
+    // body) is a bare {error:{json}} object even under ?batch=1: every call in the request
+    // failed the same way, so replicate it across the indices (adversarial review L2).
+    if (body && typeof body === "object" && body.error) {
+      const el = decodeElement(body, 0, status);
+      el.error.requestLevel = true;
+      return Array.from({ length: expectedCount ?? 1 }, () => el);
+    }
+    // Anything else means the server is not the one we audited, or an intermediary answered.
     throw new TransportError("response is not a batch array", { httpStatus: status, snippet: String(text).slice(0, 200) });
   }
   if (expectedCount != null && body.length !== expectedCount) {
     throw new TransportError(`batch length mismatch: expected ${expectedCount}, got ${body.length}`, { httpStatus: status });
   }
-  return body.map((el, i) => decodeElement(el, i, status));
+  // one malformed element must not discard its well-formed siblings
+  return body.map((el, i) => {
+    try { return decodeElement(el, i, status); }
+    catch (e) { return { ok: false, error: { code: "MALFORMED_ELEMENT", httpStatus: status, message: e.message, path: null, zodError: null, raw: el } }; }
+  });
 }
 
 function decodeElement(el, i, status) {

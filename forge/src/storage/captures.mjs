@@ -44,23 +44,36 @@ export class CaptureCache {
 
   async _open() {
     if (this._db) return this._db;
-    const req = this.idb.open(DB_NAME, DB_VERSION);
-    req.onupgradeneeded = () => {
-      const db = req.result;
-      if (!db.objectStoreNames.contains(STORE)) {
-        const store = db.createObjectStore(STORE, { keyPath: "key" });
-        store.createIndex("entity", "entity", { unique: false });
-        store.createIndex("path", "path", { unique: false });
-      }
-    };
-    this._db = await reqToPromise(req);
-    this._db.onversionchange = () => { this._db.close(); this._db = null; };
-    return this._db;
+    if (!this._opening) {
+      this._opening = (async () => {
+        const req = this.idb.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains(STORE)) {
+            const store = db.createObjectStore(STORE, { keyPath: "key" });
+            store.createIndex("entity", "entity", { unique: false });
+            store.createIndex("path", "path", { unique: false });
+          }
+        };
+        const db = await new Promise((resolve, reject) => {
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+          req.onblocked = () => reject(new Error("tnr_forge open blocked by another connection"));
+        });
+        db.onversionchange = () => { db.close(); if (this._db === db) this._db = null; };
+        db.onclose = () => { if (this._db === db) this._db = null; };
+        this._db = db;
+        return db;
+      })().finally(() => { this._opening = null; });
+    }
+    return this._opening;
   }
 
   async _tx(mode, fn) {
-    const db = await this._open();
-    const tx = db.transaction(STORE, mode);
+    let db = await this._open();
+    let tx;
+    try { tx = db.transaction(STORE, mode); }
+    catch (e) { if (e && e.name === "InvalidStateError") { this._db = null; db = await this._open(); tx = db.transaction(STORE, mode); } else throw e; }
     const store = tx.objectStore(STORE);
     const result = await fn(store);
     await new Promise((resolve, reject) => {
@@ -73,10 +86,11 @@ export class CaptureCache {
 
   /** Store a decoded response. */
   async put({ path, id, input, data }) {
+    id = id == null || id === "" ? "" : String(id);
     const rec = {
       key: captureKey(path, id),
       path,
-      id: id ?? null,
+      id: id === "" ? null : id,
       entity: entityOfPath(path),
       input: input ?? null,
       data,
@@ -117,8 +131,9 @@ export class CaptureCache {
       const idx = s.index("entity");
       const recs = await reqToPromise(idx.getAll(entity));
       let n = 0;
+      const want = id == null ? "" : String(id);
       for (const r of recs) {
-        if (r.id === id || r.id === null || r.id === "") { await reqToPromise(s.delete(r.key)); n++; }
+        if (String(r.id ?? "") === want || r.id === null || r.id === "") { await reqToPromise(s.delete(r.key)); n++; }
       }
       return n;
     });

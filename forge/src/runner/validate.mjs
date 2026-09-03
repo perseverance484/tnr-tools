@@ -51,7 +51,7 @@ export class Validator {
    * @param {object|null} live  the live record when known (required for ai)
    * @returns {string[]} problems (empty = ok)
    */
-  problems(entity, data, live = null) {
+  problems(entity, data, live = null, { preCreate = false } = {}) {
     const out = [];
     if (!data || typeof data !== "object") return ["data is not an object"];
     const keys = Object.keys(data);
@@ -59,7 +59,8 @@ export class Validator {
       const allowed = new Set(AI_EXTRA_KEYS);
       if (live) for (const k of Object.keys(live)) allowed.add(k);
       const check = entity === "aiProfile" ? new Set(["rules", "includeDefaultRules"]) : allowed;
-      for (const k of keys) if (!check.has(k)) out.push(`unknown key "${k}" for ${entity}${live ? "" : " (no live record to check against)"}`);
+      // before a create there is no live row to check AI keys against; structural checks only
+      if (live || entity === "aiProfile") for (const k of keys) if (!check.has(k)) out.push(`unknown key "${k}" for ${entity}`);
       if (Array.isArray(data.rules)) out.push(...ruleProblems(data.rules));
     } else {
       const known = this.knownFields(entity);
@@ -96,7 +97,19 @@ export function diffAsserted(entity, asserted, live) {
   const diffs = [];
   for (const k of Object.keys(asserted)) {
     if (SERVER_OWNED.includes(k)) continue;
-    if (entity === "ai" && ["rules", "includeDefaultRules", "jutsus", "items"].includes(k)) continue; // verified via the profile read
+    if (entity === "ai" && ["rules", "includeDefaultRules"].includes(k)) continue; // verified via the profile read
+    if (entity === "ai" && k === "jutsus") { // live row carries relation rows; compare ids
+      const l = Array.isArray(live?.jutsus) ? live.jutsus.map((r) => (typeof r === "string" ? r : r.jutsuId ?? r.id)) : [];
+      const s = (asserted.jutsus ?? []).map((j) => (typeof j === "string" ? j : j?.jutsuId ?? j?.id));
+      if (JSON.stringify([...s].sort()) !== JSON.stringify([...l].sort())) diffs.push({ key: k, sent: s, live: l });
+      continue;
+    }
+    if (entity === "ai" && k === "items") {
+      const l = Array.isArray(live?.items) ? live.items.map((r) => (typeof r === "string" ? r : r.itemId ?? r.id)).filter(Boolean) : [];
+      const s = (asserted.items ?? []).flatMap((t) => (typeof t === "string" ? [t] : Array.isArray(t?.ids) ? t.ids : [t?.itemId ?? t?.id])).filter(Boolean);
+      if (JSON.stringify([...s].sort()) !== JSON.stringify([...l].sort())) diffs.push({ key: k, sent: s, live: l });
+      continue;
+    }
     const s = asserted[k], l = live ? live[k] : undefined;
     if (!eqLoose(s, l, entity)) diffs.push({ key: k, sent: s, live: l });
   }

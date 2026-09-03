@@ -1,4 +1,4 @@
-// TNR forge bundle v0.1.0 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.1.1 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Host: any unmatched path on the game origin (/forge). Layers: storage, transport, budget, runner, reconcile, ui.
 // Pinned engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
@@ -6,6 +6,7 @@
   // src/storage/journal.mjs
   var JOURNAL_VERSION = 1;
   var KEY_PREFIX = "tnr_forge_job_v1:";
+  var MAX_TEXT = 512;
   var ITEM_STATES = Object.freeze([
     "PLANNED",
     "SENT",
@@ -17,17 +18,19 @@
   ]);
   var TERMINAL_ITEM_STATES = Object.freeze(["VERIFIED", "FAILED", "SKIPPED"]);
   var JOB_STATES = Object.freeze(["RUNNING", "PAUSED", "DONE", "ABORTED"]);
+  var OPS = Object.freeze(["create", "update"]);
   var TRANSITIONS = Object.freeze({
     PLANNED: ["SENT", "FAILED", "SKIPPED"],
     SENT: ["CONFIRMED", "ORPHANED", "FAILED"],
     CONFIRMED: ["SENT", "VERIFIED", "FAILED"],
-    // SENT again only for phase 2 of a two-phase create
+    // SENT again only for a later phase of the same item
     VERIFIED: [],
     FAILED: [],
     ORPHANED: ["CONFIRMED", "FAILED", "SKIPPED"],
     // CONFIRMED = adopted by the user
     SKIPPED: []
   });
+  var RESERVED = Object.freeze(["state", "idx", "sentAt", "confirmedAt", "verifiedAt", "createSentAt"]);
   var JournalError = class extends Error {
     constructor(message, info) {
       super(message);
@@ -38,40 +41,65 @@
   function nowIso(clock) {
     return new Date(clock()).toISOString();
   }
+  function capText(v) {
+    return typeof v === "string" && v.length > MAX_TEXT ? v.slice(0, MAX_TEXT - 1) + "\u2026" : v;
+  }
+  function capPatch(patch) {
+    const out = {};
+    for (const [k, v] of Object.entries(patch || {})) out[k] = capText(v);
+    return out;
+  }
   function newItem(idx, spec) {
+    if (!spec || typeof spec !== "object") throw new JournalError("item spec must be an object", { idx });
+    if (!OPS.includes(spec.op)) throw new JournalError(`item ${idx}: op must be create or update, got ${spec.op}`, { idx });
+    if (typeof spec.entity !== "string" || !spec.entity) throw new JournalError(`item ${idx}: entity required`, { idx });
     return {
       idx,
       entity: spec.entity,
       op: spec.op,
-      // "create" | "update"
       name: spec.name ?? null,
-      // display only
       srcId: spec.srcId ?? null,
-      // manifest key for @refs
       targetId: spec.targetId ?? null,
-      payloadHash: spec.payloadHash,
+      payloadHash: spec.payloadHash ?? null,
       state: "PLANNED",
       phase: spec.op === "create" ? "create" : "update",
-      // two-phase create: "create" then "update"
       entityId: spec.targetId ?? null,
       snapshotKey: null,
       sentAt: null,
+      // the LAST send of this item
+      createSentAt: null,
+      // the create-phase send, never overwritten
       confirmedAt: null,
       verifiedAt: null,
       error: null
     };
   }
+  function validateJobShape(job) {
+    if (!job || typeof job !== "object" || Array.isArray(job)) throw new JournalError("journal record is not an object");
+    if (typeof job.jobId !== "string" || !job.jobId) throw new JournalError("journal record has no jobId");
+    if (!Array.isArray(job.items)) throw new JournalError("journal record has no items array", { jobId: job.jobId });
+    if (!JOB_STATES.includes(job.state)) throw new JournalError("journal record has unknown job state " + job.state, { jobId: job.jobId });
+    job.items.forEach((it, i) => {
+      if (!it || typeof it !== "object") throw new JournalError(`item ${i} is not an object`, { jobId: job.jobId });
+      if (!ITEM_STATES.includes(it.state)) throw new JournalError(`item ${i} has unknown state ${it.state}`, { jobId: job.jobId });
+      if (it.idx !== i) throw new JournalError(`item ${i} has idx ${it.idx}`, { jobId: job.jobId });
+    });
+    return job;
+  }
   var Journal = class {
     /**
      * @param {Storage} storage  a localStorage-compatible object
      * @param {() => number} clock  epoch ms; injectable so tests are deterministic
+     * @param {object} [opts]
+     * @param {() => Promise<void>} [opts.yieldTask]  awaited between the SENT flush and the request
      */
-    constructor(storage, clock = () => Date.now()) {
+    constructor(storage, clock = () => Date.now(), { yieldTask = () => new Promise((r) => setTimeout(r, 0)) } = {}) {
       if (!storage || typeof storage.setItem !== "function") {
         throw new JournalError("Journal needs a Storage-like object");
       }
       this.storage = storage;
       this.clock = clock;
+      this.yieldTask = yieldTask;
     }
     // ------------------------------------------------------------------ persistence
     _key(jobId) {
@@ -99,31 +127,51 @@
       try {
         job = JSON.parse(text);
       } catch (e) {
-        throw new JournalError("journal record is not JSON: " + jobId, { jobId, cause: e });
+        throw new JournalError("journal record is not JSON: " + jobId, { jobId, cause: e, raw: text });
       }
-      return migrate(job);
+      return validateJobShape(migrate(job));
     }
     // ------------------------------------------------------------------ jobs
     listJobIds() {
       const ids = [];
       for (let i = 0; i < this.storage.length; i++) {
         const k = this.storage.key(i);
-        if (k && k.startsWith(KEY_PREFIX)) ids.push(k.slice(KEY_PREFIX.length));
+        if (k && k.startsWith(KEY_PREFIX) && k.length > KEY_PREFIX.length) ids.push(k.slice(KEY_PREFIX.length));
       }
       return ids;
     }
+    /**
+     * Readable jobs, newest first. A corrupt record never blocks the others: it is collected in
+     * this.broken (jobId, error, raw) so the UI can show it and the user can export it.
+     */
     listJobs() {
-      return this.listJobIds().map((id) => this._read(id)).filter(Boolean).sort((a, b) => a.startedAt < b.startedAt ? 1 : -1);
+      const jobs = [];
+      this.broken = [];
+      for (const id of this.listJobIds()) {
+        try {
+          const j = this._read(id);
+          if (j) jobs.push(j);
+        } catch (e) {
+          this.broken.push({ jobId: id, error: e.message, raw: this.storage.getItem(this._key(id)) });
+        }
+      }
+      return jobs.sort((a, b) => String(b.startedAt).localeCompare(String(a.startedAt)) || a.jobId.localeCompare(b.jobId));
     }
     get(jobId) {
       return this._read(jobId);
     }
     /**
      * Open a new job. items are specs: {entity, op, name, srcId, targetId, payloadHash}.
+     * Refuses when a non-terminal job with the same manifestHash already exists: resume it.
      */
     open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash, items }) {
       if (!jobId) throw new JournalError("jobId required");
+      if (!Array.isArray(items) || !items.length) throw new JournalError("a job needs at least one item");
       if (this._read(jobId)) throw new JournalError("job already exists: " + jobId, { jobId });
+      if (manifestHash) {
+        const dup = this.resumable().find((j) => j.manifestHash === manifestHash);
+        if (dup) throw new JournalError(`an open job for this manifest already exists (${dup.jobId}); resume it instead`, { jobId: dup.jobId });
+      }
       const job = {
         v: JOURNAL_VERSION,
         jobId,
@@ -134,7 +182,6 @@
         updatedAt: null,
         state: "RUNNING",
         pause: null,
-        // { reason, path, until } when PAUSED
         items: items.map((spec, i) => newItem(i, spec))
       };
       return this._write(job);
@@ -142,11 +189,17 @@
     setJobState(jobId, state, extra = {}) {
       if (!JOB_STATES.includes(state)) throw new JournalError("bad job state: " + state);
       const job = this._mustRead(jobId);
+      if (state === "DONE" && job.items.some((it) => it.state === "SENT")) throw new JournalError("cannot mark DONE with SENT items", { jobId });
       job.state = state;
-      job.pause = state === "PAUSED" ? extra.pause ?? job.pause ?? null : null;
+      job.pause = state === "PAUSED" ? extra.pause ?? job.pause ?? { reason: "unspecified" } : null;
       return this._write(job);
     }
-    remove(jobId) {
+    /** Delete a job record. Refused while any item is SENT (the record that a request left). */
+    remove(jobId, { force = false } = {}) {
+      const job = this._read(jobId);
+      if (job && !force && job.items.some((it) => it.state === "SENT")) {
+        throw new JournalError("refusing to delete a job with SENT items; reconcile it first", { jobId });
+      }
       this.storage.removeItem(this._key(jobId));
     }
     _mustRead(jobId) {
@@ -167,18 +220,30 @@
       if (!TRANSITIONS[from] || !TRANSITIONS[from].includes(to)) {
         throw new JournalError(`illegal transition ${from} -> ${to}`, { jobId, idx, from, to });
       }
-      Object.assign(item, patch);
+      const p = capPatch(patch);
+      for (const k of RESERVED) if (k in p) throw new JournalError(`transition patch may not set ${k}`, { jobId, idx });
+      if (from === "CONFIRMED" && to === "SENT") {
+        const entityId = p.entityId ?? item.entityId;
+        const phase = p.phase ?? item.phase;
+        if (!entityId) throw new JournalError("CONFIRMED -> SENT needs an entityId (phase 2 of a create)", { jobId, idx });
+        if (phase === "create") throw new JournalError("CONFIRMED -> SENT may not re-enter the create phase", { jobId, idx });
+      }
+      if (to === "SENT" && job.state !== "RUNNING") throw new JournalError(`cannot send while job is ${job.state}`, { jobId, idx });
+      Object.assign(item, p);
       item.state = to;
       const at = nowIso(this.clock);
-      if (to === "SENT") item.sentAt = at;
+      if (to === "SENT") {
+        item.sentAt = at;
+        if (item.phase === "create" && !item.createSentAt) item.createSentAt = at;
+      }
       if (to === "CONFIRMED") item.confirmedAt = at;
       if (to === "VERIFIED") item.verifiedAt = at;
       return this._write(job);
     }
     /**
-     * The write-ahead primitive. Flush SENT to disk, THEN run the thunk that issues the request.
-     * The thunk cannot run before the flush because it is only invoked after _write returns.
-     * If the flush throws, the thunk never runs and nothing left the device.
+     * The write-ahead primitive. Flush SENT to disk, yield one task so the storage IPC is
+     * queued, THEN run the thunk that issues the request. If the flush throws, the thunk never
+     * runs and nothing left the device.
      *
      * @returns {Promise<any>} whatever the thunk resolves to
      */
@@ -188,39 +253,61 @@
         patch = {};
       }
       this.transition(jobId, idx, "SENT", patch);
+      await this.yieldTask();
       return await thunk();
     }
-    /** Set a field on an item without a state change. Still flushes. */
+    /** Set non-reserved fields on an item without a state change. Still flushes. */
     annotate(jobId, idx, patch) {
       const job = this._mustRead(jobId);
       const item = job.items[idx];
       if (!item) throw new JournalError("no such item: " + idx, { jobId, idx });
-      Object.assign(item, patch);
+      const p = capPatch(patch);
+      for (const k of RESERVED) if (k in p) throw new JournalError(`annotate may not set ${k}; use transition()`, { jobId, idx, key: k });
+      Object.assign(item, p);
+      return this._write(job);
+    }
+    /** Set job-level fields (captures, notes). Never items or state. */
+    annotateJob(jobId, patch) {
+      const job = this._mustRead(jobId);
+      for (const k of ["items", "state", "jobId", "v"]) if (k in (patch || {})) throw new JournalError("annotateJob may not set " + k, { jobId });
+      Object.assign(job, patch);
       return this._write(job);
     }
     // ------------------------------------------------------------------ resume
-    /** Jobs that have any item not in a terminal state, or that are PAUSED. */
+    /** Jobs that still have work: PAUSED, or RUNNING with any non-terminal item. DONE/ABORTED never. */
     resumable() {
-      return this.listJobs().filter((job) => job.state === "PAUSED" || job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state)));
+      return this.listJobs().filter((job) => job.state === "PAUSED" || job.state === "RUNNING" && job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state)));
     }
     /** Items in SENT. These are ambiguous and must go through reconciliation, never retried. */
     ambiguous(jobId) {
       return this._mustRead(jobId).items.filter((it) => it.state === "SENT");
     }
+    /** Every entityId any job in this journal has recorded (for cross-job orphan reconciliation). */
+    knownEntityIds(entity = null) {
+      const ids = /* @__PURE__ */ new Set();
+      for (const job of this.listJobs()) for (const it of job.items) if (it.entityId && (!entity || it.entity === entity)) ids.add(it.entityId);
+      return ids;
+    }
     // ------------------------------------------------------------------ export
     exportText() {
-      return JSON.stringify({ exportedAt: nowIso(this.clock), version: JOURNAL_VERSION, jobs: this.listJobs() }, null, 1);
+      const jobs = this.listJobs();
+      return JSON.stringify({ exportedAt: nowIso(this.clock), version: JOURNAL_VERSION, jobs, broken: this.broken ?? [] }, null, 1);
     }
   };
   var MIGRATIONS = {};
   function migrate(job) {
+    if (!job || typeof job !== "object") throw new JournalError("journal record is not an object");
     let v = job.v ?? 1;
+    if (!Number.isInteger(v) || v < 1) throw new JournalError("journal record has an invalid version: " + String(job.v));
+    if (v > JOURNAL_VERSION) throw new JournalError(`journal v${v} is newer than this bundle (v${JOURNAL_VERSION}); update the app`, { v });
     while (v < JOURNAL_VERSION) {
       const step = MIGRATIONS[v];
       if (!step) throw new JournalError("no migration from journal v" + v);
       job = step(job);
+      if (job.v !== v + 1) throw new JournalError("migration did not advance the version");
       v = job.v;
     }
+    job.v = v;
     return job;
   }
 
@@ -263,25 +350,49 @@
     }
     async _open() {
       if (this._db) return this._db;
-      const req = this.idb.open(DB_NAME, DB_VERSION);
-      req.onupgradeneeded = () => {
-        const db = req.result;
-        if (!db.objectStoreNames.contains(STORE)) {
-          const store = db.createObjectStore(STORE, { keyPath: "key" });
-          store.createIndex("entity", "entity", { unique: false });
-          store.createIndex("path", "path", { unique: false });
-        }
-      };
-      this._db = await reqToPromise(req);
-      this._db.onversionchange = () => {
-        this._db.close();
-        this._db = null;
-      };
-      return this._db;
+      if (!this._opening) {
+        this._opening = (async () => {
+          const req = this.idb.open(DB_NAME, DB_VERSION);
+          req.onupgradeneeded = () => {
+            const db2 = req.result;
+            if (!db2.objectStoreNames.contains(STORE)) {
+              const store = db2.createObjectStore(STORE, { keyPath: "key" });
+              store.createIndex("entity", "entity", { unique: false });
+              store.createIndex("path", "path", { unique: false });
+            }
+          };
+          const db = await new Promise((resolve, reject) => {
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = () => reject(req.error);
+            req.onblocked = () => reject(new Error("tnr_forge open blocked by another connection"));
+          });
+          db.onversionchange = () => {
+            db.close();
+            if (this._db === db) this._db = null;
+          };
+          db.onclose = () => {
+            if (this._db === db) this._db = null;
+          };
+          this._db = db;
+          return db;
+        })().finally(() => {
+          this._opening = null;
+        });
+      }
+      return this._opening;
     }
     async _tx(mode, fn) {
-      const db = await this._open();
-      const tx = db.transaction(STORE, mode);
+      let db = await this._open();
+      let tx;
+      try {
+        tx = db.transaction(STORE, mode);
+      } catch (e) {
+        if (e && e.name === "InvalidStateError") {
+          this._db = null;
+          db = await this._open();
+          tx = db.transaction(STORE, mode);
+        } else throw e;
+      }
       const store = tx.objectStore(STORE);
       const result = await fn(store);
       await new Promise((resolve, reject) => {
@@ -293,10 +404,11 @@
     }
     /** Store a decoded response. */
     async put({ path, id, input, data }) {
+      id = id == null || id === "" ? "" : String(id);
       const rec = {
         key: captureKey(path, id),
         path,
-        id: id ?? null,
+        id: id === "" ? null : id,
         entity: entityOfPath(path),
         input: input ?? null,
         data,
@@ -334,8 +446,9 @@
         const idx = s.index("entity");
         const recs = await reqToPromise(idx.getAll(entity));
         let n = 0;
+        const want = id == null ? "" : String(id);
         for (const r of recs) {
-          if (r.id === id || r.id === null || r.id === "") {
+          if (String(r.id ?? "") === want || r.id === null || r.id === "") {
             await reqToPromise(s.delete(r.key));
             n++;
           }
@@ -363,6 +476,13 @@
   };
 
   // src/transport/session.mjs
+  var SessionRefused = class extends Error {
+    constructor(message) {
+      super(message);
+      this.name = "SessionRefused";
+      this.sent = false;
+    }
+  };
   var Session = class {
     /** @returns {Promise<Response>} */
     async fetch(_url, _init) {
@@ -373,7 +493,7 @@
       return { kind: "abstract" };
     }
   };
-  var CookieSession = class extends Session {
+  var CookieSession = class _CookieSession extends Session {
     /**
      * @param {object} opts
      * @param {(url: string, init: object) => Promise<Response>} opts.fetchImpl  the page's fetch
@@ -382,14 +502,20 @@
     constructor({ fetchImpl, origin = "" } = {}) {
       super();
       if (typeof fetchImpl !== "function") throw new Error("CookieSession needs fetchImpl");
-      this.fetchImpl = fetchImpl;
+      this.fetchImpl = (u, i) => fetchImpl(u, i);
       this.origin = origin;
     }
+    static ALLOWED_PATHS = /^\/api\/(trpc\/|uploadthing(\?|$))/;
+    static ALLOWED_HEADERS = /* @__PURE__ */ new Set(["content-type", "x-uploadthing-version", "accept"]);
     async fetch(url, init = {}) {
-      const headers = new Headers(init.headers ?? {});
-      if (headers.has("authorization")) {
-        throw new Error("CookieSession refuses an Authorization header on a game request");
+      if (typeof url !== "string" || !_CookieSession.ALLOWED_PATHS.test(url)) {
+        throw new SessionRefused("CookieSession only issues same-origin /api/trpc and /api/uploadthing requests, got " + String(url).slice(0, 80));
       }
+      const headers = new Headers();
+      new Headers(init.headers ?? {}).forEach((v, k) => {
+        if (!_CookieSession.ALLOWED_HEADERS.has(k)) throw new SessionRefused(`CookieSession refuses header ${k} on a game request`);
+        headers.set(k, v);
+      });
       return this.fetchImpl(this.origin + url, { ...init, headers, credentials: "same-origin" });
     }
     describe() {
@@ -1269,12 +1395,23 @@
       throw new TransportError("response is not JSON", { httpStatus: status, snippet: String(text).slice(0, 200) });
     }
     if (!Array.isArray(body)) {
+      if (body && typeof body === "object" && body.error) {
+        const el = decodeElement(body, 0, status);
+        el.error.requestLevel = true;
+        return Array.from({ length: expectedCount ?? 1 }, () => el);
+      }
       throw new TransportError("response is not a batch array", { httpStatus: status, snippet: String(text).slice(0, 200) });
     }
     if (expectedCount != null && body.length !== expectedCount) {
       throw new TransportError(`batch length mismatch: expected ${expectedCount}, got ${body.length}`, { httpStatus: status });
     }
-    return body.map((el, i) => decodeElement(el, i, status));
+    return body.map((el, i) => {
+      try {
+        return decodeElement(el, i, status);
+      } catch (e) {
+        return { ok: false, error: { code: "MALFORMED_ELEMENT", httpStatus: status, message: e.message, path: null, zodError: null, raw: el } };
+      }
+    });
   }
   function decodeElement(el, i, status) {
     if (el && el.result && el.result.data !== void 0) {
@@ -1356,10 +1493,11 @@
   // src/transport/client.mjs
   var NetworkError = class extends Error {
     constructor(cause, info = {}) {
-      super("network: " + (cause && cause.message ? cause.message : String(cause)));
+      const name = cause && cause.name ? cause.name + ": " : "";
+      super("network: " + name + (cause && cause.message ? cause.message : String(cause)));
       this.name = "NetworkError";
-      this.cause = cause;
-      Object.assign(this, info);
+      this.causeName = cause && cause.name ? String(cause.name) : null;
+      Object.assign(this, { phase: "connect", httpStatus: null, received: false, results: null }, info);
     }
   };
   var TrpcClient = class {
@@ -1374,6 +1512,8 @@
      */
     constructor(session, { maxBatch = 20, maxUrlLength = 8e3, onExchange = null, endpoint } = {}) {
       if (!(session instanceof Session)) throw new TransportError("TrpcClient needs a Session");
+      if (!Number.isInteger(maxBatch) || maxBatch < 1) throw new TransportError("maxBatch must be an integer >= 1");
+      if (!Number.isInteger(maxUrlLength) || maxUrlLength < 64) throw new TransportError("maxUrlLength must be an integer >= 64");
       this.session = session;
       this.maxBatch = maxBatch;
       this.maxUrlLength = maxUrlLength;
@@ -1388,6 +1528,12 @@
     /**
      * Many calls. All must be the same kind (the adapter cannot mix GET and POST in one request).
      * Returns decoded elements in input order. Splits by maxBatch and by URL length.
+     *
+     * The server runs the elements of one request CONCURRENTLY; never batch calls that depend on
+     * each other. The runner sends mutations one per request for exactly that reason.
+     *
+     * If a later chunk throws, the error carries `results` (what earlier chunks decoded) and
+     * `failedIndices`, so a caller never loses ids the server already minted.
      */
     async batch(calls) {
       if (!calls.length) return [];
@@ -1396,7 +1542,14 @@
       const kind = [...kinds][0];
       const out = new Array(calls.length);
       for (const chunk of this._chunks(calls, kind)) {
-        const results = await this._send(chunk.map((c) => c.call), kind);
+        let results;
+        try {
+          results = await this._send(chunk.map((c) => c.call), kind);
+        } catch (e) {
+          e.results = out.slice();
+          e.failedIndices = chunk.map((c) => c.index);
+          throw e;
+        }
         chunk.forEach((c, j) => {
           out[c.index] = results[j];
         });
@@ -1410,6 +1563,7 @@
         cur.push(c);
         const tooMany = cur.length > this.maxBatch;
         const tooLong = kind === "query" && buildRequest(cur.map((x) => x.call), kind, { endpoint: this.endpoint }).url.length > this.maxUrlLength;
+        if (tooLong && cur.length === 1) throw new TransportError(`single call to ${c.call.path} exceeds maxUrlLength ${this.maxUrlLength}`, { paths: [c.call.path], sent: false });
         if ((tooMany || tooLong) && cur.length > 1) {
           cur.pop();
           yield cur;
@@ -1420,21 +1574,41 @@
     }
     async _send(calls, kind) {
       const req = buildRequest(calls, kind, { endpoint: this.endpoint });
-      let res, text;
+      const paths = calls.map((c) => c.path);
+      let res;
       try {
         res = await this.session.fetch(req.url, { method: req.method, headers: req.headers, body: req.body });
+      } catch (e) {
+        this._observe({ kind, paths, status: null, error: String(e && e.message) });
+        if (e instanceof SessionRefused) throw new TransportError("not sent: " + e.message, { paths, kind, sent: false });
+        throw new NetworkError(e, { paths, kind, phase: "connect" });
+      }
+      let text;
+      try {
         text = await res.text();
       } catch (e) {
-        this._observe({ kind, paths: calls.map((c) => c.path), status: null, error: String(e && e.message) });
-        throw new NetworkError(e, { paths: calls.map((c) => c.path), kind });
+        this._observe({ kind, paths, status: res.status, error: "body: " + String(e && e.message) });
+        throw new NetworkError(e, { paths, kind, phase: "body", httpStatus: res.status, received: true });
       }
-      const decoded = decodeResponse(res.status, text, calls.length);
-      this._observe({
-        kind,
-        paths: calls.map((c) => c.path),
-        status: res.status,
-        outcomes: decoded.map((d) => d.ok ? "ok" : d.error.code)
-      });
+      let decoded;
+      try {
+        decoded = decodeResponse(res.status, text, calls.length);
+      } catch (e) {
+        const ct = res.headers && res.headers.get ? res.headers.get("content-type") : null;
+        Object.assign(e, {
+          paths,
+          kind,
+          received: true,
+          httpStatus: res.status,
+          redirected: !!res.redirected,
+          url: res.url ?? null,
+          contentType: ct,
+          looksLikeLogin: !!(ct && /text\/html/i.test(ct))
+        });
+        this._observe({ kind, paths, status: res.status, error: e.message, contentType: ct, redirected: !!res.redirected });
+        throw e;
+      }
+      this._observe({ kind, paths, status: res.status, outcomes: decoded.map((d) => d.ok ? "ok" : d.error.code) });
       return decoded;
     }
     _observe(rec) {
@@ -1722,7 +1896,12 @@
       }
       let pos = 0;
       while (pos < misses.length) {
-        const room = Math.min(this.maxBatch, this.budget.isLimited(path) ? this.budget.allowance : this.maxBatch);
+        let room = this.maxBatch;
+        if (this.budget.isLimited(path)) {
+          const cap = Math.min(this.maxBatch, 10, this.budget.allowance);
+          const avail = this.budget.available(path);
+          room = avail > 0 ? Math.min(cap, avail) : cap;
+        }
         const idxs = misses.slice(pos, pos + room);
         await this.budget.acquire(path, idxs.length);
         this.stats.requests++;
@@ -1740,6 +1919,7 @@
     /** A list procedure (getAll / getAllNames / getAllAiNames): cached under id "". */
     async list(path, { fresh = false } = {}) {
       if (procedure(path).kind !== "query") throw new Error("list is for queries: " + path);
+      if (!/\.getAll(Ai)?Names$/.test(path)) throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
       const hit = fresh ? null : await this.cache.get(path, "");
       if (hit) {
         this.stats.hits++;
@@ -1780,7 +1960,7 @@
      * @param {object|null} live  the live record when known (required for ai)
      * @returns {string[]} problems (empty = ok)
      */
-    problems(entity, data, live = null) {
+    problems(entity, data, live = null, { preCreate = false } = {}) {
       const out = [];
       if (!data || typeof data !== "object") return ["data is not an object"];
       const keys = Object.keys(data);
@@ -1788,7 +1968,9 @@
         const allowed = new Set(AI_EXTRA_KEYS);
         if (live) for (const k of Object.keys(live)) allowed.add(k);
         const check = entity === "aiProfile" ? /* @__PURE__ */ new Set(["rules", "includeDefaultRules"]) : allowed;
-        for (const k of keys) if (!check.has(k)) out.push(`unknown key "${k}" for ${entity}${live ? "" : " (no live record to check against)"}`);
+        if (live || entity === "aiProfile") {
+          for (const k of keys) if (!check.has(k)) out.push(`unknown key "${k}" for ${entity}`);
+        }
         if (Array.isArray(data.rules)) out.push(...ruleProblems(data.rules));
       } else {
         const known = this.knownFields(entity);
@@ -1819,7 +2001,19 @@
     const diffs = [];
     for (const k of Object.keys(asserted)) {
       if (SERVER_OWNED.includes(k)) continue;
-      if (entity === "ai" && ["rules", "includeDefaultRules", "jutsus", "items"].includes(k)) continue;
+      if (entity === "ai" && ["rules", "includeDefaultRules"].includes(k)) continue;
+      if (entity === "ai" && k === "jutsus") {
+        const l2 = Array.isArray(live?.jutsus) ? live.jutsus.map((r) => typeof r === "string" ? r : r.jutsuId ?? r.id) : [];
+        const s2 = (asserted.jutsus ?? []).map((j) => typeof j === "string" ? j : j?.jutsuId ?? j?.id);
+        if (JSON.stringify([...s2].sort()) !== JSON.stringify([...l2].sort())) diffs.push({ key: k, sent: s2, live: l2 });
+        continue;
+      }
+      if (entity === "ai" && k === "items") {
+        const l2 = Array.isArray(live?.items) ? live.items.map((r) => typeof r === "string" ? r : r.itemId ?? r.id).filter(Boolean) : [];
+        const s2 = (asserted.items ?? []).flatMap((t) => typeof t === "string" ? [t] : Array.isArray(t?.ids) ? t.ids : [t?.itemId ?? t?.id]).filter(Boolean);
+        if (JSON.stringify([...s2].sort()) !== JSON.stringify([...l2].sort())) diffs.push({ key: k, sent: s2, live: l2 });
+        continue;
+      }
       const s = asserted[k], l = live ? live[k] : void 0;
       if (!eqLoose(s, l, entity)) diffs.push({ key: k, sent: s, live: l });
     }
@@ -1874,7 +2068,14 @@
     if (code === "UNAUTHORIZED") return "SESSION";
     if (code === "BAD_REQUEST" && error.zodError) return "VALIDATION";
     if (code === "METHOD_NOT_SUPPORTED") return "CLIENT_BUG";
-    if (code === "NOT_FOUND") return "NOT_FOUND";
+    if (code === "NOT_FOUND") {
+      const m = String(error.message || "");
+      if (/^No procedure found on path/.test(m)) return "CLIENT_BUG";
+      if (/Please complete registration\.$/.test(m)) return "SESSION";
+      return "NOT_FOUND";
+    }
+    if (code === "MALFORMED_ELEMENT") return "CLIENT_BUG";
+    if (code === "INTERNAL_SERVER_ERROR" && /Output validation failed/.test(String(error.message || ""))) return "CONTRACT";
     return "SERVER";
   }
 
@@ -1882,11 +2083,22 @@
   var IDMAP_KEY = "tnr_bk_idmap_v1";
   var GH_KEY = "tnr_bk_gh_v1";
   function readJson(storage, key, fallback) {
+    const raw = storage.getItem(key);
+    if (raw == null || raw === "") return fallback;
+    let v;
     try {
-      return JSON.parse(storage.getItem(key) || "null") ?? fallback;
+      v = JSON.parse(raw);
     } catch {
+      v = void 0;
+    }
+    if (!v || typeof v !== "object" || Array.isArray(v)) {
+      try {
+        storage.setItem(key + ".corrupt", raw);
+      } catch {
+      }
       return fallback;
     }
+    return v;
   }
   function readIdmap(storage) {
     return readJson(storage, IDMAP_KEY, {});
@@ -2079,9 +2291,11 @@
 
   // src/storage/hash.mjs
   function stableStringify(v) {
+    if (v && typeof v === "object" && typeof v.toJSON === "function") v = v.toJSON();
+    if (v === void 0) return "null";
     if (v === null || typeof v !== "object") return JSON.stringify(v);
     if (Array.isArray(v)) return "[" + v.map(stableStringify).join(",") + "]";
-    const keys = Object.keys(v).sort();
+    const keys = Object.keys(v).filter((k) => v[k] !== void 0).sort();
     return "{" + keys.map((k) => JSON.stringify(k) + ":" + stableStringify(v[k])).join(",") + "}";
   }
   function fnv1a32(str) {
@@ -2221,6 +2435,7 @@
       Object.assign(this, info);
     }
   };
+  var isTransport = (e) => e instanceof NetworkError || e instanceof TransportError;
   var Runner = class {
     /**
      * @param {object} d  dependencies
@@ -2230,7 +2445,7 @@
      * @param {import("../storage/captures.mjs").CaptureCache} d.cache
      * @param {import("./validate.mjs").Validator} d.validator
      * @param {object} [d.uploader]      {upload(file) -> {ufsUrl}}
-     * @param {object} [d.reconciler]    {beforeCreate(job, item, entity), resolveSent(job, item)}
+     * @param {object} [d.reconciler]    {beforeCreate(job, item, entity), resolveSent(job, item, ctx)}
      * @param {Storage} d.storage        for the retained idmap
      * @param {(msg: string, item?: object) => void} [d.log]
      */
@@ -2241,6 +2456,7 @@
       });
       this.files = /* @__PURE__ */ new Map();
       this.manifests = /* @__PURE__ */ new Map();
+      this.pauseRequested = false;
     }
     // ------------------------------------------------------------------ lifecycle
     /** Plan a manifest and open a job. Returns the journal job. Does not send anything. */
@@ -2263,10 +2479,15 @@
       if (order.length !== job.items.length) throw new Error("manifest item count differs from the journal");
       this.manifests.set(jobId, { manifest, order });
     }
+    /** Ask the loop to stop after the current item. */
+    requestPause() {
+      this.pauseRequested = true;
+    }
     /** Run every non-terminal item in order. Returns a summary. */
     async run(jobId) {
       const { manifest, order } = this._m(jobId);
       let job = this.journal.get(jobId);
+      if (job.state === "DONE" || job.state === "ABORTED") return this.summary(jobId);
       if (job.state === "PAUSED") {
         const t = this.budget && this.budget.log && this.budget.log.tripped();
         if (t) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: t.path, until: t.until });
@@ -2275,19 +2496,23 @@
       if (job.items.some((it) => it.state === "SENT")) {
         throw new Error("job has SENT items; call resume() so they are reconciled before anything else is sent");
       }
-      if (manifest.capture.before.length && !job.capturesBefore) {
-        await this._captures(jobId, manifest.capture.before, "before");
-      }
+      this._syncIdmapFromJob(job);
+      this.pauseRequested = false;
       try {
+        if (manifest.capture.before.length && !job.capturesBefore) await this._captures(jobId, manifest.capture.before, "before");
         for (let i = 0; i < job.items.length; i++) {
           job = this.journal.get(jobId);
           const item = job.items[i];
-          if (["VERIFIED", "FAILED", "SKIPPED", "ORPHANED"].includes(item.state)) continue;
+          if (["VERIFIED", "FAILED", "SKIPPED"].includes(item.state)) continue;
+          if (item.state === "ORPHANED") throw new Paused("ORPHANED", { idx: i, detail: item.error ?? null });
+          if (this.pauseRequested) throw new Paused("USER", { idx: i });
           await this._runItem(jobId, item, order[i], manifest);
         }
-        if (manifest.capture.after.length) await this._captures(jobId, manifest.capture.after, "after");
+        if (manifest.capture.after.length && !job.capturesAfter) await this._captures(jobId, manifest.capture.after, "after");
       } catch (e) {
         if (e instanceof Paused) return this._pause(jobId, e.reason, e);
+        if (e instanceof RateLimited) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: e.path, until: e.until });
+        if (isTransport(e)) return this._pause(jobId, "NETWORK", { detail: String(e && e.message), httpStatus: e.httpStatus ?? null });
         throw e;
       }
       this.journal.setJobState(jobId, "DONE");
@@ -2299,11 +2524,13 @@
       if (!this.reconciler) throw new Error("resume needs a reconciler");
       const { order } = this._m(jobId);
       const job = this.journal.get(jobId);
+      this._syncIdmapFromJob(job);
       for (const item of job.items) {
         if (item.state !== "SENT") continue;
-        const r = await this.reconciler.resolveSent(job, item, { planned: order[item.idx] });
+        const r = await this.reconciler.resolveSent(job, item, { planned: order[item.idx], lookup: this._lookup(job) });
         if (r.action === "confirm") {
-          this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: r.entityId ?? item.entityId, phase: r.landed ? "verify" : r.phase ?? item.phase, reconciled: r.note ?? "confirmed by reconciliation" });
+          const phase = r.landed ? "verify" : r.phase ?? item.phase;
+          this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: r.entityId ?? item.entityId, phase, reconciled: r.note ?? "confirmed by reconciliation" });
           if (r.entityId && item.srcId) this._remember(item.srcId, r.entityId);
         } else if (r.action === "orphan") {
           this.journal.transition(jobId, item.idx, "ORPHANED", { error: r.note ?? "ambiguous after crash", candidates: r.candidates ?? [] });
@@ -2313,10 +2540,21 @@
       }
       return this.run(jobId);
     }
-    /** User decision on an ORPHANED item: adopt an id (continue at update) or skip. */
+    /**
+     * User decision on an ORPHANED item: adopt an id. A phase-create orphan continues at update;
+     * an orphan that already had an id keeps its phase (the user is choosing to re-send THAT
+     * step, and the UI says so). Refuses ids already held by another item.
+     */
     adopt(jobId, idx, entityId) {
-      const item = this.journal.get(jobId).items[idx];
-      this.journal.transition(jobId, idx, "CONFIRMED", { entityId, phase: item.op === "create" ? "update" : item.phase, adopted: true });
+      const job = this.journal.get(jobId);
+      const item = job.items[idx];
+      if (!item) throw new Error("no such item " + idx);
+      if (item.state !== "ORPHANED") throw new Error(`adopt needs an ORPHANED item; ${item.idx} is ${item.state}`);
+      if (!entityId) throw new Error("adopt needs an id");
+      const holder = job.items.find((it) => it.idx !== idx && it.entityId === entityId);
+      if (holder) throw new Error(`${entityId} is already held by item ${holder.idx} (${holder.name})`);
+      const phase = item.phase === "create" || !item.entityId ? "update" : item.phase;
+      this.journal.transition(jobId, idx, "CONFIRMED", { entityId, phase, adopted: true, error: null });
       if (item.srcId) this._remember(item.srcId, entityId);
     }
     skip(jobId, idx) {
@@ -2326,18 +2564,21 @@
       const job = this.journal.get(jobId);
       const counts = {};
       for (const it of job.items) counts[it.state] = (counts[it.state] ?? 0) + 1;
-      return { jobId, state: job.state, pause: job.pause, counts, items: job.items.map((it) => ({ idx: it.idx, name: it.name, entity: it.entity, state: it.state, phase: it.phase, entityId: it.entityId, error: it.error ?? null, diffs: it.diffs ?? null })) };
+      return { jobId, state: job.state, pause: job.pause, counts, items: job.items.map((it) => ({ idx: it.idx, name: it.name, entity: it.entity, state: it.state, phase: it.phase, entityId: it.entityId, error: it.error ?? null, diffs: it.diffs ?? null, verify: it.verify ?? null })) };
     }
     // ------------------------------------------------------------------ items
     async _runItem(jobId, item, planned, manifest) {
       const ent = item.entity;
       try {
-        if (item.state === "CONFIRMED" && item.phase === "verify") {
-          if (manifest.readBack) await this._verify(jobId, item, planned);
-          else this.journal.transition(jobId, item.idx, "VERIFIED", { verify: "skipped" });
+        if (item.state === "CONFIRMED" && item.phase === "verify") return await this._verifyOrSkip(jobId, item, planned, manifest);
+        if (item.state === "CONFIRMED" && (item.phase === "rules" || item.phase === "rules-toggle")) {
+          await this._rules(jobId, item, planned, item.entityId ?? item.targetId);
+          item = this.journal.get(jobId).items[item.idx];
+          if (item.state === "CONFIRMED") await this._verifyOrSkip(jobId, item, planned, manifest);
           return;
         }
         if (item.op === "create" && item.state === "PLANNED") {
+          await this._preflight(item, planned);
           await this._create(jobId, item, planned);
           item = this.journal.get(jobId).items[item.idx];
           if (item.state !== "CONFIRMED") return;
@@ -2351,17 +2592,37 @@
           if (ent === "ai" && Array.isArray(planned.data.rules)) await this._rules(jobId, item, planned, item.entityId);
         }
         item = this.journal.get(jobId).items[item.idx];
-        if (item.state === "CONFIRMED" && manifest.readBack) await this._verify(jobId, item, planned);
+        if (item.state === "CONFIRMED") await this._verifyOrSkip(jobId, item, planned, manifest);
       } catch (e) {
         if (e instanceof Paused) throw e;
         if (e instanceof RateLimited) throw new Paused("TOO_MANY_REQUESTS", { path: e.path, until: e.until, idx: item.idx });
         const cur = this.journal.get(jobId).items[item.idx];
         if (cur.state === "SENT") {
-          throw new Paused(e instanceof NetworkError ? "NETWORK" : e instanceof TransportError ? "UNDECODABLE_RESPONSE" : "AMBIGUOUS", { idx: item.idx, detail: String(e && e.message) });
+          throw new Paused(
+            e instanceof NetworkError ? "NETWORK" : e instanceof TransportError ? "UNDECODABLE_RESPONSE" : "AMBIGUOUS",
+            { idx: item.idx, detail: String(e && e.message), httpStatus: e.httpStatus ?? null, received: e.received ?? null }
+          );
+        }
+        if (isTransport(e)) {
+          throw new Paused("NETWORK", { idx: item.idx, detail: String(e && e.message), httpStatus: e.httpStatus ?? null });
         }
         this.journal.transition(jobId, item.idx, "FAILED", { error: String(e && e.message ? e.message : e) });
         this.log(`item ${item.idx} failed: ${e && e.message}`, item);
       }
+    }
+    /** Local checks before a create: refs resolvable, files picked, keys known. No request. */
+    async _preflight(item, planned) {
+      const refs = collectRefs(planned.data);
+      for (const r of refs) {
+        if (r.pfx === "DOUBLED") throw new Error(`doubled ref prefix at ${r.path}: ${r.key}`);
+        if (r.pfx === "img") {
+          if (!this.files.has(r.key) && !readIdmap(this.storage)[r.key]) throw new Error(`@img:${r.key} has no file picked`);
+          continue;
+        }
+        if (!this._lookup(this.journal.get(this._jobOf(item)))(r.pfx, r.key)) throw new Error(`@${r.pfx}:${r.key} is not resolvable yet (at ${r.path})`);
+      }
+      const problems = this.validator.problems(item.entity, planned.data, null, { preCreate: true });
+      if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
     }
     async _create(jobId, item, planned) {
       const rc = recipe(item.entity);
@@ -2385,7 +2646,7 @@
       const rc = recipe(item.entity);
       const id = item.entityId ?? item.targetId;
       if (!id) throw new Error("no id to fill");
-      const data = await this._resolved(planned.data);
+      const data = await this._resolved(planned.data, jobId);
       const live = await this.reader.get(rc.get, id, { fresh: true });
       if (!live.ok) {
         const cls = classifyError(live.error);
@@ -2400,7 +2661,8 @@
       const o = readMutation(decoded);
       await this.cache.invalidateRecord(rc.cacheEntity, id);
       if (o.kind === "ok") {
-        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id, phase: "update", asserted: Object.keys(data) });
+        const next = item.entity === "ai" && Array.isArray(planned.data.rules) ? "rules" : "verify";
+        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id, phase: next, asserted: Object.keys(data) });
         return;
       }
       this._failFromOutcome(jobId, item, o, "update");
@@ -2417,7 +2679,7 @@
       if (!live.ok || !live.data) throw new Error(`profile.getAi failed for ${userId}`);
       let apid = live.data.aiProfileId;
       if (!apid) {
-        const decoded2 = await this.journal.withSent(jobId, item.idx, { phase: "rules-toggle" }, () => this.client.call(rc.profileToggle, { aiId: userId }));
+        const decoded2 = await this.journal.withSent(jobId, item.idx, { phase: "rules-toggle", entityId: userId }, () => this.client.call(rc.profileToggle, { aiId: userId }));
         const o2 = readMutation(decoded2);
         if (o2.kind !== "ok") {
           this._failFromOutcome(jobId, item, o2, "toggle");
@@ -2428,57 +2690,64 @@
         apid = live.ok && live.data ? live.data.aiProfileId : null;
         if (!apid) throw new Error("no aiProfileId after toggle");
       }
-      const decoded = await this.journal.withSent(jobId, item.idx, { phase: "rules", aiProfileId: apid }, () => this.client.call(rc.profileUpdate, { id: apid, rules, includeDefaultRules }));
+      const decoded = await this.journal.withSent(jobId, item.idx, { phase: "rules", entityId: userId, aiProfileId: apid }, () => this.client.call(rc.profileUpdate, { id: apid, rules, includeDefaultRules }));
       const o = readMutation(decoded);
       await this.cache.invalidateEntity("ai");
       if (o.kind === "ok") {
-        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: userId, phase: "rules", aiProfileId: apid, asserted: ["rules", "includeDefaultRules"] });
+        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: userId, phase: "verify", aiProfileId: apid, assertedRules: true });
         return;
       }
       this._failFromOutcome(jobId, item, o, "rules");
     }
+    async _verifyOrSkip(jobId, item, planned, manifest) {
+      if (!manifest.readBack) {
+        this.journal.transition(jobId, item.idx, "VERIFIED", { verify: "skipped" });
+        return;
+      }
+      await this._verify(jobId, item, planned);
+    }
     async _verify(jobId, item, planned) {
       const rc = recipe(item.entity);
-      const data = await this._resolved(planned.data);
+      const data = await this._resolved(planned.data, jobId);
       const diffs = [];
       if (item.entity !== "aiProfile") {
         const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
         if (!live.ok || !live.data) {
-          this.journal.annotate(jobId, item.idx, { verify: "unread" });
+          this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" });
           return;
         }
         diffs.push(...diffAsserted(item.entity, data, live.data));
       }
       if (item.entity === "ai" && Array.isArray(planned.data.rules) || item.entity === "aiProfile") {
+        if (!item.aiProfileId) {
+          this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" });
+          return;
+        }
         const pr = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
         if (pr.ok && pr.data) {
           if (JSON.stringify(pr.data.rules ?? []) !== JSON.stringify(planned.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
           if (planned.data.includeDefaultRules !== void 0 && pr.data.includeDefaultRules !== planned.data.includeDefaultRules) diffs.push({ key: "includeDefaultRules", sent: planned.data.includeDefaultRules, live: pr.data.includeDefaultRules });
         } else {
-          this.journal.annotate(jobId, item.idx, { verify: "unread" });
+          this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" });
           return;
         }
       }
-      if (diffs.length) this.journal.annotate(jobId, item.idx, { diffs, verify: "drift" });
+      if (diffs.length) this.journal.annotate(jobId, item.idx, { diffs, verify: "drift", phase: "verify" });
       else this.journal.transition(jobId, item.idx, "VERIFIED", { diffs: [], verify: "match" });
     }
     async _captures(jobId, list, phase) {
-      const out = [];
-      for (const c of list) {
-        const path = c.proc || c.procedure;
-        try {
-          const id = c.input && (c.input.id ?? c.input.userId);
-          const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true });
-          out.push({ phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code });
-        } catch (e) {
-          if (e instanceof RateLimited) throw new Paused("TOO_MANY_REQUESTS", { path: e.path, until: e.until });
-          out.push({ phase, proc: path, input: c.input ?? null, ok: false, error: String(e && e.message) });
-        }
-      }
+      const key = phase === "before" ? "capturesBefore" : "capturesAfter";
       const job = this.journal.get(jobId);
-      const patch = phase === "before" ? { capturesBefore: out } : { capturesAfter: out };
-      Object.assign(job, patch);
-      this.journal._write(job);
+      const out = Array.isArray(job[key + "Partial"]) ? job[key + "Partial"] : [];
+      for (let i = out.length; i < list.length; i++) {
+        const c = list[i];
+        const path = c.proc || c.procedure;
+        const id = c.input && (c.input.id ?? c.input.userId);
+        const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true });
+        out.push({ phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code });
+        this.journal.annotateJob(jobId, { [key + "Partial"]: out });
+      }
+      this.journal.annotateJob(jobId, { [key]: out, [key + "Partial"]: null });
       return out;
     }
     // ------------------------------------------------------------------ helpers
@@ -2487,8 +2756,12 @@
       if (!m) throw new Error("no manifest attached for job " + jobId + "; call plan() or attach()");
       return m;
     }
+    _jobOf(item) {
+      for (const [jobId, m] of this.manifests) if (m.order.some((o) => o === item || o.idx === item.idx && this.journal.get(jobId)?.items[item.idx]?.srcId === item.srcId)) return jobId;
+      return null;
+    }
     _pause(jobId, reason, info) {
-      this.journal.setJobState(jobId, "PAUSED", { pause: { reason, path: info.path ?? null, until: info.until ?? null, idx: info.idx ?? null, detail: info.detail ?? null } });
+      this.journal.setJobState(jobId, "PAUSED", { pause: { reason, path: info.path ?? null, until: info.until ?? null, idx: info.idx ?? null, detail: info.detail ?? null, httpStatus: info.httpStatus ?? null } });
       this.log(`paused: ${reason}${info.path ? " on " + info.path : ""}`);
       return this.summary(jobId);
     }
@@ -2508,20 +2781,34 @@
       map[srcId] = id;
       writeIdmap(this.storage, map);
     }
-    async _resolved(data) {
+    /** Re-derive idmap entries from the job's own items, so a crash between CONFIRMED and the idmap write cannot strand a @ref. */
+    _syncIdmapFromJob(job) {
+      let map = null;
+      for (const it of job.items) if (it.srcId && it.entityId) {
+        map = map ?? readIdmap(this.storage);
+        if (map[it.srcId] !== it.entityId) map[it.srcId] = it.entityId;
+      }
+      if (map) writeIdmap(this.storage, map);
+    }
+    /** Ref lookup: idmap first, then this job's own items by srcId. */
+    _lookup(job) {
+      const map = readIdmap(this.storage);
+      return (pfx, key) => map[key] ?? (job ? job.items.find((it) => it.srcId === key && it.entityId)?.entityId : void 0);
+    }
+    async _resolved(data, jobId) {
       const refs = collectRefs(data).filter((r) => r.pfx === "img");
       for (const r of refs) {
-        const map2 = readIdmap(this.storage);
-        if (map2[r.key]) continue;
+        const map = readIdmap(this.storage);
+        if (map[r.key]) continue;
         const file = this.files.get(r.key);
         if (!file) throw new Error(`@img:${r.key} has no file picked`);
         if (!this.uploader) throw new Error("no uploader configured for @img refs");
         const up = await this.uploader.upload(file);
-        map2[r.key] = up.ufsUrl;
-        writeIdmap(this.storage, map2);
+        map[r.key] = up.ufsUrl;
+        writeIdmap(this.storage, map);
       }
-      const map = readIdmap(this.storage);
-      const { value, unresolved } = resolveRefs(data, (pfx, key) => map[key]);
+      const job = jobId ? this.journal.get(jobId) : null;
+      const { value, unresolved } = resolveRefs(data, this._lookup(job));
       if (unresolved.length) throw new Error("unresolved refs: " + unresolved.map((u) => `@${u.pfx}:${u.key} at ${u.path}`).join(", "));
       return value;
     }
@@ -2536,10 +2823,11 @@
      * @param {import("../budget/reader.mjs").CachedReader} o.reader
      * @param {() => number} [o.clock]
      */
-    constructor({ storage, reader, clock = () => Date.now() }) {
+    constructor({ storage, reader, clock = () => Date.now(), journal = null }) {
       this.storage = storage;
       this.reader = reader;
       this.clock = clock;
+      this.journal = journal;
     }
     snapKey(jobId, entity) {
       return SNAP_PREFIX + jobId + ":" + entity;
@@ -2593,8 +2881,9 @@
       const list = await this.reader.list(rc.names, { fresh: true });
       if (!list.ok || !Array.isArray(list.data)) return { action: "orphan", candidates: [], note: `${rc.names} unavailable: ${list.ok ? "no list" : list.error.code}` };
       const before = new Set(snap.ids);
-      const confirmedThisJob = new Set(job.items.filter((it) => it.entity === item.entity && it.entityId && it.idx !== item.idx).map((it) => it.entityId));
-      const rows = list.data.filter((r) => !before.has(r[rc.idKey]) && !confirmedThisJob.has(r[rc.idKey]));
+      const owned = new Set(job.items.filter((it) => it.entity === item.entity && it.entityId && it.idx !== item.idx).map((it) => it.entityId));
+      if (this.journal) for (const id of this.journal.knownEntityIds(item.entity)) owned.add(id);
+      const rows = list.data.filter((r) => !before.has(r[rc.idKey]) && !owned.has(r[rc.idKey]));
       const pending = job.items.filter((it) => it.entity === item.entity && it.state === "SENT" && (it.phase === "create" || !it.entityId));
       const candidates = rows.map((r) => ({ id: r[rc.idKey], name: r[rc.nameKey] ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));
       if (candidates.length === 1 && pending.length === 1) {
@@ -2608,7 +2897,10 @@
       if (!planned) return { action: "orphan", candidates: [], note: "no planned data to compare against" };
       const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
       if (!live.ok || !live.data) return { action: "orphan", candidates: [], note: `${rc.get} ${item.entityId}: ${live.ok ? "no record" : live.error.code}` };
-      const data = stripRefs(planned.data);
+      const { value: data, unresolved } = resolveRefs(planned.data, ctx.lookup ?? (() => void 0));
+      if (unresolved.length) return { action: "orphan", candidates: [], note: "cannot compare: unresolved refs " + unresolved.map((u) => `@${u.pfx}:${u.key}`).join(", ") };
+      const comparable = Object.keys(data).filter((k) => !SERVER_OWNED.includes(k));
+      if (!comparable.length) return { action: "orphan", candidates: [], note: "cannot compare: no asserted keys to check" };
       const diffs = diffAsserted(item.entity, data, live.data);
       if (!diffs.length) return { action: "confirm", entityId: item.entityId, phase: "verify", landed: true, note: "update already landed: asserted keys match live" };
       return { action: "orphan", candidates: [], note: "update may not have landed: live differs on " + diffs.map((d) => d.key).join(", "), diffs };
@@ -2627,11 +2919,6 @@
       return { action: "orphan", candidates: [], note: "rules may not have landed: profile rules differ" };
     }
   };
-  function stripRefs(data) {
-    const out = {};
-    for (const [k, v] of Object.entries(data)) if (!/@(jutsu|ai|scene|item|quest|bloodline|img):/.test(JSON.stringify(v) ?? "")) out[k] = v;
-    return out;
-  }
 
   // src/github.mjs
   var GH = Object.freeze({ owner: "perseverance484", repo: "tnr-tools", branch: "main", pushDir: "push", inboxDir: "harvests/inbox" });
@@ -3302,7 +3589,8 @@ details summary { cursor:pointer; color:var(--mute); }
       }
     }
     requestPause() {
-      this.toast("pause is not yet wired to the runner; use Resume later", "warn");
+      this.runner.requestPause();
+      this.toast("pausing after the current item finishes", "warn");
     }
     adopt(jobId, idx, id) {
       try {
@@ -3386,7 +3674,7 @@ details summary { cursor:pointer; color:var(--mute); }
   }
 
   // src/main.mjs
-  var VERSION = "forge 0.1.0";
+  var VERSION = "forge 0.1.1";
   var SCHEMA_URL = "https://raw.githubusercontent.com/perseverance484/tnr-tools/main/skills/building-tnr-content/data/45d_DATA_entity_schemas.json";
   async function boot(win = window) {
     if (!onHostPath(win.location)) return null;

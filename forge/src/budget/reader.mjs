@@ -43,7 +43,16 @@ export class CachedReader {
     // chunk misses by what the budget can hand out at once and by maxBatch
     let pos = 0;
     while (pos < misses.length) {
-      const room = Math.min(this.maxBatch, this.budget.isLimited(path) ? this.budget.allowance : this.maxBatch);
+      // on a limited path, never put more in one request than the window has room for right
+      // now, and never more than 10: at the limiter edge each element over the limit is a
+      // separate 1% penalty, so a small chunk bounds the blast radius if the margin is wrong.
+      // With no room at all, acquire() waits; then ask for a full capped chunk, not one id.
+      let room = this.maxBatch;
+      if (this.budget.isLimited(path)) {
+        const cap = Math.min(this.maxBatch, 10, this.budget.allowance);
+        const avail = this.budget.available(path);
+        room = avail > 0 ? Math.min(cap, avail) : cap;
+      }
       const idxs = misses.slice(pos, pos + room);
       await this.budget.acquire(path, idxs.length);
       this.stats.requests++;
@@ -63,6 +72,8 @@ export class CachedReader {
   /** A list procedure (getAll / getAllNames / getAllAiNames): cached under id "". */
   async list(path, { fresh = false } = {}) {
     if (procedure(path).kind !== "query") throw new Error("list is for queries: " + path);
+    // getAll takes a required {limit, cursor} input (jutsu.ts:266-285); only the name lists take none
+    if (!/\.getAll(Ai)?Names$/.test(path)) throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
     const hit = fresh ? null : await this.cache.get(path, "");
     if (hit) { this.stats.hits++; return { ok: true, data: hit.data, cached: true, at: hit.at }; }
     this.stats.misses++;

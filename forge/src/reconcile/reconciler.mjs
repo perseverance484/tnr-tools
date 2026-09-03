@@ -19,7 +19,8 @@
 // Nothing is ever deleted.
 
 import { recipe } from "../runner/recipes.mjs";
-import { diffAsserted } from "../runner/validate.mjs";
+import { diffAsserted, SERVER_OWNED } from "../runner/validate.mjs";
+import { resolveRefs } from "../runner/refs.mjs";
 
 export const SNAP_PREFIX = "tnr_forge_snap_v1:";
 
@@ -30,8 +31,8 @@ export class Reconciler {
    * @param {import("../budget/reader.mjs").CachedReader} o.reader
    * @param {() => number} [o.clock]
    */
-  constructor({ storage, reader, clock = () => Date.now() }) {
-    this.storage = storage; this.reader = reader; this.clock = clock;
+  constructor({ storage, reader, clock = () => Date.now(), journal = null }) {
+    this.storage = storage; this.reader = reader; this.clock = clock; this.journal = journal;
   }
 
   snapKey(jobId, entity) { return SNAP_PREFIX + jobId + ":" + entity; }
@@ -82,8 +83,11 @@ export class Reconciler {
     const list = await this.reader.list(rc.names, { fresh: true });
     if (!list.ok || !Array.isArray(list.data)) return { action: "orphan", candidates: [], note: `${rc.names} unavailable: ${list.ok ? "no list" : list.error.code}` };
     const before = new Set(snap.ids);
-    const confirmedThisJob = new Set(job.items.filter((it) => it.entity === item.entity && it.entityId && it.idx !== item.idx).map((it) => it.entityId));
-    const rows = list.data.filter((r) => !before.has(r[rc.idKey]) && !confirmedThisJob.has(r[rc.idKey]));
+    // ids owned by THIS job's other items, and by ANY other job in the journal (cross-job adoption
+    // would overwrite a row another job created; adversarial review L5)
+    const owned = new Set(job.items.filter((it) => it.entity === item.entity && it.entityId && it.idx !== item.idx).map((it) => it.entityId));
+    if (this.journal) for (const id of this.journal.knownEntityIds(item.entity)) owned.add(id);
+    const rows = list.data.filter((r) => !before.has(r[rc.idKey]) && !owned.has(r[rc.idKey]));
     const pending = job.items.filter((it) => it.entity === item.entity && it.state === "SENT" && (it.phase === "create" || !it.entityId));
     const candidates = rows.map((r) => ({ id: r[rc.idKey], name: r[rc.nameKey] ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));
     if (candidates.length === 1 && pending.length === 1) {
@@ -98,7 +102,11 @@ export class Reconciler {
     if (!planned) return { action: "orphan", candidates: [], note: "no planned data to compare against" };
     const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
     if (!live.ok || !live.data) return { action: "orphan", candidates: [], note: `${rc.get} ${item.entityId}: ${live.ok ? "no record" : live.error.code}` };
-    const data = stripRefs(planned.data);
+    // resolve refs the same way the runner would; an unresolvable ref means we cannot compare
+    const { value: data, unresolved } = resolveRefs(planned.data, ctx.lookup ?? (() => undefined));
+    if (unresolved.length) return { action: "orphan", candidates: [], note: "cannot compare: unresolved refs " + unresolved.map((u) => `@${u.pfx}:${u.key}`).join(", ") };
+    const comparable = Object.keys(data).filter((k) => !SERVER_OWNED.includes(k));
+    if (!comparable.length) return { action: "orphan", candidates: [], note: "cannot compare: no asserted keys to check" };
     const diffs = diffAsserted(item.entity, data, live.data);
     if (!diffs.length) return { action: "confirm", entityId: item.entityId, phase: "verify", landed: true, note: "update already landed: asserted keys match live" };
     return { action: "orphan", candidates: [], note: "update may not have landed: live differs on " + diffs.map((d) => d.key).join(", "), diffs };
@@ -120,9 +128,3 @@ export class Reconciler {
   }
 }
 
-// asserted keys whose values are still @refs cannot be compared; drop them from the diff
-function stripRefs(data) {
-  const out = {};
-  for (const [k, v] of Object.entries(data)) if (!/@(jutsu|ai|scene|item|quest|bloodline|img):/.test(JSON.stringify(v) ?? "")) out[k] = v;
-  return out;
-}

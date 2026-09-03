@@ -129,7 +129,8 @@ test("decodeResponse refuses non-JSON, non-array, and length mismatch loudly", (
   assert.throws(() => decodeResponse(200, "<html>", 1), TransportError);
   assert.throws(() => decodeResponse(200, '{"result":{}}', 1), TransportError);
   assert.throws(() => decodeResponse(200, "[]", 1), /length mismatch/);
-  assert.throws(() => decodeResponse(200, "[{}]", 1), /neither result nor error/);
+  const [m] = decodeResponse(200, "[{}]", 1); // one bad element never discards its siblings
+  assert.equal(m.ok, false); assert.equal(m.error.code, "MALFORMED_ELEMENT"); assert.match(m.error.message, /neither result nor error/);
 });
 
 test("outcome: success:true with an id, success:false as refused, error element as error", () => {

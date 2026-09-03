@@ -3,9 +3,11 @@
 // drift, and it is synchronous, which matters because the journal write path must be.
 
 export function stableStringify(v) {
+  if (v && typeof v === "object" && typeof v.toJSON === "function") v = v.toJSON(); // Date etc., like JSON.stringify
+  if (v === undefined) return "null"; // only reachable inside arrays; JSON.stringify emits null there
   if (v === null || typeof v !== "object") return JSON.stringify(v);
   if (Array.isArray(v)) return "[" + v.map(stableStringify).join(",") + "]";
-  const keys = Object.keys(v).sort();
+  const keys = Object.keys(v).filter((k) => v[k] !== undefined).sort(); // JSON.stringify omits undefined
   return "{" + keys.map((k) => JSON.stringify(k) + ":" + stableStringify(v[k])).join(",") + "}";
 }
 

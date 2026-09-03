@@ -46,7 +46,9 @@ test("CookieSession: same-origin credentials, never an Authorization header", as
   await s.fetch("/api/trpc/x?batch=1", { method: "GET" });
   assert.equal(f.calls[0].init.credentials, "same-origin");
   assert.equal(f.calls[0].url, "/api/trpc/x?batch=1");
-  await assert.rejects(() => s.fetch("/x", { headers: { authorization: "Bearer nope" } }), /refuses an Authorization/);
+  await assert.rejects(() => s.fetch("/api/trpc/x", { headers: { authorization: "Bearer nope" } }), /refuses header authorization/);
+  await assert.rejects(() => s.fetch("/x", {}), /only issues same-origin/);
+  assert.equal(f.calls.length, 1, "nothing refused ever reached fetch");
   assert.deepEqual(s.describe(), { kind: "cookie", origin: "(same-origin)" });
   assert.ok(s instanceof Session);
 });
