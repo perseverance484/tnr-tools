@@ -73,6 +73,8 @@ for, say so in the delivery summary rather than silently altering the design.
 - Every actor needs a stated reason for their method and a stated reason for not doing the obvious
   cheaper thing. A sheet that fails this gets a question, not an invented motive.
 - House vocabulary: "bounty contract", never "Bingo Book".
+- The em dash ban is OURS, not the submitter's. It never appears on the staff canvas. Strip em
+  dashes from any submitted prose during the dialog pass; do not ask staff to avoid them.
 
 ## Addendum: post-Masquerade contract requirements (2026-07-18)
 

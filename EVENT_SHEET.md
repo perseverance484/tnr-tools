@@ -7,7 +7,7 @@ Copy this whole file, fill in what you know, send it back. That is the whole pro
 - Fields marked **[BALANCE]** are proposals. The Content Admin sets the final numbers.
 - Attach anything you have: reference images, a rough draft, a sketch, a moodboard.
 - Plain language only. You never need field names, numbers or code.
-- No em dashes in anything a player reads. No franchise references, original content only.
+- No franchise references. Original content only.
 
 Your event is built hidden, shown to you and the Content Admin, and published only once
 it is approved.
