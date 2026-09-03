@@ -47,14 +47,8 @@ it is approved.
 - **If they lose, what does that look like?**
 - **Tone** (grim, mysterious, heroic, comedic):
 
-> **The shape we aim for.** A mission is a short story or an anime episode, not a mystery.
-> Somebody wants something out loud in the first minute. The player goes there. One person
-> is in the way for a reason the player understands. One fight. One truth said in a line,
-> not worked out from clues. The player goes home slightly worse off.
->
-> Two things worth checking before you send it: every character needs a reason for doing it
-> this way AND a reason they did not do the obvious cheaper thing. And difficulty comes from
-> who the player fights, so a village-level threat is a very different event from a gang.
+> One thing worth checking before you send it: every character needs a reason for doing it
+> this way, and a reason they did not do the obvious cheaper thing.
 
 ## 4. Enemies
 
@@ -104,13 +98,9 @@ it is approved.
 > Images set colour and material well. They do not reliably set composition, so describe
 > the layout in words too.
 
-## 9. Limits and notes
+## 9. Anything else
 
 - **Off limits** (themes, imagery or mechanics to avoid):
-- **Deadline:**
+- **Is there a date this needs to hit?** (or leave blank):
 - **Anything else worth knowing:**
-
-## 10. Sign-off
-
-- **Submitted by:**    **Date:**
-- **Approved to build by Content Admin:** [ ] yes  [ ] pending
+- **Your name:**
