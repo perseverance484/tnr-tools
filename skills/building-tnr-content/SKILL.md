@@ -38,7 +38,7 @@ references are for deep dives and for editing (packs re-render from them).
 | Quest/event build/edit that pushes | `packs/quest-build.md` |
 | Items, weapons, loot chests, crafting | `references/item.md` + pipeline sections via `_toc` |
 | Tuning numbers, tiering, reward scale | `references/balance.md` |
-| Processing a submitted staff design sheet into a whole event | `references/event.md` |
+| Processing a submitted staff design sheet into a whole event | `references/event.md` (staff canvas is `EVENT_SHEET.md` at repo root) |
 | Reusable enemy lines (Unsigned, Verge, Forsworn) | `references/lines.md` |
 | Push mechanics outside a pack (capture, image upload, combined manifest) | `references/pipeline.md` or a `_toc` slice |
 
