@@ -1,7 +1,9 @@
 # STAGED WORKFLOW - install at .github/workflows/relay.yml (Wave 4 batch)
-# REINSTALL REQUIRED 2026-09-02: audit TNR-05 (CWE-78). The dispatch input was
+# TNR-05 (CWE-78) fixed and INSTALLED 2026-09-03 (4adb505): the dispatch input was
 # interpolated into the run block three times; it is now bound to $BRANCH, shape-
-# checked, and the merge target is explicit. The installed copy is still the old one.
+# checked, and the merge target is explicit. The workflow logic is IDENTICAL to what
+# is installed; the two files differ only in these three comment lines, because the
+# container PAT cannot push .github/workflows/ to correct a comment. Not a drift.
 # ---------------------------------------------------------------------------
 # Ruling 4 (approved): moves privileged main-writes off the long-lived pasted
 # PAT. Flow AFTER install + ritual switch: the container pushes to a work
