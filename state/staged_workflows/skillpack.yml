@@ -1,4 +1,7 @@
 # STAGED WORKFLOW - REPLACES .github/workflows/skillpack.yml
+# REINSTALL PENDING 2026-09-02: audit TNR-08. Zip step now excludes archive-only
+# art and a size guard fails the run if a skill zip exceeds 2MB. Batch 3 will add
+# the selfcheck and Pillow gates to this same file - install once, after that.
 # ---------------------------------------------------------------------------
 # Adds the WO-04 doctrine gates ahead of packaging: doctrinemap.py (every
 # [[D-id]] resolves, ids unique) and render_doctrine.py --check (every
@@ -38,9 +41,27 @@ jobs:
           for d in skills/*/; do
             n=$(basename "$d")
             rm -f "dist/${n}.zip"
-            (cd "$d" && zip -rq "../../dist/${n}.zip" .)
+            # Archive-only art is excluded. Banked rank icons and frame plates are
+            # outputs of finished waves, not files any skill loads: nothing in
+            # SKILL.md, scripts/ or references/ references them. Shipping them made
+            # producing-tnr-art.zip 18.4MB and added a fresh blob to history on
+            # every skills push. Without them the same zip is 81KB.
+            (cd "$d" && zip -rq "../../dist/${n}.zip" . \
+              -x 'data/rank_icons/*' -x 'data/frames/*' -x '*_raw.png')
           done
           ls -la dist/
+      - name: Guard skill zip size
+        run: |
+          fail=0
+          for z in dist/*.zip; do
+            kb=$(( $(stat -c%s "$z") / 1024 ))
+            echo "$z ${kb}KB"
+            if [ "$kb" -gt 2048 ]; then
+              echo "::error::$z is ${kb}KB, over the 2MB ceiling - archive data is leaking back into the skill package"
+              fail=1
+            fi
+          done
+          exit $fail
       - name: Sync builder root config from skill data
         run: |
           cp skills/building-tnr-content/data/45c_DATA_constructors.json .
