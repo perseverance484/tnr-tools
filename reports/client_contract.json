@@ -1,0 +1,1457 @@
+{
+  "schema": "client-contract/v1",
+  "generated": "2026-09-03",
+  "target": {
+    "game_repo": "studie-tech/TheNinjaRPG",
+    "game_sha": "345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9",
+    "game_sha_date": "2026-08-31",
+    "game_sha_subject": "Stabilize hospital patient ordering",
+    "tools_repo": "perseverance484/tnr-tools",
+    "tools_sha": "6a1b3ca11168c49cd01aaf3aa023d4a2b6976e31",
+    "tools_branch_scanned": "main",
+    "report_branch": "client-contract-audit",
+    "framework_versions": {
+      "next": "16.3.2",
+      "@trpc/server": "11.18.0",
+      "@trpc/client": "11.18.0",
+      "zod": "^4.4.3",
+      "drizzle-orm": "0.45.2",
+      "drizzle-zod": "^0.8.3",
+      "@clerk/nextjs": "^7.8.0",
+      "@clerk/backend": "(via @clerk/mcp-tools ^0.6.0)",
+      "uploadthing": "7.7.4",
+      "@uploadthing/react": "^7.3.3",
+      "superjson": "2.2.6",
+      "@upstash/ratelimit": "^2.0.8",
+      "@upstash/redis": "^1.38.2"
+    }
+  },
+  "consumer_notes": {
+    "anchors_are_fragile": "Line numbers are valid only at the recorded SHAs. Locate every finding by its `match` string first and re-derive the line. builder_bundle.js in particular is written one dense statement per line, so a single edit shifts everything after it.",
+    "verdict_vocabulary": {
+      "ENGINE": "explicitly present in source at the pinned SHA",
+      "PARTIAL": "partly supported; the gap is stated in the finding",
+      "INFERRED": "a reasonable read of the code that the code does not state outright",
+      "NOT_IN_SOURCE": "searched for, not found; population_scanned is recorded",
+      "CONTRADICTED": "source contradicts a belief currently held in tnr-tools"
+    },
+    "do_not_assume": [
+      "Do not assume anything from general Next.js, tRPC, Clerk, Zod or UploadThing knowledge. Where this report relies on library default behaviour it says INFERRED.",
+      "NOT_IN_SOURCE is a statement about this repository at this commit. It is not a statement about production, about edge infrastructure in front of Next, or about whether a control exists somewhere this audit could not see.",
+      "Nothing here is adopted on delivery. Spot-verify against source before acting, as with the law provenance report.",
+      "This audit makes no architecture recommendation and takes no position on whether a non-browser client is permitted. G6 records mechanism only.",
+      "No balance data (drop rates, reward values, stat tuning, difficulty) is in scope or present."
+    ],
+    "corrections_to_the_dispatch_brief": [
+      "builder_bundle.js is 885 lines at tools SHA 6a1b3ca, not 892.",
+      "The bundle's Authorization: Bearer header is sent to api.github.com only. Game requests carry credentials: 'same-origin' and no Authorization header. The brief's section 1 describes them as one auth path; they are two."
+    ]
+  },
+  "auth": {
+    "provider": {
+      "verdict": "ENGINE",
+      "claim": "Clerk is the identity provider, @clerk/nextjs ^7.8.0, with @clerk/backend used separately on the MCP route and @clerk/mcp-tools ^0.6.0 present.",
+      "file": "app/package.json",
+      "line": null,
+      "match": "\"@clerk/nextjs\": \"^7.8.0\""
+    },
+    "middleware_file": {
+      "verdict": "ENGINE",
+      "claim": "The Next middleware lives at app/src/proxy.ts, not middleware.ts (Next 16 renames it). There is no middleware.ts anywhere in the repo.",
+      "file": "app/src/proxy.ts",
+      "line": 59,
+      "match": "export default clerkMiddleware(",
+      "note": "Population: find over the whole clone for middleware.* outside node_modules returned only app/src/proxy.ts."
+    },
+    "session_read_server": {
+      "verdict": "ENGINE",
+      "claim": "Server-side session is read once per request in createAppTRPCContext via Clerk auth(); ctx carries userId, userIp and userAgent.",
+      "file": "app/src/server/api/trpc.ts",
+      "line": 55,
+      "match": "const session = await auth();"
+    },
+    "trpc_path_in_matcher": {
+      "verdict": "ENGINE",
+      "claim": "tRPC requests pass through clerkMiddleware so Clerk context exists, but the middleware callback returns early for any path other than '/' (proxy.ts:70, \"if (pathname !== \\\"/\\\") return;\"), so it performs no auth decision for tRPC.",
+      "file": "app/src/proxy.ts",
+      "line": 172,
+      "match": "\"/api/trpc/(.*)\""
+    },
+    "token_transport": {
+      "verdict": "PARTIAL",
+      "claim": "Clerk's own cookie/header handling is library-internal and not expressed in this repo. What source does show: the tRPC path relies on auth() reading request context, and the MCP path takes a bearer token explicitly (see feasibility_gates.G1).",
+      "file": null,
+      "line": null,
+      "match": null,
+      "population_scanned": "Population: grep over app/src for Authorization, Bearer, getToken, sessionClaims. The only explicit bearer verification in the repo is the MCP route's clerkVerifyToken.",
+      "note": "The current bundle's Authorization: Bearer header targets api.github.com, not the game. Game calls send credentials: 'same-origin' only. Correcting the dispatch brief's section 1."
+    },
+    "clock_skew": {
+      "verdict": "ENGINE",
+      "claim": "clerkMiddleware is configured with a 30 minute clock skew tolerance.",
+      "file": "app/src/proxy.ts",
+      "line": 137,
+      "match": "{ clockSkewInMs: 1000 * 60 * 30 }"
+    },
+    "expiry_behaviour": {
+      "verdict": "NOT_IN_SOURCE",
+      "claim": "No explicit token-expiry or refresh handling for the tRPC path is written in this repo; it is delegated to Clerk.",
+      "file": null,
+      "line": null,
+      "match": null,
+      "population_scanned": "Population: app/src/proxy.ts (184 lines) read in full, app/src/server/api/trpc.ts (252 lines) read in full, grep for refresh/expire/expiry/renew across app/src."
+    },
+    "logged_in_gate": {
+      "verdict": "ENGINE",
+      "claim": "protectedProcedure = enforceUserIsAuthed + sentryMiddleware. It proves a logged-in user and nothing more; it carries no role check.",
+      "file": "app/src/server/api/trpc.ts",
+      "line": 213,
+      "match": "export const protectedProcedure = t.procedure"
+    },
+    "unauthorized_shape": {
+      "verdict": "ENGINE",
+      "claim": "A missing userId throws TRPCError UNAUTHORIZED. The thrown message embeds the raw input: `Data: ${JSON.stringify(rawInput)}`.",
+      "file": "app/src/server/api/trpc.ts",
+      "line": 216,
+      "match": "code: \"UNAUTHORIZED\""
+    },
+    "role_model": {
+      "verdict": "ENGINE",
+      "claim": "Content-staff authority is a per-mutation call to canChangeContent(user.role) inside the resolver, not a middleware or a procedure class. Each content mutation re-fetches the user and checks it independently.",
+      "file": "app/src/server/api/routers/asset.ts",
+      "line": 196,
+      "match": "if (canChangeContent(user.role))"
+    },
+    "role_miss_shape": {
+      "verdict": "ENGINE",
+      "claim": "A role miss is NOT an HTTP error. It returns HTTP 200 with baseServerResponse {success:false, message}. A client that reads status alone cannot distinguish it from success.",
+      "file": "app/src/server/api/routers/asset.ts",
+      "line": 208,
+      "match": "return { success: false, message: `Not allowed to create gameAsset` }",
+      "note": "This is the single most important auth fact for a client: authorization failure and success share a transport-level shape."
+    }
+  },
+  "transport": {
+    "trpc_version": {
+      "verdict": "ENGINE",
+      "claim": "tRPC 11.18.0 on server, client, next and react-query adapters, all pinned exact.",
+      "file": "app/package.json",
+      "line": null,
+      "match": "\"@trpc/server\": \"11.18.0\""
+    },
+    "transformer": {
+      "verdict": "ENGINE",
+      "claim": "A transformer IS configured: superjson 2.2.6, set on initTRPC server-side and matched on the client at app/src/app/_trpc/Provider.tsx:94.",
+      "file": "app/src/server/api/trpc.ts",
+      "line": 89,
+      "match": "transformer: superjson,",
+      "note": "This is the highest-value transport finding. Date, undefined, Map, Set, BigInt and RegExp cross the wire as superjson-encoded {json, meta} rather than as plain JSON. The current bundle hand-builds that meta envelope (meta.values, referentialEqualities) instead of using the library, which is why it needs per-field date coercion at all."
+    },
+    "endpoint_shape": {
+      "verdict": "ENGINE",
+      "claim": "Procedures are addressed under /api/trpc/<router>.<procedure>. The router map is app/src/server/api/root.ts (e.g. gameAsset: gameAssetRouter at root.ts:82, so the asset router is addressed as gameAsset.*, not asset.*).",
+      "file": "app/src/proxy.ts",
+      "line": 172,
+      "match": "\"/api/trpc/(.*)\""
+    },
+    "http_method": {
+      "verdict": "INFERRED",
+      "claim": "Queries are GET and mutations are POST per tRPC 11 defaults; no override of that mapping appears in this repo.",
+      "file": null,
+      "line": null,
+      "match": null,
+      "population_scanned": "Population: grep over app/src for httpBatchLink, httpLink, methodOverride, allowMethodOverride; app/src/app/_trpc/Provider.tsx read.",
+      "note": "Marked INFERRED because the mapping is library behaviour, not a statement in this source. The consequence is real though: 94 of the 167 content procedures are mutations and must be POST."
+    },
+    "batching": {
+      "verdict": "PARTIAL",
+      "claim": "Batching is a client-link concern. The server accepts it via the standard tRPC handler; the exact envelope is tRPC 11's, keyed by request index.",
+      "file": null,
+      "line": null,
+      "match": null,
+      "population_scanned": "Population: app/src/app/_trpc/Provider.tsx read for link configuration; app/src/app/api walked for the tRPC route handler.",
+      "note": "The current bundle already sends ?batch=1 with a \"0\"-keyed envelope and that works against this server, so the shape is behaviour-proven even where source does not state it."
+    },
+    "error_envelope": {
+      "verdict": "ENGINE",
+      "claim": "errorFormatter attaches data.zodError = the ZodError issues array when the cause is a Zod failure, else null. A client can read structured per-field validation failures rather than parsing a message string.",
+      "file": "app/src/server/api/trpc.ts",
+      "line": 105,
+      "match": "zodError: error.cause instanceof ZodError ? error.cause.issues : null"
+    },
+    "database_error_shaping": {
+      "verdict": "ENGINE",
+      "claim": "A DatabaseError cause is JSON-stringified into shape.message with everything from '(sqlstate' onward stripped.",
+      "file": "app/src/server/api/trpc.ts",
+      "line": 92,
+      "match": "if (cause?.name === \"DatabaseError\" && cause?.body)"
+    },
+    "success_envelope": {
+      "verdict": "ENGINE",
+      "claim": "baseServerResponse is {success: boolean, message: string}. errorResponse(msg) returns {success:false, message} at trpc.ts:250, delivered as HTTP 200.",
+      "file": "app/src/server/api/trpc.ts",
+      "line": 246,
+      "match": "export const baseServerResponse = z.object({"
+    }
+  },
+  "procedures": {
+    "inventory_method": "Parsed each of the 7 content routers, bounding every procedure between its own declaration and the next, then classifying by the first .query( or .mutation( inside that range. An earlier fixed-window pass misclassified short procedures and was discarded.",
+    "counts": {
+      "content_routers": 7,
+      "procedures": 167,
+      "mutations": 94,
+      "queries": 73,
+      "unclassified": 0
+    },
+    "router_aliases": {
+      "gameAsset": "app/src/server/api/routers/asset.ts, mapped as `gameAsset:` at app/src/server/api/root.ts:82"
+    },
+    "per_router_counts": {
+      "jutsu": 31,
+      "item": 41,
+      "ai": 5,
+      "profile": 36,
+      "quests": 20,
+      "gameAsset": 10,
+      "bloodline": 24
+    },
+    "crud_surface": {
+      "jutsu.getAllNames": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": null,
+        "file": "app/src/server/api/routers/jutsu.ts",
+        "line": 257,
+        "match": "  getAllNames: publicProcedure"
+      },
+      "jutsu.get": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "z.object({ id: z.string() })) .query(async ({ ctx, input }) => { const result =",
+        "file": "app/src/server/api/routers/jutsu.ts",
+        "line": 266,
+        "match": "  get: publicProcedure"
+      },
+      "jutsu.getAll": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "jutsuFilteringSchema.extend({ cursor: z.number().nullish(), limit: z.numbe",
+        "file": "app/src/server/api/routers/jutsu.ts",
+        "line": 277,
+        "match": "  getAll: publicProcedure"
+      },
+      "jutsu.create": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": null,
+        "file": "app/src/server/api/routers/jutsu.ts",
+        "line": 391,
+        "match": "  create: protectedProcedure"
+      },
+      "jutsu.delete": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ id: z.string() })) .output(baseServerResponse) .mutation(async ({ ctx",
+        "file": "app/src/server/api/routers/jutsu.ts",
+        "line": 417,
+        "match": "  delete: protectedProcedure"
+      },
+      "jutsu.update": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ id: z.string(), data: JutsuValidator })) .output(baseServerResponse) ",
+        "file": "app/src/server/api/routers/jutsu.ts",
+        "line": 678,
+        "match": "  update: protectedProcedure"
+      },
+      "item.getAllNames": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": null,
+        "file": "app/src/server/api/routers/item.ts",
+        "line": 163,
+        "match": "  getAllNames: publicProcedure"
+      },
+      "item.get": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": false,
+        "input_head": "z.object({ id: z.string() })) .query(async ({ ctx, input }) => { // Deleted item",
+        "file": "app/src/server/api/routers/item.ts",
+        "line": 197,
+        "match": "  get: publicProcedure"
+      },
+      "item.create": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ type: z.enum(ItemTypes) })) .output(baseServerResponse) .mutation(asy",
+        "file": "app/src/server/api/routers/item.ts",
+        "line": 235,
+        "match": "  create: protectedProcedure"
+      },
+      "item.clone": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ id: z.string() })) .output(baseServerResponse) .mutation(async ({ ctx",
+        "file": "app/src/server/api/routers/item.ts",
+        "line": 262,
+        "match": "  clone: protectedProcedure"
+      },
+      "item.delete": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ id: z.string() })) .output(baseServerResponse) .mutation(async ({ ctx",
+        "file": "app/src/server/api/routers/item.ts",
+        "line": 319,
+        "match": "  delete: protectedProcedure"
+      },
+      "item.update": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ id: z.string(), data: ItemValidator })) .output(baseServerResponse) .",
+        "file": "app/src/server/api/routers/item.ts",
+        "line": 402,
+        "match": "  update: protectedProcedure"
+      },
+      "item.getAll": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "itemFilteringSchema.extend({ cursor: z.number().nullish(), limit: z.number",
+        "file": "app/src/server/api/routers/item.ts",
+        "line": 842,
+        "match": "  getAll: publicProcedure"
+      },
+      "ai.getAiProfile": {
+        "kind": "query",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "z.object({ id: z.string() })) .query(async ({ ctx, input }) => { // Query",
+        "file": "app/src/server/api/routers/ai.ts",
+        "line": 20,
+        "match": "  getAiProfile: protectedProcedure"
+      },
+      "ai.createAiProfile": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ userId: z.string(), rules: z.array(AiRule) })) .output(baseServerResp",
+        "file": "app/src/server/api/routers/ai.ts",
+        "line": 42,
+        "match": "  createAiProfile: protectedProcedure"
+      },
+      "ai.updateAiProfile": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ id: z.string(), rules: z.array(AiRule), includeDefaultR",
+        "file": "app/src/server/api/routers/ai.ts",
+        "line": 61,
+        "match": "  updateAiProfile: protectedProcedure"
+      },
+      "ai.toggleAiProfile": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ aiId: z.string() })) .output(baseServerResponse) .mutation(async ({ c",
+        "file": "app/src/server/api/routers/ai.ts",
+        "line": 123,
+        "match": "  toggleAiProfile: protectedProcedure"
+      },
+      "profile.getAllAiNames": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": null,
+        "file": "app/src/server/api/routers/profile.ts",
+        "line": 444,
+        "match": "  getAllAiNames: publicProcedure"
+      },
+      "profile.getAi": {
+        "kind": "query",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "z.object({ userId: z.string() })) .query(async ({ ctx, input }) => { const user",
+        "file": "app/src/server/api/routers/profile.ts",
+        "line": 1121,
+        "match": "  getAi: protectedProcedure"
+      },
+      "profile.create": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": null,
+        "file": "app/src/server/api/routers/profile.ts",
+        "line": 1138,
+        "match": "  create: protectedProcedure"
+      },
+      "profile.cloneAi": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ id: z.string() })) .output(baseServerResponse) .mutation(async ({ ctx",
+        "file": "app/src/server/api/routers/profile.ts",
+        "line": 1170,
+        "match": "  cloneAi: protectedProcedure"
+      },
+      "profile.delete": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": true,
+        "input_head": "z.object({ id: z.string() })) .output(baseServerResponse) .mutation(async ({ ctx",
+        "file": "app/src/server/api/routers/profile.ts",
+        "line": 1237,
+        "match": "  delete: protectedProcedure"
+      },
+      "profile.updateAi": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": true,
+        "input_head": "z.object({ id: z.string(), data: insertAiSchema })) .output(baseServerResponse) ",
+        "file": "app/src/server/api/routers/profile.ts",
+        "line": 1489,
+        "match": "  updateAi: protectedProcedure"
+      },
+      "quests.getAllNames": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": null,
+        "file": "app/src/server/api/routers/quests.ts",
+        "line": 134,
+        "match": "  getAllNames: publicProcedure"
+      },
+      "quests.getAll": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "questFilteringSchema.extend({ cursor: z.number().nullish(), limit: z.numbe",
+        "file": "app/src/server/api/routers/quests.ts",
+        "line": 146,
+        "match": "  getAll: publicProcedure"
+      },
+      "quests.get": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "z.object({ id: z.string() })) .query(async ({ ctx, input }) => { const [result,",
+        "file": "app/src/server/api/routers/quests.ts",
+        "line": 215,
+        "match": "  get: publicProcedure"
+      },
+      "quests.update": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": true,
+        "input_head": "z.object({ id: z.string(), data: QuestValidator })) .output(baseServerResponse) ",
+        "file": "app/src/server/api/routers/quests.ts",
+        "line": 700,
+        "match": "  update: protectedProcedure"
+      },
+      "quests.create": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": true,
+        "input_head": null,
+        "file": "app/src/server/api/routers/quests.ts",
+        "line": 866,
+        "match": "  create: protectedProcedure"
+      },
+      "quests.clone": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": true,
+        "input_head": "z.object({ id: z.string() })) .output(baseServerResponse) .mutation(async ({ ctx",
+        "file": "app/src/server/api/routers/quests.ts",
+        "line": 928,
+        "match": "  clone: protectedProcedure"
+      },
+      "quests.delete": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": true,
+        "input_head": "z.object({ id: z.string() })) .output(baseServerResponse) .mutation(async ({ ctx",
+        "file": "app/src/server/api/routers/quests.ts",
+        "line": 990,
+        "match": "  delete: protectedProcedure"
+      },
+      "quests.checkRewards": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "z.object({ questId: z.string(), nextObjectiveId: z.string().optional() })) .outp",
+        "file": "app/src/server/api/routers/quests.ts",
+        "line": 1039,
+        "match": "  checkRewards: protectedProcedure"
+      },
+      "gameAsset.getAllNames": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "z.object({ type: z.enum(GameAssetTypes).optional(), folderPrefix: z.boolea",
+        "file": "app/src/server/api/routers/asset.ts",
+        "line": 50,
+        "match": "  getAllNames: publicProcedure"
+      },
+      "gameAsset.getAll": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "gameAssetSchema.extend({ cursor: z.number().nullish(), limit: z.number().m",
+        "file": "app/src/server/api/routers/asset.ts",
+        "line": 97,
+        "match": "  getAll: publicProcedure"
+      },
+      "gameAsset.get": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "z.object({ id: z.string() })) .query(async ({ ctx, input }) => { const result =",
+        "file": "app/src/server/api/routers/asset.ts",
+        "line": 147,
+        "match": "  get: publicProcedure"
+      },
+      "gameAsset.update": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ id: z.string(), data: gameAssetValidator })) .output(baseServerRespon",
+        "file": "app/src/server/api/routers/asset.ts",
+        "line": 157,
+        "match": "  update: protectedProcedure"
+      },
+      "gameAsset.create": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": null,
+        "file": "app/src/server/api/routers/asset.ts",
+        "line": 194,
+        "match": "  create: protectedProcedure"
+      },
+      "gameAsset.delete": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ id: z.string() })) .output(baseServerResponse) .mutation(async ({ ctx",
+        "file": "app/src/server/api/routers/asset.ts",
+        "line": 211,
+        "match": "  delete: protectedProcedure"
+      },
+      "bloodline.getAllNames": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": null,
+        "file": "app/src/server/api/routers/bloodline.ts",
+        "line": 95,
+        "match": "  getAllNames: publicProcedure"
+      },
+      "bloodline.getAll": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "bloodlineFilteringSchema.extend({ cursor: z.number().nullish(), limit: z.n",
+        "file": "app/src/server/api/routers/bloodline.ts",
+        "line": 103,
+        "match": "  getAll: publicProcedure"
+      },
+      "bloodline.get": {
+        "kind": "query",
+        "auth": "publicProcedure",
+        "auth_gate": "protectedProcedure (logged-in only)",
+        "output": "row / list",
+        "mcp_enabled": true,
+        "input_head": "z.object({ id: z.string() })) .query(async ({ ctx, input }) => { const result =",
+        "file": "app/src/server/api/routers/bloodline.ts",
+        "line": 133,
+        "match": "  get: publicProcedure"
+      },
+      "bloodline.create": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": null,
+        "file": "app/src/server/api/routers/bloodline.ts",
+        "line": 144,
+        "match": "  create: protectedProcedure"
+      },
+      "bloodline.delete": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ id: z.string() })) .output(baseServerResponse) .mutation(async ({ ctx",
+        "file": "app/src/server/api/routers/bloodline.ts",
+        "line": 585,
+        "match": "  delete: protectedProcedure"
+      },
+      "bloodline.update": {
+        "kind": "mutation",
+        "auth": "protectedProcedure",
+        "auth_gate": "protectedProcedure + canChangeContent(user.role)",
+        "output": "baseServerResponse",
+        "mcp_enabled": false,
+        "input_head": "z.object({ id: z.string(), data: BloodlineValidator })) .output(baseServerRespon",
+        "file": "app/src/server/api/routers/bloodline.ts",
+        "line": 630,
+        "match": "  update: protectedProcedure"
+      }
+    },
+    "mcp_boundary": {
+      "verdict": "ENGINE",
+      "claim": "The MCP surface exposes the tRPC appRouter filtered per procedure by .meta({mcp:{enabled:true}}). 421 procedures are MCP-enabled across all 58 routers. Coverage of the AUTHORING path is partial and uneven.",
+      "match": "mcp: { enabled: true",
+      "population_scanned": "All 58 files in app/src/server/api/routers grepped for 'mcp: { enabled: true' (421 hits repo-wide); the 7 content routers classified procedure by procedure (167 procedures).",
+      "reachable_over_mcp": [
+        "quests.create",
+        "quests.update",
+        "quests.clone",
+        "quests.delete",
+        "quests.checkRewards",
+        "profile.updateAi",
+        "profile.delete",
+        "and nearly every get / getAll / getAllNames query"
+      ],
+      "not_reachable_over_mcp": [
+        "jutsu.create",
+        "jutsu.update",
+        "jutsu.delete",
+        "item.create",
+        "item.update",
+        "item.delete",
+        "item.clone",
+        "item.get",
+        "gameAsset.create",
+        "gameAsset.update",
+        "gameAsset.delete",
+        "ai.createAiProfile",
+        "ai.updateAiProfile",
+        "ai.toggleAiProfile",
+        "profile.create",
+        "profile.cloneAi",
+        "bloodline.create",
+        "bloodline.update",
+        "bloodline.delete"
+      ],
+      "current_client_overlap": "Of the 26 game procedures builder_bundle.js calls, 14 are MCP-enabled and 12 are not. The 12 include every jutsu, item and gameAsset write, and the AI rules push.",
+      "note": "profile.updateAi (AI stat block) is MCP-enabled while ai.updateAiProfile (AI rule set) is not, so the two halves of building an AI sit on opposite sides of this boundary."
+    },
+    "phantom_procedures": {
+      "verdict": "ENGINE",
+      "claim": "None. All 26 game procedures builder_bundle.js calls exist in source with correct router and procedure names.",
+      "population_scanned": "All quoted 'router.procedure' literals in builder_bundle.js (885 lines), diffed against the 167-procedure inventory. One apparent miss, 'manifest.json', is a zip member name matched by the extraction regex, not a procedure call."
+    }
+  },
+  "entities": {
+    "scope_statement": "Per-field enumeration for every field of every content entity is generated territory (45c constructors, 45d entity schemas) and is deliberately NOT re-transcribed here; doing so by hand would create a third copy to drift. What this section carries instead is the set of RULES that govern all fields, each anchored, plus the fidelity verdict on the generated files. See fidelity and audit_method.",
+    "validator_locations": {
+      "combat_tags_and_jutsu_item": "app/src/validators/combat.ts (AllTags union at :872, 76 members; JutsuValidatorRawSchema at :1290s; ItemValidatorRawSchema at :1435)",
+      "ai_rules": "app/src/validators/ai.ts (AvailableTargets :5, 9 conditions, 10 actions)",
+      "quest_objectives": "app/src/validators/objectives.ts",
+      "quest_rewards": "app/src/validators/rewards.ts",
+      "ai_record": "app/drizzle/schema.ts insertAiSchema at :2577"
+    },
+    "unknown_key_rule": {
+      "verdict": "ENGINE",
+      "claim": "THE GENERALIZED SILENT-FAILURE RULE. Across all of app/src/validators/*.ts and app/drizzle/schema.ts, .strict() appears exactly once, on an unrelated travel validator. Neither passthrough() nor strip() appears at all. Every content entity validator is therefore non-strict, and Zod's default applies: an unknown or misspelled key is DROPPED at .input() parse time, with no error, and the mutation proceeds and reports success.",
+      "file": "app/src/validators/travel.ts",
+      "line": 21,
+      "match": ".strict()",
+      "note": "Where the stripping happens: Zod's own object parse inside each procedure's .input(), not a bespoke function. There is no single file to point at, which is precisely why the failure is invisible. Corollary for a client: the only place an unknown key can ever raise an error is client-side, before the send."
+    },
+    "empty_string_rule": {
+      "verdict": "ENGINE",
+      "claim": "Content mutations run setEmptyStringsToNulls(input.data, <table>) before writing. Any key whose value is exactly '' becomes null, EXCEPT where the Drizzle column is notNull (typeutils.ts:66, 'if (columns?.[propertyKey]?.notNull) continue').",
+      "file": "app/src/utils/typeutils.ts",
+      "line": 57,
+      "match": "export const setEmptyStringsToNulls = (",
+      "note": "Table-aware, so the same empty string is nulled on one entity and preserved on another. Call sites include profile.ts:1497, badge.ts:64, bloodline.ts:649."
+    },
+    "coercion_rule": {
+      "verdict": "ENGINE",
+      "claim": "Numeric and boolean fields are overwhelmingly z.coerce.*, so a string '5' becomes 5 and a truthy value becomes true rather than erroring. Zod 4 (^4.4.3) is in use, which is why .prefault() rather than .default() appears throughout.",
+      "file": "app/src/validators/combat.ts",
+      "line": 111,
+      "match": "z.coerce.number()"
+    },
+    "cross_field_rule": {
+      "verdict": "ENGINE",
+      "claim": "Constraints that no single field expresses live in three superRefine functions: SuperRefineEffects (all entities, :1235), SuperRefineJutsu (:1207) and SuperRefineItem (:1122). These produce a 400 on a payload that is shape-valid, and they are invisible to any field-by-field schema view.",
+      "file": "app/src/validators/combat.ts",
+      "line": 1235,
+      "match": "export const SuperRefineEffects = (effects: ZodAllTags[], ctx: z.RefinementCtx) => {",
+      "note": "Examples read directly: wound/vamp/consume each require a damage or pierce effect in the same effects array (:1238-1258); activatesagemode is rejected on every entity (:1263) and again by name in the jutsu (:1214) and item (:1130) refinements; powerPerLevel must be 0 for rollbloodline, rollsagemode, removebloodline and noncombatconsumereward (:1259-1271)."
+    },
+    "error_vs_coerce_vs_strip": {
+      "verdict": "ENGINE",
+      "claim": "For any field on a content entity, the outcome of a bad value is one of three, and which one is structural rather than per-field: an UNKNOWN key is stripped silently (unknown_key_rule); a KNOWN key with a coercible wrong type is coerced (coercion_rule); a KNOWN key with a value outside its enum, bound or cross-field constraint errors with data.zodError populated (transport.error_envelope). Empty string is a fourth case, converted to null or preserved by column nullability (empty_string_rule).",
+      "match": "z.coerce",
+      "population_scanned": "Derived from the four anchored rules above it in this section (unknown_key_rule, coercion_rule, empty_string_rule, cross_field_rule), each with its own anchor. No additional scan; this entry is the synthesis, not a separate claim.",
+      "note": "This four-way rule is the actionable generalization the dispatch asked for. Only the first case is silent, and only the first case is fully preventable client-side."
+    }
+  },
+  "write_semantics": {
+    "mutation_return": {
+      "verdict": "ENGINE",
+      "claim": "A content create returns baseServerResponse and puts the NEW ID IN THE MESSAGE FIELD. It does not return the persisted record. jutsu.create does the same.",
+      "file": "app/src/server/api/routers/asset.ts",
+      "line": 206,
+      "match": "return { success: true, message: id };",
+      "note": "message is overloaded: on success it carries an id, on failure a human sentence. Any client must read message positionally by outcome, not as display text."
+    },
+    "id_generation": {
+      "verdict": "ENGINE",
+      "claim": "Ids are minted server-side with nanoid() at create time (also asset.ts:177, :221 and jutsu.ts:16). Default nanoid length is 21 characters, which matches the ID_LEN = 21 constant tnr-tools already validates against.",
+      "file": "app/src/server/api/routers/asset.ts",
+      "line": 197,
+      "match": "const id = nanoid();",
+      "note": "An id is first knowable to a client from the create response message. There is no client-side id reservation path in source."
+    },
+    "create_inserts_placeholder": {
+      "verdict": "ENGINE",
+      "claim": "create does not accept a payload. It inserts a fixed placeholder row (gameAsset: name 'Placeholder', type 'STATIC', image and url IMG_AVATAR_DEFAULT) and returns its id. jutsu.create inserts name `New Jutsu - ${id}`.",
+      "file": "app/src/server/api/routers/asset.ts",
+      "line": 199,
+      "match": "name: \"Placeholder\",",
+      "note": "Consequence worth recording: the 'blank shell named New Jutsu - <id>' that tnr-tools treats as a corruption symptom is simply what create always produces. The shell is visible whenever the follow-up update does not land, so create-then-fill is inherently two-phase and the intermediate state is a real, reachable record."
+    },
+    "read_back_ground_truth": {
+      "verdict": "ENGINE",
+      "claim": "Per entity the read-back procedure is a query taking z.object({id: z.string()}): gameAsset.get (asset.ts:147), jutsu.get (jutsu.ts:266), item.get (item.ts:197), quests.get (quests.ts:215), bloodline.get (bloodline.ts:133), profile.getAi (profile.ts:1121, input z.object({userId})).",
+      "file": "app/src/server/api/routers/asset.ts",
+      "line": 147,
+      "match": "get:",
+      "note": "Shape asymmetry: create accepts no payload at all, update accepts a validator-shaped data object, and get returns the DB row. So the read-back shape matches neither input shape."
+    },
+    "hidden_and_publish": {
+      "verdict": "PARTIAL",
+      "claim": "hidden exists as a column on content tables and is part of the update payload, but no dedicated publish or visibility-toggle procedure exists for jutsu, item, quest, bloodline or gameAsset.",
+      "file": null,
+      "line": null,
+      "match": null,
+      "population_scanned": "Population: the 167-procedure inventory across the 7 content routers was built and searched for publish/unhide/visibility/setHidden; no such procedure exists. Visibility is a field on update, gated by the same canChangeContent check as any other field.",
+      "note": "Who may flip it: whoever passes canChangeContent, i.e. the same authority as any content edit."
+    }
+  },
+  "assets": {
+    "route": {
+      "verdict": "ENGINE",
+      "claim": "Uploads go through an UploadThing route handler at /api/uploadthing, with the slug set defined in app/src/app/api/uploadthing/core.ts. uploadthing 7.7.4, @uploadthing/react ^7.3.3.",
+      "file": "app/src/app/api/uploadthing/route.ts",
+      "line": null,
+      "match": "uploadthing/route.ts"
+    },
+    "slug_used_by_current_client": {
+      "verdict": "ENGINE",
+      "claim": "The imageUploader slug accepts mime class 'image' with a 512KB per-file ceiling, enforced in the uploader config.",
+      "file": "app/src/app/api/uploadthing/core.ts",
+      "line": 89,
+      "match": "imageUploader: f({ image: { maxFileSize: \"512KB\" } })",
+      "note": "This anchors the 512KB figure tnr-tools carries as an art-pipeline convention. It is engine-enforced for this slug, not a house rule. Correction to the law provenance report, which classed the byte ceiling as DOCTRINE."
+    },
+    "other_slugs": {
+      "verdict": "ENGINE",
+      "claim": "Ceilings differ per slug: imageUploader 512KB, conceptArtFrameUploader 256KB, modelUploader 256KB (model/gltf-binary), tavernUploader 64KB, anbuUploader / clanUploader / tournamentUploader 512KB. Choosing the wrong slug changes the limit.",
+      "file": "app/src/app/api/uploadthing/core.ts",
+      "line": 95,
+      "match": "conceptArtFrameUploader: f({ image: { maxFileSize: \"256KB\" } })"
+    },
+    "moderation": {
+      "verdict": "ENGINE",
+      "claim": "Every imageUploader completion runs moderateUploadedImage. An upload is therefore not final at the moment the PUT returns.",
+      "file": "app/src/app/api/uploadthing/core.ts",
+      "line": 94,
+      "match": ".onUploadComplete(async ({ file }) => moderateUploadedImage(file))"
+    },
+    "referenceable_by_later_create": {
+      "verdict": "PARTIAL",
+      "claim": "Source shows the upload returns an UploadThing file record and that content rows store an image/url string; the client's job is to write that URL into a later update payload.",
+      "file": null,
+      "line": null,
+      "match": null,
+      "population_scanned": "Population: core.ts read in full for the uploader definitions; asset.ts create/update read; grep for servedUfsUrl and extensionCustomId across app/src.",
+      "note": "servedUfsUrl and extensionCustomId (app/src/libs/uploadthing.ts) shape the served URL and matter for CDN rendition behaviour; not traced end to end in this pass."
+    }
+  },
+  "fidelity": {
+    "45c_provenance": {
+      "verdict": "CONTRADICTED",
+      "claim": "45c was generated from game commit bdec2883 (2026-08-29). The audited source is 345d18ac (2026-08-31). The generated constructors are two days and at least one drop behind the current contract.",
+      "file": "45c_DATA_constructors.json",
+      "line": null,
+      "match": "\"source_drop\": \"git:studie-tech/TheNinjaRPG@bdec2883 (2026-08-29)\"",
+      "note": "Not necessarily wrong, but not pinned to the source being audited. Any claim it makes is a claim about bdec2883."
+    },
+    "45g_provenance": {
+      "verdict": "CONTRADICTED",
+      "claim": "45g cites a ZIP FILENAME rather than a commit, extracted 2026-08-26. Its provenance is therefore not verifiable against any git object.",
+      "file": "45g_DATA_checks.json",
+      "line": null,
+      "match": "\"source_drop\": \"TheNinjaRPG-main__3_.zip\"",
+      "note": "45c and 45g also disagree on extraction date (08-30 vs 08-26), which is the provenance mismatch the repo's own selfcheck.py already reports as an error."
+    },
+    "union_membership_matches": {
+      "verdict": "ENGINE",
+      "claim": "Positive result: AllTags carries 76 members in source at 345d18ac and 45c records 76 members. ZodAllAiConditions 9, ZodAllAiActions 10 also match the source counts.",
+      "file": "app/src/validators/combat.ts",
+      "line": 872,
+      "match": "export const AllTags = z.union([",
+      "note": "Union membership has NOT drifted. The drift is in per-field constraints, below."
+    },
+    "tag_power_max_is_wrong": {
+      "verdict": "CONTRADICTED",
+      "claim": "45g.tag_power_max asserts a maximum of 100 for essentially every tag, including damage, heal, absorb, increasedamagegiven, decreasedamagetaken and decreasestat. In source those tags are UNCAPPED: PowerAttributes.power is z.coerce.number().min(0) with no max (app/src/validators/combat.ts:111) and is spread AFTER BaseAttributes in all 61 tags that use it (e.g. combat.ts:164-167), overriding the capped BaseAttributes.power at combat.ts:98.",
+      "file": "45g_DATA_checks.json",
+      "line": null,
+      "match": "\"tag_power_max\"",
+      "note": "THIS IS A GENERATOR DEFECT, not merely staleness. schema_extract.py appears to read the first power declaration it sees and not account for a later spread overriding it. The consequence propagates: 45g.tag_power_max feeds validate.py:769-770, which errors on any power > 100 and so rejects payloads the server would accept. Re-pointing the generator at a newer SHA will not fix this; the extraction logic must handle spread precedence."
+    },
+    "generator_repointable": {
+      "verdict": "PARTIAL",
+      "claim": "The generator is source-derived, not observation-derived: it parses the game's validator files and the repo already runs it against a fresh clone in .github/workflows/regen_schemas.yml. So it can be re-pointed at a SHA.",
+      "file": "skills/building-tnr-content/scripts/schema_extract.py",
+      "line": null,
+      "match": "schema_extract.py",
+      "note": "But see tag_power_max above: re-pointing is necessary and not sufficient. At least one extraction rule is wrong independently of which commit it reads."
+    }
+  },
+  "divergence": {
+    "ranked": [
+      {
+        "rank": 1,
+        "severity": "high",
+        "id": "D1-superjson",
+        "claim": "The client hand-implements superjson instead of using the configured transformer.",
+        "source": {
+          "verdict": "ENGINE",
+          "claim": "superjson is the configured tRPC transformer on both ends.",
+          "file": "app/src/server/api/trpc.ts",
+          "line": 89,
+          "match": "transformer: superjson,"
+        },
+        "client": {
+          "verdict": "ENGINE",
+          "claim": "qupdate hand-builds a superjson meta envelope, including referentialEqualities, and wsNorm plus per-entity date lists coerce fields by hand.",
+          "file": "builder_bundle.js",
+          "line": 536,
+          "match": "const meta={values:{\"data.createdAt\":[\"Date\"],\"data.updatedAt\":[\"Date\"]},referentialEqualities:QRE,v:1}"
+        },
+        "symptom": "Every new date-bearing or nullable field needs a hand-maintained entry. Law 72's null-strip bug and the AIDATE/QRE tables exist only because the envelope is reimplemented rather than delegated.",
+        "note": "A client that uses superjson to encode and decode would not need wsNorm, AIDATE, QRE or the date coercion tables at all."
+      },
+      {
+        "rank": 2,
+        "severity": "high",
+        "id": "D2-ratelimit-scope",
+        "claim": "The client's rate-limit machinery guards a limiter that does not cover the procedures it calls.",
+        "source": {
+          "verdict": "ENGINE",
+          "claim": "publicProcedure (trpc.ts:209) uses ratelimitMiddleware; protectedProcedure does NOT. Of the 26 procedures the bundle calls, all are protectedProcedure.",
+          "file": "app/src/server/api/trpc.ts",
+          "line": 213,
+          "match": "export const protectedProcedure = t.procedure"
+        },
+        "client": {
+          "verdict": "ENGINE",
+          "claim": "Eight-try exponential backoff to 60s on every mutation and query, driven by isLim.",
+          "file": "builder_bundle.js",
+          "line": 336,
+          "match": "const postRL=async(p,b,wf)=>{let tr=0;while(1){const r=await post(p,b);if(isLim(r.status,r.text))"
+        },
+        "symptom": "None observed, because the guard is inert on these paths rather than harmful. The cost is complexity and a false model of server behaviour.",
+        "note": "Stated carefully: this says the tRPC sliding-window middleware does not gate these paths. It does NOT say no limiting exists anywhere. Population for that narrower claim: all 58 router files were scanned; ratelimitMiddleware appears outside trpc.ts only in misc.ts:108 and towerDefense.ts:116,157. Infrastructure in front of Next (CDN, WAF) is outside this repo and was not assessed. The MCP route has its own stricter limiters."
+      },
+      {
+        "rank": 3,
+        "severity": "medium",
+        "id": "D3-id-by-regex",
+        "claim": "The client extracts new ids by regex over raw response text where a documented field exists.",
+        "source": {
+          "verdict": "ENGINE",
+          "claim": "The id is returned in baseServerResponse.message.",
+          "file": "app/src/server/api/routers/asset.ts",
+          "line": 206,
+          "match": "return { success: true, message: id };"
+        },
+        "client": {
+          "verdict": "ENGINE",
+          "claim": "rid() regex-scrapes the id out of the response body text rather than reading the decoded message field.",
+          "file": "builder_bundle.js",
+          "line": 509,
+          "match": "id=rid(c.text)"
+        },
+        "symptom": "Law 29 exists because a truncated printout once put invented ids into live reward tables. Scraping text is the same failure mode one layer down.",
+        "note": null
+      },
+      {
+        "rank": 4,
+        "severity": "medium",
+        "id": "D4-unknown-key-strip",
+        "claim": "The client asserts fields that are silently discarded, and treats the resulting success as confirmation.",
+        "source": {
+          "verdict": "ENGINE",
+          "claim": "Across all of app/src/validators/*.ts and app/drizzle/schema.ts, .strict() appears exactly ONCE, on an unrelated travel validator. No content entity validator is strict, and neither passthrough() nor strip() appears anywhere. Zod's default therefore applies: unknown keys are dropped at parse time with no error.",
+          "file": "app/src/validators/travel.ts",
+          "line": 21,
+          "match": ".strict()"
+        },
+        "client": {
+          "verdict": "ENGINE",
+          "claim": "The v4.28 asserted-fields verdict re-reads the record and classes each asserted key as missing / blanked / unref / mismatch.",
+          "file": "builder_bundle.js",
+          "line": 415,
+          "match": "const avfy=(r,idmap)=>"
+        },
+        "symptom": "This is the generalized silent-failure class named in the dispatch brief. Any misspelled or non-schema key is accepted, dropped, and reported as success.",
+        "note": "The client's own read-back verdict is the correct mitigation and already exists. The divergence is that it is a post-hoc check rather than a pre-send one: the schema is knowable in advance, so an unknown key could be refused before any mutation runs."
+      },
+      {
+        "rank": 5,
+        "severity": "low",
+        "id": "D5-dead-fallback",
+        "claim": "A retry path in the client can never succeed.",
+        "source": {
+          "verdict": "ENGINE",
+          "claim": "gameAsset.get input is z.object({ id: z.string() }).",
+          "file": "app/src/server/api/routers/asset.ts",
+          "line": 147,
+          "match": "get:"
+        },
+        "client": {
+          "verdict": "ENGINE",
+          "claim": "aget retries with a bare string as input after the object form fails.",
+          "file": "builder_bundle.js",
+          "line": 539,
+          "match": "g=await getRL('gameAsset.get',id,wf)"
+        },
+        "symptom": "The second attempt fails Zod validation every time. Harmless, but it means an asset read failure costs two round trips and reports the second error.",
+        "note": null
+      },
+      {
+        "rank": 6,
+        "severity": "low",
+        "id": "D6-unused-procedures",
+        "claim": "Delete and clone paths exist in source and the client implements none of them.",
+        "source": {
+          "verdict": "ENGINE",
+          "claim": "Available and unused by the client: jutsu.delete, item.delete, item.clone, gameAsset.delete, quests.delete, quests.clone, bloodline.delete, profile.cloneAi.",
+          "file": "app/src/server/api/routers/quests.ts",
+          "line": 928,
+          "match": "clone:"
+        },
+        "client": {
+          "verdict": "ENGINE",
+          "claim": "The bundle calls 26 procedures; none is a delete or clone.",
+          "file": null,
+          "line": null,
+          "match": null,
+          "population_scanned": "Population: all quoted 'router.procedure' literals in builder_bundle.js extracted and diffed against the 167-procedure source inventory."
+        },
+        "symptom": "Not a defect. Recorded because a from-spec client's scope decision should be deliberate rather than inherited.",
+        "note": null
+      }
+    ],
+    "client_correct_where_checked": [
+      {
+        "verdict": "ENGINE",
+        "claim": "Zero phantom procedures. Every one of the 26 game procedures the bundle calls exists in source at the pinned SHA, with the router name and procedure name correct, including the gameAsset alias for the asset router.",
+        "file": "builder_bundle.js",
+        "line": null,
+        "match": "26 procedures called",
+        "note": "Population: all quoted 'router.procedure' literals in builder_bundle.js, diffed against the 167-procedure inventory built from the 7 content routers."
+      },
+      {
+        "verdict": "ENGINE",
+        "claim": "The bundle's upload slug and its 512KB ceiling both match the imageUploader config exactly.",
+        "file": "app/src/app/api/uploadthing/core.ts",
+        "line": 89,
+        "match": "slug=imageUploader"
+      },
+      {
+        "verdict": "ENGINE",
+        "claim": "The bundle's rule that per-entry success, not HTTP status, decides the outcome is exactly right and is the only safe reading of this envelope.",
+        "file": "app/src/server/api/trpc.ts",
+        "line": 246,
+        "match": "export const baseServerResponse"
+      }
+    ]
+  },
+  "feasibility_gates": {
+    "G1_token_portability": {
+      "verdict": "ENGINE",
+      "answer": "A bearer-token path that does not require a browser page exists, on the MCP route only.",
+      "findings": [
+        {
+          "verdict": "ENGINE",
+          "claim": "The MCP route verifies a Clerk token server-side with @clerk/backend and wraps the handler in withMcpAuth from @vercel/mcp-adapter (route.ts:7).",
+          "file": "app/src/app/api/mcp/[[...transport]]/route.ts",
+          "line": 2,
+          "match": "import { verifyToken as clerkVerifyToken } from \"@clerk/backend\";"
+        },
+        {
+          "verdict": "ENGINE",
+          "claim": "The entire MCP surface is environment-gated. Whether it is enabled in production is not determinable from source.",
+          "file": "app/src/app/api/mcp/[[...transport]]/route.ts",
+          "line": 16,
+          "match": "const mcpEnabled = process.env.NEXT_PUBLIC_MCP_ENABLED === \"true\";"
+        },
+        {
+          "verdict": "ENGINE",
+          "claim": "trpcToModelContextProtocolHandler bridges the tRPC appRouter to MCP, so the exposed surface is the tRPC surface filtered per procedure by .meta({mcp:{enabled:true}}).",
+          "file": "app/src/app/api/mcp/[[...transport]]/route.ts",
+          "line": 10,
+          "match": "import { appRouter } from \"@/server/api/root\";"
+        },
+        {
+          "verdict": "ENGINE",
+          "claim": "For the ordinary /api/trpc path, no bearer verification exists in this repo; the server reads the session via Clerk auth() and nothing else.",
+          "file": null,
+          "line": null,
+          "match": null,
+          "population_scanned": "Population: app/src/server/api/trpc.ts read in full (252 lines); grep across app/src for Authorization, Bearer, getToken, verifyToken. The only hits outside the MCP route are unrelated."
+        }
+      ]
+    },
+    "G2_cors": {
+      "verdict": "NOT_IN_SOURCE",
+      "answer": "No CORS configuration exists on the tRPC route or anywhere in front of it in this repo.",
+      "findings": [
+        {
+          "verdict": "NOT_IN_SOURCE",
+          "claim": "No Access-Control-Allow-* header is set anywhere, and no CORS middleware or Next headers() entry configures one. With no CORS headers, a browser blocks a credentialed cross-origin POST. A non-browser client is not subject to CORS at all, since CORS is enforced by browsers rather than by servers.",
+          "file": null,
+          "line": null,
+          "match": null,
+          "population_scanned": "Population: all .ts and .tsx under app/src plus app/next.config.mjs, grep terms Access-Control-Allow, cors, CORS. Two hits, both unrelated (a stale-CDN-cache comment in libs/sector-map/tiled-download.ts:250 and a client-side fetch mode in utils/audio.ts:254). app/src/proxy.ts read in full and sets no headers."
+        }
+      ]
+    },
+    "G3_csrf": {
+      "verdict": "NOT_IN_SOURCE",
+      "answer": "No CSRF token, double-submit cookie, origin check or custom header requirement on mutations.",
+      "findings": [
+        {
+          "verdict": "NOT_IN_SOURCE",
+          "claim": "Nothing in source requires a CSRF token, compares an Origin or Referer header, or demands a custom header on mutations.",
+          "file": null,
+          "line": null,
+          "match": null,
+          "population_scanned": "Population: all .ts and .tsx under app/src plus app/next.config.mjs, grep terms csrf, xsrf, double-submit, sameSite, origin check terms. Hits are confined to two layout-preference cookies set with samesite=lax (libs/layoutPreference.ts:101, :136) and one unrelated comment about double-submit in jutsu.ts:591. app/src/proxy.ts and trpc.ts both read in full; neither inspects Origin or Referer."
+        }
+      ]
+    },
+    "G4_page_context": {
+      "verdict": "PARTIAL",
+      "answer": "No content procedure depends on page-established state; the tRPC context is built from token, IP, user-agent and two A/B cookies only.",
+      "findings": [
+        {
+          "verdict": "ENGINE",
+          "claim": "createAppTRPCContext returns drizzle, userIp, userId, userAgent, abLemuReplacementVariant and abPixelLayoutVariant. The two A/B variants come from cookies and steer landing-page layout only.",
+          "file": "app/src/server/api/trpc.ts",
+          "line": 68,
+          "match": "return {\n    drizzle: drizzleDB,\n    userIp,\n    userId,\n    userAgent,"
+        },
+        {
+          "verdict": "ENGINE",
+          "claim": "The MCP context supplies the same context shape with no page state, defaulting userAgent to 'mcp-client'. That the same appRouter serves both is itself evidence that content resolvers do not require page context.",
+          "file": "app/src/app/api/mcp/[[...transport]]/route.ts",
+          "line": 56,
+          "match": "userAgent: requestData?.userAgent ?? \"mcp-client\","
+        },
+        {
+          "verdict": "PARTIAL",
+          "claim": "Not exhaustively proven across all 167 content procedures; established for the context shape and for the resolvers read in this pass.",
+          "file": null,
+          "line": null,
+          "match": null,
+          "population_scanned": "Population: trpc.ts and the MCP route read in full; the create/update/get resolvers for gameAsset, jutsu, item, quests, bloodline and profile.updateAi read directly."
+        }
+      ]
+    },
+    "G5_rate_limits": {
+      "verdict": "ENGINE",
+      "answer": "60 requests per 60 seconds sliding window, keyed per procedure path plus identity, on publicProcedure only; violations by logged-in users cost 1 percent of money and bank.",
+      "findings": [
+        {
+          "verdict": "ENGINE",
+          "claim": "Upstash sliding window, 60 per 60s, prefix 'trpc-ratelimit', analytics on.",
+          "file": "app/src/server/api/trpc.ts",
+          "line": 123,
+          "match": "limiter: Ratelimit.slidingWindow(60, \"60 s\"),"
+        },
+        {
+          "verdict": "ENGINE",
+          "claim": "The limiter key is procedure path plus userId, falling back to IP for anonymous callers. So the budget is per procedure, not global: a client spreading work across many procedures gets 60 each.",
+          "file": "app/src/server/api/trpc.ts",
+          "line": 148,
+          "match": "const identifier = `${path}-${context.userId ?? context.userIp}`;"
+        },
+        {
+          "verdict": "ENGINE",
+          "claim": "On a trip, a logged-in caller has movedTooFastCount incremented and money and bank each multiplied by 0.99, before a TOO_MANY_REQUESTS error is thrown.",
+          "file": "app/src/server/api/trpc.ts",
+          "line": 164,
+          "match": "money: sql`GREATEST(${userData.money} * 0.99, 0)`,",
+          "note": "The thrown message is 'You are acting too fast. Incident logged for review on path {path}. 1% money reduced.' (trpc.ts:177). This is a real financial penalty on a real account, which is why the scope question below matters."
+        },
+        {
+          "verdict": "ENGINE",
+          "claim": "SCOPE: publicProcedure applies ratelimitMiddleware. protectedProcedure (trpc.ts:213) does not. Every content procedure a builder calls is protectedProcedure.",
+          "file": "app/src/server/api/trpc.ts",
+          "line": 209,
+          "match": "export const publicProcedure = t.procedure\n  .use(ratelimitMiddleware)",
+          "note": "Population for the negative half: all 58 files in app/src/server/api/routers scanned; ratelimitMiddleware appears outside trpc.ts only at misc.ts:108 and towerDefense.ts:116 and :157, each hand-composed with hasUserMiddleware. 651 protectedProcedure occurrences against 122 publicProcedure."
+        },
+        {
+          "verdict": "ENGINE",
+          "claim": "If Redis is unreachable the limiter fails OPEN in development and CLOSED in production.",
+          "file": "app/src/server/api/trpc.ts",
+          "line": 156,
+          "match": "if (process.env.NODE_ENV !== \"development\") throw error;"
+        },
+        {
+          "verdict": "ENGINE",
+          "claim": "The MCP surface is stricter and doubly limited: 30 per 60s by IP pre-auth (prefix mcp-ratelimit) and 30 per 60s per user post-auth (prefix mcp-user-ratelimit, route.ts:33).",
+          "file": "app/src/app/api/mcp/[[...transport]]/route.ts",
+          "line": 25,
+          "match": "limiter: Ratelimit.slidingWindow(30, \"60 s\"),"
+        },
+        {
+          "verdict": "NOT_IN_SOURCE",
+          "claim": "Nothing in source treats batching as abusive per se; the limiter counts requests by procedure path and identity, and a batch is one HTTP request carrying several calls.",
+          "file": null,
+          "line": null,
+          "match": null,
+          "population_scanned": "Population: trpc.ts read in full; grep across app/src for batch, abuse, throttle, suspicious. Whether an edge layer in front of Next counts batches differently is outside this repo."
+        }
+      ]
+    },
+    "G6_client_visibility": {
+      "verdict": "ENGINE",
+      "answer": "A browser-only gate exists in source and is commented out. User-agent is captured and logged but gates nothing on the content path. Reported factually; no conclusion about permission is drawn here.",
+      "findings": [
+        {
+          "verdict": "ENGINE",
+          "claim": "A uaMiddleware that would return HTTP 403 with the message 'Forbidden. Only access through browser' for any user-agent whose parsed browser name is undefined is present in source, fully written, and COMMENTED OUT (proxy.ts:11-21). Its call site is also commented out at proxy.ts:101-102, '// Ensure valid user agent' / '// return uaMiddleware(request);'.",
+          "file": "app/src/proxy.ts",
+          "line": 11,
+          "match": "// export function uaMiddleware(request: NextRequest) {",
+          "note": "This is the most directly relevant item in the audit for G6 and it cuts both ways: the capability was built and is currently disabled. Whether a native client is sanctioned is not a source question and is explicitly out of this audit's remit."
+        },
+        {
+          "verdict": "ENGINE",
+          "claim": "A crawler regex exists and is live, but it only pins an A/B layout variant and only when pathname is '/' (proxy.ts:70 returns early otherwise). It blocks nothing and never touches /api/trpc.",
+          "file": "app/src/proxy.ts",
+          "line": 54,
+          "match": "const CRAWLER_USER_AGENT ="
+        },
+        {
+          "verdict": "ENGINE",
+          "claim": "user-agent is read into every tRPC context.",
+          "file": "app/src/server/api/trpc.ts",
+          "line": 60,
+          "match": "const userAgent = readHeaders.get(\"user-agent\") ?? undefined;"
+        },
+        {
+          "verdict": "NOT_IN_SOURCE",
+          "claim": "No content procedure branches on userAgent. Every use found is a write into a log or report row, truncated to 180 characters.",
+          "file": null,
+          "line": null,
+          "match": null,
+          "population_scanned": "Population: grep for userAgent across all of app/src, 8 non-MCP hits. Uses are misc.ts:76 and :90-92, profile.ts:335-337 and :1117 (logging), utils/hardware.ts:9-12 (client-side device string parsing), proxy.ts:57 (the crawler A/B pin above). No hit is a gate on a content mutation."
+        },
+        {
+          "verdict": "NOT_IN_SOURCE",
+          "claim": "No bot-detection service, device-attestation, headless-browser check or fingerprinting library is wired into the request path.",
+          "file": null,
+          "line": null,
+          "match": null,
+          "population_scanned": "Population: app/package.json dependency list read in full; grep across app/src for recaptcha, turnstile, hcaptcha, fingerprint, botd, datadome, arcjet, headless, webdriver."
+        },
+        {
+          "verdict": "PARTIAL",
+          "claim": "The game repo contains CLAUDE.md, CODEOWNERS, CONTRIBUTING.md, DEVELOPMENT.md and README.md at root. Their contents were NOT read in this pass, deliberately: the dispatch reserves the permission question for dauntless and the admin, so summarising policy prose here would overstep and would risk reproducing repo text.",
+          "file": "CONTRIBUTING.md",
+          "line": null,
+          "match": "CONTRIBUTING.md",
+          "note": "Flagged so the gap is visible rather than silent. If a policy read is wanted it should be a separate, explicitly scoped request."
+        }
+      ]
+    },
+    "G7_webview_viability": {
+      "verdict": "INFERRED",
+      "answer": "Nothing in the auth path, redirects or CSP is expressed in source that is known to break inside an Android WebView; this is INFERRED from absence and is the weakest answer in this section.",
+      "findings": [
+        {
+          "verdict": "NOT_IN_SOURCE",
+          "claim": "No Content-Security-Policy is set in this repo.",
+          "file": null,
+          "line": null,
+          "match": null,
+          "population_scanned": "Population: app/next.config.mjs read; grep across app/src and next.config.mjs for Content-Security-Policy, contentSecurityPolicy, frame-ancestors, X-Frame-Options. No hits."
+        },
+        {
+          "verdict": "ENGINE",
+          "claim": "The only redirect-shaped logic in the proxy is the landing-page A/B rewrite on '/' and an early return for MCP routes. The tRPC path receives neither.",
+          "file": "app/src/proxy.ts",
+          "line": 64,
+          "match": "if (isMcpRoute(pathname)) {\n      return NextResponse.next();"
+        },
+        {
+          "verdict": "INFERRED",
+          "claim": "Clerk's hosted sign-in flow, third-party cookie behaviour and any FAPI redirect are library and configuration concerns not expressed in this repo, so WebView compatibility cannot be settled from source. The proxy does keep Clerk's optional frontend API proxy path compatible (proxy.ts:181, '/__clerk/(.*)'), which is the one source-visible hint that a same-origin auth path is available.",
+          "file": null,
+          "line": null,
+          "match": null,
+          "population_scanned": "Population: app/src/proxy.ts (184 lines) read in full, app/package.json Clerk entries read, grep for __clerk, frontendApi, satellite, isSatellite across app/src."
+        }
+      ]
+    }
+  },
+  "redesign_spec": [
+    {
+      "id": "R1",
+      "requirement": "Speak superjson on both encode and decode, rather than hand-building meta envelopes.",
+      "depends_on": [],
+      "rationale": "transport.transformer. Removes the entire class of per-field date and null coercion tables (D1) and is prerequisite to trusting any decoded response field."
+    },
+    {
+      "id": "R2",
+      "requirement": "Read outcome from the decoded baseServerResponse: success as the verdict, message as the id carrier on create and as a sentence on failure. Never infer outcome from HTTP status.",
+      "depends_on": [
+        "R1"
+      ],
+      "rationale": "write_semantics.mutation_return and auth.role_miss_shape. A role miss is HTTP 200."
+    },
+    {
+      "id": "R3",
+      "requirement": "Validate every outgoing payload against the entity's schema before sending, refusing unknown keys locally.",
+      "depends_on": [],
+      "rationale": "divergence D4. Zod strips unknown keys silently server-side, so a pre-send refusal is the only place the error can surface at all."
+    },
+    {
+      "id": "R4",
+      "requirement": "Derive that schema from a generator whose extraction handles spread precedence, and pin its output to a game commit SHA.",
+      "depends_on": [
+        "R3"
+      ],
+      "rationale": "fidelity.tag_power_max_is_wrong and the two provenance findings. R3 is only as good as its schema source, and the current one is provably wrong about power bounds."
+    },
+    {
+      "id": "R5",
+      "requirement": "Treat create as a two-phase operation with a reachable intermediate state: create returns an id for a placeholder row, and the record is not correct until the follow-up update lands.",
+      "depends_on": [
+        "R2"
+      ],
+      "rationale": "write_semantics.create_inserts_placeholder. The intermediate row is visible to the game, so a client must be able to resume or report it, not just retry blindly."
+    },
+    {
+      "id": "R6",
+      "requirement": "Read back through the entity's get query and diff against the keys actually asserted, not against the whole record.",
+      "depends_on": [
+        "R1",
+        "R2"
+      ],
+      "rationale": "write_semantics.read_back_ground_truth. The get shape matches neither the create nor the update shape, so a whole-record diff produces noise."
+    },
+    {
+      "id": "R7",
+      "requirement": "Budget requests per procedure path plus identity, not globally, and treat a limit trip as costly rather than as a retry signal.",
+      "depends_on": [],
+      "rationale": "gates.G5. The key is `${path}-${userId}`, and a trip debits 1 percent of money and bank. Backoff is the wrong response to a penalty; not tripping it is the requirement."
+    },
+    {
+      "id": "R8",
+      "requirement": "Carry the upload slug and its ceiling as data, not as a constant, since ceilings differ per slug (512KB, 256KB, 64KB).",
+      "depends_on": [],
+      "rationale": "assets.other_slugs."
+    },
+    {
+      "id": "R9",
+      "requirement": "Record, per procedure the client needs, whether it is reachable over the MCP surface, and treat that as a capability boundary rather than an implementation detail.",
+      "depends_on": [],
+      "rationale": "procedures.mcp_boundary. Of the 26 procedures the current client calls, 14 are MCP-enabled and 12 are not, and the 12 include every jutsu, item and asset write plus the AI rules push. Any design that assumes a uniform surface is wrong in one direction or the other."
+    },
+    {
+      "id": "R10",
+      "requirement": "Surface structured validation failures from data.zodError rather than parsing message strings.",
+      "depends_on": [
+        "R1"
+      ],
+      "rationale": "transport.error_envelope."
+    }
+  ],
+  "out_of_scope": {
+    "by_dispatch": [
+      "Balance data of any kind: drop rates, reward values, stat tuning, difficulty gates.",
+      "Any live request to theninja-rpg.com. No request was made, no credential was used, requested or synthesised.",
+      "Any modification to the game source, or a PR against it.",
+      "Any fix to builder_bundle.js, docs/, ENGINE_LAWS.md, skills/ or any manifest. This dispatch reports only.",
+      "Game prose. No dialog, item description or flavour text was extracted.",
+      "Any conclusion about whether a non-browser client is permitted."
+    ],
+    "deliberately_not_read": [
+      "The game repo's CLAUDE.md, CONTRIBUTING.md, DEVELOPMENT.md, README.md and CODEOWNERS. Recorded under G6 as a visible gap rather than summarised, because the permission question is reserved and summarising policy prose would overstep.",
+      "Per-field enumeration of every content entity field. See entities.scope_statement.",
+      "The 51 non-content routers, beyond counting procedure classes for the rate-limit population.",
+      "app/tests, except where a test name settled a behavioural question.",
+      "The Drizzle migration history."
+    ]
+  },
+  "audit_method": {
+    "sequence": [
+      "Cloned the game source shallow and pinned the SHA before reading anything.",
+      "Read framework versions from app/package.json.",
+      "Walked the tRPC core (trpc.ts, root.ts) and the front door (proxy.ts) in full.",
+      "Built the 167-procedure inventory and the entity validator map before opening builder_bundle.js.",
+      "Only then read builder_bundle.js and the generated data files, and diffed."
+    ],
+    "files_read_in_full": [
+      "app/src/server/api/trpc.ts (252)",
+      "app/src/proxy.ts (184)",
+      "app/src/app/api/mcp/[[...transport]]/route.ts (first 70 of 415)"
+    ],
+    "directories_walked": {
+      "app/src/server/api/routers": 58,
+      "app/src/validators": null,
+      "app/src/app/api": null
+    },
+    "grep_terms": [
+      "superjson",
+      "transformer",
+      "Access-Control-Allow",
+      "cors",
+      "csrf",
+      "xsrf",
+      "sameSite",
+      "userAgent",
+      "Authorization",
+      "Bearer",
+      "verifyToken",
+      "getToken",
+      "ratelimitMiddleware",
+      "new Ratelimit",
+      "slidingWindow",
+      ".strict()",
+      "passthrough()",
+      "strip()",
+      "nanoid",
+      "maxFileSize",
+      "mcp: { enabled: true",
+      "setEmptyStringsToNulls",
+      "canChangeContent",
+      "clerkMiddleware",
+      "Content-Security-Policy",
+      "recaptcha",
+      "turnstile",
+      "fingerprint",
+      "arcjet",
+      "headless",
+      "webdriver"
+    ],
+    "counts": {
+      "content_procedures_inventoried": 167,
+      "router_files_scanned": 58,
+      "mcp_enabled_procedures_repo_wide": 421,
+      "bundle_procedures_diffed": 26,
+      "alltags_members_source": 76,
+      "alltags_members_45c": 76
+    },
+    "self_correction": "One extraction error was caught and fixed mid-audit: a fixed 26-line lookahead classified several .query() procedures as mutations by catching the next procedure's .mutation(. gameAsset.get, profile.getAi, jutsu.get, item.get, quests.get and bloodline.get were each verified individually as queries, and the inventory was rebuilt with proper procedure boundaries before any of it was used.",
+    "live_requests_made": 0,
+    "credentials_used": "none requested, used or synthesised"
+  }
+}
