@@ -1,0 +1,56 @@
+{
+ "scenario": "mutation_update_ok",
+ "pins": {
+  "trpc": "11.18.0",
+  "superjson": "2.2.6",
+  "zod": "4.4.3"
+ },
+ "exchanges": [
+  {
+   "request": {
+    "url": "https://game.invalid/api/trpc/jutsu.update?batch=1",
+    "method": "POST",
+    "headers": {
+     "content-type": "application/json"
+    },
+    "body": "{\"0\":{\"json\":{\"id\":\"abc\",\"data\":{\"name\":\"Renamed\",\"power\":150}}}}",
+    "bodyJson": {
+     "0": {
+      "json": {
+       "id": "abc",
+       "data": {
+        "name": "Renamed",
+        "power": 150
+       }
+      }
+     }
+    }
+   },
+   "response": {
+    "status": 200,
+    "headers": {
+     "content-type": "application/json",
+     "vary": "trpc-accept, accept"
+    },
+    "body": "[{\"result\":{\"data\":{\"json\":{\"success\":true,\"message\":\"Updated abc\"}}}}]",
+    "bodyJson": [
+     {
+      "result": {
+       "data": {
+        "json": {
+         "success": true,
+         "message": "Updated abc"
+        }
+       }
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "decoded": {
+  "success": true,
+  "message": "Updated abc"
+ },
+ "error": null
+}
