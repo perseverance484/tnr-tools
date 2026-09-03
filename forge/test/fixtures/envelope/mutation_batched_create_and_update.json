@@ -1,0 +1,81 @@
+{
+ "scenario": "mutation_batched_create_and_update",
+ "pins": {
+  "trpc": "11.18.0",
+  "superjson": "2.2.6",
+  "zod": "4.4.3"
+ },
+ "exchanges": [
+  {
+   "request": {
+    "url": "https://game.invalid/api/trpc/jutsu.create,jutsu.update?batch=1",
+    "method": "POST",
+    "headers": {
+     "content-type": "application/json"
+    },
+    "body": "{\"0\":{\"json\":null,\"meta\":{\"values\":[\"undefined\"],\"v\":1}},\"1\":{\"json\":{\"id\":\"zz\",\"data\":{\"name\":\"N\",\"power\":1}}}}",
+    "bodyJson": {
+     "0": {
+      "json": null,
+      "meta": {
+       "values": [
+        "undefined"
+       ],
+       "v": 1
+      }
+     },
+     "1": {
+      "json": {
+       "id": "zz",
+       "data": {
+        "name": "N",
+        "power": 1
+       }
+      }
+     }
+    }
+   },
+   "response": {
+    "status": 200,
+    "headers": {
+     "content-type": "application/json",
+     "vary": "trpc-accept, accept"
+    },
+    "body": "[{\"result\":{\"data\":{\"json\":{\"success\":true,\"message\":\"N3wId0000000000000000\"}}}},{\"result\":{\"data\":{\"json\":{\"success\":true,\"message\":\"Updated zz\"}}}}]",
+    "bodyJson": [
+     {
+      "result": {
+       "data": {
+        "json": {
+         "success": true,
+         "message": "N3wId0000000000000000"
+        }
+       }
+      }
+     },
+     {
+      "result": {
+       "data": {
+        "json": {
+         "success": true,
+         "message": "Updated zz"
+        }
+       }
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "decoded": [
+  {
+   "success": true,
+   "message": "N3wId0000000000000000"
+  },
+  {
+   "success": true,
+   "message": "Updated zz"
+  }
+ ],
+ "error": null
+}
