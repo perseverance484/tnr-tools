@@ -52,6 +52,13 @@ export function classifyError(error) {
   if (code === "UNAUTHORIZED") return "SESSION";                  // cookie missing/expired: stop, tell user
   if (code === "BAD_REQUEST" && error.zodError) return "VALIDATION"; // R10: structured issues
   if (code === "METHOD_NOT_SUPPORTED") return "CLIENT_BUG";       // we sent GET to a mutation
-  if (code === "NOT_FOUND") return "NOT_FOUND";
+  if (code === "NOT_FOUND") {
+    const m = String(error.message || "");
+    if (/^No procedure found on path/.test(m)) return "CLIENT_BUG";                       // adapter: unknown path
+    if (/Please complete registration\.$/.test(m)) return "SESSION";                       // route handler: session with no UserData row
+    return "NOT_FOUND";
+  }
+  if (code === "MALFORMED_ELEMENT") return "CLIENT_BUG";
+  if (code === "INTERNAL_SERVER_ERROR" && /Output validation failed/.test(String(error.message || ""))) return "CONTRACT"; // server broke its own output schema; never retry
   return "SERVER";
 }

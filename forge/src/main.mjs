@@ -17,7 +17,7 @@ import { App } from "./ui/app.mjs";
 import { takeover, onHostPath } from "./ui/takeover.mjs";
 import { h } from "./ui/dom.mjs";
 
-export const VERSION = "forge 0.1.0";
+export const VERSION = "forge 0.1.1";
 // 45d is fetched from the repo at boot (same source as the old builder's 45c/45g fetch): the
 // field sets for pre-send validation. If the fetch fails the app still boots, and validation
 // reports "no field schema" for every non-ai item, which blocks a run rather than guessing.

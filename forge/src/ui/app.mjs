@@ -154,7 +154,7 @@ export class App {
     finally { clearInterval(tick); this.state.running = null; this.refresh(); }
   }
 
-  requestPause() { this.toast("pause is not yet wired to the runner; use Resume later", "warn"); }
+  requestPause() { this.runner.requestPause(); this.toast("pausing after the current item finishes", "warn"); }
   adopt(jobId, idx, id) { try { this.runner.adopt(jobId, idx, id); this.refresh(); } catch (e) { this.fail("adopt", e); } }
   skip(jobId, idx) { try { this.runner.skip(jobId, idx); this.refresh(); } catch (e) { this.fail("skip", e); } }
 

@@ -180,7 +180,8 @@ test("export is text and round-trips", () => {
 });
 
 test("migration: unknown future version throws, current passes through", () => {
-  assert.throws(() => migrate({ v: 0 }), /no migration/);
+  assert.throws(() => migrate({ v: 0 }), /invalid version/);
+  assert.throws(() => migrate({ v: 1.5 }), /invalid version/);
   const job = { v: JOURNAL_VERSION, jobId: "x", items: [] };
   assert.equal(migrate(job), job);
 });
