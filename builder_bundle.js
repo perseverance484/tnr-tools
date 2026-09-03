@@ -1,4 +1,10 @@
-// TNR content builder bundle v4.31 - loaded via @require by the tiny VM loader.
+// TNR content builder bundle v4.32 - loaded via @require by the tiny VM loader.
+// v4.32: (1) pool-code resolution and its stuck-code guard hoisted out of the if(dedupNames)
+//   block to build-body level - they never ran for a manifest without the flag, so a leftover
+//   pool code shipped as a literal and was silently stripped server-side (law 17), leaving an
+//   empty kit and a green row. Same block, same bug class as the v4.22 capture.before hoist.
+//   Now runs before the image upload, so a bad manifest fails before any irreversible side effect.
+// v4.32: (2) results bundles stamped builder:BVER instead of a hardcoded 'v4.29'.
 // v4.31: (2) asset stale-idmap heal - a cached srcId that no longer reads back as an asset is
 //        dropped and a fresh gameAsset.create runs (push/16 idmap poisoning from the misroute).
 // v4.31: unknown-entity guard - an entity string with no route hard-fails the entry instead of
@@ -446,7 +452,7 @@ const ghPut=async(path,b64,msg)=>{const g=ghGet();if(!g.on||!g.pat)return null;
  return{ok:0,msg:'HTTP '+res.status+' '+t.slice(0,140)}};
 const ghCommit=(name,body)=>ghPut(GH.dir+'/'+name,b64u(body),'results: '+name);
 // --- v4.28 HEAD self-check: does the repo serve the version we are running? ----
-const BVER='v4.31';
+const BVER='v4.32';
 const headCheck=async()=>{try{const g=ghGet();const h={'accept':'application/vnd.github+json'};if(g&&g.pat)h.authorization='Bearer '+g.pat;
  const r=await fetch('https://api.github.com/repos/'+GH.owner+'/'+GH.repo+'/contents/builder_bundle.js?ref='+GH.branch,{headers:h});
  if(!r.ok)return;const j=await r.json();if(!j||!j.content)return;
@@ -720,6 +726,10 @@ window.__tnrCapBefore=[];
  if(cb&&cb.length){try{window.__tnrCapBefore=await runCapture(cb,'before',null,t=>{$s.textContent=t})}catch(e){window.__tnrCapBefore=[{phase:'before',proc:null,error:'capture phase threw: '+String((e&&e.message)||e)}]}}}
 if(dedupNames&&!sub){const creates=L.filter(r=>r.slot==='create'&&!idmap[r.key]);const byEnt={};for(const r of creates){(byEnt[r.entity]=byEnt[r.entity]||[]).push(r)}
 const nameList=async proc=>{const s=new Set();const r0=await getRL(proc,null,uwf);const p=gjson(r0.text);(Array.isArray(p)?p:(p&&p.data)||[]).forEach(x=>{const v=x&&(x.name||x.username);if(v)s.add(String(v).trim().toLowerCase())});return s};
+let dwarn=0;const NPROC={jutsu:'jutsu.getAllNames',item:'item.getAllNames',asset:'gameAsset.getAllNames',ai:'profile.getAllAiNames',quest:'quests.getAllNames'};for(const ent in byEnt){if(ent==='aiProfile'||!NPROC[ent])continue;$s.textContent='dedup: live '+ent+' names…';let s=new Set();try{s=await nameList(NPROC[ent])}catch(e){}
+if(!s.size){for(const r of byEnt[ent])if(r.state==='pending')sr(r,'pending','⚠dedup skipped (fetch failed)');continue}
+for(const r of byEnt[ent]){const nm=(r.data&&(r.data.name||r.data.username))||'';if(nm&&s.has(String(nm).trim().toLowerCase())){dwarn++;sr(r,'error','LIVE NAME COLLISION: '+nm)}}}
+if(dwarn){$s.textContent='❌ dedup: '+dwarn+' live name collision(s), rename before pushing';$g.disabled=$r.disabled=0;return}}
 if(CFG.state==='loading'){$s.textContent='loading generated config…';await loadCfg()}
 {let nres=0;for(const r of rows)if(r.entity==='ai'||r.entity==='aiProfile')nres+=resolvePool(r.data);
  if(nres)$s.textContent='resolved '+nres+' pool code(s) to ids and gates';
@@ -730,10 +740,7 @@ if(CFG.state==='loading'){$s.textContent='loading generated config…';await loa
   for(const ru of (d.rules||[]))if(ru&&ru.action&&typeof ru.action.jutsu==='string')stuck.push(r.name+': '+ru.action.jutsu);}
  if(stuck.length){$s.textContent='❌ unresolved pool code(s), config is '+CFG.state+': '+stuck.slice(0,4).join(', ');
   $g.disabled=$r.disabled=0;return}}
-let dwarn=0;const NPROC={jutsu:'jutsu.getAllNames',item:'item.getAllNames',asset:'gameAsset.getAllNames',ai:'profile.getAllAiNames',quest:'quests.getAllNames'};for(const ent in byEnt){if(ent==='aiProfile'||!NPROC[ent])continue;$s.textContent='dedup: live '+ent+' names…';let s=new Set();try{s=await nameList(NPROC[ent])}catch(e){}
-if(!s.size){for(const r of byEnt[ent])if(r.state==='pending')sr(r,'pending','⚠dedup skipped (fetch failed)');continue}
-for(const r of byEnt[ent]){const nm=(r.data&&(r.data.name||r.data.username))||'';if(nm&&s.has(String(nm).trim().toLowerCase())){dwarn++;sr(r,'error','LIVE NAME COLLISION: '+nm)}}}
-if(dwarn){$s.textContent='❌ dedup: '+dwarn+' live name collision(s), rename before pushing';$g.disabled=$r.disabled=0;return}}const imgset=new Set();for(const r of L)collectImgs(r.data,imgset);const bySize={};for(const k in filemap){const _f=filemap[k];if(!bySize[_f.size])bySize[_f.size]=_f}const pick=n=>filemap[n]||(imgsz[n]?bySize[imgsz[n]]:null)||null;const needimg=[...imgset].filter(n=>!idmap[n]);if(needimg.length){const miss=needimg.filter(n=>!pick(n));if(miss.length){$s.textContent='❌ pick these first (🖼 Imgs): '+miss.join(', ');$g.disabled=$r.disabled=0;return}for(let i=0;i<needimg.length;i++){const n=needimg[i];$s.textContent='uploading '+(i+1)+'/'+needimg.length+': '+n;try{const url=await utUpload(pick(n),uwf);idmap[n]=url;sm(idmap)}catch(e){$s.textContent='❌ upload '+n+': '+((e&&e.message)||e);$g.disabled=$r.disabled=0;return}await sleep(THR)}}const PLBL={bloodline:'bloodlines',asset:'assets',item:'items',ai:'AIs',aiProfile:'AI rules',quest:'quests'};const ord=L.map((r,i)=>({r,i,p:phr(r)})).sort((a,b)=>(a.p-b.p)||(a.i-b.i));let curp=null;for(let i=0;i<ord.length;i++){const r=ord[i].r;if(ord[i].p!==curp){curp=ord[i].p;$s.textContent=(r.entity==='jutsu'?(r.slot==='create'?'jutsu creates':'jutsu edits'):(PLBL[r.entity]||r.entity))+'…'}await one(r);await sleep(THR)}const e=rows.filter(r=>r.state==='error').length;$s.textContent=e?('⚠ '+e+' error(s), tap a red row or Retry failed'):('✅ all '+rows.length+' done');
+const imgset=new Set();for(const r of L)collectImgs(r.data,imgset);const bySize={};for(const k in filemap){const _f=filemap[k];if(!bySize[_f.size])bySize[_f.size]=_f}const pick=n=>filemap[n]||(imgsz[n]?bySize[imgsz[n]]:null)||null;const needimg=[...imgset].filter(n=>!idmap[n]);if(needimg.length){const miss=needimg.filter(n=>!pick(n));if(miss.length){$s.textContent='❌ pick these first (🖼 Imgs): '+miss.join(', ');$g.disabled=$r.disabled=0;return}for(let i=0;i<needimg.length;i++){const n=needimg[i];$s.textContent='uploading '+(i+1)+'/'+needimg.length+': '+n;try{const url=await utUpload(pick(n),uwf);idmap[n]=url;sm(idmap)}catch(e){$s.textContent='❌ upload '+n+': '+((e&&e.message)||e);$g.disabled=$r.disabled=0;return}await sleep(THR)}}const PLBL={bloodline:'bloodlines',asset:'assets',item:'items',ai:'AIs',aiProfile:'AI rules',quest:'quests'};const ord=L.map((r,i)=>({r,i,p:phr(r)})).sort((a,b)=>(a.p-b.p)||(a.i-b.i));let curp=null;for(let i=0;i<ord.length;i++){const r=ord[i].r;if(ord[i].p!==curp){curp=ord[i].p;$s.textContent=(r.entity==='jutsu'?(r.slot==='create'?'jutsu creates':'jutsu edits'):(PLBL[r.entity]||r.entity))+'…'}await one(r);await sleep(THR)}const e=rows.filter(r=>r.state==='error').length;$s.textContent=e?('⚠ '+e+' error(s), tap a red row or Retry failed'):('✅ all '+rows.length+' done');
 const CAPA=(MANIFEST&&MANIFEST.capture&&MANIFEST.capture.after)||null;
 let capsAfter=[];const capSay=t=>{$s.textContent=t};
 if(CAPA&&CAPA.length){try{capsAfter=await runCapture(CAPA,'after',null,capSay)}catch(_e){}}
@@ -754,7 +761,7 @@ if(wantLive){for(let i=0;i<rows.length;i++){const r=rows[i];if(r.state!=='ok')co
  await sleep(THR)}
  const e2=rows.filter(r=>r.state==='error').length;
  if(rows.length)$s.textContent=(e2?('⚠ '+e2+' error(s), tap a red row or Retry failed'):('✅ all '+rows.length+' done'))+' · live '+pf.match+'✓ '+pf.diff+'⚠ '+pf.afail+'‼A '+pf.unverified+'‼ '+pf.skipped+'∅'}
-try{const _bn='tnr_results_'+Date.now()+'.json';const bundle={builder:'v4.29',at:now(),checks:BUILDER_CHECKS,cfg:CFG.state,postflight:pf,entries:rows.map(r=>({name:r.name,srcId:r.key||null,entity:r.entity,slot:r.slot,state:r.state,detail:r.detail||'',verdict:r.verdict||null,diffs:r.diffs||[],asserted:r.asserted||null,id:r.outId||idmap[r.key]||r.targetId||null,pushed:r.pushed||null,live:r.live||null})),captures:(window.__tnrCapBefore||[]).concat(capsAfter),idmap};const _bj=JSON.stringify(bundle,null,1);window.__tnrLastBundle={name:_bn,body:_bj};const _g=ghGet();if(_g.on&&_g.pat){ghSync(_bn,_bj)}else{dl(_bn,_bj)}}catch(_e){}
+try{const _bn='tnr_results_'+Date.now()+'.json';const bundle={builder:BVER,at:now(),checks:BUILDER_CHECKS,cfg:CFG.state,postflight:pf,entries:rows.map(r=>({name:r.name,srcId:r.key||null,entity:r.entity,slot:r.slot,state:r.state,detail:r.detail||'',verdict:r.verdict||null,diffs:r.diffs||[],asserted:r.asserted||null,id:r.outId||idmap[r.key]||r.targetId||null,pushed:r.pushed||null,live:r.live||null})),captures:(window.__tnrCapBefore||[]).concat(capsAfter),idmap};const _bj=JSON.stringify(bundle,null,1);window.__tnrLastBundle={name:_bn,body:_bj};const _g=ghGet();if(_g.on&&_g.pat){ghSync(_bn,_bj)}else{dl(_bn,_bj)}}catch(_e){}
 $g.disabled=$r.disabled=0;ac()};
 const lt=()=>rows.map(r=>(r.state==='ok'?'ok  ':r.state==='error'?'ERR ':'-   ')+r.name+'  '+(r.detail||r.state)).join('\n')+'\n\nID MAP:\n'+JSON.stringify(idmap,null,1);
 const cp=()=>{const t=document.createElement('textarea');t.value=lt();t.style.cssText='position:fixed;left:-9999px';document.body.appendChild(t);t.focus();t.select();let o=0;try{o=document.execCommand('copy')}catch(e){}if(!o)try{navigator.clipboard&&navigator.clipboard.writeText(t.value)}catch(e){}t.remove()};
