@@ -1,0 +1,884 @@
+{
+  "scanned_commit": "345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9",
+  "scanned_commit_date": "2026-08-31",
+  "scanned_commit_subject": "Stabilize hospital patient ordering",
+  "source_repo": "studie-tech/TheNinjaRPG",
+  "laws_repo": "perseverance484/tnr-tools",
+  "law_text_of_record": "docs/ENGINE_LAWS.md",
+  "law_count": 93,
+  "verdict_counts": {
+    "ENGINE": 32,
+    "PARTIAL": 22,
+    "CONTRADICTED": 0,
+    "NOT_IN_SOURCE": 28,
+    "DOCTRINE": 11
+  },
+  "verdicts": {
+    "1": {
+      "law": 1,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Stated as a cross-cutting generalization over all create/update router pairs; no single site expresses it.",
+      "note": "Not settleable as one citation. Individual per-entity instances may be provable; this pass found no create/update validator pair that demonstrates the asymmetry as stated. Low confidence."
+    },
+    "2": {
+      "law": 2,
+      "verdict": "ENGINE",
+      "file": "app/src/validators/combat.ts",
+      "line": 164,
+      "symbol": "IncreaseDamageGivenTag",
+      "evidence": "Each tag is a closed z.object spread from BaseAttributes/IncludeStats/PowerAttributes; the tag union is discriminated on the type literal.",
+      "note": "Zod objects reject unknown keys only under .strict(); the union arm still fails when a field belongs to a different arm's shape, which is the observed behaviour. The `direction: type(\"offence\")` fixed literal is at combat.ts:103."
+    },
+    "3": {
+      "law": 3,
+      "verdict": "DOCTRINE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "An authoring procedure (compose from live exemplars, not from schema docs).",
+      "note": "Nothing in the codebase implies it. The per-entity lean/full split it describes is a real consequence of laws 2 and 19."
+    },
+    "4": {
+      "law": 4,
+      "verdict": "PARTIAL",
+      "file": "app/src/validators/combat.ts",
+      "line": 815,
+      "symbol": "statTypes / generalTypes",
+      "evidence": "Both fields exist and default to empty: statTypes/generalTypes are z.array(...).prefault([]) at combat.ts:815-816, .optional() at :124-125.",
+      "note": "PROVABLE: the fields exist and the schema permits an empty generals list, so nothing rejects the payload. NOT PROVABLE in this pass: the 'detonates into astronomical values' consequence, which lives in the damage formula and was not traced. The law's authoring instruction is sound; its stated failure mode is unverified here."
+    },
+    "5": {
+      "law": 5,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Concerns how OUR builder resolves srcId/idmap before the request is sent.",
+      "note": "The claim is about the manifest layer, not the engine. The server sees only a concrete id."
+    },
+    "6": {
+      "law": 6,
+      "verdict": "PARTIAL",
+      "file": "app/src/validators/combat.ts",
+      "line": 111,
+      "symbol": "PowerAttributes",
+      "evidence": "PowerAttributes.power is z.coerce.number().min(0).prefault(1) with NO max, and it is spread AFTER BaseAttributes (combat.ts:164-167), so it overrides the capped BaseAttributes.power at :98.",
+      "note": "CONTRADICTED CLAUSE: 'Effect power caps at 100 per row' does not hold. BaseAttributes.power is .min(-100).max(100) at :98, but ~19 tags (absorb, increasedamagegiven, decreasedamagegiven, increasedamagetaken, decreasedamagetaken, increaseheal, decreaseheal, increase/decreasepoolcost, increase/decreasemaxpools, timecompression, timedilation, redirection, increaserange, increase/decreasecooldown, increase/decreasestat, copy) spread PowerAttributes last and are uncapped. CONFIRMED CLAUSES: apReduction .max(100) at :775; has_effect/target_has_effect threshold .max(100) at validators/ai.ts:77,84; condition value has no upper bound at validators/ai.ts:25. See the report's contradictions section."
+    },
+    "7": {
+      "law": 7,
+      "verdict": "ENGINE",
+      "file": "app/src/validators/objectives.ts",
+      "line": 701,
+      "symbol": "endsAt / startsAt",
+      "evidence": "z.string().regex(DateTimeRegExp, \"Must be of format YYYY-MM-DD\").nullable()"
+    },
+    "8": {
+      "law": 8,
+      "verdict": "ENGINE",
+      "file": "app/src/validators/objectives.ts",
+      "line": 676,
+      "symbol": "maxLevel / maxAttempts / maxCompletes",
+      "evidence": "All three are z.coerce.number().min(0).max(100) at objectives.ts:676-678."
+    },
+    "9": {
+      "law": 9,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Multiplicative stacking of same-type percentage rows was not located as a single expression at this SHA.",
+      "note": "Behaviour-proven in the laws' own terms (fight captures). The damage-application path was not traced in this pass; the law may well be provable with a deeper read of libs/combat/process.ts. Low confidence, and worth a targeted follow-up."
+    },
+    "10": {
+      "law": 10,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Same as law 9, for damage-taken rows.",
+      "note": "Not traced in this pass. Low confidence."
+    },
+    "11": {
+      "law": 11,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Pierce bypassing damage modifiers was not traced to a source expression in this pass.",
+      "note": "damageBoostTypes/damageReductionTypes membership at process.ts:1508 is the place to settle it; not read closely enough to cite. Low confidence."
+    },
+    "12": {
+      "law": 12,
+      "verdict": "DOCTRINE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "A design instruction (gate or cap ramps by rounds) resting on law 9.",
+      "note": "The compounding follows arithmetically from law 9; the instruction is ours."
+    },
+    "13": {
+      "law": 13,
+      "verdict": "DOCTRINE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "A calibration protocol for our own tuning work.",
+      "note": "Explicitly a procedure. Nothing in the codebase implies it."
+    },
+    "14": {
+      "law": 14,
+      "verdict": "PARTIAL",
+      "file": "app/drizzle/schema.ts",
+      "line": 2316,
+      "symbol": "userData.rank",
+      "evidence": "rank: mysqlEnum(\"rank\", consts.UserRanks).default(\"STUDENT\").notNull(); regeneration default 60 at schema.ts:2311.",
+      "note": "PROVABLE: the DB default is STUDENT exactly as stated, and insertAiSchema requires regeneration (z.coerce.number().min(1).max(100), no prefault, schema.ts:2607). NOT PROVABLE: 'REQUIRED on every AI create' for rank/preferredStat/preferredGeneral1 - createInsertSchema makes defaulted columns optional, so these are an authoring rule of ours justified by the engine default, not a schema requirement."
+    },
+    "15": {
+      "law": 15,
+      "verdict": "ENGINE",
+      "file": "app/src/libs/profile.ts",
+      "line": 166,
+      "symbol": "scaleUserStats",
+      "evidence": "exp = calcLevelRequirements(user.level) - 500 (:204); calcStat = 10 + Math.floor((user[stat]/sum)*exp*100)/100 (:220); each stat then * statMod (:222); pools = calcHP/SP/CP(level) * poolMod (:197-202).",
+      "note": "Verified clause by clause, including the two details the law adds as PRECISION: statsMultiplier multiplies the whole result including the +10 floor, and the per-stat value is floored to two decimals first. rank never enters scaleUserStats - it is absent from the Pick<> parameter type at :167-190. calcHP = 100 + HP_PER_LVL*(level-1) at profile.ts:106, and HP_PER_LVL = SP_PER_LVL = CP_PER_LVL = 50 at drizzle/constants.ts:823-825. Runs on every updateAi at routers/profile.ts:1549. The most precisely correct law in the set."
+    },
+    "16": {
+      "law": 16,
+      "verdict": "ENGINE",
+      "file": "app/drizzle/constants.ts",
+      "line": 2762,
+      "symbol": "getUserCaps",
+      "evidence": "getUserCaps(rank) returns {stats_cap, gens_cap, lvl_cap} from USER_CAPS[rank]; capUserStats (profile.ts:138) clamps each of the 12 stats individually.",
+      "note": "USER_CAPS lives in app/drizzle/constants.ts, not under app/src. Third column confirmed: lvl_cap is real and applied at routers/profile.ts:479. Combat-time application confirmed at libs/combat/util.ts:2298. 'Not at write time' confirmed: updateAi (routers/profile.ts:1489) calls scaleUserStats but never capUserStats."
+    },
+    "16b": {
+      "law": "16b",
+      "verdict": "PARTIAL",
+      "file": "app/drizzle/schema.ts",
+      "line": 2577,
+      "symbol": "insertAiSchema",
+      "evidence": "insertAiSchema = createInsertSchema(userData).omit({...}).extend(...) with no .strict(), so unknown keys are stripped rather than rejected.",
+      "note": "PROVABLE: the stripping mechanism, exactly as stated. DOCTRINE: 'hidden: true on every create, every entity, no exceptions' is our convention, and lint L13 is our tooling. The inArena:false containment claim was not verified in this pass."
+    },
+    "16c": {
+      "law": "16c",
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Rendering-vs-listing behaviour and the live population counts (165 of 407 assets hidden) are prod data state.",
+      "note": "The column default is checkable; the claim that hidden assets still render is a client-behaviour observation this pass did not settle."
+    },
+    "16d": {
+      "law": "16d",
+      "verdict": "ENGINE",
+      "file": "app/src/validators/ai.ts",
+      "line": 22,
+      "symbol": "ZodAllAiConditions / ZodAllAiActions",
+      "evidence": "Every condition and action is a z.object carrying type (z.literal(...).prefault(...)) and description (z.string().prefault(...)) plus its own fields.",
+      "note": "The tagged-object shape on both sides is exactly as stated; the flat {action, condition, conditionValue, target} triple does not exist anywhere in the file."
+    },
+    "17": {
+      "law": 17,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Concerns unresolved @-refs in OUR manifest layer reaching the server as literal strings.",
+      "note": "The server never sees an @-ref; it sees whatever string we send. That an unknown jutsu id is dropped from an equip array is plausible from law 70's set-difference sync, but the specific silent-strip behaviour was not verified."
+    },
+    "18": {
+      "law": 18,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Editing an equipped jutsu severing the combat link is a runtime/state behaviour observed through pushes.",
+      "note": "Not located as a source expression at this SHA."
+    },
+    "19": {
+      "law": 19,
+      "verdict": "PARTIAL",
+      "file": "app/src/validators/combat.ts",
+      "line": 1122,
+      "symbol": "SuperRefineItem",
+      "evidence": "A dedicated item refinement exists and is applied at combat.ts:1529 (ItemValidatorRawSchema.superRefine(SuperRefineBase).superRefine(SuperRefineItem)), so the item union is separately constrained.",
+      "note": "PROVABLE: the item path carries its own refinement, which is the mechanism the law describes. NOT VERIFIED in this pass: the specific included/excluded tag list. The law's own membership claims are dated to a 2026-07 source patch and should be re-derived from the tag union rather than trusted from this file."
+    },
+    "20": {
+      "law": 20,
+      "verdict": "ENGINE",
+      "file": "app/src/server/api/routers/jutsu.ts",
+      "line": 742,
+      "symbol": "jutsu.update inject guard",
+      "evidence": "if (!input.data.injectableInBattle) { ... } wrapping the rejection; the error reads \"So you cannot disable it.\" at :755.",
+      "note": "Verified in full, including the correction the law records. The relation lookup runs unconditionally above the guard; the four injector sources are jutsuInjectors, bloodlineInjectors, skillInjectors, itemInjectors (:744-747). The trap the law names is real: injectableInBattle is z.coerce.boolean().prefault(false) at validators/combat.ts:1312, so an edit omitting the field sends false and trips the guard."
+    },
+    "21": {
+      "law": 21,
+      "verdict": "ENGINE",
+      "file": "app/src/libs/combat/actions.ts",
+      "line": 161,
+      "symbol": "battleUsageType check",
+      "evidence": "if (!isQuestBattle && jutsu.battleUsageType === \"PVE\") blocks PVE actions outside quest battles; the PVP mirror is at :157."
+    },
+    "22": {
+      "law": 22,
+      "verdict": "PARTIAL",
+      "file": "app/src/validators/combat.ts",
+      "line": 1513,
+      "symbol": "craftingRequirements",
+      "evidence": "The field exists on the item validator with the ids-with-number shape the law names.",
+      "note": "The law labels its own second half Doctrine (drop quantity 1, no shared common factor). That half is ours; the shape is engine."
+    },
+    "23": {
+      "law": 23,
+      "verdict": "PARTIAL",
+      "file": "app/drizzle/schema.ts",
+      "line": 3622,
+      "symbol": "quest.consecutiveObjectives",
+      "evidence": "boolean(\"consecutiveObjectives\").default(true).notNull() - the DB default is TRUE at this SHA.",
+      "note": "CONTRADICTED CLAUSE: the law states 'the DB default is false'. Source says .default(true). CONFIRMED CLAUSE: 'required with no schema default' holds - validators/objectives.ts:700 is z.coerce.boolean() with no prefault, so the write schema does require it. The law's instruction (set it explicitly) still stands; the reason given for it no longer matches source. See the report's contradictions section."
+    },
+    "24": {
+      "law": 24,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "checkRewards being a tracker tick rather than a victory hook was not traced in this pass.",
+      "note": "libs/quest.ts is where it would be settled. Low confidence."
+    },
+    "25": {
+      "law": 25,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Which scene the travel-page popup renders is client behaviour not located at this SHA.",
+      "note": "The Logbook scene container is at layout/Logbook.tsx:387, but the travel-page popup is a different surface and was not identified."
+    },
+    "26": {
+      "law": 26,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Reset-node return and failObjectiveId overriding optimistic advancement were not traced.",
+      "note": "resetObjectiveId handling exists at libs/quest.ts:1135 and libs/objectives.ts:270, but the override semantics the law asserts were not read closely enough to cite."
+    },
+    "27": {
+      "law": 27,
+      "verdict": "DOCTRINE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "The law names itself a design law ('CYOA doctrine (design law, engine-compatible)').",
+      "note": "Self-classified. Nothing in the codebase implies it. 10_LAWS_core.md section 1 records that live data was wrongly used to demote this law."
+    },
+    "28": {
+      "law": 28,
+      "verdict": "PARTIAL",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "The per-entry success envelope is the tRPC baseServerResponse shape used across the content routers (e.g. .output(baseServerResponse) at routers/profile.ts:1494).",
+      "note": "PROVABLE: mutations return a success-bearing envelope rather than signalling via HTTP status. DOCTRINE: 'bundles are read programmatically' is our verification rule."
+    },
+    "29": {
+      "law": 29,
+      "verdict": "DOCTRINE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "An operating rule about our own generation scripts."
+    },
+    "30": {
+      "law": 30,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Name-collision fills leaving blank shells, and our trimmed catalogs being stale, are prod-state and tooling observations.",
+      "note": "The engine-side fact underneath it is law 66, which is provable."
+    },
+    "31": {
+      "law": 31,
+      "verdict": "DOCTRINE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "A process rule about how our generators are seeded."
+    },
+    "32": {
+      "law": 32,
+      "verdict": "DOCTRINE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "A file-naming convention for our uploads."
+    },
+    "33": {
+      "law": 33,
+      "verdict": "DOCTRINE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Our chroma keying algorithm, implemented in skills/producing-tnr-art/scripts/chroma.py."
+    },
+    "34": {
+      "law": 34,
+      "verdict": "DOCTRINE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Prompt-authoring rules for our image generators."
+    },
+    "35": {
+      "law": 35,
+      "verdict": "DOCTRINE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Our own spill clamp, upload ceiling and QC gate.",
+      "note": "The 512KB figure is a constraint of the upload surface we use, not a value read from game source in this pass."
+    },
+    "36": {
+      "law": 36,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "That entry-level name is manifest metadata the server never sees is a fact about OUR manifest format.",
+      "note": "The engine simply reads data.name. The law is a correct statement about our builder envelope."
+    },
+    "37": {
+      "law": 37,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Where consecutiveObjectives sits in our payload (data level vs inside content) is a manifest-shape rule.",
+      "note": "The engine field is at validators/objectives.ts:700; that a nested copy is ignored follows from the schema but was not demonstrated."
+    },
+    "38": {
+      "law": 38,
+      "verdict": "ENGINE",
+      "file": "app/drizzle/schema.ts",
+      "line": 3617,
+      "symbol": "quest.prerequisiteQuestId",
+      "evidence": "varchar(\"prerequisiteQuestId\", { length: 191 }) - a single nullable scalar, not an array; validators/objectives.ts:688 is z.string().min(0).max(191).optional().nullish().",
+      "note": "The tree consequence follows directly. The named orthogonal stacking fields were not each verified."
+    },
+    "39": {
+      "law": 39,
+      "verdict": "ENGINE",
+      "file": "app/src/validators/ai.ts",
+      "line": 5,
+      "symbol": "AvailableTargets / ZodAllAiConditions / ZodAllAiActions",
+      "evidence": "AvailableTargets is 9 UPPER_SNAKE literals (:5-15); the file defines exactly the 9 conditions and 10 actions the law lists, and every action carries its own target field (e.g. :137).",
+      "note": "Vocabulary matches the law exactly, including the absence of use_jutsu, move, and any rule-level target object. ONE IMPRECISION: the law's parenthetical reads as though every condition carries target; only distance_higher_than (:32), distance_lower_than (:39) and target_has_effect (:83) do."
+    },
+    "40": {
+      "law": 40,
+      "verdict": "PARTIAL",
+      "file": "app/src/libs/combat/ai_v2.ts",
+      "line": 273,
+      "symbol": "distance condition evaluation",
+      "evidence": "case \"distance_higher_than\": return target.distance >= condition.value; case \"distance_lower_than\": return target.distance <= condition.value (:273-276). Path length via astar.getShortestPath at :582.",
+      "note": "PROVABLE, and exactly as the law's 2026-08-30 amendment states: both comparisons are INCLUSIVE, and distance is A* path length. DOCTRINE: the range+1 derivation, the registry table it reads from, and lint L22 are ours. The engine facts underneath the rule are sound."
+    },
+    "41": {
+      "law": 41,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "That an AI with no executable rule left falls onto engine defaults is runtime behaviour not traced here.",
+      "note": "Law 41b qualifies it from the fall-through side and is the more precise statement."
+    },
+    "41b": {
+      "law": "41b",
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Rule fall-through when an action cannot execute is runtime behaviour in ai_v2.ts not traced in this pass.",
+      "note": "The correction it records is behaviour-proven and internally consistent with law 63. Worth a targeted source pass."
+    },
+    "42": {
+      "law": 42,
+      "verdict": "PARTIAL",
+      "file": "app/drizzle/constants.ts",
+      "line": 1157,
+      "symbol": "HUNTING_RANKS / GATHERING_RANKS",
+      "evidence": "\"NONE\" is the first member of HUNTING_RANKS (:1157) and of GATHERING_RANKS (:1218); HUNTING_REQUIRED_EXP.NONE = 0 (:1166).",
+      "note": "PROVABLE: the literal is a legal enum value, so a record can carry it. NOT VERIFIED: that it is inert as a gate (the consumption site was not traced). The 'omit rather than write NONE' instruction is ours."
+    },
+    "43": {
+      "law": 43,
+      "verdict": "ENGINE",
+      "file": "app/src/validators/rewards.ts",
+      "line": 50,
+      "symbol": "reward_hunting_experience / reward_gathering_experience",
+      "evidence": "Both fields exist as z.coerce.number().prefault(0) at rewards.ts:50 and :52."
+    },
+    "44": {
+      "law": 44,
+      "verdict": "PARTIAL",
+      "file": "app/src/validators/objectives.ts",
+      "line": 357,
+      "symbol": "attackers / opponentAIs",
+      "evidence": "Both are the SAME schema type, idsWithNumberField: attackers at :357, opponentAIs at :422/:515/:526.",
+      "note": "PROVABLE, and it is the dangerous half: the two shapes are literally the same type, so nothing structural distinguishes them. NOT VERIFIED: that attackers[].number is a spawn percentage while opponentAIs[].number is a count - the consuming code was not located at this SHA. The law's warning stands on the confirmed half."
+    },
+    "45": {
+      "law": 45,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Doubled @-prefixes surviving a naive sweep is a defect in OUR ref scanner."
+    },
+    "46": {
+      "law": 46,
+      "verdict": "PARTIAL",
+      "file": "app/src/server/api/routers/profile.ts",
+      "line": 1497,
+      "symbol": "setEmptyStringsToNulls",
+      "evidence": "The content routers run setEmptyStringsToNulls on the incoming data before the write (profile.ts:1497; also badge.ts:64, bloodline.ts:649).",
+      "note": "PROVABLE: an empty string IS converted to null on the write path, exactly the mechanism the law names. NOT VERIFIED: that the resulting null 500s at the DB for image specifically. The repair instruction (omit the field) follows from the confirmed half."
+    },
+    "47": {
+      "law": 47,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "The law cites play testing, twice, as its evidence.",
+      "note": "Self-classified as behaviour-proven, not source-verified."
+    },
+    "48": {
+      "law": 48,
+      "verdict": "ENGINE",
+      "file": "app/src/layout/Logbook.tsx",
+      "line": 396,
+      "symbol": "scene character wrapper",
+      "evidence": "Each sceneCharacters entry renders in <div className=\"absolute bottom-0 w-2/5\">, so every entry lands in the same place.",
+      "note": "The stacking consequence follows directly from the absence of any horizontal offset."
+    },
+    "49": {
+      "law": 49,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "That sceneCharacters resolves gameAsset ids only, and an AI userId renders nothing, was not traced to the resolution site.",
+      "note": "The rendering wrapper is confirmed (law 48); the id-resolution step was not."
+    },
+    "50": {
+      "law": 50,
+      "verdict": "ENGINE",
+      "file": "app/src/layout/Logbook.tsx",
+      "line": 400,
+      "symbol": "QuestDialogScene / AvatarImage / ContentImage",
+      "evidence": "Scene character: max-h-full w-auto object-contain inside a heightless absolute bottom-0 w-2/5 wrapper (:396,400). AI avatar: aspect-square with no object-fit (Avatar.tsx:57). Item/jutsu/bloodline icon: aspect-square h-full w-full (ContentImage.tsx:104). Scene background: aspect-3/2 (Logbook.tsx:387,391).",
+      "note": "All four mechanisms confirmed at the classes the law names, including the correction: the scene-character wrapper has no height, so max-h-full has no percentage basis and object-contain is inert. The law's four-way split is accurate."
+    },
+    "51": {
+      "law": 51,
+      "verdict": "PARTIAL",
+      "file": "app/src/layout/Logbook.tsx",
+      "line": 396,
+      "symbol": "w-2/5 bottom-anchored wrapper",
+      "evidence": "Displayed width is fixed at 40% of the scene and height follows the file's intrinsic aspect (see law 50).",
+      "note": "PROVABLE: apparent size is set by the file's own aspect, since width is fixed. DOCTRINE: the transparent-padding remedy is our authoring technique."
+    },
+    "52": {
+      "law": 52,
+      "verdict": "PARTIAL",
+      "file": "app/src/libs/threejs/sector.ts",
+      "line": 295,
+      "symbol": "drawQuest",
+      "evidence": "drawQuest exists at sector.ts:295 and is the sector-map quest draw path.",
+      "note": "NOT VERIFIED: the early-return-when-no-image behaviour and the per-task marker tinting. The function is where the law says it is; its internals were not read closely enough to cite a line. Flagged as low confidence."
+    },
+    "53": {
+      "law": 53,
+      "verdict": "ENGINE",
+      "file": "app/src/libs/objectives.ts",
+      "line": 11,
+      "symbol": "getObjectiveImage",
+      "evidence": "return objectiveImageMap[objective.task] ?? { image: \"\", title: \"???\" } - keyed on task only, objective.image is never consulted.",
+      "note": "Exactly as stated. The '1,150 live dialog nodes' count is prod state and not part of this verdict."
+    },
+    "54": {
+      "law": 54,
+      "verdict": "PARTIAL",
+      "file": "app/src/validators/objectives.ts",
+      "line": 442,
+      "symbol": "sectorType / locationType",
+      "evidence": "locationType: z.enum(LOCATION_TYPES).prefault(\"specific\") at :443, with sector defaulting to 0 at :445; a separate objective shape defaults locationType to \"random\" at :486.",
+      "note": "PROVABLE: locationType is an enum whose specific/random split is real, and 0 is the coordinate default. NOT VERIFIED: that the engine only randomises under 'random', and the collect_item playable-margin consequence. The 2026-08-28 amendment rests on live records, not source."
+    },
+    "55": {
+      "law": 55,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Teleport-on-random-sector is runtime behaviour; the law's own evidence is a live record.",
+      "note": "sectorType is a real enum field (objectives.ts:442). The teleport consequence was not traced."
+    },
+    "56": {
+      "law": 56,
+      "verdict": "ENGINE",
+      "file": "app/src/validators/objectives.ts",
+      "line": 496,
+      "symbol": "collect_time_minutes",
+      "evidence": "z.coerce.number().min(0).max(60).prefault(0) - no integer constraint, so 0.1 validates.",
+      "note": "The float claim is exact. NOT VERIFIED: the secondsPassed/60 comparison and the 'only timed task' uniqueness claim."
+    },
+    "57": {
+      "law": 57,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "That quest updatedAt is not maintained is a prod-data observation (a 2024 stamp after edits).",
+      "note": "An absent update is not visible as a source expression."
+    },
+    "58": {
+      "law": 58,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "In-game editor overwrite behaviour, observed twice through lost content."
+    },
+    "59": {
+      "law": 59,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Silent reduction of a jutsu to a blank shell is a prod-state failure observed after the fact."
+    },
+    "60": {
+      "law": 60,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "An ordering refinement of law 18, which is itself behaviour-proven."
+    },
+    "61": {
+      "law": 61,
+      "verdict": "ENGINE",
+      "file": "app/src/libs/combat/util.ts",
+      "line": 2496,
+      "symbol": "refillActionPoints",
+      "evidence": "battle.usersState.forEach((u) => { u.actionPoints = 100; }) - set for every user at once, called from the round-advance path at :2539.",
+      "note": "The turn-vs-round correction is confirmed: the refill is per round and the 100 is each combatant's own turn budget. COMBAT_SECONDS = 60 at libs/combat/constants.ts:16. The specific AP costs (60/40/20-40) were not individually verified."
+    },
+    "62": {
+      "law": 62,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Stealth blocking attacks is runtime combat behaviour not traced in this pass.",
+      "note": "hasActiveEffectOfType backs stealth per law 75's citation (actions.ts:1440), but the attack-blocking consequence was not read."
+    },
+    "63": {
+      "law": 63,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "Exhaustion when nothing is affordable is runtime behaviour in the AI action selector.",
+      "note": "Consistent with law 41b's fall-through reading. Worth a targeted source pass alongside it."
+    },
+    "64": {
+      "law": 64,
+      "verdict": "PARTIAL",
+      "file": "app/src/validators/ai.ts",
+      "line": 73,
+      "symbol": "ConditionHasEffect / ConditionTargetHasEffect",
+      "evidence": "has_effect and target_has_effect carry effectType and threshold (:73-86) and have no value field; health_below, specific_round, round_greater_than, round_lower_than, distance_higher_than and distance_lower_than each carry value.",
+      "note": "OVERREACH: the law lists does_not_have_summon among the conditions taking value, but ConditionDoesNotHaveSummon (ai.ts:60-63) has only type and description - no value field at all. The rest of the law is exact."
+    },
+    "65": {
+      "law": 65,
+      "verdict": "ENGINE",
+      "file": "app/src/validators/ai.ts",
+      "line": 154,
+      "symbol": "ActionUseSpecificItem / ActionUseRandomItem",
+      "evidence": "use_specific_item carries itemId (:154-158); use_random_item exists at :161.",
+      "note": "The 20 AP cost is not verified here."
+    },
+    "66": {
+      "law": 66,
+      "verdict": "ENGINE",
+      "file": "app/drizzle/schema.ts",
+      "line": 2552,
+      "symbol": "UserData_username_key",
+      "evidence": "uniqueIndex(\"UserData_username_key\").on(table.username) on the userData table, which holds players and AI alike.",
+      "note": "The cross-population uniqueness follows from AI and players sharing userData (distinguished only by isAi)."
+    },
+    "67": {
+      "law": 67,
+      "verdict": "ENGINE",
+      "file": "app/src/libs/hunting.ts",
+      "line": 83,
+      "symbol": "getHuntingItemDrops",
+      "evidence": "const rankChances = HUNTING_ITEM_DROP_CHANCES[currentRank] (:89) - the roll is keyed on the player's hunting rank, not on dropChancePerc.",
+      "note": "The law's correction (read the full six-rank table, not the S-rank row) is sound. NOT VERIFIED: that dropChancePerc feeds only the combat loot path."
+    },
+    "68": {
+      "law": 68,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "'One hunting quest of 31 is wired that way' is a statement about live content."
+    },
+    "69": {
+      "law": 69,
+      "verdict": "ENGINE",
+      "file": "app/src/server/api/routers/profile.ts",
+      "line": 1529,
+      "symbol": "updateAi item mapping",
+      "evidence": "o.ids.map((id) => ({ id, chance: o.number })) - number is read as chance.",
+      "note": "The inversion against reward arrays is exactly as the law warns."
+    },
+    "70": {
+      "law": 70,
+      "verdict": "ENGINE",
+      "file": "app/src/server/api/routers/profile.ts",
+      "line": 2643,
+      "symbol": "updateUserContent",
+      "evidence": "Takes oldItemIds/newItemIds, computes deletedItemIds, and deletes them by inArray (:2599).",
+      "note": "Set-difference sync confirmed; anything owned but absent from the payload is removed."
+    },
+    "71": {
+      "law": 71,
+      "verdict": "ENGINE",
+      "file": "app/src/server/api/routers/profile.ts",
+      "line": 1549,
+      "symbol": "updateAi",
+      "evidence": "scaleUserStats(newAi) runs unconditionally on the update path."
+    },
+    "72": {
+      "law": 72,
+      "verdict": "ENGINE",
+      "file": "app/src/validators/objectives.ts",
+      "line": 688,
+      "symbol": "prerequisiteQuestId",
+      "evidence": "z.string().min(0).max(191).optional().nullish() - a nullish field that accepts an explicit null, beside plain .optional() fields elsewhere in the same file.",
+      "note": "The optional/nullable distinction is real and visible in the validators. The per-field split belongs in 45d as the law says; the '54 fields' count was not recounted here."
+    },
+    "73": {
+      "law": 73,
+      "verdict": "DOCTRINE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "A Python hazard in OUR normalisation passes (isinstance(False, int) is True).",
+      "note": "Nothing in the game codebase implies it. The engine-side fact - that these fields are booleans - is real, but the law is about our tooling."
+    },
+    "74": {
+      "law": 74,
+      "verdict": "NOT_IN_SOURCE",
+      "file": null,
+      "line": null,
+      "symbol": null,
+      "evidence": "A summary of our own guard lists and where builder v4.18 applies them.",
+      "note": "The named source files (validators/objectives.ts, validators/rewards.ts) exist and are the right inputs; the law itself is about our derivation."
+    },
+    "75": {
+      "law": 75,
+      "verdict": "PARTIAL",
+      "file": "app/src/libs/combat/util.ts",
+      "line": 1081,
+      "symbol": "calcEffectRoundInfo",
+      "evidence": "returns { startRound: effect.createdRound, curRound: battle.round } (:1086); castThisRound = startRound === curRound at process.ts:299 and :1094; consumers gate on !castThisRound (actions.ts:1440, tags.ts:136); isInstant = [\"damage\",\"heal\",\"pierce\"] at process.ts:326.",
+      "note": "CONTRADICTED CLAUSE: the law says ground effects promoted to user effects are written with createdRound: curRound - 1 WHEN INSTANT. Source at process.ts:335 is createdRound: isInstant ? curRound : curRound - 1, i.e. curRound-1 when NOT instant. The condition is inverted. Everything else verifies exactly, including passesTiming = !effect.isNew && startRound !== curRound at process.ts:1515. See the report's contradictions section."
+    },
+    "76": {
+      "law": 76,
+      "verdict": "ENGINE",
+      "file": "app/src/libs/combat/util.ts",
+      "line": 2496,
+      "symbol": "refillActionPoints",
+      "evidence": "Same mechanism as law 61: the refill sets 100 for every combatant at the round boundary, so a turn is one combatant's window inside a round.",
+      "note": "The duration-field consequence (a rounds:2 effect spans two of the bearer's turns) follows from the round counter that calcEffectRoundInfo reads."
+    },
+    "77": {
+      "law": 77,
+      "verdict": "ENGINE",
+      "file": "app/src/validators/combat.ts",
+      "line": 1263,
+      "symbol": "SuperRefineEffects / SuperRefineJutsu / SuperRefineItem",
+      "evidence": "else if (e.type === \"activatesagemode\") addIssue(ctx, \"Cannot have sage mode activation effect; it is injected automatically in battle\") at :1263.",
+      "note": "Fully verified including the triple rejection the law claims: SuperRefineEffects at :1263, SuperRefineJutsu at :1214, SuperRefineItem at :1130. The tag is a real union member (its literal is at :698), which is exactly the trap the law describes - constructible in shape, rejected by cross-field refine."
+    },
+    "78": {
+      "law": 78,
+      "verdict": "PARTIAL",
+      "file": "app/src/validators/combat.ts",
+      "line": 1249,
+      "symbol": "SuperRefineEffects companion checks",
+      "evidence": "vamp and consume each require a damage or pierce effect in the same effects array (:1249-1258); wound carries the same rule at :1238-1247; powerPerLevel must be 0 for rollbloodline, rollsagemode, removebloodline and noncombatconsumereward (:1259-1271).",
+      "note": "All four rules verified. ONE IMPRECISION: the law says 'All four rules live in SuperRefineEffects'. The powerPerLevel rules do, but rollsagemode's item-only restriction lives in SuperRefineJutsu (:1218-1220), a different function."
+    },
+    "79": {
+      "law": 79,
+      "verdict": "ENGINE",
+      "file": "app/next.config.mjs",
+      "line": 35,
+      "symbol": "images.unoptimized",
+      "evidence": "unoptimized: true at next.config.mjs:35; layout/Image.tsx:25 rewrites Bunny sources to bunnyImageUrl(src, Number(props.width)), sending width only.",
+      "note": "Mechanism confirmed exactly, including that only width is sent. AVATAR_FULL_WIDTH = 320 at layout/Avatar.tsx:15. The remaining per-field delivered widths were not each verified."
+    },
+    "80": {
+      "law": 80,
+      "verdict": "PARTIAL",
+      "file": "app/src/hooks/asset.ts",
+      "line": 69,
+      "symbol": "asset size config",
+      "evidence": "size: \"landscape\" with maxDim 512 (:69-70) and size: \"portrait\" with maxDim 512 (:77-78) - these steer generation, as the law says.",
+      "note": "PROVABLE: the size values exist and are generator configuration. NOT VERIFIED: that the editor preview widget beneath them is AvatarImage. The claim is specific and checkable; this pass did not locate the preview component."
+    },
+    "81": {
+      "law": 81,
+      "verdict": "ENGINE",
+      "file": "app/src/layout/Logbook.tsx",
+      "line": 387,
+      "symbol": "scene container",
+      "evidence": "className=\"relative aspect-3/2 w-full overflow-hidden\" - scene height is two thirds of scene width, and the character wrapper is bottom-anchored at w-2/5 (:396).",
+      "note": "The 5/3 clip threshold is arithmetic from those two facts: a character at 40% scene width reaches full scene height once h/w exceeds (2/3)/(2/5) = 5/3."
+    },
+    "82": {
+      "law": 82,
+      "verdict": "ENGINE",
+      "file": "app/src/libs/replicate.ts",
+      "line": 343,
+      "symbol": "aspect ratio selection",
+      "evidence": "config.size === \"square\" ? \"1:1\" : config.size === \"portrait\" ? \"2:3\" : \"3:2\"",
+      "note": "Confirmed together with maxDim 512 for both scene types at hooks/asset.ts:70,78, which is what makes 2:3 inside 512 resolve to 341x512. Note: an unrelated aspect_ratio union at replicate.ts:176 offers 1:1/16:9/9:16 and a resize [256,256] at :63 belongs to the GLB texture path - neither governs this law."
+    },
+    "83": {
+      "law": 83,
+      "verdict": "ENGINE",
+      "file": "app/src/libs/gamesettings.ts",
+      "line": 6,
+      "symbol": "DMG_SETTING_DEFAULTS / gameSetting",
+      "evidence": "Imports DMG_SETTING_DEFAULTS and DMG_SETTING_NAMES (:6), looks the setting up by name in the gameSetting table (:28), inserts the default row when missing (:33), and updates that row thereafter (:54).",
+      "note": "Verified in full. This is the law that qualifies every generated DMG_* value, and it holds at this SHA."
+    },
+    "84": {
+      "law": 84,
+      "verdict": "ENGINE",
+      "file": "app/src/utils/image.ts",
+      "line": 45,
+      "symbol": "optimizer hint",
+      "evidence": "url.searchParams.set(\"optimizer\", \"image\") applied only under the extensionless-pathname test; the texture path deliberately omits it, documented at :52 (\"Never sends optimizer=image\").",
+      "note": "Mechanism confirmed on both sides. The 52-assets / 3619KB measurement is our own and is not part of this verdict."
+    },
+    "85": {
+      "law": 85,
+      "verdict": "ENGINE",
+      "file": "app/src/libs/quest.ts",
+      "line": 1850,
+      "symbol": "dialog option check",
+      "evidence": "message: `Dialog objective '${obj.id}' must have at least one option`",
+      "note": "The quoted error string is exact. NOTE: the section preamble attributes this validator to the builder; it is server-side, in libs/quest.ts. See the report's notes."
+    },
+    "86": {
+      "law": 86,
+      "verdict": "PARTIAL",
+      "file": "app/src/libs/quest.ts",
+      "line": 1129,
+      "symbol": "terminal task handling",
+      "evidence": "win_quest, reset_quest and fail_quest are the three tasks handled as terminals in the consequence switch (:1129-1138).",
+      "note": "PROVABLE: the three terminals are exactly those the law names. NOT VERIFIED as a single citation: that a dialog may not terminate a quest - that is the flow validator's business and was not located as a distinct check."
+    },
+    "87": {
+      "law": 87,
+      "verdict": "ENGINE",
+      "file": "app/src/libs/quest.ts",
+      "line": 1994,
+      "symbol": "cycle check",
+      "evidence": "throw new Error(\"Cycle detected in objective chain\")",
+      "note": "The quoted error string is exact."
+    },
+    "88": {
+      "law": 88,
+      "verdict": "PARTIAL",
+      "file": "app/src/validators/objectives.ts",
+      "line": 407,
+      "symbol": "resetObjectiveId",
+      "evidence": "z.string().optional() - a field distinct from nextObjectiveId, handled separately at libs/objectives.ts:270 and libs/quest.ts:1135.",
+      "note": "PROVABLE: reset is not a graph edge, so it cannot close a cycle under law 87. DOCTRINE: 'must never land on a battle node' - the law itself says this has no live precedent and is treated as illegal by us."
+    },
+    "89": {
+      "law": 89,
+      "verdict": "PARTIAL",
+      "file": "app/src/validators/objectives.ts",
+      "line": 445,
+      "symbol": "sector",
+      "evidence": "z.coerce.number().min(0).prefault(0) - 0 is a schema default, and sectorType is a separate enum at :442.",
+      "note": "PROVABLE: sector defaults to 0 independently of sectorType, which is what makes a written 0 meaningless. NOT VERIFIED: that the engine resolves the sector from sectorType. The law closes by calling itself knowledge-only."
+    }
+  },
+  "cross_law_conflicts": [
+    {
+      "laws": "23 vs 37",
+      "detail": "Law 23 states the DB default for consecutiveObjectives is false; source at app/drizzle/schema.ts:3622 says .default(true). Law 37 builds on 23's premise to say a copy nested in content 'restores the reward-before-the-kill bug in full'. If the DB default is now true, 37's stated consequence needs re-deriving. Not resolved here."
+    },
+    {
+      "laws": "61 vs 76",
+      "detail": "Not a contradiction. 76 exists to restate 61's turn/round distinction for duration fields, and the laws say so. Both verify against the same mechanism at libs/combat/util.ts:2496. Recorded because a reader scanning for duplicates will find them."
+    },
+    {
+      "laws": "39 vs 64",
+      "detail": "Law 39's parenthetical reads as though all nine conditions carry their own target; law 64 correctly separates the value-carrying set from the effectType/threshold set. Source supports 64's split and only partially supports 39's phrasing. Both flagged in their own notes."
+    }
+  ],
+  "low_confidence": [
+    {
+      "law": 9,
+      "why": "Multiplicative stacking is the single most load-bearing tuning law and the one this pass verified least. It is behaviour-proven from fight captures, but I could not locate a source expression, and I would not want a NOT_IN_SOURCE verdict read as 'unlikely to be provable'. It probably is provable in libs/combat/process.ts with a deeper read than this pass gave it."
+    },
+    {
+      "law": 44,
+      "why": "The half that matters for authoring - percentage vs count - is exactly the half I could not verify. The schemas are literally the same type, so nothing distinguishes them structurally, and I did not find the consuming code. The law's warning is still worth obeying."
+    },
+    {
+      "law": 52,
+      "why": "I confirmed drawQuest exists at the file and line the law names but did not read its body, so the early-return-on-missing-image claim is uncited. This is the one verdict where I had the citation in hand and still could not honestly upgrade it."
+    },
+    {
+      "law": 80,
+      "why": "A specific, checkable claim (the editor preview widget is AvatarImage) that I did not settle. I verified the surrounding config the law cites, which makes the unverified part look more supported than it is."
+    },
+    {
+      "law": 19,
+      "why": "The item/jutsu union asymmetry is real and the mechanism is confirmed, but the law's specific included/excluded tag list dates to a 2026-07 patch and I did not re-derive it. Membership claims are the kind that rot silently."
+    },
+    {
+      "law": 1,
+      "why": "A cross-cutting generalization that cannot be settled by one citation. NOT_IN_SOURCE is the least wrong verdict available, but it is not the same as 'false' - it means the law is not shaped like something a file:line can prove."
+    },
+    {
+      "law": "41b/63",
+      "why": "Both describe rule fall-through from different sides and both came back NOT_IN_SOURCE for the same reason: I did not trace the AI action selector in ai_v2.ts. They should be verified together, not separately."
+    }
+  ]
+}
