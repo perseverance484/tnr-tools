@@ -1,4 +1,4 @@
-<!-- RENDERED pack 'quest-build' from quest.md@c012b6d + pipeline.md@3425705 via build_packs.py - edit the sources, never this file -->
+<!-- RENDERED pack 'quest-build' from quest.md@c012b6d + pipeline.md@f49e49f via build_packs.py - edit the sources, never this file -->
 # Pack: quest-build
 
 Minimal set for a quest/event create or edit that ends in a push. SKILL doctrine block first, this pack second; mission.py/factory.py construct, 45c/45d own shapes. Depth on demand via references/_toc/quest.json slices: sequencing engine internals, eligibility/prune/surfacing, task vocabulary, data-model prose, design philosophy (dauntless directs). Pipeline relocated laws enforced by validate --parity + harvest verify.
@@ -446,7 +446,7 @@ owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
 ---
 
-<!-- pack-trace: pipeline.md @3425705 '2.1 Request envelope and conventions' -->
+<!-- pack-trace: pipeline.md @f49e49f '2.1 Request envelope and conventions' -->
 ### 2.1 Request envelope and conventions
 
 - TNR uses tRPC batch links. **Every POST body is a batch envelope:** `{"0": { "json": <payload>, "meta": <meta> }}`.
@@ -457,7 +457,7 @@ owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
 ---
 
-<!-- pack-trace: pipeline.md @3425705 '2.5 Quest' -->
+<!-- pack-trace: pipeline.md @f49e49f '2.5 Quest' -->
 ### 2.5 Quest
 
 | Op | Method | Shape |
@@ -470,14 +470,14 @@ owning skill reference. Numbers stay canonical against /docs/ENGINE_LAWS.md.
 
 ---
 
-<!-- pack-trace: pipeline.md @3425705 '3. Rate limit' -->
+<!-- pack-trace: pipeline.md @f49e49f '3. Rate limit' -->
 ## 3. Rate limit
 
 The limiter is a **rolling cumulative request-count budget**, not per-burst. It drains across repeated sessions and refills over time. Use fewer, larger requests with exponential backoff (the builder does this), and let it refill rather than hammering.
 
 ---
 
-<!-- pack-trace: pipeline.md @3425705 '4. id-fetch and capture-first discipline' -->
+<!-- pack-trace: pipeline.md @f49e49f '4. id-fetch and capture-first discipline' -->
 ## 4. id-fetch and capture-first discipline
 
 - Pull live ids from edit URLs (`/manual/ai/edit/[id]`, `/manual/asset/edit/[id]`, the item editor) or from catalog dumps.
@@ -487,7 +487,7 @@ The limiter is a **rolling cumulative request-count budget**, not per-burst. It 
 
 ---
 
-<!-- pack-trace: pipeline.md @3425705 '5. Universal gotcha checklist' -->
+<!-- pack-trace: pipeline.md @f49e49f '5. Universal gotcha checklist' -->
 ## 5. Universal gotcha checklist
 
 Run before any push:
@@ -507,7 +507,7 @@ Run before any push:
 
 ---
 
-<!-- pack-trace: pipeline.md @3425705 'Addendum: push-path rules learned in the field (Tower / Howling builds)' -->
+<!-- pack-trace: pipeline.md @f49e49f 'Addendum: push-path rules learned in the field (Tower / Howling builds)' -->
 ## Addendum: push-path rules learned in the field (Tower / Howling builds)
 
 - **AI edits never rely on fetch-merge for `jutsus` or `items`.** The builder passes live rows through raw (jutsu objects, UserItem rows with `dropChancePerc`), which the server rejects. Every AI edit sends `jutsus` as string id refs AND `items` as ids-with-number explicitly, even when only touching other fields. Bundle fix (row normalization in the edit merge) queued for the next builder rev.
