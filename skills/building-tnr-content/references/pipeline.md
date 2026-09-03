@@ -1,6 +1,6 @@
 # Pipeline: contracts, envelopes, manifest format
 
-<!-- builder-version:begin -->Current live builder: **v4.31** (generated from builder_bundle.js - do not hand-edit)<!-- builder-version:end -->
+<!-- builder-version:begin -->Current live builder: **v4.32** (generated from builder_bundle.js - do not hand-edit)<!-- builder-version:end -->
 
 > Migrated from `10_TECH_pipeline.md` (Phase 3, 2026-08-26). This is the shared plumbing every push uses, whatever the entity.
 
