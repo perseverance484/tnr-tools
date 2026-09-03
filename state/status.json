@@ -1,123 +1,143 @@
 {
- "generated": "2026-08-30",
- "session": "mounted-9 (icons wave: rank icon set, art complete, shipping not started)",
- "format_note": "PROJECTION of state/digest.json - edit the digest, run session_close.py",
- "state_line": "ICONS WAVE CLOSED on art: four shared quest-rank icons (D/C/B/A) generated, graded and banked - all four rawqc ACCEPT on listing_icon_framed. Design pivoted mid-wave from dedicated-icon-per-mission to ONE SHARED ICON PER RANK (dauntless): fewer generations, reads at a glance, future quests wire an existing icon with no art work. Rank is carried by the frame finish - bare wood D, red urushi lacquer C, black lacquer + mother-of-pearl inlay B, black lacquer + worn gold leaf A - over a shared interior (overhead mission brief, hanko seal in cinnabar, rank letter in the seal). The rank set REPLACES existing per-mission icons; migration list beyond the twelve not yet enumerated. NOT SHIPPED: no upload, no wiring, no push this session. Lane ARTWORK ONLY; publish gate content admin; everything hidden:true.",
- "ruled_this_session": [
-  "memory route: keep memory ON with exclusion edits, not off; flip off only if memory restates laws/board state again (review in a few sessions)",
-  "packs front-loaded for ai/quest now rather than curated as builds happen",
-  "container quirks + laws-that-bite single-sourced into mounted instructions; active-context template carries session state only",
-  "prose passes reassigned to coworker (per dauntless 2026-08-30); Claude lane is artwork only",
-  "art submission stays manual per dauntless 2026-08-30: no ?q= links, no half-pipe userscript, no API art tab; do not re-propose unless dauntless raises it",
-  "dauntless ruling 2026-08-30: delete wedged trio (Protection/Waystation/Loud Way) and remake; remake source = Terr DB dumps BEFORE deletion (repo holds no full copy), fallback transcript reconstruction; push/10 superseded by 10a (seven clean)",
-  "2026-08-30: trio DELETED by dauntless pre-dump; rebuild ruled. Source hunt: dauntless-held 08-28 closeout bundle zips (best), else transcript reconstruction; wedge mitigation on rebuild = verified scene ids only",
-  "2026-08-30: closeout bundles recovered from dauntless device; trio rebuilt from 2_forsworn_wave1.json (stable across 08-27/28/29) with Waystation base = push/6 full-record fix; push/10b combined capture supersedes 10a",
-  "2026-08-30: push/11 (seven-mission pin wiring) + push/12 (trio rebuild) packed and staged; Chase verb live on 5 objectives without art - ruling needed; pqihl43 sceneCharacters id snapshot-unknown, carried verbatim (portrait pass territory)",
-  "2026-08-30: Chase pin gets its own art per dauntless; packs 11+12 re-cut with pin_chase.webp on acceptance (5 objectives)",
-  "2026-08-30 rulings: Pale Fang + Winter Crow speak-list APPROVED (portraits firm, registry speak-list rewrite queued); Old Ghost + Tenth Name get dedicated background sets",
-  "2026-08-30 WEDGE RESOLVED: builder isLim text-sniffed limiter phrases in record bodies; Waystation 'too many', Protection 'slow down', Loud Way 'too many' retried forever on every read. v4.30 gates sniff to error status + short body. duplicate-zod theory closed FALSE LEAD; server exonerated; trio mints healthy pending verify; 26 WEDGE_* probes to delete",
-  "2026-08-30 ruled: listing icons - dedicated icon per mission (10); style = house frame + unique subject per mission",
-  "2026-08-30 ruled: handler = TWO distinct figures (desk handler + upstairs officer); per-node assignment pass needed; pronoun sweep awaits pronouns ruling",
-  "2026-08-30 ruled: Old Ghost + Tenth Name backgrounds - one dedicated set each (assumption: set = one 3:2 background per mission; correct if wider)",
-  "2026-08-30 ruled: wardrobe registers - CIVILIAN earth-tone loose robes vs NINJA fitted near-black combat wear, instantly distinct; every portrait subject tagged with its register",
-  "2026-08-30 ruled: scene completeness - every dialog node wires explicit sceneBackground + sceneCharacters; no-speaker nodes use a blank character asset (reuse existing blank records; verify live first)",
-  "2026-08-30 ruled: handler split from prose - desk handler (he) c13/e16/w16/p14-p15; officer (she) all serious-rank clusters incl x22-x28 and Old Ghost g32-g35 (same officer, her arc); officer portrait = The Commander reuse (id confirm pending)",
-  "2026-08-30 ruled: officer portrait = ANBU Commander Portrait ryLnefupONNZKX5hcPWid; desk handler = The Handler pqihl43HYROpkIMX172-P (she; identified as the shared stand-in); silent nodes g30=Old Ghost, g36=Commander, x1=blank; e16 pronoun sweep flagged to prose lane",
-  "2026-08-30 amended: Commander is Old Ghost mission only; other serious-rank clusters pending Handler-vs-third-figure call (last open cast question)",
-  "2026-08-30 ruled: cast complete - Handler takes remaining clusters; RANK HANDOFF noted: A-rank missions report to the Commander (Old Ghost + proposed Tenth Name), B and below to the Handler"
- ],
- "deployed": [
-  "doctrine delta-render + dual-blob mounted stamp + lawmap default root (a91310c)",
-  "bundle-era retirement + doc archival + reference repoints (2cf0d7e)",
-  "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93",
-  "rawqc --opaque path (skips coverage/ring on keyless targets) + measured exposure_bands.listing_icon_framed; artpreflight bg_ filename inference (e7a559d)",
-  "four composite frame plates on a softened shared alpha, data/frames/ (8a85084)",
-  "four generated rank icons D/C/B/A + contact sheet, data/rank_icons/ (6c22c64)"
- ],
- "in_progress": {
-  "wave": "wave: ICONS. Art complete, shipping not started. Two methods were built and both are banked. (1) COMPOSITE plates in data/frames/ - the live D-rank border was proven composited (per-pixel std 3.8 in the band vs 40.4 interior across nine live icons), so the wood plate was extracted from their median and three lacquer plates keyed and masked to its alpha. (2) FULLY GENERATED icons in data/rank_icons/ - RULED to supersede (1) for the rank set after the first full gen came back with correct frame geometry AND a crisp letter. Claude argued against generating frames and letters and was wrong on the evidence; the reference image did the constraining, so fresh prompts without it should NOT be expected to behave the same. C/B/A each generated from TWO references: the finished D plus that rank's flattened plate. Grade of record: gamma 0.88 applied post-gen, identical across all four. B's inlay overshoots (frame-band bright 0.079 vs A's 0.036) - LEFT AS IS by ruling. Discord status post written and handed over with contact sheet."
- },
- "open_by_owner": {
-  "dauntless": [
-   "VM refresh to v4.31 (bundles still stamp v4.29)",
-   "e16 pronoun sweep (prose, not Claude's lane)",
-   "publish flip rides content admin; everything hidden:true",
-   "enumerate which existing per-mission icons migrate to the rank set"
+  "generated": "2026-09-03",
+  "session": "mounted-10 (events onboarding sheet; code audit batch 1; law provenance report received)",
+  "format_note": "PROJECTION of state/digest.json - edit the digest, run session_close.py",
+  "state_line": "TWO TRACKS OPEN. (1) MISSION-AI: unchanged from last session - push/45_mission_ai_self_target_fix.json is built, validated 0 errors, and STILL UNRUN. It fixes the last four SELF-target mismatches (Unmarked Shadow r4, Unmarked Blade r4, Unmarked Stray r4, Faceless Blade r0). Verified this session that push/45 carries no pool codes - every jutsuId is a live 21-char id - so it is safe to tap under builder v4.31 or v4.32. (2) CODE AUDIT: a Claude Code agent audited the repo (audit.json, 12 findings, scanned 6a1b3ca) and separately ran a law provenance pass against TheNinjaRPG@345d18ac (branch law-provenance, NOT merged). Batch 1 of the audit is shipped: builder v4.32 (TNR-01 pool-resolution hoist, TNR-02 bundle stamp), relay.yml and skillpack.yml hardened but STAGED ONLY. Batch 2 history-rewrite question answered NO. Batch 3 not started.",
+  "ruled_this_session": [
+    "HISTORY REWRITE: NO, ruled 2026-09-02. dist/ zip blobs (7 x 18.4MB, pack 48.4MiB) stay. The loader @require is pinned to a jsDelivr commit SHA that release_pin.yml rewrites on every bundle push; a filter-repo rewrite 404s that URL and bricks the only push path on a device with no desktop recovery. Marginal cost measured at ~1.8MiB per skills push, not 18MB - git deltas the near-identical zips. Revisit ONLY if we leave jsDelivr pinning.",
+    "SKILL ZIP SCOPE: archive-only art (data/rank_icons/, data/frames/, *_raw.png) is excluded from skill zips. Verified nothing in SKILL.md, scripts/ or references/ reads any of it. producing-tnr-art.zip 18.4MB -> 80KB. A 2MB per-zip CI size guard was added so the pattern list cannot rot silently.",
+    "EM DASH BAN IS INTERNAL: never stated on staff-facing material. Strip em dashes during the dialog pass instead of asking submitters to avoid them.",
+    "EVENT SHEET SPLIT: staff canvas (EVENT_SHEET.md/.docx) carries no source-stack detail; the build contract (references/event.md) carries all of it. The mission episode standard was REMOVED from the sheet - dauntless: events are a different shape from missions. The motive audit line was kept.",
+    "CLAUDE CODE LANE: it cannot be a subagent of chat-Claude; there is no channel, only dauntless relaying. Its lane is the GAME SOURCE (studie-tech/TheNinjaRPG, too large to read in conversation context) and long autonomous grinds over scripts/ and builder_bundle.js. Manifests, live-state reasoning, design and prose stay in chat, because it has no game access and cannot capture or push. Work lands on a branch, never main. A CLAUDE.md guardrail file was proposed and is NOT yet written.",
+    "memory route: keep memory ON with exclusion edits, not off; flip off only if memory restates laws/board state again (review in a few sessions)",
+    "packs front-loaded for ai/quest now rather than curated as builds happen",
+    "container quirks + laws-that-bite single-sourced into mounted instructions; active-context template carries session state only",
+    "art submission stays manual per dauntless 2026-08-30: no ?q= links, no half-pipe userscript, no API art tab; do not re-propose unless dauntless raises it",
+    "dauntless ruling 2026-08-30: delete wedged trio (Protection/Waystation/Loud Way) and remake; remake source = Terr DB dumps BEFORE deletion (repo holds no full copy), fallback transcript reconstruction; push/10 superseded by 10a (seven clean)",
+    "2026-08-30: trio DELETED by dauntless pre-dump; rebuild ruled. Source hunt: dauntless-held 08-28 closeout bundle zips (best), else transcript reconstruction; wedge mitigation on rebuild = verified scene ids only",
+    "2026-08-30: closeout bundles recovered from dauntless device; trio rebuilt from 2_forsworn_wave1.json (stable across 08-27/28/29) with Waystation base = push/6 full-record fix; push/10b combined capture supersedes 10a",
+    "2026-08-30: push/11 (seven-mission pin wiring) + push/12 (trio rebuild) packed and staged; Chase verb live on 5 objectives without art - ruling needed; pqihl43 sceneCharacters id snapshot-unknown, carried verbatim (portrait pass territory)",
+    "2026-08-30: Chase pin gets its own art per dauntless; packs 11+12 re-cut with pin_chase.webp on acceptance (5 objectives)",
+    "2026-08-30 rulings: Pale Fang + Winter Crow speak-list APPROVED (portraits firm, registry speak-list rewrite queued); Old Ghost + Tenth Name get dedicated background sets",
+    "2026-08-30 WEDGE RESOLVED: builder isLim text-sniffed limiter phrases in record bodies; Waystation 'too many', Protection 'slow down', Loud Way 'too many' retried forever on every read. v4.30 gates sniff to error status + short body. duplicate-zod theory closed FALSE LEAD; server exonerated; trio mints healthy pending verify; 26 WEDGE_* probes to delete",
+    "2026-08-30 ruled: listing icons - dedicated icon per mission (10); style = house frame + unique subject per mission",
+    "2026-08-30 ruled: handler = TWO distinct figures (desk handler + upstairs officer); per-node assignment pass needed; pronoun sweep awaits pronouns ruling",
+    "2026-08-30 ruled: Old Ghost + Tenth Name backgrounds - one dedicated set each (assumption: set = one 3:2 background per mission; correct if wider)",
+    "2026-08-30 ruled: wardrobe registers - CIVILIAN earth-tone loose robes vs NINJA fitted near-black combat wear, instantly distinct; every portrait subject tagged with its register",
+    "2026-08-30 ruled: scene completeness - every dialog node wires explicit sceneBackground + sceneCharacters; no-speaker nodes use a blank character asset (reuse existing blank records; verify live first)",
+    "2026-08-30 ruled: handler split from prose - desk handler (he) c13/e16/w16/p14-p15; officer (she) all serious-rank clusters incl x22-x28 and Old Ghost g32-g35 (same officer, her arc); officer portrait = The Commander reuse (id confirm pending)",
+    "2026-08-30 ruled: officer portrait = ANBU Commander Portrait ryLnefupONNZKX5hcPWid; desk handler = The Handler pqihl43HYROpkIMX172-P (she; identified as the shared stand-in); silent nodes g30=Old Ghost, g36=Commander, x1=blank; e16 pronoun sweep flagged to prose lane",
+    "2026-08-30 amended: Commander is Old Ghost mission only; other serious-rank clusters pending Handler-vs-third-figure call (last open cast question)",
+    "2026-08-30 ruled: cast complete - Handler takes remaining clusters; RANK HANDOFF noted: A-rank missions report to the Commander (Old Ghost + proposed Tenth Name), B and below to the Handler",
+    "2026-08-31 (dauntless): prose passes return to Claude; artwork-only lane note retired. Collateral data loss on Freedom's Scouting Party ruled not worth repairing - push/30 stays staged but unrun.",
+    "2026-08-31 closed: icon migration list enumerated (all 31); publish flip taken for the ten Forsworn; e16 pronoun sweep returns to Claude with the prose lane; Freedom's Scouting Party repair (push/30) ruled not worth running."
   ],
-  "claude": [
-   "law-94 authoring via the law process",
-   "rawqc --frame path: a keyed plate runs to the image edge, so RING rejects every one at 100% dirty-ring; all plates hand-verified on aspect/coverage instead",
-   "port the frame compositing pipeline to stdlib - it ran ad hoc on PIL/numpy and the toolchain is stdlib-only"
-  ]
- },
- "rulings_open": [
-  "laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass",
-  "WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?",
-  "art micro-rulings: g30/g36/x1 silent-portrait per node; x22-x28 speaker handler vs village official; handler pronouns"
- ],
- "verified": [
-  "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
-  "doctrine projections -> all projections current (exit 0)",
-  "packs/TOCs -> all packs and TOCs current (exit 0)",
-  "parity tnr_results_1788128500937.json -> 0 errors, 0 warnings"
- ],
- "token_ledger": [
-  {
-   "path": "state/digest.json",
-   "bytes": 11678,
-   "at": "22:29Z"
+  "deployed": [
+    "doctrine delta-render + dual-blob mounted stamp + lawmap default root (a91310c)",
+    "bundle-era retirement + doc archival + reference repoints (2cf0d7e)",
+    "T1 registry + validate.py registry_lints (laws 3/49/30/66 annotated) + lawmap qualified-class parsing (validate(warn)/(partial)); red fixture 3/3, parity 16/16, matrix 93/93",
+    "rawqc --opaque path (skips coverage/ring on keyless targets) + measured exposure_bands.listing_icon_framed; artpreflight bg_ filename inference (e7a559d)",
+    "four composite frame plates on a softened shared alpha, data/frames/ (8a85084)",
+    "four generated rank icons D/C/B/A + contact sheet, data/rank_icons/ (6c22c64)",
+    "EVENT_SHEET.md staff canvas + references/event.md build contract split (0e2caa1, f03db1b)",
+    "EVENT_SHEET.docx + build_event_sheet_docx.js generator (3dcae5e)",
+    "builder v4.32: TNR-01 pool-resolution + stuck-guard hoisted out of if(dedupNames) to build-body level, placed BEFORE image upload so a bad manifest fails before an irreversible side effect; TNR-02 bundle stamps BVER instead of hardcoded v4.29 (387a59c); projections+packs regenerated for the version bump (3f59a2f)"
+  ],
+  "in_progress": {
+    "wave": "wave: EVENTS ONBOARDING + AUDIT REMEDIATION. Events: a new events-team member is being onboarded. EVENT_SHEET.md at repo root is the staff-facing canvas (plain language, no doc pointers, no engine rules, no em dash rule - that ban is OURS and is applied silently during the dialog pass, never asked of staff). references/event.md is now the build contract only and absorbed the engine constraints stripped from the canvas. EVENT_SHEET.docx is the handout, built by skills/building-tnr-content/scripts/build_event_sheet_docx.js - edit the script, never the binary. A Discord primer was drafted in-conversation and is NOT banked; redraft if needed (short: how to use the sheet, blank/NONE/[BALANCE], attachments, what gets built, hidden then admin approves). Audit: batch 1 done, batch 3 (TNR-03 contract regen, TNR-09 Pillow, TNR-06) not started.",
+    "law_provenance": "Report received and spot-verified, NOT adopted. 93 laws: ENGINE 36, PARTIAL 19, NOT_IN_SOURCE 26, DOCTRINE 11, CONTRADICTED 1. Reconciliation is the next big pass and has NOT begun - ENGINE_LAWS.md is untouched."
   },
-  {
-   "path": "state/active-context.md",
-   "bytes": 3404,
-   "at": "22:29Z"
+  "open_by_owner": {
+    "dauntless": [
+      "INSTALL state/staged_workflows/relay.yml via the web UI - this is a live command-injection fix (TNR-05, CWE-78) and the installed copy is still vulnerable. The PAT cannot push workflow files.",
+      "VM REFRESH to builder v4.32 - loader @version is 4.32 so ViolentMonkey will refetch. Panel title must read v4.32 + cfg generated. Until then you are running v4.31.",
+      "HOLD state/staged_workflows/skillpack.yml - staged, install together with batch 3 which edits the same file.",
+      "TAP push/45 when ready. Verified safe: no pool codes.",
+      "ART - a VILLAGE OFFICIAL portrait does not exist. Ruling 5 puts a village official in x22-x28 (and the same officer runs Old Ghost g32-g36), but the asset table has only ANBU Commander Portrait, two Kages, a Genin Trials Case Officer and clerks. Claude to generate one, or reuse an existing asset - needs a call",
+      "Named speak-list and vocab sweep: ruled 'go into more detail' - Claude to draft both as documents next",
+      "Chase pin: CLOSED, art done and in the pin library"
+    ],
+    "claude": [
+      "LAW PROVENANCE RECONCILIATION (the next big pass, not started). Promote 36 ENGINE verdicts to cited tags; split 19 PARTIALs at clause level; move 11 DOCTRINE laws (3,12,13,27,29,31,32,33,34,35,73) to their own file; rewrite 19, 23, 37 individually with dauntless sign-off.",
+      "AUDIT BATCH 3: TNR-03 (contract regen - 45c stamped 2026-08-30 vs 45d/45g 2026-08-26, selfcheck.py exits 1), TNR-09 (Pillow), TNR-06. Batch 4 after. TNR-04/07/10/11/12 not yet verified by me, only read.",
+      "session_open.py does NOT run selfcheck.py - I have been reporting 'guards green' with that gate unrun. Wire it in.",
+      "Write the proposed CLAUDE.md guardrail file for the code agent (lane boundary, guard commands before any skills/ or docs/ commit, rebase-not-merge, laws-cite-never-restate). Keep under 200 lines.",
+      "law-94 authoring via the law process",
+      "rawqc --frame path: a keyed plate runs to the image edge, so RING rejects every one at 100% dirty-ring; all plates hand-verified on aspect/coverage instead",
+      "port the frame compositing pipeline to stdlib - it ran ad hoc on PIL/numpy and the toolchain is stdlib-only",
+      "builder preflight: qBad() must skip the flow/objectives checks for a quest entry with slot edit/convert that carries no 'content' (mirror the validate.py fix). Until then every partial quest edit needs skipPreflight, which disables enum and bounds checking for the whole manifest",
+      "draft the Named speak-list and the vocab sweep in detail (ruled 2026-08-31)",
+      "generate a village official portrait for x22-x28 / Old Ghost g32-g36 (ruling 5) unless dauntless reuses an asset",
+      "harvest.py verify: an `ai` edit carrying rules/includeDefaultRules is read back with profile.getAi and always reports those fields missing. Verification for those two fields must follow aiProfileId to ai.getAiProfile, or they must be excluded from the asserted-field set and verified from capture.after instead"
+    ]
   },
-  {
-   "path": "state/status.json",
-   "bytes": 11199,
-   "at": "22:29Z"
+  "rulings_open": [
+    "LAW 23 IS WRONG AND NEEDS DAUNTLESS SIGN-OFF TO REWRITE. Verified at source: schema.ts:3622 reads consecutiveObjectives .default(true).notNull(). The law claims no schema default and a DB default of false. The PRACTICE (set it explicitly on every quest create) is still correct and nothing shipped is at risk; the RATIONALE is wrong. Law 37 builds on 23's premise and needs re-deriving with it.",
+    "LAW 19 IS CONTRADICTED. Verified at source: jutsu and item share ONE union (effects: z.array(AllTags).superRefine(SuperRefineEffects), combat.ts:1327 and :1491). SuperRefineJutsu REJECTS the bloodline/sage family at :1218-1220; SuperRefineItem only CONSTRAINS it at :1165-1173 (consumable, SELF, SINGLE). Item is WIDER, not narrower. Separately: neither refiner mentions clear or copy, so law 19's 'confirmed EXCLUDED: clear, copy' is not a validator rule at this commit and is probably a behaviour finding - split the law rather than rewriting it as one.",
+    "SYNDICATE THIEF EMPTY KIT now has a candidate mechanism: TNR-01. A manifest without dedupNames never resolved pool codes, so a leftover code shipped as a literal and was stripped server-side, leaving an empty kit and a green row. NOTE the audit misattributed the symptom to 'dead kit slots' - those are equipped-but-never-fired jutsu, a different thing, and remain unexplained.",
+    "WO-08 answers sharding: DEFER/SKIP (ruled)",
+    "laws 18/61 and 16d/37/69: reserved for later (ruled)"
+  ],
+  "verified": [
+    "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
+    "doctrine projections -> all projections current (exit 0)",
+    "packs/TOCs -> all packs and TOCs current (exit 0)",
+    "parity tnr_results_1788235395095.json -> 0 errors, 0 warnings"
+  ],
+  "token_ledger": [
+    {
+      "path": "state/digest.json",
+      "bytes": 39432,
+      "at": "01:27Z"
+    },
+    {
+      "path": "state/active-context.md",
+      "bytes": 10805,
+      "at": "01:27Z"
+    },
+    {
+      "path": "state/status.json",
+      "bytes": 12806,
+      "at": "01:27Z"
+    },
+    {
+      "path": "docs/00_INDEX.md",
+      "bytes": 8036,
+      "at": "01:27Z"
+    },
+    {
+      "path": "harvests/inbox/tnr_results_1788235395095.json",
+      "bytes": 41671,
+      "at": "01:27Z"
+    }
+  ],
+  "next": "Law provenance reconciliation against reports/law_provenance.json on branch law-provenance (fetch, do not merge). Start with the three disputed laws (19, 23, 37) since 23/37 touch quest launch practice, then the DOCTRINE split. Do NOT adopt any verdict wholesale - spot-verify against source at 345d18ac as was done for 19 and 23. Meanwhile dauntless owes the relay.yml install and the VM refresh to v4.32.",
+  "blocked": [
+    "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
+  ],
+  "pending_verification": [],
+  "wedge": {
+    "state": "RETIRED 2026-08-30 (dauntless). Closed in full - do not reopen, do not re-derive.",
+    "what_it_was": "Never a wedge. The Waystation was tripping OUR OWN rate limiter; self-inflicted and since patched. The three missions were never stuck and shipped fine. push/6 (6_verify_and_fix.json) was patched, solved and retired. No Terr dependency.",
+    "editor_crash": "The Zod 'Duplicate discriminator value undefined' crash on the quest edit page is ALSO retired at dauntless's direction. It never touched the builder write path (packs 18/19 wrote quest edits to all ten missions, read-back verified). Note archived to archive/wedge-diagnosis-2026-08-30/.",
+    "residual_open": "quest.get on The Waystation froze pre-patch. Whether that survives the rate-limiter patch is UNCONFIRMED - ask before relying on a Waystation capture."
   },
-  {
-   "path": "docs/00_INDEX.md",
-   "bytes": 8036,
-   "at": "22:29Z"
+  "art": {
+    "next": "SHIP the rank icons: enumerate full migration list from a live capture, upload four raw URLs, wire quest.image by rank, verify by read-back. Art itself is done - see skills/producing-tnr-art/data/rank_icons/README.md."
   },
-  {
-   "path": "harvests/inbox/tnr_results_1788128500937.json",
-   "bytes": 1150152,
-   "at": "22:29Z"
-  }
- ],
- "next": "Ship the icons: enumerate the FULL migration list from a live capture (the twelve in scope plus every existing per-mission icon being replaced), upload four raw URLs, wire quest.image by rank, verify by read-back per-entry json.success. Twelve in scope: C x4 Chalk and Corner / The Empty Contract / Protection / The Waystation; B x4 Nothing to Report / The Loud Way / Copies Not Thefts (d-94cxrGW91o1SJCr9rsq) / Witness Detail (dfeXwdrnvyvGGETiCMgu-); A x4 Three Rounds / The Long Winter / Old Ghost / The Tenth Name. Owed (dauntless): VM refresh to v4.31 (bundles still stamp v4.29), e16 pronoun sweep, publish flip rides content admin. Owed (Claude): law-94 authoring via law process; rawqc needs a --frame path (a keyed plate runs to the edge, so RING rejects every one at 100% dirty-ring - all plates hand-verified on aspect/coverage instead); port the frame compositing pipeline to stdlib (it ran ad hoc on PIL/numpy, toolchain is stdlib-only). DONE this session: rawqc --opaque path + measured exposure_bands, artpreflight bg_ inference.",
- "blocked": [
-  "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
- ],
- "pending_verification": [],
- "wedge": {
-  "state": "RETIRED 2026-08-30 (dauntless). Closed in full - do not reopen, do not re-derive.",
-  "what_it_was": "Never a wedge. The Waystation was tripping OUR OWN rate limiter; self-inflicted and since patched. The three missions were never stuck and shipped fine. push/6 (6_verify_and_fix.json) was patched, solved and retired. No Terr dependency.",
-  "editor_crash": "The Zod 'Duplicate discriminator value undefined' crash on the quest edit page is ALSO retired at dauntless's direction. It never touched the builder write path (packs 18/19 wrote quest edits to all ten missions, read-back verified). Note archived to archive/wedge-diagnosis-2026-08-30/.",
-  "residual_open": "quest.get on The Waystation froze pre-patch. Whether that survives the rate-limiter patch is UNCONFIRMED - ask before relying on a Waystation capture."
- },
- "art": {
-  "next": "SHIP the rank icons: enumerate full migration list from a live capture, upload four raw URLs, wire quest.image by rank, verify by read-back. Art itself is done - see skills/producing-tnr-art/data/rank_icons/README.md."
- },
- "board_unchanged": [
-  "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
-  "Old Ghost + Tenth Name prose passes",
-  "registry 38 masks rewrite",
-  "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights",
-  "v4.29 queue: pfEq gains ''<->null equivalence so the panel stops flagging the normalized pair (rides WO-06 release)",
-  "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
-  "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
-  "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
-  "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited",
-  "v4.30 queue: Repo picker accepts filename leading digits (7,8 would have worked); batch position-vs-file-number papercut",
-  "pack curation follow-ups: ai-build, quest-build, item-build, art-session packs (mechanism live, jutsu exemplar proven)",
-  "relay ritual switch is a separate post-install step (container pushes stay direct-to-main until then)"
- ],
- "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK) | 2026-08-30: backgrounds wave 8/8 live and verified via push/21 (tnr_results_1788128500937.json) | 2026-08-30: wedge / push/6 / Zod editor crash retired to archive/wedge-diagnosis-2026-08-30/",
- "decisions": [
-  "2026-08-31 (dauntless): prose passes come BACK to Claude - the coworker never got to Old Ghost or The Nameless Thorn. This reverses the 2026-08-30 artwork-only lane note."
- ]
+  "board_unchanged": [
+    "Borrowed Awakening W4 close ~Sep 5 (hide 5 cosmic jutsu)",
+    "Old Ghost + Tenth Name prose passes",
+    "registry 38 masks rewrite",
+    "remaining rulings: Bingo Book, Old Ghost g30, Named speak-list, vocab sweep, Chase pin, stat weights",
+    "v4.29 queue: pfEq gains ''<->null equivalence so the panel stops flagging the normalized pair (rides WO-06 release)",
+    "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
+    "smoke jutsu 0QixZN9jD_bqAKTimDafB: hidden, disposable - delete whenever",
+    "Wave 4 adds two small staged workflows per rulings 3+4 (release-pin for jsDelivr, relay.yml) - short second web-UI batch when authored",
+    "fail-closed scrub now gates EVERY push including [auto] workflow commit-backs; a red scrub on an [auto] push means a pattern leaked or the secret was edited",
+    "v4.30 queue: Repo picker accepts filename leading digits (7,8 would have worked); batch position-vs-file-number papercut",
+    "pack curation follow-ups: ai-build, quest-build, item-build, art-session packs (mechanism live, jutsu exemplar proven)",
+    "relay ritual switch is a separate post-install step (container pushes stay direct-to-main until then)"
+  ],
+  "closed_out": "2026-08-30: Wave 1 build side complete (WO-01/02/03/10a committed+pushed); guards green at close (factory 20/20, validate 6+7 0/0, parity 16/16, lawmap 93/0e/5w, node --check OK) | 2026-08-30: backgrounds wave 8/8 live and verified via push/21 (tnr_results_1788128500937.json) | 2026-08-30: wedge / push/6 / Zod editor crash retired to archive/wedge-diagnosis-2026-08-30/"
 }

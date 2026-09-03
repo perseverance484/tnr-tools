@@ -1,117 +1,29 @@
 <!-- PROJECTION of state/digest.json - edit the digest, run session_close.py; never edit this file -->
 # active-context.md - read this first, then the board
 
-**State in one line:** ICONS WAVE CLOSED on art: four shared quest-rank icons (D/C/B/A) generated, graded and banked - all four rawqc ACCEPT on listing_icon_framed. Design pivoted mid-wave from dedicated-icon-per-mission to ONE SHARED ICON PER RANK (dauntless): fewer generations, reads at a glance, future quests wire an existing icon with no art work. Rank is carried by the frame finish - bare wood D, red urushi lacquer C, black lacquer + mother-of-pearl inlay B, black lacquer + worn gold leaf A - over a shared interior (overhead mission brief, hanko seal in cinnabar, rank letter in the seal). The rank set REPLACES existing per-mission icons; migration list beyond the twelve not yet enumerated. NOT SHIPPED: no upload, no wiring, no push this session. Lane ARTWORK ONLY; publish gate content admin; everything hidden:true.
+**State in one line:** TWO TRACKS OPEN. (1) MISSION-AI: unchanged from last session - push/45_mission_ai_self_target_fix.json is built, validated 0 errors, and STILL UNRUN. It fixes the last four SELF-target mismatches (Unmarked Shadow r4, Unmarked Blade r4, Unmarked Stray r4, Faceless Blade r0). Verified this session that push/45 carries no pool codes - every jutsuId is a live 21-char id - so it is safe to tap under builder v4.31 or v4.32. (2) CODE AUDIT: a Claude Code agent audited the repo (audit.json, 12 findings, scanned 6a1b3ca) and separately ran a law provenance pass against TheNinjaRPG@345d18ac (branch law-provenance, NOT merged). Batch 1 of the audit is shipped: builder v4.32 (TNR-01 pool-resolution hoist, TNR-02 bundle stamp), relay.yml and skillpack.yml hardened but STAGED ONLY. Batch 2 history-rewrite question answered NO. Batch 3 not started.
 
 **Verified at close (exact runs):**
 - lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings
 - doctrine projections -> all projections current (exit 0)
 - packs/TOCs -> all packs and TOCs current (exit 0)
-- parity tnr_results_1788128500937.json -> 0 errors, 0 warnings
+- parity tnr_results_1788235395095.json -> 0 errors, 0 warnings
 
 **Start ritual:** per the mounted instructions - clone, repo-local identity,
 session_open.py (verify any new inbox bundle FIRST). No clone means no state.
 
-**In progress:** wave: wave: ICONS. Art complete, shipping not started. Two methods were built and both are banked. (1) COMPOSITE plates in data/frames/ - the live D-rank border was proven composited (per-pixel std 3.8 in the band vs 40.4 interior across nine live icons), so the wood plate was extracted from their median and three lacquer plates keyed and masked to its alpha. (2) FULLY GENERATED icons in data/rank_icons/ - RULED to supersede (1) for the rank set after the first full gen came back with correct frame geometry AND a crisp letter. Claude argued against generating frames and letters and was wrong on the evidence; the reference image did the constraining, so fresh prompts without it should NOT be expected to behave the same. C/B/A each generated from TWO references: the finished D plus that rank's flattened plate. Grade of record: gamma 0.88 applied post-gen, identical across all four. B's inlay overshoots (frame-band bright 0.079 vs A's 0.036) - LEFT AS IS by ruling. Discord status post written and handed over with contact sheet.
+**In progress:** wave: wave: EVENTS ONBOARDING + AUDIT REMEDIATION. Events: a new events-team member is being onboarded. EVENT_SHEET.md at repo root is the staff-facing canvas (plain language, no doc pointers, no engine rules, no em dash rule - that ban is OURS and is applied silently during the dialog pass, never asked of staff). references/event.md is now the build contract only and absorbed the engine constraints stripped from the canvas. EVENT_SHEET.docx is the handout, built by skills/building-tnr-content/scripts/build_event_sheet_docx.js - edit the script, never the binary. A Discord primer was drafted in-conversation and is NOT banked; redraft if needed (short: how to use the sheet, blank/NONE/[BALANCE], attachments, what gets built, hidden then admin approves). Audit: batch 1 done, batch 3 (TNR-03 contract regen, TNR-09 Pillow, TNR-06) not started.; law_provenance: Report received and spot-verified, NOT adopted. 93 laws: ENGINE 36, PARTIAL 19, NOT_IN_SOURCE 26, DOCTRINE 11, CONTRADICTED 1. Reconciliation is the next big pass and has NOT begun - ENGINE_LAWS.md is untouched.
 
 **Open items, by owner:**
-- dauntless: VM refresh to v4.31 (bundles still stamp v4.29); e16 pronoun sweep (prose, not Claude's lane); publish flip rides content admin; everything hidden:true; enumerate which existing per-mission icons migrate to the rank set
-- claude: law-94 authoring via the law process; rawqc --frame path: a keyed plate runs to the image edge, so RING rejects every one at 100% dirty-ring; all plates hand-verified on aspect/coverage instead; port the frame compositing pipeline to stdlib - it ran ad hoc on PIL/numpy and the toolchain is stdlib-only
+- dauntless: INSTALL state/staged_workflows/relay.yml via the web UI - this is a live command-injection fix (TNR-05, CWE-78) and the installed copy is still vulnerable. The PAT cannot push workflow files.; VM REFRESH to builder v4.32 - loader @version is 4.32 so ViolentMonkey will refetch. Panel title must read v4.32 + cfg generated. Until then you are running v4.31.; HOLD state/staged_workflows/skillpack.yml - staged, install together with batch 3 which edits the same file.; TAP push/45 when ready. Verified safe: no pool codes.; ART - a VILLAGE OFFICIAL portrait does not exist. Ruling 5 puts a village official in x22-x28 (and the same officer runs Old Ghost g32-g36), but the asset table has only ANBU Commander Portrait, two Kages, a Genin Trials Case Officer and clerks. Claude to generate one, or reuse an existing asset - needs a call; Named speak-list and vocab sweep: ruled 'go into more detail' - Claude to draft both as documents next; Chase pin: CLOSED, art done and in the pin library
+- claude: LAW PROVENANCE RECONCILIATION (the next big pass, not started). Promote 36 ENGINE verdicts to cited tags; split 19 PARTIALs at clause level; move 11 DOCTRINE laws (3,12,13,27,29,31,32,33,34,35,73) to their own file; rewrite 19, 23, 37 individually with dauntless sign-off.; AUDIT BATCH 3: TNR-03 (contract regen - 45c stamped 2026-08-30 vs 45d/45g 2026-08-26, selfcheck.py exits 1), TNR-09 (Pillow), TNR-06. Batch 4 after. TNR-04/07/10/11/12 not yet verified by me, only read.; session_open.py does NOT run selfcheck.py - I have been reporting 'guards green' with that gate unrun. Wire it in.; Write the proposed CLAUDE.md guardrail file for the code agent (lane boundary, guard commands before any skills/ or docs/ commit, rebase-not-merge, laws-cite-never-restate). Keep under 200 lines.; law-94 authoring via the law process; rawqc --frame path: a keyed plate runs to the image edge, so RING rejects every one at 100% dirty-ring; all plates hand-verified on aspect/coverage instead; port the frame compositing pipeline to stdlib - it ran ad hoc on PIL/numpy and the toolchain is stdlib-only; builder preflight: qBad() must skip the flow/objectives checks for a quest entry with slot edit/convert that carries no 'content' (mirror the validate.py fix). Until then every partial quest edit needs skipPreflight, which disables enum and bounds checking for the whole manifest; draft the Named speak-list and the vocab sweep in detail (ruled 2026-08-31); generate a village official portrait for x22-x28 / Old Ghost g32-g36 (ruling 5) unless dauntless reuses an asset; harvest.py verify: an `ai` edit carrying rules/includeDefaultRules is read back with profile.getAi and always reports those fields missing. Verification for those two fields must follow aiProfileId to ai.getAiProfile, or they must be excluded from the asserted-field set and verified from capture.after instead
 
-**Rulings open:** - laws 18/61 reclass knowledge->validate(partial); laws 16d/37/69 annotate-or-reclass
-- WO-08 answers sharding: defer/skip (clone-first ritual makes two-fetch moot; scripts grep locally, tokens paid on hits only; keep hot.json) - or proceed as planned?
-- art micro-rulings: g30/g36/x1 silent-portrait per node; x22-x28 speaker handler vs village official; handler pronouns
+**Rulings open:** - LAW 23 IS WRONG AND NEEDS DAUNTLESS SIGN-OFF TO REWRITE. Verified at source: schema.ts:3622 reads consecutiveObjectives .default(true).notNull(). The law claims no schema default and a DB default of false. The PRACTICE (set it explicitly on every quest create) is still correct and nothing shipped is at risk; the RATIONALE is wrong. Law 37 builds on 23's premise and needs re-deriving with it.
+- LAW 19 IS CONTRADICTED. Verified at source: jutsu and item share ONE union (effects: z.array(AllTags).superRefine(SuperRefineEffects), combat.ts:1327 and :1491). SuperRefineJutsu REJECTS the bloodline/sage family at :1218-1220; SuperRefineItem only CONSTRAINS it at :1165-1173 (consumable, SELF, SINGLE). Item is WIDER, not narrower. Separately: neither refiner mentions clear or copy, so law 19's 'confirmed EXCLUDED: clear, copy' is not a validator rule at this commit and is probably a behaviour finding - split the law rather than rewriting it as one.
+- SYNDICATE THIEF EMPTY KIT now has a candidate mechanism: TNR-01. A manifest without dedupNames never resolved pool codes, so a leftover code shipped as a literal and was stripped server-side, leaving an empty kit and a green row. NOTE the audit misattributed the symptom to 'dead kit slots' - those are equipped-but-never-fired jutsu, a different thing, and remain unexplained.
+- WO-08 answers sharding: DEFER/SKIP (ruled)
+- laws 18/61 and 16d/37/69: reserved for later (ruled)
 
-**Next:** Ship the icons: enumerate the FULL migration list from a live capture (the twelve in scope plus every existing per-mission icon being replaced), upload four raw URLs, wire quest.image by rank, verify by read-back per-entry json.success. Twelve in scope: C x4 Chalk and Corner / The Empty Contract / Protection / The Waystation; B x4 Nothing to Report / The Loud Way / Copies Not Thefts (d-94cxrGW91o1SJCr9rsq) / Witness Detail (dfeXwdrnvyvGGETiCMgu-); A x4 Three Rounds / The Long Winter / Old Ghost / The Tenth Name. Owed (dauntless): VM refresh to v4.31 (bundles still stamp v4.29), e16 pronoun sweep, publish flip rides content admin. Owed (Claude): law-94 authoring via law process; rawqc needs a --frame path (a keyed plate runs to the edge, so RING rejects every one at 100% dirty-ring - all plates hand-verified on aspect/coverage instead); port the frame compositing pipeline to stdlib (it ran ad hoc on PIL/numpy, toolchain is stdlib-only). DONE this session: rawqc --opaque path + measured exposure_bands, artpreflight bg_ inference.
+**Next:** Law provenance reconciliation against reports/law_provenance.json on branch law-provenance (fetch, do not merge). Start with the three disputed laws (19, 23, 37) since 23/37 touch quest launch practice, then the DOCTRINE split. Do NOT adopt any verdict wholesale - spot-verify against source at 345d18ac as was done for 19 and 23. Meanwhile dauntless owes the relay.yml install and the VM refresh to v4.32.
 
 Container quirks and cross-cutting laws live in the mounted instructions.
-
-## Icons wave - shipping (handed over 2026-08-30)
-
-- `push/22_rank_icon_wiring_wave1.zip` - 10 quest edits (C x4, B x2, A x4, ranks read live from
-  `tnr_results_1788127352899.json`), each setting only `image` to `@img:icon_rank_<R>.webp`. The three icons ride
-  the zip with a byte ledger, so the builder uploads them and no raw URL is passed by hand. Generator:
-  `push/22_rank_icon_wiring_wave1.gen.py` (ids extracted, never transcribed). validate.py: 0 errors.
-- `capture.before` reads 21 quests whose rank is unread: the ten D-set missions, Case Contract x4,
-  Blacksteel Contract x5, Copies Not Thefts, Witness Detail. Wave 2 wires them from that capture.
-- Delete list so far: the ten `dmissionicons` gameAssets (ids in the wave-1 handover). Case/Blacksteel icons
-  are NOT deletable - reused by Genin Trials. Copies/Witness icon ids pending the capture.
-- validate.py now warns instead of erroring on a quest edit that carries no `content` (fetch-merge patch).
-
-## Hide-wave scope (requested 2026-08-30, not built)
-
-- Ours = the 31 authored missions (12 Forsworn C/B/A, 10 D-set, Case Contract x4, Blacksteel Contract x5).
-- Everything else that is a mission gets `hidden: true`, earmarked for upgrade or retirement.
-- HAZARDS to settle before any hide manifest is built:
-  1. `hidden` fails eligibility EVERYWHERE for non-staff (quest.md 398/409), including a granted ACTIVE quest,
-     which is silently dropped on the next touch. Players mid-mission lose it.
-  2. Our 31 are all still `hidden: true`. Hiding the rest before ours publish leaves the mission hall thin or
-     empty in some level windows, and the random mission generators draw from the same pool.
-  3. Scale: ~380 non-ours missions. Classification must come from a live census, not from names.
-- push 22 carries two `quests.getAll` shape probes (limit 25) to size the census before pulling 500 fat rows
-  through a mobile browser and the sync token.
-
-## Order of operations (ruled 2026-08-30)
-
-1. `push/23_our_missions_census.json` - capture-only, 32 reads. Live rank for all 31 of ours, plus every
-   mission's pre-swap `image` URL and a fresh 445-row asset table.
-2. Icon swap, all 31, built on live rank only - no asserted ranks this time.
-3. dauntless runs the asset deleter against the final list (the ten `dmissionicons` plus whatever the
-   census turns up; Case/Blacksteel icons excluded, reused by Genin Trials).
-4. Publish + hide as one combined final push. Still gated on the content admin, and on the hazards logged
-   in the hide-wave section above.
-
-## Census results (2026-08-31, bundle tnr_results_1788134455342)
-
-- Live rank, all 31: **D 15** (10 D-set + Case Contract x4 + Blacksteel Shard Salvage), **C 8**
-  (4 Forsworn + Blacksteel Cleanup/Iron Hunt/Perimeter Breach/Supply Raid), **B 4**, **A 4**.
-- **19 of the 31 are already `hidden:false`** - every contract, eight of the D-set, and Copies Not Thefts.
-  Only 12 remain hidden. The later publish step is smaller than the board assumed.
-- Icon provenance: nine D-set missions point at their `dmissionicons` asset. Everything else points at a raw
-  uploadthing URL with no gameAsset record - the twelve Forsworn at a shared placeholder ('Zeps house' URL),
-  the nine contracts at ONE shared contract icon, and Copies / Witness / One White Ear each at their own.
-- Consequence for the deleter: the list is exactly the ten `dmissionicons` assets and nothing else. The
-  contract icon has no asset record, so it cannot be deleted from the asset manager and the Genin Trials
-  reuse is safe by construction.
-
-## Icon swap shipped 2026-08-31 (bundle tnr_results_1788135094828)
-
-- 31 quest edits, 31 ok / 0 fail, asserted read-back per entry, plus an independent pre/post record diff.
-- Four distinct icon URLs, one per rank, wired across A 4 / B 4 / C 8 / D 15.
-- Content, questRank, hidden, description and successDescription byte-identical to the census on all 31.
-- Manifest carried `skipPreflight:true` (builder qBad gap on partial quest edits). Generator:
-  `push/24_rank_icon_swap_all31.gen.py`.
-- The nine D-set `dmissionicons` references are now released; the ten assets are free to delete.
-
-## Earmarked for upgrade or retirement (not in this release)
-
-- **One White Ear** - questType event, d1/d2/d3 converging dialog menus, stray .jpg icon before the swap.
-- **Witness Detail** - bmissions-era B mission, stays hidden.
-- **Copies, Not Thefts** - already public, and its a1/a2/f1 dialog menus converge. Live record fails
-  validate.py today, before any edit of ours.
-
-## Dead scene characters
-
-- **Fleetfoot Scene** `kYX8v4FkO96cZTPF2ORPq` and **Nightfoot Scene** `tUTXsFG4HqESOkTiXz6Fm` no longer exist
-  (dauntless). Both still appear as live SCENE_CHARACTER rows in the census asset table, folder `bmissions`,
-  hidden=false - so the records outlived whatever they pointed at. Worth a look during the deleter pass.
-- Their only references across our 31 were Copies, Not Thefts l1/l2 and c5, retired to Blank Scene Character.
-
-## Forsworn release shipped 2026-08-31
-
-- Public, rank icons wired, verified by read-back and independent pre/post diff: Old Ghost, The Long Winter,
-  The Tenth Name, Three Rounds (A), Nothing to Report, The Loud Way (B), Chalk and Corner, Protection,
-  The Empty Contract, The Waystation (C).
-- Copies, Not Thefts repaired in place and left live. Witness Detail and One White Ear stay hidden, earmarked.
-
-## Legacy-record normalization (found 2026-08-31, hide wave)
-
-Any write that round-trips a whole record - which every builder quest edit does, fetch-merge then update -
-makes the server apply schema defaults to fields that are null in an older record. Null -> 0, [], false,
-"NONE" is harmless. The danger is the reverse case: a legacy field holding a value the current schema has no
-default for can come back null. On Freedom's Scouting Party, `opponent_name` and `attackers_chance` were lost
-this way by a manifest that set nothing but `hidden`.
-
-Practice: after any wave that touches records authored before the current schema, run a value->null scan of
-the read-backs against the pre-write capture. Green rows and asserted-field verdicts will not catch this -
-the asserted field landed correctly in all 26 cases.
