@@ -1,8 +1,8 @@
 {
-  "generated": "2026-09-03",
-  "session": "mounted-10 (events onboarding sheet; code audit batch 1; law provenance report received)",
+  "generated": "2026-09-04",
+  "session": "mounted-11 (mission flatten: ten Forsworn missions cut to a 4-node no-travel shape)",
   "format_note": "PROJECTION of state/digest.json - edit the digest, run session_close.py",
-  "state_line": "TWO TRACKS OPEN. (1) MISSION-AI: unchanged from last session - push/45_mission_ai_self_target_fix.json is built, validated 0 errors, and STILL UNRUN. It fixes the last four SELF-target mismatches (Unmarked Shadow r4, Unmarked Blade r4, Unmarked Stray r4, Faceless Blade r0). Verified this session that push/45 carries no pool codes - every jutsuId is a live 21-char id - so it is safe to tap under builder v4.31 or v4.32. (2) CODE AUDIT: a Claude Code agent audited the repo (audit.json, 12 findings, scanned 6a1b3ca) and separately ran a law provenance pass against TheNinjaRPG@345d18ac (branch law-provenance, NOT merged). Batch 1 of the audit is shipped: builder v4.32 (TNR-01 pool-resolution hoist, TNR-02 bundle stamp), relay.yml hardened AND INSTALLED (4adb505); skillpack.yml hardened but STAGED ONLY, held for batch 3. Batch 2 history-rewrite question answered NO. Batch 3 not started.",
+  "state_line": "MISSION FLATTEN SHIPPED TO PUSH, AWAITING TAP. push/46_missions_flatten.json rewrites all ten Forsworn missions to dialog -> start_battle -> dialog -> win_quest (plus an off-path reset_quest retry on loss). Validated 0 errors 0 warnings, committed 3aac61d, UNRUN. Ruling this session: missions are flavor on the way to gains, not a challenge; flatten all ten including the A-rank named bosses. Node counts went 16-49 down to 4; forced map trips 5-13 down to 0. Balance untouched and verified: every node-level reward in the live records was already zero, so content.reward was re-asserted verbatim and equals the live capture on all ten. Law/doctrine rewrite to match the new shape is DEFERRED by ruling until player feedback comes back. STILL OPEN from before: push/45_mission_ai_self_target_fix.json unrun (no conflict with 46, it edits ai not quest); code audit batch 3 not started; law provenance reconciliation not started.",
   "ruled_this_session": [
     "HISTORY REWRITE: NO, ruled 2026-09-02. dist/ zip blobs (7 x 18.4MB, pack 48.4MiB) stay. The loader @require is pinned to a jsDelivr commit SHA that release_pin.yml rewrites on every bundle push; a filter-repo rewrite 404s that URL and bricks the only push path on a device with no desktop recovery. Marginal cost measured at ~1.8MiB per skills push, not 18MB - git deltas the near-identical zips. Revisit ONLY if we leave jsDelivr pinning.",
     "SKILL ZIP SCOPE: archive-only art (data/rank_icons/, data/frames/, *_raw.png) is excluded from skill zips. Verified nothing in SKILL.md, scripts/ or references/ reads any of it. producing-tnr-art.zip 18.4MB -> 80KB. A 2MB per-zip CI size guard was added so the pattern list cannot rot silently.",
@@ -45,11 +45,14 @@
     "relay.yml TNR-05 injection fix INSTALLED by dauntless via web UI (4adb505); verified from the installed copy - zero ${{ }} inside the run block, BRANCH bound in env, shape check and explicit checkout main all present. Staged and installed differ only in three comment lines (the PAT cannot push .github/workflows/); logic is byte-identical. Not a drift."
   ],
   "in_progress": {
-    "wave": "wave: EVENTS ONBOARDING + AUDIT REMEDIATION. Events: a new events-team member is being onboarded. EVENT_SHEET.md at repo root is the staff-facing canvas (plain language, no doc pointers, no engine rules, no em dash rule - that ban is OURS and is applied silently during the dialog pass, never asked of staff). references/event.md is now the build contract only and absorbed the engine constraints stripped from the canvas. EVENT_SHEET.docx is the handout, built by skills/building-tnr-content/scripts/build_event_sheet_docx.js - edit the script, never the binary. A Discord primer was drafted in-conversation and is NOT banked; redraft if needed (short: how to use the sheet, blank/NONE/[BALANCE], attachments, what gets built, hidden then admin approves). Audit: batch 1 done, batch 3 (TNR-03 contract regen, TNR-09 Pillow, TNR-06) not started.",
+    "wave": "wave: MISSION FLATTEN. push/46 built and pushed, awaiting dauntless tap and then a harvest.py verify of the read-back. Player feedback is the gate on everything downstream: no law rewrite, no further mission work, until it lands. Events onboarding and audit batch 3 are parked.",
     "law_provenance": "Report received and spot-verified, NOT adopted. 93 laws: ENGINE 36, PARTIAL 19, NOT_IN_SOURCE 26, DOCTRINE 11, CONTRADICTED 1. Reconciliation is the next big pass and has NOT begun - ENGINE_LAWS.md is untouched."
   },
   "open_by_owner": {
     "dauntless": [
+      "TAP push/46_missions_flatten.json - the ten flattened missions. Validated 0/0.",
+      "All ten are hidden:false and LIVE. Anyone mid-mission loses their node ids when you tap. If that matters, hide then tap then unhide.",
+      "TRAP: push/34_old_ghost_prose.json and push/35_tenth_name_prose.json are still unrun and carry the 47-node and 36-node versions. Tapping either AFTER push/46 re-inflates those two missions. Retire them or leave them alone.",
       "VM REFRESH to builder v4.32 - loader @version is 4.32 so ViolentMonkey will refetch. Panel title must read v4.32 + cfg generated. Until then you are running v4.31.",
       "HOLD state/staged_workflows/skillpack.yml - staged, install together with batch 3 which edits the same file.",
       "TAP push/45 when ready. Verified safe: no pool codes.",
@@ -58,6 +61,9 @@
       "Chase pin: CLOSED, art done and in the pin library"
     ],
     "claude": [
+      "After the push/46 tap: harvest.py verify the read-back, per-entry json.success, and confirm the start_battle node round-trips. A push echo is not a read-back.",
+      "The Tenth Name has no enemy AI of its own and fights Faceless Shadow (2ZF5jMvECgiNBgrr4icqk). Pre-existing, not introduced by the flatten, but at four nodes the A-rank is now one fight against a generic Faceless. Needs a call once feedback lands.",
+      "answers/names_ai.json carries two AI whose names read 'rename Nightfoot to Faceless Shadow' (2ZF5jMvECgiNBgrr4icqk) and 'rename Fleetfoot to Faceless Stray' (rKWmoT0Ez1q4r8jEqprWP). Looks like a manifest label written into the live name field. UNVERIFIED - that file is a seed catalog and no recent capture carries these ids. Capture before believing it.",
       "LAW PROVENANCE RECONCILIATION (the next big pass, not started). Promote 36 ENGINE verdicts to cited tags; split 19 PARTIALs at clause level; move 11 DOCTRINE laws (3,12,13,27,29,31,32,33,34,35,73) to their own file; rewrite 19, 23, 37 individually with dauntless sign-off.",
       "AUDIT BATCH 3: TNR-03 (contract regen - 45c stamped 2026-08-30 vs 45d/45g 2026-08-26, selfcheck.py exits 1), TNR-09 (Pillow), TNR-06. Batch 4 after. TNR-04/07/10/11/12 not yet verified by me, only read.",
       "session_open.py does NOT run selfcheck.py - I have been reporting 'guards green' with that gate unrun. Wire it in.",
@@ -79,39 +85,39 @@
     "laws 18/61 and 16d/37/69: reserved for later (ruled)"
   ],
   "verified": [
-    "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
-    "doctrine projections -> all projections current (exit 0)",
-    "packs/TOCs -> all packs and TOCs current (exit 0)",
-    "parity tnr_results_1788235395095.json -> 0 errors, 0 warnings"
+    "push/46_missions_flatten.json -> validate.py 0 errors, 0 warnings (run from skills/building-tnr-content/data)",
+    "reward parity -> content.reward on all ten equals live capture tnr_results_1788136356379; every node-level reward in the live records was already zero",
+    "gate parity -> questRank, requiredLevel, hidden, prerequisiteQuestId, maxAttempts, retryDelay unchanged from live on all ten",
+    "em dash sweep -> 0 in node description and choice text across all ten"
   ],
   "token_ledger": [
     {
       "path": "state/digest.json",
-      "bytes": 39432,
-      "at": "01:27Z"
+      "bytes": 19822,
+      "at": "18:27Z"
     },
     {
       "path": "state/active-context.md",
-      "bytes": 10805,
-      "at": "01:27Z"
+      "bytes": 7303,
+      "at": "18:27Z"
     },
     {
       "path": "state/status.json",
-      "bytes": 12806,
-      "at": "01:27Z"
+      "bytes": 18540,
+      "at": "18:27Z"
     },
     {
       "path": "docs/00_INDEX.md",
       "bytes": 8036,
-      "at": "01:27Z"
+      "at": "18:27Z"
     },
     {
       "path": "harvests/inbox/tnr_results_1788235395095.json",
       "bytes": 41671,
-      "at": "01:27Z"
+      "at": "18:27Z"
     }
   ],
-  "next": "Law provenance reconciliation against reports/law_provenance.json on branch law-provenance (fetch, do not merge). Start with the three disputed laws (19, 23, 37) since 23/37 touch quest launch practice, then the DOCTRINE split. Do NOT adopt any verdict wholesale - spot-verify against source at 345d18ac as was done for 19 and 23. Meanwhile dauntless owes the relay.yml install and the VM refresh to v4.32.",
+  "next": "Wait for dauntless to tap push/46, then pull harvests/inbox and harvest.py verify the read-back. Verify the start_battle node specifically: start_battle appears nowhere else in our shipped content, this is its first use, and it is the only fight primitive that does not require sectorType, which is what buys the zero travel. Then hold for player feedback before any further mission work or law rewrite.",
   "blocked": [
     "regen_schemas.yml -> .github/workflows/ REJECTED at push: tnr-container PAT has no Workflows permission; add Workflows RW to the PAT or add the file via web UI, then first-run via workflow_dispatch"
   ],
