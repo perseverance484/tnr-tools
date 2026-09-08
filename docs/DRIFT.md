@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-08-31)
+# DRIFT.md - upstream contract drift (2026-09-08)
 
-Upstream: studie-tech/TheNinjaRPG@b3981ef19958d1ecb7637a6b7b71f25293d1df97
+Upstream: studie-tech/TheNinjaRPG@e02f815954c14eeb8c2fcbc4a589a506971e0ed7
 
 The extracted 45x contract hashes changed vs the last sentinel
 baseline. SIGNAL ONLY: nothing was adopted. Adoption is manual
@@ -14,18 +14,18 @@ Structural diff, SHIPPED vs upstream:
 no breaking changes: 0 addition(s), safe to adopt (exit 0)
 == 45d_DATA_entity_schemas ==
 CHANGES
+  now-required  item  farmYieldItemId  optional -> required
   now-required  item  isFarmSeed  optional -> required
   now-required  item  farmExtractSeedItemId  optional -> required
-  now-required  item  farmPlantExperience  optional -> required
-  now-required  item  isFarmFertilizer  optional -> required
   now-required  item  farmExtractSeedCount  optional -> required
-  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  isFarmFertilizer  optional -> required
   now-required  item  farmGrowTimeSeconds  optional -> required
-  now-required  item  farmSellValue  optional -> required
-  now-required  item  farmYieldItemId  optional -> required
+  now-required  item  farmPlantExperience  optional -> required
   now-required  item  farmHarvestExperience  optional -> required
-  now-required  item  farmMinLevel  optional -> required
+  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  farmSellValue  optional -> required
   now-required  item  farmFertilizerExperience  optional -> required
+  now-required  item  farmMinLevel  optional -> required
 ADDITIONS
   field  item  farmExtractSeedCount
   field  item  farmExtractSeedItemId
@@ -58,7 +58,23 @@ BREAKING: 12 change(s) - DO NOT ADOPT (exit 1)
 == 45e_DATA_constants ==
 ADDITIONS
   const-member  ItemTypes  COOKING
+  const-member  LIVE_ACTIVITY_KINDS  hospital
+  const-member  LIVE_ACTIVITY_KINDS  training
+  const-member  LIVE_ACTIVITY_KINDS  war
   const-member  NonActionItemTypes  COOKING
+  const-member  PUSH_CATEGORIES  clan
+  const-member  PUSH_CATEGORIES  combat
+  const-member  PUSH_CATEGORIES  recovery
+  const-member  PUSH_CATEGORIES  social
+  const-member  PUSH_CATEGORIES  system
+  const-member  PUSH_CATEGORIES  trade
+  const-member  PUSH_CATEGORIES  training
+  const-member  PUSH_CATEGORIES  war
+  const-member  PUSH_PLATFORMS  android
+  const-member  PUSH_PLATFORMS  ios
+  const-member  PUSH_PLATFORMS  web
+  const-member  STORE_PLATFORMS  APPLE
+  const-member  STORE_PLATFORMS  GOOGLE
   const-member  SimpleTasks  farming_collection_log
   const-member  SimpleTasks  farming_level
   const-member  SimpleTasks  plants_fertilized
@@ -78,5 +94,5 @@ ADDITIONS
   const-member  TavernColorPresets  SLATE
   const-member  TavernColorPresets  YELLOW
 
-no breaking changes: 20 addition(s), safe to adopt (exit 0)
+no breaking changes: 36 addition(s), safe to adopt (exit 0)
 ~~~
