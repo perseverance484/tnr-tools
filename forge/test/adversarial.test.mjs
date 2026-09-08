@@ -764,6 +764,91 @@ test("K6: skipPreflight cannot switch a safety lint off", () => {
   assert.deepEqual(partial.warnings, []);
 });
 
+
+// ------------------------------------------- readiness P0: dedupNames enforcement (D1-D4, 5b)
+const DEDUP = (name = "A") => ({ dedupNames: true, items: [{ entity: "jutsu", slot: "create", name, srcId: "a", data: { name, description: "d", hidden: true } }] });
+
+test("D1: a live name collision fails the item BEFORE the placeholder is created", async () => {
+  const game = new FakeGame();
+  game.seed("jutsu", { id: "live-1", name: "A", hidden: false });
+  const h = harness({ game });
+  h.runner.plan(DEDUP("A"), { jobId: "d1" });
+  const s = await h.runner.run("d1");
+  assert.equal(s.items[0].state, "FAILED");
+  assert.match(s.items[0].error, /LIVE NAME COLLISION "A"/);
+  assert.equal(game.count("jutsu"), 1, "no second row was minted");
+  assert.ok(!game.calls.some((c) => c.path === "jutsu.create"), "create was never called");
+  assert.ok(game.calls.some((c) => c.path === "jutsu.getAllNames"), "the check did read the live list");
+  assert.equal(s.outcome, "failed");
+});
+
+test("D2: no collision runs normally, and a manifest that did not ask for the check never pays for it", async () => {
+  const game = new FakeGame();
+  game.seed("jutsu", { id: "live-1", name: "Something else", hidden: false });
+  const h = harness({ game });
+  h.runner.plan(DEDUP("A"), { jobId: "d2" });
+  const s = await h.runner.run("d2");
+  assert.equal(s.items[0].state, "VERIFIED");
+  assert.equal(game.count("jutsu"), 2);
+  // without dedupNames the name list is never read
+  const g2 = new FakeGame(); g2.seed("jutsu", { id: "l", name: "A", hidden: false });
+  const h2 = harness({ game: g2 });
+  h2.runner.plan(ONE, { jobId: "d2b" });
+  const s2 = await h2.runner.run("d2b");
+  assert.equal(s2.items[0].state, "VERIFIED");
+  // the reconciler's pre-create snapshot reads the same list, so "was it read" is not the signal:
+  // the dedup pass is one EXTRA read of it, and a manifest that did not ask for it does not pay
+  const names = (g) => g.calls.filter((c) => c.path === "jutsu.getAllNames").length;
+  assert.equal(names(g2), 1, "snapshot only; no dedup read was forced");
+  assert.equal(names(game), 2, "dedup read plus the snapshot");
+  assert.equal(g2.count("jutsu"), 2, "and the create still happened despite the identical live name");
+});
+
+test("D3: a rate-limited name list pauses the job instead of skipping the check", async () => {
+  const game = new FakeGame(); const h = harness({ game });
+  const orig = game.handle.bind(game);
+  game.handle = (p, i) => (p === "jutsu.getAllNames"
+    ? { ok: false, error: { code: "TOO_MANY_REQUESTS", httpStatus: 429, message: "You are moving too fast!", path: p, zodError: null, raw: {} } }
+    : orig(p, i));
+  h.runner.plan(DEDUP("A"), { jobId: "d3" });
+  const s = await h.runner.run("d3");
+  assert.equal(s.state, "PAUSED");
+  assert.equal(s.pause.reason, "TOO_MANY_REQUESTS");
+  assert.equal(s.items[0].state, "PLANNED", "the item is untouched: nothing was created behind a skipped check");
+  assert.ok(!game.calls.some((c) => c.path === "jutsu.create"));
+  // a plain read failure pauses too, rather than proceeding blind (the builder skipped and warned)
+  const g2 = new FakeGame(); const h2 = harness({ game: g2 });
+  const o2 = g2.handle.bind(g2);
+  g2.handle = (p, i) => (p === "jutsu.getAllNames" ? { ok: false, error: { code: "INTERNAL_SERVER_ERROR", httpStatus: 500, message: "boom", path: p, zodError: null, raw: {} } } : o2(p, i));
+  h2.runner.plan(DEDUP("A"), { jobId: "d3b" });
+  const s2 = await h2.runner.run("d3b");
+  assert.equal(s2.state, "PAUSED");
+  assert.equal(s2.pause.reason, "NETWORK");
+  assert.match(s2.pause.detail, /dedupNames/);
+  assert.equal(g2.count("jutsu"), 0);
+});
+
+test("D4: after a pause the resumed job re-checks and never collides with its own row", async () => {
+  const game = new FakeGame(); const h = harness({ game });
+  let limited = true;
+  const orig = game.handle.bind(game);
+  game.handle = (p, i) => (p === "jutsu.getAllNames" && limited
+    ? { ok: false, error: { code: "TOO_MANY_REQUESTS", httpStatus: 429, message: "too fast", path: p, zodError: null, raw: {} } }
+    : orig(p, i));
+  h.runner.plan(DEDUP("A"), { jobId: "d4" });
+  const s1 = await h.runner.run("d4");
+  assert.equal(s1.state, "PAUSED");
+  limited = false;
+  h.clock.tick((s1.pause.until ?? h.clock()) - h.clock() + 1);
+  const s2 = await h.runner.run("d4");
+  assert.equal(s2.items[0].state, "VERIFIED");
+  assert.equal(game.count("jutsu"), 1, "exactly one row");
+  // running it again must not now fail on the name IT just created
+  const s3 = await h.runner.run("d4");
+  assert.equal(s3.items[0].state, "VERIFIED");
+  assert.equal(game.count("jutsu"), 1);
+});
+
 // ------------------------------------------------- independent review of a1f9144 (F1-F4)
 test("F1: persisted history outranks a hand-edited state; a sent create is never replayed", async () => {
   // a real create whose response was lost, so the pre-create snapshot exists
