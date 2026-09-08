@@ -1,4 +1,4 @@
-// TNR forge bundle v0.1.1 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.1.2 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Host: any unmatched path on the game origin (/forge). Layers: storage, transport, budget, runner, reconcile, ui.
 // Pinned engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
@@ -1395,7 +1395,7 @@
       throw new TransportError("response is not JSON", { httpStatus: status, snippet: String(text).slice(0, 200) });
     }
     if (!Array.isArray(body)) {
-      if (body && typeof body === "object" && body.error) {
+      if (isTrpcErrorBody(body)) {
         const el = decodeElement(body, 0, status);
         el.error.requestLevel = true;
         return Array.from({ length: expectedCount ?? 1 }, () => el);
@@ -1412,6 +1412,10 @@
         return { ok: false, error: { code: "MALFORMED_ELEMENT", httpStatus: status, message: e.message, path: null, zodError: null, raw: el } };
       }
     });
+  }
+  function isTrpcErrorBody(body) {
+    const j = body && typeof body === "object" && body.error && typeof body.error === "object" ? body.error.json : null;
+    return !!(j && typeof j === "object" && typeof j.message === "string" && j.data && typeof j.data === "object" && typeof j.data.code === "string");
   }
   function decodeElement(el, i, status) {
     if (el && el.result && el.result.data !== void 0) {
@@ -1726,15 +1730,21 @@
     _save(log) {
       this.storage.setItem(SENDLOG_KEY, JSON.stringify(log));
     }
+    // timestamps are kept for two windows: the previous bucket still weighs on the estimate
     _prune(arr, windowMs, now) {
-      return arr.filter((t) => now - t < windowMs);
+      return arr.filter((t) => now - t < 2 * windowMs);
     }
-    /** Timestamps in the window for a path, oldest first. */
+    /** Timestamps within the strict window for a path, oldest first. */
     inWindow(path, windowMs) {
       const now = this.clock();
-      return this._prune(this._load()[path] || [], windowMs, now).sort((a, b) => a - b);
+      return this._prune(this._load()[path] || [], windowMs, now).filter((t) => now - t < windowMs).sort((a, b) => a - b);
     }
-    /** Append n sends for path, prune, flush synchronously. Returns the count in window after. */
+    /** All retained timestamps (two windows) for a path. */
+    recent(path, windowMs) {
+      const now = this.clock();
+      return this._prune(this._load()[path] || [], windowMs, now);
+    }
+    /** Append n sends for path, prune, flush synchronously. Returns the count in the strict window after. */
     record(path, n, windowMs) {
       const now = this.clock();
       const log = this._load();
@@ -1742,7 +1752,7 @@
       for (let i = 0; i < n; i++) arr.push(now);
       log[path] = arr;
       this._save(log);
-      return arr.length;
+      return arr.filter((t) => now - t < windowMs).length;
     }
     /** Persisted trip marker so a restart within the window still shows the countdown. */
     trip(path, until) {
@@ -1796,10 +1806,54 @@
     isLimited(path) {
       return this.limited.has(path);
     }
+    /**
+     * The server's own estimate for path at `now`, computed the way slidingWindowLimitScript does,
+     * from this client's sends alone. {prev, cur, weighted, strict, bucketStart}
+     */
+    estimate(path, now = this.clock()) {
+      const w = this.windowMs;
+      const bucket = Math.floor(now / w);
+      let prev = 0, cur = 0, strict = 0;
+      for (const t of this.log.recent(path, w)) {
+        const b = Math.floor(t / w);
+        if (b === bucket) cur++;
+        else if (b === bucket - 1) prev++;
+        if (now - t < w) strict++;
+      }
+      const frac = now % w / w;
+      const weighted = Math.floor((1 - frac) * prev) + cur;
+      return { prev, cur, weighted, strict, bucketStart: bucket * w, used: Math.max(weighted, strict) };
+    }
     /** How many more sends on path fit right now without waiting. */
     available(path) {
       if (!this.isLimited(path)) return Infinity;
-      return Math.max(0, this.allowance - this.log.inWindow(path, this.windowMs).length);
+      return Math.max(0, this.allowance - this.estimate(path).used);
+    }
+    /** Earliest time at which n more sends fit under BOTH checks, assuming no other sends. */
+    _wakeAt(path, n, now) {
+      const w = this.windowMs, a = this.allowance;
+      const est = this.estimate(path, now);
+      if (est.used + n <= a) return now;
+      let strictWake = now;
+      const inWin = this.log.inWindow(path, w);
+      if (inWin.length + n > a) strictWake = inWin[inWin.length + n - a - 1] + w;
+      let weightedWake = now;
+      if (est.weighted + n > a) {
+        const need = a - n;
+        let inThis = Infinity;
+        if (est.cur <= need && est.prev > 0) {
+          const f = 1 - (need - est.cur + 1) / est.prev;
+          inThis = est.bucketStart + Math.ceil(f * w) + 1;
+        }
+        const nextStart = est.bucketStart + w;
+        let inNext = nextStart + 1;
+        if (est.cur > need) {
+          const f = 1 - (need + 1) / est.cur;
+          inNext = nextStart + Math.ceil(f * w) + 1;
+        }
+        weightedWake = inThis > now && inThis < nextStart ? inThis : inNext;
+      }
+      return Math.max(strictWake, weightedWake, now + 1);
     }
     /**
      * Acquire n tokens for path. Waits (never fails) until the local window has room, then records
@@ -1812,13 +1866,12 @@
       if (n > this.allowance) throw new Error(`cannot acquire ${n} > allowance ${this.allowance} on ${path}; chunk smaller`);
       const t = this.log.tripped();
       if (t) throw new RateLimited({ path: t.path, until: t.until, message: `limiter tripped on ${t.path}; wait until ${new Date(t.until).toISOString()}` });
-      for (; ; ) {
-        const inWin = this.log.inWindow(path, this.windowMs);
-        if (inWin.length + n <= this.allowance) break;
-        const need = inWin.length + n - this.allowance;
-        const wakeAt = inWin[need - 1] + this.windowMs;
+      for (let guard = 0; guard < 1e3; guard++) {
+        const now = this.clock();
+        const wakeAt = this._wakeAt(path, n, now);
+        if (wakeAt <= now) break;
         this.waits++;
-        await this.sleep(Math.max(1, wakeAt - this.clock()));
+        await this.sleep(Math.max(1, wakeAt - now));
       }
       this.log.record(path, n, this.windowMs);
     }
@@ -1832,7 +1885,7 @@
         const r = results[i];
         if (r && r.ok === false && r.error && r.error.code === "TOO_MANY_REQUESTS") {
           const path = r.error.path || paths[i];
-          const until = this.clock() + this.windowMs;
+          const until = (Math.floor(this.clock() / this.windowMs) + 2) * this.windowMs;
           this.log.trip(path, until);
           throw new RateLimited({ path, until, index: i, message: r.error.message });
         }
@@ -1844,11 +1897,15 @@
       const out = {};
       for (const path of this.limited) {
         const inWin = this.log.inWindow(path, this.windowMs);
+        const est = this.estimate(path, now);
         out[path] = {
-          used: inWin.length,
+          used: est.used,
+          strict: inWin.length,
+          weighted: est.weighted,
           allowance: this.allowance,
           serverLimit: this.limit,
-          resetInMs: inWin.length ? Math.max(0, inWin[0] + this.windowMs - now) : 0
+          resetInMs: inWin.length ? Math.max(0, inWin[0] + this.windowMs - now) : 0,
+          bucketEndsInMs: est.bucketStart + this.windowMs - now
         };
       }
       return { paths: out, tripped: this.log.tripped(), waits: this.waits, margin: this.margin };
@@ -1938,6 +1995,21 @@
   // src/runner/validate.mjs
   var AI_EXTRA_KEYS = Object.freeze(["jutsus", "items", "primaryElement", "secondaryElement", "rules", "includeDefaultRules"]);
   var SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updatedAt", "aiProfileId"]);
+  var AI_OMITTED = Object.freeze([
+    "trainingStartedAt",
+    "occupationSignupAt",
+    "currentlyTraining",
+    "deletionAt",
+    "travelFinishAt",
+    "questData",
+    "occupation",
+    "stealthActivatedAt",
+    "stealthCooldownAt",
+    "lastSensoryAt",
+    "covertTrainingType",
+    "covertTrainingStartedAt",
+    "covertTrainingMinutes"
+  ]);
   var SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset" });
   var Validator = class {
     /** @param {object} schemas  the parsed 45d file ({entities: {name: {fields: {...}}}}) or null */
@@ -1967,9 +2039,15 @@
       if (entity === "ai" || entity === "aiProfile") {
         const allowed = new Set(AI_EXTRA_KEYS);
         if (live) for (const k of Object.keys(live)) allowed.add(k);
+        for (const k of AI_OMITTED) allowed.delete(k);
+        for (const k of SERVER_OWNED) allowed.delete(k);
         const check = entity === "aiProfile" ? /* @__PURE__ */ new Set(["rules", "includeDefaultRules"]) : allowed;
+        for (const k of keys) if (AI_OMITTED.includes(k) || entity === "ai" && SERVER_OWNED.includes(k)) out.push(`"${k}" is not writable on an ai (insertAiSchema omits it or the server owns it)`);
         if (live || entity === "aiProfile") {
-          for (const k of keys) if (!check.has(k)) out.push(`unknown key "${k}" for ${entity}`);
+          for (const k of keys) if (!check.has(k) && !AI_OMITTED.includes(k) && !SERVER_OWNED.includes(k)) out.push(`unknown key "${k}" for ${entity}`);
+        }
+        if (entity === "ai" && Array.isArray(data.items)) {
+          for (const t of data.items) if (t && typeof t === "object" && !Array.isArray(t.ids) && t.itemId == null && t.id == null) out.push("items: each entry is {ids: [itemId], number: dropChancePerc} (law 69)");
         }
         if (Array.isArray(data.rules)) out.push(...ruleProblems(data.rules));
       } else {
@@ -2009,8 +2087,20 @@
         continue;
       }
       if (entity === "ai" && k === "items") {
-        const l2 = Array.isArray(live?.items) ? live.items.map((r) => typeof r === "string" ? r : r.itemId ?? r.id).filter(Boolean) : [];
-        const s2 = (asserted.items ?? []).flatMap((t) => typeof t === "string" ? [t] : Array.isArray(t?.ids) ? t.ids : [t?.itemId ?? t?.id]).filter(Boolean);
+        const lm = /* @__PURE__ */ new Map();
+        if (Array.isArray(live?.items)) for (const r of live.items) {
+          if (typeof r === "string") lm.set(r, null);
+          else if (r) lm.set(r.itemId ?? r.id, r.dropChancePerc ?? null);
+        }
+        const sm = /* @__PURE__ */ new Map();
+        for (const t of asserted.items ?? []) {
+          if (typeof t === "string") sm.set(t, null);
+          else if (t && Array.isArray(t.ids)) for (const id of t.ids) sm.set(id, t.number == null ? null : Number(t.number));
+          else if (t) sm.set(t.itemId ?? t.id, t.number == null ? null : Number(t.number));
+        }
+        const l2 = [...lm.keys()].filter(Boolean), s2 = [...sm.keys()].filter(Boolean);
+        const chanceDrift = s2.some((id) => sm.get(id) != null && lm.has(id) && lm.get(id) != null && Number(lm.get(id)) !== sm.get(id));
+        if (chanceDrift) diffs.push({ key: "items.dropChancePerc", sent: Object.fromEntries(sm), live: Object.fromEntries(lm) });
         if (JSON.stringify([...s2].sort()) !== JSON.stringify([...l2].sort())) diffs.push({ key: k, sent: s2, live: l2 });
         continue;
       }
@@ -2235,11 +2325,11 @@
     }
     if (live && Array.isArray(live.jutsus)) out.jutsus = live.jutsus.map((r) => typeof r === "string" ? r : r.jutsuId ?? r.id).filter(Boolean);
     if (live && Array.isArray(live.items)) {
-      out.items = live.items.map((r) => typeof r === "string" ? { ids: [r], number: 1 } : r && Array.isArray(r.ids) ? r : r ? { ids: [r.itemId ?? r.id].filter(Boolean), number: r.number ?? r.quantity ?? 1 } : null).filter((x) => x && x.ids.length);
+      out.items = live.items.map((r) => typeof r === "string" ? { ids: [r], number: 0 } : r && Array.isArray(r.ids) ? r : r ? { ids: [r.itemId ?? r.id].filter(Boolean), number: r.dropChancePerc ?? r.number ?? 0 } : null).filter((x) => x && x.ids.length);
     }
     for (const [k, v] of Object.entries(data)) if (!["rules", "includeDefaultRules"].includes(k)) out[k] = v;
     if (Array.isArray(out.jutsus)) out.jutsus = out.jutsus.map((j) => typeof j === "string" ? j : j && (j.jutsuId || j.id)).filter(Boolean);
-    if (Array.isArray(out.items)) out.items = out.items.map((t) => typeof t === "string" ? { ids: [t], number: 1 } : t && Array.isArray(t.ids) ? t : t ? { ids: [t.itemId || t.id].filter(Boolean), number: t.number ?? t.quantity ?? 1 } : null).filter((x) => x && x.ids.length);
+    if (Array.isArray(out.items)) out.items = out.items.map((t) => typeof t === "string" ? { ids: [t], number: 0 } : t && Array.isArray(t.ids) ? t : t ? { ids: [t.itemId || t.id].filter(Boolean), number: t.number ?? t.dropChancePerc ?? 0 } : null).filter((x) => x && x.ids.length);
     out.isAi = true;
     if (out.userId == null && live && live.userId) out.userId = live.userId;
     return out;
@@ -2427,6 +2517,16 @@
   }
 
   // src/runner/runner.mjs
+  var LEASE_PREFIX = "tnr_forge_lease_v1:";
+  var LEASE_TTL_MS = 3e4;
+  var LeaseHeld = class extends Error {
+    constructor(jobId, lease) {
+      super(`job ${jobId} is being driven by another tab (heartbeat ${Math.round((Date.now() - lease.at) / 1e3)}s ago); wait ${Math.ceil(LEASE_TTL_MS / 1e3)}s or close it`);
+      this.name = "LeaseHeld";
+      this.lease = lease;
+    }
+  };
+  var randomTab = () => Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
   var Paused = class extends Error {
     constructor(reason, info = {}) {
       super(`paused: ${reason}`);
@@ -2457,6 +2557,30 @@
       this.files = /* @__PURE__ */ new Map();
       this.manifests = /* @__PURE__ */ new Map();
       this.pauseRequested = false;
+      this.tabId = d.tabId ?? randomTab();
+      this.clock = d.clock ?? (() => Date.now());
+    }
+    // ------------------------------------------------------------------ lease
+    _leaseKey(jobId) {
+      return LEASE_PREFIX + jobId;
+    }
+    _readLease(jobId) {
+      try {
+        return JSON.parse(this.storage.getItem(this._leaseKey(jobId)) || "null");
+      } catch {
+        return null;
+      }
+    }
+    /** Take or refresh the lease for this tab; throws LeaseHeld if another tab's heartbeat is fresh. */
+    _lease(jobId) {
+      const cur = this._readLease(jobId);
+      const now = this.clock();
+      if (cur && cur.tab !== this.tabId && typeof cur.at === "number" && now - cur.at < LEASE_TTL_MS) throw new LeaseHeld(jobId, cur);
+      this.storage.setItem(this._leaseKey(jobId), JSON.stringify({ tab: this.tabId, at: now }));
+    }
+    _releaseLease(jobId) {
+      const cur = this._readLease(jobId);
+      if (cur && cur.tab === this.tabId) this.storage.removeItem(this._leaseKey(jobId));
     }
     // ------------------------------------------------------------------ lifecycle
     /** Plan a manifest and open a job. Returns the journal job. Does not send anything. */
@@ -2496,11 +2620,13 @@
       if (job.items.some((it) => it.state === "SENT")) {
         throw new Error("job has SENT items; call resume() so they are reconciled before anything else is sent");
       }
+      this._lease(jobId);
       this._syncIdmapFromJob(job);
       this.pauseRequested = false;
       try {
         if (manifest.capture.before.length && !job.capturesBefore) await this._captures(jobId, manifest.capture.before, "before");
         for (let i = 0; i < job.items.length; i++) {
+          this._lease(jobId);
           job = this.journal.get(jobId);
           const item = job.items[i];
           if (["VERIFIED", "FAILED", "SKIPPED"].includes(item.state)) continue;
@@ -2513,9 +2639,11 @@
         if (e instanceof Paused) return this._pause(jobId, e.reason, e);
         if (e instanceof RateLimited) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: e.path, until: e.until });
         if (isTransport(e)) return this._pause(jobId, "NETWORK", { detail: String(e && e.message), httpStatus: e.httpStatus ?? null });
+        this._releaseLease(jobId);
         throw e;
       }
       this.journal.setJobState(jobId, "DONE");
+      this._releaseLease(jobId);
       if (this.reconciler && typeof this.reconciler.forget === "function") this.reconciler.forget(jobId);
       return this.summary(jobId);
     }
@@ -2524,19 +2652,29 @@
       if (!this.reconciler) throw new Error("resume needs a reconciler");
       const { order } = this._m(jobId);
       const job = this.journal.get(jobId);
+      this._lease(jobId);
       this._syncIdmapFromJob(job);
-      for (const item of job.items) {
-        if (item.state !== "SENT") continue;
-        const r = await this.reconciler.resolveSent(job, item, { planned: order[item.idx], lookup: this._lookup(job) });
-        if (r.action === "confirm") {
-          const phase = r.landed ? "verify" : r.phase ?? item.phase;
-          this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: r.entityId ?? item.entityId, phase, reconciled: r.note ?? "confirmed by reconciliation" });
-          if (r.entityId && item.srcId) this._remember(item.srcId, r.entityId);
-        } else if (r.action === "orphan") {
-          this.journal.transition(jobId, item.idx, "ORPHANED", { error: r.note ?? "ambiguous after crash", candidates: r.candidates ?? [] });
-        } else {
-          throw new Error("reconciler returned unknown action " + r.action);
+      try {
+        for (const item of job.items) {
+          if (item.state !== "SENT") continue;
+          const planned = order[item.idx];
+          const r = await this.reconciler.resolveSent(this.journal.get(jobId), item, { planned, lookup: this._lookup(this.journal.get(jobId)) });
+          if (r.action === "confirm") {
+            const owesRules = item.phase === "update" && item.entity === "ai" && Array.isArray(planned?.data?.rules);
+            const phase = r.landed ? owesRules ? "rules" : "verify" : r.phase ?? item.phase;
+            this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: r.entityId ?? item.entityId, phase, reconciled: r.note ?? "confirmed by reconciliation" });
+            if (r.entityId && item.srcId) this._remember(item.srcId, r.entityId);
+          } else if (r.action === "orphan") {
+            this.journal.transition(jobId, item.idx, "ORPHANED", { error: r.note ?? "ambiguous after crash", candidates: r.candidates ?? [] });
+          } else {
+            throw new Error("reconciler returned unknown action " + r.action);
+          }
         }
+      } catch (e) {
+        if (e instanceof RateLimited) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: e.path, until: e.until });
+        if (isTransport(e)) return this._pause(jobId, "NETWORK", { detail: String(e && e.message), httpStatus: e.httpStatus ?? null });
+        this._releaseLease(jobId);
+        throw e;
       }
       return this.run(jobId);
     }
@@ -2762,6 +2900,7 @@
     }
     _pause(jobId, reason, info) {
       this.journal.setJobState(jobId, "PAUSED", { pause: { reason, path: info.path ?? null, until: info.until ?? null, idx: info.idx ?? null, detail: info.detail ?? null, httpStatus: info.httpStatus ?? null } });
+      this._releaseLease(jobId);
       this.log(`paused: ${reason}${info.path ? " on " + info.path : ""}`);
       return this.summary(jobId);
     }
@@ -2915,7 +3054,10 @@
       const prof = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
       if (!prof.ok || !prof.data) return { action: "orphan", candidates: [], note: "ai.getAiProfile unavailable" };
       const want = ctx.planned ? ctx.planned.data.rules ?? [] : null;
-      if (want && JSON.stringify(prof.data.rules ?? []) === JSON.stringify(want)) return { action: "confirm", entityId: item.entityId, phase: "verify", landed: true, note: "rules already landed" };
+      const wantDefault = ctx.planned ? ctx.planned.data.includeDefaultRules : void 0;
+      const rulesLanded = want && JSON.stringify(prof.data.rules ?? []) === JSON.stringify(want);
+      const defaultLanded = wantDefault === void 0 || prof.data.includeDefaultRules === wantDefault;
+      if (rulesLanded && defaultLanded) return { action: "confirm", entityId: item.entityId, phase: "verify", landed: true, note: "rules already landed" };
       return { action: "orphan", candidates: [], note: "rules may not have landed: profile rules differ" };
     }
   };
@@ -3673,9 +3815,217 @@ details summary { cursor:pointer; color:var(--mute); }
     return loc.pathname === HOST_PATH || loc.pathname.startsWith(HOST_PATH + "/");
   }
 
+  // src/runner/fields.json
+  var fields_default = {
+    _provenance: {
+      generator: "forge/tools/derive_fields.mjs",
+      pin: "345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9",
+      note: "top-level keys of each entity validator at the pinned commit; spreads listed for manual review"
+    },
+    entities: {
+      jutsu: {
+        source: "app/src/validators/combat.ts:1290",
+        validator: "JutsuValidatorRawSchema",
+        spreads: [],
+        fields: {
+          name: true,
+          image: true,
+          description: true,
+          battleDescription: true,
+          extraBaseCost: true,
+          jutsuWeapon: true,
+          jutsuType: true,
+          jutsuRank: true,
+          requiredRank: true,
+          requiredLevel: true,
+          method: true,
+          target: true,
+          range: true,
+          statClassification: true,
+          hidden: true,
+          injectableInBattle: true,
+          healthCost: true,
+          chakraCost: true,
+          staminaCost: true,
+          healthCostReducePerLvl: true,
+          chakraCostReducePerLvl: true,
+          staminaCostReducePerLvl: true,
+          actionCostPerc: true,
+          cooldown: true,
+          bloodlineId: true,
+          requiredBloodlineItemId: true,
+          villageId: true,
+          effects: true,
+          battleUsageType: true,
+          parentJutsuId: true,
+          requiredNinjutsuOffence: true,
+          requiredNinjutsuDefence: true,
+          requiredGenjutsuOffence: true,
+          requiredGenjutsuDefence: true,
+          requiredTaijutsuOffence: true,
+          requiredTaijutsuDefence: true,
+          requiredBukijutsuOffence: true,
+          requiredBukijutsuDefence: true,
+          requiredStrength: true,
+          requiredSpeed: true,
+          requiredIntelligence: true,
+          requiredWillpower: true
+        }
+      },
+      item: {
+        source: "app/src/validators/combat.ts:1435",
+        validator: "ItemValidatorRawSchema",
+        spreads: [],
+        fields: {
+          name: true,
+          image: true,
+          description: true,
+          battleDescription: true,
+          stackSize: true,
+          destroyOnUse: true,
+          chakraCost: true,
+          healthCost: true,
+          staminaCost: true,
+          healthCostReducePerLvl: true,
+          chakraCostReducePerLvl: true,
+          staminaCostReducePerLvl: true,
+          actionCostPerc: true,
+          canStack: true,
+          maxImbueNumber: true,
+          maxDurability: true,
+          inShop: true,
+          isEventItem: true,
+          preventBattleUsage: true,
+          hidden: true,
+          cooldown: true,
+          cost: true,
+          repsCost: true,
+          seichiSilverCost: true,
+          range: true,
+          maxEquips: true,
+          method: true,
+          target: true,
+          itemType: true,
+          weaponType: true,
+          rarity: true,
+          slot: true,
+          requiredLevel: true,
+          xpToLevel: true,
+          parentItemId: true,
+          requiredNinjutsuOffence: true,
+          requiredNinjutsuDefence: true,
+          requiredGenjutsuOffence: true,
+          requiredGenjutsuDefence: true,
+          requiredTaijutsuOffence: true,
+          requiredTaijutsuDefence: true,
+          requiredBukijutsuOffence: true,
+          requiredBukijutsuDefence: true,
+          requiredStrength: true,
+          requiredSpeed: true,
+          requiredIntelligence: true,
+          requiredWillpower: true,
+          expireFromStoreAt: true,
+          effects: true,
+          canBeImbued: true,
+          canBeCrafted: true,
+          canBeHunted: true,
+          canBeGathered: true,
+          canBeTraded: true,
+          isFarmSeed: true,
+          farmGrowTimeSeconds: true,
+          farmYieldItemId: true,
+          farmMinLevel: true,
+          farmPlantExperience: true,
+          farmHarvestExperience: true,
+          farmSellValue: true,
+          farmExtractSeedItemId: true,
+          farmExtractSeedCount: true,
+          isFarmFertilizer: true,
+          farmTimeReductionSeconds: true,
+          farmFertilizerExperience: true,
+          craftingExperience: true,
+          crystalTargetTypes: true,
+          bloodlineId: true,
+          battleUsageType: true,
+          craftingRequirements: true
+        }
+      },
+      bloodline: {
+        source: "app/src/validators/combat.ts:1357",
+        validator: "BloodlineValidator",
+        spreads: [],
+        fields: {
+          name: true,
+          image: true,
+          description: true,
+          rank: true,
+          regenIncrease: true,
+          statClassification: true,
+          villageId: true,
+          hidden: true,
+          difficulty: true,
+          traits: true,
+          effects: true
+        }
+      },
+      quest: {
+        source: "app/src/validators/objectives.ts:665",
+        validator: "QuestValidatorRawSchema",
+        spreads: [],
+        fields: {
+          name: true,
+          image: true,
+          description: true,
+          successDescription: true,
+          questRank: true,
+          medicalRank: true,
+          huntingRank: true,
+          gatheringRank: true,
+          requiredLevel: true,
+          requiredFarmingLevel: true,
+          maxLevel: true,
+          maxAttempts: true,
+          maxCompletes: true,
+          requiredVillage: true,
+          requiredBloodlineId: true,
+          requiredSageModeId: true,
+          requiredSageRank: true,
+          prerequisiteQuestId: true,
+          tierLevel: true,
+          questType: true,
+          content: true,
+          hidden: true,
+          retryDelay: true,
+          attemptDelay: true,
+          consecutiveObjectives: true,
+          endsAt: true,
+          startsAt: true,
+          raidBossMaxHealth: true,
+          raidBossCurrentHealth: true
+        }
+      },
+      gameAsset: {
+        source: "app/src/validators/asset.ts:4",
+        validator: "gameAssetValidator",
+        spreads: [],
+        fields: {
+          name: true,
+          image: true,
+          frames: true,
+          speed: true,
+          type: true,
+          licenseDetails: true,
+          onInitialBattleField: true,
+          hidden: true,
+          url: true,
+          folder: true
+        }
+      }
+    }
+  };
+
   // src/main.mjs
-  var VERSION = "forge 0.1.1";
-  var SCHEMA_URL = "https://raw.githubusercontent.com/perseverance484/tnr-tools/main/skills/building-tnr-content/data/45d_DATA_entity_schemas.json";
+  var VERSION = "forge 0.1.2";
   async function boot(win = window) {
     if (!onHostPath(win.location)) return null;
     const { body } = takeover(win.document, win);
@@ -3684,6 +4034,16 @@ details summary { cursor:pointer; color:var(--mute); }
     const storage = win.localStorage;
     const fetchImpl = win.fetch.bind(win);
     const clock = () => Date.now();
+    let tabId;
+    try {
+      tabId = win.sessionStorage.getItem("tnr_forge_tab") || null;
+      if (!tabId) {
+        tabId = Math.random().toString(36).slice(2, 12);
+        win.sessionStorage.setItem("tnr_forge_tab", tabId);
+      }
+    } catch {
+      tabId = void 0;
+    }
     const deps = {};
     try {
       deps.journal = new Journal(storage, clock);
@@ -3695,19 +4055,11 @@ details summary { cursor:pointer; color:var(--mute); }
       deps.reconciler = new Reconciler({ storage, reader: deps.reader, clock });
       deps.github = new Github({ fetchImpl, storage });
       deps.uploader = new Uploader({ session: deps.session, fetchImpl });
-      let schemas = null;
-      try {
-        const r = await fetchImpl(SCHEMA_URL, { cache: "no-cache" });
-        if (r.ok) schemas = await r.json();
-      } catch {
-        schemas = null;
-      }
-      deps.validator = new Validator(schemas);
-      deps.runner = new Runner({ journal: deps.journal, client: deps.client, reader: deps.reader, cache: deps.cache, budget: deps.budget, validator: deps.validator, uploader: deps.uploader, reconciler: deps.reconciler, storage, log: (m) => deps.app && deps.app.log(m) });
+      deps.validator = new Validator(fields_default);
+      deps.runner = new Runner({ journal: deps.journal, client: deps.client, reader: deps.reader, cache: deps.cache, budget: deps.budget, validator: deps.validator, uploader: deps.uploader, reconciler: deps.reconciler, storage, clock, tabId, log: (m) => deps.app && deps.app.log(m) });
       deps.app = new App({ version: VERSION, storage, now: clock, ...deps });
       status.remove();
       deps.app.mount(body, win.document);
-      if (deps.validator.schemaMissing) deps.app.toast("45d field schemas could not be fetched; runs are blocked until they load. Refresh to retry.", "bad", 12e3);
       return deps.app;
     } catch (e) {
       status.textContent = "";

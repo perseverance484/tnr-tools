@@ -15,9 +15,9 @@ import { FakeGame, FakeClient, CrashSignal } from "./fakegame.mjs";
 import { Reconciler } from "../src/reconcile/reconciler.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
 
-const SCHEMAS = JSON.parse(readFileSync(new URL("../../skills/building-tnr-content/data/45d_DATA_entity_schemas.json", import.meta.url), "utf8"));
+const SCHEMAS = JSON.parse(readFileSync(new URL("../src/runner/fields.json", import.meta.url), "utf8"));
 
-function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory(), reconcile = true } = {}) {
+function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory(), reconcile = true, tabId = "tab" } = {}) {
   const clock = fakeClock();
   const journal = new Journal(storage, clock);
   const cache = new CaptureCache(idb, clock);
@@ -25,7 +25,7 @@ function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = n
   const client = new FakeClient(game);
   const reader = new CachedReader({ client, cache, budget });
   const reconciler = reconcile ? new Reconciler({ storage, reader, clock }) : null;
-  const runner = new Runner({ journal, client, reader, cache, budget, validator: new Validator(SCHEMAS), storage, reconciler });
+  const runner = new Runner({ journal, client, reader, cache, budget, validator: new Validator(SCHEMAS), storage, reconciler, clock, tabId });
   return { game, storage, idb, clock, journal, cache, budget, client, reader, runner };
 }
 const M = {
@@ -78,15 +78,15 @@ test("mergeForUpdate picks the 45d field set from live ∪ asserted (relations d
 });
 
 test("mergeAi re-sends the live kit reshaped (omitting jutsus/items would delete them, law 70)", () => {
-  const live = { userId: "u", username: "X", level: 3, isAi: true, aiProfileId: "p", questData: {}, jutsus: [{ jutsuId: "j1", jutsu: {} }], items: [{ itemId: "i1", quantity: 2, item: {} }] };
+  const live = { userId: "u", username: "X", level: 3, isAi: true, aiProfileId: "p", questData: {}, jutsus: [{ jutsuId: "j1", jutsu: {} }], items: [{ itemId: "i1", quantity: 2, dropChancePerc: 15, item: {} }] };
   const out = mergeAi(live, { level: 4 });
   assert.deepEqual(out.jutsus, ["j1"]);
-  assert.deepEqual(out.items, [{ ids: ["i1"], number: 2 }]);
+  assert.deepEqual(out.items, [{ ids: ["i1"], number: 15 }], "number is dropChancePerc (law 69), never quantity");
   assert.equal(out.level, 4); assert.equal(out.isAi, true);
   assert.ok(!("questData" in out)); assert.ok(!("aiProfileId" in out) || out.aiProfileId === "p");
   assert.ok(!("rules" in out));
   const asserted = mergeAi(live, { jutsus: ["j9"], items: ["i9"] });
-  assert.deepEqual(asserted.jutsus, ["j9"]); assert.deepEqual(asserted.items, [{ ids: ["i9"], number: 1 }]);
+  assert.deepEqual(asserted.jutsus, ["j9"]); assert.deepEqual(asserted.items, [{ ids: ["i9"], number: 0 }], "a bare id carries no drop chance");
 });
 
 // ---------------------------------------------------------------- happy paths
