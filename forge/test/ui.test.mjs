@@ -1,6 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, writeFileSync, mkdirSync, mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { checkReleasePin } from "../tools/check_release_pin.mjs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { IDBFactory } from "fake-indexeddb";
@@ -163,6 +165,43 @@ test("a finished-but-unverified job is never shown or exported as success", asyn
   assert.equal(exported.postflight.diff, 1);
   assert.equal(exported.postflight.match, 0);
   assert.equal(exported.postflight.unresolved, 1);
+});
+
+
+test("release pin: the forge loader cannot silently float on a branch", () => {
+  const problems = checkReleasePin();
+  const blockers = problems.filter((p) => p.level === "blocker");
+  assert.deepEqual(blockers, [], blockers.map((b) => b.text).join("; "));
+  // the one thing this branch cannot do for itself: installing a workflow needs dauntless (the PAT
+  // cannot push .github/workflows/). It is reported, not hidden, and this assertion goes green by
+  // itself once the staged copy is installed.
+  for (const p of problems) assert.match(p.text, /^\.github\/workflows\/release_pin\.yml does not pin forge/, p.text);
+});
+
+test("release pin: pinning turns the branch URL into a commit URL and drops the marker", () => {
+  // exercise the loader-rewrite the workflow performs, on a copy, so a regression in either the
+  // loader's shape or the check's rules is caught here rather than after a release
+  const root = mkdtempSync(join(tmpdir(), "forge-pin-"));
+  mkdirSync(join(root, "forge"), { recursive: true });
+  mkdirSync(join(root, "state", "staged_workflows"), { recursive: true });
+  const repo = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
+  const loader = readFileSync(join(repo, "forge_loader_user.js"), "utf8");
+  const pkg = JSON.parse(readFileSync(join(repo, "forge", "package.json"), "utf8"));
+  const sha = "a".repeat(40);
+  const pinned = loader
+    .replace(/(\/\/ @require\s+)\S*forge_bundle\.js\S*/, `$1https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@${sha}/forge_bundle.js`)
+    .replace(/^\/\/ @x-unpinned-until-release.*\n/m, "");
+  writeFileSync(join(root, "forge_loader_user.js"), pinned);
+  writeFileSync(join(root, "forge", "package.json"), JSON.stringify(pkg));
+  writeFileSync(join(root, "state", "staged_workflows", "release_pin.yml"), readFileSync(join(repo, "state", "staged_workflows", "release_pin.yml"), "utf8"));
+  assert.deepEqual(checkReleasePin({ root }), [], "a pinned loader with the staged workflow is clean");
+  // and the reverse: a floating URL with no marker is a blocker
+  writeFileSync(join(root, "forge_loader_user.js"), pinned.replace(sha, "some-branch"));
+  assert.match(checkReleasePin({ root }).map((p) => p.text).join(";"), /floats on "some-branch" with no @x-unpinned-until-release marker/);
+  // and a version that did not rise with the bundle is a blocker
+  writeFileSync(join(root, "forge_loader_user.js"), pinned.replace(/(\/\/ @version\s+)\S+/, "$10.0.1"));
+  assert.match(checkReleasePin({ root }).map((p) => p.text).join(";"), /@version 0\.0\.1 != forge\/package\.json/);
+  rmSync(root, { recursive: true, force: true });
 });
 
 test("a screen that throws is shown as an error banner, never a blank page", () => {

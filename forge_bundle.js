@@ -1,4 +1,4 @@
-// TNR forge bundle v0.1.3 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.2.0 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Host: any unmatched path on the game origin (/forge). Layers: storage, transport, budget, runner, reconcile, ui.
 // Pinned engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
@@ -10340,7 +10340,7 @@ details summary { cursor:pointer; color:var(--mute); }
   };
 
   // src/main.mjs
-  var VERSION = "forge 0.1.3";
+  var VERSION = "forge 0.2.0";
   function compose({
     storage,
     indexedDB,
