@@ -1,4 +1,4 @@
-// TNR forge bundle v0.1.2 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.1.3 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Host: any unmatched path on the game origin (/forge). Layers: storage, transport, budget, runner, reconcile, ui.
 // Pinned engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
@@ -73,6 +73,20 @@
       verifiedAt: null,
       error: null
     };
+  }
+  function repairHistory(job) {
+    if (!job || !Array.isArray(job.items)) return job;
+    for (const it of job.items) {
+      if (!it || typeof it !== "object" || it.state !== "PLANNED") continue;
+      const proof = ["sentAt", "createSentAt", "confirmedAt", "verifiedAt"].filter((k) => it[k]);
+      if (!proof.length) continue;
+      it.state = "SENT";
+      if (it.createSentAt && !it.entityId) it.phase = "create";
+      else if (!it.phase || it.phase === "create") it.phase = it.entityId ? "update" : "create";
+      it.sentAt = it.sentAt || it.createSentAt || it.confirmedAt || it.verifiedAt;
+      it.repaired = `state PLANNED contradicted by ${proof.join(", ")}; restored to SENT for reconciliation`;
+    }
+    return job;
   }
   function validateJobShape(job) {
     if (!job || typeof job !== "object" || Array.isArray(job)) throw new JournalError("journal record is not an object");
@@ -283,6 +297,21 @@
       return this._mustRead(jobId).items.filter((it) => it.state === "SENT");
     }
     /** Every entityId any job in this journal has recorded (for cross-job orphan reconciliation). */
+    /**
+     * Which item, in ANY job, already holds this entityId. Excludes the caller's own item.
+     * Adoption and reconciliation both consult it: two items pointing at one row means the second
+     * one's update overwrites the first one's content, and the server keeps no job provenance.
+     */
+    findHolder(entity, entityId, { exceptJobId = null, exceptIdx = null } = {}) {
+      if (!entityId) return null;
+      for (const job of this.listJobs()) {
+        for (const it of job.items) {
+          if (job.jobId === exceptJobId && it.idx === exceptIdx) continue;
+          if (it.entityId === entityId && (!entity || it.entity === entity)) return { jobId: job.jobId, idx: it.idx, name: it.name ?? null, state: it.state };
+        }
+      }
+      return null;
+    }
     knownEntityIds(entity = null) {
       const ids = /* @__PURE__ */ new Set();
       for (const job of this.listJobs()) for (const it of job.items) if (it.entityId && (!entity || it.entity === entity)) ids.add(it.entityId);
@@ -308,7 +337,7 @@
       v = job.v;
     }
     job.v = v;
-    return job;
+    return repairHistory(job);
   }
 
   // src/storage/captures.mjs
@@ -1387,7 +1416,7 @@
     }
     throw new TransportError("unknown kind: " + kind);
   }
-  function decodeResponse(status, text, expectedCount) {
+  function decodeResponse(status, text, expectedCount, { mutation = false } = {}) {
     let body;
     try {
       body = JSON.parse(text);
@@ -1409,13 +1438,14 @@
       try {
         return decodeElement(el, i, status);
       } catch (e) {
+        if (mutation) throw new TransportError(`mutation response element ${i} is not a tRPC result or error: ${e.message}`, { httpStatus: status, index: i, element: el });
         return { ok: false, error: { code: "MALFORMED_ELEMENT", httpStatus: status, message: e.message, path: null, zodError: null, raw: el } };
       }
     });
   }
   function isTrpcErrorBody(body) {
     const j = body && typeof body === "object" && body.error && typeof body.error === "object" ? body.error.json : null;
-    return !!(j && typeof j === "object" && typeof j.message === "string" && j.data && typeof j.data === "object" && typeof j.data.code === "string");
+    return !!(j && typeof j === "object" && typeof j.message === "string" && typeof j.code === "number" && j.data && typeof j.data === "object" && typeof j.data.code === "string");
   }
   function decodeElement(el, i, status) {
     if (el && el.result && el.result.data !== void 0) {
@@ -1596,7 +1626,7 @@
       }
       let decoded;
       try {
-        decoded = decodeResponse(res.status, text, calls.length);
+        decoded = decodeResponse(res.status, text, calls.length, { mutation: kind === "mutation" });
       } catch (e) {
         const ct = res.headers && res.headers.get ? res.headers.get("content-type") : null;
         Object.assign(e, {
@@ -2010,7 +2040,7 @@
     "covertTrainingStartedAt",
     "covertTrainingMinutes"
   ]);
-  var SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset" });
+  var SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai" });
   var Validator = class {
     /** @param {object} schemas  the parsed 45d file ({entities: {name: {fields: {...}}}}) or null */
     constructor(schemas) {
@@ -2038,14 +2068,17 @@
       const keys = Object.keys(data);
       if (entity === "ai" || entity === "aiProfile") {
         const allowed = new Set(AI_EXTRA_KEYS);
+        if (entity === "ai") {
+          const pinned = this.knownFields("ai");
+          if (!pinned) out.push("no pinned insertAiSchema field set: cannot validate ai keys");
+          else for (const k of pinned) allowed.add(k);
+        }
         if (live) for (const k of Object.keys(live)) allowed.add(k);
         for (const k of AI_OMITTED) allowed.delete(k);
         for (const k of SERVER_OWNED) allowed.delete(k);
         const check = entity === "aiProfile" ? /* @__PURE__ */ new Set(["rules", "includeDefaultRules"]) : allowed;
         for (const k of keys) if (AI_OMITTED.includes(k) || entity === "ai" && SERVER_OWNED.includes(k)) out.push(`"${k}" is not writable on an ai (insertAiSchema omits it or the server owns it)`);
-        if (live || entity === "aiProfile") {
-          for (const k of keys) if (!check.has(k) && !AI_OMITTED.includes(k) && !SERVER_OWNED.includes(k)) out.push(`unknown key "${k}" for ${entity}`);
-        }
+        for (const k of keys) if (!check.has(k) && !AI_OMITTED.includes(k) && !SERVER_OWNED.includes(k)) out.push(`unknown key "${k}" for ${entity}`);
         if (entity === "ai" && Array.isArray(data.items)) {
           for (const t of data.items) if (t && typeof t === "object" && !Array.isArray(t.ids) && t.itemId == null && t.id == null) out.push("items: each entry is {ids: [itemId], number: dropChancePerc} (law 69)");
         }
@@ -2135,7 +2168,12 @@
     return !!v && typeof v === "object" && typeof v.success === "boolean" && typeof v.message === "string";
   }
   function readMutation(decoded) {
-    if (!decoded.ok) return { kind: "error", message: decoded.error.message, error: decoded.error };
+    if (!decoded.ok) {
+      if (decoded.error.code === "MALFORMED_ELEMENT") {
+        throw new OutcomeError("mutation element is undecodable; the write may have landed: " + decoded.error.message, { error: decoded.error, ambiguous: true });
+      }
+      return { kind: "error", message: decoded.error.message, error: decoded.error };
+    }
     const d = decoded.data;
     if (!isBaseServerResponse(d)) {
       throw new OutcomeError("mutation returned something other than baseServerResponse", { data: d });
@@ -2689,8 +2727,8 @@
       if (!item) throw new Error("no such item " + idx);
       if (item.state !== "ORPHANED") throw new Error(`adopt needs an ORPHANED item; ${item.idx} is ${item.state}`);
       if (!entityId) throw new Error("adopt needs an id");
-      const holder = job.items.find((it) => it.idx !== idx && it.entityId === entityId);
-      if (holder) throw new Error(`${entityId} is already held by item ${holder.idx} (${holder.name})`);
+      const holder = this.journal.findHolder(item.entity, entityId, { exceptJobId: jobId, exceptIdx: idx });
+      if (holder) throw new Error(`${entityId} is already held by job ${holder.jobId} item ${holder.idx} (${holder.name}) in state ${holder.state}`);
       const phase = item.phase === "create" || !item.entityId ? "update" : item.phase;
       this.journal.transition(jobId, idx, "CONFIRMED", { entityId, phase, adopted: true, error: null });
       if (item.srcId) this._remember(item.srcId, entityId);
@@ -2962,7 +3000,9 @@
      * @param {import("../budget/reader.mjs").CachedReader} o.reader
      * @param {() => number} [o.clock]
      */
-    constructor({ storage, reader, clock = () => Date.now(), journal = null }) {
+    constructor({ storage, reader, clock = () => Date.now(), journal }) {
+      if (!journal || typeof journal.knownEntityIds !== "function") throw new Error("Reconciler needs the journal: without it cross-job adoption cannot be excluded");
+      if (!storage || !reader) throw new Error("Reconciler needs storage and reader");
       this.storage = storage;
       this.reader = reader;
       this.clock = clock;
@@ -3021,7 +3061,7 @@
       if (!list.ok || !Array.isArray(list.data)) return { action: "orphan", candidates: [], note: `${rc.names} unavailable: ${list.ok ? "no list" : list.error.code}` };
       const before = new Set(snap.ids);
       const owned = new Set(job.items.filter((it) => it.entity === item.entity && it.entityId && it.idx !== item.idx).map((it) => it.entityId));
-      if (this.journal) for (const id of this.journal.knownEntityIds(item.entity)) owned.add(id);
+      for (const id of this.journal.knownEntityIds(item.entity)) owned.add(id);
       const rows = list.data.filter((r) => !before.has(r[rc.idKey]) && !owned.has(r[rc.idKey]));
       const pending = job.items.filter((it) => it.entity === item.entity && it.state === "SENT" && (it.phase === "create" || !it.entityId));
       const candidates = rows.map((r) => ({ id: r[rc.idKey], name: r[rc.nameKey] ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));
@@ -4020,19 +4060,259 @@ details summary { cursor:pointer; color:var(--mute); }
           url: true,
           folder: true
         }
+      },
+      ai: {
+        source: "app/drizzle/schema.ts:2577",
+        validator: "insertAiSchema",
+        spreads: [],
+        columns: 168,
+        omitted: [
+          "covertTrainingMinutes",
+          "covertTrainingStartedAt",
+          "covertTrainingType",
+          "currentlyTraining",
+          "deletionAt",
+          "lastSensoryAt",
+          "occupation",
+          "occupationSignupAt",
+          "questData",
+          "stealthActivatedAt",
+          "stealthCooldownAt",
+          "trainingStartedAt",
+          "travelFinishAt"
+        ],
+        extended: [
+          "bukijutsuDefence",
+          "bukijutsuOffence",
+          "effects",
+          "genjutsuDefence",
+          "genjutsuOffence",
+          "intelligence",
+          "isSummon",
+          "items",
+          "jutsus",
+          "level",
+          "ninjutsuDefence",
+          "ninjutsuOffence",
+          "poolsMultiplier",
+          "primaryElement",
+          "regeneration",
+          "secondaryElement",
+          "speed",
+          "statsMultiplier",
+          "strength",
+          "taijutsuDefence",
+          "taijutsuOffence",
+          "willpower"
+        ],
+        fields: {
+          activeNpcQuestId: true,
+          aiCalls: true,
+          aiProfileId: true,
+          anbuId: true,
+          approvedTos: true,
+          avatar: true,
+          avatar3d: true,
+          avatarFacing: true,
+          avatarLight: true,
+          bank: true,
+          battleId: true,
+          bloodlineId: true,
+          bloodlineReskinId: true,
+          bracketImmunityLiftedUntil: true,
+          bukijutsuDefence: true,
+          bukijutsuOffence: true,
+          buttonSfxOn: true,
+          clanId: true,
+          craftingExperience: true,
+          createdAt: true,
+          crimesA: true,
+          crimesB: true,
+          crimesC: true,
+          crimesD: true,
+          crimesH: true,
+          crimesS: true,
+          curChakra: true,
+          curHealth: true,
+          curStamina: true,
+          customTitle: true,
+          dailyArenaFights: true,
+          dailyErrands: true,
+          dailyMedicalMissions: true,
+          dailyMissions: true,
+          dailyOverworldQuestRolls: true,
+          dailyPvpMissions: true,
+          dailySageActivations: true,
+          dailyTrainings: true,
+          dailyWarMissions: true,
+          defaultAutoCombat: true,
+          earnedExperience: true,
+          effects: true,
+          errands: true,
+          experience: true,
+          extraItemSlots: true,
+          extraJutsuSlots: true,
+          extraReskinSlots: true,
+          farmCurrency: true,
+          farmExtractorsOwned: true,
+          farmPlotsPurchased: true,
+          farmingExperience: true,
+          federalStatus: true,
+          gatheringExperience: true,
+          gender: true,
+          genjutsuDefence: true,
+          genjutsuOffence: true,
+          homeType: true,
+          huntingExperience: true,
+          iframesMuted: true,
+          immunityUntil: true,
+          inArena: true,
+          inShrines: true,
+          inboxNews: true,
+          intelligence: true,
+          isAi: true,
+          isBanned: true,
+          isEvent: true,
+          isOutlaw: true,
+          isSilenced: true,
+          isSummon: true,
+          isTradeBanned: true,
+          isWarned: true,
+          itemLoadout: true,
+          items: true,
+          joinedVillageAt: true,
+          jutsuLoadout: true,
+          jutsus: true,
+          lastIp: true,
+          latitude: true,
+          level: true,
+          location: true,
+          longitude: true,
+          marriageSlots: true,
+          maxChakra: true,
+          maxHealth: true,
+          maxStamina: true,
+          medicalExperience: true,
+          missionsA: true,
+          missionsB: true,
+          missionsC: true,
+          missionsD: true,
+          missionsH: true,
+          missionsS: true,
+          money: true,
+          movedTooFastCount: true,
+          musicOn: true,
+          nRecruited: true,
+          ninjutsuDefence: true,
+          ninjutsuOffence: true,
+          poolsMultiplier: true,
+          preferredGeneral1: true,
+          preferredGeneral2: true,
+          preferredStat: true,
+          primaryElement: true,
+          pveFights: true,
+          pvpActivity: true,
+          pvpFights: true,
+          pvpStreak: true,
+          questFinishAt: true,
+          rank: true,
+          rankedBattles: true,
+          rankedLoadout: true,
+          rankedLp: true,
+          rankedStreak: true,
+          rankedWins: true,
+          recruiterId: true,
+          regenAt: true,
+          regeneration: true,
+          reputationPoints: true,
+          reputationPointsTotal: true,
+          robImmunityUntil: true,
+          role: true,
+          sageMasteryExperience: true,
+          sageModeId: true,
+          secondaryElement: true,
+          sector: true,
+          seichiSilver: true,
+          senseiId: true,
+          sensory: true,
+          sfxOn: true,
+          showBattleDescription: true,
+          skillPoints: true,
+          speed: true,
+          staffAccount: true,
+          statsMultiplier: true,
+          status: true,
+          stealth: true,
+          stealthActive: true,
+          strength: true,
+          taijutsuDefence: true,
+          taijutsuOffence: true,
+          tavernMessages: true,
+          tavernTitleColor: true,
+          tavernUsernameColor: true,
+          towerDefensePoints: true,
+          trainingSpeed: true,
+          tutorialOn: true,
+          tutorialStep: true,
+          unreadNews: true,
+          unreadNotifications: true,
+          updatedAt: true,
+          userId: true,
+          username: true,
+          villageId: true,
+          villagePrestige: true,
+          warParticipantUntil: true,
+          willpower: true
+        }
       }
     }
   };
 
   // src/main.mjs
-  var VERSION = "forge 0.1.2";
+  var VERSION = "forge 0.1.3";
+  function compose({
+    storage,
+    indexedDB,
+    fetchImpl,
+    clock = () => Date.now(),
+    tabId,
+    log = () => {
+    },
+    client = null,
+    sleep
+  } = {}) {
+    const deps = {};
+    deps.journal = new Journal(storage, clock);
+    deps.cache = new CaptureCache(indexedDB, clock);
+    deps.session = new CookieSession({ fetchImpl, origin: "" });
+    deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`) });
+    deps.budget = new Budget({ storage, clock, ...sleep ? { sleep } : {} });
+    deps.reader = new CachedReader({ client: deps.client, cache: deps.cache, budget: deps.budget });
+    deps.reconciler = new Reconciler({ storage, reader: deps.reader, clock, journal: deps.journal });
+    deps.github = new Github({ fetchImpl, storage });
+    deps.uploader = new Uploader({ session: deps.session, fetchImpl });
+    deps.validator = new Validator(fields_default);
+    deps.runner = new Runner({
+      journal: deps.journal,
+      client: deps.client,
+      reader: deps.reader,
+      cache: deps.cache,
+      budget: deps.budget,
+      validator: deps.validator,
+      uploader: deps.uploader,
+      reconciler: deps.reconciler,
+      storage,
+      clock,
+      tabId,
+      log
+    });
+    return deps;
+  }
   async function boot(win = window) {
     if (!onHostPath(win.location)) return null;
     const { body } = takeover(win.document, win);
     const status = h("div", { style: { padding: "16px", fontFamily: "system-ui", color: "#e8eaf0", background: "#0f1115", minHeight: "100vh" } }, "TNR forge: starting\u2026");
     body.appendChild(status);
-    const storage = win.localStorage;
-    const fetchImpl = win.fetch.bind(win);
     const clock = () => Date.now();
     let tabId;
     try {
@@ -4044,20 +4324,17 @@ details summary { cursor:pointer; color:var(--mute); }
     } catch {
       tabId = void 0;
     }
-    const deps = {};
+    let deps = {};
     try {
-      deps.journal = new Journal(storage, clock);
-      deps.cache = new CaptureCache(win.indexedDB, clock);
-      deps.session = new CookieSession({ fetchImpl, origin: "" });
-      deps.client = new TrpcClient(deps.session, { onExchange: (r) => deps.app && deps.app.log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`) });
-      deps.budget = new Budget({ storage, clock });
-      deps.reader = new CachedReader({ client: deps.client, cache: deps.cache, budget: deps.budget });
-      deps.reconciler = new Reconciler({ storage, reader: deps.reader, clock });
-      deps.github = new Github({ fetchImpl, storage });
-      deps.uploader = new Uploader({ session: deps.session, fetchImpl });
-      deps.validator = new Validator(fields_default);
-      deps.runner = new Runner({ journal: deps.journal, client: deps.client, reader: deps.reader, cache: deps.cache, budget: deps.budget, validator: deps.validator, uploader: deps.uploader, reconciler: deps.reconciler, storage, clock, tabId, log: (m) => deps.app && deps.app.log(m) });
-      deps.app = new App({ version: VERSION, storage, now: clock, ...deps });
+      deps = compose({
+        storage: win.localStorage,
+        indexedDB: win.indexedDB,
+        fetchImpl: win.fetch.bind(win),
+        clock,
+        tabId,
+        log: (m) => deps.app && deps.app.log(m)
+      });
+      deps.app = new App({ version: VERSION, storage: win.localStorage, now: clock, ...deps });
       status.remove();
       deps.app.mount(body, win.document);
       return deps.app;

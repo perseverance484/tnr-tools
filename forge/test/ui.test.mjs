@@ -17,6 +17,7 @@ import { App } from "../src/ui/app.mjs";
 import { takeover, onHostPath, HOST_PATH } from "../src/ui/takeover.mjs";
 import { FakeGame, FakeClient } from "./fakegame.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
+import { composeForTest } from "./compose.mjs";
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "src");
 const SCHEMAS = JSON.parse(readFileSync(new URL("../src/runner/fields.json", import.meta.url), "utf8"));
@@ -44,19 +45,10 @@ function dom() {
 }
 
 function appWith({ game = new FakeGame(), storage = new MemoryStorage() } = {}) {
-  const clock = fakeClock();
-  const journal = new Journal(storage, clock);
-  const cache = new CaptureCache(new IDBFactory(), clock);
-  const budget = new Budget({ storage, clock, sleep: async (ms) => clock.tick(ms) });
-  const client = new FakeClient(game);
-  const reader = new CachedReader({ client, cache, budget });
-  const reconciler = new Reconciler({ storage, reader, clock });
-  const validator = new Validator(SCHEMAS);
-  const runner = new Runner({ journal, client, reader, cache, budget, validator, storage, reconciler });
-  const session = new CookieSession({ fetchImpl: async () => new Response("[]") });
-  const github = { list: async () => [{ name: "45_x.json", path: "push/45_x.json", sha: "s", size: 1, type: "file" }], text: async () => JSON.stringify({ items: [{ entity: "jutsu", slot: "create", name: "A", srcId: "a", data: { name: "A", hidden: true } }] }), put: async () => ({ sha: "abc" }) };
-  const app = new App({ version: "test", storage, journal, cache, budget, reader, client, session, runner, reconciler, github, validator, now: clock });
-  return { app, game, storage, journal, clock };
+  const d = composeForTest({ game, storage });
+  d.github = { list: async () => [{ name: "45_x.json", path: "push/45_x.json", sha: "s", size: 1, type: "file" }], text: async () => JSON.stringify({ items: [{ entity: "jutsu", slot: "create", name: "A", srcId: "a", data: { name: "A", hidden: true } }] }), put: async () => ({ sha: "abc" }) };
+  const app = new App({ version: "test", storage, now: d.clock, ...d });
+  return { app, game, storage, journal: d.journal, clock: d.clock };
 }
 
 test("takeover: host path check and document replacement without innerHTML", () => {

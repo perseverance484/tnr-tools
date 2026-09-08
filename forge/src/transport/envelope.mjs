@@ -58,7 +58,15 @@ export function buildRequest(calls, kind, { endpoint = ENDPOINT } = {}) {
  * @returns {Array<{ok: true, data: any} | {ok: false, error: DecodedError}>}
  * DecodedError = { code: string, httpStatus: number|null, message: string, path: string|null, zodError: array|null, raw: object }
  */
-export function decodeResponse(status, text, expectedCount) {
+/**
+ * @param {object} [opts]
+ * @param {boolean} [opts.mutation]  a mutation batch. A malformed element is then FATAL: the
+ *   request reached a server that may have run the resolver, so the only honest outcome is
+ *   "undecodable, therefore ambiguous". Fabricating a per-index error here would let the runner
+ *   mark an already-SENT mutation terminally FAILED with the write possibly applied.
+ *   Queries keep per-element salvage: a read that is missing costs a re-read, never a row.
+ */
+export function decodeResponse(status, text, expectedCount, { mutation = false } = {}) {
   let body;
   try { body = JSON.parse(text); } catch (e) {
     throw new TransportError("response is not JSON", { httpStatus: status, snippet: String(text).slice(0, 200) });
@@ -81,16 +89,23 @@ export function decodeResponse(status, text, expectedCount) {
   if (expectedCount != null && body.length !== expectedCount) {
     throw new TransportError(`batch length mismatch: expected ${expectedCount}, got ${body.length}`, { httpStatus: status });
   }
-  // one malformed element must not discard its well-formed siblings
+  // one malformed element must not discard its well-formed siblings (queries only; see above)
   return body.map((el, i) => {
     try { return decodeElement(el, i, status); }
-    catch (e) { return { ok: false, error: { code: "MALFORMED_ELEMENT", httpStatus: status, message: e.message, path: null, zodError: null, raw: el } }; }
+    catch (e) {
+      if (mutation) throw new TransportError(`mutation response element ${i} is not a tRPC result or error: ${e.message}`, { httpStatus: status, index: i, element: el });
+      return { ok: false, error: { code: "MALFORMED_ELEMENT", httpStatus: status, message: e.message, path: null, zodError: null, raw: el } };
+    }
   });
 }
 
 export function isTrpcErrorBody(body) {
   const j = body && typeof body === "object" && body.error && typeof body.error === "object" ? body.error.json : null;
-  return !!(j && typeof j === "object" && typeof j.message === "string" && j.data && typeof j.data === "object" && typeof j.data.code === "string");
+  // the exact adapter shape, jsonrpc `code` included: every recorded adapter error carries a
+  // numeric code (test/fixtures/envelope/*.json). Anything looser is an intermediary's body and
+  // must stay undecodable, so a mutation behind it remains ambiguous rather than per-index failed.
+  return !!(j && typeof j === "object" && typeof j.message === "string" && typeof j.code === "number"
+    && j.data && typeof j.data === "object" && typeof j.data.code === "string");
 }
 
 function decodeElement(el, i, status) {

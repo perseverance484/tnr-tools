@@ -201,8 +201,10 @@ export class Runner {
     if (!item) throw new Error("no such item " + idx);
     if (item.state !== "ORPHANED") throw new Error(`adopt needs an ORPHANED item; ${item.idx} is ${item.state}`);
     if (!entityId) throw new Error("adopt needs an id");
-    const holder = job.items.find((it) => it.idx !== idx && it.entityId === entityId);
-    if (holder) throw new Error(`${entityId} is already held by item ${holder.idx} (${holder.name})`);
+    // journal-global, not job-local: an id another JOB holds is the same overwrite hazard, and the
+    // orphan UI accepts a pasted id when there are no candidates (adversarial review F2)
+    const holder = this.journal.findHolder(item.entity, entityId, { exceptJobId: jobId, exceptIdx: idx });
+    if (holder) throw new Error(`${entityId} is already held by job ${holder.jobId} item ${holder.idx} (${holder.name}) in state ${holder.state}`);
     const phase = item.phase === "create" || !item.entityId ? "update" : item.phase;
     this.journal.transition(jobId, idx, "CONFIRMED", { entityId, phase, adopted: true, error: null });
     if (item.srcId) this._remember(item.srcId, entityId);
