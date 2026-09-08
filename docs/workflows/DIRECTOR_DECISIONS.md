@@ -38,9 +38,11 @@ Until resolved:
 - keep prototypes/reversible explorations clearly labeled;
 - do not treat an existing live value as approval merely because it exists.
 
-## 4. Record the ruling in the correct owner
+## 4. Record the ruling and update its canonical owner
 
-After the user decides, record the result only where it belongs:
+After the user decides, append a durable historical entry to `docs/RULINGS.md` when the decision materially affects future work. The ledger records what was ruled, why, and what source owns the operative rule.
+
+Then update the actual canonical owner when one is required:
 
 - cross-surface rule → `docs/DOCTRINE.md` and its projection process if that is the canonical owner;
 - engine law → `docs/ENGINE_LAWS.md` through the law/reconciliation process;
@@ -48,7 +50,9 @@ After the user decides, record the result only where it belongs:
 - operational state → existing `state/` machinery;
 - art-production status → existing art backlog/produced state where applicable.
 
-Do not create a second canonical ruling database under `docs/agents/` or `docs/workflows/`.
+`docs/RULINGS.md` is a historical ledger/index, **not** a competing source of operative doctrine, engine contracts, generated data, or current state. Do not copy full canonical rules into the ledger merely to make it self-contained.
+
+When a later ruling changes an earlier one, add a new ruling with a `supersedes` reference. Do not silently rewrite history.
 
 ## 5. Shared-workstream rulings
 
