@@ -28,6 +28,14 @@ export class ValidationError extends Error {
 // rules envelope the runner routes to ai.updateAiProfile.
 export const AI_EXTRA_KEYS = Object.freeze(["jutsus", "items", "primaryElement", "secondaryElement", "rules", "includeDefaultRules"]);
 
+// `hidden` is not a userData column and insertAiSchema does not extend it, so the server strips
+// it. The repository rule (validate.py check_entry, law 16b) is that EVERY create carries
+// hidden:true, "where the column does not exist the key is stripped harmlessly" - so a Lane B
+// manifest written for the current builder carries it on an ai create too. Refusing it as an
+// unknown key would reject a manifest for obeying the repo's own rule, so it is accepted here,
+// dropped by the pinned-field merge before the send, and excluded from the read-back diff.
+export const AI_STRIPPED_OK = Object.freeze(["hidden"]);
+
 // Keys the server owns. Sending them is harmless (stripped) but they are never "asserted".
 export const SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updatedAt", "aiProfileId"]);
 
@@ -69,7 +77,7 @@ export class Validator {
     if (!data || typeof data !== "object") return ["data is not an object"];
     const keys = Object.keys(data);
     if (entity === "ai" || entity === "aiProfile") {
-      const allowed = new Set(AI_EXTRA_KEYS);
+      const allowed = new Set([...AI_EXTRA_KEYS, ...AI_STRIPPED_OK]);
       if (entity === "ai") {
         const pinned = this.knownFields("ai"); // insertAiSchema at the pin: known without a live row
         if (!pinned) out.push("no pinned insertAiSchema field set: cannot validate ai keys");
@@ -121,6 +129,7 @@ export function diffAsserted(entity, asserted, live) {
   for (const k of Object.keys(asserted)) {
     if (SERVER_OWNED.includes(k)) continue;
     if (entity === "ai" && ["rules", "includeDefaultRules"].includes(k)) continue; // verified via the profile read
+    if (entity === "ai" && AI_STRIPPED_OK.includes(k)) continue; // never reaches the server; see AI_STRIPPED_OK
     if (entity === "ai" && k === "jutsus") { // live row carries relation rows; compare ids
       const l = Array.isArray(live?.jutsus) ? live.jutsus.map((r) => (typeof r === "string" ? r : r.jutsuId ?? r.id)) : [];
       const s = (asserted.jutsus ?? []).map((j) => (typeof j === "string" ? j : j?.jutsuId ?? j?.id));

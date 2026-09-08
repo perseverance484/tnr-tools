@@ -9,6 +9,8 @@
 
 import { payloadHash, stableStringify, fnv1a32 } from "../storage/hash.mjs";
 import { collectRefs, REF_RE } from "./refs.mjs";
+import { resolvePoolCodes, stuckPoolCodes, kitProblems } from "./pool.mjs";
+import { lintManifest } from "./lints.mjs";
 
 export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile"]);
 const SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
@@ -42,6 +44,23 @@ export function parseManifest(source) {
     if (it.srcId) { if (srcIds.has(it.srcId)) problems.push(`duplicate srcId ${it.srcId}`); srcIds.add(it.srcId); }
     if (it.entity === "aiProfile" && it.op === "create") problems.push(`item ${it.idx}: aiProfile cannot be created directly; create an ai with rules`);
   }
+  // Pool codes are resolved HERE, at parse time, which is before any create, image upload or
+  // update can happen for any item (readiness brief 5a / TNR-01). A code that survives resolution
+  // would be sent as a literal and stripped server-side, leaving an empty kit behind a green row,
+  // so it is a hard problem and no job is opened. Only ai/aiProfile entries carry kits.
+  let poolResolved = 0;
+  for (const it of items) {
+    if (it.entity !== "ai" && it.entity !== "aiProfile") continue;
+    const r = resolvePoolCodes(it.data);
+    it.data = r.data;
+    poolResolved += r.resolved;
+  }
+  for (const it of items) {
+    if (it.entity !== "ai" && it.entity !== "aiProfile") continue;
+    for (const s of stuckPoolCodes(it.data)) problems.push(`item ${it.idx} (${it.name}): ${s}`);
+    for (const e of kitProblems(it.data).errors) problems.push(`item ${it.idx} (${it.name}): ${e}`);
+  }
+
   // readBack:false on a manifest that WRITES is refused before a job can start. The old builder
   // let it through and simply skipped the read-back; forge used to convert that into VERIFIED, so
   // a manifest could opt out of verification and still be reported as verified. TNR doctrine is
@@ -51,15 +70,24 @@ export function parseManifest(source) {
   if (m.readBack === false && items.length) {
     problems.push('readBack:false is refused on a manifest with items: a write must be read back (remove the key, or split the captures into their own manifest)');
   }
+  const imgSizes = (m.imgSizes && typeof m.imgSizes === "object") ? m.imgSizes : {};
+  const lint = lintManifest({ items, imgSizes });
+  problems.push(...lint.errors);
+  const warnings = [...lint.warnings];
+  for (const it of items) {
+    if (it.entity !== "ai" && it.entity !== "aiProfile") continue;
+    for (const w of kitProblems(it.data).warnings) warnings.push(`item ${it.idx} (${it.name}): ${w}`);
+  }
+  // `skipPreflight` is recorded but does NOT disable any of the above: see the header of lints.mjs.
   if (problems.length) throw new ManifestError("manifest problems:\n" + problems.join("\n"), { problems });
 
   return {
-    items, capture,
+    items, capture, warnings, poolResolved,
     note: typeof m._note === "string" ? m._note : null,
     skipPreflight: !!m.skipPreflight,
     dedupNames: !!m.dedupNames,
     readBack: m.readBack !== false,
-    imgSizes: (m.imgSizes && typeof m.imgSizes === "object") ? m.imgSizes : {},
+    imgSizes,
     hash: fnv1a32(stableStringify({ items: raw, capture })),
   };
 }

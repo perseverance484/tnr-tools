@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { IDBFactory } from "fake-indexeddb";
 import { Journal } from "../src/storage/journal.mjs";
 import { CaptureCache } from "../src/storage/captures.mjs";
@@ -16,6 +16,8 @@ import { Reconciler } from "../src/reconcile/reconciler.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
 
+const AIREQ = Object.freeze({ rank: "GENIN", regeneration: 1, preferredStat: "Ninjutsu", preferredGeneral1: "Strength", preferredGeneral2: "Speed" }); // L05 requires these on an ai create
+
 const SCHEMAS = JSON.parse(readFileSync(new URL("../src/runner/fields.json", import.meta.url), "utf8"));
 
 function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory(), tabId = "tab" } = {}) {
@@ -28,10 +30,10 @@ const M = {
     { entity: "asset", slot: "create", name: "B", srcId: "b", data: { name: "B", hidden: true, type: "STATIC", url: "https://x/y.webp" } },
   ] },
   editQuest: (id) => ({ items: [{ entity: "quest", slot: "edit", name: "Q", targetId: id, data: { name: "Renamed", consecutiveObjectives: true } }] }),
-  aiWithRules: { items: [{ entity: "ai", slot: "create", name: "Pale Fang", srcId: "fang", data: { username: "Pale Fang", level: 10, rules: [{ conditions: [], action: { type: "end_turn", description: "End turn" } }], includeDefaultRules: false } }] },
+  aiWithRules: { items: [{ entity: "ai", slot: "create", name: "Pale Fang", srcId: "fang", data: { username: "Pale Fang", level: 10, ...AIREQ, rules: [{ conditions: [], action: { type: "end_turn", description: "End turn" } }], includeDefaultRules: false } }] },
   refChain: { items: [
-    { entity: "quest", slot: "create", name: "Q", srcId: "q1", data: { name: "Q", content: { objectives: [{ id: "o1", task: "defeat_opponents", opponentAIs: [{ ids: ["@ai:boss"], number: 1 }] }], reward: {}, sceneBackground: "", sceneCharacters: [] } } },
-    { entity: "ai", slot: "create", name: "Boss", srcId: "boss", data: { username: "Boss", level: 5 } },
+    { entity: "quest", slot: "create", name: "Q", srcId: "q1", data: { name: "Q", hidden: true, consecutiveObjectives: true, content: { objectives: [{ id: "o1", task: "defeat_opponents", opponentAIs: [{ ids: ["@ai:boss"], number: 1 }] }], reward: {}, sceneBackground: "", sceneCharacters: [] } } },
+    { entity: "ai", slot: "create", name: "Boss", srcId: "boss", data: { username: "Boss", level: 5, ...AIREQ } },
   ] },
 };
 
@@ -52,12 +54,12 @@ test("planOrder: an item referencing @ai:boss is moved after the boss create; un
   const order = planOrder(parseManifest(M.refChain));
   assert.deepEqual(order.map((o) => o.srcId), ["boss", "q1"]);
   assert.deepEqual(order[1].deps, ["boss"]);
-  assert.throws(() => planOrder(parseManifest({ items: [{ entity: "quest", slot: "create", srcId: "q", name: "Q", data: { x: "@ai:ghost" } }] })), /unknown/);
+  assert.throws(() => planOrder(parseManifest({ items: [{ entity: "quest", slot: "create", srcId: "q", name: "Q", data: { hidden: true, consecutiveObjectives: true, x: "@ai:ghost" } }] })), /unknown/);
   assert.throws(() => planOrder(parseManifest({ items: [
-    { entity: "quest", slot: "create", srcId: "a", name: "A", data: { x: "@quest:b" } },
-    { entity: "quest", slot: "create", srcId: "b", name: "B", data: { x: "@quest:a" } }] })), /cycle/);
+    { entity: "quest", slot: "create", srcId: "a", name: "A", data: { hidden: true, consecutiveObjectives: true, x: "@quest:b" } },
+    { entity: "quest", slot: "create", srcId: "b", name: "B", data: { hidden: true, consecutiveObjectives: true, x: "@quest:a" } }] })), /cycle/);
   // a ref satisfied by the idmap is not a dependency
-  const o2 = planOrder(parseManifest({ items: [{ entity: "quest", slot: "create", srcId: "q", name: "Q", data: { x: "@ai:known" } }] }), { known: "id-known" });
+  const o2 = planOrder(parseManifest({ items: [{ entity: "quest", slot: "create", srcId: "q", name: "Q", data: { hidden: true, consecutiveObjectives: true, x: "@ai:known" } }] }), { known: "id-known" });
   assert.deepEqual(o2[0].deps, []);
 });
 
@@ -295,3 +297,24 @@ test("a NetworkError inside withSent leaves the item SENT and pauses the job (am
   assert.equal(s.state, "PAUSED"); assert.equal(s.pause.reason, "NETWORK");
   assert.equal(s.items[0].state, "SENT");
 });
+
+test("compatibility: every manifest committed under push/ still parses", () => {
+  // The lints and pool resolution added for readiness must not lock out the Lane B manifests the
+  // repository already holds. One known pre-existing exception, unrelated to those checks:
+  // push/7_readback_smoke.json is a v4.28 probe whose create carries no srcId, which forge has
+  // refused since L4 (a create needs an srcId for the idmap and for @refs).
+  const dir = new URL("../../push/", import.meta.url);
+  const files = readdirSync(dir).filter((f) => f.endsWith(".json")).sort();
+  assert.ok(files.length >= 20, "found " + files.length + " manifests");
+  const known = { "7_readback_smoke.json": /a create needs srcId/ };
+  let parsed = 0;
+  for (const f of files) {
+    const text = readFileSync(new URL(f, dir), "utf8");
+    if (known[f]) { assert.throws(() => parseManifest(text), known[f], f); continue; }
+    const m = parseManifest(text);
+    assert.ok(Array.isArray(m.items), f);
+    parsed++;
+  }
+  assert.equal(parsed, files.length - Object.keys(known).length);
+});
+
