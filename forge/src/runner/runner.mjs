@@ -128,6 +128,7 @@ export class Runner {
     this.pauseRequested = false;
     try {
       if (manifest.capture.before.length && !job.capturesBefore) await this._captures(jobId, manifest.capture.before, "before");
+      if (manifest.dedupNames) await this._dedupNames(jobId, order);
       for (let i = 0; i < job.items.length; i++) {
         this._lease(jobId); // heartbeat
         job = this.journal.get(jobId);
@@ -388,6 +389,54 @@ export class Runner {
     }
     if (diffs.length) this.journal.annotate(jobId, item.idx, { diffs, verify: "drift", phase: "verify" });
     else this.journal.transition(jobId, item.idx, "VERIFIED", { diffs: [], verify: "match" });
+  }
+
+  /**
+   * dedupNames: refuse to create a row whose name is already live (readiness brief 5b).
+   *
+   * Runs BEFORE the first create of the job, through the cache-first reader under the budget, so
+   * a collision fails while the only cost is a read. Only PLANNED creates are checked: an item
+   * this job already created owns its live name, and re-checking it would collide with itself.
+   * Only creates at all - an edit that re-asserts its own name would always match the live list,
+   * which is why the old builder's version could not be run over an edit manifest.
+   *
+   * A limited or failed read is NOT silently skipped the way the builder skipped it: RateLimited
+   * and transport errors propagate to run(), which pauses the job with the path and countdown, so
+   * the check is either performed or the job stops. A collision fails that item only; the rest of
+   * the manifest still runs, and the job's outcome reports the failure.
+   */
+  async _dedupNames(jobId, order) {
+    const byEntity = new Map();
+    for (const it of this.journal.get(jobId).items) {
+      if (it.op !== "create" || it.state !== "PLANNED") continue;
+      const rc = recipe(it.entity);
+      if (!rc.names) continue;
+      const planned = order[it.idx];
+      const name = planned && planned.data ? planned.data[rc.nameKey] ?? it.name : it.name;
+      if (typeof name !== "string" || !name.trim()) continue;
+      if (!byEntity.has(it.entity)) byEntity.set(it.entity, []);
+      byEntity.get(it.entity).push({ idx: it.idx, name: name.trim() });
+    }
+    for (const [entity, entries] of byEntity) {
+      const rc = recipe(entity);
+      const r = await this.reader.list(rc.names, { fresh: true });
+      if (!r.ok) {
+        const cls = classifyError(r.error);
+        if (cls === "SESSION") throw new Paused("SESSION", { detail: r.error.message });
+        throw new Paused("NETWORK", { detail: `dedupNames: ${rc.names} failed: ${r.error.code} ${r.error.message}` });
+      }
+      const rows = Array.isArray(r.data) ? r.data : (r.data && Array.isArray(r.data.data) ? r.data.data : []);
+      const live = new Set();
+      for (const row of rows) {
+        const v = row && (row[rc.nameKey] ?? row.name ?? row.username);
+        if (typeof v === "string") live.add(v.trim().toLowerCase());
+      }
+      for (const e of entries) {
+        if (!live.has(e.name.toLowerCase())) continue;
+        this.journal.transition(jobId, e.idx, "FAILED", { error: `dedupNames: LIVE NAME COLLISION "${e.name}" already exists as a ${entity}; rename before pushing` });
+        this.log(`item ${e.idx} failed: live name collision "${e.name}"`);
+      }
+    }
   }
 
   async _captures(jobId, list, phase) {
