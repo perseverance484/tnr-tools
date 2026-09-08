@@ -114,6 +114,14 @@ function decodeElement(el, i, status) {
     return { ok: true, data: superjson.deserialize({ json, meta }) };
   }
   if (el && el.error) {
+    // F4 (independent review of 4062268): a truthy `el.error` is not proof of an adapter error.
+    // Only the exact audited shape may be turned into a per-index verdict; anything else came
+    // from something other than the server we audited, and for a mutation the resolver may
+    // already have run. Throw, so decodeResponse({mutation:true}) raises a TransportError and
+    // the runner leaves the item SENT for reconciliation instead of marking it FAILED.
+    if (!isTrpcErrorBody(el)) {
+      throw new TransportError(`batch element ${i} has a malformed tRPC error`, { httpStatus: status, element: el });
+    }
     const err = el.error.json !== undefined ? superjson.deserialize({ json: el.error.json, meta: el.error.meta }) : el.error;
     const data = (err && err.data) || {};
     return {

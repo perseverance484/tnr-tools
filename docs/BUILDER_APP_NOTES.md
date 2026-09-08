@@ -427,6 +427,18 @@ that fails against the frozen tree:
 - **A malformed mutation response element became a definite failure**, discarding the ambiguity
   the journal exists to preserve. Fixed at the transport boundary, as described above.
 
+### Independent review of `4062268`
+
+The second review re-checked those four. F1, F2 and F3 were confirmed closed. **F4 was NOT closed**
+and was reopened as a HIGH blocker: the correction only covered an element with no `error` at all.
+`decodeElement()` still accepted *any* truthy `el.error`, so `[{"error":{}}]` decoded to a normal
+`UNKNOWN` verdict and an already-SENT mutation was marked FAILED. Closed here: a per-index error is
+now held to the same `isTrpcErrorBody()` adapter shape as a request-level one, so an element that is
+not the audited shape throws, a mutation batch behind it raises a `TransportError`, the item stays
+`SENT` and the job pauses at `UNDECODABLE_RESPONSE`. Query sibling salvage is unchanged. Pinned by
+`F4c` (five malformed shapes, query salvage, end-to-end through the runner; fails against `4062268`)
+and `F4d` (every recorded adapter error still decodes to the same code).
+
 The reviewer also flagged that the request-level predicate was looser than its own comment; it now
 requires the numeric jsonrpc `code`. Two of their observations were correct but not defects: the
 per-element salvage is right for queries and is kept, and `MALFORMED_ELEMENT` remains a valid query
