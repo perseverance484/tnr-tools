@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-04",
+  "generated": "2026-09-08",
   "session": "mounted-11 (mission flatten: ten Forsworn missions cut to a 4-node no-travel shape)",
   "state_line": "MISSION FLATTEN SHIPPED TO PUSH, AWAITING TAP. push/46_missions_flatten.json rewrites all ten Forsworn missions to dialog -> start_battle -> dialog -> win_quest (plus an off-path reset_quest retry on loss). Validated 0 errors 0 warnings, committed 3aac61d, UNRUN. Ruling this session: missions are flavor on the way to gains, not a challenge; flatten all ten including the A-rank named bosses. Node counts went 16-49 down to 4; forced map trips 5-13 down to 0. Balance untouched and verified: every node-level reward in the live records was already zero, so content.reward was re-asserted verbatim and equals the live capture on all ten. Law/doctrine rewrite to match the new shape is DEFERRED by ruling until player feedback comes back. STILL OPEN from before: push/45_mission_ai_self_target_fix.json unrun (no conflict with 46, it edits ai not quest); code audit batch 3 not started; law provenance reconciliation not started.",
   "verified_at_close": [
-    "push/46_missions_flatten.json -> validate.py 0 errors, 0 warnings (run from skills/building-tnr-content/data)",
-    "reward parity -> content.reward on all ten equals live capture tnr_results_1788136356379; every node-level reward in the live records was already zero",
-    "gate parity -> questRank, requiredLevel, hidden, prerequisiteQuestId, maxAttempts, retryDelay unchanged from live on all ten",
-    "em dash sweep -> 0 in node description and choice text across all ten"
+    "lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings",
+    "doctrine projections -> all projections current (exit 0)",
+    "packs/TOCs -> all packs and TOCs current (exit 0)",
+    "parity tnr_results_1788235395095.json -> 0 errors, 0 warnings"
   ],
   "in_progress": {
     "wave": "wave: MISSION FLATTEN. push/46 built and pushed, awaiting dauntless tap and then a harvest.py verify of the read-back. Player feedback is the gate on everything downstream: no law rewrite, no further mission work, until it lands. Events onboarding and audit batch 3 are parked.",
@@ -93,28 +93,28 @@
   "token_ledger": [
     {
       "path": "state/digest.json",
-      "bytes": 19822,
-      "at": "18:27Z"
+      "bytes": 19963,
+      "at": "03:03Z"
     },
     {
       "path": "state/active-context.md",
-      "bytes": 7303,
-      "at": "18:27Z"
+      "bytes": 8170,
+      "at": "03:03Z"
     },
     {
       "path": "state/status.json",
-      "bytes": 18540,
-      "at": "18:27Z"
+      "bytes": 19449,
+      "at": "03:03Z"
     },
     {
       "path": "docs/00_INDEX.md",
       "bytes": 8036,
-      "at": "18:27Z"
+      "at": "03:03Z"
     },
     {
       "path": "harvests/inbox/tnr_results_1788235395095.json",
       "bytes": 41671,
-      "at": "18:27Z"
+      "at": "03:03Z"
     }
   ],
   "board": {
