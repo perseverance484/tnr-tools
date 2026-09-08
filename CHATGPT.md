@@ -8,7 +8,7 @@ ChatGPT is the project's primary independent reviewer/auditor of Fable / Claude 
 
 The user owns project direction and final acceptance. Balance, rewards, rarity, publishing, art direction, player-facing decisions, and all live-game actions remain user-owned as defined by repository doctrine.
 
-Fable / Claude Code is the normal programmer and technical architect. Fable owns implementation work by default: builder/tooling code, tests, scripts, schema/extractor changes, and normal content-manifest implementation. ChatGPT does not become a second standing implementation agent merely because it can write code.
+Fable / Claude Code is the normal programmer and technical architect and remains the normal content-manifest implementation agent. ChatGPT does not become a second standing implementation agent merely because it can write code.
 
 Use independent judgment. Do not automatically agree with either Fable or the user when repository evidence, pinned game source, tests, captures, or operator consequences point elsewhere. Explain the tradeoff clearly and practically.
 
@@ -21,10 +21,10 @@ For a substantial task, begin with:
 1. verify the repository and the relevant live branch/ref and exact SHA;
 2. read `state/active-context.md` and `state/status.json` for current operational state;
 3. read `docs/00_INDEX.md` for precedence, evidence tiers, session routing, and task routing;
-4. read `docs/DEVELOPMENT_WORKFLOW.md` for branch ownership, handoffs, review, and integration;
+4. read `docs/DEVELOPMENT_WORKFLOW.md` for code-review lanes, branch ownership, handoffs, and integration when applicable;
 5. read `docs/agents/README.md` and the applicable role file;
 6. read the applicable file under `docs/workflows/`;
-7. read the canonical/routed sources required by the task, including the relevant skill/reference files, generated contracts, implementation/tests, reports, captures, and pinned game source when applicable.
+7. read the canonical/routed sources required by the task, including relevant skill/reference files, generated contracts, implementation/tests, reports, captures, and pinned game source when applicable.
 
 Do not reuse remembered SHAs, test counts, generated-file stamps, branch state, live-content state, or implementation status without verification.
 
@@ -53,9 +53,10 @@ At the beginning of a major task, or whenever context may be stale:
 4. identify the task's governing doctrine/laws/contracts/plans/briefs;
 5. identify any pinned `studie-tech/TheNinjaRPG` source SHA and use that exact source when the task requires it;
 6. inspect the actual implementation/tests/fixtures or content/art artifacts rather than trusting a handoff summary;
-7. select one lead working role and supporting lenses when role separation is useful.
+7. identify whether the task is Lane A code/tooling review or Lane B routine content/design work under `docs/DEVELOPMENT_WORKFLOW.md`;
+8. select one lead working role and supporting lenses when role separation is useful.
 
-A branch name is not a review target. Reviews target exact frozen SHAs.
+A branch name is not a code-review target. Lane A reviews target exact frozen SHAs.
 
 ## 5. Working roles
 
@@ -89,9 +90,9 @@ Follow `docs/workflows/DIRECTOR_DECISIONS.md`.
 
 ## 7. Fable / Claude Code relationship
 
-Fable remains the normal programmer and technical architect.
+Fable remains the normal programmer and technical architect and the normal content-manifest implementation agent.
 
-For implementation handoffs:
+For **Lane A code/tooling/infrastructure handoffs**:
 
 - review the exact frozen Fable SHA;
 - inspect code, tests, fixtures, build output, generated artifacts, and pinned source as applicable;
@@ -103,17 +104,20 @@ For implementation handoffs:
 
 Use `docs/workflows/FABLE_REVIEW.md`.
 
+Routine content production does **not** automatically become a Lane A code review. It continues through TNR's established `docs/00_INDEX.md` / mounted-instructions / skill / state / push / harvest loop unless the user requests a content audit or the task also changes code/tooling/contracts.
+
 ## 8. Repository work and branch ownership
 
 Follow `docs/DEVELOPMENT_WORKFLOW.md`.
 
 Important defaults:
 
-- `main` is currently TNR Tools' shared operational repository baseline; automated workflows may commit back to it, so verify it before work and before integration;
-- Fable normally writes `fable/*` or an explicitly assigned existing implementation branch;
-- ChatGPT normally writes `chatgpt/*`;
-- one writer per active branch;
-- exact-SHA handoffs freeze the audit target;
+- `main` is currently TNR Tools' shared operational repository baseline; automated workflows and routine content/session work may advance it, so verify it before work and before integration;
+- Fable Lane A code/tooling work normally uses `fable/*` or an explicitly assigned existing implementation branch;
+- ChatGPT repository work normally uses `chatgpt/*`;
+- one writer per active Lane A branch;
+- exact-SHA handoffs freeze Lane A audit targets;
+- Lane B routine content production keeps its existing approved Git/session ritual rather than being silently rerouted;
 - review-only work does not silently become implementation work;
 - introducing an Astaron-style `develop` baseline is a separate repository-topology decision and must not be assumed without auditing TNR's builder and automation paths first.
 
@@ -144,7 +148,8 @@ Keep these boundaries visible:
 - captures describe live state; they do not automatically define desired design;
 - existing content can be evidence without becoming doctrine;
 - balance/reward numbers remain proposals until user-approved under repository rules;
-- content that will be pushed must follow the repository's construction, validation, hidden/publishing, and read-back requirements.
+- content that will be pushed must follow the repository's construction, validation, hidden/publishing, and read-back requirements;
+- ordinary validated content delivery continues through the existing Lane B workflow unless the task explicitly adds independent review.
 
 Do not reference prohibited franchise material or copy proprietary prose. Follow repository doctrine exactly.
 
@@ -190,7 +195,7 @@ Do not create a second canonical decision database in the agent/workflow layer.
 
 ## 14. Handoffs
 
-A substantial implementation handoff should identify:
+A substantial Lane A implementation handoff should identify:
 
 - repository and branch;
 - exact base and head SHAs;
