@@ -19,6 +19,8 @@ import { composeForTest } from "./compose.mjs";
 const AIREQ = Object.freeze({ rank: "GENIN", regeneration: 1, preferredStat: "Ninjutsu", preferredGeneral1: "Strength", preferredGeneral2: "Speed" }); // L05 requires these on an ai create
 
 const SCHEMAS = JSON.parse(readFileSync(new URL("../src/runner/fields.json", import.meta.url), "utf8"));
+const FIELDS = SCHEMAS;
+const NESTED_KEYS = JSON.parse(readFileSync(new URL("../src/runner/nested.json", import.meta.url), "utf8"));
 
 function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory(), tabId = "tab" } = {}) {
   return composeForTest({ game, storage, idb, tabId });
@@ -296,6 +298,40 @@ test("a NetworkError inside withSent leaves the item SENT and pauses the job (am
   const s = await h.runner.run("n1");
   assert.equal(s.state, "PAUSED"); assert.equal(s.pause.reason, "NETWORK");
   assert.equal(s.items[0].state, "SENT");
+});
+
+test("compatibility: pre-send validation over every manifest under push/, with its known findings", () => {
+  // Pre-send validation is where a key the server would silently drop is caught. Run it over every
+  // committed manifest: everything passes except two REAL findings, both keys the live server drops
+  // today, both verified absent from the quest validator at the pin AND at the current upstream
+  // (e02f8159). They are pinned here so they cannot be mistaken for false positives later:
+  //
+  //  1. five quest EDITS re-assert a whole live record, including three raid columns that exist in
+  //     drizzle/schema.ts but not in QuestValidatorRawSchema (raidEndsAt, raidCaptureDeadline,
+  //     raidGracePeriodEnd). Read shapes are not write shapes; those values never landed.
+  //  2. push/46 gives every start_battle objective an `image`, which InstantStartBattleObjective
+  //     does not define. The value has no effect.
+  const v = new Validator(FIELDS, NESTED_KEYS);
+  const known = {
+    "27_scene_char_retire.json": /raidEndsAt/,
+    "30_repair_freedoms_scouting.json": /raidEndsAt/,
+    "33_copies_converging_fix.json": /raidEndsAt/,
+    "34_old_ghost_prose.json": /raidEndsAt/,
+    "35_tenth_name_prose.json": /raidEndsAt/,
+    "46_missions_flatten.json": /objectives\[1\] \(start_battle\): unknown key "image"/,
+  };
+  const dir = new URL("../../push/", import.meta.url);
+  const seen = new Set();
+  for (const f of readdirSync(dir).filter((x) => x.endsWith(".json")).sort()) {
+    let m;
+    try { m = parseManifest(readFileSync(new URL(f, dir), "utf8")); } catch { continue; }
+    const problems = m.items.flatMap((it) => v.problems(it.entity, it.data, null, { preCreate: it.op === "create" }));
+    if (!problems.length) continue;
+    assert.ok(known[f], `${f} has UNEXPECTED pre-send problems: ${problems.slice(0, 3).join(" | ")}`);
+    assert.match(problems.join(";"), known[f], f);
+    seen.add(f);
+  }
+  assert.deepEqual([...seen].sort(), Object.keys(known).sort(), "a known finding disappeared: re-read it before deleting the entry");
 });
 
 test("compatibility: every manifest committed under push/ still parses", () => {
