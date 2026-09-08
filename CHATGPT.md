@@ -21,10 +21,11 @@ For a substantial task, begin with:
 1. verify the repository and the relevant live branch/ref and exact SHA;
 2. read `state/active-context.md` and `state/status.json` for current operational state;
 3. read `docs/00_INDEX.md` for precedence, evidence tiers, session routing, and task routing;
-4. read `docs/DEVELOPMENT_WORKFLOW.md` for code-review lanes, branch ownership, handoffs, and integration when applicable;
-5. read `docs/agents/README.md` and the applicable role file;
-6. read the applicable file under `docs/workflows/`;
-7. read the canonical/routed sources required by the task, including relevant skill/reference files, generated contracts, implementation/tests, reports, captures, and pinned game source when applicable.
+4. read `docs/RULINGS.md` for durable user rulings that may constrain the task, while remembering that the operative rule still belongs to its canonical owner;
+5. read `docs/DEVELOPMENT_WORKFLOW.md` for code-review lanes, branch ownership, handoffs, and integration when applicable;
+6. read `docs/agents/README.md` and the applicable role file;
+7. read the applicable file under `docs/workflows/`;
+8. read the canonical/routed sources required by the task, including relevant skill/reference files, generated contracts, implementation/tests, reports, captures, and pinned game source when applicable.
 
 Do not reuse remembered SHAs, test counts, generated-file stamps, branch state, live-content state, or implementation status without verification.
 
@@ -36,6 +37,7 @@ In particular:
 
 - `docs/DOCTRINE.md` remains the single source for cross-surface rules that it owns;
 - `docs/ENGINE_LAWS.md` remains the numbered text of record for engine laws, subject to the evidence/precedence rules already defined by `docs/00_INDEX.md`;
+- `docs/RULINGS.md` records historical user decisions and rationale but does not override the canonical owner of an operative rule;
 - generated contracts describe source contracts, while captures describe live record state;
 - a task-specific pinned game-source SHA is authoritative for claims the task explicitly pins to that source version;
 - fresh source-verified or behaviour-proven evidence may expose a stale law/report according to the existing evidence rules;
@@ -49,7 +51,7 @@ At the beginning of a major task, or whenever context may be stale:
 
 1. verify `perseverance484/tnr-tools` and the exact target ref/SHA;
 2. verify the current shared baseline (`main` unless `docs/DEVELOPMENT_WORKFLOW.md` has been deliberately migrated later);
-3. read current state and `docs/00_INDEX.md`;
+3. read current state, `docs/00_INDEX.md`, and relevant entries in `docs/RULINGS.md`;
 4. identify the task's governing doctrine/laws/contracts/plans/briefs;
 5. identify any pinned `studie-tech/TheNinjaRPG` source SHA and use that exact source when the task requires it;
 6. inspect the actual implementation/tests/fixtures or content/art artifacts rather than trusting a handoff summary;
@@ -84,7 +86,7 @@ When a genuine user decision appears:
 - present concrete options and tradeoffs when useful;
 - distinguish reversible prototypes from permanent rules;
 - do not let implementation order become accidental canon;
-- once settled, recommend recording it in the repository source that already owns that class of rule.
+- once settled, append a durable entry to `docs/RULINGS.md` when the decision materially affects future work, then update the repository source that actually owns the operative rule when required.
 
 Follow `docs/workflows/DIRECTOR_DECISIONS.md`.
 
@@ -121,6 +123,8 @@ Important defaults:
 - review-only work does not silently become implementation work;
 - introducing an Astaron-style `develop` baseline is a separate repository-topology decision and must not be assumed without auditing TNR's builder and automation paths first.
 
+ChatGPT repository access uses the repository-scoped ChatGPT Codex Connector rather than a personal access token. Do not request or store a PAT for ChatGPT. Claude Code should likewise use non-pasted native GitHub authentication where its environment supports it; exact Claude authentication setup is an environment fact to verify, not something to encode as a secret in this repository.
+
 If the user explicitly assigns ChatGPT implementation work, name the branch/file ownership and review consequence before writing code.
 
 ## 9. Live-game safety
@@ -151,6 +155,8 @@ Keep these boundaries visible:
 - content that will be pushed must follow the repository's construction, validation, hidden/publishing, and read-back requirements;
 - ordinary validated content delivery continues through the existing Lane B workflow unless the task explicitly adds independent review.
 
+Historical extraction is selective by ruling: preserve reusable design principles, current/future constraints, and expensive lessons; do not reconstruct shipped history or rejected iterations merely because transcripts exist.
+
 Do not reference prohibited franchise material or copy proprietary prose. Follow repository doctrine exactly.
 
 ## 11. Art and visual assets
@@ -167,6 +173,8 @@ ChatGPT may act as Art Director or Image Production partner while preserving the
 - backgrounds and character assets follow the current skill's distinct requirements;
 - corrected assets use the repository's filename/versioning contract;
 - mechanical and visual QC are both required before a production handoff.
+
+Pillow is an approved art-pipeline dependency. Do not force image processing back to pure stdlib to satisfy an outdated framing. Prefer porting old ad-hoc NumPy-dependent processing to Pillow; any standing NumPy dependency needs its own concrete justification and review.
 
 When generating/editing images in ChatGPT, the image itself is still subject to the repository's processing and acceptance pipeline before it becomes a production asset.
 
@@ -187,11 +195,12 @@ When a result matters long-term:
 - implementation plans/build briefs remain in the repository's established plan/state locations;
 - durable independent reviews may live under `docs/reviews/` when useful;
 - collaboration operating rules belong in `CHATGPT.md`, `CLAUDE.md`, `docs/DEVELOPMENT_WORKFLOW.md`, `docs/agents/`, and `docs/workflows/`;
-- cross-surface content rules belong in `docs/DOCTRINE.md`, not in collaboration files;
-- engine-law text belongs in `docs/ENGINE_LAWS.md`, not in collaboration files;
+- durable user rulings and their rationale are indexed in `docs/RULINGS.md`;
+- cross-surface content rules belong in `docs/DOCTRINE.md`, not in the rulings or collaboration files;
+- engine-law text belongs in `docs/ENGINE_LAWS.md`, not in the rulings or collaboration files;
 - operational session state continues through the existing `state/` machinery rather than a second ChatGPT-only dashboard.
 
-Do not create a second canonical decision database in the agent/workflow layer.
+`docs/RULINGS.md` preserves decision history; it does not become a second canonical rules database.
 
 ## 14. Handoffs
 
@@ -207,6 +216,8 @@ A substantial Lane A implementation handoff should identify:
 - open user decisions;
 - live/browser/session checks that were not performed;
 - what explicitly has not begun.
+
+For substantial ChatGPT → Claude Code work, settle requirements with the user first, then commit a concise task brief using the established `state/prompt_<task>.md` pattern where appropriate. The brief is the implementation contract; issues may track work but do not replace it, and manifests are outputs rather than communication documents.
 
 Use `docs/workflows/IMPLEMENTATION_HANDOFF.md`.
 
