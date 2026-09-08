@@ -204,6 +204,28 @@ test("release pin: pinning turns the branch URL into a commit URL and drops the 
   rmSync(root, { recursive: true, force: true });
 });
 
+
+test("no test can open a socket, and no source reaches a host it should not", () => {
+  // The suite's whole premise is that nothing here can touch the live game. Two greps keep it
+  // that way: no test may import a network module or call a global fetch (every request goes
+  // through an injected fetchImpl), and src/ may name only the same-origin API paths and the two
+  // hosts it is allowed to reach - jsDelivr is the loader's business, api.github.com is the
+  // manifest picker's.
+  const testDir = dirname(fileURLToPath(import.meta.url));
+  const self = "ui.test.mjs"; // this file carries the patterns as literals; it would match itself
+  for (const f of readdirSync(testDir).filter((n) => n.endsWith(".mjs") && n !== self)) {
+    const t = readFileSync(join(testDir, f), "utf8").replace(/\/\/[^\n]*/g, "");
+    assert.ok(!/from "node:(net|http|https|dns|tls)"|require\("node:(net|http|https)"\)|undici/.test(t), f + " imports a network module");
+    assert.ok(!/(^|[^.\w])fetch\(/.test(t.replace(/fetchImpl/g, "")), f + " calls a global fetch");
+  }
+  for (const f of walk(SRC)) {
+    const t = readFileSync(f, "utf8").replace(/\/\/[^\n]*/g, "");
+    for (const host of [...t.matchAll(/https?:\/\/([A-Za-z0-9.-]+)/g)].map((m) => m[1])) {
+      assert.ok(["api.github.com", "cdn.jsdelivr.net"].includes(host), `${f} names host ${host}`);
+    }
+  }
+});
+
 test("a screen that throws is shown as an error banner, never a blank page", () => {
   const win = dom();
   const { app } = appWith();

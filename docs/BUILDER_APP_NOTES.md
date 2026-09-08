@@ -1,11 +1,34 @@
 # Builder app (forge): implementation notes
 
-Branch `builder-app`, built against `docs/PLAN_2026-09-03_builder_app.md` and the client
-contract on branches `client-contract-audit` / `client-contract-verification` (verification
-wins). Every engine fact is pinned to `studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9`.
+Built against `docs/PLAN_2026-09-03_builder_app.md` and the client contract on branches
+`client-contract-audit` / `client-contract-verification` (verification wins). Every engine fact is
+pinned to `studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9`, and that pin was
+re-checked against the current upstream in this pass (see "Source pin: still relevant, and how that
+was checked").
 
-Nothing here has been run against the game. Zero live requests were made while building it.
-Every behaviour is verified against recorded or adapter-derived fixtures; see "Verification".
+Branches: built on `builder-app`; the production-readiness pass
+(`state/prompt_builder_app_readiness.md`) continues on
+`claude/builder-app-production-readiness-kelsib`, which is `builder-app` with `main` merged in.
+
+Nothing here has been run against the game. Zero live requests were made while building it, and
+none while hardening it. Every behaviour is verified against recorded or adapter-derived fixtures
+and a local checkout of the pinned source; see "Verification".
+
+## The readiness pass, and what it changed
+
+Forge passed its own tests before this pass and was still not safe to make the normal content path.
+The eight blockers in the readiness brief, and where each is now:
+
+| blocker | state |
+|---|---|
+| F4: an undecodable per-index mutation error became a definite failure | closed - `isTrpcErrorBody()` now gates a per-index error too |
+| a job with unread/drift verification could finish green | closed - `INCOMPLETE`, and `jobOutcome()` decides what is shown |
+| `readBack:false` minted a false `VERIFIED` | closed - refused before a job exists on any manifest that writes |
+| pool codes (TNR-01) and the safety lints were not ported | closed - resolved at parse time, with the lint set |
+| `dedupNames` was parsed and ignored | closed - enforced through the budgeted reader before the first create |
+| unknown NESTED keys were sent and silently stripped | closed - refused from a key surface derived from the pin |
+| the source pin's relevance was unproven | proven - nothing forge relies on changed; the pin stays |
+| the release floated on a branch | closed in-repo; one workflow install is a dauntless action |
 
 ## Layout
 
@@ -22,7 +45,13 @@ forge/                       the app, one directory per layer (brief section 3 o
   src/github.mjs             L7 manifest picker's contents-API client (bearer to api.github.com only)
   src/main.mjs               composition root; the only file that touches window.*
   tools/derive_envelope.mjs  produces test/fixtures/envelope/ by running the real tRPC adapter
+  src/runner/pool.mjs        pool-code resolution, the stuck-code guard, kit integrity (laws 18, 40)
+  src/runner/lints.mjs       the ported safety lints (L03-L18), errors and advisories
+  src/runner/nested.json     nested key surface per discriminator, derived from the SAME pin
   tools/derive_fields.mjs    produces src/runner/fields.json from a checkout of the pinned game source
+  tools/derive_nested.mjs    produces src/runner/nested.json from the same checkout
+  tools/pin_relevance.mjs    is a newer game-source commit relevant to forge? (reads two checkouts)
+  tools/check_release_pin.mjs the loader must resolve an immutable commit, or say it does not
   test/                      node --test, no network; shim.mjs, fakegame.mjs, compose.mjs
   build.mjs                  esbuild IIFE -> ../forge_bundle.js
 forge_bundle.js              the built userscript body (repo root, beside builder_bundle.js)
@@ -339,8 +368,8 @@ reach the validator. For AI, the live kit is always re-sent reshaped (`jutsuId[]
 - `gameAsset.get` retried with a raw string input (audit D5): removed; the input is `{id}`.
 - Computing the upload URL as `https://<id>.ufs.sh/f/<key>` by hand: `ufsUrl` is read from
   the PUT response, as the uploadthing client does.
-- `resolvePool` (pool codes -> ids and distance gates) and the L09-L22 lint set: **not
-  ported** (see "Not finished").
+- `resolvePool` (pool codes -> ids and distance gates) and the lint set: these ARE ported now, at
+  parse time rather than mid-build; see "Pool codes, kit integrity and the ported lints".
 
 ## Placeholders carried (balance, reserved for dauntless)
 
@@ -352,16 +381,19 @@ balance, and are shown in the UI as settings: the budget margin (0.5), the batch
 
 ## Verification
 
-`cd forge && npm test`. No test opens a socket. 168 tests, all through the shipped `compose()`.
+`cd forge && npm test`. No test opens a socket, and a test asserts that: no test file may import a
+network module or call a global fetch, and `src/` may name only `api.github.com` and
+`cdn.jsdelivr.net`. 199 tests, all through the shipped `compose()`.
 
 | layer | tests | what is proven |
 |---|---:|---|
 | storage | 24 | write-ahead ordering, the four mandated evictions, SENT->PLANNED impossible, IDB invalidation |
 | transport | 39 | every recorded request reproduced byte for byte; every recorded response decoded to what the real client decoded |
 | budget | 16 | write-ahead send log, window survives eviction, 31st send waits, a 429 in a 207 halts after caching the good index |
-| runner + reconcile | 28 | two-phase creates, six entities, kit re-send, refs, unknown-key refusal, power uncapped, crash before send / after send / after response / mid two-phase against server-side row counts, gameAsset two-orphan ambiguity, TOO_MANY_REQUESTS pause, NetworkError leaves SENT |
-| ui | 8 | no HTML string sink in src, takeover, five screens render, resume banner, run screen, settings persist, picker -> start -> DONE, render errors surface |
-| adversarial | 53 | one regression test per finding that survived the panels and the independent review (below), including a budget test that recomputes the server's weighted estimate from the send log and shows it never exceeds the allowance from this client alone |
+| runner + reconcile | 30 | two-phase creates, six entities, kit re-send, refs, unknown-key refusal, power uncapped, crash before send / after send / after response / mid two-phase against server-side row counts, gameAsset two-orphan ambiguity, TOO_MANY_REQUESTS pause, NetworkError leaves SENT, plus pre-send validation over every manifest under `push/` |
+| ui | 12 | no HTML string sink in src, takeover, five screens render, resume banner, run screen, settings persist, picker -> start -> DONE, render errors surface, an unverified job never renders or exports as success, the release pin cannot float, the socket-free grep |
+| harvest | 3 | a bundle carrying match/drift/unread/failure, run through the repository's real `harvest.py` |
+| adversarial | 75 | one regression test per finding that survived the panels and the two independent reviews, plus the readiness invariants: R1-R5 (terminal semantics), K1-K6 (pool codes and lints), D1-D4 (dedupNames), N1-N5 (nested keys), F4c-F4d |
 
 ### Adversarial passes
 
@@ -446,31 +478,176 @@ outcome. Deriving the AI keys exposed a parser bug in the extractor, which doubl
 key of every object body; the field sets were unaffected (object keys deduplicate) but the reported
 counts were wrong, and both are fixed.
 
+## Terminal and verification semantics
+
+A job has a STATE (has execution finished) and an OUTCOME (is it good news). They were the same
+thing, and the same thing was green.
+
+- `RUNNING | PAUSED | DONE | INCOMPLETE | ABORTED`. `INCOMPLETE` is execution finished with at
+  least one item not terminal - a read-back that could not be read (`verify: "unread"`) or that
+  came back different (`verify: "drift"`) leaves its item `CONFIRMED` at phase `verify`.
+  `setJobState()` REFUSES `DONE` while any item is unresolved, so the honest state is structural.
+- An `INCOMPLETE` job is resumable, and resuming it can only re-read: the phase recorded on
+  `CONFIRMED` is `verify`, so no mutation can be sent again. Two tests prove exactly that (R2, R3).
+- `jobOutcome(job)` is what the UI, the summary and the exported bundle report: `success` only when
+  every item read back equal; `failed` if anything FAILED; `unverified` for drift, unread, a skipped
+  orphan or an unresolved item; `open` while running or paused. The Run screen banner and the toast
+  are keyed off it, and an incomplete or failed run still auto-exports its bundle - as evidence,
+  never as a success.
+- `readBack:false` is REFUSED by `parseManifest` on any manifest carrying items. It used to mark
+  every item `VERIFIED{skipped}`, so a manifest could opt out of verification and be reported as
+  verified. No manifest under `push/` has ever set it and no skill instructs it, so nothing depended
+  on it. A capture-only manifest is unaffected.
+
+## Pool codes, kit integrity and the ported lints
+
+`src/runner/pool.mjs`, wired into `parseManifest`, which is before any create, upload or update.
+
+- Codes in `jutsus[]` and `rules[].action.jutsu` resolve from the repository's generated
+  `32b_DATA_pool.json`, bundled at build time (the old builder fetched it from a moving branch on
+  every run). A code-referenced rule also gets law 40's gate arithmetic (range+1) filled in.
+- A code that does NOT resolve is a manifest problem: no job is opened and nothing is sent. This is
+  the TNR-01 mechanism - `profile.updateAi` syncs the kit by set difference, so a literal code is
+  dropped server-side and the AI is left with an empty kit behind a green row.
+- The code pattern is `[A-Z]{1,2}\d{1,2}`, wider than the builder's `\d{2}`, which never matched
+  A1-A3 and so never resolved OR flagged them.
+- Kit integrity from `validate.py check_pool_kit`: a rule firing a jutsu the AI does not carry is
+  inert (law 18) and a gate that is not range+1 (law 40) are errors; a gate on a self/ground jutsu
+  and an all-60-AP kit stay advisory.
+- `src/runner/lints.mjs` ports L03, L04, L05, L07, L11, L12b, L13, L16, L17, L18 as errors and L06,
+  L08, L10, L15 as advisories that do not block. Three deliberate differences are documented at the
+  top of that file: `skipPreflight` cannot switch a safety lint off (every check fires only on data
+  the entry carries, so a partial quest edit needs no bypass); L09 is left to the source-derived
+  nested check; and L18's "clear/copy are excluded" half is NOT enforced, because `docs/RULINGS.md`
+  records law 19 as contradicted at source - enforcing it would reject payloads the server accepts.
+- L13 on an `ai` create was re-derived at the pin: `userData` has no `hidden` column, so it is not
+  required there. A manifest that carries `hidden: true` anyway (the repo rule says every create
+  does) is accepted, dropped by the pinned-field merge before the send, and excluded from the diff.
+
+## dedupNames
+
+Enforced before the first create of the job, through the cache-first reader under the budget. A
+collision fails that item with no placeholder minted. Two differences from the builder's version:
+only PLANNED creates are checked (an item this job already created owns its live name, and an edit
+re-asserting its own name would always collide with itself), and a limited or failed name read
+PAUSES the job rather than being skipped with a warning - the check is either performed or the job
+stops.
+
+## Nested unknown keys
+
+`tools/derive_nested.mjs` reads the same pin as `derive_fields.mjs` and writes
+`src/runner/nested.json`: the allowed key set per discriminator value for effect tags (76), quest
+objectives (65), AI rule conditions (9) and actions (10), plus the rule envelope, the objective
+reward block, quest `content`, dialog choices and the `{ids, number, quantity}` entries behind
+`opponentAIs` and `attackers`. `Validator.nestedProblems()` refuses an unknown key, or an unknown
+`type`/`task`, before any create or update.
+
+Key sets only, never bounds: a bound the generator gets wrong is the `45g.tag_power_max` mistake,
+and a test still asserts that `power: 400` is accepted. It fails closed - with no `nested.json`, or
+for a discriminator the pin does not define, the structure is refused rather than sent unchecked -
+except that an EMPTY nested structure carries nothing to check and is not a reason to refuse.
+
+**Two real findings this surfaced in committed manifests.** Both are keys the live server drops
+today, both verified absent from the validators at the pin AND at the current upstream, and both are
+pinned by a test so they cannot later be mistaken for false positives:
+
+1. five quest EDITS (`push/27`, `30`, `33`, `34`, `35`) re-assert whole live records including
+   `raidEndsAt`, `raidCaptureDeadline` and `raidGracePeriodEnd`. Those are `drizzle/schema.ts`
+   columns but not `QuestValidatorRawSchema` fields: read shapes are not write shapes, and those
+   values never landed.
+2. `push/46` gives every `start_battle` objective an `image`, which `InstantStartBattleObjective`
+   does not define. The value has no effect.
+
+Neither is a forge defect. Forge refuses those manifests pre-send until someone edits them; whether
+to edit them is dauntless's call.
+
+## Source pin: still relevant, and how that was checked
+
+`tools/pin_relevance.mjs <checkout-of-pin> <checkout-of-newer>` re-derives `fields.json` and
+`nested.json` from both checkouts and compares them, then diffs the 21 declared surfaces forge reads
+for behaviour rather than field sets (the limiter, router registration, the six content routers, the
+validator files, the drizzle schema behind `insertAiSchema`, the upload route, the three files that
+make `/forge` a host, and the dependency pins). It reads only; it never runs the game.
+
+Run for the pin `345d18ac` against the sentinel upstream `e02f8159` recorded on `main`:
+
+- both derived contracts IDENTICAL;
+- two surfaces changed, both read and both irrelevant: `root.ts` registers two new routers (`push`,
+  `purchases`), and `schema.ts` adds twelve device/purchase tables and their relations. No
+  `userData` column moved, which the identical 157-key ai field set proves independently.
+
+So the pin STAYS at `345d18ac` on evidence, not inertia. The gate exits 1 on any change, so the next
+person has to read it rather than skip it. Nothing was adopted for being newer.
+
+## Release pin
+
+The loader used to `@require` a BRANCH. jsDelivr caches a branch ref for about twelve hours and any
+later push changes what that URL returns, so the installed bytes were not provably the reviewed
+bytes - not acceptable for a mutation client.
+
+- `state/staged_workflows/release_pin.yml` now covers `forge_bundle.js` as well as the builder's.
+  Each loader is rewritten only when its own bundle changed in that push; the forge loader's
+  `@version` is synced from `forge/package.json` (ViolentMonkey refetches on a version rise); and
+  the pin deletes the `@x-unpinned-until-release` marker. The builder path is untouched.
+- `forge_loader_user.js` carries `@version 0.2.0` and, while this branch is unreviewed, an explicit
+  `@x-unpinned-until-release` marker naming the branch it floats on.
+- `tools/check_release_pin.mjs`, asserted by the suite, fails on a floating `@require` without that
+  marker, a marker that disagrees with the URL, a marker left behind after pinning, a `@version`
+  that did not rise with the bundle, and a staged workflow that does not cover forge. A second test
+  performs the workflow's own rewrite on a copy and proves the result is clean.
+
+**One dauntless action is required:** install `state/staged_workflows/release_pin.yml` at
+`.github/workflows/release_pin.yml` through the GitHub web UI. The PAT cannot push
+`.github/workflows/`, and no credential workaround was attempted. Until then the check reports it as
+`pending-install` rather than failing the suite.
+
+## Harvest compatibility
+
+Forge auto-commits a bundle to `harvests/inbox/`, and nothing had ever read one. Running the real
+`harvest.py` over a generated bundle showed it would have been read as EMPTY: harvest counts an
+entry by its state vocabulary (`ok`/`error`) and forge wrote the journal's, so every entry fell
+through to SKIP and `verify` exited 0 with nothing verified - a bad run reported as fine, in the one
+tool meant to catch that.
+
+`exportJob` now emits the shape `harvests/inbox/` already holds: `state` in harvest's vocabulary,
+`verdict` (`match|drift|unread`), and the v4.28 `asserted` checklist built from the keys the runner
+asserted and the diffs it recorded, so a drift reads as a per-field FAIL. The journal's own state
+rides along as `forgeState`, and the bundle carries `outcome` and honest postflight counters.
+
+One tightly-scoped change OUTSIDE `forge/` (a widened Lane A review surface): `harvest.py`'s
+`verify` treated an entry with `state=error` as a SKIP, so a bundle holding a failed push could exit
+0 as "verified". An entry that never shipped is now an `ERROR` line that fails the gate. Checked
+against every bundle already in `harvests/inbox/`: not one verdict changes.
+
+`test/harvest.test.mjs` runs a job producing all four outcomes, exports the bundle and runs the real
+`harvest.py` over it: `verify` prints OK / FAIL / UNVERIFIED / ERROR and exits 1, `index` still
+reports the capture calls, `diff` says honestly that a forge bundle carries no `pushed`/`live`
+payloads rather than inventing them, and a clean run exits 0.
+
 ## Not finished
 
 - **Pause during a run** is wired (`Runner.requestPause()`, honoured between items; the Run
   screen button calls it) but only jsdom has exercised the button.
 - **Captures with `select` / `scope`.** The old bundle's capture entries carried a `select`
   field list; the runner records row counts and stores full decoded data in the capture
-  cache but does not trim to `select`.
-- **Pool-code resolution and the lint set** (`resolvePool`, L09-L22) from builder v4.32 are
-  not ported. Manifests that still carry pool codes will fail pre-send validation only if
-  the code lands in an unknown key; a pool code in a legal field would be sent as a literal.
-  Port before running any AI-kit manifest through forge.
-- **`dedupNames` (live name collision check)** is parsed but not enforced.
-- **Nested unknown keys** (inside `effects[]`, quest `content`, rule conditions and actions)
-  are not checked; the server strips them silently.
+  cache but does not trim to `select`. Consequence for ingestion, measured rather than assumed:
+  `harvest.py index` lists a forge bundle's capture calls and their inputs, but has no rows to
+  report from them, so `get`/`names`/`assets` over a forge bundle answer nothing. Verification of
+  written records does not depend on it (that runs off `entries[]`), so this stayed out of scope.
+- **A capture-only manifest cannot be run.** `parseManifest` accepts one, but `journal.open()`
+  refuses an empty item list, so a manifest with captures and no items cannot start a job.
+  Pre-existing, unrelated to the readiness blockers, and not changed here.
 - **Clock skew** shifts the budget's bucket boundary relative to the server's; the strict
   window and the margin absorb a second or two, not more.
-- **Verify `unread`** (the read-back itself failed) leaves the item CONFIRMED at `verify`;
-  each later run re-reads it (one limited token) and the job can finish DONE with it in
-  that state. It is visible on the Run screen, not terminal.
 - **Clerk session refresh on `/forge`** (see "Host path"): inferred risk, mitigated by the
   SESSION pause, not solved.
-- **The loader `@require` points at the branch**, not a commit. `release_pin.yml` is
-  paths-filtered to `builder_bundle.js`; extending it to `forge_bundle.js` is a workflow
-  edit (web UI install) and is not done here.
+- **The release-pin workflow install** is a dauntless action (above). Until it lands, a push to
+  `main` that changes `forge_bundle.js` does not pin the forge loader.
+- **`selfcheck.py` fails on this branch and on `main` identically** (TNR-03: `45d` is absent from the
+  repository root and `45c`/`45g` disagree on provenance). Pre-existing, untouched by this pass,
+  and verified to be byte-identical output before and after it.
 - **Not exercised in a browser.** jsdom covers rendering and wiring; Firefox Android,
   ViolentMonkey's `@run-at document-start` timing on a 404 response, `window.stop()`
-  behaviour, and `navigator.storage.persist()` prompts are unverified until dauntless
-  installs it.
+  behaviour, `navigator.storage.persist()` prompts, real cookie/session continuity through a long
+  job, and real rate-limit clock skew are all unverified until dauntless installs it. The code
+  fails or pauses safely when those assumptions break; that is an argument, not a measurement.
