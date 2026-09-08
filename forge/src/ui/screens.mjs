@@ -3,6 +3,7 @@
 import { h, replace, fmtAgo, fmtBytes, fmtCountdown } from "./dom.mjs";
 import { manifestNumber, manifestSummary } from "../github.mjs";
 import { readGh, writeGh } from "../storage/compat.mjs";
+import { jobOutcome } from "../storage/journal.mjs";
 
 const pill = (state) => h("span", { class: "f-pill " + state }, state);
 
@@ -16,9 +17,10 @@ export function JobsScreen(app) {
     for (const j of open) {
       root.appendChild(h("div", { class: "f-banner warn" },
         h("div", {}, h("b", {}, "Open job: "), j.manifestPath || j.jobId, " ", pill(j.state)),
+        j.state === "INCOMPLETE" ? h("div", { class: "f-mute" }, `Finished unverified: ${j.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length} item(s) still owe a read-back. Resuming re-reads them and cannot re-send.`) : null,
         j.pause ? h("div", { class: "f-mute" }, `Paused: ${j.pause.reason}${j.pause.path ? " on " + j.pause.path : ""}${j.pause.until ? " · retry allowed in " + fmtCountdown(j.pause.until, app.now()) : ""}${j.pause.detail ? " · " + j.pause.detail : ""}`) : null,
         h("div", { class: "f-actions" },
-          h("button", { class: "f-primary", onClick: () => app.resumeJob(j.jobId) }, j.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : "Resume"),
+          h("button", { class: "f-primary", onClick: () => app.resumeJob(j.jobId) }, j.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : j.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume"),
           h("button", { onClick: () => app.go("run", { jobId: j.jobId }) }, "Open"),
         )));
     }
@@ -129,12 +131,26 @@ export function RunScreen(app) {
     h("div", {}, h("b", {}, job.manifestPath || job.jobId), " ", pill(job.state), h("span", { class: "f-mute" }, ` · started ${fmtAgo(job.startedAt, app.now())}`)),
     h("div", { class: "f-bar" + (job.state === "PAUSED" ? " warn" : "") }, h("i", { style: { width: Math.round(done / (job.items.length || 1) * 100) + "%" } })),
   );
+  const outcome = jobOutcome(job);
+  if (job.state === "DONE" || job.state === "INCOMPLETE") {
+    const drift = job.items.filter((i) => i.verify === "drift").length;
+    const unread = job.items.filter((i) => i.verify === "unread").length;
+    const failed = job.items.filter((i) => i.state === "FAILED").length;
+    const skipped = job.items.filter((i) => i.state === "SKIPPED").length;
+    root.appendChild(outcome === "success"
+      ? h("div", { class: "f-banner ok" }, h("b", {}, "Verified. "), "every item read back equal on its asserted keys.")
+      : h("div", { class: "f-banner " + (outcome === "failed" ? "bad" : "warn") },
+          h("b", {}, outcome === "failed" ? "Finished with failures. " : "Finished UNVERIFIED. "),
+          [failed ? `${failed} failed` : null, drift ? `${drift} drifted` : null, unread ? `${unread} could not be read back` : null, skipped ? `${skipped} skipped` : null].filter(Boolean).join(", "),
+          ". These writes are not proven. ",
+          job.state === "INCOMPLETE" ? "Resume to re-read them; resuming can only read, never re-send." : ""));
+  }
   if (job.pause) root.appendChild(h("div", { class: "f-banner " + (job.pause.reason === "TOO_MANY_REQUESTS" ? "bad" : "warn") },
     h("b", {}, `Paused: ${job.pause.reason}`), job.pause.path ? ` on ${job.pause.path}` : "", job.pause.until ? ` · wait ${fmtCountdown(job.pause.until, app.now())}` : "", job.pause.detail ? h("div", { class: "f-err" }, job.pause.detail) : null));
   if (app.state.running === jobId) root.appendChild(h("div", { class: "f-banner info" }, "Running… ", app.state.runningNote || ""));
   root.appendChild(h("div", { class: "f-actions" },
-    job.state === "PAUSED" || (job.state === "RUNNING" && app.state.running !== jobId && job.items.some((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)))
-      ? h("button", { class: "f-primary", onClick: () => app.resumeJob(jobId) }, job.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : "Resume") : null,
+    job.state === "PAUSED" || job.state === "INCOMPLETE" || (job.state === "RUNNING" && app.state.running !== jobId && job.items.some((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)))
+      ? h("button", { class: "f-primary", onClick: () => app.resumeJob(jobId) }, job.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : job.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume") : null,
     app.state.running === jobId ? h("button", { onClick: () => app.requestPause() }, "Pause after this item") : null,
     h("button", { onClick: () => app.exportJob(jobId) }, "Export bundle"),
   ));

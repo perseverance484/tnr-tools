@@ -42,6 +42,15 @@ export function parseManifest(source) {
     if (it.srcId) { if (srcIds.has(it.srcId)) problems.push(`duplicate srcId ${it.srcId}`); srcIds.add(it.srcId); }
     if (it.entity === "aiProfile" && it.op === "create") problems.push(`item ${it.idx}: aiProfile cannot be created directly; create an ai with rules`);
   }
+  // readBack:false on a manifest that WRITES is refused before a job can start. The old builder
+  // let it through and simply skipped the read-back; forge used to convert that into VERIFIED, so
+  // a manifest could opt out of verification and still be reported as verified. TNR doctrine is
+  // that a push echo is not verification, no manifest under push/ has ever set it, and no skill
+  // instructs it, so there is no compatibility reason to keep a writing manifest able to opt out.
+  // Capture-only manifests are unaffected: there is no mutation to read back.
+  if (m.readBack === false && items.length) {
+    problems.push('readBack:false is refused on a manifest with items: a write must be read back (remove the key, or split the captures into their own manifest)');
+  }
   if (problems.length) throw new ManifestError("manifest problems:\n" + problems.join("\n"), { problems });
 
   return {

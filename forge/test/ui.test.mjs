@@ -132,6 +132,39 @@ test("Manifests: list, select, plan shown, Start job runs to DONE through the ru
   assert.equal(jobs.length, 1); assert.equal(jobs[0].state, "DONE"); assert.equal(jobs[0].items[0].state, "VERIFIED");
 });
 
+
+test("a finished-but-unverified job is never shown or exported as success", async () => {
+  const win = dom();
+  const game = new FakeGame();
+  const { app } = appWith({ game });
+  // the read-back disagrees with what was sent
+  const orig = game.handle.bind(game);
+  game.handle = (p, i) => { const r = orig(p, i); if (p === "jutsu.get" && r && r.data) r.data = { ...r.data, name: "Someone renamed it" }; return r; };
+  app.mount(win.document.body, win.document);
+  app.go("manifests");
+  await app.loadPicker(true);
+  await app.selectManifest(app.state.picker[0]);
+  let exported = null;
+  app.showExport = (text, name) => { exported = JSON.parse(text); };
+  await app.startJob();
+  await new Promise((r) => setTimeout(r, 10));
+  const job = app.journal.listJobs()[0];
+  assert.equal(job.state, "INCOMPLETE", "a drifted read-back is not DONE");
+  assert.equal(job.items[0].verify, "drift");
+  const main = win.document.querySelector(".f-main");
+  assert.match(main.textContent, /Finished UNVERIFIED/);
+  assert.match(main.textContent, /not proven/);
+  assert.ok([...win.document.querySelectorAll("button")].some((b) => b.textContent === "Re-read unverified items"), "still resumable");
+  assert.ok(!/^Verified\./m.test(main.textContent));
+  // the bundle is still exported as evidence, and says what it is
+  assert.ok(exported, "an incomplete job still exports its evidence");
+  assert.equal(exported.outcome, "unverified");
+  assert.equal(exported.state, "INCOMPLETE");
+  assert.equal(exported.postflight.diff, 1);
+  assert.equal(exported.postflight.match, 0);
+  assert.equal(exported.postflight.unresolved, 1);
+});
+
 test("a screen that throws is shown as an error banner, never a blank page", () => {
   const win = dom();
   const { app } = appWith();

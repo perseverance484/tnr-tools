@@ -26,7 +26,7 @@ textarea { min-height:160px; font-family: ui-monospace, Menlo, monospace; font-s
 .f-pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:600; border:1px solid var(--line); color:var(--mute); }
 .f-pill.PLANNED { color:var(--mute); } .f-pill.SENT { color:var(--sent); border-color:var(--sent); } .f-pill.CONFIRMED { color:var(--acc); border-color:var(--acc); }
 .f-pill.VERIFIED, .f-pill.DONE { color:var(--ok); border-color:var(--ok); } .f-pill.FAILED, .f-pill.ABORTED { color:var(--bad); border-color:var(--bad); }
-.f-pill.ORPHANED, .f-pill.PAUSED { color:var(--warn); border-color:var(--warn); } .f-pill.SKIPPED { color:var(--mute); }
+.f-pill.ORPHANED, .f-pill.PAUSED, .f-pill.INCOMPLETE { color:var(--warn); border-color:var(--warn); } .f-pill.SKIPPED { color:var(--mute); }
 .f-banner { padding:10px 12px; border-radius:10px; margin:8px 0; border:1px solid; }
 .f-banner.warn { border-color:var(--warn); background:#2a2312; } .f-banner.bad { border-color:var(--bad); background:#2a1515; } .f-banner.ok { border-color:var(--ok); background:#12261c; } .f-banner.info { border-color:var(--acc); background:#141b2e; }
 .f-bar { height:6px; background:#0b0d12; border-radius:4px; overflow:hidden; margin:6px 0; } .f-bar > i { display:block; height:100%; background:var(--acc); }

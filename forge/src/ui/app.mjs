@@ -7,7 +7,7 @@ import { parseManifest, planOrder, ManifestError } from "../runner/manifest.mjs"
 import { collectRefs } from "../runner/refs.mjs";
 import { manifestNumber, manifestSummary, GH } from "../github.mjs";
 import { readGh } from "../storage/compat.mjs";
-import { JournalError } from "../storage/journal.mjs";
+import { JournalError, jobOutcome } from "../storage/journal.mjs";
 
 const SCREENS = { jobs: ["Jobs", JobsScreen], manifests: ["Manifests", ManifestsScreen], run: ["Run", RunScreen], captures: ["Captures", CapturesScreen], settings: ["Settings", SettingsScreen] };
 
@@ -148,8 +148,13 @@ export class App {
     const tick = setInterval(() => { if (this.state.screen === "run") this.refresh(); }, 1500);
     try {
       const s = await fn();
-      this.toast(`job ${s.state}: ${Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")}`, s.state === "DONE" ? "ok" : "warn", 8000);
-      if (s.state === "DONE") await this.exportJob(jobId, { auto: true });
+      // Only outcome "success" is green. A finished job holding a drifted, unread or failed item is
+      // reported as what it is; the bundle is still exported, because a failure is evidence too.
+      const counts = Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ");
+      const verify = s.verify ? `${s.verify.match} verified, ${s.verify.drift} drift, ${s.verify.unread} unread` : "";
+      const kind = s.outcome === "success" ? "ok" : s.outcome === "failed" ? "bad" : "warn";
+      this.toast(`job ${s.state} (${s.outcome}): ${counts}${verify ? " · " + verify : ""}`, kind, 8000);
+      if (s.state === "DONE" || s.state === "INCOMPLETE") await this.exportJob(jobId, { auto: true });
     } catch (e) { this.fail("run", e); }
     finally { clearInterval(tick); this.state.running = null; this.refresh(); }
   }
@@ -163,7 +168,16 @@ export class App {
     const job = this.journal.get(jobId);
     const bundle = {
       builder: this.version, at: new Date(this.now()).toISOString(), cfg: "forge", checks: null,
-      postflight: { match: job.items.filter((i) => i.verify === "match").length, diff: job.items.filter((i) => i.verify === "drift").length, unverified: job.items.filter((i) => i.verify === "unread").length },
+      // `outcome` is the honest headline: an exported bundle is evidence, not a claim of success.
+      state: job.state, outcome: jobOutcome(job),
+      postflight: {
+        match: job.items.filter((i) => i.verify === "match").length,
+        diff: job.items.filter((i) => i.verify === "drift").length,
+        unverified: job.items.filter((i) => i.verify === "unread").length,
+        failed: job.items.filter((i) => i.state === "FAILED").length,
+        skipped: job.items.filter((i) => i.state === "SKIPPED").length,
+        unresolved: job.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length,
+      },
       entries: job.items.map((i) => ({ name: i.name, srcId: i.srcId, entity: i.entity, slot: i.op, state: i.state, phase: i.phase, detail: i.error || i.reconciled || "", verdict: i.verify || null, diffs: i.diffs || [], id: i.entityId || i.targetId || null })),
       captures: [...(job.capturesBefore || []), ...(job.capturesAfter || [])],
       idmap: JSON.parse(this.storage.getItem("tnr_bk_idmap_v1") || "{}"),

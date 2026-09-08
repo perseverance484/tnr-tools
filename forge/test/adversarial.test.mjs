@@ -4,7 +4,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { IDBFactory } from "fake-indexeddb";
-import { Journal, JournalError, KEY_PREFIX, TRANSITIONS, ITEM_STATES, migrate, repairHistory, JOURNAL_VERSION } from "../src/storage/journal.mjs";
+import { Journal, JournalError, KEY_PREFIX, TRANSITIONS, ITEM_STATES, migrate, repairHistory, JOURNAL_VERSION, jobOutcome } from "../src/storage/journal.mjs";
 import { CaptureCache } from "../src/storage/captures.mjs";
 import { readIdmap, IDMAP_KEY } from "../src/storage/compat.mjs";
 import { stableStringify, payloadHash } from "../src/storage/hash.mjs";
@@ -18,6 +18,7 @@ import { classifyError, readMutation, OutcomeError } from "../src/transport/outc
 import { Budget } from "../src/budget/bucket.mjs";
 import { CachedReader } from "../src/budget/reader.mjs";
 import { Validator, diffAsserted } from "../src/runner/validate.mjs";
+import { parseManifest, ManifestError } from "../src/runner/manifest.mjs";
 import { Runner, LeaseHeld, LEASE_PREFIX, LEASE_TTL_MS } from "../src/runner/runner.mjs";
 import { Reconciler } from "../src/reconcile/reconciler.mjs";
 import { FakeGame, FakeClient, CrashSignal } from "./fakegame.mjs";
@@ -244,14 +245,7 @@ test("L4: after a 429 on an item's own read-back, resume only reads; the update 
   assert.equal(game.count("jutsu"), 1);
 });
 
-test("L4: readBack:false marks VERIFIED{skipped} immediately; drift stays CONFIRMED/verify; run() on DONE is a no-op", async () => {
-  const h = harness();
-  h.runner.plan({ readBack: false, ...ONE }, { jobId: "nb" });
-  const s = await h.runner.run("nb");
-  assert.equal(s.items[0].state, "VERIFIED"); assert.equal(s.items[0].verify, "skipped");
-  const before = h.game.calls.length;
-  await h.runner.run("nb");
-  assert.equal(h.game.calls.length, before, "DONE job sends nothing");
+test("L4: drift stays CONFIRMED/verify and the job finishes INCOMPLETE, never DONE", async () => {
   // drift: make the server lie on read-back
   const g2 = new FakeGame(); const h2 = harness({ game: g2 });
   h2.runner.plan(ONE, { jobId: "d" });
@@ -259,7 +253,16 @@ test("L4: readBack:false marks VERIFIED{skipped} immediately; drift stays CONFIR
   g2.handle = (p, i) => { const r = orig(p, i); if (p === "jutsu.get" && ++n === 2) r.data.name = "Someone renamed it"; return r; };
   const sd = await h2.runner.run("d");
   assert.equal(sd.items[0].state, "CONFIRMED"); assert.equal(sd.items[0].phase, "verify"); assert.equal(sd.items[0].verify, "drift");
+  assert.equal(sd.state, "INCOMPLETE"); assert.equal(sd.outcome, "unverified");
   assert.equal(g2.calls.filter((c) => c.path === "jutsu.update").length, 1);
+  // a run of a job that IS done sends nothing
+  const h3 = harness();
+  h3.runner.plan(ONE, { jobId: "ok" });
+  const s3 = await h3.runner.run("ok");
+  assert.equal(s3.state, "DONE"); assert.equal(s3.outcome, "success");
+  const before = h3.game.calls.length;
+  await h3.runner.run("ok");
+  assert.equal(h3.game.calls.length, before, "DONE job sends nothing");
 });
 
 test("L4: a reconciled rules-toggle continues at rules without re-sending the update", async () => {
@@ -578,6 +581,92 @@ test("L3: the budget mirrors the server's weighted sliding window, so this clien
   assert.ok(h.clock() - t0 <= W + 5000, "the second 30 still fit inside about one window: " + (h.clock() - t0));
   const st = h.budget.status().paths["jutsu.get"];
   assert.ok(st.weighted <= A && st.used <= A);
+});
+
+
+// ------------------------------------- readiness P0: honest terminal and verify semantics (R1-R5)
+test("R1: readBack:false is refused before a job exists when the manifest writes", () => {
+  const h = harness();
+  assert.throws(() => h.runner.plan({ readBack: false, ...ONE }, { jobId: "nb" }), /readBack:false is refused/);
+  assert.equal(h.journal.listJobs().length, 0, "no job, no placeholder, nothing sent");
+  assert.throws(() => parseManifest({ readBack: false, ...ONE }), ManifestError);
+  // a capture-only manifest has no write to read back, so it is untouched
+  const capOnly = parseManifest({ readBack: false, capture: { before: [{ proc: "jutsu.getAllNames" }], after: [] } });
+  assert.equal(capOnly.readBack, false);
+  assert.equal(capOnly.items.length, 0);
+});
+
+test("R2: a drifted item leaves the job INCOMPLETE, resumable, and re-reading never re-sends", async () => {
+  const game = new FakeGame(); const h = harness({ game });
+  h.runner.plan(ONE, { jobId: "dr" });
+  const orig = game.handle.bind(game); let lie = true;
+  game.handle = (p, i) => { const r = orig(p, i); if (p === "jutsu.get" && lie && r.data) { r.data = { ...r.data, name: "Someone renamed it" }; } return r; };
+  const s1 = await h.runner.run("dr");
+  assert.equal(s1.state, "INCOMPLETE"); assert.equal(s1.outcome, "unverified");
+  assert.equal(s1.items[0].state, "CONFIRMED"); assert.equal(s1.items[0].verify, "drift");
+  assert.ok(h.journal.resumable().some((j) => j.jobId === "dr"), "an unverified job is still open work");
+  const updates = () => game.calls.filter((c) => c.path === "jutsu.update").length;
+  const creates = () => game.calls.filter((c) => c.path === "jutsu.create").length;
+  const [u0, c0] = [updates(), creates()];
+  // the drift was the server's answer, not ours: on a re-read that agrees, the job closes clean
+  lie = false;
+  const s2 = await h.runner.run("dr");
+  assert.equal(updates(), u0, "re-reading an unverified item sends no mutation");
+  assert.equal(creates(), c0, "and certainly no second create");
+  assert.equal(s2.items[0].state, "VERIFIED"); assert.equal(s2.state, "DONE"); assert.equal(s2.outcome, "success");
+});
+
+test("R3: an unread read-back leaves the job INCOMPLETE and resume only reads", async () => {
+  const game = new FakeGame(); const h = harness({ game });
+  h.runner.plan(ONE, { jobId: "ur" });
+  // blind only AFTER the update: the read-back itself is what fails, not the pre-update read
+  const orig = game.handle.bind(game); let blind = false;
+  game.handle = (p, i) => { const r = orig(p, i); if (p === "jutsu.update") blind = true; if (p === "jutsu.get" && blind) return { ok: true, data: null }; return r; };
+  const s1 = await h.runner.run("ur");
+  assert.equal(s1.items[0].verify, "unread");
+  assert.equal(s1.items[0].state, "CONFIRMED"); assert.equal(s1.items[0].phase, "verify");
+  assert.equal(s1.state, "INCOMPLETE"); assert.equal(s1.outcome, "unverified");
+  const u0 = game.calls.filter((c) => c.path === "jutsu.update").length;
+  blind = false;
+  const s2 = await h.runner.run("ur");
+  assert.equal(game.calls.filter((c) => c.path === "jutsu.update").length, u0, "no mutation resent for an unread item");
+  assert.equal(s2.state, "DONE"); assert.equal(s2.outcome, "success");
+  assert.equal(game.count("jutsu"), 1);
+});
+
+test("R4: DONE is structurally impossible while an item is unresolved", () => {
+  const j = J();
+  j.open({ jobId: "u", items: [spec()] });
+  j.transition("u", 0, "SENT"); j.transition("u", 0, "CONFIRMED", { entityId: "e1", phase: "verify" });
+  assert.throws(() => j.setJobState("u", "DONE"), /cannot mark DONE with unresolved items/);
+  j.setJobState("u", "INCOMPLETE"); // the honest one
+  assert.equal(j.get("u").state, "INCOMPLETE");
+  assert.equal(jobOutcome(j.get("u")), "unverified");
+  j.transition("u", 0, "VERIFIED", { verify: "match" });
+  j.setJobState("u", "DONE");
+  assert.equal(jobOutcome(j.get("u")), "success");
+  // a SENT item can reach neither
+  j.open({ jobId: "s", items: [spec()] }); j.transition("s", 0, "SENT");
+  assert.throws(() => j.setJobState("s", "DONE"), /cannot mark DONE with SENT items/);
+  assert.throws(() => j.setJobState("s", "INCOMPLETE"), /cannot mark INCOMPLETE with SENT items/);
+});
+
+test("R5: a failed item is execution-terminal but never a success", async () => {
+  const h = harness();
+  h.runner.plan({ items: [
+    { entity: "jutsu", slot: "create", name: "A", srcId: "a", data: { name: "A", description: "d", hidden: true } },
+    { entity: "jutsu", slot: "create", name: "B", srcId: "b", data: { name: "B", nmae: "typo" } },
+  ] }, { jobId: "mix" });
+  const s = await h.runner.run("mix");
+  assert.equal(s.state, "DONE", "nothing is left to do");
+  assert.equal(s.outcome, "failed", "but it is not good news");
+  assert.equal(s.items[1].state, "FAILED");
+  assert.equal(s.verify.match, 1);
+  // a skipped orphan is unverified too: the row may be live and nobody proved what is in it
+  const j = J(); j.open({ jobId: "sk", items: [spec()] });
+  j.transition("sk", 0, "SENT"); j.transition("sk", 0, "ORPHANED"); j.transition("sk", 0, "SKIPPED");
+  j.setJobState("sk", "DONE");
+  assert.equal(jobOutcome(j.get("sk")), "unverified");
 });
 
 // ------------------------------------------------- independent review of a1f9144 (F1-F4)
