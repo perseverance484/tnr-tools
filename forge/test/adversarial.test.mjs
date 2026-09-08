@@ -701,6 +701,59 @@ test("F4: an undecodable mutation element stays ambiguous; queries keep sibling 
   assert.throws(() => readMutation({ ok: false, error: { code: "MALFORMED_ELEMENT", message: "x" } }), OutcomeError);
 });
 
+test("F4c: a per-INDEX error is held to the same adapter shape (review of 4062268, F4 reopened)", async () => {
+  // Against 4062268 every one of these decoded to a normal {ok:false} verdict with code UNKNOWN,
+  // and the runner turned an already-SENT mutation into FAILED. A response element that is not the
+  // shape we audited is evidence of something other than our server answering, and the resolver
+  // may still have run.
+  const bad = [
+    ['[{"error":{}}]', "empty error object"],
+    ['[{"error":{"json":{"message":"x","data":{"code":"BAD_REQUEST"}}}}]', "no numeric jsonrpc code"],
+    ['[{"error":{"json":{"message":"x","code":-32600}}}]', "no data.code"],
+    ['[{"error":{"json":{"message":"x","code":-32600,"data":{}}}}]', "data without a code"],
+    ['[{"error":{"code":"FUNCTION_INVOCATION_TIMEOUT"}}]', "a gateway body at one index"],
+  ];
+  for (const [body, why] of bad) {
+    assert.throws(() => decodeResponse(200, body, 1, { mutation: true }), TransportError, why);
+    const q = decodeResponse(200, body, 1);
+    assert.equal(q[0].error.code, "MALFORMED_ELEMENT", why + " (query salvage)");
+    assert.notEqual(q[0].error.code, "UNKNOWN", why + " must never become a per-index verdict");
+  }
+  // a malformed error element in a QUERY batch keeps its well-formed siblings
+  const mixed = decodeResponse(207, '[{"result":{"data":{"json":{"id":"a"}}}},{"error":{}},{"result":{"data":{"json":{"id":"c"}}}}]', 3);
+  assert.equal(mixed[0].data.id, "a"); assert.equal(mixed[1].error.code, "MALFORMED_ELEMENT"); assert.equal(mixed[2].data.id, "c");
+  // and end to end: the item stays SENT, the job pauses, the write is never called failed
+  const h = harness();
+  h.runner.plan(ONE, { jobId: "f4c" });
+  h.runner.client = new TrpcClient(new CookieSession({ fetchImpl: async () => new Response('[{"error":{}}]', { status: 200, headers: { "content-type": "application/json" } }) }));
+  const s = await h.runner.run("f4c");
+  assert.equal(s.state, "PAUSED"); assert.equal(s.pause.reason, "UNDECODABLE_RESPONSE");
+  assert.equal(s.items[0].state, "SENT", "ambiguity preserved: the write may have landed");
+});
+
+test("F4d: recorded adapter errors still decode exactly as before", () => {
+  // the guard must not cost us any real error the adapter actually produces
+  const fixture = (name) => JSON.parse(readFileSync(new URL(`./fixtures/envelope/${name}.json`, import.meta.url), "utf8")).exchanges[0].response;
+  const cases = [
+    ["get_on_mutation_path_rejected", "METHOD_NOT_SUPPORTED", false],
+    ["mutation_update_zod_fail", "BAD_REQUEST", true],
+    ["query_too_many_requests", "TOO_MANY_REQUESTS", false],
+  ];
+  for (const [name, code, mutation] of cases) {
+    const r = fixture(name);
+    const out = decodeResponse(r.status, r.body, 1, { mutation });
+    assert.equal(out[0].ok, false, name);
+    assert.equal(out[0].error.code, code, name);
+    assert.ok(isTrpcErrorBody(JSON.parse(r.body)[0]), name + " is the audited shape");
+  }
+  const mixed = fixture("mutation_batched_mixed_ok_and_zod_fail");
+  const out = decodeResponse(mixed.status, mixed.body, 2, { mutation: true });
+  assert.equal(out[0].ok, true); assert.equal(out[1].error.code, "BAD_REQUEST");
+  const oneLimited = fixture("query_batched_one_limited_one_ok");
+  const ol = decodeResponse(oneLimited.status, oneLimited.body, 2);
+  assert.equal(ol[0].error.code, "TOO_MANY_REQUESTS"); assert.equal(ol[1].ok, true);
+});
+
 test("F4b: only the exact adapter error shape is fanned out per index", () => {
   assert.equal(isTrpcErrorBody({ error: { json: { message: "x", code: -32015, data: { code: "UNSUPPORTED_MEDIA_TYPE" } } } }), true);
   assert.equal(isTrpcErrorBody({ error: { json: { message: "x", data: { code: "INTERNAL_SERVER_ERROR" } } } }), false, "no numeric jsonrpc code: an intermediary body");

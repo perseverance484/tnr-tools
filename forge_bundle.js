@@ -1453,6 +1453,9 @@
       return { ok: true, data: dist_default.deserialize({ json, meta }) };
     }
     if (el && el.error) {
+      if (!isTrpcErrorBody(el)) {
+        throw new TransportError(`batch element ${i} has a malformed tRPC error`, { httpStatus: status, element: el });
+      }
       const err = el.error.json !== void 0 ? dist_default.deserialize({ json: el.error.json, meta: el.error.meta }) : el.error;
       const data = err && err.data || {};
       return {
