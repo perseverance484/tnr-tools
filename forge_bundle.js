@@ -17,7 +17,7 @@
     "SKIPPED"
   ]);
   var TERMINAL_ITEM_STATES = Object.freeze(["VERIFIED", "FAILED", "SKIPPED"]);
-  var JOB_STATES = Object.freeze(["RUNNING", "PAUSED", "DONE", "ABORTED"]);
+  var JOB_STATES = Object.freeze(["RUNNING", "PAUSED", "DONE", "INCOMPLETE", "ABORTED"]);
   var OPS = Object.freeze(["create", "update"]);
   var TRANSITIONS = Object.freeze({
     PLANNED: ["SENT", "FAILED", "SKIPPED"],
@@ -31,6 +31,13 @@
     SKIPPED: []
   });
   var RESERVED = Object.freeze(["state", "idx", "sentAt", "confirmedAt", "verifiedAt", "createSentAt"]);
+  function jobOutcome(job) {
+    if (!job || !Array.isArray(job.items)) return "open";
+    if (job.state === "RUNNING" || job.state === "PAUSED") return "open";
+    if (job.items.some((it) => it.state === "FAILED")) return "failed";
+    if (job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state) || it.state === "SKIPPED" || it.verify && it.verify !== "match")) return "unverified";
+    return job.items.length ? "success" : "unverified";
+  }
   var JournalError = class extends Error {
     constructor(message, info) {
       super(message);
@@ -203,7 +210,10 @@
     setJobState(jobId, state, extra = {}) {
       if (!JOB_STATES.includes(state)) throw new JournalError("bad job state: " + state);
       const job = this._mustRead(jobId);
-      if (state === "DONE" && job.items.some((it) => it.state === "SENT")) throw new JournalError("cannot mark DONE with SENT items", { jobId });
+      if ((state === "DONE" || state === "INCOMPLETE") && job.items.some((it) => it.state === "SENT")) throw new JournalError(`cannot mark ${state} with SENT items`, { jobId });
+      if (state === "DONE" && job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state))) {
+        throw new JournalError("cannot mark DONE with unresolved items; use INCOMPLETE", { jobId });
+      }
       job.state = state;
       job.pause = state === "PAUSED" ? extra.pause ?? job.pause ?? { reason: "unspecified" } : null;
       return this._write(job);
@@ -288,9 +298,14 @@
       return this._write(job);
     }
     // ------------------------------------------------------------------ resume
-    /** Jobs that still have work: PAUSED, or RUNNING with any non-terminal item. DONE/ABORTED never. */
+    /**
+     * Jobs that still have work: PAUSED, INCOMPLETE (verification outstanding), or RUNNING with any
+     * non-terminal item. DONE/ABORTED never. An INCOMPLETE job is resumable on purpose: re-reading a
+     * drifted or unread item is the only way it can ever become DONE, and re-reading is all a resume
+     * of it can do.
+     */
     resumable() {
-      return this.listJobs().filter((job) => job.state === "PAUSED" || job.state === "RUNNING" && job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state)));
+      return this.listJobs().filter((job) => job.state === "PAUSED" || job.state === "INCOMPLETE" || job.state === "RUNNING" && job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state)));
     }
     /** Items in SENT. These are ambiguous and must go through reconciliation, never retried. */
     ambiguous(jobId) {
@@ -2479,6 +2494,9 @@
       }
       if (it.entity === "aiProfile" && it.op === "create") problems.push(`item ${it.idx}: aiProfile cannot be created directly; create an ai with rules`);
     }
+    if (m.readBack === false && items.length) {
+      problems.push("readBack:false is refused on a manifest with items: a write must be read back (remove the key, or split the captures into their own manifest)");
+    }
     if (problems.length) throw new ManifestError("manifest problems:\n" + problems.join("\n"), { problems });
     return {
       items,
@@ -2653,7 +2671,7 @@
       const { manifest, order } = this._m(jobId);
       let job = this.journal.get(jobId);
       if (job.state === "DONE" || job.state === "ABORTED") return this.summary(jobId);
-      if (job.state === "PAUSED") {
+      if (job.state === "PAUSED" || job.state === "INCOMPLETE") {
         const t = this.budget && this.budget.log && this.budget.log.tripped();
         if (t) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: t.path, until: t.until });
         job = this.journal.setJobState(jobId, "RUNNING");
@@ -2683,9 +2701,11 @@
         this._releaseLease(jobId);
         throw e;
       }
-      this.journal.setJobState(jobId, "DONE");
+      const finished = this.journal.get(jobId);
+      const unresolved = finished.items.filter((it) => !TERMINAL_ITEM_STATES.includes(it.state));
+      this.journal.setJobState(jobId, unresolved.length ? "INCOMPLETE" : "DONE");
       this._releaseLease(jobId);
-      if (this.reconciler && typeof this.reconciler.forget === "function") this.reconciler.forget(jobId);
+      if (this.reconciler && typeof this.reconciler.forget === "function" && !unresolved.length) this.reconciler.forget(jobId);
       return this.summary(jobId);
     }
     /** Reconcile SENT items through the reconciler, then run. */
@@ -2743,7 +2763,9 @@
       const job = this.journal.get(jobId);
       const counts = {};
       for (const it of job.items) counts[it.state] = (counts[it.state] ?? 0) + 1;
-      return { jobId, state: job.state, pause: job.pause, counts, items: job.items.map((it) => ({ idx: it.idx, name: it.name, entity: it.entity, state: it.state, phase: it.phase, entityId: it.entityId, error: it.error ?? null, diffs: it.diffs ?? null, verify: it.verify ?? null })) };
+      const verify = { match: 0, drift: 0, unread: 0 };
+      for (const it of job.items) if (it.verify && verify[it.verify] !== void 0) verify[it.verify]++;
+      return { jobId, state: job.state, outcome: jobOutcome(job), pause: job.pause, counts, verify, items: job.items.map((it) => ({ idx: it.idx, name: it.name, entity: it.entity, state: it.state, phase: it.phase, entityId: it.entityId, error: it.error ?? null, diffs: it.diffs ?? null, verify: it.verify ?? null })) };
     }
     // ------------------------------------------------------------------ items
     async _runItem(jobId, item, planned, manifest) {
@@ -2879,10 +2901,7 @@
       this._failFromOutcome(jobId, item, o, "rules");
     }
     async _verifyOrSkip(jobId, item, planned, manifest) {
-      if (!manifest.readBack) {
-        this.journal.transition(jobId, item.idx, "VERIFIED", { verify: "skipped" });
-        return;
-      }
+      if (!manifest.readBack) throw new Error("readBack:false reached item " + item.idx + "; a written item must be read back");
       await this._verify(jobId, item, planned);
     }
     async _verify(jobId, item, planned) {
@@ -3312,7 +3331,7 @@ textarea { min-height:160px; font-family: ui-monospace, Menlo, monospace; font-s
 .f-pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:600; border:1px solid var(--line); color:var(--mute); }
 .f-pill.PLANNED { color:var(--mute); } .f-pill.SENT { color:var(--sent); border-color:var(--sent); } .f-pill.CONFIRMED { color:var(--acc); border-color:var(--acc); }
 .f-pill.VERIFIED, .f-pill.DONE { color:var(--ok); border-color:var(--ok); } .f-pill.FAILED, .f-pill.ABORTED { color:var(--bad); border-color:var(--bad); }
-.f-pill.ORPHANED, .f-pill.PAUSED { color:var(--warn); border-color:var(--warn); } .f-pill.SKIPPED { color:var(--mute); }
+.f-pill.ORPHANED, .f-pill.PAUSED, .f-pill.INCOMPLETE { color:var(--warn); border-color:var(--warn); } .f-pill.SKIPPED { color:var(--mute); }
 .f-banner { padding:10px 12px; border-radius:10px; margin:8px 0; border:1px solid; }
 .f-banner.warn { border-color:var(--warn); background:#2a2312; } .f-banner.bad { border-color:var(--bad); background:#2a1515; } .f-banner.ok { border-color:var(--ok); background:#12261c; } .f-banner.info { border-color:var(--acc); background:#141b2e; }
 .f-bar { height:6px; background:#0b0d12; border-radius:4px; overflow:hidden; margin:6px 0; } .f-bar > i { display:block; height:100%; background:var(--acc); }
@@ -3337,11 +3356,12 @@ details summary { cursor:pointer; color:var(--mute); }
           "div",
           { class: "f-banner warn" },
           h("div", {}, h("b", {}, "Open job: "), j.manifestPath || j.jobId, " ", pill(j.state)),
+          j.state === "INCOMPLETE" ? h("div", { class: "f-mute" }, `Finished unverified: ${j.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length} item(s) still owe a read-back. Resuming re-reads them and cannot re-send.`) : null,
           j.pause ? h("div", { class: "f-mute" }, `Paused: ${j.pause.reason}${j.pause.path ? " on " + j.pause.path : ""}${j.pause.until ? " \xB7 retry allowed in " + fmtCountdown(j.pause.until, app.now()) : ""}${j.pause.detail ? " \xB7 " + j.pause.detail : ""}`) : null,
           h(
             "div",
             { class: "f-actions" },
-            h("button", { class: "f-primary", onClick: () => app.resumeJob(j.jobId) }, j.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : "Resume"),
+            h("button", { class: "f-primary", onClick: () => app.resumeJob(j.jobId) }, j.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : j.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume"),
             h("button", { onClick: () => app.go("run", { jobId: j.jobId }) }, "Open")
           )
         ));
@@ -3488,6 +3508,21 @@ details summary { cursor:pointer; color:var(--mute); }
       h("div", {}, h("b", {}, job.manifestPath || job.jobId), " ", pill(job.state), h("span", { class: "f-mute" }, ` \xB7 started ${fmtAgo(job.startedAt, app.now())}`)),
       h("div", { class: "f-bar" + (job.state === "PAUSED" ? " warn" : "") }, h("i", { style: { width: Math.round(done / (job.items.length || 1) * 100) + "%" } }))
     );
+    const outcome = jobOutcome(job);
+    if (job.state === "DONE" || job.state === "INCOMPLETE") {
+      const drift = job.items.filter((i) => i.verify === "drift").length;
+      const unread = job.items.filter((i) => i.verify === "unread").length;
+      const failed = job.items.filter((i) => i.state === "FAILED").length;
+      const skipped = job.items.filter((i) => i.state === "SKIPPED").length;
+      root.appendChild(outcome === "success" ? h("div", { class: "f-banner ok" }, h("b", {}, "Verified. "), "every item read back equal on its asserted keys.") : h(
+        "div",
+        { class: "f-banner " + (outcome === "failed" ? "bad" : "warn") },
+        h("b", {}, outcome === "failed" ? "Finished with failures. " : "Finished UNVERIFIED. "),
+        [failed ? `${failed} failed` : null, drift ? `${drift} drifted` : null, unread ? `${unread} could not be read back` : null, skipped ? `${skipped} skipped` : null].filter(Boolean).join(", "),
+        ". These writes are not proven. ",
+        job.state === "INCOMPLETE" ? "Resume to re-read them; resuming can only read, never re-send." : ""
+      ));
+    }
     if (job.pause) root.appendChild(h(
       "div",
       { class: "f-banner " + (job.pause.reason === "TOO_MANY_REQUESTS" ? "bad" : "warn") },
@@ -3500,7 +3535,7 @@ details summary { cursor:pointer; color:var(--mute); }
     root.appendChild(h(
       "div",
       { class: "f-actions" },
-      job.state === "PAUSED" || job.state === "RUNNING" && app.state.running !== jobId && job.items.some((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)) ? h("button", { class: "f-primary", onClick: () => app.resumeJob(jobId) }, job.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : "Resume") : null,
+      job.state === "PAUSED" || job.state === "INCOMPLETE" || job.state === "RUNNING" && app.state.running !== jobId && job.items.some((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)) ? h("button", { class: "f-primary", onClick: () => app.resumeJob(jobId) }, job.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : job.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume") : null,
       app.state.running === jobId ? h("button", { onClick: () => app.requestPause() }, "Pause after this item") : null,
       h("button", { onClick: () => app.exportJob(jobId) }, "Export bundle")
     ));
@@ -3763,8 +3798,11 @@ details summary { cursor:pointer; color:var(--mute); }
       }, 1500);
       try {
         const s = await fn();
-        this.toast(`job ${s.state}: ${Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")}`, s.state === "DONE" ? "ok" : "warn", 8e3);
-        if (s.state === "DONE") await this.exportJob(jobId, { auto: true });
+        const counts = Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ");
+        const verify = s.verify ? `${s.verify.match} verified, ${s.verify.drift} drift, ${s.verify.unread} unread` : "";
+        const kind = s.outcome === "success" ? "ok" : s.outcome === "failed" ? "bad" : "warn";
+        this.toast(`job ${s.state} (${s.outcome}): ${counts}${verify ? " \xB7 " + verify : ""}`, kind, 8e3);
+        if (s.state === "DONE" || s.state === "INCOMPLETE") await this.exportJob(jobId, { auto: true });
       } catch (e) {
         this.fail("run", e);
       } finally {
@@ -3801,7 +3839,17 @@ details summary { cursor:pointer; color:var(--mute); }
         at: new Date(this.now()).toISOString(),
         cfg: "forge",
         checks: null,
-        postflight: { match: job.items.filter((i) => i.verify === "match").length, diff: job.items.filter((i) => i.verify === "drift").length, unverified: job.items.filter((i) => i.verify === "unread").length },
+        // `outcome` is the honest headline: an exported bundle is evidence, not a claim of success.
+        state: job.state,
+        outcome: jobOutcome(job),
+        postflight: {
+          match: job.items.filter((i) => i.verify === "match").length,
+          diff: job.items.filter((i) => i.verify === "drift").length,
+          unverified: job.items.filter((i) => i.verify === "unread").length,
+          failed: job.items.filter((i) => i.state === "FAILED").length,
+          skipped: job.items.filter((i) => i.state === "SKIPPED").length,
+          unresolved: job.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length
+        },
         entries: job.items.map((i) => ({ name: i.name, srcId: i.srcId, entity: i.entity, slot: i.op, state: i.state, phase: i.phase, detail: i.error || i.reconciled || "", verdict: i.verify || null, diffs: i.diffs || [], id: i.entityId || i.targetId || null })),
         captures: [...job.capturesBefore || [], ...job.capturesAfter || []],
         idmap: JSON.parse(this.storage.getItem("tnr_bk_idmap_v1") || "{}"),

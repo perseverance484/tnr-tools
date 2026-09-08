@@ -23,6 +23,7 @@ import { NetworkError } from "../transport/client.mjs";
 import { TransportError } from "../transport/envelope.mjs";
 import { RateLimited } from "../budget/bucket.mjs";
 import { readIdmap, writeIdmap } from "../storage/compat.mjs";
+import { TERMINAL_ITEM_STATES, jobOutcome } from "../storage/journal.mjs";
 import { recipe, mergeForUpdate } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
 import { diffAsserted } from "./validate.mjs";
@@ -114,7 +115,7 @@ export class Runner {
     const { manifest, order } = this._m(jobId);
     let job = this.journal.get(jobId);
     if (job.state === "DONE" || job.state === "ABORTED") return this.summary(jobId);
-    if (job.state === "PAUSED") {
+    if (job.state === "PAUSED" || job.state === "INCOMPLETE") {
       const t = this.budget && this.budget.log && this.budget.log.tripped();
       if (t) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: t.path, until: t.until });
       job = this.journal.setJobState(jobId, "RUNNING");
@@ -147,9 +148,14 @@ export class Runner {
       this._releaseLease(jobId);
       throw e;
     }
-    this.journal.setJobState(jobId, "DONE");
+    // DONE is only for a job whose every item reached a terminal state. An item still CONFIRMED at
+    // phase "verify" is a write whose read-back was unread or drifted: execution has nothing left to
+    // send, but the job is not verified, so it finishes INCOMPLETE and stays resumable for a re-read.
+    const finished = this.journal.get(jobId);
+    const unresolved = finished.items.filter((it) => !TERMINAL_ITEM_STATES.includes(it.state));
+    this.journal.setJobState(jobId, unresolved.length ? "INCOMPLETE" : "DONE");
     this._releaseLease(jobId);
-    if (this.reconciler && typeof this.reconciler.forget === "function") this.reconciler.forget(jobId);
+    if (this.reconciler && typeof this.reconciler.forget === "function" && !unresolved.length) this.reconciler.forget(jobId);
     return this.summary(jobId);
   }
 
@@ -215,7 +221,11 @@ export class Runner {
     const job = this.journal.get(jobId);
     const counts = {};
     for (const it of job.items) counts[it.state] = (counts[it.state] ?? 0) + 1;
-    return { jobId, state: job.state, pause: job.pause, counts, items: job.items.map((it) => ({ idx: it.idx, name: it.name, entity: it.entity, state: it.state, phase: it.phase, entityId: it.entityId, error: it.error ?? null, diffs: it.diffs ?? null, verify: it.verify ?? null })) };
+    // `state` says whether execution finished; `outcome` says whether it is good news. Only
+    // "success" may ever be presented as one (jobOutcome in journal.mjs).
+    const verify = { match: 0, drift: 0, unread: 0 };
+    for (const it of job.items) if (it.verify && verify[it.verify] !== undefined) verify[it.verify]++;
+    return { jobId, state: job.state, outcome: jobOutcome(job), pause: job.pause, counts, verify, items: job.items.map((it) => ({ idx: it.idx, name: it.name, entity: it.entity, state: it.state, phase: it.phase, entityId: it.entityId, error: it.error ?? null, diffs: it.diffs ?? null, verify: it.verify ?? null })) };
   }
 
   // ------------------------------------------------------------------ items
@@ -351,7 +361,11 @@ export class Runner {
   }
 
   async _verifyOrSkip(jobId, item, planned, manifest) {
-    if (!manifest.readBack) { this.journal.transition(jobId, item.idx, "VERIFIED", { verify: "skipped" }); return; }
+    // A written item is ALWAYS read back. readBack:false cannot reach here - parseManifest refuses
+    // it on any manifest carrying items - and it used to mark the item VERIFIED{skipped}, which let
+    // a manifest opt out of verification and still be counted as verified. Defence in depth: if one
+    // ever does reach here, that is a bug, not a licence to call an unread write good.
+    if (!manifest.readBack) throw new Error("readBack:false reached item " + item.idx + "; a written item must be read back");
     await this._verify(jobId, item, planned);
   }
 

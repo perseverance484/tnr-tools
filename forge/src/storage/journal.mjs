@@ -26,7 +26,12 @@ export const ITEM_STATES = Object.freeze([
   "PLANNED", "SENT", "CONFIRMED", "VERIFIED", "FAILED", "ORPHANED", "SKIPPED",
 ]);
 export const TERMINAL_ITEM_STATES = Object.freeze(["VERIFIED", "FAILED", "SKIPPED"]);
-export const JOB_STATES = Object.freeze(["RUNNING", "PAUSED", "DONE", "ABORTED"]);
+// INCOMPLETE: execution finished, but at least one item is not terminal - a read-back that could
+// not be read (verify "unread") or came back different (verify "drift") leaves its item CONFIRMED
+// at phase "verify". Such a job is NOT a success and is still resumable, and resuming it can only
+// re-read: the phase recorded on CONFIRMED is "verify", so no mutation can be sent again. Keeping
+// it out of DONE is what stops "the job finished" from being read as "the writes are verified".
+export const JOB_STATES = Object.freeze(["RUNNING", "PAUSED", "DONE", "INCOMPLETE", "ABORTED"]);
 export const OPS = Object.freeze(["create", "update"]);
 
 // Legal item transitions. Anything not listed throws. SENT -> PLANNED is deliberately
@@ -42,6 +47,27 @@ export const TRANSITIONS = Object.freeze({
 });
 // Keys only transition() may write. annotate() refuses them.
 const RESERVED = Object.freeze(["state", "idx", "sentAt", "confirmedAt", "verifiedAt", "createSentAt"]);
+
+/**
+ * What a job actually achieved, for the UI, the summary and the exported bundle. The job STATE
+ * says whether execution is finished; the outcome says whether it is good news. They are separate
+ * because "the run stopped" and "every write is verified against the server" are separate claims,
+ * and the second one is the only one that may ever be shown as success (TNR doctrine: a push echo
+ * is not a read-back).
+ *
+ *   success      every item VERIFIED with its asserted keys read back equal
+ *   failed       at least one item FAILED (execution-terminal, but not good news)
+ *   unverified   nothing failed, but at least one write is unproven: drift, unread, a skipped
+ *                orphan, or an item execution never resolved
+ *   open         still running or paused; the question is not answered yet
+ */
+export function jobOutcome(job) {
+  if (!job || !Array.isArray(job.items)) return "open";
+  if (job.state === "RUNNING" || job.state === "PAUSED") return "open";
+  if (job.items.some((it) => it.state === "FAILED")) return "failed";
+  if (job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state) || it.state === "SKIPPED" || (it.verify && it.verify !== "match"))) return "unverified";
+  return job.items.length ? "success" : "unverified";
+}
 
 export class JournalError extends Error {
   constructor(message, info) { super(message); this.name = "JournalError"; this.info = info; }
@@ -218,7 +244,12 @@ export class Journal {
   setJobState(jobId, state, extra = {}) {
     if (!JOB_STATES.includes(state)) throw new JournalError("bad job state: " + state);
     const job = this._mustRead(jobId);
-    if (state === "DONE" && job.items.some((it) => it.state === "SENT")) throw new JournalError("cannot mark DONE with SENT items", { jobId });
+    if ((state === "DONE" || state === "INCOMPLETE") && job.items.some((it) => it.state === "SENT")) throw new JournalError(`cannot mark ${state} with SENT items`, { jobId });
+    if (state === "DONE" && job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state))) {
+      // DONE is the green terminal state and nothing else may reach it: an item still at
+      // CONFIRMED owes a read-back, and a job that finished with one is INCOMPLETE.
+      throw new JournalError("cannot mark DONE with unresolved items; use INCOMPLETE", { jobId });
+    }
     job.state = state;
     job.pause = state === "PAUSED" ? (extra.pause ?? job.pause ?? { reason: "unspecified" }) : null;
     return this._write(job);
@@ -305,10 +336,16 @@ export class Journal {
   }
 
   // ------------------------------------------------------------------ resume
-  /** Jobs that still have work: PAUSED, or RUNNING with any non-terminal item. DONE/ABORTED never. */
+  /**
+   * Jobs that still have work: PAUSED, INCOMPLETE (verification outstanding), or RUNNING with any
+   * non-terminal item. DONE/ABORTED never. An INCOMPLETE job is resumable on purpose: re-reading a
+   * drifted or unread item is the only way it can ever become DONE, and re-reading is all a resume
+   * of it can do.
+   */
   resumable() {
     return this.listJobs().filter((job) =>
-      job.state === "PAUSED" || (job.state === "RUNNING" && job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state))));
+      job.state === "PAUSED" || job.state === "INCOMPLETE"
+      || (job.state === "RUNNING" && job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state))));
   }
 
   /** Items in SENT. These are ambiguous and must go through reconciliation, never retried. */
