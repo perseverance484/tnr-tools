@@ -73,11 +73,13 @@ export function mergeForUpdate(entity, live, data, fields) {
 
 // insertAiSchema = createInsertSchema(userData).omit({...}).extend({jutsus, items, ...}).
 // profile.getAi returns the row with relation arrays jutsus: [{jutsuId, jutsu:{...}}] and
-// items: [{itemId, quantity, ...}] (profile.ts:1121-1137; userJutsu at schema.ts:3010,
-// userItem at :2802). updateAi (profile.ts:1529-1541) syncs by set difference against
-// input.data.jutsus ?? [] and the ids inside input.data.items, so OMITTING them deletes the
-// whole kit (law 70). The live kit is therefore always re-sent unless the manifest asserts it.
-const AI_OMIT = new Set([
+// items: [{itemId, quantity, dropChancePerc, ...}] (profile.ts:1121-1137; userJutsu at
+// schema.ts:3010, userItem at :2802). updateAi (profile.ts:1529-1541) syncs by set difference
+// against input.data.jutsus ?? [] and the ids inside input.data.items, so OMITTING them deletes
+// the whole kit (law 70). The live kit is therefore always re-sent unless the manifest asserts it.
+// An item entry's `number` is written to userItem.dropChancePerc (profile.ts:1528-1530, :1577),
+// NOT quantity (law 69); re-sending the live kit therefore carries dropChancePerc back.
+export const AI_OMIT = new Set([
   // omitted from insertAiSchema at schema.ts:2578-2591
   "trainingStartedAt", "occupationSignupAt", "currentlyTraining", "deletionAt", "travelFinishAt",
   "questData", "occupation", "stealthActivatedAt", "stealthCooldownAt", "lastSensoryAt",
@@ -90,14 +92,14 @@ export function mergeAi(live, data) {
   if (live) for (const [k, v] of Object.entries(live)) if (!AI_OMIT.has(k)) out[k] = v;
   if (live && Array.isArray(live.jutsus)) out.jutsus = live.jutsus.map((r) => (typeof r === "string" ? r : r.jutsuId ?? r.id)).filter(Boolean);
   if (live && Array.isArray(live.items)) {
-    out.items = live.items.map((r) => (typeof r === "string" ? { ids: [r], number: 1 }
+    out.items = live.items.map((r) => (typeof r === "string" ? { ids: [r], number: 0 }
       : r && Array.isArray(r.ids) ? r
-      : r ? { ids: [r.itemId ?? r.id].filter(Boolean), number: r.number ?? r.quantity ?? 1 } : null)).filter((x) => x && x.ids.length);
+      : r ? { ids: [r.itemId ?? r.id].filter(Boolean), number: r.dropChancePerc ?? r.number ?? 0 } : null)).filter((x) => x && x.ids.length);
   }
   for (const [k, v] of Object.entries(data)) if (!["rules", "includeDefaultRules"].includes(k)) out[k] = v;
   if (Array.isArray(out.jutsus)) out.jutsus = out.jutsus.map((j) => (typeof j === "string" ? j : j && (j.jutsuId || j.id))).filter(Boolean);
-  if (Array.isArray(out.items)) out.items = out.items.map((t) => (typeof t === "string" ? { ids: [t], number: 1 }
-    : t && Array.isArray(t.ids) ? t : t ? { ids: [t.itemId || t.id].filter(Boolean), number: t.number ?? t.quantity ?? 1 } : null)).filter((x) => x && x.ids.length);
+  if (Array.isArray(out.items)) out.items = out.items.map((t) => (typeof t === "string" ? { ids: [t], number: 0 }
+    : t && Array.isArray(t.ids) ? t : t ? { ids: [t.itemId || t.id].filter(Boolean), number: t.number ?? t.dropChancePerc ?? 0 } : null)).filter((x) => x && x.ids.length);
   out.isAi = true;
   if (out.userId == null && live && live.userId) out.userId = live.userId;
   return out;

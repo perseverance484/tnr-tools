@@ -2,10 +2,14 @@
 // non-strict: an unknown or misspelled key is dropped at .input() parse time with no error
 // and the mutation reports success. The only place that error can surface is here.
 //
-// Field sets come from 45d_DATA_entity_schemas.json (jutsu, item, bloodline, quest,
-// gameAsset). The AI record has no 45d entity (insertAiSchema is the whole userData table),
-// so AI keys are checked against the live record fetched before the write, plus the small
-// extension set the schema adds.
+// Field sets come from src/runner/fields.json, derived from the PINNED validators by
+// tools/derive_fields.mjs (jutsu, item, bloodline, quest, gameAsset). 45d_DATA_entity_schemas
+// (generated 2026-08-26) is stale against 345d18ac: it lacks the twelve item farm* keys and
+// quest.requiredFarmingLevel, and ItemValidator REQUIRES farmYieldItemId, so an item update
+// picked by the 45d set would be refused by zod. Both files share one shape; the constructor
+// accepts either. The AI record has no entity list (insertAiSchema is the whole userData
+// table), so AI keys are checked against the live record fetched before the write, plus the
+// extension set the schema adds, minus the columns insertAiSchema omits and the server owns.
 //
 // DELIBERATELY NOT WIRED: 45g.tag_power_max. Brief section 5: at source PowerAttributes.power
 // is z.coerce.number().min(0) with no maximum, spread after BaseAttributes in all 61 tags that
@@ -24,6 +28,13 @@ export const AI_EXTRA_KEYS = Object.freeze(["jutsus", "items", "primaryElement",
 
 // Keys the server owns. Sending them is harmless (stripped) but they are never "asserted".
 export const SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updatedAt", "aiProfileId"]);
+
+// Columns insertAiSchema .omit()s (drizzle/schema.ts:2578-2592): the server strips them silently.
+export const AI_OMITTED = Object.freeze([
+  "trainingStartedAt", "occupationSignupAt", "currentlyTraining", "deletionAt", "travelFinishAt",
+  "questData", "occupation", "stealthActivatedAt", "stealthCooldownAt", "lastSensoryAt",
+  "covertTrainingType", "covertTrainingStartedAt", "covertTrainingMinutes",
+]);
 
 /** Which 45d entity backs a manifest entity. */
 export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset" });
@@ -58,9 +69,14 @@ export class Validator {
     if (entity === "ai" || entity === "aiProfile") {
       const allowed = new Set(AI_EXTRA_KEYS);
       if (live) for (const k of Object.keys(live)) allowed.add(k);
+      for (const k of AI_OMITTED) allowed.delete(k);
+      for (const k of SERVER_OWNED) allowed.delete(k);
       const check = entity === "aiProfile" ? new Set(["rules", "includeDefaultRules"]) : allowed;
-      // before a create there is no live row to check AI keys against; structural checks only
-      if (live || entity === "aiProfile") for (const k of keys) if (!check.has(k)) out.push(`unknown key "${k}" for ${entity}`);
+      // omitted and server-owned columns are refused even before a create (no live row needed)
+      for (const k of keys) if (AI_OMITTED.includes(k) || (entity === "ai" && SERVER_OWNED.includes(k))) out.push(`"${k}" is not writable on an ai (insertAiSchema omits it or the server owns it)`);
+      // before a create there is no live row to check the other AI keys against; structural checks only
+      if (live || entity === "aiProfile") for (const k of keys) if (!check.has(k) && !AI_OMITTED.includes(k) && !SERVER_OWNED.includes(k)) out.push(`unknown key "${k}" for ${entity}`);
+      if (entity === "ai" && Array.isArray(data.items)) for (const t of data.items) if (t && typeof t === "object" && !Array.isArray(t.ids) && t.itemId == null && t.id == null) out.push("items: each entry is {ids: [itemId], number: dropChancePerc} (law 69)");
       if (Array.isArray(data.rules)) out.push(...ruleProblems(data.rules));
     } else {
       const known = this.knownFields(entity);
@@ -105,8 +121,12 @@ export function diffAsserted(entity, asserted, live) {
       continue;
     }
     if (entity === "ai" && k === "items") {
-      const l = Array.isArray(live?.items) ? live.items.map((r) => (typeof r === "string" ? r : r.itemId ?? r.id)).filter(Boolean) : [];
-      const s = (asserted.items ?? []).flatMap((t) => (typeof t === "string" ? [t] : Array.isArray(t?.ids) ? t.ids : [t?.itemId ?? t?.id])).filter(Boolean);
+      // ids AND drop chances: number is written to userItem.dropChancePerc (law 69)
+      const lm = new Map(); if (Array.isArray(live?.items)) for (const r of live.items) { if (typeof r === "string") lm.set(r, null); else if (r) lm.set(r.itemId ?? r.id, r.dropChancePerc ?? null); }
+      const sm = new Map(); for (const t of asserted.items ?? []) { if (typeof t === "string") sm.set(t, null); else if (t && Array.isArray(t.ids)) for (const id of t.ids) sm.set(id, t.number == null ? null : Number(t.number)); else if (t) sm.set(t.itemId ?? t.id, t.number == null ? null : Number(t.number)); }
+      const l = [...lm.keys()].filter(Boolean), s = [...sm.keys()].filter(Boolean);
+      const chanceDrift = s.some((id) => sm.get(id) != null && lm.has(id) && lm.get(id) != null && Number(lm.get(id)) !== sm.get(id));
+      if (chanceDrift) diffs.push({ key: "items.dropChancePerc", sent: Object.fromEntries(sm), live: Object.fromEntries(lm) });
       if (JSON.stringify([...s].sort()) !== JSON.stringify([...l].sort())) diffs.push({ key: k, sent: s, live: l });
       continue;
     }

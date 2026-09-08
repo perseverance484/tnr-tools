@@ -16,12 +16,12 @@ import { Github } from "./github.mjs";
 import { App } from "./ui/app.mjs";
 import { takeover, onHostPath } from "./ui/takeover.mjs";
 import { h } from "./ui/dom.mjs";
+import FIELDS from "./runner/fields.json" with { type: "json" };
 
-export const VERSION = "forge 0.1.1";
-// 45d is fetched from the repo at boot (same source as the old builder's 45c/45g fetch): the
-// field sets for pre-send validation. If the fetch fails the app still boots, and validation
-// reports "no field schema" for every non-ai item, which blocks a run rather than guessing.
-const SCHEMA_URL = "https://raw.githubusercontent.com/perseverance484/tnr-tools/main/skills/building-tnr-content/data/45d_DATA_entity_schemas.json";
+export const VERSION = "forge 0.1.2";
+// Field sets for pre-send validation are bundled from src/runner/fields.json, derived from the
+// PINNED validators by tools/derive_fields.mjs. 45d (2026-08-26) is stale against the pin, so it
+// is not fetched at boot: the bundle validates against exactly the commit it was audited on.
 
 export async function boot(win = window) {
   if (!onHostPath(win.location)) return null;
@@ -32,6 +32,9 @@ export async function boot(win = window) {
   const storage = win.localStorage;
   const fetchImpl = win.fetch.bind(win);
   const clock = () => Date.now();
+  // the job lease is keyed by tab; sessionStorage survives a reload or a restored tab, not a new one
+  let tabId;
+  try { tabId = win.sessionStorage.getItem("tnr_forge_tab") || null; if (!tabId) { tabId = Math.random().toString(36).slice(2, 12); win.sessionStorage.setItem("tnr_forge_tab", tabId); } } catch { tabId = undefined; }
   const deps = {};
   try {
     deps.journal = new Journal(storage, clock);
@@ -43,14 +46,11 @@ export async function boot(win = window) {
     deps.reconciler = new Reconciler({ storage, reader: deps.reader, clock });
     deps.github = new Github({ fetchImpl, storage });
     deps.uploader = new Uploader({ session: deps.session, fetchImpl });
-    let schemas = null;
-    try { const r = await fetchImpl(SCHEMA_URL, { cache: "no-cache" }); if (r.ok) schemas = await r.json(); } catch { schemas = null; }
-    deps.validator = new Validator(schemas);
-    deps.runner = new Runner({ journal: deps.journal, client: deps.client, reader: deps.reader, cache: deps.cache, budget: deps.budget, validator: deps.validator, uploader: deps.uploader, reconciler: deps.reconciler, storage, log: (m) => deps.app && deps.app.log(m) });
+    deps.validator = new Validator(FIELDS);
+    deps.runner = new Runner({ journal: deps.journal, client: deps.client, reader: deps.reader, cache: deps.cache, budget: deps.budget, validator: deps.validator, uploader: deps.uploader, reconciler: deps.reconciler, storage, clock, tabId, log: (m) => deps.app && deps.app.log(m) });
     deps.app = new App({ version: VERSION, storage, now: clock, ...deps });
     status.remove();
     deps.app.mount(body, win.document);
-    if (deps.validator.schemaMissing) deps.app.toast("45d field schemas could not be fetched; runs are blocked until they load. Refresh to retry.", "bad", 12000);
     return deps.app;
   } catch (e) {
     status.textContent = "";

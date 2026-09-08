@@ -67,7 +67,10 @@ export function decodeResponse(status, text, expectedCount) {
     // A request-level adapter error (bad batch envelope, unsupported media type, oversized
     // body) is a bare {error:{json}} object even under ?batch=1: every call in the request
     // failed the same way, so replicate it across the indices (adversarial review L2).
-    if (body && typeof body === "object" && body.error) {
+    // Only the adapter's own shape qualifies: {error:{json:{message, code, data:{code}}}}. A gateway's
+    // JSON body ({error:{code:"FUNCTION_INVOCATION_TIMEOUT"}}) is NOT one, and for a mutation it is
+    // ambiguous (the resolver may have run), so it must stay a TransportError (adversarial L2).
+    if (isTrpcErrorBody(body)) {
       const el = decodeElement(body, 0, status);
       el.error.requestLevel = true;
       return Array.from({ length: expectedCount ?? 1 }, () => el);
@@ -83,6 +86,11 @@ export function decodeResponse(status, text, expectedCount) {
     try { return decodeElement(el, i, status); }
     catch (e) { return { ok: false, error: { code: "MALFORMED_ELEMENT", httpStatus: status, message: e.message, path: null, zodError: null, raw: el } }; }
   });
+}
+
+export function isTrpcErrorBody(body) {
+  const j = body && typeof body === "object" && body.error && typeof body.error === "object" ? body.error.json : null;
+  return !!(j && typeof j === "object" && typeof j.message === "string" && j.data && typeof j.data === "object" && typeof j.data.code === "string");
 }
 
 function decodeElement(el, i, status) {

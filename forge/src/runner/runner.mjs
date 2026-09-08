@@ -28,6 +28,17 @@ import { resolveRefs, collectRefs } from "./refs.mjs";
 import { diffAsserted } from "./validate.mjs";
 import { parseManifest, planOrder, toJournalSpecs } from "./manifest.mjs";
 
+// One tab drives a job at a time. Two runners over one localStorage would each read PLANNED and
+// both send (adversarial L1/L3: the whole-record journal write cannot detect it). The lease is a
+// key per job with the driving tab's id and a heartbeat; another tab refuses to run or resume
+// while the heartbeat is fresh. A crashed tab's lease expires by itself.
+export const LEASE_PREFIX = "tnr_forge_lease_v1:";
+export const LEASE_TTL_MS = 30_000;
+export class LeaseHeld extends Error {
+  constructor(jobId, lease) { super(`job ${jobId} is being driven by another tab (heartbeat ${Math.round((Date.now() - lease.at) / 1000)}s ago); wait ${Math.ceil(LEASE_TTL_MS / 1000)}s or close it`); this.name = "LeaseHeld"; this.lease = lease; }
+}
+const randomTab = () => Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
+
 export class Paused extends Error {
   constructor(reason, info = {}) { super(`paused: ${reason}`); this.name = "Paused"; this.reason = reason; Object.assign(this, info); }
 }
@@ -53,6 +64,23 @@ export class Runner {
     this.files = new Map(); // name -> File, from the UI picker
     this.manifests = new Map(); // jobId -> parsed manifest (data lives here, not in the journal)
     this.pauseRequested = false;
+    this.tabId = d.tabId ?? randomTab();
+    this.clock = d.clock ?? (() => Date.now());
+  }
+
+  // ------------------------------------------------------------------ lease
+  _leaseKey(jobId) { return LEASE_PREFIX + jobId; }
+  _readLease(jobId) { try { return JSON.parse(this.storage.getItem(this._leaseKey(jobId)) || "null"); } catch { return null; } }
+  /** Take or refresh the lease for this tab; throws LeaseHeld if another tab's heartbeat is fresh. */
+  _lease(jobId) {
+    const cur = this._readLease(jobId);
+    const now = this.clock();
+    if (cur && cur.tab !== this.tabId && typeof cur.at === "number" && now - cur.at < LEASE_TTL_MS) throw new LeaseHeld(jobId, cur);
+    this.storage.setItem(this._leaseKey(jobId), JSON.stringify({ tab: this.tabId, at: now }));
+  }
+  _releaseLease(jobId) {
+    const cur = this._readLease(jobId);
+    if (cur && cur.tab === this.tabId) this.storage.removeItem(this._leaseKey(jobId));
   }
 
   // ------------------------------------------------------------------ lifecycle
@@ -94,11 +122,13 @@ export class Runner {
     if (job.items.some((it) => it.state === "SENT")) {
       throw new Error("job has SENT items; call resume() so they are reconciled before anything else is sent");
     }
+    this._lease(jobId);
     this._syncIdmapFromJob(job);
     this.pauseRequested = false;
     try {
       if (manifest.capture.before.length && !job.capturesBefore) await this._captures(jobId, manifest.capture.before, "before");
       for (let i = 0; i < job.items.length; i++) {
+        this._lease(jobId); // heartbeat
         job = this.journal.get(jobId);
         const item = job.items[i];
         if (["VERIFIED", "FAILED", "SKIPPED"].includes(item.state)) continue;
@@ -114,9 +144,11 @@ export class Runner {
       // raised by the capture passes (item reads pause inside _runItem): never escape as a crash
       if (e instanceof RateLimited) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: e.path, until: e.until });
       if (isTransport(e)) return this._pause(jobId, "NETWORK", { detail: String(e && e.message), httpStatus: e.httpStatus ?? null });
+      this._releaseLease(jobId);
       throw e;
     }
     this.journal.setJobState(jobId, "DONE");
+    this._releaseLease(jobId);
     if (this.reconciler && typeof this.reconciler.forget === "function") this.reconciler.forget(jobId);
     return this.summary(jobId);
   }
@@ -126,21 +158,34 @@ export class Runner {
     if (!this.reconciler) throw new Error("resume needs a reconciler");
     const { order } = this._m(jobId);
     const job = this.journal.get(jobId);
+    this._lease(jobId);
     this._syncIdmapFromJob(job);
-    for (const item of job.items) {
-      if (item.state !== "SENT") continue;
-      const r = await this.reconciler.resolveSent(job, item, { planned: order[item.idx], lookup: this._lookup(job) });
-      if (r.action === "confirm") {
-        // landed:true means the sent request is proven to have applied; the runner then goes
-        // straight to verify and never re-sends it.
-        const phase = r.landed ? "verify" : (r.phase ?? item.phase);
-        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: r.entityId ?? item.entityId, phase, reconciled: r.note ?? "confirmed by reconciliation" });
-        if (r.entityId && item.srcId) this._remember(item.srcId, r.entityId);
-      } else if (r.action === "orphan") {
-        this.journal.transition(jobId, item.idx, "ORPHANED", { error: r.note ?? "ambiguous after crash", candidates: r.candidates ?? [] });
-      } else {
-        throw new Error("reconciler returned unknown action " + r.action);
+    try {
+      for (const item of job.items) {
+        if (item.state !== "SENT") continue;
+        const planned = order[item.idx];
+        const r = await this.reconciler.resolveSent(this.journal.get(jobId), item, { planned, lookup: this._lookup(this.journal.get(jobId)) });
+        if (r.action === "confirm") {
+          // landed:true means the sent request is proven to have applied; the runner never re-sends
+          // it. The next step is verify, except that a landed UPDATE on an ai with rules still owes
+          // its rules step (adversarial L3-5: otherwise the profile is never written).
+          const owesRules = item.phase === "update" && item.entity === "ai" && Array.isArray(planned?.data?.rules);
+          const phase = r.landed ? (owesRules ? "rules" : "verify") : (r.phase ?? item.phase);
+          this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: r.entityId ?? item.entityId, phase, reconciled: r.note ?? "confirmed by reconciliation" });
+          if (r.entityId && item.srcId) this._remember(item.srcId, r.entityId);
+        } else if (r.action === "orphan") {
+          this.journal.transition(jobId, item.idx, "ORPHANED", { error: r.note ?? "ambiguous after crash", candidates: r.candidates ?? [] });
+        } else {
+          throw new Error("reconciler returned unknown action " + r.action);
+        }
       }
+    } catch (e) {
+      // reconciliation only reads; a limited or failed read pauses with the reason recorded and
+      // the SENT items untouched, so the next resume reconciles them again (adversarial L3-5)
+      if (e instanceof RateLimited) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: e.path, until: e.until });
+      if (isTransport(e)) return this._pause(jobId, "NETWORK", { detail: String(e && e.message), httpStatus: e.httpStatus ?? null });
+      this._releaseLease(jobId);
+      throw e;
     }
     return this.run(jobId);
   }
@@ -351,6 +396,7 @@ export class Runner {
 
   _pause(jobId, reason, info) {
     this.journal.setJobState(jobId, "PAUSED", { pause: { reason, path: info.path ?? null, until: info.until ?? null, idx: info.idx ?? null, detail: info.detail ?? null, httpStatus: info.httpStatus ?? null } });
+    this._releaseLease(jobId);
     this.log(`paused: ${reason}${info.path ? " on " + info.path : ""}`);
     return this.summary(jobId);
   }

@@ -15,11 +15,13 @@ forge/                       the app, one directory per layer (brief section 3 o
   src/transport/             L2 superjson + tRPC 11 envelope, session seam, outcome, procedures, upload
   src/budget/                L3 per-path sliding window at a margin, cache-first reader
   src/runner/                L4 manifest plan, refs, pre-send validation, recipes, the runner
+  src/runner/fields.json     field set per entity, derived from the PINNED validators (see below)
   src/reconcile/             L5 snapshots, orphan diff, adoption policy
   src/ui/                    L6 five screens, takeover, DOM helpers (createElement + CSSOM only)
   src/github.mjs             L7 manifest picker's contents-API client (bearer to api.github.com only)
   src/main.mjs               composition root; the only file that touches window.*
   tools/derive_envelope.mjs  produces test/fixtures/envelope/ by running the real tRPC adapter
+  tools/derive_fields.mjs    produces src/runner/fields.json from a checkout of the pinned game source
   test/                      node --test, no network; shim.mjs, fakegame.mjs
   build.mjs                  esbuild IIFE -> ../forge_bundle.js
 forge_bundle.js              the built userscript body (repo root, beside builder_bundle.js)
@@ -105,7 +107,11 @@ raw). `knownEntityIds(entity)` lists every id any job recorded, which reconcilia
 `exportText()` returns the whole journal as JSON text (Settings > Export).
 
 Other keys: `tnr_forge_sendlog_v1` (budget send log), `tnr_forge_snap_v1:<jobId>:<entity>`
-(pre-create id snapshots, removed when the job is DONE). Retained unchanged from the old
+(pre-create id snapshots, removed when the job is DONE), `tnr_forge_lease_v1:<jobId>` (the
+driving tab's id and heartbeat: one tab drives a job at a time; another tab refuses to run or
+resume it while the heartbeat is under 30 s old, and a paused or finished job releases it).
+The tab id lives in sessionStorage, so a reload or a restored tab keeps its own lease; after
+a whole-browser crash the job waits up to 30 s before another tab may take it. Retained unchanged from the old
 builder: `tnr_bk_idmap_v1` (srcId -> id, image name -> url) and `tnr_bk_gh_v1` ({on, pat}).
 A corrupt retained key is parked under `<key>.corrupt` before the fallback is written.
 Capture cache: IndexedDB `tnr_forge` / `captures`, keyed `path:id` (ids normalised to
@@ -119,21 +125,33 @@ and bank by 0.99, and throws `TOO_MANY_REQUESTS` (`:166-179`). Production fails 
 route handler deliberately does not log the trip. Mutations are `protectedProcedure` and
 unlimited; no content mutation composes a limiter at its call site (verification F2).
 
-The local allowance is `floor(60 * 0.5) = 30` per limited path per minute, because:
+The local mirror computes the server's own estimate. `@upstash/ratelimit 2.0.8` (the game's
+pin; fetched from npm to read, not bundled) `slidingWindowLimitScript`: buckets are
+`floor(now / 60s)`, and a request is rejected when
+`floor((1 - (now % 60s) / 60s) * count(previous bucket)) + count(current bucket) >= 60`.
+A strict 60 s window is NOT this: it lets a client that sent 30 early in one bucket send 30
+more early in the next, which the server weights to about 59 from this client alone
+(adversarial L3). `acquire()` therefore holds a request until BOTH the strict window and the
+weighted estimate fit under the allowance, and `status()` shows both.
+
+The allowance is `floor(60 * 0.5) = 30` per limited path per minute, because:
 
 1. The window is per (path, user) and shared with every other tab the user has open; the
    game's own pages call the same `getAllNames`/`get` reads on mount. The client cannot see
    that traffic. Half the window is left for it.
-2. Upstash's sliding window is an approximation (weighted previous window); a strict local
-   count can disagree with it by a few requests near the boundary.
+2. The estimate depends on the client and the server agreeing on the bucket boundary. NTP
+   keeps that within a second; a skewed clock is the residual risk, which the strict check
+   and the margin absorb.
 3. The cost asymmetry: a trip is a permanent 1% of money and bank plus a logged incident;
    under-spending costs seconds.
 
 The send log is written to localStorage BEFORE `acquire()` resolves, so a restart inside the
 window cannot overspend. `acquire()` waits (never fails). A server 429 at ANY batch index
-persists a trip marker for the full 60 s and every limited send refuses until it passes; the
-job is PAUSED with the path and a countdown. There is no retry path in the codebase. The
-margin is a constructor argument (`Budget({ margin })`) and shown on Settings.
+persists a trip marker until the end of the NEXT server bucket (the current bucket counts
+at full weight until it ends and decays over the following one), and every limited send
+refuses until then; the job is PAUSED with the path and a countdown. There is no retry path
+in the codebase. The margin is a constructor argument (`Budget({ margin })`) and shown on
+Settings.
 
 Batch elements on a limited path count one each against the window, and at the limiter edge
 each element over the limit is a separate 1% penalty. So on limited paths a request carries
@@ -172,6 +190,10 @@ asserted against them byte for byte. Observed and relied on:
   contract break, never retried.
 - Batch elements execute concurrently server-side; `batch()` is for latency only and the
   runner never batches dependent mutations (it sends one mutation per request).
+- Only the adapter's own shape `{error:{json:{message, code, data:{code}}}}` counts as a
+  request-level error. A gateway's JSON body (`{"error":{"code":"FUNCTION_INVOCATION_TIMEOUT"}}`
+  at 504) is a `TransportError` with `received: true`, so a mutation behind it stays
+  ambiguous and is reconciled, never marked failed (adversarial L2 refuter).
 
 Failure shapes the runner keys off: `NetworkError` carries `phase: connect | body`,
 `causeName`, `httpStatus` and `received`, so "the request never left" and "a status came
@@ -226,13 +248,40 @@ placeholder behind it.
   non-create phase (the UI says which step adopting will send).
 - A job with an ORPHANED item pauses at that item; the items after it are not started.
 
-## Pre-send validation and the 45g power bound
+## Pre-send validation, the field lists, and the 45g power bound
 
-Unknown keys are refused locally against the 45d field lists for jutsu, item, bloodline,
-quest and gameAsset. The AI record has no 45d entity (`insertAiSchema` is the whole
-`userData` table), so AI keys are checked against the live record fetched before the write
-plus the schema's extension keys (`jutsus`, `items`, `primaryElement`, `secondaryElement`,
-`rules`, `includeDefaultRules`); before the create only the structural checks run.
+**45d is stale against the pin, so the app does not use it.** `tools/derive_fields.mjs`
+reads the top-level keys of each entity validator from a checkout of the pinned commit
+(`JutsuValidatorRawSchema`, `ItemValidatorRawSchema`, `BloodlineValidator`,
+`QuestValidatorRawSchema`, `gameAssetValidator`) into `src/runner/fields.json`, which the
+bundle carries; nothing is fetched at boot. The diff against
+`45d_DATA_entity_schemas.json` (generated 2026-08-26 from an older drop):
+
+| entity | pinned | 45d | difference |
+|---|---:|---:|---|
+| item | 71 | 59 | twelve `farm*` keys (`combat.ts:1498-1508`), of which `farmYieldItemId` is required-nullable |
+| quest | 29 | 28 | `requiredFarmingLevel` (`objectives.ts:675`) |
+| jutsu, bloodline, gameAsset | 42, 11, 10 | same | none |
+
+The item gap is not cosmetic: an update payload picked by the 45d set omits
+`farmYieldItemId`, which `ItemValidator` requires, so every item update would have been
+refused by zod, and the `.prefault(0)` farm counters would have been reset had it passed.
+The generator in `skills/` (`schema_extract.py`) needs re-running on the pinned drop; that
+is a `skills/` change this branch does not make. Re-run `derive_fields.mjs` whenever the pin
+moves.
+
+Unknown keys are refused locally against those lists. The AI record has no entity list
+(`insertAiSchema` is the whole `userData` table), so AI keys are checked against the live
+record fetched before the write plus the schema's extension keys (`jutsus`, `items`,
+`primaryElement`, `secondaryElement`, `rules`, `includeDefaultRules`), minus the thirteen
+columns `insertAiSchema` omits and the server-owned ones, which are refused even before a
+create; otherwise before the create only the structural checks run.
+
+**An AI item entry's `number` is `dropChancePerc`, never quantity** (law 69;
+`profile.ts:1528-1530` builds `{id, chance: o.number}` and `:1577` writes
+`dropChancePerc: chance`). The live kit is re-sent with each item's live `dropChancePerc`,
+quantity is untouched, a bare id carries chance 0, and read-back compares chances per id.
+The first draft sent quantity as the chance; the L3-5 panel caught it.
 
 **The 45g power bound is gated out, not fixed.** Brief section 5 offered two options; this is
 the second. `validate.mjs` does not load `45g_DATA_checks.json` at all, and the header comment
@@ -242,7 +291,7 @@ no maximum (`combat.ts:111`) and is spread after `BaseAttributes` in all 61 tags
 precedence. A test asserts that `power: 400` on a damage tag is accepted by the runner.
 Fixing the generator is a separate change to `skills/`, which this branch does not touch.
 
-Merge for update picks the validator's field set from live ∪ asserted, so relation objects
+Merge for update picks the pinned field set from live ∪ asserted, so relation objects
 (`bloodline` on a jutsu row, `jutsus`/`items` rows on an AI) and server-owned columns never
 reach the validator. For AI, the live kit is always re-sent reshaped (`jutsuId[]`,
 `[{ids:[itemId], number}]`) because `updateAi` syncs by set difference against
@@ -267,13 +316,13 @@ reach the validator. For AI, the live kit is always re-sent reshaped (`jutsuId[]
 
 None are hard-coded in `forge/`. The app carries no drop rates, reward values, stat numbers
 or difficulty gates; those live in manifests. Two values that are policy rather than
-balance, and are shown in the UI as settings: the budget margin (0.5) and the batch sizes
+balance, and are shown in the UI as settings: the budget margin (0.5), the batch sizes
 (20 per request on unlimited paths, 10 on limited ones, under the route handler's
-`maxDuration = 90`).
+`maxDuration = 90`), and the job lease TTL (30 s).
 
 ## Verification
 
-`cd forge && npm test`. No test opens a socket. 151 tests.
+`cd forge && npm test`. No test opens a socket. 160 tests.
 
 | layer | tests | what is proven |
 |---|---:|---|
@@ -282,7 +331,7 @@ balance, and are shown in the UI as settings: the budget margin (0.5) and the ba
 | budget | 16 | write-ahead send log, window survives eviction, 31st send waits, a 429 in a 207 halts after caching the good index |
 | runner + reconcile | 28 | two-phase creates, six entities, kit re-send, refs, unknown-key refusal, power uncapped, crash before send / after send / after response / mid two-phase against server-side row counts, gameAsset two-orphan ambiguity, TOO_MANY_REQUESTS pause, NetworkError leaves SENT |
 | ui | 8 | no HTML string sink in src, takeover, five screens render, resume banner, run screen, settings persist, picker -> start -> DONE, render errors surface |
-| adversarial | 36 | one regression test per finding that survived the panels (below) |
+| adversarial | 45 | one regression test per finding that survived the panels (below), including a budget test that recomputes the server's weighted estimate from the send log and shows it never exceeds the allowance from this client alone |
 
 ### Adversarial passes
 
@@ -317,6 +366,18 @@ finding, scratch tests under a gitignored directory; only what reproduced was ke
   comparison; the AI kit never read back; the crash between CONFIRMED and the idmap write
   stranding a dependent `@ref`; `adopt()` with no state or uniqueness guard; a capture-pass
   failure escaping `run()` as a crash; a job with an ORPHANED item marked DONE.
+- **Late results (the panels' verify stages were cut short by a session limit, so these
+  were verified by reading the pinned source directly):** the 45d field lists are stale
+  (above); the AI kit re-send wrote quantity into `dropChancePerc` (above); a landed AI
+  update reconciled after a crash skipped its rules step; a lost profile write whose only
+  change was `includeDefaultRules` passed as landed; a 429 or wire failure during
+  reconciliation escaped `resume()` raw; the strict-window budget could drive the server's
+  weighted estimate to 59 from this client alone, and the trip countdown was one bucket
+  short; a gateway's JSON error body would have been read as a per-index verdict; two tabs
+  could drive one job. All fixed and pinned. Not acted on: the nested unknown-key check
+  (only top-level keys are checked; misspelled keys inside `effects[]`, quest objectives and
+  rule conditions pass), the rules read-back comparing serialised JSON (server prefaults may
+  show as drift, which is visible and harmless), and verify `unread` staying non-terminal.
 
 ## Not finished
 
@@ -330,6 +391,10 @@ finding, scratch tests under a gitignored directory; only what reproduced was ke
   the code lands in an unknown key; a pool code in a legal field would be sent as a literal.
   Port before running any AI-kit manifest through forge.
 - **`dedupNames` (live name collision check)** is parsed but not enforced.
+- **Nested unknown keys** (inside `effects[]`, quest `content`, rule conditions and actions)
+  are not checked; the server strips them silently.
+- **Clock skew** shifts the budget's bucket boundary relative to the server's; the strict
+  window and the margin absorb a second or two, not more.
 - **Verify `unread`** (the read-back itself failed) leaves the item CONFIRMED at `verify`;
   each later run re-reads it (one limited token) and the job can finish DONE with it in
   that state. It is visible on the Run screen, not terminal.

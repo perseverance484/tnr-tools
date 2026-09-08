@@ -60,7 +60,7 @@ export class FakeGame {
       if (!row) result = ok({ success: false, message: `${router} not found` });
       else if (this.refuse.has(path)) result = ok({ success: false, message: "Not allowed" });
       else { const { jutsus, items, ...rest } = input.data; Object.assign(row, rest, { updatedAt: new Date(1) });
-             if (router === "profile") { if (jutsus) row.jutsus = jutsus.map((j) => ({ jutsuId: j })); if (items) row.items = items.flatMap((t) => t.ids.map((i) => ({ itemId: i, quantity: t.number }))); }
+             if (router === "profile") { if (jutsus) row.jutsus = jutsus.map((j) => ({ jutsuId: j })); if (items) row.items = items.flatMap((t) => t.ids.map((i) => ({ itemId: i, quantity: (row.items ?? []).find((r) => r.itemId === i)?.quantity ?? 1, dropChancePerc: Number(t.number) }))); }
              result = ok({ success: true, message: `Updated ${input.id}` }); }
     } else if (proc === "getAllNames" || proc === "getAllAiNames") {
       const k = ID_KEY[TABLE[router]] ?? "id", nk = TABLE[router] === "ai" ? "username" : "name";

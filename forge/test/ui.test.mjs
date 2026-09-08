@@ -19,7 +19,7 @@ import { FakeGame, FakeClient } from "./fakegame.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "src");
-const SCHEMAS = JSON.parse(readFileSync(new URL("../../skills/building-tnr-content/data/45d_DATA_entity_schemas.json", import.meta.url), "utf8"));
+const SCHEMAS = JSON.parse(readFileSync(new URL("../src/runner/fields.json", import.meta.url), "utf8"));
 
 function walk(dir) { return readdirSync(dir, { withFileTypes: true }).flatMap((d) => d.isDirectory() ? walk(join(dir, d.name)) : [join(dir, d.name)]); }
 

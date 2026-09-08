@@ -11,20 +11,23 @@ import { stableStringify, payloadHash } from "../src/storage/hash.mjs";
 import { decodeResponse } from "../src/transport/envelope.mjs";
 import { CookieSession, SessionRefused } from "../src/transport/session.mjs";
 import { TrpcClient, NetworkError } from "../src/transport/client.mjs";
+import { TransportError, isTrpcErrorBody } from "../src/transport/envelope.mjs";
+import { mergeForUpdate, mergeAi } from "../src/runner/recipes.mjs";
+import { RateLimited } from "../src/budget/bucket.mjs";
 import { classifyError } from "../src/transport/outcome.mjs";
 import { Budget } from "../src/budget/bucket.mjs";
 import { CachedReader } from "../src/budget/reader.mjs";
 import { Validator, diffAsserted } from "../src/runner/validate.mjs";
-import { Runner } from "../src/runner/runner.mjs";
+import { Runner, LeaseHeld, LEASE_PREFIX, LEASE_TTL_MS } from "../src/runner/runner.mjs";
 import { Reconciler } from "../src/reconcile/reconciler.mjs";
 import { FakeGame, FakeClient, CrashSignal } from "./fakegame.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
 
-const SCHEMAS = JSON.parse(readFileSync(new URL("../../skills/building-tnr-content/data/45d_DATA_entity_schemas.json", import.meta.url), "utf8"));
+const SCHEMAS = JSON.parse(readFileSync(new URL("../src/runner/fields.json", import.meta.url), "utf8"));
 const spec = (entity = "jutsu", op = "create", i = 0) => ({ entity, op, name: `${entity}${i}`, srcId: op === "create" ? `${entity}${i}` : null, targetId: op === "update" ? `t${i}` : null, payloadHash: "h" });
 const J = (s = new MemoryStorage()) => new Journal(s, fakeClock(), { yieldTask: async () => {} });
 
-function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory() } = {}) {
+function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory(), tabId = "tab" } = {}) {
   const clock = fakeClock();
   const journal = new Journal(storage, clock, { yieldTask: async () => {} });
   const cache = new CaptureCache(idb, clock);
@@ -32,7 +35,7 @@ function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = n
   const client = new FakeClient(game);
   const reader = new CachedReader({ client, cache, budget });
   const reconciler = new Reconciler({ storage, reader, clock, journal });
-  const runner = new Runner({ journal, client, reader, cache, budget, validator: new Validator(SCHEMAS), storage, reconciler });
+  const runner = new Runner({ journal, client, reader, cache, budget, validator: new Validator(SCHEMAS), storage, reconciler, clock, tabId });
   return { game, storage, idb, clock, journal, cache, budget, client, reader, runner, reconciler };
 }
 const ONE = { items: [{ entity: "jutsu", slot: "create", name: "A", srcId: "a", data: { name: "A", description: "d", hidden: true } }] };
@@ -240,7 +243,7 @@ test("L4: after a 429 on an item's own read-back, resume only reads; the update 
   assert.equal(s1.state, "PAUSED"); assert.equal(s1.items[0].state, "CONFIRMED"); assert.equal(s1.items[0].phase, "verify");
   const updates = () => game.calls.filter((c) => c.path === "jutsu.update").length;
   assert.equal(updates(), 1);
-  h.clock.tick(61_000);
+  h.clock.tick(s1.pause.until - h.clock() + 1); // the trip clears at the end of the NEXT server bucket
   const s2 = await h.runner.run("r");
   assert.equal(s2.state, "DONE"); assert.equal(s2.items[0].state, "VERIFIED");
   assert.equal(updates(), 1, "resume read back; it did not re-send");
@@ -443,4 +446,141 @@ test("L4: a transport failure during capture.before pauses (NETWORK) instead of 
   const s = await h.runner.run("cn");
   assert.equal(s.state, "PAUSED"); assert.equal(s.pause.reason, "NETWORK");
   assert.equal(s.items[0].state, "PLANNED"); assert.equal(h.game.count("jutsu"), 1, "nothing created");
+});
+
+// ---------------------------------------------------------------- panel results that arrived after the fold-in
+test("L2: a gateway's JSON error body is NOT a request-level tRPC error; a mutation stays ambiguous", async () => {
+  assert.equal(isTrpcErrorBody({ error: { json: { message: "x", code: -32600, data: { code: "BAD_REQUEST", httpStatus: 400 } } } }), true);
+  assert.equal(isTrpcErrorBody({ error: { code: "FUNCTION_INVOCATION_TIMEOUT" } }), false);
+  assert.equal(isTrpcErrorBody({ error: "timeout" }), false);
+  assert.throws(() => decodeResponse(504, '{"error":{"code":"FUNCTION_INVOCATION_TIMEOUT"}}', 1), TransportError);
+  // through the client: received, not decodable, never a per-index verdict
+  const f = async () => new Response('{"error":{"code":"FUNCTION_INVOCATION_TIMEOUT"}}', { status: 504, headers: { "content-type": "application/json" } });
+  const c = new TrpcClient(new CookieSession({ fetchImpl: f }));
+  await assert.rejects(() => c.call("jutsu.update", { id: "x", data: {} }), (e) => e instanceof TransportError && e.received === true && e.httpStatus === 504);
+  // the adapter's own request-level shape is still fanned out per index
+  const els = decodeResponse(415, '{"error":{"json":{"message":"Unsupported content-type","code":-32015,"data":{"code":"UNSUPPORTED_MEDIA_TYPE","httpStatus":415}}}}', 2);
+  assert.equal(els.length, 2); assert.equal(els[1].error.code, "UNSUPPORTED_MEDIA_TYPE"); assert.equal(els[1].error.requestLevel, true);
+});
+
+test("L4: a landed ai update reconciled after a crash still owes its rules step; the profile is written exactly once", async () => {
+  const game = new FakeGame(); const h = harness({ game });
+  const M = { items: [{ entity: "ai", slot: "create", name: "R", srcId: "r", data: { username: "R", level: 4, rules: [{ conditions: [], action: { type: "end_turn" } }], includeDefaultRules: false } }] };
+  h.runner.plan(M, { jobId: "lr" });
+  const orig = game.handle.bind(game); let crashed = false;
+  game.handle = (p, i) => { const r = orig(p, i); if (p === "profile.updateAi" && !crashed) { crashed = true; throw new CrashSignal(game.calls.length); } return r; };
+  const s0 = await h.runner.run("lr");
+  assert.equal(s0.state, "PAUSED"); assert.equal(h.journal.get("lr").items[0].phase, "update"); assert.equal(h.journal.get("lr").items[0].state, "SENT");
+  const h2 = harness({ game, storage: h.storage.crash(), idb: h.idb });
+  h2.runner.attach("lr", M);
+  const s1 = await h2.runner.resume("lr");
+  assert.equal(s1.items[0].state, "VERIFIED", JSON.stringify(s1));
+  assert.equal(game.calls.filter((c) => c.path === "profile.updateAi").length, 1, "the landed update was not re-sent");
+  assert.equal(game.calls.filter((c) => c.path === "ai.toggleAiProfile").length, 1);
+  assert.equal(game.calls.filter((c) => c.path === "ai.updateAiProfile").length, 1, "the rules step ran after the reconciled update");
+  const ai = game.rows("ai")[0]; const prof = h2.game.tables.aiProfile.get(ai.aiProfileId);
+  assert.equal(prof.includeDefaultRules, false); assert.equal(prof.rules.length, 1);
+});
+
+test("L5: a lost rules write whose only change was includeDefaultRules is not 'landed'", async () => {
+  const h = harness();
+  h.game.tables.aiProfile.set("p1", { id: "p1", userId: "u1", rules: [], includeDefaultRules: true });
+  h.journal.open({ jobId: "d", items: [spec("ai", "update", 0)] });
+  h.journal.transition("d", 0, "SENT", { phase: "rules", entityId: "u1", aiProfileId: "p1" });
+  const r = await h.reconciler.resolveSent(h.journal.get("d"), h.journal.get("d").items[0], { planned: { data: { rules: [], includeDefaultRules: false } } });
+  assert.equal(r.action, "orphan");
+  const r2 = await h.reconciler.resolveSent(h.journal.get("d"), h.journal.get("d").items[0], { planned: { data: { rules: [], includeDefaultRules: true } } });
+  assert.equal(r2.action, "confirm"); assert.equal(r2.landed, true);
+});
+
+test("L3/L4: a 429 during reconciliation pauses with the path and countdown; the SENT item is untouched", async () => {
+  const game = new FakeGame({ limitPath: "jutsu.getAllNames" }); const h = harness({ game });
+  h.runner.plan(ONE, { jobId: "rr" });
+  h.storage.setItem("tnr_forge_snap_v1:rr:jutsu", JSON.stringify({ entity: "jutsu", ids: [] }));
+  h.journal.annotate("rr", 0, { snapshotKey: "tnr_forge_snap_v1:rr:jutsu" });
+  h.journal.transition("rr", 0, "SENT", { phase: "create" });
+  const s = await h.runner.resume("rr");
+  assert.equal(s.state, "PAUSED"); assert.equal(s.pause.reason, "TOO_MANY_REQUESTS"); assert.equal(s.pause.path, "jutsu.getAllNames");
+  assert.equal(s.items[0].state, "SENT"); assert.equal(game.count("jutsu"), 0);
+});
+
+test("L1/L4: one tab drives a job at a time; a stale lease expires; DONE releases it", async () => {
+  const h = harness();
+  h.runner.plan(ONE, { jobId: "lease" });
+  const other = new Runner({ journal: h.journal, client: h.client, reader: h.reader, cache: h.cache, budget: h.budget, validator: new Validator(SCHEMAS), storage: h.storage, reconciler: h.reconciler, clock: h.clock, tabId: "other-tab" });
+  other.manifests = h.runner.manifests;
+  h.runner._lease("lease"); // this tab is driving
+  await assert.rejects(() => other.run("lease"), LeaseHeld);
+  await assert.rejects(() => other.resume("lease"), LeaseHeld);
+  assert.equal(h.game.count("jutsu"), 0, "the refused tab sent nothing");
+  h.clock.tick(LEASE_TTL_MS + 1); // the driving tab died
+  const s = await other.run("lease");
+  assert.equal(s.state, "DONE");
+  assert.equal(h.storage.getItem(LEASE_PREFIX + "lease"), null, "released on DONE");
+  // while a job is paused the lease is released too
+  const g2 = new FakeGame({ limitPath: "jutsu.get" }); const h3 = harness({ game: g2 });
+  h3.runner.plan(ONE, { jobId: "p" }); const sp = await h3.runner.run("p");
+  assert.equal(sp.state, "PAUSED"); assert.equal(h3.storage.getItem(LEASE_PREFIX + "p"), null);
+});
+
+test("L4/validate: an AI item entry's number is dropChancePerc; the live kit re-sends it, never quantity (law 69)", async () => {
+  const game = new FakeGame(); const h = harness({ game });
+  game.seed("ai", { userId: "u1", username: "U", level: 2, isAi: true, aiProfileId: null, jutsus: [{ jutsuId: "j1" }], items: [{ itemId: "i1", quantity: 3, dropChancePerc: 25 }] });
+  // an edit that does not mention the kit
+  h.runner.plan({ items: [{ entity: "ai", slot: "edit", name: "U", targetId: "u1", data: { level: 7 } }] }, { jobId: "k1" });
+  const s = await h.runner.run("k1");
+  assert.equal(s.items[0].state, "VERIFIED", JSON.stringify(s));
+  const sent = game.calls.find((c) => c.path === "profile.updateAi").input.data;
+  assert.deepEqual(sent.items, [{ ids: ["i1"], number: 25 }]); assert.deepEqual(sent.jutsus, ["j1"]);
+  const row = game.tables.ai.get("u1");
+  assert.equal(row.items[0].dropChancePerc, 25); assert.equal(row.items[0].quantity, 3, "quantity untouched");
+  // an edit asserting a new drop chance lands and is read back
+  h.runner.plan({ items: [{ entity: "ai", slot: "edit", name: "U", targetId: "u1", data: { items: [{ ids: ["i1"], number: 40 }] } }] }, { jobId: "k2" });
+  const s2 = await h.runner.run("k2");
+  assert.equal(s2.items[0].state, "VERIFIED", JSON.stringify(s2));
+  assert.equal(game.tables.ai.get("u1").items[0].dropChancePerc, 40);
+  // a server that ignores the chance is drift on items.dropChancePerc, not a match
+  const orig = game.handle.bind(game);
+  game.handle = (p, i) => { if (p === "profile.updateAi") { const r = orig(p, { ...i, data: { ...i.data, items: [{ ids: ["i1"], number: 40 }] } }); return r; } return orig(p, i); };
+  h.runner.plan({ items: [{ entity: "ai", slot: "edit", name: "U", targetId: "u1", data: { items: [{ ids: ["i1"], number: 60 }] } }] }, { jobId: "k3" });
+  const s3 = await h.runner.run("k3");
+  assert.equal(s3.items[0].verify, "drift"); assert.ok(s3.items[0].diffs.some((d) => d.key === "items.dropChancePerc"), JSON.stringify(s3.items[0].diffs));
+  // merge helpers directly
+  assert.deepEqual(mergeAi({ userId: "u1", items: [{ itemId: "i9", quantity: 5, dropChancePerc: 10 }] }, {}).items, [{ ids: ["i9"], number: 10 }]);
+});
+
+test("validate: columns insertAiSchema omits and server-owned columns are refused on an ai, even before a create", () => {
+  const v = new Validator(SCHEMAS);
+  assert.match(v.problems("ai", { username: "x", questData: {} }, null, { preCreate: true }).join(";"), /"questData" is not writable/);
+  assert.match(v.problems("ai", { username: "x", userId: "forged" }, { userId: "u1", username: "x" }).join(";"), /"userId" is not writable/);
+  assert.deepEqual(v.problems("ai", { username: "x", level: 3 }, { userId: "u1", username: "x", level: 1 }), []);
+});
+
+test("validate: the pinned ItemValidator's farm* keys and quest.requiredFarmingLevel are legal, and survive the update merge", () => {
+  const v = new Validator(SCHEMAS);
+  assert.deepEqual(v.problems("item", { name: "Seed", isFarmSeed: true, farmGrowTimeSeconds: 60, farmYieldItemId: "x" }), []);
+  assert.deepEqual(v.problems("quest", { name: "Q", requiredFarmingLevel: 3 }), []);
+  assert.equal(v.knownFields("item").size, 71); assert.equal(v.knownFields("quest").size, 29);
+  const live = { id: "i1", name: "Old", farmYieldItemId: "y", farmGrowTimeSeconds: 120, isFarmSeed: true, createdAt: "x" };
+  const payload = mergeForUpdate("item", live, { name: "New" }, v.knownFields("item"));
+  assert.equal(payload.farmYieldItemId, "y", "ItemValidator requires farmYieldItemId; stripping it would fail every item update");
+  assert.equal(payload.farmGrowTimeSeconds, 120); assert.equal(payload.name, "New");
+  assert.equal(SCHEMAS._provenance.pin, "345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9");
+});
+
+test("L3: the budget mirrors the server's weighted sliding window, so this client alone never reaches 60% of the limit at the bucket edge", async () => {
+  const h = harness();
+  const W = 60_000, A = h.budget.allowance;
+  h.clock.set((Math.floor(h.clock() / W) + 1) * W + 1000); // 1 s into a fresh bucket
+  // the server's estimate, computed as slidingWindowLimitScript does, over everything we sent
+  const server = (now) => { const b = Math.floor(now / W); let prev = 0, cur = 0; for (const t of h.budget.log.recent("jutsu.get", W)) { const tb = Math.floor(t / W); if (tb === b) cur++; else if (tb === b - 1) prev++; } return Math.floor((1 - (now % W) / W) * prev) + cur; };
+  for (let i = 0; i < A; i++) { await h.budget.acquire("jutsu.get"); assert.ok(server(h.clock()) <= A); }
+  assert.equal(h.budget.waits, 0);
+  h.clock.set(h.budget.estimate("jutsu.get").bucketStart + W + 1000); // 1 s into the NEXT bucket: a strict window would allow 30 more here
+  assert.ok(h.budget.available("jutsu.get") <= 1, "the previous bucket still weighs ~29 on the server");
+  const t0 = h.clock();
+  for (let i = 0; i < A; i++) { await h.budget.acquire("jutsu.get"); assert.ok(server(h.clock()) <= A, `server estimate ${server(h.clock())} after send ${i}`); }
+  assert.ok(h.clock() - t0 <= W + 5000, "the second 30 still fit inside about one window: " + (h.clock() - t0));
+  const st = h.budget.status().paths["jutsu.get"];
+  assert.ok(st.weighted <= A && st.used <= A);
 });

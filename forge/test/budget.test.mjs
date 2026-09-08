@@ -56,10 +56,12 @@ test("the 31st send waits until the oldest ages out, then proceeds", async () =>
   const { budget, sleep, clock } = mk();
   for (let i = 0; i < 30; i++) { await budget.acquire("jutsu.get"); clock.tick(100); }
   assert.equal(budget.available("jutsu.get"), 0);
-  await budget.acquire("jutsu.get"); // must wait ~57s for the first timestamp to age out
-  assert.equal(sleep.calls.length, 1);
-  assert.ok(sleep.calls[0] > 50_000 && sleep.calls[0] <= 60_000, "waited " + sleep.calls[0]);
-  assert.equal(budget.waits, 1);
+  const before = clock();
+  await budget.acquire("jutsu.get"); // must wait for the strict window AND the weighted estimate
+  const slept = sleep.calls.reduce((a, b) => a + b, 0);
+  assert.ok(sleep.calls.length >= 1 && slept > 50_000 && slept <= 63_000, "slept " + JSON.stringify(sleep.calls));
+  assert.equal(clock() - before, slept);
+  assert.ok(budget.waits >= 1);
 });
 
 test("window survives eviction: a restarted Budget still sees the spent tokens", async () => {
@@ -88,14 +90,15 @@ test("acquire more than the allowance at once is refused, not deadlocked", async
 test("observe: a 429 at any index persists the trip and throws RateLimited; nothing is retried", async () => {
   const { budget, storage, clock } = mk();
   const results = [{ ok: true, data: {} }, { ok: false, error: { code: "TOO_MANY_REQUESTS", path: "jutsu.get", message: "moving too fast" } }];
-  assert.throws(() => budget.observe(results, ["jutsu.get", "jutsu.get"]), (e) => e instanceof RateLimited && e.path === "jutsu.get" && e.index === 1 && e.until === clock() + 60_000);
+  const until = (Math.floor(clock() / 60_000) + 2) * 60_000; // end of the NEXT bucket: the server's own count is provably clear
+  assert.throws(() => budget.observe(results, ["jutsu.get", "jutsu.get"]), (e) => e instanceof RateLimited && e.path === "jutsu.get" && e.index === 1 && e.until === until);
   const t = JSON.parse(storage.getItem(SENDLOG_KEY)).__tripped;
   assert.equal(t.path, "jutsu.get");
   // while tripped, acquire refuses outright
   await assert.rejects(() => budget.acquire("jutsu.get"), RateLimited);
   await assert.rejects(() => budget.acquire("item.get"), RateLimited); // any limited path: the account was penalised
-  // after the window the trip clears itself
-  clock.tick(60_001);
+  // after until the trip clears itself
+  clock.tick(until - clock() + 1);
   await budget.acquire("jutsu.get");
 });
 

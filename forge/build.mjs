@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Bundle src/main.mjs into ../forge_bundle.js as a single IIFE the loader can @require.
-// superjson and its two dependencies are bundled in; nothing is fetched at runtime except the
-// 45d schema file and the app's own API calls.
+// superjson and its two dependencies and the pinned field list are bundled in; nothing is fetched at runtime except
+// the app's own API calls.
 import { build } from "esbuild";
 import { readFileSync, writeFileSync, statSync } from "node:fs";
 import { join, dirname } from "node:path";

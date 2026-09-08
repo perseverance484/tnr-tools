@@ -123,7 +123,10 @@ export class Reconciler {
     const prof = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
     if (!prof.ok || !prof.data) return { action: "orphan", candidates: [], note: "ai.getAiProfile unavailable" };
     const want = ctx.planned ? ctx.planned.data.rules ?? [] : null;
-    if (want && JSON.stringify(prof.data.rules ?? []) === JSON.stringify(want)) return { action: "confirm", entityId: item.entityId, phase: "verify", landed: true, note: "rules already landed" };
+    const wantDefault = ctx.planned ? ctx.planned.data.includeDefaultRules : undefined;
+    const rulesLanded = want && JSON.stringify(prof.data.rules ?? []) === JSON.stringify(want);
+    const defaultLanded = wantDefault === undefined || prof.data.includeDefaultRules === wantDefault;
+    if (rulesLanded && defaultLanded) return { action: "confirm", entityId: item.entityId, phase: "verify", landed: true, note: "rules already landed" };
     return { action: "orphan", candidates: [], note: "rules may not have landed: profile rules differ" };
   }
 }
