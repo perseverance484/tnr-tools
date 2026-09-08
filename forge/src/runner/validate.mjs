@@ -50,8 +50,14 @@ export const AI_OMITTED = Object.freeze([
 export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai" });
 
 export class Validator {
-  /** @param {object} schemas  the parsed 45d file ({entities: {name: {fields: {...}}}}) or null */
-  constructor(schemas) {
+  /**
+   * @param {object} schemas  the parsed field file ({entities: {name: {fields: {...}}}}) or null
+   * @param {object} [nested] src/runner/nested.json: the nested key surface derived from the same
+   *   pin by tools/derive_nested.mjs. Without it, nested checking FAILS CLOSED: a manifest that
+   *   carries any nested writable structure is refused rather than sent unchecked.
+   */
+  constructor(schemas, nested = null) {
+    this.nested = nested && nested.effects ? nested : null;
     this.fields = {};
     const ents = schemas && schemas.entities ? schemas.entities : {};
     for (const [name, e] of Object.entries(ents)) {
@@ -98,10 +104,94 @@ export class Validator {
       if (!known) out.push(`no field schema for entity ${entity}`);
       else for (const k of keys) if (!known.has(k) && !SERVER_OWNED.includes(k)) out.push(`unknown key "${k}" for ${entity} (would be silently dropped by the server)`);
     }
+    out.push(...this.nestedProblems(entity, data));
     // law 46 / empty_string_rule: '' becomes null on the write path; for image that 500s.
     if (data.image === "") out.push('image is an empty string: omit the key so fetch-merge keeps the current value');
     // law 45: doubled prefix
     for (const [k, v] of Object.entries(data)) if (typeof v === "string" && /^@\w+:@\w+:/.test(v)) out.push(`${k}: doubled ref prefix`);
+    return out;
+  }
+
+  /**
+   * Unknown keys INSIDE the writable nested structures (readiness brief section 6).
+   *
+   * Every one of these is parsed by a zod object, and a zod object strips what it does not know,
+   * so a misspelled key inside an effect tag, a quest objective or an AI rule is dropped silently
+   * and the mutation still answers success. The allowed key sets come from src/runner/nested.json,
+   * derived from the SAME pin as fields.json by tools/derive_nested.mjs.
+   *
+   * Keys only, never bounds: a bound the generator got wrong is the 45g.tag_power_max mistake, and
+   * a client that rejects payloads the server accepts is worse than one that does not.
+   *
+   * Fail closed: with no nested.json, or for a discriminator value the pin does not define, the
+   * structure is refused rather than sent unchecked.
+   */
+  nestedProblems(entity, data) {
+    const out = [];
+    if (!data || typeof data !== "object") return out;
+    // an EMPTY nested structure carries nothing to check, so it is not a reason to fail closed
+    const families = [];
+    if (Array.isArray(data.effects) && data.effects.length) families.push("effects");
+    if (entity === "quest" && data.content && typeof data.content === "object" && Object.keys(data.content).length) families.push("quest content");
+    if ((entity === "ai" || entity === "aiProfile") && Array.isArray(data.rules) && data.rules.length) families.push("ai rules");
+    if (!families.length) return out;
+    if (!this.nested) return [`no derived nested key set: refusing to send ${families.join(", ")} unchecked`];
+
+    const check = (obj, allowed, where) => {
+      for (const k of Object.keys(obj)) {
+        if (allowed.includes(k)) continue;
+        out.push(`${where}: unknown key "${k}" (the server's validator would drop it silently)`);
+      }
+    };
+
+    for (const [i, f] of (Array.isArray(data.effects) ? data.effects : []).entries()) {
+      if (!f || typeof f !== "object") { out.push(`effects[${i}] is not an object`); continue; }
+      const allowed = typeof f.type === "string" ? this.nested.effects[f.type] : null;
+      if (!allowed) { out.push(`effects[${i}]: unknown effect type ${JSON.stringify(f.type)} at the pin`); continue; }
+      check(f, allowed, `effects[${i}] (${f.type})`);
+    }
+
+    if (entity === "quest" && data.content && typeof data.content === "object") {
+      check(data.content, this.nested.questContent, "content");
+      if (data.content.reward && typeof data.content.reward === "object") {
+        check(data.content.reward, this.nested.objectiveReward, "content.reward");
+      }
+      for (const [i, o] of (Array.isArray(data.content.objectives) ? data.content.objectives : []).entries()) {
+        if (!o || typeof o !== "object") { out.push(`content.objectives[${i}] is not an object`); continue; }
+        const allowed = typeof o.task === "string" ? this.nested.objectives[o.task] : null;
+        if (!allowed) { out.push(`content.objectives[${i}]: unknown task ${JSON.stringify(o.task)} at the pin`); continue; }
+        const where = `content.objectives[${i}] (${o.task})`;
+        check(o, allowed, where);
+        if (Array.isArray(o.nextObjectiveId)) {
+          for (const [j, c] of o.nextObjectiveId.entries()) {
+            if (c && typeof c === "object") check(c, this.nested.objectiveChoice, `${where}.nextObjectiveId[${j}]`);
+          }
+        }
+        for (const key of ["opponentAIs", "attackers"]) {
+          for (const [j, e] of (Array.isArray(o[key]) ? o[key] : []).entries()) {
+            if (e && typeof e === "object") check(e, this.nested.idsWithNumber, `${where}.${key}[${j}]`);
+          }
+        }
+      }
+    }
+
+    if ((entity === "ai" || entity === "aiProfile") && Array.isArray(data.rules)) {
+      for (const [i, r] of data.rules.entries()) {
+        if (!r || typeof r !== "object") continue; // shape is reported by ruleProblems()
+        for (const [j, c] of (Array.isArray(r.conditions) ? r.conditions : []).entries()) {
+          if (!c || typeof c !== "object") continue;
+          const allowed = typeof c.type === "string" ? this.nested.aiConditions[c.type] : null;
+          if (!allowed) { out.push(`rules[${i}].conditions[${j}]: unknown condition type ${JSON.stringify(c.type)} at the pin`); continue; }
+          check(c, allowed, `rules[${i}].conditions[${j}] (${c.type})`);
+        }
+        const a = r.action;
+        if (a && typeof a === "object") {
+          const allowed = typeof a.type === "string" ? this.nested.aiActions[a.type] : null;
+          if (!allowed) out.push(`rules[${i}].action: unknown action type ${JSON.stringify(a.type)} at the pin`);
+          else check(a, allowed, `rules[${i}].action (${a.type})`);
+        }
+      }
+    }
     return out;
   }
 }

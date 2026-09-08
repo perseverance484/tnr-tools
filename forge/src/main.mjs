@@ -17,6 +17,7 @@ import { App } from "./ui/app.mjs";
 import { takeover, onHostPath } from "./ui/takeover.mjs";
 import { h } from "./ui/dom.mjs";
 import FIELDS from "./runner/fields.json" with { type: "json" };
+import NESTED from "./runner/nested.json" with { type: "json" };
 
 export const VERSION = "forge 0.1.3";
 // Field sets for pre-send validation are bundled from src/runner/fields.json, derived from the
@@ -41,7 +42,7 @@ export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(
   deps.reconciler = new Reconciler({ storage, reader: deps.reader, clock, journal: deps.journal });
   deps.github = new Github({ fetchImpl, storage });
   deps.uploader = new Uploader({ session: deps.session, fetchImpl });
-  deps.validator = new Validator(FIELDS);
+  deps.validator = new Validator(FIELDS, NESTED);
   deps.runner = new Runner({
     journal: deps.journal, client: deps.client, reader: deps.reader, cache: deps.cache,
     budget: deps.budget, validator: deps.validator, uploader: deps.uploader,

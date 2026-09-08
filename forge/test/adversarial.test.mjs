@@ -849,6 +849,64 @@ test("D4: after a pause the resumed job re-checks and never collides with its ow
   assert.equal(game.count("jutsu"), 1);
 });
 
+
+// --------------------------- readiness P0: nested unknown-key refusal (N1-N5, brief section 6)
+const NESTED = JSON.parse(readFileSync(new URL("../src/runner/nested.json", import.meta.url), "utf8"));
+const V = () => new Validator(SCHEMAS, NESTED);
+
+test("N1: a misspelled key inside an effect tag is refused, and a real one is not", () => {
+  const v = V();
+  const eff = (extra) => ({ name: "J", hidden: true, effects: [{ type: "damage", power: 40, ...extra }] });
+  assert.deepEqual(v.problems("jutsu", eff({})), []);
+  assert.deepEqual(v.problems("jutsu", eff({ residualModifier: 1.5, statTypes: ["Ninjutsu"] })), []);
+  assert.match(v.problems("jutsu", eff({ residualModifer: 1.5 })).join(";"), /effects\[0\] \(damage\): unknown key "residualModifer"/);
+  assert.match(v.problems("jutsu", { name: "J", effects: [{ type: "damge" }] }).join(";"), /unknown effect type "damge" at the pin/);
+  // the 45g mistake must not come back: an uncapped power is still accepted
+  assert.deepEqual(v.problems("jutsu", eff({ power: 400 })), []);
+});
+
+test("N2: a misspelled key inside a quest objective, choice or opponent entry is refused", () => {
+  const v = V();
+  const quest = (obj) => ({ name: "Q", hidden: true, content: { objectives: [obj], reward: {}, sceneBackground: "", sceneCharacters: [] } });
+  assert.deepEqual(v.problems("quest", quest({ id: "a", task: "dialog", description: "hi", nextObjectiveId: [{ text: "go", nextObjectiveId: "b" }] })), []);
+  assert.match(v.problems("quest", quest({ id: "a", task: "dialog", sceneBackgound: "typo" })).join(";"), /content\.objectives\[0\] \(dialog\): unknown key "sceneBackgound"/);
+  assert.match(v.problems("quest", quest({ id: "a", task: "dialog", nextObjectiveId: [{ text: "go", nextObjective: "b" }] })).join(";"), /nextObjectiveId\[0\]: unknown key "nextObjective"/);
+  assert.match(v.problems("quest", quest({ id: "a", task: "defeat_opponents", opponentAIs: [{ ids: ["x"], number: 1, quantiy: 2 }] })).join(";"), /opponentAIs\[0\]: unknown key "quantiy"/);
+  assert.match(v.problems("quest", quest({ id: "a", task: "dialogue" })).join(";"), /unknown task "dialogue" at the pin/);
+  assert.match(v.problems("quest", { name: "Q", content: { objectives: [], reward: {}, sceneBackground: "", sceneCharacters: [], extra: 1 } }).join(";"), /content: unknown key "extra"/);
+});
+
+test("N3: a misspelled key inside an AI rule condition or action is refused", () => {
+  const v = V();
+  const ai = (rule) => ({ rules: [rule] }); // an aiProfile entry carries the rules envelope only
+  assert.deepEqual(v.problems("aiProfile", ai({ conditions: [{ type: "distance_lower_than", value: 5, target: "RANDOM_OPPONENT" }], action: { type: "use_specific_jutsu", jutsuId: "j" } })), []);
+  assert.match(v.problems("aiProfile", ai({ conditions: [{ type: "distance_lower_than", valu: 5 }], action: { type: "end_turn" } })).join(";"), /conditions\[0\] \(distance_lower_than\): unknown key "valu"/);
+  assert.match(v.problems("aiProfile", ai({ conditions: [], action: { type: "use_specific_jutsu", jutsuID: "j" } })).join(";"), /action \(use_specific_jutsu\): unknown key "jutsuID"/);
+  assert.match(v.problems("aiProfile", ai({ conditions: [{ type: "distance_lower" }], action: { type: "end_turn" } })).join(";"), /unknown condition type "distance_lower" at the pin/);
+  assert.match(v.problems("aiProfile", ai({ conditions: [], action: { type: "use_jutsu" } })).join(";"), /unknown action type "use_jutsu" at the pin/);
+});
+
+test("N4: with no derived nested set, a nested structure is refused rather than sent unchecked", () => {
+  const blind = new Validator(SCHEMAS); // no nested.json
+  assert.match(blind.problems("jutsu", { name: "J", hidden: true, effects: [{ type: "damage" }] }).join(";"), /refusing to send effects unchecked/);
+  assert.match(blind.problems("quest", { name: "Q", content: { objectives: [] } }).join(";"), /refusing to send quest content unchecked/);
+  assert.match(blind.problems("aiProfile", { rules: [{ conditions: [], action: { type: "end_turn" } }] }).join(";"), /refusing to send ai rules unchecked/);
+  assert.deepEqual(blind.problems("jutsu", { name: "J", hidden: true }), [], "an entry with no nested structure is unaffected");
+  assert.deepEqual(blind.problems("jutsu", { name: "J", hidden: true, effects: [] }), [], "and an empty one carries nothing to check");
+});
+
+test("N5: the nested refusal happens before the create, so a typo costs no live row", async () => {
+  const h = harness();
+  h.runner.plan({ items: [{ entity: "jutsu", slot: "create", name: "A", srcId: "a", data: {
+    name: "A", hidden: true, effects: [{ type: "damage", power: 10, residualModifer: 2 }],
+  } }] }, { jobId: "n5" });
+  const s = await h.runner.run("n5");
+  assert.equal(s.items[0].state, "FAILED");
+  assert.match(s.items[0].error, /unknown key "residualModifer"/);
+  assert.equal(h.game.count("jutsu"), 0, "no placeholder for a locally knowable typo");
+  assert.ok(!h.game.calls.some((c) => c.path === "jutsu.create"));
+});
+
 // ------------------------------------------------- independent review of a1f9144 (F1-F4)
 test("F1: persisted history outranks a hand-edited state; a sent create is never replayed", async () => {
   // a real create whose response was lost, so the pre-create snapshot exists
