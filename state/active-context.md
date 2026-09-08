@@ -4,10 +4,10 @@
 **State in one line:** MISSION FLATTEN SHIPPED TO PUSH, AWAITING TAP. push/46_missions_flatten.json rewrites all ten Forsworn missions to dialog -> start_battle -> dialog -> win_quest (plus an off-path reset_quest retry on loss). Validated 0 errors 0 warnings, committed 3aac61d, UNRUN. Ruling this session: missions are flavor on the way to gains, not a challenge; flatten all ten including the A-rank named bosses. Node counts went 16-49 down to 4; forced map trips 5-13 down to 0. Balance untouched and verified: every node-level reward in the live records was already zero, so content.reward was re-asserted verbatim and equals the live capture on all ten. Law/doctrine rewrite to match the new shape is DEFERRED by ruling until player feedback comes back. STILL OPEN from before: push/45_mission_ai_self_target_fix.json unrun (no conflict with 46, it edits ai not quest); code audit batch 3 not started; law provenance reconciliation not started.
 
 **Verified at close (exact runs):**
-- push/46_missions_flatten.json -> validate.py 0 errors, 0 warnings (run from skills/building-tnr-content/data)
-- reward parity -> content.reward on all ten equals live capture tnr_results_1788136356379; every node-level reward in the live records was already zero
-- gate parity -> questRank, requiredLevel, hidden, prerequisiteQuestId, maxAttempts, retryDelay unchanged from live on all ten
-- em dash sweep -> 0 in node description and choice text across all ten
+- lawmap -> 93 laws, 93 matrix rows, 77 citations across 34 files; 0 errors, 5 warnings
+- doctrine projections -> all projections current (exit 0)
+- packs/TOCs -> all packs and TOCs current (exit 0)
+- parity tnr_results_1788235395095.json -> 0 errors, 0 warnings
 
 **Start ritual:** per the mounted instructions - clone, repo-local identity,
 session_open.py (verify any new inbox bundle FIRST). No clone means no state.
