@@ -3,13 +3,15 @@
 // and the mutation reports success. The only place that error can surface is here.
 //
 // Field sets come from src/runner/fields.json, derived from the PINNED validators by
-// tools/derive_fields.mjs (jutsu, item, bloodline, quest, gameAsset). 45d_DATA_entity_schemas
+// tools/derive_fields.mjs (jutsu, item, bloodline, quest, gameAsset, and ai). 45d_DATA_entity_schemas
 // (generated 2026-08-26) is stale against 345d18ac: it lacks the twelve item farm* keys and
 // quest.requiredFarmingLevel, and ItemValidator REQUIRES farmYieldItemId, so an item update
 // picked by the 45d set would be refused by zod. Both files share one shape; the constructor
 // accepts either. The AI record has no entity list (insertAiSchema is the whole userData
-// table), so AI keys are checked against the live record fetched before the write, plus the
-// extension set the schema adds, minus the columns insertAiSchema omits and the server owns.
+// table); its key surface is derived instead from createInsertSchema(userData).omit().extend()
+// at drizzle/schema.ts:2577, so an AI create is validated BEFORE the placeholder is minted.
+// Waiting for a live row to learn the key set (the earlier behaviour) meant a typed key cost a
+// live row: profile.create mints the placeholder first, and only _fill could then reject it.
 //
 // DELIBERATELY NOT WIRED: 45g.tag_power_max. Brief section 5: at source PowerAttributes.power
 // is z.coerce.number().min(0) with no maximum, spread after BaseAttributes in all 61 tags that
@@ -37,7 +39,7 @@ export const AI_OMITTED = Object.freeze([
 ]);
 
 /** Which 45d entity backs a manifest entity. */
-export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset" });
+export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai" });
 
 export class Validator {
   /** @param {object} schemas  the parsed 45d file ({entities: {name: {fields: {...}}}}) or null */
@@ -68,14 +70,19 @@ export class Validator {
     const keys = Object.keys(data);
     if (entity === "ai" || entity === "aiProfile") {
       const allowed = new Set(AI_EXTRA_KEYS);
+      if (entity === "ai") {
+        const pinned = this.knownFields("ai"); // insertAiSchema at the pin: known without a live row
+        if (!pinned) out.push("no pinned insertAiSchema field set: cannot validate ai keys");
+        else for (const k of pinned) allowed.add(k);
+      }
       if (live) for (const k of Object.keys(live)) allowed.add(k);
       for (const k of AI_OMITTED) allowed.delete(k);
       for (const k of SERVER_OWNED) allowed.delete(k);
       const check = entity === "aiProfile" ? new Set(["rules", "includeDefaultRules"]) : allowed;
       // omitted and server-owned columns are refused even before a create (no live row needed)
       for (const k of keys) if (AI_OMITTED.includes(k) || (entity === "ai" && SERVER_OWNED.includes(k))) out.push(`"${k}" is not writable on an ai (insertAiSchema omits it or the server owns it)`);
-      // before a create there is no live row to check the other AI keys against; structural checks only
-      if (live || entity === "aiProfile") for (const k of keys) if (!check.has(k) && !AI_OMITTED.includes(k) && !SERVER_OWNED.includes(k)) out.push(`unknown key "${k}" for ${entity}`);
+      // every unknown key is refused BEFORE the create, because the pinned set does not need a live row
+      for (const k of keys) if (!check.has(k) && !AI_OMITTED.includes(k) && !SERVER_OWNED.includes(k)) out.push(`unknown key "${k}" for ${entity}`);
       if (entity === "ai" && Array.isArray(data.items)) for (const t of data.items) if (t && typeof t === "object" && !Array.isArray(t.ids) && t.itemId == null && t.id == null) out.push("items: each entry is {ids: [itemId], number: dropChancePerc} (law 69)");
       if (Array.isArray(data.rules)) out.push(...ruleProblems(data.rules));
     } else {

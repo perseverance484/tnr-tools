@@ -4,7 +4,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { IDBFactory } from "fake-indexeddb";
-import { Journal, JournalError, KEY_PREFIX, TRANSITIONS, ITEM_STATES, migrate, JOURNAL_VERSION } from "../src/storage/journal.mjs";
+import { Journal, JournalError, KEY_PREFIX, TRANSITIONS, ITEM_STATES, migrate, repairHistory, JOURNAL_VERSION } from "../src/storage/journal.mjs";
 import { CaptureCache } from "../src/storage/captures.mjs";
 import { readIdmap, IDMAP_KEY } from "../src/storage/compat.mjs";
 import { stableStringify, payloadHash } from "../src/storage/hash.mjs";
@@ -14,7 +14,7 @@ import { TrpcClient, NetworkError } from "../src/transport/client.mjs";
 import { TransportError, isTrpcErrorBody } from "../src/transport/envelope.mjs";
 import { mergeForUpdate, mergeAi } from "../src/runner/recipes.mjs";
 import { RateLimited } from "../src/budget/bucket.mjs";
-import { classifyError } from "../src/transport/outcome.mjs";
+import { classifyError, readMutation, OutcomeError } from "../src/transport/outcome.mjs";
 import { Budget } from "../src/budget/bucket.mjs";
 import { CachedReader } from "../src/budget/reader.mjs";
 import { Validator, diffAsserted } from "../src/runner/validate.mjs";
@@ -22,21 +22,15 @@ import { Runner, LeaseHeld, LEASE_PREFIX, LEASE_TTL_MS } from "../src/runner/run
 import { Reconciler } from "../src/reconcile/reconciler.mjs";
 import { FakeGame, FakeClient, CrashSignal } from "./fakegame.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
+import { composeForTest } from "./compose.mjs";
+import { compose } from "../src/main.mjs";
 
 const SCHEMAS = JSON.parse(readFileSync(new URL("../src/runner/fields.json", import.meta.url), "utf8"));
 const spec = (entity = "jutsu", op = "create", i = 0) => ({ entity, op, name: `${entity}${i}`, srcId: op === "create" ? `${entity}${i}` : null, targetId: op === "update" ? `t${i}` : null, payloadHash: "h" });
 const J = (s = new MemoryStorage()) => new Journal(s, fakeClock(), { yieldTask: async () => {} });
 
-function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory(), tabId = "tab" } = {}) {
-  const clock = fakeClock();
-  const journal = new Journal(storage, clock, { yieldTask: async () => {} });
-  const cache = new CaptureCache(idb, clock);
-  const budget = new Budget({ storage, clock, sleep: async (ms) => clock.tick(ms) });
-  const client = new FakeClient(game);
-  const reader = new CachedReader({ client, cache, budget });
-  const reconciler = new Reconciler({ storage, reader, clock, journal });
-  const runner = new Runner({ journal, client, reader, cache, budget, validator: new Validator(SCHEMAS), storage, reconciler, clock, tabId });
-  return { game, storage, idb, clock, journal, cache, budget, client, reader, runner, reconciler };
+function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory(), tabId = "tab", client = null } = {}) {
+  return composeForTest({ game, storage, idb, tabId, client });
 }
 const ONE = { items: [{ entity: "jutsu", slot: "create", name: "A", srcId: "a", data: { name: "A", description: "d", hidden: true } }] };
 
@@ -341,7 +335,7 @@ test("L4: adopt() requires ORPHANED, refuses an id another item holds, keeps a n
   assert.throws(() => h.runner.adopt("a", 0, "x"), /needs an ORPHANED item/);
   h.journal.transition("a", 0, "SENT"); h.journal.transition("a", 0, "ORPHANED");
   h.journal.transition("a", 1, "SENT"); h.journal.transition("a", 1, "CONFIRMED", { entityId: "held", phase: "update" });
-  assert.throws(() => h.runner.adopt("a", 0, "held"), /already held by item 1/);
+  assert.throws(() => h.runner.adopt("a", 0, "held"), /already held by job a item 1/);
   h.runner.adopt("a", 0, "fresh");
   assert.equal(h.journal.get("a").items[0].phase, "update");
   // an orphaned rules-phase item keeps its phase on adopt
@@ -507,7 +501,8 @@ test("L3/L4: a 429 during reconciliation pauses with the path and countdown; the
 test("L1/L4: one tab drives a job at a time; a stale lease expires; DONE releases it", async () => {
   const h = harness();
   h.runner.plan(ONE, { jobId: "lease" });
-  const other = new Runner({ journal: h.journal, client: h.client, reader: h.reader, cache: h.cache, budget: h.budget, validator: new Validator(SCHEMAS), storage: h.storage, reconciler: h.reconciler, clock: h.clock, tabId: "other-tab" });
+  const o = composeForTest({ game: h.game, storage: h.storage, idb: h.idb, clock: h.clock, tabId: "other-tab", client: h.client });
+  const other = o.runner;
   other.manifests = h.runner.manifests;
   h.runner._lease("lease"); // this tab is driving
   await assert.rejects(() => other.run("lease"), LeaseHeld);
@@ -583,4 +578,132 @@ test("L3: the budget mirrors the server's weighted sliding window, so this clien
   assert.ok(h.clock() - t0 <= W + 5000, "the second 30 still fit inside about one window: " + (h.clock() - t0));
   const st = h.budget.status().paths["jutsu.get"];
   assert.ok(st.weighted <= A && st.used <= A);
+});
+
+// ------------------------------------------------- independent review of a1f9144 (F1-F4)
+test("F1: persisted history outranks a hand-edited state; a sent create is never replayed", async () => {
+  // a real create whose response was lost, so the pre-create snapshot exists
+  const game = new FakeGame(); const h = harness({ game });
+  h.runner.plan(ONE, { jobId: "hx" });
+  const orig = game.handle.bind(game); let crashed = false;
+  game.handle = (p, i) => { const r = orig(p, i); if (p === "jutsu.create" && !crashed) { crashed = true; throw new CrashSignal(1); } return r; };
+  await h.runner.run("hx");
+  game.handle = orig;
+  assert.equal(game.count("jutsu"), 1);
+  // hand edit the persisted record: state only, history left intact
+  const raw = JSON.parse(h.storage.crash().getItem(KEY_PREFIX + "hx"));
+  assert.equal(raw.items[0].state, "SENT"); assert.ok(raw.items[0].createSentAt);
+  raw.items[0].state = "PLANNED";
+  const storage = h.storage.crash(); storage.setItem(KEY_PREFIX + "hx", JSON.stringify(raw));
+  const h2 = harness({ game, storage, idb: h.idb });
+  const it = h2.journal.get("hx").items[0];
+  assert.equal(it.state, "SENT", "restored: createSentAt proves the request left");
+  assert.equal(it.phase, "create");
+  assert.match(it.repaired, /contradicted by/);
+  h2.runner.attach("hx", ONE);
+  await assert.rejects(() => h2.runner.run("hx"), /call resume\(\)/, "run() refuses a job holding a SENT item");
+  const s = await h2.runner.resume("hx");
+  assert.equal(s.items[0].state, "VERIFIED", JSON.stringify(s));
+  assert.equal(game.count("jutsu"), 1, "exactly one live row: the create was never replayed");
+  assert.equal(game.calls.filter((c) => c.path === "jutsu.create").length, 1);
+});
+
+test("F1b: repairHistory restores on any proof field, never advances a state, never invents an id", () => {
+  for (const k of ["sentAt", "createSentAt", "confirmedAt", "verifiedAt"]) {
+    const job = { items: [{ idx: 0, op: "create", state: "PLANNED", phase: "create", entityId: null, [k]: "2026-01-01T00:00:00.000Z" }] };
+    repairHistory(job);
+    assert.equal(job.items[0].state, "SENT", k);
+    assert.equal(job.items[0].entityId, null, "no id is invented");
+  }
+  // a genuinely fresh PLANNED item is untouched
+  const fresh = { items: [{ idx: 0, op: "create", state: "PLANNED", phase: "create", sentAt: null, createSentAt: null, confirmedAt: null, verifiedAt: null }] };
+  repairHistory(fresh);
+  assert.equal(fresh.items[0].state, "PLANNED");
+  assert.equal(fresh.items[0].repaired, undefined);
+  // an update-phase item keeps its id and lands on the update phase, not create
+  const upd = { items: [{ idx: 0, op: "create", state: "PLANNED", phase: "verify", entityId: "e1", confirmedAt: "t" }] };
+  repairHistory(upd);
+  assert.equal(upd.items[0].state, "SENT"); assert.equal(upd.items[0].entityId, "e1"); assert.equal(upd.items[0].phase, "verify");
+  // terminal states are never rewound
+  const done = { items: [{ idx: 0, op: "create", state: "VERIFIED", phase: "verify", sentAt: "t" }] };
+  repairHistory(done); assert.equal(done.items[0].state, "VERIFIED");
+});
+
+test("F2: the SHIPPED composition wires the journal into the Reconciler, and one cannot be built without it", () => {
+  const d = compose({ storage: new MemoryStorage(), indexedDB: new IDBFactory(), fetchImpl: async () => new Response("[]"), clock: fakeClock() });
+  assert.equal(d.reconciler.journal, d.journal, "production reconciler can exclude ids other jobs own");
+  assert.equal(d.runner.reconciler, d.reconciler);
+  assert.throws(() => new Reconciler({ storage: new MemoryStorage(), reader: {}, clock: fakeClock() }), /needs the journal/);
+  assert.throws(() => new Reconciler({ storage: new MemoryStorage(), reader: {}, journal: {} }), /needs the journal/);
+});
+
+test("F2b: a resumed job never adopts a row another job owns", async () => {
+  const game = new FakeGame(); const h = harness({ game });
+  const B = { items: [{ entity: "asset", slot: "create", name: "B", srcId: "b", data: { name: "B", hidden: true, type: "STATIC", url: "u" } }] };
+  h.runner.plan(B, { jobId: "B" });
+  const key = await h.reconciler.beforeCreate(h.journal.get("B"), h.journal.get("B").items[0], "asset");
+  h.journal.annotate("B", 0, { snapshotKey: key });
+  h.journal.transition("B", 0, "SENT", { phase: "create" }); // B's create left, response lost
+  // job A then creates and confirms exactly one new row
+  h.journal.open({ jobId: "A", items: [spec("asset", "create", 0)] });
+  const aId = game.handle("gameAsset.create").data.message;
+  h.journal.transition("A", 0, "SENT"); h.journal.transition("A", 0, "CONFIRMED", { entityId: aId, phase: "update" });
+  h.runner.attach("B", B);
+  const s = await h.runner.resume("B");
+  assert.equal(s.items[0].state, "ORPHANED", "A's row is not a candidate");
+  assert.notEqual(s.items[0].entityId, aId);
+  assert.equal(game.rows("asset").find((r) => r.id === aId).name, "Placeholder", "A's row is untouched");
+});
+
+test("F2c: adopt() refuses an id held by ANY job, not just this one", () => {
+  const h = harness();
+  h.journal.open({ jobId: "A", items: [spec("asset", "create", 0)] });
+  h.journal.transition("A", 0, "SENT"); h.journal.transition("A", 0, "CONFIRMED", { entityId: "held-by-A", phase: "update" });
+  h.journal.open({ jobId: "B", items: [spec("asset", "create", 1)] });
+  h.journal.transition("B", 0, "SENT"); h.journal.transition("B", 0, "ORPHANED");
+  assert.throws(() => h.runner.adopt("B", 0, "held-by-A"), /already held by job A item 0/);
+  assert.equal(h.journal.get("B").items[0].state, "ORPHANED", "refused, not partially applied");
+  h.runner.adopt("B", 0, "fresh-id"); // an unheld id is still fine
+  assert.equal(h.journal.get("B").items[0].entityId, "fresh-id");
+});
+
+test("F3: an unknown AI key is refused BEFORE the placeholder is created", async () => {
+  const v = new Validator(SCHEMAS);
+  assert.match(v.problems("ai", { username: "X", usernmae: "typo" }, null, { preCreate: true }).join(";"), /unknown key "usernmae"/);
+  assert.deepEqual(v.problems("ai", { username: "X", level: 3, avatar: "u", jutsus: [], items: [], rules: [], includeDefaultRules: false }, null, { preCreate: true }), []);
+  assert.equal(v.knownFields("ai").size, 157);
+  for (const k of ["username", "level", "avatar", "isAi", "jutsus", "items"]) assert.ok(v.knownFields("ai").has(k), k);
+  for (const k of ["questData", "occupation", "deletionAt"]) assert.ok(!v.knownFields("ai").has(k), k + " is omitted by insertAiSchema");
+  const h = harness();
+  h.runner.plan({ items: [{ entity: "ai", slot: "create", name: "X", srcId: "x", data: { username: "X", usernmae: "typo" } }] }, { jobId: "f3" });
+  const s = await h.runner.run("f3");
+  assert.equal(s.items[0].state, "FAILED");
+  assert.match(s.items[0].error, /unknown key "usernmae"/);
+  assert.equal(h.game.count("ai"), 0, "no live placeholder for a locally knowable typo");
+  assert.ok(!h.game.calls.some((c) => c.path === "profile.create"));
+});
+
+test("F4: an undecodable mutation element stays ambiguous; queries keep sibling salvage", async () => {
+  // query: one bad element does not discard its siblings
+  const q = decodeResponse(200, "[{}]", 1);
+  assert.equal(q[0].error.code, "MALFORMED_ELEMENT");
+  // mutation: fatal, because the resolver may have run
+  assert.throws(() => decodeResponse(200, "[{}]", 1, { mutation: true }), TransportError);
+  // through the real transport and runner: the item stays SENT and the job pauses
+  const h = harness();
+  h.runner.plan(ONE, { jobId: "f4" });
+  h.runner.client = new TrpcClient(new CookieSession({ fetchImpl: async () => new Response("[{}]", { status: 200, headers: { "content-type": "application/json" } }) }));
+  const s = await h.runner.run("f4");
+  assert.equal(s.state, "PAUSED"); assert.equal(s.pause.reason, "UNDECODABLE_RESPONSE");
+  assert.equal(s.items[0].state, "SENT", "ambiguity preserved: the write may have landed");
+  assert.equal(h.journal.get("f4").items[0].state, "SENT");
+  // and readMutation refuses to turn one into a verdict even if it ever reached it
+  assert.throws(() => readMutation({ ok: false, error: { code: "MALFORMED_ELEMENT", message: "x" } }), OutcomeError);
+});
+
+test("F4b: only the exact adapter error shape is fanned out per index", () => {
+  assert.equal(isTrpcErrorBody({ error: { json: { message: "x", code: -32015, data: { code: "UNSUPPORTED_MEDIA_TYPE" } } } }), true);
+  assert.equal(isTrpcErrorBody({ error: { json: { message: "x", data: { code: "INTERNAL_SERVER_ERROR" } } } }), false, "no numeric jsonrpc code: an intermediary body");
+  assert.equal(isTrpcErrorBody({ error: { json: { message: "x", code: "-32015", data: { code: "X" } } } }), false);
+  assert.throws(() => decodeResponse(504, '{"error":{"json":{"message":"x","data":{"code":"Y"}}}}', 1), TransportError);
 });

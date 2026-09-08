@@ -31,7 +31,12 @@ export class Reconciler {
    * @param {import("../budget/reader.mjs").CachedReader} o.reader
    * @param {() => number} [o.clock]
    */
-  constructor({ storage, reader, clock = () => Date.now(), journal = null }) {
+  constructor({ storage, reader, clock = () => Date.now(), journal }) {
+    // The journal is REQUIRED, not optional. Without it _resolveCreate cannot subtract the ids
+    // other jobs already own, and a resumed job silently adopts and overwrites another job's row.
+    // A construction error is the only acceptable failure mode for that, never a quiet downgrade.
+    if (!journal || typeof journal.knownEntityIds !== "function") throw new Error("Reconciler needs the journal: without it cross-job adoption cannot be excluded");
+    if (!storage || !reader) throw new Error("Reconciler needs storage and reader");
     this.storage = storage; this.reader = reader; this.clock = clock; this.journal = journal;
   }
 
@@ -86,7 +91,7 @@ export class Reconciler {
     // ids owned by THIS job's other items, and by ANY other job in the journal (cross-job adoption
     // would overwrite a row another job created; adversarial review L5)
     const owned = new Set(job.items.filter((it) => it.entity === item.entity && it.entityId && it.idx !== item.idx).map((it) => it.entityId));
-    if (this.journal) for (const id of this.journal.knownEntityIds(item.entity)) owned.add(id);
+    for (const id of this.journal.knownEntityIds(item.entity)) owned.add(id);
     const rows = list.data.filter((r) => !before.has(r[rc.idKey]) && !owned.has(r[rc.idKey]));
     const pending = job.items.filter((it) => it.entity === item.entity && it.state === "SENT" && (it.phase === "create" || !it.entityId));
     const candidates = rows.map((r) => ({ id: r[rc.idKey], name: r[rc.nameKey] ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));

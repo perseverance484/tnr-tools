@@ -79,6 +79,31 @@ export function newItem(idx, spec) {
   };
 }
 
+/**
+ * Persisted history outranks a persisted state label. A record can be hand-edited, truncated by
+ * a partial flush, or written by a future bundle; shape validation alone cannot see that an item
+ * labelled PLANNED already carries proof that its request left (sentAt / createSentAt /
+ * confirmedAt / verifiedAt). Replaying such an item would mint a SECOND live row, because every
+ * create at the pin generates a fresh nanoid (jutsu.ts:391, item.ts:235, bloodline.ts:144,
+ * asset.ts:194, quests.ts:866, profile.ts:1138). Restore it to SENT, which is the only state that
+ * routes through reconciliation, and record why. Never the reverse: this function never advances
+ * an item towards a terminal state and never invents an entityId.
+ */
+export function repairHistory(job) {
+  if (!job || !Array.isArray(job.items)) return job;
+  for (const it of job.items) {
+    if (!it || typeof it !== "object" || it.state !== "PLANNED") continue;
+    const proof = ["sentAt", "createSentAt", "confirmedAt", "verifiedAt"].filter((k) => it[k]);
+    if (!proof.length) continue;
+    it.state = "SENT";
+    if (it.createSentAt && !it.entityId) it.phase = "create";
+    else if (!it.phase || it.phase === "create") it.phase = it.entityId ? "update" : "create";
+    it.sentAt = it.sentAt || it.createSentAt || it.confirmedAt || it.verifiedAt;
+    it.repaired = `state PLANNED contradicted by ${proof.join(", ")}; restored to SENT for reconciliation`;
+  }
+  return job;
+}
+
 export function validateJobShape(job) {
   if (!job || typeof job !== "object" || Array.isArray(job)) throw new JournalError("journal record is not an object");
   if (typeof job.jobId !== "string" || !job.jobId) throw new JournalError("journal record has no jobId");
@@ -292,6 +317,22 @@ export class Journal {
   }
 
   /** Every entityId any job in this journal has recorded (for cross-job orphan reconciliation). */
+  /**
+   * Which item, in ANY job, already holds this entityId. Excludes the caller's own item.
+   * Adoption and reconciliation both consult it: two items pointing at one row means the second
+   * one's update overwrites the first one's content, and the server keeps no job provenance.
+   */
+  findHolder(entity, entityId, { exceptJobId = null, exceptIdx = null } = {}) {
+    if (!entityId) return null;
+    for (const job of this.listJobs()) {
+      for (const it of job.items) {
+        if (job.jobId === exceptJobId && it.idx === exceptIdx) continue;
+        if (it.entityId === entityId && (!entity || it.entity === entity)) return { jobId: job.jobId, idx: it.idx, name: it.name ?? null, state: it.state };
+      }
+    }
+    return null;
+  }
+
   knownEntityIds(entity = null) {
     const ids = new Set();
     for (const job of this.listJobs()) for (const it of job.items) if (it.entityId && (!entity || it.entity === entity)) ids.add(it.entityId);
@@ -323,5 +364,5 @@ export function migrate(job) {
     v = job.v;
   }
   job.v = v;
-  return job;
+  return repairHistory(job);
 }

@@ -14,19 +14,12 @@ import { mergeAi, mergeForUpdate } from "../src/runner/recipes.mjs";
 import { FakeGame, FakeClient, CrashSignal } from "./fakegame.mjs";
 import { Reconciler } from "../src/reconcile/reconciler.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
+import { composeForTest } from "./compose.mjs";
 
 const SCHEMAS = JSON.parse(readFileSync(new URL("../src/runner/fields.json", import.meta.url), "utf8"));
 
-function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory(), reconcile = true, tabId = "tab" } = {}) {
-  const clock = fakeClock();
-  const journal = new Journal(storage, clock);
-  const cache = new CaptureCache(idb, clock);
-  const budget = new Budget({ storage, clock, sleep: async (ms) => clock.tick(ms) });
-  const client = new FakeClient(game);
-  const reader = new CachedReader({ client, cache, budget });
-  const reconciler = reconcile ? new Reconciler({ storage, reader, clock }) : null;
-  const runner = new Runner({ journal, client, reader, cache, budget, validator: new Validator(SCHEMAS), storage, reconciler, clock, tabId });
-  return { game, storage, idb, clock, journal, cache, budget, client, reader, runner };
+function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory(), tabId = "tab" } = {}) {
+  return composeForTest({ game, storage, idb, tabId });
 }
 const M = {
   oneJutsu: { items: [{ entity: "jutsu", slot: "create", name: "Ember Step", srcId: "ember", data: { name: "Ember Step", description: "d", hidden: true, effects: [{ type: "damage", power: 150 }] } }] },

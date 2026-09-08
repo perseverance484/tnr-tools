@@ -22,7 +22,16 @@ export function isBaseServerResponse(v) {
  *   error    a tRPC error element: validation (zodError), TOO_MANY_REQUESTS, UNAUTHORIZED, etc.
  */
 export function readMutation(decoded) {
-  if (!decoded.ok) return { kind: "error", message: decoded.error.message, error: decoded.error };
+  if (!decoded.ok) {
+    // MALFORMED_ELEMENT means the element could not be decoded at all. The transport refuses to
+    // produce one for a mutation (envelope.decodeResponse throws instead), so reaching here would
+    // be a regression; treat it as undecodable rather than as a definite verdict, because the
+    // resolver may already have run and the write may exist.
+    if (decoded.error.code === "MALFORMED_ELEMENT") {
+      throw new OutcomeError("mutation element is undecodable; the write may have landed: " + decoded.error.message, { error: decoded.error, ambiguous: true });
+    }
+    return { kind: "error", message: decoded.error.message, error: decoded.error };
+  }
   const d = decoded.data;
   if (!isBaseServerResponse(d)) {
     throw new OutcomeError("mutation returned something other than baseServerResponse", { data: d });

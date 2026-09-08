@@ -16,13 +16,14 @@ forge/                       the app, one directory per layer (brief section 3 o
   src/budget/                L3 per-path sliding window at a margin, cache-first reader
   src/runner/                L4 manifest plan, refs, pre-send validation, recipes, the runner
   src/runner/fields.json     field set per entity, derived from the PINNED validators (see below)
+  src/main.mjs compose()     the ONE dependency graph; every test harness calls it
   src/reconcile/             L5 snapshots, orphan diff, adoption policy
   src/ui/                    L6 five screens, takeover, DOM helpers (createElement + CSSOM only)
   src/github.mjs             L7 manifest picker's contents-API client (bearer to api.github.com only)
   src/main.mjs               composition root; the only file that touches window.*
   tools/derive_envelope.mjs  produces test/fixtures/envelope/ by running the real tRPC adapter
   tools/derive_fields.mjs    produces src/runner/fields.json from a checkout of the pinned game source
-  test/                      node --test, no network; shim.mjs, fakegame.mjs
+  test/                      node --test, no network; shim.mjs, fakegame.mjs, compose.mjs
   build.mjs                  esbuild IIFE -> ../forge_bundle.js
 forge_bundle.js              the built userscript body (repo root, beside builder_bundle.js)
 forge_loader_user.js         the ViolentMonkey loader (distinct name, namespace, @match, version)
@@ -97,6 +98,13 @@ thunk never runs. `sentAt` is the latest send; `createSentAt` is set once and ne
 overwritten. The phase recorded on `CONFIRMED` is the NEXT step, so an item whose update has
 succeeded is at `verify` and a later run can only read it back, never re-send it.
 
+`_read()` repairs a record whose persisted history contradicts its state label before anything
+sees it: an item marked PLANNED that carries `sentAt`, `createSentAt`, `confirmedAt` or
+`verifiedAt` is restored to SENT, which is the only state that routes through reconciliation.
+Shape validation alone cannot catch that, and replaying such an item would mint a second live row,
+because every create at the pin generates a fresh nanoid. The repair never advances an item
+towards a terminal state and never invents an `entityId`; it records why on `item.repaired`.
+
 Guards added by the adversarial pass: `annotate()` and `transition()` patches may not set
 `state`, `idx` or any timestamp; `remove()` refuses a job holding a SENT item unless forced;
 `setJobState(DONE)` refuses while an item is SENT; `open()` refuses empty item lists and a
@@ -164,6 +172,19 @@ Limited paths (16, all `publicProcedure` reads): `jutsu|item|quests|gameAsset|bl
 `ai.getAiProfile`, every mutation. Table: `src/transport/procedures.mjs`, generated from the
 audit's `crud_surface` with the verification's F4 corrections applied.
 
+## One composition, shared by the app and every test
+
+`compose()` in `main.mjs` builds the whole dependency graph, and `boot()` is a thin wrapper that
+supplies `window`'s primitives. Every test harness calls the same function through
+`test/compose.mjs`, substituting only the environment primitives and the transport client.
+
+This is a rule with a reason. The harnesses used to build their own graphs, and one of them passed
+the journal into the `Reconciler` when the shipped composition did not. The `Reconciler` needs the
+journal to subtract ids other jobs already own, so the test named for cross-job adoption exercised
+a safer graph than the app shipped, and a whole adversarial pass reported that hole as covered. The
+independent review found it. Two things now prevent a recurrence: the wiring lives in exactly one
+place, and `Reconciler` throws when constructed without a journal rather than quietly degrading.
+
 ## Transport, derived from the adapter
 
 `tools/derive_envelope.mjs` runs the real `@trpc/client` `httpBatchLink` (superjson) against
@@ -191,9 +212,15 @@ asserted against them byte for byte. Observed and relied on:
 - Batch elements execute concurrently server-side; `batch()` is for latency only and the
   runner never batches dependent mutations (it sends one mutation per request).
 - Only the adapter's own shape `{error:{json:{message, code, data:{code}}}}` counts as a
-  request-level error. A gateway's JSON body (`{"error":{"code":"FUNCTION_INVOCATION_TIMEOUT"}}`
-  at 504) is a `TransportError` with `received: true`, so a mutation behind it stays
-  ambiguous and is reconciled, never marked failed (adversarial L2 refuter).
+  request-level error, jsonrpc `code` included: every recorded adapter error carries a numeric
+  one. A gateway's JSON body (`{"error":{"code":"FUNCTION_INVOCATION_TIMEOUT"}}` at 504) is a
+  `TransportError` with `received: true`, so a mutation behind it stays ambiguous and is
+  reconciled, never marked failed.
+- A batch element that cannot be decoded at all is fatal **for a mutation** and salvageable for a
+  query. A query batch keeps its well-formed siblings, because a missing read costs a re-read. A
+  mutation throws, because the request reached a server that may have run the resolver: turning
+  that into a per-index verdict would mark an already-SENT write terminally failed. `readMutation`
+  refuses such an element a second time, so a future regression is ambiguity, not a false verdict.
 
 Failure shapes the runner keys off: `NetworkError` carries `phase: connect | body`,
 `causeName`, `httpStatus` and `received`, so "the request never left" and "a status came
@@ -270,12 +297,15 @@ The generator in `skills/` (`schema_extract.py`) needs re-running on the pinned 
 is a `skills/` change this branch does not make. Re-run `derive_fields.mjs` whenever the pin
 moves.
 
-Unknown keys are refused locally against those lists. The AI record has no entity list
-(`insertAiSchema` is the whole `userData` table), so AI keys are checked against the live
-record fetched before the write plus the schema's extension keys (`jutsus`, `items`,
-`primaryElement`, `secondaryElement`, `rules`, `includeDefaultRules`), minus the thirteen
-columns `insertAiSchema` omits and the server-owned ones, which are refused even before a
-create; otherwise before the create only the structural checks run.
+Unknown keys are refused locally against those lists, **including for an AI create**. The AI
+record has no content validator, so the extractor derives the effective key set of
+`insertAiSchema` (`drizzle/schema.ts:2577`) as well: the 168 `userData` columns, minus the 13
+`.omit()` entries, plus the 22 `.extend()` keys, giving 157. Checking AI keys only against a
+fetched live row (the earlier behaviour) meant a typo could not be caught until after
+`profile.create` had already minted the placeholder, so a local, knowable mistake cost a live row.
+The pinned set needs no live row, so the check now runs before the create like every other entity.
+The live row's keys and the extension set are still unioned in for an edit, and the omitted and
+server-owned columns are refused in both directions.
 
 **An AI item entry's `number` is `dropChancePerc`, never quantity** (law 69;
 `profile.ts:1528-1530` builds `{id, chance: o.number}` and `:1577` writes
@@ -322,7 +352,7 @@ balance, and are shown in the UI as settings: the budget margin (0.5), the batch
 
 ## Verification
 
-`cd forge && npm test`. No test opens a socket. 160 tests.
+`cd forge && npm test`. No test opens a socket. 168 tests, all through the shipped `compose()`.
 
 | layer | tests | what is proven |
 |---|---:|---|
@@ -331,7 +361,7 @@ balance, and are shown in the UI as settings: the budget margin (0.5), the batch
 | budget | 16 | write-ahead send log, window survives eviction, 31st send waits, a 429 in a 207 halts after caching the good index |
 | runner + reconcile | 28 | two-phase creates, six entities, kit re-send, refs, unknown-key refusal, power uncapped, crash before send / after send / after response / mid two-phase against server-side row counts, gameAsset two-orphan ambiguity, TOO_MANY_REQUESTS pause, NetworkError leaves SENT |
 | ui | 8 | no HTML string sink in src, takeover, five screens render, resume banner, run screen, settings persist, picker -> start -> DONE, render errors surface |
-| adversarial | 45 | one regression test per finding that survived the panels (below), including a budget test that recomputes the server's weighted estimate from the send log and shows it never exceeds the allowance from this client alone |
+| adversarial | 53 | one regression test per finding that survived the panels and the independent review (below), including a budget test that recomputes the server's weighted estimate from the send log and shows it never exceeds the allowance from this client alone |
 
 ### Adversarial passes
 
@@ -378,6 +408,31 @@ finding, scratch tests under a gitignored directory; only what reproduced was ke
   (only top-level keys are checked; misspelled keys inside `effects[]`, quest objectives and
   rule conditions pass), the rules read-back comparing serialised JSON (server prefaults may
   show as drift, which is visible and harmless), and verify `unread` staying non-terminal.
+
+### Independent review of `a1f9144`
+
+A separate reviewer audited the frozen branch against the pinned source and reported four
+high-severity defects. All four reproduced, each was fixed, and each is pinned by a regression test
+that fails against the frozen tree:
+
+- **A hand-edited persisted record could replay a create.** Shape validation accepted an item
+  labelled PLANNED that still carried `createSentAt`, and the runner re-sent the create, minting a
+  second live row. Fixed by the history repair described above.
+- **The shipped composition built the `Reconciler` without the journal**, so a resumed job could
+  adopt and then overwrite a row another job had created, and `adopt()` refused an id only when
+  another item in the *same* job held it. Fixed by the single composition, by making the journal
+  mandatory, and by making `adopt()` consult every job through `journal.findHolder()`.
+- **An unknown AI key was not knowable before the create**, so a typo cost a live placeholder.
+  Fixed by deriving `insertAiSchema` in the extractor, as described above.
+- **A malformed mutation response element became a definite failure**, discarding the ambiguity
+  the journal exists to preserve. Fixed at the transport boundary, as described above.
+
+The reviewer also flagged that the request-level predicate was looser than its own comment; it now
+requires the numeric jsonrpc `code`. Two of their observations were correct but not defects: the
+per-element salvage is right for queries and is kept, and `MALFORMED_ELEMENT` remains a valid query
+outcome. Deriving the AI keys exposed a parser bug in the extractor, which double-counted the first
+key of every object body; the field sets were unaffected (object keys deduplicate) but the reported
+counts were wrong, and both are fixed.
 
 ## Not finished
 

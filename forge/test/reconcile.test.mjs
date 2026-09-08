@@ -8,15 +8,11 @@ import { Budget } from "../src/budget/bucket.mjs";
 import { CachedReader } from "../src/budget/reader.mjs";
 import { FakeGame, FakeClient } from "./fakegame.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
+import { composeForTest } from "./compose.mjs";
 
 function mk(game = new FakeGame()) {
-  const storage = new MemoryStorage(); const clock = fakeClock();
-  const journal = new Journal(storage, clock);
-  const cache = new CaptureCache(new IDBFactory(), clock);
-  const budget = new Budget({ storage, clock, sleep: async (ms) => clock.tick(ms) });
-  const reader = new CachedReader({ client: new FakeClient(game), cache, budget });
-  const rec = new Reconciler({ storage, reader, clock });
-  return { game, storage, clock, journal, cache, budget, reader, rec };
+  const d = composeForTest({ game });
+  return { ...d, rec: d.reconciler };
 }
 const specs = (entity, n) => Array.from({ length: n }, (_, i) => ({ entity, op: "create", name: `${entity}${i}`, srcId: `${entity}${i}`, payloadHash: "h" }));
 

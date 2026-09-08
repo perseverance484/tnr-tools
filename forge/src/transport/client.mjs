@@ -103,7 +103,7 @@ export class TrpcClient {
       throw new NetworkError(e, { paths, kind, phase: "body", httpStatus: res.status, received: true });
     }
     let decoded;
-    try { decoded = decodeResponse(res.status, text, calls.length); }
+    try { decoded = decodeResponse(res.status, text, calls.length, { mutation: kind === "mutation" }); }
     catch (e) {
       // a response arrived but is not the audited shape: an HTML login/challenge page, a proxy
       // 502, a truncated body. For a mutation this is AMBIGUOUS (the request reached something).
