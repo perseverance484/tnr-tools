@@ -313,6 +313,14 @@ def cmd_verify(path):
     for e in es:
         name = e.get("name") or e.get("id") or "?"
         ident = e.get("id") or "-"
+        if e.get("state") in ("error", "failed"):
+            # An entry the builder could not push is NOT a skip: nothing shipped, and a bundle
+            # holding one must not exit 0 as "verified" (readiness brief section 9). Only a
+            # deliberate non-write - a pending or skipped row - is a skip.
+            print(f"ERROR       {name} -> {e.get('id') or '-'}: push failed ({e.get('detail','')[:70]})")
+            n_fail += 1
+            bad += 1
+            continue
         if e.get("state") != "ok":
             print(f"SKIP        {name}: state={e.get('state')} ({e.get('detail','')[:60]})")
             n_skip += 1

@@ -11,6 +11,38 @@ import { JournalError, jobOutcome } from "../storage/journal.mjs";
 
 const SCREENS = { jobs: ["Jobs", JobsScreen], manifests: ["Manifests", ManifestsScreen], run: ["Run", RunScreen], captures: ["Captures", CapturesScreen], settings: ["Settings", SettingsScreen] };
 
+
+// One results-bundle entry, in the shape harvests/inbox/ already holds, so the repository's
+// harvest.py reads a forge bundle natively (readiness brief section 9). The mapping is deliberate:
+//
+//   state     harvest's vocabulary, not the journal's: "ok" once the write landed, "error" for a
+//             refusal, "skipped" for a skipped orphan, "pending" for anything that never got that
+//             far. The journal's own state rides along as `forgeState`, so nothing is lost.
+//   verdict   match | drift | unread, which is exactly what harvest's verify already understands
+//             (unread prints UNVERIFIED and exits 1: a write with no read-back is not success).
+//   asserted  the v4.28 checklist harvest counts: how many asserted keys landed and which did not.
+//             Built from the keys the runner asserted and the diffs it recorded, so a drift is a
+//             per-field FAIL rather than a line of prose.
+export function harvestEntry(i) {
+  const diffs = i.diffs || [];
+  const assertedKeys = Array.isArray(i.asserted) ? i.asserted.length : (i.assertedRules ? 1 : 0);
+  const landed = i.state === "VERIFIED" || (i.entityId && i.phase === "verify");
+  const state = i.state === "FAILED" ? "error" : i.state === "SKIPPED" ? "skipped" : landed ? "ok" : "pending";
+  return {
+    name: i.name, srcId: i.srcId, entity: i.entity,
+    slot: i.op === "create" ? "create" : "edit", op: i.op,
+    state, forgeState: i.state, phase: i.phase,
+    detail: i.error || i.reconciled || "",
+    verdict: i.verify || null,
+    asserted: assertedKeys || diffs.length ? {
+      ok: Math.max(0, assertedKeys - diffs.length),
+      fail: diffs.map((d) => ({ k: d.key, c: "mismatch", d: [`sent ${JSON.stringify(d.sent)}  live ${JSON.stringify(d.live)}`] })),
+    } : null,
+    diffs,
+    id: i.entityId || i.targetId || null,
+  };
+}
+
 export class App {
   /**
    * @param {object} d  { version, storage, journal, cache, budget, reader, client, session, runner, reconciler, github, validator, now }
@@ -178,7 +210,7 @@ export class App {
         skipped: job.items.filter((i) => i.state === "SKIPPED").length,
         unresolved: job.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length,
       },
-      entries: job.items.map((i) => ({ name: i.name, srcId: i.srcId, entity: i.entity, slot: i.op, state: i.state, phase: i.phase, detail: i.error || i.reconciled || "", verdict: i.verify || null, diffs: i.diffs || [], id: i.entityId || i.targetId || null })),
+      entries: job.items.map((i) => harvestEntry(i)),
       captures: [...(job.capturesBefore || []), ...(job.capturesAfter || [])],
       idmap: JSON.parse(this.storage.getItem("tnr_bk_idmap_v1") || "{}"),
       journal: job,
