@@ -99,6 +99,11 @@ function SelectedManifest(app) {
   const s = app.state.selected;
   const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items · manifest hash ${s.manifest.hash}`));
   if (s.problems.length) card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, "Cannot run: "), h("div", { class: "f-err" }, s.problems.join("\n"))));
+  if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
+  // advisories: worth reading, not worth blocking. A blocking lint is already in `problems`.
+  if (s.manifest.warnings && s.manifest.warnings.length) {
+    card.appendChild(h("div", { class: "f-banner warn" }, h("b", {}, `${s.manifest.warnings.length} advisory: `), h("div", {}, s.manifest.warnings.join("\n"))));
+  }
   for (const it of s.plan) {
     card.appendChild(h("div", { class: "f-row" },
       h("div", { class: "f-grow" }, h("div", {}, `${it.idx}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} · ${it.op}${it.targetId ? " → " + it.targetId : ""}${it.deps?.length ? " · after " + it.deps.join(", ") : ""} · keys: ${Object.keys(it.data).join(", ").slice(0, 120)}`))));

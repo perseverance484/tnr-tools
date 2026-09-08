@@ -2042,6 +2042,7 @@
 
   // src/runner/validate.mjs
   var AI_EXTRA_KEYS = Object.freeze(["jutsus", "items", "primaryElement", "secondaryElement", "rules", "includeDefaultRules"]);
+  var AI_STRIPPED_OK = Object.freeze(["hidden"]);
   var SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updatedAt", "aiProfileId"]);
   var AI_OMITTED = Object.freeze([
     "trainingStartedAt",
@@ -2085,7 +2086,7 @@
       if (!data || typeof data !== "object") return ["data is not an object"];
       const keys = Object.keys(data);
       if (entity === "ai" || entity === "aiProfile") {
-        const allowed = new Set(AI_EXTRA_KEYS);
+        const allowed = /* @__PURE__ */ new Set([...AI_EXTRA_KEYS, ...AI_STRIPPED_OK]);
         if (entity === "ai") {
           const pinned = this.knownFields("ai");
           if (!pinned) out.push("no pinned insertAiSchema field set: cannot validate ai keys");
@@ -2131,6 +2132,7 @@
     for (const k of Object.keys(asserted)) {
       if (SERVER_OWNED.includes(k)) continue;
       if (entity === "ai" && ["rules", "includeDefaultRules"].includes(k)) continue;
+      if (entity === "ai" && AI_STRIPPED_OK.includes(k)) continue;
       if (entity === "ai" && k === "jutsus") {
         const l2 = Array.isArray(live?.jutsus) ? live.jutsus.map((r) => typeof r === "string" ? r : r.jutsuId ?? r.id) : [];
         const s2 = (asserted.jutsus ?? []).map((j) => typeof j === "string" ? j : j?.jutsuId ?? j?.id);
@@ -2456,6 +2458,1246 @@
     return fnv1a32(stableStringify(payload === void 0 ? null : payload));
   }
 
+  // ../32b_DATA_pool.json
+  var b_DATA_pool_default = {
+    _meta: {
+      source: "32_REGISTRY_shared_ai_pool.md",
+      generated: "2026-08-26",
+      purpose: "Machine-readable pool. Reference kits by CODE; the tooling resolves id, range, gate (range+1), AP and cooldown. Kills id transcription and gate arithmetic as error classes.",
+      ap_economy: "round = 100 AP. attacks 60, stances 40. one attack + one stance = a full round."
+    },
+    records: {
+      A1: {
+        name: "Cleaving Line",
+        id: "brzGw6WgHsrFPkL9JWGir",
+        target: "r4",
+        range: 4,
+        gate: 5,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 50"
+        ]
+      },
+      A2: {
+        name: "Shattering Ring",
+        id: "muGmYnLm8mWFrwoU4zsOE",
+        target: "r3",
+        range: 3,
+        gate: 4,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 50"
+        ]
+      },
+      A3: {
+        name: "Erupting Ground",
+        id: "jBRyl7F4UjTyxG5nnzLqj",
+        target: "r3",
+        range: 3,
+        gate: 4,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 55"
+        ]
+      },
+      B01: {
+        name: "Cataclysm Fist",
+        id: "I66lzvVHf8v4thxR6tEJn",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 8,
+        ap: 60,
+        effects: [
+          "damage 70"
+        ]
+      },
+      B02: {
+        name: "Annihilating Wave",
+        id: "ZvPl6uyJfwF5EjmLHouQR",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 8,
+        ap: 60,
+        effects: [
+          "damage 70"
+        ]
+      },
+      B03: {
+        name: "Sovereign Undertow",
+        id: "nOYLPmN3TXj6wEe_oE6HQ",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 6,
+        ap: 60,
+        effects: [
+          "redirection 3"
+        ]
+      },
+      B04: {
+        name: "Executioner Seal",
+        id: "tRwJPlTZK9YSUV_0AacID",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 12,
+        ap: 60,
+        effects: [
+          "onehitkill 100"
+        ]
+      },
+      B05: {
+        name: "Devouring Grasp",
+        id: "lft52q7DE_JjhR7PKXimB",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 6,
+        ap: 60,
+        effects: [
+          "damage 60",
+          "drain 25/2r"
+        ]
+      },
+      B06: {
+        name: "Split Image",
+        id: "LQ26G2ANWkbTRL7Ry__F0",
+        target: "ground",
+        range: null,
+        gate: null,
+        cooldown: 6,
+        ap: 60,
+        effects: [
+          "clone 100/3r"
+        ]
+      },
+      B07: {
+        name: "Stolen Form",
+        id: "VuFuBtE7h5B1nnA2J1lFZ",
+        target: "r4",
+        range: 4,
+        gate: 5,
+        cooldown: 6,
+        ap: 60,
+        effects: [
+          "copy 100/3r"
+        ]
+      },
+      B08: {
+        name: "Tempo Fracture",
+        id: "ecRoSDPCDjO7zH-VBaFyY",
+        target: "r4",
+        range: 4,
+        gate: 5,
+        cooldown: 8,
+        ap: 60,
+        effects: [
+          "timecompression 100/2r"
+        ]
+      },
+      B09: {
+        name: "Veilstep",
+        id: "IBjVpLutojh3m9PRnIce-",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 6,
+        ap: 40,
+        effects: [
+          "stealth 100/2r"
+        ]
+      },
+      B10: {
+        name: "Sovereign Ascendance",
+        id: "yDznlfsnPaOSFtdjfCyTZ",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 10,
+        ap: 40,
+        effects: [
+          "increasedamagegiven 60/3r",
+          "increasedamagegiven 60/3r",
+          "decreasedamagetaken 60/3r"
+        ]
+      },
+      B11: {
+        name: "Sovereign Malediction",
+        id: "pJXJUSvq2kZU-tmgC12FL",
+        target: "r4",
+        range: 4,
+        gate: 5,
+        cooldown: 10,
+        ap: 60,
+        effects: [
+          "seal 100/2r",
+          "increasedamagetaken 60/3r",
+          "afterburn 60/3r"
+        ]
+      },
+      B12: {
+        name: "Sovereign Ruin",
+        id: "-M_BxzqB937XCdD1IMWW0",
+        target: "r4",
+        range: 4,
+        gate: 5,
+        cooldown: 10,
+        ap: 60,
+        effects: [
+          "decreasedamagegiven 60/3r",
+          "decreasedamagegiven 60/3r",
+          "decreaseheal 60/3r"
+        ]
+      },
+      B13: {
+        name: "Hexweave",
+        id: "_JRHgRL8pfUvt_-q1Xa3H",
+        target: "r4",
+        range: 4,
+        gate: 5,
+        cooldown: 8,
+        ap: 60,
+        effects: [
+          "damage 40",
+          "increasedamagetaken 40/3r",
+          "decreaseheal 60/3r",
+          "decreasestat 15/3r"
+        ]
+      },
+      B14: {
+        name: "Cataclysm Detonation",
+        id: "o-4SCAhJ4LHdCwcBDgJrV",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 8,
+        ap: 60,
+        effects: [
+          "damage 85"
+        ]
+      },
+      B15: {
+        name: "Feast of Marrow",
+        id: "ubwtVj1o9q6VQ6VxOczxt",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 8,
+        ap: 60,
+        effects: [
+          "damage 50",
+          "drain 100/2r"
+        ]
+      },
+      B16: {
+        name: "Sovereign Fetters",
+        id: "RPdeeWhFI5AIUUpJXwUlf",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 10,
+        ap: 60,
+        effects: [
+          "damage 60",
+          "stun 100/2r",
+          "seal 100/2r"
+        ]
+      },
+      B17: {
+        name: "Worldbreaker Chorus",
+        id: "LisNuMJ2gncEByAxG6QPI",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 10,
+        ap: 60,
+        effects: [
+          "damage 70",
+          "stun 100/2r"
+        ]
+      },
+      B18: {
+        name: "Apex Hunger",
+        id: "w4F7-w5ubgKsqYPBPvRuV",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 6,
+        ap: 40,
+        effects: [
+          "increasedamagegiven 60/99r",
+          "increasestat 25/99r"
+        ]
+      },
+      B19: {
+        name: "Warrior's Poise",
+        id: "taxbZNdm1Q7YL5AxaRssW",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 5,
+        ap: 40,
+        effects: [
+          "increasedamagegiven 30/3r",
+          "decreasedamagetaken 30/3r"
+        ]
+      },
+      B20: {
+        name: "Surging Overflow",
+        id: "AicYoMMpZmHAykb_5hYtY",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 5,
+        ap: 40,
+        effects: [
+          "increasedamagegiven 30/3r",
+          "increasestat 25/3r"
+        ]
+      },
+      B21: {
+        name: "Hushed Hours",
+        id: "cZrZDI-A4fL324nX1CGss",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 5,
+        ap: 40,
+        effects: [
+          "absorb 20/3r",
+          "increasedamagegiven 25/3r"
+        ]
+      },
+      B22: {
+        name: "Compression Barrier",
+        id: "6UE5jC71Y6nRjobkJ-UTV",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 5,
+        ap: 40,
+        effects: [
+          "absorb 20/3r",
+          "decreasedamagetaken 25/3r"
+        ]
+      },
+      B23: {
+        name: "Bulwark Charge",
+        id: "S_ix-gZcXi6RirSVpSLV0",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 6,
+        ap: 40,
+        effects: [
+          "increasedamagegiven 25/3r",
+          "shield 100/2r"
+        ]
+      },
+      B24: {
+        name: "Veilstrike",
+        id: "yOgwN1WGkwNL9qMImc9aY",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 8,
+        ap: 40,
+        effects: [
+          "stealth 100/1r",
+          "increasedamagegiven 60/3r",
+          "decreasedamagetaken 50/3r",
+          "heal 25"
+        ]
+      },
+      B26: {
+        name: "Braced Strike",
+        id: "WvLCyGsPCKSDYl6-e_D9o",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 55",
+          "decreasedamagetaken 30/2r"
+        ]
+      },
+      B27: {
+        name: "Scorching Rend",
+        id: "Uou0sCjZ1rwiMJZ-JWEI_",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 6,
+        ap: 60,
+        effects: [
+          "damage 55",
+          "wound 15/2r",
+          "afterburn 25/2r"
+        ]
+      },
+      B28: {
+        name: "Recoil Slam",
+        id: "ElSK-RCrLjddEUm76FZrs",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 75",
+          "recoil 15"
+        ]
+      },
+      B29: {
+        name: "Devouring Wave",
+        id: "-45phqE2baTGC--lNSEx9",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 6,
+        ap: 60,
+        effects: [
+          "damage 55",
+          "absorb 15/2r"
+        ]
+      },
+      B30: {
+        name: "Suppressing Roar",
+        id: "vWaGTnYOwiTiaMQW10y6A",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 8,
+        ap: 60,
+        effects: [
+          "damage 45",
+          "decreasedamagegiven 30/2r",
+          "stun 100/1r"
+        ]
+      },
+      B31: {
+        name: "Rallying Spiral",
+        id: "tq_kaS3nJ4Rv4hDRRJJ6p",
+        target: "r3",
+        range: 3,
+        gate: 4,
+        cooldown: 8,
+        ap: 40,
+        effects: [
+          "decreasedamagetaken 25/3r",
+          "increasedamagegiven 25/3r"
+        ]
+      },
+      B32: {
+        name: "Nullifying Wave",
+        id: "JWZYiHKPNwYziWEFjw4Fn",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 8,
+        ap: 60,
+        effects: [
+          "clear 100"
+        ]
+      },
+      B33: {
+        name: "Piercing Judgment",
+        id: "OyswJoalfNpmz7FsA8Hd8",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 7,
+        ap: 60,
+        effects: [
+          "pierce 55",
+          "increasedamagetaken 25/2r"
+        ]
+      },
+      B34: {
+        name: "Mirror Edge",
+        id: "AEeRf7i9215twJ_iEugZT",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 50",
+          "reflect 30/2r"
+        ]
+      },
+      B35: {
+        name: "Reaping Strike",
+        id: "fuPRuLJ0vcBqSjrqdMi7o",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 50",
+          "heal 15"
+        ]
+      },
+      B36: {
+        name: "Withering Weave",
+        id: "-kMekZ4rR64vjMF2Jc4pe",
+        target: "r4",
+        range: 4,
+        gate: 5,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 30",
+          "increasedamagetaken 15/2r",
+          "decreaseheal 20/2r"
+        ]
+      },
+      B37: {
+        name: "Fighter's Poise",
+        id: "P0GcazZ6yvULoH4kGuh4T",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 4,
+        ap: 40,
+        effects: [
+          "increasedamagegiven 15/2r",
+          "decreasedamagetaken 15/2r"
+        ]
+      },
+      B38: {
+        name: "Minor Overflow",
+        id: "oQo27NtvRS29CABHGXP94",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 4,
+        ap: 40,
+        effects: [
+          "increasedamagegiven 15/2r",
+          "increasestat 12/2r"
+        ]
+      },
+      B39: {
+        name: "Light Barrier",
+        id: "05rH3kZNXbtFq9a9iRl-W",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 5,
+        ap: 40,
+        effects: [
+          "shield 100/2r"
+        ]
+      },
+      EA01: {
+        name: "Gale Bolt",
+        id: "SJwW0b5tO4PuBhNrLJIR2",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 3,
+        ap: 60,
+        effects: [
+          "damage 45"
+        ]
+      },
+      EA02: {
+        name: "Tempest Breaker",
+        id: "d00wewEL2x6V3Th5gS0dh",
+        target: "r3",
+        range: 3,
+        gate: 4,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 60",
+          "redirection 3"
+        ]
+      },
+      EA03: {
+        name: "Windlash Focus",
+        id: "_9k7kSYUgMtB-AEFgRly5",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 4,
+        ap: 40,
+        effects: [
+          "increasedamagegiven 20/2r"
+        ]
+      },
+      EA04: {
+        name: "Zephyr Lance",
+        id: "A5HrHSzx4J3WM4Fln8Lbf",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 6,
+        ap: 60,
+        effects: [
+          "pierce 60"
+        ]
+      },
+      EE01: {
+        name: "Shale Bolt",
+        id: "qymEx2jhCwmSZPJOnPuRD",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 3,
+        ap: 60,
+        effects: [
+          "damage 45"
+        ]
+      },
+      EE02: {
+        name: "Bedrock Breaker",
+        id: "0qhjpBMtG9HSWoOWztAB1",
+        target: "r3",
+        range: 3,
+        gate: 4,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 60",
+          "moveprevent 100/2r",
+          "stun 100/1r"
+        ]
+      },
+      EE03: {
+        name: "Stoneward",
+        id: "V3WrfQ3pB-eCq2hojsxWe",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 4,
+        ap: 40,
+        effects: [
+          "decreasedamagetaken 20/2r"
+        ]
+      },
+      EF01: {
+        name: "Cinder Bolt",
+        id: "Sic286tbCpCjwaic0EX5q",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 3,
+        ap: 60,
+        effects: [
+          "damage 45"
+        ]
+      },
+      EF02: {
+        name: "Pyre Breaker",
+        id: "EJOCWmrrUnECI2MikM8ho",
+        target: "r3",
+        range: 3,
+        gate: 4,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 60",
+          "wound 15/2r"
+        ]
+      },
+      EF03: {
+        name: "Emberwake",
+        id: "bLBu130QaqCaDlSIcEmUD",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 40",
+          "afterburn 20/2r"
+        ]
+      },
+      EL01: {
+        name: "Arc Bolt",
+        id: "Fkfa_oRbCPPOnBPPHlikF",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 3,
+        ap: 60,
+        effects: [
+          "damage 45"
+        ]
+      },
+      EL02: {
+        name: "Storm Breaker Volt",
+        id: "hxNWprk1AYwH0OVX0rxaR",
+        target: "r3",
+        range: 3,
+        gate: 4,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 60",
+          "reflect 20/2r"
+        ]
+      },
+      EL03: {
+        name: "Static Jolt",
+        id: "3hMzYwiV8VOEx2XOm1CJe",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 40",
+          "stun 100/1r"
+        ]
+      },
+      EL04: {
+        name: "Ion Lance",
+        id: "xGVqWSX93hXZgfmlKZODp",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 6,
+        ap: 60,
+        effects: [
+          "pierce 60"
+        ]
+      },
+      EW01: {
+        name: "Tide Bolt",
+        id: "UnQKfwq_JoRVu10aTX6Uv",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 3,
+        ap: 60,
+        effects: [
+          "damage 45"
+        ]
+      },
+      EW02: {
+        name: "Deluge Breaker",
+        id: "UAgYZvo_7DUtmBsBAaAar",
+        target: "r3",
+        range: 3,
+        gate: 4,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 60",
+          "shield 100/2r"
+        ]
+      },
+      EW03: {
+        name: "Springguard",
+        id: "mOA1hXNf4CcuwOhnnN7ZK",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 4,
+        ap: 40,
+        effects: [
+          "absorb 20/2r"
+        ]
+      },
+      S01: {
+        name: "Heavy Strike",
+        id: "pUrUJX8Jml7fUIBXKsPwv",
+        target: "r3",
+        range: 3,
+        gate: 4,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 60"
+        ]
+      },
+      S02: {
+        name: "Quick Strike",
+        id: "FeYnH7BBw_usnc1K-TM-J",
+        target: "r3",
+        range: 3,
+        gate: 4,
+        cooldown: 3,
+        ap: 60,
+        effects: [
+          "damage 45"
+        ]
+      },
+      S03: {
+        name: "Lunging Strike",
+        id: "_nUaGHlWhn3-U0xbxJHFw",
+        target: "r4",
+        range: 4,
+        gate: 5,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 45"
+        ]
+      },
+      S04: {
+        name: "Opening Strike",
+        id: "Cw51Wm_Uy0GiIkiEjlQtn",
+        target: "r4",
+        range: 4,
+        gate: 5,
+        cooldown: 3,
+        ap: 60,
+        effects: [
+          "damage 40",
+          "increasedamagetaken 15/2r"
+        ]
+      },
+      S06: {
+        name: "Twin Shot",
+        id: "3v9c1SHlD2GLPF2HW1_Sc",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 3,
+        ap: 60,
+        effects: [
+          "damage 45"
+        ]
+      },
+      S07: {
+        name: "Rapid Fire",
+        id: "Nrxc8m9utE9qaD_gWpLgf",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 2,
+        ap: 60,
+        effects: [
+          "damage 40"
+        ]
+      },
+      S08: {
+        name: "Numbing Shot",
+        id: "m-ur3A8TS8r5jGb84L9x7",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 40",
+          "stun 30/1r"
+        ]
+      },
+      S27: {
+        name: "Weakening Strike",
+        id: "YiRdVytsdxFzZtqkEDs5Q",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 40",
+          "decreasedamagegiven 20/2r"
+        ]
+      },
+      S28: {
+        name: "Enervating Strike",
+        id: "mpHuTrJX7EonpuW_jBunt",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 40",
+          "decreasestat 15/2r"
+        ]
+      },
+      S29: {
+        name: "Venom Strike",
+        id: "LiVOnYq6qHzjB0XkIIA2e",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 40",
+          "poison 20/2r"
+        ]
+      },
+      S30: {
+        name: "Searing Strike",
+        id: "OWAm8o12bkZUMAAHLoGLz",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 40",
+          "afterburn 20/2r"
+        ]
+      },
+      S31: {
+        name: "Unraveling Strike",
+        id: "1OhP0StX4VTsosWtCxhsG",
+        target: "r3",
+        range: 3,
+        gate: 4,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 40",
+          "clear 100"
+        ]
+      },
+      S32: {
+        name: "Lingering Strike",
+        id: "YD9GEwXU6LDuIC06TGzWG",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 40",
+          "cleanseprevent 100/2r"
+        ]
+      },
+      S33: {
+        name: "Marking Volley",
+        id: "mQ7-q8q46ry5njNVBFpGp",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 5,
+        ap: 60,
+        effects: [
+          "damage 50",
+          "increasedamagetaken 15/2r"
+        ]
+      },
+      S34: {
+        name: "Purging Stance",
+        id: "HcAs8gBtvopPZkjP8HCC2",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 5,
+        ap: 40,
+        effects: [
+          "cleanse 100"
+        ]
+      },
+      S35: {
+        name: "Second Wind",
+        id: "STu1VHNcfgeC3x-UiQDgt",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 6,
+        ap: 40,
+        effects: [
+          "heal 15"
+        ]
+      },
+      S36: {
+        name: "Warding Stance",
+        id: "hh-FMFv67CAL10DA35K2T",
+        target: "self",
+        range: null,
+        gate: null,
+        cooldown: 5,
+        ap: 40,
+        effects: [
+          "debuffprevent 100/2r"
+        ]
+      },
+      S38: {
+        name: "Glancing Strike",
+        id: "u7AMx4nbPsU_ev8mfi5yG",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 3,
+        ap: 60,
+        effects: [
+          "damage 12"
+        ]
+      },
+      S39: {
+        name: "Bruising Blow",
+        id: "Rufs-Y-FZIDooXO7g6k0F",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 25"
+        ]
+      },
+      S40: {
+        name: "Measured Strike",
+        id: "kkGDat1XWUxhOQ1_T5025",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 3,
+        ap: 60,
+        effects: [
+          "damage 20"
+        ]
+      },
+      S41: {
+        name: "Steady Strike",
+        id: "fKvCGRgzGNskgFWocQCAg",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 3,
+        ap: 60,
+        effects: [
+          "damage 30"
+        ]
+      },
+      S42: {
+        name: "Forceful Strike",
+        id: "4TM6iS8P0qgNHsFpALFhg",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 3,
+        ap: 60,
+        effects: [
+          "damage 40"
+        ]
+      },
+      S43: {
+        name: "Heavy Cut",
+        id: "Vo8N1luCT0p48y7JzKe84",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 45"
+        ]
+      },
+      S44: {
+        name: "Sundering Blow",
+        id: "b7ZOgdZmhZiUbCVrmQiwH",
+        target: "r5",
+        range: 5,
+        gate: 6,
+        cooldown: 4,
+        ap: 60,
+        effects: [
+          "damage 50"
+        ]
+      }
+    }
+  };
+
+  // src/runner/pool.mjs
+  var POOL_META = Object.freeze(b_DATA_pool_default._meta ?? {});
+  var POOL_RECORDS = Object.freeze(b_DATA_pool_default.records ?? {});
+  var POOL_BY_ID = Object.freeze(Object.fromEntries(
+    Object.entries(POOL_RECORDS).map(([code, r]) => [r.id, { ...r, code }])
+  ));
+  var POOLCODE = /^[A-Z]{1,2}\d{1,2}$/;
+  var isCode = (v) => typeof v === "string" && POOLCODE.test(v);
+  function resolvePoolCodes(data) {
+    if (!data || typeof data !== "object") return { data, resolved: 0 };
+    let resolved = 0;
+    let out = data;
+    const edit = () => out === data ? out = { ...data } : out;
+    if (Array.isArray(data.jutsus)) {
+      const next = data.jutsus.map((j) => {
+        const rec = isCode(j) ? POOL_RECORDS[j] : null;
+        if (!rec) return j;
+        resolved++;
+        return rec.id;
+      });
+      if (next.some((v, i) => v !== data.jutsus[i])) edit().jutsus = next;
+    }
+    if (Array.isArray(data.rules)) {
+      const rules = data.rules.map((r) => {
+        const a = r && typeof r === "object" ? r.action : null;
+        const rec = a && isCode(a.jutsu) ? POOL_RECORDS[a.jutsu] : null;
+        if (!rec) return r;
+        resolved++;
+        const { jutsu, ...restAction } = a;
+        const action = { ...restAction, jutsuId: rec.id };
+        const conditions = Array.isArray(r.conditions) ? r.conditions.map((c) => c && c.type === "distance_lower_than" && c.value == null && rec.gate != null ? { ...c, value: rec.gate } : c) : r.conditions;
+        return { ...r, action, conditions };
+      });
+      if (rules.some((v, i) => v !== data.rules[i])) edit().rules = rules;
+    }
+    return { data: out, resolved };
+  }
+  function stuckPoolCodes(data) {
+    const stuck = [];
+    if (!data || typeof data !== "object") return stuck;
+    for (const j of Array.isArray(data.jutsus) ? data.jutsus : []) {
+      if (isCode(j)) stuck.push(`jutsus: "${j}" is an unresolved pool code (not in 32b_DATA_pool.json)`);
+    }
+    (Array.isArray(data.rules) ? data.rules : []).forEach((r, i) => {
+      const a = r && typeof r === "object" ? r.action : null;
+      if (a && typeof a.jutsu === "string") stuck.push(`rules[${i}].action.jutsu = "${a.jutsu}": the server takes jutsuId; this key is dropped`);
+    });
+    return stuck;
+  }
+  function kitProblems(data) {
+    const errors = [], warnings = [];
+    if (!data || typeof data !== "object") return { errors, warnings };
+    const equipped = (Array.isArray(data.jutsus) ? data.jutsus : []).map(String);
+    const eq = new Set(equipped);
+    const ap = equipped.map((id) => POOL_BY_ID[id]?.ap).filter((v) => typeof v === "number");
+    if (ap.length >= 3 && Math.min(...ap) >= 60) {
+      warnings.push("kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)");
+    }
+    (Array.isArray(data.rules) ? data.rules : []).forEach((r, i) => {
+      if (!r || typeof r !== "object") return;
+      const jid = r.action && r.action.jutsuId;
+      if (!jid) return;
+      if (equipped.length && !eq.has(String(jid))) {
+        const nm = POOL_BY_ID[jid]?.name ?? jid;
+        errors.push(`rules[${i}]: fires "${nm}" but that jutsu is NOT in the AI's jutsus array. The rule is inert and the log signature is identical to a severed equip link (law 18)`);
+      }
+      const rec = POOL_BY_ID[jid];
+      if (!rec) return;
+      for (const c of Array.isArray(r.conditions) ? r.conditions : []) {
+        if (!c || c.type !== "distance_lower_than") continue;
+        if (rec.gate != null && c.value !== rec.gate) {
+          errors.push(`rules[${i}]: ${rec.name} is range ${rec.range}, so the gate must be ${rec.gate} (range+1, law 40). Found ${c.value}. A higher gate fires out of range and can strand a player in combat`);
+        }
+        if (rec.range == null) {
+          warnings.push(`rules[${i}]: ${rec.name} is self/ground targeted; a distance gate is meaningless on it`);
+        }
+      }
+    });
+    return { errors, warnings };
+  }
+
+  // src/runner/lints.mjs
+  var DATE_RE = /^\d{4}-\d{1,2}-\d{1,2}$/;
+  var DASH_RE = /[–—]/;
+  var IMG_REF_RE = /@img:([A-Za-z0-9_.\-]+)/g;
+  var AI_CREATE_REQUIRED = ["rank", "regeneration", "preferredStat", "preferredGeneral1", "preferredGeneral2"];
+  var FORMULA_TAGS = /* @__PURE__ */ new Set(["damage", "pierce", "wound"]);
+  var PCT_TAGS = /* @__PURE__ */ new Set(["increasedamagegiven", "decreasedamagetaken", "increasedamagetaken"]);
+  var DIRECTIONS = { redirection: ["push", "pull"], increasestat: ["offence", "defence", "both"], decreasestat: ["offence", "defence", "both"] };
+  function lintManifest(manifest) {
+    const errors = [], warnings = [];
+    const items = manifest.items ?? [];
+    const E = (it, m) => errors.push(`item ${it.idx} (${it.name}): ${m}`);
+    const W = (it, m) => warnings.push(`item ${it.idx} (${it.name}): ${m}`);
+    const wrapped = /* @__PURE__ */ new Set();
+    for (const it of items) {
+      if (it.entity !== "item") continue;
+      for (const f of Array.isArray(it.data.effects) ? it.data.effects : []) {
+        if (!f || f.type !== "injectjutsus") continue;
+        for (const m of JSON.stringify(f).matchAll(/@jutsu:([A-Za-z0-9_\-]+)/g)) wrapped.add(m[1]);
+      }
+    }
+    for (const it of items) {
+      const d = it.data ?? {};
+      if (it.op === "create") {
+        if (it.entity === "jutsu" && it.srcId && wrapped.has(it.srcId)) {
+          if (d.hidden !== false) E(it, "L13 injectjutsus wrapper must be hidden:false");
+        } else if (it.entity === "ai" || it.entity === "aiProfile") {
+          if ("hidden" in d && d.hidden !== true) E(it, "L13 create with hidden:" + JSON.stringify(d.hidden));
+        } else if (d.hidden !== true) {
+          E(it, "L13 create without hidden:true");
+        }
+      }
+      if (it.entity === "quest") {
+        if (it.op === "create" && d.consecutiveObjectives !== true) E(it, "L03 quest create needs consecutiveObjectives:true");
+        for (const k of ["startsAt", "endsAt"]) {
+          if (k in d && d[k] && !DATE_RE.test(String(d[k]))) E(it, `L04 ${k} must be plain YYYY-MM-DD`);
+        }
+        const objs = d.content && Array.isArray(d.content.objectives) ? d.content.objectives : null;
+        if (objs && objs.length) lintObjectives(objs, it, E, W);
+      }
+      if (it.entity === "ai" && it.op === "create") {
+        for (const k of AI_CREATE_REQUIRED) if (!(k in d)) E(it, `L05 AI create missing ${k}`);
+      }
+      if (it.entity === "jutsu") {
+        if (d.cooldown != null && d.cooldown < 3) E(it, `L16 cooldown ${d.cooldown} below floor 3`);
+        if (d.actionCostPerc != null && d.actionCostPerc > 70) W(it, `L10 EP ${d.actionCostPerc} above signature ceiling 70`);
+      }
+      const pct = {};
+      for (const f of Array.isArray(d.effects) ? d.effects : []) {
+        if (!f || !f.type) continue;
+        if (FORMULA_TAGS.has(f.type) && (!Array.isArray(f.statTypes) || !f.statTypes.length || !Array.isArray(f.generalTypes) || !f.generalTypes.length)) {
+          W(it, `L06 ${f.type} missing statTypes/generalTypes (a generalTypes gap can explode damage)`);
+        }
+        if ("direction" in f) {
+          const ok = DIRECTIONS[f.type] ?? ["offence", "defence"];
+          if (!ok.includes(f.direction)) E(it, `L07 ${f.type} direction "${f.direction}" (allowed: ${ok.join("/")})`);
+        }
+        if (f.type === "stun" && !("apReduction" in f)) W(it, "L15 stun without apReduction (defaults 10)");
+        if (PCT_TAGS.has(f.type) && (f.calculation === "percentage" || !f.calculation)) pct[f.type] = (pct[f.type] ?? 0) + 1;
+        if (it.entity === "item" && f.type === "noncombatconsumereward") {
+          if (d.itemType !== void 0 && d.itemType !== "CONSUMABLE") E(it, "L18 noncombatconsumereward requires itemType CONSUMABLE");
+          if (d.target !== void 0 && d.target !== "SELF") E(it, "L18 noncombatconsumereward requires item target SELF");
+          if (d.method !== void 0 && d.method !== "SINGLE") E(it, "L18 noncombatconsumereward requires method SINGLE");
+        }
+      }
+      for (const [tp, n] of Object.entries(pct)) {
+        if (n <= 4) continue;
+        let p = 1;
+        for (const f of d.effects) if (f && f.type === tp && (f.calculation === "percentage" || !f.calculation)) p *= 1 + (f.power ?? 0) / 100;
+        W(it, `L08 ${n} ${tp} rows: product x${p.toFixed(1)}`);
+      }
+    }
+    const sizes = manifest.imgSizes ?? {};
+    const needed = /* @__PURE__ */ new Set();
+    for (const m of JSON.stringify(items).matchAll(IMG_REF_RE)) if (!(m[1] in sizes)) needed.add(m[1]);
+    for (const f of needed) errors.push(`L17 @img:${f} has no imgSizes byte entry`);
+    return { errors, warnings };
+  }
+  function lintObjectives(objs, it, E, W) {
+    const edges = {}, incoming = {}, wins = [];
+    for (const o of objs) {
+      if (!o || !o.id) continue;
+      const targets = [];
+      const n = o.nextObjectiveId;
+      if (typeof n === "string") targets.push(n);
+      else if (Array.isArray(n)) {
+        for (const c of n) if (c && c.nextObjectiveId) targets.push(c.nextObjectiveId);
+      }
+      if (o.failObjectiveId) targets.push(o.failObjectiveId);
+      edges[o.id] = targets.filter(Boolean);
+      for (const t of edges[o.id]) incoming[t] = 1;
+      if (o.task === "win_quest") wins.push(o.id);
+      const text = (o.description ?? "") + (Array.isArray(n) ? n.map((c) => c && c.text || "").join(" ") : "");
+      if (DASH_RE.test(text)) E(it, `L11 em/en dash in dialog node ${o.id}`);
+    }
+    const first = objs.find((o) => o && o.id);
+    if (!first) return;
+    const seen = {}, stack = [first.id];
+    while (stack.length) {
+      const u = stack.pop();
+      if (seen[u]) continue;
+      seen[u] = 1;
+      for (const x of edges[u] ?? []) stack.push(x);
+    }
+    for (const w of wins) if (!seen[w]) E(it, `L12b win node ${w} unreachable from the first objective`);
+    for (const o of objs) if (o && o.id && !seen[o.id] && o.id !== first.id) W(it, `L12b orphan node ${o.id} (unreachable)`);
+  }
+
   // src/runner/manifest.mjs
   var ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile"]);
   var SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
@@ -2494,18 +3736,40 @@
       }
       if (it.entity === "aiProfile" && it.op === "create") problems.push(`item ${it.idx}: aiProfile cannot be created directly; create an ai with rules`);
     }
+    let poolResolved = 0;
+    for (const it of items) {
+      if (it.entity !== "ai" && it.entity !== "aiProfile") continue;
+      const r = resolvePoolCodes(it.data);
+      it.data = r.data;
+      poolResolved += r.resolved;
+    }
+    for (const it of items) {
+      if (it.entity !== "ai" && it.entity !== "aiProfile") continue;
+      for (const s of stuckPoolCodes(it.data)) problems.push(`item ${it.idx} (${it.name}): ${s}`);
+      for (const e of kitProblems(it.data).errors) problems.push(`item ${it.idx} (${it.name}): ${e}`);
+    }
     if (m.readBack === false && items.length) {
       problems.push("readBack:false is refused on a manifest with items: a write must be read back (remove the key, or split the captures into their own manifest)");
+    }
+    const imgSizes = m.imgSizes && typeof m.imgSizes === "object" ? m.imgSizes : {};
+    const lint = lintManifest({ items, imgSizes });
+    problems.push(...lint.errors);
+    const warnings = [...lint.warnings];
+    for (const it of items) {
+      if (it.entity !== "ai" && it.entity !== "aiProfile") continue;
+      for (const w of kitProblems(it.data).warnings) warnings.push(`item ${it.idx} (${it.name}): ${w}`);
     }
     if (problems.length) throw new ManifestError("manifest problems:\n" + problems.join("\n"), { problems });
     return {
       items,
       capture,
+      warnings,
+      poolResolved,
       note: typeof m._note === "string" ? m._note : null,
       skipPreflight: !!m.skipPreflight,
       dedupNames: !!m.dedupNames,
       readBack: m.readBack !== false,
-      imgSizes: m.imgSizes && typeof m.imgSizes === "object" ? m.imgSizes : {},
+      imgSizes,
       hash: fnv1a32(stableStringify({ items: raw, capture }))
     };
   }
@@ -3461,6 +4725,10 @@ details summary { cursor:pointer; color:var(--mute); }
     const s = app.state.selected;
     const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items \xB7 manifest hash ${s.manifest.hash}`));
     if (s.problems.length) card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, "Cannot run: "), h("div", { class: "f-err" }, s.problems.join("\n"))));
+    if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
+    if (s.manifest.warnings && s.manifest.warnings.length) {
+      card.appendChild(h("div", { class: "f-banner warn" }, h("b", {}, `${s.manifest.warnings.length} advisory: `), h("div", {}, s.manifest.warnings.join("\n"))));
+    }
     for (const it of s.plan) {
       card.appendChild(h(
         "div",

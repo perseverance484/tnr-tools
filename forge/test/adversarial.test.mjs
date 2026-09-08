@@ -19,6 +19,7 @@ import { Budget } from "../src/budget/bucket.mjs";
 import { CachedReader } from "../src/budget/reader.mjs";
 import { Validator, diffAsserted } from "../src/runner/validate.mjs";
 import { parseManifest, ManifestError } from "../src/runner/manifest.mjs";
+import { POOL_RECORDS, POOL_BY_ID, resolvePoolCodes, stuckPoolCodes } from "../src/runner/pool.mjs";
 import { Runner, LeaseHeld, LEASE_PREFIX, LEASE_TTL_MS } from "../src/runner/runner.mjs";
 import { Reconciler } from "../src/reconcile/reconciler.mjs";
 import { FakeGame, FakeClient, CrashSignal } from "./fakegame.mjs";
@@ -33,6 +34,7 @@ const J = (s = new MemoryStorage()) => new Journal(s, fakeClock(), { yieldTask: 
 function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory(), tabId = "tab", client = null } = {}) {
   return composeForTest({ game, storage, idb, tabId, client });
 }
+const AIREQ = Object.freeze({ rank: "GENIN", regeneration: 1, preferredStat: "Ninjutsu", preferredGeneral1: "Strength", preferredGeneral2: "Speed" }); // L05 requires these on an ai create
 const ONE = { items: [{ entity: "jutsu", slot: "create", name: "A", srcId: "a", data: { name: "A", description: "d", hidden: true } }] };
 
 // ---------------------------------------------------------------- L1 storage
@@ -267,7 +269,7 @@ test("L4: drift stays CONFIRMED/verify and the job finishes INCOMPLETE, never DO
 
 test("L4: a reconciled rules-toggle continues at rules without re-sending the update", async () => {
   const game = new FakeGame(); const h = harness({ game });
-  const M = { items: [{ entity: "ai", slot: "create", name: "X", srcId: "x", data: { username: "X", level: 3, rules: [{ conditions: [], action: { type: "end_turn" } }] } }] };
+  const M = { items: [{ entity: "ai", slot: "create", name: "X", srcId: "x", data: { username: "X", level: 3, ...AIREQ, rules: [{ conditions: [], action: { type: "end_turn" } }] } }] };
   h.runner.plan(M, { jobId: "t" });
   // run normally up to the toggle, then crash ON the toggle call (applied server-side, response lost)
   const orig = game.handle.bind(game); let crashed = false;
@@ -287,7 +289,7 @@ test("L4: a reconciled rules-toggle continues at rules without re-sending the up
 
 test("L4: pre-send validation runs BEFORE the create, so no placeholder is left behind", async () => {
   const h = harness();
-  h.runner.plan({ items: [{ entity: "jutsu", slot: "create", name: "A", srcId: "a", data: { name: "A", nmae: "typo" } }] }, { jobId: "p" });
+  h.runner.plan({ items: [{ entity: "jutsu", slot: "create", name: "A", srcId: "a", data: { name: "A", hidden: true, nmae: "typo" } }] }, { jobId: "p" });
   const s = await h.runner.run("p");
   assert.equal(s.items[0].state, "FAILED"); assert.match(s.items[0].error, /unknown key "nmae"/);
   assert.equal(h.game.count("jutsu"), 0, "nothing created");
@@ -296,7 +298,7 @@ test("L4: pre-send validation runs BEFORE the create, so no placeholder is left 
 
 test("L4: a create referencing an @img with no file picked fails before the create", async () => {
   const h = harness();
-  h.runner.plan({ items: [{ entity: "asset", slot: "create", name: "A", srcId: "a", data: { name: "A", hidden: true, type: "STATIC", url: "@img:icon.webp" } }] }, { jobId: "i" });
+  h.runner.plan({ imgSizes: { "icon.webp": 1234 }, items: [{ entity: "asset", slot: "create", name: "A", srcId: "a", data: { name: "A", hidden: true, type: "STATIC", url: "@img:icon.webp" } }] }, { jobId: "i" });
   const s = await h.runner.run("i");
   assert.equal(s.items[0].state, "FAILED"); assert.match(s.items[0].error, /no file picked/);
   assert.equal(h.game.count("asset"), 0);
@@ -316,8 +318,8 @@ test("L4: a network failure on a READ between create and update pauses (item sta
 test("L4: a crash between CONFIRMED and the idmap write does not strand a dependent @ref", async () => {
   const game = new FakeGame(); const h = harness({ game });
   const M = { items: [
-    { entity: "ai", slot: "create", name: "Boss", srcId: "boss", data: { username: "Boss", level: 5 } },
-    { entity: "quest", slot: "create", name: "Q", srcId: "q", data: { name: "Q", content: { objectives: [{ id: "o", task: "defeat_opponents", opponentAIs: [{ ids: ["@ai:boss"], number: 1 }] }], reward: {}, sceneBackground: "", sceneCharacters: [] } } },
+    { entity: "ai", slot: "create", name: "Boss", srcId: "boss", data: { username: "Boss", level: 5, ...AIREQ } },
+    { entity: "quest", slot: "create", name: "Q", srcId: "q", data: { name: "Q", hidden: true, consecutiveObjectives: true, content: { objectives: [{ id: "o", task: "defeat_opponents", opponentAIs: [{ ids: ["@ai:boss"], number: 1 }] }], reward: {}, sceneBackground: "", sceneCharacters: [] } } },
   ] };
   h.runner.plan(M, { jobId: "c" });
   await h.runner.run("c");
@@ -462,7 +464,7 @@ test("L2: a gateway's JSON error body is NOT a request-level tRPC error; a mutat
 
 test("L4: a landed ai update reconciled after a crash still owes its rules step; the profile is written exactly once", async () => {
   const game = new FakeGame(); const h = harness({ game });
-  const M = { items: [{ entity: "ai", slot: "create", name: "R", srcId: "r", data: { username: "R", level: 4, rules: [{ conditions: [], action: { type: "end_turn" } }], includeDefaultRules: false } }] };
+  const M = { items: [{ entity: "ai", slot: "create", name: "R", srcId: "r", data: { username: "R", level: 4, ...AIREQ, rules: [{ conditions: [], action: { type: "end_turn" } }], includeDefaultRules: false } }] };
   h.runner.plan(M, { jobId: "lr" });
   const orig = game.handle.bind(game); let crashed = false;
   game.handle = (p, i) => { const r = orig(p, i); if (p === "profile.updateAi" && !crashed) { crashed = true; throw new CrashSignal(game.calls.length); } return r; };
@@ -655,7 +657,7 @@ test("R5: a failed item is execution-terminal but never a success", async () => 
   const h = harness();
   h.runner.plan({ items: [
     { entity: "jutsu", slot: "create", name: "A", srcId: "a", data: { name: "A", description: "d", hidden: true } },
-    { entity: "jutsu", slot: "create", name: "B", srcId: "b", data: { name: "B", nmae: "typo" } },
+    { entity: "jutsu", slot: "create", name: "B", srcId: "b", data: { name: "B", hidden: true, nmae: "typo" } },
   ] }, { jobId: "mix" });
   const s = await h.runner.run("mix");
   assert.equal(s.state, "DONE", "nothing is left to do");
@@ -667,6 +669,99 @@ test("R5: a failed item is execution-terminal but never a success", async () => 
   j.transition("sk", 0, "SENT"); j.transition("sk", 0, "ORPHANED"); j.transition("sk", 0, "SKIPPED");
   j.setJobState("sk", "DONE");
   assert.equal(jobOutcome(j.get("sk")), "unverified");
+});
+
+
+// ------------------------- readiness P0: pool-code parity and the ported lints (K1-K6, TNR-01)
+test("K1: TNR-01 - a pool code is resolved to an id before anything can be sent", () => {
+  const m = parseManifest({ items: [{ entity: "ai", slot: "create", name: "X", srcId: "x", data: {
+    username: "X", ...AIREQ, jutsus: ["B07", "B01"],
+    rules: [{ conditions: [{ type: "distance_lower_than" }], action: { type: "use_jutsu", jutsu: "B07" } }],
+  } }] });
+  assert.equal(m.poolResolved, 3);
+  assert.deepEqual(m.items[0].data.jutsus, [POOL_RECORDS.B07.id, POOL_RECORDS.B01.id]);
+  const rule = m.items[0].data.rules[0];
+  assert.equal(rule.action.jutsuId, POOL_RECORDS.B07.id);
+  assert.equal(rule.action.jutsu, undefined, "the key the server drops is gone");
+  assert.equal(rule.conditions[0].value, POOL_RECORDS.B07.gate, "law 40: the gate is range+1, filled from the pool");
+});
+
+test("K2: TNR-01 - an UNRESOLVED pool code is refused; no job, no create, no empty kit", async () => {
+  // the empty-kit mechanism: a code the pool does not know would be sent as a literal string,
+  // dropped by profile.updateAi's set-difference sync, and the row would look fine.
+  const bad = { items: [{ entity: "ai", slot: "create", name: "Thief", srcId: "t", data: {
+    username: "Thief", ...AIREQ, jutsus: ["B07", "Z99"],
+  } }] };
+  assert.throws(() => parseManifest(bad), (e) => e instanceof ManifestError && /unresolved pool code/.test(e.message));
+  const h = harness();
+  assert.throws(() => h.runner.plan(bad, { jobId: "k2" }), /unresolved pool code/);
+  assert.equal(h.journal.listJobs().length, 0);
+  assert.equal(h.game.count("ai"), 0);
+  assert.equal(h.game.calls.length, 0, "not one request left the client");
+  // and a rules action still carrying `jutsu` is refused even when it is not code-shaped
+  assert.throws(() => parseManifest({ items: [{ entity: "ai", slot: "create", name: "X", srcId: "x", data: {
+    username: "X", ...AIREQ, jutsus: [POOL_RECORDS.B07.id],
+    rules: [{ conditions: [], action: { type: "use_jutsu", jutsu: "some-hand-typed-id" } }],
+  } }] }), /the server takes jutsuId/);
+});
+
+test("K3: a rule that fires a jutsu the AI does not carry is refused (law 18)", () => {
+  assert.throws(() => parseManifest({ items: [{ entity: "ai", slot: "create", name: "X", srcId: "x", data: {
+    username: "X", ...AIREQ, jutsus: ["B01"],
+    rules: [{ conditions: [{ type: "distance_lower_than", value: POOL_RECORDS.B07.gate }], action: { type: "use_jutsu", jutsuId: POOL_RECORDS.B07.id } }],
+  } }] }), /is NOT in the AI's jutsus array/);
+});
+
+test("K4: a hand-written distance gate that is not range+1 is refused (law 40)", () => {
+  const withGate = (value) => ({ items: [{ entity: "ai", slot: "create", name: "X", srcId: "x", data: {
+    username: "X", ...AIREQ, jutsus: [POOL_RECORDS.B01.id],
+    rules: [{ conditions: [{ type: "distance_lower_than", value }], action: { type: "use_jutsu", jutsuId: POOL_RECORDS.B01.id } }],
+  } }] });
+  assert.throws(() => parseManifest(withGate(POOL_RECORDS.B01.gate + 2)), /the gate must be 6 \(range\+1, law 40\)/);
+  assert.doesNotThrow(() => parseManifest(withGate(POOL_RECORDS.B01.gate)));
+  // a self/ground jutsu with a distance gate is meaningless, but only a warning
+  const ground = parseManifest({ items: [{ entity: "ai", slot: "create", name: "X", srcId: "x", data: {
+    username: "X", ...AIREQ, jutsus: [POOL_RECORDS.B06.id],
+    rules: [{ conditions: [{ type: "distance_lower_than", value: 3 }], action: { type: "use_jutsu", jutsuId: POOL_RECORDS.B06.id } }],
+  } }] });
+  assert.match(ground.warnings.join(";"), /self\/ground targeted/);
+});
+
+test("K5: the ported lints block what the container validator blocks", () => {
+  const one = (entity, data, extra = {}) => ({ ...extra, items: [{ entity, slot: "create", name: "N", srcId: "n", data }] });
+  const bad = [
+    [one("jutsu", { name: "N", description: "d" }), /L13 create without hidden:true/],
+    [one("quest", { name: "Q", hidden: true }), /L03 quest create needs consecutiveObjectives:true/],
+    [one("quest", { name: "Q", hidden: true, consecutiveObjectives: true, startsAt: "01/02/2026" }), /L04 startsAt must be plain YYYY-MM-DD/],
+    [one("ai", { username: "X" }), /L05 AI create missing rank/],
+    [one("jutsu", { name: "N", hidden: true, cooldown: 2 }), /L16 cooldown 2 below floor 3/],
+    [one("jutsu", { name: "N", hidden: true, effects: [{ type: "increasestat", direction: "sideways" }] }), /L07 increasestat direction "sideways"/],
+    [one("asset", { name: "A", hidden: true, url: "@img:missing.webp" }), /L17 @img:missing.webp has no imgSizes/],
+    [one("item", { name: "I", hidden: true, itemType: "WEAPON", target: "SELF", method: "SINGLE", effects: [{ type: "noncombatconsumereward" }] }), /requires itemType CONSUMABLE/],
+    [one("quest", { name: "Q", hidden: true, consecutiveObjectives: true, content: { objectives: [
+      { id: "a", task: "dialog", nextObjectiveId: "b" }, { id: "b", task: "dialog" }, { id: "w", task: "win_quest" }] } }), /L12b win node w unreachable/],
+    [one("quest", { name: "Q", hidden: true, consecutiveObjectives: true, content: { objectives: [
+      { id: "a", task: "dialog", description: "a long \u2014 dash", nextObjectiveId: "w" }, { id: "w", task: "win_quest" }] } }), /L11 em\/en dash in dialog node a/],
+  ];
+  for (const [m, re] of bad) assert.throws(() => parseManifest(m), re, String(re));
+  // L18's clear/copy half is NOT enforced: docs/RULINGS.md records law 19 as contradicted at source
+  assert.doesNotThrow(() => parseManifest(one("item", { name: "I", hidden: true, effects: [{ type: "clear" }] })));
+  // advisories do not block
+  const warned = parseManifest(one("jutsu", { name: "N", hidden: true, actionCostPerc: 90, effects: [{ type: "damage" }, { type: "stun" }] }));
+  assert.match(warned.warnings.join(";"), /L10 EP 90/);
+  assert.match(warned.warnings.join(";"), /L06 damage missing statTypes/);
+  assert.match(warned.warnings.join(";"), /L15 stun without apReduction/);
+});
+
+test("K6: skipPreflight cannot switch a safety lint off", () => {
+  assert.throws(() => parseManifest({ skipPreflight: true, items: [
+    { entity: "ai", slot: "create", name: "X", srcId: "x", data: { username: "X", ...AIREQ, jutsus: ["Z99"] } }] }), /unresolved pool code/);
+  assert.throws(() => parseManifest({ skipPreflight: true, items: [
+    { entity: "jutsu", slot: "create", name: "N", srcId: "n", data: { name: "N" } }] }), /L13/);
+  // a PARTIAL quest edit needs no bypass: checks fire only on data the entry carries
+  const partial = parseManifest({ items: [{ entity: "quest", slot: "edit", name: "Q", targetId: "q-live", data: { name: "Renamed" } }] });
+  assert.equal(partial.items.length, 1);
+  assert.deepEqual(partial.warnings, []);
 });
 
 // ------------------------------------------------- independent review of a1f9144 (F1-F4)
@@ -764,7 +859,7 @@ test("F3: an unknown AI key is refused BEFORE the placeholder is created", async
   for (const k of ["username", "level", "avatar", "isAi", "jutsus", "items"]) assert.ok(v.knownFields("ai").has(k), k);
   for (const k of ["questData", "occupation", "deletionAt"]) assert.ok(!v.knownFields("ai").has(k), k + " is omitted by insertAiSchema");
   const h = harness();
-  h.runner.plan({ items: [{ entity: "ai", slot: "create", name: "X", srcId: "x", data: { username: "X", usernmae: "typo" } }] }, { jobId: "f3" });
+  h.runner.plan({ items: [{ entity: "ai", slot: "create", name: "X", srcId: "x", data: { username: "X", ...AIREQ, usernmae: "typo" } }] }, { jobId: "f3" });
   const s = await h.runner.run("f3");
   assert.equal(s.items[0].state, "FAILED");
   assert.match(s.items[0].error, /unknown key "usernmae"/);
