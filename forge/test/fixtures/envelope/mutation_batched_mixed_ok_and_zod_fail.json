@@ -1,0 +1,187 @@
+{
+ "scenario": "mutation_batched_mixed_ok_and_zod_fail",
+ "pins": {
+  "trpc": "11.18.0",
+  "superjson": "2.2.6",
+  "zod": "4.4.3"
+ },
+ "exchanges": [
+  {
+   "request": {
+    "url": "https://game.invalid/api/trpc/jutsu.update,jutsu.update?batch=1",
+    "method": "POST",
+    "headers": {
+     "content-type": "application/json"
+    },
+    "body": "{\"0\":{\"json\":{\"id\":\"ok1\",\"data\":{\"name\":\"N\",\"power\":1}}},\"1\":{\"json\":{\"id\":\"bad\",\"data\":{\"name\":\"x\",\"power\":-1}}}}",
+    "bodyJson": {
+     "0": {
+      "json": {
+       "id": "ok1",
+       "data": {
+        "name": "N",
+        "power": 1
+       }
+      }
+     },
+     "1": {
+      "json": {
+       "id": "bad",
+       "data": {
+        "name": "x",
+        "power": -1
+       }
+      }
+     }
+    }
+   },
+   "response": {
+    "status": 207,
+    "headers": {
+     "content-type": "application/json",
+     "vary": "trpc-accept, accept"
+    },
+    "body": "[{\"result\":{\"data\":{\"json\":{\"success\":true,\"message\":\"Updated ok1\"}}}},{\"error\":{\"json\":{\"message\":\"[\\n  {\\n    \\\"origin\\\": \\\"number\\\",\\n    \\\"code\\\": \\\"too_small\\\",\\n    \\\"minimum\\\": 0,\\n    \\\"inclusive\\\": true,\\n    \\\"path\\\": [\\n      \\\"data\\\",\\n      \\\"power\\\"\\n    ],\\n    \\\"message\\\": \\\"Too small: expected number to be >=0\\\"\\n  }\\n]\",\"code\":-32600,\"data\":{\"code\":\"BAD_REQUEST\",\"httpStatus\":400,\"stack\":\"TRPCError: [\\n  {\\n    \\\"origin\\\": \\\"number\\\",\\n    \\\"code\\\": \\\"too_small\\\",\\n    \\\"minimum\\\": 0,\\n    \\\"inclusive\\\": true,\\n    \\\"path\\\": [\\n      \\\"data\\\",\\n      \\\"power\\\"\\n    ],\\n    \\\"message\\\": \\\"Too small: expected number to be >=0\\\"\\n  }\\n]\\n    at inputValidatorMiddleware (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:44:10)\\n    at async callRecursive (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:256:18)\\n    at async procedure (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:281:18)\\n    at async file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1969:18\\n    at async Promise.all (index 1)\\n    at async resolveResponse (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:2184:20)\\n    at async fetchRequestHandler (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/adapters/fetch/index.mjs:27:9)\\n    at async recordingFetch (file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:85:15)\\n    at async httpRequest (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpUtils-BNq9QC3d.mjs:110:14)\\n    at async Object.fetch (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpBatchLink-CaWjh1oW.mjs:191:18)\",\"path\":\"jutsu.update\",\"zodError\":[{\"origin\":\"number\",\"code\":\"too_small\",\"minimum\":0,\"inclusive\":true,\"path\":[\"data\",\"power\"],\"message\":\"Too small: expected number to be >=0\"}]}}}}]",
+    "bodyJson": [
+     {
+      "result": {
+       "data": {
+        "json": {
+         "success": true,
+         "message": "Updated ok1"
+        }
+       }
+      }
+     },
+     {
+      "error": {
+       "json": {
+        "message": "[\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"inclusive\": true,\n    \"path\": [\n      \"data\",\n      \"power\"\n    ],\n    \"message\": \"Too small: expected number to be >=0\"\n  }\n]",
+        "code": -32600,
+        "data": {
+         "code": "BAD_REQUEST",
+         "httpStatus": 400,
+         "stack": "TRPCError: [\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"inclusive\": true,\n    \"path\": [\n      \"data\",\n      \"power\"\n    ],\n    \"message\": \"Too small: expected number to be >=0\"\n  }\n]\n    at inputValidatorMiddleware (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:44:10)\n    at async callRecursive (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:256:18)\n    at async procedure (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:281:18)\n    at async file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1969:18\n    at async Promise.all (index 1)\n    at async resolveResponse (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:2184:20)\n    at async fetchRequestHandler (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/adapters/fetch/index.mjs:27:9)\n    at async recordingFetch (file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:85:15)\n    at async httpRequest (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpUtils-BNq9QC3d.mjs:110:14)\n    at async Object.fetch (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpBatchLink-CaWjh1oW.mjs:191:18)",
+         "path": "jutsu.update",
+         "zodError": [
+          {
+           "origin": "number",
+           "code": "too_small",
+           "minimum": 0,
+           "inclusive": true,
+           "path": [
+            "data",
+            "power"
+           ],
+           "message": "Too small: expected number to be >=0"
+          }
+         ]
+        }
+       }
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "decoded": [
+  {
+   "status": "fulfilled",
+   "value": {
+    "success": true,
+    "message": "Updated ok1"
+   }
+  },
+  {
+   "status": "rejected",
+   "reason": {
+    "shape": {
+     "message": "[\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"inclusive\": true,\n    \"path\": [\n      \"data\",\n      \"power\"\n    ],\n    \"message\": \"Too small: expected number to be >=0\"\n  }\n]",
+     "code": -32600,
+     "data": {
+      "code": "BAD_REQUEST",
+      "httpStatus": 400,
+      "stack": "TRPCError: [\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"inclusive\": true,\n    \"path\": [\n      \"data\",\n      \"power\"\n    ],\n    \"message\": \"Too small: expected number to be >=0\"\n  }\n]\n    at inputValidatorMiddleware (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:44:10)\n    at async callRecursive (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:256:18)\n    at async procedure (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:281:18)\n    at async file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1969:18\n    at async Promise.all (index 1)\n    at async resolveResponse (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:2184:20)\n    at async fetchRequestHandler (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/adapters/fetch/index.mjs:27:9)\n    at async recordingFetch (file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:85:15)\n    at async httpRequest (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpUtils-BNq9QC3d.mjs:110:14)\n    at async Object.fetch (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpBatchLink-CaWjh1oW.mjs:191:18)",
+      "path": "jutsu.update",
+      "zodError": [
+       {
+        "origin": "number",
+        "code": "too_small",
+        "minimum": 0,
+        "inclusive": true,
+        "path": [
+         "data",
+         "power"
+        ],
+        "message": "Too small: expected number to be >=0"
+       }
+      ]
+     }
+    },
+    "data": {
+     "code": "BAD_REQUEST",
+     "httpStatus": 400,
+     "stack": "TRPCError: [\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"inclusive\": true,\n    \"path\": [\n      \"data\",\n      \"power\"\n    ],\n    \"message\": \"Too small: expected number to be >=0\"\n  }\n]\n    at inputValidatorMiddleware (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:44:10)\n    at async callRecursive (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:256:18)\n    at async procedure (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:281:18)\n    at async file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1969:18\n    at async Promise.all (index 1)\n    at async resolveResponse (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:2184:20)\n    at async fetchRequestHandler (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/adapters/fetch/index.mjs:27:9)\n    at async recordingFetch (file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:85:15)\n    at async httpRequest (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpUtils-BNq9QC3d.mjs:110:14)\n    at async Object.fetch (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpBatchLink-CaWjh1oW.mjs:191:18)",
+     "path": "jutsu.update",
+     "zodError": [
+      {
+       "origin": "number",
+       "code": "too_small",
+       "minimum": 0,
+       "inclusive": true,
+       "path": [
+        "data",
+        "power"
+       ],
+       "message": "Too small: expected number to be >=0"
+      }
+     ]
+    },
+    "meta": {
+     "response": {},
+     "responseJSON": [
+      {
+       "result": {
+        "data": {
+         "json": {
+          "success": true,
+          "message": "Updated ok1"
+         }
+        }
+       }
+      },
+      {
+       "error": {
+        "json": {
+         "message": "[\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"inclusive\": true,\n    \"path\": [\n      \"data\",\n      \"power\"\n    ],\n    \"message\": \"Too small: expected number to be >=0\"\n  }\n]",
+         "code": -32600,
+         "data": {
+          "code": "BAD_REQUEST",
+          "httpStatus": 400,
+          "stack": "TRPCError: [\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"inclusive\": true,\n    \"path\": [\n      \"data\",\n      \"power\"\n    ],\n    \"message\": \"Too small: expected number to be >=0\"\n  }\n]\n    at inputValidatorMiddleware (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:44:10)\n    at async callRecursive (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:256:18)\n    at async procedure (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:281:18)\n    at async file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1969:18\n    at async Promise.all (index 1)\n    at async resolveResponse (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:2184:20)\n    at async fetchRequestHandler (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/adapters/fetch/index.mjs:27:9)\n    at async recordingFetch (file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:85:15)\n    at async httpRequest (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpUtils-BNq9QC3d.mjs:110:14)\n    at async Object.fetch (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpBatchLink-CaWjh1oW.mjs:191:18)",
+          "path": "jutsu.update",
+          "zodError": [
+           {
+            "origin": "number",
+            "code": "too_small",
+            "minimum": 0,
+            "inclusive": true,
+            "path": [
+             "data",
+             "power"
+            ],
+            "message": "Too small: expected number to be >=0"
+           }
+          ]
+         }
+        }
+       }
+      }
+     ]
+    },
+    "name": "TRPCClientError"
+   }
+  }
+ ],
+ "error": null
+}

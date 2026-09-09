@@ -1,0 +1,140 @@
+// tRPC 11 fetch-adapter wire format, with superjson. Every shape in this file was DERIVED by
+// running the real @trpc/client 11.18.0 against the real @trpc/server 11.18.0 fetch adapter
+// (tools/derive_envelope.mjs); the recorded exchanges are test/fixtures/envelope/*.json and the
+// tests assert this module against them. Nothing here comes from builder_bundle.js.
+//
+// Request
+//   query     GET  /api/trpc/<p0>,<p1>?batch=1&input=<urlencoded {"0":<sj>,"1":<sj>}>
+//   mutation  POST /api/trpc/<p0>,<p1>?batch=1   body {"0":<sj>,"1":<sj>}  content-type: application/json
+//   where <sj> is superjson.serialize(input): {json, meta?}. An undefined input serialises as
+//   {"json":null,"meta":{"values":["undefined"],"v":1}}.
+// Response: always a JSON array, one element per batch index, even for a single call.
+//   ok    {"result":{"data":{json, meta?}}}
+//   error {"error":{json:{message, code:<jsonrpc int>, data:{code, httpStatus, stack?, zodError}}, meta?}}
+//   HTTP status rule, observed: a single-element batch carries that element's status (200, 400,
+//   405, 429); a multi-element batch with any mix of outcomes is 207. So a 207 can hide a 429
+//   at one index while another index succeeded (query_batched_one_limited_one_ok.json). Outcome
+//   is therefore read per index and the status is never consulted for a verdict.
+
+import superjson from "superjson";
+
+export const ENDPOINT = "/api/trpc";
+
+export class TransportError extends Error {
+  constructor(message, info = {}) { super(message); this.name = "TransportError"; Object.assign(this, info); }
+}
+
+/** superjson-encode one input. Returns the {json, meta?} object the adapter puts at each index. */
+export function encodeInput(input) {
+  const { json, meta } = superjson.serialize(input);
+  return meta ? { json, meta } : { json };
+}
+
+/**
+ * Build one HTTP request for a homogeneous batch.
+ * @param {Array<{path: string, input: any}>} calls
+ * @param {"query"|"mutation"} kind
+ */
+export function buildRequest(calls, kind, { endpoint = ENDPOINT } = {}) {
+  if (!Array.isArray(calls) || calls.length === 0) throw new TransportError("empty batch");
+  const paths = calls.map((c) => c.path).join(",");
+  const envelope = {};
+  calls.forEach((c, i) => { envelope[String(i)] = encodeInput(c.input); });
+  if (kind === "query") {
+    const input = encodeURIComponent(JSON.stringify(envelope));
+    return { method: "GET", url: `${endpoint}/${paths}?batch=1&input=${input}`, headers: {}, body: null };
+  }
+  if (kind === "mutation") {
+    return {
+      method: "POST", url: `${endpoint}/${paths}?batch=1`,
+      headers: { "content-type": "application/json" }, body: JSON.stringify(envelope),
+    };
+  }
+  throw new TransportError("unknown kind: " + kind);
+}
+
+/**
+ * Decode a response body into per-index outcomes.
+ * @returns {Array<{ok: true, data: any} | {ok: false, error: DecodedError}>}
+ * DecodedError = { code: string, httpStatus: number|null, message: string, path: string|null, zodError: array|null, raw: object }
+ */
+/**
+ * @param {object} [opts]
+ * @param {boolean} [opts.mutation]  a mutation batch. A malformed element is then FATAL: the
+ *   request reached a server that may have run the resolver, so the only honest outcome is
+ *   "undecodable, therefore ambiguous". Fabricating a per-index error here would let the runner
+ *   mark an already-SENT mutation terminally FAILED with the write possibly applied.
+ *   Queries keep per-element salvage: a read that is missing costs a re-read, never a row.
+ */
+export function decodeResponse(status, text, expectedCount, { mutation = false } = {}) {
+  let body;
+  try { body = JSON.parse(text); } catch (e) {
+    throw new TransportError("response is not JSON", { httpStatus: status, snippet: String(text).slice(0, 200) });
+  }
+  if (!Array.isArray(body)) {
+    // A request-level adapter error (bad batch envelope, unsupported media type, oversized
+    // body) is a bare {error:{json}} object even under ?batch=1: every call in the request
+    // failed the same way, so replicate it across the indices (adversarial review L2).
+    // Only the adapter's own shape qualifies: {error:{json:{message, code, data:{code}}}}. A gateway's
+    // JSON body ({error:{code:"FUNCTION_INVOCATION_TIMEOUT"}}) is NOT one, and for a mutation it is
+    // ambiguous (the resolver may have run), so it must stay a TransportError (adversarial L2).
+    if (isTrpcErrorBody(body)) {
+      const el = decodeElement(body, 0, status);
+      el.error.requestLevel = true;
+      return Array.from({ length: expectedCount ?? 1 }, () => el);
+    }
+    // Anything else means the server is not the one we audited, or an intermediary answered.
+    throw new TransportError("response is not a batch array", { httpStatus: status, snippet: String(text).slice(0, 200) });
+  }
+  if (expectedCount != null && body.length !== expectedCount) {
+    throw new TransportError(`batch length mismatch: expected ${expectedCount}, got ${body.length}`, { httpStatus: status });
+  }
+  // one malformed element must not discard its well-formed siblings (queries only; see above)
+  return body.map((el, i) => {
+    try { return decodeElement(el, i, status); }
+    catch (e) {
+      if (mutation) throw new TransportError(`mutation response element ${i} is not a tRPC result or error: ${e.message}`, { httpStatus: status, index: i, element: el });
+      return { ok: false, error: { code: "MALFORMED_ELEMENT", httpStatus: status, message: e.message, path: null, zodError: null, raw: el } };
+    }
+  });
+}
+
+export function isTrpcErrorBody(body) {
+  const j = body && typeof body === "object" && body.error && typeof body.error === "object" ? body.error.json : null;
+  // the exact adapter shape, jsonrpc `code` included: every recorded adapter error carries a
+  // numeric code (test/fixtures/envelope/*.json). Anything looser is an intermediary's body and
+  // must stay undecodable, so a mutation behind it remains ambiguous rather than per-index failed.
+  return !!(j && typeof j === "object" && typeof j.message === "string" && typeof j.code === "number"
+    && j.data && typeof j.data === "object" && typeof j.data.code === "string");
+}
+
+function decodeElement(el, i, status) {
+  if (el && el.result && el.result.data !== undefined) {
+    const { json, meta } = el.result.data;
+    return { ok: true, data: superjson.deserialize({ json, meta }) };
+  }
+  if (el && el.error) {
+    // F4 (independent review of 4062268): a truthy `el.error` is not proof of an adapter error.
+    // Only the exact audited shape may be turned into a per-index verdict; anything else came
+    // from something other than the server we audited, and for a mutation the resolver may
+    // already have run. Throw, so decodeResponse({mutation:true}) raises a TransportError and
+    // the runner leaves the item SENT for reconciliation instead of marking it FAILED.
+    if (!isTrpcErrorBody(el)) {
+      throw new TransportError(`batch element ${i} has a malformed tRPC error`, { httpStatus: status, element: el });
+    }
+    const err = el.error.json !== undefined ? superjson.deserialize({ json: el.error.json, meta: el.error.meta }) : el.error;
+    const data = (err && err.data) || {};
+    return {
+      ok: false,
+      error: {
+        code: data.code ?? "UNKNOWN",
+        httpStatus: data.httpStatus ?? null,
+        message: (err && err.message) ?? "",
+        path: data.path ?? null,
+        zodError: Array.isArray(data.zodError) ? data.zodError : null,
+        raw: err,
+      },
+    };
+  }
+  throw new TransportError(`batch element ${i} is neither result nor error`, { httpStatus: status, element: el });
+}

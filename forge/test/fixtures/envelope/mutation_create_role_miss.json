@@ -1,0 +1,56 @@
+{
+ "scenario": "mutation_create_role_miss",
+ "pins": {
+  "trpc": "11.18.0",
+  "superjson": "2.2.6",
+  "zod": "4.4.3"
+ },
+ "exchanges": [
+  {
+   "request": {
+    "url": "https://game.invalid/api/trpc/jutsu.createRoleMiss?batch=1",
+    "method": "POST",
+    "headers": {
+     "content-type": "application/json"
+    },
+    "body": "{\"0\":{\"json\":null,\"meta\":{\"values\":[\"undefined\"],\"v\":1}}}",
+    "bodyJson": {
+     "0": {
+      "json": null,
+      "meta": {
+       "values": [
+        "undefined"
+       ],
+       "v": 1
+      }
+     }
+    }
+   },
+   "response": {
+    "status": 200,
+    "headers": {
+     "content-type": "application/json",
+     "vary": "trpc-accept, accept"
+    },
+    "body": "[{\"result\":{\"data\":{\"json\":{\"success\":false,\"message\":\"Not allowed to create jutsu\"}}}}]",
+    "bodyJson": [
+     {
+      "result": {
+       "data": {
+        "json": {
+         "success": false,
+         "message": "Not allowed to create jutsu"
+        }
+       }
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "decoded": {
+  "success": false,
+  "message": "Not allowed to create jutsu"
+ },
+ "error": null
+}

@@ -1,0 +1,56 @@
+{
+ "scenario": "mutation_create_ok",
+ "pins": {
+  "trpc": "11.18.0",
+  "superjson": "2.2.6",
+  "zod": "4.4.3"
+ },
+ "exchanges": [
+  {
+   "request": {
+    "url": "https://game.invalid/api/trpc/jutsu.create?batch=1",
+    "method": "POST",
+    "headers": {
+     "content-type": "application/json"
+    },
+    "body": "{\"0\":{\"json\":null,\"meta\":{\"values\":[\"undefined\"],\"v\":1}}}",
+    "bodyJson": {
+     "0": {
+      "json": null,
+      "meta": {
+       "values": [
+        "undefined"
+       ],
+       "v": 1
+      }
+     }
+    }
+   },
+   "response": {
+    "status": 200,
+    "headers": {
+     "content-type": "application/json",
+     "vary": "trpc-accept, accept"
+    },
+    "body": "[{\"result\":{\"data\":{\"json\":{\"success\":true,\"message\":\"N3wId0000000000000000\"}}}}]",
+    "bodyJson": [
+     {
+      "result": {
+       "data": {
+        "json": {
+         "success": true,
+         "message": "N3wId0000000000000000"
+        }
+       }
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "decoded": {
+  "success": true,
+  "message": "N3wId0000000000000000"
+ },
+ "error": null
+}

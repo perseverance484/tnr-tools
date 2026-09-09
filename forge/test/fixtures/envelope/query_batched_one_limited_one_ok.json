@@ -1,0 +1,184 @@
+{
+ "scenario": "query_batched_one_limited_one_ok",
+ "pins": {
+  "trpc": "11.18.0",
+  "superjson": "2.2.6",
+  "zod": "4.4.3"
+ },
+ "exchanges": [
+  {
+   "request": {
+    "url": "https://game.invalid/api/trpc/jutsu.limited,jutsu.get?batch=1&input=%7B%220%22%3A%7B%22json%22%3Anull%2C%22meta%22%3A%7B%22values%22%3A%5B%22undefined%22%5D%2C%22v%22%3A1%7D%7D%2C%221%22%3A%7B%22json%22%3A%7B%22id%22%3A%22fine%22%7D%7D%7D",
+    "method": "GET",
+    "headers": {},
+    "body": null,
+    "bodyJson": null
+   },
+   "response": {
+    "status": 207,
+    "headers": {
+     "content-type": "application/json",
+     "vary": "trpc-accept, accept"
+    },
+    "body": "[{\"error\":{\"json\":{\"message\":\"You are moving too fast! Incident logged for review\",\"code\":-32029,\"data\":{\"code\":\"TOO_MANY_REQUESTS\",\"httpStatus\":429,\"stack\":\"TRPCError: You are moving too fast! Incident logged for review\\n    at file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:68:13\\n    at resolveMiddleware (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:221:23)\\n    at callRecursive (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:256:24)\\n    at procedure (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:281:24)\\n    at file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1969:24\\n    at Array.map (<anonymous>)\\n    at resolveResponse (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1939:31)\\n    at async fetchRequestHandler (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/adapters/fetch/index.mjs:27:9)\\n    at async recordingFetch (file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:85:15)\\n    at async httpRequest (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpUtils-BNq9QC3d.mjs:110:14)\",\"path\":\"jutsu.limited\",\"zodError\":null}}}},{\"result\":{\"data\":{\"json\":{\"id\":\"fine\",\"name\":\"Row\",\"hidden\":true,\"createdAt\":\"2026-09-01T04:02:38.440Z\",\"updatedAt\":\"2026-09-01T04:02:38.440Z\",\"bloodlineId\":null,\"effects\":[{\"type\":\"damage\",\"power\":150}]},\"meta\":{\"values\":{\"createdAt\":[\"Date\"],\"updatedAt\":[\"Date\"]},\"referentialEqualities\":{\"createdAt\":[\"updatedAt\"]},\"v\":1}}}}]",
+    "bodyJson": [
+     {
+      "error": {
+       "json": {
+        "message": "You are moving too fast! Incident logged for review",
+        "code": -32029,
+        "data": {
+         "code": "TOO_MANY_REQUESTS",
+         "httpStatus": 429,
+         "stack": "TRPCError: You are moving too fast! Incident logged for review\n    at file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:68:13\n    at resolveMiddleware (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:221:23)\n    at callRecursive (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:256:24)\n    at procedure (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:281:24)\n    at file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1969:24\n    at Array.map (<anonymous>)\n    at resolveResponse (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1939:31)\n    at async fetchRequestHandler (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/adapters/fetch/index.mjs:27:9)\n    at async recordingFetch (file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:85:15)\n    at async httpRequest (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpUtils-BNq9QC3d.mjs:110:14)",
+         "path": "jutsu.limited",
+         "zodError": null
+        }
+       }
+      }
+     },
+     {
+      "result": {
+       "data": {
+        "json": {
+         "id": "fine",
+         "name": "Row",
+         "hidden": true,
+         "createdAt": "2026-09-01T04:02:38.440Z",
+         "updatedAt": "2026-09-01T04:02:38.440Z",
+         "bloodlineId": null,
+         "effects": [
+          {
+           "type": "damage",
+           "power": 150
+          }
+         ]
+        },
+        "meta": {
+         "values": {
+          "createdAt": [
+           "Date"
+          ],
+          "updatedAt": [
+           "Date"
+          ]
+         },
+         "referentialEqualities": {
+          "createdAt": [
+           "updatedAt"
+          ]
+         },
+         "v": 1
+        }
+       }
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "decoded": [
+  {
+   "status": "rejected",
+   "reason": {
+    "shape": {
+     "message": "You are moving too fast! Incident logged for review",
+     "code": -32029,
+     "data": {
+      "code": "TOO_MANY_REQUESTS",
+      "httpStatus": 429,
+      "stack": "TRPCError: You are moving too fast! Incident logged for review\n    at file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:68:13\n    at resolveMiddleware (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:221:23)\n    at callRecursive (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:256:24)\n    at procedure (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:281:24)\n    at file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1969:24\n    at Array.map (<anonymous>)\n    at resolveResponse (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1939:31)\n    at async fetchRequestHandler (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/adapters/fetch/index.mjs:27:9)\n    at async recordingFetch (file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:85:15)\n    at async httpRequest (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpUtils-BNq9QC3d.mjs:110:14)",
+      "path": "jutsu.limited",
+      "zodError": null
+     }
+    },
+    "data": {
+     "code": "TOO_MANY_REQUESTS",
+     "httpStatus": 429,
+     "stack": "TRPCError: You are moving too fast! Incident logged for review\n    at file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:68:13\n    at resolveMiddleware (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:221:23)\n    at callRecursive (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:256:24)\n    at procedure (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:281:24)\n    at file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1969:24\n    at Array.map (<anonymous>)\n    at resolveResponse (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1939:31)\n    at async fetchRequestHandler (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/adapters/fetch/index.mjs:27:9)\n    at async recordingFetch (file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:85:15)\n    at async httpRequest (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpUtils-BNq9QC3d.mjs:110:14)",
+     "path": "jutsu.limited",
+     "zodError": null
+    },
+    "meta": {
+     "response": {},
+     "responseJSON": [
+      {
+       "error": {
+        "json": {
+         "message": "You are moving too fast! Incident logged for review",
+         "code": -32029,
+         "data": {
+          "code": "TOO_MANY_REQUESTS",
+          "httpStatus": 429,
+          "stack": "TRPCError: You are moving too fast! Incident logged for review\n    at file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:68:13\n    at resolveMiddleware (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:221:23)\n    at callRecursive (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:256:24)\n    at procedure (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/initTRPC-BRf4imah.mjs:281:24)\n    at file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1969:24\n    at Array.map (<anonymous>)\n    at resolveResponse (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/resolveResponse-CdASWfAV.mjs:1939:31)\n    at async fetchRequestHandler (file:///home/user/tnr-tools/forge/node_modules/@trpc/server/dist/adapters/fetch/index.mjs:27:9)\n    at async recordingFetch (file:///home/user/tnr-tools/forge/tools/derive_envelope.mjs:85:15)\n    at async httpRequest (file:///home/user/tnr-tools/forge/node_modules/@trpc/client/dist/httpUtils-BNq9QC3d.mjs:110:14)",
+          "path": "jutsu.limited",
+          "zodError": null
+         }
+        }
+       }
+      },
+      {
+       "result": {
+        "data": {
+         "json": {
+          "id": "fine",
+          "name": "Row",
+          "hidden": true,
+          "createdAt": "2026-09-01T04:02:38.440Z",
+          "updatedAt": "2026-09-01T04:02:38.440Z",
+          "bloodlineId": null,
+          "effects": [
+           {
+            "type": "damage",
+            "power": 150
+           }
+          ]
+         },
+         "meta": {
+          "values": {
+           "createdAt": [
+            "Date"
+           ],
+           "updatedAt": [
+            "Date"
+           ]
+          },
+          "referentialEqualities": {
+           "createdAt": [
+            "updatedAt"
+           ]
+          },
+          "v": 1
+         }
+        }
+       }
+      }
+     ]
+    },
+    "name": "TRPCClientError"
+   }
+  },
+  {
+   "status": "fulfilled",
+   "value": {
+    "id": "fine",
+    "name": "Row",
+    "hidden": true,
+    "createdAt": {
+     "__date": "2026-09-01T04:02:38.440Z"
+    },
+    "updatedAt": {
+     "__date": "2026-09-01T04:02:38.440Z"
+    },
+    "bloodlineId": null,
+    "effects": [
+     {
+      "type": "damage",
+      "power": 150
+     }
+    ]
+   }
+  }
+ ],
+ "error": null
+}
