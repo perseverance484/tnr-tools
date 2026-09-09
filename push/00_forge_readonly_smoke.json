@@ -1,0 +1,10 @@
+{
+  "_note": "Forge 0.2.0 read-only smoke: two audited name-list queries, zero mutations. Use this to verify manifest load/run/capture/result flow without writing game data.",
+  "capture": {
+    "after": [
+      {"proc": "jutsu.getAllNames", "input": {}},
+      {"proc": "quests.getAllNames", "input": {}}
+    ]
+  },
+  "items": []
+}
