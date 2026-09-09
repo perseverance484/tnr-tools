@@ -47,6 +47,9 @@ const SURFACES = {
   "app/src/validators/rewards.ts": "the reward field block shared by objectives",
   "app/src/validators/base.ts": "idsWithNumberField (opponentAIs, attackers)",
   "app/drizzle/schema.ts": "userData columns behind insertAiSchema",
+  "app/drizzle/constants.ts": "the enum VALUE lists the validators import. Forge derives key sets, "
+    + "never enums (the 45g rule), so a change here cannot make forge reject what the server "
+    + "accepts - but a reviewer should see it rather than have it sit outside the gate",
   "app/src/app/api/uploadthing/core.ts": "the image upload route",
   "app/src/proxy.ts": "whether an unmatched path still bypasses the Clerk layout",
   "app/next.config.mjs": "experimental.globalNotFound, which is what makes /forge a host",

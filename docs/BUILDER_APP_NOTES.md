@@ -564,20 +564,45 @@ to edit them is dauntless's call.
 ## Source pin: still relevant, and how that was checked
 
 `tools/pin_relevance.mjs <checkout-of-pin> <checkout-of-newer>` re-derives `fields.json` and
-`nested.json` from both checkouts and compares them, then diffs the 21 declared surfaces forge reads
+`nested.json` from both checkouts and compares them, then diffs the 22 declared surfaces forge reads
 for behaviour rather than field sets (the limiter, router registration, the six content routers, the
-validator files, the drizzle schema behind `insertAiSchema`, the upload route, the three files that
-make `/forge` a host, and the dependency pins). It reads only; it never runs the game.
+validator files, the drizzle schema behind `insertAiSchema`, the drizzle constants the validators
+import, the upload route, the three files that make `/forge` a host, and the dependency pins). It
+reads only; it never runs the game.
 
-Run for the pin `345d18ac` against the sentinel upstream `e02f8159` recorded on `main`:
+**Run against the actual current game `main`, not a repository sentinel snapshot.** The first pass
+proved the pin against `e02f8159`, the upstream SHA recorded by this repository's sentinel; the
+independent review of `c388ea6` was right that this is not the same claim as relevance to
+production. Resolved fresh with `git ls-remote` at 2026-09-09T01:44Z:
 
-- both derived contracts IDENTICAL;
-- two surfaces changed, both read and both irrelevant: `root.ts` registers two new routers (`push`,
-  `purchases`), and `schema.ts` adds twelve device/purchase tables and their relations. No
-  `userData` column moved, which the identical 157-key ai field set proves independently.
+- `studie-tech/TheNinjaRPG` default branch `main` head: **`62af1b3405b10183b31f838c9a5f131d790460f1`**
+- forge pin, unchanged: `345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9`
+
+Result, `node tools/pin_relevance.mjs <pin> <62af1b34>`:
+
+- **both derived contracts are byte-identical.** `fields.json` and `nested.json` regenerated from a
+  checkout of the current game head match the checked-in files exactly. That is the strong claim:
+  what the bundle validates against at the pin is what production's validators say today.
+- **three declared surfaces differ, all read, none relevant:**
+  - `app/src/server/api/root.ts`: two new routers registered (`push`, `purchases`). No path forge
+    calls moved.
+  - `app/drizzle/schema.ts`: twelve new device/purchase/store tables and their relations, no
+    removals. No `userData` column moved, which the identical 157-key `ai` field set proves
+    independently.
+  - `app/drizzle/constants.ts`: purely additive (push/store/native constants, one forum
+    pagination constant), no removals. Forge derives key sets and never enums, so a constant cannot
+    make it reject something the server accepts; it is a declared surface so that a reviewer sees
+    such a change rather than having it sit outside the gate.
+- everything else forge depends on is byte-identical between the pin and current `main`, including
+  `trpc.ts` (the limiter), all six content routers, all four validator files, the upload route,
+  `proxy.ts`, `next.config.mjs`, `global-not-found.tsx` and `app/package.json`.
+- for the record, what changed between the sentinel `e02f8159` and current `main` is SEO, forum,
+  comments and public-profile work plus that one forum constant: sixteen files, none of them a forge
+  surface.
 
 So the pin STAYS at `345d18ac` on evidence, not inertia. The gate exits 1 on any change, so the next
-person has to read it rather than skip it. Nothing was adopted for being newer.
+person has to read it rather than skip it. Nothing was adopted for being newer. If game `main`
+advances again before integration, rerun the same command; the two checkouts are the only inputs.
 
 ## Release pin
 
@@ -614,15 +639,33 @@ tool meant to catch that.
 asserted and the diffs it recorded, so a drift reads as a per-field FAIL. The journal's own state
 rides along as `forgeState`, and the bundle carries `outcome` and honest postflight counters.
 
-One tightly-scoped change OUTSIDE `forge/` (a widened Lane A review surface): `harvest.py`'s
-`verify` treated an entry with `state=error` as a SKIP, so a bundle holding a failed push could exit
-0 as "verified". An entry that never shipped is now an `ERROR` line that fails the gate. Checked
-against every bundle already in `harvests/inbox/`: not one verdict changes.
+Two tightly-scoped changes OUTSIDE `forge/` (a widened Lane A review surface), both in
+`harvest.py`'s `verify`, both checked against every bundle already in `harvests/inbox/` with not one
+verdict changed:
+
+1. an entry with `state=error` was a SKIP, so a bundle holding a failed push could exit 0 as
+   "verified". An entry that never shipped is now an `ERROR` line that fails the gate.
+2. **a forge bundle now fails closed** (independent review of `c388ea6`, finding 1). A job whose
+   only unresolved item was a SKIPPED orphan exported a bundle that `verify` printed as SKIP and
+   exited 0 on, while forge itself reported `outcome: unverified` and the asset row the skip walked
+   away from was still live. For a bundle marked as forge (`cfg: "forge"`, or entries carrying
+   `forgeState`), a `skipped` or `pending` entry is now UNVERIFIED rather than a skip, and the
+   bundle's own `outcome` must be `success` before the gate exits 0 - forge's verdict is
+   authoritative in the failing direction, and a forge bundle with no `outcome` fails closed.
+   Legacy builder bundles keep their old semantics, where those states meant a row the builder never
+   attempted; a regression pins that too.
 
 `test/harvest.test.mjs` runs a job producing all four outcomes, exports the bundle and runs the real
 `harvest.py` over it: `verify` prints OK / FAIL / UNVERIFIED / ERROR and exits 1, `index` still
 reports the capture calls, `diff` says honestly that a forge bundle carries no `pushed`/`live`
-payloads rather than inventing them, and a clean run exits 0.
+payloads rather than inventing them, and a clean run exits 0. Three more do the same end to end for
+the review's finding: an ambiguous create resolved through the real `Runner.skip()` (verify exits 1
+and the server row is asserted still present), a job exported with its create still in flight, and a
+legacy-shaped bundle proving the old semantics survive.
+
+A forge capture-only bundle is still read by the early "nothing to verify" branch. Forge cannot
+produce one today (`journal.open()` refuses an empty item list), so that path is unreachable from
+forge; it is listed under "Not finished" rather than guarded speculatively.
 
 ## Not finished
 
