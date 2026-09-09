@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
@@ -28,7 +28,6 @@ jobs:
           curl -fsSL -o /tmp/up.tar.gz "https://codeload.github.com/studie-tech/TheNinjaRPG/tar.gz/$UP_SHA"
           mkdir -p /tmp/up
           tar xzf /tmp/up.tar.gz -C /tmp/up --strip-components=1
-          printf '%s\n' "$UP_SHA" > /tmp/upstream-sha.txt
 
       - name: Regenerate candidate contract family
         run: |
@@ -51,7 +50,7 @@ jobs:
           python3 "$S/schema_diff.py" diff "$D/45d_DATA_entity_schemas.json" /tmp/45d.json
           python3 "$S/schema_diff.py" diff "$D/45e_DATA_constants.json" /tmp/45e.json
 
-      - name: Assert unchanged source-family members and 45g law blocks
+      - name: Assert zero semantic drift across the pinned source family
         run: |
           set -euo pipefail
           python3 - <<'PY'
@@ -66,66 +65,38 @@ jobs:
               if isinstance(v, list): return [strip_prov(x) for x in v]
               return v
 
-          current_c = load(data / '45c_DATA_constructors.json')
-          candidate_c = load('/tmp/45c.json')
-          if strip_prov(current_c) != strip_prov(candidate_c):
-              raise SystemExit('45c payload differs from the pinned-source candidate')
+          stable = {
+              '45c': (data/'45c_DATA_constructors.json', Path('/tmp/45c.json')),
+              '45d': (data/'45d_DATA_entity_schemas.json', Path('/tmp/45d.json')),
+              '45f': (data/'45f_DATA_procedures.json', Path('/tmp/45f.json')),
+              '45g': (data/'45g_DATA_checks.json', Path('/tmp/45g.json')),
+          }
+          for label, (oldp, newp) in stable.items():
+              old, new = load(oldp), load(newp)
+              if strip_prov(old) != strip_prov(new):
+                  raise SystemExit(f'{label} has semantic drift; refuse provenance-only adoption')
+              print(f'{label}: semantic payload stable')
 
-          current_g = load(data / '45g_DATA_checks.json')
+          current_g = load(data/'45g_DATA_checks.json')
           candidate_g = load('/tmp/45g.json')
           current_law = {k:v for k,v in current_g.items() if isinstance(v, dict) and v.get('_class') == 'law'}
           candidate_law = {k:v for k,v in candidate_g.items() if isinstance(v, dict) and v.get('_class') == 'law'}
           if current_law != candidate_law:
               raise SystemExit('45g hand-held law blocks changed during regeneration')
-
-          # 45e/45f already claim this source. Do not adopt regenerated copies here;
-          # require their contract bodies to remain equivalent apart from known
-          # hand-carried metadata/caveat text.
-          current_f = load(data / '45f_DATA_procedures.json')
-          candidate_f = load('/tmp/45f.json')
-          if strip_prov(current_f) != strip_prov(candidate_f):
-              raise SystemExit('45f payload differs from the pinned-source candidate')
-          print('45c payload stable; 45f payload stable; 45g law blocks stable')
+          print('45g law blocks stable')
           PY
 
-      - name: Print bounded semantic diff for 45d and 45g
+      - name: Adopt regenerated 45d and 45g
         run: |
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
+          set -euo pipefail
+          D=skills/building-tnr-content/data
+          cp /tmp/45d.json "$D/45d_DATA_entity_schemas.json"
+          cp /tmp/45g.json "$D/45g_DATA_checks.json"
+          python3 skills/building-tnr-content/scripts/selfcheck.py --generated "$D"
 
-          def walk(a, b, path='$'):
-              if type(a) is not type(b):
-                  yield path, a, b; return
-              if isinstance(a, dict):
-                  for k in sorted(set(a) | set(b)):
-                      if k == '_provenance':
-                          continue
-                      p = f'{path}.{k}'
-                      if k not in a: yield p, '<missing>', b[k]
-                      elif k not in b: yield p, a[k], '<missing>'
-                      else: yield from walk(a[k], b[k], p)
-              elif isinstance(a, list):
-                  if a != b: yield path, a, b
-              elif a != b:
-                  yield path, a, b
-
-          D = Path('skills/building-tnr-content/data')
-          pairs = [
-              ('45d', D/'45d_DATA_entity_schemas.json', Path('/tmp/45d.json')),
-              ('45g', D/'45g_DATA_checks.json', Path('/tmp/45g.json')),
-          ]
-          for label, oldp, newp in pairs:
-              old, new = json.loads(oldp.read_text()), json.loads(newp.read_text())
-              diffs = list(walk(old, new))
-              print(f'== {label}: {len(diffs)} semantic difference(s), excluding _provenance ==')
-              for path, before, after in diffs[:160]:
-                  def short(v):
-                      s = repr(v)
-                      return s if len(s) <= 220 else s[:217] + '...'
-                  print(path)
-                  print('  OLD', short(before))
-                  print('  NEW', short(after))
-              if len(diffs) > 160:
-                  print(f'... {len(diffs)-160} more difference(s)')
-          PY
+      - name: Commit provenance reconciliation
+        run: >-
+          python3 .github/scripts/commit_generated.py
+          "contracts: reconcile 45d/45g provenance @bdec2883 [auto]"
+          skills/building-tnr-content/data/45d_DATA_entity_schemas.json
+          skills/building-tnr-content/data/45g_DATA_checks.json
