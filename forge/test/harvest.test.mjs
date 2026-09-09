@@ -139,3 +139,123 @@ test("harvest.py verify passes a clean forge bundle, and only a clean one", asyn
     assert.match(v.out, /->\s+verified/, v.out);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+
+/**
+ * An ambiguous create the operator resolved by SKIPPING it: two placeholder rows appeared while one
+ * create was in flight, so reconciliation refuses to guess and the item is ORPHANED. Skipping it is
+ * a decision to leave whatever the server holds alone - deliberately unverified, and the row may be
+ * live. Produced through the real reconcile/skip path, not by hand-editing the journal.
+ */
+async function skippedOrphanBundle() {
+  const game = new FakeGame();
+  const storage = new MemoryStorage();
+  const d = composeForTest({ game, storage });
+  const manifest = { items: [
+    { entity: "asset", slot: "create", name: "Orphan", srcId: "o", data: { name: "Orphan", hidden: true, type: "STATIC", url: "u" } },
+    jutsu("After"),
+  ] };
+  d.runner.plan(manifest, { jobId: "sk", manifestPath: "push/97_skip.json" });
+  const key = await d.reconciler.beforeCreate(d.journal.get("sk"), d.journal.get("sk").items[0], "asset");
+  d.journal.annotate("sk", 0, { snapshotKey: key });
+  await d.journal.withSent("sk", 0, { phase: "create" }, async () => { game.handle("gameAsset.create"); game.handle("gameAsset.create"); });
+  const d2 = composeForTest({ game, storage: storage.crash(), idb: d.idb });
+  d2.runner.attach("sk", manifest);
+  const paused = await d2.runner.resume("sk");
+  assert.equal(paused.items[0].state, "ORPHANED");
+  d2.runner.skip("sk", 0);                       // the real decision path
+  const summary = await d2.runner.run("sk");
+  return { summary, ...(await exportOf(d2, "sk")), game };
+}
+
+/** A job that stopped with a write still in flight: the create left, the response never came. */
+async function pendingWriteBundle() {
+  const game = new FakeGame({ crashAt: 2 });     // 1 = the pre-create snapshot, 2 = jutsu.create
+  const storage = new MemoryStorage();
+  const d = composeForTest({ game, storage });
+  d.runner.plan({ items: [jutsu("Pending")] }, { jobId: "pw", manifestPath: "push/96_pending.json" });
+  const summary = await d.runner.run("pw");
+  assert.equal(summary.state, "PAUSED");
+  assert.equal(summary.items[0].state, "SENT", "the write is in flight, not resolved");
+  return { summary, ...(await exportOf(d, "pw")), game };
+}
+
+/** The bundle the app would commit for a job, through the real export path. */
+async function exportOf(d, jobId) {
+  const app = new App({ version: "forge 0.2.0", storage: d.storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
+  let text = null;
+  app.showExport = (t) => { text = t; };
+  await app.exportJob(jobId);
+  return { text, bundle: JSON.parse(text) };
+}
+
+test("a skipped orphan cannot pass repository verification (review of c388ea6, finding 1)", async (t) => {
+  const bin = python();
+  if (!bin) return t.skip("no python3 on PATH");
+  const { summary, bundle, text, game } = await skippedOrphanBundle();
+  // forge's own semantics were already right, and stay right
+  assert.equal(summary.state, "DONE", "execution has nothing left to do");
+  assert.equal(summary.outcome, "unverified", "but a skipped orphan is not a verified success");
+  assert.equal(bundle.entries[0].state, "skipped");
+  assert.equal(bundle.entries[0].forgeState, "SKIPPED");
+  assert.equal(bundle.outcome, "unverified");
+  assert.ok(game.count("asset") >= 1, "the server row the skip walked away from is still there");
+  // ...and the repository gate must agree. Against c388ea6 this printed SKIP and exited 0.
+  const dir = mkdtempSync(join(tmpdir(), "forge-harvest-"));
+  const file = join(dir, "tnr_results_skipped.json");
+  writeFileSync(file, text);
+  try {
+    const v = harvest(bin, "verify", file);
+    assert.match(v.out, /^UNVERIFIED\s+Orphan/m, v.out);
+    assert.match(v.out, /VERIFY FAILED/, v.out);
+    assert.equal(v.code, 1, "a bundle holding a skipped orphan must never verify green");
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test("a bundle exported with a write still pending cannot pass verification either", async (t) => {
+  const bin = python();
+  if (!bin) return t.skip("no python3 on PATH");
+  const { bundle, text } = await pendingWriteBundle();
+  assert.equal(bundle.entries[0].state, "pending");
+  assert.equal(bundle.entries[0].forgeState, "SENT");
+  assert.equal(bundle.outcome, "open", "the job is paused: the question is not answered yet");
+  const dir = mkdtempSync(join(tmpdir(), "forge-harvest-"));
+  const file = join(dir, "tnr_results_pending.json");
+  writeFileSync(file, text);
+  try {
+    const v = harvest(bin, "verify", file);
+    assert.match(v.out, /^UNVERIFIED\s+Pending/m, v.out);
+    assert.notEqual(v.code, 0, "an in-flight write is the definition of unverified");
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test("a legacy builder bundle keeps its own semantics", async (t) => {
+  const bin = python();
+  if (!bin) return t.skip("no python3 on PATH");
+  // no cfg:"forge", no forgeState: the pre-forge shape, where a non-ok row is the builder's own
+  // "not pushed" and the gate has always read it as a skip rather than a failure
+  const legacy = {
+    builder: "v4.29", at: new Date(0).toISOString(), cfg: "45c",
+    postflight: { match: 1, diff: 0, unverified: 0 },
+    entries: [
+      { name: "A", entity: "jutsu", slot: "create", state: "ok", verdict: "match", asserted: { ok: 3, fail: [] }, id: "id-a" },
+      { name: "B", entity: "jutsu", slot: "edit", state: "pending", detail: "not attempted", id: "id-b" },
+    ],
+    captures: [], idmap: {},
+  };
+  const dir = mkdtempSync(join(tmpdir(), "forge-harvest-"));
+  const file = join(dir, "tnr_results_legacy.json");
+  writeFileSync(file, JSON.stringify(legacy, null, 1));
+  try {
+    const v = harvest(bin, "verify", file);
+    assert.equal(v.code, 0, v.out);
+    assert.match(v.out, /1 ok, 0 fail, 0 unverified, 1 skipped/, v.out);
+    // but the same shape marked as forge fails closed, even with no outcome recorded: a forge
+    // bundle that cannot state its own verdict is not evidence of success
+    const asForge = { ...legacy, cfg: "forge", entries: legacy.entries.map((e) => ({ ...e, forgeState: e.state === "ok" ? "VERIFIED" : "PLANNED" })) };
+    const f2 = join(dir, "tnr_results_forge_no_outcome.json");
+    writeFileSync(f2, JSON.stringify(asForge, null, 1));
+    const v2 = harvest(bin, "verify", f2);
+    assert.equal(v2.code, 1, v2.out);
+    assert.match(v2.out, /job outcome=None/, v2.out);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});

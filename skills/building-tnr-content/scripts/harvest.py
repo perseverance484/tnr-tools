@@ -298,9 +298,29 @@ def cmd_verify(path):
     Exit code is 1 if any FAIL or UNVERIFIED write entry exists, so this can
     gate a session close. Bundles older than v4.28 lack `asserted`; those fall
     back to the full-record verdict only and say so.
+
+    FORGE BUNDLES FAIL CLOSED. A forge bundle (cfg "forge", or entries carrying
+    `forgeState`) knows its own verdict: the runner records why every item is
+    where it is, and jobOutcome() calls a job "success" only when every write
+    read back equal. So for forge, two extra rules apply, and neither touches a
+    legacy builder bundle:
+
+      * a `skipped` or `pending` entry is UNVERIFIED, not a skip. Skipping an
+        ambiguous orphan is a decision to leave a possibly-live server row
+        alone, and a pending entry is a write still in flight; the old builder
+        used those states for rows it never attempted, which is why they were
+        read as harmless here.
+      * the bundle's own `outcome` must be "success". If forge itself says the
+        job was unverified, no per-entry arithmetic here may overrule it.
+
+    Without that, a forge job could be DONE with outcome "unverified" while this
+    gate printed "verified" - a cross-surface false success, which is the one
+    thing verification must never produce (independent review of c388ea6).
     """
     d = load(path)
     es = d.get("entries") or []
+    forge = d.get("cfg") == "forge" or any(
+        isinstance(e, dict) and "forgeState" in e for e in es)
     if not es:
         if d.get("captures"):
             print("capture-only bundle (0 write entries): nothing to verify")
@@ -313,6 +333,14 @@ def cmd_verify(path):
     for e in es:
         name = e.get("name") or e.get("id") or "?"
         ident = e.get("id") or "-"
+        if forge and e.get("state") in ("skipped", "pending"):
+            why = "skipped: the server row, if any, was deliberately left alone" \
+                if e.get("state") == "skipped" else "still in flight: no response was read"
+            print(f"UNVERIFIED  {name} -> {ident}: forge {e.get('forgeState') or e.get('state')} "
+                  f"({why}){(' - ' + e['detail'][:60]) if e.get('detail') else ''}")
+            n_unv += 1
+            bad += 1
+            continue
         if e.get("state") in ("error", "failed"):
             # An entry the builder could not push is NOT a skip: nothing shipped, and a bundle
             # holding one must not exit 0 as "verified" (readiness brief section 9). Only a
@@ -376,6 +404,14 @@ def cmd_verify(path):
             if norm:
                 extra += "  (%d field(s) ''<->null server-normalized: %s)" % (len(norm), ",".join(norm))
             print(f"OK          {name} -> {ident}: A:{a.get('ok',0)} asserted field(s) landed{extra}")
+    if forge:
+        # forge's own verdict is authoritative in the failing direction: this gate may add a
+        # failure the bundle did not know about, never remove one the bundle reported.
+        outcome = d.get("outcome")
+        if outcome != "success":
+            print(f"UNVERIFIED  job outcome={outcome!r}: forge did not call this run a verified "
+                  "success, so neither does verification")
+            bad += 1
     print(f"\nbuilder {bver}: {n_ok} ok, {n_fail} fail, {n_unv} unverified, {n_skip} skipped"
           f"  ->  {'VERIFY FAILED' if bad else 'verified'}")
     return 1 if bad else 0
