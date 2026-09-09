@@ -322,7 +322,15 @@ def cmd_verify(path):
     forge = d.get("cfg") == "forge" or any(
         isinstance(e, dict) and "forgeState" in e for e in es)
     if not es:
-        if d.get("captures"):
+        captures = d.get("captures") or []
+        if captures:
+            if forge:
+                failed = [c for c in captures if not isinstance(c, dict) or c.get("ok") is not True]
+                outcome = d.get("outcome")
+                if outcome != "success" or failed:
+                    print(f"UNVERIFIED  capture-only forge bundle: outcome={outcome!r}, "
+                          f"{len(failed)} failed capture(s)")
+                    return 1
             print("capture-only bundle (0 write entries): nothing to verify")
             return 0
         print("no entries; is this a results bundle?")

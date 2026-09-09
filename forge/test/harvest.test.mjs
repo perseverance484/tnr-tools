@@ -62,7 +62,7 @@ async function bundleWithEveryOutcome() {
   d.runner.plan(manifest, { jobId: "hv", manifestPath: "push/99_harvest.json", manifestNumber: 99 });
   const summary = await d.runner.run("hv");
 
-  const app = new App({ version: "forge 0.2.0", storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
+  const app = new App({ version: "forge 0.2.1", storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
   let text = null;
   app.showExport = (t) => { text = t; };
   await app.exportJob("hv");
@@ -117,6 +117,48 @@ test("harvest.py verify reads a forge bundle and refuses to call that run verifi
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
+test("harvest.py verify agrees with forge on capture-only outcomes", async (t) => {
+  const bin = python();
+  if (!bin) return t.skip("no python3 on PATH");
+
+  async function make(fail) {
+    const game = new FakeGame();
+    if (fail) {
+      const handle = game.handle.bind(game);
+      game.handle = (path, input) => path === "jutsu.getAllNames"
+        ? { ok: false, error: { code: "NOT_FOUND", httpStatus: 404, message: "capture failed", path } }
+        : handle(path, input);
+    }
+    const storage = new MemoryStorage();
+    const d = composeForTest({ game, storage });
+    d.runner.plan({ items: [], capture: { after: [{ proc: "jutsu.getAllNames", input: {} }] } },
+      { jobId: fail ? "capture-bad" : "capture-good", manifestPath: "push/00_forge_readonly_smoke.json" });
+    const summary = await d.runner.run(fail ? "capture-bad" : "capture-good");
+    return { summary, ...(await exportOf(d, fail ? "capture-bad" : "capture-good")) };
+  }
+
+  const dir = mkdtempSync(join(tmpdir(), "forge-harvest-capture-"));
+  try {
+    const good = await make(false);
+    assert.equal(good.summary.outcome, "success");
+    const goodFile = join(dir, "good.json");
+    writeFileSync(goodFile, good.text);
+    const goodVerify = harvest(bin, "verify", goodFile);
+    assert.equal(goodVerify.code, 0, goodVerify.out);
+    assert.match(goodVerify.out, /capture-only bundle/);
+
+    const bad = await make(true);
+    assert.equal(bad.summary.outcome, "failed");
+    assert.equal(bad.bundle.captures[0].ok, false);
+    const badFile = join(dir, "bad.json");
+    writeFileSync(badFile, bad.text);
+    const badVerify = harvest(bin, "verify", badFile);
+    assert.equal(badVerify.code, 1, badVerify.out);
+    assert.match(badVerify.out, /UNVERIFIED\s+capture-only forge bundle/);
+    assert.match(badVerify.out, /1 failed capture/);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
 test("harvest.py verify passes a clean forge bundle, and only a clean one", async (t) => {
   const bin = python();
   if (!bin) return t.skip("no python3 on PATH");
@@ -126,7 +168,7 @@ test("harvest.py verify passes a clean forge bundle, and only a clean one", asyn
   d.runner.plan({ items: [jutsu("A"), jutsu("B")] }, { jobId: "clean", manifestPath: "push/98_clean.json" });
   const s = await d.runner.run("clean");
   assert.equal(s.state, "DONE"); assert.equal(s.outcome, "success");
-  const app = new App({ version: "forge 0.2.0", storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
+  const app = new App({ version: "forge 0.2.1", storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
   let text = null; app.showExport = (t2) => { text = t2; };
   await app.exportJob("clean");
   const dir = mkdtempSync(join(tmpdir(), "forge-harvest-"));
@@ -181,7 +223,7 @@ async function pendingWriteBundle() {
 
 /** The bundle the app would commit for a job, through the real export path. */
 async function exportOf(d, jobId) {
-  const app = new App({ version: "forge 0.2.0", storage: d.storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
+  const app = new App({ version: "forge 0.2.1", storage: d.storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
   let text = null;
   app.showExport = (t) => { text = t; };
   await app.exportJob(jobId);
