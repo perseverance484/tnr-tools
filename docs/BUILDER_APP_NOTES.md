@@ -14,6 +14,10 @@ Nothing here has been run against the game. Zero live requests were made while b
 none while hardening it. Every behaviour is verified against recorded or adapter-derived fixtures
 and a local checkout of the pinned source; see "Verification".
 
+## 0.2.1 capture-only repair
+
+The first real Firefox Android smoke exposed one integration seam: `parseManifest()` accepted capture-only manifests, but `Journal.open()` still rejected an empty item list. Forge 0.2.1 permits an empty journal only when `Runner.plan()` has parsed at least one capture, treats the job as successful only when every capture read succeeds, and labels the flow as read-only/zero-mutation in the UI. The smoke manifest is `push/00_forge_readonly_smoke.json`.
+
 ## The readiness pass, and what it changed
 
 Forge passed its own tests before this pass and was still not safe to make the normal content path.
@@ -136,7 +140,7 @@ towards a terminal state and never invents an `entityId`; it records why on `ite
 
 Guards added by the adversarial pass: `annotate()` and `transition()` patches may not set
 `state`, `idx` or any timestamp; `remove()` refuses a job holding a SENT item unless forced;
-`setJobState(DONE)` refuses while an item is SENT; `open()` refuses empty item lists and a
+`setJobState(DONE)` refuses while an item is SENT; `open()` refuses empty item lists unless the runner explicitly opens a parsed capture-only job, and refuses a
 second resumable job for the same `manifestHash`; error strings are capped at 512 chars;
 `migrate()` refuses a newer or non-integer version; one corrupt record no longer blocks
 `listJobs()`, `resumable()` or the export (it is collected in `journal.broken` and exported

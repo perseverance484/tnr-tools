@@ -64,9 +64,14 @@ const RESERVED = Object.freeze(["state", "idx", "sentAt", "confirmedAt", "verifi
 export function jobOutcome(job) {
   if (!job || !Array.isArray(job.items)) return "open";
   if (job.state === "RUNNING" || job.state === "PAUSED") return "open";
+  if (!job.items.length) {
+    const captures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
+    if (!captures.length) return "unverified";
+    return captures.every((capture) => capture && capture.ok === true) ? "success" : "failed";
+  }
   if (job.items.some((it) => it.state === "FAILED")) return "failed";
   if (job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state) || it.state === "SKIPPED" || (it.verify && it.verify !== "match"))) return "unverified";
-  return job.items.length ? "success" : "unverified";
+  return "success";
 }
 
 export class JournalError extends Error {
@@ -218,9 +223,9 @@ export class Journal {
    * Open a new job. items are specs: {entity, op, name, srcId, targetId, payloadHash}.
    * Refuses when a non-terminal job with the same manifestHash already exists: resume it.
    */
-  open({ jobId, manifestPath, manifestNumber, manifestHash, items }) {
+  open({ jobId, manifestPath, manifestNumber, manifestHash, items, allowEmpty = false }) {
     if (!jobId) throw new JournalError("jobId required");
-    if (!Array.isArray(items) || !items.length) throw new JournalError("a job needs at least one item");
+    if (!Array.isArray(items) || (!items.length && !allowEmpty)) throw new JournalError("a job needs at least one item unless it is an explicit capture-only job");
     if (this._read(jobId)) throw new JournalError("job already exists: " + jobId, { jobId });
     if (manifestHash) {
       const dup = this.resumable().find((j) => j.manifestHash === manifestHash);

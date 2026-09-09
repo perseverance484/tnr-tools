@@ -87,6 +87,23 @@ test("mergeAi re-sends the live kit reshaped (omitting jutsus/items would delete
 });
 
 // ---------------------------------------------------------------- happy paths
+test("capture-only manifest runs audited reads with zero mutations", async () => {
+  const h = harness();
+  const manifest = { items: [], capture: { after: [
+    { proc: "jutsu.getAllNames", input: {} },
+    { proc: "quests.getAllNames", input: {} },
+  ] } };
+  h.runner.plan(manifest, { jobId: "capture", manifestPath: "push/00_forge_readonly_smoke.json" });
+  const s = await h.runner.run("capture");
+  assert.equal(s.state, "DONE");
+  assert.equal(s.outcome, "success");
+  assert.deepEqual(h.game.calls.map((call) => call.path), ["jutsu.getAllNames", "quests.getAllNames"]);
+  const job = h.journal.get("capture");
+  assert.equal(job.items.length, 0);
+  assert.equal(job.capturesAfter.length, 2);
+  assert.ok(job.capturesAfter.every((capture) => capture.ok));
+});
+
 test("two-phase create: create -> placeholder -> update -> read-back VERIFIED; exactly one row", async () => {
   const h = harness();
   h.runner.plan(M.oneJutsu, { jobId: "j1", manifestPath: "push/x.json" });
@@ -300,57 +317,13 @@ test("a NetworkError inside withSent leaves the item SENT and pauses the job (am
   assert.equal(s.items[0].state, "SENT");
 });
 
-test("compatibility: pre-send validation over every manifest under push/, with its known findings", () => {
-  // Pre-send validation is where a key the server would silently drop is caught. Run it over every
-  // committed manifest: everything passes except two REAL findings, both keys the live server drops
-  // today, both verified absent from the quest validator at the pin AND at the current upstream
-  // (e02f8159). They are pinned here so they cannot be mistaken for false positives later:
-  //
-  //  1. five quest EDITS re-assert a whole live record, including three raid columns that exist in
-  //     drizzle/schema.ts but not in QuestValidatorRawSchema (raidEndsAt, raidCaptureDeadline,
-  //     raidGracePeriodEnd). Read shapes are not write shapes; those values never landed.
-  //  2. push/46 gives every start_battle objective an `image`, which InstantStartBattleObjective
-  //     does not define. The value has no effect.
+test("compatibility: staged manifests parse and pass Forge pre-send validation", () => {
   const v = new Validator(FIELDS, NESTED_KEYS);
-  const known = {
-    "27_scene_char_retire.json": /raidEndsAt/,
-    "30_repair_freedoms_scouting.json": /raidEndsAt/,
-    "33_copies_converging_fix.json": /raidEndsAt/,
-    "34_old_ghost_prose.json": /raidEndsAt/,
-    "35_tenth_name_prose.json": /raidEndsAt/,
-    "46_missions_flatten.json": /objectives\[1\] \(start_battle\): unknown key "image"/,
-  };
   const dir = new URL("../../push/", import.meta.url);
-  const seen = new Set();
-  for (const f of readdirSync(dir).filter((x) => x.endsWith(".json")).sort()) {
-    let m;
-    try { m = parseManifest(readFileSync(new URL(f, dir), "utf8")); } catch { continue; }
+  for (const f of readdirSync(dir).filter((name) => name.endsWith(".json")).sort()) {
+    const m = parseManifest(readFileSync(new URL(f, dir), "utf8"));
     const problems = m.items.flatMap((it) => v.problems(it.entity, it.data, null, { preCreate: it.op === "create" }));
-    if (!problems.length) continue;
-    assert.ok(known[f], `${f} has UNEXPECTED pre-send problems: ${problems.slice(0, 3).join(" | ")}`);
-    assert.match(problems.join(";"), known[f], f);
-    seen.add(f);
+    assert.deepEqual(problems, [], `${f}: ${problems.join(" | ")}`);
   }
-  assert.deepEqual([...seen].sort(), Object.keys(known).sort(), "a known finding disappeared: re-read it before deleting the entry");
-});
-
-test("compatibility: every manifest committed under push/ still parses", () => {
-  // The lints and pool resolution added for readiness must not lock out the Lane B manifests the
-  // repository already holds. One known pre-existing exception, unrelated to those checks:
-  // push/7_readback_smoke.json is a v4.28 probe whose create carries no srcId, which forge has
-  // refused since L4 (a create needs an srcId for the idmap and for @refs).
-  const dir = new URL("../../push/", import.meta.url);
-  const files = readdirSync(dir).filter((f) => f.endsWith(".json")).sort();
-  assert.ok(files.length >= 20, "found " + files.length + " manifests");
-  const known = { "7_readback_smoke.json": /a create needs srcId/ };
-  let parsed = 0;
-  for (const f of files) {
-    const text = readFileSync(new URL(f, dir), "utf8");
-    if (known[f]) { assert.throws(() => parseManifest(text), known[f], f); continue; }
-    const m = parseManifest(text);
-    assert.ok(Array.isArray(m.items), f);
-    parsed++;
-  }
-  assert.equal(parsed, files.length - Object.keys(known).length);
 });
 
