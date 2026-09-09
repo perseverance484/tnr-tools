@@ -1,7 +1,7 @@
 # Repository precision and simplification audit
 
 Status: **READY FOR INDEPENDENT REVIEW**  
-Executable snapshot: `e3acca41e8b05a3273d214fcf391f5138b51dbc5`  
+Contract-reconciled implementation snapshot: `e52dcc2536998dfc1e539a1d034317ae5f8dc154`  
 Base: `main@991e32d4651a147e32d08474ea87f3ce80bc27f7`  
 Branch: `chatgpt/repo-simplification-audit`
 
@@ -15,7 +15,7 @@ No live-game requests, writes, cookies, credentials, or production actions were 
 
 Forge's mutation journal, write-ahead transitions, crash recovery, ambiguous-response handling, reconciliation, read-back, rate-limit handling, and adversarial tests are mostly necessary complexity. They model browser crashes, uncertain mutations, multi-tab execution, and production read failures that can happen. This audit did **not** collapse those state machines for aesthetic line-count reduction.
 
-The largest avoidable complexity was in repository maintenance and evidence tooling: independent writers racing on Git refs, filesystem-mtime source discovery, nondeterministic ZIP packaging, duplicate self-check implementations, pre-install workflow state that survived installation, fixtures that encoded checkout paths and generator line numbers, and catalog code that treated filtered list captures as authoritative absence evidence.
+The largest avoidable complexity was in repository maintenance and evidence tooling: independent writers racing on Git refs, filesystem-mtime source discovery, nondeterministic ZIP packaging, duplicate self-check implementations, pre-install workflow state that survived installation, fixtures that encoded checkout paths and generator line numbers, catalog code that treated filtered list captures as authoritative absence evidence, and generated contracts that carried stale source provenance despite matching the newer pinned source semantically.
 
 ## Changes
 
@@ -39,7 +39,7 @@ Validation: the rewritten generator produced the five entity answer files plus `
 
 Added `.github/scripts/pack_skills.py`. ZIP timestamps and permissions are deterministic, and only Git-tracked files are packaged. Checkout mtimes, `__pycache__`, and scratch files can no longer change distributable bytes.
 
-Validation: the workflow built each ZIP twice in one run and verified identical SHA-256 values. Subsequent skill changes regenerated only the affected deterministic ZIP.
+Validation: workflows built each ZIP twice in one run and verified identical SHA-256 values. Subsequent skill changes regenerated only the affected deterministic ZIP.
 
 ### Session and consistency tooling
 
@@ -47,7 +47,7 @@ Validation: the workflow built each ZIP twice in one run and verified identical 
 
 `selfcheck_for_bundle.py` is now a compatibility wrapper around `selfcheck.py` instead of a second implementation. The prior `selfcheck.py` could append cross-module errors after printing its error list, producing a failing exit code without displaying the new error. The single implementation now reports what it counts.
 
-Generated-contract provenance checking now compares source identity instead of assuming independently extracted contracts must share an extraction date. The existing 45c versus 45d/45g source mismatch remains visible; it was not simplified away.
+Generated-contract provenance checking now compares source identity instead of assuming independently extracted contracts must share an extraction date. The provenance mismatch found by that stronger check was subsequently resolved against the exact pinned game source; see **Contract provenance reconciliation** below.
 
 The old `idsWithNumberField` recovery explanation was removed because `schema_extract.py` now resolves that cross-module family directly. The regression invariant remains checked.
 
@@ -90,6 +90,34 @@ The fold path now distinguishes authoritative unfiltered listings from filtered 
 
 `refresh_catalogs.py` also contained a never-called `emit_index()` implementation and claimed to regenerate INDEX files even though its `build()` path only writes compact `4x_DATA_*_catalog.json` files. The dead INDEX path was removed and the CLI description now matches actual behavior; the catalog-building logic was otherwise left unchanged.
 
+### Contract provenance reconciliation
+
+The strengthened self-check exposed a genuine source-label mismatch: `45c_DATA_constructors.json`, `45e_DATA_constants.json`, and `45f_DATA_procedures.json` already identified `studie-tech/TheNinjaRPG@bdec2883`, while `45d_DATA_entity_schemas.json` and `45g_DATA_checks.json` still identified the older `TheNinjaRPG-main__3_.zip` source drop.
+
+This was resolved by re-extracting from the exact public upstream commit `bdec2883748f029a0ecb93505adfdcbae6851fe9`, not by suppressing the warning or hand-editing provenance.
+
+A read-only probe first regenerated the source family and proved:
+
+- constructor invariants: 5 unions / 128 variants / 0 errors;
+- `schema_diff.py` for 45c: 0 breaking changes, 0 additions;
+- `schema_diff.py` for 45d: 0 breaking changes, 0 additions;
+- `schema_diff.py` for 45e: 0 breaking changes, 0 additions;
+- current 45c payload equals the pinned-source candidate excluding provenance;
+- current 45f payload equals the pinned-source candidate excluding provenance;
+- all hand-held `_class: law` blocks in 45g are unchanged;
+- recursive semantic diff excluding `_provenance`: **0 differences in 45d and 0 differences in 45g**.
+
+Because `schema_diff.py` does not inspect 45g's check-block semantics, the adoption did not rely on a vacuous 45g structural result. It used an explicit recursive semantic equality assertion plus exact equality of the hand-held law blocks.
+
+After those gates, 45d and 45g were regenerated and adopted. The resulting self-check reported:
+
+- generated source: `git:studie-tech/TheNinjaRPG@bdec2883 (2026-08-29)`;
+- factory selftest: 20/20 passed;
+- `validate.py` consumes 16/16 declared 45g blocks;
+- **0 errors**.
+
+The root `45g_DATA_checks.json` and deterministic `dist/building-tnr-content.zip` were then regenerated from the reconciled skill source. A one-shot reconciliation workflow used for this evidence was removed before the review snapshot.
+
 ## Verification evidence
 
 ### Forge executable surface
@@ -123,25 +151,44 @@ Catalog/skill implementation snapshot `be1dd278dc4c149aadb5fcb57d7ebd3245e72237`
 
 Earlier branch evidence also established that the simplified answer generator produced no answer-layer diff and that concurrent answer/skillpack writers no longer lost a push race.
 
+### Contract reconciliation surface
+
+- Read-only exact-source probe run `34339706768`: **success**.
+  - exact upstream: `studie-tech/TheNinjaRPG@bdec2883748f029a0ecb93505adfdcbae6851fe9`;
+  - invariant and structural adoption gates: success;
+  - 45d semantic delta excluding provenance: 0;
+  - 45g semantic delta excluding provenance: 0;
+  - 45g law blocks unchanged.
+- Adoption run `34339887245`: **success**.
+  - exact-source regeneration: success;
+  - structural/source-family gates: success;
+  - full generated-data selfcheck after replacement: **0 errors**;
+  - generated contract commit `aebe81c7d99fafe98d66feb4d735d1deac49b672` changed only skill 45d/45g provenance and source hashes.
+- Packaged propagation run `34340007228`: **success**.
+  - full selfcheck, doctrine map, doctrine projection, and pack/TOC checks: success;
+  - deterministic skill ZIP double-build: success;
+  - generated commit `ad430dc5b2ff9993c126be1bacc7c40ac5a41a8b` changed only root `45g_DATA_checks.json` and `dist/building-tnr-content.zip`.
+- One-shot reconciliation workflow removed in `e52dcc2536998dfc1e539a1d034317ae5f8dc154`.
+
 ## Deliberately not rewritten
 
 - Forge's journal/reconciliation/crash state machine and adversarial tests: realistic production failure modes, not speculative edge cases.
 - `forge/src/ui/dom.mjs::installCss()`: it can likely become a normal `<style>.textContent` path and lose the constructable-sheet/rule-splitting fallback. That is a production bundle change requiring a Forge version/release cycle; the readability gain did not justify expanding this audit into another deployed-bundle release.
-- Generated contract source mismatch: `45c_DATA_constructors.json` and `45d_DATA_entity_schemas.json` / `45g_DATA_checks.json` do not currently share source provenance. This needs source extraction + structural diff + adoption, not suppression of the warning.
 - Large validator/harvest/mission/enemy code paths whose complexity is strongly tied to game contracts or safety were not flattened without a stronger regression corpus.
+- `session_open.py -> selfcheck.py` wiring was not folded into the provenance repair. The provenance blocker is now gone, so that guard can be added as a separate tooling change with its own startup/latency semantics rather than being smuggled into a generated-data reconciliation.
 
 ## Remaining non-blocking debt
 
 1. `forge/package-lock.json` root metadata still identifies the package as `0.1.0` while `forge/package.json` is `0.2.0`. `npm ci` is reproducible and passes, but normalize the metadata during the next intentional dependency/lockfile refresh rather than hand-editing the lockfile.
 2. The three high dev-tool advisories should be reviewed during that dependency refresh. Runtime audit is currently clean.
 3. Other installed workflows still have historical copies under `state/staged_workflows/`. Retire them only after resolving every remaining reference; do not delete them blindly.
-4. `session_open.py` does not run the full `selfcheck.py`. Enabling that now would make every session red because the genuine generated-contract provenance mismatch remains unresolved. Resolve the contract mismatch first, then close that guard gap.
+4. `session_open.py` still does not run the full `selfcheck.py`. The former provenance blocker is now resolved and full selfcheck is green, so this can be wired as a distinct follow-up if startup cost/behavior is acceptable.
 5. `commit_generated.py` depends on workflow retrigger/convergence after a clean cross-workflow rebase; the independent reviewer should verify that system property rather than treating the helper itself as a freshness oracle.
 6. The Forge DOM stylesheet helper is a good future small refactor when a bundle version is already being cut.
 
 ## Independent review request
 
-Fable should review the frozen handoff SHA containing this report, with `e3acca41e8b05a3273d214fcf391f5138b51dbc5` as the executable snapshot. Review primarily for:
+Fable should review the frozen handoff SHA containing this report, with `e52dcc2536998dfc1e539a1d034317ae5f8dc154` as the contract-reconciled implementation snapshot. Review primarily for:
 
 - correctness of `commit_generated.py` under concurrent writers and conflicts, including whether each input-changing writer reliably retriggers any generator whose rebased output could otherwise be stale;
 - release-pin convergence when runs are cancelled/coalesced;
@@ -151,6 +198,9 @@ Fable should review the frozen handoff SHA containing this report, with `e3acca4
 - filtered catalog captures never becoming absence evidence while full listings still do;
 - whether any simplified workflow lost a required trigger, permission, or failure mode;
 - any accidental weakening of self-check/provenance diagnostics;
+- the exact-source provenance reconciliation evidence, especially that 45g semantic equality was checked separately from `schema_diff.py`;
 - whether the removed `refresh_catalogs.py` INDEX emitter was truly dead rather than an undocumented external API.
+
+The earlier 45c/45d/45g source mismatch is **closed** and should not be carried forward as review debt.
 
 Do not use live-game requests during review. A green GitHub branch is not authorization to operate the game.
