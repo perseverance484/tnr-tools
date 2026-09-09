@@ -1,206 +1,134 @@
 # Repository precision and simplification audit
 
-Status: **READY FOR INDEPENDENT REVIEW**  
-Contract-reconciled implementation snapshot: `e52dcc2536998dfc1e539a1d034317ae5f8dc154`  
+Status: **USER-DIRECTED INTEGRATION CANDIDATE**  
 Base: `main@991e32d4651a147e32d08474ea87f3ce80bc27f7`  
-Branch: `chatgpt/repo-simplification-audit`
+Branch: `chatgpt/repo-simplification-audit`  
+Corrected executable snapshot: `b9c57daf04ec39f71a7ed28285a343ea6467096d`
 
-## Objective
+## Scope and judgment
 
-Audit hand-written repository code for precision, concision, accidental complexity, duplicate mechanisms, and tests that protect impossible or tautological states. Rewrite where the simpler implementation preserves or strengthens the repository's safety invariants. Do not reduce live-write safety merely to reduce line count.
+This audit targeted hand-written repository code for accidental complexity, duplicate mechanisms, misleading tests, nondeterministic generation, and weak repository-maintenance invariants. It did **not** flatten Forge's journal, crash recovery, mutation ambiguity, reconciliation, or read-back state machines: those model realistic production failures.
 
-No live-game requests, writes, cookies, credentials, or production actions were used.
+No live-game request, write, cookie, credential, or production action was used.
 
-## Review judgment
+## Simplifications and fixes
 
-Forge's mutation journal, write-ahead transitions, crash recovery, ambiguous-response handling, reconciliation, read-back, rate-limit handling, and adversarial tests are mostly necessary complexity. They model browser crashes, uncertain mutations, multi-tab execution, and production read failures that can happen. This audit did **not** collapse those state machines for aesthetic line-count reduction.
+- Repository-generated commits use one repo-owned rebase/retry helper instead of several ad hoc write-back mechanisms.
+- Answer generation reads explicit canonical seed files instead of filesystem-mtime heuristics; regeneration produced no answer-layer diff.
+- Skill ZIPs are deterministic, contain only tracked runtime files, exclude archive-only art, and fail above 2 MiB.
+- Duplicate self-check implementations were collapsed; counted errors are now always printed.
+- Doctrine and pack renderers lost dead/repeated work while retaining byte-stable outputs.
+- Release pinning converges both current loaders on every bundle-triggered run.
+- Forge has read-only CI for runtime dependency audit, 202 tests, fixture parity, and bundle parity.
+- tRPC fixtures no longer encode checkout paths or the fixture generator's own line numbers.
+- Filtered `getAllNames` captures no longer become false absence evidence in catalogs.
+- The dead `refresh_catalogs.py` INDEX emitter was removed; its CLI now describes what it actually writes.
+- Generated contract provenance was reconciled across 45c/45d/45e/45f/45g to the same pinned source family.
 
-The largest avoidable complexity was in repository maintenance and evidence tooling: independent writers racing on Git refs, filesystem-mtime source discovery, nondeterministic ZIP packaging, duplicate self-check implementations, pre-install workflow state that survived installation, fixtures that encoded checkout paths and generator line numbers, catalog code that treated filtered list captures as authoritative absence evidence, and generated contracts that carried stale source provenance despite matching the newer pinned source semantically.
+## Contract provenance reconciliation
 
-## Changes
+The earlier mismatch was real: 45c/45e/45f identified `studie-tech/TheNinjaRPG@bdec2883`, while 45d/45g still identified an older ZIP drop.
 
-### Repository writers
+The branch re-extracted from exact upstream commit `bdec2883748f029a0ecb93505adfdcbae6851fe9` and proved before adoption:
 
-Added `.github/scripts/commit_generated.py` and routed generated-file writers through one repository-owned rebase/retry path instead of several ad hoc write-back mechanisms.
+- constructor invariants: 5 unions, 128 variants, 0 errors;
+- structural diffs for 45c/45d/45e: 0 breaking changes and 0 additions;
+- recursive semantic payload equality for 45d and 45g after removing `_provenance`;
+- 45g hand-held law blocks unchanged;
+- full selfcheck after adoption: factory 20/20, validator 16/16, 0 errors.
 
-The motivating failure was observed on production `main`: `skillpack` completed its gates, then its push was rejected because `release-pin` advanced `main` first. On this branch, concurrent `answers` and `skillpack` runs both completed successfully using the shared writer path.
+This closes the **internal provenance split only**. `bdec2883` is older than the Forge source pin `345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9` and older than the current upstream/sentinel source. The current 45d item-field differences reported by the sentinel are therefore a source-pin/currentness issue, not an extractor/provenance mismatch. No newer contract set was adopted in this audit.
 
-`relay.yml` now rebuilds its merge against fresh remote state after a lost push instead of retrying a stale merge. `answers.yml`, `skillpack.yml`, `regen_schemas.yml`, `scrub.yml`, and `release_pin.yml` were reduced around repository-owned scripts.
+## Independent Fable review and corrections
 
-Important review caveat: `commit_generated.py` resolves a concurrent branch advance by rebasing the already-generated commit; it does **not** rerun the generator after that advance. Current workflows rely on input-changing commits to retrigger the affected generator so the latest run converges. A clean rebase alone is not proof that generated bytes are fresh. Independent review should verify those retrigger assumptions for every writer.
+Fable independently reviewed `d35889d2034872046faf817f5f16bc904a8e7747` at `claude/builder-app-production-readiness-kelsib@e5d7ef447ac0512cfb09b3fe2c6dd46ccc7b70f3`. The durable review is `docs/reviews/REPO_SIMPLIFICATION_D35889D_REVIEW.md` on that branch.
 
-### Answer generation
+The user then explicitly assigned ChatGPT the correction pass and immediate `main` integration. That means the corrected snapshot below does not receive a second Fable re-review before integration; the correction surface is instead mechanically re-gated in full.
 
-`.github/scripts/build_answers.py` now reads explicit canonical seed files under `harvests/seed/` rather than recursively guessing the newest source from filename patterns and filesystem mtimes. Hot inbox records remain a separate delta input.
+### F1 — skill ZIP ruling fidelity — CLOSED
 
-Validation: the rewritten generator produced the five entity answer files plus `hot.json`; the workflow reported `no generated changes`. The simpler source routing therefore reproduced the existing answer layer byte-for-byte.
+`.github/scripts/pack_skills.py` now excludes:
 
-### Skill packaging
+- `data/rank_icons/**`;
+- `data/frames/**`;
+- `*_raw.png`.
 
-Added `.github/scripts/pack_skills.py`. ZIP timestamps and permissions are deterministic, and only Git-tracked files are packaged. Checkout mtimes, `__pycache__`, and scratch files can no longer change distributable bytes.
+It also fails if any skill ZIP exceeds 2 MiB. The installed skillpack workflow remains deterministic and its staged historical copy is now a compatibility mirror, so following the old board pointer cannot reinstall the former nondeterministic implementation.
 
-Validation: workflows built each ZIP twice in one run and verified identical SHA-256 values. Subsequent skill changes regenerated only the affected deterministic ZIP.
+Skillpack run `34415837438`: **success**.
 
-### Session and consistency tooling
+- `building-tnr-content.zip`: 382,021 bytes;
+- `producing-tnr-art.zip`: 80,582 bytes;
+- both repeated builds had identical SHA-256 values;
+- doctrine/pack checks and `catalog_sync.py --selftest` passed.
 
-`session_open.py` and `session_close.py` were simplified. A session-close self-test that appended text and then asserted the string differed was removed; it tested Python/file-string mechanics rather than a repository invariant.
+### F2 — load-bearing rationale — CLOSED
 
-`selfcheck_for_bundle.py` is now a compatibility wrapper around `selfcheck.py` instead of a second implementation. The prior `selfcheck.py` could append cross-module errors after printing its error list, producing a failing exit code without displaying the new error. The single implementation now reports what it counts.
+Minimal rationale was restored without bringing back long historical comments:
 
-Generated-contract provenance checking now compares source identity instead of assuming independently extracted contracts must share an extraction date. The provenance mismatch found by that stronger check was subsequently resolved against the exact pinned game source; see **Contract provenance reconciliation** below.
+- scrub step names the fail-closed `SCRUB_STRINGS` requirement;
+- release-pin checker states why floating bundle URLs are unsafe;
+- mixed tRPC fixture scenario states why shared HTTP status cannot determine per-item outcome;
+- schema-sentinel step names state public/read-only fetch and signal-only/no-adoption behavior;
+- missing selfcheck contracts now print an actionable `--generated`/sync hint.
 
-The old `idsWithNumberField` recovery explanation was removed because `schema_extract.py` now resolves that cross-module family directly. The regression invariant remains checked.
+### F3 — provenance wording — CLOSED
 
-### Doctrine and pack renderers
+The audit now explicitly distinguishes **provenance reconciliation at `bdec2883`** from **contract currentness**. The sentinel/current-source adoption process remains separate and fail-closed.
 
-Removed dead/repeated work in `render_doctrine.py` and `build_packs.py` while retaining deterministic rendered bytes. An initial rename of `MARK`/`BMARK` broke `doctrinemap.py`; CI caught it and the existing interface names were restored instead of propagating needless churn.
+### F4 — regenerate-after-rebase proposal — NOT REPRODUCED
 
-Validation after correction: doctrine map clean, doctrine projections current, packs/TOCs current.
+A disposable Git repository reproduced the alleged race shape against the actual Git behavior used by `.github/scripts/commit_generated.py`:
 
-### Release pinning
+- stale generated commit rebased over a newer commit changing the **same artifact**: rebase conflicts and aborts;
+- stale generated commit rebased over a **disjoint** remote change: rebase succeeds and the artifact is preserved.
 
-The old release-pin workflow combined `cancel-in-progress: true` with `git diff HEAD~1 HEAD` target selection. If a run for one bundle were cancelled by a later bundle commit, the latest run could pin only the later bundle and leave the first loader stale.
+The claimed clean-rebase overwrite of a newer same-path generated artifact therefore was not reproduced. No regenerate-after-rebase loop was added without a failing case.
 
-`.github/scripts/pin_release.py` now pins **both current bundle loaders on every release-pin run** to `GITHUB_SHA`. The latest successful run therefore converges both loaders to the repository state it contains regardless of which bundle triggered it.
+### F5 — Forge/harvest CI coupling — CLOSED
 
-`forge/tools/check_release_pin.mjs` was reduced around the installed workflow and rejects the old last-commit-only selection pattern. `state/staged_workflows/release_pin.yml` remains only as a compact compatibility mirror because existing tests still exercise that path; the installed workflow is authoritative.
+`.github/workflows/forge.yml` now triggers on `skills/building-tnr-content/scripts/harvest.py` for both push and pull request events.
 
-### Forge CI and fixtures
+Forge run `34415837435`: **success**.
 
-Added `.github/workflows/forge.yml` with read-only repository permissions. It runs:
+- production dependency audit: 0 vulnerabilities;
+- tests: 202/202 pass;
+- regenerated envelope fixtures: byte-identical;
+- fresh `forge_bundle.js`: byte-identical.
 
-1. `npm ci`
-2. `npm audit --omit=dev --audit-level=high`
-3. `npm test`
-4. `npm run fixtures` followed by byte diff of `test/fixtures/envelope`
-5. `npm run build` followed by byte diff of `forge_bundle.js`
+### F6 — informational notes
 
-The first fixture parity run exposed absolute checkout paths in tRPC stack strings. After path normalization, the next run exposed source line numbers from `tools/derive_envelope.mjs`. Both are incidental generator context, not the transport contract. The generator now canonicalizes its own file URL and its own stack locations to `:0:0`; dependency stack frames and protocol payloads remain intact. Five checked error fixtures were regenerated once to that stable representation.
+The remaining observations are not integration blockers. Historical staged workflows should be retired only when their remaining references are deliberately cleaned up; explicit answer-seed routing and release-pin mirror checking can be hardened later if a concrete failure case appears.
 
-### Catalog integrity
+## Other verification evidence
 
-`catalog_sync.py` previously treated every captured `*.getAllNames` response as a complete authoritative listing. A filtered capture such as `gameAsset.getAllNames` with a type filter could therefore mark every catalog row outside that filter as absent. That contradicted the repository's own evidence rule that absence from a filtered call proves nothing.
+Earlier successful branch evidence remains applicable:
 
-The fold path now distinguishes authoritative unfiltered listings from filtered captures. Filtered name captures are skipped for absence accounting rather than converted into false tombstones. The same cleanup also:
+- deterministic answer generation: no generated answer changes;
+- concurrent generated writers: both writers completed after the shared retry rewrite;
+- catalog filtered-list selftest: pass;
+- contract exact-source probe `34339706768`: success;
+- contract adoption `34339887245`: success;
+- packaged contract propagation `34340007228`: success;
+- correction scrub `34415837515`: success.
 
-- uses one UTC timestamp per operation rather than reading the clock twice;
-- indexes existing rows by id instead of rescanning the catalog for every typed push entry;
-- adds a focused `catalog_sync.py --selftest` covering the filtered-list invariant and normal full-list absence marking;
-- runs that self-test in `skillpack` before packaging.
+## Deliberately retained complexity
 
-`refresh_catalogs.py` also contained a never-called `emit_index()` implementation and claimed to regenerate INDEX files even though its `build()` path only writes compact `4x_DATA_*_catalog.json` files. The dead INDEX path was removed and the CLI description now matches actual behavior; the catalog-building logic was otherwise left unchanged.
-
-### Contract provenance reconciliation
-
-The strengthened self-check exposed a genuine source-label mismatch: `45c_DATA_constructors.json`, `45e_DATA_constants.json`, and `45f_DATA_procedures.json` already identified `studie-tech/TheNinjaRPG@bdec2883`, while `45d_DATA_entity_schemas.json` and `45g_DATA_checks.json` still identified the older `TheNinjaRPG-main__3_.zip` source drop.
-
-This was resolved by re-extracting from the exact public upstream commit `bdec2883748f029a0ecb93505adfdcbae6851fe9`, not by suppressing the warning or hand-editing provenance.
-
-A read-only probe first regenerated the source family and proved:
-
-- constructor invariants: 5 unions / 128 variants / 0 errors;
-- `schema_diff.py` for 45c: 0 breaking changes, 0 additions;
-- `schema_diff.py` for 45d: 0 breaking changes, 0 additions;
-- `schema_diff.py` for 45e: 0 breaking changes, 0 additions;
-- current 45c payload equals the pinned-source candidate excluding provenance;
-- current 45f payload equals the pinned-source candidate excluding provenance;
-- all hand-held `_class: law` blocks in 45g are unchanged;
-- recursive semantic diff excluding `_provenance`: **0 differences in 45d and 0 differences in 45g**.
-
-Because `schema_diff.py` does not inspect 45g's check-block semantics, the adoption did not rely on a vacuous 45g structural result. It used an explicit recursive semantic equality assertion plus exact equality of the hand-held law blocks.
-
-After those gates, 45d and 45g were regenerated and adopted. The resulting self-check reported:
-
-- generated source: `git:studie-tech/TheNinjaRPG@bdec2883 (2026-08-29)`;
-- factory selftest: 20/20 passed;
-- `validate.py` consumes 16/16 declared 45g blocks;
-- **0 errors**.
-
-The root `45g_DATA_checks.json` and deterministic `dist/building-tnr-content.zip` were then regenerated from the reconciled skill source. A one-shot reconciliation workflow used for this evidence was removed before the review snapshot.
-
-## Verification evidence
-
-### Forge executable surface
-
-Exact Forge/CI implementation snapshot `3a6abe6229192fba382c81c7e8cc8b33161e0ed7`:
-
-- Forge Actions run `34306910241`: **success**.
-  - `npm ci`: success.
-  - runtime dependency audit: success.
-  - `npm test`: success.
-  - regenerated envelope fixtures: byte-identical.
-  - fresh `forge_bundle.js`: byte-identical.
-- Scrub run `34306910159`: **success**.
-
-No Forge source, fixture, dependency, or bundle file changed after that verified snapshot.
-
-Plain `npm ci` reports three high-severity advisories in the development/test dependency graph. The production-only audit passes, so these are **not shipped runtime dependency vulnerabilities**. They remain dev-tool maintenance debt; do not use `npm audit fix --force` without reviewing the dependency changes.
-
-### Catalog and skill surface
-
-Catalog/skill implementation snapshot `be1dd278dc4c149aadb5fcb57d7ebd3245e72237`:
-
-- Skillpack run `34307218011`: **success**.
-  - doctrine/pack source checks: success;
-  - `catalog_sync.py --selftest`: success;
-  - deterministic ZIP double-build: success;
-  - generated contract sync: success;
-  - generated commit: success.
-- Scrub run `34307218003`: **success**.
-- Auto-generated follow-up `e3acca41e8b05a3273d214fcf391f5138b51dbc5` changed only `dist/building-tnr-content.zip`, as expected from the tracked skill-script changes.
-
-Earlier branch evidence also established that the simplified answer generator produced no answer-layer diff and that concurrent answer/skillpack writers no longer lost a push race.
-
-### Contract reconciliation surface
-
-- Read-only exact-source probe run `34339706768`: **success**.
-  - exact upstream: `studie-tech/TheNinjaRPG@bdec2883748f029a0ecb93505adfdcbae6851fe9`;
-  - invariant and structural adoption gates: success;
-  - 45d semantic delta excluding provenance: 0;
-  - 45g semantic delta excluding provenance: 0;
-  - 45g law blocks unchanged.
-- Adoption run `34339887245`: **success**.
-  - exact-source regeneration: success;
-  - structural/source-family gates: success;
-  - full generated-data selfcheck after replacement: **0 errors**;
-  - generated contract commit `aebe81c7d99fafe98d66feb4d735d1deac49b672` changed only skill 45d/45g provenance and source hashes.
-- Packaged propagation run `34340007228`: **success**.
-  - full selfcheck, doctrine map, doctrine projection, and pack/TOC checks: success;
-  - deterministic skill ZIP double-build: success;
-  - generated commit `ad430dc5b2ff9993c126be1bacc7c40ac5a41a8b` changed only root `45g_DATA_checks.json` and `dist/building-tnr-content.zip`.
-- One-shot reconciliation workflow removed in `e52dcc2536998dfc1e539a1d034317ae5f8dc154`.
-
-## Deliberately not rewritten
-
-- Forge's journal/reconciliation/crash state machine and adversarial tests: realistic production failure modes, not speculative edge cases.
-- `forge/src/ui/dom.mjs::installCss()`: it can likely become a normal `<style>.textContent` path and lose the constructable-sheet/rule-splitting fallback. That is a production bundle change requiring a Forge version/release cycle; the readability gain did not justify expanding this audit into another deployed-bundle release.
-- Large validator/harvest/mission/enemy code paths whose complexity is strongly tied to game contracts or safety were not flattened without a stronger regression corpus.
-- `session_open.py -> selfcheck.py` wiring was not folded into the provenance repair. The provenance blocker is now gone, so that guard can be added as a separate tooling change with its own startup/latency semantics rather than being smuggled into a generated-data reconciliation.
+- Forge mutation journal/reconciliation/crash tests and state transitions;
+- validators and content tools whose branching maps directly to game contracts;
+- `forge/src/ui/dom.mjs::installCss()` until a real Forge bundle release justifies source/bundle churn.
 
 ## Remaining non-blocking debt
 
-1. `forge/package-lock.json` root metadata still identifies the package as `0.1.0` while `forge/package.json` is `0.2.0`. `npm ci` is reproducible and passes, but normalize the metadata during the next intentional dependency/lockfile refresh rather than hand-editing the lockfile.
-2. The three high dev-tool advisories should be reviewed during that dependency refresh. Runtime audit is currently clean.
-3. Other installed workflows still have historical copies under `state/staged_workflows/`. Retire them only after resolving every remaining reference; do not delete them blindly.
-4. `session_open.py` still does not run the full `selfcheck.py`. The former provenance blocker is now resolved and full selfcheck is green, so this can be wired as a distinct follow-up if startup cost/behavior is acceptable.
-5. `commit_generated.py` depends on workflow retrigger/convergence after a clean cross-workflow rebase; the independent reviewer should verify that system property rather than treating the helper itself as a freshness oracle.
-6. The Forge DOM stylesheet helper is a good future small refactor when a bundle version is already being cut.
+1. `forge/package-lock.json` root metadata still says 0.1.0 while `forge/package.json` is 0.2.0; normalize during an intentional lockfile/dependency refresh.
+2. Plain `npm ci` reports three high dev-tool advisories; `npm audit --omit=dev --audit-level=high` is clean. Do not force-upgrade without reviewing toolchain impact.
+3. Historical staged workflow copies still exist where current state/tests reference them. Retire them deliberately, not blindly.
+4. `session_open.py` still does not run the full selfcheck. The former provenance blocker is gone; wiring it remains a separate startup/tooling change.
+5. Current upstream contract drift remains signal-only until the repository's structural adoption process is intentionally run.
+6. The Forge DOM stylesheet helper remains a future readability refactor when a bundle release is already being cut.
 
-## Independent review request
+## Integration
 
-Fable should review the frozen handoff SHA containing this report, with `e52dcc2536998dfc1e539a1d034317ae5f8dc154` as the contract-reconciled implementation snapshot. Review primarily for:
+Before integration, re-verify live `main`; automation may have advanced it. Merge normally so current sentinel/content history is preserved. Do not force-update `main`.
 
-- correctness of `commit_generated.py` under concurrent writers and conflicts, including whether each input-changing writer reliably retriggers any generator whose rebased output could otherwise be stale;
-- release-pin convergence when runs are cancelled/coalesced;
-- determinism and exact contents of `pack_skills.py`;
-- whether the answer generator's canonical seed routing loses any legitimate source class;
-- fixture normalization being limited to non-contract local stack locations;
-- filtered catalog captures never becoming absence evidence while full listings still do;
-- whether any simplified workflow lost a required trigger, permission, or failure mode;
-- any accidental weakening of self-check/provenance diagnostics;
-- the exact-source provenance reconciliation evidence, especially that 45g semantic equality was checked separately from `schema_diff.py`;
-- whether the removed `refresh_catalogs.py` INDEX emitter was truly dead rather than an undocumented external API.
-
-The earlier 45c/45d/45g source mismatch is **closed** and should not be carried forward as review debt.
-
-Do not use live-game requests during review. A green GitHub branch is not authorization to operate the game.
+Nothing in this audit authorizes operating the live game.
