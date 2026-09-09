@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-09-08)
+# DRIFT.md - upstream contract drift (2026-09-09)
 
-Upstream: studie-tech/TheNinjaRPG@e02f815954c14eeb8c2fcbc4a589a506971e0ed7
+Upstream: studie-tech/TheNinjaRPG@62af1b3405b10183b31f838c9a5f131d790460f1
 
 The extracted 45x contract hashes changed vs the last sentinel
 baseline. SIGNAL ONLY: nothing was adopted. Adoption is manual
@@ -14,18 +14,18 @@ Structural diff, SHIPPED vs upstream:
 no breaking changes: 0 addition(s), safe to adopt (exit 0)
 == 45d_DATA_entity_schemas ==
 CHANGES
-  now-required  item  farmYieldItemId  optional -> required
-  now-required  item  isFarmSeed  optional -> required
-  now-required  item  farmExtractSeedItemId  optional -> required
-  now-required  item  farmExtractSeedCount  optional -> required
-  now-required  item  isFarmFertilizer  optional -> required
-  now-required  item  farmGrowTimeSeconds  optional -> required
-  now-required  item  farmPlantExperience  optional -> required
-  now-required  item  farmHarvestExperience  optional -> required
-  now-required  item  farmTimeReductionSeconds  optional -> required
-  now-required  item  farmSellValue  optional -> required
   now-required  item  farmFertilizerExperience  optional -> required
+  now-required  item  farmSellValue  optional -> required
+  now-required  item  farmExtractSeedCount  optional -> required
+  now-required  item  farmHarvestExperience  optional -> required
   now-required  item  farmMinLevel  optional -> required
+  now-required  item  isFarmSeed  optional -> required
+  now-required  item  farmGrowTimeSeconds  optional -> required
+  now-required  item  farmYieldItemId  optional -> required
+  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  isFarmFertilizer  optional -> required
+  now-required  item  farmExtractSeedItemId  optional -> required
+  now-required  item  farmPlantExperience  optional -> required
 ADDITIONS
   field  item  farmExtractSeedCount
   field  item  farmExtractSeedItemId
