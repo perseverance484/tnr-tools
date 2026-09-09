@@ -13,9 +13,20 @@ narrow re-check: this pass is wider than the F4 correction.
 | implementation branch | `claude/builder-app-production-readiness-kelsib` |
 | base (prior implementation head) | `4062268f433ffd4d1f9b7b1e2678367ecad9119c` (`builder-app`) |
 | merge-base with main | `4a506dff0af7dd499c8b580af4f0c14fdfc48c1c` |
-| head (FROZEN) | see `HEAD_SHA` at the end of this file |
+| head (FROZEN) | see "Correction round 1" below |
 | `main` observed at handoff | `4a506dff0af7dd499c8b580af4f0c14fdfc48c1c` |
 | integration target | `main`, when the review passes. Not merged here. |
+
+### Review rounds
+
+| round | reviewed head | review | verdict |
+|---|---|---|---|
+| 1 | `c388ea65e0783f4e8ad0670949f23dfc420b205f` | `chatgpt/review-builder-app-readiness-c388ea6` @ `06392fbbe1d2893a98ff16ee4f430e9ee0218297`, `docs/reviews/BUILDER_APP_READINESS_C388EA6_REVIEW.md` | CHANGES REQUIRED: 2 blockers |
+| 2 | this handoff's frozen head | pending | — |
+
+Round 1 reviewed `c388ea6`, which is `5998db2` (the round-1 handoff commit) plus the automatic
+skillpack rebuild the harvest.py change triggered. Both blockers are corrected below; nothing else
+was touched.
 
 **Branch deviation, stated plainly.** The brief says to work on `builder-app`. This session was
 assigned `claude/builder-app-production-readiness-kelsib` and told never to push elsewhere, so the
@@ -95,16 +106,19 @@ Run from `forge/` unless stated. Node v22.22.2, `npm ci` from the committed lock
 
 | command | result |
 |---|---|
-| `npm test` | **199 tests, 199 pass, 0 fail** (was 168 at `4062268`) |
+| `npm test` | **202 tests, 202 pass, 0 fail** (199 at round 1; 168 at `4062268`) |
 | `npm run build` | `wrote /home/user/tnr-tools/forge_bundle.js (342.2 KB)` |
 | rebuild diff: `cp forge_bundle.js /tmp/b.js && npm run build && cmp /tmp/b.js ../forge_bundle.js` | identical — **deterministic**, and the checked-in bundle matches a fresh build |
 | `npm run fixtures` then `diff -r` against the pre-run copy | **byte-identical**; no adapter fixture input changed |
 | `node tools/derive_fields.mjs <pin> \| cmp - src/runner/fields.json` | **byte-identical** — `fields.json` reproduces from the pin |
 | `node tools/derive_nested.mjs <pin> \| cmp - src/runner/nested.json` | **byte-identical** — `nested.json` reproduces from the pin |
-| `node tools/pin_relevance.mjs <pin> <sentinel>` | exit 1 with 2 flagged surfaces; both read; verdict below |
-| `node tools/check_release_pin.mjs` | 0 blockers, 1 pending install (the dauntless workflow action) |
+| `node tools/derive_fields.mjs <game main 62af1b34> \| cmp - src/runner/fields.json` | **byte-identical** — the pin's field sets are production's today |
+| `node tools/derive_nested.mjs <game main 62af1b34> \| cmp - src/runner/nested.json` | **byte-identical** — same for the nested key surface |
+| `node tools/pin_relevance.mjs <pin> <game main 62af1b34>` | exit 1 with 3 flagged surfaces; each read individually; verdict below. The pin stays. |
+| `node tools/check_release_pin.mjs` | 0 blockers, 1 pending install (the pre-integration workflow install) |
 | `python3 skills/building-tnr-content/scripts/harvest.py verify <generated bundle>` | OK / FAIL / UNVERIFIED / ERROR for the four outcomes, `VERIFY FAILED`, **exit 1**; a clean bundle exits 0 |
-| same, over all 12 bundles in `harvests/inbox/` before and after the `harvest.py` change | **no verdict changes** |
+| same, for a skipped orphan and for a pending write (round-2 regressions) | `UNVERIFIED`, **exit 1** — was exit 0 before the correction |
+| same, over all 12 bundles in `harvests/inbox/` before and after both `harvest.py` changes | **no verdict changes** |
 | `python3 .../doctrinemap.py` (repo root) | exit 0 — 21 assertions, 18 referenced, 0 errors, 0 warnings |
 | `python3 .../render_doctrine.py --check` | exit 0 — all projections current |
 | `python3 .../build_packs.py --check` | exit 0 — all packs and TOCs current |
@@ -119,16 +133,23 @@ fixture: F4c (proved by stashing the source fix), R1-R5, K1-K6, D1-D4, N1-N5.
 
 - Game source pin, unchanged: `studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9`.
   Read from a local checkout; never executed.
-- Compared against the sentinel upstream on `main`:
-  `studie-tech/TheNinjaRPG@e02f815954c14eeb8c2fcbc4a589a506971e0ed7`.
-- **Relevance verdict: nothing forge relies on changed.** Both derived contracts (`fields.json`,
-  `nested.json`) are IDENTICAL between the two commits. Two of the 21 declared surfaces differ, both
-  read: `app/src/server/api/root.ts` registers two new routers (`push`, `purchases`), and
-  `app/drizzle/schema.ts` adds twelve device/purchase tables plus relations — no `userData` column
-  moved, which the identical 157-key `ai` field set proves independently. `trpc.ts` (the limiter),
-  all six content routers, all four validator files, the upload route, `proxy.ts`,
-  `next.config.mjs`, `global-not-found.tsx` and `app/package.json` are byte-identical. The pin is
-  retained on that evidence; `docs/DRIFT.md` output was not adopted.
+- Compared against the **actual current game `main`**, resolved fresh with `git ls-remote` at
+  2026-09-09T01:44Z: `studie-tech/TheNinjaRPG@62af1b3405b10183b31f838c9a5f131d790460f1`. (Round 1
+  compared only against this repository's sentinel snapshot `e02f8159`, which the review correctly
+  called a different claim.)
+- **Relevance verdict: nothing forge relies on changed.** `fields.json` and `nested.json`
+  regenerated from a checkout of `62af1b34` are BYTE-IDENTICAL to the checked-in files — what the
+  bundle validates against is what production's validators say today. Three of the 22 declared
+  surfaces differ, all read: `root.ts` registers two new routers (`push`, `purchases`);
+  `schema.ts` adds twelve device/purchase/store tables and their relations with no removals (no
+  `userData` column moved, proved independently by the identical 157-key `ai` field set); and
+  `constants.ts` is purely additive push/store/native constants plus one forum pagination constant
+  (forge derives key sets and never enums, so a constant cannot make it reject what the server
+  accepts). Everything else is byte-identical, including `trpc.ts`, all six content routers, all
+  four validator files, the upload route, `proxy.ts`, `next.config.mjs`, `global-not-found.tsx` and
+  `app/package.json`. Between the sentinel and current `main` the only changes at all are SEO,
+  forum, comments and public-profile work. The pin is retained on that evidence; `docs/DRIFT.md`
+  output was not adopted, and nothing was moved for being newer.
 - Generated/bundled artifacts: `forge_bundle.js` (from `forge/src` via `forge/build.mjs`),
   `src/runner/fields.json` (`tools/derive_fields.mjs`), `src/runner/nested.json`
   (`tools/derive_nested.mjs`), `test/fixtures/envelope/*` (`tools/derive_envelope.mjs`). All four
@@ -189,10 +210,13 @@ fixture: F4c (proved by stashing the source fix), R1-R5, K1-K6, D1-D4, N1-N5.
 
 ## Open decisions for dauntless
 
-1. **Install `state/staged_workflows/release_pin.yml`** at `.github/workflows/release_pin.yml`
-   through the GitHub web UI. This is the one action Fable cannot perform (the PAT cannot push
-   `.github/workflows/`); no credential workaround was attempted. Until it lands, a push to `main`
-   that changes `forge_bundle.js` does not pin the forge loader.
+1. **Release-pin workflow install — not yet, and not by this handoff.**
+   `state/staged_workflows/release_pin.yml` must be installed at
+   `.github/workflows/release_pin.yml` (web UI; the PAT cannot push `.github/workflows/`, and no
+   credential workaround was attempted) **before** the eventual `main` integration that changes
+   `forge_bundle.js`, so that the integration commit itself triggers the immutable pin — installing
+   it afterwards would not retroactively pin an already-landed bundle. It is a pre-integration user
+   action after this correction passes review, not something to do now.
 2. **The two manifest findings above** — edit those manifests, or accept that forge refuses them.
 3. The first browser smoke test and any live job remain dauntless's, after review. No production
    mutation is authorised by this pass.
@@ -202,6 +226,73 @@ fixture: F4c (proved by stashing the source fix), R1-R5, K1-K6, D1-D4, N1-N5.
 1-9 are met in this tree on the evidence above. 10 (independent approval of the exact frozen SHA)
 and 11 (the browser smoke and the first live manifest) are not, by construction.
 
-HEAD_SHA: recorded in the handoff message accompanying this document; the branch head at the time
-of writing is the tip of `claude/builder-app-production-readiness-kelsib` and is frozen until the
-review returns.
+## Correction round 1 (review of `c388ea6`)
+
+Both findings accepted; neither rejected. Nothing else changed, no architecture moved, and forge's
+own `jobOutcome()` semantics are untouched — the review is right that they were already correct.
+
+### Finding 1 (HIGH, confirmed defect): a skipped or pending Forge write could still verify green
+
+Reproduced first, through the real paths, before any code changed. A job whose only unresolved item
+was an orphan resolved with `Runner.skip()` exported a bundle that `harvest.py verify` printed as
+`SKIP … state=skipped` and exited **0** on ("verified"), while forge reported `outcome: unverified`
+and the asset row the skip walked away from was still live. A bundle exported with a create still in
+flight did the same.
+
+Fixed in `skills/building-tnr-content/scripts/harvest.py::cmd_verify()`. A forge bundle (`cfg:
+"forge"`, or entries carrying `forgeState`) now gets two rules no legacy bundle sees: a `skipped` or
+`pending` entry is UNVERIFIED rather than a skip, and the bundle's own `outcome` must be `success`
+before the gate exits 0 (a forge bundle with no `outcome` fails closed). Legacy semantics — where
+those states meant a row the builder never attempted — are unchanged.
+
+Regressions added in `forge/test/harvest.test.mjs`, all end to end through the real reconcile/skip
+and export paths and the real `harvest.py`:
+
+- an ambiguous create (two placeholder rows appeared while one create was in flight) reconciled to
+  ORPHANED, resolved with the real `Runner.skip()`, exported: verify prints `UNVERIFIED Orphan`,
+  says `VERIFY FAILED` and **exits 1**; the test also asserts the server row is still present;
+- a job exported with its create still in flight: `UNVERIFIED Pending`, non-zero exit;
+- a legacy-shaped bundle with a `pending` row: still `1 ok … 1 skipped`, **exit 0**;
+- the same shape marked as forge with no `outcome`: **exit 1**;
+- the round-1 clean forge bundle still exits 0.
+
+Both new failing cases were confirmed red against the pre-fix `harvest.py` and green after.
+
+### Finding 2 (BLOCKER, evidence gap): relevance proved against a sentinel, not production
+
+Corrected by rerunning the whole gate against the actual game `main`, resolved fresh (not assumed
+from the review): `62af1b3405b10183b31f838c9a5f131d790460f1` at 2026-09-09T01:44Z. Both derived
+contracts regenerate byte-identically from a checkout of that head; three declared surfaces differ
+and each was read individually (details in "Source / provenance" above and in
+`docs/BUILDER_APP_NOTES.md`). `app/drizzle/constants.ts` was ADDED to the declared surfaces so that
+an enum-list change is seen by the gate rather than sitting outside it — that is why the surface
+count is 22, not 21. **The pin stays at `345d18ac`.** If game `main` advances before integration,
+rerun `node tools/pin_relevance.mjs <pin-checkout> <new-head-checkout>`.
+
+### Gates rerun for this correction
+
+Every command in the Verification table above was rerun on the corrected tree; results as tabulated
+(202 tests, deterministic bundle, byte-identical fixtures and both derived artifacts, unchanged
+legacy harvest verdicts, `selfcheck.py` red identically to `main`).
+
+### Wider scope
+
+None. Two files changed for the fix (`harvest.py`, `forge/test/harvest.test.mjs`), one tool gained a
+declared surface (`forge/tools/pin_relevance.mjs`), and the notes/handoff were updated. `forge_bundle.js`
+is byte-identical to round 1 — no shipped client code changed in this correction, which is why a
+narrow re-review is appropriate.
+
+### Live-game statement for the correction
+
+Zero live requests to `theninja-rpg.com`; zero game writes; no session cookie or credential of any
+kind was used, requested or synthesised. The game source was read from a local checkout at two
+commits and never executed. `git ls-remote` and a shallow fetch against `github.com` are the only
+network calls, and they touch the public game REPOSITORY, never the game.
+
+### Frozen head
+
+Changing `skills/building-tnr-content/scripts/harvest.py` triggers an automatic skillpack rebuild
+commit on this branch after the authored commits land, exactly as it did in round 1. The frozen SHA
+for review is the remote branch head AFTER that auto-commit settles; it is recorded in the handoff
+message accompanying this document and must be re-read from
+`origin/claude/builder-app-production-readiness-kelsib` rather than assumed from an authored commit.
