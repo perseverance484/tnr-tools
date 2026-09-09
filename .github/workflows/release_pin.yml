@@ -18,13 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-      - name: Pin changed loaders
-        run: git diff --name-only HEAD~1 HEAD | python3 .github/scripts/pin_release.py
+      - name: Pin current loaders
+        run: python3 .github/scripts/pin_release.py
       - name: Commit pinned loaders
         run: >-
           python3 .github/scripts/commit_generated.py
-          "loader: pin changed bundle(s) to $GITHUB_SHA via jsDelivr [auto]"
+          "loader: pin bundles to $GITHUB_SHA via jsDelivr [auto]"
           builder_loader_user.js
           forge_loader_user.js

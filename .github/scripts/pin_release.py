@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pin changed userscript bundles to the commit that shipped them."""
+"""Pin both userscript loaders to the commit containing the current bundles."""
 
 from __future__ import annotations
 
@@ -50,16 +50,8 @@ def main() -> int:
         print("GITHUB_SHA is required", file=sys.stderr)
         return 2
 
-    changed = set(sys.stdin.read().splitlines())
-    pinned = 0
-    for bundle, loader, version_file in TARGETS:
-        if bundle in changed:
-            pin(bundle, loader, version_file, sha)
-            pinned += 1
-
-    if not pinned:
-        print("no changed bundle to pin", file=sys.stderr)
-        return 1
+    for target in TARGETS:
+        pin(*target, sha)
     return 0
 
 
