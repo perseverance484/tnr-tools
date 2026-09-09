@@ -548,7 +548,8 @@ for a discriminator the pin does not define, the structure is refused rather tha
 except that an EMPTY nested structure carries nothing to check and is not a reason to refuse.
 
 **Two real findings this surfaced in committed manifests.** Both are keys the live server drops
-today, both verified absent from the validators at the pin AND at the current upstream, and both are
+today, both re-verified absent from the validators at the pin AND at the current game `main`
+(`62af1b34`), and both are
 pinned by a test so they cannot later be mistaken for false positives:
 
 1. five quest EDITS (`push/27`, `30`, `33`, `34`, `35`) re-assert whole live records including
