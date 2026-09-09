@@ -1,46 +1,20 @@
 #!/usr/bin/env python3
-"""Regenerate the 4x_INDEX files (and repo-bound full catalogs) from harvester dumps.
+"""Regenerate trimmed working catalogs from harvester dumps.
 
-2026-08-26: project knowledge carries INDEXES only (columnar: cols + rows arrays,
-id/name/routing fields, _freshness stamp with newest createdAt). Full catalogs go
-to the tnr-tools repo. This script now emits both; keep createdAt in every index.
-
-Point it at a folder of tnr_h1_*.json harvests; it picks the newest of each
-kind and writes trimmed catalogs sized to live in project knowledge.
+Point this at a folder of `tnr_h1_*.json` harvests. It picks the newest dump
+for each entity and writes the compact `4x_DATA_*_catalog.json` files used for
+lookup, dedup, reference, and balance work.
 
   python3 refresh_catalogs.py /mnt/user-data/uploads /mnt/user-data/outputs
 
-Trim philosophy: keep every field used for lookup, dedup, reference or
-balance work. Drop cosmetics, timestamps, and anything reconstructible.
-Full dumps stay on GitHub; these are the working copies.
+Full raw harvests remain the source record; these catalogs intentionally drop
+cosmetics, timestamps, and reconstructible fields.
 """
-import json, os, re, sys, glob
+import glob
+import json
+import os
+import sys
 from collections import Counter
-
-
-
-INDEX_SPEC = {
-    "jutsu":  ("40_INDEX_jutsu.json",  ["id", "n", "rank", "type", "hid", "createdAt"]),
-    "items":  ("41_INDEX_item.json",   ["id", "n", "type", "rar", "slot", "hid", "createdAt"]),
-    "ais":    ("42_INDEX_ai.json",     ["id", "n", "lvl", "rank", "summon", "arena", "createdAt"]),
-    "assets": ("43_INDEX_asset.json",  ["id", "n", "type", "folder", "hid", "createdAt"]),
-    "quests": ("47_INDEX_quest.json",  ["id", "n", "type", "rank", "lvl", "vil", "hid", "createdAt"]),
-}
-INDEX_CONTRACT = ("INDEX ONLY, columnar: cols names the fields, each row is an array in that order. "
-    "For id/name lookup, dedup and tier routing. Full catalogs live in the tnr-tools repo; the live "
-    "game is queried via the builder capture block. Absence here proves nothing about the live game: "
-    "anything created after newest_record is invisible.")
-
-
-def emit_index(kind, rows, out_dir):
-    name, keep = INDEX_SPEC[kind]
-    slim = [[r.get(k) for k in keep] for r in rows]
-    newest = max((str(r.get("createdAt") or "")[:10] for r in rows), default="unknown")
-    with open(os.path.join(out_dir, name), "w") as fh:
-        json.dump({"_freshness": {"row_count": len(rows), "newest_record": newest or "unknown",
-                                  "contract": INDEX_CONTRACT},
-                   "cols": keep, "rows": slim}, fh, separators=(",", ":"))
-    return name
 
 
 def newest(folder, kind):
@@ -81,7 +55,6 @@ def build(folder, out):
     D = {r["userId"]: r for r in rows(deepf) if "username" in r} if deepf else {}
     V = {v["id"]: v["name"] for v in rows(newest(folder, "villages"))}
 
-    # ---- jutsu ----
     jc = []
     for j in J.values():
         jc.append({
@@ -93,7 +66,6 @@ def build(folder, out):
         })
     jc.sort(key=lambda x: x["n"].lower())
 
-    # ---- items ----
     ic = []
     for i in I.values():
         ic.append({
@@ -104,7 +76,6 @@ def build(folder, out):
         })
     ic.sort(key=lambda x: x["n"].lower())
 
-    # ---- assets ----
     ac = []
     for a in A.values():
         img = a.get("image") or ""
@@ -115,7 +86,6 @@ def build(folder, out):
         })
     ac.sort(key=lambda x: (x["type"] or "", x["n"].lower()))
 
-    # ---- quest references, so AI usage is known without re-deriving ----
     used = {}
     for q in Q.values():
         for o in (q.get("content") or {}).get("objectives") or []:
@@ -123,7 +93,6 @@ def build(folder, out):
                 for x in oa.get("ids", []):
                     used.setdefault(x, []).append(q["name"].strip())
 
-    # ---- AI ----
     aic = []
     for uid, r in D.items():
         kit = [{"id": x["jutsuId"], "n": J.get(x["jutsuId"], {}).get("name", "?").strip()}
@@ -146,7 +115,6 @@ def build(folder, out):
         })
     aic.sort(key=lambda x: (x["lvl"] or 0, x["n"].lower()))
 
-    # ---- quests ----
     qc = []
     for q in Q.values():
         c = q.get("content") or {}

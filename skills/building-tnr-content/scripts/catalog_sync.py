@@ -1,28 +1,13 @@
 #!/usr/bin/env python3
-"""Keep the live catalogs honest between full harvests.
+"""Keep catalog presence and freshness honest between full harvests."""
 
-The catalogs are STORAGE: a record of what exists in the game. They were wrong on 2026-08-28 not
-because they were old but because nothing in them said HOW old, so they got used as current. Four
-quests picked out of 47_INDEX for a capture no longer existed.
-
-So every row carries `last_verified` and `stale_after`, and a row that disappears from a full
-listing is MARKED ABSENT WITH A DATE, never deleted. Deleting loses the fact that it once existed,
-which is the thing that would have stopped it being picked.
-
-  catalog_sync.py --check                       report freshness, touch nothing
-  catalog_sync.py --fold results.json           fold a capture and/or an idmap in
-  catalog_sync.py --fold r.json --dir state/catalogs
-
-Absolute dates, not relative TTLs: staleness becomes a plain date comparison a script can make.
-A textual marker like "[OUTDATED]" is not a mechanism, because nothing compares it to now.
-"""
-import argparse, json, os, sys
+import argparse
+import json
+import os
+import sys
 from datetime import datetime, timedelta, timezone
 
-# how long a catalog kind stays trustworthy before it must be re-verified
 SHELF_LIFE_DAYS = {"quest": 7, "ai": 7, "item": 30, "jutsu": 30, "asset": 30}
-
-# which getAllNames procedure refreshes which catalog file
 PROC_TO_KIND = {
     "quests.getAllNames": "quest",
     "profile.getAllAiNames": "ai",
@@ -31,32 +16,34 @@ PROC_TO_KIND = {
     "gameAsset.getAllNames": "asset",
 }
 KIND_TO_FILE = {
-    "quest": "47_INDEX_quest.json", "ai": "42_INDEX_ai.json",
-    "item": "41_INDEX_item.json", "jutsu": "40_INDEX_jutsu.json",
+    "quest": "47_INDEX_quest.json",
+    "ai": "42_INDEX_ai.json",
+    "item": "41_INDEX_item.json",
+    "jutsu": "40_INDEX_jutsu.json",
     "asset": "43_INDEX_asset.json",
 }
 
 
-def now():
-    return datetime.now(timezone.utc)
-
-
-def iso(d):
-    return d.strftime("%Y-%m-%d")
-
-
 def load(path):
-    with open(path) as fh:
-        return json.load(fh)
+    with open(path, encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def save(path, value):
+    with open(path, "w", encoding="utf-8") as handle:
+        json.dump(value, handle, indent=1, ensure_ascii=False)
+
+
+def iso(value):
+    return value.strftime("%Y-%m-%d")
 
 
 def ensure_stamp_cols(cat):
-    """Add the stamp columns if this catalog predates them. Columnar format: cols + rows."""
     for col in ("last_verified", "absent_since"):
         if col not in cat["cols"]:
             cat["cols"].append(col)
-            for r in cat["rows"]:
-                r.append(None)
+            for row in cat["rows"]:
+                row.append(None)
     return cat
 
 
@@ -64,165 +51,216 @@ def idx(cat, col):
     return cat["cols"].index(col)
 
 
+def full_name_listing(cap):
+    """Return (kind, rows) only when absence from the capture is authoritative."""
+    kind = PROC_TO_KIND.get(cap.get("proc"))
+    data = cap.get("data")
+    if not kind or not isinstance(data, list):
+        return None
+    if cap.get("input"):
+        return kind, None
+    return kind, data
+
+
 def fold_names(cat, kind, rows_seen, stamp):
-    """rows_seen: list of {'id':..,'name':..} from a *.getAllNames capture."""
-    i_id, i_n = idx(cat, "id"), idx(cat, "n")
-    i_lv, i_ab = idx(cat, "last_verified"), idx(cat, "absent_since")
-    by_id = {r[i_id]: r for r in cat["rows"]}
+    i_id, i_name = idx(cat, "id"), idx(cat, "n")
+    i_verified, i_absent = idx(cat, "last_verified"), idx(cat, "absent_since")
+    by_id = {row[i_id]: row for row in cat["rows"]}
     seen = set()
     added = renamed = revived = 0
-    for row in rows_seen:
-        rid, name = row.get("id"), (row.get("name") or row.get("username") or "").strip()
-        if not rid:
+
+    for item in rows_seen:
+        record_id = item.get("id")
+        name = (item.get("name") or item.get("username") or "").strip()
+        if not record_id:
             continue
-        seen.add(rid)
-        if rid in by_id:
-            r = by_id[rid]
-            if name and r[i_n] != name:
-                r[i_n] = name
-                renamed += 1
-            if r[i_ab] is not None:
-                r[i_ab] = None          # it is back
-                revived += 1
-            r[i_lv] = stamp
-        else:
-            new = [None] * len(cat["cols"])
-            new[i_id], new[i_n], new[i_lv] = rid, name, stamp
-            cat["rows"].append(new)
+        seen.add(record_id)
+        row = by_id.get(record_id)
+        if row is None:
+            row = [None] * len(cat["cols"])
+            row[i_id], row[i_name], row[i_verified] = record_id, name, stamp
+            cat["rows"].append(row)
+            by_id[record_id] = row
             added += 1
-    # a full listing is authoritative about absence
-    absent = 0
-    for r in cat["rows"]:
-        if r[i_id] not in seen and r[i_ab] is None:
-            r[i_ab] = stamp
-            absent += 1
-    return dict(kind=kind, added=added, renamed=renamed, revived=revived,
-                marked_absent=absent, seen=len(seen))
+            continue
+        if name and row[i_name] != name:
+            row[i_name] = name
+            renamed += 1
+        if row[i_absent] is not None:
+            row[i_absent] = None
+            revived += 1
+        row[i_verified] = stamp
 
+    marked_absent = 0
+    for row in cat["rows"]:
+        if row[i_id] not in seen and row[i_absent] is None:
+            row[i_absent] = stamp
+            marked_absent += 1
 
-ENTITY_TO_KIND = {"quest": "quest", "ai": "ai", "item": "item",
-                  "jutsu": "jutsu", "asset": "asset"}
+    return {
+        "kind": kind,
+        "added": added,
+        "renamed": renamed,
+        "revived": revived,
+        "marked_absent": marked_absent,
+        "seen": len(seen),
+    }
 
 
 def fold_entries(cat, kind, entries, stamp):
-    """A push results `entries` array is the only typed record of what we just created. The
-    `idmap` is NOT usable here: it mixes jutsu, item, asset and quest ids with no entity field,
-    and folding it blindly put 697 rows into two catalogs at once on the first test run."""
-    i_id, i_n = idx(cat, "id"), idx(cat, "n")
-    i_lv = idx(cat, "last_verified")
-    have = {r[i_id] for r in cat["rows"]}
+    i_id, i_name = idx(cat, "id"), idx(cat, "n")
+    i_verified = idx(cat, "last_verified")
+    by_id = {row[i_id]: row for row in cat["rows"]}
     added = confirmed = 0
-    for e in entries:
-        if ENTITY_TO_KIND.get(e.get("entity")) != kind:
+
+    for entry in entries:
+        if entry.get("entity") != kind or entry.get("state") not in (None, "ok"):
             continue
-        if e.get("state") not in (None, "ok"):
-            continue                      # a failed entry created nothing
-        rid = e.get("id")
-        if not isinstance(rid, str) or not rid:
+        record_id = entry.get("id")
+        if not isinstance(record_id, str) or not record_id:
             continue
-        name = (e.get("name") or "").strip()
-        if rid in have:
-            for r in cat["rows"]:
-                if r[i_id] == rid:
-                    r[i_lv] = stamp
-                    confirmed += 1
-                    break
-        else:
-            new = [None] * len(cat["cols"])
-            new[i_id], new[i_n], new[i_lv] = rid, name, stamp
-            cat["rows"].append(new)
-            have.add(rid)
-            added += 1
-    return dict(kind=kind, added_from_push=added, confirmed_from_push=confirmed)
+        row = by_id.get(record_id)
+        if row is not None:
+            row[i_verified] = stamp
+            confirmed += 1
+            continue
+        row = [None] * len(cat["cols"])
+        row[i_id] = record_id
+        row[i_name] = (entry.get("name") or "").strip()
+        row[i_verified] = stamp
+        cat["rows"].append(row)
+        by_id[record_id] = row
+        added += 1
+
+    return {"kind": kind, "added_from_push": added, "confirmed_from_push": confirmed}
 
 
 def freshness(cat, kind, today):
-    i_lv, i_ab = idx(cat, "last_verified"), idx(cat, "absent_since")
+    i_verified, i_absent = idx(cat, "last_verified"), idx(cat, "absent_since")
     shelf = SHELF_LIFE_DAYS.get(kind, 30)
-    never = stale = absent = fresh = 0
+    counts = {"fresh": 0, "stale": 0, "never_verified": 0, "absent": 0}
     oldest = None
-    for r in cat["rows"]:
-        if r[i_ab] is not None:
-            absent += 1
+
+    for row in cat["rows"]:
+        if row[i_absent] is not None:
+            counts["absent"] += 1
             continue
-        lv = r[i_lv]
-        if not lv:
-            never += 1
+        verified = row[i_verified]
+        if not verified:
+            counts["never_verified"] += 1
             continue
-        d = datetime.strptime(lv, "%Y-%m-%d").replace(tzinfo=timezone.utc)
-        oldest = d if oldest is None or d < oldest else oldest
-        if (today - d).days > shelf:
-            stale += 1
-        else:
-            fresh += 1
-    return dict(kind=kind, rows=len(cat["rows"]), fresh=fresh, stale=stale,
-                never_verified=never, absent=absent, shelf_days=shelf,
-                stale_after=iso(oldest + timedelta(days=shelf)) if oldest else None)
+        date = datetime.strptime(verified, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        oldest = date if oldest is None or date < oldest else oldest
+        counts["stale" if (today - date).days > shelf else "fresh"] += 1
+
+    return {
+        "kind": kind,
+        "rows": len(cat["rows"]),
+        **counts,
+        "shelf_days": shelf,
+        "stale_after": iso(oldest + timedelta(days=shelf)) if oldest else None,
+    }
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--dir", default="state/catalogs")
-    ap.add_argument("--fold", help="a results or capture bundle to fold in")
-    ap.add_argument("--check", action="store_true", help="report freshness only")
-    a = ap.parse_args()
-    today, stamp = now(), iso(now())
+def catalog_path(directory, kind):
+    return os.path.join(directory, KIND_TO_FILE[kind])
 
-    if a.check or not a.fold:
-        bad = 0
-        for kind, fn in KIND_TO_FILE.items():
-            p = os.path.join(a.dir, fn)
-            if not os.path.exists(p):
-                print(f"MISSING  {fn}: no catalog. Capture before trusting any lookup.")
-                bad += 1
-                continue
-            f = freshness(ensure_stamp_cols(load(p)), kind, today)
-            flag = "STALE " if (f["stale"] or f["never_verified"]) else "ok    "
-            print(f"{flag} {fn:26} {f['rows']:5} rows | fresh {f['fresh']:5} "
-                  f"stale {f['stale']:5} unverified {f['never_verified']:5} "
-                  f"absent {f['absent']:4} | shelf {f['shelf_days']}d")
-            bad += 1 if (f["stale"] or f["never_verified"]) else 0
-        print("\nEvery lookup against a STALE catalog needs a capture first." if bad
-              else "\nAll catalogs within shelf life.")
-        return 1 if bad else 0
 
-    bundle = load(a.fold)
+def check_catalogs(directory, today):
+    bad = 0
+    for kind, filename in KIND_TO_FILE.items():
+        path = catalog_path(directory, kind)
+        if not os.path.exists(path):
+            print(f"MISSING  {filename}: no catalog. Capture before trusting any lookup.")
+            bad += 1
+            continue
+        report = freshness(ensure_stamp_cols(load(path)), kind, today)
+        stale = report["stale"] or report["never_verified"]
+        print(
+            f"{'STALE ' if stale else 'ok    '} {filename:26} {report['rows']:5} rows | "
+            f"fresh {report['fresh']:5} stale {report['stale']:5} "
+            f"unverified {report['never_verified']:5} absent {report['absent']:4} | "
+            f"shelf {report['shelf_days']}d"
+        )
+        bad += int(bool(stale))
+    print("\nEvery lookup against a STALE catalog needs a capture first." if bad else "\nAll catalogs within shelf life.")
+    return 1 if bad else 0
+
+
+def fold_bundle(directory, bundle, stamp):
     reports = []
-    for cap in bundle.get("captures", []) or []:
-        kind = PROC_TO_KIND.get(cap.get("proc"))
-        data = cap.get("data")
-        if not kind or not isinstance(data, list):
+    for cap in bundle.get("captures") or []:
+        listing = full_name_listing(cap)
+        if listing is None:
             continue
-        p = os.path.join(a.dir, KIND_TO_FILE[kind])
-        if not os.path.exists(p):
-            print(f"skip {kind}: {p} not present")
+        kind, rows_seen = listing
+        if rows_seen is None:
+            print(f"skip {kind}: filtered {cap.get('proc')} input is not authoritative for absence")
             continue
-        cat = ensure_stamp_cols(load(p))
-        rep = fold_names(cat, kind, data, stamp)
-        json.dump(cat, open(p, "w"), indent=1, ensure_ascii=False)
-        reports.append(rep)
+        path = catalog_path(directory, kind)
+        if not os.path.exists(path):
+            print(f"skip {kind}: {path} not present")
+            continue
+        cat = ensure_stamp_cols(load(path))
+        reports.append(fold_names(cat, kind, rows_seen, stamp))
+        save(path, cat)
 
     entries = bundle.get("entries") or []
-    if entries:
-        for kind in sorted({ENTITY_TO_KIND[e["entity"]] for e in entries
-                            if e.get("entity") in ENTITY_TO_KIND}):
-            p = os.path.join(a.dir, KIND_TO_FILE[kind])
-            if not os.path.exists(p):
-                continue
-            cat = ensure_stamp_cols(load(p))
-            rep = fold_entries(cat, kind, entries, stamp)
-            if rep["added_from_push"] or rep["confirmed_from_push"]:
-                json.dump(cat, open(p, "w"), indent=1, ensure_ascii=False)
-                reports.append(rep)
+    kinds = sorted({entry.get("entity") for entry in entries if entry.get("entity") in KIND_TO_FILE})
+    for kind in kinds:
+        path = catalog_path(directory, kind)
+        if not os.path.exists(path):
+            continue
+        cat = ensure_stamp_cols(load(path))
+        report = fold_entries(cat, kind, entries, stamp)
+        if report["added_from_push"] or report["confirmed_from_push"]:
+            save(path, cat)
+            reports.append(report)
 
     if not reports:
-        print("nothing foldable: no *.getAllNames capture and no typed entries")
+        print("nothing foldable: no unfiltered *.getAllNames capture and no typed entries")
         return 1
-    for r in reports:
-        print("  " + json.dumps(r))
+    for report in reports:
+        print("  " + json.dumps(report))
     print(f"\nfolded at {stamp}. Rows absent from a full listing were marked, not deleted.")
     return 0
 
 
+def selftest():
+    filtered = {
+        "proc": "gameAsset.getAllNames",
+        "input": {"type": "STATIC"},
+        "data": [{"id": "a", "name": "A"}],
+    }
+    assert full_name_listing(filtered) == ("asset", None)
+
+    full = {"proc": "gameAsset.getAllNames", "data": [{"id": "a", "name": "A"}]}
+    kind, rows_seen = full_name_listing(full)
+    cat = ensure_stamp_cols({"cols": ["id", "n"], "rows": [["a", "Old"], ["b", "B"]]})
+    report = fold_names(cat, kind, rows_seen, "2026-09-09")
+    assert report == {"kind": "asset", "added": 0, "renamed": 1, "revived": 0, "marked_absent": 1, "seen": 1}
+    assert cat["rows"][1][idx(cat, "absent_since")] == "2026-09-09"
+    print("catalog_sync selftest OK")
+    return 0
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dir", default="state/catalogs")
+    parser.add_argument("--fold", help="results or capture bundle to fold in")
+    parser.add_argument("--check", action="store_true", help="report freshness only")
+    parser.add_argument("--selftest", action="store_true")
+    args = parser.parse_args()
+
+    if args.selftest:
+        return selftest()
+
+    today = datetime.now(timezone.utc)
+    stamp = iso(today)
+    if args.check or not args.fold:
+        return check_catalogs(args.dir, today)
+    return fold_bundle(args.dir, load(args.fold), stamp)
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

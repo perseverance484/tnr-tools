@@ -1,162 +1,205 @@
 #!/usr/bin/env python3
-"""Build the answer layer from /harvests. Newest source per entity wins.
+"""Build the name lookup layer from canonical seed catalogs plus inbox deltas."""
 
-Accepts three shapes: catalog {_freshness, cols, rows}, raw dump [ {...}, ... ],
-or {data: [...]}. Emits answers/names_<entity>.json + answers/INDEX.md with
-absolute raw URLs (the fetcher cannot mint URLs, so every link is absolute).
-"""
-import os, sys, json, glob, re, datetime
+from __future__ import annotations
+
+import argparse
+import datetime
+import json
+import re
+from pathlib import Path
 
 RAW = "https://raw.githubusercontent.com/perseverance484/tnr-tools/main"
-ENTITIES = {  # entity -> filename fragments that identify a source, most specific first
-    "jutsu": ["40_INDEX_jutsu", "jutsu"],
-    "item":  ["41_INDEX_item", "item"],
-    "ai":    ["42_INDEX_ai", "ai_catalog", "userdata", "_ai"],
-    "asset": ["43_INDEX_asset", "asset", "gameasset"],
-    "quest": ["47_INDEX_quest", "quest"],
+SEEDS = {
+    "jutsu": "40_INDEX_jutsu.json",
+    "item": "41_INDEX_item.json",
+    "ai": "42_INDEX_ai.json",
+    "asset": "43_INDEX_asset.json",
+    "quest": "47_INDEX_quest.json",
+}
+CAPTURE_ENTITY = {
+    "jutsu.getAllNames": "jutsu",
+    "item.getAllNames": "item",
+    "quests.getAllNames": "quest",
+    "gameAsset.getAllNames": "asset",
+    "profile.getAllAiNames": "ai",
 }
 
-def rows_from(path):
-    d = json.load(open(path))
-    stamp = None
-    if isinstance(d, dict):
-        fresh = d.get("_freshness") or {}
-        stamp = (fresh.get("generated") or fresh.get("date") or fresh.get("harvested")
-                 or fresh.get("newest_record") or d.get("generated"))
-        if stamp and "unknown" in str(stamp): stamp = "seed catalog (pre-answers)"
-        if "cols" in d and "rows" in d:
-            cols = [c.lower() for c in d["cols"]]
-            def idx(*names):
-                for n in names:
-                    if n in cols: return cols.index(n)
-                return None
-            ii, ni, hi = idx("id"), idx("name","username","n"), idx("hidden","hid")
-            out = []
-            for r in d["rows"]:
-                if ii is None or ni is None: break
-                out.append([r[ii], r[ni], (bool(r[hi]) if hi is not None and r[hi] is not None else None)])
-            return out, stamp
-        d = d.get("data") or d.get("rows") or []
-    if isinstance(d, list) and d and isinstance(d[0], dict):
-        out = []
-        for r in d:
-            rid = r.get("id") or r.get("userId")
-            nm = r.get("name") or r.get("username")
-            if rid and nm: out.append([rid, nm, r.get("hidden")])
-        return out, stamp
-    return [], stamp
 
-def newest(repo, frags):
-    cands = []
-    for p in glob.glob(os.path.join(repo, "harvests", "**", "*.json"), recursive=True):
-        base = os.path.basename(p).lower()
-        for rank, f in enumerate(frags):
-            if f.lower() in base:
-                cands.append((rank, -os.path.getmtime(p), p)); break
-    return sorted(cands)[0][2] if cands else None
-
-CAP_PROC = {"jutsu.getAllNames": "jutsu", "item.getAllNames": "item",
-            "quests.getAllNames": "quest", "gameAsset.getAllNames": "asset",
-            "profile.getAllAiNames": "ai"}
+def load(path: Path):
+    return json.loads(path.read_text())
 
 
-def bundle_epoch(path):
-    m = re.search(r"tnr_results_(\d+)", os.path.basename(path))
-    if not m:
+def seed_rows(path: Path) -> tuple[list[list], str | None]:
+    data = load(path)
+    fresh = data.get("_freshness") or {}
+    stamp = (
+        fresh.get("generated")
+        or fresh.get("date")
+        or fresh.get("harvested")
+        or fresh.get("newest_record")
+        or data.get("generated")
+    )
+    if stamp and "unknown" in str(stamp):
+        stamp = "seed catalog (pre-answers)"
+
+    cols = [str(col).lower() for col in data.get("cols") or []]
+    try:
+        id_idx = cols.index("id")
+        name_idx = next(cols.index(name) for name in ("name", "username", "n") if name in cols)
+    except (ValueError, StopIteration) as exc:
+        raise ValueError(f"{path}: seed catalog needs id and name columns") from exc
+    hidden_idx = next((cols.index(name) for name in ("hidden", "hid") if name in cols), None)
+
+    rows = []
+    for row in data.get("rows") or []:
+        hidden = row[hidden_idx] if hidden_idx is not None and hidden_idx < len(row) else None
+        rows.append([row[id_idx], row[name_idx], bool(hidden) if hidden is not None else None])
+    return rows, stamp
+
+
+def bundle_time(path: Path) -> str | None:
+    match = re.search(r"tnr_results_(\d+)", path.name)
+    if not match:
         return None
-    return datetime.datetime.fromtimestamp(int(m.group(1)) / 1000,
-                                           datetime.timezone.utc).strftime("%Y-%m-%d %H:%MZ")
+    when = datetime.datetime.fromtimestamp(int(match.group(1)) / 1000, datetime.timezone.utc)
+    return when.strftime("%Y-%m-%d %H:%MZ")
 
 
-def hot_rows(repo):
-    """Newest inbox capture per entity -> {entity: {rows, source, captured}}.
-    Fixes the seed-lag gap: a fresh create is visible here the moment its
-    bundle lands, without waiting for a seed re-harvest."""
-    out = {}
-    for p in sorted(glob.glob(os.path.join(repo, "harvests", "inbox", "tnr_results_*.json"))):
+def inbox_rows(repo: Path) -> dict[str, dict]:
+    latest = {}
+    for path in sorted((repo / "harvests" / "inbox").glob("tnr_results_*.json")):
         try:
-            d = json.load(open(p))
-        except Exception:
+            bundle = load(path)
+        except (OSError, json.JSONDecodeError):
             continue
-        for c in d.get("captures") or []:
-            ent = CAP_PROC.get(str(c.get("proc") or ""))
-            if not ent:
+        for capture in bundle.get("captures") or []:
+            entity = CAPTURE_ENTITY.get(str(capture.get("proc") or ""))
+            if not entity:
                 continue
-            rows = c.get("rows") if isinstance(c.get("rows"), list) else                    (c.get("data") if isinstance(c.get("data"), list) else None)
-            if rows is None:
+            rows = capture.get("rows")
+            if not isinstance(rows, list):
+                rows = capture.get("data")
+            if not isinstance(rows, list):
                 continue
-            norm = [[r.get("id") or r.get("userId"), r.get("name") or r.get("username"),
-                     r.get("hidden")] for r in rows if isinstance(r, dict)]
-            norm = [r for r in norm if r[0] and r[1]]
-            if norm:      # later bundles overwrite earlier: sorted() = oldest first
-                out[ent] = {"rows": norm, "source": os.path.relpath(p, repo),
-                            "captured": bundle_epoch(p) or "unknown"}
-    return out
+            normalized = [
+                [row.get("id") or row.get("userId"), row.get("name") or row.get("username"), row.get("hidden")]
+                for row in rows
+                if isinstance(row, dict)
+            ]
+            normalized = [row for row in normalized if row[0] and row[1]]
+            if normalized:
+                latest[entity] = {
+                    "rows": normalized,
+                    "source": path.relative_to(repo).as_posix(),
+                    "captured": bundle_time(path) or "unknown",
+                }
+    return latest
 
 
-def main():
-    repo = "."; out = "answers"
-    a = sys.argv[1:]
-    if "--repo" in a: repo = a[a.index("--repo")+1]
-    if "--out" in a: out = a[a.index("--out")+1]
-    os.makedirs(os.path.join(repo, out), exist_ok=True)
-    hot = hot_rows(repo)
-    index = ["# answers/INDEX.md - the lookup layer", "",
-             "Two fetches answer any name/id lookup: this INDEX, then the entity file",
-             "(plus hot.json when its delta column below is non-zero). Rows are",
-             "`[id, name, hidden]`; `hidden: null` means the source did not carry the",
-             "flag. `generated` stamps are DERIVED from sources, so regeneration is",
-             "idempotent. Raw CDN caches ~5 min; fresher than that takes a capture.", "",
-             "| entity | rows | source stamp | hot delta (newer, uncataloged) | fetch |",
-             "|---|---|---|---|---|"]
+def write_json(path: Path, data) -> None:
+    path.write_text(json.dumps(data, separators=(",", ":")))
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--repo", default=".")
+    parser.add_argument("--out", default="answers")
+    args = parser.parse_args()
+
+    repo = Path(args.repo)
+    out = repo / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    hot = inbox_rows(repo)
+    hot_out = {
+        "note": (
+            "Recently harvested records NOT yet in the seed catalogs: newest inbox capture per entity, "
+            "minus rows the seed already holds. A name here is live even though names_<entity>.json lacks it."
+        ),
+        "entities": {},
+    }
+    index = [
+        "# answers/INDEX.md - the lookup layer",
+        "",
+        "Two fetches answer any name/id lookup: this INDEX, then the entity file",
+        "(plus hot.json when its delta column below is non-zero). Rows are",
+        "`[id, name, hidden]`; `hidden: null` means the source did not carry the",
+        "flag. `generated` stamps are DERIVED from sources, so regeneration is",
+        "idempotent. Raw CDN caches ~5 min; fresher than that takes a capture.",
+        "",
+        "| entity | rows | source stamp | hot delta (newer, uncataloged) | fetch |",
+        "|---|---|---|---|---|",
+    ]
+
     wrote = 0
-    hot_out = {"note": ("Recently harvested records NOT yet in the seed catalogs: "
-                        "newest inbox capture per entity, minus rows the seed already "
-                        "holds. A name here is live even though names_<entity>.json "
-                        "lacks it."),
-               "entities": {}}
-    for ent, frags in ENTITIES.items():
-        src = newest(repo, frags)
-        if not src:
-            index.append(f"| {ent} | - | none committed | - | - |"); continue
-        rows, stamp = rows_from(src)
-        rows.sort(key=lambda r: (r[1] or "").lower())
-        seed_ids = {r[0] for r in rows}
-        h = hot.get(ent)
+    for entity, filename in SEEDS.items():
+        source = repo / "harvests" / "seed" / filename
+        if not source.exists():
+            index.append(f"| {entity} | - | none committed | - | - |")
+            continue
+
+        rows, stamp = seed_rows(source)
+        rows.sort(key=lambda row: (row[1] or "").lower())
+        known_ids = {row[0] for row in rows}
+        captured = hot.get(entity)
         delta = []
-        if h:
-            delta = sorted([r for r in h["rows"] if r[0] not in seed_ids],
-                           key=lambda r: (r[1] or "").lower())
+        if captured:
+            delta = sorted(
+                (row for row in captured["rows"] if row[0] not in known_ids),
+                key=lambda row: (row[1] or "").lower(),
+            )
             if delta:
-                hot_out["entities"][ent] = {"source_bundle": h["source"],
-                                            "captured": h["captured"],
-                                            "row_delta": len(delta), "rows": delta}
-        fn = f"names_{ent}.json"
-        rel_src = os.path.relpath(src, repo)
-        payload = {"generated": stamp or "unknown", "entity": ent, "source": rel_src,
-                   "source_stamp": stamp, "count": len(rows),
-                   "hot_delta": len(delta),
-                   "hot_hint": (f"{len(delta)} newer record(s) live but uncataloged - "
-                                f"fetch answers/hot.json" if delta else None),
-                   "rows": rows}
-        with open(os.path.join(repo, out, fn), "w") as f:
-            json.dump(payload, f, separators=(",", ":"))
-        index.append(f"| {ent} | {len(rows)} | {stamp or 'unknown'} | "
-                     f"{len(delta)} | {RAW}/answers/{fn} |")
+                hot_out["entities"][entity] = {
+                    "source_bundle": captured["source"],
+                    "captured": captured["captured"],
+                    "row_delta": len(delta),
+                    "rows": delta,
+                }
+
+        output_name = f"names_{entity}.json"
+        write_json(
+            out / output_name,
+            {
+                "generated": stamp or "unknown",
+                "entity": entity,
+                "source": source.relative_to(repo).as_posix(),
+                "source_stamp": stamp,
+                "count": len(rows),
+                "hot_delta": len(delta),
+                "hot_hint": (
+                    f"{len(delta)} newer record(s) live but uncataloged - fetch answers/hot.json"
+                    if delta
+                    else None
+                ),
+                "rows": rows,
+            },
+        )
+        index.append(
+            f"| {entity} | {len(rows)} | {stamp or 'unknown'} | {len(delta)} | "
+            f"{RAW}/answers/{output_name} |"
+        )
         wrote += 1
-    with open(os.path.join(repo, out, "hot.json"), "w") as f:
-        json.dump(hot_out, f, separators=(",", ":"))
-    index += ["", f"Hot shard (delta rows + capture stamps): {RAW}/answers/hot.json",
-              "", "Other fetchable canon:",
-              f"- Engine laws (full numbered text): {RAW}/docs/ENGINE_LAWS.md",
-              f"- Doctrine (single source): {RAW}/docs/DOCTRINE.md",
-              "", "Skill zips (download, not fetch): /dist/ on the repo page.",
-              "", "A capture beats any file here (precedence). Retention: see",
-              "docs/COMPACTION_RUNBOOK.md - manual-only, seed is the audit floor."]
-    open(os.path.join(repo, out, "INDEX.md"), "w").write("\n".join(index) + "\n")
-    print(f"answers: {wrote} entity files + hot.json "
-          f"({sum(v['row_delta'] for v in hot_out['entities'].values())} delta rows) + INDEX.md")
+
+    write_json(out / "hot.json", hot_out)
+    index += [
+        "",
+        f"Hot shard (delta rows + capture stamps): {RAW}/answers/hot.json",
+        "",
+        "Other fetchable canon:",
+        f"- Engine laws (full numbered text): {RAW}/docs/ENGINE_LAWS.md",
+        f"- Doctrine (single source): {RAW}/docs/DOCTRINE.md",
+        "",
+        "Skill zips (download, not fetch): /dist/ on the repo page.",
+        "",
+        "A capture beats any file here (precedence). Retention: see",
+        "docs/COMPACTION_RUNBOOK.md - manual-only, seed is the audit floor.",
+    ]
+    (out / "INDEX.md").write_text("\n".join(index) + "\n")
+
+    delta_count = sum(row["row_delta"] for row in hot_out["entities"].values())
+    print(f"answers: {wrote} entity files + hot.json ({delta_count} delta rows) + INDEX.md")
     return 0
 
+
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

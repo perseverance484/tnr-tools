@@ -20,17 +20,20 @@
 
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import superjson from "superjson";
 import { z, ZodError } from "zod";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 
-const OUT = join(dirname(fileURLToPath(import.meta.url)), "..", "test", "fixtures", "envelope");
+const here = dirname(fileURLToPath(import.meta.url));
+const OUT = join(here, "..", "test", "fixtures", "envelope");
+const LOCAL_FORGE_URL = pathToFileURL(join(here, "..")).href;
+const FIXTURE_FORGE_URL = "file:///home/user/tnr-tools/forge";
+const LOCAL_FRAME_RE = /file:\/\/\/home\/user\/tnr-tools\/forge\/tools\/derive_envelope\.mjs:\d+:\d+/g;
 mkdirSync(OUT, { recursive: true });
 
-// ---------------------------------------------------------------- server, mirroring trpc.ts
 const t = initTRPC.context().create({
   transformer: superjson,
   errorFormatter({ shape, error }) {
@@ -46,7 +49,7 @@ const t = initTRPC.context().create({
 
 const baseServerResponse = z.object({ success: z.boolean(), message: z.string() });
 const FIXED_DATE = new Date("2026-09-01T04:02:38.440Z");
-const NEW_ID = "N3wId0000000000000000"; // 21 chars like nanoid
+const NEW_ID = "N3wId0000000000000000";
 
 const router = t.router({
   jutsu: t.router({
@@ -74,7 +77,6 @@ async function serve(req) {
   return fetchRequestHandler({ endpoint: "/api/trpc", req, router, createContext: () => ({}) });
 }
 
-// ---------------------------------------------------------------- recording fetch
 const records = [];
 async function recordingFetch(url, init = {}) {
   const u = String(url);
@@ -98,7 +100,6 @@ const client = createTRPCClient({
   links: [httpBatchLink({ url: "https://game.invalid/api/trpc", transformer: superjson, fetch: recordingFetch })],
 });
 
-// ---------------------------------------------------------------- scenarios
 async function scenario(name, fn) {
   records.length = 0;
   let decoded, error = null;
@@ -109,11 +110,21 @@ async function scenario(name, fn) {
   }
   const out = { scenario: name, pins: { trpc: "11.18.0", superjson: "2.2.6", zod: "4.4.3" },
                 exchanges: records.map((r) => r), decoded: reviveForFixture(decoded), error };
-  writeFileSync(join(OUT, name + ".json"), JSON.stringify(out, null, 1) + "\n");
+  writeFileSync(join(OUT, name + ".json"), JSON.stringify(stableFixture(out), null, 1) + "\n");
   console.log("wrote", name, `(${records.length} exchange${records.length === 1 ? "" : "s"})`);
 }
-// Dates do not survive JSON.stringify as Dates; tag them so a test can assert the client
-// really produced a Date instance.
+
+function stableFixture(v) {
+  if (typeof v === "string") {
+    return v
+      .replaceAll(LOCAL_FORGE_URL, FIXTURE_FORGE_URL)
+      .replace(LOCAL_FRAME_RE, FIXTURE_FORGE_URL + "/tools/derive_envelope.mjs:0:0");
+  }
+  if (Array.isArray(v)) return v.map(stableFixture);
+  if (v && typeof v === "object") return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, stableFixture(x)]));
+  return v;
+}
+
 function reviveForFixture(v) {
   if (v instanceof Date) return { __date: v.toISOString() };
   if (Array.isArray(v)) return v.map(reviveForFixture);
@@ -130,14 +141,12 @@ await scenario("mutation_update_zod_fail", () => client.jutsu.update.mutate({ id
 await scenario("mutation_batched_create_and_update", () =>
   Promise.all([client.jutsu.create.mutate(), client.jutsu.update.mutate({ id: "zz", data: { name: "N", power: 1 } })]));
 await scenario("query_too_many_requests", () => client.jutsu.limited.query());
-// MIXED batches: the spec forbids inferring per-item outcome from HTTP status. Prove why.
+// Mixed outcomes prove per-item status comes from decoded elements, never the shared HTTP status.
 await scenario("mutation_batched_mixed_ok_and_zod_fail", () =>
   Promise.allSettled([client.jutsu.update.mutate({ id: "ok1", data: { name: "N", power: 1 } }),
                       client.jutsu.update.mutate({ id: "bad", data: { name: "x", power: -1 } })]));
 await scenario("query_batched_one_limited_one_ok", () =>
   Promise.allSettled([client.jutsu.limited.query(), client.jutsu.get.query({ id: "fine" })]));
-// A GET issued against a mutation path: the game's route handler comment says tRPC rejects
-// this with METHOD_NOT_SUPPORTED before any resolver runs. Prove it against the real adapter.
 await scenario("get_on_mutation_path_rejected", async () => {
   const req = new Request("https://game.invalid/api/trpc/jutsu.create?batch=1&input=" + encodeURIComponent('{"0":{"json":null,"meta":{"values":["undefined"]}}}'), { method: "GET" });
   const res = await serve(req);

@@ -1,50 +1,32 @@
-# STAGED WORKFLOW - REPLACES .github/workflows/scrub.yml
-# ---------------------------------------------------------------------------
-# Install via the one-time web-UI batch (ruling approved 2026-08-30): the
-# container PAT cannot write workflow files. IN THE SAME BROWSER SESSION set
-# the repo secret SCRUB_STRINGS (Settings -> Secrets -> Actions): one literal
-# pattern per line - both current tokens (tnr-container PAT, tnr-sync PAT)
-# and anything else that must never land in a public commit. Install and
-# secret must land together: this gate is FAIL-CLOSED, so with the secret
-# unset every push fails by design (the old gate WARNED and passed, which is
-# how "no patterns configured" could read as "clean" on a public repo).
-#
-# Local pre-push mirror: skills/building-tnr-content/scripts/scrub_check.py
-# with a pattern file kept OUTSIDE the repo (e.g. /tmp/scrub_patterns.txt).
-# ---------------------------------------------------------------------------
 name: scrub
 on: [push]
+
 jobs:
   gate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Privacy gate (fail-closed, multi-pattern)
+      - name: Privacy gate (fail closed; requires SCRUB_STRINGS)
         env:
-          S: ${{ secrets.SCRUB_STRINGS }}
+          SCRUB_STRINGS: ${{ secrets.SCRUB_STRINGS }}
         run: |
-          if [ -z "$S" ]; then
-            echo "::error::SCRUB_STRINGS secret not set. Gate is FAIL-CLOSED: set it (one pattern per line) before pushes can pass."
+          if [ -z "$SCRUB_STRINGS" ]; then
+            echo "::error::SCRUB_STRINGS is empty"
             exit 1
           fi
+
           hit=0
-          npat=0
-          while IFS= read -r p; do
-            if [ -z "$p" ]; then
-              continue
-            fi
-            npat=$((npat+1))
-            if grep -rIq --exclude-dir=.git -F -- "$p" .; then
-              echo "::error::Privacy scrub hit for a configured pattern in the files below. Remove and recommit."
-              grep -rIl --exclude-dir=.git -F -- "$p" .
+          count=0
+          while IFS= read -r pattern; do
+            [ -z "$pattern" ] && continue
+            count=$((count + 1))
+            if grep -rIq --exclude-dir=.git -F -- "$pattern" .; then
+              echo "::error::Configured private string found in:"
+              grep -rIl --exclude-dir=.git -F -- "$pattern" .
               hit=1
             fi
-          done <<< "$S"
-          if [ "$npat" -eq 0 ]; then
-            echo "::error::SCRUB_STRINGS contains no non-empty patterns. Gate is FAIL-CLOSED."
-            exit 1
-          fi
-          if [ "$hit" -eq 1 ]; then
-            exit 1
-          fi
-          echo "scrub clean ($npat pattern(s))"
+          done <<< "$SCRUB_STRINGS"
+
+          [ "$count" -gt 0 ] || { echo "::error::SCRUB_STRINGS has no patterns"; exit 1; }
+          [ "$hit" -eq 0 ] || exit 1
+          echo "scrub clean ($count patterns)"
