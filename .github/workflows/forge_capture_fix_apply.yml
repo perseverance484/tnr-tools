@@ -18,10 +18,8 @@ jobs:
           node-version: 24
           cache: npm
           cache-dependency-path: forge/package-lock.json
-      - name: Apply asserted source and regression patch
-        run: python3 .github/scripts/apply_forge_capture_only_fix.py
-      - name: Remove obsolete push-history compatibility tests
-        run: python3 .github/scripts/fix_stale_push_tests.py
+      - name: Align capture-only repository verification
+        run: python3 .github/scripts/fix_capture_harvest.py
       - name: Install Forge dependencies
         working-directory: forge
         run: npm ci
@@ -36,29 +34,14 @@ jobs:
         run: |
           npm run fixtures
           git diff --exit-code -- test/fixtures/envelope
-      - name: Build checked Forge bundle
+      - name: Verify checked Forge bundle remains reproducible
         working-directory: forge
-        run: npm run build
-      - name: Sanity-check generated bundle/version
         run: |
-          grep -F "TNR forge bundle v0.2.1" forge_bundle.js
-          grep -F "export const VERSION = \"forge 0.2.1\"" forge/src/main.mjs
-          grep -F "// @version      0.2.1" forge_loader_user.js
-          git diff --check
-      - name: Commit verified fix and bundle
+          npm run build
+          git diff --exit-code -- ../forge_bundle.js
+      - name: Commit verified harvest integration
         run: >-
           python3 .github/scripts/commit_generated.py
-          "forge: support capture-only read jobs"
-          forge/src/storage/journal.mjs
-          forge/src/runner/runner.mjs
-          forge/src/ui/screens.mjs
-          forge/src/ui/app.mjs
-          forge/src/main.mjs
-          forge/test/storage.journal.test.mjs
-          forge/test/runner.test.mjs
-          forge/test/ui.test.mjs
-          forge/package.json
-          forge/package-lock.json
-          forge_loader_user.js
-          forge_bundle.js
-          docs/BUILDER_APP_NOTES.md
+          "forge: verify capture-only results honestly"
+          skills/building-tnr-content/scripts/harvest.py
+          forge/test/harvest.test.mjs
