@@ -141,6 +141,7 @@ await scenario("mutation_update_zod_fail", () => client.jutsu.update.mutate({ id
 await scenario("mutation_batched_create_and_update", () =>
   Promise.all([client.jutsu.create.mutate(), client.jutsu.update.mutate({ id: "zz", data: { name: "N", power: 1 } })]));
 await scenario("query_too_many_requests", () => client.jutsu.limited.query());
+// Mixed outcomes prove per-item status comes from decoded elements, never the shared HTTP status.
 await scenario("mutation_batched_mixed_ok_and_zod_fail", () =>
   Promise.allSettled([client.jutsu.update.mutate({ id: "ok1", data: { name: "N", power: 1 } }),
                       client.jutsu.update.mutate({ id: "bad", data: { name: "x", power: -1 } })]));

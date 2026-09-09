@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Fetch upstream source
+      - name: Fetch upstream source (public, read-only)
         run: |
           UP_SHA=$(git ls-remote https://github.com/studie-tech/TheNinjaRPG refs/heads/main | cut -f1)
           echo "UP_SHA=$UP_SHA" >> "$GITHUB_ENV"
@@ -53,7 +53,7 @@ jobs:
             echo "drift=1" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Record drift
+      - name: Record drift signal (never adopt)
         if: steps.compare.outputs.drift == '1'
         run: |
           S=skills/building-tnr-content/scripts
