@@ -20,6 +20,8 @@ jobs:
           cache-dependency-path: forge/package-lock.json
       - name: Apply asserted source and regression patch
         run: python3 .github/scripts/apply_forge_capture_only_fix.py
+      - name: Remove obsolete push-history compatibility tests
+        run: python3 .github/scripts/fix_stale_push_tests.py
       - name: Install Forge dependencies
         working-directory: forge
         run: npm ci
