@@ -5,8 +5,6 @@ on:
       - chatgpt/repo-simplification-audit
     paths:
       - ".github/workflows/contract_reconcile.yml"
-      - "skills/building-tnr-content/scripts/schema_extract.py"
-      - "skills/building-tnr-content/scripts/schema_diff.py"
   workflow_dispatch:
 
 permissions:
@@ -21,82 +19,34 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Fetch exact pinned game source
-        run: |
-          set -euo pipefail
-          UP_SHA=bdec2883748f029a0ecb93505adfdcbae6851fe9
-          curl -fsSL -o /tmp/up.tar.gz "https://codeload.github.com/studie-tech/TheNinjaRPG/tar.gz/$UP_SHA"
-          mkdir -p /tmp/up
-          tar xzf /tmp/up.tar.gz -C /tmp/up --strip-components=1
-
-      - name: Regenerate candidate contract family
-        run: |
-          set -euo pipefail
-          S=skills/building-tnr-content/scripts
-          LABEL='git:studie-tech/TheNinjaRPG@bdec2883 (2026-08-29)'
-          python3 "$S/schema_extract.py" /tmp/up --ctors > /tmp/45c.json
-          python3 "$S/schema_extract.py" /tmp/up --entities "$LABEL" > /tmp/45d.json
-          python3 "$S/schema_extract.py" /tmp/up --constants "$LABEL" > /tmp/45e.json
-          python3 "$S/schema_extract.py" /tmp/up --procedures "$LABEL" > /tmp/45f.json
-          python3 "$S/schema_extract.py" /tmp/up --checks "$LABEL" > /tmp/45g.json
-
-      - name: Run mechanical adoption gates
-        run: |
-          set -euo pipefail
-          S=skills/building-tnr-content/scripts
-          D=skills/building-tnr-content/data
-          python3 "$S/schema_diff.py" --invariants /tmp/45c.json --constants /tmp/45e.json
-          python3 "$S/schema_diff.py" diff "$D/45c_DATA_constructors.json" /tmp/45c.json
-          python3 "$S/schema_diff.py" diff "$D/45d_DATA_entity_schemas.json" /tmp/45d.json
-          python3 "$S/schema_diff.py" diff "$D/45e_DATA_constants.json" /tmp/45e.json
-
-      - name: Assert zero semantic drift across the pinned source family
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
-
-          data = Path('skills/building-tnr-content/data')
-          def load(p): return json.loads(Path(p).read_text())
-          def strip_prov(v):
-              if isinstance(v, dict):
-                  return {k: strip_prov(x) for k, x in v.items() if k != '_provenance'}
-              if isinstance(v, list): return [strip_prov(x) for x in v]
-              return v
-
-          stable = {
-              '45c': (data/'45c_DATA_constructors.json', Path('/tmp/45c.json')),
-              '45d': (data/'45d_DATA_entity_schemas.json', Path('/tmp/45d.json')),
-              '45f': (data/'45f_DATA_procedures.json', Path('/tmp/45f.json')),
-              '45g': (data/'45g_DATA_checks.json', Path('/tmp/45g.json')),
-          }
-          for label, (oldp, newp) in stable.items():
-              old, new = load(oldp), load(newp)
-              if strip_prov(old) != strip_prov(new):
-                  raise SystemExit(f'{label} has semantic drift; refuse provenance-only adoption')
-              print(f'{label}: semantic payload stable')
-
-          current_g = load(data/'45g_DATA_checks.json')
-          candidate_g = load('/tmp/45g.json')
-          current_law = {k:v for k,v in current_g.items() if isinstance(v, dict) and v.get('_class') == 'law'}
-          candidate_law = {k:v for k,v in candidate_g.items() if isinstance(v, dict) and v.get('_class') == 'law'}
-          if current_law != candidate_law:
-              raise SystemExit('45g hand-held law blocks changed during regeneration')
-          print('45g law blocks stable')
-          PY
-
-      - name: Adopt regenerated 45d and 45g
+      - name: Verify reconciled contract family
         run: |
           set -euo pipefail
           D=skills/building-tnr-content/data
-          cp /tmp/45d.json "$D/45d_DATA_entity_schemas.json"
-          cp /tmp/45g.json "$D/45g_DATA_checks.json"
           python3 skills/building-tnr-content/scripts/selfcheck.py --generated "$D"
+          python3 skills/building-tnr-content/scripts/doctrinemap.py
+          python3 skills/building-tnr-content/scripts/render_doctrine.py --check
+          python3 skills/building-tnr-content/scripts/build_packs.py --check
 
-      - name: Commit provenance reconciliation
+      - name: Build deterministic skill ZIPs
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/pack_skills.py
+          sha256sum dist/*.zip > /tmp/skillpack.sha256
+          python3 .github/scripts/pack_skills.py
+          sha256sum -c /tmp/skillpack.sha256
+
+      - name: Sync builder contracts
+        run: |
+          cp skills/building-tnr-content/data/45c_DATA_constructors.json .
+          cp skills/building-tnr-content/data/45g_DATA_checks.json .
+          cp skills/building-tnr-content/data/32b_DATA_pool.json .
+
+      - name: Commit packaged reconciliation
         run: >-
           python3 .github/scripts/commit_generated.py
-          "contracts: reconcile 45d/45g provenance @bdec2883 [auto]"
-          skills/building-tnr-content/data/45d_DATA_entity_schemas.json
-          skills/building-tnr-content/data/45g_DATA_checks.json
+          "skillpack: propagate reconciled 45g provenance [auto]"
+          "dist/*"
+          45c_DATA_constructors.json
+          45g_DATA_checks.json
+          32b_DATA_pool.json
