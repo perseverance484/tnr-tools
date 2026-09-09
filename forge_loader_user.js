@@ -7,8 +7,7 @@
 // @match        *://theninja-rpg.com/forge*
 // @grant        none
 // @run-at       document-start
-// @x-unpinned-until-release  claude/builder-app-production-readiness-kelsib
-// @require      https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@claude/builder-app-production-readiness-kelsib/forge_bundle.js
+// @require      https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@bbb3a19d24bcf0b51a94cfb53a57f3f27b22d37c/forge_bundle.js
 // ==/UserScript==
 // Open https://www.theninja-rpg.com/forge while logged in. The page is a same-origin 404 with no
 // game providers; the bundle stops it at document-start and mounts the app in its place.
