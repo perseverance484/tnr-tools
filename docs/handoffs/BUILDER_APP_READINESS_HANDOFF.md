@@ -174,7 +174,7 @@ fixture: F4c (proved by stashing the source fix), R1-R5, K1-K6, D1-D4, N1-N5.
 ## Findings a reviewer should weigh
 
 1. **Two committed manifests carry keys the live server drops.** Verified absent from the
-   validators at the pin AND at `e02f8159`: five quest edits (`push/27, 30, 33, 34, 35`) re-assert
+   validators at the pin AND at the current game `main` `62af1b34`: five quest edits (`push/27, 30, 33, 34, 35`) re-assert
    `raidEndsAt`, `raidCaptureDeadline`, `raidGracePeriodEnd` (drizzle columns, not validator
    fields); `push/46` gives every `start_battle` objective an `image` the objective does not define.
    Forge refuses those manifests pre-send. Both are pinned by a test so they cannot be re-read as
