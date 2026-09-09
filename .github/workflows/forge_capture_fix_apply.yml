@@ -1,0 +1,62 @@
+name: forge-capture-fix-apply
+on:
+  push:
+    branches: [chatgpt/forge-capture-only-fix]
+    paths:
+      - ".github/workflows/forge_capture_fix_apply.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: forge/package-lock.json
+      - name: Apply asserted source and regression patch
+        run: python3 .github/scripts/apply_forge_capture_only_fix.py
+      - name: Install Forge dependencies
+        working-directory: forge
+        run: npm ci
+      - name: Audit runtime dependencies
+        working-directory: forge
+        run: npm audit --omit=dev --audit-level=high
+      - name: Run Forge tests
+        working-directory: forge
+        run: npm test
+      - name: Verify deterministic transport fixtures
+        working-directory: forge
+        run: |
+          npm run fixtures
+          git diff --exit-code -- test/fixtures/envelope
+      - name: Build checked Forge bundle
+        working-directory: forge
+        run: npm run build
+      - name: Sanity-check generated bundle/version
+        run: |
+          grep -F "TNR forge bundle v0.2.1" forge_bundle.js
+          grep -F "export const VERSION = \"forge 0.2.1\"" forge/src/main.mjs
+          grep -F "// @version      0.2.1" forge_loader_user.js
+          git diff --check
+      - name: Commit verified fix and bundle
+        run: >-
+          python3 .github/scripts/commit_generated.py
+          "forge: support capture-only read jobs"
+          forge/src/storage/journal.mjs
+          forge/src/runner/runner.mjs
+          forge/src/ui/screens.mjs
+          forge/src/ui/app.mjs
+          forge/src/main.mjs
+          forge/test/storage.journal.test.mjs
+          forge/test/runner.test.mjs
+          forge/test/ui.test.mjs
+          forge/package.json
+          forge/package-lock.json
+          forge_loader_user.js
+          forge_bundle.js
+          docs/BUILDER_APP_NOTES.md
