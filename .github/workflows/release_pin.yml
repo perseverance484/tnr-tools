@@ -1,36 +1,17 @@
-# STAGED WORKFLOW - install at .github/workflows/release_pin.yml
-# ---------------------------------------------------------------------------
-# Ruling 3 (approved, pilot): kills the raw-CDN staleness class. On every push
-# that changes builder_bundle.js, rewrite the loader's @require to the
-# commit-pinned, permanently-cached jsDelivr URL for THAT sha - a fetched
-# loader can then never serve stale builder bytes (new commit = new URL).
-# ViolentMonkey's @require cache is still sticky, so a release still needs
-# the usual VM refresh; the bytes fetched are then guaranteed correct.
-# Pilot shape: single pinned @require; manual fallback = edit the loader back
-# to the raw URL. Only tnr-tools code rides the CDN, never game source.
-# Paths-filtered so the loader commit this makes cannot retrigger it.
-#
-# 2026-09-08 (builder-app readiness, brief section 8): forge_bundle.js gets the
-# same treatment. It is a mutation client, so an install that floats on a branch
-# means the bytes running against the game are not the bytes that were reviewed.
-# Three additions for forge, none of which touch the builder path:
-#   - the paths filter and the job now cover BOTH bundles, and each loader is
-#     rewritten only when its own bundle changed in that push;
-#   - the forge loader's @version is synced from forge/package.json, so the
-#     userscript version rises whenever the pinned bundle does and ViolentMonkey
-#     refetches instead of serving the cached body;
-#   - the @x-unpinned-until-release marker is deleted when the pin lands. That
-#     marker is what forge/tools/check_release_pin.mjs allows a floating URL by,
-#     so removing it makes the check demand a real commit pin from then on.
-# ---------------------------------------------------------------------------
 name: release-pin
 on:
   push:
     branches: [main]
-    paths: ["builder_bundle.js", "forge_bundle.js"]
+    paths:
+      - "builder_bundle.js"
+      - "forge_bundle.js"
 
 permissions:
   contents: write
+
+concurrency:
+  group: release-pin-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   pin:
@@ -39,44 +20,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
-      - name: Pin each changed bundle's loader @require to this commit via jsDelivr
-        env:
-          SHA: ${{ github.sha }}
-        run: |
-          git diff --name-only HEAD~1 HEAD > /tmp/changed.txt || git show --name-only --format= HEAD > /tmp/changed.txt
-          cat /tmp/changed.txt
-          python3 - <<'PY'
-          import json, os, re
-          sha = os.environ["SHA"]
-          changed = set(open("/tmp/changed.txt").read().split())
-          TARGETS = [
-              # bundle,             loader,                  version source
-              ("builder_bundle.js", "builder_loader_user.js", None),
-              ("forge_bundle.js",   "forge_loader_user.js",   "forge/package.json"),
-          ]
-          pinned = 0
-          for bundle, loader, verfile in TARGETS:
-              if bundle not in changed:
-                  print("skip", bundle, "(unchanged in this push)")
-                  continue
-              url = "https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@%s/%s" % (sha, bundle)
-              s = open(loader).read()
-              s, n = re.subn(r"(// @require\s+)\S*%s\S*" % re.escape(bundle),
-                             lambda m: m.group(1) + url, s)
-              assert n == 1, "expected exactly 1 @require %s line in %s, got %d" % (bundle, loader, n)
-              # an immutable pin makes the "not pinned yet" marker false: drop it
-              s = re.sub(r"^// @x-unpinned-until-release.*\n", "", s, flags=re.M)
-              if verfile:
-                  v = json.load(open(verfile))["version"]
-                  s, vn = re.subn(r"(// @version\s+)\S+", lambda m: m.group(1) + v, s, count=1)
-                  assert vn == 1, "no @version line in %s" % loader
-                  print("version ->", v)
-              open(loader, "w").write(s)
-              print("pinned", loader, "->", url)
-              pinned += 1
-          assert pinned, "workflow ran but pinned nothing: check the paths filter"
-          PY
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "loader: pin changed bundle(s) to ${{ github.sha }} via jsDelivr [auto]"
-          file_pattern: "builder_loader_user.js forge_loader_user.js"
+      - name: Pin changed loaders
+        run: git diff --name-only HEAD~1 HEAD | python3 .github/scripts/pin_release.py
+      - name: Commit pinned loaders
+        run: >-
+          python3 .github/scripts/commit_generated.py
+          "loader: pin changed bundle(s) to $GITHUB_SHA via jsDelivr [auto]"
+          builder_loader_user.js
+          forge_loader_user.js
