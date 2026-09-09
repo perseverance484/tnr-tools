@@ -20,14 +20,17 @@
 
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import superjson from "superjson";
 import { z, ZodError } from "zod";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 
-const OUT = join(dirname(fileURLToPath(import.meta.url)), "..", "test", "fixtures", "envelope");
+const here = dirname(fileURLToPath(import.meta.url));
+const OUT = join(here, "..", "test", "fixtures", "envelope");
+const LOCAL_FORGE_URL = pathToFileURL(join(here, "..")).href;
+const FIXTURE_FORGE_URL = "file:///home/user/tnr-tools/forge";
 mkdirSync(OUT, { recursive: true });
 
 // ---------------------------------------------------------------- server, mirroring trpc.ts
@@ -109,9 +112,17 @@ async function scenario(name, fn) {
   }
   const out = { scenario: name, pins: { trpc: "11.18.0", superjson: "2.2.6", zod: "4.4.3" },
                 exchanges: records.map((r) => r), decoded: reviveForFixture(decoded), error };
-  writeFileSync(join(OUT, name + ".json"), JSON.stringify(out, null, 1) + "\n");
+  writeFileSync(join(OUT, name + ".json"), JSON.stringify(stableFixture(out), null, 1) + "\n");
   console.log("wrote", name, `(${records.length} exchange${records.length === 1 ? "" : "s"})`);
 }
+
+function stableFixture(v) {
+  if (typeof v === "string") return v.replaceAll(LOCAL_FORGE_URL, FIXTURE_FORGE_URL);
+  if (Array.isArray(v)) return v.map(stableFixture);
+  if (v && typeof v === "object") return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, stableFixture(x)]));
+  return v;
+}
+
 // Dates do not survive JSON.stringify as Dates; tag them so a test can assert the client
 // really produced a Date instance.
 function reviveForFixture(v) {
