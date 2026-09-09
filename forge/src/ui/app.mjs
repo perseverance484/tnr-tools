@@ -182,10 +182,13 @@ export class App {
       const s = await fn();
       // Only outcome "success" is green. A finished job holding a drifted, unread or failed item is
       // reported as what it is; the bundle is still exported, because a failure is evidence too.
-      const counts = Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ");
-      const verify = s.verify ? `${s.verify.match} verified, ${s.verify.drift} drift, ${s.verify.unread} unread` : "";
+      const job = this.journal.get(jobId);
+      const captures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
+      const detail = job.items.length
+        ? `${Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} · ${s.verify.match} verified, ${s.verify.drift} drift, ${s.verify.unread} unread`
+        : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures ok · zero mutations`;
       const kind = s.outcome === "success" ? "ok" : s.outcome === "failed" ? "bad" : "warn";
-      this.toast(`job ${s.state} (${s.outcome}): ${counts}${verify ? " · " + verify : ""}`, kind, 8000);
+      this.toast(`job ${s.state} (${s.outcome}): ${detail}`, kind, 8000);
       if (s.state === "DONE" || s.state === "INCOMPLETE") await this.exportJob(jobId, { auto: true });
     } catch (e) { this.fail("run", e); }
     finally { clearInterval(tick); this.state.running = null; this.refresh(); }

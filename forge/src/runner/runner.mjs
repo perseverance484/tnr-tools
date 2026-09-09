@@ -89,7 +89,8 @@ export class Runner {
   plan(manifestSource, { jobId, manifestPath = null, manifestNumber = null } = {}) {
     const manifest = parseManifest(manifestSource);
     const order = planOrder(manifest, readIdmap(this.storage));
-    const job = this.journal.open({ jobId, manifestPath, manifestNumber, manifestHash: manifest.hash, items: toJournalSpecs(order) });
+    const captureOnly = order.length === 0 && manifest.capture.before.length + manifest.capture.after.length > 0;
+    const job = this.journal.open({ jobId, manifestPath, manifestNumber, manifestHash: manifest.hash, items: toJournalSpecs(order), allowEmpty: captureOnly });
     this.manifests.set(jobId, { manifest, order });
     return job;
   }
