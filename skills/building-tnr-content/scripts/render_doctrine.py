@@ -20,8 +20,8 @@ PIPELINE = os.path.join(ROOT, "skills", "building-tnr-content", "references", "p
 BUNDLE = os.path.join(ROOT, "builder_bundle.js")
 
 ASSERTION = re.compile(r"^### (D-[a-z0-9-]+)\s*$")
-DOCTRINE_BLOCK = re.compile(r"<!-- doctrine:begin[^>]*-->.*?<!-- doctrine:end -->", re.S)
-BUILDER_BLOCK = re.compile(r"<!-- builder-version:begin -->.*?<!-- builder-version:end -->", re.S)
+MARK = re.compile(r"<!-- doctrine:begin[^>]*-->.*?<!-- doctrine:end -->", re.S)
+BMARK = re.compile(r"<!-- builder-version:begin -->.*?<!-- builder-version:end -->", re.S)
 
 
 def blob_sha7(path):
@@ -96,10 +96,10 @@ def doctrine_block(assertions, target, sha7):
 
 def render_skill(path, assertions, target, sha7):
     text = open(path, encoding="utf-8").read()
-    if not DOCTRINE_BLOCK.search(text):
+    if not MARK.search(text):
         raise SystemExit(f"{path}: doctrine markers missing")
     block = doctrine_block(assertions, target, sha7)
-    return DOCTRINE_BLOCK.sub(lambda _: block, text, count=1)
+    return MARK.sub(lambda _: block, text, count=1)
 
 
 def builder_version():
@@ -110,14 +110,14 @@ def builder_version():
 
 def render_pipeline():
     text = open(PIPELINE, encoding="utf-8").read()
-    if not BUILDER_BLOCK.search(text):
+    if not BMARK.search(text):
         raise SystemExit("pipeline.md: builder-version markers missing")
     block = (
         "<!-- builder-version:begin -->Current live builder: **%s** "
         "(generated from builder_bundle.js - do not hand-edit)"
         "<!-- builder-version:end -->" % builder_version()
     )
-    return BUILDER_BLOCK.sub(lambda _: block, text, count=1)
+    return BMARK.sub(lambda _: block, text, count=1)
 
 
 def render_all():
