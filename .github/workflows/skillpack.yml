@@ -21,11 +21,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Check doctrine
+      - name: Check skill sources
         run: |
           python3 skills/building-tnr-content/scripts/doctrinemap.py
           python3 skills/building-tnr-content/scripts/render_doctrine.py --check
           python3 skills/building-tnr-content/scripts/build_packs.py --check
+          python3 skills/building-tnr-content/scripts/catalog_sync.py --selftest
       - name: Build deterministic skill ZIPs
         run: |
           python3 .github/scripts/pack_skills.py
