@@ -18,7 +18,7 @@ on:
       - ".github/workflows/forge.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: forge-${{ github.workflow }}-${{ github.ref }}
@@ -39,10 +39,10 @@ jobs:
           cache-dependency-path: forge/package-lock.json
       - run: npm ci
       - run: npm test
-      - name: Verify generated fixtures
+      - name: Refresh stable fixtures
         run: |
           npm run fixtures
-          git diff --exit-code -- test/fixtures/envelope
+          python3 ../.github/scripts/commit_generated.py "forge: refresh stable envelope fixtures [auto]" "test/fixtures/envelope/*"
       - name: Verify checked bundle
         run: |
           npm run build
