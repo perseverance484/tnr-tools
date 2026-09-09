@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+// A floating @require can change after review; release loaders must pin immutable bundle commits.
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const REQUIRE_RE = /^\/\/ @require\s+(\S+)\s*$/m;
 const VERSION_RE = /^\/\/ @version\s+(\S+)\s*$/m;

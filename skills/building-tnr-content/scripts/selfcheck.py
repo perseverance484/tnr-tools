@@ -40,7 +40,7 @@ def check_generated(gdir, errors, notes):
     for name in GENERATED:
         path = gdir / name
         if not path.exists():
-            errors.append(f"{name} not found in {gdir}")
+            errors.append(f"{name} not found in {gdir}; pass --generated <contract-dir> or sync the generated files first")
             continue
         data = load_json(path, errors)
         if data is None:

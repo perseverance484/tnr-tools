@@ -27,7 +27,7 @@ jobs:
           python3 skills/building-tnr-content/scripts/render_doctrine.py --check
           python3 skills/building-tnr-content/scripts/build_packs.py --check
           python3 skills/building-tnr-content/scripts/catalog_sync.py --selftest
-      - name: Build deterministic skill ZIPs
+      - name: Build deterministic bounded skill ZIPs
         run: |
           python3 .github/scripts/pack_skills.py
           sha256sum dist/*.zip > /tmp/skillpack.sha256
