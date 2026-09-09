@@ -1,26 +1,17 @@
-# STAGED WORKFLOW - install at .github/workflows/relay.yml (Wave 4 batch)
-# REINSTALL REQUIRED 2026-09-02: audit TNR-05 (CWE-78). The dispatch input was
-# interpolated into the run block three times; it is now bound to $BRANCH, shape-
-# checked, and the merge target is explicit. The installed copy is still the old one.
-# ---------------------------------------------------------------------------
-# Ruling 4 (approved): moves privileged main-writes off the long-lived pasted
-# PAT. Flow AFTER install + ritual switch: the container pushes to a work
-# branch (relay/<topic>) with a branch-scoped PAT, then dauntless triggers
-# this dispatch (or the container calls it if the PAT gains actions:write on
-# this repo only); the merge to main runs under GitHub's auto-minted,
-# auto-expiring GITHUB_TOKEN. Until the ritual switches, the container keeps
-# pushing main directly - installing this is safe and inert.
-# ---------------------------------------------------------------------------
 name: relay
 on:
   workflow_dispatch:
     inputs:
       branch:
-        description: "work branch to merge into main (e.g. relay/wave5)"
+        description: "relay/* branch to merge into main"
         required: true
 
 permissions:
   contents: write
+
+concurrency:
+  group: relay
+  cancel-in-progress: false
 
 jobs:
   merge:
@@ -29,20 +20,22 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Merge work branch under the expiring token
+      - name: Merge work branch
         env:
-          # Bound as data. Never interpolate ${{ }} inside the run block:
-          # Actions expands it into the script text before the shell parses it,
-          # so a quote in the input escapes into command position (CWE-78).
           BRANCH: ${{ github.event.inputs.branch }}
         run: |
-          case "$BRANCH" in
-            *[!A-Za-z0-9._/-]*|"") echo "refusing branch name: $BRANCH" >&2; exit 1 ;;
-          esac
+          case "$BRANCH" in relay/*) ;; *) echo "branch must start with relay/" >&2; exit 1 ;; esac
+          git check-ref-format --branch "$BRANCH" >/dev/null
           git config user.name "relay[bot]"
           git config user.email "relay@users.noreply.github.com"
-          git checkout main
-          git fetch origin "$BRANCH"
-          git merge --no-ff "origin/$BRANCH" \
-            -m "relay: merge $BRANCH [auto]"
-          git push origin main
+
+          for attempt in 1 2 3; do
+            git fetch origin --prune
+            git checkout -B relay-merge origin/main
+            git merge --no-ff "origin/$BRANCH" -m "relay: merge $BRANCH [auto]"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "main advanced during merge; retrying ($attempt/3)"
+          done
+          exit 1
