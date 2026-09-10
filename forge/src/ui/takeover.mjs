@@ -86,6 +86,63 @@ export function entryTakeover(doc = document, win = window) {
 
 // ---------------------------------------------------------------- the carrier page
 /**
+ * Wait until the carrier document actually HAS a body.
+ *
+ * The loader runs at document-start and now matches the whole origin. On the entry page that is
+ * harmless, because entryTakeover() builds its own body - but the carrier is the real app
+ * document, and at document-start a normal page is not guaranteed to have been parsed as far as
+ * <body> yet. mountHost() reads doc.body, so calling it too early throws, the top-level boot
+ * wrapper swallows the rejection, and the operator is left looking at the game with the tab still
+ * armed and Forge never mounted. That is independent review FPA-1, and it defeats the repair in
+ * exactly the workflow the repair exists for.
+ *
+ * document-start is still the right run-at: it is what lets the entry page be stopped before it
+ * renders. The fix is to wait here rather than to run later.
+ *
+ * Nothing is written to the page while waiting. Three signals race, because a userscript sandbox
+ * may support any subset of them, and every one of them re-checks doc.body rather than assuming
+ * the event means what it says:
+ *   - a MutationObserver on documentElement, which sees the parser insert <body>;
+ *   - DOMContentLoaded / readystatechange, for the case where the body already arrived;
+ *   - an interval, only when MutationObserver could not be constructed at all.
+ * Whichever fires first resolves exactly once; the others are torn down.
+ *
+ * There is deliberately no timeout. A document that never gets a body is one Forge must not
+ * touch, and staying pending leaves the page untouched, which is the safe failure.
+ */
+export function whenBodyReady(doc = document, win = window) {
+  return new Promise((resolve) => {
+    if (doc.body) return resolve(doc.body);
+    let settled = false;
+    let mo = null;
+    let timer = null;
+    const cleanup = () => {
+      if (mo) { try { mo.disconnect(); } catch { /* already gone */ } mo = null; }
+      if (timer != null) { try { win.clearInterval(timer); } catch { /* already gone */ } timer = null; }
+      try { doc.removeEventListener("DOMContentLoaded", check); } catch { /* not supported */ }
+      try { doc.removeEventListener("readystatechange", check); } catch { /* not supported */ }
+    };
+    function check() {
+      if (settled || !doc.body) return;   // an event is a hint, doc.body is the answer
+      settled = true;
+      cleanup();
+      resolve(doc.body);
+    }
+    try {
+      mo = new win.MutationObserver(check);
+      mo.observe(doc.documentElement || doc, { childList: true, subtree: true });
+    } catch { mo = null; }
+    try { doc.addEventListener("DOMContentLoaded", check); } catch { /* not supported */ }
+    try { doc.addEventListener("readystatechange", check); } catch { /* not supported */ }
+    if (!mo) { try { timer = win.setInterval(check, 25); } catch { timer = null; } }
+    check();   // the body may have arrived between the first test and the listeners going up
+  });
+}
+
+/** Is Forge already mounted in this document? One overlay per document, always. */
+export function alreadyMounted(doc = document) { return !!doc.querySelector("." + OVERLAY_CLASS); }
+
+/**
  * Mount point on a live application route. One fixed, opaque, full-screen element appended to
  * the body, plus a scroll lock on the carrier while it is up. Nothing is removed, no provider is
  * unmounted, no game node is touched; release() puts the page back exactly as it was.

@@ -15,7 +15,7 @@ import { Runner } from "./runner/runner.mjs";
 import { Reconciler } from "./reconcile/reconciler.mjs";
 import { Github } from "./github.mjs";
 import { App } from "./ui/app.mjs";
-import { entryTakeover, mountHost, onEntryPath, pageAuthRuntime, arm, disarm, isArmed, armHops, ENTRY_PATH, CARRIER_PATH, MAX_HOPS } from "./ui/takeover.mjs";
+import { entryTakeover, mountHost, whenBodyReady, alreadyMounted, onEntryPath, pageAuthRuntime, arm, disarm, isArmed, armHops, ENTRY_PATH, CARRIER_PATH, MAX_HOPS } from "./ui/takeover.mjs";
 import { CSS, CSS_DOC } from "./ui/styles.mjs";
 import { h, installCss } from "./ui/dom.mjs";
 import FIELDS from "./runner/fields.json" with { type: "json" };
@@ -120,13 +120,24 @@ function bootEntry(win, doc, redirect) {
  * every later send, in case the session dies mid-job.
  */
 async function bootHost(win, doc, { establish = true } = {}) {
-  const host = mountHost(doc, win);
+  // The document-start body wait (independent review FPA-1). Nothing is written to the carrier
+  // before this resolves, so an armed page that has not been parsed as far as <body> is as inert
+  // as an unarmed one until it is ready.
+  await whenBodyReady(doc, win);
+  // One overlay per document. Belt and braces against a second boot() on the same page - a
+  // re-entered bundle, or a test - stacking a second Forge on top of the first.
+  if (alreadyMounted(doc)) return null;
+
   const clock = () => Date.now();
   // the job lease is keyed by tab; sessionStorage survives a reload or a restored tab, not a new one
   let tabId;
   try { tabId = win.sessionStorage.getItem("tnr_forge_tab") || null; if (!tabId) { tabId = Math.random().toString(36).slice(2, 12); win.sessionStorage.setItem("tnr_forge_tab", tabId); } } catch { tabId = undefined; }
   let deps = {};
+  // host is created INSIDE the guard, so a failure to mount at all leaves the carrier untouched
+  // rather than half-decorated with an overlay nothing could be rendered into.
+  let host = null;
   try {
+    host = mountHost(doc, win);
     deps = compose({
       storage: win.localStorage, indexedDB: win.indexedDB, fetchImpl: win.fetch.bind(win),
       clock, tabId, runtime: pageAuthRuntime(win), log: (m) => deps.app && deps.app.log(m),
@@ -140,6 +151,9 @@ async function bootHost(win, doc, { establish = true } = {}) {
     // tab that has used Forge once would refuse the third trip through /forge as a redirect loop.
     arm(win, { hops: 0 });
   } catch (e) {
+    // Nothing was mounted: say nothing and change nothing. Reporting into a page Forge does not
+    // own would be the one behaviour an unarmed-page-is-inert contract cannot afford.
+    if (!host) return null;
     const panel = h("div", { class: "f-boot" });
     panel.append(h("div", {}, h("b", {}, "TNR forge failed to start")), h("pre", { style: { whiteSpace: "pre-wrap", fontSize: "12px" } }, String(e && e.stack || e)));
     host.body.appendChild(panel);

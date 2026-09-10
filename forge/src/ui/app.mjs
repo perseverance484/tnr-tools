@@ -150,6 +150,18 @@ export class App {
       h("div", { class: "f-actions" }, recheck));
   }
 
+  /**
+   * Why Resume is not offered on a SESSION-paused job. A job that stopped because the game
+   * refused the session must not offer a green Resume that will immediately be refused again:
+   * the operator has to sign in and re-check first (independent review FPA-2). Returns null when
+   * resuming is fine.
+   */
+  resumeBlockedReason(job) {
+    if (!job || !job.pause || job.pause.reason !== "SESSION") return null;
+    if (!this.auth || this.auth.ready) return null;
+    return "TNR authentication is still unavailable. Sign in to the game and re-check the session; resuming now would send nothing.";
+  }
+
   /** Protected procedures a selected manifest would need that the session cannot supply. */
   blockedPaths(plan, manifest) {
     if (!this.auth) return [];
@@ -234,6 +246,9 @@ export class App {
 
   async resumeJob(jobId) {
     const job = this.journal.get(jobId);
+    // Re-read at the moment of the tap: the state may have changed since the screen rendered.
+    const blocked = this.resumeBlockedReason(job);
+    if (blocked) { this.toast(blocked, "bad", 9000); return this.refresh(); }
     if (!this.runner.manifests.has(jobId)) {
       try {
         const text = job.manifestPath ? await this.github.text(job.manifestPath) : null;

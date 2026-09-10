@@ -15,10 +15,11 @@ import { JSDOM } from "jsdom";
 import { IDBFactory } from "fake-indexeddb";
 import { AUTH, AuthState, AuthUnavailable, PROBE_PATH, PROBE_ID } from "../src/transport/auth.mjs";
 import { isProtected, PROTECTED_PATHS, PROCEDURES } from "../src/transport/procedures.mjs";
+import { parseRouterDecls, forgeTable } from "../tools/auth_pin_diff.mjs";
 import { boot } from "../src/main.mjs";
 import { CSS, CSS_DOC } from "../src/ui/styles.mjs";
 import { App } from "../src/ui/app.mjs";
-import { ARM_KEY, isArmed, arm, armHops, disarm, mountHost, pageAuthRuntime, CARRIER_PATH, ENTRY_PATH } from "../src/ui/takeover.mjs";
+import { ARM_KEY, isArmed, arm, armHops, disarm, mountHost, whenBodyReady, alreadyMounted, pageAuthRuntime, CARRIER_PATH, ENTRY_PATH, OVERLAY_CLASS } from "../src/ui/takeover.mjs";
 import { FakeGame, FakeClient } from "./fakegame.mjs";
 import { MemoryStorage } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
@@ -41,6 +42,29 @@ function dom(url = "https://www.theninja-rpg.com/") {
     Object.defineProperty(globalThis, k, { value: v, configurable: true, writable: true });
   }
   return win;
+}
+
+/**
+ * The same window, rewound to document-start: the parser has produced <html> but not yet <body>.
+ * jsdom always builds a body, so it is removed and handed back through insertBody(), which is
+ * what the real parser does a moment later. This is the shape independent review FPA-1 is about.
+ */
+function bodylessDom(url = "https://www.theninja-rpg.com/") {
+  const win = dom(url);
+  const doc = win.document;
+  doc.documentElement.removeChild(doc.body);
+  return {
+    win, doc,
+    insertBody() {
+      const body = doc.createElement("body");
+      const gameRoot = doc.createElement("div");
+      gameRoot.id = "__next";
+      gameRoot.textContent = "the game";
+      body.appendChild(gameRoot);
+      doc.documentElement.appendChild(body);
+      return body;
+    },
+  };
 }
 
 /** A fake clerk-js: the two booleans AuthState is permitted to read, and nothing else. */
@@ -71,10 +95,47 @@ test("the auth class of every audited procedure is transcribed from source, not 
   assert.equal(isProtected("gameAsset.get"), false);     // routers/asset.ts:147, publicProcedure
   assert.equal(isProtected("jutsu.getAllNames"), false); // routers/jutsu.ts:257, publicProcedure
   assert.equal(PROTECTED_PATHS.length, 27);
-  // Every mutation on the audited content surface is protected; the public surface is read-only.
-  for (const [path, p] of Object.entries(PROCEDURES)) if (p.kind === "mutation") assert.equal(p.auth, "protected", path);
   assert.throws(() => isProtected("jutsu.nope"), /unknown procedure/);
 });
+
+test("the table's shape is an invariant: every mutation is protected, every public path is a read", () => {
+  // Independent review FPA-3 made the table's completeness security-relevant, so its SHAPE is
+  // pinned here rather than left to whoever regenerates it next. Both directions matter: a
+  // mutation classified public would let the gate wave through a write the server will refuse,
+  // and a public read classified protected would block work that would have succeeded.
+  const PUBLIC_READ = /\.(get|getAll|getAllNames|getAllAiNames)$/;
+  for (const [path, p] of Object.entries(PROCEDURES)) {
+    if (p.kind === "mutation") assert.equal(p.auth, "protected", `${path} is a mutation and must be protected`);
+    if (p.auth === "public") {
+      assert.equal(p.kind, "query", `${path} is public and must therefore be a read`);
+      assert.match(path, PUBLIC_READ, `${path} is public but is not one of the audited read families`);
+    }
+  }
+  // `limited` is a statement about the rate limiter, not about auth. They are exact complements
+  // across today's 43 rows, and that coincidence is exactly why auth is transcribed separately:
+  // if this ever stops holding, it must be a deliberate edit rather than a silent gate move.
+  for (const [path, p] of Object.entries(PROCEDURES)) assert.equal(p.limited, p.auth === "public", `${path}: limiter and auth class disagree`);
+});
+
+test("FPA-3: the auth classification is identical at the task pin and at Forge's global pin", () => {
+  // The proof itself is docs/handoffs/FORGE_PROTECTED_AUTH_PIN_RECONCILIATION.md, produced by
+  // tools/auth_pin_diff.mjs against a read-only checkout of both commits: 0 disagreements across
+  // all 43 Forge paths, 0 reclassifications across the whole content surface. This test pins the
+  // parsing half of that tool, which is the part that could rot, using a fixture in the exact
+  // shape the routers use - the tool needs two game checkouts and so cannot run in this suite.
+  const table = parseRouterDecls([
+    "export const jutsuRouter = createTRPCRouter({",
+    "  getAllNames: publicProcedure",
+    "    .input(z.object({}))",
+    "  update: protectedProcedure",
+    "      nested: publicProcedure",   // deeper indentation is not a procedure declaration
+    "});",
+  ].join("\n"));
+  assert.deepEqual(table, { getAllNames: "publicProcedure", update: "protectedProcedure" });
+  // and the tool reads Forge's own table out of the shipped source, not a copy of it
+  assert.deepEqual(forgeTable(), Object.fromEntries(Object.entries(PROCEDURES).map(([p, v]) => [p, v.auth])));
+});
+
 
 // ------------------------------------------------------------------ 2. the entry point (brief A, test 1)
 test("/forge still works as the operator entry point and hands off to the authenticated host", async () => {
@@ -126,6 +187,76 @@ test("the carrier page keeps its provider/auth runtime alive while Forge is moun
   assert.equal(win.document.querySelector(".f-host"), null);
   assert.equal(win.document.getElementById("__next"), gameRoot);
   assert.equal(isArmed(win), false);
+});
+
+// ---------------------------------------------------------------- FPA-1: document-start body
+//
+// The loader keeps @run-at document-start and matches the whole origin. On the carrier that means
+// boot() can run before the parser has reached <body>. mountHost() reads doc.body, so calling it
+// then throws, the top-level wrapper swallows the rejection, and the operator sees the game with
+// the tab armed and Forge never mounted - a valid /forge handoff that silently does nothing.
+
+test("FPA-1: an armed carrier with no body yet mounts when the body arrives, exactly once", async () => {
+  const { win, doc, insertBody } = bodylessDom();
+  arm(win, { hops: 1 });
+  win.Clerk = { loaded: true, session: { id: "sess" } };
+  assert.equal(doc.body, null, "the test really is at document-start");
+
+  const booting = boot(win, { establish: false });
+  // Nothing may be written to a document Forge cannot mount into yet.
+  await new Promise((r) => setTimeout(r, 20));
+  assert.equal(doc.body, null);
+  assert.equal(doc.documentElement.childElementCount, 1, "only <head>; Forge added nothing while waiting");
+  assert.equal((doc.adoptedStyleSheets || []).length, 0, "not even a stylesheet before the body exists");
+
+  const body = insertBody();
+  const app = await booting;
+  assert.ok(app instanceof App, "Forge mounts as soon as the body is there");
+  assert.equal(doc.querySelectorAll("." + OVERLAY_CLASS).length, 1, "exactly one overlay");
+  assert.equal(doc.querySelector("." + OVERLAY_CLASS).parentElement, body);
+  assert.equal(doc.getElementById("__next").textContent, "the game", "the game's own tree is untouched");
+});
+
+test("FPA-1: a second boot on a page that already hosts Forge does not stack a second overlay", async () => {
+  const win = dom("https://www.theninja-rpg.com/");
+  arm(win, { hops: 1 });
+  const first = await boot(win, { establish: false });
+  assert.ok(first instanceof App);
+  assert.equal(alreadyMounted(win.document), true);
+  const second = await boot(win, { establish: false });
+  assert.equal(second, null);
+  assert.equal(win.document.querySelectorAll("." + OVERLAY_CLASS).length, 1);
+});
+
+test("FPA-1: an UNARMED page with no body is inert and never even watches for one", async () => {
+  const { win, doc, insertBody } = bodylessDom("https://www.theninja-rpg.com/village");
+  const app = await boot(win, { establish: false });
+  assert.equal(app, null, "an unarmed page returns before the body wait is entered");
+  insertBody();
+  await new Promise((r) => setTimeout(r, 20));
+  assert.equal(doc.querySelector("." + OVERLAY_CLASS), null, "and stays inert once the body arrives");
+  assert.equal((doc.adoptedStyleSheets || []).length, 0);
+});
+
+test("FPA-1: mounting without the wait really does throw, which is what made this silent", () => {
+  // The hazard, pinned directly: this is what bootHost() used to do first, outside its guard.
+  const { doc, win } = bodylessDom();
+  assert.throws(() => mountHost(doc, win), TypeError);
+});
+
+test("FPA-1: whenBodyReady resolves once, from whichever signal fires, and cleans up after itself", async () => {
+  const { win, doc, insertBody } = bodylessDom();
+  let resolved = 0;
+  const p = whenBodyReady(doc, win).then((b) => { resolved++; return b; });
+  insertBody();
+  const body = await p;
+  assert.equal(body, doc.body);
+  // a later mutation must not re-resolve or leave an observer running against the live page
+  doc.body.appendChild(doc.createElement("div"));
+  await new Promise((r) => setTimeout(r, 20));
+  assert.equal(resolved, 1);
+  // and a document that already has a body resolves without waiting for anything
+  assert.equal(await whenBodyReady(doc, win), doc.body);
 });
 
 test("the stylesheet cannot restyle the carrier page: every rule is scoped to the overlay", () => {
@@ -291,6 +422,109 @@ test("reconciliation is not started against a dead session, so nothing is orphan
   assert.equal(s.pause.reason, "SESSION");
   assert.equal(game.calls.length, before, "reconciliation issued no reads");
   assert.equal(h.journal.get("rec").items[0].state, "SENT", "still SENT, NOT orphaned: this is a sign-in problem");
+});
+
+// ---------------------------------------------------------------- FPA-2: server refusal invalidates
+//
+// A probe is a snapshot; a session can die a minute later. Before this, a server UNAUTHORIZED
+// paused the job but left AuthState READY, so the banner said "TNR session active" while the run
+// screen said authentication was unavailable, and Resume would send the next protected request
+// against a session the server had already refused.
+
+test("FPA-2: a protected READ refused by the server drives the shared auth state to signed out", async () => {
+  const h = harness({ signedOut: true, authState: AUTH.READY });
+  h.runner.plan({ items: [], capture: { after: [protectedCapture(AI.userId)] } }, { jobId: "r" });
+  assert.equal(h.auth.state, AUTH.READY, "the client starts out believing it is signed in");
+  const s = await h.runner.run("r");
+  assert.equal(s.pause.reason, "SESSION");
+  assert.equal(h.auth.state, AUTH.SIGNED_OUT, "the server's answer beats the last probe");
+  assert.equal(h.auth.ready, false);
+  assert.match(h.auth.detail, /profile\.getAi: UNAUTHORIZED/);
+});
+
+test("FPA-2: a protected MUTATION refused by the server drives the shared auth state to signed out", async () => {
+  const h = harness({ authState: AUTH.READY });
+  h.runner.plan(writeManifest(), { jobId: "m" });
+  h.auth.assert = () => {};        // the session dies between the gate and the send
+  h.game.signOut();
+  const s = await h.runner.run("m");
+  assert.equal(s.pause.reason, "SESSION");
+  assert.equal(h.journal.get("m").items[0].state, "FAILED", "still a clean refusal, not an ambiguous SENT");
+  assert.equal(h.auth.state, AUTH.SIGNED_OUT);
+});
+
+test("FPA-2: after a refusal, resuming without a successful re-check sends zero protected requests", async () => {
+  const h = harness({ signedOut: true, authState: AUTH.READY });
+  h.runner.plan({ items: [], capture: { after: [1, 2, 3].map((n) => protectedCapture(`ai-000000000000000000${n}`)) } }, { jobId: "again" });
+  await h.runner.run("again");
+  assert.equal(h.auth.state, AUTH.SIGNED_OUT);
+  const spent = h.game.calls.length;
+  assert.equal(spent, 1, "one request proved it; the other two captures were not attempted");
+  // a second run() is now stopped by the preflight, before any request
+  const s2 = await h.runner.run("again");
+  assert.equal(s2.pause.reason, "SESSION");
+  assert.equal(h.game.calls.length, spent, "resuming spent nothing");
+  // and once the operator signs in and re-checks, the same job completes
+  h.game.signIn();
+  assert.equal(await h.auth.probe(), AUTH.READY);
+  const s3 = await h.runner.run("again");
+  assert.equal(s3.state, "DONE");
+});
+
+test("FPA-2: a multi-item write job cannot advance to the next protected item after a refusal", async () => {
+  const h = harness({ authState: AUTH.READY });
+  h.runner.plan({ items: [
+    { entity: "jutsu", slot: "create", name: "One", srcId: "one", data: { name: "One", description: "d", hidden: true } },
+    { entity: "jutsu", slot: "create", name: "Two", srcId: "two", data: { name: "Two", description: "d", hidden: true } },
+  ] }, { jobId: "two" });
+  h.auth.assert = () => {};
+  h.game.signOut();
+  await h.runner.run("two");
+  assert.equal(h.auth.state, AUTH.SIGNED_OUT);
+  h.auth.assert = AuthState.prototype.assert.bind(h.auth);   // the gate is live again
+  const spent = h.game.calls.length;
+  const s = await h.runner.run("two");
+  assert.equal(s.pause.reason, "SESSION");
+  assert.equal(h.game.calls.length, spent, "item two was never attempted against the refused session");
+  assert.equal(h.journal.get("two").items[1].state, "PLANNED");
+  assert.equal(h.game.count("jutsu"), 0, "and nothing was created");
+});
+
+test("FPA-2: the banner stops claiming a live session, and Resume is withheld until a re-check", async () => {
+  const win = dom("https://www.theninja-rpg.com/");
+  const game = new FakeGame({ signedOut: true });
+  const d = composeForTest({ game, authState: AUTH.READY });
+  d.github = { list: async () => [], text: async () => "{}", put: async () => ({ sha: "s" }) };
+  const app = new App({ version: "test", storage: d.storage, now: d.clock, ...d });
+  app.mount(win.document.body, win.document);
+  assert.match(win.document.querySelector(".f-authbar").textContent, /TNR session active/);
+
+  d.runner.plan({ items: [], capture: { after: [protectedCapture(AI.userId)] } }, { jobId: "j" });
+  await d.runner.run("j");
+  app.go("run", { jobId: "j" });
+
+  const bar = win.document.querySelector(".f-authbar").textContent;
+  assert.ok(!/TNR session active/.test(bar), "the banner cannot say the session is live after the server refused it");
+  assert.match(bar, /TNR authentication unavailable/);
+
+  const main = win.document.querySelector(".f-main").textContent;
+  assert.match(main, /Paused: TNR authentication unavailable/);
+  assert.match(main, /re-check the session/i);
+  const resume = [...win.document.querySelectorAll(".f-main button")].find((b) => /Resume/.test(b.textContent));
+  assert.equal(resume.disabled, true, "a doomed Resume is not offered");
+
+  // tapping it anyway (or from the Jobs list) issues nothing
+  const spent = game.calls.length;
+  await app.resumeJob("j");
+  assert.equal(game.calls.length, spent);
+
+  // after a successful re-check the button comes back
+  game.signIn();
+  await app.recheckAuth();
+  assert.equal(d.auth.state, AUTH.READY);
+  app.go("run", { jobId: "j" });
+  const resume2 = [...win.document.querySelectorAll(".f-main button")].find((b) => /Resume/.test(b.textContent));
+  assert.equal(resume2.disabled, false);
 });
 
 // ------------------------------------------------------------------ 6. reads and captures (brief D, tests 4 and 5)

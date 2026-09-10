@@ -162,6 +162,24 @@ export class AuthState {
   }
 
   /**
+   * Record a SERVER-PROVEN refusal: a protected procedure came back UNAUTHORIZED (or the route
+   * handler's "Please complete registration"), so this session cannot do protected work whatever
+   * the page runtime or the last probe believed.
+   *
+   * This exists because a probe is a snapshot and a session can die a minute later (independent
+   * review FPA-2). Without it the standing banner kept saying "TNR session active" while the run
+   * screen said authentication was unavailable, and Resume would happily send the next protected
+   * request against a session the server had already refused. The server's answer is the most
+   * authoritative signal there is, so it wins over the probe, and the gate then blocks every
+   * protected path until probe() succeeds again.
+   *
+   * @returns {string} the new state
+   */
+  refuse(detail = null) {
+    return this._set(AUTH.SIGNED_OUT, detail ? String(detail).slice(0, 200) : "the game refused a protected procedure for this session");
+  }
+
+  /**
    * THE GATE. Throws AuthUnavailable when `path` is protected and the session is not established.
    * Callers must call it BEFORE journaling a send, so a refusal can never leave an item SENT: a
    * blocked mutation is a mutation that was never written down as sent, which is the whole point
