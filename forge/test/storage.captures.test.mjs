@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { IDBFactory } from "fake-indexeddb";
-import { CaptureCache, captureKey, entityOfPath, FULL_PERSIST_PATHS, canPersistFull, persistProcedureKind, MAX_FULL_CAPTURE_BYTES } from "../src/storage/captures.mjs";
+import { CaptureCache, captureKey, snapshotKey, entityOfPath, DB_NAME, STORE, DB_VERSION, FULL_PERSIST_PATHS, canPersistFull, persistProcedureKind, MAX_FULL_CAPTURE_BYTES } from "../src/storage/captures.mjs";
 import { PROCEDURES } from "../src/transport/procedures.mjs";
 import { fakeClock } from "./shim.mjs";
 
@@ -101,11 +101,102 @@ test("the full-capture ceiling is a named constant with room for the worst real 
   assert.ok(MAX_FULL_CAPTURE_BYTES > 71_000 * 5, "the ceiling must not be tight enough to reject real records");
 });
 
-test("getByKey finds exactly what get(path, id) finds", async () => {
+// ------------------------------------------------------------------ immutable snapshots
+test("snapshot keys name a capture occurrence, not a record", () => {
+  assert.equal(snapshotKey("45-abc", "before", 0), "45-abc::before::0");
+  assert.equal(snapshotKey("45-abc", "after", 3), "45-abc::after::3");
+  // two captures of ONE record are two snapshots; that is the whole point (review FFC-1)
+  assert.notEqual(snapshotKey("j", "before", 0), snapshotKey("j", "after", 0));
+  assert.notEqual(snapshotKey("j", "after", 0), snapshotKey("j", "after", 1));
+  assert.notEqual(snapshotKey("j1", "after", 0), snapshotKey("j2", "after", 0));
+});
+
+test("cache invalidation never touches capture snapshots", async () => {
   const c = fresh();
-  await c.put({ path: "gameAsset.get", id: "a1", input: { id: "a1" }, data: { id: "a1", image: "x.webp" } });
-  assert.deepEqual((await c.getByKey("gameAsset.get:a1")).data, { id: "a1", image: "x.webp" });
-  assert.deepEqual(await c.getByKey("gameAsset.get:a1"), await c.get("gameAsset.get", "a1"));
-  assert.equal(await c.getByKey("gameAsset.get:missing"), null);
+  const body = { id: "a1", name: "Before", image: "old.webp" };
+  await c.put({ path: "gameAsset.get", id: "a1", input: { id: "a1" }, data: body });
+  await c.putSnapshot({ key: snapshotKey("job", "before", 0), jobId: "job", phase: "before", ordinal: 0, path: "gameAsset.get", id: "a1", input: { id: "a1" }, data: body });
+
+  // the write path, exactly as the runner drives it for an asset update
+  await c.invalidateRecord("asset", "a1");
+  assert.equal(await c.get("gameAsset.get", "a1"), null, "the read cache slot is gone, as it must be");
+  assert.deepEqual((await c.getSnapshot(snapshotKey("job", "before", 0))).data, body, "the evidence is not");
+
+  // and the blunter instrument, and the cache-wide clear
+  await c.invalidateEntity("asset");
+  await c.clear();
+  assert.deepEqual((await c.getSnapshot(snapshotKey("job", "before", 0))).data, body);
+  assert.equal((await c.listSnapshots()).length, 1);
+  assert.deepEqual(await c.list(), [], "while the read cache really was cleared");
+  c.close();
+});
+
+test("a later read of the same record cannot overwrite an earlier snapshot", async () => {
+  const c = fresh();
+  const first = { id: "a1", name: "First" };
+  const second = { id: "a1", name: "Second" };
+  const base = { jobId: "job", path: "gameAsset.get", id: "a1", input: { id: "a1" } };
+  await c.putSnapshot({ ...base, key: snapshotKey("job", "after", 0), phase: "after", ordinal: 0, data: first });
+  await c.put({ path: "gameAsset.get", id: "a1", input: { id: "a1" }, data: first });
+  await c.putSnapshot({ ...base, key: snapshotKey("job", "after", 1), phase: "after", ordinal: 1, data: second });
+  await c.put({ path: "gameAsset.get", id: "a1", input: { id: "a1" }, data: second }); // the cache slot moves on
+
+  assert.equal((await c.getSnapshot(snapshotKey("job", "after", 0))).data.name, "First");
+  assert.equal((await c.getSnapshot(snapshotKey("job", "after", 1))).data.name, "Second");
+  assert.equal((await c.get("gameAsset.get", "a1")).data.name, "Second", "one cache slot, newest body");
+  c.close();
+});
+
+test("snapshots record their own provenance and are listed and dropped by job", async () => {
+  const c = fresh();
+  const put = (jobId, phase, ordinal, id, data) => c.putSnapshot({ key: snapshotKey(jobId, phase, ordinal), jobId, phase, ordinal, path: "gameAsset.get", id, input: { id }, data });
+  await put("j1", "after", 0, "a1", { id: "a1" });
+  await put("j1", "after", 1, "a2", { id: "a2" });
+  await put("j2", "before", 0, "a3", { id: "a3" });
+
+  const recs = await c.listSnapshots();
+  assert.equal(recs.length, 3);
+  const one = recs.find((r) => r.key === snapshotKey("j1", "after", 0));
+  assert.equal(one.entity, "asset");
+  assert.equal(one.path, "gameAsset.get");
+  assert.equal(one.id, "a1");
+  assert.equal(one.phase, "after");
+  assert.ok(one.bytes > 0 && typeof one.at === "string");
+  assert.ok(!("data" in one), "listing is metadata; bodies are fetched one at a time");
+
+  assert.equal(await c.deleteSnapshotsForJob("j1"), 2);
+  assert.deepEqual((await c.listSnapshots()).map((r) => r.jobId), ["j2"]);
+  await c.clearSnapshots();
+  assert.deepEqual(await c.listSnapshots(), []);
+  c.close();
+});
+
+test("the database upgrades a v1 cache in place and keeps its records", async () => {
+  assert.equal(DB_VERSION, 2, "the snapshot store arrived with a version bump, not a silent schema change");
+  const idb = new IDBFactory();
+  // a store shaped like the shipped v1 database, opened at v1 with no snapshot store
+  const req = idb.open(DB_NAME, 1);
+  await new Promise((resolve, reject) => {
+    req.onupgradeneeded = () => {
+      const store = req.result.createObjectStore(STORE, { keyPath: "key" });
+      store.createIndex("entity", "entity", { unique: false });
+      store.createIndex("path", "path", { unique: false });
+    };
+    req.onsuccess = () => resolve();
+    req.onerror = () => reject(req.error);
+  });
+  const v1 = req.result;
+  await new Promise((resolve, reject) => {
+    const tx = v1.transaction(STORE, "readwrite");
+    tx.objectStore(STORE).put({ key: "jutsu.get:j1", path: "jutsu.get", id: "j1", entity: "jutsu", input: { id: "j1" }, data: { id: "j1", name: "Old" }, at: "2026-01-01T00:00:00.000Z", bytes: 26 });
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+  v1.close();
+
+  const c = new CaptureCache(idb, fakeClock());
+  assert.deepEqual((await c.get("jutsu.get", "j1")).data, { id: "j1", name: "Old" }, "the v1 cache survives the upgrade");
+  await c.putSnapshot({ key: snapshotKey("j", "after", 0), jobId: "j", phase: "after", ordinal: 0, path: "jutsu.get", id: "j1", input: { id: "j1" }, data: { id: "j1", name: "New" } });
+  assert.equal((await c.getSnapshot(snapshotKey("j", "after", 0))).data.name, "New", "and the new store exists after it");
   c.close();
 });

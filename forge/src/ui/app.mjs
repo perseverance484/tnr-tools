@@ -214,9 +214,11 @@ export class App {
    * the VERDICT (not the body) back onto the job's own capture entries. Two things follow from
    * doing it this way:
    *
-   *   - the export never issues a read. The body it ships is the one the single capture read
-   *     already produced and CachedReader already cached; if it is not there, the export says so
-   *     rather than going back to the game for it;
+   *   - the export never issues a read. The body it ships is the immutable snapshot the capture
+   *     pass committed from that read's own response; if it is not there, the export says so
+   *     rather than going back to the game for it. It is NOT read out of the path+id read cache,
+   *     which a later read or a write to the entity may legitimately have replaced or dropped
+   *     (independent review FFC-1);
    *   - the journal stays compact and stays the record of truth. persistOk/persistError live on
    *     the journal entry, so jobOutcome(), the run screen and the bundle all read one answer,
    *     and the embedded `journal` in the bundle never duplicates the bodies beside it.
@@ -248,12 +250,18 @@ export class App {
     const c = { ...capture, persistOk: false, persistError: null };
     delete c.data;
     if (capture.ok !== true) { c.persistError = "read failed; there is no body to persist"; return c; }
-    const cacheKey = capture.cacheKey || null;
-    if (!cacheKey) { c.persistError = "no capture cache key was journaled for this full capture"; return c; }
+    // A failure the capture pass already recorded stands. It was decided with the body in hand -
+    // over the ceiling, or IndexedDB refused the write - so it names the real reason, which is
+    // more specific than the "snapshot is gone" the lookup below would infer from the snapshot
+    // that was deliberately never written. Export may downgrade a success; it never overwrites a
+    // recorded reason, and it never upgrades a failure.
+    if (capture.persistOk === false && capture.persistError) return { ...c, persistError: capture.persistError };
+    const key = capture.snapshotKey || null;
+    if (!key) { c.persistError = "no capture snapshot key was journaled for this full capture"; return c; }
     let rec = null;
-    try { rec = await this.cache.getByKey(cacheKey); }
-    catch (e) { c.persistError = "capture cache read failed: " + ((e && e.message) || String(e)); return c; }
-    if (!rec) { c.persistError = `${cacheKey} is no longer in the capture cache, so the full body cannot be exported without a second read; it was not re-read`; return c; }
+    try { rec = await this.cache.getSnapshot(key); }
+    catch (e) { c.persistError = "capture snapshot read failed: " + ((e && e.message) || String(e)); return c; }
+    if (!rec) { c.persistError = `capture snapshot ${key} is gone, so the full body cannot be exported without a second read; it was not re-read`; return c; }
     const bytes = typeof rec.bytes === "number" ? rec.bytes : JSON.stringify(rec.data ?? null).length;
     c.bytes = bytes;
     if (bytes > MAX_FULL_CAPTURE_BYTES) { c.persistError = `body is ${bytes} bytes, over the ${MAX_FULL_CAPTURE_BYTES}-byte full-capture ceiling; it is NOT truncated and NOT persisted`; return c; }

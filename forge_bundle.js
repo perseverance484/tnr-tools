@@ -422,9 +422,13 @@
   // src/storage/captures.mjs
   var DB_NAME = "tnr_forge";
   var STORE = "captures";
-  var DB_VERSION = 1;
+  var SNAPSHOT_STORE = "capture_snapshots";
+  var DB_VERSION = 2;
   function captureKey(path, id) {
     return `${path}:${id ?? ""}`;
+  }
+  function snapshotKey(jobId, phase, ordinal) {
+    return `${jobId}::${phase}::${ordinal}`;
   }
   var FULL_PERSIST_PATHS = Object.freeze([
     "gameAsset.get",
@@ -481,6 +485,10 @@
               store.createIndex("entity", "entity", { unique: false });
               store.createIndex("path", "path", { unique: false });
             }
+            if (!db2.objectStoreNames.contains(SNAPSHOT_STORE)) {
+              const snaps = db2.createObjectStore(SNAPSHOT_STORE, { keyPath: "key" });
+              snaps.createIndex("jobId", "jobId", { unique: false });
+            }
           };
           const db = await new Promise((resolve, reject) => {
             req.onsuccess = () => resolve(req.result);
@@ -502,19 +510,19 @@
       }
       return this._opening;
     }
-    async _tx(mode, fn) {
+    async _tx(mode, fn, storeName = STORE) {
       let db = await this._open();
       let tx;
       try {
-        tx = db.transaction(STORE, mode);
+        tx = db.transaction(storeName, mode);
       } catch (e) {
         if (e && e.name === "InvalidStateError") {
           this._db = null;
           db = await this._open();
-          tx = db.transaction(STORE, mode);
+          tx = db.transaction(storeName, mode);
         } else throw e;
       }
-      const store = tx.objectStore(STORE);
+      const store = tx.objectStore(storeName);
       const result = await fn(store);
       await new Promise((resolve, reject) => {
         tx.oncomplete = () => resolve();
@@ -540,11 +548,7 @@
       return rec;
     }
     async get(path, id) {
-      return this.getByKey(captureKey(path, id));
-    }
-    /** Fetch by the stored key directly, for a caller that journaled the key rather than path+id. */
-    async getByKey(key) {
-      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(key)));
+      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(captureKey(path, id))));
       return rec ?? null;
     }
     async has(path, id) {
@@ -591,6 +595,54 @@
     }
     async clear() {
       await this._tx("readwrite", (s) => reqToPromise(s.clear()));
+    }
+    // ---------------------------------------------------------------- immutable capture snapshots
+    /**
+     * Store the exact decoded body of ONE full capture, under its occurrence key. Written once, from
+     * the body that read returned, and never rewritten by a later read of the same record: this is
+     * the copy the exported bundle is materialized from.
+     *
+     * Deliberately NOT reachable from invalidateEntity/invalidateRecord/clear, all of which operate
+     * on the read cache only. A snapshot is deleted explicitly, by job or by key.
+     */
+    async putSnapshot({ key, jobId, phase, ordinal, path, id, input, data }) {
+      const rec = {
+        key,
+        jobId,
+        phase,
+        ordinal,
+        path,
+        id: id == null || id === "" ? null : String(id),
+        entity: entityOfPath(path),
+        input: input ?? null,
+        data,
+        at: new Date(this.clock()).toISOString(),
+        bytes: JSON.stringify(data ?? null).length
+      };
+      await this._tx("readwrite", (s) => reqToPromise(s.put(rec)), SNAPSHOT_STORE);
+      return rec;
+    }
+    async getSnapshot(key) {
+      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(key)), SNAPSHOT_STORE);
+      return rec ?? null;
+    }
+    async listSnapshots() {
+      const recs = await this._tx("readonly", (s) => reqToPromise(s.getAll()), SNAPSHOT_STORE);
+      return recs.map(({ key, jobId, phase, ordinal, path, id, entity, at, bytes }) => ({ key, jobId, phase, ordinal, path, id, entity, at, bytes }));
+    }
+    async deleteSnapshot(key) {
+      await this._tx("readwrite", (s) => reqToPromise(s.delete(key)), SNAPSHOT_STORE);
+    }
+    /** Drop every snapshot belonging to one job, for when that job's record is deleted. */
+    async deleteSnapshotsForJob(jobId) {
+      return this._tx("readwrite", async (s) => {
+        const keys = await reqToPromise(s.index("jobId").getAllKeys(jobId));
+        for (const k of keys) await reqToPromise(s.delete(k));
+        return keys.length;
+      }, SNAPSHOT_STORE);
+    }
+    async clearSnapshots() {
+      await this._tx("readwrite", (s) => reqToPromise(s.clear()), SNAPSHOT_STORE);
     }
     close() {
       if (this._db) {
@@ -4410,10 +4462,10 @@
      * never re-reads what is done. That is unchanged by persistence — `persist: "full"` adds no
      * second read, it only decides how durably the body that read already produced is kept.
      *
-     * The journal entry stays COMPACT whatever the mode: the body lives in IndexedDB, written by
-     * CachedReader on the way past, and a full entry carries only the persistence request, the
-     * cache key that finds the body, and whether the body was actually there. The exporter
-     * materializes it from that key (App.resolveCaptures); nothing here puts a body in localStorage.
+     * The journal entry stays COMPACT whatever the mode: the body goes to IndexedDB and the journal
+     * carries only the persistence request, the immutable snapshot key that finds that body, and
+     * whether it was actually stored. The exporter materializes from that key
+     * (App.resolveCaptures); nothing here puts a body in localStorage.
      */
     async _captures(jobId, list, phase) {
       const key = phase === "before" ? "capturesBefore" : "capturesAfter";
@@ -4425,7 +4477,7 @@
         const id = c.id ?? (c.input && (c.input.id ?? c.input.userId));
         const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true });
         const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
-        if (c.persist === "full") Object.assign(entry, await this._persistFull(path, id, r));
+        if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, c.input ?? null, r));
         out.push(entry);
         this.journal.annotateJob(jobId, { [key + "Partial"]: out });
       }
@@ -4433,31 +4485,33 @@
       return out;
     }
     /**
-     * The compact persistence fields for a full capture. Checked here, at read time, so a body that
-     * is missing or oversized is visible on the run screen rather than first appearing as a surprise
-     * at export. A failed read persists nothing and fabricates nothing.
+     * Commit ONE full capture's body to the immutable snapshot store and return the compact fields
+     * the journal keeps. The body written is `r.data` - the value this very read returned - so the
+     * snapshot cannot be anything other than the body of the read it belongs to. It is deliberately
+     * NOT fetched back out of the path+id read cache: that slot is overwritten by the next read of
+     * the record and deleted by a write to its entity, which is exactly how a capture.before body
+     * could be replaced by the after body before export (independent review FFC-1).
+     *
+     * Writing here rather than at export also means the check happens at read time, so a body that
+     * is oversized or that IndexedDB refuses shows up on the run screen instead of surprising the
+     * exporter. A failed read stores nothing and fabricates nothing.
      */
-    async _persistFull(path, id, r) {
-      const fields = { persist: "full", cacheKey: captureKey(path, id ?? ""), persistOk: false, persistError: null };
+    async _persistFull(jobId, phase, ordinal, path, id, input, r) {
+      const fields = { persist: "full", snapshotKey: snapshotKey(jobId, phase, ordinal), persistOk: false, persistError: null };
       if (!r.ok) {
         fields.persistError = "read failed; there is no body to persist";
         return fields;
       }
-      let rec = null;
-      try {
-        rec = await this.cache.getByKey(fields.cacheKey);
-      } catch (e) {
-        fields.persistError = "capture cache read failed: " + (e && e.message ? e.message : String(e));
-        return fields;
-      }
-      if (!rec) {
-        fields.persistError = `the read succeeded but ${fields.cacheKey} is not in the capture cache`;
-        return fields;
-      }
-      const bytes = typeof rec.bytes === "number" ? rec.bytes : JSON.stringify(rec.data ?? null).length;
+      const bytes = JSON.stringify(r.data ?? null).length;
       fields.bytes = bytes;
       if (bytes > MAX_FULL_CAPTURE_BYTES) {
         fields.persistError = `body is ${bytes} bytes, over the ${MAX_FULL_CAPTURE_BYTES}-byte full-capture ceiling; it is NOT truncated and NOT persisted`;
+        return fields;
+      }
+      try {
+        await this.cache.putSnapshot({ key: fields.snapshotKey, jobId, phase, ordinal, path, id, input, data: r.data });
+      } catch (e) {
+        fields.persistError = "capture snapshot write failed: " + (e && e.message ? e.message : String(e));
         return fields;
       }
       fields.persistOk = true;
@@ -5071,7 +5125,7 @@ details summary { cursor:pointer; color:var(--mute); }
         // produce a sentence about bodies nobody asked for.
         !failed && unpersisted.length ? `${captures.length}/${captures.length} reads succeeded, but ${unpersisted.length} of ${full.length} requested full ${full.length === 1 ? "body" : "bodies"} could not be persisted, so this bundle does not carry the record data the manifest asked for` : `${failed} of ${captures.length} reads failed`,
         "; zero mutations were sent.",
-        unpersisted.length ? h("div", { class: "f-err" }, unpersisted.map((capture) => `${capture.proc} ${capture.cacheKey || ""}: ${capture.persistError || "not persisted"}`).join("\n")) : null
+        unpersisted.length ? h("div", { class: "f-err" }, unpersisted.map((capture) => `${capture.proc} ${capture.snapshotKey || ""}: ${capture.persistError || "not persisted"}`).join("\n")) : null
       ));
     } else if (job.state === "DONE" || job.state === "INCOMPLETE") {
       const drift = job.items.filter((i) => i.verify === "drift").length;
@@ -5115,7 +5169,7 @@ details summary { cursor:pointer; color:var(--mute); }
           "div",
           { class: "f-grow" },
           h("div", {}, `${capture.proc} `, h("span", { class: "f-pill " + (capture.persistOk === true ? "VERIFIED" : "FAILED") }, capture.persistOk === true ? "body persisted" : "not persisted"), h("span", { class: "f-mute" }, capture.ok ? " \xB7 read ok" : " \xB7 read failed")),
-          h("div", { class: "f-mono" }, capture.cacheKey || ""),
+          h("div", { class: "f-mono" }, `${capture.snapshotKey || ""}${capture.input && capture.input.id ? " \xB7 " + capture.input.id : ""}`),
           capture.persistError ? h("div", { class: "f-err" }, capture.persistError) : null
         )));
       }
@@ -5148,6 +5202,7 @@ details summary { cursor:pointer; color:var(--mute); }
       await app.cache.clear();
       app.refresh();
     }) }, "Clear all")), list);
+    root.appendChild(SnapshotsSection(app));
     app.cache.list().then((recs) => {
       const bytes = recs.reduce((a, r) => a + (r.bytes || 0), 0);
       replace(head, `${recs.length} capture${recs.length === 1 ? "" : "s"} \xB7 ${fmtBytes(bytes)}`);
@@ -5163,6 +5218,39 @@ details summary { cursor:pointer; color:var(--mute); }
       )));
     }).catch((e) => replace(head, h("div", { class: "f-banner bad" }, "capture cache unavailable: ", e.message)));
     return root;
+  }
+  function SnapshotsSection(app) {
+    const section = h("div", {});
+    const head = h("h3", {}, "Full-capture snapshots");
+    const note = h("div", { class: "f-mute" }, "loading\u2026");
+    const list = h("div", {});
+    section.append(head, note, h("div", { class: "f-actions" }, h("button", {
+      class: "f-danger",
+      onClick: () => app.confirm("Delete ALL full-capture snapshots? These are the exact record bodies exported bundles are built from; a job that has not been exported yet loses its evidence and cannot recover it without reading the game again.", async () => {
+        await app.cache.clearSnapshots();
+        app.refresh();
+      })
+    }, "Delete all snapshots")), list);
+    app.cache.listSnapshots().then((recs) => {
+      const bytes = recs.reduce((a, r) => a + (r.bytes || 0), 0);
+      replace(note, `${recs.length} snapshot${recs.length === 1 ? "" : "s"} \xB7 ${fmtBytes(bytes)} \xB7 never invalidated by a write; deleted with their job`);
+      recs.sort((a, b) => a.at < b.at ? 1 : -1);
+      replace(list, recs.map((r) => h(
+        "div",
+        { class: "f-row" },
+        h(
+          "div",
+          { class: "f-grow" },
+          h("div", { class: "f-mono" }, r.key),
+          h("div", { class: "f-mute" }, `${r.path}${r.id ? " " + r.id : ""} \xB7 ${r.phase} \xB7 ${fmtBytes(r.bytes || 0)} \xB7 ${fmtAgo(r.at, app.now())}`)
+        ),
+        h("button", { onClick: () => app.confirm(`Delete snapshot ${r.key}? Its body can only come back from another read.`, async () => {
+          await app.cache.deleteSnapshot(r.key);
+          app.refresh();
+        }) }, "Delete")
+      )));
+    }).catch((e) => replace(note, h("div", { class: "f-banner bad" }, "capture snapshots unavailable: ", e.message)));
+    return section;
   }
   function SettingsScreen(app) {
     const gh = readGh(app.storage);
@@ -5197,8 +5285,11 @@ details summary { cursor:pointer; color:var(--mute); }
           "div",
           { class: "f-actions" },
           h("button", { onClick: () => app.showExport(app.journal.exportText(), "journal export") }, "Export journal as text"),
-          h("button", { class: "f-danger", onClick: () => app.confirm("Delete ALL finished jobs from the journal? Open jobs are kept.", () => {
-            for (const j of app.journal.listJobs()) if (j.state === "DONE" || j.state === "ABORTED") app.journal.remove(j.jobId);
+          h("button", { class: "f-danger", onClick: () => app.confirm("Delete ALL finished jobs from the journal? Open jobs are kept, and each deleted job's full-capture snapshots go with it.", async () => {
+            for (const j of app.journal.listJobs()) if (j.state === "DONE" || j.state === "ABORTED") {
+              app.journal.remove(j.jobId);
+              await app.cache.deleteSnapshotsForJob(j.jobId);
+            }
             app.refresh();
           }) }, "Delete finished jobs")
         ),
@@ -5447,9 +5538,11 @@ details summary { cursor:pointer; color:var(--mute); }
      * the VERDICT (not the body) back onto the job's own capture entries. Two things follow from
      * doing it this way:
      *
-     *   - the export never issues a read. The body it ships is the one the single capture read
-     *     already produced and CachedReader already cached; if it is not there, the export says so
-     *     rather than going back to the game for it;
+     *   - the export never issues a read. The body it ships is the immutable snapshot the capture
+     *     pass committed from that read's own response; if it is not there, the export says so
+     *     rather than going back to the game for it. It is NOT read out of the path+id read cache,
+     *     which a later read or a write to the entity may legitimately have replaced or dropped
+     *     (independent review FFC-1);
      *   - the journal stays compact and stays the record of truth. persistOk/persistError live on
      *     the journal entry, so jobOutcome(), the run screen and the bundle all read one answer,
      *     and the embedded `journal` in the bundle never duplicates the bodies beside it.
@@ -5481,20 +5574,21 @@ details summary { cursor:pointer; color:var(--mute); }
         c.persistError = "read failed; there is no body to persist";
         return c;
       }
-      const cacheKey = capture.cacheKey || null;
-      if (!cacheKey) {
-        c.persistError = "no capture cache key was journaled for this full capture";
+      if (capture.persistOk === false && capture.persistError) return { ...c, persistError: capture.persistError };
+      const key = capture.snapshotKey || null;
+      if (!key) {
+        c.persistError = "no capture snapshot key was journaled for this full capture";
         return c;
       }
       let rec = null;
       try {
-        rec = await this.cache.getByKey(cacheKey);
+        rec = await this.cache.getSnapshot(key);
       } catch (e) {
-        c.persistError = "capture cache read failed: " + (e && e.message || String(e));
+        c.persistError = "capture snapshot read failed: " + (e && e.message || String(e));
         return c;
       }
       if (!rec) {
-        c.persistError = `${cacheKey} is no longer in the capture cache, so the full body cannot be exported without a second read; it was not re-read`;
+        c.persistError = `capture snapshot ${key} is gone, so the full body cannot be exported without a second read; it was not re-read`;
         return c;
       }
       const bytes = typeof rec.bytes === "number" ? rec.bytes : JSON.stringify(rec.data ?? null).length;

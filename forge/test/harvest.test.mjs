@@ -17,6 +17,7 @@ import { App } from "../src/ui/app.mjs";
 import { FakeGame } from "./fakegame.mjs";
 import { MemoryStorage } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
+import { snapshotKey } from "../src/storage/captures.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const HARVEST = join(HERE, "..", "..", "skills", "building-tnr-content", "scripts", "harvest.py");
@@ -314,12 +315,13 @@ test("harvest.py reads a full capture body, and still refuses a bundle whose bod
     const d = composeForTest({ game, storage });
     d.runner.plan({ items: [], capture: { after: [{ proc: "gameAsset.get", input: { id: ASSET.id }, persist: "full" }] } },
       { jobId: dropBody ? "probe-gone" : "probe", manifestPath: "push/02_one_perfect_crop_asset_probe.json", manifestNumber: 2 });
-    await d.runner.run(dropBody ? "probe-gone" : "probe");
-    if (dropBody) await d.cache.delete("gameAsset.get", ASSET.id);
+    const jobId = dropBody ? "probe-gone" : "probe";
+    await d.runner.run(jobId);
+    if (dropBody) await d.cache.deleteSnapshot(snapshotKey(jobId, "after", 0));
     const app = new App({ version: "forge 0.3.0", storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
     let text = null;
     app.showExport = (t2) => { text = t2; };
-    await app.exportJob(dropBody ? "probe-gone" : "probe");
+    await app.exportJob(jobId);
     return text;
   }
 

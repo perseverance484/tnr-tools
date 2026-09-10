@@ -23,7 +23,7 @@ import { NetworkError } from "../transport/client.mjs";
 import { TransportError } from "../transport/envelope.mjs";
 import { RateLimited } from "../budget/bucket.mjs";
 import { readIdmap, writeIdmap } from "../storage/compat.mjs";
-import { captureKey, MAX_FULL_CAPTURE_BYTES } from "../storage/captures.mjs";
+import { snapshotKey, MAX_FULL_CAPTURE_BYTES } from "../storage/captures.mjs";
 import { TERMINAL_ITEM_STATES, jobOutcome } from "../storage/journal.mjs";
 import { recipe, mergeForUpdate } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
@@ -447,10 +447,10 @@ export class Runner {
    * never re-reads what is done. That is unchanged by persistence — `persist: "full"` adds no
    * second read, it only decides how durably the body that read already produced is kept.
    *
-   * The journal entry stays COMPACT whatever the mode: the body lives in IndexedDB, written by
-   * CachedReader on the way past, and a full entry carries only the persistence request, the
-   * cache key that finds the body, and whether the body was actually there. The exporter
-   * materializes it from that key (App.resolveCaptures); nothing here puts a body in localStorage.
+   * The journal entry stays COMPACT whatever the mode: the body goes to IndexedDB and the journal
+   * carries only the persistence request, the immutable snapshot key that finds that body, and
+   * whether it was actually stored. The exporter materializes from that key
+   * (App.resolveCaptures); nothing here puts a body in localStorage.
    */
   async _captures(jobId, list, phase) {
     const key = phase === "before" ? "capturesBefore" : "capturesAfter";
@@ -462,7 +462,7 @@ export class Runner {
       const id = c.id ?? (c.input && (c.input.id ?? c.input.userId));
       const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true }); // RateLimited/Network propagate to run()
       const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
-      if (c.persist === "full") Object.assign(entry, await this._persistFull(path, id, r));
+      if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, c.input ?? null, r));
       out.push(entry);
       this.journal.annotateJob(jobId, { [key + "Partial"]: out }); // persisted incrementally
     }
@@ -471,22 +471,31 @@ export class Runner {
   }
 
   /**
-   * The compact persistence fields for a full capture. Checked here, at read time, so a body that
-   * is missing or oversized is visible on the run screen rather than first appearing as a surprise
-   * at export. A failed read persists nothing and fabricates nothing.
+   * Commit ONE full capture's body to the immutable snapshot store and return the compact fields
+   * the journal keeps. The body written is `r.data` - the value this very read returned - so the
+   * snapshot cannot be anything other than the body of the read it belongs to. It is deliberately
+   * NOT fetched back out of the path+id read cache: that slot is overwritten by the next read of
+   * the record and deleted by a write to its entity, which is exactly how a capture.before body
+   * could be replaced by the after body before export (independent review FFC-1).
+   *
+   * Writing here rather than at export also means the check happens at read time, so a body that
+   * is oversized or that IndexedDB refuses shows up on the run screen instead of surprising the
+   * exporter. A failed read stores nothing and fabricates nothing.
    */
-  async _persistFull(path, id, r) {
-    const fields = { persist: "full", cacheKey: captureKey(path, id ?? ""), persistOk: false, persistError: null };
+  async _persistFull(jobId, phase, ordinal, path, id, input, r) {
+    const fields = { persist: "full", snapshotKey: snapshotKey(jobId, phase, ordinal), persistOk: false, persistError: null };
     if (!r.ok) { fields.persistError = "read failed; there is no body to persist"; return fields; }
-    let rec = null;
-    try { rec = await this.cache.getByKey(fields.cacheKey); }
-    catch (e) { fields.persistError = "capture cache read failed: " + (e && e.message ? e.message : String(e)); return fields; }
-    if (!rec) { fields.persistError = `the read succeeded but ${fields.cacheKey} is not in the capture cache`; return fields; }
-    const bytes = typeof rec.bytes === "number" ? rec.bytes : JSON.stringify(rec.data ?? null).length;
+    const bytes = JSON.stringify(r.data ?? null).length;
     fields.bytes = bytes;
-    // Over the ceiling is an explicit failure. Truncating and still calling it "full" is the one
-    // thing this must never do, so there is no shortening path here at all.
+    // Over the ceiling is an explicit failure, and nothing is stored. Truncating and still calling
+    // it "full" is the one thing this must never do, so there is no shortening path here at all.
     if (bytes > MAX_FULL_CAPTURE_BYTES) { fields.persistError = `body is ${bytes} bytes, over the ${MAX_FULL_CAPTURE_BYTES}-byte full-capture ceiling; it is NOT truncated and NOT persisted`; return fields; }
+    try {
+      await this.cache.putSnapshot({ key: fields.snapshotKey, jobId, phase, ordinal, path, id, input, data: r.data });
+    } catch (e) {
+      fields.persistError = "capture snapshot write failed: " + (e && e.message ? e.message : String(e));
+      return fields;
+    }
     fields.persistOk = true;
     return fields;
   }
