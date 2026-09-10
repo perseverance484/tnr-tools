@@ -1,0 +1,38 @@
+{
+  "_note": "Read-only One Perfect Crop asset-compatibility probe. Zero game mutations. Fetches the five current reuse candidates so their live type, image, folder, hidden state, and visual suitability can be checked before producing new art.",
+  "capture": {
+    "after": [
+      {
+        "proc": "asset.get",
+        "input": {
+          "id": "XsLLy8awDAtaE6hXVIi_0"
+        }
+      },
+      {
+        "proc": "asset.get",
+        "input": {
+          "id": "xsikTqetvzo5OXKdTicK6"
+        }
+      },
+      {
+        "proc": "asset.get",
+        "input": {
+          "id": "HgT0DKfi3pXjFzwc1U0v4"
+        }
+      },
+      {
+        "proc": "asset.get",
+        "input": {
+          "id": "js3ZARR-PLvoNIr85zbm-"
+        }
+      },
+      {
+        "proc": "asset.get",
+        "input": {
+          "id": "cYu6VwVX55m6uq1oxlWc1"
+        }
+      }
+    ]
+  },
+  "items": []
+}
