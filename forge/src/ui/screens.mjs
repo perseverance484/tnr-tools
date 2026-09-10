@@ -95,12 +95,33 @@ export function ManifestsScreen(app) {
   return root;
 }
 
+/**
+ * How a manifest's captures read on screen BEFORE it is run. "5 captures" and "5 full captures"
+ * are different contracts - the second one writes five exact record bodies into a results bundle
+ * that is committed to the repository - so they must never render the same way.
+ */
+export function captureLabel(captures) {
+  const n = captures.length;
+  if (!n) return "";
+  const full = captures.filter((c) => c && c.persist === "full").length;
+  const noun = `capture${n === 1 ? "" : "s"}`;
+  if (!full) return `${n} ${noun}`;
+  if (full === n) return `${n} full ${noun}`;
+  return `${n} ${noun} (${full} full)`;
+}
+
 function SelectedManifest(app) {
   const s = app.state.selected;
-  const captureCount = s.manifest.capture.before.length + s.manifest.capture.after.length;
+  const captures = [...s.manifest.capture.before, ...s.manifest.capture.after];
+  const captureCount = captures.length;
+  const fullCount = captures.filter((c) => c.persist === "full").length;
+  const label = captureLabel(captures);
   const readOnly = s.plan.length === 0;
-  const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` · ${captureCount} capture${captureCount === 1 ? "" : "s"}` : ""} · manifest hash ${s.manifest.hash}`));
+  const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` · ${label}` : ""} · manifest hash ${s.manifest.hash}`));
   if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
+  if (fullCount) card.appendChild(h("div", { class: "f-banner warn" },
+    h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
+    `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on. Still queries only; zero mutations. Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`));
   if (s.problems.length) card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, "Cannot run: "), h("div", { class: "f-err" }, s.problems.join("\n"))));
   if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
   // advisories: worth reading, not worth blocking. A blocking lint is already in `problems`.
@@ -124,8 +145,8 @@ function SelectedManifest(app) {
   card.appendChild(h("div", { class: "f-actions" },
     h("button", { class: "f-primary", disabled: s.problems.length > 0 || missingImgs.length > 0, onClick: () => app.confirm(
       readOnly
-        ? `Run read-only capture job for ${s.entry.name}: ${captureCount} capture${captureCount === 1 ? "" : "s"}? No mutations will be sent.`
-        : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)? This writes to the game.`,
+        ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.`
+        : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
       () => app.startJob()),
     }, readOnly ? "Run captures" : "Start job"),
     h("button", { onClick: () => { app.state.selected = null; app.refresh(); } }, "Clear"),
@@ -148,9 +169,24 @@ export function RunScreen(app) {
   if ((job.state === "DONE" || job.state === "INCOMPLETE") && job.items.length === 0) {
     const captures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
     const failed = captures.filter((capture) => !capture.ok).length;
+    const full = captures.filter((capture) => capture.persist === "full");
+    const unpersisted = full.filter((capture) => capture.ok && capture.persistOk !== true);
+    // Reading the record and shipping its exact body are two claims, and a full capture makes
+    // both. They are reported separately so "the reads succeeded" can never stand in for
+    // "the bodies are in the bundle".
+    const persistLine = full.length ? `, ${full.length - unpersisted.length}/${full.length} full record ${full.length === 1 ? "body" : "bodies"} persisted into the bundle` : "";
     root.appendChild(outcome === "success"
-      ? h("div", { class: "f-banner ok" }, h("b", {}, "Read-only capture complete. "), `${captures.length}/${captures.length} reads succeeded; zero mutations were sent.`)
-      : h("div", { class: "f-banner bad" }, h("b", {}, "Read-only capture failed. "), `${failed} of ${captures.length} reads failed; zero mutations were sent.`));
+      ? h("div", { class: "f-banner ok" }, h("b", {}, "Read-only capture complete. "), `${captures.length}/${captures.length} reads succeeded${persistLine}; zero mutations were sent.`)
+      : h("div", { class: "f-banner bad" },
+          h("b", {}, failed ? "Read-only capture failed. " : "Read-only capture incomplete. "),
+          // read failures lead when there are any; otherwise the reason is the missing bodies.
+          // The read wording is the fallback, so no arithmetic on an empty full-capture list can
+          // produce a sentence about bodies nobody asked for.
+          !failed && unpersisted.length
+            ? `${captures.length}/${captures.length} reads succeeded, but ${unpersisted.length} of ${full.length} requested full ${full.length === 1 ? "body" : "bodies"} could not be persisted, so this bundle does not carry the record data the manifest asked for`
+            : `${failed} of ${captures.length} reads failed`,
+          "; zero mutations were sent.",
+          unpersisted.length ? h("div", { class: "f-err" }, unpersisted.map((capture) => `${capture.proc} ${capture.cacheKey || ""}: ${capture.persistError || "not persisted"}`).join("\n")) : null));
   } else if (job.state === "DONE" || job.state === "INCOMPLETE") {
     const drift = job.items.filter((i) => i.verify === "drift").length;
     const unread = job.items.filter((i) => i.verify === "unread").length;
@@ -177,6 +213,16 @@ export function RunScreen(app) {
   const st = app.budget.status();
   const used = Object.entries(st.paths).filter(([, v]) => v.used > 0);
   root.appendChild(h("div", { class: "f-card" }, used.length ? used.map(([p, v]) => h("div", { class: "f-kv" }, h("b", {}, p), h("span", {}, `${v.used} / ${v.allowance} (server ${v.serverLimit}) · resets in ${fmtCountdown(app.now() + v.resetInMs, app.now())}`))) : h("span", { class: "f-mute" }, "nothing spent"), st.tripped ? h("div", { class: "f-err" }, `TRIPPED on ${st.tripped.path} until ${new Date(st.tripped.until).toLocaleTimeString()}`) : null));
+  const allCaptures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
+  if (allCaptures.some((capture) => capture && capture.persist === "full")) {
+    root.appendChild(h("h3", {}, "Full captures"));
+    for (const capture of allCaptures.filter((capture) => capture.persist === "full")) {
+      root.appendChild(h("div", { class: "f-row" }, h("div", { class: "f-grow" },
+        h("div", {}, `${capture.proc} `, h("span", { class: "f-pill " + (capture.persistOk === true ? "VERIFIED" : "FAILED") }, capture.persistOk === true ? "body persisted" : "not persisted"), h("span", { class: "f-mute" }, capture.ok ? " · read ok" : " · read failed")),
+        h("div", { class: "f-mono" }, capture.cacheKey || ""),
+        capture.persistError ? h("div", { class: "f-err" }, capture.persistError) : null)));
+    }
+  }
   root.appendChild(h("h3", {}, "Items"));
   for (const it of job.items) {
     const phase = it.state === "SENT" || it.state === "CONFIRMED" ? ` · phase ${it.phase}` : "";

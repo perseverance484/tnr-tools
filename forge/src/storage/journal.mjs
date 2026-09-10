@@ -60,17 +60,30 @@ const RESERVED = Object.freeze(["state", "idx", "sentAt", "confirmedAt", "verifi
  *   unverified   nothing failed, but at least one write is unproven: drift, unread, a skipped
  *                orphan, or an item execution never resolved
  *   open         still running or paused; the question is not answered yet
+ *
+ * A capture that asked for `persist: "full"` makes a SECOND claim beyond "the read succeeded":
+ * that the exact body is in the exported bundle. A capture whose read was fine but whose body
+ * could not be materialized has not delivered the evidence the manifest asked for, so it is not
+ * success either. For a capture-only job that is the whole result and it is "failed"; for a job
+ * that also writes, no write is in doubt, so it degrades to "unverified" rather than "failed".
  */
+/** Did this capture deliver everything it promised - the read, and the body if it asked for one. */
+export function captureOk(capture) {
+  if (!capture || capture.ok !== true) return false;
+  return capture.persist !== "full" || capture.persistOk === true;
+}
+
 export function jobOutcome(job) {
   if (!job || !Array.isArray(job.items)) return "open";
   if (job.state === "RUNNING" || job.state === "PAUSED") return "open";
+  const captures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
   if (!job.items.length) {
-    const captures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
     if (!captures.length) return "unverified";
-    return captures.every((capture) => capture && capture.ok === true) ? "success" : "failed";
+    return captures.every(captureOk) ? "success" : "failed";
   }
   if (job.items.some((it) => it.state === "FAILED")) return "failed";
   if (job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state) || it.state === "SKIPPED" || (it.verify && it.verify !== "match"))) return "unverified";
+  if (captures.some((capture) => capture && capture.persist === "full" && capture.persistOk !== true)) return "unverified";
   return "success";
 }
 

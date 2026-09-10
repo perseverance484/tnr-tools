@@ -9,6 +9,7 @@
 // @run-at       document-start
 // @updateURL    https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js
 // @downloadURL  https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js
+// @x-release-pending 0.3.0
 // @require      https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@b9948729a4649f1cf7ecf500c3c40ed8ee9ad225/forge_bundle.js
 // ==/UserScript==
 // Open https://www.theninja-rpg.com/forge while logged in. The page is a same-origin 404 with no

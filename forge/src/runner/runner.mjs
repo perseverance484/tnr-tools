@@ -23,6 +23,7 @@ import { NetworkError } from "../transport/client.mjs";
 import { TransportError } from "../transport/envelope.mjs";
 import { RateLimited } from "../budget/bucket.mjs";
 import { readIdmap, writeIdmap } from "../storage/compat.mjs";
+import { captureKey, MAX_FULL_CAPTURE_BYTES } from "../storage/captures.mjs";
 import { TERMINAL_ITEM_STATES, jobOutcome } from "../storage/journal.mjs";
 import { recipe, mergeForUpdate } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
@@ -440,6 +441,17 @@ export class Runner {
     }
   }
 
+  /**
+   * One capture pass. Reads are already incremental: the loop starts at out.length, and each
+   * answer is journaled before the next read, so a pause after N captures resumes at N+1 and
+   * never re-reads what is done. That is unchanged by persistence — `persist: "full"` adds no
+   * second read, it only decides how durably the body that read already produced is kept.
+   *
+   * The journal entry stays COMPACT whatever the mode: the body lives in IndexedDB, written by
+   * CachedReader on the way past, and a full entry carries only the persistence request, the
+   * cache key that finds the body, and whether the body was actually there. The exporter
+   * materializes it from that key (App.resolveCaptures); nothing here puts a body in localStorage.
+   */
   async _captures(jobId, list, phase) {
     const key = phase === "before" ? "capturesBefore" : "capturesAfter";
     const job = this.journal.get(jobId);
@@ -447,13 +459,36 @@ export class Runner {
     for (let i = out.length; i < list.length; i++) {
       const c = list[i];
       const path = c.proc || c.procedure;
-      const id = c.input && (c.input.id ?? c.input.userId);
+      const id = c.id ?? (c.input && (c.input.id ?? c.input.userId));
       const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true }); // RateLimited/Network propagate to run()
-      out.push({ phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code });
+      const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
+      if (c.persist === "full") Object.assign(entry, await this._persistFull(path, id, r));
+      out.push(entry);
       this.journal.annotateJob(jobId, { [key + "Partial"]: out }); // persisted incrementally
     }
     this.journal.annotateJob(jobId, { [key]: out, [key + "Partial"]: null });
     return out;
+  }
+
+  /**
+   * The compact persistence fields for a full capture. Checked here, at read time, so a body that
+   * is missing or oversized is visible on the run screen rather than first appearing as a surprise
+   * at export. A failed read persists nothing and fabricates nothing.
+   */
+  async _persistFull(path, id, r) {
+    const fields = { persist: "full", cacheKey: captureKey(path, id ?? ""), persistOk: false, persistError: null };
+    if (!r.ok) { fields.persistError = "read failed; there is no body to persist"; return fields; }
+    let rec = null;
+    try { rec = await this.cache.getByKey(fields.cacheKey); }
+    catch (e) { fields.persistError = "capture cache read failed: " + (e && e.message ? e.message : String(e)); return fields; }
+    if (!rec) { fields.persistError = `the read succeeded but ${fields.cacheKey} is not in the capture cache`; return fields; }
+    const bytes = typeof rec.bytes === "number" ? rec.bytes : JSON.stringify(rec.data ?? null).length;
+    fields.bytes = bytes;
+    // Over the ceiling is an explicit failure. Truncating and still calling it "full" is the one
+    // thing this must never do, so there is no shortening path here at all.
+    if (bytes > MAX_FULL_CAPTURE_BYTES) { fields.persistError = `body is ${bytes} bytes, over the ${MAX_FULL_CAPTURE_BYTES}-byte full-capture ceiling; it is NOT truncated and NOT persisted`; return fields; }
+    fields.persistOk = true;
+    return fields;
   }
 
   // ------------------------------------------------------------------ helpers

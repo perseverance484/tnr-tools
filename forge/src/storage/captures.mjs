@@ -6,11 +6,53 @@
 // entity, both the record's own get and the entity's list captures, because a rename
 // changes what getAllNames returns.
 
+import { PROCEDURES } from "../transport/procedures.mjs";
+
 export const DB_NAME = "tnr_forge";
 export const STORE = "captures";
 export const DB_VERSION = 1;
 
 export function captureKey(path, id) { return `${path}:${id ?? ""}`; }
+
+// ------------------------------------------------------------------ full persistence
+// A capture may ask for `persist: "full"`, which means the exact decoded response body is
+// written into the exported results bundle. That bundle is committed to this repository when
+// GitHub sync is on, so full persistence is fail-closed: only the audited TNR content-record
+// POINT READS below may ever be persisted in v1. List procedures, mutations, unknown paths and
+// anything protected/user/account/session shaped are refused before a job opens, and widening
+// this list is a separate reviewed change (task brief, "Full-mode safety boundary").
+//
+// The kinds come from the generated audited registry in transport/procedures.mjs; this list
+// names paths, it never restates their kind. "every full-persistence path is an audited
+// content-record point read, and nothing else is" in test/storage.captures.test.mjs holds both
+// halves of that relationship against the registry.
+export const FULL_PERSIST_PATHS = Object.freeze([
+  "gameAsset.get",
+  "jutsu.get",
+  "item.get",
+  "bloodline.get",
+  "quests.get",
+  "profile.getAi",
+  "ai.getAiProfile",
+]);
+
+/** Whether a procedure path may have its response body durably persisted into a bundle. */
+export function canPersistFull(path) { return FULL_PERSIST_PATHS.includes(path); }
+
+/** The audited registry's opinion of a path, or null when it is not in the crud surface. */
+export function persistProcedureKind(path) { return PROCEDURES[path] ? PROCEDURES[path].kind : null; }
+
+// Defensive ceiling on ONE serialized full body. The largest content record observed in the
+// repository's own committed captures is a 49-node quest at ~71 KB (harvests/inbox, quests.get),
+// so 512 KiB is roughly seven times the worst real record and still small enough that a runaway
+// body cannot quietly become a megabyte-scale commit. Exceeding it is an explicit persistence
+// FAILURE, never a shortened body presented as full: nothing in this codebase truncates a body.
+//
+// "bytes" here is the cached record's own `bytes` field, which is JSON.stringify().length - UTF-16
+// code units, not encoded octets. That is the existing meaning of `bytes` throughout this store
+// and the Captures screen, so the ceiling keeps it rather than introducing a second unit; a body
+// of non-ASCII text is measured slightly small, well inside the headroom above.
+export const MAX_FULL_CAPTURE_BYTES = 512 * 1024;
 
 // Which router prefix belongs to which entity. profile.* and ai.* both belong to "ai".
 export const ENTITY_OF_PATH = Object.freeze({
@@ -101,8 +143,11 @@ export class CaptureCache {
     return rec;
   }
 
-  async get(path, id) {
-    const rec = await this._tx("readonly", (s) => reqToPromise(s.get(captureKey(path, id))));
+  async get(path, id) { return this.getByKey(captureKey(path, id)); }
+
+  /** Fetch by the stored key directly, for a caller that journaled the key rather than path+id. */
+  async getByKey(key) {
+    const rec = await this._tx("readonly", (s) => reqToPromise(s.get(key)));
     return rec ?? null;
   }
 

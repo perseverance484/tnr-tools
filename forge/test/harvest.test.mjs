@@ -9,7 +9,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, writeFileSync, rmSync, existsSync } from "node:fs";
+import { mkdtempSync, writeFileSync, readFileSync, rmSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -30,8 +30,8 @@ function python() {
 }
 
 /** Run one harvest.py subcommand over a bundle. Returns {code, out}. */
-function harvest(bin, cmd, file) {
-  try { return { code: 0, out: execFileSync(bin, [HARVEST, cmd, file], { encoding: "utf8" }) }; }
+function harvest(bin, cmd, file, args = []) {
+  try { return { code: 0, out: execFileSync(bin, [HARVEST, cmd, file, ...args], { encoding: "utf8" }) }; }
   catch (e) { return { code: e.status ?? -1, out: (e.stdout ?? "") + (e.stderr ?? "") }; }
 }
 
@@ -62,7 +62,7 @@ async function bundleWithEveryOutcome() {
   d.runner.plan(manifest, { jobId: "hv", manifestPath: "push/99_harvest.json", manifestNumber: 99 });
   const summary = await d.runner.run("hv");
 
-  const app = new App({ version: "forge 0.2.1", storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
+  const app = new App({ version: "forge 0.3.0", storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
   let text = null;
   app.showExport = (t) => { text = t; };
   await app.exportJob("hv");
@@ -168,7 +168,7 @@ test("harvest.py verify passes a clean forge bundle, and only a clean one", asyn
   d.runner.plan({ items: [jutsu("A"), jutsu("B")] }, { jobId: "clean", manifestPath: "push/98_clean.json" });
   const s = await d.runner.run("clean");
   assert.equal(s.state, "DONE"); assert.equal(s.outcome, "success");
-  const app = new App({ version: "forge 0.2.1", storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
+  const app = new App({ version: "forge 0.3.0", storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
   let text = null; app.showExport = (t2) => { text = t2; };
   await app.exportJob("clean");
   const dir = mkdtempSync(join(tmpdir(), "forge-harvest-"));
@@ -223,7 +223,7 @@ async function pendingWriteBundle() {
 
 /** The bundle the app would commit for a job, through the real export path. */
 async function exportOf(d, jobId) {
-  const app = new App({ version: "forge 0.2.1", storage: d.storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
+  const app = new App({ version: "forge 0.3.0", storage: d.storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
   let text = null;
   app.showExport = (t) => { text = t; };
   await app.exportJob(jobId);
@@ -299,5 +299,57 @@ test("a legacy builder bundle keeps its own semantics", async (t) => {
     const v2 = harvest(bin, "verify", f2);
     assert.equal(v2.code, 1, v2.out);
     assert.match(v2.out, /job outcome=None/, v2.out);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test("harvest.py reads a full capture body, and still refuses a bundle whose body is missing", async (t) => {
+  const bin = python();
+  if (!bin) return t.skip("no python3 on PATH");
+  const ASSET = { id: "XsLLy8awDAtaE6hXVIi_0", name: "Chase Alley Plate", type: "STATIC", image: "https://utfs.io/f/chase-alley.webp", folder: "scene", hidden: false };
+
+  async function run(dropBody) {
+    const game = new FakeGame();
+    const storage = new MemoryStorage();
+    game.seed("asset", { ...ASSET });
+    const d = composeForTest({ game, storage });
+    d.runner.plan({ items: [], capture: { after: [{ proc: "gameAsset.get", input: { id: ASSET.id }, persist: "full" }] } },
+      { jobId: dropBody ? "probe-gone" : "probe", manifestPath: "push/02_one_perfect_crop_asset_probe.json", manifestNumber: 2 });
+    await d.runner.run(dropBody ? "probe-gone" : "probe");
+    if (dropBody) await d.cache.delete("gameAsset.get", ASSET.id);
+    const app = new App({ version: "forge 0.3.0", storage, now: d.clock, ...d, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
+    let text = null;
+    app.showExport = (t2) => { text = t2; };
+    await app.exportJob(dropBody ? "probe-gone" : "probe");
+    return text;
+  }
+
+  const dir = mkdtempSync(join(tmpdir(), "forge-harvest-full-"));
+  try {
+    const good = join(dir, "tnr_results_full_ok.json");
+    writeFileSync(good, await run(false));
+    // the repository's own ingestion path sees the record, not just a row count
+    const idx = harvest(bin, "index", good);
+    assert.equal(idx.code, 0, idx.out);
+    assert.match(idx.out, /gameAsset\.get/, idx.out);
+    // `get` extracts the RECORD, which is the whole point of full persistence: before this
+    // contract a capture-only bundle could only tell harvest.py how many rows came back
+    const out = join(dir, "asset.json");
+    const got = harvest(bin, "get", good, ["--proc", "gameAsset.get", "--out", out]);
+    assert.equal(got.code, 0, got.out);
+    assert.match(got.out, /name='Chase Alley Plate'/, got.out);
+    assert.deepEqual(JSON.parse(readFileSync(out, "utf8")), ASSET, "the exact record, straight out of the bundle");
+    assert.equal(JSON.parse(readFileSync(good, "utf8")).captures[0].data.image, ASSET.image);
+    const v = harvest(bin, "verify", good);
+    assert.equal(v.code, 0, v.out);
+    assert.match(v.out, /capture-only bundle/, v.out);
+
+    const bad = join(dir, "tnr_results_full_missing.json");
+    writeFileSync(bad, await run(true));
+    const parsed = JSON.parse(readFileSync(bad, "utf8"));
+    assert.equal(parsed.captures[0].persistOk, false);
+    assert.ok(!("data" in parsed.captures[0]));
+    const v2 = harvest(bin, "verify", bad);
+    assert.equal(v2.code, 1, "a bundle that owes a body it does not carry must not verify: " + v2.out);
+    assert.match(v2.out, /UNVERIFIED\s+capture-only forge bundle/, v2.out);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });

@@ -1,4 +1,4 @@
-// TNR forge bundle v0.2.1 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.3.0 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Host: any unmatched path on the game origin (/forge). Layers: storage, transport, budget, runner, reconcile, ui.
 // Pinned engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
@@ -31,16 +31,21 @@
     SKIPPED: []
   });
   var RESERVED = Object.freeze(["state", "idx", "sentAt", "confirmedAt", "verifiedAt", "createSentAt"]);
+  function captureOk(capture) {
+    if (!capture || capture.ok !== true) return false;
+    return capture.persist !== "full" || capture.persistOk === true;
+  }
   function jobOutcome(job) {
     if (!job || !Array.isArray(job.items)) return "open";
     if (job.state === "RUNNING" || job.state === "PAUSED") return "open";
+    const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
     if (!job.items.length) {
-      const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
       if (!captures.length) return "unverified";
-      return captures.every((capture) => capture && capture.ok === true) ? "success" : "failed";
+      return captures.every(captureOk) ? "success" : "failed";
     }
     if (job.items.some((it) => it.state === "FAILED")) return "failed";
     if (job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state) || it.state === "SKIPPED" || it.verify && it.verify !== "match")) return "unverified";
+    if (captures.some((capture) => capture && capture.persist === "full" && capture.persistOk !== true)) return "unverified";
     return "success";
   }
   var JournalError = class extends Error {
@@ -360,6 +365,60 @@
     return repairHistory(job);
   }
 
+  // src/transport/procedures.mjs
+  var PROCEDURES = Object.freeze({
+    "ai.createAiProfile": { kind: "mutation", limited: false, mcp: false },
+    "ai.getAiProfile": { kind: "query", limited: false, mcp: true },
+    "ai.toggleAiProfile": { kind: "mutation", limited: false, mcp: false },
+    "ai.updateAiProfile": { kind: "mutation", limited: false, mcp: false },
+    "bloodline.create": { kind: "mutation", limited: false, mcp: false },
+    "bloodline.delete": { kind: "mutation", limited: false, mcp: false },
+    "bloodline.get": { kind: "query", limited: true, mcp: true },
+    "bloodline.getAll": { kind: "query", limited: true, mcp: true },
+    "bloodline.getAllNames": { kind: "query", limited: true, mcp: true },
+    "bloodline.update": { kind: "mutation", limited: false, mcp: false },
+    "gameAsset.create": { kind: "mutation", limited: false, mcp: false },
+    "gameAsset.delete": { kind: "mutation", limited: false, mcp: false },
+    "gameAsset.get": { kind: "query", limited: true, mcp: true },
+    "gameAsset.getAll": { kind: "query", limited: true, mcp: true },
+    "gameAsset.getAllNames": { kind: "query", limited: true, mcp: true },
+    "gameAsset.update": { kind: "mutation", limited: false, mcp: false },
+    "item.clone": { kind: "mutation", limited: false, mcp: false },
+    "item.create": { kind: "mutation", limited: false, mcp: false },
+    "item.delete": { kind: "mutation", limited: false, mcp: false },
+    "item.get": { kind: "query", limited: true, mcp: true },
+    "item.getAll": { kind: "query", limited: true, mcp: true },
+    "item.getAllNames": { kind: "query", limited: true, mcp: true },
+    "item.update": { kind: "mutation", limited: false, mcp: false },
+    "jutsu.create": { kind: "mutation", limited: false, mcp: false },
+    "jutsu.delete": { kind: "mutation", limited: false, mcp: false },
+    "jutsu.get": { kind: "query", limited: true, mcp: true },
+    "jutsu.getAll": { kind: "query", limited: true, mcp: true },
+    "jutsu.getAllNames": { kind: "query", limited: true, mcp: true },
+    "jutsu.update": { kind: "mutation", limited: false, mcp: false },
+    "profile.cloneAi": { kind: "mutation", limited: false, mcp: false },
+    "profile.create": { kind: "mutation", limited: false, mcp: true },
+    "profile.delete": { kind: "mutation", limited: false, mcp: true },
+    "profile.getAi": { kind: "query", limited: false, mcp: true },
+    "profile.getAllAiNames": { kind: "query", limited: true, mcp: true },
+    "profile.updateAi": { kind: "mutation", limited: false, mcp: true },
+    "quests.checkRewards": { kind: "mutation", limited: false, mcp: true },
+    "quests.clone": { kind: "mutation", limited: false, mcp: true },
+    "quests.create": { kind: "mutation", limited: false, mcp: true },
+    "quests.delete": { kind: "mutation", limited: false, mcp: true },
+    "quests.get": { kind: "query", limited: true, mcp: true },
+    "quests.getAll": { kind: "query", limited: true, mcp: true },
+    "quests.getAllNames": { kind: "query", limited: true, mcp: true },
+    "quests.update": { kind: "mutation", limited: false, mcp: true }
+  });
+  function procedure(path) {
+    const p = PROCEDURES[path];
+    if (!p) throw new Error("unknown procedure: " + path + " (not in the audited crud surface)");
+    return p;
+  }
+  var LIMITED_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].limited));
+  var MUTATION_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].kind === "mutation"));
+
   // src/storage/captures.mjs
   var DB_NAME = "tnr_forge";
   var STORE = "captures";
@@ -367,6 +426,19 @@
   function captureKey(path, id) {
     return `${path}:${id ?? ""}`;
   }
+  var FULL_PERSIST_PATHS = Object.freeze([
+    "gameAsset.get",
+    "jutsu.get",
+    "item.get",
+    "bloodline.get",
+    "quests.get",
+    "profile.getAi",
+    "ai.getAiProfile"
+  ]);
+  function canPersistFull(path) {
+    return FULL_PERSIST_PATHS.includes(path);
+  }
+  var MAX_FULL_CAPTURE_BYTES = 512 * 1024;
   var ENTITY_OF_PATH = Object.freeze({
     jutsu: "jutsu",
     item: "item",
@@ -468,7 +540,11 @@
       return rec;
     }
     async get(path, id) {
-      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(captureKey(path, id))));
+      return this.getByKey(captureKey(path, id));
+    }
+    /** Fetch by the stored key directly, for a caller that journaled the key rather than path+id. */
+    async getByKey(key) {
+      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(key)));
       return rec ?? null;
     }
     async has(path, id) {
@@ -1492,60 +1568,6 @@
     }
     throw new TransportError(`batch element ${i} is neither result nor error`, { httpStatus: status, element: el });
   }
-
-  // src/transport/procedures.mjs
-  var PROCEDURES = Object.freeze({
-    "ai.createAiProfile": { kind: "mutation", limited: false, mcp: false },
-    "ai.getAiProfile": { kind: "query", limited: false, mcp: true },
-    "ai.toggleAiProfile": { kind: "mutation", limited: false, mcp: false },
-    "ai.updateAiProfile": { kind: "mutation", limited: false, mcp: false },
-    "bloodline.create": { kind: "mutation", limited: false, mcp: false },
-    "bloodline.delete": { kind: "mutation", limited: false, mcp: false },
-    "bloodline.get": { kind: "query", limited: true, mcp: true },
-    "bloodline.getAll": { kind: "query", limited: true, mcp: true },
-    "bloodline.getAllNames": { kind: "query", limited: true, mcp: true },
-    "bloodline.update": { kind: "mutation", limited: false, mcp: false },
-    "gameAsset.create": { kind: "mutation", limited: false, mcp: false },
-    "gameAsset.delete": { kind: "mutation", limited: false, mcp: false },
-    "gameAsset.get": { kind: "query", limited: true, mcp: true },
-    "gameAsset.getAll": { kind: "query", limited: true, mcp: true },
-    "gameAsset.getAllNames": { kind: "query", limited: true, mcp: true },
-    "gameAsset.update": { kind: "mutation", limited: false, mcp: false },
-    "item.clone": { kind: "mutation", limited: false, mcp: false },
-    "item.create": { kind: "mutation", limited: false, mcp: false },
-    "item.delete": { kind: "mutation", limited: false, mcp: false },
-    "item.get": { kind: "query", limited: true, mcp: true },
-    "item.getAll": { kind: "query", limited: true, mcp: true },
-    "item.getAllNames": { kind: "query", limited: true, mcp: true },
-    "item.update": { kind: "mutation", limited: false, mcp: false },
-    "jutsu.create": { kind: "mutation", limited: false, mcp: false },
-    "jutsu.delete": { kind: "mutation", limited: false, mcp: false },
-    "jutsu.get": { kind: "query", limited: true, mcp: true },
-    "jutsu.getAll": { kind: "query", limited: true, mcp: true },
-    "jutsu.getAllNames": { kind: "query", limited: true, mcp: true },
-    "jutsu.update": { kind: "mutation", limited: false, mcp: false },
-    "profile.cloneAi": { kind: "mutation", limited: false, mcp: false },
-    "profile.create": { kind: "mutation", limited: false, mcp: true },
-    "profile.delete": { kind: "mutation", limited: false, mcp: true },
-    "profile.getAi": { kind: "query", limited: false, mcp: true },
-    "profile.getAllAiNames": { kind: "query", limited: true, mcp: true },
-    "profile.updateAi": { kind: "mutation", limited: false, mcp: true },
-    "quests.checkRewards": { kind: "mutation", limited: false, mcp: true },
-    "quests.clone": { kind: "mutation", limited: false, mcp: true },
-    "quests.create": { kind: "mutation", limited: false, mcp: true },
-    "quests.delete": { kind: "mutation", limited: false, mcp: true },
-    "quests.get": { kind: "query", limited: true, mcp: true },
-    "quests.getAll": { kind: "query", limited: true, mcp: true },
-    "quests.getAllNames": { kind: "query", limited: true, mcp: true },
-    "quests.update": { kind: "mutation", limited: false, mcp: true }
-  });
-  function procedure(path) {
-    const p = PROCEDURES[path];
-    if (!p) throw new Error("unknown procedure: " + path + " (not in the audited crud surface)");
-    return p;
-  }
-  var LIMITED_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].limited));
-  var MUTATION_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].kind === "mutation"));
 
   // src/transport/client.mjs
   var NetworkError = class extends Error {
@@ -3805,6 +3827,8 @@
   // src/runner/manifest.mjs
   var ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile"]);
   var SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
+  var PERSIST_MODES = Object.freeze(["summary", "full"]);
+  var DEFAULT_PERSIST = "summary";
   var ManifestError = class extends Error {
     constructor(message, info = {}) {
       super(message);
@@ -3823,10 +3847,11 @@
     }
     if (!m || typeof m !== "object" || Array.isArray(m)) throw new ManifestError("manifest must be an object");
     const raw = Array.isArray(m.items) ? m.items : Array.isArray(m.jutsu) ? m.jutsu : [];
-    const capture = m.capture && typeof m.capture === "object" ? { before: Array.isArray(m.capture.before) ? m.capture.before : [], after: Array.isArray(m.capture.after) ? m.capture.after : [] } : { before: [], after: [] };
-    for (const c of [...capture.before, ...capture.after]) {
-      if (!c || typeof c !== "object" || !(c.proc || c.procedure)) throw new ManifestError("capture entry missing proc");
-    }
+    const rawCapture = m.capture && typeof m.capture === "object" ? { before: Array.isArray(m.capture.before) ? m.capture.before : [], after: Array.isArray(m.capture.after) ? m.capture.after : [] } : { before: [], after: [] };
+    const capture = {
+      before: rawCapture.before.map((c, i) => normalizeCapture(c, "before", i)),
+      after: rawCapture.after.map((c, i) => normalizeCapture(c, "after", i))
+    };
     if (!raw.length && !capture.before.length && !capture.after.length) throw new ManifestError("manifest has no items and no captures");
     const items = raw.map((it, i) => normalizeItem(it, i));
     const problems = [];
@@ -3874,8 +3899,37 @@
       dedupNames: !!m.dedupNames,
       readBack: m.readBack !== false,
       imgSizes,
-      hash: fnv1a32(stableStringify({ items: raw, capture }))
+      fullCaptures: [...capture.before, ...capture.after].filter((c) => c.persist === "full").length,
+      // The hash is taken over the RAW manifest bodies, not the normalized ones, so the persistence
+      // request is inside it by construction: `persist` is a key of the raw capture entry, and
+      // flipping it changes the hash, which is what stops a job opened under one persistence
+      // contract from being resumed under another (attach() compares this to job.manifestHash).
+      // Hashing raw also means a manifest written before `persist` existed keeps the hash it
+      // already had, so an open job survives this upgrade. `manifest hashing covers the
+      // persistence request` in test/capture.full.test.mjs holds both halves of that.
+      hash: fnv1a32(stableStringify({ items: raw, capture: rawCapture }))
     };
+  }
+  function normalizeCapture(c, phase, i) {
+    const where = `capture.${phase}[${i}]`;
+    if (!c || typeof c !== "object" || Array.isArray(c)) throw new ManifestError("capture entry missing proc");
+    const proc = c.proc || c.procedure;
+    if (!proc) throw new ManifestError("capture entry missing proc");
+    const persist = c.persist === void 0 || c.persist === null ? DEFAULT_PERSIST : c.persist;
+    if (!PERSIST_MODES.includes(persist)) {
+      throw new ManifestError(`${where} (${proc}): persist must be ${PERSIST_MODES.map((p) => JSON.stringify(p)).join(" or ")}, got ${JSON.stringify(c.persist)}`, { phase, idx: i, proc, persist: c.persist });
+    }
+    const input = c.input && typeof c.input === "object" && !Array.isArray(c.input) ? c.input : null;
+    const id = input ? input.id ?? input.userId : void 0;
+    if (persist === "full") {
+      if (!canPersistFull(proc)) {
+        throw new ManifestError(`${where} (${proc}): persist "full" is only allowed for the audited content-record point reads ${FULL_PERSIST_PATHS.join(", ")}`, { phase, idx: i, proc });
+      }
+      if (typeof id !== "string" || !id) {
+        throw new ManifestError(`${where} (${proc}): persist "full" needs input.id (or input.userId) naming one record`, { phase, idx: i, proc });
+      }
+    }
+    return { proc, input, persist, id: typeof id === "string" && id ? id : null };
   }
   function normalizeItem(it, idx) {
     if (!it || typeof it !== "object") throw new ManifestError(`item ${idx} is not an object`);
@@ -4350,6 +4404,17 @@
         }
       }
     }
+    /**
+     * One capture pass. Reads are already incremental: the loop starts at out.length, and each
+     * answer is journaled before the next read, so a pause after N captures resumes at N+1 and
+     * never re-reads what is done. That is unchanged by persistence — `persist: "full"` adds no
+     * second read, it only decides how durably the body that read already produced is kept.
+     *
+     * The journal entry stays COMPACT whatever the mode: the body lives in IndexedDB, written by
+     * CachedReader on the way past, and a full entry carries only the persistence request, the
+     * cache key that finds the body, and whether the body was actually there. The exporter
+     * materializes it from that key (App.resolveCaptures); nothing here puts a body in localStorage.
+     */
     async _captures(jobId, list, phase) {
       const key = phase === "before" ? "capturesBefore" : "capturesAfter";
       const job = this.journal.get(jobId);
@@ -4357,13 +4422,46 @@
       for (let i = out.length; i < list.length; i++) {
         const c = list[i];
         const path = c.proc || c.procedure;
-        const id = c.input && (c.input.id ?? c.input.userId);
+        const id = c.id ?? (c.input && (c.input.id ?? c.input.userId));
         const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true });
-        out.push({ phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code });
+        const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
+        if (c.persist === "full") Object.assign(entry, await this._persistFull(path, id, r));
+        out.push(entry);
         this.journal.annotateJob(jobId, { [key + "Partial"]: out });
       }
       this.journal.annotateJob(jobId, { [key]: out, [key + "Partial"]: null });
       return out;
+    }
+    /**
+     * The compact persistence fields for a full capture. Checked here, at read time, so a body that
+     * is missing or oversized is visible on the run screen rather than first appearing as a surprise
+     * at export. A failed read persists nothing and fabricates nothing.
+     */
+    async _persistFull(path, id, r) {
+      const fields = { persist: "full", cacheKey: captureKey(path, id ?? ""), persistOk: false, persistError: null };
+      if (!r.ok) {
+        fields.persistError = "read failed; there is no body to persist";
+        return fields;
+      }
+      let rec = null;
+      try {
+        rec = await this.cache.getByKey(fields.cacheKey);
+      } catch (e) {
+        fields.persistError = "capture cache read failed: " + (e && e.message ? e.message : String(e));
+        return fields;
+      }
+      if (!rec) {
+        fields.persistError = `the read succeeded but ${fields.cacheKey} is not in the capture cache`;
+        return fields;
+      }
+      const bytes = typeof rec.bytes === "number" ? rec.bytes : JSON.stringify(rec.data ?? null).length;
+      fields.bytes = bytes;
+      if (bytes > MAX_FULL_CAPTURE_BYTES) {
+        fields.persistError = `body is ${bytes} bytes, over the ${MAX_FULL_CAPTURE_BYTES}-byte full-capture ceiling; it is NOT truncated and NOT persisted`;
+        return fields;
+      }
+      fields.persistOk = true;
+      return fields;
     }
     // ------------------------------------------------------------------ helpers
     _m(jobId) {
@@ -4874,12 +4972,30 @@ details summary { cursor:pointer; color:var(--mute); }
     if (app.state.selected) root.appendChild(SelectedManifest(app));
     return root;
   }
+  function captureLabel(captures) {
+    const n = captures.length;
+    if (!n) return "";
+    const full = captures.filter((c) => c && c.persist === "full").length;
+    const noun = `capture${n === 1 ? "" : "s"}`;
+    if (!full) return `${n} ${noun}`;
+    if (full === n) return `${n} full ${noun}`;
+    return `${n} ${noun} (${full} full)`;
+  }
   function SelectedManifest(app) {
     const s = app.state.selected;
-    const captureCount = s.manifest.capture.before.length + s.manifest.capture.after.length;
+    const captures = [...s.manifest.capture.before, ...s.manifest.capture.after];
+    const captureCount = captures.length;
+    const fullCount = captures.filter((c) => c.persist === "full").length;
+    const label = captureLabel(captures);
     const readOnly = s.plan.length === 0;
-    const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` \xB7 ${captureCount} capture${captureCount === 1 ? "" : "s"}` : ""} \xB7 manifest hash ${s.manifest.hash}`));
+    const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` \xB7 ${label}` : ""} \xB7 manifest hash ${s.manifest.hash}`));
     if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
+    if (fullCount) card.appendChild(h(
+      "div",
+      { class: "f-banner warn" },
+      h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
+      `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on. Still queries only; zero mutations. Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`
+    ));
     if (s.problems.length) card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, "Cannot run: "), h("div", { class: "f-err" }, s.problems.join("\n"))));
     if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
     if (s.manifest.warnings && s.manifest.warnings.length) {
@@ -4915,7 +5031,7 @@ details summary { cursor:pointer; color:var(--mute); }
         class: "f-primary",
         disabled: s.problems.length > 0 || missingImgs.length > 0,
         onClick: () => app.confirm(
-          readOnly ? `Run read-only capture job for ${s.entry.name}: ${captureCount} capture${captureCount === 1 ? "" : "s"}? No mutations will be sent.` : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)? This writes to the game.`,
+          readOnly ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.` : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
           () => app.startJob()
         )
       }, readOnly ? "Run captures" : "Start job"),
@@ -4943,7 +5059,20 @@ details summary { cursor:pointer; color:var(--mute); }
     if ((job.state === "DONE" || job.state === "INCOMPLETE") && job.items.length === 0) {
       const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
       const failed = captures.filter((capture) => !capture.ok).length;
-      root.appendChild(outcome === "success" ? h("div", { class: "f-banner ok" }, h("b", {}, "Read-only capture complete. "), `${captures.length}/${captures.length} reads succeeded; zero mutations were sent.`) : h("div", { class: "f-banner bad" }, h("b", {}, "Read-only capture failed. "), `${failed} of ${captures.length} reads failed; zero mutations were sent.`));
+      const full = captures.filter((capture) => capture.persist === "full");
+      const unpersisted = full.filter((capture) => capture.ok && capture.persistOk !== true);
+      const persistLine = full.length ? `, ${full.length - unpersisted.length}/${full.length} full record ${full.length === 1 ? "body" : "bodies"} persisted into the bundle` : "";
+      root.appendChild(outcome === "success" ? h("div", { class: "f-banner ok" }, h("b", {}, "Read-only capture complete. "), `${captures.length}/${captures.length} reads succeeded${persistLine}; zero mutations were sent.`) : h(
+        "div",
+        { class: "f-banner bad" },
+        h("b", {}, failed ? "Read-only capture failed. " : "Read-only capture incomplete. "),
+        // read failures lead when there are any; otherwise the reason is the missing bodies.
+        // The read wording is the fallback, so no arithmetic on an empty full-capture list can
+        // produce a sentence about bodies nobody asked for.
+        !failed && unpersisted.length ? `${captures.length}/${captures.length} reads succeeded, but ${unpersisted.length} of ${full.length} requested full ${full.length === 1 ? "body" : "bodies"} could not be persisted, so this bundle does not carry the record data the manifest asked for` : `${failed} of ${captures.length} reads failed`,
+        "; zero mutations were sent.",
+        unpersisted.length ? h("div", { class: "f-err" }, unpersisted.map((capture) => `${capture.proc} ${capture.cacheKey || ""}: ${capture.persistError || "not persisted"}`).join("\n")) : null
+      ));
     } else if (job.state === "DONE" || job.state === "INCOMPLETE") {
       const drift = job.items.filter((i) => i.verify === "drift").length;
       const unread = job.items.filter((i) => i.verify === "unread").length;
@@ -4978,6 +5107,19 @@ details summary { cursor:pointer; color:var(--mute); }
     const st = app.budget.status();
     const used = Object.entries(st.paths).filter(([, v]) => v.used > 0);
     root.appendChild(h("div", { class: "f-card" }, used.length ? used.map(([p, v]) => h("div", { class: "f-kv" }, h("b", {}, p), h("span", {}, `${v.used} / ${v.allowance} (server ${v.serverLimit}) \xB7 resets in ${fmtCountdown(app.now() + v.resetInMs, app.now())}`))) : h("span", { class: "f-mute" }, "nothing spent"), st.tripped ? h("div", { class: "f-err" }, `TRIPPED on ${st.tripped.path} until ${new Date(st.tripped.until).toLocaleTimeString()}`) : null));
+    const allCaptures = [...job.capturesBefore || [], ...job.capturesAfter || []];
+    if (allCaptures.some((capture) => capture && capture.persist === "full")) {
+      root.appendChild(h("h3", {}, "Full captures"));
+      for (const capture of allCaptures.filter((capture2) => capture2.persist === "full")) {
+        root.appendChild(h("div", { class: "f-row" }, h(
+          "div",
+          { class: "f-grow" },
+          h("div", {}, `${capture.proc} `, h("span", { class: "f-pill " + (capture.persistOk === true ? "VERIFIED" : "FAILED") }, capture.persistOk === true ? "body persisted" : "not persisted"), h("span", { class: "f-mute" }, capture.ok ? " \xB7 read ok" : " \xB7 read failed")),
+          h("div", { class: "f-mono" }, capture.cacheKey || ""),
+          capture.persistError ? h("div", { class: "f-err" }, capture.persistError) : null
+        )));
+      }
+    }
     root.appendChild(h("h3", {}, "Items"));
     for (const it of job.items) {
       const phase = it.state === "SENT" || it.state === "CONFIRMED" ? ` \xB7 phase ${it.phase}` : "";
@@ -5257,11 +5399,20 @@ details summary { cursor:pointer; color:var(--mute); }
       }, 1500);
       try {
         const s = await fn();
+        if (s.state === "DONE" || s.state === "INCOMPLETE") {
+          try {
+            await this.resolveCaptures(jobId);
+          } catch (e) {
+            this.fail("resolve full captures", e);
+          }
+        }
         const job = this.journal.get(jobId);
         const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
-        const detail = job.items.length ? `${Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${s.verify.match} verified, ${s.verify.drift} drift, ${s.verify.unread} unread` : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures ok \xB7 zero mutations`;
-        const kind = s.outcome === "success" ? "ok" : s.outcome === "failed" ? "bad" : "warn";
-        this.toast(`job ${s.state} (${s.outcome}): ${detail}`, kind, 8e3);
+        const outcome = jobOutcome(job);
+        const full = captures.filter((capture) => capture.persist === "full");
+        const detail = job.items.length ? `${Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${s.verify.match} verified, ${s.verify.drift} drift, ${s.verify.unread} unread` : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` \xB7 ${full.filter((capture) => capture.persistOk === true).length}/${full.length} full bodies persisted` : ""} \xB7 zero mutations`;
+        const kind = outcome === "success" ? "ok" : outcome === "failed" ? "bad" : "warn";
+        this.toast(`job ${s.state} (${outcome}): ${detail}`, kind, 8e3);
         if (s.state === "DONE" || s.state === "INCOMPLETE") await this.exportJob(jobId, { auto: true });
       } catch (e) {
         this.fail("run", e);
@@ -5291,8 +5442,82 @@ details summary { cursor:pointer; color:var(--mute); }
         this.fail("skip", e);
       }
     }
+    /**
+     * Materialize every requested full capture body out of the IndexedDB capture cache, and write
+     * the VERDICT (not the body) back onto the job's own capture entries. Two things follow from
+     * doing it this way:
+     *
+     *   - the export never issues a read. The body it ships is the one the single capture read
+     *     already produced and CachedReader already cached; if it is not there, the export says so
+     *     rather than going back to the game for it;
+     *   - the journal stays compact and stays the record of truth. persistOk/persistError live on
+     *     the journal entry, so jobOutcome(), the run screen and the bundle all read one answer,
+     *     and the embedded `journal` in the bundle never duplicates the bodies beside it.
+     *
+     * Returns the export-ready capture list: summary entries exactly as journaled, full entries
+     * with `data` attached when, and only when, the body was materialized intact.
+     */
+    async resolveCaptures(jobId) {
+      const job = this.journal.get(jobId);
+      const patch = {};
+      const out = [];
+      for (const key of ["capturesBefore", "capturesAfter"]) {
+        if (!Array.isArray(job[key])) continue;
+        const resolved = [];
+        for (const capture of job[key]) resolved.push(await this._materialize(capture));
+        if (job[key].some((capture) => capture && capture.persist === "full")) {
+          patch[key] = resolved.map(({ data, ...rest }) => rest);
+        }
+        out.push(...resolved);
+      }
+      if (Object.keys(patch).length) this.journal.annotateJob(jobId, patch);
+      return out;
+    }
+    async _materialize(capture) {
+      if (!capture || typeof capture !== "object" || capture.persist !== "full") return capture;
+      const c = { ...capture, persistOk: false, persistError: null };
+      delete c.data;
+      if (capture.ok !== true) {
+        c.persistError = "read failed; there is no body to persist";
+        return c;
+      }
+      const cacheKey = capture.cacheKey || null;
+      if (!cacheKey) {
+        c.persistError = "no capture cache key was journaled for this full capture";
+        return c;
+      }
+      let rec = null;
+      try {
+        rec = await this.cache.getByKey(cacheKey);
+      } catch (e) {
+        c.persistError = "capture cache read failed: " + (e && e.message || String(e));
+        return c;
+      }
+      if (!rec) {
+        c.persistError = `${cacheKey} is no longer in the capture cache, so the full body cannot be exported without a second read; it was not re-read`;
+        return c;
+      }
+      const bytes = typeof rec.bytes === "number" ? rec.bytes : JSON.stringify(rec.data ?? null).length;
+      c.bytes = bytes;
+      if (bytes > MAX_FULL_CAPTURE_BYTES) {
+        c.persistError = `body is ${bytes} bytes, over the ${MAX_FULL_CAPTURE_BYTES}-byte full-capture ceiling; it is NOT truncated and NOT persisted`;
+        return c;
+      }
+      c.persistOk = true;
+      c.at = rec.at ?? null;
+      c.data = rec.data;
+      return c;
+    }
     /** Results bundle in the shape harvests/inbox/ already holds, committed via GitHub when Sync is on. */
     async exportJob(jobId, { auto = false } = {}) {
+      let captures;
+      try {
+        captures = await this.resolveCaptures(jobId);
+      } catch (e) {
+        this.fail("resolve full captures", e);
+        const j = this.journal.get(jobId);
+        captures = [...j.capturesBefore || [], ...j.capturesAfter || []];
+      }
       const job = this.journal.get(jobId);
       const bundle = {
         builder: this.version,
@@ -5311,7 +5536,7 @@ details summary { cursor:pointer; color:var(--mute); }
           unresolved: job.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length
         },
         entries: job.items.map((i) => harvestEntry(i)),
-        captures: [...job.capturesBefore || [], ...job.capturesAfter || []],
+        captures,
         idmap: JSON.parse(this.storage.getItem("tnr_bk_idmap_v1") || "{}"),
         journal: job
       };
@@ -10385,7 +10610,7 @@ details summary { cursor:pointer; color:var(--mute); }
   };
 
   // src/main.mjs
-  var VERSION = "forge 0.2.1";
+  var VERSION = "forge 0.3.0";
   function compose({
     storage,
     indexedDB,

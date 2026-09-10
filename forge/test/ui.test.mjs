@@ -142,6 +142,50 @@ test("capture-only manifest is presented and completed as read-only", async () =
   assert.match(win.document.querySelector(".f-main").textContent, /zero mutations were sent/);
 });
 
+test("a full-capture manifest is labelled before the run and reported body-by-body after it", async () => {
+  const win = dom();
+  const ASSET = { id: "XsLLy8awDAtaE6hXVIi_0", name: "Chase Alley Plate", type: "STATIC", image: "https://utfs.io/f/chase-alley.webp", folder: "scene", hidden: false };
+  const { app, game } = appWith();
+  game.seed("asset", { ...ASSET });
+  app.github.text = async () => JSON.stringify({ items: [], capture: { after: [{ proc: "gameAsset.get", input: { id: ASSET.id }, persist: "full" }] } });
+  app.mount(win.document.body, win.document);
+  app.go("manifests");
+  await app.loadPicker(true);
+  await app.selectManifest(app.state.picker[0]);
+  const main = win.document.querySelector(".f-main");
+  // BEFORE the run: "1 full capture" is visibly not "1 capture", and it says where the body goes
+  assert.match(main.textContent, /1 full capture/);
+  assert.match(main.textContent, /written into the results bundle/);
+  assert.match(main.textContent, /zero mutations/);
+  let prompt = "";
+  app.confirm = (message, run) => { prompt = message; run(); };
+  [...main.querySelectorAll("button")].find((b) => b.textContent === "Run captures").click();
+  await new Promise((resolve) => setTimeout(resolve, 40));
+  assert.match(prompt, /1 full capture/);
+  assert.match(prompt, /No mutations will be sent/);
+  assert.deepEqual(game.calls.map((c) => c.path), ["gameAsset.get"]);
+
+  const job = app.journal.listJobs()[0];
+  app.go("run", { jobId: job.jobId });
+  let text = win.document.querySelector(".f-main").textContent;
+  assert.match(text, /Read-only capture complete/);
+  assert.match(text, /1\/1 full record body persisted into the bundle/);
+  assert.match(text, /zero mutations were sent/);
+  assert.match(text, /body persisted/);
+
+  // and once the cached body is gone, the same screen stops claiming the bundle carries it
+  await app.cache.delete("gameAsset.get", ASSET.id);
+  await app.exportJob(job.jobId);
+  app.refresh();
+  text = win.document.querySelector(".f-main").textContent;
+  assert.match(text, /Read-only capture incomplete/);
+  assert.match(text, /could not be persisted/);
+  assert.match(text, /no longer in the capture cache/);
+  assert.match(text, /zero mutations were sent/);
+  assert.doesNotMatch(text, /Read-only capture complete/);
+  assert.equal(game.calls.length, 1, "nothing on this screen ever goes back to the game for a body");
+});
+
 test("Manifests: list, select, plan shown, Start job runs to DONE through the runner", async () => {
   const win = dom();
   const { app, game } = appWith();
@@ -215,9 +259,16 @@ test("release pin: pinning turns the branch URL into a commit URL and drops the 
   const loader = readFileSync(join(repo, "forge_loader_user.js"), "utf8");
   const pkg = JSON.parse(readFileSync(join(repo, "forge", "package.json"), "utf8"));
   const sha = "a".repeat(40);
+  // model the loader AS PROMOTED, exactly as .github/scripts/pin_release.py leaves it: the bundle
+  // URL becomes the merge commit, BOTH staging markers are removed, and @version is synced from
+  // forge/package.json. A branch that is staging the next release carries @x-release-pending and
+  // is legitimately allowed to lag on @version, so a fixture that kept the marker would be
+  // asserting against the staged state, not the released one.
   const pinned = loader
     .replace(/(\/\/ @require\s+)\S*forge_bundle\.js\S*/, `$1https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@${sha}/forge_bundle.js`)
-    .replace(/^\/\/ @x-unpinned-until-release.*\n/m, "");
+    .replace(/^\/\/ @x-unpinned-until-release.*\n/m, "")
+    .replace(/^\/\/ @x-release-pending.*\n/m, "")
+    .replace(/(\/\/ @version\s+)\S+/, `$1${pkg.version}`);
   writeFileSync(join(root, "forge_loader_user.js"), pinned);
   writeFileSync(join(root, "forge", "package.json"), JSON.stringify(pkg));
   writeFileSync(join(root, "state", "staged_workflows", "release_pin.yml"), readFileSync(join(repo, "state", "staged_workflows", "release_pin.yml"), "utf8"));

@@ -18,6 +18,51 @@ and a local checkout of the pinned source; see "Verification".
 
 The first real Firefox Android smoke exposed one integration seam: `parseManifest()` accepted capture-only manifests, but `Journal.open()` still rejected an empty item list. Forge 0.2.1 permits an empty journal only when `Runner.plan()` has parsed at least one capture, treats the job as successful only when every capture read succeeds, and labels the flow as read-only/zero-mutation in the UI. The smoke manifest is `push/00_forge_readonly_smoke.json`.
 
+## 0.3.0 full capture persistence
+
+Built from `state/prompt_forge_full_capture.md`. Before this, `Runner._captures()` journalled only
+`{phase, proc, input, ok, rows, error}`, so a bundle could prove a record was read and could not
+show what the record said. An asset/content compatibility review therefore had a fresh existence
+check plus an older catalog, which is not the same thing as a fresh record.
+
+A capture entry may now carry `"persist": "full"`:
+
+```json
+{ "proc": "gameAsset.get", "input": { "id": "..." }, "persist": "full" }
+```
+
+Omitted or `"summary"` is the historical behaviour, unchanged, and a manifest written before this
+contract keeps the manifest hash it already had, so an open job still resumes. Anything else is a
+`ManifestError` before a job is opened.
+
+- **Fail-closed allowlist.** `persist: "full"` is accepted only for the audited content-record
+  POINT READS in `FULL_PERSIST_PATHS` (`storage/captures.mjs`): `gameAsset.get`, `jutsu.get`,
+  `item.get`, `bloodline.get`, `quests.get`, `profile.getAi`, `ai.getAiProfile`. List procedures,
+  mutations, unknown paths (including the un-audited `asset.get` spelling) and a full request with
+  no record id are all refused at parse time. The kinds are read from the generated
+  `transport/procedures.mjs`; the allowlist names paths and never restates their kind. Widening it
+  is a separate reviewed change: the bundle these bodies land in is committed to this repository.
+- **One read.** Full mode adds no request. `CachedReader` already writes every successful decoded
+  body into the IndexedDB capture cache on the way past; full mode only decides how durably that
+  body is kept. Export materializes it from the cache and never re-reads.
+- **The journal stays compact.** localStorage keeps `persist`, the cache key and the persistence
+  verdict, never a body. The `journal` embedded in a results bundle therefore does not duplicate
+  the `data` beside it.
+- **Fail-closed reporting.** A full capture makes two claims - the read succeeded, and the body is
+  in the bundle - and they are reported separately. `App.resolveCaptures()` re-checks every
+  requested body against IndexedDB at export and writes `persistOk` / `persistError` back onto the
+  job. A body that is missing (entity invalidation, evicted store) or over
+  `MAX_FULL_CAPTURE_BYTES` (512 KiB; the largest real content record in `harvests/` is a ~71 KB
+  quest) is an explicit failure: `jobOutcome()` turns a capture-only job `failed` and a writing job
+  `unverified`, the run screen says "Read-only capture incomplete" with the reason, and
+  `harvest.py verify` exits 1. Nothing truncates a body and calls it full.
+- **Visible before it runs.** The selected-manifest card reads `5 full captures`, not `5 captures`,
+  says where the bodies go, and the confirm prompt repeats it. It remains true, and still says,
+  that a capture-only job sends zero mutations.
+
+`push/02_one_perfect_crop_asset_probe.json` is the first consumer: five `gameAsset.get` point reads
+at `persist: "full"`, `items: []`. It has NOT been run.
+
 ## The readiness pass, and what it changed
 
 Forge passed its own tests before this pass and was still not safe to make the normal content path.
@@ -676,12 +721,14 @@ forge; it is listed under "Not finished" rather than guarded speculatively.
 
 - **Pause during a run** is wired (`Runner.requestPause()`, honoured between items; the Run
   screen button calls it) but only jsdom has exercised the button.
-- **Captures with `select` / `scope`.** The old bundle's capture entries carried a `select`
-  field list; the runner records row counts and stores full decoded data in the capture
-  cache but does not trim to `select`. Consequence for ingestion, measured rather than assumed:
-  `harvest.py index` lists a forge bundle's capture calls and their inputs, but has no rows to
-  report from them, so `get`/`names`/`assets` over a forge bundle answer nothing. Verification of
-  written records does not depend on it (that runs off `entries[]`), so this stayed out of scope.
+- **Captures with `select` / `scope`.** The old bundle's capture entries carried a `select` field
+  list, and forge has no projection mode: a capture is a row count or, since 0.3.0, the whole
+  record. Consequence for ingestion, measured rather than assumed: `harvest.py index` lists a forge
+  bundle's capture calls and their inputs; `get`/`names`/`assets` answer from a capture only when it
+  asked for `persist: "full"`, and answer nothing for a summary capture. A projected
+  `persist: "fields"` mode would help for large records and is deliberately NOT built - it was
+  ruled out of scope by the full-capture brief. Verification of written records does not depend on
+  any of it (that runs off `entries[]`).
 - **A capture-only manifest cannot be run.** `parseManifest` accepts one, but `journal.open()`
   refuses an empty item list, so a manifest with captures and no items cannot start a job.
   Pre-existing, unrelated to the readiness blockers, and not changed here.
