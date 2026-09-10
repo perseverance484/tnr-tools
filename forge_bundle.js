@@ -869,6 +869,23 @@
       return this.probe();
     }
     /**
+     * Record a SERVER-PROVEN refusal: a protected procedure came back UNAUTHORIZED (or the route
+     * handler's "Please complete registration"), so this session cannot do protected work whatever
+     * the page runtime or the last probe believed.
+     *
+     * This exists because a probe is a snapshot and a session can die a minute later (independent
+     * review FPA-2). Without it the standing banner kept saying "TNR session active" while the run
+     * screen said authentication was unavailable, and Resume would happily send the next protected
+     * request against a session the server had already refused. The server's answer is the most
+     * authoritative signal there is, so it wins over the probe, and the gate then blocks every
+     * protected path until probe() succeeds again.
+     *
+     * @returns {string} the new state
+     */
+    refuse(detail = null) {
+      return this._set(AUTH.SIGNED_OUT, detail ? String(detail).slice(0, 200) : "the game refused a protected procedure for this session");
+    }
+    /**
      * THE GATE. Throws AuthUnavailable when `path` is protected and the session is not established.
      * Callers must call it BEFORE journaling a send, so a refusal can never leave an item SENT: a
      * blocked mutation is a mutation that was never written down as sent, which is the whole point
@@ -4273,6 +4290,21 @@
     _protectedPaths(order, manifest) {
       return protectedPathsFor(order, manifest);
     }
+    /**
+     * The server just proved this session is not authenticated. Invalidate the shared auth state
+     * BEFORE pausing, so that everything downstream - the banner, the Resume button, the next
+     * job's preflight - reads the server's answer rather than the last successful probe
+     * (independent review FPA-2). Returns the Paused the caller should throw, so that recording the
+     * refusal and stopping are one statement and cannot drift apart.
+     */
+    _authRefused(error, info = {}) {
+      const detail = error && error.message ? String(error.message) : "UNAUTHORIZED";
+      if (this.auth && typeof this.auth.refuse === "function") {
+        this.auth.refuse(`${info.path ? info.path + ": " : ""}${error && error.code ? error.code : "UNAUTHORIZED"}`);
+      }
+      this.log(`the game refused ${info.path || "a protected procedure"} as unauthenticated; auth state invalidated`);
+      return new Paused("SESSION", { detail, authState: "signed_out", ...info });
+    }
     // ------------------------------------------------------------------ lease
     _leaseKey(jobId) {
       return LEASE_PREFIX + jobId;
@@ -4525,7 +4557,7 @@
       const live = await this.reader.get(rc.get, id, { fresh: true });
       if (!live.ok) {
         const cls = classifyError(live.error);
-        if (cls === "SESSION") throw new Paused("SESSION", { detail: live.error.message });
+        if (cls === "SESSION") throw this._authRefused(live.error, { path: rc.get, idx: item.idx });
         throw new Error(`${rc.get} failed: ${live.error.code} ${live.error.message}`);
       }
       if (live.data == null) throw new Error(`${rc.get} returned no record for ${id}`);
@@ -4589,7 +4621,7 @@
       if (item.entity !== "aiProfile") {
         this._requireAuth(rc.get, item.idx);
         const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
-        if (!live.ok && classifyError(live.error) === "SESSION") throw new Paused("SESSION", { idx: item.idx, path: rc.get, detail: live.error.message });
+        if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { idx: item.idx, path: rc.get });
         if (!live.ok || !live.data) {
           this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" });
           return;
@@ -4603,7 +4635,7 @@
         }
         this._requireAuth("ai.getAiProfile", item.idx);
         const pr = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
-        if (!pr.ok && classifyError(pr.error) === "SESSION") throw new Paused("SESSION", { idx: item.idx, path: "ai.getAiProfile", detail: pr.error.message });
+        if (!pr.ok && classifyError(pr.error) === "SESSION") throw this._authRefused(pr.error, { idx: item.idx, path: "ai.getAiProfile" });
         if (pr.ok && pr.data) {
           if (JSON.stringify(pr.data.rules ?? []) !== JSON.stringify(planned.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
           if (planned.data.includeDefaultRules !== void 0 && pr.data.includeDefaultRules !== planned.data.includeDefaultRules) diffs.push({ key: "includeDefaultRules", sent: planned.data.includeDefaultRules, live: pr.data.includeDefaultRules });
@@ -4646,7 +4678,7 @@
         const r = await this.reader.list(rc.names, { fresh: true });
         if (!r.ok) {
           const cls = classifyError(r.error);
-          if (cls === "SESSION") throw new Paused("SESSION", { detail: r.error.message });
+          if (cls === "SESSION") throw this._authRefused(r.error, { path: rc.names });
           throw new Paused("NETWORK", { detail: `dedupNames: ${rc.names} failed: ${r.error.code} ${r.error.message}` });
         }
         const rows = Array.isArray(r.data) ? r.data : r.data && Array.isArray(r.data.data) ? r.data.data : [];
@@ -4683,7 +4715,7 @@
         const id = c.id ?? (c.input && (c.input.id ?? c.input.userId));
         this._requireAuth(path, null);
         const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true });
-        if (!r.ok && classifyError(r.error) === "SESSION") throw new Paused("SESSION", { path, detail: r.error.message, phase, ordinal: i });
+        if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path, phase, ordinal: i });
         const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
         if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, c.input ?? null, r));
         out.push(entry);
@@ -4750,7 +4782,7 @@
       if (cls === "SESSION") {
         this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} SESSION: ${o.error.message}`, authRefused: true });
         this.log(`item ${item.idx} refused by the game as unauthenticated on ${step}`, item);
-        throw new Paused("SESSION", { detail: o.error.message, idx: item.idx, authRefused: true });
+        throw this._authRefused(o.error, { idx: item.idx, authRefused: true });
       }
       const issues = o.error.zodError ? " " + o.error.zodError.map((z) => `${(z.path || []).join(".")}: ${z.message}`).join("; ") : "";
       this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} ${cls}: ${o.error.message}${issues}`, zodError: o.error.zodError ?? null });
@@ -5148,10 +5180,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           h("div", {}, h("b", {}, "Open job: "), j.manifestPath || j.jobId, " ", pill(j.state)),
           j.state === "INCOMPLETE" ? h("div", { class: "f-mute" }, `Finished unverified: ${j.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length} item(s) still owe a read-back. Resuming re-reads them and cannot re-send.`) : null,
           j.pause ? h("div", { class: "f-mute" }, `Paused: ${j.pause.reason}${j.pause.path ? " on " + j.pause.path : ""}${j.pause.until ? " \xB7 retry allowed in " + fmtCountdown(j.pause.until, app.now()) : ""}${j.pause.detail ? " \xB7 " + j.pause.detail : ""}`) : null,
+          app.resumeBlockedReason && app.resumeBlockedReason(j) ? h("div", { class: "f-err" }, app.resumeBlockedReason(j)) : null,
           h(
             "div",
             { class: "f-actions" },
-            h("button", { class: "f-primary", onClick: () => app.resumeJob(j.jobId) }, j.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : j.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume"),
+            h("button", { class: "f-primary", disabled: !!(app.resumeBlockedReason && app.resumeBlockedReason(j)), onClick: () => app.resumeJob(j.jobId) }, j.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : j.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume"),
             h("button", { onClick: () => app.go("run", { jobId: j.jobId }) }, "Open")
           )
         ));
@@ -5387,10 +5420,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       job.pause.detail ? h("div", { class: "f-err" }, job.pause.detail) : null
     ));
     if (app.state.running === jobId) root.appendChild(h("div", { class: "f-banner info" }, "Running\u2026 ", app.state.runningNote || ""));
+    const resumeBlocked = app.resumeBlockedReason ? app.resumeBlockedReason(job) : null;
+    if (resumeBlocked) root.appendChild(h("div", { class: "f-mute" }, resumeBlocked));
     root.appendChild(h(
       "div",
       { class: "f-actions" },
-      job.state === "PAUSED" || job.state === "INCOMPLETE" || job.state === "RUNNING" && app.state.running !== jobId && job.items.some((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)) ? h("button", { class: "f-primary", onClick: () => app.resumeJob(jobId) }, job.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : job.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume") : null,
+      job.state === "PAUSED" || job.state === "INCOMPLETE" || job.state === "RUNNING" && app.state.running !== jobId && job.items.some((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)) ? h("button", { class: "f-primary", disabled: !!resumeBlocked, onClick: () => app.resumeJob(jobId) }, job.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : job.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume") : null,
       app.state.running === jobId ? h("button", { onClick: () => app.requestPause() }, "Pause after this item") : null,
       h("button", { onClick: () => app.exportJob(jobId) }, "Export bundle")
     ));
@@ -5696,6 +5731,17 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         h("div", { class: "f-actions" }, recheck)
       );
     }
+    /**
+     * Why Resume is not offered on a SESSION-paused job. A job that stopped because the game
+     * refused the session must not offer a green Resume that will immediately be refused again:
+     * the operator has to sign in and re-check first (independent review FPA-2). Returns null when
+     * resuming is fine.
+     */
+    resumeBlockedReason(job) {
+      if (!job || !job.pause || job.pause.reason !== "SESSION") return null;
+      if (!this.auth || this.auth.ready) return null;
+      return "TNR authentication is still unavailable. Sign in to the game and re-check the session; resuming now would send nothing.";
+    }
     /** Protected procedures a selected manifest would need that the session cannot supply. */
     blockedPaths(plan, manifest) {
       if (!this.auth) return [];
@@ -5802,6 +5848,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     async resumeJob(jobId) {
       const job = this.journal.get(jobId);
+      const blocked = this.resumeBlockedReason(job);
+      if (blocked) {
+        this.toast(blocked, "bad", 9e3);
+        return this.refresh();
+      }
       if (!this.runner.manifests.has(jobId)) {
         try {
           const text = job.manifestPath ? await this.github.text(job.manifestPath) : null;
@@ -6049,6 +6100,69 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const body = h("body", {});
     html.append(head, body);
     return { html, head, body };
+  }
+  function whenBodyReady(doc = document, win = window) {
+    return new Promise((resolve) => {
+      if (doc.body) return resolve(doc.body);
+      let settled = false;
+      let mo = null;
+      let timer = null;
+      const cleanup = () => {
+        if (mo) {
+          try {
+            mo.disconnect();
+          } catch {
+          }
+          mo = null;
+        }
+        if (timer != null) {
+          try {
+            win.clearInterval(timer);
+          } catch {
+          }
+          timer = null;
+        }
+        try {
+          doc.removeEventListener("DOMContentLoaded", check);
+        } catch {
+        }
+        try {
+          doc.removeEventListener("readystatechange", check);
+        } catch {
+        }
+      };
+      function check() {
+        if (settled || !doc.body) return;
+        settled = true;
+        cleanup();
+        resolve(doc.body);
+      }
+      try {
+        mo = new win.MutationObserver(check);
+        mo.observe(doc.documentElement || doc, { childList: true, subtree: true });
+      } catch {
+        mo = null;
+      }
+      try {
+        doc.addEventListener("DOMContentLoaded", check);
+      } catch {
+      }
+      try {
+        doc.addEventListener("readystatechange", check);
+      } catch {
+      }
+      if (!mo) {
+        try {
+          timer = win.setInterval(check, 25);
+        } catch {
+          timer = null;
+        }
+      }
+      check();
+    });
+  }
+  function alreadyMounted(doc = document) {
+    return !!doc.querySelector("." + OVERLAY_CLASS);
   }
   function mountHost(doc = document, win = window) {
     const host = h("div", { class: OVERLAY_CLASS });
@@ -11189,7 +11303,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     return null;
   }
   async function bootHost(win, doc, { establish = true } = {}) {
-    const host = mountHost(doc, win);
+    await whenBodyReady(doc, win);
+    if (alreadyMounted(doc)) return null;
     const clock = () => Date.now();
     let tabId;
     try {
@@ -11202,7 +11317,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       tabId = void 0;
     }
     let deps = {};
+    let host = null;
     try {
+      host = mountHost(doc, win);
       deps = compose({
         storage: win.localStorage,
         indexedDB: win.indexedDB,
@@ -11225,6 +11342,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       deps.app.mount(host.body, doc);
       arm(win, { hops: 0 });
     } catch (e) {
+      if (!host) return null;
       const panel = h("div", { class: "f-boot" });
       panel.append(h("div", {}, h("b", {}, "TNR forge failed to start")), h("pre", { style: { whiteSpace: "pre-wrap", fontSize: "12px" } }, String(e && e.stack || e)));
       host.body.appendChild(panel);

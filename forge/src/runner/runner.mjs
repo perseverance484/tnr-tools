@@ -121,6 +121,22 @@ export class Runner {
   /** Every protected path a job would touch, so the gate can refuse before the first request. */
   _protectedPaths(order, manifest) { return protectedPathsFor(order, manifest); }
 
+  /**
+   * The server just proved this session is not authenticated. Invalidate the shared auth state
+   * BEFORE pausing, so that everything downstream - the banner, the Resume button, the next
+   * job's preflight - reads the server's answer rather than the last successful probe
+   * (independent review FPA-2). Returns the Paused the caller should throw, so that recording the
+   * refusal and stopping are one statement and cannot drift apart.
+   */
+  _authRefused(error, info = {}) {
+    const detail = error && error.message ? String(error.message) : "UNAUTHORIZED";
+    if (this.auth && typeof this.auth.refuse === "function") {
+      this.auth.refuse(`${info.path ? info.path + ": " : ""}${error && error.code ? error.code : "UNAUTHORIZED"}`);
+    }
+    this.log(`the game refused ${info.path || "a protected procedure"} as unauthenticated; auth state invalidated`);
+    return new Paused("SESSION", { detail, authState: "signed_out", ...info });
+  }
+
   // ------------------------------------------------------------------ lease
   _leaseKey(jobId) { return LEASE_PREFIX + jobId; }
   _readLease(jobId) { try { return JSON.parse(this.storage.getItem(this._leaseKey(jobId)) || "null"); } catch { return null; } }
@@ -387,7 +403,7 @@ export class Runner {
     const live = await this.reader.get(rc.get, id, { fresh: true });
     if (!live.ok) {
       const cls = classifyError(live.error);
-      if (cls === "SESSION") throw new Paused("SESSION", { detail: live.error.message });
+      if (cls === "SESSION") throw this._authRefused(live.error, { path: rc.get, idx: item.idx });
       throw new Error(`${rc.get} failed: ${live.error.code} ${live.error.message}`);
     }
     if (live.data == null) throw new Error(`${rc.get} returned no record for ${id}`);
@@ -454,7 +470,7 @@ export class Runner {
       const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
       // An expired session must not be recorded as "we read it back and could not see it". The
       // write is real and unverified either way, but the operator is told which problem it is.
-      if (!live.ok && classifyError(live.error) === "SESSION") throw new Paused("SESSION", { idx: item.idx, path: rc.get, detail: live.error.message });
+      if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { idx: item.idx, path: rc.get });
       if (!live.ok || !live.data) { this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" }); return; }
       diffs.push(...diffAsserted(item.entity, data, live.data));
     }
@@ -462,7 +478,7 @@ export class Runner {
       if (!item.aiProfileId) { this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" }); return; }
       this._requireAuth("ai.getAiProfile", item.idx);
       const pr = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
-      if (!pr.ok && classifyError(pr.error) === "SESSION") throw new Paused("SESSION", { idx: item.idx, path: "ai.getAiProfile", detail: pr.error.message });
+      if (!pr.ok && classifyError(pr.error) === "SESSION") throw this._authRefused(pr.error, { idx: item.idx, path: "ai.getAiProfile" });
       if (pr.ok && pr.data) {
         if (JSON.stringify(pr.data.rules ?? []) !== JSON.stringify(planned.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
         if (planned.data.includeDefaultRules !== undefined && pr.data.includeDefaultRules !== planned.data.includeDefaultRules) diffs.push({ key: "includeDefaultRules", sent: planned.data.includeDefaultRules, live: pr.data.includeDefaultRules });
@@ -503,7 +519,7 @@ export class Runner {
       const r = await this.reader.list(rc.names, { fresh: true });
       if (!r.ok) {
         const cls = classifyError(r.error);
-        if (cls === "SESSION") throw new Paused("SESSION", { detail: r.error.message });
+        if (cls === "SESSION") throw this._authRefused(r.error, { path: rc.names });
         throw new Paused("NETWORK", { detail: `dedupNames: ${rc.names} failed: ${r.error.code} ${r.error.message}` });
       }
       const rows = Array.isArray(r.data) ? r.data : (r.data && Array.isArray(r.data.data) ? r.data.data : []);
@@ -546,7 +562,7 @@ export class Runner {
       // the end and the job reported "0/5 full bodies persisted · read failed". That reads as a
       // capture problem. It is an authentication problem, and it stops the pass here so the
       // remaining reads are not spent proving the same thing four more times.
-      if (!r.ok && classifyError(r.error) === "SESSION") throw new Paused("SESSION", { path, detail: r.error.message, phase, ordinal: i });
+      if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path, phase, ordinal: i });
       const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
       if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, c.input ?? null, r));
       out.push(entry);
@@ -608,7 +624,7 @@ export class Runner {
       // nothing after it is attempted against the same dead session.
       this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} SESSION: ${o.error.message}`, authRefused: true });
       this.log(`item ${item.idx} refused by the game as unauthenticated on ${step}`, item);
-      throw new Paused("SESSION", { detail: o.error.message, idx: item.idx, authRefused: true });
+      throw this._authRefused(o.error, { idx: item.idx, authRefused: true });
     }
     const issues = o.error.zodError ? " " + o.error.zodError.map((z) => `${(z.path || []).join(".")}: ${z.message}`).join("; ") : "";
     this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} ${cls}: ${o.error.message}${issues}`, zodError: o.error.zodError ?? null });

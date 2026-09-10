@@ -182,7 +182,19 @@ the tab and says so rather than bouncing.
 **The loader therefore matches the whole game origin**, as the old builder's loader already does,
 at `document-start`. On any game page in a tab that has not been armed through `/forge`, `boot()`
 returns before touching the document, issuing a request or installing a style, and the whole call
-is wrapped so a Forge bug cannot break the game. The stylesheet is scoped to `.f-host` / `.f-app`
+is wrapped so a Forge bug cannot break the game.
+
+**Body readiness (independent review FPA-1).** `document-start` means an armed carrier can be
+reached before the parser has produced `<body>`. `mountHost()` reads `doc.body`, so calling it
+then throws, the top-level wrapper swallows the rejection, and the operator is left looking at the
+game with the tab armed and Forge never mounted — a valid `/forge` handoff that silently does
+nothing. `whenBodyReady()` therefore precedes the mount: it races a `MutationObserver` on
+`documentElement`, `DOMContentLoaded`/`readystatechange`, and (only when no observer can be
+constructed) an interval, each re-checking `doc.body` rather than trusting the signal. It writes
+nothing while waiting and has no timeout, because a document that never gets a body is one Forge
+must not touch. `alreadyMounted()` keeps it to one overlay per document, and `mountHost()` now
+runs inside `bootHost()`'s guard, so a failure to mount at all leaves the carrier untouched
+instead of half-decorated. The stylesheet is scoped to `.f-host` / `.f-app`
 (the `html, body` reset lives in `CSS_DOC`, installed on the entry splash only), because an
 adopted sheet outlives the overlay and a bare `body`/`*`/`button` rule would restyle the carrier
 and keep restyling it after Forge is closed. Closing Forge disarms the tab, removes the overlay,
@@ -206,6 +218,15 @@ pinned SHA) rather than derived from `limited`: the two are exact complements ac
 today, but `limited` is a statement about the rate limiter, and deriving one from the other would
 let a future limiter change move the auth gate silently.
 
+**A server refusal invalidates the state (independent review FPA-2).** A probe is a snapshot and a
+session can die a minute later. Whenever a protected procedure comes back `UNAUTHORIZED` — a
+capture read, a read-back, a `dedupNames` list, or a mutation — `Runner._authRefused()` calls
+`AuthState.refuse()` before pausing, so the banner stops claiming a live session, the gate blocks
+every further protected path, and `Resume` is withheld until `probe()` succeeds again. Without it
+the standing banner said "TNR session active" while the run screen said authentication was
+unavailable, and resuming sent the next protected request at a session the server had already
+refused.
+
 **The gate runs before `withSent`, never inside it.** A blocked mutation is one that was never
 journaled as sent, so it cannot enter reconciliation and cannot be ambiguous. A protected mutation
 that IS sent and comes back `UNAUTHORIZED` is transitioned `SENT -> FAILED` with `authRefused`
@@ -218,6 +239,14 @@ Forbidden by the brief and asserted by `test/auth.test.mjs`: no `document.cookie
 no `getToken`, no `Authorization` on a game request, and nothing auth-derived in localStorage,
 IndexedDB, the journal, a capture or an exported bundle. `CookieSession`'s header allowlist is
 unchanged (`accept`, `content-type`, `x-uploadthing-version`).
+
+**Source pins.** `state/prompt_forge_protected_auth.md` pins `bdec2883`; Forge's global pin is
+`345d18ac`, 89 commits later. Neither was moved. Every auth classification and every carrier/entry
+fact this repair rests on was proven identical at both commits —
+`docs/handoffs/FORGE_PROTECTED_AUTH_PIN_RECONCILIATION.md`, reproducible with
+`forge/tools/auth_pin_diff.mjs`. Reading `bdec2883` also upgraded the carrier justification from
+inference to source: `app/src/app/page.tsx` renders `/` under the root layout, and `proxy.ts`
+contains no `redirect` at all, so a signed-in operator is never sent away from it.
 
 **Known debt.** The carrier page runs the game's own tRPC traffic, which Forge's budget cannot
 see. The content paths Forge spends are not the ones a landing page reads, and the limiter is
