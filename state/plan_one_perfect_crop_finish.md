@@ -1,10 +1,10 @@
 # One Perfect Crop — finish implementation plan
 
-**Status:** design-complete enough to finish; not yet a runnable implementation brief.  
+**Status:** execution underway; design/prose frozen, art intake partially processed, Road Bandit reuse probe staged; not yet a runnable manifest.  
 **Plan owner:** ChatGPT / Content Designer.  
 **Implementation owner:** Fable / Claude Code after final freeze.  
 **Live-game actor:** dauntless only.  
-**Base:** `main` at `cfa3fb71ce70858d2ed740945421a3671ca2215d`.
+**Current execution baseline:** `main` at/after `43523e489214a9b64fe88529b3ba68658cfe88bc`.
 
 ## Settled rulings carried into this plan
 
@@ -14,14 +14,16 @@
 4. C1 Harvest Boar remains dialog-gated **`start_battle`**.
 5. Both battle losses hard-route to FAIL with no authored retry branch.
 6. Balance/reward/rarity/repeatability/eligibility values that are still unresolved stay explicitly open for the content admin. Fable must not guess them into a runnable manifest.
-7. Ittetsu art is produced and accepted as the character design. The shared source is 1024x1536 RGB with an opaque black background; it still needs a production-safe transparent/chroma source or equivalent isolation before the standard SCENE_CHARACTER processing/QC pipeline. Do not redesign the character.
-8. The One Perfect Crop quest/listing icon is approved in current TNR pixel style; it still needs standard processing/QC and a final filename contract.
-9. `Nameless Ninja` is rejected for visual reuse as deprecated/below the current quality bar.
-10. Do not edit shared live AI merely to make it fit this event.
+7. Ittetsu design is accepted. The supplied 1024x1536 black-background source has been isolated locally and exported as `one_perfect_crop_ittetsu_scene.webp`, 341x512 RGBA lossless WebP, below the 450KB working ceiling. Do not redesign the character. Repo-native `artpreflight.py` remains required before production handoff.
+8. The updated merchant/keeper design supplied by dauntless replaces the earlier suggestion to reuse `Forsworn Scene - Keeper`. It has been isolated locally and exported as `one_perfect_crop_waystation_keeper_scene.webp`, 341x512 RGBA lossless WebP, below the working ceiling. Treat it as the event's Waystation Keeper. Repo-native `artpreflight.py` remains required before production handoff.
+9. The approved One Perfect Crop listing icon has been exported as `one_perfect_crop_quest_icon.webp`, 256x256 RGB lossless WebP, below the working ceiling. It is referenced directly by `quest.image` through `@img`; no gameAsset wrapper is needed for the listing icon.
+10. `Nameless Ninja` is rejected for visual reuse as deprecated/below the current quality bar.
+11. Do not edit shared live AI merely to make it fit this event.
+12. Road Bandit reuse is being tested by `push/04_one_perfect_crop_bandit_ai_probe.json`, a five-read full-capture job with zero items/mutations.
 
 ## Target event shape
 
-The event is now deliberately **zero-travel**. Its authored gameplay primitives are dialog gates, two immediate `start_battle` actions, sealed FAIL wings, one hard-fail node per losing route, and one final `win_quest`.
+The event is deliberately **zero-travel**. Its authored gameplay primitives are dialog gates, two immediate `start_battle` actions, sealed FAIL wings, one hard-fail node per losing route, and one final `win_quest`.
 
 ### PASS spine
 
@@ -58,166 +60,161 @@ Harvest Boar loss -> dedicated `fail_quest`.
 - All dialog `nextObjectiveId` values are choice arrays, including one-entry straight continuations.
 - Because non-dialog actions auto-link, do not insert ungated action chains around either battle.
 
-## Remaining work, in dependency order
+## Phase A — art execution
 
-### Phase A — finish art intake and reuse decisions
+### Processed and accepted design
 
-**Already designed/approved**
-- One Perfect Crop listing icon — approved art, needs pipeline processing/QC and final filename.
-- Ittetsu SCENE_CHARACTER — approved design, needs isolation to legal alpha/chroma, then raw QC/process/dark-composite QC/preflight.
+- Ittetsu SCENE_CHARACTER: `one_perfect_crop_ittetsu_scene.webp` — 341x512 RGBA lossless WebP.
+- Waystation Keeper SCENE_CHARACTER: `one_perfect_crop_waystation_keeper_scene.webp` — 341x512 RGBA lossless WebP.
+- Quest/listing icon raw URL: `one_perfect_crop_quest_icon.webp` — 256x256 RGB lossless WebP.
 
-**Reuse, subject to final visual acceptance/current record identity**
-- Waystation Keeper: prefer current `Forsworn Scene - Keeper` (`AM0saNTIIl1FPgc5pAzxc`) over minting a new generic civilian.
-- Market Clerk: `DM Mission Clerk` (`XsLLy8awDAtaE6hXVIi_0`).
-- Destination market: `BustlingTownMarket` (`cYu6VwVX55m6uq1oxlWc1`).
-- Rural/background coverage: review the captured current Forsworn backgrounds first, especially Pass Road Dusk, Waystation Door, East Road Ambush Site, and Canal Frontage. Reuse only if the actual visual fits One Perfect Crop's rural-farming tone; otherwise generate the minimum new set.
+The processed files are delivered together as the `one_perfect_crop_art_intake.zip` handoff. They still require the repository's final `artpreflight.py` zero-error gate before production use because the source images arrived on black rather than a generator-native chroma/alpha field and were isolated locally.
 
-**Still needs new art unless a later approved reuse appears**
-- Road Bandit SCENE_CHARACTER. `Nameless Ninja` is rejected; do not fall back to it.
-- Harvest Boar AI avatar.
-- Cabbage Seed item icon.
+### Reuse locked for build unless dauntless changes it before final freeze
 
-**Scene-background goal**
-Keep the set minimal. The likely maximum is four scene families:
-1. farm road / damaged cart / terraced fields,
-2. crossing / waystation,
-3. old levee / ambush / flood route,
-4. market.
-A reused background may cover a family if visually appropriate; every dialog node still receives an explicit background and scene-character assignment.
+- Market Clerk scene character: `DM Mission Clerk` — gameAsset id `XsLLy8awDAtaE6hXVIi_0`.
+- Farm-road / terraced-field scene family: `Forsworn Scene BG - Pass Road Dusk` — `nmrMHmz9xWojzyIV2mAR8`.
+- Crossing / waystation scene family: `Forsworn Scene BG - Waystation Door` — `kmDsQUEHSub9GIX5ulO6i`.
+- Old-road / ambush / flood scene family: `Forsworn Scene BG - East Road Ambush Site` — `E4VJ-IeIQMwbmGGfKc-sn`.
+- Market scene family: `BustlingTownMarket` — `cYu6VwVX55m6uq1oxlWc1`.
 
-**Art gates**
-Use `skills/producing-tnr-art/` exactly: one asset at a time; `rawqc.py`; target processing via `chroma.py` when applicable; dark composite inspection; `artpreflight.py` zero errors; record exact final filename/dimensions/KB. Corrected assets get fresh filenames.
+Every dialog node must receive an explicit sceneBackground and sceneCharacters assignment. Do not create extra backgrounds merely to depict each accident; the prose carries the changing incident inside these four geographical scene families.
 
-### Phase B — resolve combat records
+### Still required art
 
-#### Road Bandit
-First perform a fresh full capture of the strongest existing generic bandit AI candidates from the current AI catalog. Reuse only if a live AI already satisfies the approved event combat contract closely enough without editing a shared record.
+- Road Bandit SCENE_CHARACTER: `one_perfect_crop_road_bandit_scene.webp` — new, unless dauntless later approves a different current asset. `Nameless Ninja` may not be used.
+- Road Bandit AI avatar: `one_perfect_crop_road_bandit_avatar.webp` if a new Road Bandit AI is required by Phase B.
+- Harvest Boar AI avatar: `one_perfect_crop_harvest_boar_avatar.webp` — new square AI avatar.
+- Cabbage Seed item icon: `one_perfect_crop_cabbage_seed.webp` — new square item icon.
 
-Approved combat contract:
+No separate Harvest Boar SCENE_CHARACTER is required. The C1 dialog scene remains Ittetsu on the farm-road/final-approach background; prose introduces the animal immediately before battle.
+
+## Phase B — combat-record execution
+
+### Road Bandit reuse probe staged
+
+`push/04_one_perfect_crop_bandit_ai_probe.json` full-captures, with no mutations:
+- Bandit 1 — `sJOmHYaUnJfh9-zbNL_4b`
+- Bandit Leader — `OACGO0AM5yBQkxlOs_rI_`
+- Marauder — `n8EP0t5NN3zhzxXiDdZIY`
+- Mercenary Ronin — `Tnkm2Xk9EthSa2z_0LfFM`
+- Seichi Bandit — `UrAEVY5QvtQqKs-XB92PX`
+
+After dauntless runs the probe, compare the exact live records against the approved combat contract. If a plausible candidate has an `aiProfileId`, full-capture `ai.getAiProfile` before declaring it compatible. Reuse only if it already satisfies the event contract closely enough without editing that shared record. Otherwise create a new generic Road Bandit AI/profile.
+
+Approved Road Bandit contract:
 - technical rank JONIN,
 - scale to user ON,
 - element None,
 - standard/default stored stats and pools,
 - no passive tags,
 - no control gimmicks, shields, healing, buffs, seals, wounds, pierce, poison, or bespoke mechanics,
-- three-move micro-kit: Weakening Strike + Steady Strike + Measured Strike,
+- kit exactly: S27 Weakening Strike (`YiRdVytsdxFzZtqkEDs5Q`), S41 Steady Strike (`fKvCGRgzGNskgFWocQCAg`), S40 Measured Strike (`kkGDat1XWUxhOQ1_T5025`),
 - simple priority: approach -> Weakening Strike when available -> Steady Strike -> Measured Strike -> strongest legal fallback,
 - one enemy.
 
-If no current reusable AI matches, create a new generic Road Bandit AI/profile. Do not mutate an existing shared enemy.
+### Harvest Boar
 
-#### Harvest Boar
 Create a new Harvest Boar AI/profile:
 - technical rank JONIN,
 - scale to user ON,
 - element None,
-- default/even stored stats, pools, regeneration, armor,
+- default/even stored stats, pools, regeneration and armor,
 - no passive tags or special charge mechanic,
-- three-move micro-kit: Weakening Strike + Forceful Strike + Steady Strike,
+- kit exactly: S27 Weakening Strike (`YiRdVytsdxFzZtqkEDs5Q`), S42 Forceful Strike (`4TM6iS8P0qgNHsFpALFhg`), S41 Steady Strike (`fKvCGRgzGNskgFWocQCAg`),
 - simple priority: approach -> Weakening Strike when available -> Forceful Strike -> Steady Strike -> strongest legal fallback,
 - one enemy.
 
-No new jutsu are required. Resolve the already-approved shared jutsu IDs through current generated data/factory machinery rather than hard-coding remembered codes.
+No new jutsu are created.
 
-### Phase C — content-admin decision packet
+## Phase C — content-admin open packet
 
-Do not block design/art/AI preparation on these, but do block the final runnable manifest.
+These values are intentionally **not** decided by implementation. They may be filled only by the content admin. Until they are supplied, the final manifest must remain non-runnable/incomplete rather than inventing defaults.
 
-Content admin must supply or approve every unresolved value required by the generated item/quest contracts, including at minimum:
+Open fields:
 - event reward Ryo,
 - event reward XP,
 - event reward tokens/other standard currencies if used,
-- Cabbage Seed item rarity,
-- Cabbage Seed economic/value fields required by its chosen item type,
+- Cabbage Seed rarity,
+- Cabbage Seed required economic/value fields,
+- Cabbage Seed functional item type if the item contract requires a semantic choice,
 - event repeatability / once policy,
 - exact eligibility rule.
 
-The submitted sheet says `Farming level 15`, but the current quest reference exposes gathering/hunting/crafting/medical counters and no repository search currently establishes a native `farming` quest gate. Do **not** silently convert this to character `minLevel: 15`. Resolve the intended gate with the content admin against current generated contracts/source; if no native farming gate exists, record the approved substitute or remove the mechanical gate explicitly.
+The submitted requirement says `Farming level 15`. Current generated quest vocabulary does not establish a native farming progression gate. Do **not** translate it to character `minLevel: 15`. Content admin must explicitly select a supported substitute or remove the mechanical gate.
 
-Also settle the Cabbage Seed's functional item type (flavor/material/other supported type) if the generated item contract requires a semantic choice beyond numeric tuning.
+## Phase D — final freeze contract
 
-### Phase D — freeze final implementation brief
-
-Once Phases A-C are complete, create `state/prompt_one_perfect_crop.md` as the concise Fable contract. It must include:
+Once Phase B capture review and the Phase C admin fields are resolved, freeze `state/prompt_one_perfect_crop.md`. It must carry:
 - exact normalized prose for every node,
 - exact node IDs and graph,
-- the F2 `start_battle` ruling,
-- both hard-fail battle routes,
-- exact AI/AI profile IDs or create specs,
-- exact reused asset IDs,
+- both dialog-gated `start_battle` nodes and hard-fail battle routes,
+- exact Road Bandit reuse ID or new AI/profile specification,
+- new Harvest Boar AI/profile specification,
+- exact reused scene asset IDs,
 - exact new `@img:<filename>` contracts,
-- scene background + scene character wiring for every dialog node,
+- complete scene wiring,
 - Cabbage Seed item definition,
-- content-admin reward/repeatability/eligibility values,
-- hidden/publishing constraints,
-- explicit stale-reference warning: do not inherit the old event note that generic story battles must use `defeat_opponents` or a 12-14-node mission shape.
+- content-admin values copied exactly,
+- every create hidden,
+- no publishing operation,
+- stale-reference warning: do not inherit the old event note that generic story battles must use `defeat_opponents` or a mission-style 12–14-node shape.
 
-This brief is the implementation contract; do not use chat memory as a substitute.
+## Phase E — Fable manifest implementation
 
-### Phase E — Fable manifest implementation
+Fable builds from the frozen brief using current factory/generated contracts.
 
-Fable builds on its own implementation branch / normal Lane B content path using the current factory and generated contracts.
-
-Build dependency order remains:
+Dependency order:
 `jutsu -> assets -> items -> ai -> aiProfile -> quest`
 
-For One Perfect Crop the jutsu phase is empty.
+For this event the jutsu phase is empty.
 
-Required implementation properties:
+Required properties:
 - dedup/name resolution enabled,
 - every created entity `hidden: true`,
-- no publishing/unhide operation in the creation manifest,
-- asset `@img` filenames exact,
-- no shared-record edits unless the frozen brief explicitly names an approved edit,
+- no publishing/unhide operation,
+- exact `@img` filenames,
+- no shared-record edits unless separately approved,
 - no authored retry route after battle loss,
-- quest graph has exactly one start and all choice/fail edges resolve,
-- validate with `validate.py` and require 0 errors before handoff.
+- exactly one quest start and all choice/fail edges resolve,
+- `validate.py` 0 errors before handoff.
 
 Fable returns an exact frozen SHA plus validation/build evidence. No live request.
 
-### Phase F — independent ChatGPT content audit
+## Phase F — independent ChatGPT audit
 
 Audit the exact frozen candidate for:
 - PASS/FAIL reachability and sealed failure wings,
 - no wrong branch rejoining PASS,
 - G4 overlearning trap preserved,
-- F2 and C1 both correctly dialog-shielded `start_battle`,
+- both battles dialog-shielded `start_battle`,
 - hard loss routing,
-- normalized TNR prose markup (`<i>`, quotes, `<br> <br>`),
-- `MY CABBAGES!` appears only after explicit accepted-delivery confirmation,
-- no Ittetsu incompetence introduced by implementation edits,
+- normalized prose markup,
+- explicit delivery acceptance before `MY CABBAGES!`,
+- no Ittetsu incompetence,
 - one enemy per battle,
 - JONIN + scale-to-user fidelity,
-- approved micro-kits only,
+- exact approved micro-kits,
 - no new jutsu,
-- complete explicit scene wiring,
-- art filenames/asset IDs match approved outputs,
+- explicit scene wiring,
+- exact asset filenames/IDs,
 - content-admin values copied exactly,
 - all creates hidden,
 - validator green.
 
-### Phase G — user production execution and readback
+## Phase G — user production execution and readback
 
 Only dauntless crosses the production boundary:
 1. load the reviewed manifest in Forge,
 2. inspect preflight and image resolution,
-3. confirm mutation set deliberately,
+3. confirm mutations deliberately,
 4. run,
 5. export/commit result,
-6. perform fresh full readback/capture of created records,
-7. compare readback to the frozen contract.
+6. fresh full readback/capture of created records,
+7. compare readback to frozen contract.
 
-A green push echo is not sufficient evidence. Publishing/unhiding remains a separate content-admin/dauntless action after readback acceptance.
+A green push echo is not readback. Publishing/unhiding is a separate content-admin/dauntless action after acceptance.
 
-## Recommended immediate sequence
+## Immediate next gate
 
-1. Process/isolate the already-made Ittetsu art; do not regenerate the design.
-2. Process the approved listing icon.
-3. Visually decide the three reuse assets and captured background candidates.
-4. Generate/process Road Bandit, Harvest Boar avatar, Cabbage Seed icon, and only the backgrounds still missing after reuse.
-5. Full-capture Road Bandit AI candidates and decide reuse-vs-new.
-6. Hand the compact unresolved balance/reward/eligibility packet to the content admin.
-7. Freeze `state/prompt_one_perfect_crop.md`.
-8. Fable builds and validates.
-9. ChatGPT audits exact SHA.
-10. dauntless runs and readbacks; publishing remains separate.
+Run `push/04_one_perfect_crop_bandit_ai_probe.json`. Forge should show **5 full captures, 0 items, 0 mutations**. While that read-only probe is pending, missing art can be produced one asset at a time in a clean art-generation context using the captured live TNR references.
