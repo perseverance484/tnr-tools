@@ -29,6 +29,7 @@ def pin(bundle: str, loader: str, version_file: str | None, sha: str) -> None:
         raise RuntimeError(f"expected one @require for {bundle} in {loader}, found {count}")
 
     text = re.sub(r"^// @x-unpinned-until-release.*\n", "", text, flags=re.M)
+    text = re.sub(r"^// @x-release-pending.*\n", "", text, flags=re.M)
     if version_file:
         version = json.loads((ROOT / version_file).read_text())["version"]
         text, count = re.subn(
