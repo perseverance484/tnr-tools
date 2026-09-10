@@ -1,0 +1,33 @@
+{
+  "_note": "Read-only One Perfect Crop Road Bandit AI reuse probe. Zero game mutations, zero items. Fresh full-captures the five strongest generic bandit/ronin candidates from the current AI catalog. Review exact live rank, scaling, stats/pools, avatar, jutsu/loadout, aiProfileId and other record fields before deciding reuse. Do not edit any shared AI for this event.",
+  "capture": {
+    "after": [
+      {
+        "proc": "profile.getAi",
+        "input": { "userId": "sJOmHYaUnJfh9-zbNL_4b" },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": { "userId": "OACGO0AM5yBQkxlOs_rI_" },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": { "userId": "n8EP0t5NN3zhzxXiDdZIY" },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": { "userId": "Tnkm2Xk9EthSa2z_0LfFM" },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": { "userId": "UrAEVY5QvtQqKs-XB92PX" },
+        "persist": "full"
+      }
+    ]
+  },
+  "items": []
+}
