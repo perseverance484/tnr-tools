@@ -9,6 +9,7 @@
 
 import { Session } from "../src/transport/session.mjs";
 import { TrpcClient } from "../src/transport/client.mjs";
+import { isProtected } from "../src/transport/procedures.mjs";
 
 let seq = 0;
 export const nanoidLike = () => ("fk" + String(++seq).padStart(19, "0")).slice(0, 21);
@@ -27,14 +28,21 @@ const TABLE = { jutsu: "jutsu", item: "item", bloodline: "bloodline", gameAsset:
 const ID_KEY = { ai: "userId" };
 
 export class FakeGame {
-  constructor({ crashAt = Infinity, refuse = new Set(), limitPath = null } = {}) {
+  constructor({ crashAt = Infinity, refuse = new Set(), limitPath = null, signedOut = false } = {}) {
     this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map() };
     this.calls = [];
     this.crashAt = crashAt;
     this.refuse = refuse;        // set of paths that answer success:false
     this.limitPath = limitPath;  // a path that answers TOO_MANY_REQUESTS
+    // No Clerk session: every protectedProcedure answers UNAUTHORIZED before its resolver runs,
+    // which is what enforceUserIsAuthed does at source (trpc.ts:213-216) and what the two failed
+    // Forge 0.3.0 runs saw five times each. Public procedures are unaffected, exactly as they are
+    // live: that asymmetry is the thing the auth tests exist to pin down.
+    this.signedOut = signedOut;
     this.armed = true;
   }
+  signOut() { this.signedOut = true; return this; }
+  signIn() { this.signedOut = false; return this; }
   count(entity) { return this.tables[entity].size; }
   rows(entity) { return [...this.tables[entity].values()]; }
   seed(entity, row) { const k = ID_KEY[entity] ?? "id"; this.tables[entity].set(row[k], row); return row; }
@@ -48,6 +56,7 @@ export class FakeGame {
     const err = (code, message, httpStatus) => ({ ok: false, error: { code, httpStatus, message, path, zodError: null } });
     let result;
     if (this.limitPath === path) return err("TOO_MANY_REQUESTS", "You are moving too fast! Incident logged for review", 429);
+    if (this.signedOut && isProtected(path)) return err("UNAUTHORIZED", `UNAUTHORIZED: Data: ${JSON.stringify(input ?? null)}`, 401);
     if (PLACEHOLDER[path]) {
       if (this.refuse.has(path)) result = ok({ success: false, message: `Not allowed to create` });
       else { const id = nanoidLike(); const row = PLACEHOLDER[path](id, input); table.set(id, row); result = ok({ success: true, message: id }); }

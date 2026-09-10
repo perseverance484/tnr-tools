@@ -1,6 +1,7 @@
-// TNR forge bundle v0.3.0 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.4.0 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
-// Host: any unmatched path on the game origin (/forge). Layers: storage, transport, budget, runner, reconcile, ui.
+// Entry: /forge (a providerless 404) arms the tab and hands off; Forge then mounts as an overlay on a
+// real application route so ClerkProvider and the tRPC provider stay alive under it. Layers: storage, transport, budget, runner, reconcile, ui.
 // Pinned engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
 (() => {
   // src/storage/journal.mjs
@@ -367,57 +368,61 @@
 
   // src/transport/procedures.mjs
   var PROCEDURES = Object.freeze({
-    "ai.createAiProfile": { kind: "mutation", limited: false, mcp: false },
-    "ai.getAiProfile": { kind: "query", limited: false, mcp: true },
-    "ai.toggleAiProfile": { kind: "mutation", limited: false, mcp: false },
-    "ai.updateAiProfile": { kind: "mutation", limited: false, mcp: false },
-    "bloodline.create": { kind: "mutation", limited: false, mcp: false },
-    "bloodline.delete": { kind: "mutation", limited: false, mcp: false },
-    "bloodline.get": { kind: "query", limited: true, mcp: true },
-    "bloodline.getAll": { kind: "query", limited: true, mcp: true },
-    "bloodline.getAllNames": { kind: "query", limited: true, mcp: true },
-    "bloodline.update": { kind: "mutation", limited: false, mcp: false },
-    "gameAsset.create": { kind: "mutation", limited: false, mcp: false },
-    "gameAsset.delete": { kind: "mutation", limited: false, mcp: false },
-    "gameAsset.get": { kind: "query", limited: true, mcp: true },
-    "gameAsset.getAll": { kind: "query", limited: true, mcp: true },
-    "gameAsset.getAllNames": { kind: "query", limited: true, mcp: true },
-    "gameAsset.update": { kind: "mutation", limited: false, mcp: false },
-    "item.clone": { kind: "mutation", limited: false, mcp: false },
-    "item.create": { kind: "mutation", limited: false, mcp: false },
-    "item.delete": { kind: "mutation", limited: false, mcp: false },
-    "item.get": { kind: "query", limited: true, mcp: true },
-    "item.getAll": { kind: "query", limited: true, mcp: true },
-    "item.getAllNames": { kind: "query", limited: true, mcp: true },
-    "item.update": { kind: "mutation", limited: false, mcp: false },
-    "jutsu.create": { kind: "mutation", limited: false, mcp: false },
-    "jutsu.delete": { kind: "mutation", limited: false, mcp: false },
-    "jutsu.get": { kind: "query", limited: true, mcp: true },
-    "jutsu.getAll": { kind: "query", limited: true, mcp: true },
-    "jutsu.getAllNames": { kind: "query", limited: true, mcp: true },
-    "jutsu.update": { kind: "mutation", limited: false, mcp: false },
-    "profile.cloneAi": { kind: "mutation", limited: false, mcp: false },
-    "profile.create": { kind: "mutation", limited: false, mcp: true },
-    "profile.delete": { kind: "mutation", limited: false, mcp: true },
-    "profile.getAi": { kind: "query", limited: false, mcp: true },
-    "profile.getAllAiNames": { kind: "query", limited: true, mcp: true },
-    "profile.updateAi": { kind: "mutation", limited: false, mcp: true },
-    "quests.checkRewards": { kind: "mutation", limited: false, mcp: true },
-    "quests.clone": { kind: "mutation", limited: false, mcp: true },
-    "quests.create": { kind: "mutation", limited: false, mcp: true },
-    "quests.delete": { kind: "mutation", limited: false, mcp: true },
-    "quests.get": { kind: "query", limited: true, mcp: true },
-    "quests.getAll": { kind: "query", limited: true, mcp: true },
-    "quests.getAllNames": { kind: "query", limited: true, mcp: true },
-    "quests.update": { kind: "mutation", limited: false, mcp: true }
+    "ai.createAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "ai.getAiProfile": { kind: "query", limited: false, mcp: true, auth: "protected" },
+    "ai.toggleAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "ai.updateAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "bloodline.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "bloodline.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "bloodline.get": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "bloodline.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "bloodline.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "bloodline.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "gameAsset.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "gameAsset.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "gameAsset.get": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "gameAsset.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "gameAsset.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "gameAsset.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "item.clone": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "item.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "item.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "item.get": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "item.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "item.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "item.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "jutsu.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "jutsu.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "jutsu.get": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "jutsu.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "jutsu.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "jutsu.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "profile.cloneAi": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "profile.create": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "profile.delete": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "profile.getAi": { kind: "query", limited: false, mcp: true, auth: "protected" },
+    "profile.getAllAiNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "profile.updateAi": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "quests.checkRewards": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "quests.clone": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "quests.create": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "quests.delete": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "quests.get": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "quests.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "quests.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "quests.update": { kind: "mutation", limited: false, mcp: true, auth: "protected" }
   });
   function procedure(path) {
     const p = PROCEDURES[path];
     if (!p) throw new Error("unknown procedure: " + path + " (not in the audited crud surface)");
     return p;
   }
+  function isProtected(path) {
+    return procedure(path).auth === "protected";
+  }
   var LIMITED_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].limited));
   var MUTATION_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].kind === "mutation"));
+  var PROTECTED_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].auth === "protected"));
 
   // src/storage/captures.mjs
   var DB_NAME = "tnr_forge";
@@ -697,6 +702,190 @@
     }
     describe() {
       return { kind: "cookie", origin: this.origin || "(same-origin)" };
+    }
+  };
+
+  // src/transport/outcome.mjs
+  var NANOID_RE = /^[A-Za-z0-9_-]{21}$/;
+  var OutcomeError = class extends Error {
+    constructor(message, info = {}) {
+      super(message);
+      this.name = "OutcomeError";
+      Object.assign(this, info);
+    }
+  };
+  function isBaseServerResponse(v) {
+    return !!v && typeof v === "object" && typeof v.success === "boolean" && typeof v.message === "string";
+  }
+  function readMutation(decoded) {
+    if (!decoded.ok) {
+      if (decoded.error.code === "MALFORMED_ELEMENT") {
+        throw new OutcomeError("mutation element is undecodable; the write may have landed: " + decoded.error.message, { error: decoded.error, ambiguous: true });
+      }
+      return { kind: "error", message: decoded.error.message, error: decoded.error };
+    }
+    const d = decoded.data;
+    if (!isBaseServerResponse(d)) {
+      throw new OutcomeError("mutation returned something other than baseServerResponse", { data: d });
+    }
+    if (!d.success) return { kind: "refused", message: d.message };
+    const out = { kind: "ok", message: d.message };
+    if (NANOID_RE.test(d.message)) out.id = d.message;
+    return out;
+  }
+  function readCreate(decoded) {
+    const o = readMutation(decoded);
+    if (o.kind === "ok" && !o.id) {
+      throw new OutcomeError("create reported success but message is not an id: " + JSON.stringify(o.message).slice(0, 80), { outcome: o });
+    }
+    return o;
+  }
+  function classifyError(error) {
+    const code = error?.code;
+    if (code === "TOO_MANY_REQUESTS") return "RATE_LIMITED";
+    if (code === "UNAUTHORIZED") return "SESSION";
+    if (code === "BAD_REQUEST" && error.zodError) return "VALIDATION";
+    if (code === "METHOD_NOT_SUPPORTED") return "CLIENT_BUG";
+    if (code === "NOT_FOUND") {
+      const m = String(error.message || "");
+      if (/^No procedure found on path/.test(m)) return "CLIENT_BUG";
+      if (/Please complete registration\.$/.test(m)) return "SESSION";
+      return "NOT_FOUND";
+    }
+    if (code === "MALFORMED_ELEMENT") return "CLIENT_BUG";
+    if (code === "INTERNAL_SERVER_ERROR" && /Output validation failed/.test(String(error.message || ""))) return "CONTRACT";
+    return "SERVER";
+  }
+
+  // src/transport/auth.mjs
+  var AUTH = Object.freeze({ UNKNOWN: "unknown", PROBING: "probing", READY: "ready", SIGNED_OUT: "signed_out" });
+  var PROBE_PATH = "profile.getAi";
+  var PROBE_ID = "forge-auth-probe-0000";
+  var AuthUnavailable = class extends Error {
+    constructor(state, path) {
+      super(`TNR authentication is ${state === AUTH.SIGNED_OUT ? "signed out" : "not confirmed"}; ${path} is a protected procedure and was not sent`);
+      this.name = "AuthUnavailable";
+      this.state = state;
+      this.path = path;
+      this.sent = false;
+    }
+  };
+  var AuthState = class {
+    /**
+     * @param {object} d
+     * @param {{call: (path: string, input: object) => Promise<object>}} d.client  the tRPC client
+     * @param {() => ({loaded: boolean, signedIn: boolean|null}|null)} [d.runtime]  page auth runtime
+     *   reader. Returns null when the page publishes no auth runtime at all. Injected so no test
+     *   needs Clerk, and so this file never reaches for window itself.
+     * @param {() => number} [d.clock]
+     * @param {string} [d.state]  initial state; tests that are not about auth start READY.
+     */
+    constructor({ client = null, runtime = null, clock = () => Date.now(), state = AUTH.UNKNOWN } = {}) {
+      this.client = client;
+      this.runtime = runtime;
+      this.clock = clock;
+      this.state = state;
+      this.at = null;
+      this.detail = null;
+      this.listeners = /* @__PURE__ */ new Set();
+    }
+    get ready() {
+      return this.state === AUTH.READY;
+    }
+    /** Is it already known that protected work cannot run? (UNKNOWN is blocked but not *known*.) */
+    get signedOut() {
+      return this.state === AUTH.SIGNED_OUT;
+    }
+    onChange(fn) {
+      this.listeners.add(fn);
+      return () => this.listeners.delete(fn);
+    }
+    _set(state, detail = null) {
+      const changed = this.state !== state || this.detail !== detail;
+      this.state = state;
+      this.detail = detail;
+      if (state === AUTH.READY || state === AUTH.SIGNED_OUT) this.at = this.clock();
+      if (changed) for (const fn of this.listeners) {
+        try {
+          fn(this);
+        } catch {
+        }
+      }
+      return state;
+    }
+    /** What the page's own auth runtime says right now. {present, loaded, signedIn}. */
+    runtimeStatus() {
+      if (typeof this.runtime !== "function") return { present: false, loaded: false, signedIn: null };
+      let r = null;
+      try {
+        r = this.runtime();
+      } catch {
+        r = null;
+      }
+      if (!r) return { present: false, loaded: false, signedIn: null };
+      return { present: true, loaded: !!r.loaded, signedIn: r.signedIn === null || r.signedIn === void 0 ? null : !!r.signedIn };
+    }
+    /**
+     * Wait for the page's auth runtime to finish loading, bounded. Resolves with the last status
+     * seen; a runtime that never appears resolves {present:false} rather than hanging, and the
+     * probe then decides. No request is issued here.
+     */
+    async waitForRuntime({ timeoutMs = 15e3, pollMs = 100, sleep } = {}) {
+      const wait = sleep ?? ((ms) => new Promise((r) => setTimeout(r, ms)));
+      const deadline = this.clock() + timeoutMs;
+      let status = this.runtimeStatus();
+      while (!(status.present && status.loaded) && this.clock() < deadline) {
+        await wait(pollMs);
+        status = this.runtimeStatus();
+      }
+      return status;
+    }
+    /**
+     * Establish the state against the server. One request, body discarded, nothing cached.
+     * Returns the new state.
+     */
+    async probe() {
+      if (!this.client) return this._set(AUTH.UNKNOWN, "no transport is wired for the auth check");
+      const status = this.runtimeStatus();
+      if (status.present && status.loaded && status.signedIn === false) {
+        return this._set(AUTH.SIGNED_OUT, "the page's Clerk runtime reports no signed-in session");
+      }
+      this._set(AUTH.PROBING);
+      let decoded;
+      try {
+        decoded = await this.client.call(PROBE_PATH, { userId: PROBE_ID });
+      } catch (e) {
+        return this._set(AUTH.UNKNOWN, "the auth check could not reach the game: " + String(e && e.message || e).slice(0, 160));
+      }
+      if (decoded && decoded.ok) return this._set(AUTH.READY, "a protected procedure answered for this session");
+      const cls = classifyError(decoded && decoded.error);
+      if (cls === "SESSION") return this._set(AUTH.SIGNED_OUT, "the game refused a protected procedure: " + String(decoded.error.code));
+      if (cls === "RATE_LIMITED") return this._set(AUTH.UNKNOWN, "the auth check was rate limited; sign-in state is unconfirmed");
+      return this._set(AUTH.READY, "a protected procedure answered for this session");
+    }
+    /** waitForRuntime + probe, in the order the boot sequence needs them. */
+    async establish(opts = {}) {
+      await this.waitForRuntime(opts);
+      return this.probe();
+    }
+    /**
+     * THE GATE. Throws AuthUnavailable when `path` is protected and the session is not established.
+     * Callers must call it BEFORE journaling a send, so a refusal can never leave an item SENT: a
+     * blocked mutation is a mutation that was never written down as sent, which is the whole point
+     * (brief section E). A public path is never gated - a signed-out capture-only job over public
+     * procedures still runs, exactly as the procedure guards allow.
+     */
+    assert(path) {
+      if (!isProtected(path)) return;
+      if (this.state !== AUTH.READY) throw new AuthUnavailable(this.state, path);
+    }
+    /** Non-throwing form, for the UI deciding whether to offer a button. */
+    allows(path) {
+      return !isProtected(path) || this.state === AUTH.READY;
+    }
+    /** For the Settings screen. Deliberately has no room for a secret to appear in. */
+    describe() {
+      return { state: this.state, detail: this.detail, at: this.at };
     }
   };
 
@@ -2351,58 +2540,6 @@
       return ka.every((k) => eqLoose(a[k], b[k], entity));
     }
     return false;
-  }
-
-  // src/transport/outcome.mjs
-  var NANOID_RE = /^[A-Za-z0-9_-]{21}$/;
-  var OutcomeError = class extends Error {
-    constructor(message, info = {}) {
-      super(message);
-      this.name = "OutcomeError";
-      Object.assign(this, info);
-    }
-  };
-  function isBaseServerResponse(v) {
-    return !!v && typeof v === "object" && typeof v.success === "boolean" && typeof v.message === "string";
-  }
-  function readMutation(decoded) {
-    if (!decoded.ok) {
-      if (decoded.error.code === "MALFORMED_ELEMENT") {
-        throw new OutcomeError("mutation element is undecodable; the write may have landed: " + decoded.error.message, { error: decoded.error, ambiguous: true });
-      }
-      return { kind: "error", message: decoded.error.message, error: decoded.error };
-    }
-    const d = decoded.data;
-    if (!isBaseServerResponse(d)) {
-      throw new OutcomeError("mutation returned something other than baseServerResponse", { data: d });
-    }
-    if (!d.success) return { kind: "refused", message: d.message };
-    const out = { kind: "ok", message: d.message };
-    if (NANOID_RE.test(d.message)) out.id = d.message;
-    return out;
-  }
-  function readCreate(decoded) {
-    const o = readMutation(decoded);
-    if (o.kind === "ok" && !o.id) {
-      throw new OutcomeError("create reported success but message is not an id: " + JSON.stringify(o.message).slice(0, 80), { outcome: o });
-    }
-    return o;
-  }
-  function classifyError(error) {
-    const code = error?.code;
-    if (code === "TOO_MANY_REQUESTS") return "RATE_LIMITED";
-    if (code === "UNAUTHORIZED") return "SESSION";
-    if (code === "BAD_REQUEST" && error.zodError) return "VALIDATION";
-    if (code === "METHOD_NOT_SUPPORTED") return "CLIENT_BUG";
-    if (code === "NOT_FOUND") {
-      const m = String(error.message || "");
-      if (/^No procedure found on path/.test(m)) return "CLIENT_BUG";
-      if (/Please complete registration\.$/.test(m)) return "SESSION";
-      return "NOT_FOUND";
-    }
-    if (code === "MALFORMED_ELEMENT") return "CLIENT_BUG";
-    if (code === "INTERNAL_SERVER_ERROR" && /Output validation failed/.test(String(error.message || ""))) return "CONTRACT";
-    return "SERVER";
   }
 
   // src/storage/compat.mjs
@@ -4069,6 +4206,21 @@
     }
   };
   var isTransport = (e) => e instanceof NetworkError || e instanceof TransportError;
+  function protectedPathsFor(order, manifest) {
+    const paths = /* @__PURE__ */ new Set();
+    const captures = manifest && manifest.capture ? [...manifest.capture.before || [], ...manifest.capture.after || []] : [];
+    for (const c of captures) {
+      const path = c.proc || c.procedure;
+      if (path && isProtected(path)) paths.add(path);
+    }
+    for (const planned of order || []) {
+      const rc = recipe(planned.entity);
+      for (const path of [rc.create && rc.create.path, rc.get, rc.update, rc.names, rc.profileToggle, rc.profileUpdate]) {
+        if (path && isProtected(path)) paths.add(path);
+      }
+    }
+    return [...paths];
+  }
   var Runner = class {
     /**
      * @param {object} d  dependencies
@@ -4080,6 +4232,8 @@
      * @param {object} [d.uploader]      {upload(file) -> {ufsUrl}}
      * @param {object} [d.reconciler]    {beforeCreate(job, item, entity), resolveSent(job, item, ctx)}
      * @param {Storage} d.storage        for the retained idmap
+     * @param {object} [d.auth]          {assert(path), state} - the auth gate. Optional so a
+     *   harness can leave it out; when it is absent nothing is gated, exactly as before it existed.
      * @param {(msg: string, item?: object) => void} [d.log]
      */
     constructor(d) {
@@ -4092,6 +4246,32 @@
       this.pauseRequested = false;
       this.tabId = d.tabId ?? randomTab();
       this.clock = d.clock ?? (() => Date.now());
+    }
+    // ------------------------------------------------------------------ auth gate
+    /**
+     * Refuse a protected call while the game session is not established, BEFORE anything is
+     * journaled or sent (brief sections D and E). Two properties matter and both come from where
+     * this is called rather than from what it does:
+     *
+     *   - it runs before withSent(), so a refusal leaves the item in the state it was already in.
+     *     Nothing is marked SENT, so nothing enters reconciliation, and the mutation provably never
+     *     left the device. SENT semantics for real transport ambiguity are untouched;
+     *   - it keys off the procedure, not the job, so a public read still runs signed out. A
+     *     capture-only manifest over gameAsset.get is unaffected by a missing session, which is
+     *     what the procedure guards themselves already allow.
+     */
+    _requireAuth(path, idx = null) {
+      if (!this.auth || typeof this.auth.assert !== "function") return;
+      try {
+        this.auth.assert(path);
+      } catch (e) {
+        if (!(e instanceof AuthUnavailable)) throw e;
+        throw new Paused("SESSION", { idx, path, detail: e.message, authState: e.state });
+      }
+    }
+    /** Every protected path a job would touch, so the gate can refuse before the first request. */
+    _protectedPaths(order, manifest) {
+      return protectedPathsFor(order, manifest);
     }
     // ------------------------------------------------------------------ lease
     _leaseKey(jobId) {
@@ -4154,6 +4334,14 @@
       if (job.items.some((it) => it.state === "SENT")) {
         throw new Error("job has SENT items; call resume() so they are reconciled before anything else is sent");
       }
+      for (const path of this._protectedPaths(order, manifest)) {
+        try {
+          this._requireAuth(path);
+        } catch (e) {
+          if (e instanceof Paused) return this._pause(jobId, e.reason, e);
+          throw e;
+        }
+      }
       this._lease(jobId);
       this._syncIdmapFromJob(job);
       this.pauseRequested = false;
@@ -4187,8 +4375,16 @@
     /** Reconcile SENT items through the reconciler, then run. */
     async resume(jobId) {
       if (!this.reconciler) throw new Error("resume needs a reconciler");
-      const { order } = this._m(jobId);
+      const { manifest, order } = this._m(jobId);
       const job = this.journal.get(jobId);
+      for (const path of this._protectedPaths(order, manifest)) {
+        try {
+          this._requireAuth(path);
+        } catch (e) {
+          if (e instanceof Paused) return this._pause(jobId, e.reason, e);
+          throw e;
+        }
+      }
       this._lease(jobId);
       this._syncIdmapFromJob(job);
       try {
@@ -4308,6 +4504,7 @@
         if (key) this.journal.annotate(jobId, item.idx, { snapshotKey: key });
       }
       const input = rc.create.input(planned.data);
+      this._requireAuth(rc.create.path, item.idx);
       const decoded = await this.journal.withSent(jobId, item.idx, { phase: "create" }, () => this.client.call(rc.create.path, input));
       const o = readCreate(decoded);
       if (o.kind === "ok") {
@@ -4324,6 +4521,7 @@
       const id = item.entityId ?? item.targetId;
       if (!id) throw new Error("no id to fill");
       const data = await this._resolved(planned.data, jobId);
+      this._requireAuth(rc.get, item.idx);
       const live = await this.reader.get(rc.get, id, { fresh: true });
       if (!live.ok) {
         const cls = classifyError(live.error);
@@ -4334,6 +4532,7 @@
       const problems = this.validator.problems(item.entity, data, live.data);
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
       const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
+      this._requireAuth(rc.update, item.idx);
       const decoded = await this.journal.withSent(jobId, item.idx, { phase: "update" }, () => this.client.call(rc.update, { id, data: payload }));
       const o = readMutation(decoded);
       await this.cache.invalidateRecord(rc.cacheEntity, id);
@@ -4352,10 +4551,12 @@
         const problems = this.validator.problems("aiProfile", planned.data, null);
         if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
       }
+      this._requireAuth(rc.get, item.idx);
       let live = await this.reader.get(rc.get, userId, { fresh: true });
       if (!live.ok || !live.data) throw new Error(`profile.getAi failed for ${userId}`);
       let apid = live.data.aiProfileId;
       if (!apid) {
+        this._requireAuth(rc.profileToggle, item.idx);
         const decoded2 = await this.journal.withSent(jobId, item.idx, { phase: "rules-toggle", entityId: userId }, () => this.client.call(rc.profileToggle, { aiId: userId }));
         const o2 = readMutation(decoded2);
         if (o2.kind !== "ok") {
@@ -4367,6 +4568,7 @@
         apid = live.ok && live.data ? live.data.aiProfileId : null;
         if (!apid) throw new Error("no aiProfileId after toggle");
       }
+      this._requireAuth(rc.profileUpdate, item.idx);
       const decoded = await this.journal.withSent(jobId, item.idx, { phase: "rules", entityId: userId, aiProfileId: apid }, () => this.client.call(rc.profileUpdate, { id: apid, rules, includeDefaultRules }));
       const o = readMutation(decoded);
       await this.cache.invalidateEntity("ai");
@@ -4385,7 +4587,9 @@
       const data = await this._resolved(planned.data, jobId);
       const diffs = [];
       if (item.entity !== "aiProfile") {
+        this._requireAuth(rc.get, item.idx);
         const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
+        if (!live.ok && classifyError(live.error) === "SESSION") throw new Paused("SESSION", { idx: item.idx, path: rc.get, detail: live.error.message });
         if (!live.ok || !live.data) {
           this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" });
           return;
@@ -4397,7 +4601,9 @@
           this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" });
           return;
         }
+        this._requireAuth("ai.getAiProfile", item.idx);
         const pr = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
+        if (!pr.ok && classifyError(pr.error) === "SESSION") throw new Paused("SESSION", { idx: item.idx, path: "ai.getAiProfile", detail: pr.error.message });
         if (pr.ok && pr.data) {
           if (JSON.stringify(pr.data.rules ?? []) !== JSON.stringify(planned.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
           if (planned.data.includeDefaultRules !== void 0 && pr.data.includeDefaultRules !== planned.data.includeDefaultRules) diffs.push({ key: "includeDefaultRules", sent: planned.data.includeDefaultRules, live: pr.data.includeDefaultRules });
@@ -4475,7 +4681,9 @@
         const c = list[i];
         const path = c.proc || c.procedure;
         const id = c.id ?? (c.input && (c.input.id ?? c.input.userId));
+        this._requireAuth(path, null);
         const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true });
+        if (!r.ok && classifyError(r.error) === "SESSION") throw new Paused("SESSION", { path, detail: r.error.message, phase, ordinal: i });
         const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
         if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, c.input ?? null, r));
         out.push(entry);
@@ -4528,7 +4736,7 @@
       return null;
     }
     _pause(jobId, reason, info) {
-      this.journal.setJobState(jobId, "PAUSED", { pause: { reason, path: info.path ?? null, until: info.until ?? null, idx: info.idx ?? null, detail: info.detail ?? null, httpStatus: info.httpStatus ?? null } });
+      this.journal.setJobState(jobId, "PAUSED", { pause: { reason, path: info.path ?? null, until: info.until ?? null, idx: info.idx ?? null, detail: info.detail ?? null, httpStatus: info.httpStatus ?? null, authState: info.authState ?? null, authRefused: info.authRefused ?? false } });
       this._releaseLease(jobId);
       this.log(`paused: ${reason}${info.path ? " on " + info.path : ""}`);
       return this.summary(jobId);
@@ -4539,7 +4747,11 @@
         return;
       }
       const cls = classifyError(o.error);
-      if (cls === "SESSION") throw new Paused("SESSION", { detail: o.error.message, idx: item.idx });
+      if (cls === "SESSION") {
+        this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} SESSION: ${o.error.message}`, authRefused: true });
+        this.log(`item ${item.idx} refused by the game as unauthenticated on ${step}`, item);
+        throw new Paused("SESSION", { detail: o.error.message, idx: item.idx, authRefused: true });
+      }
       const issues = o.error.zodError ? " " + o.error.zodError.map((z) => `${(z.path || []).join(".")}: ${z.message}`).join("; ") : "";
       this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} ${cls}: ${o.error.message}${issues}`, zodError: o.error.zodError ?? null });
     }
@@ -4873,43 +5085,52 @@
   };
 
   // src/ui/styles.mjs
+  var TOKENS = `color-scheme: dark; --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8eaf0; --mute:#9aa3b2; --ok:#5fbf8a; --warn:#d9a441; --bad:#e0655f; --acc:#7aa2ff; --sent:#b08cff;`;
+  var CSS_DOC = `
+html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-text-size-adjust:100%; }
+`;
   var CSS = `
-:root { color-scheme: dark; --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8eaf0; --mute:#9aa3b2; --ok:#5fbf8a; --warn:#d9a441; --bad:#e0655f; --acc:#7aa2ff; --sent:#b08cff; }
-html, body { margin:0; padding:0; background:var(--bg); color:var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-text-size-adjust:100%; }
-* { box-sizing:border-box; }
-.f-app { min-height:100vh; display:flex; flex-direction:column; }
-.f-top { position:sticky; top:0; z-index:10; background:var(--panel); border-bottom:1px solid var(--line); display:flex; align-items:center; gap:8px; padding:8px 10px; }
-.f-title { font-weight:700; letter-spacing:.02em; }
-.f-ver { color:var(--mute); font-size:12px; margin-left:auto; }
-.f-nav { display:flex; gap:4px; overflow-x:auto; padding:6px 8px; background:var(--panel); border-bottom:1px solid var(--line); }
-.f-nav button { flex:1 0 auto; min-height:40px; }
-.f-nav button[aria-current="page"] { background:var(--acc); color:#0b0d12; }
-.f-main { flex:1; padding:12px 10px 80px; max-width:760px; width:100%; margin:0 auto; }
-h2 { font-size:17px; margin:14px 0 8px; } h3 { font-size:14px; color:var(--mute); margin:12px 0 6px; text-transform:uppercase; letter-spacing:.06em; }
-button, .f-btn { font:inherit; min-height:44px; padding:8px 14px; border:1px solid var(--line); border-radius:8px; background:#222733; color:var(--ink); cursor:pointer; }
-button:disabled { opacity:.45; cursor:default; }
-button.f-primary { background:var(--acc); color:#0b0d12; border-color:transparent; font-weight:600; }
-button.f-danger { border-color:var(--bad); color:var(--bad); }
-input[type=text], input[type=password], input[type=search], textarea { font:inherit; width:100%; min-height:44px; padding:8px 10px; border:1px solid var(--line); border-radius:8px; background:#0b0d12; color:var(--ink); }
-textarea { min-height:160px; font-family: ui-monospace, Menlo, monospace; font-size:12px; }
-.f-card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin:8px 0; }
-.f-row { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); }
-.f-row:last-child { border-bottom:0; }
-.f-row.f-tap { cursor:pointer; } .f-row.f-tap:active { background:#1d2230; }
-.f-grow { flex:1; min-width:0; } .f-mute { color:var(--mute); font-size:13px; } .f-mono { font-family: ui-monospace, Menlo, monospace; font-size:12px; word-break:break-all; }
-.f-pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:600; border:1px solid var(--line); color:var(--mute); }
-.f-pill.PLANNED { color:var(--mute); } .f-pill.SENT { color:var(--sent); border-color:var(--sent); } .f-pill.CONFIRMED { color:var(--acc); border-color:var(--acc); }
-.f-pill.VERIFIED, .f-pill.DONE { color:var(--ok); border-color:var(--ok); } .f-pill.FAILED, .f-pill.ABORTED { color:var(--bad); border-color:var(--bad); }
-.f-pill.ORPHANED, .f-pill.PAUSED, .f-pill.INCOMPLETE { color:var(--warn); border-color:var(--warn); } .f-pill.SKIPPED { color:var(--mute); }
-.f-banner { padding:10px 12px; border-radius:10px; margin:8px 0; border:1px solid; }
-.f-banner.warn { border-color:var(--warn); background:#2a2312; } .f-banner.bad { border-color:var(--bad); background:#2a1515; } .f-banner.ok { border-color:var(--ok); background:#12261c; } .f-banner.info { border-color:var(--acc); background:#141b2e; }
-.f-bar { height:6px; background:#0b0d12; border-radius:4px; overflow:hidden; margin:6px 0; } .f-bar > i { display:block; height:100%; background:var(--acc); }
-.f-bar.warn > i { background:var(--warn); }
-.f-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
-.f-kv { display:grid; grid-template-columns: auto 1fr; gap:4px 12px; font-size:13px; } .f-kv b { color:var(--mute); font-weight:500; }
-.f-err { white-space:pre-wrap; font-family: ui-monospace, Menlo, monospace; font-size:12px; color:#ffb4b0; }
-.f-toast { position:fixed; left:10px; right:10px; bottom:12px; z-index:20; }
-details summary { cursor:pointer; color:var(--mute); }
+.f-host { ${TOKENS} position:fixed; inset:0; z-index:2147483000; overflow:auto; -webkit-overflow-scrolling:touch; background:var(--bg); color:var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+.f-app { ${TOKENS} min-height:100%; display:flex; flex-direction:column; background:var(--bg); color:var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; text-align:left; }
+.f-app, .f-app * { box-sizing:border-box; }
+.f-app .f-top { position:sticky; top:0; z-index:10; background:var(--panel); border-bottom:1px solid var(--line); display:flex; align-items:center; gap:8px; padding:8px 10px; }
+.f-app .f-title { font-weight:700; letter-spacing:.02em; }
+.f-app .f-ver { color:var(--mute); font-size:12px; margin-left:auto; }
+.f-app .f-exit { min-height:32px; padding:4px 10px; font-size:13px; }
+.f-app .f-nav { display:flex; gap:4px; overflow-x:auto; padding:6px 8px; background:var(--panel); border-bottom:1px solid var(--line); }
+.f-app .f-nav button { flex:1 0 auto; min-height:40px; }
+.f-app .f-nav button[aria-current="page"] { background:var(--acc); color:#0b0d12; }
+.f-app .f-main { flex:1; padding:12px 10px 80px; max-width:760px; width:100%; margin:0 auto; }
+.f-app h2 { font-size:17px; margin:14px 0 8px; } .f-app h3 { font-size:14px; color:var(--mute); margin:12px 0 6px; text-transform:uppercase; letter-spacing:.06em; }
+.f-app button, .f-app .f-btn { font:inherit; min-height:44px; padding:8px 14px; border:1px solid var(--line); border-radius:8px; background:#222733; color:var(--ink); cursor:pointer; }
+.f-app button:disabled { opacity:.45; cursor:default; }
+.f-app button.f-primary { background:var(--acc); color:#0b0d12; border-color:transparent; font-weight:600; }
+.f-app button.f-danger { border-color:var(--bad); color:var(--bad); }
+.f-app input[type=text], .f-app input[type=password], .f-app input[type=search], .f-app textarea { font:inherit; width:100%; min-height:44px; padding:8px 10px; border:1px solid var(--line); border-radius:8px; background:#0b0d12; color:var(--ink); }
+.f-app textarea { min-height:160px; font-family: ui-monospace, Menlo, monospace; font-size:12px; }
+.f-app .f-card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin:8px 0; }
+.f-app .f-row { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); }
+.f-app .f-row:last-child { border-bottom:0; }
+.f-app .f-row.f-tap { cursor:pointer; } .f-app .f-row.f-tap:active { background:#1d2230; }
+.f-app .f-grow { flex:1; min-width:0; } .f-app .f-mute { color:var(--mute); font-size:13px; } .f-app .f-mono { font-family: ui-monospace, Menlo, monospace; font-size:12px; word-break:break-all; }
+.f-app .f-pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:600; border:1px solid var(--line); color:var(--mute); }
+.f-app .f-pill.PLANNED { color:var(--mute); } .f-app .f-pill.SENT { color:var(--sent); border-color:var(--sent); } .f-app .f-pill.CONFIRMED { color:var(--acc); border-color:var(--acc); }
+.f-app .f-pill.VERIFIED, .f-app .f-pill.DONE { color:var(--ok); border-color:var(--ok); } .f-app .f-pill.FAILED, .f-app .f-pill.ABORTED { color:var(--bad); border-color:var(--bad); }
+.f-app .f-pill.ORPHANED, .f-app .f-pill.PAUSED, .f-app .f-pill.INCOMPLETE { color:var(--warn); border-color:var(--warn); } .f-app .f-pill.SKIPPED { color:var(--mute); }
+.f-app .f-authbar { padding:0 10px; max-width:760px; width:100%; margin:0 auto; }
+.f-app .f-authbar:empty { display:none; }
+.f-app .f-banner { padding:10px 12px; border-radius:10px; margin:8px 0; border:1px solid; }
+.f-app .f-banner.warn { border-color:var(--warn); background:#2a2312; } .f-app .f-banner.bad { border-color:var(--bad); background:#2a1515; } .f-app .f-banner.ok { border-color:var(--ok); background:#12261c; } .f-app .f-banner.info { border-color:var(--acc); background:#141b2e; }
+.f-app .f-bar { height:6px; background:#0b0d12; border-radius:4px; overflow:hidden; margin:6px 0; } .f-app .f-bar > i { display:block; height:100%; background:var(--acc); }
+.f-app .f-bar.warn > i { background:var(--warn); }
+.f-app .f-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.f-app .f-kv { display:grid; grid-template-columns: auto 1fr; gap:4px 12px; font-size:13px; } .f-app .f-kv b { color:var(--mute); font-weight:500; }
+.f-app .f-err { white-space:pre-wrap; font-family: ui-monospace, Menlo, monospace; font-size:12px; color:#ffb4b0; }
+.f-app .f-toast { position:fixed; left:10px; right:10px; bottom:12px; z-index:2147483001; }
+.f-app details summary { cursor:pointer; color:var(--mute); }
+.f-boot .f-mute { color:var(--mute); font-size:13px; }
+.f-boot p { margin:8px 0; max-width:52ch; }
+.f-boot { ${TOKENS} padding:16px; background:var(--bg); color:var(--ink); min-height:100vh; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
 `;
 
   // src/ui/screens.mjs
@@ -5051,6 +5272,13 @@ details summary { cursor:pointer; color:var(--mute); }
       `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on. Still queries only; zero mutations. Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`
     ));
     if (s.problems.length) card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, "Cannot run: "), h("div", { class: "f-err" }, s.problems.join("\n"))));
+    const blocked = app.blockedPaths ? app.blockedPaths(s.plan, s.manifest) : [];
+    if (blocked.length) card.appendChild(h(
+      "div",
+      { class: "f-banner bad" },
+      h("b", {}, "Blocked: TNR authentication is unavailable. "),
+      `This manifest needs ${blocked.join(", ")}, which ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and requires a signed-in session. Nothing will be sent. Sign in to the game and re-check the session above.`
+    ));
     if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
     if (s.manifest.warnings && s.manifest.warnings.length) {
       card.appendChild(h("div", { class: "f-banner warn" }, h("b", {}, `${s.manifest.warnings.length} advisory: `), h("div", {}, s.manifest.warnings.join("\n"))));
@@ -5083,7 +5311,7 @@ details summary { cursor:pointer; color:var(--mute); }
       { class: "f-actions" },
       h("button", {
         class: "f-primary",
-        disabled: s.problems.length > 0 || missingImgs.length > 0,
+        disabled: s.problems.length > 0 || missingImgs.length > 0 || blocked.length > 0,
         onClick: () => app.confirm(
           readOnly ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.` : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
           () => app.startJob()
@@ -5141,7 +5369,16 @@ details summary { cursor:pointer; color:var(--mute); }
         job.state === "INCOMPLETE" ? "Resume to re-read them; resuming can only read, never re-send." : ""
       ));
     }
-    if (job.pause) root.appendChild(h(
+    if (job.pause && job.pause.reason === "SESSION") {
+      root.appendChild(h(
+        "div",
+        { class: "f-banner bad" },
+        h("b", {}, "Paused: TNR authentication unavailable. "),
+        job.pause.authRefused ? `The game refused ${job.pause.path ? job.pause.path : "a protected procedure"} as unauthenticated. That item is recorded as refused, not as an uncertain write: the server answered, so nothing was written.` : `Forge stopped before sending${job.pause.path ? ` ${job.pause.path}` : ""} because the game session is not available. Nothing further was sent.`,
+        h("div", { class: "f-mute" }, "Sign in to The Ninja RPG in this browser, re-check the session above, then resume. Resuming re-reads before it re-sends anything."),
+        job.pause.detail ? h("div", { class: "f-err" }, job.pause.detail) : null
+      ));
+    } else if (job.pause) root.appendChild(h(
       "div",
       { class: "f-banner " + (job.pause.reason === "TOO_MANY_REQUESTS" ? "bad" : "warn") },
       h("b", {}, `Paused: ${job.pause.reason}`),
@@ -5276,7 +5513,18 @@ details summary { cursor:pointer; color:var(--mute); }
         }) }, "Forget"))
       ),
       h("h2", {}, "Session"),
-      h("div", { class: "f-card f-kv" }, h("b", {}, "game"), h("span", {}, JSON.stringify(app.session.describe())), h("b", {}, "budget"), h("span", {}, `${app.budget.allowance} / ${app.budget.limit} per path per minute (margin ${app.budget.margin})`), h("b", {}, "persisted storage"), h("span", { id: "f-persist" }, app.state.persisted == null ? "unknown" : String(app.state.persisted))),
+      h(
+        "div",
+        { class: "f-card f-kv" },
+        h("b", {}, "game"),
+        h("span", {}, JSON.stringify(app.session.describe())),
+        h("b", {}, "auth"),
+        h("span", {}, app.auth ? JSON.stringify(app.auth.describe()) : "not wired"),
+        h("b", {}, "budget"),
+        h("span", {}, `${app.budget.allowance} / ${app.budget.limit} per path per minute (margin ${app.budget.margin})`),
+        h("b", {}, "persisted storage"),
+        h("span", { id: "f-persist" }, app.state.persisted == null ? "unknown" : String(app.state.persisted))
+      ),
       h("h2", {}, "Journal"),
       h(
         "div",
@@ -5334,17 +5582,27 @@ details summary { cursor:pointer; color:var(--mute); }
     constructor(d) {
       Object.assign(this, d);
       this.now = d.now ?? (() => Date.now());
+      this.exit = d.exit ?? null;
+      this.authBusy = false;
       this.state = { screen: "jobs", jobId: null, picker: null, selected: null, running: null, persisted: null };
       this.root = null;
     }
     mount(container, doc = document) {
       installCss(CSS, doc);
       this.root = h("div", { class: "f-app" });
-      this.$top = h("div", { class: "f-top" }, h("span", { class: "f-title" }, "TNR forge"), h("span", { class: "f-ver" }, this.version));
+      this.$top = h(
+        "div",
+        { class: "f-top" },
+        h("span", { class: "f-title" }, "TNR forge"),
+        h("span", { class: "f-ver" }, this.version),
+        this.exit ? h("button", { class: "f-exit", onClick: () => this.close() }, "Close") : null
+      );
       this.$nav = h("nav", { class: "f-nav" });
+      this.$auth = h("div", { class: "f-authbar" });
       this.$main = h("main", { class: "f-main" });
       this.$toast = h("div", { class: "f-toast" });
-      this.root.append(this.$top, this.$nav, this.$main, this.$toast);
+      this.root.append(this.$top, this.$nav, this.$auth, this.$main, this.$toast);
+      if (this.auth && typeof this.auth.onChange === "function") this._unwatchAuth = this.auth.onChange(() => this.refresh());
       container.appendChild(this.root);
       const open = this.journal.resumable();
       if (open.length) this.state.screen = "jobs";
@@ -5358,6 +5616,7 @@ details summary { cursor:pointer; color:var(--mute); }
     }
     refresh() {
       replace(this.$nav, Object.entries(SCREENS).map(([k, [label]]) => h("button", { "aria-current": this.state.screen === k ? "page" : null, onClick: () => this.go(k) }, label)));
+      if (this.$auth) replace(this.$auth, this.authBanner());
       try {
         replace(this.$main, SCREENS[this.state.screen][1](this));
       } catch (e) {
@@ -5376,6 +5635,75 @@ details summary { cursor:pointer; color:var(--mute); }
     }
     log(msg) {
       (this.logs ??= []).push({ at: new Date(this.now()).toISOString(), msg });
+    }
+    // ------------------------------------------------------------------ auth health (brief D)
+    /** Close the overlay and hand the carrier page back to the operator. */
+    close() {
+      if (!this.exit) return;
+      if (this.state.running) return this.toast("a job is running; pause it before closing Forge", "warn");
+      if (this._unwatchAuth) {
+        this._unwatchAuth();
+        this._unwatchAuth = null;
+      }
+      this.exit();
+    }
+    /** Wait for the page's auth runtime, then probe once. Called on mount. */
+    async establishAuth() {
+      return this._auth(() => this.auth.establish());
+    }
+    /** Operator-driven re-check, from the auth banner. */
+    async recheckAuth() {
+      return this._auth(() => this.auth.probe());
+    }
+    async _auth(fn) {
+      if (!this.auth || this.authBusy) return this.auth ? this.auth.state : null;
+      this.authBusy = true;
+      this.refresh();
+      try {
+        return await fn();
+      } finally {
+        this.authBusy = false;
+        this.refresh();
+      }
+    }
+    /**
+     * The standing answer to "can Forge do protected work right now", on every screen. It is a
+     * separate line from job outcomes on purpose: "signed out" and "the read failed" are different
+     * problems with different fixes, and 0.3.0 could only ever say the second one.
+     */
+    authBanner() {
+      if (!this.auth) return null;
+      const state = this.auth.state;
+      const recheck = h("button", { disabled: this.authBusy, onClick: () => this.recheckAuth() }, this.authBusy ? "Checking\u2026" : "Re-check");
+      if (state === AUTH.READY) {
+        return h("div", { class: "f-banner ok" }, h("span", {}, "TNR session active. Protected reads and writes are available."), h("div", { class: "f-actions" }, recheck));
+      }
+      if (state === AUTH.PROBING || this.authBusy) {
+        return h("div", { class: "f-banner info" }, "Checking the TNR session\u2026");
+      }
+      const signedOut = state === AUTH.SIGNED_OUT;
+      return h(
+        "div",
+        { class: "f-banner bad" },
+        h(
+          "div",
+          {},
+          h("b", {}, signedOut ? "TNR authentication unavailable. " : "TNR authentication not confirmed. "),
+          signedOut ? "The game refused a protected procedure for this browser session. Protected reads and writes are blocked and nothing protected will be sent." : "Forge could not confirm a signed-in session, so protected reads and writes are blocked. This is not a read failure."
+        ),
+        h("div", { class: "f-mute" }, "Sign in to The Ninja RPG in this browser (the page under Forge is the game itself \u2014 close Forge, sign in, reopen /forge), then re-check. Public capture-only manifests can still run."),
+        this.auth.detail ? h("div", { class: "f-mute" }, this.auth.detail) : null,
+        h("div", { class: "f-actions" }, recheck)
+      );
+    }
+    /** Protected procedures a selected manifest would need that the session cannot supply. */
+    blockedPaths(plan, manifest) {
+      if (!this.auth) return [];
+      try {
+        return protectedPathsFor(plan, manifest).filter((path) => !this.auth.allows(path));
+      } catch {
+        return [];
+      }
     }
     confirm(text, fn) {
       if (globalThis.confirm ? globalThis.confirm(text) : true) Promise.resolve().then(fn).catch((e) => this.fail("action", e));
@@ -5446,6 +5774,7 @@ details summary { cursor:pointer; color:var(--mute); }
         }
         const images = [...new Set(plan.flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
         this.state.selected = { entry, text, manifest, plan, problems, images };
+        this.state.selected.blocked = this.blockedPaths(plan, manifest);
         this.refresh();
       } catch (e) {
         this.fail("select manifest", e instanceof ManifestError ? e : e);
@@ -5455,6 +5784,12 @@ details summary { cursor:pointer; color:var(--mute); }
     async startJob() {
       const s = this.state.selected;
       if (!s) return;
+      const blocked = this.blockedPaths(s.plan, s.manifest);
+      if (blocked.length) {
+        this.toast(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9e3);
+        this.state.selected.blocked = blocked;
+        return this.refresh();
+      }
       const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
       try {
         this.runner.plan(s.text, { jobId, manifestPath: s.entry.path, manifestNumber: s.entry.number });
@@ -5503,7 +5838,11 @@ details summary { cursor:pointer; color:var(--mute); }
         const full = captures.filter((capture) => capture.persist === "full");
         const detail = job.items.length ? `${Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${s.verify.match} verified, ${s.verify.drift} drift, ${s.verify.unread} unread` : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` \xB7 ${full.filter((capture) => capture.persistOk === true).length}/${full.length} full bodies persisted` : ""} \xB7 zero mutations`;
         const kind = outcome === "success" ? "ok" : outcome === "failed" ? "bad" : "warn";
-        this.toast(`job ${s.state} (${outcome}): ${detail}`, kind, 8e3);
+        if (job.pause && job.pause.reason === "SESSION") {
+          this.toast(`job PAUSED: TNR authentication unavailable${job.pause.path ? ` on ${job.pause.path}` : ""}. Nothing further was sent. Sign in and resume.`, "bad", 12e3);
+        } else {
+          this.toast(`job ${s.state} (${outcome}): ${detail}`, kind, 8e3);
+        }
         if (s.state === "DONE" || s.state === "INCOMPLETE") await this.exportJob(jobId, { auto: true });
       } catch (e) {
         this.fail("run", e);
@@ -5661,9 +6000,45 @@ details summary { cursor:pointer; color:var(--mute); }
   };
 
   // src/ui/takeover.mjs
-  var HOST_PATH = "/forge";
+  var ENTRY_PATH = "/forge";
+  var CARRIER_PATH = "/";
+  var ARM_KEY = "tnr_forge_armed_v1";
+  var MAX_HOPS = 2;
   var OLD_BUILDER_CLASSES = ["k-fab", "k-pn"];
-  function takeover(doc = document, win = window) {
+  var OVERLAY_CLASS = "f-host";
+  function onEntryPath(loc = location) {
+    return loc.pathname === ENTRY_PATH || loc.pathname.startsWith(ENTRY_PATH + "/");
+  }
+  function readArm(win) {
+    try {
+      return JSON.parse(win.sessionStorage.getItem(ARM_KEY) || "null");
+    } catch {
+      return null;
+    }
+  }
+  function isArmed(win) {
+    const a = readArm(win);
+    return !!(a && a.armed);
+  }
+  function armHops(win) {
+    const a = readArm(win);
+    return a && Number.isInteger(a.hops) ? a.hops : 0;
+  }
+  function arm(win, { hops = null } = {}) {
+    const next = hops == null ? armHops(win) + 1 : hops;
+    try {
+      win.sessionStorage.setItem(ARM_KEY, JSON.stringify({ armed: true, hops: next }));
+    } catch {
+    }
+    return next;
+  }
+  function disarm(win) {
+    try {
+      win.sessionStorage.removeItem(ARM_KEY);
+    } catch {
+    }
+  }
+  function entryTakeover(doc = document, win = window) {
     try {
       win.stop();
     } catch {
@@ -5673,16 +6048,49 @@ details summary { cursor:pointer; color:var(--mute); }
     const head = h("head", {}, h("meta", { charset: "utf-8" }), h("meta", { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" }), h("title", {}, "TNR forge"));
     const body = h("body", {});
     html.append(head, body);
-    const mo = new win.MutationObserver((muts) => {
-      for (const m of muts) for (const n of m.addedNodes) {
-        if (n && n.nodeType === 1 && OLD_BUILDER_CLASSES.some((c) => n.classList && n.classList.contains(c))) n.remove();
-      }
-    });
-    mo.observe(body, { childList: true });
-    return { html, head, body, observer: mo };
+    return { html, head, body };
   }
-  function onHostPath(loc = location) {
-    return loc.pathname === HOST_PATH || loc.pathname.startsWith(HOST_PATH + "/");
+  function mountHost(doc = document, win = window) {
+    const host = h("div", { class: OVERLAY_CLASS });
+    const root = doc.documentElement;
+    const prevHtmlOverflow = root ? root.style.overflow : "";
+    const prevBodyOverflow = doc.body ? doc.body.style.overflow : "";
+    if (root) root.style.overflow = "hidden";
+    if (doc.body) doc.body.style.overflow = "hidden";
+    doc.body.appendChild(host);
+    let mo = null;
+    try {
+      mo = new win.MutationObserver((muts) => {
+        for (const m of muts) for (const n of m.addedNodes) {
+          if (n && n.nodeType === 1 && OLD_BUILDER_CLASSES.some((c) => n.classList && n.classList.contains(c))) n.remove();
+        }
+      });
+      mo.observe(doc.body, { childList: true });
+    } catch {
+      mo = null;
+    }
+    const release = () => {
+      if (mo) {
+        try {
+          mo.disconnect();
+        } catch {
+        }
+      }
+      host.remove();
+      if (root) root.style.overflow = prevHtmlOverflow;
+      if (doc.body) doc.body.style.overflow = prevBodyOverflow;
+    };
+    return { body: host, observer: mo, release };
+  }
+  function pageAuthRuntime(win = window) {
+    return () => {
+      const c = win && win.Clerk;
+      if (!c) return null;
+      const loaded = c.loaded === true;
+      let signedIn = null;
+      if (loaded) signedIn = !!(c.session || c.user);
+      return { loaded, signedIn };
+    };
   }
 
   // src/runner/fields.json
@@ -10704,7 +11112,7 @@ details summary { cursor:pointer; color:var(--mute); }
   };
 
   // src/main.mjs
-  var VERSION = "forge 0.3.0";
+  var VERSION = "forge 0.4.0";
   function compose({
     storage,
     indexedDB,
@@ -10714,13 +11122,16 @@ details summary { cursor:pointer; color:var(--mute); }
     log = () => {
     },
     client = null,
-    sleep
+    sleep,
+    runtime = null,
+    authState = AUTH.UNKNOWN
   } = {}) {
     const deps = {};
     deps.journal = new Journal(storage, clock);
     deps.cache = new CaptureCache(indexedDB, clock);
     deps.session = new CookieSession({ fetchImpl, origin: "" });
     deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`) });
+    deps.auth = new AuthState({ client: deps.client, runtime, clock, state: authState });
     deps.budget = new Budget({ storage, clock, ...sleep ? { sleep } : {} });
     deps.reader = new CachedReader({ client: deps.client, cache: deps.cache, budget: deps.budget });
     deps.reconciler = new Reconciler({ storage, reader: deps.reader, clock, journal: deps.journal });
@@ -10736,6 +11147,7 @@ details summary { cursor:pointer; color:var(--mute); }
       validator: deps.validator,
       uploader: deps.uploader,
       reconciler: deps.reconciler,
+      auth: deps.auth,
       storage,
       clock,
       tabId,
@@ -10743,11 +11155,41 @@ details summary { cursor:pointer; color:var(--mute); }
     });
     return deps;
   }
-  async function boot(win = window) {
-    if (!onHostPath(win.location)) return null;
-    const { body } = takeover(win.document, win);
-    const status = h("div", { style: { padding: "16px", fontFamily: "system-ui", color: "#e8eaf0", background: "#0f1115", minHeight: "100vh" } }, "TNR forge: starting\u2026");
-    body.appendChild(status);
+  async function boot(win = window, { redirect = null, establish = true } = {}) {
+    const doc = win.document;
+    if (onEntryPath(win.location)) return bootEntry(win, doc, redirect);
+    if (!isArmed(win)) return null;
+    return bootHost(win, doc, { establish });
+  }
+  function bootEntry(win, doc, redirect) {
+    const { body } = entryTakeover(doc, win);
+    installCss(CSS_DOC, doc);
+    installCss(CSS, doc);
+    const hops = armHops(win);
+    const panel = h("div", { class: "f-boot" });
+    body.appendChild(panel);
+    if (hops >= MAX_HOPS) {
+      disarm(win);
+      panel.append(
+        h("div", {}, h("b", {}, "TNR forge could not reach an authenticated page.")),
+        h("p", {}, `Forge tried ${hops} times to hand off from ${ENTRY_PATH} to a normal game page and ended up back here. Open the game, sign in, and then open ${ENTRY_PATH} again.`)
+      );
+      return null;
+    }
+    arm(win);
+    panel.append(
+      h("div", {}, h("b", {}, "TNR forge")),
+      h("p", {}, "Opening the game so Forge runs inside your signed-in session\u2026"),
+      h("p", { class: "f-mute" }, `${ENTRY_PATH} has no game providers, so a session cannot live here. Forge continues on ${CARRIER_PATH}.`)
+    );
+    const go = redirect ?? ((url) => {
+      win.location.replace(url);
+    });
+    go(CARRIER_PATH);
+    return null;
+  }
+  async function bootHost(win, doc, { establish = true } = {}) {
+    const host = mountHost(doc, win);
     const clock = () => Date.now();
     let tabId;
     try {
@@ -10767,17 +11209,35 @@ details summary { cursor:pointer; color:var(--mute); }
         fetchImpl: win.fetch.bind(win),
         clock,
         tabId,
+        runtime: pageAuthRuntime(win),
         log: (m) => deps.app && deps.app.log(m)
       });
-      deps.app = new App({ version: VERSION, storage: win.localStorage, now: clock, ...deps });
-      status.remove();
-      deps.app.mount(body, win.document);
-      return deps.app;
+      deps.app = new App({
+        version: VERSION,
+        storage: win.localStorage,
+        now: clock,
+        ...deps,
+        exit: () => {
+          disarm(win);
+          host.release();
+        }
+      });
+      deps.app.mount(host.body, doc);
+      arm(win, { hops: 0 });
     } catch (e) {
-      status.textContent = "";
-      status.append(h("div", {}, h("b", {}, "TNR forge failed to start")), h("pre", { style: { whiteSpace: "pre-wrap", fontSize: "12px" } }, String(e && e.stack || e)));
+      const panel = h("div", { class: "f-boot" });
+      panel.append(h("div", {}, h("b", {}, "TNR forge failed to start")), h("pre", { style: { whiteSpace: "pre-wrap", fontSize: "12px" } }, String(e && e.stack || e)));
+      host.body.appendChild(panel);
       return null;
     }
+    if (establish) deps.app.establishAuth().catch((e) => deps.app.fail("auth check", e));
+    return deps.app;
   }
-  if (typeof window !== "undefined" && typeof document !== "undefined") boot(window);
+  if (typeof window !== "undefined" && typeof document !== "undefined") {
+    try {
+      Promise.resolve(boot(window)).catch(() => {
+      });
+    } catch {
+    }
+  }
 })();
