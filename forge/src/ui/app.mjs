@@ -8,6 +8,7 @@ import { collectRefs } from "../runner/refs.mjs";
 import { manifestNumber, manifestSummary, GH } from "../github.mjs";
 import { readGh } from "../storage/compat.mjs";
 import { JournalError, jobOutcome } from "../storage/journal.mjs";
+import { MAX_FULL_CAPTURE_BYTES } from "../storage/captures.mjs";
 
 const SCREENS = { jobs: ["Jobs", JobsScreen], manifests: ["Manifests", ManifestsScreen], run: ["Run", RunScreen], captures: ["Captures", CapturesScreen], settings: ["Settings", SettingsScreen] };
 
@@ -180,15 +181,25 @@ export class App {
     const tick = setInterval(() => { if (this.state.screen === "run") this.refresh(); }, 1500);
     try {
       const s = await fn();
+      // Re-check every requested full body against the capture cache BEFORE the toast, so the
+      // headline can never be greener than the evidence: a body that vanished between the read
+      // and here (an entity invalidation, an evicted store) changes the job's own outcome. A
+      // capture cache that cannot even be opened must not swallow the run: the job still finished,
+      // and its bundle is still exported below with whatever the journal already recorded.
+      if (s.state === "DONE" || s.state === "INCOMPLETE") {
+        try { await this.resolveCaptures(jobId); } catch (e) { this.fail("resolve full captures", e); }
+      }
       // Only outcome "success" is green. A finished job holding a drifted, unread or failed item is
       // reported as what it is; the bundle is still exported, because a failure is evidence too.
       const job = this.journal.get(jobId);
       const captures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
+      const outcome = jobOutcome(job);
+      const full = captures.filter((capture) => capture.persist === "full");
       const detail = job.items.length
         ? `${Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} · ${s.verify.match} verified, ${s.verify.drift} drift, ${s.verify.unread} unread`
-        : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures ok · zero mutations`;
-      const kind = s.outcome === "success" ? "ok" : s.outcome === "failed" ? "bad" : "warn";
-      this.toast(`job ${s.state} (${s.outcome}): ${detail}`, kind, 8000);
+        : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` · ${full.filter((capture) => capture.persistOk === true).length}/${full.length} full bodies persisted` : ""} · zero mutations`;
+      const kind = outcome === "success" ? "ok" : outcome === "failed" ? "bad" : "warn";
+      this.toast(`job ${s.state} (${outcome}): ${detail}`, kind, 8000);
       if (s.state === "DONE" || s.state === "INCOMPLETE") await this.exportJob(jobId, { auto: true });
     } catch (e) { this.fail("run", e); }
     finally { clearInterval(tick); this.state.running = null; this.refresh(); }
@@ -198,9 +209,73 @@ export class App {
   adopt(jobId, idx, id) { try { this.runner.adopt(jobId, idx, id); this.refresh(); } catch (e) { this.fail("adopt", e); } }
   skip(jobId, idx) { try { this.runner.skip(jobId, idx); this.refresh(); } catch (e) { this.fail("skip", e); } }
 
+  /**
+   * Materialize every requested full capture body out of the IndexedDB capture cache, and write
+   * the VERDICT (not the body) back onto the job's own capture entries. Two things follow from
+   * doing it this way:
+   *
+   *   - the export never issues a read. The body it ships is the one the single capture read
+   *     already produced and CachedReader already cached; if it is not there, the export says so
+   *     rather than going back to the game for it;
+   *   - the journal stays compact and stays the record of truth. persistOk/persistError live on
+   *     the journal entry, so jobOutcome(), the run screen and the bundle all read one answer,
+   *     and the embedded `journal` in the bundle never duplicates the bodies beside it.
+   *
+   * Returns the export-ready capture list: summary entries exactly as journaled, full entries
+   * with `data` attached when, and only when, the body was materialized intact.
+   */
+  async resolveCaptures(jobId) {
+    const job = this.journal.get(jobId);
+    const patch = {};
+    const out = [];
+    for (const key of ["capturesBefore", "capturesAfter"]) {
+      if (!Array.isArray(job[key])) continue;
+      const resolved = [];
+      for (const capture of job[key]) resolved.push(await this._materialize(capture));
+      // Only a pass that actually re-checked something rewrites the journal: a job with no full
+      // capture is untouched by exporting it, exactly as before this contract existed.
+      if (job[key].some((capture) => capture && capture.persist === "full")) {
+        patch[key] = resolved.map(({ data, ...rest }) => rest); // the journal keeps the verdict, never the body
+      }
+      out.push(...resolved);
+    }
+    if (Object.keys(patch).length) this.journal.annotateJob(jobId, patch);
+    return out;
+  }
+
+  async _materialize(capture) {
+    if (!capture || typeof capture !== "object" || capture.persist !== "full") return capture;
+    const c = { ...capture, persistOk: false, persistError: null };
+    delete c.data;
+    if (capture.ok !== true) { c.persistError = "read failed; there is no body to persist"; return c; }
+    const cacheKey = capture.cacheKey || null;
+    if (!cacheKey) { c.persistError = "no capture cache key was journaled for this full capture"; return c; }
+    let rec = null;
+    try { rec = await this.cache.getByKey(cacheKey); }
+    catch (e) { c.persistError = "capture cache read failed: " + ((e && e.message) || String(e)); return c; }
+    if (!rec) { c.persistError = `${cacheKey} is no longer in the capture cache, so the full body cannot be exported without a second read; it was not re-read`; return c; }
+    const bytes = typeof rec.bytes === "number" ? rec.bytes : JSON.stringify(rec.data ?? null).length;
+    c.bytes = bytes;
+    if (bytes > MAX_FULL_CAPTURE_BYTES) { c.persistError = `body is ${bytes} bytes, over the ${MAX_FULL_CAPTURE_BYTES}-byte full-capture ceiling; it is NOT truncated and NOT persisted`; return c; }
+    c.persistOk = true;
+    c.at = rec.at ?? null; // when this exact body was read, so the bundle carries its own freshness
+    c.data = rec.data;
+    return c;
+  }
+
   /** Results bundle in the shape harvests/inbox/ already holds, committed via GitHub when Sync is on. */
   async exportJob(jobId, { auto = false } = {}) {
-    const job = this.journal.get(jobId);
+    let captures;
+    try { captures = await this.resolveCaptures(jobId); }
+    catch (e) {
+      // A broken capture cache must not stop the bundle from being written: the bundle is the
+      // evidence. It goes out with whatever the journal already recorded, which for an
+      // unresolvable full capture is persistOk:false, so nothing claims a body it does not carry.
+      this.fail("resolve full captures", e);
+      const j = this.journal.get(jobId);
+      captures = [...(j.capturesBefore || []), ...(j.capturesAfter || [])];
+    }
+    const job = this.journal.get(jobId); // read AFTER resolveCaptures so the embedded journal agrees
     const bundle = {
       builder: this.version, at: new Date(this.now()).toISOString(), cfg: "forge", checks: null,
       // `outcome` is the honest headline: an exported bundle is evidence, not a claim of success.
@@ -214,7 +289,7 @@ export class App {
         unresolved: job.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length,
       },
       entries: job.items.map((i) => harvestEntry(i)),
-      captures: [...(job.capturesBefore || []), ...(job.capturesAfter || [])],
+      captures,
       idmap: JSON.parse(this.storage.getItem("tnr_bk_idmap_v1") || "{}"),
       journal: job,
     };

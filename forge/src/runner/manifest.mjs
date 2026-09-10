@@ -8,12 +8,21 @@
 // so refs resolve from ids minted earlier in the same job (topological sort, stable).
 
 import { payloadHash, stableStringify, fnv1a32 } from "../storage/hash.mjs";
+import { canPersistFull, FULL_PERSIST_PATHS } from "../storage/captures.mjs";
 import { collectRefs, REF_RE } from "./refs.mjs";
 import { resolvePoolCodes, stuckPoolCodes, kitProblems } from "./pool.mjs";
 import { lintManifest } from "./lints.mjs";
 
 export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile"]);
 const SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
+
+// How durably a capture's response body is kept. "summary" is the historical behaviour: the
+// journal and the bundle carry only {phase, proc, input, ok, rows, error}. "full" additionally
+// puts the exact decoded body on the exported capture entry, sourced from the SAME read, out of
+// the IndexedDB capture cache. Omitting the key means "summary", so every manifest written
+// before this contract existed parses and runs unchanged.
+export const PERSIST_MODES = Object.freeze(["summary", "full"]);
+export const DEFAULT_PERSIST = "summary";
 
 export class ManifestError extends Error {
   constructor(message, info = {}) { super(message); this.name = "ManifestError"; Object.assign(this, info); }
@@ -27,12 +36,13 @@ export function parseManifest(source) {
   }
   if (!m || typeof m !== "object" || Array.isArray(m)) throw new ManifestError("manifest must be an object");
   const raw = Array.isArray(m.items) ? m.items : Array.isArray(m.jutsu) ? m.jutsu : [];
-  const capture = m.capture && typeof m.capture === "object"
+  const rawCapture = m.capture && typeof m.capture === "object"
     ? { before: Array.isArray(m.capture.before) ? m.capture.before : [], after: Array.isArray(m.capture.after) ? m.capture.after : [] }
     : { before: [], after: [] };
-  for (const c of [...capture.before, ...capture.after]) {
-    if (!c || typeof c !== "object" || !(c.proc || c.procedure)) throw new ManifestError("capture entry missing proc");
-  }
+  const capture = {
+    before: rawCapture.before.map((c, i) => normalizeCapture(c, "before", i)),
+    after: rawCapture.after.map((c, i) => normalizeCapture(c, "after", i)),
+  };
   if (!raw.length && !capture.before.length && !capture.after.length) throw new ManifestError("manifest has no items and no captures");
 
   const items = raw.map((it, i) => normalizeItem(it, i));
@@ -88,8 +98,45 @@ export function parseManifest(source) {
     dedupNames: !!m.dedupNames,
     readBack: m.readBack !== false,
     imgSizes,
-    hash: fnv1a32(stableStringify({ items: raw, capture })),
+    fullCaptures: [...capture.before, ...capture.after].filter((c) => c.persist === "full").length,
+    // The hash is taken over the RAW manifest bodies, not the normalized ones, so the persistence
+    // request is inside it by construction: `persist` is a key of the raw capture entry, and
+    // flipping it changes the hash, which is what stops a job opened under one persistence
+    // contract from being resumed under another (attach() compares this to job.manifestHash).
+    // Hashing raw also means a manifest written before `persist` existed keeps the hash it
+    // already had, so an open job survives this upgrade. `manifest hashing covers the
+    // persistence request` in test/capture.full.test.mjs holds both halves of that.
+    hash: fnv1a32(stableStringify({ items: raw, capture: rawCapture })),
   };
+}
+
+/**
+ * Normalize and VALIDATE one capture entry. Everything that can make a full-persistence request
+ * illegal is decided here, before a job is opened and therefore before any read is issued:
+ * an unknown persist mode, a procedure outside the audited point-read allowlist, and a full
+ * request with no record id to read. Fail-closed is the point; the bundle these bodies land in
+ * is committed to a repository.
+ */
+function normalizeCapture(c, phase, i) {
+  const where = `capture.${phase}[${i}]`;
+  if (!c || typeof c !== "object" || Array.isArray(c)) throw new ManifestError("capture entry missing proc");
+  const proc = c.proc || c.procedure;
+  if (!proc) throw new ManifestError("capture entry missing proc");
+  const persist = c.persist === undefined || c.persist === null ? DEFAULT_PERSIST : c.persist;
+  if (!PERSIST_MODES.includes(persist)) {
+    throw new ManifestError(`${where} (${proc}): persist must be ${PERSIST_MODES.map((p) => JSON.stringify(p)).join(" or ")}, got ${JSON.stringify(c.persist)}`, { phase, idx: i, proc, persist: c.persist });
+  }
+  const input = c.input && typeof c.input === "object" && !Array.isArray(c.input) ? c.input : null;
+  const id = input ? (input.id ?? input.userId) : undefined;
+  if (persist === "full") {
+    if (!canPersistFull(proc)) {
+      throw new ManifestError(`${where} (${proc}): persist "full" is only allowed for the audited content-record point reads ${FULL_PERSIST_PATHS.join(", ")}`, { phase, idx: i, proc });
+    }
+    if (typeof id !== "string" || !id) {
+      throw new ManifestError(`${where} (${proc}): persist "full" needs input.id (or input.userId) naming one record`, { phase, idx: i, proc });
+    }
+  }
+  return { proc, input, persist, id: typeof id === "string" && id ? id : null };
 }
 
 function normalizeItem(it, idx) {

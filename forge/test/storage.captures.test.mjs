@@ -1,7 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { IDBFactory } from "fake-indexeddb";
-import { CaptureCache, captureKey, entityOfPath } from "../src/storage/captures.mjs";
+import { CaptureCache, captureKey, entityOfPath, FULL_PERSIST_PATHS, canPersistFull, persistProcedureKind, MAX_FULL_CAPTURE_BYTES } from "../src/storage/captures.mjs";
+import { PROCEDURES } from "../src/transport/procedures.mjs";
 import { fakeClock } from "./shim.mjs";
 
 const fresh = () => new CaptureCache(new IDBFactory(), fakeClock());
@@ -71,4 +72,40 @@ test("reopen after close sees the same data (persistence across app restarts)", 
   c1.close();
   const c2 = new CaptureCache(idb, fakeClock());
   assert.equal((await c2.get("bloodline.get", "b1")).data.x, 1);
+});
+
+// ------------------------------------------------------------------ full persistence boundary
+test("every full-persistence path is an audited content-record point read, and nothing else is", () => {
+  for (const path of FULL_PERSIST_PATHS) {
+    const p = PROCEDURES[path];
+    assert.ok(p, `${path} is not in the audited crud surface; the allowlist may not invent a procedure`);
+    assert.equal(p.kind, "query", `${path} is not a query; a mutation body may never be durably persisted`);
+    assert.ok(/\.(get|getAi|getAiProfile)$/.test(path), `${path} is not a point read`);
+    assert.ok(!/getAll/.test(path), `${path} is a list procedure`);
+    assert.equal(canPersistFull(path), true);
+    assert.equal(persistProcedureKind(path), "query");
+  }
+  // the closed half of the boundary: nothing else in the audited surface is persistable
+  for (const path of Object.keys(PROCEDURES)) {
+    if (FULL_PERSIST_PATHS.includes(path)) continue;
+    assert.equal(canPersistFull(path), false, `${path} must not be persistable without a reviewed change`);
+  }
+  assert.equal(canPersistFull("asset.get"), false, "the un-audited asset.get alias is not a way in");
+  assert.equal(canPersistFull("anything.else"), false);
+  assert.equal(persistProcedureKind("asset.get"), null);
+});
+
+test("the full-capture ceiling is a named constant with room for the worst real record", () => {
+  assert.equal(MAX_FULL_CAPTURE_BYTES, 512 * 1024);
+  // the largest content record in this repository's own committed captures is a ~71 KB quest
+  assert.ok(MAX_FULL_CAPTURE_BYTES > 71_000 * 5, "the ceiling must not be tight enough to reject real records");
+});
+
+test("getByKey finds exactly what get(path, id) finds", async () => {
+  const c = fresh();
+  await c.put({ path: "gameAsset.get", id: "a1", input: { id: "a1" }, data: { id: "a1", image: "x.webp" } });
+  assert.deepEqual((await c.getByKey("gameAsset.get:a1")).data, { id: "a1", image: "x.webp" });
+  assert.deepEqual(await c.getByKey("gameAsset.get:a1"), await c.get("gameAsset.get", "a1"));
+  assert.equal(await c.getByKey("gameAsset.get:missing"), null);
+  c.close();
 });
