@@ -7,17 +7,16 @@
 // @match        *://theninja-rpg.com/forge*
 // @grant        none
 // @run-at       document-start
+// @updateURL    https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js
+// @downloadURL  https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js
 // @require      https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@b9948729a4649f1cf7ecf500c3c40ed8ee9ad225/forge_bundle.js
 // ==/UserScript==
 // Open https://www.theninja-rpg.com/forge while logged in. The page is a same-origin 404 with no
 // game providers; the bundle stops it at document-start and mounts the app in its place.
 //
-// RELEASE PIN. @version must equal forge/package.json, and the @require must resolve to an
-// IMMUTABLE commit, so that installed bytes can only ever be the reviewed ones. Until this branch
-// merges it points at the branch instead, which jsDelivr caches for about 12h and which any later
-// push silently changes - so the @x-unpinned-until-release line above marks it explicitly. That
-// line is the whole point: forge/tools/check_release_pin.mjs (run as part of `npm test`) FAILS if
-// the @require is not commit-pinned and the marker is absent, so a release can never float on a
-// branch quietly. release_pin.yml rewrites the @require to the commit URL, syncs @version from
-// forge/package.json and deletes the marker on every push to main that changes forge_bundle.js;
-// installing that workflow change is a dauntless action (the PAT cannot push .github/workflows/).
+// RELEASE PIN. @require must always resolve to an IMMUTABLE bundle commit. Development branches
+// keep the last released @version/@require and may carry @x-release-pending <package-version>.
+// release_pin.yml is the only path that promotes a pending Forge release on main: it rewrites the
+// @require to the merge commit that contains forge_bundle.js, syncs @version from forge/package.json,
+// and removes the pending marker. @updateURL/@downloadURL may safely watch main because main never
+// needs to expose a moving branch bundle in order to stage the next release.
