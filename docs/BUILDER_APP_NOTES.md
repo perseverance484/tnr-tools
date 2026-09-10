@@ -42,26 +42,47 @@ contract keeps the manifest hash it already had, so an open job still resumes. A
   no record id are all refused at parse time. The kinds are read from the generated
   `transport/procedures.mjs`; the allowlist names paths and never restates their kind. Widening it
   is a separate reviewed change: the bundle these bodies land in is committed to this repository.
-- **One read.** Full mode adds no request. `CachedReader` already writes every successful decoded
-  body into the IndexedDB capture cache on the way past; full mode only decides how durably that
-  body is kept. Export materializes it from the cache and never re-reads.
-- **The journal stays compact.** localStorage keeps `persist`, the cache key and the persistence
-  verdict, never a body. The `journal` embedded in a results bundle therefore does not duplicate
-  the `data` beside it.
+- **One read.** Full mode adds no request; it only decides how durably the body that read already
+  returned is kept. Export materializes from IndexedDB and never re-reads.
+- **An immutable snapshot per capture occurrence.** `tnr_forge` is now at DB v2 and has a second
+  store, `capture_snapshots`, keyed `jobId::phase::ordinal`. `Runner._persistFull()` writes the
+  body that read returned there, once, and `App._materialize()` exports from that key.
+
+  The first implementation instead journalled the ordinary read cache key, `path:id`, and was
+  rejected in independent review (FFC-1). `path + id` is the identity of a mutable cache slot, not
+  of a capture event: the next read of that record replaces the slot and a write to that entity
+  deletes it, both correctly. A manifest may legally read a record in `capture.before`, write it,
+  and read it again in `capture.after` - so the before entry would have exported the AFTER body
+  with `persistOk: true`, which is worse than exporting no body at all. Snapshots are written from
+  the response in hand, are never reachable from `invalidateEntity`/`invalidateRecord`/`clear`,
+  and are deleted only explicitly: per key, per job (with the job's journal record), or from the
+  Captures screen, which lists them apart from the read cache and warns before deleting evidence.
+- **The journal stays compact.** localStorage keeps `persist`, the snapshot key, the byte count and
+  the persistence verdict, never a body. The `journal` embedded in a results bundle therefore does
+  not duplicate the `data` beside it.
 - **Fail-closed reporting.** A full capture makes two claims - the read succeeded, and the body is
   in the bundle - and they are reported separately. `App.resolveCaptures()` re-checks every
   requested body against IndexedDB at export and writes `persistOk` / `persistError` back onto the
-  job. A body that is missing (entity invalidation, evicted store) or over
+  job; export may downgrade a success but never overwrites a reason the capture pass already
+  recorded, and never upgrades a failure. A snapshot that is gone (an evicted store) or a body over
   `MAX_FULL_CAPTURE_BYTES` (512 KiB; the largest real content record in `harvests/` is a ~71 KB
-  quest) is an explicit failure: `jobOutcome()` turns a capture-only job `failed` and a writing job
-  `unverified`, the run screen says "Read-only capture incomplete" with the reason, and
-  `harvest.py verify` exits 1. Nothing truncates a body and calls it full.
+  quest, and an oversized body is never stored at all) is an explicit failure: `jobOutcome()` turns
+  a capture-only job `failed` and a writing job `unverified`, the run screen says "Read-only
+  capture incomplete" with the reason, and `harvest.py verify` exits 1. Nothing truncates a body
+  and calls it full.
 - **Visible before it runs.** The selected-manifest card reads `5 full captures`, not `5 captures`,
   says where the bodies go, and the confirm prompt repeats it. It remains true, and still says,
   that a capture-only job sends zero mutations.
 
 `push/02_one_perfect_crop_asset_probe.json` is the first consumer: five `gameAsset.get` point reads
 at `persist: "full"`, `items: []`. It has NOT been run.
+
+The FFC-1 section of `forge/test/capture.full.test.mjs` is where the storage identity is held:
+before/write/after on one record exports both bodies; two full reads of one `path + id` keep their
+own; a before-only capture survives the job's own write to that entity; the bodies reach neither
+localStorage nor the embedded journal; and a snapshot exports intact from persisted state alone
+after the tab that made it is gone. Each of those fails against a `path + id`-keyed
+implementation.
 
 ## The readiness pass, and what it changed
 

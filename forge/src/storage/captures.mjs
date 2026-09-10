@@ -1,18 +1,47 @@
 // The capture cache. IndexedDB, because captures exceed the localStorage quota.
-// DB tnr_forge, store captures. Key is `${path}:${idKey}` where idKey is the record id for
-// a get, or "" for a list procedure (getAll, getAllNames).
+// DB tnr_forge. TWO stores, with deliberately different lifetimes:
 //
-// Invalidation rule (spec section 6): any write to an entity drops every capture for that
-// entity, both the record's own get and the entity's list captures, because a rename
-// changes what getAllNames returns.
+//   captures           the READ CACHE. Key `${path}:${idKey}` where idKey is the record id for
+//                      a get, or "" for a list procedure (getAll, getAllNames). One slot per
+//                      path+id, overwritten by the next read of that record and deleted by a
+//                      write to that entity. Its job is to save budget, and a cache that did not
+//                      go stale would be wrong.
+//   capture_snapshots  IMMUTABLE EVIDENCE. One record per `persist: "full"` capture OCCURRENCE,
+//                      keyed by job + phase + ordinal, holding the exact decoded body of that
+//                      specific read.
+//
+// The two must not be confused, and the second exists because they were (independent review
+// FFC-1). `path + id` identifies a mutable cache slot, never a capture event. A manifest may
+// legally read the same record in capture.before, write it, and read it again in capture.after;
+// keyed on path+id, the before body is first deleted by the write's invalidation and then
+// replaced by the read-back's body, so exporting "the exact body of the before read" from that
+// slot silently ships the AFTER record with a green persistence verdict. Repeated reads of one
+// record have the same aliasing problem with no write involved at all. A snapshot is therefore
+// written once, from the body that read returned, and nothing overwrites or invalidates it.
+//
+// Invalidation rule (spec section 6): any write to an entity drops every CACHE record for that
+// entity, both the record's own get and the entity's list captures, because a rename changes
+// what getAllNames returns. Invalidation never touches capture_snapshots: evidence of what was
+// read is not made wrong by a later write, that is the whole point of keeping it.
 
 import { PROCEDURES } from "../transport/procedures.mjs";
 
 export const DB_NAME = "tnr_forge";
 export const STORE = "captures";
-export const DB_VERSION = 1;
+export const SNAPSHOT_STORE = "capture_snapshots";
+// v2 adds capture_snapshots. The upgrade is additive: an existing v1 database keeps its captures
+// store untouched and gains the new one, so a browser holding a v1 cache upgrades in place.
+export const DB_VERSION = 2;
 
 export function captureKey(path, id) { return `${path}:${id ?? ""}`; }
+
+/**
+ * The immutable identity of ONE full-capture occurrence. Job, phase and ordinal, because that is
+ * what actually names the read: the nth capture of the before or after pass of this job. It is
+ * deterministic, so a resumed pass that re-journals an entry addresses the same snapshot, and it
+ * is unrelated to the record id, so two captures of one record never collide.
+ */
+export function snapshotKey(jobId, phase, ordinal) { return `${jobId}::${phase}::${ordinal}`; }
 
 // ------------------------------------------------------------------ full persistence
 // A capture may ask for `persist: "full"`, which means the exact decoded response body is
@@ -48,8 +77,8 @@ export function persistProcedureKind(path) { return PROCEDURES[path] ? PROCEDURE
 // body cannot quietly become a megabyte-scale commit. Exceeding it is an explicit persistence
 // FAILURE, never a shortened body presented as full: nothing in this codebase truncates a body.
 //
-// "bytes" here is the cached record's own `bytes` field, which is JSON.stringify().length - UTF-16
-// code units, not encoded octets. That is the existing meaning of `bytes` throughout this store
+// "bytes" is JSON.stringify().length of the body - UTF-16
+// code units, not encoded octets. That is the existing meaning of `bytes` throughout these stores
 // and the Captures screen, so the ceiling keeps it rather than introducing a second unit; a body
 // of non-ASCII text is measured slightly small, well inside the headroom above.
 export const MAX_FULL_CAPTURE_BYTES = 512 * 1024;
@@ -96,6 +125,10 @@ export class CaptureCache {
             store.createIndex("entity", "entity", { unique: false });
             store.createIndex("path", "path", { unique: false });
           }
+          if (!db.objectStoreNames.contains(SNAPSHOT_STORE)) {
+            const snaps = db.createObjectStore(SNAPSHOT_STORE, { keyPath: "key" });
+            snaps.createIndex("jobId", "jobId", { unique: false });
+          }
         };
         const db = await new Promise((resolve, reject) => {
           req.onsuccess = () => resolve(req.result);
@@ -111,12 +144,12 @@ export class CaptureCache {
     return this._opening;
   }
 
-  async _tx(mode, fn) {
+  async _tx(mode, fn, storeName = STORE) {
     let db = await this._open();
     let tx;
-    try { tx = db.transaction(STORE, mode); }
-    catch (e) { if (e && e.name === "InvalidStateError") { this._db = null; db = await this._open(); tx = db.transaction(STORE, mode); } else throw e; }
-    const store = tx.objectStore(STORE);
+    try { tx = db.transaction(storeName, mode); }
+    catch (e) { if (e && e.name === "InvalidStateError") { this._db = null; db = await this._open(); tx = db.transaction(storeName, mode); } else throw e; }
+    const store = tx.objectStore(storeName);
     const result = await fn(store);
     await new Promise((resolve, reject) => {
       tx.oncomplete = () => resolve();
@@ -143,11 +176,8 @@ export class CaptureCache {
     return rec;
   }
 
-  async get(path, id) { return this.getByKey(captureKey(path, id)); }
-
-  /** Fetch by the stored key directly, for a caller that journaled the key rather than path+id. */
-  async getByKey(key) {
-    const rec = await this._tx("readonly", (s) => reqToPromise(s.get(key)));
+  async get(path, id) {
+    const rec = await this._tx("readonly", (s) => reqToPromise(s.get(captureKey(path, id))));
     return rec ?? null;
   }
 
@@ -195,6 +225,54 @@ export class CaptureCache {
   }
 
   async clear() { await this._tx("readwrite", (s) => reqToPromise(s.clear())); }
+
+  // ---------------------------------------------------------------- immutable capture snapshots
+  /**
+   * Store the exact decoded body of ONE full capture, under its occurrence key. Written once, from
+   * the body that read returned, and never rewritten by a later read of the same record: this is
+   * the copy the exported bundle is materialized from.
+   *
+   * Deliberately NOT reachable from invalidateEntity/invalidateRecord/clear, all of which operate
+   * on the read cache only. A snapshot is deleted explicitly, by job or by key.
+   */
+  async putSnapshot({ key, jobId, phase, ordinal, path, id, input, data }) {
+    const rec = {
+      key, jobId, phase, ordinal, path,
+      id: id == null || id === "" ? null : String(id),
+      entity: entityOfPath(path),
+      input: input ?? null,
+      data,
+      at: new Date(this.clock()).toISOString(),
+      bytes: JSON.stringify(data ?? null).length,
+    };
+    await this._tx("readwrite", (s) => reqToPromise(s.put(rec)), SNAPSHOT_STORE);
+    return rec;
+  }
+
+  async getSnapshot(key) {
+    const rec = await this._tx("readonly", (s) => reqToPromise(s.get(key)), SNAPSHOT_STORE);
+    return rec ?? null;
+  }
+
+  async listSnapshots() {
+    const recs = await this._tx("readonly", (s) => reqToPromise(s.getAll()), SNAPSHOT_STORE);
+    return recs.map(({ key, jobId, phase, ordinal, path, id, entity, at, bytes }) => ({ key, jobId, phase, ordinal, path, id, entity, at, bytes }));
+  }
+
+  async deleteSnapshot(key) {
+    await this._tx("readwrite", (s) => reqToPromise(s.delete(key)), SNAPSHOT_STORE);
+  }
+
+  /** Drop every snapshot belonging to one job, for when that job's record is deleted. */
+  async deleteSnapshotsForJob(jobId) {
+    return this._tx("readwrite", async (s) => {
+      const keys = await reqToPromise(s.index("jobId").getAllKeys(jobId));
+      for (const k of keys) await reqToPromise(s.delete(k));
+      return keys.length;
+    }, SNAPSHOT_STORE);
+  }
+
+  async clearSnapshots() { await this._tx("readwrite", (s) => reqToPromise(s.clear()), SNAPSHOT_STORE); }
 
   close() { if (this._db) { this._db.close(); this._db = null; } }
 }

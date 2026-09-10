@@ -186,7 +186,7 @@ export function RunScreen(app) {
             ? `${captures.length}/${captures.length} reads succeeded, but ${unpersisted.length} of ${full.length} requested full ${full.length === 1 ? "body" : "bodies"} could not be persisted, so this bundle does not carry the record data the manifest asked for`
             : `${failed} of ${captures.length} reads failed`,
           "; zero mutations were sent.",
-          unpersisted.length ? h("div", { class: "f-err" }, unpersisted.map((capture) => `${capture.proc} ${capture.cacheKey || ""}: ${capture.persistError || "not persisted"}`).join("\n")) : null));
+          unpersisted.length ? h("div", { class: "f-err" }, unpersisted.map((capture) => `${capture.proc} ${capture.snapshotKey || ""}: ${capture.persistError || "not persisted"}`).join("\n")) : null));
   } else if (job.state === "DONE" || job.state === "INCOMPLETE") {
     const drift = job.items.filter((i) => i.verify === "drift").length;
     const unread = job.items.filter((i) => i.verify === "unread").length;
@@ -219,7 +219,7 @@ export function RunScreen(app) {
     for (const capture of allCaptures.filter((capture) => capture.persist === "full")) {
       root.appendChild(h("div", { class: "f-row" }, h("div", { class: "f-grow" },
         h("div", {}, `${capture.proc} `, h("span", { class: "f-pill " + (capture.persistOk === true ? "VERIFIED" : "FAILED") }, capture.persistOk === true ? "body persisted" : "not persisted"), h("span", { class: "f-mute" }, capture.ok ? " · read ok" : " · read failed")),
-        h("div", { class: "f-mono" }, capture.cacheKey || ""),
+        h("div", { class: "f-mono" }, `${capture.snapshotKey || ""}${capture.input && capture.input.id ? " · " + capture.input.id : ""}`),
         capture.persistError ? h("div", { class: "f-err" }, capture.persistError) : null)));
     }
   }
@@ -245,6 +245,10 @@ export function CapturesScreen(app) {
   const list = h("div", {});
   const head = h("div", { class: "f-mute" }, "loading…");
   root.append(head, h("div", { class: "f-actions" }, h("button", { class: "f-danger", onClick: () => app.confirm("Clear the whole capture cache? Reads will cost budget again.", async () => { await app.cache.clear(); app.refresh(); }) }, "Clear all")), list);
+  // The two stores are shown separately on purpose. Clearing the read cache costs budget on the
+  // next read and nothing else; deleting a full-capture snapshot destroys evidence a job has not
+  // necessarily exported yet, so it gets its own section, its own wording and its own button.
+  root.appendChild(SnapshotsSection(app));
   app.cache.list().then((recs) => {
     const bytes = recs.reduce((a, r) => a + (r.bytes || 0), 0);
     replace(head, `${recs.length} capture${recs.length === 1 ? "" : "s"} · ${fmtBytes(bytes)}`);
@@ -254,6 +258,28 @@ export function CapturesScreen(app) {
       h("button", { onClick: async () => { await app.cache.delete(r.path, r.id ?? ""); app.refresh(); } }, "Invalidate"))));
   }).catch((e) => replace(head, h("div", { class: "f-banner bad" }, "capture cache unavailable: ", e.message)));
   return root;
+}
+
+/** Immutable full-capture snapshots: the bodies an exported bundle is built from. */
+function SnapshotsSection(app) {
+  const section = h("div", {});
+  const head = h("h3", {}, "Full-capture snapshots");
+  const note = h("div", { class: "f-mute" }, "loading…");
+  const list = h("div", {});
+  section.append(head, note, h("div", { class: "f-actions" }, h("button", {
+    class: "f-danger",
+    onClick: () => app.confirm("Delete ALL full-capture snapshots? These are the exact record bodies exported bundles are built from; a job that has not been exported yet loses its evidence and cannot recover it without reading the game again.", async () => { await app.cache.clearSnapshots(); app.refresh(); }),
+  }, "Delete all snapshots")), list);
+  app.cache.listSnapshots().then((recs) => {
+    const bytes = recs.reduce((a, r) => a + (r.bytes || 0), 0);
+    replace(note, `${recs.length} snapshot${recs.length === 1 ? "" : "s"} · ${fmtBytes(bytes)} · never invalidated by a write; deleted with their job`);
+    recs.sort((a, b) => (a.at < b.at ? 1 : -1));
+    replace(list, recs.map((r) => h("div", { class: "f-row" },
+      h("div", { class: "f-grow" }, h("div", { class: "f-mono" }, r.key),
+        h("div", { class: "f-mute" }, `${r.path}${r.id ? " " + r.id : ""} · ${r.phase} · ${fmtBytes(r.bytes || 0)} · ${fmtAgo(r.at, app.now())}`)),
+      h("button", { onClick: () => app.confirm(`Delete snapshot ${r.key}? Its body can only come back from another read.`, async () => { await app.cache.deleteSnapshot(r.key); app.refresh(); }) }, "Delete"))));
+  }).catch((e) => replace(note, h("div", { class: "f-banner bad" }, "capture snapshots unavailable: ", e.message)));
+  return section;
 }
 
 // ------------------------------------------------------------------ 5. Settings
@@ -275,7 +301,7 @@ export function SettingsScreen(app) {
     h("div", { class: "f-card" },
       h("div", { class: "f-actions" },
         h("button", { onClick: () => app.showExport(app.journal.exportText(), "journal export") }, "Export journal as text"),
-        h("button", { class: "f-danger", onClick: () => app.confirm("Delete ALL finished jobs from the journal? Open jobs are kept.", () => { for (const j of app.journal.listJobs()) if (j.state === "DONE" || j.state === "ABORTED") app.journal.remove(j.jobId); app.refresh(); }) }, "Delete finished jobs")),
+        h("button", { class: "f-danger", onClick: () => app.confirm("Delete ALL finished jobs from the journal? Open jobs are kept, and each deleted job's full-capture snapshots go with it.", async () => { for (const j of app.journal.listJobs()) if (j.state === "DONE" || j.state === "ABORTED") { app.journal.remove(j.jobId); await app.cache.deleteSnapshotsForJob(j.jobId); } app.refresh(); }) }, "Delete finished jobs")),
       app.cacheSize ? h("div", { class: "f-mute" }, `capture cache: ${app.cacheSize}`) : null,
     ),
     h("h2", {}, "About"),

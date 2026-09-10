@@ -1,9 +1,14 @@
 // Full capture persistence (task brief state/prompt_forge_full_capture.md).
 //
 // The claim this file exists to hold: when a manifest asks for `persist: "full"`, the exported
-// results bundle carries the EXACT decoded body of the read Forge already performed, sourced from
-// the IndexedDB capture cache, with no second read, no body in the localStorage journal, no silent
-// truncation, and no way for a missing body to be reported as a success.
+// results bundle carries the EXACT decoded body of the read Forge already performed, with no
+// second read, no body in the localStorage journal, no silent truncation, and no way for a
+// missing body to be reported as a success.
+//
+// "the read Forge already performed" is the whole difficulty, and the FFC-1 section at the bottom
+// is where it is actually held. The body comes out of an IMMUTABLE per-occurrence snapshot, not
+// out of the path+id read cache, which the next read of that record replaces and a write to that
+// entity deletes.
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -12,10 +17,11 @@ import { App } from "../src/ui/app.mjs";
 import { parseManifest, ManifestError } from "../src/runner/manifest.mjs";
 import { captureLabel } from "../src/ui/screens.mjs";
 import { jobOutcome } from "../src/storage/journal.mjs";
-import { MAX_FULL_CAPTURE_BYTES, FULL_PERSIST_PATHS } from "../src/storage/captures.mjs";
+import { MAX_FULL_CAPTURE_BYTES, FULL_PERSIST_PATHS, snapshotKey } from "../src/storage/captures.mjs";
 import { FakeGame } from "./fakegame.mjs";
 import { MemoryStorage } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
+import { IDBFactory } from "fake-indexeddb";
 
 const PROBE = new URL("../../push/02_one_perfect_crop_asset_probe.json", import.meta.url);
 
@@ -108,18 +114,22 @@ test("the full body is in IndexedDB and never in the localStorage journal", asyn
   await h.runner.run("where");
   await h.bundle("where"); // export also writes the persistence verdict back to the journal
 
-  const cached = await h.cache.get("gameAsset.get", ASSET.id);
-  assert.deepEqual(cached.data, ASSET, "IndexedDB holds the body");
+  const key = snapshotKey("where", "after", 0);
+  const snap = await h.cache.getSnapshot(key);
+  assert.deepEqual(snap.data, ASSET, "the immutable snapshot store holds the body");
+  assert.equal(snap.path, "gameAsset.get");
+  assert.equal(snap.id, ASSET.id);
 
   const localStorageText = JSON.stringify(h.storage.snapshot());
   assert.ok(!localStorageText.includes(ASSET.image), "no response body may reach the synchronous write-ahead journal");
   assert.ok(!localStorageText.includes(ASSET.name));
-  assert.ok(localStorageText.includes("gameAsset.get:" + ASSET.id), "the journal keeps the compact cache key instead");
+  assert.ok(localStorageText.includes(key), "the journal keeps the compact snapshot key instead");
 
   const journalled = h.journal.get("where").capturesAfter[0];
   assert.ok(!("data" in journalled));
   assert.equal(journalled.persist, "full");
   assert.equal(journalled.persistOk, true);
+  assert.equal(journalled.snapshotKey, key);
 });
 
 // ---------------------------------------------------------------- 12: the embedded journal
@@ -239,13 +249,14 @@ test("a full body missing from IndexedDB at export is an explicit non-success, n
   const s = await h.runner.run("gone");
   assert.equal(s.outcome, "success", "at read time the body was there");
 
-  await h.cache.delete("gameAsset.get", ASSET.id); // e.g. an entity invalidation, or an evicted store
+  await h.cache.deleteSnapshot(snapshotKey("gone", "after", 0)); // e.g. an evicted store
+  assert.ok(await h.cache.get("gameAsset.get", ASSET.id), "the ordinary read cache still holds a body");
   const bundle = await h.bundle("gone");
   const [capture] = bundle.captures;
   assert.equal(capture.ok, true, "the read itself still succeeded and is reported honestly");
   assert.equal(capture.persistOk, false);
-  assert.match(capture.persistError, /no longer in the capture cache/);
-  assert.ok(!("data" in capture), "no fabricated body");
+  assert.match(capture.persistError, /capture snapshot .* is gone/);
+  assert.ok(!("data" in capture), "and the read cache is NOT a fallback: a cache body is not this read's body");
   assert.equal(bundle.outcome, "failed", "a capture-only job that owes a body it cannot produce is not a success");
   assert.equal(jobOutcome(h.journal.get("gone")), "failed", "and the journal, not just the bundle, says so");
   assert.equal(h.game.calls.length, 1, "a missing body is reported, NOT re-read from the game");
@@ -262,9 +273,10 @@ test("a full capture whose body exceeds the ceiling fails explicitly and is neve
   const [capture] = bundle.captures;
   assert.equal(capture.ok, true);
   assert.equal(capture.persistOk, false);
-  assert.match(capture.persistError, /over the \d+-byte full-capture ceiling/);
+  assert.match(capture.persistError, /over the \d+-byte full-capture ceiling/, "export keeps the reason the capture pass recorded");
   assert.match(capture.persistError, /NOT truncated/);
   assert.ok(!("data" in capture), "an oversized body is withheld whole, never shortened and relabelled");
+  assert.equal(await h.cache.getSnapshot(snapshotKey("big", "after", 0)), null, "and nothing oversized was stored at all");
 });
 
 // ---------------------------------------------------------------- 10: a failed read
@@ -297,7 +309,7 @@ test("a job that also writes degrades to unverified when a requested body is mis
   assert.equal(s.state, "DONE");
   assert.equal(s.outcome, "success", "the write verified and the body was cached");
 
-  await h.cache.delete("gameAsset.get", ASSET.id);
+  await h.cache.deleteSnapshot(snapshotKey("mixed", "before", 0));
   const bundle = await h.bundle("mixed");
   assert.equal(bundle.outcome, "unverified", "no write is in doubt, but the promised evidence is not there");
   assert.equal(bundle.postflight.match, 1, "the write's own verdict is untouched");
@@ -333,4 +345,160 @@ test("push/02_one_perfect_crop_asset_probe.json parses under the contract and st
   assert.match(m.note, /[Rr]ead-only/);
   assert.match(m.note, /[Zz]ero game mutations/);
   assert.ok(!/"asset\.get"/.test(text), "the un-audited alias is gone from the file");
+});
+
+// ================================================================ FFC-1
+// A full capture must durably identify the body of THAT read. The path+id read cache cannot do
+// that: the next read of the record replaces the slot, and a write to the entity deletes it. Each
+// test below fails against a path+id-keyed implementation.
+
+/** An asset edit the runner will actually send: renames the record, so before/after differ. */
+const renameAsset = (id, name) => ({ entity: "asset", slot: "edit", name, targetId: id, data: { name } });
+
+test("FFC-1: before/write/after on ONE record exports the before body and the after body", async () => {
+  const h = harness();
+  h.game.seed("asset", { ...ASSET });
+  h.runner.plan({
+    capture: { before: [fullCapture(ASSET.id)], after: [fullCapture(ASSET.id)] },
+    items: [renameAsset(ASSET.id, "Chase Alley Plate v2")],
+  }, { jobId: "ba" });
+  const s = await h.runner.run("ba");
+  assert.equal(s.state, "DONE");
+  assert.equal(s.outcome, "success");
+
+  // the update deleted the read cache slot and the read-back refilled it with the NEW body, so
+  // gameAsset.get:<id> now holds the after record. That is correct for a cache and fatal as an
+  // identity for the before capture.
+  assert.equal((await h.cache.get("gameAsset.get", ASSET.id)).data.name, "Chase Alley Plate v2");
+
+  const callsBeforeExport = h.game.calls.length;
+  const bundle = await h.bundle("ba");
+  assert.equal(h.game.calls.length, callsBeforeExport, "export performs no read");
+
+  const [before, after] = bundle.captures;
+  assert.equal(before.phase, "before");
+  assert.equal(after.phase, "after");
+  assert.equal(before.persistOk, true);
+  assert.equal(after.persistOk, true);
+  assert.deepEqual(before.data, ASSET, "the BEFORE entry carries the body of the before read");
+  assert.equal(after.data.name, "Chase Alley Plate v2", "and the after entry carries the after body");
+  assert.notEqual(before.snapshotKey, after.snapshotKey, "two occurrences, two immutable snapshots");
+  assert.equal(bundle.entries[0].verdict, "match", "the write itself still verified");
+
+  // exactly one read per capture: the before pass, the after pass, and the item's own fill/verify
+  // reads, but no capture read repeated
+  const captureReads = h.game.calls.filter((c) => c.path === "gameAsset.get").length;
+  assert.equal(captureReads, 4, "before capture, fill, read-back, after capture - and nothing else");
+});
+
+test("FFC-1: two full reads of the same path+id keep their own bodies, not the newest", async () => {
+  const h = harness();
+  h.game.seed("asset", { ...ASSET });
+  let n = 0;
+  const orig = h.game.handle.bind(h.game);
+  h.game.handle = (path, input) => {
+    // the record changes underneath us between the two capture reads, with no write from this job
+    if (path === "gameAsset.get" && n++ === 1) h.game.tables.asset.get(ASSET.id).name = "Renamed By Someone Else";
+    return orig(path, input);
+  };
+  h.runner.plan({ items: [], capture: { after: [fullCapture(ASSET.id), fullCapture(ASSET.id)] } }, { jobId: "twice" });
+  const s = await h.runner.run("twice");
+  assert.equal(s.outcome, "success");
+  assert.equal(h.game.calls.filter((c) => c.path === "gameAsset.get").length, 2, "two reads, because both were requested fresh");
+
+  const bundle = await h.bundle("twice");
+  assert.equal(bundle.captures.length, 2);
+  assert.equal(bundle.captures[0].data.name, "Chase Alley Plate", "the first capture kept the body IT read");
+  assert.equal(bundle.captures[1].data.name, "Renamed By Someone Else");
+  assert.deepEqual(bundle.captures.map((c) => c.snapshotKey), [snapshotKey("twice", "after", 0), snapshotKey("twice", "after", 1)]);
+});
+
+test("FFC-1: a before-only full capture survives the job's own write to that entity", async () => {
+  const h = harness();
+  h.game.seed("asset", { ...ASSET });
+  h.runner.plan({
+    capture: { before: [fullCapture(ASSET.id)] },
+    items: [renameAsset(ASSET.id, "Renamed Plate")],
+  }, { jobId: "beforeonly" });
+  const s = await h.runner.run("beforeonly");
+  assert.equal(s.outcome, "success");
+  // invalidateRecord ran on the asset entity; the snapshot is in a different store and untouched
+  const snap = await h.cache.getSnapshot(snapshotKey("beforeonly", "before", 0));
+  assert.deepEqual(snap.data, ASSET);
+
+  const bundle = await h.bundle("beforeonly");
+  assert.equal(bundle.captures[0].persistOk, true);
+  assert.deepEqual(bundle.captures[0].data, ASSET, "the pre-write state is still exportable after the write");
+  assert.equal(h.game.rows("asset")[0].name, "Renamed Plate", "and the live record really did change");
+});
+
+test("FFC-1: snapshot bodies reach neither the localStorage journal nor the embedded journal", async () => {
+  const h = harness();
+  h.game.seed("asset", { ...ASSET });
+  // the write changes `image` rather than `name`, so the after body's distinguishing value is one
+  // that has no legitimate reason to be in the journal at all (an item's NAME does, and is)
+  const NEW_IMAGE = "https://utfs.io/f/chase-alley-v2.webp";
+  h.runner.plan({
+    capture: { before: [fullCapture(ASSET.id)], after: [fullCapture(ASSET.id)] },
+    items: [{ entity: "asset", slot: "edit", name: ASSET.name, targetId: ASSET.id, data: { image: NEW_IMAGE } }],
+  }, { jobId: "compact" });
+  await h.runner.run("compact");
+  const bundle = await h.bundle("compact");
+  assert.equal(bundle.captures[1].data.image, NEW_IMAGE, "the after body really did change");
+
+  const localStorageText = JSON.stringify(h.storage.snapshot());
+  for (const needle of [ASSET.image, ASSET.folder, NEW_IMAGE]) {
+    assert.ok(!localStorageText.includes(needle), `localStorage must not carry ${needle}`);
+  }
+  const embedded = JSON.stringify(bundle.journal);
+  assert.ok(!embedded.includes(ASSET.image), "the embedded journal must not duplicate a body");
+  for (const entry of [...bundle.journal.capturesBefore, ...bundle.journal.capturesAfter]) {
+    assert.ok(!("data" in entry));
+    assert.match(entry.snapshotKey, /^compact::(before|after)::0$/);
+  }
+  assert.deepEqual(bundle.captures[0].data, ASSET, "while the bundle beside it does carry the bodies");
+});
+
+test("FFC-1: snapshots survive a restart and export from persisted state alone", async () => {
+  const game = new FakeGame();
+  const storage = new MemoryStorage();
+  const idb = new IDBFactory();
+  game.seed("asset", { ...ASSET });
+  {
+    // "the tab that ran the job", which then goes away entirely
+    const first = composeForTest({ game, storage, idb });
+    first.runner.plan({ items: [], capture: { after: [fullCapture(ASSET.id)] } }, { jobId: "restart", manifestPath: "push/02_one_perfect_crop_asset_probe.json" });
+    assert.equal((await first.runner.run("restart")).state, "DONE");
+    first.cache.close();
+  }
+  const callsAtRestart = game.calls.length;
+
+  // a fresh composition over the SAME localStorage and the SAME IndexedDB: no runner state, no
+  // parsed manifest, nothing in memory - only what was persisted
+  const second = composeForTest({ game, storage: storage.crash(), idb });
+  const app = new App({ version: "forge test", storage: second.storage, now: second.clock, ...second, github: { list: async () => [], text: async () => "", put: async () => ({}) } });
+  let exported = null;
+  app.showExport = (t) => { exported = t; };
+  await app.exportJob("restart");
+  const bundle = JSON.parse(exported);
+  assert.equal(bundle.captures[0].persistOk, true);
+  assert.deepEqual(bundle.captures[0].data, ASSET, "the body came back out of persisted IndexedDB");
+  assert.equal(game.calls.length, callsAtRestart, "and not out of the game");
+});
+
+test("FFC-1: a job's snapshots are deletable by job, and only that job's", async () => {
+  const h = harness();
+  h.game.seed("asset", { ...ASSET });
+  h.game.seed("asset", { ...ASSET2 });
+  h.runner.plan({ items: [], capture: { after: [fullCapture(ASSET.id)] } }, { jobId: "keep" });
+  await h.runner.run("keep");
+  h.runner.plan({ items: [], capture: { after: [fullCapture(ASSET2.id)] } }, { jobId: "drop" });
+  await h.runner.run("drop");
+  assert.equal((await h.cache.listSnapshots()).length, 2);
+
+  assert.equal(await h.cache.deleteSnapshotsForJob("drop"), 1);
+  const left = await h.cache.listSnapshots();
+  assert.deepEqual(left.map((r) => r.jobId), ["keep"]);
+  assert.deepEqual((await h.cache.getSnapshot(snapshotKey("keep", "after", 0))).data, ASSET);
+  assert.equal(await h.cache.getSnapshot(snapshotKey("drop", "after", 0)), null);
 });

@@ -173,17 +173,45 @@ test("a full-capture manifest is labelled before the run and reported body-by-bo
   assert.match(text, /zero mutations were sent/);
   assert.match(text, /body persisted/);
 
-  // and once the cached body is gone, the same screen stops claiming the bundle carries it
-  await app.cache.delete("gameAsset.get", ASSET.id);
+  // and once the snapshot is gone, the same screen stops claiming the bundle carries it
+  await app.cache.deleteSnapshot(`${job.jobId}::after::0`);
   await app.exportJob(job.jobId);
   app.refresh();
   text = win.document.querySelector(".f-main").textContent;
   assert.match(text, /Read-only capture incomplete/);
   assert.match(text, /could not be persisted/);
-  assert.match(text, /no longer in the capture cache/);
+  assert.match(text, /capture snapshot .* is gone/);
   assert.match(text, /zero mutations were sent/);
   assert.doesNotMatch(text, /Read-only capture complete/);
   assert.equal(game.calls.length, 1, "nothing on this screen ever goes back to the game for a body");
+});
+
+test("Captures screen lists full-capture snapshots apart from the read cache", async () => {
+  const win = dom();
+  const ASSET = { id: "XsLLy8awDAtaE6hXVIi_0", name: "Chase Alley Plate", type: "STATIC", image: "https://utfs.io/f/chase-alley.webp", folder: "scene", hidden: false };
+  const { app, game } = appWith();
+  game.seed("asset", { ...ASSET });
+  app.github.text = async () => JSON.stringify({ items: [], capture: { after: [{ proc: "gameAsset.get", input: { id: ASSET.id }, persist: "full" }] } });
+  app.mount(win.document.body, win.document);
+  app.go("manifests");
+  await app.loadPicker(true);
+  await app.selectManifest(app.state.picker[0]);
+  app.confirm = (_m, run) => run();
+  [...win.document.querySelector(".f-main").querySelectorAll("button")].find((b) => b.textContent === "Run captures").click();
+  await new Promise((resolve) => setTimeout(resolve, 40));
+
+  app.go("captures");
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  const text = win.document.querySelector(".f-main").textContent;
+  assert.match(text, /Full-capture snapshots/);
+  assert.match(text, /1 snapshot/);
+  assert.match(text, /never invalidated by a write/);
+  assert.match(text, /::after::0/, "the snapshot is listed by its occurrence key, not by path:id");
+  // clearing the READ CACHE is offered separately from deleting evidence, and does not delete it
+  [...win.document.querySelectorAll("button")].find((b) => b.textContent === "Clear all").click();
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  assert.equal((await app.cache.listSnapshots()).length, 1, "clearing the read cache leaves the snapshots");
+  assert.deepEqual(await app.cache.list(), []);
 });
 
 test("Manifests: list, select, plan shown, Start job runs to DONE through the runner", async () => {
