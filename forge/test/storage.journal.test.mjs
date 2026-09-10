@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { Journal, JournalError, KEY_PREFIX, TERMINAL_ITEM_STATES, migrate, JOURNAL_VERSION } from "../src/storage/journal.mjs";
+import { Journal, JournalError, KEY_PREFIX, TERMINAL_ITEM_STATES, jobOutcome, migrate, JOURNAL_VERSION } from "../src/storage/journal.mjs";
 import { payloadHash, stableStringify } from "../src/storage/hash.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
 
@@ -41,6 +41,17 @@ test("open writes one key per job, derived listing has no separate index", () =>
 test("duplicate jobId refuses", () => {
   const s = new MemoryStorage(); const j = openJob(s, fakeClock());
   assert.throws(() => j.open({ jobId: "job1", items: specs() }), JournalError);
+});
+
+test("capture-only journal open is explicit and its outcome follows the capture results", () => {
+  const s = new MemoryStorage(); const j = new Journal(s, fakeClock());
+  assert.throws(() => j.open({ jobId: "empty", items: [] }), /at least one item/);
+  j.open({ jobId: "capture", manifestPath: "push/read.json", items: [], allowEmpty: true });
+  j.annotateJob("capture", { capturesAfter: [{ phase: "after", proc: "jutsu.getAllNames", ok: true, rows: 0, error: null }] });
+  j.setJobState("capture", "DONE");
+  assert.equal(jobOutcome(j.get("capture")), "success");
+  j.annotateJob("capture", { capturesAfter: [{ phase: "after", proc: "jutsu.getAllNames", ok: false, rows: 0, error: "NOT_FOUND" }] });
+  assert.equal(jobOutcome(j.get("capture")), "failed");
 });
 
 test("legal chain PLANNED -> SENT -> CONFIRMED -> SENT -> CONFIRMED -> VERIFIED (two-phase create)", () => {

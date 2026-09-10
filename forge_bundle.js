@@ -1,4 +1,4 @@
-// TNR forge bundle v0.2.0 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.2.1 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Host: any unmatched path on the game origin (/forge). Layers: storage, transport, budget, runner, reconcile, ui.
 // Pinned engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
@@ -34,9 +34,14 @@
   function jobOutcome(job) {
     if (!job || !Array.isArray(job.items)) return "open";
     if (job.state === "RUNNING" || job.state === "PAUSED") return "open";
+    if (!job.items.length) {
+      const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
+      if (!captures.length) return "unverified";
+      return captures.every((capture) => capture && capture.ok === true) ? "success" : "failed";
+    }
     if (job.items.some((it) => it.state === "FAILED")) return "failed";
     if (job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state) || it.state === "SKIPPED" || it.verify && it.verify !== "match")) return "unverified";
-    return job.items.length ? "success" : "unverified";
+    return "success";
   }
   var JournalError = class extends Error {
     constructor(message, info) {
@@ -185,9 +190,9 @@
      * Open a new job. items are specs: {entity, op, name, srcId, targetId, payloadHash}.
      * Refuses when a non-terminal job with the same manifestHash already exists: resume it.
      */
-    open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash, items }) {
+    open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash, items, allowEmpty = false }) {
       if (!jobId) throw new JournalError("jobId required");
-      if (!Array.isArray(items) || !items.length) throw new JournalError("a job needs at least one item");
+      if (!Array.isArray(items) || !items.length && !allowEmpty) throw new JournalError("a job needs at least one item unless it is an explicit capture-only job");
       if (this._read(jobId)) throw new JournalError("job already exists: " + jobId, { jobId });
       if (manifestHash) {
         const dup = this.resumable().find((j) => j.manifestHash === manifestHash);
@@ -4009,7 +4014,8 @@
     plan(manifestSource, { jobId, manifestPath = null, manifestNumber: manifestNumber2 = null } = {}) {
       const manifest = parseManifest(manifestSource);
       const order = planOrder(manifest, readIdmap(this.storage));
-      const job = this.journal.open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash: manifest.hash, items: toJournalSpecs(order) });
+      const captureOnly = order.length === 0 && manifest.capture.before.length + manifest.capture.after.length > 0;
+      const job = this.journal.open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash: manifest.hash, items: toJournalSpecs(order), allowEmpty: captureOnly });
       this.manifests.set(jobId, { manifest, order });
       return job;
     }
@@ -4870,7 +4876,10 @@ details summary { cursor:pointer; color:var(--mute); }
   }
   function SelectedManifest(app) {
     const s = app.state.selected;
-    const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items \xB7 manifest hash ${s.manifest.hash}`));
+    const captureCount = s.manifest.capture.before.length + s.manifest.capture.after.length;
+    const readOnly = s.plan.length === 0;
+    const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` \xB7 ${captureCount} capture${captureCount === 1 ? "" : "s"}` : ""} \xB7 manifest hash ${s.manifest.hash}`));
+    if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
     if (s.problems.length) card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, "Cannot run: "), h("div", { class: "f-err" }, s.problems.join("\n"))));
     if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
     if (s.manifest.warnings && s.manifest.warnings.length) {
@@ -4902,7 +4911,14 @@ details summary { cursor:pointer; color:var(--mute); }
     card.appendChild(h(
       "div",
       { class: "f-actions" },
-      h("button", { class: "f-primary", disabled: s.problems.length > 0 || missingImgs.length > 0, onClick: () => app.confirm(`Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)? This writes to the game.`, () => app.startJob()) }, "Start job"),
+      h("button", {
+        class: "f-primary",
+        disabled: s.problems.length > 0 || missingImgs.length > 0,
+        onClick: () => app.confirm(
+          readOnly ? `Run read-only capture job for ${s.entry.name}: ${captureCount} capture${captureCount === 1 ? "" : "s"}? No mutations will be sent.` : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)? This writes to the game.`,
+          () => app.startJob()
+        )
+      }, readOnly ? "Run captures" : "Start job"),
       h("button", { onClick: () => {
         app.state.selected = null;
         app.refresh();
@@ -4924,7 +4940,11 @@ details summary { cursor:pointer; color:var(--mute); }
       h("div", { class: "f-bar" + (job.state === "PAUSED" ? " warn" : "") }, h("i", { style: { width: Math.round(done / (job.items.length || 1) * 100) + "%" } }))
     );
     const outcome = jobOutcome(job);
-    if (job.state === "DONE" || job.state === "INCOMPLETE") {
+    if ((job.state === "DONE" || job.state === "INCOMPLETE") && job.items.length === 0) {
+      const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
+      const failed = captures.filter((capture) => !capture.ok).length;
+      root.appendChild(outcome === "success" ? h("div", { class: "f-banner ok" }, h("b", {}, "Read-only capture complete. "), `${captures.length}/${captures.length} reads succeeded; zero mutations were sent.`) : h("div", { class: "f-banner bad" }, h("b", {}, "Read-only capture failed. "), `${failed} of ${captures.length} reads failed; zero mutations were sent.`));
+    } else if (job.state === "DONE" || job.state === "INCOMPLETE") {
       const drift = job.items.filter((i) => i.verify === "drift").length;
       const unread = job.items.filter((i) => i.verify === "unread").length;
       const failed = job.items.filter((i) => i.state === "FAILED").length;
@@ -5237,10 +5257,11 @@ details summary { cursor:pointer; color:var(--mute); }
       }, 1500);
       try {
         const s = await fn();
-        const counts = Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ");
-        const verify = s.verify ? `${s.verify.match} verified, ${s.verify.drift} drift, ${s.verify.unread} unread` : "";
+        const job = this.journal.get(jobId);
+        const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
+        const detail = job.items.length ? `${Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${s.verify.match} verified, ${s.verify.drift} drift, ${s.verify.unread} unread` : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures ok \xB7 zero mutations`;
         const kind = s.outcome === "success" ? "ok" : s.outcome === "failed" ? "bad" : "warn";
-        this.toast(`job ${s.state} (${s.outcome}): ${counts}${verify ? " \xB7 " + verify : ""}`, kind, 8e3);
+        this.toast(`job ${s.state} (${s.outcome}): ${detail}`, kind, 8e3);
         if (s.state === "DONE" || s.state === "INCOMPLETE") await this.exportJob(jobId, { auto: true });
       } catch (e) {
         this.fail("run", e);
@@ -10364,7 +10385,7 @@ details summary { cursor:pointer; color:var(--mute); }
   };
 
   // src/main.mjs
-  var VERSION = "forge 0.2.0";
+  var VERSION = "forge 0.2.1";
   function compose({
     storage,
     indexedDB,

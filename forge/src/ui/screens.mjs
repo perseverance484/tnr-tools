@@ -97,7 +97,10 @@ export function ManifestsScreen(app) {
 
 function SelectedManifest(app) {
   const s = app.state.selected;
-  const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items · manifest hash ${s.manifest.hash}`));
+  const captureCount = s.manifest.capture.before.length + s.manifest.capture.after.length;
+  const readOnly = s.plan.length === 0;
+  const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` · ${captureCount} capture${captureCount === 1 ? "" : "s"}` : ""} · manifest hash ${s.manifest.hash}`));
+  if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
   if (s.problems.length) card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, "Cannot run: "), h("div", { class: "f-err" }, s.problems.join("\n"))));
   if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
   // advisories: worth reading, not worth blocking. A blocking lint is already in `problems`.
@@ -119,7 +122,12 @@ function SelectedManifest(app) {
   }
   const missingImgs = imgs.filter((n) => !app.runner.files.has(n));
   card.appendChild(h("div", { class: "f-actions" },
-    h("button", { class: "f-primary", disabled: s.problems.length > 0 || missingImgs.length > 0, onClick: () => app.confirm(`Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)? This writes to the game.`, () => app.startJob()) }, "Start job"),
+    h("button", { class: "f-primary", disabled: s.problems.length > 0 || missingImgs.length > 0, onClick: () => app.confirm(
+      readOnly
+        ? `Run read-only capture job for ${s.entry.name}: ${captureCount} capture${captureCount === 1 ? "" : "s"}? No mutations will be sent.`
+        : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)? This writes to the game.`,
+      () => app.startJob()),
+    }, readOnly ? "Run captures" : "Start job"),
     h("button", { onClick: () => { app.state.selected = null; app.refresh(); } }, "Clear"),
   ));
   return card;
@@ -137,7 +145,13 @@ export function RunScreen(app) {
     h("div", { class: "f-bar" + (job.state === "PAUSED" ? " warn" : "") }, h("i", { style: { width: Math.round(done / (job.items.length || 1) * 100) + "%" } })),
   );
   const outcome = jobOutcome(job);
-  if (job.state === "DONE" || job.state === "INCOMPLETE") {
+  if ((job.state === "DONE" || job.state === "INCOMPLETE") && job.items.length === 0) {
+    const captures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
+    const failed = captures.filter((capture) => !capture.ok).length;
+    root.appendChild(outcome === "success"
+      ? h("div", { class: "f-banner ok" }, h("b", {}, "Read-only capture complete. "), `${captures.length}/${captures.length} reads succeeded; zero mutations were sent.`)
+      : h("div", { class: "f-banner bad" }, h("b", {}, "Read-only capture failed. "), `${failed} of ${captures.length} reads failed; zero mutations were sent.`));
+  } else if (job.state === "DONE" || job.state === "INCOMPLETE") {
     const drift = job.items.filter((i) => i.verify === "drift").length;
     const unread = job.items.filter((i) => i.verify === "unread").length;
     const failed = job.items.filter((i) => i.state === "FAILED").length;

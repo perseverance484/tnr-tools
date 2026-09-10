@@ -115,6 +115,33 @@ test("Settings saves the PAT under the retained key and the export shows a texta
   assert.ok(win.document.querySelector("textarea"));
 });
 
+test("capture-only manifest is presented and completed as read-only", async () => {
+  const win = dom();
+  const { app, game } = appWith();
+  app.github.text = async () => JSON.stringify({ items: [], capture: { after: [{ proc: "jutsu.getAllNames", input: {} }] } });
+  app.mount(win.document.body, win.document);
+  app.go("manifests");
+  await app.loadPicker(true);
+  await app.selectManifest(app.state.picker[0]);
+  const main = win.document.querySelector(".f-main");
+  assert.match(main.textContent, /Read-only capture job/);
+  assert.match(main.textContent, /zero mutations/);
+  const start = [...main.querySelectorAll("button")].find((button) => button.textContent === "Run captures");
+  assert.ok(start && !start.disabled);
+  let prompt = "";
+  app.confirm = (message, run) => { prompt = message; run(); };
+  start.click();
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  assert.match(prompt, /No mutations will be sent/);
+  assert.doesNotMatch(prompt, /writes to the game/i);
+  assert.deepEqual(game.calls.map((call) => call.path), ["jutsu.getAllNames"]);
+  const job = app.journal.listJobs()[0];
+  assert.equal(job.state, "DONE");
+  app.go("run", { jobId: job.jobId });
+  assert.match(win.document.querySelector(".f-main").textContent, /Read-only capture complete/);
+  assert.match(win.document.querySelector(".f-main").textContent, /zero mutations were sent/);
+});
+
 test("Manifests: list, select, plan shown, Start job runs to DONE through the runner", async () => {
   const win = dom();
   const { app, game } = appWith();
