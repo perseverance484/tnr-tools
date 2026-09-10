@@ -2,13 +2,19 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// A floating @require can change after review; release loaders must pin immutable bundle commits.
+// The public loader may self-update from main, but the executable bundle it names must stay
+// immutable. Development branches therefore keep the last released @version/@require and mark the
+// next package version with @x-release-pending. release_pin.yml promotes both together after merge.
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const REQUIRE_RE = /^\/\/ @require\s+(\S+)\s*$/m;
 const VERSION_RE = /^\/\/ @version\s+(\S+)\s*$/m;
+const UPDATE_RE = /^\/\/ @updateURL\s+(\S+)\s*$/m;
+const DOWNLOAD_RE = /^\/\/ @downloadURL\s+(\S+)\s*$/m;
 const MARKER_RE = /^\/\/ @x-unpinned-until-release\s+(\S+)\s*$/m;
+const PENDING_RE = /^\/\/ @x-release-pending\s+(\S+)\s*$/m;
 const JSDELIVR_RE = /^https:\/\/cdn\.jsdelivr\.net\/gh\/perseverance484\/tnr-tools@(.+)\/([A-Za-z0-9_.-]+\.js)$/;
 const SHA_RE = /^[0-9a-f]{40}$/;
+const UPDATE_URL = "https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js";
 const WORKFLOWS = [".github/workflows/release_pin.yml", "state/staged_workflows/release_pin.yml"];
 
 const blocker = (text) => ({ level: "blocker", text });
@@ -21,6 +27,7 @@ export function checkReleasePin({ root = repo } = {}) {
 
   const loader = readFileSync(loaderPath, "utf8");
   const req = REQUIRE_RE.exec(loader);
+  let requirePinned = false;
   if (!req) {
     add("forge_loader_user.js has no @require line");
   } else {
@@ -33,20 +40,37 @@ export function checkReleasePin({ root = repo } = {}) {
       if (!SHA_RE.test(ref)) {
         const marker = MARKER_RE.exec(loader);
         if (!marker) add(`forge_loader_user.js @require floats on "${ref}" with no @x-unpinned-until-release marker`);
-        else if (marker[1] !== ref) add(`forge_loader_user.js marker says "${marker[1]}" but the @require serves "${ref}"`);
-      } else if (MARKER_RE.test(loader)) {
-        add("forge_loader_user.js is commit-pinned but still carries @x-unpinned-until-release");
+        else add(`forge_loader_user.js @require floats on "${ref}"; Forge self-update requires the last immutable release pin, not @x-unpinned-until-release`);
+      } else {
+        requirePinned = true;
+        if (MARKER_RE.test(loader)) add("forge_loader_user.js is commit-pinned but still carries @x-unpinned-until-release");
       }
     }
   }
 
+  const update = UPDATE_RE.exec(loader)?.[1];
+  const download = DOWNLOAD_RE.exec(loader)?.[1];
+  if (update !== UPDATE_URL) add(`forge_loader_user.js @updateURL must be ${UPDATE_URL}`);
+  if (download !== UPDATE_URL) add(`forge_loader_user.js @downloadURL must be ${UPDATE_URL}`);
+
   const version = VERSION_RE.exec(loader)?.[1];
+  const pending = PENDING_RE.exec(loader)?.[1];
   const packagePath = join(root, "forge", "package.json");
   if (!existsSync(packagePath)) add("forge/package.json is missing");
   else {
     const expected = JSON.parse(readFileSync(packagePath, "utf8")).version;
-    if (!version) add("forge_loader_user.js has no @version line");
-    else if (version !== expected) add(`forge_loader_user.js @version ${version} != forge/package.json ${expected}`);
+    if (!version) {
+      add("forge_loader_user.js has no @version line");
+    } else if (version !== expected) {
+      if (!(requirePinned && pending === expected)) {
+        add(`forge_loader_user.js @version ${version} != forge/package.json ${expected}`);
+      }
+    } else if (pending) {
+      add(`forge_loader_user.js @x-release-pending ${pending} remains even though @version already equals forge/package.json ${expected}`);
+    }
+    if (pending && pending !== expected) {
+      add(`forge_loader_user.js @x-release-pending ${pending} != forge/package.json ${expected}`);
+    }
   }
 
   const workflowRel = WORKFLOWS.find((rel) => existsSync(join(root, rel)));
@@ -64,8 +88,12 @@ export function checkReleasePin({ root = repo } = {}) {
   }
 
   const scriptPath = join(root, ".github", "scripts", "pin_release.py");
-  if (existsSync(scriptPath) && /sys\.stdin/.test(readFileSync(scriptPath, "utf8"))) {
-    add("pin_release.py still selects targets from stdin; it must pin both current bundles on every run");
+  if (!existsSync(scriptPath)) {
+    add("pin_release.py is missing");
+  } else {
+    const script = readFileSync(scriptPath, "utf8");
+    if (/sys\.stdin/.test(script)) add("pin_release.py still selects targets from stdin; it must pin both current bundles on every run");
+    if (!script.includes("@x-release-pending")) add("pin_release.py does not remove @x-release-pending during promotion");
   }
   return problems;
 }
