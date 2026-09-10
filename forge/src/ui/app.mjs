@@ -9,6 +9,8 @@ import { manifestNumber, manifestSummary, GH } from "../github.mjs";
 import { readGh } from "../storage/compat.mjs";
 import { JournalError, jobOutcome } from "../storage/journal.mjs";
 import { MAX_FULL_CAPTURE_BYTES } from "../storage/captures.mjs";
+import { protectedPathsFor } from "../runner/runner.mjs";
+import { AUTH } from "../transport/auth.mjs";
 
 const SCREENS = { jobs: ["Jobs", JobsScreen], manifests: ["Manifests", ManifestsScreen], run: ["Run", RunScreen], captures: ["Captures", CapturesScreen], settings: ["Settings", SettingsScreen] };
 
@@ -51,6 +53,8 @@ export class App {
   constructor(d) {
     Object.assign(this, d);
     this.now = d.now ?? (() => Date.now());
+    this.exit = d.exit ?? null;   // set when Forge is an overlay over a carrier page
+    this.authBusy = false;
     this.state = { screen: "jobs", jobId: null, picker: null, selected: null, running: null, persisted: null };
     this.root = null;
   }
@@ -58,11 +62,14 @@ export class App {
   mount(container, doc = document) {
     installCss(CSS, doc);
     this.root = h("div", { class: "f-app" });
-    this.$top = h("div", { class: "f-top" }, h("span", { class: "f-title" }, "TNR forge"), h("span", { class: "f-ver" }, this.version));
+    this.$top = h("div", { class: "f-top" }, h("span", { class: "f-title" }, "TNR forge"), h("span", { class: "f-ver" }, this.version),
+      this.exit ? h("button", { class: "f-exit", onClick: () => this.close() }, "Close") : null);
     this.$nav = h("nav", { class: "f-nav" });
+    this.$auth = h("div", { class: "f-authbar" });
     this.$main = h("main", { class: "f-main" });
     this.$toast = h("div", { class: "f-toast" });
-    this.root.append(this.$top, this.$nav, this.$main, this.$toast);
+    this.root.append(this.$top, this.$nav, this.$auth, this.$main, this.$toast);
+    if (this.auth && typeof this.auth.onChange === "function") this._unwatchAuth = this.auth.onChange(() => this.refresh());
     container.appendChild(this.root);
     const open = this.journal.resumable();
     if (open.length) this.state.screen = "jobs";
@@ -75,6 +82,7 @@ export class App {
 
   refresh() {
     replace(this.$nav, Object.entries(SCREENS).map(([k, [label]]) => h("button", { "aria-current": this.state.screen === k ? "page" : null, onClick: () => this.go(k) }, label)));
+    if (this.$auth) replace(this.$auth, this.authBanner());
     try {
       replace(this.$main, SCREENS[this.state.screen][1](this));
     } catch (e) {
@@ -93,6 +101,61 @@ export class App {
     this.log(`${context}: ${msg}`);
   }
   log(msg) { (this.logs ??= []).push({ at: new Date(this.now()).toISOString(), msg }); }
+
+  // ------------------------------------------------------------------ auth health (brief D)
+  /** Close the overlay and hand the carrier page back to the operator. */
+  close() {
+    if (!this.exit) return;
+    if (this.state.running) return this.toast("a job is running; pause it before closing Forge", "warn");
+    if (this._unwatchAuth) { this._unwatchAuth(); this._unwatchAuth = null; }
+    this.exit();
+  }
+
+  /** Wait for the page's auth runtime, then probe once. Called on mount. */
+  async establishAuth() { return this._auth(() => this.auth.establish()); }
+  /** Operator-driven re-check, from the auth banner. */
+  async recheckAuth() { return this._auth(() => this.auth.probe()); }
+
+  async _auth(fn) {
+    if (!this.auth || this.authBusy) return this.auth ? this.auth.state : null;
+    this.authBusy = true;
+    this.refresh();
+    try { return await fn(); }
+    finally { this.authBusy = false; this.refresh(); }
+  }
+
+  /**
+   * The standing answer to "can Forge do protected work right now", on every screen. It is a
+   * separate line from job outcomes on purpose: "signed out" and "the read failed" are different
+   * problems with different fixes, and 0.3.0 could only ever say the second one.
+   */
+  authBanner() {
+    if (!this.auth) return null;
+    const state = this.auth.state;
+    const recheck = h("button", { disabled: this.authBusy, onClick: () => this.recheckAuth() }, this.authBusy ? "Checking\u2026" : "Re-check");
+    if (state === AUTH.READY) {
+      return h("div", { class: "f-banner ok" }, h("span", {}, "TNR session active. Protected reads and writes are available."), h("div", { class: "f-actions" }, recheck));
+    }
+    if (state === AUTH.PROBING || this.authBusy) {
+      return h("div", { class: "f-banner info" }, "Checking the TNR session\u2026");
+    }
+    const signedOut = state === AUTH.SIGNED_OUT;
+    return h("div", { class: "f-banner bad" },
+      h("div", {}, h("b", {}, signedOut ? "TNR authentication unavailable. " : "TNR authentication not confirmed. "),
+        signedOut
+          ? "The game refused a protected procedure for this browser session. Protected reads and writes are blocked and nothing protected will be sent."
+          : "Forge could not confirm a signed-in session, so protected reads and writes are blocked. This is not a read failure."),
+      h("div", { class: "f-mute" }, "Sign in to The Ninja RPG in this browser (the page under Forge is the game itself \u2014 close Forge, sign in, reopen /forge), then re-check. Public capture-only manifests can still run."),
+      this.auth.detail ? h("div", { class: "f-mute" }, this.auth.detail) : null,
+      h("div", { class: "f-actions" }, recheck));
+  }
+
+  /** Protected procedures a selected manifest would need that the session cannot supply. */
+  blockedPaths(plan, manifest) {
+    if (!this.auth) return [];
+    try { return protectedPathsFor(plan, manifest).filter((path) => !this.auth.allows(path)); }
+    catch { return []; }
+  }
 
   confirm(text, fn) {
     // window.confirm is synchronous and works in a userscript page; no custom modal needed.
@@ -144,6 +207,7 @@ export class App {
       }
       const images = [...new Set(plan.flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
       this.state.selected = { entry, text, manifest, plan, problems, images };
+      this.state.selected.blocked = this.blockedPaths(plan, manifest);
       this.refresh();
     } catch (e) { this.fail("select manifest", e instanceof ManifestError ? e : e); }
   }
@@ -151,6 +215,14 @@ export class App {
   // ------------------------------------------------------------------ jobs
   async startJob() {
     const s = this.state.selected; if (!s) return;
+    // Re-read the gate at the moment of the tap, not at selection time: the operator may have
+    // been sitting on this screen while the session expired.
+    const blocked = this.blockedPaths(s.plan, s.manifest);
+    if (blocked.length) {
+      this.toast(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9000);
+      this.state.selected.blocked = blocked;
+      return this.refresh();
+    }
     const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
     try {
       this.runner.plan(s.text, { jobId, manifestPath: s.entry.path, manifestNumber: s.entry.number });
@@ -199,7 +271,14 @@ export class App {
         ? `${Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} · ${s.verify.match} verified, ${s.verify.drift} drift, ${s.verify.unread} unread`
         : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` · ${full.filter((capture) => capture.persistOk === true).length}/${full.length} full bodies persisted` : ""} · zero mutations`;
       const kind = outcome === "success" ? "ok" : outcome === "failed" ? "bad" : "warn";
-      this.toast(`job ${s.state} (${outcome}): ${detail}`, kind, 8000);
+      // An auth pause gets its own sentence. The generic line would read "0/5 full bodies
+      // persisted", which is true and useless: it describes the symptom of a signed-out session
+      // as though the captures were the problem (brief section D).
+      if (job.pause && job.pause.reason === "SESSION") {
+        this.toast(`job PAUSED: TNR authentication unavailable${job.pause.path ? ` on ${job.pause.path}` : ""}. Nothing further was sent. Sign in and resume.`, "bad", 12000);
+      } else {
+        this.toast(`job ${s.state} (${outcome}): ${detail}`, kind, 8000);
+      }
       if (s.state === "DONE" || s.state === "INCOMPLETE") await this.exportJob(jobId, { auto: true });
     } catch (e) { this.fail("run", e); }
     finally { clearInterval(tick); this.state.running = null; this.refresh(); }

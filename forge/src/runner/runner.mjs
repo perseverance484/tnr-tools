@@ -19,6 +19,8 @@
 // TOO_MANY_REQUESTS from a read pauses the job with the path and countdown (budget layer).
 
 import { readCreate, readMutation, classifyError } from "../transport/outcome.mjs";
+import { AuthUnavailable } from "../transport/auth.mjs";
+import { isProtected } from "../transport/procedures.mjs";
 import { NetworkError } from "../transport/client.mjs";
 import { TransportError } from "../transport/envelope.mjs";
 import { RateLimited } from "../budget/bucket.mjs";
@@ -46,6 +48,28 @@ export class Paused extends Error {
 }
 const isTransport = (e) => e instanceof NetworkError || e instanceof TransportError;
 
+/**
+ * Every protected procedure a planned job would touch. The UI asks this before offering to run a
+ * manifest, and run()/resume() ask it before the first request, so "this manifest needs a session
+ * you do not have" is answered once, in one place, from the audited procedure table rather than
+ * from a guess about what a manifest looks like.
+ */
+export function protectedPathsFor(order, manifest) {
+  const paths = new Set();
+  const captures = manifest && manifest.capture ? [...(manifest.capture.before || []), ...(manifest.capture.after || [])] : [];
+  for (const c of captures) {
+    const path = c.proc || c.procedure;
+    if (path && isProtected(path)) paths.add(path);
+  }
+  for (const planned of order || []) {
+    const rc = recipe(planned.entity);
+    for (const path of [rc.create && rc.create.path, rc.get, rc.update, rc.names, rc.profileToggle, rc.profileUpdate]) {
+      if (path && isProtected(path)) paths.add(path);
+    }
+  }
+  return [...paths];
+}
+
 export class Runner {
   /**
    * @param {object} d  dependencies
@@ -57,6 +81,8 @@ export class Runner {
    * @param {object} [d.uploader]      {upload(file) -> {ufsUrl}}
    * @param {object} [d.reconciler]    {beforeCreate(job, item, entity), resolveSent(job, item, ctx)}
    * @param {Storage} d.storage        for the retained idmap
+   * @param {object} [d.auth]          {assert(path), state} - the auth gate. Optional so a
+   *   harness can leave it out; when it is absent nothing is gated, exactly as before it existed.
    * @param {(msg: string, item?: object) => void} [d.log]
    */
   constructor(d) {
@@ -69,6 +95,31 @@ export class Runner {
     this.tabId = d.tabId ?? randomTab();
     this.clock = d.clock ?? (() => Date.now());
   }
+
+  // ------------------------------------------------------------------ auth gate
+  /**
+   * Refuse a protected call while the game session is not established, BEFORE anything is
+   * journaled or sent (brief sections D and E). Two properties matter and both come from where
+   * this is called rather than from what it does:
+   *
+   *   - it runs before withSent(), so a refusal leaves the item in the state it was already in.
+   *     Nothing is marked SENT, so nothing enters reconciliation, and the mutation provably never
+   *     left the device. SENT semantics for real transport ambiguity are untouched;
+   *   - it keys off the procedure, not the job, so a public read still runs signed out. A
+   *     capture-only manifest over gameAsset.get is unaffected by a missing session, which is
+   *     what the procedure guards themselves already allow.
+   */
+  _requireAuth(path, idx = null) {
+    if (!this.auth || typeof this.auth.assert !== "function") return;
+    try { this.auth.assert(path); }
+    catch (e) {
+      if (!(e instanceof AuthUnavailable)) throw e;
+      throw new Paused("SESSION", { idx, path, detail: e.message, authState: e.state });
+    }
+  }
+
+  /** Every protected path a job would touch, so the gate can refuse before the first request. */
+  _protectedPaths(order, manifest) { return protectedPathsFor(order, manifest); }
 
   // ------------------------------------------------------------------ lease
   _leaseKey(jobId) { return LEASE_PREFIX + jobId; }
@@ -125,6 +176,14 @@ export class Runner {
     if (job.items.some((it) => it.state === "SENT")) {
       throw new Error("job has SENT items; call resume() so they are reconciled before anything else is sent");
     }
+    // Pre-flight: refuse the whole job at the door when it needs a session it does not have, so a
+    // signed-out operator gets one clear auth message instead of the first item discovering it.
+    // Only paths this job would actually use are checked, so a public capture-only job is not
+    // caught by a manifest it has nothing to do with.
+    for (const path of this._protectedPaths(order, manifest)) {
+      try { this._requireAuth(path); }
+      catch (e) { if (e instanceof Paused) return this._pause(jobId, e.reason, e); throw e; }
+    }
     this._lease(jobId);
     this._syncIdmapFromJob(job);
     this.pauseRequested = false;
@@ -165,8 +224,16 @@ export class Runner {
   /** Reconcile SENT items through the reconciler, then run. */
   async resume(jobId) {
     if (!this.reconciler) throw new Error("resume needs a reconciler");
-    const { order } = this._m(jobId);
+    const { manifest, order } = this._m(jobId);
     const job = this.journal.get(jobId);
+    // Reconciliation answers "did this SENT request land" by READING. Against a dead session
+    // every one of those reads fails, and the reconciler's honest answer to an unreadable record
+    // is to ORPHAN it - which would turn a five-minute sign-in into a pile of adopt-or-skip
+    // decisions about writes that are perfectly fine. Gate before the first read instead.
+    for (const path of this._protectedPaths(order, manifest)) {
+      try { this._requireAuth(path); }
+      catch (e) { if (e instanceof Paused) return this._pause(jobId, e.reason, e); throw e; }
+    }
     this._lease(jobId);
     this._syncIdmapFromJob(job);
     try {
@@ -298,6 +365,7 @@ export class Runner {
       if (key) this.journal.annotate(jobId, item.idx, { snapshotKey: key });
     }
     const input = rc.create.input(planned.data);
+    this._requireAuth(rc.create.path, item.idx);
     const decoded = await this.journal.withSent(jobId, item.idx, { phase: "create" }, () => this.client.call(rc.create.path, input));
     const o = readCreate(decoded);
     if (o.kind === "ok") {
@@ -315,6 +383,7 @@ export class Runner {
     const id = item.entityId ?? item.targetId;
     if (!id) throw new Error("no id to fill");
     const data = await this._resolved(planned.data, jobId);
+    this._requireAuth(rc.get, item.idx);
     const live = await this.reader.get(rc.get, id, { fresh: true });
     if (!live.ok) {
       const cls = classifyError(live.error);
@@ -325,6 +394,7 @@ export class Runner {
     const problems = this.validator.problems(item.entity, data, live.data);
     if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
     const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
+    this._requireAuth(rc.update, item.idx);
     const decoded = await this.journal.withSent(jobId, item.idx, { phase: "update" }, () => this.client.call(rc.update, { id, data: payload }));
     const o = readMutation(decoded);
     await this.cache.invalidateRecord(rc.cacheEntity, id);
@@ -344,10 +414,12 @@ export class Runner {
       const problems = this.validator.problems("aiProfile", planned.data, null);
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
     }
+    this._requireAuth(rc.get, item.idx);
     let live = await this.reader.get(rc.get, userId, { fresh: true });
     if (!live.ok || !live.data) throw new Error(`profile.getAi failed for ${userId}`);
     let apid = live.data.aiProfileId;
     if (!apid) {
+      this._requireAuth(rc.profileToggle, item.idx);
       const decoded = await this.journal.withSent(jobId, item.idx, { phase: "rules-toggle", entityId: userId }, () => this.client.call(rc.profileToggle, { aiId: userId }));
       const o = readMutation(decoded);
       if (o.kind !== "ok") { this._failFromOutcome(jobId, item, o, "toggle"); return; }
@@ -356,6 +428,7 @@ export class Runner {
       apid = live.ok && live.data ? live.data.aiProfileId : null;
       if (!apid) throw new Error("no aiProfileId after toggle");
     }
+    this._requireAuth(rc.profileUpdate, item.idx);
     const decoded = await this.journal.withSent(jobId, item.idx, { phase: "rules", entityId: userId, aiProfileId: apid }, () => this.client.call(rc.profileUpdate, { id: apid, rules, includeDefaultRules }));
     const o = readMutation(decoded);
     await this.cache.invalidateEntity("ai");
@@ -377,13 +450,19 @@ export class Runner {
     const data = await this._resolved(planned.data, jobId);
     const diffs = [];
     if (item.entity !== "aiProfile") {
+      this._requireAuth(rc.get, item.idx);
       const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
+      // An expired session must not be recorded as "we read it back and could not see it". The
+      // write is real and unverified either way, but the operator is told which problem it is.
+      if (!live.ok && classifyError(live.error) === "SESSION") throw new Paused("SESSION", { idx: item.idx, path: rc.get, detail: live.error.message });
       if (!live.ok || !live.data) { this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" }); return; }
       diffs.push(...diffAsserted(item.entity, data, live.data));
     }
     if ((item.entity === "ai" && Array.isArray(planned.data.rules)) || item.entity === "aiProfile") {
       if (!item.aiProfileId) { this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" }); return; }
+      this._requireAuth("ai.getAiProfile", item.idx);
       const pr = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
+      if (!pr.ok && classifyError(pr.error) === "SESSION") throw new Paused("SESSION", { idx: item.idx, path: "ai.getAiProfile", detail: pr.error.message });
       if (pr.ok && pr.data) {
         if (JSON.stringify(pr.data.rules ?? []) !== JSON.stringify(planned.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
         if (planned.data.includeDefaultRules !== undefined && pr.data.includeDefaultRules !== planned.data.includeDefaultRules) diffs.push({ key: "includeDefaultRules", sent: planned.data.includeDefaultRules, live: pr.data.includeDefaultRules });
@@ -460,7 +539,14 @@ export class Runner {
       const c = list[i];
       const path = c.proc || c.procedure;
       const id = c.id ?? (c.input && (c.input.id ?? c.input.userId));
+      this._requireAuth(path, null);
       const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true }); // RateLimited/Network propagate to run()
+      // THE OBSERVED DEFECT (harvests/inbox/tnr_results_17890671*.json): five protected reads
+      // came back UNAUTHORIZED, each was journaled as an ordinary failed read, the pass ran to
+      // the end and the job reported "0/5 full bodies persisted · read failed". That reads as a
+      // capture problem. It is an authentication problem, and it stops the pass here so the
+      // remaining reads are not spent proving the same thing four more times.
+      if (!r.ok && classifyError(r.error) === "SESSION") throw new Paused("SESSION", { path, detail: r.error.message, phase, ordinal: i });
       const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
       if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, c.input ?? null, r));
       out.push(entry);
@@ -505,7 +591,7 @@ export class Runner {
   _jobOf(item) { for (const [jobId, m] of this.manifests) if (m.order.some((o) => o === item || (o.idx === item.idx && this.journal.get(jobId)?.items[item.idx]?.srcId === item.srcId))) return jobId; return null; }
 
   _pause(jobId, reason, info) {
-    this.journal.setJobState(jobId, "PAUSED", { pause: { reason, path: info.path ?? null, until: info.until ?? null, idx: info.idx ?? null, detail: info.detail ?? null, httpStatus: info.httpStatus ?? null } });
+    this.journal.setJobState(jobId, "PAUSED", { pause: { reason, path: info.path ?? null, until: info.until ?? null, idx: info.idx ?? null, detail: info.detail ?? null, httpStatus: info.httpStatus ?? null, authState: info.authState ?? null, authRefused: info.authRefused ?? false } });
     this._releaseLease(jobId);
     this.log(`paused: ${reason}${info.path ? " on " + info.path : ""}`);
     return this.summary(jobId);
@@ -514,7 +600,16 @@ export class Runner {
   _failFromOutcome(jobId, item, o, step) {
     if (o.kind === "refused") { this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} refused: ${o.message}` }); return; }
     const cls = classifyError(o.error);
-    if (cls === "SESSION") throw new Paused("SESSION", { detail: o.error.message, idx: item.idx });
+    if (cls === "SESSION") {
+      // The server DECODED this element and refused it. That is a clean, complete answer: the
+      // resolver never ran, so nothing was written, and leaving the item SENT would hand a
+      // definite refusal to reconciliation as if the write might exist (brief section E). The
+      // item fails here, with the reason named as authentication, and then the job pauses so
+      // nothing after it is attempted against the same dead session.
+      this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} SESSION: ${o.error.message}`, authRefused: true });
+      this.log(`item ${item.idx} refused by the game as unauthenticated on ${step}`, item);
+      throw new Paused("SESSION", { detail: o.error.message, idx: item.idx, authRefused: true });
+    }
     const issues = o.error.zodError ? " " + o.error.zodError.map((z) => `${(z.path || []).join(".")}: ${z.message}`).join("; ") : "";
     this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} ${cls}: ${o.error.message}${issues}`, zodError: o.error.zodError ?? null });
   }

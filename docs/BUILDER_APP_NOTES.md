@@ -18,6 +18,13 @@ and a local checkout of the pinned source; see "Verification".
 
 The first real Firefox Android smoke exposed one integration seam: `parseManifest()` accepted capture-only manifests, but `Journal.open()` still rejected an empty item list. Forge 0.2.1 permits an empty journal only when `Runner.plan()` has parsed at least one capture, treats the job as successful only when every capture read succeeds, and labels the flow as read-only/zero-mutation in the UI. The smoke manifest is `push/00_forge_readonly_smoke.json`.
 
+## 0.4.0 protected-auth repair
+
+`state/prompt_forge_protected_auth.md`. Protected tRPC reads and writes now run from the browser's
+own authenticated Clerk session, because Forge runs inside the running application rather than on
+a providerless 404. See "Where Forge runs" and "Auth health" below. No credential is read, copied,
+stored or transmitted by any of it.
+
 ## 0.3.0 full capture persistence
 
 Built from `state/prompt_forge_full_capture.md`. Before this, `Runner._captures()` journalled only
@@ -134,36 +141,88 @@ fixtures: `npm run fixtures`. Dependencies are pinned in `forge/package.json`: `
 (read for protocol, not bundled), `esbuild`, `fake-indexeddb`, `jsdom`. Bundle version is
 `package.json` `version` (banner line 1 of `forge_bundle.js`, and `VERSION` in `main.mjs`).
 
-## Host path: `/forge`, and why
+## Where Forge runs: `/forge` entry, application-route carrier (0.4.0)
 
-Any unmatched URL on the game origin. Three facts at source decide it:
+**0.3.0 ran on `/forge` itself and could not hold a session.** Any unmatched URL on the game
+origin renders through `global-not-found.tsx`: `app/next.config.mjs:21` sets
+`experimental.globalNotFound: true`, `app/src/proxy.ts` returns immediately for every pathname
+other than `/`, and `global-not-found.tsx` is a bare `<html><body>` with one `Link`. That is why
+it was chosen - no provider tree to fight, no game requests on mount - and it is exactly why
+protected work failed there. `app/src/app/layout.tsx` mounts `ClerkProvider` and
+`TrpcClientProvider` for VALID application routes only, so on `/forge` the page's own Clerk
+runtime never starts, nothing refreshes the session, and `createAppTRPCContext`'s `auth()` finds
+no `userId`. The "Open risk, INFERRED" note this section used to carry was right, and it landed:
+two Forge 0.3.0 runs of the same read-only manifest each attempted five `profile.getAi` reads and
+got `UNAUTHORIZED` five times (`harvests/inbox/tnr_results_1789066888093.json`,
+`tnr_results_1789067111434.json`). Public `gameAsset.get` captures had worked, which is the
+signature of an auth problem rather than a transport one.
 
-- `app/next.config.mjs:21` sets `experimental.globalNotFound: true`.
-- `app/src/proxy.ts` matcher comment: "URLs with no matching route render through
-  global-not-found.tsx without the Clerk-dependent root layout". The middleware body returns
-  immediately for every pathname other than `/` (`if (pathname !== "/") return;`), so it
-  neither calls `auth()` nor redirects for `/forge`.
-- `app/src/app/global-not-found.tsx` is a bare `<html><body>` with one `Link` and
-  `globals.css`: no `ClerkProvider`, no `TrpcClientProvider`, no fetch on mount.
+**0.4.0 splits entry from host.**
 
-So the host page makes no game requests, mounts no React tree the app would have to
-co-exist with, and the Clerk session cookie is still first-party for `/api/trpc`. The
-loader matches `*://www.theninja-rpg.com/forge*` and the bare host, runs at
-`document-start`, calls `window.stop()`, empties the document, and mounts the app. The
-site's router never mounts on this path, so there is nothing to re-mount over the app.
+| | path | what it is | what Forge does |
+| --- | --- | --- | --- |
+| entry | `/forge` | the providerless 404, unchanged | `window.stop()`, empty it, arm the tab, `location.replace` to the carrier |
+| carrier | `/` | a real application route under the root layout | mount ONE fixed full-screen overlay; leave the React tree, `ClerkProvider` and `TrpcClientProvider` mounted underneath |
 
-The old loader matches the whole origin at `document-idle` and would append its panel to
-this document too; `takeover.mjs` removes its root nodes (`.k-fab`, `.k-pn`) on arrival so
-both scripts can stay installed. Retired deliberately, not by accident.
+The operator still opens `https://theninja-rpg.com/forge` and has no second URL to remember
+(brief section A). The provider tree staying alive is the whole repair: Forge no longer replaces
+a document, it covers one.
 
-**Open risk, INFERRED, not verified (adversarial L2):** Clerk's `__session` cookie is a
-short-lived JWT that `clerk-js` refreshes from the page. `global-not-found.tsx` does not load
-`ClerkProvider`, and the takeover stops the document anyway, so nothing on `/forge` refreshes
-it. If the JWT expires mid-job, the next request answers `UNAUTHORIZED` and the job pauses
-with reason `SESSION`; nothing is lost, because every send is journaled, but a long job may
-pause repeatedly until the user opens a game tab. A same-origin hidden iframe of a cheap game
-page would keep `clerk-js` refreshing; it was considered and not built, because it would be
-a second document making game requests the budget cannot see. Decide after the first live run.
+**Why `/` is the carrier.** It is the one route repository-held source evidence names positively:
+`proxy.ts`'s callback special-cases it (`if (pathname !== "/") return;`), so it is a matched route
+rather than a global-not-found render, and the tRPC context carries two A/B variants that steer
+landing-page layout (`reports/client_contract.json`, `feasibility_gates.G4`), which is a landing
+page rendering under the root layout. It is also the lightest such route this audit can name.
+**No route name is compiled into the activation logic.** Arming is a per-tab `sessionStorage`
+marker (`tnr_forge_armed_v1`, a boolean and a hop count), so if the app redirects `/` elsewhere
+for a signed-in operator, Forge activates on wherever it lands; `CARRIER_PATH` is a hint, and
+being wrong about it costs a navigation, not the repair. Two hops without reaching a host disarms
+the tab and says so rather than bouncing.
+
+**The loader therefore matches the whole game origin**, as the old builder's loader already does,
+at `document-start`. On any game page in a tab that has not been armed through `/forge`, `boot()`
+returns before touching the document, issuing a request or installing a style, and the whole call
+is wrapped so a Forge bug cannot break the game. The stylesheet is scoped to `.f-host` / `.f-app`
+(the `html, body` reset lives in `CSS_DOC`, installed on the entry splash only), because an
+adopted sheet outlives the overlay and a bare `body`/`*`/`button` rule would restyle the carrier
+and keep restyling it after Forge is closed. Closing Forge disarms the tab, removes the overlay,
+restores the carrier's scroll and disconnects the old-builder observer.
+
+## Auth health: two signals, no credential material
+
+`src/transport/auth.mjs` holds one of four states (`unknown`, `probing`, `ready`, `signed_out`)
+and establishes it from:
+
+1. **the page's own auth runtime**, free: `window.Clerk`'s `loaded` flag and the PRESENCE of a
+   `session`/`user`. Booleans only - never a token, never a cookie, never a claim;
+2. **one server probe**, `profile.getAi` with a nanoid-shaped sentinel id that cannot exist. Only
+   the error CODE is read; the decoded element is never cached, journaled or exported. It is a
+   protected procedure with no limiter, so the probe costs no budget a real read might need.
+
+Anything other than `ready` blocks protected work, so a probe that cannot complete fails closed.
+`isProtected(path)` comes from `PROCEDURES[path].auth`, transcribed per procedure from the
+client-contract audit's `crud_surface[].auth` (each row carrying its own file/line/match at the
+pinned SHA) rather than derived from `limited`: the two are exact complements across all 43 rows
+today, but `limited` is a statement about the rate limiter, and deriving one from the other would
+let a future limiter change move the auth gate silently.
+
+**The gate runs before `withSent`, never inside it.** A blocked mutation is one that was never
+journaled as sent, so it cannot enter reconciliation and cannot be ambiguous. A protected mutation
+that IS sent and comes back `UNAUTHORIZED` is transitioned `SENT -> FAILED` with `authRefused`
+and then the job pauses: the server decoded and refused it, so the resolver never ran and the
+write does not exist. `resume()` gates before reconciliation too, because reconciling against a
+dead session would orphan perfectly good writes. Public procedures are never gated: a capture-only
+manifest over `gameAsset.get` still runs signed out.
+
+Forbidden by the brief and asserted by `test/auth.test.mjs`: no `document.cookie`, no `__session`,
+no `getToken`, no `Authorization` on a game request, and nothing auth-derived in localStorage,
+IndexedDB, the journal, a capture or an exported bundle. `CookieSession`'s header allowlist is
+unchanged (`accept`, `content-type`, `x-uploadthing-version`).
+
+**Known debt.** The carrier page runs the game's own tRPC traffic, which Forge's budget cannot
+see. The content paths Forge spends are not the ones a landing page reads, and the limiter is
+keyed `${path}-${userId}`, so the two should not collide - but it is a real change from the
+providerless host, and it is a reason to prefer a quiet carrier route.
 
 ## Journal schema (v1)
 
@@ -182,7 +241,9 @@ item = { idx, entity, op: create | update, name, srcId, targetId, payloadHash,
          error, diffs?, verify?: match | drift | unread, candidates?, reconciled?, adopted? }
 ```
 
-Pause reasons: `TOO_MANY_REQUESTS` (path + `until`), `SESSION`, `NETWORK` (a read failed on
+Pause reasons: `TOO_MANY_REQUESTS` (path + `until`), `SESSION` (since 0.4.0 also carrying
+`authState` and `authRefused`, and raised by the auth gate BEFORE a send as well as by a server
+refusal), `NETWORK` (a read failed on
 the wire, or a send failed before any response), `UNDECODABLE_RESPONSE` (a send got a body
 that is not the audited envelope), `AMBIGUOUS` (a bug inside a send), `USER`, `ORPHANED`
 (an item is waiting for adopt or skip; nothing after it is sent until then).
