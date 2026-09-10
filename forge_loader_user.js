@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TNR forge (loader)
 // @namespace    tnr-tools-forge
-// @version      0.2.0
+// @version      0.2.1
 // @description  Loads forge_bundle.js: the full-page TNR content builder (journal, cache-first reads, two-phase creates, reconciliation). Installs beside the old TNR Content Builder loader; both can stay.
 // @match        *://www.theninja-rpg.com/forge*
 // @match        *://theninja-rpg.com/forge*
