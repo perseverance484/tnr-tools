@@ -86,7 +86,18 @@ Two rules carry most of the weight:
 
 **`READY` means executable from the repository.** If a critical input exists only in chat history, an ephemeral attachment or a sandbox path, the task is not `READY`. Say so in a blocker. The validator rejects absolute paths, `/mnt/data`, `/tmp`, `sandbox:` and `~/` in durable resources, and rejects a `READY` or `IN_PROGRESS` task whose required resource does not exist.
 
-**`COMPLETE` needs evidence, not a claim.** A conversation saying the work is finished is not evidence. Record committed artifact paths, accepted filenames, QC/preflight results, captures, exact SHAs, validator results, or recorded user acceptance. The validator rejects a `COMPLETE` task with an empty `evidence` list, and rejects evidence pointing at a file that does not exist.
+**`COMPLETE` needs evidence, not a claim.** A conversation saying the work is finished is not evidence, and neither is a sentence written into `roadmap.json`. A `COMPLETE` task must carry at least one **verifiable anchor** — something a later session can go and check:
+
+| Evidence kind | Anchors `COMPLETE`? |
+|---|---|
+| `path`, `capture` | yes, when the repository file exists |
+| `sha` | yes, when it is an exact lowercase 40-hex commit id |
+| `decision`, `validator`, `approval` | only when they also name a committed `source` path that exists |
+| `note` | **never** |
+
+The validator rejects a `COMPLETE` task with an empty `evidence` list, one whose evidence is all unanchored claims, evidence pointing at a file that does not exist, and a malformed `sha`. Unanchored `note`/`decision`/`approval` entries remain useful *alongside* an anchor — they explain what the anchor means.
+
+**A `COMPLETE` workstream must have no unfinished tasks.** When the top-level `status` is `COMPLETE`, every task must be `COMPLETE`, `SKIPPED` or `SUPERSEDED`; otherwise the generated `INDEX.md` and `ROADMAP.md` would advertise completion that the task table contradicts. `ACTIVE` and `BLOCKED` workstreams are not constrained this way — an active workstream legitimately holds `READY` and `BLOCKED` work at the same time.
 
 If a conversation stops partway, set `IN_PROGRESS` with a concise `resume_note` and the current durable outputs. Do not mark partial work `COMPLETE` to advance the roadmap.
 
