@@ -6,7 +6,7 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |
-| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 4/14 settled - planned 4, ready 4, blocked 2, complete 4 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
+| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 4/15 settled - planned 4, ready 6, blocked 1, complete 4 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
 
 ## One Perfect Crop
 
@@ -14,14 +14,15 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 **Executable now**
 
-- `art.scene_characters` (READY) - Scene characters: new Road Bandit, and the reuse verification
-- `art.backgrounds` (READY) - Scene backgrounds: confirm the reuse locks, produce only what is missing
-- `art.combat_avatars` (READY) - AI avatars: Road Bandit and Harvest Boar
+- `content.combat_ai_profiles` (READY) - Implementation-exact combat AI/profile specification
+- `art.scene_characters` (READY) - Scene characters: Road Bandit production and Market Clerk reuse closure
+- `art.combat_avatars` (READY) - Combat AI avatars: Road Bandit and Harvest Boar
 - `art.icons` (READY) - Cabbage Seed item icon
+- `art.backgrounds` (READY) - Scene background coverage and wiring assessment
+- `admin.balance_and_eligibility` (READY) - Director packet: rewards, item economics, repeatability and eligibility
 
 **Blocked**
 
-- `art.intake_accepted_assets` - The accepted bytes are NOT in the repository. The finish plan records them as delivered inside a chat-side one_perfect_crop_art_intake.zip; `git ls-files` finds no one_perfect_crop art file. A chat attachment is not durable evidence, so this task cannot be READY until dauntless supplies the three files for commit.
-- `admin.balance_and_eligibility` - These are user-owned balance/reward/rarity/publishing-class decisions. Implementation must not settle them.
+- `art.intake_accepted_assets` - The accepted bytes are not present anywhere in the repository at the verified main SHA. The finish plan says they were delivered in a chat-side one_perfect_crop_art_intake.zip, so the user must re-supply the exact three files (or another durable source) before this task can execute.
 
 Start a session: `python3 scripts/content_workstream.py init one_perfect_crop --task <id>`
