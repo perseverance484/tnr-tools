@@ -19,6 +19,8 @@
 // Nothing is ever deleted.
 
 import { recipe } from "../runner/recipes.mjs";
+import { classifyError } from "../transport/outcome.mjs";
+import { AuthRefused } from "../transport/auth.mjs";
 import { diffAsserted, SERVER_OWNED } from "../runner/validate.mjs";
 import { resolveRefs } from "../runner/refs.mjs";
 
@@ -40,6 +42,22 @@ export class Reconciler {
     this.storage = storage; this.reader = reader; this.clock = clock; this.journal = journal;
   }
 
+  /**
+   * Every read in this file goes through here first.
+   *
+   * A failed read normally means "I cannot tell what happened", and the safe answer to that is
+   * ORPHANED: the user looks and decides. A read the server refused as UNAUTHENTICATED is a
+   * different thing entirely - it says nothing about the write, only about the session - and
+   * answering it with ORPHANED manufactures a decision out of a sign-in prompt (independent
+   * review round 2, surviving path B). So this one condition is raised to the Runner, which owns
+   * the auth state, instead of being folded into the orphan verdict. Every other failure keeps
+   * its existing behaviour exactly.
+   */
+  _ensureSession(path, r) {
+    if (!r.ok && classifyError(r.error) === "SESSION") throw new AuthRefused(path, r.error);
+    return r;
+  }
+
   snapKey(jobId, entity) { return SNAP_PREFIX + jobId + ":" + entity; }
 
   readSnapshot(key) {
@@ -51,7 +69,7 @@ export class Reconciler {
     const key = this.snapKey(job.jobId, entity);
     if (this.storage.getItem(key)) return key;
     const rc = recipe(entity);
-    const list = await this.reader.list(rc.names, { fresh: true }); // a limited read: one token
+    const list = this._ensureSession(rc.names, await this.reader.list(rc.names, { fresh: true })); // a limited read: one token
     if (!list.ok || !Array.isArray(list.data)) throw new Error(`snapshot failed: ${rc.names} ${list.ok ? "returned no list" : list.error.code}`);
     const ids = list.data.map((r) => r[rc.idKey]).filter(Boolean);
     this.storage.setItem(key, JSON.stringify({ entity, at: new Date(this.clock()).toISOString(), path: rc.names, count: ids.length, ids }));
@@ -85,7 +103,7 @@ export class Reconciler {
     const key = item.snapshotKey || this.snapKey(job.jobId, item.entity);
     const snap = this.readSnapshot(key);
     if (!snap) return { action: "orphan", candidates: [], note: "no pre-create snapshot for this entity type; cannot tell which row is ours" };
-    const list = await this.reader.list(rc.names, { fresh: true });
+    const list = this._ensureSession(rc.names, await this.reader.list(rc.names, { fresh: true }));
     if (!list.ok || !Array.isArray(list.data)) return { action: "orphan", candidates: [], note: `${rc.names} unavailable: ${list.ok ? "no list" : list.error.code}` };
     const before = new Set(snap.ids);
     // ids owned by THIS job's other items, and by ANY other job in the journal (cross-job adoption
@@ -105,7 +123,7 @@ export class Reconciler {
   async _resolveUpdate(item, rc, ctx) {
     const planned = ctx.planned;
     if (!planned) return { action: "orphan", candidates: [], note: "no planned data to compare against" };
-    const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
+    const live = this._ensureSession(rc.get, await this.reader.get(rc.get, item.entityId, { fresh: true }));
     if (!live.ok || !live.data) return { action: "orphan", candidates: [], note: `${rc.get} ${item.entityId}: ${live.ok ? "no record" : live.error.code}` };
     // resolve refs the same way the runner would; an unresolvable ref means we cannot compare
     const { value: data, unresolved } = resolveRefs(planned.data, ctx.lookup ?? (() => undefined));
@@ -118,14 +136,14 @@ export class Reconciler {
   }
 
   async _resolveToggle(item, rc) {
-    const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
+    const live = this._ensureSession(rc.get, await this.reader.get(rc.get, item.entityId, { fresh: true }));
     if (live.ok && live.data && live.data.aiProfileId) return { action: "confirm", entityId: item.entityId, phase: "rules", note: "profile row exists; continue at rules" };
     return { action: "orphan", candidates: [], note: "no aiProfileId after a sent toggle" };
   }
 
   async _resolveRules(item, ctx) {
     if (!item.aiProfileId) return { action: "orphan", candidates: [], note: "rules sent but no aiProfileId recorded" };
-    const prof = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
+    const prof = this._ensureSession("ai.getAiProfile", await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true }));
     if (!prof.ok || !prof.data) return { action: "orphan", candidates: [], note: "ai.getAiProfile unavailable" };
     const want = ctx.planned ? ctx.planned.data.rules ?? [] : null;
     const wantDefault = ctx.planned ? ctx.planned.data.includeDefaultRules : undefined;

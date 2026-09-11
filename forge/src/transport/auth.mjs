@@ -69,6 +69,27 @@ export class AuthUnavailable extends Error {
   }
 }
 
+/**
+ * A protected procedure came back UNAUTHORIZED on a read that is NOT the runner's own call site -
+ * today that means inside reconciliation, which reads through the CachedReader and has no auth
+ * dependency of its own. Reconciliation's honest answer to an unreadable record is ORPHANED, and
+ * for a SENT item that turns a five-minute sign-in into an adopt-or-skip decision about a write
+ * that is probably fine (independent review round 2, surviving path B). Throwing this instead
+ * surfaces the condition to the Runner, which invalidates the shared auth state, pauses, and
+ * leaves every SENT item exactly as it was for a later reconciliation.
+ *
+ * It carries the decoded error element so the Runner can classify and report it without the
+ * reconciler needing to know anything about AuthState.
+ */
+export class AuthRefused extends Error {
+  constructor(path, error) {
+    super(`the game refused ${path} as unauthenticated`);
+    this.name = "AuthRefused";
+    this.path = path;
+    this.error = error;
+  }
+}
+
 export class AuthState {
   /**
    * @param {object} d

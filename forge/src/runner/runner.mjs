@@ -19,7 +19,7 @@
 // TOO_MANY_REQUESTS from a read pauses the job with the path and countdown (budget layer).
 
 import { readCreate, readMutation, classifyError } from "../transport/outcome.mjs";
-import { AuthUnavailable } from "../transport/auth.mjs";
+import { AuthUnavailable, AuthRefused } from "../transport/auth.mjs";
 import { isProtected } from "../transport/procedures.mjs";
 import { NetworkError } from "../transport/client.mjs";
 import { TransportError } from "../transport/envelope.mjs";
@@ -220,6 +220,7 @@ export class Runner {
       if (manifest.capture.after.length && !job.capturesAfter) await this._captures(jobId, manifest.capture.after, "after");
     } catch (e) {
       if (e instanceof Paused) return this._pause(jobId, e.reason, e);
+      if (e instanceof AuthRefused) { const p = this._authRefused(e.error, { path: e.path }); return this._pause(jobId, p.reason, p); }
       // raised by the capture passes (item reads pause inside _runItem): never escape as a crash
       if (e instanceof RateLimited) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: e.path, until: e.until });
       if (isTransport(e)) return this._pause(jobId, "NETWORK", { detail: String(e && e.message), httpStatus: e.httpStatus ?? null });
@@ -274,6 +275,13 @@ export class Runner {
     } catch (e) {
       // reconciliation only reads; a limited or failed read pauses with the reason recorded and
       // the SENT items untouched, so the next resume reconciles them again (adversarial L3-5)
+      //
+      // The session can expire between resume()'s preflight gate and these reads. The reconciler
+      // raises that distinctly rather than answering ORPHANED, so the answer here is the same as
+      // for any other failed reconciliation read - pause, touch nothing - plus invalidating the
+      // auth state so the banner, the gate and Resume all agree (independent review round 2,
+      // surviving path B). Every SENT item stays SENT and is reconciled again after sign-in.
+      if (e instanceof AuthRefused) { const p = this._authRefused(e.error, { path: e.path }); return this._pause(jobId, p.reason, p); }
       if (e instanceof RateLimited) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: e.path, until: e.until });
       if (isTransport(e)) return this._pause(jobId, "NETWORK", { detail: String(e && e.message), httpStatus: e.httpStatus ?? null });
       this._releaseLease(jobId);
@@ -345,6 +353,10 @@ export class Runner {
       if (item.state === "CONFIRMED") await this._verifyOrSkip(jobId, item, planned, manifest);
     } catch (e) {
       if (e instanceof Paused) throw e;
+      // A read refused as unauthenticated, raised from somewhere that has no auth dependency of
+      // its own (today: the reconciler's pre-create snapshot). It can only come from a READ, so
+      // the item is never SENT because of it and the ambiguity handling below does not apply.
+      if (e instanceof AuthRefused) throw this._authRefused(e.error, { idx: item.idx, path: e.path });
       if (e instanceof RateLimited) throw new Paused("TOO_MANY_REQUESTS", { path: e.path, until: e.until, idx: item.idx });
       const cur = this.journal.get(jobId).items[item.idx];
       if (cur.state === "SENT") {
@@ -432,6 +444,12 @@ export class Runner {
     }
     this._requireAuth(rc.get, item.idx);
     let live = await this.reader.get(rc.get, userId, { fresh: true });
+    // profile.getAi is protectedProcedure. A session that expired since the gate makes this read
+    // UNAUTHORIZED, and the generic Error below would turn a sign-in problem into a terminal
+    // content failure with the auth state still claiming READY (independent review round 2,
+    // surviving path A). Pausing instead leaves the item exactly where it is, which for AI work
+    // is CONFIRMED and resumable.
+    if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { idx: item.idx, path: rc.get });
     if (!live.ok || !live.data) throw new Error(`profile.getAi failed for ${userId}`);
     let apid = live.data.aiProfileId;
     if (!apid) {
@@ -440,7 +458,12 @@ export class Runner {
       const o = readMutation(decoded);
       if (o.kind !== "ok") { this._failFromOutcome(jobId, item, o, "toggle"); return; }
       this.journal.transition(jobId, item.idx, "CONFIRMED", { phase: "rules" });
+      // The worst place to lose the session: the toggle mutation has LANDED, the profile row
+      // exists, and only the rules write is left. Failing the item here would strand a
+      // half-configured AI that resume() then skips as terminal. The item is already CONFIRMED at
+      // phase "rules", so pausing preserves exactly the state a post-sign-in resume needs.
       live = await this.reader.get(rc.get, userId, { fresh: true });
+      if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { idx: item.idx, path: rc.get });
       apid = live.ok && live.data ? live.data.aiProfileId : null;
       if (!apid) throw new Error("no aiProfileId after toggle");
     }

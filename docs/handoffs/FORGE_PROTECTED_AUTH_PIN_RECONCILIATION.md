@@ -73,18 +73,35 @@ Verified by reading `bdec2883` directly, not inferred:
 
 ## 3. The carrier route, now source-verified rather than inferred
 
-The first handoff justified `/` from repository-held evidence alone and recorded the residual risk
-that the app might redirect a signed-in operator away from it. Read at `bdec2883`, it does not:
+The first handoff justified `/` from repository-held evidence alone. Read at `bdec2883`:
 
 - `app/src/app/page.tsx` is a real route rendering `HomeLanding`, so `/` is served by the root
   layout with `ClerkProvider` and `TrpcClientProvider` mounted — byte-identical at both pins;
-- `app/src/proxy.ts` contains **no `redirect` call at all**. Its `/` branch only ever *rewrites*,
-  and the A/B rewrite is inside `if (!userId)` (`proxy.ts:101`), so for a signed-in operator the
-  callback falls through and the request is served as-is.
+- **the server does not redirect.** `app/src/proxy.ts` contains no `redirect` call at all; its `/`
+  branch only ever *rewrites*, and the A/B rewrite is inside `if (!userId)` (`proxy.ts:101`), so
+  for a signed-in operator the middleware callback falls through and `/` is served as `/`.
+- **the client landing component does navigate after hydration.** Corrects a sentence in the first
+  version of this document, which said the carrier "does no redirect and no extra work" on the
+  strength of `proxy.ts` alone. `app/src/layout/HomeLanding.tsx:27-45` runs a `useEffect` that
+  calls `router.push` once `useUserData()` resolves: `/profile` for a signed-in operator with
+  character data, `/register` without it, `/500` on a user-data error
+  (independent review round 2, FPA-3).
 
-So the carrier does no redirect and no extra work for the operator this repair is for. The per-tab
-marker still makes activation route-agnostic, which remains the reason a wrong carrier costs a
-navigation rather than the repair.
+That client navigation does not disturb the repair, and the distinction is the point:
+
+- it is a **client-side** `router.push`, not a document load. The document, the React root,
+  `ClerkProvider` and `TrpcClientProvider` all stay mounted, which is the only property the
+  carrier has to have;
+- Forge's overlay is appended to `document.body` **outside** the Next root, so a route change
+  inside that root does not touch it. Forge mounts as soon as the body exists, which is before
+  hydration has resolved user data, and stays mounted across the push;
+- activation is the per-tab marker, not the URL, so ending up on `/profile` (or `/register`) is
+  not a miss. This is exactly the redirect case the route-agnostic marker was built for, and it is
+  now a known behaviour rather than a hypothetical one.
+
+The residual caveat is unchanged and belongs to the live smoke, not to source: `/profile` is a
+busier page than `/`, so the carrier's own tRPC traffic — which Forge's budget cannot see — is
+whatever that page reads, not whatever the landing page reads.
 
 ## 4. What is NOT claimed
 
