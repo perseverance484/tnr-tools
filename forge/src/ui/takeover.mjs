@@ -31,9 +31,12 @@
 // landing page rendering under the root layout. It is also the lightest such route this audit
 // can name, which matters because the carrier's own tRPC traffic is outside Forge's budget
 // accounting (see BUILDER_APP_NOTES.md). No route NAME is compiled into the activation logic
-// though: the marker is a per-tab flag, not a URL, so if the app redirects "/" somewhere else
-// for a signed-in operator, Forge activates on wherever it lands. That is deliberate - the
-// carrier constant is a hint, and being wrong about it costs a navigation, not the repair.
+// though: the marker is a per-tab flag, not a URL, so if the app navigates away from "/", Forge
+// activates on wherever it lands. That is not hypothetical - HomeLanding.tsx:27-45 at the task pin
+// pushes a signed-in operator to /profile (or /register, or /500) once user data resolves. It is a
+// CLIENT-side router.push inside the Next root, so the document, the providers and this overlay
+// (appended to document.body outside that root) all survive it. The carrier constant is a hint,
+// and being wrong about it costs a navigation, not the repair.
 //
 // The overlay covers the carrier; it does not restyle it. The stylesheet is scoped to .f-app
 // and the document reset is installed on the entry splash only, so the game page underneath is

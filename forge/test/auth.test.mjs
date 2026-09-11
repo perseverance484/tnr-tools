@@ -20,7 +20,7 @@ import { boot } from "../src/main.mjs";
 import { CSS, CSS_DOC } from "../src/ui/styles.mjs";
 import { App } from "../src/ui/app.mjs";
 import { ARM_KEY, isArmed, arm, armHops, disarm, mountHost, whenBodyReady, alreadyMounted, pageAuthRuntime, CARRIER_PATH, ENTRY_PATH, OVERLAY_CLASS } from "../src/ui/takeover.mjs";
-import { FakeGame, FakeClient } from "./fakegame.mjs";
+import { FakeGame, FakeClient, CrashSignal } from "./fakegame.mjs";
 import { MemoryStorage } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
 
@@ -488,6 +488,130 @@ test("FPA-2: a multi-item write job cannot advance to the next protected item af
   assert.equal(h.game.calls.length, spent, "item two was never attempted against the refused session");
   assert.equal(h.journal.get("two").items[1].state, "PLANNED");
   assert.equal(h.game.count("jutsu"), 0, "and nothing was created");
+});
+
+// ---------------------------------------------------------------- FPA-2 round 2: AI-rules and
+// reconciliation. Round 2 centralised SESSION handling for capture reads, fill reads, verify
+// reads, dedupNames and decoded mutation refusals - but _rules()'s two protected profile.getAi
+// reads and the reconciler's AI reads were still converted into ordinary content failures and
+// orphans. These are the paths One Perfect Crop's enemy AI work actually runs through.
+
+/**
+ * An `aiProfile` edit: the profile.getAi -> (toggle) -> ai.updateAiProfile path, and nothing else.
+ * `aiProfile` rather than `ai` on purpose - an `ai` item runs _fill() first, whose profile.getAi
+ * read is one of the sites round 2 already covered, so it would mask the _rules() reads these
+ * tests exist for.
+ */
+const rulesManifest = (userId) => ({ items: [{
+  entity: "aiProfile", slot: "edit", targetId: userId, name: "Road Bandit",
+  data: { rules: [{ conditions: [], action: { type: "end_turn" } }], includeDefaultRules: false },
+}] });
+
+test("FPA-2b: profile.getAi refused BEFORE the toggle pauses for auth and does not fail the item", async () => {
+  const h = harness({ authState: AUTH.READY });
+  h.game.seed("ai", { ...AI });
+  h.runner.plan(rulesManifest(AI.userId), { jobId: "pre" });
+  // the session dies after the preflight gate, on the first protected read inside _rules()
+  const real = h.game.handle.bind(h.game);
+  h.game.handle = (path, input) => (path === "profile.getAi" ? h.game.signOut() && real(path, input) : real(path, input));
+
+  const s = await h.runner.run("pre");
+  assert.equal(s.state, "PAUSED");
+  assert.equal(s.pause.reason, "SESSION");
+  assert.equal(s.pause.path, "profile.getAi");
+  assert.equal(h.auth.state, AUTH.SIGNED_OUT, "the shared auth state is invalidated, not left READY");
+  const item = h.journal.get("pre").items[0];
+  assert.notEqual(item.state, "FAILED", "a sign-in problem is not a terminal content failure");
+  assert.equal(h.journal.get("pre").items[0].error ?? null, null);
+
+  // and nothing further is sent until a probe succeeds
+  const spent = h.game.calls.length;
+  assert.equal((await h.runner.run("pre")).pause.reason, "SESSION");
+  assert.equal(h.game.calls.length, spent, "the preflight gate stops the re-run before any request");
+
+  h.game.handle = real;
+  h.game.signIn();
+  assert.equal(await h.auth.probe(), AUTH.READY);
+  const s2 = await h.runner.run("pre");
+  assert.equal(s2.state, "DONE", "the same item finishes once the session is back");
+  assert.equal(s2.outcome, "success");
+});
+
+test("FPA-2b: profile.getAi refused AFTER a landed toggle keeps the item CONFIRMED at rules", async () => {
+  const h = harness({ authState: AUTH.READY });
+  h.game.seed("ai", { ...AI, aiProfileId: null });
+  h.runner.plan(rulesManifest(AI.userId), { jobId: "post" });
+  // let the first read and the toggle through; refuse the read that follows the toggle
+  const real = h.game.handle.bind(h.game);
+  let toggled = false;
+  h.game.handle = (path, input) => {
+    if (toggled && path === "profile.getAi") h.game.signOut();
+    const r = real(path, input);
+    if (path === "ai.toggleAiProfile") toggled = true;
+    return r;
+  };
+
+  const s = await h.runner.run("post");
+  assert.equal(s.pause.reason, "SESSION");
+  assert.equal(h.auth.state, AUTH.SIGNED_OUT);
+  assert.ok(h.game.calls.some((c) => c.path === "ai.toggleAiProfile"), "the toggle really did land");
+  assert.equal(h.game.rows("ai")[0].aiProfileId != null, true, "the profile row exists server-side");
+
+  const item = h.journal.get("post").items[0];
+  assert.equal(item.state, "CONFIRMED", "not FAILED: resume() would skip a terminal item and strand the AI");
+  assert.equal(item.phase, "rules", "and it is parked at exactly the step that still owes a write");
+
+  // the rules write was never sent against the dead session
+  assert.equal(h.game.calls.filter((c) => c.path === "ai.updateAiProfile").length, 0);
+  const spent = h.game.calls.length;
+  assert.equal((await h.runner.run("post")).pause.reason, "SESSION");
+  assert.equal(h.game.calls.length, spent, "nothing further is sent before a successful re-check");
+
+  // after signing back in the item continues from "rules" and the profile is finished
+  h.game.handle = real;
+  h.game.signIn();
+  assert.equal(await h.auth.probe(), AUTH.READY);
+  const s2 = await h.runner.run("post");
+  assert.equal(s2.state, "DONE");
+  assert.equal(s2.outcome, "success");
+  const profile = h.game.rows("aiProfile")[0];
+  assert.deepEqual(profile.rules, [{ conditions: [], action: { type: "end_turn" } }], "the rules write finished after re-auth");
+  assert.equal(profile.includeDefaultRules, false);
+});
+
+test("FPA-2b: a SESSION during AI reconciliation pauses for auth and never orphans the SENT item", async () => {
+  // resume() gates before reconciling, but the session can expire between that gate and the
+  // reconciler's own protected reads. The reconciler's honest answer to an unreadable record is
+  // ORPHANED, which would turn a sign-in prompt into an adopt-or-skip decision about a write that
+  // is very likely fine.
+  const h = harness({ authState: AUTH.READY });
+  h.game.seed("ai", { ...AI });
+  h.runner.plan(rulesManifest(AI.userId), { jobId: "rec" });
+  // crash inside the toggle send, so the item is left SENT with a real ambiguity to reconcile
+  const real = h.game.handle.bind(h.game);
+  h.game.handle = (path, input) => {
+    const r = real(path, input);
+    if (path === "ai.toggleAiProfile") throw new CrashSignal(h.game.calls.length);
+    return r;
+  };
+  await h.runner.run("rec");
+  const sent = h.journal.get("rec").items[0];
+  assert.equal(sent.state, "SENT");
+  assert.equal(sent.phase, "rules-toggle");
+
+  // now the session dies AFTER resume()'s preflight gate, on the reconciler's read
+  h.game.handle = real;
+  let gated = false;
+  h.auth.assert = (path) => { if (!gated) { gated = true; return; } h.game.signOut(); };
+  const s = await h.runner.resume("rec");
+
+  assert.equal(s.state, "PAUSED");
+  assert.equal(s.pause.reason, "SESSION", "not a generic reconciliation failure");
+  assert.equal(h.auth.state, AUTH.SIGNED_OUT, "reconciliation surfaced SESSION to the runner");
+  const after = h.journal.get("rec").items[0];
+  assert.equal(after.state, "SENT", "still SENT, NOT orphaned: nothing is owed to the operator yet");
+  assert.notEqual(after.state, "ORPHANED");
+  assert.deepEqual(after.candidates ?? [], []);
 });
 
 test("FPA-2: the banner stops claiming a live session, and Resume is withheld until a re-check", async () => {

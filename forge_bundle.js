@@ -770,6 +770,14 @@
       this.sent = false;
     }
   };
+  var AuthRefused = class extends Error {
+    constructor(path, error) {
+      super(`the game refused ${path} as unauthenticated`);
+      this.name = "AuthRefused";
+      this.path = path;
+      this.error = error;
+    }
+  };
   var AuthState = class {
     /**
      * @param {object} d
@@ -4392,6 +4400,10 @@
         if (manifest.capture.after.length && !job.capturesAfter) await this._captures(jobId, manifest.capture.after, "after");
       } catch (e) {
         if (e instanceof Paused) return this._pause(jobId, e.reason, e);
+        if (e instanceof AuthRefused) {
+          const p = this._authRefused(e.error, { path: e.path });
+          return this._pause(jobId, p.reason, p);
+        }
         if (e instanceof RateLimited) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: e.path, until: e.until });
         if (isTransport(e)) return this._pause(jobId, "NETWORK", { detail: String(e && e.message), httpStatus: e.httpStatus ?? null });
         this._releaseLease(jobId);
@@ -4436,6 +4448,10 @@
           }
         }
       } catch (e) {
+        if (e instanceof AuthRefused) {
+          const p = this._authRefused(e.error, { path: e.path });
+          return this._pause(jobId, p.reason, p);
+        }
         if (e instanceof RateLimited) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: e.path, until: e.until });
         if (isTransport(e)) return this._pause(jobId, "NETWORK", { detail: String(e && e.message), httpStatus: e.httpStatus ?? null });
         this._releaseLease(jobId);
@@ -4500,6 +4516,7 @@
         if (item.state === "CONFIRMED") await this._verifyOrSkip(jobId, item, planned, manifest);
       } catch (e) {
         if (e instanceof Paused) throw e;
+        if (e instanceof AuthRefused) throw this._authRefused(e.error, { idx: item.idx, path: e.path });
         if (e instanceof RateLimited) throw new Paused("TOO_MANY_REQUESTS", { path: e.path, until: e.until, idx: item.idx });
         const cur = this.journal.get(jobId).items[item.idx];
         if (cur.state === "SENT") {
@@ -4585,6 +4602,7 @@
       }
       this._requireAuth(rc.get, item.idx);
       let live = await this.reader.get(rc.get, userId, { fresh: true });
+      if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { idx: item.idx, path: rc.get });
       if (!live.ok || !live.data) throw new Error(`profile.getAi failed for ${userId}`);
       let apid = live.data.aiProfileId;
       if (!apid) {
@@ -4597,6 +4615,7 @@
         }
         this.journal.transition(jobId, item.idx, "CONFIRMED", { phase: "rules" });
         live = await this.reader.get(rc.get, userId, { fresh: true });
+        if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { idx: item.idx, path: rc.get });
         apid = live.ok && live.data ? live.data.aiProfileId : null;
         if (!apid) throw new Error("no aiProfileId after toggle");
       }
@@ -4843,6 +4862,21 @@
       this.clock = clock;
       this.journal = journal;
     }
+    /**
+     * Every read in this file goes through here first.
+     *
+     * A failed read normally means "I cannot tell what happened", and the safe answer to that is
+     * ORPHANED: the user looks and decides. A read the server refused as UNAUTHENTICATED is a
+     * different thing entirely - it says nothing about the write, only about the session - and
+     * answering it with ORPHANED manufactures a decision out of a sign-in prompt (independent
+     * review round 2, surviving path B). So this one condition is raised to the Runner, which owns
+     * the auth state, instead of being folded into the orphan verdict. Every other failure keeps
+     * its existing behaviour exactly.
+     */
+    _ensureSession(path, r) {
+      if (!r.ok && classifyError(r.error) === "SESSION") throw new AuthRefused(path, r.error);
+      return r;
+    }
     snapKey(jobId, entity) {
       return SNAP_PREFIX + jobId + ":" + entity;
     }
@@ -4858,7 +4892,7 @@
       const key = this.snapKey(job.jobId, entity);
       if (this.storage.getItem(key)) return key;
       const rc = recipe(entity);
-      const list = await this.reader.list(rc.names, { fresh: true });
+      const list = this._ensureSession(rc.names, await this.reader.list(rc.names, { fresh: true }));
       if (!list.ok || !Array.isArray(list.data)) throw new Error(`snapshot failed: ${rc.names} ${list.ok ? "returned no list" : list.error.code}`);
       const ids = list.data.map((r) => r[rc.idKey]).filter(Boolean);
       this.storage.setItem(key, JSON.stringify({ entity, at: new Date(this.clock()).toISOString(), path: rc.names, count: ids.length, ids }));
@@ -4892,7 +4926,7 @@
       const key = item.snapshotKey || this.snapKey(job.jobId, item.entity);
       const snap = this.readSnapshot(key);
       if (!snap) return { action: "orphan", candidates: [], note: "no pre-create snapshot for this entity type; cannot tell which row is ours" };
-      const list = await this.reader.list(rc.names, { fresh: true });
+      const list = this._ensureSession(rc.names, await this.reader.list(rc.names, { fresh: true }));
       if (!list.ok || !Array.isArray(list.data)) return { action: "orphan", candidates: [], note: `${rc.names} unavailable: ${list.ok ? "no list" : list.error.code}` };
       const before = new Set(snap.ids);
       const owned = new Set(job.items.filter((it) => it.entity === item.entity && it.entityId && it.idx !== item.idx).map((it) => it.entityId));
@@ -4909,7 +4943,7 @@
     async _resolveUpdate(item, rc, ctx) {
       const planned = ctx.planned;
       if (!planned) return { action: "orphan", candidates: [], note: "no planned data to compare against" };
-      const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
+      const live = this._ensureSession(rc.get, await this.reader.get(rc.get, item.entityId, { fresh: true }));
       if (!live.ok || !live.data) return { action: "orphan", candidates: [], note: `${rc.get} ${item.entityId}: ${live.ok ? "no record" : live.error.code}` };
       const { value: data, unresolved } = resolveRefs(planned.data, ctx.lookup ?? (() => void 0));
       if (unresolved.length) return { action: "orphan", candidates: [], note: "cannot compare: unresolved refs " + unresolved.map((u) => `@${u.pfx}:${u.key}`).join(", ") };
@@ -4920,13 +4954,13 @@
       return { action: "orphan", candidates: [], note: "update may not have landed: live differs on " + diffs.map((d) => d.key).join(", "), diffs };
     }
     async _resolveToggle(item, rc) {
-      const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
+      const live = this._ensureSession(rc.get, await this.reader.get(rc.get, item.entityId, { fresh: true }));
       if (live.ok && live.data && live.data.aiProfileId) return { action: "confirm", entityId: item.entityId, phase: "rules", note: "profile row exists; continue at rules" };
       return { action: "orphan", candidates: [], note: "no aiProfileId after a sent toggle" };
     }
     async _resolveRules(item, ctx) {
       if (!item.aiProfileId) return { action: "orphan", candidates: [], note: "rules sent but no aiProfileId recorded" };
-      const prof = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
+      const prof = this._ensureSession("ai.getAiProfile", await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true }));
       if (!prof.ok || !prof.data) return { action: "orphan", candidates: [], note: "ai.getAiProfile unavailable" };
       const want = ctx.planned ? ctx.planned.data.rules ?? [] : null;
       const wantDefault = ctx.planned ? ctx.planned.data.includeDefaultRules : void 0;

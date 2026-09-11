@@ -219,13 +219,30 @@ today, but `limited` is a statement about the rate limiter, and deriving one fro
 let a future limiter change move the auth gate silently.
 
 **A server refusal invalidates the state (independent review FPA-2).** A probe is a snapshot and a
-session can die a minute later. Whenever a protected procedure comes back `UNAUTHORIZED` — a
-capture read, a read-back, a `dedupNames` list, or a mutation — `Runner._authRefused()` calls
-`AuthState.refuse()` before pausing, so the banner stops claiming a live session, the gate blocks
-every further protected path, and `Resume` is withheld until `probe()` succeeds again. Without it
-the standing banner said "TNR session active" while the run screen said authentication was
-unavailable, and resuming sent the next protected request at a session the server had already
-refused.
+session can die a minute later. Whenever a protected procedure comes back `UNAUTHORIZED`,
+`Runner._authRefused()` calls `AuthState.refuse()` before pausing, so the banner stops claiming a
+live session, the gate blocks every further protected path, and `Resume` is withheld until
+`probe()` succeeds again. Without it the standing banner said "TNR session active" while the run
+screen said authentication was unavailable, and resuming sent the next protected request at a
+session the server had already refused.
+
+Every protected read site routes through it, which round 2 of the review had to point out twice —
+capture reads, fill reads, verify read-backs, `ai.getAiProfile`, `dedupNames` lists, decoded
+mutation refusals, **and both `profile.getAi` reads inside `_rules()`**. The second of those is the
+one that mattered most: it runs *after* `ai.toggleAiProfile` has landed, so failing the item there
+would have stranded a half-configured AI that `resume()` then skips as terminal. Instead the item
+stays `CONFIRMED` at phase `rules` — the exact state a post-sign-in resume needs to finish the
+rules write — and the job pauses.
+
+**Reconciliation surfaces SESSION rather than orphaning.** `resume()` gates before reconciling, but
+the session can expire between that gate and the reconciler's own reads. A failed read normally
+means "I cannot tell what happened", and ORPHANED is the right answer to that; a read the server
+refused as unauthenticated says nothing about the write, only about the session, so answering it
+with ORPHANED manufactures an adopt-or-skip decision out of a sign-in prompt. `Reconciler` now
+wraps all five of its read sites in `_ensureSession()`, which throws `AuthRefused` for that one
+condition; `Runner.resume()` invalidates the auth state and pauses, leaving every `SENT` item
+exactly as it was for reconciliation after sign-in. The reconciler keeps no auth dependency of its
+own — it raises the condition and the Runner, which owns the state, decides.
 
 **The gate runs before `withSent`, never inside it.** A blocked mutation is one that was never
 journaled as sent, so it cannot enter reconciliation and cannot be ambiguous. A protected mutation
@@ -245,13 +262,19 @@ unchanged (`accept`, `content-type`, `x-uploadthing-version`).
 fact this repair rests on was proven identical at both commits —
 `docs/handoffs/FORGE_PROTECTED_AUTH_PIN_RECONCILIATION.md`, reproducible with
 `forge/tools/auth_pin_diff.mjs`. Reading `bdec2883` also upgraded the carrier justification from
-inference to source: `app/src/app/page.tsx` renders `/` under the root layout, and `proxy.ts`
-contains no `redirect` at all, so a signed-in operator is never sent away from it.
+inference to source: `app/src/app/page.tsx` renders `/` under the root layout and `proxy.ts`
+contains no `redirect` at all, so the **server** never sends a signed-in operator away from `/`.
+Its **client** landing component does: `HomeLanding.tsx:27-45` pushes to `/profile` (or
+`/register`, or `/500`) once user data resolves. That is a client-side route change inside the
+Next root, so the document, the providers and Forge's overlay — which is appended to
+`document.body` outside that root — all survive it, and activation is the per-tab marker rather
+than the URL. It is the redirect case the route-agnostic marker was built for.
 
 **Known debt.** The carrier page runs the game's own tRPC traffic, which Forge's budget cannot
-see. The content paths Forge spends are not the ones a landing page reads, and the limiter is
-keyed `${path}-${userId}`, so the two should not collide - but it is a real change from the
-providerless host, and it is a reason to prefer a quiet carrier route.
+see. The content paths Forge spends are not the ones a landing or profile page reads, and the
+limiter is keyed `${path}-${userId}`, so the two should not collide - but it is a real change from
+the providerless host. Note that the page Forge ends up over is `/profile` rather than `/`, per
+the client push above, so the traffic in question is that page's.
 
 ## Journal schema (v1)
 
