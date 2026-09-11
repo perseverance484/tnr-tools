@@ -30,6 +30,15 @@ Commands
                URLs already persisted in the committed capture and rewrites the
                index. This is the only command that touches the network, and it
                fetches CDN image URLs only - never the TNR API.
+  bundle       the deterministic operator transfer pack: the exact individual
+               reference bytes, the index, a generated MANIFEST.json and
+               README.txt, in one ZIP with fixed order/timestamps/permissions
+               and STORED (uncompressed) members so the bytes and hash are
+               reproducible everywhere. Verifies provenance first. Socket-free.
+               `--check` rebuilds in memory and fails on drift from the
+               committed archive. Uploading the ZIP is NOT reference
+               hydration; the selected individual images must be attached and
+               looked at, one by one. It is never a contact sheet.
   --selftest   socket-free unit tests over synthesized fixtures.
 
 Image headers are decoded with stdlib struct/zlib like rawqc.py, so verify and
@@ -79,6 +88,27 @@ APPROVED_CAPTURE_MANIFEST = APPROVED_CAPTURE["manifest"]
 EXPECTED_CAPTURE_COUNT = APPROVED_CAPTURE["reads"]
 EXPECTED_CAPTURE_PROC = "gameAsset.get"
 HARVEST_INBOX = "harvests/inbox"
+
+# The operator transfer bundle. Committed OUTSIDE skills/ so the skill ZIP
+# stays inside its 2 MiB guard; the packaged index and this script point at it.
+STYLE_REFS_ROOT = "art/style_refs"
+BUNDLE_DIR = "art/style_ref_bundles"
+BUNDLE_NAME = "tnr_style_reference_pack.zip"
+BUNDLE_PATH = f"{BUNDLE_DIR}/{BUNDLE_NAME}"
+BUNDLE_MANIFEST_PATH = f"{BUNDLE_DIR}/tnr_style_reference_pack.manifest.json"
+BUNDLE_SCHEMA = "tnr.style_ref_bundle"
+BUNDLE_VERSION = 1
+# Fixed ZIP metadata: the earliest DOS timestamp, plain 0644 files, STORED.
+# STORED rather than DEFLATED because deflate output can differ between zlib
+# builds; stored bytes cannot. The images are already compressed formats.
+BUNDLE_ZIP_TIME = (1980, 1, 1, 0, 0, 0)
+BUNDLE_FILE_MODE = 0o100644
+BUNDLE_GENERATED_MEMBERS = ("README.txt", "MANIFEST.json", "style_refs.json")
+BUNDLE_RULE = (
+    "Uploading this ZIP to a conversation is NOT reference hydration. To hydrate a "
+    "session, attach the selected individual image files one by one so they render as "
+    "images, and look at each one. Never build a collage or contact sheet from them."
+)
 
 
 # --------------------------------------------------------------------------
@@ -730,6 +760,304 @@ def print_select(index: dict, refs: list[dict], target: str, register, git_ref) 
         print()
     print("Inspect every image above before composing the prompt. A URL in a prompt is not")
     print("evidence that a generator ingested the pixels.")
+    print()
+    print(f"Durable transfer pack: {BUNDLE_PATH} (extract once, then attach the individual")
+    print("images named above). Uploading the ZIP itself is not hydration.")
+
+
+# --------------------------------------------------------------------------
+# bundle - the deterministic operator transfer pack
+# --------------------------------------------------------------------------
+
+
+class BundleError(Exception):
+    """The bundle could not be built or checked fail-closed."""
+
+
+def bundle_arcname(ref: dict) -> str:
+    """`art/style_refs/scene_characters/x.webp` -> `scene_characters/x.webp`."""
+    rel = Path(str(ref.get("path", "")))
+    try:
+        return rel.relative_to(STYLE_REFS_ROOT).as_posix()
+    except ValueError:
+        raise BundleError(f"{ref.get('key', '?')}: path {rel.as_posix()!r} is not under {STYLE_REFS_ROOT}/")
+
+
+def bundle_refs(index: dict, target=None, register=None, tags=None, keys=None, limit=None) -> list[dict]:
+    """The references a bundle carries, in deterministic order.
+
+    With no filters this is the whole pack, grouped by target and then in
+    selection order. With a target it is exactly what `select` would pick.
+    """
+    if target is None:
+        if register or tags or keys or limit is not None:
+            raise BundleError("selection filters need --target; without it the bundle is the full pack")
+        return sorted(index.get("references", []), key=lambda r: (str(r.get("target")), sort_key(r)))
+    return select(index, target, register=register, tags=tags, keys=keys, limit=limit)
+
+
+def bundle_manifest(index: dict, index_blob: bytes, members: list[dict], selection: dict) -> dict:
+    capture = index.get("source_capture") or {}
+    return {
+        "schema": BUNDLE_SCHEMA,
+        "version": BUNDLE_VERSION,
+        "purpose": (
+            "Operator transfer pack: the exact individual TNR visual reference bytes and their "
+            "index, so one download can be extracted once and the selected individual images "
+            "attached later, one by one. Not a collage, not doctrine, not hydration by itself."
+        ),
+        "rule": BUNDLE_RULE,
+        "authority": "References calibrate; 25x_DATA_art_spec.json governs.",
+        "provenance": {
+            "index_schema": index.get("schema"),
+            "index_version": index.get("version"),
+            "index_sha256": hashlib.sha256(index_blob).hexdigest(),
+            "capture_manifest": capture.get("manifest"),
+            "capture_result": capture.get("result"),
+            "job_id": capture.get("job_id"),
+            "reads": capture.get("reads"),
+            "mutations": capture.get("mutations"),
+        },
+        "selection": selection,
+        "zip_layout": {
+            "generated_members": list(BUNDLE_GENERATED_MEMBERS),
+            "timestamp": list(BUNDLE_ZIP_TIME),
+            "file_mode": oct(BUNDLE_FILE_MODE),
+            "compression": "STORED (no recompression, no transcoding)",
+            "order": "README.txt, MANIFEST.json, style_refs.json, then images sorted by arcname",
+        },
+        "members": members,
+    }
+
+
+def bundle_readme(manifest: dict) -> str:
+    prov = manifest["provenance"]
+    sel = manifest["selection"]
+    out = [
+        "TNR visual reference pack - operator transfer bundle",
+        "====================================================",
+        "",
+        f"Built by skills/producing-tnr-art/scripts/style_refs.py bundle from the provenance-checked",
+        f"reference pack ({prov['index_schema']} v{prov['index_version']}, capture "
+        f"{prov['capture_manifest']} -> {prov['capture_result']}, {prov['reads']} reads, "
+        f"{prov['mutations']} mutations).",
+        f"Selection: {sel['label']} ({len(manifest['members'])} references).",
+        "",
+        "WHAT THIS IS",
+        "  The exact individual reference images, byte for byte, plus style_refs.json, so an",
+        "  operator can download one file to a phone, extract it once, and later attach",
+        "  exactly the individual images a session names.",
+        "",
+        "WHAT THIS IS NOT",
+        "  - Uploading this ZIP to a conversation is NOT reference hydration. A ZIP is not a",
+        "    rendered image; nothing in it has been looked at.",
+        "  - It is not a collage or contact sheet and must never be turned into one for a",
+        "    generator: multiple subjects in one frame get blended.",
+        "  - It is not art doctrine. 25x_DATA_art_spec.json governs; these calibrate.",
+        "",
+        "HOW TO HYDRATE A SESSION",
+        "  1. The session's generation preflight names the selected reference keys.",
+        "  2. Attach those individual image files, each one separately, so they render as",
+        "     images in the conversation.",
+        "  3. The assistant looks at each one and says what it saw. Only then may the",
+        "     reference mode be declared ATTACHED (the generator has the images) or",
+        "     ASSISTANT_GROUNDED (the assistant saw them; the generator cannot take images",
+        "     and the session must say so).",
+        "  Paths, URLs, hashes or unrendered base64 alone are NOT_HYDRATED: generation stops.",
+        "",
+        "MEMBERS  (arcname | sha256 | bytes | key | name | target/register)",
+    ]
+    for m in manifest["members"]:
+        reg = f"/{m['register']}" if m.get("register") else ""
+        out.append(
+            f"  {m['arcname']} | {m['sha256']} | {m['bytes']} | {m['key']} | {m['name']} | "
+            f"{m['target']}{reg}"
+        )
+        if m.get("do_not_use_for"):
+            out.append(f"      LIMIT: {m['do_not_use_for']}")
+    out.append(f"  style_refs.json | {prov['index_sha256']} | (index)")
+    out.append("  MANIFEST.json | (generated; the same members as JSON)")
+    out.append("")
+    out.append("Hashes are SHA-256 over the exact file bytes and match style_refs.json.")
+    return "\n".join(out) + "\n"
+
+
+def build_bundle(index: dict, index_blob: bytes, repo_root: Path, refs: list[dict],
+                 selection: dict) -> tuple[bytes, dict]:
+    """Return (zip_bytes, manifest). Pure function of its inputs: no clock, no cwd."""
+    import io
+    from zipfile import ZIP_STORED, ZipFile, ZipInfo
+
+    if not refs:
+        raise BundleError("no references selected; a bundle with no images is not a transfer pack")
+    banned = {
+        str(entry.get("name", "")).strip().lower()
+        for entry in index.get("excluded", [])
+        if isinstance(entry, dict)
+    }
+    images: list[tuple[str, bytes]] = []
+    members: list[dict] = []
+    seen: set[str] = set()
+    for ref in refs:
+        key = ref.get("key", "?")
+        if str(ref.get("name", "")).strip().lower() in banned:
+            raise BundleError(f"{key}: {ref.get('name')!r} is excluded/deprecated and may not be bundled")
+        arcname = bundle_arcname(ref)
+        if arcname in seen or arcname in BUNDLE_GENERATED_MEMBERS:
+            raise BundleError(f"{key}: duplicate or reserved arcname {arcname!r}")
+        seen.add(arcname)
+        local = repo_root / ref["path"]
+        if not local.is_file():
+            raise BundleError(f"{key}: reference file is missing: {ref['path']}")
+        blob = local.read_bytes()
+        digest = hashlib.sha256(blob).hexdigest()
+        if digest != ref.get("sha256"):
+            raise BundleError(f"{key}: sha256 mismatch for {ref['path']}: index {ref.get('sha256')}, file {digest}")
+        images.append((arcname, blob))
+        members.append(
+            {
+                "key": key,
+                "name": ref.get("name"),
+                "target": ref.get("target"),
+                "register": ref.get("register"),
+                "arcname": arcname,
+                "repo_path": ref["path"],
+                "sha256": digest,
+                "bytes": len(blob),
+                "width": ref.get("width"),
+                "height": ref.get("height"),
+                "format": ref.get("format"),
+                "use_for": ref.get("use_for"),
+                "do_not_use_for": ref.get("do_not_use_for"),
+            }
+        )
+    images.sort(key=lambda item: item[0])
+    members.sort(key=lambda m: m["arcname"])
+
+    manifest = bundle_manifest(index, index_blob, members, selection)
+    generated = [
+        ("README.txt", bundle_readme(manifest).encode("utf-8")),
+        ("MANIFEST.json", (json.dumps(manifest, indent=2, ensure_ascii=False) + "\n").encode("utf-8")),
+        ("style_refs.json", index_blob),
+    ]
+
+    buffer = io.BytesIO()
+    with ZipFile(buffer, "w", compression=ZIP_STORED) as zf:
+        for arcname, blob in generated + images:
+            info = ZipInfo(arcname, BUNDLE_ZIP_TIME)
+            info.create_system = 3
+            info.external_attr = BUNDLE_FILE_MODE << 16
+            info.compress_type = ZIP_STORED
+            zf.writestr(info, blob, compress_type=ZIP_STORED)
+    return buffer.getvalue(), manifest
+
+
+def sidecar_path(output: Path) -> Path:
+    return output.with_name(output.stem + ".manifest.json")
+
+
+def sidecar_text(manifest: dict, output_rel: str, zip_bytes: bytes) -> str:
+    payload = dict(manifest)
+    payload["archive"] = {
+        "path": output_rel,
+        "bytes": len(zip_bytes),
+        "sha256": hashlib.sha256(zip_bytes).hexdigest(),
+        "member_count": len(manifest["members"]) + len(BUNDLE_GENERATED_MEMBERS),
+    }
+    return json.dumps(payload, indent=2, ensure_ascii=False) + "\n"
+
+
+def bundle(index_path: Path, repo_root: Path, output: Path, target=None, register=None,
+           tags=None, keys=None, limit=None, check: bool = False,
+           approved=APPROVED_CAPTURE) -> int:
+    index = load_index(index_path)
+    index_blob = index_path.read_bytes()
+
+    # Provenance and byte integrity first. Nothing is bundled from a pack that
+    # cannot prove it is the approved capture.
+    errors = verify(index, repo_root, approved=approved)
+    if errors:
+        print(f"style_refs bundle: refusing to bundle: {len(errors)} verify error(s)", file=sys.stderr)
+        for err in errors:
+            print(f"  - {err}", file=sys.stderr)
+        return 1
+
+    try:
+        refs = bundle_refs(index, target, register, tags, keys, limit)
+        if target is None:
+            label = "full pack"
+        else:
+            bits = [target]
+            if register:
+                bits.append(register)
+            if tags:
+                bits.append("tags " + ",".join(tags))
+            if keys:
+                bits.append("keys " + ",".join(keys))
+            if limit is not None:
+                bits.append(f"limit {limit}")
+            label = " / ".join(bits)
+        selection = {
+            "label": label,
+            "target": target,
+            "register": register,
+            "tags": list(tags or []),
+            "keys": list(keys or []),
+            "limit": limit,
+            "keys_in_order": [r.get("key") for r in refs],
+        }
+        zip_bytes, manifest = build_bundle(index, index_blob, repo_root, refs, selection)
+    except BundleError as exc:
+        print(f"style_refs bundle: {exc}", file=sys.stderr)
+        return 1
+
+    output = output if output.is_absolute() else repo_root / output
+    try:
+        output_rel = output.resolve().relative_to(repo_root.resolve()).as_posix()
+    except ValueError:
+        output_rel = output.as_posix()
+    side = sidecar_path(output)
+    side_text = sidecar_text(manifest, output_rel, zip_bytes)
+    digest = hashlib.sha256(zip_bytes).hexdigest()
+    count = len(manifest["members"]) + len(BUNDLE_GENERATED_MEMBERS)
+
+    if check:
+        drift: list[str] = []
+        if not output.is_file():
+            drift.append(f"{output_rel} does not exist")
+        else:
+            committed = output.read_bytes()
+            if committed != zip_bytes:
+                drift.append(
+                    f"{output_rel}: committed {len(committed)} bytes sha256 "
+                    f"{hashlib.sha256(committed).hexdigest()} != fresh {len(zip_bytes)} bytes sha256 {digest}"
+                )
+        if not side.is_file():
+            drift.append(f"{side.name} sidecar manifest does not exist")
+        elif side.read_text(encoding="utf-8") != side_text:
+            drift.append(f"{side.name}: sidecar manifest differs from a fresh build")
+        if drift:
+            print(f"style_refs bundle --check: DRIFT ({len(drift)})", file=sys.stderr)
+            for item in drift:
+                print(f"  - {item}", file=sys.stderr)
+            print("  rebuild with `bundle` only after understanding why the pack changed", file=sys.stderr)
+            return 1
+        print(f"style_refs bundle --check: OK - {output_rel} matches a fresh deterministic build")
+        print(f"  {count} members ({len(manifest['members'])} images), {len(zip_bytes)} bytes, sha256 {digest}")
+        return 0
+
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_bytes(zip_bytes)
+    side.write_text(side_text, encoding="utf-8")
+    print(f"style_refs bundle: wrote {output_rel} ({label})")
+    for m in manifest["members"]:
+        print(f"  {m['arcname']:<44} {m['bytes']:>7} bytes  {m['sha256']}")
+    for name in BUNDLE_GENERATED_MEMBERS:
+        print(f"  {name:<44} (generated)")
+    print(f"  {count} members ({len(manifest['members'])} images), {len(zip_bytes)} bytes, sha256 {digest}")
+    print(f"  sidecar manifest: {side.name}")
+    print(f"  {BUNDLE_RULE}")
+    return 0
 
 
 # --------------------------------------------------------------------------
@@ -1180,6 +1508,111 @@ def selftest() -> int:
             "raw URLs are emitted for checkout-free callers",
         )
 
+        print("\nbundle - the deterministic operator transfer pack")
+        import io
+        from zipfile import ZIP_STORED, ZipFile
+
+        index_path = repo / "style_refs.json"
+        index_path.write_text(json.dumps(base), encoding="utf-8")
+        index_blob = index_path.read_bytes()
+        full = bundle_refs(base)
+        selection = {"label": "full pack", "target": None, "register": None, "tags": [], "keys": [],
+                     "limit": None, "keys_in_order": [r["key"] for r in full]}
+        zip_a, manifest_a = build_bundle(base, index_blob, repo, full, selection)
+        zip_b, manifest_b = build_bundle(base, index_blob, repo, full, selection)
+        want(zip_a == zip_b and manifest_a == manifest_b, "two builds produce byte-identical ZIPs and manifests")
+        want(hashlib.sha256(zip_a).hexdigest() == hashlib.sha256(zip_b).hexdigest(), "the bundle hash is deterministic")
+
+        with ZipFile(io.BytesIO(zip_a)) as zf:
+            names = zf.namelist()
+            want(names == ["README.txt", "MANIFEST.json", "style_refs.json",
+                           "scene_backgrounds/yard.png", "scene_characters/anchor.png",
+                           "scene_characters/second.png"],
+                 "membership and order are exactly the generated files then the images sorted by arcname")
+            for ref in base["references"]:
+                arc = bundle_arcname(ref)
+                blob = zf.read(arc)
+                want(blob == (repo / ref["path"]).read_bytes() and hashlib.sha256(blob).hexdigest() == ref["sha256"],
+                     f"{ref['key']}: bundled bytes are the exact file bytes, hash unchanged")
+            infos = zf.infolist()
+            want(all(i.compress_type == ZIP_STORED for i in infos), "every member is STORED, never recompressed")
+            want(all(i.date_time == BUNDLE_ZIP_TIME for i in infos), "every member carries the fixed timestamp")
+            want(all(i.external_attr == BUNDLE_FILE_MODE << 16 for i in infos), "every member carries the fixed mode")
+            want(zf.read("style_refs.json") == index_blob, "the index rides along byte for byte")
+            inner = json.loads(zf.read("MANIFEST.json"))
+            want(inner == manifest_a and inner["schema"] == BUNDLE_SCHEMA, "MANIFEST.json is the manifest")
+            want([m["key"] for m in inner["members"]] == ["yard", "anchor", "second"]
+                 and all(m["sha256"] for m in inner["members"]),
+                 "the manifest lists every member with its key and sha256")
+            readme = zf.read("README.txt").decode("utf-8")
+            want(all(r["sha256"] in readme and r["key"] in readme for r in base["references"]),
+                 "README lists every key and hash")
+            want("NOT reference hydration" in readme and "individual" in readme and "contact sheet" in readme,
+                 "README carries the upload-individually rule and the no-collage rule")
+            want("20" not in json.dumps(inner["zip_layout"]["timestamp"]) and "built_at" not in inner,
+                 "the manifest carries no build clock")
+
+        chars = bundle_refs(base, target="SCENE_CHARACTER", limit=1)
+        zip_c, manifest_c = build_bundle(base, index_blob, repo, chars,
+                                         {"label": "SCENE_CHARACTER / limit 1", "target": "SCENE_CHARACTER",
+                                          "register": None, "tags": [], "keys": [], "limit": 1,
+                                          "keys_in_order": ["anchor"]})
+        with ZipFile(io.BytesIO(zip_c)) as zf:
+            want(zf.namelist() == ["README.txt", "MANIFEST.json", "style_refs.json", "scene_characters/anchor.png"],
+                 "a selection-specific bundle excludes unselected references")
+        want(zip_c != zip_a, "a selection-specific bundle differs from the full pack")
+
+        def bundle_fails(fn, needle):
+            try:
+                fn()
+            except BundleError as exc:
+                return needle in str(exc)
+            return False
+
+        want(bundle_fails(lambda: bundle_refs(base, register="NINJA"), "need --target"),
+             "selection filters without a target are refused")
+        want(bundle_fails(lambda: build_bundle(base, index_blob, repo, [], selection), "no references"),
+             "an empty bundle is refused")
+        deprecated = copy.deepcopy(base)
+        deprecated["references"][0]["name"] = "Nameless Ninja"
+        want(bundle_fails(lambda: build_bundle(deprecated, index_blob, repo, bundle_refs(deprecated), selection), "excluded"),
+             "a deprecated reference is never bundled")
+        tampered = copy.deepcopy(base)
+        tampered["references"][0]["sha256"] = "0" * 64
+        want(bundle_fails(lambda: build_bundle(tampered, index_blob, repo, bundle_refs(tampered), selection), "sha256 mismatch"),
+             "a hash mismatch refuses the bundle")
+        outside = copy.deepcopy(base)
+        outside["references"][0]["path"] = "elsewhere/anchor.png"
+        want(bundle_fails(lambda: bundle_arcname(outside["references"][0]), "not under"),
+             "a reference outside art/style_refs cannot be given an arcname")
+
+        import contextlib
+
+        def quiet_bundle(*args, **kwargs) -> int:
+            """Run the bundle command with its report swallowed; the exit code is the assertion."""
+            sink = io.StringIO()
+            with contextlib.redirect_stdout(sink), contextlib.redirect_stderr(sink):
+                return bundle(*args, approved=FIXTURE_APPROVED, **kwargs)
+
+        out = repo / BUNDLE_PATH
+        want(quiet_bundle(index_path, repo, out) == 0, "the bundle command writes the archive")
+        want(out.read_bytes() == zip_a, "the written archive equals the in-memory build")
+        side = sidecar_path(out)
+        want(side.is_file() and json.loads(side.read_text(encoding="utf-8"))["archive"]["sha256"]
+             == hashlib.sha256(zip_a).hexdigest(), "the sidecar manifest records the archive hash")
+        want(quiet_bundle(index_path, repo, out, check=True) == 0, "--check passes on a fresh build")
+        out.write_bytes(zip_a + b"\x00")
+        want(quiet_bundle(index_path, repo, out, check=True) == 1, "--check fails on archive drift")
+        out.write_bytes(zip_a)
+        side.write_text("{}", encoding="utf-8")
+        want(quiet_bundle(index_path, repo, out, check=True) == 1, "--check fails on sidecar drift")
+        out.unlink()
+        want(quiet_bundle(index_path, repo, out, check=True) == 1, "--check fails when the archive is missing")
+        broken_index = repo / "broken_index.json"
+        broken_index.write_text(json.dumps(tampered), encoding="utf-8")
+        want(quiet_bundle(broken_index, repo, out) == 1 and not out.exists(),
+             "the bundle command refuses a pack that does not verify and writes nothing")
+
     print()
     if failures:
         print(f"{len(failures)} FAILED")
@@ -1226,6 +1659,19 @@ def main(argv=None) -> int:
     p_select.add_argument("--ref", default=None, help="git ref for emitted raw URLs (default: main)")
     p_select.add_argument("--json", action="store_true")
 
+    p_bundle = sub.add_parser("bundle", help="build (or --check) the deterministic operator transfer pack")
+    p_bundle.add_argument("--repo-root", type=Path, default=None)
+    p_bundle.add_argument("--output", type=Path, default=Path(BUNDLE_PATH),
+                          help=f"archive path, repository-relative unless absolute (default {BUNDLE_PATH})")
+    p_bundle.add_argument("--target", choices=TARGETS, default=None,
+                          help="selection-specific bundle; omit for the full pack")
+    p_bundle.add_argument("--register", choices=REGISTERS, default=None)
+    p_bundle.add_argument("--tag", action="append", default=[])
+    p_bundle.add_argument("--key", action="append", default=[])
+    p_bundle.add_argument("--limit", type=int, default=None)
+    p_bundle.add_argument("--check", action="store_true",
+                          help="rebuild in memory and fail if the committed archive or sidecar drifted")
+
     p_mat = sub.add_parser("materialize", help="MAINTAINER: re-download bytes from captured image URLs")
     p_mat.add_argument("--repo-root", type=Path, default=None)
     p_mat.add_argument(
@@ -1248,6 +1694,19 @@ def main(argv=None) -> int:
 
     if args.command == "materialize":
         return materialize(index_path, args.repo_root or default_repo_root(), args.result)
+
+    if args.command == "bundle":
+        return bundle(
+            index_path,
+            args.repo_root or default_repo_root(),
+            args.output,
+            target=args.target,
+            register=args.register,
+            tags=args.tag,
+            keys=args.key,
+            limit=args.limit,
+            check=args.check,
+        )
 
     index = load_index(index_path)
 
