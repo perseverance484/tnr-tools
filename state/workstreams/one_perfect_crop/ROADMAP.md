@@ -51,12 +51,16 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 - **`art.scene_characters`** (READY) - Scene characters: Road Bandit production and Market Clerk reuse closure
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.scene_characters`
+  - action-gated: image_generation gated by 4 session gate(s); repository READY is not action readiness
 - **`art.combat_avatars`** (READY) - Combat AI avatars: Road Bandit and Harvest Boar
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.combat_avatars`
+  - action-gated: image_generation gated by 2 session gate(s); repository READY is not action readiness
 - **`art.icons`** (READY) - Cabbage Seed item icon
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.icons`
+  - action-gated: image_generation gated by 2 session gate(s); repository READY is not action readiness
 - **`art.backgrounds`** (READY) - Scene background coverage and wiring assessment
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.backgrounds`
+  - action-gated: image_generation gated by 4 session gate(s); repository READY is not action readiness
 - **`admin.balance_and_eligibility`** (READY) - Director packet: rewards, item economics, repeatability and eligibility
   - `python3 scripts/content_workstream.py init one_perfect_crop --task admin.balance_and_eligibility`
 
@@ -70,6 +74,8 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 ## Other open decisions
 
 - `art.scene_characters`: Final Road Bandit visual direction and final art acceptance are the user's.
+- `art.scene_characters`: Road Bandit prompt tension, surfaced not settled: the approved combat contract records element: None, while the generic SCENE_CHARACTER scaffold carries a literal elemental-glow accent phrase alongside the house-style clause allowing at most one restrained accent. Whether the Road Bandit candidate carries one restrained accent, a non-elemental accent, or none is the user's art-direction call; this task does not change the global scaffold or house style.
+- `art.scene_characters`: Road Bandit prompt tension, surfaced not settled: the combat contract is Bukijutsu-flavoured (preferredStat: Bukijutsu), while the generic scene-character negative says no props. Whether a weapon is visible, implied by costume only, or absent is the user's art-direction call; this task does not change the global scaffold.
 - `art.combat_avatars`: Final visual direction and final acceptance of both AI avatars are the user's.
 - `art.icons`: Final icon direction and final art acceptance are the user's.
 - `art.icons`: Rarity/type/economics remain in admin.balance_and_eligibility and must not be baked into this art task.
@@ -307,6 +313,7 @@ Produce the one outstanding new SCENE_CHARACTER and close the remaining scene-ch
 - generate/process one_perfect_crop_road_bandit_scene.webp in a NINJA scene-character-only context
 - verify DM Mission Clerk XsLLy8awDAtaE6hXVIi_0 against the frozen Market Clerk role and committed capture, recording the reuse verdict
 - one candidate at a time through raw QC, processing, dark-composite QC, preflight and user acceptance
+- render the deterministic generation-preflight packet for SCENE_CHARACTER / NINJA / full with the Road Bandit subject, stage its canonical contract verbatim immediately before each generation call, and treat every returned image as a provisional raw candidate
 
 **Out of scope**
 
@@ -329,6 +336,9 @@ Produce the one outstanding new SCENE_CHARACTER and close the remaining scene-ch
 - `state/plan_one_perfect_crop_finish.md` - Locks character reuse/production intent and rejects Nameless Ninja.
 - `state/one_perfect_crop_prose_graph.md` - Frozen Road Bandit and Market Clerk scene context.
 - `harvests/inbox/tnr_results_1789060167786.json` - Fresh DM Mission Clerk reuse record.
+- `skills/producing-tnr-art/scripts/generation_preflight.py` - Deterministic generation-preflight packet: verified reference selection with hashes, the exact canonical prompt from shotlist.render_prompt, a contract hash, and every runtime field initialised closed. Render it before any generation call; it never flips a runtime field.
+- `art/style_ref_bundles/tnr_style_reference_pack.zip` - Durable operator transfer pack of the exact individual reference bytes. Download once, extract once, then attach the selected individual images so they render in the conversation. Uploading the ZIP itself is not hydration.
+- `art/style_ref_bundles/tnr_style_reference_pack.manifest.json` - Bundle member keys and SHA-256s, for checking attached bytes against style_refs.json where file access permits.
 
 **Deliverables**
 
@@ -339,11 +349,19 @@ Produce the one outstanding new SCENE_CHARACTER and close the remaining scene-ch
 **Completion gates**
 
 - Required style references selected and visually inspected before generation
+- generation-preflight packet rendered and its canonical contract staged before each generation call; each returned candidate raw-QC'd as a provisional raw candidate before any processing
 - rawqc run before processing
 - dark-composite QC inspected
 - artpreflight zero errors
 - user accepts the final Road Bandit art
 - exact filename is durable in the repository
+
+**Session gates** - proven only by the current session before the named action; repository READY does not satisfy them
+
+- before `image_generation`: `visual_reference_hydration` (on fail STOP) - The selected individual style-reference pixels for SCENE_CHARACTER / NINJA (the deterministic selection: commander_okabe, winter_crow, pale_fang, old_ghost) are rendered and visually inspected in the current session, one image at a time. Metadata, paths, URL text, hashes, an uploaded ZIP and unrendered base64 do not satisfy this.
+- before `image_generation`: `reference_mode_declared` (on fail STOP) - The reference mode is declared from what this session actually did: ATTACHED (preferred for ChatGPT; the four individual images are rendered attachments / input images in the generation conversation) or ASSISTANT_GROUNDED (the pixels were actually inspected but the generation surface cannot take image inputs, and the session says the generator received no reference images). NOT_HYDRATED or an undeclared mode means no generation.
+- before `image_generation`: `clean_scene_character_context` (on fail STOP) - The generation context is a clean SCENE_CHARACTER-only context carrying only this asset class and its selected references. No AI avatar, icon, background, Forge screenshot or unrelated prior generation is present in it.
+- before `image_generation`: `generation_preflight_staged` (on fail STOP) - The deterministic generation-preflight packet (generation_preflight.py prepare, --target SCENE_CHARACTER --register NINJA --frame full, the Road Bandit subject, pinned to the verified commit) was rendered in this session and its canonical contract was staged verbatim in the conversation immediately before the generation call.
 
 ### `art.combat_avatars` - Combat AI avatars: Road Bandit and Harvest Boar
 
@@ -389,6 +407,11 @@ Produce the two square AI avatars in one avatar-only context, one asset at a tim
 - user accepts each final avatar
 - exact filenames are durable in the repository
 
+**Session gates** - proven only by the current session before the named action; repository READY does not satisfy them
+
+- before `image_generation`: `clean_ai_avatar_context` (on fail STOP) - The generation context is a clean AI_AVATAR-only context carrying no scene character, icon, background or unrelated prior generation. The v1 visual reference pack carries no AI_AVATAR references, so no reference hydration is claimed for this task.
+- before `image_generation`: `canonical_contract_staged` (on fail STOP) - The canonical AI_AVATAR prompt rendered by shotlist.render_prompt from the current 25x_DATA_art_spec.json (via mission.py or shotlist.py) is staged verbatim in the conversation immediately before the generation call; generation_preflight.py v1 covers pack-backed targets only and refuses AI_AVATAR by design.
+
 ### `art.icons` - Cabbage Seed item icon
 
 **READY** - area art, owner ChatGPT, lead role Image Production
@@ -429,6 +452,11 @@ Produce the remaining Cabbage Seed reward icon in a clean icon-only context.
 - user accepts the final icon
 - exact filename is durable in the repository
 
+**Session gates** - proven only by the current session before the named action; repository READY does not satisfy them
+
+- before `image_generation`: `clean_icon_context` (on fail STOP) - The generation context is a clean ICON-only context carrying no scene character, avatar, background or unrelated prior generation. The v1 visual reference pack carries no ICON references, so no reference hydration is claimed for this task.
+- before `image_generation`: `canonical_contract_staged` (on fail STOP) - The canonical ICON prompt rendered by shotlist.render_prompt from the current 25x_DATA_art_spec.json is staged verbatim in the conversation immediately before the generation call; generation_preflight.py v1 covers pack-backed targets only and refuses ICON by design.
+
 ### `art.backgrounds` - Scene background coverage and wiring assessment
 
 **READY** - area art, owner ChatGPT, lead role Art Director
@@ -457,6 +485,8 @@ Prove that every dialog node can use the four already-locked geographical backgr
 - `state/art_produced.md` - Production history and accepted shipping variants for the reused Forsworn backgrounds.
 - `docs/workflows/ART_PRODUCTION.md` - Only becomes production authority if assessment proves a new background is actually needed.
 - `skills/producing-tnr-art/SKILL.md` - Target workflow if exceptional background production is directed.
+- `skills/producing-tnr-art/scripts/generation_preflight.py` - Deterministic generation-preflight packet: verified reference selection with hashes, the exact canonical prompt from shotlist.render_prompt, a contract hash, and every runtime field initialised closed. Render it before any generation call; it never flips a runtime field.
+- `art/style_ref_bundles/tnr_style_reference_pack.zip` - Durable operator transfer pack of the exact individual reference bytes. Download once, extract once, then attach the selected individual images so they render in the conversation. Uploading the ZIP itself is not hydration.
 
 **Deliverables**
 
@@ -469,6 +499,13 @@ Prove that every dialog node can use the four already-locked geographical backgr
 - All four reused ids are tied to committed capture evidence
 - No background is generated merely to mirror a prose incident
 - Any newly produced background, if needed, passes current art workflow/preflight and user acceptance
+
+**Session gates** - proven only by the current session before the named action; repository READY does not satisfy them
+
+- before `image_generation`: `visual_reference_hydration` (on fail STOP) - Only if the user directs exceptional background production: the selected individual SCENE_BACKGROUND reference pixels (style_refs.py select --target SCENE_BACKGROUND, tag-driven for the location) are rendered and visually inspected in the current session. Metadata, URLs, hashes, an uploaded ZIP and unrendered base64 do not satisfy this.
+- before `image_generation`: `reference_mode_declared` (on fail STOP) - The reference mode is declared from what this session actually did: ATTACHED (preferred) or ASSISTANT_GROUNDED with the statement that the generator received no reference images. NOT_HYDRATED or an undeclared mode means no generation.
+- before `image_generation`: `clean_scene_background_context` (on fail STOP) - The generation context is a clean SCENE_BACKGROUND-only context carrying only this asset class and its selected references; no character, avatar, icon or unrelated prior generation is present.
+- before `image_generation`: `generation_preflight_staged` (on fail STOP) - The deterministic generation-preflight packet (generation_preflight.py prepare --target SCENE_BACKGROUND with the location subject, pinned to the verified commit) was rendered in this session and its canonical contract was staged verbatim immediately before the generation call.
 
 ### `admin.balance_and_eligibility` - Director packet: rewards, item economics, repeatability and eligibility
 

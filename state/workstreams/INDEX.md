@@ -14,10 +14,10 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 **Executable now**
 
-- `art.scene_characters` (READY) - Scene characters: Road Bandit production and Market Clerk reuse closure
-- `art.combat_avatars` (READY) - Combat AI avatars: Road Bandit and Harvest Boar
-- `art.icons` (READY) - Cabbage Seed item icon
-- `art.backgrounds` (READY) - Scene background coverage and wiring assessment
+- `art.scene_characters` (READY; image_generation gated by 4 session gate(s)) - Scene characters: Road Bandit production and Market Clerk reuse closure
+- `art.combat_avatars` (READY; image_generation gated by 2 session gate(s)) - Combat AI avatars: Road Bandit and Harvest Boar
+- `art.icons` (READY; image_generation gated by 2 session gate(s)) - Cabbage Seed item icon
+- `art.backgrounds` (READY; image_generation gated by 4 session gate(s)) - Scene background coverage and wiring assessment
 - `admin.balance_and_eligibility` (READY) - Director packet: rewards, item economics, repeatability and eligibility
 
 **Blocked**
