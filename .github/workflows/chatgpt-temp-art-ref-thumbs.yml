@@ -16,6 +16,13 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install --quiet Pillow
+      - name: Workstream initializer and reference gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/content_workstream.py init one_perfect_crop --task art.scene_characters
+          python3 skills/producing-tnr-art/scripts/style_refs.py verify --repo-root .
+          python3 skills/producing-tnr-art/scripts/style_refs.py select --target SCENE_CHARACTER --register NINJA --limit 4
       - name: Render compact inspection thumbnails
         shell: bash
         run: |
