@@ -1,0 +1,59 @@
+name: chatgpt-temp-art-ref-thumbs
+on:
+  push:
+    branches:
+      - chatgpt/one-perfect-crop-art-refs-20260911
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow
+      - name: Render compact inspection thumbnails
+        shell: bash
+        run: |
+          python - <<'PY'
+          from PIL import Image, ImageOps
+          from pathlib import Path
+          import base64, hashlib, io, urllib.request
+
+          refs = {
+              'commander_okabe': Path('art/style_refs/scene_characters/commander_okabe.png'),
+              'winter_crow': Path('art/style_refs/scene_characters/winter_crow.webp'),
+              'pale_fang': Path('art/style_refs/scene_characters/pale_fang.webp'),
+              'old_ghost': Path('art/style_refs/scene_characters/old_ghost.webp'),
+          }
+          clerk_url = 'https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0SSY1UrgrYldRWJcD6vE10SjNsXHeA9pVMfQ'
+
+          def emit(key, blob):
+              digest = hashlib.sha256(blob).hexdigest()
+              with Image.open(io.BytesIO(blob)) as src:
+                  im = ImageOps.exif_transpose(src).convert('RGBA')
+                  source_size = im.size
+                  bg = Image.new('RGBA', im.size, (32, 36, 42, 255))
+                  bg.alpha_composite(im)
+                  thumb = bg.convert('RGB')
+                  thumb.thumbnail((160, 240), Image.Resampling.LANCZOS)
+                  out = io.BytesIO()
+                  thumb.save(out, 'JPEG', quality=70, optimize=True)
+                  payload = base64.b64encode(out.getvalue()).decode('ascii')
+              print(f'@@BEGIN {key} source={source_size[0]}x{source_size[1]} sha256={digest} thumb_bytes={len(out.getvalue())}')
+              for i in range(0, len(payload), 76):
+                  print(payload[i:i+76])
+              print(f'@@END {key}')
+
+          for key, path in refs.items():
+              emit(key, path.read_bytes())
+
+          req = urllib.request.Request(clerk_url, headers={'User-Agent': 'tnr-tools/chatgpt-ref-inspection'})
+          with urllib.request.urlopen(req, timeout=30) as response:
+              clerk = response.read()
+          emit('dm_mission_clerk', clerk)
+          PY
