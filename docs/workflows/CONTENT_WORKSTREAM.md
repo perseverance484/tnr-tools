@@ -32,10 +32,11 @@ the session should:
    python3 scripts/content_workstream.py init <slug> --task <task-id>
    ```
 4. confirm the task is `READY` or `IN_PROGRESS` and that its dependencies and resources are real — the initializer refuses and explains when they are not;
-5. read the task's `required_resources` plus the completed upstream evidence the packet lists;
-6. state the objective, the completion gates, and any user-owned decisions still open;
-7. work **only that task**, unless new evidence genuinely requires a roadmap change;
-8. at a durable stopping point, update the task's status, evidence and `resume_note`, then re-validate and re-render.
+5. read the packet's `SESSION GATES / ACTION READINESS` section: repository `READY` is not action readiness, and a gated action (for example `image_generation`) is forbidden until the current session has proven every listed gate itself (section 4b);
+6. read the task's `required_resources` plus the completed upstream evidence the packet lists;
+7. state the objective, the completion gates, and any user-owned decisions still open;
+8. work **only that task**, unless new evidence genuinely requires a roadmap change;
+9. at a durable stopping point, update the task's status, evidence and `resume_note`, then re-validate and re-render.
 
 A healthy workstream needs no predecessor transcript. If the packet cannot be executed from the repository alone, that is a roadmap defect: fix the roadmap rather than filling the gap from memory.
 
@@ -101,6 +102,55 @@ The validator rejects a `COMPLETE` task with an empty `evidence` list, one whose
 
 If a conversation stops partway, set `IN_PROGRESS` with a concise `resume_note` and the current durable outputs. Do not mark partial work `COMPLETE` to advance the roadmap.
 
+## 4b. Session gates — repository-ready is not action-ready
+
+`READY` answers one question: do the durable repository prerequisites exist? It says nothing about what the **current conversation or runtime** can actually do. An art task can have every reference file, spec and brief committed and still be unable to generate an image correctly, because the selected reference pixels have never been rendered into the session's visual context. The failed One Perfect Crop Road Bandit generation was exactly that: repository `READY`, runtime not.
+
+The status model does not grow a second enum for runtime circumstances. Instead a task may carry an optional `session_gates` array: named requirements the current session must prove before one named action may occur.
+
+```json
+"session_gates": [
+  {
+    "id": "visual_reference_hydration",
+    "before": "image_generation",
+    "requirement": "Selected individual style-reference pixels are rendered and visually inspected in the current session; metadata, URL text and unrendered base64 do not satisfy this.",
+    "on_fail": "STOP"
+  }
+]
+```
+
+Each gate carries exactly four fields:
+
+| Field | Meaning |
+|---|---|
+| `id` | stable within the task, nonempty, unique |
+| `before` | the concise action the gate precedes, such as `image_generation` |
+| `requirement` | what the current session must prove, in one sentence |
+| `on_fail` | `STOP` only in v1; a required runtime gate has no warning-only bypass |
+
+The validator rejects a `session_gates` value that is not an array of objects, a gate missing any of the four fields, a blank `id`/`before`/`requirement`, a duplicate `id` inside one task, an `on_fail` other than `STOP`, and any unknown field.
+
+What a session gate is **not**:
+
+- it is not a blocker — it never changes a task's status, and it never changes whether a dependent task's dependencies are satisfied. A `BLOCKED` task still uses `blockers` / `open_decisions` for durable prerequisite failures exactly as before;
+- it is not satisfied by the repository — a path, a URL, a hash, a base64 blob or a note in `roadmap.json` proves nothing about what the session has seen or set up. Satisfying a gate is normally session-local and is not recorded as permanent evidence; permanent outputs and acceptance still close the task through the evidence rules in section 4;
+- it is not a second art authority — the gate names the requirement; the art skill, spec and workflow own how it is met.
+
+The initializer prints a `SESSION GATES / ACTION READINESS` section for every executable task, before the deliverables. With gates it reads, deterministically:
+
+```text
+TASK STATUS       : READY (repository prerequisites satisfied)
+ACTION READINESS  : GATED - image_generation must not occur until this session proves every gate below
+
+Before image_generation:
+  [ ] visual_reference_hydration  (on fail: STOP)
+      ...
+```
+
+The packet never declares the gated action ready. Only the session can, gate by gate, by stating what it actually did. Without gates the section still says that repository `READY` proves only that the durable inputs exist.
+
+Use gates sparingly, for actions whose correctness depends on the execution surface: image generation with visual references, a generation context that must be clean of a previous asset class, a contract that must be staged immediately before a tool call. Do not turn ordinary reading of resources into gates.
+
 ## 5. User-owned decisions stay visible
 
 Balance, rewards, rarity, publishing, final art direction, final content acceptance and every live action remain the user's. A task gated on one of these says so in `blockers` / `open_decisions` rather than inventing a value to make the roadmap green. The initializer surfaces them, and the ones open elsewhere in the workstream, as context.
@@ -112,7 +162,7 @@ Once enough requirements are known, the planning conversation should:
 1. establish a concise durable content/design source, or point at existing committed material;
 2. enumerate the full expected workstream from design through readback;
 3. group work into session-sized tasks by context and tooling affinity;
-4. mark dependencies and user-owned decision gates;
+4. mark dependencies and user-owned decision gates, and add `session_gates` to any task whose named action depends on the execution surface (section 4b);
 5. commit every durable resource and pointer available;
 6. mark a task `READY` only when a future session could execute it from repository evidence alone;
 7. render the roadmap;
