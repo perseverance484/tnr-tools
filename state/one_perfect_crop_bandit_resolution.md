@@ -48,6 +48,17 @@ Create one new generic Road Bandit AI/profile using the already-approved event s
 
 No new jutsu are created. The shared pool jutsu are referenced by existing ids.
 
+## Shared-pool verification
+
+Current generated pool `skills/building-tnr-content/data/32b_DATA_pool.json` confirms the exact approved ids and effects:
+
+- S27 `Weakening Strike` — `YiRdVytsdxFzZtqkEDs5Q`, range 5, 60 AP, cooldown 4, damage 40 + decreased damage given 20% for 2 rounds.
+- S40 `Measured Strike` — `kkGDat1XWUxhOQ1_T5025`, range 5, 60 AP, cooldown 3, damage 20.
+- S41 `Steady Strike` — `fKvCGRgzGNskgFWocQCAg`, range 5, 60 AP, cooldown 3, damage 30.
+- S42 `Forceful Strike` — `4TM6iS8P0qgNHsFpALFhg`, range 5, 60 AP, cooldown 3, damage 40. S42 is for the separately approved Harvest Boar kit.
+
+The final manifest should resolve these through the shared pool / literal ids and must not mint replacements.
+
 ## Art consequence
 
 Because the AI is new, One Perfect Crop requires both:
