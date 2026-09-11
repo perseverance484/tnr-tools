@@ -71,7 +71,13 @@ what you actually see.
 
 `select` emits raw repository URLs as well as local paths, so an installed skill ZIP with no
 checkout is still usable; the binaries are deliberately outside the skill package. `verify` needs a
-checkout and audits every reference's bytes, dimensions, format and provenance.
+checkout and audits every reference's bytes, dimensions and format **and proves the pack's
+provenance**: it resolves the single successful committed result for the approved capture manifest
+out of `harvests/inbox/`, fails closed on zero or multiple matches, requires that result to be
+`DONE`/`success` with zero journal mutation items and exactly the expected full-body captures, and
+cross-checks every reference's recorded source URL, capture path and snapshot key against it.
+Byte-level integrity alone would let a pack hash perfectly while being severed from the approved
+capture; `materialize` runs the same check and downloads nothing until it passes.
 
 ## What makes this hard
 
@@ -174,7 +180,7 @@ upload paths.
 | `scripts/rawqc.py` | Mechanical raw-QC BEFORE any human look: aspect vs spec, chroma coverage band, 2px ring purity; `--record` appends the scaffold ledger, `--stats` prints accept rates and flags escalation candidates, `--selftest` synthesizes its own red/green fixtures. Run it on every generation before chroma.py. |
 | `scripts/artpreflight.py` | Acceptance check before handover. `--index <art_index.json>` audits the whole live library instead of files. |
 | `scripts/shotlist.py` | **Generate the shot list from the quest graph, never author it.** Takes a `quests.get` capture and emits every asset the quest needs with its exact numbers, filename, `@img` ref and its rendered generator prompt, assembled from `spec.prompt_scaffolds` with `[STYLE]` expanded verbatim and scoped per target. Hand-authoring that list is where assets go missing or land with a filename the manifest does not reference. |
-| `scripts/style_refs.py` | **The visual reference pack.** `select --target ... [--register ...|--tag ...]` picks the deterministic reference set for one production target and prints local paths plus raw URLs; `list` shows the whole corpus; `verify --repo-root .` audits bytes/dimensions/format/provenance against `data/style_refs.json`; `--selftest` runs socket-free. `materialize` is a maintainer-only path that re-downloads from the captured image URLs. |
+| `scripts/style_refs.py` | **The visual reference pack.** `select --target ... [--register ...|--tag ...]` picks the deterministic reference set for one production target and prints local paths plus raw URLs; `list` shows the whole corpus; `verify --repo-root .` audits bytes/dimensions/format AND fail-closed capture provenance against `data/style_refs.json`; `--selftest` runs socket-free. `materialize` is a maintainer-only path that proves provenance first and only then re-downloads from the captured image URLs. |
 | `scripts/artpreflight_selftest.py` | Exit test: one correct and one deliberately wrong export per asset type. |
 
 All of them read `25x_DATA_art_spec.json` from the working directory. Copy it in at session start,

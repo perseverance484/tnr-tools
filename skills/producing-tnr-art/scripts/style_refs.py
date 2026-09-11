@@ -67,6 +67,19 @@ EXT_FOR_FORMAT = {"PNG": ".png", "WEBP": ".webp", "JPEG": ".jpg", "GIF": ".gif"}
 # honestly rather than impersonating a browser.
 USER_AGENT = "tnr-tools/style_refs.py (reference-pack materialization)"
 
+# The v1 pack is grounded in exactly one approved read-only capture. Pinning the
+# manifest path here is what makes provenance fail-closed: neither a crafted
+# index nor a --result override can point the pack at a different capture. A v2
+# grounded in a different capture changes this constant deliberately.
+APPROVED_CAPTURE = {
+    "manifest": "push/03_tnr_art_style_reference_capture.json",
+    "reads": 18,
+}
+APPROVED_CAPTURE_MANIFEST = APPROVED_CAPTURE["manifest"]
+EXPECTED_CAPTURE_COUNT = APPROVED_CAPTURE["reads"]
+EXPECTED_CAPTURE_PROC = "gameAsset.get"
+HARVEST_INBOX = "harvests/inbox"
+
 
 # --------------------------------------------------------------------------
 # stdlib image header decoding (no Pillow; mirrors rawqc.py's approach)
@@ -150,6 +163,252 @@ def png_bytes(width: int, height: int) -> bytes:
 
 
 # --------------------------------------------------------------------------
+# capture provenance - the shared fail-closed path for verify and materialize
+# --------------------------------------------------------------------------
+
+
+class ProvenanceError(Exception):
+    """The pack could not be proven to come from the approved committed capture."""
+
+
+def repo_relative(repo_root: Path, candidate) -> str:
+    """Resolve `candidate` to a path inside repo_root, or refuse.
+
+    `repo_root / absolute` silently discards repo_root, so an absolute or
+    traversing --result would escape the repository. Refuse instead.
+    """
+    text = str(candidate)
+    path = Path(text)
+    if path.is_absolute():
+        try:
+            rel = path.resolve().relative_to(repo_root.resolve())
+        except ValueError:
+            raise ProvenanceError(
+                f"{text} is outside the repository. The source result must be a committed "
+                f"file under {repo_root}."
+            )
+        return rel.as_posix()
+    if ".." in path.parts:
+        raise ProvenanceError(f"{text} traverses out of the repository with '..'")
+    return path.as_posix()
+
+
+def find_capture_result(repo_root: Path, manifest: str) -> str:
+    """The single committed successful result for `manifest`, or fail closed."""
+    inbox = repo_root / HARVEST_INBOX
+    if not inbox.is_dir():
+        raise ProvenanceError(f"{HARVEST_INBOX}/ not found under {repo_root}")
+    hits = []
+    for path in sorted(inbox.glob("*.json")):
+        try:
+            with path.open(encoding="utf-8") as handle:
+                data = json.load(handle)
+        except (json.JSONDecodeError, OSError):
+            continue
+        journal = data.get("journal") or {}
+        if journal.get("manifestPath") != manifest:
+            continue
+        if data.get("state") != "DONE" or data.get("outcome") != "success":
+            continue
+        hits.append(path.relative_to(repo_root).as_posix())
+    if len(hits) == 1:
+        return hits[0]
+    if not hits:
+        raise ProvenanceError(
+            f"no successful committed result in {HARVEST_INBOX}/ has "
+            f"journal.manifestPath == {manifest!r}"
+        )
+    raise ProvenanceError(
+        f"{len(hits)} successful committed results claim manifest {manifest!r}: "
+        f"{', '.join(hits)}. Exactly one is required; resolve the ambiguity rather "
+        "than picking one."
+    )
+
+
+def resolve_capture_result(repo_root: Path, index: dict, override=None, approved=APPROVED_CAPTURE) -> str:
+    """Repository-relative path of the result this pack must be proven against."""
+    manifest = (index.get("source_capture") or {}).get("manifest")
+    if manifest != approved["manifest"]:
+        raise ProvenanceError(
+            f"index source_capture.manifest is {manifest!r}; the approved v1 capture is "
+            f"{approved['manifest']!r}"
+        )
+    if override is not None:
+        rel = repo_relative(repo_root, override)
+        if not (repo_root / rel).is_file():
+            raise ProvenanceError(f"{rel} is not a file in the repository")
+        return rel
+    return find_capture_result(repo_root, manifest)
+
+
+def load_capture_result(repo_root: Path, rel: str) -> dict:
+    try:
+        with (repo_root / rel).open(encoding="utf-8") as handle:
+            return json.load(handle)
+    except FileNotFoundError:
+        raise ProvenanceError(f"source capture result not found: {rel}")
+    except json.JSONDecodeError as exc:
+        raise ProvenanceError(f"source capture result is not valid JSON: {rel}: {exc}")
+
+
+def validate_capture_result(
+    index: dict, result: dict, rel: str, approved=APPROVED_CAPTURE
+) -> tuple[dict, list[str]]:
+    """Prove `result` is the approved read-only capture for this index.
+
+    Returns (by_id, errors). by_id maps asset id -> (capture, record). It is only
+    safe to use when errors is empty.
+    """
+    errors: list[str] = []
+    declared = index.get("source_capture") or {}
+
+    def bad(msg: str) -> None:
+        errors.append(f"{rel}: {msg}")
+
+    if declared.get("manifest") != approved["manifest"]:
+        bad(
+            f"index source_capture.manifest is {declared.get('manifest')!r}; the approved "
+            f"v1 capture is {approved['manifest']!r}"
+        )
+
+    if result.get("state") != "DONE":
+        bad(f"result state is {result.get('state')!r}, expected 'DONE'")
+    if result.get("outcome") != "success":
+        bad(f"result outcome is {result.get('outcome')!r}, expected 'success'")
+
+    journal = result.get("journal")
+    if not isinstance(journal, dict):
+        bad("result carries no journal; provenance cannot be established")
+        return {}, errors
+
+    if journal.get("manifestPath") != approved["manifest"]:
+        bad(
+            f"journal.manifestPath is {journal.get('manifestPath')!r}, expected "
+            f"{approved['manifest']!r}"
+        )
+    if journal.get("state") not in (None, "DONE"):
+        bad(f"journal.state is {journal.get('state')!r}, expected 'DONE'")
+
+    for field, declared_key in (("jobId", "job_id"), ("manifestHash", "manifest_hash")):
+        want = declared.get(declared_key)
+        if want and journal.get(field) != want:
+            bad(
+                f"journal.{field} is {journal.get(field)!r} but the index records "
+                f"{declared_key} {want!r}"
+            )
+
+    items = journal.get("items")
+    if items is None:
+        bad("journal carries no items array; zero mutations cannot be proven")
+    elif items:
+        bad(f"journal carries {len(items)} mutation item(s); this must be a read-only capture")
+    if declared.get("mutations") not in (0, None):
+        bad("index source_capture.mutations must be 0: this is a read-only capture")
+
+    captures = result.get("captures")
+    if not isinstance(captures, list):
+        bad("result carries no captures array")
+        return {}, errors
+
+    refs_by_id: dict[str, dict] = {}
+    for ref in index.get("references", []):
+        asset_id = ref.get("asset_id")
+        if isinstance(asset_id, str) and asset_id:
+            refs_by_id[asset_id] = ref
+
+    expected_reads = approved["reads"]
+    if len(captures) != expected_reads:
+        bad(
+            f"expected exactly {expected_reads} captures, found {len(captures)}. "
+            "An extra or missing capture makes the reference set ambiguous."
+        )
+    if len(refs_by_id) != expected_reads:
+        bad(f"index carries {len(refs_by_id)} distinct asset ids, expected {expected_reads}")
+    if declared.get("reads") not in (None, expected_reads):
+        bad(f"index source_capture.reads is {declared.get('reads')!r}, expected {expected_reads}")
+
+    by_id: dict[str, tuple[dict, dict]] = {}
+    seen: dict[str, int] = {}
+    for position, cap in enumerate(captures):
+        label = f"capture[{position}]"
+        if not isinstance(cap, dict):
+            bad(f"{label} is not an object")
+            continue
+        if cap.get("proc") != EXPECTED_CAPTURE_PROC:
+            bad(f"{label}: proc is {cap.get('proc')!r}, expected {EXPECTED_CAPTURE_PROC!r}")
+            continue
+        record = cap.get("data") or {}
+        asset_id = record.get("id")
+        if not asset_id:
+            bad(f"{label}: captured record carries no id")
+            continue
+        if asset_id in seen:
+            bad(f"{label}: duplicate capture of {asset_id} (also at capture[{seen[asset_id]}])")
+            continue
+        seen[asset_id] = position
+        if asset_id not in refs_by_id:
+            bad(
+                f"{label}: captured asset {asset_id} is not in the reference index. "
+                "An unexpected capture makes the reference set ambiguous."
+            )
+            continue
+
+        ref = refs_by_id[asset_id]
+        key = ref.get("key", asset_id)
+        if cap.get("ok") is not True:
+            bad(f"{key}: capture ok is {cap.get('ok')!r}, expected True")
+        if cap.get("rows") != 1:
+            bad(f"{key}: capture rows is {cap.get('rows')!r}, expected 1")
+        if cap.get("persist") != "full":
+            bad(f"{key}: capture persist is {cap.get('persist')!r}, expected 'full'")
+        if cap.get("persistOk") is not True:
+            bad(f"{key}: capture persistOk is {cap.get('persistOk')!r}, expected True")
+        if record.get("type") != ref.get("target"):
+            bad(
+                f"{key}: captured type {record.get('type')!r} != index target "
+                f"{ref.get('target')!r}"
+            )
+        if record.get("name") != ref.get("name"):
+            bad(f"{key}: captured name {record.get('name')!r} != index name {ref.get('name')!r}")
+        if not record.get("image"):
+            bad(f"{key}: captured record carries no image URL")
+        by_id[asset_id] = (cap, record)
+
+    for asset_id, ref in sorted(refs_by_id.items()):
+        if asset_id not in seen:
+            bad(f"{ref.get('key', asset_id)}: expected asset {asset_id} is absent from the capture")
+
+    return by_id, errors
+
+
+def check_reference_provenance(index: dict, by_id: dict, rel: str) -> list[str]:
+    """Each reference's recorded source fields must match the committed capture."""
+    errors: list[str] = []
+    for ref in index.get("references", []):
+        key = ref.get("key", "?")
+        entry = by_id.get(ref.get("asset_id"))
+        if entry is None:
+            continue  # already reported by validate_capture_result
+        cap, record = entry
+        if ref.get("source_capture") != rel:
+            errors.append(
+                f"{key}: source_capture is {ref.get('source_capture')!r} but provenance was "
+                f"proven against {rel!r}"
+            )
+        if ref.get("source_image_url") != record.get("image"):
+            errors.append(
+                f"{key}: source_image_url does not match the captured image URL for "
+                f"{ref.get('asset_id')}"
+            )
+        if cap.get("snapshotKey") and ref.get("source_snapshot_key") != cap.get("snapshotKey"):
+            errors.append(
+                f"{key}: source_snapshot_key is {ref.get('source_snapshot_key')!r}, capture "
+                f"records {cap.get('snapshotKey')!r}"
+            )
+    return errors
+
+
+# --------------------------------------------------------------------------
 # index loading / path resolution
 # --------------------------------------------------------------------------
 
@@ -196,8 +455,22 @@ def raw_url(index: dict, ref: dict, git_ref: str | None = None) -> str:
 # --------------------------------------------------------------------------
 
 
-def verify(index: dict, repo_root: Path, check_bytes: bool = True) -> list[str]:
-    """Return a list of human-readable errors. Empty list means the pack is sound."""
+def verify(
+    index: dict,
+    repo_root: Path,
+    check_bytes: bool = True,
+    check_provenance: bool = True,
+    result_override=None,
+    approved=APPROVED_CAPTURE,
+) -> list[str]:
+    """Return a list of human-readable errors. Empty list means the pack is sound.
+
+    Byte-level integrity alone is not enough: a pack can hash perfectly and still
+    be severed from the approved capture. When check_provenance is on, the same
+    fail-closed result validation materialize uses runs here too, and every
+    reference's recorded source fields are cross-checked against that committed
+    result rather than trusted.
+    """
     errors: list[str] = []
 
     def bad(msg: str) -> None:
@@ -211,12 +484,11 @@ def verify(index: dict, repo_root: Path, check_bytes: bool = True) -> list[str]:
     capture = index.get("source_capture")
     if not isinstance(capture, dict):
         bad("source_capture block is missing")
+        check_provenance = False
     else:
         for field in ("manifest", "result", "job_id"):
             if not capture.get(field):
                 bad(f"source_capture.{field} is missing")
-        if capture.get("mutations") not in (0, None):
-            bad("source_capture.mutations must be 0: this is a read-only capture")
 
     refs = index.get("references")
     if not isinstance(refs, list) or not refs:
@@ -331,6 +603,26 @@ def verify(index: dict, repo_root: Path, check_bytes: bool = True) -> list[str]:
             expected_ext = EXT_FOR_FORMAT.get(fmt)
             if expected_ext and not rel.lower().endswith(expected_ext):
                 bad(f"{label}: {rel} is decoded {fmt} but does not carry {expected_ext}")
+
+    if check_provenance:
+        try:
+            rel = resolve_capture_result(repo_root, index, result_override, approved)
+            result = load_capture_result(repo_root, rel)
+        except ProvenanceError as exc:
+            bad(f"provenance: {exc}")
+        else:
+            if result_override is None and index["source_capture"].get("result") != rel:
+                bad(
+                    f"provenance: index records result "
+                    f"{index['source_capture'].get('result')!r} but the single successful "
+                    f"committed result for {approved['manifest']} is {rel!r}"
+                )
+            by_id, capture_errors = validate_capture_result(index, result, rel, approved)
+            for err in capture_errors:
+                bad(f"provenance: {err}")
+            if not capture_errors:
+                for err in check_reference_provenance(index, by_id, rel):
+                    bad(f"provenance: {err}")
 
     required = index.get("required")
     if not isinstance(required, dict) or not required:
@@ -449,34 +741,33 @@ def materialize(index_path: Path, repo_root: Path, result_path: Path | None) -> 
     import urllib.request
 
     index = load_index(index_path)
-    capture_rel = result_path.as_posix() if result_path else index["source_capture"]["result"]
-    with (repo_root / capture_rel).open(encoding="utf-8") as handle:
-        result = json.load(handle)
 
-    by_id = {}
-    for cap in result.get("captures", []):
-        data = cap.get("data") or {}
-        if cap.get("proc") != "gameAsset.get" or not cap.get("ok") or not data.get("id"):
-            continue
-        by_id[data["id"]] = (cap, data)
+    # Prove the source capture BEFORE any download. Nothing is fetched or written
+    # until the result is shown to be the single successful committed read-only
+    # capture for the approved manifest, with all 18 expected full-body records.
+    try:
+        capture_rel = resolve_capture_result(repo_root, index, result_path)
+        result = load_capture_result(repo_root, capture_rel)
+    except ProvenanceError as exc:
+        raise SystemExit(f"materialize: provenance: {exc}")
+
+    by_id, capture_errors = validate_capture_result(index, result, capture_rel)
+    if capture_errors:
+        print(
+            f"materialize: refusing to materialize from {capture_rel}: "
+            f"{len(capture_errors)} provenance error(s)",
+            file=sys.stderr,
+        )
+        for err in capture_errors:
+            print(f"  - {err}", file=sys.stderr)
+        return 1
+    print(f"provenance OK: {capture_rel} ({len(by_id)} approved captures)\n")
 
     changed = 0
     for ref in index["references"]:
         asset_id = ref["asset_id"]
-        if asset_id not in by_id:
-            raise SystemExit(f"materialize: {ref['key']}: {asset_id} not in capture {capture_rel}")
         cap, data = by_id[asset_id]
-        if data.get("type") != ref["target"]:
-            raise SystemExit(
-                f"materialize: {ref['key']}: captured type {data.get('type')!r} != index target {ref['target']!r}"
-            )
-        if data.get("name") != ref["name"]:
-            raise SystemExit(
-                f"materialize: {ref['key']}: captured name {data.get('name')!r} != index name {ref['name']!r}"
-            )
-        url = data.get("image")
-        if not url:
-            raise SystemExit(f"materialize: {ref['key']}: capture carries no image URL")
+        url = data["image"]
 
         request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
         with urllib.request.urlopen(request, timeout=60) as response:
@@ -532,8 +823,55 @@ def materialize(index_path: Path, repo_root: Path, result_path: Path | None) -> 
 # --------------------------------------------------------------------------
 
 
+FIXTURE_APPROVED = {"manifest": APPROVED_CAPTURE["manifest"], "reads": 3}
+
+
+def _fixture_result(index: dict, rel: str) -> dict:
+    """A well-formed read-only capture result matching the fixture index."""
+    captures = []
+    for position, ref in enumerate(index["references"]):
+        captures.append(
+            {
+                "phase": "after",
+                "proc": EXPECTED_CAPTURE_PROC,
+                "input": {"id": ref["asset_id"]},
+                "ok": True,
+                "rows": 1,
+                "error": None,
+                "persist": "full",
+                "snapshotKey": ref["source_snapshot_key"],
+                "persistOk": True,
+                "data": {
+                    "id": ref["asset_id"],
+                    "name": ref["name"],
+                    "type": ref["target"],
+                    "image": ref["source_image_url"],
+                },
+            }
+        )
+    return {
+        "state": "DONE",
+        "outcome": "success",
+        "journal": {
+            "v": 1,
+            "jobId": index["source_capture"]["job_id"],
+            "manifestPath": index["source_capture"]["manifest"],
+            "manifestHash": index["source_capture"]["manifest_hash"],
+            "state": "DONE",
+            "items": [],
+        },
+        "captures": captures,
+    }
+
+
+def _write_result(repo: Path, rel: str, result: dict) -> None:
+    target = repo / rel
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(json.dumps(result), encoding="utf-8")
+
+
 def _fixture(tmp: Path):
-    """A two-reference pack on disk. Returns (index dict, repo_root)."""
+    """A three-reference pack plus its committed capture. Returns (index, repo_root)."""
     repo = tmp / "repo"
     for target_dir in TARGET_DIRS.values():
         (repo / target_dir).mkdir(parents=True, exist_ok=True)
@@ -560,8 +898,8 @@ def _fixture(tmp: Path):
             "order": order,
             "path": rel,
             "source_image_url": f"https://example.invalid/{key}",
-            "source_capture": "harvests/inbox/fixture.json",
-            "source_snapshot_key": f"fix::after::{order}",
+            "source_capture": "harvests/inbox/fixture_result.json",
+            "source_snapshot_key": f"fix-job::after::{order}",
             "sha256": hashlib.sha256(blob).hexdigest(),
             "bytes": len(blob),
             "width": decode_header(blob)[1],
@@ -574,9 +912,11 @@ def _fixture(tmp: Path):
         "schema": SCHEMA,
         "version": VERSION,
         "source_capture": {
-            "manifest": "push/fixture.json",
-            "result": "harvests/inbox/fixture.json",
-            "job_id": "fix",
+            "manifest": FIXTURE_APPROVED["manifest"],
+            "result": "harvests/inbox/fixture_result.json",
+            "job_id": "fix-job",
+            "manifest_hash": "fixhash",
+            "reads": 3,
             "mutations": 0,
         },
         "excluded": [{"name": "Nameless Ninja", "reason": "deprecated"}],
@@ -587,6 +927,7 @@ def _fixture(tmp: Path):
             entry("yard", "Yard", "id-c", "SCENE_BACKGROUND", None, "PRIMARY", 10, rel_c, blob_c, ["yard"]),
         ],
     }
+    _write_result(repo, index["source_capture"]["result"], _fixture_result(index, index["source_capture"]["result"]))
     return index, repo
 
 
@@ -605,75 +946,220 @@ def selftest() -> int:
         tmp = Path(raw_tmp)
         base, repo = _fixture(tmp)
 
+        def check(index, override=None):
+            return verify(index, repo, result_override=override, approved=FIXTURE_APPROVED)
+
         print("parsing and a clean pack")
-        want(verify(base, repo) == [], "a well-formed pack verifies with zero errors")
+        want(check(base) == [], "a well-formed pack verifies with zero errors")
         fmt, width, height = decode_header(png_bytes(13, 7))
         want((fmt, width, height) == ("PNG", 13, 7), "stdlib PNG header decode returns format and size")
 
         print("\nhash and dimension tampering")
         bad = copy.deepcopy(base)
         bad["references"][0]["sha256"] = "0" * 64
-        errs = verify(bad, repo)
+        errs = check(bad)
         want(any("sha256 mismatch" in e for e in errs), "a wrong sha256 is rejected")
 
         bad = copy.deepcopy(base)
         bad["references"][0]["width"] = 999
-        errs = verify(bad, repo)
+        errs = check(bad)
         want(any("dimension mismatch" in e for e in errs), "wrong indexed dimensions are rejected")
 
         bad = copy.deepcopy(base)
         bad["references"][0]["format"] = "WEBP"
-        errs = verify(bad, repo)
+        errs = check(bad)
         want(any("format mismatch" in e for e in errs), "a wrong decoded format is rejected")
 
         bad = copy.deepcopy(base)
         bad["references"][0]["bytes"] = 1
-        want(any("byte count mismatch" in e for e in verify(bad, repo)), "a wrong byte count is rejected")
+        want(any("byte count mismatch" in e for e in check(bad)), "a wrong byte count is rejected")
 
         print("\nstructural rejection")
         bad = copy.deepcopy(base)
         bad["references"][1]["key"] = "anchor"
-        want(any("duplicate reference key" in e for e in verify(bad, repo)), "duplicate keys are rejected")
+        want(any("duplicate reference key" in e for e in check(bad)), "duplicate keys are rejected")
 
         bad = copy.deepcopy(base)
         bad["references"][1]["asset_id"] = "id-a"
-        want(any("duplicate gameAsset id" in e for e in verify(bad, repo)), "duplicate asset ids are rejected")
+        want(any("duplicate gameAsset id" in e for e in check(bad)), "duplicate asset ids are rejected")
 
         bad = copy.deepcopy(base)
         bad["references"].pop(0)
-        want(any("required" in e and "anchor" in e for e in verify(bad, repo)), "a missing required reference is rejected")
+        want(any("required" in e and "anchor" in e for e in check(bad)), "a missing required reference is rejected")
 
         bad = copy.deepcopy(base)
         bad["references"][0]["path"] = TARGET_DIRS["SCENE_CHARACTER"] + "/gone.png"
-        want(any("is missing" in e for e in verify(bad, repo)), "a missing local file is rejected")
+        want(any("is missing" in e for e in check(bad)), "a missing local file is rejected")
 
         bad = copy.deepcopy(base)
         bad["references"][0]["target"] = "AI_AVATAR"
-        want(any("unsupported target" in e for e in verify(bad, repo)), "an unsupported target is rejected")
+        want(any("unsupported target" in e for e in check(bad)), "an unsupported target is rejected")
 
         bad = copy.deepcopy(base)
         bad["references"][0]["register"] = "SAMURAI"
-        want(any("register must be" in e for e in verify(bad, repo)), "an unsupported register is rejected")
+        want(any("register must be" in e for e in check(bad)), "an unsupported register is rejected")
 
         bad = copy.deepcopy(base)
         bad["references"][0]["path"] = "/etc/passwd.png"
-        want(any("repository-relative" in e for e in verify(bad, repo)), "an absolute path is rejected")
+        want(any("repository-relative" in e for e in check(bad)), "an absolute path is rejected")
 
         bad = copy.deepcopy(base)
         bad["references"][2]["path"] = base["references"][0]["path"]
-        want(any("must live under" in e for e in verify(bad, repo)), "a reference filed under the wrong target dir is rejected")
+        want(any("must live under" in e for e in check(bad)), "a reference filed under the wrong target dir is rejected")
 
         bad = copy.deepcopy(base)
         bad["references"][0]["name"] = "Nameless Ninja"
-        want(any("excluded list" in e for e in verify(bad, repo)), "an excluded/deprecated asset is rejected")
+        want(any("excluded list" in e for e in check(bad)), "an excluded/deprecated asset is rejected")
 
         bad = copy.deepcopy(base)
         bad["version"] = 99
-        want(any("version must be" in e for e in verify(bad, repo)), "a wrong schema version is rejected")
+        want(any("version must be" in e for e in check(bad)), "a wrong schema version is rejected")
 
         bad = copy.deepcopy(base)
         bad["source_capture"]["mutations"] = 3
-        want(any("read-only capture" in e for e in verify(bad, repo)), "a capture claiming mutations is rejected")
+        want(any("read-only capture" in e for e in check(bad)), "a capture claiming mutations is rejected")
+
+        print("\nprovenance - the source capture must prove itself")
+        rel = base["source_capture"]["result"]
+        good = _fixture_result(base, rel)
+
+        def with_result(mutate, index=None):
+            """Rewrite the committed result, verify, then restore it."""
+            import copy as _copy
+
+            broken = _copy.deepcopy(good)
+            mutate(broken)
+            _write_result(repo, rel, broken)
+            try:
+                return check(index if index is not None else base)
+            finally:
+                _write_result(repo, rel, good)
+
+        def with_result_override(mutate):
+            """Same, but name the file explicitly through --result."""
+            import copy as _copy
+
+            broken = _copy.deepcopy(good)
+            mutate(broken)
+            _write_result(repo, rel, broken)
+            try:
+                return check(base, override=Path(rel))
+            finally:
+                _write_result(repo, rel, good)
+
+        def wrong_manifest(r):
+            r["journal"]["manifestPath"] = "push/99_something_else.json"
+
+        want(any("journal.manifestPath" in e for e in with_result(wrong_manifest)),
+             "a result whose journal names a different manifest is rejected")
+        # The default resolver skips a non-DONE/non-success result entirely, so the
+        # normal path fails closed as "nothing suitable". The explicit --result
+        # override names the file directly and must still be refused on its state:
+        # the override may never weaken the approved-capture contract.
+        want(any("no successful committed result" in e for e in
+                 with_result(lambda r: r.__setitem__("state", "PAUSED"))),
+             "the default path fails closed when the only candidate is not DONE")
+        want(any("result state is" in e for e in
+                 with_result_override(lambda r: r.__setitem__("state", "PAUSED"))),
+             "a non-DONE result named by --result is still rejected")
+        want(any("no successful committed result" in e for e in
+                 with_result(lambda r: r.__setitem__("outcome", "error"))),
+             "the default path fails closed when the only candidate did not succeed")
+        want(any("result outcome is" in e for e in
+                 with_result_override(lambda r: r.__setitem__("outcome", "error"))),
+             "a non-success result named by --result is still rejected")
+        want(any("mutation item" in e for e in
+                 with_result(lambda r: r["journal"].__setitem__("items", [{"proc": "gameAsset.create"}]))),
+             "a result carrying journal mutation items is rejected")
+        want(any("journal.jobId" in e for e in
+                 with_result(lambda r: r["journal"].__setitem__("jobId", "someone-elses-job"))),
+             "a jobId disagreeing with the indexed provenance is rejected")
+        want(any("journal.manifestHash" in e for e in
+                 with_result(lambda r: r["journal"].__setitem__("manifestHash", "deadbeef"))),
+             "a manifest hash disagreeing with the indexed provenance is rejected")
+        want(any("absent from the capture" in e for e in with_result(lambda r: r["captures"].pop(0))),
+             "a missing expected capture is rejected")
+
+        def duplicate(r):
+            import copy as _copy
+            r["captures"][1] = _copy.deepcopy(r["captures"][0])
+
+        errs = with_result(duplicate)
+        want(any("duplicate capture" in e for e in errs), "a duplicated expected capture is rejected")
+
+        def extra(r):
+            import copy as _copy
+            stray = _copy.deepcopy(r["captures"][0])
+            stray["data"]["id"] = "not-in-the-index"
+            r["captures"].append(stray)
+
+        errs = with_result(extra)
+        want(any("ambiguous" in e for e in errs),
+             "an unexpected extra capture is rejected as ambiguous")
+        want(any("persist is" in e for e in
+                 with_result(lambda r: r["captures"][0].__setitem__("persist", "summary"))),
+             "a capture that is not persist:full is rejected")
+        want(any("persistOk is" in e for e in
+                 with_result(lambda r: r["captures"][0].__setitem__("persistOk", False))),
+             "a capture whose body failed to persist is rejected")
+        want(any("ok is" in e for e in
+                 with_result(lambda r: r["captures"][0].__setitem__("ok", False))),
+             "a failed capture is rejected")
+        want(any("rows is" in e for e in
+                 with_result(lambda r: r["captures"][0].__setitem__("rows", 0))),
+             "a capture returning no row is rejected")
+        want(any("captured name" in e for e in
+                 with_result(lambda r: r["captures"][0]["data"].__setitem__("name", "Someone Else"))),
+             "a capture whose record name disagrees with the index is rejected")
+        want(any("captured type" in e for e in
+                 with_result(lambda r: r["captures"][0]["data"].__setitem__("type", "SCENE_BACKGROUND"))),
+             "a capture whose record type disagrees with the index is rejected")
+        want(any("image URL" in e or "source_image_url" in e for e in
+                 with_result(lambda r: r["captures"][0]["data"].__setitem__("image", ""))),
+             "a capture carrying no image URL is rejected")
+        want(any("source_image_url" in e for e in
+                 with_result(lambda r: r["captures"][0]["data"].__setitem__(
+                     "image", "https://example.invalid/somewhere-else"))),
+             "a reference whose recorded source URL is not the captured one is rejected")
+
+        bad = copy.deepcopy(base)
+        bad["source_capture"]["manifest"] = "push/99_not_approved.json"
+        want(any("approved v1 capture" in e for e in check(bad)),
+             "an index pointing at a manifest that is not the approved capture is rejected")
+
+        bad = copy.deepcopy(base)
+        bad["source_capture"]["result"] = "harvests/inbox/some_other_result.json"
+        want(any("single successful committed result" in e for e in check(bad)),
+             "an index whose recorded result is not the resolved one is rejected")
+
+        bad = copy.deepcopy(base)
+        bad["references"][0]["source_snapshot_key"] = "fix-job::after::99"
+        want(any("source_snapshot_key" in e for e in check(bad)),
+             "a reference whose snapshot key disagrees with the capture is rejected")
+
+        outside = tmp / "outside_result.json"
+        outside.write_text(json.dumps(good), encoding="utf-8")
+        want(any("outside the repository" in e for e in check(base, override=outside)),
+             "an absolute --result outside the repository is refused")
+        want(any("traverses out of the repository" in e for e in
+                 check(base, override=Path("../escape.json"))),
+             "a traversing --result is refused")
+        want(check(base, override=Path(rel)) == [],
+             "a repository-relative --result naming the approved result is accepted")
+
+        strays = repo / HARVEST_INBOX / "second_success.json"
+        strays.write_text(json.dumps(good), encoding="utf-8")
+        want(any("Exactly one is required" in e for e in check(base)),
+             "two successful results for the same manifest fail closed as ambiguous")
+        strays.unlink()
+        want(check(base) == [], "removing the ambiguity restores a clean verify")
+
+        missing = repo / HARVEST_INBOX / "fixture_result.json"
+        moved = missing.read_bytes()
+        missing.unlink()
+        want(any("no successful committed result" in e for e in check(base)),
+             "no matching committed result fails closed")
+        missing.write_bytes(moved)
 
         print("\nselection")
         chars = select(base, "SCENE_CHARACTER")
@@ -717,6 +1203,13 @@ def main(argv=None) -> int:
 
     p_verify = sub.add_parser("verify", help="audit the checked-in pack (needs a repo checkout)")
     p_verify.add_argument("--repo-root", type=Path, default=None)
+    p_verify.add_argument(
+        "--result",
+        type=Path,
+        default=None,
+        help="committed result to prove provenance against; must resolve inside the repository. "
+        "Default: the single successful committed result for the approved manifest.",
+    )
 
     p_list = sub.add_parser("list", help="list references and metadata")
     p_list.add_argument("--target", choices=TARGETS)
@@ -735,7 +1228,13 @@ def main(argv=None) -> int:
 
     p_mat = sub.add_parser("materialize", help="MAINTAINER: re-download bytes from captured image URLs")
     p_mat.add_argument("--repo-root", type=Path, default=None)
-    p_mat.add_argument("--result", type=Path, default=None)
+    p_mat.add_argument(
+        "--result",
+        type=Path,
+        default=None,
+        help="committed result to materialize from; must resolve inside the repository and "
+        "still pass every provenance invariant.",
+    )
 
     args = parser.parse_args(argv)
 
@@ -754,7 +1253,7 @@ def main(argv=None) -> int:
 
     if args.command == "verify":
         repo_root = args.repo_root or default_repo_root()
-        errors = verify(index, repo_root)
+        errors = verify(index, repo_root, result_override=args.result)
         if errors:
             print(f"style_refs verify: {len(errors)} error(s) against {repo_root}", file=sys.stderr)
             for err in errors:
@@ -766,7 +1265,9 @@ def main(argv=None) -> int:
             counts[ref["target"]] = counts.get(ref["target"], 0) + 1
         summary = ", ".join(f"{n} {t}" for t, n in sorted(counts.items()))
         print(f"style_refs verify: OK - {len(index['references'])} references ({summary}), {total} bytes")
-        print(f"  capture: {index['source_capture']['result']}")
+        print(f"  manifest:   {APPROVED_CAPTURE_MANIFEST}")
+        print(f"  capture:    {index['source_capture']['result']}")
+        print(f"  provenance: {EXPECTED_CAPTURE_COUNT}/{EXPECTED_CAPTURE_COUNT} approved captures proven, 0 mutations")
         return 0
 
     if args.command == "list":
