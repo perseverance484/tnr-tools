@@ -171,6 +171,34 @@ def load_json(path: Path, what: str) -> dict:
         raise PreflightError(f"{what} is not valid JSON", [f"{what} is not valid JSON: {path}: {exc}"])
 
 
+def hydration_block(repo_root: Path) -> dict:
+    """Where the selected pixels can come from, and what does not count.
+
+    The durable transfer bundle is an operator convenience for getting the
+    exact bytes onto a phone. Its presence in the repository proves nothing
+    about the current session, so this block carries the path and hash only.
+    """
+    bundle = repo_root / style_refs.BUNDLE_PATH
+    present = bundle.is_file()
+    return {
+        "durable_bundle": {
+            "path": style_refs.BUNDLE_PATH,
+            "manifest": style_refs.BUNDLE_MANIFEST_PATH,
+            "present_in_checkout": present,
+            "sha256": sha256_bytes(bundle.read_bytes()) if present else None,
+            "bytes": bundle.stat().st_size if present else None,
+        },
+        "rule": style_refs.BUNDLE_RULE,
+        "not_hydration": [
+            "a path, raw URL or repository listing of a reference",
+            "the reference's sha256 or any other metadata",
+            "base64 or file bytes that were fetched but not rendered as an image",
+            "uploading the transfer ZIP itself",
+            "a collage or contact sheet built from the references",
+        ],
+    }
+
+
 def load_roadmap_task(repo_root: Path, workstream: str, task_id: str) -> tuple[str, dict]:
     """Read one task from a committed workstream roadmap, as plain JSON.
 
@@ -400,6 +428,7 @@ def build_packet(
         "generation_contract_sha256": contract_sha,
         "canonical_json": CANONICAL_JSON,
         "reference_modes": dict(REFERENCE_MODES),
+        "hydration": hydration_block(repo_root),
         "runtime_state": dict(RUNTIME_STATE_UNVERIFIED),
         "runtime_note": RUNTIME_NOTE,
     }
@@ -583,6 +612,22 @@ def render_human(packet: dict) -> str:
     out.append("")
     out.append(f"  contract sha256 : {packet['generation_contract_sha256']}")
     out.append(f"  canonical json  : {packet['canonical_json']}")
+    out.append("")
+
+    hyd = packet["hydration"]
+    bundle = hyd["durable_bundle"]
+    out.append("HYDRATION - how the selected pixels reach this session")
+    out.append("")
+    state = (f"present, {bundle['bytes']} bytes, sha256 {bundle['sha256']}"
+             if bundle["present_in_checkout"] else "NOT present in this checkout")
+    out.append(f"  durable bundle : {bundle['path']}  ({state})")
+    out.append(f"  bundle manifest: {bundle['manifest']}")
+    out.append(f"  raw URLs       : pinned to {packet['repo_ref']} above, one per selected image")
+    for line in _wrap(hyd["rule"], 76):
+        out.append(f"  {line}")
+    out.append("  None of these is hydration by itself:")
+    for item in hyd["not_hydration"]:
+        out.append(f"    - {item}")
     out.append("")
 
     out.append("RUNTIME STATE - initialised UNVERIFIED; this helper cannot flip these")
@@ -776,6 +821,22 @@ def selftest() -> int:
              "the packet says it cannot see conversation/image-tool state")
         want(packet["generation_contract_sha256"] == sha256_bytes(canonical_bytes(packet["generation_contract"])),
              "contract hash is the SHA-256 of the canonical contract JSON")
+        want(packet["hydration"]["durable_bundle"]["path"] == style_refs.BUNDLE_PATH
+             and packet["hydration"]["durable_bundle"]["present_in_checkout"] is False,
+             "the hydration block names the durable bundle and reports it absent from the fixture repo")
+        want("NOT reference hydration" in packet["hydration"]["rule"]
+             and any("ZIP" in item for item in packet["hydration"]["not_hydration"]),
+             "the hydration block says the ZIP itself is not hydration")
+        (repo / style_refs.BUNDLE_PATH).parent.mkdir(parents=True, exist_ok=True)
+        (repo / style_refs.BUNDLE_PATH).write_bytes(b"PK\x05\x06" + b"\x00" * 18)
+        with_bundle = go()
+        want(with_bundle["hydration"]["durable_bundle"]["present_in_checkout"] is True
+             and with_bundle["hydration"]["durable_bundle"]["sha256"]
+             == sha256_bytes((repo / style_refs.BUNDLE_PATH).read_bytes()),
+             "a present bundle is reported with its hash")
+        want(with_bundle["generation_contract_sha256"] == packet["generation_contract_sha256"],
+             "bundle presence does not change the generation contract hash")
+        (repo / style_refs.BUNDLE_PATH).unlink()
         want(packet["generation_contract"]["prompt"] == packet["prompt"],
              "the hashed contract carries the exact prompt object")
 
