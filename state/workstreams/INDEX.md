@@ -6,7 +6,7 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |
-| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 4/15 settled - planned 4, ready 6, blocked 1, complete 4 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
+| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 5/15 settled - planned 4, ready 5, blocked 1, complete 5 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
 
 ## One Perfect Crop
 
@@ -14,7 +14,6 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 **Executable now**
 
-- `content.combat_ai_profiles` (READY) - Implementation-exact combat AI/profile specification
 - `art.scene_characters` (READY) - Scene characters: Road Bandit production and Market Clerk reuse closure
 - `art.combat_avatars` (READY) - Combat AI avatars: Road Bandit and Harvest Boar
 - `art.icons` (READY) - Cabbage Seed item icon
