@@ -92,6 +92,8 @@ No clone means no state. Say so rather than working from memory.
 | Any capture or results bundle | `harvest.py` (v4.26+ inbox bundles normalize directly) |
 | Full law text by number | `docs/ENGINE_LAWS.md`; cross-cutting clusters `docs/10_LAWS_core.md` |
 | A mission, any rank | `48_DATA_mission_profiles.json` + `mission.py sheet.json` |
+| A multi-session content project (event/quest/mission arc) | `docs/workflows/CONTENT_WORKSTREAM.md`; `scripts/content_workstream.py`. Coordination state only - it never competes with this file's precedence table |
+| `Initialize session from repo. Workstream: X. Task: Y.` | `content_workstream.py init <slug> --task <id>`, then read exactly what the packet routes |
 | Ending a session | edit `state/digest.json`, run `session_close.py` (projects handoff + board, byte-asserts, re-runs guards) |
 
 ## Non-negotiables
