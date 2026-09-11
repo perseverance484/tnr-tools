@@ -5,13 +5,13 @@
 **Implementation owner:** Fable / Claude Code after final freeze  
 **Live-game actor:** dauntless only  
 **Source branch baseline:** `chatgpt/one-perfect-crop-roadmap-20260911` at `35e8a6f4bebf5abaa1b4f012c55108559002c389` before this file was added.  
-**Status:** implementation-exact behavior resolved; AI-record completion remains blocked only on Harvest Boar `preferredStat`.
+**Status:** COMPLETE — both AI records and both AiProfile behaviors are implementation-exact for this task.
 
 ## Authority and provenance
 
 This specification translates the frozen One Perfect Crop combat intent in `state/plan_one_perfect_crop_finish.md` and the Road Bandit reuse resolution in `state/one_perfect_crop_bandit_resolution.md` against the current AI contract in `skills/building-tnr-content/references/ai.md`, generated constructors, shared-jutsu pool, and current builder behavior.
 
-It does not authorize any live request. It does not create jutsu, edit shared AI, choose unresolved balance values, or replace the canonical sources above.
+It does not authorize any live request. It does not create jutsu, edit shared AI, choose unresolved non-combat balance values, or replace the canonical sources above.
 
 ## Director ruling: default AI rules
 
@@ -79,8 +79,6 @@ Fixed values:
   - S41 Steady Strike — `fKvCGRgzGNskgFWocQCAg`
   - S40 Measured Strike — `kkGDat1XWUxhOQ1_T5025`
 
-The Road Bandit AI record has no remaining director-owned combat fields in this task.
-
 ### AiProfile
 
 Set `includeDefaultRules: true`.
@@ -99,8 +97,6 @@ Author exactly these custom priority rules, in this order:
 
 Do **not** author additional custom fallback rules. After these three rules, the engine-appended default chain supplies highest-power legal action and movement.
 
-This implements the frozen design intent — close distance as needed, prefer Weakening Strike, then Steady Strike, then Measured Strike, then ordinary legal fallback — without duplicating engine defaults.
-
 ## Harvest Boar
 
 Create a **new Harvest Boar AI + its own AiProfile**.
@@ -118,6 +114,7 @@ Fixed values:
 - `statsMultiplier: 1`
 - `poolsMultiplier: 1`
 - `regeneration: 60`
+- `preferredStat: Taijutsu`
 - `preferredGeneral1: Strength`
 - `preferredGeneral2: Speed`
 - equipped armor: `None`
@@ -127,8 +124,6 @@ Fixed values:
   - S27 Weakening Strike — `YiRdVytsdxFzZtqkEDs5Q`
   - S42 Forceful Strike — `4TM6iS8P0qgNHsFpALFhg`
   - S41 Steady Strike — `fKvCGRgzGNskgFWocQCAg`
-
-Harvest Boar `preferredStat` remains the only unresolved AI-record field in this task. Fable must not infer it.
 
 ### AiProfile
 
@@ -148,14 +143,6 @@ Author exactly these custom priority rules, in this order:
 
 Do **not** author additional custom fallback rules. After these three rules, the engine-appended default chain supplies highest-power legal action and movement.
 
-## Open director decision
-
-Current canon does not determine the remaining Harvest Boar combat identity field:
-
-- Harvest Boar `preferredStat`
-
-The neutral/even twelve-stat ratio does not itself determine `preferredStat`, so this remains a director-owned content choice rather than an implementation default.
-
 ## Implementation guardrails
 
 - No live-game request in implementation or review.
@@ -167,9 +154,10 @@ The neutral/even twelve-stat ratio does not itself determine `preferredStat`, so
 - Preserve `includeDefaultRules: true`; do not expand the manifest with redundant highest-power, movement, or anti-exhaust custom rules.
 - Preserve one enemy per battle and the frozen hard-fail loss routes in the quest graph.
 - Preserve level `100`, Strength/Speed preferred generals, and armor `None` for both AI records.
+- Preserve Road Bandit `preferredStat: Bukijutsu` and Harvest Boar `preferredStat: Taijutsu`.
 
 ## Completion state
 
-The AiProfile behavior portion of `content.combat_ai_profiles` is fully resolved and implementation-exact. The Road Bandit AI record is also fully resolved for this task.
+`content.combat_ai_profiles` is complete. Both AI records and both AiProfile behaviors can now be implemented without Fable choosing any combat content value.
 
-The overall task remains blocked only on Harvest Boar `preferredStat`. Once that value is supplied, this document can be marked complete without any additional combat-design invention and handed to Fable for manifest implementation after the workstream's final freeze gate.
+Remaining One Perfect Crop decisions outside this task — rewards, item economics, repeatability, eligibility, art acceptance, publishing, and live execution — remain owned by their existing workstream tasks and by the user.
