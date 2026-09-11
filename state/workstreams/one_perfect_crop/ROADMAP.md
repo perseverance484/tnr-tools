@@ -5,7 +5,7 @@
 - **Slug:** `one_perfect_crop`
 - **Content type:** event
 - **Status:** ACTIVE
-- **Progress:** 4/15 settled - planned 4, ready 6, blocked 1, complete 4
+- **Progress:** 5/15 settled - planned 4, ready 5, blocked 1, complete 5
 
 Finish One Perfect Crop from its frozen route/prose and resolved reuse research through durable art intake/production, implementation-exact combat and content-admin packets, final build freeze, Fable manifest implementation, exact-SHA independent review, and user-owned Forge execution/readback. This roadmap coordinates the remaining work; it does not replace the event's canonical prose, captures, art spec, content references, or user rulings.
 
@@ -35,7 +35,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `prose.final` | COMPLETE | shared | `design.structure` | PASS and failure-wing prose |
 | `research.asset_probes` | COMPLETE | dauntless | `design.structure` | push/02 reuse candidates including DM Mission Clerk and BustlingTownMarket |
 | `research.bandit_ai` | COMPLETE | shared | `design.structure` | five-candidate protected full capture |
-| `content.combat_ai_profiles` | READY | ChatGPT | `design.structure`, `research.bandit_ai` | Road Bandit AI record fields and AiProfile rules, using the approved JONIN/scale-to-user/None-element/three-move contract and existing jutsu ids |
+| `content.combat_ai_profiles` | COMPLETE | ChatGPT | `design.structure`, `research.bandit_ai` | Road Bandit AI record fields and AiProfile rules, using the approved JONIN/scale-to-user/None-element/three-move contract and existing jutsu ids |
 | `art.intake_accepted_assets` | BLOCKED | dauntless | `design.structure` | one_perfect_crop_ittetsu_scene.webp |
 | `art.scene_characters` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | generate/process one_perfect_crop_road_bandit_scene.webp in a NINJA scene-character-only context |
 | `art.combat_avatars` | READY | ChatGPT | `design.structure`, `research.bandit_ai` | one_perfect_crop_road_bandit_avatar.webp |
@@ -49,8 +49,6 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 ## Executable now
 
-- **`content.combat_ai_profiles`** (READY) - Implementation-exact combat AI/profile specification
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task content.combat_ai_profiles`
 - **`art.scene_characters`** (READY) - Scene characters: Road Bandit production and Market Clerk reuse closure
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.scene_characters`
 - **`art.combat_avatars`** (READY) - Combat AI avatars: Road Bandit and Harvest Boar
@@ -71,7 +69,6 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 ## Other open decisions
 
-- `content.combat_ai_profiles`: If the current AI contract proves that any stat/pool/armor/profile value is not actually fixed by the already-approved standard/default intent, that residual balance choice belongs to the user.
 - `art.scene_characters`: Final Road Bandit visual direction and final art acceptance are the user's.
 - `art.combat_avatars`: Final visual direction and final acceptance of both AI avatars are the user's.
 - `art.icons`: Final icon direction and final art acceptance are the user's.
@@ -88,7 +85,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 ## Waiting on dependencies
 
-- `build.final_freeze` - waiting on `content.combat_ai_profiles` (READY), `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.icons` (READY), `art.backgrounds` (READY), `admin.balance_and_eligibility` (READY)
+- `build.final_freeze` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.icons` (READY), `art.backgrounds` (READY), `admin.balance_and_eligibility` (READY)
 - `build.manifest` - waiting on `build.final_freeze` (PLANNED)
 - `review.manifest` - waiting on `build.manifest` (PLANNED)
 - `production.run_and_readback` - waiting on `review.manifest` (PLANNED)
@@ -114,6 +111,11 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 - path: `state/one_perfect_crop_bandit_resolution.md` - Resolved: create a new generic Road Bandit AI + AiProfile; do not edit shared AI.
 - capture: `harvests/inbox/tnr_results_1789124514980.json` - Forge 0.4.0 DONE/success protected full capture with zero mutation entries.
+
+### `content.combat_ai_profiles` - Implementation-exact combat AI/profile specification (COMPLETE)
+
+- path: `state/one_perfect_crop_combat_spec.md` - Implementation-exact Road Bandit and Harvest Boar AI/AiProfile contract; completion state records no remaining combat content value.
+- sha: d0c96d45d486a3c0e36d35b7500c2b0f0114c85b - Final director ruling commit sets Harvest Boar preferredStat to Taijutsu and marks the combat specification COMPLETE.
 
 ## Task detail
 
@@ -221,7 +223,7 @@ Resolve whether an existing live AI can carry the F2 Road Bandit encounter witho
 
 ### `content.combat_ai_profiles` - Implementation-exact combat AI/profile specification
 
-**READY** - area design, owner ChatGPT, lead role Content Designer
+**COMPLETE** - area design, owner ChatGPT, lead role Content Designer
 
 Translate the already-approved Road Bandit and Harvest Boar combat intent into a durable, implementation-exact AI + AiProfile content specification against the current schema, without inventing balance.
 
