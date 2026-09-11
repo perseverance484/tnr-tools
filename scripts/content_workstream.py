@@ -21,6 +21,16 @@ WHAT THIS IS NOT
   content-project coordination beneath the existing repository operating system,
   and docs/00_INDEX.md remains the only precedence table.
 
+REPOSITORY-READY IS NOT ACTION-READY
+  `READY` means the durable repository prerequisites exist. It says nothing
+  about what the current conversation or runtime can actually do. A task may
+  carry optional `session_gates`: named requirements the current session must
+  prove before one named action (for example `image_generation`) may occur.
+  A session gate is not a blocker - it never changes status or dependency
+  satisfaction and is never satisfied by repository metadata - and `on_fail`
+  is `STOP` only. The initializer prints them as an ACTION READINESS section
+  and never declares the gated action ready; only the session can.
+
 LAYOUT
   state/workstreams/INDEX.md               generated projection of all workstreams
   state/workstreams/<slug>/roadmap.json    canonical coordination source (edit this)
@@ -44,6 +54,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import textwrap
 from pathlib import Path
 
 SCHEMA = "tnr.content_workstream"
@@ -106,6 +117,15 @@ SHA_ALPHABET = set("0123456789abcdef")
 
 # Inputs that live here are not durable and must never back a READY task.
 EPHEMERAL_MARKERS = ("/mnt/data", "/tmp/", "sandbox:", "file:///", "~/", "attachment:")
+
+# Session/runtime gates. Repository READY is not action readiness: a task can
+# have every durable input and still be forbidden to perform one named action
+# until the current session proves something only the session can prove (that
+# reference pixels were actually looked at, that a generation context is clean).
+# The shape is deliberately small and explicit. v1 supports STOP only: a
+# required runtime gate has no warning-only bypass.
+SESSION_GATE_FIELDS = ("id", "before", "requirement", "on_fail")
+SESSION_GATE_ON_FAIL = ("STOP",)
 
 PROGRESS_ORDER = {name: i for i, name in enumerate(TASK_STATUSES)}
 
@@ -250,6 +270,49 @@ def _cycles(tasks: list[dict]) -> list[list[str]]:
         if state.get(node, 0) == 0:
             walk(node, [node])
     return found
+
+
+def _session_gate_errors(tid: str, gates) -> list[str]:
+    """Validate a task's optional `session_gates` block.
+
+    Gates are runtime requirements, not durable blockers: nothing here consults
+    status, dependencies or resources, and nothing elsewhere consults gates. The
+    shape is checked strictly so that a gate is always a small explicit object a
+    fresh session can print and tick, never free text that drifts.
+    """
+    errors: list[str] = []
+    label = f"task {tid!r}: session_gates"
+    if not isinstance(gates, list):
+        return [f"{label} must be an array of objects"]
+    seen: dict[str, int] = {}
+    for position, gate in enumerate(gates):
+        item = f"{label}[{position}]"
+        if not isinstance(gate, dict):
+            errors.append(f"{item} is not an object")
+            continue
+        for field in ("id", "before", "requirement"):
+            value = gate.get(field)
+            if not isinstance(value, str) or not value.strip():
+                errors.append(f"{item}: {field!r} is required and must be a nonempty string")
+        gate_id = gate.get("id")
+        if isinstance(gate_id, str) and gate_id.strip():
+            if gate_id in seen:
+                errors.append(f"{item}: duplicate gate id {gate_id!r} (also at index {seen[gate_id]})")
+            else:
+                seen[gate_id] = position
+        on_fail = gate.get("on_fail")
+        if on_fail not in SESSION_GATE_ON_FAIL:
+            errors.append(
+                f"{item}: on_fail must be {' or '.join(SESSION_GATE_ON_FAIL)} in v1, found "
+                f"{on_fail!r}. A required runtime gate has no warning-only bypass."
+            )
+        unknown = sorted(k for k in gate if k not in SESSION_GATE_FIELDS)
+        if unknown:
+            errors.append(
+                f"{item}: unknown field(s) {', '.join(map(repr, unknown))}; a session gate "
+                f"carries exactly {', '.join(SESSION_GATE_FIELDS)}"
+            )
+    return errors
 
 
 def validate(roadmap: dict, repo_root: Path, source: Path | None = None) -> list[str]:
@@ -432,6 +495,14 @@ def validate(roadmap: dict, repo_root: Path, source: Path | None = None) -> list
                 "note or the next session restarts it."
             )
 
+        # Session gates are validated for shape only. They are deliberately not
+        # blockers: a READY task keeps its status and its dependents keep their
+        # dependency satisfaction whether or not the current session has proven
+        # them. The initializer is where they bite.
+        if task.get("session_gates") is not None:
+            for err in _session_gate_errors(tid, task["session_gates"]):
+                bad(err)
+
     if roadmap.get("status") == "COMPLETE":
         unsettled = [
             (t["id"], t.get("status"))
@@ -468,7 +539,9 @@ def progress(roadmap: dict) -> dict[str, int]:
 def progress_line(roadmap: dict) -> str:
     counts = progress(roadmap)
     total = sum(counts.values())
-    done = counts["COMPLETE"] + counts["SKIPPED"]
+    # Settled means the same thing here as in the validator's terminal-state
+    # rule: COMPLETE, SKIPPED and SUPERSEDED all close a task.
+    done = sum(counts[name] for name in SATISFIED)
     parts = [f"{name.lower()} {n}" for name, n in counts.items() if n]
     return f"{done}/{total} settled - " + ", ".join(parts)
 
@@ -486,6 +559,32 @@ def unmet_deps(roadmap: dict, task: dict) -> list[tuple[str, str]]:
         if status not in SATISFIED:
             out.append((dep, status))
     return out
+
+
+def gated_actions(task: dict) -> list[tuple[str, list[dict]]]:
+    """Session gates grouped by the action they precede, in roadmap order.
+
+    Only well-formed gates are grouped; validate() reports malformed ones. The
+    order is the order the roadmap author wrote them, so the initializer prints
+    the same list every time for the same roadmap.
+    """
+    groups: dict[str, list[dict]] = {}
+    for gate in task.get("session_gates") or []:
+        if not isinstance(gate, dict):
+            continue
+        before = gate.get("before")
+        if not isinstance(before, str) or not before.strip():
+            continue
+        groups.setdefault(before, []).append(gate)
+    return list(groups.items())
+
+
+def gate_summary(task: dict) -> str:
+    """One deterministic phrase, e.g. 'image_generation gated by 4 session gate(s)'."""
+    groups = gated_actions(task)
+    if not groups:
+        return ""
+    return "; ".join(f"{action} gated by {len(gates)} session gate(s)" for action, gates in groups)
 
 
 def find_task(roadmap: dict, task_id: str) -> dict:
@@ -558,6 +657,11 @@ def render_roadmap_md(roadmap: dict) -> str:
             out.append(
                 f"  - `python3 scripts/content_workstream.py init {roadmap['slug']} --task {task['id']}`"
             )
+            summary = gate_summary(task)
+            if summary:
+                out.append(
+                    f"  - action-gated: {summary}; repository READY is not action readiness"
+                )
         out.append("")
 
     blocked = tasks_by_status(roadmap, "BLOCKED")
@@ -649,6 +753,20 @@ def render_roadmap_md(roadmap: dict) -> str:
         for item in task.get("completion_gates", []):
             out.append(f"- {item}")
         out.append("")
+        groups = gated_actions(task)
+        if groups:
+            out.append(
+                "**Session gates** - proven only by the current session before the named action; "
+                "repository READY does not satisfy them"
+            )
+            out.append("")
+            for action, gates in groups:
+                for gate in gates:
+                    out.append(
+                        f"- before `{action}`: `{gate['id']}` (on fail {gate['on_fail']}) - "
+                        f"{gate['requirement']}"
+                    )
+            out.append("")
     return "\n".join(out).rstrip() + "\n"
 
 
@@ -687,7 +805,9 @@ def render_index_md(roadmaps: list[dict]) -> str:
             out.append("**Executable now**")
             out.append("")
             for task in current:
-                out.append(f"- `{task['id']}` ({task['status']}) - {task['title']}")
+                summary = gate_summary(task)
+                gated = f"; {summary}" if summary else ""
+                out.append(f"- `{task['id']}` ({task['status']}{gated}) - {task['title']}")
             out.append("")
         else:
             out.append("**Executable now:** none.")
@@ -871,6 +991,42 @@ def init_packet(roadmap: dict, task: dict, repo_root: Path) -> tuple[list[str], 
                 note = f" - {item['note']}" if item.get("note") else ""
                 out.append(f"    {item['kind']}: {item['ref']}{note}")
         out.append("")
+
+    # Repository READY is not action readiness. This section is printed for
+    # every executable task so a session always sees the distinction, and it
+    # never declares a gated action ready: the roadmap cannot know what the
+    # current conversation has actually done.
+    out.append("SESSION GATES / ACTION READINESS")
+    out.append("")
+    out.append(f"  TASK STATUS       : {status} (repository prerequisites satisfied)")
+    groups = gated_actions(task)
+    if groups:
+        actions = ", ".join(action for action, _ in groups)
+        out.append(
+            f"  ACTION READINESS  : GATED - {actions} must not occur until this session "
+            "proves every gate below"
+        )
+        out.append("")
+        out.append("  Repository READY means the durable inputs exist. The gates below are proven")
+        out.append("  only by the current conversation/runtime: nothing in this packet, the roadmap")
+        out.append("  or repository metadata satisfies them, and a path, URL or unrendered blob")
+        out.append("  never does. This packet cannot declare the gated action ready; only the")
+        out.append("  session can, gate by gate, with what it actually did.")
+        for action, gates in groups:
+            out.append("")
+            out.append(f"  Before {action}:")
+            for gate in gates:
+                out.append(f"    [ ] {gate['id']}  (on fail: {gate['on_fail']})")
+                for line in textwrap.wrap(gate["requirement"], width=72):
+                    out.append(f"        {line}")
+        out.append("")
+        out.append("  An unproven gate means the gated action is FORBIDDEN in this session.")
+    else:
+        out.append("  ACTION READINESS  : no session gates declared for this task. Repository READY")
+        out.append("                      still proves only that the durable inputs exist; whether")
+        out.append("                      this session can perform any action remains its own to")
+        out.append("                      check before acting.")
+    out.append("")
 
     out.append("DELIVERABLES")
     out.append("")
@@ -1211,6 +1367,101 @@ def selftest() -> int:
         packet, ok = init_packet(blocked, find_task(blocked, "art.scene_characters"), repo)
         want(not ok and "bytes were never committed" in "\n".join(packet), "a BLOCKED task refuses and states the blocker")
 
+        print("\nsession gates - repository READY is not action readiness")
+        gate = {
+            "id": "visual_reference_hydration",
+            "before": "image_generation",
+            "requirement": "Selected individual style-reference pixels are rendered and visually "
+                           "inspected in the current session; metadata, URL text and unrendered "
+                           "base64 do not satisfy this.",
+            "on_fail": "STOP",
+        }
+        gated = copy.deepcopy(base)
+        gated["tasks"][1]["session_gates"] = [
+            gate,
+            {"id": "reference_mode_declared", "before": "image_generation",
+             "requirement": "Reference mode declared as ATTACHED or ASSISTANT_GROUNDED.",
+             "on_fail": "STOP"},
+            {"id": "clean_context", "before": "image_generation",
+             "requirement": "Clean asset-class generation context confirmed.", "on_fail": "STOP"},
+        ]
+        want(validate(gated, repo, source) == [], "a READY task may carry well-formed session gates")
+        want(gated["tasks"][1]["status"] == "READY" and unmet_deps(gated, gated["tasks"][2]) == [("art.scene_characters", "READY")],
+             "session gates change neither the task status nor dependency satisfaction")
+
+        bad = copy.deepcopy(gated)
+        bad["tasks"][1]["session_gates"] = "look at the references first"
+        want(has(validate(bad, repo, source), "must be an array of objects"), "free-text session_gates are rejected")
+
+        bad = copy.deepcopy(gated)
+        bad["tasks"][1]["session_gates"] = ["look at the references first"]
+        want(has(validate(bad, repo, source), "is not an object"), "a string gate entry is rejected")
+
+        for field in ("id", "before", "requirement"):
+            bad = copy.deepcopy(gated)
+            del bad["tasks"][1]["session_gates"][0][field]
+            want(has(validate(bad, repo, source), f"{field!r} is required"), f"a gate missing {field!r} is rejected")
+            bad = copy.deepcopy(gated)
+            bad["tasks"][1]["session_gates"][0][field] = "  "
+            want(has(validate(bad, repo, source), f"{field!r} is required"), f"a gate with blank {field!r} is rejected")
+
+        bad = copy.deepcopy(gated)
+        bad["tasks"][1]["session_gates"][1]["id"] = "visual_reference_hydration"
+        want(has(validate(bad, repo, source), "duplicate gate id"), "duplicate gate ids inside a task are rejected")
+
+        bad = copy.deepcopy(gated)
+        bad["tasks"][1]["session_gates"][0]["on_fail"] = "WARN"
+        want(has(validate(bad, repo, source), "on_fail must be STOP"), "a warning-only bypass is rejected")
+
+        bad = copy.deepcopy(gated)
+        del bad["tasks"][1]["session_gates"][0]["on_fail"]
+        want(has(validate(bad, repo, source), "on_fail must be STOP"), "a gate without on_fail is rejected")
+
+        bad = copy.deepcopy(gated)
+        bad["tasks"][1]["session_gates"][0]["severity"] = "high"
+        want(has(validate(bad, repo, source), "unknown field"), "an unknown gate field is rejected")
+
+        want(gated["tasks"][1]["session_gates"][0]["on_fail"] in SESSION_GATE_ON_FAIL, "STOP is the supported on_fail")
+
+        packet, ok = init_packet(gated, find_task(gated, "art.scene_characters"), repo)
+        text = "\n".join(packet)
+        want(ok, "a READY task with session gates still initializes (the gates are not blockers)")
+        want("Status     : READY" in text and "TASK STATUS       : READY (repository prerequisites satisfied)" in text,
+             "the packet reports repository READY explicitly")
+        want("ACTION READINESS  : GATED - image_generation must not occur" in text,
+             "the packet reports the named action as GATED")
+        for gate_id in ("visual_reference_hydration", "reference_mode_declared", "clean_context"):
+            want(f"[ ] {gate_id}" in text, f"the packet lists gate {gate_id} as an unticked box")
+        want("GENERATION READY" not in text.upper() and "READY TO GENERATE" not in text.upper(),
+             "the packet never declares generation ready")
+        want(text.index("SESSION GATES / ACTION READINESS") < text.index("DELIVERABLES"),
+             "the session-gates section precedes deliverables")
+        want(text == "\n".join(init_packet(gated, find_task(gated, "art.scene_characters"), repo)[0]),
+             "gated init output is deterministic")
+
+        packet, ok = init_packet(base, find_task(base, "art.scene_characters"), repo)
+        text = "\n".join(packet)
+        want("no session gates declared" in text and "GATED -" not in text,
+             "an ungated READY task says so without claiming any action is ready")
+
+        md = render_roadmap_md(gated)
+        want("**Session gates**" in md and "`visual_reference_hydration`" in md,
+             "ROADMAP.md projects the session gates in the task detail")
+        want("action-gated: image_generation gated by 3 session gate(s)" in md,
+             "ROADMAP.md flags the gated action next to the READY task")
+        want("image_generation gated by 3 session gate(s)" in render_index_md([gated]),
+             "INDEX.md flags the gated action")
+        want(gate_summary(base["tasks"][1]) == "", "an ungated task has no gate summary")
+
+        print("\nprogress accounting")
+        superseded = copy.deepcopy(base)
+        superseded["tasks"][2]["status"] = "SUPERSEDED"
+        want(progress_line(base).startswith("1/3 settled"), "COMPLETE counts as settled")
+        want(progress_line(superseded).startswith("2/3 settled"), "SUPERSEDED counts as settled, matching the validator's terminal-state rule")
+        skipped = copy.deepcopy(superseded)
+        skipped["tasks"][1]["status"] = "SKIPPED"
+        want(progress_line(skipped).startswith("3/3 settled"), "SKIPPED counts as settled")
+
         print("\nlookup")
         want(find_task(base, "ART.SCENE_CHARACTERS")["id"] == "art.scene_characters", "task lookup is case-insensitive")
         want(resolve_workstream(repo, "fixture") == source, "workstream resolves by slug")
@@ -1332,6 +1583,9 @@ def main(argv=None) -> int:
         for task in ready:
             print(f"  {task['id']}  {task['title']}")
             print(f"    init: python3 scripts/content_workstream.py init {roadmap['slug']} --task {task['id']}")
+            summary = gate_summary(task)
+            if summary:
+                print(f"    session gates: {summary} (repository READY is not action readiness)")
         print()
         blocked = tasks_by_status(roadmap, "BLOCKED")
         if blocked:
