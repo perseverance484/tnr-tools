@@ -34,6 +34,51 @@ number applies.** Aspect, delivered width, minimum width, format, byte ceiling, 
 padding rule all live there per target, each carrying either a source citation or a rationale. Do
 not restate a number from this file or from a scaffold; read the spec.
 
+## Before you generate: look at the references
+
+**References calibrate; the spec governs.** `art/style_refs/` holds exact copies of approved live
+TNR scene art, materialized from a committed read-only capture with per-file SHA-256s.
+`data/style_refs.json` indexes them and `scripts/style_refs.py` selects them. The pack does not
+replace `spec.house_style` and restates none of its clauses or numbers - it is the calibration
+layer that stops a session reconstructing "TNR style" from prose and memory.
+
+Where references exist for the target, this order is required before any production generation:
+
+1. Identify the target/type and, for a scene character, the register (`NINJA` or `CIVILIAN`).
+2. Read the current `25x_DATA_art_spec.json` target block and `house_style`. That is the authority.
+3. Run the selector:
+   ```
+   python3 scripts/style_refs.py select --target SCENE_CHARACTER --register NINJA --limit 4
+   python3 scripts/style_refs.py select --target SCENE_BACKGROUND --tag interior
+   ```
+4. **Open and actually look at each selected image.** Not the filenames, not the notes - the pixels.
+5. Only then compose the prompt and generate.
+
+Three things this order exists to prevent:
+
+- **Prose-only starts.** A prompt assembled from clauses alone drifts, because the clauses were
+  measured from images nobody re-read.
+- **Collage contamination.** When the generation surface accepts real image references, pass the
+  selected **individual images**. A contact sheet or collage puts several subjects in one frame and
+  the generator blends them.
+- **Context contamination.** Start a new asset class in a clean generation context carrying only
+  its own references. Forge UI screenshots once displaced an icon request, and a previously
+  generated cabbage displaced an Ittetsu character request; both were carried-over context.
+
+When the surface does **not** accept image references, a URL in the prompt proves nothing about
+what the generator ingested. Inspect the images yourself and ground the art-direction wording in
+what you actually see.
+
+`select` emits raw repository URLs as well as local paths, so an installed skill ZIP with no
+checkout is still usable; the binaries are deliberately outside the skill package. `verify` needs a
+checkout and audits every reference's bytes, dimensions and format **and proves the pack's
+provenance**: it resolves the single successful committed result for the approved capture manifest
+out of `harvests/inbox/`, fails closed on zero or multiple matches, requires that result to be
+`DONE`/`success` with zero journal mutation items and exactly the expected full-body captures, and
+cross-checks every reference's recorded source URL, capture path and snapshot key against it.
+Byte-level integrity alone would let a pack hash perfectly while being severed from the approved
+capture; `materialize` runs the same check and downloads nothing until it passes.
+
 ## What makes this hard
 
 The client handles each art field differently, and only one of the four leaves the image alone:
@@ -135,6 +180,7 @@ upload paths.
 | `scripts/rawqc.py` | Mechanical raw-QC BEFORE any human look: aspect vs spec, chroma coverage band, 2px ring purity; `--record` appends the scaffold ledger, `--stats` prints accept rates and flags escalation candidates, `--selftest` synthesizes its own red/green fixtures. Run it on every generation before chroma.py. |
 | `scripts/artpreflight.py` | Acceptance check before handover. `--index <art_index.json>` audits the whole live library instead of files. |
 | `scripts/shotlist.py` | **Generate the shot list from the quest graph, never author it.** Takes a `quests.get` capture and emits every asset the quest needs with its exact numbers, filename, `@img` ref and its rendered generator prompt, assembled from `spec.prompt_scaffolds` with `[STYLE]` expanded verbatim and scoped per target. Hand-authoring that list is where assets go missing or land with a filename the manifest does not reference. |
+| `scripts/style_refs.py` | **The visual reference pack.** `select --target ... [--register ...|--tag ...]` picks the deterministic reference set for one production target and prints local paths plus raw URLs; `list` shows the whole corpus; `verify --repo-root .` audits bytes/dimensions/format AND fail-closed capture provenance against `data/style_refs.json`; `--selftest` runs socket-free. `materialize` is a maintainer-only path that proves provenance first and only then re-downloads from the captured image URLs. |
 | `scripts/artpreflight_selftest.py` | Exit test: one correct and one deliberately wrong export per asset type. |
 
 All of them read `25x_DATA_art_spec.json` from the working directory. Copy it in at session start,

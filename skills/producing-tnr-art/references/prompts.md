@@ -40,6 +40,35 @@ Two failures are unprocessable and need a regeneration, not a repair. Both are i
 
 ---
 
+## 1b. Look at the references before writing the prompt
+
+**References calibrate; the spec governs.** `spec.house_style` stays the authority for the clauses;
+the reference pack is how you see what those clauses actually produced.
+
+```
+python3 scripts/style_refs.py select --target SCENE_CHARACTER --register NINJA --limit 4
+python3 scripts/style_refs.py select --target SCENE_CHARACTER --register CIVILIAN --limit 4
+python3 scripts/style_refs.py select --target SCENE_BACKGROUND --tag interior
+```
+
+Then open each selected image and look at it. The index at `data/style_refs.json` carries
+provenance, hashes and selection metadata only; it restates no clause and no number from the spec,
+and the notes on a reference never override the spec.
+
+- Pass the selected **individual images** when the generation surface accepts image references.
+  Never a collage or contact sheet - multiple subjects in one frame get blended.
+- When the surface does not accept image references, **a URL in the prompt is not evidence the
+  generator saw the pixels.** Look at the images yourself and write the art direction from what you
+  see.
+- Start a new asset class in a **clean generation context**. Carrying an unrelated previous
+  generation forward is how a Forge screenshot displaced an icon and a generated cabbage displaced
+  a character.
+- Some references carry a `do_not_use_for` note (Commander Okabe is square and is the weakest
+  exemplar on soft-edge share, so it is a rendering anchor and not the framing or edge-quality
+  target). Read it.
+
+---
+
 ## 2. House style
 
 **`spec.house_style` is the authority.** Read it and paste its clauses; do not paraphrase them

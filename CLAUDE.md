@@ -35,6 +35,14 @@ Before substantial work:
 
 Do not reuse an old SHA, generated-file stamp, test count, capture, or source assumption without verification.
 
+If the task references a **content workstream** (`state/workstreams/<slug>/roadmap.json`), also load that task and its required resources:
+
+```
+python3 scripts/content_workstream.py init <slug> --task <task-id>
+```
+
+The packet is a deterministic view of coordination state, not an authority. When an explicit `state/prompt_<task>.md` implementation brief exists, **that brief remains the build contract**; the roadmap task points at it and does not replace it, and it does not override `docs/00_INDEX.md` precedence, doctrine, engine laws, generated contracts, or this file. Record status, evidence and any `resume_note` back into `roadmap.json` at a durable stopping point, then re-validate and re-render. Workflow: `docs/workflows/CONTENT_WORKSTREAM.md`.
+
 ## 3. Repository authority
 
 `docs/00_INDEX.md` arbitrates disagreements. Follow its precedence table rather than inventing a new one here.

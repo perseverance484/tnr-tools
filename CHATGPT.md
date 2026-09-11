@@ -60,6 +60,22 @@ At the beginning of a major task, or whenever context may be stale:
 
 A branch name is not a code-review target. Lane A reviews target exact frozen SHAs.
 
+### Workstream initialization
+
+When the request is equivalent to:
+
+> Initialize session from repo. Workstream: `<name>`. Task: `<task>`.
+
+run the routine above, then read the workstream roadmap and initialize from it:
+
+```
+python3 scripts/content_workstream.py init <slug> --task <task-id>
+```
+
+The packet is a deterministic view of `state/workstreams/<slug>/roadmap.json`, not a new authority. Confirm the task is `READY` or `IN_PROGRESS`, read its `required_resources` and the completed upstream evidence it lists, state the objective, completion gates and still-open user decisions, and then work **only that task**. The initializer refuses a task whose dependencies or resources are not real; do not start it by inventing the missing inputs.
+
+At a durable stopping point, write the task's status, evidence and — if the work is partial — a concise `resume_note` back into `roadmap.json`, then `validate --all` and `render --all`. A healthy workstream means the next session does not need this conversation. Full workflow: `docs/workflows/CONTENT_WORKSTREAM.md`.
+
 ## 5. Working roles
 
 `docs/agents/README.md` defines ChatGPT working modes. Roles are lenses, not separate authorities or memories.
@@ -199,6 +215,7 @@ When a result matters long-term:
 - cross-surface content rules belong in `docs/DOCTRINE.md`, not in the rulings or collaboration files;
 - engine-law text belongs in `docs/ENGINE_LAWS.md`, not in the rulings or collaboration files;
 - operational session state continues through the existing `state/` machinery rather than a second ChatGPT-only dashboard.
+- multi-session content coordination belongs in `state/workstreams/<slug>/roadmap.json` under `docs/workflows/CONTENT_WORKSTREAM.md` - task decomposition, status, dependencies, pointers, gates and evidence, never a copy of the prose/art/contract sources it points at.
 
 `docs/RULINGS.md` preserves decision history; it does not become a second canonical rules database.
 

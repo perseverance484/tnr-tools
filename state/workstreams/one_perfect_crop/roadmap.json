@@ -1,0 +1,891 @@
+{
+  "schema": "tnr.content_workstream",
+  "version": 1,
+  "slug": "one_perfect_crop",
+  "title": "One Perfect Crop",
+  "content_type": "event",
+  "status": "ACTIVE",
+  "objective": "A zero-travel farm-delivery event: help Ittetsu get one improbably good cabbage harvest to market before the day is out. Dialog gates, two dialog-shielded start_battle encounters, four sealed failure wings, and delivery accepted before the catastrophe lands. Route and prose are frozen; art is partly produced; the content-admin balance packet and the manifest are not begun.",
+  "notes": [
+    "Migrated into the workstream system from the existing committed sources. Nothing here was reconstructed from chat history, and no One Perfect Crop content decision was changed to fit the tooling.",
+    "The visual reference pack (art/style_refs/, skills/producing-tnr-art/data/style_refs.json, scripts/style_refs.py) is integrated on the same Lane A branch as this roadmap and reaches main when that branch integrates. art.scene_characters and art.backgrounds route to it.",
+    "Known honest gap: the accepted Ittetsu, Waystation Keeper and quest-icon bytes were delivered as a chat-side zip and are NOT in the repository. They are held in art.intake_accepted_assets as BLOCKED rather than being treated as durable resources."
+  ],
+  "resources": [
+    {
+      "path": "state/plan_one_perfect_crop_finish.md",
+      "why": "The event's finish plan: settled rulings, target shape, asset reuse locks, still-required art, phase order."
+    },
+    {
+      "path": "state/one_perfect_crop_prose_graph.md",
+      "why": "Frozen player-facing prose and the logical route graph. Do not restate or alter it."
+    },
+    {
+      "path": "state/one_perfect_crop_bandit_resolution.md",
+      "why": "The resolved Road Bandit decision: create a NEW AI/profile, with the approved contract and kit ids."
+    },
+    {
+      "path": "state/one_perfect_crop_content_admin_open.md",
+      "why": "The content-admin fields that are intentionally unresolved and must not be guessed."
+    },
+    {
+      "path": "docs/00_INDEX.md",
+      "why": "Precedence, evidence tiers and task routing. This roadmap never competes with it."
+    },
+    {
+      "path": "docs/DOCTRINE.md",
+      "why": "Cross-surface doctrine: everything ships hidden, the user is the only live-game actor, a push echo is not a readback."
+    },
+    {
+      "path": "docs/workflows/DIRECTOR_DECISIONS.md",
+      "why": "How user-owned decisions are put and recorded."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "design.structure",
+      "title": "Route, cast and encounter architecture",
+      "area": "design",
+      "status": "COMPLETE",
+      "owner": "shared",
+      "lead_role": "Content Designer",
+      "objective": "Settle the event's route graph, cast, encounter count, PASS/FAIL outcomes and ordering.",
+      "scope": [
+        "PASS spine and the F1-F4 failure wings",
+        "both dialog-gated start_battle encounters and their hard-fail routes",
+        "zero-travel shape: no location/sector/map-marker gameplay",
+        "delivery-before-catastrophe ordering and the final MY CABBAGES! beat"
+      ],
+      "required_resources": [
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "The event's finish plan: settled rulings, target shape, asset reuse locks, still-required art, phase order."
+        }
+      ],
+      "deliverables": [
+        "A frozen route/cast/encounter architecture recorded in the finish plan"
+      ],
+      "completion_gates": [
+        "User approval of the route graph and outcomes, recorded in the committed plan"
+      ],
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/plan_one_perfect_crop_finish.md",
+          "note": "Settled rulings 1-6 and the target event shape are recorded as frozen."
+        },
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_prose_graph.md",
+          "note": "The logical graph is carried node by node with stable logical ids."
+        }
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "prose.final",
+      "title": "Frozen player-facing prose and graph normalization",
+      "area": "prose",
+      "status": "COMPLETE",
+      "owner": "shared",
+      "lead_role": "Content Designer",
+      "depends_on": [
+        "design.structure"
+      ],
+      "objective": "Write and normalize every node's player-facing prose to the TNR scene formatting contract.",
+      "scope": [
+        "prose for every node on the PASS spine and all failure wings",
+        "TNR scene formatting: narration in <i>...</i>, spoken text in quotes, literal <br> <br> beat spacing",
+        "stable logical node ids as handoff labels"
+      ],
+      "required_resources": [
+        {
+          "path": "state/one_perfect_crop_prose_graph.md",
+          "why": "Frozen player-facing prose and the logical route graph. Do not restate or alter it."
+        }
+      ],
+      "deliverables": [
+        "Normalized frozen prose for every node, with its logical id and choice edges"
+      ],
+      "completion_gates": [
+        "Wording and route frozen for implementation and recorded in the committed prose graph"
+      ],
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_prose_graph.md",
+          "note": "Status line records wording/route frozen for implementation."
+        }
+      ]
+    },
+    {
+      "id": "research.asset_probes",
+      "title": "Read-only asset reuse and art-style captures",
+      "area": "research",
+      "status": "COMPLETE",
+      "owner": "dauntless",
+      "lead_role": "Engineering Auditor",
+      "depends_on": [
+        "design.structure"
+      ],
+      "objective": "Capture the live record state needed to decide scene-asset reuse and to ground TNR art style, with zero mutations.",
+      "scope": [
+        "push/02 reuse-candidate capture: DM Mission Clerk, DM Road Merchant, Nameless Ninja, Rogue, BustlingTownMarket",
+        "push/03 art-style capture: Commander Okabe plus the full approved Forsworn scene-character and scene-background set"
+      ],
+      "required_resources": [
+        {
+          "path": "harvests/inbox/tnr_results_1789060167786.json",
+          "why": "Committed read-only capture of the reuse candidates: live record state for DM Mission Clerk, DM Road Merchant, Nameless Ninja, Rogue and BustlingTownMarket."
+        },
+        {
+          "path": "harvests/inbox/tnr_results_1789061570022.json",
+          "why": "Committed read-only capture the visual reference pack was materialized from."
+        }
+      ],
+      "deliverables": [
+        "Committed read-only result bundles carrying full record bodies and live image URLs"
+      ],
+      "completion_gates": [
+        "Both jobs DONE with outcome success, full bodies persisted, zero items and zero mutations"
+      ],
+      "evidence": [
+        {
+          "kind": "capture",
+          "ref": "harvests/inbox/tnr_results_1789060167786.json",
+          "note": "push/02, DONE/success, 5 gameAsset.get full captures, 0 mutations."
+        },
+        {
+          "kind": "capture",
+          "ref": "harvests/inbox/tnr_results_1789061570022.json",
+          "note": "push/03, DONE/success, 18 gameAsset.get full captures, 0 mutations. Job 3-mtvt26pp, forge 0.3.0."
+        },
+        {
+          "kind": "path",
+          "ref": "skills/producing-tnr-art/data/style_refs.json",
+          "note": "The push/03 capture is materialized as the durable visual reference pack under art/style_refs/."
+        }
+      ]
+    },
+    {
+      "id": "research.bandit_ai",
+      "title": "Road Bandit reuse investigation",
+      "area": "research",
+      "status": "COMPLETE",
+      "owner": "shared",
+      "lead_role": "Engineering Auditor",
+      "depends_on": [
+        "design.structure"
+      ],
+      "objective": "Decide whether any existing live bandit AI can carry the F2 encounter without editing a shared record.",
+      "scope": [
+        "five-candidate read-only protected full capture through Forge 0.4.0",
+        "compatibility comparison against the approved Road Bandit combat contract",
+        "the reuse/new-AI decision and its consequences for art"
+      ],
+      "required_resources": [
+        {
+          "path": "state/one_perfect_crop_bandit_resolution.md",
+          "why": "The resolved Road Bandit decision: create a NEW AI/profile, with the approved contract and kit ids."
+        },
+        {
+          "path": "harvests/inbox/tnr_results_1789124514980.json",
+          "why": "Committed Forge 0.4.0 protected full capture behind the Road Bandit reuse rejection."
+        }
+      ],
+      "deliverables": [
+        "A recorded reuse decision with per-candidate reasoning and the approved new-AI contract"
+      ],
+      "completion_gates": [
+        "Every candidate resolved against live record state, not against a catalog",
+        "The decision recorded in a committed file with the capture cited"
+      ],
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_bandit_resolution.md",
+          "note": "RESOLVED: create a NEW generic Road Bandit AI + AiProfile. All five candidates REJECTED - three ids no longer resolve to a live record, Marauder is CHUNIN/level 25, Seichi Bandit is GENIN/level 15 with no jutsu."
+        },
+        {
+          "kind": "capture",
+          "ref": "harvests/inbox/tnr_results_1789124514980.json",
+          "note": "Forge 0.4.0 protected full capture, zero items, zero mutations."
+        },
+        {
+          "kind": "decision",
+          "ref": "Do not edit shared live AI to fit this event",
+          "note": "Carried from the finish plan's settled ruling 11."
+        }
+      ]
+    },
+    {
+      "id": "art.scene_characters",
+      "title": "Scene characters: new Road Bandit, and the reuse verification",
+      "area": "art",
+      "status": "READY",
+      "owner": "ChatGPT",
+      "lead_role": "Image Production",
+      "depends_on": [
+        "design.structure",
+        "prose.final",
+        "research.asset_probes",
+        "research.bandit_ai"
+      ],
+      "objective": "Produce the one outstanding new SCENE_CHARACTER and settle the scene-character reuse question, in one art conversation using the visual reference pack.",
+      "scope": [
+        "Road Bandit SCENE_CHARACTER: one_perfect_crop_road_bandit_scene.webp, new production",
+        "Market Clerk reuse verification against the committed push/02 capture of DM Mission Clerk (XsLLy8awDAtaE6hXVIi_0)",
+        "one asset at a time, raw QC then process then dark-composite QC then preflight, per the art workflow",
+        "reference bootstrap first: style_refs.py select --target SCENE_CHARACTER --register NINJA, then look at each image"
+      ],
+      "out_of_scope": [
+        "Ittetsu, Waystation Keeper and the quest icon - their accepted bytes are not in the repository; see art.intake_accepted_assets",
+        "AI avatars - see art.combat_avatars",
+        "backgrounds - see art.backgrounds",
+        "item/quest icons - see art.icons",
+        "Nameless Ninja, which is explicitly rejected for visual reuse as deprecated"
+      ],
+      "required_resources": [
+        {
+          "path": "skills/producing-tnr-art/SKILL.md",
+          "why": "Production order, raw QC, processing commands, the reference-inspection bootstrap."
+        },
+        {
+          "path": "skills/producing-tnr-art/data/25x_DATA_art_spec.json",
+          "why": "THE authority for every art number: aspect, delivered width, format, chroma, byte ceiling, house_style clauses. References calibrate; the spec governs."
+        },
+        {
+          "path": "skills/producing-tnr-art/data/style_refs.json",
+          "why": "Visual reference index: provenance, exact-byte hashes and per-target selection metadata for the approved live scene art."
+        },
+        {
+          "path": "skills/producing-tnr-art/scripts/style_refs.py",
+          "why": "Run `select --target ... --register ...` and then LOOK at each selected image before generating."
+        },
+        {
+          "path": "skills/producing-tnr-art/references/prompts.md",
+          "why": "Scaffold routing, generator failure modes, the reference-inspection step, candidate lock register."
+        },
+        {
+          "path": "skills/producing-tnr-art/references/processing.md",
+          "why": "Packaging, filenames, the gameAsset write validator, upload paths."
+        },
+        {
+          "path": "docs/workflows/ART_PRODUCTION.md",
+          "why": "The collaboration workflow for directing, generating, QCing and handing off a TNR visual asset."
+        },
+        {
+          "path": "docs/agents/IMAGE_PRODUCTION.md",
+          "why": "The Image Production role this session works in."
+        },
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "The event's finish plan: settled rulings, target shape, asset reuse locks, still-required art, phase order."
+        },
+        {
+          "path": "state/one_perfect_crop_prose_graph.md",
+          "why": "Frozen player-facing prose and the logical route graph. Do not restate or alter it."
+        },
+        {
+          "path": "state/one_perfect_crop_bandit_resolution.md",
+          "why": "The resolved Road Bandit decision: create a NEW AI/profile, with the approved contract and kit ids."
+        },
+        {
+          "path": "harvests/inbox/tnr_results_1789060167786.json",
+          "why": "Committed read-only capture of the reuse candidates: live record state for DM Mission Clerk, DM Road Merchant, Nameless Ninja, Rogue and BustlingTownMarket."
+        }
+      ],
+      "deliverables": [
+        "one_perfect_crop_road_bandit_scene.webp, processed to the SCENE_CHARACTER target and accepted by the user",
+        "A recorded Market Clerk reuse verdict: reuse DM Mission Clerk as locked, or a stated reason it fails",
+        "A production ledger line for every delivered asset: slug, type, filename, pixel dimensions and KB"
+      ],
+      "completion_gates": [
+        "style_refs.py select run for the target and the selected individual images actually inspected before generation",
+        "rawqc.py run on the raw generation before processing",
+        "artpreflight.py zero errors on every delivered file",
+        "Dark-background composite QC inspected, not just produced",
+        "User acceptance of the image recorded",
+        "Delivered filenames match the @img references the manifest will use, character for character"
+      ],
+      "open_decisions": [
+        "Final art direction and visual acceptance of the Road Bandit scene character are the user's."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "art.intake_accepted_assets",
+      "title": "Repository intake of the already-accepted One Perfect Crop art",
+      "area": "art",
+      "status": "BLOCKED",
+      "owner": "dauntless",
+      "lead_role": "Image Production",
+      "depends_on": [
+        "design.structure"
+      ],
+      "objective": "Get the already-accepted Ittetsu, Waystation Keeper and quest-icon bytes into the repository and through the repo-native preflight gate.",
+      "scope": [
+        "one_perfect_crop_ittetsu_scene.webp - 341x512 RGBA lossless WebP, design accepted",
+        "one_perfect_crop_waystation_keeper_scene.webp - 341x512 RGBA lossless WebP, design accepted",
+        "one_perfect_crop_quest_icon.webp - 256x256 RGB lossless WebP, referenced directly by quest.image through @img",
+        "artpreflight.py zero-error gate and a production ledger line for each"
+      ],
+      "out_of_scope": [
+        "Redesigning any of the three. The designs are accepted; this is intake and QC only."
+      ],
+      "required_resources": [
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "The event's finish plan: settled rulings, target shape, asset reuse locks, still-required art, phase order."
+        },
+        {
+          "path": "skills/producing-tnr-art/data/25x_DATA_art_spec.json",
+          "why": "THE authority for every art number: aspect, delivered width, format, chroma, byte ceiling, house_style clauses. References calibrate; the spec governs."
+        },
+        {
+          "path": "skills/producing-tnr-art/SKILL.md",
+          "why": "Production order, raw QC, processing commands, the reference-inspection bootstrap."
+        }
+      ],
+      "deliverables": [
+        "The three files committed to the repository at their exact accepted filenames",
+        "artpreflight results recorded for each",
+        "A production ledger line for each"
+      ],
+      "completion_gates": [
+        "All three files present in the repository, not in a chat attachment or a sandbox path",
+        "artpreflight.py zero errors on each",
+        "Filenames match the @img contract exactly"
+      ],
+      "blockers": [
+        "The accepted bytes are NOT in the repository. The finish plan records them as delivered inside a chat-side one_perfect_crop_art_intake.zip; `git ls-files` finds no one_perfect_crop art file. A chat attachment is not durable evidence, so this task cannot be READY until dauntless supplies the three files for commit.",
+        "They also still owe the repo-native artpreflight gate: the source images arrived on black rather than a generator-native chroma/alpha field and were isolated outside the repository pipeline."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "art.backgrounds",
+      "title": "Scene backgrounds: confirm the reuse locks, produce only what is missing",
+      "area": "art",
+      "status": "READY",
+      "owner": "ChatGPT",
+      "lead_role": "Image Production",
+      "depends_on": [
+        "design.structure",
+        "prose.final",
+        "research.asset_probes"
+      ],
+      "objective": "Settle every node's sceneBackground from the four locked geographical scene families, and produce a background only where reuse genuinely fails.",
+      "scope": [
+        "confirm the four locked reuse families against the committed captures: Pass Road Dusk, Waystation Door, East Road Ambush Site, BustlingTownMarket",
+        "assign an explicit sceneBackground to every dialog node in the frozen graph",
+        "produce a new background only where a node cannot be carried by a locked family",
+        "reference bootstrap first: style_refs.py select --target SCENE_BACKGROUND --tag <location kind>"
+      ],
+      "out_of_scope": [
+        "Creating a background per accident. The prose carries the changing incident inside the four families.",
+        "Scene characters, avatars and icons - separate tasks."
+      ],
+      "required_resources": [
+        {
+          "path": "skills/producing-tnr-art/SKILL.md",
+          "why": "Production order, raw QC, processing commands, the reference-inspection bootstrap."
+        },
+        {
+          "path": "skills/producing-tnr-art/data/25x_DATA_art_spec.json",
+          "why": "THE authority for every art number: aspect, delivered width, format, chroma, byte ceiling, house_style clauses. References calibrate; the spec governs."
+        },
+        {
+          "path": "skills/producing-tnr-art/data/style_refs.json",
+          "why": "Visual reference index: provenance, exact-byte hashes and per-target selection metadata for the approved live scene art."
+        },
+        {
+          "path": "skills/producing-tnr-art/scripts/style_refs.py",
+          "why": "Run `select --target ... --register ...` and then LOOK at each selected image before generating."
+        },
+        {
+          "path": "skills/producing-tnr-art/references/prompts.md",
+          "why": "Scaffold routing, generator failure modes, the reference-inspection step, candidate lock register."
+        },
+        {
+          "path": "docs/workflows/ART_PRODUCTION.md",
+          "why": "The collaboration workflow for directing, generating, QCing and handing off a TNR visual asset."
+        },
+        {
+          "path": "docs/agents/IMAGE_PRODUCTION.md",
+          "why": "The Image Production role this session works in."
+        },
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "The event's finish plan: settled rulings, target shape, asset reuse locks, still-required art, phase order."
+        },
+        {
+          "path": "state/one_perfect_crop_prose_graph.md",
+          "why": "Frozen player-facing prose and the logical route graph. Do not restate or alter it."
+        },
+        {
+          "path": "harvests/inbox/tnr_results_1789060167786.json",
+          "why": "Committed read-only capture of the reuse candidates: live record state for DM Mission Clerk, DM Road Merchant, Nameless Ninja, Rogue and BustlingTownMarket."
+        },
+        {
+          "path": "harvests/inbox/tnr_results_1789061570022.json",
+          "why": "Committed read-only capture the visual reference pack was materialized from."
+        }
+      ],
+      "deliverables": [
+        "A node-by-node sceneBackground assignment covering every dialog node",
+        "Any newly produced background, processed to the SCENE_BACKGROUND target and accepted",
+        "A production ledger line for anything newly produced"
+      ],
+      "completion_gates": [
+        "Every dialog node in the frozen graph carries an explicit sceneBackground",
+        "Reused ids verified against the committed capture, not against a catalog row",
+        "artpreflight.py zero errors on anything newly produced",
+        "User acceptance recorded for any new background"
+      ],
+      "open_decisions": [
+        "Whether any node needs a new background rather than a locked reuse family is an art-direction call the user owns."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "art.combat_avatars",
+      "title": "AI avatars: Road Bandit and Harvest Boar",
+      "area": "art",
+      "status": "READY",
+      "owner": "ChatGPT",
+      "lead_role": "Image Production",
+      "depends_on": [
+        "design.structure",
+        "research.bandit_ai"
+      ],
+      "objective": "Produce the two square AI avatars the event's two new combat records need.",
+      "scope": [
+        "one_perfect_crop_road_bandit_avatar.webp - required because research.bandit_ai resolved to a NEW AI",
+        "one_perfect_crop_harvest_boar_avatar.webp - new square AI avatar",
+        "one asset at a time, in one avatar-only generation context"
+      ],
+      "out_of_scope": [
+        "Scene characters, backgrounds and icons. Mixing asset classes in one generation context is the observed contamination failure.",
+        "A Harvest Boar SCENE_CHARACTER: the finish plan establishes none is needed."
+      ],
+      "required_resources": [
+        {
+          "path": "skills/producing-tnr-art/SKILL.md",
+          "why": "Production order, raw QC, processing commands, the reference-inspection bootstrap."
+        },
+        {
+          "path": "skills/producing-tnr-art/data/25x_DATA_art_spec.json",
+          "why": "THE authority for every art number: aspect, delivered width, format, chroma, byte ceiling, house_style clauses. References calibrate; the spec governs."
+        },
+        {
+          "path": "skills/producing-tnr-art/references/prompts.md",
+          "why": "Scaffold routing, generator failure modes, the reference-inspection step, candidate lock register."
+        },
+        {
+          "path": "skills/producing-tnr-art/references/processing.md",
+          "why": "Packaging, filenames, the gameAsset write validator, upload paths."
+        },
+        {
+          "path": "docs/workflows/ART_PRODUCTION.md",
+          "why": "The collaboration workflow for directing, generating, QCing and handing off a TNR visual asset."
+        },
+        {
+          "path": "docs/agents/IMAGE_PRODUCTION.md",
+          "why": "The Image Production role this session works in."
+        },
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "The event's finish plan: settled rulings, target shape, asset reuse locks, still-required art, phase order."
+        },
+        {
+          "path": "state/one_perfect_crop_bandit_resolution.md",
+          "why": "The resolved Road Bandit decision: create a NEW AI/profile, with the approved contract and kit ids."
+        }
+      ],
+      "deliverables": [
+        "Both avatars processed to the AI_AVATAR target and accepted by the user",
+        "A production ledger line for each"
+      ],
+      "completion_gates": [
+        "rawqc.py run on each raw generation before processing",
+        "artpreflight.py zero errors on each delivered file",
+        "Dark-background composite QC inspected",
+        "User acceptance recorded for each",
+        "Filenames match the @img references the manifest will use"
+      ],
+      "open_decisions": [
+        "Final visual direction and acceptance of both avatars are the user's."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "art.icons",
+      "title": "Cabbage Seed item icon",
+      "area": "art",
+      "status": "READY",
+      "owner": "ChatGPT",
+      "lead_role": "Image Production",
+      "depends_on": [
+        "design.structure"
+      ],
+      "objective": "Produce the one outstanding icon for the event, in one icon-only generation context.",
+      "scope": [
+        "one_perfect_crop_cabbage_seed.webp - new square item icon for the PASS reward item"
+      ],
+      "out_of_scope": [
+        "The quest listing icon: its accepted bytes are not in the repository, so it sits in art.intake_accepted_assets.",
+        "Scene characters, backgrounds and avatars - their visual/reference modes differ."
+      ],
+      "required_resources": [
+        {
+          "path": "skills/producing-tnr-art/SKILL.md",
+          "why": "Production order, raw QC, processing commands, the reference-inspection bootstrap."
+        },
+        {
+          "path": "skills/producing-tnr-art/data/25x_DATA_art_spec.json",
+          "why": "THE authority for every art number: aspect, delivered width, format, chroma, byte ceiling, house_style clauses. References calibrate; the spec governs."
+        },
+        {
+          "path": "skills/producing-tnr-art/references/prompts.md",
+          "why": "Scaffold routing, generator failure modes, the reference-inspection step, candidate lock register."
+        },
+        {
+          "path": "skills/producing-tnr-art/references/processing.md",
+          "why": "Packaging, filenames, the gameAsset write validator, upload paths."
+        },
+        {
+          "path": "docs/workflows/ART_PRODUCTION.md",
+          "why": "The collaboration workflow for directing, generating, QCing and handing off a TNR visual asset."
+        },
+        {
+          "path": "docs/agents/IMAGE_PRODUCTION.md",
+          "why": "The Image Production role this session works in."
+        },
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "The event's finish plan: settled rulings, target shape, asset reuse locks, still-required art, phase order."
+        }
+      ],
+      "deliverables": [
+        "one_perfect_crop_cabbage_seed.webp, processed to the ICON target and accepted",
+        "A production ledger line"
+      ],
+      "completion_gates": [
+        "rawqc.py run before processing",
+        "artpreflight.py zero errors",
+        "User acceptance recorded",
+        "Filename matches the @img reference the manifest will use"
+      ],
+      "open_decisions": [
+        "Final icon direction and acceptance are the user's.",
+        "Cabbage Seed rarity is an admin.balance_and_eligibility decision. It does not gate the icon subject, but the icon must leave a margin so the rarity frame reads."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "admin.balance_and_eligibility",
+      "title": "Content-admin packet: rewards, item economics, repeatability, eligibility",
+      "area": "admin",
+      "status": "BLOCKED",
+      "owner": "dauntless",
+      "lead_role": "Content Designer",
+      "depends_on": [
+        "design.structure"
+      ],
+      "objective": "Settle the values that implementation is explicitly forbidden to guess.",
+      "scope": [
+        "event Ryo and XP rewards, including zero if that is intended",
+        "any token or other standard reward currencies and their exact values",
+        "Cabbage Seed rarity, functional item type, and every required economic/value field for that type",
+        "repeatability: once-only or a supported repeat policy",
+        "eligibility: a supported gate, or explicit removal of the mechanical gate"
+      ],
+      "out_of_scope": [
+        "Implementation choosing a default. Until these land, the manifest stays non-runnable rather than inventing values."
+      ],
+      "required_resources": [
+        {
+          "path": "state/one_perfect_crop_content_admin_open.md",
+          "why": "The content-admin fields that are intentionally unresolved and must not be guessed."
+        },
+        {
+          "path": "skills/building-tnr-content/references/balance.md",
+          "why": "Tuning, rewards, tiers and drop math - the shape of the decision, not the decision."
+        },
+        {
+          "path": "skills/building-tnr-content/references/item.md",
+          "why": "Item reference: the supported functional item types and their required fields."
+        },
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "The event's finish plan: settled rulings, target shape, asset reuse locks, still-required art, phase order."
+        }
+      ],
+      "deliverables": [
+        "Each open field filled with an exact value, recorded in the committed content-admin file"
+      ],
+      "completion_gates": [
+        "Every row of the content-admin open-fields table resolved",
+        "The eligibility choice recorded explicitly - which supported gate, or removal",
+        "No value taken from a live record or schema default as if it were approval"
+      ],
+      "blockers": [
+        "These are user-owned balance/reward/rarity/publishing-class decisions. Implementation must not settle them."
+      ],
+      "open_decisions": [
+        "Event Ryo reward - exact value.",
+        "Event XP reward - exact value.",
+        "Token/other standard reward currencies - which are used and at what values.",
+        "Cabbage Seed rarity.",
+        "Cabbage Seed functional item type and its required economic/value fields.",
+        "Repeatability: once-only or a supported repeat policy.",
+        "Eligibility: the submitted sheet says `Farming level 15`, but the current quest vocabulary establishes no native farming progression gate. A supported substitute must be selected, or the mechanical gate removed. Do NOT silently translate it to character minLevel 15."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "build.final_freeze",
+      "title": "Freeze the implementation contract",
+      "area": "build",
+      "status": "PLANNED",
+      "owner": "ChatGPT",
+      "lead_role": "Content Designer",
+      "depends_on": [
+        "prose.final",
+        "research.bandit_ai",
+        "art.scene_characters",
+        "art.intake_accepted_assets",
+        "art.backgrounds",
+        "art.combat_avatars",
+        "art.icons",
+        "admin.balance_and_eligibility"
+      ],
+      "objective": "Assemble everything settled into one frozen build contract at state/prompt_one_perfect_crop.md.",
+      "scope": [
+        "exact normalized prose for every node, exact node ids and graph",
+        "both dialog-gated start_battle nodes and the hard-fail battle routes",
+        "the new Road Bandit and Harvest Boar AI/profile specifications with their exact kit ids",
+        "exact reused scene asset ids and exact new @img filename contracts",
+        "complete node-by-node scene wiring",
+        "the Cabbage Seed item definition with the content-admin values copied exactly",
+        "every create hidden, no publishing operation"
+      ],
+      "required_resources": [
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "The event's finish plan: settled rulings, target shape, asset reuse locks, still-required art, phase order."
+        },
+        {
+          "path": "state/one_perfect_crop_prose_graph.md",
+          "why": "Frozen player-facing prose and the logical route graph. Do not restate or alter it."
+        },
+        {
+          "path": "state/one_perfect_crop_bandit_resolution.md",
+          "why": "The resolved Road Bandit decision: create a NEW AI/profile, with the approved contract and kit ids."
+        },
+        {
+          "path": "state/one_perfect_crop_content_admin_open.md",
+          "why": "The content-admin fields that are intentionally unresolved and must not be guessed."
+        },
+        {
+          "path": "skills/building-tnr-content/references/quest.md",
+          "why": "Quest/event/dialog/flow reference."
+        },
+        {
+          "path": "skills/building-tnr-content/references/event.md",
+          "why": "Event-entity reference."
+        },
+        {
+          "path": "skills/building-tnr-content/references/ai.md",
+          "why": "AI enemy, kit, stat and behaviour-rule reference."
+        },
+        {
+          "path": "skills/building-tnr-content/references/item.md",
+          "why": "Item reference: the supported functional item types and their required fields."
+        },
+        {
+          "path": "skills/building-tnr-content/data/32b_DATA_pool.json",
+          "why": "Generated shared-jutsu pool: the authority for the approved kit ids. Do not mint replacements."
+        }
+      ],
+      "deliverables": [
+        "state/prompt_one_perfect_crop.md, frozen, as the Fable build contract"
+      ],
+      "completion_gates": [
+        "Every art filename in the brief exists in the repository under that exact name",
+        "Every content-admin value copied exactly, none inferred",
+        "The stale-reference warning carried: this event does NOT use defeat_opponents or a mission-style 12-14 node shape",
+        "All creates hidden, no publish/unhide step"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "build.manifest",
+      "title": "Fable manifest implementation",
+      "area": "build",
+      "status": "PLANNED",
+      "owner": "Fable",
+      "lead_role": "Engineering Auditor",
+      "depends_on": [
+        "build.final_freeze"
+      ],
+      "objective": "Build the validated builder manifest from the frozen contract.",
+      "scope": [
+        "dependency order jutsu -> assets -> items -> ai -> aiProfile -> quest; the jutsu phase is empty",
+        "dedup/name resolution enabled, every created entity hidden: true, no publishing operation",
+        "exactly one quest start, all choice and fail edges resolving, no authored retry after a battle loss"
+      ],
+      "out_of_scope": [
+        "Settling any content-admin value.",
+        "Any live-game request or write."
+      ],
+      "required_resources": [
+        {
+          "path": "skills/building-tnr-content/references/quest.md",
+          "why": "Quest/event/dialog/flow reference."
+        },
+        {
+          "path": "skills/building-tnr-content/references/event.md",
+          "why": "Event-entity reference."
+        },
+        {
+          "path": "skills/building-tnr-content/references/ai.md",
+          "why": "AI enemy, kit, stat and behaviour-rule reference."
+        },
+        {
+          "path": "skills/building-tnr-content/references/item.md",
+          "why": "Item reference: the supported functional item types and their required fields."
+        },
+        {
+          "path": "skills/building-tnr-content/references/pipeline.md",
+          "why": "The push path and the @img filename contract."
+        },
+        {
+          "path": "skills/building-tnr-content/data/32b_DATA_pool.json",
+          "why": "Generated shared-jutsu pool: the authority for the approved kit ids. Do not mint replacements."
+        },
+        {
+          "path": "skills/building-tnr-content/scripts/validate.py",
+          "why": "The mandatory manifest validator: zero errors before handoff."
+        },
+        {
+          "path": "docs/workflows/IMPLEMENTATION_HANDOFF.md",
+          "why": "The exact-SHA handoff contract."
+        }
+      ],
+      "deliverables": [
+        "A committed manifest under push/ with zero validator errors",
+        "An exact-SHA implementation handoff"
+      ],
+      "completion_gates": [
+        "validate.py zero errors, and the exact command reported",
+        "An exact frozen head SHA returned with changed files, gates and deviations",
+        "No live request, no game write, no session credential used"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "review.manifest",
+      "title": "Independent exact-SHA audit",
+      "area": "review",
+      "status": "PLANNED",
+      "owner": "ChatGPT",
+      "lead_role": "Engineering Auditor",
+      "depends_on": [
+        "build.manifest"
+      ],
+      "objective": "Independently audit the frozen candidate against the approved contract without modifying the implementation branch.",
+      "scope": [
+        "PASS/FAIL reachability and sealed failure wings; no wrong branch rejoining PASS",
+        "both battles dialog-shielded start_battle with hard loss routing",
+        "one enemy per battle, JONIN + scale-to-user fidelity, exact approved micro-kits, no new jutsu",
+        "normalized prose markup, explicit scene wiring, exact asset filenames and ids",
+        "content-admin values copied exactly, all creates hidden, validator green"
+      ],
+      "out_of_scope": [
+        "Editing the Fable branch. Findings go back for the implementer to apply on their own branch."
+      ],
+      "required_resources": [
+        {
+          "path": "docs/workflows/FABLE_REVIEW.md",
+          "why": "The independent review workflow."
+        },
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "The event's finish plan: settled rulings, target shape, asset reuse locks, still-required art, phase order."
+        },
+        {
+          "path": "state/one_perfect_crop_prose_graph.md",
+          "why": "Frozen player-facing prose and the logical route graph. Do not restate or alter it."
+        },
+        {
+          "path": "state/one_perfect_crop_bandit_resolution.md",
+          "why": "The resolved Road Bandit decision: create a NEW AI/profile, with the approved contract and kit ids."
+        },
+        {
+          "path": "state/one_perfect_crop_content_admin_open.md",
+          "why": "The content-admin fields that are intentionally unresolved and must not be guessed."
+        },
+        {
+          "path": "docs/agents/ENGINEERING_AUDITOR.md",
+          "why": "The auditor role this session works in."
+        }
+      ],
+      "deliverables": [
+        "A review verdict against the exact frozen SHA, with findings accepted or rejected"
+      ],
+      "completion_gates": [
+        "The audit names the exact SHA it reviewed",
+        "Every accepted finding re-verified on the implementer's follow-up SHA"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "production.run_and_readback",
+      "title": "User Forge execution and fresh readback",
+      "area": "production",
+      "status": "PLANNED",
+      "owner": "dauntless",
+      "lead_role": "Release Auditor",
+      "depends_on": [
+        "review.manifest"
+      ],
+      "objective": "Cross the production boundary once, then prove the created records match the frozen contract.",
+      "scope": [
+        "load the reviewed manifest in Forge, inspect preflight and image resolution, confirm mutations deliberately, run",
+        "export and commit the result bundle",
+        "fresh full readback capture of the created records",
+        "compare the readback against the frozen contract"
+      ],
+      "out_of_scope": [
+        "Publishing or unhiding. That is a separate content-admin action after acceptance."
+      ],
+      "required_resources": [
+        {
+          "path": "skills/building-tnr-content/references/pipeline.md",
+          "why": "The push path and the @img filename contract."
+        },
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "The event's finish plan: settled rulings, target shape, asset reuse locks, still-required art, phase order."
+        },
+        {
+          "path": "docs/agents/RELEASE_AUDITOR.md",
+          "why": "The release-audit role for the readback comparison."
+        }
+      ],
+      "deliverables": [
+        "A committed result bundle",
+        "A committed fresh readback capture",
+        "A recorded readback-vs-contract comparison"
+      ],
+      "completion_gates": [
+        "A green push echo is NOT acceptance: a fresh readback capture is required",
+        "Every created record verified against the frozen contract",
+        "Everything created stays hidden; publishing remains a separate decision"
+      ],
+      "evidence": []
+    }
+  ]
+}
