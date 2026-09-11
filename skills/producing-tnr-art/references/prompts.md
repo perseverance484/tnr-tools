@@ -16,9 +16,11 @@ costs more than checking one.
 
 ### Raw QC, before processing
 
-Processing a bad generation wastes the processing. Check first and state the failure in one line
-rather than salvaging:
+A returned generation is a provisional raw candidate. Processing a bad one wastes the processing.
+Check first and state the failure in one line rather than salvaging:
 
+- Correct rendering register. Photoreal, cinematic, soft-painterly or anime output is a REJECT
+  and regenerates; so is scenery or a surface behind a keyed character target.
 - Correct mode and aspect for the type (`spec.targets.<TYPE>.aspect`).
 - No text, labels, watermarks, UI, panels, borders or grids.
 - No extra characters unless the subject requires them.
@@ -69,6 +71,37 @@ and the notes on a reference never override the spec.
 
 ---
 
+## 1c. Repository-ready is not generation-ready
+
+Having the spec, the index and the URLs is not having looked at the references. Before a
+production generation the session declares one reference mode from what it actually did -
+`ATTACHED`, `ASSISTANT_GROUNDED` or `NOT_HYDRATED`, defined in `SKILL.md` - and `NOT_HYDRATED`
+means stop. A URL, a path, a hash, unrendered base64, an uploaded ZIP or a collage is none of
+the hydrated modes. The durable transfer pack at `art/style_ref_bundles/` exists so the exact
+individual images can be extracted once and attached later, one by one.
+
+Render the contract rather than composing it:
+
+```
+python3 scripts/generation_preflight.py prepare --repo-root . --target SCENE_CHARACTER \
+    --register NINJA --frame full --subject "<the subject>" --repo-ref <exact 40-hex sha>
+```
+
+The packet carries the exact `render_prompt` object - `positive`, the SUBJECT line, `negative`,
+costume grammar and hard negatives - plus a hash over the canonical contract, and every runtime
+field closed. Immediately before the generation call, stage that contract in the conversation
+verbatim: paste the fields, do not paraphrase them, do not add clauses the packet does not
+carry. The product infers its prompt from context; staging the exact contract last is the only
+lever the repository has on that inference, and it proves what was staged, not what the product
+used. If the packet surfaces `direction_review_required` items, those are the user's to settle
+before the candidate, not the prompt's to absorb.
+
+The returned image is a **PROVISIONAL RAW CANDIDATE**. Nobody has accepted it until raw QC
+(section 1) passes, processing and dark-composite QC pass, preflight is clean and the user
+accepts it.
+
+---
+
 ## 2. House style
 
 **`spec.house_style` is the authority.** Read it and paste its clauses; do not paraphrase them
@@ -106,6 +139,7 @@ To see a rendered prompt, ask the tool rather than reading a scaffold:
 ```
 python3 shotlist.py quest_capture.json          # every shot, prompt included
 python3 mission.py sheet.json --spec 25x_DATA_art_spec.json
+python3 generation_preflight.py prepare ...     # one generation's full contract, hashed (section 1c)
 ```
 
 `mission.py` additionally raises an `AI_AVATAR` shot per roster enemy, because an enemy is not

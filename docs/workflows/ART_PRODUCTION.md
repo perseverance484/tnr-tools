@@ -40,7 +40,59 @@ Constraints that come with it:
 - Honour any `do_not_use_for` limitation recorded against a reference.
 
 `style_refs.py verify --repo-root .` audits the pack's bytes, dimensions, format and provenance and
-should be green before a session relies on it.
+should be green before a session relies on it. `style_refs.py bundle --check` proves the committed
+operator transfer bundle under `art/style_ref_bundles/` still matches the pack.
+
+## 1c. Generation gate — repository-ready is not generation-ready
+
+A workstream task marked `READY` has its durable inputs committed. That is all it says. Whether
+**this** conversation can generate correctly depends on runtime facts the repository cannot hold:
+whether the selected reference pixels were actually rendered here and looked at, whether the
+generation surface holds them as image inputs, and whether the context is clean of another asset
+class. The workstream initializer prints those as `SESSION GATES / ACTION READINESS`
+(`docs/workflows/CONTENT_WORKSTREAM.md` section 4b); an unproven gate means the action is forbidden.
+
+### Reference modes
+
+Exactly one applies, declared by the session from what it actually did. The definitions live in
+`skills/producing-tnr-art/SKILL.md`; in brief:
+
+| Mode | What is true | What the session must say |
+|---|---|---|
+| `ATTACHED` | the selected individual reference images are real rendered image attachments / input images in this generation conversation | preferred for ChatGPT production generation when selected references exist |
+| `ASSISTANT_GROUNDED` | the assistant visually inspected the selected pixels, but the generation surface cannot receive them as image inputs | the canonical text contract is used, grounded by that inspection; the generator received no reference images; no reference-image conditioning is claimed |
+| `NOT_HYDRATED` | only metadata, paths, URLs or unrendered bytes/base64 are available | image generation is forbidden until hydration occurs |
+
+Uploading the transfer ZIP (`art/style_ref_bundles/tnr_style_reference_pack.zip`), quoting a raw
+URL, reading a hash, fetching base64 that is never rendered, or building a collage hydrates
+nothing. The bundle exists so an operator can download the exact bytes once to a phone, extract
+them once, and later attach the individual images a preflight names. `ASSISTANT_GROUNDED` is
+allowed only when the pixels were genuinely inspected through a real rendered-image path and the
+generator cannot take image inputs; it is not a fallback for skipping hydration.
+
+### Required order for ChatGPT production generation
+
+1. initialize the workstream task and read its session gates;
+2. render the deterministic generation-preflight packet
+   (`skills/producing-tnr-art/scripts/generation_preflight.py prepare`) for the exact
+   target/register/frame/subject, pinned to the verified commit;
+3. hydrate and visually inspect each selected individual reference, and say what was seen; where
+   file access permits, hash-check the attached bytes against `style_refs.json`, otherwise say that
+   hash equivalence is unverified rather than assuming it;
+4. declare the reference mode — prefer `ATTACHED`;
+5. establish a clean generation context carrying only this asset class and its references;
+6. settle enough user-owned art direction for one meaningful candidate; surface the packet's
+   `direction_review_required` items and any open decisions rather than settling them;
+7. immediately before the image-generation call, stage the canonical generation contract from the
+   packet in the conversation — the exact target/scaffold/subject/negative fields, verbatim;
+8. generate exactly one candidate;
+9. classify the returned image as a **PROVISIONAL RAW CANDIDATE**;
+10. raw-QC it (section 4) before any processing.
+
+The repository cannot add a binary or file argument to ChatGPT's image-generation surface, and it
+cannot prove what internal prompt representation the product used. It can prove what contract was
+staged (the packet and its hash) and which references were present in the conversation. Do not
+claim more than that.
 
 ## 2. Direction gate
 
@@ -72,17 +124,21 @@ Raw generation must avoid:
 - target-incompatible backgrounds/surfaces;
 - composition that relies on processing to fix a fundamental generation error.
 
-Treat ChatGPT-generated imagery as raw source art until the repository's production checks pass.
+The returned image is a **PROVISIONAL RAW CANDIDATE**: not accepted, not production-ready, not an
+implied asset. It proceeds only through section 4. Treat ChatGPT-generated imagery as raw source
+art until the repository's production checks pass.
 
 ## 4. Raw QC
 
-Before processing:
+Immediately after generation and before any processing:
 
 - run the current raw-QC mechanism required by the art skill where tooling is available;
-- visually inspect composition and target suitability;
-- reject wrong mode/aspect, prohibited elements, unusable key/background, painted glow blocks, inseparable surfaces, or other failures the skill marks as regeneration cases.
+- visually inspect composition and target suitability against the staged contract;
+- a wrong visual register (photoreal, cinematic, soft-painterly, anime), scenery or a surface behind a keyed character target, wrong aspect/mode, prohibited insignia, wrong framing/camera, unusable key/background, painted glow blocks, inseparable surfaces, or any other failure the skill marks as a regeneration case is a **REJECT**: state it in one line and do not process.
 
-Do not spend processing effort trying to salvage an unprocessable generation.
+Only a raw-QC pass proceeds to chroma/processing, dark-composite QC and art preflight. Final
+acceptance remains the user's (section 7). Do not spend processing effort trying to salvage an
+unprocessable generation.
 
 ## 5. Process through the repository pipeline
 

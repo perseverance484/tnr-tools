@@ -74,6 +74,8 @@ python3 scripts/content_workstream.py init <slug> --task <task-id>
 
 The packet is a deterministic view of `state/workstreams/<slug>/roadmap.json`, not a new authority. Confirm the task is `READY` or `IN_PROGRESS`, read its `required_resources` and the completed upstream evidence it lists, state the objective, completion gates and still-open user decisions, and then work **only that task**. The initializer refuses a task whose dependencies or resources are not real; do not start it by inventing the missing inputs.
 
+Read the packet's `SESSION GATES / ACTION READINESS` section before acting. Repository `READY` is not action readiness: a gated action such as `image_generation` is forbidden until this conversation has proven each listed gate itself, and nothing in the packet, the roadmap or repository metadata proves one. Report each gate as proven or unproven from what you actually did.
+
 At a durable stopping point, write the task's status, evidence and — if the work is partial — a concise `resume_note` back into `roadmap.json`, then `validate --all` and `render --all`. A healthy workstream means the next session does not need this conversation. Full workflow: `docs/workflows/CONTENT_WORKSTREAM.md`.
 
 ## 5. Working roles
@@ -193,6 +195,14 @@ ChatGPT may act as Art Director or Image Production partner while preserving the
 Pillow is an approved art-pipeline dependency. Do not force image processing back to pure stdlib to satisfy an outdated framing. Prefer porting old ad-hoc NumPy-dependent processing to Pillow; any standing NumPy dependency needs its own concrete justification and review.
 
 When generating/editing images in ChatGPT, the image itself is still subject to the repository's processing and acceptance pipeline before it becomes a production asset.
+
+For ChatGPT image generation specifically, `docs/workflows/ART_PRODUCTION.md` section 1c is binding:
+
+- repository `READY` is not generation-ready: the workstream's session gates and the deterministic generation-preflight packet (`skills/producing-tnr-art/scripts/generation_preflight.py prepare`) come before any generation call;
+- declare the reference mode from what this conversation actually did: `ATTACHED` (preferred: the selected individual reference images are rendered attachments here), `ASSISTANT_GROUNDED` (you visually inspected the pixels but the generator cannot take images, and you say so), or `NOT_HYDRATED` (metadata, paths, URLs or unrendered bytes only: do not generate);
+- an uploaded ZIP, a raw URL, a path, a hash, unrendered base64 or a collage is not hydration; the transfer bundle under `art/style_ref_bundles/` is for extracting the exact individual images once so they can be attached later, one by one;
+- immediately before the generation call, stage the canonical generation contract from the packet in the conversation, verbatim; the repository proves what was staged and which references were present, never what the product's internal prompt was, so do not claim otherwise;
+- the returned image is a PROVISIONAL RAW CANDIDATE: raw-QC it against the staged contract before any processing, and never present it as accepted.
 
 ## 12. UI/UX and operator workflow
 

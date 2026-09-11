@@ -69,6 +69,61 @@ When the surface does **not** accept image references, a URL in the prompt prove
 what the generator ingested. Inspect the images yourself and ground the art-direction wording in
 what you actually see.
 
+### Repository-ready is not generation-ready
+
+A workstream task can be `READY` - spec, index, hashes and files all committed - while this
+session has never rendered one selected reference pixel. The Road Bandit failure was exactly
+that: metadata and URLs were read, nothing was looked at, and the generator returned a cinematic
+roadside scene instead of a TNR scene character. So before any production generation the session
+answers, from what it actually did, which **reference mode** applies. Exactly one:
+
+- **`ATTACHED`** - the selected individual reference images are real rendered image attachments /
+  input images in the current generation conversation. Preferred for ChatGPT production
+  generation whenever selected references exist.
+- **`ASSISTANT_GROUNDED`** - the assistant actually visually inspected the selected pixels, but the
+  generation surface cannot take them as image inputs. The canonical text contract is used,
+  grounded by that inspection, and the session says plainly that the generator received no
+  reference images. It never claims reference-image conditioning.
+- **`NOT_HYDRATED`** - only metadata, paths, URLs or unrendered bytes/base64 are available. Image
+  generation is forbidden until hydration occurs.
+
+A path, a raw URL, a hash, a base64 blob, an uploaded ZIP or a collage is never hydration. Only
+individual images rendered into the conversation and looked at are.
+
+**Generation preflight.** `scripts/generation_preflight.py prepare` renders, deterministically,
+everything the repository can prove about one generation - target/register/frame, the subject
+exactly as supplied, spec and index hashes, the exact reference selection with per-file SHA-256s
+and raw URLs pinned to an exact commit, the exact prompt object from `shotlist.render_prompt`
+and a hash over the canonical generation contract - and initialises everything it cannot prove as
+unverified: pixels inspected `false`, reference mode `UNDECLARED`, clean context `false`,
+`generation_allowed: false`. It cannot see the conversation or the image tool and never flips
+those fields; the session does, by stating what it did. It fails closed if the pack, the
+target/register/frame or the rendered prompt does not validate.
+
+**Hydration bundle.** `scripts/style_refs.py bundle` builds a deterministic transfer ZIP of the
+exact individual reference bytes plus the index and a manifest of keys and hashes, committed at
+`art/style_ref_bundles/tnr_style_reference_pack.zip` outside this package. Download it once,
+extract it once, then attach the individual images a preflight names. Uploading the ZIP itself
+hydrates nothing, and `bundle --check` proves the committed archive matches the pack.
+
+**Order, for a production generation:**
+
+1. initialise the workstream task (`scripts/content_workstream.py init`) and read its session
+   gates - repository `READY` is not action readiness;
+2. render the generation-preflight packet;
+3. hydrate and visually inspect each selected individual reference, and say what was seen;
+4. declare the reference mode;
+5. establish a clean generation context carrying only this asset class and its references;
+6. settle enough user-owned art direction for one candidate; surface what remains open rather
+   than settling it;
+7. stage the canonical generation contract from the packet in the conversation immediately before
+   the generation call, verbatim - it is the only lever on a product that infers its prompt from
+   context, and the repository proves what was staged, never what the product used internally;
+8. generate one candidate;
+9. classify the returned image as a **PROVISIONAL RAW CANDIDATE** - not accepted, not
+   production-ready, not an implied asset;
+10. raw-QC it before any processing.
+
 `select` emits raw repository URLs as well as local paths, so an installed skill ZIP with no
 checkout is still usable; the binaries are deliberately outside the skill package. `verify` needs a
 checkout and audits every reference's bytes, dimensions and format **and proves the pack's
@@ -111,9 +166,11 @@ costs more than checking one.
 
 ## Raw QC - reject before processing
 
-Processing a bad generation wastes the processing, so check first and state the failure in one line
-rather than salvaging:
+A returned generation is a provisional raw candidate and nothing more. Processing a bad one wastes
+the processing, so check first and state the failure in one line rather than salvaging:
 
+- Correct rendering register. Photoreal, cinematic, soft-painterly or anime output is a REJECT,
+  not a processing problem; so is scenery or a surface behind a keyed character target.
 - Correct mode and aspect for the asset type.
 - No text, labels, watermarks, UI, panels, borders or grids.
 - Backgrounds contain no people, characters or creatures.
@@ -180,7 +237,8 @@ upload paths.
 | `scripts/rawqc.py` | Mechanical raw-QC BEFORE any human look: aspect vs spec, chroma coverage band, 2px ring purity; `--record` appends the scaffold ledger, `--stats` prints accept rates and flags escalation candidates, `--selftest` synthesizes its own red/green fixtures. Run it on every generation before chroma.py. |
 | `scripts/artpreflight.py` | Acceptance check before handover. `--index <art_index.json>` audits the whole live library instead of files. |
 | `scripts/shotlist.py` | **Generate the shot list from the quest graph, never author it.** Takes a `quests.get` capture and emits every asset the quest needs with its exact numbers, filename, `@img` ref and its rendered generator prompt, assembled from `spec.prompt_scaffolds` with `[STYLE]` expanded verbatim and scoped per target. Hand-authoring that list is where assets go missing or land with a filename the manifest does not reference. |
-| `scripts/style_refs.py` | **The visual reference pack.** `select --target ... [--register ...|--tag ...]` picks the deterministic reference set for one production target and prints local paths plus raw URLs; `list` shows the whole corpus; `verify --repo-root .` audits bytes/dimensions/format AND fail-closed capture provenance against `data/style_refs.json`; `--selftest` runs socket-free. `materialize` is a maintainer-only path that proves provenance first and only then re-downloads from the captured image URLs. |
+| `scripts/style_refs.py` | **The visual reference pack.** `select --target ... [--register ...|--tag ...]` picks the deterministic reference set for one production target and prints local paths plus raw URLs; `list` shows the whole corpus; `verify --repo-root .` audits bytes/dimensions/format AND fail-closed capture provenance against `data/style_refs.json`; `bundle --repo-root .` builds the deterministic operator transfer ZIP of the exact individual reference bytes (committed under `art/style_ref_bundles/`, outside this package) and `bundle --check` fails on drift; `--selftest` runs socket-free. `materialize` is a maintainer-only path that proves provenance first and only then re-downloads from the captured image URLs. |
+| `scripts/generation_preflight.py` | **The generation contract, rendered not composed.** `prepare --repo-root . --target ... --register ... --frame ... --subject "..." --repo-ref <exact sha>` verifies the pack, selects the references, renders the exact `shotlist.render_prompt` object, hashes the canonical contract and emits every runtime field closed (`generation_allowed: false`); `--json` for the packet, `check <packet>` re-derives a staged packet from the repository, `--selftest` runs socket-free. It never generates and never flips a runtime field. |
 | `scripts/artpreflight_selftest.py` | Exit test: one correct and one deliberately wrong export per asset type. |
 
 All of them read `25x_DATA_art_spec.json` from the working directory. Copy it in at session start,
