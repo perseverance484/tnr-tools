@@ -5,7 +5,7 @@
 **Implementation owner:** Fable / Claude Code after final freeze  
 **Live-game actor:** dauntless only  
 **Source branch baseline:** `chatgpt/one-perfect-crop-roadmap-20260911` at `35e8a6f4bebf5abaa1b4f012c55108559002c389` before this file was added.  
-**Status:** implementation-exact behavior resolved; AI-record completion remains blocked only on the residual director-owned fields listed below.
+**Status:** implementation-exact behavior resolved; AI-record completion remains blocked only on Harvest Boar `preferredStat`.
 
 ## Authority and provenance
 
@@ -35,11 +35,15 @@ Both encounters use exactly one enemy and retain the frozen quest-level battle s
 Shared AI-record contract:
 
 - technical rank: `JONIN`
+- stored AI `level`: `100`
 - element: None / no elemental identity
 - stat ratio shape: neutral/even across all twelve stats; no bespoke offensive or defensive bias
 - `statsMultiplier: 1`
 - `poolsMultiplier: 1`
 - `regeneration: 60`
+- `preferredGeneral1: Strength`
+- `preferredGeneral2: Speed`
+- equipped armor: `None`
 - no passive AI tags/effects
 - no bespoke control, healing, shields, buffs, seals, wounds, pierce, poison, charge mechanic, adaptive counterplay, or signature jutsu
 - all jutsu are existing shared-pool records; no replacement or event-local jutsu may be minted
@@ -58,20 +62,24 @@ Fixed values:
 
 - name/identity: Road Bandit
 - rank: `JONIN`
+- level: `100`
 - scale-to-user encounter flag: ON (`opponent_scaled_to_user: true` on the battle objective)
 - element: None
 - neutral/even twelve-stat ratio shape
 - `statsMultiplier: 1`
 - `poolsMultiplier: 1`
 - `regeneration: 60`
+- `preferredStat: Bukijutsu`
+- `preferredGeneral1: Strength`
+- `preferredGeneral2: Speed`
+- equipped armor: `None`
 - no passive AI effects/tags
-- preferred combat flavor: Bukijutsu
 - jutsu loadout, exactly and only:
   - S27 Weakening Strike — `YiRdVytsdxFzZtqkEDs5Q`
   - S41 Steady Strike — `fKvCGRgzGNskgFWocQCAg`
   - S40 Measured Strike — `kkGDat1XWUxhOQ1_T5025`
 
-Residual director-owned AI-record values are listed under **Open director decisions** below. Fable must not infer them.
+The Road Bandit AI record has no remaining director-owned combat fields in this task.
 
 ### AiProfile
 
@@ -103,12 +111,16 @@ Fixed values:
 
 - name/identity: Harvest Boar
 - rank: `JONIN`
+- level: `100`
 - scale-to-user encounter flag: ON (`opponent_scaled_to_user: true` on the battle objective)
 - element: None
 - neutral/even twelve-stat ratio shape
 - `statsMultiplier: 1`
 - `poolsMultiplier: 1`
 - `regeneration: 60`
+- `preferredGeneral1: Strength`
+- `preferredGeneral2: Speed`
+- equipped armor: `None`
 - no passive AI effects/tags
 - no special charge mechanic
 - jutsu loadout, exactly and only:
@@ -116,7 +128,7 @@ Fixed values:
   - S42 Forceful Strike — `4TM6iS8P0qgNHsFpALFhg`
   - S41 Steady Strike — `fKvCGRgzGNskgFWocQCAg`
 
-Residual director-owned AI-record values are listed under **Open director decisions** below. Fable must not infer them.
+Harvest Boar `preferredStat` remains the only unresolved AI-record field in this task. Fable must not infer it.
 
 ### AiProfile
 
@@ -136,28 +148,13 @@ Author exactly these custom priority rules, in this order:
 
 Do **not** author additional custom fallback rules. After these three rules, the engine-appended default chain supplies highest-power legal action and movement.
 
-## Open director decisions
+## Open director decision
 
-Current canon does not deterministically fix every field required to create the two AI records. These are content/balance decisions and remain intentionally unresolved.
+Current canon does not determine the remaining Harvest Boar combat identity field:
 
-### Road Bandit
+- Harvest Boar `preferredStat`
 
-- stored AI `level`
-- `preferredGeneral1`
-- `preferredGeneral2`
-- equipped armor choice: `None` or `AI Light`
-
-`preferredStat` is already fixed as `Bukijutsu` by the approved combat identity.
-
-### Harvest Boar
-
-- stored AI `level`
-- `preferredStat`
-- `preferredGeneral1`
-- `preferredGeneral2`
-- equipped armor choice: `None` or `AI Light`
-
-The neutral/even twelve-stat ratio does not itself determine `preferredStat` or preferred generals. Armor is an editor-side identity/mitigation choice and is not inferred from the neutral stat shape.
+The neutral/even twelve-stat ratio does not itself determine `preferredStat`, so this remains a director-owned content choice rather than an implementation default.
 
 ## Implementation guardrails
 
@@ -169,10 +166,10 @@ The neutral/even twelve-stat ratio does not itself determine `preferredStat` or 
 - Use generated constructors for AI rule objects; do not hand-author remembered shapes.
 - Preserve `includeDefaultRules: true`; do not expand the manifest with redundant highest-power, movement, or anti-exhaust custom rules.
 - Preserve one enemy per battle and the frozen hard-fail loss routes in the quest graph.
-- Do not treat scale-to-user as permission to guess stored AI `level`; level remains an explicit AI-record input unless the director sets it.
+- Preserve level `100`, Strength/Speed preferred generals, and armor `None` for both AI records.
 
 ## Completion state
 
-The AiProfile behavior portion of `content.combat_ai_profiles` is fully resolved and implementation-exact.
+The AiProfile behavior portion of `content.combat_ai_profiles` is fully resolved and implementation-exact. The Road Bandit AI record is also fully resolved for this task.
 
-The overall task remains blocked on the nine director-owned AI-record selections above. Once those values are supplied, this document can be completed without any additional combat-design invention and handed to Fable for manifest implementation after the workstream's final freeze gate.
+The overall task remains blocked only on Harvest Boar `preferredStat`. Once that value is supplied, this document can be marked complete without any additional combat-design invention and handed to Fable for manifest implementation after the workstream's final freeze gate.
