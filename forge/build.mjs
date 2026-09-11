@@ -12,7 +12,8 @@ const out = join(here, "..", "forge_bundle.js");
 const pkg = JSON.parse(readFileSync(join(here, "package.json"), "utf8"));
 const banner = `// TNR forge bundle v${pkg.version} - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
-// Host: any unmatched path on the game origin (/forge). Layers: storage, transport, budget, runner, reconcile, ui.
+// Entry: /forge (a providerless 404) arms the tab and hands off; Forge then mounts as an overlay on a
+// real application route so ClerkProvider and the tRPC provider stay alive under it. Layers: storage, transport, budget, runner, reconcile, ui.
 // Pinned engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.`;
 
 await build({

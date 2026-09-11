@@ -1,38 +1,201 @@
-// Document takeover at document-start (spec section 2).
+// Where Forge runs, and how it gets there.
 //
-// Host path: any unmatched URL on the game origin, /forge by convention. From source at
-// 345d18ac: next.config.mjs sets experimental.globalNotFound: true; proxy.ts's matcher comment
-// states "URLs with no matching route render through global-not-found.tsx without the
-// Clerk-dependent root layout", and the middleware body returns immediately for every
-// pathname other than "/" (proxy.ts, `if (pathname !== "/") return;`). global-not-found.tsx
-// is a bare <html><body> with one Link and no providers. So the host page has NO tRPC
-// provider, NO Clerk hydration, NO game fetch on mount, and no React tree to co-exist with,
-// while the session cookie is still first-party for /api/trpc. That is why /forge.
+// WHAT CHANGED AND WHY. Forge 0.3.0 booted on /forge and took the whole document over at
+// document-start. /forge is an unmatched path, so from source it renders through
+// global-not-found.tsx: next.config.mjs sets experimental.globalNotFound, proxy.ts returns
+// immediately for every pathname other than "/", and global-not-found.tsx is a bare
+// <html><body> with one Link. That is why it was chosen - no provider tree to fight, no game
+// requests on mount - and it is also exactly why protected work failed there. layout.tsx mounts
+// ClerkProvider and TrpcClientProvider for VALID application routes only, so on /forge the
+// page's own Clerk runtime never starts, nothing refreshes the session the browser holds, and
+// createAppTRPCContext's auth() finds no userId: every protectedProcedure answers UNAUTHORIZED.
+// Two Forge 0.3.0 runs proved it, five profile.getAi reads each, all five UNAUTHORIZED
+// (harvests/inbox/tnr_results_1789066888093.json and tnr_results_1789067111434.json).
 //
-// The takeover stops the page load, empties the document, and mounts the app. The old
-// builder's loader matches the whole origin at document-idle and would append its panel
-// here too; its nodes are removed on arrival so both scripts can stay installed.
+// THE REPAIR, in the brief's preferred shape (section B):
+//
+//   ENTRY (/forge)   unchanged for the operator, but no longer where the app runs. It arms a
+//                    per-tab marker and hands off to the carrier. It is still a providerless
+//                    404, so stopping and emptying it costs nothing.
+//   CARRIER (/)      a real application route, so the root layout mounts ClerkProvider and
+//                    TrpcClientProvider and clerk-js runs. Forge does NOT take this document
+//                    over: it appends one fixed, full-screen overlay and leaves the React tree,
+//                    the providers and the auth runtime mounted and untouched underneath. The
+//                    provider tree staying alive is the entire fix; destroying it would put us
+//                    back on /forge with extra steps.
+//
+// WHY "/" IS THE CARRIER. It is the one route repository-held source evidence names positively:
+// proxy.ts's callback special-cases it (`if (pathname !== "/") return;`), so it is a matched
+// route rather than a global-not-found render, and the tRPC context carries two A/B variants
+// that "steer landing-page layout" (client_contract.json, feasibility_gates.G4), which is a
+// landing page rendering under the root layout. It is also the lightest such route this audit
+// can name, which matters because the carrier's own tRPC traffic is outside Forge's budget
+// accounting (see BUILDER_APP_NOTES.md). No route NAME is compiled into the activation logic
+// though: the marker is a per-tab flag, not a URL, so if the app navigates away from "/", Forge
+// activates on wherever it lands. That is not hypothetical - HomeLanding.tsx:27-45 at the task pin
+// pushes a signed-in operator to /profile (or /register, or /500) once user data resolves. It is a
+// CLIENT-side router.push inside the Next root, so the document, the providers and this overlay
+// (appended to document.body outside that root) all survive it. The carrier constant is a hint,
+// and being wrong about it costs a navigation, not the repair.
+//
+// The overlay covers the carrier; it does not restyle it. The stylesheet is scoped to .f-app
+// and the document reset is installed on the entry splash only, so the game page underneath is
+// returned exactly as it was when Forge is closed.
 
 import { h, clear } from "./dom.mjs";
 
-export const HOST_PATH = "/forge";
+export const ENTRY_PATH = "/forge";
+export const CARRIER_PATH = "/";
+// Per-TAB, in sessionStorage: a second tab is not dragged into Forge, and closing the tab ends
+// it. It holds a hop counter and nothing else - no auth material, no session data, no id.
+export const ARM_KEY = "tnr_forge_armed_v1";
+export const MAX_HOPS = 2; // a redirect that lands somewhere unexpected must not loop
 const OLD_BUILDER_CLASSES = ["k-fab", "k-pn"]; // builder_bundle.js root nodes
+export const OVERLAY_CLASS = "f-host";
 
-export function takeover(doc = document, win = window) {
+export function onEntryPath(loc = location) {
+  return loc.pathname === ENTRY_PATH || loc.pathname.startsWith(ENTRY_PATH + "/");
+}
+
+// ---------------------------------------------------------------- the per-tab marker
+function readArm(win) {
+  try { return JSON.parse(win.sessionStorage.getItem(ARM_KEY) || "null"); } catch { return null; }
+}
+export function isArmed(win) { const a = readArm(win); return !!(a && a.armed); }
+export function armHops(win) { const a = readArm(win); return a && Number.isInteger(a.hops) ? a.hops : 0; }
+
+/** Arm this tab and count the hop. Returns the hop count after arming. */
+export function arm(win, { hops = null } = {}) {
+  const next = hops == null ? armHops(win) + 1 : hops;
+  try { win.sessionStorage.setItem(ARM_KEY, JSON.stringify({ armed: true, hops: next })); } catch { /* private mode: the redirect still happens, activation just will not stick */ }
+  return next;
+}
+export function disarm(win) { try { win.sessionStorage.removeItem(ARM_KEY); } catch { /* nothing to clean up */ } }
+
+// ---------------------------------------------------------------- the entry page
+/**
+ * The /forge entry. The document here is the providerless 404, so it is stopped and emptied as
+ * before; the difference is that nothing is mounted into it. The caller redirects.
+ */
+export function entryTakeover(doc = document, win = window) {
   try { win.stop(); } catch { /* not fatal */ }
   const html = doc.documentElement || doc.appendChild(doc.createElement("html"));
   clear(html);
   const head = h("head", {}, h("meta", { charset: "utf-8" }), h("meta", { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" }), h("title", {}, "TNR forge"));
   const body = h("body", {});
   html.append(head, body);
-  // keep the old builder's panel off this document
-  const mo = new win.MutationObserver((muts) => {
-    for (const m of muts) for (const n of m.addedNodes) {
-      if (n && n.nodeType === 1 && OLD_BUILDER_CLASSES.some((c) => n.classList && n.classList.contains(c))) n.remove();
-    }
-  });
-  mo.observe(body, { childList: true });
-  return { html, head, body, observer: mo };
+  return { html, head, body };
 }
 
-export function onHostPath(loc = location) { return loc.pathname === HOST_PATH || loc.pathname.startsWith(HOST_PATH + "/"); }
+// ---------------------------------------------------------------- the carrier page
+/**
+ * Wait until the carrier document actually HAS a body.
+ *
+ * The loader runs at document-start and now matches the whole origin. On the entry page that is
+ * harmless, because entryTakeover() builds its own body - but the carrier is the real app
+ * document, and at document-start a normal page is not guaranteed to have been parsed as far as
+ * <body> yet. mountHost() reads doc.body, so calling it too early throws, the top-level boot
+ * wrapper swallows the rejection, and the operator is left looking at the game with the tab still
+ * armed and Forge never mounted. That is independent review FPA-1, and it defeats the repair in
+ * exactly the workflow the repair exists for.
+ *
+ * document-start is still the right run-at: it is what lets the entry page be stopped before it
+ * renders. The fix is to wait here rather than to run later.
+ *
+ * Nothing is written to the page while waiting. Three signals race, because a userscript sandbox
+ * may support any subset of them, and every one of them re-checks doc.body rather than assuming
+ * the event means what it says:
+ *   - a MutationObserver on documentElement, which sees the parser insert <body>;
+ *   - DOMContentLoaded / readystatechange, for the case where the body already arrived;
+ *   - an interval, only when MutationObserver could not be constructed at all.
+ * Whichever fires first resolves exactly once; the others are torn down.
+ *
+ * There is deliberately no timeout. A document that never gets a body is one Forge must not
+ * touch, and staying pending leaves the page untouched, which is the safe failure.
+ */
+export function whenBodyReady(doc = document, win = window) {
+  return new Promise((resolve) => {
+    if (doc.body) return resolve(doc.body);
+    let settled = false;
+    let mo = null;
+    let timer = null;
+    const cleanup = () => {
+      if (mo) { try { mo.disconnect(); } catch { /* already gone */ } mo = null; }
+      if (timer != null) { try { win.clearInterval(timer); } catch { /* already gone */ } timer = null; }
+      try { doc.removeEventListener("DOMContentLoaded", check); } catch { /* not supported */ }
+      try { doc.removeEventListener("readystatechange", check); } catch { /* not supported */ }
+    };
+    function check() {
+      if (settled || !doc.body) return;   // an event is a hint, doc.body is the answer
+      settled = true;
+      cleanup();
+      resolve(doc.body);
+    }
+    try {
+      mo = new win.MutationObserver(check);
+      mo.observe(doc.documentElement || doc, { childList: true, subtree: true });
+    } catch { mo = null; }
+    try { doc.addEventListener("DOMContentLoaded", check); } catch { /* not supported */ }
+    try { doc.addEventListener("readystatechange", check); } catch { /* not supported */ }
+    if (!mo) { try { timer = win.setInterval(check, 25); } catch { timer = null; } }
+    check();   // the body may have arrived between the first test and the listeners going up
+  });
+}
+
+/** Is Forge already mounted in this document? One overlay per document, always. */
+export function alreadyMounted(doc = document) { return !!doc.querySelector("." + OVERLAY_CLASS); }
+
+/**
+ * Mount point on a live application route. One fixed, opaque, full-screen element appended to
+ * the body, plus a scroll lock on the carrier while it is up. Nothing is removed, no provider is
+ * unmounted, no game node is touched; release() puts the page back exactly as it was.
+ *
+ * The old builder's loader matches the whole origin at document-idle and appends its panel here
+ * too. Its root nodes are removed WHILE FORGE IS MOUNTED only, which is the contract 0.3.0
+ * already had ("both scripts can stay installed"), and the observer is disconnected on release
+ * so the operator gets the old builder back on this page the moment Forge is closed.
+ */
+export function mountHost(doc = document, win = window) {
+  const host = h("div", { class: OVERLAY_CLASS });
+  const root = doc.documentElement;
+  const prevHtmlOverflow = root ? root.style.overflow : "";
+  const prevBodyOverflow = doc.body ? doc.body.style.overflow : "";
+  if (root) root.style.overflow = "hidden";
+  if (doc.body) doc.body.style.overflow = "hidden";
+  doc.body.appendChild(host);
+
+  let mo = null;
+  try {
+    mo = new win.MutationObserver((muts) => {
+      for (const m of muts) for (const n of m.addedNodes) {
+        if (n && n.nodeType === 1 && OLD_BUILDER_CLASSES.some((c) => n.classList && n.classList.contains(c))) n.remove();
+      }
+    });
+    mo.observe(doc.body, { childList: true });
+  } catch { mo = null; }
+
+  const release = () => {
+    if (mo) { try { mo.disconnect(); } catch { /* already gone */ } }
+    host.remove();
+    if (root) root.style.overflow = prevHtmlOverflow;
+    if (doc.body) doc.body.style.overflow = prevBodyOverflow;
+  };
+  return { body: host, observer: mo, release };
+}
+
+/**
+ * The page's own auth runtime, read as three booleans and nothing else. clerk-js publishes
+ * window.Clerk when ClerkProvider mounts; `loaded` says its startup finished and the PRESENCE of
+ * `session`/`user` says somebody is signed in. No token, no cookie, no claim is read here, and
+ * nothing read here is stored - AuthState keeps only its own state string.
+ */
+export function pageAuthRuntime(win = window) {
+  return () => {
+    const c = win && win.Clerk;
+    if (!c) return null;
+    const loaded = c.loaded === true;
+    let signedIn = null;
+    if (loaded) signedIn = !!(c.session || c.user);
+    return { loaded, signedIn };
+  };
+}

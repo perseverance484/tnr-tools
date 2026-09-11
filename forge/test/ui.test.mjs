@@ -16,7 +16,7 @@ import { Runner } from "../src/runner/runner.mjs";
 import { Reconciler } from "../src/reconcile/reconciler.mjs";
 import { CookieSession } from "../src/transport/session.mjs";
 import { App } from "../src/ui/app.mjs";
-import { takeover, onHostPath, HOST_PATH } from "../src/ui/takeover.mjs";
+import { entryTakeover, mountHost, onEntryPath, ENTRY_PATH, CARRIER_PATH } from "../src/ui/takeover.mjs";
 import { FakeGame, FakeClient } from "./fakegame.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
@@ -53,17 +53,34 @@ function appWith({ game = new FakeGame(), storage = new MemoryStorage() } = {}) 
   return { app, game, storage, journal: d.journal, clock: d.clock };
 }
 
-test("takeover: host path check and document replacement without innerHTML", () => {
+test("entry takeover: /forge is recognised and the providerless 404 is emptied without innerHTML", () => {
   const win = dom();
-  assert.equal(onHostPath(win.location), true);
-  assert.equal(onHostPath({ pathname: "/" }), false);
-  assert.equal(onHostPath({ pathname: "/forge/x" }), true);
-  assert.equal(HOST_PATH, "/forge");
+  assert.equal(onEntryPath(win.location), true);
+  assert.equal(onEntryPath({ pathname: "/" }), false);
+  assert.equal(onEntryPath({ pathname: "/forge/x" }), true);
+  assert.equal(ENTRY_PATH, "/forge");
+  assert.equal(CARRIER_PATH, "/");
   win.stop = () => {};
-  const { body, head } = takeover(win.document, win);
+  const { body, head } = entryTakeover(win.document, win);
   assert.ok(head.querySelector("meta[name=viewport]"));
   assert.equal(win.document.body, body);
   assert.equal(win.document.title, "TNR forge");
+});
+
+test("carrier mount: the overlay is added and removed without disturbing the page under it", () => {
+  const win = dom();
+  const doc = win.document;
+  const appRoot = doc.createElement("div");
+  appRoot.id = "__next";
+  doc.body.appendChild(appRoot);
+  const host = mountHost(doc, win);
+  assert.equal(doc.getElementById("__next"), appRoot, "the game's React root is untouched");
+  assert.equal(doc.body.contains(host.body), true);
+  assert.equal(doc.documentElement.style.overflow, "hidden");
+  host.release();
+  assert.equal(doc.body.contains(host.body), false);
+  assert.equal(doc.getElementById("__next"), appRoot);
+  assert.equal(doc.documentElement.style.overflow, "", "the carrier's scroll lock is handed back");
 });
 
 test("mount renders the five screens, no SENT job -> Jobs shows empty state", () => {

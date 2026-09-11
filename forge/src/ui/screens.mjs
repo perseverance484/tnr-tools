@@ -19,8 +19,9 @@ export function JobsScreen(app) {
         h("div", {}, h("b", {}, "Open job: "), j.manifestPath || j.jobId, " ", pill(j.state)),
         j.state === "INCOMPLETE" ? h("div", { class: "f-mute" }, `Finished unverified: ${j.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length} item(s) still owe a read-back. Resuming re-reads them and cannot re-send.`) : null,
         j.pause ? h("div", { class: "f-mute" }, `Paused: ${j.pause.reason}${j.pause.path ? " on " + j.pause.path : ""}${j.pause.until ? " · retry allowed in " + fmtCountdown(j.pause.until, app.now()) : ""}${j.pause.detail ? " · " + j.pause.detail : ""}`) : null,
+        app.resumeBlockedReason && app.resumeBlockedReason(j) ? h("div", { class: "f-err" }, app.resumeBlockedReason(j)) : null,
         h("div", { class: "f-actions" },
-          h("button", { class: "f-primary", onClick: () => app.resumeJob(j.jobId) }, j.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : j.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume"),
+          h("button", { class: "f-primary", disabled: !!(app.resumeBlockedReason && app.resumeBlockedReason(j)), onClick: () => app.resumeJob(j.jobId) }, j.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : j.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume"),
           h("button", { onClick: () => app.go("run", { jobId: j.jobId }) }, "Open"),
         )));
     }
@@ -123,6 +124,10 @@ function SelectedManifest(app) {
     h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
     `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on. Still queries only; zero mutations. Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`));
   if (s.problems.length) card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, "Cannot run: "), h("div", { class: "f-err" }, s.problems.join("\n"))));
+  const blocked = app.blockedPaths ? app.blockedPaths(s.plan, s.manifest) : [];
+  if (blocked.length) card.appendChild(h("div", { class: "f-banner bad" },
+    h("b", {}, "Blocked: TNR authentication is unavailable. "),
+    `This manifest needs ${blocked.join(", ")}, which ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and requires a signed-in session. Nothing will be sent. Sign in to the game and re-check the session above.`));
   if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
   // advisories: worth reading, not worth blocking. A blocking lint is already in `problems`.
   if (s.manifest.warnings && s.manifest.warnings.length) {
@@ -143,7 +148,7 @@ function SelectedManifest(app) {
   }
   const missingImgs = imgs.filter((n) => !app.runner.files.has(n));
   card.appendChild(h("div", { class: "f-actions" },
-    h("button", { class: "f-primary", disabled: s.problems.length > 0 || missingImgs.length > 0, onClick: () => app.confirm(
+    h("button", { class: "f-primary", disabled: s.problems.length > 0 || missingImgs.length > 0 || blocked.length > 0, onClick: () => app.confirm(
       readOnly
         ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.`
         : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
@@ -200,12 +205,24 @@ export function RunScreen(app) {
           ". These writes are not proven. ",
           job.state === "INCOMPLETE" ? "Resume to re-read them; resuming can only read, never re-send." : ""));
   }
-  if (job.pause) root.appendChild(h("div", { class: "f-banner " + (job.pause.reason === "TOO_MANY_REQUESTS" ? "bad" : "warn") },
+  if (job.pause && job.pause.reason === "SESSION") {
+    // The one pause the operator can always fix, and the one 0.3.0 could not name. It says what
+    // the game refused, that nothing further was sent, and what to do - never "read failed".
+    root.appendChild(h("div", { class: "f-banner bad" },
+      h("b", {}, "Paused: TNR authentication unavailable. "),
+      job.pause.authRefused
+        ? `The game refused ${job.pause.path ? job.pause.path : "a protected procedure"} as unauthenticated. That item is recorded as refused, not as an uncertain write: the server answered, so nothing was written.`
+        : `Forge stopped before sending${job.pause.path ? ` ${job.pause.path}` : ""} because the game session is not available. Nothing further was sent.`,
+      h("div", { class: "f-mute" }, "Sign in to The Ninja RPG in this browser, re-check the session above, then resume. Resuming re-reads before it re-sends anything."),
+      job.pause.detail ? h("div", { class: "f-err" }, job.pause.detail) : null));
+  } else if (job.pause) root.appendChild(h("div", { class: "f-banner " + (job.pause.reason === "TOO_MANY_REQUESTS" ? "bad" : "warn") },
     h("b", {}, `Paused: ${job.pause.reason}`), job.pause.path ? ` on ${job.pause.path}` : "", job.pause.until ? ` · wait ${fmtCountdown(job.pause.until, app.now())}` : "", job.pause.detail ? h("div", { class: "f-err" }, job.pause.detail) : null));
   if (app.state.running === jobId) root.appendChild(h("div", { class: "f-banner info" }, "Running… ", app.state.runningNote || ""));
+  const resumeBlocked = app.resumeBlockedReason ? app.resumeBlockedReason(job) : null;
+  if (resumeBlocked) root.appendChild(h("div", { class: "f-mute" }, resumeBlocked));
   root.appendChild(h("div", { class: "f-actions" },
     job.state === "PAUSED" || job.state === "INCOMPLETE" || (job.state === "RUNNING" && app.state.running !== jobId && job.items.some((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)))
-      ? h("button", { class: "f-primary", onClick: () => app.resumeJob(jobId) }, job.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : job.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume") : null,
+      ? h("button", { class: "f-primary", disabled: !!resumeBlocked, onClick: () => app.resumeJob(jobId) }, job.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : job.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume") : null,
     app.state.running === jobId ? h("button", { onClick: () => app.requestPause() }, "Pause after this item") : null,
     h("button", { onClick: () => app.exportJob(jobId) }, "Export bundle"),
   ));
@@ -296,7 +313,8 @@ export function SettingsScreen(app) {
       h("div", { class: "f-actions" }, h("button", { class: "f-primary", onClick: () => { writeGh(app.storage, { on: sync.checked, pat: pat.value.trim() }); app.toast("saved", "ok"); app.refresh(); } }, "Save"), h("button", { class: "f-danger", onClick: () => app.confirm("Forget the PAT?", () => { writeGh(app.storage, { on: false, pat: "" }); app.refresh(); }) }, "Forget")),
     ),
     h("h2", {}, "Session"),
-    h("div", { class: "f-card f-kv" }, h("b", {}, "game"), h("span", {}, JSON.stringify(app.session.describe())), h("b", {}, "budget"), h("span", {}, `${app.budget.allowance} / ${app.budget.limit} per path per minute (margin ${app.budget.margin})`), h("b", {}, "persisted storage"), h("span", { id: "f-persist" }, app.state.persisted == null ? "unknown" : String(app.state.persisted))),
+    h("div", { class: "f-card f-kv" }, h("b", {}, "game"), h("span", {}, JSON.stringify(app.session.describe())),
+      h("b", {}, "auth"), h("span", {}, app.auth ? JSON.stringify(app.auth.describe()) : "not wired"), h("b", {}, "budget"), h("span", {}, `${app.budget.allowance} / ${app.budget.limit} per path per minute (margin ${app.budget.margin})`), h("b", {}, "persisted storage"), h("span", { id: "f-persist" }, app.state.persisted == null ? "unknown" : String(app.state.persisted))),
     h("h2", {}, "Journal"),
     h("div", { class: "f-card" },
       h("div", { class: "f-actions" },
