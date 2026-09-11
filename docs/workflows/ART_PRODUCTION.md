@@ -16,6 +16,32 @@ Identify:
 
 Read `skills/producing-tnr-art/SKILL.md` and the exact current spec/reference files routed for that target.
 
+## 1b. Visual reference bootstrap
+
+Where the repository carries visual references for the target, inspecting them is a **required**
+bootstrap step, not an optional aid. It is what makes a fresh art conversation start from the same
+approved artwork as the last one instead of from prose and memory.
+
+1. Identify the target/type and register.
+2. Read the current `25x_DATA_art_spec.json` target block and `house_style`. **References
+   calibrate; the spec governs** - the reference pack does not replace `spec.house_style` and owns
+   no style clause or number.
+3. Run `skills/producing-tnr-art/scripts/style_refs.py select` for the target.
+4. Open and visually inspect each selected **individual** image before composing anything.
+
+Constraints that come with it:
+
+- Use the selected individual images, never a collage or contact sheet.
+- Placing a raw URL in a prompt is not evidence that an image generator ingested those pixels. If
+  the surface cannot take image references, inspect the images yourself and ground the art
+  direction in what you actually see.
+- Begin a new asset class in a clean generation context carrying only its own references, so a
+  previous unrelated generation cannot displace the subject.
+- Honour any `do_not_use_for` limitation recorded against a reference.
+
+`style_refs.py verify --repo-root .` audits the pack's bytes, dimensions, format and provenance and
+should be green before a session relies on it.
+
 ## 2. Direction gate
 
 Before spending production effort, settle enough visual direction to generate one meaningful candidate:
