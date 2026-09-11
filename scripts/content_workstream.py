@@ -85,12 +85,24 @@ AREAS = (
 EVIDENCE_KINDS = (
     "path",       # a committed repository artifact
     "capture",    # a committed capture/result bundle
-    "sha",        # an exact commit SHA
+    "sha",        # an exact 40-hex commit SHA
     "decision",   # a recorded user/content-admin decision
     "validator",  # a named validator/gate result
     "approval",   # recorded user acceptance
     "note",       # anything else, used sparingly
 )
+
+# COMPLETE needs evidence, not a claim. These kinds carry something a later
+# session can actually go and check: a file that exists, or an exact commit id.
+ANCHOR_KINDS = ("path", "capture", "sha")
+
+# These describe something real but their `ref` is free text, so they anchor a
+# COMPLETE task only when they also name a committed `source` recording it.
+# `note` never anchors anything.
+SOURCED_KINDS = ("decision", "validator", "approval")
+
+SHA_LENGTH = 40
+SHA_ALPHABET = set("0123456789abcdef")
 
 # Inputs that live here are not durable and must never back a READY task.
 EPHEMERAL_MARKERS = ("/mnt/data", "/tmp/", "sandbox:", "file:///", "~/", "attachment:")
@@ -168,6 +180,52 @@ def _bad_path(value: str) -> str | None:
     if ".." in Path(value).parts:
         return "contains '..'"
     return None
+
+
+def _bad_sha(value) -> str | None:
+    """Return a reason string if this is not an exact lowercase 40-hex commit id."""
+    if not isinstance(value, str):
+        return "sha must be a string"
+    if len(value) != SHA_LENGTH:
+        return f"sha must be exactly {SHA_LENGTH} hex characters, got {len(value)}"
+    if not set(value.lower()) <= SHA_ALPHABET:
+        return "sha must be hexadecimal"
+    if value != value.lower():
+        return "sha must be lowercase"
+    return None
+
+
+def _anchor_reason(item: dict, repo_root: Path) -> str | None:
+    """Return None if this evidence item is a verifiable anchor, else why not.
+
+    An anchor is something a later session can check without this conversation:
+    a repository file that exists, or an exact commit id. Free text is not.
+    """
+    kind = item.get("kind")
+    ref = item.get("ref")
+    if kind in ("path", "capture"):
+        reason = _bad_path(ref)
+        if reason:
+            return reason
+        if not (repo_root / ref).exists():
+            return f"{ref} does not exist in the repository"
+        return None
+    if kind == "sha":
+        return _bad_sha(ref)
+    if kind in SOURCED_KINDS:
+        source = item.get("source")
+        if not source:
+            return (
+                f"{kind!r} evidence is free text unless it names a committed `source` "
+                "recording the decision"
+            )
+        reason = _bad_path(source)
+        if reason:
+            return reason
+        if not (repo_root / source).exists():
+            return f"source {source} does not exist in the repository"
+        return None
+    return f"{kind!r} evidence is a claim, not a verifiable anchor"
 
 
 def _cycles(tasks: list[dict]) -> list[list[str]]:
@@ -327,6 +385,8 @@ def validate(roadmap: dict, repo_root: Path, source: Path | None = None) -> list
             )
         if status == "PLANNED" and evidence:
             bad(f"task {tid!r} is PLANNED but already carries evidence")
+
+        anchors = 0
         for position, item in enumerate(evidence):
             label = f"task {tid!r} evidence[{position}]"
             if not isinstance(item, dict):
@@ -344,11 +404,45 @@ def validate(roadmap: dict, repo_root: Path, source: Path | None = None) -> list
                     bad(f"{label}: {reason}")
                 elif not (repo_root / item["ref"]).exists():
                     bad(f"{label}: {item['ref']} does not exist in the repository")
+            elif kind == "sha":
+                reason = _bad_sha(item["ref"])
+                if reason:
+                    bad(f"{label}: {reason}")
+            if item.get("source") is not None:
+                reason = _bad_path(item["source"])
+                if reason:
+                    bad(f"{label}: source {reason}")
+                elif not (repo_root / item["source"]).exists():
+                    bad(f"{label}: source {item['source']} does not exist in the repository")
+            if _anchor_reason(item, repo_root) is None:
+                anchors += 1
+
+        if status in CLOSING and evidence and not anchors:
+            bad(
+                f"task {tid!r} is COMPLETE but no evidence item is a verifiable anchor. "
+                "COMPLETE needs evidence, not a claim: at least one item must be an existing "
+                f"repository path or capture, an exact {SHA_LENGTH}-hex commit sha, or a "
+                f"{'/'.join(SOURCED_KINDS)} entry naming a committed `source`. "
+                "A note alone can never close a task."
+            )
 
         if status == "IN_PROGRESS" and not task.get("resume_note"):
             bad(
                 f"task {tid!r} is IN_PROGRESS without a resume_note. Partial work needs a durable "
                 "note or the next session restarts it."
+            )
+
+    if roadmap.get("status") == "COMPLETE":
+        unsettled = [
+            (t["id"], t.get("status"))
+            for t in by_id.values()
+            if t.get("status") not in SATISFIED
+        ]
+        if unsettled:
+            named = ", ".join(f"{tid} ({status})" for tid, status in sorted(unsettled))
+            bad(
+                f"workstream is COMPLETE but {len(unsettled)} task(s) are not settled: {named}. "
+                f"Every task must be {', '.join(SATISFIED)} before the workstream claims completion."
             )
 
     for cycle in _cycles([t for t in tasks if isinstance(t, dict) and t.get("id")]):
@@ -969,6 +1063,86 @@ def selftest() -> int:
         bad = copy.deepcopy(base)
         bad["tasks"][1]["status"] = "NOPE"
         want(has(validate(bad, repo, source), "status must be one of"), "an unknown status is rejected")
+
+        print("\nCOMPLETE needs a verifiable anchor, not a claim")
+        bad = copy.deepcopy(base)
+        bad["tasks"][0]["evidence"] = [{"kind": "note", "ref": "done"}]
+        want(has(validate(bad, repo, source), "no evidence item is a verifiable anchor"),
+             "a note-only COMPLETE is rejected")
+
+        for kind in SOURCED_KINDS:
+            bad = copy.deepcopy(base)
+            bad["tasks"][0]["evidence"] = [{"kind": kind, "ref": "dauntless approved it in chat"}]
+            want(has(validate(bad, repo, source), "no evidence item is a verifiable anchor"),
+                 f"free-text {kind} evidence alone cannot close a task")
+
+            bad = copy.deepcopy(base)
+            bad["tasks"][0]["evidence"] = [
+                {"kind": kind, "ref": "approved", "source": "docs/00_INDEX.md"}
+            ]
+            want(validate(bad, repo, source) == [],
+                 f"{kind} evidence naming a committed source does close a task")
+
+            bad = copy.deepcopy(base)
+            bad["tasks"][0]["evidence"] = [
+                {"kind": kind, "ref": "approved", "source": "docs/gone.md"}
+            ]
+            want(has(validate(bad, repo, source), "source docs/gone.md does not exist"),
+                 f"{kind} evidence naming a missing source is rejected")
+
+        bad = copy.deepcopy(base)
+        bad["tasks"][0]["evidence"] = [
+            {"kind": "approval", "ref": "x", "source": "/mnt/data/approval.txt"}
+        ]
+        want(has(validate(bad, repo, source), "ephemeral"),
+             "a sandbox evidence source is rejected")
+
+        bad = copy.deepcopy(base)
+        bad["tasks"][0]["evidence"] = [{"kind": "note", "ref": "done"},
+                                       {"kind": "path", "ref": "docs/00_INDEX.md"}]
+        want(validate(bad, repo, source) == [],
+             "a note alongside a real anchor is fine; the anchor is what counts")
+
+        for label, ref in (("too short", "abc123"),
+                           ("non-hex", "z" * 40),
+                           ("uppercase", "A" * 40)):
+            bad = copy.deepcopy(base)
+            bad["tasks"][0]["evidence"] = [{"kind": "sha", "ref": ref}]
+            want(has(validate(bad, repo, source), "sha must be"),
+                 f"a malformed sha is rejected ({label})")
+
+        bad = copy.deepcopy(base)
+        bad["tasks"][0]["evidence"] = [{"kind": "sha", "ref": "e35b84e2290d1a00e298a58344a3eb0b4da58905"}]
+        want(validate(bad, repo, source) == [], "an exact 40-hex sha closes a task")
+
+        bad = copy.deepcopy(base)
+        bad["tasks"][0]["evidence"] = [{"kind": "capture", "ref": "docs/00_INDEX.md"}]
+        want(validate(bad, repo, source) == [], "an existing capture closes a task")
+
+        bad = copy.deepcopy(base)
+        bad["tasks"][0]["evidence"] = [{"kind": "path", "ref": "docs/00_INDEX.md"}]
+        want(validate(bad, repo, source) == [], "an existing path closes a task")
+
+        print("\nworkstream-level coherence")
+        bad = copy.deepcopy(base)
+        bad["status"] = "COMPLETE"
+        errs = validate(bad, repo, source)
+        want(has(errs, "workstream is COMPLETE but"), "a COMPLETE workstream with unsettled tasks is rejected")
+        want(has(errs, "art.scene_characters (READY)") and has(errs, "build.manifest (PLANNED)"),
+             "the rejection names every unsettled task")
+
+        settled = copy.deepcopy(base)
+        settled["status"] = "COMPLETE"
+        settled["tasks"][1]["status"] = "SKIPPED"
+        settled["tasks"][2]["status"] = "SUPERSEDED"
+        want(validate(settled, repo, source) == [],
+             "a COMPLETE workstream whose tasks are all COMPLETE/SKIPPED/SUPERSEDED is accepted")
+
+        active = copy.deepcopy(base)
+        active["tasks"][2]["status"] = "BLOCKED"
+        active["tasks"][2]["blockers"] = ["waiting on the user"]
+        want(validate(active, repo, source) == [],
+             "an ACTIVE workstream may hold READY and BLOCKED work together")
 
         print("\nresource durability")
         bad = copy.deepcopy(base)
