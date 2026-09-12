@@ -11,6 +11,7 @@ export const QUEST_STUDIO = Object.freeze({
   sourceSchemaVersion: 1,
   resultSchemaVersion: 1,
   registryPath: "skills/building-tnr-content/data/49_DATA_quest_studio_subtypes.json",
+  missionProfilesPath: "skills/building-tnr-content/data/48_DATA_mission_profiles.json",
   workflow: "quest_studio.yml",
   branchPrefix: "studio/quest/",
   sourceRoot: "studio/requests",
@@ -56,6 +57,12 @@ export class QuestStudioRepository {
   async registry() {
     const j = await this.github.json(QUEST_STUDIO.registryPath, this.baseRef);
     if (!j || typeof j !== "object" || j._meta?.schemaVersion !== 1 || !j.subtypes) throw new GithubError("Quest Studio subtype registry has an unsupported shape");
+    return j;
+  }
+
+  async missionProfiles() {
+    const j = await this.github.json(QUEST_STUDIO.missionProfilesPath, this.baseRef);
+    if (!j || typeof j !== "object" || !j.ranks || typeof j.ranks !== "object") throw new GithubError("Mission profile source has an unsupported shape");
     return j;
   }
 
