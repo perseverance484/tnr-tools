@@ -31,7 +31,8 @@ on:
       - ".github/workflows/quest_studio.yml"
       - ".github/workflows/quest_studio_ci.yml"
 
-# Verification is intentionally read-only. The one-time bundle sync workflow is not retained.
+# Verification is intentionally read-only. Temporary bundle-sync workflows are removed before
+# a review target is frozen, so the final gate cannot commit back to the implementation branch.
 permissions:
   contents: read
 
