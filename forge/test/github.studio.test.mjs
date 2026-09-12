@@ -8,6 +8,7 @@ import {
   questBranch,
   questResultPath,
   questSourcePath,
+  validateBuildResult,
   validateQuestSource,
 } from "../src/studio/repository.mjs";
 
@@ -118,6 +119,7 @@ test("QuestStudioRepository writes source to its dedicated branch then dispatche
   assert.deepEqual(log[0], ["branch", "studio/quest/demo-mission", "main"]);
   assert.equal(log[1][4].branch, "studio/quest/demo-mission");
   assert.equal(log[2][1], QUEST_STUDIO.workflow);
+  assert.equal(log[2][2].ref, "main");
   assert.deepEqual(log[2][2].inputs, {
     request_branch: "studio/quest/demo-mission",
     source_path: "studio/requests/demo-mission.quest.json",
@@ -145,6 +147,44 @@ test("QuestStudioRepository marks an older persisted result stale", async () => 
   const got = await repo.buildResult("demo-mission", { expectedSourceCommit: "4".repeat(40) });
   assert.equal(got.stale, true);
   assert.equal(got.result.status, "blocked");
+});
+
+test("Quest Studio refuses a result that claims repository compilation touched the live game", () => {
+  assert.throws(() => validateBuildResult({
+    schemaVersion: 1,
+    kind: "quest-build",
+    requestId: "demo-mission",
+    status: "valid",
+    liveGameTouched: true,
+  }, "demo-mission"), /liveGameTouched:false/);
+});
+
+test("generated manifest reads cannot escape the request build directory", async () => {
+  let reads = 0;
+  const github = { async text() { reads += 1; return "{}"; } };
+  const repo = new QuestStudioRepository({ github });
+  const base = {
+    schemaVersion: 1,
+    kind: "quest-build",
+    requestId: "demo-mission",
+    subtype: "mission",
+    status: "valid",
+    liveGameTouched: false,
+    generated: {},
+  };
+  for (const path of [
+    "studio/builds/demo-mission/../other/manifest.json",
+    "studio/builds/demo-mission/./manifest.json",
+    "studio/builds/demo-mission//manifest.json",
+    "studio/builds/demo-mission/..\\other\\manifest.json",
+  ]) {
+    await assert.rejects(() => repo.generatedManifest("demo-mission", { ...base, generated: { manifestPath: path } }), GithubError);
+  }
+  assert.equal(reads, 0);
+
+  const ok = { ...base, generated: { manifestPath: "studio/builds/demo-mission/manifest.json" } };
+  await repo.generatedManifest("demo-mission", ok);
+  assert.equal(reads, 1);
 });
 
 test("Quest Source validation preserves repository-owned subtype policy", () => {
