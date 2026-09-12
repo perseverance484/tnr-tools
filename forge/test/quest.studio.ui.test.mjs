@@ -134,6 +134,7 @@ test("Mission rerender restores multiline prose through textarea value propertie
   const app = fakeApp(win);
   const repository = repositoryStub();
   const studio = new QuestStudioWorkspace({ app, repository, pollMs: 0, maxPolls: 1 }).install();
+  await studio.open();
   studio.draft = {
     version: 1, requestId: "quest-multiline", subtype: "mission", profile: "D",
     name: "Quiet Courier",
