@@ -1,0 +1,121 @@
+{
+  "_note": "READ-ONLY Aerathiel PvP guide research capture. Zero mutations. First capture returns PvP battle-history metadata newest-first plus the 15 canonical equipped jutsu records. Cosmetic skins are normalized: Kintsugi -> Drops of Renewal; Heaven Bows -> Chakra Overflow. After capture, take the newest 100 battle rows and generate a second read-only capture for combat.getBattleEntries.",
+  "capture": {
+    "after": [
+      {
+        "proc": "combat.getBattleHistory",
+        "input": {
+          "combatTypes": [
+            "COMBAT",
+            "SPARRING",
+            "CLAN_BATTLE",
+            "TOURNAMENT",
+            "RANKED_SPARRING",
+            "KAGE_PVP",
+            "RANKED_PVP"
+          ]
+        },
+        "select": [
+          "battleId",
+          "battleType",
+          "createdAt",
+          "attackedId",
+          "defenderId",
+          "attacker",
+          "defender"
+        ]
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "FytS2iqFInf1go6WhOvUU"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "egtCp5UC5pRwxz7egJm7J"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "Ul83iTziN__Z0i_UOzZTK"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "Zr6Zo2NcXxWuL13ufQsHw"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "LRgY4b-lE1n2gi6_P8B_1"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "cvLrFEzeNcRogHqyLv0Ig"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "l5kgBGL2CZjzLMW5wFHdP"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "FGSJC-7Zd0BYh7-tvsUdH"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "VmoEzExhfgtzme2b5RuzJ"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "-7jaNkJCvt3ByWhPJSw3E"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "e2eC-x4UXc5m6QexNbx8w"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "eUWCeXAqVdIFHfUpmxQWD"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "g-b0Fs5o8EzQIphq0YIAX"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "fIn7udQihVEDhMEaAqhul"
+        }
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "g6lFjSMDbTmoZ7V74s3Ka"
+        }
+      }
+    ]
+  },
+  "items": []
+}
