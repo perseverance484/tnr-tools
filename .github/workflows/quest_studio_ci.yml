@@ -43,8 +43,16 @@ jobs:
         run: python3 skills/building-tnr-content/scripts/quest_compile.py --selftest
 
       - name: Existing mission compiler selftest
-        working-directory: skills/building-tnr-content/data
-        run: python3 ../scripts/mission.py --selftest
+        env:
+          ART_SCRIPTS: ${{ github.workspace }}/skills/producing-tnr-art/scripts
+        run: |
+          set -euo pipefail
+          ART_SPEC="skills/producing-tnr-art/data/25x_DATA_art_spec.json"
+          PACKAGED_SPEC="skills/building-tnr-content/data/25x_DATA_art_spec.json"
+          trap 'rm -f "$PACKAGED_SPEC"' EXIT
+          cp "$ART_SPEC" "$PACKAGED_SPEC"
+          cd skills/building-tnr-content/data
+          PYTHONPATH="$ART_SCRIPTS${PYTHONPATH:+:$PYTHONPATH}" python3 ../scripts/mission.py --selftest
 
       - name: Forge tests and fixtures
         working-directory: forge
