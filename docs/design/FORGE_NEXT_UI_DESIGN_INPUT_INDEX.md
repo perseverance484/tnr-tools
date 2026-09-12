@@ -33,6 +33,14 @@ Quest authoring is one **Quest Studio** with subtype/recipe adapters (Mission, E
 
 `RUL-2026-09-12-001` records this direction historically.
 
+### `FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md`
+
+**Use as:** director-set authority/boundary contract for Forge as a whole.
+
+Forge is the human-facing translation/orchestration/presentation layer; `tnr-tools` remains the durable source of facts, contracts, profiles, evidence, scripts, validators and generated build artifacts. Forge may cache/generated-project repository knowledge for responsive editing, but it must not become a second canonical rules database. Canonical build/validation runs through approved typed repository operations, while live-game execution and publishing remain separate explicit user actions.
+
+`RUL-2026-09-12-002` records this direction historically.
+
 ## 3. Tier B — planning/design/product proposals, not final implementation architecture
 
 ### `FORGE_NEXT_DESIGN_SYSTEM_V0_1.md`
@@ -100,16 +108,17 @@ These should survive changes in navigation, framework and exact styling.
 2. `FORGE_NEXT_VISUAL_DIRECTION.md`;
 3. `FORGE_NEXT_COLOR_SEMANTICS.md`;
 4. this index;
-5. `FORGE_NEXT_CONTENT_STUDIO_EXPANSION.md`;
-6. `FORGE_NEXT_CONTENT_PROJECT_WORKSPACE.md`;
-7. `FORGE_NEXT_QUEST_STUDIO.md` — parent authoring/product + build-worker architecture;
-8. `FORGE_NEXT_MISSION_STUDIO.md` only for Mission-subtype detail;
-9. current UI baseline and safety-state contract;
-10. screen/risk/copy/mobile contracts;
-11. workflow/component + wireframe anatomy;
-12. adversarial scenario and icon/motion contracts;
-13. style-board inventory/reconciliation for visual-delta questions;
-14. acceptance checklist during review.
+5. `FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md` — authority/translation-layer boundary;
+6. `FORGE_NEXT_CONTENT_STUDIO_EXPANSION.md`;
+7. `FORGE_NEXT_CONTENT_PROJECT_WORKSPACE.md`;
+8. `FORGE_NEXT_QUEST_STUDIO.md` — parent authoring/product + build-worker architecture;
+9. `FORGE_NEXT_MISSION_STUDIO.md` only for Mission-subtype detail;
+10. current UI baseline and safety-state contract;
+11. screen/risk/copy/mobile contracts;
+12. workflow/component + wireframe anatomy;
+13. adversarial scenario and icon/motion contracts;
+14. style-board inventory/reconciliation for visual-delta questions;
+15. acceptance checklist during review.
 
 Fable does not need to copy these documents into its branch. It may cite exact ChatGPT branch SHAs under the one-writer workflow.
 
@@ -139,4 +148,4 @@ If the predecessor transcript contains a later explicit director ruling that con
 
 ## 10. Current branch snapshot
 
-The Quest Studio direction supersedes the earlier Mission-Studio-as-parent framing. Use the branch head reported in the current handoff/chat when consuming these inputs; do not assume this index update remains the final planning SHA.
+The Quest Studio direction and repository-backed translation-layer architecture supersede the earlier Mission-Studio-as-parent framing. Use the branch head reported in the current handoff/chat when consuming these inputs; do not assume this index update remains the final planning SHA.
