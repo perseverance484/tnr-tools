@@ -1,0 +1,1 @@
+Temporary staging area for Aerathiel guide assets. Do not use for publication.
