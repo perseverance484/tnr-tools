@@ -129,6 +129,45 @@ test("Quest Studio home is one workspace: supported Mission opens, unsupported B
   assert.equal(options.find((o) => o.value === "D_combat").disabled, true);
 });
 
+test("Mission rerender restores multiline prose through textarea value properties", async () => {
+  const win = setupDom();
+  const app = fakeApp(win);
+  const repository = repositoryStub();
+  const studio = new QuestStudioWorkspace({ app, repository, pollMs: 0, maxPolls: 1 }).install();
+  studio.draft = {
+    version: 1, requestId: "quest-multiline", subtype: "mission", profile: "D",
+    name: "Quiet Courier",
+    description: "Carry the sealed note.\nDo not break the wax.",
+    successDescription: "The courier arrives.\nThe seal is intact.",
+    beats: [
+      { description: "Take the note.\nCheck the seal.", choiceText: "Take it" },
+      { description: "Cross the village.\nAvoid delay.", choiceText: "Continue" },
+      { description: "Deliver the note.\nWait for receipt.", choiceText: "Deliver" },
+    ],
+    updatedAt: new Date().toISOString(), sourceCommit: null, lastResult: null,
+  };
+
+  await studio.openMission(false);
+  let values = [...studio.shell.querySelectorAll("textarea")].map((x) => x.value);
+  assert.deepEqual(values, [
+    "Carry the sealed note.\nDo not break the wax.",
+    "The courier arrives.\nThe seal is intact.",
+    "Take the note.\nCheck the seal.",
+    "Cross the village.\nAvoid delay.",
+    "Deliver the note.\nWait for receipt.",
+  ]);
+
+  studio.renderMission();
+  values = [...studio.shell.querySelectorAll("textarea")].map((x) => x.value);
+  assert.deepEqual(values, [
+    "Carry the sealed note.\nDo not break the wax.",
+    "The courier arrives.\nThe seal is intact.",
+    "Take the note.\nCheck the seal.",
+    "Cross the village.\nAvoid delay.",
+    "Deliver the note.\nWait for receipt.",
+  ]);
+});
+
 test("Mission compile submits Quest Source, reads canonical result, and never presents compile as live execution", async () => {
   const win = setupDom();
   const app = fakeApp(win);
