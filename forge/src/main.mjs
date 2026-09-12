@@ -15,6 +15,7 @@ import { Runner } from "./runner/runner.mjs";
 import { Reconciler } from "./reconcile/reconciler.mjs";
 import { Github } from "./github.mjs";
 import { App } from "./ui/app.mjs";
+import { installQuestStudio } from "./studio/ui.mjs";
 import { entryTakeover, mountHost, whenBodyReady, alreadyMounted, onEntryPath, pageAuthRuntime, arm, disarm, isArmed, armHops, ENTRY_PATH, CARRIER_PATH, MAX_HOPS } from "./ui/takeover.mjs";
 import { CSS, CSS_DOC } from "./ui/styles.mjs";
 import { h, installCss } from "./ui/dom.mjs";
@@ -104,7 +105,7 @@ function bootEntry(win, doc, redirect) {
   arm(win);
   panel.append(
     h("div", {}, h("b", {}, "TNR forge")),
-    h("p", {}, "Opening the game so Forge runs inside your signed-in session\u2026"),
+    h("p", {}, "Opening the game so Forge runs inside your signed-in session…"),
     h("p", { class: "f-mute" }, `${ENTRY_PATH} has no game providers, so a session cannot live here. Forge continues on ${CARRIER_PATH}.`),
   );
   const go = redirect ?? ((url) => { win.location.replace(url); });
@@ -147,6 +148,7 @@ async function bootHost(win, doc, { establish = true } = {}) {
       exit: () => { disarm(win); host.release(); },
     });
     deps.app.mount(host.body, doc);
+    deps.studio = installQuestStudio(deps.app);
     // A host mount is what the hop counter was counting towards, so reset it here. Otherwise a
     // tab that has used Forge once would refuse the third trip through /forge as a redirect loop.
     arm(win, { hops: 0 });
