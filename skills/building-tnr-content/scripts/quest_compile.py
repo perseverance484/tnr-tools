@@ -13,16 +13,13 @@ an executable adapter exists.
 from __future__ import annotations
 
 import argparse
-import contextlib
 import hashlib
-import io
 import json
 import os
 from pathlib import Path
 import re
 import subprocess
 import sys
-import traceback
 from typing import Any
 
 SCHEMA_VERSION = 1
@@ -300,8 +297,11 @@ def compile_source(source: dict, *, artifact_dir: Path, artifact_prefix: str,
 
 def selftest() -> int:
     failures: list[str] = []
+    checks = 0
 
     def want(cond: bool, label: str) -> None:
+        nonlocal checks
+        checks += 1
         print(("PASS  " if cond else "FAIL  ") + label)
         if not cond:
             failures.append(label)
@@ -345,7 +345,7 @@ def selftest() -> int:
     want(classify_mission_error("invalid objective graph") is None,
          "ordinary compiler error is not mislabeled a director decision")
 
-    print(f"\n{7 - len(failures)} passed, {len(failures)} failed")
+    print(f"\n{checks - len(failures)} passed, {len(failures)} failed")
     return 1 if failures else 0
 
 
