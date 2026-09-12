@@ -53,6 +53,18 @@ It analyzes the repository's actual mission/quest, event, workstream, art and de
 
 It deliberately does **not** choose the final sitemap or implementation architecture. Fable should reconcile it against its source/audit package and phase plan.
 
+### `FORGE_NEXT_CONTENT_PROJECT_WORKSPACE.md`
+
+**Use as:** architecture-neutral product contract for the human project/workstream control surface.
+
+It specifies how Forge can project `roadmap.json` and its durable sources into one project workspace covering attention/blockers, dependency-aware tasks, director decisions, content/assets, evidence, review packages, delivery artifacts, execution/readback and publication without creating a second canonical project database. It also proposes a low-risk read-only-project-reader slice before controlled roadmap writes.
+
+### `FORGE_NEXT_MISSION_STUDIO.md`
+
+**Use as:** mission-authoring product contract grounded in the current design-sheet/profile/storyboard/compiler pipeline.
+
+It keeps the creative source separate from inherited mission policy and generated manifests, defines storyboard/semantic-flow/encounter/scene/policy/decision/preview/compile obligations, and preserves `mission.py`'s refusal-on-unresolved-decision philosophy. It explicitly prevents the currently staged four-node Forsworn flatten experiment from becoming an accidental universal mission template while doctrine remains deferred pending player feedback.
+
 ### `FORGE_NEXT_STYLE_BOARD_INVENTORY.md`
 
 **Use as:** objective inventory of the newest supplied visual board.
@@ -136,17 +148,19 @@ Do not treat it as an independent canonical design spec once the recovery is com
 3. `FORGE_NEXT_COLOR_SEMANTICS.md`;
 4. this index;
 5. `FORGE_NEXT_CONTENT_STUDIO_EXPANSION.md` when reconciling product scope, authoring workflows and phase opportunities;
-6. `FORGE_CURRENT_UI_UX_BASELINE_AUDIT.md`;
-7. `FORGE_NEXT_SAFETY_STATE_PRESENTATION_CONTRACT.md`;
-8. `FORGE_NEXT_SCREEN_CONTENT_REQUIREMENTS.md`;
-9. `FORGE_NEXT_INTERACTION_RISK_MATRIX.md`;
-10. `FORGE_NEXT_UI_COPY_AND_STATE_LANGUAGE.md`;
-11. `FORGE_NEXT_MOBILE_ACCESSIBILITY_AUDIT.md`;
-12. workflow/component + wireframe anatomy as needed;
-13. `FORGE_NEXT_UX_SCENARIO_MATRIX.md` when checking state coverage;
-14. `FORGE_NEXT_ICON_MOTION_SEMANTICS.md` when translating structure into visual behavior;
-15. style-board inventory/reconciliation only for visual-delta questions;
-16. acceptance checklist during review rather than as a source of architecture.
+6. `FORGE_NEXT_CONTENT_PROJECT_WORKSPACE.md` when designing the project/workstream control surface and implementation slices;
+7. `FORGE_NEXT_MISSION_STUDIO.md` when planning mission/quest authoring and compiler integration;
+8. `FORGE_CURRENT_UI_UX_BASELINE_AUDIT.md`;
+9. `FORGE_NEXT_SAFETY_STATE_PRESENTATION_CONTRACT.md`;
+10. `FORGE_NEXT_SCREEN_CONTENT_REQUIREMENTS.md`;
+11. `FORGE_NEXT_INTERACTION_RISK_MATRIX.md`;
+12. `FORGE_NEXT_UI_COPY_AND_STATE_LANGUAGE.md`;
+13. `FORGE_NEXT_MOBILE_ACCESSIBILITY_AUDIT.md`;
+14. workflow/component + wireframe anatomy as needed;
+15. `FORGE_NEXT_UX_SCENARIO_MATRIX.md` when checking state coverage;
+16. `FORGE_NEXT_ICON_MOTION_SEMANTICS.md` when translating structure into visual behavior;
+17. style-board inventory/reconciliation only for visual-delta questions;
+18. acceptance checklist during review rather than as a source of architecture.
 
 Fable does not need to copy these documents into its branch. It may cite exact ChatGPT branch SHAs as planning inputs under the one-writer workflow.
 
@@ -167,6 +181,7 @@ The ChatGPT design lane has not settled:
 - whether infographic/visual-communication becomes an official production lane;
 - whether Guide Studio is a first-class Forge authoring surface;
 - how much repository-backed project state Forge may edit directly;
+- whether Mission Studio is mission-specific first or built on a shared generic Quest Studio core;
 - game-source changes;
 - Builder retirement timing.
 
@@ -186,4 +201,4 @@ If the predecessor transcript contains a later explicit director ruling that con
 
 ## 10. Current branch snapshot
 
-This index now includes the Content Studio expansion study in addition to the waiting-period design, adversarial UX-scenario and icon/motion-semantics artifacts. Use the branch head reported in the handoff/chat when consuming these inputs; do not assume this file's update commit remains the final planning SHA.
+This index now includes the Content Studio expansion study, Content Project Workspace and Mission Studio alongside the waiting-period design, adversarial UX-scenario and icon/motion-semantics artifacts. Use the branch head reported in the handoff/chat when consuming these inputs; do not assume this file's update commit remains the final planning SHA.
