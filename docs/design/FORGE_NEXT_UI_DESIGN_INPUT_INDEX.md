@@ -90,6 +90,14 @@ Preserves distinctions such as SENT ambiguity, CONFIRMED vs VERIFIED, INCOMPLETE
 
 **Use as:** consistent human-facing terminology for consequence, lifecycle, verification, captures, auth, rate limits, recovery, repository sync, and publication.
 
+### `FORGE_NEXT_ICON_MOTION_SEMANTICS.md`
+
+**Use as:** library- and color-agnostic rules for keeping operation icons, outcome/state icons, content identity, and motion semantically distinct.
+
+### `FORGE_NEXT_UX_SCENARIO_MATRIX.md`
+
+**Use as:** adversarial design-state coverage. It enumerates the unhappy/ambiguous/partial-success scenarios that wireframes and later UI tests must be able to represent honestly.
+
 ### `FORGE_NEXT_DESIGN_ACCEPTANCE_CHECKLIST.md`
 
 **Use as:** wireframe/visual/implementation review gate. It should not be used to invent capabilities.
@@ -125,8 +133,10 @@ Do not treat it as an independent canonical design spec once the recovery is com
 9. `FORGE_NEXT_UI_COPY_AND_STATE_LANGUAGE.md`;
 10. `FORGE_NEXT_MOBILE_ACCESSIBILITY_AUDIT.md`;
 11. workflow/component + wireframe anatomy as needed;
-12. style-board inventory/reconciliation only for visual-delta questions;
-13. acceptance checklist during review rather than as a source of architecture.
+12. `FORGE_NEXT_UX_SCENARIO_MATRIX.md` when checking state coverage;
+13. `FORGE_NEXT_ICON_MOTION_SEMANTICS.md` when translating structure into visual behavior;
+14. style-board inventory/reconciliation only for visual-delta questions;
+15. acceptance checklist during review rather than as a source of architecture.
 
 Fable does not need to copy these documents into its branch. It may cite exact ChatGPT branch SHAs as planning inputs under the one-writer workflow.
 
@@ -163,4 +173,4 @@ If the predecessor transcript contains a later explicit director ruling that con
 
 ## 10. Current branch snapshot
 
-This index was created after the waiting-period design pass that added screen-content requirements, interaction-risk rules, UI copy/state language, and a design acceptance checklist. Use the branch head reported in the handoff/chat when consuming these inputs; do not assume this file's creation commit remains the final planning SHA.
+This index now covers the waiting-period design pass through the adversarial UX-scenario and icon/motion-semantics artifacts. Use the branch head reported in the handoff/chat when consuming these inputs; do not assume this file's update commit remains the final planning SHA.
