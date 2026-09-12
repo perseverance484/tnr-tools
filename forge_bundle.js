@@ -4980,6 +4980,12 @@
       Object.assign(this, info);
     }
   };
+  function assertBranch(branch) {
+    if (typeof branch !== "string" || !branch || branch.startsWith("/") || branch.endsWith("/") || branch.includes("..") || !/^[A-Za-z0-9._/-]+$/.test(branch)) {
+      throw new GithubError(`unsafe branch name ${JSON.stringify(branch)}`);
+    }
+    return branch;
+  }
   var Github = class {
     /**
      * @param {object} o
@@ -5001,39 +5007,92 @@
       if (pat) h2.authorization = "Bearer " + pat;
       return h2;
     }
+    _repo(path) {
+      return `https://api.github.com/repos/${this.cfg.owner}/${this.cfg.repo}/${path}`;
+    }
     _url(path, ref = this.cfg.branch) {
-      return `https://api.github.com/repos/${this.cfg.owner}/${this.cfg.repo}/contents/${path}?ref=${encodeURIComponent(ref)}`;
+      return this._repo(`contents/${path}?ref=${encodeURIComponent(assertBranch(ref))}`);
     }
     /** List a directory: [{name, path, sha, size, type}] */
-    async list(dir = this.cfg.pushDir) {
-      const r = await this.fetchImpl(this._url(dir), { headers: this._headers() });
+    async list(dir = this.cfg.pushDir, ref = this.cfg.branch) {
+      const r = await this.fetchImpl(this._url(dir, ref), { headers: this._headers() });
       if (!r.ok) throw new GithubError(`list ${dir}: HTTP ${r.status}`, { status: r.status });
       const j = await r.json();
       if (!Array.isArray(j)) throw new GithubError(`${dir} is not a directory`);
       return j.map(({ name, path, sha, size, type }) => ({ name, path, sha, size, type }));
     }
     /** Fetch a file's raw bytes. */
-    async raw(path, ref) {
+    async raw(path, ref = this.cfg.branch) {
       const r = await this.fetchImpl(this._url(path, ref), { headers: this._headers("application/vnd.github.raw+json") });
       if (!r.ok) throw new GithubError(`fetch ${path}: HTTP ${r.status}`, { status: r.status });
       return r.arrayBuffer();
     }
-    async text(path, ref) {
+    async text(path, ref = this.cfg.branch) {
       return new TextDecoder().decode(await this.raw(path, ref));
     }
-    /** Create or update a file (sha-aware). Returns {sha, htmlUrl} or throws. */
-    async put(path, contentText, message) {
+    async json(path, ref = this.cfg.branch) {
+      const text = await this.text(path, ref);
+      try {
+        return JSON.parse(text);
+      } catch (e) {
+        throw new GithubError(`fetch ${path}: response is not JSON (${e.message})`);
+      }
+    }
+    /** Read branch metadata. Returns null only for a real 404. */
+    async branch(name) {
+      const branch = assertBranch(name);
+      const r = await this.fetchImpl(this._repo(`branches/${encodeURIComponent(branch)}`), { headers: this._headers() });
+      if (r.status === 404) return null;
+      if (!r.ok) throw new GithubError(`branch ${branch}: HTTP ${r.status}`, { status: r.status });
+      const j = await r.json();
+      return { name: j.name ?? branch, sha: j.commit?.sha ?? null };
+    }
+    /**
+     * Create a branch from an existing base if it does not already exist. This is intentionally
+     * explicit; ordinary Forge writes continue to target cfg.branch (`main`) unless a caller opts in.
+     */
+    async ensureBranch(name, base = this.cfg.branch) {
       if (!this._pat()) throw new GithubError("no PAT stored; Settings > GitHub");
+      const branch = assertBranch(name);
+      const baseBranch = assertBranch(base);
+      const existing = await this.branch(branch);
+      if (existing) return { ...existing, created: false };
+      const source = await this.branch(baseBranch);
+      if (!source?.sha) throw new GithubError(`base branch ${baseBranch} was not found`);
+      const r = await this.fetchImpl(this._repo("git/refs"), {
+        method: "POST",
+        headers: { ...this._headers(), "content-type": "application/json" },
+        body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: source.sha })
+      });
+      if (r.status === 422) {
+        const raced = await this.branch(branch);
+        if (raced) return { ...raced, created: false };
+      }
+      if (r.status !== 201) {
+        const t = await r.text();
+        throw new GithubError(`create branch ${branch}: HTTP ${r.status} ${t.slice(0, 140)}`, { status: r.status });
+      }
+      const j = await r.json();
+      return { name: branch, sha: j.object?.sha ?? source.sha, created: true };
+    }
+    /**
+     * Create or update a file (sha-aware). Historical callers omit options and therefore retain the
+     * exact `main` behavior. Quest Studio MUST pass {branch: ...} explicitly.
+     * Returns {sha, htmlUrl, commitSha} or throws.
+     */
+    async put(path, contentText, message, { branch = this.cfg.branch } = {}) {
+      if (!this._pat()) throw new GithubError("no PAT stored; Settings > GitHub");
+      branch = assertBranch(branch);
       let sha = null;
       try {
-        const r2 = await this.fetchImpl(this._url(path), { headers: this._headers() });
+        const r2 = await this.fetchImpl(this._url(path, branch), { headers: this._headers() });
         if (r2.ok) sha = (await r2.json()).sha ?? null;
       } catch {
         sha = null;
       }
-      const body = { message, content: b64utf8(contentText), branch: this.cfg.branch };
+      const body = { message, content: b64utf8(contentText), branch };
       if (sha) body.sha = sha;
-      const r = await this.fetchImpl(`https://api.github.com/repos/${this.cfg.owner}/${this.cfg.repo}/contents/${path}`, {
+      const r = await this.fetchImpl(this._repo(`contents/${path}`), {
         method: "PUT",
         headers: { ...this._headers(), "content-type": "application/json" },
         body: JSON.stringify(body)
@@ -5045,7 +5104,26 @@
         j = JSON.parse(t);
       } catch {
       }
-      return { sha: j.content?.sha ?? null, htmlUrl: j.content?.html_url ?? null };
+      return { sha: j.content?.sha ?? null, htmlUrl: j.content?.html_url ?? null, commitSha: j.commit?.sha ?? null };
+    }
+    /** Dispatch an allowlisted repository workflow; callers choose the workflow/ref explicitly. */
+    async dispatch(workflow, { ref = this.cfg.branch, inputs = {} } = {}) {
+      if (!this._pat()) throw new GithubError("no PAT stored; Settings > GitHub");
+      if (typeof workflow !== "string" || !/^[A-Za-z0-9._-]+$/.test(workflow)) {
+        throw new GithubError(`unsafe workflow name ${JSON.stringify(workflow)}`);
+      }
+      ref = assertBranch(ref);
+      if (!inputs || typeof inputs !== "object" || Array.isArray(inputs)) throw new GithubError("workflow inputs must be an object");
+      const r = await this.fetchImpl(this._repo(`actions/workflows/${encodeURIComponent(workflow)}/dispatches`), {
+        method: "POST",
+        headers: { ...this._headers(), "content-type": "application/json" },
+        body: JSON.stringify({ ref, inputs })
+      });
+      if (r.status !== 204) {
+        const t = await r.text();
+        throw new GithubError(`dispatch ${workflow}: HTTP ${r.status} ${t.slice(0, 140)}`, { status: r.status });
+      }
+      return { ok: true };
     }
   };
   function b64utf8(s) {
@@ -6083,6 +6161,676 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
     }
   };
+
+  // src/studio/repository.mjs
+  var REQUEST_RE = /^[a-z0-9][a-z0-9._-]{2,63}$/;
+  var QUEST_STUDIO = Object.freeze({
+    sourceSchemaVersion: 1,
+    resultSchemaVersion: 1,
+    registryPath: "skills/building-tnr-content/data/49_DATA_quest_studio_subtypes.json",
+    missionProfilesPath: "skills/building-tnr-content/data/48_DATA_mission_profiles.json",
+    workflow: "quest_studio.yml",
+    branchPrefix: "studio/quest/",
+    sourceRoot: "studio/requests",
+    resultRoot: "studio/results",
+    buildRoot: "studio/builds"
+  });
+  function questRequestId(value) {
+    if (typeof value !== "string" || !REQUEST_RE.test(value)) throw new GithubError(`invalid Quest Studio request id ${JSON.stringify(value)}`);
+    return value;
+  }
+  function questBranch(id) {
+    return QUEST_STUDIO.branchPrefix + questRequestId(id);
+  }
+  function questSourcePath(id) {
+    return `${QUEST_STUDIO.sourceRoot}/${questRequestId(id)}.quest.json`;
+  }
+  function questResultPath(id) {
+    return `${QUEST_STUDIO.resultRoot}/${questRequestId(id)}.build.json`;
+  }
+  function validateQuestSource(source) {
+    if (!source || typeof source !== "object" || Array.isArray(source)) throw new GithubError("Quest Source must be an object");
+    if (source.schemaVersion !== QUEST_STUDIO.sourceSchemaVersion) throw new GithubError(`Quest Source schemaVersion must be ${QUEST_STUDIO.sourceSchemaVersion}`);
+    if (source.kind !== "quest") throw new GithubError("Quest Source kind must be quest");
+    questRequestId(source.requestId);
+    if (typeof source.subtype !== "string" || !source.subtype) throw new GithubError("Quest Source subtype is required");
+    if (!source.content || typeof source.content !== "object" || Array.isArray(source.content)) throw new GithubError("Quest Source content must be an object");
+    return source;
+  }
+  function validateBuildResult(result, requestId) {
+    const id = questRequestId(requestId);
+    if (!result || typeof result !== "object" || Array.isArray(result)) throw new GithubError("Quest Studio build result must be an object");
+    if (result.schemaVersion !== QUEST_STUDIO.resultSchemaVersion || result.kind !== "quest-build") throw new GithubError("Quest Studio build result has an unsupported contract version");
+    if (result.requestId !== id) throw new GithubError(`Quest Studio result belongs to ${JSON.stringify(result.requestId)}, expected ${JSON.stringify(id)}`);
+    if (!(/* @__PURE__ */ new Set(["valid", "blocked", "failed"])).has(result.status)) throw new GithubError(`Quest Studio result has unknown status ${JSON.stringify(result.status)}`);
+    if (result.liveGameTouched !== false) throw new GithubError("Quest Studio repository build must state liveGameTouched:false");
+    return result;
+  }
+  var QuestStudioRepository = class {
+    constructor({ github, baseRef = "main" }) {
+      this.github = github;
+      this.baseRef = baseRef;
+    }
+    async registry() {
+      const j = await this.github.json(QUEST_STUDIO.registryPath, this.baseRef);
+      if (!j || typeof j !== "object" || j._meta?.schemaVersion !== 1 || !j.subtypes) throw new GithubError("Quest Studio subtype registry has an unsupported shape");
+      return j;
+    }
+    async missionProfiles() {
+      const j = await this.github.json(QUEST_STUDIO.missionProfilesPath, this.baseRef);
+      if (!j || typeof j !== "object" || !j.ranks || typeof j.ranks !== "object") throw new GithubError("Mission profile source has an unsupported shape");
+      return j;
+    }
+    /**
+     * Persist a source revision on its dedicated branch and dispatch the trusted repository worker.
+     * The returned sourceCommit is the exact revision the worker must compile.
+     */
+    async submit(source) {
+      source = validateQuestSource(source);
+      const id = source.requestId;
+      const branch = questBranch(id);
+      const sourcePath = questSourcePath(id);
+      await this.github.ensureBranch(branch, this.baseRef);
+      const saved = await this.github.put(
+        sourcePath,
+        JSON.stringify(source, null, 2) + "\n",
+        `studio: save Quest Source ${id}`,
+        { branch }
+      );
+      if (!saved.commitSha) throw new GithubError("Quest Studio source save returned no commit SHA");
+      await this.dispatch(id, saved.commitSha);
+      return { requestId: id, branch, sourcePath, sourceCommit: saved.commitSha };
+    }
+    /** Retry only the build request for an already-saved exact source revision. */
+    async dispatch(requestId, sourceCommit) {
+      const id = questRequestId(requestId);
+      if (typeof sourceCommit !== "string" || !/^[0-9a-f]{40}$/.test(sourceCommit)) throw new GithubError("Quest Studio sourceCommit must be a 40-character lowercase git SHA");
+      await this.github.dispatch(QUEST_STUDIO.workflow, {
+        ref: this.baseRef,
+        inputs: {
+          request_branch: questBranch(id),
+          source_path: questSourcePath(id),
+          request_id: id,
+          source_sha: sourceCommit
+        }
+      });
+      return { requestId: id, sourceCommit };
+    }
+    /**
+     * Read the latest persisted build result. A stale result is returned explicitly rather than
+     * hidden: it is useful evidence, but must not be mistaken for the current draft's build.
+     */
+    async buildResult(requestId, { expectedSourceCommit = null } = {}) {
+      const id = questRequestId(requestId);
+      let result;
+      try {
+        result = validateBuildResult(await this.github.json(questResultPath(id), questBranch(id)), id);
+      } catch (e) {
+        if (e instanceof GithubError && e.status === 404) return null;
+        throw e;
+      }
+      const actual = result.provenance?.sourceRevision ?? null;
+      return { result, stale: !!expectedSourceCommit && actual !== expectedSourceCommit };
+    }
+    async generatedManifest(requestId, buildResult) {
+      const id = questRequestId(requestId);
+      const result = validateBuildResult(buildResult, id);
+      const path = result.generated?.manifestPath;
+      const expectedPrefix = `${QUEST_STUDIO.buildRoot}/${id}/`;
+      if (typeof path !== "string" || !path.startsWith(expectedPrefix) || !path.endsWith(".json")) {
+        throw new GithubError("Quest Studio result does not contain a safe generated manifest path");
+      }
+      return this.github.text(path, questBranch(id));
+    }
+  };
+
+  // src/studio/ui.mjs
+  var DRAFT_KEY = "tnr_forge_quest_studio_draft_v1";
+  var STUDIO_CSS = `
+.f-app .qs-launch { border-color:#40526c; font-weight:600; white-space:nowrap; }
+.f-app .qs-shell { position:fixed; inset:0; z-index:2147483002; overflow:auto; background:#070b12; color:#f5f1e7; }
+.f-app .qs-wrap { width:min(1100px,100%); margin:0 auto; padding:12px 12px 88px; }
+.f-app .qs-head { position:sticky; top:0; z-index:2; display:flex; align-items:center; gap:10px; min-height:58px; padding:8px 12px; border-bottom:1px solid #29384d; background:#0b111bf2; backdrop-filter:blur(10px); }
+.f-app .qs-head-title { font-size:18px; font-weight:750; letter-spacing:.02em; }
+.f-app .qs-head-sub { color:#b7c0ce; font-size:12px; }
+.f-app .qs-close { margin-left:auto; }
+.f-app .qs-hero { padding:20px 2px 10px; }
+.f-app .qs-hero h1 { margin:0 0 6px; font-size:26px; }
+.f-app .qs-hero p { color:#b7c0ce; max-width:68ch; margin:0; }
+.f-app .qs-grid { display:grid; grid-template-columns:1fr; gap:10px; margin:12px 0; }
+.f-app .qs-card { border:1px solid #29384d; border-radius:12px; background:#111a28; padding:14px; }
+.f-app .qs-card[data-ready="true"] { border-color:#40526c; }
+.f-app .qs-card h2, .f-app .qs-card h3 { margin:0 0 6px; text-transform:none; letter-spacing:0; color:#f5f1e7; }
+.f-app .qs-card p { margin:6px 0; }
+.f-app .qs-eyebrow { color:#7f8b9c; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
+.f-app .qs-muted { color:#9aa6b8; font-size:13px; }
+.f-app .qs-ready { color:#45c779; font-size:12px; font-weight:650; }
+.f-app .qs-pending { color:#e6ad45; font-size:12px; font-weight:650; }
+.f-app .qs-field { display:block; margin:12px 0; }
+.f-app .qs-field > span { display:block; color:#b7c0ce; font-size:12px; font-weight:650; margin-bottom:5px; }
+.f-app .qs-field input, .f-app .qs-field textarea, .f-app .qs-field select { width:100%; min-height:44px; padding:9px 10px; border:1px solid #40526c; border-radius:8px; background:#0b111b; color:#f5f1e7; font:inherit; }
+.f-app .qs-field textarea { min-height:94px; resize:vertical; }
+.f-app .qs-field select { appearance:auto; }
+.f-app .qs-actions { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
+.f-app .qs-primary { background:#6bb8ff; color:#07101a; border-color:transparent; font-weight:750; }
+.f-app .qs-compile { background:#f97316; color:#130904; border-color:transparent; font-weight:750; }
+.f-app .qs-beat { border-left:3px solid #6bb8ff; }
+.f-app .qs-beat-top { display:flex; align-items:center; gap:8px; }
+.f-app .qs-beat-num { width:28px; height:28px; display:grid; place-items:center; border-radius:50%; background:#172235; font-weight:750; }
+.f-app .qs-beat-top strong { flex:1; }
+.f-app .qs-end { border-left:3px solid #45c779; }
+.f-app .qs-callout { border:1px solid #40526c; background:#101827; border-radius:10px; padding:10px 12px; margin:10px 0; }
+.f-app .qs-callout.warn { border-color:#e6ad45; background:#2a2312; }
+.f-app .qs-callout.bad { border-color:#e05f5f; background:#2a1515; }
+.f-app .qs-callout.ok { border-color:#45c779; background:#12261c; }
+.f-app .qs-callout.info { border-color:#6bb8ff; background:#141b2e; }
+.f-app .qs-status-title { font-weight:750; margin-bottom:4px; }
+.f-app .qs-list { margin:6px 0 0 18px; padding:0; }
+.f-app .qs-list li { margin:4px 0; }
+.f-app .qs-provenance { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#8994a5; word-break:break-all; }
+.f-app .qs-two { display:grid; grid-template-columns:1fr; gap:10px; }
+@media (min-width:760px) {
+  .f-app .qs-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .f-app .qs-two { grid-template-columns:1fr 1fr; }
+  .f-app .qs-wrap { padding:18px 22px 100px; }
+}
+`;
+  function makeQuestRequestId(now = Date.now()) {
+    return `quest-${Number(now).toString(36)}`;
+  }
+  function newMissionDraft(now = Date.now()) {
+    return {
+      version: 1,
+      requestId: makeQuestRequestId(now),
+      subtype: "mission",
+      profile: "",
+      name: "",
+      description: "",
+      successDescription: "",
+      beats: [],
+      updatedAt: new Date(now).toISOString(),
+      sourceCommit: null,
+      lastResult: null
+    };
+  }
+  function cleanText(value) {
+    return typeof value === "string" ? value.trim() : "";
+  }
+  function missionSourceFromDraft(draft) {
+    const beats = Array.isArray(draft.beats) ? draft.beats : [];
+    const objectives = beats.map((beat, i) => {
+      const id = `n${i + 1}`;
+      const next = i + 1 < beats.length ? `n${i + 2}` : `n${beats.length + 1}`;
+      return {
+        id,
+        task: "dialog",
+        description: cleanText(beat.description),
+        nextObjectiveId: [{ text: cleanText(beat.choiceText) || "Continue", nextObjectiveId: next }]
+      };
+    });
+    objectives.push({
+      id: `n${beats.length + 1}`,
+      task: "win_quest",
+      description: cleanText(draft.successDescription),
+      successDescription: cleanText(draft.successDescription)
+    });
+    const slug = String(draft.requestId).replace(/^quest-/, "").replace(/[^a-z0-9]+/g, "_");
+    return {
+      schemaVersion: 1,
+      kind: "quest",
+      requestId: draft.requestId,
+      subtype: "mission",
+      content: {
+        rank: draft.profile,
+        srcId: `studio_${slug}`,
+        slug: `studio_${slug}`,
+        folder: `studio${slug.replace(/_/g, "")}`,
+        name: cleanText(draft.name),
+        description: cleanText(draft.description),
+        successDescription: cleanText(draft.successDescription),
+        objectives
+      },
+      meta: { authoredIn: "forge-quest-studio", draftVersion: draft.version ?? 1 }
+    };
+  }
+  function missionDraftProblems(draft, profiles) {
+    const out = [];
+    const profile = profiles?.ranks?.[draft.profile];
+    if (!profile) out.push("Choose a repository Mission profile.");
+    if (profile?.shape?.battle_nodes > 0) out.push("This profile needs combat authoring; the Encounter editor is not in this first UI slice yet.");
+    if (!cleanText(draft.name)) out.push("Mission name is required.");
+    if (!cleanText(draft.description)) out.push("Mission premise/description is required.");
+    if (!cleanText(draft.successDescription)) out.push("Success outcome is required.");
+    const beats = Array.isArray(draft.beats) ? draft.beats : [];
+    if (!beats.length) out.push("Add at least one story beat.");
+    for (let i = 0; i < beats.length; i++) if (!cleanText(beats[i]?.description)) out.push(`Beat ${i + 1} needs player-facing text.`);
+    const expected = Number(profile?.shape?.objective_count);
+    if (Number.isInteger(expected) && expected > 0 && beats.length + 1 !== expected) {
+      out.push(`The ${draft.profile} profile owns an objective count of ${expected}; this draft currently has ${beats.length + 1}.`);
+    }
+    return out;
+  }
+  function profileLabel(key, profile) {
+    const battles = Number(profile?.shape?.battle_nodes || 0);
+    const nodes = Number(profile?.shape?.objective_count || 0);
+    return `${key} \xB7 ${nodes || "?"} nodes${battles ? ` \xB7 ${battles} battle${battles === 1 ? "" : "s"}` : " \xB7 no combat"}`;
+  }
+  function readDraft(storage) {
+    try {
+      const raw = storage.getItem(DRAFT_KEY);
+      if (!raw) return null;
+      const draft = JSON.parse(raw);
+      return draft && draft.version === 1 && draft.subtype === "mission" ? draft : null;
+    } catch {
+      return null;
+    }
+  }
+  function writeDraft(storage, draft, now = Date.now()) {
+    draft.updatedAt = new Date(now).toISOString();
+    try {
+      storage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    } catch {
+    }
+  }
+  var QuestStudioWorkspace = class {
+    constructor({ app, repository = null, pollMs = 2e3, maxPolls = 30 }) {
+      this.app = app;
+      this.repository = repository ?? new QuestStudioRepository({ github: app.github });
+      this.pollMs = pollMs;
+      this.maxPolls = maxPolls;
+      this.registry = null;
+      this.profiles = null;
+      this.shell = null;
+      this.pollToken = 0;
+      this.view = "home";
+      this.draft = readDraft(app.storage);
+      this.buildState = null;
+    }
+    install() {
+      const doc = this.app.root?.ownerDocument || document;
+      installCss(STUDIO_CSS, doc);
+      const button = h("button", { class: "qs-launch", onClick: () => this.open() }, "Quest Studio");
+      const ver = this.app.$top?.querySelector(".f-ver");
+      if (ver) this.app.$top.insertBefore(button, ver);
+      else this.app.$top?.appendChild(button);
+      this.launcher = button;
+      return this;
+    }
+    async open() {
+      if (!this.shell) {
+        this.shell = h("section", { class: "qs-shell", role: "dialog", "aria-label": "Quest Studio" });
+        this.app.root.appendChild(this.shell);
+      }
+      this.shell.hidden = false;
+      this.renderLoading("Opening Quest Studio\u2026");
+      try {
+        this.registry = await this.repository.registry();
+        this.renderHome();
+      } catch (e) {
+        this.renderFatal("Quest Studio could not load repository recipes.", e);
+      }
+    }
+    close() {
+      this.pollToken++;
+      if (this.shell) this.shell.hidden = true;
+    }
+    renderFrame(title, subtitle, ...body) {
+      replace(
+        this.shell,
+        h(
+          "header",
+          { class: "qs-head" },
+          this.view !== "home" ? h("button", { onClick: () => {
+            this.view = "home";
+            this.renderHome();
+          } }, "Back") : null,
+          h("div", {}, h("div", { class: "qs-head-title" }, title), subtitle ? h("div", { class: "qs-head-sub" }, subtitle) : null),
+          h("button", { class: "qs-close", onClick: () => this.close() }, "Close")
+        ),
+        h("div", { class: "qs-wrap" }, ...body)
+      );
+    }
+    renderLoading(text) {
+      this.view = this.view || "home";
+      this.renderFrame("Quest Studio", "Repository-backed content authoring", h("div", { class: "qs-callout info" }, text));
+    }
+    renderFatal(title, error) {
+      this.renderFrame(
+        "Quest Studio",
+        "Repository-backed content authoring",
+        h("div", { class: "qs-callout bad" }, h("div", { class: "qs-status-title" }, title), h("div", { class: "qs-muted" }, error?.message || String(error)))
+      );
+    }
+    renderHome() {
+      this.view = "home";
+      const subtypes = Object.entries(this.registry?.subtypes || {});
+      const draftCard = this.draft ? h(
+        "div",
+        { class: "qs-callout info" },
+        h("div", { class: "qs-status-title" }, `Resume Mission draft: ${this.draft.name || "Untitled mission"}`),
+        h("div", { class: "qs-muted" }, `Saved locally ${this.draft.updatedAt ? new Date(this.draft.updatedAt).toLocaleString() : ""}. Repository compile remains separate.`),
+        h("div", { class: "qs-actions" }, h("button", { class: "qs-primary", onClick: () => this.openMission(false) }, "Resume draft"))
+      ) : null;
+      const cards = subtypes.map(([id, item]) => {
+        const ready = item?.maturity === "supported" && !!item?.compilerAdapter;
+        return h(
+          "article",
+          { class: "qs-card", dataset: { ready: String(ready), subtype: id } },
+          h("div", { class: "qs-eyebrow" }, ready ? "Repository adapter ready" : String(item?.maturity || "not ready").replaceAll("_", " ")),
+          h("h2", {}, item?.label || id),
+          h("p", { class: "qs-muted" }, ready ? "Author here; canonical compile runs against repository tooling." : "Visible by design, but Forge will not pretend this recipe is executable before its repository adapter is audited."),
+          h("div", { class: ready ? "qs-ready" : "qs-pending" }, ready ? "Supported end-to-end" : "Adapter pending"),
+          h("div", { class: "qs-actions" }, h("button", {
+            disabled: !ready || id !== "mission",
+            class: ready && id === "mission" ? "qs-primary" : "",
+            onClick: () => id === "mission" && this.openMission(!this.draft)
+          }, id === "mission" && ready ? this.draft ? "Open Mission" : "Create Mission" : "Not available yet"))
+        );
+      });
+      this.renderFrame(
+        "Quest Studio",
+        "One authoring workspace \xB7 repository-owned facts and compilers",
+        h(
+          "div",
+          { class: "qs-hero" },
+          h("h1", {}, "Design the quest. Let the repository compile it."),
+          h("p", {}, "Choose what you are making. Forge handles the human workflow; repository profiles, contracts, scripts and validation remain authoritative.")
+        ),
+        draftCard,
+        h("div", { class: "qs-grid" }, cards)
+      );
+    }
+    async openMission(forceNew = false) {
+      this.view = "mission";
+      if (forceNew || !this.draft) this.draft = newMissionDraft(this.app.now ? this.app.now() : Date.now());
+      writeDraft(this.app.storage, this.draft, this.app.now ? this.app.now() : Date.now());
+      this.renderLoading("Loading Mission profiles from the repository\u2026");
+      try {
+        this.profiles = await this.repository.missionProfiles();
+        this.seedProfileBeats();
+        this.renderMission();
+        if (this.draft.sourceCommit) this.refreshBuild(false).catch(() => {
+        });
+      } catch (e) {
+        this.renderFatal("Mission profiles could not be loaded from the repository.", e);
+      }
+    }
+    seedProfileBeats() {
+      const profile = this.profiles?.ranks?.[this.draft.profile];
+      if (!profile || this.draft.beats?.length) return;
+      const count = Math.max(1, Number(profile.shape?.objective_count || 2) - 1);
+      this.draft.beats = Array.from({ length: count }, () => ({ description: "", choiceText: "Continue" }));
+      this.saveDraft();
+    }
+    saveDraft() {
+      writeDraft(this.app.storage, this.draft, this.app.now ? this.app.now() : Date.now());
+    }
+    chooseProfile(key) {
+      this.draft.profile = key;
+      if (!this.draft.beats?.length) this.seedProfileBeats();
+      this.buildState = null;
+      this.saveDraft();
+      this.renderMission();
+    }
+    matchProfileShape() {
+      const expected = Number(this.profiles?.ranks?.[this.draft.profile]?.shape?.objective_count || 0);
+      if (!expected) return;
+      const target = Math.max(1, expected - 1);
+      const beats = this.draft.beats || [];
+      const apply = () => {
+        while (beats.length < target) beats.push({ description: "", choiceText: "Continue" });
+        while (beats.length > target) beats.pop();
+        this.draft.beats = beats;
+        this.buildState = null;
+        this.saveDraft();
+        this.renderMission();
+      };
+      if (beats.length > target && this.app.confirm) this.app.confirm(`This profile owns ${expected} objectives. Remove ${beats.length - target} trailing beat(s) to match it?`, apply);
+      else apply();
+    }
+    startNewMission() {
+      const make = () => {
+        this.pollToken++;
+        this.draft = newMissionDraft(this.app.now ? this.app.now() : Date.now());
+        this.buildState = null;
+        this.saveDraft();
+        this.renderMission();
+      };
+      if (this.app.confirm) this.app.confirm("Start a new Mission draft? The current local draft will be replaced; repository revisions already submitted remain durable.", make);
+      else make();
+    }
+    field(label, value, onInput, { multiline = false, placeholder = "" } = {}) {
+      const control = multiline ? h("textarea", { value: value || "", placeholder, onInput: (e) => onInput(e.target.value) }) : h("input", { type: "text", value: value || "", placeholder, onInput: (e) => onInput(e.target.value) });
+      return h("label", { class: "qs-field" }, h("span", {}, label), control);
+    }
+    renderMission() {
+      this.view = "mission";
+      const ranks = this.profiles?.ranks || {};
+      const options = [h("option", { value: "" }, "Choose profile\u2026")];
+      for (const [key, profile2] of Object.entries(ranks)) {
+        const combat = Number(profile2?.shape?.battle_nodes || 0) > 0;
+        options.push(h("option", { value: key, selected: this.draft.profile === key, disabled: combat }, profileLabel(key, profile2) + (combat ? " \xB7 Encounter editor required" : "")));
+      }
+      const select = h("select", { value: this.draft.profile, onChange: (e) => this.chooseProfile(e.target.value) }, options);
+      const profile = ranks[this.draft.profile];
+      const expected = Number(profile?.shape?.objective_count || 0);
+      const problems = missionDraftProblems(this.draft, this.profiles);
+      const beats = (this.draft.beats || []).map((beat, i) => h(
+        "article",
+        { class: "qs-card qs-beat" },
+        h(
+          "div",
+          { class: "qs-beat-top" },
+          h("div", { class: "qs-beat-num" }, i + 1),
+          h("strong", {}, "Dialogue beat"),
+          h("button", { disabled: this.draft.beats.length <= 1, onClick: () => {
+            this.draft.beats.splice(i, 1);
+            this.buildState = null;
+            this.saveDraft();
+            this.renderMission();
+          } }, "Remove")
+        ),
+        this.field("What the player reads", beat.description, (v) => {
+          beat.description = v;
+          this.buildState = null;
+          this.saveDraft();
+        }, { multiline: true, placeholder: "Write the scene, instruction, reveal, or transition." }),
+        this.field("Continue choice", beat.choiceText, (v) => {
+          beat.choiceText = v;
+          this.buildState = null;
+          this.saveDraft();
+        }, { placeholder: "Continue" })
+      ));
+      const profileCard = h(
+        "section",
+        { class: "qs-card" },
+        h("div", { class: "qs-eyebrow" }, "Repository policy"),
+        h("h2", {}, "Mission profile"),
+        h("label", { class: "qs-field" }, h("span", {}, "Profile"), select),
+        profile ? h(
+          "div",
+          { class: "qs-two" },
+          h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, `${expected} objective${expected === 1 ? "" : "s"}`), h("div", { class: "qs-muted" }, "Owned by the selected Mission profile.")),
+          h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, `${Number(profile.shape?.battle_nodes || 0)} battle node${Number(profile.shape?.battle_nodes || 0) === 1 ? "" : "s"}`), h("div", { class: "qs-muted" }, "Combat profiles unlock after the Encounter editor lands."))
+        ) : null,
+        expected ? h("div", { class: "qs-actions" }, h("button", { onClick: () => this.matchProfileShape() }, "Match profile shape")) : null,
+        h("div", { class: "qs-muted" }, "Profile values are read from 48_DATA_mission_profiles.json. Forge does not maintain a second copy.")
+      );
+      const authorCard = h(
+        "section",
+        { class: "qs-card" },
+        h("div", { class: "qs-eyebrow" }, "Authoring intent"),
+        h("h2", {}, "Mission brief"),
+        this.field("Mission name", this.draft.name, (v) => {
+          this.draft.name = v;
+          this.buildState = null;
+          this.saveDraft();
+        }, { placeholder: "A player-facing title" }),
+        this.field("Premise / assignment", this.draft.description, (v) => {
+          this.draft.description = v;
+          this.buildState = null;
+          this.saveDraft();
+        }, { multiline: true, placeholder: "What is happening, and why is the player involved?" }),
+        this.field("Success outcome", this.draft.successDescription, (v) => {
+          this.draft.successDescription = v;
+          this.buildState = null;
+          this.saveDraft();
+        }, { multiline: true, placeholder: "What changed when the player succeeds?" })
+      );
+      const storyboard = h(
+        "section",
+        {},
+        h("div", { class: "qs-hero" }, h("h1", {}, "Storyboard"), h("p", {}, "Write the player experience. Technical objective wiring is generated from this linear foundation and checked canonically in the repository.")),
+        ...beats,
+        h(
+          "article",
+          { class: "qs-card qs-end" },
+          h("div", { class: "qs-beat-top" }, h("div", { class: "qs-beat-num" }, (this.draft.beats?.length || 0) + 1), h("strong", {}, "Success ending")),
+          h("p", { class: "qs-muted" }, this.draft.successDescription || "The success outcome above becomes the final quest completion beat.")
+        ),
+        h("div", { class: "qs-actions" }, h("button", { onClick: () => {
+          this.draft.beats.push({ description: "", choiceText: "Continue" });
+          this.buildState = null;
+          this.saveDraft();
+          this.renderMission();
+        } }, "Add dialogue beat"))
+      );
+      const readiness = problems.length ? h("div", { class: "qs-callout warn" }, h("div", { class: "qs-status-title" }, `Draft needs ${problems.length} change${problems.length === 1 ? "" : "s"} before compile`), h("ul", { class: "qs-list" }, problems.map((p) => h("li", {}, p)))) : h("div", { class: "qs-callout ok" }, h("div", { class: "qs-status-title" }, "Ready for repository compile"), h("div", { class: "qs-muted" }, "Compile will save an exact Quest Source revision on a Studio branch and run canonical repository tooling. It will not touch the live game."));
+      const build = h(
+        "section",
+        { class: "qs-card" },
+        h("div", { class: "qs-eyebrow" }, "Repository build"),
+        h("h2", {}, "Compile"),
+        readiness,
+        h(
+          "div",
+          { class: "qs-actions" },
+          h("button", { class: "qs-compile", disabled: !!problems.length || this.buildState?.busy, onClick: () => this.compileMission() }, this.buildState?.busy ? "Building\u2026" : "Compile in repository"),
+          this.draft.sourceCommit ? h("button", { disabled: this.buildState?.busy, onClick: () => this.refreshBuild(true) }, "Refresh build status") : null,
+          h("button", { onClick: () => this.startNewMission() }, "New Mission")
+        ),
+        this.renderBuildState()
+      );
+      this.renderFrame(
+        this.draft.name || "Mission",
+        `Quest Studio \xB7 Mission \xB7 ${this.draft.requestId}`,
+        h("div", { class: "qs-hero" }, h("h1", {}, "Mission Studio inside Quest Studio"), h("p", {}, "This first usable slice covers repository-backed no-combat Mission authoring. Encounter, graph and additional subtype adapters will extend this same workspace rather than create new tools.")),
+        h("div", { class: "qs-two" }, profileCard, authorCard),
+        storyboard,
+        build
+      );
+    }
+    renderBuildState() {
+      const state = this.buildState;
+      if (!state) return h("div", { class: "qs-muted" }, "No repository build has been requested for the current draft revision.");
+      if (state.busy) return h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, "Building in the repository\u2026"), h("div", { class: "qs-muted" }, "Forge saved the Quest Source and requested canonical compilation. You can keep this Studio open while the worker runs."));
+      if (state.error) return h("div", { class: "qs-callout bad" }, h("div", { class: "qs-status-title" }, "Repository request failed"), h("div", { class: "qs-muted" }, state.error));
+      if (state.waiting) return h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, "Build still running"), h("div", { class: "qs-muted" }, "No current result has landed yet. Refresh status without resubmitting the source."));
+      if (!state.result) return h("div", { class: "qs-muted" }, "No build result loaded.");
+      const result = state.result;
+      const stale = state.stale;
+      const cls = result.status === "valid" ? "ok" : result.status === "blocked" ? "warn" : "bad";
+      const title = result.status === "valid" ? "Mechanically valid" : result.status === "blocked" ? "Build blocked" : "Build failed";
+      const detail = [];
+      if (result.status === "blocked") detail.push(...(result.blockers || []).map((x) => x.message || String(x)));
+      if (result.status === "failed") detail.push(...(result.errors || []).map((x) => x.message || String(x)));
+      const counts = result.generated?.entities?.counts || {};
+      const summary = Object.entries(counts).map(([k, v]) => `${v} ${k}`).join(" \xB7 ");
+      const artCount = Array.isArray(result.art?.shots) ? result.art.shots.length : 0;
+      return h(
+        "div",
+        {},
+        stale ? h("div", { class: "qs-callout warn" }, h("div", { class: "qs-status-title" }, "Older build result"), h("div", { class: "qs-muted" }, "This result belongs to an earlier Quest Source revision and is evidence only.")) : null,
+        h(
+          "div",
+          { class: `qs-callout ${cls}` },
+          h("div", { class: "qs-status-title" }, title),
+          result.status === "valid" ? h("div", { class: "qs-muted" }, `${summary || "Manifest generated"}${artCount ? ` \xB7 ${artCount} art requirement${artCount === 1 ? "" : "s"}` : ""}. Live game untouched.`) : null,
+          detail.length ? h("ul", { class: "qs-list" }, detail.map((x) => h("li", {}, x))) : null,
+          (result.warnings || []).length ? h("details", {}, h("summary", {}, `${result.warnings.length} warning${result.warnings.length === 1 ? "" : "s"}`), h("ul", { class: "qs-list" }, result.warnings.map((x) => h("li", {}, x.message || String(x))))) : null
+        ),
+        result.status === "valid" && !stale ? h("div", { class: "qs-actions" }, h("button", { onClick: () => this.inspectManifest() }, "Inspect generated manifest")) : null,
+        h("div", { class: "qs-provenance" }, `Source revision: ${result.provenance?.sourceRevision || "unknown"} \xB7 Compiler: ${result.provenance?.compilerRevision || "unknown"}`)
+      );
+    }
+    async compileMission() {
+      const problems = missionDraftProblems(this.draft, this.profiles);
+      if (problems.length) return;
+      this.pollToken++;
+      const token = this.pollToken;
+      this.buildState = { busy: true };
+      this.renderMission();
+      try {
+        const source = missionSourceFromDraft(this.draft);
+        const submitted = await this.repository.submit(source);
+        if (token !== this.pollToken) return;
+        this.draft.sourceCommit = submitted.sourceCommit;
+        this.draft.lastResult = null;
+        this.saveDraft();
+        this.buildState = { busy: true, sourceCommit: submitted.sourceCommit };
+        this.renderMission();
+        await this.pollBuild(submitted.sourceCommit, token);
+      } catch (e) {
+        if (token !== this.pollToken) return;
+        this.buildState = { error: e?.message || String(e) };
+        this.renderMission();
+      }
+    }
+    async pollBuild(sourceCommit, token) {
+      for (let i = 0; i < this.maxPolls; i++) {
+        if (token !== this.pollToken || this.shell?.hidden) return;
+        const got = await this.repository.buildResult(this.draft.requestId, { expectedSourceCommit: sourceCommit });
+        if (got && !got.stale) {
+          this.draft.lastResult = got.result;
+          this.saveDraft();
+          this.buildState = { result: got.result, stale: false, sourceCommit };
+          this.renderMission();
+          return;
+        }
+        if (i + 1 < this.maxPolls) await new Promise((resolve) => setTimeout(resolve, this.pollMs));
+      }
+      if (token === this.pollToken) {
+        this.buildState = { waiting: true, sourceCommit };
+        this.renderMission();
+      }
+    }
+    async refreshBuild(renderBusy = true) {
+      if (!this.draft?.sourceCommit) return;
+      const token = ++this.pollToken;
+      if (renderBusy) {
+        this.buildState = { busy: true, sourceCommit: this.draft.sourceCommit };
+        this.renderMission();
+      }
+      try {
+        const got = await this.repository.buildResult(this.draft.requestId, { expectedSourceCommit: this.draft.sourceCommit });
+        if (token !== this.pollToken) return;
+        if (!got) this.buildState = { waiting: true, sourceCommit: this.draft.sourceCommit };
+        else this.buildState = { result: got.result, stale: got.stale, sourceCommit: this.draft.sourceCommit };
+        this.renderMission();
+      } catch (e) {
+        if (token !== this.pollToken) return;
+        this.buildState = { error: e?.message || String(e) };
+        this.renderMission();
+      }
+    }
+    async inspectManifest() {
+      try {
+        const result = this.buildState?.result;
+        if (!result || result.status !== "valid") return;
+        const text = await this.repository.generatedManifest(this.draft.requestId, result);
+        this.app.showExport(text, `Generated manifest \xB7 ${this.draft.name || this.draft.requestId}`);
+      } catch (e) {
+        const msg = e instanceof GithubError ? e.message : e?.message || String(e);
+        this.buildState = { error: `Could not load generated manifest: ${msg}` };
+        this.renderMission();
+      }
+    }
+  };
+  function installQuestStudio(app, options = {}) {
+    const workspace = new QuestStudioWorkspace({ app, ...options });
+    workspace.install();
+    return workspace;
+  }
 
   // src/ui/takeover.mjs
   var ENTRY_PATH = "/forge";
@@ -11374,6 +12122,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         }
       });
       deps.app.mount(host.body, doc);
+      deps.studio = installQuestStudio(deps.app);
       arm(win, { hops: 0 });
     } catch (e) {
       if (!host) return null;
