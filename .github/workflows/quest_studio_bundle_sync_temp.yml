@@ -1,0 +1,40 @@
+name: quest-studio-bundle-sync-temp
+
+on:
+  push:
+    paths:
+      - ".github/workflows/quest_studio_bundle_sync_temp.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.ref == 'refs/heads/chatgpt/forge-quest-studio-foundation'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/forge-quest-studio-foundation
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: forge/package-lock.json
+      - name: Build exact Forge bundle
+        working-directory: forge
+        run: |
+          npm ci
+          npm run build
+      - name: Commit generated bundle only
+        run: |
+          set -euo pipefail
+          git config user.name "quest-studio-bundle-sync[bot]"
+          git config user.email "quest-studio-bundle-sync@users.noreply.github.com"
+          git add -- forge_bundle.js
+          if git diff --cached --quiet; then
+            echo "Checked bundle already matches the canonical build"
+            exit 0
+          fi
+          git commit -m "build: refresh Quest Studio Forge bundle"
+          git push origin HEAD:chatgpt/forge-quest-studio-foundation
