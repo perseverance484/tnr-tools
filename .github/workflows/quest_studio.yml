@@ -31,8 +31,8 @@ jobs:
   compile:
     runs-on: ubuntu-latest
     steps:
-      # The workflow itself runs from the trusted dispatch ref. Compiler code is
-      # checked out at that exact SHA; authored request code is never executed.
+      # The workflow itself must be dispatched on main. Compiler code is checked out at that exact
+      # main SHA; authored request code is never executed.
       - name: Checkout trusted compiler
         uses: actions/checkout@v4
         with:
@@ -49,12 +49,14 @@ jobs:
 
       - name: Validate request boundary
         env:
+          TRUSTED_REF: ${{ github.ref }}
           REQUEST_BRANCH: ${{ inputs.request_branch }}
           SOURCE_PATH: ${{ inputs.source_path }}
           REQUEST_ID: ${{ inputs.request_id }}
           SOURCE_SHA: ${{ inputs.source_sha }}
         run: |
           set -euo pipefail
+          [[ "$TRUSTED_REF" == "refs/heads/main" ]] || { echo "Quest Studio worker must be dispatched from main" >&2; exit 2; }
           [[ "$REQUEST_ID" =~ ^[a-z0-9][a-z0-9._-]{2,63}$ ]] || { echo "invalid request_id" >&2; exit 2; }
           [[ "$SOURCE_SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "invalid source_sha" >&2; exit 2; }
           [[ "$REQUEST_BRANCH" == "studio/quest/$REQUEST_ID" ]] || { echo "request branch does not match request id" >&2; exit 2; }
