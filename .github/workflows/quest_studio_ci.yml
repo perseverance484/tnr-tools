@@ -29,6 +29,7 @@ on:
       - ".github/workflows/quest_studio.yml"
       - ".github/workflows/quest_studio_ci.yml"
 
+# Verification is intentionally read-only. The one-time bundle sync workflow is not retained.
 permissions:
   contents: read
 
