@@ -1,0 +1,142 @@
+name: quest-studio
+
+on:
+  workflow_dispatch:
+    inputs:
+      request_branch:
+        description: "studio/quest/<request_id> branch containing authored Quest Source"
+        required: true
+        type: string
+      source_path:
+        description: "studio/requests/<request_id>.quest.json"
+        required: true
+        type: string
+      request_id:
+        description: "Quest Studio request id"
+        required: true
+        type: string
+      source_sha:
+        description: "Exact request-branch commit containing the source to compile"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: quest-studio-${{ inputs.request_id }}
+  cancel-in-progress: true
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      # The workflow itself runs from the trusted dispatch ref. Compiler code is
+      # checked out at that exact SHA; authored request code is never executed.
+      - name: Checkout trusted compiler
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: tools
+          fetch-depth: 1
+
+      - name: Checkout authored request branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.request_branch }}
+          path: request
+          fetch-depth: 1
+
+      - name: Validate request boundary
+        env:
+          REQUEST_BRANCH: ${{ inputs.request_branch }}
+          SOURCE_PATH: ${{ inputs.source_path }}
+          REQUEST_ID: ${{ inputs.request_id }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+        run: |
+          set -euo pipefail
+          [[ "$REQUEST_ID" =~ ^[a-z0-9][a-z0-9._-]{2,63}$ ]] || { echo "invalid request_id" >&2; exit 2; }
+          [[ "$SOURCE_SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "invalid source_sha" >&2; exit 2; }
+          [[ "$REQUEST_BRANCH" == "studio/quest/$REQUEST_ID" ]] || { echo "request branch does not match request id" >&2; exit 2; }
+          [[ "$SOURCE_PATH" == "studio/requests/$REQUEST_ID.quest.json" ]] || { echo "source path does not match request id" >&2; exit 2; }
+
+          ACTUAL_SHA="$(git -C request rev-parse HEAD)"
+          [[ "$ACTUAL_SHA" == "$SOURCE_SHA" ]] || {
+            echo "request branch advanced: expected $SOURCE_SHA, checked out $ACTUAL_SHA" >&2
+            exit 3
+          }
+
+          for p in request/studio request/studio/requests request/studio/results request/studio/builds; do
+            [[ ! -L "$p" ]] || { echo "refusing symlinked Studio path: $p" >&2; exit 2; }
+          done
+          [[ -f "request/$SOURCE_PATH" && ! -L "request/$SOURCE_PATH" ]] || {
+            echo "Quest Source is missing, not a regular file, or is a symlink" >&2
+            exit 2
+          }
+
+      - name: Compile Quest Source
+        id: compile
+        env:
+          SOURCE_PATH: ${{ inputs.source_path }}
+          REQUEST_ID: ${{ inputs.request_id }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          COMPILER_SHA: ${{ github.sha }}
+          RUNNER_TEMP: ${{ runner.temp }}
+        run: |
+          set -uo pipefail
+          TMP_ROOT="$RUNNER_TEMP/tnr-quest-studio/$REQUEST_ID"
+          TMP_BUILD="$TMP_ROOT/build"
+          TMP_RESULT="$TMP_ROOT/build-result.json"
+          rm -rf "$TMP_ROOT"
+          mkdir -p "$TMP_BUILD"
+
+          set +e
+          python3 tools/skills/building-tnr-content/scripts/quest_compile.py \
+            "request/$SOURCE_PATH" \
+            --result "$TMP_RESULT" \
+            --artifact-dir "$TMP_BUILD" \
+            --artifact-prefix "studio/builds/$REQUEST_ID" \
+            --source-revision "$SOURCE_SHA" \
+            --compiler-revision "$COMPILER_SHA"
+          RC=$?
+          set -e
+
+          test -f "$TMP_RESULT" || { echo "compiler produced no build result" >&2; exit 4; }
+          echo "compile_rc=$RC" >> "$GITHUB_OUTPUT"
+
+      - name: Persist build result to request branch
+        env:
+          REQUEST_BRANCH: ${{ inputs.request_branch }}
+          REQUEST_ID: ${{ inputs.request_id }}
+          RUNNER_TEMP: ${{ runner.temp }}
+        run: |
+          set -euo pipefail
+          TMP_ROOT="$RUNNER_TEMP/tnr-quest-studio/$REQUEST_ID"
+          RESULT_PATH="request/studio/results/$REQUEST_ID.build.json"
+          BUILD_PATH="request/studio/builds/$REQUEST_ID"
+
+          rm -rf "$RESULT_PATH" "$BUILD_PATH"
+          mkdir -p "$(dirname "$RESULT_PATH")" "$BUILD_PATH"
+          cp "$TMP_ROOT/build-result.json" "$RESULT_PATH"
+          cp -a "$TMP_ROOT/build/." "$BUILD_PATH/"
+
+          git -C request config user.name "quest-studio[bot]"
+          git -C request config user.email "quest-studio@users.noreply.github.com"
+          git -C request add -- "studio/results/$REQUEST_ID.build.json" "studio/builds/$REQUEST_ID"
+
+          if git -C request diff --cached --quiet; then
+            echo "No generated changes to persist"
+          else
+            git -C request commit -m "studio: build $REQUEST_ID"
+            git -C request push origin "HEAD:$REQUEST_BRANCH"
+          fi
+
+      - name: Surface compiler failure after evidence is persisted
+        env:
+          COMPILE_RC: ${{ steps.compile.outputs.compile_rc }}
+        run: |
+          set -euo pipefail
+          [[ "$COMPILE_RC" == "0" ]] || {
+            echo "Quest Studio compiler returned $COMPILE_RC; structured failure result was persisted" >&2
+            exit "$COMPILE_RC"
+          }
