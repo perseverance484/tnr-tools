@@ -5158,6 +5158,7 @@
       else if (k === "style" && typeof v === "object") Object.assign(el.style, v);
       else if (k.startsWith("on") && typeof v === "function") el.addEventListener(k.slice(2).toLowerCase(), v);
       else if (k === "dataset") Object.assign(el.dataset, v);
+      else if (k === "value" && "value" in el) el.value = String(v);
       else if (k in el && typeof v !== "string") el[k] = v;
       else el.setAttribute(k, String(v));
     }
