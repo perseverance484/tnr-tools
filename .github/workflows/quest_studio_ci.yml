@@ -28,7 +28,7 @@ on:
       - ".github/workflows/quest_studio_ci.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
@@ -61,6 +61,20 @@ jobs:
       - name: Build Forge bundle
         working-directory: forge
         run: npm run build
+
+      - name: Commit generated bundle on implementation branch
+        if: github.event_name == 'push' && github.ref == 'refs/heads/chatgpt/forge-quest-studio-foundation'
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- forge_bundle.js; then
+            echo "checked bundle already matches generated output"
+            exit 0
+          fi
+          git config user.name "quest-studio[bot]"
+          git config user.email "quest-studio@users.noreply.github.com"
+          git add forge_bundle.js
+          git commit -m "build: refresh Forge bundle for Quest Studio"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
 
       - name: Upload generated Forge bundle
         uses: actions/upload-artifact@v4
