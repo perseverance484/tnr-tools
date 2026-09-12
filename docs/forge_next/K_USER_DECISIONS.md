@@ -26,20 +26,19 @@ Entries K-01 to K-12 are the decisions the brief reserves in §14. K-13 onward w
 
 ---
 
-### K-01 Final visual style and degree of flashiness
+### K-01 Final visual style and degree of flashiness: RULED mid-pass
 
-**Why it matters:** the user asked for "modern, polished, a little flashy"; the brief forbids letting Fable choose silently. The choice sets every token and animation budget for the redesign.
-**Evidence:** current stylesheet is 60 lines, dark-only, scoped (`forge/src/ui/styles.mjs`); three candidate directions with computed contrast and token tables are in `D_IA_AND_JOURNEYS.md` §D.6 and the style tiles in `wireframes/index.html`.
-**Options:** A "Instrument panel" (dark-first, dense, restrained motion); B "Workbench" (light/dark adaptive, calm cards, one accent per authority lane); C "Forge" (ember/steel, glow on live-write and publish, animated progress rings).
-**Recommendation:** advisory only; see the design panel's synthesized recommendation in §D.6. Whatever is chosen, the risk-state rules in §D.5 (mutation, publish, SENT, paused are never colour-only and never animated) are not optional.
-**Can defer:** yes, until phase 2 starts; phases 0 and 1 are shell-independent.
+**Ruling:** the director approved the Forge concept as the visual north star (`docs/design/FORGE_NEXT_VISUAL_DIRECTION.md` at `chatgpt/forge-next-planning@0bb5a54b1025ba49ff6b09aa9606f23102f4dca3`): TNR-specific dark operations console, crimson/gold/cool-blue accents over deep navy/charcoal, strong Forge branding, controlled motion and depth. Its section 12 lists what stays binding and what Fable may change with rationale.
+**What remains open under the ruling:** exact hex tokens, logo treatment, background illustration, icon set and card geometry (illustrative per §12); these are proposed in `D_IA_AND_JOURNEYS.md` §D.6 and the wireframe style tile, and are accepted or adjusted by the user at the phase-2 design freeze. Directions A "Instrument panel" and B "Workbench" were explored by the design panel before the ruling arrived; they are kept in §D.6 only as sources of grafted ideas (contrast tables, density rules), not as alternatives to the ruling.
+**Not negotiable regardless of tokens:** the state rules in amendment §9 and `D_IA_AND_JOURNEYS.md` §D.5 (mutation, publish, SENT, paused and auth states are never colour-only and never animated).
+**Can defer:** the remaining token acceptance can wait until phase 2; phases 0 and 1 are shell-independent.
 
-### K-02 Top-level navigation model
+### K-02 Top-level navigation model, constrained by the approved north star
 
-**Why it matters:** decides what the operator sees first on a phone and how Content Operations and Content Admin are separated.
-**Evidence:** real workflow mix in `C_WORKFLOW_INVENTORY.md`; the current five screens (`forge/src/ui/screens.mjs`); the three candidate models scored in `D_IA_AND_JOURNEYS.md` §D.1.
-**Options:** operation-oriented workspaces; content-type-oriented workspaces; two-axis (goal first, content type second).
-**Recommendation:** the panel's recommendation and rationale are in §D.1; the alternatives are kept there in full.
+**Why it matters:** decides what the operator sees first on a phone and how Content Operations and Content Admin are separated. The amendment fixes the shell (Command Center home, persistent rail on desktop, bottom navigation plus a More surface on phone, visual content lanes, first-class Content Admin) and leaves the destination set, the lane taxonomy and the grouping to evidence.
+**Evidence:** real workflow mix in `C_WORKFLOW_INVENTORY.md`; the current five screens (`forge/src/ui/screens.mjs`); the three candidate models scored in `D_IA_AND_JOURNEYS.md` §D.1; the mockup-element reconciliation table in §D.2.
+**Options:** operation-oriented destinations with content lanes as entry points; content-type-oriented destinations; two-axis (goal first, content type second). All three are rendered inside the approved shell; the choice is which axis the bottom navigation and the rail carry.
+**Recommendation:** the panel's recommendation and rationale are in §D.1; the alternatives are kept there in full. Any element of the mockup that the recommendation renames, regroups or drops is listed in §D.2 with the capability row that justifies it, and any departure from the approved character itself is listed in §D.7 for the director.
 **Can defer:** yes, until phase 2.
 
 ### K-03 Content Admin permission scope

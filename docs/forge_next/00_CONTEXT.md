@@ -2,6 +2,7 @@
 
 **Status:** PLANNING PACKAGE, no implementation.
 **Brief:** `state/prompt_forge_next_planning.md` at `chatgpt/forge-next-planning@70c151616f09c6ec729cb05afb30faa2c6331183`.
+**Mid-pass amendment (user-approved visual north star):** `docs/design/FORGE_NEXT_VISUAL_DIRECTION.md` at `chatgpt/forge-next-planning@0bb5a54b1025ba49ff6b09aa9606f23102f4dca3`, plus the approved concept mockup supplied as an attachment (a compressed copy is committed as `docs/forge_next/design/forge_next_concept_mockup.jpg` for durability). It was read as a new planning input on the existing branch; the ChatGPT branch was neither merged nor rebased onto. Its section 12 governs what is binding (product character, shell, Command Center, lanes, Content Admin presence, state visualization) and what is illustrative (labels, destinations, lane names, colours, geometry); section D reconciles every mockup element with the capability evidence and section D.7 lists the departures recommended and why.
 **Planning branch:** `claude/forge-next-planning-v3frzi` (the branch assigned to this session; `docs/DEVELOPMENT_WORKFLOW.md` §3 names `fable/*` as the normal Fable prefix, so this is a stated deviation, not a new convention).
 **Base:** `main@305a28f992e33194fbba279a3f32e698dfb2b67f`, verified with `git fetch origin main` at the start of the pass.
 **Lane:** A. Planning owner Fable / Claude Code; independent reviewer ChatGPT (Release Auditor with UI/UX Reviewer and Engineering Auditor lenses).
