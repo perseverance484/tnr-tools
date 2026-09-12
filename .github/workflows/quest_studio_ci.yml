@@ -1,0 +1,70 @@
+name: quest-studio-ci
+
+on:
+  push:
+    paths:
+      - "forge/src/github.mjs"
+      - "forge/src/studio/**"
+      - "forge/test/github.studio.test.mjs"
+      - "forge_bundle.js"
+      - "skills/building-tnr-content/scripts/quest_compile.py"
+      - "skills/building-tnr-content/data/49_DATA_quest_studio_subtypes.json"
+      - ".github/workflows/quest_studio.yml"
+      - ".github/workflows/quest_studio_ci.yml"
+  pull_request:
+    paths:
+      - "forge/src/github.mjs"
+      - "forge/src/studio/**"
+      - "forge/test/github.studio.test.mjs"
+      - "forge_bundle.js"
+      - "skills/building-tnr-content/scripts/quest_compile.py"
+      - "skills/building-tnr-content/data/49_DATA_quest_studio_subtypes.json"
+      - ".github/workflows/quest_studio.yml"
+      - ".github/workflows/quest_studio_ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: forge/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Quest Studio compiler selftest
+        run: python3 skills/building-tnr-content/scripts/quest_compile.py --selftest
+
+      - name: Existing mission compiler selftest
+        working-directory: skills/building-tnr-content/data
+        run: python3 ../scripts/mission.py --selftest
+
+      - name: Forge tests and fixtures
+        working-directory: forge
+        run: |
+          npm ci
+          npm test
+          npm run fixtures
+          git diff --exit-code -- test/fixtures/envelope
+
+      - name: Build Forge bundle
+        working-directory: forge
+        run: npm run build
+
+      - name: Upload generated Forge bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: quest-studio-forge-bundle
+          path: forge_bundle.js
+          if-no-files-found: error
+          retention-days: 3
+
+      - name: Verify checked Forge bundle
+        run: git diff --exit-code -- forge_bundle.js
