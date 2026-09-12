@@ -135,3 +135,18 @@ A full pre-Forsworn transcript reconstruction is not required. Porting the art c
 **Rationale:** Once unique knowledge is safely transferred, keeping an obsolete project alive as shadow memory creates more drift risk than value.
 
 **Canonical destination:** handoff/extraction plan and relevant canonical design/reference files for any salvaged principles.
+
+---
+
+## RUL-2026-09-12-001 — Forge uses one Quest Studio with subtype adapters
+
+**Date:** 2026-09-12  
+**Domain:** Forge Next / content authoring UX  
+**Status:** ACTIVE  
+**Supersedes:** none
+
+**Ruling:** The previously proposed Mission Studio is not a standalone top-level authoring product. Forge Next should provide one broader **Quest Studio** in which the creator selects a human-facing quest subtype/recipe such as Mission, Event, Story, Raid/Boss, Battle Pyramid, Daily, or another supported quest family. Mission-specific profile/storyboard behavior becomes one subtype adapter within that shared Studio. The intended end state is that supported quest types can be authored, compiled and validated through the repository's canonical scripts from the Forge interface without requiring routine chat/agent/file relay between design and build. Live-game execution remains an explicit user action and is not part of automatic compile.
+
+**Rationale:** TNR quest families share one objective-graph/data-model foundation, while subtype-specific correctness belongs in separate policy/build recipes. A single Studio gives the operator one consistent authoring workflow and lets the repository remain the compiler authority instead of duplicating mission/event logic in separate UIs.
+
+**Canonical destination:** `docs/design/FORGE_NEXT_QUEST_STUDIO.md` and the eventual approved Forge Next architecture/implementation brief. `docs/design/FORGE_NEXT_MISSION_STUDIO.md` remains a useful Mission-subtype detail document but no longer owns the parent product scope.
