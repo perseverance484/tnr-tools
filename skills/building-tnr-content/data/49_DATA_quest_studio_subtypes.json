@@ -1,0 +1,113 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "purpose": "Repository-owned Quest Studio authoring-recipe registry. Forge renders this contract; repository compilers enforce it. Authoring subtype is intentionally distinct from stored questType.",
+    "authority": "Product/adapter contract. Engine field legality remains generated source contract; subtype mechanics remain owned by routed quest/event/profile sources.",
+    "updated": "2026-09-12"
+  },
+  "subtypes": {
+    "mission": {
+      "label": "Mission",
+      "maturity": "supported",
+      "engineTypes": ["mission"],
+      "sourceContract": "mission-sheet-v1",
+      "compilerAdapter": "mission",
+      "policySources": [
+        "skills/building-tnr-content/data/48_DATA_mission_profiles.json",
+        "skills/building-tnr-content/references/quest.md"
+      ],
+      "capabilities": {
+        "storyboard": true,
+        "semanticFlow": true,
+        "encounters": true,
+        "sceneAssets": true,
+        "routePreview": true,
+        "repositoryCompile": true
+      }
+    },
+    "event": {
+      "label": "Event",
+      "maturity": "needs_compiler",
+      "engineTypes": ["event", "story", "battlepyramid", "raid"],
+      "sourceContract": "event-sheet-v1",
+      "compilerAdapter": null,
+      "policySources": [
+        "EVENT_SHEET.md",
+        "skills/building-tnr-content/data/26x_EVENT_sheet_schema.json",
+        "skills/building-tnr-content/references/event.md"
+      ],
+      "capabilities": {
+        "storyboard": true,
+        "semanticFlow": true,
+        "encounters": true,
+        "sceneAssets": true,
+        "routePreview": true,
+        "repositoryCompile": false
+      }
+    },
+    "story": {
+      "label": "Story Quest",
+      "maturity": "needs_recipe",
+      "engineTypes": ["story"],
+      "sourceContract": null,
+      "compilerAdapter": null,
+      "policySources": ["skills/building-tnr-content/references/quest.md"],
+      "capabilities": {
+        "storyboard": true,
+        "semanticFlow": true,
+        "encounters": true,
+        "sceneAssets": true,
+        "routePreview": true,
+        "repositoryCompile": false
+      }
+    },
+    "battle_pyramid": {
+      "label": "Battle Pyramid",
+      "maturity": "needs_recipe",
+      "engineTypes": ["battlepyramid"],
+      "sourceContract": null,
+      "compilerAdapter": null,
+      "policySources": ["skills/building-tnr-content/references/quest.md"],
+      "capabilities": {
+        "storyboard": true,
+        "semanticFlow": true,
+        "encounters": true,
+        "sceneAssets": true,
+        "routePreview": true,
+        "repositoryCompile": false
+      }
+    },
+    "raid": {
+      "label": "Raid / Boss",
+      "maturity": "needs_recipe",
+      "engineTypes": ["raid"],
+      "sourceContract": null,
+      "compilerAdapter": null,
+      "policySources": ["skills/building-tnr-content/references/quest.md"],
+      "capabilities": {
+        "storyboard": false,
+        "semanticFlow": true,
+        "encounters": true,
+        "sceneAssets": true,
+        "routePreview": false,
+        "repositoryCompile": false
+      }
+    },
+    "daily": {
+      "label": "Daily Quest",
+      "maturity": "needs_recipe",
+      "engineTypes": ["daily"],
+      "sourceContract": null,
+      "compilerAdapter": null,
+      "policySources": ["skills/building-tnr-content/references/quest.md"],
+      "capabilities": {
+        "storyboard": true,
+        "semanticFlow": true,
+        "encounters": true,
+        "sceneAssets": true,
+        "routePreview": true,
+        "repositoryCompile": false
+      }
+    }
+  }
+}
