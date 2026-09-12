@@ -8,6 +8,10 @@ export function h(tag, attrs = {}, ...children) {
     else if (k === "style" && typeof v === "object") Object.assign(el.style, v);
     else if (k.startsWith("on") && typeof v === "function") el.addEventListener(k.slice(2).toLowerCase(), v);
     else if (k === "dataset") Object.assign(el.dataset, v);
+    // `value` must be a property even when it is a string. In particular, textarea has no
+    // effective HTML `value` attribute, so using setAttribute made restored/rerendered prose look
+    // blank even though the draft still held it. Inputs/selects also behave more predictably this way.
+    else if (k === "value" && "value" in el) el.value = String(v);
     else if (k in el && typeof v !== "string") el[k] = v;
     else el.setAttribute(k, String(v));
   }
