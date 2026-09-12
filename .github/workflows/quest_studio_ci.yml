@@ -1,6 +1,7 @@
 name: quest-studio-ci
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - "forge/src/github.mjs"
