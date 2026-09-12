@@ -150,3 +150,20 @@ A full pre-Forsworn transcript reconstruction is not required. Porting the art c
 **Rationale:** TNR quest families share one objective-graph/data-model foundation, while subtype-specific correctness belongs in separate policy/build recipes. A single Studio gives the operator one consistent authoring workflow and lets the repository remain the compiler authority instead of duplicating mission/event logic in separate UIs.
 
 **Canonical destination:** `docs/design/FORGE_NEXT_QUEST_STUDIO.md` and the eventual approved Forge Next architecture/implementation brief. `docs/design/FORGE_NEXT_MISSION_STUDIO.md` remains a useful Mission-subtype detail document but no longer owns the parent product scope.
+
+---
+
+## RUL-2026-09-12-002 — Forge is the human translation layer over repository authority
+
+**Date:** 2026-09-12  
+**Domain:** Forge Next / product architecture  
+**Status:** ACTIVE  
+**Supersedes:** none
+
+**Ruling:** Forge Next should function as the operator-facing **translation, orchestration and presentation layer** over `tnr-tools`. The operator should be able to remain inside Forge for normal content design work, while the repository continues to own durable facts, contracts, profiles, evidence, scripts, validators and generated build artifacts. Forge does not need independent copies of all repository knowledge; it should read/generated-project/source those facts with provenance and call approved repository operations when canonical compilation or validation is required. Quest subtypes such as Mission, Story Quest and Battle Pyramid should therefore share one Studio rather than forcing the user through multiple manual interfaces or file/script relays.
+
+Forge may keep local/generated projections for responsive editing, but those projections do not become competing canonical sources. Repository/build operations must be approved typed operations rather than arbitrary remote command execution. Compile/build automation remains separate from live-game execution and publishing, which stay explicit user-owned actions.
+
+**Rationale:** This gives the user one coherent creative workspace while preserving TNR Tools' existing authority, reproducibility and safety model. Repository improvements can flow into Forge through adapters/generated contracts instead of requiring the same rule to be manually maintained twice.
+
+**Canonical destination:** `docs/design/FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md`, `docs/design/FORGE_NEXT_QUEST_STUDIO.md`, and the eventual approved Forge Next architecture/implementation brief.
