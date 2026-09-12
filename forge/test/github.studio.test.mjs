@@ -79,7 +79,7 @@ test("Github.dispatch sends workflow inputs to GitHub only", async () => {
   let seen;
   const fetchImpl = async (url, init = {}) => {
     seen = { url, init };
-    return new Response("", { status: 204 });
+    return new Response(null, { status: 204 });
   };
   const github = new Github({ fetchImpl, storage: storageWithPat() });
   await github.dispatch("quest_studio.yml", { ref: "main", inputs: { request_id: "demo" } });
