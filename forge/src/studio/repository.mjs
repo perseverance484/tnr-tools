@@ -48,6 +48,20 @@ export function validateBuildResult(result, requestId) {
   return result;
 }
 
+function generatedArtifactPath(path, requestId) {
+  const id = questRequestId(requestId);
+  const prefix = `${QUEST_STUDIO.buildRoot}/${id}/`;
+  if (typeof path !== "string" || !path.startsWith(prefix) || !path.endsWith(".json")) {
+    throw new GithubError("Quest Studio result does not contain a safe generated manifest path");
+  }
+  const tail = path.slice(prefix.length);
+  const segments = tail.split("/");
+  if (!tail || path.includes("\\") || segments.some((segment) => !segment || segment === "." || segment === "..")) {
+    throw new GithubError("Quest Studio generated manifest path escapes its request build directory");
+  }
+  return path;
+}
+
 export class QuestStudioRepository {
   constructor({ github, baseRef = "main" }) {
     this.github = github;
@@ -123,11 +137,7 @@ export class QuestStudioRepository {
   async generatedManifest(requestId, buildResult) {
     const id = questRequestId(requestId);
     const result = validateBuildResult(buildResult, id);
-    const path = result.generated?.manifestPath;
-    const expectedPrefix = `${QUEST_STUDIO.buildRoot}/${id}/`;
-    if (typeof path !== "string" || !path.startsWith(expectedPrefix) || !path.endsWith(".json")) {
-      throw new GithubError("Quest Studio result does not contain a safe generated manifest path");
-    }
+    const path = generatedArtifactPath(result.generated?.manifestPath, id);
     return this.github.text(path, questBranch(id));
   }
 }
