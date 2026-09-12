@@ -44,14 +44,15 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 | K-28 | How much repository-backed project state Forge may edit directly | Workspace phase |
 | K-29 | Whether Guide Studio and the infographic/visual-communication lane become official production lanes | not scheduled |
 | K-30 | Late Content Admin and publish visual details pending transcript reconciliation | Phase 5 |
+| K-31 | Background and lane art in v1: CSS-drawn atmosphere with small inline SVG, or a funded opt-in art pack | Phase 2 (Command Center hero) |
 
 ---
 
 ### K-01 Final visual style and degree of flashiness: RULED mid-pass
 
 **Ruling:** the director approved the Forge concept as the visual north star (`docs/design/FORGE_NEXT_VISUAL_DIRECTION.md` at `chatgpt/forge-next-planning@0bb5a54b1025ba49ff6b09aa9606f23102f4dca3`): TNR-specific dark operations console, crimson/gold/cool-blue accents over deep navy/charcoal, strong Forge branding, controlled motion and depth. Its section 12 lists what stays binding and what Fable may change with rationale.
-**What remains open under the ruling:** exact hex tokens, logo treatment, background illustration, icon set and card geometry (illustrative per §12); these are proposed in `D_IA_AND_JOURNEYS.md` §D.6 and the wireframe style tile, and are accepted or adjusted by the user at the phase-2 design freeze. Directions A "Instrument panel" and B "Workbench" were explored by the design panel before the ruling arrived; they are kept in §D.6 only as sources of grafted ideas (contrast tables, density rules), not as alternatives to the ruling.
-**Not negotiable regardless of tokens:** the state rules in amendment §9 and `D_IA_AND_JOURNEYS.md` §D.5 (mutation, publish, SENT, paused and auth states are never colour-only and never animated).
+**What remains open under the ruling:** exact hex tokens, logo treatment, background illustration, icon set and card geometry (illustrative per §12); these are proposed in `D_VISUAL_SYSTEM.md` and the wireframe style tile, and are accepted or adjusted by the user at the phase-2 design freeze. Directions A "Instrument panel" and B "Workbench" were explored by the design panel before the ruling arrived; they are kept in `D_VISUAL_SYSTEM.md` §D2.9 only as sources of grafted ideas (contrast tables, density rules), not as alternatives to the ruling.
+**Not negotiable regardless of tokens:** the state rules in amendment §9 and `D_VISUAL_SYSTEM.md` §D2.4 (mutation, publish, SENT, paused and auth states are never colour-only and never animated).
 **Can defer:** the remaining token acceptance can wait until phase 2; phases 0 and 1 are shell-independent.
 
 ### K-02 Top-level navigation model, constrained by the approved north star
@@ -181,3 +182,11 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 **Options:** (a) add only procedures a committed manifest has used, with tier local-only by default; (b) add all public queries in the content routers; (c) none, keep research reads on Builder.
 **Recommendation:** (a).
 **Can defer:** no, it gates phase 1's research-read slice.
+
+### K-31 Background and lane art in v1
+
+**Why it matters:** the approved mockup's painted hero and lane illustrations are the one visible element the visual synthesis could not carry into a self-contained userscript bundle without a cost the phone pays on every game page (the reference JPEG alone is 249 KB against 59.5 KB for the whole current UI layer, `A_ARCHITECTURE_MAP.md` §A.9), and text over raster cannot be contrast-guaranteed.
+**Evidence:** `D_VISUAL_SYSTEM.md` §D2.5 departure 3 and §D2.10; risk R-06.
+**Options:** (a) CSS-drawn atmosphere (layered radial gradients) plus at most 3 KB of inline SVG silhouette and one small SVG glyph per lane, text always on a solid scrim; (b) (a) now plus a funded, repo-committed, opt-in "rich art" pack behind a Settings toggle with a byte budget, off by default on phone; (c) embed the mockup art as data URIs (rejected: parsed on every game page).
+**Recommendation:** (a) for v1 with (b) recorded as a later, separately budgeted decision. The character (dark, atmospheric, layered) survives; the painted look does not.
+**Can defer:** no; it fixes the Command Center hero's height and content in phase 2.
