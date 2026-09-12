@@ -1,0 +1,2625 @@
+{
+ "builder": "v4.32",
+ "at": "2026-09-12T04:51:54.166Z",
+ "checks": [
+  "booleans",
+  "build_order",
+  "cap_100",
+  "null_strip_exempt",
+  "companion_required",
+  "date_fields",
+  "entity_only_tags",
+  "enums",
+  "formula_tags",
+  "hidden_on_create",
+  "nullable",
+  "required_on_create",
+  "runtime_only_tags",
+  "tag_power_max",
+  "terminal_actions",
+  "zero_power_per_level"
+ ],
+ "cfg": "generated",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "skipped": 0,
+  "afail": 0
+ },
+ "entries": [],
+ "captures": [
+  {
+   "phase": "after",
+   "proc": "combat.getBattleHistory",
+   "input": {
+    "combatTypes": [
+     "COMBAT",
+     "SPARRING",
+     "CLAN_BATTLE",
+     "TOURNAMENT",
+     "RANKED_SPARRING",
+     "KAGE_PVP",
+     "RANKED_PVP"
+    ]
+   },
+   "select": [
+    "battleId",
+    "battleType",
+    "createdAt",
+    "attackedId",
+    "defenderId",
+    "attacker",
+    "defender"
+   ],
+   "at": "2026-09-12T04:51:15.096Z",
+   "status": 200,
+   "rows": 43,
+   "data": [
+    {
+     "battleId": "I3uVLgN4jT7Keg809vRS9",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-12T02:10:32.348Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2SA9nim7cp7JtISJo1G4I9SkHVW",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "SasukeUchiha",
+      "userId": "user_2SA9nim7cp7JtISJo1G4I9SkHVW",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/VgXrAQ6AYfwRNDj81SJFR.gif"
+     }
+    },
+    {
+     "battleId": "YEmvvg5xHrnLdJGbhmLEY",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-12T02:02:53.463Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2bYOCzQ7yuOP6XwhuHzTPnA3GOe",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "TinKode",
+      "userId": "user_2bYOCzQ7yuOP6XwhuHzTPnA3GOe",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/8EGL3ZD5iI3MNoEfdQiwD.gif"
+     }
+    },
+    {
+     "battleId": "7VaI12wKr6-Axybfga1Ye",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-12T01:58:07.091Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2bYOCzQ7yuOP6XwhuHzTPnA3GOe",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "TinKode",
+      "userId": "user_2bYOCzQ7yuOP6XwhuHzTPnA3GOe",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/8EGL3ZD5iI3MNoEfdQiwD.gif"
+     }
+    },
+    {
+     "battleId": "MNpWiPcgwplJivJZkuAke",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-12T01:33:50.041Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2bYOCzQ7yuOP6XwhuHzTPnA3GOe",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "TinKode",
+      "userId": "user_2bYOCzQ7yuOP6XwhuHzTPnA3GOe",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/8EGL3ZD5iI3MNoEfdQiwD.gif"
+     }
+    },
+    {
+     "battleId": "UX2Ae1PQc9ODwi3bI0OQR",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-12T01:29:02.628Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_38MiKZQ3M8lF8tDuxtYn1Zv2h3E",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "Starbright",
+      "userId": "user_38MiKZQ3M8lF8tDuxtYn1Zv2h3E",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/EpNeFG0Yq1OERqEgCLzI4.gif"
+     }
+    },
+    {
+     "battleId": "5SozvT3LoZ7MDbelKMMf1",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-12T01:24:35.920Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2iL1Ywz4fMA2qhX7BWxBGvMFTME",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "silentstorm",
+      "userId": "user_2iL1Ywz4fMA2qhX7BWxBGvMFTME",
+      "avatar": "https://utfs.io/f/f8b833ca-b50d-4dc5-b0ae-4468aa76bb58-1r6agh.png"
+     }
+    },
+    {
+     "battleId": "Qgelct5y-e3gEOcRP8eOs",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-12T00:23:08.237Z",
+     "attackedId": "user_2bhsLVJ1naaEoofxoGLh9OQjSoP",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "D3Juan",
+      "userId": "user_2bhsLVJ1naaEoofxoGLh9OQjSoP",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJuOGiEVCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "5d0xGCEorXxum9UTRUjov",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-12T00:19:24.880Z",
+     "attackedId": "user_2bhsLVJ1naaEoofxoGLh9OQjSoP",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "D3Juan",
+      "userId": "user_2bhsLVJ1naaEoofxoGLh9OQjSoP",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJuOGiEVCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "7H0ufYEbabGnSDyXX3ciO",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-12T00:00:28.367Z",
+     "attackedId": "user_2SA9nim7cp7JtISJo1G4I9SkHVW",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "SasukeUchiha",
+      "userId": "user_2SA9nim7cp7JtISJo1G4I9SkHVW",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/VgXrAQ6AYfwRNDj81SJFR.gif"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "FybG7SEYCBCqdRp7fG0ol",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-11T23:08:45.333Z",
+     "attackedId": "user_2hKeXU8KY1AgmCLJ9APZlWmUBYg",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "Jazu",
+      "userId": "user_2hKeXU8KY1AgmCLJ9APZlWmUBYg",
+      "avatar": "https://utfs.io/f/Hzww9EQvYURJH44YgVpQvYURJhgs76VZtf9wxpMa13Cq0iOn"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "BnyoNZdot0nAxhWMF-PEG",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-11T22:30:23.747Z",
+     "attackedId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "LuffyDkage",
+      "userId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/K1HHjVc3UlIVhzuI1gmDV.gif"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "L9J0YJLVW1QtAZF_31V3J",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T23:35:25.606Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "LuffyDkage",
+      "userId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/K1HHjVc3UlIVhzuI1gmDV.gif"
+     }
+    },
+    {
+     "battleId": "Ms1E15c3E0wW8wWnJ_pbn",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T23:02:32.609Z",
+     "attackedId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "LuffyDkage",
+      "userId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/K1HHjVc3UlIVhzuI1gmDV.gif"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "tUZaFQ-BTS4RmqCMEC1eF",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T22:53:41.399Z",
+     "attackedId": "user_2toVKUMENExjSm94AaMK51LF9Cx",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "Kaido",
+      "userId": "user_2toVKUMENExjSm94AaMK51LF9Cx",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/orbYE-9H_fxmF-SySl8r_.gif"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "raGnuET8nvBakv49G5WZX",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T21:51:00.537Z",
+     "attackedId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "LuffyDkage",
+      "userId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/K1HHjVc3UlIVhzuI1gmDV.gif"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "9mnZe6LCVIORnrb16otdl",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T21:29:04.914Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2lbQkJrbIp66N3hXiSqiQihCPrv",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "Cola",
+      "userId": "user_2lbQkJrbIp66N3hXiSqiQihCPrv",
+      "avatar": "https://utfs.io/f/Hzww9EQvYURJAxzV75oZUC4muiGcQNzjfEndY5y1w20B8hTW"
+     }
+    },
+    {
+     "battleId": "OBuue4Kvi_3iOlThOqdOg",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T21:09:52.527Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "Conquest",
+      "userId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/RKA42cAdfxMihxeNXyc5W.webp"
+     }
+    },
+    {
+     "battleId": "Kx2fbROuZt2PFIkbCCm-z",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T17:08:50.508Z",
+     "attackedId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "LuffyDkage",
+      "userId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/K1HHjVc3UlIVhzuI1gmDV.gif"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "jJVEg2OTLJs-kfdQ8XOrh",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T16:13:25.544Z",
+     "attackedId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "LuffyDkage",
+      "userId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/K1HHjVc3UlIVhzuI1gmDV.gif"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "F63IU4PEs1aAM2jjlS10a",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T08:19:54.431Z",
+     "attackedId": "user_2bYOCzQ7yuOP6XwhuHzTPnA3GOe",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "TinKode",
+      "userId": "user_2bYOCzQ7yuOP6XwhuHzTPnA3GOe",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/8EGL3ZD5iI3MNoEfdQiwD.gif"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "VB4q0dd0NQv1Y-qje5Lxz",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T07:57:26.165Z",
+     "attackedId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "Conquest",
+      "userId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/RKA42cAdfxMihxeNXyc5W.webp"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "weSATNkC9f32TWDl4_fpU",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T07:39:52.469Z",
+     "attackedId": "user_2bYOCzQ7yuOP6XwhuHzTPnA3GOe",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "TinKode",
+      "userId": "user_2bYOCzQ7yuOP6XwhuHzTPnA3GOe",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/8EGL3ZD5iI3MNoEfdQiwD.gif"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "LzcRI9WfEs9fwQPph22Hx",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T07:29:42.747Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "LuffyDkage",
+      "userId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/K1HHjVc3UlIVhzuI1gmDV.gif"
+     }
+    },
+    {
+     "battleId": "n-hKZWQBdrYc7dZGcHF3y",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T07:22:22.615Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2bYOCzQ7yuOP6XwhuHzTPnA3GOe",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "TinKode",
+      "userId": "user_2bYOCzQ7yuOP6XwhuHzTPnA3GOe",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/8EGL3ZD5iI3MNoEfdQiwD.gif"
+     }
+    },
+    {
+     "battleId": "uKTRoN6a_PBmZhw-oBXWa",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T07:16:27.074Z",
+     "attackedId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "Conquest",
+      "userId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/RKA42cAdfxMihxeNXyc5W.webp"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "DGyAixzW9QC5Qkj_YrU2v",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T07:06:05.756Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "Conquest",
+      "userId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/RKA42cAdfxMihxeNXyc5W.webp"
+     }
+    },
+    {
+     "battleId": "w3I2yxu3NQUIF9vPPSSKy",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T06:26:12.968Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2xjRMEkywaZSzGY9YPj08j5hx3h",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "Luka",
+      "userId": "user_2xjRMEkywaZSzGY9YPj08j5hx3h",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/_LD2ctd7rydsbcsy4v8CM.png"
+     }
+    },
+    {
+     "battleId": "Q5KA5LQFiiaInBPIKkCJH",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T06:18:45.831Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2xjRMEkywaZSzGY9YPj08j5hx3h",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "Luka",
+      "userId": "user_2xjRMEkywaZSzGY9YPj08j5hx3h",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/_LD2ctd7rydsbcsy4v8CM.png"
+     }
+    },
+    {
+     "battleId": "lQXV3oF-edKLRm1iaNopR",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T06:14:07.348Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2xjRMEkywaZSzGY9YPj08j5hx3h",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "Luka",
+      "userId": "user_2xjRMEkywaZSzGY9YPj08j5hx3h",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/_LD2ctd7rydsbcsy4v8CM.png"
+     }
+    },
+    {
+     "battleId": "0VP_F5CrVRwuJjhgBaWhh",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T06:07:06.228Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2xjRMEkywaZSzGY9YPj08j5hx3h",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "Luka",
+      "userId": "user_2xjRMEkywaZSzGY9YPj08j5hx3h",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/_LD2ctd7rydsbcsy4v8CM.png"
+     }
+    },
+    {
+     "battleId": "JFgw7unn7OnlZ977J9Ofm",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T06:02:53.739Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2xjRMEkywaZSzGY9YPj08j5hx3h",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "Luka",
+      "userId": "user_2xjRMEkywaZSzGY9YPj08j5hx3h",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/_LD2ctd7rydsbcsy4v8CM.png"
+     }
+    },
+    {
+     "battleId": "6MOF9OolXjBIC-uXNomQE",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T05:33:14.270Z",
+     "attackedId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "Conquest",
+      "userId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/RKA42cAdfxMihxeNXyc5W.webp"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "KJpQ5PQBxTeoUT_869h9x",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T02:46:39.799Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2bhsLVJ1naaEoofxoGLh9OQjSoP",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "D3Juan",
+      "userId": "user_2bhsLVJ1naaEoofxoGLh9OQjSoP",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJuOGiEVCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b"
+     }
+    },
+    {
+     "battleId": "doP3S9UNCoyPaYWTm96r6",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T02:32:30.608Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2SA9nim7cp7JtISJo1G4I9SkHVW",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "SasukeUchiha",
+      "userId": "user_2SA9nim7cp7JtISJo1G4I9SkHVW",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/VgXrAQ6AYfwRNDj81SJFR.gif"
+     }
+    },
+    {
+     "battleId": "wpNTykbLNWSMJHYSZrK-l",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T01:28:01.305Z",
+     "attackedId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "Conquest",
+      "userId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/RKA42cAdfxMihxeNXyc5W.webp"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "PBbW21U9OFe6R2siVx66H",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T01:18:13.618Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_311ZTHHmNLcCSTHJivM50UksFH5",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "Warlord",
+      "userId": "user_311ZTHHmNLcCSTHJivM50UksFH5",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJWAOWtTvszvj71yaSYC0MDOmbko5q9JAGuLHf"
+     }
+    },
+    {
+     "battleId": "bS7JNbQXK-rdHbGnhrw3T",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T01:00:21.407Z",
+     "attackedId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "Conquest",
+      "userId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/RKA42cAdfxMihxeNXyc5W.webp"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "ehIkFbIQjX14jGPVaHkuo",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T00:44:20.079Z",
+     "attackedId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "Conquest",
+      "userId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/RKA42cAdfxMihxeNXyc5W.webp"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "rkXefypUnZ0esQJvoa8nu",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T00:37:04.594Z",
+     "attackedId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "Conquest",
+      "userId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/RKA42cAdfxMihxeNXyc5W.webp"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "wijwIw5qshsQEKFv8E36H",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T00:33:15.703Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_3526dphPjWG7oLDLIsyXy4khjBm",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "Lzl3j0y",
+      "userId": "user_3526dphPjWG7oLDLIsyXy4khjBm",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJuqwiNYCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b"
+     }
+    },
+    {
+     "battleId": "JmGQcceLJpQPg9Ou2sPrO",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-10T00:24:52.961Z",
+     "attackedId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "defenderId": "user_2bhsLVJ1naaEoofxoGLh9OQjSoP",
+     "attacker": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     },
+     "defender": {
+      "username": "D3Juan",
+      "userId": "user_2bhsLVJ1naaEoofxoGLh9OQjSoP",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJuOGiEVCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b"
+     }
+    },
+    {
+     "battleId": "r8PTa3Krm3jCaOqQ6oHT3",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-09T23:57:39.242Z",
+     "attackedId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "Conquest",
+      "userId": "user_3DsmmPjeZpLhau3CwA5e9PpRdQ0",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/RKA42cAdfxMihxeNXyc5W.webp"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    },
+    {
+     "battleId": "WDPlXWKfdrLacBJNa8Byq",
+     "battleType": "COMBAT",
+     "createdAt": "2026-09-09T23:10:18.574Z",
+     "attackedId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+     "defenderId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+     "attacker": {
+      "username": "LuffyDkage",
+      "userId": "user_2sqAytm9mzDGXNDm5uNv8XkJ2QC",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/K1HHjVc3UlIVhzuI1gmDV.gif"
+     },
+     "defender": {
+      "username": "dauntless",
+      "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+      "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlfviNzjhzBPya1rwfCIqOTU0cV5xgsMeo3u"
+     }
+    }
+   ],
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "FytS2iqFInf1go6WhOvUU"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:17.253Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "FytS2iqFInf1go6WhOvUU",
+    "name": "Dragon King's Impact",
+    "description": "A Forbidden jutsu that uses the users own lifeforce to generate a high flying attack ",
+    "createdAt": "2026-04-08T18:45:27.955Z",
+    "updatedAt": "2026-04-08T18:45:27.955Z",
+    "extraBaseCost": 4500,
+    "effects": [
+     {
+      "type": "damage",
+      "power": 40,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Fire",
+       "None"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "Highest"
+      ],
+      "calculation": "formula",
+      "description": "placeholder",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "EJe7MmSbwdxzKmyAKfHNZ",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "increasedamagegiven",
+      "power": 30,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Highest"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "EJe7MmSbwdxzKmyAKfHNZ",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "afterburn",
+      "power": 20,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "wound",
+      "power": 15,
+      "rounds": 2,
+      "target": "INHERIT",
+      "elements": [
+       "Fire"
+      ],
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Highest"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 4,
+    "cooldown": 7,
+    "bloodlineId": "",
+    "requiredLevel": 80,
+    "requiredRank": "JONIN",
+    "jutsuType": "FORBIDDEN",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJXPZZkSFqIOpAoLKbZ4nW9Rsil2V67yuFwQhq",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user uses a single hand to perform a series of simple hand seals before pressing the same hand on their blade. The blade shimmers briefly as %user jumps into the air, the chakra flowing around the weapon forms a dragon-shape around %user, the maw centered around the tip. With breathtaking speed, %user plummets towards %target, smashing the %weapon at them with devastating power, destroying everything at the impact zone.",
+    "jutsuRank": "S",
+    "actionCostPerc": 60,
+    "staminaCost": 500,
+    "chakraCost": 500,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "egtCp5UC5pRwxz7egJm7J"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:19.485Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "egtCp5UC5pRwxz7egJm7J",
+    "name": "Particle Cannon",
+    "description": "The ultimate power comes with the ultimate price.",
+    "createdAt": "2024-02-09T00:17:50.578Z",
+    "updatedAt": "2024-02-09T00:17:50.578Z",
+    "extraBaseCost": 2000,
+    "effects": [
+     {
+      "type": "damage",
+      "power": 40,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Dust"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "Highest"
+      ],
+      "calculation": "formula",
+      "description": "<p>placeholder</p>",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "X32FgBGqES-eDreOlVb6X",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 1,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "wound",
+      "power": 15,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 4,
+    "cooldown": 7,
+    "bloodlineId": "1C34syOOEKp6k3UKweYT6",
+    "requiredLevel": 1,
+    "requiredRank": "JONIN",
+    "jutsuType": "BLOODLINE",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJYf3EJgOMAlNnPZ41ev6fCGcFK3hmjX9I8W7d",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user weaves an intricate triangle with their fingers, bringing forth a radiant orb that caresses %user's hand with a warm glow that both energizes and burns. Gradually, the sphere transforms, unfurling into a brilliant beam, propelled with purpose towards %target",
+    "jutsuRank": "A",
+    "actionCostPerc": 60,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "Ul83iTziN__Z0i_UOzZTK"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:21.859Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "Ul83iTziN__Z0i_UOzZTK",
+    "name": "Tempest Cleave",
+    "description": "A slicing whirlwind cuts through multiple foes!",
+    "createdAt": "2026-08-24T03:28:21.424Z",
+    "updatedAt": "2026-08-24T03:28:21.424Z",
+    "extraBaseCost": 5000,
+    "effects": [
+     {
+      "type": "damage",
+      "power": 45,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "None"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "Highest"
+      ],
+      "calculation": "formula",
+      "description": "placeholder",
+      "dmgModifier": 0,
+      "disappearSfx": "",
+      "friendlyFire": "ALL",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "mnI8gQDeuqBR5fsUqm8MG",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": false,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "afterburn",
+      "power": 30,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Highest"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ALL",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagetaken",
+      "power": 35,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ALL",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 4,
+    "cooldown": 7,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "JONIN",
+    "jutsuType": "EVENT",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJCBy4O426OYrIJuNP1pvSyz29edFtKbngjRcA",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user spins swiftly, their weapon or bare hands channeling gale-force winds. The air around them ignites into a slicing vortex, ripping through the battlefield. %target and surrounding enemies are caught in the tempest, battered by razor-sharp wind currents. The relentless storm fades with a final powerful slash, leaving devastation in its wake.",
+    "jutsuRank": "A",
+    "actionCostPerc": 60,
+    "staminaCost": 250,
+    "chakraCost": 250,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "AOE_CIRCLE_SPAWN",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "Zr6Zo2NcXxWuL13ufQsHw"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:24.078Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "Zr6Zo2NcXxWuL13ufQsHw",
+    "name": "Decaying Touch",
+    "description": "Touch your target and start to destroy their body through a dusty decay.",
+    "createdAt": "2024-02-09T01:49:32.671Z",
+    "updatedAt": "2024-02-09T01:49:32.671Z",
+    "extraBaseCost": 1500,
+    "effects": [
+     {
+      "type": "damage",
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Dust"
+      ],
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Highest"
+      ],
+      "calculation": "formula",
+      "description": "<p>placeholder</p>",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "recoil",
+      "power": 30,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "re4P1TqEXbfs5rCZOz67m",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 4,
+    "cooldown": 7,
+    "bloodlineId": "1C34syOOEKp6k3UKweYT6",
+    "requiredLevel": 1,
+    "requiredRank": "CHUNIN",
+    "jutsuType": "BLOODLINE",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJlJENRqrWYxAsuC7ofQn9pM45OD0ERqkdBXJU",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user creates a dust cloud that surrounds %target. Dashing through the cloud, they appear in front of %target, placing their hand on them. %target slashes at %user, and their body becomes dust. Only after the dust has disappeared does %target realize that the part of their body that was touched is beginning to decay.",
+    "jutsuRank": "B",
+    "actionCostPerc": 60,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "LRgY4b-lE1n2gi6_P8B_1"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:26.305Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "LRgY4b-lE1n2gi6_P8B_1",
+    "name": "Chakra Resonance",
+    "description": " A harmonic pulse that damages and stuns the enemy.",
+    "createdAt": "2024-04-28T06:34:52.389Z",
+    "updatedAt": "2024-04-28T06:34:52.389Z",
+    "extraBaseCost": 1500,
+    "effects": [
+     {
+      "type": "damage",
+      "power": 28,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "None"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "Highest"
+      ],
+      "calculation": "formula",
+      "description": "placeholder",
+      "dmgModifier": 0,
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "Vi2gGG1w2RWCcDmVATriJ",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "Vi2gGG1w2RWCcDmVATriJ",
+      "allowBloodlineDamageDecrease": false,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "stun",
+      "power": 90,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "apReduction": 20,
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 4,
+    "cooldown": 7,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "CHUNIN",
+    "jutsuType": "NORMAL",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJy2WiDcNukVH2MI5Lo4ehEfAXvZdcmtWqPg7r",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user emits a resonating wave of chakra that crashes into %target, disrupting their flow and leaving them stunned.",
+    "jutsuRank": "C",
+    "actionCostPerc": 60,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "PVP",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "cvLrFEzeNcRogHqyLv0Ig"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:28.547Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "cvLrFEzeNcRogHqyLv0Ig",
+    "name": "Danse Macabre",
+    "description": "Summon spectral blades that target the opponents chakra points.",
+    "createdAt": "2024-12-29T03:07:11.376Z",
+    "updatedAt": "2024-12-29T03:07:11.376Z",
+    "extraBaseCost": 1500,
+    "effects": [
+     {
+      "type": "damage",
+      "power": 23,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "None"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "Highest"
+      ],
+      "calculation": "formula",
+      "description": "placeholder",
+      "dmgModifier": 0,
+      "disappearSfx": "",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "iDfkib-MoMiXYuN1XQiNp",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "iDfkib-MoMiXYuN1XQiNp",
+      "allowBloodlineDamageDecrease": false,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "seal",
+      "power": 90,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 4,
+    "cooldown": 8,
+    "bloodlineId": "",
+    "requiredLevel": 70,
+    "requiredRank": "CHUNIN",
+    "jutsuType": "NORMAL",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ37aO538pYHJX5rdkUTfOKtvu2eGIELmSWqBx",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "Spectral blades erupt from %user in a ghostly bloom, drifting like phantoms through the air. They scatter around %target before suddenly arcing inward with eerie grace, piercing chakra points and inhibiting the flow of chakra.",
+    "jutsuRank": "C",
+    "actionCostPerc": 60,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "l5kgBGL2CZjzLMW5wFHdP"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:30.772Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "l5kgBGL2CZjzLMW5wFHdP",
+    "name": "Netherblight",
+    "description": "A corrupting curse that damages the enemy over time while steadily healing the user.",
+    "createdAt": "2024-08-31T21:20:17.069Z",
+    "updatedAt": "2024-08-31T21:20:17.069Z",
+    "extraBaseCost": 1500,
+    "effects": [
+     {
+      "type": "drain",
+      "power": 300,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "poolsAffected": [
+       "Health"
+      ],
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "heal",
+      "power": 15,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "4iG_WpgEmPGUzHn8z129r",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "poolsAffected": [
+       "Health"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "I9aYhT5wMB",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "visual",
+      "power": 1,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "_PzsQJm4u_JwYc1ACN_RS",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "_PzsQJm4u_JwYc1ACN_RS"
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 4,
+    "cooldown": 10,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "CHUNIN",
+    "jutsuType": "NORMAL",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJxEPEr8jWZsq9k0Von5rUfP6OgQ2TyptCKHS4",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user unleashes a lingering chakra curse that seeps into %target’s system. As the affliction eats away at them, dark energy flows back to the caster, gradually restoring their vitality with every passing second.",
+    "jutsuRank": "C",
+    "actionCostPerc": 60,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "PVP",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "FGSJC-7Zd0BYh7-tvsUdH"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:33.010Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "FGSJC-7Zd0BYh7-tvsUdH",
+    "name": "Atomic Shield",
+    "description": "Create a barrier of particles to protect you",
+    "createdAt": "2024-02-09T03:05:50.682Z",
+    "updatedAt": "2024-02-09T03:05:50.682Z",
+    "extraBaseCost": 500,
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 25,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "4iG_WpgEmPGUzHn8z129r",
+      "direction": "offence",
+      "statTypes": [
+       "Highest"
+      ],
+      "calculation": "percentage",
+      "description": "<p>placeholder</p>",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "mPyHE7hqcSUmGvm93Fius",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "reflect",
+      "power": 30,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagegiven",
+      "power": 25,
+      "rounds": 2,
+      "target": "INHERIT",
+      "elements": [
+       "Dust",
+       "Earth",
+       "None",
+       "Wind"
+      ],
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "SELF",
+    "range": 0,
+    "cooldown": 7,
+    "bloodlineId": "1C34syOOEKp6k3UKweYT6",
+    "requiredLevel": 1,
+    "requiredRank": "GENIN",
+    "jutsuType": "BLOODLINE",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJdTVvgGP62PI3ciLaYzgVX8FopBADxSrGmvQl",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user creates a translucent barrier made of the particles around them to defend from all attacks",
+    "jutsuRank": "D",
+    "actionCostPerc": 40,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "VmoEzExhfgtzme2b5RuzJ"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:35.298Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "VmoEzExhfgtzme2b5RuzJ",
+    "name": "Windshear Decay",
+    "description": "Razor sharp wind slashes that leave lasting and decaying effects",
+    "createdAt": "2024-08-30T05:20:59.014Z",
+    "updatedAt": "2024-08-30T05:20:59.014Z",
+    "extraBaseCost": 2000,
+    "effects": [
+     {
+      "type": "increasedamagetaken",
+      "power": 25,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "decreasedamagegiven",
+      "power": 25,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "A8HZchj2MSxV_X71oRovj",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "redirection",
+      "power": 4,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "pull",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 5,
+    "cooldown": 7,
+    "bloodlineId": "1C34syOOEKp6k3UKweYT6",
+    "requiredLevel": 1,
+    "requiredRank": "JONIN",
+    "jutsuType": "BLOODLINE",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJj12K2I4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user forms a series of intricate hand seals which summons forth the power of the winds that once quelled Fujin's fury. With a swift motion, they unleash a torrent of razor-sharp wind slashes that tear through the air towards %target. The wind howls with a vengeful fury, and as the invisible blades connect, they slice deep into %target's flesh, leaving behind festering wounds. The air around %target grows heavy with the scent of decay as the slashes begin to fester and deepen over time, continuing to tear at their flesh with each passing moment.",
+    "jutsuRank": "A",
+    "actionCostPerc": 40,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "AOE_CIRCLE_SPAWN",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "-7jaNkJCvt3ByWhPJSw3E"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:37.542Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "-7jaNkJCvt3ByWhPJSw3E",
+    "name": "Drops of Renewal",
+    "description": "Summons celestial dew to heal yourself ",
+    "createdAt": "2024-12-24T00:29:48.067Z",
+    "updatedAt": "2024-12-24T00:29:48.067Z",
+    "extraBaseCost": 5000,
+    "effects": [
+     {
+      "type": "absorb",
+      "power": 30,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "4iG_WpgEmPGUzHn8z129r",
+      "direction": "defence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "poolsAffected": [
+       "Health"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "Z3cqzD0JgI9gBZOrsOnZn",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagegiven",
+      "power": 30,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Ninjutsu",
+       "Genjutsu",
+       "Taijutsu",
+       "Bukijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "SELF",
+    "range": 0,
+    "cooldown": 7,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "JONIN",
+    "jutsuType": "EVENT",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeCQqolbyV3OvUJQExAi0bGoIZDF74LqSnHRd",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user clasps their hands, invoking a soft, luminous chant. From above, ethereal droplets of dew descend, shimmering with celestial light. The dew gathers upon %user and their allies, mending wounds and revitalizing spirits. As the healing touch takes effect, a sense of tranquility washes over the battlefield, bolstering resilience against further harm.",
+    "jutsuRank": "A",
+    "actionCostPerc": 40,
+    "staminaCost": 500,
+    "chakraCost": 500,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "e2eC-x4UXc5m6QexNbx8w"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:39.780Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "e2eC-x4UXc5m6QexNbx8w",
+    "name": "Chakra Overflow",
+    "description": "A potent chakra buff that enhances all offensive abilities and raises the user’s stats.",
+    "createdAt": "2024-03-25T18:40:45.070Z",
+    "updatedAt": "2024-03-25T18:40:45.070Z",
+    "extraBaseCost": 2000,
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 25,
+      "rounds": 2,
+      "target": "SELF",
+      "elements": [],
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "<p>placeholder</p>",
+      "disappearSfx": "",
+      "friendlyFire": "ALL",
+      "generalTypes": [],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagegiven",
+      "power": 25,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Highest"
+      ],
+      "calculation": "percentage",
+      "description": "<p>placeholder</p>",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "visual",
+      "power": 1,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "16vlpusdcPY8Ki3zE4qOs",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "QgsljoZSCOKhdQxCIGnTU",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "QgsljoZSCOKhdQxCIGnTU"
+     }
+    ],
+    "target": "SELF",
+    "range": 0,
+    "cooldown": 7,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "JONIN",
+    "jutsuType": "NORMAL",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ7dRTxEKXKPBOUWGyFuM4DlL1v5HNTZhkte0z",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user channels a surge of chakra beyond their natural limit, their aura expanding in a volatile ripple of power. This overflowing chakra wraps around them in waves—thick, radiant, and barely restrained. Chakra Overflow heightens every offensive path: physical strikes land harder, ninjutsu hits with greater force, and even genjutsu becomes more potent. Simultaneously, the user’s core stats spike, fueling their body and mind for the intensity of high-stakes combat. It’s the edge between control and chaos—a moment where the user becomes a living conduit of power.",
+    "jutsuRank": "A",
+    "actionCostPerc": 40,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "eUWCeXAqVdIFHfUpmxQWD"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:42.040Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "eUWCeXAqVdIFHfUpmxQWD",
+    "name": "Eternal Darkness",
+    "description": "Blind your foe in a shroud of darkness decreasing the effectiveness of their damage ",
+    "createdAt": "2026-01-13T18:00:45.370Z",
+    "updatedAt": "2026-01-13T18:00:45.370Z",
+    "extraBaseCost": 1500,
+    "effects": [
+     {
+      "type": "decreasedamagegiven",
+      "power": 20,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "4iG_WpgEmPGUzHn8z129r",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "Lb2l6BCH-PPYa8biU9kTb",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "decreasedamagetaken",
+      "power": 20,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 4,
+    "cooldown": 7,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "CHUNIN",
+    "jutsuType": "NORMAL",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJg5SWLgcU9cpECTimBdjaqbNn7vQsxGR1wLk4",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user performs various hand scenes and a veil of darkness surrounds %target blocking their ability to see %user",
+    "jutsuRank": "C",
+    "actionCostPerc": 40,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "g-b0Fs5o8EzQIphq0YIAX"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:44.417Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "g-b0Fs5o8EzQIphq0YIAX",
+    "name": "Seal of Nullification",
+    "description": "A sealing technique that suppresses buffs and enhancement abilities.",
+    "createdAt": "2024-11-17T14:04:49.006Z",
+    "updatedAt": "2024-11-17T14:04:49.006Z",
+    "extraBaseCost": 2000,
+    "effects": [
+     {
+      "type": "buffprevent",
+      "power": 90,
+      "rounds": 1,
+      "target": "INHERIT",
+      "appearSfx": "16vlpusdcPY8Ki3zE4qOs",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "_5LgFsd5S-hxdK5k00rzG",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "debuffprevent",
+      "power": 90,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "decreasedamagegiven",
+      "power": 1,
+      "rounds": 1,
+      "target": "INHERIT",
+      "elements": [
+       "None"
+      ],
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "friendlyFire": "FRIENDLY",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 4,
+    "cooldown": 7,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "JONIN",
+    "jutsuType": "NORMAL",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJnIUUCDmojJ0EqeDCvBrNmZaXVdY97gSpOWiA",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user weaves intricate seals in the air, summoning glowing ethereal chains that surge toward %target, coiling tightly to disrupt their chakra flow, stripping away buffs and suppressing any attempts to invoke new enhancements.",
+    "jutsuRank": "S",
+    "actionCostPerc": 40,
+    "staminaCost": 500,
+    "chakraCost": 500,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "fIn7udQihVEDhMEaAqhul"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:49.553Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "fIn7udQihVEDhMEaAqhul",
+    "name": "Blazing Reprisal",
+    "description": " A fiery barrier that  swarms the target absorbing there lifeforce while scorching them. ",
+    "createdAt": "2024-12-29T02:04:32.720Z",
+    "updatedAt": "2024-12-29T02:04:32.720Z",
+    "extraBaseCost": 1500,
+    "effects": [
+     {
+      "type": "afterburn",
+      "power": 20,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "4iG_WpgEmPGUzHn8z129r",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "nseqXlK7E7x7FZ5PROgPP",
+      "staticAnimation": "nseqXlK7E7x7FZ5PROgPP",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "lifesteal",
+      "power": 25,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 4,
+    "cooldown": 7,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "CHUNIN",
+    "jutsuType": "NORMAL",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQMQ44BjhzBPya1rwfCIqOTU0cV5xgsMeo3u2",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user envelops %target in a fiery barrier that absorbs a portion of %target’s health,  while searing them in immense heat",
+    "jutsuRank": "C",
+    "actionCostPerc": 40,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  },
+  {
+   "phase": "after",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "g6lFjSMDbTmoZ7V74s3Ka"
+   },
+   "select": null,
+   "at": "2026-09-12T04:51:51.939Z",
+   "status": 200,
+   "rows": 1,
+   "data": {
+    "id": "g6lFjSMDbTmoZ7V74s3Ka",
+    "name": "Seimyaku",
+    "description": "A subtle pulse of chakra that suppresses enemy recovery while shielding the user from harm",
+    "createdAt": "2024-11-13T18:52:16.578Z",
+    "updatedAt": "2024-11-13T18:52:16.578Z",
+    "extraBaseCost": 2000,
+    "effects": [
+     {
+      "type": "decreaseheal",
+      "power": 40,
+      "rounds": 3,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "decreasedamagetaken",
+      "power": 20,
+      "rounds": 2,
+      "target": "SELF",
+      "elements": [
+       "None"
+      ],
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "Bukijutsu",
+       "Genjutsu",
+       "Ninjutsu",
+       "Taijutsu"
+      ],
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "visual",
+      "power": 1,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "16vlpusdcPY8Ki3zE4qOs",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "Vi2gGG1w2RWCcDmVATriJ",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "Vi2gGG1w2RWCcDmVATriJ"
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 4,
+    "cooldown": 7,
+    "bloodlineId": "",
+    "requiredLevel": 70,
+    "requiredRank": "CHUNIN",
+    "jutsuType": "NORMAL",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjVSoMV4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Highest",
+    "battleDescription": "%user emits a deep, controlled pulse of refined chakra that interferes with %target’s ability to recover while reinforcing their own defenses. The technique dampens restorative energies around the enemy and surrounds the user in a chakra field that cushions incoming attacks.",
+    "jutsuRank": "C",
+    "actionCostPerc": 40,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "parentJutsuId": null,
+    "requiredNinjutsuOffence": null,
+    "requiredNinjutsuDefence": null,
+    "requiredGenjutsuOffence": null,
+    "requiredGenjutsuDefence": null,
+    "requiredTaijutsuOffence": null,
+    "requiredTaijutsuDefence": null,
+    "requiredBukijutsuOffence": null,
+    "requiredBukijutsuDefence": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredBloodlineItemId": null
+   },
+   "scope": "record fetch"
+  }
+ ],
+ "idmap": {
+  "undefined": "0QixZN9jD_bqAKTimDafB",
+  "pin_listen.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJy22plzIukVH2MI5Lo4ehEfAXvZdcmtWqPg7r",
+  "pin_watch.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0HNWcSgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+  "pin_chase.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJOG8ukw7VHevxIThUauQkGJEBY3D2cPqy8f5s",
+  "fsw_q_thinice": "ATV6Fs3XFqOf7wch99qDW",
+  "fsw_q_protection": "otFtGNvBFn8ZVGlda7UOH",
+  "fsw_q_loud": "ilYoJqbk--np9OSqT9lGx",
+  "probe_c": "gJ05vhdN0C1mzuRde8fjZ",
+  "probe_b": "Kaywv59qnRM-wPULzVDNp",
+  "probe_a": "EONHpe2JhRDYzrYnJLXlk",
+  "probe_d": "A_Pk45u-3vUC4MAFkUEID",
+  "probe_e": "Cch0E9oze3-X60vt6fJkL",
+  "wn00": "nX1LNp8OnYNwWbgLmyeLG",
+  "wn01": "twsXAgh8CZJMSntUWNctj",
+  "wn02": "6mufJi_eXwAruEGck7DdS",
+  "wn03": "cpTgne86wqYbfhwU6HS_q",
+  "wn04": "TkyR2RJFUQDv3olz96Mro",
+  "wn05": "X5T3vmotm8W5je6sQIiz7",
+  "wn06": "qDorq7Ew_wZSktdAOirK1",
+  "wn07": "cTgptnfFK1YFz09-wy4zJ",
+  "wn08": "nUs1_tNyHYbrWa42_KCG7",
+  "wn09": "AiyL4Yf-YdvKFLsIPFVfq",
+  "wn10": "Qi5tqhWVY--J48sucZZM-",
+  "wn11": "IwAiJ8_X5_X7gkFY8KThA",
+  "wn12": "ov-sjt5hYzBPXFPXF1xZm",
+  "wn13": "6d8VPEGCRC-ySqrcLFwwO",
+  "wn14": "LpYxQPJ3mfBaDpkVqrlI9",
+  "wn15": "jnGvAPy8pISPWYwzkpMoB",
+  "wn16": "fbfbDvD-m-LFeA2AhHncu",
+  "wn17": "KD0vcWSnbq4Cb6Weza5Ny",
+  "wn18": "lN8EHcrklmJ5AQStjeMn1",
+  "wn19": "miwf25XFMiHUKI0NSsAfU",
+  "wn20": "ZdGo_lFPLUH9P1XGzVJ6v",
+  "scene_fsw_report_clerk.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJGuzJ8eRfoVrha0LP4mAS5KM7wtiZbUNXJxdC",
+  "scene_fsw_keeper.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJXPVYNR2qIOpAoLKbZ4nW9Rsil2V67yuFwQhq",
+  "scene_fsw_grain_merchant.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2i6csznMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+  "scene_fsw_squad_survivor.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJPAY1UXMpKeUGyX2kj6u45AOQiSa1zYH0mqZo",
+  "scene_fsw_lw_principal.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJp2BkJQbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D",
+  "scene_fsw_lw_deputy.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJGmh92kRfoVrha0LP4mAS5KM7wtiZbUNXJxdC",
+  "scene_fsw_pale_fang.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJyL48KcukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp",
+  "scene_fsw_winter_crow.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJM7pG84tsO4cexqW2RDgkE3zZbNXSFGitmnar",
+  "scene_fsw_old_ghost.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ6ojyqKDfT5pyNCaUruzhPtAJqb8Kj9mc1nlH",
+  "fsw_scn_clerk": "ElB--mNvncY7x_9VDf9O6",
+  "fsw_scn_keeper": "Kf2D27FAnL_XkbAJruN1y",
+  "fsw_scn_merchant": "RTGdKuVcvDxBIY4Ft25Oe",
+  "fsw_scn_survivor": "RkfgpZX7rqERIiHcALLU-",
+  "fsw_scn_principal": "Mur92ghAmUzQLQlUJlVXy",
+  "fsw_scn_deputy": "wB3RoOJJoQkGlLoNnPjHi",
+  "fsw_scn_pale_fang": "hymq1_ZsBGJ8qsS_Bztco",
+  "fsw_scn_winter_crow": "aU7DBNyBel5q7gyA-Ug9O",
+  "fsw_scn_old_ghost": "Lcsj6Tc1hdaVUEEa74PwH",
+  "fsw2_scn_clerk": "1TjPakroW5q8m6nylQRcT",
+  "fsw2_scn_keeper": "AM0saNTIIl1FPgc5pAzxc",
+  "fsw2_scn_merchant": "8mDurYQYmy3G0vb862mkO",
+  "fsw2_scn_survivor": "asvKeN5HIBRJ2-fzg9Und",
+  "fsw2_scn_principal": "gIU6lE4RWWwV8FbP3Fkvs",
+  "fsw2_scn_deputy": "rkdd7b_84F_NYq1YUMEl_",
+  "fsw2_scn_pale_fang": "CbU3BRjOLX-Ad5PnbUfxM",
+  "fsw2_scn_winter_crow": "cSZBQ23AVVuLmKDaA2jh2",
+  "fsw2_scn_old_ghost": "5QsG6MvGvGlzelOx_g0JN",
+  "bg_fsw_loud_way_floor_c.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJbPoVBYAtYUndMi56GkX19q0A4PzyeIloBrEa",
+  "bg_fsw_pass_road_dusk_d.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTUB2345IU29dZYJPoOKSh5vmlqatMub3EigH",
+  "bg_fsw_waystation_door_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJoidFEoZ9MPZpHJ7VliuEWDfATdxhv62SXnm4",
+  "bg_fsw_ambush_site.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJOGD7OHOVHevxIThUauQkGJEBY3D2cPqy8f5s",
+  "bg_fsw_drying_shed_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJl5JG25rWYxAsuC7ofQn9pM45OD0ERqkdBXJU",
+  "bg_fsw_drying_yard_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeRbH5WyV3OvUJQExAi0bGoIZDF74LqSnHRdp",
+  "bg_fsw_ghost_rooftop.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJH4hvqDOQvYURJhgs76VZtf9wxpMa13Cq0iOn",
+  "bg_fsw_canal_frontage_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJHCDFP9QvYURJhgs76VZtf9wxpMa13Cq0iOnr",
+  "fsw3_bg_loudway": "bBV9I0DcmYGcxVGaBdWL0",
+  "fsw3_bg_passroad": "nmrMHmz9xWojzyIV2mAR8",
+  "fsw3_bg_wsdoor": "kmDsQUEHSub9GIX5ulO6i",
+  "fsw3_bg_ambush": "E4VJ-IeIQMwbmGGfKc-sn",
+  "fsw3_bg_dryshed": "c1e60fERuLUxzt9WY4U37",
+  "fsw3_bg_dryyard": "TUtC7yPymsp2GyWwZhoTf",
+  "fsw3_bg_rooftop": "eXoh3W7Q_KaWec02TB17n",
+  "fsw3_bg_canal": "JUb5wIdMC0o7VwVVOx1zm",
+  "icon_rank_A.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJgkm8F7cU9cpECTimBdjaqbNn7vQsxGR1wLk4",
+  "icon_rank_B.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ3K6O328pYHJX5rdkUTfOKtvu2eGIELmSWqBx",
+  "icon_rank_C.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcz70uPSnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+  "icon_rank_D.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJPzlH3ApKeUGyX2kj6u45AOQiSa1zYH0mqZoc"
+ }
+}
