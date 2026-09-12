@@ -143,13 +143,13 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 **Recommendation:** (a) for single records, (b) for package publish, (c) only if the user wants separation of duties.
 **Can defer:** no, before phase 5.
 
-### K-13 Authorize a game-source pin move before Forge Next implementation
+### K-13 Authorize a game-source pin refresh before Forge Next implementation
 
-**Why it matters:** Forge's field sets come from `345d18ac`; the game head has changed item and quest validators (farm fields, `requiredFarmingLevel`); an admin edit form built on stale sets would be refused or would reset live counters.
-**Evidence:** `docs/DRIFT.md`; `evidence/drift.json`; `docs/BUILDER_APP_NOTES.md` "Source pin".
-**Options:** (a) a dedicated Lane A pin-move pass (derive tools, `pin_relevance`, `schema_diff` adoption gate, regenerate 45x) before phase 1; (b) move the pin inside phase 1; (c) stay on the pin and refuse item/quest edits that touch the new fields.
-**Recommendation:** (a); it is the smallest reviewable unit and every later phase depends on it.
-**Can defer:** no.
+**Why it matters:** Forge's field sets, nested key sets and procedure registry are derived from `345d18ac`, 81 commits behind the game head read for this plan. If they had drifted, an admin edit form built on them would be refused or would reset live counters.
+**Evidence:** measured in this pass (`evidence/drift.json`): the derived contracts regenerate byte-identically from head `36c5873b`, every validator file Forge reads is unchanged, and the auth table is identical for all 43 registry paths; the only differences are a provenance line (`schema.ts:2577` to `2578`), import reshuffles, additive routers and constants, and one `mcp` flag. The skill's generated 45x contracts are the ones that are genuinely stale (`docs/DRIFT.md`), and they gate `validate.py`, not Forge.
+**Options:** (a) a small Lane A provenance-refresh pass in phase 0 (re-derive from the head of that day, update the pin SHA in the bundle banner, Settings and registry comments, fix the one `mcp` flag, rerun `pin_relevance.mjs`), with the 45x re-extraction through the repository's `schema_diff` adoption gate as its own reviewed pass; (b) stay on `345d18ac` and re-check drift at every phase gate; (c) fold the pin move into phase 1.
+**Recommendation:** (a). It is cheap, it removes an 81-commit explanation from every review, and it is not a contract change; the 45x adoption pass is the one that needs care.
+**Can defer:** yes, as long as every phase gate reruns the drift tools against the game head of the day.
 
 ### K-14 Ship a minified bundle
 
