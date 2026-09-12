@@ -2,7 +2,17 @@
 
 **Status:** planning. Nothing here is settled by this package. Each entry follows `docs/workflows/DIRECTOR_DECISIONS.md`: what must be chosen, why it matters, the evidence, the options with consequences, an advisory recommendation where one is justified, whether the decision can be deferred, and which roadmap phase (section G) it blocks. Once ruled, an entry is recorded in `docs/RULINGS.md` and the operative rule moves to its canonical owner.
 
-Entries K-01 to K-12 are the decisions the brief reserves in §14. K-13 onward were surfaced by the deep dive and the design panel.
+Entries K-01 to K-12 are the decisions the brief reserves in §14. K-13 onward were surfaced by the deep dive and the design panel. Section K.0 records the questions the director ruled during the pass, so that this register never presents them as open again; section K.20 onward records the questions the director explicitly left open after those rulings.
+
+## K.0 Ruled during the pass (not open)
+
+| Ruling | What is settled | Canonical owner | What stays open under it |
+|---|---|---|---|
+| Visual north star (2026-09-12, `chatgpt/forge-next-planning@0bb5a54b`) | TNR-specific dark operations console, crimson/gold/cool-blue over deep navy/charcoal, strong Forge branding, Command Center home, content lanes, first-class Content Admin, controlled motion, explicit operation contexts | `docs/design/FORGE_NEXT_VISUAL_DIRECTION.md` §12 | exact labels, destinations, lane taxonomy, tokens, type scale, geometry (K-01, K-02, K-20 to K-24) |
+| `RUL-2026-09-12-001` Quest Studio (`chatgpt/forge-quest-studio-foundation@824c4d58`) | One shared Quest Studio; subtype/recipe adapters for Mission, Event, Story, Raid/Boss, Battle Pyramid, Daily and later audited types; Mission is a subtype, not a parent product; routine compile needs no chat or file relay; live execution stays an explicit user action | `docs/design/FORGE_NEXT_QUEST_STUDIO.md` | Quest Source schema/versioning (K-25), worker trigger/auth/branch architecture (K-26), subtype rollout order beyond Mission-first (K-27) |
+| `RUL-2026-09-12-002` Forge over repository authority (same SHA) | Forge is the human translation, orchestration and presentation layer; `tnr-tools` owns durable facts, contracts, profiles, scripts, validators, provenance and generated artifacts; Forge calls approved typed repository operations, never arbitrary remote execution; local projections are never a second canon; compile is separate from live execution and publishing | `docs/design/FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md` | how much repository-backed project state Forge may edit directly (K-28); whether Guide Studio and the infographic lane become official production lanes (K-29) |
+
+The architecture recommendation (section F) and the roadmap (section G) take these three rulings as fixed inputs. The Quest Studio foundation slice on `chatgpt/forge-quest-studio-foundation` is an active ChatGPT-owned Lane A implementation; under the one-writer rule this package does not patch it and the roadmap plans around its independent review rather than re-planning the same seam.
 
 | ID | Decision | Blocks |
 |---|---|---|
@@ -23,6 +33,17 @@ Entries K-01 to K-12 are the decisions the brief reserves in §14. K-13 onward w
 | K-15 | GitHub credential model for the repository bridge on the admin's device | Phase 3 |
 | K-16 | Deletion policy for placeholders and orphans | Phase 4 |
 | K-17 | Research-read registry expansion (which non-content procedures Forge may call) | Phase 1 |
+| K-20 | Exact desktop and mobile destination lists and labels | Phase 2 |
+| K-21 | Final operation-mode taxonomy, including whether Review is a mode or a workflow category | Phase 2 |
+| K-22 | Exact operation-mode colours, tokens and hex values where the style board differs from design system v0.1 | Phase 2 |
+| K-23 | Typography scale where the latest style board tightens v0.1; semantic Success/Warning button variants | Phase 2 |
+| K-24 | Final content-lane taxonomy | Phase 2 |
+| K-25 | Quest Source schema and versioning beyond the foundation's v1 | Studio phase |
+| K-26 | Repository worker trigger, authentication and branch architecture (dispatch vs source-push; PAT scope) | Studio phase |
+| K-27 | Subtype adapter rollout order after Mission | Studio phase |
+| K-28 | How much repository-backed project state Forge may edit directly | Workspace phase |
+| K-29 | Whether Guide Studio and the infographic/visual-communication lane become official production lanes | not scheduled |
+| K-30 | Late Content Admin and publish visual details pending transcript reconciliation | Phase 5 |
 
 ---
 
