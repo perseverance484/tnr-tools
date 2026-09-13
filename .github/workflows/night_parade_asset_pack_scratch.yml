@@ -1,0 +1,112 @@
+name: Night Parade official asset pack (scratch)
+
+on:
+  push:
+    branches:
+      - chatgpt/night-parade-official-pack
+    paths:
+      - scratch/night_parade_asset_pack_manifest.json
+      - .github/workflows/night_parade_asset_pack_scratch.yml
+
+permissions:
+  contents: read
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install image verifier
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Download captured first-party assets and build ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          import mimetypes
+          import pathlib
+          import urllib.request
+          import zipfile
+          from PIL import Image
+
+          src = pathlib.Path('scratch/night_parade_asset_pack_manifest.json')
+          spec = json.loads(src.read_text(encoding='utf-8'))
+          root = pathlib.Path('night_parade_official_assets')
+          root.mkdir(parents=True, exist_ok=True)
+
+          def extension(data: bytes, content_type: str | None) -> str:
+              if data.startswith(b'\x89PNG\r\n\x1a\n'):
+                  return '.png'
+              if data.startswith(b'\xff\xd8\xff'):
+                  return '.jpg'
+              if data[:4] == b'RIFF' and data[8:12] == b'WEBP':
+                  return '.webp'
+              if data.startswith((b'GIF87a', b'GIF89a')):
+                  return '.gif'
+              if content_type:
+                  ext = mimetypes.guess_extension(content_type.split(';', 1)[0].strip())
+                  if ext:
+                      return '.jpg' if ext == '.jpe' else ext
+              return '.bin'
+
+          materialized = {
+              'purpose': spec['purpose'],
+              'provenance': spec['provenance'],
+              'assets': [],
+          }
+
+          for index, asset in enumerate(spec['assets'], start=1):
+              req = urllib.request.Request(
+                  asset['source_url'],
+                  headers={'User-Agent': 'tnr-tools-night-parade-guide-asset-pack/1.0'},
+              )
+              with urllib.request.urlopen(req, timeout=45) as response:
+                  data = response.read()
+                  content_type = response.headers.get('Content-Type')
+              if not data:
+                  raise RuntimeError(f"empty response for {asset['name']}")
+              ext = extension(data, content_type)
+              filename = f"{index:02d}_{asset['filename_stem']}{ext}"
+              target = root / filename
+              target.write_bytes(data)
+
+              with Image.open(target) as img:
+                  img.verify()
+              with Image.open(target) as img:
+                  width, height = img.size
+                  image_format = img.format
+
+              rec = dict(asset)
+              rec.update({
+                  'local_file': filename,
+                  'bytes': len(data),
+                  'sha256': hashlib.sha256(data).hexdigest(),
+                  'content_type': content_type,
+                  'image_format': image_format,
+                  'width': width,
+                  'height': height,
+              })
+              materialized['assets'].append(rec)
+              print(f"{index:02d}/{len(spec['assets'])}: {asset['name']} -> {filename} ({width}x{height}, {len(data)} bytes)")
+
+          manifest_path = root / 'manifest.json'
+          manifest_path.write_text(json.dumps(materialized, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+
+          zip_path = pathlib.Path('night_parade_official_assets.zip')
+          with zipfile.ZipFile(zip_path, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
+              for path in sorted(root.iterdir()):
+                  zf.write(path, arcname=f"night_parade_official_assets/{path.name}")
+          print(f"ZIP: {zip_path} ({zip_path.stat().st_size} bytes)")
+          PY
+
+      - name: Upload official asset ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: night-parade-official-assets
+          path: night_parade_official_assets.zip
+          if-no-files-found: error
+          retention-days: 7
