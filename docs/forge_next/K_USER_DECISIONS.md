@@ -38,6 +38,8 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 | K-15 | GitHub credential model for the repository bridge on the admin's device | Phase 3 |
 | K-16 | Deletion policy for placeholders and orphans | Phase 4 |
 | K-17 | Research-read registry expansion (which non-content procedures Forge may call) | Phase 1 |
+| K-18 | not used: numbering gap, explained in the preamble | none |
+| K-19 | not used: numbering gap, explained in the preamble | none |
 | K-20 | Exact desktop and mobile destination lists and labels, with the phone-shell sub-points (K-20a) (pending predecessor-transcript reconciliation) | Phase 2 |
 | K-21 | Final operation-mode taxonomy, including whether Review is a mode or a workflow category; sub-decision K-33 (pending predecessor-transcript reconciliation) | Phase 2 |
 | K-22 | Exact operation-mode colours, tokens and hex values where the style board differs from design system v0.1, including the board's Critical tier (pending predecessor-transcript reconciliation) | Phase 2 |
