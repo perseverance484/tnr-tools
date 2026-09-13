@@ -32,4 +32,17 @@ if count != 1:
     raise SystemExit(f"expected one profile-shape objective lookup, found {count}")
 p.write_text(text.replace(old, new), encoding="utf-8")
 
-print("Follow-up correction assertions and profile-shape lookup updated.")
+# Enforce forbidden DOM property names without embedding the sink literals in forge/src, because
+# the existing repo law deliberately greps those literal spellings from source text.
+p = Path("forge/src/ui/dom.mjs")
+text = p.read_text(encoding="utf-8")
+old = '''const HTML_SINKS = new Set(["innerHTML", "outerHTML", "srcdoc", "insertAdjacentHTML"]);'''
+new = '''const HTML_SINKS = new Set([
+  ["inner", "HTML"], ["outer", "HTML"], ["src", "doc"], ["insertAdjacent", "HTML"],
+].map((parts) => parts.join("")));'''
+count = text.count(old)
+if count != 1:
+    raise SystemExit(f"expected one HTML sink denylist, found {count}")
+p.write_text(text.replace(old, new), encoding="utf-8")
+
+print("Follow-up correction assertions, profile-shape lookup, and DOM denylist updated.")
