@@ -263,7 +263,7 @@ HUE says which authority family you are in (blue read/system, crimson write, gol
   - **glyph**: ‖ U+2016
   - **word**: PAUSED
   - **contrast**: 6.94
-  - **note**: job-level; the pause REASON is always a mono chip beside it: SESSION ✕ --bad · 429 △ --warn + countdown · NETWORK ✗ --warn · AMBIGUOUS ? --sent · USER ‖ --mute · ORPHANED ! --warn
+  - **note**: job-level; the pause REASON is always a mono chip beside it: SESSION ✕ --bad · 429 △ --warn + countdown · NETWORK ✗ --warn · UNDECODABLE_RESPONSE ✗ --warn · AMBIGUOUS ? --sent · USER ‖ --mute · ORPHANED ! --warn. The runner raises seven reasons and all seven get a chip. NETWORK and UNDECODABLE_RESPONSE each occur in two situations whose next safe action differs: before anything was sent, where Try again is permitted, and inside a send, where the item is left SENT and only reconciliation may follow. The chip therefore carries the reason and the halt card carries the situation, never the reverse
 - **INCOMPLETE**:
   - **text**: #f08a3c
   - **border**: 1px solid #f08a3c
