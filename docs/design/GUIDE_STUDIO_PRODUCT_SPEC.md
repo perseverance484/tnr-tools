@@ -1,4 +1,4 @@
-# TNR Guide Studio — Product Specification v1
+# TNR Guide Studio — Product Specification v1.1
 
 **Status:** Direction-locked product/design brief for a standalone player-facing guide authoring site.  
 **Hosting:** External to TheNinjaRPG. Cloudflare is the intended deployment platform; deployment/DNS are operator-managed.  
@@ -12,9 +12,9 @@ Let a player create a polished TNR bloodline/build guide without knowing HTML, l
 
 The target flow is:
 
-**Visit link → select bloodline → enter author name → choose loadout → write strategy → preview → submit**
+**Visit link → select bloodline → enter author name → choose build jutsu → explain how the build works → preview → submit**
 
-The result must look like the same guide series as Aerathiel and Night Parade.
+The experience must feel like authoring an Aerathiel/Night Parade guide, not filling out a generic survey. The player supplies their build choices and tactical voice while Guide Studio supplies the complete bloodline foundation, official mechanics, official art, structure, and series presentation.
 
 ## 2. Core ownership model
 
@@ -25,63 +25,95 @@ The player does not edit:
 - global jutsu-card format;
 - combat-effect labels and formatting;
 - bloodline introduction / overview;
-- bloodline kit and special-mechanic cards;
+- the complete bloodline kit and special-mechanic cards;
 - official game asset selection.
 
 ### Bloodline template layer — locked
-Each published bloodline template provides:
-- bloodline ID, name, hero art, overview art;
-- short TNR-written intro;
-- official bloodline kit cards;
-- special modules when required (for example summons);
-- enabled player sections and prompts.
+Each published bloodline template provides the complete guide foundation:
+- bloodline ID and canonical name;
+- two concise general-description / introduction paragraphs;
+- hero art;
+- Bloodline Overview copy and overview art/infographic;
+- the **complete core bloodline kit**, not a subset chosen by the player;
+- special modules when required, such as Night Parade summons;
+- enabled player-authored strategy chapters and chapter prompts;
+- optional bloodline-specific chapter names or guidance.
 
 Templates are versioned. A submission records the exact template version used.
+
+**Template completeness rule:** a bloodline template is not publishable in Guide Studio until the introduction, overview, core kit, required special modules, and required official assets are present. The public authoring experience must never expose a bare skeleton and expect the player to supply the bloodline explanation.
 
 ### Player layer — editable
 The author supplies:
 - display name;
-- optional one- or two-sentence playstyle summary;
-- recommended loadout / support jutsu selections;
+- optional one- or two-sentence personal build/playstyle summary;
+- recommended build/support jutsu selections;
 - ordering of those selections;
-- concise “How I use it” notes;
-- rotations and game-plan prose;
+- a concise **How I use it** note for each selected build jutsu;
+- strategy prose inside guide-like chapter prompts;
 - optional combat highlights/screenshots and captions.
 
-**Editorial rule:** mechanics live on cards; strategy explains decisions and interactions. Do not ask the player to retype mechanics already shown by the renderer.
+**Editorial rule:** mechanics live on locked cards; strategy explains decisions and interactions. Do not ask the player to retype mechanics already shown by the renderer.
 
 ## 3. Series structure
 
-The final guide renderer follows Aerathiel’s rhythm:
+The final guide renderer follows the visual/editorial rhythm established by Aerathiel and Night Parade:
 
-1. Two concise bloodline introduction paragraphs.
+1. Two concise, template-owned bloodline introduction paragraphs.
 2. 1600×640 hero.
-3. **Bloodline Overview** — one short paragraph + overview infographic.
-4. **Bloodline Kit** — one short paragraph + standardized core cards.
-5. Transition.
-6. **My PvP Loadout** or **Recommended PvP Build** — author credit + 1600×480 build banner + selected loadout/package.
-7. Transition.
-8. **Rotations & Game Plan** — player strategy.
-9. **Combat Highlights** — optional.
-10. Concise closing paragraph when supplied.
+3. **Bloodline Overview** — template-owned overview copy + overview infographic/art.
+4. **Bloodline Kit** — the full template-owned core kit, always rendered.
+5. Special mechanic module when applicable, such as Night Parade summons.
+6. Transition.
+7. **My PvP Loadout** or **Recommended PvP Build** — author credit + 1600×480 build banner + the player's selected build package.
+8. **How I Use It** notes attached to the selected build jutsu.
+9. Transition.
+10. **Rotations & Game Plan** — player strategy rendered as polished guide subchapters.
+11. **Combat Highlights** — optional.
+12. Concise closing paragraph when supplied or template-owned.
 
-Night Parade may include a special summon module inside the locked Bloodline Kit without changing the player-facing authoring model.
+The complete bloodline explanation therefore exists before the player-authored build layer begins.
 
-## 4. Global jutsu-card language
+## 4. Core Bloodline Kit versus Player Build Loadout
 
-Every jutsu card is rendered by the app, not manually designed by the author.
+These are separate concepts and must remain separate in the data model and renderer.
 
-Standard order:
+### Core Bloodline Kit — automatic and complete
+- Every jutsu belonging to the published bloodline kit is automatically displayed.
+- Core-kit presence does not depend on player selection.
+- Core-kit mechanics, official images, descriptions, and effect rows come from the pinned catalog/template.
+- Special bloodline systems are also automatic; for example, Night Parade's summon module belongs here.
+- The player does not remove, reorder, rewrite, or manually recreate core-kit mechanics.
+
+### Player Build Loadout — selected by the author
+The loadout identifies the jutsu the author actually recommends around the bloodline. It may include bloodline jutsu and external/support jutsu.
+
+Every selected loadout entry must expose an obvious inline field labeled **HOW I USE IT**. This is an acceptance-critical field, not optional UI polish.
+
+Recommended rendering behavior:
+- If a selected jutsu is external/support and is not already shown in the core kit, render its full standard mechanic card followed by `HOW I USE IT`.
+- If a selected jutsu already appears in the core kit, prefer a compact build-reference treatment: official thumbnail, name, `Core kit — see above`, and the player's `HOW I USE IT` note. This avoids repeating an entire mechanic card while preserving the author's tactical explanation.
+- A simpler MVP may repeat the full card for core-kit selections, but it must still preserve the player's `HOW I USE IT` note and must not cause the complete core kit to disappear.
+
+The loadout screen should state plainly:
+
+**Your full bloodline kit is already included. Choose the jutsu that define your build.**
+
+## 5. Global jutsu-card language
+
+Every mechanic card is rendered by the app, not manually designed by the author.
+
+Standard full-card order:
 1. official jutsu image;
 2. jutsu name;
 3. `ACTION • RANGE • COOLDOWN`;
 4. short official/series description;
 5. standardized effect rows;
 6. divider;
-7. `HOW I USE IT`;
-8. author’s concise tactical note, when supplied.
+7. `HOW I USE IT`, only when the card represents a player-selected build entry;
+8. author's concise tactical note.
 
-Summon cards use the same visual family but show the summon AI portrait.
+Core-kit cards shown only as the locked bloodline reference do not require player notes. Summon cards use the same visual family but show the summon AI portrait.
 
 Effect vocabulary is global and machine-rendered:
 - `POWER`
@@ -101,12 +133,21 @@ Effect vocabulary is global and machine-rendered:
 - `STAMINA & CHAKRA COST`
 - `SUMMON`
 
-The renderer chooses the label from structured effect data. Authors never type or rename effect labels.
+The renderer chooses labels from structured effect data. Authors never type or rename effect labels.
 
-## 5. Primary player flow
+### Target semantics are mandatory
+Effect normalization must preserve who an effect applies to. A reduction to self damage taken must not be flattened into generic damage, and enemy healing reduction must not be flattened into damage or healing.
+
+**Director correction — Kinjutsu: Black Thorn Rose:** this jutsu is not a damage effect. Guide Studio must represent it as:
+- self `DAMAGE TAKEN` reduction; and
+- enemy `HEALING REDUCTION`.
+
+No `DAMAGE` / damage-dealt row or offensive-damage classification may be emitted for Kinjutsu: Black Thorn Rose unless the canonical game record changes and that change is separately reviewed.
+
+## 6. Primary player flow
 
 ### Screen A — Select a bloodline
-Show only published Guide Studio templates. Each tile contains:
+Show only published, complete Guide Studio templates. Each tile contains:
 - bloodline name;
 - hero/overview art;
 - short identity line;
@@ -119,43 +160,53 @@ Required:
 - author/display name.
 
 Optional:
-- short playstyle summary.
+- short personal build/playstyle summary.
 
 Show plain copy: “Your name appears as the guide author.”
 
 Autosave begins immediately.
 
 ### Screen C — Build your loadout
-Searchable jutsu catalog with:
+At the top, show a compact locked preview/status for the selected bloodline:
+- bloodline name;
+- “Full bloodline kit included automatically”;
+- optional link/jump to preview the automatic kit.
+
+Then show the searchable jutsu catalog with:
 - official image;
 - name;
 - type/rank when useful;
 - compact mechanic preview;
-- `Add` control.
+- `Add to build` control.
 
 Selected jutsu:
 - appear in a reorderable list;
-- render immediately as series-standard cards;
-- expose only one author field: **How I use it**;
-- can be removed/reordered.
+- render immediately in the build presentation;
+- expose a prominent inline **HOW I USE IT** text area on every selected entry;
+- autosave the note as the player types;
+- can be removed/reordered without affecting the automatic core bloodline kit.
 
 Players never upload jutsu images and never enter AP/range/cooldown/effects manually.
 
-### Screen D — Write your strategy
-Use guided prompts, not an empty document.
+### Screen D — Explain how your build plays
+Do not present this as a bland questionnaire. The player is writing the strategic chapters of a finished guide.
 
-Default prompts:
-- **Build identity** — what is this setup trying to accomplish?
-- **Opening / setup**
-- **Sustain / defense**
-- **Pressure / offensive transition**
-- **Key interactions**
-- **What to watch for**
-- **General game plan**
+Use template-driven `strategyBlocks`, rendered in the authoring UI and final guide as named guide chapters/subchapters. Recommended default set:
 
-Templates may rename/hide prompts. Blank prompts do not render.
+- **Build Philosophy** — What does this setup want the fight to become? What is the win condition or identity?
+- **The Core Loop** — What sequence or decision loop do you return to when the fight is stable?
+- **Opening Moves** — What are the first priorities and why?
+- **Defense & Recovery** — How do you survive, reset, stall, cleanse, absorb, or buy time?
+- **Pressure Windows** — What tells you it is time to attack, spend resources, or commit?
+- **Key Synergies** — Which jutsu, bloodline tools, or interactions make the build work?
+- **Adaptation & Matchups** — What opponent behavior or matchup changes the plan?
+- **Mistakes to Avoid** — What common sequencing/resource mistakes get the build punished?
 
-Provide generous text boxes with live character count and autosave. Do not force players to fill every prompt.
+These names are defaults, not mandatory generic labels. A template may rename, reorder, or hide blocks to fit the bloodline. Night Parade, for example, may use bloodline-flavored chapter language such as “Keep the Gate Open” or “Force the Cleanse” where that produces a better guide.
+
+The authoring UI may show a short coaching sentence beneath each chapter title, but the final published guide should read as authored prose, not as answered form questions.
+
+Blank optional strategy blocks do not render. Provide generous text areas, live character count, and autosave. Do not force every block to be filled.
 
 ### Screen E — Combat highlights (optional)
 Allow a small number of screenshots with captions.
@@ -164,7 +215,14 @@ Allow a small number of screenshots with captions.
 - no official jutsu/bloodline art upload is needed.
 
 ### Screen F — Preview
-Render the actual guide using the same components as publication.
+Render the actual guide using the same components as publication. The preview must include the automatic foundation even before the player writes anything:
+- general bloodline description;
+- hero;
+- overview;
+- complete bloodline kit;
+- special mechanic modules;
+- then the player-authored loadout and strategy.
+
 Provide:
 - mobile / desktop preview toggle;
 - jump links for sections;
@@ -173,9 +231,11 @@ Provide:
 ### Screen G — Submit
 Before submission show a concise checklist:
 - author;
-- bloodline;
-- selected loadout count;
-- strategy sections completed;
+- bloodline/template version;
+- automatic core-kit completeness status;
+- selected build-jutsu count;
+- `How I use it` notes completed;
+- strategy chapters completed;
 - highlights count.
 
 Button: **Submit guide**
@@ -187,17 +247,17 @@ Success state:
 
 No account is required.
 
-## 6. Autosave and recovery
+## 7. Autosave and recovery
 
 Use IndexedDB or localStorage for draft data.
-- Save after every meaningful edit.
+- Save after every meaningful edit, including each `How I use it` note.
 - Display a quiet `Saved on this device` state.
 - Restore the unfinished draft on return.
 - Never make autosave dependent on network availability.
 - Provide `Clear draft` behind an explicit confirmation.
 - Phase 2 may add export/import of a draft file for cross-device recovery.
 
-## 7. Static game catalog
+## 8. Static game catalog
 
 The public Guide Studio must **not** call TNR APIs during ordinary authoring.
 
@@ -223,13 +283,37 @@ Each catalog record should preserve:
 - action cost;
 - range;
 - cooldown;
-- structured effects;
+- structured effects including target semantics;
 - bloodline ID/name where applicable;
 - source snapshot timestamp/version.
 
 The catalog builder normalizes effects into the Guide Studio display model; the browser renderer does not interpret raw game mechanics ad hoc.
 
-## 8. Images
+## 9. Bloodline template contract
+
+A published template should conceptually contain:
+
+```json
+{
+  "slug": "night-parade",
+  "version": 2,
+  "bloodlineId": "...",
+  "title": "Night Parade of a Thousand Demons",
+  "introduction": ["...", "..."],
+  "heroAsset": "...",
+  "overview": {"copy": "...", "asset": "..."},
+  "coreKitJutsuIds": ["...", "...", "..."],
+  "specialModules": ["summons"],
+  "strategyBlocks": [
+    {"key": "philosophy", "title": "Build Philosophy", "coach": "...", "optional": true},
+    {"key": "coreLoop", "title": "The Core Loop", "coach": "...", "optional": true}
+  ]
+}
+```
+
+The exact schema is an implementation choice, but these product-level concepts are required. The template, not the player's loadout, owns which jutsu constitute the complete core bloodline kit.
+
+## 10. Images
 
 ### Official game art
 MVP:
@@ -248,28 +332,29 @@ Phase 2 reliability option:
 - enforce count and byte limits;
 - store only after explicit submission.
 
-## 9. Submission data contract
+## 11. Submission data contract
 
 Versioned payload, conceptually:
 
 ```json
 {
   "schema": "tnrguide/v1",
-  "template": {"slug": "night-parade", "version": 1},
+  "template": {"slug": "night-parade", "version": 2},
   "catalogVersion": "2026-09-13",
   "author": "ShisuiUchiha / Eldy",
   "summary": "...",
   "loadout": [
-    {"jutsuId": "65Fic...", "note": "I use this when..."}
+    {"jutsuId": "65Fic...", "howIUseIt": "I use this when..."}
   ],
   "strategy": {
-    "buildIdentity": "...",
+    "philosophy": "...",
+    "coreLoop": "...",
     "opening": "...",
-    "sustain": "...",
-    "pressure": "...",
-    "interactions": "...",
-    "watchFor": "...",
-    "gamePlan": "..."
+    "defenseRecovery": "...",
+    "pressureWindows": "...",
+    "synergies": "...",
+    "adaptation": "...",
+    "mistakes": "..."
   },
   "highlights": [
     {"assetKey": "highlight-1", "caption": "..."}
@@ -277,9 +362,9 @@ Versioned payload, conceptually:
 }
 ```
 
-The server adds submission ID and server timestamp. Never trust client-supplied mechanic data.
+The submission does **not** need to duplicate the core bloodline kit; the server/publication renderer resolves the complete kit from the pinned template version. The server adds submission ID and server timestamp. Never trust client-supplied mechanic data.
 
-## 10. Cloudflare deployment architecture
+## 12. Cloudflare deployment architecture
 
 Recommended MVP:
 - **Cloudflare Pages** — static app and versioned catalog/templates.
@@ -303,19 +388,19 @@ Discord intake should include:
 - author;
 - bloodline/template;
 - loadout count;
-- completed strategy sections;
+- completed strategy chapters;
 - highlight count;
 - submission ID;
 - staff review/download link.
 
 The Discord webhook is never embedded in browser code.
 
-## 11. Validation and moderation
+## 13. Validation and moderation
 
 Client validation is for usability; Worker validation is authoritative.
 
 Reject or normalize:
-- unknown template or version;
+- unknown or incomplete template/version;
 - unknown jutsu ID;
 - duplicate selections when template disallows them;
 - excessive field lengths;
@@ -325,11 +410,18 @@ Reject or normalize:
 - empty author;
 - malformed schema.
 
+Template/build validation must also ensure:
+- every published bloodline has a complete locked foundation;
+- every `coreKitJutsuId` resolves against the pinned catalog;
+- required official assets resolve;
+- selected loadout jutsu do not alter the core-kit membership;
+- normalized effect rows preserve target semantics.
+
 All player text is treated as text. Never render it as trusted HTML.
 
 MVP moderation is staff review after submission. No public auto-publishing.
 
-## 12. Staff workflow
+## 14. Staff workflow
 
 1. Submission appears in Discord intake.
 2. Staff opens/downloads the structured submission.
@@ -338,9 +430,9 @@ MVP moderation is staff review after submission. No public auto-publishing.
 5. Accepted submission is rendered against the same series components/template.
 6. Final self-contained HTML is produced for publishing/distribution.
 
-The player’s build, strategic priorities, sequencing, and tactical voice remain attributed to them.
+The player's build, strategic priorities, sequencing, and tactical voice remain attributed to them.
 
-## 13. Mobile and accessibility requirements
+## 15. Mobile and accessibility requirements
 
 Mobile-first:
 - usable at 360px width;
@@ -348,6 +440,7 @@ Mobile-first:
 - minimum comfortable touch targets;
 - sticky `Back / Next` controls on authoring steps;
 - search results and selected loadout remain legible one-handed;
+- `HOW I USE IT` is directly reachable from each selected entry without a hidden modal-only workflow;
 - no hover-only controls;
 - text areas must not be obscured by mobile keyboards;
 - preview defaults to phone width on mobile.
@@ -360,7 +453,7 @@ Accessibility:
 - effect meaning must not depend on color alone;
 - reduced-motion friendly.
 
-## 14. Privacy
+## 16. Privacy
 
 Collect only what is needed:
 - author display name;
@@ -376,26 +469,50 @@ Do not request:
 
 Display name is public-guide attribution and should be treated as publishable input.
 
-## 15. MVP acceptance criteria
+## 17. MVP acceptance criteria
 
 A new player can, on a phone:
 1. open the public site with no account;
 2. select Aerathiel or Night Parade;
-3. enter an author name;
-4. search and add a jutsu without locating/uploading its art;
-5. see correct official art and standardized mechanic tags;
-6. reorder the loadout;
-7. add a per-jutsu usage note;
-8. write strategy using guided prompts;
-9. leave and return without losing the draft;
-10. preview an Aerathiel-series guide;
-11. submit;
-12. receive a submission receipt;
-13. cause a validated intake message to appear in the configured Discord channel.
+3. immediately see that the chosen guide already contains a general bloodline description, hero/overview material, complete core bloodline kit, and any required special module;
+4. enter an author name;
+5. search and add a build jutsu without locating/uploading its art;
+6. see correct official art and standardized mechanic tags;
+7. understand that the full bloodline kit remains included regardless of loadout choices;
+8. reorder the selected build loadout;
+9. add an obvious inline `HOW I USE IT` note for every selected build jutsu;
+10. write strategy using guide-like, template-driven chapters rather than generic survey categories;
+11. leave and return without losing the draft;
+12. preview an Aerathiel/Night Parade-series guide containing both the automatic foundation and the player's authored build layer;
+13. submit;
+14. receive a submission receipt;
+15. cause a validated intake message to appear in the configured Discord channel.
+
+Mechanic regression requirement:
+- Kinjutsu: Black Thorn Rose renders self `DAMAGE TAKEN` reduction and enemy `HEALING REDUCTION`, and does not render a damage-dealt classification.
 
 The deployed app makes **zero game mutations** and ordinary player authoring makes **zero TNR API requests**.
 
-## 16. Out of scope for MVP
+## 18. Testing requirements
+
+At minimum:
+- renderer/effect-normalization fixtures;
+- schema/template completeness validation;
+- full-core-kit-always-rendered test independent of loadout selection;
+- core-kit versus selected-loadout separation test;
+- inline `How I use it` authoring + autosave/recovery test;
+- Kinjutsu: Black Thorn Rose regression fixture proving damage-taken reduction + healing reduction and absence of damage-dealt classification;
+- jutsu search/add/remove/reorder;
+- unknown/stale IDs rejected on submit;
+- blank optional strategy blocks omitted from final renderer;
+- text escaping/XSS tests;
+- image type/size/count checks;
+- responsive/mobile interaction smoke;
+- submit Worker unit/integration test with Discord transport mocked;
+- no TNR mutation routes/imports;
+- no TNR credential/session handling.
+
+## 19. Out of scope for MVP
 
 - player accounts;
 - editing previously submitted guides across devices;
@@ -408,7 +525,7 @@ The deployed app makes **zero game mutations** and ordinary player authoring mak
 - freeform HTML/Markdown;
 - automatic AI rewriting of player strategy.
 
-## 17. Phase 2 candidates
+## 20. Phase 2 candidates
 
 - static searchable item/weapon catalog where guide format expands beyond jutsu;
 - R2 mirror/cache of official art;
@@ -419,8 +536,8 @@ The deployed app makes **zero game mutations** and ordinary player authoring mak
 - automatic final self-contained HTML export after staff approval;
 - additional bloodline templates.
 
-## 18. Locked product principle
+## 21. Locked product principle
 
-**Players choose and explain the build. Guide Studio owns presentation and mechanics formatting.**
+**Guide Studio supplies the complete bloodline guide foundation. Players choose and explain their build.**
 
-That is what keeps every submission recognizably part of the Aerathiel/Night Parade guide series.
+That is what keeps every submission recognizably part of the Aerathiel/Night Parade guide series while still preserving the player's tactical authorship.
