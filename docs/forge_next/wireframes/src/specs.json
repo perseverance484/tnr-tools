@@ -2858,10 +2858,8 @@
       },
       {
        "title": "Harvest Boar",
-       "sub": "AI \u00b7 no hidden column \u00b7 referenced by 1 hidden quest",
-       "pills": [
-        "DRAFT"
-       ],
+       "sub": "AI \u00b7 no lifecycle column \u00b7 referenced by 1 hidden quest",
+       "pills": [],
        "actions": [
         "Review"
        ]
@@ -2872,7 +2870,7 @@
      "kind": "banner",
      "tone": "info",
      "head": "Role",
-     "body": "Role CONTENT-ADMIN, read once this session. MODERATOR is deliberately not used here: canChangeContent excludes it (permissions.ts, pin). The server enforces the role on every write and a refusal arrives as HTTP 200 success:false."
+     "body": "Role CONTENT-ADMIN, read once this session, and the actions this role cannot perform render disabled with the reason; the server still re-checks on every send. MODERATOR is deliberately not used: canChangeContent excludes it. Neither profile.getUser nor profile.getPublicUser is in the 43-path registry today, so the role read is itself a registry expansion (K-52)."
     },
     {
      "kind": "nav",
@@ -3117,7 +3115,7 @@
      "kind": "action",
      "label": "Save edit \u2192 writes 1 hidden record",
      "variant": "mutation",
-     "hint": "journaled; read back"
+     "hint": "journaled; re-reads just before the send and refuses if the record changed, because nothing server-side detects a concurrent edit"
     },
     {
      "kind": "action",
@@ -3229,7 +3227,7 @@
         "kind": "action",
         "label": "Save edit \u2192 writes 1 hidden record",
         "variant": "mutation",
-        "hint": "quests.update whole-record semantics: read-merge-write, asserted keys read back"
+        "hint": "quests.update whole-record semantics: read-merge-write, asserted keys read back; re-reads before the send because nothing server-side detects a concurrent edit"
        }
       ]
      },

@@ -346,8 +346,8 @@ S.append({"id": "wf11_admin_queue", "title": "Content Admin: review queue", "pur
   {"kind": "list", "rows": [
     {"title": "Old Ghost", "sub": "quest · hidden · job 24 verified 09-11", "pills": ["HIDDEN"], "actions": ["Review"]},
     {"title": "Cabbage Seed", "sub": "item · hidden · icon pending art", "pills": ["HIDDEN", "NEEDS-DECISION"], "actions": ["Review"]},
-    {"title": "Harvest Boar", "sub": "AI · no hidden column · referenced by 1 hidden quest", "pills": ["DRAFT"], "actions": ["Review"]}]},
-  {"kind": "banner", "tone": "info", "head": "Role", "body": "Role CONTENT-ADMIN, read once this session. MODERATOR is deliberately not used here: canChangeContent excludes it (permissions.ts, pin). The server enforces the role on every write and a refusal arrives as HTTP 200 success:false."},
+    {"title": "Harvest Boar", "sub": "AI · no lifecycle column · referenced by 1 hidden quest", "pills": [], "actions": ["Review"]}]},
+  {"kind": "banner", "tone": "info", "head": "Role", "body": "Role CONTENT-ADMIN, read once this session, and the actions this role cannot perform render disabled with the reason; the server still re-checks on every send. MODERATOR is deliberately not used: canChangeContent excludes it. Neither profile.getUser nor profile.getPublicUser is in the 43-path registry today, so the role read is itself a registry expansion (K-52)."},
   pnav("More")],
  "desktop": {"columns": "220px minmax(420px,2fr) minmax(300px,1fr)", "regions": [
    {"name": "rail", "span": "1", "blocks": [rail("Content Admin"), note("gold-outline pending count badge")]},
@@ -372,7 +372,7 @@ S.append({"id": "wf12_admin_detail", "title": "Content Admin: detail, edit, prev
   {"kind": "preview", "label": "player preview · quest card renderer", "body": "Old Ghost — Rank C — 3 objectives — rewards: 1,200 ryo. Reflects the LIVE hidden record read at 13:40."},
   {"kind": "diff", "rows": [["name", "New Quest - draft", "Old Ghost"], ["objectives", "0", "3"], ["hidden", "true", "true"]]},
   {"kind": "form", "fields": [["description (editorial)", "A ghost haunts the old mill road…", "area"], ["rank", "C", "ro"]]},
-  {"kind": "action", "label": "Save edit → writes 1 hidden record", "variant": "mutation", "hint": "journaled; read back"},
+  {"kind": "action", "label": "Save edit → writes 1 hidden record", "variant": "mutation", "hint": "journaled; re-reads just before the send and refuses if the record changed, because nothing server-side detects a concurrent edit"},
   {"kind": "action", "label": "Approve for publish", "variant": "ghost", "hint": "records approval in the repository"},
   pnav("More")],
  "desktop": {"columns": "220px minmax(420px,2fr) minmax(300px,1fr)", "regions": [
@@ -381,7 +381,7 @@ S.append({"id": "wf12_admin_detail", "title": "Content Admin: detail, edit, prev
      {"kind": "preview", "label": "player preview · quest card renderer (client route)", "body": "Old Ghost — Rank C — 3 objectives — rewards 1,200 ryo. Preview reflects the LIVE hidden record read at 13:40."},
      {"kind": "diff", "rows": [["name", "New Quest - draft", "Old Ghost"], ["objectives", "0 objectives", "3 objectives"], ["rewards.money", "0", "1200"], ["hidden", "true", "true"]]},
      {"kind": "form", "fields": [["description (editorial edit)", "A ghost haunts the old mill road…", "area"], ["rank", "C", "ro"], ["rewards", "director-owned (K-04)", "ro"]]},
-     {"kind": "action", "label": "Save edit → writes 1 hidden record", "variant": "mutation", "hint": "quests.update whole-record semantics: read-merge-write, asserted keys read back"}]},
+     {"kind": "action", "label": "Save edit → writes 1 hidden record", "variant": "mutation", "hint": "quests.update whole-record semantics: read-merge-write, asserted keys read back; re-reads before the send because nothing server-side detects a concurrent edit"}]},
    {"name": "aside", "span": "3", "blocks": [{"kind": "lamps", "head": "Decision", "items": [{"glyph": "△", "label": "DEPENDS", "value": "Harvest Boar (AI) still hidden-by-reference", "tone": "warn"}, {"glyph": "✓", "label": "VERIFIED", "value": "last job read back matched", "tone": "ok"}]},
      {"kind": "action", "label": "Approve for publish", "variant": "primary"}, {"kind": "action", "label": "Request changes", "variant": "ghost"},
      {"kind": "kv", "pairs": [["history", "actionLog (game) + bundles + git"], ["editor", "narrow fields only (K-04)"]]}]}]},
