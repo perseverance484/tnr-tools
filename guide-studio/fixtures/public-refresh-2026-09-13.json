@@ -1,0 +1,177 @@
+{
+  "source": "public read-only tRPC; no credentials",
+  "captures": [
+    {
+      "proc": "bloodline.get",
+      "input": {
+        "id": "1C34syOOEKp6k3UKweYT6"
+      },
+      "at": "2026-09-13T13:37:06.023545+00:00",
+      "data": {
+        "id": "1C34syOOEKp6k3UKweYT6",
+        "name": "Aerathiel",
+        "image": "https://utfs.io/f/Hzww9EQvYURJH4xNxffQvYURJhgs76VZtf9wxpMa13Cq0iOn",
+        "statClassification": "Highest",
+        "description": "<p dir=\"ltr\">In the ancient annals of Current's genesis, the villagers remained oblivious to Fujin's unleashed fury within the valleys. But as raging tempests laid waste to their crops and made life a daily struggle, they erected an altar to appease Fujin's wrath, offering sacrifices for mercy. Though momentarily effective, peace proved short-lived.</p>\n<p><strong>&nbsp;</strong></p>\n<p dir=\"ltr\">On a fateful afternoon, children playing near the sacred altar accidentally desecrated it, reigniting Fujin's wrath. Hurricane-force winds tore through the village, reducing even the altar to rubble. Amidst the chaos, a young member of the Aerathiel lineage emerged. With unwavering determination, she faced the storm, her skin lashed by winds like a whip. Carrying a heavy stone from the ruined altar, she planted it where it once stood, offering her life for her people's salvation. Fujin, moved by her selfless devotion, softened, transforming the hurricane into a gentle breeze. Legend has it that Aerathiel descendants inherit divine mastery of the wind element, from destructive gusts to soothing melodies in wind chimes.</p>",
+        "effects": [
+          {
+            "type": "increasedamagegiven",
+            "power": 25,
+            "target": "INHERIT",
+            "elements": [
+              "Wind",
+              "Earth",
+              "Dust",
+              "None"
+            ],
+            "appearSfx": "",
+            "direction": "offence",
+            "statTypes": [],
+            "calculation": "percentage",
+            "description": "<p>Increase damage given by target</p>",
+            "disappearSfx": "",
+            "generalTypes": [],
+            "powerPerLevel": 0.15,
+            "appearAnimation": "",
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "disappearAnimation": ""
+          },
+          {
+            "type": "decreasedamagetaken",
+            "power": 15,
+            "target": "INHERIT",
+            "elements": [
+              "Wind"
+            ],
+            "appearSfx": "",
+            "direction": "offence",
+            "calculation": "percentage",
+            "description": "placeholder",
+            "disappearSfx": "",
+            "powerPerLevel": 0,
+            "appearAnimation": "",
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "disappearAnimation": ""
+          }
+        ],
+        "regenIncrease": 100,
+        "villageId": "_J6H3PpJrQQB8NnpbYUlW",
+        "createdAt": "2024-02-08T23:38:31.618Z",
+        "updatedAt": "2024-02-08T23:38:31.618Z",
+        "rank": "A",
+        "hidden": false,
+        "difficulty": "Medium",
+        "traits": "Sustained Damage over time."
+      }
+    },
+    {
+      "proc": "jutsu.get",
+      "input": {
+        "id": "UgYXqNIJNjLGkAS5b5udH"
+      },
+      "at": "2026-09-13T13:37:09.966078+00:00",
+      "data": {
+        "id": "UgYXqNIJNjLGkAS5b5udH",
+        "name": "Death's March",
+        "description": "Release waves of chakra that strikes your target  ",
+        "createdAt": "2024-02-09T03:12:43.731Z",
+        "updatedAt": "2024-02-09T03:12:43.731Z",
+        "extraBaseCost": 1000,
+        "effects": [
+          {
+            "type": "damage",
+            "power": 30,
+            "rounds": 0,
+            "target": "INHERIT",
+            "elements": [
+              "Dust"
+            ],
+            "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+            "direction": "offence",
+            "statTypes": [
+              "Highest"
+            ],
+            "calculation": "formula",
+            "description": "<p>placeholder</p>",
+            "dmgModifier": 1,
+            "disappearSfx": "",
+            "friendlyFire": "ALL",
+            "generalTypes": [
+              "Highest"
+            ],
+            "powerPerLevel": 0.4,
+            "appearAnimation": "c4FqDZWFZOdWn86o6nPL7",
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "residualModifier": 0,
+            "disappearAnimation": "",
+            "allowBloodlineDamageDecrease": true,
+            "allowBloodlineDamageIncrease": true
+          },
+          {
+            "type": "increasedamagetaken",
+            "power": 25,
+            "rounds": 2,
+            "target": "INHERIT",
+            "elements": [
+              "Dust",
+              "Earth",
+              "None",
+              "Wind"
+            ],
+            "appearSfx": "",
+            "direction": "offence",
+            "calculation": "percentage",
+            "description": "placeholder",
+            "disappearSfx": "",
+            "powerPerLevel": 0.4,
+            "appearAnimation": "",
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "disappearAnimation": ""
+          }
+        ],
+        "target": "OTHER_USER",
+        "range": 4,
+        "cooldown": 7,
+        "bloodlineId": "1C34syOOEKp6k3UKweYT6",
+        "requiredLevel": 1,
+        "requiredRank": "CHUNIN",
+        "jutsuType": "BLOODLINE",
+        "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJwRWzxAT2j854CWbaITZyegfXimvd7s16cO0h",
+        "jutsuWeapon": "NONE",
+        "statClassification": "Highest",
+        "battleDescription": "%user envelops %target in a radiant chakra tunnel.  They unleash an unyielding wave of chakra, targeting their enemy's cells with relentless precision. As the assault subsides, the enemy's once-sturdy form crumbles, consumed by decay. ",
+        "jutsuRank": "B",
+        "actionCostPerc": 60,
+        "staminaCost": 350,
+        "chakraCost": 350,
+        "staminaCostReducePerLvl": 10,
+        "chakraCostReducePerLvl": 10,
+        "healthCostReducePerLvl": 0,
+        "healthCost": 0,
+        "villageId": "",
+        "method": "AOE_CIRCLE_SPAWN",
+        "hidden": false,
+        "injectableInBattle": false,
+        "battleUsageType": "BOTH",
+        "parentJutsuId": null,
+        "requiredNinjutsuOffence": null,
+        "requiredNinjutsuDefence": null,
+        "requiredGenjutsuOffence": null,
+        "requiredGenjutsuDefence": null,
+        "requiredTaijutsuOffence": null,
+        "requiredTaijutsuDefence": null,
+        "requiredBukijutsuOffence": null,
+        "requiredBukijutsuDefence": null,
+        "requiredStrength": null,
+        "requiredSpeed": null,
+        "requiredIntelligence": null,
+        "requiredWillpower": null,
+        "requiredBloodlineItemId": null
+      }
+    }
+  ]
+}
