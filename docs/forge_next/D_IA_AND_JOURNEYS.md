@@ -71,7 +71,7 @@ It lost on four counts.
 
 | Reason it lost | Evidence |
 |---|---|
-| Cross-class packages have no home. A lane's package list is a filtered view that depends on parsing cached manifest text, which today lives under the game read cache path `github.contents` (`app.mjs:196-207`; the design smell is recorded at `A_ARCHITECTURE_MAP.md:139`) | the proposal's own weakness list |
+| Cross-class packages have no home. A lane's package list is a filtered view that depends on parsing cached manifest text, which today lives under the game read cache path `github.contents` (`app.mjs:196-207`; the design smell is recorded at `A_ARCHITECTURE_MAP.md`) | the proposal's own weakness list |
 | The model's most natural screen carries the largest capability debt. A per-lane Records list needs a paged, filtered live list; `CachedReader.list` refuses anything but name paths (`forge/src/budget/reader.mjs:73-86`), which is P-11 GAP and a retirement blocker | `B_PARITY_MATRIX.md` P-11; gate G-03 |
 | Rail breadth. Thirteen desktop destinations against the K-20 advisory of seven or fewer, and seven lanes cannot be five phone tabs, so lanes sit behind a Content hub | the proposal's DEP-3 and DEP-4 |
 | Two lanes have no committed work (Items, Bloodlines) and one is a placeholder pending K-13, K-17 and K-29 (Guides). Honest, but it ships empty rooms | C.4 class counts; `E_CONTENT_ADMIN_FEASIBILITY.md` CA-08 |
@@ -259,7 +259,7 @@ INCOMPLETE re-read is the same screen with a different primary: "Re-read unverif
 
 WCM Workflows Q and R (WCM:506, :539). WFA §13 admin queue, which is explicitly a capability placeholder (WFA:421), and §14 publish confirmation, which is explicitly provisional (WFA:448). SCN S-47, S-49, S-51, S-52 (the last two provisional per SCN:478-479).
 
-**HOLD.** Every step of this journey is a placeholder until `E_CONTENT_ADMIN_FEASIBILITY.md` is ruled on and K-03, K-04, K-05, K-07, K-08 and K-09 are answered. Forge has no publish or unhide action at all today (`A_ARCHITECTURE_MAP.md:171`; the PublishControl row is HOLD at `A_ARCHITECTURE_MAP.md:257`), and no approval field exists in the game, so AdminReviewCard must not invent an approval state with no durable backing store (WCM:607-629). The wireframes render the controls as visible placeholders (WFA:550-562).
+**HOLD.** Every step of this journey is a placeholder until `E_CONTENT_ADMIN_FEASIBILITY.md` is ruled on and K-03, K-04, K-05, K-07, K-08 and K-09 are answered. Forge has no publish or unhide action at all today (`A_ARCHITECTURE_MAP.md`; the PublishControl row is HOLD at `A_ARCHITECTURE_MAP.md`), and no approval field exists in the game, so AdminReviewCard must not invent an approval state with no durable backing store (WCM:607-629). The wireframes render the controls as visible placeholders (WFA:550-562).
 
 Phone taps once the capability exists: 4 for review and publish with no edit; 7 with an edit.
 
@@ -270,7 +270,7 @@ Phone taps once the capability exists: 4 for review and publish with no edit; 7 
 | 3 | AD-4 | tap Preview (optional) | the class renderer, or a neutral "no player renderer exists for this class" state | HOLD per class (K-05); Preview must not claim fidelity the game does not have (WCM:607-629) |
 | 4 | AD-3 | tap Edit (optional) | a per-class form over the fetched whole record, with the pending diff | HOLD on K-04 and K-08; the write is whole-record, so a staleness re-read immediately before send is mandatory |
 | 5 | AD-3, SH3 | Save changes, then confirm | the write is journaled as a single-item job and inherits SENT, CONFIRMED and read-back | the admin sees a record result, never the job vocabulary; the journal below the seam is unchanged |
-| 6 | AD-5 | tap Publish | PUBLISH band, the flip in words, the gate result, the session lamp and the role | HOLD: no publish recipe exists (`A_ARCHITECTURE_MAP.md:171`); the control is disabled with its reason when the role or the gate is unmet |
+| 6 | AD-5 | tap Publish | PUBLISH band, the flip in words, the gate result, the session lamp and the role | HOLD: no publish recipe exists (`A_ARCHITECTURE_MAP.md`); the control is disabled with its reason when the role or the gate is unmet |
 | 7 | SH3, AD-2 | confirm | the content pill stays HIDDEN and shows SENT until the read-back returns | the pill flips only on a verified read-back, never on HTTP success (`transport/outcome.mjs:36-42`) |
 
 ### D.4.6 Quest Studio compile loop
@@ -336,7 +336,7 @@ The mode band is a 44 px full-width strip rendered before any item list, the sam
 
 **Derived, never selected.** The mode comes from the parsed plan, the journal or the action in flight. READ ONLY when the parsed plan has zero write items, which is how Forge already decides (`screens.mjs:120`). LIVE WRITE when the plan has at least one create or update. RECOVERY when the job is paused or incomplete or holds any SENT or ORPHANED item. PUBLISH only on an admin publish action, which is HOLD. A mode selector reads as a permission and must not imply that choosing Publish grants it (WCM:607-629). K-33 is the director's, and a selectable mode remains an option for them.
 
-**Counts vocabulary.** Reads, captures (with the FULL subset named separately), creates, updates, uploads, publishes. Sources: capture entries for reads and captures, plan item ops for creates and updates, image refs for uploads. Publishes has no source today and is rendered as zero or omitted, never fabricated (`A_ARCHITECTURE_MAP.md:171`). Deletes is never rendered: no delete recipe has a caller and no authorized delete workflow exists (IRM's matrix marks a live-record delete as not currently authorized, IRM:201). During a run the counts are recomputed from the journal rather than the plan, so a resumed job shows what is left.
+**Counts vocabulary.** Reads, captures (with the FULL subset named separately), creates, updates, uploads, publishes. Sources: capture entries for reads and captures, plan item ops for creates and updates, image refs for uploads. Publishes has no source today and is rendered as zero or omitted, never fabricated (`A_ARCHITECTURE_MAP.md`). Deletes is never rendered: no delete recipe has a caller and no authorized delete workflow exists (IRM's matrix marks a live-record delete as not currently authorized, IRM:201). During a run the counts are recomputed from the journal rather than the plan, so a resumed job shows what is left.
 
 **Placement.** Phone: 44 px sticky under the 56 px top bar, the mode word plus the two most consequential counts for that mode, with a chevron that expands the rest; a readiness blocker line replaces the counts when the session is not ready. Desktop: 44 px at the top of the content column, never over the rail, with the full chip row visible.
 

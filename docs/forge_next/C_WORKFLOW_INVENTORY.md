@@ -103,7 +103,7 @@ Table C.2a identifies each workflow and its evidence; table C.2b records tooling
 
 ### C.2c Publish semantics per content class (evidence for W-23)
 
-The lifecycle field an admin would flip differs by class. Section E owns the per-class source audit; this table only records what the inventory needs in order to say that W-23 cannot be one generic action. Tier: SV through `H_RISK_REGISTER.md:16` (R-08) and `A_ARCHITECTURE_MAP.md` §A.7, which cite the game source; not re-read here.
+The lifecycle field an admin would flip differs by class. Section E owns the per-class source audit; this table only records what the inventory needs in order to say that W-23 cannot be one generic action. Tier: SV through `H_RISK_REGISTER.md` (R-08) and `A_ARCHITECTURE_MAP.md` §A.7, which cite the game source; not re-read here.
 
 | Class Forge touches today | Lifecycle field | Consequence for a publish workflow |
 |---|---|---|
