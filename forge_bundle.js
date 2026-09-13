@@ -1,4 +1,4 @@
-// TNR forge bundle v0.4.0 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.4.1 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Entry: /forge (a providerless 404) arms the tab and hands off; Forge then mounts as an overlay on a
 // real application route so ClerkProvider and the tRPC provider stay alive under it. Layers: storage, transport, budget, runner, reconcile, ui.
@@ -6089,6 +6089,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   var CARRIER_PATH = "/";
   var ARM_KEY = "tnr_forge_armed_v1";
   var MAX_HOPS = 2;
+  var MAX_HOST_LOSSES = 1;
+  var CARRIER_GRACE_MS = 15e3;
+  var CARRIER_POLL_MS = 50;
   var OLD_BUILDER_CLASSES = ["k-fab", "k-pn"];
   var OVERLAY_CLASS = "f-host";
   function onEntryPath(loc = location) {
@@ -6109,10 +6112,17 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const a = readArm(win);
     return a && Number.isInteger(a.hops) ? a.hops : 0;
   }
-  function arm(win, { hops = null } = {}) {
+  function armFailure(win) {
+    const a = readArm(win);
+    return a && typeof a.failure === "string" ? a.failure : null;
+  }
+  function arm(win, { hops = null, failure = void 0 } = {}) {
     const next = hops == null ? armHops(win) + 1 : hops;
+    const record = { armed: true, hops: next };
+    const kept = failure === void 0 ? armFailure(win) : failure;
+    if (typeof kept === "string" && kept) record.failure = kept;
     try {
-      win.sessionStorage.setItem(ARM_KEY, JSON.stringify({ armed: true, hops: next }));
+      win.sessionStorage.setItem(ARM_KEY, JSON.stringify(record));
     } catch {
     }
     return next;
@@ -6195,40 +6205,184 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       check();
     });
   }
-  function alreadyMounted(doc = document) {
-    return !!doc.querySelector("." + OVERLAY_CLASS);
-  }
-  function mountHost(doc = document, win = window) {
-    const host = h("div", { class: OVERLAY_CLASS });
-    const root = doc.documentElement;
-    const prevHtmlOverflow = root ? root.style.overflow : "";
-    const prevBodyOverflow = doc.body ? doc.body.style.overflow : "";
-    if (root) root.style.overflow = "hidden";
-    if (doc.body) doc.body.style.overflow = "hidden";
-    doc.body.appendChild(host);
-    let mo = null;
+  function carrierHydrated(doc = document) {
+    const body = doc.body;
+    if (!body) return false;
+    let keys;
     try {
-      mo = new win.MutationObserver((muts) => {
-        for (const m of muts) for (const n of m.addedNodes) {
-          if (n && n.nodeType === 1 && OLD_BUILDER_CLASSES.some((c) => n.classList && n.classList.contains(c))) n.remove();
-        }
-      });
-      mo.observe(doc.body, { childList: true });
+      keys = Object.keys(body);
     } catch {
-      mo = null;
+      return false;
     }
-    const release = () => {
-      if (mo) {
+    return keys.some((k) => k.startsWith("__reactFiber$") || k.startsWith("__reactProps$"));
+  }
+  function carrierRuntimeSettled(doc = document, win = window) {
+    if (doc.readyState !== "complete") return false;
+    const c = win && win.Clerk;
+    return !!(c && c.loaded === true);
+  }
+  function carrierReadiness(doc = document, win = window) {
+    if (!doc.body) return null;
+    if (carrierHydrated(doc)) return "hydrated";
+    if (carrierRuntimeSettled(doc, win)) return "runtime";
+    return null;
+  }
+  function whenCarrierReady(doc = document, win = window, { graceMs = CARRIER_GRACE_MS, pollMs = CARRIER_POLL_MS } = {}) {
+    return new Promise((resolve) => {
+      const now = carrierReadiness(doc, win);
+      if (now) return resolve(now);
+      let settled = false;
+      let mo = null;
+      let timer = null;
+      let deadline = null;
+      const cleanup = () => {
+        if (mo) {
+          try {
+            mo.disconnect();
+          } catch {
+          }
+          mo = null;
+        }
+        if (timer != null) {
+          try {
+            win.clearInterval(timer);
+          } catch {
+          }
+          timer = null;
+        }
+        if (deadline != null) {
+          try {
+            win.clearTimeout(deadline);
+          } catch {
+          }
+          deadline = null;
+        }
+        for (const ev of ["DOMContentLoaded", "readystatechange"]) {
+          try {
+            doc.removeEventListener(ev, check);
+          } catch {
+          }
+        }
         try {
-          mo.disconnect();
+          win.removeEventListener("load", check);
+        } catch {
+        }
+      };
+      const finish = (value) => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        resolve(value);
+      };
+      function check() {
+        if (settled) return;
+        const via = carrierReadiness(doc, win);
+        if (via) return finish(via);
+        if (deadline == null && doc.readyState === "complete") {
+          try {
+            deadline = win.setTimeout(() => finish(null), graceMs);
+          } catch {
+            deadline = null;
+          }
+        }
+      }
+      try {
+        mo = new win.MutationObserver(check);
+        mo.observe(doc.documentElement || doc, { childList: true, subtree: true });
+      } catch {
+        mo = null;
+      }
+      for (const ev of ["DOMContentLoaded", "readystatechange"]) {
+        try {
+          doc.addEventListener(ev, check);
         } catch {
         }
       }
+      try {
+        win.addEventListener("load", check);
+      } catch {
+      }
+      try {
+        timer = win.setInterval(check, pollMs);
+      } catch {
+        timer = null;
+      }
+      check();
+    });
+  }
+  function alreadyMounted(doc = document) {
+    return !!doc.querySelector("." + OVERLAY_CLASS);
+  }
+  function mountHost(doc = document, win = window, { onLost = null } = {}) {
+    const host = h("div", { class: OVERLAY_CLASS });
+    const root = doc.documentElement;
+    const body = doc.body;
+    const prevHtmlOverflow = root ? root.style.overflow : "";
+    const prevBodyOverflow = body ? body.style.overflow : "";
+    if (root) root.style.overflow = "hidden";
+    if (body) body.style.overflow = "hidden";
+    body.appendChild(host);
+    let bodyMo = null;
+    let rootMo = null;
+    let released = false;
+    let lost = false;
+    const disconnect = () => {
+      if (bodyMo) {
+        try {
+          bodyMo.disconnect();
+        } catch {
+        }
+        bodyMo = null;
+      }
+      if (rootMo) {
+        try {
+          rootMo.disconnect();
+        } catch {
+        }
+        rootMo = null;
+      }
+    };
+    const attached = () => !released && host.isConnected && doc.body === body && body.contains(host);
+    const reportLost = () => {
+      if (released || lost || attached()) return;
+      lost = true;
+      disconnect();
+      if (onLost) {
+        try {
+          onLost(host);
+        } catch {
+        }
+      }
+    };
+    try {
+      bodyMo = new win.MutationObserver((muts) => {
+        for (const m of muts) {
+          for (const n of m.addedNodes) {
+            if (n && n.nodeType === 1 && OLD_BUILDER_CLASSES.some((c) => n.classList && n.classList.contains(c))) n.remove();
+          }
+          for (const n of m.removedNodes) if (n === host) return reportLost();
+        }
+      });
+      bodyMo.observe(body, { childList: true });
+    } catch {
+      bodyMo = null;
+    }
+    try {
+      rootMo = new win.MutationObserver(() => {
+        if (doc.body !== body) reportLost();
+      });
+      if (root) rootMo.observe(root, { childList: true });
+    } catch {
+      rootMo = null;
+    }
+    const release = () => {
+      released = true;
+      disconnect();
       host.remove();
       if (root) root.style.overflow = prevHtmlOverflow;
       if (doc.body) doc.body.style.overflow = prevBodyOverflow;
     };
-    return { body: host, observer: mo, release };
+    return { body: host, observer: bodyMo, attached, release };
   }
   function pageAuthRuntime(win = window) {
     return () => {
@@ -11260,7 +11414,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   };
 
   // src/main.mjs
-  var VERSION = "forge 0.4.0";
+  var VERSION = "forge 0.4.1";
   function compose({
     storage,
     indexedDB,
@@ -11303,11 +11457,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     });
     return deps;
   }
-  async function boot(win = window, { redirect = null, establish = true } = {}) {
+  async function boot(win = window, { redirect = null, establish = true, readiness = {} } = {}) {
     const doc = win.document;
     if (onEntryPath(win.location)) return bootEntry(win, doc, redirect);
     if (!isArmed(win)) return null;
-    return bootHost(win, doc, { establish });
+    return bootHost(win, doc, { establish, readiness });
   }
   function bootEntry(win, doc, redirect) {
     const { body } = entryTakeover(doc, win);
@@ -11317,10 +11471,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const panel = h("div", { class: "f-boot" });
     body.appendChild(panel);
     if (hops >= MAX_HOPS) {
+      const failure = armFailure(win);
       disarm(win);
       panel.append(
-        h("div", {}, h("b", {}, "TNR forge could not reach an authenticated page.")),
-        h("p", {}, `Forge tried ${hops} times to hand off from ${ENTRY_PATH} to a normal game page and ended up back here. Open the game, sign in, and then open ${ENTRY_PATH} again.`)
+        h("div", {}, h("b", {}, failure ? "TNR forge could not stay on the game page." : "TNR forge could not reach an authenticated page.")),
+        h("p", {}, failure ? `Forge reached a normal game page but could not keep its overlay there: ${failure}` : `Forge tried ${hops} times to hand off from ${ENTRY_PATH} to a normal game page and ended up back here. Open the game, sign in, and then open ${ENTRY_PATH} again.`),
+        failure ? h("p", { class: "f-mute" }, `Open the game, make sure it has finished loading, and then open ${ENTRY_PATH} again. If this repeats, the game's page structure has changed under Forge and needs a Forge update.`) : null
       );
       return null;
     }
@@ -11336,8 +11492,14 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     go(CARRIER_PATH);
     return null;
   }
-  async function bootHost(win, doc, { establish = true } = {}) {
+  async function bootHost(win, doc, { establish = true, readiness = {} } = {}) {
     await whenBodyReady(doc, win);
+    if (alreadyMounted(doc)) return null;
+    const via = await whenCarrierReady(doc, win, readiness);
+    if (!via) {
+      arm(win, { hops: armHops(win), failure: `the game page never became ready to host an overlay (no framework ownership of <body> within ${Math.round(CARRIER_GRACE_MS / 1e3)}s of the page finishing loading)` });
+      return null;
+    }
     if (alreadyMounted(doc)) return null;
     const clock = () => Date.now();
     let tabId;
@@ -11352,8 +11514,34 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     let deps = {};
     let host = null;
+    let losses = 0;
+    const log = (m) => {
+      if (deps.app) deps.app.log(m);
+    };
+    const onLost = async () => {
+      losses += 1;
+      log(`host lost (${losses}): the carrier removed the Forge overlay`);
+      if (losses > MAX_HOST_LOSSES) {
+        arm(win, { hops: MAX_HOPS, failure: `the game page removed the Forge overlay ${losses} times after it mounted; Forge stopped rather than fight the page for it` });
+        log("host lost again after a remount; giving up on this page");
+        return;
+      }
+      try {
+        const again = await whenCarrierReady(doc, win, readiness);
+        if (!again) {
+          arm(win, { hops: MAX_HOPS, failure: "the game page removed the Forge overlay and then never became ready for it again" });
+          return;
+        }
+        if (alreadyMounted(doc)) return;
+        host = mountHost(doc, win, { onLost });
+        host.body.appendChild(deps.app.root);
+        log(`host remounted after loss (carrier ready via ${again})`);
+      } catch (e) {
+        arm(win, { hops: MAX_HOPS, failure: `remounting the Forge overlay failed: ${e && e.message || e}` });
+      }
+    };
     try {
-      host = mountHost(doc, win);
+      host = mountHost(doc, win, { onLost });
       deps = compose({
         storage: win.localStorage,
         indexedDB: win.indexedDB,
@@ -11361,20 +11549,24 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         clock,
         tabId,
         runtime: pageAuthRuntime(win),
-        log: (m) => deps.app && deps.app.log(m)
+        log
       });
       deps.app = new App({
         version: VERSION,
         storage: win.localStorage,
         now: clock,
         ...deps,
+        // Step 5. release() disconnects the loss watchers before it removes the host, so Close is
+        // never mistaken for a loss; host is read at call time so a remounted host is the one released.
         exit: () => {
           disarm(win);
           host.release();
         }
       });
       deps.app.mount(host.body, doc);
-      arm(win, { hops: 0 });
+      log(`mounted on ${win.location.pathname} (carrier ready via ${via})`);
+      if (host.attached() && carrierReadiness(doc, win)) arm(win, { hops: 0, failure: null });
+      else log("mounted but not stable; the hop counter is left as it was");
     } catch (e) {
       if (!host) return null;
       const panel = h("div", { class: "f-boot" });

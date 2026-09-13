@@ -23,11 +23,12 @@ import { ARM_KEY, isArmed, arm, armHops, disarm, mountHost, whenBodyReady, alrea
 import { FakeGame, FakeClient, CrashSignal } from "./fakegame.mjs";
 import { MemoryStorage } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
+import { stampHydrated } from "./carrier.mjs";
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "src");
 function walk(dir) { return readdirSync(dir, { withFileTypes: true }).flatMap((d) => d.isDirectory() ? walk(join(dir, d.name)) : [join(dir, d.name)]); }
 
-function dom(url = "https://www.theninja-rpg.com/") {
+function dom(url = "https://www.theninja-rpg.com/", { hydrated = true } = {}) {
   const d = new JSDOM("<!doctype html><html><head></head><body><div id=\"__next\">the game</div></body></html>", { url });
   const win = d.window;
   win.confirm = () => true;
@@ -41,6 +42,9 @@ function dom(url = "https://www.theninja-rpg.com/") {
   for (const [k, v] of Object.entries({ document: win.document, window: win, navigator: win.navigator, location: win.location, confirm: win.confirm, MutationObserver: win.MutationObserver, CSSStyleSheet: win.CSSStyleSheet, HTMLElement: win.HTMLElement })) {
     Object.defineProperty(globalThis, k, { value: v, configurable: true, writable: true });
   }
+  // A carrier the game has already hydrated: React has stamped <body> (test/carrier.mjs). The
+  // readiness wait itself, and what happens before this stamp, is test/carrier.test.mjs's job.
+  if (hydrated) stampHydrated(win.document);
   return win;
 }
 
@@ -50,7 +54,7 @@ function dom(url = "https://www.theninja-rpg.com/") {
  * what the real parser does a moment later. This is the shape independent review FPA-1 is about.
  */
 function bodylessDom(url = "https://www.theninja-rpg.com/") {
-  const win = dom(url);
+  const win = dom(url, { hydrated: false });
   const doc = win.document;
   doc.documentElement.removeChild(doc.body);
   return {
@@ -64,6 +68,8 @@ function bodylessDom(url = "https://www.theninja-rpg.com/") {
       doc.documentElement.appendChild(body);
       return body;
     },
+    // the moment React commits the hydrated document: body is stamped, nothing else changes
+    hydrate() { stampHydrated(doc); },
   };
 }
 
@@ -196,10 +202,9 @@ test("the carrier page keeps its provider/auth runtime alive while Forge is moun
 // then throws, the top-level wrapper swallows the rejection, and the operator sees the game with
 // the tab armed and Forge never mounted - a valid /forge handoff that silently does nothing.
 
-test("FPA-1: an armed carrier with no body yet mounts when the body arrives, exactly once", async () => {
-  const { win, doc, insertBody } = bodylessDom();
+test("FPA-1: an armed carrier with no body yet mounts when the body arrives and is hydrated, exactly once", async () => {
+  const { win, doc, insertBody, hydrate } = bodylessDom();
   arm(win, { hops: 1 });
-  win.Clerk = { loaded: true, session: { id: "sess" } };
   assert.equal(doc.body, null, "the test really is at document-start");
 
   const booting = boot(win, { establish: false });
@@ -210,8 +215,16 @@ test("FPA-1: an armed carrier with no body yet mounts when the body arrives, exa
   assert.equal((doc.adoptedStyleSheets || []).length, 0, "not even a stylesheet before the body exists");
 
   const body = insertBody();
+  // 0.4.1: the body arriving is no longer enough. Until the game has hydrated the document the
+  // overlay would be reconciled away, so Forge keeps waiting, still writing nothing.
+  await new Promise((r) => setTimeout(r, 80));
+  assert.equal(doc.querySelector("." + OVERLAY_CLASS), null, "no overlay before the carrier is hydrated");
+  assert.equal((doc.adoptedStyleSheets || []).length, 0);
+  hydrate();
+  // clerk-js is loaded by ClerkProvider's client code, so it exists only after React has run
+  win.Clerk = { loaded: true, session: { id: "sess" } };
   const app = await booting;
-  assert.ok(app instanceof App, "Forge mounts as soon as the body is there");
+  assert.ok(app instanceof App, "Forge mounts once the carrier is ready");
   assert.equal(doc.querySelectorAll("." + OVERLAY_CLASS).length, 1, "exactly one overlay");
   assert.equal(doc.querySelector("." + OVERLAY_CLASS).parentElement, body);
   assert.equal(doc.getElementById("__next").textContent, "the game", "the game's own tree is untouched");
