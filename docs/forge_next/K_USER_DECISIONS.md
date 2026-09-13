@@ -76,6 +76,9 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 | K-53 | Whether balance-bearing classes appear in a Content Admin surface at all | Phase 4 |
 | K-54 | Whether the product says plainly that hidden does not mean secret, and whether an embargo requirement exists | the publish phase (copy) |
 | K-55 | Whether a delegated Content Admin performs the publish act, or only records a go-ahead that the user acts on | Phase 5 and every admin publish surface |
+| K-56 | Brand wordmark: system-font treatment or an embedded vector path | the shell phase |
+| K-57 | Whether a light theme exists at all, or only a high-contrast dark variant | the shell phase |
+| K-58 | Which actions keep the browser's own confirmation and which move to the in-page sheet | the shell phase |
 
 ---
 
@@ -587,3 +590,33 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 **Recommendation (advisory):** treat (a) as the default and build the admin surface to it, because it is what the doctrine says today and it leaves the product useful without a doctrine change. If the director wants (b), the change belongs in `docs/DOCTRINE.md` first, as its own Lane A change on the canonical owner, and the roadmap's publish phase then depends on it. No option is recommended outright: publishing is explicitly the user's to settle (`CLAUDE.md` section 10).
 **Can defer:** no. It gates every publish control and the wording of K-07 and K-12.
 **Blocks phase:** the publish phase, and the publish half of the Content Admin phase.
+
+### K-56 Brand wordmark treatment: OPEN (director; art direction)
+
+**Why it matters:** the wordmark is the most visible piece of the approved identity and the two candidates differ in cost, not just in look. Art direction is reserved to the director (`CLAUDE.md` section 10).
+**Evidence:** `D_VISUAL_SYSTEM.md` D2.3 specifies both: option A is the word set in the system font at weight 900 with a crimson hard offset and a skewed slash, which costs no bytes and no asset; option B is an embedded vector path drawn with `createElementNS`, about 1.5 KB in the bundle, which needs an art check that it carries no identity the project does not own. The bundle is already 398 KB unminified and mobile parse cost is a live risk (`H_RISK_REGISTER.md` R-06).
+**Options:** (a) the system-font treatment; (b) the embedded vector path; (c) both, with the vector behind the same opt-in as the art pack (K-31).
+**Consequence:** (a) ships now and changes nothing about size; (b) is a stronger mark and adds bytes plus an art review; (c) doubles the surface that has to stay consistent.
+**Recommendation (advisory):** (a) for the first shell, because it is free and reversible, with (b) available later as a swap that touches one component.
+**Can defer:** yes, until the shell phase.
+**Blocks phase:** the shell phase only.
+
+### K-57 Whether a light theme exists at all: OPEN (director)
+
+**Why it matters:** the operator works on a phone in varied light, and a light theme is not a token swap: it doubles the contrast surface that has to be audited and re-audited every time a state colour moves.
+**Evidence:** the approved direction is a dark operations console (`docs/design/FORGE_NEXT_VISUAL_DIRECTION.md` at `chatgpt/forge-next-planning@0bb5a54b`). `D_VISUAL_SYSTEM.md` D2.10 proposes no light theme in v1 and instead a high-contrast dark variant built from five token overrides. Every ratio in the package was computed for the dark palette (`evidence/contrast.py`).
+**Options:** (a) the high-contrast dark variant only; (b) a full opt-in light theme; (c) neither, one palette.
+**Consequence:** (b) needs a second full contrast audit and a second set of state constructions to check, and it is the only option that changes what "dark operations console" means; (a) costs five overrides and one audit pass; (c) is the cheapest and the least accommodating.
+**Recommendation (advisory):** (a). Reasoning: it answers the legibility problem a light theme is usually asked for, without a second palette to keep honest.
+**Can defer:** yes, until the shell phase.
+**Blocks phase:** the shell phase only.
+
+### K-58 Which actions keep the browser's own confirmation: OPEN (director, with a safety consequence)
+
+**Why it matters:** the package replaces the native dialog for live writes, publishing and re-sends with an in-page sheet, and leaves it in place for local destructive actions such as clearing a cache. Where the line sits decides whether the operator learns to tap through the one dialog that matters.
+**Evidence:** today every consequential action is a native `confirm()` with ten call sites (`forge/src/ui/app.mjs:172`), which is the confirmation-fatigue risk (`H_RISK_REGISTER.md` R-12). `D_VISUAL_SYSTEM.md` D2.3 specifies the sheet for the three consequential classes only.
+**Options:** (a) sheet for live write, publish and re-send; native dialog for local destructive actions; (b) sheet for everything, so one pattern is learned; (c) native dialog everywhere, which is today.
+**Consequence:** (a) keeps the sheet rare and therefore meaningful, at the cost of two patterns; (b) is consistent and risks the sheet becoming as reflexive as the dialog it replaced; (c) keeps a pattern the risk register says already trains tapping through.
+**Recommendation (advisory):** (a).
+**Can defer:** yes, until the shell phase.
+**Blocks phase:** the shell phase only.
