@@ -131,7 +131,16 @@ const registry = {
 };
 registry.version = "catalog-" + sha(stableStringify(registry)).slice(0, 20);
 for (const t of templates) assertTemplate(t, registry);
+// Delivery projection only: the version still pins the complete canonical catalog.
+// Official bytes stay in /assets and the server catalog, never the initial JS.
+const { imageData: embeddedImages, ...browserRegistry } = registry;
+browserRegistry.assetHashes = Object.fromEntries(
+  Object.values(assetMeta).map((a) => [a.url, a.sha256]),
+);
 const outputs = {
+  "../catalog/browser.v1.json":
+    JSON.stringify(JSON.parse(stableStringify(browserRegistry)), null, 2) +
+    "\n",
   "../catalog/catalog.v1.json":
     JSON.stringify(JSON.parse(stableStringify(registry)), null, 2) + "\n",
   "../catalog/catalog-meta.json":

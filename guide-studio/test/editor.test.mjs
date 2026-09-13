@@ -19,6 +19,7 @@ const js = output.outputFiles.find((f) => f.path.endsWith(".js")).text,
 function mount(path = "/", saved = {}, handler) {
   const errors = [],
     requests = [],
+    assetRequests = [],
     virtualConsole = new VirtualConsole();
   virtualConsole.on("jsdomError", (e) => errors.push(e.message));
   const dom = new JSDOM(
@@ -43,6 +44,13 @@ function mount(path = "/", saved = {}, handler) {
     this.open = false;
   };
   w.fetch = async (url, opts) => {
+    if (url.startsWith("/assets/")) {
+      assert.match(url, /^\/assets\/[a-f0-9]{24}\.webp$/);
+      assert.equal(opts.credentials, "omit");
+      assert.equal(opts.redirect, "error");
+      assetRequests.push(url);
+      return new Response(await readFile("public" + url));
+    }
     if (handler) return handler(url, opts);
     requests.push({ url, body: JSON.parse(opts.body) });
     return Response.json(
@@ -57,7 +65,7 @@ function mount(path = "/", saved = {}, handler) {
   for (const [key, value] of Object.entries(saved))
     w.localStorage.setItem(key, value);
   w.eval(js);
-  return { dom, w, errors, requests, doc: w.document };
+  return { dom, w, errors, requests, assetRequests, doc: w.document };
 }
 async function flush() {
   await new Promise((resolve) => setTimeout(resolve, 10));
@@ -86,6 +94,11 @@ test("real editor DOM: create, select, inline notes, order, autosave/recovery, c
   let h = mount();
   await flush();
   assert.equal(h.doc.querySelectorAll(".template-tile").length, 2);
+  assert.equal(
+    h.assetRequests.length,
+    0,
+    "no embedded-card fetch at first paint",
+  );
   await click(button(h.doc, "Create guide"));
   await fill(
     h.doc.querySelector('input[placeholder="Your player name"]'),
@@ -171,6 +184,10 @@ test("real editor DOM: create, select, inline notes, order, autosave/recovery, c
   const preview = h.doc.querySelector(".preview-dialog iframe").srcdoc;
   assert.ok(preview.includes("I reduce incoming damage and enemy healing."));
   assert.ok(preview.includes("bloodline-kit"));
+  assert.ok(
+    h.assetRequests.length > 0,
+    "preview loads same-origin verified art",
+  );
   assert.equal(h.requests.length, 0);
   await click(
     h.doc.querySelector('[aria-label="Close preview and return to editor"]'),

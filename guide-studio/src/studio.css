@@ -190,6 +190,16 @@ small,
   font-size: 11px;
   color: #b9c6c0;
 }
+.masthead-right > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 .save-state {
   display: flex;
   align-items: center;

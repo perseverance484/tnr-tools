@@ -1,57 +1,6 @@
 import { z } from "zod";
 import { resolveTemplate } from "./template.mjs";
 export const SOURCE_SHA = "36c5873b7b6ee5fd3af717008d7c51b0f185b756";
-export const CATEGORIES = [
-  "getting-started",
-  "combat",
-  "world",
-  "villages",
-  "bloodlines",
-  "farming",
-  "economy",
-  "ranks",
-  "reference",
-];
-export const GuideArticleValidator = z.object({
-  slug: z
-    .string()
-    .trim()
-    .min(1)
-    .max(80)
-    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
-    .refine((s) => !["edit", "new"].includes(s)),
-  title: z.string().trim().min(1).max(191),
-  subtitle: z.string().trim().max(255).optional().nullable(),
-  excerpt: z.string().trim().max(500).optional().nullable(),
-  seoTitle: z.string().trim().max(70).optional().nullable(),
-  seoDescription: z.string().trim().max(160).optional().nullable(),
-  category: z.enum(CATEGORIES),
-  content: z.string().min(1).max(200_000),
-  image: z
-    .union([z.url(), z.literal("")])
-    .optional()
-    .nullable(),
-  faq: z
-    .array(
-      z.object({
-        question: z.string().trim().min(1).max(200),
-        answer: z.string().trim().min(1).max(1000),
-      }),
-    )
-    .max(12)
-    .optional()
-    .nullable(),
-  sortOrder: z.coerce.number().int().min(0).max(10_000),
-  published: z.boolean(),
-  relatedBloodlineId: z.string().max(191).optional().nullable(),
-  relatedItemId: z.string().max(191).optional().nullable(),
-  relatedJutsuId: z.string().max(191).optional().nullable(),
-  sourceUrl: z
-    .union([z.url(), z.literal("")])
-    .optional()
-    .nullable(),
-  reviewNotes: z.string().trim().max(4000).optional().nullable(),
-});
 export const DraftSchema = z
   .object({
     schema: z.literal("tnrguide/v2"),

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import registry from "../catalog/catalog.v1.json";
+import registry from "../catalog/browser.v1.json";
+import { createPreviewLoader } from "./preview-assets.mjs";
 import aerathiel from "../fixtures/aerathiel.submission.json";
 import nightParade from "../fixtures/night-parade.submission.json";
 import { newDraft, checklist, validateDraft } from "./schema.mjs";
@@ -15,6 +16,7 @@ import "./studio.css";
 const examples = { aerathiel: aerathiel, "night-parade": nightParade };
 const config = window.STUDIO_CONFIG || {};
 const origin = location.origin;
+const loadPreviewRegistry = createPreviewLoader(registry);
 function download(name, content, mime = "application/json") {
   const url = URL.createObjectURL(new Blob([content], { type: mime }));
   const a = document.createElement("a");
@@ -32,7 +34,9 @@ export function Preview({ draft, onClose, rendered: provided }) {
     let active = true;
     (async () => {
       try {
-        const r = provided || (await renderGuide(draft, registry, origin));
+        const r =
+          provided ||
+          (await renderGuide(draft, await loadPreviewRegistry(draft), origin));
         if (active) setDocument(previewDocument(r));
       } catch (e) {
         if (active) setError(e.message);
@@ -78,6 +82,7 @@ export function Preview({ draft, onClose, rendered: provided }) {
         <p role="alert">{error}</p>
       ) : (
         <div className={"preview-stage " + width}>
+          {!document && <p role="status">Preparing your guide and artwork…</p>}
           <iframe
             title="Final rendered TNR guide"
             sandbox=""

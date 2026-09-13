@@ -16,6 +16,8 @@ export async function renderGuide(
   assetOrigin,
   submissionId = "preview",
 ) {
+  if (!registry.imageData)
+    throw Error("Load official artwork before rendering a guide.");
   const t = resolveTemplate(d, registry),
     origin = new URL(assetOrigin).origin,
     assets = [];

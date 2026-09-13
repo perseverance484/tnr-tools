@@ -1,10 +1,6 @@
 import { zipSync, unzipSync, strToU8, strFromU8 } from "fflate";
-import {
-  GuideArticleValidator,
-  validateDraft,
-  SOURCE_SHA,
-  encodeBase64,
-} from "./schema.mjs";
+import { GuideArticleValidator } from "../compatibility/runtime/guide-validator.mjs";
+import { validateDraft, SOURCE_SHA, encodeBase64 } from "./schema.mjs";
 import { renderGuide } from "./render.mjs";
 import { sha256, stableStringify } from "./hash.mjs";
 export async function createArtifact(input, registry, origin, id) {

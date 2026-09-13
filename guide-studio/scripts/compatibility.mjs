@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 const result = await build({
   write: false,
   entryPoints: [
+    "compatibility/constants.ts",
     "compatibility/sanitize.ts",
     "compatibility/guide-html.ts",
     "compatibility/guide-validator.ts",
