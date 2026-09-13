@@ -1,0 +1,11 @@
+{
+  "_note": "READ-ONLY Night Parade asset follow-up. Zero mutations. Captures the exact bloodline record and the Pestilence summon AI profile needed to complete the guide asset pack after push/20 resolved the bloodline ID and summon chain.",
+  "capture": {
+    "before": [
+      {"proc":"bloodline.get","input":{"id":"r_99Xg8SIOYw2awCMSR7e"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"oqeo5ssoyR4XlfOEWENbp"},"persist":"full"}
+    ],
+    "after": []
+  },
+  "items": []
+}
