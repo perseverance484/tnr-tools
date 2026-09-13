@@ -30,6 +30,21 @@ G-01 to G-10 are `B_PARITY_MATRIX.md` §B.4's gates and keep their ids, wording 
 | **G-12** | **Ingress parity.** Every path a manifest can legitimately arrive by is reachable in Forge, or is recorded as deliberately dropped in the G-10 ruling | An ingress inventory test enumerates the accepted sources and asserts each one lands in the same preflight; a Studio-branch build reaches the runner only through the promotion contract | Forge lists `push/*.json` on the default branch only (`forge/src/ui/app.mjs:188-190`, `forge/src/github.mjs:28-34`); zip packs, device files and paste have no route (P-02, P-06); a Studio build ends in a text export today (`824c4d58:forge/src/studio/ui.mjs:3-4`). Blocked by K-39 for the Studio half | 3 and the Studio phase |
 | **G-13** | **Parity guard green.** A Forge results bundle no longer breaks the repository's own session guard | `validate.py --parity` exits 0 on a committed Forge bundle, `session_close.py --guards` is green with a Forge bundle newest in the inbox, and `forge/test/harvest.test.mjs` carries the regression | `parity()` iterates `checks` unconditionally (`skills/building-tnr-content/scripts/validate.py:198-199`), Forge emits `checks: null` (`forge/src/ui/app.mjs:382`) and the guard runs on the lexically newest bundle (`skills/building-tnr-content/scripts/session_close.py:93-101`). R-19 | 0 |
 
+Read across sections, each gate is the thing that lets one real workflow leave the Builder. The mapping is what makes "Builder can be retired" testable rather than rhetorical.
+
+| Gate | Workflows it releases (`C_WORKFLOW_INVENTORY.md`) | Parity rows behind it |
+|---|---|---|
+| G-01 | W-09 zip push packs, and the image half of W-02 | P-06, P-07 |
+| G-02, G-11 | W-05 research reads outside the registry | P-10, P-13 |
+| G-03 | W-06 paged list captures, W-07 census to generator, and the Forge half of W-14 | P-11, P-12 |
+| G-04, G-05 | W-03 edits and repairs, including the partial-edit shapes | P-23, P-33, P-36 |
+| G-06 | W-12 retry, safe re-run and idmap hygiene | P-21, P-45, P-55 |
+| G-07 | W-08 full-capture evidence and W-13 evidence preservation | P-14, P-40, P-50, P-58 |
+| G-08 | W-02 and W-03 as live write paths, and W-11 recovery proven in the real browser | P-20, P-25, P-31, P-39 |
+| G-12 | W-01 manifest staging and discovery, and the ingress half of W-24 | P-02, P-04, P-05, P-06 |
+| G-13 | W-21 session guards, and the repository half of W-13 | none, this is a repository defect not a parity gap |
+| G-09, G-10 | none directly; they are the release hygiene and the ruling that let the others be acted on | P-59, plus the drop list |
+
 Two properties of this table matter more than its rows. It is **additive to B**: no gate id is renumbered and no gate text is rewritten here. And it is **not a schedule**: a gate passing is a fact about the code and the committed record, while the decision to act on a passed gate is K-11.
 
 ## J.2 Transition posture
@@ -51,6 +66,16 @@ The posture is deliberately conservative because the failure mode is asymmetric.
 
 **How the operator is informed.** There is no notification channel in either tool today; the only operator-facing release signal is the loader refresh step the release ritual already produces (`C_WORKFLOW_INVENTORY.md` W-20) and the Settings screen's own About block (`forge/src/ui/screens.mjs:325`). The transition therefore uses the channels that already exist: the release note that accompanies each pin, the Settings About block carrying the Forge version and the current stage, and, at stage 4, a one-line deprecation statement. Wording is owned by CPY and not drafted here; the reserved-term rules apply, in particular that `Retry` is not used for anything the Builder used to retry unsafely (CPY:576-578). Timing of stages 4 and 5 is K-11.
 
+
+| Channel | Exists today | Used from stage | Carries | Owner of the words |
+|---|---|---|---|---|
+| Release note beside each pin | yes, as the operator's refresh step (W-20) | 1 | which gates this release closed, and what to keep using the Builder for | Fable, from the gate results |
+| Settings About block (`forge/src/ui/screens.mjs:325`) | yes | 2 | the Forge version and the current transition stage | CPY |
+| One-line deprecation statement | no, must be added | 4 | that the Builder is deprecated, and what replaces each dropped capability | CPY, timing K-11 |
+| `docs/RULINGS.md` entry | yes as a mechanism, no entry exists | 5 | the ruling itself, per gate G-10 | director |
+
+A deliberate omission: no in-tool banner is proposed inside `builder_bundle.js`. Adding one is a code change to a bundle that is otherwise frozen, on a tool that is being removed, and the repository already has a channel the operator reads every release.
+
 ## J.3 Storage and settings migration
 
 What is on the operator's phone today is listed in `A_ARCHITECTURE_MAP.md` §A.5. This table states what a Forge Next release may do to each store. Nothing in it is optional: R-09's failure mode is a release that cannot read an open job that holds a `SENT` item, which would strand a real live write with no reconciliation path.
@@ -69,6 +94,15 @@ What is on the operator's phone today is listed in `A_ARCHITECTURE_MAP.md` §A.5
 
 **Fixtures.** The migration test corpus is built from **real exported journals**, not hand-written objects. The export path that produces them exists today as a text blob in the journal card (`forge/src/ui/screens.mjs:320` calling `exportText()` at `forge/src/storage/journal.mjs:398-401`), so collecting fixtures is an operator action on the device, and it must happen **before** the upgrading release ships. The corpus needs at minimum one `DONE` job, one `INCOMPLETE` job, one `PAUSED` job holding an `ORPHANED` item, one job with a `SENT` item, and one deliberately broken record. Section I owns the test shape. Note the constraint that shapes this: there is no file download without a PAT today (P-50, gate G-07), so a fixture leaves the phone either through a copy and paste or through a repository commit.
 
+| Fixture | Why the corpus needs it | What a migration bug would look like without it |
+|---|---|---|
+| A `DONE` job with verified items | the common record, and the one the export path produces most often | fields silently dropped from history |
+| An `INCOMPLETE` job with a drift or unread item | non-terminal verification state must survive the version bump | a job that reads as finished after upgrade |
+| A `PAUSED` job with an `ORPHANED` item | the orphan card is the only surface for a two-phase create that half landed | an orphan that disappears from the Jobs screen |
+| A job holding a `SENT` item | the exact R-09 failure: an ambiguous live write that must stay reconcilable | a stranded write with no path back |
+| A deliberately broken record | proves the parking behaviour rather than assuming it | a record deleted by the upgrade |
+| A journal exported by the previous release, replayed through the previous release after the new one wrote | proves the rollback direction, not just the upgrade direction | a rollback that loses the newest jobs silently |
+
 **Recommendation and alternatives** (planning owner's, panel synthesis unavailable at this SHA). Recommended: additive v2 under the existing key prefix with `MIGRATIONS[1]` and a refusal-plus-export rollback. Alternative (b), a new key namespace `tnr_forge_job_v2:` with dual-read, loses because a rolled-back bundle stops seeing the new namespace entirely, converting a loud refusal into silent invisibility, which is precisely R-09. Alternative (c), a sidecar store holding the new fields with the journal untouched, loses because it creates two write-ahead records for one job and the single pre-send flush is the invariant the journal exists to hold (`forge/src/storage/journal.mjs:330-335`). Section F owns what the v2 fields actually are, including any repository-sync state and any Studio per-request record.
 
 ## J.4 Manifest contract compatibility
@@ -78,6 +112,17 @@ The manifest contract does not change in this pass and should not change in the 
 1. **Existing validated manifests keep working unchanged.** Every manifest in `push/` and `archive/spent-manifests/` must continue to parse and plan without edits. This is measurable with the corpus that already exists: 35 committed JSON manifests and 6 zip packs (`evidence/harvest-evidence.json`). Backward compatibility first is a brief principle (§15), and a contract migration is out of scope (§16).
 2. **No second door into the runner.** Whatever ingress G-12 adds, every manifest passes the same preflight: `parseManifest`, the validator's unknown-key refusal (`forge/src/runner/validate.mjs:81`) and the lints, including the hidden-on-create rule (`forge/src/runner/lints.mjs:64-68`). A Studio-generated manifest is not privileged by having been machine-generated; the promotion contract is K-39 and the state today is an explicit refusal to enter the runner (`824c4d58:forge/src/studio/ui.mjs:3-4`), which RB's separation of compile from execution requires (RB:269-284).
 3. **Ingress is enumerated, not assumed.** The current ingress is exactly one route: `.json` files listed from the push directory on the default branch (`forge/src/ui/app.mjs:188-190`, `forge/src/github.mjs:28-34`). Local `.zip` push packs (P-06), local `.json` and paste (P-02), other directories or refs (P-04) and Studio-branch builds (`A_ARCHITECTURE_MAP.md` §A.8 item 6) are each either built or recorded as dropped in the G-10 ruling. Silence is not a disposition.
+
+The enumeration, as it stands at this SHA:
+
+| Route | Builder today | Forge today | Gate | Disposition question |
+|---|---|---|---|---|
+| Repository directory pick, any directory, `.json` or `.zip` | yes, prompts for the directory and lists both extensions (`builder_bundle.js:826-831`) | push directory, `.json` only, default branch only (`forge/src/ui/app.mjs:188-190`) | G-12 | is a directory other than the push directory wanted at all (P-04) |
+| Multi-select batch from that list | yes, number, list, range or all (`builder_bundle.js:833-841,859-871`) | one manifest per job (`forge/src/ui/app.mjs:209-225`) | G-12 | drop or build, no committed run proves the need (P-05) |
+| Device file, `.json` or `.zip`, sniffed by magic bytes | yes (`builder_bundle.js:822`) | none | G-01 for the pack half | offline and fast iteration only (P-02) |
+| Paste into a textarea | yes, the same textarea the loader fills | none, the only textarea is the read-only export | G-12 | same question as the device file (P-02) |
+| Zip pack parsed in page with its `imgSizes` ledger | yes (`builder_bundle.js:496`) | none | G-01 | build, it is a hard blocker (P-06, P-07) |
+| Studio-branch generated manifest | not applicable, the Studio is newer than the Builder | text export only, by design (`824c4d58:forge/src/studio/ui.mjs:3-4`) | G-12 | the promotion contract is K-39 |
 
 ## J.5 Results and harvest contract compatibility
 
