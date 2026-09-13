@@ -69,7 +69,7 @@ A reviewer can reproduce the whole diff with:
 git diff 305a28f992e33194fbba279a3f32e698dfb2b67f..<head> --stat
 ```
 
-and should expect every path to be under `docs/forge_next/` or `docs/handoffs/`.
+and should expect every path to be under `docs/forge_next/`, `docs/handoffs/` or `docs/PLAN_2026-09-12_forge_next.md`. Nothing under `forge/`, `skills/`, `state/`, `docs/design/`, `push/`, `harvests/`, `archive/` or `.github/` is touched, which `git diff --quiet 305a28f..<head> -- <those paths>` confirms.
 
 ---
 
