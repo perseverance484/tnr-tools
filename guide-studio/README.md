@@ -2,6 +2,8 @@
 
 Astra’s implementation of the handoff at `87fb673938d915c0732351d2efb208d05ef38c7c`: two complete editorial templates, local player authorship, final-artifact staff review, immutable signed packages, and an isolated native TNR draft importer. This is an independent-review candidate, not a deployed service.
 
+The first independent review requested four scoped corrections. See the [correction handoff](docs/CORRECTION_REVIEW.md) and [received findings](docs/review/independent-review-ceb7867.md). The corrections await narrow independent re-review.
+
 ## Run locally
 
 Requires Node 24. From `guide-studio/`:
@@ -11,6 +13,8 @@ npm ci --ignore-scripts
 npm run gate
 npm run dev
 ```
+
+The gate includes an isolated production-only install using npm's offline cache, populated by `npm ci`, and a 250,000-byte gzip budget across public JavaScript. Browser JS/CSS and official art have immutable filenames/cache headers; HTML/config revalidate. The browser uses `catalog/browser.v1.json` without image bytes. Preview fetches only its required same-origin art, verifies SHA-256, and embeds the same bytes used by the server renderer.
 
 Open `http://localhost:4173`. `/staff` is the local staff harness; `/local-importer.html` runs native game mocks. The harness accepts only localhost Host headers and uses memory storage and ephemeral signing keys. Restarting discards submissions. Do not expose it publicly. The production build deletes harness files.
 

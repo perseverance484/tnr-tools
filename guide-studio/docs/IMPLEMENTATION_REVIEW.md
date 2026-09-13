@@ -1,5 +1,7 @@
 # Astra implementation review handoff
 
+Historical first handoff: frozen `ceb786763cd73e7bc1f42e98ffa7c43ae3d5ed40`. The independent review subsequently returned **Changes required**. Current status and the four scoped fixes are in [CORRECTION_REVIEW.md](CORRECTION_REVIEW.md); the remainder of this document records the original handoff.
+
 Repository: `perseverance484/tnr-tools`
 Implementation branch: `astra/guide-studio-implementation`
 Exact base: `6848a7805d912378f7f8eb27f52c9625dd10ac54`
@@ -7,7 +9,7 @@ Integration target: `main`, independently reverified at that same SHA before fre
 Design contract: `chatgpt/guide-studio-spec@87fb673938d915c0732351d2efb208d05ef38c7c`
 Pinned game: `studie-tech/TheNinjaRPG@36c5873b7b6ee5fd3af717008d7c51b0f185b756`
 
-The exact frozen implementation SHA is the commit containing this handoff, returned in the session's final response and verified against the remote branch. The design branch and main were not modified. Astra owns this implementation by explicit director assignment; independent review remains required before integration. This is not a production-completion or live-session claim.
+The original frozen implementation SHA is `ceb786763cd73e7bc1f42e98ffa7c43ae3d5ed40`, verified against the remote branch at that handoff. The design branch and main were not modified. Astra owns this implementation by explicit director assignment; independent review remains required before integration. This is not a production-completion or live-session claim.
 
 ## Implemented scope
 

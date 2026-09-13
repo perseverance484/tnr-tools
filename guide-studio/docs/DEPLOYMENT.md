@@ -15,6 +15,12 @@ No deployment or live import was performed. Use Pages for `dist/`, a Worker for 
 
 D1 uses `meta.changes` to identify the one successful revision update ([D1 results](https://developers.cloudflare.com/d1/worker-api/return-object/)). R2 stores frozen snapshots and assets ([R2 Worker API](https://developers.cloudflare.com/r2/api/workers/workers-api-reference/)). Assets are served only after their owner has won approval. Their unlisted immutable URLs then become readable by the native game; this does not publish an article.
 
+## Static delivery cache
+
+The build derives `/static/App-<hash>.js` and `.css` filenames from esbuild output metadata and writes those exact paths into HTML. Preserve `dist/_headers`: `/static/*` and `/assets/*` cache for one year with `immutable`; `/`, `/staff`, `/index.html`, `/config.js`, and the unversioned importer userscript revalidate with `no-cache`. The existing security-header rule applies to all of them. Pages must deploy the HTML and its referenced assets together. Actual edge headers/cache behavior remain a deployment check.
+
+`npm run gate` rejects embedded official WebP data in public JS, any dependency on the server's full catalog, and total public JS above 250,000 bytes gzip. It also creates a clean temporary `npm ci --omit=dev --ignore-scripts --offline` install outside the checkout and loads the pinned contract/sanitizer/heading/artifact modules. Run the normal `npm ci` first to populate the local npm cache; the gate does not contact the package registry or game.
+
 ## Recovery and limitations
 
 - Back up D1 and R2 together. Retain assets used by approved/imported guides. Define unapproved/orphan retention before launch; no destructive cleanup job is installed.

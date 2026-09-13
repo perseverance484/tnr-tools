@@ -40,6 +40,12 @@ Refresh is separate from build/authoring: `python3 scripts/refresh.py --output <
 
 Asset acquisition uses Pillow 12.3.0 (thumbnail <=768px, WebP quality 88). Card gallery uses CairoSVG 2.9.1. Committed image bytes, not a potentially changed CDN, are the reproducible build inputs. Catalog hashing canonicalizes object keys. All submissions pin the exact catalog and template.
 
+## Browser delivery projection
+
+`scripts/catalog.mjs` also generates `catalog/browser.v1.json` from the canonical catalog: all normalized records, templates, provenance and version are preserved; `imageData` is removed and replaced by `assetHashes`, derived from `fixtures/official-assets.json`. This is a delivery projection, not a new balance/template version. `--check` mechanically re-derives both outputs from the same pinned inputs. No input captures or official bytes changed in the review correction.
+
+The public app loads ordinary artwork through `/assets/<hash>.webp`. On preview, `src/preview-assets.mjs` fetches only art used by the complete selected foundation and build, refuses redirects, omits credentials, and verifies the recorded SHA-256 before embedding it into self-contained SVGs. Successful/in-flight loads are shared; failures are retryable. Browser and server fixture artifacts remain byte-identical, including their package hashes. The Worker still uses the complete canonical catalog and needs no runtime CDN/TNR fetch.
+
 ## Mechanical interpretation
 
 - Effect target and semantic direction remain separate from the engine offence/defence stat axis. Black Thorn Rose emits enemy HEALING REDUCTION 50% and self DAMAGE TAKEN reduction 30%, both for two rounds; no offensive DAMAGE/POWER classification.

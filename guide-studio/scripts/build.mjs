@@ -15,11 +15,12 @@ const config = {
   turnstileSiteKey: process.env.TURNSTILE_SITE_KEY || "",
   localHarness: local,
 };
-await build({
+const appBuild = await build({
   entryPoints: ["src/App.jsx"],
   bundle: true,
   format: "esm",
   outdir: "dist",
+  entryNames: "static/[name]-[hash]",
   minify: !local,
   metafile: true,
   write: true,
@@ -28,9 +29,16 @@ await build({
       local ? "development" : "production",
     ),
   },
-}).then(async (r) =>
-  writeFile("dist/build-meta.json", JSON.stringify(r.metafile, null, 2)),
+});
+await writeFile(
+  "dist/build-meta.json",
+  JSON.stringify(appBuild.metafile, null, 2),
 );
+const [appScript, appOutput] = Object.entries(appBuild.metafile.outputs).find(
+  ([, output]) => output.entryPoint === "src/App.jsx",
+);
+const appStyle = appOutput.cssBundle;
+const publicPath = (path) => "/" + path.replace(/^dist\//, "");
 await build({
   entryPoints: ["server/worker.mjs"],
   bundle: true,
@@ -59,7 +67,7 @@ await writeFile(
 );
 await writeFile(
   "dist/index.html",
-  `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#14272a"><title>TNR Guide Studio</title><link rel="stylesheet" href="/App.css"><script src="/config.js" defer></script>${config.turnstileSiteKey ? '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>' : ""}<script type="module" src="/App.js"></script></head><body><div id="root"></div></body></html>`,
+  `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#14272a"><title>TNR Guide Studio</title><link rel="stylesheet" href="${publicPath(appStyle)}"><script src="/config.js" defer></script>${config.turnstileSiteKey ? '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>' : ""}<script type="module" src="${publicPath(appScript)}"></script></head><body><div id="root"></div></body></html>`,
 );
 await cp("public/assets", "dist/assets", { recursive: true });
 await copyFile("public/_headers", "dist/_headers");

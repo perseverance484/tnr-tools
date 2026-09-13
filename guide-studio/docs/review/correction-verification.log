@@ -1,0 +1,112 @@
+Guide Studio correction verification, 2026-09-13
+Parent: ceb786763cd73e7bc1f42e98ffa7c43ae3d5ed40
+
+$ npm ci --ignore-scripts
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+
+added 71 packages in 1s
+
+exit 0
+
+$ npm run gate
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tnr-guide-studio@1.0.0 gate
+> node scripts/compatibility.mjs --check && npm run catalog -- --check && node scripts/fixtures.mjs --check && npm test && npm run build && node scripts/build-gate.mjs
+
+Pinned compatibility source and runtime verified.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tnr-guide-studio@1.0.0 catalog
+> node scripts/catalog.mjs --check
+
+catalog-1caefb53206168966f10: 2 complete templates; 35 jutsu; 4 summons. Reproducible.
+Generated Aerathiel (15 choices) and Night Parade (12 choices) acceptance submissions.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tnr-guide-studio@1.0.0 test
+> node --test test/*.test.mjs
+
+✔ aerathiel complete foundation independent of build; reproducible export (1636.038456ms)
+✔ night-parade complete foundation independent of build; reproducible export (584.261244ms)
+✔ Black Thorn Rose target/direction regression (0.542895ms)
+✔ unknown mechanics fail closed; chance, healing, and self departure retain semantics (0.841734ms)
+✔ incomplete templates are refused, exact versions enforced, unknown author mechanic fields rejected (3.367609ms)
+✔ optional chapter omission and template rename/reorder/hide are real renderer behavior (23.417853ms)
+✔ authored markup remains inert in HTML, SVG, and preview (91.802108ms)
+✔ highlight validates real WebP and rejects active/oversized/malformed content (29.327289ms)
+✔ staff preview and export cannot disagree through altered snapshot aliases (17.155207ms)
+✔ summon utility and damage flags remain in the complete normalized foundation (4.401281ms)
+✔ real editor DOM: create, select, inline notes, order, autosave/recovery, chapters, preview and submit with zero TNR calls (670.554943ms)
+✔ draft quota and corrupt/stale recovery never silently destroy saved work (0.600962ms)
+✔ public authoring dependency graph cannot contain importer, credential adapter, or live refresh (3.424383ms)
+✔ actual staff UI opens final artifact, begins review, and freezes approval (635.610098ms)
+✔ actual tRPC native transport mocked locally: verify, create, update, exact get, retry idempotence (84.175289ms)
+✔ ambiguous create is never retried (14.011935ms)
+✔ rejected update resumes saved ID after staff resolves issue (42.991472ms)
+✔ lost update response is verified by readback without repeating mutation (34.287659ms)
+✔ sanitized or moderated differences cannot be reported as imported (31.400382ms)
+✔ unsigned, wrong-key, wrong-origin, and changed packages never mutate (105.375121ms)
+✔ journal write failure occurs before native create (14.444485ms)
+✔ ambiguous creation can be explicitly reconciled to its untouched placeholder (46.601133ms)
+✔ native contract boundaries use the pinned categories and reserved slugs (7.70311ms)
+✔ production artifact verification enforces pinned native rules after hashes pass (105.99389ms)
+✔ pinned source copies keep recorded byte hashes (2.39007ms)
+✔ browser projection preserves canonical records/version without inline image bytes (8.092886ms)
+✔ aerathiel loads only required art; preview and export remain byte-identical (170.861864ms)
+✔ night-parade loads only required art; preview and export remain byte-identical (91.85604ms)
+✔ failed or tampered artwork is refused and can be retried (87.448605ms)
+✔ public projection cannot render unresolved or off-origin official images (1.326502ms)
+✔ submission → final review → immutable approval → signed package; publication remains false (308.296998ms)
+✔ competing approval/rejection has one CAS winner and cannot expose rejected assets (39.149632ms)
+✔ private receipt and changes-requested revisions preserve original snapshot (68.440056ms)
+✔ strict validation rejects forged mechanics/credentials, missing notes, bad captcha, cross-origin writes (4.198065ms)
+✔ Cloudflare boundaries fail closed and Turnstile validates hostname/action (2.323339ms)
+✔ D1 production adapter executes actual SQLite schema and conditional transition SQL (4.837586ms)
+✔ Access verifies signature, issuer, audience and expiry with local JWKS (79.365885ms)
+✔ expired Access assertion is rejected (59.778966ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3045.921153
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tnr-guide-studio@1.0.0 build
+> node scripts/build.mjs
+
+Built public Studio, isolated Worker, and TNR-side importer. Importer disabled until operator supplies public trust configuration.
+dist/static/App-QORPHOUJ.js: 841399 bytes; 229505 bytes gzip
+Isolated npm ci --omit=dev --offline: pinned entities 8.0.0, validator, sanitizer, headings and artifact modules passed.
+Public authoring/Worker/importer bundles isolated; production harness absent; mobile size budget passed.
+
+exit 0
+
+$ npm run fixtures
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tnr-guide-studio@1.0.0 fixtures
+> node scripts/render-fixtures.mjs
+
+aerathiel: 21 assets; 11285 HTML characters; fc893d47ce2b60c106579b75f66240ab8cb6eacc9c82717d511a44bf9c1491bc
+night-parade: 29 assets; 13071 HTML characters; 32c72b6f78b72ce6a94b2884c9594266e67e1fa38d527d697f5caba356e7a554
+
+exit 0
+
+$ npx --no-install prettier --check 'src/**/*.{jsx,mjs,css}' 'templates/*.mjs' 'server/*.mjs' 'scripts/*.mjs' 'importer/*.mjs' 'test/*.mjs' package.json wrangler.jsonc
+Checking formatting...
+All matched files use Prettier code style!
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+exit 0
+
+$ git diff --check
+
+exit 0
+
+$ git diff --cached --check (repository root)
+exit 0

@@ -2,7 +2,12 @@ export function assertTemplate(t, registry) {
   const fail = (why) => {
     throw new Error(`Incomplete template ${t.slug}: ${why}`);
   };
-  const hasImage = (x) => x?.url && x.sha256 && registry.imageData[x.url];
+  const hasImage = (x) =>
+    x?.url &&
+    x.sha256 &&
+    (registry.imageData
+      ? registry.imageData[x.url]
+      : registry.assetHashes?.[x.url] === x.sha256);
   if (
     !t.bloodlineId ||
     !t.name ||
