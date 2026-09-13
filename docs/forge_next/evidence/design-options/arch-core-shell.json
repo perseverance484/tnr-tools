@@ -1,0 +1,430 @@
+{
+  "name": "arch-core-shell",
+  "family": "arch",
+  "thesis": "Forge already has a UI-independent execution core everywhere except in ui/app.mjs, which owns five pieces of domain logic and eleven cross-seam imports (forge/src/ui/app.mjs:6-13, screens.mjs:4-6). Extract a headless ForgeCore with an explicit facade API, a typed event stream and serialisable state snapshots, composed inside the existing compose() (forge/src/main.mjs:35-57) so every test harness gets it; then build the D2 shell purely against that API. The second host is not speculative: it already exists twice - the node test harness that drives compose() today, and the Quest Studio shell that mounts OUTSIDE compose() (A_ARCHITECTURE_MAP.md A.11 consequence 6) and therefore had to re-invent its own state, its own palette and its own confirm. The core is what pulls both back inside one product without duplicating canon (RUL-2026-09-12-002), and the event stream is the only honest way to render the structured 'waiting for response' state that WCM's JobProgress needs and Forge does not have today (A.12). It buys safety as well as portability: the consequence gate moves INTO the core, so no host - not a future native shell, not a test, not the Studio - can start a mutation without a resolved decision that hashes to the exact plan.",
+  "proposal": {
+    "q1": {
+      "question": "evolve the current Forge UI in place vs replace the UI layer while preserving runner/storage/transport",
+      "answer": "Replace the UI layer; preserve runner/storage/transport/budget/reconcile byte-for-byte except one additive emit hook in runner.mjs. But do the replacement in two stages: extract ForgeCore first (UI unchanged), then replace the shell against the core. Replacing UI and relocating domain logic in one commit is exactly the rewrite R-13 warns about.",
+      "evidence": [
+        "A_ARCHITECTURE_MAP.md A.2 'Reading of the map': everything below ui/ is already UI-independent and injectable; the leakage is ui/app.mjs owning export/harvest mapping, capture materialisation and auth-blocking decisions.",
+        "forge/src/ui/app.mjs:6-13 - eight imports reaching below the seam (manifest.mjs, refs.mjs, github.mjs, compat.mjs, journal.mjs, captures.mjs, runner.mjs, auth.mjs); forge/src/ui/screens.mjs:4-6 - three more. 11 cross-seam imports is the measurable number this option drives to 0.",
+        "H R-13: 'a UI replacement that touches runner/storage/transport while we are here invalidates 293 tests' worth of evidence'; its mitigation is literally 'Phase 0 moves domain logic below the UI seam first'.",
+        "forge/test/compose.mjs - the ONE composition under test is the shipped compose(); a core placed inside it is protected by all 293 tests from the first commit."
+      ],
+      "cost": "Two phases (P1, P2) produce no user-visible change. ~700 net new lines of plumbing. The UI layer being replaced is the layer with the thinnest cover (16 ui tests, textContent regexes)."
+    },
+    "q2": {
+      "question": "do vanilla DOM/CSSOM constraints remain required, or can a component strategy improve maintainability",
+      "answer": "Keep vanilla createElement + CSSOM. Add a component strategy that is NOT a rendering library: (a) pure view-model builders in core (snapshot -> plain serialisable object per screen/component), (b) a ~90-line region() helper in ui/dom.mjs that lets a component re-render only its own subtree on a named core event. Maintainability comes from the view-model seam and from killing the 1.5 s whole-screen re-render, not from a virtual DOM.",
+      "rejected_alternatives": [
+        "lit / uhtml / htm-with-template: every tagged-template renderer materialises markup through <template>.innerHTML. forge/test/ui.test.mjs:29-33 greps all of src for innerHTML|outerHTML|insertAdjacentHTML|document.write, and forge/build.mjs re-greps the built bundle and throws. These libraries cannot be adopted without repealing a repo law, and the law is load-bearing (a game page is the host document).",
+        "Preact (no innerHTML, would pass the law): ~10.5 KB min / ~4 KB gz plus a second runtime dependency on the device that writes to the live game, to solve a problem - 'the whole screen re-renders and eats focus, scroll and the export card' - that regions solve in 90 lines. Forge's only runtime dependency today is superjson (forge/package.json). Adding one is a director-grade supply-chain decision, not a maintainability shortcut.",
+        "Web Components / Shadow DOM: would isolate styling, but D2.2's scope rule already puts every token on .f-host/.f-app and a static contract test enforces it; shadow roots would also break the existing jsdom textContent assertions and the Builder-suppression MutationObserver contract (takeover.mjs:169-175)."
+      ],
+      "no_innerhtml_compliance": "Nothing in the option introduces a string->DOM path. h() (forge/src/ui/dom.mjs:3-16) stays the only element factory; region() composes h() and replace() (dom.mjs:27); atmosphere/glyphs use createElementNS per D2.7. The existing static test and build gate keep working unchanged and are the acceptance evidence.",
+      "single_bundle_model": "No dependency is added, no asset is fetched, no second file is produced; esbuild IIFE for firefox115 with one @require is untouched (forge/build.mjs; forge_loader_user.js @require line).",
+      "bundle_estimate": {
+        "method": "Measured: forge_bundle.js = 397,978 bytes at this checkout, of which inlined JSON object literals are nested_default 118,512, b_DATA_pool_default 21,876, fields_default 12,011 = 152,399 bytes (38.3%), located by brace-matching the bundle text. Code-from-source ratio: (397,984 - 152,399 - 27,931 superjson) / 283,717 src bytes = 0.767 bundle bytes per source byte. New source is estimated in lines x 57.5 B/line (measured mean over forge/src/**/*.mjs: 283,717 B / 4,933 lines).",
+        "core_layer": "+700 net new lines (facades, event bus, view-models, decision gate) after ~740 lines move out of app.mjs/screens.mjs = ~40 KB source -> ~+31 KB bundle unminified (+7.8%).",
+        "visual_shell": "+18 KB unminified per D_VISUAL_SYSTEM.md D2.7 (this option consumes that estimate, it does not add to it).",
+        "total": "~447 KB unminified (+12% over 398 KB); minified at the measured ratio 232,720/397,984 = 0.585 -> ~261 KB; gzip scaled from the measured minified gzip 52,556 -> ~59 KB. Every number above is an estimate except the three measurements named in 'method'.",
+        "tier": "Observed for the measurements, Inferred for the projections."
+      },
+      "testability": "Screens become render(viewModel) where viewModel is plain JSON. UI-contract tests assert on view-models (no jsdom, fast, enumerable over the pinned journal TRANSITIONS table at forge/src/storage/journal.mjs:39-47); a thinner jsdom layer asserts the DOM realisation (roles, 44 px targets, token scoping, no HTML sink)."
+    },
+    "q3": {
+      "question": "how to keep the execution core UI-independent enough for future shell/native hosting",
+      "answer": "Make UI-independence a machine-checked invariant rather than a convention. Three mechanisms: (1) ForgeCore is constructed inside compose() and is the only thing the UI may import; (2) a static test asserts that no file under src/ui/ or src/hosts/ imports from runner/, storage/, transport/, budget/, reconcile/ or github.mjs - the same mechanism as the innerHTML test (ui.test.mjs:29); today the count is 11 (app.mjs:6-13, screens.mjs:4-6), the gate ratchets it to 0 and then to zero-tolerance; (3) a committed headless host test (test/host.headless.test.mjs) drives a complete job - plan, decision, run, pause, reconcile, adopt, export - through the public core API with no jsdom and no DOM globals. If that test needs a DOM, the boundary has leaked.",
+      "evidence": [
+        "forge/src/main.mjs:35-57 compose() is already the seam and is already the composition every harness calls (forge/test/compose.mjs).",
+        "A_ARCHITECTURE_MAP.md A.12 lists exactly what must move below the seam: harvestEntry (:29), resumeBlockedReason (:159), blockedPaths (:166), resolveCaptures/_materialize (:323-366), exportJob (:369-406), picker caching (:198-200), app.state.persisted (:408-410).",
+        "A.11 consequence 6: the Quest Studio is mounted from bootHost AFTER app.mount, outside compose(), so the composition under test excludes it - the concrete proof that an implicit seam does not hold."
+      ],
+      "cost": "One indirection on every call the UI makes. A public API surface becomes a thing that must be reviewed and versioned (proposed as a snapshot test, see test_architecture)."
+    },
+    "q5": {
+      "question": "storage migration and compatibility for existing journals, capture cache and settings",
+      "answer": "See storage_migration. Headline: journal stays v1 for the whole core/shell split; new fields land as OPTIONAL keys on v1 records, and the version is only bumped when a field becomes required. IndexedDB goes v2 -> v3 with one additive store (work_packages) so manifest text stops living in the game read cache. Retained Builder keys (tnr_bk_idmap_v1, tnr_bk_gh_v1) are not touched.",
+      "evidence": [
+        "forge/src/storage/journal.mjs:395-423 - MIGRATIONS is empty and migrate() THROWS on v > JOURNAL_VERSION. A downgrade (re-pinning the loader to an older release, which is the rollback mechanism for every phase) would therefore strand every v2 job. This is the single strongest argument for not bumping the version during a UI programme.",
+        "forge/src/storage/captures.mjs:32-34 - DB_VERSION 2 with a documented additive upgrade; v3 follows the same pattern.",
+        "forge/src/ui/app.mjs:198-200 - manifest text is cached under path 'github.contents' in the READ cache, which CapturesScreen lists as a capture and 'Clear all' deletes (A.5 'a design smell').",
+        "forge/src/storage/compat.mjs:9-19 - the existing precedent for never destroying an unreadable record: park it under <key>.corrupt."
+      ]
+    },
+    "q7": {
+      "question": "procedure registry expansion and source-drift gates",
+      "answer": "This option expands nothing and hard-codes nothing new. The registry stays a transcribed-from-source generated artifact (forge/src/transport/procedures.mjs) and the core exposes it read-only as core.contracts.procedure(path) so a second host, the Studio and the validation surfaces all read one answer. Two gates carry forward unchanged and one is added: (a) auth.test's 'transcribed from source' invariant; (b) storage.captures.test's two-way relation between FULL_PERSIST_PATHS and the registry's kinds (captures.mjs:54-57); (c) new: a CI drift job that re-derives fields.json/nested.json from the pin and fails on any diff, which forge.yml does NOT do today. Registry expansion for research reads is G-02 and K-17, a director decision, not an architecture consequence.",
+      "evidence": [
+        "forge/src/transport/procedures.mjs:13-22 - auth recorded explicitly, never derived from limited; anything outside the registry throws.",
+        "A.6 - fields.json/nested.json regenerate byte-identically from game main@62af1b34; drift to head 36c5873b measured in evidence/drift.json.",
+        "deepdive/repo-consumers.json - forge.yml proves npm ci/audit/test, fixture reproducibility and bundle reproducibility but NOT fields.json/nested.json regeneration.",
+        "B.4 G-02 - the retirement gate that owns combat.* / gameAsset.getAllFolders."
+      ]
+    },
+    "q11": {
+      "question": "workstream integration and discovery",
+      "answer": "Read-only projection through one typed repository operation, core.repo.request('readWorkstream', {slug}), rendered as a discovery lane in the shell beside push/. Forge never stores workstream state; content_workstream.py keeps validation and rendering. Discovery gains one thing the current picker cannot do: a work package is addressed by {source: 'push' | 'studio' | 'workstream', ref, path} instead of 'a file in push/ on main', which is what the Studio seam needs (A.8 item 6: a build landing on studio/quest/<id> reaches the picker only by copy/paste).",
+      "evidence": [
+        "C.6 - content_workstream.py validate/render stays in the repository; the app may read and, subject to K-28, write roadmap.json, but validation and projection stay in the script.",
+        "RB sections 6-7 (consolidated/docs/design/FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md:150-203) - request/result semantics with approved operations, never an arbitrary remote-shell primitive.",
+        "forge/src/ui/app.mjs:186-207 - loadPicker lists push/ on main only; forge/src/github.mjs:7 pins branch 'main'."
+      ],
+      "open": "K-28 owns how much repository-backed project state Forge may edit; this option ships read-only and leaves the write half to that ruling."
+    },
+    "q12": {
+      "question": "result / harvest contract evolution",
+      "answer": "The bundle stays the same document, produced by core.results.bundle(jobId) instead of ui/app.mjs. Three changes, each proved by the existing harvest.py agreement tests: (1) checks: [] instead of checks: null, which is the one-line fix for R-19 (validate.py --parity does set(bundle.get('checks', [])) and raises TypeError on null, so session_close.py --guards is red whenever a Forge bundle is newest); (2) a new top-level sync object {state: SYNCED|UNSYNCED|DECLINED, at, sha, error} so a bundle that never landed is a machine state rather than a textarea; (3) captures keep their exact shape. Nothing is removed and no key changes meaning, so build_answers.py, catalog_sync.py and harvest.py index/get/names/diff/verify keep working.",
+      "evidence": [
+        "forge/src/ui/app.mjs:381-397 - the bundle shape, including checks: null.",
+        "A.10 and H R-19 - Behaviour-proven: validate.py --parity raises TypeError on a Forge bundle; a Builder bundle passes with '16 checks'.",
+        "deepdive/repo-consumers.json - Forge bundles satisfy harvest.py verify (fail-closed, tested) but carry no list data, no pushed/live and checks: null.",
+        "forge/test/harvest.test.mjs - 8 tests, several shelling out to the real harvest.py; these are the acceptance gate for any bundle change."
+      ],
+      "note": "Adding list bodies (G-03, P-12) is a capture-classification change bounded by K-06, not a bundle-shape change; this option keeps the door open by making core.results the only writer."
+    },
+    "q13": {
+      "question": "audit / history model",
+      "answer": "Do not add a store. The journal already IS the audit log of every live write (write-ahead, transition-checked, exported verbatim inside the bundle at app.mjs:396). The core adds a derived read: core.activity.list({since, kinds}) computed from journal records plus repo-op results, never persisted separately, so there is no second history that can disagree with the journal. Repository-side provenance (sourceRevision, compilerRevision, hashes) is carried by build envelopes and displayed, not copied. The one durable addition is the sync state on the bundle (q12), because 'the evidence never reached the repository' is today recorded nowhere at all.",
+      "evidence": [
+        "forge/src/storage/journal.mjs:1-19 and :39-49 - write-ahead, synchronous, transition-checked; annotate() may not touch state or timestamps.",
+        "A.4.1 item 4 - Github.put throws and exportJob falls back to showing text; the journal records nothing about a bundle that was not committed.",
+        "RUL-2026-09-12-002 - Forge never becomes a second store of repository state."
+      ]
+    },
+    "q14": {
+      "question": "bundle size, performance and startup on mobile",
+      "answer": "Three levers, ranked by measured effect. (1) Minification: 397,984 -> 232,720 bytes measured, gzip 74,969 -> 52,556 - the single biggest lever and a user decision (K-14). (2) Deferred contract construction: the three inlined JSON object literals are 152,399 bytes (38.3%) of the bundle and are evaluated at IIFE execution on EVERY game page the loader matches, including unarmed pages where boot() returns immediately. Wrapping each in a function body (esbuild-emitted `function loadNested(){ return {...} }`, called lazily from the Validator/pool constructors) moves that allocation behind the arm marker. Measured in node --expose-gc on the real nested.json + fields.json: top-level literal 0.26-0.34 ms eval and 267.4 KB retained heap; function-wrapped 0.015-0.064 ms and 142.4 KB retained, rising to 210.5 KB only after the first call. So the honest saving is ~0.25 ms and ~125 KB of heap per unarmed game page - real for tab eviction pressure (R-06 names memory pressure as the eviction driver the journal exists to survive), NOT a boot-time transformation. (3) The core/shell split itself COSTS ~31 KB unminified. I will not claim the split pays for itself on size; it pays for itself on eviction-survival and on the second host.",
+      "measurements": [
+        "Observed (this pass): brace-matched literal sizes in forge_bundle.js - nested_default 118,512 B, b_DATA_pool_default 21,876 B, fields_default 12,011 B.",
+        "Observed (this pass, node/V8 in a fresh vm context, 7 runs): literal eval 1.169/0.339/0.338/0.277/0.263/0.255/1.343 ms; function-wrapped 0.387/0.064/0.050/0.021/0.027/0.015/0.017 ms; retained heap after gc x2: 267.4 KB vs 142.4 KB (68.1 KB more after the first call).",
+        "A.9 (Observed at main@305a28f): shipped 397,984 / gzip 74,969; minified 232,720 / gzip 52,556; ui/ is 59,501 of the bundle.",
+        "Inferred: SpiderMonkey on Firefox Android does lazy function-body parsing like V8, so the direction holds; the magnitude was not measured on the device. Flagged for the user's smoke."
+      ],
+      "gate": "A CI bundle-size budget (bytes and gzip, per section I) that fails a phase which exceeds its declared delta, plus the existing bundle-reproducibility job in forge.yml."
+    },
+    "q15": {
+      "question": "release / pin / install strategy",
+      "answer": "ONE bundle, one @require, unchanged. Two hosts do not mean two artifacts: the userscript host adapter (src/hosts/userscript/) and the headless test host both live in the same tree and only the userscript entry is bundled. No second @require, no runtime fetch of contract data, no jsDelivr call at boot. Rationale and constraint: check_release_pin.mjs:29-49 and pin_release.py:23-30 both require exactly one @require for forge_bundle.js and refuse a floating ref; adding a second pinned file means changing pin_release.py TARGETS and the checker, i.e. changing the release contract to save ~0.25 ms. Not worth it. Rollback for every phase is therefore the same one-line operation: re-pin @require to the previous release SHA - which is precisely why the journal must stay downgrade-readable (q5).",
+      "evidence": [
+        "forge_loader_user.js - single @require pinned to ce603def..., @updateURL/@downloadURL on main, RELEASE PIN comment block.",
+        ".github/scripts/pin_release.py:23-30 - raises unless exactly one @require per bundle is found.",
+        "forge/tools/check_release_pin.mjs:29-49 - refuses a non-SHA ref and refuses a commit-pinned loader that still carries the unpinned marker.",
+        "H R-11 / R-22 and A.10 - the release-pin bot removes @x-release-pending and leaves main red at forge/test/release_loader.test.mjs:47; the fix exists at 824c4d58 and must be integrated in phase 0, not re-invented here."
+      ],
+      "additions": [
+        "A core API surface snapshot test (the list of facade names, event types and snapshot keys, committed as a golden file) so a release cannot silently break a host.",
+        "A bundle-size budget gate.",
+        "No change to the two-stage staged-release model or to @updateURL."
+      ]
+    },
+    "q16": {
+      "question": "recovery after tab eviction, crash and network loss across the new UI",
+      "answer": "See recovery. Headline: the split makes recovery cheaper because a fresh host rebuilds every screen from core.snapshot(), which is computed from the journal, the lease, the budget send log and IndexedDB - not from anything the old UI held in memory. Recovery becomes a first-class core query (core.recovery.survey() -> {resumable, ambiguous, broken, unsynced, orphanSnapshots}), which is what makes 'Recovery is a screen, not a toast' (brief section 15) implementable without new state.",
+      "evidence": [
+        "forge/src/storage/journal.mjs:330-335 withSent flushes SENT synchronously then yields one macrotask; journal.mjs:363 resumable(); :225 broken.",
+        "forge/src/runner/runner.mjs:193 refuses a job with SENT items; :242 resume() reconciles first; reconcile/reconciler.mjs:94-156 resolves per phase.",
+        "forge/src/ui/app.mjs:342-366 _materialize already reports an evicted snapshot honestly ('capture snapshot <key> is gone ... it was not re-read').",
+        "runner.mjs:226 - a transport failure becomes a NETWORK pause, never a retry."
+      ]
+    },
+    "q18": {
+      "question": "test architecture for a much larger UI and capability surface",
+      "answer": "See test_architecture. Headline: five layers, four of them socket-free node:test as today, plus one browser smoke that only the user may run.",
+      "evidence": [
+        "deepdive/forge-tests-ci.json - 293 cases across 13 files on four socket-free doubles; deep on journal/reconcile/budget/auth/full-capture/harvest agreement; THIN on UI (textContent regexes, several buttons never clicked); ZERO on Uploader and Github; ZERO on accessibility/keyboard/responsive/bundle size.",
+        "forge/test/ui.test.mjs:331-342 - the socket ban is itself a test (no network module import, no global fetch call).",
+        "forge/test/compose.mjs - all harnesses must use the shipped compose(); an earlier bespoke harness hid a cross-job adoption defect for a whole adversarial pass."
+      ]
+    },
+    "layering": [
+      {"module": "src/storage/journal.mjs", "disposition": "preserve unchanged", "reason": "The write-ahead invariant and the TRANSITIONS table are the reviewed safety core; the split must not touch them (R-13). New facts ride as optional keys, not a version bump (q5).", "tests": "adversarial.test.mjs L1 block (transition matrix pinned, annotate refuses state/timestamps, remove/DONE refuse SENT, migrate refuses newer versions), storage.journal.test.mjs (19)"},
+      {"module": "src/storage/captures.mjs", "disposition": "refactor (additive only)", "reason": "Add a third object store work_packages at DB_VERSION 3 so manifest text stops living in the game read cache (app.mjs:198-200, A.5 smell). FULL_PERSIST_PATHS, the 512 KiB ceiling and the two existing stores are untouched.", "tests": "storage.captures.test.mjs (13) incl. 'every full-persistence path is an audited content-record point read', capture.full.test.mjs (23); new: v2->v3 upgrade keeps both existing stores and their records"},
+      {"module": "src/storage/compat.mjs, hash.mjs", "disposition": "preserve unchanged", "reason": "Retained Builder keys are a compatibility contract with a tool that is not being retired (K-11).", "tests": "ui.test.mjs 'Settings saves the PAT under the retained key'"},
+      {"module": "src/transport/session.mjs, client.mjs, envelope.mjs, outcome.mjs, procedures.mjs, upload.mjs", "disposition": "preserve unchanged", "reason": "Credential seam and wire format; no host may widen them. upload.mjs has zero tests today, which is a reason not to touch it in this programme.", "tests": "transport.client.test.mjs (9), transport.envelope.test.mjs (30, from recorded @trpc 11.18.0 fixtures), auth.test.mjs static forbid on document.cookie/__session/getToken/Authorization"},
+      {"module": "src/transport/auth.mjs", "disposition": "preserve unchanged", "reason": "AuthState stays the gate; only the PREVIEW of which protected paths a plan needs moves (blockedPaths), and it moves into core/, not into auth.mjs.", "tests": "auth.test.mjs (45) incl. the gate assert and server-refusal invalidation"},
+      {"module": "src/budget/bucket.mjs, reader.mjs", "disposition": "preserve unchanged", "reason": "A new UI that polls is R-03; the answer is that every read in every new surface goes through CachedReader, which is enforced by the import-direction test rather than by discipline.", "tests": "budget.test.mjs (16)"},
+      {"module": "src/runner/manifest.mjs, validate.mjs, lints.mjs, pool.mjs, refs.mjs, recipes.mjs", "disposition": "preserve unchanged", "reason": "Manifest dialect and pre-send refusal are the backward-compatibility promise (brief section 15); parseManifest/planOrder move only in the sense that app.mjs stops importing them directly.", "tests": "runner.test.mjs (21), adversarial.test.mjs validator/lint blocks"},
+      {"module": "src/runner/runner.mjs", "disposition": "refactor (one additive hook)", "reason": "The ONLY execution-core change: the injected log(msg, item) callback (runner.mjs:91, wired at main.mjs:64) gains a sibling emit(event) and structured events are emitted at the call sites that already produce log lines, plus one new 'sending'/'answered' pair around withSent. This is what A.12 says JobProgress lacks and is not inventable in the UI. emit is wrapped so a throwing subscriber cannot reach the send path.", "tests": "runner.test.mjs (21), adversarial.test.mjs (75), reconcile.test.mjs (9) must all pass unchanged; new adversarial: a subscriber that throws leaves journal bytes, the write log order and the transition sequence identical; new static: no event payload may contain a capture body, a PAT, or the strings the auth static test already forbids"},
+      {"module": "src/reconcile/reconciler.mjs", "disposition": "preserve unchanged", "reason": "SENT resolution is the mechanism R-01 protects; the new UI drives it through core.jobs.resume/adopt/skip only.", "tests": "reconcile.test.mjs (9), adversarial cross-job ownership tests"},
+      {"module": "src/github.mjs", "disposition": "refactor (wrapped, not rewritten)", "reason": "Becomes the transport behind core.repo.request(op, payload) with an approved operation list (RB section 7). The class, its PAT handling and its header separation from CookieSession are unchanged. Honest weakness: this module has ZERO tests today, so the wrap must be preceded by contract tests against a FakeGithub.", "tests": "NEW in phase 0: Github list/raw/text/put contract tests (sha-aware PUT, error classes, PAT only to api.github.com); then core.repo operation tests"},
+      {"module": "src/ui/app.mjs", "disposition": "replace", "reason": "411 lines of which ~250 are domain logic that A.12 names as 'what a second shell would otherwise duplicate'. What remains is a ~120-line userscript host adapter: mount, route, subscribe, render, toast, implement the decision surface.", "tests": "the 16 ui.test.mjs cases are the regression contract and must pass UNCHANGED through phase 1 and 2 (they assert textContent, so they survive an internal rewrite); new core unit tests take over the logic assertions"},
+      {"module": "src/ui/screens.mjs", "disposition": "refactor then replace", "reason": "Phase 2 turns each screen into render(viewModel) with no imports below the seam; the visual phase (D2.6 S1-S3) then replaces the internals. captureLabel (screens.mjs:104-112) is a view-model function and moves to core with its test.", "tests": "ui.test.mjs capture-labelling and read-only-presentation cases; new view-model golden files per screen x state"},
+      {"module": "src/ui/dom.mjs", "disposition": "refactor (additive)", "reason": "h/append/clear/replace/installCss/fmt* stay; add region(container, key, builder) so a component re-renders its own subtree on a named event. This is what removes the 1.5 s setInterval whole-screen refresh (app.mjs:268) that today wipes the auto-shown results card (ux-audit finding 1, Behaviour-proven).", "tests": "ui.test.mjs no-HTML-sink static test; new: a region update preserves focus and scroll position of an untouched sibling"},
+      {"module": "src/ui/styles.mjs", "disposition": "preserve in this option, replaced by the visual phase", "reason": "This option must not require a second palette or a second shell: it consumes D_VISUAL_SYSTEM.md D2.2 tokens on .f-host/.f-app and the D2.4 stylesheet contract test as given. The only thing the split asks of the visual phase is that class names stay data-free (state comes from view-models).", "tests": "D2.4 stylesheet contract test (scoping, allow-listed animation, no url(), recomputed contrast)"},
+      {"module": "src/ui/takeover.mjs", "disposition": "preserve unchanged, relocated", "reason": "This is by definition host-specific (entry hop, arm marker, overlay mount, Builder-node suppression, release()); it moves to src/hosts/userscript/ so that 'what a native shell would have to re-implement' is one directory, not a mixed one.", "tests": "ui.test.mjs entry-takeover and carrier-mount cases, release_loader.test.mjs"},
+      {"module": "src/main.mjs", "disposition": "refactor", "reason": "compose() gains deps.core built from the layers it already builds; boot()/bootEntry/bootHost keep their three-outcome contract. The Studio, when its seam is reviewed, is installed from compose() rather than after app.mount (A.11 consequence 6).", "tests": "compose.mjs is used by every suite, so a wiring mistake fails all 293; ui.test.mjs boot/inert cases"},
+      {"module": "NEW src/core/jobs.mjs", "disposition": "add", "reason": "Owns _drive (app.mjs:264-300), resumeBlockedReason (:159-163) as a machine reason code, start/resume/pause/adopt/skip and the decision gate.", "tests": "new unit tests + the headless host test; existing runner/reconcile suites unchanged"},
+      {"module": "NEW src/core/workpackages.mjs", "disposition": "add", "reason": "Owns loadPicker (:186-207) and selectManifest (:209-225): listing, caching in its own store, parse+plan+validate+images+blockedPaths -> SelectionView.", "tests": "new; plus the existing ui.test.mjs 'Manifests: list, select, plan shown, Start job runs to DONE' case unchanged"},
+      {"module": "NEW src/core/results.mjs", "disposition": "add", "reason": "Owns harvestEntry (:29) and exportJob (:369-406) minus the toast copy; adds sync state.", "tests": "harvest.test.mjs (8, shells out to the real harvest.py) is the acceptance gate"},
+      {"module": "NEW src/core/captures.mjs (facade)", "disposition": "add", "reason": "Owns resolveCaptures/_materialize (:323-366) and the cache/snapshot maintenance actions.", "tests": "capture.full.test.mjs (23) unchanged"},
+      {"module": "NEW src/core/authz.mjs", "disposition": "add", "reason": "Owns blockedPaths (:166-170) over protectedPathsFor (runner.mjs:57) and exposes a per-action capability preview, which is what an admin surface needs later (E.3) without inventing a FORBIDDEN class (K-34).", "tests": "auth.test.mjs unchanged; new: the preview is re-evaluated at the tap, never cached (the CF-12 behaviour at app.mjs:230-237)"},
+      {"module": "NEW src/core/system.mjs", "disposition": "add", "reason": "Owns _persist (:408-410) as a storage-status reader plus budget status, journal.broken and auth describe, which is exactly SystemHealth's source list in A.12.", "tests": "new unit tests; jsdom test that a missing navigator.storage does not throw"},
+      {"module": "NEW src/core/events.mjs + snapshot.mjs", "disposition": "add", "reason": "The typed event bus and the serialisable snapshot builders; the whole portability claim rests here.", "tests": "new: snapshot is JSON-round-trippable and contains no function, no DOM node, no body and no PAT; event type list is a golden file"},
+      {"module": "NEW src/core/repo.mjs", "disposition": "add", "reason": "The approved typed repository operation list (RB section 7) over github.mjs, so the Studio's compile/build/poll operations and the results commit share one boundary and one sync vocabulary.", "tests": "new contract tests against a FakeGithub; a static test that the operation list is closed (no ad-hoc path is reachable from ui/)"},
+      {"module": "NEW src/hosts/userscript/*", "disposition": "add (mostly relocation)", "reason": "takeover.mjs plus the ~120-line app host adapter. A native shell later adds a sibling directory and nothing else.", "tests": "existing takeover cases; new: the headless host test proves no host-specific import is needed by core"}
+    ],
+    "ui_technology": {
+      "choice": "Vanilla createElement + CSSOM (unchanged), plus (a) pure view-model builders in core, (b) a region() helper (~90 lines) for event-scoped subtree re-render, (c) createElementNS for the D2 atmosphere/glyphs. Zero new runtime dependencies; superjson remains the only one.",
+      "why_not_a_library": "lit/uhtml/htm-templates all build DOM through <template>.innerHTML and are refused by forge/test/ui.test.mjs:29-33 and by the build gate in forge/build.mjs. Preact would pass the law but costs ~10.5 KB min plus a supply-chain dependency on the device that performs live writes, to solve a re-render problem that regions solve without one. The maintainability win being sought is 'a screen is a pure function of a state object', and that comes from the view-model seam, not from the renderer.",
+      "no_innerhtml_satisfaction": "No string-to-DOM path is introduced anywhere; the existing static test (all of src) and the bundle grep in build.mjs remain the enforcement and need no amendment.",
+      "single_bundle_at_require": "One esbuild IIFE, one @require, no dependency, no fetched asset, no second file; pin_release.py and check_release_pin.mjs are untouched.",
+      "bundle_size_estimate": "+31 KB unminified for the core layer (method in q2.bundle_estimate); +18 KB for the D2 visual system as that section already budgeted; ~447 KB unminified total, ~261 KB minified, ~59 KB gzip. Observed baselines: 397,978 B measured on this checkout; 232,720 B minified and 52,556 B gzip measured in A.9.",
+      "screen_testability": "Three levels. (1) A screen's data is core.snapshot() -> viewModel, a plain JSON object: tested with node:test and golden files, no DOM, enumerable over the journal's own TRANSITIONS table so every legal state has a rendering. (2) A screen's DOM is render(viewModel): tested in jsdom for roles, labels, target sizes, disabled/enabled of risk controls and absence of HTML sinks. (3) A screen's behaviour is the host adapter: tested by dispatching real click/keydown events and asserting the core facade call that resulted, with the core faked - so 'the button calls start with the decision token' is a test, not a hope."
+    },
+    "core_api": {
+      "construction": "compose({storage, indexedDB, fetchImpl, clock, tabId, runtime, client, sleep}) -> deps, with deps.core = new ForgeCore(deps). Hosts receive ONLY deps.core. src/main.mjs:35-57 keeps its role as the single wiring site.",
+      "facades": [
+        "core.jobs: list(), get(jobId), survey(), plan(text, meta) -> PlanView, start(jobId, {decision}), resume(jobId), requestPause(), adopt(jobId, idx, id, {decision}), skip(jobId, idx, {decision}), remove(jobId), resumeBlock(jobId) -> {blocked, code}",
+        "core.workPackages: list({source}), refresh({force}), select(ref) -> SelectionView {manifest, plan, problems, warnings, images, blockedPaths, captureLabel, readOnly, mutationCount}, text(ref)",
+        "core.captures: cacheList(), snapshotList(), resolve(jobId), invalidate(path,id), clearCache(), deleteSnapshot(key), clearSnapshots(jobId)",
+        "core.results: bundle(jobId) -> {text, doc}, sync(jobId) -> SyncState, syncQueue(), retrySync(bundleId)",
+        "core.auth: state(), describe(), establish(), recheck(), allows(path), previewBlocked(plan, manifest)",
+        "core.system: health() -> {auth, budget, storage, journalBroken, syncQueue}, persistRequest()",
+        "core.contracts: procedure(path), fields(entity), nested(kind), poolCode(code) - read-only projections of the pinned generated data",
+        "core.repo: request(op, payload) over a CLOSED operation list {listWorkPackages, readWorkPackage, saveResultsBundle, readWorkstream, loadSubtypeRegistry, saveQuestSource, requestBuild, readBuildResult, readGeneratedManifest}",
+        "core.recovery: survey() -> {resumable[], ambiguous[], broken[], unsynced[], orphanSnapshots[]}",
+        "core.decisions: request(spec) -> decisionId, resolve(decisionId, approved), pending()",
+        "core.events: subscribe(fn) -> unsubscribe, types()",
+        "core.snapshot(area?) -> serialisable state"
+      ],
+      "events": [
+        "core.ready {version, rev}",
+        "auth.changed {state, detail, rev}",
+        "job.planned {jobId, items, mutations, captures}",
+        "job.started {jobId}",
+        "job.request {jobId, idx|null, phase, path, kind: 'sending'|'answered'|'refused', at} - the structured 'waiting for response' event A.12 records as missing; it is the ONLY new event that requires a runner change",
+        "job.item {jobId, idx, state, phase, verify|null, entityId|null}",
+        "job.paused {jobId, reason, path|null, until|null, detail|null, authState|null}",
+        "job.finished {jobId, state, outcome, counts, verify}",
+        "capture.persisted {jobId, phase, ordinal, ok, bytes, error|null}",
+        "budget.changed {path, remaining, until|null, tripped}",
+        "repo.request {op, at} / repo.result {op, ok, status|null} / repo.unavailable {op, error}",
+        "sync.changed {bundleId, state, sha|null, error|null}",
+        "decision.requested {decisionId, kind, planHash, counts} / decision.resolved {decisionId, approved}",
+        "journal.broken {count}",
+        "core.error {context, message}"
+      ],
+      "event_rules": [
+        "Every event is JSON-serialisable and carries no record body, no PAT, no cookie material and no capture data - enforced by a static adversarial test modelled on forge/test/auth.test.mjs's forbidden-string test.",
+        "Subscribers are called outside the send path and inside a try/catch; a throwing subscriber may not change journal bytes or transition order (adversarial test).",
+        "Events are advisory; the snapshot is authoritative. A host that misses events must still render correctly from core.snapshot(), which is how a reloaded tab and a native shell start."
+      ],
+      "state_snapshots": "core.snapshot() returns {rev, version, auth, system, jobs:[JobView], activeJob|null, workPackages, selection|null, captures, syncQueue, recovery, decisions}. rev is monotonic; a view built from rev N may not be rendered after rev N+1 without a rebuild (test: a snapshot taken before a pause can never be presented as running - SSC's honest-machine-state requirement made mechanical).",
+      "decision_gate": "Mutation-capable operations (start, resume with SENT items, adopt, skip, destructive maintenance) require a decisionId whose spec hashes over the exact plan (manifest hash + item indices + phase). core.decisions.request() emits decision.requested; the host renders it - window.confirm today (app.mjs:172-175), a D2 confirmation sheet later, an explicit call in tests - and calls resolve(). The core refuses a decision resolved for a different planHash, an expired decision, and any mutation without one. This is the mechanism only; the confirmation LEVEL stays K-12.",
+      "logic_leaving_app_mjs": [
+        "harvestEntry (forge/src/ui/app.mjs:29-47) -> core/results.mjs",
+        "resumeBlockedReason (:159-163) -> core/jobs.mjs (returns a code; CPY owns the sentence)",
+        "blockedPaths (:166-170) -> core/authz.mjs",
+        "confirm (:172-175) -> core/decisions.mjs (mechanism) + host adapter (surface)",
+        "loadPicker and its github.contents cache write (:186-207, esp. :198-200) -> core/workpackages.mjs with its own IDB store",
+        "selectManifest (:209-225) -> core/workpackages.mjs",
+        "startJob / resumeJob / _drive (:228-300) -> core/jobs.mjs; only the toast SENTENCES stay in the host",
+        "resolveCaptures / _materialize (:323-366) -> core/captures.mjs",
+        "exportJob (:369-406) -> core/results.mjs + core/repo.mjs",
+        "_persist (:408-410) -> core/system.mjs"
+      ],
+      "what_stays_in_the_host": "mount/unmount, routing, the D2 stylesheet, toast and banner copy, the confirmation surface, focus and scroll management, the entry hop and Builder-node suppression (takeover.mjs), and nothing else."
+    },
+    "storage_migration": {
+      "journal_v1_to_v2": "Do NOT bump JOURNAL_VERSION during the core/shell programme. forge/src/storage/journal.mjs:404-423 throws on v > JOURNAL_VERSION, and the rollback mechanism for every phase is re-pinning the loader to an older bundle; a bumped record would be unreadable by the bundle you roll back to. Instead: (stage 1) every new fact lands as an OPTIONAL key on a v1 record (sync state, structured pause codes, decision ids). Old bundles ignore unknown keys because migrate() only checks v and repairHistory only repairs states. (stage 2) once a release carrying the readers has been live across at least one real run, MIGRATIONS[1] may be added to make a field required - and that bump is its own reviewed change with fixtures built from real exported journals, not a side effect of a UI phase.",
+      "migration_rules": [
+        "MIGRATIONS steps are pure (job) => job and must advance v by exactly one (journal.mjs:415-421) - keep that contract.",
+        "A record that fails to migrate is never deleted: park it under <key>.corrupt exactly as compat.mjs:9-19 already does for the retained Builder keys, and surface it through journal.broken, which today has no renderer at all (A.4.1 item 5).",
+        "Fixtures: real journals exported with journal.exportText() (journal.mjs:398-402) from the user's device, committed as test fixtures with ids scrubbed."
+      ],
+      "indexeddb": "tnr_forge v2 -> v3, additive: keep captures and capture_snapshots untouched and add work_packages (key: `${source}:${ref}:${sha}`, value: {text, listedAt}). This removes the A.5 smell where manifest text is written into the game READ cache under the synthetic path 'github.contents' (app.mjs:198-200) and is then listed by CapturesScreen and deleted by 'Clear all'. captures.mjs:32-34 already documents the additive-upgrade pattern to follow.",
+      "retained_builder_keys": "tnr_bk_idmap_v1 and tnr_bk_gh_v1 keep their exact shapes and are read/written only through compat.mjs; Builder stays installed until K-11 rules otherwise, so a shape change would be a live compatibility break.",
+      "settings": "New shell settings (reduce motion, daylight, destination order) are per-device UI preferences and go under a new tnr_forge_ui_v1 key that no core module reads; losing it must change nothing about a job.",
+      "rollback": [
+        "Per phase: re-pin @require to the previous release SHA (pin_release.py path). Because no journal version is bumped, an older bundle reads every record written by a newer one.",
+        "IDB v3 cannot be downgraded by IndexedDB, but an older bundle opening v3 with version 2 would throw; mitigation is that captures.mjs opens with DB_VERSION and older bundles request v2 - openDB with a LOWER version fails. This is a real hazard: the mitigation is to land the v3 upgrade in a release of its own, verified by the user's smoke, and to treat 'roll back past the v3 release' as a documented one-way door in the handoff. Flagged as the weakest point of this plan.",
+        "Whole-programme: the core lives beside the old app until phase 4; reverting the host adapter restores the old screens without touching storage."
+      ]
+    },
+    "release_strategy": {
+      "artifacts": "ONE bundle. forge_bundle.js remains the single @require. The headless host and any future native shell are separate ENTRY POINTS in the same source tree, not separate published files.",
+      "why_not_two": "check_release_pin.mjs requires exactly one @require resolving to an immutable jsDelivr commit URL for forge_bundle.js (tools/check_release_pin.mjs:29-49) and pin_release.py raises unless exactly one @require per bundle is found (.github/scripts/pin_release.py:23-30). A second pinned file would change the release contract and add a second network dependency at install time; the measured prize (~0.25 ms eval, ~125 KB heap) does not justify it.",
+      "lazy_contract_data": "Not a second file: a build-time transform that emits the three inlined JSON blobs as FUNCTION BODIES rather than top-level object literals, constructed on first use behind the arm marker. Measured (node/V8, fresh vm context): top-level literal 0.26-0.34 ms eval and 267.4 KB retained; function-wrapped 0.015-0.064 ms and 142.4 KB retained. The blobs are 152,399 of 397,978 bundle bytes (38.3%). Byte size is unchanged; the win is on unarmed pages, which is every game page the operator loads while not using Forge. Firefox Android behaviour is Inferred.",
+      "loader": "Unchanged: @match on the whole origin, document-start, per-tab arm marker, @updateURL/@downloadURL on main, @x-release-pending staging. Phase 0 must integrate the release_loader marker fix that exists at 824c4d58 (R-11/R-22) rather than re-inventing it, and must do so without importing the unrelated assertion rewrites in the same file.",
+      "new_gates": [
+        "Bundle-size budget (bytes + gzip) per release, failing a phase that exceeds its declared delta.",
+        "Core API surface golden file (facade names, event types, snapshot keys) so a release cannot silently break a host.",
+        "The existing bundle-reproducibility job in forge.yml keeps proving the checked-in bundle equals a fresh build."
+      ],
+      "pin_implications": "No change to TARGETS, no second target, no floating ref, no runtime fetch of contract data - i.e. the Builder defect at A.8 item 1 (contracts read from a moving main) is not re-introduced by the 'lazy' word."
+    },
+    "recovery": {
+      "model": "Recovery is a core query, not UI state. core.recovery.survey() reads the journal (resumable, ambiguous, broken), the lease, the budget trip marker, the pre-create id snapshots and the sync queue, and returns one object the shell renders as a screen. A fresh host - reloaded tab, restored tab, native shell, test - reconstructs everything from that call.",
+      "tab_eviction": "Unchanged mechanics: SENT is flushed synchronously before the request and one macrotask is yielded (journal.mjs:330-335); on return, run() refuses a job holding SENT (runner.mjs:193) and resume() reconciles per phase (runner.mjs:242, reconciler.mjs:94-156). What the split adds is that the new shell cannot accidentally offer a 'Try again': the only mutation entry points are core.jobs.resume/adopt/skip, each requiring a decision token, and there is no core method that returns a SENT item to PLANNED because the transition does not exist (journal.mjs:41).",
+      "crash_mid_capture": "An evicted capture_snapshots record is reported honestly rather than re-read (app.mjs:358 logic, moved to core/captures.mjs); jobOutcome then refuses success (journal.mjs:85-86). Unchanged by this option and protected by capture.full.test.mjs.",
+      "network_loss": "Transport failure becomes a NETWORK pause with the httpStatus recorded (runner.mjs:226) and emits job.paused; the shell renders it on a durable surface, never a toast alone (R-25). A 429 persists the trip marker and never retries (bucket.mjs:169-216).",
+      "repository_loss": "New: a results bundle that cannot be committed becomes UNSYNCED in the journal with the text retained locally and a retry action, instead of today's fall-through to a textarea that the next refresh wipes (app.mjs:402-405; ux-audit finding 1, Behaviour-proven). This is the R-07 mitigation and the missing half of A.4.1 item 4.",
+      "ui_specific_risks_the_split_removes": [
+        "The 1.5 s setInterval whole-screen re-render (app.mjs:268) destroys focus, scroll and any prepended card; region updates keyed on core events replace it.",
+        "A second host cannot diverge on recovery semantics because it has no other way in."
+      ],
+      "ui_specific_risks_the_split_adds": [
+        "A stale snapshot could be rendered after a state change (mitigated by the monotonic rev and a test).",
+        "An event-driven UI that misses an event could under-render (mitigated by 'snapshot is authoritative' and a periodic low-frequency reconcile of the visible region only while a job is RUNNING)."
+      ]
+    },
+    "accessibility_touch_keyboard": {
+      "touch": "Raise the two sub-floor exceptions - .f-nav button 40 px (styles.mjs:27) and .f-exit 32 px (styles.mjs:25) - to the 44 px floor the rest of .f-app already meets (styles.mjs:31,35). CF-01; D owns the exact target. A static stylesheet test asserts no rule sets a min-height/min-width below 44 px for an interactive selector.",
+      "keyboard": "Every action is a real <button>/<input> reachable by Tab (already true); the decision surface is a focus trap whose initial focus is the SAFE choice and whose Escape dismisses without approving; Escape never cancels a running job. Desktop accelerators are deferred to a later phase and are a K item, not invented here.",
+      "focus_and_motion": "Region re-render is the accessibility feature: a full-screen replace moves focus to the document and interrupts a screen reader mid-utterance every 1.5 s today. After the split, the running item is the only thing that updates, announced through one polite aria-live region fed by job.item/job.request events. Nothing state-bearing is announced only by motion, and prefers-reduced-motion/prefers-contrast blocks come from D2.4.",
+      "screen_reader_semantics": "State comes from view-models, so the pill's word and its aria-label come from the same field - the colour-only failure mode R-24 warns about cannot be introduced by a renderer that has no colour knowledge.",
+      "testable": [
+        "jsdom: dispatch KeyboardEvent Tab/Enter/Escape and assert the resulting core call and focus owner.",
+        "jsdom + a role/label assertion pass per screen view-model (the axe-style checks the current suite has zero of, per deepdive/forge-tests-ci.json).",
+        "Static: CSS target-size rule; no interactive element without an accessible name.",
+        "Unverified on device: Firefox Android glyph coverage, adoptedStyleSheets support, whether OS reduced-motion reaches a userscript overlay (D2.7 marks all three Inferred) - the user's smoke."
+      ]
+    },
+    "test_architecture": {
+      "unit": "node:test, no jsdom: core facades and view-model builders as pure functions over fixture snapshots. New home for the assertions currently tangled in ui.test.mjs (e.g. harvestEntry mapping, captureLabel, _materialize verdicts). Target: every core facade method has a test that does not touch a DOM.",
+      "contract_fixture": [
+        "Unchanged: runner.test.mjs (21), adversarial.test.mjs (75), auth.test.mjs (45), transport.envelope.test.mjs (30, recorded @trpc 11.18.0 fixtures), storage.journal.test.mjs (19), budget.test.mjs (16), capture.full.test.mjs (23), storage.captures.test.mjs (13), reconcile.test.mjs (9), transport.client.test.mjs (9), harvest.test.mjs (8 - shells out to the real harvest.py).",
+        "NEW: Github/Uploader contract tests (zero today, per deepdive/forge-tests-ci.json) BEFORE github.mjs is wrapped.",
+        "NEW: core.repo operation tests against a FakeGithub, including the closed-operation-list refusal.",
+        "NEW: journal fixture corpus built from real exported journals for any future migration."
+      ],
+      "ui_contract": [
+        "View-model goldens per screen x state, enumerated over journal.TRANSITIONS and JOB_STATES so no legal state is unrendered (the AUD section-17 thirteen guarantees become golden assertions rather than prose - R-27).",
+        "jsdom realisation tests: roles, names, disabled state of risk controls, target sizes, no HTML sink, tokens scoped to .f-host/.f-app.",
+        "Host-adapter tests: dispatch a real click, assert the core facade call and its arguments (including the decision token)."
+      ],
+      "adversarial": [
+        "A host that never resolves a decision cannot start a mutation; a decision resolved for plan A cannot start plan B.",
+        "A throwing event subscriber cannot change journal bytes, write order, or transitions.",
+        "No event payload and no snapshot contains a record body, a PAT, or the strings auth.test already forbids.",
+        "A snapshot taken at rev N cannot be rendered as current at rev N+1.",
+        "Two hosts on one core: the second cannot drive the same job (the existing per-job tab lease, runner.mjs:40).",
+        "The import-direction gate: no file under ui/ or hosts/ imports below the seam (11 violations today, must reach 0).",
+        "The socket ban stays a test (ui.test.mjs:331-342)."
+      ],
+      "browser_smoke_only_the_user_can_run": [
+        "Install the pinned loader in ViolentMonkey on the Samsung phone in Firefox; open /forge; confirm the hop, the overlay and 'TNR session active'.",
+        "Run one capture-only manifest to DONE and confirm the results bundle commits (or reports UNSYNCED honestly with sync off).",
+        "Background the tab mid-run, return, and confirm the recovery screen offers reconcile-and-resume rather than a retry.",
+        "Confirm 44 px targets and the decision sheet with one hand; confirm reduced-motion if the OS setting is on.",
+        "Measure page load on an ordinary game page with the new bundle installed and Forge unarmed (the lazy-contract claim).",
+        "No agent may perform any of these: CLAUDE.md section 6 and brief section 16 (no live requests, no live writes, no credentials)."
+      ],
+      "ci": "forge.yml keeps npm ci/audit/test, fixture reproducibility and bundle reproducibility; add the bundle-size budget, the core-API golden, the import-direction gate and a fields/nested re-derivation drift job (absent today). Phase 0 must first make main green (R-11)."
+    },
+    "phase_sketch": [
+      {
+        "phase": "P0 Green baseline and the gates that make the split reviewable",
+        "vertical_slice": "No runtime change. Integrate the release_loader marker fix so main is green (R-11/R-22); add Github/Uploader contract tests; add the import-direction gate with today's 11 violations allow-listed; add the bundle-size budget and the fields/nested drift job.",
+        "usable_after": "Forge behaves exactly as today; CI now measures what the later phases must not break.",
+        "rollback": "Revert the commit; nothing in the runtime changed.",
+        "gates": "npm test 100% on main; the four new CI jobs green; diff gate shows zero files touched under runner/ storage/ transport/ budget/ reconcile/."
+      },
+      {
+        "phase": "P1 ForgeCore extraction, UI untouched",
+        "vertical_slice": "Move the ten pieces of logic listed in core_api.logic_leaving_app_mjs into src/core/*; app.mjs calls core; screens.mjs unchanged; no event stream yet; no visual change.",
+        "usable_after": "Identical UI; the 16 ui.test.mjs cases pass unchanged, which is the proof that behaviour did not move.",
+        "rollback": "Revert; app.mjs re-inlines the functions. No storage change, so the previous release SHA reads every record.",
+        "gates": "All 293 existing tests pass unchanged; import-direction violations drop from 11 to <= 3; new core unit tests; bundle delta reported."
+      },
+      {
+        "phase": "P2 Event stream, snapshots and the decision gate",
+        "vertical_slice": "runner.mjs gains emit(); core.events/snapshot land; app.mjs renders from snapshots and regions instead of the 1.5 s whole-screen interval; window.confirm becomes the host implementation of core.decisions; the headless host test lands.",
+        "usable_after": "Same five screens, but progress is live per item, the results card is no longer wiped, and focus survives an update.",
+        "rollback": "The interval and the direct-confirm path stay behind a compile-time constant for one release; reverting the host half restores them. runner.mjs's emit is additive and inert without subscribers.",
+        "gates": "runner/adversarial/reconcile suites unchanged; throwing-subscriber and event-leak adversarial tests; headless host drives a full job with no DOM; import-direction violations = 0."
+      },
+      {
+        "phase": "P3 Work packages, typed repo operations and sync state",
+        "vertical_slice": "IDB v3 with work_packages; core.repo's closed operation list; UNSYNCED bundle state with retry; checks: [] (R-19) and a device download without a PAT (G-07a).",
+        "usable_after": "The picker stops polluting the capture cache, a failed commit is recoverable, and session_close.py --guards stops going red on Forge bundles.",
+        "rollback": "Code revert leaves the extra store unused. WARNING: rolling back PAST this release is a one-way door because an older bundle cannot open IDB v3; ship it alone and smoke it.",
+        "gates": "harvest.py agreement tests; a parity-guard fixture proving validate.py --parity no longer raises; IDB upgrade test preserving both existing stores."
+      },
+      {
+        "phase": "P4 The D2 shell on the core",
+        "vertical_slice": "D2.6 S1-S3 rendered purely from view-models: tokens, STATE table, mode band, session lamp, banners-by-construction, rail/bottom nav, Command Center fed only from state Forge already holds.",
+        "usable_after": "The new shell is the product; the old screens are deleted per screen, only once that screen has a view-model golden and a jsdom realisation test.",
+        "rollback": "Re-pin the loader to the P3 release SHA - the storage contract is identical, so every open job resumes on the old shell.",
+        "gates": "D2.4 stylesheet contract test; the thirteen AUD guarantees as goldens (R-27); touch-target static test; no new source below the seam."
+      },
+      {
+        "phase": "P5 Second-host proof and Studio absorption",
+        "vertical_slice": "Commit the headless host as a first-class entry point; after the Quest Studio seam's own review, mount the Studio from compose() against core.repo and core.decisions so it stops carrying a second shell, a second palette and a second confirm.",
+        "usable_after": "One product, one palette, one confirmation surface; the promotion of a built manifest into the runner becomes a journaled core operation instead of a copy/paste relay.",
+        "rollback": "The Studio adapter is additive and gated by the subtype registry's maturity field; disabling it returns to P4.",
+        "gates": "The seam's own gates plus: no Studio module imports below the seam; the promotion path requires a decision token; K-39 must be ruled before the promotion half ships."
+      }
+    ],
+    "risks": [
+      {"id": "AC-1", "risk": "Two phases of invisible refactor (P1, P2) consume the riskiest budget before the director sees anything new.", "mitigation": "P2 delivers two visible fixes anyway - live per-item progress and the results card that stops disappearing - and every phase is separately re-pinnable.", "worsens": "none of H's 31; it is a scheduling risk against R-13's own mitigation ordering."},
+      {"id": "AC-2", "risk": "runner.mjs is touched, which R-13 explicitly guards.", "mitigation": "One additive injection beside the existing log hook (runner.mjs:91); emit is wrapped; the diff gate reports it; three adversarial tests bound it.", "residual": "non-zero; this is the option's single execution-core edit and should be reviewed on its own SHA."},
+      {"id": "AC-3", "risk": "The UI layer being replaced is the least-tested layer (16 tests, textContent regexes).", "mitigation": "View-model goldens land before the old screens are deleted; the 16 existing cases are the unchanged regression contract through P1 and P2."},
+      {"id": "AC-4", "risk": "IDB v3 is a one-way door for rollback.", "mitigation": "Ship it alone, after a user smoke, and record it in the handoff as a documented one-way door.", "residual": "real; named rather than hidden."},
+      {"id": "AC-5", "risk": "A new event stream is a new leak surface for capture bodies or the PAT (R-04, R-17).", "mitigation": "Static adversarial test on every event payload and every snapshot, modelled on the existing forbidden-string test in auth.test.mjs."},
+      {"id": "AC-6", "risk": "Snapshot rendering can present stale state as current, breaching the honest-machine-state contract (R-25, SSC).", "mitigation": "Monotonic rev + a test that a pre-pause snapshot cannot render as running."},
+      {"id": "AC-7", "risk": "The decision gate could become the confirmation fatigue R-12 warns about if every operation requests one.", "mitigation": "Reads never request a decision; the gate is mechanism only and the LEVEL is K-12."},
+      {"id": "AC-8", "risk": "The 'second host' may never exist, making the API surface overhead.", "mitigation": "The two hosts that already exist (test harness, Studio) are the justification; if the native shell is never built, the split still buys the Studio's re-absorption and the testability."},
+      {"id": "AC-9", "risk": "Wrapping github.mjs in typed operations without existing cover.", "mitigation": "P0 adds contract tests first; the wrap is P3.", "worsens": "R-07 if done carelessly - the mitigation is the UNSYNCED state that P3 ships with it."},
+      {"id": "AC-10", "risk": "Bundle growth (+31 KB core, +18 KB visual) against R-06 on a phone.", "mitigation": "Size budget gate; the deferred-contract transform; minification is the real lever and is K-14."}
+    ]
+  },
+  "evidence": [
+    "forge/src/ui/app.mjs:6-13 and forge/src/ui/screens.mjs:4-6 - 11 imports crossing the UI seam (the metric this option drives to 0)",
+    "forge/src/ui/app.mjs:29-47 harvestEntry; :159-163 resumeBlockedReason; :166-170 blockedPaths; :172-175 confirm; :186-207 loadPicker incl. :198-200 the github.contents write into the game read cache; :209-225 selectManifest; :264-300 _drive incl. :268 the 1.5 s setInterval; :323-366 resolveCaptures/_materialize; :369-406 exportJob incl. :382 checks: null and :402-405 the textarea fallback; :408-410 _persist",
+    "forge/src/main.mjs:35-57 compose() as the existing seam; :62-70 the App construction; :92-93 the never-break-the-host-page catch",
+    "forge/test/compose.mjs - every harness calls the shipped compose()",
+    "forge/test/ui.test.mjs:29-33 the no-HTML-sink static test; :331-342 the socket ban; forge/build.mjs the bundle-level innerHTML gate",
+    "forge/src/storage/journal.mjs:21-49 version, states and TRANSITIONS; :330-335 withSent; :395-423 migrate() throwing on a newer version (the downgrade hazard); :398-402 exportText",
+    "forge/src/storage/captures.mjs:29-34 DB_VERSION 2 additive upgrade; :58-84 FULL_PERSIST_PATHS and the 512 KiB ceiling",
+    "forge/src/storage/compat.mjs:9-19 the park-under-.corrupt precedent",
+    "forge/src/runner/runner.mjs:91 the injected log hook (the additive emit site); :180 requestPause; :193 refusal of a job holding SENT; :226 NETWORK pause; :242 resume; :632-636 _pause",
+    "forge/src/transport/procedures.mjs:13-22 the audited registry; forge/src/transport/auth.mjs:210,216 the gate",
+    "forge/src/github.mjs:7 branch main; :50-60 the sha-aware PUT with no retry",
+    "forge_loader_user.js (single pinned @require, @updateURL on main); .github/scripts/pin_release.py:13-30; forge/tools/check_release_pin.mjs:29-49",
+    "Measured this pass: forge_bundle.js 397,978 B; inlined JSON literals nested_default 118,512 B, b_DATA_pool_default 21,876 B, fields_default 12,011 B (38.3% of the bundle); node/V8 fresh-context eval 0.26-0.34 ms (literal) vs 0.015-0.064 ms (function-wrapped); retained heap 267.4 KB vs 142.4 KB; forge/src/**/*.mjs 283,717 B over 4,933 lines",
+    "docs/forge_next/A_ARCHITECTURE_MAP.md A.2 (layer map and the leak), A.4.1 (state gaps 1-8), A.5 (storage table and the picker smell), A.9 (bundle facts), A.10 (red baseline, touch floors), A.11 (Studio seam, consequence 6: mounted outside compose()), A.12 (component readiness and 'what must move below the seam')",
+    "docs/forge_next/H_RISK_REGISTER.md R-01, R-03, R-06, R-07, R-12, R-13, R-17, R-18, R-19, R-24, R-25, R-27, R-28",
+    "docs/forge_next/B_PARITY_MATRIX.md B.3 hard blockers P-06/P-07/P-10/P-11/P-12/P-21/P-45 and gates G-01..G-10 (this option ships none of them and blocks none of them)",
+    "docs/forge_next/C_WORKFLOW_INVENTORY.md C.5 (the thirteen manifest steps: 6 exist, 6 partial, 1 missing) and C.6 (what Forge must not absorb)",
+    "docs/forge_next/K_USER_DECISIONS.md K.0 and the summary table (K-01..K-44)",
+    "docs/forge_next/D_VISUAL_SYSTEM.md D2.2 scope rule, D2.4 stylesheet contract test, D2.6 S1-S5 sequence, D2.7 cost estimate (+18 KB, ~5 KB gzip)",
+    "consolidated/docs/design/FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md sections 5-7 (two-speed model, request/response envelope, closed operation list) and section 11 (the sync-state vocabulary this option adopts verbatim)",
+    "consolidated/docs/design/FORGE_NEXT_QUEST_STUDIO.md sections 5-8 (subtype registry, Quest Source, repository worker)",
+    "scratchpad/deepdive/forge-tests-ci.json (293 cases, coverage shape, zero tests on Github/Uploader, zero on accessibility)",
+    "scratchpad/deepdive/repo-consumers.json (bundle contract consumers; checks: null crashes validate.py --parity; workflow-owned paths)",
+    "scratchpad/deepdive/ux-audit-current.json (25 findings; the auto-shown results card wiped by the post-run refresh, Behaviour-proven)",
+    "scratchpad/consolidated_read/foundation-impl.json (the Studio seam as evidence to plan around: dispatch model, polling, second palette, outside compose())",
+    "scratchpad/consolidated_read/ux-contracts.json (Tier C requirements and the 25 component rows)"
+  ],
+  "weaknesses": [
+    "P1 and P2 deliver almost nothing a director can see while spending the riskiest refactor budget. A reasonable counter-plan is 'do the visual shell first on the existing app.mjs (D2.6 S1 explicitly works on the existing five screens) and extract the core later'; the only honest defence is that extracting later means extracting THROUGH a bigger UI.",
+    "The second host is half-hypothetical. Two hosts exist today (the node harness, the Studio shell), but neither is a native shell, and if the native shell never happens the ~31 KB and the extra indirection are pure cost.",
+    "It touches runner.mjs, the one module R-13 says to leave alone. The change is one injected callback beside an existing one, but 'minimal' is not 'zero'.",
+    "The layer being rewritten is the one with the weakest existing cover: 16 ui tests asserting textContent, several buttons never clicked (deepdive/forge-tests-ci.json). View-model goldens are proposed cover, not proven cover.",
+    "The lazy-contract-data story is smaller than it sounds. Measured: ~0.25 ms of eval and ~125 KB of heap per unarmed page, not a boot transformation. The real size lever is minification (398 KB -> 233 KB measured), which is K-14 and not mine to decide.",
+    "IDB v3 makes rollback past that release impossible, because an older bundle opens the database at version 2 and fails. I could avoid it by leaving manifest text in the read cache, but that preserves a defect the A.5 smell names.",
+    "The decision gate changes the confirmation model, which is user-owned (K-12). I can ship the mechanism and refuse to choose the level, but a reviewer could reasonably say the mechanism itself pre-shapes the answer.",
+    "core.repo's closed operation list will be argued about: it is the boundary RUL-2026-09-12-002 asks for, but the Studio's reviewed seam already has its own primitives (branch/ensureBranch/dispatch) and reconciling the two is real integration work I have planned around rather than specified.",
+    "Snapshot-based rendering adds a new class of bug (stale view) to a product whose central virtue is not lying about state. The rev counter is a mitigation, not a proof.",
+    "All device claims are Inferred: every measurement here is node/V8 on Linux, and Firefox Android's parsing, adoptedStyleSheets, navigator.storage.persist() and OS preference propagation are unverified (A.10, D2.7, H.1)."
+  ],
+  "user_decisions_surfaced": [
+    "K-14 ship a minified bundle - the largest measured size lever (398 KB -> 233 KB, gzip 75 KB -> 53 KB); this option's size budget assumes nothing either way.",
+    "K-12 final publishing/confirmation level - the core decision gate is mechanism only; how many taps and what wording a live write or a publish requires stays the director's.",
+    "K-02 / K-20 top-level navigation model and destination lists - the shell renders whatever is ruled; the core exposes destinations as data.",
+    "K-01 / K-21 / K-22 / K-23 / K-24 / K-31 / K-32 / K-33 visual taxonomy, mode colours, type scale, lane taxonomy, background art and mode selection - consumed as given from D_VISUAL_SYSTEM.md; this option adds no palette and no second shell.",
+    "K-06 capture data classification - bounds what core.results may ever carry into a public repository; the option keeps core.results the single writer so the ruling has one enforcement point.",
+    "K-15 / K-26 GitHub credential model, worker trigger and PAT scope - core.repo's operation list is only as safe as the token behind it.",
+    "K-17 research-read registry expansion - not touched here; G-02 remains the gate.",
+    "K-28 how much repository-backed project state Forge may edit - this option ships workstream reads only.",
+    "K-35 ABORTED: give it a producer or drop it - the view-model enumeration over JOB_STATES makes the dead state visible and forces the question.",
+    "K-39 artifact promotion gate and the journaled Studio-to-runner contract - P5's promotion half cannot ship before it.",
+    "K-11 Builder deprecation timing - unchanged by this option; the retained Builder keys and the shared origin stay as they are.",
+    "NEW (route to K): may the journal version ever be bumped while re-pinning the loader is the rollback mechanism? Advisory: no bump until the readers have shipped one release and the new fields are optional. Recorded because migrate() throws on a newer record (journal.mjs:404-423) and nothing in the register covers it.",
+    "NEW (route to K): does the core API surface become a reviewed contract with a golden file and a deprecation policy, or an internal boundary a single writer may change freely? This decides whether a future native shell is a promise or an experiment."
+  ],
+  "file_written": "/tmp/claude-0/-home-user-tnr-tools/e5692b10-4df8-5a1d-ae0b-15d8b552161e/scratchpad/design/arch-core-shell.json"
+}

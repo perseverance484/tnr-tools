@@ -1,0 +1,709 @@
+{
+ "name": "arch-evolve",
+ "family": "arch",
+ "thesis": "Forge's layer boundary is already in the right place; what is missing is not a framework but a render discipline and a headless facade. Keep createElement plus CSSOM, keep compose(), and add exactly two things: a ForgeCore facade that takes the ten blocks of domain logic out of ui/app.mjs, and a ~150-line view kernel that gives every screen a pure (view-model) => Element signature with keyed patching and one async landing point. Then grow screens one vertical slice at a time, each leaving Forge usable and each rolling back to a pinned loader. This is the only option whose first phase is also the mitigation the risk register already assigns to scope creep, and it is the option the approved visual direction has already been sequenced for. Its honest cost: the markup stays hand-written, so a 25-component inventory is enforced by committed fixtures rather than by types, and the unminified bundle grows about a quarter.",
+ "proposal": {
+  "layering": {
+   "principle": "Below forge/src/ui/ nothing moves. A_ARCHITECTURE_MAP.md A.2 already marks every storage/transport/budget/runner/reconcile module 'UI-independent: yes' and the leakage runs the other way: ui/app.mjs owns harvestEntry (:29-47), resumeBlockedReason (:159-163), blockedPaths (:166-170), loadPicker/selectManifest (:186-225), _drive (:264-300), resolveCaptures/_materialize (:323-366), exportJob (:369-406) and _persist (:408-410). Evolve = extract that, add a render kernel, keep everything else.",
+   "modules": [
+    {
+     "module": "forge/src/storage/journal.mjs",
+     "action": "preserve unchanged",
+     "reason": "The write-ahead journal, the TRANSITIONS table (:39-47) and jobOutcome (:76-88) are the safety core the whole plan rests on; a non-negotiable of the brief. The only later change is populating the empty MIGRATIONS table (:407) additively, and only in a phase whose release can be rolled back (see storage_migration).",
+     "tests": "forge/test/storage.journal.test.mjs (19), forge/test/adversarial.test.mjs L1 'annotate() refuses state and timestamps' (:41) and the SENT-unreachability family; forge/test/reconcile.test.mjs (9)"
+    },
+    {
+     "module": "forge/src/storage/captures.mjs",
+     "action": "refactor (additive)",
+     "reason": "Only to stop ui/app.mjs:198-200 writing GitHub manifest text into the game read cache under a synthetic path 'github.contents', which CapturesScreen then lists as if it were a capture and 'Clear all' deletes (screens.mjs:85, A.5 last row, A.12 WorkPackagePicker). Repo text moves to a SEPARATE database tnr_forge_repo v1, not to a new store inside tnr_forge, so an older pinned bundle opening tnr_forge at v2 never hits a VersionError on rollback.",
+     "tests": "forge/test/storage.captures.test.mjs (13), forge/test/capture.full.test.mjs (23), forge/test/ui.test.mjs:206 'Captures screen lists full-capture snapshots apart from read cache'; NEW: a test asserting no capture row with path 'github.contents' is ever listed"
+    },
+    {
+     "module": "forge/src/storage/compat.mjs, storage/hash.mjs",
+     "action": "preserve unchanged",
+     "reason": "tnr_bk_idmap_v1 and tnr_bk_gh_v1 are shared with Builder v4.32 (compat.mjs:4-5). Builder is not retired in this option's phases (B.3, K-11), so both tools must keep reading the same keys byte-for-byte.",
+     "tests": "forge/test/ui.test.mjs:122 'Settings saves PAT under retained key'"
+    },
+    {
+     "module": "forge/src/transport/session.mjs, client.mjs, envelope.mjs, outcome.mjs, upload.mjs",
+     "action": "preserve unchanged",
+     "reason": "The credential seam, the same-origin path/header allowlists (session.mjs:37-38,50) and the per-index decode are the non-negotiables. Nothing in a UI evolution needs them to change.",
+     "tests": "forge/test/transport.client.test.mjs (9), transport.envelope.test.mjs (12 cases / 30 assertions over 11 recorded tRPC fixtures), auth.test.mjs static 'no document.cookie/__session/getToken/Authorization' invariant"
+    },
+    {
+     "module": "forge/src/transport/auth.mjs",
+     "action": "preserve unchanged",
+     "reason": "AuthState stays the single object every screen renders from (A.7 'Live writes need an authenticated human action'). The four-state lamp D_VISUAL_SYSTEM.md D2.2 asks for is a rendering of auth.mjs's existing states; a fifth 'authorization denied' state is explicitly NOT invented here (R-26, K-34).",
+     "tests": "forge/test/auth.test.mjs (45)"
+    },
+    {
+     "module": "forge/src/transport/procedures.mjs",
+     "action": "preserve in this option's core phases; additive rows only in the parity slice",
+     "reason": "Unknown paths must keep throwing before any fetch. Widening the 43-row registry for combat.getBattleHistory / combat.getBattleEntries / gameAsset.getAllFolders is retirement gate G-02 and user decision K-17; it is a runner-side, phase-E5 change with its own review, never a side effect of UI work.",
+     "tests": "auth.test.mjs 'transcribed from source' invariant; the existing 'procedures outside the registry throw before any fetch' test"
+    },
+    {
+     "module": "forge/src/budget/bucket.mjs, budget/reader.mjs",
+     "action": "preserve unchanged",
+     "reason": "R-03: a bigger UI is exactly where background polling appears. This option adds ZERO polling; every new surface reads through CachedReader with an explicit refresh tap, and Budget.status() is rendered, never re-derived.",
+     "tests": "forge/test/budget.test.mjs (16); NEW per-screen budget test asserting no screen render issues a read"
+    },
+    {
+     "module": "forge/src/runner/runner.mjs",
+     "action": "add one additive hook",
+     "reason": "The only runner change in the whole option: a structured progress emitter beside the existing log string (runner.mjs:91). A.12 records JobProgress as the one component with no structured source ('no structured waiting-for-response event'), and today app.mjs:266 copies Runner.log strings into app.state.runningNote. The emitter is ADVISORY: it may not write the journal and may not change an item state.",
+     "tests": "forge/test/runner.test.mjs (21), adversarial.test.mjs (75) all kept green; NEW adversarial test: no progress event can advance an item state or produce a transition"
+    },
+    {
+     "module": "forge/src/runner/manifest.mjs, validate.mjs, lints.mjs, pool.mjs, refs.mjs, recipes.mjs",
+     "action": "preserve unchanged in E0-E4; changed only by the parity slices",
+     "reason": "Backward compatibility first (brief 15): every validated manifest under push/ and archive/spent-manifests must keep running. Zip packs (G-01), list-capture inputs (G-03) and enum preflight (G-05) are manifest-layer changes with their own fixtures in E5.",
+     "tests": "runner.test.mjs, adversarial.test.mjs; the archived-manifest fixture families named in B.4 gates G-01/G-03/G-04"
+    },
+    {
+     "module": "forge/src/runner/fields.json, nested.json",
+     "action": "preserve content; change only how they are embedded",
+     "reason": "Regenerated byte-identically from the pin (A.6) and drift to game head 36c5873b is measured as zero on every Forge surface (R-05). The change is the esbuild loader: 'json' -> 'text' + memoised JSON.parse, so 106,616 bytes of object literal stop being parsed on every matched game page (forge_bundle.js:6245 'var fields_default = {', :6658 'var nested_default = {').",
+     "tests": "the existing fixture-reproducibility CI job (forge.yml) proving derive_fields/derive_nested regenerate byte-identically; NEW: a test asserting the parsed object deep-equals the committed JSON"
+    },
+    {
+     "module": "forge/src/reconcile/reconciler.mjs",
+     "action": "preserve unchanged",
+     "reason": "Reconciliation is the only path out of SENT; a friendlier UI must not gain a retry affordance (R-01).",
+     "tests": "forge/test/reconcile.test.mjs (9), adversarial SENT family"
+    },
+    {
+     "module": "forge/src/github.mjs",
+     "action": "preserve as transport; wrap in a new facade",
+     "reason": "Github stays a dumb contents-API client. The RB section 6 operation vocabulary (load project, save draft revision, compile, fetch build result, open generated manifest) lives above it in core/repo.mjs. This option does NOT touch the branch-scoped github.mjs work that the ChatGPT branch owns at 824c4d58 (one writer per branch, CLAUDE.md section 4); core/repo.mjs is written to consume whichever version lands.",
+     "tests": "NEW github fixture tests (forge-tests-ci.json records zero tests on github.mjs and upload.mjs today)"
+    },
+    {
+     "module": "forge/src/ui/app.mjs",
+     "action": "replace (split)",
+     "reason": "411 lines, of which roughly 260 are domain logic. Everything listed in core_api.leaves_app_mjs moves to forge/src/core/. What remains is mount/close, the nav, the SCREENS route table, the toast host and one subscription to core events: target <= 130 lines. This is R-13's own stated mitigation ('phase 0 moves domain logic below the UI seam first') and A.12's closing paragraph.",
+     "tests": "forge/test/ui.test.mjs (16) must pass UNCHANGED across the move; the E0-committed DOM snapshots must be byte-identical (that is the acceptance gate for E1)"
+    },
+    {
+     "module": "forge/src/ui/screens.mjs",
+     "action": "refactor incrementally into forge/src/ui/screens/*.mjs + ui/components/*.mjs",
+     "reason": "329 lines of five monolithic render functions that read app.* directly, call app.cache.list().then() into nodes that a later refresh() may already have detached (screens.mjs:90-97, 111-119), and stash a live closure on shared state (app.state._renderPicker, screens.mjs:92 read back at app.mjs:194,204). Each screen becomes (vm, actions) => Element with no app reference, which is what makes the 25 WCM components in A.12 buildable without a second shell.",
+     "tests": "ui.test.mjs kept green by preserving class names (D_VISUAL_SYSTEM.md D2.6 S1 makes this an explicit constraint); NEW per-screen serialized-DOM snapshots"
+    },
+    {
+     "module": "forge/src/ui/dom.mjs",
+     "action": "preserve h(); add a keyed-list helper",
+     "reason": "h() (:3-16) and replace() (:27) stay exactly as they are; installCss's adoptedStyleSheets-with-insertRule-fallback (:30-43) stays. Added: a keyed list patcher so a re-render does not destroy and rebuild rows. Today app.mjs:268 re-renders the whole main region every 1500 ms during a run, which restarts any CSS transition (D2.7 G-C2) and would blow away focus and a half-typed orphan id (screens.mjs:62-63).",
+     "tests": "NEW jsdom tests: identity of a keyed row across re-render; document.activeElement preserved across re-render; ui.test.mjs unchanged"
+    },
+    {
+     "module": "forge/src/ui/styles.mjs",
+     "action": "replace (content) / preserve (mechanism)",
+     "reason": "One CSSOM sheet, all selectors scoped to .f-host/.f-app/.f-boot, tokens on those elements and never :root (:1-9, :11) - that scoping is a correctness rule (R-28) and it survives. The token VALUES become D_VISUAL_SYSTEM.md's set. Three specific defects are fixed: .f-nav button 40px (:27) and .f-exit 32px (:25) rise to the 44px floor already on .f-app button (:31) [CF-01]; .f-pill.DONE stops being painted --ok regardless of jobOutcome (:44) [CF-02]; the 'ran' / 'picked' / 'missing' pills stop reusing VERIFIED/FAILED classes for non-outcome meaning (screens.mjs:86,146) [BF-25].",
+     "tests": "NEW stylesheet contract test per D_VISUAL_SYSTEM.md D2.4: every selector scoped, animation only on allow-listed selectors, no url( and no @font-face, contrast recomputed from the TOKENS string. Same build-gate mechanism the innerHTML check already uses."
+    },
+    {
+     "module": "forge/src/ui/takeover.mjs",
+     "action": "preserve unchanged",
+     "reason": "R-02 and R-28: the three-outcome boot contract, the per-tab arm marker, the old-builder node suppression (:53,171) and release() restoring overflow (:177-182) are the least-understood, highest-blast-radius code in the tree and nothing about a bigger UI requires touching them.",
+     "tests": "forge/test/ui.test.mjs:56 entry takeover and :70 carrier mount/release"
+    },
+    {
+     "module": "forge/src/main.mjs",
+     "action": "refactor (small)",
+     "reason": "compose() (:35-57) gains deps.core and hands it to App. Two further changes: the Studio is mounted INSIDE compose() rather than after app.mount (A.11 consequence 6 records that the branch mounts it outside, so the composition every test harness calls excludes it); and the JSON imports (:21-22) become text + lazy parse. boot()'s three outcomes are untouched.",
+     "tests": "forge/test/compose.mjs is the one composition every harness calls (compose.mjs:1-5) - extending it there means a wiring mistake fails the suite instead of shipping"
+    },
+    {
+     "module": "NEW forge/src/core/{jobs,packages,evidence,session,health,maintenance,repo,events}.mjs",
+     "action": "add",
+     "reason": "The headless boundary a second host consumes. See core_api. Roughly 700 source lines, all of it moved or thinly wrapped, none of it new policy.",
+     "tests": "unit tests with no jsdom at all (harvestEntry, _materialize, blockedPathsFor and exportBundle are currently only reachable through a mounted App); committed core.snapshot() fixtures diffed in CI like the envelope fixtures"
+    },
+    {
+     "module": "NEW forge/src/ui/view.mjs",
+     "action": "add",
+     "reason": "The render kernel: ~150 lines. defineScreen(name, render), one render entry, keyed list patching, focus preservation, and the rule that async results land in the view-model and never in a .then() that writes into a node the tree may have replaced.",
+     "tests": "NEW jsdom kernel tests; the export-card regression test (see recovery)"
+    }
+   ]
+  },
+  "ui_technology": {
+   "choice": "No framework. Keep document.createElement via dom.mjs h() and one CSSOM stylesheet, and add a ~150-line render kernel (forge/src/ui/view.mjs) that gives screens a pure (vm, actions) => Element signature, keyed list patching, focus preservation and a single async landing point.",
+   "why_not_a_component_library": [
+    "Every template-literal library (Lit, htm, uhtml, hyperHTML) ultimately writes markup through innerHTML or an equivalent HTML-string sink. forge/build.mjs fails the build on any /innerHTML/ in the bundle and forge/test/ui.test.mjs:29-34 greps the whole of src for innerHTML|outerHTML|insertAdjacentHTML|document.write. Adopting one means relaxing a shipped safety gate for a convenience; that is the wrong trade in a tool whose non-negotiables list starts with 'no innerHTML'.",
+    "A VDOM library (Preact ~11 KB gzip, plus hooks) does not use innerHTML and would pass the gate, but it buys re-render diffing that the kernel provides in 150 lines, while adding a dependency to a bundle that must be reproducible byte-for-byte from source for the release pin (the bundle-diff CI job) and self-contained for the single @require model.",
+    "JSX or any build-time template step adds a compile stage between forge/src and forge_bundle.js. Today the bundle is one esbuild IIFE with no transform, which is what makes 'a fresh build equals the checked-in bundle' a cheap CI assertion.",
+    "The honest cost of saying no: 25 WCM components (A.12) rendered by hand in h() calls are enforced by convention plus snapshots, not by a type system. That is a real maintainability debt and it is why test_architecture leans hard on committed DOM and view-model fixtures."
+   ],
+   "no_innerHTML_satisfaction": "Unchanged and mechanically enforced: the build gate in forge/build.mjs and the static test at forge/test/ui.test.mjs:29-34 both keep passing because no new sink is introduced. The kernel only calls document.createElement, appendChild, removeChild and setAttribute through the existing h()/append()/replace() helpers (dom.mjs:3-27).",
+   "single_bundle_require_model": "Unchanged. One esbuild IIFE, format 'iife', one @require line pinned to an immutable commit (forge_loader_user.js:12). No dynamic import(): esbuild would either inline it (no benefit) or emit a runtime fetch of a second URL that pin_release.py does not pin and that offline/evicted recovery cannot rely on. 'Lazy' therefore means deferred parse, never deferred fetch.",
+   "bundle_size_estimate": {
+    "method": "Measured in this session with wc -c and gzip -9 on the checked-out tree at the planning branch head, plus the esbuild section attribution already recorded in A_ARCHITECTURE_MAP.md A.9. No browser, no network.",
+    "measurements": {
+     "forge_bundle.js raw": 397984,
+     "forge_bundle.js gzip -9": 74304,
+     "src/ui/*.mjs source raw": 70135,
+     "src/ui/*.mjs source gzip -9": 21498,
+     "hand-written UI JS gzip ratio": 0.307,
+     "bytes per source line across src/ui (70135 / 1064 lines)": 65.9,
+     "minify:true measured previously (A.9)": "232720 raw / 52556 gzip = 0.585 of the unminified raw",
+     "embedded contract JSON sources": {
+      "nested.json": 96267,
+      "fields.json": 10349,
+      "32b_DATA_pool.json": 18166
+     }
+    },
+    "projection": {
+     "core facades + render kernel": "~700 new source lines x 65.9 B/line = ~46 KB raw, ~14 KB gzip",
+     "screens 5 -> ~11 surfaces and the 25 WCM components": "screens.mjs is 26,563 B for five screens; components are reusable so assume x2.2 rather than x2.6 of the current screen layer = +32 KB raw, ~10 KB gzip",
+     "CSS": "+16-20 KB raw / ~5 KB gzip, taken from D_VISUAL_SYSTEM.md D2.7's own costing",
+     "net unminified": "~+95 KB raw and ~+29 KB gzip -> about 493 KB raw / 103 KB gzip",
+     "net if K-14 authorises minify:true": "about 290 KB raw / 72 KB gzip, i.e. smaller than today's shipped bundle"
+    },
+    "honest_cost": "Evolve does not shrink the bundle; it grows the unminified artefact by about 24%. R-06 is made worse in bytes and is only paid back by (a) the minified build, which is user decision K-14, and (b) the deferred-JSON-parse change, which saves parse time and heap rather than bytes. A raw+gzip ceiling assertion becomes a CI gate so the growth is visible per phase."
+   },
+   "how_screens_become_testable": "A screen stops taking `app` and takes a plain view-model. That means (1) unit tests with no DOM at all over core.snapshot(); (2) jsdom tests that render one screen from a hand-built vm without composing the whole graph; (3) a deterministic DOM serializer (tag, sorted attributes, text) over .f-app producing committed fixtures under forge/test/fixtures/screens/<screen>.<state>.txt, diffed in CI exactly as the 11 tRPC envelope fixtures already are. Because h() builds real nodes with no HTML string sink, that serialization is stable."
+  },
+  "core_api": {
+   "name": "ForgeCore, constructed inside compose() (forge/src/main.mjs:35-57) and handed to App. Everything a second host needs is core + events + snapshot; nothing in core imports from ui/.",
+   "facades": [
+    {
+     "facade": "core.health",
+     "methods": [
+      "describe()",
+      "auth.state / auth.detail",
+      "budget.status()",
+      "storage.persisted",
+      "journal.broken",
+      "github.configured"
+     ],
+     "notes": "A.12 SystemHealth row says `persisted` lives on the App instance today (app.mjs:408-410) and must move to a storage-status reader. It shows only state Forge already holds; never a fresh poll (R-16)."
+    },
+    {
+     "facade": "core.session",
+     "methods": [
+      "establish()",
+      "probe()",
+      "allows(path)",
+      "blockedPathsFor(plan, manifest)",
+      "resumeBlockedReason(job)"
+     ],
+     "notes": "Wraps AuthState. blockedPathsFor is app.mjs:166-170 moved verbatim; resumeBlockedReason is app.mjs:159-163 moved verbatim. Both are named in A.12 as things that must move below the seam."
+    },
+    {
+     "facade": "core.packages",
+     "methods": [
+      "list({force})",
+      "select(path)",
+      "attachFile(refName, file)",
+      "clearSelection()"
+     ],
+     "notes": "app.mjs:186-225 moved. select() returns {manifest, plan, problems, warnings, images, missingImages, blockedPaths, captureSummary, readOnly, fullCaptureCount, hash} - i.e. every derived value SelectedManifest currently recomputes inline (screens.mjs:114-149). Manifest text caching moves off the game read cache (app.mjs:198-200) into tnr_forge_repo."
+    },
+    {
+     "facade": "core.jobs",
+     "methods": [
+      "list()",
+      "get(id)",
+      "resumable()",
+      "ambiguous()",
+      "start(selection)",
+      "resume(id)",
+      "requestPause()",
+      "adopt(id, idx, entityId)",
+      "skip(id, idx)",
+      "outcome(id)"
+     ],
+     "notes": "app.mjs:228-304 moved. start/resume keep re-reading the auth gate at the moment of the tap (app.mjs:230-237), which is the invariant A.7 records. The toast-building half of _drive (app.mjs:285-296) becomes a typed notice event, not a pre-formatted string, so a second host can render it differently without re-deriving the outcome."
+    },
+    {
+     "facade": "core.evidence",
+     "methods": [
+      "resolveCaptures(jobId)",
+      "buildBundle(jobId)",
+      "exportText(jobId)",
+      "sync(jobId)",
+      "syncState(jobId)"
+     ],
+     "notes": "app.mjs:29-47 (harvestEntry), :323-366 (resolveCaptures/_materialize) and :369-406 (exportJob) moved. buildBundle returns the object; sync() attempts the contents-API PUT and records 'synced' | 'unsynced' with the error - the state A.4.1 item 4 and R-07 say does not exist today."
+    },
+    {
+     "facade": "core.repo",
+     "methods": [
+      "loadProject(ref)",
+      "loadRegistry()",
+      "saveDraftRevision(req)",
+      "compile(req)",
+      "validatePackage(req)",
+      "fetchBuildResult(id)",
+      "openGeneratedManifest(path)",
+      "searchEvidence(q)"
+     ],
+     "notes": "The RB section 6 vocabulary verbatim. Each returns the RB envelope {status, operation, sourceRevision, toolRevision, data, blockers, warnings, artifacts:[{path,hash}], provenance, nextActions} and one of RB section 11's sync states. Forge never executes repository logic and never encodes a canonical rule in browser code (RUL-2026-09-12-002); advisory client checks are generated projections with provenance, which is the R-20 gate."
+    },
+    {
+     "facade": "core.maintenance",
+     "methods": [
+      "invalidateCacheEntry(path,id)",
+      "clearReadCache()",
+      "deleteSnapshot(key)",
+      "clearSnapshots()",
+      "deleteFinishedJobs()",
+      "forgetCredential()"
+     ],
+     "notes": "Six distinct classes, matching the MaintenanceAction row in the UX contracts. Deletion policy (per-entry Invalidate currently unconfirmed, screens.mjs:96; Delete finished jobs keeps INCOMPLETE/PAUSED, screens.mjs:143) stays exactly as it is; changing it is K-16."
+    },
+    {
+     "facade": "core.confirmations",
+     "methods": [
+      "classify(intent) -> {tier, title, consequence, scope, counts, caveat, verb}"
+     ],
+     "notes": "Core classifies the tier; the UI renders it. app.confirm (app.mjs:172-175) with its ten call sites becomes a typed intent. That means a second host cannot silently lower a confirmation tier, while the LEVEL of the publish confirmation stays K-12 and is not settled here."
+    }
+   ],
+   "events": [
+    "job:progress {jobId, idx, phase, step: 'preparing'|'reading'|'uploading'|'sending'|'awaiting'|'verifying'|'reconciling', at} - the new additive Runner emitter; advisory only, never persisted, never able to change an item state",
+    "job:state {jobId, state, pause}",
+    "journal:changed {jobId}",
+    "auth:changed {state}",
+    "budget:changed {status}",
+    "packages:changed {}",
+    "repo:changed {operation, requestId, syncState}",
+    "evidence:changed {jobId, syncState}",
+    "notice {kind: 'ok'|'info'|'warn'|'bad', durable: boolean, code, payload} - `durable:true` is the machine flag behind R-25: a state on the WFA section 16 bad-toast list is refused as a toast-only notice"
+   ],
+   "state_snapshot": "core.snapshot() returns one plain JSON-serialisable object with no functions and no DOM types: {health, jobs:[...], activeJob, selection, packages, evidence, repo, notices, budget}. It is the view-model every screen renders from, the fixture the contract tests diff, and the exact payload a native shell or a second window would consume. Because it is serialisable it can be committed as a test fixture and diffed in CI the same way the tRPC envelope fixtures are.",
+   "leaves_app_mjs": [
+    "harvestEntry -> core/evidence.mjs (forge/src/ui/app.mjs:29-47)",
+    "resumeBlockedReason -> core/session.mjs (app.mjs:159-163)",
+    "blockedPaths -> core/session.mjs (app.mjs:166-170; wraps protectedPathsFor, runner.mjs:57)",
+    "confirm policy -> core/confirmations.mjs (app.mjs:172-175, ten call sites in screens.mjs)",
+    "loadPicker + its cache path -> core/packages.mjs (app.mjs:186-207, incl. :198-200)",
+    "selectManifest and every derived preflight value -> core/packages.mjs (app.mjs:209-225)",
+    "startJob / resumeJob / _drive orchestration and outcome wording -> core/jobs.mjs (app.mjs:228-300)",
+    "resolveCaptures / _materialize -> core/evidence.mjs (app.mjs:323-366)",
+    "exportJob and the GitHub commit fallback -> core/evidence.mjs (app.mjs:369-406)",
+    "_persist / storage persistence status -> core/health.mjs (app.mjs:408-410)"
+   ],
+   "stays_in_app_mjs": "mount/close (app.mjs:62-79,107-112), the SCREENS route table (:15), go/refresh (:81-91), the toast host (:93-97) and one subscription to core events. Target <= 130 lines from today's 411."
+  },
+  "storage_migration": {
+   "journal_v1_to_v2": {
+    "recommendation": "Do not move the journal schema for phases E0-E3. The one genuinely new per-job fact is repository sync state; carry it in a SEPARATE key tnr_forge_sync_v1:<jobId> so JOURNAL_VERSION stays 1 and R-09 stays at zero for the first four slices.",
+    "when_v2_is_unavoidable": "If a later phase needs a field inside the journal record itself (for example a journaled Studio promotion, K-39), add MIGRATIONS[1] = (job) => ({...job, v: 2, sync: job.sync ?? {state:'unknown'}}) into the empty table at forge/src/storage/journal.mjs:407. Purely additive; no field is renamed or removed.",
+    "hard_constraint": "migrate() already refuses a record newer than the running bundle ('journal v2 is newer than this bundle', journal.mjs:413). Rollback is 'reinstall the previous pinned loader' (forge_loader_user.js:12), so a v2 record written by a release the operator then rolls back is UNREADABLE. Therefore v2 may only be WRITTEN one release after the release that can READ it ships and is pinned. That two-release rule is a policy decision worth the director confirming, not a detail.",
+    "never": "A failed migration never deletes a v1 record. It parks it under <key>.corrupt, which is the pattern compat.mjs already uses, and surfaces it through journal.broken (journal.mjs:221-228), which today has no renderer at all (A.4.1 item 5)."
+   },
+   "indexeddb": {
+    "today": "tnr_forge v2 with stores captures and capture_snapshots; the v1->v2 upgrade was additive and an existing v1 database keeps its captures store (captures.mjs:29-34).",
+    "change": "Repository text (manifest bodies, subtype registry, build results) moves OUT of the captures store, where app.mjs:198-200 puts it today under the synthetic path 'github.contents'. It goes into a SEPARATE database tnr_forge_repo v1 rather than a third store in tnr_forge.",
+    "why_separate_db": "If the repo store were added as tnr_forge v3, an operator who rolled back to the previous pinned loader would have a bundle asking for v2 against an existing v3 database, which throws VersionError on open and takes the capture cache and every full-capture snapshot with it. A separate database makes rollback clean: the old bundle simply never opens it.",
+    "migration_of_existing_rows": "None. The existing github.contents rows are a cache keyed by GitHub blob sha; they are deleted on first read of the new store and refetched. They cost no game budget, so there is nothing to preserve."
+   },
+   "retained_builder_keys": "tnr_bk_idmap_v1 and tnr_bk_gh_v1 (compat.mjs:4-5) are untouched in shape and semantics for the whole roadmap. Builder v4.32 keeps reading and writing them, which is required while Builder stays installed (B.3, R-10, K-11). Any idmap export/import/reset added for gate G-06 round-trips that exact shape, proven by an export -> reset -> import byte-equality test.",
+   "settings": "GitHub PAT and sync flag stay under tnr_bk_gh_v1 (screens.mjs:131). New per-device preferences (Reduce motion, Daylight) go in a NEW key tnr_forge_prefs_v1 rather than being folded into the shared Builder key.",
+   "rollback": "Every phase's storage change must satisfy one rule: a record written by release N is either readable by release N-1 or explicitly refused with a message naming the version. The phase acceptance gate replays a real exported journal from harvests/inbox through migrate() as a fixture (R-09's own mitigation asks for exactly this)."
+  },
+  "release_strategy": {
+   "bundles": "One. One esbuild IIFE, one @require, one pinned commit (forge_loader_user.js:12). No code splitting, no second artefact, no dynamic import.",
+   "why_not_split": "A second URL is not covered by the immutable jsDelivr pin, would need a second entry in pin_release.py TARGETS and a second line in the loader, would add a network dependency on a tool whose whole recovery story assumes the bundle is already in the browser, and would break the bundle-diff CI job's 'fresh build equals checked-in bundle' assertion for the primary artefact.",
+   "lazy_contract_data": {
+    "what": "fields.json, nested.json and 32b_DATA_pool.json are embedded by esbuild as top-level JavaScript object literals (forge_bundle.js:2802 b_DATA_pool_default, :6245 fields_default, :6658 nested_default). Their sources total 124,782 bytes.",
+    "problem": "The loader matches the whole game origin, so the IIFE evaluates on EVERY game page; boot() returns immediately on an unarmed tab (main.mjs:171-173) but the object literals have already been parsed by then.",
+    "change": "Switch those three imports to esbuild's text loader and JSON.parse them behind a memoised accessor called from Validator and the pool resolver. Same bytes on the wire (roughly +2% for JSON string escaping), but the parse and the retained heap move to first use, i.e. never on an INERT page.",
+    "tier": "Inferred. The claim that JSON.parse of a string beats a JS object literal, and by how much on Firefox Android, was not measured here. The embedding shape IS source-verified at the bundle lines above."
+   },
+   "loader_and_pin": "The two-stage pin is unchanged. Phase E0 must have main green, which requires the release_loader.test.mjs:47 'exactly one @x-release-pending marker' assertion relaxed to 'at most one'. The only existing fix lives on the ChatGPT branch at 824c4d58 bundled with unrelated rewrites (R-22, CF-19), so this option does NOT author a competing change: it records the assignment as an E0 prerequisite.",
+   "minification": "Recommended (measured 397,984 -> 232,720 raw, 74,969 -> 52,556 gzip) but it is user decision K-14, and it must keep the bundle byte-reproducible on the pinned esbuild 0.28.2 so the CI bundle-diff stays meaningful.",
+   "new_ci_gates": [
+    "raw and gzip size ceilings asserted per release (forge-tests-ci note 7)",
+    "add push/**/*.json to forge.yml's path filter, because runner.test.mjs and check_release_pin.mjs read them and a manifest change can ship today without a forge run (forge-tests-ci note 2)",
+    "one Node workflow, one gate set, to end the duplication R-22 records"
+   ],
+   "install": "Unchanged for the operator: ViolentMonkey refetches the loader after each pin (W-20). The About card (screens.mjs:147) grows the pin SHA and the journal/DB versions so a support question is answerable from the phone."
+  },
+  "recovery": {
+   "principle": "The view-model is DERIVED from durable sources (journal in localStorage, IndexedDB, the retained Builder keys). Nothing that matters lives only in App.state (app.mjs:58) any more, so a crash mid-render loses only a scroll position.",
+   "eviction": [
+    "The only piece of App.state worth persisting is the selected manifest PATH, not the parsed plan: on resume the manifest is re-fetched and re-parsed, so a stale plan can never be run against a manifest that changed under it.",
+    "navigator.storage.persist() keeps being requested best-effort on mount (app.mjs:408-410) but the result moves into core.health so every surface renders one answer. Whether Firefox Android grants it is still Inferred (A.5).",
+    "The capture snapshots that a bundle is built from stay immutable and are never invalidated by a write (captures.mjs, A.5). Deleting them stays a separate, separately-worded, separately-confirmed action (screens.mjs:107-118)."
+   ],
+   "crash_mid_run": [
+    "Unchanged and deliberately so. withSent() still flushes SENT before the fetch (journal.mjs:330-335); run() still refuses a job holding SENT items and resume() reconciles first (A.7 citing runner.mjs:193,242).",
+    "The new structured job:progress event is advisory: an adversarial test asserts no progress value can produce a journal transition or advance an item state. A progress event is UI comfort; the journal is the record.",
+    "No new control anywhere is labelled Retry or Try again for a mutation class. 'Try again' exists only for retry-safe classes such as a failed GitHub listing or a cache open (D_VISUAL_SYSTEM.md departure 16)."
+   ],
+   "network_loss": [
+    "New sync states per RB section 11: Draft saved locally / Repository revision saved / Build requested / Building / Build result received / Repository unavailable - retry save / Build failed / Build blocked by design decision. For a results bundle the two that matter are 'synced' and 'unsynced'.",
+    "Today Github.put throws on a non-2xx and exportJob falls back to showing the bundle as text (app.mjs:402-405), and the journal records nothing (A.4.1 item 4, R-07). Under evolve the attempt is recorded with its error and a retry-on-demand action; never an automatic retry loop, because the repository automation uses rebase/retry on disjoint paths and a racing app-side retry is exactly the failure mode R-07 names.",
+    "A failed sync is a DURABLE surface, not a toast (R-25)."
+   ],
+   "the_bug_this_fixes": "Behaviour-proven in the UX audit and confirmed in the source this pass: showExport prepends the results card to $main (app.mjs:182), and _drive's finally block calls refresh() (app.mjs:299) which replace()s $main. With GitHub sync off, the operator's only copy of the results bundle is wiped by the very next render. Under the view-model the pending export is vm state, so a re-render re-renders it. This costs about twenty lines and is the single clearest payoff of the whole option; a regression test asserts the card survives three re-renders.",
+   "multi_tab": "The per-job lease and 30 s heartbeat are unchanged. This option adds no background polling of any kind, so it adds no new read that spends budget outside a job (R-03)."
+  },
+  "accessibility_touch_keyboard": {
+   "touch": [
+    "Raise .f-nav button from 40 px (styles.mjs:27) and .f-exit from 32 px (styles.mjs:25) to the 44 px floor .f-app button already carries (styles.mjs:31). Those two sub-floor rules win by specificity today, so the 'minimum floor' holds only for ordinary controls (A.10, CF-01).",
+    "Five nav tabs plausibly overflow a 360 px viewport (UX audit finding 5). The nav becomes a horizontally scrollable rail on phone and a vertical rail at >= 1024 px from the SAME view-model; there is no second screen tree for desktop.",
+    "The exact target size and the destination list are D's and K-02/K-20's; this option only guarantees the floor is uniform."
+   ],
+   "keyboard": [
+    "Focus preservation in the render kernel. Today the 1500 ms tick (app.mjs:268) replaces the whole main region during a run, which would discard focus and any half-typed value - including the orphan 'paste an id to adopt' input (screens.mjs:62-63), the highest-consequence input in the tool.",
+    "Tab order asserted by dispatching KeyboardEvent in jsdom; Enter and Space activate every control; Escape cancels the confirmation sheet and only Escape or Cancel dismisses it (never a timing-dependent press-and-hold, which D_VISUAL_SYSTEM.md withdraws as an accessibility risk).",
+    "No keyboard shortcut ever triggers a mutation or a publish."
+   ],
+   "aria_and_redundancy": [
+    "Today the only ARIA in the tree is aria-current on the nav buttons (app.mjs:84) and the Settings inputs carry placeholders with no labels (screens.mjs:126-127). Added: labels for every input, aria-live=polite on the mode band and the count line, role=alert on the verdict banner and on halt/orphan cards, role=progressbar on the run bar.",
+    "Every state carries word + glyph + construction, so nothing state-bearing depends on colour, on Firefox Android glyph coverage or on adoptedStyleSheets support - all three of which are Inferred, not verified (D2.7).",
+    "prefers-reduced-motion and prefers-contrast blocks, plus manual Settings toggles as the fallback if the OS preference does not reach a userscript overlay (Inferred)."
+   ],
+   "automation": "axe-core as a devDependency running over each serialized screen state inside jsdom as a contract test. Socket-free, no browser, no new CI service."
+  },
+  "test_architecture": {
+   "baseline_to_protect": "293 node:test cases across 13 files, socket-free, built on MemoryStorage/fakeClock (shim.mjs), FakeGame/FakeClient (fakegame.mjs), fake-indexeddb, jsdom for ~31 DOM tests and 11 recorded tRPC envelope fixtures. composeForTest calls the shipped compose() (compose.mjs:1-5), which is the reason a wiring mistake fails the suite instead of hiding behind a test-only graph. Everything below keeps that property.",
+   "unit": [
+    "The core facades are unit-testable with NO DOM at all. harvestEntry (app.mjs:29), _materialize (app.mjs:342), blockedPaths (app.mjs:166) and exportJob (app.mjs:369) are today reachable only through a mounted App; after E1 they are functions with plain inputs.",
+    "Keep all 75 adversarial cases, all 45 auth cases, all 19 journal cases, all 16 budget cases unchanged - the diff gate for E1 is that not one of them is edited."
+   ],
+   "contract_fixture": [
+    "Committed view-model fixtures: core.snapshot() serialized per scenario under forge/test/fixtures/vm/<scenario>.json, regenerated and diffed in CI exactly as the envelope fixtures are today. This is the cheapest possible regression net for a surface 3-5x larger, and it runs without a DOM.",
+    "Keep the 11 derived tRPC envelope fixtures and the fixture-reproducibility CI job.",
+    "New: github.mjs and upload.mjs fixture tests. forge-tests-ci records zero tests on either module today, and both are on the write path.",
+    "New: harvest agreement. Seven existing tests already shell out to the real harvest.py; add a validate.py --parity case, because a Forge bundle's checks:null makes validate.py raise TypeError and turns the content session's close guard red whenever a Forge bundle is newest (R-19, Behaviour-proven)."
+   ],
+   "ui_contract": [
+    "A deterministic DOM serializer over the .f-app subtree (tag, sorted attributes, text) producing forge/test/fixtures/screens/<screen>.<state>.txt. Stable because h() builds real nodes with no HTML string sink.",
+    "One snapshot per screen x machine state, with the state list ENUMERATED from the journal's own TRANSITIONS table (journal.mjs:39-47) and the pause-reason list, so a state cannot exist in the machine without a rendered fixture.",
+    "The 13 UI-level semantic guarantees of the baseline audit mapped one-to-one onto named tests (R-27); today only five are covered (ui.test.mjs:96,135,162,206,254).",
+    "The stylesheet contract test from D_VISUAL_SYSTEM.md D2.4: scoping, animation allow-list, no url( and no @font-face, contrast recomputed from the token string.",
+    "axe-core plus KeyboardEvent dispatch over the same serialized states."
+   ],
+   "adversarial": [
+    "R-01: no rendered control can reach a send path while an item is SENT. Asserted mechanically by walking every button's handler in a rendered tree against a core allow-list, not by reading the markup.",
+    "No job:progress event can change an item state or write a journal transition.",
+    "CF-02: a DONE job whose jobOutcome is 'unverified' never renders the success construction (today styles.mjs:44 paints the DONE pill --ok regardless).",
+    "R-25: every state on the bad-toast list also appears on a durable surface; a notice with durable:true is refused as toast-only.",
+    "The export card survives re-render (the app.mjs:182 vs :299 regression).",
+    "R-20: a test fails when a browser-side advisory rule encodes a constraint the generated repository source does not carry.",
+    "R-13 diff gate: a report per phase listing every file touched under runner/, storage/, transport/, budget/, reconcile/ - expected to be empty except the one additive Runner hook."
+   ],
+   "browser_smoke_user_only": [
+    "No agent may run it, and it is read-only first. On the Samsung Android phone in Firefox with the pinned loader installed: (1) /forge arms and hops, overlay mounts over a real route; (2) every control measures >= 44 px at 360 px width and the nav does not clip; (3) navigator.storage.persist() outcome recorded; (4) adoptedStyleSheets path taken or insertRule fallback taken; (5) OS reduced-motion and contrast preferences reach the overlay or not; (6) where Builder v4.32's legacy FAB actually sits relative to the overlay (UX audit finding 2 says Forge's suppression cannot match a shadow-DOM host - Inferred); (7) one read-only capture job end to end.",
+    "Desktop repeat of the same list at 1280x800.",
+    "The live-WRITE smoke (gate G-08) is a separate user-owned run and is not part of any phase's automated gate.",
+    "Playwright or any real-browser CI layer stays OUT: CLAUDE.md section 8 keeps tests socket-free unless a task says otherwise, and admitting it is a user ruling, not a Fable decision."
+   ]
+  },
+  "phase_sketch": [
+   {
+    "id": "E0",
+    "name": "Green baseline and measurement seams. Zero user-visible change.",
+    "do": [
+     "Obtain the CF-19 assignment for the release_loader marker fix so main is green (this option authors no competing change).",
+     "Add push/**/*.json to forge.yml's path filter and consolidate to one Node workflow with one gate set (R-22).",
+     "Add the raw+gzip bundle size ceiling assertion.",
+     "Build the deterministic DOM serializer and commit fixtures for today's five screens across their states.",
+     "Add core.snapshot() as a READ-ONLY projection over the existing App - no logic moved yet - and commit its fixtures."
+    ],
+    "usable_after": "Byte-identical behaviour; the same five screens.",
+    "gate": "293/293 green on main; the bundle-diff job shows zero change to forge_bundle.js from src edits (all E0 changes are test/CI only); screen and vm fixtures committed.",
+    "rollback": "Revert the branch. Nothing in src/ changed."
+   },
+   {
+    "id": "E1",
+    "name": "Move domain logic below the UI seam.",
+    "do": [
+     "Create forge/src/core/{jobs,packages,evidence,session,health,maintenance,confirmations,events}.mjs and move the ten blocks listed in core_api.leaves_app_mjs.",
+     "compose() returns deps.core; App takes core; ui/app.mjs drops to <= 130 lines.",
+     "Move repo text out of the game read cache into a separate tnr_forge_repo v1 database.",
+     "Add the additive Runner progress emitter."
+    ],
+    "usable_after": "Identical five screens, identical pixels.",
+    "gate": "The E0 DOM snapshots are BYTE-IDENTICAL - that is the acceptance test, and it is mechanical. Zero edits to the 75 adversarial / 45 auth / 19 journal cases. The R-13 diff gate shows only the one additive runner hook. No capture row with path github.contents is listed.",
+    "rollback": "Revert. Journal untouched; tnr_forge untouched at v2; the new database is simply orphaned and ignored by the previous pin."
+   },
+   {
+    "id": "E2",
+    "name": "Render kernel and visual shell slice S1.",
+    "do": [
+     "forge/src/ui/view.mjs: keyed render, focus preservation, async-into-view-model only.",
+     "D_VISUAL_SYSTEM.md S1: token set on .f-host/.f-app, pill() -> state table with glyph box, mode band, four-state session lamp, banners by construction, disabled without opacity, reduced-motion and contrast blocks.",
+     "Raise the nav and Close targets to 44 px; stop DONE being painted green regardless of outcome; stop 'ran'/'picked'/'missing' reusing outcome pill classes.",
+     "Fix the export-card wipe.",
+     "Add the stylesheet contract test, axe and keyboard tests."
+    ],
+    "usable_after": "Five screens, restyled. Class names preserved so ui.test.mjs selectors keep working - D_VISUAL_SYSTEM.md D2.6 S1 states this as a constraint.",
+    "gate": "Contrast and allow-list test green; axe green; keyboard tests green; screen snapshots re-baselined ONCE and reviewed as an explicit visual diff.",
+    "rollback": "Reinstall the previous pinned loader. No storage change in this phase at all."
+   },
+   {
+    "id": "E3",
+    "name": "Recovery and evidence become first-class screens.",
+    "do": [
+     "Split today's Jobs/Run pair into Command Center + Recovery + Run (recovery is split across two screens today).",
+     "RecoveryDecision construction for orphans; the consequence-confirmation sheet for LIVE WRITE and RE-SEND only (window.confirm stays for local-destructive actions).",
+     "Repository sync state with retry-on-demand, carried in a separate tnr_forge_sync_v1 key so JOURNAL_VERSION does not move.",
+     "Render journal.broken, which has no surface today.",
+     "Structured job progress rendered from the E1 emitter.",
+     "Persistent warn/bad notices plus the durable-surface test."
+    ],
+    "usable_after": "Every existing flow plus a recovery screen that does not require knowing which of two screens holds the decision.",
+    "gate": "R-01, R-25 and R-27 tests green; all 13 semantic guarantees mapped to named tests; an unsynced bundle is recoverable from the UI without a PAT re-entry.",
+    "rollback": "Previous pin. The sync key is additive and ignored by the old bundle.",
+    "user_decisions_blocking": [
+     "K-12 confirmation level",
+     "K-35 whether ABORTED gets a producer or leaves the vocabulary",
+     "K-02/K-20 destination list"
+    ]
+   },
+   {
+    "id": "E4",
+    "name": "Repository operations facade and Studio surfaces - AFTER the seam's independent review.",
+    "do": [
+     "core/repo.mjs implementing the RB section 6 operations and the RB section 11 sync vocabulary over whatever the reviewed seam provides.",
+     "Mount the Studio inside compose() so the composition every harness calls covers it.",
+     "Studio drafts become durable per-request records with sync state (R-18); absorb the Studio shell onto the one token set (D2.6 S5) once CF-22 assigns the writer.",
+     "Advisory browser checks become generated projections of repository data with a test that fails when the browser encodes a rule the generated source does not carry (R-20)."
+    ],
+    "explicitly_not_here": "Promotion of a Studio build into the runner. That is K-39 and needs its own journaled contract, its own preflight and its own review.",
+    "usable_after": "Everything from E3 plus a Studio destination; with the destination feature-flagged off in one place (the SCREENS table) the rest of Forge is untouched.",
+    "gate": "No browser rule without a generated source; no second palette; the composition test covers the Studio; poll backoff with a visible 'check later' state instead of an indefinite 'still running' (R-17).",
+    "rollback": "Flip the SCREENS flag. One line.",
+    "user_decisions_blocking": [
+     "CF-22 Studio shell writer",
+     "K-15/K-26 PAT scope for dispatch and branch creation",
+     "K-25 Quest Source schema",
+     "K-37 branch retention"
+    ]
+   },
+   {
+    "id": "E5",
+    "name": "Parity slices that actually retire Builder - one retirement gate per slice.",
+    "do": [
+     "G-01 zip push packs with byte-ledger verification.",
+     "G-02/G-03 research reads and paged list captures with persisted bodies and journaled-input honesty.",
+     "G-06 retry a FAILED step, safe re-run of a finished manifest, idmap export/import/reset.",
+     "G-07 evidence honesty plus a device download without a PAT.",
+     "R-19: emit a real checks inventory from Forge's own lints and validator so validate.py --parity stops raising TypeError."
+    ],
+    "usable_after": "Each slice is independently useful and independently reviewable; Builder stays installed throughout.",
+    "gate": "The gate text in B.4 verbatim - each one is already written as a testable condition.",
+    "rollback": "Per-slice revert; Builder is still installed and pinned, which IS the fallback.",
+    "user_decisions_blocking": [
+     "K-06 capture classification",
+     "K-17 registry expansion",
+     "K-16 deletion policy",
+     "K-11 retirement timing and the G-10 ruling"
+    ]
+   }
+  ],
+  "risks": [
+   "Evolve does not shrink the bundle. Unminified it grows about 24% (measured base 397,984 B raw / 74,304 B gzip; projected ~493 KB / ~103 KB), which makes R-06 worse in bytes on a phone. The only genuine byte relief is minify:true, which is user decision K-14, and the JSON-parse deferral saves parse time and heap, not bytes.",
+   "E1 is the classic silent-behaviour-change phase: 'move ten blocks, change nothing' is exactly where a wording or an ordering quietly shifts. The mitigation is mechanical (E0 commits the DOM snapshots; E1 must leave them byte-identical) but the mitigation only works if E0 actually lands first, unedited.",
+   "Keeping hand-written h() markup means the 25-component inventory in A.12 is enforced by convention plus fixtures, not by types. A second developer, or Fable six months later, can add a twenty-sixth construction that no test names. This is the real maintainability price of refusing a component library and it should be stated to the director rather than argued away.",
+   "The render kernel is code we own: ~150 lines of keyed patching and focus preservation with no community fixes behind it. A subtle bug there shows up as a wrong row identity during a live run, which is the worst place for it. It needs its own adversarial tests and it is the one piece of this option with no external validation.",
+   "Evolve does not settle information architecture. If K-02/K-20 lands on a two-axis model with content lanes, E2 and E3 do materially more work than sketched, and the screen-by-screen growth that makes evolve cheap becomes a series of partial IAs living side by side during the transition.",
+   "E4 depends on a writer assignment this option cannot make (CF-22) and on the independent review of a branch it may not patch. If the seam's review returns large changes, core/repo.mjs is written against a moving target.",
+   "The deferred-JSON-parse win is Inferred. If Firefox Android's JSON.parse of a 96 KB string is not materially cheaper than the object literal, the startup argument in q14 evaporates and only the size gate remains.",
+   "Nothing here is verified in a browser. Every claim about adoptedStyleSheets, reduced-motion reaching a userscript overlay, glyph coverage, navigator.storage.persist(), the legacy Builder FAB's position over the overlay, and touch-target behaviour at 360 px is Inferred and needs the user's smoke.",
+   "Builder is not retired by any of E0-E4. The seven hard blockers (B.3.1) are all in E5, so the option's first four slices improve the tool the operator uses least for the workflows that most often send them back to Builder. That ordering is defensible (safety seam first) but it is a real delay to the retirement the brief wants, and reordering E5 before E3 is a legitimate alternative the director may prefer."
+  ],
+  "brief_section_12": {
+   "q1": {
+    "question": "Evolve the current Forge UI in place vs replace the UI layer while preserving runner/storage/transport",
+    "answer": "Evolve in place, with one hard structural move first (E1) and no rewrite. Three pieces of evidence decide it. (a) The layer boundary already exists and is already correct: A_ARCHITECTURE_MAP.md A.2 marks every module below ui/ 'UI-independent: yes', and compose() (forge/src/main.mjs:35-57) is the seam a second host would consume; a replacement would be rebuilding the half that is not broken's consumer while keeping the half that is. (b) The actual defects are enumerable and small: ten blocks of domain logic in ui/app.mjs, one async-into-detached-tree pattern (screens.mjs:90-97,111-119 and the app.state._renderPicker back-channel at screens.mjs:92 read at app.mjs:194,204), one full-region re-render every 1500 ms (app.mjs:268), three sub-floor touch targets, and one outcome-vs-state colour bug (styles.mjs:44). None of those is a reason to discard 329 lines of screen code that encodes hard-won safety wording. (c) The approved visual direction has ALREADY been sequenced as an in-place evolution: D_VISUAL_SYSTEM.md D2.6 S1 says 'Runs on the existing five screens; forge/test/ui.test.mjs selectors keep working'. A replacement would discard that sequencing and its costing for no stated benefit. The cost of evolving, stated plainly: the accumulated hand-written markup stays hand-written, so the 25-component inventory in A.12 is enforced by convention plus committed fixtures rather than by a type system, and the unminified bundle grows about 24%.",
+    "evidence": [
+     "forge/src/main.mjs:35-57",
+     "docs/forge_next/A_ARCHITECTURE_MAP.md A.2 and A.12",
+     "forge/src/ui/app.mjs:29-47,159-170,186-225,264-300,323-406",
+     "forge/src/ui/screens.mjs:90-97,92,111-119",
+     "docs/forge_next/D_VISUAL_SYSTEM.md D2.6"
+    ]
+   },
+   "q2": {
+    "question": "Do the vanilla DOM/CSSOM build constraints remain desirable, or can a component strategy improve maintainability without breaking userscript/takeover behaviour?",
+    "answer": "They remain required, and the maintainability gain comes from a 150-line render kernel rather than a library. Template-literal libraries (Lit, htm, uhtml) route through an HTML string sink, which forge/build.mjs fails the build on and forge/test/ui.test.mjs:29-34 greps for across all of src; adopting one means relaxing a shipped safety gate. A VDOM library without a string sink (Preact) would pass the gate but adds a dependency to an artefact that must be byte-reproducible for the release pin and self-contained for the single @require model, to buy diffing the kernel provides in 150 lines. Takeover is untouched either way: takeover.mjs does not care what renders inside .f-host. The real maintainability win is not a library but a boundary - screens stop reading `app` and take a plain view-model, which is what makes the 25 WCM components in A.12 buildable and testable without a second shell.",
+    "evidence": [
+     "forge/build.mjs innerHTML gate",
+     "forge/test/ui.test.mjs:29-34",
+     "forge/src/ui/dom.mjs:3-27,30-43",
+     "forge/src/ui/takeover.mjs",
+     "forge_loader_user.js:12"
+    ]
+   },
+   "q3": {
+    "question": "How to keep the execution core UI-independent enough for future shell/native hosting",
+    "answer": "Move the ten domain blocks out of ui/app.mjs into forge/src/core/ (E1), give core an event emitter and a serialisable core.snapshot(), and make that snapshot the only thing screens read. A second host then needs exactly three things: call compose(), subscribe to core events, render core.snapshot(). Nothing in core imports from ui/; nothing in ui/ imports from runner/storage/transport except through core. The proof that the boundary is real is mechanical, not aspirational: core.snapshot() is JSON-serialisable, so it is committed as a CI fixture and diffed - if a screen needs something the snapshot does not carry, the fixture diff shows it. A.12's closing paragraph names exactly this list as 'the domain logic that ui/app.mjs owns ... the list a second shell or a native host would otherwise duplicate'.",
+    "evidence": [
+     "docs/forge_next/A_ARCHITECTURE_MAP.md A.12 closing paragraph",
+     "forge/src/ui/app.mjs:29,159,166,323-366,369-406,408-410",
+     "forge/src/main.mjs:35-57",
+     "forge/test/compose.mjs:1-5"
+    ]
+   },
+   "q5": {
+    "question": "Storage migration and compatibility for existing journals, capture cache and settings",
+    "answer": "Three rules. (1) Do not move JOURNAL_VERSION for the first four phases; carry repository sync state in a separate tnr_forge_sync_v1 key. When a journal v2 becomes genuinely necessary, it is one additive step in the empty MIGRATIONS table (journal.mjs:407), and because migrate() refuses a record newer than the running bundle (journal.mjs:413) while rollback means reinstalling the previous pin, v2 may only be WRITTEN one release after the release that can READ it is pinned. (2) Repo text leaves the game read cache (app.mjs:198-200) for a SEPARATE database tnr_forge_repo v1, not a third store in tnr_forge - because an operator rolling back to a bundle that opens tnr_forge at v2 against an existing v3 gets VersionError and loses the capture snapshots with it. (3) tnr_bk_idmap_v1 and tnr_bk_gh_v1 are untouched for the whole roadmap because Builder v4.32 is still installed. A failed migration never deletes: it parks under <key>.corrupt as compat.mjs already does, and journal.broken finally gets a renderer.",
+    "evidence": [
+     "forge/src/storage/journal.mjs:404-423 (MIGRATIONS empty at :407; refusal at :413)",
+     "forge/src/storage/captures.mjs:29-34",
+     "forge/src/storage/compat.mjs:4-5",
+     "forge/src/ui/app.mjs:198-200",
+     "docs/forge_next/H_RISK_REGISTER.md R-09"
+    ]
+   },
+   "q7": {
+    "question": "Procedure registry expansion and source-drift gates",
+    "answer": "Expansion is additive and stays a runner-layer change with its own review, never a side effect of UI work: rows transcribed from the pinned source with kind, limited and auth recorded explicitly, covered by auth.test.mjs's existing 'transcribed from source' invariant, and anything outside the registry still throws before any fetch. Which procedures may be added is user decision K-17 and retirement gate G-02 (combat.getBattleHistory, combat.getBattleEntries, gameAsset.getAllFolders are the proven real-work set). Drift gate: run the derive tools plus pin_relevance.mjs against the game head of the day as a phase-0 step of every implementation brief, and carry the pin SHA in the bundle banner and the Settings About card. The measured position today is that Forge is NOT blocked by drift - from 345d18ac to head 36c5873b the six field sets and nine nested families regenerate byte-identically and auth/kind/limiter are identical for all 43 registry paths - while the repository's own 45x set IS stale, which is a separate and higher-value re-extraction pass. Moving the Forge pin is K-13.",
+    "evidence": [
+     "docs/forge_next/H_RISK_REGISTER.md R-05",
+     "docs/forge_next/A_ARCHITECTURE_MAP.md A.6",
+     "forge/src/transport/procedures.mjs",
+     "docs/forge_next/B_PARITY_MATRIX.md gate G-02",
+     "docs/forge_next/K_USER_DECISIONS.md K-17, K-13"
+    ]
+   },
+   "q11": {
+    "question": "Workstream integration and discovery",
+    "answer": "Read first, write only if ruled. core.repo.loadProject() projects state/workstreams/<slug>/roadmap.json through the same envelope as every other repository operation, and the Command Center shows the active workstream's ready and blocked tasks with their open_decisions. Validation and rendering stay in scripts/content_workstream.py - C.6 lists it among the things Forge may present, invoke or project but never reimplement, and the projections are generated, never hand-edited. Whether Forge may WRITE roadmap.json at all is K-28 and is not settled here. Discovery widens in two controlled steps: the package picker gains workstream-referenced manifest paths beside push/ on main (today it lists push/*.json only, app.mjs:186-207), and Studio build outputs become discoverable ONLY through the reviewed promotion contract (K-39), never by pointing the picker at studio/quest/<id> branches - that would be the copy-paste relay replaced by an unreviewed one.",
+    "evidence": [
+     "docs/forge_next/C_WORKFLOW_INVENTORY.md C.6 and W-15/W-24/W-25",
+     "forge/src/ui/app.mjs:186-207",
+     "docs/forge_next/K_USER_DECISIONS.md K-28, K-39",
+     "RB section 6 (consolidated/docs/design/FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md:150-184)"
+    ]
+   },
+   "q12": {
+    "question": "Result / harvest contract evolution",
+    "answer": "Evolve the bundle additively and gate every change on agreement with the real consumers. Three concrete changes. (1) Fix checks:null. A Forge bundle carries checks:null, validate.py --parity does set(bundle.get('checks',[])) and raises TypeError, and session_close.py --guards runs parity on the lexically newest inbox bundle - so every Forge run turns the content session's close guard red until a Builder bundle lands, which is a hidden pressure to keep Builder alive. The honest fix is to emit a real checks inventory from Forge's own validator and lints; the alternative (make parity skip cfg:'forge') hides the gap. This is a Builder retirement gate. (2) Add capture bodies on list reads under gate G-03, because 23 committed generator scripts read captures[].data and Forge summary captures carry none - that single omission is why answers/ is still fed only by Builder. (3) Add the sync state and keep state/outcome/forgeState/verdict/journal exactly as they are. Every change is gated by an agreement test: seven tests already shell out to the real harvest.py, and a validate.py --parity fixture joins them.",
+    "evidence": [
+     "docs/forge_next/H_RISK_REGISTER.md R-19 (Behaviour-proven on harvests/inbox/tnr_results_1789124514980.json)",
+     "docs/forge_next/C_WORKFLOW_INVENTORY.md W-07, W-13, W-14",
+     "forge/src/ui/app.mjs:369-406 (checks: null at :382)",
+     "docs/forge_next/B_PARITY_MATRIX.md gates G-03, G-07",
+     "deepdive/repo-consumers.json"
+    ]
+   },
+   "q13": {
+    "question": "Audit / history model",
+    "answer": "The journal stays the single record of truth for what was SENT and what the server confirmed; nothing competes with it. Added beside it: an append-only action log per job recording the human intents (which core intent, which confirmation tier, at what time, from which tab) so a bundle can answer 'who asked for this and what were they shown', which today only the journal's mechanical transitions can partially reconstruct. It is exported inside the results bundle and never replaces a journal entry. Three deliberate limits. (a) No second canon: the log records intents and renderings, not facts about live state (RUL-2026-09-12-002). (b) It is not an approval store - where admin approval state lives is K-09 and the game has no native approval field. (c) Publish actions get an audit entry with the dependency check and the read-back result once K-03/K-05/K-12 land (R-08), not before. The journal's own export (journal.exportText, journal.mjs:398-400) and journal.broken finally get a UI surface, which they do not have today.",
+    "evidence": [
+     "forge/src/storage/journal.mjs:39-47,76-88,221-228,398-400",
+     "docs/forge_next/A_ARCHITECTURE_MAP.md A.4.1 item 5",
+     "docs/forge_next/H_RISK_REGISTER.md R-08",
+     "docs/forge_next/K_USER_DECISIONS.md K-09"
+    ]
+   },
+   "q14": {
+    "question": "Bundle size, performance and startup on mobile",
+    "answer": "Measured this session: forge_bundle.js 397,984 B raw / 74,304 B gzip -9; src/ui sources 70,135 B raw / 21,498 B gzip (ratio 0.307); 65.9 source bytes per line across src/ui. Projection for this option: +46 KB for core and the kernel, +32 KB for screens and components, +16-20 KB CSS = about +95 KB raw and +29 KB gzip, i.e. ~493 KB raw / ~103 KB gzip unminified, or about 290 KB / 72 KB if K-14 authorises minify:true. So evolve GROWS the artefact by roughly a quarter and R-06 gets worse in bytes. The startup cost is a different and more tractable problem: the loader matches the whole origin, so the IIFE evaluates on every game page, and the three contract JSONs are embedded as top-level JavaScript object literals (forge_bundle.js:2802, :6245, :6658) totalling 124,782 source bytes that are parsed before boot() returns on an unarmed tab (main.mjs:171-173). Switching them to esbuild's text loader with a memoised JSON.parse moves that parse and its retained heap to first use - never on an INERT page. Same bytes on the wire. The size of the win on Firefox Android is Inferred; the embedding shape is source-verified. Guard: raw and gzip ceilings asserted per release, and the first smoke of each phase is measured on the user's actual device.",
+    "evidence": [
+     "measured: wc -c and gzip -9 in this session",
+     "forge_bundle.js:2802,6245,6658",
+     "forge/src/main.mjs:21-22,171-173",
+     "docs/forge_next/A_ARCHITECTURE_MAP.md A.9",
+     "docs/forge_next/H_RISK_REGISTER.md R-06",
+     "docs/forge_next/K_USER_DECISIONS.md K-14"
+    ]
+   },
+   "q15": {
+    "question": "Release / pin / install strategy",
+    "answer": "One bundle, one @require, one immutable pin - unchanged, and deliberately so: a second artefact is not covered by the pin, needs a second pin_release.py target, and breaks the offline-and-evicted recovery story. The two-stage pin (@x-release-pending then release_pin.yml rewriting @require to the merge commit) is unchanged. Phase 0 must have main green, which needs release_loader.test.mjs:47's 'exactly one marker' relaxed to 'at most one'; the only existing fix is bundled with unrelated loader-assertion rewrites on the ChatGPT branch, so this option authors no competing change and records the assignment as a prerequisite (CF-19, R-22). Two CI additions: raw+gzip size ceilings, and push/**/*.json in forge.yml's path filter, because runner.test.mjs and check_release_pin.mjs read those files and a manifest change can ship today without a forge run. Minification is recommended but is K-14 and must keep the bundle byte-reproducible on the pinned esbuild so the bundle-diff job keeps meaning something. Install for the operator is unchanged: ViolentMonkey refetch after each pin; the About card grows the pin SHA and the storage versions so a support question is answerable from the phone.",
+    "evidence": [
+     "forge_loader_user.js:12 and its RELEASE PIN comment block",
+     "forge/test/release_loader.test.mjs (9 cases)",
+     "docs/forge_next/H_RISK_REGISTER.md R-11, R-22",
+     "docs/forge_next/A_ARCHITECTURE_MAP.md A.10",
+     "forge/src/ui/screens.mjs:147"
+    ]
+   },
+   "q16": {
+    "question": "Recovery after tab eviction, crash and network loss across the new UI",
+    "answer": "The rule is that the view-model is derived from durable sources, so a bigger UI adds no new volatile state. Eviction: only the selected manifest PATH is persisted, never the parsed plan, so a stale plan can never be run; capture snapshots stay immutable; navigator.storage.persist() moves into core.health so every surface renders one answer (its outcome on Firefox Android is still Inferred). Crash mid-run: completely unchanged - withSent flushes SENT before the fetch (journal.mjs:330-335), run() refuses a job with SENT items and resume() reconciles first; the new progress event is advisory and an adversarial test proves it cannot advance an item state; and no control anywhere gains a Retry label for a mutation class. Network loss: a new sync state with retry-on-demand, never an automatic retry loop, because the repository automation already uses rebase-and-retry on disjoint paths. And the one Behaviour-proven recovery defect gets fixed: showExport prepends the results card to $main (app.mjs:182) and _drive's finally calls refresh() which replaces $main (app.mjs:299), so with sync off the operator's only copy of the bundle is destroyed by the next render. Under a view-model the pending export is state, so it survives; a regression test asserts it survives three re-renders.",
+    "evidence": [
+     "forge/src/ui/app.mjs:58,182,264-300 (tick :268, export :297, refresh :299),408-410",
+     "forge/src/storage/journal.mjs:330-335",
+     "docs/forge_next/A_ARCHITECTURE_MAP.md A.7, A.4.1 item 4",
+     "docs/forge_next/H_RISK_REGISTER.md R-07, R-09",
+     "deepdive/ux-audit-current.json finding 1",
+     "RB section 11"
+    ]
+   },
+   "q18": {
+    "question": "Test architecture for a much larger UI and capability surface",
+    "answer": "Four socket-free layers plus one user-owned browser smoke. (1) Unit: the core facades become plain functions, so harvestEntry, _materialize, blockedPaths and exportJob - today reachable only through a mounted App - are unit-testable with no DOM; all 75 adversarial, 45 auth, 19 journal and 16 budget cases stay untouched, and 'not one of them was edited' is E1's diff gate. (2) Contract/fixture: committed core.snapshot() fixtures per scenario, diffed in CI exactly as the 11 recorded tRPC envelope fixtures already are; new github.mjs and upload.mjs fixtures, since both are on the write path and have zero tests today; a validate.py --parity agreement case beside the seven tests that already shell out to the real harvest.py. (3) UI-contract: a deterministic DOM serializer over .f-app producing one committed snapshot per screen x machine state, with the state list enumerated from the journal's TRANSITIONS table so a state cannot exist without a rendered fixture; plus axe-core and KeyboardEvent dispatch in jsdom; plus the stylesheet scoping and contrast contract test; plus the 13 semantic guarantees mapped one-to-one to named tests, of which only five are covered today. (4) Adversarial additions: no rendered control can reach a send path while an item is SENT, asserted by walking handlers against a core allow-list rather than by reading markup; no progress event can change an item state; a DONE job with outcome 'unverified' never renders the success construction; every durable-class notice has a persistent surface; the export card survives re-render. (5) The browser smoke stays user-owned, read-only first, and enumerated as a checklist; Playwright or any real-browser CI layer needs a user ruling against the socket-free rule and is not in these phases.",
+    "evidence": [
+     "deepdive/forge-tests-ci.json (293 cases, 13 files; notes 2,3,4,6,7)",
+     "forge/test/ui.test.mjs:29-34,96,135,162,206,254",
+     "forge/test/compose.mjs:1-5",
+     "forge/src/storage/journal.mjs:39-47",
+     "docs/forge_next/H_RISK_REGISTER.md R-01, R-25, R-27",
+     "CLAUDE.md section 8"
+    ]
+   }
+  }
+ },
+ "weaknesses": [
+  "Evolve does not shrink the bundle. Unminified it grows about 24% (measured base 397,984 B raw / 74,304 B gzip; projected ~493 KB / ~103 KB), which makes R-06 worse in bytes on a phone. The only genuine byte relief is minify:true, which is user decision K-14, and the JSON-parse deferral saves parse time and heap, not bytes.",
+  "E1 is the classic silent-behaviour-change phase: 'move ten blocks, change nothing' is exactly where a wording or an ordering quietly shifts. The mitigation is mechanical (E0 commits the DOM snapshots; E1 must leave them byte-identical) but the mitigation only works if E0 actually lands first, unedited.",
+  "Keeping hand-written h() markup means the 25-component inventory in A.12 is enforced by convention plus fixtures, not by types. A second developer, or Fable six months later, can add a twenty-sixth construction that no test names. This is the real maintainability price of refusing a component library and it should be stated to the director rather than argued away.",
+  "The render kernel is code we own: ~150 lines of keyed patching and focus preservation with no community fixes behind it. A subtle bug there shows up as a wrong row identity during a live run, which is the worst place for it. It needs its own adversarial tests and it is the one piece of this option with no external validation.",
+  "Evolve does not settle information architecture. If K-02/K-20 lands on a two-axis model with content lanes, E2 and E3 do materially more work than sketched, and the screen-by-screen growth that makes evolve cheap becomes a series of partial IAs living side by side during the transition.",
+  "E4 depends on a writer assignment this option cannot make (CF-22) and on the independent review of a branch it may not patch. If the seam's review returns large changes, core/repo.mjs is written against a moving target.",
+  "The deferred-JSON-parse win is Inferred. If Firefox Android's JSON.parse of a 96 KB string is not materially cheaper than the object literal, the startup argument in q14 evaporates and only the size gate remains.",
+  "Nothing here is verified in a browser. Every claim about adoptedStyleSheets, reduced-motion reaching a userscript overlay, glyph coverage, navigator.storage.persist(), the legacy Builder FAB's position over the overlay, and touch-target behaviour at 360 px is Inferred and needs the user's smoke.",
+  "Builder is not retired by any of E0-E4. The seven hard blockers (B.3.1) are all in E5, so the option's first four slices improve the tool the operator uses least for the workflows that most often send them back to Builder. That ordering is defensible (safety seam first) but it is a real delay to the retirement the brief wants, and reordering E5 before E3 is a legitimate alternative the director may prefer."
+ ],
+ "user_decisions_surfaced": [
+  "K-01 / K-22 / K-23: token acceptance, exact operation-mode colours and hex, typography scale. Blocks E2. Recommendation only; not settled here.",
+  "K-02 / K-20: top-level navigation model and the exact destination lists. Blocks E2 and E3 - the phases render whichever model is ruled; they do not choose it.",
+  "K-12: publish and re-send confirmation LEVEL. E3 builds the confirmation surface and core classifies the tier; the level stays the director's.",
+  "K-14: ship a minified bundle. Directly changes the q14 numbers and the CI reproducibility assertion.",
+  "K-06: capture data classification and what may persist to a public repository. Blocks the E5 evidence slices.",
+  "K-17: research-read registry expansion - which non-content procedures Forge may call. Blocks gate G-02 in E5.",
+  "K-16: deletion policy for placeholders, orphans, snapshots and the unconfirmed per-entry Invalidate. E3 renders the current policy unchanged until this is ruled.",
+  "K-35: whether ABORTED gets a producer or leaves the human vocabulary. It is declared and styled today with no producer.",
+  "K-15 / K-26: GitHub credential model and PAT scope on the operator's phone, widened by the Studio seam's need for Actions dispatch and branch creation. Blocks E4.",
+  "K-28: how much repository-backed project state Forge may EDIT as opposed to project. This option reads only; writing needs the ruling.",
+  "K-39: the journaled Studio-package-to-runner promotion contract. Explicitly excluded from E4.",
+  "K-11 and gate G-10: Builder deprecation timing and the retirement ruling. E5 delivers the gates; the removal is the director's.",
+  "CF-19: who authors the release_loader marker fix that makes main green, given the only existing fix sits on a branch this option may not patch. Blocks E0.",
+  "CF-22: who owns forge/src/studio/* for the design-system absorption. Blocks E4's shell work.",
+  "NEW, surfaced by this option: confirm the two-release storage rule - a release may only WRITE a storage version that the previously pinned release can READ - since rollback is 'reinstall the previous loader' and the journal refuses a newer record.",
+  "NEW, surfaced by this option: whether a real-browser (Playwright) test layer may ever exist, given CLAUDE.md section 8's socket-free rule. Without it, responsive and visual regression stay unverifiable by any agent."
+ ],
+ "evidence": [
+  "forge/src/ui/app.mjs:15,29-47,58,62-79,81-91,159-163,166-170,172-175,177-183,186-207,198-200,209-225,228-245,247-262,264-300,268,285-296,297,299,323-366,369-406,382,402-405,408-410",
+  "forge/src/ui/screens.mjs:8,11,45-71,62-63,73-97,86,90-97,92,104-112,114-160,126-134,145-146,151-156,163-260,180-234,260-302,303-329,126-127,143,147",
+  "forge/src/ui/dom.mjs:3-16,18-24,26-27,30-43,54-63",
+  "forge/src/ui/styles.mjs:1-9,11,19-21,25,27,31,43-45",
+  "forge/src/main.mjs:21-22,24,35-57,59-80,160-173",
+  "forge/src/storage/journal.mjs:39-47,76-88,221-228,330-335,398-400,404-423 (MIGRATIONS empty at :407, newer-version refusal at :413)",
+  "forge/src/storage/captures.mjs:29-34 (DB_NAME tnr_forge, DB_VERSION 2, additive upgrade comment)",
+  "forge/src/storage/compat.mjs:4-5",
+  "forge/build.mjs (esbuild IIFE, minify:false, target firefox115, innerHTML build gate)",
+  "forge/package.json (test script node --test, superjson 2.2.6, esbuild 0.28.2, jsdom, fake-indexeddb)",
+  "forge/test/ui.test.mjs:29-34,56,70,86-94,96-105,107-120,122,135,162,206,234,254,287,297,331,352",
+  "forge/test/compose.mjs:1-5,12-27",
+  "forge/test/shim.mjs:8-32 (MemoryStorage with crash()), :35-41 fakeClock",
+  "forge_loader_user.js:1-13 (@match whole origin, @run-at document-start, @require pinned to ce603def)",
+  "forge_bundle.js:2802 (var b_DATA_pool_default = {), :6245 (var fields_default = {), :6658 (var nested_default = {), tail IIFE invoking boot(window)",
+  "measured this session: forge_bundle.js 397,984 B raw and 74,304 B gzip -9; src/ui/*.mjs 70,135 B raw and 21,498 B gzip -9; fields.json 10,349 B; nested.json 96,267 B; 32b_DATA_pool.json 18,166 B; src/ui 1,064 lines across five files",
+  "docs/forge_next/A_ARCHITECTURE_MAP.md A.2 module map, A.4.1 items 4-7, A.5 storage table, A.6 pins, A.7 invariants table, A.9 bundle facts, A.10 baseline facts, A.11 seam, A.12 component readiness",
+  "docs/forge_next/H_RISK_REGISTER.md R-01, R-03, R-06, R-07, R-09, R-11, R-12, R-13, R-17, R-18, R-19, R-20, R-22, R-25, R-26, R-27, R-28",
+  "docs/forge_next/B_PARITY_MATRIX.md B.2 headline (24 FORGE BETTER / 10 PARITY / 5 INTENTIONAL / 22 GAP), B.3.1 seven hard blockers, B.3.2 nine conditional, B.4 gates G-01..G-10",
+  "docs/forge_next/C_WORKFLOW_INVENTORY.md W-05, W-06, W-07, W-09, W-12, W-13, W-14, W-15, W-23, W-24, W-25; C.4.1 Builder-only shapes; C.5 thirteen manifest steps; C.6 what Forge must not absorb",
+  "docs/forge_next/K_USER_DECISIONS.md K.0 rulings table and the summary table K-01..K-54",
+  "docs/forge_next/D_VISUAL_SYSTEM.md D2.4 stylesheet contract test, D2.6 S1-S5 implementation sequence, D2.7 cost (~+18 KB), D2.10 open decisions",
+  "consolidated/docs/design/FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md:53-90 authority boundary, :91-115 generated-adapter pattern, :116-149 two-speed model, :150-184 request/response vocabulary, :185-203 execution boundary, :265-287 sync-state vocabulary, :303-312 acceptance tests",
+  "deepdive/forge-tests-ci.json summary and notes 2,3,4,6,7 (293 cases, 13 files, 292 pass 1 fail locally, thin UI coverage, zero github/upload tests, proposed serializer and size gate)",
+  "deepdive/repo-consumers.json summary (harvest.py, build_answers.py, validate.py --parity, session_close.py, seven workflows, checks:null crash)",
+  "deepdive/ux-audit-current.json summary (25 findings; results-card wipe Behaviour-proven; Builder FAB Inferred; sub-44px nav; recovery split across two screens)",
+  "consolidated_read/ux-contracts.json (25 component rows with their forge_data_source, 35 machine-state rows, 166 requirements)",
+  "consolidated_read/foundation-impl.json (Studio seam read-only: one draft key, memory-only buildState, no journal, showExport as the only route to the runner)",
+  "docs/RULINGS.md via K.0: RUL-2026-09-12-001 and RUL-2026-09-12-002"
+ ],
+ "file_written": "/tmp/claude-0/-home-user-tnr-tools/e5692b10-4df8-5a1d-ae0b-15d8b552161e/scratchpad/design/arch-evolve.json"
+}
