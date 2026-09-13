@@ -1,0 +1,2837 @@
+{
+  "name": "visual-b",
+  "family": "visual",
+  "thesis": "Workbench elaborates the approved dark TNR console into calm, card-based surfaces where the only saturated colour on a screen is the authority lane you are standing in (cool blue to read, crimson to write, gold to publish), every risk state is a word plus a glyph plus a fill style, motion is spent only on transitions and progress, and an opt-in Daylight scheme keeps the same lane semantics for phone use outdoors. It keeps today's bones (scoped CSSOM tokens, createElement, 44px taps) and replaces the vocabulary that lets SENT, PAUSED and ORPHANED look like ordinary outline pills.",
+  "proposal": {
+    "concept_name": "Workbench",
+    "one_line": "A calm, card-based operations bench on the approved deep-navy ground, where the only saturated colour on a screen is the authority lane you are standing in (cool blue to read, crimson to write, gold to publish), every risk state is a word plus a glyph plus a fill style, and motion is spent only on transitions and progress.",
+    "mood": [
+      "calm",
+      "sturdy",
+      "precise",
+      "candid",
+      "quietly premium"
+    ],
+    "north_star_reconciliation": {
+      "binding_elements_honoured": [
+        "Deep navy/charcoal ground as the default theme: --bg #0c1017 / --paper #141a24 / --raised #1b2330 (amendment §3 'deep navy / charcoal / near-black surfaces', FORGE_NEXT_VISUAL_DIRECTION.md:40).",
+        "Crimson / gold / cool-blue accent family (amendment :43-45) mapped one-to-one onto the three authority lanes: cool blue = READ and ordinary chrome, crimson = LIVE WRITE, gold = PUBLISH and Content Admin identity. Semantic green/amber/red stay reserved for VERIFIED / caution / FAILED (amendment :46-48).",
+        "Layered depth: two elevation steps (--paper cards on --bg, --raised for the top bar, bottom bar, inspector, toasts) with --shadow-raised; no flat grey boxes (amendment :41).",
+        "Hard-edged ink-inspired controls used selectively (amendment :52-56): only the three buttons that touch the game (Send writes, Publish, Reconcile & resume) are square with a 4px offset ink shadow; everything else keeps a 10-12px radius, so the shape itself says 'this one touches production'.",
+        "Operation-mode band (READ ONLY / LIVE WRITE / PUBLISH / RECOVERY) with counts above every actionable card (amendment §8, :148-171).",
+        "State rules of amendment §9 (:173-188): active work has a separate progress element; verified work is decisively finished; paused/incomplete/recovery are distinct from success and failure; SENT never looks retry-safe; auth unavailable, refused and read failure are three states; read-only looks safer than live-write; full capture persistence stays visible; publishing has its own treatment; nothing is colour-only.",
+        "Controlled motion of amendment §10 (:190-208): card/selection transitions, active-lane edge response, progress animation, smooth expansion; no ambient motion in data views, nothing behind confirmations, nothing cinematic.",
+        "Strong Forge identity: a typographic FORGE wordmark (system font, 800 weight, tracked) with a crimson rule, in the rail and phone top bar; no fetched logo asset (amendment §12 lists the exact logo as illustrative)."
+      ],
+      "departures_for_director_decision": [
+        {
+          "departure": "Opt-in light 'Daylight' scheme beside the dark default",
+          "why": "the operator works on a Samsung phone in Firefox (docs/00_INDEX.md:3-4) and a dark UI under sun glare loses perceived contrast; a light scheme with the same lane semantics keeps the tool usable outdoors. Evidence tier: Inferred (no measured daylight session in the repository). The default stays dark, so the approved character is what ships unless the operator switches.",
+          "cost": "every token pair is checked twice (205 pairs, all pass); ~1.6 KB more CSS; a Settings toggle",
+          "recommendation": "ship it opt-in with dark default; drop it if the director prefers a single dark look"
+        },
+        {
+          "departure": "Content-lane cards carry a muted decorative edge and a glyph, not vivid per-lane imagery",
+          "why": "Workbench reserves saturated colour for authority; the mockup's vivid lane art (crimson Combat, blue Items, gold Quests, violet Characters) reuses the exact hues the lanes and SENT need to own. Muted teal/steel/sand/moss edges (all ≥3:1 vs paper, table rows 'decor edge …') keep lanes recognisable without spending the authority hues. Also: a userscript bundle cannot fetch imagery; any lane art would be data-URI bytes on a 397,984-byte bundle (docs/forge_next/A_ARCHITECTURE_MAP.md:171-177).",
+          "cost": "less 'atmospheric' Command Center than the mockup",
+          "recommendation": "muted edges in v1; revisit with a byte budget if the director wants art"
+        },
+        {
+          "departure": "No hero illustration; texture is CSS-generated",
+          "why": "no external assets at runtime; a data-URI hero costs bundle bytes parsed on every game page the loader matches (A_ARCHITECTURE_MAP.md:177). Workbench uses a static two-stop navy gradient plus a repeating-linear-gradient hairline texture in the Command Center hero and empty states only (amendment :57 allows texture in non-critical areas).",
+          "cost": "less cinematic first impression",
+          "recommendation": "CSS texture in v1; a ≤20 KB data-URI illustration is a later, separately budgeted decision"
+        },
+        {
+          "departure": "The approved family's two hue collisions are resolved by role, not by changing the family",
+          "why": "crimson (action) sits 15-20° from danger red, and gold sits near caution amber (informational rows 'HUE ADJACENCY …', 1.94:1 and 1.23:1 in dark). Workbench never uses crimson as text on a surface in dark (3.64:1 would fail AA) and never uses danger red as a fill; gold is fill/text for publish and admin identity, amber is text/tint for caution and is never a band. Every state still carries a word and a glyph.",
+          "cost": "a code-review rule (mut never a pill, warn never a band) rather than a palette guarantee",
+          "recommendation": "accept the role rule; if the director wants a palette guarantee, shift danger to orange-red #ff8f73 (dark) / #b3350f (light) or shift caution to a paler straw"
+        }
+      ]
+    },
+    "design_tokens": {
+      "mechanism": "All custom properties live on `.f-host, .f-app, .f-boot` (never :root) exactly as today (forge/src/ui/styles.mjs:11,19-20,59), so the carrier page under the overlay is never restyled (forge/src/ui/takeover.mjs:41-43,54). Dark values are the base block. The light block is `.f-host[data-theme=\"light\"], .f-app[data-theme=\"light\"], .f-boot[data-theme=\"light\"] {…}` and, only if the director enables 'follow system', an additional `@media (prefers-color-scheme: light) { .f-host:not([data-theme=\"dark\"]) … }` block. installCss() keeps @media blocks intact because splitRules() only splits at brace depth 0 (forge/src/ui/dom.mjs:44-52). `color-scheme` is set per block so native inputs, scrollbars and the file picker match.",
+      "dark_default": {
+        "--bg": "#0c1017",
+        "--paper": "#141a24",
+        "--raised": "#1b2330",
+        "--line": "#2a3444",
+        "--ink": "#eaeef5",
+        "--mute": "#a3aebf",
+        "--acc": "#7fb2ff",
+        "--read": "#7fb2ff",
+        "--mut": "#d92a48",
+        "--on-mut": "#ffffff",
+        "--pub": "#e6c453",
+        "--pub-fill": "#e6c453",
+        "--on-pub": "#0c1017",
+        "--warn": "#f5a142",
+        "--sent": "#c6a9ff",
+        "--ok": "#62d492",
+        "--bad": "#ff7e78",
+        "--on-acc": "#0c1017",
+        "--on-sent": "#0c1017",
+        "--on-ok": "#0c1017",
+        "--on-bad": "#0c1017",
+        "--t-acc": "#172640",
+        "--t-mut": "#3a1420",
+        "--t-pub": "#3a3114",
+        "--t-warn": "#3a2712",
+        "--t-sent": "#2a2140",
+        "--t-ok": "#12301f",
+        "--t-bad": "#3a1818",
+        "--t-mute": "#222a37",
+        "--hatch": "#44376c",
+        "--orph-bg": "#eaeef5",
+        "--orph-fg": "#0c1017",
+        "--decor-teal": "#3fb3ad",
+        "--decor-steel": "#7c9cc4",
+        "--decor-sand": "#c9ad7c",
+        "--decor-moss": "#8db56f",
+        "--shadow-raised": "0 1px 0 rgba(255,255,255,.04) inset, 0 1px 2px rgba(0,0,0,.55), 0 10px 28px rgba(0,0,0,.45)",
+        "--shadow-ink": "4px 4px 0 #0c1017",
+        "--ring": "0 0 0 2px #141a24, 0 0 0 4px #7fb2ff",
+        "color-scheme": "dark"
+      },
+      "light_opt_in": {
+        "--bg": "#eef1f5",
+        "--paper": "#ffffff",
+        "--raised": "#ffffff",
+        "--line": "#cfd6e0",
+        "--ink": "#131a24",
+        "--mute": "#4a5567",
+        "--acc": "#1f56c9",
+        "--read": "#1f56c9",
+        "--mut": "#a3122f",
+        "--on-mut": "#ffffff",
+        "--pub": "#6f5400",
+        "--pub-fill": "#d9ad2e",
+        "--on-pub": "#131a24",
+        "--warn": "#9a4b00",
+        "--sent": "#532aba",
+        "--ok": "#167a3f",
+        "--bad": "#bf1f1f",
+        "--on-acc": "#ffffff",
+        "--on-sent": "#ffffff",
+        "--on-ok": "#ffffff",
+        "--on-bad": "#ffffff",
+        "--t-acc": "#e3ebfb",
+        "--t-mut": "#fbe3e7",
+        "--t-pub": "#faefc7",
+        "--t-warn": "#fdebd3",
+        "--t-sent": "#ece5fb",
+        "--t-ok": "#dff3e6",
+        "--t-bad": "#fbe0e0",
+        "--t-mute": "#e7ebf1",
+        "--hatch": "#c9b8f4",
+        "--orph-bg": "#131a24",
+        "--orph-fg": "#ffffff",
+        "--decor-teal": "#116b67",
+        "--decor-steel": "#3d5f8a",
+        "--decor-sand": "#7a5f2a",
+        "--decor-moss": "#3f6d2a",
+        "--shadow-raised": "0 1px 2px rgba(19,26,36,.08), 0 8px 24px rgba(19,26,36,.10)",
+        "--shadow-ink": "4px 4px 0 #131a24",
+        "--ring": "0 0 0 2px #ffffff, 0 0 0 4px #1f56c9",
+        "color-scheme": "light"
+      },
+      "lane_semantics": {
+        "acc_and_read": "One cool chakra blue for both, on purpose: reading is the app's default posture, so ordinary chrome (nav current, focus ring, links, the Run captures button) and the READ lane share it. A screen with only blue on it is, by construction, a screen that cannot write.",
+        "mut": "Crimson, used ONLY on surfaces that can send a mutation: the LIVE WRITE band (solid crimson, white text, 4.8:1 dark / 7.82:1 light), the square Send button, the 3px top-bar underline while a mutation job is RUNNING, and the 6px left rail of a mutation card. In dark it is never text on a surface (3.64:1, recorded as informational); it is a fill that text sits on.",
+        "pub": "Gold, used ONLY for player-visibility and Content Admin identity: the PUBLISH band (gold fill, ink text, 11.24:1 dark / 8.3:1 light), the square Publish button, the PUBLISHED pill, the Admin rail glyph. In light the fill #d9ad2e is decoration inside a 2px #6f5400 border (3.39:1 vs the fill) and the words carry the identification, because gold on white is 2.11:1 (recorded as a known, mitigated gap).",
+        "warn": "Amber for PAUSED, INCOMPLETE, advisories and the orphan card's dashed border and cap; text/tint only, never a band, never a button fill.",
+        "sent": "Violet, reserved for exactly one meaning: a request left the device and has no decoded answer. Nothing else in the app is violet; the Reconcile & resume button is the only violet fill and it appears only when a SENT item exists.",
+        "ok_bad": "Green and red are verdict colours (VERIFIED / FAILED, verdict banners, the SIGNED OUT chip). Red is never a fill except the SIGNED OUT chip; a red fill would collide with the crimson band.",
+        "decor": "Teal, steel, sand and moss are decorative content-lane edges on the Command Center only; they are not permitted on any job, item, pill, band or verdict."
+      },
+      "per_state_pills": {
+        "dark": {
+          "PLANNED": {
+            "glyph": "○",
+            "label": "PLANNED",
+            "fg": "#a3aebf",
+            "bg": "#222a37",
+            "fill_style": "outline",
+            "contrast_fg_on_bg": 6.44
+          },
+          "SENT": {
+            "glyph": "◐",
+            "label": "SENT",
+            "fg": "#c6a9ff",
+            "bg": "#2a2140",
+            "fill_style": "hatched",
+            "hatch_stripe": "#44376c",
+            "contrast_fg_on_bg": 7.57,
+            "contrast_fg_on_hatch": 5.24,
+            "hatch_visibility_vs_bg": 1.45
+          },
+          "CONFIRMED": {
+            "glyph": "●",
+            "label": "CONFIRMED",
+            "fg": "#7fb2ff",
+            "bg": "#172640",
+            "fill_style": "tint",
+            "contrast_fg_on_bg": 7
+          },
+          "VERIFIED": {
+            "glyph": "✓",
+            "label": "VERIFIED",
+            "fg": "#62d492",
+            "bg": "#12301f",
+            "fill_style": "tint",
+            "contrast_fg_on_bg": 7.73
+          },
+          "FAILED": {
+            "glyph": "✕",
+            "label": "FAILED",
+            "fg": "#ff7e78",
+            "bg": "#3a1818",
+            "fill_style": "tint",
+            "contrast_fg_on_bg": 6.43
+          },
+          "ORPHANED": {
+            "glyph": "?",
+            "label": "ORPHANED",
+            "fg": "#0c1017",
+            "bg": "#eaeef5",
+            "fill_style": "inverted-solid",
+            "contrast_fg_on_bg": 16.37
+          },
+          "SKIPPED": {
+            "glyph": "–",
+            "label": "SKIPPED",
+            "fg": "#a3aebf",
+            "bg": "#222a37",
+            "fill_style": "outline-dashed",
+            "contrast_fg_on_bg": 6.44
+          },
+          "PAUSED": {
+            "glyph": "‖",
+            "label": "PAUSED",
+            "fg": "#f5a142",
+            "bg": "#3a2712",
+            "fill_style": "tint",
+            "contrast_fg_on_bg": 6.8
+          },
+          "INCOMPLETE": {
+            "glyph": "◔",
+            "label": "INCOMPLETE",
+            "fg": "#f5a142",
+            "bg": "#3a2712",
+            "fill_style": "tint",
+            "contrast_fg_on_bg": 6.8
+          },
+          "HIDDEN": {
+            "glyph": "◌",
+            "label": "HIDDEN",
+            "fg": "#a3aebf",
+            "bg": "#222a37",
+            "fill_style": "outline-dotted",
+            "contrast_fg_on_bg": 6.44
+          },
+          "DRAFT": {
+            "glyph": "◇",
+            "label": "DRAFT",
+            "fg": "#7fb2ff",
+            "bg": "#172640",
+            "fill_style": "tint",
+            "contrast_fg_on_bg": 7
+          },
+          "PUBLISHED": {
+            "glyph": "◉",
+            "label": "PUBLISHED",
+            "fg": "#0c1017",
+            "bg": "#e6c453",
+            "fill_style": "solid-gold",
+            "contrast_fg_on_bg": 11.24
+          }
+        },
+        "light": {
+          "PLANNED": {
+            "glyph": "○",
+            "label": "PLANNED",
+            "fg": "#4a5567",
+            "bg": "#e7ebf1",
+            "fill_style": "outline",
+            "contrast_fg_on_bg": 6.3
+          },
+          "SENT": {
+            "glyph": "◐",
+            "label": "SENT",
+            "fg": "#532aba",
+            "bg": "#ece5fb",
+            "fill_style": "hatched",
+            "hatch_stripe": "#c9b8f4",
+            "contrast_fg_on_bg": 7.13,
+            "contrast_fg_on_hatch": 4.84,
+            "hatch_visibility_vs_bg": 1.47
+          },
+          "CONFIRMED": {
+            "glyph": "●",
+            "label": "CONFIRMED",
+            "fg": "#1f56c9",
+            "bg": "#e3ebfb",
+            "fill_style": "tint",
+            "contrast_fg_on_bg": 5.43
+          },
+          "VERIFIED": {
+            "glyph": "✓",
+            "label": "VERIFIED",
+            "fg": "#167a3f",
+            "bg": "#dff3e6",
+            "fill_style": "tint",
+            "contrast_fg_on_bg": 4.65
+          },
+          "FAILED": {
+            "glyph": "✕",
+            "label": "FAILED",
+            "fg": "#bf1f1f",
+            "bg": "#fbe0e0",
+            "fill_style": "tint",
+            "contrast_fg_on_bg": 4.91
+          },
+          "ORPHANED": {
+            "glyph": "?",
+            "label": "ORPHANED",
+            "fg": "#ffffff",
+            "bg": "#131a24",
+            "fill_style": "inverted-solid",
+            "contrast_fg_on_bg": 17.49
+          },
+          "SKIPPED": {
+            "glyph": "–",
+            "label": "SKIPPED",
+            "fg": "#4a5567",
+            "bg": "#e7ebf1",
+            "fill_style": "outline-dashed",
+            "contrast_fg_on_bg": 6.3
+          },
+          "PAUSED": {
+            "glyph": "‖",
+            "label": "PAUSED",
+            "fg": "#9a4b00",
+            "bg": "#fdebd3",
+            "fill_style": "tint",
+            "contrast_fg_on_bg": 5.32
+          },
+          "INCOMPLETE": {
+            "glyph": "◔",
+            "label": "INCOMPLETE",
+            "fg": "#9a4b00",
+            "bg": "#fdebd3",
+            "fill_style": "tint",
+            "contrast_fg_on_bg": 5.32
+          },
+          "HIDDEN": {
+            "glyph": "◌",
+            "label": "HIDDEN",
+            "fg": "#4a5567",
+            "bg": "#e7ebf1",
+            "fill_style": "outline-dotted",
+            "contrast_fg_on_bg": 6.3
+          },
+          "DRAFT": {
+            "glyph": "◇",
+            "label": "DRAFT",
+            "fg": "#1f56c9",
+            "bg": "#e3ebfb",
+            "fill_style": "tint",
+            "contrast_fg_on_bg": 5.43
+          },
+          "PUBLISHED": {
+            "glyph": "◉",
+            "label": "PUBLISHED",
+            "fg": "#131a24",
+            "bg": "#d9ad2e",
+            "fill_style": "solid-gold",
+            "contrast_fg_on_bg": 8.3
+          }
+        }
+      },
+      "pill_anatomy": "h(\"span\", { class: \"f-pill SENT\", \"aria-label\": \"state SENT: request left this device, no server answer\" }, h(\"i\", { class: \"f-g\", \"aria-hidden\": \"true\" }, \"◐\"), \"SENT\"). Glyph box 16x16 with fixed width so a missing glyph (tofu) cannot shift the label; 12px/700 label with .04em tracking, min-height 24px; 1px border in the fg colour for outline/tint styles; hatched style adds `background-image: repeating-linear-gradient(135deg, var(--hatch) 0 4px, transparent 4px 8px)` over --t-sent; inverted-solid (ORPHANED) is --orph-fg on --orph-bg with no border, the only pill that flips the page polarity; solid-gold (PUBLISHED) is --on-pub on --pub-fill with a 1px --pub border in light. Existing class names (.f-pill.FAILED etc.) are kept so forge/test/ui.test.mjs:116 still selects them.",
+      "contrast_summary": {
+        "pairs_checked": 205,
+        "failures": 0,
+        "known_gaps_mitigated": [
+          "light: KNOWN GAP gold fill (pubFill) vs white paper: below 3:1, so the light PUBLISH band and Publish button carry a 2px dark-gold (pub) border and the words; the fill is decoration, the border+words identify the control = 2.11:1"
+        ],
+        "lowest_text_pair": {
+          "theme": "light",
+          "pair": "pill VERIFIED fg on its bg",
+          "fg": "#167a3f",
+          "bg": "#dff3e6",
+          "ratio": 4.65,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        "lowest_non_text_pair": {
+          "theme": "dark",
+          "pair": "rail/ring/fill mut vs raised",
+          "fg": "#d92a48",
+          "bg": "#1b2330",
+          "ratio": 3.29,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        "method": "WCAG 2.x relative luminance (sRGB linearised with the 0.04045 threshold, 0.2126/0.7152/0.0722 weights) and (L1+0.05)/(L2+0.05); computed by scratchpad/design/contrast.mjs through palette_b2.mjs, not estimated. Thresholds: 4.5:1 for every text pair (pill text is 12px/700, which WCAG does not count as large, so it is held to 4.5), 3:1 for rails, rings, fills, meters and segments (1.4.11)."
+      },
+      "contrast_table": [
+        {
+          "theme": "dark",
+          "pair": "ink on paper",
+          "fg": "#eaeef5",
+          "bg": "#141a24",
+          "ratio": 15,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "mute on paper",
+          "fg": "#a3aebf",
+          "bg": "#141a24",
+          "ratio": 7.78,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ink on bg",
+          "fg": "#eaeef5",
+          "bg": "#0c1017",
+          "ratio": 16.37,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "mute on bg",
+          "fg": "#a3aebf",
+          "bg": "#0c1017",
+          "ratio": 8.5,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ink on raised",
+          "fg": "#eaeef5",
+          "bg": "#1b2330",
+          "ratio": 13.57,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "mute on raised",
+          "fg": "#a3aebf",
+          "bg": "#1b2330",
+          "ratio": 7.04,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "acc text on paper",
+          "fg": "#7fb2ff",
+          "bg": "#141a24",
+          "ratio": 8.08,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "acc text on bg",
+          "fg": "#7fb2ff",
+          "bg": "#0c1017",
+          "ratio": 8.81,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "acc text on raised",
+          "fg": "#7fb2ff",
+          "bg": "#1b2330",
+          "ratio": 7.31,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "read text on paper",
+          "fg": "#7fb2ff",
+          "bg": "#141a24",
+          "ratio": 8.08,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "read text on bg",
+          "fg": "#7fb2ff",
+          "bg": "#0c1017",
+          "ratio": 8.81,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "read text on raised",
+          "fg": "#7fb2ff",
+          "bg": "#1b2330",
+          "ratio": 7.31,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pub text on paper",
+          "fg": "#e6c453",
+          "bg": "#141a24",
+          "ratio": 10.3,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pub text on bg",
+          "fg": "#e6c453",
+          "bg": "#0c1017",
+          "ratio": 11.24,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pub text on raised",
+          "fg": "#e6c453",
+          "bg": "#1b2330",
+          "ratio": 9.31,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "warn text on paper",
+          "fg": "#f5a142",
+          "bg": "#141a24",
+          "ratio": 8.36,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "warn text on bg",
+          "fg": "#f5a142",
+          "bg": "#0c1017",
+          "ratio": 9.13,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "warn text on raised",
+          "fg": "#f5a142",
+          "bg": "#1b2330",
+          "ratio": 7.56,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "sent text on paper",
+          "fg": "#c6a9ff",
+          "bg": "#141a24",
+          "ratio": 8.75,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "sent text on bg",
+          "fg": "#c6a9ff",
+          "bg": "#0c1017",
+          "ratio": 9.55,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "sent text on raised",
+          "fg": "#c6a9ff",
+          "bg": "#1b2330",
+          "ratio": 7.91,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ok text on paper",
+          "fg": "#62d492",
+          "bg": "#141a24",
+          "ratio": 9.44,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ok text on bg",
+          "fg": "#62d492",
+          "bg": "#0c1017",
+          "ratio": 10.3,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ok text on raised",
+          "fg": "#62d492",
+          "bg": "#1b2330",
+          "ratio": 8.54,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "bad text on paper",
+          "fg": "#ff7e78",
+          "bg": "#141a24",
+          "ratio": 7.07,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "bad text on bg",
+          "fg": "#ff7e78",
+          "bg": "#0c1017",
+          "ratio": 7.72,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "bad text on raised",
+          "fg": "#ff7e78",
+          "bg": "#1b2330",
+          "ratio": 6.4,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "mut (crimson) as TEXT on paper: NOT USED in dark, recorded to show why",
+          "fg": "#d92a48",
+          "bg": "#141a24",
+          "ratio": 3.64,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "onMut text on mut fill (LIVE WRITE band, Send button)",
+          "fg": "#ffffff",
+          "bg": "#d92a48",
+          "ratio": 4.8,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "onPub text on gold fill (PUBLISH band, Publish button, PUBLISHED pill)",
+          "fg": "#0c1017",
+          "bg": "#e6c453",
+          "ratio": 11.24,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "onAcc text on acc fill (Run captures / primary read button, nav current)",
+          "fg": "#0c1017",
+          "bg": "#7fb2ff",
+          "ratio": 8.81,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "onSent text on sent fill (Reconcile & resume button)",
+          "fg": "#0c1017",
+          "bg": "#c6a9ff",
+          "ratio": 9.55,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "onOk text on ok fill",
+          "fg": "#0c1017",
+          "bg": "#62d492",
+          "ratio": 10.3,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "onBad text on bad fill (SIGNED OUT chip)",
+          "fg": "#0c1017",
+          "bg": "#ff7e78",
+          "ratio": 7.72,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "orphan pill fg on inverted bg",
+          "fg": "#0c1017",
+          "bg": "#eaeef5",
+          "ratio": 16.37,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill PLANNED fg on its bg",
+          "fg": "#a3aebf",
+          "bg": "#222a37",
+          "ratio": 6.44,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill SENT fg on its bg",
+          "fg": "#c6a9ff",
+          "bg": "#2a2140",
+          "ratio": 7.57,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill SENT fg on hatch stripe",
+          "fg": "#c6a9ff",
+          "bg": "#44376c",
+          "ratio": 5.24,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill CONFIRMED fg on its bg",
+          "fg": "#7fb2ff",
+          "bg": "#172640",
+          "ratio": 7,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill VERIFIED fg on its bg",
+          "fg": "#62d492",
+          "bg": "#12301f",
+          "ratio": 7.73,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill FAILED fg on its bg",
+          "fg": "#ff7e78",
+          "bg": "#3a1818",
+          "ratio": 6.43,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill ORPHANED fg on its bg",
+          "fg": "#0c1017",
+          "bg": "#eaeef5",
+          "ratio": 16.37,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill SKIPPED fg on its bg",
+          "fg": "#a3aebf",
+          "bg": "#222a37",
+          "ratio": 6.44,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill PAUSED fg on its bg",
+          "fg": "#f5a142",
+          "bg": "#3a2712",
+          "ratio": 6.8,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill INCOMPLETE fg on its bg",
+          "fg": "#f5a142",
+          "bg": "#3a2712",
+          "ratio": 6.8,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill HIDDEN fg on its bg",
+          "fg": "#a3aebf",
+          "bg": "#222a37",
+          "ratio": 6.44,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill DRAFT fg on its bg",
+          "fg": "#7fb2ff",
+          "bg": "#172640",
+          "ratio": 7,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pill PUBLISHED fg on its bg",
+          "fg": "#0c1017",
+          "bg": "#e6c453",
+          "ratio": 11.24,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ink on tAcc banner",
+          "fg": "#eaeef5",
+          "bg": "#172640",
+          "ratio": 13,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "acc lead on tAcc banner",
+          "fg": "#7fb2ff",
+          "bg": "#172640",
+          "ratio": 7,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ink on tPub banner",
+          "fg": "#eaeef5",
+          "bg": "#3a3114",
+          "ratio": 11.08,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "pub lead on tPub banner",
+          "fg": "#e6c453",
+          "bg": "#3a3114",
+          "ratio": 7.6,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ink on tWarn banner",
+          "fg": "#eaeef5",
+          "bg": "#3a2712",
+          "ratio": 12.2,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "warn lead on tWarn banner",
+          "fg": "#f5a142",
+          "bg": "#3a2712",
+          "ratio": 6.8,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ink on tSent banner",
+          "fg": "#eaeef5",
+          "bg": "#2a2140",
+          "ratio": 12.98,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "sent lead on tSent banner",
+          "fg": "#c6a9ff",
+          "bg": "#2a2140",
+          "ratio": 7.57,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ink on tOk banner",
+          "fg": "#eaeef5",
+          "bg": "#12301f",
+          "ratio": 12.29,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ok lead on tOk banner",
+          "fg": "#62d492",
+          "bg": "#12301f",
+          "ratio": 7.73,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ink on tBad banner",
+          "fg": "#eaeef5",
+          "bg": "#3a1818",
+          "ratio": 13.63,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "bad lead on tBad banner",
+          "fg": "#ff7e78",
+          "bg": "#3a1818",
+          "ratio": 6.43,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "ink on tMut (mutation preflight card body)",
+          "fg": "#eaeef5",
+          "bg": "#3a1420",
+          "ratio": 13.87,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "mut lead on tMut in dark: not used; the band is solid crimson with white text instead",
+          "fg": "#d92a48",
+          "bg": "#3a1420",
+          "ratio": 3.36,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill acc vs paper",
+          "fg": "#7fb2ff",
+          "bg": "#141a24",
+          "ratio": 8.08,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill acc vs bg",
+          "fg": "#7fb2ff",
+          "bg": "#0c1017",
+          "ratio": 8.81,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill acc vs raised",
+          "fg": "#7fb2ff",
+          "bg": "#1b2330",
+          "ratio": 7.31,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill mut vs paper",
+          "fg": "#d92a48",
+          "bg": "#141a24",
+          "ratio": 3.64,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill mut vs bg",
+          "fg": "#d92a48",
+          "bg": "#0c1017",
+          "ratio": 3.97,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill mut vs raised",
+          "fg": "#d92a48",
+          "bg": "#1b2330",
+          "ratio": 3.29,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill pub vs paper",
+          "fg": "#e6c453",
+          "bg": "#141a24",
+          "ratio": 10.3,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill pub vs bg",
+          "fg": "#e6c453",
+          "bg": "#0c1017",
+          "ratio": 11.24,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill pub vs raised",
+          "fg": "#e6c453",
+          "bg": "#1b2330",
+          "ratio": 9.31,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill warn vs paper",
+          "fg": "#f5a142",
+          "bg": "#141a24",
+          "ratio": 8.36,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill warn vs bg",
+          "fg": "#f5a142",
+          "bg": "#0c1017",
+          "ratio": 9.13,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill warn vs raised",
+          "fg": "#f5a142",
+          "bg": "#1b2330",
+          "ratio": 7.56,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill sent vs paper",
+          "fg": "#c6a9ff",
+          "bg": "#141a24",
+          "ratio": 8.75,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill sent vs bg",
+          "fg": "#c6a9ff",
+          "bg": "#0c1017",
+          "ratio": 9.55,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill sent vs raised",
+          "fg": "#c6a9ff",
+          "bg": "#1b2330",
+          "ratio": 7.91,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill ok vs paper",
+          "fg": "#62d492",
+          "bg": "#141a24",
+          "ratio": 9.44,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill ok vs bg",
+          "fg": "#62d492",
+          "bg": "#0c1017",
+          "ratio": 10.3,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill ok vs raised",
+          "fg": "#62d492",
+          "bg": "#1b2330",
+          "ratio": 8.54,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill bad vs paper",
+          "fg": "#ff7e78",
+          "bg": "#141a24",
+          "ratio": 7.07,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill bad vs bg",
+          "fg": "#ff7e78",
+          "bg": "#0c1017",
+          "ratio": 7.72,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "rail/ring/fill bad vs raised",
+          "fg": "#ff7e78",
+          "bg": "#1b2330",
+          "ratio": 6.4,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "orphan inverted pill vs paper",
+          "fg": "#eaeef5",
+          "bg": "#141a24",
+          "ratio": 15,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "disabled button text: mute on tMute (no opacity)",
+          "fg": "#a3aebf",
+          "bg": "#222a37",
+          "ratio": 6.44,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "progress segment acc vs track tMute",
+          "fg": "#7fb2ff",
+          "bg": "#222a37",
+          "ratio": 6.68,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "progress segment ok vs track tMute",
+          "fg": "#62d492",
+          "bg": "#222a37",
+          "ratio": 7.81,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "progress segment bad vs track tMute",
+          "fg": "#ff7e78",
+          "bg": "#222a37",
+          "ratio": 5.85,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "progress segment warn vs track tMute",
+          "fg": "#f5a142",
+          "bg": "#222a37",
+          "ratio": 6.92,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "progress segment sent vs track tMute",
+          "fg": "#c6a9ff",
+          "bg": "#222a37",
+          "ratio": 7.23,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "SENT hatch stripe vs tSent (texture visibility; target >= 1.3)",
+          "fg": "#44376c",
+          "bg": "#2a2140",
+          "ratio": 1.45,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "line vs paper (decorative edge)",
+          "fg": "#2a3444",
+          "bg": "#141a24",
+          "ratio": 1.39,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "paper vs bg (card edge)",
+          "fg": "#141a24",
+          "bg": "#0c1017",
+          "ratio": 1.09,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "raised vs paper (elevation step)",
+          "fg": "#1b2330",
+          "bg": "#141a24",
+          "ratio": 1.11,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "HUE ADJACENCY mut (crimson) vs bad (danger red): separated by role and shape, not by this ratio",
+          "fg": "#d92a48",
+          "bg": "#ff7e78",
+          "ratio": 1.94,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "HUE ADJACENCY pub (gold) vs warn (amber): separated by role and shape, not by this ratio",
+          "fg": "#e6c453",
+          "bg": "#f5a142",
+          "ratio": 1.23,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "HUE ADJACENCY sent (violet) vs acc (blue)",
+          "fg": "#c6a9ff",
+          "bg": "#7fb2ff",
+          "ratio": 1.08,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ink on paper",
+          "fg": "#131a24",
+          "bg": "#ffffff",
+          "ratio": 17.49,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "mute on paper",
+          "fg": "#4a5567",
+          "bg": "#ffffff",
+          "ratio": 7.54,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ink on bg",
+          "fg": "#131a24",
+          "bg": "#eef1f5",
+          "ratio": 15.43,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "mute on bg",
+          "fg": "#4a5567",
+          "bg": "#eef1f5",
+          "ratio": 6.65,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ink on raised",
+          "fg": "#131a24",
+          "bg": "#ffffff",
+          "ratio": 17.49,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "mute on raised",
+          "fg": "#4a5567",
+          "bg": "#ffffff",
+          "ratio": 7.54,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "acc text on paper",
+          "fg": "#1f56c9",
+          "bg": "#ffffff",
+          "ratio": 6.5,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "acc text on bg",
+          "fg": "#1f56c9",
+          "bg": "#eef1f5",
+          "ratio": 5.73,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "acc text on raised",
+          "fg": "#1f56c9",
+          "bg": "#ffffff",
+          "ratio": 6.5,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "read text on paper",
+          "fg": "#1f56c9",
+          "bg": "#ffffff",
+          "ratio": 6.5,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "read text on bg",
+          "fg": "#1f56c9",
+          "bg": "#eef1f5",
+          "ratio": 5.73,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "read text on raised",
+          "fg": "#1f56c9",
+          "bg": "#ffffff",
+          "ratio": 6.5,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pub text on paper",
+          "fg": "#6f5400",
+          "bg": "#ffffff",
+          "ratio": 7.13,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pub text on bg",
+          "fg": "#6f5400",
+          "bg": "#eef1f5",
+          "ratio": 6.3,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pub text on raised",
+          "fg": "#6f5400",
+          "bg": "#ffffff",
+          "ratio": 7.13,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "warn text on paper",
+          "fg": "#9a4b00",
+          "bg": "#ffffff",
+          "ratio": 6.21,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "warn text on bg",
+          "fg": "#9a4b00",
+          "bg": "#eef1f5",
+          "ratio": 5.48,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "warn text on raised",
+          "fg": "#9a4b00",
+          "bg": "#ffffff",
+          "ratio": 6.21,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "sent text on paper",
+          "fg": "#532aba",
+          "bg": "#ffffff",
+          "ratio": 8.72,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "sent text on bg",
+          "fg": "#532aba",
+          "bg": "#eef1f5",
+          "ratio": 7.7,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "sent text on raised",
+          "fg": "#532aba",
+          "bg": "#ffffff",
+          "ratio": 8.72,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ok text on paper",
+          "fg": "#167a3f",
+          "bg": "#ffffff",
+          "ratio": 5.4,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ok text on bg",
+          "fg": "#167a3f",
+          "bg": "#eef1f5",
+          "ratio": 4.77,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ok text on raised",
+          "fg": "#167a3f",
+          "bg": "#ffffff",
+          "ratio": 5.4,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "bad text on paper",
+          "fg": "#bf1f1f",
+          "bg": "#ffffff",
+          "ratio": 6.12,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "bad text on bg",
+          "fg": "#bf1f1f",
+          "bg": "#eef1f5",
+          "ratio": 5.4,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "bad text on raised",
+          "fg": "#bf1f1f",
+          "bg": "#ffffff",
+          "ratio": 6.12,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "mut text on paper",
+          "fg": "#a3122f",
+          "bg": "#ffffff",
+          "ratio": 7.82,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "mut text on bg",
+          "fg": "#a3122f",
+          "bg": "#eef1f5",
+          "ratio": 6.9,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "onMut text on mut fill (LIVE WRITE band, Send button)",
+          "fg": "#ffffff",
+          "bg": "#a3122f",
+          "ratio": 7.82,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "onPub text on gold fill (PUBLISH band, Publish button, PUBLISHED pill)",
+          "fg": "#131a24",
+          "bg": "#d9ad2e",
+          "ratio": 8.3,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "onAcc text on acc fill (Run captures / primary read button, nav current)",
+          "fg": "#ffffff",
+          "bg": "#1f56c9",
+          "ratio": 6.5,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "onSent text on sent fill (Reconcile & resume button)",
+          "fg": "#ffffff",
+          "bg": "#532aba",
+          "ratio": 8.72,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "onOk text on ok fill",
+          "fg": "#ffffff",
+          "bg": "#167a3f",
+          "ratio": 5.4,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "onBad text on bad fill (SIGNED OUT chip)",
+          "fg": "#ffffff",
+          "bg": "#bf1f1f",
+          "ratio": 6.12,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "orphan pill fg on inverted bg",
+          "fg": "#ffffff",
+          "bg": "#131a24",
+          "ratio": 17.49,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill PLANNED fg on its bg",
+          "fg": "#4a5567",
+          "bg": "#e7ebf1",
+          "ratio": 6.3,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill SENT fg on its bg",
+          "fg": "#532aba",
+          "bg": "#ece5fb",
+          "ratio": 7.13,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill SENT fg on hatch stripe",
+          "fg": "#532aba",
+          "bg": "#c9b8f4",
+          "ratio": 4.84,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill CONFIRMED fg on its bg",
+          "fg": "#1f56c9",
+          "bg": "#e3ebfb",
+          "ratio": 5.43,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill VERIFIED fg on its bg",
+          "fg": "#167a3f",
+          "bg": "#dff3e6",
+          "ratio": 4.65,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill FAILED fg on its bg",
+          "fg": "#bf1f1f",
+          "bg": "#fbe0e0",
+          "ratio": 4.91,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill ORPHANED fg on its bg",
+          "fg": "#ffffff",
+          "bg": "#131a24",
+          "ratio": 17.49,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill SKIPPED fg on its bg",
+          "fg": "#4a5567",
+          "bg": "#e7ebf1",
+          "ratio": 6.3,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill PAUSED fg on its bg",
+          "fg": "#9a4b00",
+          "bg": "#fdebd3",
+          "ratio": 5.32,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill INCOMPLETE fg on its bg",
+          "fg": "#9a4b00",
+          "bg": "#fdebd3",
+          "ratio": 5.32,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill HIDDEN fg on its bg",
+          "fg": "#4a5567",
+          "bg": "#e7ebf1",
+          "ratio": 6.3,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill DRAFT fg on its bg",
+          "fg": "#1f56c9",
+          "bg": "#e3ebfb",
+          "ratio": 5.43,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pill PUBLISHED fg on its bg",
+          "fg": "#131a24",
+          "bg": "#d9ad2e",
+          "ratio": 8.3,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ink on tAcc banner",
+          "fg": "#131a24",
+          "bg": "#e3ebfb",
+          "ratio": 14.61,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "acc lead on tAcc banner",
+          "fg": "#1f56c9",
+          "bg": "#e3ebfb",
+          "ratio": 5.43,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ink on tPub banner",
+          "fg": "#131a24",
+          "bg": "#faefc7",
+          "ratio": 15.19,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pub lead on tPub banner",
+          "fg": "#6f5400",
+          "bg": "#faefc7",
+          "ratio": 6.19,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ink on tWarn banner",
+          "fg": "#131a24",
+          "bg": "#fdebd3",
+          "ratio": 14.99,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "warn lead on tWarn banner",
+          "fg": "#9a4b00",
+          "bg": "#fdebd3",
+          "ratio": 5.32,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ink on tSent banner",
+          "fg": "#131a24",
+          "bg": "#ece5fb",
+          "ratio": 14.3,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "sent lead on tSent banner",
+          "fg": "#532aba",
+          "bg": "#ece5fb",
+          "ratio": 7.13,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ink on tOk banner",
+          "fg": "#131a24",
+          "bg": "#dff3e6",
+          "ratio": 15.07,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ok lead on tOk banner",
+          "fg": "#167a3f",
+          "bg": "#dff3e6",
+          "ratio": 4.65,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ink on tBad banner",
+          "fg": "#131a24",
+          "bg": "#fbe0e0",
+          "ratio": 14.02,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "bad lead on tBad banner",
+          "fg": "#bf1f1f",
+          "bg": "#fbe0e0",
+          "ratio": 4.91,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "ink on tMut (mutation preflight card body)",
+          "fg": "#131a24",
+          "bg": "#fbe3e7",
+          "ratio": 14.36,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "mut lead on tMut banner",
+          "fg": "#a3122f",
+          "bg": "#fbe3e7",
+          "ratio": 6.42,
+          "min": 4.5,
+          "kind": "text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill acc vs paper",
+          "fg": "#1f56c9",
+          "bg": "#ffffff",
+          "ratio": 6.5,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill acc vs bg",
+          "fg": "#1f56c9",
+          "bg": "#eef1f5",
+          "ratio": 5.73,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill acc vs raised",
+          "fg": "#1f56c9",
+          "bg": "#ffffff",
+          "ratio": 6.5,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill mut vs paper",
+          "fg": "#a3122f",
+          "bg": "#ffffff",
+          "ratio": 7.82,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill mut vs bg",
+          "fg": "#a3122f",
+          "bg": "#eef1f5",
+          "ratio": 6.9,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill mut vs raised",
+          "fg": "#a3122f",
+          "bg": "#ffffff",
+          "ratio": 7.82,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill pub vs paper",
+          "fg": "#6f5400",
+          "bg": "#ffffff",
+          "ratio": 7.13,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill pub vs bg",
+          "fg": "#6f5400",
+          "bg": "#eef1f5",
+          "ratio": 6.3,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill pub vs raised",
+          "fg": "#6f5400",
+          "bg": "#ffffff",
+          "ratio": 7.13,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill warn vs paper",
+          "fg": "#9a4b00",
+          "bg": "#ffffff",
+          "ratio": 6.21,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill warn vs bg",
+          "fg": "#9a4b00",
+          "bg": "#eef1f5",
+          "ratio": 5.48,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill warn vs raised",
+          "fg": "#9a4b00",
+          "bg": "#ffffff",
+          "ratio": 6.21,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill sent vs paper",
+          "fg": "#532aba",
+          "bg": "#ffffff",
+          "ratio": 8.72,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill sent vs bg",
+          "fg": "#532aba",
+          "bg": "#eef1f5",
+          "ratio": 7.7,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill sent vs raised",
+          "fg": "#532aba",
+          "bg": "#ffffff",
+          "ratio": 8.72,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill ok vs paper",
+          "fg": "#167a3f",
+          "bg": "#ffffff",
+          "ratio": 5.4,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill ok vs bg",
+          "fg": "#167a3f",
+          "bg": "#eef1f5",
+          "ratio": 4.77,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill ok vs raised",
+          "fg": "#167a3f",
+          "bg": "#ffffff",
+          "ratio": 5.4,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill bad vs paper",
+          "fg": "#bf1f1f",
+          "bg": "#ffffff",
+          "ratio": 6.12,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill bad vs bg",
+          "fg": "#bf1f1f",
+          "bg": "#eef1f5",
+          "ratio": 5.4,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "rail/ring/fill bad vs raised",
+          "fg": "#bf1f1f",
+          "bg": "#ffffff",
+          "ratio": 6.12,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "KNOWN GAP gold fill (pubFill) vs white paper: below 3:1, so the light PUBLISH band and Publish button carry a 2px dark-gold (pub) border and the words; the fill is decoration, the border+words identify the control",
+          "fg": "#d9ad2e",
+          "bg": "#ffffff",
+          "ratio": 2.11,
+          "min": 1,
+          "kind": "known-gap-mitigated",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "pub (dark gold) border around gold fill vs pubFill",
+          "fg": "#6f5400",
+          "bg": "#d9ad2e",
+          "ratio": 3.39,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "orphan inverted pill vs paper",
+          "fg": "#131a24",
+          "bg": "#ffffff",
+          "ratio": 17.49,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "disabled button text: mute on tMute (no opacity)",
+          "fg": "#4a5567",
+          "bg": "#e7ebf1",
+          "ratio": 6.3,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "progress segment acc vs track tMute",
+          "fg": "#1f56c9",
+          "bg": "#e7ebf1",
+          "ratio": 5.43,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "progress segment ok vs track tMute",
+          "fg": "#167a3f",
+          "bg": "#e7ebf1",
+          "ratio": 4.51,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "progress segment bad vs track tMute",
+          "fg": "#bf1f1f",
+          "bg": "#e7ebf1",
+          "ratio": 5.12,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "progress segment warn vs track tMute",
+          "fg": "#9a4b00",
+          "bg": "#e7ebf1",
+          "ratio": 5.19,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "progress segment sent vs track tMute",
+          "fg": "#532aba",
+          "bg": "#e7ebf1",
+          "ratio": 7.29,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "SENT hatch stripe vs tSent (texture visibility; target >= 1.3)",
+          "fg": "#c9b8f4",
+          "bg": "#ece5fb",
+          "ratio": 1.47,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "line vs paper (decorative edge)",
+          "fg": "#cfd6e0",
+          "bg": "#ffffff",
+          "ratio": 1.46,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "paper vs bg (card edge)",
+          "fg": "#ffffff",
+          "bg": "#eef1f5",
+          "ratio": 1.13,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "raised vs paper (elevation step)",
+          "fg": "#ffffff",
+          "bg": "#ffffff",
+          "ratio": 1,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "HUE ADJACENCY mut (crimson) vs bad (danger red): separated by role and shape, not by this ratio",
+          "fg": "#a3122f",
+          "bg": "#bf1f1f",
+          "ratio": 1.28,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "HUE ADJACENCY pub (gold) vs warn (amber): separated by role and shape, not by this ratio",
+          "fg": "#d9ad2e",
+          "bg": "#9a4b00",
+          "ratio": 2.95,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "HUE ADJACENCY sent (violet) vs acc (blue)",
+          "fg": "#532aba",
+          "bg": "#1f56c9",
+          "ratio": 1.34,
+          "min": 1,
+          "kind": "informational",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "decor edge teal vs paper (non-text, Command Center lane cards only)",
+          "fg": "#3fb3ad",
+          "bg": "#141a24",
+          "ratio": 6.87,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "decor edge steel vs paper (non-text, Command Center lane cards only)",
+          "fg": "#7c9cc4",
+          "bg": "#141a24",
+          "ratio": 6.16,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "decor edge sand vs paper (non-text, Command Center lane cards only)",
+          "fg": "#c9ad7c",
+          "bg": "#141a24",
+          "ratio": 8.11,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "dark",
+          "pair": "decor edge moss vs paper (non-text, Command Center lane cards only)",
+          "fg": "#8db56f",
+          "bg": "#141a24",
+          "ratio": 7.46,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "decor edge teal vs paper (non-text, Command Center lane cards only)",
+          "fg": "#116b67",
+          "bg": "#ffffff",
+          "ratio": 6.32,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "decor edge steel vs paper (non-text, Command Center lane cards only)",
+          "fg": "#3d5f8a",
+          "bg": "#ffffff",
+          "ratio": 6.56,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "decor edge sand vs paper (non-text, Command Center lane cards only)",
+          "fg": "#7a5f2a",
+          "bg": "#ffffff",
+          "ratio": 6,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        },
+        {
+          "theme": "light",
+          "pair": "decor edge moss vs paper (non-text, Command Center lane cards only)",
+          "fg": "#3f6d2a",
+          "bg": "#ffffff",
+          "ratio": 6.12,
+          "min": 3,
+          "kind": "non-text",
+          "pass": true
+        }
+      ]
+    },
+    "typography": {
+      "family": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif; mono: ui-monospace, \"SF Mono\", Menlo, Consolas, \"Roboto Mono\", monospace. No @font-face, no fetch: the bundle is one @require file (forge_loader_user.js:12) and must stay self-contained. On Samsung Android Firefox system-ui resolves to Roboto (or Samsung One if the user chose it), which is the face the operator already reads the game in. The FORGE wordmark is the same family at 800 weight with .12em tracking and a 2px crimson rule under it; no display face is bundled (amendment :212 allows a display face 'sparingly', Workbench declines the bytes).",
+      "scale_phone_390": {
+        "wordmark": "18px / 1 / 800 .12em uppercase",
+        "h1_screen_title": "22px / 1.25 / 700",
+        "h2_card_title": "18px / 1.3 / 700",
+        "h3_section_label": "12px / 1.3 / 700 uppercase .08em (mute)",
+        "body": "16px / 1.5 / 400",
+        "strong": "600",
+        "meta_mute": "13px / 1.4 / 400 (floor; nothing smaller anywhere)",
+        "pill": "12px / 1 / 700 .04em",
+        "button": "16px / 1.2 / 600; ink buttons 15px / 800 uppercase .04em",
+        "nav_label": "12px / 1 / 600 under a 24px glyph (bottom nav)",
+        "mono_ids_errors": "13px / 1.45",
+        "lane_band": "13px / 1 / 800 .06em uppercase + 16px counts",
+        "counts": "font-variant-numeric: tabular-nums everywhere a number can change"
+      },
+      "scale_desktop_1024_plus": {
+        "wordmark": "20px",
+        "h1": "24px / 1.2 / 700",
+        "h2": "19px / 1.3 / 700",
+        "h3": "12px uppercase",
+        "body": "16px / 1.5",
+        "inspector_rows": "14px / 1.45",
+        "meta": "13px",
+        "pill": "12px",
+        "button": "15px / 600 (min-height stays 44)",
+        "mono": "13px",
+        "rail_label": "14px / 600"
+      },
+      "why_it_reads_at_390_in_daylight": [
+        "Base 16px instead of today's 15px (styles.mjs:19) and line-height 1.5: on a 390px Samsung panel at ~2.75x that is ~44 device pixels per line, above the size at which Roboto's x-height stops mattering outdoors.",
+        "Dark default pairs are all ≥7:1 for body and meta (ink 15:1 on paper, mute 7.78:1; contrast_table), which leaves headroom when glare halves perceived contrast; the opt-in Daylight scheme is 17.49:1 / 7.54:1 for the same pairs.",
+        "No weight below 400 and no hairline colour text: every coloured word is ≥4.65:1 on the surface it sits on, and every state word is also bold (700).",
+        "13px floor for meta and mono; the only 12px text is the pill label and the h3 label, both 700 and uppercase-tracked.",
+        "Line length is capped at ~60ch in the centre column (max-width 720px) so desktop does not become a wall; on the phone the column is the viewport minus 12px gutters."
+      ]
+    },
+    "spacing_and_density": {
+      "grid": "4pt: 4 / 8 / 12 / 16 / 24 / 32",
+      "touch_target_min": "44 x 44 CSS px for every button, row, nav item and pill-with-action (today: buttons 44, nav 40, styles.mjs:27,31); the three ink buttons are 48 tall on phone; list rows min-height 56 so a row is one comfortable thumb target; bottom nav items 56 tall, 64 with the label.",
+      "radius": {
+        "card": "12px",
+        "button_input": "10px",
+        "pill": "999px",
+        "lane_band": "12px 12px 0 0 (the card's cap)",
+        "ink_button": "0 (square, 2px border, 4px offset --shadow-ink)",
+        "progress_segment": "3px",
+        "nav_current": "8px"
+      },
+      "gaps": {
+        "between_cards": "12px phone / 16px desktop",
+        "inside_card_padding": "14px phone / 16px desktop",
+        "actions_row": "8px",
+        "kv_grid": "4px 12px",
+        "lane_card_grid": "12px"
+      },
+      "gutters": {
+        "390": "12px",
+        "768": "16px",
+        "1280": "16px outer, 16px between regions"
+      },
+      "card_widths": {
+        "390x844": "one column; card = 366px (390 - 2x12); content-lane cards on the Command Center are 2-up, 177px each with a 12px gap",
+        "768x1024": "one centred column, card = 720px; Command Center tiles 2-up at 352px with a 16px gap; the bottom nav stays until 1024",
+        "1280x800": "three regions: nav rail 200px | centre 720px | inspector 296px, 16px gaps and 16px outer gutters = 1280 exactly; above 1280 the centre grows first to 800px, the inspector stays 296px"
+      },
+      "bottom_action_bar": "Phone/tablet only: a sticky bar 64px + env(safe-area-inset-bottom) on --raised with --shadow-raised that holds the screen's primary action (lane-coloured, square if it touches the game) and one secondary. It sits ABOVE the bottom navigation (56-64px), so a Run screen on a phone reserves 120-128px at the bottom; when a screen has no primary action the bar is not rendered. On desktop the actions move into the header row and neither bar exists.",
+      "bottom_nav": "Phone/tablet: five items maximum (Home, Manifests, Run/Active, Recovery, More), each a 24px glyph over a 12px label, current item in --t-acc with a 3px --acc top edge; the Recovery item carries a solid violet dot when any SENT item exists anywhere in the journal (journal.resumable(), forge/src/storage/journal.mjs:358-366) and a solid amber dot for a PAUSED job; dots are static."
+    },
+    "motion": {
+      "animates": [
+        {
+          "what": "screen swap (Home -> Run etc.)",
+          "how": "opacity 0->1 and translateY 8px->0 on the new .f-main content",
+          "duration": "160ms",
+          "easing": "cubic-bezier(.2,.7,.2,1)"
+        },
+        {
+          "what": "progress: segment fill / grouped bar width",
+          "how": "transition on width only, forward only",
+          "duration": "240ms",
+          "easing": "ease-out",
+          "note": "today the whole main re-renders every 1.5s while a job runs (forge/src/ui/app.mjs:268,87), which replaces the nodes, so a CSS transition never runs; the progress element must be kept and patched in place (one small change in RunScreen), otherwise the change is a snap, which is acceptable."
+        },
+        {
+          "what": "button press",
+          "how": "transform: scale(.98) on :active; ink buttons translate(2px,2px) with the shadow shrinking to 2px (the same gesture the game's ink buttons use, app/src/styles/globals.css:282-289 at head 36c5873b)",
+          "duration": "80ms",
+          "easing": "ease-out"
+        },
+        {
+          "what": "content-lane card edge response",
+          "how": "box-shadow 0 0 0 2px var(--decor-x) on :focus-visible/:active, static once applied (amendment :193 'subtle glow/edge response on active content lanes')",
+          "duration": "160ms",
+          "easing": "ease-out"
+        },
+        {
+          "what": "toast enter/exit",
+          "how": "opacity + translateY 6px",
+          "duration": "180ms",
+          "easing": "ease-out",
+          "note": "toasts duplicate on-screen state, never carry it alone (see risk_states.toasts)."
+        },
+        {
+          "what": "RUNNING sweep",
+          "how": "a 2px-tall indeterminate sweep along the top edge of the job header card, a separate element from every state pill",
+          "duration": "1.2s linear infinite",
+          "note": "the only looping motion in the app; it means 'a request may be in flight' and sits beside the static RUNNING pill, never instead of it."
+        },
+        {
+          "what": "manifest picker skeleton",
+          "how": "shimmer on placeholder rows while the GitHub listing loads (app.mjs:186-207)",
+          "duration": "1.4s linear infinite"
+        },
+        {
+          "what": "details expansion",
+          "how": "the <details> body fades in 120ms; the summary marker rotates 90° in 120ms (amendment :197 'smooth expansion of advanced details')"
+        },
+        {
+          "what": "inline two-step confirm strip",
+          "how": "slides down 120ms; its Confirm button is disabled for 600ms after appearing (anti double-tap), a delay of an action, not of state"
+        }
+      ],
+      "reduced_motion": "@media (prefers-reduced-motion: reduce) inside the scoped sheet sets every transition-duration and animation-duration to 0ms; the RUNNING sweep becomes a static three-stripe bar labelled RUNNING; the skeleton becomes a flat --t-mute block with the existing 'loading…' text (screens.mjs:87); the confirm strip appears without sliding but keeps its 600ms arming delay; the ink-button press keeps its translate (it is 80ms and conveys nothing).",
+      "never_animates": [
+        "state pills (PLANNED … INCOMPLETE, HIDDEN/DRAFT/PUBLISHED): a pill is swapped, never faded, never pulsed, never colour-transitioned",
+        "verdict banners (Verified / Finished UNVERIFIED / Finished with failures / Read-only capture complete|incomplete, screens.mjs:183-206)",
+        "pause and orphan cards, the auth chip and auth banner, the operation-mode band, the top-bar mutation underline, the bottom-nav dots",
+        "counts, countdowns and budget numbers (text changes are instant)",
+        "the SENT hatch (static texture), the orphan dashed border, the ink-button shadow at rest",
+        "colour of anything that carries state; no glow, no pulse, no shimmer on a card that holds a job",
+        "no auto-dismiss of any risk banner or card; only toasts time out (app.mjs:96), and a toast is never the sole carrier of a risk state",
+        "nothing animates on mount of the Run screen except the screen swap itself, so a returning operator sees the state at t=0",
+        "the Command Center hero texture is static; there is no ambient motion anywhere"
+      ]
+    },
+    "status_visualization": {
+      "operation_mode_band": {
+        "sketch": [
+          "┌ ◆ LIVE WRITE ──────────────────────────── 3 creates · 1 update · 2 reads ┐   (solid crimson, white text, 6px crimson rail)",
+          "┌ ◇ READ ONLY ───────────────────────────── 5 reads · 2 full captures ─────┐   (blue tint, blue text, 4px blue rail)",
+          "┌ ◉ PUBLISH ─────────────────────────────── 1 record becomes player-visible ┐   (gold fill, ink text, 6px gold rail)",
+          "┌ ‖ RECOVERY ───────────────────────────── 1 unresolved write · 0 resends ─┐   (violet tint, violet text, 6px violet rail)"
+        ],
+        "rule": "One band caps every preflight, run, publish and recovery card; the words and the glyph come first, the counts come from the planned items (plan.filter(op==='create').length, updates, captures.length, persist:'full' count; screens.mjs:116-121,153-154 already compute them) and never from a live poll. The four bands differ in fill lightness (solid / tint / gold / tint), rail width, glyph and words, so a protanope sees four different caps."
+      },
+      "job_progress": {
+        "sketch": [
+          "push/45_x.json                 [◆ LIVE WRITE]  [● RUNNING]",
+          "▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮  ▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮  ▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤  ▯▯▯▯▯▯▯▯▯▯▯▯▯▯▯▯  ▯▯▯▯▯▯▯▯▯▯▯▯▯▯▯▯",
+          " ok(green)          ok(green)         SENT(hatched)      planned(hollow)    planned(hollow)",
+          "2 verified · 1 sent (no answer) · 2 planned · item 3 of 5"
+        ],
+        "rule": "One segment per item in plan order, drawn as child elements (h(\"i\", { class: \"f-seg VERIFIED\", \"aria-label\": \"item 3 VERIFIED\" })), never a gradient, so the DOM is the legend. Fill styles are redundant with colour: solid = server answered (CONFIRMED/VERIFIED), hatched = SENT, hollow = PLANNED, dashed outline = SKIPPED, solid red with ✕ = FAILED, inverted with ? = ORPHANED. Above 40 items the segments collapse into a grouped proportional bar with the same fills and the count line becomes the legend; the largest write manifest in repository history is 31 entries (harvests/inbox/tnr_results_1788135094828.json) and 26 items (archive/spent-manifests/push-2026-09-09/29_hide_not_ours.json), so the per-item form covers everything committed. The count line is aria-live=\"polite\". Today's bar (styles.mjs:50-51, screens.mjs:171) is one accent fill of done/total that turns amber on pause; it cannot show that one item is SENT."
+      },
+      "per_item_state": {
+        "sketch": [
+          "│ 3. Ember Palm                      [◐ SENT]   jutsu · phase create",
+          "│    Request left this device; no server answer yet. Forge reconciles, never resends.",
+          "│ 4. Ash Veil                        [○ PLANNED] jutsu",
+          "│ 2. Cinder Step                     [✓ VERIFIED] jutsu · match",
+          "│    K1xLLy8awDAtaE6hXVIi_0"
+        ],
+        "rule": "Row = 4px left rail in the job's lane colour + name + pill + meta; SENT and ORPHANED rows add a caption line in the state colour and swap the rail to that state colour; the pill is right-aligned in a fixed column on desktop and inline after the name on phone (as today, screens.mjs:248). Error text stays mono in --bad (today .f-err, styles.mjs:54); drift stays a <details> (screens.mjs:251) but its summary gets a ◔ glyph and the word 'drift'."
+      },
+      "budget": {
+        "sketch": [
+          "jutsu.getAllNames   ▮▮▮▮▮▮▮▮▮▮▮▮░░░░░░│░░░░░░░░░░░░░░░   12 / 30   server 60   resets 41s",
+          "item.get            ▮▮░░░░░░░░░░░░░░░░│░░░░░░░░░░░░░░░    2 / 30   server 60   resets 41s",
+          "TRIPPED             ✕ jutsu.getAllNames until 14:03:12 (static red bar, no countdown animation)"
+        ],
+        "rule": "One meter per path with a tick at the allowance (margin 0.5, forge/src/budget/bucket.mjs) and the server limit as the track end; the used part is --acc, over-allowance is --warn, a trip paints the meter --bad with a static ✕ and the until time. Today it is a key/value text line (screens.mjs:229-232). On phone the budget lives in a collapsed <details> with a one-line summary ('Budget · 2 paths · 12/30 highest') unless tripped, in which case it is hoisted into the pause card."
+      },
+      "auth_state": {
+        "sketch": [
+          "top bar:  ‹ Run · push/45_x.json                     [● Signed in]        (tinted blue chip)",
+          "top bar:  ‹ Run · push/45_x.json                     [✕ SIGNED OUT]       (solid red chip, ink text 7.72:1)",
+          "top bar:  ‹ Run · push/45_x.json                     [? NOT CONFIRMED]    (tinted amber chip)",
+          "top bar:  ‹ Run · push/45_x.json                     [◐ Checking…]        (static, no spinner)"
+        ],
+        "rule": "A chip in the top bar on every screen (today a full banner that pushes content on every screen, app.mjs:132-151), one per AUTH state (forge/src/transport/auth.mjs:54: unknown / probing / ready / signed_out). READY is quiet, SIGNED_OUT is the only solid red chip in the app, UNKNOWN is amber because it is blocked-but-unproven (auth.mjs:39-40), PROBING is static text. The explanatory banner (existing copy, app.mjs:143-150) still renders under the top bar whenever the state is not READY, and the Command Center System Status block shows the same chip with its detail line. Refusal-by-server (auth.mjs:199-200) and 'the read failed' remain different sentences."
+      },
+      "publish_state": {
+        "sketch": [
+          "[◌ HIDDEN]   [◇ DRAFT]   [◉ PUBLISHED]",
+          "Publish card:  ┌ ◉ PUBLISH · 1 record becomes player-visible ─┐ (gold band)",
+          "               │ Ember Palm · jutsu · currently ◌ HIDDEN        │",
+          "               │ ┌───────────────────────┐                     │",
+          "               │ │ PUBLISH TO PLAYERS    │ ← square, gold,     │",
+          "               │ └───────────────────────┘   4px ink shadow     │",
+          "               └───────────────────────────────────────────────┘"
+        ],
+        "rule": "Content lifecycle pills share the job-pill anatomy. HIDDEN is a dotted hollow circle in --mute (the safe default reads as quiet, docs/00_INDEX.md:100-101), PUBLISHED is a solid gold pill with a fisheye glyph so 'visible to players' is the loudest of the three. A publish in flight shows a hatched violet 'PUBLISH SENT' pill until read-back, then flips to PUBLISHED only on VERIFIED; the pill never flips on HTTP success (docs/forge_next/A_ARCHITECTURE_MAP.md:145)."
+      },
+      "command_center_system_status": "The System Status block is four static chips fed without a live poll: auth (AuthState), repository listing (app.state.pickerAt / pickerError), storage persisted (app.state.persisted, app.mjs:408-410), budget (Budget.status() tripped/used). Each chip is glyph + word + detail; a chip that cannot be known says 'not checked' in --mute, never green."
+    },
+    "risk_states": {
+      "today": "Risk states today are outline pills of equal weight (styles.mjs:42-45: SENT violet outline and CONFIRMED blue outline look alike; ORPHANED, PAUSED and INCOMPLETE share one amber outline), four banner kinds (styles.mjs:48-49: .f-banner.warn/.bad/.ok/.info), a single-colour progress bar (styles.mjs:50-51), disabled buttons at opacity .45 (styles.mjs:32) and a mutation-ness expressed only in the window.confirm text (screens.mjs:151-156, app.mjs:172-175) and the absence of the read-only info banner (screens.mjs:122). The Run screen of a mutation job and of a capture job look identical while running (screens.mjs:169-172,220). A paused job on Jobs is a .f-banner.warn (screens.mjs:18-26) whether it paused for a clock or for an unresolved SENT.",
+      "mutation_screen": "Every preflight and run card of a job with items gets the LIVE WRITE band: a 44px solid crimson cap with white text (4.8:1 dark, 7.82:1 light), a 6px crimson rail down the card, the ◆ glyph and '3 creates · 1 update'; the primary button is the square crimson ink button reading 'Send 4 writes to the game', not 'Start job'; while a mutation job is RUNNING the sticky top bar carries a 3px crimson underline on every screen (3.29:1 vs --raised), so navigating away does not hide that a write may be in flight. Read-only jobs get the READ band in --t-acc with ◇ and 'READ ONLY · zero mutations' and a rounded blue button 'Run captures'. The two differ by fill lightness, glyph, words, rail width and button shape.",
+      "publish_action": "Publish is its own lane (gold) and never shares a button style with Send. The square gold ink button opens an inline two-step strip inside the same card: 'This makes Ember Palm visible to every player. [Cancel] [Publish]', Confirm disabled for 600ms and placed at the far end of the strip from the trigger. No window.confirm: the native dialog is unstyled, cannot carry the lane or the counts, and looks the same for a cache clear and a live write. The strip is static (120ms slide only, none under reduced motion). Publishing is a full update that flips hidden (or published on guides) and must read back (docs/forge_next/K_USER_DECISIONS.md:79); Forge has no publish action at all today (docs/forge_next/A_ARCHITECTURE_MAP.md:151), so this is a new surface, not a restyle; the UI shows PUBLISH SENT until the read-back.",
+      "ambiguous_sent": "The SENT pill becomes hatched violet with ◐ and the words 'SENT · no answer' (today: plain violet outline, styles.mjs:43). The row gets a violet rail and a caption 'Request left this device; the server has not answered. Forge reconciles, never resends.' The job header gains a solid violet chip '1 unresolved write' that cannot be dismissed. On Home and Recovery, an open job with any SENT item is a full card (not a banner) capped with the RECOVERY band 'UNRESOLVED WRITE · reconcile before anything else'; its only primary action is the square violet ink button 'Reconcile & resume' (the label already exists, screens.mjs:24); no Send verb is visible anywhere on that card. The Recovery bottom-nav item carries a static violet dot while any such job exists.",
+      "paused_job": "PAUSED (waiting on a clock or the operator) and ORPHANED (needs a human decision) stop sharing a pill. PAUSED is a tinted amber pill with ‖; ORPHANED is the inverted pill (page polarity flipped, ? glyph), the heaviest pill there is. The pause card on Run replaces the banner (screens.mjs:208-219): the reason is the 18px headline ('Paused: rate limit on jutsu.getAllNames'), the countdown is plain text, and a TOO_MANY_REQUESTS pause hoists the tripped budget meter into the card. A SESSION pause keeps its existing copy (screens.mjs:211-217) under a red-tinted cap with the ✕ SIGNED OUT chip repeated inside the card and Resume disabled with the reason as its caption (resumeBlockedReason, app.mjs:159-163). The orphan card (screens.mjs:45-70) gets a 2px dashed amber border and a cap 'NEEDS A DECISION · nothing is deleted'; Adopt buttons are outlined blue, Skip is outlined red with the existing wording.",
+      "full_capture_persistence": "A manifest with persist:'full' captures keeps its own amber advisory (screens.mjs:123-125) and the READ band adds '· 2 full captures' in bold so repository persistence consequences stay visible (amendment :185).",
+      "toasts": "Every toast that reports a risk (app.mjs:293-295) duplicates a card that is already on screen; the toast lasts 8-12s and the card is permanent. A toast alone never reports PAUSED, ORPHANED or SENT."
+    },
+    "light_dark": {
+      "support": "both; dark is the default and the approved character",
+      "default": "dark (north star). Light 'Daylight' is opt-in from Settings (auto | dark | light); 'auto' follows prefers-color-scheme only if the director enables it, because an auto light overlay over the game's dark pixel layout would flash on close.",
+      "mechanism": "Base dark tokens on .f-host/.f-app/.f-boot; `.f-host[data-theme=\"light\"] …` overrides; optional `@media (prefers-color-scheme: light) { .f-host:not([data-theme=\"dark\"]) … }`. The choice is stored in localStorage `tnr_forge_theme_v1` behind try/catch (a per-viewer convenience, not state), read once at mount (app.mjs:62) and applied as data-theme on .f-host. The game toggles a `.dark` class on <html> for its pixel layout (app/src/app/layout.tsx:63 at pin 345d18ac); Forge neither reads nor writes it.",
+      "cost_of_two_themes": "Every token pair is checked twice (205 pairs, 0 failures, 1 mitigated gap); the table is proposed as a socket-free test so a tweak cannot regress one theme silently."
+    },
+    "flashiness_budget": {
+      "allowed": [
+        "two elevation levels: --paper cards with a 1px --line edge; --raised for the top bar, bottom bars, inspector and toasts with --shadow-raised",
+        "operation-mode bands: a solid or tinted cap plus a saturated rail; a static 3% luminance gradient across the cap is permitted for depth, nothing moves in it",
+        "the three square ink buttons with a 4px offset shadow, reserved for Send / Publish / Reconcile",
+        "the nine motions listed under motion.animates, all ≤240ms except the two progress loops",
+        "strong typographic hierarchy (22/18/16/13 on phone), tabular numerals, the tracked FORGE wordmark with a crimson rule",
+        "glyph-bearing pills, chips and nav items; muted decorative edges on Command Center lane cards",
+        "a static CSS gradient + hairline texture in the Command Center hero and empty states only"
+      ],
+      "banned": [
+        "any motion or colour change on a state pill, verdict, band, auth chip, nav dot or count",
+        "backdrop-filter / blur / glass surfaces (hide content, cost frames on Android Firefox)",
+        "background animation, parallax, particles, confetti on success (a verdict is a fact, not a celebration)",
+        "gradient text, text below 12px, weights below 400, opacity on disabled text (today styles.mjs:32 uses opacity .45; Workbench uses --mute on --t-mute at 6.44:1 dark / 6.3:1 light with the disabled reason in the caption)",
+        "auto-hiding or collapsing risk banners; hover-only affordances; custom fonts; icon fonts; fetched SVG sprites; runtime-fetched imagery of any kind",
+        "authority hues (crimson, gold, violet) anywhere decorative; decorative hues anywhere stateful",
+        "sound, navigator.vibrate, full-screen colour flashes, motion behind the confirm strip"
+      ]
+    },
+    "mobile_first_proof": {
+      "run_screen_390x844": [
+        {
+          "region": "top bar",
+          "height": "56px sticky, --raised",
+          "content": "‹ back (44x44) · FORGE mark 18px · 'Run · push/45_x.json' (truncates) · auth chip [● Signed in]; 3px crimson underline across the bottom while a mutation job is RUNNING"
+        },
+        {
+          "region": "operation-mode band",
+          "height": "44px",
+          "content": "◆ LIVE WRITE · 3 creates · 1 update  (solid crimson)  |  ◇ READ ONLY · 5 reads · 2 full captures (blue tint)"
+        },
+        {
+          "region": "job header card",
+          "height": "≈124px",
+          "content": "name + [● RUNNING] pill + 'started 2m ago' (13px mute); RUNNING sweep on the top edge; segmented progress 12px tall with 2px gaps; count line '2 verified · 1 sent (no answer) · 2 planned · item 3 of 5' (aria-live polite)"
+        },
+        {
+          "region": "verdict / pause / unresolved card",
+          "height": "96-160px when present, otherwise absent",
+          "content": "the one card that says what is wrong and what the next safe action is; for TOO_MANY_REQUESTS it contains the tripped meter; for SESSION it contains the ✕ SIGNED OUT chip and the sign-in copy; for an unresolved SENT it carries the RECOVERY band"
+        },
+        {
+          "region": "items",
+          "height": "56-88px per row",
+          "content": "rail + name + pill + meta; SENT/ORPHANED rows have the caption line; ids in 13px mono; drift under <details>"
+        },
+        {
+          "region": "collapsed sections",
+          "height": "48px each closed",
+          "content": "'Budget · 2 paths · 12/30 highest' and 'Full captures · 3 · 3 persisted' as <details>; open in place"
+        },
+        {
+          "region": "bottom action bar",
+          "height": "64px + safe-area, sticky",
+          "content": "primary: [Pause after this item] while running / square violet [Reconcile & resume] / [Resume] / [Re-read unverified items]; secondary: [Export bundle]"
+        },
+        {
+          "region": "bottom nav",
+          "height": "56px + safe-area",
+          "content": "Home · Manifests · Run (current) · Recovery (violet dot if any SENT) · More"
+        },
+        {
+          "region": "fold arithmetic",
+          "height": "844 - 56 - 44 - 64 - 56 = 624px of scrollable content",
+          "content": "job header (124) + a pause card (≈120) + three item rows (≈200) + one collapsed section (48) fit above the fold; the operator sees the lane, the state, the problem and the first items without scrolling"
+        }
+      ],
+      "run_screen_1280x800": [
+        {
+          "region": "nav rail",
+          "width": "200px",
+          "content": "FORGE wordmark with crimson rule; Home, Manifests, Run, Captures, Recovery, Admin (gold glyph), Settings, each with a glyph; theme toggle and version at the bottom; current item in --t-acc with a 3px --acc rail; the Recovery item carries the same static dots as the phone"
+        },
+        {
+          "region": "centre column",
+          "width": "720px",
+          "content": "operation-mode band → job header with the primary action inline at the right of the title row (no bottom bars at this width) → segmented progress → verdict/pause/unresolved card → items list with the pill in a fixed right column"
+        },
+        {
+          "region": "inspector",
+          "width": "296px sticky",
+          "content": "auth chip expanded with Re-check; budget meters per path (open, not collapsed); full captures with persisted/not badges; job facts (id, manifest hash, started, lease tab); secondary actions Export bundle / Export journal. The inspector never holds a primary action, so the enablement logic (resumeBlockedReason, app.mjs:159-163) has one consumer."
+        },
+        {
+          "region": "breakpoints",
+          "width": "<768 phone layout; 768-1023 single centred column with both bottom bars; ≥1024 rail + centre; ≥1200 rail + centre + inspector",
+          "content": "implemented as three @media blocks; nothing is hidden at any width, only moved"
+        }
+      ]
+    },
+    "implementation_cost": {
+      "today": "forge/src/ui/styles.mjs: 6,197 bytes on disk, CSS string 5,415 bytes, 54 rule blocks, one theme, no media queries (measured this session with Buffer.byteLength on the exported CSS).",
+      "estimate": "Workbench stylesheet ≈ 16-19 KB unminified (≈ 4.8-5.6 KB gzip), ≈ 150 rule blocks: tokens x 2-3 blocks ≈ 2.0 KB; shell (rail, top bar, bottom nav, bottom action bar) ≈ 1.8 KB; layout for 3 breakpoints ≈ 2.6 KB; pills (12 states x glyph/fill) ≈ 2.2 KB; bands, rails and ink buttons ≈ 1.4 KB; segmented progress and meters ≈ 1.2 KB; buttons/inputs/focus ≈ 1.4 KB; cards/banners/inspector/toasts ≈ 1.8 KB; Command Center hero/lane cards ≈ 0.9 KB; motion, reduced-motion and prefers-contrast ≈ 0.8 KB. Roughly 3x the current sheet and about +12 KB raw / +4 KB gzip on a 397,984-byte bundle (docs/forge_next/A_ARCHITECTURE_MAP.md:171-177; ui section today 59,501 bytes).",
+      "js": "theme.mjs (≈40 lines: read/store preference, apply data-theme); pill() gains a glyph child and aria-label (screens.mjs:8, ≈15 lines); modeBand() (≈30); segmentedProgress() with in-place width patching (≈40); meter() (≈25); inlineConfirm() for mutation/publish only (≈50) while window.confirm stays for low-risk destructive-local actions such as cache clears (screens.mjs:264,288); shell renderers for rail/bottom nav (≈80); RunScreen split into centre/inspector renderers (≈40). Total ≈ 320 lines, no new dependency, createElement + CSSOM only (forge/src/ui/dom.mjs:1-16; build gate forge/build.mjs:33-37).",
+      "tests": "a socket-free test that imports the token table and asserts every text pair ≥ 4.5 and every non-text pair ≥ 3 in both themes (the palette_b2.mjs computation, ≈30 lines), so a colour tweak cannot silently regress; ui.test.mjs updates where it stubs app.confirm (forge/test/ui.test.mjs:149,178,216) for the flows that move to the inline strip; a jsdom assertion that .f-pill elements carry aria-label and a glyph child; a static test that the sheet contains no url( and no @font-face; the existing innerHTML law test (ui.test.mjs:29) is unchanged."
+    },
+    "what_it_borrows_from_the_game": "Two things, both selectively and both named in the amendment (:52-56). (1) The square ink button with an offset shadow: the current client's `.tnr-ink-btn-primary` is `border-radius: 0; border: 2px solid #26110c; box-shadow: 5px 5px 0 #b7331f` and its hover translates 2px with the shadow shrinking to 3px (app/src/styles/globals.css:243-289 in the scratchpad clone of studie-tech/TheNinjaRPG at head 36c5873b; this class does not exist at the Forge pin 345d18ac, whose button.tsx uses rounded-md and shadow-xs, app/src/components/ui/button.tsx:16-27). Workbench uses that silhouette for exactly the three buttons that touch the game, with its own tokens (--shadow-ink in --ink/--bg, 4px) so the game's parchment fill and brick-red shadow are not copied. (2) The dark navy rather than pure black: the game's `.dark` layout is `--background: 222 47% 11%` (globals.css:137-141 at the pin); Workbench's --bg #0c1017 is in the same family and reads as 'the game's world at night' without copying its values. Rejected from the game: the parchment ground (`--background: 55 92% 95%`, globals.css:103) because a warm surface would blur the overlay boundary, and the bundled Open Sans (app/fonts/OpenSans.ttf) because the bundle must not fetch. Forge is an overlay above the game and should look like the tool, not the world.",
+    "rejected_alternatives": [
+      "Workbench revision 1 (this panel's earlier draft): light-by-default with blue/orange/plum lanes. Rejected because the director settled the character mid-pass (dark, crimson/gold/blue); its contrast tables and density rules survive here, its palette and default do not.",
+      "Dark-only continuation of today's tokens (styles.mjs:11): keeps the outline-only pills and the opacity-disabled buttons that make risk states quiet now, and offers nothing for daylight use.",
+      "Parchment / game-matched theme: the overlay would read as part of the game, and warm paper eats the crimson lane.",
+      "Hue per content type on job surfaces (jutsu green, item blue, quest gold…): the hue budget is spent on authority and state; content type is a label and a glyph, never a colour, except the muted decorative edges on the Command Center.",
+      "Vivid per-lane imagery as in the mockup: reuses the authority hues and costs data-URI bytes on every game page; recorded as a director decision, not silently dropped.",
+      "Glass / translucent surfaces over the carrier: backdrop-filter is expensive on Android Firefox, and a translucent overlay would let the game page show through behind a verdict.",
+      "Pulsing or breathing SENT pill: the most tempting way to say 'unresolved', and exactly what the non-negotiables forbid; the hatch, glyph and caption say it without motion.",
+      "Square ink buttons everywhere: the shape would stop meaning anything; reserving it for the three game-touching buttons is what makes it a signal.",
+      "A single accent plus red (monochrome bench): calm, but it cannot make read and write look different, which brief §6 requires (state/prompt_forge_next_planning.md:218).",
+      "Inline SVG icons via createElementNS: legal under the DOM law and crisper than Unicode, but ≈2 KB of path data and more code for v1; recorded as the upgrade path if Samsung Firefox renders any geometric glyph as tofu.",
+      "Keeping window.confirm for Publish and Send: the native dialog is unstyled, cannot show the lane or the counts, and looks the same for a cache clear and a live write.",
+      "Bundling a display face for the FORGE wordmark: forbidden by the self-contained bundle rule unless embedded as a data URI, which costs 20-60 KB for one word."
+    ],
+    "accessibility": {
+      "focus": ":focus-visible gets box-shadow var(--ring) (2px --paper halo + 2px --acc); the blue ring is ≥7.31:1 against every dark surface and ≥5.73:1 against every light surface (contrast_table 'rail/ring/fill acc …'); focus is never removed; tab order follows reading order (top bar, band, header actions, items, bottom action bar, bottom nav). Ink buttons add outline-offset 4px so the ring clears the offset shadow.",
+      "colour_blind_redundancy": {
+        "rule": "every state has a word, a glyph and a fill style; every lane has a word, a glyph, a rail width, a cap fill lightness and (for the three game-touching actions) a button shape; no meaning is carried by hue alone",
+        "table": [
+          "PLANNED    ○ hollow    outline",
+          "SENT       ◐ half      hatched + caption + violet rail + 'no answer'",
+          "CONFIRMED  ● full      tint",
+          "VERIFIED   ✓           tint",
+          "FAILED     ✕           tint + red mono error line",
+          "ORPHANED   ?           INVERTED (page polarity flipped) + dashed card border + NEEDS A DECISION cap",
+          "SKIPPED    –           dashed outline",
+          "PAUSED     ‖           tint + headline reason",
+          "INCOMPLETE ◔           tint + 'still owe a read-back' line",
+          "HIDDEN     ◌ dotted    outline",
+          "DRAFT      ◇ hollow    tint",
+          "PUBLISHED  ◉ fisheye   SOLID gold",
+          "READ lane     ◇ + 'READ ONLY · zero mutations', 4px rail, tinted cap, rounded button",
+          "LIVE WRITE    ◆ + 'LIVE WRITE · n creates · m updates', 6px rail, solid cap, square button, top-bar underline while running",
+          "PUBLISH       ◉ + 'PUBLISH · n records become player-visible', 6px rail, gold cap, square button",
+          "RECOVERY      ‖ + 'UNRESOLVED WRITE · reconcile before anything else', 6px rail, tinted cap, square violet button",
+          "auth          ● Signed in (tint) / ✕ SIGNED OUT (solid) / ? NOT CONFIRMED (tint) / ◐ Checking… (static)"
+        ],
+        "glyph_risk": "Glyphs are from the Geometric Shapes block plus ✓ ✕ ‖ – ?, chosen to avoid emoji-presentation codepoints; each sits in a fixed 16px box so a missing glyph cannot shift text. Rendering on Samsung Firefox is Inferred until the user's smoke; the word and fill style stand alone if a glyph is tofu."
+      },
+      "aria_and_live": "pills carry aria-label with the long form ('state SENT: request left this device, no server answer'); the progress count line is aria-live=polite; verdict cards are role=status; pause, orphan and unresolved cards are role=alert; the operation-mode band is a <p> with the words in it, not an image; the bottom nav is a <nav> with aria-current=page as today (app.mjs:84); buttons keep their existing verbs (Reconcile & resume, Re-read unverified items, Skip (leave as is)).",
+      "touch_and_keyboard": "44x44 minimum everywhere (56 rows, 48 ink buttons on phone, 56-64 nav items); no hover-only affordances (docs/agents/UI_UX_REVIEWER.md:34); <details> for collapsibles so keyboard and screen readers get native toggles; Escape closes the inline confirm strip; both bottom bars are inside .f-app so they are in tab order after the list.",
+      "contrast_and_size": "AA on every text pair and 3:1 on every rail, ring, meter, segment and fill in both themes (contrast_summary; the single sub-3:1 pair is a decorative gold fill inside a 3.39:1 border with words); 13px floor for meta/mono, 12px only for bold uppercase labels; `@media (prefers-contrast: more)` darkens --line to --mute, widens rails to 8px and adds a 1px --ink border to every pill.",
+      "reduced_motion": "see motion.reduced_motion; nothing informational is conveyed only by motion, so reduced motion loses nothing."
+    }
+  },
+  "evidence": [
+    "state/prompt_forge_next_planning.md (chatgpt/forge-next-planning@0bb5a54b, also @70c15161):28 'polished and a little flashy'; :211-222 required UX characteristics; :368-372 flashy = polish, risk states more obvious; :472-485 planning principles",
+    "docs/design/FORGE_NEXT_VISUAL_DIRECTION.md (chatgpt/forge-next-planning@0bb5a54b, scratchpad copy amendment/FORGE_NEXT_VISUAL_DIRECTION.md):24-32 character; :38-48 foundation palette; :50-62 TNR-inspired details and prohibitions; :148-171 operation-mode header; :173-188 state visualization; :190-208 motion; :210-216 typography; :218-254 binding vs illustrative",
+    "approved concept mockup (scratchpad amendment/forge_next_concept_mockup.png, committed copy docs/forge_next/design/forge_next_concept_mockup.jpg): deep-navy shell, crimson/blue/green/violet quick actions, vivid content-lane art, gold-glyph Content Admin block, green System Status chips (viewed this session)",
+    "forge/src/ui/styles.mjs:11 dark-only TOKENS with color-scheme: dark; :19-20 15px/1.45 system-ui; :27 nav buttons 40px; :31 buttons 44px; :32 disabled via opacity .45; :33 f-primary acc fill with #0b0d12 text; :42-45 outline-only pills; :48-49 four banner kinds; :50-51 single-colour progress bar; :54 f-err; :55 toast position; :59 f-boot tokens",
+    "forge/src/ui/screens.mjs:8 pill() is text only; :18-26 every open job is a .f-banner.warn; :24 'Reconcile & resume' label; :45-70 orphan card; :116-125 capture counts and read-only/full-capture banners; :151-156 'Start job' behind window.confirm; :169-172 run header and bar; :183-206 verdict banners; :208-219 pause banners; :220 running banner; :229-232 budget as text; :244-255 item rows; :264,288 destructive-local confirms",
+    "forge/src/ui/app.mjs:62-79 mount; :84 aria-current nav; :87 whole-main replace on refresh; :93-97 toasts auto-remove; :132-151 auth banner on every screen; :159-163 resumeBlockedReason; :172-175 window.confirm; :268 1.5s re-render tick while running; :293-295 risk toasts; :408-410 storage persist",
+    "forge/src/ui/dom.mjs:1-16 h() createElement only; :30-43 installCss via adoptedStyleSheets with insertRule fallback; :44-52 splitRules keeps @media blocks whole",
+    "forge/src/ui/takeover.mjs:41-43 overlay does not restyle the carrier; :54 OVERLAY_CLASS f-host",
+    "forge/src/transport/auth.mjs:39-40 UNKNOWN is blocked but not known; :54 AUTH states; :199-200 server refusal",
+    "forge/src/storage/journal.mjs:34 job states; :358-366 resumable()",
+    "docs/forge_next/K_USER_DECISIONS.md:79 publish is a full update flipping hidden / published, per class",
+    "forge/test/ui.test.mjs:29 innerHTML law test; :116 selects .f-pill.FAILED/.CONFIRMED; :149,178,216 stubs app.confirm",
+    "forge/build.mjs:33-37 build fails on innerHTML; forge_loader_user.js:12 single @require bundle (self-contained)",
+    "docs/forge_next/A_ARCHITECTURE_MAP.md:145 verdict from decoded outcome not HTTP; :151 Forge has no publish/unhide action today; :171-177 bundle 397,984 bytes, ui section 59,501, contract JSON parsed on every page",
+    "docs/00_INDEX.md:3-4 operator on Samsung Android, Firefox, ViolentMonkey; :100-101 hidden:true by default",
+    "docs/agents/UI_UX_REVIEWER.md:28-34 destructive/ambiguous must not look like success; lifecycle distinctions; touch targets; no hover-only",
+    "game source (scratchpad clones of studie-tech/TheNinjaRPG): head 36c5873b app/src/styles/globals.css:243-289 .tnr-ink-btn family; pin 345d18ac globals.css:103,105,134,137-141 palette and radius, app/src/app/layout.tsx:63 .dark toggle, app/src/components/ui/button.tsx:16-27 rounded-md buttons, app/fonts/OpenSans.ttf",
+    "repository history: largest write manifest 31 entries (harvests/inbox/tnr_results_1788135094828.json) and 26 items (archive/spent-manifests/push-2026-09-09/29_hide_not_ours.json); current push/ holds capture-only manifests (max 43 captures, push/06)",
+    "scratchpad/design/contrast.mjs + palette_b2.mjs + build_visual_b2.mjs: 205 computed pairs, 0 failures, 1 mitigated gap (embedded as proposal.design_tokens.contrast_table)"
+  ],
+  "weaknesses": [
+    "The approved family puts crimson beside danger red and gold beside caution amber (dark: 1.94:1 and 1.23:1 apart); Workbench separates them by role (crimson only as fill, red only as text; gold as fill/identity, amber as text/tint) and by glyph, which is a code-review rule rather than a palette guarantee.",
+    "Crimson cannot be text on a dark surface (3.64:1), so every mutation word must sit on the crimson fill; a future screen that wants a crimson caption on --paper will fail AA and must use the band instead.",
+    "The light Daylight scheme's gold fill is 2.11:1 on white; it relies on its dark-gold border and words. If the director wants a pure-colour guarantee in light, the publish fill must darken to ≈#b8901c and lose some of the 'gold' look.",
+    "Unicode glyph rendering on Samsung Firefox is Inferred, not verified; if ◐ or ◔ is tofu the redundancy drops to word + fill style (still two channels). Inline SVG is the fallback and costs code.",
+    "Two themes double the contrast surface; the proposed token test mitigates, but every future colour tweak has to pass both blocks.",
+    "The 1.5s whole-main re-render while running (app.mjs:268,87) defeats progress transitions unless the progress element is patched in place; that is a small but real change to RunScreen's render model.",
+    "Replacing window.confirm with an inline strip for Send/Publish changes a tested flow (ui.test.mjs:149,178,216) and adds ~50 lines of confirm logic that itself needs adversarial tests (double-tap, arming delay under reduced motion).",
+    "Two sticky bottom bars on a phone Run screen (action bar + nav) cost 120-128px of an 844px viewport; the fold arithmetic still fits the lane, state, problem and three items, but a job with a long pause detail will scroll.",
+    "The desktop inspector introduces a second place that renders budget/auth; it must read the same objects as the centre column or the two can disagree.",
+    "The muted content-lane treatment is calmer than the approved mockup's vivid lanes; if the director wants the mockup's atmosphere back, Workbench needs a byte budget for data-URI art and a rule keeping that art off every stateful surface."
+  ],
+  "user_decisions_surfaced": [
+    "Ship the opt-in light Daylight scheme (dark stays default) or a single dark look (K-01 residue; recommendation: ship opt-in).",
+    "If Daylight ships: 'auto / follow system' allowed, or explicit dark|light only (recommendation: explicit only, to avoid a light overlay flashing over the game's dark pixel layout).",
+    "Content-lane cards: muted decorative edges + glyph (Workbench) vs vivid per-lane imagery as in the mockup (needs a data-URI byte budget and a rule keeping art off stateful surfaces).",
+    "Hero treatment: CSS gradient + hairline texture (Workbench) vs a ≤20 KB data-URI illustration.",
+    "Hue-collision policy: accept role separation (crimson fill / red text; gold fill / amber text) or shift danger to orange-red (#ff8f73 dark / #b3350f light) for a palette-level guarantee.",
+    "Square ink buttons reserved for the three game-touching actions (Send / Publish / Reconcile) as proposed, or a wider use that weakens the signal.",
+    "Confirmation model for Send and Publish: inline two-step strip with a 600ms arming delay (proposed) versus keeping window.confirm.",
+    "Glyph technology: Unicode geometric shapes (proposed, zero bytes) versus inline SVG via createElementNS (crisper, ~2 KB, more code).",
+    "Base type size 16px (proposed) versus keeping 15px.",
+    "State words stay uppercase journal vocabulary (SENT, ORPHANED) as proposed, or become sentence case.",
+    "Top-bar crimson underline while a write job is RUNNING: on every screen (proposed) or only on Run.",
+    "Whether two sticky bottom bars on the phone Run screen are acceptable, or the primary action stays in the header as today."
+  ],
+  "file_written": "/tmp/claude-0/-home-user-tnr-tools/e5692b10-4df8-5a1d-ae0b-15d8b552161e/scratchpad/design/visual-b.json"
+}

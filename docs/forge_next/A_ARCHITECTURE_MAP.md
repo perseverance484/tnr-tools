@@ -6,7 +6,7 @@
 
 ## A.1 The two tools at a glance
 
-| | Builder v4.32 (`builder_bundle.js`, 104,958 bytes, one file) | Forge 0.4.0 (`forge/src`, 27 modules, ~4,000 lines + derived JSON; `forge_bundle.js` 397,984 bytes) |
+| | Builder v4.32 (`builder_bundle.js`, 104,958 bytes, one file) | Forge 0.4.0 (`forge/src`: 33 `.mjs` files, of which five are index barrels, so 28 implementation modules; 4,933 lines of JavaScript plus 5,014 lines of derived JSON; `forge_bundle.js` 397,984 bytes) |
 |---|---|---|
 | Host | Injected panel on any game page at `document-idle` (`builder_loader_user.js`); floating `▶ Build` button and a panel built through `R.innerHTML=...` (`builder_bundle.js:794`) | Entry at `/forge` arms the tab and hands off; overlay mounted on a real application route with the game's React/Clerk tree left alive underneath (`forge/src/ui/takeover.mjs:47-53`, `forge/src/main.mjs:75-166`) |
 | Contract data | Fetched at every load from the moving `main` ref: `45c`, `32b`, `45g` (`builder_bundle.js:225-230`) | Bundled at build time from the pinned game source: `fields.json`, `nested.json`, `32b_DATA_pool.json` (`forge/build.mjs`, `forge/src/main.mjs:21-27`) |
@@ -24,7 +24,7 @@
 
 ## A.2 Forge module map
 
-Layers are built bottom-up and composed once in `compose()` (`forge/src/main.mjs:35-57`). Every test harness calls the same composition (`forge/test/compose.mjs`). The tree holds 33 `.mjs` files, five of which are index barrels, plus two derived JSON contracts (`fields.json` and `nested.json`); the table below groups the 28 implementation modules by layer, so a count of table rows will not match a count of files.
+Layers are built bottom-up and composed once in `compose()` (`forge/src/main.mjs:35-57`). Every test harness calls the same composition (`forge/test/compose.mjs`). The counting rule, stated once and used everywhere in this package: the tree holds 33 `.mjs` files, five of which are index barrels, so 28 implementation modules, plus two derived JSON contracts (`fields.json` and `nested.json`). `B_PARITY_MATRIX.md` §B.1 counts the same tree as 33 modules; both are the same files counted with and without the barrels. The table below groups by layer, so its row count matches neither.
 
 | Layer | File | Lines | Responsibility | Touches `window`/DOM | UI-independent |
 |---|---|---:|---|---|---|

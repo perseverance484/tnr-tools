@@ -1,0 +1,442 @@
+{
+ "name": "queue-model",
+ "family": "data",
+ "thesis": "Invert E.8's hybrid: make the repository review package the queue index and the live game the state column, because discovery is the expensive half and the live hidden listing is the half that cannot represent two of the seven classes; and store disposition as immutable append-only events rather than a mutable status file, because Forge's only repository write primitive is a sha-aware PUT with no retry.",
+ "proposal": {
+  "options": [
+   {
+    "name": "QM-A Live drafts listing (E.8 option b, unchanged)",
+    "ready_for_review_lives": "Nowhere durable. The queue IS the set of live records whose lifecycle field is unpublished: hidden:true on jutsu/item/bloodline/quest/gameAsset, published:false on guide, and for AI records nothing at all.",
+    "what_admin_sees": "A per-class list of unpublished records: name, id, class, and whatever the list read returns. No author, no intent, no submission date, no change summary, no reviewer.",
+    "discovery": "Paged public list reads per class: jutsu.getAll {hidden:true, limit<=1000}, item/bloodline/quests.getAll {hidden:true, limit<=500}; gameAsset.getAll has no hidden input at all so the whole library must be paged and filtered client-side; AI has only profile.getAllAiNames with no draft filter.",
+    "approval_recording": "Impossible. There is no approval, rejection or changes-requested field on any class at head, and no free-text column an admin could write a disposition into. Approval would have to be spoken or stored elsewhere, which is the relay the brief wants removed.",
+    "package_to_live_link": "Not applicable: there is no package. The live record is the only object, so the link is trivially the id, and the cost is that nothing states what the record was supposed to be.",
+    "avoids_second_canon": "Perfectly, by construction. It cannot lie about live state because it IS live state.",
+    "repo_live_drift": "Cannot drift. The failure is the opposite one: the listing cannot tell a record drafted this morning from one abandoned in March, so it accumulates every placeholder ever minted. Every Forge and Builder create ships hidden:true by lint L13, so this list grows monotonically with content production and is never pruned by anything.",
+    "zero_game_change": "YES for the reads on CA-01, CA-02, CA-03, CA-05 (public list reads with a client-controlled hidden filter and no role check). PARTIAL on CA-04 (no hidden input on gameAsset.getAll, so the queue pages the whole asset library). NO on CA-06 (no lifecycle column exists on userData; containment flags only). CA-08 guide drafts are staff-only and the class does not exist at the Forge pin. Approval state is impossible with zero game change (E.11 row 'a native approval field').",
+    "failure_modes": [
+     "Forge cannot build this listing at all today: CachedReader.list() refuses every path that is not getAllNames/getAllAiNames (forge/src/budget/reader.mjs:73-76), so paged list support is a prerequisite capability, not a UI choice.",
+     "It spends the scarcest resource on the most-visited screen. Every one of these list reads is publicProcedure and therefore rate-limited; Forge reserves only floor(60*0.5)=30 per path per minute (forge/src/budget/bucket.mjs:32) and the carrier game page spends the same server window invisibly.",
+     "A 429 is a penalty, not a retry signal: movedTooFastCount increments and money and bank are multiplied by 0.99 before the request is rejected (E.7). A queue that refreshes on every tab switch costs the operator real currency.",
+     "It answers 'what is unpublished', never 'what is ready'. Those are different questions and the brief asks the second one.",
+     "Two of the seven classes are unrepresentable (AI has no flag; gameAsset has no filter)."
+    ]
+   },
+   {
+    "name": "QM-B Workstream roadmap as the queue (E.8 option c, unchanged)",
+    "ready_for_review_lives": "state/workstreams/<slug>/roadmap.json: a task whose status reaches a review-ish value, with evidence anchors pointing at bundles and captures.",
+    "what_admin_sees": "Tasks, not records: objective, scope, deliverables, completion gates, lead_role, open_decisions, evidence anchors. The record ids appear only inside evidence prose.",
+    "discovery": "One Contents API read of roadmap.json per workstream, or its generated ROADMAP.md projection. No game budget spent.",
+    "approval_recording": "Only as a task status inside a validated enum, or as free-text notes. The envelope validator enforces schema=='tnr.content_workstream', version==1, and a status enum; a review vocabulary that is not in the enum fails validation.",
+    "package_to_live_link": "Weak and by prose: evidence anchors cite file paths in the tree, not live record ids. Nothing in the schema carries an entityId.",
+    "avoids_second_canon": "Yes as coordination state, which is what the file already is, and docs/workflows/CONTENT_WORKSTREAM.md already says the packet is 'not an authority'.",
+    "repo_live_drift": "Undetectable at record granularity: the file is per workstream, not per record, so there is no per-record live comparison to make.",
+    "zero_game_change": "Trivially yes (it touches no game procedure), but it also delivers no live state, so every CA row is irrelevant to it. It is a coordination surface, not a queue.",
+    "failure_modes": [
+     "Generated projections drift silently. state/workstreams/<slug>/ROADMAP.md and state/workstreams/INDEX.md are regenerated deterministically and `render --check` exits 1 when stale, but NO CI workflow invokes content_workstream.py, so an app write to roadmap.json leaves a stale projection for the next human session to repair (evidence/repo-consumers.json, workstream-contract 'generated projections').",
+     "Granularity mismatch: one task can cover ten records; an admin approves records, not tasks.",
+     "It is the content agent's coordination surface. Overloading it with the admin's disposition mixes two owners in one file and one diff (the same objection K-47 raises about review prose).",
+     "Compaction hazard: roadmap evidence already cites harvests/inbox bundles, and COMPACTION_RUNBOOK folds and deletes older bundles, after which content_workstream.py validate fails with 'does not exist in the repository'."
+    ]
+   },
+   {
+    "name": "QM-C Device-local queue (E.8 option d, unchanged)",
+    "ready_for_review_lives": "IndexedDB or localStorage on one device.",
+    "what_admin_sees": "Whatever that one device recorded.",
+    "discovery": "Local read; instant; free.",
+    "approval_recording": "A local field. Invisible to anyone else.",
+    "package_to_live_link": "An id held locally.",
+    "avoids_second_canon": "It is a private canon, which is worse: it is authoritative to its holder and invisible to everyone else.",
+    "repo_live_drift": "Undetectable by anyone but the holder.",
+    "zero_game_change": "Yes, and irrelevant.",
+    "failure_modes": [
+     "The admin and the operator are different people on different devices; a queue only one of them can see does not remove the verbal relay, which is the entire point of brief section 8.",
+     "Browser storage on the user's Samsung Android phone is evictable; navigator.storage.persist() is requested best-effort on mount (forge/src/ui/app.mjs:408-410) and whether Firefox Android grants it is unverified.",
+     "No audit: git cannot show a decision that never left the device."
+    ]
+   },
+   {
+    "name": "QM-D Live listing indexed, repository package annotates (E.8's provisional hybrid, as written)",
+    "ready_for_review_lives": "Split: the queue index is the live unpublished listing (QM-A); a repository file per package annotates the subset a human actually submitted.",
+    "what_admin_sees": "A per-class list of unpublished live records, with a badge on the rows that a repository package claims, and the package's human title and change summary on those rows only.",
+    "discovery": "Live paged list reads per class for the index; a Contents API read of state/review/** to annotate. Two sources merged in the browser, keyed by record id.",
+    "approval_recording": "In the repository file: a status plus actor plus timestamp, written as a sha-aware Contents API PUT.",
+    "package_to_live_link": "The package names the live ids it covers; the merge is an id join done in the browser at render time.",
+    "avoids_second_canon": "Reasonably: the index is live truth and the file is explicitly coordination state.",
+    "repo_live_drift": "Visible as an unjoined row on either side: a live hidden record with no package (authored elsewhere, or abandoned), or a package whose ids no longer read back.",
+    "zero_game_change": "Same CA profile as QM-A for the index: YES on CA-01/02/03/05 reads, PARTIAL on CA-04 (no hidden filter), NO on CA-06 (no flag to index by, so AI packages can never appear in the index at all), staff-only and post-pin on CA-08. Approval state is repository-side, so E.11's 'native approval field' row is satisfied by fallback.",
+    "failure_modes": [
+     "It inherits every QM-A cost on the busiest screen and then adds a second source. The index is the expensive half and it is also the half that cannot represent two of the seven classes.",
+     "AI packages are structurally invisible: with no hidden column there is no live row to annotate, so the very class the active mission work produces (8 ai:edit items in the record) falls out of the index.",
+     "The paged-list capability (reader.mjs:73-76) plus a hidden filter on gameAsset (which does not exist) are prerequisites before the index can be built at all.",
+     "Single sha-aware PUT with no retry (forge/src/github.mjs:50-66) and no journaled unsynced state (A.4.1 item 4) means a lost decision is shown as a thrown GithubError, which R-07 names as the risk.",
+     "The merge is an id join computed in the browser; if the join is cached it becomes a third representation."
+    ]
+   },
+   {
+    "name": "QM-E Repository review package is the index; live read is the state column; a live sweep is reconciliation (recommended)",
+    "ready_for_review_lives": "A repository review package: one directory state/review/<slug>/ holding an immutable submission.json written by the run that produced the records, plus append-only decision events under events/. 'Ready for review' means a submission exists and no terminal decision event folds over it. The live game still owns visibility; the package owns intent and disposition only.",
+    "what_admin_sees": "A queue of packages, each a human row: title, content classes, record count, who submitted it and when, the run's own verdict (verified / drift / unverified), and a live-state column fetched on demand per record. Opening a package shows per-record name, class, what changed in field terms, the publication axis that applies to it, a live visibility read stamped with its own read time, blockers (unhide gates, hidden dependencies, role), history, and the decision controls. The admin never sees a manifest path as a title; raw manifest and journal stay behind progressive disclosure for the operator.",
+    "discovery": "One GitHub Contents API directory listing of state/review/ (Github.list, forge/src/github.mjs:33-39), then one raw read per package opened. Discovery costs GitHub API quota and ZERO game rate-limit budget; game reads are spent only on the packages the admin actually opens, as cache-first point reads through CachedReader (forge/src/budget/reader.mjs:34-70), which is exactly the read shape E.7 says to prefer.",
+    "approval_recording": "Every disposition is an append-only immutable event file events/<iso>-<actor>-<verb>.json inside the package directory: verb in {submitted, approved, rejected, changes_requested, published_requested, withdrawn, reaffirmed}, plus actor, at, scope (whole package or a named subset of record ids), note, and the exact live-read evidence the decision was taken against (per-record id, contentHash, readAt). The package's status is a FOLD of its events computed at read time, never a stored field. Because each event is a new path, Github.put creates it with no prior sha, so the no-retry sha-aware PUT (github.mjs:50-66) never hits a 409 and two admins deciding at once produce two preserved events rather than one lost one.",
+    "package_to_live_link": "Per record: {entity, entityId, name, op, srcId, verify, contentHash, capturedAt}. entityId is the nanoid the server returned, read from the decoded baseServerResponse.message (forge/src/transport/outcome.mjs:41) for creates and the manifest targetId for edits; the same pair App.harvestEntry already emits as `id: i.entityId || i.targetId` (forge/src/ui/app.mjs:43). contentHash is a stable hash of the read-back capture body the run already persisted, so 'has this changed since submission' is answerable without storing the record's fields. The reverse link (live record to package) is not stored in the game, because no game column exists for it; it is answered by scanning the package directory, which is small by construction.",
+    "avoids_second_canon": "Four mechanisms, three of them testable. (1) A schema rule: a review package may carry ids, hashes, human prose and decisions, and MUST NOT carry content fields; a fixture test asserts that no key from runner/fields.json appears in a package document. (2) No stored status: status is a fold, so there is no field that can disagree with the events. (3) No stored visibility: the lifecycle value is never written into the package; the queue renders it from a live read carrying its own cached/at stamp (reader.mjs:40), satisfying WCM-10's 'stale cache never masquerades as live'. (4) The package cache must not live in the game read cache, unlike today's picker which stores manifest text under the synthetic capture path 'github.contents' (app.mjs:198-200) where the Captures screen lists it and Clear all deletes it.",
+    "repo_live_drift": "Drift is a first-class rendered state, not an error, and it has three named shapes. (a) Record changed since submission: the fresh point read's contentHash differs from the submitted one; the package shows a field-level diff using the existing asserted-key differ (forge/src/runner/validate.mjs:217-243) and publish is disabled until an explicit reaffirmed event is recorded. (b) Record gone: the point read is absent, which is per-class (quests.get and item.get return null, jutsu/bloodline/gameAsset/badge .get throw NOT_FOUND, E.2b), so the absent verdict must be per class and must not be conflated with a captured record, the honesty defect parity row P-58 already flags. (c) Live record with no package: the package index cannot see it, which is this option's real cost; it is surfaced by an explicit, on-demand 'Unreviewed live drafts' sweep per class that lists hidden records and subtracts the ids already covered, presented as reconciliation in the same vocabulary as SENT reconciliation, never as the queue itself.",
+    "zero_game_change": "YES for every class the queue must represent, and it is the only option that is class-uniform. Discovery needs no game procedure at all, so CA-04's missing hidden filter on gameAsset.getAll and CA-06's total absence of a lifecycle column on userData stop being index problems: an asset package and an AI package are ordinary rows. Per-record live state uses existing reads: CA-01 jutsu.get, CA-02 item.get (prefer item.getItemWithCraftingRequirements where crafting matters), CA-03 bloodline.get, CA-04 gameAsset.get, CA-05 quests.get, CA-06 profile.getAi (protected and UNLIMITED, so free), CA-07 ai.getAiProfile (protected, role-gated, throws UNAUTHORIZED), CA-08 guide is representable but not actionable at the pin (E.9), CA-09 badge.get. Publish is the same whole-record update the operator would send (E.2g), so it is an ordinary journaled mutation in the existing runner, not a second write path. Approval state has no game field on any class, so it falls to the repository per E.11.",
+    "failure_modes": [
+     "Blind to content authored in the game's own staff editor until the sweep runs, and the sweep needs the paged-list capability that reader.mjs:73-76 refuses today plus, for gameAsset, a whole-library page because CA-04 has no hidden input.",
+     "Append-only events cost more GitHub calls per package and require a fold; the fold is a projection and a reader of the raw files could compute a different answer if the fold rules are not written down in the repository next to the schema.",
+     "Actor is self-asserted. A Contents API PUT is attributable to the PAT that made it, and today one shared key tnr_bk_gh_v1 serves both tools and both people (forge/src/storage/compat.mjs:4-5), so 'who approved this' is only as strong as the credential model (K-15).",
+     "Nothing authenticates a hand-written review file; the repository is honest and diffable, not authenticated.",
+     "Directory growth: the Contents API returns at most 1000 entries per directory listing, so the queue needs an archive convention before it is years old, and archiving is a deletion-adjacent policy (K-16).",
+     "The package cites bundle paths, and COMPACTION_RUNBOOK folds and deletes older inbox bundles keeping the newest five; a compaction that removes a cited bundle breaks the package's evidence link exactly as it already breaks roadmap evidence anchors.",
+     "Gated on facts that are not yet true: no Forge write has ever run live (retirement gate G-08; all seven committed Forge bundles carry entries: []), and a Forge bundle newest in the inbox currently turns the content session's close guard red because validate.py --parity does set(bundle.get('checks', [])) on checks: null (R-19)."
+    ]
+   }
+  ],
+  "recommended_option": {
+   "option": "QM-E",
+   "one_line": "Make the repository package the queue index and the live game the state column, inverting E.8's provisional hybrid, because discovery is the expensive half and the live listing is the half that cannot represent two of the seven classes.",
+   "reasoning": [
+    "E.8's reading is right that the live record cannot lie and right that approval must live in the repository. Its ordering is what I argue down: it makes the live listing the INDEX and the repository file an ANNOTATION. Three pieces of evidence say the index is the wrong job for the live listing.",
+    "First, cost. The queue is the most-visited admin screen and E.7 shows every list read it would need is publicProcedure and rate-limited, against a local reserve of floor(60*0.5)=30 per path per minute (forge/src/budget/bucket.mjs:32) shared invisibly with the carrier game page, where a trip is a 1% money and bank penalty rather than a retry signal. A repository-indexed queue spends GitHub quota for discovery and game budget only on opened packages, which is the read discipline E.7 itself prescribes.",
+    "Second, coverage. A live index cannot represent CA-06 at all (no hidden or published column on userData; containment flags only) and cannot filter CA-04 (gameAsset.getAll takes no hidden input, so the index means paging the whole asset library at 500 per call). Those are two of the seven classes Forge touches, and AI edits are 8 of the 148 write items in the committed record. A repository index is class-uniform.",
+    "Third, semantics. Every create ships hidden:true (lint L13 in forge/src/runner/lints.mjs; docs/DOCTRINE.md:101-108), so the live unpublished set is the set of everything ever made and not yet published. It is a backlog, not a queue. 'Ready for review' is a human act, and the only durable record of a human act is a repository write.",
+    "Fourth, and the reason to change the storage SHAPE rather than only the ordering: Github.put is a read-sha-then-PUT with no retry (forge/src/github.mjs:50-66) and Forge has no unsynced state in the journal at all (A_ARCHITECTURE_MAP A.4.1 item 4), which is precisely risk R-07. A mutable status document makes every second decision a 409 the product must recover from. Append-only event files make each write a fresh path with no prior sha, so the weakest primitive in the bridge is never exercised on the highest-consequence write.",
+    "What I keep from E.8 unchanged: live hidden records remain the only truth about visibility and are read fresh before every publish; the repository file is coordination state and says so; the id is the whole handoff between operations and admin; and Content Admin is a presentation and policy layer over the existing runner rather than a second engine, which is what RUL-2026-09-12-002 requires.",
+    "What this costs, stated plainly: a repository-indexed queue is blind to anything authored in the game's own staff editor. That is a real regression against QM-A and it is why the live sweep is part of the recommendation and not an optional extra. It is also why the sweep is named reconciliation: it answers 'what is live that we never submitted', which is the same question the reconciler already asks about SENT items."
+   ],
+   "expressed_as_repository_operations": "Per RUL-2026-09-12-002 and the repo-backed architecture's request/response model (RB section 6), the queue is four named repository operations rather than bespoke GitHub calls scattered through screens: list review queue, fetch review package, submit package for review, record review decision. Each returns an envelope carrying status, the repository revision it was read at, the requested operation, result data, blockers and next legal actions, so a later thinner transport can replace the Contents API without touching the screens. The sync-state vocabulary is RB section 11's, mapped: Decision recorded locally / Decision synced to repository / Repository unavailable - retry decision / Decision not synced. That mapping is the concrete fix for the missing unsynced state and for R-07.",
+   "prerequisites": [
+    "Retirement gate G-08: no Forge write has ever run live, so until one does, review packages must be mintable from a Builder bundle too (both tools already emit the same entries[] contract harvest.py consumes).",
+    "R-19: a Forge bundle carries checks: null and breaks validate.py --parity, so the session-close guard is red whenever a Forge bundle is newest. Fix before review packages cite Forge bundles as evidence.",
+    "Registry expansion (all public and budget-relevant except the profile read): logs.getContentChanges for history, ai.getAiRelations and overworldAi.getPlacementsForAi for where-used, one role read (profile.getPublicUser public, one unit, or profile.getUser protected and free), and paged list support in CachedReader for the sweep. Each addition must be transcribed from the pin with file:line under the existing auth.test 'transcribed from source' invariant.",
+    "A role pre-check before ai.getAiProfile or any skillTree path is ever called, because Forge maps the tRPC code UNAUTHORIZED to class SESSION (forge/src/transport/outcome.mjs:62) and AuthState.refuse() moves the whole session to SIGNED_OUT (forge/src/transport/auth.mjs:199-201), so a role miss on those paths would be mis-reported as a lost login."
+   ],
+   "tests_that_protect_it": [
+    "forge/test/harvest.test.mjs (8 tests, incl. 'harvest.py verify passes a clean forge bundle, and only a clean one' and 'a skipped orphan cannot pass repository verification'): minting a review package must not change the bundle shape either tool emits.",
+    "forge/test/ui.test.mjs:254 'a finished-but-unverified job is never shown or exported as success': a package row must not read approved-and-green when its run outcome is unverified; the queue reuses jobOutcome (forge/src/storage/journal.mjs:76-88) rather than inventing a status.",
+    "forge/test/ui.test.mjs:29 'repo law: no innerHTML / outerHTML / insertAdjacentHTML anywhere in src' and forge/test/ui.test.mjs:331 'no test can open a socket, and no source reaches a host it should not': the queue screens and the Contents API reads inherit both laws (fetchImpl is injected).",
+    "forge/test/adversarial.test.mjs:41 'annotate() refuses state and timestamps, so SENT -> PLANNED is unreachable by any call' and :911 'F1: persisted history outranks a hand-edited state; a sent create is never replayed': an admin publish runs through the same runner and cannot acquire a retry affordance.",
+    "forge/test/storage.journal.test.mjs (19 tests): a new repository-sync state for a review decision is job-level or package-level and must not become an item state; the transition table stays as it is.",
+    "forge/test/storage.captures.test.mjs 'every full-persistence path is an audited content-record point read, and nothing else is': a package citing a capture body cannot widen FULL_PERSIST_PATHS (forge/src/storage/captures.mjs:58-66).",
+    "forge/test/auth.test.mjs (53 tests, incl. the 'transcribed from source' registry invariant): every new procedure the queue needs carries its pin file:line.",
+    "forge/test/budget.test.mjs (16 tests): a new per-screen assertion that opening the queue index spends zero game budget, and that opening one package spends at most one unit per record per class.",
+    "New fixture test (no-second-canon): no key from forge/src/runner/fields.json may appear in a review package document.",
+    "New fixture test (fold determinism): a fixed event sequence folds to exactly one status, and a two-actor concurrent sequence folds to 'conflict' rather than to either decision."
+   ]
+  },
+  "approval_state_storage": {
+   "question": "The game has no approval field on any class at head, so approval state must live outside the game. Where?",
+   "options": [
+    {
+     "name": "(a) A file under state/ (recommended, in the append-only shape)",
+     "shape": "state/review/<slug>/submission.json plus append-only state/review/<slug>/events/<iso>-<actor>-<verb>.json. Status is a fold of events, never a stored field.",
+     "pros": [
+      "state/** fires only the scrub workflow; nothing regenerates or rewrites it. The paths automation owns are answers/*, dist/* plus three root data files, the two loaders, state/schema_sentinel.json and docs/DRIFT.md, all disjoint from state/review/ (evidence/repo-consumers.json, git-write-contract rows).",
+      "Precedent, not new capability: Builder already ships a user-driven 'commit N file(s) to repo directory' path defaulting to state (builder_bundle.js:817-822), and Forge already commits results bundles with the same PAT key.",
+      "Diffable, reviewable, and git gives the decision history for free.",
+      "Readable with NO credential. Github._headers adds an authorization header only when a PAT is stored (forge/src/github.mjs:22-27) while put() refuses without one (:51), so on a public repository an admin can read the whole queue with no PAT and needs one only to record a decision. That is a materially better credential story for a delegated reviewer than any option that requires a token to look.",
+      "Append-only sidesteps the weakest primitive in the bridge: put() is a read-sha-then-PUT with no retry (github.mjs:50-66), and a new event path has no prior sha."
+     ],
+     "cons": [
+      "A second representation that can drift from live; mitigated only by never storing lifecycle values in it and always rendering a fresh live read beside it.",
+      "One PUT per decision with no retry and, today, no journaled unsynced state (A.4.1 item 4; R-07). The roadmap must add the sync state before the first decision is recorded.",
+      "Actor is the PAT, not the person, while tnr_bk_gh_v1 is one shared key (forge/src/storage/compat.mjs:4-5).",
+      "Directory listing caps at 1000 entries; needs an archive convention (K-16).",
+      "More files than a single mutable document, and a fold that must be specified in the repository beside the schema so a human reading raw files gets the same answer."
+     ]
+    },
+    {
+     "name": "(b) An annotation on the results bundle",
+     "pros": [
+      "Zero new paths; the bundle already names the records and already carries the before/after evidence.",
+      "harvest.py already consumes it, so the admin's disposition would travel with the evidence."
+     ],
+     "cons": [
+      "It makes evidence mutable. A results bundle is the immutable record of what a run did; re-writing it later to add a human decision destroys that property, and Forge's own capture model is built on immutability (capture_snapshots are never invalidated).",
+      "DECISIVE: an approved maintenance ritual deletes it. COMPACTION_RUNBOOK folds older inbox bundles into the seed and squashes history, keeping the newest five; approval state stored in a bundle is destroyed by a routine the repository already sanctions.",
+      "Bundles are named tnr_results_<epoch-ms>.json with no package identity, so a package spanning two runs has two homes and no join key.",
+      "The Forge bundle is already in contract trouble: checks: null makes validate.py --parity raise TypeError (R-19). Adding keys to that object before the parity guard is fixed compounds a live defect."
+     ],
+     "recommendation": "Reject as the store. Keep the bundle as the cited evidence a package points at."
+    },
+    {
+     "name": "(c) Workstream roadmap evidence",
+     "pros": [
+      "A real validator exists (content_workstream.py validate), statuses are an enum, evidence anchors must exist in the tree, and the file already carries lead_role and open_decisions."
+     ],
+     "cons": [
+      "Projections are regenerated manually and no CI workflow invokes content_workstream.py, so an app write leaves a stale ROADMAP.md and INDEX.md for the next session to repair (evidence/repo-consumers.json, 'generated projections').",
+      "Per workstream, not per record or per package; an admin approves records.",
+      "The status enum is validated, so a review vocabulary that is not in it fails validation; overloading the enum changes a contract owned by the content workflow, not by Forge (CLAUDE.md section 7).",
+      "It is the content agent's coordination surface; mixing the admin's disposition into it puts two owners in one diff."
+     ],
+     "recommendation": "Reject as the store. Recommend instead that a roadmap task REFERENCE its review package by slug, so coordination state points at the disposition without owning it. Whether Forge may write the roadmap at all is K-28."
+    },
+    {
+     "name": "(d) A git trailer on the commit",
+     "pros": [
+      "Free to write: Github.put already takes the commit message, so a trailer costs nothing.",
+      "Immutable and cryptographically chained by git itself."
+     ],
+     "cons": [
+      "Unreadable by Forge. github.mjs exposes list, raw and put only; there is no commits API, so reading trailers is a new endpoint and a new listing model.",
+      "Uncorrectable: a mistaken approval cannot be amended, only contradicted by a later commit that nothing joins to it.",
+      "Unvalidatable: no schema, no required fields, free prose in a message.",
+      "Invisible in the working tree, so a human browsing state/review/ would see no decision at all."
+     ],
+     "recommendation": "Reject as the store. Keep trailers as a nicety on the event commit message for human git archaeology."
+    },
+    {
+     "name": "(e) Local only",
+     "pros": [
+      "No repository risk."
+     ],
+     "cons": [
+      "The admin and the operator are different people on different devices; it preserves exactly the relay brief section 8 wants removed."
+     ],
+     "recommendation": "Reject."
+    }
+   ],
+   "recommendation": "(a), in the append-only shape: state/review/<slug>/submission.json plus immutable events. It is the only candidate whose write path is already proven, whose directory no workflow rewrites, which survives inbox compaction, which is readable without a credential, and which is honest that it is coordination rather than canon. This strengthens rather than replaces E.8's reading of (a); the change is the shape (events over a mutable status) and the role (index rather than annotation).",
+   "why_it_is_not_canon": [
+    "It never stores a lifecycle value. hidden, published and the containment flags are read live and rendered with their own read timestamp (CachedReader returns cached and at, forge/src/budget/reader.mjs:40); WCM-10 requires exactly that a stale cache never masquerades as live.",
+    "It never stores content fields. The schema forbids any key that appears in forge/src/runner/fields.json, enforced by a fixture test, so a package can never be mistaken for a record.",
+    "It stores no status. Status is a fold of immutable events, so there is no field that can disagree with the history.",
+    "It records a human act and its evidence pointer, which the game has no column for and therefore cannot contradict. The game remains the only truth about what is live; the repository is the only truth about what a human decided; the Forge journal is the only truth about what a device sent.",
+    "The copy says so: a review package is coordination state, in the same sense docs/workflows/CONTENT_WORKSTREAM.md already uses for the workstream packet ('not an authority')."
+   ]
+  },
+  "audit_model": {
+   "principle": "Four histories exist, each answers a different question, and none answers all of what changed, who did it and can it be undone. The History panel is a union with every row labelled by source, because the sources have different authority: the game log is what the server did, the journal is what this device believes, the bundle is what the repository can prove, and git is what a human decided.",
+   "sources": [
+    {
+     "source": "Game actionLog via logs.getContentChanges {logtype, relatedId}",
+     "answers": "What changed and who did it, as a server-computed diff, per record.",
+     "covers": "At the Forge pin: ai, badge, bloodline, item, jutsu. At head also guide.",
+     "gaps": "quest, gameAsset and sageMode rows ARE written but are unreadable because those table names are absent from the LOG_TYPES enum the read procedure accepts; nothing anywhere is logged on create or clone, so placeholder minting and clones are invisible to the game's own history; ai.* AiProfile mutations write no audit row at all.",
+     "forge_status": "NOT in the registry: forge/src/transport/procedures.mjs holds 43 rows over seven routers and has no logs.* entry, and procedure() throws for anything outside it (:70-72). Adding it is a registry expansion; it is publicProcedure, therefore budget-relevant, page size 100. Never prefetch it for a list: read it on demand for one opened record."
+    },
+    {
+     "source": "Forge journal (localStorage tnr_forge_job_v1:<jobId>)",
+     "answers": "What this device intended, what it sent and when, what the server said, and the verdict of the read-back.",
+     "covers": "Every mutation Forge runs, plus capture entries for the allow-listed full-persist point reads.",
+     "gaps": "Per device. It is not shared with the admin's phone and must never be presented as the audit; it is the operator's evidence, surfaced to the admin only through the committed bundle.",
+     "forge_status": "Exists: forge/src/storage/journal.mjs, states and transitions at :34,39-47, outcome at :76-88."
+    },
+    {
+     "source": "Committed results bundles under harvests/inbox/",
+     "answers": "Which manifest, which records, what came back, and what the record looked like before and after.",
+     "covers": "42 bundles today. This is the ONLY readable history for quest and gameAsset, which is the class pair the active workstream publishes.",
+     "gaps": "All seven Forge bundles carry entries: [] because no Forge write has ever run live (gate G-08); COMPACTION_RUNBOOK deletes older bundles; a Forge bundle currently breaks validate.py --parity (R-19).",
+     "forge_status": "Exists: App.exportJob builds it and commits it (forge/src/ui/app.mjs:369-406); harvestEntry (:29-47) is already the per-record human row."
+    },
+    {
+     "source": "git history of state/review/**",
+     "answers": "Who asked for review, who decided what, when, against which live evidence, and what changed about the decision afterwards.",
+     "covers": "Everything the admin did inside Forge, from the first submission onwards. Nothing before the model exists.",
+     "gaps": "Attribution is to the PAT that pushed, not to a person, while one shared key serves both tools (K-15). Nothing authenticates a hand-written file.",
+     "forge_status": "Reads work with no credential (github.mjs:22-27,33-39); writes need the PAT (:51)."
+    },
+    {
+     "source": "content_backups (game)",
+     "answers": "Whole-table SQL snapshot for bloodline, jutsu, item and ai only.",
+     "covers": "A snapshot before a risky bulk push.",
+     "gaps": "NOT a restore path: restore targets dev and AI databases after a destructive delete; there is no production restore and no per-record restore. It must never be offered as undo.",
+     "forge_status": "Not in Forge's registry; triggering it needs canControlBackups."
+    }
+   ],
+   "questions_the_admin_can_answer": [
+    "What changed on this record, in field terms, and when: game log where the class is readable, otherwise the bundle's before and after captures plus item.diffs from the asserted-key differ (forge/src/runner/validate.mjs:217-243).",
+    "Who initiated it: the game log names the server-side actor for ai, badge, bloodline, item and jutsu; for quest and gameAsset only the bundle and the review package can say, and the review package's actor is self-asserted.",
+    "Was the write actually proven: the run's outcome and per-item verify value, which distinguish match, drift and unread and are already fail-closed (journal.mjs:76-88; harvest.py agrees).",
+    "Who approved it, against what evidence, and has the record changed since: the fold of the package's events, each carrying the contentHash and readAt it was decided against, compared to a fresh read.",
+    "Is it live now: a fresh point read of the lifecycle field, stamped with its own read time. Never from any stored value."
+   ],
+   "questions_it_cannot_answer": [
+    "Who created a record, anywhere: no class logs create or clone.",
+    "Any history at all for AiProfile rules: no ai.* mutation writes an audit row.",
+    "Can this be undone: there is no production restore and no per-record restore; the honest answer is a pre-write capture plus a compensating edit, never an undo control.",
+    "Who read a draft: nothing logs reads, and hidden is not confidentiality (R-31, CC-08) so any signed-in account can read an unpublished record by id."
+   ],
+   "composition_rule": "Capture the pre-state automatically before every admin update and delete rather than relying on a manifest to ask for it; that is the only way the bundle can carry the before half for the two classes whose game log is unreadable. What may be persisted from those captures is bounded by K-06 and by the existing allowlist and 512 KiB ceiling (forge/src/storage/captures.mjs:58-66,84)."
+  },
+  "data_flow_ops_to_admin": {
+   "principle": "The admin never reads a manifest because the run already emitted the human row. App.harvestEntry (forge/src/ui/app.mjs:29-47) turns each journal item into {name, srcId, entity, slot, op, state, verdict, diffs, id} and exportJob embeds those as bundle.entries. That structure IS the review row; minting a package is a projection of it, not a new authoring step.",
+   "steps": [
+    "1. The operator runs the package in Forge exactly as today: parse, plan, confirm, run, read back. Nothing about the execution core changes; RUL-2026-09-12-002 and risk R-13 both say the runner is not touched by an admin feature.",
+    "2. exportJob commits the results bundle to harvests/inbox/ (app.mjs:369-406). Unchanged.",
+    "3. Immediately after, and as one operator action, Forge offers 'Submit for review'. It writes state/review/<slug>/submission.json built from the same job: package slug and human title supplied by the operator; manifest path and manifest hash (forge/src/runner/manifest.mjs); bundle path; run outcome from jobOutcome; and one record row per item derived from harvestEntry plus the publication axis for its class and the contentHash of its read-back capture. Then an events/<iso>-<actor>-submitted.json.",
+    "4. The submission is refused, fail-closed, when the run's outcome is not success: a package whose writes were not read back cannot be offered for review as if they had been. The existing invariant that a finished-but-unverified job is never shown or exported as success (forge/test/ui.test.mjs:254) is extended to the submission.",
+    "5. The admin, on another device and possibly with no PAT, lists state/review/ (one Contents API call, zero game budget) and sees packages, not manifests.",
+    "6. Opening a package spends game budget for the first time: one cache-first point read per record for the live lifecycle value and the unhide-gate inputs, plus, on demand only, the history read for classes that have one.",
+    "7. The admin records a decision as an event. Approve does not publish; publish is a separate, explicitly consequential action, because SSC requires that publication never visually mean execution succeeded.",
+    "8. Publish, when the director's rules allow it here at all (K-07, K-08), is an ordinary journaled mutation through the existing runner: the same whole-record update with the lifecycle field flipped that the operator would send (E.2g), with the same write-ahead journal, the same read-back, the same reconciliation on an ambiguous SENT, and a published event appended afterwards carrying the post-flip read."
+   ],
+   "what_never_crosses": "Only two things cross from operations to admin: the live record id and the evidence that the record is what the package intended. The manifest, the journal, the pool codes, the recipes and the transport never appear in the admin surface; they stay available behind progressive disclosure for the operator, which is the brief's own principle.",
+   "builder_compatibility": "Because the projection is over the entries[] contract both tools emit, a review package can be minted from a Builder bundle as well. That matters: no Forge write has ever run live (G-08) and all 148 committed write items ran on Builder, so a Forge-only minting path would leave the queue empty until the live-write gate is passed.",
+   "what_does_not_exist_today": "There is no publish or unhide recipe anywhere in Forge (forge/src/runner/recipes.mjs has no delete or publish recipe; A.7 records 'Forge has no publish/unhide action at all today'), no approval store, no queue screen, and no paged list support. WCM's AdminReviewCard and PublishControl are both HOLD with no data source. Everything in this section is a capability to be built, and none of it may be shown as a lane before it exists (K-24, R-16)."
+  },
+  "edge_cases": [
+   {
+    "case": "The record was edited in the game's own staff editor after the job ran",
+    "detection": "The package stores contentHash and capturedAt per record, taken from the run's read-back capture. Opening the package re-reads the record (fresh, not cached, before any publish) and compares.",
+    "behaviour": "Render 'Changed since submission' with a field-level diff using the existing asserted-key differ (forge/src/runner/validate.mjs:217-243), disable publish, and require an explicit reaffirmed event before it re-enables. Never silently accept the new state as the reviewed one.",
+    "limits": "This is Forge-side optimism only. No content procedure checks a version or a timestamp (CC-09), so two writers can still interleave between the re-read and the send; E.11 records server-side optimistic concurrency as a would-need-a-game-change item with exactly this fallback. Also note the whole-record hazard: publish and edit are the same call on every class (E.2g), so a publish carries every whole-record risk an edit does."
+   },
+   {
+    "case": "Two admins act at once",
+    "detection": "Two event files land in the same package directory with different actors and overlapping scope.",
+    "behaviour": "Both are preserved because events are immutable and each write is a fresh path, so the no-retry sha-aware PUT (forge/src/github.mjs:50-66) never produces a 409 that silently drops one. The fold reports 'conflicting decisions' and blocks publish until a later event from an authorized actor resolves it. A fixture test asserts that a two-actor sequence folds to conflict rather than to either decision.",
+    "limits": "With the alternative single mutable status document, the same situation is a 409, and the loser's decision exists only in memory because there is no unsynced journal state today (A.4.1 item 4; R-07). That difference is the main reason the shape is append-only.",
+    "also": "Two tabs or two devices also compete for the game rate window (E.7); the queue index spends none of it, but two admins opening packages do. The existing per-job tab lease covers writes, not reads."
+   },
+   {
+    "case": "Publishing a record whose dependencies are still hidden",
+    "detection": "Before the flip, read each named dependency's live lifecycle value: scene assets and images for a quest via gameAsset.get, referenced AI via profile.getAi (protected and unlimited, so free), where-used via ai.getAiRelations and overworldAi.getPlacementsForAi (neither in the registry today, both a registry expansion rather than a game change).",
+    "behaviour": "Fail closed: publish is blocked with each blocking dependency named and its own visibility shown. Separately, pre-check the server's own unhide gates from the record already in hand, so they appear as blockers rather than as a refusal after the whole record has been sent: jutsu and item need an effect with both appearAnimation and appearSfx, and quest is refused unless content.sceneCharacters is non-empty or every objective has scene characters.",
+    "limits": "The dependency rule is policy, not correctness, for assets: a hidden gameAsset referenced by a visible quest still resolves, because the asset reads never filter on hidden and take no hidden input at all (CA-04, Inferred from the absent filter). So the surface must say which blockers are the server's and which are ours. Whether an override exists at all, and how many taps it costs, is the director's (K-07, K-12); if one exists it must be its own recorded event, never a silent bypass."
+   },
+   {
+    "case": "AI records, which have no hidden column at all",
+    "detection": "The package's per-record row carries a publicationAxis of hidden, published or containment, taken from the class, not guessed from the record.",
+    "behaviour": "For the containment axis the queue shows the containment flags (isAi, isSummon, isEvent, inShrines, inArena) and a where-used count instead of a visibility pill, and the action is named for what it actually does ('Add to arena', 'Add to shrines', or a reference edit from a quest objective or an overworld placement) rather than a generic Publish. A generic Publish across classes would be a lie on this axis.",
+    "limits": "There is no draft state for an AI: a placeholder is contained but fully listed to everyone through profile.getAllAiNames. Cloning copies containment verbatim, so a clone of an arena AI is immediately in the pool, and delete writes no audit row and leaves quest opponentAIs references dangling. Also, the AI validator does not omit role, isBanned, staffAccount or money, so an admin edit form for this class must be a Forge-side field allowlist that refuses those keys pre-send (K-04); the server will not stop it."
+   },
+   {
+    "case": "Guides, which are entirely post-pin",
+    "detection": "A capability lookup per class, driven by the registry and the derived field sets, not by the package.",
+    "behaviour": "A guide package is representable (the schema is class-agnostic) but renders read-only with a named prerequisite and no actions: there is no guide router, validator, table or constant at the Forge pin, no guide entry in forge/src/transport/procedures.mjs, and validate.mjs names six entities. The prerequisite chain is a pin move (K-13), regeneration of the derived contracts through the repository's adoption gate, five registry rows, a recipe and a field set. None of it is a game change.",
+    "limits": "This is the one case where a repository-first queue's virtue is also a hazard: a package can exist before the capability does. R-16 forbids a control that implies an unproven capability, so the read-only rendering plus the named blocker is the contract, and whether a Guide lane exists at all is K-29. Guides are also the only in-scope class whose drafts are genuinely confidential (staff-only reads), so their queue row must not be shown to an account the role pre-check says cannot read them."
+   },
+   {
+    "case": "The record was deleted in the game after submission",
+    "detection": "The fresh point read comes back absent. Absent is per class: quests.get and item.get return null, while jutsu.get, bloodline.get, gameAsset.get and badge.get throw NOT_FOUND.",
+    "behaviour": "Render a distinct 'record no longer present' state, not a read failure and not a captured record. Publish is impossible; the package is closable with a withdrawn event.",
+    "limits": "Parity row P-58 already flags that Forge's capture evidence does not distinguish an absent record from a captured one; that honesty defect is gate G-07 and must be fixed before this state can be rendered truthfully."
+   },
+   {
+    "case": "The cited results bundle is removed by inbox compaction",
+    "detection": "The package's bundle path no longer resolves.",
+    "behaviour": "Render the evidence link as unavailable with the reason, keep the package and its decisions intact (they do not depend on the bundle existing), and fall back to the game log where the class has a readable one.",
+    "limits": "COMPACTION_RUNBOOK keeps the newest five bundles and squashes history; the same hazard already exists for workstream evidence anchors, where content_workstream.py validate fails with 'does not exist in the repository'. Either compaction excludes cited bundles or the citation must tolerate absence. This is a repository-ritual decision, not a Forge one."
+   },
+   {
+    "case": "The admin's role changes, or was never sufficient, mid-workflow",
+    "detection": "A role pre-check once per session, held in memory only and never persisted: profile.getPublicUser with the account's own id (public, one budget unit) or profile.getUser (protected, free but a heavy payload). The cost trade-off between the two is a design choice, not a decision.",
+    "behaviour": "Disable the actions the role cannot perform, with the blocker named pre-emptively ('this account cannot publish'), and re-check at the send. Do not attempt to classify a refusal after the fact: content mutations refuse with HTTP 200 success:false and no error code, so the only candidate signal is a message string, which is prose-coupled exactly as R-21 describes, and four of the paths conflate a role miss with a missing record.",
+    "limits": "Critical transport hazard: the two families that DO carry a machine-readable code (ai.getAiProfile and every skillTree path throw UNAUTHORIZED) are exactly the ones Forge would mis-report as a lost session, because outcome.mjs:62 maps UNAUTHORIZED to class SESSION and auth.mjs:199-201 moves the whole session to SIGNED_OUT. A role pre-check is required before either path is adopted. Whether a fifth NOT AUTHORIZED session lamp exists at all is K-34; the evidence says a denial is per procedure, not per session, so a session-level lamp has no source behind it."
+   },
+   {
+    "case": "The decision cannot be written (offline, PAT missing, repository unavailable)",
+    "detection": "Github.put throws GithubError; today exportJob's only fallback is to show the bundle as text (app.mjs:402-405) and the journal records nothing.",
+    "behaviour": "Record the decision locally first with an explicit sync state and a retry-on-demand action, using the repo-backed sync vocabulary: Decision recorded locally, Decision synced to repository, Repository unavailable - retry decision. The state is durable and in-workflow, never a toast: WFA-16 forbids a toast as the sole surface for a publish failure or an uncertain result, and R-25 names toast-only critical state as a risk.",
+    "limits": "This adds the missing unsynced state that A.4.1 item 4 records as absent and that R-07 names. It must land before the first decision is recorded, or a lost decision is invisible."
+   },
+   {
+    "case": "A package whose live records were never actually reviewed, because they were authored in the game editor and no package exists",
+    "detection": "Only by the live sweep: list hidden records per class and subtract the ids already covered by packages.",
+    "behaviour": "Present as 'unreviewed live drafts', explicitly a reconciliation view and explicitly on demand with a refreshed-at stamp, never as the queue and never polled.",
+    "limits": "The sweep needs paged list support that CachedReader refuses today (reader.mjs:73-76), spends the scarcest budget (E.7), cannot filter gameAsset at all (CA-04), and cannot represent AI at all (CA-06). It is the honest cost of a repository-first index and must be stated as such rather than hidden."
+   }
+  ],
+  "position_on_E8": {
+   "verdict": "Strengthen on the substance, invert on the ordering, change the storage shape.",
+   "agree": [
+    "The live record is the only source that cannot lie about live state, and it must be read fresh beside every rendered decision.",
+    "hidden carries no author, no intent, no reviewer and no date, so approval metadata must live elsewhere.",
+    "state/review/ is the only candidate whose write path is already proven and whose directory no workflow rewrites.",
+    "Content Admin is a presentation and policy layer over the existing runner, not a parallel engine, and the id plus the evidence is the whole handoff."
+   ],
+   "argue_down": [
+    "E.8 makes the live hidden listing the queue INDEX. That puts the expensive, rate-limited, class-incomplete source on the most-visited screen. CachedReader refuses paged lists today (reader.mjs:73-76); gameAsset has no hidden filter; AI has no lifecycle column; and every create ships hidden:true so the live unpublished set is a backlog, not a queue. Invert it: the repository package is the index, the live read is the state column, and the live listing becomes an on-demand reconciliation sweep.",
+    "E.8 describes the repository file as a single sha-aware PUT and notes the no-retry weakness as a con. That weakness is avoidable rather than tolerable: make decisions immutable append-only events under the package directory, so every decision write is a fresh path with no prior sha, two admins never overwrite each other, and the fold reports conflict instead of losing a decision.",
+    "E.8's option (b), a results-bundle annotation, should be rejected on a stronger ground than 'it is a second representation': an approved maintenance ritual deletes it. COMPACTION_RUNBOOK folds older inbox bundles and keeps the newest five.",
+    "E.8 does not record that the queue can be READ with no credential at all. Github._headers attaches authorization only when a PAT is stored (github.mjs:22-27) while put() refuses without one (:51), so on a public repository the delegated reviewer needs a token only to decide, not to look. That materially changes the credential story the K-15 decision is weighing."
+   ],
+   "unchanged_from_E8": "K-09 stays open. Nothing here settles where approval state lives, which classes get first-class treatment, whether the admin may write arbitrary fields, or how many taps a publish costs."
+  },
+  "non_negotiables_honoured": [
+   "Same-origin cookie session only: every game read and write goes through the existing CookieSession with its path and header allowlists; the GitHub PAT never touches a game request and the header allowlist excludes authorization.",
+   "No credential extraction and no role-check bypass: the role is read once from the account's own profile and used only to DISABLE actions; the surface can only narrow what the game allows.",
+   "Write-ahead journal and SENT reconciliation preserved: an admin publish is an ordinary runner mutation; the transition table is untouched and no queue control can call a send path while an item is SENT.",
+   "No automatic deletion: withdrawing a package appends an event; it deletes no live record, no bundle and no capture. Archiving review packages is a policy question routed to K-16.",
+   "No innerHTML: the queue screens use the existing h() helper and CSSOM, protected by the existing repo-law test.",
+   "Fail-closed sensitive exports: the review package may carry ids, hashes and prose only; capture bodies stay under the existing allowlist and 512 KiB ceiling and the scrub workflow still scans every committed file.",
+   "No game-source change assumed: every procedure named here exists at the Forge pin; the approval field, optimistic concurrency, create-time audit and readable quest/asset logs stay on E.11's dependency list with a stated fallback.",
+   "One @require'd bundle: no new loader, no second shell, no second palette; the queue is screens inside the existing overlay under the approved visual direction.",
+   "Phone-first: the index is one GitHub call and no game budget, packages open one at a time, nothing polls, nothing auto-refreshes in a background tab, and the bundle cost of this feature is screens plus one schema, not a second contract blob."
+  ]
+ },
+ "evidence": [
+  "forge/src/budget/reader.mjs:73-76 - list() throws for any path that is not getAllNames/getAllAiNames, so no paged draft listing can be built today; a live-indexed queue is a capability gap, not a UI choice",
+  "forge/src/budget/reader.mjs:34-70 - getMany is cache-first, chunked under the budget, and returns cached/at per result; the right read shape for a per-package live state column",
+  "forge/src/budget/reader.mjs:40 - results carry cached and at, which is the data source for 'this visibility was read at <time>'",
+  "forge/src/budget/bucket.mjs:32 - local allowance is floor(60*0.5)=30 per path per minute, half the server window, because the carrier page's traffic is invisible",
+  "forge/src/github.mjs:22-27 - authorization header is attached only when a PAT is stored; forge/src/github.mjs:51 - put() refuses without one. The queue is readable with no credential; only deciding needs a token",
+  "forge/src/github.mjs:33-39 - list(dir) returns {name, path, sha, size, type}; a directory listing is the queue index, one call, zero game budget",
+  "forge/src/github.mjs:50-66 - put() is a read-sha-then-PUT with no retry and no If-Match; this is the primitive an append-only event shape avoids exercising on the highest-consequence write",
+  "forge/src/ui/app.mjs:29-47 - harvestEntry already projects a journal item to {name, srcId, entity, slot, op, state, verdict, diffs, id}; that is the review row, so the admin never reads a manifest",
+  "forge/src/ui/app.mjs:369-406 - exportJob commits the bundle with cfg 'forge' and checks: null, and falls back to showing text when the PUT throws; the journal records nothing about a failed sync",
+  "forge/src/ui/app.mjs:198-200 - the manifest picker caches repository text under the game read cache path 'github.contents', which the Captures screen lists and Clear all deletes; the review-package cache must not repeat this",
+  "forge/src/transport/procedures.mjs:24-67,70-72 - the audited 43-row registry over seven routers; no logs.*, no relations reads, no role read, and procedure() throws for anything outside it",
+  "forge/src/transport/outcome.mjs:62 with forge/src/transport/auth.mjs:199-201 - tRPC UNAUTHORIZED is classed SESSION and refuse() moves the session to SIGNED_OUT, so a role miss on ai.getAiProfile or skillTree.* would be mis-reported as a lost login; a role pre-check must precede adoption",
+  "forge/src/storage/journal.mjs:39-47 - the transition table with SENT->PLANNED structurally absent; :76-88 jobOutcome is fail-closed and is the status the queue must reuse rather than invent",
+  "forge/src/storage/captures.mjs:58-66,84 - FULL_PERSIST_PATHS allowlist of seven audited point reads and the 512 KiB ceiling that bounds what a package may cite",
+  "forge/src/storage/compat.mjs:4-5 - tnr_bk_gh_v1 and tnr_bk_idmap_v1 are shared between both tools, so a repository-recorded actor is attributable to a PAT, not a person",
+  "forge/src/runner/validate.mjs:217-243 - diffAsserted is the existing field-level differ the 'changed since submission' view reuses",
+  "forge/test/ui.test.mjs:29,254,331 - the innerHTML repo law, 'a finished-but-unverified job is never shown or exported as success', and the socket-free invariant; all three bind any queue screen",
+  "forge/test/adversarial.test.mjs:41,911 - annotate() refuses state and timestamps; persisted history outranks a hand-edited state, so no admin control can acquire a retry affordance",
+  "forge/test/harvest.test.mjs (8 tests) - the bundle-to-harvest.py contract a review package must not disturb",
+  "docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md E.2a/E.2b CA-01..CA-09 - lifecycle field, default and draft read path per class; six of seven classes have public, roleless draft reads",
+  "docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md CA-04 - gameAsset.getAll takes no hidden input at all, so a live-indexed queue must page the whole asset library at 500 per call",
+  "docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md CA-06 - userData has no hidden or published column; containment flags only, and every AI is listed to everyone via profile.getAllAiNames",
+  "docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md CA-08 and E.9 - guides are staff-gated at head and entirely absent from the Forge pin; zero guide procedures, recipes or field sets",
+  "docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md E.2g - publish and edit are the same whole-record update call on every class with a lifecycle flag; the separation is a Forge-side idea",
+  "docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md E.4 - three publication axes (hidden, published, none/containment), so a single generic Publish would be a lie on the third",
+  "docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md E.6 - LOG_TYPES omits quest, gameAsset and sageMode, nothing is logged on create or clone, ai.* writes no audit row, and content_backups cannot restore production",
+  "docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md E.7 - every read a draft queue would poll is publicProcedure and limited; profile.getAi and ai.getAiProfile are protected and unlimited; a 429 is a 1% money and bank penalty, not a retry signal",
+  "docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md CC-09 - no content procedure checks a version or timestamp; two admins silently overwrite each other server-side",
+  "docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md CC-10 - six delete paths and three clone paths have no caller and the cached reader refuses any non-name list, so a paged draft queue cannot be built at all today",
+  "docs/forge_next/H_RISK_REGISTER.md R-03, R-07, R-08, R-19, R-25, R-31 - queue polling spends invisible budget; the contents PUT races the [auto] workflows with no retry and no unsynced state; publish is the highest blast radius action; Forge bundles break validate.py --parity; toast-only critical state; hidden is a listing and play gate, not confidentiality",
+  "docs/forge_next/A_ARCHITECTURE_MAP.md A.4.1 item 4 - no unsynced sync state exists anywhere in the journal; A.7 - Forge has no publish or unhide action at all today; A.12 - AdminReviewCard and PublishControl are both HOLD with no data source",
+  "docs/forge_next/B_PARITY_MATRIX.md B.3.1 P-58 and gate G-07 - capture evidence does not distinguish an absent record from a captured one; gate G-08 - no Forge write has ever been proven live and all seven Forge bundles carry entries: []",
+  "docs/forge_next/C_WORKFLOW_INVENTORY.md W-23 and C.2c - admin review and publish does not exist in Forge; the lifecycle field differs per class; C.1.1 - 148 write items, every committed write ran on Builder",
+  "scratchpad/deepdive/repo-consumers.json git-write-contract 'paths owned by workflows' and 'where a new Forge-written file can live safely' - state/** and push/** fire only scrub; answers/*, dist/*, the loaders and the sentinel are the automation-owned paths; Builder's commit-to-state feature is the precedent",
+  "scratchpad/deepdive/repo-consumers.json workstream-contract 'generated projections' - no CI workflow invokes content_workstream.py, so an app write to roadmap.json leaves a stale ROADMAP.md",
+  "scratchpad/deepdive/repo-consumers.json workstream-contract 'inbox compaction vs evidence refs' - COMPACTION_RUNBOOK keeps the newest five bundles and validate fails on a deleted cited bundle; the same hazard applies to a package citing a bundle",
+  "scratchpad/consolidated/docs/design/FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md sections 6, 7, 11, 12 - the named-operation request/result envelope, the approved-operations execution boundary, the sync-state vocabulary, and the explicit prohibition on storing a second canonical content or project database inside Forge",
+  "scratchpad/consolidated_read/ux-contracts.json WCM-09, WCM-10, SCR-12, SCR-13, SCR-14, WFA-11, WFA-16, CPY-13, CPY-14 - admin queue and publish copy and component contracts, all currently HOLD pending exactly this model",
+  "scratchpad/consolidated_read/foundation-impl.json C4/K3 - the build-result envelope v1 (status, blockers, provenance with sourceSha256 and revisions, liveGameTouched:false) is the existing precedent for a repository operation result shape a review operation should match"
+ ],
+ "weaknesses": [
+  "A repository-indexed queue is structurally blind to content authored in the game's own staff editor. The compensating sweep needs paged list support that CachedReader refuses today, spends the scarcest budget, cannot filter gameAsset at all and cannot represent AI at all. This is the real cost of the inversion and it should not be softened.",
+  "Everything about how these procedures behave in a real admin browser session is Inferred. No live request was made in this pass; that the carrier overlay can reach these paths with the admin's cookie, that a role miss looks the way the resolver says over the wire, and that a paged draft listing stays inside the shared rate window are all unproven and belong in the browser smoke list.",
+  "The model is gated on two facts that are false today: no Forge write has ever run live (G-08), and a Forge bundle newest in the inbox breaks the session-close parity guard (R-19). Until both are fixed the queue can only be fed by Builder bundles.",
+  "Actor attribution is PAT-level. With one shared credential key, 'who approved this' is a claim by a device, not an authenticated identity, and nothing prevents a hand-written review file from asserting an approval.",
+  "The fold is a projection. If the fold rules live only in browser code they become the kind of duplicated rule RUL-2026-09-12-002 forbids; they must be specified in the repository beside the schema, which is extra work the option must pay for.",
+  "Append-only events cost more GitHub API calls and more files than one mutable document, and the Contents API directory listing caps at 1000 entries, so an archive convention is needed before the queue is old.",
+  "I could not verify the Contents API's exact behaviour on a concurrent create of the same new path (whether it 422s or 409s); the claim that a fresh path never hits a stale-sha conflict rests on the absence of a sha in the request body, which is Inferred from github.mjs:57-58, not measured.",
+  "The per-class CA rows this rests on were merged but their adversarial per-row verification was still in flight when section E was written; if a CA verdict moves, the coverage argument for the inversion moves with it."
+ ],
+ "user_decisions_surfaced": [
+  "K-09 where approval state lives: this proposal is evidence and a recommendation, not an answer. The director chooses the store and the shape.",
+  "K-08 whether admin edits go directly to hidden live records or through a staged package: the model works under either, but a staged package keeps the operator relay the brief wants removed.",
+  "K-03 and K-04 the admin's permission scope and whether the admin may write arbitrary fields: the AI validator does not omit role, isBanned, staffAccount or money, so a field allowlist is Forge policy, not a server capability.",
+  "K-07 which operations are eligible for a few-tap publish, and whether a dependency-blocker override exists at all: eligibility cannot be uniform because there are three publication axes.",
+  "K-12 the final publishing confirmation level and wording.",
+  "K-05 which content classes get first-class forms and previews in v1.",
+  "K-16 retention, archiving and withdrawal policy for review packages, which is deletion-adjacent.",
+  "K-15 the credential model: whether each admin holds their own PAT, which is the difference between an attributable approval and a device-asserted one. New sub-question surfaced here: the queue is readable with no PAT at all, so a read-only reviewer needs no credential.",
+  "K-47 where review annotations and comments live, if they are co-located with the approval store.",
+  "K-06 what a review package and its cited captures may carry into a public repository.",
+  "K-28 how much repository-backed project state Forge may edit directly, which bounds whether a roadmap task may be updated to reference a review package.",
+  "K-34 whether an authorization-denial state is rendered at all; the evidence says a denial is per procedure, not per session.",
+  "K-13 and K-29 the pin move and whether a Guide lane exists, which decide whether guide packages are ever actionable.",
+  "K-10 stays at its default of no game-source change; the approval field, optimistic concurrency, create-time audit and readable quest and asset logs remain dependencies with stated fallbacks.",
+  "K-11 Builder retirement timing: until a Forge write is proven live, review packages must be mintable from Builder bundles, which couples this feature to the retirement sequence.",
+  "New, not yet in K: whether a review package may be minted from a Builder bundle at all, and whether the inbox compaction ritual must exclude bundles cited by a review package or a roadmap."
+ ],
+ "file_written": "/tmp/claude-0/-home-user-tnr-tools/e5692b10-4df8-5a1d-ae0b-15d8b552161e/scratchpad/design/queue-model.json"
+}

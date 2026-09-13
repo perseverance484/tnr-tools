@@ -1,0 +1,2107 @@
+{
+ "name": "ia-operation",
+ "family": "ia",
+ "thesis": "Make the first level of Forge the consequence the operator is about to have on production - Home, Research, Deliver, Studio, Content Admin, Settings - because the consequence class is the only axis Forge can derive mechanically from the work in front of it and prove from its own state, and because it is the axis on which the workload actually splits: reads are frequent, cheap and should confirm nothing; package runs are frequent, irreversible and should confirm once with the counts restated; publishing is rare, the most consequential thing in the product, and deserves its own destination, colour family and authority; and recovery is a phase of a job, so it belongs beside the pause that caused it rather than in a destination of its own. Content type stays as the second axis - lanes on the Command Center and filters inside each destination - because 15 of the 41 committed manifests carry reads and writes together and one carries two entity types, so a content-first first level cannot hold a real package.",
+ "proposal": {
+  "navigation_model": {
+   "name": "Consequence-first operations shell (operation-oriented, lanes as the second axis)",
+   "description": "The first level is what the operator is about to do to production, because that is the one axis Forge can derive mechanically from the work in front of it and prove from its own state: Home, Research (reads), Deliver (packages, jobs and recovery), Studio (authoring and projects, zero live footprint), Content Admin (records, review and publish) and Settings. Content type is the second axis: lanes on the Command Center and filters inside Research, Deliver and Admin, never a destination that owns work, because 15 of 41 committed manifests carry both reads and writes and one carries two entity types. The approved shell is unchanged - Command Center home, a persistent 232px rail on desktop, five bottom items plus a More sheet on the phone, visual lanes, a first-class Content Admin - and the approved operation-mode header becomes the mechanism that carries the create/update/upload/capture distinction inside a destination rather than splitting it across destinations. Reads are the cheapest path and confirm nothing; writes confirm once per job with the counts restated; publishing gets its own destination, its own colour family and its own confirmation; recovery is a state of the job that needs it, rendered where the pause happened."
+  },
+  "top_level": [
+   {
+    "label": "Home",
+    "internal_id": "HOME",
+    "purpose": "Command Center: can Forge act right now, what work is unfinished or ambiguous, what needs review, what did I just do, and the shortest path to today's task. Never a live poll.",
+    "who": "both",
+    "risk_class": "read",
+    "mobile_nav": "bottom tab 1",
+    "desktop_layout": "NavRail row 1; content = 96px/160px Brand hero strip, then ReadinessCard + ActiveWorkCard (left 2/3) beside QuickActionTile 4-up and the Content Admin block (right 1/3), then LaneCard grid, then ActivityRow list.",
+    "evidence": "journal.listJobs()/resumable()/ambiguous() (journal.mjs:363); jobOutcome (journal.mjs:76-88); AuthState.describe() (auth.mjs:219); Budget.status() (bucket.mjs:204-216); readGh + pickerAt/pickerError (app.mjs:186-207,400). Approved amendment section 5."
+   },
+   {
+    "label": "Research",
+    "internal_id": "RESEARCH",
+    "purpose": "Everything that reads the game and keeps the evidence: run zero-mutation capture packages, hold the capture library and snapshots, and (once the registry expands) issue a bounded ad-hoc read. The most frequent phone action gets the cheapest path.",
+    "who": "operator",
+    "risk_class": "read",
+    "mobile_nav": "bottom tab 2",
+    "desktop_layout": "Rail row 2; two-pane at >=1024: package/library list left 380px, detail right. READ ONLY ModeBand at the top of the detail column.",
+    "evidence": "21 of 41 committed manifests are capture-only; quests.get 150 manifest captures, profile.getAi 26, ai.getAiProfile 28, gameAsset.get 23, jutsu.get 16 (harvest-evidence.json proc-usage). P-09 FORGE BETTER; P-14 FORGE BETTER (full capture). Ad-hoc reads are P-10/P-11/P-12 GAP, gates G-02/G-03."
+   },
+   {
+    "label": "Deliver",
+    "internal_id": "DELIVER",
+    "purpose": "Everything that can change the live game through a prepared work package: discover/preflight, run, watch, recover, verify, sync. Recovery lives here, inline with the job that needs it, not in a separate destination.",
+    "who": "operator",
+    "risk_class": "mutation",
+    "mobile_nav": "bottom tab 3 (badged: orphan count, SENT dot, PAUSED dot)",
+    "desktop_layout": "Rail row 3; two-pane list/detail; LIVE WRITE or RECOVERY ModeBand pinned at the top of the detail column; EvidencePanel as a right inspector at >=1280.",
+    "evidence": "148 write items in the record (113 quest:edit, 26 asset:create, 8 ai:edit, 1 jutsu:create; harvest-evidence.json). Recovery is merged here because splitting it is today's defect F-10 (ux-audit-current.json: orphan controls only on Jobs, screens.mjs:29-31,45-70, while the pause happens on Run, screens.mjs:218-219)."
+   },
+   {
+    "label": "Studio",
+    "internal_id": "STUDIO",
+    "purpose": "Authoring and coordination that never touches the game: one Quest Studio with a subtype chooser, the repository compile loop, and the Project Workspace projection of roadmap.json. Zero live footprint until a build is promoted into Deliver.",
+    "who": "operator",
+    "risk_class": "config",
+    "mobile_nav": "More surface (promoted to bottom tab 3 in the Studio-first variant, see K-20 options)",
+    "desktop_layout": "Rail row 4; Studio home = subtype cards; draft = left step list (Brief/Storyboard/Encounters/Assets/Decisions) + editor column + right build-status panel. Projects = header + attention column + readiness/decisions column (WSP:436-447).",
+    "evidence": "RUL-2026-09-12-001 (one Studio, subtype adapters); RUL-2026-09-12-002 (repository owns compilation). Foundation exists at 824c4d58:forge/src/studio/{ui,repository}.mjs, .github/workflows/quest_studio.yml, quest_compile.py. roadmap.json exists with 15 tasks and a REVIEW status (scripts/content_workstream.py:59)."
+   },
+   {
+    "label": "Content Admin",
+    "internal_id": "ADMIN",
+    "purpose": "A record-level review, edit, preview and publish surface for a holder of a canChangeContent role. Shows content, not execution: no manifest, no procedure path, no journal state, no budget row.",
+    "who": "admin",
+    "risk_class": "publish",
+    "mobile_nav": "bottom tab 4 when the role is present; otherwise a labelled placeholder row in More (K-20a)",
+    "desktop_layout": "Rail row 5 with a gold-outline pending count; queue list left, record detail right, PreviewFrame inside the detail column, publish action in a sticky action bar that is never inside the frame.",
+    "evidence": "Zero-game-change feasible for all 7 Forge classes plus guide and badge (admin-feasibility.json summary; CA-01..CA-08). Role from profile.getPublicUser or profile.getUser (CC-01). No approval field exists (CC-03 create/clone invisible; K-09)."
+   },
+   {
+    "label": "Settings",
+    "internal_id": "SETTINGS",
+    "purpose": "Keep the tool correct on this device: GitHub credential and sync, role readiness, storage health, version and pin, and the diagnostics an expert needs.",
+    "who": "both",
+    "risk_class": "config",
+    "mobile_nav": "More surface",
+    "desktop_layout": "Rail footer group; single column with grouped HealthRow sections; Diagnostics as a second sub-view.",
+    "evidence": "W-22 is phone-critical (loader refresh per release, PAT per device). Today screens.mjs:303; F-19 (sync can be on with no PAT, screens.mjs:313); F-12 (journal.broken never rendered)."
+   }
+  ],
+  "second_level": {
+   "HOME": [
+    {
+     "id": "H1",
+     "name": "Command Center",
+     "note": "single screen; blocks ordered by attention on phone, by information density on desktop"
+    }
+   ],
+   "RESEARCH": [
+    {
+     "id": "R1",
+     "name": "Research home",
+     "note": "read-only package list (derived: plan length 0) + entries to Library and Ad-hoc read"
+    },
+    {
+     "id": "R2",
+     "name": "Read package detail / preflight",
+     "note": "READ ONLY ModeBand, PreflightSummary, CaptureRow list, one primary"
+    },
+    {
+     "id": "R3",
+     "name": "Ad-hoc read",
+     "note": "registry-bounded single read; DISABLED with reason until K-17/G-02/G-03"
+    },
+    {
+     "id": "R4",
+     "name": "Capture library",
+     "note": "two stores: read cache and immutable snapshots, distinct wording and confirmation strength (preserve P-11 of the UX audit)"
+    },
+    {
+     "id": "R5",
+     "name": "Capture evidence",
+     "note": "one snapshot: proc, input actually sent, scope sentence, bytes, persisted verdict, raw body behind a disclosure"
+    }
+   ],
+   "DELIVER": [
+    {
+     "id": "D1",
+     "name": "Packages",
+     "note": "write-capable package list (derived: plan length > 0), search, outcome-coloured last-run tag"
+    },
+    {
+     "id": "D2",
+     "name": "Package detail / preflight",
+     "note": "LIVE WRITE ModeBand with counts, ValidationSummary, DependencyInput per @img, plan rows, raw manifest disclosure"
+    },
+    {
+     "id": "D3",
+     "name": "Job detail (run + recovery)",
+     "note": "SegmentedProgress, ItemRow list, RecoveryCard inline under the paused item, BudgetMeter, CaptureRow"
+    },
+    {
+     "id": "D4",
+     "name": "Jobs",
+     "note": "active, paused, ambiguous, finished; damaged journal records surfaced here"
+    },
+    {
+     "id": "D5",
+     "name": "Results",
+     "note": "ResultSummary + separate SYNC lamp + persistent export card"
+    },
+    {
+     "id": "D6",
+     "name": "Item evidence",
+     "note": "EvidencePanel: ids, procedure, hash, payload, journal record, DiffView, capture keys"
+    }
+   ],
+   "STUDIO": [
+    {
+     "id": "S1",
+     "name": "Studio home",
+     "note": "subtype cards from data/49_DATA_quest_studio_subtypes.json with maturity; only Mission enabled"
+    },
+    {
+     "id": "S2",
+     "name": "Quest draft",
+     "note": "Brief / Storyboard / Encounters / Assets / Decisions steps over one Quest Source draft"
+    },
+    {
+     "id": "S3",
+     "name": "Compile & build result",
+     "note": "submit, worker status, valid|blocked|failed envelope, blockers as decision cards"
+    },
+    {
+     "id": "S4",
+     "name": "Promotion handoff",
+     "note": "HOLD: renders the generated manifest path and a disabled 'Send to Deliver' with the reason (K-39)"
+    },
+    {
+     "id": "S5",
+     "name": "Projects",
+     "note": "list of state/workstreams/<slug> projections"
+    },
+    {
+     "id": "S6",
+     "name": "Project workspace",
+     "note": "needs-attention, readiness strip, tasks, open decisions, evidence, review package"
+    }
+   ],
+   "ADMIN": [
+    {
+     "id": "A1",
+     "name": "Review queue",
+     "note": "repo-backed review entries resolved to live records; class filter; refresh is an explicit tap"
+    },
+    {
+     "id": "A2",
+     "name": "Record detail",
+     "note": "human change summary, content pill, metadata, history, preview entry, actions"
+    },
+    {
+     "id": "A3",
+     "name": "Record edit",
+     "note": "per-class form over the fetched whole record; fetch-merge-send; staleness re-read before send"
+    },
+    {
+     "id": "A4",
+     "name": "Preview",
+     "note": "PreviewFrame; per-class renderer or a neutral 'no preview for this class' state"
+    },
+    {
+     "id": "A5",
+     "name": "Publish / unpublish",
+     "note": "ConfirmationSurface with the seal framing; PUBLISH ModeBand only here"
+    },
+    {
+     "id": "A6",
+     "name": "Content library",
+     "note": "paged live records by class and visibility; needs paged list support (G-03)"
+    },
+    {
+     "id": "A7",
+     "name": "Record history",
+     "note": "logs.getContentChanges where LOG_TYPES covers the class; Forge captures for quest and gameAsset"
+    }
+   ],
+   "SETTINGS": [
+    {
+     "id": "X1",
+     "name": "Settings",
+     "note": "GitHub PAT and sync, role readiness, storage persistence, version and pin"
+    },
+    {
+     "id": "X2",
+     "name": "Diagnostics",
+     "note": "auth describe, budget per path, journal export, damaged records, storage keys, exchange log"
+    }
+   ],
+   "_shell": [
+    {
+     "id": "SH0",
+     "name": "Entry splash (/forge)",
+     "note": "arm the tab, hop, dead-end message after MAX_HOPS"
+    },
+    {
+     "id": "SH1",
+     "name": "AppShell",
+     "note": "top bar / NavRail / BottomNav, session lamp, run underline"
+    },
+    {
+     "id": "SH2",
+     "name": "More surface",
+     "note": "phone dialog sheet of secondary destinations"
+    },
+    {
+     "id": "SH3",
+     "name": "ConfirmationSurface",
+     "note": "live write, publish, re-send, adopt, full capture"
+    }
+   ]
+  },
+  "screen_inventory": [
+   {
+    "id": "SH0",
+    "name": "Entry splash (/forge)",
+    "purpose": "Arm the tab and hand off to a real game route; explain a dead end instead of a stack trace.",
+    "key_content": [
+     "Brand/Wordmark",
+     "one sentence naming the destination",
+     "hop count on the second attempt",
+     "after MAX_HOPS: 'could not reach an authenticated page' plus what to do"
+    ],
+    "primary_actions": [
+     "Open the game and sign in (link)",
+     "Try again"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "Single column, 52ch paragraphs, no raw stack; today main.mjs:157-159 dumps e.stack with no next action (ux-audit S-F0).",
+    "desktop_layout": "Same, centred 520px.",
+    "evidence": [
+     "main.mjs:75-166",
+     "ux-audit-current.json S-F0"
+    ]
+   },
+   {
+    "id": "SH1",
+    "name": "AppShell",
+    "purpose": "One frame on every screen: identity, session truth, navigation, and a non-animated statement that a mutation, publish or recovery is in flight.",
+    "key_content": [
+     "Brand/Wordmark",
+     "session lamp (READY / CHECKING / UNCONFIRMED / SIGNED OUT; NOT AUTHORIZED only if K-34 finds a signal)",
+     "Close at 44px",
+     "Back on sub-screens",
+     "3px top-bar underline: --mut-edge while a mutation job is RUNNING, --pub while a publish is in flight, RECOVERY hatch while any job holds SENT or ORPHANED",
+     "NavRail (desktop) / BottomNav + MoreSurface (phone)"
+    ],
+    "primary_actions": [
+     "navigate",
+     "Close",
+     "Re-check session"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "56px sticky top bar; BottomNav 56px + safe-area, five items max, icon over label always visible, never icon-only; nav stays visible during a run with the underline as the run signal.",
+    "desktop_layout": "232px NavRail with 44px rows, active row --raised with a 3px --mut-edge left marker, static badges, an 'Active work' block, session lamp + version + pin SHA in the footer.",
+    "evidence": [
+     "app.mjs:63-72",
+     "styles.mjs:25,27,31 (nav 40px and Close 32px are below the floor today)",
+     "D_VISUAL_SYSTEM.md AppShell/NavRail/BottomNav rows",
+     "MOB section 4"
+    ]
+   },
+   {
+    "id": "SH2",
+    "name": "More surface (phone)",
+    "purpose": "Hold the secondary destinations without hiding that they exist.",
+    "key_content": [
+     "56px rows with glyph + label: Studio, Projects, Capture library, Settings, Diagnostics, Export journal",
+     "Content Admin row when the role is absent, rendered as a labelled placeholder with the reason"
+    ],
+    "primary_actions": [
+     "open a destination",
+     "Close"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "Dialog sheet on --float, visible Close, backdrop opaque from the first frame, 120ms enter only, content final on first paint.",
+    "desktop_layout": "Not rendered; every row is a NavRail row or a Settings group.",
+    "evidence": [
+     "D_VISUAL_SYSTEM.md MoreSurface row",
+     "MOB:361-367 (More behaviour unresolved: K-20a)"
+    ]
+   },
+   {
+    "id": "SH3",
+    "name": "ConfirmationSurface",
+    "purpose": "The one place a consequential action is armed: restate the counts, name the records, show the exact flip in words, and offer exactly one action in the mode's construction.",
+    "key_content": [
+     "mode counts restated",
+     "record names with their CURRENT content pill",
+     "session lamp state",
+     "the exact change in words ('hidden: true -> false on 7c3...')",
+     "dependency warnings",
+     "one primary in the mode ink construction + neutral Cancel at the far end"
+    ],
+    "primary_actions": [
+     "Start live write / Publish / Adopt <id> / Re-send <phase> / Run N full captures",
+     "Cancel"
+    ],
+    "risk_badge": "mutation",
+    "mobile_layout": "Docked bottom sheet, page frozen, Confirm disabled ~600ms after appearance (arming the ACTION, not the state), dismiss only by Cancel/Escape, never backdrop tap, never press-and-hold.",
+    "desktop_layout": "Centred 480px, same rules.",
+    "evidence": [
+     "A_ARCHITECTURE_MAP.md A.4.1 item 7 (window.confirm is the only consequence surface today; ten sites)",
+     "ux-audit F-21",
+     "H R-12",
+     "K-12 open"
+    ]
+   },
+   {
+    "id": "H1",
+    "name": "Command Center",
+    "purpose": "Answer, above the fold on a 390px phone: is anything ambiguous, what is unfinished, can Forge act, where do I start.",
+    "key_content": [
+     "orphan card pinned first when journal.ambiguous() is non-empty",
+     "CommandCenter.ActiveWorkCard (running / paused with reason chip / SENT pending / INCOMPLETE / none)",
+     "QuickActionTile 2x2 phone, 4-up desktop",
+     "LaneCard strip",
+     "CommandCenter.ReadinessCard: SESSION, REPO, BUDGET, STORAGE lamps with a computed headline",
+     "Content Admin block with a gold-OUTLINE pending count",
+     "ActivityRow list (last 5 jobs, dot coloured by jobOutcome)"
+    ],
+    "primary_actions": [
+     "Reconcile & resume / Resume / Re-read unverified items (job's own construction)",
+     "Adopt / Skip on the orphan card",
+     "quick action tiles",
+     "open a lane",
+     "Review pending content"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "Order on phone: attention (orphan, active work) -> quick actions -> lanes -> readiness -> activity -> admin block; the 96px Brand hero strip sits above but never pushes the first attention item below the fold. Lanes are 358x96 strips.",
+    "desktop_layout": "160px hero; attention + activity in a 2/3 column, quick actions + readiness + admin in a 1/3 column, lane tiles across the full width below.",
+    "evidence": [
+     "journal.resumable()/ambiguous()/listJobs() (journal.mjs:363)",
+     "jobOutcome (journal.mjs:76-88)",
+     "auth.mjs:219",
+     "bucket.mjs:204-216",
+     "app.mjs:186-207,400,408-410",
+     "amendment section 5",
+     "D_VISUAL_SYSTEM.md ReadinessCard/ActiveWorkCard/QuickActionTile/LaneCard rows"
+    ]
+   },
+   {
+    "id": "R1",
+    "name": "Research home",
+    "purpose": "Get to a read fast: the list of zero-mutation packages, the capture library, and the ad-hoc read entry.",
+    "key_content": [
+     "WorkPackagePicker filtered to packages whose parsed plan has zero write items",
+     "each row: human title lead, type and last outcome, repo path and number in 13px mono second",
+     "'listed 4m ago' + Refresh",
+     "Capture library entry with store counts and bytes",
+     "Ad-hoc read entry (disabled with 'needs registry expansion' until K-17)"
+    ],
+    "primary_actions": [
+     "open a package",
+     "Refresh list",
+     "open Capture library",
+     "Ad-hoc read (disabled)"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "Single column of 56px rows; tapping a row REPLACES the list with the detail (fixes F-07, where the selected card is appended below the whole list with no scrollIntoView).",
+    "desktop_layout": "380px list pane + detail pane; selection keeps the list visible.",
+    "evidence": [
+     "screens.mjs:73-95 (today's picker)",
+     "screens.mjs:120 derives read-only from an empty plan",
+     "ux-audit F-07",
+     "github.mjs:33",
+     "P-03 FORGE BETTER"
+    ]
+   },
+   {
+    "id": "R2",
+    "name": "Read package detail / preflight",
+    "purpose": "State the consequence before the tap: this sends queries only, here is what it reads, here is what it will persist to a public repository.",
+    "key_content": [
+     "READ ONLY ModeBand: reads N - captures N - full N - creates 0 - updates 0 - uploads 0 - publishes 0",
+     "PreflightSummary human sentence",
+     "CaptureRow list with the FULL/SUMMARY marker per path",
+     "full-capture advisory Banner naming the paths and the repository-persistence consequence",
+     "ValidationSummary (blockers vs advisories)",
+     "raw manifest behind a 'Raw' disclosure"
+    ],
+    "primary_actions": [
+     "Run N reads - zero mutations (read-primary, blue)",
+     "Back"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "ModeBand sticky under the top bar; one primary in a 64px sticky action bar; the bar hides while an input has focus if it would cover the consequence text.",
+    "desktop_layout": "ModeBand at the top of the detail column; captures and validation side by side.",
+    "evidence": [
+     "screens.mjs:118-134,151 (today's capture label, full-capture warn banner, problems)",
+     "captures.mjs:58-84 (seven-path allowlist, 512KiB ceiling)",
+     "P-09",
+     "K-06 open"
+    ]
+   },
+   {
+    "id": "R3",
+    "name": "Ad-hoc read",
+    "purpose": "One bounded read without writing a manifest: pick a registered procedure, give an id or a filter, keep the evidence.",
+    "key_content": [
+     "procedure chooser limited to transport/procedures.mjs rows, each with kind, auth class and limiter",
+     "input fields derived from the procedure row",
+     "budget preview for the path",
+     "scope sentence attached to the result ('FILTERED LIST: absence from this result is NOT evidence')"
+    ],
+    "primary_actions": [
+     "Read (disabled with reason today)",
+     "Save to capture library"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "Full-screen form; one field per row; the disabled primary carries the reason as a caption, never hidden.",
+    "desktop_layout": "Two-pane: chooser left, result right.",
+    "evidence": [
+     "procedures.mjs:24-73 (43 paths; unknown paths throw)",
+     "reader.mjs:73-86 refuses list() for non-Names paths",
+     "runner.mjs:582 drops list input",
+     "P-10, P-11, P-12, P-13 GAP",
+     "gates G-02, G-03",
+     "K-17 open"
+    ]
+   },
+   {
+    "id": "R4",
+    "name": "Capture library",
+    "purpose": "Two stores, two consequences: a disposable read cache and immutable evidence that can only come back from another read.",
+    "key_content": [
+     "read cache: count, bytes, per-entry key/entity/bytes/age",
+     "snapshots: count, bytes, per-snapshot key, owning job, bytes, age, whether exported",
+     "wording that the snapshots are never invalidated by a write and are deleted with their job"
+    ],
+    "primary_actions": [
+     "Invalidate one entry",
+     "Clear read cache",
+     "Delete snapshot",
+     "Delete all snapshots"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "Two clearly separated sections with their own headings; the four MaintenanceAction classes each get their own sentence, never one generic Danger control.",
+    "desktop_layout": "Two columns.",
+    "evidence": [
+     "screens.mjs:260-298",
+     "captures.mjs:186,227,262",
+     "ux-audit preserve P-11; F-18 (danger styling parity)",
+     "K-16 open"
+    ]
+   },
+   {
+    "id": "R5",
+    "name": "Capture evidence",
+    "purpose": "Prove what was read: the exact input that was sent, the scope of the answer, and whether the body really persisted.",
+    "key_content": [
+     "proc path (mono)",
+     "input ACTUALLY sent (not the manifest's input)",
+     "scope sentence",
+     "rows, bytes, snapshotKey",
+     "two separate verdicts: read ok/failed and body persisted/not persisted with persistError",
+     "raw body behind a disclosure"
+    ],
+    "primary_actions": [
+     "Copy key",
+     "Delete snapshot"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "Progressive disclosure, never miniaturisation: consequence copy never below 14px, ids in their own mono region.",
+    "desktop_layout": "Right inspector panel.",
+    "evidence": [
+     "runner.mjs:589,610-626",
+     "P-58 GAP (journaled input vs sent input; null body counted as success)",
+     "gate G-07",
+     "harvest-evidence.json: tnr_results_1789124514980 recorded three null profile.getAi bodies as persisted success"
+    ]
+   },
+   {
+    "id": "D1",
+    "name": "Packages",
+    "purpose": "The list of work that can change the game, with the last outcome told honestly.",
+    "key_content": [
+     "WorkPackagePicker filtered to packages with at least one write item",
+     "per row: title, entity mix, item count, creates/updates split, image count, last-run tag coloured by jobOutcome ('ran - failed 2h ago')",
+     "listing failure as a --bad Banner above a still-usable prior list, with an allowed 'Try again'"
+    ],
+    "primary_actions": [
+     "open a package",
+     "Refresh",
+     "Search"
+    ],
+    "risk_badge": "mutation",
+    "mobile_layout": "56px rows; the mode chip on each row shows the derived consequence so a package never changes meaning when it moves between Research and Deliver.",
+    "desktop_layout": "List pane + detail pane.",
+    "evidence": [
+     "screens.mjs:82,86 (today the 'ran' pill reuses the VERIFIED class regardless of outcome)",
+     "ux-audit F-14",
+     "A_ARCHITECTURE_MAP.md A.7 pill-reuse note"
+    ]
+   },
+   {
+    "id": "D2",
+    "name": "Package detail / preflight",
+    "purpose": "Everything the operator must know before a live write, in the order the consequence matters.",
+    "key_content": [
+     "LIVE WRITE ModeBand: creates N - updates N - uploads N - reads N - captures N - publishes 0",
+     "PreflightSummary",
+     "ValidationSummary: blockers ('Cannot run') vs advisories ('Check recommended'), each linked to its item row",
+     "auth blocker naming the protected paths",
+     "DependencyInput row per @img slot with the reason it is required and the ceiling",
+     "plan rows: entity, op, target, deps, asserted keys",
+     "manifest hash and provenance",
+     "raw manifest disclosure"
+    ],
+    "primary_actions": [
+     "Start job -> writes N records (crimson ink)",
+     "Pick image per slot",
+     "Back"
+    ],
+    "risk_badge": "mutation",
+    "mobile_layout": "ModeBand sticky; plan rows wrap instead of slicing at 120 chars (today screens.mjs:138); one primary in the sticky action bar; blockers above the bar, never behind it.",
+    "desktop_layout": "ModeBand + summary left, plan and validation right, EvidencePanel available as an inspector.",
+    "evidence": [
+     "screens.mjs:96-161",
+     "app.mjs:166-170 blockedPaths",
+     "upload.mjs:21 SLUGS ceilings",
+     "P-32, P-35",
+     "gates G-01 (zip packs), G-04 (partial quest edits), G-05 (enum preflight)"
+    ]
+   },
+   {
+    "id": "D3",
+    "name": "Job detail (run + recovery)",
+    "purpose": "One screen for a job's whole life, including the decision the job is waiting on. Recovery is not a different destination.",
+    "key_content": [
+     "ModeBand: LIVE WRITE while running, RECOVERY while the job is PAUSED/INCOMPLETE or holds SENT/ORPHANED",
+     "job StatePill + outcome lamp",
+     "SegmentedProgress with one cell per item and the single ember sheen on the in-flight cell",
+     "count line '7 verified - 1 SENT unconfirmed - 1 failed - 3 planned - 12 total'",
+     "RecoveryCard: halt card naming the pause reason in the journal vocabulary, and the orphan card INLINE under the paused item",
+     "BudgetMeter per path, hoisted into the pause card when TRIPPED",
+     "CaptureRow verdicts",
+     "ItemRow list with SENT/ORPHANED/CONFIRMED/INCOMPLETE captions on phone"
+    ],
+    "primary_actions": [
+     "Reconcile & resume (amber ink outline)",
+     "Resume",
+     "Re-read unverified items",
+     "Pause after this item",
+     "Adopt <id> / paste an id / Skip (leave as is) / Re-send <phase> (exceptional, last)",
+     "Open results"
+    ],
+    "risk_badge": "recovery",
+    "mobile_layout": "The decision is where the pause is; Adopt, Skip and Re-send sit in three regions at least 16px apart, never packed in one row; no candidate preselected.",
+    "desktop_layout": "Progress and items left, EvidencePanel inspector right; the recovery card spans the content column.",
+    "evidence": [
+     "screens.mjs:163-258 (run) vs screens.mjs:29-31,45-70 (orphan controls on Jobs) - the split is ux-audit F-10",
+     "runner.mjs:216,632-636",
+     "reconciler.mjs:94-156",
+     "journal.mjs:39-47",
+     "P-41, P-42, P-43 FORGE BETTER",
+     "gate G-08 (no Forge write has run live)"
+    ]
+   },
+   {
+    "id": "D4",
+    "name": "Jobs",
+    "purpose": "Every job this device knows about, including the ones it can no longer read.",
+    "key_content": [
+     "active / paused / ambiguous / finished groups",
+     "per job: manifest title, state pill, outcome lamp, started-ago, pause reason chip",
+     "'driven by no tab' and 'driven by another tab (heartbeat Ns ago)' as derived display states",
+     "damaged journal records with a raw export"
+    ],
+    "primary_actions": [
+     "open a job",
+     "Export journal as text",
+     "Delete finished jobs"
+    ],
+    "risk_badge": "recovery",
+    "mobile_layout": "Grouped list; a RUNNING job driven by THIS tab renders 'Running - Open' and no primary (fixes F-13).",
+    "desktop_layout": "List + detail.",
+    "evidence": [
+     "screens.mjs:11-44",
+     "runner.mjs:36-42 lease, LEASE_TTL_MS 30s",
+     "journal.mjs:221-228 broken records never rendered (ux-audit F-12)",
+     "journal.mjs:277-283 remove refuses SENT"
+    ]
+   },
+   {
+    "id": "D5",
+    "name": "Results",
+    "purpose": "The final, truthful statement of one job, and whether the evidence actually left the device.",
+    "key_content": [
+     "ResultSummary: one line per question with its own lamp (verified / finished with failures / finished unverified / capture-only complete)",
+     "separate SYNC lamp: committed @sha / sync failed / not configured",
+     "persistent export card with the bundle and a Copy control"
+    ],
+    "primary_actions": [
+     "Sync to repository",
+     "Copy bundle",
+     "Open evidence"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "The export is a STATE of this screen, re-rendered by refresh, not a node prepended to $main that the next refresh destroys (fixes F-01, behaviour-proven).",
+    "desktop_layout": "Summary left, bundle right.",
+    "evidence": [
+     "app.mjs:369-406",
+     "app.mjs:182 showExport prepends; dom.mjs:27 replace clears $main",
+     "ux-audit F-01 (Behaviour-proven)",
+     "P-49 PARITY, P-50 GAP (no download without a PAT)",
+     "R-07, R-19"
+    ]
+   },
+   {
+    "id": "D6",
+    "name": "Item evidence",
+    "purpose": "The expert view of one item, in one place, so it never has to be reconstructed from toasts.",
+    "key_content": [
+     "ids, procedure path, manifest hash, journal record, phase and timestamps",
+     "DiffView: field label / live value / sent value, changed rows in --warn with a 3px left rule, unchanged in --mute, raw JSON behind 'Raw'",
+     "asserted keys and verification diffs",
+     "capture snapshotKey and bytes",
+     "budget status for the path"
+    ],
+    "primary_actions": [
+     "Copy id",
+     "Copy payload",
+     "Back"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "Full-screen sheet or its own route; ids wrap in their own mono region.",
+    "desktop_layout": "Right inspector panel at >=1280.",
+    "evidence": [
+     "validate.mjs:217-243 diffAsserted",
+     "screens.mjs:251 (drift as JSON.stringify pairs today; ux-audit F-15)",
+     "runner.mjs:611-621"
+    ]
+   },
+   {
+    "id": "S1",
+    "name": "Studio home",
+    "purpose": "One Studio, one subtype chooser; maturity is stated, never implied.",
+    "key_content": [
+     "subtype cards read from the registry: Mission, Event, Story, Raid/Boss, Battle Pyramid, Daily",
+     "maturity per card (supported / needs compiler / needs recipe) as a neutral tag, never a lifecycle pill",
+     "open drafts for this device",
+     "last build result per draft"
+    ],
+    "primary_actions": [
+     "New quest (Mission enabled; others disabled with the registry reason)",
+     "open a draft"
+    ],
+    "risk_badge": "config",
+    "mobile_layout": "Cards stack; the disabled cards keep their reason as a caption.",
+    "desktop_layout": "Card grid; recent drafts in a side column.",
+    "evidence": [
+     "824c4d58:skills/building-tnr-content/data/49_DATA_quest_studio_subtypes.json (six subtypes, only mission supported)",
+     "824c4d58:forge/src/studio/ui.mjs:234-246",
+     "RUL-2026-09-12-001",
+     "K-27 open"
+    ]
+   },
+   {
+    "id": "S2",
+    "name": "Quest draft",
+    "purpose": "Author in human language over one Quest Source; the repository, not the browser, owns the rules.",
+    "key_content": [
+     "step list: Brief / Storyboard / Encounters / Assets / Decisions",
+     "node-by-node storyboard rather than objective JSON",
+     "advisory client checks labelled as advisory and, where possible, generated from registry data rather than hand-written",
+     "draft identity, requestId and the branch it will use"
+    ],
+    "primary_actions": [
+     "Save draft",
+     "Compile"
+    ],
+    "risk_badge": "config",
+    "mobile_layout": "One step per screen with a step rail; the full graph opens as a focused pan/zoom view, and precise drag wiring is never the only way to edit routes.",
+    "desktop_layout": "Step list left, editor centre, build panel right.",
+    "evidence": [
+     "824c4d58:forge/src/studio/ui.mjs:84-138 (missionSourceFromDraft, missionDraftProblems)",
+     "QS section 4 and section 12",
+     "R-20 (browser-vs-canonical rule drift)",
+     "K-25, K-46 open"
+    ]
+   },
+   {
+    "id": "S3",
+    "name": "Compile & build result",
+    "purpose": "Show the canonical verdict and never invent one: valid, blocked, failed, or 'the worker never answered'.",
+    "key_content": [
+     "submitted source revision and compiler revision",
+     "status: valid / blocked / failed",
+     "blockers rendered as decision cards naming the reserved decision, never a default",
+     "errors and warnings",
+     "generated manifest path and entity counts",
+     "an explicit 'no result file landed' state distinguished from 'still running'"
+    ],
+    "primary_actions": [
+     "Compile",
+     "Refresh build status",
+     "Open the decision card"
+    ],
+    "risk_badge": "config",
+    "mobile_layout": "Status first, blockers next, evidence last; polling status is text, never an animation carrying state.",
+    "desktop_layout": "Result panel beside the editor.",
+    "evidence": [
+     "824c4d58:forge/src/studio/repository.mjs:73-121",
+     "824c4d58:.github/workflows/quest_studio.yml",
+     "824c4d58:skills/building-tnr-content/scripts/quest_compile.py:100-116",
+     "R-21 (prose-coupled blocker classification)",
+     "R-17, K-38 open"
+    ]
+   },
+   {
+    "id": "S4",
+    "name": "Promotion handoff",
+    "purpose": "The one seam between authoring and execution, closed until it is reviewed.",
+    "key_content": [
+     "generated manifest path and hash",
+     "a DISABLED 'Send to Deliver' with the reason 'needs the promotion contract (K-39)'",
+     "the current fallback: copy the generated manifest, commit to push/, then use Deliver"
+    ],
+    "primary_actions": [
+     "Copy manifest",
+     "Send to Deliver (disabled)"
+    ],
+    "risk_badge": "config",
+    "mobile_layout": "One card; the disabled control keeps its reason as a caption and is never hidden.",
+    "desktop_layout": "Same card in the build panel.",
+    "evidence": [
+     "A_ARCHITECTURE_MAP.md A.8 item 6 (builds land on studio/quest/<id>; the picker lists push/ on main)",
+     "824c4d58:forge/src/studio/ui.mjs:3-4,469-480",
+     "K-39 open",
+     "R-18"
+    ]
+   },
+   {
+    "id": "S5",
+    "name": "Projects",
+    "purpose": "A projection of the repository's coordination state, never a second database.",
+    "key_content": [
+     "one row per state/workstreams/<slug>: title, content type, status, task counts by status, blocked count, open-decision count",
+     "'projected from roadmap.json at <sha>' provenance line"
+    ],
+    "primary_actions": [
+     "open a project",
+     "Refresh"
+    ],
+    "risk_badge": "config",
+    "mobile_layout": "Rows; counts as tabular numerals.",
+    "desktop_layout": "Rows + a summary column.",
+    "evidence": [
+     "state/workstreams/one_perfect_crop/roadmap.json (15 tasks: 5 COMPLETE, 5 READY, 4 PLANNED, 1 BLOCKED)",
+     "scripts/content_workstream.py:54-63",
+     "WSP:44-59",
+     "RUL-2026-09-12-002"
+    ]
+   },
+   {
+    "id": "S6",
+    "name": "Project workspace",
+    "purpose": "Answer 'what do I do next and why is it blocked' without a dependency graph.",
+    "key_content": [
+     "project header and readiness strip",
+     "Needs attention (blocked tasks, unresolved decisions, missing evidence)",
+     "work plan: READY / IN_PROGRESS / BLOCKED / REVIEW tasks with their required resources",
+     "open decisions workbench (reserved decisions surfaced, never defaulted)",
+     "evidence and reuse links",
+     "review package entry"
+    ],
+    "primary_actions": [
+     "open a task's brief",
+     "Resume here",
+     "Open evidence",
+     "Edit roadmap state (disabled until K-28)"
+    ],
+    "risk_badge": "config",
+    "mobile_layout": "Reading order: title/state -> highest-priority attention item -> primary next action -> readiness -> tasks -> decisions -> assets -> history -> provenance.",
+    "desktop_layout": "Header + attention column + decisions/readiness column; tasks and inventory below.",
+    "evidence": [
+     "WSP sections 3 and 7",
+     "roadmap.json open_decisions on 6 tasks",
+     "K-28, K-43, K-44 open"
+    ]
+   },
+   {
+    "id": "A1",
+    "name": "Review queue",
+    "purpose": "What is waiting for a human decision, in content terms, with no execution vocabulary.",
+    "key_content": [
+     "queue entries from the repository-backed review record (package title, classes, record count, who staged it, when)",
+     "each entry resolved to its live records by id",
+     "content pill per record (HIDDEN / DRAFT / PUBLISHED)",
+     "class filter",
+     "explicit Refresh with a plain statement of the budget cost",
+     "'no approval field exists in the game' provenance line while K-09 is open"
+    ],
+    "primary_actions": [
+     "open an entry",
+     "Refresh queue",
+     "Filter by class"
+    ],
+    "risk_badge": "publish",
+    "mobile_layout": "56px rows, human title first, id in 13px mono second; no ModeBand (this screen reads only).",
+    "desktop_layout": "Queue list left, detail right; gold-outline pending count on the rail row.",
+    "evidence": [
+     "admin-feasibility.json CC-08 (drafts readable without a role for 6 of 7 classes)",
+     "CC-02 (every queue read is publicProcedure, 60/60s per path per user, shared with the carrier page)",
+     "scripts/content_workstream.py:59 (REVIEW is an existing task status)",
+     "K-09, K-47 open"
+    ]
+   },
+   {
+    "id": "A2",
+    "name": "Record detail",
+    "purpose": "What this record is, what changed, and whether it is safe to publish.",
+    "key_content": [
+     "human change summary from logs.getContentChanges where the class is in LOG_TYPES, otherwise from Forge's own captures",
+     "record fields grouped by meaning, not by validator order",
+     "content pill and the class's lifecycle field named in words ('hidden' / 'published' / 'no lifecycle field on AI records')",
+     "unhide-gate check result before the action is offered",
+     "dependency advisory (referenced records still hidden)",
+     "freshness line: 'read at hh:mm'"
+    ],
+    "primary_actions": [
+     "Edit",
+     "Preview",
+     "Publish / Unpublish",
+     "History"
+    ],
+    "risk_badge": "publish",
+    "mobile_layout": "One column; actions in a sticky bar; the publish control is never inside the PreviewFrame.",
+    "desktop_layout": "Detail left, preview right.",
+    "evidence": [
+     "admin-feasibility.json CA-01 (jutsu unhide gate: >=1 effect with appearAnimation AND appearSfx)",
+     "CA-05 (quest unhide gate: sceneCharacters)",
+     "CA-06 (AI has no lifecycle column; 'publish' is inArena/inShrines or a reference)",
+     "CC-03 (quest and gameAsset history is written but unreachable through the API)",
+     "R-08"
+    ]
+   },
+   {
+    "id": "A3",
+    "name": "Record edit",
+    "purpose": "Change permitted fields through real controls, and never let a whole-record write silently drop something.",
+    "key_content": [
+     "per-class form over the FETCHED whole record",
+     "DiffView of the pending change",
+     "a warning that the server writes the whole validator field set",
+     "a staleness re-read immediately before send, with a refusal if the live record moved"
+    ],
+    "primary_actions": [
+     "Save changes",
+     "Cancel"
+    ],
+    "risk_badge": "mutation",
+    "mobile_layout": "One field per row; the consequence text stays visible when the keyboard opens.",
+    "desktop_layout": "Form left, live/diff right.",
+    "evidence": [
+     "admin-feasibility.json CC-09 (every content update is {id, data:<Validator>} set over the whole field set; no procedure checks updatedAt; unknown keys are silently dropped)",
+     "recipes.mjs fetch-merge",
+     "validate.mjs:81-197 pre-send unknown-key refusal",
+     "K-04, K-08 open"
+    ]
+   },
+   {
+    "id": "A4",
+    "name": "Preview",
+    "purpose": "Show what a player would see where a renderer honestly exists, and say so plainly where it does not.",
+    "key_content": [
+     "PreviewFrame with a 'PREVIEW' eyebrow and a 'reflects the LIVE hidden record read at hh:mm' freshness line",
+     "per class: gameAsset image or spritesheet and audio (trivial); jutsu/item/bloodline re-implemented effect render; guide re-implemented sanitiser view; quest: a neutral 'no player renderer exists for this class' state plus the objective list",
+     "content pill inside the frame"
+    ],
+    "primary_actions": [
+     "Re-read",
+     "Back"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "Frame fills the width; no lane wash, no glow behind it.",
+    "desktop_layout": "Frame in the right column.",
+    "evidence": [
+     "admin-feasibility.json CA-04 (asset preview trivial)",
+     "CA-05 (Objective.tsx needs a live tracker and useRequiredUserData; no usable player renderer)",
+     "CA-08 (the guide editor has a real Preview tab)",
+     "CA-01/02/03 (no public route for hidden rows; 404)",
+     "K-05 open"
+    ]
+   },
+   {
+    "id": "A5",
+    "name": "Publish / unpublish",
+    "purpose": "Make the flip unmistakable, permission-aware and provable.",
+    "key_content": [
+     "PUBLISH ModeBand with publishes N",
+     "the exact flip in words per class",
+     "the unhide-gate result",
+     "session lamp and role",
+     "dependency warnings",
+     "seal framing: 2px --pub border with an inner rule"
+    ],
+    "primary_actions": [
+     "Publish 1 record -> player-visible (gold ink)",
+     "Cancel"
+    ],
+    "risk_badge": "publish",
+    "mobile_layout": "Docked sheet; Confirm armed after ~600ms; disabled with the reason when the role or the gate is not satisfied.",
+    "desktop_layout": "Centred 480px sheet.",
+    "evidence": [
+     "admin-feasibility.json CA-01/CA-02/CA-05 (publish is a whole-record update with hidden:false; no toggle exists)",
+     "CC-01 (role from profile.getPublicUser)",
+     "outcome.mjs:23-56 (verdict from the decoded outcome, not HTTP)",
+     "K-07, K-12 open",
+     "R-08"
+    ]
+   },
+   {
+    "id": "A6",
+    "name": "Content library",
+    "purpose": "Browse live records by class and visibility without pretending 'hidden' means 'secret'.",
+    "key_content": [
+     "paged list per class with a visibility filter",
+     "'hidden rows are readable by anyone who knows the id for 6 of 7 classes' disclosure",
+     "counts and page cursor"
+    ],
+    "primary_actions": [
+     "open a record",
+     "Load more",
+     "Filter"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "Rows; the page control is an explicit tap, never an infinite scroll that spends budget.",
+    "desktop_layout": "List + detail.",
+    "evidence": [
+     "admin-feasibility.json CC-08",
+     "reader.mjs:73-86 (list() refuses non-Names paths today)",
+     "gate G-03",
+     "P-11 GAP"
+    ]
+   },
+   {
+    "id": "A7",
+    "name": "Record history",
+    "purpose": "Who changed what, with the honest limits of the native trail stated.",
+    "key_content": [
+     "actionLog entries with the server-computed diff strings where the class is in LOG_TYPES",
+     "for quest and gameAsset: Forge's own captures, labelled as such",
+     "'creates and clones are never recorded natively' provenance line"
+    ],
+    "primary_actions": [
+     "Open a capture",
+     "Back"
+    ],
+    "risk_badge": "read",
+    "mobile_layout": "Chronological rows; diffs collapsed by default.",
+    "desktop_layout": "Rows + diff panel.",
+    "evidence": [
+     "admin-feasibility.json CC-03 (actionLog records update/delete only; LOG_TYPES excludes quest, gameAsset, sageMode)",
+     "logs.getContentChanges is public and not in the Forge registry (CC-10)"
+    ]
+   },
+   {
+    "id": "X1",
+    "name": "Settings",
+    "purpose": "Say where every secret goes and refuse a configuration that cannot work.",
+    "key_content": [
+     "GitHub PAT as a status line ('set, scoped to contents:write'), never re-rendered as a value",
+     "sync toggle that refuses to be on without a PAT",
+     "role readiness with the procedure used and the budget cost",
+     "storage persistence state",
+     "version, pin SHA, storage keys"
+    ],
+    "primary_actions": [
+     "Save",
+     "Forget credential",
+     "Re-check session",
+     "Check role"
+    ],
+    "risk_badge": "config",
+    "mobile_layout": "Grouped rows; each destructive control carries its own sentence.",
+    "desktop_layout": "Two columns of groups.",
+    "evidence": [
+     "screens.mjs:303-318",
+     "ux-audit F-19 (sync accepts on:true with an empty PAT; the PAT is re-populated into the input each render)",
+     "K-15 open",
+     "R-17 (the Studio widens the PAT to Actions dispatch and branch creation)"
+    ]
+   },
+   {
+    "id": "X2",
+    "name": "Diagnostics",
+    "purpose": "The expert surface: everything the tool knows about itself, in one place.",
+    "key_content": [
+     "auth describe as key/value rows, not JSON.stringify",
+     "budget per path with allowance, used and reset countdown",
+     "damaged journal records with a raw export",
+     "storage keys and sizes",
+     "the exchange log the app already collects and never renders"
+    ],
+    "primary_actions": [
+     "Export journal as text",
+     "Copy diagnostics",
+     "Clear read cache"
+    ],
+    "risk_badge": "config",
+    "mobile_layout": "Grouped rows; consequence copy never below 14px.",
+    "desktop_layout": "Two columns.",
+    "evidence": [
+     "screens.mjs:316-317 (raw JSON.stringify rows today)",
+     "app.mjs:103 (app.logs never rendered)",
+     "journal.mjs:221-228",
+     "bucket.mjs:204-216"
+    ]
+   }
+  ],
+  "journeys": {
+   "dashboard_home": {
+    "goal": "Know in one glance whether anything is ambiguous, what is unfinished and whether Forge can act.",
+    "phone_taps_to_value": 0,
+    "steps": [
+     {
+      "n": 1,
+      "screen": "SH0",
+      "action": "open /forge from the bookmark",
+      "shown": "Brand, one sentence naming the destination, hop count",
+      "fail_closed": "after MAX_HOPS=2 a dead-end message with the next action, never a redirect loop (main.mjs:75-166)"
+     },
+     {
+      "n": 2,
+      "screen": "H1",
+      "action": "(automatic) Command Center renders",
+      "shown": "orphan card if journal.ambiguous() is non-empty, then ActiveWorkCard, then quick actions, then lanes, then ReadinessCard, then recent activity",
+      "fail_closed": "no lamp is green by default; a domain with no wired source renders 'not checked' in --mute, never 'Operational' (D2.3.5). No block issues a live request."
+     },
+     {
+      "n": 3,
+      "screen": "H1",
+      "action": "tap the job's own primary (Reconcile & resume / Resume / Re-read unverified items)",
+      "shown": "the label carries the semantics; disabled with resumeBlockedReason when the session is not READY or the budget is TRIPPED",
+      "fail_closed": "Resume is disabled, not hidden, and the reason is a caption (app.mjs:159-163; runner.mjs:187-189)"
+     }
+    ]
+   },
+   "manifest_discover_preflight_run_verify_sync": {
+    "goal": "Take a prepared package from the repository to a verified, synced result.",
+    "phone_taps_to_start_a_write": 4,
+    "steps": [
+     {
+      "n": 1,
+      "screen": "H1 -> D1",
+      "action": "tap the Deliver bottom tab (tap 1)",
+      "shown": "write-capable packages only; each row carries its derived mode chip and an outcome-coloured last-run tag",
+      "fail_closed": "a listing failure is a --bad Banner above the retained prior list; 'Try again' is allowed here because nothing was sent (D2.3.6)"
+     },
+     {
+      "n": 2,
+      "screen": "D1 -> D2",
+      "action": "tap the package row (tap 2); the detail REPLACES the list",
+      "shown": "LIVE WRITE ModeBand with creates/updates/uploads/reads/captures counts; PreflightSummary; ValidationSummary; @img slots; plan rows; manifest hash",
+      "fail_closed": "Start is disabled while any blocker exists, and every blocker is a Banner above the action bar with its own reason: unknown keys refused pre-send (validate.mjs:81-197), missing image, protected-path auth block (app.mjs:166-170)"
+     },
+     {
+      "n": 3,
+      "screen": "D2",
+      "action": "pick each required image (n taps, one per @img slot)",
+      "shown": "slot name, the reason it is required, the ceiling, picked/missing as NEUTRAL tags (not the VERIFIED/FAILED pills reused today at screens.mjs:146)",
+      "fail_closed": "an over-ceiling file is a --bad row, not a silent truncation (upload.mjs:21)"
+     },
+     {
+      "n": 4,
+      "screen": "D2",
+      "action": "tap 'Start job -> writes N records' (tap 3)",
+      "shown": "ConfirmationSurface restating the counts, the record names, the session lamp and the exact consequence",
+      "fail_closed": "the auth gate is re-evaluated at the tap and again before every protected send (app.mjs:228-237; auth.mjs:210,216); Confirm is disabled with the reason when the session is not READY"
+     },
+     {
+      "n": 5,
+      "screen": "SH3 -> D3",
+      "action": "tap the armed primary (tap 4)",
+      "shown": "job detail with SegmentedProgress, the count line, ItemRow list, BudgetMeter",
+      "fail_closed": "SENT is flushed to the journal BEFORE the request leaves (journal.mjs:330-335); a 429 halts and pauses, never retries (bucket.mjs:169-216)"
+     },
+     {
+      "n": 6,
+      "screen": "D3",
+      "action": "watch; pause if needed",
+      "shown": "per item PLANNED/SENT/CONFIRMED/VERIFIED/FAILED with the phone caption spelling out the ambiguity; the ember sheen only on the in-flight cell",
+      "fail_closed": "CONFIRMED reads 'write landed; read-back still owed' and never goes green; DONE carries an outcome lamp instead of a green pill (today styles.mjs:44 paints DONE --ok regardless of jobOutcome)"
+     },
+     {
+      "n": 7,
+      "screen": "D3 -> D5",
+      "action": "tap 'Open results'",
+      "shown": "ResultSummary line per question with its own lamp, plus a SEPARATE sync lamp",
+      "fail_closed": "outcome is success only when every item is VERIFIED with verify:match AND every requested full body persisted (journal.mjs:76-88)"
+     },
+     {
+      "n": 8,
+      "screen": "D5",
+      "action": "tap 'Sync to repository' (or it auto-commits)",
+      "shown": "'committed @sha' or 'sync failed' with the bundle still on screen",
+      "fail_closed": "the export is a state of the screen and survives the post-run refresh; on a failed auto-commit a persistent Banner replaces today's 9s toast (ux-audit F-01, Behaviour-proven)"
+     }
+    ]
+   },
+   "research_capture_including_full_capture": {
+    "goal": "Read the game and keep the evidence, with the repository-persistence consequence stated before the tap.",
+    "phone_taps_summary_read": 3,
+    "phone_taps_full_capture": 4,
+    "steps": [
+     {
+      "n": 1,
+      "screen": "H1 -> R1",
+      "action": "tap the Research bottom tab (tap 1)",
+      "shown": "zero-mutation packages only, capture library entry, ad-hoc read entry",
+      "fail_closed": "the ad-hoc read entry is DISABLED with 'needs registry expansion (K-17)', never hidden, so the operator learns why Builder is still installed"
+     },
+     {
+      "n": 2,
+      "screen": "R1 -> R2",
+      "action": "tap the package row (tap 2)",
+      "shown": "READ ONLY ModeBand: reads N - captures N - full N - creates 0 - updates 0 - uploads 0; CaptureRow list marking each path FULL or SUMMARY",
+      "fail_closed": "a full-capture package renders the warn Banner naming the paths and the repository-persistence sentence (screens.mjs:123-125); a summary package does not"
+     },
+     {
+      "n": 3,
+      "screen": "R2",
+      "action": "tap 'Run N reads - zero mutations' (tap 3)",
+      "shown": "summary-only: runs immediately; full capture: a ConfirmationSurface restating that the bodies are committed to a public repository",
+      "fail_closed": "confirmation is spent only where it buys something: summary reads do not confirm (ux-audit F-17 correction), full captures do (K-06)"
+     },
+     {
+      "n": 4,
+      "screen": "D3-equivalent run view",
+      "action": "watch",
+      "shown": "per capture: 'read ok' / 'read failed' AND, separately, 'body persisted' / 'not persisted' with persistError",
+      "fail_closed": "a successful read never stands in for a persisted body; a null point read must be a distinct 'absent' verdict, not a persisted success (gate G-07; harvest-evidence.json on tnr_results_1789124514980)"
+     },
+     {
+      "n": 5,
+      "screen": "R4 / R5",
+      "action": "open the capture library",
+      "shown": "read cache and immutable snapshots as two stores with different wording and confirmation strength",
+      "fail_closed": "snapshot deletion says the body can only come back from another read; the picker's GitHub cache stops living in the game read cache (app.mjs:198-200 smell)"
+     }
+    ]
+   },
+   "recovery_ambiguous_sent_orphan": {
+    "goal": "Resolve a write that may have landed, without ever re-sending it.",
+    "phone_taps_to_decision": 3,
+    "steps": [
+     {
+      "n": 1,
+      "screen": "H1",
+      "action": "open Forge; the orphan card is pinned above active work",
+      "shown": "the inverted ivory ORPHANED pill, what is uncertain, whether a request may have left, what reconciliation found, that an ordinary retry is unsafe, and the recommended next safe action",
+      "fail_closed": "nothing on this card is preselected and no control is labelled Retry or Send again (SSC; D2.3.2)"
+     },
+     {
+      "n": 2,
+      "screen": "H1 -> D3",
+      "action": "tap 'Open' (tap 1)",
+      "shown": "the job with a RECOVERY ModeBand, the halt card naming the pause reason from the journal vocabulary, and the orphan card INLINE under the paused item",
+      "fail_closed": "this fixes today's split where the pause is on Run and the decision is on Jobs (ux-audit F-10); a SESSION pause disables Resume with resumeBlockedReason; a TRIPPED budget disables Resume with a countdown"
+     },
+     {
+      "n": 3,
+      "screen": "D3",
+      "action": "tap 'Adopt <id>' on a candidate row (tap 2)",
+      "shown": "candidate rows: name first at 16px, id in 13px mono and copyable; Adopt is a --warn-outlined ink button on the row",
+      "fail_closed": "Adopt confirms by naming the record and the continuation; Skip says 'Nothing is deleted; the server row (if any) stays'; Re-send sits last in the exceptional --bad construction with its own confirmation"
+     },
+     {
+      "n": 4,
+      "screen": "SH3 -> D3",
+      "action": "confirm (tap 3), then 'Reconcile & resume'",
+      "shown": "the item moves ORPHANED -> CONFIRMED; the job resumes at the next phase",
+      "fail_closed": "SENT -> PLANNED does not exist in the transition table (journal.mjs:39-47); run() refuses a job with SENT items (runner.mjs:193); resume() reconciles first (runner.mjs:242) and a read refused as unauthenticated raises AuthRefused instead of orphaning"
+     }
+    ]
+   },
+   "content_admin_queue_detail_edit_preview_publish": {
+    "goal": "Let an authorized content administrator review, adjust, preview and publish hidden content without ever seeing a manifest.",
+    "phone_taps_review_and_publish_no_edit": 4,
+    "phone_taps_with_an_edit": 7,
+    "steps": [
+     {
+      "n": 1,
+      "screen": "H1 -> A1",
+      "action": "tap the Content Admin tab (tap 1)",
+      "shown": "queue entries in content terms: package title, classes, record count, who staged it, when; each record's content pill",
+      "fail_closed": "the destination renders as a labelled placeholder with the reason when the role read shows no canChangeContent role; the queue never claims a live count it did not fetch (the pending badge is fed from the repository-backed review record in the GitHub listing cache, not a live poll)"
+     },
+     {
+      "n": 2,
+      "screen": "A1 -> A2",
+      "action": "tap a record row (tap 2)",
+      "shown": "human change summary, grouped fields, the class's lifecycle field named in words, the unhide-gate result, dependency advisories, 'read at hh:mm'",
+      "fail_closed": "where the game records no native history (quest, gameAsset), the summary is labelled as coming from Forge captures, not from the game (CC-03)"
+     },
+     {
+      "n": 3,
+      "screen": "A2 -> A4",
+      "action": "tap 'Preview' (optional)",
+      "shown": "the class renderer, or a neutral 'no player renderer exists for this class' state",
+      "fail_closed": "a missing renderer is a neutral empty state, never an error, and never a claim that the record is fine (CA-05)"
+     },
+     {
+      "n": 4,
+      "screen": "A2 -> A3",
+      "action": "tap 'Edit' (optional, tap 3)",
+      "shown": "per-class form over the fetched whole record with a DiffView of the pending change",
+      "fail_closed": "a staleness re-read runs immediately before send and refuses when the live record moved (CC-09 last-writer-wins); unknown keys are refused pre-send because the server silently drops them"
+     },
+     {
+      "n": 5,
+      "screen": "A3 -> SH3",
+      "action": "tap 'Save changes' then confirm (taps 4-5)",
+      "shown": "the write is journaled as a single-item job so it inherits SENT/CONFIRMED/VERIFIED and read-back",
+      "fail_closed": "the admin sees a record-level result ('saved and read back at 14:02' / 'not confirmed'), never the job vocabulary; the underlying journal is unchanged"
+     },
+     {
+      "n": 6,
+      "screen": "A2 -> A5",
+      "action": "tap 'Publish' (tap 6)",
+      "shown": "PUBLISH ModeBand with publishes 1, the exact flip in words, the unhide-gate result, the session lamp and the role",
+      "fail_closed": "Publish is disabled with the reason when the role is absent, when the class's unhide gate is unmet (jutsu/item need >=1 effect with appearAnimation AND appearSfx; quest needs sceneCharacters), or when the record was read too long ago"
+     },
+     {
+      "n": 7,
+      "screen": "SH3 -> A2",
+      "action": "confirm (tap 7)",
+      "shown": "the content pill stays HIDDEN and shows SENT - UNCONFIRMED until the read-back returns",
+      "fail_closed": "the pill flips to PUBLISHED only on a VERIFIED read-back, never on HTTP success; the verdict comes from the decoded outcome (outcome.mjs:23-56)"
+     }
+    ]
+   }
+  },
+  "authority_lanes": {
+   "principle": "One product, two authorities. Content Operations acts on PACKAGES and JOBS; Content Admin acts on RECORDS. The two lanes share the runner, the journal and the safety invariants, and share nothing in their vocabulary.",
+   "structural_separation": [
+    "Separate top-level destination with its own second level; no admin screen is reachable from a Deliver screen and no Deliver screen is reachable from an admin screen except through the rail/bottom nav.",
+    "The admin lane renders no manifest text, no procedure path, no journal state, no item pill, no budget row, no capture key, no orphan card. Those live only under Deliver and Research.",
+    "Pill families are disjoint and this is the primary structural cue: the admin lane uses ONLY the content pills HIDDEN / DRAFT / PUBLISHED (plus SENT - UNCONFIRMED while a publish is in flight); the operator lane uses the job and item pills PLANNED / SENT / CONFIRMED / VERIFIED / FAILED / ORPHANED / SKIPPED / PAUSED / INCOMPLETE / RUNNING / DONE / ABORTED.",
+    "An admin action is still journaled and still read back; it is PRESENTED as a record result ('saved and read back at 14:02'), not as a job. The write-ahead journal, the SENT reconciliation and the read-back are preserved unchanged below the presentation seam.",
+    "Role is read once per session through profile.getPublicUser (one public budget unit) or profile.getUser, held in memory only, never persisted, never a cookie or token read. Without a canChangeContent role the destination is a labelled placeholder, never a hidden row."
+   ],
+   "visual_separation": [
+    "Gold (--pub, --pub-text) is the admin/review/publish family and appears nowhere in the operator lane except the PUBLISHED content pill.",
+    "Crimson (--mut) is the operator live-write family and appears nowhere in the admin lane: the admin never sees a LIVE WRITE band. An admin edit arms its own confirmation in the neutral/write construction only at the moment of send.",
+    "The admin lane carries no ModeBand while reading; a PUBLISH band appears only on the publish sheet and on the record while a publish is in flight. This is a deliberate reduction of the approved mode-header rule and is listed as a departure for the director.",
+    "Geometry: the three production ink buttons (Start live write, Publish, Reconcile & resume) are the only 0-radius controls in the app, so 'square means it touches production' holds in both lanes."
+   ],
+   "how_data_moves": [
+    "1. The operator runs a package in Deliver. Hidden records are created or updated; the journal records entityId, manifestPath and manifestHash per item; the results bundle is committed to harvests/inbox (app.mjs:369-406).",
+    "2. Forge writes a repository-backed REVIEW handoff naming the package, the records by id and class, and the operator who staged them. The durable home is the repository, not Forge: the existing roadmap task status REVIEW (scripts/content_workstream.py:59) plus a per-package review record. Exactly where and in what shape is K-09/K-47 and is not settled here.",
+    "3. The admin queue reads that repository-backed state from the GitHub listing cache (no game request), then resolves each entry to its live record by a point read when the entry is opened, not when the queue is listed.",
+    "4. The admin decides. An edit is a whole-record fetch-merge update; a publish is the same update with the lifecycle field flipped. Both go through the runner and the journal.",
+    "5. The disposition (approved / changes requested / published, with the read-back verdict and the record ids) is written back to the same repository-backed record, so the operator sees it in the Project workspace and in the package's last-run tag. Nothing about approval is claimed to be live game state.",
+    "6. Nothing in this loop invents a second canonical content database: the game owns the records, the repository owns the review state, Forge owns neither."
+   ],
+   "open": [
+    "K-03 permission scope",
+    "K-04 whether the admin may execute arbitrary writes",
+    "K-08 staged package vs direct hidden-record edit",
+    "K-09 approval-state storage",
+    "K-47 review annotations store"
+   ]
+  },
+  "risk_visibility": {
+   "one_rule": "Hue says which authority family you are in; construction says the exact state; motion is spent only on transitions and the single running cell. No state is carried by colour alone and no state is carried by motion.",
+   "job_and_item_states": {
+    "PLANNED": "dotted --dim border, transparent, glyph U+25CB",
+    "SENT": "the only dashed and hatched pill: orchid --sent text, 2px dashed border, hatched fill, glyph '?'; desktop word 'SENT - UNCONFIRMED', phone word 'SENT' plus the caption 'request left this device; no answer; reconciled, never re-sent'",
+    "CONFIRMED": "solid 1px --acc outline, glyph U+25D0; desktop 'CONFIRMED - NOT READ BACK', phone caption 'write landed; read-back still owed'",
+    "VERIFIED": "the only green pill and the only lifecycle pill with a solid tinted fill, glyph U+2713",
+    "FAILED": "2px solid --bad outline, glyph U+2715",
+    "ORPHANED": "the one inverted-polarity pill (ivory fill, --bg text), the heaviest thing on the screen, glyph '!'; desktop 'ORPHANED - DECIDE', phone caption 'a write may have landed; adopt or skip below'",
+    "SKIPPED": "neutral --edge outline, glyph U+21E5, never counted toward verified",
+    "PAUSED": "--warn outline, glyph U+2016, ALWAYS beside a mono reason chip: SESSION / 429 + countdown / NETWORK / AMBIGUOUS / USER / ORPHANED",
+    "INCOMPLETE": "--warn outline, glyph U+25D4; phone caption 'finished, but N writes are not proven; resume re-reads, never re-sends'",
+    "RUNNING": "static --acc outline, glyph U+25B8; the only motion is the ember sheen on the progress track beside it",
+    "DONE": "neutral pill plus a SEPARATE outcome lamp (VERIFIED ALL / UNVERIFIED / FAILED) from jobOutcome; DONE is never green on its own, which is today's one visible breach (styles.mjs:44)",
+    "ABORTED": "--bad outline; declared but has no producer today (K-35)"
+   },
+   "content_states": {
+    "HIDDEN": "slate fill with an --edge boundary, glyph U+25CC",
+    "DRAFT": "dashed --acc outline, glyph U+270E",
+    "PUBLISHED": "gold OUTLINE (state) as distinct from solid gold (action), glyph U+25C6"
+   },
+   "auth_state": {
+    "lamp": "SESSION READY (--ok) / CHECKING SESSION (--acc) / SESSION UNCONFIRMED (--warn) / SIGNED OUT (--bad, the only filled --bad chip; a server refusal invalidates an earlier READY at auth.mjs:199)",
+    "not_authorized": "rendered ONLY if K-34's source audit finds a stable role-denial signal; today a role refusal arrives as HTTP 200 success:false and becomes an ordinary FAILED item (outcome.mjs:39; runner.mjs:640), indistinguishable from a guard or a name collision. Until then the lamp keeps four states and the copy says 'not distinguishable from source'.",
+    "placement": "the lamp is global and lives in the AppShell; a read failure is never on the lamp, it is on the item row in --bad."
+   },
+   "mutation_vs_read_vs_publish": [
+    "Band: READ ONLY is the resting cool blue on an --acc-fill strip with an outlined chip and U+25CE. LIVE WRITE is the only solid crimson in the app with 2px --mut-edge rules and U+21AF. PUBLISH is the only solid gold with U+25C6. RECOVERY is a caution hatch with U+21BB.",
+    "Button: read-primary is a blue fill with a 6px radius. write-primary and publish-primary are 0-radius ink buttons with a 2px border on all four sides and a 5px offset shadow. Reconcile is a 0-radius amber OUTLINE. Re-send is the exceptional --bad outline, positioned last. Green is never a button.",
+    "Shell: a 3px top-bar underline is present on EVERY screen while a mutation job is RUNNING (--mut-edge), while a publish is in flight (--pub), and while any job holds SENT or ORPHANED (recovery hatch). It never animates.",
+    "Absence is a signal: Settings, Diagnostics, the capture library and the admin queue carry NO band, so the presence of a band itself means 'this screen can touch or has touched production'."
+   ],
+   "pause_reasons": "The reason is a mono chip beside the PAUSED pill and a full sentence on the halt card: SESSION (what the game refused, that nothing further was sent, whether it was a refusal or a stop before sending), TOO_MANY_REQUESTS (the limited path and a tabular countdown, with the tripped BudgetMeter hoisted into the card), NETWORK, UNDECODABLE_RESPONSE, AMBIGUOUS, USER, ORPHANED. The reason list is complete and comes from runner.mjs:117,137,189,216-217,225-226,364,369.",
+   "never": [
+    "No toast is the sole carrier of SENT, an auth refusal, INCOMPLETE, an orphan or a persistence failure; a toast is an echo of a durable Banner.",
+    "No outcome colour carries a non-outcome meaning: the picker's 'ran' tag and the image 'picked'/'missing' tags stop borrowing the VERIFIED/FAILED pill classes (screens.mjs:86,146).",
+    "No control on a SENT, CONFIRMED or ORPHANED item is labelled Retry or Try again."
+   ]
+  },
+  "confirmation_model": {
+   "principle": "Confirmation is spent where it buys evidence, and nowhere else. Today 24 confirmation sites were catalogued and the most frequent action in the record (a summary read) is one of them; that is what trains an operator to tap through.",
+   "no_confirmation": [
+    {
+     "action": "open, navigate, filter, search, refresh a repository listing",
+     "why": "no request to the game and nothing irreversible"
+    },
+    {
+     "action": "run a summary-only capture package",
+     "why": "zero mutations and no repository persistence; the READ ONLY band plus 'zero mutations' is the safeguard (today this confirms: screens.mjs:151-153, ux-audit F-17)"
+    },
+    {
+     "action": "re-read an unverified item",
+     "why": "a resume after a read-back failure can only read; the phase written on CONFIRMED is the NEXT step (runner.mjs:1-19)"
+    },
+    {
+     "action": "invalidate one read-cache entry",
+     "why": "a cache entry is reconstructible from another read; the snapshot store is the one that is not"
+    }
+   ],
+   "one_confirmation_per_job": [
+    {
+     "action": "start a live write",
+     "surface": "ConfirmationSurface with the counts, the record names, the session lamp and the exact consequence",
+     "why": "one confirmation for N items rather than N confirmations; the per-item safety is the journal, not the dialog"
+    },
+    {
+     "action": "run full captures",
+     "surface": "ConfirmationSurface restating repository persistence",
+     "why": "bodies reach a public repository (K-06)"
+    },
+    {
+     "action": "resume with reconciliation",
+     "surface": "none for the resume itself; the reconciliation is read-only",
+     "why": "resume reads before it does anything else (runner.mjs:242)"
+    }
+   ],
+   "one_confirmation_per_decision": [
+    {
+     "action": "Adopt a candidate",
+     "surface": "ConfirmationSurface naming the record and the continuation",
+     "why": "the operator is asserting which live row the placeholder became"
+    },
+    {
+     "action": "Skip",
+     "surface": "confirmation repeating that nothing is deleted and a live row may remain",
+     "why": "the choice is safe but not free"
+    },
+    {
+     "action": "Re-send a phase",
+     "surface": "its own confirmation, label naming the phase and the target entity",
+     "why": "the one control that can duplicate a live effect; it is also the only --bad-outlined 0-radius control and it is positioned last"
+    },
+    {
+     "action": "Publish / unpublish",
+     "surface": "ConfirmationSurface with the seal framing and the exact flip in words",
+     "why": "the action that makes content player-visible; level is K-12 and is not settled here"
+    },
+    {
+     "action": "Save an admin edit",
+     "surface": "ConfirmationSurface with the DiffView restated",
+     "why": "a whole-record write over a stale read can silently drop fields (CC-09)"
+    }
+   ],
+   "local_destructive": [
+    {
+     "action": "clear read cache / delete snapshot / delete all snapshots / delete finished jobs / forget credential",
+     "surface": "six distinct controls, each with its own sentence, never one generic Danger control; window.confirm is retained until ConfirmationSurface covers them",
+     "why": "these destroy evidence on this device only; they must not share a style with 'Skip (leave as is)', which is today's defect (F-18)"
+    }
+   ],
+   "arming_rule": "Confirm is disabled for about 600 ms after the sheet appears. This arms the ACTION, not the state, and it is not press-and-hold: a press-and-hold gesture cannot be performed reliably one-handed on a 6.5-inch phone and it hides the consequence text under the thumb.",
+   "why_this_avoids_fatigue": "The operations with the highest frequency in the committed record (21 capture-only manifests, 42 read bundles) confirm zero times. The operations that confirm are rare: 148 write items across 13 bundles in the whole record, and publishing has happened three times. A confirmation the operator sees a few times a week is read; one they see twenty times a session is not."
+  },
+  "progressive_disclosure": {
+   "raw_manifest": "Package detail (D2) -> 'Raw manifest' disclosure. Today there is no raw manifest view at all: the only raw JSON the operator sees is the export card (ux-audit S-F3 state_hidden). A raw view is an expert affordance and never a prerequisite.",
+   "journal": "Job detail (D3) -> Item evidence (D6) -> 'Journal record'; whole-journal text export lives in Diagnostics (X2), as today (screens.mjs:321). Damaged records (journal.broken) get a row on D4 with a raw export, fixing F-12.",
+   "procedure_paths_and_budget": "Job detail -> 'Technical' group on phone, right inspector on desktop; BudgetMeter per path with allowance and reset countdown, hoisted into the pause card when TRIPPED.",
+   "payloads_and_diffs": "DiffView is the default presentation (field label / live / sent); raw JSON sits behind a 'Raw' disclosure inside it. Today the drift is JSON.stringify pairs in 12px mono, which is how a bad write is understood (ux-audit F-15).",
+   "captures": "Capture rows show the verdicts; the body sits behind a disclosure on R5 and is never auto-expanded.",
+   "admin": "The admin lane has NO disclosure into manifests, journals or procedures. An operator who also holds the role reaches them through Deliver. The admin's deepest disclosure is the record's raw field list and its native history.",
+   "studio": "The Quest Source JSON sits behind a disclosure on S2; the build-result envelope sits behind a disclosure on S3; the compiler and worker revisions are always visible as provenance, not disclosed.",
+   "rule": "Progressive disclosure, never miniaturisation: consequence copy never drops below 14px and ids wrap in their own mono region rather than being sliced (today plan keys are sliced at 120 chars, screens.mjs:138)."
+  },
+  "frequency_and_risk_rationale": {
+   "the_mix": [
+    "Reads dominate. 42 committed bundles, 21 of 41 manifests capture-only, and the top capture procedures are quests.get (150 manifest captures), ai.getAiProfile (28), profile.getAi (26), gameAsset.get (23), jutsu.get (16).",
+    "Writes are frequent but concentrated in one shape. 148 write items: 113 quest:edit, 26 asset:create, 8 ai:edit, 1 jutsu:create, and zero quest:create.",
+    "Reads and writes travel together. 15 of 41 manifests carry both write items and captures (14 json plus the 31-quest icon-swap pack), because capture.after IS the read-back.",
+    "Entity mixing inside one package is rare but real: 34 of 35 json manifests are single-entity, and one zip pack (21_bg_assets_and_wiring) carries 8 asset:create plus 10 quest:edit in 18 items.",
+    "Publishing is the rarest and the most consequential: three archived publish/hide manifests and 26 hidden-flag edits in one bundle, every one of them a user tap on Builder under skipPreflight.",
+    "Recovery is rare but real and expensive: 9 UNVERIFIED junk jutsu from one entity misroute, one poisoned idmap key that rode along in every later bundle, and one server-side objective-field drop that only the whole-record diff caught."
+   ],
+   "why_operation_first": [
+    "The consequence class is the one axis Forge can DERIVE mechanically and prove. read-only is already computed from an empty plan (screens.mjs:120); creates/updates/uploads/captures all come from the parsed plan and the manifest capture arrays. A content-type axis cannot be derived for a package that carries two entity types, and no axis at all can be derived for the 15 packages that mix reads and writes.",
+    "The approved mode header only makes sense inside an operation-first IA. If the first level were content type, the operator would choose 'Quests' and only then learn that this particular quest package writes 31 live records. Operation-first puts the consequence in the destination and the counts in the band.",
+    "The frequency and the risk point in opposite directions, which is exactly what an operation axis expresses: the most frequent action (read) gets the shallowest path and zero confirmations, and the rarest action (publish) gets its own destination, its own colour family and its own confirmation.",
+    "The three shapes that keep Builder installed (capture bodies for generator scripts, paged list captures, procedures outside the registry) are all READS. An operation-first IA gives them one destination with one honest capability statement, instead of scattering 'this read is not supported yet' across six content lanes.",
+    "Recovery is a phase of a job, not a place. Today it is split across Jobs and Run and that is a real, catalogued defect; an operation-first Deliver destination that holds packages, jobs and the recovery decision together repairs it rather than institutionalising it."
+   ],
+   "what_the_lanes_are_for": "Content lanes survive as the approved entry principle, but as the SECOND axis: a lane is a filter and a starting point on the Command Center, not a destination that owns work. Tapping the Quests & Events lane opens Research or Deliver already filtered, or opens Quest Studio; it never opens a place where a mixed package cannot be shown."
+  },
+  "mapping_from_current_five_screens": [
+   {
+    "current": "Jobs (screens.mjs:11)",
+    "new": [
+     "H1 Command Center: ActiveWorkCard and the pinned orphan card take the 'what needs me' half",
+     "D4 Jobs: the full list including finished, paused, ambiguous and damaged records",
+     "D3 Job detail: the orphan decision moves here, beside the pause it belongs to"
+    ],
+    "why": "the current screen mixes a dashboard, a history list and a recovery decision; the orphan card is the only place to Adopt but the pause that requires it is rendered on Run (ux-audit F-10)"
+   },
+   {
+    "current": "Manifests (screens.mjs:73)",
+    "new": [
+     "R1 Research home for packages whose parsed plan has zero write items",
+     "D1 Packages for packages with at least one write item",
+     "D2 Package detail as its own route rather than a card appended below the list"
+    ],
+    "why": "today one list mixes zero-mutation and live-write packages with no visible difference, and the selected card is appended below the entire list with no scrollIntoView (ux-audit F-07)"
+   },
+   {
+    "current": "Run (screens.mjs:163)",
+    "new": [
+     "D3 Job detail (run + recovery inline)",
+     "D5 Results as a durable screen instead of a prepended export card"
+    ],
+    "why": "the auto-opened bundle card is destroyed by the post-run refresh when sync is off (ux-audit F-01, Behaviour-proven)"
+   },
+   {
+    "current": "Captures (screens.mjs:260)",
+    "new": [
+     "R4 Capture library (both stores, same two-store separation)",
+     "R5 Capture evidence for one snapshot"
+    ],
+    "why": "the two stores keep their distinct wording and confirmation strength; the picker's GitHub cache stops being listed as if it were a game capture (app.mjs:198-200)"
+   },
+   {
+    "current": "Settings (screens.mjs:303)",
+    "new": [
+     "X1 Settings (credential, sync, role, storage)",
+     "X2 Diagnostics (auth describe, budget per path, journal export, damaged records, exchange log)"
+    ],
+    "why": "Settings currently carries raw JSON.stringify diagnostics beside a credential form; splitting them lets the credential rules get real controls and the diagnostics get real rows"
+   },
+   {
+    "current": "(none)",
+    "new": [
+     "STUDIO and ADMIN are new destinations, not re-homes",
+     "SH3 ConfirmationSurface replaces the ten window.confirm sites"
+    ],
+    "why": "Quest Studio exists only on chatgpt/forge-quest-studio-foundation@824c4d58 and Content Admin does not exist at all"
+   }
+  ],
+  "migration_notes": [
+   "Five horizontally scrolling text tabs become five bottom items plus a More sheet on the phone and a 232px rail on the desktop. Nav targets rise from 40px and Close from 32px to 44px.",
+   "The landing screen changes from Jobs to the Command Center. Nothing redirects: a resumable job badges the Deliver destination and pins a card on Home, it never moves the operator (this preserves today's actual behaviour, where go() is only called from taps).",
+   "The single manifest list splits by derived consequence. An operator looking for a capture-only manifest goes to Research; a package that gains a write item moves to Deliver. One search covers both and every row shows its mode chip, so the move is visible rather than surprising.",
+   "The orphan decision moves from Jobs to the job it belongs to. The Home orphan card remains, so the recovery entry point is not lost.",
+   "window.confirm is replaced by an in-UI sheet for live write, publish, adopt, skip, re-send and full capture; native confirm is retained for local destructive maintenance until the sheet covers those too.",
+   "Summary-only capture runs stop confirming. This is the single largest reduction in taps for the most frequent workflow.",
+   "The green 'ran' tag on a manifest row becomes outcome-coloured and says which run and when. An operator who learned to read the green tag as 'this manifest is fine' must relearn it.",
+   "DONE stops being green. A DONE job with skipped items or an unpersisted full body shows a neutral DONE pill beside an UNVERIFIED outcome lamp.",
+   "Builder stays installed and pinned throughout. Every Research capability that is still Builder-only renders as a disabled control naming the gate, so the operator always knows which tool to reach for.",
+   "Nothing changes in the journal, the transition table, the reconciler, the budget or the transport during the shell migration; storage keys, the PAT key and the idmap key are unchanged."
+  ],
+  "screen_map_vs_approved_direction": {
+   "sidebar_destinations": [
+    {
+     "element": "Dashboard",
+     "disposition": "keep (rename open)",
+     "maps_to": "HOME / H1 Command Center",
+     "justification": "amendment section 5; every block has a local data source (journal, AuthState, Budget, listing cache). The exact word is illustrative per amendment section 12 and is K-20."
+    },
+    {
+     "element": "Create Content",
+     "disposition": "regroup",
+     "maps_to": "STUDIO / S1 Studio home -> S2 Quest draft",
+     "justification": "RUL-2026-09-12-001 makes Quest Studio the authoring product and only Mission is a supported subtype at 824c4d58; no other content class has an authoring capability in Forge, and manifests are authored in a repository session (W-17). R-16 names 'Create Content' as a mockup-implied capability. Other classes render as labelled placeholders, never as doors."
+    },
+    {
+     "element": "Capture",
+     "disposition": "keep (rename Research)",
+     "maps_to": "RESEARCH / R1-R5",
+     "justification": "P-09 FORGE BETTER for capture-only runs and P-14 FORGE BETTER for full-capture persistence; 21 of 41 manifests are capture-only. The rename covers the ad-hoc research reads the destination must eventually hold (P-10, P-11, P-12)."
+    },
+    {
+     "element": "Edit & Write",
+     "disposition": "regroup (no operator destination)",
+     "maps_to": "ADMIN / A3 Record edit, and DELIVER / D2 for an edit package",
+     "justification": "Forge has no operator-facing record editor and never has; every one of the 113 committed quest edits was a manifest. The only record-level editing capability that is source-verified and zero-game-change is the admin one (CA-01..CA-08). R-16 lists this label as unbacked."
+    },
+    {
+     "element": "Validate",
+     "disposition": "drop as a destination",
+     "maps_to": "D2 ValidationSummary, R2 PreflightSummary, S3 build result",
+     "justification": "Forge's validation is per-package (lints P-35, nested unknown-key refusal P-32) and canonical validation runs in the repository worker (RUL-2026-09-12-002). The mockup's 'balance' claim is dropped outright: balance is a reserved user decision (docs/DOCTRINE.md:110-116) and Forge must surface a decision card, never a verdict. R-16."
+    },
+    {
+     "element": "Manifest & Deploy",
+     "disposition": "rename and regroup",
+     "maps_to": "DELIVER / D1-D6",
+     "justification": "P-03 (picker), P-17 (parsing), P-20 (two-phase create), P-39 (read-back), P-41..P-43 (recovery) all live here. 'Deploy' is replaced by the copy contract's publish pattern so that running a hidden package is never confused with making content player-visible (K-20 recommendation)."
+    },
+    {
+     "element": "Content Admin",
+     "disposition": "keep, first-class",
+     "maps_to": "ADMIN / A1-A7",
+     "justification": "brief section 8; admin-feasibility.json shows the whole draft -> review -> edit -> publish loop is possible with zero game changes for all seven Forge classes plus guide and badge."
+    },
+    {
+     "element": "Library",
+     "disposition": "regroup into two libraries",
+     "maps_to": "R4 Capture library (evidence on this device) and A6 Content library (live records)",
+     "justification": "they are different authorities over different things. A6 additionally needs paged list support (reader.mjs:73-86 refuses list() for non-Names paths today; gate G-03)."
+    },
+    {
+     "element": "Reports",
+     "disposition": "needs-capability-first (placeholder or drop)",
+     "maps_to": "D4 Jobs + H1 ActivityRow for run history; repository reporting stays in the repository",
+     "justification": "no reporting source exists in Forge; answers/, catalogs and harvest verification are repository workflows (W-13, W-14) and a Forge bundle does not even feed answers/ today. R-16."
+    },
+    {
+     "element": "Settings",
+     "disposition": "keep (split)",
+     "maps_to": "X1 Settings and X2 Diagnostics",
+     "justification": "F-19 and F-15 are both in today's single Settings screen."
+    }
+   ],
+   "quick_actions": [
+    {
+     "element": "New Content (Skill, Item, Enemy, Event...)",
+     "disposition": "rename and narrow",
+     "maps_to": "'New quest' -> S1",
+     "justification": "only the quest family has an authoring path (RUL-2026-09-12-001; the subtype registry marks only mission supported). Skill/Item/Enemy authoring does not exist in Forge."
+    },
+    {
+     "element": "Capture from Live",
+     "disposition": "keep",
+     "maps_to": "R1 (and R3 when K-17/G-02 land)",
+     "justification": "the most frequent real action; P-09."
+    },
+    {
+     "element": "Validate Content (rules, balance, format)",
+     "disposition": "drop",
+     "maps_to": "-",
+     "justification": "no standalone target; 'balance' is a reserved user decision. R-16."
+    },
+    {
+     "element": "Create Manifest (package for deployment)",
+     "disposition": "needs-capability-first",
+     "maps_to": "S3 -> S4, disabled with the reason",
+     "justification": "the Studio compiles a manifest into studio/builds/<id>/ but the picker lists push/ on main; the only path today is a text export and a manual commit (A.8 item 6; K-39)."
+    },
+    {
+     "element": "(added) Resume work",
+     "disposition": "add",
+     "maps_to": "H1 ActiveWorkCard primary",
+     "justification": "journal.resumable() is the one quick-action source that exists today (WCM ActionCard: 'resume only; create/validate actions have none')."
+    },
+    {
+     "element": "(added) Review pending content",
+     "disposition": "add when the role is present",
+     "maps_to": "A1",
+     "justification": "the amendment makes Content Admin a first-class home block; the count comes from the repository-backed review record, not a live poll."
+    }
+   ],
+   "content_lanes": [
+    {
+     "element": "COMBAT (Skills, Enemies, AI, Encounters)",
+     "disposition": "keep (rename candidate: Encounters & AI)",
+     "maps_to": "lane filter over the ai, aiProfile and jutsu recipes",
+     "justification": "recipes.mjs:11-50 covers jutsu, ai and aiProfile; P-22, P-25, P-26 are PARITY or FORGE BETTER. K-24 open."
+    },
+    {
+     "element": "ITEMS (Gear, Consumables, Materials)",
+     "disposition": "keep",
+     "maps_to": "lane filter over the item recipe",
+     "justification": "recipes.mjs item; CA-02 zero-game-change. K-24 open."
+    },
+    {
+     "element": "QUESTS & EVENTS (Stories, Triggers, World Content)",
+     "disposition": "keep; hosts Quest Studio",
+     "maps_to": "lane filter over the quest recipe + STUDIO entry",
+     "justification": "113 of 148 write items are quest edits; RUL-2026-09-12-001 puts Mission, Event, Story, Raid and Battle Pyramid inside one Studio. K-24 open."
+    },
+    {
+     "element": "LOCATIONS (Zones, Maps, Travel, Discovery)",
+     "disposition": "drop or replace",
+     "maps_to": "replacement candidate: 'Scenes & Assets' over the gameAsset recipe",
+     "justification": "no Forge capability for zones, maps or travel; sectorMap, mapAsset and mapTerrain (CA-12..CA-14) are not in the 43-path registry and need canChangeContent. The real, backed neighbour is gameAsset SCENE_BACKGROUND/SCENE_CHARACTER (CA-04), which is also where all 26 asset creates went. R-16."
+    },
+    {
+     "element": "CHARACTERS (NPCs, Factions, Dialogues)",
+     "disposition": "regroup into Combat/Encounters",
+     "maps_to": "the ai recipe",
+     "justification": "the only 'character' record Forge touches is a userData row with isAi=true (CA-06); factions and dialogues are not Forge classes. R-16."
+    },
+    {
+     "element": "SYSTEMS (Mechanics, Configuration)",
+     "disposition": "drop",
+     "maps_to": "-",
+     "justification": "gameSetting, combat damage config and global tavern are runtime configuration with no Forge path (CA-25) and no recipe. R-16."
+    },
+    {
+     "element": "(added) Guides",
+     "disposition": "needs-capability-first placeholder",
+     "maps_to": "a labelled lane placeholder",
+     "justification": "CA-08 says the full draft -> preview -> publish loop is feasible with zero game changes, but the class is post-pin: it needs a pin move to 36c5873b or the sentinel plus five registry rows and a field set (CC-07, K-29, K-13)."
+    }
+   ],
+   "home_blocks": [
+    {
+     "element": "Welcome hero with background art and a quote",
+     "disposition": "keep, reduced",
+     "maps_to": "Brand hero strip, 96px phone / 160px desktop, CSS atmosphere only",
+     "justification": "amendment section 12 keeps branded identity; K-31 decides whether real art is funded. On a 390px phone the hero must not push the first attention item below the fold."
+    },
+    {
+     "element": "Quick Actions row",
+     "disposition": "keep, re-specified",
+     "maps_to": "CommandCenter.QuickActionTile 2x2 phone / 4-up desktop",
+     "justification": "count and order are illustrative (amendment section 12); every tile maps to a capability row or is disabled with the reason."
+    },
+    {
+     "element": "Content Lanes row",
+     "disposition": "keep as an entry principle, taxonomy changed",
+     "maps_to": "LaneCard strips",
+     "justification": "amendment section 6 keeps the principle and calls the labels non-canonical; K-24 owns the final taxonomy."
+    },
+    {
+     "element": "Recent Activity",
+     "disposition": "keep",
+     "maps_to": "ActivityRow from journal.listJobs() + jobOutcome",
+     "justification": "source exists (screens.mjs:36-42); the dot must be coloured by outcome, fixing F-14."
+    },
+    {
+     "element": "System Status: 'Game Source Connection: Online'",
+     "disposition": "drop and replace",
+     "maps_to": "SESSION lamp from AuthState.describe()",
+     "justification": "no connectivity signal exists; a status row implying a live link would need a poll, which spends the shared 60/60s publicProcedure budget (R-03, R-16). The honest equivalent is the auth probe already performed at mount."
+    },
+    {
+     "element": "System Status: 'Content Validation: Operational'",
+     "disposition": "drop",
+     "maps_to": "-",
+     "justification": "validation is a property of a package, not of the system; R-16."
+    },
+    {
+     "element": "System Status: 'Manifest Generation: Operational'",
+     "disposition": "drop (revisit with K-38)",
+     "maps_to": "-",
+     "justification": "nothing generates manifests in Forge; the Studio worker's refusals and cancellations are currently invisible (no result file lands, buildResult() returns null), so even a worker-health row would be a claim without a source."
+    },
+    {
+     "element": "System Status: 'Repository Access: Operational'",
+     "disposition": "keep, re-worded",
+     "maps_to": "REPO lamp: 'reachable - listed 4m ago' / 'listing failed' / 'not configured'",
+     "justification": "fed from the last listing result (pickerAt/pickerError), never a fresh call."
+    },
+    {
+     "element": "System Status: 'Rate Budget: Healthy'",
+     "disposition": "keep",
+     "maps_to": "BUDGET lamp + BudgetMeter",
+     "justification": "Budget.status() is local state written before every acquire (bucket.mjs:204-216)."
+    },
+    {
+     "element": "'Ready for Content Work / All systems are go' green banner",
+     "disposition": "keep, conditioned",
+     "maps_to": "ReadinessCard headline",
+     "justification": "rendered green only when every WIRED lamp is green; a domain with no source reads 'not checked' in --mute. 'All systems nominal' never appears as a standalone green banner."
+    },
+    {
+     "element": "(added) Storage lamp",
+     "disposition": "add",
+     "maps_to": "ReadinessCard STORAGE row",
+     "justification": "app.state.persisted and journal.broken exist and are never rendered today (F-12)."
+    },
+    {
+     "element": "Content Admin block: 'Review Pending Content (3)'",
+     "disposition": "keep, source named",
+     "maps_to": "A1 with a gold-OUTLINE count",
+     "justification": "the count comes from the repository-backed review record in the listing cache; a live hidden-record count is an explicit Refresh because every such read is publicProcedure at 60/60s shared with the carrier page (CC-02). K-09 owns where the review state lives."
+    },
+    {
+     "element": "Content Admin block: 'Edit Live Content'",
+     "disposition": "keep",
+     "maps_to": "A2 -> A3",
+     "justification": "CA-01..CA-08 whole-record update under canChangeContent, zero game change."
+    },
+    {
+     "element": "Content Admin block: 'Preview Content \u2014 see exactly how it looks'",
+     "disposition": "keep, scoped",
+     "maps_to": "A4",
+     "justification": "true for gameAsset (CA-04) and guide (CA-08); partial for jutsu/item/bloodline (re-implement the effect render); FALSE for quest, which has no usable player renderer (CA-05). The subtitle must not promise 'exactly how it looks' for a class with no renderer. K-05."
+    },
+    {
+     "element": "Content Admin block: 'Publish / Unpublish'",
+     "disposition": "keep, gated",
+     "maps_to": "A5",
+     "justification": "publish is a whole-record update flipping hidden/published with per-class unhide gates; K-07 and K-12 own eligibility and confirmation level."
+    },
+    {
+     "element": "Content Admin block: 'Content Library'",
+     "disposition": "keep",
+     "maps_to": "A6",
+     "justification": "needs paged list support (G-03)."
+    },
+    {
+     "element": "Operator identity chip ('Operator / Content Creator')",
+     "disposition": "keep, sourced",
+     "maps_to": "AppShell session lamp + role line",
+     "justification": "role is readable without credential material through profile.getPublicUser on the own userId (one public budget unit) or profile.getUser (CC-01); it must be held in memory only."
+    }
+   ]
+  },
+  "operation_mode_header": {
+   "what_it_is": "A 44px full-width band, the same height in every mode so content never jumps, rendered BEFORE any item list. Left: glyph + MODE word at 14px/900. Right: outlined count chips.",
+   "modes": [
+    "READ ONLY",
+    "LIVE WRITE",
+    "PUBLISH",
+    "RECOVERY",
+    "(REVIEW reserved, only if K-21 rules it a mode)"
+   ],
+   "derivation": "Derived, never selected. A mode selector reads as a permission. READ ONLY when the parsed plan has zero write items (this is already how Forge decides today, screens.mjs:120). LIVE WRITE when the plan has at least one create or update. RECOVERY when the job is PAUSED or INCOMPLETE or holds any SENT or ORPHANED item. PUBLISH only on an admin publish action. K-33 is open and a user-selected mode remains an option for the director.",
+   "counts_and_their_sources": [
+    {
+     "count": "records read",
+     "source": "manifest.capture.before.length + manifest.capture.after.length, plus the read-back reads the plan implies",
+     "cite": "manifest.mjs normalizeCapture; runner.mjs:577-593"
+    },
+    {
+     "count": "records changed",
+     "source": "plan items with op 'update'",
+     "cite": "planOrder (manifest.mjs); recipes.mjs update paths"
+    },
+    {
+     "count": "creates",
+     "source": "plan items with op 'create'",
+     "cite": "planOrder; recipes.mjs two-phase creates"
+    },
+    {
+     "count": "uploads",
+     "source": "@img refs collected from the plan, one per image slot",
+     "cite": "refs.mjs collectRefs; screens.mjs:145; upload.mjs:21 ceilings"
+    },
+    {
+     "count": "captures",
+     "source": "capture entries; the FULL subset is the count of entries with persist:'full'",
+     "cite": "manifest.mjs:139; captures.mjs:58-84"
+    },
+    {
+     "count": "publishes",
+     "source": "ONLY the admin publish flow, from the selected record set; rendered as 0 and greyed elsewhere, and omitted entirely rather than fabricated if no source exists",
+     "cite": "no publish recipe exists today (A_ARCHITECTURE_MAP.md A.7)"
+    },
+    {
+     "count": "deletes",
+     "source": "never rendered: no delete recipe has a caller and no authorized delete workflow exists",
+     "cite": "recipes.mjs has no delete; K-16 open"
+    }
+   ],
+   "during_the_run": "The same band stays, but the counts are recomputed from the JOURNAL rather than the plan, so a resumed job shows what is left rather than what was originally planned. The band never animates; numbers step instantly and use tabular numerals.",
+   "phone": "44px sticky under the 56px top bar. The word plus the two most consequential counts for the mode (LIVE WRITE: creates and updates; READ ONLY: reads and full captures; RECOVERY: unconfirmed and orphaned; PUBLISH: publishes and dependencies), then a down-chevron that expands a second 32px line with the rest. A readiness blocker line replaces the counts when the session is not READY ('blocked: session unconfirmed'). Total sticky chrome on a 390x844 screen: 56 top bar + 44 band + 64 sticky action bar + 56 bottom nav = 220px, so the main region keeps about 620px.",
+   "desktop": "44px at the top of the content column (not the full window, so the rail is never covered), with the full chip row visible and no chevron.",
+   "absence_is_a_signal": "Settings, Diagnostics, the capture library, the Studio draft and the admin queue render NO band. The presence of a band means the screen can touch, or has touched, production.",
+   "accessibility": "<header aria-live=\"polite\">; the mode word is text, the glyph is aria-hidden in a fixed 16px box so a missing glyph cannot shift the word."
+  },
+  "command_center": {
+   "rule": "Every block is fed from state Forge already holds. No block issues a game request on render, on tab switch, or on a timer. The one screen the operator opens most often must cost zero budget.",
+   "blocks": [
+    {
+     "block": "Orphan card (pinned first when present)",
+     "source": "journal.ambiguous() plus item.candidates from the reconciler",
+     "cost": "none (localStorage)",
+     "cite": "journal.mjs:363; reconciler.mjs:115-120"
+    },
+    {
+     "block": "ActiveWorkCard",
+     "source": "journal.resumable() / listJobs() and jobOutcome; the lease key for the 'no driving tab' derived state",
+     "cost": "none (localStorage)",
+     "cite": "journal.mjs:76-88,363; runner.mjs:36-42"
+    },
+    {
+     "block": "ReadinessCard SESSION lamp",
+     "source": "AuthState.describe() from the single probe performed at mount, plus any server refusal that invalidated it",
+     "cost": "none on render; the mount probe is one protected read with a sentinel id",
+     "cite": "auth.mjs:199,219; main.mjs:75-166"
+    },
+    {
+     "block": "ReadinessCard REPO lamp",
+     "source": "readGh(storage) for configuration, plus the last listing result held in app.state (pickerAt, pickerError)",
+     "cost": "none (GitHub listing cache; no game budget at all)",
+     "cite": "app.mjs:186-207,400; github.mjs:33"
+    },
+    {
+     "block": "ReadinessCard BUDGET lamp",
+     "source": "Budget.status(): the local send log written before every acquire, plus the trip marker",
+     "cost": "none (localStorage)",
+     "cite": "bucket.mjs:204-216"
+    },
+    {
+     "block": "ReadinessCard STORAGE lamp",
+     "source": "app.state.persisted from navigator.storage.persist() at mount, plus journal.broken",
+     "cost": "none",
+     "cite": "app.mjs:408-410; journal.mjs:221-228"
+    },
+    {
+     "block": "QuickActionTile row",
+     "source": "static, except 'Resume work' which is journal.resumable() and the role-dependent 'Review pending content'",
+     "cost": "none",
+     "cite": "WCM ActionCard forge_data_source: 'resume only'"
+    },
+    {
+     "block": "LaneCard strip",
+     "source": "static taxonomy plus a local HIDDEN count only where the journal already knows it; a lane never shows a live record count",
+     "cost": "none",
+     "cite": "K-24 open; ICN lane colour never overrides state"
+    },
+    {
+     "block": "Content Admin block with a pending count",
+     "source": "the repository-backed review record read from the GitHub listing cache (the same cache the picker uses), plus the in-memory role result",
+     "cost": "none on render; refreshing the repo listing is a GitHub call, not a game call",
+     "cite": "app.mjs:198-200; CC-01 for the role read"
+    },
+    {
+     "block": "ActivityRow list",
+     "source": "journal.listJobs() slice with jobOutcome and manifestPath/startedAt",
+     "cost": "none",
+     "cite": "screens.mjs:36-42"
+    }
+   ],
+   "not_shown_because_it_would_need_a_live_poll": [
+    {
+     "omitted": "'Game Source Connection: Online'",
+     "why": "there is no connectivity procedure; any such row would be a fabricated claim or a per-render protected read. The session lamp is the honest substitute.",
+     "cite": "R-16; R-03"
+    },
+    {
+     "omitted": "a live count of hidden records awaiting review",
+     "why": "every draft-queue read is publicProcedure on a 60/60s window per path per user, shared with the carrier page's own tRPC traffic; a dashboard that refreshed it on every visit would trip the limiter, and a trip costs the player money and bank",
+     "cite": "CC-02; bucket.mjs; R-03"
+    },
+    {
+     "omitted": "per-lane live record counts",
+     "why": "same limiter, multiplied by the number of lanes",
+     "cite": "CC-02"
+    },
+    {
+     "omitted": "'Content Validation: Operational' and 'Manifest Generation: Operational'",
+     "why": "no system-level source exists; validation is per package and the Studio worker's refusals and cancellations produce no result file at all today",
+     "cite": "R-16; A_ARCHITECTURE_MAP.md A.11 Observe row"
+    },
+    {
+     "omitted": "a live Quest Studio build status on Home",
+     "why": "the build poll is a GitHub Contents API call every 2s for up to 60s; it belongs to the Studio screen that started it, not to a home screen that renders on every open",
+     "cite": "R-17; 824c4d58:forge/src/studio/ui.mjs:446-449"
+    },
+    {
+     "omitted": "'ready to publish' as a computed verdict",
+     "why": "eligibility depends on per-class unhide gates and on a role, and it would read as permission; the gate is evaluated on the record detail, at the moment of the action",
+     "cite": "CA-01, CA-05; K-07"
+    }
+   ],
+   "refresh_policy": "Every refresh that costs anything is an explicit tap with a plain statement of what it costs: 'Refresh queue - reads 3 lists'. Nothing on Home refreshes on a timer. The only timer in the app remains the 1.5s run-screen tick, and it must patch the progress element in place rather than rebuilding it."
+  },
+  "departures": [
+   {
+    "id": "DEP-1",
+    "what": "Drop 'Game Source Connection: Online' from System Status and replace it with the session lamp.",
+    "why": "No procedure reports connectivity. Any such row is either fabricated or a live poll on a shared 60/60s budget. The approved character (obvious system readiness) is preserved; the specific claim is not.",
+    "evidence": [
+     "H_RISK_REGISTER.md R-16",
+     "R-03",
+     "CC-02",
+     "auth.mjs:199,219"
+    ],
+    "character_change": "no"
+   },
+   {
+    "id": "DEP-2",
+    "what": "Drop 'Validate Content (rules, balance, format)' as a destination and as a quick action.",
+    "why": "Forge's validation is per package and canonical validation runs in the repository worker. Balance is a reserved user decision that Forge must surface as a decision card, never adjudicate.",
+    "evidence": [
+     "RUL-2026-09-12-002",
+     "docs/DOCTRINE.md:110-116",
+     "P-35, P-32",
+     "R-16"
+    ],
+    "character_change": "no"
+   },
+   {
+    "id": "DEP-3",
+    "what": "Replace three of the six lanes (Locations, Characters, Systems) and add a Guides placeholder.",
+    "why": "Those three have no verified procedure, recipe or field set; Characters collapses into the AI recipe; Guides is feasible with zero game changes but needs a pin move and five registry rows.",
+    "evidence": [
+     "R-16",
+     "CA-06",
+     "CA-12..CA-14",
+     "CA-25",
+     "CC-07",
+     "recipes.mjs:11-50"
+    ],
+    "character_change": "no (the amendment calls the lane labels non-canonical); K-24 owns the final set"
+   },
+   {
+    "id": "DEP-4",
+    "what": "'Edit & Write' does not become an operator destination; record editing exists only in the Content Admin lane.",
+    "why": "Forge has no operator-facing record editor and all 113 committed quest edits were manifests. Putting an editor in the operator lane would imply a capability that does not exist and would blur the authority split the brief requires.",
+    "evidence": [
+     "R-16",
+     "harvest-evidence.json write-item counts",
+     "CA-01..CA-08"
+    ],
+    "character_change": "no"
+   },
+   {
+    "id": "DEP-5",
+    "what": "Recovery is not a top-level destination; it is a mode and a screen state inside Deliver.",
+    "why": "Splitting the pause from the decision is today's catalogued defect. A separate Recovery destination would re-create it at a larger scale. The approved direction asks that active work and recovery stay accessible across destinations, which the badge, the top-bar underline and the Home orphan card provide.",
+    "evidence": [
+     "ux-audit-current.json F-10",
+     "screens.mjs:29-31,45-70 vs 218-219",
+     "amendment section 4"
+    ],
+    "character_change": "no"
+   },
+   {
+    "id": "DEP-6",
+    "what": "The Content Admin lane carries no operation-mode band while reading; a PUBLISH band appears only on the publish sheet and while a publish is in flight.",
+    "why": "The amendment asks for a persistent operation context on actionable flows, but the admin surface is overwhelmingly a reading surface and a permanent band would make review feel like execution, defeating 'intentionally simpler'. This IS a reduction of an approved element and the director should rule on it.",
+    "evidence": [
+     "amendment section 7 and section 8",
+     "K-21, K-30"
+    ],
+    "character_change": "YES - surfaced for director approval"
+   },
+   {
+    "id": "DEP-7",
+    "what": "On a 390px phone the Command Center orders attention (orphan, active work) above the quick actions and lanes, and the hero shrinks to a 96px strip.",
+    "why": "The approved composition is desktop-first; at phone width the mockup's order puts the one thing that can be ambiguous below a hero, four tiles and six lane cards. The amendment's own phone guidance asks for one primary decision per viewport region.",
+    "evidence": [
+     "amendment section 4 (phone) and section 5",
+     "MOB section 4",
+     "D_VISUAL_SYSTEM.md D2.3.3 chrome budget"
+    ],
+    "character_change": "no (a reorder, not a removal); flagged because it changes what the director saw"
+   },
+   {
+    "id": "DEP-8",
+    "what": "Studio and Projects sit under More on the phone rather than in the primary five.",
+    "why": "Authoring has zero live footprint and, at 824c4d58, holds one draft per device with only Mission supported. Spending a scarce primary slot on it before the promotion contract exists would push either Admin or Deliver out.",
+    "evidence": [
+     "824c4d58:forge/src/studio/ui.mjs:10,146-158",
+     "R-18",
+     "K-20a"
+    ],
+    "character_change": "no; an alternative phone set with Studio promoted is offered as a K-20 option"
+   },
+   {
+    "id": "DEP-9",
+    "what": "'Preview Content - see exactly how it looks' is scoped per class and must not promise a render for quests.",
+    "why": "There is no usable player renderer for a quest objective outside a live tracker; the admin gets the objective list and an explicit 'no player renderer exists for this class'.",
+    "evidence": [
+     "CA-05",
+     "CA-04",
+     "CA-08",
+     "K-05"
+    ],
+    "character_change": "no"
+   },
+   {
+    "id": "DEP-10",
+    "what": "Reports is dropped or rendered as a labelled placeholder for v1.",
+    "why": "No reporting source exists in Forge; run history is the journal and content reporting is a repository workflow that a Forge bundle does not even feed today.",
+    "evidence": [
+     "R-16",
+     "W-14",
+     "A_ARCHITECTURE_MAP.md A.10 (Forge bundles carry checks:null and break validate.py --parity)",
+     "R-19"
+    ],
+    "character_change": "no"
+   }
+  ],
+  "quest_studio_destination": {
+   "shape": "STUDIO -> S1 subtype chooser (registry-driven, maturity stated) -> S2 Quest Source draft (Brief / Storyboard / Encounters / Assets / Decisions) -> S3 Compile (submit to the request branch, dispatch the worker, poll, render valid|blocked|failed) -> S4 Promotion handoff (HOLD) -> DELIVER D2 package detail -> D3 run.",
+   "one_studio": "One destination, one chooser, six subtypes from the registry; Mission is a card in the chooser, not a product. RUL-2026-09-12-001.",
+   "repository_boundary": "No canonical rule is re-encoded in the browser. Client-side checks are advisory, labelled advisory, and should be generated projections of registry data rather than hand-written rules; the compile verdict comes from quest_compile.py through the worker. RUL-2026-09-12-002.",
+   "honest_states": "'Build still running' and 'the worker never produced a result' must be distinguishable; today a validation refusal, a missing result and a cancelled run all stop before the persist step and are indistinguishable from a slow queue. This is K-38 and the destination renders the ambiguity rather than guessing.",
+   "blockers_are_decisions": "A 'blocked' status renders a decision card naming the reserved decision and its owner, never a default value. The classification itself is currently substring-matched on MissionError prose (R-21), which the destination must present as 'the compiler reported a decision is missing' rather than as a typed code.",
+   "open": [
+    "K-25 schema",
+    "K-26 worker trigger and PAT scope",
+    "K-27 rollout order",
+    "K-37 branch retention",
+    "K-38 observability",
+    "K-39 promotion gate",
+    "K-46 graph depth",
+    "K-50 adapter boundary"
+   ]
+  },
+  "project_workspace": {
+   "shape": "STUDIO -> S5 Projects (one row per state/workstreams/<slug>) -> S6 Project workspace.",
+   "projection_rule": "A read-only projection of roadmap.json with a provenance line naming the commit it was read at. Validation and rendering stay in scripts/content_workstream.py; Forge never becomes a second store of coordination state.",
+   "what_it_shows": "Needs attention (BLOCKED tasks, unresolved open_decisions, missing evidence), the readiness strip, READY/IN_PROGRESS/BLOCKED/REVIEW tasks with their required resources, the open-decisions workbench, evidence links, and the review package entry that connects to the Content Admin queue.",
+   "editing": "Any write back to roadmap.json is disabled with the reason until K-28 rules how much repository-backed project state Forge may edit; the REVIEW handoff a package needs is the first candidate for a narrow, validated write.",
+   "evidence": [
+    "state/workstreams/one_perfect_crop/roadmap.json (15 tasks; 6 carry open_decisions)",
+    "scripts/content_workstream.py:54-63 (REVIEW is an existing status)",
+    "WSP:44-59",
+    "K-28, K-40, K-43, K-44"
+   ]
+  }
+ },
+ "weaknesses": [
+  "The strongest anti-content-type argument is weaker than it first looks. 34 of the 35 committed json manifests are single-entity; only one zip pack mixes entity types. A content-type-first IA can therefore classify almost every real package correctly, and its advocates can cite that directly. My case rests on the read/write mix (15 of 41) and on derivability, not on entity mixing.",
+  "A package can move between Research and Deliver when its plan changes, because the classification is derived. An operator who learned 'the census manifest lives in Research' will find a later revision of it in Deliver. Mitigations (one search across both, a mode chip on every row) reduce but do not remove the surprise.",
+  "'Research' and 'Deliver' are vocabulary the operator has to learn; 'Quests' and 'Items' are vocabulary they already have. The migration cost of an operation axis falls entirely on the one person who uses the tool daily.",
+  "The Research destination ships partly empty. The three shapes that keep Builder installed (generator-fed capture bodies, paged list captures, procedures outside the registry) are all reads, so until G-02 and G-03 pass, the destination built around reads is the one with the most disabled controls. That is honest but it reads as a broken destination, and it is a real first-impression risk.",
+  "Deliver and Content Admin both need record reads, and every draft-queue read is publicProcedure on a 60/60s window shared with the carrier page. Two destinations that each hold a read cache can double-spend the budget. The design needs one shared cache policy and an explicit refresh, which I specify but do not prove.",
+  "Studio as a first-level destination is thin today: the code exists only on a ChatGPT branch, holds one draft per device keyed by the device clock, supports only Mission, and ends at a text export because no promotion contract exists. A destination whose primary journey terminates in a copy/paste is a weak destination until K-39 is ruled.",
+  "Presenting an admin publish as a record result while journaling it as a single-item job is an architectural claim, not a proven pattern. It depends on K-08 (staged package versus direct hidden-record edit) and on a publish recipe that does not exist; if the director rules for staged packages, the admin lane gains a package concept and my 'the admin never sees a manifest' promise needs re-examination.",
+  "Lanes lose their place in the navigation. They live only on the Command Center, which is weaker than the mockup implies and weaker than a two-axis IA would give them. If the director wants lane-first browsing as a primary path, the two-axis family serves that better than this one.",
+  "The tap counts assume the package is already committed to push/ on main. Every count I give excludes the repository session that authored the manifest, which is where most of the real elapsed time goes; an IA change cannot improve that.",
+  "I reduce the approved operation-mode band on the admin surface (DEP-6). If the director rules that the band must be persistent everywhere, the 'intentionally simpler' character of Content Admin weakens and the phone chrome budget on admin screens rises by 44px."
+ ],
+ "evidence": [
+  "docs/forge_next/A_ARCHITECTURE_MAP.md A.2, A.4, A.7, A.8, A.10, A.11, A.12 (module map, lifecycle, invariants, Builder deltas, Studio seam, WCM data sources)",
+  "docs/forge_next/C_WORKFLOW_INVENTORY.md C.2a/C.2b/C.2c, C.3, C.4, C.4.1, C.5 (W-01..W-25, class mix, Builder-only shapes, the thirteen manifest steps)",
+  "docs/forge_next/D_VISUAL_SYSTEM.md D2.2 tokens, D2.3 component inventory, D2.3.2 RecoveryDecision, D2.3.3 phone chrome stack, D2.3.5 SystemHealth wiring rule, D2.3.6 Try-again allow-list, D2.4 motion rules",
+  "docs/forge_next/H_RISK_REGISTER.md R-03, R-07, R-08, R-10, R-12, R-16, R-17, R-18, R-19, R-21, R-24, R-25, R-26",
+  "docs/forge_next/K_USER_DECISIONS.md K-02, K-20/K-20a, K-21, K-22, K-24, K-33 and the Studio/admin entries",
+  "scratchpad/deepdive/parity-matrix.json P-03, P-05, P-06, P-07, P-09, P-10, P-11, P-12, P-13, P-14, P-17, P-20, P-22, P-25, P-26, P-32, P-35, P-39, P-41, P-42, P-43, P-45, P-49, P-50, P-58 and gates G-01..G-10",
+  "scratchpad/deepdive/admin-feasibility.json CA-01..CA-08 and CC-01, CC-02, CC-03, CC-05, CC-06, CC-07, CC-08, CC-09, CC-10",
+  "scratchpad/deepdive/harvest-evidence.json: 42 bundles (35 Builder, 7 Forge, all Forge bundles entries:[]), 148 write items, 21 capture-only manifests, proc-usage counts, 16 pain points",
+  "scratchpad/deepdive/ux-audit-current.json: screens S-F0..S-F7 and S-B1, findings F-01 (Behaviour-proven export-card loss), F-07, F-08, F-10, F-12, F-13, F-14, F-15, F-17, F-18, F-19, F-21, F-24, and the 17 preserve rows",
+  "Re-derived in this pass over the committed record: 35 json manifests, 0 mixed-entity; 14 json manifests carry both write items and captures; archive/spent-manifests/push-2026-09-09/21_bg_assets_and_wiring.zip carries 8 asset:create plus 10 quest:edit in 18 items; 24_rank_icon_swap_all31.zip carries 31 quest:edit plus 31 captures under skipPreflight",
+  "forge/src/ui/app.mjs:15,58,63-72,84,159-163,166-170,172-175,182,186-207,228-237,266-268,369-406,408-410",
+  "forge/src/ui/screens.mjs:11,29-31,45-70,73,82,86,95,118-161,163,218-232,244-258,260-298,303-322",
+  "forge/src/ui/styles.mjs:25,27,29,31,44,55",
+  "forge/src/storage/journal.mjs:34,39-49,76-88,221-228,277-283,330-335,363; forge/src/runner/runner.mjs:1-19,36-42,160,187-193,216,242,577-593,610-626,632-640; forge/src/reconcile/reconciler.mjs:94-156; forge/src/transport/auth.mjs:199,210,216,219; forge/src/transport/outcome.mjs:23-56; forge/src/transport/procedures.mjs:24-73; forge/src/budget/bucket.mjs:204-216; forge/src/budget/reader.mjs:73-86; forge/src/runner/recipes.mjs:11-50; forge/src/runner/validate.mjs:81-197,217-243; forge/src/storage/captures.mjs:58-84; forge/src/github.mjs:33",
+  "scripts/content_workstream.py:54-63 (REVIEW is an existing durable task status); state/workstreams/one_perfect_crop/roadmap.json (15 tasks, 6 with open_decisions)",
+  "824c4d58:forge/src/studio/ui.mjs:3-4,10,84-138,146-158,234-246,446-449,469-480; 824c4d58:forge/src/studio/repository.mjs:31-39,73-121; 824c4d58:.github/workflows/quest_studio.yml; 824c4d58:skills/building-tnr-content/scripts/quest_compile.py:100-116",
+  "scratchpad/amendment/FORGE_NEXT_VISUAL_DIRECTION.md sections 4, 5, 6, 7, 8, 9, 12 and the approved concept mockup (sidebar of ten, four quick actions, six lanes, five status rows, five admin entries)",
+  "consolidated_read/ux-contracts.json component rows (25) with their forge_data_source fields; WCM workflows A-R"
+ ],
+ "user_decisions_surfaced": [
+  "K-02 top-level navigation model: this proposal is option (a), operation-oriented destinations with content lanes as entry points. Not settled here.",
+  "K-20 / K-20a exact destination lists and labels: I propose six destinations and a five-item phone bar (Home, Research, Deliver, Content Admin, More) with Studio, Projects, Capture library, Settings and Diagnostics under More. An alternative phone bar promoting Studio and demoting Content Admin is offered. The words 'Research' and 'Deliver' are proposals, not rulings.",
+  "K-21 operation-mode taxonomy: I use the approved four and reserve REVIEW. Whether Review is a fifth mode stays open; DEP-6 (no band on the admin reading surface) needs a director answer either way.",
+  "K-33 mode selectable vs derived: I recommend derived, never selected, because a selector reads as a permission. The director may rule otherwise.",
+  "K-24 content-lane taxonomy: I propose Encounters & AI, Items, Quests & Events (hosting Quest Studio), Scenes & Assets, and a Guides placeholder, dropping Locations, Characters and Systems. Open.",
+  "K-03 / K-04 Content Admin permission scope and whether the admin may execute arbitrary writes: my admin lane offers review, edit, preview and publish only; arbitrary content writes stay in the operator lane. Open.",
+  "K-05 which classes get first-class forms and previews in v1: I show the per-class preview truth (assets trivial, jutsu/item/bloodline re-implemented, quest none, guide needs a pin move) without choosing the v1 set.",
+  "K-07 which operations are eligible for few-tap publish: my journey reaches publish in four taps for a review-only publish, but eligibility per class is the director's.",
+  "K-08 staged package vs direct hidden-record edit: my admin edit is direct-with-journaling; the staged alternative changes the lane's promise and is called out as a weakness.",
+  "K-09 / K-47 where approval state and review annotations live: I use a repository-backed review record anchored on the existing REVIEW task status, and say explicitly that the shape is not settled.",
+  "K-12 publishing UX and confirmation level: one armed sheet with the seal framing; the level (typed record name, held, two-person) is the director's.",
+  "K-06 capture data classification: the full-capture confirmation and the disabled ad-hoc read both depend on it.",
+  "K-16 deletion policy for placeholders and orphans: I render no delete count in the mode band and offer no delete control.",
+  "K-17 research-read registry expansion: the Research destination's ad-hoc read is disabled until this is ruled; this is also what keeps Builder installed.",
+  "K-11 Builder deprecation timing: every Builder-only capability is a disabled control naming its gate, so the IA does not assume retirement.",
+  "K-15 GitHub credential model on the admin's device, widened by the Studio's need for Actions dispatch and branch creation (K-26).",
+  "K-28 how much repository-backed project state Forge may edit: the Project workspace is read-only until this is ruled.",
+  "K-30 late Content Admin and publish visual details.",
+  "K-34 whether a role-denial signal exists: without it the NOT AUTHORIZED lamp is not rendered and a role refusal stays an ordinary FAILED item.",
+  "K-39 artifact promotion gate: S4 is a disabled control until this is ruled.",
+  "K-42 flagship end-to-end workflow: this IA supports Mission brief -> compile -> package -> hidden build -> admin review -> publish as the flagship, but the choice is the director's."
+ ],
+ "file_written": "/tmp/claude-0/-home-user-tnr-tools/e5692b10-4df8-5a1d-ae0b-15d8b552161e/scratchpad/design/ia-operation.json"
+}

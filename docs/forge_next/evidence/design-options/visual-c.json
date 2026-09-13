@@ -1,0 +1,1107 @@
+{
+ "name": "visual-c",
+ "family": "visual",
+ "thesis": "Elaborate the director-approved 'Forge' character (deep navy/charcoal, crimson/gold/cool-blue, layered depth, controlled motion) into a token/component/state system whose one organising rule is: HUE says which authority family you are in, CONSTRUCTION (fill vs outline vs hatch, hard edge vs soft edge, glyph + word) says the exact state, and MOTION is spent only on transitions and on the single thing that is actually running. The mockup's palette survives almost intact once sampled; what must change for the non-negotiables is small and is listed as departures: crimson is reserved for actions that write to the game, green is reserved for verdicts (not the Validate button), violet/blue/amber lane tints never appear on a pill or banner, illustrated hero/lane art becomes CSS-drawn atmosphere (a userscript bundle cannot fetch it and should not carry 250 KB of JPEG), the brush wordmark becomes a system-font or embedded-vector wordmark, and every status row gets a glyph and a word beside its colour.",
+ "file_written": "/tmp/claude-0/-home-user-tnr-tools/e5692b10-4df8-5a1d-ae0b-15d8b552161e/scratchpad/design/visual-c.json",
+ "evidence": [
+  "scratchpad/amendment/FORGE_NEXT_VISUAL_DIRECTION.md:38-46 (foundation palette: navy/charcoal, ivory, burnt crimson action family, gold/amber admin, cool blue system, semantic green/amber/red reserved)",
+  "scratchpad/amendment/FORGE_NEXT_VISUAL_DIRECTION.md:48-62 (hard-edged ink language: confident borders, squared controls, restrained offset shadows, glow only for focus/current activity)",
+  "scratchpad/amendment/FORGE_NEXT_VISUAL_DIRECTION.md:148-171 (operation-mode header READ ONLY / LIVE WRITE / PUBLISH / RECOVERY with counts)",
+  "scratchpad/amendment/FORGE_NEXT_VISUAL_DIRECTION.md:175-189 (state rules: SENT never retry-safe; auth unavailable vs denied vs transport separate; read-only materially safer; full capture visible; publish unmistakable; not colour alone)",
+  "scratchpad/amendment/FORGE_NEXT_VISUAL_DIRECTION.md:195-208 (motion allowed/avoid list; reduced motion)",
+  "scratchpad/amendment/FORGE_NEXT_VISUAL_DIRECTION.md:212-216 (display face only for brand; UI face for labels/tables/warnings; mono for ids/hashes only)",
+  "scratchpad/amendment/FORGE_NEXT_VISUAL_DIRECTION.md:218-254 (binding vs illustrative vs must-not-infer)",
+  "scratchpad/amendment/forge_next_concept_mockup.png sampled: main ground #0b131b at (900,342); panel #0b1318 at (1000,225); panel border #2b313a at (270..1520,190); crimson quick-action #cd1c24 / #ce3a3d border (300..580,245..318); blue #0046d6 / #255d9f (605..885); green #00532a (910..1190); violet #6723b7 (1215..1500); active nav border #dd1124 at (8..14,208..250); gold badge #f6ad37 at (1440..1476,693..712); operator ring gold #d59852; lane edges combat #f23a36, items #336ba1, quests #d5a360, locations #77cfd8, characters #944ce6, systems #737b8a at y=404..407; status text green #50ea90 at (1058..1100,687..703); footer glyph #f40d2a",
+  "state/prompt_forge_next_planning.md@70c1516 §1 (modern, responsive, fast, polished, a little flashy), §6 (mobile-first; no hover dependence; obvious read vs mutate/publish distinction; recovery), §11 ('a little flashy' = polish not distraction; risk states more obvious than today), §15 (friendly surface, explicit machine state; recovery is a screen not a toast)",
+  "forge/src/ui/styles.mjs:11 (today's tokens: --bg #0f1115 --panel #171a21 --line #2a2f3a --ink #e8eaf0 --mute #9aa3b2 --ok #5fbf8a --warn #d9a441 --bad #e0655f --acc #7aa2ff --sent #b08cff)",
+  "forge/src/ui/styles.mjs:19-20 (tokens and color-scheme live on .f-host/.f-app, never :root; the scoping rule this proposal keeps)",
+  "forge/src/ui/styles.mjs:22,26-28 (sticky top bar; horizontally scrolling five-button nav; active nav = acc fill)",
+  "forge/src/ui/styles.mjs:31-34 (all buttons radius 8; .f-primary = acc fill for both read-only 'Run captures' and live 'Start job'; .f-danger = outline only)",
+  "forge/src/ui/styles.mjs:42-45 (pills: 999px radius, 12px, colour + border only; ORPHANED/PAUSED/INCOMPLETE share --warn; SENT and CONFIRMED differ only by hue)",
+  "forge/src/ui/styles.mjs:48-51 (banners warn/bad/ok/info: 1px border + dark tint; progress bar 6px, acc fill, warn when paused)",
+  "forge/src/ui/screens.mjs:8 (pill = span with class + state word only; no glyph)",
+  "forge/src/ui/screens.mjs:18-26 (open job = generic warn banner; 'Reconcile & resume' is the same f-primary blue as any primary)",
+  "forge/src/ui/screens.mjs:45-69 (OrphanCard: plain f-card; Adopt is a default button; 'Re-send <phase>' is a default button)",
+  "forge/src/ui/screens.mjs:86,146 (VERIFIED/FAILED pill classes reused for 'ran', 'picked', 'missing': semantic pill construction borrowed for non-lifecycle meanings)",
+  "forge/src/ui/screens.mjs:122-125 (read-only = info banner; full captures = warn banner; the only visual read/write distinction before Start)",
+  "forge/src/ui/screens.mjs:151-156 (Start job vs Run captures: identical f-primary button; the difference is the window.confirm text)",
+  "forge/src/ui/screens.mjs:170-171 (run header: bold path + pill + 6px bar)",
+  "forge/src/ui/screens.mjs:208-219 (pause banners: SESSION = bad; 429 = bad; others warn; reason as text)",
+  "forge/src/ui/screens.mjs:229-232 (budget as key/value text, no meter)",
+  "forge/src/ui/app.mjs:15 (five screens jobs/manifests/run/captures/settings)",
+  "forge/src/ui/app.mjs:65 (brand today: plain text 'TNR forge' 700 weight)",
+  "forge/src/ui/app.mjs:93-97,172-175 (toast = banner appended for 4-12 s; confirm = window.confirm)",
+  "forge/src/ui/app.mjs:132-151 (auth banner: ok/info/bad full-width on every screen; three auth states named in prose)",
+  "forge/src/ui/app.mjs:159-163 (resumeBlockedReason: Resume must not be offered green when auth is refused)",
+  "forge/src/ui/app.mjs:268 (run screen re-renders on a 1500 ms tick while running: every animated element must survive a full re-render)",
+  "forge/src/ui/dom.mjs:3-16,30-43 (createElement helper; CSSOM install through adoptedStyleSheets with insertRule fallback; no HTML strings)",
+  "docs/forge_next/A_ARCHITECTURE_MAP.md:93-107 (job states RUNNING/PAUSED/DONE/INCOMPLETE/ABORTED; item transitions; outcome success/failed/unverified/open)",
+  "docs/forge_next/A_ARCHITECTURE_MAP.md:150-152 (live writes behind confirm; Forge has no publish/unhide action today; full-persist allowlist)",
+  "docs/forge_next/A_ARCHITECTURE_MAP.md:171-177 (bundle 397,984 B raw / 74,969 gz; ui 59,501 B; contract JSON is the largest cost, so a 250 KB hero JPEG is out of proportion)",
+  "docs/agents/UI_UX_REVIEWER.md:28-33 (destructive/ambiguous must not look like success; preserve PLANNED/SENT/CONFIRMED distinctions; no hover-only)",
+  "docs/00_INDEX.md:3-4 (operator: Samsung Android, Firefox, ViolentMonkey; no staging environment)",
+  "scratchpad/tnr-src-345d18ac/app/src/styles/globals.css:243-296 (.tnr-ink-btn: radius 0, 2px border, box-shadow 5px 5px 0 #b7331f, hover translate 2px + shadow 3px, focus outline 2px #f8f1dc offset 4px; 150 ms transitions)",
+  "scratchpad/tnr-src-345d18ac/app/src/components/ui/button.tsx:16-36 (the game's ordinary buttons are rounded-md with soft shadow; the ink style is the exception, which is the model for using it selectively)",
+  "scratchpad/design/palette_c.py + contrast_c.json (all ratios below computed here)"
+ ],
+ "user_decisions_surfaced": [
+  "D-VC-1 Crimson reserved for game-writing actions: the mockup paints 'New Content' (authoring) crimson. Proposal: only LIVE WRITE and its buttons may be crimson-filled; authoring a manifest uses the neutral raised control. Director may keep crimson on 'New Content' only if that action really opens a live-write flow.",
+  "D-VC-2 Green reserved for verdicts: the mockup's 'Validate Content' quick action is a green card. Proposal: Validate uses the blue/neutral action treatment; green appears only on VERIFIED/ok verdicts and the session lamp.",
+  "D-VC-3 Illustrated hero and lane art: proposal replaces raster illustration with CSS-drawn atmosphere (gradients + 1-2 KB inline SVG noise/glyph) so the bundle stays self-contained and under the 16 MB/perf budget on Android; the director can later supply a repo-committed data-URI art pack behind a 'Rich art' setting (off by default on phone).",
+  "D-VC-4 Wordmark: system-font 'FORGE' with crimson hard offset (option A) or an embedded vector path drawn with createElementNS (option B, the only way to keep the brushed lettering). Needs a director pick; A is the recommendation.",
+  "D-VC-5 Light theme: proposal ships dark only plus a 'Daylight' high-contrast dark variant (one class, five token overrides). A true light theme doubles the contrast audit and is deferred unless the director wants it.",
+  "D-VC-6 PUBLISH confirmation construction: gold seal card + solid gold button + typed record count or 600 ms press-and-hold. This is K-12 territory; proposal shows the construction, the director sets the confirmation level.",
+  "D-VC-7 Amber (warn/recovery) vs gold (publish) are 1.11:1 apart in luminance and ~15 degrees in hue; they are separated by construction (dark fill + outline + triangle vs solid seal + diamond). If the director wants a hue separation as well, warn shifts to #f08a3c (more orange) at the phase-2 design freeze."
+ ],
+ "weaknesses": [
+  "Two red families (burnt-crimson LIVE WRITE fill vs coral FAILED text) and two yellow families (gold PUBLISH seal vs amber WARN/RECOVERY) are deliberately close in hue; they are told apart by construction and by word/glyph, not by colour. This is correct for colour-blind safety but means a reviewer skimming only colours could conflate them; the construction rules must be enforced by a stylesheet contract test, not by taste.",
+  "Hard-edged ink controls (radius 0, offset shadow) used beside soft 8 px cards can look inconsistent if applied too widely; the proposal limits them to mode chips, risk buttons, pills and the wordmark, and that limit needs a written component inventory to hold.",
+  "The CSS-drawn atmosphere (layered radial gradients, thin SVG glyphs) will read as less 'painted' than the mockup's illustrations; the director approved a look that had art in it, so this is a visible departure even though it is the correct one for a self-contained userscript.",
+  "The segmented per-item progress bar degrades to a bucketed bar above ~40 items and to a plain fraction above ~120; large batch manifests lose the per-item glance.",
+  "Contrast is verified only for the token pairs listed; any ad-hoc rgba() blend added in implementation (glows, scrims over lane art, hover tints) must be re-computed at its composite value, and the 88 % scrim figure assumes a worst-case white pixel beneath it.",
+  "The mode header consumes 44 px of a 390x844 viewport while sticky; with the top bar (56) and bottom action bar (64) plus bottom nav (56) that is 220 px of chrome on the run screen. The proposal collapses the bottom nav while a run is open to win 56 px back, which is itself a behaviour the roadmap must test.",
+  "Firefox Android support for adoptedStyleSheets, backdrop-filter and prefers-reduced-motion is assumed from platform knowledge, not verified in this session; the fallbacks (insertRule path already in dom.mjs, no backdrop-filter dependency) are designed so nothing state-bearing needs them.",
+  "The proposal does not settle IA or destination names; it styles whatever the IA panel recommends inside the approved shell, and the phone bottom-nav treatment assumes five or fewer destinations."
+ ],
+ "proposal": {
+  "concept_name": "Forge (approved direction, elaborated): 'Ink & Ember'",
+  "one_line": "The approved dark TNR operations console, tokenised from the mockup's own pixels: navy-charcoal ground, ivory ink, a crimson that only ever means 'this writes to the game', a gold that only ever means 'this publishes', cool blue for the system's resting state, lane tints that are decoration and nothing more, ember-glow reserved for the one thing currently running, and hard-edged ink controls where a decision is being made.",
+  "mood": [
+   "atmospheric",
+   "deliberate",
+   "operational",
+   "premium",
+   "unambiguous"
+  ],
+  "relationship_to_the_approved_direction": "This is not an alternative to the north star; it is the north star made buildable. Every hex below is traced to a sampled region of the approved mockup or is the smallest adjustment needed to pass AA/3:1 or the no-runtime-assets rule. Departures are enumerated in mockup_departures and are each a director-visible decision (user_decisions_surfaced), never silent.",
+  "design_tokens": {
+   "scope_rule": "All custom properties are declared on .f-host and .f-app (styles.mjs:19-20 pattern), never on :root; color-scheme: dark stays on those two elements. Lane tokens are additionally declared only inside .f-lane so they cannot leak into pills/banners.",
+   "surfaces": {
+    "--bg": {
+     "hex": "#0b121a",
+     "from_mockup": "main ground sampled #0b131b at (900,342); nudged 1 step cooler to keep the navy read at low brightness",
+     "role": "page ground; the only surface a mode band may sit on"
+    },
+    "--paper": {
+     "hex": "#121b26",
+     "from_mockup": "panels sampled #0b1318-#0c141b; lifted ~6 % so cards separate from ground without a border",
+     "role": "card / panel surface"
+    },
+    "--raised": {
+     "hex": "#1a2532",
+     "from_mockup": "operator card #0f1822 (1380,36) lifted one more step",
+     "role": "elevated surface: rail active item, sticky action bar, hover/active rows, mode-header count chips"
+    },
+    "--float": {
+     "hex": "#212f3f",
+     "role": "dialogs, toasts, popovers (elevation 3)"
+    },
+    "--line": {
+     "hex": "#2a3644",
+     "from_mockup": "panel border #2b313a",
+     "role": "decorative divider only (1.41:1 on paper; no UI-boundary duty)"
+    },
+    "--edge": {
+     "hex": "#5d6d82",
+     "role": "control boundary: inputs, progress track, neutral buttons, details summary. 3.28:1 on paper, 3.56:1 on bg (WCAG 1.4.11 non-text minimum met)"
+    },
+    "--edge2": {
+     "hex": "#738399",
+     "role": "control boundary on --raised surfaces (4.49:1 on paper)"
+    }
+   },
+   "text": {
+    "--ink": {
+     "hex": "#f3efe6",
+     "from_mockup": "the mockup uses #ffffff; amendment §3 asks for warm ivory, so ivory replaces pure white at 16.40:1 on bg",
+     "role": "body text"
+    },
+    "--ink2": {
+     "hex": "#fffaf0",
+     "role": "headings, wordmark, text on crimson; 18.09:1 on bg"
+    },
+    "--mute": {
+     "hex": "#a9b3c2",
+     "from_mockup": "'time ago' text sampled #c8ccd5 brightest, perceived ~#9aa; set to 8.19:1 on paper",
+     "role": "secondary text, captions, inactive nav labels"
+    },
+    "--dim": {
+     "hex": "#8a97ab",
+     "role": "tertiary text (hashes, timestamps); floor for any text: 5.86:1 on paper, 6.36:1 on bg"
+    }
+   },
+   "accents": {
+    "--acc": {
+     "hex": "#7ab8ff",
+     "from_mockup": "activity blue dot #338df7 / items lane #0046d6, lightened to 9.08:1 on bg for text duty",
+     "role": "cool chakra blue: system/active accent, links, focus of navigation, DRAFT and CONFIRMED pills, default primary button fill with --acc-ink text"
+    },
+    "--acc-ink": {
+     "hex": "#0b121a",
+     "role": "text on an --acc fill (9.08:1)"
+    },
+    "--acc-fill": {
+     "hex": "#14304f",
+     "role": "info banner / READ ONLY band fill (acc text on it 6.47:1, ink on it 11.69:1)"
+    },
+    "--read": {
+     "hex": "#7ab8ff",
+     "role": "READ ONLY mode = the system's resting accent, on purpose: reading is Forge's safe default. Distinguished from navigation by construction (outlined hard-edge chip with glyph and the words READ ONLY), never by a separate hue"
+    },
+    "--read-fill": {
+     "hex": "#14304f",
+     "role": "READ ONLY mode band"
+    },
+    "--mut": {
+     "hex": "#c0242f",
+     "from_mockup": "quick-action crimson #cd1c24 and active-nav edge #dd1124; darkened to a burnt crimson so ivory text on it reaches 5.71:1 while the fill still clears 3.17:1 against the ground",
+     "role": "LIVE WRITE: the ONLY solid crimson fill in the app (mode band, Start/Resume-live buttons). Never used as text, never as a pill"
+    },
+    "--mut-ink": {
+     "hex": "#fffaf0",
+     "role": "text on crimson (5.71:1)"
+    },
+    "--mut-edge": {
+     "hex": "#ff5f5a",
+     "role": "2 px hard rule on every crimson band/button top+bottom (6.31:1 on bg, 5.19:1 on raised) so the band's boundary never depends on the 2.92:1 fill-vs-paper difference; also the rail's active marker"
+    },
+    "--mut-glow": {
+     "rgba": "rgba(255,95,90,0.35)",
+     "role": "8-24 px outer glow allowed ONLY on a crimson button while it is focused/pressed (never resting, never ambient)"
+    },
+    "--pub": {
+     "hex": "#e6b84f",
+     "from_mockup": "pending badge #f6ad37 (1440..1476,693..712) and operator ring #d59852, averaged toward the badge",
+     "role": "PUBLISH: the only solid gold fill (seal card border, Publish button, mode band). Dark text on it 10.00:1"
+    },
+    "--pub-ink": {
+     "hex": "#1b1200",
+     "role": "text on gold (10.00:1)"
+    },
+    "--pub-text": {
+     "hex": "#f0c65e",
+     "role": "gold as text/outline: PUBLISHED pill, pending-review count, admin cues (11.60:1 bg, 10.69:1 paper)"
+    },
+    "--warn": {
+     "hex": "#f5a25a",
+     "from_mockup": "the mockup has no dedicated caution colour; chosen ~15 deg more orange than --pub so caution and publish never share hue; 9.14:1 bg, 8.42:1 paper",
+     "role": "caution text/outline: PAUSED, INCOMPLETE, ORPHANED pills; advisories; budget at >=80 %"
+    },
+    "--warn-fill": {
+     "hex": "#33210f",
+     "role": "warn banner fill (warn text on it 7.47:1, ink 13.40:1)"
+    },
+    "--rec": {
+     "hex": "#f5a25a",
+     "role": "RECOVERY mode shares the caution hue and is distinguished by construction: hatched band, pause-bars glyph, the word RECOVERY"
+    },
+    "--rec-fill": {
+     "hex": "#33210f",
+     "role": "RECOVERY band base"
+    },
+    "--rec-hatch": {
+     "hex": "#4a2f12",
+     "role": "45-degree 6 px stripes over --rec-fill (repeating-linear-gradient); texture only, 1.25:1 by design so text on the band stays 5.98:1+"
+    },
+    "--sent": {
+     "hex": "#e79cff",
+     "from_mockup": "no source; keeps today's violet family (styles.mjs:11 --sent #b08cff) but shifts to orchid so it is not the Characters lane violet #8b5cf6 (2.14:1 apart in luminance, ~25 deg in hue) and is brighter for text: 9.50:1 bg, 8.75:1 paper",
+     "role": "SENT / unconfirmed. Text + dashed 2 px border + hatch; never solid"
+    },
+    "--sent-fill": {
+     "hex": "#2c1f3d",
+     "role": "SENT pill/banner base (orchid on it 7.73:1, ink 13.35:1)"
+    },
+    "--sent-hatch": {
+     "hex": "#3d2a55",
+     "role": "stripes over --sent-fill; texture only"
+    },
+    "--ok": {
+     "hex": "#5ad48f",
+     "from_mockup": "status text green #50ea90 / dot #22c167; set to 10.08:1 bg, 9.29:1 paper",
+     "role": "success verdicts only: VERIFIED, DONE(success), session READY lamp, 'body persisted'. Never a button"
+    },
+    "--ok-fill": {
+     "hex": "#10301f",
+     "from_mockup": "ready banner #041714 lifted",
+     "role": "success banner fill (ok text 7.68:1, ink 12.50:1)"
+    },
+    "--bad": {
+     "hex": "#ff8a80",
+     "from_mockup": "no source; a coral, bright and text-weight, so it is the opposite construction of the dark crimson fill (2.91:1 between them in luminance, and never in the same construction)",
+     "role": "failure verdicts: FAILED, ABORTED, auth refused, TRIPPED. Text/outline only"
+    },
+    "--bad-fill": {
+     "hex": "#3a1518",
+     "role": "failure banner fill (bad text 7.07:1, ink 14.07:1)"
+    },
+    "--focus": {
+     "hex": "#fffaf0",
+     "role": "focus ring: 2 px solid, outline-offset 3 px so it is always drawn on the surrounding dark surface (18.09:1 bg, 16.67:1 paper); on a gold seal the offset is what saves it (ring directly on gold would be 1.78:1)"
+    }
+   },
+   "state_pills": {
+    "construction": "Every pill = [glyph][space][WORD] in 12 px / 700 / uppercase / 0.04 em tracking, min-height 24 px, padding 2 px 8 px, radius 0 (hard edge), 1 px border in the state colour, text in the state colour, on --paper. Glyphs are plain Unicode text nodes (no icon font). Pills never animate and never change size on state change (all glyphs are single-cell).",
+    "PLANNED": {
+     "text": "#a9b3c2",
+     "border": "1px dotted #8a97ab",
+     "fill": "transparent",
+     "glyph": "○",
+     "word": "PLANNED",
+     "contrast_on_paper": 8.19
+    },
+    "SENT": {
+     "text": "#e79cff",
+     "border": "2px dashed #e79cff",
+     "fill": "repeating-linear-gradient(45deg,#2c1f3d 0 6px,#3d2a55 6px 12px)",
+     "glyph": "?",
+     "word": "SENT · UNCONFIRMED",
+     "contrast_on_fill": 7.73,
+     "note": "the only pill with a dashed border, the only pill whose word carries a qualifier, and the only pill with a question glyph; it is 2 px so it is heavier than VERIFIED"
+    },
+    "CONFIRMED": {
+     "text": "#7ab8ff",
+     "border": "1px solid #7ab8ff",
+     "fill": "transparent",
+     "glyph": "◐",
+     "word": "CONFIRMED",
+     "contrast_on_paper": 8.37,
+     "note": "half-disc glyph: landed, not yet read back"
+    },
+    "VERIFIED": {
+     "text": "#5ad48f",
+     "border": "1px solid #5ad48f",
+     "fill": "#10301f",
+     "glyph": "✓",
+     "word": "VERIFIED",
+     "contrast_on_fill": 7.68,
+     "note": "the only green pill; the only pill with a solid tinted fill among lifecycle states, so 'decisively finished' reads at a glance"
+    },
+    "FAILED": {
+     "text": "#ff8a80",
+     "border": "2px solid #ff8a80",
+     "fill": "transparent",
+     "glyph": "✕",
+     "word": "FAILED",
+     "contrast_on_paper": 7.6
+    },
+    "ORPHANED": {
+     "text": "#f5a25a",
+     "border": "2px solid #f5a25a",
+     "fill": "repeating-linear-gradient(45deg,#33210f 0 6px,#4a2f12 6px 12px)",
+     "glyph": "⚑",
+     "word": "ORPHANED · DECIDE",
+     "contrast_on_hatch": 5.98,
+     "note": "flag glyph + hatch + 2 px: the one amber pill that demands a human decision"
+    },
+    "SKIPPED": {
+     "text": "#a9b3c2",
+     "border": "1px solid #5d6d82",
+     "fill": "transparent",
+     "glyph": "→|",
+     "word": "SKIPPED",
+     "contrast_on_paper": 8.19,
+     "text_decoration": "none (strikethrough rejected: hurts legibility at 12 px)"
+    },
+    "PAUSED": {
+     "text": "#f5a25a",
+     "border": "1px solid #f5a25a",
+     "fill": "transparent",
+     "glyph": "‖",
+     "word": "PAUSED",
+     "contrast_on_paper": 8.42,
+     "note": "job-level; the pause REASON is always printed beside it as a mono chip (SESSION / 429 / NETWORK / AMBIGUOUS / USER / ORPHANED)"
+    },
+    "INCOMPLETE": {
+     "text": "#f5a25a",
+     "border": "1px solid #f5a25a",
+     "fill": "transparent",
+     "glyph": "◔",
+     "word": "INCOMPLETE · UNVERIFIED",
+     "contrast_on_paper": 8.42,
+     "note": "quarter-disc glyph: finished but owes a read-back; word carries the qualifier so it is never mistaken for DONE"
+    },
+    "DONE_success": {
+     "text": "#5ad48f",
+     "border": "1px solid #5ad48f",
+     "fill": "#10301f",
+     "glyph": "✓",
+     "word": "DONE · VERIFIED"
+    },
+    "DONE_unverified_or_failed": {
+     "note": "DONE with outcome != success is never rendered as a green pill; it renders as INCOMPLETE-style (amber, unverified) or FAILED-style per jobOutcome() (A_ARCHITECTURE_MAP.md:107)"
+    },
+    "ABORTED": {
+     "text": "#ff8a80",
+     "border": "1px solid #ff8a80",
+     "fill": "transparent",
+     "glyph": "■",
+     "word": "ABORTED"
+    },
+    "RUNNING": {
+     "text": "#7ab8ff",
+     "border": "1px solid #7ab8ff",
+     "fill": "transparent",
+     "glyph": "▶",
+     "word": "RUNNING",
+     "note": "the pill itself is static; the ember sheen lives on the progress track next to it, never on the pill"
+    },
+    "content_HIDDEN": {
+     "text": "#c9d2de",
+     "border": "1px solid #5d6d82",
+     "fill": "#253041",
+     "glyph": "◌",
+     "word": "HIDDEN",
+     "contrast_on_fill": 8.72,
+     "note": "slate fill: present but not player-visible; the default state Forge creates into"
+    },
+    "content_DRAFT": {
+     "text": "#7ab8ff",
+     "border": "1px dashed #7ab8ff",
+     "fill": "transparent",
+     "glyph": "✎",
+     "word": "DRAFT",
+     "contrast_on_paper": 8.37,
+     "note": "a repo package / staged edit not yet applied to a live record; dashed because it is not live"
+    },
+    "content_PUBLISHED": {
+     "text": "#f0c65e",
+     "border": "1px solid #f0c65e",
+     "fill": "transparent",
+     "glyph": "◆",
+     "word": "PUBLISHED",
+     "contrast_on_paper": 10.69,
+     "note": "gold outline: the state that the gold PUBLISH action produces; outline (state) vs solid (action) keeps them apart"
+    }
+   },
+   "lane_tokens_scoped_to_.f-lane": {
+    "--lane-combat": "#e5484d (mockup edge #f23a36; 4.81:1 on bg)",
+    "--lane-items": "#3b82f6 (mockup #336ba1 / #0046d6; 5.12:1)",
+    "--lane-quests": "#d5a360 (mockup edge #d5a360; 8.28:1)",
+    "--lane-locations": "#2fbfc9 (mockup edge #77cfd8 / glow #025762; 8.44:1)",
+    "--lane-characters": "#8b5cf6 (mockup #944ce6; 4.45:1; note it is not --sent)",
+    "--lane-systems": "#7c8797 (mockup #737b8a; 5.17:1)"
+   },
+   "contrast_table_text_on_background": [
+    [
+     "#f3efe6 ink",
+     "#0b121a bg",
+     16.4,
+     "AAA"
+    ],
+    [
+     "#f3efe6 ink",
+     "#121b26 paper",
+     15.12,
+     "AAA"
+    ],
+    [
+     "#f3efe6 ink",
+     "#1a2532 raised",
+     13.51,
+     "AAA"
+    ],
+    [
+     "#f3efe6 ink",
+     "#212f3f float",
+     11.86,
+     "AAA"
+    ],
+    [
+     "#fffaf0 ink2",
+     "#1a2532 raised",
+     14.9,
+     "AAA"
+    ],
+    [
+     "#a9b3c2 mute",
+     "#0b121a bg",
+     8.89,
+     "AAA"
+    ],
+    [
+     "#a9b3c2 mute",
+     "#121b26 paper",
+     8.19,
+     "AAA"
+    ],
+    [
+     "#a9b3c2 mute",
+     "#1a2532 raised",
+     7.32,
+     "AAA"
+    ],
+    [
+     "#8a97ab dim",
+     "#0b121a bg",
+     6.36,
+     "AA"
+    ],
+    [
+     "#8a97ab dim",
+     "#121b26 paper",
+     5.86,
+     "AA"
+    ],
+    [
+     "#7ab8ff acc",
+     "#0b121a bg",
+     9.08,
+     "AAA"
+    ],
+    [
+     "#7ab8ff acc",
+     "#121b26 paper",
+     8.37,
+     "AAA"
+    ],
+    [
+     "#7ab8ff acc",
+     "#14304f acc-fill",
+     6.47,
+     "AA"
+    ],
+    [
+     "#0b121a acc-ink",
+     "#7ab8ff acc button",
+     9.08,
+     "AAA"
+    ],
+    [
+     "#f3efe6 ink",
+     "#14304f acc-fill",
+     11.69,
+     "AAA"
+    ],
+    [
+     "#fffaf0 mut-ink",
+     "#c0242f mut band/button",
+     5.71,
+     "AA"
+    ],
+    [
+     "#ff8f86 mut-text (rare)",
+     "#0b121a bg",
+     8.54,
+     "AAA"
+    ],
+    [
+     "#1b1200 pub-ink",
+     "#e6b84f pub seal/button",
+     10.0,
+     "AAA"
+    ],
+    [
+     "#f0c65e pub-text",
+     "#0b121a bg",
+     11.6,
+     "AAA"
+    ],
+    [
+     "#f0c65e pub-text",
+     "#121b26 paper",
+     10.69,
+     "AAA"
+    ],
+    [
+     "#f5a25a warn",
+     "#0b121a bg",
+     9.14,
+     "AAA"
+    ],
+    [
+     "#f5a25a warn",
+     "#121b26 paper",
+     8.42,
+     "AAA"
+    ],
+    [
+     "#f5a25a warn",
+     "#33210f warn-fill",
+     7.47,
+     "AAA"
+    ],
+    [
+     "#f5a25a rec",
+     "#4a2f12 rec-hatch stripe",
+     5.98,
+     "AA"
+    ],
+    [
+     "#f3efe6 ink",
+     "#33210f warn-fill",
+     13.4,
+     "AAA"
+    ],
+    [
+     "#e79cff sent",
+     "#0b121a bg",
+     9.5,
+     "AAA"
+    ],
+    [
+     "#e79cff sent",
+     "#121b26 paper",
+     8.75,
+     "AAA"
+    ],
+    [
+     "#e79cff sent",
+     "#2c1f3d sent-fill",
+     7.73,
+     "AAA"
+    ],
+    [
+     "#f3efe6 ink",
+     "#2c1f3d sent-fill",
+     13.35,
+     "AAA"
+    ],
+    [
+     "#5ad48f ok",
+     "#0b121a bg",
+     10.08,
+     "AAA"
+    ],
+    [
+     "#5ad48f ok",
+     "#121b26 paper",
+     9.29,
+     "AAA"
+    ],
+    [
+     "#5ad48f ok",
+     "#10301f ok-fill",
+     7.68,
+     "AAA"
+    ],
+    [
+     "#f3efe6 ink",
+     "#10301f ok-fill",
+     12.5,
+     "AAA"
+    ],
+    [
+     "#ff8a80 bad",
+     "#0b121a bg",
+     8.25,
+     "AAA"
+    ],
+    [
+     "#ff8a80 bad",
+     "#121b26 paper",
+     7.6,
+     "AAA"
+    ],
+    [
+     "#ff8a80 bad",
+     "#3a1518 bad-fill",
+     7.07,
+     "AAA"
+    ],
+    [
+     "#f3efe6 ink",
+     "#3a1518 bad-fill",
+     14.07,
+     "AAA"
+    ],
+    [
+     "#c9d2de hidden-text",
+     "#253041 hidden-fill",
+     8.72,
+     "AAA"
+    ],
+    [
+     "#f3efe6 ink",
+     "#282e35 lane scrim (88 % bg over worst-case white art)",
+     11.94,
+     "AAA"
+    ],
+    [
+     "#a9b3c2 mute",
+     "#282e35 lane scrim",
+     6.47,
+     "AA"
+    ],
+    [
+     "#c5ccd8 hc-mute (Daylight variant)",
+     "#121b26 paper",
+     10.74,
+     "AAA"
+    ],
+    [
+     "#a3afc1 hc-dim",
+     "#121b26 paper",
+     7.81,
+     "AAA"
+    ]
+   ],
+   "contrast_table_non_text_ui_3to1": [
+    [
+     "#c0242f mut band",
+     "#0b121a bg",
+     3.17,
+     "pass"
+    ],
+    [
+     "#c0242f mut band",
+     "#121b26 paper",
+     2.92,
+     "FAIL by fill alone -> band always carries 2 px #ff5f5a rules: 6.31 on bg, 5.19 on raised"
+    ],
+    [
+     "#ff5f5a mut-edge",
+     "#0b121a bg",
+     6.31,
+     "pass"
+    ],
+    [
+     "#e6b84f pub seal",
+     "#0b121a bg",
+     10.16,
+     "pass"
+    ],
+    [
+     "#5d6d82 edge",
+     "#121b26 paper",
+     3.28,
+     "pass"
+    ],
+    [
+     "#5d6d82 edge",
+     "#0b121a bg",
+     3.56,
+     "pass"
+    ],
+    [
+     "#738399 edge2",
+     "#121b26 paper",
+     4.49,
+     "pass (used on raised)"
+    ],
+    [
+     "#2a3644 line",
+     "#121b26 paper",
+     1.41,
+     "decorative only, exempt"
+    ],
+    [
+     "#fffaf0 focus ring",
+     "#0b121a bg",
+     18.09,
+     "pass"
+    ],
+    [
+     "#fffaf0 focus ring",
+     "#e6b84f gold (no offset)",
+     1.78,
+     "why outline-offset 3 px is mandatory"
+    ],
+    [
+     "#e5484d lane-combat",
+     "#0b121a",
+     4.81,
+     "pass"
+    ],
+    [
+     "#3b82f6 lane-items",
+     "#0b121a",
+     5.12,
+     "pass"
+    ],
+    [
+     "#d5a360 lane-quests",
+     "#0b121a",
+     8.28,
+     "pass"
+    ],
+    [
+     "#2fbfc9 lane-locations",
+     "#0b121a",
+     8.44,
+     "pass"
+    ],
+    [
+     "#8b5cf6 lane-characters",
+     "#0b121a",
+     4.45,
+     "pass"
+    ],
+    [
+     "#7c8797 lane-systems",
+     "#0b121a",
+     5.17,
+     "pass"
+    ],
+    [
+     "#e79cff sent vs #8b5cf6 lane violet",
+     "luminance",
+     2.14,
+     "different enough plus different construction; lane violet never appears on a pill"
+    ],
+    [
+     "#ff8a80 bad vs #c0242f mut",
+     "luminance",
+     2.91,
+     "bright text vs dark fill; never in the same construction"
+    ],
+    [
+     "#f5a25a warn vs #e6b84f pub",
+     "luminance",
+     1.11,
+     "NOT separable by luminance: separated by construction (dark fill+outline+triangle vs solid seal+diamond) and by word; see D-VC-7"
+    ]
+   ]
+  },
+  "typography": {
+   "ui_family": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif  (on Samsung Android/Firefox this resolves to Roboto or Samsung One via system-ui; no @font-face, no fetch)",
+   "mono_family": "ui-monospace, \"Roboto Mono\", \"SF Mono\", Menlo, Consolas, monospace  (ids, procedure paths, hashes, snapshot keys, raw payloads only; amendment §11)",
+   "display": "No display face. Brand identity is carried by weight (800-900), tracking and the crimson hard offset, see brand.",
+   "scale_phone_390": {
+    "caption": "12px/16px 600 (pill words, mono ids, budget numbers only)",
+    "small": "13px/18px 400 (secondary lines, captions)",
+    "body": "15px/22px 400",
+    "control": "15px/1 600 (buttons)",
+    "h3": "13px/18px 700 uppercase 0.06em --mute (section labels)",
+    "h2": "17px/22px 700",
+    "h1_screen_title": "20px/26px 800",
+    "mode_word": "14px/1 900 uppercase 0.08em",
+    "count_numerals": "17px/1 800 tabular-nums"
+   },
+   "scale_desktop_1280": {
+    "caption": "12px/16px",
+    "small": "13px/18px",
+    "body": "15px/22px",
+    "control": "15px/1 600",
+    "h3": "13px/18px 700 uppercase",
+    "h2": "18px/24px 700",
+    "h1": "24px/30px 800",
+    "hero_welcome": "28px/34px 800 (Command Center only)",
+    "mode_word": "14px/1 900 uppercase 0.10em",
+    "count_numerals": "20px/1 800 tabular-nums"
+   },
+   "weights": "400 body, 600 controls/labels, 700 headings and pills, 800-900 brand and mode words. Nothing below 400; no italics except the optional quote in the hero (which carries no state).",
+   "line_height": "1.45 body (styles.mjs:19 today), 1.25 headings, 1 for single-line controls/pills",
+   "numerals": "font-variant-numeric: tabular-nums on counts, budgets, countdowns so digits do not jitter on the 1.5 s re-render (app.mjs:268)",
+   "why_it_reads_at_390_in_daylight": "Body is 15 px ivory at 15.12:1 on card; secondary is 13 px at 8.19:1 (double the AA minimum), so a 50 % brightness drop in sun still leaves margin; nothing state-bearing is under 12 px and the 12 px items are 600-700 weight uppercase words with a glyph, which survive glare better than lowercase thin text; the 'Daylight' variant lifts --mute to #c5ccd8 (10.74:1) and --edge to #738399 for outdoor use; line length is capped at ~60 ch by the 358 px card so wrapped error text stays scannable; no text is ever set over raster art (lane titles sit on a solid 88 % scrim: 11.94:1 worst case)."
+  },
+  "spacing_and_density": {
+   "touch_targets": "44 px minimum for every tappable thing (unchanged from styles.mjs:31); 48 px for risk buttons (Start job (LIVE), Publish, Reconcile & resume, Adopt); bottom nav items 56 px tall x >= 64 px wide; list rows >= 56 px; pills are not tap targets (rows are)",
+   "radius": "cards 8 px; neutral buttons and inputs 6 px; lane cards 10 px; pills, mode chips, mode bands, risk buttons and the wordmark 0 px (hard edge, ink style); dialogs 10 px; progress track 2 px",
+   "gaps": "4 / 8 / 12 / 16 / 24 / 32 px scale; card padding 12 px 14 px on phone, 16 px 18 px on desktop; section gap 16 px phone, 24 px desktop; page gutter 16 px phone, 24 px tablet, 32 px desktop",
+   "card_widths": {
+    "390": "one column; card = 358 px (390 - 2x16); lane cards 358 x 96 px as horizontal strips (icon + title + subtitle + chevron), not 200 px tall tiles",
+    "768": "two columns of 352 px with 16 px gap inside a 736 px content area; lanes 3-up at 229 px tiles",
+    "1280": "rail 232 px; content 1008 px at 32 px gutter = 944 px usable; Command Center 12-col grid: quick actions 4-up (224 px), lanes 6-up (146 px) or 3-up x 2 rows (301 px) when the IA settles on six, bottom row 3 columns (301 px); run screen 60/40 split (556 px / 364 px)"
+   },
+   "density_rule": "Desktop may show the full item table, budget meters, captures and the journal tail at once; phone shows the verdict, the mode band, the action bar and the item list, with budget/captures/journal behind a 'Technical' details group that is expanded automatically only when it carries a problem (tripped budget, unpersisted capture)."
+  },
+  "motion": {
+   "principle": "Motion never carries state. Anything that animates is either (a) a spatial transition between two already-rendered states or (b) the single 'running' indicator. State text, pills, banners and counts appear at their final value on the same frame as the DOM update.",
+   "durations_and_easing": {
+    "press": "90 ms, ease-out (translate 2px 2px + shadow 5->3 px on ink buttons, mirroring globals.css:270-289 at pin 345d18ac)",
+    "hover_focus": "150 ms ease (colour, box-shadow only)",
+    "card_enter_section_switch": "180 ms ease-out: opacity 0->1 and translateY 6->0 px on the new screen's root; no exit animation (old screen is replaced immediately, dom.mjs replace())",
+    "details_expand": "220 ms ease-out on max-height/opacity of the details body; the summary word changes instantly",
+    "progress_width": "300 ms linear on the fill width; the numeric fraction beside it updates instantly",
+    "lane_glow": "150 ms on box-shadow when a lane card is focused/pressed",
+    "ember_sheen": "1.6 s linear infinite translateX of a 40 %-wide gradient across the RUNNING progress track only; paused when document.hidden or any dialog is open; removed on DONE/PAUSED/INCOMPLETE"
+   },
+   "reduced_motion": "@media (prefers-reduced-motion: reduce) scoped under .f-app: every transition-duration and animation-duration -> 0.01 ms; ember sheen replaced by a static 2 px --acc rule at the track's leading edge; progress width still updates (no transition); details open instantly. Additionally a Settings toggle 'Reduce motion' sets .f-app.rm with the same rules, because the OS preference cannot be assumed to be exposed correctly through a userscript overlay on Firefox Android (unverified).",
+   "never_animates": [
+    "state pills (any state, any transition)",
+    "verdict banners (Verified / Finished UNVERIFIED / Finished with failures / Read-only capture complete)",
+    "the operation-mode band's colour, label or counts",
+    "auth/session lamp",
+    "orphan cards and their buttons",
+    "pause-reason chip and 429 countdown text (updates by text replacement only)",
+    "confirm dialogs' content and backdrop (backdrop appears at full opacity; the page beneath freezes: sheen paused)",
+    "numbers (no count-up)",
+    "toasts' text (a toast may fade in 120 ms; its content is final on first paint)",
+    "anything on a data table or list row (no row highlight sweeps, no shimmer)",
+    "background/hero atmosphere (static gradients; no drift, no particles)"
+   ],
+   "allowed_summary": "press feedback, hover/focus colour, screen enter fade-slide, details expand, progress width, lane glow on interaction, one ember sheen on one running track, toast fade-in"
+  },
+  "status_visualization": {
+   "job_progress": "Segmented track, 12 px tall, 1 px --edge border, radius 2, one cell per item (max 40 cells; 41-120 items -> cells of ceil(n/40) items coloured by the worst state in the bucket; >120 -> plain fraction bar). Cell fills: VERIFIED #5ad48f solid; CONFIRMED #7ab8ff solid; SENT #e79cff hatch; FAILED #ff8a80 solid with a 1 px dark gap either side; SKIPPED #5d6d82; ORPHANED #f5a25a hatch; PLANNED transparent. The cell currently in flight carries the ember sheen. Beneath it, one 13 px line in tabular numerals: '7 verified · 1 SENT unconfirmed · 1 failed · 3 planned · 12 total' with each count in its state colour AND its glyph. Sketch (390): [✓✓✓✓✓✓✓][◐][?///][✕][ ][ ][ ]",
+   "per_item_state": "Row = [idx] [name 15px] [pill] then a second 13 px line [entity · phase · id in mono]; error text in --bad 13 px wrapped; drift as a details group whose summary is 'drift on N keys' in --warn. SENT rows additionally get a 3 px dashed --sent left rule on the row; ORPHANED rows a 3 px solid --warn left rule; FAILED a 3 px --bad rule. The left rule is a second redundant cue that survives a colour-blind read because it is also a different line style (dashed vs solid).",
+   "budget": "Per-path meter row: [path in mono 12px] [8 px track, 1 px --edge, fill --acc] [used/allowance in tabular 12px] [resets in mm:ss]. At >= 80 % the fill becomes --warn and the row gains a ▲ glyph before the numbers; TRIPPED renders the track as --bad hatch, the numbers replaced by 'TRIPPED until hh:mm' in --bad with ✕, and the row is expanded out of the Technical group automatically. Nothing spent -> a single --mute line 'nothing spent this minute'.",
+   "auth_state": "A 'session lamp' chip in the shell (top bar on phone, rail footer on desktop), always visible, never a banner while READY: [✓ SESSION] --ok = READY; [… SESSION] --acc = PROBING; [? SESSION] --warn = UNCONFIRMED (could not confirm; not a read failure); [✕ SESSION] --bad = SIGNED_OUT/refused. The three failure-ish states keep distinct glyphs and words so 'unavailable', 'denied' and 'transport failed' (amendment §9) never collapse into one red lamp; a NETWORK pause is a separate --warn chip [✗ NETWORK] on the job, not on the lamp. When not READY, the full explanatory banner of app.mjs:143-150 still renders on the screen that needs it (manifest preflight, run), with the Re-check button.",
+   "publish_state": "Content rows carry the content pill (HIDDEN slate / DRAFT dashed blue / PUBLISHED gold outline). A publish action renders as a 'seal' card: 2 px solid --pub border, a second inner 1 px --pub rule at 4 px inset (double rule), ◆ PUBLISH in --pub-text 14 px/900 at the top, the record name, the exact flip in words ('hidden: true → false on item 7c3…'), a dependency line (referenced records still hidden, in --warn with ▲), and one solid gold hard-edged button 'Publish 1 record → LIVE' with --pub-ink text and a 5 px 5 px 0 #1b1200 offset shadow. After read-back the seal card's header becomes '✓ PUBLISHED · read back' in --ok; if read-back is unread it becomes '◔ PUBLISH SENT · UNVERIFIED' in --warn and the row's pill stays HIDDEN with a '?' until verified.",
+   "capture_persistence": "'N captures' vs 'N full captures' keep separate wording (screens.mjs:104-112) and additionally a full capture shows a ▣ glyph and the word FULL in --warn before the path, plus the sentence about repository persistence; summary captures show ▢ SUMMARY in --mute. 'body persisted' = ✓ in --ok; 'not persisted' = ✕ in --bad.",
+   "recent_activity": "Rows use the real state pill of the underlying job/record, never a free-coloured dot (mockup departure #6)."
+  },
+  "risk_states": {
+   "today_baseline": "Live and read-only starts share one button style (.f-primary = --acc fill, styles.mjs:33; screens.mjs:151-156) and differ only in the window.confirm sentence (app.mjs:172-175). SENT is a 999 px-radius outline pill in --sent #b08cff that is the same construction as CONFIRMED (styles.mjs:43). ORPHANED, PAUSED and INCOMPLETE share --warn (styles.mjs:45). An open job is a generic .f-banner.warn (screens.mjs:18-26) and 'Reconcile & resume' is the same blue .f-primary as any other primary (screens.mjs:24,225). Publish does not exist (A_ARCHITECTURE_MAP.md:151). The auth banner is a full-width .f-banner on every screen (app.mjs:132-151).",
+   "live_mutation_screen": "Above the manifest's item list and pinned (sticky, below the top bar) sits the LIVE WRITE band: --mut fill, 2 px --mut-edge rules top and bottom, radius 0, 44 px tall, containing '⚠ LIVE WRITE' in 14 px/900 --mut-ink, then count chips on --raised: '3 CREATES', '2 UPDATES', '1 UPLOAD', '0 PUBLISHES' in tabular 800. The Start button is the only crimson-filled control: hard edge, 48 px, --mut fill, --mut-ink text 'Start job → writes 5 records', 5 px 5 px 0 #5a0d13 offset shadow, and on focus/press an 0 0 20 px --mut-glow. Read-only manifests get the READ ONLY band in --read-fill with '◉ READ ONLY · 0 writes' and a blue --acc primary button 'Run captures'; the two cannot be confused at arm's length: different band colour, different words, different button fill, different glyph. The confirm dialog restates the band's counts and is drawn on --float with the page frozen (sheen paused, no motion behind it).",
+   "publish_action": "The PUBLISH band (solid --pub fill, --pub-ink text '◆ PUBLISH · 1 record → player-visible', hard edge) replaces the LIVE WRITE band on publish flows, so gold on the screen always means 'this makes content visible to players'. The seal card and gold button are described under status_visualization.publish_state. Confirmation construction: typed count or press-and-hold (director decision D-VC-6 / K-12). The Content Admin list row for 'Publish / Unpublish' is NOT a plain chevron row (mockup departure #4): it is rendered as a gold-outlined hard-edged row with the ◆ glyph and the pending count, visually heavier than Preview/Edit.",
+   "ambiguous_SENT": "Job level: a SENT banner in the SENT construction (hatched --sent-fill, 2 px dashed --sent border, '? 1 WRITE UNCONFIRMED' in 14 px/900 --sent) sits directly under the RECOVERY band with the sentence 'The request left this device and no answer was recorded. Nothing is retried; Reconcile reads the server first.' The only primary on the screen is 'Reconcile & resume' in the RECOVERY construction (amber hard-edged outline button with ‖ glyph and 2 px --warn border), never a blue or green fill. Item level: the SENT pill (dashed, hatched, qualifier word) plus the dashed left rule on the row. There is no button anywhere on a SENT item whose label is 'Retry' or 'Send again'; the Re-send option that exists today for an update-phase orphan (screens.mjs:66) is rendered as a --bad-outlined hard-edged button labelled 'Re-send update (I have checked the record)' with ⚠, positioned last.",
+   "paused_or_orphaned_job": "The RECOVERY band (hatched --rec-fill, 2 px --warn rules, '‖ RECOVERY' + counts 'SENT 1 · ORPHANED 2 · PLANNED 4') is pinned on the run screen and, on the Command Center, the resumable job card carries the same band as its header instead of today's generic warn banner. The pause reason is a mono chip beside the PAUSED pill: 'SESSION' with ✕ in --bad (and the Resume button disabled with the reason text, app.mjs:159-163 preserved), '429' with ▲ in --warn and a live countdown in tabular numerals, 'NETWORK' ✗ --warn, 'AMBIGUOUS' ? --sent, 'USER' ‖ --mute, 'ORPHANED' ⚑ --warn. Orphan cards: 2 px solid --warn hard border, hatched 8 px corner tab reading DECIDE, candidates as rows with 'Adopt <id>' as a --warn-outlined ink button, 'Skip (leave as is)' as a neutral button with the existing sentence, and the card never shows a green or blue primary.",
+   "why_more_obvious_than_today": "Today: one hue difference on a 12 px pill and one sentence in window.confirm. Proposed: a 44 px pinned band whose colour, glyph and word differ per mode; a button whose fill differs per mode; a pill whose border style, fill texture, glyph and word differ per state; a row rule whose line style differs per state; and a rule that green and blue fills cannot appear on a screen in RECOVERY or on any SENT item."
+  },
+  "light_dark": {
+   "default": "Dark only. The approved character is dark and atmospheric (amendment §2-3); the mockup has no light state.",
+   "daylight_variant": "A second dark variant, not a light theme: .f-app.f-daylight overrides --mute #c5ccd8 (10.74:1 on paper), --dim #a3afc1 (7.81:1), --edge #738399 (4.49:1), --line #3a4757, and raises pill borders to 2 px. Toggle in Settings, remembered in localStorage next to the existing settings keys. Cost: ~6 declarations.",
+   "light_theme": "Deferred (D-VC-5). If wanted later: mechanism is the same as today, tokens on .f-host/.f-app (styles.mjs:19-20) with a .f-light class override and color-scheme: light; every pair in the contrast table must be recomputed; the crimson/gold/blue accents would need darker text-grade variants (#9a1b25, #8a6a12, #1f5fbf) because the current ones are tuned for dark ground.",
+   "system_preference": "prefers-color-scheme is deliberately ignored: the overlay sits on the game page and must not flip its look because the OS is in light mode."
+  },
+  "flashiness_budget": {
+   "allowed": [
+    "three elevation levels with real shadows: paper 0 1px 0 rgba(0,0,0,.4); raised 0 4px 14px rgba(0,0,0,.45); float 0 12px 32px rgba(0,0,0,.55) plus 1 px --edge2",
+    "static atmosphere: on .f-bg a layered radial-gradient (crimson ember at 8 % alpha bottom-left, cool blue at 6 % top-right) over --bg, plus an optional 1 KB inline-SVG grain at 4 % alpha; hero region of the Command Center may add a 2 KB inline-SVG silhouette (torii/roofline) at 10 % alpha, drawn with createElementNS",
+    "lane cards: gradient wash in the lane tint (20 % -> 0 %) over --paper, a lane glyph at 12 % alpha, 1 px tint edge, and on focus/press a 0 0 0 1px tint + 0 0 24px tint@35 % glow",
+    "ember sheen on the single running progress track",
+    "ink offset shadows on hard-edged controls (5 px 5 px 0, colour = a darker step of the control's own family)",
+    "screen enter fade-slide 180 ms; details expand 220 ms; press translate 2 px",
+    "the wordmark's crimson slash/offset and a thin crimson rule under the top bar",
+    "gold pending-review count badge (solid --pub, --pub-ink numeral)"
+   ],
+   "banned": [
+    "any animation that runs while nothing is running (ambient drift, particles, aurora, animated gradients, glow breathing)",
+    "shimmer/skeleton loops beyond 2 cycles; skeletons are static blocks after that",
+    "motion on pills, banners, mode bands, counts, lamps, orphan cards, dialogs",
+    "glow on danger/warn/bad elements (glow = 'active', never = 'danger'; danger is hard-edged and still)",
+    "raster imagery fetched at runtime or embedded above ~8 KB total; text over any image without a solid >= 88 % scrim",
+    "lane tints on pills, banners, buttons, progress cells or the mode band",
+    "green fills on buttons; crimson fills outside LIVE WRITE; gold fills outside PUBLISH",
+    "parallax, page-turn, cinematic transitions, sound",
+    "transparency/blur (backdrop-filter) as a load-bearing separation cue; it is decorative only and must degrade to a solid --raised on Firefox Android"
+   ],
+   "measurement": "The stylesheet contract test lists every selector allowed to declare animation/transition and every selector allowed to use --mut, --pub, --ok as background; a new selector outside the list fails the build, the same way innerHTML fails it today (forge/build.mjs per A_ARCHITECTURE_MAP.md:163)."
+  },
+  "mobile_first_proof": {
+   "run_screen_390x844": [
+    "0-56 px TOP BAR (sticky, --paper, 1 px crimson rule beneath): left 'F▸ FORGE' wordmark 15 px/900 ivory with 2 px crimson offset; centre-right session lamp chip [✓ SESSION]; right 'Close' 44 px ink button (kept: app.mjs:66).",
+    "56-100 px MODE BAND (sticky under the top bar): e.g. '⚠ LIVE WRITE' + count chips '2 SENT · 5 PLANNED' or '‖ RECOVERY · SENT 1 · ORPHANED 1'. Always the same height so content below never jumps.",
+    "100-156 px JOB HEADER: manifest name 17 px/700 (wraps to 2 lines max, ellipsis), job pill, 'started 4m ago' 13 px --mute.",
+    "156-196 px PROGRESS: 12 px segmented track + 13 px count line in tabular numerals.",
+    "196-~300 px VERDICT / PAUSE / SENT BANNER (only when present): static, full width, 2 px hard border in its construction; the single most important sentence first, 15 px; secondary sentence 13 px.",
+    "~300-700 px ITEMS: rows >= 56 px, index + name + pill on line 1, entity/phase/id on line 2, left state rule; FAILED/ORPHANED/SENT rows first is NOT done (order stays manifest order; the count line above is the summary).",
+    "then TECHNICAL (details group, collapsed): Budget meters, Full captures, Journal tail; auto-expanded when tripped/unpersisted.",
+    "780-844 px ACTION BAR (sticky bottom, --raised, shadow up): one primary at left 2/3 ('Reconcile & resume' amber ink button, or 'Resume', or 'Pause after this item' while running) and one overflow 'More' at right 1/3 (Export bundle, Open manifest). The bottom nav is hidden while a run screen is open; a 'Back to Jobs' is in the top bar. safe-area-inset-bottom is added to the bar's padding.",
+    "Thumb reach: everything that changes production is in the bottom 25 % (action bar) or requires a dialog; nothing risky is in the top bar."
+   ],
+   "run_screen_1280x800": [
+    "RAIL 232 px (left, --paper, 1 px --line right edge): wordmark 24 px at top; destinations as 44 px rows with glyph + label, active row on --raised with a 3 px --mut-edge left marker (mockup active nav sampled #dd1124); 'Active work' block listing the running/paused job with its small mode chip; session lamp and version at the bottom.",
+    "CONTENT 1008 px, gutter 32 px: MODE BAND spans the content width at the top (sticky).",
+    "LEFT COLUMN 556 px: job header, segmented progress (cells wider), the items table with columns idx / name / pill / phase / id / read-back, errors inline, drift expandable.",
+    "RIGHT COLUMN 364 px (sticky at top under the band): verdict/pause/SENT card, action buttons stacked full-width (primary ink button on top), budget meters card, full captures card, journal tail card (mono, 12 px, 8 lines) all visible without scrolling at 800 px tall.",
+    "Nothing is hover-only; row detail opens by click/tap and the same details element exists on phone."
+   ],
+   "command_center_390": "Top bar; a 96 px brand strip (wordmark, one-line tagline, static gradient) instead of the mockup's 180 px illustrated hero; session/readiness card (three lamps: Session, Repo, Budget, each glyph + word); 'Active work' card with mode chip if any; Quick Actions as a 2x2 grid of 88 px hard-edged tiles (none crimson unless it opens a live write); Content Lanes as 96 px strips; Recent Activity list with real pills; Content Admin card with the gold pending badge. Bottom nav 56 px: Home / Manifests / Jobs / Admin / More (destination names are the IA panel's to settle).",
+   "command_center_1280": "Rail + hero band 160 px (CSS atmosphere + wordmark + readiness lamps at right); Quick Actions 4-up; Lanes 6-up or 3x2; bottom row Recent / System status / Content Admin as in the mockup."
+  },
+  "implementation_cost": {
+   "today": "forge/src/ui/styles.mjs = 6,197 bytes, ~60 rules, one TOKENS string, no media queries, no animation (grep finds none).",
+   "proposed": "~16-20 KB unminified (~4.5-5.5 KB gzip) in one stylesheet: ~70 tokens, ~150 rules, 2 media queries (min-width 768, 1280), 1 prefers-reduced-motion block, 1 .f-daylight block, 1 keyframes (sheen), 4 hatch gradients, ~12 elevation/glow declarations. Inline SVG atmosphere adds ~3 KB of createElementNS code. Total UI delta ~+15 KB on a 398 KB bundle (A_ARCHITECTURE_MAP.md:171), i.e. under 4 %.",
+   "code_changes": "pill() (screens.mjs:8) becomes pill(state, {glyph, word}) reading a STATE table; a ModeBand(app, mode, counts) component; a SessionLamp; a SegmentedProgress; Banner gains a construction class (fill/outline/hatch); buttons gain .f-ink (hard edge) and .f-mut/.f-pub/.f-rec variants. All createElement + CSSOM (dom.mjs:3-16,30-43); no new dependency.",
+   "gates": "a stylesheet contract test that (1) parses the CSS text, (2) asserts every selector is scoped under .f-host/.f-app/.f-boot, (3) asserts animation/transition appear only on the allow-listed selectors, (4) asserts --mut/--pub/--ok backgrounds appear only on allow-listed selectors, (5) recomputes the contrast table from the TOKENS string with the same formula as palette_c.py and fails under 4.5:1 for text pairs and 3:1 for edge pairs."
+  },
+  "what_it_borrows_from_the_game": {
+   "ink_button_mechanics": "globals.css:243-296 at pin 345d18ac: radius 0, 2 px border, offset box-shadow (5 px 5 px 0), hover translate 2 px with shadow 3 px, 150 ms transitions, focus outline 2 px ivory offset 4 px. Borrowed as the .f-ink construction for mode chips and risk buttons only. The game applies it as a special class beside ordinary rounded-md shadow-sm buttons (button.tsx:16-36), which is exactly the 'selective' use the amendment asks for.",
+   "ivory_and_crimson": "The game's ink primary is ivory #f8f1dc on a #26110c border with a #b7331f offset; this proposal's --ink2 #fffaf0 and crimson family are the same idea shifted onto a navy ground.",
+   "dark_palette_family": "The game's dark scheme is hsl(222 47% 11%) background / hsl(217 33% 17%) card (globals.css:138-142), i.e. navy-charcoal; --bg #0b121a and --paper #121b26 sit in the same hue family so the overlay reads as belonging to the game without copying its chrome.",
+   "not_borrowed": "No game fonts, icons, images, page chrome, parchment page backgrounds, or the game's light theme. No franchise references."
+  },
+  "rejected_alternatives": [
+   "Crimson as text (mockup's red 'TNR' lettering and red nav edge as text colours): #cd1c24 on the ground is 3.2:1; rejected for any text; crimson is fill-only with ivory on it.",
+   "Pure white text (mockup): passes contrast but the amendment asks for warm ivory and white glares more on an AMOLED phone; ivory at 16.4:1 loses nothing.",
+   "Rounded 999 px pills (today, styles.mjs:42): rejected in favour of hard-edged pills so the pill family visibly belongs to the ink system and so dashed/2 px borders read clearly at 12 px (dashes render poorly on a 999 px radius).",
+   "Separate hue for READ ONLY (cyan) distinct from --acc: rejected; a fourth cool hue adds nothing a word and glyph do not, and the safe mode should look like the system's default.",
+   "Distinct hue for RECOVERY (e.g. orange-red): rejected; recovery is caution, not failure and not success; sharing the amber family with a hatched construction says exactly that.",
+   "Keeping violet for SENT at today's #b08cff: rejected because the Characters lane in the mockup is violet; SENT moves to orchid #e79cff and lanes may never colour a pill.",
+   "Green quick-action card for Validate (mockup): rejected; green is a verdict colour only.",
+   "Embedding the mockup's illustrations as data URIs: rejected for v1 (249 KB JPEG at 1536 px, larger than the whole UI layer; would be parsed on every game page the loader matches); CSS atmosphere instead, art pack as an opt-in later.",
+   "A true light theme in v1: deferred, see light_dark.",
+   "Count-up number animation on the mode band: rejected; counts are state.",
+   "Toast-only outcome reporting (today's app.mjs:295): kept as a secondary echo only; the verdict banner on the run screen is the primary surface and is static."
+  ],
+  "accessibility": {
+   "focus": "2 px solid --focus (#fffaf0) outline, outline-offset 3 px on every interactive element under .f-app; on hard-edged ink buttons the offset ring sits outside the offset shadow. Verified 18.09:1 on bg, 16.67:1 on paper; the offset is mandatory because the ring on gold would be 1.78:1. :focus-visible only, so touch taps do not leave rings.",
+   "colour_blind_redundancy": "Every state = colour + word + glyph + construction: PLANNED ○ dotted; SENT ? dashed+hatch+qualifier; CONFIRMED ◐ solid thin; VERIFIED ✓ solid+fill; FAILED ✕ solid thick; ORPHANED ⚑ thick+hatch+qualifier; SKIPPED →| neutral; PAUSED ‖; INCOMPLETE ◔+qualifier; HIDDEN ◌ slate fill; DRAFT ✎ dashed; PUBLISHED ◆ gold outline. Modes = glyph + word + fill/hatch: ◉ READ ONLY (blue fill), ⚠ LIVE WRITE (crimson fill + edge rules), ◆ PUBLISH (gold fill), ‖ RECOVERY (amber hatch). Session lamp = glyph + word. Under a deuteranopia simulation the pairs that collapse in hue (warn/pub, ok/acc, sent/lane-violet) remain distinct by fill-vs-outline, hatch, border style and word.",
+   "aria": "pills are <span role='status'> only where they change during a run (job pill, running item); the mode band is <header aria-live='polite'> with the counts; the verdict banner is role='alert' when it appears; progress track is role='progressbar' with aria-valuenow/max and an aria-label carrying the count sentence; details/summary native; buttons are real <button>s (dom.mjs h() sets attributes, so aria-* passes straight through).",
+   "touch_and_keyboard": "44/48 px targets; no hover-only affordances (UI_UX_REVIEWER.md:34); Escape closes dialogs; Enter/Space on rows opens the run; tab order = visual order because the DOM is built in visual order.",
+   "text_sizing": "-webkit-text-size-adjust stays 100 % on the entry splash only (styles.mjs:15); inside the overlay, rem is not used because the carrier page's root font size is the game's; all sizes are px on .f-app so a game stylesheet cannot resize Forge text (scoping rule, styles.mjs:1-9).",
+   "language": "Labels use words that state consequence: 'writes 5 records', 'player-visible', 'unconfirmed', 'nothing is retried'. The mode band never uses 'safe'; it states the mode and the counts."
+  },
+  "brand": {
+   "wordmark_option_A_recommended": "'FORGE' set in the system UI face at 900 weight, uppercase, letter-spacing 0.14em, --ink2, with a 2 px 2 px 0 crimson (#c0242f) text-shadow on phone and 3 px 3 px 0 on desktop (the ink-button offset applied to type), preceded by a 4 px-wide crimson slash drawn as a skewed <span> (transform: skewX(-18deg), background --mut). 'TNR' sits above it at 11 px/800 0.20em --mute on desktop; on phone the two words compress to 'TNR FORGE' on one line. Zero bytes of assets.",
+   "wordmark_option_B": "An embedded vector: a single <svg><path> built with createElementNS from a ~1.5 KB path string constant, filled --ink2 with a crimson offset copy behind it, giving the mockup's brushed 'FORGE' silhouette. Still no fetch. Costs a designer's path once and a director check that the shape carries no proprietary identity.",
+   "phone_top_bar": "56 px bar: slash + 'FORGE' at 15 px/900 (option A) or the SVG at 20 px tall (option B), left-aligned; session lamp; Close. The tagline is not shown on phone.",
+   "desktop_rail": "Rail header 96 px: 'TNR' small over 'FORGE' 24 px/900 with the crimson offset, tagline 'CREATE · VALIDATE · DEPLOY' 11 px/700 0.18em --mute beneath (mockup's tagline, static, carries no state). A 1 px crimson rule under the header. The version string stays in the rail footer next to the session lamp.",
+   "brand_colour_rule": "Crimson in the brand is a 2-4 px accent (slash, offset, rule), never a fill larger than the wordmark's offset, so the brand cannot be mistaken for a LIVE WRITE band; the band is the only crimson block taller than 4 px."
+  },
+  "lane_accents": {
+   "policy": "Lane tints are decoration. They are declared inside .f-lane only, may colour a lane card's gradient wash, its 1 px edge, its glyph and its interaction glow, and nothing else. A lane card carries no lifecycle state; the work inside a lane shows state through the standard pills and bands, whose colours are global tokens and therefore win by construction (no lane selector can reach a .f-pill).",
+   "lanes": {
+    "Combat (illustrative name)": {
+     "accent": "#e5484d",
+     "glow": "0 0 24px rgba(229,72,77,.35) on focus/press only",
+     "glyph": "⚔ or a CSS-drawn blade at 12 % alpha",
+     "texture": "gradient wash 20 % -> 0 % from the top-left; no raster"
+    },
+    "Items": {
+     "accent": "#3b82f6",
+     "glow": "rgba(59,130,246,.35)",
+     "glyph": "◈ (vial/gem)",
+     "texture": "same"
+    },
+    "Quests & Events": {
+     "accent": "#d5a360",
+     "glow": "rgba(213,163,96,.35)",
+     "glyph": "☲ (scroll)",
+     "texture": "same"
+    },
+    "Locations": {
+     "accent": "#2fbfc9",
+     "glow": "rgba(47,191,201,.35)",
+     "glyph": "⛩ (torii)",
+     "texture": "same"
+    },
+    "Characters": {
+     "accent": "#8b5cf6",
+     "glow": "rgba(139,92,246,.35)",
+     "glyph": "☺ mask",
+     "texture": "same",
+     "note": "deliberately not --sent orchid"
+    },
+    "Systems": {
+     "accent": "#7c8797",
+     "glow": "rgba(124,135,151,.35)",
+     "glyph": "⚙",
+     "texture": "same"
+    }
+   },
+   "image_texture_policy": "v1 ships CSS gradients plus at most one inline-SVG glyph per lane (createElementNS, <= 400 bytes each). An optional 'Rich art' setting may later load a repository-committed data-URI pack, off by default on phone; any art sits under a solid 88 % --bg scrim wherever text is drawn (11.94:1 worst case).",
+   "lane_card_vs_status_card": "Lane card: 10 px radius, tint edge, tint wash, glyph, title 15 px/700 ivory, subtitle 13 px --mute, chevron; glow on interaction; never a pill, never a count in a state colour (a count of hidden records inside a lane is shown as a slate HIDDEN pill, which is a global token). Status card: 8 px radius, --edge boundary, no wash, no glow ever, carries pills/bands/lamps; hard-edged inner elements. The two cannot be confused: one has colour and glow and no state; the other has state and no glow."
+  },
+  "operation_mode_header": {
+   "modes": {
+    "READ ONLY": {
+     "fill": "#14304f",
+     "rules": "2px #7ab8ff top and bottom",
+     "text": "#7ab8ff word, #f3efe6 counts",
+     "glyph": "◉",
+     "counts": "reads N · captures N (FULL n) · writes 0",
+     "contrast": "acc on fill 6.47:1; ink on fill 11.69:1"
+    },
+    "LIVE WRITE": {
+     "fill": "#c0242f",
+     "rules": "2px #ff5f5a top and bottom",
+     "text": "#fffaf0",
+     "glyph": "⚠",
+     "counts": "creates N · updates N · uploads N · reads N",
+     "contrast": "5.71:1; fill vs bg 3.17:1; rules 6.31:1"
+    },
+    "PUBLISH": {
+     "fill": "#e6b84f",
+     "rules": "2px #1b1200 top and bottom (dark rules on gold, 10.00:1)",
+     "text": "#1b1200",
+     "glyph": "◆",
+     "counts": "publishes N · unpublishes N · records read back N",
+     "contrast": "10.00:1"
+    },
+    "RECOVERY": {
+     "fill": "repeating-linear-gradient(45deg,#33210f 0 6px,#4a2f12 6px 12px)",
+     "rules": "2px #f5a25a top and bottom",
+     "text": "#f5a25a word, #f3efe6 counts",
+     "glyph": "‖",
+     "counts": "SENT N · ORPHANED N · planned N · verified N",
+     "contrast": "warn on hatch 5.98:1; ink on hatch >= 13:1"
+    }
+   },
+   "geometry": "Full content width, 44 px tall on phone and desktop, radius 0, sticky directly beneath the top bar (phone) or at the top of the content column (desktop). Word at left: glyph + MODE in 14 px/900 uppercase 0.08 em. Counts at right as chips on --raised (phone: the two most consequential counts, the rest behind a tap that expands the band to 2 lines; desktop: all counts). The band never animates, never changes height between modes, and is rendered before any item list so it is the first thing read.",
+   "where_it_appears": "Manifest preflight (from the parsed plan: creates/updates/uploads/captures, before Start), run screen (live counts from the journal), publish flow (from the admin action), any job in PAUSED/INCOMPLETE/with SENT or ORPHANED items (RECOVERY, computed from item states A_ARCHITECTURE_MAP.md:93-103). Command Center shows a 28 px mini-chip version on the Active-work card. Screens with no production consequence (Settings, Captures library) show no band rather than a 'safe' band, so the band's presence itself means 'this screen can touch or has touched production'.",
+   "phone_390": "[⚠ LIVE WRITE            3 CREATES  2 UPDATES ▾]  (44 px; tapping ▾ expands to a second 32 px line with uploads/reads)",
+   "desktop_1280": "[⚠ LIVE WRITE   creates 3 · updates 2 · uploads 1 · reads 6 · publishes 0]",
+   "counts_semantics": "Counts come from the plan (preflight) or the journal (run) and are labelled with the amendment §8 vocabulary: records read, records changed (creates + updates), creates, uploads, captures (with FULL n), publishes/unpublishes, deletes (always 0 and shown only if a future authorized workflow adds them)."
+  },
+  "mockup_departures": [
+   {
+    "n": 1,
+    "element": "Quick action 'New Content' is a crimson card",
+    "problem": "crimson would then mean both 'author a package' and 'write to the game'; the LIVE WRITE signal is diluted (amendment §9: read-only must look materially safer than live-write)",
+    "change": "authoring/manifest-creation tiles use the neutral raised hard-edged tile with the blue accent glyph; crimson fill appears only where the action results in a live write",
+    "decision": "D-VC-1"
+   },
+   {
+    "n": 2,
+    "element": "Quick action 'Validate Content' is a green card",
+    "problem": "green is the verdict colour (VERIFIED, session READY); a green button teaches the eye that green is clickable",
+    "change": "Validate uses the neutral tile; the verdict of validation is green/coral text after it runs",
+    "decision": "D-VC-2"
+   },
+   {
+    "n": 3,
+    "element": "Illustrated hero (moon, pagoda) behind 'Welcome to the Forge' and full-bleed lane illustrations",
+    "problem": "a userscript bundle must be self-contained (no runtime asset fetch) and the reference JPEG alone is 249 KB, larger than the whole UI layer (59.5 KB); text over imagery cannot be contrast-guaranteed; on a 390 px phone the hero costs a viewport-fifth for no state",
+    "change": "CSS-drawn atmosphere (layered gradients + <= 3 KB inline SVG), a 96 px brand strip on phone, solid 88 % scrim under any lane text; optional opt-in art pack later",
+    "decision": "D-VC-3"
+   },
+   {
+    "n": 4,
+    "element": "Content Admin 'Publish / Unpublish' is a plain list row identical to 'Preview Content'",
+    "problem": "amendment §7: publish must not become an accidental tap; §9: publishing gets its own unmistakable treatment",
+    "change": "the row is rendered in the gold outline construction with ◆ and the pending count, and leads to the seal card + PUBLISH band, never a one-tap publish from the list",
+    "decision": "K-12 / D-VC-6"
+   },
+   {
+    "n": 5,
+    "element": "System Status rows: green dot + green word ('Online', 'Operational', 'Healthy'), one 'Ready for Content Work' green banner",
+    "problem": "colour + a single adjective; the mockup's dot is 6 px; 'All systems are go' is a global success claim that does not distinguish unauthenticated from denied from network (amendment §9)",
+    "change": "three lamps with glyph + word + specific state ('✓ SESSION signed in', '? SESSION unconfirmed', '✕ SESSION refused'; '✓ REPO reachable'; '✓ BUDGET 12 % used'); the readiness card headline is computed and worded per state ('Reads and writes available' / 'Public reads only: session unconfirmed'); no green banner unless every lamp is ✓",
+    "decision": "none (non-negotiable)"
+   },
+   {
+    "n": 6,
+    "element": "Recent Activity rows use free green/blue/grey dots",
+    "problem": "dots are colour-only and do not map to lifecycle states",
+    "change": "rows show the real job/record pill (VERIFIED / INCOMPLETE / HIDDEN / PUBLISHED ...)",
+    "decision": "none"
+   },
+   {
+    "n": 7,
+    "element": "Brushed display lettering for 'TNR FORGE'",
+    "problem": "requires a web font or a raster; neither may be fetched, and a raster wordmark cannot scale",
+    "change": "system-font wordmark with crimson offset (A) or embedded vector path (B)",
+    "decision": "D-VC-4"
+   },
+   {
+    "n": 8,
+    "element": "Pure white text (#ffffff sampled) and 999 px-radius pills",
+    "problem": "not a failure; the amendment prefers ivory and the ink language prefers hard edges",
+    "change": "--ink #f3efe6 / --ink2 #fffaf0; pills at radius 0",
+    "decision": "none (within 'illustrative')"
+   },
+   {
+    "n": 9,
+    "element": "Violet used both for the 'Create Manifest' action and the Characters lane; blue used both for 'Capture from Live' and the Items lane",
+    "problem": "a lane tint on a button makes the tint look like a semantic",
+    "change": "lane tints are confined to .f-lane; actions use neutral/blue/crimson/gold by consequence only",
+    "decision": "none"
+   },
+   {
+    "n": 10,
+    "element": "Muted sub-labels at ~12 px on coloured cards ('Skill, Item, Enemy, Event...', 'Pull the latest game data')",
+    "problem": "perceived colour on the crimson card is roughly #c9a9ae on #3f1b24 (~5:1) at 12 px, marginal in daylight",
+    "change": "sub-labels are 13 px --mute on --paper/--raised tiles (8.19:1); no small text on saturated fills",
+    "decision": "none"
+   },
+   {
+    "n": 11,
+    "element": "Mockup mode/consequence is absent (no operation-mode header drawn)",
+    "problem": "amendment §8 requires it",
+    "change": "the 44 px mode band above every actionable flow, as specified",
+    "decision": "none"
+   },
+   {
+    "n": 12,
+    "element": "Sidebar active item = crimson-tinted background with red edge",
+    "problem": "a crimson-tinted fill on navigation weakens the 'crimson block = LIVE WRITE' rule",
+    "change": "active rail item = --raised fill with a 3 px --mut-edge left marker only (crimson as a <= 4 px accent, per brand rule)",
+    "decision": "none"
+   }
+  ]
+ }
+}

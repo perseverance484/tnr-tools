@@ -163,7 +163,7 @@ Screen ids are introduced by this section. The wireframe column points at `docs/
 
 ### D.3.1 Wireframe set and its coverage
 
-The minimum wireframe set is the required scenario list at SCN:467-480, cross-checked with the priority phone cases at MOB:391-402 and with the provisional-structure list at WFA:552-562. Sixteen pages are committed under `docs/forge_next/wireframes/`, each showing phone 390 and desktop 1280 in one page. Each answers the seven questions every consequential wireframe must answer in visible order (WFA:14-20) and demonstrates the component states a style prototype must include (WFA:538-548). None freezes a nav label, a mode colour or a lane name (WFA:564).
+The minimum wireframe set is the required scenario list at SCN:467-480, cross-checked with the priority phone cases at MOB:391-402 and with the provisional-structure list at WFA:552-562. Seventeen pages are committed under `docs/forge_next/wireframes/`, each showing phone 390 and desktop 1280 in one page. Each answers the seven questions every consequential wireframe must answer in visible order (WFA:14-20) and demonstrates the component states a style prototype must include (WFA:538-548). None freezes a nav label, a mode colour or a lane name (WFA:564).
 
 | Required scenario (SCN:467-480) | Wireframe | Screen id |
 |---|---|---|

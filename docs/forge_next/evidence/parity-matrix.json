@@ -8,9 +8,9 @@
  },
  "status_tally": {
   "FORGE BETTER": 24,
-  "GAP": 22,
-  "PARITY": 10,
-  "INTENTIONAL DIFFERENCE": 5
+  "GAP": 23,
+  "INTENTIONAL DIFFERENCE": 6,
+  "PARITY": 8
  },
  "rows": [
   {
@@ -6111,7 +6111,7 @@
     "P-36",
     "P-35"
    ],
-   "acceptance": "A fixture test feeds the archived shapes {hidden:false}, {hidden:true} and {image:'@img:x'} quest edits (26_publish_ours, 29_hide_not_ours, 32_publish_witness_detail, 24_rank_icon_swap_all31 manifest.json) through parseManifest + Validator.problems and asserts zero problems; a second test feeds 27_scene_char_retire and 30_repair_freedoms_scouting and asserts the refusal names exactly the read-only columns (raidEndsAt, raidCaptureDeadline, raidGracePeriodEnd) and nothing else; a documented operator remedy (strip-and-run or a Forge 'drop server-owned columns' option) is recorded in docs/RULINGS.md after a dauntless decision.",
+   "acceptance": "A fixture test feeds the archived shapes {hidden:false}, {hidden:true} and {image:'@img:x'} quest edits (26_publish_ours, 29_hide_not_ours, 32_publish_witness_detail, 24_rank_icon_swap_all31 manifest.json) through parseManifest + Validator.problems and asserts zero problems; a second test feeds all five archived edits that carry the read-only raid columns (27_scene_char_retire, 30_repair_freedoms_scouting, 33_copies_converging_fix, 34_old_ghost_prose, 35_tenth_name_prose) and asserts the refusal names exactly the read-only columns (raidEndsAt, raidCaptureDeadline, raidGracePeriodEnd) and nothing else; a documented operator remedy (strip-and-run or a Forge 'drop server-owned columns' option) is recorded in docs/RULINGS.md after a dauntless decision.",
    "owner": "Fable (Lane A); remedy choice is user-owned",
    "evidence": [
     {
@@ -6133,7 +6133,8 @@
    ],
    "verification": {
     "verdict": "not verified (outside the decisive set)"
-   }
+   },
+   "planning_owner_correction": "The fixture list named two of the five archived manifests that carry the raid columns; all five are named now, matching row P-36."
   },
   {
    "kind": "gate",
@@ -6314,9 +6315,10 @@
   "Read-only session: no file under /home/user/tnr-tools was modified (git status clean after all reads); no live host contacted; no game source executed; scratch outputs live under the session scratchpad only."
  ],
  "blocker_tally": {
-  "no": 45,
+  "no": 43,
   "conditional": 9,
-  "yes": 7
+  "yes": 8,
+  "split/other": 1
  },
  "verification": {
   "method": "one adversarial verifier per capability row (forge-next-deep-dive workflow, Verify phase); CORRECTED rows replaced by the verifier's full corrected row with the original kept under verification.original_row; REFUTED rows kept with the verdict and reasoning for the reader; gate rows and rows beyond the verify cap are UNVERIFIED",
@@ -6367,5 +6369,6 @@
   "produced_by": "forge-next-deep-dive workflow: independent readers, one merge agent per matrix, then one adversarial verifier per decisive row",
   "verification": "Each row carries a verification block. CORRECTED means a verifier re-read every cited location and tightened at least one cell; the verifier was told to return CONFIRMED only when every cell held exactly, so with roughly fifteen cells per row the verdict reflects the bar, not a defect rate. The original row is kept under verification.original_row wherever a correction replaced it. Rows marked not verified were outside the decisive set (high-confidence rows that block nothing), except CC-08 and CC-10, which the verification could not reach before the session limit and are named in E.1.",
   "note": "Evidence, not automatic truth (docs/00_INDEX.md)."
- }
+ },
+ "tally_note": "Recomputed from the rows after adversarial verification; the earlier header was the pre-verification merge."
 }
