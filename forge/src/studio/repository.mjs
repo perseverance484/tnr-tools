@@ -56,7 +56,7 @@ function generatedArtifactPath(path, requestId) {
   }
   const tail = path.slice(prefix.length);
   const segments = tail.split("/");
-  if (!tail || path.includes("\\") || segments.some((segment) => !segment || segment === "." || segment === "..")) {
+  if (!tail || /[%?#]/.test(tail) || path.includes("\\") || segments.some((segment) => !segment || segment === "." || segment === "..")) {
     throw new GithubError("Quest Studio generated manifest path escapes its request build directory");
   }
   return path;

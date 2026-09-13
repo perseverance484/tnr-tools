@@ -1,8 +1,14 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { JSDOM } from "jsdom";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { MemoryStorage } from "./shim.mjs";
+import { h } from "../src/ui/dom.mjs";
+
+const REPO = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 import {
   QuestStudioWorkspace,
   missionDraftProblems,
@@ -40,7 +46,7 @@ function fakeApp(win, storage = new MemoryStorage()) {
   };
 }
 
-function repositoryStub({ result = null } = {}) {
+function repositoryStub({ result = null, profiles: profileOverride = null } = {}) {
   const calls = [];
   const registry = {
     _meta: { schemaVersion: 1 },
@@ -49,7 +55,7 @@ function repositoryStub({ result = null } = {}) {
       battle_pyramid: { label: "Battle Pyramid", maturity: "needs_recipe", compilerAdapter: null },
     },
   };
-  const profiles = {
+  const profiles = profileOverride ?? {
     ranks: {
       D: { shape: { objective_count: 4, battle_nodes: 0 } },
       D_combat: { shape: { objective_count: 4, battle_nodes: 1 } },
@@ -208,4 +214,59 @@ test("Mission compile submits Quest Source, reads canonical result, and never pr
   assert.match(studio.shell.textContent, /Mechanically valid/);
   assert.match(studio.shell.textContent, /Live game untouched/);
   assert.doesNotMatch(studio.shell.textContent, /Start live write|Publish now/);
+});
+
+test("real Mission profile sentinels render as awaiting ruling and block compile", async () => {
+  const profiles = JSON.parse(readFileSync(join(REPO, "skills/building-tnr-content/data/48_DATA_mission_profiles.json"), "utf8"));
+  const draft = newMissionDraft();
+  Object.assign(draft, {
+    profile: "S", name: "Unresolved S", description: "Test.", successDescription: "Done.",
+    beats: [{ description: "1" }, { description: "2" }, { description: "3" }],
+  });
+  assert.match(missionDraftProblems(draft, profiles).join(" "), /awaiting a director ruling/i);
+
+  const win = setupDom();
+  const app = fakeApp(win);
+  const studio = new QuestStudioWorkspace({ app, repository: repositoryStub({ profiles }), pollMs: 0, maxPolls: 1 }).install();
+  await studio.open();
+  studio.draft = draft;
+  await studio.openMission(false);
+  const sOption = [...studio.shell.querySelectorAll("select option")].find((x) => x.value === "S");
+  assert.equal(sOption.disabled, true);
+  assert.match(sOption.textContent, /awaiting ruling/i);
+  assert.doesNotMatch(studio.shell.textContent, /NaN|S · \? nodes|S · no combat/);
+  assert.equal(studio.shell.querySelector(".qs-compile").disabled, true);
+});
+
+test("generated manifest inspection is visible inside the Studio shell", async () => {
+  const win = setupDom();
+  const app = fakeApp(win);
+  const result = {
+    schemaVersion: 1, kind: "quest-build", requestId: "quest-inspect", subtype: "mission",
+    status: "valid", blockers: [], errors: [], warnings: [],
+    generated: { manifestPath: "studio/builds/quest-inspect/manifest.json", entities: { counts: { quest: 1 } } },
+    provenance: { sourceRevision: "a".repeat(40), compilerRevision: "b".repeat(40) },
+    liveGameTouched: false,
+  };
+  const studio = new QuestStudioWorkspace({ app, repository: repositoryStub({ result }), pollMs: 0, maxPolls: 1 }).install();
+  await studio.open();
+  studio.draft = {
+    version: 1, requestId: "quest-inspect", subtype: "mission", profile: "D",
+    name: "Inspect", description: "A.", successDescription: "B.",
+    beats: [{ description: "1" }, { description: "2" }, { description: "3" }],
+    updatedAt: new Date().toISOString(), sourceCommit: "a".repeat(40), lastResult: null,
+  };
+  await studio.openMission(false);
+  studio.buildState = { result, stale: false, sourceCommit: "a".repeat(40) };
+  studio.renderMission();
+  await studio.inspectManifest();
+  assert.match(studio.shell.textContent, /Generated manifest · inspection only/);
+  const manifest = [...studio.shell.querySelectorAll("textarea")].at(-1);
+  assert.equal(manifest.value, '{"items":[]}');
+  assert.equal(app.root.dataset.exportText, undefined);
+});
+
+test("DOM helper rejects HTML string sinks even through property coercion", () => {
+  setupDom();
+  assert.throws(() => h("div", { innerHTML: { toString: () => "<b>unsafe</b>" } }), /not assignable/);
 });

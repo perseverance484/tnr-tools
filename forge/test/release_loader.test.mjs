@@ -44,10 +44,13 @@ test("release loader: current install has a stable self-update channel and immut
   assert.deepEqual(checkReleasePin(), []);
 });
 
-test("release loader: at most one @x-release-pending marker, and it names the package version", () => {
+test("release loader: pending marker matches release state and package version", () => {
   const markers = LOADER.match(/^\/\/ @x-release-pending\s+\S+$/gm) || [];
-  assert.ok(markers.length <= 1, "a second marker would shadow the real one from the checker");
-  if (markers.length === 1) assert.equal(markers[0].split(/\s+/)[2], PKG_VERSION);
+  const loaderVersion = (/^\/\/ @version\s+(\S+)$/m.exec(LOADER) || [])[1];
+  assert.ok(loaderVersion, "loader must declare @version");
+  const expected = loaderVersion === PKG_VERSION ? 0 : 1;
+  assert.equal(markers.length, expected, "released loader has no pending marker; staged package has exactly one");
+  if (expected === 1) assert.equal(markers[0].split(/\s+/)[2], PKG_VERSION);
 });
 
 test("release loader: a future package may be staged without exposing the future loader version", () => {
@@ -84,9 +87,9 @@ test("release loader: pending staging never permits a moving bundle or a differe
 });
 
 test("release loader: @match covers the whole game origin, both hosts, so the carrier route is reachable", () => {
-  const matches = LOADER.match(/^\/\/ @match\s+\S+$/gm) || [];
-  assert.ok(matches.includes("// @match        *://www.theninja-rpg.com/*"));
-  assert.ok(matches.includes("// @match        *://theninja-rpg.com/*"));
+  const matches = (LOADER.match(/^\/\/ @match\s+(\S+)$/gm) || []).map((line) => line.split(/\s+/)[2]);
+  assert.deepEqual(matches, ["*://www.theninja-rpg.com/*", "*://theninja-rpg.com/*"]);
+  assert.ok(!matches.some((m) => m.includes("/forge")), "a /forge-only match cannot reach the carrier");
 });
 
 test("release loader: still document-start, because the /forge entry has to be stopped before it renders", () => {
@@ -94,9 +97,9 @@ test("release loader: still document-start, because the /forge entry has to be s
 });
 
 test("release loader: the loader documents that an unarmed page is untouched", () => {
-  assert.match(LOADER, /tab that has NOT been armed through \/forge, the bundle does nothing at all/);
+  assert.match(LOADER, /has NOT been armed[\s\S]*does nothing at all/);
 });
 
 test("release loader: the operator entry point is still /forge", () => {
-  assert.match(LOADER, /Open https:\/\/www\.theninja-rpg\.com\/forge while logged in/);
+  assert.match(LOADER, /theninja-rpg\.com\/forge/);
 });

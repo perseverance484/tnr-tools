@@ -177,6 +177,9 @@ test("generated manifest reads cannot escape the request build directory", async
     "studio/builds/demo-mission/./manifest.json",
     "studio/builds/demo-mission//manifest.json",
     "studio/builds/demo-mission/..\\other\\manifest.json",
+    "studio/builds/demo-mission/..%2f..%2fpush%2f46.json",
+    "studio/builds/demo-mission/%2e%2e/%2e%2e/push/46.json",
+    "studio/builds/demo-mission/a?ref=main&x=.json",
   ]) {
     await assert.rejects(() => repo.generatedManifest("demo-mission", { ...base, generated: { manifestPath: path } }), GithubError);
   }
@@ -197,4 +200,49 @@ test("Quest Source validation preserves repository-owned subtype policy", () => 
   });
   assert.equal(source.subtype, "story");
   assert.equal(questSourcePath(source.requestId), "studio/requests/demo-story.quest.json");
+});
+
+test("Github.dispatch allowlists Quest Studio and explains missing Actions permission", async () => {
+  let calls = 0;
+  const github = new Github({
+    fetchImpl: async () => { calls += 1; return new Response("forbidden", { status: 403 }); },
+    storage: storageWithPat(),
+  });
+  await assert.rejects(
+    () => github.dispatch("relay.yml", { ref: "main", inputs: {} }),
+    /not dispatchable from Forge/,
+  );
+  assert.equal(calls, 0);
+  await assert.rejects(
+    () => github.dispatch("quest_studio.yml", { ref: "main", inputs: {} }),
+    /Actions: write/,
+  );
+  assert.equal(calls, 1);
+});
+
+test("Github content URLs encode path syntax instead of allowing ref/query injection", async () => {
+  let seen = "";
+  const github = new Github({
+    fetchImpl: async (url) => {
+      seen = url;
+      return new Response("{}", { status: 200 });
+    },
+    storage: storageWithPat(),
+  });
+  await github.text("studio/builds/demo/a?ref=main#x.json", "studio/quest/demo");
+  assert.match(seen, /a%3Fref%3Dmain%23x\.json\?ref=studio%2Fquest%2Fdemo$/);
+  assert.doesNotMatch(seen, /\/a\?ref=main/);
+});
+
+test("failed build envelope remains readable when it carries the worker request identity", () => {
+  const result = validateBuildResult({
+    schemaVersion: 1,
+    kind: "quest-build",
+    requestId: "demo-mission",
+    subtype: "guide",
+    status: "failed",
+    errors: [{ code: "source_invalid", message: "unknown subtype" }],
+    liveGameTouched: false,
+  }, "demo-mission");
+  assert.equal(result.status, "failed");
 });
