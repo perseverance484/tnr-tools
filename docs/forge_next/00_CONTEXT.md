@@ -60,7 +60,8 @@ docs/forge_next/00_CONTEXT.md           this file
 docs/forge_next/A_ARCHITECTURE_MAP.md   current-state architecture (Forge and Builder)
 docs/forge_next/B_PARITY_MATRIX.md      Builder → Forge parity and retirement gates
 docs/forge_next/C_WORKFLOW_INVENTORY.md real content workflows Forge must support
-docs/forge_next/D_IA_AND_JOURNEYS.md    information architecture, journeys, visual directions
+docs/forge_next/D_IA_AND_JOURNEYS.md    information architecture, journeys, mockup reconciliation
+docs/forge_next/D_VISUAL_SYSTEM.md      the approved visual direction elaborated into tokens, components and state rules
 docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md  per-class source audit, zero-game-change scope
 docs/forge_next/F_ARCHITECTURE_RECOMMENDATION.md  preserve / replace / abstract / migrate
 docs/forge_next/G_ROADMAP.md            phased Lane A roadmap with gates
@@ -69,7 +70,8 @@ docs/forge_next/I_TEST_STRATEGY.md
 docs/forge_next/J_MIGRATION_AND_RETIREMENT.md
 docs/forge_next/K_USER_DECISIONS.md     open user-decision register
 docs/forge_next/evidence/*.json         verified matrices, registry gap, drift, harvest evidence
-docs/forge_next/wireframes/*.html       static wireframes (mobile + desktop) and visual concepts
+docs/forge_next/wireframes/*.html       sixteen static wireframes (phone and desktop in one page), with src/ (generator) and review/ (rendered captures)
+docs/forge_next/design/                 the approved concept mockup and its provenance pointer
 docs/handoffs/FORGE_NEXT_PLANNING_HANDOFF.md  section-17 handoff for independent review
 ```
 

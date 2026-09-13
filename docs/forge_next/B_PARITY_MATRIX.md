@@ -6,7 +6,7 @@
 
 ## B.1 Method, evidence tiers and what was verified
 
-Three independent readers inventoried the Builder (the whole 892-line bundle), Forge (35 modules) and the committed record (42 results bundles, 41 manifests, 23 generator scripts). A merge agent built one row per capability and, wherever the inventories disagreed or a cell was unsupported, re-opened the cited source and settled it with a citation. Then one adversarial verifier per decisive row re-read every cited location with instructions to default to `CORRECTED` or `REFUTED` unless the source says exactly what the row claims, and to hunt for evidence the row missed.
+Three independent readers inventoried the Builder (the whole 892-line bundle), Forge (33 ES modules under forge/src plus its two derived JSON contracts) and the committed record (42 results bundles, 41 manifests, 23 generator scripts). A merge agent built one row per capability and, wherever the inventories disagreed or a cell was unsupported, re-opened the cited source and settled it with a citation. Then one adversarial verifier per decisive row re-read every cited location with instructions to default to `CORRECTED` or `REFUTED` unless the source says exactly what the row claims, and to hunt for evidence the row missed.
 
 Evidence tiers follow `docs/00_INDEX.md`. **Source-verified** means a file and line read in this pass at `main@305a28f`, in `builder_bundle.js`, or in the named game-source checkout (Forge pin `345d18ac`, head `36c5873b`). **Behaviour-proven** cites a committed bundle under `harvests/inbox/`. **Observed** is a count or a measurement re-derived in this pass. Nothing was run against a live game host, and no game source was executed.
 
