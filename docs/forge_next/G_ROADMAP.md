@@ -23,14 +23,14 @@ This section answers brief §13-G: reviewable Lane A phases with dependencies an
 5. **A gate that needs a decision is not a schedule.** A phase can be built up to the point where a K entry binds it, and no further. Phases 0 and 1 are shell-independent and need no visual ruling (K-01 "Can defer").
 6. **No canonical-owner change rides inside a UI phase.** Blocker codes in `mission.py`, profile-shape enforcement, the workstream validate/render operation, registry and maturity vocabulary alignment, and the branch-namespace rule are separate Lane A briefs with their own gates and their own review (F.17, RM-09, `CLAUDE.md` §7).
 
-**Two gate namespaces, deliberately distinct.** Retirement gates are **G-01 to G-13**, two digits, owned by `B_PARITY_MATRIX.md` §B.4 and `J_MIGRATION_AND_RETIREMENT.md` §J.1; G places them in phases and changes no wording. Per-phase acceptance gates are **G-<phase>.state** and **G-<phase>.seam**, where `<phase>` is the phase label (0, 1, 2, 3, S, 4, 5, W, 6). They read:
+**Two gate namespaces, deliberately distinct.** Retirement gates are **G-01 to G-13**, two digits, owned by `B_PARITY_MATRIX.md` §B.4 and `J_MIGRATION_AND_RETIREMENT.md` §J.1; G places them in phases and changes no wording. Per-phase acceptance gates are **PH-<phase>.state** and **PH-<phase>.seam**, where `<phase>` is the phase label (0, 1, 2, 3, S, 4, 5, W, 6). They read:
 
-- **G-<phase>.state:** no UI class, pill, lamp or label rendered by this phase is computed without a machine source. Every state a screen renders comes from journal, auth, budget, capture, reconcile or sync state as F.10's seam table names it; a component with no row in that table renders nothing rather than deriving a value in the view (SSC §1; R-13, R-16).
-- **G-<phase>.seam:** the execution-core diff list for this phase is empty, or is one reviewed additive item. The list is every file touched under `forge/src/runner/`, `forge/src/storage/`, `forge/src/transport/`, `forge/src/budget/` and `forge/src/reconcile/`. The programme's only intended non-empty entries are the additive `runner.mjs` emit hook (`forge/src/runner/runner.mjs:91` is the existing injected `log` callback it sits beside) and the additive `MIGRATIONS[1]` in the empty table at `forge/src/storage/journal.mjs:407` (F.2, F.8).
+- **PH-<phase>.state:** no UI class, pill, lamp or label rendered by this phase is computed without a machine source. Every state a screen renders comes from journal, auth, budget, capture, reconcile or sync state as F.10's seam table names it; a component with no row in that table renders nothing rather than deriving a value in the view (SSC §1; R-13, R-16).
+- **PH-<phase>.seam:** the execution-core diff list for this phase is empty, or is one reviewed additive item. The list is every file touched under `forge/src/runner/`, `forge/src/storage/`, `forge/src/transport/`, `forge/src/budget/` and `forge/src/reconcile/`. The programme's only intended non-empty entries are the additive `runner.mjs` emit hook (`forge/src/runner/runner.mjs:91` is the existing injected `log` callback it sits beside) and the additive `MIGRATIONS[1]` in the empty table at `forge/src/storage/journal.mjs:407` (F.2, F.8).
 
 **Standing gates, asserted in every phase, not once.** R-01: no control can call a send path while an item is `SENT`; the refusal at `forge/src/runner/runner.mjs:193` and the reconciliation-only path stay the single exit, and the adversarial suite stays unedited. R-27: each of the thirteen UI-level semantic guarantees maps to a kept-green test, and a phase cannot close with an unmapped guarantee. R-06: the bundle size budget on raw and gzip bytes fails a phase that exceeds its declared delta. R-05: the source-drift check on Forge's host and contract surfaces runs per phase, not once. R-02: a user-owned, read-only browser smoke follows each release; it is the operator's, never Fable's.
 
-**Studio phase preconditions, stated once.** No Studio-phase work starts before all three hold: **(a)** `chatgpt/forge-quest-studio-foundation@824c4d58` has been independently reviewed and integrated into `main`; **(b)** **K-26** is ratified or reverted; **(c)** **K-15** is ruled. Until then nothing on that branch is assumed to exist here, nothing on it is re-implemented or patched from a Fable branch, and the package cites it by SHA only (RM-01, RM-03; `CLAUDE.md` §4).
+**Studio phase preconditions, stated once.** No Studio-phase work starts before all four hold: **(a)** the Quest Studio foundation has been independently reviewed by Fable and integrated into `main` — the implementation froze for that review at `chatgpt/forge-quest-studio-foundation@cda8ac76100b2fa4b5429bea27c3c8c80353e240`, after the `824c4d58` snapshot this package read; **(b)** the director half of **K-26** is ruled; **(c)** the director half of **K-15** is ruled; **(d)** every `824c4d58:` cite in this package has been re-resolved at the accepted Studio SHA, with the three paths that changed between the snapshot and `cda8ac76` re-read in full (`00_CONTEXT.md` §00.6 measures which, and which claims survive unchanged). Until then nothing on that branch is assumed to exist here, nothing on it is re-implemented or patched from a Fable branch, and the package cites it by SHA only (RM-01, RM-03; `CLAUDE.md` §4).
 
 **The K register's "Blocks" column.** `K_USER_DECISIONS.md` carries a per-entry "Blocks" pointer written before this section existed, using the labels Phase 0 to Phase 6, "Studio phase" and "Workspace phase". The phase set below uses exactly those labels, so the pointers stay correct and nothing is renumbered. One entry needs a note rather than a change: **K-16** is pointed at Phase 4, and the roadmap needs it one phase earlier, because gate G-06 clause (c) and the orphan affordance live in the phase-3 recovery screen. The entry stays open and `K_USER_DECISIONS.md` remains its owner; this is a scheduling note, not a renumbering.
 
@@ -40,15 +40,17 @@ This section answers brief §13-G: reviewable Lane A phases with dependencies an
 
 | Phase | Objective | Depends on | Decisions required first | Per-phase gates | Retirement gates made measurable | Shell-dep. |
 |---|---|---|---|---|---|---|
-| **0** Foundations and a measured baseline | Green `main`, one CI job, the measurement harness, and the domain logic moved below the seam with the UI byte-identical | none | K-13, K-14, K-60 | PH-0.state, PH-0.seam | G-09, G-13; enables the operator's G-08 tap | no |
-| **1** Research, capture tiers and registry policy | Persistence tiers, paged and filtered list captures, audited registry rows, honest capture verdicts | 0 | K-06, K-17 | PH-1.state, PH-1.seam | G-02, G-03, G-07, G-11 (a) and (b) | no |
+| **0** Foundations and a measured baseline | Green `main`, one CI job, the measurement harness, and the domain logic moved below the seam with the UI byte-identical | none | none; K-13†, K-14† and K-60† are engineering positions the brief fixes | PH-0.state, PH-0.seam | G-09, G-13; enables the operator's G-08 tap | no |
+| **1** Research, capture tiers and registry policy | Persistence tiers, paged and filtered list captures, audited registry rows, honest capture verdicts | 0 | K-06 and K-17, director halves only | PH-1.state, PH-1.seam | G-02, G-03, G-07, G-11 (a) and (b) | no |
 | **2** Shell and design system | The approved north star as tokens, components and one scoped stylesheet, over the existing screens | 0 | K-01 (ruled), K-02, K-20 to K-24, K-31, K-32, K-33, K-56, K-57, K-58 | PH-2.state, PH-2.seam | none directly | yes |
-| **3** Manifest experience and recovery screens | Preflight, run, halt, orphan, results and journaled repository sync, plus the ingress and edit-shape parity slices | 0, 1, 2 | K-12, K-15, K-16, K-59 | PH-3.state, PH-3.seam | G-01, G-04, G-05, G-06, G-12 (non-Studio half) | yes |
-| **S** Quest Studio integration | Absorb the reviewed seam: promotion contract, durable Studio state, registry-driven UI, worker observability, one shell | 0, 2, 3, and the three preconditions in G.0 | K-25, K-26, K-27, K-36, K-37, K-38, K-39, K-40, K-46, K-49, K-50 | PH-S.state, PH-S.seam | G-12 (Studio half, via K-39) | yes for its UI; no for its contracts |
-| **4** Content Admin read and review | Queue, record detail, diff, preview and the review package, with no publish act | 1, 2, 3 | K-03, K-04, K-05, K-08, K-09, K-10, K-16, K-34, K-47, K-52, K-53 | PH-4.state, PH-4.seam | none directly | yes |
+| **3** Manifest experience and recovery screens | Preflight, run, halt, orphan, results and journaled repository sync, plus the ingress and edit-shape parity slices | 0, 1, 2 | K-12, K-16, K-59, and K-15's director half | PH-3.state, PH-3.seam | G-01, G-04, G-05, G-06, G-12 (non-Studio half) | yes |
+| **S** Quest Studio integration | Absorb the reviewed seam: promotion contract, durable Studio state, registry-driven UI, worker observability, one shell | 0, 2, 3, and the three preconditions in G.0 | K-27, K-46, K-49 and K-26's director half; K-25†, K-36†, K-37†, K-38†, K-39†, K-40†, K-50† | PH-S.state, PH-S.seam | G-12 (Studio half, via K-39) | yes for its UI; no for its contracts |
+| **4** Content Admin read and review | Queue, record detail, diff, preview and the review package, with no publish act | 1, 2, 3 | K-03, K-04, K-05, K-08, K-09, K-10, K-16, K-53 and K-34's director half; K-47†, K-52† | PH-4.state, PH-4.seam | none directly | yes |
 | **5** Publish | The flip, read-back gated, with its own authority lane and confirmation | 4 | K-07, K-12, K-30, K-54, K-55 | PH-5.state, PH-5.seam | none directly | yes |
 | **W** Project Workspace projection | Workstream state rendered as one human workspace, read-only first | 2, 3 | K-28, K-43, K-44 | PH-W.state, PH-W.seam | none directly | yes |
 | **6** Builder retirement gates | Close the remaining gates, record the ruling, decommission the loader | 1, 3, and the operator's live proof | K-11, K-10 | PH-6.state, PH-6.seam | G-08 verification, G-10, and the standing re-check of all thirteen | no |
+
+**Reading the "Decisions required first" column.** It lists only what a **director** must rule before the phase can be frozen. Entries marked **†** are engineering decisions: `K_USER_DECISIONS.md` §K.1 classes them as Fable's, they carry Fable's position already, and the phase brief fixes and defends them. They are listed so the brief cannot forget them, and they block nothing. A split entry contributes only its director half. This column was rewritten after independent review found that the first draft turned engineering choices into phase blockers, and that phase 0 in particular was blocked by two entries whose own "Can defer" line said yes.
 
 Phases 0, 1 and 2 are the critical path. Phase S, phase 4 and phase W can be scheduled in parallel with each other once their own preconditions hold, because they touch disjoint surfaces; they share only the shell built in phase 2 and the core built in phase 0.
 
@@ -66,7 +68,7 @@ G places each gate in the phase where it can first be honestly measured. J §J.2
 | G-06 in-tool recovery | B §B.4 | 3 | 2 | K-16 |
 | G-07 evidence preservation and honesty | B §B.4 | 1 | 2 | none; one clause needs a device check |
 | G-08 live write proof | B §B.4 | operator action after phase 0; verified in 6 | 1 | none; it is a user tap |
-| G-09 gates green on main | B §B.4 | 0 | 1 | K-60 |
+| G-09 gates green on main | B §B.4 | 0 | 1 | none; the marker-only fix lands in phase 0 (K-60) |
 | G-10 retirement ruling and decommission | B §B.4 | 6 | 5 | K-11 |
 | G-11 (a) export refuses above tier | J §J.1 | 1 | 2 | K-06 |
 | G-11 (b) research-read tier shipped | J §J.1 | 1 | 3 | K-06, K-17 |
@@ -91,12 +93,12 @@ Every risk in `H_RISK_REGISTER.md` lands in at least one phase. "Standing" means
 | R-08 admin permission and publish mistakes | 4 read half, 5 publish half | role pre-check and re-check on send; dependency pre-check; read-back |
 | R-09 storage migration | 3 | additive `MIGRATIONS[1]` only, own release, two-release rule, park never delete |
 | R-10 retirement too early | 6, bounded by 1 and 3 | gates, not decree; the Builder stays installed and pinned |
-| R-11 red baseline | 0 | `main` green after integration, no competing fix (K-60) |
+| R-11 red baseline | 0 | `main` green after the marker-only relaxation lands, with the ChatGPT branch's own fix named in the integration plan (K-60) |
 | R-12 confirmation fatigue | 2 mechanism, 5 level | one confirmation surface; the level is K-12 |
-| R-13 scope creep into a rewrite | standing, established in 0 | G-<phase>.seam diff list |
+| R-13 scope creep into a rewrite | standing, established in 0 | PH-<phase>.seam diff list |
 | R-14 game-source dependency | 4 | each admin capability classified zero-change, partial or needs-game-change; the last class is never a deliverable |
 | R-15 two loaders on one origin | 2 (release test), 6 (posture) | suppression stays scoped; suppression is never the deprecation mechanism |
-| R-16 mockup-implied capabilities | 2, then standing | G-<phase>.state; every element traces to a capability row |
+| R-16 mockup-implied capabilities | 2, then standing | PH-<phase>.state; every element traces to a capability row |
 | R-17 Studio seam operating costs | S | backoff, branch lifecycle (K-37), least-privilege token (K-15, K-26) |
 | R-18 Studio state outside the journal | S | durable per-request records; journaled promotion (K-39) |
 | R-19 Forge bundles break the parity guard | 0 | gate G-13 |
@@ -140,16 +142,16 @@ W-14 catalog refresh, W-19 art production and W-22 settings are not released by 
 | Field | Content |
 |---|---|
 | Files and surfaces | New `forge/src/core/*`, new `forge/src/hosts/userscript/*` (mostly relocation of `forge/src/ui/takeover.mjs`), `forge/src/main.mjs` `compose()`, `forge/src/ui/app.mjs` (split), `forge/src/ui/dom.mjs` (deny-list, region helper), `forge/build.mjs`, `.github/workflows/forge.yml`, `forge/test/*` |
-| Prerequisites | An assigned owner for the release-loader fix (K-60, CF-19, RM-05); a decision on the game-source pin (K-13) and on minification (K-14) |
+| Prerequisites | Objective, and all four are checkable rather than answerable: (1) `main` is green, or its baseline defects are isolated and named, which is the release-loader test today (K-60, CF-19, RM-05); (2) the game-source drift check has been re-run against the game head of the day and its result recorded (K-13); (3) the implementation brief names one owner and one branch; (4) the bundle-size and release approach is written down by Fable and reviewable (K-14). None of the four is a director ruling |
 | Backward compatibility | The five existing screens render byte-identically; the 16 `forge/test/ui.test.mjs` cases pass unedited; journal stays v1; IndexedDB `tnr_forge` stays at v2 and repository text moves to a **separate** database rather than a new store, so an older pinned bundle never opens it (F.1, F.3 q5); the retained Builder keys `tnr_bk_idmap_v1` and `tnr_bk_gh_v1` are untouched in shape |
-| Tests and evidence | The 293 committed cases stay green with the suites below the seam unedited, which is the acceptance evidence for the extraction (75 adversarial, 45 auth, 19 journal and 16 budget cases unmodified; counts from `evidence/forge-tests-ci.json`). Deterministic DOM fixtures for all five screens committed **before** the move and required to come back byte-identical after it; import-direction gate ratcheting cross-seam imports from eleven to zero; a committed headless host test that drives a whole lifecycle with no DOM global; core API surface golden; contract-data drift job re-deriving `forge/src/runner/fields.json` and `nested.json` from the pin; bundle size budget on raw and gzip against A.9's measured baseline; a static no-live-game-URL check over the worker, compiler and Studio files; the existing bundle-reproducibility and fixture jobs kept |
-| User decisions | **K-13** pin refresh, **K-14** minified bundle, **K-60** who integrates the release-loader fix |
+| Tests and evidence | The 293 committed cases stay green with the suites below the seam unedited, which is the acceptance evidence for the extraction (75 adversarial, 45 auth, 19 journal and 16 budget cases unmodified; counts from `evidence/forge-tests-ci.json`). Deterministic DOM fixtures for all five screens committed **before** the move and required to come back byte-identical after it; import-direction gate ratcheting cross-seam imports from eleven to zero; a committed headless host test that drives a whole lifecycle with no DOM global; core API surface golden; contract-data drift job re-deriving `forge/src/runner/fields.json` and `nested.json` from the pin; bundle size budget on raw and gzip against A.9's measured baseline; a static no-live-game-URL check over the worker, compiler and Studio files, adopting and widening the one the Studio branch already carries at `cda8ac76:.github/workflows/quest_studio_ci.yml` rather than inventing a second; the existing bundle-reproducibility and fixture jobs kept |
+| User decisions | **None.** K-13, K-14 and K-60 are engineering decisions under `K_USER_DECISIONS.md` §K.1 and carry Fable's position; the phase-0 brief fixes and defends them, and independent review checks them. This phase changes nothing a director can see, which is the point of it |
 | Rollback and fallback | Re-pin `@require` in `forge_loader_user.js:12` to the previous release commit; `.github/scripts/pin_release.py:24-29` enforces exactly one `@require` per bundle, so rollback is one line. No storage version rises in this phase, so a rollback loses nothing on the device |
 | Retirement impact | **G-09** (gates green on `main`) and **G-13** (parity guard green) close here. Both are stage-1 entry conditions in J §J.2, and both are prerequisites of the review-queue work in phase 4 (F.12) |
 
 **CI consolidation.** One Node workflow with one gate set. The Studio slice's `824c4d58:.github/workflows/quest_studio_ci.yml` runs a second `npm ci` and `npm test` (`:56-57`) beside `.github/workflows/forge.yml`, and it carries no `npm audit` step where `forge.yml:44` has one. The Python Studio steps fold into the existing Forge and skillpack jobs rather than a duplicate Node job, and `npm audit` is restored for every path (R-22, U-G-03).
 
-**The red baseline.** `npm test` at `main@305a28f` is 292 of 293: the release-loader test demands a staging marker that `pin_release.py` removes on the default branch (`.github/scripts/pin_release.py:31-32` strips `@x-release-pending`). The only existing fix sits on the ChatGPT branch, bundled with unrelated assertion changes. **Fable authors no competing `release_loader` change without an assignment**; R-11's mitigation already relies on that branch's relaxation. The assignment is K-60 (RM-05).
+**The red baseline.** `npm test` at `main@305a28f` is 292 of 293: the release-loader test demands a staging marker that `pin_release.py` removes on the default branch (`.github/scripts/pin_release.py:31-32` strips `@x-release-pending`). A fix also sits on the ChatGPT branch, bundled with unrelated assertion changes. Phase 0 lands a minimal Fable-authored relaxation of the marker assertion alone, and the brief records that the other fix exists so integration can drop whichever arrives second (K-60, R-11, R-22, RM-05). This is not a competing claim on a branch: one-writer discipline reserves a branch to one writer, not a file to one branch (`docs/DEVELOPMENT_WORKFLOW.md:112`), and the earlier draft of this paragraph read it the other way.
 
 **The single execution-core edit.** The structured progress emitter beside `runner.mjs:91`. It is advisory: it may not write the journal and may not advance an item state, and an adversarial case asserts that a throwing subscriber leaves journal bytes, write order and the transition sequence identical. It ships on its own SHA so that PH-0.seam has exactly one reviewed entry.
 
@@ -315,12 +317,12 @@ graph TD
   PW["Phase W<br/>Project Workspace projection"]
   P6["Phase 6<br/>retirement gates<br/>G-08, G-10"]
 
-  D0{"K-13, K-14, K-60"}
-  D1{"K-06, K-17"}
+  D0{"no director decision;<br/>K-13, K-14, K-60 are<br/>engineering positions"}
+  D1{"K-06, K-17<br/>director halves"}
   D2{"K-02, K-20..K-24,<br/>K-31..K-33, K-56..K-58"}
-  D3{"K-12, K-15, K-16, K-59"}
-  DS{"824c4d58 reviewed<br/>and integrated<br/>+ K-26, K-15<br/>+ K-25, K-27, K-36..K-40,<br/>K-46, K-49, K-50"}
-  D4{"K-03..K-05, K-08..K-10,<br/>K-16, K-34, K-47, K-52, K-53"}
+  D3{"K-12, K-16, K-59,<br/>K-15 director half"}
+  DS{"the Studio foundation reviewed<br/>and integrated<br/>+ K-26, K-15 director halves<br/>+ K-27, K-46, K-49"}
+  D4{"K-03..K-05, K-08..K-10,<br/>K-16, K-53,<br/>K-34 director half"}
   D5{"K-07, K-12, K-30,<br/>K-54, K-55"}
   DW{"K-28, K-43, K-44"}
   D6{"K-10, K-11"}
@@ -365,10 +367,10 @@ Each item below is deliberately absent. Naming them is what keeps a later reader
 | An AI assistance layer inside the Studio | Not ruled, and the ruling is the director's | **K-51**, no phase |
 | Any TheNinjaRPG source change | The pass's default assumption is no game-source change, and repository access is not game authorization | **K-10**; the wish list with its zero-change fallbacks is E §E.11 |
 | Guide Studio and the infographic lane as production lanes | Not ruled; the infographic lane is outside the game-art pipeline by design | **K-29**, not scheduled |
-| The guide content class (CA-08) as a phase-4 or phase-5 deliverable | It exists only after the Forge pin, so it cannot be built without a pin move | **K-13** first, then a phase-4 follow-on |
+| The guide content class (CA-08) as a phase-4 or phase-5 deliverable | It exists only after the Forge pin, so it cannot be built without a pin move | the **K-13** pin refresh first, then a phase-4 follow-on |
 | Structured blocker codes in `mission.py`, canonical profile-shape enforcement, a typed roadmap validate/render operation, registry and maturity vocabulary alignment, and the `studio/*` branch retention rule | Each changes a file whose canonical owner is not Forge; a canonical rule is never fixed by adding a rule to the UI | Separate Lane A briefs with their own gates and review (F.17, RM-09, `CLAUDE.md` §7); decisions **K-36**, **K-28**, **K-37** |
 | Re-implementing, patching or re-planning anything on `chatgpt/forge-quest-studio-foundation` | One writer owns that branch | Review findings go to that branch's owner; accepted follow-ons enter phase S (RM-01, RM-02) |
-| A competing `release_loader` fix authored on a Fable branch | Two writers on one test file | **K-60**, a branch assignment for the director (RM-05) |
+| Re-authoring the ChatGPT branch's unrelated `release_loader` assertion changes | They belong to that branch's owner and its review | phase 0 lands the marker-only relaxation alone; **K-60** records the overlap for integration (RM-05) |
 | EXP's channel priorities and its phases A to F as an implementation order | Tier B recommendations, explicitly offered for reconciliation rather than adoption | Reconciled into the order above from B, C and E evidence (RM-07) |
 | Graph editing depth, reuse search and a second adapter beyond the K-27 order | Studio v1.5 and v2 scope, not v1 | **K-46**, **K-48**, **K-50** |
 | Any deletion affordance | There is no automatic deletion anywhere today, and the policy is unruled | **K-16** |
@@ -376,13 +378,13 @@ Each item below is deliberately absent. Naming them is what keeps a later reader
 
 ## G.5 First implementation brief candidates
 
-**Phase 0 can be briefed first, and only phase 0.** It is the single phase with no shell dependency, no admin dependency, no Studio precondition and no capture-policy decision; its three decisions (K-13, K-14, K-60) are small, independent and already framed in the register. Phase 1 is the second candidate and can be briefed in parallel as soon as K-06 and K-17 are ruled, because it is also shell-independent.
+**Phase 0 can be briefed first, and only phase 0.** It is the single phase with no shell dependency, no admin dependency, no Studio precondition and no capture-policy decision, and it waits on no director ruling at all: K-13, K-14 and K-60 are engineering positions the brief fixes and review checks (§K.1). What it does wait on is objective and checkable: a green or explicitly isolated `main`, a re-run drift check, a named owner and branch, and a written bundle and release approach. Phase 1 is the second candidate and can be briefed in parallel as soon as the director halves of K-06 and K-17 are ruled, because it is also shell-independent.
 
 A phase-0 brief must pin all of the following, or it is not a build contract:
 
 1. **The exact base SHA** and the branch, with one named implementation owner, per `CLAUDE.md` §11 and `docs/workflows/IMPLEMENTATION_HANDOFF.md`. The SHA is the audit target, not the branch name.
-2. **The K-60 assignment**: whether phase 0 waits for the ChatGPT slice to integrate, or the director assigns a minimal marker-only fix to Fable with the unrelated assertion drops excluded. The brief states which, and Fable authors nothing on that file without it.
-3. **K-13 and K-14**: whether the game-source pin moves before implementation, and whether the shipped bundle is minified. Both change what the phase's size and drift gates assert.
+2. **The release-loader integration plan (K-60)**: the marker-only relaxation this phase authors, the fact that the ChatGPT branch also carries one, and which of the two integration expects to keep. Fable does not re-author that branch's unrelated assertion changes.
+3. **The positions on K-13 and K-14**, defended: whether the game-source pin refresh happens in this phase and against which head, and what the bundle and release approach is. Both change what the phase's size and drift gates assert, and both are Fable's to state and a reviewer's to check.
 4. **The exact file list below the seam that may be touched**, expected to be the single additive `runner.mjs` emit hook and nothing else, with the diff gate that reports it.
 5. **The DOM fixture set**: which screens, at what viewport, serialized how, committed before the move, and the byte-identical acceptance.
 6. **The CI shape after consolidation**: one Node job, the gate list in order, `npm audit` restored, the Python Studio steps folded in, and the static no-live check's file scope.
@@ -397,14 +399,14 @@ The same ten headings are the template for every later phase brief, with the dec
 
 ## G.6 Open decisions routed to K
 
-By id only; each stays open and `K_USER_DECISIONS.md` is the owner. The phase that cannot be frozen without it is in parentheses.
+Director decisions by id; each stays open and `K_USER_DECISIONS.md` is the owner. Engineering entries (§K.1) are named per phase where the brief must fix them, and they block no freeze.
 
-- Phase 0: **K-13**, **K-14**, **K-60**.
-- Phase 1: **K-06**, **K-17**.
+- Phase 0: none. **K-13**, **K-14** and **K-60** are engineering positions recorded in the brief.
+- Phase 1: **K-06** and **K-17**, director halves.
 - Phase 2: **K-02**, **K-20**, **K-21**, **K-22**, **K-23**, **K-24**, **K-31**, **K-32**, **K-33**, **K-56**, **K-57**, **K-58**. **K-01** is ruled; token acceptance at the phase-2 freeze is what remains under it.
-- Phase 3: **K-12**, **K-15**, **K-16** (needed a phase earlier than the register's pointer, see G.0), **K-59**.
-- Phase S: **K-25**, **K-26**, **K-27**, **K-36**, **K-37**, **K-38**, **K-39**, **K-40**, **K-46**, **K-49**, **K-50**, and **K-15** jointly with K-26 because they decide one credential together.
-- Phase 4: **K-03**, **K-04**, **K-05**, **K-08**, **K-09**, **K-10**, **K-16**, **K-34**, **K-47**, **K-52**, **K-53**.
+- Phase 3: **K-12**, **K-16** (needed a phase earlier than the register's pointer, see G.0), **K-59**, and **K-15**'s director half.
+- Phase S: **K-27**, **K-46**, **K-49**, and the director halves of **K-26** and **K-15**, which decide one credential together. **K-25**, **K-36**, **K-37**, **K-38**, **K-39**, **K-40** and **K-50** are engineering positions the phase-S brief fixes.
+- Phase 4: **K-03**, **K-04**, **K-05**, **K-08**, **K-09**, **K-10**, **K-16**, **K-53**, and **K-34**'s director half. **K-47** and **K-52** are engineering positions the phase-4 brief fixes.
 - Phase 5: **K-07**, **K-12**, **K-30**, **K-54**, **K-55**.
 - Phase W: **K-28**, **K-43**, **K-44**.
 - Phase 6: **K-10**, **K-11**.

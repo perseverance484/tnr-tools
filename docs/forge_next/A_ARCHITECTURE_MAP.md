@@ -212,7 +212,7 @@ Seam delta (Observed by the foundation reading M7 in an overlay of the `main` Fo
 
 ## A.11 The Quest Studio foundation seam (evidence, not a review target)
 
-Read read-only at `chatgpt/forge-quest-studio-foundation@824c4d58075d0265c717ef25c02485614f3096cf` (merge-base with `main` is `305a28f`; 42 files, about 14,100 added lines, of which the design lane is about 11,000). It is an active ChatGPT-owned Lane A slice under `state/prompt_forge_quest_studio_foundation.md`; this package neither patches nor re-plans it, and the roadmap in section G assumes its independent review rather than its current head.
+Read read-only at `chatgpt/forge-quest-studio-foundation@824c4d58075d0265c717ef25c02485614f3096cf` (merge-base with `main` is `305a28f`; 42 files, about 14,100 added lines, of which the design lane is about 11,000). That snapshot was the branch tip when this package read it; the implementation later froze for review at `cda8ac76`. `00_CONTEXT.md` §00.6 measures the difference: of the paths this package cites, only `forge/src/studio/repository.mjs`, `.github/workflows/quest_studio_ci.yml` and `forge/test/quest.studio.ui.test.mjs` changed, every reading below still holds, and the generated-artifact confinement described here is stricter at the later SHA than the description. Nothing in that branch's own handoff is adopted here as verified evidence before Fable reviews it (`CLAUDE.md` §12). It is an active ChatGPT-owned Lane A slice under `state/prompt_forge_quest_studio_foundation.md`; this package neither patches nor re-plans it, and the roadmap in section G assumes its independent review rather than its current head.
 
 | Stage | Where | What the code does | Facts a roadmap may rely on |
 |---|---|---|---|
