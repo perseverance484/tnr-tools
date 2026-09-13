@@ -586,7 +586,10 @@ A control labelled Try again is permitted only where nothing was sent and the fa
 
 Every state word, banner lead and button label is one constant per ITEM_STATES, JOB_STATES, pause.reason, verify and AUTH value, taken from CPY; a test checks the dictionary against the journal constants and lints the reserved words (CPY:560-583: Verified, Published, Live, Safe, Retry, Complete). Renames this forces on today's strings: 'TNR session active' (app.mjs:137) becomes 'TNR session ready' (CPY:363); 'Finished UNVERIFIED' (screens.mjs:203) becomes 'Finished unverified' (CPY:274). Kept as they are: 'Reconcile & resume' (CPY:138,246; screens.mjs:225), 'Re-read unverified items' (CPY:247; screens.mjs:225), 'Pause after this item' (IRM:190; screens.mjs:226), 'Skip (leave as is)' with 'Nothing is deleted; the server row (if any) stays.' (screens.mjs:68; wording rule SSC:373, IRM:195). The pill words in D2.2 are the compact form; the CPY primary labels are the row and banner form.
 
-## D2.4 State and motion rules (binding)
+## D2.4 State and motion rules (construction; meaning and wording are owned elsewhere)
+
+What is binding here is construction: geometry, border, fill, glyph, motion and the rule that no state is carried by colour alone. Meaning is owned by the safety-state contract, wording by the copy contract, and glyphs by the icon contract, each cited per rule below. Strings quoted in this section are examples of the pattern, not final copy: any label that names a mode or the publish act is settled by K-12, K-20 and K-21, and the label dictionary is where the final words will live.
+
 
 Meaning is owned by SSC sections 3 to 11 (SSC:107-415, states and cue stack), CPY sections 5 to 11 (CPY:110-411, labels) and ICN sections 3 to 4 (ICN:46-177, glyph metaphors); this section specifies construction only and restates none of their rules. Where a line below names a state, the definition is the contract's; where it names a rule, the rule is cited, not copied (CLAUDE.md section 7).
 
