@@ -1,0 +1,1265 @@
+{
+ "reader": "ux-audit-current",
+ "repo": "perseverance484/tnr-tools",
+ "branch": "claude/forge-next-planning-v3frzi",
+ "head_read": "f9edee8feb4c52a81541ab560856e07db98682c2",
+ "main_named_by_brief": "305a28f992e33194fbba279a3f32e698dfb2b67f",
+ "surfaces": {
+  "forge": "forge/ 0.4.0 (forge/package.json), forge_loader_user.js 0.4.0",
+  "builder": "builder_bundle.js v4.32 (BVER at builder_bundle.js:455), builder_loader_user.js 4.32"
+ },
+ "summary": "UI/UX audit of Forge 0.4.0 (forge/src/ui/*.mjs, main.mjs) and Builder v4.32 (builder_bundle.js) against the Forge Next UX criteria, read at tnr-tools f9edee8 (planning branch; audited files identical to main 305a28f). Forge already gets the hard things right and they must be preserved: outcome separated from journal state, SESSION pause wording and resume gating, full-capture disclosure, read-only labelling, orphan cards, fail-closed export copy, scoped stylesheet, 44px baseline, no hover, no innerHTML. Its weaknesses are presentation, not safety: 25 findings, of which the highest are (1) the auto-shown results card is wiped by the post-run refresh when GitHub sync is off (Behaviour-proven locally), (2) Forge's suppression of the legacy Builder panel cannot match Builder 4.32's shadow-DOM host, so the legacy '\u25b6 Build' FAB most likely floats over the Forge overlay at the toast corner (Inferred), (3) SENT/pause reasons are shown as codes and pills with no sentence saying a request may have left the device, (4) recovery is split between Jobs and Run, (5) nav/Close targets are under 44px and the 5-tab nav plausibly overflows 360px, (6) no motion/activity feedback beyond a 1.5s full re-render. The Builder panel fails the brief on almost every criterion by construction (raw-JSON textarea as the primary input, in-memory job state, prompt()-driven pickers with typed selection syntax, a single truncated 12px status line with a glyph legend, a 14-button footer, a dialog-chain Sync toggle) and should be retired rather than restyled. Confirmation model: 24 sites catalogued; Forge's are proportionate except an over-confirm on summary-only reads, an under-explained 'Adopt <id>?' and a missing running-guard on the Jobs Resume; the final publish/adopt confirmation level is the user's (K-12), as are the capture-persistence boundary (K-06) and the credential model (K-15).",
+ "rows": [
+  {
+   "kind": "screen",
+   "id": "S-F0",
+   "surface": "Forge",
+   "name": "Entry splash (/forge) and boot-failure panel",
+   "purpose": "Arm the tab and hand off to the carrier route; show a dead-end message after MAX_HOPS; show a stack trace if mount throws.",
+   "controls": "none (no button, no retry); text only",
+   "state_shown": "hop count and destination; 'could not reach an authenticated page' after 2 hops; raw e.stack on mount failure",
+   "state_hidden": "nothing about whether the operator is signed in; no link back to the game",
+   "mobile_issues": "fine: 15px system font, 52ch max paragraphs (styles.mjs:58-59); the failure panel dumps a raw stack in 12px <pre> (main.mjs:157-159) with no next action",
+   "cites": [
+    "tnr-tools@f9edee8 forge/src/main.mjs:89-113",
+    "tnr-tools@f9edee8 forge/src/main.mjs:153-161",
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:57-59",
+    "tnr-tools@f9edee8 forge/src/ui/takeover.mjs:80-88"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "screen",
+   "id": "S-F1",
+   "surface": "Forge",
+   "name": "App shell: top bar, nav, auth bar, toast",
+   "purpose": "Route between five screens, keep the auth-health line on every screen, surface every error as a toast + log.",
+   "controls": "Close (only as overlay), five nav buttons, Re-check (auth bar)",
+   "state_shown": "version string, current screen (aria-current), AUTH READY/PROBING/SIGNED_OUT/UNKNOWN banner with detail, transient toasts",
+   "state_hidden": "no persistent 'a job is running' indicator outside the Run screen (only close() refuses); the app.logs array (app.mjs:103) is never rendered anywhere; toasts vanish after 4-12s and are not dismissible or re-readable",
+   "mobile_issues": "nav buttons 40px (styles.mjs:27) and Close 32px (styles.mjs:25) undercut the 44px baseline (styles.mjs:31); five flex nav items with overflow-x:auto (styles.mjs:26) likely overflow a 360px viewport with no scroll affordance (Inferred, not rendered); .f-top is sticky but .f-nav is not (styles.mjs:22,26); toasts are fixed bottom-left over the action area (styles.mjs:55) and the Builder FAB sits at the same corner when both loaders are installed",
+   "cites": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:62-79",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:83-103",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:132-151",
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:22-29",
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:55"
+   ],
+   "tier": "Observed (repo code read); nav overflow Inferred"
+  },
+  {
+   "kind": "screen",
+   "id": "S-F2",
+   "surface": "Forge",
+   "name": "Jobs",
+   "purpose": "Home: open jobs needing action, orphan decisions, recent runs.",
+   "controls": "per open job: primary Resume/'Reconcile & resume'/'Re-read unverified items' (disabled with reason when SESSION-paused) + Open; per orphan: Adopt (candidate rows), 'Adopt id' with paste field, 'Re-send <phase>', 'Skip (leave as is)'; recent runs: tap row -> Run",
+   "state_shown": "job state pill, INCOMPLETE explanation, pause reason/path/countdown/detail, resume-block reason, item-state counts, started-ago; orphan candidates from the server",
+   "state_hidden": "journal.broken (unreadable job records) is never rendered; no per-job export/delete here; a RUNNING job being driven by THIS tab still shows a primary Resume (no app.state.running guard, unlike RunScreen)",
+   "mobile_issues": "orphan candidate rows are id-mono + Adopt button, fine; 'Adopt id' input and button share one f-actions row (screens.mjs:63) which wraps; list rows are full-width taps with only :active feedback (styles.mjs:40)",
+   "cites": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:11-43",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:45-70",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:74-76",
+    "tnr-tools@f9edee8 forge/src/storage/journal.mjs:223-231"
+   ],
+   "tier": "Observed (repo code read); Resume-while-driving Behaviour-proven by scratch probe deepdive/ux_export_card_probe.mjs"
+  },
+  {
+   "kind": "screen",
+   "id": "S-F3",
+   "surface": "Forge",
+   "name": "Manifests (picker + SelectedManifest card)",
+   "purpose": "List push/*.json from GitHub, search, select, show the plan and gates, start a job or run captures.",
+   "controls": "search input, Refresh, tap row to select, per-image Pick (hidden file input), primary 'Start job' / 'Run captures' (disabled on problems/missing images/blocked paths), Clear",
+   "state_shown": "file count and listed-ago, per-file number/title/items/creates/captures, green 'ran' pill for any manifest with a job, selected: item count, capture label ('N full captures' distinct), manifest hash, read-only banner, full-capture warning with paths, 'Cannot run' problems, 'Blocked: TNR authentication' with the protected paths, pool codes resolved, advisories, plan rows with entity/op/target/deps/keys, images picked/missing",
+   "state_hidden": "the manifest text itself (no raw view; the only raw JSON is the export card); which job the 'ran' pill refers to or how it ended",
+   "mobile_issues": "the selected card is appended BELOW the full list (screens.mjs:95) with no scrollIntoView, so on a phone the tap appears to do nothing until the operator scrolls; plan rows put keys on one 13px line sliced at 120 chars (screens.mjs:138); full manifest hash in mute text (screens.mjs:121)",
+   "cites": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:73-97",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:114-160",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:186-225"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "screen",
+   "id": "S-F4",
+   "surface": "Forge",
+   "name": "Run",
+   "purpose": "Live and historical view of one job: outcome banner, pause banner, actions, budget, full captures, items.",
+   "controls": "Resume variants (gated), 'Pause after this item' (while running), 'Export bundle'; drift <details> disclosure per item",
+   "state_shown": "job state pill + started-ago, 6px progress bar (warn colour when paused), outcome banner (Verified / Finished with failures / Finished UNVERIFIED; read-only variants with reads and bodies persisted counted separately), SESSION pause banner with authRefused distinction, generic pause banner with reason code/path/countdown/detail, 'Running\u2026' banner, budget per path with reset countdown and TRIPPED, full captures with body persisted / not persisted and persistError, item rows with pill, phase, entityId, error, drift diff, reconciled note",
+   "state_hidden": "no orphan controls here (only on Jobs); runningNote is set to '' and never updated so 'Running\u2026' has no per-item activity text; a RUNNING job with no driving tab looks identical to one being driven except for the missing 'Running\u2026' banner; no plain-language explanation of what SENT means",
+   "mobile_issues": "the 'Export bundle' card is prepended above everything (app.mjs:182) and pushes the outcome banner down by a 160px textarea; budget kv grid is 13px; pause reason codes are raw (NETWORK, UNDECODABLE_RESPONSE, AMBIGUOUS, USER, ORPHANED); drift diff is JSON.stringify pairs in 12px mono",
+   "cites": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:163-257",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:264-300",
+    "tnr-tools@f9edee8 forge/src/runner/runner.mjs:364-365"
+   ],
+   "tier": "Observed (repo code read); undriven-RUNNING rendering Behaviour-proven by scratch probe"
+  },
+  {
+   "kind": "screen",
+   "id": "S-F5",
+   "surface": "Forge",
+   "name": "Captures",
+   "purpose": "Inspect and clear the path+id read cache and, separately, the immutable full-capture snapshots.",
+   "controls": "Clear all (confirm), per-entry Invalidate (no confirm), Delete all snapshots (confirm), per-snapshot Delete (confirm)",
+   "state_shown": "count and bytes for each store, key/entity/bytes/ago per record, 'never invalidated by a write; deleted with their job'",
+   "state_hidden": "which job each snapshot belongs to (only the key); whether a snapshot has already been exported (the wording warns but the row cannot tell)",
+   "mobile_issues": "both destructive buttons use identical f-danger styling; long mono keys wrap with word-break:break-all (styles.mjs:41); Clear all sits above the snapshots section so the cheap and the evidence-destroying actions read as peers",
+   "cites": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:260-300",
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:34"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "screen",
+   "id": "S-F6",
+   "surface": "Forge",
+   "name": "Settings",
+   "purpose": "GitHub PAT + auto-commit toggle, session/auth/budget diagnostics, journal export and bulk delete, about.",
+   "controls": "PAT (password input, pre-filled from storage), checkbox row, Save, Forget (confirm), 'Export journal as text', 'Delete finished jobs' (confirm)",
+   "state_shown": "game/auth describe() as raw JSON strings, budget allowance, persisted-storage boolean, version, pin, storage keys",
+   "state_hidden": "whether sync is on without a PAT (Save accepts on:true with empty PAT); the app.logs exchange log",
+   "mobile_issues": "raw JSON.stringify rows in a kv grid (screens.mjs:316-317); native checkbox is small but wrapped in a full-width label row (screens.mjs:312) so the row is the tap target",
+   "cites": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:303-329",
+    "tnr-tools@f9edee8 forge/src/transport/auth.mjs:219",
+    "tnr-tools@f9edee8 forge/src/transport/session.mjs:53"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "screen",
+   "id": "S-F7",
+   "surface": "Forge",
+   "name": "Export card (showExport)",
+   "purpose": "Show a results bundle or journal export as text when it cannot be committed.",
+   "controls": "Copy (clipboard API, fallback 'select-all and copy'), Close",
+   "state_shown": "the whole bundle JSON in a read-only 160px textarea",
+   "state_hidden": "that the card is destroyed by the next refresh(): the auto-export card after a run is wiped immediately by _drive's finally refresh (Behaviour-proven by scratch probe); on a failed auto commit the bundle is not shown at all, only a 9s toast",
+   "mobile_issues": "raw JSON is the ordinary fallback when sync is off; viewer must scroll a 12px mono textarea; Copy depends on navigator.clipboard availability in the userscript page context",
+   "cites": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:177-183",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:297-299",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:400-405",
+    "tnr-tools@f9edee8 forge/src/ui/dom.mjs:26-27"
+   ],
+   "tier": "Behaviour-proven (local jsdom probe deepdive/ux_export_card_probe.mjs: showExportCalls 1, textareaInMainAfterRun false, manualTextareaInMain true)"
+  },
+  {
+   "kind": "screen",
+   "id": "S-B1",
+   "surface": "Builder v4.32",
+   "name": "FAB + panel (shadow DOM #tnr-bk-host)",
+   "purpose": "Paste/load a manifest as raw JSON, preview rows, build (write), read, doctor, sync, export.",
+   "controls": "'\u25b6 Build' FAB; header minimize; textarea; 14 footer buttons: \u25b6 Build, \ud83d\udcc4 Load, \u21e9 Repo, \ud83d\udc41 Reads, \ud83d\uddbc Imgs, \u21bb Retry failed (hidden until errors), \ud83e\ude7a Doctor, \u29c9 Copy, \u21ea Sync, \ud83d\udcbe Results, \u21ea File, \ud83d\uddfa Map, \u2912 Map, \u232b Reset; four hidden file inputs",
+   "state_shown": "one 12px status line (sliced to 120-300 chars) carrying everything: parse summary, preflight/lint errors, upload progress, phase names, commit status, final symbol tally 'live 3\u2713 0\u26a0 0\u203cA 1\u203c 0\u2205'; per-row dot colour + entity badge + ellipsised detail; 4px progress bar; title 'Content builder v4.32 \u00b7 cfg ok|partial' + '\u26a0HEAD vX' when the bundle is stale",
+   "state_hidden": "rows, MANIFEST and the last bundle live only in memory (lost on eviction); only the idmap persists; no distinction between a row whose request left and one that never sent; no auth state; row detail beyond ~42% width is only reachable via alert() when >26 chars",
+   "mobile_issues": "panel is bottom-anchored max-height 88vh with a 13vh textarea and a wrapping 14-button footer (min-width 92px each, so ~3 per row = 5 rows) leaving little room for rows; row height ~34px (padding 9px, 12px text) under the 44px target; row detail max-width 42% nowrap ellipsis; native prompt() menus listing up to 30 files; native alert() for Doctor output and row detail",
+   "cites": [
+    "tnr-tools@f9edee8 builder_bundle.js:792",
+    "tnr-tools@f9edee8 builder_bundle.js:793-796",
+    "tnr-tools@f9edee8 builder_bundle.js:552",
+    "tnr-tools@f9edee8 builder_bundle.js:559-560",
+    "tnr-tools@f9edee8 builder_bundle.js:763-764",
+    "tnr-tools@f9edee8 builder_bundle.js:826-833",
+    "tnr-tools@f9edee8 builder_bundle.js:801"
+   ],
+   "tier": "Observed (repo code read); layout metrics Inferred from CSS, not rendered"
+  },
+  {
+   "kind": "finding",
+   "id": "F-01",
+   "surface": "Forge",
+   "severity": "high",
+   "criterion": "errors say what happened / job evidence reaches the operator",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:297 (exportJob auto inside try)",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:299 (finally refresh)",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:182 (showExport prepends to $main)",
+    "tnr-tools@f9edee8 forge/src/ui/dom.mjs:27 (replace clears $main)",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:405"
+   ],
+   "tier": "Behaviour-proven (scratch jsdom probe: showExportCalls 1, textareaInMainAfterRun false; manual Export bundle then shows it)",
+   "consequence": "With GitHub sync off (or PAT missing), the bundle card that the run auto-opens is destroyed by the post-run refresh before the operator can copy it; the only signal is a 4-8s toast. On a failed auto commit (app.mjs:401-405, auto=true) no card is shown at all, only a 9s 'commit results: \u2026' toast. The bundle is still in the journal and manual 'Export bundle' works, but nothing tells the operator that.",
+   "correction": "Make the export a state on the Run screen (persisted in app.state, re-rendered by refresh) rather than a transient prepended node; on auto-commit failure render a persistent banner 'bundle not committed; tap Export bundle to retry or copy'. Redesign: an explicit 'Results' section per job with commit status.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-02",
+   "surface": "Forge+Builder",
+   "severity": "high",
+   "criterion": "obvious distinction between read flows and mutation flows / mobile overlap",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/takeover.mjs:53",
+    "tnr-tools@f9edee8 forge/src/ui/takeover.mjs:167-175",
+    "tnr-tools@f9edee8 builder_bundle.js:793-795 (k-fab and k-pn live inside a shadow root under #tnr-bk-host)",
+    "tnr-tools@f9edee8 builder_bundle.js:891 (host re-appended if removed)",
+    "tnr-tools@f9edee8 builder_bundle.js:792 (.k-fab fixed bottom:12px left:12px z-index 2147483000)",
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:19 (.f-host z-index 2147483000)",
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:55 (.f-toast bottom:12px left:10px)",
+    "tnr-tools@f9edee8 builder_loader_user.js:9 (document-idle)",
+    "tnr-tools@f9edee8 forge_loader_user.js:9 (document-start)"
+   ],
+   "tier": "Inferred (code-traced; not rendered in a browser)",
+   "consequence": "Forge's old-builder suppression matches direct body children with class k-fab/k-pn, but Builder 4.32 mounts those inside a shadow root of an id-only host and re-appends that host, so the observer never matches. The Builder host is appended at document-idle after Forge's overlay, so with equal z-index the legacy green '\u25b6 Build' FAB most likely paints over the Forge overlay at the exact corner Forge uses for toasts. A live-mutation entry point of the legacy tool would float over the new tool's screens.",
+   "correction": "Match the host by id (#tnr-bk-host) or hide it while mounted (and restore on release); verify in a real Firefox Android session with both loaders installed; Forge Next should keep its own toasts/actions away from the legacy FAB corner until Builder is retired (K-11).",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-03",
+   "surface": "Builder",
+   "severity": "high",
+   "criterion": "no raw JSON for ordinary tasks",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:794 (textarea placeholder 'paste a manifest, \ud83d\udcc4 Load a file, or \u21e9 Repo')",
+    "tnr-tools@f9edee8 builder_bundle.js:799 (input -> parse on every keystroke)",
+    "tnr-tools@f9edee8 builder_bundle.js:562"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "Every Builder task begins in a 13vh raw-JSON textarea; the operator is the manifest relay the Forge Next brief wants to remove (brief \u00a7278). A parse error is one status line.",
+   "correction": "Retire the textarea as the primary input (Forge's picker + plan card already does this); keep a raw manifest view behind an 'Advanced' disclosure for expert inspection.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-04",
+   "surface": "Builder",
+   "severity": "high",
+   "criterion": "job state survives eviction",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:552 (rows=[] in memory)",
+    "tnr-tools@f9edee8 builder_bundle.js:561 (MANIFEST in memory)",
+    "tnr-tools@f9edee8 builder_bundle.js:764 (window.__tnrLastBundle in memory)",
+    "tnr-tools@f9edee8 builder_bundle.js:551 (only idmap persisted under tnr_bk_idmap_v1)"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "If Android evicts the tab mid-build, the row list, the sent/ok/error record and the unsynced bundle are gone; only the idmap survives, so the operator cannot tell which creates landed without a capture. Forge's write-ahead journal (journal.mjs:1-19) exists precisely for this.",
+   "correction": "No Builder fix; this is a retirement gate. Forge Next must keep the journal and add a visible 'reconstructed after eviction' state on the Jobs/Run screens.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-05",
+   "surface": "Builder",
+   "severity": "high",
+   "criterion": "touch/mobile: native prompt() pickers and typed selection syntax",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:826",
+    "tnr-tools@f9edee8 builder_bundle.js:832-833 (menu of up to 30 files inside prompt())",
+    "tnr-tools@f9edee8 builder_bundle.js:835-840 ('1,3' / '2-4' / 'all' parsing)",
+    "tnr-tools@f9edee8 builder_bundle.js:860 (one confirm for an N-file WRITE batch)"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "On a phone the operator reads a 30-line file menu inside a native prompt and types a selection; a typo ('1-3' instead of '1,3') silently changes which manifests are written, and one confirm covers the whole batch.",
+   "correction": "Forge's tappable manifest list (screens.mjs:84-88) replaces this; per-manifest Start with the file name in the confirm. Batch runs, if kept, need a reviewable list before one confirm.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-06",
+   "surface": "Builder",
+   "severity": "high",
+   "criterion": "clear hierarchy / errors legible on a phone",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:792 (.k-st2 12px; .k-st max-width:42% nowrap ellipsis; .k-ft 14 buttons min-width 92px)",
+    "tnr-tools@f9edee8 builder_bundle.js:763 (final tally 'live N\u2713 N\u26a0 N\u203cA N\u203c N\u2205')",
+    "tnr-tools@f9edee8 builder_bundle.js:758-760 ('\u203cUNVERIFIED live=NONE', '\u26a0DIFF')",
+    "tnr-tools@f9edee8 builder_bundle.js:559 (detail only via alert when >26 chars)",
+    "tnr-tools@f9edee8 builder_bundle.js:462-463 (status sliced to 220/260 chars)"
+   ],
+   "tier": "Observed (repo code read); layout metrics Inferred",
+   "consequence": "The one status line is the only channel for parse errors, upload progress, phase names, commit results and the verification verdict, and it is truncated; the row detail column hides most of its text; the verdict is a symbol legend the operator must memorise. 'A destructive or ambiguous state must not look equivalent to success' (docs/agents/UI_UX_REVIEWER.md:28) is hard to satisfy in 12px symbols.",
+   "correction": "Forge's per-item pills, outcome banners and drift <details> are the replacement; Forge Next should add a legend-free verdict line ('3 verified, 1 unread, 0 drift') and never rely on glyphs alone.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-07",
+   "surface": "Forge",
+   "severity": "medium",
+   "criterion": "mobile-first: selection feedback above the fold",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:95 (selected card appended after the list)",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:84-88 (list rows)",
+    "grep scrollIntoView in forge/src/ui: none",
+    "ls push/*.json: 7 files today"
+   ],
+   "tier": "Observed (repo code read); phone consequence Inferred",
+   "consequence": "Tapping a manifest re-renders the screen and appends the detail card below the whole list, so on a phone the tap looks like a no-op until the operator scrolls; the Start button is the last element on the page. Mild with 7 manifests, worse as push/ grows.",
+   "correction": "Selection should replace the list with a detail view (with Back), or at minimum scrollIntoView the card; Forge Next: manifest detail as its own route.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-08",
+   "surface": "Forge",
+   "severity": "medium",
+   "criterion": "touch targets and viewport fit",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:27 (nav min-height 40px)",
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:25 (Close 32px)",
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:31 (44px default)",
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:26 (nav overflow-x:auto, gap 4px, padding 6px 8px)"
+   ],
+   "tier": "Observed (repo code read); overflow Inferred from label widths, not rendered",
+   "consequence": "The most-used controls (nav, Close) are the ones below 44px. Five text tabs with 14px side padding plausibly exceed 360px, leaving 'Settings' off-screen with no scroll cue.",
+   "correction": "44px minimum everywhere; a bottom tab bar with icon+short label that fits 360px, or collapse to 3 primary tabs + More.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-09",
+   "surface": "Forge",
+   "severity": "medium",
+   "criterion": "motion/status feedback",
+   "evidence": [
+    "grep transition|animation|aria-live in forge/src/ui: none",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:93-97 (toast appended, removed by setTimeout, not dismissible)",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:266 (runningNote = '') and screens.mjs:220 (never updated)",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:268 (1.5s full re-render tick)",
+    "tnr-tools@f9edee8 forge/src/main.mjs:143 (onExchange log is plumbed to app.log but never shown)"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "During a long run the only feedback is pills flipping every 1.5s and a 6px bar; the 'Running\u2026' banner never says what is being sent; a 9-12s 'bad' toast covers the bottom action row and cannot be closed; multiple toasts stack without limit; no assistive announcement.",
+   "correction": "Feed a live activity line from the runner (item name + phase + attempt) into the Running banner; dismissible toasts with a cap; aria-live on the toast region; the brief (\u00a7217) wants tasteful motion, so a state-change transition on pills is appropriate but secondary.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-10",
+   "surface": "Forge",
+   "severity": "medium",
+   "criterion": "recovery as a first-class screen",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:29-31 and 45-70 (orphan controls only on Jobs)",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:244-255 (Run items have no controls)",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:218-219 ('Paused: ORPHANED' banner without a pointer to Jobs)",
+    "tnr-tools@f9edee8 forge/src/runner/runner.mjs:216 (ORPHANED pauses the job)"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "The pause happens on the Run screen but the decision (Adopt/Skip) lives on Jobs; a paused-on-orphan job shows a code and no way forward where the operator is looking. Recovery is split across two screens and a toast.",
+   "correction": "Render the OrphanCard inline under the paused item on Run, or introduce a Recovery view that unifies SENT items, orphans, pauses and lease conflicts with one next-safe-action each.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-11",
+   "surface": "Forge",
+   "severity": "medium",
+   "criterion": "errors say whether a request may have left the device",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:245-248 (SENT pill + 'phase create' only)",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:218-219 (raw reason NETWORK / UNDECODABLE_RESPONSE / AMBIGUOUS + exception text)",
+    "tnr-tools@f9edee8 forge/src/runner/runner.mjs:363-365 (the sentence 'the request may have left' exists only as a comment)",
+    "tnr-tools@f9edee8 forge/src/runner/runner.mjs:16",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:24,225 ('Reconcile & resume' label)"
+   ],
+   "tier": "Behaviour-proven (scratch probe rendered '0. B SENT jutsu \u00b7 phase create' for an undriven RUNNING job with no explanatory sentence)",
+   "consequence": "The single most important ambiguity in the tool is conveyed by a purple pill and a button label. A tired operator can read SENT as progress rather than 'may have landed, do not repeat'.",
+   "correction": "Per-reason copy table on the pause banner: NETWORK -> 'The request may have left this device and no answer came back. Nothing is re-sent; Resume reconciles first.'; UNDECODABLE_RESPONSE -> 'The server answered but the answer could not be read\u2026'; and a one-line gloss under any SENT pill.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-12",
+   "surface": "Forge",
+   "severity": "medium",
+   "criterion": "recovery / hidden state",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/storage/journal.mjs:225-229 (this.broken collected)",
+    "grep 'broken' forge/src/ui: only a comment at app.mjs:373"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "A job record that fails to parse silently disappears from Jobs; the operator cannot know a job existed or export its raw text.",
+   "correction": "Surface journal.broken on Jobs ('1 damaged job record') with raw export; Forge Next: a Storage health card.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-13",
+   "surface": "Forge",
+   "severity": "medium",
+   "criterion": "avoid ambiguous controls (confirmation model)",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:16-26 (no app.state.running guard on the Jobs banner)",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:224 (Run screen has the guard)",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:259-265 (tap -> go(run) then 'a job is already running' toast)"
+   ],
+   "tier": "Behaviour-proven (scratch probe: primary 'Reconcile & resume' rendered while app.state.running === jobId)",
+   "consequence": "While this tab drives a job, Jobs still offers a green primary Resume; tapping it hops to Run and toasts. Harmless because _drive refuses, but it teaches the operator that primary buttons can be lies.",
+   "correction": "Render 'Running \u00b7 Open' (no primary) while app.state.running matches; show 'driven by another tab, heartbeat Ns ago' when the lease belongs elsewhere.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-14",
+   "surface": "Forge",
+   "severity": "medium",
+   "criterion": "destructive/ambiguous must not look like success",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:82 (seen = any job with that manifestPath)",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:86 (green VERIFIED pill labelled 'ran')",
+    "docs/agents/UI_UX_REVIEWER.md:28"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "A manifest whose only job failed or is paused shows the same green 'ran' badge as a verified one.",
+   "correction": "Colour the badge by the latest job's outcome (success/unverified/failed/open) and say which ('ran \u00b7 failed 2h ago').",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-15",
+   "surface": "Forge",
+   "severity": "medium",
+   "criterion": "raw JSON in ordinary flows",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:177-183 and 405 (bundle textarea when sync is off)",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:316-317 (JSON.stringify(session.describe()), JSON.stringify(auth.describe()))",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:251 (drift as JSON.stringify(sent)/JSON.stringify(live))"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "Three raw-JSON surfaces reach the operator in normal use; the drift one is the most consequential because it is how a bad write is understood.",
+   "correction": "Settings rows as key/value; drift as a two-column sent/live table per key; bundle export as a persistent Results card with commit status (the sandbox blocks page-started downloads, so copy/commit are the realistic paths). Keep a raw JSON disclosure for experts.",
+   "user_owned": true
+  },
+  {
+   "kind": "finding",
+   "id": "F-16",
+   "surface": "Forge",
+   "severity": "medium",
+   "criterion": "job state survives eviction (visibility of the reconstructed state)",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/runner/runner.mjs:36-42 (tab lease, LeaseHeld message)",
+    "tnr-tools@f9edee8 forge/src/runner/runner.mjs:40 (LEASE_TTL_MS 30s)",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:170 (RUNNING pill)",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:220 ('Running\u2026' only when app.state.running)",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:298 (LeaseHeld surfaces as a 'run:' toast)"
+   ],
+   "tier": "Behaviour-proven (scratch probe: undriven RUNNING job renders 'RUNNING' with no 'no driver' text)",
+   "consequence": "After eviction the job correctly stays RUNNING with a SENT item and Jobs offers 'Reconcile & resume' (good), but nothing says 'this job has no driving tab' and a second tab's LeaseHeld is a 9s toast rather than a banner.",
+   "correction": "Derive a display state: RUNNING+no lease -> 'Interrupted (no tab is driving this job)'; RUNNING+foreign fresh lease -> banner with heartbeat and 'wait 30s or close that tab'.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-17",
+   "surface": "Forge",
+   "severity": "low",
+   "criterion": "confirmation fatigue on low-risk reads",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:151-153 (confirm even for summary-only captures)",
+    "state/prompt_forge_next_planning.md@origin/chatgpt/forge-next-planning:272"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "A zero-mutation, summary-only capture still needs a native confirm; full captures deserve one because bodies are committed to a public repository (K-06).",
+   "correction": "Confirm only when plan.length>0 or fullCount>0; summary captures run on tap with the read-only banner as the safeguard.",
+   "user_owned": true
+  },
+  {
+   "kind": "finding",
+   "id": "F-18",
+   "surface": "Forge",
+   "severity": "low",
+   "criterion": "hierarchy: danger styling parity",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:264 (Clear all, f-danger)",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:286-289 (Delete all snapshots, f-danger)",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:68 ('Skip (leave as is)' styled f-danger though it is the non-destructive choice)"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "Cheap, evidence-destroying and explicitly harmless actions share one red style; the distinction is wording-only.",
+   "correction": "Reserve f-danger for evidence/record loss; neutral style for Clear all and Skip.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-19",
+   "surface": "Forge",
+   "severity": "low",
+   "criterion": "credential handling clarity",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:305 (PAT re-populated into the password input on every render)",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:313 (Save writes on:sync.checked regardless of PAT)",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:401-405"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "Sync can be on with no PAT, in which case the bundle silently falls to the raw card (see F-01); the stored secret is re-rendered into the DOM each time Settings opens.",
+   "correction": "Refuse to enable sync without a PAT; show 'sync: on, PAT: set (scoped to contents:write)' as a status line rather than the value; K-15 decides the credential model.",
+   "user_owned": true
+  },
+  {
+   "kind": "finding",
+   "id": "F-20",
+   "surface": "Forge",
+   "severity": "low",
+   "criterion": "tablet/desktop use of space",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:29 (max-width 760px, one column)",
+    "grep @media in forge/src/ui/styles.mjs: none"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "On a tablet or desktop everything is one stretched column; the brief (\u00a7214) asks for layouts that use the space.",
+   "correction": "List/detail two-pane at >=900px (Jobs|Run, Manifests|Selected); keep one column below.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-21",
+   "surface": "Forge",
+   "severity": "low",
+   "criterion": "confirmation model: native dialogs",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:172-175 (globalThis.confirm)",
+    "state/prompt_forge_next_planning.md@origin/chatgpt/forge-next-planning:272"
+   ],
+   "tier": "Observed (repo code read); Android dialog rendering of long confirm text is unverified",
+   "consequence": "Native confirm() cannot show the record, the visibility change or a typed acknowledgement; long messages (the Start job text with capture label) render at the browser's mercy.",
+   "correction": "In-UI confirmation sheet for mutation starts, adopt and delete; K-12 decides the level (typed name / press-and-hold / two-person).",
+   "user_owned": true
+  },
+  {
+   "kind": "finding",
+   "id": "F-22",
+   "surface": "Builder",
+   "severity": "medium",
+   "criterion": "confirmation model: Sync three-state via dialog chain",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:804-809"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "One button cycles prompt -> on, on -> off (token kept), off -> confirm on, and Cancel there leads to 'Forget the stored token?'. Cancelling a dialog can forget the credential.",
+   "correction": "Forge Settings (screens.mjs:303-314) already fixes this; keep it.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-23",
+   "surface": "Builder",
+   "severity": "low",
+   "criterion": "alert() as detail view",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:559 (row alert when detail > 26 chars)",
+    "tnr-tools@f9edee8 builder_bundle.js:801 (Doctor output in alert)"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "Row detail and the Doctor report are modal text dumps that cannot be copied or scrolled comfortably on Android.",
+   "correction": "Forge's <details> and error rows replace it; Doctor, if carried over, becomes a screen.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-24",
+   "surface": "Forge",
+   "severity": "low",
+   "criterion": "persistent nav / long screens",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:22 (.f-top sticky)",
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:26 (.f-nav not sticky)",
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:29 (padding-bottom 80px reserved for toasts)"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "On a long Run screen the tabs scroll away; the only way back is scrolling up.",
+   "correction": "Make the nav sticky under the top bar or move it to a bottom bar.",
+   "user_owned": false
+  },
+  {
+   "kind": "finding",
+   "id": "F-25",
+   "surface": "Forge",
+   "severity": "low",
+   "criterion": "errors: developer-context prefixes",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:99-100 ('journal: \u2026', context + ': ' + message)",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:174 ('action')",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:257 ('resume: fetch manifest')"
+   ],
+   "tier": "Observed (repo code read)",
+   "consequence": "Toasts read like log lines; they say what failed but rarely the next safe action.",
+   "correction": "Context -> sentence map with next action ('Could not fetch the manifest for resume. Nothing was sent. Check the GitHub connection and tap Resume again.').",
+   "user_owned": false
+  },
+  {
+   "kind": "preserve",
+   "id": "P-01",
+   "what": "Outcome is separate from state: DONE/INCOMPLETE is the journal's state, success/unverified/failed is the verdict; only 'success' is green; an INCOMPLETE job says 'Finished UNVERIFIED \u2026 These writes are not proven.' and still exports its bundle with outcome in the headline.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/storage/journal.mjs:76-88",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:195-206",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:280-297",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:384",
+    "tnr-tools@f9edee8 forge/test/ui.test.mjs:254-284"
+   ],
+   "tier": "Behaviour-proven (forge/test/ui.test.mjs run locally: 16/16 pass)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-02",
+   "what": "SESSION pause wording and resume gating: the banner names what the game refused, says 'nothing further was sent', distinguishes 'refused, not an uncertain write' (authRefused) from 'stopped before sending', tells the operator to sign in and re-check, and Resume is disabled with the reason until auth is ready; the gate is re-read at the moment of the tap.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:208-217",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:159-163",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:22-24,221-225",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:247-251",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:289-293",
+    "state/prompt_forge_protected_auth.md:85-97 (section D)"
+   ],
+   "tier": "Observed (repo code read); brief D requirement"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-03",
+   "what": "Auth-health line on every screen, separate from job outcomes, with 'This is not a read failure.' and 'Public capture-only manifests can still run.'; Re-check disabled while probing.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:127-151"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-04",
+   "what": "Full-capture disclosure before the run: 'N captures' vs 'N full captures' never render the same; the warn banner names the paths and says the bodies are committed to the repository; the confirm repeats it; the Run screen reports reads and bodies-persisted as two separate counts.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:104-112",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:123-125",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:153",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:174-194",
+    "tnr-tools@f9edee8 forge/test/ui.test.mjs:162"
+   ],
+   "tier": "Behaviour-proven (ui.test.mjs:162 passes locally)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-05",
+   "what": "Read-only jobs are labelled as such at every step: 'Read-only capture job. This sends queries only; zero mutations.', 'Run captures' instead of 'Start job', 'No mutations will be sent.', 'zero mutations were sent'. Builder's equivalents: 'capture-only \u00b7 N reads \u00b7 zero mutations', '\ud83d\udc41 Reads \u2026 reads are not writes', and the get*/list* allowlist gate.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:120-122,153,156,184,193",
+    "tnr-tools@f9edee8 forge/test/ui.test.mjs:135-161",
+    "tnr-tools@f9edee8 builder_bundle.js:562",
+    "tnr-tools@f9edee8 builder_bundle.js:845-853",
+    "tnr-tools@f9edee8 builder_bundle.js:886"
+   ],
+   "tier": "Behaviour-proven (ui.test.mjs:135 passes locally)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-06",
+   "what": "Orphan cards: server candidates listed with id+name and per-candidate Adopt; paste-an-id path for creates; 'Re-send <phase>' only with 'Only do this if you have checked the record.'; Skip says 'Nothing is deleted; the server row (if any) stays.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:45-70",
+    "tnr-tools@f9edee8 forge/src/runner/runner.mjs:294-312"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-07",
+   "what": "Resume label carries its semantics: 'Reconcile & resume' when any item is SENT, 'Re-read unverified items' for INCOMPLETE ('Resuming re-reads them and cannot re-send.'), plain 'Resume' otherwise.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:20,24,225",
+    "tnr-tools@f9edee8 forge/test/ui.test.mjs:96-105"
+   ],
+   "tier": "Behaviour-proven (ui.test.mjs:96 passes locally)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-08",
+   "what": "Start gate is re-read at tap time and blocks with the protected paths named; the Start button is disabled while problems, missing images or blocked paths exist, and each reason is a banner above it.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:228-237",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:126-130,151"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-09",
+   "what": "Close refuses while a job is running ('pause it before closing Forge'); Pause is 'after the current item finishes' and the button says so.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:107-112",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:302",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:226"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-10",
+   "what": "A screen that throws renders an error banner with the stack, never a blank page; every fail() both toasts and logs.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:86-90,98-102",
+    "tnr-tools@f9edee8 forge/test/ui.test.mjs:352-358"
+   ],
+   "tier": "Behaviour-proven (ui.test.mjs:352 passes locally)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-11",
+   "what": "Read cache and full-capture snapshots are shown as two stores with different wording, buttons and confirmation strength; snapshot deletion says the body 'can only come back from another read'.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:264-298",
+    "tnr-tools@f9edee8 forge/test/ui.test.mjs:206"
+   ],
+   "tier": "Behaviour-proven (ui.test.mjs:206 passes locally)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-12",
+   "what": "Export never re-reads: 'it was not re-read', 'NOT truncated and NOT persisted'; a failure recorded with the body in hand is never upgraded.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:342-366"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-13",
+   "what": "Version is visible in the title (Forge 'TNR forge 0.4.0'; Builder 'Content builder v4.32 \u00b7 cfg ok' plus '\u26a0HEAD vX' when stale), which docs/00_INDEX.md requires before trusting a smoke result.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:65",
+    "tnr-tools@f9edee8 builder_bundle.js:794,796,459-460",
+    "docs/00_INDEX.md:115"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-14",
+   "what": "Mobile baseline: 44px buttons and inputs, 15px base font, :active not :hover, no innerHTML in Forge (repo law tested), stylesheet scoped to .f-host/.f-app so the carrier page is never restyled; Jobs is forced as the landing screen when open jobs exist; persisted-storage request on mount.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:1-9,19-21,31,35,40",
+    "grep :hover forge/src/ui/styles.mjs builder_bundle.js: 0",
+    "tnr-tools@f9edee8 forge/src/ui/dom.mjs:1",
+    "tnr-tools@f9edee8 forge/test/ui.test.mjs:29-34",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:74-77,408-410"
+   ],
+   "tier": "Behaviour-proven for the innerHTML law (ui.test.mjs:29); rest Observed"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-15",
+   "what": "Settings copy is honest about where secrets go and what is stored: 'Sent to api.github.com only. Never to the game. Stored in this browser under tnr_bk_gh_v1'; 'Delete ALL finished jobs \u2026 each deleted job's full-capture snapshots go with it'; About lists every storage key and the source pin.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:310,322,326"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-16",
+   "what": "Budget is visible per path with allowance/server limit and reset countdown, and a TRIPPED line; TOO_MANY_REQUESTS pauses show the wait countdown.",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:229-232,218-219"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "preserve",
+   "id": "P-17",
+   "what": "Builder habits worth carrying: Retry runs only error rows and never re-sends ok rows; Reset says 'Next build creates fresh records.'; '\u21ea FAILED \u2026 \ud83d\udcbe saved locally' when a commit fails; results bundle name echoed on commit with the short SHA.",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:800",
+    "tnr-tools@f9edee8 builder_bundle.js:821",
+    "tnr-tools@f9edee8 builder_bundle.js:463"
+   ],
+   "tier": "Observed (repo code read)"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-01",
+   "surface": "Forge",
+   "site": "confirm: Start job \u2014 'Start job for <file>: N items (M creates)[, capture label]? This writes to the game.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:151-156"
+   ],
+   "protects": "first mutation of a job; names file, counts, creates, captures",
+   "proportionate": "yes \u2014 one confirm per mutation batch, wording names consequence; K-12 may raise it for publish-class actions"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-02",
+   "surface": "Forge",
+   "site": "confirm: Run captures \u2014 'Run read-only capture job \u2026 No mutations will be sent.' (+ full-body sentence)",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:151-153"
+   ],
+   "protects": "read-only run; full bodies committed to the repo when present",
+   "proportionate": "over-confirms summary-only reads (brief \u00a7272 'low-risk reads should be easy'); right for full captures (K-06)"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-03",
+   "surface": "Forge",
+   "site": "disabled gate: Start/Run captures while problems, missing images or blocked protected paths",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:151",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:230-237"
+   ],
+   "protects": "invalid or unauthenticated send",
+   "proportionate": "yes \u2014 reasons are shown as banners above; gate re-read at tap"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-04",
+   "surface": "Forge",
+   "site": "disabled gate + reason text: Resume on a SESSION-paused job while auth not ready",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:22-24,221-225",
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:159-163,247-251"
+   ],
+   "protects": "a green Resume that would be refused again (review FPA-2)",
+   "proportionate": "yes"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-05",
+   "surface": "Forge",
+   "site": "confirm: Adopt candidate \u2014 'Adopt <id> as \"<name>\"? The job will continue with its update.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:58"
+   ],
+   "protects": "binding an orphan to a server row, then an update is sent",
+   "proportionate": "yes"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-06",
+   "surface": "Forge",
+   "site": "confirm: Adopt pasted id \u2014 'Adopt <v>?'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:63"
+   ],
+   "protects": "same as C-05 with a hand-typed id",
+   "proportionate": "under-explained: does not say an update will be sent to that id and does not echo the item name"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-07",
+   "surface": "Forge",
+   "site": "confirm: 'Re-send the <phase> for \"<name>\" to <id>? Only do this if you have checked the record.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:64-66",
+    "tnr-tools@f9edee8 forge/src/runner/runner.mjs:294-296"
+   ],
+   "protects": "re-sending an update to a known id",
+   "proportionate": "yes; wording could add 'this may duplicate the change'"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-08",
+   "surface": "Forge",
+   "site": "confirm: 'Skip \"<name>\"? Nothing is deleted; the server row (if any) stays.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:68"
+   ],
+   "protects": "leaving an orphan unresolved",
+   "proportionate": "yes on wording; the f-danger styling over-signals"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-09",
+   "surface": "Forge",
+   "site": "confirm: Clear the whole capture cache",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:264"
+   ],
+   "protects": "read cache (costs budget only)",
+   "proportionate": "slightly over \u2014 cheap action with the same styling as evidence deletion"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-10",
+   "surface": "Forge",
+   "site": "no confirm: Invalidate one read-cache entry",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:275"
+   ],
+   "protects": "one cached read",
+   "proportionate": "yes"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-11",
+   "surface": "Forge",
+   "site": "confirm: Delete ALL full-capture snapshots \u2014 names the evidence loss and that recovery needs another read",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:288"
+   ],
+   "protects": "immutable snapshots an un-exported job depends on",
+   "proportionate": "yes; the strongest wording in the app, correctly placed"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-12",
+   "surface": "Forge",
+   "site": "confirm: Delete one snapshot \u2014 'Its body can only come back from another read.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:297"
+   ],
+   "protects": "one snapshot",
+   "proportionate": "yes"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-13",
+   "surface": "Forge",
+   "site": "confirm: Forget the PAT?",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:313"
+   ],
+   "protects": "stored credential",
+   "proportionate": "yes"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-14",
+   "surface": "Forge",
+   "site": "confirm: Delete ALL finished jobs \u2014 'Open jobs are kept, and each deleted job's full-capture snapshots go with it.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:322"
+   ],
+   "protects": "journal + snapshot loss for DONE/ABORTED jobs",
+   "proportionate": "yes"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-15",
+   "surface": "Forge",
+   "site": "refusal toast: close() while running; _drive while another job runs; Re-check disabled while busy",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:109,265,135"
+   ],
+   "protects": "leaving a job without a driver; double-driving",
+   "proportionate": "yes \u2014 but a toast is easy to miss; a banner would be better for close()"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-16",
+   "surface": "Forge",
+   "site": "no guard: Jobs banner primary Resume while this tab drives the job",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:16-26"
+   ],
+   "protects": "nothing (caught later by _drive)",
+   "proportionate": "missing guard, see F-13"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-17",
+   "surface": "Builder",
+   "site": "confirm: '\u25b6 Build N manifests in listed order? This is ONE write batch; each file commits its own results bundle.'",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:860"
+   ],
+   "protects": "an N-file write batch",
+   "proportionate": "under-proportioned: one dialog for N mutations selected by typed syntax"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-18",
+   "surface": "Builder",
+   "site": "prompt/confirm chain: \u21ea Sync (PAT prompt; on->off; off->confirm on; cancel->confirm forget)",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:804-809"
+   ],
+   "protects": "credential storage and auto-commit",
+   "proportionate": "disproportionate and confusing (F-22)"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-19",
+   "surface": "Builder",
+   "site": "prompt: repo directory then numbered menu with '1,3' / '2-4' / 'all'",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:826-841"
+   ],
+   "protects": "which files load/run",
+   "proportionate": "not fit for a phone (F-05)"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-20",
+   "surface": "Builder",
+   "site": "prompt: 'Commit N file(s) to repo directory:' default 'state'",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:814"
+   ],
+   "protects": "committing arbitrary local files into the repository",
+   "proportionate": "under-proportioned for a repo write; no preview of paths"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-21",
+   "surface": "Builder",
+   "site": "confirm: 'Clear remembered ids? Next build creates fresh records.'",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:821"
+   ],
+   "protects": "idmap (duplicate-create risk)",
+   "proportionate": "yes \u2014 names the duplicate risk"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-22",
+   "surface": "Builder",
+   "site": "confirm: 'Merge N idmap key(s) into memory?'",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:889"
+   ],
+   "protects": "idmap overwrite",
+   "proportionate": "yes"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-23",
+   "surface": "Builder",
+   "site": "disabled gates: Build/Retry disabled during a build; Retry hidden until an error exists; \u21ea File requires Sync",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:719,765,558,792,812"
+   ],
+   "protects": "double build; retry with nothing to retry",
+   "proportionate": "yes"
+  },
+  {
+   "kind": "confirmation-model",
+   "id": "C-24",
+   "surface": "Builder",
+   "site": "no confirm: single-file \u21e9 Repo load and \ud83d\udc41 Reads (allowlist-gated)",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:857-859,873-887"
+   ],
+   "protects": "reads only",
+   "proportionate": "yes \u2014 reads are cheap by design"
+  },
+  {
+   "kind": "copy",
+   "id": "K-01",
+   "action": "keep",
+   "text": "'Reconcile & resume' / 'Re-read unverified items' / 'Resuming re-reads them and cannot re-send.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:20,24,225"
+   ],
+   "note": "the button label carries the safety semantics"
+  },
+  {
+   "kind": "copy",
+   "id": "K-02",
+   "action": "keep",
+   "text": "'Forge could not confirm a signed-in session, so protected reads and writes are blocked. This is not a read failure.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:144-147"
+   ],
+   "note": "separates auth from read failure exactly as brief D requires"
+  },
+  {
+   "kind": "copy",
+   "id": "K-03",
+   "action": "keep",
+   "text": "'job PAUSED: TNR authentication unavailable on <path>. Nothing further was sent. Sign in and resume.' and 'That item is recorded as refused, not as an uncertain write: the server answered, so nothing was written.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:293",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:212-216"
+   ],
+   "note": "says what happened, whether anything left, next action"
+  },
+  {
+   "kind": "copy",
+   "id": "K-04",
+   "action": "keep",
+   "text": "'Finished UNVERIFIED. \u2026 These writes are not proven. Resume to re-read them; resuming can only read, never re-send.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:203-206"
+   ],
+   "note": "honest outcome headline"
+  },
+  {
+   "kind": "copy",
+   "id": "K-05",
+   "action": "keep",
+   "text": "'N full captures. The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on. Still queries only; zero mutations. Paths: \u2026'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:124-125"
+   ],
+   "note": "names the public-repo consequence before the run"
+  },
+  {
+   "kind": "copy",
+   "id": "K-06",
+   "action": "keep",
+   "text": "'capture snapshot <key> is gone, so the full body cannot be exported without a second read; it was not re-read' / 'body is N bytes, over the \u2026 ceiling; it is NOT truncated and NOT persisted'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:358,361"
+   ],
+   "note": "fail-closed language; shorten for phones but keep the claims"
+  },
+  {
+   "kind": "copy",
+   "id": "K-07",
+   "action": "keep",
+   "text": "'Sent to api.github.com only. Never to the game.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:310"
+   ],
+   "note": "credential boundary in one line"
+  },
+  {
+   "kind": "copy",
+   "id": "K-08",
+   "action": "keep",
+   "text": "'pausing after the current item finishes' / 'Pause after this item' / 'a job is running; pause it before closing Forge'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:302,109",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:226"
+   ],
+   "note": "pause semantics are explicit"
+  },
+  {
+   "kind": "copy",
+   "id": "K-09",
+   "action": "keep",
+   "text": "'Skip \"<name>\"? Nothing is deleted; the server row (if any) stays.'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:68"
+   ],
+   "note": "says what does NOT happen"
+  },
+  {
+   "kind": "copy",
+   "id": "K-10",
+   "action": "keep",
+   "text": "Builder: 'reads are not writes', 'capture-only \u00b7 N reads \u00b7 zero mutations', 'Clear remembered ids? Next build creates fresh records.'",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:886,562,821"
+   ],
+   "note": "carry into Forge Next verbatim in spirit"
+  },
+  {
+   "kind": "copy",
+   "id": "K-11",
+   "action": "fix",
+   "text": "'Paused: NETWORK' / 'UNDECODABLE_RESPONSE' / 'AMBIGUOUS' / 'USER' / 'ORPHANED' + raw exception text",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:218-219,21",
+    "tnr-tools@f9edee8 forge/src/runner/runner.mjs:364"
+   ],
+   "note": "reason codes need sentences that state whether the request may have left and the next safe action (F-11)"
+  },
+  {
+   "kind": "copy",
+   "id": "K-12",
+   "action": "fix",
+   "text": "pill vocabulary PLANNED/SENT/CONFIRMED/VERIFIED/FAILED/ORPHANED/SKIPPED with no legend; CONFIRMED reads as success but means 'response arrived, not yet read back'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/styles.mjs:43-45",
+    "tnr-tools@f9edee8 forge/src/storage/journal.mjs:10-12,28-33"
+   ],
+   "note": "add a one-line gloss on tap/long-press or a legend on Run; consider 'Sent, no answer' / 'Answered' / 'Verified'"
+  },
+  {
+   "kind": "copy",
+   "id": "K-13",
+   "action": "fix",
+   "text": "toast prefixes 'journal: \u2026', 'run: \u2026', 'action: \u2026', 'resume: fetch manifest: \u2026', 'commit results: \u2026'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:99-100,174,257,403"
+   ],
+   "note": "developer contexts; map to sentences with a next action, and say 'tap Export bundle to retry' on commit failure (F-01)"
+  },
+  {
+   "kind": "copy",
+   "id": "K-14",
+   "action": "fix",
+   "text": "'select-all and copy' / 'copied' / 'saved'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:180",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:313"
+   ],
+   "note": "fine as toasts, but 'copied' should say what ('bundle copied')"
+  },
+  {
+   "kind": "copy",
+   "id": "K-15",
+   "action": "fix",
+   "text": "green 'ran' badge on any manifest with a job",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:86"
+   ],
+   "note": "say the outcome: 'ran \u00b7 verified' / 'ran \u00b7 failed' (F-14)"
+  },
+  {
+   "kind": "copy",
+   "id": "K-16",
+   "action": "fix",
+   "text": "'TRIPPED on <path> until <time>'; 'Budget (limited reads, per path, this minute)'",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:229,232"
+   ],
+   "note": "jargon; 'Read limit hit on <path>; reads resume at <time>'"
+  },
+  {
+   "kind": "copy",
+   "id": "K-17",
+   "action": "fix",
+   "text": "'manifest hash <full hash>' in the selected card",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:121"
+   ],
+   "note": "truncate to 7 chars with copy-on-tap"
+  },
+  {
+   "kind": "copy",
+   "id": "K-18",
+   "action": "fix",
+   "text": "Builder status tallies '\u2705 all N done \u00b7 live 3\u2713 0\u26a0 0\u203cA 1\u203c 0\u2205', '\u203cUNVERIFIED live=NONE', '\u26a0DIFF', 'A:n\u2713'",
+   "evidence": [
+    "tnr-tools@f9edee8 builder_bundle.js:763,758,760,755"
+   ],
+   "note": "glyph legend; do not carry forward"
+  },
+  {
+   "kind": "copy",
+   "id": "K-19",
+   "action": "fix",
+   "text": "toasts naming raw procedures ('profile.getAi is a protected procedure')",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:234",
+    "tnr-tools@f9edee8 forge/src/ui/screens.mjs:130"
+   ],
+   "note": "acceptable for the operator, unsuitable for the Content Admin audience (brief \u00a7278); add a human noun ('reading an AI record')"
+  },
+  {
+   "kind": "copy",
+   "id": "K-20",
+   "action": "fix",
+   "text": "'This screen failed to render.' + raw stack",
+   "evidence": [
+    "tnr-tools@f9edee8 forge/src/ui/app.mjs:89"
+   ],
+   "note": "keep the stack behind a disclosure; add 'Your jobs are safe in the journal; try another tab'"
+  }
+ ],
+ "notes": [
+  "VERDICT (UX maintainability only; architecture judged elsewhere): the current layer is small (app.mjs 411 + screens.mjs 329 + styles.mjs 60 + dom.mjs 63 + takeover.mjs 201 lines), disciplined (createElement + CSSOM, scoped stylesheet, one function per screen) and every piece of copy that matters lives in one place, so its VOCABULARY, gates and copy can and should be carried forward verbatim. The rendering model cannot: refresh() rebuilds the whole screen (app.mjs:83-91), a 1.5s tick re-renders Run during a job (app.mjs:268), and anything not in app.state is destroyed on the next refresh \u2014 the auto-export card wipe (F-01) is the first bug of exactly that class, the Manifests search input survives only because it avoids refresh(), and the Running banner cannot show activity because there is no place to put transient per-item state. Adding a detail route, a recovery screen, list/detail on tablet, dismissible toasts, live activity and motion to this model means threading more ad-hoc state through app.state and more special-case closures like _renderPicker (app.mjs:194, screens.mjs:92). From a UX-maintainability angle the shell (mount/refresh/toast/confirm) and the per-screen render functions should be replaced by a small state-driven view layer with keyed re-render and explicit view-state (selection, export, activity), while keeping dom.mjs's h()/no-innerHTML law, the styles tokens as a starting palette, and every screen's copy and gating logic as the spec for the new views. Evolving in place is workable for a phase-0 fix pass (F-01, F-08, F-13, F-14, K-11) but not for the Forge Next surface.",
+  "Citation convention: 'tnr-tools@f9edee8 path:line' is repository code read at HEAD f9edee8 on claude/forge-next-planning-v3frzi; git diff against main 305a28f for every audited file is empty, so the same lines hold on main. Tier labels: 'Observed (repo code read)' = read in tnr-tools code at file:line (the 00_INDEX tiers are written for game-source claims; repo code is not 'Source-verified' in that sense); 'Behaviour-proven' = a committed bundle or a test/probe run locally in this session; 'Inferred' = deduced from CSS metrics or code paths without rendering; nothing here is Source-verified against the game except the carrier viewport export (tnr-src-bdec2883 app/src/app/layout.tsx:193-201: width device-width, initialScale 1, userScalable true, viewportFit cover \u2014 so the overlay inherits a sane mobile viewport on the carrier route; identical at the Forge pin tnr-src-345d18ac app/src/app/layout.tsx:193-201).",
+  "Local gates run (socket-free, read-only over the repo): `cd forge && node --test test/ui.test.mjs` -> 16/16 pass; scratch probe /tmp/claude-0/-home-user-tnr-tools/e5692b10-4df8-5a1d-ae0b-15d8b552161e/scratchpad/deepdive/ux_export_card_probe.mjs (jsdom + FakeGame, imports forge/test helpers by absolute path) -> showExportCalls 1, textareaInMainAfterRun false, manualTextareaInMain true; Jobs banner while driving offers primary 'Reconcile & resume'; undriven RUNNING job renders '0. B SENT jutsu \u00b7 phase create' with no explanatory sentence.",
+  "Behaviour-proven bundle evidence used: harvests/inbox/tnr_results_1789066888093.json and tnr_results_1789067111434.json (forge 0.3.0, outcome failed, 5x profile.getAi UNAUTHORIZED) are the runs that motivated brief section D; tnr_results_1789124514980.json is the only forge 0.4.0 bundle in inbox (DONE/success, 5 captures, 0 entries) \u2014 no committed 0.4.0 bundle exercises a mutation, a SESSION pause or an orphan, so those screens are proven only by tests and code reading.",
+  "Not performed / unverified: no rendering on Firefox or Chrome Android (nav overflow, FAB overlap, native confirm()/prompt() dialog length, toast coverage of the action row are Inferred); no live session, no request to any game host, no cookies or credentials read; the Builder panel was audited from source only. Forge Next brief criteria cited from state/prompt_forge_next_planning.md at origin/chatgpt/forge-next-planning (lines 213-222 UX criteria, 272 confirmation fatigue, 278 admin relay, 112/167/222 persistence and eviction) because the file is not on this branch.",
+  "User-owned decisions touched (do not settle in implementation): K-06 what capture data may persist to the public repo (affects C-02/F-17), K-12 final publishing UX and confirmation level (C-01, C-05, C-06, F-21), K-15 GitHub credential model on the admin's device (F-15, F-19), K-11 Builder deprecation timing (F-02, F-03..F-06 are retirement arguments, not Builder fixes), K-20 exact destination labels (F-08 nav design)."
+ ],
+ "provenance": {
+  "repository": "perseverance484/tnr-tools main@305a28f992e33194fbba279a3f32e698dfb2b67f",
+  "game_source": {
+   "forge_pin": "345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9",
+   "head": "36c5873b7b6ee5fd3af717008d7c51b0f185b756",
+   "task_pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9"
+  },
+  "produced_by": "forge-next-deep-dive workflow reader (read-only; zero live requests; nothing executed from the game source)",
+  "note": "Evidence, not automatic truth (docs/00_INDEX.md): rows carry cites and tiers; inspect the producer when correctness depends on them."
+ }
+}
