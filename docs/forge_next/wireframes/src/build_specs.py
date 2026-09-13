@@ -177,7 +177,7 @@ S.append({"id": "wf05_run_live", "title": "Run in progress", "purpose": "Brief �
  "flow": "Start → RUNNING → per item SENT → CONFIRMED → read-back → VERIFIED. Pause after this item is always available; the halt card (WF-06) replaces the progress card on a pause.",
  "mobile": [brand(), bar("46_mission_flatten", "RUNNING", ["item 4 of 7"]),
   {"kind": "opmode", "mode": "LIVE WRITE", "counts": [["updates", 7], ["verified", 3], ["sent", 1]], "note": "Running. Leaving this page is safe: the journal resumes it."},
-  {"kind": "seg", "cells": ["VERIFIED", "VERIFIED", "VERIFIED", "RUNNING", "PLANNED", "PLANNED", "PLANNED"], "label": "3 verified · 1 in flight · 3 planned · 7 total"},
+  {"kind": "seg", "cells": ["VERIFIED", "VERIFIED", "CONFIRMED", "RUNNING", "PLANNED", "PLANNED", "PLANNED"], "label": "2 verified · 1 confirmed, read-back owed · 1 in flight · 3 planned · 7 total"},
   {"kind": "list", "rows": [
     {"title": "One Perfect Crop", "sub": "quest · update · read back: match", "pills": ["VERIFIED"]},
     {"title": "Cabbage run", "sub": "quest · update · read back: match", "pills": ["VERIFIED"]},
@@ -191,7 +191,7 @@ S.append({"id": "wf05_run_live", "title": "Run in progress", "purpose": "Brief �
    {"name": "rail", "span": "1", "blocks": [rail("Jobs & Recovery"), note("3 px --mut-edge underline on the shell while a mutation job runs")]},
    {"name": "main", "span": "2", "blocks": [bar("46_mission_flatten.json", "RUNNING · item 4 of 7", ["journal j_1789…"]),
      {"kind": "opmode", "mode": "LIVE WRITE", "counts": [["updates", 7], ["verified", 3], ["sent", 1], ["planned", 3]], "note": "Running. Every write is journaled before send."},
-     {"kind": "seg", "cells": ["VERIFIED", "VERIFIED", "VERIFIED", "RUNNING", "PLANNED", "PLANNED", "PLANNED"], "label": "3 verified · 1 in flight · 3 planned · 7 total"},
+     {"kind": "seg", "cells": ["VERIFIED", "VERIFIED", "CONFIRMED", "RUNNING", "PLANNED", "PLANNED", "PLANNED"], "label": "2 verified · 1 confirmed, read-back owed · 1 in flight · 3 planned"},
      {"kind": "list", "rows": [
        {"title": "One Perfect Crop", "sub": "quest · update · KmGP… · read back: match", "pills": ["VERIFIED"]},
        {"title": "Cabbage run", "sub": "quest · update · read back: match", "pills": ["VERIFIED"]},
@@ -498,6 +498,52 @@ S.append({"id": "wf16_jobs_settings", "title": "Jobs & Recovery and Settings & d
            "Health rows render only for wired data sources; 'Operational' never appears by default (WFA §12; R-16)."],
  "pending": ["K-15 credential model", "K-14 minified bundle (release row)"],
  "cites": ["forge/src/ui/screens.mjs:238-330 (jobs, captures, settings today)", "forge/src/transport/auth.mjs (four states)", "forge/src/storage/journal.mjs (repairHistory, migrate)"]})
+
+# ------------------------------------------------------------ WF-17
+S.append({"id": "wf17_degraded_states", "title": "Degraded and refused states", "purpose": "The states the happy path hides: session not ready, an action the role cannot perform, the rate limiter tripped, a read that succeeded but whose body was not persisted, and storage the browser would not make durable. Every one is rendered from a machine source that exists today, or marked HOLD.",
+ "flow": "These do not form a journey. They are the conditions any screen can enter, drawn once so the director and the reviewer can see what the operator sees when Forge cannot act.",
+ "mobile": [brand("UNCONFIRMED ?"),
+  {"kind": "banner", "tone": "warn", "head": "? TNR session not confirmed", "body": "The probe did not answer. Reads and writes are withheld until it does. Nothing was sent."},
+  {"kind": "lamps", "head": "Session states (auth.mjs has exactly four)", "items": [
+    {"glyph": "\u2713", "label": "READY", "value": "signed in; the probe answered", "tone": "ok"},
+    {"glyph": "\u2026", "label": "CHECKING", "value": "probe in flight; controls disabled, nothing withheld silently", "tone": "info"},
+    {"glyph": "?", "label": "UNCONFIRMED", "value": "the probe did not answer; Re-check spends one read", "tone": "warn", "actions": ["Re-check \u00b7 1 read"]},
+    {"glyph": "\u2715", "label": "SIGNED OUT", "value": "server-proven refusal; sign in on the game tab, then Re-check", "tone": "bad"}]},
+  {"kind": "card", "title": "Authorization", "sub": "per action, not per session", "risk": "publish", "blocks": [
+    {"kind": "row", "title": "Publish Old Ghost", "sub": "your role cannot change content; the action is disabled before you tap it", "pills": ["ADMIN"]},
+    {"kind": "text", "text": "Read once from the role, re-checked on send. A refusal that does arrive is shown with the server's own message, never relabelled (E.3)."}]},
+  {"kind": "card", "title": "Rate limit", "pill": "PAUSED", "sub": "quests.update", "risk": "recovery", "blocks": [
+    {"kind": "progress", "pct": 100, "tone": "bad", "label": "TRIPPED \u00b7 30 of 30 in this window \u00b7 try again after 0:42"},
+    {"kind": "action", "label": "Resume", "variant": "disabled", "hint": "disabled while the window is tripped; no animation, no countdown on the button"}]},
+  {"kind": "card", "title": "Capture persistence", "sub": "two verdicts per row", "blocks": [
+    {"kind": "row", "title": "gameAsset.get HgT0DKfi\u2026", "sub": "read ok \u2713 \u00b7 body NOT persisted \u2715 (over the 512 KiB ceiling)", "pills": ["INCOMPLETE"]}]},
+  {"kind": "card", "title": "Storage", "sub": "journal durability", "blocks": [
+    {"kind": "row", "title": "Storage not persisted", "sub": "the browser declined a durable quota; an eviction can lose an open job", "pills": ["warn"], "actions": ["Export journal"]},
+    {"kind": "row", "title": "Journal unreadable", "sub": "one record failed to parse; it is quarantined and exportable, never silently dropped", "pills": ["bad"], "actions": ["Export"]}]},
+  pnav("Home")],
+ "desktop": {"columns": "220px minmax(420px,2fr) minmax(300px,1fr)", "regions": [
+   {"name": "rail", "span": "1", "blocks": [rail("Command Center"), note("the shell never hides a degraded state behind a toast; the banner stays until the condition clears")]},
+   {"name": "main", "span": "2", "blocks": [bar("Degraded and refused states", "one page for review; these are conditions, not a screen"),
+     {"kind": "banner", "tone": "bad", "head": "\u2715 Signed out of TNR", "body": "The server refused the probe. Sign in on the game tab, then Re-check. No request was sent on your behalf."},
+     {"kind": "lamps", "head": "What each state permits", "items": [
+       {"glyph": "\u2713", "label": "READY", "value": "reads and writes permitted", "tone": "ok"},
+       {"glyph": "\u2026", "label": "CHECKING", "value": "nothing permitted yet; controls disabled with the reason", "tone": "info"},
+       {"glyph": "?", "label": "UNCONFIRMED", "value": "nothing permitted; Re-check is the only action", "tone": "warn"},
+       {"glyph": "\u2715", "label": "SIGNED OUT", "value": "nothing permitted; a job pauses with reason SESSION and never re-sends", "tone": "bad"},
+       {"glyph": "\u2298", "label": "role", "value": "not a session state: authorization is per action (E.3). Actions the role cannot perform are disabled before the tap", "tone": "mute"}]},
+     {"kind": "card", "title": "Paused: rate limit", "pill": "PAUSED", "sub": "job 46_mission_flatten \u00b7 reason TOO_MANY_REQUESTS", "risk": "recovery", "blocks": [
+       {"kind": "kv", "pairs": [["what stopped", "the window for quests.update is spent"], ["what was sent", "nothing since the pause; the item before it is CONFIRMED"], ["what resume does", "waits for the window, then continues from the journal"]]},
+       {"kind": "progress", "pct": 100, "tone": "bad", "label": "TRIPPED \u00b7 try again after 0:42"},
+       {"kind": "action", "label": "Resume", "variant": "disabled", "hint": "enabled when the window clears; the tripped meter is hoisted out of the technical group into this card"}]}]},
+   {"name": "aside", "span": "3", "blocks": [{"kind": "kv", "pairs": [["session source", "AuthState.describe()"], ["role source", "one read per session (K-52)"], ["budget source", "Budget.status()"], ["storage source", "navigator.storage.persisted()"], ["journal source", "journal.broken"]]},
+     {"kind": "text", "text": "No state on this page is invented: each is rendered from a machine source Forge holds today. The authorization row is the one place the package refuses to add a fifth session state, because the source does not support it."}]}]},
+ "notes": ["Session states are exactly the four the transport has; the package does not add a fifth for authorization (E.3, and D2.2's session lamp).",
+           "A denial that does arrive from the server is rendered with the server's message; only the thirteen role-only paths E.3 lists could carry a stronger label, and only if K-34 admits a string match.",
+           "The tripped budget disables Resume and states the wait; it never animates and never invites a retry (IRM, and the run screen's technical group).",
+           "A read that succeeded and a body that persisted are two verdicts, never one (the full-capture contract).",
+           "Storage durability and a broken journal record are shown because both are already knowable today and both change what the operator should do next."],
+ "pending": ["K-34 whether a per-action denial label may be string-matched", "K-52 how the role is read and what that read costs"],
+ "cites": ["forge/src/transport/auth.mjs (four states)", "forge/src/runner/runner.mjs (pause reasons incl. TOO_MANY_REQUESTS and SESSION)", "forge/src/budget/bucket.mjs (window and margin)", "forge/src/storage/journal.mjs (broken records)", "E_CONTENT_ADMIN_FEASIBILITY.md E.3"]})
 
 spec = {"title": "Forge Next planning wireframes", "intro": "Static planning wireframes (phone 390 x 844 and desktop 1280 x 800) drawn from the approved visual direction, the D2.3 component inventory and the capability evidence. Not production UI. Navigation labels, mode names/colours and lane names are the recommendation's defaults and remain open director decisions (K-20 to K-24); every page lists the decisions it depends on.", "screens": S}
 json.dump(spec, open(os.path.join(HERE, "specs.json"), "w"), indent=1)
