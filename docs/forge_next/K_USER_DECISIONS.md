@@ -72,7 +72,8 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 | K-51 | AI assistance layer inside the Studio | none |
 | K-52 | How the admin surface learns the signed-in account's role | Phase 4 (admin read) |
 | K-53 | Whether balance-bearing classes appear in a Content Admin surface at all | Phase 4 |
-| K-54 | Whether the product says plainly that hidden does not mean secret, and whether an embargo requirement exists | Phase 5 (publish copy) |
+| K-54 | Whether the product says plainly that hidden does not mean secret, and whether an embargo requirement exists | the publish phase (copy) |
+| K-55 | Whether a delegated Content Admin performs the publish act, or only records a go-ahead that the user acts on | Phase 5 and every admin publish surface |
 
 ---
 
@@ -127,6 +128,8 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 ### K-07 Operations eligible for one- or few-tap publish
 
 **Why it matters:** "publish in a few clear taps" is the admin's headline request and the highest-consequence action.
+
+**Depends on K-55:** whether the admin performs the publish act at all is unruled and is a doctrine question, not a capability one.
 **Evidence:** publish is a full `update` flipping `hidden` on jutsu/item/bloodline/quest/gameAsset and `published` on guides; AI records have no flag; publishing a quest whose referenced AI or scene assets are still hidden has class-specific effects (gameAsset hidden affects listing only, law 16c).
 **Options:** (a) single-record publish only, with a dependency read that warns; (b) package publish (a quest with its assets and AI) as one deliberate action with per-record read-back; (c) bulk publish from a list.
 **Recommendation:** (a) in phase 5, (b) once packages exist (K-08), never (c) in v1.
@@ -135,6 +138,8 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 ### K-08 Admin edits go directly to hidden live records or through a staged package first
 
 **Why it matters:** direct edits are simplest and make the game the only truth; staged packages give a reviewable diff and a repo record but introduce a second representation that can drift from live.
+
+**Depends on K-55:** whether the admin performs the publish act at all is unruled and is a doctrine question, not a capability one.
 **Evidence:** no staging environment exists; Forge's journal already records every mutation; the workstream roadmap and `push/` hold packages today; the queue model options are in `F_ARCHITECTURE_RECOMMENDATION.md` §F.6.
 **Options:** (a) direct: the admin edits the hidden live record through Forge's runner (journaled, read back), the repo receives the results bundle; (b) staged: the admin's edit produces a manifest the operator runs; (c) hybrid: direct for editorial fields, staged for structural changes.
 **Recommendation:** (a) with journaling and read-back; it removes the operator relay the brief wants gone, and hidden records are the staging area the game already provides. (b) keeps the relay.
@@ -167,6 +172,8 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 ### K-12 Final publishing UX and confirmation level
 
 **Why it matters:** the brief wants fewer taps for the admin and unmistakable high-consequence actions.
+
+**Depends on K-55:** whether the admin performs the publish act at all is unruled and is a doctrine question, not a capability one.
 **Evidence:** today every consequential action is a native `confirm()` (`forge/src/ui/app.mjs:172`); the tiered confirmation model is in `D_IA_AND_JOURNEYS.md` §D.4. The structural fields of the confirmation are Tier C and may be designed before the level is ruled: publish context label, subject and count, current to resulting visibility, source-backed dependency warning, permission readiness, audience statement, cancel, explicit verb (WFA:450-461); the wording pattern is `Publish <content name>?` with the visibility change stated, and "Published" appears only after read-back, with "Publish not verified" for an unread final state (CPY:465-467, 485-493; SCN S-52); publish is never placed beside Save with identical styling and never inferred from HTTP success (IRM:335-340). The level (one in-UI confirmation vs typed name or press-and-hold vs two-person) and the final wording are user-owned; the wording half also waits on the transcript (BRF:69; RCM:148; K-30).
 **Options:** (a) one in-UI confirmation naming the record and its visibility change, plus read-back shown before the screen is left; (b) (a) with a typed record name (press-and-hold was considered and withdrawn by the visual system, which rules that motion never carries state and that an armed control must be readable rather than timed: `D_VISUAL_SYSTEM.md` G-B6); (c) two-step (approve, then publish) by two different people.
 **Recommendation:** (a) for single records, (b) for package publish, (c) only if the user wants separation of duties.
@@ -567,4 +574,14 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 **Consequence:** (a) is the honest reading and costs one sentence; (b) risks an operator assuming secrecy the game does not provide; (c) turns a copy question into a dependency the game would have to satisfy, which this pass records but does not pursue.
 **Recommendation (advisory):** (a), with the sentence living in the publish confirmation rather than on every screen. Reasoning: it is one sentence, it is true, and it prevents a false expectation at the only moment that matters.
 **Can defer:** no for the publish copy; the rest can wait.
-**Blocks phase:** Phase 6 (publish) copy, and K-07's eligibility reasoning.
+**Blocks phase:** the publish phase's copy, and K-07's eligibility reasoning.
+
+### K-55 Whether a delegated Content Admin performs the publish act, or only records a go-ahead: OPEN (director; a doctrine question)
+
+**Why it matters:** this is the one place where the brief and the repository's own doctrine do not agree, and the package must not blend them (`CLAUDE.md` section 3). Every Content Admin surface in sections D and E, and the publish wireframe, assume an answer. Until it is ruled, the admin surface can be built up to the point of publishing and no further.
+**Evidence:** the doctrine reserves the act: everything ships hidden, and "publishing is a separate, deliberate act and it belongs to the user, never to you; it waits on the content admin's go-ahead, then dauntless publishes" (`docs/DOCTRINE.md` D-hidden-true, lines 101-108), with publishing named again among the decisions reserved to the user (D-reserved-dauntless, lines 112-118). `CLAUDE.md` section 6 says the same for this repository's agents: repository write access is not live-game authorization and the user-controlled builder action remains the normal game-write step. The planning brief asks for something different in its section 8: a Content Admin who can review, edit, preview and publish, with its section 14 reserving only "which operations are eligible for one or few-tap publish" and adding that publishing stays user-owned and that "a delegated content administrator may exercise only permissions the user and the game actually grant them". The game does grant them: a holder of a `canChangeContent` role can flip `hidden` through the ordinary whole-record update (`E_CONTENT_ADMIN_FEASIBILITY.md` E.2c), so this is a doctrine question, not a capability one.
+**Options:** (a) the admin records a go-ahead in the repository and the user performs the publish, which is today's doctrine unchanged and makes the admin surface a review and approval tool; (b) the director delegates the act itself to a named role, which needs `docs/DOCTRINE.md` D-hidden-true amended by its owner before any publish control ships; (c) a split by class or by risk, for example the admin publishes low-risk classes and the user keeps quests and anything with dependencies.
+**Consequence:** (a) costs one extra hand-off per package and keeps the doctrine intact; (b) is the only option under which the publish control in the wireframe is buildable as drawn, and it changes a rule that predates this package; (c) needs a written boundary per class or the split becomes folklore.
+**Recommendation (advisory):** treat (a) as the default and build the admin surface to it, because it is what the doctrine says today and it leaves the product useful without a doctrine change. If the director wants (b), the change belongs in `docs/DOCTRINE.md` first, as its own Lane A change on the canonical owner, and the roadmap's publish phase then depends on it. No option is recommended outright: publishing is explicitly the user's to settle (`CLAUDE.md` section 10).
+**Can defer:** no. It gates every publish control and the wording of K-07 and K-12.
+**Blocks phase:** the publish phase, and the publish half of the Content Admin phase.
