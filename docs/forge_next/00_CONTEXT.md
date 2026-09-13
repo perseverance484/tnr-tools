@@ -69,8 +69,8 @@ docs/forge_next/H_RISK_REGISTER.md
 docs/forge_next/I_TEST_STRATEGY.md
 docs/forge_next/J_MIGRATION_AND_RETIREMENT.md
 docs/forge_next/K_USER_DECISIONS.md     open user-decision register
-docs/forge_next/evidence/*.json         verified matrices, registry gap, drift, harvest evidence
-docs/forge_next/wireframes/*.html       sixteen static wireframes (phone and desktop in one page), with src/ (generator) and review/ (rendered captures)
+docs/forge_next/evidence/*.json         the two matrices with their verification state, registry gap, drift, harvest evidence, repository consumers, test and CI inventory, current-UX audit, the visual synthesis and the contrast checker
+docs/forge_next/wireframes/*.html       seventeen static wireframes (phone and desktop in one page), with src/ (generator) and review/ (rendered captures)
 docs/forge_next/design/                 the approved concept mockup and its provenance pointer
 docs/handoffs/FORGE_NEXT_PLANNING_HANDOFF.md  section-17 handoff for independent review
 ```
