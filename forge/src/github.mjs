@@ -20,6 +20,15 @@ function assertBranch(branch) {
   return branch;
 }
 
+function encodeRepoPath(path) {
+  if (typeof path !== "string" || !path || path.startsWith("/") || path.endsWith("/")) {
+    throw new GithubError(`unsafe repository path ${JSON.stringify(path)}`);
+  }
+  return path.split("/").map((segment) => encodeURIComponent(segment)).join("/");
+}
+
+const DISPATCHABLE_WORKFLOWS = new Set(["quest_studio.yml"]);
+
 export class Github {
   /**
    * @param {object} o
@@ -37,7 +46,7 @@ export class Github {
   }
   _repo(path) { return `https://api.github.com/repos/${this.cfg.owner}/${this.cfg.repo}/${path}`; }
   _url(path, ref = this.cfg.branch) {
-    return this._repo(`contents/${path}?ref=${encodeURIComponent(assertBranch(ref))}`);
+    return this._repo(`contents/${encodeRepoPath(path)}?ref=${encodeURIComponent(assertBranch(ref))}`);
   }
 
   /** List a directory: [{name, path, sha, size, type}] */
@@ -118,7 +127,7 @@ export class Github {
     } catch { sha = null; }
     const body = { message, content: b64utf8(contentText), branch };
     if (sha) body.sha = sha;
-    const r = await this.fetchImpl(this._repo(`contents/${path}`), {
+    const r = await this.fetchImpl(this._repo(`contents/${encodeRepoPath(path)}`), {
       method: "PUT", headers: { ...this._headers(), "content-type": "application/json" }, body: JSON.stringify(body),
     });
     const t = await r.text();
@@ -133,6 +142,9 @@ export class Github {
     if (typeof workflow !== "string" || !/^[A-Za-z0-9._-]+$/.test(workflow)) {
       throw new GithubError(`unsafe workflow name ${JSON.stringify(workflow)}`);
     }
+    if (!DISPATCHABLE_WORKFLOWS.has(workflow)) {
+      throw new GithubError(`workflow ${JSON.stringify(workflow)} is not dispatchable from Forge`);
+    }
     ref = assertBranch(ref);
     if (!inputs || typeof inputs !== "object" || Array.isArray(inputs)) throw new GithubError("workflow inputs must be an object");
     const r = await this.fetchImpl(this._repo(`actions/workflows/${encodeURIComponent(workflow)}/dispatches`), {
@@ -142,6 +154,9 @@ export class Github {
     });
     if (r.status !== 204) {
       const t = await r.text();
+      if (r.status === 403) {
+        throw new GithubError(`dispatch ${workflow}: HTTP 403; the fine-grained PAT needs Actions: write on tnr-tools`, { status: 403 });
+      }
       throw new GithubError(`dispatch ${workflow}: HTTP ${r.status} ${t.slice(0, 140)}`, { status: r.status });
     }
     return { ok: true };

@@ -302,7 +302,7 @@ function SnapshotsSection(app) {
 // ------------------------------------------------------------------ 5. Settings
 export function SettingsScreen(app) {
   const gh = readGh(app.storage);
-  const pat = h("input", { type: "password", placeholder: "fine-grained PAT (contents: write on tnr-tools only)", value: gh.pat || "" });
+  const pat = h("input", { type: "password", placeholder: "fine-grained PAT (contents: write + actions: write on tnr-tools only)", value: gh.pat || "" });
   const sync = h("input", { type: "checkbox", checked: !!gh.on });
   const root = h("section", {},
     h("h2", {}, "GitHub"),

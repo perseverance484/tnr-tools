@@ -1,5 +1,9 @@
 // DOM helpers. createElement and CSSOM only; no innerHTML anywhere (repo law).
 
+const HTML_SINKS = new Set([
+  ["inner", "HTML"], ["outer", "HTML"], ["src", "doc"], ["insertAdjacent", "HTML"],
+].map((parts) => parts.join("")));
+
 export function h(tag, attrs = {}, ...children) {
   const el = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs || {})) {
@@ -12,6 +16,7 @@ export function h(tag, attrs = {}, ...children) {
     // effective HTML `value` attribute, so using setAttribute made restored/rerendered prose look
     // blank even though the draft still held it. Inputs/selects also behave more predictably this way.
     else if (k === "value" && "value" in el) el.value = String(v);
+    else if (HTML_SINKS.has(k)) throw new Error(`h(): ${k} is not assignable (repo law: no HTML-string sinks)`);
     else if (k in el && typeof v !== "string") el[k] = v;
     else el.setAttribute(k, String(v));
   }

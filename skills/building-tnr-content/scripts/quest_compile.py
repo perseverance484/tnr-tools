@@ -65,7 +65,7 @@ def source_hash(source: dict) -> str:
     return hashlib.sha256(stable_bytes(source)).hexdigest()
 
 
-def validate_source(raw: Any) -> dict:
+def validate_source(raw: Any, expected_request_id: str | None = None) -> dict:
     if not isinstance(raw, dict):
         raise QuestSourceError("Quest Source must be a JSON object")
     if raw.get("schemaVersion") != SCHEMA_VERSION:
@@ -78,6 +78,10 @@ def validate_source(raw: Any) -> dict:
     if not isinstance(request_id, str) or not REQUEST_ID_RE.fullmatch(request_id):
         raise QuestSourceError(
             "requestId must match ^[a-z0-9][a-z0-9._-]{2,63}$"
+        )
+    if expected_request_id is not None and request_id != expected_request_id:
+        raise QuestSourceError(
+            f"Quest Source requestId {request_id!r} does not match worker request id {expected_request_id!r}"
         )
     subtype = raw.get("subtype")
     if not isinstance(subtype, str) or not subtype:
@@ -149,6 +153,40 @@ def entity_summary(manifest: dict) -> dict:
     return {"counts": counts, "creates": creates, "updates": updates}
 
 
+def enforce_mission_profile_shape(source: dict, profiles: dict, manifest: dict) -> None:
+    rank = source.get("content", {}).get("rank")
+    profile = (profiles.get("ranks") or {}).get(rank)
+    if not isinstance(profile, dict):
+        raise QuestSourceError(f"unknown Mission profile {rank!r}")
+    shape = profile.get("shape") or {}
+    expected_objectives = shape.get("objective_count")
+    expected_battles = shape.get("battle_nodes")
+    # mission.py owns unresolved-ruling refusal. Only ratified numeric shape values are enforced here.
+    if type(expected_objectives) is not int or type(expected_battles) is not int:
+        return
+
+    quest_item = next((item for item in manifest.get("items") or [] if item.get("entity") == "quest"), None)
+    data = quest_item.get("data") if isinstance(quest_item, dict) else None
+    content = data.get("content") if isinstance(data, dict) else None
+    objectives = content.get("objectives") if isinstance(content, dict) else None
+    if not isinstance(objectives, list):
+        raise QuestSourceError("mission adapter produced no quest objective list")
+
+    battle_tasks = {"start_battle", "defeat_opponents"}
+    actual_objectives = len(objectives)
+    actual_battles = sum(1 for objective in objectives if objective.get("task") in battle_tasks)
+    mismatches = []
+    if actual_objectives != expected_objectives:
+        mismatches.append(f"{actual_objectives} objectives; profile requires {expected_objectives}")
+    if actual_battles != expected_battles:
+        mismatches.append(f"{actual_battles} battle nodes; profile requires {expected_battles}")
+    if mismatches:
+        raise QuestBlocked(
+            "profile_shape_unmet",
+            f"Mission profile shape is not met for {rank}: " + "; ".join(mismatches),
+        )
+
+
 def compile_mission(source: dict, artifact_dir: Path, artifact_prefix: str) -> dict:
     ensure_import_paths()
     import mission  # type: ignore
@@ -170,6 +208,7 @@ def compile_mission(source: dict, artifact_dir: Path, artifact_prefix: str) -> d
     manifest = built.get("manifest")
     if not isinstance(manifest, dict):
         raise QuestSourceError("mission adapter returned no manifest")
+    enforce_mission_profile_shape(source, profiles, manifest)
 
     artifact_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = artifact_dir / "manifest.json"
@@ -357,6 +396,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     ap.add_argument("--artifact-prefix", help="repository-relative artifact path recorded in result")
     ap.add_argument("--source-revision")
     ap.add_argument("--compiler-revision")
+    ap.add_argument("--request-id", help="validated worker request identity; binds failure envelopes to the request")
     ap.add_argument("--selftest", action="store_true")
     return ap.parse_args(argv)
 
@@ -370,9 +410,13 @@ def main(argv: list[str] | None = None) -> int:
 
     result_path = Path(args.result).resolve()
     artifact_dir = Path(args.artifact_dir).resolve()
+    expected_request_id = args.request_id
+    if expected_request_id is not None and not REQUEST_ID_RE.fullmatch(expected_request_id):
+        raise SystemExit("--request-id must match ^[a-z0-9][a-z0-9._-]{2,63}$")
+    raw_source: Any = None
     try:
-        source = load_json(Path(args.source).resolve())
-        source = validate_source(source)
+        raw_source = load_json(Path(args.source).resolve())
+        source = validate_source(raw_source, expected_request_id=expected_request_id)
         result = compile_source(
             source,
             artifact_dir=artifact_dir,
@@ -381,13 +425,19 @@ def main(argv: list[str] | None = None) -> int:
             compiler_revision=args.compiler_revision,
         )
     except Exception as exc:
-        # We can only emit the standard envelope when request identity is readable.
-        # Malformed top-level JSON/source is a worker failure, not a content blocker.
+        # The worker-supplied identity survives malformed authored source so Forge can always read
+        # a request-scoped failed envelope instead of wedging the draft on requestId:null.
+        fallback_request_id = expected_request_id
+        if fallback_request_id is None and isinstance(raw_source, dict):
+            candidate = raw_source.get("requestId")
+            if isinstance(candidate, str) and REQUEST_ID_RE.fullmatch(candidate):
+                fallback_request_id = candidate
+        subtype = raw_source.get("subtype") if isinstance(raw_source, dict) and isinstance(raw_source.get("subtype"), str) else None
         result = {
             "schemaVersion": RESULT_VERSION,
             "kind": "quest-build",
-            "requestId": None,
-            "subtype": None,
+            "requestId": fallback_request_id,
+            "subtype": subtype,
             "status": "failed",
             "resolvedEngineType": None,
             "blockers": [],

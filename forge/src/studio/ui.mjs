@@ -81,6 +81,20 @@ export function newMissionDraft(now = Date.now()) {
 
 function cleanText(value) { return typeof value === "string" ? value.trim() : ""; }
 
+const AWAITING_RULING = "AWAITING_RULING";
+
+function containsAwaitingRuling(value) {
+  if (value === AWAITING_RULING) return true;
+  if (Array.isArray(value)) return value.some(containsAwaitingRuling);
+  if (value && typeof value === "object") return Object.values(value).some(containsAwaitingRuling);
+  return false;
+}
+
+function profileShapeNumber(profile, key) {
+  const raw = profile?.shape?.[key];
+  return typeof raw === "number" && Number.isFinite(raw) ? raw : null;
+}
+
 export function missionSourceFromDraft(draft) {
   const beats = Array.isArray(draft.beats) ? draft.beats : [];
   const objectives = beats.map((beat, i) => {
@@ -123,24 +137,29 @@ export function missionDraftProblems(draft, profiles) {
   const out = [];
   const profile = profiles?.ranks?.[draft.profile];
   if (!profile) out.push("Choose a repository Mission profile.");
-  if (profile?.shape?.battle_nodes > 0) out.push("This profile needs combat authoring; the Encounter editor is not in this first UI slice yet.");
+  const unresolved = !!profile && containsAwaitingRuling(profile);
+  const battles = profileShapeNumber(profile, "battle_nodes");
+  if (unresolved) out.push(`The ${draft.profile} Mission profile is awaiting a director ruling; unresolved profile values cannot compile.`);
+  else if (battles !== null && battles > 0) out.push("This profile needs combat authoring; the Encounter editor is not in this first UI slice yet.");
   if (!cleanText(draft.name)) out.push("Mission name is required.");
   if (!cleanText(draft.description)) out.push("Mission premise/description is required.");
   if (!cleanText(draft.successDescription)) out.push("Success outcome is required.");
   const beats = Array.isArray(draft.beats) ? draft.beats : [];
   if (!beats.length) out.push("Add at least one story beat.");
   for (let i = 0; i < beats.length; i++) if (!cleanText(beats[i]?.description)) out.push(`Beat ${i + 1} needs player-facing text.`);
-  const expected = Number(profile?.shape?.objective_count);
-  if (Number.isInteger(expected) && expected > 0 && beats.length + 1 !== expected) {
+  const expected = profileShapeNumber(profile, "objective_count");
+  if (expected !== null && expected > 0 && beats.length + 1 !== expected) {
     out.push(`The ${draft.profile} profile owns an objective count of ${expected}; this draft currently has ${beats.length + 1}.`);
   }
   return out;
 }
 
 function profileLabel(key, profile) {
-  const battles = Number(profile?.shape?.battle_nodes || 0);
-  const nodes = Number(profile?.shape?.objective_count || 0);
-  return `${key} · ${nodes || "?"} nodes${battles ? ` · ${battles} battle${battles === 1 ? "" : "s"}` : " · no combat"}`;
+  if (containsAwaitingRuling(profile)) return `${key} · awaiting ruling`;
+  const battles = profileShapeNumber(profile, "battle_nodes");
+  const nodes = profileShapeNumber(profile, "objective_count");
+  if (battles === null || nodes === null) return `${key} · profile shape unavailable`;
+  return `${key} · ${nodes} nodes${battles ? ` · ${battles} battle${battles === 1 ? "" : "s"}` : " · no combat"}`;
 }
 
 function readDraft(storage) {
@@ -271,7 +290,9 @@ export class QuestStudioWorkspace {
   seedProfileBeats() {
     const profile = this.profiles?.ranks?.[this.draft.profile];
     if (!profile || this.draft.beats?.length) return;
-    const count = Math.max(1, Number(profile.shape?.objective_count || 2) - 1);
+    const objectiveCount = profileShapeNumber(profile, "objective_count");
+    if (objectiveCount === null) return;
+    const count = Math.max(1, objectiveCount - 1);
     this.draft.beats = Array.from({ length: count }, () => ({ description: "", choiceText: "Continue" }));
     this.saveDraft();
   }
@@ -287,8 +308,8 @@ export class QuestStudioWorkspace {
   }
 
   matchProfileShape() {
-    const expected = Number(this.profiles?.ranks?.[this.draft.profile]?.shape?.objective_count || 0);
-    if (!expected) return;
+    const expected = profileShapeNumber(this.profiles?.ranks?.[this.draft.profile], "objective_count");
+    if (expected === null || expected <= 0) return;
     const target = Math.max(1, expected - 1);
     const beats = this.draft.beats || [];
     const apply = () => {
@@ -327,12 +348,16 @@ export class QuestStudioWorkspace {
     const ranks = this.profiles?.ranks || {};
     const options = [h("option", { value: "" }, "Choose profile…")];
     for (const [key, profile] of Object.entries(ranks)) {
-      const combat = Number(profile?.shape?.battle_nodes || 0) > 0;
-      options.push(h("option", { value: key, selected: this.draft.profile === key, disabled: combat }, profileLabel(key, profile) + (combat ? " · Encounter editor required" : "")));
+      const unresolved = containsAwaitingRuling(profile);
+      const battleNodes = profileShapeNumber(profile, "battle_nodes");
+      const combat = battleNodes !== null && battleNodes > 0;
+      const suffix = !unresolved && combat ? " · Encounter editor required" : "";
+      options.push(h("option", { value: key, selected: this.draft.profile === key, disabled: combat || unresolved }, profileLabel(key, profile) + suffix));
     }
     const select = h("select", { value: this.draft.profile, onChange: (e) => this.chooseProfile(e.target.value) }, options);
     const profile = ranks[this.draft.profile];
-    const expected = Number(profile?.shape?.objective_count || 0);
+    const expected = profileShapeNumber(profile, "objective_count");
+    const battleNodes = profileShapeNumber(profile, "battle_nodes");
     const problems = missionDraftProblems(this.draft, this.profiles);
 
     const beats = (this.draft.beats || []).map((beat, i) => h("article", { class: "qs-card qs-beat" },
@@ -345,9 +370,9 @@ export class QuestStudioWorkspace {
       h("div", { class: "qs-eyebrow" }, "Repository policy"), h("h2", {}, "Mission profile"),
       h("label", { class: "qs-field" }, h("span", {}, "Profile"), select),
       profile ? h("div", { class: "qs-two" },
-        h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, `${expected} objective${expected === 1 ? "" : "s"}`), h("div", { class: "qs-muted" }, "Owned by the selected Mission profile.")),
-        h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, `${Number(profile.shape?.battle_nodes || 0)} battle node${Number(profile.shape?.battle_nodes || 0) === 1 ? "" : "s"}`), h("div", { class: "qs-muted" }, "Combat profiles unlock after the Encounter editor lands."))) : null,
-      expected ? h("div", { class: "qs-actions" }, h("button", { onClick: () => this.matchProfileShape() }, "Match profile shape")) : null,
+        h("div", { class: expected === null ? "qs-callout warn" : "qs-callout info" }, h("div", { class: "qs-status-title" }, expected === null ? "Awaiting ruling" : `${expected} objective${expected === 1 ? "" : "s"}`), h("div", { class: "qs-muted" }, "Owned by the selected Mission profile.")),
+        h("div", { class: battleNodes === null ? "qs-callout warn" : "qs-callout info" }, h("div", { class: "qs-status-title" }, battleNodes === null ? "Awaiting ruling" : `${battleNodes} battle node${battleNodes === 1 ? "" : "s"}`), h("div", { class: "qs-muted" }, battleNodes === null ? "Repository profile is unresolved." : "Combat profiles unlock after the Encounter editor lands."))) : null,
+      expected !== null && expected > 0 ? h("div", { class: "qs-actions" }, h("button", { onClick: () => this.matchProfileShape() }, "Match profile shape")) : null,
       h("div", { class: "qs-muted" }, "Profile values are read from 48_DATA_mission_profiles.json. Forge does not maintain a second copy."));
 
     const authorCard = h("section", { class: "qs-card" }, h("div", { class: "qs-eyebrow" }, "Authoring intent"), h("h2", {}, "Mission brief"),
@@ -382,7 +407,7 @@ export class QuestStudioWorkspace {
     if (!state) return h("div", { class: "qs-muted" }, "No repository build has been requested for the current draft revision.");
     if (state.busy) return h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, "Building in the repository…"), h("div", { class: "qs-muted" }, "Forge saved the Quest Source and requested canonical compilation. You can keep this Studio open while the worker runs."));
     if (state.error) return h("div", { class: "qs-callout bad" }, h("div", { class: "qs-status-title" }, "Repository request failed"), h("div", { class: "qs-muted" }, state.error));
-    if (state.waiting) return h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, "Build still running"), h("div", { class: "qs-muted" }, "No current result has landed yet. Refresh status without resubmitting the source."));
+    if (state.waiting) return h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, "Build result not available yet"), h("div", { class: "qs-muted" }, "No current result has landed. The worker may still be running, or it may have failed before result persistence. Refresh status before resubmitting the source."));
     if (!state.result) return h("div", { class: "qs-muted" }, "No build result loaded.");
 
     const result = state.result;
@@ -403,6 +428,7 @@ export class QuestStudioWorkspace {
         detail.length ? h("ul", { class: "qs-list" }, detail.map((x) => h("li", {}, x))) : null,
         (result.warnings || []).length ? h("details", {}, h("summary", {}, `${result.warnings.length} warning${result.warnings.length === 1 ? "" : "s"}`), h("ul", { class: "qs-list" }, result.warnings.map((x) => h("li", {}, x.message || String(x))))) : null),
       result.status === "valid" && !stale ? h("div", { class: "qs-actions" }, h("button", { onClick: () => this.inspectManifest() }, "Inspect generated manifest")) : null,
+      state.manifestText ? h("label", { class: "qs-field" }, h("span", {}, "Generated manifest · inspection only"), h("textarea", { value: state.manifestText, readOnly: true, rows: 18 })) : null,
       h("div", { class: "qs-provenance" }, `Source revision: ${result.provenance?.sourceRevision || "unknown"} · Compiler: ${result.provenance?.compilerRevision || "unknown"}`));
   }
 
@@ -471,7 +497,8 @@ export class QuestStudioWorkspace {
       const result = this.buildState?.result;
       if (!result || result.status !== "valid") return;
       const text = await this.repository.generatedManifest(this.draft.requestId, result);
-      this.app.showExport(text, `Generated manifest · ${this.draft.name || this.draft.requestId}`);
+      this.buildState = { ...this.buildState, manifestText: text };
+      this.renderMission();
     } catch (e) {
       const msg = e instanceof GithubError ? e.message : (e?.message || String(e));
       this.buildState = { error: `Could not load generated manifest: ${msg}` };

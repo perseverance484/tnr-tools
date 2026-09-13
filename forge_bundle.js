@@ -4986,6 +4986,13 @@
     }
     return branch;
   }
+  function encodeRepoPath(path) {
+    if (typeof path !== "string" || !path || path.startsWith("/") || path.endsWith("/")) {
+      throw new GithubError(`unsafe repository path ${JSON.stringify(path)}`);
+    }
+    return path.split("/").map((segment) => encodeURIComponent(segment)).join("/");
+  }
+  var DISPATCHABLE_WORKFLOWS = /* @__PURE__ */ new Set(["quest_studio.yml"]);
   var Github = class {
     /**
      * @param {object} o
@@ -5011,7 +5018,7 @@
       return `https://api.github.com/repos/${this.cfg.owner}/${this.cfg.repo}/${path}`;
     }
     _url(path, ref = this.cfg.branch) {
-      return this._repo(`contents/${path}?ref=${encodeURIComponent(assertBranch(ref))}`);
+      return this._repo(`contents/${encodeRepoPath(path)}?ref=${encodeURIComponent(assertBranch(ref))}`);
     }
     /** List a directory: [{name, path, sha, size, type}] */
     async list(dir = this.cfg.pushDir, ref = this.cfg.branch) {
@@ -5092,7 +5099,7 @@
       }
       const body = { message, content: b64utf8(contentText), branch };
       if (sha) body.sha = sha;
-      const r = await this.fetchImpl(this._repo(`contents/${path}`), {
+      const r = await this.fetchImpl(this._repo(`contents/${encodeRepoPath(path)}`), {
         method: "PUT",
         headers: { ...this._headers(), "content-type": "application/json" },
         body: JSON.stringify(body)
@@ -5112,6 +5119,9 @@
       if (typeof workflow !== "string" || !/^[A-Za-z0-9._-]+$/.test(workflow)) {
         throw new GithubError(`unsafe workflow name ${JSON.stringify(workflow)}`);
       }
+      if (!DISPATCHABLE_WORKFLOWS.has(workflow)) {
+        throw new GithubError(`workflow ${JSON.stringify(workflow)} is not dispatchable from Forge`);
+      }
       ref = assertBranch(ref);
       if (!inputs || typeof inputs !== "object" || Array.isArray(inputs)) throw new GithubError("workflow inputs must be an object");
       const r = await this.fetchImpl(this._repo(`actions/workflows/${encodeURIComponent(workflow)}/dispatches`), {
@@ -5121,6 +5131,9 @@
       });
       if (r.status !== 204) {
         const t = await r.text();
+        if (r.status === 403) {
+          throw new GithubError(`dispatch ${workflow}: HTTP 403; the fine-grained PAT needs Actions: write on tnr-tools`, { status: 403 });
+        }
         throw new GithubError(`dispatch ${workflow}: HTTP ${r.status} ${t.slice(0, 140)}`, { status: r.status });
       }
       return { ok: true };
@@ -5150,6 +5163,12 @@
   }
 
   // src/ui/dom.mjs
+  var HTML_SINKS = new Set([
+    ["inner", "HTML"],
+    ["outer", "HTML"],
+    ["src", "doc"],
+    ["insertAdjacent", "HTML"]
+  ].map((parts) => parts.join("")));
   function h(tag, attrs = {}, ...children) {
     const el = document.createElement(tag);
     for (const [k, v] of Object.entries(attrs || {})) {
@@ -5159,6 +5178,7 @@
       else if (k.startsWith("on") && typeof v === "function") el.addEventListener(k.slice(2).toLowerCase(), v);
       else if (k === "dataset") Object.assign(el.dataset, v);
       else if (k === "value" && "value" in el) el.value = String(v);
+      else if (HTML_SINKS.has(k)) throw new Error(`h(): ${k} is not assignable (repo law: no HTML-string sinks)`);
       else if (k in el && typeof v !== "string") el[k] = v;
       else el.setAttribute(k, String(v));
     }
@@ -5639,7 +5659,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   }
   function SettingsScreen(app) {
     const gh = readGh(app.storage);
-    const pat = h("input", { type: "password", placeholder: "fine-grained PAT (contents: write on tnr-tools only)", value: gh.pat || "" });
+    const pat = h("input", { type: "password", placeholder: "fine-grained PAT (contents: write + actions: write on tnr-tools only)", value: gh.pat || "" });
     const sync = h("input", { type: "checkbox", checked: !!gh.on });
     const root = h(
       "section",
@@ -6215,7 +6235,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     const tail = path.slice(prefix.length);
     const segments = tail.split("/");
-    if (!tail || path.includes("\\") || segments.some((segment) => !segment || segment === "." || segment === "..")) {
+    if (!tail || /[%?#]/.test(tail) || path.includes("\\") || segments.some((segment) => !segment || segment === "." || segment === "..")) {
       throw new GithubError("Quest Studio generated manifest path escapes its request build directory");
     }
     return path;
@@ -6366,6 +6386,17 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   function cleanText(value) {
     return typeof value === "string" ? value.trim() : "";
   }
+  var AWAITING_RULING = "AWAITING_RULING";
+  function containsAwaitingRuling(value) {
+    if (value === AWAITING_RULING) return true;
+    if (Array.isArray(value)) return value.some(containsAwaitingRuling);
+    if (value && typeof value === "object") return Object.values(value).some(containsAwaitingRuling);
+    return false;
+  }
+  function profileShapeNumber(profile, key) {
+    const raw = profile?.shape?.[key];
+    return typeof raw === "number" && Number.isFinite(raw) ? raw : null;
+  }
   function missionSourceFromDraft(draft) {
     const beats = Array.isArray(draft.beats) ? draft.beats : [];
     const objectives = beats.map((beat, i) => {
@@ -6407,23 +6438,28 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const out = [];
     const profile = profiles?.ranks?.[draft.profile];
     if (!profile) out.push("Choose a repository Mission profile.");
-    if (profile?.shape?.battle_nodes > 0) out.push("This profile needs combat authoring; the Encounter editor is not in this first UI slice yet.");
+    const unresolved = !!profile && containsAwaitingRuling(profile);
+    const battles = profileShapeNumber(profile, "battle_nodes");
+    if (unresolved) out.push(`The ${draft.profile} Mission profile is awaiting a director ruling; unresolved profile values cannot compile.`);
+    else if (battles !== null && battles > 0) out.push("This profile needs combat authoring; the Encounter editor is not in this first UI slice yet.");
     if (!cleanText(draft.name)) out.push("Mission name is required.");
     if (!cleanText(draft.description)) out.push("Mission premise/description is required.");
     if (!cleanText(draft.successDescription)) out.push("Success outcome is required.");
     const beats = Array.isArray(draft.beats) ? draft.beats : [];
     if (!beats.length) out.push("Add at least one story beat.");
     for (let i = 0; i < beats.length; i++) if (!cleanText(beats[i]?.description)) out.push(`Beat ${i + 1} needs player-facing text.`);
-    const expected = Number(profile?.shape?.objective_count);
-    if (Number.isInteger(expected) && expected > 0 && beats.length + 1 !== expected) {
+    const expected = profileShapeNumber(profile, "objective_count");
+    if (expected !== null && expected > 0 && beats.length + 1 !== expected) {
       out.push(`The ${draft.profile} profile owns an objective count of ${expected}; this draft currently has ${beats.length + 1}.`);
     }
     return out;
   }
   function profileLabel(key, profile) {
-    const battles = Number(profile?.shape?.battle_nodes || 0);
-    const nodes = Number(profile?.shape?.objective_count || 0);
-    return `${key} \xB7 ${nodes || "?"} nodes${battles ? ` \xB7 ${battles} battle${battles === 1 ? "" : "s"}` : " \xB7 no combat"}`;
+    if (containsAwaitingRuling(profile)) return `${key} \xB7 awaiting ruling`;
+    const battles = profileShapeNumber(profile, "battle_nodes");
+    const nodes = profileShapeNumber(profile, "objective_count");
+    if (battles === null || nodes === null) return `${key} \xB7 profile shape unavailable`;
+    return `${key} \xB7 ${nodes} nodes${battles ? ` \xB7 ${battles} battle${battles === 1 ? "" : "s"}` : " \xB7 no combat"}`;
   }
   function readDraft(storage) {
     try {
@@ -6568,7 +6604,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     seedProfileBeats() {
       const profile = this.profiles?.ranks?.[this.draft.profile];
       if (!profile || this.draft.beats?.length) return;
-      const count = Math.max(1, Number(profile.shape?.objective_count || 2) - 1);
+      const objectiveCount = profileShapeNumber(profile, "objective_count");
+      if (objectiveCount === null) return;
+      const count = Math.max(1, objectiveCount - 1);
       this.draft.beats = Array.from({ length: count }, () => ({ description: "", choiceText: "Continue" }));
       this.saveDraft();
     }
@@ -6583,8 +6621,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       this.renderMission();
     }
     matchProfileShape() {
-      const expected = Number(this.profiles?.ranks?.[this.draft.profile]?.shape?.objective_count || 0);
-      if (!expected) return;
+      const expected = profileShapeNumber(this.profiles?.ranks?.[this.draft.profile], "objective_count");
+      if (expected === null || expected <= 0) return;
       const target = Math.max(1, expected - 1);
       const beats = this.draft.beats || [];
       const apply = () => {
@@ -6618,12 +6656,16 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       const ranks = this.profiles?.ranks || {};
       const options = [h("option", { value: "" }, "Choose profile\u2026")];
       for (const [key, profile2] of Object.entries(ranks)) {
-        const combat = Number(profile2?.shape?.battle_nodes || 0) > 0;
-        options.push(h("option", { value: key, selected: this.draft.profile === key, disabled: combat }, profileLabel(key, profile2) + (combat ? " \xB7 Encounter editor required" : "")));
+        const unresolved = containsAwaitingRuling(profile2);
+        const battleNodes2 = profileShapeNumber(profile2, "battle_nodes");
+        const combat = battleNodes2 !== null && battleNodes2 > 0;
+        const suffix = !unresolved && combat ? " \xB7 Encounter editor required" : "";
+        options.push(h("option", { value: key, selected: this.draft.profile === key, disabled: combat || unresolved }, profileLabel(key, profile2) + suffix));
       }
       const select = h("select", { value: this.draft.profile, onChange: (e) => this.chooseProfile(e.target.value) }, options);
       const profile = ranks[this.draft.profile];
-      const expected = Number(profile?.shape?.objective_count || 0);
+      const expected = profileShapeNumber(profile, "objective_count");
+      const battleNodes = profileShapeNumber(profile, "battle_nodes");
       const problems = missionDraftProblems(this.draft, this.profiles);
       const beats = (this.draft.beats || []).map((beat, i) => h(
         "article",
@@ -6660,10 +6702,10 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         profile ? h(
           "div",
           { class: "qs-two" },
-          h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, `${expected} objective${expected === 1 ? "" : "s"}`), h("div", { class: "qs-muted" }, "Owned by the selected Mission profile.")),
-          h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, `${Number(profile.shape?.battle_nodes || 0)} battle node${Number(profile.shape?.battle_nodes || 0) === 1 ? "" : "s"}`), h("div", { class: "qs-muted" }, "Combat profiles unlock after the Encounter editor lands."))
+          h("div", { class: expected === null ? "qs-callout warn" : "qs-callout info" }, h("div", { class: "qs-status-title" }, expected === null ? "Awaiting ruling" : `${expected} objective${expected === 1 ? "" : "s"}`), h("div", { class: "qs-muted" }, "Owned by the selected Mission profile.")),
+          h("div", { class: battleNodes === null ? "qs-callout warn" : "qs-callout info" }, h("div", { class: "qs-status-title" }, battleNodes === null ? "Awaiting ruling" : `${battleNodes} battle node${battleNodes === 1 ? "" : "s"}`), h("div", { class: "qs-muted" }, battleNodes === null ? "Repository profile is unresolved." : "Combat profiles unlock after the Encounter editor lands."))
         ) : null,
-        expected ? h("div", { class: "qs-actions" }, h("button", { onClick: () => this.matchProfileShape() }, "Match profile shape")) : null,
+        expected !== null && expected > 0 ? h("div", { class: "qs-actions" }, h("button", { onClick: () => this.matchProfileShape() }, "Match profile shape")) : null,
         h("div", { class: "qs-muted" }, "Profile values are read from 48_DATA_mission_profiles.json. Forge does not maintain a second copy.")
       );
       const authorCard = h(
@@ -6735,7 +6777,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (!state) return h("div", { class: "qs-muted" }, "No repository build has been requested for the current draft revision.");
       if (state.busy) return h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, "Building in the repository\u2026"), h("div", { class: "qs-muted" }, "Forge saved the Quest Source and requested canonical compilation. You can keep this Studio open while the worker runs."));
       if (state.error) return h("div", { class: "qs-callout bad" }, h("div", { class: "qs-status-title" }, "Repository request failed"), h("div", { class: "qs-muted" }, state.error));
-      if (state.waiting) return h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, "Build still running"), h("div", { class: "qs-muted" }, "No current result has landed yet. Refresh status without resubmitting the source."));
+      if (state.waiting) return h("div", { class: "qs-callout info" }, h("div", { class: "qs-status-title" }, "Build result not available yet"), h("div", { class: "qs-muted" }, "No current result has landed. The worker may still be running, or it may have failed before result persistence. Refresh status before resubmitting the source."));
       if (!state.result) return h("div", { class: "qs-muted" }, "No build result loaded.");
       const result = state.result;
       const stale = state.stale;
@@ -6760,6 +6802,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           (result.warnings || []).length ? h("details", {}, h("summary", {}, `${result.warnings.length} warning${result.warnings.length === 1 ? "" : "s"}`), h("ul", { class: "qs-list" }, result.warnings.map((x) => h("li", {}, x.message || String(x))))) : null
         ),
         result.status === "valid" && !stale ? h("div", { class: "qs-actions" }, h("button", { onClick: () => this.inspectManifest() }, "Inspect generated manifest")) : null,
+        state.manifestText ? h("label", { class: "qs-field" }, h("span", {}, "Generated manifest \xB7 inspection only"), h("textarea", { value: state.manifestText, readOnly: true, rows: 18 })) : null,
         h("div", { class: "qs-provenance" }, `Source revision: ${result.provenance?.sourceRevision || "unknown"} \xB7 Compiler: ${result.provenance?.compilerRevision || "unknown"}`)
       );
     }
@@ -6828,7 +6871,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         const result = this.buildState?.result;
         if (!result || result.status !== "valid") return;
         const text = await this.repository.generatedManifest(this.draft.requestId, result);
-        this.app.showExport(text, `Generated manifest \xB7 ${this.draft.name || this.draft.requestId}`);
+        this.buildState = { ...this.buildState, manifestText: text };
+        this.renderMission();
       } catch (e) {
         const msg = e instanceof GithubError ? e.message : e?.message || String(e);
         this.buildState = { error: `Could not load generated manifest: ${msg}` };
