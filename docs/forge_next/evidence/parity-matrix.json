@@ -6028,9 +6028,10 @@
    "gate": "Zip push packs run in Forge with byte-ledger verification",
    "derived_from": [
     "P-06",
-    "P-07"
+    "P-07",
+    "P-08"
    ],
-   "acceptance": "A committed fixture replays each of the four spent packs (16c, 21, 24, smoketest_pack) through Forge parse -> plan -> pack loader -> FakeGame with 0 manifest problems, every @img resolved from a zip member (STORED and DEFLATE), and packVerify-equivalent byte checks that (a) pass on the real ledgers and (b) fail on a one-byte-mutated member and on a missing member. Test count and names reported in the handoff. One user-controlled live smoke pack (a single hidden asset) committed to harvests/inbox with outcome success.",
+   "acceptance": "A committed fixture replays each of the four spent packs (16c, 21, 24, smoketest_pack) through Forge parse -> plan -> pack loader -> FakeGame with 0 manifest problems, every @img resolved from a zip member (STORED and DEFLATE), and packVerify-equivalent byte checks that (a) pass on the real ledgers and (b) fail on a one-byte-mutated member and on a missing member. Test count and names reported in the handoff. One user-controlled live smoke pack (a single hidden asset) committed to harvests/inbox with outcome success. The same gate carries P-08's image-supply lane: the multi-file picker and the pack's own members are how every asset create supplied its images, so a pack that loads without its image lane does not close this gate.",
    "owner": "Fable (Lane A) + dauntless live smoke",
    "evidence": [
     {

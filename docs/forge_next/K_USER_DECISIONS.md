@@ -82,6 +82,7 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 | K-58 | Which actions keep the browser's own confirmation and which move to the in-page sheet | the shell phase |
 | K-59 | The operator remedy for the three read-only raid columns that make five archived quest edits unrunnable | retirement gate G-04 |
 | K-60 | Who integrates the release-loader test fix that lives on the ChatGPT branch, under one-writer discipline | retirement gate G-09, and the first phase of any roadmap |
+| K-61 | Who owns `forge/src/studio/*` for the design-system absorption once the seam integrates | the Studio phase's shell work |
 
 ---
 
@@ -576,7 +577,7 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 
 ### K-54 Whether the product says plainly that hidden does not mean secret: OPEN (director)
 
-**Why it matters:** `hidden` gates listing and play, not readability. Any caller can read an unreleased record by id, and a caller can list unreleased records by asking for them (`H_RISK_REGISTER.md` R-31; `E_CONTENT_ADMIN_FEASIBILITY.md` cross-cutting row CC-08). Every human word the product uses around drafts and publishing depends on whether the director wants that stated, softened, or left unsaid.
+**Why it matters:** `hidden` gates listing and play, not readability. For six of the seven Forge classes, any caller can read an unreleased record by id and list unreleased records by asking for them; guide is the exception, gating drafts on role (`E_CONTENT_ADMIN_FEASIBILITY.md` CC-08 owns the per-class fact, which matters because K-05 recommends guide second) (`H_RISK_REGISTER.md` R-31; `E_CONTENT_ADMIN_FEASIBILITY.md` cross-cutting row CC-08). Every human word the product uses around drafts and publishing depends on whether the director wants that stated, softened, or left unsaid.
 **Evidence:** verified at the Forge pin: `quests.get` is public and returns the record whatever its `hidden` value, refusing only NPC-only quest types (`app/src/server/api/routers/quests.ts:215-236`); `jutsu.getAll` honours a caller-supplied `hidden` filter and only defaults to `hidden:false` (`app/src/server/api/routers/jutsu.ts:2115-2117`). The copy contract requires that a label never implies more protection than the system provides (CPY, SSC section 1).
 **Options:** (a) state it plainly in the admin and publish surfaces, for example that publishing changes listing and play eligibility, not readability; (b) stay silent and describe only what the flip changes; (c) treat embargo as a real requirement and record that Forge cannot enforce it, which becomes a game-change dependency.
 **Consequence:** (a) is the honest reading and costs one sentence; (b) risks an operator assuming secrecy the game does not provide; (c) turns a copy question into a dependency the game would have to satisfy, which this pass records but does not pursue.
@@ -643,3 +644,13 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 **Recommendation (advisory):** (b) with an explicit assignment naming the writer and the scope, or (a) if the Studio integration is close. No option is recommended outright: this is a branch-ownership call.
 **Can defer:** no if any phase depends on a green baseline.
 **Blocks phase:** retirement gate G-09, and the first phase of any roadmap.
+
+### K-61 Who owns the Studio files for the design-system absorption: OPEN (director; a branch assignment)
+
+**Why it matters:** the Quest Studio foundation ships a second full-screen shell with its own palette, its own confirmation and a mount outside the composition root. The approved direction is one shell and one token set, so the absorption is real work on files a ChatGPT branch currently owns, and the one-writer rule means it cannot start without an assignment.
+**Evidence:** the second shell, its hard-coded palette and the compile control whose colour collides with two mode mappings are recorded in `A_ARCHITECTURE_MAP.md` §A.11 and `H_RISK_REGISTER.md` R-17 and R-18; `D_VISUAL_SYSTEM.md` D2.10 states the absorption and its two options; the one-writer rule is `CLAUDE.md` section 4; the seam's own files are at `824c4d58:forge/src/studio/*`.
+**Options:** (a) after the seam is reviewed and integrated, the Fable lane owns `forge/src/studio/*` for the absorption and is the single writer from then on; (b) the ChatGPT lane continues the Studio slice and performs the absorption against the design system Fable specifies; (c) the absorption is deferred and the second shell ships as it is for one release.
+**Consequence:** (a) gives the design system one owner and costs ChatGPT its continuity on the slice; (b) keeps the slice's author but splits the design system across two writers, which is how two palettes happened in the first place; (c) means the operator meets two visual languages in one product, which the approved direction rules out.
+**Recommendation (advisory):** (a) or (b) explicitly, before the Studio phase's shell work is briefed; not (c). No option is recommended outright because this is a lane assignment, which the director owns.
+**Can defer:** until the seam is reviewed, and no later.
+**Blocks phase:** the Studio phase's shell work.
