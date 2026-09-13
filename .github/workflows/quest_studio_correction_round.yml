@@ -61,7 +61,6 @@ jobs:
           if bad:
               raise SystemExit(f"Quest Studio compiler imports forbidden network modules: {bad}")
           PY
-
           if grep -nEi 'theninja-rpg\.com|/api/trpc|(^|[^[:alnum:]_])(curl|wget)[[:space:]]' \
             .github/workflows/quest_studio.yml \
             skills/building-tnr-content/scripts/quest_compile.py; then
@@ -100,15 +99,15 @@ jobs:
           python3 skills/building-tnr-content/scripts/catalog_sync.py --selftest
           python3 skills/building-tnr-content/scripts/lawmap.py .
 
-      - name: Commit correction round and remove temporary machinery
+      - name: Commit tested non-workflow corrections
         run: |
           set -euo pipefail
+          # GitHub Actions' token may not modify workflow files. Keep the tested quest_studio.yml
+          # working-tree edit uncommitted; the repository-scoped connector will apply it afterward.
           git rm \
-            .github/workflows/quest_studio_correction_round.yml \
             state/quest_studio_review_corrections.py \
             state/quest_studio_review_corrections_followup.py
           git add \
-            .github/workflows/quest_studio.yml \
             docs/RULINGS.md \
             forge/src/github.mjs \
             forge/src/studio/repository.mjs \
