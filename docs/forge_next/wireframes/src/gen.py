@@ -87,7 +87,7 @@ def block(b):
         return f'<div class="{cls}"><div class="pv">{esc(b.get("label","preview"))}</div><div class="pvb">{esc(b.get("body",""))}</div></div>'
     if k == "diff":
         rows = "".join(f'<div class="dr"><span class="dk">{esc(r[0])}</span><span class="dold">{esc(r[1])}</span><span class="dnew">{esc(r[2])}</span></div>' for r in b.get("rows", []))
-        return f'<div class="{cls}"><div class="dh"><span>field</span><span>live now</span><span>proposed</span></div>{rows}</div>'
+        return f'<div class="{cls}"><div class="dh"><span>field</span><span>live value when read</span><span>proposed</span></div>{rows}</div>'
     if k == "seg":
         cells = "".join(f'<i class="sc {esc(c)}" title="{esc(c)}"></i>' for c in b.get("cells", []))
         return f'<div class="{cls}"><div class="segt">{cells}</div><span class="ps">{esc(b.get("label",""))}</span></div>'

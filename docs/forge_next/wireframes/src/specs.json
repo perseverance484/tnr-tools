@@ -23,7 +23,7 @@
       {
        "glyph": "\u2713",
        "label": "SESSION",
-       "value": "signed in \u00b7 dauntless",
+       "value": "ready \u00b7 probe answered 2 m ago",
        "tone": "ok"
       },
       {
@@ -35,7 +35,7 @@
       {
        "glyph": "\u2713",
        "label": "BUDGET",
-       "value": "12 % used \u00b7 resets 0:48",
+       "value": "12 % of the quests.get window \u00b7 public reads only",
        "tone": "ok"
       }
      ]
@@ -296,7 +296,7 @@
          {
           "glyph": "\u2713",
           "label": "SESSION",
-          "value": "signed in \u00b7 2 m ago",
+          "value": "ready \u00b7 probe answered 2 m ago",
           "tone": "ok"
          },
          {
@@ -308,7 +308,7 @@
          {
           "glyph": "\u2713",
           "label": "BUDGET",
-          "value": "12 % of window used",
+          "value": "12 % of the busiest public path's window",
           "tone": "ok"
          }
         ]
@@ -330,10 +330,8 @@
          {
           "kind": "row",
           "title": "Harvest Boar",
-          "sub": "AI \u00b7 no hidden column \u00b7 containment by refs",
-          "pills": [
-           "DRAFT"
-          ]
+          "sub": "AI \u00b7 no lifecycle column: containment is by references only",
+          "pills": []
          },
          {
           "kind": "row",
@@ -436,7 +434,7 @@
       },
       {
        "title": "One Perfect Crop",
-       "sub": "mission \u00b7 4 objectives \u00b7 in Studio",
+       "sub": "mission \u00b7 4 objectives \u00b7 Studio draft, not a game record",
        "pills": [
         "DRAFT"
        ],
@@ -446,9 +444,9 @@
       },
       {
        "title": "Forsworn scene characters",
-       "sub": "quest edits \u00b7 16c pack",
+       "sub": "quest edits \u00b7 16c pack \u00b7 last job verified",
        "pills": [
-        "VERIFIED"
+        "ok"
        ],
        "actions": [
         "Open"
@@ -576,7 +574,7 @@
           "title": "Forsworn scene characters",
           "sub": "16c pack \u00b7 9 quest edits read back",
           "pills": [
-           "VERIFIED"
+           "ok"
           ],
           "actions": [
            "Results"
@@ -603,7 +601,7 @@
          {
           "glyph": "\u2713",
           "label": "SESSION",
-          "value": "signed in \u00b7 2 m ago",
+          "value": "ready \u00b7 probe answered 2 m ago",
           "tone": "ok"
          },
          {
@@ -615,7 +613,7 @@
          {
           "glyph": "\u2713",
           "label": "BUDGET",
-          "value": "12 % of window used",
+          "value": "12 % of the busiest public path's window",
           "tone": "ok"
          }
         ]
@@ -846,7 +844,7 @@
          {
           "glyph": "\u2713",
           "label": "SESSION",
-          "value": "signed in \u00b7 2 m ago",
+          "value": "ready \u00b7 probe answered 2 m ago",
           "tone": "ok"
          },
          {
@@ -858,7 +856,7 @@
          {
           "glyph": "\u2713",
           "label": "BUDGET",
-          "value": "12 % of window used",
+          "value": "12 % of the busiest public path's window",
           "tone": "ok"
          }
         ]
@@ -986,7 +984,7 @@
     {
      "kind": "card",
      "title": "Live diff (safe: 7 reads)",
-     "sub": "read at 14:02",
+     "sub": "live values read at 14:02; no procedure checks a version, so a concurrent edit would be overwritten",
      "blocks": [
       {
        "kind": "diff",
@@ -1152,7 +1150,7 @@
          {
           "glyph": "\u2713",
           "label": "SESSION",
-          "value": "signed in \u00b7 2 m ago",
+          "value": "ready \u00b7 probe answered 2 m ago",
           "tone": "ok"
          },
          {
@@ -1164,7 +1162,7 @@
          {
           "glyph": "\u2713",
           "label": "BUDGET",
-          "value": "12 % of window used",
+          "value": "12 % of the busiest public path's window",
           "tone": "ok"
          }
         ]
@@ -1274,7 +1272,7 @@
        1
       ]
      ],
-     "note": "Running. Leaving this page is safe: the journal resumes it."
+     "note": "Running. Leaving this page does not lose the job: the journal continues it, and an item that was in flight is reconciled rather than resumed."
     },
     {
      "kind": "seg",
@@ -1343,7 +1341,7 @@
       {
        "kind": "progress",
        "pct": 27,
-       "label": "quests.update \u00b7 8 of 30 \u00b7 resets 0:41"
+       "label": "quests.get \u00b7 8 of 30 in this window \u00b7 resets 0:41 (the update itself is protected and unlimited)"
       }
      ]
     },
@@ -1492,15 +1490,15 @@
         "items": [
          {
           "glyph": "\u2713",
-          "label": "quests.update",
-          "value": "8 of 30 \u00b7 resets 0:41",
+          "label": "quests.get",
+          "value": "8 of 30 in this window \u00b7 resets 0:41",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
-          "label": "quests.get",
-          "value": "7 of 30",
-          "tone": "ok"
+          "glyph": "\u2013",
+          "label": "quests.update",
+          "value": "protected: not rate-limited, so nothing to meter",
+          "tone": "mute"
          }
         ]
        },
@@ -1755,7 +1753,7 @@
          {
           "glyph": "\u2713",
           "label": "SESSION",
-          "value": "signed in \u00b7 2 m ago",
+          "value": "ready \u00b7 probe answered 2 m ago",
           "tone": "ok"
          },
          {
@@ -1767,7 +1765,7 @@
          {
           "glyph": "\u2713",
           "label": "BUDGET",
-          "value": "12 % of window used",
+          "value": "12 % of the busiest public path's window",
           "tone": "ok"
          }
         ]
@@ -1869,11 +1867,15 @@
        "pairs": [
         [
          "known",
-         "placeholder created 13:58; upload phase unconfirmed"
+         "placeholder created 13:58; the upload phase has no recorded answer"
         ],
         [
          "snapshot diff",
          "1 new gameAsset since pre-create"
+        ],
+        [
+         "what adopting does",
+         "records this id for the item and continues with the remaining phase; it does not create anything"
         ]
        ]
       },
@@ -1897,7 +1899,7 @@
        "kind": "action",
        "label": "Re-send phase 2 (exceptional)",
        "variant": "danger",
-       "hint": "creates nothing new; sends the upload again"
+       "hint": "adopt first if the record is right; this only repeats the upload to an id you have already adopted"
       }
      ]
     },
@@ -2025,7 +2027,7 @@
          {
           "glyph": "\u2713",
           "label": "SESSION",
-          "value": "signed in \u00b7 2 m ago",
+          "value": "ready \u00b7 probe answered 2 m ago",
           "tone": "ok"
          },
          {
@@ -2037,7 +2039,7 @@
          {
           "glyph": "\u2713",
           "label": "BUDGET",
-          "value": "12 % of window used",
+          "value": "12 % of the busiest public path's window",
           "tone": "ok"
          }
         ]
@@ -2115,10 +2117,10 @@
        "tone": "ok"
       },
       {
-       "glyph": "\u2715",
+       "glyph": "\u2013",
        "label": "SYNC",
-       "value": "Results not synced \u00b7 PAT not configured",
-       "tone": "bad"
+       "value": "not configured: no repository token on this device, so the bundle stays local",
+       "tone": "mute"
       },
       {
        "glyph": "\u2013",
@@ -2271,7 +2273,7 @@
          {
           "glyph": "\u2713",
           "label": "SESSION",
-          "value": "signed in \u00b7 2 m ago",
+          "value": "ready \u00b7 probe answered 2 m ago",
           "tone": "ok"
          },
          {
@@ -2283,7 +2285,7 @@
          {
           "glyph": "\u2713",
           "label": "BUDGET",
-          "value": "12 % of window used",
+          "value": "12 % of the busiest public path's window",
           "tone": "ok"
          }
         ]
@@ -2520,7 +2522,7 @@
          {
           "glyph": "\u2713",
           "label": "SESSION",
-          "value": "signed in \u00b7 2 m ago",
+          "value": "ready \u00b7 probe answered 2 m ago",
           "tone": "ok"
          },
          {
@@ -2532,7 +2534,7 @@
          {
           "glyph": "\u2713",
           "label": "BUDGET",
-          "value": "12 % of window used",
+          "value": "12 % of the busiest public path's window",
           "tone": "ok"
          }
         ]
@@ -2546,15 +2548,15 @@
           "title": "gameAsset.get XsLLy8aw\u2026",
           "sub": "read ok \u2713 \u00b7 body persisted \u2713 (41 KB)",
           "pills": [
-           "VERIFIED"
+           "ok"
           ]
          },
          {
           "kind": "row",
           "title": "gameAsset.get HgT0DKfi\u2026",
-          "sub": "read ok \u2713 \u00b7 NOT persisted \u2715 (over 512 KiB)",
+          "sub": "read ok \u2713 \u00b7 body NOT persisted \u2715 (over 512 KiB)",
           "pills": [
-           "INCOMPLETE"
+           "warn"
           ]
          }
         ]
@@ -2746,7 +2748,7 @@
          {
           "glyph": "\u2713",
           "label": "SESSION",
-          "value": "signed in \u00b7 2 m ago",
+          "value": "ready \u00b7 probe answered 2 m ago",
           "tone": "ok"
          },
          {
@@ -2758,7 +2760,7 @@
          {
           "glyph": "\u2713",
           "label": "BUDGET",
-          "value": "12 % of window used",
+          "value": "12 % of the busiest public path's window",
           "tone": "ok"
          }
         ]
@@ -2870,7 +2872,7 @@
      "kind": "banner",
      "tone": "info",
      "head": "Role",
-     "body": "MODERATOR (from profile.getUser). Server enforces canChangeContent on every write; a refusal arrives as HTTP 200 success:false."
+     "body": "Role CONTENT-ADMIN, read once this session. MODERATOR is deliberately not used here: canChangeContent excludes it (permissions.ts, pin). The server enforces the role on every write and a refusal arrives as HTTP 200 success:false."
     },
     {
      "kind": "nav",
@@ -2962,10 +2964,8 @@
          },
          {
           "title": "Harvest Boar",
-          "sub": "AI (userData isAi) \u00b7 no hidden column \u00b7 contained by refs",
-          "pills": [
-           "DRAFT"
-          ],
+          "sub": "AI (userData isAi) \u00b7 no lifecycle column: containment is by references only",
+          "pills": [],
           "actions": [
            "Review"
           ]
@@ -2985,7 +2985,7 @@
          {
           "glyph": "\u2713",
           "label": "SESSION",
-          "value": "signed in \u00b7 role MODERATOR",
+          "value": "session ready \u00b7 role CONTENT-ADMIN (read once, K-52)",
           "tone": "ok"
          },
          {
@@ -3171,7 +3171,8 @@
         "sub": "quest \u00b7 HIDDEN \u00b7 KmGPDnZnGOCvATQqA5LI8",
         "chips": [
          "waiting",
-         "job 24"
+         "job 24",
+         "role CONTENT-ADMIN"
         ]
        },
        {
@@ -3349,7 +3350,8 @@
      "title": "Publish Old Ghost \u2192 player-visible",
      "lines": [
       "hidden: true \u2192 false on KmGPDnZn\u2026",
-      "session READY \u00b7 role MODERATOR",
+      "unhide precondition met (sceneCharacters)",
+      "session ready \u00b7 role CONTENT-ADMIN",
       "read back after send; PUBLISHED only on read-back"
      ],
      "action": {
@@ -3450,7 +3452,7 @@
         "title": "Publish Old Ghost \u2192 player-visible",
         "lines": [
          "hidden: true \u2192 false on KmGPDnZnGOCvATQqA5LI8",
-         "session READY \u00b7 role MODERATOR \u00b7 budget 2 of 30",
+         "session ready \u00b7 role CONTENT-ADMIN \u00b7 this write is protected, so it spends no public budget",
          "the record is read back after the send; the PUBLISHED pill appears only when the read-back shows hidden:false"
         ],
         "action": {
@@ -3473,7 +3475,7 @@
          {
           "glyph": "\u2713",
           "label": "SESSION",
-          "value": "signed in \u00b7 2 m ago",
+          "value": "ready \u00b7 probe answered 2 m ago",
           "tone": "ok"
          },
          {
@@ -3485,7 +3487,7 @@
          {
           "glyph": "\u2713",
           "label": "BUDGET",
-          "value": "12 % of window used",
+          "value": "12 % of the busiest public path's window",
           "tone": "ok"
          }
         ]
@@ -4091,9 +4093,9 @@
       },
       {
        "title": "02_asset_probe",
-       "sub": "DONE \u00b7 4 persisted \u00b7 1 not persisted",
+       "sub": "capture-only \u00b7 read ok on 5 \u00b7 1 body not persisted",
        "pills": [
-        "INCOMPLETE"
+        "bad"
        ]
       }
      ]
@@ -4157,7 +4159,7 @@
          {
           "glyph": "\u2713",
           "label": "SESSION",
-          "value": "signed in \u00b7 probe profile.getAi ok \u00b7 2 m ago",
+          "value": "ready \u00b7 probe profile.getAi answered 2 m ago",
           "tone": "ok",
           "actions": [
            "Re-check \u00b7 1 read"
@@ -4273,7 +4275,7 @@
       {
        "glyph": "\u2713",
        "label": "READY",
-       "value": "signed in; the probe answered",
+       "value": "the probe answered; reads and writes permitted",
        "tone": "ok"
       },
       {
@@ -4323,14 +4325,14 @@
      "kind": "card",
      "title": "Rate limit",
      "pill": "PAUSED",
-     "sub": "quests.update",
+     "sub": "quests.get",
      "risk": "recovery",
      "blocks": [
       {
        "kind": "progress",
        "pct": 100,
        "tone": "bad",
-       "label": "TRIPPED \u00b7 30 of 30 in this window \u00b7 try again after 0:42"
+       "label": "TRIPPED \u00b7 30 of 30 on quests.get \u00b7 try again after 0:42"
       },
       {
        "kind": "action",
@@ -4350,7 +4352,7 @@
        "title": "gameAsset.get HgT0DKfi\u2026",
        "sub": "read ok \u2713 \u00b7 body NOT persisted \u2715 (over the 512 KiB ceiling)",
        "pills": [
-        "INCOMPLETE"
+        "warn"
        ]
       }
      ]
@@ -4480,7 +4482,7 @@
         "kind": "card",
         "title": "Paused: rate limit",
         "pill": "PAUSED",
-        "sub": "job 46_mission_flatten \u00b7 reason TOO_MANY_REQUESTS",
+        "sub": "job 46_mission_flatten \u00b7 reason TOO_MANY_REQUESTS on quests.get",
         "risk": "recovery",
         "blocks": [
          {
@@ -4488,7 +4490,7 @@
           "pairs": [
            [
             "what stopped",
-            "the window for quests.update is spent"
+            "the window for the public read quests.get is spent; the writes themselves are protected and unlimited"
            ],
            [
             "what was sent",
