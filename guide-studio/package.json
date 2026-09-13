@@ -1,0 +1,32 @@
+{
+  "name": "tnr-guide-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "catalog": "node scripts/catalog.mjs",
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/dev.mjs",
+    "test": "node --test test/*.test.mjs",
+    "gate": "node scripts/compatibility.mjs --check && npm run catalog -- --check && node scripts/fixtures.mjs --check && npm test && npm run build && node scripts/build-gate.mjs",
+    "refresh": "python3 scripts/refresh.py",
+    "fixtures": "node scripts/render-fixtures.mjs"
+  },
+  "dependencies": {
+    "@trpc/client": "11.18.0",
+    "entities": "8.0.0",
+    "fflate": "0.8.2",
+    "jose": "6.1.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "sanitize-html": "2.17.7",
+    "superjson": "2.2.6",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@trpc/server": "11.18.0",
+    "esbuild": "0.28.2",
+    "jsdom": "26.1.0",
+    "prettier": "3.8.1"
+  }
+}

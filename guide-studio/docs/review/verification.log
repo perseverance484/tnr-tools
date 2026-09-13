@@ -1,0 +1,86 @@
+Command: npm ci --ignore-scripts
+Result: exit 0; 72 packages installed from package-lock.json
+
+Command: npm run gate
+Result: exit 0
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tnr-guide-studio@1.0.0 gate
+> node scripts/compatibility.mjs --check && npm run catalog -- --check && node scripts/fixtures.mjs --check && npm test && npm run build && node scripts/build-gate.mjs
+
+Pinned compatibility source and runtime verified.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tnr-guide-studio@1.0.0 catalog
+> node scripts/catalog.mjs --check
+
+catalog-1caefb53206168966f10: 2 complete templates; 35 jutsu; 4 summons. Reproducible.
+Generated Aerathiel (15 choices) and Night Parade (12 choices) acceptance submissions.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tnr-guide-studio@1.0.0 test
+> node --test test/*.test.mjs
+
+✔ aerathiel complete foundation independent of build; reproducible export (3011.923037ms)
+✔ night-parade complete foundation independent of build; reproducible export (1218.440904ms)
+✔ Black Thorn Rose target/direction regression (0.627603ms)
+✔ unknown mechanics fail closed; chance, healing, and self departure retain semantics (1.401222ms)
+✔ incomplete templates are refused, exact versions enforced, unknown author mechanic fields rejected (4.879285ms)
+✔ optional chapter omission and template rename/reorder/hide are real renderer behavior (15.880146ms)
+✔ authored markup remains inert in HTML, SVG, and preview (220.969455ms)
+✔ highlight validates real WebP and rejects active/oversized/malformed content (113.184909ms)
+✔ staff preview and export cannot disagree through altered snapshot aliases (32.540507ms)
+✔ summon utility and damage flags remain in the complete normalized foundation (11.515365ms)
+✔ real editor DOM: create, select, inline notes, order, autosave/recovery, chapters, preview and submit with zero TNR calls (920.437252ms)
+✔ draft quota and corrupt/stale recovery never silently destroy saved work (1.015157ms)
+✔ public authoring dependency graph cannot contain importer, credential adapter, or live refresh (7.242853ms)
+✔ actual staff UI opens final artifact, begins review, and freezes approval (1631.384903ms)
+✔ actual tRPC native transport mocked locally: verify, create, update, exact get, retry idempotence (177.082228ms)
+✔ ambiguous create is never retried (56.20053ms)
+✔ rejected update resumes saved ID after staff resolves issue (88.237642ms)
+✔ lost update response is verified by readback without repeating mutation (62.190147ms)
+✔ sanitized or moderated differences cannot be reported as imported (39.348913ms)
+✔ unsigned, wrong-key, wrong-origin, and changed packages never mutate (95.329721ms)
+✔ journal write failure occurs before native create (21.731538ms)
+✔ ambiguous creation can be explicitly reconciled to its untouched placeholder (184.210144ms)
+✔ pinned upstream validator and mirror agree at every boundary (26.823623ms)
+✔ pinned source copies keep recorded byte hashes (19.415617ms)
+✔ submission → final review → immutable approval → signed package; publication remains false (512.956576ms)
+✔ competing approval/rejection has one CAS winner and cannot expose rejected assets (79.458834ms)
+✔ private receipt and changes-requested revisions preserve original snapshot (113.325922ms)
+✔ strict validation rejects forged mechanics/credentials, missing notes, bad captcha, cross-origin writes (9.562706ms)
+✔ Cloudflare boundaries fail closed and Turnstile validates hostname/action (4.178019ms)
+✔ D1 production adapter executes actual SQLite schema and conditional transition SQL (19.151938ms)
+✔ Access verifies signature, issuer, audience and expiry with local JWKS (72.963993ms)
+✔ expired Access assertion is rejected (141.362869ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6095.950659
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tnr-guide-studio@1.0.0 build
+> node scripts/build.mjs
+
+Built public Studio, isolated Worker, and TNR-side importer. Importer disabled until operator supplies public trust configuration.
+Public authoring/Worker/importer bundles isolated; production harness absent.
+
+Command: npm run fixtures
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tnr-guide-studio@1.0.0 fixtures
+> node scripts/render-fixtures.mjs
+
+aerathiel: 21 assets; 11285 HTML characters; fc893d47ce2b60c106579b75f66240ab8cb6eacc9c82717d511a44bf9c1491bc
+night-parade: 29 assets; 13071 HTML characters; 32c72b6f78b72ce6a94b2884c9594266e67e1fa38d527d697f5caba356e7a554
+
+Command: npx --no-install prettier --check (documented source patterns)
+Result: exit 0; all matched files use Prettier
+
+Command: git diff --cached --check -- guide-studio state/prompt_guide_studio.md
+Result: exit 0
+The full diff retains four original Markdown hard breaks in the byte-exact pinned design spec.

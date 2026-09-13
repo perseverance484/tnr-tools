@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tnr-guide-studio-api",
+  "main": "dist-worker/worker.js",
+  "compatibility_date": "2026-09-01",
+  "vars": {
+    "PUBLIC_ORIGIN": "https://guide-studio.example.org",
+    "ACCESS_DOMAIN": "https://REPLACE.cloudflareaccess.com",
+    "ACCESS_AUDIENCE": "REPLACE",
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tnr-guide-studio",
+      "database_id": "REPLACE",
+    },
+  ],
+  "r2_buckets": [
+    { "binding": "ARTIFACTS", "bucket_name": "tnr-guide-studio-artifacts" },
+  ],
+}

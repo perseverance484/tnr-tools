@@ -1,0 +1,237 @@
+{
+  "source": "harvests/inbox/tnr_results_1789273598969.json",
+  "repositorySha": "6848a7805d912378f7f8eb27f52c9625dd10ac54",
+  "captures": [
+    {
+      "proc": "bloodline.get",
+      "input": {
+        "id": "r_99Xg8SIOYw2awCMSR7e"
+      },
+      "at": "2026-09-13T04:26:38.584Z",
+      "data": {
+        "id": "r_99Xg8SIOYw2awCMSR7e",
+        "name": "Night Parade of A Thousand Demons",
+        "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJotgS3wZ9MPZpHJ7VliuEWDfATdxhv62SXnm4",
+        "statClassification": "Highest",
+        "description": "Long ago a small village was under threat of destruction. Sandwiched between 3 warring nations, each sought to claim the village as their own and demanded the chief swear loyalty to them. However, the chief knew that swearing loyalty to any one would spell destruction as the other two would surely attack. Secretly, he tasked his only daughter to go find help, but no one wanted to get involved and risk war from the 3 powerful nations. So, she turned to the only place she could, the underworld. She began making summoning contracts with smaller lesser powerful beasts, collecting allies until she had enough strength to recruit more powerful entities. And when she was finally done, she had amassed a force nearing a thousand. 999 Demons had made a contract with her, offering up a portion of their power. When the deadline came for the village chief to swear loyalty, his daughter returned with her new found power and struck down the ambassadors of each nation. Normally, this would mean eradication, however, she had become so powerful that she was able to take on the forces of all 3 nations with her summoned demons. When the dust cleared, all 3 nations were no more and that small village had annexed them all. Unfortunately, however, the village chief's daughter had to pay the ultimate price. By overusing the powers granted to her, she had, tragically, become a demon herself. The village chief had to seal her and her army away into his own granddaughter. With time and many wars, the village eventually was destroyed and the seal gradually weakened. Now on the night of a lunar eclipse, the moon tinted blood red, the seal finally broke and the Night Parade begins. ",
+        "effects": [
+          {
+            "type": "increasedamagegiven",
+            "power": 25,
+            "target": "INHERIT",
+            "elements": [
+              "Earth",
+              "None",
+              "Shadow",
+              "Water",
+              "Wind"
+            ],
+            "appearSfx": "",
+            "direction": "offence",
+            "statTypes": [
+              "Highest"
+            ],
+            "calculation": "percentage",
+            "description": "placeholder",
+            "disappearSfx": "",
+            "powerPerLevel": 0.15,
+            "appearAnimation": "",
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "disappearAnimation": ""
+          }
+        ],
+        "regenIncrease": 100,
+        "villageId": null,
+        "createdAt": "2025-06-02T19:11:48.059Z",
+        "updatedAt": "2025-06-02T19:11:48.059Z",
+        "rank": "H",
+        "hidden": false,
+        "difficulty": "Medium",
+        "traits": "Summoning "
+      }
+    },
+    {
+      "proc": "profile.getAi",
+      "input": {
+        "userId": "oqeo5ssoyR4XlfOEWENbp"
+      },
+      "at": "2026-09-13T04:26:38.929Z",
+      "data": {
+        "userId": "oqeo5ssoyR4XlfOEWENbp",
+        "username": "Nue*",
+        "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJzXaBOiemvaQu94EYJs8HpxVzofny6iPtbgCZ",
+        "bloodlineId": "r_99Xg8SIOYw2awCMSR7e",
+        "isSummon": true,
+        "effects": [],
+        "jutsus": [
+          {
+            "jutsuId": "jhjmPXwx0NflEdCgvEzPs",
+            "level": 1,
+            "equipped": true,
+            "jutsu": {
+              "id": "jhjmPXwx0NflEdCgvEzPs",
+              "name": "Pestilent Swarm",
+              "description": "New jutsu description",
+              "createdAt": "2025-06-17T05:06:54.549Z",
+              "updatedAt": "2025-06-17T05:06:54.549Z",
+              "extraBaseCost": 0,
+              "effects": [
+                {
+                  "type": "drain",
+                  "power": 200,
+                  "rounds": 2,
+                  "target": "INHERIT",
+                  "appearSfx": "mOSkDnYv4hchkPbhdpTDd",
+                  "direction": "offence",
+                  "calculation": "static",
+                  "description": "placeholder",
+                  "disappearSfx": "",
+                  "friendlyFire": "ENEMIES",
+                  "poolsAffected": [
+                    "Chakra",
+                    "Health",
+                    "Stamina"
+                  ],
+                  "powerPerLevel": 0,
+                  "appearAnimation": "t3ySwOSClyJQVIpfiLoU_",
+                  "staticAnimation": "",
+                  "staticAssetPath": "",
+                  "disappearAnimation": "t3ySwOSClyJQVIpfiLoU_"
+                },
+                {
+                  "type": "recoil",
+                  "power": 25,
+                  "rounds": 2,
+                  "target": "INHERIT",
+                  "appearSfx": "",
+                  "direction": "offence",
+                  "statTypes": [
+                    "Bukijutsu",
+                    "Genjutsu",
+                    "Ninjutsu",
+                    "Taijutsu"
+                  ],
+                  "calculation": "percentage",
+                  "description": "placeholder",
+                  "disappearSfx": "",
+                  "friendlyFire": "ENEMIES",
+                  "powerPerLevel": 0,
+                  "appearAnimation": "",
+                  "staticAnimation": "",
+                  "staticAssetPath": "",
+                  "disappearAnimation": ""
+                }
+              ],
+              "target": "OPPONENT",
+              "range": 5,
+              "cooldown": 3,
+              "bloodlineId": "r_99Xg8SIOYw2awCMSR7e",
+              "requiredLevel": 1,
+              "requiredRank": "STUDENT",
+              "jutsuType": "AI",
+              "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJCmI6qZv26OYrIJuNP1pvSyz29edFtKbngjRc",
+              "jutsuWeapon": "NONE",
+              "statClassification": "Highest",
+              "battleDescription": "%user uses %jutsu on %target",
+              "jutsuRank": "D",
+              "actionCostPerc": 80,
+              "staminaCost": 200,
+              "chakraCost": 200,
+              "staminaCostReducePerLvl": 0,
+              "chakraCostReducePerLvl": 0,
+              "healthCostReducePerLvl": 0,
+              "healthCost": 0,
+              "villageId": "",
+              "method": "SINGLE",
+              "hidden": false,
+              "injectableInBattle": false,
+              "battleUsageType": "BOTH",
+              "parentJutsuId": null,
+              "requiredNinjutsuOffence": null,
+              "requiredNinjutsuDefence": null,
+              "requiredGenjutsuOffence": null,
+              "requiredGenjutsuDefence": null,
+              "requiredTaijutsuOffence": null,
+              "requiredTaijutsuDefence": null,
+              "requiredBukijutsuOffence": null,
+              "requiredBukijutsuDefence": null,
+              "requiredStrength": null,
+              "requiredSpeed": null,
+              "requiredIntelligence": null,
+              "requiredWillpower": null,
+              "requiredBloodlineItemId": null
+            }
+          },
+          {
+            "jutsuId": "fc7DtHKJy50qdmdwLIvaa",
+            "level": 1,
+            "jutsu": {
+              "id": "fc7DtHKJy50qdmdwLIvaa",
+              "name": "OHKO",
+              "description": "New jutsu description",
+              "createdAt": "2026-06-27T17:26:09.428Z",
+              "updatedAt": "2026-06-27T17:26:09.428Z",
+              "extraBaseCost": 0,
+              "effects": [
+                {
+                  "type": "onehitkill",
+                  "power": 100,
+                  "target": "SELF",
+                  "appearSfx": "",
+                  "direction": "offence",
+                  "calculation": "static",
+                  "description": "placeholder",
+                  "disappearSfx": "",
+                  "powerPerLevel": 0,
+                  "appearAnimation": "",
+                  "staticAnimation": "",
+                  "staticAssetPath": "",
+                  "disappearAnimation": ""
+                }
+              ],
+              "target": "SELF",
+              "range": 0,
+              "cooldown": 3,
+              "bloodlineId": "",
+              "requiredLevel": 1,
+              "requiredRank": "STUDENT",
+              "jutsuType": "AI",
+              "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+              "jutsuWeapon": "NONE",
+              "statClassification": "Bukijutsu",
+              "battleDescription": "%user uses %jutsu on %target",
+              "jutsuRank": "D",
+              "actionCostPerc": 80,
+              "staminaCost": 0.05,
+              "chakraCost": 0.05,
+              "staminaCostReducePerLvl": 0,
+              "chakraCostReducePerLvl": 0,
+              "healthCostReducePerLvl": 0,
+              "healthCost": 0,
+              "villageId": "",
+              "method": "SINGLE",
+              "hidden": true,
+              "injectableInBattle": false,
+              "battleUsageType": "BOTH",
+              "parentJutsuId": null,
+              "requiredNinjutsuOffence": null,
+              "requiredNinjutsuDefence": null,
+              "requiredGenjutsuOffence": null,
+              "requiredGenjutsuDefence": null,
+              "requiredTaijutsuOffence": null,
+              "requiredTaijutsuDefence": null,
+              "requiredBukijutsuOffence": null,
+              "requiredBukijutsuDefence": null,
+              "requiredStrength": null,
+              "requiredSpeed": null,
+              "requiredIntelligence": null,
+              "requiredWillpower": null,
+              "requiredBloodlineItemId": null
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
