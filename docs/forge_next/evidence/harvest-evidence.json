@@ -1,0 +1,2944 @@
+{
+ "summary": "Mined 42 committed harvest bundles (35 builder, 7 forge), 41 manifests (35 json + 6 zip packs, 23 generator scripts) and the state board. Real content work is builder-only: every write, every paged list capture, every select projection, every zip pack and every combat.* read in the record ran on builder v4.28-v4.32; the 7 Forge bundles are capture-only and two of the shapes real work depends on (unregistered procs, list inputs, per-capture bodies) are structurally refused or dropped by Forge 0.4.0.",
+ "rows": [
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788053115846.json",
+   "size": 46609,
+   "tool": "builder",
+   "version": "v4.27",
+   "cfg": "generated",
+   "at": "2026-08-30T01:25:15.846Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 1,
+   "capture_procs": {
+    "quests.getAllNames": 1
+   },
+   "capture_phases": {
+    "before": 1
+   },
+   "select": "no",
+   "scope": [
+    "unfiltered list"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 1
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unread": 0,
+    "skipped": 0
+   },
+   "idmap_size": 0,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/smoketest_pack.zip (capture 1/1 reproduced)",
+   "note": "v4.27 smoke; quests.getAllNames before-phase only",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788053115846.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788061342415.json",
+   "size": 315609,
+   "tool": "builder",
+   "version": "v4.28",
+   "cfg": "generated",
+   "at": "2026-08-30T03:42:22.415Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 1,
+   "entry_states": {
+    "ok": 1
+   },
+   "entry_verdicts": {
+    "diff:2": 1
+   },
+   "entity_slots": {
+    "jutsu:create": 1
+   },
+   "captures": 1,
+   "capture_procs": {
+    "jutsu.getAllNames": 1
+   },
+   "capture_phases": {
+    "after": 1
+   },
+   "select": "no",
+   "scope": [
+    "unfiltered list"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 1
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 1,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 1
+   },
+   "idmap_size": 1,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/7_readback_smoke.json (1/1 items, 1/1 caps)",
+   "note": "v4.28 asserted-fields verdict false-FAIL: parentJutsuId/requiredBloodlineItemId sent \"\" read null (fixed v4.29 pfEq, builder_bundle.js:22-23); idmap key is literally \"undefined\" because the create carried no srcId",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788061342415.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788065637150.json",
+   "size": 315165,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T04:53:57.150Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 1,
+   "entry_states": {
+    "ok": 1
+   },
+   "entry_verdicts": {
+    "match": 1
+   },
+   "entity_slots": {
+    "jutsu:create": 1
+   },
+   "captures": 1,
+   "capture_procs": {
+    "jutsu.getAllNames": 1
+   },
+   "capture_phases": {
+    "after": 1
+   },
+   "select": "no",
+   "scope": [
+    "unfiltered list"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 1
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 1,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 1,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/7_readback_smoke.json rerun on v4.29",
+   "note": "match 1, afail 0 after pfEq fix",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788065637150.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788065642059.json",
+   "size": 356772,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T04:54:02.059Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 2,
+   "capture_procs": {
+    "jutsu.getAllNames": 1,
+    "quests.getAllNames": 1
+   },
+   "capture_phases": {
+    "after": 2
+   },
+   "select": "no",
+   "scope": [
+    "unfiltered list"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 2
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 1,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/8_reads_names.json (2/2 caps)",
+   "note": "jutsu+quests getAllNames after-phase",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788065642059.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788104822853.json",
+   "size": 425457,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T15:47:02.853Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 10,
+   "capture_procs": {
+    "quests.get": 7,
+    "gameAsset.getAllFolders": 1,
+    "gameAsset.getAll": 2
+   },
+   "capture_phases": {
+    "before": 10
+   },
+   "select": "no",
+   "scope": [
+    "FILTERED LIST",
+    "record fetch",
+    "unfiltered list"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 10
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 1,
+   "journal": null,
+   "manifest": "NO archived manifest reproduces it (closest 17/20/23 share 7 quests.get); carries gameAsset.getAllFolders + 2 gameAsset.getAll{folder}",
+   "note": "only committed use of gameAsset.getAllFolders and of gameAsset.getAll with a folder filter",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788104822853.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788106121098.json",
+   "size": 841327,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T16:08:41.098Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 7,
+   "entry_states": {
+    "ok": 7
+   },
+   "entry_verdicts": {
+    "match": 7
+   },
+   "entity_slots": {
+    "quest:edit": 7
+   },
+   "captures": 0,
+   "capture_procs": {},
+   "capture_phases": {},
+   "select": "no",
+   "scope": [],
+   "persist_full": 0,
+   "capture_status": {},
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 7,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 4,
+   "journal": null,
+   "manifest": "NO archived manifest reproduces it (18/19 share 7/10 names); 7 quest:edit whole-record, 0 captures",
+   "note": "wave-1 trio-era quest edits; match 7",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788106121098.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788108397693.json",
+   "size": 47993,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T16:46:37.694Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 1,
+   "capture_procs": {
+    "quests.getAllNames": 1
+   },
+   "capture_phases": {
+    "before": 1
+   },
+   "select": "no",
+   "scope": [
+    "unfiltered list"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 1
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 12,
+   "journal": null,
+   "manifest": "quests.getAllNames before-phase (smoketest_pack cap shape)",
+   "note": "names read",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788108397693.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788108601597.json",
+   "size": 34762,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T16:50:01.597Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 1,
+   "capture_procs": {
+    "quests.get": 1
+   },
+   "capture_phases": {
+    "before": 1
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 1
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 12,
+   "journal": null,
+   "manifest": "single quests.get (subset of 15b_isolation_reads 1/5)",
+   "note": "isolation read",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788108601597.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788109905148.json",
+   "size": 170801,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T17:11:45.148Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 4,
+   "capture_procs": {
+    "quests.get": 4
+   },
+   "capture_phases": {
+    "before": 4
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 4
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "refus"
+   ],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 33,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/15b_isolation_reads.json (4/5 caps; manifest note says run stops where it stops)",
+   "note": "wedge isolation reads",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788109905148.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788110429856.json",
+   "size": 50979,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T17:20:29.856Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 1,
+   "capture_procs": {
+    "quests.getAllNames": 1
+   },
+   "capture_phases": {
+    "before": 1
+   },
+   "select": "no",
+   "scope": [
+    "unfiltered list"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 1
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 33,
+   "journal": null,
+   "manifest": "quests.getAllNames before-phase",
+   "note": "names read",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788110429856.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788110638381.json",
+   "size": 40632,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T17:23:58.381Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 1,
+   "capture_procs": {
+    "quests.get": 1
+   },
+   "capture_phases": {
+    "before": 1
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 1
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 33,
+   "journal": null,
+   "manifest": "single quests.get",
+   "note": "record read",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788110638381.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788118127390.json",
+   "size": 21163,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T19:28:47.391Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 9,
+   "entry_states": {
+    "ok": 9
+   },
+   "entry_verdicts": {
+    "unread": 9
+   },
+   "entity_slots": {
+    "gameAsset:create": 9
+   },
+   "captures": 0,
+   "capture_procs": {},
+   "capture_phases": {},
+   "select": "no",
+   "scope": [],
+   "persist_full": 0,
+   "capture_status": {},
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 9,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 51,
+   "journal": null,
+   "manifest": "archive/spent-manifests/16_forsworn_scene_characters_pack.MISROUTED.zip (9/9 items)",
+   "note": "entity \"gameAsset\" (not \"asset\") fell through to the jutsu route and minted 9 junk jutsu (builder_bundle.js:10-11 v4.31 note); all 9 UNVERIFIED live=NONE; pushed{} carries a jutsu-shaped record",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788118127390.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788120244483.json",
+   "size": 840470,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T20:04:04.483Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 11,
+   "capture_procs": {
+    "quests.get": 10,
+    "gameAsset.getAll": 1
+   },
+   "capture_phases": {
+    "before": 11
+   },
+   "select": "no",
+   "scope": [
+    "FILTERED LIST",
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 11
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "refus"
+   ],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 60,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/17_wiring_capture.json (11/11)",
+   "note": "10 quests.get + gameAsset.getAll{limit:500,cursor:0} paged",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788120244483.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788120603436.json",
+   "size": 1688404,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T20:10:03.436Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 10,
+   "entry_states": {
+    "ok": 10
+   },
+   "entry_verdicts": {
+    "match": 10
+   },
+   "entity_slots": {
+    "quest:edit": 10
+   },
+   "captures": 10,
+   "capture_procs": {
+    "quests.get": 10
+   },
+   "capture_phases": {
+    "after": 10
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 10
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "refus"
+   ],
+   "postflight": {
+    "match": 10,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 60,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/18_scene_wiring.json (10/10 items+caps)",
+   "note": "10 quest edits match",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788120603436.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788121031587.json",
+   "size": 1702924,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T20:17:11.587Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 10,
+   "entry_states": {
+    "ok": 10
+   },
+   "entry_verdicts": {
+    "match": 10
+   },
+   "entity_slots": {
+    "quest:edit": 10
+   },
+   "captures": 10,
+   "capture_procs": {
+    "quests.get": 10
+   },
+   "capture_phases": {
+    "after": 10
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 10
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "refus"
+   ],
+   "postflight": {
+    "match": 10,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 60,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/19_blank_blanket.json (10/10)",
+   "note": "10 quest edits match",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788121031587.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788127352899.json",
+   "size": 851310,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T22:02:32.900Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 11,
+   "capture_procs": {
+    "quests.get": 10,
+    "gameAsset.getAll": 1
+   },
+   "capture_phases": {
+    "before": 11
+   },
+   "select": "no",
+   "scope": [
+    "FILTERED LIST",
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 11
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "refus"
+   ],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 60,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/20_bg_wiring_capture.json (11/11)",
+   "note": "10 quests.get + gameAsset.getAll paged",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788127352899.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788128500937.json",
+   "size": 1150152,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-30T22:21:40.938Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 18,
+   "entry_states": {
+    "ok": 18
+   },
+   "entry_verdicts": {
+    "match": 18
+   },
+   "entity_slots": {
+    "asset:create": 8,
+    "quest:edit": 10
+   },
+   "captures": 0,
+   "capture_procs": {},
+   "capture_phases": {},
+   "select": "no",
+   "scope": [],
+   "persist_full": 0,
+   "capture_status": {},
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "refus"
+   ],
+   "postflight": {
+    "match": 18,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 76,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/21_bg_assets_and_wiring.zip (18/18)",
+   "note": "8 asset:create via @img zip members + 10 quest:edit with @scene: refs; all match",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788128500937.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788134455342.json",
+   "size": 1132892,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T00:00:55.342Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 32,
+   "capture_procs": {
+    "quests.get": 31,
+    "gameAsset.getAll": 1
+   },
+   "capture_phases": {
+    "before": 32
+   },
+   "select": "no",
+   "scope": [
+    "FILTERED LIST",
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 32
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "refus"
+   ],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 76,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/23_our_missions_census.json (32/32)",
+   "note": "31 quests.get + 1 gameAsset.getAll paged; this bundle is the read source for 24_rank_icon_swap_all31.gen.py",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788134455342.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788135094828.json",
+   "size": 2527048,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T00:11:34.830Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 31,
+   "entry_states": {
+    "ok": 31
+   },
+   "entry_verdicts": {
+    "match": 31
+   },
+   "entity_slots": {
+    "quest:edit": 31
+   },
+   "captures": 31,
+   "capture_procs": {
+    "quests.get": 31
+   },
+   "capture_phases": {
+    "after": 31
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 31
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "refus"
+   ],
+   "postflight": {
+    "match": 31,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/24_rank_icon_swap_all31.zip (31/31)",
+   "note": "31 quest image-only edits with @img: from zip; skipPreflight:true; match 31",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788135094828.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788135994502.json",
+   "size": 142881,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T00:26:34.502Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 1,
+   "entry_states": {
+    "ok": 1
+   },
+   "entry_verdicts": {
+    "match": 1
+   },
+   "entity_slots": {
+    "quest:edit": 1
+   },
+   "captures": 1,
+   "capture_procs": {
+    "quests.get": 1
+   },
+   "capture_phases": {
+    "after": 1
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 1
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 1,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/27_scene_char_retire.json (1/1)",
+   "note": "skipPreflight partial quest edit",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788135994502.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788136101982.json",
+   "size": 1704576,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T00:28:21.983Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 10,
+   "entry_states": {
+    "ok": 10
+   },
+   "entry_verdicts": {
+    "match": 10
+   },
+   "entity_slots": {
+    "quest:edit": 10
+   },
+   "captures": 10,
+   "capture_procs": {
+    "quests.get": 10
+   },
+   "capture_phases": {
+    "after": 10
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 10
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "refus"
+   ],
+   "postflight": {
+    "match": 10,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/26_publish_ours.json (10/10)",
+   "note": "skipPreflight; match 10",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788136101982.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788136217543.json",
+   "size": 1414478,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T00:30:17.543Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 3,
+   "capture_procs": {
+    "quests.getAll": 3
+   },
+   "capture_phases": {
+    "before": 3
+   },
+   "select": "no",
+   "scope": [
+    "FILTERED LIST"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 3
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "refus"
+   ],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/25_mission_census_probe.json (3/3)",
+   "note": "quests.getAll {limit:5} and {questType:mission,limit:25,cursor:0..1}",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788136217543.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788136356379.json",
+   "size": 1579281,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T00:32:36.379Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 3,
+   "capture_procs": {
+    "quests.getAll": 3
+   },
+   "capture_phases": {
+    "before": 3
+   },
+   "select": "no",
+   "scope": [
+    "FILTERED LIST"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 3
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "refus"
+   ],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/28_mission_census_full.json (3/3)",
+   "note": "quests.getAll questType:mission limit:50 cursor 0..2 (1.58MB bundle); read source for 46_missions_flatten.gen.py",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788136356379.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788136975366.json",
+   "size": 433576,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T00:42:55.367Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 26,
+   "entry_states": {
+    "ok": 26
+   },
+   "entry_verdicts": {
+    "match": 25,
+    "diff:3": 1
+   },
+   "entity_slots": {
+    "quest:edit": 26
+   },
+   "captures": 26,
+   "capture_procs": {
+    "quests.get": 26
+   },
+   "capture_phases": {
+    "after": 26
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 26
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 25,
+    "diff": 1,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/29_hide_not_ours.json (26/26)",
+   "note": "skipPreflight hidden-flag edits; 1 full-record diff:3 (Freedom's Scouting Party: server dropped content.objectives[0].opponent_name/attackers_chance) -> repaired by 30_repair_freedoms_scouting",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788136975366.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788196013904.json",
+   "size": 32584,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T17:06:53.904Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 2,
+   "capture_procs": {
+    "profile.getAi": 1,
+    "jutsu.get": 1
+   },
+   "capture_phases": {
+    "before": 2
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 2
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/36_pale_fang_capture.json (2/2)",
+   "note": "profile.getAi + jutsu.get",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788196013904.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788203892632.json",
+   "size": 7924,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T19:18:12.632Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 1,
+   "capture_procs": {
+    "ai.getAiProfile": 1
+   },
+   "capture_phases": {
+    "before": 1
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 1
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/38_pale_fang_profile_capture.json (1/1)",
+   "note": "ai.getAiProfile",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788203892632.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788204066957.json",
+   "size": 58848,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T19:21:06.957Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 1,
+   "entry_states": {
+    "ok": 1
+   },
+   "entry_verdicts": {
+    "match": 1
+   },
+   "entity_slots": {
+    "ai:edit": 1
+   },
+   "captures": 2,
+   "capture_procs": {
+    "profile.getAi": 1,
+    "ai.getAiProfile": 1
+   },
+   "capture_phases": {
+    "after": 2
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 2
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 1,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 1
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/39_pale_fang_b10_swap.json (1/1)",
+   "note": "ai edit carrying rules: postflight match but asserted FAIL missing:rules missing:includeDefaultRules (read back via profile.getAi which has no rules)",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788204066957.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788208842873.json",
+   "size": 100273,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T20:40:42.873Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 4,
+   "capture_procs": {
+    "profile.getAi": 4
+   },
+   "capture_phases": {
+    "before": 4
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 4
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/40_a_rank_boss_audit.json (4/4)",
+   "note": "profile.getAi x4",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788208842873.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788208954502.json",
+   "size": 16326,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T20:42:34.502Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 4,
+   "capture_procs": {
+    "ai.getAiProfile": 4
+   },
+   "capture_phases": {
+    "before": 4
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 4
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/41_boss_rule_chains.json (4/4)",
+   "note": "ai.getAiProfile x4",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788208954502.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788209137361.json",
+   "size": 102774,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-08-31T20:45:37.362Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 3,
+   "entry_states": {
+    "ok": 3
+   },
+   "entry_verdicts": {
+    "match": 3
+   },
+   "entity_slots": {
+    "ai:edit": 3
+   },
+   "captures": 3,
+   "capture_procs": {
+    "ai.getAiProfile": 3
+   },
+   "capture_phases": {
+    "after": 3
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 3
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 3,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 3
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/42_boss_self_target_fix.json (3/3)",
+   "note": "3 ai edits with rules: all asserted FAIL missing:rules/includeDefaultRules (same read-back gap)",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788209137361.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788235198666.json",
+   "size": 288011,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-09-01T03:59:58.666Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 15,
+   "capture_procs": {
+    "profile.getAi": 15
+   },
+   "capture_phases": {
+    "before": 15
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 15
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/43_all_mission_ai_audit.json (15/15)",
+   "note": "profile.getAi x15",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788235198666.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788235395095.json",
+   "size": 41671,
+   "tool": "builder",
+   "version": "v4.29",
+   "cfg": "generated",
+   "at": "2026-09-01T04:03:15.095Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 15,
+   "capture_procs": {
+    "ai.getAiProfile": 15
+   },
+   "capture_phases": {
+    "before": 15
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 15
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "archive/spent-manifests/push-2026-09-09/44_all_mission_ai_chains.json (15/15)",
+   "note": "ai.getAiProfile x15; the bundle active-context.md:10 records parity 0/0 against",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788235395095.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1788996474057.json",
+   "size": 51779,
+   "tool": "builder",
+   "version": "v4.32",
+   "cfg": "generated",
+   "at": "2026-09-09T23:27:54.057Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 1,
+   "capture_procs": {
+    "quests.getAllNames": 1
+   },
+   "capture_phases": {
+    "before": 1
+   },
+   "select": "no",
+   "scope": [
+    "unfiltered list"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 1
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "quests.getAllNames before-phase (v4.32 smoke)",
+   "note": "first v4.32 bundle",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1788996474057.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1789049377316.json",
+   "size": 6110,
+   "tool": "forge",
+   "version": "forge 0.2.1",
+   "cfg": "forge",
+   "at": "2026-09-10T14:09:37.316Z",
+   "checks": null,
+   "state": "DONE",
+   "outcome": "success",
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 2,
+   "capture_procs": {
+    "jutsu.getAllNames": 1,
+    "quests.getAllNames": 1
+   },
+   "capture_phases": {
+    "after": 2
+   },
+   "select": "no",
+   "scope": [],
+   "persist_full": 0,
+   "capture_status": {
+    "True": 2
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "failed": 0,
+    "skipped": 0,
+    "unresolved": 0
+   },
+   "idmap_size": 80,
+   "journal": {
+    "v": 1,
+    "jobId": "0-mtvlt1q1",
+    "manifestPath": "push/00_forge_readonly_smoke.json",
+    "manifestNumber": 0,
+    "manifestHash": "0450ebfe",
+    "state": "DONE",
+    "pause": null,
+    "items": 0,
+    "item_states": {}
+   },
+   "manifest": "push/00_forge_readonly_smoke.json (2/2)",
+   "note": "forge 0.2.1 summary captures: rows only, no data",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1789049377316.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1789054354501.json",
+   "size": 5910,
+   "tool": "forge",
+   "version": "forge 0.2.1",
+   "cfg": "forge",
+   "at": "2026-09-10T15:32:34.501Z",
+   "checks": null,
+   "state": "DONE",
+   "outcome": "success",
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 1,
+   "capture_procs": {
+    "quests.get": 1
+   },
+   "capture_phases": {
+    "after": 1
+   },
+   "select": "no",
+   "scope": [],
+   "persist_full": 0,
+   "capture_status": {
+    "True": 1
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "failed": 0,
+    "skipped": 0,
+    "unresolved": 0
+   },
+   "idmap_size": 80,
+   "journal": {
+    "v": 1,
+    "jobId": "1-mtvorqe0",
+    "manifestPath": "push/01_old_ghost_format_capture.json",
+    "manifestNumber": 1,
+    "manifestHash": "f3a9670c",
+    "state": "DONE",
+    "pause": null,
+    "items": 0,
+    "item_states": {}
+   },
+   "manifest": "push/01_old_ghost_format_capture.json (1/1)",
+   "note": "manifest _note wants dialog HTML inspected verbatim; forge 0.2.1 summary mode stored rows:1 and NO body; harvest.py get says \"quests.get not in this capture\"",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1789054354501.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1789060167786.json",
+   "size": 11924,
+   "tool": "forge",
+   "version": "forge 0.3.0",
+   "cfg": "forge",
+   "at": "2026-09-10T17:09:27.785Z",
+   "checks": null,
+   "state": "DONE",
+   "outcome": "success",
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 5,
+   "capture_procs": {
+    "gameAsset.get": 5
+   },
+   "capture_phases": {
+    "after": 5
+   },
+   "select": "no",
+   "scope": [],
+   "persist_full": 5,
+   "capture_status": {
+    "True": 5
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "failed": 0,
+    "skipped": 0,
+    "unresolved": 0
+   },
+   "idmap_size": 80,
+   "journal": {
+    "v": 1,
+    "jobId": "2-mtvs8a0m",
+    "manifestPath": "push/02_one_perfect_crop_asset_probe.json",
+    "manifestNumber": 2,
+    "manifestHash": "ef1c9b3f",
+    "state": "DONE",
+    "pause": null,
+    "items": 0,
+    "item_states": {}
+   },
+   "manifest": "push/02_one_perfect_crop_asset_probe.json (5/5)",
+   "note": "forge 0.3.0 persist:full gameAsset.get x5, all persisted",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1789060167786.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1789061570022.json",
+   "size": 28667,
+   "tool": "forge",
+   "version": "forge 0.3.0",
+   "cfg": "forge",
+   "at": "2026-09-10T17:32:50.021Z",
+   "checks": null,
+   "state": "DONE",
+   "outcome": "success",
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 18,
+   "capture_procs": {
+    "gameAsset.get": 18
+   },
+   "capture_phases": {
+    "after": 18
+   },
+   "select": "no",
+   "scope": [],
+   "persist_full": 18,
+   "capture_status": {
+    "True": 18
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "failed": 0,
+    "skipped": 0,
+    "unresolved": 0
+   },
+   "idmap_size": 80,
+   "journal": {
+    "v": 1,
+    "jobId": "3-mtvt26pp",
+    "manifestPath": "push/03_tnr_art_style_reference_capture.json",
+    "manifestNumber": 3,
+    "manifestHash": "fb11961a",
+    "state": "DONE",
+    "pause": null,
+    "items": 0,
+    "item_states": {}
+   },
+   "manifest": "push/03_tnr_art_style_reference_capture.json (18/18)",
+   "note": "persist:full gameAsset.get x18",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1789061570022.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1789066888093.json",
+   "size": 8897,
+   "tool": "forge",
+   "version": "forge 0.3.0",
+   "cfg": "forge",
+   "at": "2026-09-10T19:01:28.093Z",
+   "checks": null,
+   "state": "DONE",
+   "outcome": "failed",
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 5,
+   "capture_procs": {
+    "profile.getAi": 5
+   },
+   "capture_phases": {
+    "after": 5
+   },
+   "select": "no",
+   "scope": [],
+   "persist_full": 5,
+   "capture_status": {
+    "False": 5
+   },
+   "capture_errors": [
+    "profile.getAi: UNAUTHORIZED"
+   ],
+   "notable_errors": {
+    "UNAUTHORIZED": 10
+   },
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "failed": 0,
+    "skipped": 0,
+    "unresolved": 0
+   },
+   "idmap_size": 80,
+   "journal": {
+    "v": 1,
+    "jobId": "4-mtvw8apd",
+    "manifestPath": "push/04_one_perfect_crop_bandit_ai_probe.json",
+    "manifestNumber": 4,
+    "manifestHash": "4c935c5c",
+    "state": "DONE",
+    "pause": null,
+    "items": 0,
+    "item_states": {}
+   },
+   "manifest": "push/04_one_perfect_crop_bandit_ai_probe.json (5/5)",
+   "note": "5x profile.getAi UNAUTHORIZED (protected read while signed out); outcome failed",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1789066888093.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1789067111434.json",
+   "size": 8897,
+   "tool": "forge",
+   "version": "forge 0.3.0",
+   "cfg": "forge",
+   "at": "2026-09-10T19:05:11.434Z",
+   "checks": null,
+   "state": "DONE",
+   "outcome": "failed",
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 5,
+   "capture_procs": {
+    "profile.getAi": 5
+   },
+   "capture_phases": {
+    "after": 5
+   },
+   "select": "no",
+   "scope": [],
+   "persist_full": 5,
+   "capture_status": {
+    "False": 5
+   },
+   "capture_errors": [
+    "profile.getAi: UNAUTHORIZED"
+   ],
+   "notable_errors": {
+    "UNAUTHORIZED": 10
+   },
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "failed": 0,
+    "skipped": 0,
+    "unresolved": 0
+   },
+   "idmap_size": 80,
+   "journal": {
+    "v": 1,
+    "jobId": "4-mtvwd4kx",
+    "manifestPath": "push/04_one_perfect_crop_bandit_ai_probe.json",
+    "manifestNumber": 4,
+    "manifestHash": "4c935c5c",
+    "state": "DONE",
+    "pause": null,
+    "items": 0,
+    "item_states": {}
+   },
+   "manifest": "push/04_one_perfect_crop_bandit_ai_probe.json rerun (5/5)",
+   "note": "identical UNAUTHORIZED x5 four minutes later; outcome failed",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1789067111434.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1789124514980.json",
+   "size": 21620,
+   "tool": "forge",
+   "version": "forge 0.4.0",
+   "cfg": "forge",
+   "at": "2026-09-11T11:01:54.979Z",
+   "checks": null,
+   "state": "DONE",
+   "outcome": "success",
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 5,
+   "capture_procs": {
+    "profile.getAi": 5
+   },
+   "capture_phases": {
+    "after": 5
+   },
+   "select": "no",
+   "scope": [],
+   "persist_full": 5,
+   "capture_status": {
+    "True": 5
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "failed": 0,
+    "skipped": 0,
+    "unresolved": 0
+   },
+   "idmap_size": 80,
+   "journal": {
+    "v": 1,
+    "jobId": "4-mtwujhpw",
+    "manifestPath": "push/04_one_perfect_crop_bandit_ai_probe.json",
+    "manifestNumber": 4,
+    "manifestHash": "4c935c5c",
+    "state": "DONE",
+    "pause": null,
+    "items": 0,
+    "item_states": {}
+   },
+   "manifest": "push/04_one_perfect_crop_bandit_ai_probe.json on forge 0.4.0 (5/5)",
+   "note": "outcome success, but 3 of 5 profile.getAi bodies are null (bytes 4, rows 0) and persistOk:true - a missing AI reads as a persisted success",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1789124514980.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1789188714166.json",
+   "size": 84012,
+   "tool": "builder",
+   "version": "v4.32",
+   "cfg": "generated",
+   "at": "2026-09-12T04:51:54.166Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 16,
+   "capture_procs": {
+    "combat.getBattleHistory": 1,
+    "jutsu.get": 15
+   },
+   "capture_phases": {
+    "after": 16
+   },
+   "select": "yes [\"battleId\", \"battleType\", \"createdAt\", \"attackedId\", \"defenderId\", \"attacker\", \"defender\"]",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 16
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "FORBIDDEN"
+   ],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "push/05_aerathiel_pvp_research_stage1.json (16/16)",
+   "note": "builder v4.32 ran combat.getBattleHistory with select projection + 15 jutsu.get; FORBIDDEN string is jutsuType data, not an error",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1789188714166.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "bundle",
+   "file": "harvests/inbox/tnr_results_1789189076617.json",
+   "size": 1523320,
+   "tool": "builder",
+   "version": "v4.32",
+   "cfg": "generated",
+   "at": "2026-09-12T04:57:56.617Z",
+   "checks": 16,
+   "state": null,
+   "outcome": null,
+   "entries": 0,
+   "entry_states": {},
+   "entry_verdicts": {},
+   "entity_slots": {},
+   "captures": 43,
+   "capture_procs": {
+    "combat.getBattleEntries": 43
+   },
+   "capture_phases": {
+    "after": 43
+   },
+   "select": "no",
+   "scope": [
+    "record fetch"
+   ],
+   "persist_full": 0,
+   "capture_status": {
+    "200": 43
+   },
+   "capture_errors": [],
+   "notable_errors": {},
+   "false_positive_error_words": [
+    "refus"
+   ],
+   "postflight": {
+    "match": 0,
+    "diff": 0,
+    "unverified": 0,
+    "skipped": 0,
+    "afail": 0
+   },
+   "idmap_size": 80,
+   "journal": null,
+   "manifest": "push/06_aerathiel_pvp_battle_logs.json (43/43)",
+   "note": "43 combat.getBattleEntries {limit:500} record fetches, 1.5MB; combat.* is outside the Forge registry",
+   "evidence": "Behaviour-proven: harvests/inbox/tnr_results_1789189076617.json (committed bundle, fields read with python3 json)"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "manifest population (all committed manifests)",
+   "count": 41,
+   "example_files": [
+    "push/*.json x7",
+    "archive/spent-manifests/push-2026-09-09/*.json x28",
+    "6 zip packs: archive/spent-manifests/16_*.MISROUTED.zip, 16b_pack.IDMAP_POISONED_RUN.zip, archive/spent-manifests/push-2026-09-09/{16c,21,24,smoketest_pack}.zip"
+   ],
+   "builder": "builder_bundle.js:562 parse() accepts items|jutsu + capture{before,after}",
+   "forge": "forge/src/runner/manifest.mjs:38-46 same shapes",
+   "evidence_tier": "Observed",
+   "note": "archive/spent-manifests holds 57 files = 28 json + 6 zip + 23 *.gen.py generators; harvests/seed/4x_INDEX_*.json are columnar catalogs, not manifests"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "top-level key set {capture,items}",
+   "count": 17,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/18_scene_wiring.json",
+    "archive/spent-manifests/push-2026-09-09/23_our_missions_census.json",
+    "archive/spent-manifests/push-2026-09-09/39_pale_fang_b10_swap.json"
+   ],
+   "builder": "builder_bundle.js:562",
+   "forge": "forge/src/runner/manifest.mjs:38-46",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "top-level key set {_note,capture,items}",
+   "count": 11,
+   "example_files": [
+    "push/00_forge_readonly_smoke.json",
+    "push/05_aerathiel_pvp_research_stage1.json",
+    "archive/spent-manifests/push-2026-09-09/15b_isolation_reads.json"
+   ],
+   "builder": "builder ignores _note",
+   "forge": "forge/src/runner/manifest.mjs:96 keeps note",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "top-level key set {capture,items,skipPreflight}",
+   "count": 5,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/26_publish_ours.json",
+    "archive/spent-manifests/push-2026-09-09/27_scene_char_retire.json",
+    "archive/spent-manifests/push-2026-09-09/29_hide_not_ours.json",
+    "archive/spent-manifests/push-2026-09-09/30_repair_freedoms_scouting.json",
+    "archive/spent-manifests/push-2026-09-09/32_publish_witness_detail.json"
+   ],
+   "builder": "builder_bundle.js:719 skipPF bypasses preflight+lint",
+   "forge": "forge/src/runner/manifest.mjs:91,97 recorded, never disables lints",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "top-level key set {imgSizes,items} (zip packs without capture)",
+   "count": 4,
+   "example_files": [
+    "zip:16_forsworn_scene_characters_pack.MISROUTED/manifest.json",
+    "zip:16b_pack.IDMAP_POISONED_RUN/manifest.json",
+    "zip:16c_forsworn_scene_characters_pack/manifest.json",
+    "zip:21_bg_assets_and_wiring/manifest.json"
+   ],
+   "builder": "builder_bundle.js:497-511 loadPack",
+   "forge": "no zip reader in forge/src (screens.mjs:145 single-file picker only)",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "other key sets: {dedupNames,items,note,version} x1; {_note,capture,dedupNames,items} x1; {capture,imgSizes,items,skipPreflight} x1; {_note,capture,imgSizes,items} x1",
+   "count": 4,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/46_missions_flatten.json",
+    "archive/spent-manifests/push-2026-09-09/7_readback_smoke.json",
+    "zip:24_rank_icon_swap_all31/manifest.json",
+    "zip:smoketest_pack/manifest.json"
+   ],
+   "builder": "builder_bundle.js:562",
+   "forge": "forge/src/runner/manifest.mjs:94-110 (version/note keys ignored)",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "entity:slot quest:edit",
+   "count": 113,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/46_missions_flatten.json (10)",
+    "zip:24_rank_icon_swap_all31/manifest.json (31)",
+    "archive/spent-manifests/push-2026-09-09/29_hide_not_ours.json (26)"
+   ],
+   "builder": "builder_bundle.js:688 qBad on quest",
+   "forge": "forge/src/runner/manifest.mjs:16-17 slot edit->update",
+   "evidence_tier": "Observed",
+   "note": "every quest write in the record is an edit by targetId (121 items carry targetId); zero quest:create committed"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "entity:slot asset:create",
+   "count": 26,
+   "example_files": [
+    "zip:16b_pack.IDMAP_POISONED_RUN/manifest.json (9)",
+    "zip:16c_forsworn_scene_characters_pack/manifest.json (9)",
+    "zip:21_bg_assets_and_wiring/manifest.json (8)"
+   ],
+   "builder": "builder_bundle.js:381 LIVEGET asset->gameAsset.get",
+   "forge": "forge/src/runner/recipes.mjs:27-30 asset recipe",
+   "evidence_tier": "Observed",
+   "note": "all 26 ride zip packs with @img: members"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "entity:slot gameAsset:create (misroute)",
+   "count": 9,
+   "example_files": [
+    "zip:16_forsworn_scene_characters_pack.MISROUTED/manifest.json"
+   ],
+   "builder": "builder_bundle.js:10-11 v4.31 unknown-entity guard added after this",
+   "forge": "forge/src/runner/manifest.mjs:144 unknown entity throws",
+   "evidence_tier": "Behaviour-proven",
+   "note": "harvests/inbox/tnr_results_1788118127390.json: 9 UNVERIFIED live=NONE, pushed{} is jutsu-shaped"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "entity:slot ai:edit",
+   "count": 8,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/39_pale_fang_b10_swap.json (1)",
+    "archive/spent-manifests/push-2026-09-09/42_boss_self_target_fix.json (3)",
+    "archive/spent-manifests/push-2026-09-09/45_mission_ai_self_target_fix.json (4, unrun)"
+   ],
+   "builder": "builder_bundle.js:383 ai read-back via profile.getAi",
+   "forge": "forge/src/runner/runner.mjs:498-507 follows aiProfileId",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "entity:slot jutsu:create",
+   "count": 1,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/7_readback_smoke.json"
+   ],
+   "builder": "builder_bundle.js:562",
+   "forge": "forge/src/runner/manifest.mjs:52 create needs srcId (7_readback_smoke has none -> Forge would refuse)",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "skipPreflight:true",
+   "count": 6,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/26_publish_ours.json",
+    "archive/spent-manifests/push-2026-09-09/27_scene_char_retire.json",
+    "archive/spent-manifests/push-2026-09-09/29_hide_not_ours.json",
+    "archive/spent-manifests/push-2026-09-09/30_repair_freedoms_scouting.json",
+    "archive/spent-manifests/push-2026-09-09/32_publish_witness_detail.json",
+    "zip:24_rank_icon_swap_all31/manifest.json"
+   ],
+   "builder": "builder_bundle.js:719-723 disables preflight, 13_LINT and L17 for the whole manifest",
+   "forge": "forge/src/runner/lints.mjs:8 + manifest.mjs:91: recorded, does NOT bypass",
+   "evidence_tier": "Observed",
+   "note": "needed for partial quest edits because qBad rejects a quest edit without content (state/status.json:74)"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "dedupNames:true",
+   "count": 2,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/46_missions_flatten.json",
+    "archive/spent-manifests/push-2026-09-09/7_readback_smoke.json"
+   ],
+   "builder": "builder_bundle.js:727 live getAllNames dedup; v4.32 hoisted pool resolution out of this block (:2-6)",
+   "forge": "forge/src/runner/runner.mjs:208,528-556 LIVE NAME COLLISION fails the item",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "readBack key (any value)",
+   "count": 0,
+   "example_files": [],
+   "builder": "builder_bundle.js:214,747 opt-out readBack:false honoured",
+   "forge": "forge/src/runner/manifest.mjs:80-82 refuses readBack:false on a writing manifest",
+   "evidence_tier": "Observed",
+   "note": "never used in any committed manifest"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "capture.select projection",
+   "count": 1,
+   "example_files": [
+    "push/05_aerathiel_pvp_research_stage1.json"
+   ],
+   "builder": "builder_bundle.js:355-356 capTrim, :361 select recorded on the capture",
+   "forge": "forge/src/runner/manifest.mjs:139 normalizeCapture returns only {proc,input,persist,id}: select silently dropped",
+   "evidence_tier": "Behaviour-proven",
+   "note": "harvests/inbox/tnr_results_1789188714166.json captures[0].select=[battleId,...] on combat.getBattleHistory (builder v4.32)"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "capture scope annotation",
+   "count": 0,
+   "example_files": [],
+   "builder": "builder_bundle.js:369-375 writes record fetch / FILTERED LIST / unfiltered list onto every capture",
+   "forge": "forge/src/runner/runner.mjs:589 capture entry has no scope",
+   "evidence_tier": "Behaviour-proven",
+   "note": "scope is bundle-side only; present on every builder capture (35 builder bundles), absent from all 7 forge bundles"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "zip packs (manifest.json + image members + imgSizes ledger)",
+   "count": 6,
+   "example_files": [
+    "archive/spent-manifests/16_forsworn_scene_characters_pack.MISROUTED.zip",
+    "archive/spent-manifests/16b_pack.IDMAP_POISONED_RUN.zip",
+    "archive/spent-manifests/push-2026-09-09/16c_forsworn_scene_characters_pack.zip",
+    "archive/spent-manifests/push-2026-09-09/21_bg_assets_and_wiring.zip",
+    "archive/spent-manifests/push-2026-09-09/24_rank_icon_swap_all31.zip",
+    "archive/spent-manifests/push-2026-09-09/smoketest_pack.zip"
+   ],
+   "builder": "builder_bundle.js:472-511 zipEOCD/zipList/zipRead/packVerify/loadPack",
+   "forge": "forge/src/ui/screens.mjs:145 one <input type=file accept=image/*> per @img name; no zip parsing anywhere in forge/src",
+   "evidence_tier": "Observed",
+   "note": "every asset create and the 31-quest icon swap shipped as a zip"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "imgSizes ledger",
+   "count": 6,
+   "example_files": [
+    "zip:16_forsworn_scene_characters_pack.MISROUTED/manifest.json",
+    "zip:16b_pack.IDMAP_POISONED_RUN/manifest.json",
+    "zip:16c_forsworn_scene_characters_pack/manifest.json",
+    "zip:21_bg_assets_and_wiring/manifest.json",
+    "zip:24_rank_icon_swap_all31/manifest.json",
+    "zip:smoketest_pack/manifest.json"
+   ],
+   "builder": "builder_bundle.js:722-723 L17 + :505 packVerify byte check",
+   "forge": "forge/src/runner/lints.mjs:117-122 L17 byte-entry check ported",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "capture-only manifests (zero items)",
+   "count": 21,
+   "example_files": [
+    "push/00..06 (7)",
+    "archive/spent-manifests/push-2026-09-09/17_wiring_capture.json",
+    "archive/spent-manifests/push-2026-09-09/23_our_missions_census.json",
+    "archive/spent-manifests/push-2026-09-09/43_all_mission_ai_audit.json",
+    "zip:smoketest_pack/manifest.json"
+   ],
+   "builder": "builder_bundle.js:845-853 READPROC read-only gate (Reads button)",
+   "forge": "forge/src/runner/manifest.mjs:46 allowed when captures exist",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "capture.before phase",
+   "count": 13,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/15b_isolation_reads.json",
+    "archive/spent-manifests/push-2026-09-09/17_wiring_capture.json",
+    "archive/spent-manifests/push-2026-09-09/20_bg_wiring_capture.json",
+    "archive/spent-manifests/push-2026-09-09/23_our_missions_census.json",
+    "archive/spent-manifests/push-2026-09-09/25_mission_census_probe.json",
+    "archive/spent-manifests/push-2026-09-09/28_mission_census_full.json"
+   ],
+   "builder": "builder_bundle.js:726 hoisted v4.22",
+   "forge": "forge/src/runner/runner.mjs:573 capturesBefore",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "capture.after phase",
+   "count": 23,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/18_scene_wiring.json",
+    "archive/spent-manifests/push-2026-09-09/19_blank_blanket.json",
+    "archive/spent-manifests/push-2026-09-09/26_publish_ours.json",
+    "archive/spent-manifests/push-2026-09-09/27_scene_char_retire.json",
+    "archive/spent-manifests/push-2026-09-09/29_hide_not_ours.json",
+    "archive/spent-manifests/push-2026-09-09/30_repair_freedoms_scouting.json"
+   ],
+   "builder": "builder_bundle.js:764 capsAfter",
+   "forge": "forge/src/runner/runner.mjs:573 capturesAfter",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "paged/filtered list captures with input (limit/cursor/questType/folder)",
+   "count": 5,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/17_wiring_capture.json",
+    "archive/spent-manifests/push-2026-09-09/20_bg_wiring_capture.json",
+    "archive/spent-manifests/push-2026-09-09/23_our_missions_census.json",
+    "archive/spent-manifests/push-2026-09-09/25_mission_census_probe.json",
+    "archive/spent-manifests/push-2026-09-09/28_mission_census_full.json"
+   ],
+   "builder": "builder_bundle.js:363 getRL(proc, c.input) passes any input",
+   "forge": "forge/src/budget/reader.mjs:73-76 list() throws for anything but getAllNames/getAllAiNames; runner.mjs:582 derives only input.id/userId, so a list input is never sent",
+   "evidence_tier": "Behaviour-proven",
+   "note": "bundles 1788120244483, 1788127352899, 1788134455342, 1788136217543, 1788136356379 carry quests.getAll{questType,limit,cursor} and gameAsset.getAll{limit,cursor|folder} pages with data; 1788104822853 adds gameAsset.getAllFolders"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "item-level phase number",
+   "count": 0,
+   "example_files": [],
+   "builder": "builder_bundle.js:616 PHR default order, numeric phase override",
+   "forge": "forge/src/runner/manifest.mjs:162,193 numeric phase honoured",
+   "evidence_tier": "Observed",
+   "note": "never used in any committed manifest"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "@img: refs",
+   "count": 5,
+   "example_files": [
+    "zip:16_forsworn_scene_characters_pack.MISROUTED/manifest.json",
+    "zip:16b_pack.IDMAP_POISONED_RUN/manifest.json",
+    "zip:16c_forsworn_scene_characters_pack/manifest.json",
+    "zip:21_bg_assets_and_wiring/manifest.json",
+    "zip:24_rank_icon_swap_all31/manifest.json"
+   ],
+   "builder": "builder_bundle.js:537 IMGRE, :509 idmap|filemap resolution",
+   "forge": "forge/src/runner/refs.mjs:9 REF_RE includes img; runner.mjs:382,681 needs a picked File",
+   "evidence_tier": "Observed",
+   "note": "66 occurrences"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "@scene: refs",
+   "count": 1,
+   "example_files": [
+    "zip:21_bg_assets_and_wiring/manifest.json"
+   ],
+   "builder": "builder_bundle.js:139 @scene validated in preflight",
+   "forge": "forge/src/runner/refs.mjs:9 scene prefix",
+   "evidence_tier": "Observed",
+   "note": "112 occurrences, all in one pack (quest edits wiring sceneBackground/sceneCharacters to asset creates in the same zip)"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "@jutsu: / @ai: / @item: / @quest: / @bloodline: refs",
+   "count": 0,
+   "example_files": [],
+   "builder": "builder_bundle.js:138-139,172-174",
+   "forge": "forge/src/runner/refs.mjs:9",
+   "evidence_tier": "Observed",
+   "note": "no committed manifest uses any of these prefixes; the pyramid (jutsu->ai->quest) is documented but unexercised in committed evidence"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "capture.persist:\"full\"",
+   "count": 3,
+   "example_files": [
+    "push/02_one_perfect_crop_asset_probe.json",
+    "push/03_tnr_art_style_reference_capture.json",
+    "push/04_one_perfect_crop_bandit_ai_probe.json"
+   ],
+   "builder": "builder always stores capture data (builder_bundle.js:365); no persist key",
+   "forge": "forge/src/runner/manifest.mjs:124-138 allowlist forge/src/storage/captures.mjs:58-66 (7 point reads), needs input.id/userId; ceiling 512KB captures.mjs:84",
+   "evidence_tier": "Behaviour-proven",
+   "note": "bundles 1789060167786 (5/5), 1789061570022 (18/18), 1789124514980 (5/5 incl. 3 null bodies)"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "capture entry _name label",
+   "count": 1,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/15b_isolation_reads.json"
+   ],
+   "builder": "ignored",
+   "forge": "ignored (manifest.mjs:139 drops)",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "item srcId",
+   "count": 4,
+   "example_files": [
+    "zip:16_forsworn_scene_characters_pack.MISROUTED/manifest.json",
+    "zip:16b_pack.IDMAP_POISONED_RUN/manifest.json",
+    "zip:16c_forsworn_scene_characters_pack/manifest.json",
+    "zip:21_bg_assets_and_wiring/manifest.json"
+   ],
+   "builder": "builder_bundle.js:562 key:j.srcId",
+   "forge": "forge/src/runner/manifest.mjs:52 required on create",
+   "evidence_tier": "Observed",
+   "note": "35 items; all other items are edits keyed by targetId"
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "_note / note / version top-level keys",
+   "count": 15,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/15b_isolation_reads.json",
+    "archive/spent-manifests/push-2026-09-09/17_wiring_capture.json",
+    "archive/spent-manifests/push-2026-09-09/20_bg_wiring_capture.json",
+    "archive/spent-manifests/push-2026-09-09/7_readback_smoke.json",
+    "archive/spent-manifests/push-2026-09-09/46_missions_flatten.json (note+version)"
+   ],
+   "builder": "ignored",
+   "forge": "manifest.mjs:96 note kept; version ignored",
+   "evidence_tier": "Observed",
+   "note": ""
+  },
+  {
+   "kind": "manifest-feature-usage",
+   "feature": "generator scripts (*.gen.py) that read captures[].data from an inbox bundle to emit a manifest",
+   "count": 23,
+   "example_files": [
+    "archive/spent-manifests/push-2026-09-09/24_rank_icon_swap_all31.gen.py (reads tnr_results_1788134455342 quests.get data)",
+    "archive/spent-manifests/push-2026-09-09/46_missions_flatten.gen.py (reads tnr_results_1788136356379 quests.getAll data)",
+    "archive/spent-manifests/push-2026-09-09/23_our_missions_census.gen.py"
+   ],
+   "builder": "builder writes data on every capture (builder_bundle.js:365)",
+   "forge": "forge summary captures carry no data; full bodies only for 7 point reads (captures.mjs:58-66)",
+   "evidence_tier": "Observed",
+   "note": "the census->generate->push loop depends on bundle bodies from paged list reads"
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "ai.getAiProfile",
+   "manifest_captures": 28,
+   "manifest_files": [
+    "archive/spent-manifests/push-2026-09-09/38_pale_fang_profile_capture.json",
+    "archive/spent-manifests/push-2026-09-09/39_pale_fang_b10_swap.json",
+    "archive/spent-manifests/push-2026-09-09/41_boss_rule_chains.json",
+    "archive/spent-manifests/push-2026-09-09/42_boss_self_target_fix.json",
+    "archive/spent-manifests/push-2026-09-09/44_all_mission_ai_chains.json",
+    "archive/spent-manifests/push-2026-09-09/45_mission_ai_self_target_fix.json"
+   ],
+   "bundle_captures": 24,
+   "in_forge_registry": true,
+   "forge_runnable_as_capture": "yes (procedures.mjs:24-68)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "protectedProcedure ai.ts:21 (head) / :20 (pin)",
+   "evidence_tier": "Source-verified",
+   "note": ""
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "badge.getAll",
+   "manifest_captures": 0,
+   "manifest_files": [],
+   "bundle_captures": 0,
+   "in_forge_registry": false,
+   "forge_runnable_as_capture": "no: procedure() throws unknown procedure (forge/src/transport/procedures.mjs:70-73)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "publicProcedure badge.ts:32 (head) / :25 (pin)",
+   "evidence_tier": "Source-verified",
+   "note": "mentioned in task brief; never used in any committed manifest or bundle"
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "combat.getBattleEntries",
+   "manifest_captures": 43,
+   "manifest_files": [
+    "push/06_aerathiel_pvp_battle_logs.json"
+   ],
+   "bundle_captures": 43,
+   "in_forge_registry": false,
+   "forge_runnable_as_capture": "no: procedure() throws unknown procedure (forge/src/transport/procedures.mjs:70-73)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "protectedProcedure combat.ts:383 (head) / :382 (pin)",
+   "evidence_tier": "Source-verified",
+   "note": ""
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "combat.getBattleHistory",
+   "manifest_captures": 1,
+   "manifest_files": [
+    "push/05_aerathiel_pvp_research_stage1.json"
+   ],
+   "bundle_captures": 1,
+   "in_forge_registry": false,
+   "forge_runnable_as_capture": "no: procedure() throws unknown procedure (forge/src/transport/procedures.mjs:70-73)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "protectedProcedure combat.ts:531 (head 36c5873b) / :530 (pin 345d18ac)",
+   "evidence_tier": "Source-verified",
+   "note": ""
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "gameAsset.get",
+   "manifest_captures": 23,
+   "manifest_files": [
+    "push/02_one_perfect_crop_asset_probe.json",
+    "push/03_tnr_art_style_reference_capture.json"
+   ],
+   "bundle_captures": 23,
+   "in_forge_registry": true,
+   "forge_runnable_as_capture": "yes (procedures.mjs:24-68)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "in audited crud surface (procedures.mjs header :1-4)",
+   "evidence_tier": "Behaviour-proven",
+   "note": ""
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "gameAsset.getAll",
+   "manifest_captures": 3,
+   "manifest_files": [
+    "archive/spent-manifests/push-2026-09-09/17_wiring_capture.json",
+    "archive/spent-manifests/push-2026-09-09/20_bg_wiring_capture.json",
+    "archive/spent-manifests/push-2026-09-09/23_our_missions_census.json"
+   ],
+   "bundle_captures": 5,
+   "in_forge_registry": true,
+   "forge_runnable_as_capture": "in registry but reader.mjs:76 refuses list() for non-Names paths: NOT runnable as a manifest capture",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "in audited crud surface (procedures.mjs header :1-4)",
+   "evidence_tier": "Behaviour-proven",
+   "note": ""
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "gameAsset.getAllFolders",
+   "manifest_captures": 0,
+   "manifest_files": [],
+   "bundle_captures": 1,
+   "in_forge_registry": false,
+   "forge_runnable_as_capture": "no: procedure() throws unknown procedure (forge/src/transport/procedures.mjs:70-73)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "publicProcedure asset.ts:89 (head) / :83 (pin)",
+   "evidence_tier": "Source-verified",
+   "note": ""
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "gameAsset.getSceneAssets",
+   "manifest_captures": 0,
+   "manifest_files": [],
+   "bundle_captures": 0,
+   "in_forge_registry": false,
+   "forge_runnable_as_capture": "no: procedure() throws unknown procedure (forge/src/transport/procedures.mjs:70-73)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "publicProcedure asset.ts:145 (head) / :139 (pin)",
+   "evidence_tier": "Source-verified",
+   "note": "mentioned in task brief; never used in any committed manifest or bundle"
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "jutsu.get",
+   "manifest_captures": 16,
+   "manifest_files": [
+    "archive/spent-manifests/push-2026-09-09/36_pale_fang_capture.json",
+    "push/05_aerathiel_pvp_research_stage1.json"
+   ],
+   "bundle_captures": 16,
+   "in_forge_registry": true,
+   "forge_runnable_as_capture": "yes (procedures.mjs:24-68)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "in audited crud surface (procedures.mjs header :1-4)",
+   "evidence_tier": "Behaviour-proven",
+   "note": ""
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "jutsu.getAllNames",
+   "manifest_captures": 3,
+   "manifest_files": [
+    "archive/spent-manifests/push-2026-09-09/7_readback_smoke.json",
+    "archive/spent-manifests/push-2026-09-09/8_reads_names.json",
+    "push/00_forge_readonly_smoke.json"
+   ],
+   "bundle_captures": 4,
+   "in_forge_registry": true,
+   "forge_runnable_as_capture": "yes (procedures.mjs:24-68)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "in audited crud surface (procedures.mjs header :1-4)",
+   "evidence_tier": "Behaviour-proven",
+   "note": ""
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "profile.getAi",
+   "manifest_captures": 26,
+   "manifest_files": [
+    "archive/spent-manifests/push-2026-09-09/36_pale_fang_capture.json",
+    "archive/spent-manifests/push-2026-09-09/39_pale_fang_b10_swap.json",
+    "archive/spent-manifests/push-2026-09-09/40_a_rank_boss_audit.json",
+    "archive/spent-manifests/push-2026-09-09/43_all_mission_ai_audit.json",
+    "push/04_one_perfect_crop_bandit_ai_probe.json"
+   ],
+   "bundle_captures": 36,
+   "in_forge_registry": true,
+   "forge_runnable_as_capture": "yes (procedures.mjs:24-68)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "protectedProcedure profile.ts:1122 (head) / :1121 (pin)",
+   "evidence_tier": "Source-verified",
+   "note": ""
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "profile.getPublicUsers",
+   "manifest_captures": 0,
+   "manifest_files": [],
+   "bundle_captures": 0,
+   "in_forge_registry": false,
+   "forge_runnable_as_capture": "no: procedure() throws unknown procedure (forge/src/transport/procedures.mjs:70-73)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "publicProcedure profile.ts:2128 (head) / :2127 (pin)",
+   "evidence_tier": "Source-verified",
+   "note": "mentioned in task brief; never used in any committed manifest or bundle"
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "quests.get",
+   "manifest_captures": 150,
+   "manifest_files": [
+    "archive/spent-manifests/push-2026-09-09/15b_isolation_reads.json",
+    "archive/spent-manifests/push-2026-09-09/17_wiring_capture.json",
+    "archive/spent-manifests/push-2026-09-09/18_scene_wiring.json",
+    "archive/spent-manifests/push-2026-09-09/19_blank_blanket.json",
+    "archive/spent-manifests/push-2026-09-09/20_bg_wiring_capture.json",
+    "archive/spent-manifests/push-2026-09-09/23_our_missions_census.json"
+   ],
+   "bundle_captures": 153,
+   "in_forge_registry": true,
+   "forge_runnable_as_capture": "yes (procedures.mjs:24-68)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "in audited crud surface (procedures.mjs header :1-4)",
+   "evidence_tier": "Behaviour-proven",
+   "note": ""
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "quests.getAll",
+   "manifest_captures": 6,
+   "manifest_files": [
+    "archive/spent-manifests/push-2026-09-09/25_mission_census_probe.json",
+    "archive/spent-manifests/push-2026-09-09/28_mission_census_full.json"
+   ],
+   "bundle_captures": 6,
+   "in_forge_registry": true,
+   "forge_runnable_as_capture": "in registry but reader.mjs:76 refuses list() for non-Names paths and runner.mjs:582 drops list input: NOT runnable as a manifest capture",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "in audited crud surface (procedures.mjs header :1-4)",
+   "evidence_tier": "Behaviour-proven",
+   "note": ""
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "quests.getAllNames",
+   "manifest_captures": 3,
+   "manifest_files": [
+    "archive/spent-manifests/push-2026-09-09/8_reads_names.json",
+    "push/00_forge_readonly_smoke.json",
+    "zip:smoketest_pack/manifest.json"
+   ],
+   "bundle_captures": 6,
+   "in_forge_registry": true,
+   "forge_runnable_as_capture": "yes (procedures.mjs:24-68)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "in audited crud surface (procedures.mjs header :1-4)",
+   "evidence_tier": "Behaviour-proven",
+   "note": ""
+  },
+  {
+   "kind": "proc-usage",
+   "proc": "village.getAllNames",
+   "manifest_captures": 0,
+   "manifest_files": [],
+   "bundle_captures": 0,
+   "in_forge_registry": false,
+   "forge_runnable_as_capture": "no: procedure() throws unknown procedure (forge/src/transport/procedures.mjs:70-73)",
+   "builder_gate": "passes READPROC /^[A-Za-z]+\\.(get...|list...)$/ builder_bundle.js:845",
+   "source": "publicProcedure village.ts:65 (head) / :64 (pin)",
+   "evidence_tier": "Source-verified",
+   "note": "mentioned in task brief; never used in any committed manifest or bundle"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "builder preflight: qBad() must skip the flow/objectives checks for a quest entry with slot edit/convert that carries no 'content' (mirror the validate.py fix). Until then every partial quest edit needs skipPreflight, which disables enum and bounds checking for the whole manifest",
+   "where": "state/status.json:74 (open_by_owner.claude); state/active-context.md:19; builder_bundle.js:596 qBad pushes 'no objectives'",
+   "tool": "builder",
+   "evidence_tier": "Observed",
+   "impact": "6 committed manifests carry skipPreflight:true for exactly this reason (26,27,29,30,32,24.zip); Forge lints.mjs:8 never honours the flag, so parity depends on whether Forge lints reject a content-less quest edit (not verified here)"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "VM REFRESH to builder v4.32 - loader @version is 4.32 so ViolentMonkey will refetch. Panel title must read v4.32 + cfg generated. Until then you are running v4.31.",
+   "where": "state/status.json:56 (open_by_owner.dauntless); state/active-context.md:18",
+   "tool": "builder",
+   "evidence_tier": "Observed",
+   "impact": "version drift on device is an operator-visible step; bundle stamps builder version (v4.32 TNR-02, builder_bundle.js header) so harvests prove which build ran"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "harvest.py verify: an `ai` edit carrying rules/includeDefaultRules is read back with profile.getAi and always reports those fields missing. Verification for those two fields must follow aiProfileId to ai.getAiProfile, or they must be excluded from the asserted-field set and verified from capture.after instead",
+   "where": "state/status.json:77; state/active-context.md:19",
+   "tool": "builder+harvest.py",
+   "evidence_tier": "Behaviour-proven",
+   "impact": "harvests/inbox/tnr_results_1788204066957.json and tnr_results_1788209137361.json: postflight match but asserted FAIL missing:rules missing:includeDefaultRules; harvest.py verify prints VERIFY FAILED on both. Forge runner.mjs:498-507 follows aiProfileId in-runner, but no Forge write bundle exists to prove harvest.py accepts it"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "After the push/46 tap: harvest.py verify the read-back, per-entry json.success, and confirm the start_battle node round-trips. A push echo is not a read-back.",
+   "where": "state/status.json:64; state/active-context.md:19",
+   "tool": "workflow",
+   "evidence_tier": "Observed",
+   "impact": "the verify gate is manual (session_open.py:78 only prints the newest bundle name and asks for harvest.py verify)"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "session_open.py does NOT run selfcheck.py - I have been reporting 'guards green' with that gate unrun. Wire it in.",
+   "where": "state/active-context.md:19",
+   "tool": "workflow",
+   "evidence_tier": "Observed",
+   "impact": "gate coverage gap independent of tool"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "TRAP: push/34_old_ghost_prose.json and push/35_tenth_name_prose.json are still unrun and carry the 47-node and 36-node versions. Tapping either AFTER push/46 re-inflates those two missions. Retire them or leave them alone.",
+   "where": "state/active-context.md:18",
+   "tool": "builder picker",
+   "evidence_tier": "Observed",
+   "impact": "push/ is a flat picker with no ordering/supersession guard; push/README.md says spent manifests must be archived by hand"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "2026-08-30 WEDGE RESOLVED: builder isLim text-sniffed limiter phrases in record bodies; Waystation 'too many', Protection 'slow down', Loud Way 'too many' retried forever on every read. v4.30 gates sniff to error status + short body.",
+   "where": "state/status.json:22; builder_bundle.js:263 isLim; :12 v4.30 note",
+   "tool": "builder",
+   "evidence_tier": "Observed",
+   "impact": "residual: state/status.json wedge.residual_open says quest.get on The Waystation freezing pre-patch is UNCONFIRMED fixed"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "builder v4.32: TNR-01 pool-resolution + stuck-guard hoisted out of if(dedupNames) to build-body level, placed BEFORE image upload so a bad manifest fails before an irreversible side effect",
+   "where": "state/status.json:44; builder_bundle.js:2-6; state/active-context.md:23 (SYNDICATE THIEF EMPTY KIT)",
+   "tool": "builder",
+   "evidence_tier": "Observed",
+   "impact": "Forge resolves pool codes at parse time (manifest.mjs:57-72)"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "v4.31: unknown-entity guard - an entity string with no route hard-fails the entry instead of silently running the jutsu fallback (push/16 misroute: 'gameAsset' created 9 junk jutsu).",
+   "where": "builder_bundle.js:10-11; harvests/inbox/tnr_results_1788118127390.json (9 UNVERIFIED live=NONE)",
+   "tool": "builder",
+   "evidence_tier": "Behaviour-proven",
+   "impact": "the misrouted pack is preserved as archive/spent-manifests/16_forsworn_scene_characters_pack.MISROUTED.zip; 16b is labelled IDMAP_POISONED_RUN"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "CLAUDE CODE LANE: ... Manifests, live-state reasoning, design and prose stay in chat, because it has no game access and cannot capture or push.",
+   "where": "state/status.json:11 (ruled_this_session)",
+   "tool": "workflow",
+   "evidence_tier": "Observed",
+   "impact": "every capture in the record was triggered by the operator on device; there is no non-device read path"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "answers/names_* are SEED-sourced; inbox captures are not folded until WO-08 hot-shard work - recent creates absent from answers by design; builder dedupNames (live getAllNames at build) stays the naming authority",
+   "where": "state/status.json:140 (board_unchanged)",
+   "tool": "builder",
+   "evidence_tier": "Observed",
+   "impact": "harvests/seed/4x_INDEX_*.json _freshness says newest_record unknown for jutsu/item/ai/quest"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "THE OBSERVED DEFECT (harvests/inbox/tnr_results_17890671*.json): five protected reads came back UNAUTHORIZED, each was journaled as an ordinary failed read, the pass ran to the end and the job reported 0/5 full bodies persisted",
+   "where": "forge/src/runner/runner.mjs:583-588; bundles tnr_results_1789066888093.json and tnr_results_1789067111434.json (outcome failed, error UNAUTHORIZED x5 each)",
+   "tool": "forge",
+   "evidence_tier": "Behaviour-proven",
+   "impact": "fixed by 0.4.0 auth gate: tnr_results_1789124514980.json succeeds on the same manifest"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "Read-only Old Ghost prose-format capture ... Captures the full live quest record so dialog HTML, paragraph breaks, italics, quotes, choice text, and scene formatting can be inspected verbatim.",
+   "where": "push/01_old_ghost_format_capture.json _note; harvests/inbox/tnr_results_1789054354501.json captures[0] = {ok:true, rows:1} with no data; harvest.py get -> 'quests.get not in this capture'",
+   "tool": "forge",
+   "evidence_tier": "Behaviour-proven",
+   "impact": "forge 0.2.1 summary mode could not deliver the stated purpose; persist:full arrived in 0.3.0 (push/02 onward)"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "profile.getAi returned null for 3 of 5 probed userIds; forge 0.4.0 recorded ok:true rows:0 bytes:4 persistOk:true and outcome success",
+   "where": "harvests/inbox/tnr_results_1789124514980.json captures[0,1,3]; push/04_one_perfect_crop_bandit_ai_probe.json",
+   "tool": "forge",
+   "evidence_tier": "Behaviour-proven",
+   "impact": "a missing record reads as a persisted success; harvest.py index shows rows - for those three"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "idmap key 'undefined' -> 0QixZN9jD_bqAKTimDafB",
+   "where": "harvests/inbox/tnr_results_1788061342415.json idmap; archive/spent-manifests/push-2026-09-09/7_readback_smoke.json item has no srcId",
+   "tool": "builder",
+   "evidence_tier": "Behaviour-proven",
+   "impact": "builder keys idmap by srcId without checking it exists; the poisoned key is still carried in every later bundle idmap (80 entries by 1788235395095); Forge manifest.mjs:52 refuses a create without srcId"
+  },
+  {
+   "kind": "pain-point",
+   "quote": "Freedom's Scouting Party [hide B] ... full-record diff:3: server rewrote unasserted fields (content.objectives[0].opponent_name Forbidden Sorcerer->undefined; attackers_chance 0->undefined)",
+   "where": "harvests/inbox/tnr_results_1788136975366.json entries[10]; repaired by archive/spent-manifests/push-2026-09-09/30_repair_freedoms_scouting.json",
+   "tool": "builder",
+   "evidence_tier": "Behaviour-proven",
+   "impact": "a hidden-flag partial edit under skipPreflight let the server drop objective fields; the asserted verdict was OK, only the secondary full-record diff caught it"
+  }
+ ],
+ "notes": [
+  "HEADLINE: no Forge write has ever been committed. All 7 Forge bundles (harvests/inbox/tnr_results_1789049377316..1789124514980) are capture-only with entries:[] and checks:null (forge/src/ui/app.mjs:382); every one of the 113 quest edits, 26 asset creates, 8 ai edits and 1 jutsu create in the record was pushed by builder v4.28-v4.32. Forge write parity is untested by real content.",
+  "Real work reads procedures outside Forge's registry: push/05_aerathiel_pvp_research_stage1.json (combat.getBattleHistory, protectedProcedure combat.ts:531 head) and push/06_aerathiel_pvp_battle_logs.json (43x combat.getBattleEntries, combat.ts:383) ran on builder v4.32 on 2026-09-12 (bundles 1789188714166, 1789189076617 = 1.6MB of battle logs). Forge procedure() throws for both (forge/src/transport/procedures.mjs:70-73); builder's only gate is READPROC /^x.(get|list)\u2026$/ (builder_bundle.js:845). gameAsset.getAllFolders (asset.ts:89) is likewise used once (bundle 1788104822853) and absent from the registry.",
+  "Real work needs paged/filtered list captures with input: quests.getAll {questType:'mission',limit,cursor} and gameAsset.getAll {limit:500,cursor:0} / {limit:100,folder:'forsworn'} appear in 5 archived manifests (17,20,23,25,28) and 6 bundles (1788104822853, 1788120244483, 1788127352899, 1788134455342, 1788136217543, 1788136356379). Forge reader.list() throws for any non-Names path (forge/src/budget/reader.mjs:73-76) and runner.mjs:582 derives only input.id/userId, so a list input is never sent. These captures fed the generator scripts (24_rank_icon_swap_all31.gen.py reads tnr_results_1788134455342; 46_missions_flatten.gen.py reads tnr_results_1788136356379).",
+  "Real work needs capture bodies in the bundle for every read: builder writes data on every capture (builder_bundle.js:365) and the 23 *.gen.py generators consume captures[].data. Forge summary mode carries only {phase,proc,input,ok,rows,error} (runner.mjs:589); bodies exist only with persist:'full' on 7 point-read paths (forge/src/storage/captures.mjs:58-66) under a 512KB ceiling (captures.mjs:84). push/01 proves the gap: purpose 'inspect dialog HTML verbatim', bundle 1789054354501 has no body.",
+  "Real work uses `select` projection (push/05 select on combat.getBattleHistory; bundle 1789188714166 captures[0].select) and depends on the builder's scope annotation ('FILTERED LIST: \u2026 Absence from this result is NOT evidence', builder_bundle.js:369-375). Forge drops select at normalizeCapture (manifest.mjs:139) and writes no scope.",
+  "Real work ships images as zip packs with an imgSizes ledger: 6 zips (all 26 asset creates + the 31-quest rank-icon swap + smoketest). builder_bundle.js:472-511 parses the zip in-page; Forge has one per-file <input type=file> per @img name (forge/src/ui/screens.mjs:145) and no zip reader.",
+  "Real work relies on skipPreflight to get partial quest edits past qBad (6 manifests; state/status.json:74). Forge records the flag but never disables lints (lints.mjs:8, manifest.mjs:91); whether Forge's own lints admit a content-less quest edit is not proven by any committed bundle (Inferred gap).",
+  "Verification pain the record proves: ai edits with rules always FAIL harvest.py verify on builder bundles (1788204066957, 1788209137361; status.json:77); asset creates under the misrouted entity name were 9x UNVERIFIED (1788118127390); a skipPreflight hidden-flag edit let the server drop objective fields (1788136975366 diff:3). Forge fixes the ai-rules read-back in-runner (runner.mjs:498-507) but harvest.py has never ingested a Forge write bundle.",
+  "Forge-specific defects proven by bundles: 5x UNAUTHORIZED on protected reads twice on 0.3.0 (1789066888093, 1789067111434; fixed 0.4.0 in 1789124514980), and 0.4.0 reporting success with persistOk:true for three null profile.getAi bodies (1789124514980).",
+  "Counts: harvests/inbox holds 42 bundles (35 builder v4.27-v4.32, 7 forge 0.2.1-0.4.0), not 30. Manifests: push/ 7 json; archive/spent-manifests 28 json + 6 zip + 23 gen.py = 57 files; 41 manifests total. @ref prefixes used: @img: (66, 5 packs) and @scene: (112, one pack) only; readBack, numeric phase, @jutsu/@ai/@item/@quest/@bloodline refs and quest:create never appear.",
+  "All bundle inspection was read-only over committed files with python3 json; harvest.py index/get/verify were run locally over inbox bundles; no live host was contacted and no game source was executed. Line numbers were read with sed -n/grep -n on /home/user/tnr-tools at cbb49bae (planning branch; harvests/, push/, archive/, forge/, builder_bundle.js identical to main 305a28f9 per git diff --stat)."
+ ],
+ "file_written": "/tmp/claude-0/-home-user-tnr-tools/e5692b10-4df8-5a1d-ae0b-15d8b552161e/scratchpad/deepdive/harvest-evidence.json",
+ "provenance": {
+  "repository": "perseverance484/tnr-tools main@305a28f992e33194fbba279a3f32e698dfb2b67f",
+  "game_source": {
+   "forge_pin": "345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9",
+   "head": "36c5873b7b6ee5fd3af717008d7c51b0f185b756",
+   "task_pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9"
+  },
+  "produced_by": "forge-next-deep-dive workflow reader (read-only; zero live requests; nothing executed from the game source)",
+  "note": "Evidence, not automatic truth (docs/00_INDEX.md): rows carry cites and tiers; inspect the producer when correctness depends on them."
+ }
+}
