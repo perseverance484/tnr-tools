@@ -409,7 +409,7 @@ S.append({"id": "wf13_publish_confirm", "title": "Publish: PUBLISH mode and conf
  "notes": ["Publish is a whole-record update carrying hidden:false for jutsu/item/bloodline/quest/gameAsset; guides use published; AI has no hidden column (E). The band and the sheet say which.",
            "The Confirm control is disabled for ~600 ms after the sheet appears (arming delay) and until the K-12 level is met; 'Deploy' is never used.",
            "Publication is distinct from technical success: PUBLISH SENT stays unconfirmed until the read-back proves hidden:false (SSC §11)."],
- "pending": ["K-07 which operations are eligible for few-tap publish", "K-12 confirmation level and wording (pending predecessor-transcript reconciliation)", "K-30 late publish visuals", "K-22 gold token"],
+ "pending": ["K-55 whether the admin performs the publish act at all, or records a go-ahead the user acts on (the doctrine reserves the act)", "K-07 which operations are eligible for few-tap publish", "K-12 confirmation level and wording (pending predecessor-transcript reconciliation)", "K-30 late publish visuals", "K-22 gold token"],
  "cites": ["deepdive game-routers-* (hidden flipped only by full-record update mutations)", "D2.3 ConfirmationSurface, ModeBand", "SSC §11; IRM publish rows; CPY §15"]})
 # ------------------------------------------------------------ WF-14
 S.append({"id": "wf14_quest_studio", "title": "Quest Studio: subtype, storyboard, compile result", "purpose": "One Studio with subtype adapters (RUL-2026-09-12-001). The browser translates and presents; the repository compiles (RUL-2026-09-12-002). Compile is not execution.",
