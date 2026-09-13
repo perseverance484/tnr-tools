@@ -200,6 +200,53 @@ adopted sheet outlives the overlay and a bare `body`/`*`/`button` rule would res
 and keep restyling it after Forge is closed. Closing Forge disarms the tab, removes the overlay,
 restores the carrier's scroll and disconnects the old-builder observer.
 
+**Carrier readiness (0.4.1, `state/prompt_forge_disappearing_overlay.md`).** Body existing is
+not body being safe to append to. On production 0.4.0 showed its splash, handed off, and the
+overlay vanished, leaving the plain game, repeatably. Root cause, reproduced against
+`react-dom@19.2.8` (the version `app/package.json` pins at `98d0eca5`) in
+`forge/test/carrier.react.test.mjs`: `app/src/app/layout.tsx` renders `<html>` and `<body>` as
+React elements, so Next hydrates the whole document, and a `document-start` mount lands in `<body>`
+before the game's JavaScript has run. React 19 treats `<body>` as a singleton scope in which a
+foreign child whose tag does not match the next expected element is skipped, but one whose tag
+DOES match is claimed (`canHydrateInstance` with `inRootOrSingleton`). Forge's host is a `<div>`
+and the game's first React `<div>` is the layout shell, so when the host lands ahead of it React
+claims the host as the shell, its children fail to match, hydration throws, and the recovery
+client-renders the root: `clearContainerSparingly()` removes every body child that is not a
+`<script>`, `<style>` or stylesheet `<link>`, and `acquireSingletonInstance()` strips the body's
+attributes (the scroll lock among them). The overlay was mounted and then reconciled away; a host
+appended before the first `<script>`, or after everything, survives, which is why it was a timing
+defect rather than a constant one. The same `router.push("/profile")` navigation re-renders inside
+the shell and never touches a body child Forge owns.
+
+`bootHost()` therefore waits twice. `whenBodyReady()` is unchanged; `whenCarrierReady()` then waits
+for the carrier's framework to have taken ownership of `<body>`: `react-dom` stamps every node it
+hydrates or creates with an own property named `__reactFiber$<key>` (and `__reactProps$<key>`,
+`ReactDOMComponentTree`'s `internalInstanceKey`, present in react-dom 17, 18 and 19), the stamp on
+`<body>` lands when React completes the body element, and the container is cleared at most once,
+on the root's first commit, so a node appended after the stamp is outside anything React will
+reconcile. `carrierHydrated()` reads property NAMES only. The fallback signal, accepted only if
+that stamp never appears, is the page's own runtime having settled (`window.Clerk.loaded`, which
+requires ClerkProvider's client code to have run) on a fully loaded document; it is not equated
+with DOM stability. The wait samples (a `MutationObserver`, `readystatechange`/`load`, and a 50 ms
+interval, because a property is invisible to a DOM observer), writes nothing, and gives up only
+15 s AFTER the document is complete, recording why in the arm marker rather than mounting into a
+page hydration would clear.
+
+The hop counter resets at the stable-mounted condition, checked after the mount rather than
+assumed: the host is attached and the carrier still reads ready. A host that never gets there
+leaves the counter as the entry left it, so a vanishing overlay can no longer turn `/forge` into
+an endless loop that looks like success. `mountHost()` also watches for loss (its body observer
+sees the host removed; a second observer sees `<body>` itself replaced), disconnecting both before
+it reports so a loss is reported once and `release()` never fights it. On the first loss Forge
+waits for readiness again and re-homes the SAME `App` root into a new host, keeping its state; on
+a second loss it stops, sets the counter to `MAX_HOPS` and records the reason, so the next `/forge`
+in that tab shows "could not stay on the game page" with the reason and disarms. No third attempt.
+Close disconnects the watchers first, then removes the host, restores scrolling and disarms. The
+arm marker still holds a boolean, a hop count and, after a failure, one line of diagnostic; no
+auth material. `forge/test/carrier.test.mjs` drives every step through the shipped `boot()`
+against a fake calibrated to the real reconciler (`forge/test/carrier.mjs`); `react` and
+`react-dom` are dev dependencies for the reproduction only and are not in the bundle.
+
 ## Auth health: two signals, no credential material
 
 `src/transport/auth.mjs` holds one of four states (`unknown`, `probing`, `ready`, `signed_out`)

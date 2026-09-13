@@ -9,6 +9,7 @@
 // @run-at       document-start
 // @updateURL    https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js
 // @downloadURL  https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js
+// @x-release-pending 0.4.1
 // @require      https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@ce603def204f585d23837121b86cfdd9fd4c308c/forge_bundle.js
 // ==/UserScript==
 // Open https://www.theninja-rpg.com/forge while logged in. That entry is unchanged, but since
@@ -16,7 +17,10 @@
 // global-not-found.tsx with NO ClerkProvider and NO tRPC provider, so a Clerk session cannot
 // live there and every protectedProcedure answered UNAUTHORIZED. The bundle now stops that page,
 // arms this tab, and hands off to a normal game route, where it mounts as an overlay on top of
-// the running app with the provider tree left intact underneath.
+// the running app with the provider tree left intact underneath. Since 0.4.1 the overlay is
+// appended only once the game has hydrated the document (React owns <body> there): an overlay
+// appended earlier was claimed by hydration and cleared with the rest of body when React fell
+// back to a client render, which is why 0.4.0 showed the splash and then the plain game.
 //
 // @match therefore covers the whole game origin, exactly as the old builder loader does: the
 // carrier route is not fixed in advance (the app may redirect a signed-in operator elsewhere),
