@@ -8,11 +8,15 @@
 
 **Reconciliation rows applied.** U-J-01 (retirement gates gain a research-read tier, ingress parity including local zip packs and Studio-branch manifests, and the R-19 parity-guard fix; the Builder read path stays until the research tier lands) is applied in §J.1 rows G-11 to G-13, §J.2 stage 2 and §J.7. U-J-02 (additive journal v2 for sync state and Studio records, fixtures from real exported journals, readable-or-refused by the previous version) is applied in §J.3.
 
+**Evidence tiers.** Claims here carry the tiers `docs/00_INDEX.md` defines. Source-verified means a line of code or committed text was read for this section. Behaviour-proven means a committed artefact records the behaviour. Observed means a count or listing taken from the repository. Inferred marks anything that would need a real browser, a real device or an external service to confirm, and no tier is upgraded anywhere below. The two Inferred claims in this section are named in place: that an installed pinned loader keeps working after its bundle leaves `main` (§J.2 stage 5) and that persistent storage is actually granted on the operator's browser (§J.3).
+
 **Abbreviations.** `SSC` = `docs/design/FORGE_NEXT_SAFETY_STATE_PRESENTATION_CONTRACT.md`, `CPY` = `docs/design/FORGE_NEXT_UI_COPY_AND_STATE_LANGUAGE.md`, `RB` = `docs/design/FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md`, each at `chatgpt/forge-quest-studio-foundation@824c4d58` and cited as `ABBR:line`. Files that exist only on that branch carry the prefix `824c4d58:`. Unprefixed `forge/src/*`, `skills/*`, `.github/*` paths are `main@305a28f`.
 
 ## J.1 Retirement gates
 
 G-01 to G-10 are `B_PARITY_MATRIX.md` §B.4's gates and keep their ids, wording and owners there. G-11 to G-13 are added by this section because the parity matrix's rows do not cover them: a capability row cannot carry the persistence tier that research reads land in, the ingress surface as a whole, or a repository guard that breaks on Forge output. The phase column is the earliest phase in which the gate can honestly be measured, derived from the decision that blocks it in `K_USER_DECISIONS.md`; section G owns the final placement and may only tighten it.
+
+Owners are not repeated here either. `B_PARITY_MATRIX.md` §B.4 records them, and the pattern holds for the three new rows: Fable measures every Lane A clause, the director owns the G-10 ruling, and any clause that needs a real device or a real live tap belongs to the operator.
 
 | Gate | What must be true | Measured how | Evidence today | Phase |
 |---|---|---|---|---|
@@ -62,10 +66,11 @@ The posture is deliberately conservative because the failure mode is asymmetric.
 
 **K-11 option (b) then (a)** is what this ladder implements: the write path goes first because it carries the mutation risk, and the read path follows only once the research tier of G-11 has landed. Stage 2 is the honest resting point until then.
 
+**A passed gate can regress.** Gates are statements about a moment, and two of them depend on the game rather than on this repository. G-02 and G-11 rest on procedure rows transcribed from the pin, and the drift measurement for this pass found Forge's surfaces identical between the pin and the game head, which is a fact about 2026-09-12 and not a guarantee (R-05). The transition therefore treats the source-drift check as a standing gate rather than a one-time one, and stage 5 is the only irreversible step. Before it, a regression means dropping back a stage; after it, a regression means reinstalling an archived loader, which is why stage 5 waits on a ruling and not on a schedule.
+
 **Two loaders on one origin (R-15).** Both loaders match the whole game origin (`forge_loader_user.js:6-7`, `builder_loader_user.js:5-6`), and Forge removes the Builder's two root nodes while it is mounted through a class allowlist and a mutation observer (`forge/src/ui/takeover.mjs:53,170-172`). Three requirements follow for the whole transition. The suppression stays scoped to `k-fab` and `k-pn` and is never widened to a generic selector. The suppression is never used as the deprecation mechanism, because a silently hidden Builder is indistinguishable from a broken one. And Forge's overlay must keep releasing the observer on unmount (`forge/src/ui/takeover.mjs:166-169`), so that a stage-2 operator can drop back to the Builder in the same tab.
 
 **How the operator is informed.** There is no notification channel in either tool today; the only operator-facing release signal is the loader refresh step the release ritual already produces (`C_WORKFLOW_INVENTORY.md` W-20) and the Settings screen's own About block (`forge/src/ui/screens.mjs:325`). The transition therefore uses the channels that already exist: the release note that accompanies each pin, the Settings About block carrying the Forge version and the current stage, and, at stage 4, a one-line deprecation statement. Wording is owned by CPY and not drafted here; the reserved-term rules apply, in particular that `Retry` is not used for anything the Builder used to retry unsafely (CPY:576-578). Timing of stages 4 and 5 is K-11.
-
 
 | Channel | Exists today | Used from stage | Carries | Owner of the words |
 |---|---|---|---|---|
@@ -75,6 +80,14 @@ The posture is deliberately conservative because the failure mode is asymmetric.
 | `docs/RULINGS.md` entry | yes as a mechanism, no entry exists | 5 | the ruling itself, per gate G-10 | director |
 
 A deliberate omission: no in-tool banner is proposed inside `builder_bundle.js`. Adding one is a code change to a bundle that is otherwise frozen, on a tool that is being removed, and the repository already has a channel the operator reads every release.
+
+**What the transition must never do.** Five anti-patterns follow from the evidence rather than from taste.
+
+1. Never use Forge's node suppression as the deprecation mechanism. A Builder hidden by an observer is indistinguishable from a Builder that broke, and the operator loses the fallback exactly when a Forge failure made them need it (R-15).
+2. Never mark a gate passed on Inferred evidence. G-01, G-07 and G-08 each have a clause that only a real device or a real live tap can settle, and those clauses are the director's and the operator's to close, not the planning owner's (`CLAUDE.md` §6).
+3. Never combine the retirement commit with a release pin. The pin job rewrites both loaders in one run (`.github/scripts/pin_release.py:54-55`); a failure in the middle of a combined change leaves an unpinned loader on the device.
+4. Never migrate by clearing storage. The journal is the write-ahead record of live mutations, and clearing it to avoid a migration is the one action that turns an ambiguous `SENT` into an unrecoverable one (R-09).
+5. Never let the Builder's removal and the Forge feature that replaces it ship in the same release. The gate proves the replacement first; the removal is a separate, later, ruled step.
 
 ## J.3 Storage and settings migration
 
@@ -103,6 +116,8 @@ What is on the operator's phone today is listed in `A_ARCHITECTURE_MAP.md` §A.5
 | A deliberately broken record | proves the parking behaviour rather than assuming it | a record deleted by the upgrade |
 | A journal exported by the previous release, replayed through the previous release after the new one wrote | proves the rollback direction, not just the upgrade direction | a rollback that loses the newest jobs silently |
 
+**Eviction is part of the migration story, not separate from it.** Forge asks for persistent storage best-effort on mount and records only what the browser answered (`forge/src/ui/app.mjs:408-409`); whether the operator's Firefox Android grants it is Inferred, and the whole journal exists because eviction happens. A version bump is a moment of elevated risk: the operator may upgrade the loader on a phone that is already under storage pressure. Two requirements follow. The migration step must be cheap enough to run on every read without rewriting every record eagerly, so an interrupted upgrade leaves a mix of v1 and v2 records rather than a half-rewritten store. And the fixture corpus above must be collected before the upgrading release, not after, because an evicted journal cannot be exported retroactively.
+
 **Recommendation and alternatives** (planning owner's, panel synthesis unavailable at this SHA). Recommended: additive v2 under the existing key prefix with `MIGRATIONS[1]` and a refusal-plus-export rollback. Alternative (b), a new key namespace `tnr_forge_job_v2:` with dual-read, loses because a rolled-back bundle stops seeing the new namespace entirely, converting a loud refusal into silent invisibility, which is precisely R-09. Alternative (c), a sidecar store holding the new fields with the journal untouched, loses because it creates two write-ahead records for one job and the single pre-send flush is the invariant the journal exists to hold (`forge/src/storage/journal.mjs:330-335`). Section F owns what the v2 fields actually are, including any repository-sync state and any Studio per-request record.
 
 ## J.4 Manifest contract compatibility
@@ -124,6 +139,8 @@ The enumeration, as it stands at this SHA:
 | Zip pack parsed in page with its `imgSizes` ledger | yes (`builder_bundle.js:496`) | none | G-01 | build, it is a hard blocker (P-06, P-07) |
 | Studio-branch generated manifest | not applicable, the Studio is newer than the Builder | text export only, by design (`824c4d58:forge/src/studio/ui.mjs:3-4`) | G-12 | the promotion contract is K-39 |
 
+A note on what this section is not claiming. That the committed corpus parses is a statement about parsing, not about running: only G-08 turns a parsed manifest into a proven live write, and the corpus contains shapes (raid columns, content-less quest edits) that Forge deliberately refuses today and that gate G-04 exists to settle.
+
 ## J.5 Results and harvest contract compatibility
 
 The results bundle is the only artefact that leaves the phone, and four repository consumers read it. The retirement plan must not change what they receive, except to fix what is already broken.
@@ -134,6 +151,8 @@ The results bundle is the only artefact that leaves the phone, and four reposito
 | `validate.py --parity` | `checks` (`skills/building-tnr-content/scripts/validate.py:196-199`) | G-13. Either Forge emits a real check inventory or parity skips `cfg: "forge"` bundles explicitly. Today Forge has no machine-readable inventory at all: its lint ids exist only inside message text (`forge/src/runner/lints.mjs:64-68`), so the honest option is real work, not a rename |
 | `session_close.py --guards` | the lexically newest inbox bundle (`skills/building-tnr-content/scripts/session_close.py:93-101`) | Once G-13 passes, a Forge bundle being newest is no longer a red guard. Until then every Forge run puts pressure on the operator to produce a Builder bundle, which is a hidden retirement blocker (R-19) |
 | `build_answers.py` | `captures[].data` as a list of rows (`.github/scripts/build_answers.py:76-96`) | This is the sharpest sequencing constraint in the section. No Forge bundle can feed `answers/` today, because summary captures carry no body (`forge/src/runner/runner.mjs:589`) and full persistence is limited to seven point reads (`forge/src/storage/captures.mjs:58-66`). Retiring the Builder's read path before G-03 and G-11 silently stops the catalog refresh in W-14 |
+
+**What an honest `checks` inventory would have to be.** The validator's inventory is the union of the named checks it implements from the generated `45g` blocks and every lint rule whose surfaces include the builder (`skills/building-tnr-content/scripts/validate.py:180-192`). Forge implements a different and partly overlapping set: it refuses unknown top-level and nested keys from the pinned field sets rather than validating values (`forge/src/runner/validate.mjs:81`), and it ports some lints by id in message text only. So emitting `checks` from Forge is not a formatting change; it requires deciding which of Forge's refusals are the same check as the validator's, and the parity report would then be a true statement about two different tools. The cheaper option, skipping `cfg: "forge"` bundles in `parity()`, is honest as long as the skip is explicit and reported, and it is the option that unblocks the session guard first. Both are recorded here because G-13 is the only gate whose fix is entirely inside repository tooling and could land in phase 0 with no Forge release at all.
 
 The same table is the reason stage 3 in §J.2 sits behind the research tier rather than beside it. `harvest.py`'s Builder branch is not deleted at retirement either: 35 committed Builder bundles remain readable evidence and the legacy semantics stay in place for them.
 
@@ -149,7 +168,11 @@ What changes at decommission, and what never does, is mechanical and small. `pin
 | 4. Operator uninstalls the loader | the device | User-owned. The Builder loader carries no `@updateURL` or `@downloadURL` (`builder_loader_user.js:1-11`), so it can never be retired remotely and never auto-updates itself away |
 | 5. Release note and Settings About | release ritual, `forge/src/ui/screens.mjs:325` | The operator refetches the Forge loader as usual (W-20) |
 
+**Rolling back a Forge release.** The rollback of a Forge Next release is not part of the Builder retirement, but it is the fallback that makes each stage safe, so it is stated once. The operator edits the installed loader's `@require` back to the previously pinned commit, or reinstalls the previous loader text; nothing on the repository side is reverted, because the pin lives in the loader (`forge_loader_user.js:12`). The previous bundle then meets whatever the newer one wrote: a v2 journal record is refused by name and stays exportable (§J.3), an additive IndexedDB upgrade leaves the older stores intact, and the retained `tnr_bk_*` keys are unchanged by design. That is the whole reason §J.3's requirements are phrased as readable-or-refused rather than as a one-way migration.
+
 What never changes: pinning is by immutable commit SHA and not by a moving ref, which is the difference from the Builder's runtime contract fetch (`A_ARCHITECTURE_MAP.md` §A.8 item 1); the loader refresh stays a user action on the device; and no part of retirement touches the game, since the Builder's removal is a userscript change and nothing else (`CLAUDE.md` §6).
+
+The bundle itself is not special-cased by any of this. Forge ships as one built bundle checked by the existing release tooling, and the retirement changes what the release pins, never how it is built or verified.
 
 One coupling to carry into phase 0: the release-loader test is red on `main` after every pin (`A_ARCHITECTURE_MAP.md` §A.10, R-11), and G-09 requires it green. The fix exists on the ChatGPT branch and integrating it is a one-writer question, not a Fable edit (RM-05).
 
@@ -163,6 +186,7 @@ Retiring the Builder's write path does not retire these. Each line names the cap
 - **Multi-manifest batch builds.** P-05, which is a GAP but not a blocker because no committed bundle proves a batch run. This is a candidate for deliberate drop in the G-10 ruling rather than a build target; the adversarial re-read of P-05 also found that a batched file which wrote nothing is still reported as a tick, so reproducing the behaviour faithfully would reproduce a defect.
 - **Paste and device-file manifest input.** P-02, conditional. The rulings that make the repository the owner of durable artefacts point away from a device-file ingress, so this is a G-10 disposition question, not an automatic gap to fill.
 - **Retry, safe re-run and idmap hygiene.** P-45, P-21 and P-55, held until G-06. Note that "retry" here means the Builder's rebuild of error rows; Forge's replacement is a re-drive that is journalled as a new phase attempt and never as a second create, and the word itself is reserved (CPY:576-578).
+- **Builder-only conveniences with no committed use.** The repository directory prompt (P-04), the loader HEAD self-check (P-16) and the on-demand doctor diagnostics (`A_ARCHITECTURE_MAP.md` §A.8 item 9) are GAP rows with no retirement-blocker status. They are listed in the G-10 ruling as deliberate drops or as small follow-ons, and they never gate a stage.
 - **Everything Forge is not supposed to absorb.** The repository-side workflows in `C_WORKFLOW_INVENTORY.md` §C.6 are not part of this migration in either direction.
 
 ## J.8 Open decisions
