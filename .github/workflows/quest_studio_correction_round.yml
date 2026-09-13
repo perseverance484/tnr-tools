@@ -7,6 +7,7 @@ on:
     paths:
       - ".github/workflows/quest_studio_correction_round.yml"
       - "state/quest_studio_review_corrections.py"
+      - "state/quest_studio_review_corrections_followup.py"
 
 permissions:
   contents: write
@@ -32,6 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 state/quest_studio_review_corrections.py
+          python3 state/quest_studio_review_corrections_followup.py
           python3 - <<'PY'
           from pathlib import Path
           p = Path("docs/RULINGS.md")
@@ -59,6 +61,7 @@ jobs:
           if bad:
               raise SystemExit(f"Quest Studio compiler imports forbidden network modules: {bad}")
           PY
+
           if grep -nEi 'theninja-rpg\.com|/api/trpc|(^|[^[:alnum:]_])(curl|wget)[[:space:]]' \
             .github/workflows/quest_studio.yml \
             skills/building-tnr-content/scripts/quest_compile.py; then
@@ -100,7 +103,10 @@ jobs:
       - name: Commit correction round and remove temporary machinery
         run: |
           set -euo pipefail
-          git rm .github/workflows/quest_studio_correction_round.yml state/quest_studio_review_corrections.py
+          git rm \
+            .github/workflows/quest_studio_correction_round.yml \
+            state/quest_studio_review_corrections.py \
+            state/quest_studio_review_corrections_followup.py
           git add \
             .github/workflows/quest_studio.yml \
             docs/RULINGS.md \
