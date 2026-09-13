@@ -23,7 +23,7 @@ def pnav(active):
     return {"kind": "nav", "items": NAV_PHONE, "active": active, "bottom": True}
 def rail(active):
     return {"kind": "rail", "items": NAV_DESK, "active": active}
-def health(session=("✓", "signed in · 2 m ago", "ok"), repo=("✓", "push/ listed 4 m ago", "ok"), budget=("✓", "12 % of window used", "ok")):
+def health(session=("✓", "ready · probe answered 2 m ago", "ok"), repo=("✓", "push/ listed 4 m ago", "ok"), budget=("✓", "12 % of the busiest public path's window", "ok")):
     return {"kind": "lamps", "head": "Readiness", "items": [
         {"glyph": session[0], "label": "SESSION", "value": session[1], "tone": session[2]},
         {"glyph": repo[0], "label": "REPO", "value": repo[1], "tone": repo[2]},
@@ -39,9 +39,9 @@ S.append({"id": "wf01_command_center", "title": "Command Center (home)", "defaul
  "purpose": "Home. Every block is fed from state Forge already holds (journal, auth probe result, GitHub listing cache, capture cache, review-queue file); nothing here spends live rate budget.",
  "flow": "Open Forge → readiness lamps → active work or empty state → quick actions → lanes → recent activity. One tap reaches a lane, a resumable job or the admin queue.",
  "mobile": [brand(), {"kind": "lamps", "head": "Reads and writes available", "items": [
-    {"glyph": "✓", "label": "SESSION", "value": "signed in · dauntless", "tone": "ok"},
+    {"glyph": "✓", "label": "SESSION", "value": "ready · probe answered 2 m ago", "tone": "ok"},
     {"glyph": "✓", "label": "REPO", "value": "push/ listed 4 m ago", "tone": "ok"},
-    {"glyph": "✓", "label": "BUDGET", "value": "12 % used · resets 0:48", "tone": "ok"}]},
+    {"glyph": "✓", "label": "BUDGET", "value": "12 % of the quests.get window · public reads only", "tone": "ok"}]},
   {"kind": "card", "title": "Active work", "pill": "PAUSED", "sub": "46_mission_flatten.json", "risk": "recovery", "blocks": [
     {"kind": "seg", "cells": ["VERIFIED", "VERIFIED", "VERIFIED", "SENT", "PLANNED", "PLANNED", "PLANNED"], "label": "3 verified · 1 SENT unconfirmed · 3 planned · 7 total"},
     {"kind": "action", "label": "Reconcile & resume", "variant": "recovery", "hint": "reads first, never re-sends"}]},
@@ -71,7 +71,7 @@ S.append({"id": "wf01_command_center", "title": "Command Center (home)", "defaul
    {"name": "aside", "span": "3", "blocks": [health(),
      {"kind": "card", "title": "Content Admin", "pill": "ADMIN", "sub": "state/review", "blocks": [
        {"kind": "row", "title": "Old Ghost", "sub": "quest · hidden · ready for review", "pills": ["HIDDEN"]},
-       {"kind": "row", "title": "Harvest Boar", "sub": "AI · no hidden column · containment by refs", "pills": ["DRAFT"]},
+       {"kind": "row", "title": "Harvest Boar", "sub": "AI · no lifecycle column: containment is by references only", "pills": []},
        {"kind": "row", "title": "Cabbage Seed", "sub": "item · hidden", "pills": ["HIDDEN"]}]},
      {"kind": "card", "title": "Recent activity", "blocks": [
        {"kind": "row", "title": "06_aerathiel_pvp_battle_logs", "sub": "44 reads · synced", "pills": ["DONE"]},
@@ -90,8 +90,8 @@ S.append({"id": "wf02_lane_quests", "title": "Lane landing: Quests & Events", "p
   {"kind": "tabs", "items": ["Records", "Manifests", "Studio", "Admin"], "active": "Records"},
   {"kind": "list", "rows": [
     {"title": "Old Ghost", "sub": "quest · KmGPDnZ… · captured 2026-09-11", "pills": ["HIDDEN"], "actions": ["Open"]},
-    {"title": "One Perfect Crop", "sub": "mission · 4 objectives · in Studio", "pills": ["DRAFT"], "actions": ["Open"]},
-    {"title": "Forsworn scene characters", "sub": "quest edits · 16c pack", "pills": ["VERIFIED"], "actions": ["Open"]}]},
+    {"title": "One Perfect Crop", "sub": "mission · 4 objectives · Studio draft, not a game record", "pills": ["DRAFT"], "actions": ["Open"]},
+    {"title": "Forsworn scene characters", "sub": "quest edits · 16c pack · last job verified", "pills": ["ok"], "actions": ["Open"]}]},
   {"kind": "action", "label": "Refresh list from live · 1 read", "variant": "read", "hint": "quests.getAllNames · public · costs 1 of 30"},
   {"kind": "card", "title": "Quest Studio", "sub": "one Studio, subtype adapters", "blocks": [
     {"kind": "row", "title": "Mission", "sub": "supported · 48 profiles", "pills": ["ok"], "actions": ["New draft"]},
@@ -104,7 +104,7 @@ S.append({"id": "wf02_lane_quests", "title": "Lane landing: Quests & Events", "p
      {"kind": "list", "rows": [
        {"title": "Old Ghost", "sub": "quest · KmGPDnZnGOCvATQqA5LI8 · captured 2026-09-11 (summary)", "pills": ["HIDDEN"], "actions": ["Open", "Capture full"]},
        {"title": "One Perfect Crop", "sub": "mission · Studio draft · compiled valid 09-12", "pills": ["DRAFT"], "actions": ["Open in Studio"]},
-       {"title": "Forsworn scene characters", "sub": "16c pack · 9 quest edits read back", "pills": ["VERIFIED"], "actions": ["Results"]}]},
+       {"title": "Forsworn scene characters", "sub": "16c pack · 9 quest edits read back", "pills": ["ok"], "actions": ["Results"]}]},
      {"kind": "action", "label": "Refresh list from live · 1 read", "variant": "read", "hint": "explicit; shows the budget cost before the tap"}]},
    {"name": "aside", "span": "3", "blocks": [health(), {"kind": "card", "title": "Manifests touching this lane", "blocks": [
        {"kind": "row", "title": "01_old_ghost_format_capture", "sub": "capture-only", "pills": ["READ-ONLY"]},
@@ -150,7 +150,7 @@ S.append({"id": "wf04_preflight_live_write", "title": "Preflight: LIVE WRITE", "
     {"kind": "row", "title": "One Perfect Crop", "sub": "quest · update · objectives, rewards", "pills": ["PLANNED"]},
     {"kind": "row", "title": "Cabbage run", "sub": "quest · update · objectives", "pills": ["PLANNED"]},
     {"kind": "row", "title": "… 5 more", "sub": "", "pills": []}]},
-  {"kind": "card", "title": "Live diff (safe: 7 reads)", "sub": "read at 14:02", "blocks": [{"kind": "diff", "rows": [["objectives[0].task", "collect_item", "collect_item"], ["objectives[1]", "(4 objectives)", "(3 objectives)"], ["hidden", "true", "true"]]}]},
+  {"kind": "card", "title": "Live diff (safe: 7 reads)", "sub": "live values read at 14:02; no procedure checks a version, so a concurrent edit would be overwritten", "blocks": [{"kind": "diff", "rows": [["objectives[0].task", "collect_item", "collect_item"], ["objectives[1]", "(4 objectives)", "(3 objectives)"], ["hidden", "true", "true"]]}]},
   {"kind": "action", "label": "Start job → writes 7 records", "variant": "mutation", "hint": "asks once; names the counts again"},
   pnav("Work")],
  "desktop": {"columns": "220px minmax(420px,2fr) minmax(300px,1fr)", "regions": [
@@ -176,7 +176,7 @@ S.append({"id": "wf04_preflight_live_write", "title": "Preflight: LIVE WRITE", "
 S.append({"id": "wf05_run_live", "title": "Run in progress", "purpose": "Brief §7 steps 10-11: live per-item progress, the budget, and a safe pause that the operator can always reach. Nothing on this screen can re-send.",
  "flow": "Start → RUNNING → per item SENT → CONFIRMED → read-back → VERIFIED. Pause after this item is always available; the halt card (WF-06) replaces the progress card on a pause.",
  "mobile": [brand(), bar("46_mission_flatten", "RUNNING", ["item 4 of 7"]),
-  {"kind": "opmode", "mode": "LIVE WRITE", "counts": [["updates", 7], ["verified", 3], ["sent", 1]], "note": "Running. Leaving this page is safe: the journal resumes it."},
+  {"kind": "opmode", "mode": "LIVE WRITE", "counts": [["updates", 7], ["verified", 3], ["sent", 1]], "note": "Running. Leaving this page does not lose the job: the journal continues it, and an item that was in flight is reconciled rather than resumed."},
   {"kind": "seg", "cells": ["VERIFIED", "VERIFIED", "CONFIRMED", "RUNNING", "PLANNED", "PLANNED", "PLANNED"], "label": "2 verified · 1 confirmed, read-back owed · 1 in flight · 3 planned · 7 total"},
   {"kind": "list", "rows": [
     {"title": "One Perfect Crop", "sub": "quest · update · read back: match", "pills": ["VERIFIED"]},
@@ -185,7 +185,7 @@ S.append({"id": "wf05_run_live", "title": "Run in progress", "purpose": "Brief �
     {"title": "Harvest Boar hunt", "sub": "quest · update · request in flight", "pills": ["SENT"]},
     {"title": "Market Clerk", "sub": "quest · update", "pills": ["PLANNED"]}]},
   {"kind": "action", "label": "Pause after this item", "variant": "ghost", "hint": "never interrupts a request that already left"},
-  {"kind": "card", "title": "Technical", "sub": "budget · journal", "blocks": [{"kind": "progress", "pct": 27, "label": "quests.update · 8 of 30 · resets 0:41"}]},
+  {"kind": "card", "title": "Technical", "sub": "budget · journal", "blocks": [{"kind": "progress", "pct": 27, "label": "quests.get · 8 of 30 in this window · resets 0:41 (the update itself is protected and unlimited)"}]},
   pnav("Jobs")],
  "desktop": {"columns": "220px minmax(420px,2fr) minmax(300px,1fr)", "regions": [
    {"name": "rail", "span": "1", "blocks": [rail("Jobs & Recovery"), note("3 px --mut-edge underline on the shell while a mutation job runs")]},
@@ -199,7 +199,7 @@ S.append({"id": "wf05_run_live", "title": "Run in progress", "purpose": "Brief �
        {"title": "Harvest Boar hunt", "sub": "quest · update · request in flight (SENT)", "pills": ["SENT"]},
        {"title": "Market Clerk", "sub": "quest · update", "pills": ["PLANNED"]}]},
      {"kind": "action", "label": "Pause after this item", "variant": "ghost"}]},
-   {"name": "aside", "span": "3", "blocks": [{"kind": "lamps", "head": "Budget", "items": [{"glyph": "✓", "label": "quests.update", "value": "8 of 30 · resets 0:41", "tone": "ok"}, {"glyph": "✓", "label": "quests.get", "value": "7 of 30", "tone": "ok"}]},
+   {"name": "aside", "span": "3", "blocks": [{"kind": "lamps", "head": "Budget", "items": [{"glyph": "✓", "label": "quests.get", "value": "8 of 30 in this window · resets 0:41", "tone": "ok"}, {"glyph": "–", "label": "quests.update", "value": "protected: not rate-limited, so nothing to meter", "tone": "mute"}]},
      {"kind": "tabs", "items": ["Summary", "Journal", "Raw"], "active": "Summary"}, {"kind": "kv", "pairs": [["lease", "this tab"], ["persisted", "yes (navigator.storage)"], ["asserted keys", "objectives, rewards"]]}]}]},
  "notes": ["SegmentedProgress: one cell per item; only the in-flight cell carries motion; state pills never animate (D2.4).",
            "SENT is orchid hatch with a dashed rule and no action; CONFIRMED is blue and not terminal; VERIFIED is the only green.",
@@ -237,10 +237,10 @@ S.append({"id": "wf07_orphan_decision", "title": "Orphan decision", "purpose": "
  "mobile": [brand(), bar("16c_forsworn_pack", "ORPHANED", ["1 to decide"]),
   {"kind": "opmode", "mode": "RECOVERY", "counts": [["orphaned", 1], ["verified", 8]], "note": "A placeholder exists on the live game. Decide what it is."},
   {"kind": "card", "title": "DECIDE · Forsworn Sentinel (scene character)", "pill": "ORPHANED", "sub": "asset · create · phase 2 unknown", "risk": "recovery", "blocks": [
-    {"kind": "kv", "pairs": [["known", "placeholder created 13:58; upload phase unconfirmed"], ["snapshot diff", "1 new gameAsset since pre-create"]]},
+    {"kind": "kv", "pairs": [["known", "placeholder created 13:58; the upload phase has no recorded answer"], ["snapshot diff", "1 new gameAsset since pre-create"], ["what adopting does", "records this id for the item and continues with the remaining phase; it does not create anything"]]},
     {"kind": "row", "title": "Forsworn Sentinel", "sub": "id 8mDurYQY… · created 13:58:41 · hidden", "pills": ["HIDDEN"], "actions": ["Adopt"]},
     {"kind": "action", "label": "Skip · leave the live row; nothing deleted", "variant": "ghost"},
-    {"kind": "action", "label": "Re-send phase 2 (exceptional)", "variant": "danger", "hint": "creates nothing new; sends the upload again"}]},
+    {"kind": "action", "label": "Re-send phase 2 (exceptional)", "variant": "danger", "hint": "adopt first if the record is right; this only repeats the upload to an id you have already adopted"}]},
   pnav("Jobs")],
  "desktop": {"columns": "220px minmax(420px,2fr) minmax(300px,1fr)", "regions": [
    {"name": "rail", "span": "1", "blocks": [rail("Jobs & Recovery")]},
@@ -264,7 +264,7 @@ S.append({"id": "wf08_results_sync", "title": "Results and sync", "purpose": "Br
   {"kind": "lamps", "head": "Result", "items": [
     {"glyph": "✓", "label": "EXECUTION", "value": "7 updates confirmed", "tone": "ok"},
     {"glyph": "✓", "label": "VERIFIED", "value": "7 of 7 read back match", "tone": "ok"},
-    {"glyph": "✕", "label": "SYNC", "value": "Results not synced · PAT not configured", "tone": "bad"},
+    {"glyph": "–", "label": "SYNC", "value": "not configured: no repository token on this device, so the bundle stays local", "tone": "mute"},
     {"glyph": "–", "label": "PUBLISH", "value": "hidden stays true (no publish action)", "tone": "mute"}]},
   {"kind": "seg", "cells": ["VERIFIED"] * 7, "label": "7 verified · 7 total"},
   {"kind": "action", "label": "Sync results to repository", "variant": "primary", "hint": "harvests/inbox/tnr_results_….json · needs PAT"},
@@ -308,8 +308,8 @@ S.append({"id": "wf09_capture_preflight", "title": "Research capture: READ ONLY 
        {"title": "combat.getBattleHistory (push/05)", "sub": "protected · NOT in the 43-procedure registry · research tier pending K-17", "pills": ["NEEDS-DECISION"]}]},
      {"kind": "action", "label": "Run 5 reads · zero mutations", "variant": "read"}]},
    {"name": "aside", "span": "3", "blocks": [health(), {"kind": "card", "title": "After the run (capture rows)", "blocks": [
-       {"kind": "row", "title": "gameAsset.get XsLLy8aw…", "sub": "read ok ✓ · body persisted ✓ (41 KB)", "pills": ["VERIFIED"]},
-       {"kind": "row", "title": "gameAsset.get HgT0DKfi…", "sub": "read ok ✓ · NOT persisted ✕ (over 512 KiB)", "pills": ["INCOMPLETE"]}]}]}]},
+       {"kind": "row", "title": "gameAsset.get XsLLy8aw…", "sub": "read ok ✓ · body persisted ✓ (41 KB)", "pills": ["ok"]},
+       {"kind": "row", "title": "gameAsset.get HgT0DKfi…", "sub": "read ok ✓ · body NOT persisted ✕ (over 512 KiB)", "pills": ["warn"]}]}]}]},
  "notes": ["Reads never confirm (IRM R0); the FULL advisory is a banner, not a dialog.",
            "A successful read never stands in for a persisted body: two verdicts per capture row (D2.3 CaptureRow; screens.mjs:123-125 already splits them).",
            "Procedures outside the registry are listed with the reason and refused at run time until K-17 admits a research tier (P-10)."],
@@ -347,7 +347,7 @@ S.append({"id": "wf11_admin_queue", "title": "Content Admin: review queue", "pur
     {"title": "Old Ghost", "sub": "quest · hidden · job 24 verified 09-11", "pills": ["HIDDEN"], "actions": ["Review"]},
     {"title": "Cabbage Seed", "sub": "item · hidden · icon pending art", "pills": ["HIDDEN", "NEEDS-DECISION"], "actions": ["Review"]},
     {"title": "Harvest Boar", "sub": "AI · no hidden column · referenced by 1 hidden quest", "pills": ["DRAFT"], "actions": ["Review"]}]},
-  {"kind": "banner", "tone": "info", "head": "Role", "body": "MODERATOR (from profile.getUser). Server enforces canChangeContent on every write; a refusal arrives as HTTP 200 success:false."},
+  {"kind": "banner", "tone": "info", "head": "Role", "body": "Role CONTENT-ADMIN, read once this session. MODERATOR is deliberately not used here: canChangeContent excludes it (permissions.ts, pin). The server enforces the role on every write and a refusal arrives as HTTP 200 success:false."},
   pnav("More")],
  "desktop": {"columns": "220px minmax(420px,2fr) minmax(300px,1fr)", "regions": [
    {"name": "rail", "span": "1", "blocks": [rail("Content Admin"), note("gold-outline pending count badge")]},
@@ -356,8 +356,8 @@ S.append({"id": "wf11_admin_queue", "title": "Content Admin: review queue", "pur
      {"kind": "list", "rows": [
        {"title": "Old Ghost", "sub": "quest · HIDDEN (captured 09-11) · from job 24_rank_icon_swap · lane Quests & Events", "pills": ["HIDDEN"], "actions": ["Review"]},
        {"title": "Cabbage Seed", "sub": "item · HIDDEN · icon not yet in repository (art boundary)", "pills": ["HIDDEN", "NEEDS-DECISION"], "actions": ["Review"]},
-       {"title": "Harvest Boar", "sub": "AI (userData isAi) · no hidden column · contained by refs", "pills": ["DRAFT"], "actions": ["Review"]}]}]},
-   {"name": "aside", "span": "3", "blocks": [{"kind": "lamps", "head": "Admin readiness", "items": [{"glyph": "✓", "label": "SESSION", "value": "signed in · role MODERATOR", "tone": "ok"}, {"glyph": "✓", "label": "REPO", "value": "review file read 3 m ago", "tone": "ok"}, {"glyph": "✓", "label": "BUDGET", "value": "no live reads on this screen", "tone": "ok"}]},
+       {"title": "Harvest Boar", "sub": "AI (userData isAi) · no lifecycle column: containment is by references only", "pills": [], "actions": ["Review"]}]}]},
+   {"name": "aside", "span": "3", "blocks": [{"kind": "lamps", "head": "Admin readiness", "items": [{"glyph": "✓", "label": "SESSION", "value": "session ready · role CONTENT-ADMIN (read once, K-52)", "tone": "ok"}, {"glyph": "✓", "label": "REPO", "value": "review file read 3 m ago", "tone": "ok"}, {"glyph": "✓", "label": "BUDGET", "value": "no live reads on this screen", "tone": "ok"}]},
      {"kind": "kv", "pairs": [["approval store", "repository file (K-09)"], ["queue source", "job results + Studio builds"], ["publish", "separate act (WF-13)"]]}]}]},
  "notes": ["Approval state is a repository record proposed in F; it is never derived on the client and never becomes a second canon (RUL-2026-09-12-002).",
            "Role is learned without credential material (profile.getUser); the client never gates by role, it only shapes copy. Denial rendering waits for E's source audit (K-34).",
@@ -377,7 +377,7 @@ S.append({"id": "wf12_admin_detail", "title": "Content Admin: detail, edit, prev
   pnav("More")],
  "desktop": {"columns": "220px minmax(420px,2fr) minmax(300px,1fr)", "regions": [
    {"name": "rail", "span": "1", "blocks": [rail("Content Admin")]},
-   {"name": "main", "span": "2", "blocks": [bar("Old Ghost", "quest · HIDDEN · KmGPDnZnGOCvATQqA5LI8", ["waiting", "job 24"]),
+   {"name": "main", "span": "2", "blocks": [bar("Old Ghost", "quest · HIDDEN · KmGPDnZnGOCvATQqA5LI8", ["waiting", "job 24", "role CONTENT-ADMIN"]),
      {"kind": "preview", "label": "player preview · quest card renderer (client route)", "body": "Old Ghost — Rank C — 3 objectives — rewards 1,200 ryo. Preview reflects the LIVE hidden record read at 13:40."},
      {"kind": "diff", "rows": [["name", "New Quest - draft", "Old Ghost"], ["objectives", "0 objectives", "3 objectives"], ["rewards.money", "0", "1200"], ["hidden", "true", "true"]]},
      {"kind": "form", "fields": [["description (editorial edit)", "A ghost haunts the old mill road…", "area"], ["rank", "C", "ro"], ["rewards", "director-owned (K-04)", "ro"]]},
@@ -396,7 +396,7 @@ S.append({"id": "wf13_publish_confirm", "title": "Publish: PUBLISH mode and conf
  "mobile": [brand("ADMIN ✓"), bar("Old Ghost", "publish", ["approved"]),
   {"kind": "opmode", "mode": "PUBLISH", "counts": [["publishes", 1], ["reads", 2], ["writes", 1]], "note": "Makes 'Old Ghost' visible to players. hidden: true → false."},
   {"kind": "banner", "tone": "warn", "head": "▲ Dependency still hidden", "body": "Harvest Boar (AI) is referenced by this quest and is contained by references, not a hidden column. Players will meet it."},
-  {"kind": "sheet", "title": "Publish Old Ghost → player-visible", "lines": ["hidden: true → false on KmGPDnZn…", "session READY · role MODERATOR", "read back after send; PUBLISHED only on read-back"], "action": {"label": "Publish 1 record", "variant": "publish", "state": "disabled"}, "cancel": "Cancel"},
+  {"kind": "sheet", "title": "Publish Old Ghost → player-visible", "lines": ["hidden: true → false on KmGPDnZn…", "unhide precondition met (sceneCharacters)", "session ready · role CONTENT-ADMIN", "read back after send; PUBLISHED only on read-back"], "action": {"label": "Publish 1 record", "variant": "publish", "state": "disabled"}, "cancel": "Cancel"},
   {"kind": "form", "fields": [["type the record name to arm (K-12 option b)", "Old Gh…"]]},
   pnav("More")],
  "desktop": {"columns": "220px minmax(420px,2fr) minmax(300px,1fr)", "regions": [
@@ -404,7 +404,7 @@ S.append({"id": "wf13_publish_confirm", "title": "Publish: PUBLISH mode and conf
    {"name": "main", "span": "2", "blocks": [bar("Old Ghost", "PUBLISH · approved by dauntless 09-12", ["quest"]),
      {"kind": "opmode", "mode": "PUBLISH", "counts": [["publishes", 1], ["reads", 2], ["writes", 1]], "note": "Makes 'Old Ghost' visible to players. quests.update with hidden:false (no dedicated toggle exists)."},
      {"kind": "banner", "tone": "warn", "head": "▲ 1 dependency still hidden", "body": "Harvest Boar (AI) has no hidden column; it is reachable once this quest is visible."},
-     {"kind": "sheet", "title": "Publish Old Ghost → player-visible", "lines": ["hidden: true → false on KmGPDnZnGOCvATQqA5LI8", "session READY · role MODERATOR · budget 2 of 30", "the record is read back after the send; the PUBLISHED pill appears only when the read-back shows hidden:false"], "action": {"label": "Publish 1 record", "variant": "publish", "state": "disabled"}, "cancel": "Cancel"}]},
+     {"kind": "sheet", "title": "Publish Old Ghost → player-visible", "lines": ["hidden: true → false on KmGPDnZnGOCvATQqA5LI8", "session ready · role CONTENT-ADMIN · this write is protected, so it spends no public budget", "the record is read back after the send; the PUBLISHED pill appears only when the read-back shows hidden:false"], "action": {"label": "Publish 1 record", "variant": "publish", "state": "disabled"}, "cancel": "Cancel"}]},
    {"name": "aside", "span": "3", "blocks": [health(), {"kind": "kv", "pairs": [["after send", "PUBLISH SENT · UNCONFIRMED until read-back"], ["refusal", "HTTP 200 success:false → 'Write refused' with server message"], ["audit", "actionLog + results bundle + review file"]]}]}]},
  "notes": ["Publish is a whole-record update carrying hidden:false for jutsu/item/bloodline/quest/gameAsset; guides use published; AI has no hidden column (E). The band and the sheet say which.",
            "The Confirm control is disabled for ~600 ms after the sheet appears (arming delay) and until the K-12 level is met; 'Deploy' is never used.",
@@ -480,14 +480,14 @@ S.append({"id": "wf16_jobs_settings", "title": "Jobs & Recovery and Settings & d
     {"title": "46_mission_flatten", "sub": "PAUSED · AMBIGUOUS · 1 SENT", "pills": ["SENT"], "actions": ["Open"]},
     {"title": "16c_forsworn_pack", "sub": "1 ORPHANED to decide", "pills": ["ORPHANED"], "actions": ["Open"]},
     {"title": "24_rank_icon_swap_all31", "sub": "DONE · 31 verified · synced", "pills": ["VERIFIED"]},
-    {"title": "02_asset_probe", "sub": "DONE · 4 persisted · 1 not persisted", "pills": ["INCOMPLETE"]}]},
+    {"title": "02_asset_probe", "sub": "capture-only · read ok on 5 · 1 body not persisted", "pills": ["bad"]}]},
   {"kind": "action", "label": "Delete finished jobs (keeps INCOMPLETE / PAUSED)", "variant": "danger", "hint": "asks once"},
   pnav("Jobs")],
  "desktop": {"columns": "220px minmax(420px,2fr) minmax(300px,1fr)", "regions": [
    {"name": "rail", "span": "1", "blocks": [rail("Settings")]},
    {"name": "main", "span": "2", "blocks": [bar("Settings & diagnostics", "no live poll on this screen"),
      {"kind": "lamps", "head": "Health", "items": [
-       {"glyph": "✓", "label": "SESSION", "value": "signed in · probe profile.getAi ok · 2 m ago", "tone": "ok", "actions": ["Re-check · 1 read"]},
+       {"glyph": "✓", "label": "SESSION", "value": "ready · probe profile.getAi answered 2 m ago", "tone": "ok", "actions": ["Re-check · 1 read"]},
        {"glyph": "✓", "label": "STORAGE", "value": "persisted (navigator.storage.persist) · journal v1 · IDB v2", "tone": "ok"},
        {"glyph": "–", "label": "GITHUB", "value": "PAT not configured · results export as text only", "tone": "mute", "actions": ["Configure"]},
        {"glyph": "✓", "label": "RELEASE", "value": "forge 0.4.0 · pin ce603def · main 305a28f", "tone": "ok"},
@@ -505,18 +505,18 @@ S.append({"id": "wf17_degraded_states", "title": "Degraded and refused states", 
  "mobile": [brand("UNCONFIRMED ?"),
   {"kind": "banner", "tone": "warn", "head": "? TNR session not confirmed", "body": "The probe did not answer. Reads and writes are withheld until it does. Nothing was sent."},
   {"kind": "lamps", "head": "Session states (auth.mjs has exactly four)", "items": [
-    {"glyph": "\u2713", "label": "READY", "value": "signed in; the probe answered", "tone": "ok"},
+    {"glyph": "\u2713", "label": "READY", "value": "the probe answered; reads and writes permitted", "tone": "ok"},
     {"glyph": "\u2026", "label": "CHECKING", "value": "probe in flight; controls disabled, nothing withheld silently", "tone": "info"},
     {"glyph": "?", "label": "UNCONFIRMED", "value": "the probe did not answer; Re-check spends one read", "tone": "warn", "actions": ["Re-check \u00b7 1 read"]},
     {"glyph": "\u2715", "label": "SIGNED OUT", "value": "server-proven refusal; sign in on the game tab, then Re-check", "tone": "bad"}]},
   {"kind": "card", "title": "Authorization", "sub": "per action, not per session", "risk": "publish", "blocks": [
     {"kind": "row", "title": "Publish Old Ghost", "sub": "your role cannot change content; the action is disabled before you tap it", "pills": ["ADMIN"]},
     {"kind": "text", "text": "Read once from the role, re-checked on send. A refusal that does arrive is shown with the server's own message, never relabelled (E.3)."}]},
-  {"kind": "card", "title": "Rate limit", "pill": "PAUSED", "sub": "quests.update", "risk": "recovery", "blocks": [
-    {"kind": "progress", "pct": 100, "tone": "bad", "label": "TRIPPED \u00b7 30 of 30 in this window \u00b7 try again after 0:42"},
+  {"kind": "card", "title": "Rate limit", "pill": "PAUSED", "sub": "quests.get", "risk": "recovery", "blocks": [
+    {"kind": "progress", "pct": 100, "tone": "bad", "label": "TRIPPED \u00b7 30 of 30 on quests.get \u00b7 try again after 0:42"},
     {"kind": "action", "label": "Resume", "variant": "disabled", "hint": "disabled while the window is tripped; no animation, no countdown on the button"}]},
   {"kind": "card", "title": "Capture persistence", "sub": "two verdicts per row", "blocks": [
-    {"kind": "row", "title": "gameAsset.get HgT0DKfi\u2026", "sub": "read ok \u2713 \u00b7 body NOT persisted \u2715 (over the 512 KiB ceiling)", "pills": ["INCOMPLETE"]}]},
+    {"kind": "row", "title": "gameAsset.get HgT0DKfi\u2026", "sub": "read ok \u2713 \u00b7 body NOT persisted \u2715 (over the 512 KiB ceiling)", "pills": ["warn"]}]},
   {"kind": "card", "title": "Storage", "sub": "journal durability", "blocks": [
     {"kind": "row", "title": "Storage not persisted", "sub": "the browser declined a durable quota; an eviction can lose an open job", "pills": ["warn"], "actions": ["Export journal"]},
     {"kind": "row", "title": "Journal unreadable", "sub": "one record failed to parse; it is quarantined and exportable, never silently dropped", "pills": ["bad"], "actions": ["Export"]}]},
@@ -531,8 +531,8 @@ S.append({"id": "wf17_degraded_states", "title": "Degraded and refused states", 
        {"glyph": "?", "label": "UNCONFIRMED", "value": "nothing permitted; Re-check is the only action", "tone": "warn"},
        {"glyph": "\u2715", "label": "SIGNED OUT", "value": "nothing permitted; a job pauses with reason SESSION and never re-sends", "tone": "bad"},
        {"glyph": "\u2298", "label": "role", "value": "not a session state: authorization is per action (E.3). Actions the role cannot perform are disabled before the tap", "tone": "mute"}]},
-     {"kind": "card", "title": "Paused: rate limit", "pill": "PAUSED", "sub": "job 46_mission_flatten \u00b7 reason TOO_MANY_REQUESTS", "risk": "recovery", "blocks": [
-       {"kind": "kv", "pairs": [["what stopped", "the window for quests.update is spent"], ["what was sent", "nothing since the pause; the item before it is CONFIRMED"], ["what resume does", "waits for the window, then continues from the journal"]]},
+     {"kind": "card", "title": "Paused: rate limit", "pill": "PAUSED", "sub": "job 46_mission_flatten \u00b7 reason TOO_MANY_REQUESTS on quests.get", "risk": "recovery", "blocks": [
+       {"kind": "kv", "pairs": [["what stopped", "the window for the public read quests.get is spent; the writes themselves are protected and unlimited"], ["what was sent", "nothing since the pause; the item before it is CONFIRMED"], ["what resume does", "waits for the window, then continues from the journal"]]},
        {"kind": "progress", "pct": 100, "tone": "bad", "label": "TRIPPED \u00b7 try again after 0:42"},
        {"kind": "action", "label": "Resume", "variant": "disabled", "hint": "enabled when the window clears; the tripped meter is hoisted out of the technical group into this card"}]}]},
    {"name": "aside", "span": "3", "blocks": [{"kind": "kv", "pairs": [["session source", "AuthState.describe()"], ["role source", "one read per session (K-52)"], ["budget source", "Budget.status()"], ["storage source", "navigator.storage.persisted()"], ["journal source", "journal.broken"]]},
