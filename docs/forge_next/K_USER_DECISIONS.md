@@ -357,9 +357,11 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 **Can defer:** yes.
 **Blocks phase:** Phase 2.
 
-### K-34 Distinguish authorization (role) denial from other refusals: OPEN (Fable source audit, then director)
+### K-34 Distinguish authorization (role) denial from other refusals: OPEN (director; the source audit is done)
 
-**Why it matters:** the package proposes a fifth session state, NOT AUTHORIZED. No source signal for it has been audited. A lamp with no signal behind it would invent a backend capability.
+**Why it matters:** a fifth session state, NOT AUTHORIZED, was proposed before the source had been audited. The audit has now been done and rules that state out; what remains is whether a per-action denial label may be derived from the server's message text.
+
+**Audit status:** done. `E_CONTENT_ADMIN_FEASIBILITY.md` E.3 audited every admin-relevant procedure at the Forge pin. Result: a role denial is per procedure, not per session; the refusal carries no code field, so the only candidate signal is the server's message string; it is stable for thirteen named paths and indistinguishable for four that guard with `entry && canChangeContent`. What is left for the director is the choice below, not the evidence.
 **Evidence:** the auth model has four states and none for role denial (`forge/src/transport/auth.mjs:54`, Source-verified); `classifyError` has no FORBIDDEN class (`forge/src/transport/outcome.mjs:58-73`); a mutation refusal arrives as HTTP 200 `success:false` and becomes a FAILED item (`forge/src/transport/outcome.mjs:39`; `forge/src/runner/runner.mjs:640`); role gates are resolver-level (`H_RISK_REGISTER.md` R-08). The safety contract requires the distinction only where the procedure surfaces it (SSC:83, 293-295) and the copy contract gives the wording for that case (CPY:386-396). The package's shell proposes the NOT AUTHORIZED lamp (`D_VISUAL_SYSTEM.md:499,504`). The design index forbids inventing backend capability to satisfy a mockup (IDX:145). Reconciliation conflict CF-04 routes this question here.
 **Options:** (a) a pinned-source audit of resolver refusal shapes in section E; if a stable signal exists, a `classifyError` class and an auth-state extension as a Lane A deliverable, and only then the lamp; (b) never distinguish; render "Write refused" with the server message under disclosure.
 **Consequence:** (a) is an execution-core change and lands under the seam rule (R-13); (b) keeps the four states and the lamp is removed from the proposal.
