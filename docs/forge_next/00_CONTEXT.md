@@ -68,11 +68,49 @@ docs/forge_next/G_ROADMAP.md            phased Lane A roadmap with gates
 docs/forge_next/H_RISK_REGISTER.md
 docs/forge_next/I_TEST_STRATEGY.md
 docs/forge_next/J_MIGRATION_AND_RETIREMENT.md
-docs/forge_next/K_USER_DECISIONS.md     open user-decision register
-docs/forge_next/evidence/*.json         the two matrices with their verification state, registry gap, drift, harvest evidence, repository consumers, test and CI inventory, current-UX audit, the visual synthesis and the contrast checker
+docs/forge_next/K_USER_DECISIONS.md     the decision register, split by ownership class
+docs/forge_next/evidence/*.json         the two matrices with their verification state, registry gap, drift, harvest evidence, repository consumers, test and CI inventory, current-UX audit and the visual synthesis
+docs/forge_next/evidence/*.py           the contrast checker behind every ratio in D, and the generator that rebuilds both matrices' summary strings from their rows
 docs/forge_next/wireframes/*.html       seventeen static wireframes (phone and desktop in one page), with src/ (generator) and review/ (rendered captures)
 docs/forge_next/design/                 the approved concept mockup and its provenance pointer
 docs/handoffs/FORGE_NEXT_PLANNING_HANDOFF.md  section-17 handoff for independent review
 ```
 
 Files marked (forthcoming) in any section are not committed at the cited SHA. A matrix or evidence file cited by A, H or K but absent from `evidence/` is not evidence until it lands; the handoff lists only committed artifacts and names anything still forthcoming.
+
+## 00.6 Post-review reconciliation (2026-09-13)
+
+The package was frozen at `claude/forge-next-planning-v3frzi@201a1e2ea57011440e164f84a0ed30298fa4b243` and independently reviewed. The review is `docs/reviews/FORGE_NEXT_PLANNING_REVIEW.md` at `chatgpt/review-forge-next-planning@a991abc2e6af0dfe25ae06e032541a0b73409e8d`, a branch whose only commit adds that file on top of the frozen SHA, so the audit target is untouched by it. Its disposition is `APPROVE_WITH_REQUIRED_CORRECTIONS`: the architecture is approved, and four findings had to be corrected before integration. This section records what changed; nothing here was read from or written to any ChatGPT-owned branch except as read-only evidence.
+
+| Finding | What it said | What was done |
+|---|---|---|
+| F1 (high) | The register escalated ordinary engineering mechanisms as director rulings, against `docs/workflows/DIRECTOR_DECISIONS.md` §1 | Accepted. `K_USER_DECISIONS.md` now carries an ownership class per entry and three index tables (§K.1). Fifteen entries moved to **engineering**, five are **split** with only the director half waiting, and each engineering entry states Fable's position instead of a question. No id changed |
+| F2 (high) | Phase 0 was blocked by K-13, K-14 and K-60, two of which say "Can defer: yes", and K-60 misread the one-writer rule | Accepted. Phase 0 now has four objective prerequisites and no director decision. The one-writer reading is corrected in K-60, in `G_ROADMAP.md` §G.2.0 and §G.4, in `J_MIGRATION_AND_RETIREMENT.md` and in `I_TEST_STRATEGY.md`: the rule reserves a branch to one writer, not a file to one branch. K-61 is answered by the default role model rather than held open |
+| F3 (medium) | The package studied `824c4d58`; the implementation froze later at `cda8ac76` | Accepted with the scope stated below. Provenance is restamped and measured; the final SHA's own evidence is **not** adopted as verified, because Fable has not reviewed it yet |
+| F4 (medium) | Audit-summary metadata was stale relative to the package's own final rows | Accepted. The evidence summary strings are regenerated from the rows and the handoff now describes the actual frozen state |
+
+### Quest Studio provenance, measured rather than assumed
+
+This package's Studio readings were taken at `chatgpt/forge-quest-studio-foundation@824c4d58075d0265c717ef25c02485614f3096cf`, the branch tip when the second amendment arrived. The implementation line later froze for review at `cda8ac76100b2fa4b5429bea27c3c8c80353e240`, whose handoff names `bcb3a47e7c516b20f5a51c5aa195364d32eb6b73` as its fully verified parent.
+
+What that means for the cites in this package was measured here, read-only, by diffing the two commits in this checkout. The package cites fourteen distinct paths with the `824c4d58:` prefix. Eleven are byte-identical at `cda8ac76`, so every cite into them resolves unchanged: `.github/workflows/quest_studio.yml`, `docs/RULINGS.md`, `forge/src/github.mjs`, `forge/src/main.mjs`, `forge/src/studio/ui.mjs`, `forge/src/ui/dom.mjs`, `forge/test/release_loader.test.mjs`, `skills/building-tnr-content/data/49_DATA_quest_studio_subtypes.json`, `skills/building-tnr-content/scripts/quest_compile.py`, `skills/building-tnr-content/scripts/quest_compile_integration_test.py`, and the `forge/src/studio/` directory reference. Three changed:
+
+| Path | Change between the two SHAs | Effect on this package |
+|---|---|---|
+| `forge/src/studio/repository.mjs` | A `generatedArtifactPath()` helper is added and `generatedManifest()` delegates to it; the path check now also rejects backslashes and empty, `.` or `..` segments | The confinement claim in §A.11 and the `null`-on-404 reading behind K-38 both still hold; they are stricter than the package describes, not weaker. Line cites `:10-20`, `:31-39` and `:41-49` still resolve; `:52`, `:57-66`, `:73-90`, `:73-121`, `:95` and `:115-117` shift by the fourteen inserted lines |
+| `.github/workflows/quest_studio_ci.yml` | Two trigger paths added, a static "no live-game network path" guard over the worker and compiler, and a worker trust-boundary test step | The package's phase-0 proposal for a static no-live check now has an existing implementation on that branch to adopt and extend rather than to invent. The CI-duplication finding is unaffected: a second `npm ci` and `npm test` still run there and `npm audit` is still absent at `cda8ac76` (verified here) |
+| `forge/test/quest.studio.ui.test.mjs` | Regression cases added | The one cite, `:22-41`, still resolves |
+
+**What is deliberately not adopted.** The final handoff on that branch claims a larger evidence set: a 9/9 compiler selftest, a 308/308 Forge suite, a real Mission adapter integration, a multiline-draft regression, a path-traversal regression and a checked-bundle parity rebuild. Those are the implementing branch's own claims. Fable has not independently reviewed `cda8ac76`, and `CLAUDE.md` §12 puts that review before acceptance, so this package records them as claims pending review and upgrades no evidence tier on their account. The architectural criticisms the package makes of the seam — a second full-screen shell with its own palette, a mount outside the composition root, a missing promotion contract, no manifest hash in the envelope, invisible worker refusals — were checked against the final SHA above and none of them is retired by it.
+
+**The reconciliation step, and where it belongs.** Before a phase-S brief is frozen, every `824c4d58:` cite in this package is re-resolved at the accepted Studio SHA and the three changed paths above are re-read in full. That is a prerequisite of the phase, listed in `G_ROADMAP.md` §G.0, not a correction that can be made now: the accepted SHA is not knowable until Fable's independent review of `cda8ac76` closes and any corrections it requires are applied by that branch's owner.
+
+### Baseline drift since the planning base
+
+The package's base is `main@305a28f992e33194fbba279a3f32e698dfb2b67f` and that remains the SHA every unprefixed cite resolves at. `main` has since advanced to `6848a7805d912378f7f8eb27f52c9625dd10ac54` (verified here with `git fetch origin main`). The content of the move, measured in this checkout:
+
+- **Forge 0.4.1** (`ef15445`): the takeover now mounts only once the carrier owns `<body>`, so hydration cannot clear the overlay. It changes `forge/src/main.mjs` (+106 lines) and `forge/src/ui/takeover.mjs` (+196), adds `forge/test/carrier.mjs`, `carrier.test.mjs` and `carrier.react.test.mjs`, and adds `react` and `react-dom` 19.2.8 as dev dependencies. Phase 0 relocates `takeover.mjs` into a userscript host, so its file list and its byte-identical-render fixtures must be re-measured against 0.4.1 rather than 0.4.0, and the committed test count in §G.2.0 and `evidence/forge-tests-ci.json` is a 0.4.0 measurement.
+- The release pin moved to `25388cc7e19e9b7be8bd6a115bd3ece70775a23a`, and two content captures and two results bundles landed.
+- The upstream game head has also moved past `36c5873b`, which the review reports at `1e01028cdd68459b731001dc98d78bf1970cd7f1`; that has not been re-measured here and no source claim in this package rests on it, because every source claim is pinned to `345d18ac` or to `36c5873b` by name.
+
+None of this invalidates the frozen evidence, and none of it is silently absorbed. It is what the package's own standing gates exist for: R-05 re-runs the source-drift check per phase rather than once, and phase 0's first prerequisite is a re-measured baseline. The correct response is to re-run them when the phase-0 brief is written, not to restate 0.4.1 numbers here from a diff.

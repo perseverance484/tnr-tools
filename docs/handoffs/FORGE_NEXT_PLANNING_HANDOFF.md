@@ -19,14 +19,16 @@ what ChatGPT is asked to decide are in field 10.
 
 ## 1. What this is, and the branch pushed
 
-**One note on how this document was produced.** It was written from the package, then the package changed under it: an adversarial critic had produced 85 findings across six lenses, a re-check confirmed 56 already fixed, and the remaining 29 were closed after this handoff was first written. Where this document and a section disagree, the section is current. The specific late changes are: the image-supply capability became the eighth hard retirement blocker and gained its gate; the gameAsset verdict moved from partial to yes for record work; the rate-limiter claim, the confidentiality claim and the parse-baseline requirement were each scoped to what the source supports; and three decisions were registered that had been assumptions (K-59, K-60, K-61). The tallies in sections 5 and 6 below were regenerated from the verified matrices and are current.
+**Revision.** This is the second frozen handoff for this package. The first froze at `201a1e2ea57011440e164f84a0ed30298fa4b243`, was independently reviewed, and came back `APPROVE_WITH_REQUIRED_CORRECTIONS` with four findings. Section 1.1 below states exactly what changed in response and what did not. Everything else in this document describes the package at this SHA, and every count in it was re-measured for this freeze rather than carried forward.
+
+**One note on how the first draft was produced, kept because a reviewer of the diff will see its traces.** It was written from the package, then the package changed under it: an adversarial critic had produced 85 findings across six lenses, a re-check confirmed 56 already fixed, and the remaining 29 were closed after that handoff was first written. The specific late changes were: the image-supply capability became the eighth hard retirement blocker and gained its gate; the gameAsset verdict moved from partial to yes for record work; the rate-limiter claim, the confidentiality claim and the parse-baseline requirement were each scoped to what the source supports; and three decisions were registered that had been assumptions (K-59, K-60, K-61). Independent review then found that three summary strings still described the pre-correction state; those are fixed at this SHA and field 8.4 records what was actually stale.
 
 **Objective in one sentence.** Produce a durable, evidence-backed plan for a unified Forge that
 absorbs the Builder's remaining real work and adds a Content Admin surface, so that the director can
 decide what to build, in what order, and what is still theirs to rule.
 
 **What was produced.** Thirteen planning sections (`00_CONTEXT` and A to K) under
-`docs/forge_next/`, ten committed evidence files, seventeen static wireframes with their generator
+`docs/forge_next/`, eleven committed evidence files, seventeen static wireframes with their generator
 and seven rendered captures, and the approved concept mockup with its provenance note. No code, no
 test, no manifest and no doctrine was written or changed.
 
@@ -50,12 +52,50 @@ section G names phase 0 as the only phase that can be briefed first, and it has 
 
 ---
 
+## 1.1 Correction round 1: what independent review required, and what changed
+
+The first freeze, `201a1e2ea57011440e164f84a0ed30298fa4b243`, was audited by ChatGPT
+(`docs/reviews/FORGE_NEXT_PLANNING_REVIEW.md` at
+`chatgpt/review-forge-next-planning@a991abc2e6af0dfe25ae06e032541a0b73409e8d`, a branch whose single
+commit adds that file on top of the frozen SHA, so the audit target itself is untouched). Disposition:
+**architecture approved; package approved with required corrections before integration.** Four
+findings. All four are accepted; none required changing a conclusion, a recommendation or the
+architecture.
+
+| # | Finding | Accepted | Where the correction landed |
+|---|---|---|---|
+| F1 | high — the register escalated ordinary engineering mechanisms as director rulings, against `docs/workflows/DIRECTOR_DECISIONS.md` §1 | yes, in full | `K_USER_DECISIONS.md` §K.1 (new) plus a **Class** field on all 59 entries and three index tables; fifteen entries reclassified as engineering and given Fable's position; five split with only their director half waiting; K-60 and K-61 rewritten. Downstream: `G_ROADMAP.md` §§G.0, G.1, G.2.0, G.3, G.4, G.5, G.6; `I_TEST_STRATEGY.md`; `J_MIGRATION_AND_RETIREMENT.md`; `D_VISUAL_SYSTEM.md`; `PLAN_2026-09-12_forge_next.md` §5; §7 of this handoff |
+| F2 | high — phase 0 was blocked by K-13, K-14 and K-60, two of which say "Can defer: yes", and the K-60 entry misread the one-writer rule | yes, in full | `G_ROADMAP.md` §G.2.0 now lists four objective prerequisites and **no** director decision; the phase table gained a legend separating director rulings from engineering positions; the one-writer reading is corrected wherever it appeared (K-60, G §G.2.0 and §G.4, J §J.1 and §J.3, I §I.1) |
+| F3 | medium — the package studied `824c4d58`; the implementation froze later at `cda8ac76` | yes, with its scope stated | `00_CONTEXT.md` §00.6 measures the difference rather than assuming it: of the fourteen paths this package cites on that branch, eleven are byte-identical at `cda8ac76` and three changed; every reading survives, three line cites shift. A phase-S precondition (d) now requires re-resolving every cite at the accepted SHA. The branch's own evidence claims are **not** adopted, because Fable has not reviewed `cda8ac76` |
+| F4 | medium — audit-summary metadata was stale relative to the package's own final rows | yes, in full | Both evidence matrices' summary strings are now **generated** from their rows by `evidence/gen_evidence_summary.py`; `verification.method` in both was corrected from "per capability row" to the decisive set; field 8.4 of this handoff now states what was actually stale and which two "defects" the final sections had already fixed |
+
+**What did not change, and why.** The review's section 3 lists ten strengths to preserve; none of
+them was touched. The architecture recommendation (headless `ForgeCore` first, then incremental shell
+replacement), the retirement gate model, the compile/live separation, the operation-first IA with
+content lanes as a second axis, and the safety-state semantics are unchanged at this SHA. The review's
+section 4 raises two shell choices — exact destinations, and whether Quest Studio and Content Admin
+deserve a primary phone slot rather than `More` — as legitimately open for the phase-2 design freeze.
+They already are: K-20 and K-02 hold them, and `D_IA_AND_JOURNEYS.md` §D.1 keeps the alternatives in
+full rather than presenting the current proposal as settled. No change was made there, because making
+one would settle a director decision by editing a plan.
+
+**What this round did not do, and is not authorised to do.** Step 5 of the review's own correction
+sequence asks Fable to independently review
+`chatgpt/forge-quest-studio-foundation@cda8ac76100b2fa4b5429bea27c3c8c80353e240`. That review has not
+been performed: it is a separate task with its own scope, and it needs a director handoff. The
+unified implementation contract the review proposes in its step 9 has likewise not been drafted. The
+second amendment's constraint still stands and was honoured here: no second implementation stream was
+begun from this planning branch.
+
+---
+
 ## 2. Exact base and head SHAs
 
 | | |
 |---|---|
 | base | `main@305a28f992e33194fbba279a3f32e698dfb2b67f` (short `305a28f`), verified with `git fetch origin main` at the start of the pass and again at each amendment |
-| head (FROZEN) | the commit that adds this handoff file. The planning owner reports the exact hash in the message that accompanies the push, read back from `origin/claude/forge-next-planning-v3frzi`, not assumed from an authored commit |
+| previous freeze (superseded) | `201a1e2ea57011440e164f84a0ed30298fa4b243` — the review target of `docs/reviews/FORGE_NEXT_PLANNING_REVIEW.md`. It is left intact in history; this round adds commits on top of it and rewrites nothing |
+| head (FROZEN) | the commit that adds this handoff revision. The planning owner reports the exact hash in the message that accompanies the push, read back from `origin/claude/forge-next-planning-v3frzi`, not assumed from an authored commit |
 | merge-base with `main` | `305a28f`. The branch has not been rebased and `main` has not been merged into it |
 
 **The SHA, not the branch name, is the audit target** (`CLAUDE.md` section 11). The branch may
@@ -82,26 +122,26 @@ is lines for prose and structured rows for evidence.
 
 | Path | What it is, in one line | Size | Count |
 |---|---|---:|---|
-| `docs/forge_next/00_CONTEXT.md` | Provenance, pins, boot sequence, method, constraints honoured, package layout | 15,675 | 78 lines |
-| `docs/forge_next/A_ARCHITECTURE_MAP.md` | Current state of Forge 0.4.0 and Builder v4.32: module map, data flow, state machines, storage, contracts, safety invariants, bundle facts, the Quest Studio seam read as evidence | 52,740 | 261 lines |
-| `docs/forge_next/B_PARITY_MATRIX.md` | Builder to Forge parity: 61 capability rows, 8 hard and 9 conditional retirement blockers, 10 retirement gates with measurable acceptance | 270,141 | 357 lines |
+| `docs/forge_next/00_CONTEXT.md` | Provenance, pins, boot sequence, method, constraints honoured, package layout | 23,310 | 115 lines |
+| `docs/forge_next/A_ARCHITECTURE_MAP.md` | Current state of Forge 0.4.0 and Builder v4.32: module map, data flow, state machines, storage, contracts, safety invariants, bundle facts, the Quest Studio seam read as evidence | 53,593 | 261 lines |
+| `docs/forge_next/B_PARITY_MATRIX.md` | Builder to Forge parity: 61 capability rows, 8 hard and 9 conditional retirement blockers, 10 retirement gates with measurable acceptance | 270,547 | 359 lines |
 | `docs/forge_next/C_WORKFLOW_INVENTORY.md` | The 25 content workflows that actually run here (W-01 to W-25), each with evidence of real use, today's tooling, and Forge's support | 48,719 | 230 lines |
-| `docs/forge_next/D_IA_AND_JOURNEYS.md` | Recommended information architecture for phone and desktop, 32 screens, 7 journeys, mockup element reconciliation, departures | 68,152 | 458 lines |
-| `docs/forge_next/D_VISUAL_SYSTEM.md` | The approved visual direction elaborated into tokens, a 25-component inventory, state and motion rules, 17 departures, a 5-slice shell sequence | 124,998 | 775 lines |
-| `docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md` | Per-class source audit of what a content admin can do with zero game-source change, the role model, the denial-signal audit, publication axes, queue options | 70,255 | 357 lines |
+| `docs/forge_next/D_IA_AND_JOURNEYS.md` | Recommended information architecture for phone and desktop, 32 screens, 7 journeys, mockup element reconciliation, departures | 68,154 | 458 lines |
+| `docs/forge_next/D_VISUAL_SYSTEM.md` | The approved visual direction elaborated into tokens, a 25-component inventory, state and motion rules, 17 departures, a 5-slice shell sequence | 126,072 | 776 lines |
+| `docs/forge_next/E_CONTENT_ADMIN_FEASIBILITY.md` | Per-class source audit of what a content admin can do with zero game-source change, the role model, the denial-signal audit, publication axes, queue options | 71,331 | 357 lines |
 | `docs/forge_next/F_ARCHITECTURE_RECOMMENDATION.md` | Preserve, refactor, replace, abstract or migrate per module; the headless core boundary; brief section 12 answered question by question | 100,170 | 451 lines |
-| `docs/forge_next/G_ROADMAP.md` | Nine reviewable Lane A phases (0, 1, 2, 3, S, 4, 5, W, 6) with objective, surfaces, prerequisites, gates, decisions, rollback and retirement impact | 55,120 | 414 lines |
-| `docs/forge_next/H_RISK_REGISTER.md` | 31 risks (R-01 to R-31) with evidence, how each would bite, and the phase gate that bounds it | 39,967 | 49 lines |
-| `docs/forge_next/I_TEST_STRATEGY.md` | Today's measured suite, the test architecture a larger UI needs, static gates, per-phase gate map, and the nine user-owned browser and live smokes | 47,898 | 251 lines |
-| `docs/forge_next/J_MIGRATION_AND_RETIREMENT.md` | Retirement gates G-01 to G-13, the six-stage transition ladder, storage and contract migration rules, how the operator is told | 55,356 | 223 lines |
-| `docs/forge_next/K_USER_DECISIONS.md` | The decision register: three rulings recorded as context and one advisory reading the director must still confirm, 59 open entries K-01 to K-61 (K-18 and K-19 unused), each with options, consequence, recommendation and the phase it blocks | 104,607 | 644 lines |
+| `docs/forge_next/G_ROADMAP.md` | Nine reviewable Lane A phases (0, 1, 2, 3, S, 4, 5, W, 6) with objective, surfaces, prerequisites, gates, decisions, rollback and retirement impact | 58,274 | 416 lines |
+| `docs/forge_next/H_RISK_REGISTER.md` | 31 risks (R-01 to R-31) with evidence, how each would bite, and the phase gate that bounds it | 40,463 | 49 lines |
+| `docs/forge_next/I_TEST_STRATEGY.md` | Today's measured suite, the test architecture a larger UI needs, static gates, per-phase gate map, and the nine user-owned browser and live smokes | 48,193 | 251 lines |
+| `docs/forge_next/J_MIGRATION_AND_RETIREMENT.md` | Retirement gates G-01 to G-13, the six-stage transition ladder, storage and contract migration rules, how the operator is told | 55,918 | 223 lines |
+| `docs/forge_next/K_USER_DECISIONS.md` | The decision register: three rulings recorded as context and one advisory reading the director must still confirm, then 59 entries K-01 to K-61 (K-18 and K-19 unused) split by ownership class — 39 director decisions, 5 split, 15 Fable engineering decisions carrying Fable's position — each with options, consequence, a recommendation or a position, and the phase it blocks | 133,853 | 746 lines |
 
 ### 3.2 Evidence
 
 | Path | What it is, in one line | Size | Rows |
 |---|---|---:|---|
-| `docs/forge_next/evidence/parity-matrix.json` | The parity matrix as data: 61 capability rows plus 10 gate rows, each with citations, tier, blocker verdict and verification state | 565,199 | 71 |
-| `docs/forge_next/evidence/admin-feasibility.json` | The Content Admin audit as data: 25 content-class rows (CA-01 to CA-25) and 10 cross-cutting rows (CC-01 to CC-10) | 650,933 | 35 |
+| `docs/forge_next/evidence/parity-matrix.json` | The parity matrix as data: 61 capability rows plus 10 gate rows, each with citations, tier, blocker verdict and verification state | 566,037 | 71 |
+| `docs/forge_next/evidence/admin-feasibility.json` | The Content Admin audit as data: 25 content-class rows (CA-01 to CA-25) and 10 cross-cutting rows (CC-01 to CC-10) | 651,369 | 35 |
 | `docs/forge_next/evidence/forge-tests-ci.json` | Test and CI inventory: per-test rows, gap rows, harness rows, totals and the CI workflow shape | 175,959 | 334 |
 | `docs/forge_next/evidence/visual-synthesis.json` | The synthesised token set, component inventory, departures, grafted ideas and the alternatives kept | 114,793 | 2 alternatives, 20 grafts, 11 decisions, 22 evidence rows |
 | `docs/forge_next/evidence/drift.json` | Game-source drift between the Forge pin and the read head, per surface | 110,143 | 197 |
@@ -110,6 +150,7 @@ is lines for prose and structured rows for evidence.
 | `docs/forge_next/evidence/ux-audit-current.json` | The current Forge UI audited surface by surface against the code | 69,883 | 95 |
 | `docs/forge_next/evidence/registry-gap.json` | Procedure registry coverage against the pinned source | 40,864 | 145 |
 | `docs/forge_next/evidence/contrast.py` | The one contrast computation every ratio in `D_VISUAL_SYSTEM.md` comes from, so a reviewer can recompute rather than trust | 1,460 | 41 lines |
+| `docs/forge_next/evidence/gen_evidence_summary.py` | Regenerates the audit-summary strings in both matrices from their own rows, so a prose tally can never drift from the data again (added in correction round 1, review finding F4) | 5,006 | 76 lines |
 
 ### 3.3 Wireframes and design reference
 
@@ -396,8 +437,13 @@ metadata has to live in the repository and must never be read as the record's li
 
 ## 7. User decisions required before implementation
 
-Source: `K_USER_DECISIONS.md`. Fifty-eight entries are open. Nothing in this package settles any of
-them, and every recommendation that depends on one says so by id.
+Source: `K_USER_DECISIONS.md`. Fifty-nine entries are registered, and §K.1 there classes each one.
+**Forty-four hold something the director owns** — thirty-nine director decisions and the director halves
+of five split entries — and those are the list below. **Fifteen are Fable's own engineering decisions**
+and carry Fable's position rather than a question; they are named per phase so a brief cannot forget
+them, and they block no freeze. That split was made in response to review finding F1 and changed no id.
+Nothing in this package settles a director decision, and every recommendation that depends on one says
+so by id.
 
 ### 7.1 Ruled during the pass, carried as context
 
@@ -418,17 +464,17 @@ branch, not to this package.
 
 | Blocks | Decisions |
 |---|---|
-| **Phase 0** (foundations, the only phase that can be briefed first) | K-13 pin refresh, K-14 ship a minified bundle, K-60 who owns the release-loader baseline fix |
-| **Phase 1** (research and capture) | K-06 capture data classification and what may persist to a public repository, K-17 which non-content procedures Forge may call |
+| **Phase 0** (foundations, the only phase that can be briefed first) | **none.** K-13 (pin refresh), K-14 (minified bundle) and K-60 (the release-loader baseline fix) are engineering positions the phase-0 brief fixes and review checks. What phase 0 waits on is objective: a green or explicitly isolated `main`, a re-run drift check, a named owner and branch, and a written bundle and release approach |
+| **Phase 1** (research and capture) | K-06 what classes of captured data may persist to a public repository, K-17 which non-content procedures Forge may read at all. Both are split entries: the tier mechanism and the per-row audit under them are engineering |
 | **Phase 2** (shell and design system) | K-02 navigation model, **K-20** destinations and labels, **K-21** operation-mode taxonomy, **K-22** mode colours and tokens, **K-23** typography scale, **K-24** lane taxonomy, K-31 background art, **K-32** semantic button variants, **K-33** mode derived or selectable, K-56 wordmark, K-57 whether a light theme exists, K-58 which actions keep the browser's own confirmation. K-01 is ruled; token acceptance at the phase-2 freeze is what remains under it |
-| **Phase 3** (manifest experience and recovery) | **K-12** publishing UX and confirmation level (wording half), K-15 credential model, K-16 deletion policy for placeholders and orphans, K-59 the operator remedy for server-owned columns |
-| **Phase S** (Quest Studio) | K-25 source schema, K-26 worker trigger and credential scope (ratify or revert), K-27 adapter rollout order, K-36 canonical profile-shape enforcement, K-37 branch namespace and retention, K-38 worker refusal observability, K-39 promotion gate, K-40 how project state references a build, K-46 graph editing depth, K-49 policy override workflow, K-50 adapter boundary, and K-15 jointly with K-26 |
-| **Phase 4** (Content Admin read and review) | K-03 permission scope, K-04 arbitrary writes or editorial only, K-05 which classes get first-class forms, K-08 direct edits or a staged package, K-09 where approval state lives, K-10 whether any game-source change is acceptable, K-16, K-34 authorisation denial, K-47 review annotations, K-52 how the surface learns the role, K-53 whether balance-bearing classes appear at all |
+| **Phase 3** (manifest experience and recovery) | **K-12** publishing UX and confirmation level (wording half), K-15 whether the admin's device holds a credential at all and its scope (the sync mechanism under it is engineering), K-16 deletion policy for placeholders and orphans, K-59 the operator remedy for server-owned columns |
+| **Phase S** (Quest Studio) | K-26 the credential scope on the operator's device (the trigger model under it is engineering), K-27 adapter rollout order, K-46 graph editing depth, K-49 policy override workflow, and K-15 jointly with K-26. Engineering positions this phase's brief fixes: K-25 source schema, K-36 canonical profile-shape enforcement, K-37 branch namespace and retention, K-38 worker refusal observability, K-39 promotion gate, K-40 how project state references a build, K-50 adapter boundary |
+| **Phase 4** (Content Admin read and review) | K-03 permission scope, K-04 arbitrary writes or editorial only, K-05 which classes get first-class forms, K-08 direct edits or a staged package, K-09 where approval state lives, K-10 whether any game-source change is acceptable, K-16, K-34 whether the product carries authorisation vocabulary at all, K-53 whether balance-bearing classes appear at all. Engineering positions the phase-4 brief fixes: K-47 review annotations, K-52 which role lookup the surface uses |
 | **Phase 5** (publish) | K-07 which operations are eligible for few-tap publish, K-12, **K-30** late admin and publish visual details, K-54 whether the product says plainly that hidden is not secret, **K-55** whether a delegated admin performs the publish act at all |
 | **Phase W** (project workspace) | K-28 how much project state Forge may edit, K-43 project creation scope, K-44 lifecycle vocabulary |
 | **Phase 6** (retirement) | K-10, K-11 timing of deprecation and removal |
 | **Ordering rather than a phase** | K-42 confirm the flagship end-to-end workflow |
-| **Not scheduled by this roadmap** | K-29 Guide Studio and the infographic lane, K-35 whether `ABORTED` gets a producer, K-41 how art files enter packaging, K-45 when feedback becomes a task, K-48 reuse search, K-51 an AI assistance layer |
+| **Not scheduled by this roadmap** | K-29 Guide Studio and the infographic lane, K-41 how art files enter packaging, K-45 when feedback becomes a task, K-51 an AI assistance layer. K-35 (`ABORTED`) and K-48 (reuse search) are engineering positions with no phase |
 
 **Two decisions bind more than one phase.** K-55 is a doctrine question about whether a delegated
 Content Admin performs the publish act at all, so no phase may assume its answer and phase 5 is
@@ -482,6 +528,8 @@ Repository release state at the base: both loaders pin the same immutable bundle
 |---|---|---|---|
 | `0bb5a54b1025ba49ff6b09aa9606f23102f4dca3` | `chatgpt/forge-next-planning` | The approved visual direction (the mid-pass north star) and the concept mockup | Exported into the session scratchpad and read as a new planning input. **Not merged, not rebased onto, nothing on it modified** |
 | `824c4d58075d0265c717ef25c02485614f3096cf` | `chatgpt/forge-quest-studio-foundation` | The two director rulings, the routing index with its authority tiers, the ten architecture-neutral UX and safety contracts, the Tier B product proposals, the continuation brief, and the Quest Studio foundation implementation | Same. Read as **architecture and roadmap evidence only**. It is not a review target of this package, and this package neither duplicates nor patches it |
+| `cda8ac76100b2fa4b5429bea27c3c8c80353e240` | `chatgpt/forge-quest-studio-foundation` | Correction round 1 only, and only to answer one question: which of the paths this package cites changed after the `824c4d58` snapshot. Fetched and diffed locally against `824c4d58`; the result is `00_CONTEXT.md` §00.6 | Read-only, nothing merged, nothing modified. Its own handoff's evidence claims are **not** adopted: Fable has not reviewed this SHA, and `CLAUDE.md` §12 puts that review before acceptance |
+| `a991abc2e6af0dfe25ae06e032541a0b73409e8d` | `chatgpt/review-forge-next-planning` | The independent review of the first freeze. Its only commit sits on top of `201a1e2e`, so it adds a file and changes nothing it audits | Read-only. Findings applied on this branch, per `CLAUDE.md` §12; the review branch itself is untouched |
 
 The design files and the continuation brief still carry the older branch name in their own headers.
 The exact snapshot consumed is `824c4d58`, which contains the older branch's history. **A reviewer
@@ -535,18 +583,22 @@ the exported branch files, not on that branch's committed bundle. The brief's "a
 the checked-in bundle" property is therefore **unverified here** and is review focus for the seam's
 own owner.
 
-**Three internal inconsistencies found while assembling this handoff**, reported rather than silently
-fixed, because the package is frozen:
+**The three internal inconsistencies the first handoff reported, and what is true now.** Independent
+review checked all three against the final files and found that the first handoff had described
+defects the sections had already fixed, while misnaming the one that was real. Corrected here:
 
-1. `evidence/parity-matrix.json` carries a precomputed `status_tally` header reading GAP 22, PARITY
-   10, INTENTIONAL DIFFERENCE 5. **Its own 61 capability rows count GAP 23, PARITY 8, INTENTIONAL
-   DIFFERENCE 6**, which is what section B.2 states. The header is stale; the rows and B.2 agree.
-2. Section B.2's blocker table (yes 8, conditional 9, no 43) sums to **60 of the 61 rows**. The
-   missing row is **P-34**, whose blocker verdict in the evidence file begins "split" because it is
-   partly no and partly yes (its second half is gate G-13). B.3's blocker lists are unaffected.
-3. Section D.3.1 says "Sixteen pages are committed" under `wireframes/`. **Seventeen are committed**
-   (`wf01` to `wf17`), which is what `00_CONTEXT.md` section 00.5 and the wireframes README say. The
-   count in D.3.1 is stale.
+1. **Real, and now fixed.** The stale numbers were in `evidence/parity-matrix.json`'s **prose
+   `summary`** (GAP 22, PARITY 10, INTENTIONAL DIFFERENCE 5, blocker yes 7 / no 45), not in its
+   machine `status_tally`, which already read GAP 23, PARITY 8, INTENTIONAL DIFFERENCE 6 and blocker
+   yes 8 / conditional 9 / no 43 / split 1 in agreement with section B. The first handoff pointed at
+   the wrong field. Both files' summary strings are now **generated** from the rows by
+   `evidence/gen_evidence_summary.py`, so the two cannot diverge again, and the same script corrected
+   a second overstatement in both files: `verification.method` claimed a verifier per capability row,
+   where the real scope is the decisive set B.1 defines.
+2. **Not a defect.** Section B.2's blocker table carries the explicit `split (part no, part gated) 1`
+   row, so it sums to all 61. P-34 is that row.
+3. **Not a defect.** `D_IA_AND_JOURNEYS.md` §D.3.1 says "Seventeen pages are committed", which agrees
+   with `00_CONTEXT.md` §00.5 and the wireframes README.
 
 ---
 
@@ -590,12 +642,16 @@ written to the session scratchpad only and **is not committed**.
 
 ### 9.3 Gates run, with exact commands and results
 
-Read-only. None was piped in a way that masks its exit code. **This package changes no file any of
-these gates owns**, so they are a statement about the baseline, not about the package.
+Read-only, and **re-run for this freeze** rather than carried forward from the first one. None was
+piped in a way that masks its exit code. **This package changes no file any of these gates owns**, so
+they are a statement about the baseline, not about the package. One number moved between freezes and
+is corrected here: `doctrinemap.py` reports 17 surfaces scanned, not 16, because it scans every
+top-level `docs/*.md` and this branch adds `docs/PLAN_2026-09-12_forge_next.md` to that directory.
+The first handoff quoted a pre-package measurement.
 
 | Command | Result | Exit |
 |---|---|---|
-| `skills/building-tnr-content/scripts/doctrinemap.py` | 21 assertions, 18 referenced, 16 surfaces scanned; 0 errors, 0 warnings | **0** |
+| `skills/building-tnr-content/scripts/doctrinemap.py` | 21 assertions, 18 referenced, 17 surfaces scanned; 0 errors, 0 warnings | **0** |
 | `skills/building-tnr-content/scripts/render_doctrine.py --check` | all projections current | **0** |
 | `skills/building-tnr-content/scripts/build_packs.py --check` | all packs and table-of-contents files current | **0** |
 | `skills/building-tnr-content/scripts/lawmap.py` | 93 laws, 93 matrix rows, 77 citations across 35 files; 0 errors, **5 warnings** | **0** |
@@ -651,7 +707,9 @@ enables.
 
 Everything under `docs/forge_next/` and this file, at the head SHA reported with the push. The head
 does not move until review returns. If a blocking correction proves unavoidable before review starts,
-a **new handoff with a new exact SHA** is issued rather than an edit in place.
+a **new handoff with a new exact SHA** is issued rather than an edit in place. That is what happened
+here: the first freeze `201a1e2e` stayed still through its review, and this freeze is a new SHA
+carrying the accepted corrections rather than a rewrite of it (`CLAUDE.md` §12).
 
 ### 10.2 What ChatGPT is asked to audit
 
@@ -659,9 +717,9 @@ The brief's own five criteria, with what each means against this package:
 
 | Criterion | What to attack |
 |---|---|
-| **Completeness** | Does the package answer brief sections 13-A to 13-K and the eighteen section-12 questions? Is anything cited that does not exist (field 3.4 lists what is known to be missing, starting with the absent entry-point plan)? Are the 58 open decisions the right set, and is anything settled in prose that should have been a decision? |
+| **Completeness** | Does the package answer brief sections 13-A to 13-K and the eighteen section-12 questions? Is anything cited that does not exist (field 3.4 lists what is known to be missing, starting with the absent entry-point plan)? Are the 59 registered decisions the right set, is anything settled in prose that should have been a decision, and — the F1 question in reverse — is any entry now classed **engineering** that carries a consequence the director actually owns? |
 | **Safety** | Does any proposed surface, component or phase create a path to re-send an ambiguous write, hide a pause, make a failure look like success, or render a state with no machine source behind it? The standing gates in G.0 and G.1.2 claim to prevent exactly that; test the claim. Is the single execution-core change (the advisory event hook) genuinely advisory? |
-| **Source agreement** | Spot-check the rows the package rests on. Every citation is a file and line at `main@305a28f`, in the Builder bundle, or in a named game checkout. Attack the 32 parity rows marked `not verified` and the two admin rows marked not verified, and attack the three inconsistencies self-reported in field 8.4 for any others of the same kind |
+| **Source agreement** | Spot-check the rows the package rests on. Every citation is a file and line at `main@305a28f`, in the Builder bundle, or in a named game checkout. Attack the 32 parity rows marked `not verified` and the two admin rows marked not verified, and re-run `evidence/gen_evidence_summary.py` to confirm the generated summaries still match the rows |
 | **UX coherence** | Do the IA, the visual system and the wireframes describe one product with one vocabulary? Does any element promise a capability the evidence does not have? The reconciliation of the approved mockup lists 17 visual and 8 structural departures with the smallest correction for each; judge whether each departure is justified by evidence or by taste |
 | **Whether the phases are reviewable** | Can phase 0 be briefed and reviewed on its own SHA, with an empty execution-core diff and a byte-identical screen fixture as its acceptance? Is each later phase a vertical slice that leaves Forge usable? Are the dependencies real or convenient? |
 
@@ -669,6 +727,16 @@ The reviewer should attack hardest at: **the panel-synthesis gap** (sections D, 
 without a judged synthesis and say so), **the parity rows that were not verified**, **the
 role-denial audit in E.3**, whose conclusion removes a proposed UI state, and **the retirement
 gates**, because the whole "Builder can be retired" claim is only as good as they are.
+
+**For this round specifically**, the narrower question is whether the four findings are actually
+closed. The checks that answer it: (1) read `K_USER_DECISIONS.md` §K.1 and each of the fifteen
+engineering entries, and challenge any reclassification that buries a director-owned consequence —
+section 1.1 of this handoff lists where every correction landed; (2) confirm `G_ROADMAP.md` §G.2.0
+now states objective prerequisites and that no phase table, dependency node or §G.6 line still calls
+K-13, K-14 or K-60 a director blocker; (3) re-derive `00_CONTEXT.md` §00.6's file-level Studio
+reconciliation with `git diff --name-only 824c4d58 cda8ac76`, and check that no claim from that
+branch's own handoff has been adopted as verified; (4) run `python3
+docs/forge_next/evidence/gen_evidence_summary.py` and confirm it rewrites nothing.
 
 ### 10.3 The continuation brief's section 7 cross-checks, confirmed before the freeze
 

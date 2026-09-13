@@ -2100,7 +2100,7 @@
   "USER-OWNED DECISIONS surfaced (CLAUDE.md \u00a710): whether Forge Next should rely on public draft reads (secrecy is not provided by the server); whether to move the Forge pin to head to adopt guides; whether balance-bearing classes (rankedSeason, activityStreak, raid thresholds, gameSetting/dmgConfig, Default AiProfile) are in or out of a Content Admin surface; role-discovery cost trade-off (one public budget unit vs full profile pull)."
  ],
  "verification": {
-  "method": "one adversarial verifier per capability row (forge-next-deep-dive workflow, Verify phase); CORRECTED rows replaced by the verifier's full corrected row with the original kept under verification.original_row; REFUTED rows kept with the verdict and reasoning for the reader; gate rows and rows beyond the verify cap are UNVERIFIED",
+  "method": "one adversarial verifier per DECISIVE row (forge-next-deep-dive workflow, Verify phase): every GAP, every INTENTIONAL DIFFERENCE, every retirement blocker and every low- or medium-confidence row. Rows outside that set carry 'not verified' and are the merge agent's finding, not an audited one. CORRECTED rows were replaced by the verifier's full corrected row with the original kept under verification.original_row; REFUTED rows were kept with the verdict and reasoning for the reader. Gate rows are not verified by construction.",
   "tally": {
    "CORRECTED": 33,
    "not verified": 2
@@ -2140,7 +2140,8 @@
    "CC-07",
    "CC-09"
   ],
-  "folded_at": "2026-09-13T10:51:26.701212Z"
+  "folded_at": "2026-09-13T10:51:26.701212Z",
+  "scope_note": "35 rows in this file; verification verdicts: CORRECTED 33, not verified (outside the decisive set) 2. The decisive set here is every content-class row and every cross-cutting row that a phase-4 design would rest on."
  },
  "provenance": {
   "repository": "perseverance484/tnr-tools main@305a28f992e33194fbba279a3f32e698dfb2b67f",
