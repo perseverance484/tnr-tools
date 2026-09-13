@@ -40,14 +40,7 @@ jobs:
           path: tools
           fetch-depth: 1
 
-      - name: Checkout authored request branch
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.request_branch }}
-          path: request
-          fetch-depth: 1
-
-      - name: Validate request boundary
+      - name: Validate dispatch identity
         env:
           TRUSTED_REF: ${{ github.ref }}
           REQUEST_BRANCH: ${{ inputs.request_branch }}
@@ -62,19 +55,48 @@ jobs:
           [[ "$REQUEST_BRANCH" == "studio/quest/$REQUEST_ID" ]] || { echo "request branch does not match request id" >&2; exit 2; }
           [[ "$SOURCE_PATH" == "studio/requests/$REQUEST_ID.quest.json" ]] || { echo "source path does not match request id" >&2; exit 2; }
 
-          ACTUAL_SHA="$(git -C request rev-parse HEAD)"
-          [[ "$ACTUAL_SHA" == "$SOURCE_SHA" ]] || {
-            echo "request branch advanced: expected $SOURCE_SHA, checked out $ACTUAL_SHA" >&2
-            exit 3
-          }
+      - name: Checkout authored request source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_sha }}
+          path: request
+          fetch-depth: 1
 
-          for p in request/studio request/studio/requests request/studio/results request/studio/builds; do
-            [[ ! -L "$p" ]] || { echo "refusing symlinked Studio path: $p" >&2; exit 2; }
-          done
-          [[ -f "request/$SOURCE_PATH" && ! -L "request/$SOURCE_PATH" ]] || {
-            echo "Quest Source is missing, not a regular file, or is a symlink" >&2
-            exit 2
-          }
+      - name: Validate request content
+        id: boundary
+        env:
+          SOURCE_PATH: ${{ inputs.source_path }}
+          REQUEST_ID: ${{ inputs.request_id }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          RUNNER_TEMP: ${{ runner.temp }}
+        run: |
+          set -euo pipefail
+          ERROR=""
+          ACTUAL_SHA="$(git -C request rev-parse HEAD)"
+          if [[ "$ACTUAL_SHA" != "$SOURCE_SHA" ]]; then
+            ERROR="request checkout mismatch: expected $SOURCE_SHA, checked out $ACTUAL_SHA"
+          fi
+          if [[ -z "$ERROR" ]]; then
+            for p in request/studio request/studio/requests request/studio/results request/studio/builds; do
+              if [[ -L "$p" ]]; then
+                ERROR="refusing symlinked Studio path: $p"
+                break
+              fi
+            done
+          fi
+          if [[ -z "$ERROR" && ( ! -f "request/$SOURCE_PATH" || -L "request/$SOURCE_PATH" ) ]]; then
+            ERROR="Quest Source is missing, not a regular file, or is a symlink"
+          fi
+
+          if [[ -n "$ERROR" ]]; then
+            echo "$ERROR" >&2
+            TMP_ROOT="$RUNNER_TEMP/tnr-quest-studio/$REQUEST_ID"
+            mkdir -p "$TMP_ROOT"
+            printf '%s\n' "$ERROR" > "$TMP_ROOT/boundary-error.txt"
+            echo "boundary_rc=2" >> "$GITHUB_OUTPUT"
+          else
+            echo "boundary_rc=0" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Compile Quest Source
         id: compile
@@ -83,25 +105,60 @@ jobs:
           REQUEST_ID: ${{ inputs.request_id }}
           SOURCE_SHA: ${{ inputs.source_sha }}
           COMPILER_SHA: ${{ github.sha }}
+          BOUNDARY_RC: ${{ steps.boundary.outputs.boundary_rc }}
           RUNNER_TEMP: ${{ runner.temp }}
         run: |
           set -uo pipefail
           TMP_ROOT="$RUNNER_TEMP/tnr-quest-studio/$REQUEST_ID"
           TMP_BUILD="$TMP_ROOT/build"
           TMP_RESULT="$TMP_ROOT/build-result.json"
-          rm -rf "$TMP_ROOT"
           mkdir -p "$TMP_BUILD"
 
-          set +e
-          python3 tools/skills/building-tnr-content/scripts/quest_compile.py \
-            "request/$SOURCE_PATH" \
-            --result "$TMP_RESULT" \
-            --artifact-dir "$TMP_BUILD" \
-            --artifact-prefix "studio/builds/$REQUEST_ID" \
-            --source-revision "$SOURCE_SHA" \
-            --compiler-revision "$COMPILER_SHA"
-          RC=$?
-          set -e
+          if [[ "$BOUNDARY_RC" != "0" ]]; then
+            ERROR_MESSAGE="$(cat "$TMP_ROOT/boundary-error.txt")"
+            python3 - "$TMP_RESULT" "$REQUEST_ID" "$SOURCE_SHA" "$COMPILER_SHA" "$ERROR_MESSAGE" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+          result_path, request_id, source_sha, compiler_sha, message = sys.argv[1:]
+          result = {
+              "schemaVersion": 1,
+              "kind": "quest-build",
+              "requestId": request_id,
+              "subtype": None,
+              "status": "failed",
+              "resolvedEngineType": None,
+              "blockers": [],
+              "errors": [{"code": "request_boundary_failed", "message": message}],
+              "warnings": [],
+              "generated": {},
+              "art": None,
+              "validation": None,
+              "provenance": {
+                  "sourceSha256": None,
+                  "sourceRevision": source_sha,
+                  "compilerRevision": compiler_sha,
+                  "registrySchemaVersion": None,
+                  "compiler": "skills/building-tnr-content/scripts/quest_compile.py",
+              },
+              "liveGameTouched": False,
+          }
+          Path(result_path).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+          PY
+            RC="$BOUNDARY_RC"
+          else
+            set +e
+            python3 tools/skills/building-tnr-content/scripts/quest_compile.py \
+              "request/$SOURCE_PATH" \
+              --result "$TMP_RESULT" \
+              --artifact-dir "$TMP_BUILD" \
+              --artifact-prefix "studio/builds/$REQUEST_ID" \
+              --source-revision "$SOURCE_SHA" \
+              --compiler-revision "$COMPILER_SHA" \
+              --request-id "$REQUEST_ID"
+            RC=$?
+            set -e
+          fi
 
           test -f "$TMP_RESULT" || { echo "compiler produced no build result" >&2; exit 4; }
           echo "compile_rc=$RC" >> "$GITHUB_OUTPUT"
