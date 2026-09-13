@@ -68,6 +68,9 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 | K-49 | Policy override workflow | Studio phase (decision cards) |
 | K-50 | Adapter boundary between the shared quest compiler and subtype logic | Studio phase (second adapter) |
 | K-51 | AI assistance layer inside the Studio | none |
+| K-52 | How the admin surface learns the signed-in account's role | Phase 4 (admin read) |
+| K-53 | Whether balance-bearing classes appear in a Content Admin surface at all | Phase 4 |
+| K-54 | Whether the product says plainly that hidden does not mean secret, and whether an embargo requirement exists | Phase 5 (publish copy) |
 
 ---
 
@@ -531,3 +534,33 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 **Recommendation (advisory):** not in this roadmap; record as out of scope. Reasoning: nothing in the flagship needs it.
 **Can defer:** yes.
 **Blocks phase:** none.
+
+### K-52 How the admin surface learns the signed-in account's role: OPEN (director, with a cost consequence)
+
+**Why it matters:** section E's audit concludes that the robust way to handle authorization is a role pre-check: read the role once, disable what the role cannot do, re-check on send (`E_CONTENT_ADMIN_FEASIBILITY.md` E.3, E.10). Two procedures can supply the role, and they cost differently. Neither requires any credential material beyond the session the browser already holds.
+**Evidence:** `profile.getPublicUser` is public, returns `role` and the staff account, and therefore spends one unit of the sliding-window budget with the 1 % money and bank penalty on a trip (`app/src/server/api/trpc.ts:121-185`, pin). `profile.getUser` is protected, carries no limiter, and returns the full user object, which is a far heavier payload than a role check needs. Forge's budget already mirrors the limiter at margin 0.5 (`forge/src/budget/bucket.mjs`), and section H R-03 is the rate-limit risk this decision feeds.
+**Options:** (a) one public `profile.getPublicUser` call per session, budgeted and shown in the readiness card; (b) one protected `profile.getUser` call per session, free of the limiter but a heavy read that also pulls data the admin surface does not need; (c) no pre-check: render every action and let the server refuse, which section E shows produces a label that is wrong some of the time.
+**Consequence:** (a) is honest about cost and keeps the payload small, but it is the one read on an admin screen that spends budget; (b) spends no budget but reads more of the operator's own record than the feature needs, which is a data-minimisation question, not a capability one; (c) is the behaviour the Tier C contracts argue against, because the operator learns about the denial only after acting.
+**Recommendation (advisory):** (a), cached for the session and shown as a readiness lamp, because the cost is one request and the payload is the smallest that answers the question. The choice is the director's because it trades a budget unit against reading more of the account record.
+**Can defer:** no: the admin phase cannot render authority-aware actions without it.
+**Blocks phase:** Phase 4 (admin read and review).
+
+### K-53 Whether balance-bearing classes appear in a Content Admin surface at all: OPEN (director)
+
+**Why it matters:** the source audit found staff-managed classes whose edits are balance decisions rather than content edits: ranked-season rewards, activity-streak rewards, raid damage thresholds, the global game settings and damage configuration, and the `Default` AI profile (`E_CONTENT_ADMIN_FEASIBILITY.md` E.2f, rows CA-17, CA-18, CA-19, CA-25). They are technically feasible with zero game change, which is exactly why the boundary has to be drawn deliberately rather than by capability.
+**Evidence:** E.2f records each class with its procedures and role gates; `CLAUDE.md` section 10 reserves balance, reward values and rarity to the director; several of these classes are live to players the moment they are saved, with no hidden state to stage behind.
+**Options:** (a) exclude them from the Content Admin surface entirely and keep them a director-only path outside Forge; (b) include them read-only, so an admin can see the current values as context for a content decision; (c) include them as editable with the same confirmation as any live write.
+**Consequence:** (a) keeps the admin surface to content and leaves no path where a reviewer changes balance by accident; (b) is useful context and still cannot change anything; (c) puts a director-owned decision behind an admin's tap, which the repository's own authority rules forbid unless the director says otherwise.
+**Recommendation (advisory):** (a) for v1, (b) later if a reviewer actually needs the numbers in front of them. Reasoning: nothing in the reviewed workflows requires editing them, and their live-on-save behaviour has no staging.
+**Can defer:** yes, as long as the admin surface ships without them.
+**Blocks phase:** Phase 4 scope.
+
+### K-54 Whether the product says plainly that hidden does not mean secret: OPEN (director)
+
+**Why it matters:** `hidden` gates listing and play, not readability. Any caller can read an unreleased record by id, and a caller can list unreleased records by asking for them (`H_RISK_REGISTER.md` R-31; `E_CONTENT_ADMIN_FEASIBILITY.md` cross-cutting row CC-08). Every human word the product uses around drafts and publishing depends on whether the director wants that stated, softened, or left unsaid.
+**Evidence:** verified at the Forge pin: `quests.get` is public and returns the record whatever its `hidden` value, refusing only NPC-only quest types (`app/src/server/api/routers/quests.ts:215-236`); `jutsu.getAll` honours a caller-supplied `hidden` filter and only defaults to `hidden:false` (`app/src/server/api/routers/jutsu.ts:2115-2117`). The copy contract requires that a label never implies more protection than the system provides (CPY, SSC section 1).
+**Options:** (a) state it plainly in the admin and publish surfaces, for example that publishing changes listing and play eligibility, not readability; (b) stay silent and describe only what the flip changes; (c) treat embargo as a real requirement and record that Forge cannot enforce it, which becomes a game-change dependency.
+**Consequence:** (a) is the honest reading and costs one sentence; (b) risks an operator assuming secrecy the game does not provide; (c) turns a copy question into a dependency the game would have to satisfy, which this pass records but does not pursue.
+**Recommendation (advisory):** (a), with the sentence living in the publish confirmation rather than on every screen. Reasoning: it is one sentence, it is true, and it prevents a false expectation at the only moment that matters.
+**Can defer:** no for the publish copy; the rest can wait.
+**Blocks phase:** Phase 6 (publish) copy, and K-07's eligibility reasoning.
