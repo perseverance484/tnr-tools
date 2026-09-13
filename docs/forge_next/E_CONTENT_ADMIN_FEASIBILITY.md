@@ -231,6 +231,20 @@ Four different histories exist. Each answers a different question, and none of t
 | Forge journal and captures | what this device intended, what was sent, what the server said, and what the record looked like before and after | every mutation Forge runs, plus the seven allow-listed full-capture point reads (`forge/src/storage/captures.mjs:58-66`) | the journal is per device. Full persistence is capped at 512 KiB per body (`captures.mjs:82`) and allow-listed, which is the deliberate privacy boundary (K-06) |
 | Committed results bundles and git | the durable, reviewable record: which manifest, which SHA, what came back | 42 committed bundles today (section C) | the bundle is the **only** history for quest and gameAsset, because the game's own log is unreadable for those classes |
 
+Per class, the History panel composes from these sources. "Game log" means readable through the content-changes read; "bundle" means the committed results bundle carrying the before and after capture.
+
+| CA | Game log at the pin | Forge journal | Committed bundle | Net answer to "what changed and who did it" |
+|---|---|---|---|---|
+| CA-01 jutsu | yes (update, delete) | yes | yes | complete except creates |
+| CA-02 item | yes (update, delete) | yes | yes | complete except creates, clones and variant writes |
+| CA-03 bloodline | yes (update, delete) | yes | yes | complete except creates |
+| CA-04 gameAsset | **no** | yes | yes | **bundle only**; the game keeps the row but will not serve it |
+| CA-05 quest | **no** | yes | yes | **bundle only**; same reason, on the class the workstream publishes |
+| CA-06 AI | yes (update only) | yes | yes | no record of create, clone or delete anywhere in the game |
+| CA-07 AiProfile | **none written at all** | yes | yes | Forge is the only history |
+| CA-08 guide | not at the pin, yes at head | not yet | not yet | depends entirely on K-13 |
+| CA-09 badge | yes (update, delete) | not yet | not yet | complete once the class is adopted |
+
 Composition rule for the admin surface: a record's History panel is the union of the game log (where the class is readable), the Forge journal entry for any mutation this device made, and the committed bundle that carries the before and after capture. The panel must label each source, because they have different authority: the game log is what the server did, the journal is what this device believes, and the bundle is what the repository can prove. A Content Admin flow should capture the pre-state **automatically** before every update and delete, rather than relying on a manifest asking for it.
 
 ## E.7 Rate limits and multi-tab consequences for an admin queue (brief section 10)
