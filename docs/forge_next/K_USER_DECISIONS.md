@@ -79,6 +79,8 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 | K-56 | Brand wordmark: system-font treatment or an embedded vector path | the shell phase |
 | K-57 | Whether a light theme exists at all, or only a high-contrast dark variant | the shell phase |
 | K-58 | Which actions keep the browser's own confirmation and which move to the in-page sheet | the shell phase |
+| K-59 | The operator remedy for the three read-only raid columns that make five archived quest edits unrunnable | retirement gate G-04 |
+| K-60 | Who integrates the release-loader test fix that lives on the ChatGPT branch, under one-writer discipline | retirement gate G-09, and the first phase of any roadmap |
 
 ---
 
@@ -620,3 +622,23 @@ The architecture recommendation (section F) and the roadmap (section G) take the
 **Recommendation (advisory):** (a).
 **Can defer:** yes, until the shell phase.
 **Blocks phase:** the shell phase only.
+
+### K-59 The operator remedy for server-owned columns on a partial quest edit: OPEN (director)
+
+**Why it matters:** five archived whole-record quest edits carry `raidEndsAt`, `raidCaptureDeadline` and `raidGracePeriodEnd`, which the server owns, and Forge refuses them. The Builder had an all-or-nothing escape hatch and used it six times. Retirement gate G-04 cannot close until the operator has a remedy that is not "turn the safety off", and which remedy it is changes what Forge is allowed to drop from a manifest without being asked.
+**Evidence:** `B_PARITY_MATRIX.md` rows P-23 and P-36 record the refusal and the Builder's `skipPreflight` hatch with its six real uses; `J_MIGRATION_AND_RETIREMENT.md` §J.1 gate G-04 states the three clauses the gate needs; the columns are server-owned per the quest router at the Forge pin.
+**Options:** (a) the manifest is edited in the repository to strip the server-owned columns before it runs, which keeps Forge refusing anything it does not understand; (b) Forge offers an explicit, per-column "drop server-owned columns" action that names each column and records the drop in the journal and the results bundle; (c) a general escape hatch like the Builder's, which switches the whole preflight off.
+**Consequence:** (a) costs an edit per manifest and keeps the tool honest; (b) is the most convenient and puts a silent-mutation path one tap away unless the drop is recorded and read back; (c) is what the Builder did, and the parity matrix records it as the thing Forge deliberately does not have.
+**Recommendation (advisory):** (a) now, (b) only with the drop recorded in the journal and shown in the results summary. Reasoning: the refusal is doing its job; the remedy should not be able to hide what it removed.
+**Can defer:** yes, until gate G-04 is worked.
+**Blocks phase:** retirement gate G-04.
+
+### K-60 Who integrates the release-loader test fix, under one-writer discipline: OPEN (director; a branch assignment)
+
+**Why it matters:** `main` is red by one test after every release pin, and the fix for it currently lives on a ChatGPT-owned branch bundled with unrelated assertion changes. Lane A allows one writer per branch, so nobody can act without an assignment, and gate G-09 ("gates green on main") cannot close until somebody does.
+**Evidence:** the red baseline and its cause are in `A_ARCHITECTURE_MAP.md` §A.10 and `H_RISK_REGISTER.md` R-11; the coupling of the fix to unrelated changes on the feature branch is R-22; the one-writer rule is `CLAUDE.md` section 4.
+**Options:** (a) integrate the ChatGPT branch first and take the fix with it; (b) assign a minimal Fable-owned fix that relaxes only the marker assertion and leaves the other changes on the branch; (c) leave `main` red until the Studio work merges on its own schedule.
+**Consequence:** (a) couples an unrelated schedule to a one-line test fix; (b) means two branches touch the same test file, which is the thing one-writer discipline exists to prevent, so it needs the assignment to be explicit; (c) means every branch starts red and the first green commit is noise, which is R-11 as written.
+**Recommendation (advisory):** (b) with an explicit assignment naming the writer and the scope, or (a) if the Studio integration is close. No option is recommended outright: this is a branch-ownership call.
+**Can defer:** no if any phase depends on a green baseline.
+**Blocks phase:** retirement gate G-09, and the first phase of any roadmap.
