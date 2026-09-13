@@ -24,7 +24,7 @@
 
 ## A.2 Forge module map
 
-Layers are built bottom-up and composed once in `compose()` (`forge/src/main.mjs:35-57`). Every test harness calls the same composition (`forge/test/compose.mjs`).
+Layers are built bottom-up and composed once in `compose()` (`forge/src/main.mjs:35-57`). Every test harness calls the same composition (`forge/test/compose.mjs`). The tree holds 33 `.mjs` files, five of which are index barrels, plus two derived JSON contracts (`fields.json` and `nested.json`); the table below groups the 28 implementation modules by layer, so a count of table rows will not match a count of files.
 
 | Layer | File | Lines | Responsibility | Touches `window`/DOM | UI-independent |
 |---|---|---:|---|---|---|
