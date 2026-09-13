@@ -19,6 +19,8 @@ what ChatGPT is asked to decide are in field 10.
 
 ## 1. What this is, and the branch pushed
 
+**One note on how this document was produced.** It was written from the package, then the package changed under it: an adversarial critic had produced 85 findings across six lenses, a re-check confirmed 56 already fixed, and the remaining 29 were closed after this handoff was first written. Where this document and a section disagree, the section is current. The specific late changes are: the image-supply capability became the eighth hard retirement blocker and gained its gate; the gameAsset verdict moved from partial to yes for record work; the rate-limiter claim, the confidentiality claim and the parse-baseline requirement were each scoped to what the source supports; and three decisions were registered that had been assumptions (K-59, K-60, K-61). The tallies in sections 5 and 6 below were regenerated from the verified matrices and are current.
+
 **Objective in one sentence.** Produce a durable, evidence-backed plan for a unified Forge that
 absorbs the Builder's remaining real work and adds a Content Admin surface, so that the director can
 decide what to build, in what order, and what is still theirs to rule.
@@ -92,7 +94,7 @@ is lines for prose and structured rows for evidence.
 | `docs/forge_next/H_RISK_REGISTER.md` | 31 risks (R-01 to R-31) with evidence, how each would bite, and the phase gate that bounds it | 39,967 | 49 lines |
 | `docs/forge_next/I_TEST_STRATEGY.md` | Today's measured suite, the test architecture a larger UI needs, static gates, per-phase gate map, and the nine user-owned browser and live smokes | 47,898 | 251 lines |
 | `docs/forge_next/J_MIGRATION_AND_RETIREMENT.md` | Retirement gates G-01 to G-13, the six-stage transition ladder, storage and contract migration rules, how the operator is told | 55,356 | 223 lines |
-| `docs/forge_next/K_USER_DECISIONS.md` | The decision register: 4 rulings recorded as context, 58 open entries K-01 to K-60 (K-18 and K-19 unused), each with options, consequence, recommendation and the phase it blocks | 104,607 | 644 lines |
+| `docs/forge_next/K_USER_DECISIONS.md` | The decision register: three rulings recorded as context and one advisory reading the director must still confirm, 59 open entries K-01 to K-61 (K-18 and K-19 unused), each with options, consequence, recommendation and the phase it blocks | 104,607 | 644 lines |
 
 ### 3.2 Evidence
 
@@ -127,8 +129,7 @@ A reviewer should not look for these in the tree. Each is named because a sectio
 
 | Cited artifact | Cited by | Status |
 |---|---|---|
-| `docs/PLAN_2026-09-12_forge_next.md` | `00_CONTEXT.md` section 00.5 names it as the package entry point; the Status line of A, C, D, E and others cites it | **Forthcoming.** Not committed at this SHA. The package is currently entered through `00_CONTEXT.md`. An executive summary and roadmap headline for the director does not yet exist |
-| `scratchpad/design/*.json` panel inputs (`ia-operation`, `ia-content-type`, `arch-evolve`, `arch-replace-ui`, `arch-core-shell`, `queue-model`, `visual-a/b/c`, the judge files, `capture-model`) | D.0, F.0, F.1, D2.11 | **Not committed.** They exist only in the session scratchpad, so a reviewer at the frozen SHA cannot open the inputs the recommendations were weighed from. Their conclusions are reproduced in the sections; their raw form is not auditable from the tree |
+| `scratchpad/design/*.json` panel inputs | D.0, F.0, F.1 and D2.11 name the options the recommendations were weighed from | **Committed since.** The seven options and the three superseded visual explorations are at `docs/forge_next/evidence/design-options/`, with a README saying what each argues and what is absent. The judge files for the visual family and the scratchpad working files are not committed |
 | `scratchpad/design/synth-arch.json`, `synth-data.json` | F.0 names them as absent | **Do not exist.** F says so in its own words: panel synthesis unavailable, recommendation derived by the planning owner |
 | `evidence/admin-verdicts.json` | E.1 names it as absent when E was written | **Not committed.** The per-row adversarial verdicts were folded into `evidence/admin-feasibility.json` instead; E.1's tally is the statement of record |
 | `docs/design/FORGE_NEXT_*.md` (the Tier A to E design lane, about 20 files) | Every section, by the abbreviations SSC, MOB, WCM, WFA, SCR, IRM, CPY, ICN, SCN, ACC, COL, VD, QS, RB, AUD, HND, IDX, MS, SBI, RCM, DS, EXP, WSP | **External by design.** They live on `chatgpt/forge-quest-studio-foundation@824c4d58` and are cited by SHA. They are not on this branch and must not be looked for on the older `chatgpt/forge-next-planning` branch either |
