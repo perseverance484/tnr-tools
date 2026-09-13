@@ -1,0 +1,123 @@
+name: quest-studio-correction-round
+
+on:
+  push:
+    branches:
+      - chatgpt/forge-quest-studio-foundation
+    paths:
+      - ".github/workflows/quest_studio_correction_round.yml"
+      - "state/quest_studio_review_corrections.py"
+
+permissions:
+  contents: write
+
+jobs:
+  correct:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/forge-quest-studio-foundation
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: forge/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Apply independently reviewed corrections
+        run: |
+          set -euo pipefail
+          python3 state/quest_studio_review_corrections.py
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path("docs/RULINGS.md")
+          data = p.read_bytes()
+          if data and not data.endswith(b"\n"):
+              p.write_bytes(data + b"\n")
+          PY
+
+      - name: Quest Studio worker/compiler have no live-game network path
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+          compiler = Path("skills/building-tnr-content/scripts/quest_compile.py")
+          tree = ast.parse(compiler.read_text(encoding="utf-8"), filename=str(compiler))
+          forbidden = {"requests", "httpx", "aiohttp", "socket", "http.client", "urllib", "urllib3"}
+          imports = set()
+          for node in ast.walk(tree):
+              if isinstance(node, ast.Import):
+                  imports.update(alias.name for alias in node.names)
+              elif isinstance(node, ast.ImportFrom) and node.module:
+                  imports.add(node.module)
+          bad = sorted(name for name in imports if any(name == root or name.startswith(root + ".") for root in forbidden))
+          if bad:
+              raise SystemExit(f"Quest Studio compiler imports forbidden network modules: {bad}")
+          PY
+          if grep -nEi 'theninja-rpg\.com|/api/trpc|(^|[^[:alnum:]_])(curl|wget)[[:space:]]' \
+            .github/workflows/quest_studio.yml \
+            skills/building-tnr-content/scripts/quest_compile.py; then
+            echo "Quest Studio worker/compiler contains a live-game or generic shell network path" >&2
+            exit 1
+          fi
+
+      - name: Quest Studio repository gates
+        run: |
+          set -euo pipefail
+          python3 skills/building-tnr-content/scripts/quest_worker_contract_test.py
+          python3 skills/building-tnr-content/scripts/quest_compile.py --selftest
+          python3 skills/building-tnr-content/scripts/quest_compile_integration_test.py
+
+      - name: Forge tests, fixtures and bundle
+        working-directory: forge
+        run: |
+          set -euo pipefail
+          npm ci
+          npm test
+          npm run fixtures
+          git diff --exit-code -- test/fixtures/envelope
+          npm run build
+
+      - name: Regenerate skill package
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/pack_skills.py
+
+      - name: Repository coherence gates
+        run: |
+          set -euo pipefail
+          python3 skills/building-tnr-content/scripts/doctrinemap.py
+          python3 skills/building-tnr-content/scripts/render_doctrine.py --check
+          python3 skills/building-tnr-content/scripts/build_packs.py --check
+          python3 skills/building-tnr-content/scripts/catalog_sync.py --selftest
+          python3 skills/building-tnr-content/scripts/lawmap.py .
+
+      - name: Commit correction round and remove temporary machinery
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/quest_studio_correction_round.yml state/quest_studio_review_corrections.py
+          git add \
+            .github/workflows/quest_studio.yml \
+            docs/RULINGS.md \
+            forge/src/github.mjs \
+            forge/src/studio/repository.mjs \
+            forge/src/studio/ui.mjs \
+            forge/src/ui/dom.mjs \
+            forge/src/ui/screens.mjs \
+            forge/test/github.studio.test.mjs \
+            forge/test/quest.studio.ui.test.mjs \
+            forge/test/release_loader.test.mjs \
+            forge_bundle.js \
+            skills/building-tnr-content/scripts/quest_compile.py \
+            skills/building-tnr-content/scripts/quest_compile_integration_test.py \
+            skills/building-tnr-content/scripts/quest_worker_contract_test.py \
+            dist/building-tnr-content.zip
+          git config user.name "quest-studio-correction[bot]"
+          git config user.email "quest-studio-correction@users.noreply.github.com"
+          git commit -m "fix: address Quest Studio independent review"
+          git push origin HEAD:chatgpt/forge-quest-studio-foundation
