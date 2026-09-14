@@ -65,9 +65,24 @@ architecture.
 | # | Finding | Accepted | Where the correction landed |
 |---|---|---|---|
 | F1 | high — the register escalated ordinary engineering mechanisms as director rulings, against `docs/workflows/DIRECTOR_DECISIONS.md` §1 | yes, in full | `K_USER_DECISIONS.md` §K.1 (new) plus a **Class** field on all 59 entries and three index tables; fifteen entries reclassified as engineering and given Fable's position; five split with only their director half waiting; K-60 and K-61 rewritten. Downstream: `G_ROADMAP.md` §§G.0, G.1, G.2.0, G.3, G.4, G.5, G.6; `I_TEST_STRATEGY.md`; `J_MIGRATION_AND_RETIREMENT.md`; `D_VISUAL_SYSTEM.md`; `PLAN_2026-09-12_forge_next.md` §5; §7 of this handoff |
-| F2 | high — phase 0 was blocked by K-13, K-14 and K-60, two of which say "Can defer: yes", and the K-60 entry misread the one-writer rule | yes, in full | `G_ROADMAP.md` §G.2.0 now lists four objective prerequisites and **no** director decision; the phase table gained a legend separating director rulings from engineering positions; the one-writer reading is corrected wherever it appeared (K-60, G §G.2.0 and §G.4, J §J.1 and §J.3, I §I.1) |
-| F3 | medium — the package studied `824c4d58`; the implementation froze later at `cda8ac76` | yes, with its scope stated | `00_CONTEXT.md` §00.6 measures the difference rather than assuming it: of the fourteen paths this package cites on that branch, eleven are byte-identical at `cda8ac76` and three changed; every reading survives, three line cites shift. A phase-S precondition (d) now requires re-resolving every cite at the accepted SHA. The branch's own evidence claims are **not** adopted, because Fable has not reviewed `cda8ac76` |
+| F2 | high — phase 0 was blocked by K-13, K-14 and K-60, two of which say "Can defer: yes", and the K-60 entry misread the one-writer rule | yes, in full | `G_ROADMAP.md` §G.2.0 now lists four objective prerequisites and **no** director decision; the phase table gained a legend separating director rulings from engineering positions; the one-writer reading is corrected in K-60, G §G.2.0 and §G.4, J §J.1 and §J.3, and I §I.1 in the first round, and in F §F.3, §F.16 and §F.18, H R-22 and the wireframe specs in the follow-up round after a critique found the first pass had reached only the files in its own diff |
+| F3 | medium — the package studied `824c4d58`; the implementation froze later at `cda8ac76` | yes, with its scope stated | `00_CONTEXT.md` §00.6 measures the difference rather than assuming it: of the fourteen paths this package cites on that branch, eleven are byte-identical at `cda8ac76` and three changed; every reading survives, and of the twelve line cites into the three changed files four still resolve and eight shift. A phase-S precondition (d) now requires re-resolving every cite at the accepted SHA. The branch's own evidence claims are **not** adopted, because Fable has not reviewed `cda8ac76` |
 | F4 | medium — audit-summary metadata was stale relative to the package's own final rows | yes, in full | Both evidence matrices' summary strings are now **generated** from their rows by `evidence/gen_evidence_summary.py`; `verification.method` in both was corrected from "per capability row" to the decisive set; field 8.4 of this handoff now states what was actually stale and which two "defects" the final sections had already fixed |
+
+**A second pass, and why it was needed.** Before this handoff was sent, the round was itself put
+through an adversarial critique, which found that the F1 and F2 corrections had reached only the
+files in their own diff. Three surfaces still carried the corrected-away reading: `F_ARCHITECTURE_RECOMMENDATION.md`
+§F.3 and §F.16 still called the release-loader marker fix "a conflict for the director to assign",
+§F.18 still listed every entry as blocking including the engineering ones, `H_RISK_REGISTER.md` R-22
+still said two branches touching one test file "breaks the one-writer rule", and four wireframes
+listed engineering-class entries under a heading reading "Open director decisions this screen depends
+on". All are corrected at this SHA; the wireframes were corrected at their generator source
+(`wireframes/src/specs.json` and `src/gen.py`) and regenerated rather than hand-edited (`CLAUDE.md`
+§7). Two other defects the critique found are also fixed: `evidence/gen_evidence_summary.py`
+hard-coded absolute paths and could only run in one checkout, and the F3 row of the table above
+under-counted the shifted line cites. The lesson is worth stating because it will recur: a
+correction is not applied until it is applied everywhere the claim appears, and a diff is not a
+search.
 
 **What did not change, and why.** The review's section 3 lists ten strengths to preserve; none of
 them was touched. The architecture recommendation (headless `ForgeCore` first, then incremental shell

@@ -7,13 +7,13 @@
    "title": "Command Center (home)",
    "default_theme": "forge",
    "purpose": "Home. Every block is fed from state Forge already holds (journal, auth probe result, GitHub listing cache, capture cache, review-queue file); nothing here spends live rate budget.",
-   "flow": "Open Forge \u2192 readiness lamps \u2192 active work or empty state \u2192 quick actions \u2192 lanes \u2192 recent activity. One tap reaches a lane, a resumable job or the admin queue.",
+   "flow": "Open Forge → readiness lamps → active work or empty state → quick actions → lanes → recent activity. One tap reaches a lane, a resumable job or the admin queue.",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
@@ -21,21 +21,21 @@
      "head": "Reads and writes available",
      "items": [
       {
-       "glyph": "\u2713",
+       "glyph": "✓",
        "label": "SESSION",
-       "value": "ready \u00b7 probe answered 2 m ago",
+       "value": "ready · probe answered 2 m ago",
        "tone": "ok"
       },
       {
-       "glyph": "\u2713",
+       "glyph": "✓",
        "label": "REPO",
        "value": "push/ listed 4 m ago",
        "tone": "ok"
       },
       {
-       "glyph": "\u2713",
+       "glyph": "✓",
        "label": "BUDGET",
-       "value": "12 % of the quests.get window \u00b7 public reads only",
+       "value": "12 % of the quests.get window · public reads only",
        "tone": "ok"
       }
      ]
@@ -58,7 +58,7 @@
         "PLANNED",
         "PLANNED"
        ],
-       "label": "3 verified \u00b7 1 SENT unconfirmed \u00b7 3 planned \u00b7 7 total"
+       "label": "3 verified · 1 SENT unconfirmed · 3 planned · 7 total"
       },
       {
        "kind": "action",
@@ -73,7 +73,7 @@
      "items": [
       {
        "label": "Run a manifest",
-       "sub": "from push/ \u00b7 7 listed",
+       "sub": "from push/ · 7 listed",
        "variant": "mutation"
       },
       {
@@ -129,7 +129,7 @@
       {
        "kind": "row",
        "title": "06_aerathiel_pvp_battle_logs",
-       "sub": "capture-only \u00b7 44 reads \u00b7 synced",
+       "sub": "capture-only · 44 reads · synced",
        "pills": [
         "DONE"
        ]
@@ -137,7 +137,7 @@
       {
        "kind": "row",
        "title": "05_aerathiel_pvp_research_stage1",
-       "sub": "capture-only \u00b7 16 reads \u00b7 synced",
+       "sub": "capture-only · 16 reads · synced",
        "pills": [
         "DONE"
        ]
@@ -145,7 +145,7 @@
       {
        "kind": "row",
        "title": "24_rank_icon_swap_all31",
-       "sub": "31 quest edits \u00b7 read back",
+       "sub": "31 quest edits · read back",
        "pills": [
         "VERIFIED"
        ]
@@ -207,7 +207,7 @@
         "items": [
          {
           "label": "Run a manifest",
-          "sub": "push/ \u00b7 7 listed",
+          "sub": "push/ · 7 listed",
           "variant": "mutation"
          },
          {
@@ -259,7 +259,7 @@
         "kind": "card",
         "title": "Active work",
         "pill": "PAUSED",
-        "sub": "46_mission_flatten.json \u00b7 AMBIGUOUS",
+        "sub": "46_mission_flatten.json · AMBIGUOUS",
         "risk": "recovery",
         "blocks": [
          {
@@ -273,7 +273,7 @@
            "PLANNED",
            "PLANNED"
           ],
-          "label": "3 verified \u00b7 1 SENT unconfirmed \u00b7 3 planned"
+          "label": "3 verified · 1 SENT unconfirmed · 3 planned"
          },
          {
           "kind": "action",
@@ -294,19 +294,19 @@
         "head": "Readiness",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SESSION",
-          "value": "ready \u00b7 probe answered 2 m ago",
+          "value": "ready · probe answered 2 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "REPO",
           "value": "push/ listed 4 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "BUDGET",
           "value": "12 % of the busiest public path's window",
           "tone": "ok"
@@ -322,7 +322,7 @@
          {
           "kind": "row",
           "title": "Old Ghost",
-          "sub": "quest \u00b7 hidden \u00b7 ready for review",
+          "sub": "quest · hidden · ready for review",
           "pills": [
            "HIDDEN"
           ]
@@ -330,13 +330,13 @@
          {
           "kind": "row",
           "title": "Harvest Boar",
-          "sub": "AI \u00b7 no lifecycle column: containment is by references only",
+          "sub": "AI · no lifecycle column: containment is by references only",
           "pills": []
          },
          {
           "kind": "row",
           "title": "Cabbage Seed",
-          "sub": "item \u00b7 hidden",
+          "sub": "item · hidden",
           "pills": [
            "HIDDEN"
           ]
@@ -350,7 +350,7 @@
          {
           "kind": "row",
           "title": "06_aerathiel_pvp_battle_logs",
-          "sub": "44 reads \u00b7 synced",
+          "sub": "44 reads · synced",
           "pills": [
            "DONE"
           ]
@@ -391,13 +391,13 @@
    "id": "wf02_lane_quests",
    "title": "Lane landing: Quests & Events",
    "purpose": "A content lane groups everything about one workflow class: hidden records (from committed captures and catalogs, zero live), manifests that touch the class, the Studio entry, and admin items.",
-   "flow": "Command Center \u2192 lane \u2192 record or manifest or Studio. No live read happens on entry; 'Refresh from live' is an explicit read action with its cost shown.",
+   "flow": "Command Center → lane → record or manifest or Studio. No live read happens on entry; 'Refresh from live' is an explicit read action with its cost shown.",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
@@ -424,7 +424,7 @@
      "rows": [
       {
        "title": "Old Ghost",
-       "sub": "quest \u00b7 KmGPDnZ\u2026 \u00b7 captured 2026-09-11",
+       "sub": "quest · KmGPDnZ… · captured 2026-09-11",
        "pills": [
         "HIDDEN"
        ],
@@ -434,7 +434,7 @@
       },
       {
        "title": "One Perfect Crop",
-       "sub": "mission \u00b7 4 objectives \u00b7 Studio draft, not a game record",
+       "sub": "mission · 4 objectives · Studio draft, not a game record",
        "pills": [
         "DRAFT"
        ],
@@ -444,7 +444,7 @@
       },
       {
        "title": "Forsworn scene characters",
-       "sub": "quest edits \u00b7 16c pack \u00b7 last job verified",
+       "sub": "quest edits · 16c pack · last job verified",
        "pills": [
         "ok"
        ],
@@ -456,9 +456,9 @@
     },
     {
      "kind": "action",
-     "label": "Refresh list from live \u00b7 1 read",
+     "label": "Refresh list from live · 1 read",
      "variant": "read",
-     "hint": "quests.getAllNames \u00b7 public \u00b7 costs 1 of 30"
+     "hint": "quests.getAllNames · public · costs 1 of 30"
     },
     {
      "kind": "card",
@@ -468,7 +468,7 @@
       {
        "kind": "row",
        "title": "Mission",
-       "sub": "supported \u00b7 48 profiles",
+       "sub": "supported · 48 profiles",
        "pills": [
         "ok"
        ],
@@ -478,7 +478,7 @@
       },
       {
        "kind": "row",
-       "title": "Event \u00b7 Story \u00b7 Raid \u00b7 Pyramid \u00b7 Daily",
+       "title": "Event · Story · Raid · Pyramid · Daily",
        "sub": "needs compiler / recipe (registry)",
        "pills": [
         "PLANNED"
@@ -551,7 +551,7 @@
         "rows": [
          {
           "title": "Old Ghost",
-          "sub": "quest \u00b7 KmGPDnZnGOCvATQqA5LI8 \u00b7 captured 2026-09-11 (summary)",
+          "sub": "quest · KmGPDnZnGOCvATQqA5LI8 · captured 2026-09-11 (summary)",
           "pills": [
            "HIDDEN"
           ],
@@ -562,7 +562,7 @@
          },
          {
           "title": "One Perfect Crop",
-          "sub": "mission \u00b7 Studio draft \u00b7 compiled valid 09-12",
+          "sub": "mission · Studio draft · compiled valid 09-12",
           "pills": [
            "DRAFT"
           ],
@@ -572,7 +572,7 @@
          },
          {
           "title": "Forsworn scene characters",
-          "sub": "16c pack \u00b7 9 quest edits read back",
+          "sub": "16c pack · 9 quest edits read back",
           "pills": [
            "ok"
           ],
@@ -584,7 +584,7 @@
        },
        {
         "kind": "action",
-        "label": "Refresh list from live \u00b7 1 read",
+        "label": "Refresh list from live · 1 read",
         "variant": "read",
         "hint": "explicit; shows the budget cost before the tap"
        }
@@ -599,19 +599,19 @@
         "head": "Readiness",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SESSION",
-          "value": "ready \u00b7 probe answered 2 m ago",
+          "value": "ready · probe answered 2 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "REPO",
           "value": "push/ listed 4 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "BUDGET",
           "value": "12 % of the busiest public path's window",
           "tone": "ok"
@@ -663,14 +663,14 @@
   {
    "id": "wf03_manifest_discover",
    "title": "Manifest discover (picker)",
-   "purpose": "Brief \u00a77 steps 1-4: discover from push/ (repository), classify automatically, show title/provenance/entity count/operations before anything is loaded into a job.",
-   "flow": "Build & Update \u2192 picker \u2192 tap a manifest \u2192 preflight (WF-04). Local import and zip packs are shown as disabled until parity rows P-02/P-06 are built.",
+   "purpose": "Brief §7 steps 1-4: discover from push/ (repository), classify automatically, show title/provenance/entity count/operations before anything is loaded into a job.",
+   "flow": "Build & Update → picker → tap a manifest → preflight (WF-04). Local import and zip packs are shown as disabled until parity rows P-02/P-06 are built.",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
@@ -696,7 +696,7 @@
      "rows": [
       {
        "title": "00_forge_readonly_smoke",
-       "sub": "capture-only \u00b7 2 reads \u00b7 ran 3x",
+       "sub": "capture-only · 2 reads · ran 3x",
        "pills": [
         "READ-ONLY",
         "DONE"
@@ -704,7 +704,7 @@
       },
       {
        "title": "02_one_perfect_crop_asset_probe",
-       "sub": "capture-only \u00b7 5 FULL reads",
+       "sub": "capture-only · 5 FULL reads",
        "pills": [
         "READ-ONLY",
         "FULL"
@@ -720,7 +720,7 @@
       },
       {
        "title": "46_mission_flatten",
-       "sub": "7 quest edits \u00b7 0 creates",
+       "sub": "7 quest edits · 0 creates",
        "pills": [
         "LIVE-WRITE"
        ]
@@ -788,7 +788,7 @@
         "rows": [
          {
           "title": "00_forge_readonly_smoke",
-          "sub": "capture-only \u00b7 jutsu.getAllNames, quests.getAllNames \u00b7 ran 3x",
+          "sub": "capture-only · jutsu.getAllNames, quests.getAllNames · ran 3x",
           "pills": [
            "READ-ONLY",
            "DONE"
@@ -799,7 +799,7 @@
          },
          {
           "title": "02_one_perfect_crop_asset_probe",
-          "sub": "5 gameAsset.get persist:'full' \u00b7 bodies to public repo",
+          "sub": "5 gameAsset.get persist:'full' · bodies to public repo",
           "pills": [
            "READ-ONLY",
            "FULL"
@@ -821,7 +821,7 @@
          },
          {
           "title": "46_mission_flatten",
-          "sub": "7 quest edits \u00b7 asserted keys \u00b7 read-back",
+          "sub": "7 quest edits · asserted keys · read-back",
           "pills": [
            "LIVE-WRITE"
           ],
@@ -842,19 +842,19 @@
         "head": "Readiness",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SESSION",
-          "value": "ready \u00b7 probe answered 2 m ago",
+          "value": "ready · probe answered 2 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "REPO",
           "value": "push/ listed 4 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "BUDGET",
           "value": "12 % of the busiest public path's window",
           "tone": "ok"
@@ -870,7 +870,7 @@
          ],
          [
           "classification",
-          "parseManifest \u2192 planOrder"
+          "parseManifest → planOrder"
          ],
          [
           "ran marker",
@@ -905,20 +905,20 @@
   {
    "id": "wf04_preflight_live_write",
    "title": "Preflight: LIVE WRITE",
-   "purpose": "Brief \u00a77 steps 5-9: blockers and advisories, reads/writes/uploads distinct, live-state diff where safe, an unmistakable statement that this run mutates, and one explicit operator action.",
-   "flow": "Picker \u2192 preflight \u2192 (fix blockers in the repository) \u2192 Start job \u2192 confirmation sheet (WF-13 style, LIVE WRITE construction) \u2192 run (WF-05).",
+   "purpose": "Brief §7 steps 5-9: blockers and advisories, reads/writes/uploads distinct, live-state diff where safe, an unmistakable statement that this run mutates, and one explicit operator action.",
+   "flow": "Picker → preflight → (fix blockers in the repository) → Start job → confirmation sheet (WF-13 style, LIVE WRITE construction) → run (WF-05).",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
      "kind": "bar",
      "title": "46_mission_flatten",
-     "sub": "quest \u00b7 edits",
+     "sub": "quest · edits",
      "chips": [
       "push/"
      ]
@@ -960,7 +960,7 @@
       {
        "kind": "row",
        "title": "One Perfect Crop",
-       "sub": "quest \u00b7 update \u00b7 objectives, rewards",
+       "sub": "quest · update · objectives, rewards",
        "pills": [
         "PLANNED"
        ]
@@ -968,14 +968,14 @@
       {
        "kind": "row",
        "title": "Cabbage run",
-       "sub": "quest \u00b7 update \u00b7 objectives",
+       "sub": "quest · update · objectives",
        "pills": [
         "PLANNED"
        ]
       },
       {
        "kind": "row",
-       "title": "\u2026 5 more",
+       "title": "… 5 more",
        "sub": "",
        "pills": []
       }
@@ -1010,7 +1010,7 @@
     },
     {
      "kind": "action",
-     "label": "Start job \u2192 writes 7 records",
+     "label": "Start job → writes 7 records",
      "variant": "mutation",
      "hint": "asks once; names the counts again"
     },
@@ -1057,7 +1057,7 @@
        {
         "kind": "bar",
         "title": "46_mission_flatten.json",
-        "sub": "quest \u00b7 7 edits",
+        "sub": "quest · 7 edits",
         "chips": [
          "push/",
          "parsed 14:02"
@@ -1101,7 +1101,7 @@
         "rows": [
          {
           "title": "One Perfect Crop",
-          "sub": "quest \u00b7 update \u00b7 objectives, rewards \u00b7 id KmGP\u2026",
+          "sub": "quest · update · objectives, rewards · id KmGP…",
           "pills": [
            "PLANNED"
           ],
@@ -1111,7 +1111,7 @@
          },
          {
           "title": "Cabbage run",
-          "sub": "quest \u00b7 update \u00b7 objectives",
+          "sub": "quest · update · objectives",
           "pills": [
            "PLANNED"
           ],
@@ -1121,7 +1121,7 @@
          },
          {
           "title": "Road Bandit ambush",
-          "sub": "quest \u00b7 update \u00b7 objectives",
+          "sub": "quest · update · objectives",
           "pills": [
            "PLANNED"
           ],
@@ -1133,7 +1133,7 @@
        },
        {
         "kind": "action",
-        "label": "Start job \u2192 writes 7 records",
+        "label": "Start job → writes 7 records",
         "variant": "mutation",
         "hint": "one confirmation; counts restated; Cancel far end"
        }
@@ -1148,19 +1148,19 @@
         "head": "Readiness",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SESSION",
-          "value": "ready \u00b7 probe answered 2 m ago",
+          "value": "ready · probe answered 2 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "REPO",
           "value": "push/ listed 4 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "BUDGET",
           "value": "12 % of the busiest public path's window",
           "tone": "ok"
@@ -1231,20 +1231,20 @@
    "cites": [
     "forge/src/runner/manifest.mjs (parseManifest/planOrder)",
     "forge/src/ui/screens.mjs:104-125 (preflight lists today)",
-    "SSC \u00a72 axes; IRM R-classes; WFA preflight anatomy"
+    "SSC §2 axes; IRM R-classes; WFA preflight anatomy"
    ]
   },
   {
    "id": "wf05_run_live",
    "title": "Run in progress",
-   "purpose": "Brief \u00a77 steps 10-11: live per-item progress, the budget, and a safe pause that the operator can always reach. Nothing on this screen can re-send.",
-   "flow": "Start \u2192 RUNNING \u2192 per item SENT \u2192 CONFIRMED \u2192 read-back \u2192 VERIFIED. Pause after this item is always available; the halt card (WF-06) replaces the progress card on a pause.",
+   "purpose": "Brief §7 steps 10-11: live per-item progress, the budget, and a safe pause that the operator can always reach. Nothing on this screen can re-send.",
+   "flow": "Start → RUNNING → per item SENT → CONFIRMED → read-back → VERIFIED. Pause after this item is always available; the halt card (WF-06) replaces the progress card on a pause.",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
@@ -1285,42 +1285,42 @@
       "PLANNED",
       "PLANNED"
      ],
-     "label": "2 verified \u00b7 1 confirmed, read-back owed \u00b7 1 in flight \u00b7 3 planned \u00b7 7 total"
+     "label": "2 verified · 1 confirmed, read-back owed · 1 in flight · 3 planned · 7 total"
     },
     {
      "kind": "list",
      "rows": [
       {
        "title": "One Perfect Crop",
-       "sub": "quest \u00b7 update \u00b7 read back: match",
+       "sub": "quest · update · read back: match",
        "pills": [
         "VERIFIED"
        ]
       },
       {
        "title": "Cabbage run",
-       "sub": "quest \u00b7 update \u00b7 read back: match",
+       "sub": "quest · update · read back: match",
        "pills": [
         "VERIFIED"
        ]
       },
       {
        "title": "Road Bandit ambush",
-       "sub": "quest \u00b7 update",
+       "sub": "quest · update",
        "pills": [
         "VERIFIED"
        ]
       },
       {
        "title": "Harvest Boar hunt",
-       "sub": "quest \u00b7 update \u00b7 request in flight",
+       "sub": "quest · update · request in flight",
        "pills": [
         "SENT"
        ]
       },
       {
        "title": "Market Clerk",
-       "sub": "quest \u00b7 update",
+       "sub": "quest · update",
        "pills": [
         "PLANNED"
        ]
@@ -1336,12 +1336,12 @@
     {
      "kind": "card",
      "title": "Technical",
-     "sub": "budget \u00b7 journal",
+     "sub": "budget · journal",
      "blocks": [
       {
        "kind": "progress",
        "pct": 27,
-       "label": "quests.get \u00b7 8 of 30 in this window \u00b7 resets 0:41 (the update itself is protected and unlimited)"
+       "label": "quests.get · 8 of 30 in this window · resets 0:41 (the update itself is protected and unlimited)"
       }
      ]
     },
@@ -1392,9 +1392,9 @@
        {
         "kind": "bar",
         "title": "46_mission_flatten.json",
-        "sub": "RUNNING \u00b7 item 4 of 7",
+        "sub": "RUNNING · item 4 of 7",
         "chips": [
-         "journal j_1789\u2026"
+         "journal j_1789…"
         ]
        },
        {
@@ -1431,42 +1431,42 @@
          "PLANNED",
          "PLANNED"
         ],
-        "label": "2 verified \u00b7 1 confirmed, read-back owed \u00b7 1 in flight \u00b7 3 planned"
+        "label": "2 verified · 1 confirmed, read-back owed · 1 in flight · 3 planned"
        },
        {
         "kind": "list",
         "rows": [
          {
           "title": "One Perfect Crop",
-          "sub": "quest \u00b7 update \u00b7 KmGP\u2026 \u00b7 read back: match",
+          "sub": "quest · update · KmGP… · read back: match",
           "pills": [
            "VERIFIED"
           ]
          },
          {
           "title": "Cabbage run",
-          "sub": "quest \u00b7 update \u00b7 read back: match",
+          "sub": "quest · update · read back: match",
           "pills": [
            "VERIFIED"
           ]
          },
          {
           "title": "Road Bandit ambush",
-          "sub": "quest \u00b7 update \u00b7 read back: match",
+          "sub": "quest · update · read back: match",
           "pills": [
            "VERIFIED"
           ]
          },
          {
           "title": "Harvest Boar hunt",
-          "sub": "quest \u00b7 update \u00b7 request in flight (SENT)",
+          "sub": "quest · update · request in flight (SENT)",
           "pills": [
            "SENT"
           ]
          },
          {
           "title": "Market Clerk",
-          "sub": "quest \u00b7 update",
+          "sub": "quest · update",
           "pills": [
            "PLANNED"
           ]
@@ -1489,13 +1489,13 @@
         "head": "Budget",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "quests.get",
-          "value": "8 of 30 in this window \u00b7 resets 0:41",
+          "value": "8 of 30 in this window · resets 0:41",
           "tone": "ok"
          },
          {
-          "glyph": "\u2013",
+          "glyph": "–",
           "label": "quests.update",
           "value": "protected: not rate-limited, so nothing to meter",
           "tone": "mute"
@@ -1541,28 +1541,28 @@
     "K-21/K-22 colours (defaults shown)"
    ],
    "cites": [
-    "forge/src/runner/runner.mjs (SENT \u2192 CONFIRMED \u2192 read-back)",
+    "forge/src/runner/runner.mjs (SENT → CONFIRMED → read-back)",
     "forge/src/ui/screens.mjs:200-232 (run screen today)",
-    "SSC \u00a73-\u00a75"
+    "SSC §3-§5"
    ]
   },
   {
    "id": "wf06_halt_sent",
    "title": "Halted: SENT reconciliation required",
    "purpose": "The ambiguous state made unmistakable: a request may have left the device; the only offered action reads the server first and can never re-send.",
-   "flow": "Eviction / network loss mid-request \u2192 journal holds SENT \u2192 on reopen the halt card replaces progress \u2192 Reconcile & resume \u2192 per-item resolution \u2192 continue or orphan decision (WF-07).",
+   "flow": "Eviction / network loss mid-request → journal holds SENT → on reopen the halt card replaces progress → Reconcile & resume → per-item resolution → continue or orphan decision (WF-07).",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
      "kind": "bar",
      "title": "46_mission_flatten",
-     "sub": "PAUSED \u00b7 AMBIGUOUS",
+     "sub": "PAUSED · AMBIGUOUS",
      "chips": [
       "item 4"
      ]
@@ -1596,7 +1596,7 @@
      "kind": "card",
      "title": "Harvest Boar hunt",
      "pill": "SENT",
-     "sub": "quest \u00b7 update \u00b7 sent 14:06:12",
+     "sub": "quest · update · sent 14:06:12",
      "risk": "recovery",
      "blocks": [
       {
@@ -1676,9 +1676,9 @@
        {
         "kind": "bar",
         "title": "46_mission_flatten.json",
-        "sub": "PAUSED \u00b7 reason AMBIGUOUS",
+        "sub": "PAUSED · reason AMBIGUOUS",
         "chips": [
-         "journal j_1789\u2026"
+         "journal j_1789…"
         ]
        },
        {
@@ -1717,14 +1717,14 @@
          "PLANNED",
          "PLANNED"
         ],
-        "label": "3 verified \u00b7 1 SENT unconfirmed \u00b7 3 planned"
+        "label": "3 verified · 1 SENT unconfirmed · 3 planned"
        },
        {
         "kind": "list",
         "rows": [
          {
           "title": "Harvest Boar hunt",
-          "sub": "quest \u00b7 update \u00b7 sent 14:06:12 \u00b7 no response",
+          "sub": "quest · update · sent 14:06:12 · no response",
           "pills": [
            "SENT"
           ],
@@ -1751,19 +1751,19 @@
         "head": "Readiness",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SESSION",
-          "value": "ready \u00b7 probe answered 2 m ago",
+          "value": "ready · probe answered 2 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "REPO",
           "value": "push/ listed 4 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "BUDGET",
           "value": "12 % of the busiest public path's window",
           "tone": "ok"
@@ -1807,7 +1807,7 @@
    "notes": [
     "No control on this screen is bound to a send path while any item is SENT (I: UI-contract test).",
     "Copy comes from the CPY label dictionary ('Reconcile & resume', 'never re-sent'); construction from D2.3 RecoveryCard.",
-    "The journal already forbids SENT \u2192 PLANNED (journal.mjs:39-47); the screen only exposes what the reconciler does."
+    "The journal already forbids SENT → PLANNED (journal.mjs:39-47); the screen only exposes what the reconciler does."
    ],
    "pending": [
     "K-20 exact destination lists and labels (pending predecessor-transcript reconciliation); K-24 lane taxonomy; K-21/K-22 mode taxonomy and colours (defaults shown)."
@@ -1816,20 +1816,20 @@
     "forge/src/storage/journal.mjs:39-47",
     "forge/src/runner/runner.mjs:193 (refuses SENT jobs)",
     "forge/src/reconcile/reconciler.mjs",
-    "SSC \u00a73 SENT; MOB \u00a77 recovery"
+    "SSC §3 SENT; MOB §7 recovery"
    ]
   },
   {
    "id": "wf07_orphan_decision",
    "title": "Orphan decision",
    "purpose": "A two-phase create whose placeholder exists but whose second phase is unknown: the operator adopts a candidate, skips, or (exceptionally) re-sends. Name before id, one candidate per row, nothing preselected, no deletion.",
-   "flow": "Reconcile finds a new record matching the pre-create snapshot diff \u2192 orphan card pinned above the job \u2192 decision \u2192 journal records adopt/skip/re-send with the operator's choice.",
+   "flow": "Reconcile finds a new record matching the pre-create snapshot diff → orphan card pinned above the job → decision → journal records adopt/skip/re-send with the operator's choice.",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
@@ -1857,9 +1857,9 @@
     },
     {
      "kind": "card",
-     "title": "DECIDE \u00b7 Forsworn Sentinel (scene character)",
+     "title": "DECIDE · Forsworn Sentinel (scene character)",
      "pill": "ORPHANED",
-     "sub": "asset \u00b7 create \u00b7 phase 2 unknown",
+     "sub": "asset · create · phase 2 unknown",
      "risk": "recovery",
      "blocks": [
       {
@@ -1882,7 +1882,7 @@
       {
        "kind": "row",
        "title": "Forsworn Sentinel",
-       "sub": "id 8mDurYQY\u2026 \u00b7 created 13:58:41 \u00b7 hidden",
+       "sub": "id 8mDurYQY… · created 13:58:41 · hidden",
        "pills": [
         "HIDDEN"
        ],
@@ -1892,7 +1892,7 @@
       },
       {
        "kind": "action",
-       "label": "Skip \u00b7 leave the live row; nothing deleted",
+       "label": "Skip · leave the live row; nothing deleted",
        "variant": "ghost"
       },
       {
@@ -1946,7 +1946,7 @@
        {
         "kind": "bar",
         "title": "16c_forsworn_scene_characters_pack",
-        "sub": "ORPHANED \u00b7 1 decision",
+        "sub": "ORPHANED · 1 decision",
         "chips": [
          "zip pack"
         ]
@@ -1972,9 +1972,9 @@
        },
        {
         "kind": "card",
-        "title": "DECIDE \u00b7 Forsworn Sentinel",
+        "title": "DECIDE · Forsworn Sentinel",
         "pill": "ORPHANED",
-        "sub": "gameAsset \u00b7 two-phase create",
+        "sub": "gameAsset · two-phase create",
         "risk": "recovery",
         "blocks": [
          {
@@ -1993,7 +1993,7 @@
          {
           "kind": "row",
           "title": "Forsworn Sentinel",
-          "sub": "8mDurYQYmy3G0vb862mkO \u00b7 13:58:41 \u00b7 hidden:true \u00b7 no image",
+          "sub": "8mDurYQYmy3G0vb862mkO · 13:58:41 · hidden:true · no image",
           "pills": [
            "HIDDEN"
           ],
@@ -2003,14 +2003,14 @@
          },
          {
           "kind": "action",
-          "label": "Skip \u00b7 leave the live row; nothing deleted",
+          "label": "Skip · leave the live row; nothing deleted",
           "variant": "ghost"
          },
          {
           "kind": "action",
           "label": "Re-send phase 2 (exceptional)",
           "variant": "danger",
-          "hint": "sheet restates: no new create; upload again to 8mDurYQY\u2026"
+          "hint": "sheet restates: no new create; upload again to 8mDurYQY…"
          }
         ]
        }
@@ -2025,19 +2025,19 @@
         "head": "Readiness",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SESSION",
-          "value": "ready \u00b7 probe answered 2 m ago",
+          "value": "ready · probe answered 2 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "REPO",
           "value": "push/ listed 4 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "BUDGET",
           "value": "12 % of the busiest public path's window",
           "tone": "ok"
@@ -2053,11 +2053,11 @@
          ],
          [
           "snapshot",
-          "tnr_forge_snap_v1:\u2026"
+          "tnr_forge_snap_v1:…"
          ],
          [
           "idmap",
-          "srcId \u2192 id after adopt"
+          "srcId → id after adopt"
          ]
         ]
        }
@@ -2066,7 +2066,7 @@
     ]
    },
    "notes": [
-    "The three controls are spatially separated (MOB \u00a77); Re-send is styled as exceptional and routes through a ConfirmationSurface naming phase and target (D2.3).",
+    "The three controls are spatially separated (MOB §7); Re-send is styled as exceptional and routes through a ConfirmationSurface naming phase and target (D2.3).",
     "Candidate name renders above the raw id (today the id comes first, screens.mjs:57).",
     "Skip repeats the consequence in its label: nothing is deleted and the live row may remain (K-16 policy stays open)."
    ],
@@ -2076,20 +2076,20 @@
    "cites": [
     "forge/src/reconcile/reconciler.mjs (snapshot diff, adopt)",
     "forge/src/ui/screens.mjs:56-68 (today's orphan rows)",
-    "SSC \u00a74 orphan; MOB \u00a77; WFA orphan anatomy"
+    "SSC §4 orphan; MOB §7; WFA orphan anatomy"
    ]
   },
   {
    "id": "wf08_results_sync",
    "title": "Results and sync",
-   "purpose": "Brief \u00a77 steps 12-13: read-back summary and the repository hand-off as two separate claims. A green game result never implies the bundle reached the repository.",
-   "flow": "Job DONE \u2192 ResultSummary (compile n/a \u00b7 execution \u00b7 verification \u00b7 sync \u00b7 publication) \u2192 Sync to repository (GitHub PAT) or Export text \u2192 archive hint.",
+   "purpose": "Brief §7 steps 12-13: read-back summary and the repository hand-off as two separate claims. A green game result never implies the bundle reached the repository.",
+   "flow": "Job DONE → ResultSummary (compile n/a · execution · verification · sync · publication) → Sync to repository (GitHub PAT) or Export text → archive hint.",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
@@ -2105,25 +2105,25 @@
      "head": "Result",
      "items": [
       {
-       "glyph": "\u2713",
+       "glyph": "✓",
        "label": "EXECUTION",
        "value": "7 updates confirmed",
        "tone": "ok"
       },
       {
-       "glyph": "\u2713",
+       "glyph": "✓",
        "label": "VERIFIED",
        "value": "7 of 7 read back match",
        "tone": "ok"
       },
       {
-       "glyph": "\u2013",
+       "glyph": "–",
        "label": "SYNC",
        "value": "not configured: no repository token on this device, so the bundle stays local",
        "tone": "mute"
       },
       {
-       "glyph": "\u2013",
+       "glyph": "–",
        "label": "PUBLISH",
        "value": "hidden stays true (no publish action)",
        "tone": "mute"
@@ -2141,13 +2141,13 @@
       "VERIFIED",
       "VERIFIED"
      ],
-     "label": "7 verified \u00b7 7 total"
+     "label": "7 verified · 7 total"
     },
     {
      "kind": "action",
      "label": "Sync results to repository",
      "variant": "primary",
-     "hint": "harvests/inbox/tnr_results_\u2026.json \u00b7 needs PAT"
+     "hint": "harvests/inbox/tnr_results_….json · needs PAT"
     },
     {
      "kind": "action",
@@ -2197,7 +2197,7 @@
        {
         "kind": "bar",
         "title": "46_mission_flatten.json",
-        "sub": "DONE \u00b7 14:09",
+        "sub": "DONE · 14:09",
         "chips": [
          "bundle 61 KB"
         ]
@@ -2207,19 +2207,19 @@
         "head": "Result summary (separate claims)",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "EXECUTION",
           "value": "7 updates confirmed by the server",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "VERIFIED",
           "value": "7 of 7 asserted keys match on read-back",
           "tone": "ok"
          },
          {
-          "glyph": "\u2715",
+          "glyph": "✕",
           "label": "SYNC",
           "value": "Repository sync failed: 409 on harvests/inbox (auto commit raced); journaled as job.sync=failed",
           "tone": "bad",
@@ -2228,7 +2228,7 @@
           ]
          },
          {
-          "glyph": "\u2013",
+          "glyph": "–",
           "label": "PUBLISH",
           "value": "not applicable: hidden stays true",
           "tone": "mute"
@@ -2240,14 +2240,14 @@
         "rows": [
          {
           "title": "One Perfect Crop",
-          "sub": "objectives, rewards \u00b7 match",
+          "sub": "objectives, rewards · match",
           "pills": [
            "VERIFIED"
           ]
          },
          {
           "title": "Cabbage run",
-          "sub": "objectives \u00b7 match",
+          "sub": "objectives · match",
           "pills": [
            "VERIFIED"
           ]
@@ -2271,19 +2271,19 @@
         "head": "Readiness",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SESSION",
-          "value": "ready \u00b7 probe answered 2 m ago",
+          "value": "ready · probe answered 2 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "REPO",
           "value": "push/ listed 4 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "BUDGET",
           "value": "12 % of the busiest public path's window",
           "tone": "ok"
@@ -2295,7 +2295,7 @@
         "pairs": [
          [
           "bundle",
-          "tnr_results_1789\u2026json"
+          "tnr_results_1789…json"
          ],
          [
           "harvest.py",
@@ -2303,11 +2303,11 @@
          ],
          [
           "parity guard",
-          "checks: null \u2192 fix R-19"
+          "checks: null → fix R-19"
          ],
          [
           "archive",
-          "push/ \u2192 archive/ after tap"
+          "push/ → archive/ after tap"
          ]
         ]
        }
@@ -2316,7 +2316,7 @@
     ]
    },
    "notes": [
-    "The sync state is journaled (job.sync \u2208 not_configured | pending | committed | failed) so an eviction after DONE cannot lose the fact that the bundle never landed (F; H R-07).",
+    "The sync state is journaled (job.sync ∈ not_configured | pending | committed | failed) so an eviction after DONE cannot lose the fact that the bundle never landed (F; H R-07).",
     "'Retry sync' is allowed because it is a repository-only request (retry-safe class); no control retries a game write.",
     "The DONE pill is no longer green regardless of outcome (today styles.mjs:44); the outcome lamps carry the verdicts."
    ],
@@ -2327,20 +2327,20 @@
    "cites": [
     "forge/src/ui/app.mjs:402-405 (sync toast + showExport today)",
     "forge/src/github.mjs:50 (sha-aware PUT, no retry)",
-    "SSC \u00a712 game vs repo claims; CPY \u00a714"
+    "SSC §12 game vs repo claims; CPY §14"
    ]
   },
   {
    "id": "wf09_capture_preflight",
    "title": "Research capture: READ ONLY with FULL advisory",
    "purpose": "Zero-mutation research runs stay easy while full-body persistence to the public repository is called out before the tap (capture classification K-06).",
-   "flow": "Capture & Research \u2192 manifest 02 \u2192 preflight shows every read, its tier and persistence \u2192 Run 5 reads \u2192 capture rows with two verdicts (read ok / body persisted).",
+   "flow": "Capture & Research → manifest 02 → preflight shows every read, its tier and persistence → Run 5 reads → capture rows with two verdicts (read ok / body persisted).",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
@@ -2373,28 +2373,28 @@
     {
      "kind": "banner",
      "tone": "warn",
-     "head": "\u25a3 FULL capture",
+     "head": "▣ FULL capture",
      "body": "gameAsset.get bodies persist to harvests/inbox/ (public). Tier: content point read, 512 KiB ceiling."
     },
     {
      "kind": "list",
      "rows": [
       {
-       "title": "gameAsset.get XsLLy8aw\u2026",
-       "sub": "public \u00b7 limited \u00b7 persist: full",
+       "title": "gameAsset.get XsLLy8aw…",
+       "sub": "public · limited · persist: full",
        "pills": [
         "FULL"
        ]
       },
       {
-       "title": "gameAsset.get xsikTqet\u2026",
-       "sub": "public \u00b7 limited \u00b7 persist: full",
+       "title": "gameAsset.get xsikTqet…",
+       "sub": "public · limited · persist: full",
        "pills": [
         "FULL"
        ]
       },
       {
-       "title": "\u2026 3 more",
+       "title": "… 3 more",
        "sub": "",
        "pills": []
       }
@@ -2402,7 +2402,7 @@
     },
     {
      "kind": "action",
-     "label": "Run 5 reads \u00b7 zero mutations",
+     "label": "Run 5 reads · zero mutations",
      "variant": "read",
      "hint": "no confirmation for reads; budget 5 of 30"
     },
@@ -2483,21 +2483,21 @@
         "rows": [
          {
           "title": "gameAsset.get XsLLy8awDAtaE6hXVIi_0",
-          "sub": "public \u00b7 rate-limited \u00b7 persist: full \u00b7 content tier",
+          "sub": "public · rate-limited · persist: full · content tier",
           "pills": [
            "FULL"
           ]
          },
          {
           "title": "gameAsset.get xsikTqetvzo5OXKdTicK6",
-          "sub": "public \u00b7 rate-limited \u00b7 persist: full",
+          "sub": "public · rate-limited · persist: full",
           "pills": [
            "FULL"
           ]
          },
          {
           "title": "combat.getBattleHistory (push/05)",
-          "sub": "protected \u00b7 NOT in the 43-procedure registry \u00b7 research tier pending K-17",
+          "sub": "protected · NOT in the 43-procedure registry · research tier pending K-17",
           "pills": [
            "NEEDS-DECISION"
           ]
@@ -2506,7 +2506,7 @@
        },
        {
         "kind": "action",
-        "label": "Run 5 reads \u00b7 zero mutations",
+        "label": "Run 5 reads · zero mutations",
         "variant": "read"
        }
       ]
@@ -2520,19 +2520,19 @@
         "head": "Readiness",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SESSION",
-          "value": "ready \u00b7 probe answered 2 m ago",
+          "value": "ready · probe answered 2 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "REPO",
           "value": "push/ listed 4 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "BUDGET",
           "value": "12 % of the busiest public path's window",
           "tone": "ok"
@@ -2545,16 +2545,16 @@
         "blocks": [
          {
           "kind": "row",
-          "title": "gameAsset.get XsLLy8aw\u2026",
-          "sub": "read ok \u2713 \u00b7 body persisted \u2713 (41 KB)",
+          "title": "gameAsset.get XsLLy8aw…",
+          "sub": "read ok ✓ · body persisted ✓ (41 KB)",
           "pills": [
            "ok"
           ]
          },
          {
           "kind": "row",
-          "title": "gameAsset.get HgT0DKfi\u2026",
-          "sub": "read ok \u2713 \u00b7 body NOT persisted \u2715 (over 512 KiB)",
+          "title": "gameAsset.get HgT0DKfi…",
+          "sub": "read ok ✓ · body NOT persisted ✕ (over 512 KiB)",
           "pills": [
            "warn"
           ]
@@ -2584,13 +2584,13 @@
    "id": "wf10_captures_library",
    "title": "Captures library",
    "purpose": "Reuse before re-reading: committed and local captures with their tier, persistence and age; a re-read is an explicit, budgeted action.",
-   "flow": "Capture & Research \u2192 library \u2192 open a capture \u2192 use it in a lane/Studio or re-read from live.",
+   "flow": "Capture & Research → library → open a capture → use it in a lane/Studio or re-read from live.",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
@@ -2617,7 +2617,7 @@
      "rows": [
       {
        "title": "quests.get Old Ghost",
-       "sub": "summary \u00b7 2026-09-11 \u00b7 committed",
+       "sub": "summary · 2026-09-11 · committed",
        "pills": [
         "READ-ONLY"
        ],
@@ -2626,8 +2626,8 @@
        ]
       },
       {
-       "title": "gameAsset.get \u00d75 (crop probe)",
-       "sub": "FULL \u00b7 local + committed",
+       "title": "gameAsset.get ×5 (crop probe)",
+       "sub": "FULL · local + committed",
        "pills": [
         "FULL"
        ],
@@ -2636,8 +2636,8 @@
        ]
       },
       {
-       "title": "profile.getAi \u00d75 (bandit AI)",
-       "sub": "FULL \u00b7 2026-09-11",
+       "title": "profile.getAi ×5 (bandit AI)",
+       "sub": "FULL · 2026-09-11",
        "pills": [
         "FULL"
        ],
@@ -2707,18 +2707,18 @@
         "rows": [
          {
           "title": "quests.get KmGPDnZnGOCvATQqA5LI8 (Old Ghost)",
-          "sub": "summary \u00b7 read 2026-09-11 \u00b7 committed in tnr_results_1789124514980",
+          "sub": "summary · read 2026-09-11 · committed in tnr_results_1789124514980",
           "pills": [
            "READ-ONLY"
           ],
           "actions": [
            "Open",
-           "Re-read \u00b7 1"
+           "Re-read · 1"
           ]
          },
          {
-          "title": "gameAsset.get \u00d75 (One Perfect Crop asset probe)",
-          "sub": "FULL \u00b7 snapshot immutable \u00b7 5 bodies",
+          "title": "gameAsset.get ×5 (One Perfect Crop asset probe)",
+          "sub": "FULL · snapshot immutable · 5 bodies",
           "pills": [
            "FULL"
           ],
@@ -2727,8 +2727,8 @@
           ]
          },
          {
-          "title": "combat.getBattleEntries \u00d744 (Aerathiel)",
-          "sub": "Builder v4.32 run \u00b7 not readable by Forge 0.4.0 (P-10)",
+          "title": "combat.getBattleEntries ×44 (Aerathiel)",
+          "sub": "Builder v4.32 run · not readable by Forge 0.4.0 (P-10)",
           "pills": [
            "NEEDS-DECISION"
           ]
@@ -2746,19 +2746,19 @@
         "head": "Readiness",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SESSION",
-          "value": "ready \u00b7 probe answered 2 m ago",
+          "value": "ready · probe answered 2 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "REPO",
           "value": "push/ listed 4 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "BUDGET",
           "value": "12 % of the busiest public path's window",
           "tone": "ok"
@@ -2804,13 +2804,13 @@
    "id": "wf11_admin_queue",
    "title": "Content Admin: review queue",
    "purpose": "The admin never sees a manifest. Items are hidden live records (or Studio builds) that a job finished, listed from the repository review file, with the current live pill read from committed captures.",
-   "flow": "Content Admin \u2192 queue (filter by lane/state) \u2192 detail (WF-12) \u2192 approve / request changes \u2192 publish (WF-13). Approval state lives in the repository (K-09), never invented on the client.",
+   "flow": "Content Admin → queue (filter by lane/state) → detail (WF-12) → approve / request changes → publish (WF-13). Approval state lives in the repository (K-09), never invented on the client.",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "ADMIN \u2713"
+      "ADMIN ✓"
      ]
     },
     {
@@ -2837,7 +2837,7 @@
      "rows": [
       {
        "title": "Old Ghost",
-       "sub": "quest \u00b7 hidden \u00b7 job 24 verified 09-11",
+       "sub": "quest · hidden · job 24 verified 09-11",
        "pills": [
         "HIDDEN"
        ],
@@ -2847,7 +2847,7 @@
       },
       {
        "title": "Cabbage Seed",
-       "sub": "item \u00b7 hidden \u00b7 icon pending art",
+       "sub": "item · hidden · icon pending art",
        "pills": [
         "HIDDEN",
         "NEEDS-DECISION"
@@ -2858,7 +2858,7 @@
       },
       {
        "title": "Harvest Boar",
-       "sub": "AI \u00b7 no lifecycle column \u00b7 referenced by 1 hidden quest",
+       "sub": "AI · no lifecycle column · referenced by 1 hidden quest",
        "pills": [],
        "actions": [
         "Review"
@@ -2919,7 +2919,7 @@
        {
         "kind": "bar",
         "title": "Review queue",
-        "sub": "state/review/*.json \u00b7 read 3 m ago",
+        "sub": "state/review/*.json · read 3 m ago",
         "chips": [
          "3 waiting",
          "1 changes requested",
@@ -2941,7 +2941,7 @@
         "rows": [
          {
           "title": "Old Ghost",
-          "sub": "quest \u00b7 HIDDEN (captured 09-11) \u00b7 from job 24_rank_icon_swap \u00b7 lane Quests & Events",
+          "sub": "quest · HIDDEN (captured 09-11) · from job 24_rank_icon_swap · lane Quests & Events",
           "pills": [
            "HIDDEN"
           ],
@@ -2951,7 +2951,7 @@
          },
          {
           "title": "Cabbage Seed",
-          "sub": "item \u00b7 HIDDEN \u00b7 icon not yet in repository (art boundary)",
+          "sub": "item · HIDDEN · icon not yet in repository (art boundary)",
           "pills": [
            "HIDDEN",
            "NEEDS-DECISION"
@@ -2962,7 +2962,7 @@
          },
          {
           "title": "Harvest Boar",
-          "sub": "AI (userData isAi) \u00b7 no lifecycle column: containment is by references only",
+          "sub": "AI (userData isAi) · no lifecycle column: containment is by references only",
           "pills": [],
           "actions": [
            "Review"
@@ -2981,19 +2981,19 @@
         "head": "Admin readiness",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SESSION",
-          "value": "session ready \u00b7 role CONTENT-ADMIN (read once, K-52)",
+          "value": "session ready · role CONTENT-ADMIN (read once, K-52)",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "REPO",
           "value": "review file read 3 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "BUDGET",
           "value": "no live reads on this screen",
           "tone": "ok"
@@ -3037,26 +3037,26 @@
    "cites": [
     "deepdive game-auth-roles (permissions.ts canChangeContent; profile.getUser)",
     "E per-class publication axis",
-    "WCM \u00a723 AdminReviewCard"
+    "WCM §23 AdminReviewCard"
    ]
   },
   {
    "id": "wf12_admin_detail",
    "title": "Content Admin: detail, edit, preview",
    "purpose": "Human-readable record: what changed in plain terms, a preview in the class's own renderer where one exists, a narrow editorial edit, and the approval decision. No JSON.",
-   "flow": "Queue \u2192 detail \u2192 (edit \u2192 hidden write, journaled like any job) \u2192 approve or request changes \u2192 publish (WF-13).",
+   "flow": "Queue → detail → (edit → hidden write, journaled like any job) → approve or request changes → publish (WF-13).",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "ADMIN \u2713"
+      "ADMIN ✓"
      ]
     },
     {
      "kind": "bar",
      "title": "Old Ghost",
-     "sub": "quest \u00b7 HIDDEN",
+     "sub": "quest · HIDDEN",
      "chips": [
       "waiting"
      ]
@@ -3073,8 +3073,8 @@
     },
     {
      "kind": "preview",
-     "label": "player preview \u00b7 quest card renderer",
-     "body": "Old Ghost \u2014 Rank C \u2014 3 objectives \u2014 rewards: 1,200 ryo. Reflects the LIVE hidden record read at 13:40."
+     "label": "player preview · quest card renderer",
+     "body": "Old Ghost — Rank C — 3 objectives — rewards: 1,200 ryo. Reflects the LIVE hidden record read at 13:40."
     },
     {
      "kind": "diff",
@@ -3101,7 +3101,7 @@
      "fields": [
       [
        "description (editorial)",
-       "A ghost haunts the old mill road\u2026",
+       "A ghost haunts the old mill road…",
        "area"
       ],
       [
@@ -3113,7 +3113,7 @@
     },
     {
      "kind": "action",
-     "label": "Save edit \u2192 writes 1 hidden record",
+     "label": "Save edit → writes 1 hidden record",
      "variant": "mutation",
      "hint": "journaled; re-reads just before the send and refuses if the record changed, because nothing server-side detects a concurrent edit"
     },
@@ -3166,7 +3166,7 @@
        {
         "kind": "bar",
         "title": "Old Ghost",
-        "sub": "quest \u00b7 HIDDEN \u00b7 KmGPDnZnGOCvATQqA5LI8",
+        "sub": "quest · HIDDEN · KmGPDnZnGOCvATQqA5LI8",
         "chips": [
          "waiting",
          "job 24",
@@ -3175,8 +3175,8 @@
        },
        {
         "kind": "preview",
-        "label": "player preview \u00b7 quest card renderer (client route)",
-        "body": "Old Ghost \u2014 Rank C \u2014 3 objectives \u2014 rewards 1,200 ryo. Preview reflects the LIVE hidden record read at 13:40."
+        "label": "player preview · quest card renderer (client route)",
+        "body": "Old Ghost — Rank C — 3 objectives — rewards 1,200 ryo. Preview reflects the LIVE hidden record read at 13:40."
        },
        {
         "kind": "diff",
@@ -3208,7 +3208,7 @@
         "fields": [
          [
           "description (editorial edit)",
-          "A ghost haunts the old mill road\u2026",
+          "A ghost haunts the old mill road…",
           "area"
          ],
          [
@@ -3225,7 +3225,7 @@
        },
        {
         "kind": "action",
-        "label": "Save edit \u2192 writes 1 hidden record",
+        "label": "Save edit → writes 1 hidden record",
         "variant": "mutation",
         "hint": "quests.update whole-record semantics: read-merge-write, asserted keys read back; re-reads before the send because nothing server-side detects a concurrent edit"
        }
@@ -3240,13 +3240,13 @@
         "head": "Decision",
         "items": [
          {
-          "glyph": "\u25b3",
+          "glyph": "△",
           "label": "DEPENDS",
           "value": "Harvest Boar (AI) still hidden-by-reference",
           "tone": "warn"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "VERIFIED",
           "value": "last job read back matched",
           "tone": "ok"
@@ -3283,7 +3283,7 @@
    "notes": [
     "Edits are ordinary journaled hidden writes: whole-record procedures are read-merge-write with asserted-key read-back (routers audit: validators drop unknown keys).",
     "Preview uses the class's existing client renderer when one exists (E per class); classes without a renderer show a neutral empty state, never an error.",
-    "Balance/reward fields are read-only for the admin unless K-04 rules otherwise; the director owns those values (CLAUDE.md \u00a710)."
+    "Balance/reward fields are read-only for the admin unless K-04 rules otherwise; the director owns those values (CLAUDE.md §10)."
    ],
    "pending": [
     "K-04",
@@ -3301,13 +3301,13 @@
    "id": "wf13_publish_confirm",
    "title": "Publish: PUBLISH mode and confirmation",
    "purpose": "The one action that makes content player-visible: gold band, the exact flip in words, dependencies that are still hidden, one action in the publish construction, Cancel at the far end. Read back before the screen closes.",
-   "flow": "Approved item \u2192 Publish \u2192 PUBLISH band + sheet \u2192 (typed name / hold: K-12) \u2192 hidden:false sent \u2192 read back \u2192 PUBLISHED pill only after read-back.",
+   "flow": "Approved item → Publish → PUBLISH band + sheet → (typed name / hold: K-12) → hidden:false sent → read back → PUBLISHED pill only after read-back.",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "ADMIN \u2713"
+      "ADMIN ✓"
      ]
     },
     {
@@ -3335,21 +3335,21 @@
        1
       ]
      ],
-     "note": "Makes 'Old Ghost' visible to players. hidden: true \u2192 false."
+     "note": "Makes 'Old Ghost' visible to players. hidden: true → false."
     },
     {
      "kind": "banner",
      "tone": "warn",
-     "head": "\u25b2 Dependency still hidden",
+     "head": "▲ Dependency still hidden",
      "body": "Harvest Boar (AI) is referenced by this quest and is contained by references, not a hidden column. Players will meet it."
     },
     {
      "kind": "sheet",
-     "title": "Publish Old Ghost \u2192 player-visible",
+     "title": "Publish Old Ghost → player-visible",
      "lines": [
-      "hidden: true \u2192 false on KmGPDnZn\u2026",
+      "hidden: true → false on KmGPDnZn…",
       "unhide precondition met (sceneCharacters)",
-      "session ready \u00b7 role CONTENT-ADMIN",
+      "session ready · role CONTENT-ADMIN",
       "read back after send; PUBLISHED only on read-back"
      ],
      "action": {
@@ -3364,7 +3364,7 @@
      "fields": [
       [
        "type the record name to arm (K-12 option b)",
-       "Old Gh\u2026"
+       "Old Gh…"
       ]
      ]
     },
@@ -3415,7 +3415,7 @@
        {
         "kind": "bar",
         "title": "Old Ghost",
-        "sub": "PUBLISH \u00b7 approved by dauntless 09-12",
+        "sub": "PUBLISH · approved by dauntless 09-12",
         "chips": [
          "quest"
         ]
@@ -3442,15 +3442,15 @@
        {
         "kind": "banner",
         "tone": "warn",
-        "head": "\u25b2 1 dependency still hidden",
+        "head": "▲ 1 dependency still hidden",
         "body": "Harvest Boar (AI) has no hidden column; it is reachable once this quest is visible."
        },
        {
         "kind": "sheet",
-        "title": "Publish Old Ghost \u2192 player-visible",
+        "title": "Publish Old Ghost → player-visible",
         "lines": [
-         "hidden: true \u2192 false on KmGPDnZnGOCvATQqA5LI8",
-         "session ready \u00b7 role CONTENT-ADMIN \u00b7 this write is protected, so it spends no public budget",
+         "hidden: true → false on KmGPDnZnGOCvATQqA5LI8",
+         "session ready · role CONTENT-ADMIN · this write is protected, so it spends no public budget",
          "the record is read back after the send; the PUBLISHED pill appears only when the read-back shows hidden:false"
         ],
         "action": {
@@ -3471,19 +3471,19 @@
         "head": "Readiness",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SESSION",
-          "value": "ready \u00b7 probe answered 2 m ago",
+          "value": "ready · probe answered 2 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "REPO",
           "value": "push/ listed 4 m ago",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "BUDGET",
           "value": "12 % of the busiest public path's window",
           "tone": "ok"
@@ -3495,11 +3495,11 @@
         "pairs": [
          [
           "after send",
-          "PUBLISH SENT \u00b7 UNCONFIRMED until read-back"
+          "PUBLISH SENT · UNCONFIRMED until read-back"
          ],
          [
           "refusal",
-          "HTTP 200 success:false \u2192 'Write refused' with server message"
+          "HTTP 200 success:false → 'Write refused' with server message"
          ],
          [
           "audit",
@@ -3514,7 +3514,7 @@
    "notes": [
     "Publish is a whole-record update carrying hidden:false for jutsu/item/bloodline/quest/gameAsset; guides use published; AI has no hidden column (E). The band and the sheet say which.",
     "The Confirm control is disabled for ~600 ms after the sheet appears (arming delay) and until the K-12 level is met; 'Deploy' is never used.",
-    "Publication is distinct from technical success: PUBLISH SENT stays unconfirmed until the read-back proves hidden:false (SSC \u00a711)."
+    "Publication is distinct from technical success: PUBLISH SENT stays unconfirmed until the read-back proves hidden:false (SSC §11)."
    ],
    "pending": [
     "K-55 whether the admin performs the publish act at all, or records a go-ahead the user acts on (the doctrine reserves the act)",
@@ -3526,26 +3526,26 @@
    "cites": [
     "deepdive game-routers-* (hidden flipped only by full-record update mutations)",
     "D2.3 ConfirmationSurface, ModeBand",
-    "SSC \u00a711; IRM publish rows; CPY \u00a715"
+    "SSC §11; IRM publish rows; CPY §15"
    ]
   },
   {
    "id": "wf14_quest_studio",
    "title": "Quest Studio: subtype, storyboard, compile result",
    "purpose": "One Studio with subtype adapters (RUL-2026-09-12-001). The browser translates and presents; the repository compiles (RUL-2026-09-12-002). Compile is not execution.",
-   "flow": "Studio \u2192 choose subtype (registry maturity shown) \u2192 brief \u2192 storyboard \u2192 Compile in repository (typed operation; build states are a separate axis from job states) \u2192 valid | blocked (decision card) | failed \u2192 Promote to manifest run (journaled import into the same preflight, WF-04).",
+   "flow": "Studio → choose subtype (registry maturity shown) → brief → storyboard → Compile in repository (typed operation; build states are a separate axis from job states) → valid | blocked (decision card) | failed → Promote to manifest run (journaled import into the same preflight, WF-04).",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
      "kind": "bar",
      "title": "Quest Studio",
-     "sub": "Mission \u00b7 One Perfect Crop",
+     "sub": "Mission · One Perfect Crop",
      "chips": [
       "draft saved"
      ]
@@ -3566,7 +3566,7 @@
       {
        "kind": "dialog",
        "title": "Arrival at the market",
-       "sub": "Market Clerk \u00b7 scene market_day"
+       "sub": "Market Clerk · scene market_day"
       },
       {
        "kind": "decision",
@@ -3579,7 +3579,7 @@
       {
        "kind": "battle",
        "title": "Road Bandit ambush",
-       "sub": "AI Road Bandit \u00b7 profile bandit_c"
+       "sub": "AI Road Bandit · profile bandit_c"
       },
       {
        "kind": "win",
@@ -3592,14 +3592,14 @@
      "kind": "action",
      "label": "Compile in repository",
      "variant": "primary",
-     "hint": "GitHub only \u00b7 zero live-game requests"
+     "hint": "GitHub only · zero live-game requests"
     },
     {
      "kind": "lamps",
      "head": "Last build",
      "items": [
       {
-       "glyph": "\u25b3",
+       "glyph": "△",
        "label": "BLOCKED",
        "value": "decision_required: reward slot C.rank (48 profile)",
        "tone": "warn",
@@ -3651,10 +3651,10 @@
       "blocks": [
        {
         "kind": "bar",
-        "title": "Quest Studio \u00b7 Mission",
-        "sub": "One Perfect Crop \u00b7 request q_20260912_\u2026",
+        "title": "Quest Studio · Mission",
+        "sub": "One Perfect Crop · request q_20260912_…",
         "chips": [
-         "draft saved \u00b7 repo revision 3",
+         "draft saved · repo revision 3",
          "subtype: mission (supported)"
         ]
        },
@@ -3678,12 +3678,12 @@
          {
           "kind": "dialog",
           "title": "Arrival at the market",
-          "sub": "Market Clerk (reuse) \u00b7 scene market_day (asset hidden)"
+          "sub": "Market Clerk (reuse) · scene market_day (asset hidden)"
          },
          {
           "kind": "decision",
           "title": "Help the farmer?",
-          "sub": "route A: escort \u00b7 route B: refuse (ends)",
+          "sub": "route A: escort · route B: refuse (ends)",
           "pills": [
            "NEEDS-DECISION"
           ]
@@ -3691,12 +3691,12 @@
          {
           "kind": "battle",
           "title": "Road Bandit ambush",
-          "sub": "AI Road Bandit \u00b7 combat profile from 48 \u00b7 1 battle node"
+          "sub": "AI Road Bandit · combat profile from 48 · 1 battle node"
          },
          {
           "kind": "win",
           "title": "Deliver the crop",
-          "sub": "win_quest \u00b7 rewards from director packet"
+          "sub": "win_quest · rewards from director packet"
          }
         ]
        },
@@ -3717,24 +3717,24 @@
         "head": "Build (separate axis from jobs)",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SAVED",
-          "value": "repository revision 3 \u00b7 studio/quest/q_\u2026",
+          "value": "repository revision 3 · studio/quest/q_…",
           "tone": "ok"
          },
          {
-          "glyph": "\u25b3",
+          "glyph": "△",
           "label": "BLOCKED",
-          "value": "decision_required \u00b7 reward slot for rank C is AWAITING_RULING in 48",
+          "value": "decision_required · reward slot for rank C is AWAITING_RULING in 48",
           "tone": "warn",
           "actions": [
            "Decision card"
           ]
          },
          {
-          "glyph": "\u2013",
+          "glyph": "–",
           "label": "PROMOTE",
-          "value": "available after a valid build \u00b7 imports into preflight",
+          "value": "available after a valid build · imports into preflight",
           "tone": "mute"
          }
         ]
@@ -3744,7 +3744,7 @@
         "pairs": [
          [
           "subtypes",
-          "mission supported \u00b7 event needs_compiler \u00b7 4 needs_recipe"
+          "mission supported · event needs_compiler · 4 needs_recipe"
          ],
          [
           "shape rules",
@@ -3761,14 +3761,14 @@
     ]
    },
    "notes": [
-    "Build states (saved / building / valid / blocked / failed / stale / repository unavailable) are the RB \u00a711 vocabulary and never reuse job-outcome styling (RM-06).",
+    "Build states (saved / building / valid / blocked / failed / stale / repository unavailable) are the RB §11 vocabulary and never reuse job-outcome styling (RM-06).",
     "Blocked-by-decision routes to a decision card fed by a structured blocker code from the canonical compiler (K-36/F), not by prose matching.",
     "'Promote' is a journaled import into the same preflight as push/ manifests; no Start control lives in the Studio (K-39).",
     "The foundation implementation at 824c4d58 is evidence for this screen, not its spec: it ends at a text export and has a second shell; absorption into this token set is a roadmap item (RM-02, CF-22)."
    ],
    "pending": [
-    "K-25 Quest Source v2",
-    "K-26 worker trigger (ratify dispatch or revert to source-push)",
+    "K-25 Quest Source v2 (engineering; Fable's position is in the register)",
+    "K-26 credential scope on the operator's device (director); the trigger model under it is engineering",
     "K-27 rollout order",
     "K-46 graph depth",
     "K-42 flagship confirmation"
@@ -3776,26 +3776,26 @@
    "cites": [
     "824c4d58:forge/src/studio/ui.mjs (draft, compile, poll, showExport)",
     "824c4d58:.github/workflows/quest_studio.yml",
-    "QS \u00a72, \u00a74, \u00a713; RB \u00a76, \u00a711; MS phone model"
+    "QS §2, §4, §13; RB §6, §11; MS phone model"
    ]
   },
   {
    "id": "wf15_project_workspace",
    "title": "Project workspace (read-only projection)",
    "purpose": "Projects the workstream roadmap.json without a second canonical database: readiness, needs-attention, work plan, launchers. v1 writes nothing (K-28).",
-   "flow": "Projects \u2192 One Perfect Crop \u2192 readiness strip \u2192 needs attention \u2192 task \u2192 launcher (Studio, manifest, admin packet).",
+   "flow": "Projects → One Perfect Crop → readiness strip → needs attention → task → launcher (Studio, manifest, admin packet).",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
      "kind": "bar",
      "title": "One Perfect Crop",
-     "sub": "workstream \u00b7 quest",
+     "sub": "workstream · quest",
      "chips": [
       "12 tasks"
      ]
@@ -3834,7 +3834,7 @@
       {
        "kind": "row",
        "title": "art.intake_accepted_assets",
-       "sub": "BLOCKED \u00b7 accepted art not yet in the repository (manual boundary)",
+       "sub": "BLOCKED · accepted art not yet in the repository (manual boundary)",
        "pills": [
         "NEEDS-DECISION"
        ]
@@ -3842,7 +3842,7 @@
       {
        "kind": "row",
        "title": "admin.balance_and_eligibility",
-       "sub": "READY \u00b7 director packet",
+       "sub": "READY · director packet",
        "pills": [
         "ADMIN"
        ],
@@ -3871,7 +3871,7 @@
       },
       {
        "title": "build.final_freeze",
-       "sub": "ChatGPT \u00b7 after art + admin",
+       "sub": "ChatGPT · after art + admin",
        "pills": [
         "PLANNED"
        ]
@@ -3921,7 +3921,7 @@
        {
         "kind": "bar",
         "title": "One Perfect Crop",
-        "sub": "state/workstreams/one_perfect_crop/roadmap.json \u00b7 rendered 09-12",
+        "sub": "state/workstreams/one_perfect_crop/roadmap.json · rendered 09-12",
         "chips": [
          "quest",
          "12 tasks"
@@ -3957,14 +3957,14 @@
         "rows": [
          {
           "title": "art.intake_accepted_assets",
-          "sub": "BLOCKED \u00b7 dauntless \u00b7 accepted Ittetsu / Waystation Keeper / icon not in repository",
+          "sub": "BLOCKED · dauntless · accepted Ittetsu / Waystation Keeper / icon not in repository",
           "pills": [
            "NEEDS-DECISION"
           ]
          },
          {
           "title": "art.scene_characters",
-          "sub": "READY \u00b7 ChatGPT \u00b7 Road Bandit production",
+          "sub": "READY · ChatGPT · Road Bandit production",
           "pills": [
            "PLANNED"
           ],
@@ -3974,7 +3974,7 @@
          },
          {
           "title": "admin.balance_and_eligibility",
-          "sub": "READY \u00b7 dauntless \u00b7 director packet",
+          "sub": "READY · dauntless · director packet",
           "pills": [
            "ADMIN"
           ],
@@ -3984,7 +3984,7 @@
          },
          {
           "title": "build.final_freeze",
-          "sub": "PLANNED \u00b7 ChatGPT",
+          "sub": "PLANNED · ChatGPT",
           "pills": [
            "PLANNED"
           ]
@@ -4010,7 +4010,7 @@
          ],
          [
           "launchers",
-          "Studio draft \u00b7 manifest 46 \u00b7 packet"
+          "Studio draft · manifest 46 · packet"
          ],
          [
           "validation",
@@ -4023,32 +4023,32 @@
     ]
    },
    "notes": [
-    "The workspace is a projection plus launchers; any write goes through a typed, validated repository operation (K-28; RB \u00a76).",
+    "The workspace is a projection plus launchers; any write goes through a typed, validated repository operation (K-28; RB §6).",
     "Task names and states are the roadmap's own; Forge adds no lifecycle vocabulary in v1 (K-44)."
    ],
    "pending": [
     "K-28 edit scope",
-    "K-40 Studio\u2194workstream reference",
+    "K-40 Studio↔workstream reference (engineering)",
     "K-43 project creation",
     "K-44 vocabulary"
    ],
    "cites": [
     "state/workstreams/one_perfect_crop/roadmap.json",
     "scripts/content_workstream.py",
-    "WSP \u00a73-\u00a74 (Tier B)"
+    "WSP §3-§4 (Tier B)"
    ]
   },
   {
    "id": "wf16_jobs_settings",
    "title": "Jobs & Recovery and Settings & diagnostics",
    "purpose": "History with honest outcome lamps; storage, session, GitHub bridge, release pin and budget as health rows. Maintenance actions keep INCOMPLETE and PAUSED jobs and confirm before deleting finished ones.",
-   "flow": "Jobs \u2192 resumable first (SENT / ORPHANED / PAUSED / INCOMPLETE), then finished; Settings \u2192 health rows with Re-check; Export journal; Delete finished jobs (confirmed).",
+   "flow": "Jobs → resumable first (SENT / ORPHANED / PAUSED / INCOMPLETE), then finished; Settings → health rows with Re-check; Export journal; Delete finished jobs (confirmed).",
    "mobile": [
     {
      "kind": "brand",
      "tag": "content operations",
      "actions": [
-      "READY \u2713"
+      "READY ✓"
      ]
     },
     {
@@ -4065,7 +4065,7 @@
      "rows": [
       {
        "title": "46_mission_flatten",
-       "sub": "PAUSED \u00b7 AMBIGUOUS \u00b7 1 SENT",
+       "sub": "PAUSED · AMBIGUOUS · 1 SENT",
        "pills": [
         "SENT"
        ],
@@ -4085,14 +4085,14 @@
       },
       {
        "title": "24_rank_icon_swap_all31",
-       "sub": "DONE \u00b7 31 verified \u00b7 synced",
+       "sub": "DONE · 31 verified · synced",
        "pills": [
         "VERIFIED"
        ]
       },
       {
        "title": "02_asset_probe",
-       "sub": "capture-only \u00b7 read ok on 5 \u00b7 1 body not persisted",
+       "sub": "capture-only · read ok on 5 · 1 body not persisted",
        "pills": [
         "bad"
        ]
@@ -4156,39 +4156,39 @@
         "head": "Health",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "SESSION",
-          "value": "ready \u00b7 probe profile.getAi answered 2 m ago",
+          "value": "ready · probe profile.getAi answered 2 m ago",
           "tone": "ok",
           "actions": [
-           "Re-check \u00b7 1 read"
+           "Re-check · 1 read"
           ]
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "STORAGE",
-          "value": "persisted (navigator.storage.persist) \u00b7 journal v1 \u00b7 IDB v2",
+          "value": "persisted (navigator.storage.persist) · journal v1 · IDB v2",
           "tone": "ok"
          },
          {
-          "glyph": "\u2013",
+          "glyph": "–",
           "label": "GITHUB",
-          "value": "PAT not configured \u00b7 results export as text only",
+          "value": "PAT not configured · results export as text only",
           "tone": "mute",
           "actions": [
            "Configure"
           ]
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "RELEASE",
-          "value": "forge 0.4.0 \u00b7 pin ce603def \u00b7 main 305a28f",
+          "value": "forge 0.4.0 · pin ce603def · main 305a28f",
           "tone": "ok"
          },
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "BUDGET",
-          "value": "sliding window 60/60 s \u00b7 margin 0.5 \u00b7 0 trips",
+          "value": "sliding window 60/60 s · margin 0.5 · 0 trips",
           "tone": "ok"
          }
         ]
@@ -4198,12 +4198,12 @@
         "fields": [
          [
           "GitHub token (device only; scope per K-15)",
-          "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+          "••••••••",
           ""
          ],
          [
           "images (per @img)",
-          "3 picked \u00b7 0 missing"
+          "3 picked · 0 missing"
          ]
         ]
        }
@@ -4236,11 +4236,11 @@
    },
    "notes": [
     "'Re-check' is an explicit read that spends one request; Forge never re-probes on its own (CF-12).",
-    "Health rows render only for wired data sources; 'Operational' never appears by default (WFA \u00a712; R-16)."
+    "Health rows render only for wired data sources; 'Operational' never appears by default (WFA §12; R-16)."
    ],
    "pending": [
     "K-15 credential model",
-    "K-14 minified bundle (release row)"
+    "K-14 minified bundle, release row (engineering)"
    ],
    "cites": [
     "forge/src/ui/screens.mjs:238-330 (jobs, captures, settings today)",
@@ -4272,13 +4272,13 @@
      "head": "Session states (auth.mjs has exactly four)",
      "items": [
       {
-       "glyph": "\u2713",
+       "glyph": "✓",
        "label": "READY",
        "value": "the probe answered; reads and writes permitted",
        "tone": "ok"
       },
       {
-       "glyph": "\u2026",
+       "glyph": "…",
        "label": "CHECKING",
        "value": "probe in flight; controls disabled, nothing withheld silently",
        "tone": "info"
@@ -4289,11 +4289,11 @@
        "value": "the probe did not answer; Re-check spends one read",
        "tone": "warn",
        "actions": [
-        "Re-check \u00b7 1 read"
+        "Re-check · 1 read"
        ]
       },
       {
-       "glyph": "\u2715",
+       "glyph": "✕",
        "label": "SIGNED OUT",
        "value": "server-proven refusal; sign in on the game tab, then Re-check",
        "tone": "bad"
@@ -4331,7 +4331,7 @@
        "kind": "progress",
        "pct": 100,
        "tone": "bad",
-       "label": "TRIPPED \u00b7 30 of 30 on quests.get \u00b7 try again after 0:42"
+       "label": "TRIPPED · 30 of 30 on quests.get · try again after 0:42"
       },
       {
        "kind": "action",
@@ -4348,8 +4348,8 @@
      "blocks": [
       {
        "kind": "row",
-       "title": "gameAsset.get HgT0DKfi\u2026",
-       "sub": "read ok \u2713 \u00b7 body NOT persisted \u2715 (over the 512 KiB ceiling)",
+       "title": "gameAsset.get HgT0DKfi…",
+       "sub": "read ok ✓ · body NOT persisted ✕ (over the 512 KiB ceiling)",
        "pills": [
         "warn"
        ]
@@ -4438,7 +4438,7 @@
        {
         "kind": "banner",
         "tone": "bad",
-        "head": "\u2715 Signed out of TNR",
+        "head": "✕ Signed out of TNR",
         "body": "The server refused the probe. Sign in on the game tab, then Re-check. No request was sent on your behalf."
        },
        {
@@ -4446,13 +4446,13 @@
         "head": "What each state permits",
         "items": [
          {
-          "glyph": "\u2713",
+          "glyph": "✓",
           "label": "READY",
           "value": "reads and writes permitted",
           "tone": "ok"
          },
          {
-          "glyph": "\u2026",
+          "glyph": "…",
           "label": "CHECKING",
           "value": "nothing permitted yet; controls disabled with the reason",
           "tone": "info"
@@ -4464,13 +4464,13 @@
           "tone": "warn"
          },
          {
-          "glyph": "\u2715",
+          "glyph": "✕",
           "label": "SIGNED OUT",
           "value": "nothing permitted; a job pauses with reason SESSION and never re-sends",
           "tone": "bad"
          },
          {
-          "glyph": "\u2298",
+          "glyph": "⊘",
           "label": "role",
           "value": "not a session state: authorization is per action (E.3). Actions the role cannot perform are disabled before the tap",
           "tone": "mute"
@@ -4481,7 +4481,7 @@
         "kind": "card",
         "title": "Paused: rate limit",
         "pill": "PAUSED",
-        "sub": "job 46_mission_flatten \u00b7 reason TOO_MANY_REQUESTS on quests.get",
+        "sub": "job 46_mission_flatten · reason TOO_MANY_REQUESTS on quests.get",
         "risk": "recovery",
         "blocks": [
          {
@@ -4505,7 +4505,7 @@
           "kind": "progress",
           "pct": 100,
           "tone": "bad",
-          "label": "TRIPPED \u00b7 try again after 0:42"
+          "label": "TRIPPED · try again after 0:42"
          },
          {
           "kind": "action",
@@ -4563,7 +4563,7 @@
    ],
    "pending": [
     "K-34 whether a per-action denial label may be string-matched",
-    "K-52 how the role is read and what that read costs"
+    "K-52 how the role is read and what that read costs (engineering; the budget cost is named in the entry)"
    ],
    "cites": [
     "forge/src/transport/auth.mjs (four states)",
