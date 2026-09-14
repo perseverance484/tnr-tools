@@ -1,0 +1,39 @@
+{
+  "_note": "READ-ONLY Godstorm / Tower of Endless Night readiness capture, phase 2. Zero mutations. The 23 AI ids and three reward item ids are derived directly from the successful phase-1 quests.get capture in harvests/inbox/tnr_results_1789401726302.json. Captures full current AI records so aiProfileId, jutsu ids, equipped items, scaling/stats/pools and avatar fields can drive the final dependency closure and balance audit. Captures the three scene backgrounds directly wired by Marrow Vaults plus StormCourtyard, a known Tower-related asset present in the current asset catalog but not wired in the captured Stormcourt graph. Phase 3 must be derived from these AI records for ai.getAiProfile, jutsu.get and any equipped-item dependencies; do not guess those ids.",
+  "capture": {
+    "before": [],
+    "after": [
+      {"proc":"profile.getAi","input":{"userId":"9uDe65Qt90xnT-fM5vJZ7"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"IG5Mbfi_2lpUTnUU4_XhZ"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"qQ6jMh8w6aiyr4pevwDh-"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"YvinZCoMWiz0RY8ZBP5EW"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"oi4bHe3upEhLkI-ElJuMX"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"s6LjnqhSW85pIxYRM76Fw"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"jGHpkz2pgLu8loti6pZZi"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"QV1PwoQR9JImZL2_fcOsk"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"3XMsIV6Yv4jy-uaJAe52f"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"b8PGgZl8zNNr6UdWH9dBv"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"JU2BgfdcWsBYGeHUgHMi_"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"9yLEi0OoYxcIL0a2XYkWk"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"k4qMHSTHHZBVsijP5FJ6E"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"axTRSadaZbUepfT40-7cM"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"HEjtNpXmuU4ShrOOPg8XK"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"pln436P8g2ocUBCHavcdb"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"aL1Gf1JmVaP8iWi2zHJoO"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"i8oFdDcneF7YE-8VpQsu3"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"9QPcZ4AYdUUxidb-5kY-P"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"0nqbnfLnX-2nQnxNMY4bb"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"iv9EJDlqM0Y-ec3jRBh4r"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"GYCvy2Otl6hWZ2uwDS7aX"},"persist":"full"},
+      {"proc":"profile.getAi","input":{"userId":"psxanDcHJH0v_MDH5YhyH"},"persist":"full"},
+      {"proc":"item.getItemWithCraftingRequirements","input":{"id":"HLycjzUcVwKZenBWpd0V-"},"persist":"full"},
+      {"proc":"item.getItemWithCraftingRequirements","input":{"id":"1VkKByaLQNDjJUEqiNeic"},"persist":"full"},
+      {"proc":"item.getItemWithCraftingRequirements","input":{"id":"PPlOpN27RkT0Aw-m9Cfg3"},"persist":"full"},
+      {"proc":"gameAsset.get","input":{"id":"7EmVo6GH5GL4YtQTDrbDR"},"persist":"full"},
+      {"proc":"gameAsset.get","input":{"id":"oc0cXiMrcG_6kTUwNWRkn"},"persist":"full"},
+      {"proc":"gameAsset.get","input":{"id":"IykL5XxwFF14BosCblZj8"},"persist":"full"},
+      {"proc":"gameAsset.get","input":{"id":"cKHhHoboreP88iH5WjDe7"},"persist":"full"}
+    ]
+  },
+  "items": []
+}
