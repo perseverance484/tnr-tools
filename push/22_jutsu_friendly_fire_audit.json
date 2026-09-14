@@ -1,0 +1,19 @@
+{
+  "_note": "READ-ONLY jutsu friendly-fire audit requested 2026-09-14. Zero mutations. Point-reads the known named jutsu and captures all current spiral/circle AOE jutsu so BBE / Lightning / Fire shorthand can be resolved from live records rather than stale seed data.",
+  "capture": {
+    "before": [
+      {"proc":"jutsu.get","input":{"id":"OeFCfJ--gEL_FioGfQvTY"},"persist":"full"},
+      {"proc":"jutsu.get","input":{"id":"fKEHVLvvj6q_b4l_X_k4k"},"persist":"full"},
+      {"proc":"jutsu.get","input":{"id":"7RtWUduLzfIPOlWdo-NIu"},"persist":"full"},
+      {"proc":"jutsu.get","input":{"id":"NP8BGL5ZxXMyxMT3K8m-G"},"persist":"full"},
+      {"proc":"jutsu.get","input":{"id":"l2juFx6uVneH8GvjnzyF6"},"persist":"full"},
+      {"proc":"jutsu.getAll","input":{"limit":1000,"method":"AOE_SPIRAL_SHOOT"},"persist":"full"},
+      {"proc":"jutsu.getAll","input":{"limit":1000,"method":"AOE_CIRCLE_SPAWN"},"persist":"full"},
+      {"proc":"jutsu.getAll","input":{"limit":1000,"method":"AOE_CIRCLE_SHOOT"},"persist":"full"},
+      {"proc":"jutsu.getAll","input":{"limit":1000,"name":"Pierce"},"persist":"full"},
+      {"proc":"jutsu.getAll","input":{"limit":1000,"name":"IDT"},"persist":"full"}
+    ],
+    "after": []
+  },
+  "items": []
+}
