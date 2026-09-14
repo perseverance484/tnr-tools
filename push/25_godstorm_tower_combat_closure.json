@@ -1,0 +1,33 @@
+{
+  "_note": "READ-ONLY Godstorm / Tower of Endless Night readiness capture, phase 3. Zero mutations. The 23 AI profile ids are derived directly, in capture order, from the successful phase-2 profile.getAi records in harvests/inbox/tnr_results_1789402842027.json. Those AI records already embed the full equipped jutsu bodies, so redundant jutsu.get reads are intentionally omitted. The final boss also carries AI Heavy Armor; phase 2 embeds its full body, and this direct audited item.get is retained as an independent point-read check because it materially affects boss durability. The two quest keystone reward ids are NOT repeated here: phase 2 item.get returned data:null / rows:0 for both, which is a release-blocking reward-reference finding to resolve rather than mask with another identical read.",
+  "capture": {
+    "before": [],
+    "after": [
+      {"proc":"ai.getAiProfile","input":{"id":"muR-teDw81mr-16Gr9TLn"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"NyfJUsMqCBImEqMwl_Cfd"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"I6YfpRU-Rid8EBkFwBXra"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"AzVC76q7s98Ip9D_KZrQA"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"ODZUYqBF1MjvEpnc96gvc"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"1Aw1W61zQKukzGs8KLZig"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"G5Qti2x1kIl0bNw-viW1A"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"JKZ0osqzYdiQv00R-yOxr"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"k4iTMFZVIV1LksVL4QQZ7"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"ZizkLReBsv70HbhI-lXXL"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"fw0UV78pfIKUCPnAtd6po"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"cMgDkb6qPzzsVgM1UnuiH"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"tqI4rY5R1A0CweRMavxvF"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"Ha60aj66Hz4yo-C7V4JH3"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"2vpKOl94SuYxGsNHZnyWV"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"qwvUPKMr1n98leSKHs3i1"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"t_batIaeD6PEk4NkLIbrt"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"HbL9DwQlL42dvPoZE6itD"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"vR8ePSh-e2hz4PVX-shKB"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"rJa2Da1pO7ThCgW2kLLW5"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"foeh0FHN3Rrj9R-ASmt5p"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"7ZJsNDhTxCnCEWpWex5fY"},"persist":"full"},
+      {"proc":"ai.getAiProfile","input":{"id":"LfS6O8LELoNOTeAf1tUzw"},"persist":"full"},
+      {"proc":"item.get","input":{"id":"h-V9uiuxbL7lAWkO6nZWt"},"persist":"full"}
+    ]
+  },
+  "items": []
+}
