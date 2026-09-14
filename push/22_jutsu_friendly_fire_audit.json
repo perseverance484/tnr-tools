@@ -1,12 +1,18 @@
 {
-  "_note": "READ-ONLY jutsu friendly-fire audit requested 2026-09-14. Zero mutations. This manifest now uses audited jutsu.get point reads only. Covered: Ring of Spilled Blood, Crimson Impact, Reaper's Embrace, Riptide Reaper, and Pierce. BBE weapon shorthand and Fire IDT still require exact game names/IDs before they can be added without guessing.",
+  "_note": "READ-ONLY jutsu friendly-fire audit requested 2026-09-14. Zero mutations. Uses audited jutsu.get point reads only. Covers Ring of Spilled Blood, Crimson Impact, Reaper's Embrace, Riptide Reaper, and every current catalog jutsu whose name contains Pierce so the live records can identify the Lightning + AOE_SPIRAL_SHOOT subset. Fire IDT and BBE weapon shorthand still need one exact family/example name before their full candidate sets can be mapped without guessing.",
   "capture": {
     "before": [
       {"proc":"jutsu.get","input":{"id":"OeFCfJ--gEL_FioGfQvTY"},"persist":"full"},
       {"proc":"jutsu.get","input":{"id":"fKEHVLvvj6q_b4l_X_k4k"},"persist":"full"},
       {"proc":"jutsu.get","input":{"id":"7RtWUduLzfIPOlWdo-NIu"},"persist":"full"},
       {"proc":"jutsu.get","input":{"id":"NP8BGL5ZxXMyxMT3K8m-G"},"persist":"full"},
-      {"proc":"jutsu.get","input":{"id":"l2juFx6uVneH8GvjnzyF6"},"persist":"full"}
+      {"proc":"jutsu.get","input":{"id":"l2juFx6uVneH8GvjnzyF6"},"persist":"full"},
+      {"proc":"jutsu.get","input":{"id":"c8ifHq5kOk171y_eH8_ob"},"persist":"full"},
+      {"proc":"jutsu.get","input":{"id":"l4YdKON9YRCmnhfe8i2FY"},"persist":"full"},
+      {"proc":"jutsu.get","input":{"id":"88kkR_eQVrvadeILsNBKB"},"persist":"full"},
+      {"proc":"jutsu.get","input":{"id":"J6HTCnlUw84zOyaf9xxmD"},"persist":"full"},
+      {"proc":"jutsu.get","input":{"id":"juSaKD8FS6P2JjDUWQD5u"},"persist":"full"},
+      {"proc":"jutsu.get","input":{"id":"KepPgJf9TpchcvzuRNKB9"},"persist":"full"}
     ],
     "after": []
   },
