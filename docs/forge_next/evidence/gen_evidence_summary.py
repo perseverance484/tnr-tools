@@ -4,10 +4,11 @@ Written after independent review finding F4: the prose `summary` in parity-matri
 still carried the pre-verification merge tally while the machine `status_tally` and
 section B carried the corrected one. The numbers below are computed, never typed.
 """
-import json, collections
+import json, collections, os
 
-PM='/home/user/tnr-tools/docs/forge_next/evidence/parity-matrix.json'
-AF='/home/user/tnr-tools/docs/forge_next/evidence/admin-feasibility.json'
+HERE = os.path.dirname(os.path.abspath(__file__))
+PM = os.path.join(HERE, 'parity-matrix.json')
+AF = os.path.join(HERE, 'admin-feasibility.json')
 
 METHOD = ("one adversarial verifier per DECISIVE row (forge-next-deep-dive workflow, Verify phase): every GAP, every "
           "INTENTIONAL DIFFERENCE, every retirement blocker and every low- or medium-confidence row. Rows outside that "

@@ -209,11 +209,11 @@ def page(spec, themes, index_href="index.html"):
     tbtns = "".join(f'<button data-set="{esc(n)}">{esc(t.get("label", n))}</button>' for n, t in themes.items())
     notes = "".join(f"<li>{esc(n)}</li>" for n in spec.get("notes", []))
     pend = "".join(f"<li>{esc(n)}</li>" for n in spec.get("pending", []))
-    pend = f'<h2>Open director decisions this screen depends on</h2><ul class="meta">{pend}</ul>' if pend else ""
+    pend = f'<h2>Open decisions this screen depends on</h2><ul class="meta">{pend}</ul><div class="hint">Class per entry follows <code>K_USER_DECISIONS.md</code> §K.1; an entry marked (engineering) is Fable\'s and waits on nobody.</div>' if pend else ""
     cites = "".join(f"<li>{esc(n)}</li>" for n in spec.get("cites", []))
     cites = f'<h2>Evidence</h2><ul class="meta">{cites}</ul>' if cites else ""
     return f"""<!DOCTYPE html><html lang="en" data-theme="{esc(spec.get("default_theme","forge"))}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(spec["title"])} · Forge Next wireframe</title><style>{CSS}\n{tcss}</style></head><body>
-<a href="{esc(index_href)}">← wireframe index</a> <span class="hint">· planning wireframe (not production UI); labels marked PENDING are open director decisions</span>
+<a href="{esc(index_href)}">← wireframe index</a> <span class="hint">· planning wireframe (not production UI); labels marked PENDING are open decisions, director-owned unless the entry says otherwise</span>
 <h1>{esc(spec["title"])} <span style="color:var(--mute);font-weight:400;font-size:13px">({esc(spec["id"])})</span></h1>
 <div class="meta">{esc(spec.get("purpose",""))}</div>
 <div class="themebar"><span class="hint">theme:</span>{tbtns}</div>
