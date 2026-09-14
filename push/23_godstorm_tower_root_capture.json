@@ -1,0 +1,30 @@
+{
+  "_note": "READ-ONLY Godstorm / Tower of Endless Night readiness capture, phase 1. Zero mutations. Captures the exact current live records for the three active battlepyramid quests so objective graphs, opponent references, rewards, visibility/gates, scene art wiring, and related entity ids can be audited without inferring from stale catalogs. A follow-up read-only capture for related AI/profile/jutsu/item/gameAsset records must be generated from these captured graphs; do not guess related ids.",
+  "capture": {
+    "before": [
+      {
+        "proc": "quests.get",
+        "input": {
+          "id": "VjT93rkmWlWlrdG6Pp46e"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "quests.get",
+        "input": {
+          "id": "2yvE9PUQqlD8lbYNfgX-b"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "quests.get",
+        "input": {
+          "id": "OSADdXqostbyVliCxWk6k"
+        },
+        "persist": "full"
+      }
+    ],
+    "after": []
+  },
+  "items": []
+}
