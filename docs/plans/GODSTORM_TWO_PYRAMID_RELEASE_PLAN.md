@@ -1,292 +1,241 @@
-# Godstorm: two-pyramid release plan
+# Godstorm: Marrow Vaults and Stormcourt release plan
 
-Prepared: 2026-09-15
-Status: PLANNING / awaiting approval of recommendations. Not an executable manifest.
-Repository baseline: `perseverance484/tnr-tools@6e09b15bb6f3d1c90ba416d14211b533f5b4a367`
-Owner split: dauntless directs and accepts; Content Admin settles the delegated chest/reward decisions; ChatGPT plans, audits and supports art; Fable normally implements manifests/tooling; dauntless alone operates the live game.
+Updated: 2026-09-15
+Status: STRUCTURAL DIRECTION APPROVED; implementation, final copy, art acceptance, balance, rewards and publication are not complete.
+Repository evidence baseline: `perseverance484/tnr-tools@6e09b15bb6f3d1c90ba416d14211b533f5b4a367`.
+Planning revision base: `chatgpt/godstorm-two-pyramid-plan@11c55562f440e804a546163cb747a9fc8bc7e95c`.
+Governing decision: `docs/RULINGS.md`, RUL-2026-09-15-002. This plan owns the operative task requirements; the ledger records decision history.
 
-## 1. Scope and decision boundary
+Owner split: dauntless directs, accepts and alone operates the game. Content Admin settles the delegated chest/reward decisions. ChatGPT plans, reviews and supports art. Fable remains the normal manifest/tool implementation owner. This revision changes planning documents only; it is not a live-game action or an executable payload.
 
-User-set direction:
-- Retain Marrow Vaults and Stormcourt as the two release pyramids.
-- Cut Dawnless Crown from release scope and maximize reuse of existing artwork.
-- No new keystone assets. This plan proposes removing their obsolete reward references and promises rather than recreating the missing items.
-- Complete planning before execution. Chest contents and reward values remain open for Content Admin, with recommendations supplied here.
+## 1. Approved concept separation
 
-Recommended implementation scope, not yet accepted:
-- Retain the existing 25 battles per retained quest: 50 battles, ten floors, ten keepers in total.
-- Retain existing quest IDs, enemy records, kits and objective IDs wherever possible. Do not transplant the additional 25 Dawnless battles into the retained quests.
-- Make Sovereign Echo of the Godstorm the release finale. Rewrite the Stormcourt ending to close the story instead of advertising another pyramid.
-- Use the four captured background assets before commissioning more environments.
-- Give the ten retained keepers scene portraits adapted from existing art where viable; use one verified blank scene-character asset for other dialogs. Eight recurring-guardian portraits are a separate optional expansion.
+The user approved the retained structure and directed that Tower of Endless Night be stripped entirely from both retained pyramids. Early cash-out belongs to the separate Tower of Endless Night concept, not these Godstorm quests.
 
-Removing release scope is not deleting a live record. Archive/exclude Dawnless and preserve recoverable records. No live retirement, rewrite, publishing change or asset generation has been performed by this planning document.
+| Release identity | Battles | Keepers | Final encounter | Successful completion |
+| --- | ---: | ---: | --- | --- |
+| Marrow Vaults | 25 | 5 | Warden of the Half Eclipse | Clear all 25 battles |
+| Stormcourt | 25 | 5 | Sovereign Echo of the Godstorm | Clear all 25 battles; conclude the Godstorm release |
 
-## 2. Evidence, authority and limits
+Requirements:
+- Use standalone player-facing titles `Marrow Vaults` and `Stormcourt`, with no Tower of Endless Night prefix, subtitle or parent-location framing.
+- Preserve the existing 25-encounter order and five-keeper grouping in each quest. Retain 50 battles, ten keepers and the existing 18 direct-opponent AI records.
+- Remove every early paid withdrawal/cash-out branch from both quests. There is one full-clear ending per pyramid and no alternate successful exit before battle 25.
+- Remove accumulated-winnings, gambling/bait, gold-door withdrawal and Tower forfeiture framing from all retained descriptions and outcome text. Ordinary abandon/failure handling is not an early paid completion.
+- Retain the two locations' usable story and art, but write them as their own places rather than portions of one Tower. Stormcourt must end the release, not lead to Crown or the separate Tower concept.
+- Dawnless Crown remains outside this release. Do not import its battles or The Endless Night boss.
+- Keystones remain unnecessary; remove their stale grants and promises, not replace them with new key items.
+- Preserve quest IDs, retained objective IDs, AI records, kits and original artwork wherever possible. Continue using the `battlepyramid` engine type; the concept/name change is not authorization for a schema/type conversion.
+- Reserve Tower of Endless Night and its cash-out mechanic separately. Archiving its current evidence is in scope; designing, publishing or operating that separate concept is not.
 
-Evidence at the baseline:
-- E1: `harvests/inbox/tnr_results_1789401726302.json`, captured 2026-09-14 16:02 UTC. Full quest records for all three original pyramids; `journal.manifestPath` identifies `push/23_godstorm_tower_root_capture.json`.
-- E2: `harvests/inbox/tnr_results_1789402842027.json`, captured 2026-09-14 16:20 UTC. Full 23 AI records, their embedded kits/inventories, chest and keystone point reads, and four background records; manifest 24.
-- E3: `harvests/inbox/tnr_results_1789403623148.json`, captured 2026-09-14 16:33 UTC. Full 23 associated AI profiles and the old final boss's Heavy Armor; manifest 25.
-- E4: `answers/names_asset.json`, 407-row catalog stamped 2026-08-24. Discovery only, not proof of current absence or current validity. It contains existing blank-character candidates.
-- E5: original audit on `chatgpt/godstorm-pyramid-final-audit@18e3367a5f45a9d4a81ad0bdec955eb22556a522`, `docs/reviews/REVIEW_2026-09-14_godstorm_tower_final_audit.md`. Historical three-pyramid review, not the new release scope.
+The user separated Godstorm from the Tower concept, not necessarily Marrow from Stormcourt. Preserve the existing Marrow-to-Stormcourt prerequisite as the implementation baseline. A proposal to make the two quests independently accessible would be a separate change.
 
-Authority/routing: `docs/00_INDEX.md`, `docs/DOCTRINE.md`, `docs/RULINGS.md`, `CHATGPT.md`, `docs/DEVELOPMENT_WORKFLOW.md`, the Content Designer / Release Auditor / Art Director role files, and `docs/workflows/CONTENT_WORKSTREAM.md`, `DIRECTOR_DECISIONS.md`, `ART_PRODUCTION.md`.
+This approves structure, not unseen artwork, exact prose, numerical tuning, a daily cap, new checkpoints, inventory clawbacks or publication. Those gates remain explicit below.
 
-Content references: `skills/building-tnr-content/references/quest.md`, `ai.md`, `balance.md`, `item.md` and `pipeline.md`. Production-art authority: `skills/producing-tnr-art/SKILL.md` and `data/25x_DATA_art_spec.json`; use its current targets and processing tools rather than copying remembered constraints.
+## 2. Evidence and status discipline
 
-Additional source inspection pinned to `studie-tech/TheNinjaRPG@31996f1f9cb10dae246740afe273f164a2bb469b`: `app/src/libs/quest.ts` (availability/prerequisite checks and reward collection) and `app/src/layout/Logbook.tsx` (`QuestDialogScene`). This is a source-review pin, not proof of the deployed game's revision and not adoption of regenerated contracts.
+- E1: `harvests/inbox/tnr_results_1789401726302.json`, September 14 16:02 UTC: full quest graphs for the three original roots.
+- E2: `harvests/inbox/tnr_results_1789402842027.json`, September 14 16:20 UTC: AI records, embedded kits/items, reward point reads and four background records.
+- E3: `harvests/inbox/tnr_results_1789403623148.json`, September 14 16:33 UTC: associated AI profiles and excluded final-boss equipment.
+- Discovery only: `answers/names_asset.json` and `harvests/seed/43_INDEX_asset.json`, stamped August 24. A catalog name is not proof of present-day validity or absence.
+- Historical planning: this file and `GODSTORM_TWO_PYRAMID_VERIFICATION_NOTES.md` at revision base `11c55562f440e804a546163cb747a9fc8bc7e95c`. Preserve that history; its cash-out policy, ten exit-reward packages and 68-dialog delivery target are superseded.
 
-Evidence limits:
-- The captures show stored content on September 14, not a new live read performed during this plan.
-- Non-default image assignment means an existing-art candidate, not fresh proof that the file loads, meets current art specifications, has sufficient source resolution, or has passed visual acceptance.
-- CDN image bytes could not be retrieved for fresh pixel inspection in this session. Image recovery, visual comparison and mechanical QC are explicit first-stage work.
-- Container checkout could not be established. Session guards, harvest normalization/verification, shotlist generation, validators and playtests have NOT been run in this planning pass. Connector reads support the inventory; the implementation handoff must reproduce it programmatically from E1-E3.
-- The older global state projection remains focused on Forsworn work. It is not evidence that these pyramids or their new consolidation are complete. Do not rewrite unrelated global state to hide that distinction.
+Authority remains `docs/00_INDEX.md`, `docs/DOCTRINE.md`, `docs/ENGINE_LAWS.md` under the router's evidence rules, `CHATGPT.md`, `docs/DEVELOPMENT_WORKFLOW.md`, applicable role/workflow files and routed content/art specifications. This task changes no doctrine or engine law.
 
-## 3. Corrections to the previous infographics
+Captured state is not the revised live state. Non-default image assignment is not image QC. A graph count is not a playtest. Source pins used by prior reviews are documented in the verification notes; neither is assumed to be the deployed revision or silently adopted as a regenerated contract.
 
-The two-pyramid infographic is superseded as an asset census.
+## 3. Exact planned graph simplification
 
-1. Original scope: 23 unique AIs, 14 non-default primary avatar assignments, nine defaults.
-2. Retained scope: 18 unique AIs, 13 non-default primary avatar assignments, five defaults.
-3. Dawnless-only removals: The Suture Priest (existing avatar), The Twinned Reliquary, The Loomwright, Warden of the Severed Dawn and The Endless Night (four defaults).
-4. Twinned Reliquary and Loomwright are Dawnless keepers, not Marrow keepers. Do not keep them in the two-pyramid art backlog.
-5. The prior seven-missing-avatar count was incorrect. The prior two-new-background and six-scene-portrait counts were unverified design allocations, not engine-derived minimums.
-6. Fifty configured battles is not fifty completed playtests. The revised two-pyramid package has not been implemented or certified.
-7. Infographic concept panels are not counted as production game assets or approved replacements for captured artwork.
+This is the recommended minimal rewrite implementing the approved no-cash-out structure, not a completed mutation or a substitute for graph validation.
 
-## 4. Current state of each retained pyramid
+| Graph measure | Existing capture, each | Revised target, each | Revised pair |
+| --- | ---: | ---: | ---: |
+| Battles | 25 | 25 | 50 |
+| Pre-battle dialogs | 25 | 25 | 50 |
+| Continue/cash-out choice dialogs | 4 | 0 | 0 |
+| Paid-withdrawal payoff dialogs | 4 | 0 | 0 |
+| Final-victory dialogs | 1 | 1 | 2 |
+| Dialog total | 34 | 26 | 52 |
+| Terminal nodes | 2 | 2 | 4 |
+| Objective total | 61 | 53 | 106 |
 
-| Surface | Marrow Vaults | Stormcourt | Remaining work |
-| --- | --- | --- | --- |
-| Quest root | `2yvE9PUQqlD8lbYNfgX-b` | `OSADdXqostbyVliCxWk6k` | Preserve IDs unless an approved migration requires otherwise |
-| Floor range | 1-5 | 6-10 | Recommended retained layout; final scope approval required |
-| Battles | 25 configured | 25 configured | Recheck all transitions after edits; then playtest |
-| Keepers | 5 | 5 | Retain; tune against approved player targets |
-| Unique AI records | 9 | 9 | All have capture evidence; audit kits and behavior, not just existence |
-| AI profiles | 9 captured | 9 captured | Rule-to-kit, target, range, cooldown and fallback checks |
-| Dialogs | 34 | 34 | Two-pyramid narrative pass and scene wiring |
-| Listing image | 1 non-default assignment | 1 non-default assignment | Recover and inspect; reuse |
-| Primary AI avatars | 4 assigned, 5 default | 9 assigned, 0 default | Fill five Marrow assignments; inspect all retained art |
-| Dedicated background records | 3 captured | 1 captured | Reuse before commissioning new art |
-| Explicit dialog backgrounds | 7 of 34 | 0 of 34 | Fill 27 + 34 = 61 missing dialog assignments |
-| Explicit dialog characters | 0 of 34 | 0 of 34 | Configure all 68 dialogs with approved portrait or verified blank |
-| Voluntary cash-out branches | 4 | 4 | Check payout, terminal state and progression semantics |
-| Full-clear payout dialog | 1 | 1 | Remove obsolete keystone references; admin chooses rewards |
-| Captured repeat delay | `none` | `daily` | Admin decides intended cadence and limits; verify actual counter semantics |
-| Captured limits | maxAttempts 100 / maxCompletes 100 | maxAttempts 100 / maxCompletes 100 | Do not call these an approved daily budget or assume unlimited behavior |
-| Captured visibility | hidden true | hidden true | Verify player-facing availability through operator workflow before release |
+Remove eight cash-out-related dialogs per quest, sixteen total. Migrate any indispensable narrative from those nodes into retained introductions or the victory dialog; do not add replacement filler.
 
-Each existing retained graph has 34 dialogs, 25 battles and two terminal nodes: 61 objectives, 122 across the pair. The intended retain-in-place plan preserves that count unless a supported full-clear unlock fix requires an approved structural change. E1 is the source for the exact graph and fields.
+Removal targets in E1:
+- Marrow: `d1_choice`, `d1_cash`, `d2_choice`, `d2_cash`, `d3_choice`, `d3_cash`, `d4_choice`, `d4_cash`.
+- Stormcourt: `d6_choice`, `d6_cash`, `d7_choice`, `d7_cash`, `d8_choice`, `d8_cash`, `d9_choice`, `d9_cash`.
 
-The current dialog-gated battle/failure-route pattern is reusable. It does not certify the revised story, asset references, repeat limits, reward economics or actual combat difficulty.
+Reroute the four intermediate keeper wins per quest to the next retained pre-battle dialog: Marrow `b1_boss -> d2_1` through `b4_boss -> d5_1`; Stormcourt `b6_boss -> d7_1` through `b9_boss -> d10_1`. Never link keeper battle directly to the next battle: preserve every dialog shield. Retain `b5_boss -> d5_victory -> win` and `b10_boss -> d10_victory -> win` as the respective successful endings, subject to reward-timing validation.
 
-## 5. AI and keeper asset inventory
+Keep `fall` and the existing failure routing as the starting implementation shape; review their text and runtime behavior. No new checkpoint/retry mechanism is approved. Extract actual payload IDs programmatically from captures before implementation, rather than copying this planning list into a hand-built mutation.
 
-Status below concerns the captured primary `avatar` field. All named scene-character placements remain unwired. Do not infer `avatarLight`, 3D or animation readiness from primary-avatar presence.
+Old internal floor numbers may remain in stable IDs. Player-facing Stormcourt text must not describe it as floors 6-10 of the Tower; use local stage/location language in the copy pass without renumbering IDs merely for presentation.
 
-### Marrow Vaults
+Counts assume removal of both choice and withdrawal dialogs without extra replacement nodes. Any necessary structural departure must be explained, recounted and reviewed before handoff.
 
-| Enemy | Use | Primary avatar | Recommended treatment |
-| --- | --- | --- | --- |
-| Umbral Reaver | Recurring guardian | Default | Evaluate reuse/adaptation of Umbral Reaver Ascendant art |
-| Hollow Lantern | Recurring guardian | Default | Evaluate reuse/adaptation of Hollow Lantern Ascendant art |
-| Starless Monk | Recurring guardian | Default | Evaluate reuse/adaptation of Starless Monk Ascendant art |
-| Nightveil Sentinel | Recurring guardian | Default | Evaluate reuse/adaptation of Nightveil Sentinel Ascendant art |
-| Warden of the First Dark | Floor 1 keeper | Default | Inspect suitable existing source; otherwise one new source serving avatar and scene portrait |
-| Keeper of Hushed Hours | Floor 2 keeper | Assigned | Preserve avatar; inspect source for scene-portrait adaptation |
-| The Moth Tyrant | Floor 3 keeper | Assigned | Preserve avatar; inspect source for scene-portrait adaptation |
-| Chained Chorister | Floor 4 keeper | Assigned | Preserve avatar; inspect source for scene-portrait adaptation |
-| Warden of the Half Eclipse | Floor 5 keeper | Assigned | Preserve avatar; inspect source for scene-portrait adaptation |
+## 4. Current inventory versus the new delivery target
 
-### Stormcourt
-
-| Enemy | Use | Primary avatar | Recommended treatment |
-| --- | --- | --- | --- |
-| Hollow Lantern Ascendant | Recurring guardian | Assigned | Reuse; candidate source for base-family avatar |
-| Starless Monk Ascendant | Recurring guardian | Assigned | Reuse; candidate source for base-family avatar |
-| Nightveil Sentinel Ascendant | Recurring guardian | Assigned | Reuse; candidate source for base-family avatar |
-| Umbral Reaver Ascendant | Recurring guardian | Assigned | Reuse; candidate source for base-family avatar |
-| The Gloaming Judge | Floor 6 keeper | Assigned | Preserve avatar; inspect source for scene-portrait adaptation |
-| Widow of the Waning Moon | Floor 7 keeper | Assigned | Preserve avatar; inspect source for scene-portrait adaptation |
-| The Candlewright | Floor 8 keeper | Assigned | Preserve avatar; inspect source for scene-portrait adaptation |
-| Herald of the Last Dusk | Floor 9 keeper | Assigned | Preserve avatar; inspect source for scene-portrait adaptation |
-| Sovereign Echo of the Godstorm | Floor 10 keeper / proposed release finale | Assigned | Preserve avatar; prioritize scene-portrait adaptation and finale QA |
-
-Four family adaptations are an art-direction proposal, not evidence that the source images can be cleanly extracted or that identical art across tiers has been approved. Keep readable identities; do not quietly change encounter records to make the art fit.
-
-## 6. Background inventory and wiring
-
-| Asset | Captured gameAsset ID | Current explicit use | Proposed use |
-| --- | --- | --- | --- |
-| marrow vault 1 | `7EmVo6GH5GL4YtQTDrbDR` | d1_1, d1_2, d1_boss, d1_choice | Main vault/interior coverage where pixels and prose agree |
-| marrow vault 2 | `oc0cXiMrcG_6kTUwNWRkn` | d1_3, d1_4 | Secondary vault passages/chambers, subject to visual inspection |
-| marrow vault 3 | `IykL5XxwFF14BosCblZj8` | d1_cash | Exit/payoff or other compatible scenes, subject to visual inspection |
-| StormCourtyard | `cKHhHoboreP88iH5WjDe7` | None in retained Stormcourt graph | Core Stormcourt setting; evaluate all five floors and finale |
-
-Plan zero new background paintings initially. This is a reuse-first production target, not a finding that one Stormcourt image already satisfies every scene. Recover the four images, inspect them individually, then build the complete dialog-to-background map. Condense unnecessary setting changes and adjust prose to the approved environments. Do not commission one background per floor by default.
-
-Acceptance requires explicit valid coverage for all 68 dialogs. The 61 missing assignments are wiring gaps, not 61 new assets. Review the seven current assignments as well. A failed finale/environment fit may justify one bounded additional asset request; it does not automatically restore the previous multi-background wish list.
-
-Use `gameAsset.image` for this surface, not the unrelated `gameAsset.url` field. Quest listing `image` and dialog `image` are not substitutes for `sceneBackground`; node images can be map pins rather than the dialog scenery.
-
-## 7. Scene characters: define the presentation scope before counting new paintings
-
-Observed: neither retained quest supplies scene characters for its 34 dialogs. That is 68 placement decisions, not proof that 68 separate character paintings are needed. Existing avatar URLs do not automatically create scene-character records.
-
-Recommended baseline:
-- Ten keeper scene portraits: one for each keeper listed in section 5, wired at d1_boss through d10_boss.
-- Reuse one verified blank scene-character asset for the remaining 58 atmospheric, guardian, choice and cash-out/victory dialogs.
-- Set safe quest-level defaults where needed to satisfy current publish validation and prevent fallback surprises; this does not replace explicit dialog assignments.
-- Do not add a narrator, quest-giver, sister portraits or additional cast solely to fill the interface.
-
-Reuse method: nine retained keepers already have primary art. Inspect source size, framing, background separation and identity, then adapt suitable originals as transparent busts. The First Dark source should feed both the missing avatar and its keeper portrait. A cropped square image with its old background left attached is not an accepted scene-character conversion. A too-small source must not be silently upscaled and called complete; use a source-guided redraw only where justified.
-
-Existing blank candidates in the older catalog: `Q-_3WA5kibe_8gI2CgTKl` (Blank Character) and `1YXbXYW2wz3GETVMb6DT6` (Blank Scene Character). Verify the chosen record's current type, image and actual blank output before wiring. Do not create another blank by default and do not treat a catalog name as a valid live reference.
-
-Optional expanded scope: add eight recurring-guardian scene portraits, four per tower. Then 50 pre-battle dialogs can show enemies and 18 other dialogs can use the blank. This is an optional eight-output increase, not the earlier four-portrait estimate for both towers together.
-
-## 8. Exact inventory versus proposed production allocation
-
-| Work category | Confirmed state | Recommended allocation before optional work |
+| Surface | Captured evidence | Planned target/work after simplification |
 | --- | --- | --- |
-| Quest listing images | 2 assigned | Reuse both; no replacement planned |
-| Primary AI avatars | 13 assigned / 5 default | Complete five assignments; reuse/adapt family art where approved |
-| Scene backgrounds | 4 existing records | Reuse four; zero new paintings planned pending visual fit |
-| Dialog background wiring | 7 configured / 61 missing | Review all 68, fill the 61 gaps |
-| Keeper scene portraits | 0 wired | Prepare/register/adapt ten, not ten automatically new paintings |
-| Other scene-character placements | 0 wired | Reuse one verified blank for 58 dialogs in the baseline |
-| Chest icon | Captured chest uses default image | One conditional icon assignment if chest is retained; reuse existing suitable chest art first |
-| Keystone art | Excluded by direction | Zero |
-| Shared jutsu icons / effect art | Captured kits include default icons; distinct retained-set visual census not closed | Deduplicate by ID and check actual player-visible surfaces before allocating new work |
-| Overworld pins / 3D / new animation set | No new requirement established | No new production budget; verify any existing references required by retained kits |
+| Quest roots | Marrow `2yvE9PUQqlD8lbYNfgX-b`; Stormcourt `OSADdXqostbyVliCxWk6k` | Same IDs; renamed and reframed |
+| Captured visibility | Both hidden true | Reconcile ordinary-player availability; no automatic flip |
+| Direct AI/profile inventory | 18 retained opponents and associated profiles captured | Same roster; functional and balance QA still required |
+| Primary avatars | 13 non-default / five default | Five missing assignments unchanged by cash-out removal |
+| Listing images | Two non-default assignments | Inspect and reuse; remove baked-in Tower branding only if present |
+| Background candidates | Three Marrow plates plus shared-library StormCourtyard | Inspect and maximize reuse; no automatic new paintings |
+| Current dialog backgrounds | Seven Marrow, zero Stormcourt | Only five of those seven survive the proposed deletion; fill 21 Marrow + 26 Stormcourt = 47 gaps |
+| Scene characters | None wired in captured dialogs | 52 dialog assignments, not 68 |
+| Keeper-focused portrait option | Ten keeper identities | Ten keeper placements plus 42 blank placements; two main fallbacks |
+| Completion reward packages | Ten historical alternative payouts | Two approved full-clear packages needed; values open |
+| Revised live implementation | None verified | Source/graph validation, operator changes and full readback pending |
 
-The proposed character-output workload is five avatar completions plus ten keeper portrait outputs, with one existing blank reused. These are 15 delivery/assignment tasks, NOT a verified requirement for 15 newly painted images. A retained chest adds one conditional icon task. New painting count remains unresolved until originals are inspected; conversion viability must not be promised from URLs alone.
+The lower scene counts reduce processing/wiring and QA work, not the number of retained enemy identities. Previously completed registrations and source images are not deleted just because a node using them is removed.
 
-A complete visual ledger must also cover the retained unique jutsu images, animation/SFX references and any client use of avatarLight. The earlier total omitted these questions. Do not silently declare them complete, but do not commission a new event-wide jutsu/VFX set either. Shared-pool changes affect other content and need a separately bounded approval. Reuse valid library assets first.
+## 5. Retained AI artwork roster
 
-Production requirements remain spec-driven: AI avatars square; backgrounds 3:2; scene-character bust/full framing according to the current spec; correct transparency, resolution, byte budget and fresh filenames for corrected assets. Use the reference selector, inspect individual references, generate one candidate at a time, run raw QC and processing, inspect the in-scene composite, run art preflight, then obtain dauntless acceptance. Record provenance, filenames, dimensions, bytes and accepted use per output.
+Present means a non-default primary avatar assignment in E2, not fresh visual acceptance.
 
-## 9. Content changes required by the cut
+| Pyramid | AI | Role | Primary avatar |
+| --- | --- | --- | --- |
+| Marrow | Umbral Reaver | Recurring guardian | Default |
+| Marrow | Hollow Lantern | Recurring guardian | Default |
+| Marrow | Starless Monk | Recurring guardian | Default |
+| Marrow | Nightveil Sentinel | Recurring guardian | Default |
+| Marrow | Warden of the First Dark | Keeper 1 | Default |
+| Marrow | Keeper of Hushed Hours | Keeper 2 | Present |
+| Marrow | The Moth Tyrant | Keeper 3 | Present |
+| Marrow | Chained Chorister | Keeper 4 | Present |
+| Marrow | Warden of the Half Eclipse | Keeper 5 / Marrow finale | Present |
+| Stormcourt | Hollow Lantern Ascendant | Recurring guardian | Present |
+| Stormcourt | Starless Monk Ascendant | Recurring guardian | Present |
+| Stormcourt | Nightveil Sentinel Ascendant | Recurring guardian | Present |
+| Stormcourt | Umbral Reaver Ascendant | Recurring guardian | Present |
+| Stormcourt | The Gloaming Judge | Keeper 1 | Present |
+| Stormcourt | Widow of the Waning Moon | Keeper 2 | Present |
+| Stormcourt | The Candlewright | Keeper 3 | Present |
+| Stormcourt | Herald of the Last Dusk | Keeper 4 | Present |
+| Stormcourt | Sovereign Echo of the Godstorm | Keeper 5 / release finale | Present |
 
-### Marrow Vaults
+Reuse proposal: test the four existing Ascendant images for the matching base-enemy avatars. Keep names, kits and distinct records. Pixel approval is still required; shared family artwork is not silently accepted by structural approval. Resolve First Dark from suitable existing art or one new master serving both avatar and scene portrait.
 
-Preserve the elder-sister vault arc, four recurring guardians, five keepers and cash-out choices. Remove the Eclipse Keystone reward entry and every player-facing promise to obtain or use it. Review quest description, successDescription, d5_victory, win text and any external event references. Explain progression to Stormcourt without an item key. Complete all 34 scene assignments.
+Nine keepers already have primary images to inspect for scene adaptation. Search compatible existing scene records first; otherwise prepare a valid extraction/bust, with a source-guided redraw only when necessary. No additional recurring-guardian portrait set is committed to release scope.
 
-### Stormcourt
+Crown-only enemies stay excluded: The Suture Priest, The Twinned Reliquary, The Loomwright, Warden of the Severed Dawn and The Endless Night. Do not carry the latter's damage-stack/Heavy Armor diagnosis over to Sovereign Echo. Do not delete these records or globally edit shared kits as part of the separation.
 
-Preserve the ascendant guardians and five keepers. Remove the Aegis Keystone entry and promises. Rewrite quest description, successDescription, d10_victory and win text so Sovereign Echo is the end of this release. Remove the instruction/promise to enter Dawnless Crown. Integrate only the essential conclusion of the stolen-bloodline/machine arc; do not carry over five more bosses or their art requirements. Correct any language implying one unbroken ten-floor reward bank if the two quest runs actually settle rewards separately. Complete all 34 scene assignments.
+## 6. Environment and scene-character work
 
-### Dawnless and related references
+Existing Marrow background assignments that survive:
+- `marrow vault 1` (`7EmVo6GH5GL4YtQTDrbDR`): `d1_1`, `d1_2`, `d1_boss`.
+- `marrow vault 2` (`oc0cXiMrcG_6kTUwNWRkn`): `d1_3`, `d1_4`.
+- `marrow vault 3` (`IykL5XxwFF14BosCblZj8`): its only captured placement, `d1_cash`, is removed. The artwork remains available for a suitable retained scene, especially payoff; inspect before assigning.
 
-The excluded root is `VjT93rkmWlWlrdG6Pp46e`. Inventory inbound quest grants, prerequisites, event hub/menu links, descriptions and old pending manifests that could restore the three-pyramid version. Preserve source records and captures. Prepare an operator-approved retirement/availability step rather than destructive deletion. An existing hidden flag is not proof that no active player or grant path can reach the record.
+`d1_choice` also had plate 1, so seven existing assignments become five, not six. The expected new background-binding work is 47 assignments across 52 dialogs; review the surviving five as well.
 
-Do not delete the five excluded AIs, shared jutsu, or the Suture Priest artwork without an independently verified dependency check and explicit authorization. Bank reusable art, but do not force a mismatched portrait into another keeper to consume every available file.
+`StormCourtyard` (`cKHhHoboreP88iH5WjDe7`) is a captured SkychainMonastery asset, not dedicated Godstorm art, and is unwired. Inspect it and other library candidates such as AbbotsBellDais, SummitShrine and SkychainOpening before commissioning. Candidate catalogs remain discovery evidence only. Do not alter shared original assets to force a match.
 
-## 10. Progression and failure semantics: required design/QA decision
+Plan zero new environment paintings initially, conditional on actual fit. Separating the concepts does not require replacing every illustration containing vertical architecture; remove branding and incompatible story references while preserving suitable pixels.
 
-E1 routes both voluntary cash-outs and full clears to each quest's shared win_quest node. Stormcourt's prerequisite is Marrow's quest ID. At the inspected source pin, isAvailableUserQuests checks a completed prerequisite quest, not which floor was cleared (`app/src/libs/quest.ts`, prerequisiteCheck).
+Recommended scene-character scope remains ten keeper portraits plus one verified blank utility. With the simplified graphs, wire ten keeper introductions and 42 other dialogs; use deliberate background and blank-character quest fallbacks. Verify current render and publish guards against the implementation pin. Filling dialog characters alone must not be assumed to satisfy every publication guard.
 
-Therefore do not assume the current prerequisite enforces a floor-5 clear. Early cash-out may satisfy ordinary completion. Verify the exact end-to-end behavior before retaining text that claims a full clear is required.
+Blank candidates: `Q-_3WA5kibe_8gI2CgTKl` and `1YXbXYW2wz3GETVMb6DT6`. Verify type, image and actual blank pixels before reuse. Use the current art skill/spec for framing, format, resolution, transparency, byte budget, fresh filenames, visual QC and acceptance. A primary avatar with a painted backdrop is not automatically a scene-character file.
 
-Recommendation: a full Marrow clear unlocks Stormcourt; voluntary cash-out pays the approved exit reward but does not falsely announce a full clear. Fable must identify the smallest source-supported completion/unlock mechanism, without restoring an item key. If this requires another content marker or an engine change, surface the cost before implementation; do not silently invent a third player-facing pyramid or use an unverified gate. Accepting early-cash-out unlocks is a simpler alternative, but requires an explicit direction decision and matching prose.
+## 7. Full content-separation pass
 
-Likewise verify what 'lose everything' actually means. Zero quest-node rewards on a loss do not prove that earlier ordinary combat gains or AI item drops are revoked. Prefer defining risk as forfeiture of unclaimed tower cash-out rewards; Content Admin must settle any other intended loss policy. Do not introduce inventory clawbacks.
+Inspect both quest names, descriptions, success descriptions, every retained objective's text, choice labels, battle success/failure/flee/draw text, final victory and terminal text, plus entry menus/hubs and promotional material that serve these quests.
 
-## 11. Chest and reward decisions: open to Content Admin
+Remove or rewrite:
+- Tower of Endless Night, its title shorthand and its shared-Tower geography.
+- Paid early withdrawal, accumulated winnings, gold doors, betting nerve, climbing for a larger cash-out and total-banked-fortune forfeiture.
+- Keystone claims, inventory-key progression and Crown continuation.
+- Stormcourt floor references that depend on a single ten/fifteen-floor Tower climb.
+- A finale that resolves only an intermediate stage of the removed Tower story.
 
-Structural cleanup and reward balancing are separate. Remove obsolete keystone references as part of the two-pyramid revision; do not replace them with invented rewards while the reward decision is open.
+Retain appropriate Godstorm characters and plot material only where it forms a coherent two-location story. Draft the new Stormcourt ending around defeating Sovereign Echo; do not merely replace the word Tower while retaining the abandoned concept's motivation. Exact prose remains subject to acceptance.
 
-Captured exit schedule (existing data, NOT approved recommendations):
+Reuse the two listing images if the actual pixels fit and contain no unwanted title text. Historical capture names, stable IDs, raw evidence, Git history and internal filenames do not require a bulk rename. New player-facing documents must use Marrow Vaults and Stormcourt, not Tower 1-2.
 
-| Exit within each retained quest | Marrow ryo | Marrow chest chance | Stormcourt ryo | Stormcourt chest chance |
-| --- | ---: | ---: | ---: | ---: |
-| First keeper / 5 wins | 25,000 | 1% of one | 50,000 | 2% of one |
-| Second keeper / 10 wins | 50,000 | 2% of one | 100,000 | 4% of one |
-| Third keeper / 15 wins | 75,000 | 3% of one | 150,000 | 6% of one |
-| Fourth keeper / 20 wins | 100,000 | 4% of one | 200,000 | 8% of one |
-| Full clear / 25 wins | 125,000 | 5% of one | 250,000 | 10% of one |
+Important shared-item issue: `Endless Night Chest` (`HLycjzUcVwKZenBWpd0V-`) is itself Tower-branded. No final Godstorm reward package may leave that player-facing dependency unaddressed. Content Admin must select an existing suitable neutral/Godstorm reward, approve a safe rename/reuse after a full consumer review, approve a distinct reward identity, or omit the chest. Do not globally rename the shared item or assume existing player copies and the separate Tower concept are unaffected. Preserve useful chest art where available; do not select a new reward name implicitly.
 
-Marrow pays 25 tokens / 10 prestige at every exit; Stormcourt pays 150 tokens / 60 prestige at every exit. The exits are alternative branches, not five rewards that should all be added together. In reward_items, number is percentage chance and quantity is the amount. E2 also includes chest drops in keeper inventories; include those in total expected-value calculations rather than auditing only quest reward fields.
+## 8. Progression and legacy players
 
-The shared Endless Night Chest, `HLycjzUcVwKZenBWpd0V-`, is currently a consumable with an empty noncombat reward table, default icon and destroyOnUse true. Do not certify its use as a finished reward, and do not leave a destructible empty reward placeholder in the accepted release.
+For new runs, deleting every early successful exit allows the retained Marrow prerequisite to represent the intended full 25-battle clear, subject to source validation and regression tests. No separate full-clear marker or replacement key is required merely to distinguish early cash-out from full clear once those alternative success paths are gone.
 
-| Open decision | Recommendation | Acceptance requirement |
+The previous debate between early-withdrawal unlocking and a new full-clear marker is superseded for new runs. Do not remove the existing Marrow prerequisite or add a new one without a separate decision.
+
+Historical successful completions may have been earned through old cash-outs. Do not silently revoke them or reset player records. If strict retrospective full-clear eligibility is required, surface that as a separate operator decision with migration consequences. Active trackers can also point to the sixteen removed dialogs: prepare an explicit protected transition before changing production graphs, even though retained IDs stay stable.
+
+Review loss, flee, draw, abandon and resume behavior. Preserve normal engine behavior unless separately approved; removing paid withdrawals is not authorization to remove ordinary abandon controls, create checkpoints, promise resumability, confiscate inventory, or claw back combat gains.
+
+## 9. Content Admin reward packet
+
+Status remains OPEN. The packet now needs TWO full-clear reward specifications, not ten cash-out tiers.
+
+Historical full-clear values from E1, for review only:
+
+| Quest | Ryo | Tokens | Prestige | Chest roll |
+| --- | ---: | ---: | ---: | --- |
+| Marrow | 125,000 | 25 | 10 | 5% chance of one old chest |
+| Stormcourt | 250,000 | 150 | 60 | 10% chance of one old chest |
+
+Do not sum removed withdrawal rewards into these values or transfer Crown's payouts automatically. Early payout fields disappear with their branches; this is not approval of the surviving amounts.
+
+E2 records an empty old chest reward table, default icon and destroyOnUse true. Some enemy inventories also contain chest drops. Audit all grant channels, including these, when eliminating Tower-branded rewards. A final reward must not be an empty consumable.
+
+Recommendations, not finalized values:
+- Evaluate two completion packages against full 25-battle clear time, intended challenge and allowed completion frequency.
+- Prefer meaningful reliable rewards with an optional bonus, using approved existing items/art before new reward content.
+- Keep reward timing legible: one full-clear package per pyramid, no early paid exit. Separate ordinary combat gains and any approved per-enemy loot from that completion package.
+- Consider a consistent capped daily rewarded-clear cadence; approve period, completion count and attempt policy together. Do not assume the string daily alone imposes one successful clear per day.
+- Resolve the old chest's identity and shared-consumer impact before any rename or replacement. Include existing player copies in the decision.
+- Keep exact ryo, tokens, prestige, chest contents/chances/quantities, rarity, trade rules, ordinary boss drops and cadence open for Content Admin.
+
+These decisions do not block original-art recovery or non-reward drafting. They block executable reward changes and final release acceptance. No earlier generic reward recommendation becomes approved merely because the structure was approved.
+
+## 10. Remaining visual dependencies
+
+Five primary-avatar assignments, ten keeper-portrait delivery targets and 52 scene mappings are different work units, not one number of newly painted images. The two quest images and four background candidates are reuse inputs; a blank is one reusable asset, not 42 new assets.
+
+Close the retained-kit icon, effect/animation, SFX, actual summon and alternate-avatar client-use census before freezing the visual budget. Some shared kit images are defaults; neither universal replacement nor zero remaining work is justified without this check. Shared record changes need consumer/ownership review.
+
+Chest art remains zero or one conditional assignment after the reward identity decision. Keystone art remains zero. No new map-pin family, 3D set or recurring-guardian portrait expansion is presumed. Any original commissions follow source recovery, a reuse pilot and final art approval.
+
+## 11. Ordered work and owners
+
+| Step | Owner | Deliverable / gate |
 | --- | --- | --- |
-| Chest retained or replaced | Retain one shared chest only if its contents justify it; otherwise use approved direct rewards | Explicit decision before reward manifest |
-| Chest contents | Reuse existing relevant non-profession-exclusive materials/consumables, with a modest reliable base and an optional rare bonus | Admin chooses exact IDs, amounts, rarity and probabilities; all references verified |
-| Reward cadence | A clearly capped daily paid completion per pyramid; set attempt policy separately | Verify actual counter/delay behavior, not just the string daily |
-| Exit incentive | Reward deeper progress with stronger meaningful payouts and a clear full-clear premium | Approve ryo/tokens/prestige and chest chances for all ten exits |
-| Flat tokens/prestige | Prefer depth scaling rather than identical full token/prestige value at first exit | Admin confirms final curve |
-| AI chest drops | Prefer one clear cash-out reward channel, or explicitly budget and explain retained keeper drops | No duplicate/unbudgeted reward channel; loss copy matches behavior |
-| Removed Dawnless rewards | Do not automatically move its larger payouts into Stormcourt | Any compensation/reallocation is separately approved |
-| Existing player chest copies | Decide whether filling the existing item updates old copies intentionally and whether any notice is needed | No silent assumption about previously awarded inventory |
+| 1. Record direction | ChatGPT | This plan and RUL-2026-09-15-002; structural direction complete, not implementation |
+| 2. Reproduce the revised inventory | Fable extracts; ChatGPT reviews | Exact retained ID joins; verify sixteen removal targets and eight reroutes; reproduce 106 objectives / 52 dialogs / 47 missing background bindings; resolve auxiliary visual dependencies |
+| 3. Register approved coordination | Planning owner | Existing workstream tooling creates/validates task roadmap and packets; no hand-edited generated projections |
+| 4. Recover originals and test reuse | ChatGPT; dauntless accepts | One keeper scene adaptation and one family-avatar reuse example pass target QC; inspect backgrounds and listing images |
+| 5. Draft detached Godstorm copy and storyboard | ChatGPT; dauntless accepts | Exact text delta across both quests; 52-scene map; complete Stormcourt conclusion; entry/reference cleanup inventory |
+| 6. Finish accepted visual outputs | ChatGPT art lane | Five avatar gaps closed by approved reuse/new sources; ten keeper portraits or eligible records; verified blank; accepted background selections and file/provenance ledger |
+| 7. Audit retained combat | ChatGPT; Fable source/fixture support | All 18 rule/profile/kit joins, target/range/cooldown/AP/fallback checks, effective stats/pools/equipment and shared-dependency findings; approved correction proposals |
+| 8. Approve rewards | Content Admin; dauntless | Two full-clear specifications, cadence/attempt limits, chest identity and all drop channels; no unapproved numerical defaults |
+| 9. Build reviewed correction package | Fable implements; ChatGPT independently reviews | Factory/validator-backed payloads; preserved data/IDs; no accidental kit renormalization; exact-SHA handoff; preimage, active-player and recovery plan |
+| 10. Operator apply and readback | dauntless | Fresh before-state checks; approved protected writes; complete persisted readbacks compared to intended changes |
+| 11. Calibration and acceptance | Operator/testers; ChatGPT reviews | Both 25-battle traversals, retained outliers, failure/re-entry, legacy completion, mobile render and reward tests; corrections revalidated/read back |
+| 12. Release | dauntless following Content Admin go-ahead | Final accepted Godstorm-only availability, Crown exclusion, no obsolete Tower cash-out entry points or labels, durable closeout evidence |
 
-These decisions can stay open during story drafting, asset recovery and art adaptation. They cannot remain open at final reward validation or release acceptance. No numerical recommendations in this table authorize a live edit.
+Steps 4-8 can progress in parallel when their inputs are stable. Fable remains implementation owner; this documentation update does not take over that lane or authorize a live run. The next planning work is the detached quest copy and revised 52-scene map, with source-file recovery and census verification in parallel.
 
-## 12. Combat QA and calibration plan
+## 12. Acceptance tests
 
-Static QA for all 18 retained AIs:
-- Join each battle opponent to its AI record and aiProfileId; join every rule action/combo to the equipped kit and relevant item.
-- Check empty/missing/unreachable kit slots, action targeting, SELF versus opponent actions, distance thresholds versus ranges, cooldowns, AP compatibility, combo fallback and default-rule interference.
-- Account for actual level/rank caps, normalized stats, pool multipliers, equipment and passive effects without double-multiplying stored values.
-- Review crowd-control/denial uptime, unavoidable openings, kiting behavior and healing windows. Check the complete kit rather than raw HP alone.
-- Deduplicate shared content and bound any proposed edit's effect on other quests/events.
+- Scope: two standalone Godstorm titles, 25 battles and five keepers each; no reachable paid early exit; no Crown continuation.
+- Graph: one intended start per quest; every battle immediately dialog-gated; all pointers valid; intermediate keeper wins reach the next dialog, not another battle; only the final clear reaches success. Verify the expected 53 objectives per quest or document an approved deviation.
+- References: no surviving edge or UI choice points to any of the sixteen removed dialogs; no alternative reward-bearing early-win path exists.
+- Legacy safety: active trackers referencing removed nodes are handled by an approved operator procedure; historical completions are not silently revoked; old manifests cannot restore cash-outs.
+- Outcomes: wins, loss/flee/draw, abandon, retries and reload/resume behave as specified; no partial clear awards the final package; no new inventory forfeiture mechanic.
+- Progression: test no Marrow completion, incomplete/failed Marrow run, a new full Marrow clear and legacy completion flags against the preserved Stormcourt prerequisite.
+- Visuals: all 18 primary avatars, two listing images and 52 dialog scenes resolve to accepted assets; ten keeper/42 blank assignments under the proposed portrait scope; deliberate quest fallbacks; all 47 missing background bindings closed; no lost third Marrow plate treated as deleted art.
+- Copy: remove Tower identity and cash-out framing from all retained text fields, menu/entry surfaces and relevant reward identities. Inspect image pixels for baked-in branding without commissioning replacements automatically.
+- Rewards: two accepted completion packages; all item references valid; no empty consumable or unreviewed shared-item rename; chance versus quantity and ordinary enemy drops accounted for; actual period/attempt limits verified.
+- Combat: test representative eligible, intermediate and endgame loadouts; record damage, control, resources, turns, outcome and clear time. Calibrate retained bosses, not the excluded Endless Night boss. Exact targets remain user-owned.
+- Data: art-only edits preserve stats, kit, profile and unrelated fields; full before/after comparison; source contracts reconciled before payload building; publishing remains a separate operator step.
 
-Calibration after operator approval:
-- Declare representative player loadouts inside the current level-70-to-100 eligibility band, including ordinary and stronger/endgame builds. Record stats, equipment, relevant bloodline/kit and mitigation.
-- Exercise all eight guardian archetypes and ten keepers, with special attention to the first Marrow keeper, the transition into Stormcourt, Warden of the Half Eclipse and Sovereign Echo.
-- Record damage spikes, fight length, control lockouts, resource pressure, success/failure and counterplay. Repeat outliers before recommending changes.
-- Choose exact balance targets with the user/Content Admin; do not invent a win-rate target or tune only against a heavily mitigated tank.
+## 13. Execution limits and history
 
-The removed Endless Night's Shadow multiplier/Heavy Armor calibration is not a retained-release blocker. Do not carry its x6/x9.6 warning into the two-pyramid status card as if Sovereign Echo were the same AI. Retained bosses still require their own QA.
+This revision used live GitHub refs and committed documents/captures, not live-game requests. A local Git access attempt failed on DNS; no clone or repository session guards, harvest-normalization run, graph validator, image QC, game simulation or live playtest was completed in this turn. Target counts above are derived planning counts that Fable must reproduce against the captured graphs and eventual payload. No script execution is implied by structural approval.
 
-## 13. Work packages, order, ownership and gates
+Before building, reconcile the applicable source contracts and source-version disagreements noted by prior reviews. Before a production write, refresh the affected record preimages and halt on unexpected drift. Preserve historical captures and original artwork. Do not bulk-rename internal evidence to erase its Tower provenance.
 
-All execution packages below remain PLANNED until the user approves the plan and inputs are reproducible. Captures are available; revised implementation and acceptance are not complete.
-
-| Step | Work | Owner | Depends on | Required output / completion gate |
-| --- | --- | --- | --- | --- |
-| 1 | Reproduce retained inventory; recover originals; audit shared jutsu/effect visual dependencies | Fable evidence extraction + ChatGPT audit/art review | E1-E3 | ID-deduplicated roster; complete node ledger; original-file metadata/provenance; unresolved image/reference list |
-| 2 | Set retained battle count, finale, unlock/cash-out policy and portrait scope | dauntless with ChatGPT | This plan | Explicit decisions; no art or engine policy settled accidentally |
-| 3 | Pilot existing-art reuse | ChatGPT art support + dauntless acceptance | Recovered files and art direction | One retained-keeper scene adaptation and one base-family avatar reuse example; render/QC proves the reuse route |
-| 4 | Draft two-pyramid story and retirement/reference changes | ChatGPT content collaboration; Fable implementation later | Step 2 | Revised descriptions/ending, no keystone promises, no third-pyramid continuation, preserved node IDs where possible |
-| 5 | Produce accepted visual outputs and full wiring map | ChatGPT art support | Steps 1-3 | Five avatar completions; ten keeper portrait outputs in proposed baseline; verified blank; all 68 dialog mappings; each asset accepted/QC'd |
-| 6 | Review retained combat and progression semantics | ChatGPT independent audit; Fable source/fixture support | Step 1 and scope decisions | Rule/kit report, cap/pool review, cash-out/full-clear and loss semantics, declared calibration plan |
-| 7 | Set chest/reward/repeatability specification | Content Admin; dauntless final authority | Current reward audit | Exact approved reward table, chest behavior, cadence/limits and all drop channels |
-| 8 | Author correction manifests and operator plan | Fable | Approved content, accepted art, resolved reward/balance decisions | Factory/validator-generated payloads; narrow field scope; capture-before/after; rollback/preimage and active-player handling |
-| 9 | Independently review exact payload SHA and run offline gates | ChatGPT review; Fable fixes | Step 8 | Zero unresolved blocker; manifest validation; reference closure; art preflight; no accidental kit/reward/visibility changes |
-| 10 | Operator applies approved changes and commits readback | dauntless | Step 9 | Per-record success plus full persisted post-write captures; source-to-live diff; no echo-only certification |
-| 11 | Operator-approved combat calibration and mobile acceptance; correction loop if needed | dauntless / testers; ChatGPT audits evidence | Updated captured content | Both full runs, exits, failure outcomes, unlock policy, repeat limits and actual scene rendering meet decisions |
-| 12 | Final acceptance, availability/publishing and durable closeout | dauntless following Content Admin go-ahead | All previous gates | Two-pyramid player-facing release verified; Dawnless excluded; accepted release snapshot and post-publication smoke evidence |
-
-Parallel work: after inventory/scope, story drafting, reuse pilots, static combat QA and admin reward deliberation may proceed independently. A pending chest decision need not stop art work. No production write occurs until its own decision and validation gates are satisfied.
-
-After plan acceptance, register the workstream through the existing `state/workstreams/<slug>/roadmap.json` mechanism, point tasks at this document and the committed evidence, run content_workstream.py validate/render, and create the normal `state/prompt_<task>.md` implementation brief. Do not hand-author generated ROADMAP.md or mark unvalidated packets READY. This planning commit intentionally does not claim that the workstream initializer or generated projections have been run.
-
-## 14. Acceptance test matrix
-
-| Area | Required checks |
-| --- | --- |
-| Graph | Exactly the approved two roots and battle count; one intended start each; all pointers resolve; every battle gated; all 50 configured failure routes inspected; no accidental activation or skipped floor |
-| Exit paths | All eight voluntary cash-out paths and two full-clear paths; rewards paid only on the selected route and not twice; correct completion descriptions |
-| Failure | Lose, flee, draw, abandon and reload behavior as supported; no stray reward-bearing path; wording matches retained combat gains/drop behavior |
-| Unlocks | New eligible player, below-level player, early Marrow cash-out, full Marrow clear and repeat attempts; intended Stormcourt eligibility; no unintended Dawnless entry/grant |
-| Visuals | Two listing images; 18 non-default accepted primary avatars; 68 valid dialog backgrounds; 68 explicit portrait/blank choices; no stretch, clipped heads, visible cutout backgrounds or unresolved references |
-| Shared visual dependencies | Player-visible jutsu icons/effect references accounted for; every deferred cosmetic gap explicit and accepted, not hidden by a total |
-| Economy | Ten approved exit payouts; chest expectation and all AI drops included; actual daily/attempt limits proven; no default/empty reward placeholder |
-| Combat | Declared-loadout evidence; retained final boss and tier transitions calibrated; no empty kit, wrong self-target or unexplained difficulty spike |
-| Mobile | Correct Forge version for any execution, clear run/result status; real quest scenes on the operator/player viewport; no reliance on square asset-editor previews |
-| Data safety | Fresh preimages; preserved IDs/unaffected fields; active-run migration handling; recoverable retirement; stale contradictory manifests excluded; independent post-write diffs |
-| Publishing | Last captured hidden flags reconciled with actual intended availability; separate explicit operator decision; two-pyramid post-publication smoke |
-
-Source/server fixture tests and live operator tests are different evidence. A graph inventory does not stand in for playtesting; art-field presence does not stand in for image QC; success status does not stand in for a full readback.
-
-## 15. Release gate and next decision
-
-The release is ready only when the approved two-pyramid scope is actually implemented, its references and reward rules are valid, the agreed visual coverage is accepted and wired, combat/progression tests pass, and the operator accepts the readback and player-facing availability.
-
-Recommended next approval package: keep the existing 50 battles and ten keepers; finish at Sovereign Echo; attempt reuse of the four backgrounds; complete the five missing avatar assignments; use ten adapted keeper portraits plus a shared blank; leave chest/reward values with Content Admin. The unlock/full-clear policy and viability of image reuse must remain visible rather than being assumed.
-
-No new game request, mutation manifest, live change or generated artwork is authorized by this document alone.
+The earlier cash-out planning version remains retrievable at `11c55562f440e804a546163cb747a9fc8bc7e95c`. Its 68-dialog art map, eight paid withdrawals, ten exit rewards and unresolved early-cash-out unlock choice are historical, not current release requirements. The separate Tower of Endless Night concept is reserved but has not been designed, implemented or published by this revision.
