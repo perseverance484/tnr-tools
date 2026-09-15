@@ -169,3 +169,20 @@ A full pre-Forsworn transcript reconstruction is not required. Porting the art c
 **Canonical destination:** `docs/plans/GODSTORM_TWO_PYRAMID_RELEASE_PLAN.md`. The plan specifies the graph simplification, detached copy requirements, revised asset-wiring targets, implementation ownership and verification gates. No general doctrine or engine-law change is created.
 
 **Boundary:** Structural approval is not approval of exact reward values, repeat limits, final prose, unseen artwork, a global rename of the shared Endless Night Chest, retrospective removal of player completions, new checkpoint/retry mechanics, destructive record deletion, publication or live operation. Chest/reward decisions remain with Content Admin and dauntless. This ruling reserves the separate Tower concept; it does not authorize its implementation or release.
+
+---
+
+## RUL-2026-09-15-003 — Marrow Vaults below Stormcourt in one structure
+
+**Date:** 2026-09-15  
+**Domain:** Godstorm setting / narrative progression  
+**Status:** ACTIVE  
+**Supersedes:** none as to the approved 25+25 structure, no cash-out, Crown exclusion and separation from Tower of Endless Night. Clarifies RUL-2026-09-15-002; supersedes Draft 1's interpretation of Marrow and Stormcourt as geographically separate sites linked by discovered records.
+
+**Ruling:** Marrow Vaults and Stormcourt are thematically and narratively connected as one structure, with the Vaults below and the Court above. The player enters through the Vaults, then gains entry to the Court. Retain the two 25-battle pyramid quests, their sequence and existing encounter scope, without the Tower of Endless Night identity or early cash-out mechanic.
+
+**Rationale:** Separating Godstorm from the Tower concept does not require separating its lower and upper locations. The final vault threshold should open the way upstairs, not send the player to another site.
+
+**Canonical destination:** `docs/plans/GODSTORM_TWO_PYRAMID_RELEASE_PLAN.md` owns the connected setting and unchanged delivery scope. `docs/plans/GODSTORM_STANDALONE_COPY_AND_SCENE_MAP.md`, Draft 2, owns the proposed revised descriptions, introductions and transition; its filename is retained for reference stability.
+
+**Boundary:** This approves the spatial/narrative relationship, not every sentence of new copy, the exact storm-binding resolution, artwork not inspected, reward values, automatic quest launch, a new travel task, merged progress/resource/reward trackers, retrospective player-state changes or live operation. Content Admin reward decisions and final acceptance remain open. No new asset commission or overall building name is implied.
