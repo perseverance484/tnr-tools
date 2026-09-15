@@ -1,0 +1,78 @@
+name: quest-studio-followup-temp
+
+on:
+  push:
+    branches:
+      - chatgpt/forge-quest-studio-foundation
+    paths:
+      - state/quest_studio_followup_patch.py
+      - .github/workflows/quest_studio_followup_temp.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch-test-build-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/forge-quest-studio-foundation
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: forge/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Apply follow-up corrections
+        run: python3 state/quest_studio_followup_patch.py
+
+      - name: Worker trust-boundary test
+        run: python3 skills/building-tnr-content/scripts/quest_worker_contract_test.py
+
+      - name: Compiler selftest
+        run: python3 skills/building-tnr-content/scripts/quest_compile.py --selftest
+
+      - name: Mission integration test
+        run: python3 skills/building-tnr-content/scripts/quest_compile_integration_test.py
+
+      - name: Forge tests fixtures and bundle
+        working-directory: forge
+        run: |
+          npm ci
+          npm test
+          npm run fixtures
+          git diff --exit-code -- test/fixtures/envelope
+          npm run build
+
+      - name: Repository coherence gates
+        run: |
+          python3 skills/building-tnr-content/scripts/doctrinemap.py
+          python3 skills/building-tnr-content/scripts/render_doctrine.py --check
+          python3 skills/building-tnr-content/scripts/build_packs.py --check
+          python3 skills/building-tnr-content/scripts/lawmap.py
+
+      - name: Commit tested product changes only
+        run: |
+          set -euo pipefail
+          git config user.name "quest-studio-followup[bot]"
+          git config user.email "quest-studio-followup[bot]@users.noreply.github.com"
+          git add -- \
+            forge/src/studio/repository.mjs \
+            forge/src/studio/ui.mjs \
+            forge/test/github.studio.test.mjs \
+            forge/test/quest.studio.ui.test.mjs \
+            forge_bundle.js \
+            skills/building-tnr-content/scripts/quest_compile.py \
+            skills/building-tnr-content/scripts/quest_compile_integration_test.py \
+            skills/building-tnr-content/scripts/quest_worker_contract_test.py
+          if git diff --cached --quiet; then
+            echo "No product changes to commit"
+            exit 0
+          fi
+          git commit -m "fix(forge): bind Studio artifacts and invalidate edited builds"
+          git push origin HEAD:chatgpt/forge-quest-studio-foundation
