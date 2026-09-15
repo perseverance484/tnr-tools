@@ -74,8 +74,9 @@ def load_capture(repo: Path, source: tuple) -> dict:
 
 
 def point(source: dict, proc: str, entity_id: str) -> tuple:
+    input_field = "userId" if proc == "profile.getAi" else "id"
     matches = [(i, c) for i, c in enumerate(source["doc"]["captures"])
-               if c.get("proc") == proc and c.get("input", {}).get("id") == entity_id]
+               if c.get("proc") == proc and c.get("input", {}).get(input_field) == entity_id]
     if len(matches) != 1:
         raise ValueError(f"Expected exactly one {proc} record for {entity_id}")
     i, c = matches[0]
