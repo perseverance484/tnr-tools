@@ -78,6 +78,9 @@ def main() -> int:
             raise SystemExit("Repository compile result must state liveGameTouched:false")
         if result.get("provenance", {}).get("sourceRevision") != "1" * 40:
             raise SystemExit("source revision provenance was not preserved")
+        if result.get("warnings"):
+            print(json.dumps(result.get("warnings"), indent=2))
+            raise SystemExit("Mission adapter emitted warnings; art requirements must stay available in the integration path")
         manifest = root / "build" / "manifest.json"
         if not manifest.is_file():
             raise SystemExit("Mission adapter did not materialize manifest.json")
@@ -89,7 +92,7 @@ def main() -> int:
         if not quest or quest.get("data", {}).get("questType") != "mission":
             raise SystemExit("generated manifest does not contain a mission quest entry")
         print("PASS  current D Mission source compiles through mission.py + validate.py")
-        print("PASS  provenance, manifest digest, and live-game boundary are preserved")
+        print("PASS  provenance, manifest digest, art requirements, and live-game boundary are preserved")
 
         bad_shape = json.loads(json.dumps(source))
         bad_shape["requestId"] = "selftest-mission-shape"
