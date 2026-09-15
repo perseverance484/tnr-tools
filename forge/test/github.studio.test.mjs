@@ -129,6 +129,12 @@ test("QuestStudioRepository writes source to its dedicated branch then dispatche
 });
 
 test("QuestStudioRepository marks an older persisted result stale", async () => {
+
+test("QuestStudioRepository refuses build reads without an exact submitted source identity", async () => {
+  const repo = new QuestStudioRepository({ github: { async json() { throw new Error("must not read"); } } });
+  await assert.rejects(() => repo.buildResult("demo-mission"), /requires the exact submitted source commit/);
+});
+
   const result = {
     schemaVersion: 1,
     kind: "quest-build",
@@ -185,9 +191,21 @@ test("generated manifest reads cannot escape the request build directory", async
   }
   assert.equal(reads, 0);
 
-  const ok = { ...base, generated: { manifestPath: "studio/builds/demo-mission/manifest.json" } };
+  const ok = { ...base, generated: {
+    manifestPath: "studio/builds/demo-mission/manifest.json",
+    manifestSha256: "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  } };
   await repo.generatedManifest("demo-mission", ok);
   assert.equal(reads, 1);
+
+  await assert.rejects(() => repo.generatedManifest("demo-mission", {
+    ...base,
+    generated: {
+      manifestPath: "studio/builds/demo-mission/manifest.json",
+      manifestSha256: "0".repeat(64),
+    },
+  }), /does not match the compiler result digest/);
+  assert.equal(reads, 2);
 });
 
 test("Quest Source validation preserves repository-owned subtype policy", () => {

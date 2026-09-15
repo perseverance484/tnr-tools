@@ -29,18 +29,22 @@ def require_order(text: str, needles: list[str], label: str, failures: list[str]
         failures.append(label)
 
 
-def multiline_run_text(text: str) -> str:
+def run_script_text(text: str) -> str:
     lines = text.splitlines()
     out: list[str] = []
     for i, line in enumerate(lines):
-        match = re.match(r"^(\s*)run:\s*[|>][+-]?\s*$", line)
+        match = re.match(r"^(\s*)run:\s*(.*)$", line)
         if not match:
             continue
         indent = len(match.group(1))
-        for body in lines[i + 1:]:
-            if body.strip() and len(body) - len(body.lstrip()) <= indent:
-                break
-            out.append(body)
+        scalar = match.group(2).strip()
+        if re.fullmatch(r"[|>][+-]?", scalar):
+            for body in lines[i + 1:]:
+                if body.strip() and len(body) - len(body.lstrip()) <= indent:
+                    break
+                out.append(body)
+        elif scalar:
+            out.append(scalar)
     return "\n".join(out)
 
 
@@ -85,8 +89,9 @@ def main() -> int:
     forbid(text, "sh request/", "request checkout cannot provide executable shell", failures)
 
     # Workflow expressions for untrusted inputs belong in env/ref fields, never interpolated into run scripts.
-    run_text = multiline_run_text(text)
-    forbid(run_text, "${{ inputs.", "untrusted workflow inputs are not interpolated into shell", failures)
+    run_text = run_script_text(text)
+    if re.search(r"\$\{\{\s*(?:github\.event\.)?inputs\.", run_text):
+        failures.append("untrusted workflow inputs are not interpolated into shell")
 
     # Persistence is confined to the request's result/build directories.
     require(text, 'RESULT_PATH="request/studio/results/$REQUEST_ID.build.json"', "result path is request-scoped", failures)

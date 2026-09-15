@@ -217,6 +217,50 @@ test("Mission compile submits Quest Source, reads canonical result, and never pr
 });
 
 test("real Mission profile sentinels render as awaiting ruling and block compile", async () => {
+
+test("editing a submitted Mission invalidates persisted build identity before reopen", async () => {
+  const win = setupDom();
+  const storage = new MemoryStorage();
+  const app = fakeApp(win, storage);
+  const result = {
+    schemaVersion: 1, kind: "quest-build", requestId: "quest-edit-stale", subtype: "mission",
+    status: "valid", blockers: [], errors: [], warnings: [],
+    generated: { manifestPath: "studio/builds/quest-edit-stale/manifest.json", entities: { counts: { quest: 1 } } },
+    provenance: { sourceRevision: "a".repeat(40), compilerRevision: "b".repeat(40) },
+    liveGameTouched: false,
+  };
+  const repository = repositoryStub({ result });
+  const studio = new QuestStudioWorkspace({ app, repository, pollMs: 0, maxPolls: 1 }).install();
+  await studio.open();
+  studio.draft = {
+    version: 1, requestId: "quest-edit-stale", subtype: "mission", profile: "D",
+    name: "Before edit", description: "Carry the note.", successDescription: "Delivered.",
+    beats: [
+      { description: "Accept it.", choiceText: "Take it" },
+      { description: "Check it.", choiceText: "Continue" },
+      { description: "Deliver it.", choiceText: "Deliver" },
+    ],
+    updatedAt: new Date().toISOString(), sourceCommit: null, lastResult: null,
+  };
+  await studio.openMission(false);
+  await studio.compileMission();
+  assert.equal(studio.draft.sourceCommit, "a".repeat(40));
+
+  const name = studio.shell.querySelector('input[type="text"]');
+  name.value = "After edit";
+  name.dispatchEvent(new win.Event("input", { bubbles: true }));
+  assert.equal(studio.draft.sourceCommit, null);
+  assert.equal(studio.draft.lastResult, null);
+
+  const resultCalls = repository.calls.filter((x) => x[0] === "result").length;
+  const reopened = new QuestStudioWorkspace({ app: fakeApp(win, storage), repository, pollMs: 0, maxPolls: 1 }).install();
+  assert.equal(reopened.draft.sourceCommit, null);
+  await reopened.open();
+  await reopened.openMission(false);
+  assert.equal(repository.calls.filter((x) => x[0] === "result").length, resultCalls);
+  assert.match(reopened.shell.textContent, /No repository build has been requested for the current draft revision/);
+});
+
   const profiles = JSON.parse(readFileSync(join(REPO, "skills/building-tnr-content/data/48_DATA_mission_profiles.json"), "utf8"));
   const draft = newMissionDraft();
   Object.assign(draft, {
