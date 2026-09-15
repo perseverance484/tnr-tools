@@ -1,0 +1,890 @@
+{
+  "schema": "tnr.godstorm_source_art.v1",
+  "repository": "perseverance484/tnr-tools",
+  "capture_ref": "6e09b15bb6f3d1c90ba416d14211b533f5b4a367",
+  "created_at": "2026-09-15T19:22:17.902960+00:00",
+  "status": "downloaded_unreviewed",
+  "caveat": "Hosted bytes retrieved now; not proof of capture-time bytes or generation masters. No art approval.",
+  "sources": [
+    {
+      "path": "harvests/inbox/tnr_results_1789401726302.json",
+      "git_blob_sha": "4faa45084b7b921cc3ef03240a561566943c4e53",
+      "sha256": "4686c6247f14c57341e72dabc2ab9e892cca98a577d705e0a392edc98312d12b",
+      "captured_at": "2026-09-14T16:02:06.302Z",
+      "manifest": "push/23_godstorm_tower_root_capture.json"
+    },
+    {
+      "path": "harvests/inbox/tnr_results_1789402842027.json",
+      "git_blob_sha": "86524d9f248b3731894826c064279ecef089d956",
+      "sha256": "25224da3fde7acdc30284a5f750ddd84dce29bb43466d131af8742117d3fa4a7",
+      "captured_at": "2026-09-14T16:20:42.026Z",
+      "manifest": "push/24_godstorm_tower_related_capture.json"
+    }
+  ],
+  "inventory": [
+    {
+      "category": "quest_listing",
+      "entity_id": "2yvE9PUQqlD8lbYNfgX-b",
+      "name": "The Tower of Endless Night: The Marrow Vaults",
+      "source_field": "image",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJYKhI50OMAlNnPZ41ev6fCGcFK3hmjX9I8W7d",
+      "state": "assigned",
+      "consumers": [
+        "2yvE9PUQqlD8lbYNfgX-b"
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789401726302.json",
+      "json_pointer": "/captures/1/data/image",
+      "snapshot_key": "23-mu1fl3om::before::1",
+      "captured_at": "2026-09-14T16:02:05.856Z"
+    },
+    {
+      "category": "quest_listing",
+      "entity_id": "OSADdXqostbyVliCxWk6k",
+      "name": "The Tower of Endless Night: The Stormcourt",
+      "source_field": "image",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjkcMeV4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
+      "state": "assigned",
+      "consumers": [
+        "OSADdXqostbyVliCxWk6k"
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789401726302.json",
+      "json_pointer": "/captures/2/data/image",
+      "snapshot_key": "23-mu1fl3om::before::2",
+      "captured_at": "2026-09-14T16:02:06.255Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "3XMsIV6Yv4jy-uaJAe52f",
+      "name": "Warden of the Half Eclipse",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8Z4m8Tkkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b5_boss"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/8/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::8",
+      "captured_at": "2026-09-14T16:20:36.505Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "9uDe65Qt90xnT-fM5vJZ7",
+      "name": "Umbral Reaver",
+      "source_field": "avatar",
+      "source_url": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+      "state": "default",
+      "consumers": [
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b1_1"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b2_4"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b3_3"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b4_2"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b5_1"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/0/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::0",
+      "captured_at": "2026-09-14T16:20:34.819Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "9yLEi0OoYxcIL0a2XYkWk",
+      "name": "Nightveil Sentinel Ascendant",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ29J8I0nMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b6_3"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b7_2"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b8_1"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b9_4"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b10_3"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/11/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::11",
+      "captured_at": "2026-09-14T16:20:37.070Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "HEjtNpXmuU4ShrOOPg8XK",
+      "name": "Widow of the Waning Moon",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ1ik8uq6bo95WClq4K0wxZUmJcvThgdVenO3P",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b7_boss"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/14/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::14",
+      "captured_at": "2026-09-14T16:20:37.590Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "IG5Mbfi_2lpUTnUU4_XhZ",
+      "name": "Hollow Lantern",
+      "source_field": "avatar",
+      "source_url": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+      "state": "default",
+      "consumers": [
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b1_2"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b2_1"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b3_4"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b4_3"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b5_2"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/1/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::1",
+      "captured_at": "2026-09-14T16:20:35.070Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "JU2BgfdcWsBYGeHUgHMi_",
+      "name": "Starless Monk Ascendant",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJUCPcGxILCIhwPniJ69VxpvAbTDWkOyGzS8rM",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b6_2"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b7_1"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b8_4"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b9_3"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b10_2"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/10/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::10",
+      "captured_at": "2026-09-14T16:20:36.875Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "QV1PwoQR9JImZL2_fcOsk",
+      "name": "Chained Chorister",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJWo6NBtvszvj71yaSYC0MDOmbko5q9JAGuLHf",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b4_boss"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/7/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::7",
+      "captured_at": "2026-09-14T16:20:36.322Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "YvinZCoMWiz0RY8ZBP5EW",
+      "name": "Nightveil Sentinel",
+      "source_field": "avatar",
+      "source_url": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+      "state": "default",
+      "consumers": [
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b1_4"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b2_3"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b3_2"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b4_1"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b5_4"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/3/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::3",
+      "captured_at": "2026-09-14T16:20:35.410Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "aL1Gf1JmVaP8iWi2zHJoO",
+      "name": "Herald of the Last Dusk",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJFhKg1UG2iOewJtjGzvNcmEX3TBnoSfMDZPH4",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b9_boss"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/16/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::16",
+      "captured_at": "2026-09-14T16:20:37.990Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "axTRSadaZbUepfT40-7cM",
+      "name": "The Gloaming Judge",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2uQavnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8C",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b6_boss"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/13/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::13",
+      "captured_at": "2026-09-14T16:20:37.409Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "b8PGgZl8zNNr6UdWH9dBv",
+      "name": "Hollow Lantern Ascendant",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJqyL0PLdkOZgJQ8mGRcdx3SsWvPelyYFTt5Vn",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b6_1"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b7_4"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b8_3"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b9_2"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b10_1"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/9/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::9",
+      "captured_at": "2026-09-14T16:20:36.698Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "i8oFdDcneF7YE-8VpQsu3",
+      "name": "Sovereign Echo of the Godstorm",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjAVcJY4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b10_boss"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/17/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::17",
+      "captured_at": "2026-09-14T16:20:38.367Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "jGHpkz2pgLu8loti6pZZi",
+      "name": "The Moth Tyrant",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJVBNQpUF2veAXohUuE59nTQHRJIYjtiG18aF4",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b3_boss"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/6/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::6",
+      "captured_at": "2026-09-14T16:20:36.152Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "k4qMHSTHHZBVsijP5FJ6E",
+      "name": "Umbral Reaver Ascendant",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2jXDztnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b6_4"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b7_3"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b8_2"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b9_1"
+        },
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b10_4"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/12/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::12",
+      "captured_at": "2026-09-14T16:20:37.259Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "oi4bHe3upEhLkI-ElJuMX",
+      "name": "Warden of the First Dark",
+      "source_field": "avatar",
+      "source_url": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+      "state": "default",
+      "consumers": [
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b1_boss"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/4/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::4",
+      "captured_at": "2026-09-14T16:20:35.603Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "pln436P8g2ocUBCHavcdb",
+      "name": "The Candlewright",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ7ddItpMXKPBOUWGyFuM4DlL1v5HNTZhkte0z",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "OSADdXqostbyVliCxWk6k",
+          "objective_id": "b8_boss"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/15/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::15",
+      "captured_at": "2026-09-14T16:20:37.793Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "qQ6jMh8w6aiyr4pevwDh-",
+      "name": "Starless Monk",
+      "source_field": "avatar",
+      "source_url": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+      "state": "default",
+      "consumers": [
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b1_3"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b2_2"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b3_1"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b4_4"
+        },
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b5_3"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/2/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::2",
+      "captured_at": "2026-09-14T16:20:35.234Z"
+    },
+    {
+      "category": "ai_avatar",
+      "entity_id": "s6LjnqhSW85pIxYRM76Fw",
+      "name": "Keeper of Hushed Hours",
+      "source_field": "avatar",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJSlyHzN3jWrEB7TyZlmpoAxMK5Qi16kNPVJuH",
+      "state": "assigned",
+      "consumers": [
+        {
+          "quest_id": "2yvE9PUQqlD8lbYNfgX-b",
+          "objective_id": "b2_boss"
+        }
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/5/data/avatar",
+      "snapshot_key": "24-mu1g8vqp::after::5",
+      "captured_at": "2026-09-14T16:20:35.784Z"
+    },
+    {
+      "category": "scene_background",
+      "entity_id": "7EmVo6GH5GL4YtQTDrbDR",
+      "name": "marrow vault 1",
+      "source_field": "image",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/OWdh17MrZJdFBObZtBSIs.webp",
+      "state": "assigned",
+      "consumers": [
+        "captured_reference"
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/26/data/image",
+      "snapshot_key": "24-mu1g8vqp::after::26",
+      "captured_at": "2026-09-14T16:20:41.147Z"
+    },
+    {
+      "category": "scene_background",
+      "entity_id": "oc0cXiMrcG_6kTUwNWRkn",
+      "name": "marrow vault 2",
+      "source_field": "image",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/R0KZlCCs0ETT_j3RwQFm3.webp",
+      "state": "assigned",
+      "consumers": [
+        "captured_reference"
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/27/data/image",
+      "snapshot_key": "24-mu1g8vqp::after::27",
+      "captured_at": "2026-09-14T16:20:41.326Z"
+    },
+    {
+      "category": "scene_background",
+      "entity_id": "IykL5XxwFF14BosCblZj8",
+      "name": "marrow vault 3",
+      "source_field": "image",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hcv_NBMPMRyEaRJRoSaHf.webp",
+      "state": "assigned",
+      "consumers": [
+        "captured_reference"
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/28/data/image",
+      "snapshot_key": "24-mu1g8vqp::after::28",
+      "captured_at": "2026-09-14T16:20:41.496Z"
+    },
+    {
+      "category": "scene_background",
+      "entity_id": "cKHhHoboreP88iH5WjDe7",
+      "name": "StormCourtyard",
+      "source_field": "image",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJnQtfUT8mojJ0EqeDCvBrNmZaXVdY97gSpOWi",
+      "state": "assigned",
+      "consumers": [
+        "unwired_candidate"
+      ],
+      "capture_path": "harvests/inbox/tnr_results_1789402842027.json",
+      "json_pointer": "/captures/29/data/image",
+      "snapshot_key": "24-mu1g8vqp::after::29",
+      "captured_at": "2026-09-14T16:20:41.706Z"
+    }
+  ],
+  "assets": [
+    {
+      "file": "originals/quest_listing_the_tower_of_endless_night_the_marrow_vaults_fa3b9abaf7069e19.webp",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJYKhI50OMAlNnPZ41ev6fCGcFK3hmjX9I8W7d",
+      "inventory_indices": [
+        0
+      ],
+      "format": "WEBP",
+      "width": 1536,
+      "height": 1536,
+      "bytes": 191356,
+      "sha256": "fa3b9abaf7069e19b757aa89dc843debd019373831fb4c32b23b071be683be72",
+      "http_status": 200,
+      "content_type": "image/webp",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJYKhI50OMAlNnPZ41ev6fCGcFK3hmjX9I8W7d",
+      "downloaded_at": "2026-09-15T19:21:57.727648+00:00"
+    },
+    {
+      "file": "originals/quest_listing_the_tower_of_endless_night_the_stormcourt_8cc058177cb90054.webp",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjkcMeV4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
+      "inventory_indices": [
+        1
+      ],
+      "format": "WEBP",
+      "width": 1536,
+      "height": 1536,
+      "bytes": 173128,
+      "sha256": "8cc058177cb900544d229ff2f6eaee841ff850ddf85fab17fc87b680d1164e01",
+      "http_status": 200,
+      "content_type": "image/webp",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjkcMeV4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
+      "downloaded_at": "2026-09-15T19:21:59.096893+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_warden_of_the_half_eclipse_5bd6d083fe8a0114.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8Z4m8Tkkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
+      "inventory_indices": [
+        2
+      ],
+      "format": "PNG",
+      "width": 207,
+      "height": 256,
+      "bytes": 81069,
+      "sha256": "5bd6d083fe8a0114480abeaf03fb5c6519c38ad4165788bad4c453731a7717f8",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8Z4m8Tkkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
+      "downloaded_at": "2026-09-15T19:22:00.137797+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_nightveil_sentinel_ascendant_5d69dab2bd4f943a.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ29J8I0nMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+      "inventory_indices": [
+        4
+      ],
+      "format": "PNG",
+      "width": 227,
+      "height": 256,
+      "bytes": 71381,
+      "sha256": "5d69dab2bd4f943a79aee0a9634bfde7bedcdd573c31f528d208925adf232107",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ29J8I0nMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+      "downloaded_at": "2026-09-15T19:22:01.167927+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_widow_of_the_waning_moon_a891746acc0e4db0.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ1ik8uq6bo95WClq4K0wxZUmJcvThgdVenO3P",
+      "inventory_indices": [
+        5
+      ],
+      "format": "PNG",
+      "width": 230,
+      "height": 256,
+      "bytes": 56732,
+      "sha256": "a891746acc0e4db00a59aa504b90419b303b7d5c62e38b5f6d7fb0196d7f95ae",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ1ik8uq6bo95WClq4K0wxZUmJcvThgdVenO3P",
+      "downloaded_at": "2026-09-15T19:22:02.213922+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_starless_monk_ascendant_33de67c58f07c98c.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJUCPcGxILCIhwPniJ69VxpvAbTDWkOyGzS8rM",
+      "inventory_indices": [
+        7
+      ],
+      "format": "PNG",
+      "width": 186,
+      "height": 256,
+      "bytes": 73985,
+      "sha256": "33de67c58f07c98c77bdcca1ebea7e17ca494885463afd6bc4b61deba10d9ef1",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJUCPcGxILCIhwPniJ69VxpvAbTDWkOyGzS8rM",
+      "downloaded_at": "2026-09-15T19:22:03.326034+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_chained_chorister_05d2317e411be50a.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJWo6NBtvszvj71yaSYC0MDOmbko5q9JAGuLHf",
+      "inventory_indices": [
+        8
+      ],
+      "format": "PNG",
+      "width": 177,
+      "height": 256,
+      "bytes": 72820,
+      "sha256": "05d2317e411be50a159c9371181d6cf54e12ac5926d5ceed080e675fa450c8bd",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJWo6NBtvszvj71yaSYC0MDOmbko5q9JAGuLHf",
+      "downloaded_at": "2026-09-15T19:22:04.621224+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_herald_of_the_last_dusk_4533bbc496ffd7e0.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJFhKg1UG2iOewJtjGzvNcmEX3TBnoSfMDZPH4",
+      "inventory_indices": [
+        10
+      ],
+      "format": "PNG",
+      "width": 232,
+      "height": 256,
+      "bytes": 81501,
+      "sha256": "4533bbc496ffd7e0880423bf45b114219577405e2edeae368a9df9f90e08d75b",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJFhKg1UG2iOewJtjGzvNcmEX3TBnoSfMDZPH4",
+      "downloaded_at": "2026-09-15T19:22:05.686620+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_the_gloaming_judge_bc2b8ccdb0a86a31.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2uQavnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8C",
+      "inventory_indices": [
+        11
+      ],
+      "format": "PNG",
+      "width": 225,
+      "height": 256,
+      "bytes": 83701,
+      "sha256": "bc2b8ccdb0a86a316ec371e48d9ff518afb6b189db4a25d10a415be7b539516b",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2uQavnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8C",
+      "downloaded_at": "2026-09-15T19:22:06.700289+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_hollow_lantern_ascendant_74b14e775a7904ef.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJqyL0PLdkOZgJQ8mGRcdx3SsWvPelyYFTt5Vn",
+      "inventory_indices": [
+        12
+      ],
+      "format": "PNG",
+      "width": 213,
+      "height": 256,
+      "bytes": 92029,
+      "sha256": "74b14e775a7904efdeecc639a8570692bdaf4a5a4f7ddfd96a1bab81dbc2521c",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJqyL0PLdkOZgJQ8mGRcdx3SsWvPelyYFTt5Vn",
+      "downloaded_at": "2026-09-15T19:22:07.998211+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_sovereign_echo_of_the_godstorm_d73cb67dcc5b1b84.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjAVcJY4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
+      "inventory_indices": [
+        13
+      ],
+      "format": "PNG",
+      "width": 239,
+      "height": 256,
+      "bytes": 80492,
+      "sha256": "d73cb67dcc5b1b8442b8198736a8af0e177c97099ab3a24e4dfc986389282a04",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjAVcJY4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
+      "downloaded_at": "2026-09-15T19:22:08.704478+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_the_moth_tyrant_edd633f65a0f368a.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJVBNQpUF2veAXohUuE59nTQHRJIYjtiG18aF4",
+      "inventory_indices": [
+        14
+      ],
+      "format": "PNG",
+      "width": 220,
+      "height": 256,
+      "bytes": 96239,
+      "sha256": "edd633f65a0f368ac11cef87733fb38f349d6da7a87c78a3e072744bf4e837ce",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJVBNQpUF2veAXohUuE59nTQHRJIYjtiG18aF4",
+      "downloaded_at": "2026-09-15T19:22:09.878758+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_umbral_reaver_ascendant_b8bd99eba111ccd3.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2jXDztnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+      "inventory_indices": [
+        15
+      ],
+      "format": "PNG",
+      "width": 224,
+      "height": 256,
+      "bytes": 94636,
+      "sha256": "b8bd99eba111ccd3849702c7b24b373e966bbc221f8ae9add6e0f5167bd4da40",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2jXDztnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+      "downloaded_at": "2026-09-15T19:22:11.258199+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_the_candlewright_957ff5aa1ed14bfc.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ7ddItpMXKPBOUWGyFuM4DlL1v5HNTZhkte0z",
+      "inventory_indices": [
+        17
+      ],
+      "format": "PNG",
+      "width": 229,
+      "height": 256,
+      "bytes": 80868,
+      "sha256": "957ff5aa1ed14bfcf267ff435bf7ae509ebd31750c8053eaf51bfd24dc689d25",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ7ddItpMXKPBOUWGyFuM4DlL1v5HNTZhkte0z",
+      "downloaded_at": "2026-09-15T19:22:12.485675+00:00"
+    },
+    {
+      "file": "originals/ai_avatar_keeper_of_hushed_hours_c5e672d74a9e9d0c.png",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJSlyHzN3jWrEB7TyZlmpoAxMK5Qi16kNPVJuH",
+      "inventory_indices": [
+        19
+      ],
+      "format": "PNG",
+      "width": 196,
+      "height": 256,
+      "bytes": 83468,
+      "sha256": "c5e672d74a9e9d0cf1670bbf9bee6d89109c5b82ae1294fc77f91c4a90211fc1",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJSlyHzN3jWrEB7TyZlmpoAxMK5Qi16kNPVJuH",
+      "downloaded_at": "2026-09-15T19:22:13.497968+00:00"
+    },
+    {
+      "file": "originals/scene_background_marrow_vault_1_05a78a022770710b.webp",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/OWdh17MrZJdFBObZtBSIs.webp",
+      "inventory_indices": [
+        20
+      ],
+      "format": "WEBP",
+      "width": 500,
+      "height": 333,
+      "bytes": 42398,
+      "sha256": "05a78a022770710bc991d37df9e3ba061d24bf77e20504037400c082dfb78575",
+      "http_status": 200,
+      "content_type": "image/webp",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/OWdh17MrZJdFBObZtBSIs.webp",
+      "downloaded_at": "2026-09-15T19:22:14.428526+00:00"
+    },
+    {
+      "file": "originals/scene_background_marrow_vault_2_ec3b81e64366a329.webp",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/R0KZlCCs0ETT_j3RwQFm3.webp",
+      "inventory_indices": [
+        21
+      ],
+      "format": "WEBP",
+      "width": 500,
+      "height": 333,
+      "bytes": 23630,
+      "sha256": "ec3b81e64366a329c71d1fb3499c1d1547fc7dddd5b7db6b9ddccda8dacc8092",
+      "http_status": 200,
+      "content_type": "image/webp",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/R0KZlCCs0ETT_j3RwQFm3.webp",
+      "downloaded_at": "2026-09-15T19:22:15.327089+00:00"
+    },
+    {
+      "file": "originals/scene_background_marrow_vault_3_5e4fa364b2539a54.webp",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hcv_NBMPMRyEaRJRoSaHf.webp",
+      "inventory_indices": [
+        22
+      ],
+      "format": "WEBP",
+      "width": 500,
+      "height": 333,
+      "bytes": 25400,
+      "sha256": "5e4fa364b2539a54eff45fe1c911b5f8ca2921c98789b7f6a5585859771081a2",
+      "http_status": 200,
+      "content_type": "image/webp",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hcv_NBMPMRyEaRJRoSaHf.webp",
+      "downloaded_at": "2026-09-15T19:22:16.282501+00:00"
+    },
+    {
+      "file": "originals/scene_background_stormcourtyard_12085dfaf1258be6.jpg",
+      "source_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJnQtfUT8mojJ0EqeDCvBrNmZaXVdY97gSpOWi",
+      "inventory_indices": [
+        23
+      ],
+      "format": "JPEG",
+      "width": 1536,
+      "height": 864,
+      "bytes": 404485,
+      "sha256": "12085dfaf1258be6ad7296554e975ea425ec968e5937cb26f6973473aad6f377",
+      "http_status": 200,
+      "content_type": "image/jpeg",
+      "final_url": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJnQtfUT8mojJ0EqeDCvBrNmZaXVdY97gSpOWi",
+      "downloaded_at": "2026-09-15T19:22:17.630307+00:00"
+    }
+  ],
+  "failures": [],
+  "counts": {
+    "inventory": 24,
+    "assigned": 19,
+    "defaults": 5,
+    "files": 19,
+    "failed_urls": 0
+  },
+  "out_of_scope": [
+    "fresh game reads",
+    "scene portrait creation",
+    "jutsu/VFX closure",
+    "reward changes",
+    "game uploads",
+    "global style-reference corpus"
+  ]
+}
