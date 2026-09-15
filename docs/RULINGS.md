@@ -186,3 +186,20 @@ A full pre-Forsworn transcript reconstruction is not required. Porting the art c
 **Canonical destination:** `docs/plans/GODSTORM_TWO_PYRAMID_RELEASE_PLAN.md` owns the connected setting and unchanged delivery scope. `docs/plans/GODSTORM_STANDALONE_COPY_AND_SCENE_MAP.md`, Draft 2, owns the proposed revised descriptions, introductions and transition; its filename is retained for reference stability.
 
 **Boundary:** This approves the spatial/narrative relationship, not every sentence of new copy, the exact storm-binding resolution, artwork not inspected, reward values, automatic quest launch, a new travel task, merged progress/resource/reward trackers, retrospective player-state changes or live operation. Content Admin reward decisions and final acceptance remain open. No new asset commission or overall building name is implied.
+
+---
+
+## RUL-2026-09-15-004 — StormCourtyard excluded from Godstorm artwork
+
+**Date:** 2026-09-15  
+**Domain:** Godstorm art reuse / scene backgrounds  
+**Status:** ACTIVE  
+**Supersedes:** no earlier accepted art choice; withdraws the unapproved StormCourtyard/S1 reuse proposal in the release plan and Draft 2 scene map.
+
+**Ruling:** StormCourtyard (`cKHhHoboreP88iH5WjDe7`) is not approved for Godstorm because it belongs to a different artwork/quest set. Exclude it from the Stormcourt background selection and the proposed S1 scene bindings. A successful capture or image download does not confer art approval.
+
+**Rationale:** Preserve the intended visual identity of the connected Marrow Vaults/Stormcourt setting rather than adopting unrelated SkychainMonastery scenery on the basis of its name.
+
+**Canonical destination:** `docs/plans/GODSTORM_ART_REUSE_DECISIONS.md`, AR-001, owns this asset's exclusion, withdrawal of the 26 S1 bindings, corrected planning counts and archive treatment. Read it alongside the release plan and copy/scene map; their prior S1 proposal is superseded, not pending reapproval.
+
+**Boundary:** Keep original captured records and recovered bytes as rejected-reference evidence. Do not delete or modify the shared game asset, repurpose it through cosmetic changes, or automatically substitute other assets from its quest set. This does not reject Stormcourt's own listing image or enemy portraits, approve any replacement/new-painting count, or authorize a live-game change.
