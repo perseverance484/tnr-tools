@@ -152,3 +152,20 @@ A full pre-Forsworn transcript reconstruction is not required. Porting the art c
 **Canonical destination:** `docs/plans/GODSTORM_TWO_PYRAMID_RELEASE_PLAN.md` owns the task plan and separates observed inventory, user-set scope, recommendations and open decisions. Subsequent approved build briefs and existing workstream coordination will point to it. This entry does not amend general doctrine or engine laws.
 
 **Not approved by this ruling:** a particular battle count, exact reward/cadence values, an unlock mechanism, a fixed number of new paintings, destructive live deletion, automatic publishing, or implementation before plan acceptance. The plan's five-avatar completion / ten-keeper portrait / four-background reuse proposal remains a proposal, not a ruling.
+
+---
+
+## RUL-2026-09-15-002 — Separate Godstorm pyramids from Tower of Endless Night
+
+**Date:** 2026-09-15  
+**Domain:** Godstorm structure / identity / completion model  
+**Status:** ACTIVE  
+**Supersedes:** RUL-2026-09-15-001 only where it left the battle count and structure unapproved; that ruling's two-location scope, reuse-first direction, no-keystone requirement and open Content Admin decisions remain in force. Supersedes the earlier plan's Tower identity and paid-withdrawal model for the retained quests.
+
+**Ruling:** The user approved the retained structure and directed that Marrow Vaults and Stormcourt each contain 25 battles without Tower of Endless Night branding or concept framing. Remove their early cash-out system. Tower of Endless Night and its early cash-out mechanic are a separate concept, outside this release. The retained five-keeper structures and finales remain the plan baseline; each pyramid succeeds through its full clear, not an early paid exit. Dawnless Crown remains excluded.
+
+**Rationale:** Keep Godstorm's two battle pyramids distinct from the separate Tower concept instead of preserving its name and reward-choice mechanic inside them. Reuse existing art and combat content rather than rebuilding the encounters.
+
+**Canonical destination:** `docs/plans/GODSTORM_TWO_PYRAMID_RELEASE_PLAN.md`. The plan specifies the graph simplification, detached copy requirements, revised asset-wiring targets, implementation ownership and verification gates. No general doctrine or engine-law change is created.
+
+**Boundary:** Structural approval is not approval of exact reward values, repeat limits, final prose, unseen artwork, a global rename of the shared Endless Night Chest, retrospective removal of player completions, new checkpoint/retry mechanics, destructive record deletion, publication or live operation. Chest/reward decisions remain with Content Admin and dauntless. This ruling reserves the separate Tower concept; it does not authorize its implementation or release.
