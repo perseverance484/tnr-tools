@@ -62,6 +62,12 @@ function generatedArtifactPath(path, requestId) {
   return path;
 }
 
+async function sha256Hex(text) {
+  if (!globalThis.crypto?.subtle) throw new GithubError("SHA-256 verification is unavailable in this browser context");
+  const digest = await globalThis.crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(digest)].map((x) => x.toString(16).padStart(2, "0")).join("");
+}
+
 export class QuestStudioRepository {
   constructor({ github, baseRef = "main" }) {
     this.github = github;
@@ -123,6 +129,9 @@ export class QuestStudioRepository {
    */
   async buildResult(requestId, { expectedSourceCommit = null } = {}) {
     const id = questRequestId(requestId);
+    if (typeof expectedSourceCommit !== "string" || !/^[0-9a-f]{40}$/.test(expectedSourceCommit)) {
+      throw new GithubError("Quest Studio buildResult requires the exact submitted source commit");
+    }
     let result;
     try {
       result = validateBuildResult(await this.github.json(questResultPath(id), questBranch(id)), id);
@@ -131,13 +140,20 @@ export class QuestStudioRepository {
       throw e;
     }
     const actual = result.provenance?.sourceRevision ?? null;
-    return { result, stale: !!expectedSourceCommit && actual !== expectedSourceCommit };
+    return { result, stale: actual !== expectedSourceCommit };
   }
 
   async generatedManifest(requestId, buildResult) {
     const id = questRequestId(requestId);
     const result = validateBuildResult(buildResult, id);
     const path = generatedArtifactPath(result.generated?.manifestPath, id);
-    return this.github.text(path, questBranch(id));
+    const expected = result.generated?.manifestSha256;
+    if (typeof expected !== "string" || !/^[0-9a-f]{64}$/.test(expected)) {
+      throw new GithubError("Quest Studio result does not contain a valid generated manifest SHA-256");
+    }
+    const text = await this.github.text(path, questBranch(id));
+    const actual = await sha256Hex(text);
+    if (actual !== expected) throw new GithubError("Quest Studio generated manifest does not match the compiler result digest");
+    return text;
   }
 }

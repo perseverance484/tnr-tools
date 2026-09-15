@@ -297,7 +297,14 @@ export class QuestStudioWorkspace {
     this.saveDraft();
   }
 
-  saveDraft() { writeDraft(this.app.storage, this.draft, this.app.now ? this.app.now() : Date.now()); }
+  saveDraft({ preserveBuild = false } = {}) {
+    if (!preserveBuild && this.draft) {
+      this.draft.sourceCommit = null;
+      this.draft.lastResult = null;
+      this.buildState = null;
+    }
+    writeDraft(this.app.storage, this.draft, this.app.now ? this.app.now() : Date.now());
+  }
 
   chooseProfile(key) {
     this.draft.profile = key;
@@ -445,7 +452,7 @@ export class QuestStudioWorkspace {
       if (token !== this.pollToken) return;
       this.draft.sourceCommit = submitted.sourceCommit;
       this.draft.lastResult = null;
-      this.saveDraft();
+      this.saveDraft({ preserveBuild: true });
       this.buildState = { busy: true, sourceCommit: submitted.sourceCommit };
       this.renderMission();
       await this.pollBuild(submitted.sourceCommit, token);
@@ -462,7 +469,7 @@ export class QuestStudioWorkspace {
       const got = await this.repository.buildResult(this.draft.requestId, { expectedSourceCommit: sourceCommit });
       if (got && !got.stale) {
         this.draft.lastResult = got.result;
-        this.saveDraft();
+        this.saveDraft({ preserveBuild: true });
         this.buildState = { result: got.result, stale: false, sourceCommit };
         this.renderMission();
         return;

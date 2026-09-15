@@ -6240,6 +6240,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     return path;
   }
+  async function sha256Hex(text) {
+    if (!globalThis.crypto?.subtle) throw new GithubError("SHA-256 verification is unavailable in this browser context");
+    const digest = await globalThis.crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    return [...new Uint8Array(digest)].map((x) => x.toString(16).padStart(2, "0")).join("");
+  }
   var QuestStudioRepository = class {
     constructor({ github, baseRef = "main" }) {
       this.github = github;
@@ -6296,6 +6301,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
      */
     async buildResult(requestId, { expectedSourceCommit = null } = {}) {
       const id = questRequestId(requestId);
+      if (typeof expectedSourceCommit !== "string" || !/^[0-9a-f]{40}$/.test(expectedSourceCommit)) {
+        throw new GithubError("Quest Studio buildResult requires the exact submitted source commit");
+      }
       let result;
       try {
         result = validateBuildResult(await this.github.json(questResultPath(id), questBranch(id)), id);
@@ -6304,13 +6312,20 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         throw e;
       }
       const actual = result.provenance?.sourceRevision ?? null;
-      return { result, stale: !!expectedSourceCommit && actual !== expectedSourceCommit };
+      return { result, stale: actual !== expectedSourceCommit };
     }
     async generatedManifest(requestId, buildResult) {
       const id = questRequestId(requestId);
       const result = validateBuildResult(buildResult, id);
       const path = generatedArtifactPath(result.generated?.manifestPath, id);
-      return this.github.text(path, questBranch(id));
+      const expected = result.generated?.manifestSha256;
+      if (typeof expected !== "string" || !/^[0-9a-f]{64}$/.test(expected)) {
+        throw new GithubError("Quest Studio result does not contain a valid generated manifest SHA-256");
+      }
+      const text = await this.github.text(path, questBranch(id));
+      const actual = await sha256Hex(text);
+      if (actual !== expected) throw new GithubError("Quest Studio generated manifest does not match the compiler result digest");
+      return text;
     }
   };
 
@@ -6610,7 +6625,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       this.draft.beats = Array.from({ length: count }, () => ({ description: "", choiceText: "Continue" }));
       this.saveDraft();
     }
-    saveDraft() {
+    saveDraft({ preserveBuild = false } = {}) {
+      if (!preserveBuild && this.draft) {
+        this.draft.sourceCommit = null;
+        this.draft.lastResult = null;
+        this.buildState = null;
+      }
       writeDraft(this.app.storage, this.draft, this.app.now ? this.app.now() : Date.now());
     }
     chooseProfile(key) {
@@ -6819,7 +6839,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         if (token !== this.pollToken) return;
         this.draft.sourceCommit = submitted.sourceCommit;
         this.draft.lastResult = null;
-        this.saveDraft();
+        this.saveDraft({ preserveBuild: true });
         this.buildState = { busy: true, sourceCommit: submitted.sourceCommit };
         this.renderMission();
         await this.pollBuild(submitted.sourceCommit, token);
@@ -6835,7 +6855,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         const got = await this.repository.buildResult(this.draft.requestId, { expectedSourceCommit: sourceCommit });
         if (got && !got.stale) {
           this.draft.lastResult = got.result;
-          this.saveDraft();
+          this.saveDraft({ preserveBuild: true });
           this.buildState = { result: got.result, stale: false, sourceCommit };
           this.renderMission();
           return;

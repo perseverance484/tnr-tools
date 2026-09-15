@@ -8,6 +8,7 @@ profile can travel through mission.py, shotlist.py and validate.py and return a 
 """
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -80,12 +81,15 @@ def main() -> int:
         manifest = root / "build" / "manifest.json"
         if not manifest.is_file():
             raise SystemExit("Mission adapter did not materialize manifest.json")
+        expected_manifest_hash = hashlib.sha256(manifest.read_bytes()).hexdigest()
+        if result.get("generated", {}).get("manifestSha256") != expected_manifest_hash:
+            raise SystemExit("generated manifest digest does not bind manifest.json bytes")
         payload = json.loads(manifest.read_text(encoding="utf-8"))
         quest = next((x for x in payload.get("items", []) if x.get("entity") == "quest"), None)
         if not quest or quest.get("data", {}).get("questType") != "mission":
             raise SystemExit("generated manifest does not contain a mission quest entry")
         print("PASS  current D Mission source compiles through mission.py + validate.py")
-        print("PASS  provenance and live-game boundary are preserved")
+        print("PASS  provenance, manifest digest, and live-game boundary are preserved")
 
         bad_shape = json.loads(json.dumps(source))
         bad_shape["requestId"] = "selftest-mission-shape"

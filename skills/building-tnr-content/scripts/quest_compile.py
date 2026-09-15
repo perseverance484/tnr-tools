@@ -216,6 +216,7 @@ def compile_mission(source: dict, artifact_dir: Path, artifact_prefix: str) -> d
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+    manifest_sha256 = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
 
     valid, validation_output = run_manifest_validation(manifest_path)
     if not valid:
@@ -230,6 +231,7 @@ def compile_mission(source: dict, artifact_dir: Path, artifact_prefix: str) -> d
         "resolvedEngineType": "mission",
         "generated": {
             "manifestPath": f"{artifact_prefix}/manifest.json",
+            "manifestSha256": manifest_sha256,
             "entities": entity_summary(manifest),
             "enemies": built.get("enemies") or [],
         },
