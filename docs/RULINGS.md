@@ -135,3 +135,20 @@ A full pre-Forsworn transcript reconstruction is not required. Porting the art c
 **Rationale:** Once unique knowledge is safely transferred, keeping an obsolete project alive as shadow memory creates more drift risk than value.
 
 **Canonical destination:** handoff/extraction plan and relevant canonical design/reference files for any salvaged principles.
+
+---
+
+## RUL-2026-09-15-001 — Godstorm two-pyramid release scope
+
+**Date:** 2026-09-15  
+**Domain:** Godstorm event / battle-pyramid release planning  
+**Status:** ACTIVE  
+**Supersedes:** none; supersedes prior three-pyramid release assumptions for this release only
+
+**Ruling:** Retain The Marrow Vaults and The Stormcourt in release scope. Cut Dawnless Crown from this release. Maximize reuse of existing art and content. Keystones are not required: identify and remove obsolete references in the future approved content changes; do not create replacement keystones. Chest contents and all reward values remain open Content Admin decisions.
+
+This session is planning only. It authorizes repository preservation of the evidence-backed release plan through the normal ChatGPT branch and pull-request workflow, not image generation, processing, implementation, live-game requests, or publication. A later implementation must follow the approved brief and frozen-SHA review contract. Recommendations in the plan, including avatar reuse, exact ending prose, full-clear versus cash-out progression, and reward-accounting policy, are proposals until separately approved.
+
+**Rationale:** The approved direction reduces the release to two complete pyramids and prioritizes existing content and art. Capture-based recounting is required because prior infographic asset totals do not establish the reduced scope.
+
+**Canonical destination:** [Godstorm two-pyramid release plan](../state/plan_godstorm_two_pyramid_release.md). Engine semantics remain subject to canonical source verification; economy, balance, final art, and publication remain Content Admin decisions.
