@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Archive only saved Godstorm image URLs. Never contacts a game API.
+"""Archive saved Godstorm image URLs only; never contacts a game API.
 
-Pinned capture files are read from Git objects, not a possibly edited worktree.
-Normal execution requires a repository and a network-enabled runtime. Original
-hosted bytes are retained; no art edits are made.
+Read capture files from pinned Git objects. Preserve hosted bytes unchanged.
+Requires a repository and a network-enabled runtime. Header verification does
+not constitute full image decoding or visual approval.
 """
 from __future__ import annotations
-
 import argparse
 import hashlib
 import importlib.util
@@ -29,6 +28,7 @@ CAPTURES = (
     ("harvests/inbox/tnr_results_1789402842027.json",
      "push/24_godstorm_tower_related_capture.json", 30),
 )
+ID_FIELDS = {"quests.get": "id", "profile.getAi": "userId", "gameAsset.get": "id"}
 HOSTS = frozenset(("ui0arpl8sm.ufs.sh", "uploadthing.b-cdn.net",
                    "tnr-storage-cdn.b-cdn.net", "utfs.io"))
 MAX_BYTES = 5 * 1024 * 1024
@@ -41,7 +41,7 @@ def utc_now() -> str:
 
 
 def check_url(url: str) -> str:
-    """Fail closed on unexpected hosts, credentials, ports or non-file routes."""
+    """Reject unexpected hosts, credentials, ports and non-file routes."""
     p = urllib.parse.urlsplit(url)
     if (p.scheme != "https" or p.hostname not in HOSTS or p.username or p.password
             or p.port not in (None, 443) or p.query or p.fragment
@@ -74,15 +74,16 @@ def load_capture(repo: Path, source: tuple) -> dict:
 
 
 def point(source: dict, proc: str, entity_id: str) -> tuple:
-    input_field = "userId" if proc == "profile.getAi" else "id"
+    # profile.getAi uses userId in both input and response, unlike quests/assets.
+    key = ID_FIELDS[proc]
     matches = [(i, c) for i, c in enumerate(source["doc"]["captures"])
-               if c.get("proc") == proc and c.get("input", {}).get(input_field) == entity_id]
+               if c.get("proc") == proc and c.get("input", {}).get(key) == entity_id]
     if len(matches) != 1:
         raise ValueError(f"Expected exactly one {proc} record for {entity_id}")
     i, c = matches[0]
     if (c.get("ok") is not True or c.get("rows") != 1 or c.get("persist") != "full"
             or c.get("persistOk") is not True or not isinstance(c.get("data"), dict)
-            or c["data"].get("id") != entity_id or not c.get("snapshotKey")):
+            or c["data"].get(key) != entity_id or not c.get("snapshotKey")):
         raise ValueError(f"Incomplete persisted record: {proc}/{entity_id}")
     return i, c
 
@@ -132,7 +133,8 @@ def select(sources: list[dict]) -> list[dict]:
         if c["data"].get("type") != "SCENE_BACKGROUND":
             raise ValueError("Unexpected background asset type")
         references.append(ref(related, "gameAsset.get", bid, "image", "background", sorted(set(owners))))
-    if len(references) != 24 or sum(r["status"] == "default" for r in references) != 5:
+    if (len(references) != 24 or any(r["status"] == "missing" for r in references)
+            or sum(r["status"] == "default" for r in references) != 5):
         raise ValueError("Unexpected original/default census; stop for review")
     return references
 
@@ -157,7 +159,7 @@ def main() -> int:
     args = parser.parse_args()
     repo = args.repo.resolve()
     if args.out.exists():
-        raise ValueError("Output already exists; preserve prior evidence and choose a fresh path")
+        raise ValueError("Output exists; preserve prior evidence and choose a fresh path")
     sources = [load_capture(repo, c) for c in CAPTURES]
     refs = select(sources)
     # Reuse the repository decoder without changing its capture approval pin.
