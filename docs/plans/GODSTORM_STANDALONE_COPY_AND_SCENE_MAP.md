@@ -1,12 +1,14 @@
-# Godstorm: standalone quest copy and scene map
+# Godstorm: connected quest copy and scene map
 
-Draft 1 | 2026-09-15 | New copy and image bindings await director acceptance
+Draft 2 | 2026-09-15 | Connected setting approved; exact copy and image bindings await director acceptance
 
-Structural direction is approved. This is the proposed player-facing copy and scene map, not an executable manifest or a claim that production has changed. Fable remains the implementation owner; dauntless alone operates the game.
+One structure: Marrow Vaults below, Stormcourt above. The player enters through the Vaults, clears all 25 battles, and gains entry to the Court. The Court contains the second 25-battle pyramid and the release finale. Neither quest uses Tower of Endless Night branding or early cash-out.
+
+This is proposed player-facing copy and scene mapping, not an executable manifest or a claim that production has changed. Fable remains the implementation owner; dauntless alone operates the game. The existing filename is retained for reference stability; standalone refers to separation from the Tower concept, not geographically separate Godstorm sites.
 
 ## 1. Authority, evidence and proposal boundary
 
-Repository: `perseverance484/tnr-tools`. Governing plan and RUL-2026-09-15-002 at `0c21706a74c80dfa39d33564b101dd42b1bf808e`, branch `chatgpt/godstorm-two-pyramid-plan`. Capture baseline: `6e09b15bb6f3d1c90ba416d14211b533f5b4a367`.
+Repository: `perseverance484/tnr-tools`, branch `chatgpt/godstorm-two-pyramid-plan`. Draft revision base: `056e484f4af0323198ada48cdc6dd9aecf1e59c8`. Governing plan: `GODSTORM_TWO_PYRAMID_RELEASE_PLAN.md`; decisions: RUL-2026-09-15-002, clarified by RUL-2026-09-15-003. Capture baseline: `6e09b15bb6f3d1c90ba416d14211b533f5b4a367`.
 
 - E1: `harvests/inbox/tnr_results_1789401726302.json`, `captures[1].data` (Marrow), `captures[2].data` (Stormcourt): objective IDs, opponent bindings, original prose and background references. September 14, 16:02 UTC.
 - E2: `harvests/inbox/tnr_results_1789402842027.json`: AI identities, primary avatar assignments, embedded kits and background records. September 14, 16:20 UTC.
@@ -15,7 +17,7 @@ Repository: `perseverance484/tnr-tools`. Governing plan and RUL-2026-09-15-002 a
 
 Captured quest prose is the story baseline. An unavailable event sheet is not treated as read. The elder sister's confinement, failed light, stopped clock, moths, binding chains, divided threshold, tribunal, Widow, Candlewright, Herald and siphoned-storm Echo come from that baseline. New descriptive connective details and the revised endings are proposed copy, not automatically canonical lore.
 
-Two substantive narrative additions require acceptance: Marrow's records explicitly identify Stormcourt; defeating Sovereign Echo ends the local storm binding. This draft does not claim that either sister is physically present, rescued, alive or dead; it does not kill a god or settle every Unbroken Thread plot elsewhere.
+The shared vertical setting and Vaults-first entry are approved. Draft 1's records revealing a geographically separate second site are removed. The revised handoff is the stair beyond the final vault threshold, leading into the court directly above. Defeating Sovereign Echo ends the local storm binding in the proposed finale; that exact resolution still awaits copy acceptance. This draft does not claim that either sister is physically present, rescued, alive or dead; it does not kill a god or settle every Unbroken Thread plot elsewhere.
 
 Regular guardians remain anonymous combatants. No new narrator, sister portrait, illustrated collectible, travel objective or supporting cast is introduced. Stage names below are editorial group labels, not new quest nodes or registered asset names.
 
@@ -48,6 +50,8 @@ Remove these 16 dialogs from the revised graph, not the evidence archive:
 
 Retain `b5_boss -> d5_victory -> win` and `b10_boss -> d10_victory -> win`. All 50 failure links remain `fall`. Other battle-success links and all opponent configurations stay as captured. Do not change quest type, combat pools, abandonment controls or checkpoint/retry mechanics to implement this copy.
 
+The two quest records remain separate mechanically, with Marrow as Stormcourt's prerequisite. Opening the way upstairs is the narrative handoff, not a new travel task, automatic quest launch, shared 50-battle tracker or guarantee of continuous pools/rewards. Current unlock and legacy-completion behavior still require the implementation tests already specified in the plan.
+
 ## 3. Asset keys and proposed assignments
 
 These are planning keys, not runtime aliases or fabricated IDs. All proposed matches require actual pixel review. A complete assignment map is not completed visual production.
@@ -56,7 +60,7 @@ These are planning keys, not runtime aliases or fabricated IDs. All proposed mat
 |---|---|---|
 | M1 | `7EmVo6GH5GL4YtQTDrbDR` | marrow vault 1; captured, scene fit pending |
 | M2 | `oc0cXiMrcG_6kTUwNWRkn` | marrow vault 2; captured, scene fit pending |
-| M3 | `IykL5XxwFF14BosCblZj8` | marrow vault 3; captured, final-payoff fit pending |
+| M3 | `IykL5XxwFF14BosCblZj8` | marrow vault 3; captured, vault-to-court threshold fit pending |
 | S1 | `cKHhHoboreP88iH5WjDe7` | StormCourtyard; shared SkychainMonastery candidate, not dedicated Godstorm art |
 | B0 | `Q-_3WA5kibe_8gI2CgTKl` | Blank Character; older catalog candidate, current record and pixels unverified |
 | K1 | Not assigned | Warden of the First Dark scene portrait |
@@ -76,7 +80,7 @@ Allocation: M1 15 scenes; M2 10; M3 one; S1 26 candidate uses. B0 42 placements;
 
 Five captured background bindings survive and are preserved: M1 at d1_1, d1_2, d1_boss; M2 at d1_3, d1_4. Removing d1_choice and d1_cash removes two previously wired scenes. Therefore 47 background bindings remain to add, not 46. M3 is retained artwork even though its old cash-out placement is removed.
 
-Pixel review must check the stopped-clock, moth, chain and divided-threshold settings against M1/M2, and the cleared-prison payoff against M3. S1 must be evaluated against the tribunal, frost, candles and central-dais scenes. Textual detail need not be painted literally, but a visible contradiction fails the match. Inspect other existing compatible plates before adding any commission. No new background painting is committed by this draft.
+Pixel review must check the stopped-clock, moth, chain and divided-threshold settings against M1/M2, and the stair-access payoff against M3. M3 must not imply departure to a distant second site. S1 must be evaluated as the upper court reached from the vaults, including tribunal, frost, candles and central-dais scenes. Textual detail need not be painted literally, but a visible contradiction fails the match. Inspect other existing compatible plates before adding any commission. This narrative clarification adds no new scene or background commission.
 
 B0's alternative catalog candidate is `1YXbXYW2wz3GETVMb6DT6`; verify one appropriate blank rather than creating another by default. All ten keeper scene IDs remain unresolved. Do not ship placeholder keys, null IDs or an unapproved blanket replacement for missing portraits.
 
@@ -94,15 +98,15 @@ Quest ID: `2yvE9PUQqlD8lbYNfgX-b`.
 
 **name:** Marrow Vaults
 
-**description:** The Unbroken Thread kept the elder sister in these vaults and studied the blood that devoured light. Its guardians still hold the prison. Defeat all twenty-five enemies, including the five keepers, to clear Marrow Vaults and open the route to Stormcourt.
+**description:** Beneath Stormcourt lie the Marrow Vaults, where the Unbroken Thread confined the elder sister and studied her light-devouring blood. Enter through the lower vaults and defeat all twenty-five enemies, including the five keepers, to open the passage to the court above.
 
-**successDescription:** Marrow Vaults is cleared. Its keepers are defeated, and the route to Stormcourt is open.
+**successDescription:** Marrow Vaults is cleared. The passage to Stormcourt above is open.
 
 ### Stage 1: The prison entrance
 
 | Dialog | Battle / enemy | Background | Character | Proposed description |
 |---|---|---|---|---|
-| d1_1 | 1 / Umbral Reaver | M1 | B0 | Tally-marks cover the entrance to Marrow Vaults: feedings, measurements, years. The Unbroken Thread recorded the elder sister's captivity in a careful administrative hand. An Umbral Reaver still guards the first passage. Whatever became of the jailers, their watch has not ended. |
+| d1_1 | 1 / Umbral Reaver | M1 | B0 | You enter through the lower vaults beneath Stormcourt. Tally-marks cover the entrance: feedings, measurements, years. The Unbroken Thread recorded the elder sister's captivity in a careful administrative hand. An Umbral Reaver guards the first passage. Thunder from the court above reaches you through the stone. |
 | d1_2 | 2 / Hollow Lantern | M1 | B0 | Beyond the first guard, a Hollow Lantern waits beside another row of tally-marks. A narrow strip of stone has been rubbed smooth where someone repeatedly counted the days by touch. |
 | d1_3 | 3 / Starless Monk | M2 | B0 | The next chamber has no window. A Starless Monk stands before the inner doorway, holding the same watch recorded on the walls outside. |
 | d1_4 | 4 / Nightveil Sentinel | M2 | B0 | A Nightveil Sentinel blocks the approach to the keeper's hall. Behind it, the prison records give way to bare stone. No visitor was meant to pass this point. |
@@ -142,25 +146,25 @@ Quest ID: `2yvE9PUQqlD8lbYNfgX-b`.
 
 | Dialog | Battle / enemy | Background | Character | Proposed description |
 |---|---|---|---|---|
-| d5_1 | 21 / Umbral Reaver | M1 | B0 | Past the broken bindings, the final threshold is divided. Cold silver covers one half; the other returns no light. The elder sister's chakra has soaked through the stone. An Umbral Reaver guards the crossing. |
+| d5_1 | 21 / Umbral Reaver | M1 | B0 | At the end of the vaults, a divided threshold seals the stair to Stormcourt. Cold silver covers one half; the other returns no light. The elder sister's chakra has soaked through the stone. An Umbral Reaver guards the crossing. |
 | d5_2 | 22 / Hollow Lantern | M1 | B0 | A Hollow Lantern waits near the silver edge. Its outline sharpens there, then disappears where the darkness touches its robes. |
 | d5_3 | 23 / Starless Monk | M2 | B0 | A Starless Monk holds the narrow approach. Behind it, the two halves of the threshold meet without blending. Nothing moves beyond that seam. |
-| d5_4 | 24 / Nightveil Sentinel | M2 | B0 | A Nightveil Sentinel is the last guard before the threshold. The marks of confinement end here. Whatever the Thread kept beyond them needed its own keeper. |
-| d5_boss | 25 / Warden of the Half Eclipse | M1 | K5 | The Warden of the Half Eclipse stands where silver meets dark, wearing both halves like a mantle. It has been partly consumed by what it guarded. The Warden draws its blade and closes the final passage. |
+| d5_4 | 24 / Nightveil Sentinel | M2 | B0 | A Nightveil Sentinel is the last guard before the stair. The marks of confinement end here. Beyond the threshold, the passage rises toward the court above. |
+| d5_boss | 25 / Warden of the Half Eclipse | M1 | K5 | The Warden of the Half Eclipse stands where silver meets dark, wearing both halves like a mantle. It has been partly consumed by what it guarded. The Warden draws its blade across the foot of the stair. |
 
 ### Full-clear ending: d5_victory
 
-Background M3; character B0. One choice: **Leave the vaults** -> `win`.
+Background M3; character B0. One choice: **Complete Marrow Vaults** -> `win`.
 
-The Warden of the Half Eclipse falls. Beyond the threshold, no guard remains to seal the prison again. The records left in these chambers name a second site of the Thread's work: Stormcourt, where the younger sister's storm was held. The vaults are cleared. You leave to end the work recorded there.
+The Warden of the Half Eclipse falls, leaving the stair beyond the divided threshold unguarded. Thunder rolls down from Stormcourt above. The elder sister's prison is cleared, but the younger sister's storm is still bound in the court overhead. The way up is open.
 
-**win.description:** You leave the cleared vaults behind and turn toward Stormcourt.
+**win.description:** The stair to Stormcourt is open.
 
-**win.successDescription:** Marrow Vaults is cleared.
+**win.successDescription:** Marrow Vaults is cleared. The passage to Stormcourt above is open.
 
 **fall.description:** This attempt ends before Marrow Vaults is cleared.
 
-Keep `fall.successDescription` empty. The visible victory dialog carries the narrative ending; the terminal node is not its substitute. The leave button closes this quest and does not promise an automatic start of Stormcourt.
+Keep `fall.successDescription` empty. The visible victory dialog carries the narrative handoff; the terminal node is not its substitute. The completion button closes Marrow. It does not launch Stormcourt or merge the quests. The player gains access through the preserved prerequisite; Stormcourt's opening describes the ascent when that quest begins.
 
 ## 6. Stormcourt
 
@@ -168,7 +172,7 @@ Quest ID: `OSADdXqostbyVliCxWk6k`. Preserve its existing Marrow prerequisite.
 
 **name:** Stormcourt
 
-**description:** The Unbroken Thread bound the younger sister's storm within this court. Its guardians still defend the instruments that held it. Defeat all twenty-five enemies, including the five keepers, and bring down the Sovereign Echo of the Godstorm to end the binding.
+**description:** Above the Marrow Vaults lies Stormcourt, where the Unbroken Thread bound the younger sister's storm. Enter from the cleared vaults below and defeat all twenty-five enemies, including the five keepers. Bring down the Sovereign Echo of the Godstorm to end the binding.
 
 **successDescription:** Stormcourt is cleared. The Sovereign Echo is defeated, and the binding is broken.
 
@@ -176,7 +180,7 @@ Quest ID: `OSADdXqostbyVliCxWk6k`. Preserve its existing Marrow prerequisite.
 
 | Dialog | Battle / enemy | Background | Character | Proposed description |
 |---|---|---|---|---|
-| d6_1 | 1 / Hollow Lantern Ascendant | S1 | B0 | At Stormcourt, pressure bears down before the first thunderclap. Scorched marks spread across the stone at the height of a young girl. This is where the Thread held the younger sister's storm. A Hollow Lantern Ascendant guards the approach to the tribunal. |
+| d6_1 | 1 / Hollow Lantern Ascendant | S1 | B0 | The stair from Marrow Vaults opens into Stormcourt. Enclosed stone gives way to wind and rain, and the thunder you heard below breaks overhead. Scorched marks spread across the court at the height of a young girl. A Hollow Lantern Ascendant guards the approach to the tribunal. |
 | d6_2 | 2 / Starless Monk Ascendant | S1 | B0 | A Starless Monk Ascendant waits along the tribunal approach. A voice almost forms inside the thunder, then breaks apart before you can distinguish a word. |
 | d6_3 | 3 / Nightveil Sentinel Ascendant | S1 | B0 | A Nightveil Sentinel Ascendant holds the next crossing. Its outline remains steady in a gust that drives rain sideways across the court. |
 | d6_4 | 4 / Umbral Reaver Ascendant | S1 | B0 | An Umbral Reaver Ascendant blocks the way to the Judge. The fighting has not disturbed the figure waiting beyond it. The gavel remains raised. |
@@ -197,7 +201,7 @@ Quest ID: `OSADdXqostbyVliCxWk6k`. Preserve its existing Marrow prerequisite.
 | Dialog | Battle / enemy | Background | Character | Proposed description |
 |---|---|---|---|---|
 | d8_1 | 11 / Nightveil Sentinel Ascendant | S1 | B0 | Beyond the Widow, old wax fills the joints between the stones. Rows of spent candles lean against one another, their wicks drowned by rain. A Nightveil Sentinel Ascendant guards the surviving work. |
-| d8_2 | 12 / Umbral Reaver Ascendant | S1 | B0 | An Umbral Reaver Ascendant waits among the dead candles. Small sheltered flames persist farther ahead, relit as quickly as the weather extinguishes them. |
+| d8_2 | 12 / Umbral Reaver Ascendant | S1 | B0 | An Umbral Reaver Ascendant advances among the dead candles. Small sheltered flames persist farther ahead, relit as quickly as the weather extinguishes them. |
 | d8_3 | 13 / Hollow Lantern Ascendant | S1 | B0 | A Hollow Lantern Ascendant guards a line of candle stubs. Wax has hardened around their bases in layers, each failed lighting buried beneath the next. |
 | d8_4 | 14 / Starless Monk Ascendant | S1 | B0 | A Starless Monk Ascendant keeps the last approach to the light-keeper. Beyond it, wax is being worked around a fresh wick. The hands do not stop when you arrive. |
 | d8_boss | 15 / The Candlewright | S1 | K8 | The Candlewright turns from its work, crusted in old wax and crowned with small flames. The Thread charged it with holding back the girl's weather. It is still tending the candles after every flame around it has failed. |
@@ -226,7 +230,7 @@ Quest ID: `OSADdXqostbyVliCxWk6k`. Preserve its existing Marrow prerequisite.
 
 Background S1; character B0. One choice: **Leave Stormcourt** -> `win`.
 
-The Sovereign Echo collapses. Lightning leaves the empty armor, and the pressure lifts from the court. The remaining binding instruments fall silent. For the first time since you entered, the thunder carries no voice. The Thread's prison and storm binding are both broken. Rain falls through Stormcourt without being drawn back toward the dais. You leave no keeper behind.
+The Sovereign Echo collapses. Lightning leaves the empty armor, and the binding instruments fall silent. Rain crosses the upper court without being drawn back toward the dais. For the first time since you entered the vaults below, the thunder carries no voice. The Thread's prison beneath the court and its storm binding above are both broken.
 
 **win.description:** You leave Stormcourt as the rain settles over the silent court.
 
@@ -234,7 +238,7 @@ The Sovereign Echo collapses. Lightning leaves the empty armor, and the pressure
 
 **fall.description:** This attempt ends before Stormcourt is cleared.
 
-Keep `fall.successDescription` empty. No shared Tower, further pyramid, named reward item or new collectible is promised in this ending. Its local-binding resolution is proposed for acceptance, not an assertion about the fate of a deity or either sister.
+Keep `fall.successDescription` empty. This concludes the connected Godstorm structure without promising another pyramid, reward item or new collectible. The exact binding resolution remains proposed copy; it asserts neither sister's fate or the death of a deity. Tower of Endless Night and its cash-out mechanic remain a separate concept.
 
 ## 7. Battle labels and outcome fields
 
@@ -278,10 +282,10 @@ All image matches remain proposed until original-file recovery, record validatio
 
 No local repository clone, repository validator, factory, harvest normalization, graph-derived production shotlist, art preflight, pixel review, engine simulation or live playtest was completed for this authoring pass. This is an editorial map built from read source records, not a generated production shotlist. Before implementation, reproduce the mapping from the untruncated captures and validate the exact Fable payload SHA against the agreed source/contracts.
 
-Local consistency checks over the authored draft passed: 52 unique dialogs; 50 battle rows; 18 opponent IDs; 16 removal targets; eight reroutes; one start and 53 nodes per quest; valid pointers; one direct dialog predecessor per battle; every success path traverses its 25 battles in order; only final victory dialogs lead to win; 50 failure links lead to fall; no removed node remains; ten keeper and 42 blank assignments; background allocation 15/10/1/26; five surviving captured background bindings preserved. Proposed player-facing strings contain no discarded branding, key promise, paid-withdrawal terminology or old Stormcourt floor labels. These are authored-model checks, not a game certification.
+Draft 1 recorded authored-model consistency checks at `056e484f4af0323198ada48cdc6dd9aecf1e59c8`. Draft 2 changes the connected-setting copy, handoff button and related editorial guidance; it does not change the proposed graph, opponent order, IDs or asset assignments. Those prior checks are historical evidence, not a claim that repository or game tests were rerun here. Revised text must be checked for obsolete second-site/records wording and unwanted Tower terminology before handoff.
 
 ## 9. Acceptance checkpoint
 
-Review the 52 dialog bodies, two listing descriptions and outcome text. The two substantive narrative choices are the explicit records-to-Stormcourt link and the binding-breaking finale. Approving copy does not approve uninspected images, exact rewards or live operation.
+The one-structure setting and Vaults-first access are approved. Review the exact revised introductions, threshold scenes, Marrow handoff and Stormcourt finale; the local-binding resolution and image matches still await acceptance. Approving this spatial connection does not approve all prose, uninspected images, exact rewards or live operation.
 
 After acceptance: prove artwork reuse, supply actual accepted scene-character IDs, close reward decisions, and have Fable construct independently reviewed, validated changes. The operator then applies the approved package and supplies full readback. This draft does not merge main, generate artwork, create a mutation manifest or change production.
