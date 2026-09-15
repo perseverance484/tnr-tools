@@ -1,0 +1,70 @@
+name: Godstorm source-art recovery
+
+on:
+  push:
+    branches: [chatgpt/godstorm-art-recovery]
+    paths:
+      - scripts/recover_godstorm_art.py
+      - .github/workflows/godstorm_art_recovery.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: godstorm-source-art-recovery
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    if: github.repository == 'perseverance484/tnr-tools' && github.ref == 'refs/heads/chatgpt/godstorm-art-recovery'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      BRANCH: chatgpt/godstorm-art-recovery
+      OUT: art/godstorm_sources/capture-2026-09-14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/godstorm-art-recovery
+          fetch-depth: 0
+      - name: Verify branch and compile collector
+        run: |
+          set -euo pipefail
+          test "$(git branch --show-current)" = "$BRANCH"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python3 -m py_compile scripts/recover_godstorm_art.py
+      - name: Recover saved artwork URLs only
+        id: recover
+        continue-on-error: true
+        run: python3 scripts/recover_godstorm_art.py --out "$OUT"
+      - name: Preserve recovery evidence on this branch only
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ ! -f "$OUT/index.json" ]; then
+            echo "No archive index was produced; no evidence commit."
+            exit 0
+          fi
+          git config user.name 'tnr-tools art archive'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "$OUT"
+          if ! git diff --cached --quiet; then
+            git commit -m 'art: preserve Godstorm source images and capture provenance'
+            git pull --rebase origin "$BRANCH"
+            git push origin "HEAD:$BRANCH"
+          fi
+      - name: Export original bytes and index
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: godstorm-source-art
+          path: art/godstorm_sources/capture-2026-09-14/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Require complete retrieval
+        if: always()
+        env:
+          RECOVERY_OUTCOME: ${{ steps.recover.outcome }}
+        run: |
+          test "$RECOVERY_OUTCOME" = success
+          python3 -c 'import json,os; p=os.path.join(os.environ["OUT"],"index.json"); d=json.load(open(p)); assert d["state"] == "COMPLETE", d["summary"]'
