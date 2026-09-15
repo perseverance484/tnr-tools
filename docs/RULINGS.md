@@ -135,3 +135,20 @@ A full pre-Forsworn transcript reconstruction is not required. Porting the art c
 **Rationale:** Once unique knowledge is safely transferred, keeping an obsolete project alive as shadow memory creates more drift risk than value.
 
 **Canonical destination:** handoff/extraction plan and relevant canonical design/reference files for any salvaged principles.
+
+---
+
+## RUL-2026-09-15-001 — Godstorm two-pyramid planning scope
+
+**Date:** 2026-09-15 (recorded from the current planning conversation)  
+**Domain:** Godstorm / Tower of Endless Night release planning  
+**Status:** ACTIVE  
+**Supersedes:** none; replaces the earlier three-pyramid release assumption for this workstream
+
+**Ruling:** Cut Dawnless Crown from release scope and plan around the two retained pyramids, Marrow Vaults and Stormcourt. Maximize reuse of artwork already made. No new keystone assets are needed. Perform a full planning phase before execution. Leave chest contents and reward values open for Content Admin, accompanied by recommendations; dauntless retains final project authority and every live-game action.
+
+**Rationale:** Reduce unfinished release scope and avoid commissioning artwork that existing assets can cover.
+
+**Canonical destination:** `docs/plans/GODSTORM_TWO_PYRAMID_RELEASE_PLAN.md` owns the task plan and separates observed inventory, user-set scope, recommendations and open decisions. Subsequent approved build briefs and existing workstream coordination will point to it. This entry does not amend general doctrine or engine laws.
+
+**Not approved by this ruling:** a particular battle count, exact reward/cadence values, an unlock mechanism, a fixed number of new paintings, destructive live deletion, automatic publishing, or implementation before plan acceptance. The plan's five-avatar completion / ten-keeper portrait / four-background reuse proposal remains a proposal, not a ruling.
