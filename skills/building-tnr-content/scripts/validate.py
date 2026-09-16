@@ -278,7 +278,15 @@ def check_member(obj, union, ctors, where, rep):  # law 2: per-tag strict unions
                 rep.err(where, f"{key}.{f}={v} must be an integer")
 
 
-def check_rules(rules, ctors, where, rep):
+def check_rules(rules, ctors, where, rep, include_default_rules=False):
+    """Law 41 is SCOPED: "With `includeDefaultRules: false` the final rule must be
+    unconditional". With the flag TRUE the engine appends its own catch-all tail after the
+    authored chain (highest-power legal action, then movement), and that tail is the
+    terminator, so an authored one is redundant rather than required. This tool enforced the
+    law unconditionally: stricter than the law text it cites, and stricter than the builder
+    preflight, whose rulesBad() carries no terminal check at all. The dead-rule check below
+    stays unconditional - an unconditional terminal rule ABOVE the end kills every rule under
+    it whichever way the flag is set."""
     if not isinstance(rules, list):
         rep.err(where, "rules must be an array")
         return
@@ -304,9 +312,12 @@ def check_rules(rules, ctors, where, rep):
 
     if rules and isinstance(rules[-1], dict):
         last = rules[-1]
-        if last.get("conditions") or act_type(last) not in uncond:
-            rep.err(where, "law 41: the final rule must be unconditional "
-                           "(move_towards_opponent, end_turn or use_random_jutsu) with conditions: []")
+        if not include_default_rules and (last.get("conditions")
+                                          or act_type(last) not in uncond):
+            rep.err(where, "law 41: with includeDefaultRules false the final rule must be "
+                           "unconditional (move_towards_opponent, end_turn or use_random_jutsu) "
+                           "with conditions: []. Either author that rule or set "
+                           "includeDefaultRules: true and let the engine append its own tail")
         for i, r in enumerate(rules[:-1]):
             if isinstance(r, dict) and not r.get("conditions") and act_type(r) in uncond:
                 rep.err(f"{where}.rules[{i}]", "unconditional rule above the end; every rule below it is dead")
@@ -831,7 +842,8 @@ def check_entry(entry, ctors, rep, manifest):
             check_acyclic(_objs, where, rep)
             check_reset_targets(_objs, where, rep)
     if entry.get("entity") in ("ai", "aiProfile") and "rules" in data:
-        check_rules(data["rules"], ctors, where, rep)
+        check_rules(data["rules"], ctors, where, rep,
+                    include_default_rules=data.get("includeDefaultRules") is True)
         check_distance_gates(data, where, rep)
     if entry.get("entity") == "ai":
         if entry.get("slot") == "create":

@@ -114,8 +114,14 @@ class Factory:
     def action(self, type_, **values):
         return self._build("ZodAllAiActions", type_, values)
 
-    def objective(self, task, **values):
-        return self._build("AllObjectives", task, values, disc="task")
+    def objective(self, member, **values):
+        """`member` is the AllObjectives key. For most nodes that key IS the task
+        literal ("dialog", "start_battle"). Two members are shared schemas whose own
+        `task` is an enum - InstantWinLoseObjective covers win_quest/fail_quest, and
+        SimpleObjective covers the counter tasks - so those are built by naming the
+        member and passing `task=` as a value, which the enum then checks. The
+        parameter is not called `task` for exactly that reason."""
+        return self._build("AllObjectives", member, values, disc="task")
 
     # ----------------------------------------------------------------- rules
     def rule(self, *conditions, action):
