@@ -87,6 +87,14 @@ jobs:
       - name: Commit tested non-workflow changes
         run: |
           set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path("docs/RULINGS.md")
+          text = p.read_text(encoding="utf-8")
+          for prefix in ("**Date:** 2026-09-16", "**Domain:** Forge Next / repository build security", "**Status:** ACTIVE"):
+              text = text.replace(prefix + "  \n", prefix + "\n")
+          p.write_text(text, encoding="utf-8")
+          PY
           git config user.name "quest-studio-source-push[bot]"
           git config user.email "quest-studio-source-push[bot]@users.noreply.github.com"
           git add -- \
