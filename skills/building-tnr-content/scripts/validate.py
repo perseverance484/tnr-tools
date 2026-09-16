@@ -819,7 +819,21 @@ def check_entry(entry, ctors, rep, manifest):
 
     if slot != "create" and not entry.get("targetId"):  # law 5
         rep.err(where, "non-create entry without top-level targetId")
-    if slot == "create" and data.get("hidden") is not True:  # law 16b (L13)
+    if entry.get("entity") == "aiProfile" and slot == "create":
+        # Forge 0.4.1 refuses this at PARSE time, before a job exists and before
+        # any mutation: forge/src/runner/manifest.mjs raises "aiProfile cannot be
+        # created directly; create an ai with rules", and recipes.mjs defines the
+        # aiProfile recipe as update-only (no create path at all). The retired
+        # builder_bundle.js routed a standalone aiProfile create, which is how
+        # push/47 reached a green validator here and was then refused by the
+        # runner. An AiProfile is reached only through its AI: put `rules` and
+        # `includeDefaultRules` in the ai item's data, and the runner's rules
+        # phase resolves or toggles the profile row and writes it.
+        # An aiProfile EDIT stays valid; that is the update path Forge supports.
+        rep.err(where, "aiProfile cannot be created directly. Move `rules` and "
+                       "`includeDefaultRules` into the owning ai create's data; the runner "
+                       "toggles and writes the profile itself (Forge 0.4.1 manifest.mjs)")
+    elif slot == "create" and data.get("hidden") is not True:  # law 16b (L13)
         rep.err(where, "create without hidden:true. Everything ships hidden, every entity; "
                        "where the column does not exist the key is stripped harmlessly")
 

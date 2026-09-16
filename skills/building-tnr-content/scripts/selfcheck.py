@@ -96,6 +96,65 @@ def check_validator(gdir, loaded, errors, notes):
     notes.append(f"validate.py consumes {len(declared) - len(missing)}/{len(declared)} declared 45g blocks")
 
 
+AIPROFILE_CREATE_MSG = "aiProfile cannot be created directly"
+
+# One valid rule, so the fixtures below fail (or pass) on the entity/slot
+# question alone rather than on rule grammar.
+_RULE = {
+    "conditions": [{"type": "distance_lower_than", "value": 6, "target": "RANDOM_OPPONENT"}],
+    "action": {"type": "use_specific_jutsu", "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+               "target": "RANDOM_OPPONENT"},
+}
+_AI_REQ = {"rank": "JONIN", "regeneration": 60, "preferredStat": "Bukijutsu",
+           "preferredGeneral1": "Strength", "preferredGeneral2": "Speed"}
+
+# Forge 0.4.1 refuses a standalone aiProfile create at parse time
+# (forge/src/runner/manifest.mjs), and its aiProfile recipe is update-only.
+# push/47 reached a frozen handoff carrying two of them because this validator
+# said nothing: it was green while the runner would not open a job. These three
+# fixtures pin both halves of the contract - the create is refused, and the two
+# shapes Forge DOES support are not.
+RUNNER_CONTRACT_FIXTURES = (
+    ("aiProfile create", True, {"items": [
+        {"entity": "aiProfile", "slot": "create", "name": "Probe", "srcId": "probe",
+         "data": {"name": "Probe", "hidden": True, "rules": [_RULE],
+                  "includeDefaultRules": True}}]}),
+    ("aiProfile edit", False, {"items": [
+        {"entity": "aiProfile", "slot": "edit", "name": "Probe",
+         "targetId": "YiRdVytsdxFzZtqkEDs5Q",
+         "data": {"rules": [_RULE], "includeDefaultRules": True}}]}),
+    ("ai create carrying rules", False, {"items": [
+        {"entity": "ai", "slot": "create", "name": "Probe", "srcId": "probe",
+         "data": dict(_AI_REQ, username="Probe", hidden=True, level=100,
+                      jutsus=["YiRdVytsdxFzZtqkEDs5Q"], rules=[_RULE],
+                      includeDefaultRules=True)}]}),
+)
+
+
+def check_runner_contract(gdir, loaded, errors, notes):
+    """validate.py must agree with the Forge manifest contract on aiProfile."""
+    if not all(name in loaded for name in GENERATED):
+        return
+    import tempfile
+    for label, want_refused, manifest in RUNNER_CONTRACT_FIXTURES:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "probe.json"
+            path.write_text(json.dumps(manifest))
+            result = subprocess.run(
+                [sys.executable, str(HERE / "validate.py"), str(path)],
+                cwd=gdir, capture_output=True, text=True,
+            )
+        refused = AIPROFILE_CREATE_MSG in result.stdout
+        if refused != want_refused:
+            errors.append(
+                f"runner contract: {label} was "
+                f"{'not refused' if want_refused else 'refused'} by validate.py. "
+                f"Forge 0.4.1 {'refuses' if want_refused else 'supports'} it "
+                f"(forge/src/runner/manifest.mjs, recipes.mjs)")
+    notes.append(f"runner contract: {len(RUNNER_CONTRACT_FIXTURES)} aiProfile "
+                 "slot fixtures agree with Forge")
+
+
 def check_cross_module_refs(loaded, errors):
     constructors = loaded.get("45c_DATA_constructors.json")
     if constructors is None:
@@ -122,6 +181,7 @@ def main():
     loaded = check_generated(gdir, errors, notes)
     check_factory(gdir, loaded, errors, notes)
     check_validator(gdir, loaded, errors, notes)
+    check_runner_contract(gdir, loaded, errors, notes)
     check_cross_module_refs(loaded, errors)
 
     for error in errors:
