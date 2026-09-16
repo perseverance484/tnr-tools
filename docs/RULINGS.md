@@ -31,7 +31,7 @@ Each entry carries:
 
 **Date:** 2026-09-08  
 **Domain:** repository access / collaboration security  
-**Status:** ACTIVE  
+**Status:** ACTIVE
 **Supersedes:** none
 
 **Ruling:** ChatGPT will not use a personal access token for `tnr-tools`. ChatGPT repository writes use the repository-scoped ChatGPT Codex Connector. The old `tnr-container` PAT exposed in the retired Claude-project instruction surface should be rotated/revoked as part of the restructure. Claude Code should use a non-pasted native GitHub authentication path where its environment supports one; do not place repository credentials in committed files or prompt text.
@@ -46,7 +46,7 @@ Each entry carries:
 
 **Date:** 2026-09-08  
 **Domain:** project-history extraction  
-**Status:** ACTIVE  
+**Status:** ACTIVE
 **Supersedes:** none
 
 **Ruling:** Do not fully reconstruct the pre-Forsworn conversation era. Salvage selectively: extract material only when it defines a reusable design principle, constrains current/future work, or prevents repetition of an expensive mistake. Shipped specifics and rejected iterations are not automatically worth preserving.
@@ -61,7 +61,7 @@ Each entry carries:
 
 **Date:** 2026-09-08  
 **Domain:** project memory / governance  
-**Status:** ACTIVE  
+**Status:** ACTIVE
 **Supersedes:** none
 
 **Ruling:** Maintain one flat committed ruling ledger at `docs/RULINGS.md`. Entries are append-oriented and carry stable IDs, date, domain, ruling, rationale, status, canonical destination, and a `supersedes` reference when applicable.
@@ -76,7 +76,7 @@ Each entry carries:
 
 **Date:** 2026-09-08  
 **Domain:** engine-law provenance  
-**Status:** ACTIVE  
+**Status:** ACTIVE
 **Supersedes:** none
 
 **Ruling:** Reconcile engine laws in this order: (1) correct the known contradictions in laws 19 and 23 and re-derive dependent law 37; (2) move the identified doctrine-class laws to their proper doctrine/design owner; (3) source-cite the verified ENGINE class; (4) split PARTIAL laws clause-by-clause so verified and unverified claims do not share one assertion; (5) investigate NOT_IN_SOURCE entries individually and classify them by evidence rather than retaining them as presumed engine facts.
@@ -93,7 +93,7 @@ The separately deferred mission-shape doctrine rewrite remains deferred pending 
 
 **Date:** 2026-09-08  
 **Domain:** visual asset production / tooling  
-**Status:** ACTIVE  
+**Status:** ACTIVE
 **Supersedes:** none
 
 **Ruling:** Pillow is an approved dependency of the TNR art-production pipeline. Do not force image processing back to pure Python stdlib merely to satisfy an outdated "stdlib-only" framing. Port old ad-hoc NumPy-dependent compositing to Pillow where reasonable; do not add NumPy as a standing dependency unless a concrete operation justifies it and is separately reviewed.
@@ -108,7 +108,7 @@ The separately deferred mission-shape doctrine rewrite remains deferred pending 
 
 **Date:** 2026-09-08  
 **Domain:** collaboration workflow  
-**Status:** ACTIVE  
+**Status:** ACTIVE
 **Supersedes:** none
 
 **Ruling:** For substantial implementation work, ChatGPT and dauntless settle the design/requirements first. The approved implementation contract is committed as a concise task brief, following the existing `state/prompt_<task>.md` pattern where appropriate. dauntless hands that brief to Claude Code. Claude Code implements on its own branch and returns an exact-SHA handoff with tests/gates/deviations. ChatGPT independently reviews the frozen SHA. Issues may track work but are not the implementation contract; manifests are outputs, not communication documents.
@@ -125,7 +125,7 @@ Small low-risk fixes may use a lighter handoff when the required behaviour and r
 
 **Date:** 2026-09-08  
 **Domain:** project migration / knowledge preservation  
-**Status:** ACTIVE  
+**Status:** ACTIVE
 **Supersedes:** none
 
 **Ruling:** Retirement of the old Claude content project is gated by unique-information loss risk, not completion of every improvement that originated there. Before retirement: rotate/revoke the exposed old credential; salvage the unique reusable principles from its memory layer; extract important unresolved/durable rulings; preserve genuinely irreplaceable artifacts that dauntless wants kept; and verify that no active work depends on project-only information.
@@ -142,7 +142,7 @@ A full pre-Forsworn transcript reconstruction is not required. Porting the art c
 
 **Date:** 2026-09-12  
 **Domain:** Forge Next / content authoring UX  
-**Status:** ACTIVE  
+**Status:** ACTIVE
 **Supersedes:** none
 
 **Ruling:** The previously proposed Mission Studio is not a standalone top-level authoring product. Forge Next should provide one broader **Quest Studio** in which the creator selects a human-facing quest subtype/recipe such as Mission, Event, Story, Raid/Boss, Battle Pyramid, Daily, or another supported quest family. Mission-specific profile/storyboard behavior becomes one subtype adapter within that shared Studio. The intended end state is that supported quest types can be authored, compiled and validated through the repository's canonical scripts from the Forge interface without requiring routine chat/agent/file relay between design and build. Live-game execution remains an explicit user action and is not part of automatic compile.
@@ -157,7 +157,7 @@ A full pre-Forsworn transcript reconstruction is not required. Porting the art c
 
 **Date:** 2026-09-12  
 **Domain:** Forge Next / product architecture  
-**Status:** ACTIVE  
+**Status:** ACTIVE
 **Supersedes:** none
 
 **Ruling:** Forge Next should function as the operator-facing **translation, orchestration and presentation layer** over `tnr-tools`. The operator should be able to remain inside Forge for normal content design work, while the repository continues to own durable facts, contracts, profiles, evidence, scripts, validators and generated build artifacts. Forge does not need independent copies of all repository knowledge; it should read/generated-project/source those facts with provenance and call approved repository operations when canonical compilation or validation is required. Quest subtypes such as Mission, Story Quest and Battle Pyramid should therefore share one Studio rather than forcing the user through multiple manual interfaces or file/script relays.
@@ -167,3 +167,18 @@ Forge may keep local/generated projections for responsive editing, but those pro
 **Rationale:** This gives the user one coherent creative workspace while preserving TNR Tools' existing authority, reproducibility and safety model. Repository improvements can flow into Forge through adapters/generated contracts instead of requiring the same rule to be manually maintained twice.
 
 **Canonical destination:** `docs/design/FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md`, `docs/design/FORGE_NEXT_QUEST_STUDIO.md`, and the eventual approved Forge Next architecture/implementation brief.
+
+---
+
+## RUL-2026-09-16-001 — Quest Studio repository builds use source-push with Contents-only browser credentials
+
+**Date:** 2026-09-16
+**Domain:** Forge Next / repository build security
+**Status:** ACTIVE
+**Supersedes:** none
+
+**Ruling:** Quest Studio's initial repository build transport uses **source-push** rather than browser `workflow_dispatch`. Forge may hold a fine-grained GitHub credential with **Contents: write only** for `tnr-tools`; Quest Studio must not require Actions or Workflows write permission on the operator device. Pressing Compile persists a fresh exact Quest Source revision on its dedicated `studio/quest/*` branch, and that source write triggers the trusted repository worker. The worker executes compiler code from trusted `main`, treats the request branch as authored data only, and writes generated results back only to that request branch. Compile remains separate from all live-game execution.
+
+**Rationale:** This keeps the one-stop repository-backed Studio workflow while reducing the blast radius of a browser-stored repository credential. A stolen Contents-only token can alter repository content within its granted scope but cannot use Quest Studio's required permission set to dispatch unrelated Actions workflows.
+
+**Canonical destination:** `docs/design/FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md`, the accepted Quest Studio implementation contract/handoff, and the eventual unified Forge implementation brief. Branch retention/cleanup and later transport replacement remain engineering decisions.

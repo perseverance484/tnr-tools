@@ -76,18 +76,7 @@ test("Github.ensureBranch creates from main and tolerates an already-existing br
   assert.equal(calls.filter((c) => c.url.endsWith("/git/refs")).length, 1);
 });
 
-test("Github.dispatch sends workflow inputs to GitHub only", async () => {
-  let seen;
-  const fetchImpl = async (url, init = {}) => {
-    seen = { url, init };
-    return new Response(null, { status: 204 });
-  };
-  const github = new Github({ fetchImpl, storage: storageWithPat() });
-  await github.dispatch("quest_studio.yml", { ref: "main", inputs: { request_id: "demo" } });
-  assert.match(seen.url, /api\.github\.com\/repos\/perseverance484\/tnr-tools\/actions\/workflows\/quest_studio\.yml\/dispatches$/);
-  assert.deepEqual(JSON.parse(seen.init.body), { ref: "main", inputs: { request_id: "demo" } });
-  assert.equal(seen.init.headers.authorization, "Bearer test-token");
-});
+
 
 test("unsafe branch and request identifiers fail before a request is sent", async () => {
   let calls = 0;
@@ -97,35 +86,50 @@ test("unsafe branch and request identifiers fail before a request is sent", asyn
   assert.equal(calls, 0);
 });
 
-test("QuestStudioRepository writes source to its dedicated branch then dispatches exact commit", async () => {
+test("QuestStudioRepository writes a fresh source revision that triggers the worker without Actions dispatch", async () => {
   const log = [];
   const github = {
     async ensureBranch(branch, base) { log.push(["branch", branch, base]); return { created: true, sha: "1".repeat(40) }; },
     async put(path, text, message, opts) { log.push(["put", path, JSON.parse(text), message, opts]); return { commitSha: "2".repeat(40) }; },
-    async dispatch(workflow, args) { log.push(["dispatch", workflow, args]); return { ok: true }; },
   };
-  const repo = new QuestStudioRepository({ github });
+  const repo = new QuestStudioRepository({ github, buildRequestId: () => "build-request-001" });
   const source = {
     schemaVersion: 1,
     kind: "quest",
     requestId: "demo-mission",
     subtype: "mission",
     content: { rank: "D", name: "Demo" },
+    meta: { authoredIn: "test" },
   };
   const submitted = await repo.submit(source);
   assert.equal(submitted.branch, "studio/quest/demo-mission");
   assert.equal(submitted.sourcePath, "studio/requests/demo-mission.quest.json");
   assert.equal(submitted.sourceCommit, "2".repeat(40));
   assert.deepEqual(log[0], ["branch", "studio/quest/demo-mission", "main"]);
+  assert.equal(log.length, 2);
+  assert.equal(log[1][0], "put");
+  assert.equal(log[1][1], "studio/requests/demo-mission.quest.json");
+  assert.equal(log[1][2].meta.authoredIn, "test");
+  assert.equal(log[1][2].meta.repositoryBuildRequestId, "build-request-001");
   assert.equal(log[1][4].branch, "studio/quest/demo-mission");
-  assert.equal(log[2][1], QUEST_STUDIO.workflow);
-  assert.equal(log[2][2].ref, "main");
-  assert.deepEqual(log[2][2].inputs, {
-    request_branch: "studio/quest/demo-mission",
-    source_path: "studio/requests/demo-mission.quest.json",
-    request_id: "demo-mission",
-    source_sha: "2".repeat(40),
-  });
+  assert.equal(source.meta.repositoryBuildRequestId, undefined);
+});
+
+test("QuestStudioRepository changes repository build-request metadata on every compile request", async () => {
+  const written = [];
+  let n = 0;
+  const github = {
+    async ensureBranch() { return { created: false, sha: "1".repeat(40) }; },
+    async put(_path, text) { written.push(JSON.parse(text)); return { commitSha: String(++n).padStart(40, "0") }; },
+  };
+  const tokens = ["build-a", "build-b"];
+  const repo = new QuestStudioRepository({ github, buildRequestId: () => tokens.shift() });
+  const source = { schemaVersion: 1, kind: "quest", requestId: "demo-retry", subtype: "mission", content: {} };
+  await repo.submit(source);
+  await repo.submit(source);
+  assert.equal(written[0].meta.repositoryBuildRequestId, "build-a");
+  assert.equal(written[1].meta.repositoryBuildRequestId, "build-b");
+  assert.notDeepEqual(written[0], written[1]);
 });
 
 test("QuestStudioRepository marks an older persisted result stale", async () => {
@@ -220,23 +224,7 @@ test("Quest Source validation preserves repository-owned subtype policy", () => 
   assert.equal(questSourcePath(source.requestId), "studio/requests/demo-story.quest.json");
 });
 
-test("Github.dispatch allowlists Quest Studio and explains missing Actions permission", async () => {
-  let calls = 0;
-  const github = new Github({
-    fetchImpl: async () => { calls += 1; return new Response("forbidden", { status: 403 }); },
-    storage: storageWithPat(),
-  });
-  await assert.rejects(
-    () => github.dispatch("relay.yml", { ref: "main", inputs: {} }),
-    /not dispatchable from Forge/,
-  );
-  assert.equal(calls, 0);
-  await assert.rejects(
-    () => github.dispatch("quest_studio.yml", { ref: "main", inputs: {} }),
-    /Actions: write/,
-  );
-  assert.equal(calls, 1);
-});
+
 
 test("Github content URLs encode path syntax instead of allowing ref/query injection", async () => {
   let seen = "";

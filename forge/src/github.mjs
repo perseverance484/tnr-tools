@@ -27,8 +27,6 @@ function encodeRepoPath(path) {
   return path.split("/").map((segment) => encodeURIComponent(segment)).join("/");
 }
 
-const DISPATCHABLE_WORKFLOWS = new Set(["quest_studio.yml"]);
-
 export class Github {
   /**
    * @param {object} o
@@ -136,31 +134,6 @@ export class Github {
     return { sha: j.content?.sha ?? null, htmlUrl: j.content?.html_url ?? null, commitSha: j.commit?.sha ?? null };
   }
 
-  /** Dispatch an allowlisted repository workflow; callers choose the workflow/ref explicitly. */
-  async dispatch(workflow, { ref = this.cfg.branch, inputs = {} } = {}) {
-    if (!this._pat()) throw new GithubError("no PAT stored; Settings > GitHub");
-    if (typeof workflow !== "string" || !/^[A-Za-z0-9._-]+$/.test(workflow)) {
-      throw new GithubError(`unsafe workflow name ${JSON.stringify(workflow)}`);
-    }
-    if (!DISPATCHABLE_WORKFLOWS.has(workflow)) {
-      throw new GithubError(`workflow ${JSON.stringify(workflow)} is not dispatchable from Forge`);
-    }
-    ref = assertBranch(ref);
-    if (!inputs || typeof inputs !== "object" || Array.isArray(inputs)) throw new GithubError("workflow inputs must be an object");
-    const r = await this.fetchImpl(this._repo(`actions/workflows/${encodeURIComponent(workflow)}/dispatches`), {
-      method: "POST",
-      headers: { ...this._headers(), "content-type": "application/json" },
-      body: JSON.stringify({ ref, inputs }),
-    });
-    if (r.status !== 204) {
-      const t = await r.text();
-      if (r.status === 403) {
-        throw new GithubError(`dispatch ${workflow}: HTTP 403; the fine-grained PAT needs Actions: write on tnr-tools`, { status: 403 });
-      }
-      throw new GithubError(`dispatch ${workflow}: HTTP ${r.status} ${t.slice(0, 140)}`, { status: r.status });
-    }
-    return { ok: true };
-  }
 }
 
 export function b64utf8(s) {
