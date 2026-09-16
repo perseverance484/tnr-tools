@@ -8,12 +8,20 @@ One Perfect Crop.
 Contract: state/prompt_one_perfect_crop.md, governed by the 2026-09-16 override
 state/one_perfect_crop_core_manifest_override.md (ruling RUL-2026-09-16-001).
 
-Five creates, nothing else:
-    ai         Road Bandit
-    ai         Harvest Boar
-    aiProfile  Road Bandit behaviour
-    aiProfile  Harvest Boar behaviour
-    quest      One Perfect Crop
+Three creates, nothing else:
+    ai     Road Bandit   (its three authored rules ride in data.rules)
+    ai     Harvest Boar  (its three authored rules ride in data.rules)
+    quest  One Perfect Crop
+
+The first frozen candidate (af0efc6) carried the two behaviours as standalone
+`aiProfile` create items, the retired builder_bundle.js convention. Forge 0.4.1
+refuses that at parse time, before job creation or any mutation:
+"aiProfile cannot be created directly; create an ai with rules"
+(forge/src/runner/manifest.mjs; forge/src/runner/recipes.mjs defines aiProfile
+as update-only). Behaviour now rides on the owning `ai` item, which is the path
+forge/src/runner/runner.mjs implements: fill the AI, then its rules phase
+resolves/toggles the AiProfile row and calls ai.updateAiProfile. Nothing about
+the approved combat content changed; only where the rules are carried.
 
 DELIBERATELY ABSENT, because the override defers them to launch finalization:
   - no asset entries, no @img refs, no fabricated scene/image ids
@@ -200,10 +208,24 @@ def build_objectives(f, parsed):
     return objs
 
 
-# --------------------------------------------------------------- AI + profile
+# ------------------------------------------------------------------------ AI
 
 def build_enemy_entries(f, pool, spec_text):
-    ai_entries, profile_entries = [], []
+    """One `ai` create per enemy, carrying its behaviour in `data.rules`.
+
+    The rules ride on the AI item rather than on a standalone `aiProfile`
+    create, because Forge 0.4.1 refuses the latter outright: see
+    `forge/src/runner/manifest.mjs` ("aiProfile cannot be created directly;
+    create an ai with rules") and `forge/src/runner/recipes.mjs`, which defines
+    aiProfile as update-only. Forge's supported path is exactly this one:
+    `profile.create` -> `profile.updateAi` with the rules keys excluded
+    (`mergeAi`/`AI_OMIT` in recipes.mjs), then its rules phase resolves or
+    toggles the AiProfile row and calls `ai.updateAiProfile`
+    (`runner.mjs _rules`), and read-back verifies the profile separately.
+    The AiProfile record is still created; the manifest just does not - and
+    cannot - address it as its own item.
+    """
+    ai_entries = []
     for e in ENEMIES:
         entry = build_ai(
             {"name": e["name"], "srcId": e["srcId"], "role": "standard",
@@ -214,11 +236,6 @@ def build_enemy_entries(f, pool, spec_text):
         entry.pop("_derived", None)
         data = entry["data"]
 
-        # Behaviour lives on the AiProfile entry, which is its own record
-        # (ai.updateAiProfile). Keeping one copy means the two cannot drift.
-        rules = data.pop("rules")
-        data.pop("includeDefaultRules")
-
         # The five fields law 14 / builder lint L05 require, at the values the
         # combat spec fixes. Everything else is enemy.py's ratified default.
         data["preferredStat"] = e["preferredStat"]
@@ -228,40 +245,28 @@ def build_enemy_entries(f, pool, spec_text):
         # Exactly the three authored rules, in the frozen order, gate-checked
         # against the pool: no movement, highest-power or anti-exhaust rule is
         # authored, because includeDefaultRules appends the engine's own tail.
-        rules = [f.rule(f.condition("distance_lower_than", value=pool[c]["gate"]),
-                        action=f.action("use_specific_jutsu", jutsuId=pool[c]["id"]))
-                 for c in e["kit"]]
+        # enemy.py's own chain (one gated rule per kit entry plus a movement
+        # fallback, includeDefaultRules false) is replaced wholesale, not
+        # edited, so nothing of it can survive into the frozen contract.
+        data["rules"] = [
+            f.rule(f.condition("distance_lower_than", value=pool[c]["gate"]),
+                   action=f.action("use_specific_jutsu", jutsuId=pool[c]["id"]))
+            for c in e["kit"]
+        ]
+        data["includeDefaultRules"] = True
 
         ai_entries.append(entry)
-        profile_entries.append({
-            "name": e["name"] + " AiProfile",
-            "entity": "aiProfile",
-            "slot": "create",
-            "srcId": e["srcId"] + "_profile",
-            # The builder resolves this to the AI created above (phase ai runs
-            # before phase aiProfile), then getAi -> toggleAiProfile -> update.
-            "targetId": "@ai:" + e["srcId"],
-            "data": {
-                # name/hidden are inert on this push path (the builder sends
-                # only rules + includeDefaultRules) and are carried so the
-                # entry satisfies the create laws 16b and 36 like any other.
-                "name": e["name"] + " AiProfile",
-                "hidden": True,
-                "rules": rules,
-                "includeDefaultRules": True,
-            },
-        })
 
         # Contract assertions against the spec text itself, not against memory.
         for code in e["kit"]:
             assert pool[code]["id"] in spec_text, f"{code} id absent from the combat spec"
         assert data["jutsus"] == [pool[c]["id"] for c in e["kit"]]
-        assert [r["action"]["jutsuId"] for r in rules] == data["jutsus"]
+        assert [r["action"]["jutsuId"] for r in data["rules"]] == data["jutsus"]
         assert data["rank"] == AI_RANK and data["level"] == AI_LEVEL
         assert data["statsMultiplier"] == 1 and data["poolsMultiplier"] == 1
         assert data["regeneration"] == 60 and data["hidden"] is True
         assert "effects" not in data and "avatar" not in data
-    return ai_entries, profile_entries
+    return ai_entries
 
 
 # ------------------------------------------------------------------ assembly
@@ -273,7 +278,7 @@ def main():
 
     parsed = parse_prose(PROSE)
     objectives = build_objectives(f, parsed)
-    ai_entries, profile_entries = build_enemy_entries(f, pool, spec_text)
+    ai_entries = build_enemy_entries(f, pool, spec_text)
 
     quest = f.entry(
         "quest", "create", name=QUEST_NAME, srcId=QUEST_SRC,
@@ -311,7 +316,7 @@ def main():
         },
     )
 
-    man = f.manifest(ai_entries + profile_entries + [quest])
+    man = f.manifest(ai_entries + [quest])
     # Live name dedup before any create (laws 30/66): a collision returns
     # success:false and leaves a blank shell.
     out = {"dedupNames": True, "items": man["items"]}
@@ -329,9 +334,28 @@ def verify(man, objectives, parsed):
     """The handoff checklist from state/prompt_one_perfect_crop.md, executed."""
     items = man["items"]
     kinds = [(i["entity"], i["slot"]) for i in items]
-    assert kinds == [("ai", "create")] * 2 + [("aiProfile", "create")] * 2 \
-        + [("quest", "create")], kinds
+    # Forge 0.4.1 contract: exactly two ai creates and one quest create, and
+    # NO standalone aiProfile item in any slot. Forge refuses an aiProfile
+    # create at parse time, before a job exists.
+    assert kinds == [("ai", "create")] * 2 + [("quest", "create")], kinds
+    assert not [i for i in items if i["entity"] == "aiProfile"], \
+        "aiProfile cannot be a manifest item: create an ai with rules"
     assert all(i["data"].get("hidden") is True for i in items), "a create is not hidden"
+
+    # Behaviour rides on the owning AI item, exactly and only there.
+    for ai in items[:2]:
+        d = ai["data"]
+        assert d.get("includeDefaultRules") is True, ai["name"]
+        assert len(d.get("rules") or []) == 3, ai["name"]
+        assert [r["action"]["jutsuId"] for r in d["rules"]] == d["jutsus"], ai["name"]
+        assert all(r["action"]["type"] == "use_specific_jutsu"
+                   and [c["type"] for c in r["conditions"]] == ["distance_lower_than"]
+                   and [c["value"] for c in r["conditions"]] == [6]
+                   for r in d["rules"]), ai["name"]
+        assert not any(r["action"]["type"] in (
+            "move_towards_opponent", "end_turn", "use_random_jutsu",
+            "use_highest_power_action", "use_highest_power_jutsu")
+            for r in d["rules"]), ai["name"]
 
     blob = json.dumps(man)
     for forbidden in ("@img:", "@scene:", "skipPreflight", "reward_items",

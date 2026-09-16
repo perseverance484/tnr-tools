@@ -22,70 +22,6 @@
      "fKvCGRgzGNskgFWocQCAg",
      "kkGDat1XWUxhOQ1_T5025"
     ],
-    "ninjutsuOffence": 100,
-    "ninjutsuDefence": 100,
-    "genjutsuOffence": 100,
-    "genjutsuDefence": 100,
-    "taijutsuOffence": 100,
-    "taijutsuDefence": 100,
-    "bukijutsuOffence": 100,
-    "bukijutsuDefence": 100,
-    "strength": 100,
-    "intelligence": 100,
-    "willpower": 100,
-    "speed": 100,
-    "preferredStat": "Bukijutsu",
-    "preferredGeneral1": "Strength",
-    "preferredGeneral2": "Speed"
-   }
-  },
-  {
-   "name": "Harvest Boar",
-   "entity": "ai",
-   "slot": "create",
-   "srcId": "opc_ai_harvest_boar",
-   "data": {
-    "username": "Harvest Boar",
-    "level": 100,
-    "rank": "JONIN",
-    "regeneration": 60,
-    "poolsMultiplier": 1,
-    "statsMultiplier": 1,
-    "isSummon": false,
-    "hidden": true,
-    "primaryElement": "None",
-    "secondaryElement": "",
-    "jutsus": [
-     "YiRdVytsdxFzZtqkEDs5Q",
-     "4TM6iS8P0qgNHsFpALFhg",
-     "fKvCGRgzGNskgFWocQCAg"
-    ],
-    "ninjutsuOffence": 100,
-    "ninjutsuDefence": 100,
-    "genjutsuOffence": 100,
-    "genjutsuDefence": 100,
-    "taijutsuOffence": 100,
-    "taijutsuDefence": 100,
-    "bukijutsuOffence": 100,
-    "bukijutsuDefence": 100,
-    "strength": 100,
-    "intelligence": 100,
-    "willpower": 100,
-    "speed": 100,
-    "preferredStat": "Taijutsu",
-    "preferredGeneral1": "Strength",
-    "preferredGeneral2": "Speed"
-   }
-  },
-  {
-   "name": "Road Bandit AiProfile",
-   "entity": "aiProfile",
-   "slot": "create",
-   "srcId": "opc_ai_road_bandit_profile",
-   "targetId": "@ai:opc_ai_road_bandit",
-   "data": {
-    "name": "Road Bandit AiProfile",
-    "hidden": true,
     "rules": [
      {
       "conditions": [
@@ -136,18 +72,45 @@
       }
      }
     ],
-    "includeDefaultRules": true
+    "includeDefaultRules": true,
+    "ninjutsuOffence": 100,
+    "ninjutsuDefence": 100,
+    "genjutsuOffence": 100,
+    "genjutsuDefence": 100,
+    "taijutsuOffence": 100,
+    "taijutsuDefence": 100,
+    "bukijutsuOffence": 100,
+    "bukijutsuDefence": 100,
+    "strength": 100,
+    "intelligence": 100,
+    "willpower": 100,
+    "speed": 100,
+    "preferredStat": "Bukijutsu",
+    "preferredGeneral1": "Strength",
+    "preferredGeneral2": "Speed"
    }
   },
   {
-   "name": "Harvest Boar AiProfile",
-   "entity": "aiProfile",
+   "name": "Harvest Boar",
+   "entity": "ai",
    "slot": "create",
-   "srcId": "opc_ai_harvest_boar_profile",
-   "targetId": "@ai:opc_ai_harvest_boar",
+   "srcId": "opc_ai_harvest_boar",
    "data": {
-    "name": "Harvest Boar AiProfile",
+    "username": "Harvest Boar",
+    "level": 100,
+    "rank": "JONIN",
+    "regeneration": 60,
+    "poolsMultiplier": 1,
+    "statsMultiplier": 1,
+    "isSummon": false,
     "hidden": true,
+    "primaryElement": "None",
+    "secondaryElement": "",
+    "jutsus": [
+     "YiRdVytsdxFzZtqkEDs5Q",
+     "4TM6iS8P0qgNHsFpALFhg",
+     "fKvCGRgzGNskgFWocQCAg"
+    ],
     "rules": [
      {
       "conditions": [
@@ -198,7 +161,22 @@
       }
      }
     ],
-    "includeDefaultRules": true
+    "includeDefaultRules": true,
+    "ninjutsuOffence": 100,
+    "ninjutsuDefence": 100,
+    "genjutsuOffence": 100,
+    "genjutsuDefence": 100,
+    "taijutsuOffence": 100,
+    "taijutsuDefence": 100,
+    "bukijutsuOffence": 100,
+    "bukijutsuDefence": 100,
+    "strength": 100,
+    "intelligence": 100,
+    "willpower": 100,
+    "speed": 100,
+    "preferredStat": "Taijutsu",
+    "preferredGeneral1": "Strength",
+    "preferredGeneral2": "Speed"
    }
   },
   {
