@@ -6,7 +6,7 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |
-| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 5/15 settled - planned 4, ready 5, blocked 1, complete 5 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
+| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 6/16 settled - planned 3, ready 6, blocked 1, complete 6 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
 
 ## One Perfect Crop
 
@@ -14,14 +14,15 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 **Executable now**
 
-- `art.scene_characters` (READY) - Scene characters: Road Bandit production and Market Clerk reuse closure
-- `art.combat_avatars` (READY) - Combat AI avatars: Road Bandit and Harvest Boar
-- `art.icons` (READY) - Cabbage Seed item icon
-- `art.backgrounds` (READY) - Scene background coverage and wiring assessment
-- `admin.balance_and_eligibility` (READY) - Director packet: rewards, item economics, repeatability and eligibility
+- `art.scene_characters` (READY) - Launch-final scene characters
+- `art.combat_avatars` (READY) - Launch-final combat avatars
+- `art.icons` (READY) - Launch-final Cabbage Seed icon
+- `art.backgrounds` (READY) - Launch-final scene wiring
+- `admin.balance_and_eligibility` (READY) - Launch-final admin decisions
+- `build.manifest` (READY) - Fable hidden core-manifest implementation
 
 **Blocked**
 
-- `art.intake_accepted_assets` - The accepted bytes are not present anywhere in the repository at the verified main SHA. The finish plan says they were delivered in a chat-side one_perfect_crop_art_intake.zip, so the user must re-supply the exact three files (or another durable source) before this task can execute.
+- `art.intake_accepted_assets` - Exact accepted bytes are not durable in the repository; this blocks launch finalization only.
 
 Start a session: `python3 scripts/content_workstream.py init one_perfect_crop --task <id>`
