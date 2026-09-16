@@ -1,0 +1,173 @@
+# Forge Quest Studio foundation — source-push security correction handoff
+
+**Status:** FROZEN CORRECTION HANDOFF — NARROW FABLE RE-REVIEW REQUIRED  
+**Date:** 2026-09-16  
+**Repository:** `perseverance484/tnr-tools`  
+**Implementation owner:** ChatGPT  
+**Implementation line:** `chatgpt/forge-quest-studio-foundation`  
+**Source-push work branch used for gated correction:** `chatgpt/forge-quest-studio-source-push-work`  
+**Previous feature-branch freeze:** `2f0e656d1102cf8ca64530255ba8990faab9cf47`  
+**Tested combined source-push tree:** `69f456c279c3c8626f39dac63fbdfce8eb321fc5`  
+**Clean pre-handoff descendant:** `e09a635fc1eb418e2065836d841e7dfad8f11abe`  
+**Operational `main` observed before freeze:** `b42c2afd5ceb3cd2e1f1eaa6f1e082cfc419cbea`  
+**Live-game requests/writes:** none
+
+This handoff closes the remaining M1 credential-scope decision from Fable's Quest Studio review. It supplements the original foundation, first correction, and follow-up handoffs; it does not rewrite their historical evidence.
+
+## 1. Director ruling
+
+The director selected the source-push option for Quest Studio repository builds.
+
+The durable ruling is **`RUL-2026-09-16-002 — Quest Studio repository builds use source-push with Contents-only browser credentials`**. The initially drafted `RUL-2026-09-16-001` was renumbered before freeze because operational `main` already owns that ID for One Perfect Crop.
+
+The product/security consequence is:
+
+- the operator browser needs a fine-grained GitHub credential with **Contents: write only** for `tnr-tools`;
+- Quest Studio must not require Actions/Workflows write permission;
+- pressing Compile persists a fresh exact Quest Source revision to its dedicated `studio/quest/<requestId>` branch;
+- that source write is the build request;
+- the repository worker executes compiler code from trusted `main`, never from the authored request branch;
+- generated results are written only to the matching request branch;
+- repository compile remains separate from live-game execution and publishing.
+
+The canonical architecture wording is updated in `docs/design/FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md`.
+
+## 2. Implementation changes from the prior freeze
+
+Relative to `2f0e656d1102cf8ca64530255ba8990faab9cf47`:
+
+### Browser / repository adapter
+
+- `forge/src/studio/repository.mjs`
+  - removes browser `workflow_dispatch` from the Studio request path;
+  - each Compile writes a fresh source revision and injects a new `meta.repositoryBuildRequestId`, so an explicit retry produces a new source commit even when visible authored content is unchanged;
+  - returned `sourceCommit` remains the exact authored revision used for result correlation.
+- `forge/src/github.mjs`
+  - removes the generic Actions workflow-dispatch method from Forge's browser GitHub bridge;
+  - existing Contents/ref behavior remains unchanged.
+- `forge/src/ui/screens.mjs`
+  - Settings now instructs the operator to use **Contents: write only** and explicitly not grant Actions/Workflows.
+- `forge/test/github.studio.test.mjs`
+  - removes dispatch tests;
+  - proves the source write is the build request;
+  - proves consecutive Compile requests produce distinct repository source revisions through build-request metadata.
+
+### Trusted worker
+
+- `.github/workflows/quest_studio.yml`
+  - changes from `workflow_dispatch` to `push` on `studio/quest/**`, path-limited to `studio/requests/*.quest.json`;
+  - derives request identity from `github.ref_name` and source revision from exact `github.sha`;
+  - checks out trusted compiler code separately from `main` with `persist-credentials:false`;
+  - measures and records the trusted compiler SHA;
+  - checks out authored request content by exact push SHA under `request/` and treats it only as data;
+  - validates branch/id/path/SHA/symlink boundaries before compile;
+  - executes only `tools/skills/building-tnr-content/scripts/quest_compile.py`;
+  - before persisting a result, re-reads the remote request-branch head and refuses to publish stale build evidence if a newer source revision has already advanced the branch;
+  - stages only `studio/results/<id>.build.json` and `studio/builds/<id>`;
+  - generated-result commits do not retrigger compilation because the workflow path filter watches only the Quest Source file.
+- `skills/building-tnr-content/scripts/quest_worker_contract_test.py`
+  - pins the source-push trigger model;
+  - asserts there is no `workflow_dispatch`/input path;
+  - asserts trusted-main and request-data checkouts remain separate;
+  - asserts push identity precedes authored checkout and compile;
+  - asserts stale-source persistence refusal and request-scoped generated paths;
+  - retains zero-live/network-path checks.
+
+### CI / generated output / governance
+
+- `.github/workflows/quest_studio_ci.yml` watches `forge/src/ui/screens.mjs` as part of the Studio credential-scope contract.
+- `forge_bundle.js` is rebuilt from the corrected source.
+- `dist/building-tnr-content.zip` is regenerated by the gated harness.
+- `docs/RULINGS.md` records `RUL-2026-09-16-002`.
+
+No file under `forge/src/runner/`, `forge/src/transport/`, `forge/src/storage/`, `forge/src/budget/`, or `forge/src/reconcile/` changed in this correction.
+
+## 3. Trust boundary after the correction
+
+The intended path is now:
+
+`Forge -> Contents API source commit on studio/quest/* -> push-triggered trusted worker -> compiler from main -> result/artifacts on request branch -> Forge result read`
+
+Important properties:
+
+1. **No browser Actions permission.** The feature no longer needs or exposes an Actions-dispatch method.
+2. **Trusted executable code comes from `main`.** Request-branch code is never executed.
+3. **Authored source identity is exact.** `github.sha` is the build's source revision and is checked out exactly.
+4. **Newer authored source wins.** A worker cannot persist evidence for an older source revision after the request branch advances.
+5. **Result persistence is confined.** Only request-scoped result/build paths are staged.
+6. **Compile is still zero-live.** No live-game path was added; existing Forge live runner/auth/journal/reconcile code is untouched.
+
+## 4. Verification evidence
+
+### Gated source-push correction harness
+
+Temporary workflow run **`35161010912`**, job **`105011497727`**, completed **success** after applying the candidate conversion to the work tree.
+
+It passed:
+
+- source-push worker trust-boundary test;
+- compiler selftest: **9 passed, 0 failed**;
+- Mission adapter integration, including manifest digest/art requirements/live-game boundary;
+- Forge Node suite: **315 passed, 0 failed**;
+- fixture regeneration with no diff;
+- canonical Forge bundle build: approximately **429.8 KB**;
+- skillpack regeneration;
+- doctrinemap: 0 errors / 0 warnings;
+- doctrine projection check;
+- pack/TOC check;
+- lawmap: 93 laws / 93 matrix rows / 77 citations / 0 errors / 5 pre-existing warnings.
+
+The harness committed the tested non-workflow changes. Workflow files were then applied separately through the repository-scoped connector because Actions tokens cannot modify workflow files.
+
+### Normal read-only Quest Studio CI on the combined permanent tree
+
+Run **`35161154883`**, job **`105011955114`**, against combined tree `69f456c279c3c8626f39dac63fbdfce8eb321fc5`: **success**.
+
+Every step passed:
+
+- zero-live worker/compiler guard;
+- source-push worker trust-boundary test;
+- compiler selftest;
+- Mission adapter integration;
+- Forge tests + fixtures;
+- canonical bundle build;
+- bundle artifact upload;
+- checked `forge_bundle.js` parity.
+
+The descendants after `69f456c...` only removed temporary correction/renumber workflows/scripts and renumbered the source-push ruling after a collision with operational `main`; no product logic changed after the green normal CI tree.
+
+`npm ci` continues to report the previously disclosed three high-severity dev-dependency advisories. No Quest Studio runtime exploit path was established; dependency audit remains separate debt.
+
+## 5. What was not exercised
+
+No live TNR request, write, capture or publication occurred.
+
+A real `studio/quest/*` source-push compile was not rehearsed end-to-end before integration. The worker intentionally executes trusted compiler code from `main`, and current operational `main` does not yet contain the Quest Studio compiler/worker seam. The first real source-push rehearsal therefore belongs after the reviewed seam is integrated, remains repository-only, and still must not contact the live game.
+
+Browser/mobile session behavior remains separately unverified where it requires a real operator device. The credential-scope change itself is repository/browser-GitHub only and does not alter the TNR session path.
+
+## 6. Remaining integration debt, deliberately not widened into this correction
+
+- declare `studio/*` branch namespace, retention and cleanup before broad use (planning K-37);
+- absorb single-draft local persistence into the Project Workspace / ForgeCore durable draft model;
+- add richer build-run/status/cancellation observability inside ForgeCore if needed;
+- define reviewed Studio -> existing Forge preflight/runner promotion contract;
+- absorb the temporary `.qs-*` shell into the approved Forge Next design system;
+- preserve previously documented dependency advisories as separate debt;
+- reconcile source-push ruling/evidence into Fable's final planning package after this implementation re-review closes.
+
+## 7. Requested independent re-review
+
+Fable should perform a **narrow correction re-review**, not reopen the architecture.
+
+Primary target:
+
+- confirm M1 is closed by the source-push model and the browser no longer requires Actions/Workflows write;
+- inspect the worker's trusted-main/request-data separation;
+- attack push-identity derivation, source SHA binding, path/symlink confinement, stale-branch persistence refusal and retrigger behavior;
+- confirm result pushes cannot recursively trigger another compile;
+- confirm the browser GitHub bridge no longer exposes an Actions-dispatch path;
+- rerun the worker/compiler/Mission/Forge/bundle gates;
+- preserve the previously accepted M2-M6 and minor-finding closures unless this correction actually regressed them.
+
+If clean, the Quest Studio foundation is ready to enter the unified Forge implementation-contract/integration step. It should be absorbed into Fable's reviewed ForgeCore/shared-shell architecture rather than merged as a competing standalone product shell.
