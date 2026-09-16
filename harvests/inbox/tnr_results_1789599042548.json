@@ -1,0 +1,1147 @@
+{
+ "builder": "forge 0.4.1",
+ "at": "2026-09-16T22:50:42.547Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "INCOMPLETE",
+ "outcome": "unverified",
+ "postflight": {
+  "match": 1,
+  "diff": 2,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 2
+ },
+ "entries": [
+  {
+   "name": "Road Bandit",
+   "srcId": "opc_ai_road_bandit",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 15,
+    "fail": [
+     {
+      "k": "ninjutsuOffence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "ninjutsuDefence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "genjutsuOffence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "genjutsuDefence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "taijutsuOffence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "taijutsuDefence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "bukijutsuOffence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "bukijutsuDefence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "strength",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "intelligence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "willpower",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "speed",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "rules",
+      "c": "mismatch",
+      "d": [
+       "sent [{\"conditions\":[{\"type\":\"distance_lower_than\",\"description\":\"Distance lower than or equal given value\",\"value\":6,\"target\":\"RANDOM_OPPONENT\"}],\"action\":{\"type\":\"use_specific_jutsu\",\"description\":\"Select specific jutsu\",\"jutsuId\":\"YiRdVytsdxFzZtqkEDs5Q\",\"target\":\"RANDOM_OPPONENT\"}},{\"conditions\":[{\"type\":\"distance_lower_than\",\"description\":\"Distance lower than or equal given value\",\"value\":6,\"target\":\"RANDOM_OPPONENT\"}],\"action\":{\"type\":\"use_specific_jutsu\",\"description\":\"Select specific jutsu\",\"jutsuId\":\"fKvCGRgzGNskgFWocQCAg\",\"target\":\"RANDOM_OPPONENT\"}},{\"conditions\":[{\"type\":\"distance_lower_than\",\"description\":\"Distance lower than or equal given value\",\"value\":6,\"target\":\"RANDOM_OPPONENT\"}],\"action\":{\"type\":\"use_specific_jutsu\",\"description\":\"Select specific jutsu\",\"jutsuId\":\"kkGDat1XWUxhOQ1_T5025\",\"target\":\"RANDOM_OPPONENT\"}}]  live [{\"action\":{\"type\":\"use_specific_jutsu\",\"target\":\"RANDOM_OPPONENT\",\"jutsuId\":\"YiRdVytsdxFzZtqkEDs5Q\",\"description\":\"Select specific jutsu\"},\"conditions\":[{\"type\":\"distance_lower_than\",\"value\":6,\"target\":\"RANDOM_OPPONENT\",\"description\":\"Distance lower than or equal given value\"}]},{\"action\":{\"type\":\"use_specific_jutsu\",\"target\":\"RANDOM_OPPONENT\",\"jutsuId\":\"fKvCGRgzGNskgFWocQCAg\",\"description\":\"Select specific jutsu\"},\"conditions\":[{\"type\":\"distance_lower_than\",\"value\":6,\"target\":\"RANDOM_OPPONENT\",\"description\":\"Distance lower than or equal given value\"}]},{\"action\":{\"type\":\"use_specific_jutsu\",\"target\":\"RANDOM_OPPONENT\",\"jutsuId\":\"kkGDat1XWUxhOQ1_T5025\",\"description\":\"Select specific jutsu\"},\"conditions\":[{\"type\":\"distance_lower_than\",\"value\":6,\"target\":\"RANDOM_OPPONENT\",\"description\":\"Distance lower than or equal given value\"}]}]"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "ninjutsuOffence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "ninjutsuDefence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "genjutsuOffence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "genjutsuDefence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "taijutsuOffence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "taijutsuDefence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "bukijutsuOffence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "bukijutsuDefence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "strength",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "intelligence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "willpower",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "speed",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "rules",
+     "sent": [
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "description": "Distance lower than or equal given value",
+         "value": 6,
+         "target": "RANDOM_OPPONENT"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "description": "Select specific jutsu",
+        "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+        "target": "RANDOM_OPPONENT"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "description": "Distance lower than or equal given value",
+         "value": 6,
+         "target": "RANDOM_OPPONENT"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "description": "Select specific jutsu",
+        "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+        "target": "RANDOM_OPPONENT"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "description": "Distance lower than or equal given value",
+         "value": 6,
+         "target": "RANDOM_OPPONENT"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "description": "Select specific jutsu",
+        "jutsuId": "kkGDat1XWUxhOQ1_T5025",
+        "target": "RANDOM_OPPONENT"
+       }
+      }
+     ],
+     "live": [
+      {
+       "action": {
+        "type": "use_specific_jutsu",
+        "target": "RANDOM_OPPONENT",
+        "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+        "description": "Select specific jutsu"
+       },
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 6,
+         "target": "RANDOM_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ]
+      },
+      {
+       "action": {
+        "type": "use_specific_jutsu",
+        "target": "RANDOM_OPPONENT",
+        "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+        "description": "Select specific jutsu"
+       },
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 6,
+         "target": "RANDOM_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ]
+      },
+      {
+       "action": {
+        "type": "use_specific_jutsu",
+        "target": "RANDOM_OPPONENT",
+        "jutsuId": "kkGDat1XWUxhOQ1_T5025",
+        "description": "Select specific jutsu"
+       },
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 6,
+         "target": "RANDOM_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "id": "dKEz_VsgZjrfbtxt4ldo8"
+  },
+  {
+   "name": "Harvest Boar",
+   "srcId": "opc_ai_harvest_boar",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 15,
+    "fail": [
+     {
+      "k": "ninjutsuOffence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "ninjutsuDefence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "genjutsuOffence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "genjutsuDefence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "taijutsuOffence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "taijutsuDefence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "bukijutsuOffence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "bukijutsuDefence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "strength",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "intelligence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "willpower",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "speed",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 278260"
+      ]
+     },
+     {
+      "k": "rules",
+      "c": "mismatch",
+      "d": [
+       "sent [{\"conditions\":[{\"type\":\"distance_lower_than\",\"description\":\"Distance lower than or equal given value\",\"value\":6,\"target\":\"RANDOM_OPPONENT\"}],\"action\":{\"type\":\"use_specific_jutsu\",\"description\":\"Select specific jutsu\",\"jutsuId\":\"YiRdVytsdxFzZtqkEDs5Q\",\"target\":\"RANDOM_OPPONENT\"}},{\"conditions\":[{\"type\":\"distance_lower_than\",\"description\":\"Distance lower than or equal given value\",\"value\":6,\"target\":\"RANDOM_OPPONENT\"}],\"action\":{\"type\":\"use_specific_jutsu\",\"description\":\"Select specific jutsu\",\"jutsuId\":\"4TM6iS8P0qgNHsFpALFhg\",\"target\":\"RANDOM_OPPONENT\"}},{\"conditions\":[{\"type\":\"distance_lower_than\",\"description\":\"Distance lower than or equal given value\",\"value\":6,\"target\":\"RANDOM_OPPONENT\"}],\"action\":{\"type\":\"use_specific_jutsu\",\"description\":\"Select specific jutsu\",\"jutsuId\":\"fKvCGRgzGNskgFWocQCAg\",\"target\":\"RANDOM_OPPONENT\"}}]  live [{\"action\":{\"type\":\"use_specific_jutsu\",\"target\":\"RANDOM_OPPONENT\",\"jutsuId\":\"YiRdVytsdxFzZtqkEDs5Q\",\"description\":\"Select specific jutsu\"},\"conditions\":[{\"type\":\"distance_lower_than\",\"value\":6,\"target\":\"RANDOM_OPPONENT\",\"description\":\"Distance lower than or equal given value\"}]},{\"action\":{\"type\":\"use_specific_jutsu\",\"target\":\"RANDOM_OPPONENT\",\"jutsuId\":\"4TM6iS8P0qgNHsFpALFhg\",\"description\":\"Select specific jutsu\"},\"conditions\":[{\"type\":\"distance_lower_than\",\"value\":6,\"target\":\"RANDOM_OPPONENT\",\"description\":\"Distance lower than or equal given value\"}]},{\"action\":{\"type\":\"use_specific_jutsu\",\"target\":\"RANDOM_OPPONENT\",\"jutsuId\":\"fKvCGRgzGNskgFWocQCAg\",\"description\":\"Select specific jutsu\"},\"conditions\":[{\"type\":\"distance_lower_than\",\"value\":6,\"target\":\"RANDOM_OPPONENT\",\"description\":\"Distance lower than or equal given value\"}]}]"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "ninjutsuOffence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "ninjutsuDefence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "genjutsuOffence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "genjutsuDefence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "taijutsuOffence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "taijutsuDefence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "bukijutsuOffence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "bukijutsuDefence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "strength",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "intelligence",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "willpower",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "speed",
+     "sent": 100,
+     "live": 278260
+    },
+    {
+     "key": "rules",
+     "sent": [
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "description": "Distance lower than or equal given value",
+         "value": 6,
+         "target": "RANDOM_OPPONENT"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "description": "Select specific jutsu",
+        "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+        "target": "RANDOM_OPPONENT"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "description": "Distance lower than or equal given value",
+         "value": 6,
+         "target": "RANDOM_OPPONENT"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "description": "Select specific jutsu",
+        "jutsuId": "4TM6iS8P0qgNHsFpALFhg",
+        "target": "RANDOM_OPPONENT"
+       }
+      },
+      {
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "description": "Distance lower than or equal given value",
+         "value": 6,
+         "target": "RANDOM_OPPONENT"
+        }
+       ],
+       "action": {
+        "type": "use_specific_jutsu",
+        "description": "Select specific jutsu",
+        "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+        "target": "RANDOM_OPPONENT"
+       }
+      }
+     ],
+     "live": [
+      {
+       "action": {
+        "type": "use_specific_jutsu",
+        "target": "RANDOM_OPPONENT",
+        "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+        "description": "Select specific jutsu"
+       },
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 6,
+         "target": "RANDOM_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ]
+      },
+      {
+       "action": {
+        "type": "use_specific_jutsu",
+        "target": "RANDOM_OPPONENT",
+        "jutsuId": "4TM6iS8P0qgNHsFpALFhg",
+        "description": "Select specific jutsu"
+       },
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 6,
+         "target": "RANDOM_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ]
+      },
+      {
+       "action": {
+        "type": "use_specific_jutsu",
+        "target": "RANDOM_OPPONENT",
+        "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+        "description": "Select specific jutsu"
+       },
+       "conditions": [
+        {
+         "type": "distance_lower_than",
+         "value": 6,
+         "target": "RANDOM_OPPONENT",
+         "description": "Distance lower than or equal given value"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "id": "2-gJmijAA8lGns_thDRjz"
+  },
+  {
+   "name": "One Perfect Crop",
+   "srcId": "opc_quest",
+   "entity": "quest",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 10,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "CZIZoHDAOWjxDtVaQwr6V"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "undefined": "0QixZN9jD_bqAKTimDafB",
+  "pin_listen.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJy22plzIukVH2MI5Lo4ehEfAXvZdcmtWqPg7r",
+  "pin_watch.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0HNWcSgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+  "pin_chase.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJOG8ukw7VHevxIThUauQkGJEBY3D2cPqy8f5s",
+  "fsw_q_thinice": "ATV6Fs3XFqOf7wch99qDW",
+  "fsw_q_protection": "otFtGNvBFn8ZVGlda7UOH",
+  "fsw_q_loud": "ilYoJqbk--np9OSqT9lGx",
+  "probe_c": "gJ05vhdN0C1mzuRde8fjZ",
+  "probe_b": "Kaywv59qnRM-wPULzVDNp",
+  "probe_a": "EONHpe2JhRDYzrYnJLXlk",
+  "probe_d": "A_Pk45u-3vUC4MAFkUEID",
+  "probe_e": "Cch0E9oze3-X60vt6fJkL",
+  "wn00": "nX1LNp8OnYNwWbgLmyeLG",
+  "wn01": "twsXAgh8CZJMSntUWNctj",
+  "wn02": "6mufJi_eXwAruEGck7DdS",
+  "wn03": "cpTgne86wqYbfhwU6HS_q",
+  "wn04": "TkyR2RJFUQDv3olz96Mro",
+  "wn05": "X5T3vmotm8W5je6sQIiz7",
+  "wn06": "qDorq7Ew_wZSktdAOirK1",
+  "wn07": "cTgptnfFK1YFz09-wy4zJ",
+  "wn08": "nUs1_tNyHYbrWa42_KCG7",
+  "wn09": "AiyL4Yf-YdvKFLsIPFVfq",
+  "wn10": "Qi5tqhWVY--J48sucZZM-",
+  "wn11": "IwAiJ8_X5_X7gkFY8KThA",
+  "wn12": "ov-sjt5hYzBPXFPXF1xZm",
+  "wn13": "6d8VPEGCRC-ySqrcLFwwO",
+  "wn14": "LpYxQPJ3mfBaDpkVqrlI9",
+  "wn15": "jnGvAPy8pISPWYwzkpMoB",
+  "wn16": "fbfbDvD-m-LFeA2AhHncu",
+  "wn17": "KD0vcWSnbq4Cb6Weza5Ny",
+  "wn18": "lN8EHcrklmJ5AQStjeMn1",
+  "wn19": "miwf25XFMiHUKI0NSsAfU",
+  "wn20": "ZdGo_lFPLUH9P1XGzVJ6v",
+  "scene_fsw_report_clerk.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJGuzJ8eRfoVrha0LP4mAS5KM7wtiZbUNXJxdC",
+  "scene_fsw_keeper.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJXPVYNR2qIOpAoLKbZ4nW9Rsil2V67yuFwQhq",
+  "scene_fsw_grain_merchant.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2i6csznMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+  "scene_fsw_squad_survivor.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJPAY1UXMpKeUGyX2kj6u45AOQiSa1zYH0mqZo",
+  "scene_fsw_lw_principal.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJp2BkJQbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D",
+  "scene_fsw_lw_deputy.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJGmh92kRfoVrha0LP4mAS5KM7wtiZbUNXJxdC",
+  "scene_fsw_pale_fang.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJyL48KcukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp",
+  "scene_fsw_winter_crow.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJM7pG84tsO4cexqW2RDgkE3zZbNXSFGitmnar",
+  "scene_fsw_old_ghost.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ6ojyqKDfT5pyNCaUruzhPtAJqb8Kj9mc1nlH",
+  "fsw_scn_clerk": "ElB--mNvncY7x_9VDf9O6",
+  "fsw_scn_keeper": "Kf2D27FAnL_XkbAJruN1y",
+  "fsw_scn_merchant": "RTGdKuVcvDxBIY4Ft25Oe",
+  "fsw_scn_survivor": "RkfgpZX7rqERIiHcALLU-",
+  "fsw_scn_principal": "Mur92ghAmUzQLQlUJlVXy",
+  "fsw_scn_deputy": "wB3RoOJJoQkGlLoNnPjHi",
+  "fsw_scn_pale_fang": "hymq1_ZsBGJ8qsS_Bztco",
+  "fsw_scn_winter_crow": "aU7DBNyBel5q7gyA-Ug9O",
+  "fsw_scn_old_ghost": "Lcsj6Tc1hdaVUEEa74PwH",
+  "fsw2_scn_clerk": "1TjPakroW5q8m6nylQRcT",
+  "fsw2_scn_keeper": "AM0saNTIIl1FPgc5pAzxc",
+  "fsw2_scn_merchant": "8mDurYQYmy3G0vb862mkO",
+  "fsw2_scn_survivor": "asvKeN5HIBRJ2-fzg9Und",
+  "fsw2_scn_principal": "gIU6lE4RWWwV8FbP3Fkvs",
+  "fsw2_scn_deputy": "rkdd7b_84F_NYq1YUMEl_",
+  "fsw2_scn_pale_fang": "CbU3BRjOLX-Ad5PnbUfxM",
+  "fsw2_scn_winter_crow": "cSZBQ23AVVuLmKDaA2jh2",
+  "fsw2_scn_old_ghost": "5QsG6MvGvGlzelOx_g0JN",
+  "bg_fsw_loud_way_floor_c.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJbPoVBYAtYUndMi56GkX19q0A4PzyeIloBrEa",
+  "bg_fsw_pass_road_dusk_d.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTUB2345IU29dZYJPoOKSh5vmlqatMub3EigH",
+  "bg_fsw_waystation_door_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJoidFEoZ9MPZpHJ7VliuEWDfATdxhv62SXnm4",
+  "bg_fsw_ambush_site.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJOGD7OHOVHevxIThUauQkGJEBY3D2cPqy8f5s",
+  "bg_fsw_drying_shed_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJl5JG25rWYxAsuC7ofQn9pM45OD0ERqkdBXJU",
+  "bg_fsw_drying_yard_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeRbH5WyV3OvUJQExAi0bGoIZDF74LqSnHRdp",
+  "bg_fsw_ghost_rooftop.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJH4hvqDOQvYURJhgs76VZtf9wxpMa13Cq0iOn",
+  "bg_fsw_canal_frontage_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJHCDFP9QvYURJhgs76VZtf9wxpMa13Cq0iOnr",
+  "fsw3_bg_loudway": "bBV9I0DcmYGcxVGaBdWL0",
+  "fsw3_bg_passroad": "nmrMHmz9xWojzyIV2mAR8",
+  "fsw3_bg_wsdoor": "kmDsQUEHSub9GIX5ulO6i",
+  "fsw3_bg_ambush": "E4VJ-IeIQMwbmGGfKc-sn",
+  "fsw3_bg_dryshed": "c1e60fERuLUxzt9WY4U37",
+  "fsw3_bg_dryyard": "TUtC7yPymsp2GyWwZhoTf",
+  "fsw3_bg_rooftop": "eXoh3W7Q_KaWec02TB17n",
+  "fsw3_bg_canal": "JUb5wIdMC0o7VwVVOx1zm",
+  "icon_rank_A.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJgkm8F7cU9cpECTimBdjaqbNn7vQsxGR1wLk4",
+  "icon_rank_B.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ3K6O328pYHJX5rdkUTfOKtvu2eGIELmSWqBx",
+  "icon_rank_C.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcz70uPSnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+  "icon_rank_D.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJPzlH3ApKeUGyX2kj6u45AOQiSa1zYH0mqZoc",
+  "opc_ai_road_bandit": "dKEz_VsgZjrfbtxt4ldo8",
+  "opc_ai_harvest_boar": "2-gJmijAA8lGns_thDRjz",
+  "opc_quest": "CZIZoHDAOWjxDtVaQwr6V"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "47-mu4p1ms3",
+  "manifestPath": "push/47_one_perfect_crop_core_manifest.json",
+  "manifestNumber": 47,
+  "manifestHash": "71aba26f",
+  "startedAt": "2026-09-16T22:50:11.546Z",
+  "updatedAt": "2026-09-16T22:50:42.546Z",
+  "state": "INCOMPLETE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "ai",
+    "op": "create",
+    "name": "Road Bandit",
+    "srcId": "opc_ai_road_bandit",
+    "targetId": null,
+    "payloadHash": "c49c3676",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "dKEz_VsgZjrfbtxt4ldo8",
+    "snapshotKey": "tnr_forge_snap_v1:47-mu4p1ms3:ai",
+    "sentAt": "2026-09-16T22:50:14.653Z",
+    "createSentAt": "2026-09-16T22:50:12.610Z",
+    "confirmedAt": "2026-09-16T22:50:14.844Z",
+    "verifiedAt": null,
+    "error": null,
+    "asserted": [
+     "username",
+     "level",
+     "rank",
+     "regeneration",
+     "poolsMultiplier",
+     "statsMultiplier",
+     "isSummon",
+     "hidden",
+     "primaryElement",
+     "secondaryElement",
+     "jutsus",
+     "rules",
+     "includeDefaultRules",
+     "ninjutsuOffence",
+     "ninjutsuDefence",
+     "genjutsuOffence",
+     "genjutsuDefence",
+     "taijutsuOffence",
+     "taijutsuDefence",
+     "bukijutsuOffence",
+     "bukijutsuDefence",
+     "strength",
+     "intelligence",
+     "willpower",
+     "speed",
+     "preferredStat",
+     "preferredGeneral1",
+     "preferredGeneral2"
+    ],
+    "aiProfileId": "x5ok0REckE1ZRXvUi7tr6",
+    "assertedRules": true,
+    "diffs": [
+     {
+      "key": "ninjutsuOffence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "ninjutsuDefence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "genjutsuOffence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "genjutsuDefence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "taijutsuOffence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "taijutsuDefence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "bukijutsuOffence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "bukijutsuDefence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "strength",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "intelligence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "willpower",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "speed",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "rules",
+      "sent": [
+       {
+        "conditions": [
+         {
+          "type": "distance_lower_than",
+          "description": "Distance lower than or equal given value",
+          "value": 6,
+          "target": "RANDOM_OPPONENT"
+         }
+        ],
+        "action": {
+         "type": "use_specific_jutsu",
+         "description": "Select specific jutsu",
+         "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+         "target": "RANDOM_OPPONENT"
+        }
+       },
+       {
+        "conditions": [
+         {
+          "type": "distance_lower_than",
+          "description": "Distance lower than or equal given value",
+          "value": 6,
+          "target": "RANDOM_OPPONENT"
+         }
+        ],
+        "action": {
+         "type": "use_specific_jutsu",
+         "description": "Select specific jutsu",
+         "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+         "target": "RANDOM_OPPONENT"
+        }
+       },
+       {
+        "conditions": [
+         {
+          "type": "distance_lower_than",
+          "description": "Distance lower than or equal given value",
+          "value": 6,
+          "target": "RANDOM_OPPONENT"
+         }
+        ],
+        "action": {
+         "type": "use_specific_jutsu",
+         "description": "Select specific jutsu",
+         "jutsuId": "kkGDat1XWUxhOQ1_T5025",
+         "target": "RANDOM_OPPONENT"
+        }
+       }
+      ],
+      "live": [
+       {
+        "action": {
+         "type": "use_specific_jutsu",
+         "target": "RANDOM_OPPONENT",
+         "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+         "description": "Select specific jutsu"
+        },
+        "conditions": [
+         {
+          "type": "distance_lower_than",
+          "value": 6,
+          "target": "RANDOM_OPPONENT",
+          "description": "Distance lower than or equal given value"
+         }
+        ]
+       },
+       {
+        "action": {
+         "type": "use_specific_jutsu",
+         "target": "RANDOM_OPPONENT",
+         "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+         "description": "Select specific jutsu"
+        },
+        "conditions": [
+         {
+          "type": "distance_lower_than",
+          "value": 6,
+          "target": "RANDOM_OPPONENT",
+          "description": "Distance lower than or equal given value"
+         }
+        ]
+       },
+       {
+        "action": {
+         "type": "use_specific_jutsu",
+         "target": "RANDOM_OPPONENT",
+         "jutsuId": "kkGDat1XWUxhOQ1_T5025",
+         "description": "Select specific jutsu"
+        },
+        "conditions": [
+         {
+          "type": "distance_lower_than",
+          "value": 6,
+          "target": "RANDOM_OPPONENT",
+          "description": "Distance lower than or equal given value"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "verify": "drift"
+   },
+   {
+    "idx": 1,
+    "entity": "ai",
+    "op": "create",
+    "name": "Harvest Boar",
+    "srcId": "opc_ai_harvest_boar",
+    "targetId": null,
+    "payloadHash": "ae4c3b80",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "2-gJmijAA8lGns_thDRjz",
+    "snapshotKey": "tnr_forge_snap_v1:47-mu4p1ms3:ai",
+    "sentAt": "2026-09-16T22:50:17.151Z",
+    "createSentAt": "2026-09-16T22:50:15.457Z",
+    "confirmedAt": "2026-09-16T22:50:17.371Z",
+    "verifiedAt": null,
+    "error": null,
+    "asserted": [
+     "username",
+     "level",
+     "rank",
+     "regeneration",
+     "poolsMultiplier",
+     "statsMultiplier",
+     "isSummon",
+     "hidden",
+     "primaryElement",
+     "secondaryElement",
+     "jutsus",
+     "rules",
+     "includeDefaultRules",
+     "ninjutsuOffence",
+     "ninjutsuDefence",
+     "genjutsuOffence",
+     "genjutsuDefence",
+     "taijutsuOffence",
+     "taijutsuDefence",
+     "bukijutsuOffence",
+     "bukijutsuDefence",
+     "strength",
+     "intelligence",
+     "willpower",
+     "speed",
+     "preferredStat",
+     "preferredGeneral1",
+     "preferredGeneral2"
+    ],
+    "aiProfileId": "ZhEa2_lW2tgTpDJCLaPeB",
+    "assertedRules": true,
+    "diffs": [
+     {
+      "key": "ninjutsuOffence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "ninjutsuDefence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "genjutsuOffence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "genjutsuDefence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "taijutsuOffence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "taijutsuDefence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "bukijutsuOffence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "bukijutsuDefence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "strength",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "intelligence",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "willpower",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "speed",
+      "sent": 100,
+      "live": 278260
+     },
+     {
+      "key": "rules",
+      "sent": [
+       {
+        "conditions": [
+         {
+          "type": "distance_lower_than",
+          "description": "Distance lower than or equal given value",
+          "value": 6,
+          "target": "RANDOM_OPPONENT"
+         }
+        ],
+        "action": {
+         "type": "use_specific_jutsu",
+         "description": "Select specific jutsu",
+         "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+         "target": "RANDOM_OPPONENT"
+        }
+       },
+       {
+        "conditions": [
+         {
+          "type": "distance_lower_than",
+          "description": "Distance lower than or equal given value",
+          "value": 6,
+          "target": "RANDOM_OPPONENT"
+         }
+        ],
+        "action": {
+         "type": "use_specific_jutsu",
+         "description": "Select specific jutsu",
+         "jutsuId": "4TM6iS8P0qgNHsFpALFhg",
+         "target": "RANDOM_OPPONENT"
+        }
+       },
+       {
+        "conditions": [
+         {
+          "type": "distance_lower_than",
+          "description": "Distance lower than or equal given value",
+          "value": 6,
+          "target": "RANDOM_OPPONENT"
+         }
+        ],
+        "action": {
+         "type": "use_specific_jutsu",
+         "description": "Select specific jutsu",
+         "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+         "target": "RANDOM_OPPONENT"
+        }
+       }
+      ],
+      "live": [
+       {
+        "action": {
+         "type": "use_specific_jutsu",
+         "target": "RANDOM_OPPONENT",
+         "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+         "description": "Select specific jutsu"
+        },
+        "conditions": [
+         {
+          "type": "distance_lower_than",
+          "value": 6,
+          "target": "RANDOM_OPPONENT",
+          "description": "Distance lower than or equal given value"
+         }
+        ]
+       },
+       {
+        "action": {
+         "type": "use_specific_jutsu",
+         "target": "RANDOM_OPPONENT",
+         "jutsuId": "4TM6iS8P0qgNHsFpALFhg",
+         "description": "Select specific jutsu"
+        },
+        "conditions": [
+         {
+          "type": "distance_lower_than",
+          "value": 6,
+          "target": "RANDOM_OPPONENT",
+          "description": "Distance lower than or equal given value"
+         }
+        ]
+       },
+       {
+        "action": {
+         "type": "use_specific_jutsu",
+         "target": "RANDOM_OPPONENT",
+         "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+         "description": "Select specific jutsu"
+        },
+        "conditions": [
+         {
+          "type": "distance_lower_than",
+          "value": 6,
+          "target": "RANDOM_OPPONENT",
+          "description": "Distance lower than or equal given value"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "verify": "drift"
+   },
+   {
+    "idx": 2,
+    "entity": "quest",
+    "op": "create",
+    "name": "One Perfect Crop",
+    "srcId": "opc_quest",
+    "targetId": null,
+    "payloadHash": "347b152a",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "CZIZoHDAOWjxDtVaQwr6V",
+    "snapshotKey": "tnr_forge_snap_v1:47-mu4p1ms3:quest",
+    "sentAt": "2026-09-16T22:50:18.260Z",
+    "createSentAt": "2026-09-16T22:50:17.874Z",
+    "confirmedAt": "2026-09-16T22:50:21.105Z",
+    "verifiedAt": "2026-09-16T22:50:21.294Z",
+    "error": null,
+    "asserted": [
+     "name",
+     "questType",
+     "consecutiveObjectives",
+     "hidden",
+     "successDescription",
+     "description",
+     "startsAt",
+     "endsAt",
+     "tierLevel",
+     "content"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
