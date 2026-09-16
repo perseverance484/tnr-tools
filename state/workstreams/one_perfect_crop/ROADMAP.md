@@ -5,7 +5,7 @@
 - **Slug:** `one_perfect_crop`
 - **Content type:** event
 - **Status:** ACTIVE
-- **Progress:** 6/16 settled - planned 3, ready 6, blocked 1, complete 6
+- **Progress:** 7/16 settled - planned 2, ready 6, blocked 1, complete 7
 
 Deliver a reviewed hidden core manifest now; finish art/admin in a later launch-final patch.
 
@@ -37,8 +37,8 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `art.backgrounds` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes` | Node-to-background mapping. |
 | `admin.balance_and_eligibility` | READY | dauntless | `design.structure` | Deferred launch-final admin values. |
 | `build.final_freeze` | COMPLETE | ChatGPT | `prose.final`, `content.combat_ai_profiles` | state/prompt_one_perfect_crop.md. |
-| `build.manifest` | READY | Fable | `build.final_freeze` | Create two AIs, two profiles and the quest; no assets/items/jutsu. |
-| `review.manifest` | PLANNED | ChatGPT | `build.manifest` | Graph/combat/placeholder/safety review. |
+| `build.manifest` | COMPLETE | Fable | `build.final_freeze` | Create two AIs, two profiles and the quest; no assets/items/jutsu. |
+| `review.manifest` | READY | ChatGPT | `build.manifest` | Graph/combat/placeholder/safety review. |
 | `production.run_and_readback` | PLANNED | dauntless | `review.manifest` | User-only hidden execution/readback. |
 | `launch.finalization` | PLANNED | shared | `art.intake_accepted_assets`, `art.scene_characters`, `art.combat_avatars`, `art.icons`, `art.backgrounds`, `admin.balance_and_eligibility`, `review.manifest` | Final art/admin patch and hidden readback. |
 
@@ -54,8 +54,8 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.backgrounds`
 - **`admin.balance_and_eligibility`** (READY) - Launch-final admin decisions
   - `python3 scripts/content_workstream.py init one_perfect_crop --task admin.balance_and_eligibility`
-- **`build.manifest`** (READY) - Fable hidden core-manifest implementation
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task build.manifest`
+- **`review.manifest`** (READY) - Exact-SHA core-manifest review
+  - `python3 scripts/content_workstream.py init one_perfect_crop --task review.manifest`
 
 ## Blocked
 
@@ -74,9 +74,8 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 ## Waiting on dependencies
 
-- `review.manifest` - waiting on `build.manifest` (READY)
-- `production.run_and_readback` - waiting on `review.manifest` (PLANNED)
-- `launch.finalization` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.icons` (READY), `art.backgrounds` (READY), `admin.balance_and_eligibility` (READY), `review.manifest` (PLANNED)
+- `production.run_and_readback` - waiting on `review.manifest` (READY)
+- `launch.finalization` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.icons` (READY), `art.backgrounds` (READY), `admin.balance_and_eligibility` (READY), `review.manifest` (READY)
 
 ## Completed, with evidence
 
@@ -104,6 +103,14 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 - path: `state/prompt_one_perfect_crop.md`
 - path: `state/one_perfect_crop_core_manifest_override.md`
+
+### `build.manifest` - Fable hidden core-manifest implementation (COMPLETE)
+
+- path: `push/47_one_perfect_crop_core_manifest.json`
+- path: `push/47_one_perfect_crop_core_manifest.gen.py`
+- path: `docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md`
+- validator: validate.py on push/47_one_perfect_crop_core_manifest.json: 0 errors, 2 warnings (AP-economy, ruled on by the combat spec); no skipPreflight; 5 creates, all hidden
+- decision: Art, rewards, Cabbage Seed, repeatability and eligibility stay create-path placeholders; validate.py law 41 scoped to includeDefaultRules:false so the frozen three-rule profiles validate without skipPreflight
 
 ## Task detail
 
@@ -374,7 +381,7 @@ Freeze a core build contract that defers art/admin without guessing them.
 
 ### `build.manifest` - Fable hidden core-manifest implementation
 
-**READY** - area build, owner Fable, lead role Engineering Auditor
+**COMPLETE** - area build, owner Fable, lead role Engineering Auditor
 
 Build the validator-clean hidden core manifest.
 
@@ -397,7 +404,7 @@ Build the validator-clean hidden core manifest.
 
 ### `review.manifest` - Exact-SHA core-manifest review
 
-**PLANNED** - area review, owner ChatGPT, lead role Engineering Auditor
+**READY** - area review, owner ChatGPT, lead role Engineering Auditor
 
 Independently audit the frozen Fable SHA.
 

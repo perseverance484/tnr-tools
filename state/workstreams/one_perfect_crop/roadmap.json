@@ -227,7 +227,7 @@
       "id": "build.manifest",
       "title": "Fable hidden core-manifest implementation",
       "area": "build",
-      "status": "READY",
+      "status": "COMPLETE",
       "owner": "Fable",
       "depends_on": ["build.final_freeze"],
       "objective": "Build the validator-clean hidden core manifest.",
@@ -238,13 +238,24 @@
       ],
       "deliverables": ["Committed manifest and exact-SHA handoff."],
       "completion_gates": ["Validator exits zero and all creates are hidden."],
-      "lead_role": "Engineering Auditor"
+      "lead_role": "Engineering Auditor",
+      "evidence": [
+        {"kind": "path", "ref": "push/47_one_perfect_crop_core_manifest.json"},
+        {"kind": "path", "ref": "push/47_one_perfect_crop_core_manifest.gen.py"},
+        {"kind": "path", "ref": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"},
+        {"kind": "validator",
+         "ref": "validate.py on push/47_one_perfect_crop_core_manifest.json: 0 errors, 2 warnings (AP-economy, ruled on by the combat spec); no skipPreflight; 5 creates, all hidden",
+         "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"},
+        {"kind": "decision",
+         "ref": "Art, rewards, Cabbage Seed, repeatability and eligibility stay create-path placeholders; validate.py law 41 scoped to includeDefaultRules:false so the frozen three-rule profiles validate without skipPreflight",
+         "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"}
+      ]
     },
     {
       "id": "review.manifest",
       "title": "Exact-SHA core-manifest review",
       "area": "review",
-      "status": "PLANNED",
+      "status": "READY",
       "owner": "ChatGPT",
       "depends_on": ["build.manifest"],
       "objective": "Independently audit the frozen Fable SHA.",
