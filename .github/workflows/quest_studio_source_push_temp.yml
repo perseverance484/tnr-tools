@@ -32,11 +32,16 @@ jobs:
           from pathlib import Path
           p = Path("state/quest_studio_source_push_fix.py")
           text = p.read_text(encoding="utf-8")
-          old = '    return "\\n".join(out)\n'
-          new = '    return "\\\\n".join(out)\n'
-          if text.count(old) != 1:
-              raise SystemExit(f"expected one worker-test newline escape, found {text.count(old)}")
-          text = text.replace(old, new)
+
+          replacements = [
+            ('    return "\\n".join(out)\n', '    return "\\\\n".join(out)\n'),
+            ('        print(f"\\n{len(failures)} contract failures")\n', '        print()\n        print(f"{len(failures)} contract failures")\n'),
+            ('    print("\\nQuest Studio source-push trust boundary pinned")\n', '    print()\n    print("Quest Studio source-push trust boundary pinned")\n'),
+          ]
+          for old, new in replacements:
+              if text.count(old) != 1:
+                  raise SystemExit(f"expected one escape repair, found {text.count(old)} for {old!r}")
+              text = text.replace(old, new)
 
           old = '''    require(text, 'branches:\\n      - "studio/quest/**"', "worker is scoped to Studio request branches", failures)\n    require(text, 'paths:\\n      - "studio/requests/*.quest.json"', "worker triggers only on Quest Source writes", failures)\n'''
           new = '''    require(text, 'branches:', "worker declares a branch filter", failures)\n    require(text, '- "studio/quest/**"', "worker is scoped to Studio request branches", failures)\n    require(text, 'paths:', "worker declares a path filter", failures)\n    require(text, '- "studio/requests/*.quest.json"', "worker triggers only on Quest Source writes", failures)\n'''
