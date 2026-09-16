@@ -26,6 +26,19 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Repair temporary patch-script escaping
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path("state/quest_studio_source_push_fix.py")
+          text = p.read_text(encoding="utf-8")
+          old = '    return "\\n".join(out)\n'
+          new = '    return "\\\\n".join(out)\n'
+          if text.count(old) != 1:
+              raise SystemExit(f"expected one worker-test newline escape, found {text.count(old)}")
+          p.write_text(text.replace(old, new), encoding="utf-8")
+          PY
+
       - name: Apply source-push conversion
         run: python3 state/quest_studio_source_push_fix.py
 
