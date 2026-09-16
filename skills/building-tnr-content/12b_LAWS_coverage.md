@@ -73,7 +73,7 @@ paid for in the field, not re-derived this pass. `corrected` = the law changed i
 | 38 | generated | verified | `prerequisiteQuestId` is `string`, `.nullish()`, single-valued: `45d` |
 | 39 | validate | verified | Rule vocabulary fixed by `45c` `ZodAllAiConditions` / `ZodAllAiActions` |
 | 40 | validate | **corrected 2026-08-28; source-verified 2026-08-30** | `check_distance_gates`, from 32b ranges |
-| 41 | validate | carried | Final rule unconditional |
+| 41 | validate | **corrected 2026-09-16** | Final rule unconditional, and only when `includeDefaultRules` is false. Was enforced unconditionally, stricter than the law and than builder `rulesBad()` |
 | 41b | knowledge | carried | Unreachability applies only below always-executable actions |
 | 42 | validate | verified | `NONE` is a real member of `HUNTING_RANKS`/`GATHERING_RANKS` in `45e`; validate now warns |
 | 43 | knowledge | carried | Profession experience reward fields |
