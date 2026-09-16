@@ -11,7 +11,8 @@
     "2026-09-16 director ruling: missing art may use create-path placeholders in the hidden core build; no @img or asset entries are required.",
     "2026-09-16 director ruling: launch-final rewards, Cabbage Seed definition/economics, repeatability and eligibility are deferred; core implementation must not invent them.",
     "state/one_perfect_crop_core_manifest_override.md supersedes the older finish-plan art/admin-before-any-manifest gate only for the hidden core path.",
-    "Publishing/unhiding remains blocked until launch.finalization; Farming level 15 must not be silently mapped to character level 15."
+    "Publishing/unhiding remains blocked until launch.finalization; Farming level 15 must not be silently mapped to character level 15.",
+    "2026-09-16 Forge 0.4.1 blocker: the five-item candidate af0efc6 was refused at manifest selection ('aiProfile cannot be created directly; create an ai with rules'), before job creation and with no live mutation. push/47 is corrected in place to three items with each AI carrying its own rules; validate.py and selfcheck.py now enforce the same contract, and forge/tools/check_manifest.mjs runs Forge's own parser/planner/validator offline. The rev-1 review PASS is superseded for execution."
   ],
   "resources": [
     {
@@ -244,11 +245,18 @@
         {"kind": "path", "ref": "push/47_one_perfect_crop_core_manifest.gen.py"},
         {"kind": "path", "ref": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"},
         {"kind": "validator",
-         "ref": "validate.py on push/47_one_perfect_crop_core_manifest.json: 0 errors, 2 warnings (AP-economy, ruled on by the combat spec); no skipPreflight; 5 creates, all hidden",
+         "ref": "validate.py on push/47_one_perfect_crop_core_manifest.json: 0 errors, 2 warnings (AP-economy, ruled on by the combat spec); no skipPreflight; 3 creates, all hidden",
+         "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"},
+        {"kind": "validator",
+         "ref": "Forge 0.4.1 offline gate, forge/tools/check_manifest.mjs (real parseManifest + planOrder + pinned Validator): 3 planned items, both ai creates routed to the rules phase, 0 pre-send problems, exit 0. forge npm test 310 tests / 309 pass; the one failure is the release-loader marker test, already red at base a45b576 and untouched here",
          "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"},
         {"kind": "decision",
          "ref": "Art, rewards, Cabbage Seed, repeatability and eligibility stay create-path placeholders; validate.py law 41 scoped to includeDefaultRules:false so the frozen three-rule profiles validate without skipPreflight",
-         "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"}
+         "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"},
+        {"kind": "decision",
+         "ref": "SUPERSEDED: the five-item candidate af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f carried two standalone aiProfile creates, which Forge 0.4.1 refuses at parse time before job creation or mutation. Corrected in place to three items with the rules on their owning ai entries; approved combat content, rule order, jutsu ids and the quest payload are unchanged. The rev-1 independent PASS does not carry over and a narrow re-review is owed",
+         "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"},
+        {"kind": "sha", "ref": "af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f"}
       ]
     },
     {

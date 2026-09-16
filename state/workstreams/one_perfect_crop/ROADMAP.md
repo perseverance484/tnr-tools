@@ -109,8 +109,11 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 - path: `push/47_one_perfect_crop_core_manifest.json`
 - path: `push/47_one_perfect_crop_core_manifest.gen.py`
 - path: `docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md`
-- validator: validate.py on push/47_one_perfect_crop_core_manifest.json: 0 errors, 2 warnings (AP-economy, ruled on by the combat spec); no skipPreflight; 5 creates, all hidden
+- validator: validate.py on push/47_one_perfect_crop_core_manifest.json: 0 errors, 2 warnings (AP-economy, ruled on by the combat spec); no skipPreflight; 3 creates, all hidden
+- validator: Forge 0.4.1 offline gate, forge/tools/check_manifest.mjs (real parseManifest + planOrder + pinned Validator): 3 planned items, both ai creates routed to the rules phase, 0 pre-send problems, exit 0. forge npm test 310 tests / 309 pass; the one failure is the release-loader marker test, already red at base a45b576 and untouched here
 - decision: Art, rewards, Cabbage Seed, repeatability and eligibility stay create-path placeholders; validate.py law 41 scoped to includeDefaultRules:false so the frozen three-rule profiles validate without skipPreflight
+- decision: SUPERSEDED: the five-item candidate af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f carried two standalone aiProfile creates, which Forge 0.4.1 refuses at parse time before job creation or mutation. Corrected in place to three items with the rules on their owning ai entries; approved combat content, rule order, jutsu ids and the quest payload are unchanged. The rev-1 independent PASS does not carry over and a narrow re-review is owed
+- sha: af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f
 
 ## Task detail
 
