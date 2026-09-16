@@ -1,73 +1,70 @@
 name: quest-studio
 
 on:
-  workflow_dispatch:
-    inputs:
-      request_branch:
-        description: "studio/quest/<request_id> branch containing authored Quest Source"
-        required: true
-        type: string
-      source_path:
-        description: "studio/requests/<request_id>.quest.json"
-        required: true
-        type: string
-      request_id:
-        description: "Quest Studio request id"
-        required: true
-        type: string
-      source_sha:
-        description: "Exact request-branch commit containing the source to compile"
-        required: true
-        type: string
+  push:
+    branches:
+      - "studio/quest/**"
+    paths:
+      - "studio/requests/*.quest.json"
 
 permissions:
   contents: write
 
+# A newer source revision for the same request supersedes an older in-flight compile.
 concurrency:
-  group: quest-studio-${{ inputs.request_id }}
+  group: quest-studio-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   compile:
     runs-on: ubuntu-latest
     steps:
-      # The workflow itself must be dispatched on main. Compiler code is checked out at that exact
-      # main SHA; authored request code is never executed.
+      # The browser credential only writes authored data. Executable compiler code is always
+      # checked out separately from the current trusted main branch and never from the request branch.
       - name: Checkout trusted compiler
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.sha }}
+          ref: main
           path: tools
           fetch-depth: 1
+          persist-credentials: false
 
-      - name: Validate dispatch identity
+      - name: Resolve trusted compiler revision
+        id: compiler
+        run: echo "compiler_sha=$(git -C tools rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Validate push identity
+        id: identity
         env:
-          TRUSTED_REF: ${{ github.ref }}
-          REQUEST_BRANCH: ${{ inputs.request_branch }}
-          SOURCE_PATH: ${{ inputs.source_path }}
-          REQUEST_ID: ${{ inputs.request_id }}
-          SOURCE_SHA: ${{ inputs.source_sha }}
+          REQUEST_BRANCH: ${{ github.ref_name }}
+          SOURCE_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
-          [[ "$TRUSTED_REF" == "refs/heads/main" ]] || { echo "Quest Studio worker must be dispatched from main" >&2; exit 2; }
-          [[ "$REQUEST_ID" =~ ^[a-z0-9][a-z0-9._-]{2,63}$ ]] || { echo "invalid request_id" >&2; exit 2; }
-          [[ "$SOURCE_SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "invalid source_sha" >&2; exit 2; }
-          [[ "$REQUEST_BRANCH" == "studio/quest/$REQUEST_ID" ]] || { echo "request branch does not match request id" >&2; exit 2; }
-          [[ "$SOURCE_PATH" == "studio/requests/$REQUEST_ID.quest.json" ]] || { echo "source path does not match request id" >&2; exit 2; }
+          [[ "$REQUEST_BRANCH" == studio/quest/* ]] || { echo "invalid Quest Studio request branch" >&2; exit 2; }
+          REQUEST_ID="${REQUEST_BRANCH#studio/quest/}"
+          [[ "$REQUEST_ID" =~ ^[a-z0-9][a-z0-9._-]{2,63}$ ]] || { echo "invalid request id" >&2; exit 2; }
+          [[ "$SOURCE_SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "invalid source sha" >&2; exit 2; }
+          SOURCE_PATH="studio/requests/$REQUEST_ID.quest.json"
+          {
+            echo "request_branch=$REQUEST_BRANCH"
+            echo "request_id=$REQUEST_ID"
+            echo "source_path=$SOURCE_PATH"
+            echo "source_sha=$SOURCE_SHA"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Checkout authored request source
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.source_sha }}
+          ref: ${{ steps.identity.outputs.source_sha }}
           path: request
           fetch-depth: 1
 
       - name: Validate request content
         id: boundary
         env:
-          SOURCE_PATH: ${{ inputs.source_path }}
-          REQUEST_ID: ${{ inputs.request_id }}
-          SOURCE_SHA: ${{ inputs.source_sha }}
+          SOURCE_PATH: ${{ steps.identity.outputs.source_path }}
+          REQUEST_ID: ${{ steps.identity.outputs.request_id }}
+          SOURCE_SHA: ${{ steps.identity.outputs.source_sha }}
           RUNNER_TEMP: ${{ runner.temp }}
         run: |
           set -euo pipefail
@@ -101,10 +98,10 @@ jobs:
       - name: Compile Quest Source
         id: compile
         env:
-          SOURCE_PATH: ${{ inputs.source_path }}
-          REQUEST_ID: ${{ inputs.request_id }}
-          SOURCE_SHA: ${{ inputs.source_sha }}
-          COMPILER_SHA: ${{ github.sha }}
+          SOURCE_PATH: ${{ steps.identity.outputs.source_path }}
+          REQUEST_ID: ${{ steps.identity.outputs.request_id }}
+          SOURCE_SHA: ${{ steps.identity.outputs.source_sha }}
+          COMPILER_SHA: ${{ steps.compiler.outputs.compiler_sha }}
           BOUNDARY_RC: ${{ steps.boundary.outputs.boundary_rc }}
           RUNNER_TEMP: ${{ runner.temp }}
         run: |
@@ -165,14 +162,21 @@ jobs:
 
       - name: Persist build result to request branch
         env:
-          REQUEST_BRANCH: ${{ inputs.request_branch }}
-          REQUEST_ID: ${{ inputs.request_id }}
+          REQUEST_BRANCH: ${{ steps.identity.outputs.request_branch }}
+          REQUEST_ID: ${{ steps.identity.outputs.request_id }}
+          SOURCE_SHA: ${{ steps.identity.outputs.source_sha }}
           RUNNER_TEMP: ${{ runner.temp }}
         run: |
           set -euo pipefail
           TMP_ROOT="$RUNNER_TEMP/tnr-quest-studio/$REQUEST_ID"
           RESULT_PATH="request/studio/results/$REQUEST_ID.build.json"
           BUILD_PATH="request/studio/builds/$REQUEST_ID"
+
+          REMOTE_SHA="$(git -C request ls-remote origin "refs/heads/$REQUEST_BRANCH" | awk '{print $1}')"
+          [[ "$REMOTE_SHA" == "$SOURCE_SHA" ]] || {
+            echo "request branch advanced from $SOURCE_SHA to $REMOTE_SHA; refusing to persist stale build evidence" >&2
+            exit 5
+          }
 
           rm -rf "$RESULT_PATH" "$BUILD_PATH"
           mkdir -p "$(dirname "$RESULT_PATH")" "$BUILD_PATH"
