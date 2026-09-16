@@ -5,9 +5,9 @@
 - **Slug:** `one_perfect_crop`
 - **Content type:** event
 - **Status:** ACTIVE
-- **Progress:** 5/15 settled - planned 4, ready 5, blocked 1, complete 5
+- **Progress:** 6/16 settled - planned 3, ready 6, blocked 1, complete 6
 
-Finish One Perfect Crop from its frozen route/prose and resolved reuse research through durable art intake/production, implementation-exact combat and content-admin packets, final build freeze, Fable manifest implementation, exact-SHA independent review, and user-owned Forge execution/readback. This roadmap coordinates the remaining work; it does not replace the event's canonical prose, captures, art spec, content references, or user rulings.
+Deliver a reviewed hidden core manifest now; finish art/admin in a later launch-final patch.
 
 This roadmap is **coordination state, not canon.** It points at the authoritative sources below and never restates them. `docs/00_INDEX.md` remains the only precedence table; `state/active-context.md` and `state/status.json` remain the global session state.
 
@@ -15,107 +15,95 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 | Path | Why |
 | --- | --- |
-| `state/plan_one_perfect_crop_finish.md` | Durable finish plan carrying frozen structure, reuse locks, accepted-art descriptions, approved combat intent, phase boundaries and stale pending-probe text that must be read with the newer resolution. |
-| `state/one_perfect_crop_prose_graph.md` | Frozen player-facing prose and logical objective graph. |
-| `state/one_perfect_crop_bandit_resolution.md` | Newest Road Bandit reuse resolution: create a new generic Road Bandit AI/AiProfile and do not edit shared AI. |
-| `state/one_perfect_crop_content_admin_open.md` | Authoritative open content-admin decision packet; implementation may not guess these values. |
-| `harvests/inbox/tnr_results_1789060167786.json` | Committed read-only reuse-candidate capture including DM Mission Clerk and BustlingTownMarket. |
-| `harvests/inbox/tnr_results_1789061570022.json` | Committed read-only visual-reference capture from which the durable style reference pack was materialized. |
-| `harvests/inbox/tnr_results_1789124514980.json` | Committed Forge 0.4.0 protected Road Bandit full-capture result, zero mutation items. |
-| `docs/00_INDEX.md` | Project precedence and evidence rules. |
-| `docs/DOCTRINE.md` | Cross-surface production doctrine, including hidden-first and user-only live-game boundaries. |
-| `docs/workflows/CONTENT_WORKSTREAM.md` | Workstream status, evidence, init and closeout rules. |
-| `docs/workflows/DIRECTOR_DECISIONS.md` | How unresolved user-owned choices are presented and durably recorded. |
+| `state/one_perfect_crop_core_manifest_override.md` | Newest core-manifest ruling. |
+| `state/one_perfect_crop_prose_graph.md` | Frozen prose/graph. |
+| `state/one_perfect_crop_combat_spec.md` | Exact combat contract. |
+| `state/one_perfect_crop_content_admin_open.md` | Deferred launch-final admin decisions. |
+| `docs/00_INDEX.md` | Precedence/evidence rules. |
 
 ## Tasks
 
 | Task | Status | Owner | Depends on | Scope |
 | --- | --- | --- | --- | --- |
-| `design.structure` | COMPLETE | shared | - | PASS spine plus F1-F4 sealed failure wings |
-| `prose.final` | COMPLETE | shared | `design.structure` | PASS and failure-wing prose |
-| `research.asset_probes` | COMPLETE | dauntless | `design.structure` | push/02 reuse candidates including DM Mission Clerk and BustlingTownMarket |
-| `research.bandit_ai` | COMPLETE | shared | `design.structure` | five-candidate protected full capture |
-| `content.combat_ai_profiles` | COMPLETE | ChatGPT | `design.structure`, `research.bandit_ai` | Road Bandit AI record fields and AiProfile rules, using the approved JONIN/scale-to-user/None-element/three-move contract and existing jutsu ids |
-| `art.intake_accepted_assets` | BLOCKED | dauntless | `design.structure` | one_perfect_crop_ittetsu_scene.webp |
-| `art.scene_characters` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | generate/process one_perfect_crop_road_bandit_scene.webp in a NINJA scene-character-only context |
-| `art.combat_avatars` | READY | ChatGPT | `design.structure`, `research.bandit_ai` | one_perfect_crop_road_bandit_avatar.webp |
-| `art.icons` | READY | ChatGPT | `design.structure` | one_perfect_crop_cabbage_seed.webp |
-| `art.backgrounds` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes` | verify Pass Road Dusk nmrMHmz9xWojzyIV2mAR8, Waystation Door kmDsQUEHSub9GIX5ulO6i, East Road Ambush Site E4VJ-IeIQMwbmGGfKc-sn and BustlingTownMarket cYu6VwVX55m6uq1oxlWc1 from committed evidence |
-| `admin.balance_and_eligibility` | READY | dauntless | `design.structure` | event Ryo and XP including explicit zero values |
-| `build.final_freeze` | PLANNED | ChatGPT | `prose.final`, `content.combat_ai_profiles`, `art.intake_accepted_assets`, `art.scene_characters`, `art.combat_avatars`, `art.icons`, `art.backgrounds`, `admin.balance_and_eligibility` | state/prompt_one_perfect_crop.md as the frozen implementation brief |
-| `build.manifest` | PLANNED | Fable | `build.final_freeze` | build only from the frozen brief and current generated/factory contracts |
-| `review.manifest` | PLANNED | ChatGPT | `build.manifest` | review the exact handed-off SHA without modifying Fable's branch |
-| `production.run_and_readback` | PLANNED | dauntless | `review.manifest` | user loads only the reviewed manifest SHA/art bundle into Forge and inspects preflight/image resolution |
+| `design.structure` | COMPLETE | shared | - | Frozen PASS/FAIL structure. |
+| `prose.final` | COMPLETE | shared | `design.structure` | Frozen prose graph. |
+| `research.asset_probes` | COMPLETE | dauntless | `design.structure` | Read-only captures. |
+| `research.bandit_ai` | COMPLETE | shared | `design.structure` | Candidate review. |
+| `content.combat_ai_profiles` | COMPLETE | ChatGPT | `design.structure`, `research.bandit_ai` | Road Bandit and Harvest Boar combat contracts. |
+| `art.intake_accepted_assets` | BLOCKED | dauntless | `design.structure` | Accepted art intake. |
+| `art.scene_characters` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | Launch-final scene characters. |
+| `art.combat_avatars` | READY | ChatGPT | `design.structure`, `research.bandit_ai` | Launch-final AI avatars. |
+| `art.icons` | READY | ChatGPT | `design.structure` | Launch-final item icon. |
+| `art.backgrounds` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes` | Node-to-background mapping. |
+| `admin.balance_and_eligibility` | READY | dauntless | `design.structure` | Deferred launch-final admin values. |
+| `build.final_freeze` | COMPLETE | ChatGPT | `prose.final`, `content.combat_ai_profiles` | state/prompt_one_perfect_crop.md. |
+| `build.manifest` | READY | Fable | `build.final_freeze` | Create two AIs, two profiles and the quest; no assets/items/jutsu. |
+| `review.manifest` | PLANNED | ChatGPT | `build.manifest` | Graph/combat/placeholder/safety review. |
+| `production.run_and_readback` | PLANNED | dauntless | `review.manifest` | User-only hidden execution/readback. |
+| `launch.finalization` | PLANNED | shared | `art.intake_accepted_assets`, `art.scene_characters`, `art.combat_avatars`, `art.icons`, `art.backgrounds`, `admin.balance_and_eligibility`, `review.manifest` | Final art/admin patch and hidden readback. |
 
 ## Executable now
 
-- **`art.scene_characters`** (READY) - Scene characters: Road Bandit production and Market Clerk reuse closure
+- **`art.scene_characters`** (READY) - Launch-final scene characters
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.scene_characters`
-- **`art.combat_avatars`** (READY) - Combat AI avatars: Road Bandit and Harvest Boar
+- **`art.combat_avatars`** (READY) - Launch-final combat avatars
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.combat_avatars`
-- **`art.icons`** (READY) - Cabbage Seed item icon
+- **`art.icons`** (READY) - Launch-final Cabbage Seed icon
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.icons`
-- **`art.backgrounds`** (READY) - Scene background coverage and wiring assessment
+- **`art.backgrounds`** (READY) - Launch-final scene wiring
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.backgrounds`
-- **`admin.balance_and_eligibility`** (READY) - Director packet: rewards, item economics, repeatability and eligibility
+- **`admin.balance_and_eligibility`** (READY) - Launch-final admin decisions
   - `python3 scripts/content_workstream.py init one_perfect_crop --task admin.balance_and_eligibility`
+- **`build.manifest`** (READY) - Fable hidden core-manifest implementation
+  - `python3 scripts/content_workstream.py init one_perfect_crop --task build.manifest`
 
 ## Blocked
 
-### `art.intake_accepted_assets` - Repository intake of already-accepted Ittetsu, Waystation Keeper and quest icon
+### `art.intake_accepted_assets` - Accepted-art repository intake
 
-- BLOCKER: The accepted bytes are not present anywhere in the repository at the verified main SHA. The finish plan says they were delivered in a chat-side one_perfect_crop_art_intake.zip, so the user must re-supply the exact three files (or another durable source) before this task can execute.
-- BLOCKER: The externally isolated black-background sources still owe repository-native preflight/normalization before build handoff.
+- BLOCKER: Exact accepted bytes are not durable in the repository; this blocks launch finalization only.
 
 ## Other open decisions
 
-- `art.scene_characters`: Final Road Bandit visual direction and final art acceptance are the user's.
-- `art.combat_avatars`: Final visual direction and final acceptance of both AI avatars are the user's.
-- `art.icons`: Final icon direction and final art acceptance are the user's.
-- `art.icons`: Rarity/type/economics remain in admin.balance_and_eligibility and must not be baked into this art task.
-- `art.backgrounds`: If the assessment finds a real scene that the locked four families cannot carry, whether to accept the closest reuse or commission a new background is the user's art-direction decision.
-- `admin.balance_and_eligibility`: Exact event Ryo reward.
-- `admin.balance_and_eligibility`: Exact event XP reward.
-- `admin.balance_and_eligibility`: Which token/other standard currencies are used and their exact values.
-- `admin.balance_and_eligibility`: Cabbage Seed rarity.
-- `admin.balance_and_eligibility`: Cabbage Seed functional item type and required economics/value fields.
-- `admin.balance_and_eligibility`: Repeatability: once-only or another supported policy.
-- `admin.balance_and_eligibility`: Eligibility: preserve intent through an explicitly chosen supported substitute, or explicitly remove/substitute the mechanical Farming level 15 gate; never map it silently to character minLevel 15.
-- `production.run_and_readback`: Whether and when to publish/unhide after a clean hidden-state readback remains the user's separate decision.
+- `art.scene_characters`: Final art acceptance is user-owned.
+- `art.combat_avatars`: Final art acceptance is user-owned.
+- `art.icons`: Final art acceptance is user-owned.
+- `art.backgrounds`: Any new-background decision is user-owned.
+- `admin.balance_and_eligibility`: Rewards, Cabbage Seed type/rarity/economics, repeatability and eligibility remain user-owned.
+- `production.run_and_readback`: Whether to run the hidden core manifest before launch finalization is user-owned.
 
 ## Waiting on dependencies
 
-- `build.final_freeze` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.icons` (READY), `art.backgrounds` (READY), `admin.balance_and_eligibility` (READY)
-- `build.manifest` - waiting on `build.final_freeze` (PLANNED)
-- `review.manifest` - waiting on `build.manifest` (PLANNED)
+- `review.manifest` - waiting on `build.manifest` (READY)
 - `production.run_and_readback` - waiting on `review.manifest` (PLANNED)
+- `launch.finalization` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.icons` (READY), `art.backgrounds` (READY), `admin.balance_and_eligibility` (READY), `review.manifest` (PLANNED)
 
 ## Completed, with evidence
 
 ### `design.structure` - Route, cast and encounter architecture (COMPLETE)
 
-- path: `state/plan_one_perfect_crop_finish.md` - Settled rulings and target event shape are recorded as frozen.
-- path: `state/one_perfect_crop_prose_graph.md` - Stable logical ids and route edges are recorded node by node.
+- path: `state/plan_one_perfect_crop_finish.md`
 
-### `prose.final` - Frozen player-facing prose and graph normalization (COMPLETE)
+### `prose.final` - Frozen player-facing prose (COMPLETE)
 
-- path: `state/one_perfect_crop_prose_graph.md` - Status records wording/route frozen for implementation.
+- path: `state/one_perfect_crop_prose_graph.md`
 
-### `research.asset_probes` - Read-only scene-asset and visual-reference captures (COMPLETE)
+### `research.asset_probes` - Read-only asset/reference captures (COMPLETE)
 
-- capture: `harvests/inbox/tnr_results_1789060167786.json` - Forge 0.3.0 DONE/success; five full gameAsset.get captures; entries empty.
-- capture: `harvests/inbox/tnr_results_1789061570022.json` - Forge 0.3.0 DONE/success; eighteen full gameAsset.get captures; entries empty.
-- path: `skills/producing-tnr-art/data/style_refs.json` - Durable reference index cites the committed source capture and materialized art/style_refs bytes.
+- capture: `harvests/inbox/tnr_results_1789060167786.json`
 
 ### `research.bandit_ai` - Road Bandit reuse investigation (COMPLETE)
 
-- path: `state/one_perfect_crop_bandit_resolution.md` - Resolved: create a new generic Road Bandit AI + AiProfile; do not edit shared AI.
-- capture: `harvests/inbox/tnr_results_1789124514980.json` - Forge 0.4.0 DONE/success protected full capture with zero mutation entries.
+- path: `state/one_perfect_crop_bandit_resolution.md`
 
-### `content.combat_ai_profiles` - Implementation-exact combat AI/profile specification (COMPLETE)
+### `content.combat_ai_profiles` - Implementation-exact combat spec (COMPLETE)
 
-- path: `state/one_perfect_crop_combat_spec.md` - Implementation-exact Road Bandit and Harvest Boar AI/AiProfile contract; completion state records no remaining combat content value.
-- sha: d0c96d45d486a3c0e36d35b7500c2b0f0114c85b - Final director ruling commit sets Harvest Boar preferredStat to Taijutsu and marks the combat specification COMPLETE.
+- path: `state/one_perfect_crop_combat_spec.md`
+
+### `build.final_freeze` - Hidden core-manifest build freeze (COMPLETE)
+
+- path: `state/prompt_one_perfect_crop.md`
+- path: `state/one_perfect_crop_core_manifest_override.md`
 
 ## Task detail
 
@@ -123,568 +111,352 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 **COMPLETE** - area design, owner shared, lead role Content Designer
 
-Settle the event route, cast, encounter count, PASS/FAIL outcomes, zero-travel shape and delivery-before-catastrophe ordering.
+Freeze the event route and encounter architecture.
 
 **Scope**
 
-- PASS spine plus F1-F4 sealed failure wings
-- two dialog-gated start_battle encounters with hard-fail loss routes
-- zero-travel event shape with no location/sector/map-marker gameplay
-- delivery accepted before the final cabbage catastrophe
+- Frozen PASS/FAIL structure.
 
 **Required resources**
 
-- `state/plan_one_perfect_crop_finish.md` - Frozen structural rulings and target event shape.
-- `state/one_perfect_crop_prose_graph.md` - Node-level graph proving the frozen route.
+- `state/plan_one_perfect_crop_finish.md` - Frozen structure.
 
 **Deliverables**
 
-- Frozen route/cast/encounter architecture in committed durable sources
+- Durable frozen structure.
 
 **Completion gates**
 
-- Frozen plan and prose graph agree on the route and battle placement
+- Plan is frozen.
 
-### `prose.final` - Frozen player-facing prose and graph normalization
+### `prose.final` - Frozen player-facing prose
 
 **COMPLETE** - area prose, owner shared, lead role Content Designer
 
-Freeze the player-facing wording and TNR scene formatting for every route node.
+Freeze all player-facing prose and graph edges.
 
 **Scope**
 
-- PASS and failure-wing prose
-- scene formatting contract and stable logical ids
-- choice labels and terminal completion/failure text
+- Frozen prose graph.
 
 **Required resources**
 
-- `state/one_perfect_crop_prose_graph.md` - Frozen prose and logical graph.
+- `state/one_perfect_crop_prose_graph.md` - Frozen prose/graph.
 
 **Deliverables**
 
-- Committed normalized prose for every node
+- Committed prose graph.
 
 **Completion gates**
 
-- Source status records wording/route frozen for implementation
+- Wording and edges are frozen.
 
-### `research.asset_probes` - Read-only scene-asset and visual-reference captures
+### `research.asset_probes` - Read-only asset/reference captures
 
 **COMPLETE** - area research, owner dauntless, lead role Engineering Auditor
 
-Capture the exact live record state needed for asset reuse decisions and the durable TNR visual reference pack without mutations.
+Preserve reuse/reference evidence.
 
 **Scope**
 
-- push/02 reuse candidates including DM Mission Clerk and BustlingTownMarket
-- push/03 approved scene-character/background visual reference set
+- Read-only captures.
 
 **Required resources**
 
-- `harvests/inbox/tnr_results_1789060167786.json` - Successful full capture of reuse candidates.
-- `harvests/inbox/tnr_results_1789061570022.json` - Successful full visual-reference capture.
-- `skills/producing-tnr-art/data/style_refs.json` - Materialized durable reference index with capture provenance.
+- `harvests/inbox/tnr_results_1789060167786.json` - Reuse capture.
 
 **Deliverables**
 
-- Committed full result bundles and a provenance-checked local visual reference pack
+- Durable capture evidence.
 
 **Completion gates**
 
-- Both captures are DONE/success with persisted full bodies and zero mutation entries
+- Capture exists.
 
 ### `research.bandit_ai` - Road Bandit reuse investigation
 
 **COMPLETE** - area research, owner shared, lead role Engineering Auditor
 
-Resolve whether an existing live AI can carry the F2 Road Bandit encounter without modifying a shared record.
+Resolve Road Bandit reuse versus new AI.
 
 **Scope**
 
-- five-candidate protected full capture
-- compatibility review against the approved Road Bandit intent
-- reuse/new-AI decision and art consequence
+- Candidate review.
 
 **Required resources**
 
-- `state/one_perfect_crop_bandit_resolution.md` - Durable resolution and candidate-by-candidate reasoning.
-- `harvests/inbox/tnr_results_1789124514980.json` - Forge 0.4.0 full-capture evidence behind the resolution.
-- `skills/building-tnr-content/data/32b_DATA_pool.json` - Generated shared-jutsu pool confirming approved kit ids.
+- `state/one_perfect_crop_bandit_resolution.md` - Resolution.
 
 **Deliverables**
 
-- Durable decision to reuse or create, with verified shared-pool ids
+- Durable Road Bandit decision.
 
 **Completion gates**
 
-- All five candidates resolved from fresh record bodies
-- No shared AI edit selected merely to fit this event
+- New generic AI/profile selected.
 
-### `content.combat_ai_profiles` - Implementation-exact combat AI/profile specification
+### `content.combat_ai_profiles` - Implementation-exact combat spec
 
 **COMPLETE** - area design, owner ChatGPT, lead role Content Designer
 
-Translate the already-approved Road Bandit and Harvest Boar combat intent into a durable, implementation-exact AI + AiProfile content specification against the current schema, without inventing balance.
+Freeze both AI records and AiProfiles.
 
 **Scope**
 
-- Road Bandit AI record fields and AiProfile rules, using the approved JONIN/scale-to-user/None-element/three-move contract and existing jutsu ids
-- Harvest Boar AI record fields and AiProfile rules, using the approved JONIN/scale-to-user/None-element/three-move contract and existing jutsu ids
-- prove how 'standard/default' stats, pools, regeneration, armor and fallback behavior map to the current canonical AI contract
-- record exact ordered AiProfile rule intent/range gating needed by the manifest
-- surface any residual balance-owned field that is not deterministically fixed by the approved standard/default contract rather than choosing it
-
-**Out of scope**
-
-- Generating either avatar
-- Minting new jutsu
-- Changing the frozen encounter graph
-- Choosing unresolved rewards/item economics/repeatability/eligibility
+- Road Bandit and Harvest Boar combat contracts.
 
 **Required resources**
 
-- `state/plan_one_perfect_crop_finish.md` - Carries approved Road Bandit and Harvest Boar combat intent.
-- `state/one_perfect_crop_bandit_resolution.md` - Newest Road Bandit resolution and approved shared-pool kit ids.
-- `skills/building-tnr-content/references/ai.md` - Canonical AI enemy and AiProfile schema/behavior rules; stat and pool values remain user-owned unless already fixed.
-- `skills/building-tnr-content/references/balance.md` - Balance boundaries and standard-enemy tuning context; use only to interpret already-approved defaults, not to invent choices.
-- `skills/building-tnr-content/data/32b_DATA_pool.json` - Generated shared-jutsu pool and literal ids for S27/S40/S41/S42.
-- `docs/workflows/DIRECTOR_DECISIONS.md` - Escalation format if an implementation-exact field is still a user-owned content decision.
+- `state/one_perfect_crop_combat_spec.md` - Exact combat spec.
 
 **Deliverables**
 
-- state/one_perfect_crop_combat_spec.md containing implementation-exact Road Bandit and Harvest Boar AI/AiProfile content contracts, or an explicit blocked decision packet if current canon leaves a user-owned combat value unresolved
+- Implementation-exact combat spec.
 
 **Completion gates**
 
-- Both AI records and both AiProfile behaviors can be implemented without Fable choosing content values
-- Shared jutsu are referenced by existing ids; no replacement jutsu are created
-- Any field described only as standard/default is mapped to current canonical behavior with evidence, not assumption
-- Any remaining balance-owned ambiguity is escalated to the user and recorded instead of silently resolved
+- No combat values remain for Fable to choose.
 
-### `art.intake_accepted_assets` - Repository intake of already-accepted Ittetsu, Waystation Keeper and quest icon
+### `art.intake_accepted_assets` - Accepted-art repository intake
 
 **BLOCKED** - area art, owner dauntless, lead role Image Production
 
-Make the three already-accepted art files durable in the repository and pass them through the repo-native production gate without redesigning them.
+Make accepted Ittetsu/Keeper/quest-icon bytes durable for launch finalization.
 
 **Scope**
 
-- one_perfect_crop_ittetsu_scene.webp
-- one_perfect_crop_waystation_keeper_scene.webp
-- one_perfect_crop_quest_icon.webp
-- repo-native artpreflight and production-ledger normalization
-
-**Out of scope**
-
-- Redesign or regeneration unless the user explicitly rejects the accepted bytes after intake.
+- Accepted art intake.
 
 **Required resources**
 
-- `state/plan_one_perfect_crop_finish.md` - Records the accepted designs, expected filenames/dimensions and the chat-side ZIP provenance.
-- `skills/producing-tnr-art/SKILL.md` - Current TNR art production authority and one-asset-at-a-time workflow.
-- `skills/producing-tnr-art/data/25x_DATA_art_spec.json` - Sole authority for art target dimensions, aspect, format, byte limits, chroma behavior and house-style clauses.
+- `state/plan_one_perfect_crop_finish.md` - Accepted filenames/designs.
 
 **Deliverables**
 
-- Exact accepted bytes committed under the recorded filenames
-- repo-native artpreflight results and durable production ledger entries
+- Durable preflight-clean accepted art.
 
 **Completion gates**
 
-- All three exact files exist in the repository
-- artpreflight reports zero errors for each applicable target
-- Acceptance remains attributed to the user; intake does not silently substitute different bytes
+- Exact bytes are durable.
 
-### `art.scene_characters` - Scene characters: Road Bandit production and Market Clerk reuse closure
+### `art.scene_characters` - Launch-final scene characters
 
 **READY** - area art, owner ChatGPT, lead role Image Production
 
-Produce the one outstanding new SCENE_CHARACTER and close the remaining scene-character reuse decision without mixing asset classes.
+Finish Road Bandit scene art and Market Clerk reuse.
 
 **Scope**
 
-- generate/process one_perfect_crop_road_bandit_scene.webp in a NINJA scene-character-only context
-- verify DM Mission Clerk XsLLy8awDAtaE6hXVIi_0 against the frozen Market Clerk role and committed capture, recording the reuse verdict
-- one candidate at a time through raw QC, processing, dark-composite QC, preflight and user acceptance
-
-**Out of scope**
-
-- Ittetsu/Waystation Keeper/quest-icon intake
-- AI avatars
-- icons
-- background production
-- Nameless Ninja, explicitly rejected as a positive reuse/reference candidate
+- Launch-final scene characters.
 
 **Required resources**
 
-- `skills/producing-tnr-art/SKILL.md` - Current TNR art production authority and one-asset-at-a-time workflow.
-- `skills/producing-tnr-art/data/25x_DATA_art_spec.json` - Sole authority for art target dimensions, aspect, format, byte limits, chroma behavior and house-style clauses.
-- `skills/producing-tnr-art/references/prompts.md` - Current prompt/reference bootstrap and generator failure-mode guidance.
-- `skills/producing-tnr-art/references/processing.md` - Current processing, packaging and filename-contract guidance.
-- `docs/workflows/ART_PRODUCTION.md` - Repository collaboration workflow for art production, QC, acceptance and handoff.
-- `docs/agents/IMAGE_PRODUCTION.md` - Lead-role guidance for production image sessions.
-- `skills/producing-tnr-art/data/style_refs.json` - Durable reference-pack provenance and deterministic per-target selection metadata.
-- `skills/producing-tnr-art/scripts/style_refs.py` - Selector/verification tool; selected individual images must be visually inspected before scene generation.
-- `state/plan_one_perfect_crop_finish.md` - Locks character reuse/production intent and rejects Nameless Ninja.
-- `state/one_perfect_crop_prose_graph.md` - Frozen Road Bandit and Market Clerk scene context.
-- `harvests/inbox/tnr_results_1789060167786.json` - Fresh DM Mission Clerk reuse record.
+- `state/plan_one_perfect_crop_finish.md` - Scene-art intent.
 
 **Deliverables**
 
-- Accepted, preflight-clean one_perfect_crop_road_bandit_scene.webp committed to the repository
-- Durable Market Clerk reuse verdict tied to DM Mission Clerk XsLLy8awDAtaE6hXVIi_0
-- Production ledger/QC evidence for the new asset
+- Accepted scene-character set.
 
 **Completion gates**
 
-- Required style references selected and visually inspected before generation
-- rawqc run before processing
-- dark-composite QC inspected
-- artpreflight zero errors
-- user accepts the final Road Bandit art
-- exact filename is durable in the repository
+- User accepts final scene art.
 
-### `art.combat_avatars` - Combat AI avatars: Road Bandit and Harvest Boar
+### `art.combat_avatars` - Launch-final combat avatars
 
 **READY** - area art, owner ChatGPT, lead role Image Production
 
-Produce the two square AI avatars in one avatar-only context, one asset at a time.
+Finish Road Bandit and Harvest Boar avatars.
 
 **Scope**
 
-- one_perfect_crop_road_bandit_avatar.webp
-- one_perfect_crop_harvest_boar_avatar.webp
-- raw QC, process, target-appropriate visual QC, preflight, user acceptance and ledger for each
-
-**Out of scope**
-
-- SCENE_CHARACTER art
-- backgrounds
-- item/listing icons
-- Harvest Boar scene character; none is required by the finish plan
+- Launch-final AI avatars.
 
 **Required resources**
 
-- `skills/producing-tnr-art/SKILL.md` - Current TNR art production authority and one-asset-at-a-time workflow.
-- `skills/producing-tnr-art/data/25x_DATA_art_spec.json` - Sole authority for art target dimensions, aspect, format, byte limits, chroma behavior and house-style clauses.
-- `skills/producing-tnr-art/references/prompts.md` - Current prompt/reference bootstrap and generator failure-mode guidance.
-- `skills/producing-tnr-art/references/processing.md` - Current processing, packaging and filename-contract guidance.
-- `docs/workflows/ART_PRODUCTION.md` - Repository collaboration workflow for art production, QC, acceptance and handoff.
-- `docs/agents/IMAGE_PRODUCTION.md` - Lead-role guidance for production image sessions.
-- `state/plan_one_perfect_crop_finish.md` - Defines both combat subjects and states no Harvest Boar scene character is required.
-- `state/one_perfect_crop_bandit_resolution.md` - Confirms a new Road Bandit AI/avatar is required.
+- `state/plan_one_perfect_crop_finish.md` - Avatar requirements.
 
 **Deliverables**
 
-- Accepted preflight-clean one_perfect_crop_road_bandit_avatar.webp
-- Accepted preflight-clean one_perfect_crop_harvest_boar_avatar.webp
-- Production ledger/QC evidence for both
+- Accepted AI avatars.
 
 **Completion gates**
 
-- Each asset produced one at a time in an AI_AVATAR-only context
-- rawqc and artpreflight gates pass
-- visual QC inspected
-- user accepts each final avatar
-- exact filenames are durable in the repository
+- User accepts both avatars.
 
-### `art.icons` - Cabbage Seed item icon
+### `art.icons` - Launch-final Cabbage Seed icon
 
 **READY** - area art, owner ChatGPT, lead role Image Production
 
-Produce the remaining Cabbage Seed reward icon in a clean icon-only context.
+Finish the Cabbage Seed icon.
 
 **Scope**
 
-- one_perfect_crop_cabbage_seed.webp
-- single square item-icon candidate at a time through raw QC, processing, preflight and user acceptance
-
-**Out of scope**
-
-- Quest listing icon intake, which is art.intake_accepted_assets
-- scene characters, avatars and backgrounds
-- Choosing Cabbage Seed rarity/type/economics
+- Launch-final item icon.
 
 **Required resources**
 
-- `skills/producing-tnr-art/SKILL.md` - Current TNR art production authority and one-asset-at-a-time workflow.
-- `skills/producing-tnr-art/data/25x_DATA_art_spec.json` - Sole authority for art target dimensions, aspect, format, byte limits, chroma behavior and house-style clauses.
-- `skills/producing-tnr-art/references/prompts.md` - Current prompt/reference bootstrap and generator failure-mode guidance.
-- `skills/producing-tnr-art/references/processing.md` - Current processing, packaging and filename-contract guidance.
-- `docs/workflows/ART_PRODUCTION.md` - Repository collaboration workflow for art production, QC, acceptance and handoff.
-- `docs/agents/IMAGE_PRODUCTION.md` - Lead-role guidance for production image sessions.
-- `state/plan_one_perfect_crop_finish.md` - Defines the required Cabbage Seed reward subject and filename.
-- `state/one_perfect_crop_prose_graph.md` - Confirms Cabbage Seed x1 as the guaranteed PASS reward item.
+- `state/plan_one_perfect_crop_finish.md` - Icon requirement.
 
 **Deliverables**
 
-- Accepted preflight-clean one_perfect_crop_cabbage_seed.webp committed to the repository
-- Production ledger/QC evidence
+- Accepted item icon.
 
 **Completion gates**
 
-- rawqc before processing
-- artpreflight zero errors
-- user accepts the final icon
-- exact filename is durable in the repository
+- User accepts final icon.
 
-### `art.backgrounds` - Scene background coverage and wiring assessment
+### `art.backgrounds` - Launch-final scene wiring
 
 **READY** - area art, owner ChatGPT, lead role Art Director
 
-Prove that every dialog node can use the four already-locked geographical background families, record the exact node-to-asset mapping, and generate nothing unless a genuine coverage failure is found and the user chooses new production.
+Finish explicit launch-final background wiring.
 
 **Scope**
 
-- verify Pass Road Dusk nmrMHmz9xWojzyIV2mAR8, Waystation Door kmDsQUEHSub9GIX5ulO6i, East Road Ambush Site E4VJ-IeIQMwbmGGfKc-sn and BustlingTownMarket cYu6VwVX55m6uq1oxlWc1 from committed evidence
-- map every dialog node in the frozen prose graph to an explicit sceneBackground
-- identify, rather than assume, any scene that cannot be carried by the locked families
-- only if such a gap exists and the user directs production, switch to the SCENE_BACKGROUND production workflow in a clean background-only context
-
-**Out of scope**
-
-- Creating one-off backgrounds for each accident merely because the prose changes
-- Scene-character, avatar or icon generation
+- Node-to-background mapping.
 
 **Required resources**
 
-- `state/plan_one_perfect_crop_finish.md` - Locks the four reuse families and says not to create per-accident backgrounds.
-- `state/one_perfect_crop_prose_graph.md` - Every dialog node requiring explicit background wiring.
-- `harvests/inbox/tnr_results_1789060167786.json` - Fresh BustlingTownMarket record.
-- `harvests/inbox/tnr_results_1789061570022.json` - Fresh full records for the three Forsworn reuse backgrounds and visual reference provenance.
-- `skills/producing-tnr-art/data/style_refs.json` - Durable local copies/provenance of the locked Forsworn background set.
-- `state/art_produced.md` - Production history and accepted shipping variants for the reused Forsworn backgrounds.
-- `docs/workflows/ART_PRODUCTION.md` - Only becomes production authority if assessment proves a new background is actually needed.
-- `skills/producing-tnr-art/SKILL.md` - Target workflow if exceptional background production is directed.
+- `state/one_perfect_crop_prose_graph.md` - Dialog nodes.
 
 **Deliverables**
 
-- state/one_perfect_crop_scene_wiring.md with explicit node-to-sceneBackground mapping and source asset ids
-- If and only if required after user direction: any exceptional new background with full production/QC evidence
+- Launch-final scene wiring.
 
 **Completion gates**
 
-- Every dialog node has an explicit background assignment
-- All four reused ids are tied to committed capture evidence
-- No background is generated merely to mirror a prose incident
-- Any newly produced background, if needed, passes current art workflow/preflight and user acceptance
+- Every final dialog has explicit background assignment.
 
-### `admin.balance_and_eligibility` - Director packet: rewards, item economics, repeatability and eligibility
+### `admin.balance_and_eligibility` - Launch-final admin decisions
 
 **READY** - area admin, owner dauntless, lead role Content Designer
 
-Resolve, with the user, every content-admin value that implementation is forbidden to guess, and record the exact decisions durably.
+Resolve rewards, Cabbage Seed economics, repeatability and eligibility for launch.
 
 **Scope**
 
-- event Ryo and XP including explicit zero values
-- tokens/other standard reward currencies and exact amounts
-- Cabbage Seed supported rarity, functional item type and all required economic/value fields
-- repeatability/once policy
-- eligibility: an explicitly selected supported gate or explicit removal/substitution of the submitted Farming level 15 requirement
-
-**Out of scope**
-
-- Letting ChatGPT or Fable choose balance values on the user's behalf
-- Silently translating Farming level 15 to character minLevel 15
-- Publishing or any live-game operation
+- Deferred launch-final admin values.
 
 **Required resources**
 
-- `state/one_perfect_crop_content_admin_open.md` - Current exact list of unresolved user-owned fields and Farming level warning.
-- `skills/building-tnr-content/references/balance.md` - Current balance/reward mechanics and field shapes; informs consequences but does not choose values.
-- `skills/building-tnr-content/references/item.md` - Supported item types and required item fields.
-- `skills/building-tnr-content/references/quest.md` - Current quest/event gating vocabulary; confirms profession counters but no native Farming level gate.
-- `docs/workflows/DIRECTOR_DECISIONS.md` - Decision presentation and durable recording process.
-- `state/plan_one_perfect_crop_finish.md` - Frozen non-balance facts that the admin packet must not reopen.
+- `state/one_perfect_crop_content_admin_open.md` - Open admin packet.
 
 **Deliverables**
 
-- state/one_perfect_crop_content_admin_open.md updated so every open row has an exact user ruling, or a clearly documented intentional deferral that leaves the dependent build blocked
-- Any materially durable user ruling recorded in the appropriate canonical owner/history under the director-decision workflow
+- Exact user-approved launch values.
 
 **Completion gates**
 
-- Every required manifest value is exact rather than described as small/default/unset
-- Cabbage Seed type/rarity/economics are internally valid for the chosen item contract
-- repeatability is explicit
-- eligibility explicitly records a supported substitute or removal; Farming level 15 is never silently reinterpreted
-- All values are user decisions, not inferred from live defaults
+- No launch-final admin value remains unresolved.
 
-### `build.final_freeze` - Final content/build freeze
+### `build.final_freeze` - Hidden core-manifest build freeze
 
-**PLANNED** - area build, owner ChatGPT, lead role Content Designer
+**COMPLETE** - area build, owner ChatGPT, lead role Content Designer
 
-Assemble every settled upstream output into one exact, durable build contract for Fable without re-deciding content.
+Freeze a core build contract that defers art/admin without guessing them.
 
 **Scope**
 
-- state/prompt_one_perfect_crop.md as the frozen implementation brief
-- exact prose/node graph and both dialog-gated start_battle hard-fail routes
-- exact combat AI/AiProfile contracts from the completed combat-spec task
-- exact reused asset ids and exact committed @img filenames
-- complete scene wiring from the background/scene-character resolutions
-- Cabbage Seed definition and all user-owned admin values copied exactly
-- all creates hidden and no publish/unhide operation
-
-**Out of scope**
-
-- Manifest implementation
-- New art generation
-- Choosing any unresolved user-owned value
-- Live-game requests
+- state/prompt_one_perfect_crop.md.
 
 **Required resources**
 
-- `state/plan_one_perfect_crop_finish.md` - Existing finish plan and phase boundaries.
-- `state/one_perfect_crop_prose_graph.md` - Frozen prose/graph.
-- `state/one_perfect_crop_bandit_resolution.md` - Road Bandit new-AI resolution.
-- `state/one_perfect_crop_content_admin_open.md` - Admin packet that must be fully resolved before this task becomes executable.
-- `skills/building-tnr-content/references/quest.md` - Current quest/event/objective contract.
-- `skills/building-tnr-content/references/event.md` - Current event entity contract.
-- `skills/building-tnr-content/references/ai.md` - Current AI/AiProfile contract.
-- `skills/building-tnr-content/references/item.md` - Current item contract.
-- `skills/building-tnr-content/data/32b_DATA_pool.json` - Generated shared-jutsu ids.
+- `state/one_perfect_crop_core_manifest_override.md` - Director deferral strategy.
+- `state/prompt_one_perfect_crop.md` - Implementation contract.
 
 **Deliverables**
 
-- state/prompt_one_perfect_crop.md frozen as the exact Fable implementation contract
+- Frozen Fable implementation brief.
 
 **Completion gates**
 
-- All upstream tasks are COMPLETE with durable evidence
-- Every referenced @img filename exists in the repository exactly
-- Every reused asset id is explicit
-- Every content-admin value is copied exactly; nothing is guessed
-- Brief carries the start_battle zero-travel shape and rejects stale defeat_opponents/mission-shape assumptions
-- All creates hidden; no publishing step
+- Brief requires hidden placeholders and no invented admin/art values.
 
-### `build.manifest` - Fable manifest implementation
+### `build.manifest` - Fable hidden core-manifest implementation
 
-**PLANNED** - area build, owner Fable, lead role Engineering Auditor
+**READY** - area build, owner Fable, lead role Engineering Auditor
 
-Implement the frozen One Perfect Crop contract as a validated builder manifest on Fable's implementation branch, with no live request.
+Build the validator-clean hidden core manifest.
 
 **Scope**
 
-- build only from the frozen brief and current generated/factory contracts
-- dependency order assets/items/ai/aiProfile/quest with no new jutsu creation
-- dedup/name resolution, exact @img filenames, every created entity hidden
-- quest graph, reward/item and AI/profile records exactly as frozen
-- repository validators and exact-SHA handoff evidence
-
-**Out of scope**
-
-- Changing frozen content or balance
-- Publishing/unhiding
-- Forge execution or any TNR API request
+- Create two AIs, two profiles and the quest; no assets/items/jutsu.
 
 **Required resources**
 
-- `docs/DEVELOPMENT_WORKFLOW.md` - Fable branch ownership, exact-SHA handoff and one-writer rules.
-- `docs/workflows/IMPLEMENTATION_HANDOFF.md` - Implementation handoff requirements.
-- `skills/building-tnr-content/references/pipeline.md` - Current manifest/build pipeline contract.
-- `skills/building-tnr-content/references/quest.md` - Current quest contract.
-- `skills/building-tnr-content/references/event.md` - Current event contract.
-- `skills/building-tnr-content/references/ai.md` - Current AI/AiProfile contract.
-- `skills/building-tnr-content/references/item.md` - Current item contract.
-- `skills/building-tnr-content/scripts/validate.py` - Manifest validator to run before handoff.
+- `state/prompt_one_perfect_crop.md` - Exact build contract.
+- `skills/building-tnr-content/scripts/validate.py` - Mandatory validator.
 
 **Deliverables**
 
-- Committed final One Perfect Crop manifest on a dedicated Fable branch
-- Validator/build evidence and an exact frozen commit SHA for review
+- Committed manifest and exact-SHA handoff.
 
 **Completion gates**
 
-- Implementation matches the frozen brief without content reinterpretation
-- validate.py exits cleanly
-- All creates are hidden and there is no publish/unhide operation
-- No live request is made
-- Exact review SHA is handed off
+- Validator exits zero and all creates are hidden.
 
-### `review.manifest` - Exact-SHA independent manifest review
+### `review.manifest` - Exact-SHA core-manifest review
 
 **PLANNED** - area review, owner ChatGPT, lead role Engineering Auditor
 
-Independently audit Fable's exact frozen manifest SHA against the build contract and current contracts before the user is asked to execute anything.
+Independently audit the frozen Fable SHA.
 
 **Scope**
 
-- review the exact handed-off SHA without modifying Fable's branch
-- graph reachability, sealed failure wings, delivery-before-catastrophe and battle-loss routing
-- AI/profile/jutsu ids and one-enemy encounter fidelity
-- scene wiring, exact asset ids/filenames and reward/item/admin values
-- hidden-first/no-publish safety and validator evidence
-- record PASS or blocking findings durably
-
-**Out of scope**
-
-- Fixing Fable's active branch during review
-- Forge execution
-- Live TNR reads/writes
+- Graph/combat/placeholder/safety review.
 
 **Required resources**
 
-- `docs/DEVELOPMENT_WORKFLOW.md` - Independent exact-SHA review and one-writer rules.
-- `docs/workflows/FABLE_REVIEW.md` - Review workflow.
-- `docs/agents/ENGINEERING_AUDITOR.md` - Lead review role.
-- `skills/building-tnr-content/scripts/validate.py` - Independent manifest validation.
-- `state/plan_one_perfect_crop_finish.md` - Frozen invariants to audit.
-- `state/one_perfect_crop_prose_graph.md` - Frozen route/prose.
+- `state/prompt_one_perfect_crop.md` - Review contract.
 
 **Deliverables**
 
-- Durable exact-SHA review result with PASS or blocking findings and evidence
+- PASS or blocking findings.
 
 **Completion gates**
 
-- Review SHA exactly matches Fable's frozen handoff SHA
-- Independent validator is green or every error is blocking
-- No wrong branch rejoins PASS; both battle losses hard-fail; all edges resolve
-- AI/profile kits and shared jutsu ids match the frozen contract
-- All asset references and admin values match exactly
-- No live request and no publish/unhide path
+- Exact SHA passes independent validation and contract audit.
 
-### `production.run_and_readback` - User-owned Forge execution and readback verification
+### `production.run_and_readback` - Optional hidden core run/readback
 
 **PLANNED** - area production, owner dauntless, lead role Release Auditor
 
-Have the user deliberately execute the independently reviewed manifest in Forge, preserve the result, then perform fresh readback verification before any separate publishing decision.
+Optionally execute only the reviewed hidden core manifest and verify fresh readback.
 
 **Scope**
 
-- user loads only the reviewed manifest SHA/art bundle into Forge and inspects preflight/image resolution
-- user explicitly confirms mutations and runs
-- export/commit Forge result evidence
-- fresh full readback capture of created records after the run
-- compare readback against the frozen contract and reviewed manifest
-- leave all content hidden; publishing remains a separate later user decision
-
-**Out of scope**
-
-- ChatGPT or Fable pressing Forge/run or making live requests
-- Treating a green push echo as readback
-- Publishing/unhiding as part of this task
+- User-only hidden execution/readback.
 
 **Required resources**
 
-- `docs/DOCTRINE.md` - User-only live boundary, hidden-first policy and push-echo-vs-readback doctrine.
-- `docs/DEVELOPMENT_WORKFLOW.md` - Release handoff boundaries.
-- `docs/agents/RELEASE_AUDITOR.md` - Release-readiness/readback review lens.
-- `state/plan_one_perfect_crop_finish.md` - Operator execution/readback phase and no-publish boundary.
+- `docs/DOCTRINE.md` - Live boundary/readback doctrine.
 
 **Deliverables**
 
-- Committed Forge result bundle from the user-owned run
-- Committed fresh full readback capture covering every created One Perfect Crop record
-- Durable comparison verdict against the frozen contract/reviewed SHA
+- Result/readback evidence if run.
 
 **Completion gates**
 
-- Only the user performs live actions
-- Execution uses the independently approved exact manifest SHA
-- All intended creates remain hidden
-- Fresh readback, not push echo, verifies created state
-- Any mismatch is surfaced before a separate publish/unhide decision
+- Only user acts live and all records remain hidden.
+
+### `launch.finalization` - Launch-final art/admin patch and readiness
+
+**PLANNED** - area production, owner shared, lead role Release Auditor
+
+Replace placeholders and add final rewards/item/gates before publish.
+
+**Scope**
+
+- Final art/admin patch and hidden readback.
+
+**Required resources**
+
+- `state/one_perfect_crop_core_manifest_override.md` - Defines deferred work.
+
+**Deliverables**
+
+- Reviewed launch-final patch and clean hidden readback.
+
+**Completion gates**
+
+- All deferred work is closed before any publish decision.
