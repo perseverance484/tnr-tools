@@ -6,7 +6,7 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |
-| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 6/16 settled - planned 3, ready 6, blocked 1, complete 6 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
+| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 7/16 settled - planned 2, ready 6, blocked 1, complete 7 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
 
 ## One Perfect Crop
 
@@ -19,7 +19,7 @@ Coordination projection for repository-backed content workstreams. This is **not
 - `art.icons` (READY) - Launch-final Cabbage Seed icon
 - `art.backgrounds` (READY) - Launch-final scene wiring
 - `admin.balance_and_eligibility` (READY) - Launch-final admin decisions
-- `build.manifest` (READY) - Fable hidden core-manifest implementation
+- `review.manifest` (READY) - Exact-SHA core-manifest review
 
 **Blocked**
 
