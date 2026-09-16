@@ -1,0 +1,80 @@
+name: quest-studio-followup-temp
+
+on:
+  push:
+    paths:
+      - ".github/workflows/quest_studio_followup_temp.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  correct-and-verify:
+    if: github.ref == 'refs/heads/chatgpt/forge-quest-studio-foundation'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/forge-quest-studio-foundation
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: forge/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Apply follow-up patch
+        run: python3 state/quest_studio_followup_fix.py
+
+      - name: Verify worker boundary
+        run: python3 skills/building-tnr-content/scripts/quest_worker_contract_test.py
+
+      - name: Verify compiler
+        run: python3 skills/building-tnr-content/scripts/quest_compile.py --selftest
+
+      - name: Verify Mission adapter
+        run: python3 skills/building-tnr-content/scripts/quest_compile_integration_test.py
+
+      - name: Verify Forge tests, fixtures and bundle
+        working-directory: forge
+        run: |
+          set -euo pipefail
+          npm ci
+          npm test
+          npm run fixtures
+          git diff --exit-code -- test/fixtures/envelope
+          npm run build
+
+      - name: Regenerate skillpacks
+        run: python3 .github/scripts/pack_skills.py
+
+      - name: Repository coherence gates
+        run: |
+          set -euo pipefail
+          python3 skills/building-tnr-content/scripts/doctrinemap.py
+          python3 skills/building-tnr-content/scripts/render_doctrine.py --check
+          python3 skills/building-tnr-content/scripts/build_packs.py --check
+          python3 skills/building-tnr-content/scripts/lawmap.py .
+
+      - name: Commit only tested product changes
+        run: |
+          set -euo pipefail
+          git config user.name "quest-studio-correction[bot]"
+          git config user.email "quest-studio-correction[bot]@users.noreply.github.com"
+          git add -- \
+            forge/src/studio/repository.mjs \
+            forge/src/studio/ui.mjs \
+            forge/test/github.studio.test.mjs \
+            forge/test/quest.studio.ui.test.mjs \
+            forge_bundle.js \
+            skills/building-tnr-content/scripts/quest_compile.py \
+            skills/building-tnr-content/scripts/quest_compile_integration_test.py \
+            skills/building-tnr-content/scripts/quest_worker_contract_test.py \
+            dist
+          git diff --cached --check
+          git diff --cached --quiet && { echo "No product changes staged" >&2; exit 1; }
+          git commit -m "fix: bind Quest Studio builds to authored revisions"
+          git push origin HEAD:chatgpt/forge-quest-studio-foundation
