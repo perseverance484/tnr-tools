@@ -36,7 +36,14 @@ jobs:
           new = '    return "\\\\n".join(out)\n'
           if text.count(old) != 1:
               raise SystemExit(f"expected one worker-test newline escape, found {text.count(old)}")
-          p.write_text(text.replace(old, new), encoding="utf-8")
+          text = text.replace(old, new)
+
+          old = '''    require(text, 'branches:\\n      - "studio/quest/**"', "worker is scoped to Studio request branches", failures)\n    require(text, 'paths:\\n      - "studio/requests/*.quest.json"', "worker triggers only on Quest Source writes", failures)\n'''
+          new = '''    require(text, 'branches:', "worker declares a branch filter", failures)\n    require(text, '- "studio/quest/**"', "worker is scoped to Studio request branches", failures)\n    require(text, 'paths:', "worker declares a path filter", failures)\n    require(text, '- "studio/requests/*.quest.json"', "worker triggers only on Quest Source writes", failures)\n'''
+          if text.count(old) != 1:
+              raise SystemExit(f"expected one multiline trigger assertion block, found {text.count(old)}")
+          text = text.replace(old, new)
+          p.write_text(text, encoding="utf-8")
           PY
 
       - name: Apply source-push conversion
