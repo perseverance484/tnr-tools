@@ -135,3 +135,18 @@ A full pre-Forsworn transcript reconstruction is not required. Porting the art c
 **Rationale:** Once unique knowledge is safely transferred, keeping an obsolete project alive as shadow memory creates more drift risk than value.
 
 **Canonical destination:** handoff/extraction plan and relevant canonical design/reference files for any salvaged principles.
+
+---
+
+## RUL-2026-09-16-001 — One Perfect Crop hidden core manifest may precede art/admin finalization
+
+**Date:** 2026-09-16  
+**Domain:** One Perfect Crop / content delivery  
+**Status:** ACTIVE  
+**Supersedes:** none
+
+**Ruling:** One Perfect Crop may proceed to a validated, independently reviewed **hidden core manifest** before final art and content-admin values are complete. Missing art may use the current builder/game create-path placeholder rather than blocking the core build. Rewards, Cabbage Seed type/rarity/economics, repeatability, and eligibility may be deferred; implementation must not guess them. The core manifest therefore omits Cabbage Seed creation/reward and does not author final reward/gating values. Everything remains hidden, and publishing/unhiding still waits on a later launch-finalization pass and clean hidden-state readback.
+
+**Rationale:** The finished route, prose, and combat contracts can be implemented and reviewed independently of presentation assets and launch economics. Separating a reversible hidden core build from launch-final art/admin work allows progress without converting temporary placeholders into accidental canon.
+
+**Canonical destination:** `state/one_perfect_crop_core_manifest_override.md`, `state/prompt_one_perfect_crop.md`, and `state/workstreams/one_perfect_crop/roadmap.json`.
