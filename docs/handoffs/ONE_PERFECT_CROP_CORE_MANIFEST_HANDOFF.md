@@ -1,41 +1,88 @@
 # Implementation Handoff — One Perfect Crop hidden core manifest
 
+**Revision 2 — Forge 0.4.1 compatibility correction. This supersedes the five-item handoff at `af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f`, which Forge 0.4.1 refuses.**
+
 **Repository:** `perseverance484/tnr-tools`
-**Branch:** `claude/one-perfect-crop-manifest-9wsry6` (Fable-owned implementation branch, assigned for this task)
-**Base SHA:** `e35633160bdb7bb03238e30c22faf9f2b4af057c` (live `main` at session start)
-**Head SHA:** the tip of this branch at handoff; FROZEN until independent review returns
+**Branch:** `claude/one-perfect-crop-manifest-9wsry6` (Fable-owned implementation branch, restarted from live `main` after the first candidate merged)
+**Base SHA:** `a45b576428d21bd7f24889a4965cf626d8dbf18a` (live `main` at correction time)
+**Head SHA:** the tip of this branch at handoff; FROZEN until the narrow independent re-review returns
 **Integration target:** `main`
-**Workstream / task:** `one_perfect_crop` / `build.manifest`
+**Workstream / task:** `one_perfect_crop` / `build.manifest` (reopened for this correction)
 **Contract:** `state/prompt_one_perfect_crop.md`, governed by `state/one_perfect_crop_core_manifest_override.md` (ruling `RUL-2026-09-16-001`)
-**Live requests / game writes / session credentials:** NONE. See section 6.
+**Blocker being corrected:** `docs/reviews/ONE_PERFECT_CROP_CORE_MANIFEST_FORGE041_BLOCKER.md` on `chatgpt/review-opc-core-manifest-20260916` @ `439b7f88e74ec5be9d8559bb8b8730b1e1cff557`
+**Live requests / game writes / session credentials:** NONE, in this revision and the last. See section 10.
+
+## 0. Revision history
+
+| Rev | Head | Shape | Status |
+|---|---|---|---|
+| 1 | `af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f` | 5 items: 2 `ai` + 2 standalone `aiProfile` creates + 1 `quest` | SUPERSEDED. Reviewed PASS, then refused by Forge 0.4.1 at manifest selection, before job creation or any mutation. No live mutation occurred. |
+| 2 | this head | 3 items: 2 `ai` creates carrying `data.rules` + 1 `quest` | Frozen for narrow re-review. |
+
+The rev-1 PASS in `docs/reviews/ONE_PERFECT_CROP_CORE_MANIFEST_REVIEW.md` is historical only; this candidate does not inherit it.
 
 ## 1. Objective
 
-Build the validator-clean **hidden core manifest** for One Perfect Crop: two new AI records, their two AiProfiles and the quest, with the frozen prose/graph and combat contract implemented exactly, and with art and content-admin values deliberately left deferred.
+Build the validator-clean **hidden core manifest** for One Perfect Crop: two new AI records with their behaviour, and the quest, with the frozen prose/graph and combat contract implemented exactly, and with art and content-admin values deliberately left deferred.
 
-The brief names `main @ 6e09b15bb6f3d1c90ba416d14211b533f5b4a367` as its freeze baseline. Live `main` has advanced since; this work was reconstructed from live `main` at the base SHA above, and none of the intervening commits touch the frozen sources this build reads.
+Revision 2 changes exactly one thing: **where the two rule sets are carried.** Nothing about the approved combat values, the rule content or order, the shared-jutsu ids, the quest graph or prose, the placeholder policy, the deferrals, or the hidden-first policy moves. The quest item is byte-identical to rev 1; each AI item gains its own `rules` and `includeDefaultRules` and loses nothing.
+
+The original brief names `main @ 6e09b15bb6f3d1c90ba416d14211b533f5b4a367` as its freeze baseline. Both revisions were reconstructed from live `main`, and no intervening commit touches the frozen sources this build reads.
+
+## 1a. The Forge 0.4.1 incompatibility, and why it survived rev 1
+
+Rev 1 carried each AI's behaviour as its own `entity: "aiProfile", slot: "create"` item, targeting `@ai:<srcId>`. That is the **retired `builder_bundle.js`** convention: that userscript routes a standalone aiProfile entry (`builder_bundle.js` line ~716 resolves `targetId` -> `profile.getAi` -> `ai.toggleAiProfile` -> `ai.updateAiProfile`), and `validate.py` was written against it.
+
+Forge 0.4.1 is the current runner and refuses that shape outright:
+
+- `forge/src/runner/manifest.mjs`, in `parseManifest`: `if (it.entity === "aiProfile" && it.op === "create") problems.push("item N: aiProfile cannot be created directly; create an ai with rules")`. `parseManifest` throws on any problem, so the refusal lands **before a job exists** and before a single mutation. That is exactly what the user saw at selection.
+- `forge/src/runner/recipes.mjs` defines the `aiProfile` recipe with `get`/`profileGet`/`profileUpdate`/`profileToggle` and **no `create` path at all**: "update-only. targetId is the AI's userId."
+
+The supported path — which is what rev 2 uses — is an `ai` create whose `data` carries `rules` and `includeDefaultRules`:
+
+- `forge/src/runner/validate.mjs` lists both keys in `AI_EXTRA_KEYS`, so they are legal on an `ai` item.
+- `forge/src/runner/recipes.mjs` `AI_OMIT` keeps both out of the `profile.updateAi` payload; they are routing keys, not columns.
+- `forge/src/runner/runner.mjs` `_fill` sets the item's next phase to `"rules"` when an `ai` item carries `data.rules`, then `_rules` reads `profile.getAi`, calls `ai.toggleAiProfile` when `aiProfileId` is null, and calls `ai.updateAiProfile` with the rules and flag. Read-back verifies the profile separately.
+
+So the AiProfile records are still created and still carry exactly these rules; the manifest simply cannot address them as items of their own.
+
+**Why the repository gates missed it.** There were two failures, both now closed:
+
+1. `skills/building-tnr-content/scripts/validate.py` had no opinion on `aiProfile` + `slot: create`. It was green on a manifest the runner would not open.
+2. Forge's own suite *did* carry the gate — `forge/test/runner.test.mjs`, "compatibility: staged manifests parse and pass Forge pre-send validation", parses every `push/*.json` — and it was **already red at `a45b576` for this exact reason**. It was not in the rev-1 handoff's gate list because that change touched no file under `forge/`. Running the tests of a directory you did not edit is not a habit the rev-1 gate list had; it is now, for anything that adds a file under `push/`.
 
 ## 2. Changed files
 
 | File | Change |
 |---|---|
-| `push/47_one_perfect_crop_core_manifest.json` | NEW. The manifest. 5 entries, 36 objectives. |
-| `push/47_one_perfect_crop_core_manifest.gen.py` | NEW. Its generator, with the handoff checklist executed as assertions. |
+Revision 2 (this correction), against base `a45b576`:
+
+| File | Change |
+|---|---|
+| `push/47_one_perfect_crop_core_manifest.json` | Corrected in place: 5 items -> 3. Both `aiProfile` creates removed; their exact rules and `includeDefaultRules: true` moved into the owning `ai` item's `data`. The quest item is byte-identical to rev 1. It has never run, so this corrects an unexecuted manifest, not a live record. |
+| `push/47_one_perfect_crop_core_manifest.gen.py` | Emits the 3-item shape; assertions updated (2 ai + 1 quest, zero aiProfile items in any slot, each AI carries its exact three rules and the flag). Every rev-1 graph/content/safety assertion is retained. |
+| `skills/building-tnr-content/scripts/validate.py` | Now refuses `aiProfile` + `slot: create`, matching Forge. `aiProfile` edit/update and `ai` creates carrying `rules`/`includeDefaultRules` stay valid. |
+| `skills/building-tnr-content/scripts/selfcheck.py` | New `check_runner_contract`: three fixtures pin both halves of the contract through `validate.py` — the create is refused, the aiProfile edit and the ai-with-rules create are not. |
+| `forge/tools/check_manifest.mjs` | NEW. The offline Forge gate: parse -> plan -> pinned pre-send validation for a manifest on disk, as a library and a CLI. Pure; opens no socket. |
+| `forge/test/runner.test.mjs` | The staged-manifest compatibility test now goes through `checkManifest` (so it plans as well as parses, and the CI gate and the handoff gate are one implementation), plus two focused regression tests. |
+| `docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md` | This file, revised. |
+| `state/workstreams/one_perfect_crop/roadmap.json` + rendered `ROADMAP.md` / `INDEX.md` | `build.manifest` reopened and re-closed against the corrected candidate; rev-1 evidence marked superseded. |
+
+Carried from revision 1 (already on `main`):
+
+| File | Change |
+|---|---|
 | `skills/building-tnr-content/scripts/validate.py` | Law 41 scoped to `includeDefaultRules: false`, as the law text reads. See section 5. |
 | `skills/building-tnr-content/scripts/factory.py` | `objective()`'s first parameter renamed `task` -> `member` so a shared-schema member (`InstantWinLoseObjective`) can be built with its own `task` enum value. No behaviour change; every existing call passes it positionally. |
 | `skills/building-tnr-content/12b_LAWS_coverage.md` | Law 41 coverage row corrected to match the scoped check. |
-| `state/workstreams/one_perfect_crop/roadmap.json` + rendered `ROADMAP.md` / `INDEX.md` | `build.manifest` COMPLETE with evidence; `review.manifest` READY. |
-| `docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md` | This file. |
 
 ## 3. What the manifest contains
 
-Five creates, in build order, nothing else:
+Three creates, in build order, nothing else:
 
-1. `ai` **Road Bandit** — `srcId: opc_ai_road_bandit`
-2. `ai` **Harvest Boar** — `srcId: opc_ai_harvest_boar`
-3. `aiProfile` **Road Bandit AiProfile** — `targetId: @ai:opc_ai_road_bandit`
-4. `aiProfile` **Harvest Boar AiProfile** — `targetId: @ai:opc_ai_harvest_boar`
-5. `quest` **One Perfect Crop** — `questType: event`, 36 objectives
+1. `ai` **Road Bandit** — `srcId: opc_ai_road_bandit`, behaviour in `data.rules`
+2. `ai` **Harvest Boar** — `srcId: opc_ai_harvest_boar`, behaviour in `data.rules`
+3. `quest` **One Perfect Crop** — `questType: event`, 36 objectives
 
 Top level carries `dedupNames: true` and nothing else. No `imgSizes`, no `capture` block, no `skipPreflight`.
 
@@ -50,9 +97,9 @@ Kits are the literal existing shared-pool ids, in the frozen order:
 - Road Bandit — S27 `YiRdVytsdxFzZtqkEDs5Q`, S41 `fKvCGRgzGNskgFWocQCAg`, S40 `kkGDat1XWUxhOQ1_T5025`
 - Harvest Boar — S27 `YiRdVytsdxFzZtqkEDs5Q`, S42 `4TM6iS8P0qgNHsFpALFhg`, S41 `fKvCGRgzGNskgFWocQCAg`
 
-Each AiProfile carries `includeDefaultRules: true` and exactly three authored rules in the frozen order, each a `distance_lower_than` gate at `6` (pool range 5 + 1, law 40) into `use_specific_jutsu`. No movement, highest-power or anti-exhaust rule is authored: the engine-appended default tail owns those cases, per the director ruling in the combat spec.
+Each AI item carries `includeDefaultRules: true` and exactly three authored rules in the frozen order, each a `distance_lower_than` gate at `6` (pool range 5 + 1, law 40) into `use_specific_jutsu`. No movement, highest-power or anti-exhaust rule is authored: the engine-appended default tail owns those cases, per the director ruling in the combat spec. Both rule arrays are byte-identical to the ones rev 1 carried on its `aiProfile` items; only their location moved.
 
-Behaviour lives only on the AiProfile entries, not duplicated onto the AI entries, so the two cannot drift. The builder's `ai` phase saves the record, then its `aiProfile` phase resolves `@ai:<srcId>` -> `profile.getAi` -> `ai.toggleAiProfile` -> `ai.updateAiProfile`.
+Behaviour lives on the owning AI item and nowhere else, so nothing can drift. Forge fills the AI (`profile.create` -> `profile.updateAi`, with the two routing keys excluded by `AI_OMIT`), then enters its rules phase for that item: `profile.getAi`, `ai.toggleAiProfile` if `aiProfileId` is null, `ai.updateAiProfile`, then a separate profile read-back.
 
 ### Quest contract (`state/one_perfect_crop_prose_graph.md`)
 
@@ -99,11 +146,40 @@ Run from the repository root unless noted.
 
 ```
 python3 scripts/content_workstream.py init one_perfect_crop --task build.manifest
-  -> packet printed; task READY, dependency build.final_freeze COMPLETE
+  -> packet printed (task reopened IN_PROGRESS for this correction)
 
 python3 push/47_one_perfect_crop_core_manifest.gen.py
-  -> push/47_one_perfect_crop_core_manifest.json: 5 entries, 36 objectives
+  -> push/47_one_perfect_crop_core_manifest.json: 3 entries, 36 objectives
      (the generator's own verify() assertions all pass or it does not write)
+     re-running rewrites the file byte-identically
+
+--- MANDATORY OFFLINE FORGE 0.4.1 GATE (cwd forge/) ---
+
+npm ci
+node tools/check_manifest.mjs ../push/47_one_perfect_crop_core_manifest.json
+  -> 47_one_perfect_crop_core_manifest.json: 3 planned item(s), manifest hash 71aba26f
+       0. ai create opc_ai_road_bandit  -> rules phase
+       1. ai create opc_ai_harvest_boar -> rules phase
+       2. quest create opc_quest        -> verify phase
+     0 pre-send problem(s)   (exit 0)
+     warn on items 0 and 1: the same all-60-AP kit warning validate.py gives
+  This is Forge's real parseManifest() + planOrder() + pinned Validator.problems()
+  over the manifest on disk. Purely local: the suite's socket guard covers the
+  same modules, and no network call exists on any of these paths.
+
+node tools/check_manifest.mjs <the rev-1 five-item manifest>
+  -> REFUSED by Forge ManifestError: manifest problems:
+     item 2: aiProfile cannot be created directly; create an ai with rules
+     item 3: aiProfile cannot be created directly; create an ai with rules
+     (exit 1)   -- the incident reproduced offline, and the proof the gate bites
+
+npm test
+  -> 310 tests, 309 pass, 1 fail (exit 1). See "the remaining npm test failure" below.
+     Green and relevant: #221 "compatibility: staged manifests parse, plan and pass
+     Forge pre-send validation" (red at the base SHA, on push/47, with the exact
+     blocker message); #222 "aiProfile cannot be a manifest item: a create is
+     refused, rules ride on the ai item"; #223 "the One Perfect Crop core manifest
+     plans as three items, both AI through the rules phase".
 
 python3 skills/building-tnr-content/scripts/validate.py \
     push/47_one_perfect_crop_core_manifest.json \
@@ -112,10 +188,15 @@ python3 skills/building-tnr-content/scripts/validate.py \
     --checks 45g_DATA_checks.json \
     --lints skills/building-tnr-content/data/45h_DATA_lints.json \
     --pool 32b_DATA_pool.json
-  -> 0 errors, 2 warnings   (exit 0)
+  -> 3 entries; 0 errors, 2 warnings   (exit 0)
      warn [ai:Road Bandit]  kit is all 60 AP actions and no 40 AP stance
      warn [ai:Harvest Boar] kit is all 60 AP actions and no 40 AP stance
      plus 4 notes: quest description / startsAt / endsAt / tierLevel explicit null is ACCEPTED
+
+python3 skills/building-tnr-content/scripts/validate.py <an aiProfile-create probe>
+  -> ERROR [aiProfile:Probe]: aiProfile cannot be created directly. Move `rules` and
+     `includeDefaultRules` into the owning ai create's data ... (Forge 0.4.1 manifest.mjs)
+     1 errors, 0 warnings (exit 1)   -- the gap that let rev 1 through, closed
 
 python3 skills/building-tnr-content/scripts/validate.py \
     --parity harvests/inbox/tnr_results_1789189076617.json  (builder v4.32 inventory)
@@ -130,7 +211,8 @@ python3 ../scripts/factory.py --selftest   (cwd skills/building-tnr-content/data
 python3 skills/building-tnr-content/scripts/selfcheck.py \
     --generated skills/building-tnr-content/data
   -> 29 bundled scripts parse; source git:studie-tech/TheNinjaRPG@bdec2883;
-     factory selftest 20/20; validate.py consumes 16/16 declared 45g blocks; 0 errors (exit 0)
+     factory selftest 20/20; validate.py consumes 16/16 declared 45g blocks;
+     runner contract: 3 aiProfile slot fixtures agree with Forge; 0 errors (exit 0)
 
 python3 skills/building-tnr-content/scripts/lawmap.py
   -> 93 laws, 93 matrix rows, 77 citations across 35 files; 0 errors, 5 warnings (exit 0)
@@ -149,9 +231,17 @@ python3 scripts/content_workstream.py validate --all   /   render --all
   -> see the commit that updates the roadmap
 ```
 
-Plus a 74-assertion independent audit of the produced JSON, written against the brief's checklist rather than against the generator, covering entry inventory, hidden-on-create, ref resolution, the full combat contract against the combat-spec text, and the full quest graph. All passed. Its assertions are reproduced in the generator's `verify()` so they re-run on every regeneration.
+Plus a 75-assertion independent audit of the produced JSON, written against the brief's checklist rather than against the generator, covering entry inventory (now including "zero aiProfile entries in any slot"), hidden-on-create, ref resolution, the full combat contract against the combat-spec text, and the full quest graph. All passed. Its assertions are reproduced in the generator's `verify()` so they re-run on every regeneration.
 
-### The two warnings
+### The remaining npm test failure is pre-existing and not this correction's
+
+`release loader: exactly one @x-release-pending marker, naming the package version` (`forge/test/release_loader.test.mjs:47`) fails with `0 !== 1`.
+
+It was **already failing at the base SHA `a45b576` with a clean worktree**, before any edit in this correction: that baseline run was 308 tests, 306 pass, 2 fail — this one and the push/47 compatibility test. This correction fixes the second and leaves the first exactly as it found it.
+
+It is not ours to fix: the test asserts that `forge_loader_user.js` carries one live `@x-release-pending` marker, which is a *development-branch* state; `release_pin.yml` removes the marker on merge, so the file on `main` legitimately has none (its only textual occurrence is inside a prose comment describing the convention). `git diff a45b576 -- forge_loader_user.js forge/package.json state/staged_workflows/release_pin.yml .github/scripts/pin_release.py` is empty for this branch. Editing the loader to turn the test green would be an unrelated change on the live deploy path, which the narrow-correction scope forbids. Flagged for whoever owns the release plumbing.
+
+### The two manifest warnings
 
 `kit is all 60 AP actions and no 40 AP stance` on both AI. This is the ruled-on shape, not an oversight: the combat spec fixes the kits at three 60 AP pool attacks and states the consequence explicitly, resolving it through `includeDefaultRules: true` rather than a bespoke exhaustion branch. Changing it would mean minting a stance jutsu, which the brief forbids.
 
@@ -168,9 +258,10 @@ Plus a 74-assertion independent audit of the produced JSON, written against the 
 1. **`factory.rules()` is still unscoped for law 41.** The opt-in assembly helper refuses a chain whose last rule is conditional, with no `includeDefaultRules` context to consult. This build does not use it (rules are assembled with `factory.rule()` directly), so it was left alone rather than widened mid-task. It should be scoped the same way, or given the flag, in its own change.
 2. **Node reward blocks are absent** where live records carry a 27-key zero block. The generated objective contract has no reward fields, so this follows the contract; if the reviewer reads the absence as a risk at push time, the fix is a zero block copied from a live capture, not authored values.
 3. **Quest `description: null`** is a real hole in a player-facing record. It is deliberate (no frozen listing prose exists and inventing it is user-owned), but it is the single most likely thing a reviewer will want changed.
-4. **`aiProfile` entries carry inert `name` and `hidden` keys.** The builder's aiProfile path sends only `rules` and `includeDefaultRules`, so both are dropped; they are present so the entries satisfy the create laws 16b and 36 like every other create. An alternative reading is that aiProfile entries should be exempt from those laws in `validate.py`; that would be a tooling change and was not made.
-5. **The manifest has never been run**, so nothing here is read-back evidence. A green validator is not a live record.
-6. **`opc_*` logical ids are used verbatim as engine objective ids**, which the frozen graph permits; none exceeds the id length used elsewhere in live content, but that was checked by construction, not against a live record.
+4. **`validate.py` and the retired `builder_bundle.js` now disagree about `aiProfile` creates.** The userscript still routes one; this validator refuses it, siding with Forge 0.4.1, the current runner. `--parity` is unaffected (it diffs the 45g check inventory, which this does not touch), so nothing automatically flags the divergence. If `builder_bundle.js` is not retired in fact, its aiProfile create path should be removed too.
+5. **Only `push/47` was re-checked against Forge by hand.** The suite's compatibility test now covers every `push/*.json`, and it is green, so the other staged manifests parse and plan — but none of them was inspected for *semantic* Forge drift the way this one was.
+6. **The manifest has never been run**, so nothing here is read-back evidence. A green validator, and now a green Forge parse/plan, are still not a live record. In particular the rules phase is proven only as a routing decision (`_fill` -> `_rules`); no `ai.updateAiProfile` call has been made against the game.
+7. **`opc_*` logical ids are used verbatim as engine objective ids**, which the frozen graph permits; none exceeds the id length used elsewhere in live content, but that was checked by construction, not against a live record.
 
 ## 9. Open user decisions
 
@@ -181,12 +272,13 @@ Every row in section 4 marked `admin.balance_and_eligibility`, plus final art ac
 - No live request of any kind was made. Nothing in this task contacted `theninja-rpg.com`.
 - No game write was made. The manifest is a file; only dauntless's tap can run it.
 - No live session cookie, credential or token was obtained, requested, synthesised or exposed.
-- No browser check, Forge run, preflight-panel check or hidden-state read-back was performed. Every result in section 6 is container-side.
+- **Forge was not operated.** The offline gate imports Forge's parser, planner and validator as libraries and runs them over a file on disk. No runner was constructed, no job opened, no transport client instantiated, no auth used. `npm ci` fetched packages from the npm registry; that is the only network activity in this task besides git.
+- No browser check, Forge session, preflight-panel check or hidden-state read-back was performed. Every result in section 6 is container-side.
 - Every create is `hidden: true` and the manifest contains no publish, unhide or `hidden: false` path.
 
 ## 11. Not begun
 
-- `review.manifest` — the independent ChatGPT audit of this exact SHA.
+- `review.manifest` — the narrow independent ChatGPT re-review of this exact SHA. The rev-1 PASS does not carry over.
 - `production.run_and_readback` — dauntless's Forge run and the fresh read-back.
 - `launch.finalization` — final art, Cabbage Seed item, rewards, repeatability, eligibility, listing copy, scene wiring, and the separate publish decision.
 - No art was produced, processed or QC'd. No `artpreflight.py` run was made.
