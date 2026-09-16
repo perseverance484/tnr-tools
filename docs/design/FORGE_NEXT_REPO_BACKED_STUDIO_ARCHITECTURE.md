@@ -178,7 +178,7 @@ The repository side returns machine-readable envelopes that include:
 
 Forge translates that into the appropriate human surface.
 
-The exact transport may initially be GitHub Contents + Actions and later become a thinner purpose-built service if that materially improves latency/security. The product contract should depend on the **request/result semantics**, not on a particular transport provider.
+The product contract depends on the **request/result semantics**, not on a particular transport provider. For the initial Quest Studio implementation, `RUL-2026-09-16-001` fixes the transport to **GitHub Contents source-push**: Compile writes a fresh exact Quest Source revision to a dedicated `studio/quest/*` branch, that source write triggers the trusted repository worker, and the browser credential is limited to **Contents: write** rather than Actions/Workflows write. A later purpose-built service may replace that transport if it materially improves latency/security without changing the Studio request/result contract.
 
 ---
 

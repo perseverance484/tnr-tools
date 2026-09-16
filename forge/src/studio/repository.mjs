@@ -12,7 +12,6 @@ export const QUEST_STUDIO = Object.freeze({
   resultSchemaVersion: 1,
   registryPath: "skills/building-tnr-content/data/49_DATA_quest_studio_subtypes.json",
   missionProfilesPath: "skills/building-tnr-content/data/48_DATA_mission_profiles.json",
-  workflow: "quest_studio.yml",
   branchPrefix: "studio/quest/",
   sourceRoot: "studio/requests",
   resultRoot: "studio/results",
@@ -27,6 +26,11 @@ export function questRequestId(value) {
 export function questBranch(id) { return QUEST_STUDIO.branchPrefix + questRequestId(id); }
 export function questSourcePath(id) { return `${QUEST_STUDIO.sourceRoot}/${questRequestId(id)}.quest.json`; }
 export function questResultPath(id) { return `${QUEST_STUDIO.resultRoot}/${questRequestId(id)}.build.json`; }
+
+function defaultBuildRequestId() {
+  const uuid = globalThis.crypto?.randomUUID?.();
+  return uuid || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+}
 
 export function validateQuestSource(source) {
   if (!source || typeof source !== "object" || Array.isArray(source)) throw new GithubError("Quest Source must be an object");
@@ -69,9 +73,10 @@ async function sha256Hex(text) {
 }
 
 export class QuestStudioRepository {
-  constructor({ github, baseRef = "main" }) {
+  constructor({ github, baseRef = "main", buildRequestId = defaultBuildRequestId }) {
     this.github = github;
     this.baseRef = baseRef;
+    this.buildRequestId = buildRequestId;
   }
 
   async registry() {
@@ -87,40 +92,30 @@ export class QuestStudioRepository {
   }
 
   /**
-   * Persist a source revision on its dedicated branch and dispatch the trusted repository worker.
-   * The returned sourceCommit is the exact revision the worker must compile.
+   * Persist a fresh exact Quest Source revision on its dedicated branch. The source write itself
+   * is the approved build request: quest_studio.yml listens only to studio/requests/*.quest.json
+   * on studio/quest/* branches. No Actions API permission is required in the browser.
    */
   async submit(source) {
     source = validateQuestSource(source);
     const id = source.requestId;
     const branch = questBranch(id);
     const sourcePath = questSourcePath(id);
+    const requestToken = String(this.buildRequestId());
+    if (!requestToken || requestToken.length > 160) throw new GithubError("Quest Studio build request id is invalid");
+    const persistedSource = {
+      ...source,
+      meta: { ...(source.meta && typeof source.meta === "object" ? source.meta : {}), repositoryBuildRequestId: requestToken },
+    };
     await this.github.ensureBranch(branch, this.baseRef);
     const saved = await this.github.put(
       sourcePath,
-      JSON.stringify(source, null, 2) + "\n",
-      `studio: save Quest Source ${id}`,
+      JSON.stringify(persistedSource, null, 2) + "\n",
+      `studio: request Quest Source build ${id}`,
       { branch },
     );
     if (!saved.commitSha) throw new GithubError("Quest Studio source save returned no commit SHA");
-    await this.dispatch(id, saved.commitSha);
     return { requestId: id, branch, sourcePath, sourceCommit: saved.commitSha };
-  }
-
-  /** Retry only the build request for an already-saved exact source revision. */
-  async dispatch(requestId, sourceCommit) {
-    const id = questRequestId(requestId);
-    if (typeof sourceCommit !== "string" || !/^[0-9a-f]{40}$/.test(sourceCommit)) throw new GithubError("Quest Studio sourceCommit must be a 40-character lowercase git SHA");
-    await this.github.dispatch(QUEST_STUDIO.workflow, {
-      ref: this.baseRef,
-      inputs: {
-        request_branch: questBranch(id),
-        source_path: questSourcePath(id),
-        request_id: id,
-        source_sha: sourceCommit,
-      },
-    });
-    return { requestId: id, sourceCommit };
   }
 
   /**

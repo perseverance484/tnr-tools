@@ -4992,7 +4992,6 @@
     }
     return path.split("/").map((segment) => encodeURIComponent(segment)).join("/");
   }
-  var DISPATCHABLE_WORKFLOWS = /* @__PURE__ */ new Set(["quest_studio.yml"]);
   var Github = class {
     /**
      * @param {object} o
@@ -5112,31 +5111,6 @@
       } catch {
       }
       return { sha: j.content?.sha ?? null, htmlUrl: j.content?.html_url ?? null, commitSha: j.commit?.sha ?? null };
-    }
-    /** Dispatch an allowlisted repository workflow; callers choose the workflow/ref explicitly. */
-    async dispatch(workflow, { ref = this.cfg.branch, inputs = {} } = {}) {
-      if (!this._pat()) throw new GithubError("no PAT stored; Settings > GitHub");
-      if (typeof workflow !== "string" || !/^[A-Za-z0-9._-]+$/.test(workflow)) {
-        throw new GithubError(`unsafe workflow name ${JSON.stringify(workflow)}`);
-      }
-      if (!DISPATCHABLE_WORKFLOWS.has(workflow)) {
-        throw new GithubError(`workflow ${JSON.stringify(workflow)} is not dispatchable from Forge`);
-      }
-      ref = assertBranch(ref);
-      if (!inputs || typeof inputs !== "object" || Array.isArray(inputs)) throw new GithubError("workflow inputs must be an object");
-      const r = await this.fetchImpl(this._repo(`actions/workflows/${encodeURIComponent(workflow)}/dispatches`), {
-        method: "POST",
-        headers: { ...this._headers(), "content-type": "application/json" },
-        body: JSON.stringify({ ref, inputs })
-      });
-      if (r.status !== 204) {
-        const t = await r.text();
-        if (r.status === 403) {
-          throw new GithubError(`dispatch ${workflow}: HTTP 403; the fine-grained PAT needs Actions: write on tnr-tools`, { status: 403 });
-        }
-        throw new GithubError(`dispatch ${workflow}: HTTP ${r.status} ${t.slice(0, 140)}`, { status: r.status });
-      }
-      return { ok: true };
     }
   };
   function b64utf8(s) {
@@ -5659,7 +5633,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   }
   function SettingsScreen(app) {
     const gh = readGh(app.storage);
-    const pat = h("input", { type: "password", placeholder: "fine-grained PAT (contents: write + actions: write on tnr-tools only)", value: gh.pat || "" });
+    const pat = h("input", { type: "password", placeholder: "fine-grained PAT (Contents: write only on tnr-tools; do not grant Actions or Workflows)", value: gh.pat || "" });
     const sync = h("input", { type: "checkbox", checked: !!gh.on });
     const root = h(
       "section",
@@ -6190,7 +6164,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     resultSchemaVersion: 1,
     registryPath: "skills/building-tnr-content/data/49_DATA_quest_studio_subtypes.json",
     missionProfilesPath: "skills/building-tnr-content/data/48_DATA_mission_profiles.json",
-    workflow: "quest_studio.yml",
     branchPrefix: "studio/quest/",
     sourceRoot: "studio/requests",
     resultRoot: "studio/results",
@@ -6208,6 +6181,10 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   }
   function questResultPath(id) {
     return `${QUEST_STUDIO.resultRoot}/${questRequestId(id)}.build.json`;
+  }
+  function defaultBuildRequestId() {
+    const uuid = globalThis.crypto?.randomUUID?.();
+    return uuid || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
   }
   function validateQuestSource(source) {
     if (!source || typeof source !== "object" || Array.isArray(source)) throw new GithubError("Quest Source must be an object");
@@ -6246,9 +6223,10 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     return [...new Uint8Array(digest)].map((x) => x.toString(16).padStart(2, "0")).join("");
   }
   var QuestStudioRepository = class {
-    constructor({ github, baseRef = "main" }) {
+    constructor({ github, baseRef = "main", buildRequestId = defaultBuildRequestId }) {
       this.github = github;
       this.baseRef = baseRef;
+      this.buildRequestId = buildRequestId;
     }
     async registry() {
       const j = await this.github.json(QUEST_STUDIO.registryPath, this.baseRef);
@@ -6261,39 +6239,30 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       return j;
     }
     /**
-     * Persist a source revision on its dedicated branch and dispatch the trusted repository worker.
-     * The returned sourceCommit is the exact revision the worker must compile.
+     * Persist a fresh exact Quest Source revision on its dedicated branch. The source write itself
+     * is the approved build request: quest_studio.yml listens only to studio/requests/*.quest.json
+     * on studio/quest/* branches. No Actions API permission is required in the browser.
      */
     async submit(source) {
       source = validateQuestSource(source);
       const id = source.requestId;
       const branch = questBranch(id);
       const sourcePath = questSourcePath(id);
+      const requestToken = String(this.buildRequestId());
+      if (!requestToken || requestToken.length > 160) throw new GithubError("Quest Studio build request id is invalid");
+      const persistedSource = {
+        ...source,
+        meta: { ...source.meta && typeof source.meta === "object" ? source.meta : {}, repositoryBuildRequestId: requestToken }
+      };
       await this.github.ensureBranch(branch, this.baseRef);
       const saved = await this.github.put(
         sourcePath,
-        JSON.stringify(source, null, 2) + "\n",
-        `studio: save Quest Source ${id}`,
+        JSON.stringify(persistedSource, null, 2) + "\n",
+        `studio: request Quest Source build ${id}`,
         { branch }
       );
       if (!saved.commitSha) throw new GithubError("Quest Studio source save returned no commit SHA");
-      await this.dispatch(id, saved.commitSha);
       return { requestId: id, branch, sourcePath, sourceCommit: saved.commitSha };
-    }
-    /** Retry only the build request for an already-saved exact source revision. */
-    async dispatch(requestId, sourceCommit) {
-      const id = questRequestId(requestId);
-      if (typeof sourceCommit !== "string" || !/^[0-9a-f]{40}$/.test(sourceCommit)) throw new GithubError("Quest Studio sourceCommit must be a 40-character lowercase git SHA");
-      await this.github.dispatch(QUEST_STUDIO.workflow, {
-        ref: this.baseRef,
-        inputs: {
-          request_branch: questBranch(id),
-          source_path: questSourcePath(id),
-          request_id: id,
-          source_sha: sourceCommit
-        }
-      });
-      return { requestId: id, sourceCommit };
     }
     /**
      * Read the latest persisted build result. A stale result is returned explicitly rather than
