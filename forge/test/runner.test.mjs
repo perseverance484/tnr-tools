@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { IDBFactory } from "fake-indexeddb";
 import { Journal } from "../src/storage/journal.mjs";
 import { CaptureCache } from "../src/storage/captures.mjs";
@@ -10,6 +11,7 @@ import { CachedReader } from "../src/budget/reader.mjs";
 import { Validator } from "../src/runner/validate.mjs";
 import { Runner, Paused } from "../src/runner/runner.mjs";
 import { parseManifest, planOrder, ManifestError } from "../src/runner/manifest.mjs";
+import { checkManifest } from "../tools/check_manifest.mjs";
 import { mergeAi, mergeForUpdate } from "../src/runner/recipes.mjs";
 import { FakeGame, FakeClient, CrashSignal } from "./fakegame.mjs";
 import { Reconciler } from "../src/reconcile/reconciler.mjs";
@@ -317,13 +319,54 @@ test("a NetworkError inside withSent leaves the item SENT and pauses the job (am
   assert.equal(s.items[0].state, "SENT");
 });
 
-test("compatibility: staged manifests parse and pass Forge pre-send validation", () => {
-  const v = new Validator(FIELDS, NESTED_KEYS);
+test("compatibility: staged manifests parse, plan and pass Forge pre-send validation", () => {
   const dir = new URL("../../push/", import.meta.url);
   for (const f of readdirSync(dir).filter((name) => name.endsWith(".json")).sort()) {
-    const m = parseManifest(readFileSync(new URL(f, dir), "utf8"));
-    const problems = m.items.flatMap((it) => v.problems(it.entity, it.data, null, { preCreate: it.op === "create" }));
-    assert.deepEqual(problems, [], `${f}: ${problems.join(" | ")}`);
+    // checkManifest is the same call tools/check_manifest.mjs exposes to the container, so the
+    // gate a handoff runs and the gate CI runs cannot drift apart. It plans as well as parses:
+    // a staged manifest whose refs do not resolve is refused here rather than at selection.
+    const report = checkManifest(fileURLToPath(new URL(f, dir)));
+    assert.deepEqual(report.problems, [], `${f}: ${report.problems.join(" | ")}`);
   }
+});
+
+/**
+ * The push/47 incident, pinned from both ends.
+ *
+ * A standalone `aiProfile` create passed the repository's Python validator and reached a frozen,
+ * independently reviewed handoff; Forge refused it at selection, before a job existed. Nothing in
+ * the repository gates caught the gap, so both halves are asserted here: the shape Forge refuses
+ * stays refused, and the shape it supports keeps routing through the rules phase.
+ */
+test("aiProfile cannot be a manifest item: a create is refused, rules ride on the ai item", () => {
+  const profileCreate = { items: [{
+    entity: "aiProfile", slot: "create", name: "Road Bandit AiProfile", srcId: "rb_profile",
+    targetId: "@ai:rb", data: { name: "Road Bandit AiProfile", hidden: true, includeDefaultRules: true,
+      rules: [{ conditions: [], action: { type: "end_turn" } }] },
+  }] };
+  assert.throws(() => parseManifest(profileCreate), /aiProfile cannot be created directly; create an ai with rules/);
+
+  // The supported path: an ai create carrying the rules envelope plans, validates, and is routed
+  // to the rules phase (runner.mjs _fill -> _rules -> ai.updateAiProfile).
+  const order = planOrder(parseManifest(M.aiWithRules));
+  assert.equal(order.length, 1);
+  assert.equal(order[0].entity, "ai");
+  assert.ok(Array.isArray(order[0].data.rules));
+  assert.deepEqual(new Validator(FIELDS, NESTED_KEYS).problems("ai", order[0].data, null, { preCreate: true }), []);
+
+  // An aiProfile EDIT is the update path Forge does support; it must stay parseable.
+  assert.equal(parseManifest({ items: [{ entity: "aiProfile", slot: "edit", name: "P", targetId: "u1",
+    data: { rules: [], includeDefaultRules: true } }] }).items[0].op, "update");
+});
+
+test("the One Perfect Crop core manifest plans as three items, both AI through the rules phase", () => {
+  const report = checkManifest(fileURLToPath(new URL("../../push/47_one_perfect_crop_core_manifest.json", import.meta.url)));
+  assert.deepEqual(report.problems, []);
+  assert.deepEqual(report.plan.map((it) => [it.entity, it.op, it.phase]), [
+    ["ai", "create", "rules"],
+    ["ai", "create", "rules"],
+    ["quest", "create", "verify"],
+  ]);
+  assert.equal(report.plan.filter((it) => it.entity === "aiProfile").length, 0);
 });
 
