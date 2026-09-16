@@ -1,0 +1,866 @@
+{
+ "dedupNames": true,
+ "items": [
+  {
+   "name": "Road Bandit",
+   "entity": "ai",
+   "slot": "create",
+   "srcId": "opc_ai_road_bandit",
+   "data": {
+    "username": "Road Bandit",
+    "level": 100,
+    "rank": "JONIN",
+    "regeneration": 60,
+    "poolsMultiplier": 1,
+    "statsMultiplier": 1,
+    "isSummon": false,
+    "hidden": true,
+    "primaryElement": "None",
+    "secondaryElement": "",
+    "jutsus": [
+     "YiRdVytsdxFzZtqkEDs5Q",
+     "fKvCGRgzGNskgFWocQCAg",
+     "kkGDat1XWUxhOQ1_T5025"
+    ],
+    "ninjutsuOffence": 100,
+    "ninjutsuDefence": 100,
+    "genjutsuOffence": 100,
+    "genjutsuDefence": 100,
+    "taijutsuOffence": 100,
+    "taijutsuDefence": 100,
+    "bukijutsuOffence": 100,
+    "bukijutsuDefence": 100,
+    "strength": 100,
+    "intelligence": 100,
+    "willpower": 100,
+    "speed": 100,
+    "preferredStat": "Bukijutsu",
+    "preferredGeneral1": "Strength",
+    "preferredGeneral2": "Speed"
+   }
+  },
+  {
+   "name": "Harvest Boar",
+   "entity": "ai",
+   "slot": "create",
+   "srcId": "opc_ai_harvest_boar",
+   "data": {
+    "username": "Harvest Boar",
+    "level": 100,
+    "rank": "JONIN",
+    "regeneration": 60,
+    "poolsMultiplier": 1,
+    "statsMultiplier": 1,
+    "isSummon": false,
+    "hidden": true,
+    "primaryElement": "None",
+    "secondaryElement": "",
+    "jutsus": [
+     "YiRdVytsdxFzZtqkEDs5Q",
+     "4TM6iS8P0qgNHsFpALFhg",
+     "fKvCGRgzGNskgFWocQCAg"
+    ],
+    "ninjutsuOffence": 100,
+    "ninjutsuDefence": 100,
+    "genjutsuOffence": 100,
+    "genjutsuDefence": 100,
+    "taijutsuOffence": 100,
+    "taijutsuDefence": 100,
+    "bukijutsuOffence": 100,
+    "bukijutsuDefence": 100,
+    "strength": 100,
+    "intelligence": 100,
+    "willpower": 100,
+    "speed": 100,
+    "preferredStat": "Taijutsu",
+    "preferredGeneral1": "Strength",
+    "preferredGeneral2": "Speed"
+   }
+  },
+  {
+   "name": "Road Bandit AiProfile",
+   "entity": "aiProfile",
+   "slot": "create",
+   "srcId": "opc_ai_road_bandit_profile",
+   "targetId": "@ai:opc_ai_road_bandit",
+   "data": {
+    "name": "Road Bandit AiProfile",
+    "hidden": true,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "kkGDat1XWUxhOQ1_T5025",
+       "target": "RANDOM_OPPONENT"
+      }
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Harvest Boar AiProfile",
+   "entity": "aiProfile",
+   "slot": "create",
+   "srcId": "opc_ai_harvest_boar_profile",
+   "targetId": "@ai:opc_ai_harvest_boar",
+   "data": {
+    "name": "Harvest Boar AiProfile",
+    "hidden": true,
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "4TM6iS8P0qgNHsFpALFhg",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "fKvCGRgzGNskgFWocQCAg",
+       "target": "RANDOM_OPPONENT"
+      }
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "create",
+   "name": "One Perfect Crop",
+   "srcId": "opc_quest",
+   "data": {
+    "name": "One Perfect Crop",
+    "questType": "event",
+    "consecutiveObjectives": true,
+    "hidden": true,
+    "successDescription": "<i>Ittetsu and the shipment reached their destination. What happened after that is, thankfully, the market's problem.</i>",
+    "description": null,
+    "startsAt": null,
+    "endsAt": null,
+    "tierLevel": null,
+    "content": {
+     "objectives": [
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>A cabbage cart sits crooked beside the country road, one wheel split clean through and half its belongings scattered into the grass. A farmer is already gathering tools and checking the lashings around an improbably healthy mound of cabbages.</i> <br> <br> \"If you're a shinobi, I could use another pair of hands. I'm Ittetsu. This harvest is expected at market before the day is out.\" <br> <br> \"The cart was fine this morning. Then a passing wagon threw one stone into exactly the wrong pin, and here we are.\" <br> <br> <i>Before lifting the last tool back onto the cart, Ittetsu tucks a small folded seed packet securely into his tool roll.</i>",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_o0",
+       "nextObjectiveId": [
+        {
+         "text": "Help him get the shipment to market.",
+         "nextObjectiveId": "opc_g1"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "\"I can repair the wheel properly. Give me enough time and it will carry the crop safely the rest of the way.\" <br> <br> <i>A proper repair would restore the cart's speed and keep the cabbages protected from the rough road. The sound timber could instead be stripped down into a crude drag-sled that leaves immediately, but the ride would be slower and much harder on the load.</i>",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_g1",
+       "nextObjectiveId": [
+        {
+         "text": "Strip it down. We keep moving.",
+         "nextObjectiveId": "opc_g1_pass"
+        },
+        {
+         "text": "Repair it properly. It will travel better.",
+         "nextObjectiveId": "opc_f1_1"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Ittetsu dismantles the damaged wheel without hesitation, repurposing the sound timber and ironwork into runners and braces. The result is ugly, slow, and surprisingly sturdy.</i> <br> <br> \"Good. I can build another cart after market day. I cannot grow another harvest by sunset.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_g1_pass",
+       "nextObjectiveId": [
+        {
+         "text": "Keep moving.",
+         "nextObjectiveId": "opc_g2"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Ittetsu works quickly and well. Before long the wheel sits straight, the axle turns cleanly, and the repaired cart rolls down the road without a single complaint.</i> <br> <br> \"There. Nothing wrong with knowing how to fix what belongs to you.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_f1_1",
+       "nextObjectiveId": [
+        {
+         "text": "Continue.",
+         "nextObjectiveId": "opc_f1_2"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The repaired cart reaches the river crossing intact. The Waystation Keeper is already chaining the loading gate shut while brown water climbs the pilings below.</i> <br> <br> \"You just missed the final loaded crossing. River rose faster than expected. Nothing with cargo goes over until it settles.\" <br> <br> \"A good cart. Shame it cannot swim.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_f1_2",
+       "nextObjectiveId": [
+        {
+         "text": "There is no way to reach market in time.",
+         "nextObjectiveId": "opc_f1_fail"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "task": "fail_quest",
+       "id": "opc_f1_fail"
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "\"Last loaded crossing of the day. Water is climbing, so I'm taking half the usual weight and twice the usual trouble.\" <br> <br> <i>The fee for the cabbage shipment will empty Ittetsu's purse and cost most of the provisions strapped to the sled. A free levee road follows the river toward market, longer but still apparently passable.</i>",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_g2",
+       "nextObjectiveId": [
+        {
+         "text": "Pay for the crossing.",
+         "nextObjectiveId": "opc_g2_pass"
+        },
+        {
+         "text": "Take the old levee road.",
+         "nextObjectiveId": "opc_f2_1"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Ittetsu counts out every coin, then adds his packed provisions when the Waystation Keeper points out the remaining weight allowance. By the time the shipment crosses, he has little left besides his tools and the clothes on his back.</i> <br> <br> \"Expensive crossing.\" <br> <br> \"You could have taken the levee.\" <br> <br> \"I could also have eaten my money. Neither gets the harvest to market.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_g2_pass",
+       "nextObjectiveId": [
+        {
+         "text": "Continue toward market.",
+         "nextObjectiveId": "opc_g3"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>For a while, the old levee road seems like the smarter choice. It is quiet, dry, and empty enough that the loaded cart makes better time than expected.</i> <br> <br> \"We are still moving. I'll call that good news while it lasts.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_f2_1",
+       "nextObjectiveId": [
+        {
+         "text": "Keep going.",
+         "nextObjectiveId": "opc_f2_2"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>A lone shinobi steps from the trees ahead and plants himself in the middle of the levee. His attention settles immediately on the loaded shipment.</i> <br> <br> \"Toll road is for travelers with money. This road is for travelers with something worth taking.\" <br> <br> \"I already dislike this road.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_f2_2",
+       "nextObjectiveId": [
+        {
+         "text": "Drive him off.",
+         "nextObjectiveId": "opc_f2_battle"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "start_battle",
+       "opponentAIs": [
+        {
+         "ids": [
+          "@ai:opc_ai_road_bandit"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "completionOutcome": "Win",
+       "failDescription": "You failed to defeat the opponent",
+       "fleeDescription": "You fled from the opponent",
+       "drawDescription": "The battle ended in a draw",
+       "scaleGains": 1,
+       "id": "opc_f2_battle",
+       "opponent_scaled_to_user": true,
+       "keepOriginalPools": false,
+       "nextObjectiveId": "opc_f2_3",
+       "failObjectiveId": "opc_f2_battle_fail"
+      },
+      {
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "task": "fail_quest",
+       "id": "opc_f2_battle_fail"
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The Road Bandit retreats, leaving the road open. Ittetsu checks every rope, every bundle, and finally the cabbages themselves.</i> <br> <br> \"Nothing missing. Keep moving.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_f2_3",
+       "nextObjectiveId": [
+        {
+         "text": "Continue down the levee.",
+         "nextObjectiveId": "opc_f2_4"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The road stays peaceful long enough for the fight to feel like the only danger it had to offer. Then somewhere upstream, wood cracks with a sound like a tree splitting.</i> <br> <br> \"That was not a tree.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_f2_4",
+       "nextObjectiveId": [
+        {
+         "text": "Look upstream.",
+         "nextObjectiveId": "opc_f2_5"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>An irrigation gate gives way upstream, sending a sudden wall of water across the low levee. Ittetsu gets clear, but the loaded cart is swept sideways into the flooded channels before either of you can secure it.</i> <br> <br> \"I can repair a cart. I can earn more coin. I cannot sell a harvest that is halfway to the coast.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_f2_5",
+       "nextObjectiveId": [
+        {
+         "text": "The shipment is lost.",
+         "nextObjectiveId": "opc_f2_fail"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "task": "fail_quest",
+       "id": "opc_f2_fail"
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Beyond the crossing, the route climbs between terraced fields. A section of old retaining wall suddenly gives way, knocking Ittetsu beneath a broken fence rail as the loaded sled shifts sideways on the sloping road.</i> <br> <br> \"Well. That's unfortunate.\" <br> <br> <i>The rail is pressing harder against Ittetsu, while the sled gives another slow scrape toward the edge of the drainage cut.</i>",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_g3",
+       "nextObjectiveId": [
+        {
+         "text": "Brace the load.",
+         "nextObjectiveId": "opc_g3_pass"
+        },
+        {
+         "text": "Pull Ittetsu free.",
+         "nextObjectiveId": "opc_f3_1"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>You catch the sled before it reaches the edge and drive its brace into the road. With the shipment secure, it takes only moments to lift the rail and drag Ittetsu free.</i> <br> <br> \"Good choice. I was not going anywhere. The harvest was.\" <br> <br> <i>He tests his leg, finds it usable, and immediately reaches for the hauling rope.</i>",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_g3_pass",
+       "nextObjectiveId": [
+        {
+         "text": "Keep moving.",
+         "nextObjectiveId": "opc_g4"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>You pull Ittetsu free before the fallen stones can shift again. The rescue works perfectly.</i> <br> <br> \"The load.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_f3_1",
+       "nextObjectiveId": [
+        {
+         "text": "Turn back to the sled.",
+         "nextObjectiveId": "opc_f3_2"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The sled is already in the drainage cut. You recover what you can, but too much of the harvest is crushed, soaked, or scattered to fulfill the delivery.</i> <br> <br> \"You saved me.\" <br> <br> \"I wish the cabbages could say the same.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_f3_2",
+       "nextObjectiveId": [
+        {
+         "text": "The shipment can no longer be delivered.",
+         "nextObjectiveId": "opc_f3_fail"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "task": "fail_quest",
+       "id": "opc_f3_fail"
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The market road is finally visible ahead when one side restraint snaps loose. A single flawless cabbage tumbles free and rolls toward an irrigation ditch below.</i> <br> <br> <i>Behind you, the main load shifts with a long wooden creak. Nothing has fallen yet, but one of the remaining ropes has started slipping through its knot.</i> <br> <br> \"Oh, that is a beautiful one.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_g4",
+       "nextObjectiveId": [
+        {
+         "text": "Hold the load.",
+         "nextObjectiveId": "opc_g4_pass"
+        },
+        {
+         "text": "Go after it.",
+         "nextObjectiveId": "opc_f4_1"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>You seize the slipping rope and pull the main load back into place. The runaway cabbage crosses the road below and disappears into the irrigation ditch.</i> <br> <br> \"Leave it.\" <br> <br> \"One head is not a harvest.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_g4_pass",
+       "nextObjectiveId": [
+        {
+         "text": "Continue to market.",
+         "nextObjectiveId": "opc_c1"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>You sprint downhill and catch the runaway cabbage just before it reaches the water. It is completely unharmed.</i> <br> <br> <i>When you turn around, the main load is gone.</i> <br> <br> \"Excellent catch.\" <br> <br> \"Now where is the rest?\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_f4_1",
+       "nextObjectiveId": [
+        {
+         "text": "One perfect cabbage is not the shipment.",
+         "nextObjectiveId": "opc_f4_fail"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "task": "fail_quest",
+       "id": "opc_f4_fail"
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The shipment is secure again, and the market gate is close enough to hear carts and vendors beyond it. For the first time since meeting Ittetsu, the road ahead looks almost uneventful.</i> <br> <br> \"Do not say anything.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_c1",
+       "nextObjectiveId": [
+        {
+         "text": "Keep moving.",
+         "nextObjectiveId": "opc_c1_1"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The brush beside the road explodes outward. A large wild boar barrels through the fence, catches the scent of fresh produce, and immediately turns toward the loaded shipment.</i> <br> <br> \"Of course.\" <br> <br> <i>The boar lowers its head and charges.</i> <br> <br> \"That one wants the load. Drive it off.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_c1_1",
+       "nextObjectiveId": [
+        {
+         "text": "Protect the shipment.",
+         "nextObjectiveId": "opc_c1_battle"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "start_battle",
+       "opponentAIs": [
+        {
+         "ids": [
+          "@ai:opc_ai_harvest_boar"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "completionOutcome": "Win",
+       "failDescription": "You failed to defeat the opponent",
+       "fleeDescription": "You fled from the opponent",
+       "drawDescription": "The battle ended in a draw",
+       "scaleGains": 1,
+       "id": "opc_c1_battle",
+       "opponent_scaled_to_user": true,
+       "keepOriginalPools": false,
+       "nextObjectiveId": "opc_c1_win",
+       "failObjectiveId": "opc_c1_fail"
+      },
+      {
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "task": "fail_quest",
+       "id": "opc_c1_fail"
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The Harvest Boar finally turns and crashes back through the brush. Ittetsu checks the load, tightens one rope, and points toward the market gate.</i> <br> <br> \"Good. Keep moving before the sky learns what we're carrying.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_c1_win",
+       "nextObjectiveId": [
+        {
+         "text": "Enter the market.",
+         "nextObjectiveId": "opc_d1"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The battered shipment rolls into market looking as though it has survived a small war. A Market Clerk watches Ittetsu approach, looks at the cabbages, then looks back at Ittetsu.</i> <br> <br> \"Ittetsu.\" <br> <br> \"Count them.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_d1",
+       "nextObjectiveId": [
+        {
+         "text": "Wait for the count.",
+         "nextObjectiveId": "opc_d2"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The Market Clerk inspects the surviving load, checks the delivery slate, and marks the shipment received.</i> <br> <br> \"Shipment accepted. Your delivery is complete.\" <br> <br> \"Complete?\" <br> <br> \"Complete.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_d2",
+       "nextObjectiveId": [
+        {
+         "text": "Let that sink in.",
+         "nextObjectiveId": "opc_d3"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Ittetsu stares at the accepted shipment for several seconds. His shoulders finally drop.</i> <br> <br> \"There.\" <br> <br> \"Done.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_d3",
+       "nextObjectiveId": [
+        {
+         "text": "...",
+         "nextObjectiveId": "opc_d4"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>A sudden gust catches a market awning and tears one support loose. The falling pole startles a pack animal, which kicks an empty handcart downhill into the newly accepted cabbage stack.</i> <br> <br> <i>The stack collapses. Cabbages scatter across the market, bounce down the sloping street, and pour almost ceremonially into the drainage canal.</i> <br> <br> \"MY CABBAGES!\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_d4",
+       "nextObjectiveId": [
+        {
+         "text": "Survey the damage.",
+         "nextObjectiveId": "opc_d5"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>When the noise finally stops, Ittetsu finds his battered tool roll beneath an overturned basket. The folded seed packet inside has been torn open, but one seed remains caught in the paper crease.</i> <br> <br> \"It was received before all this. The mark on the slate stands.\" <br> <br> \"Yes.\" <br> <br> <i>Ittetsu looks from the surviving seed to the canal, then places it in your hand.</i> <br> <br> \"Keep it. Apparently it likes you better.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "opc_d5",
+       "nextObjectiveId": [
+        {
+         "text": "Take the seed.",
+         "nextObjectiveId": "opc_win"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "description": "",
+       "successDescription": "<i>Ittetsu and the shipment reached their destination. What happened after that is, thankfully, the market's problem.</i>",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "task": "win_quest",
+       "id": "opc_win"
+      }
+     ],
+     "reward": {},
+     "sceneBackground": "",
+     "sceneCharacters": []
+    }
+   }
+  }
+ ]
+}
