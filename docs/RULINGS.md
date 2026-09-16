@@ -170,7 +170,7 @@ Forge may keep local/generated projections for responsive editing, but those pro
 
 ---
 
-## RUL-2026-09-16-001 — Quest Studio repository builds use source-push with Contents-only browser credentials
+## RUL-2026-09-16-002 — Quest Studio repository builds use source-push with Contents-only browser credentials
 
 **Date:** 2026-09-16
 **Domain:** Forge Next / repository build security
