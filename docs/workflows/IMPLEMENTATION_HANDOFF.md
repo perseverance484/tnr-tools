@@ -4,6 +4,8 @@ Use when Fable / Claude Code freezes implementation for independent review.
 
 The purpose is to make the repository and exact SHA sufficient evidence even if the implementation conversation disappears.
 
+Format and honesty rules are in `CLAUDE.md` §11.1 and §11.2: a committed `docs/handoffs/<TASK>_HANDOFF.md` plus a short identity block returned in chat, reproduction before fixes, mistakes recorded rather than squashed, checks not performed named specifically, and blocked actions stated rather than worked around. The field list below is what that document must contain.
+
 ## 1. Freeze the target
 
 Before handoff:
