@@ -26,7 +26,7 @@ import { TransportError } from "../transport/envelope.mjs";
 import { RateLimited } from "../budget/bucket.mjs";
 import { readIdmap, writeIdmap } from "../storage/compat.mjs";
 import { snapshotKey, tierCeiling } from "../storage/captures.mjs";
-import { projectBody } from "../research/registry.mjs";
+import { projectBody, capturePolicy } from "../research/registry.mjs";
 import { TERMINAL_ITEM_STATES, jobOutcome } from "../storage/journal.mjs";
 import { recipe, mergeForUpdate } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
@@ -620,11 +620,21 @@ export class Runner {
       this._requireAuth(path, null);
       // The read mode is the registry's, decided at parse: a point read of one record, an
       // input-free name list, or a filtered/paged query. RateLimited/Network propagate to run().
-      const r = c.mode === "query"
-        ? await this.reader.query(path, c.input, { fresh: true, pages: c.pages })
-        : c.mode === "point"
-          ? await this.reader.get(path, id, { fresh: true })
-          : await this.reader.list(path, { fresh: true });
+      let r;
+      try {
+        r = c.mode === "query"
+          ? await this.reader.query(path, c.input, { fresh: true, pages: c.pages })
+          : c.mode === "point"
+            ? await this.reader.get(path, id, { fresh: true })
+            : await this.reader.list(path, { fresh: true });
+      } catch (e) {
+        // A rate limit or a transport failure pauses the job, and the pass will resume AT THIS
+        // capture and read it again. The attempt that was abandoned still happened, so its per-page
+        // evidence is journaled first, appended to a list that is never rewritten - a resumed
+        // attempt is a new record beside it, not an overwrite of it (independent review FN5).
+        if (Array.isArray(e.pages) && e.pages.length) this._journalAttempt(jobId, key, c, phase, i, e);
+        throw e;
+      }
       // THE OBSERVED DEFECT (harvests/inbox/tnr_results_17890671*.json): five protected reads
       // came back UNAUTHORIZED, each was journaled as an ordinary failed read, the pass ran to
       // the end and the job reported "0/5 full bodies persisted · read failed". That reads as a
@@ -671,7 +681,12 @@ export class Runner {
    */
   async _persist(jobId, phase, ordinal, c, path, id, r) {
     const tier = c.tier;
-    const fields = { persist: c.persist, tier, snapshotKey: snapshotKey(jobId, phase, ordinal), persistOk: false, persistError: null };
+    // The policy that admitted this read, stamped at the moment it is taken: the source pin the row
+    // was audited at and the immutable content identity of the registry that admitted it. Recorded
+    // here rather than derived at export, so an old capture materialized under a newer build keeps
+    // the provenance it was actually taken under (brief section 6, independent review FN4).
+    const policy = capturePolicy(path);
+    const fields = { persist: c.persist, tier, policy, snapshotKey: snapshotKey(jobId, phase, ordinal), persistOk: false, persistError: null };
     if (tier === "projected") fields.projection = c.projection;
     if (!r.ok) { fields.persistError = "read failed; there is no body to persist"; return fields; }
     // A bounded or partial walk is not a body: persisting it would present part of an answer under
@@ -706,7 +721,7 @@ export class Runner {
     try {
       await this.cache.putSnapshot({
         key: fields.snapshotKey, jobId, phase, ordinal, path, id,
-        input: c.input ?? null, data: r.data, tier,
+        input: c.input ?? null, data: r.data, tier, policy,
         projection: c.projection, page: c.mode === "query" ? { pages: r.pages, complete: r.complete } : null,
       });
     } catch (e) {
@@ -717,6 +732,29 @@ export class Runner {
     // not produce the evidence the manifest asked for, and no later step may upgrade it.
     fields.persistOk = fields.persistError == null;
     return fields;
+  }
+
+  /**
+   * Record ONE abandoned capture attempt. Appended to `<phase>Attempts`, which is append-only: a
+   * capture that is paused and later resumed leaves both records, so "what was asked for and what
+   * came back" survives for the attempt that did not finish. It is deliberately NOT written into
+   * the phase's completed list, because that list is the resume cursor and adding to it would skip
+   * the capture on resume.
+   */
+  _journalAttempt(jobId, key, c, phase, ordinal, e) {
+    const job = this.journal.get(jobId);
+    const prior = Array.isArray(job[key + "Attempts"]) ? job[key + "Attempts"] : [];
+    this.journal.annotateJob(jobId, {
+      [key + "Attempts"]: [...prior, {
+        phase, ordinal, proc: c.proc, input: c.input ?? null, persist: c.persist, tier: c.tier,
+        abandoned: true, ok: false, complete: false,
+        rows: typeof e.rowCount === "number" ? e.rowCount : 0,
+        error: e.name === "RateLimited" ? "TOO_MANY_REQUESTS" : e.name || "ERROR",
+        pages: e.pages,
+        persistOk: false,
+        persistError: `the walk stopped on ${e.name === "RateLimited" ? "a rate limit" : "a transport failure"} after ${e.pages.length} page(s); this attempt is incomplete and no body was persisted from it`,
+      }],
+    });
   }
 
   // ------------------------------------------------------------------ helpers

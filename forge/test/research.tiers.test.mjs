@@ -142,26 +142,30 @@ test("a local-only body over its own ceiling is an explicit failure, never trunc
 });
 
 // ---------------------------------------------------------------- projected
-test("projected: only the declared fields export, including nested paths", async () => {
+test("projected: only the declared LEAF fields export, including through an array", async () => {
   const h = harness();
   h.game.seed("quest", {
     id: "q1", name: "The Waystation", rank: "B", hidden: false,
-    content: { objectives: [{ id: "n1", type: "dialog" }], reward: { money: 0 }, note: SECRET },
+    // each objective carries an undeclared field, which is how a projection leaks when a path is
+    // allowed to stop on a structure: the element object would ship whole, this field included.
+    content: { objectives: [{ id: "n1", type: "dialog", note: SECRET }], reward: { money: 0 }, note: SECRET },
     description: SECRET,
   });
+  const fields = ["id", "name", "content.objectives.id", "content.objectives.type"];
   const s = await runCaptures(h, "proj", [
-    { proc: "quests.get", input: { id: "q1" }, persist: "projected", projection: ["id", "name", "content.objectives"] },
+    { proc: "quests.get", input: { id: "q1" }, persist: "projected", projection: fields },
   ]);
   assert.equal(s.outcome, "success");
   const bundle = await h.bundle("proj");
   const [capture] = bundle.captures;
   assert.equal(capture.tier, "projected");
   assert.equal(capture.persistOk, true);
-  assert.deepEqual(capture.projection, ["id", "name", "content.objectives"]);
+  assert.deepEqual(capture.projection, fields);
   assert.deepEqual(capture.data, { id: "q1", name: "The Waystation", content: { objectives: [{ id: "n1", type: "dialog" }] } },
-    "exactly the declared paths, nested exactly where they were");
+    "exactly the declared leaves, nested exactly where they were, and nothing beside them");
   assert.ok(!("description" in capture.data) && !("rank" in capture.data) && !("hidden" in capture.data));
   assert.ok(!("reward" in capture.data.content) && !("note" in capture.data.content));
+  assert.ok(!("note" in capture.data.content.objectives[0]), "an undeclared field inside a selected element must not ride along");
   assert.ok(!allExportSurfaces(h, bundle).includes(SECRET), "no undeclared field escapes by any route");
   // the RAW body still exists locally: projection narrows the export, not the evidence
   const snap = await h.cache.getSnapshot(snapshotKey("proj", "after", 0));

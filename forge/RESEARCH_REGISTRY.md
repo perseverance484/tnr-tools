@@ -6,6 +6,10 @@ refused before transport, whatever the game would answer (`RUL-2026-09-17-002`).
 
 - **Source pin audited:** `345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9` (`studie-tech/TheNinjaRPG`), the same pin
   `forge/src/runner/fields.json` and `nested.json` carry; `tools/check_boundaries.mjs` holds the three equal.
+- **Registry revision:** `35d2269b` — the content identity of the admission policy below
+  (pin, tiers, projectable allowlists, input contracts, paging bounds). Every capture is stamped with
+  this pair at the moment it is taken, so a saved capture names the exact contract that admitted it.
+  Editing any row changes it; it cannot be left stale by hand.
 - **Tier** is both the default and the ceiling. A manifest may ask for that tier or any narrower one
   (`local-only` < `projected` < `repo-safe`); widening one is a reviewed edit of the registry module,
   never a manifest key (`RUL-2026-09-17-001`).

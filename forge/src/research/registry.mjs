@@ -36,6 +36,7 @@
 // cases.
 
 import { PROCEDURES } from "../transport/procedures.mjs";
+import { stableStringify, fnv1a32 } from "../storage/hash.mjs";
 
 // Narrow to wide. Index order is load-bearing: tierAtMost() is an index comparison.
 export const TIERS = Object.freeze(["local-only", "projected", "repo-safe"]);
@@ -353,61 +354,68 @@ export function validateProjection(path, fields) {
 }
 
 const own = (o, k) => o !== null && typeof o === "object" && Object.prototype.hasOwnProperty.call(o, k);
+const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+// What a declared path is allowed to END at. A projection exports the fields it names and nothing
+// else, so a terminal must be a value that IS the field: a scalar, or a list of scalars. An object
+// or a list of objects is a subtree, and exporting one would ship every field inside it - including
+// fields added to the record after the projection was written, which nobody declared and nobody
+// reviewed. RUL-2026-09-17-001 forbids exactly that as "implicit nested passthrough", so an
+// unsupported terminal is a projection FAILURE naming the path, never a silent subtree.
+const isScalar = (v) => v === null || v === undefined || ["string", "number", "boolean"].includes(typeof v);
+const isScalarList = (v) => Array.isArray(v) && v.every(isScalar);
 
-/** Read one dotted path out of one object. `hit:false` means absent — never a substituted value. */
-function pluck(obj, segments) {
-  let cur = obj;
-  for (const s of segments) {
-    if (!own(cur, s)) return { hit: false };
-    cur = cur[s];
-  }
-  return { hit: true, value: cur };
-}
-
-function assign(target, segments, value) {
-  let cur = target;
-  for (let i = 0; i < segments.length - 1; i++) {
-    const s = segments[i];
-    if (!own(cur, s) || cur[s] === null || typeof cur[s] !== "object") cur[s] = {};
-    cur = cur[s];
-  }
-  cur[segments[segments.length - 1]] = value;
-}
-
-function projectOne(body, split) {
-  if (body === null || typeof body !== "object" || Array.isArray(body)) return { ok: false, missing: split.map((s) => s.join(".")) };
+/**
+ * Project one object against a set of declared paths, grouped by their first segment.
+ *
+ * Descending THROUGH an array is supported and is how a per-element field is declared:
+ * `content.objectives.id` projects `{content: {objectives: [{id}, {id}]}}`, carrying the shape but
+ * only the named leaf out of each element. Descending through a scalar, or stopping on a structure,
+ * is a failure.
+ */
+function projectInto(value, paths, prefix, missing) {
+  if (!isPlainObject(value)) { for (const segs of paths) missing.add([...prefix, ...segs].join(".")); return null; }
   const out = {};
-  const missing = [];
-  for (const segments of split) {
-    const r = pluck(body, segments);
-    if (!r.hit) { missing.push(segments.join(".")); continue; }
-    assign(out, segments, r.value === undefined ? null : r.value);
+  const groups = new Map();
+  for (const segs of paths) {
+    const [head, ...rest] = segs;
+    if (!groups.has(head)) groups.set(head, []);
+    groups.get(head).push(rest);
   }
-  return missing.length ? { ok: false, missing } : { ok: true, data: out };
+  for (const [head, rests] of groups) {
+    const here = [...prefix, head];
+    if (!own(value, head)) { for (const rest of rests) missing.add([...here, ...rest].join(".")); continue; }
+    const child = value[head];
+    const terminal = rests.filter((r) => !r.length);
+    const deeper = rests.filter((r) => r.length);
+    if (terminal.length) {
+      if (isScalar(child)) { out[head] = child === undefined ? null : child; continue; }
+      if (isScalarList(child)) { out[head] = [...child]; continue; }
+      // a structure was named as a field; refuse rather than ship the subtree
+      missing.add(here.join("."));
+      continue;
+    }
+    if (Array.isArray(child)) { out[head] = child.map((el) => projectInto(el, deeper, here, missing)); continue; }
+    if (isPlainObject(child)) { out[head] = projectInto(child, deeper, here, missing); continue; }
+    for (const rest of deeper) missing.add([...here, ...rest].join("."));
+  }
+  return out;
 }
 
 /**
  * Apply a validated projection to a decoded body. An array body projects element-wise, which is the
  * shape every paged/filtered research read returns.
  *
- * There is no partial success and no fallback: one absent declared path anywhere makes the whole
- * projection a failure carrying the field names that were missing. That failure is the evidence —
- * substituting the full body, or quietly emitting a narrower object, is the leak this exists to
- * prevent (RUL-2026-09-17-001).
+ * There is no partial success and no fallback: one absent or unsupported declared path anywhere
+ * makes the whole projection a failure carrying the field names responsible. Substituting the full
+ * body, or quietly emitting a wider object than was declared, is the leak this exists to prevent.
  */
 export function projectBody(body, fields) {
   const split = fields.map((f) => f.split("."));
-  if (Array.isArray(body)) {
-    const out = [];
-    const missing = new Set();
-    for (const el of body) {
-      const r = projectOne(el, split);
-      if (!r.ok) { for (const m of r.missing) missing.add(m); continue; }
-      out.push(r.data);
-    }
-    return missing.size ? { ok: false, missing: [...missing] } : { ok: true, data: out };
-  }
-  return projectOne(body, split);
+  const missing = new Set();
+  const data = Array.isArray(body)
+    ? body.map((el) => projectInto(el, split, [], missing))
+    : projectInto(body, split, [], missing);
+  return missing.size ? { ok: false, missing: [...missing] } : { ok: true, data };
 }
 
 // ------------------------------------------------------------------ registry/source agreement
@@ -429,4 +437,36 @@ export function registryProblems() {
     if (r.page && r.page.mode !== "offset") problems.push(`${path}: unknown page mode ${JSON.stringify(r.page.mode)}`);
   }
   return problems;
+}
+
+/**
+ * The immutable content identity of the admission policy itself, over every field that decides what
+ * a read may do: the pin the rows were audited at, each row's tier, its projectable allowlist, its
+ * input contract and its paging bound. Editing any of those changes this value, so a capture stamped
+ * with it can be tied back to the exact policy that admitted it — which a version string cannot do,
+ * because two builds of `forge 0.4.1` could carry different registries.
+ *
+ * Derived rather than hand-maintained, so it cannot be forgotten during a registry edit.
+ */
+export const REGISTRY_REVISION = fnv1a32(stableStringify({
+  pin: REGISTRY_PIN,
+  rows: RESEARCH_PATHS.map((path) => {
+    const r = RESEARCH_READS[path];
+    return {
+      path, tier: r.tier, project: r.project,
+      input: r.input ? { required: Object.keys(r.input.required), optional: Object.keys(r.input.optional) } : null,
+      page: r.page ?? null,
+    };
+  }),
+}));
+
+/**
+ * The policy identity to stamp onto a capture at the moment it is taken (brief section 6: a capture
+ * must retain provenance sufficient to identify its audited contract). It is recorded WITH the body
+ * and never recomputed at export, so materializing an old job under a newer build cannot relabel
+ * that old evidence with today's policy.
+ */
+export function capturePolicy(path) {
+  const r = requireRow(path);
+  return Object.freeze({ pin: REGISTRY_PIN, registry: REGISTRY_REVISION, tier: r.tier, source: r.source });
 }

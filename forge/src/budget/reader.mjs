@@ -108,7 +108,11 @@ export class CachedReader {
     const [r] = await this.client.batch([{ path, input: canonical === null ? undefined : canonical }]);
     if (r.ok) await this.cache.putQuery({ path, queryKey: key, input: canonical, data: r.data });
     // observe() may throw RateLimited; the ok body above is already cached, exactly as in getMany.
-    this.budget.observe([r], [path]);
+    // When it does throw, the decoded element is already in hand and would otherwise be lost with
+    // the stack, so it rides on the error. That is what lets the walk above report the page that
+    // tripped the limiter instead of reporting nothing (independent review FN5).
+    try { this.budget.observe([r], [path]); }
+    catch (e) { e.page = { ...r, input: canonical, key }; throw e; }
     return { ...r, input: canonical, key };
   }
 
@@ -143,11 +147,28 @@ export class CachedReader {
     const size = paged ? pageSize(path, canonical) : null;
     const out = [];
     const rows = [];
+    const record = (n, pin, r) => ({
+      n, input: pin, key: r.key ?? canonicalKey(pin), ok: !!r.ok, cached: !!r.cached,
+      rows: Array.isArray(r.data) ? r.data.length : r.data == null ? 0 : 1,
+      at: r.at ?? null, error: r.ok ? null : (r.error && r.error.code) || null,
+    });
     for (let n = 0; n < want; n++) {
       const pin = n === 0 ? canonical : pageInput(path, canonical, n);
-      const r = await this._page(path, pin, { fresh });
+      let r;
+      try {
+        r = await this._page(path, pin, { fresh });
+      } catch (e) {
+        // A throw here is a rate limit or a transport failure, and it ends the walk. Everything the
+        // walk actually asked for is attached to the error so the caller can journal it: without
+        // this, pages already read live only in these local variables and vanish with the stack,
+        // which is the evidence loss requirement 7.8 forbids (independent review FN5).
+        e.pages = [...out, e.page ? record(n, pin, e.page) : { n, input: pin, key: canonicalKey(pin), ok: false, cached: false, rows: 0, at: null, error: e.name === "RateLimited" ? "TOO_MANY_REQUESTS" : e.name || "ERROR" }];
+        e.walkComplete = false;
+        e.rowCount = rows.length;
+        throw e;
+      }
       const count = Array.isArray(r.data) ? r.data.length : r.data == null ? 0 : 1;
-      out.push({ n, input: pin, key: r.key, ok: r.ok, cached: !!r.cached, rows: count, at: r.at ?? null, error: r.ok ? null : r.error.code });
+      out.push(record(n, pin, r));
       if (!r.ok) {
         return { ok: false, complete: false, error: r.error, pages: out, data: null, tierPath: path, rowCount: rows.length };
       }
