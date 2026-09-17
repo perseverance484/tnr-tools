@@ -9,7 +9,7 @@
 | Previous frozen head (reviewed) | `8be4c5bb6a89832e705be1281f90b2395cfd11d4` |
 | Review | `chatgpt/review-forge-next-phase0@6df00b836d1af3b7b06f3689ca00648e03af51bd` — CORRECTIONS_REQUIRED |
 | Base / merge-base | `b42c2afd5ceb3cd2e1f1eaa6f1e082cfc419cbea` (unchanged; still a direct descendant) |
-| New frozen head | stamped in §6 |
+| New frozen head | `6cdc049b5b045ef4012c4ade212ff7e3232b039e` is this document's commit; the branch tip is the one stamp commit after it |
 | Live game requests / writes | **none** |
 | Credentials used | repository PAT for clone and push only. No game credential or session. |
 
