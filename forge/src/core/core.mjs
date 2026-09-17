@@ -85,9 +85,11 @@ export class ForgeCore {
       await Promise.all(entries.map(async (e) => {
         try {
           const key = `gh:${e.path}@${e.sha}`;
-          const hit = await this.cache.get("github.contents", key);
+          // Repository text goes to the repository cache, never the game capture DB.
+          const store = this.repoCache ?? this.cache;
+          const hit = await store.get("github.contents", key);
           const text = hit ? hit.data : await this.github.text(e.path);
-          if (!hit) await this.cache.put({ path: "github.contents", id: key, data: text });
+          if (!hit) await store.put({ path: "github.contents", id: key, data: text });
           e.text = text; e.summary = manifestSummary(text);
         } catch (err) { e.error = err.message; }
         e.loading = false;
