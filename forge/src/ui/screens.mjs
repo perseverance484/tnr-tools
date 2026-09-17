@@ -72,13 +72,13 @@ function OrphanCard(app, job, it) {
 // ------------------------------------------------------------------ 2. Manifests
 export function ManifestsScreen(app) {
   const root = h("section", {});
-  const q = h("input", { type: "search", placeholder: "search filename, number, title", value: app.state.pickerQuery || "", onInput: (e) => { app.state.pickerQuery = e.target.value; renderList(); } });
+  const q = h("input", { type: "search", placeholder: "search filename, number, title", value: app.view.pickerQuery || "", onInput: (e) => { app.view.pickerQuery = e.target.value; renderList(); } });
   const list = h("div", {});
   const status = h("div", { class: "f-mute" });
   root.append(h("div", { class: "f-actions" }, q, h("button", { onClick: () => app.loadPicker(true) }, "Refresh")), status, list);
   function renderList() {
     const entries = app.state.picker || [];
-    const needle = (app.state.pickerQuery || "").toLowerCase();
+    const needle = (app.view.pickerQuery || "").toLowerCase();
     const seen = new Set(app.journal.listJobs().map((j) => j.manifestPath));
     const rows = entries.filter((e) => !needle || e.name.toLowerCase().includes(needle) || String(e.number ?? "").includes(needle) || (e.summary?.title || "").toLowerCase().includes(needle));
     replace(list, rows.length ? rows.map((e) => h("div", { class: "f-row f-tap", onClick: () => app.selectManifest(e) },
@@ -89,7 +89,7 @@ export function ManifestsScreen(app) {
     replace(status, app.state.pickerError ? h("div", { class: "f-banner bad" }, "Could not list push/: ", app.state.pickerError) : `${entries.length} file${entries.length === 1 ? "" : "s"} in push/` + (app.state.pickerAt ? ` · listed ${fmtAgo(app.state.pickerAt, app.now())}` : ""));
   }
   renderList();
-  app.state._renderPicker = renderList;
+  app.view.renderPicker = renderList;
   if (!app.state.picker) app.loadPicker(false);
 
   if (app.state.selected) root.appendChild(SelectedManifest(app));
@@ -154,7 +154,7 @@ function SelectedManifest(app) {
         : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
       () => app.startJob()),
     }, readOnly ? "Run captures" : "Start job"),
-    h("button", { onClick: () => { app.state.selected = null; app.refresh(); } }, "Clear"),
+    h("button", { onClick: () => app.clearSelection() }, "Clear"),
   ));
   return card;
 }
@@ -314,7 +314,7 @@ export function SettingsScreen(app) {
     ),
     h("h2", {}, "Session"),
     h("div", { class: "f-card f-kv" }, h("b", {}, "game"), h("span", {}, JSON.stringify(app.session.describe())),
-      h("b", {}, "auth"), h("span", {}, app.auth ? JSON.stringify(app.auth.describe()) : "not wired"), h("b", {}, "budget"), h("span", {}, `${app.budget.allowance} / ${app.budget.limit} per path per minute (margin ${app.budget.margin})`), h("b", {}, "persisted storage"), h("span", { id: "f-persist" }, app.state.persisted == null ? "unknown" : String(app.state.persisted))),
+      h("b", {}, "auth"), h("span", {}, app.auth ? JSON.stringify(app.auth.describe()) : "not wired"), h("b", {}, "budget"), h("span", {}, `${app.budget.allowance} / ${app.budget.limit} per path per minute (margin ${app.budget.margin})`), h("b", {}, "persisted storage"), h("span", { id: "f-persist" }, app.view.persisted == null ? "unknown" : String(app.view.persisted))),
     h("h2", {}, "Journal"),
     h("div", { class: "f-card" },
       h("div", { class: "f-actions" },

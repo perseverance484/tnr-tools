@@ -30,11 +30,17 @@ export class App {
     this.now = d.now ?? (() => Date.now());
     this.exit = d.exit ?? null;   // set when Forge is an overlay over a carrier page
     this.core = d.core ?? new ForgeCore({ ...d, now: this.now });
-    this.state = this.core.state;
+    // View-owned state. A search box's contents, the picker's re-render callback and whether the
+    // browser granted persistent storage are presentation: they used to be written onto the core's
+    // machine state by screen code, which is how a boundary widens without anyone deciding to.
+    this.view = { pickerQuery: "", renderPicker: null, persisted: null };
     this.root = null;
     this._tick = null;
     this._unsubscribe = this.core.subscribe((n) => this._onCore(n));
   }
+
+  /** Read-through to core machine state. The view renders from it and never adds keys to it. */
+  get state() { return this.core.state; }
 
   get authBusy() { return this.core.authBusy; }
   set authBusy(v) { this.core.authBusy = v; }
@@ -45,7 +51,7 @@ export class App {
       case "changed": return this.refresh();
       case "message": return this.toast(n.text, n.level, n.ms);
       case "error": { this.toast(n.text, n.level, n.ms); this.log(n.text); return; }
-      case "picker": return void (this.state._renderPicker && this.state._renderPicker());
+      case "picker": return void (this.view.renderPicker && this.view.renderPicker());
       case "export": return this.showExport(n.text, n.name);
       // While a job runs the Run screen shows elapsed time and progress that nothing else pushes,
       // so the view keeps its own repaint timer. It is presentation, which is why it lives here.
@@ -159,6 +165,7 @@ export class App {
   }
 
   // ------------------------------------------------------------------ forwarded actions
+  clearSelection() { return this.core.clearSelection(); }
   loadPicker(force) { return this.core.loadPicker(force); }
   selectManifest(entry) { return this.core.selectManifest(entry); }
   startJob() { return this.core.startJob(); }
@@ -170,6 +177,6 @@ export class App {
   exportJob(jobId, opts) { return this.core.exportJob(jobId, opts); }
 
   async _persist() {
-    try { if (navigator.storage && navigator.storage.persist) { this.state.persisted = await navigator.storage.persist(); const el = document.getElementById("f-persist"); if (el) el.textContent = String(this.state.persisted); } } catch { /* best effort */ }
+    try { if (navigator.storage && navigator.storage.persist) { this.view.persisted = await navigator.storage.persist(); const el = document.getElementById("f-persist"); if (el) el.textContent = String(this.view.persisted); } } catch { /* best effort */ }
   }
 }
