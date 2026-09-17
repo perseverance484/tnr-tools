@@ -18,18 +18,60 @@ import { JournalError } from "../storage/journal.mjs";
 import { blockedPaths, resumeBlockedReason, runHeadline } from "./facts.mjs";
 import { resolveCaptures, buildBundle, repoSyncReady, inboxPath } from "./results.mjs";
 
+// The core's dependency contract, named rather than absorbed. `Object.assign(this, d)` used to
+// take whatever the composition handed over, which meant the seam could widen silently: a second
+// shell could pass a view helper and the core would keep it. Anything not on these lists is
+// ignored, so widening the surface is now a deliberate edit of this file.
+export const REQUIRED_DEPS = ["version", "storage", "journal", "cache", "repoCache", "runner", "github", "validator"];
+export const OPTIONAL_DEPS = ["budget", "reader", "client", "session", "auth", "reconciler", "uploader", "now"];
+
+// The machine state the core owns. Presentation state (a search box's contents, a render callback,
+// whether the browser granted persistent storage) belongs to whichever shell is drawing, and the
+// golden test proves none of it lands here.
+const STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "running", "runningNote"];
+
 export class ForgeCore {
   /**
-   * @param {object} d { version, storage, journal, cache, budget, reader, client, session, auth,
-   *                     runner, reconciler, github, validator, now }
+   * @param {object} d see REQUIRED_DEPS / OPTIONAL_DEPS. Unknown keys are ignored; a missing
+   *   required dependency throws rather than degrading — `repoCache` in particular used to fall
+   *   back to the game capture cache, which silently reversed the Phase 0 storage isolation.
    */
   constructor(d) {
-    Object.assign(this, d);
+    const missing = REQUIRED_DEPS.filter((k) => d[k] == null);
+    if (missing.length) throw new Error(`ForgeCore is missing required dependencies: ${missing.join(", ")}`);
+    for (const k of [...REQUIRED_DEPS, ...OPTIONAL_DEPS]) if (d[k] != null) this[k] = d[k];
     this.now = d.now ?? (() => Date.now());
     this.authBusy = false;
-    this.state = { screen: "jobs", jobId: null, picker: null, selected: null, running: null, persisted: null };
+    this.state = { screen: "jobs", jobId: null, picker: null, pickerAt: null, pickerError: null, selected: null, running: null, runningNote: "" };
     this._listeners = new Set();
   }
+
+  /** The public action surface. Pinned by the golden test so a shell cannot quietly grow one. */
+  static get ACTIONS() {
+    return [
+      "adopt", "blockedPaths", "changed", "clearSelection", "drive", "establishAuth", "exportJob",
+      "fail", "go", "loadPicker", "notify", "recheckAuth", "requestPause", "resolveCaptures",
+      "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip", "snapshot", "startJob",
+      "subscribe",
+    ];
+  }
+
+  /**
+   * A serializable picture of machine state. This is what a shell renders from and what a headless
+   * host inspects: JSON only, no functions, no nodes, no dependency handles. If rendering can add
+   * a key here, the boundary has widened, which is exactly what the golden test watches for.
+   */
+  snapshot() {
+    const out = {};
+    for (const k of STATE_KEYS) out[k] = this.state[k] === undefined ? null : this.state[k];
+    return JSON.parse(JSON.stringify(out));
+  }
+
+  /** Machine-state keys, so a shell can assert it is not writing outside them. */
+  static get STATE_KEYS() { return [...STATE_KEYS]; }
+
+  /** Drop the current manifest selection. A screen must not assign state.selected itself. */
+  clearSelection() { this.state.selected = null; this.changed(); }
 
   // ------------------------------------------------------------------ notifications
   /** @param {(n: {type: string, [k: string]: any}) => void} fn @returns {() => void} */
@@ -85,11 +127,12 @@ export class ForgeCore {
       await Promise.all(entries.map(async (e) => {
         try {
           const key = `gh:${e.path}@${e.sha}`;
-          // Repository text goes to the repository cache, never the game capture DB.
-          const store = this.repoCache ?? this.cache;
-          const hit = await store.get("github.contents", key);
+          // Repository text goes to the repository cache, never the game capture DB. There is no
+          // fallback on purpose: a consumer that omits repoCache fails in the constructor rather
+          // than quietly putting manifest text back into the capture store.
+          const hit = await this.repoCache.get("github.contents", key);
           const text = hit ? hit.data : await this.github.text(e.path);
-          if (!hit) await store.put({ path: "github.contents", id: key, data: text });
+          if (!hit) await this.repoCache.put({ path: "github.contents", id: key, data: text });
           e.text = text; e.summary = manifestSummary(text);
         } catch (err) { e.error = err.message; }
         e.loading = false;

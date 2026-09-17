@@ -5393,8 +5393,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   }
   function ManifestsScreen(app) {
     const root = h("section", {});
-    const q = h("input", { type: "search", placeholder: "search filename, number, title", value: app.state.pickerQuery || "", onInput: (e) => {
-      app.state.pickerQuery = e.target.value;
+    const q = h("input", { type: "search", placeholder: "search filename, number, title", value: app.view.pickerQuery || "", onInput: (e) => {
+      app.view.pickerQuery = e.target.value;
       renderList();
     } });
     const list = h("div", {});
@@ -5402,7 +5402,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     root.append(h("div", { class: "f-actions" }, q, h("button", { onClick: () => app.loadPicker(true) }, "Refresh")), status, list);
     function renderList() {
       const entries = app.state.picker || [];
-      const needle = (app.state.pickerQuery || "").toLowerCase();
+      const needle = (app.view.pickerQuery || "").toLowerCase();
       const seen = new Set(app.journal.listJobs().map((j) => j.manifestPath));
       const rows = entries.filter((e) => !needle || e.name.toLowerCase().includes(needle) || String(e.number ?? "").includes(needle) || (e.summary?.title || "").toLowerCase().includes(needle));
       replace(list, rows.length ? rows.map((e) => h(
@@ -5418,7 +5418,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       replace(status, app.state.pickerError ? h("div", { class: "f-banner bad" }, "Could not list push/: ", app.state.pickerError) : `${entries.length} file${entries.length === 1 ? "" : "s"} in push/` + (app.state.pickerAt ? ` \xB7 listed ${fmtAgo(app.state.pickerAt, app.now())}` : ""));
     }
     renderList();
-    app.state._renderPicker = renderList;
+    app.view.renderPicker = renderList;
     if (!app.state.picker) app.loadPicker(false);
     if (app.state.selected) root.appendChild(SelectedManifest(app));
     return root;
@@ -5493,10 +5493,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           () => app.startJob()
         )
       }, readOnly ? "Run captures" : "Start job"),
-      h("button", { onClick: () => {
-        app.state.selected = null;
-        app.refresh();
-      } }, "Clear")
+      h("button", { onClick: () => app.clearSelection() }, "Clear")
     ));
     return card;
   }
@@ -5701,7 +5698,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         h("b", {}, "budget"),
         h("span", {}, `${app.budget.allowance} / ${app.budget.limit} per path per minute (margin ${app.budget.margin})`),
         h("b", {}, "persisted storage"),
-        h("span", { id: "f-persist" }, app.state.persisted == null ? "unknown" : String(app.state.persisted))
+        h("span", { id: "f-persist" }, app.view.persisted == null ? "unknown" : String(app.view.persisted))
       ),
       h("h2", {}, "Journal"),
       h(
@@ -5876,17 +5873,69 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   var inboxPath = (name) => `${GH.inboxDir}/${name}`;
 
   // src/core/core.mjs
+  var REQUIRED_DEPS = ["version", "storage", "journal", "cache", "repoCache", "runner", "github", "validator"];
+  var OPTIONAL_DEPS = ["budget", "reader", "client", "session", "auth", "reconciler", "uploader", "now"];
+  var STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "running", "runningNote"];
   var ForgeCore = class {
     /**
-     * @param {object} d { version, storage, journal, cache, budget, reader, client, session, auth,
-     *                     runner, reconciler, github, validator, now }
+     * @param {object} d see REQUIRED_DEPS / OPTIONAL_DEPS. Unknown keys are ignored; a missing
+     *   required dependency throws rather than degrading — `repoCache` in particular used to fall
+     *   back to the game capture cache, which silently reversed the Phase 0 storage isolation.
      */
     constructor(d) {
-      Object.assign(this, d);
+      const missing = REQUIRED_DEPS.filter((k) => d[k] == null);
+      if (missing.length) throw new Error(`ForgeCore is missing required dependencies: ${missing.join(", ")}`);
+      for (const k of [...REQUIRED_DEPS, ...OPTIONAL_DEPS]) if (d[k] != null) this[k] = d[k];
       this.now = d.now ?? (() => Date.now());
       this.authBusy = false;
-      this.state = { screen: "jobs", jobId: null, picker: null, selected: null, running: null, persisted: null };
+      this.state = { screen: "jobs", jobId: null, picker: null, pickerAt: null, pickerError: null, selected: null, running: null, runningNote: "" };
       this._listeners = /* @__PURE__ */ new Set();
+    }
+    /** The public action surface. Pinned by the golden test so a shell cannot quietly grow one. */
+    static get ACTIONS() {
+      return [
+        "adopt",
+        "blockedPaths",
+        "changed",
+        "clearSelection",
+        "drive",
+        "establishAuth",
+        "exportJob",
+        "fail",
+        "go",
+        "loadPicker",
+        "notify",
+        "recheckAuth",
+        "requestPause",
+        "resolveCaptures",
+        "resumeBlockedReason",
+        "resumeJob",
+        "say",
+        "selectManifest",
+        "skip",
+        "snapshot",
+        "startJob",
+        "subscribe"
+      ];
+    }
+    /**
+     * A serializable picture of machine state. This is what a shell renders from and what a headless
+     * host inspects: JSON only, no functions, no nodes, no dependency handles. If rendering can add
+     * a key here, the boundary has widened, which is exactly what the golden test watches for.
+     */
+    snapshot() {
+      const out = {};
+      for (const k of STATE_KEYS) out[k] = this.state[k] === void 0 ? null : this.state[k];
+      return JSON.parse(JSON.stringify(out));
+    }
+    /** Machine-state keys, so a shell can assert it is not writing outside them. */
+    static get STATE_KEYS() {
+      return [...STATE_KEYS];
+    }
+    /** Drop the current manifest selection. A screen must not assign state.selected itself. */
+    clearSelection() {
+      this.state.selected = null;
+      this.changed();
     }
     // ------------------------------------------------------------------ notifications
     /** @param {(n: {type: string, [k: string]: any}) => void} fn @returns {() => void} */
@@ -5953,10 +6002,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         await Promise.all(entries.map(async (e) => {
           try {
             const key = `gh:${e.path}@${e.sha}`;
-            const store = this.repoCache ?? this.cache;
-            const hit = await store.get("github.contents", key);
+            const hit = await this.repoCache.get("github.contents", key);
             const text = hit ? hit.data : await this.github.text(e.path);
-            if (!hit) await store.put({ path: "github.contents", id: key, data: text });
+            if (!hit) await this.repoCache.put({ path: "github.contents", id: key, data: text });
             e.text = text;
             e.summary = manifestSummary(text);
           } catch (err) {
@@ -6127,10 +6175,14 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       this.now = d.now ?? (() => Date.now());
       this.exit = d.exit ?? null;
       this.core = d.core ?? new ForgeCore({ ...d, now: this.now });
-      this.state = this.core.state;
+      this.view = { pickerQuery: "", renderPicker: null, persisted: null };
       this.root = null;
       this._tick = null;
       this._unsubscribe = this.core.subscribe((n) => this._onCore(n));
+    }
+    /** Read-through to core machine state. The view renders from it and never adds keys to it. */
+    get state() {
+      return this.core.state;
     }
     get authBusy() {
       return this.core.authBusy;
@@ -6151,7 +6203,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           return;
         }
         case "picker":
-          return void (this.state._renderPicker && this.state._renderPicker());
+          return void (this.view.renderPicker && this.view.renderPicker());
         case "export":
           return this.showExport(n.text, n.name);
         // While a job runs the Run screen shows elapsed time and progress that nothing else pushes,
@@ -6302,6 +6354,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       this.$main.prepend(card);
     }
     // ------------------------------------------------------------------ forwarded actions
+    clearSelection() {
+      return this.core.clearSelection();
+    }
     loadPicker(force) {
       return this.core.loadPicker(force);
     }
@@ -6332,9 +6387,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     async _persist() {
       try {
         if (navigator.storage && navigator.storage.persist) {
-          this.state.persisted = await navigator.storage.persist();
+          this.view.persisted = await navigator.storage.persist();
           const el = document.getElementById("f-persist");
-          if (el) el.textContent = String(this.state.persisted);
+          if (el) el.textContent = String(this.view.persisted);
         }
       } catch {
       }
