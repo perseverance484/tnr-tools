@@ -33,9 +33,16 @@ const layerOf = (file) => relative(SRC, file).split(sep)[0].replace(/\.mjs$/, ""
 
 function importsOf(text) {
   const out = [];
-  const re = /(?:^|\n)\s*(?:import|export)[^;\n]*?from\s*["']([^"']+)["']/g;
   let m;
-  while ((m = re.exec(text))) out.push(m[1]);
+  // `import x from "y"` / `export { a } from "y"`
+  const named = /(?:^|\n)\s*(?:import|export)[^;\n]*?from\s*["']([^"']+)["']/g;
+  while ((m = named.exec(text))) out.push(m[1]);
+  // `import "y"` — a side-effect import names no binding but creates the same edge, and a graph
+  // that misses it will happily report zero violations while a view is being pulled into the
+  // runner. Found by independent review (F2); the red test below injects this exact form.
+  const sideEffect = /(?:^|\n)\s*import\s*["']([^"']+)["']\s*;?/g;
+  while ((m = sideEffect.exec(text))) out.push(m[1]);
+  // `import("y")` / `await import("y")`
   const dyn = /import\(\s*["']([^"']+)["']\s*\)/g;
   while ((m = dyn.exec(text))) out.push(m[1]);
   return out;
