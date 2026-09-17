@@ -22,6 +22,14 @@
 the commit the brief was frozen at. The branch is a fast-forward from it; there is no merge commit
 and no rebase.
 
+**`main` has since advanced to `015583ba581388ed53770cb3a2ce7ad899cad6e3`** (`eb848fc` archive the
+pre-Forge global digest, `015583b` close the Phase 0 session). Those two commits touch
+`state/active-context.md`, `state/digest.json`, `state/status.json` and one new `archive/` file:
+Lane B session bookkeeping with **zero overlap** with this branch, which touches only `forge/`,
+`forge_bundle.js` and `docs/handoffs/`. The branch was deliberately NOT rebased or merged — no
+synchronization is required, and the frozen SHA stays stable for the audit. Integration is a clean
+merge; the merge-base above is still the honest one.
+
 Two commits, in this order:
 
 | SHA | commit |
@@ -164,9 +172,13 @@ New tests: 38 (343 → 381), across registry admission and provenance, canonical
 behaviour end to end, leak sweeps, paging and cache identity, plus two red tests for the new view
 boundary gate and one for the metadata listings staying body-free.
 
-**Canonical Forge CI run/job: not yet observed.** The workflow runs on push; the run for
-`8f15416` is pending at the time of freeze. Every step above was executed locally in the workflow's
-order and result.
+**Canonical Forge CI: run `35255548523`, job `verify` (`105318155721`) — conclusion `success`**, on
+head `31559fe` of `claude/forge-next-phase1-uwhcn1`.
+<https://github.com/perseverance484/tnr-tools/actions/runs/35255548523>
+
+All twelve steps ran and passed, none skipped: checkout, setup-node, `npm ci`, audit runtime
+dependencies, import direction, static boundaries, `npm test`, verify generated fixtures, verify
+checked bundle, bundle size budget, report release pin state.
 
 ## 8. Known debt, deviations, and what to attack
 
