@@ -9,7 +9,7 @@ Phase 1 has not begun.
 | Implementation branch | `fable/forge-next-phase0` |
 | Fresh-main base SHA | `b42c2afd5ceb3cd2e1f1eaa6f1e082cfc419cbea` |
 | Merge-base with `main` | `b42c2afd5ceb3cd2e1f1eaa6f1e082cfc419cbea` (direct descendant; no merge, no rebase) |
-| Frozen head SHA | `a123a53e4a8d6db87674f19c15a6fe3fe7fa3820` (this document's own commit; nothing follows it) |
+| Frozen head SHA | `b364492` is this document's commit; the branch head is the single stamp commit that follows it and changes only this line. **Review the branch tip of `fable/forge-next-phase0`.** |
 | Contract | `chatgpt/forge-next-unified-contract@efbdc2a4a2f35b12b425ba88a4d415f66f79f2c0` |
 | Live game requests | **none** |
 | Live game writes | **none** |
