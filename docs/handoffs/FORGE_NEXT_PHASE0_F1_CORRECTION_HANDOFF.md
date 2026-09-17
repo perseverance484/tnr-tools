@@ -11,7 +11,7 @@ installed-workflow evidence.
 | Previous frozen head (reviewed) | `12a9d4db881b552c1aa93ae6fddd57f5d81772c9` |
 | Re-review | `chatgpt/review-forge-next-phase0@a8c01ecce498820e41334f32e65c4cd250affeea` — CORRECTIONS_REQUIRED |
 | Base / merge-base | `b42c2afd5ceb3cd2e1f1eaa6f1e082cfc419cbea` (unchanged; still a direct descendant) |
-| New frozen head | stamped in §5 |
+| New frozen head | `6614860b351c37a99ad735d56e1625418c5a41c9` is this document's commit; the branch tip is the one stamp commit after it |
 | Live game requests / writes | **none** |
 | Credentials used | repository PAT for clone and push only. No game credential or session. |
 
