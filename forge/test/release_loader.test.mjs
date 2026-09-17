@@ -44,10 +44,23 @@ test("release loader: current install has a stable self-update channel and immut
   assert.deepEqual(checkReleasePin(), []);
 });
 
-test("release loader: exactly one @x-release-pending marker, naming the package version", () => {
+// The marker is lifecycle state, not a constant. While a release is staged the loader carries one
+// @x-release-pending naming the next package version and keeps the last released @version; once
+// pin_release.py promotes, it strips the marker and syncs @version. check_release_pin.mjs treats a
+// marker that survives promotion as a blocker, so requiring one unconditionally contradicts the
+// checker. What must never happen is two markers: the checker reads the first and the second
+// shadows it.
+test("release loader: at most one @x-release-pending marker, consistent with the release state", () => {
   const markers = LOADER.match(/^\/\/ @x-release-pending\s+\S+$/gm) || [];
-  assert.equal(markers.length, 1, "a second marker would shadow the real one from the checker");
-  assert.equal(markers[0].split(/\s+/)[2], PKG_VERSION);
+  assert.ok(markers.length <= 1, "a second marker would shadow the real one from the checker");
+  const version = (LOADER.match(/^\/\/ @version\s+(\S+)$/m) || [])[1];
+  if (markers.length === 1) {
+    assert.equal(markers[0].split(/\s+/)[2], PKG_VERSION, "a staged marker names the next package version");
+    assert.notEqual(version, PKG_VERSION, "a staged release keeps the last released @version");
+  } else {
+    assert.equal(version, PKG_VERSION, "a promoted release syncs @version to the package version");
+  }
+  assert.deepEqual(checkReleasePin(), [], "the loader state must satisfy the checker either way");
 });
 
 test("release loader: a future package may be staged without exposing the future loader version", () => {
