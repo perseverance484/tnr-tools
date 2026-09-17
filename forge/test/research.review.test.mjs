@@ -11,7 +11,10 @@ import assert from "node:assert/strict";
 import { App } from "../src/ui/app.mjs";
 import { materialize, resolveCaptures, buildBundle } from "../src/core/results.mjs";
 import { parseManifest } from "../src/runner/manifest.mjs";
-import { projectBody, REGISTRY_PIN, REGISTRY_REVISION, capturePolicy } from "../src/research/registry.mjs";
+import { projectBody, REGISTRY_PIN, REGISTRY_REVISION, capturePolicy, policyFacts, revisionOf, MAX_PAGES } from "../src/research/registry.mjs";
+import { ManifestError } from "../src/runner/manifest.mjs";
+import { RateLimited } from "../src/budget/bucket.mjs";
+import { Runner } from "../src/runner/runner.mjs";
 import { captureTier, isLegacyCapture, snapshotKey } from "../src/storage/captures.mjs";
 import { jobOutcome, captureOk } from "../src/storage/journal.mjs";
 import { FakeGame } from "./fakegame.mjs";
@@ -204,16 +207,162 @@ test("FN4: export never fabricates provenance for a record that has none", async
   assert.ok(!JSON.stringify(out).includes(REGISTRY_REVISION));
 });
 
-test("FN4: the registry revision is a content identity, not a version string", async () => {
-  // It is derived from the admission-relevant fields, so it cannot be left stale by a registry edit.
+test("FN4: the registry revision is a content identity, not a version string", () => {
   assert.match(REGISTRY_REVISION, /^[0-9a-f]{8}$/);
-  const { RESEARCH_READS } = await import("../src/research/registry.mjs");
-  assert.notEqual(REGISTRY_REVISION, RESEARCH_READS["combat.getBattleEntries"].tier);
+  assert.equal(REGISTRY_REVISION, revisionOf(policyFacts()), "the constant is the identity of the live facts");
   // two different rows' policies differ in source but agree on pin and revision
   const a = capturePolicy("combat.getBattleEntries"), b = capturePolicy("quests.get");
   assert.equal(a.registry, b.registry);
   assert.notEqual(a.source, b.source);
   assert.notEqual(a.tier, b.tier);
+});
+
+// ---------------------------------------------------------------- FN4-R1 (re-review)
+test("FN4-R1: every fact that decides admission moves the revision", () => {
+  // The first version keyed on input KEY NAMES, so changing a field's type or withdrawing an enum
+  // member changed what Forge would admit while the stamp stayed identical. Each probe below is one
+  // the re-review demonstrated; the assertion is that the identity is actually sensitive to it.
+  const base = policyFacts();
+  const mutate = (fn) => { const copy = structuredClone(base); fn(copy); return revisionOf(copy); };
+  const row = (copy, path) => copy.rows.find((r) => r.path === path);
+
+  const probes = {
+    "an input field's type": (c) => { row(c, "combat.getBattleHistory").input.optional.secondsBack.t = "boolean"; },
+    "an enum member withdrawn": (c) => { const s = row(c, "combat.getBattleEntries").input.optional.userFilter; s.values = s.values.filter((v) => v !== "opponents"); },
+    "an enum member added": (c) => { row(c, "combat.getBattleEntries").input.optional.userFilter.values.push("nobody"); },
+    "an input key removed": (c) => { delete row(c, "combat.getBattleEntries").input.optional.offset; },
+    "a required key made optional": (c) => { const r = row(c, "combat.getBattleEntries"); r.input.optional.battleId = r.input.required.battleId; delete r.input.required.battleId; },
+    "the global page ceiling": (c) => { c.maxPages = MAX_PAGES - 1; },
+    "a row's audited maximum limit": (c) => { row(c, "combat.getBattleEntries").page.maxLimit = 499; },
+    "a row's server default limit": (c) => { row(c, "combat.getBattleEntries").page.defaultLimit = 31; },
+    "the tier ordering": (c) => { c.tiers = ["projected", "local-only", "repo-safe"]; },
+    "the default tier": (c) => { c.defaultTier = "repo-safe"; },
+    "a row's tier": (c) => { row(c, "combat.getBattleEntries").tier = "repo-safe"; },
+    "a projectable allowlist": (c) => { row(c, "combat.getBattleEntries").project = ["battleId"]; },
+    "the source pin": (c) => { c.pin = "0".repeat(40); },
+  };
+  const seen = new Map([[REGISTRY_REVISION, "unchanged"]]);
+  for (const [what, fn] of Object.entries(probes)) {
+    const got = mutate(fn);
+    assert.notEqual(got, REGISTRY_REVISION, `${what} must change the registry revision`);
+    assert.ok(!seen.has(got), `${what} collided with ${seen.get(got)}`);
+    seen.set(got, what);
+  }
+  // ...and equivalent policy data is stable, so the stamp is an identity and not a nonce
+  assert.equal(revisionOf(structuredClone(base)), REGISTRY_REVISION);
+  assert.equal(revisionOf(policyFacts()), REGISTRY_REVISION);
+});
+
+// ---------------------------------------------------------------- FN4-R2 (re-review)
+test("FN4-R2: a summary research capture carries the policy that admitted it", async () => {
+  const h = harness();
+  h.game.seedBattle({ battleId: "b1", battleType: "COMBAT", createdAt: "t", attackedId: "a", defenderId: "d", attacker: {}, defender: {} },
+    [{ id: "x", battleId: "b1", userId: "me", battleRound: 1, battleVersion: 1 }]);
+  h.runner.plan({ items: [], capture: { after: [{ proc: "combat.getBattleEntries", input: { battleId: "b1" } }] } }, { jobId: "sum" });
+  await h.runner.run("sum");
+  const expected = capturePolicy("combat.getBattleEntries");
+  assert.deepEqual(h.journal.get("sum").capturesAfter[0].policy, expected, "a summary capture keeps no body, but it still ran under a contract");
+  const bundle = await h.bundle("sum");
+  assert.deepEqual(bundle.captures[0].policy, expected);
+  assert.ok(!("data" in bundle.captures[0]), "and it is still a summary capture");
+});
+
+test("FN4-R2: an abandoned attempt carries it too, through the journal and the export", async () => {
+  const h = harness();
+  h.game.seedBattle({ battleId: "b1", battleType: "COMBAT", createdAt: "t", attackedId: "a", defenderId: "d", attacker: {}, defender: {} },
+    Array.from({ length: 6 }, (_, i) => ({ id: `x${i}`, battleId: "b1", userId: "me", battleRound: 6 - i, battleVersion: 1 })));
+  let n = 0;
+  const real = h.game.handle.bind(h.game);
+  h.game.handle = (path, input) => {
+    if (path === "combat.getBattleEntries" && ++n === 2) return { ok: false, error: { code: "TOO_MANY_REQUESTS", httpStatus: 429, message: "too fast", path, zodError: null } };
+    return real(path, input);
+  };
+  h.runner.plan({ items: [], capture: { after: [{ proc: "combat.getBattleEntries", input: { battleId: "b1", limit: 2 }, persist: "local-only", pages: 3 }] } }, { jobId: "att" });
+  await h.runner.run("att");
+  const expected = capturePolicy("combat.getBattleEntries");
+  const [attempt] = h.journal.get("att").capturesAfterAttempts;
+  assert.deepEqual(attempt.policy, expected);
+  const bundle = await h.bundle("att");
+  assert.deepEqual(bundle.captures.find((c) => c.abandoned).policy, expected);
+});
+
+test("FN4-R2: every new research record is stamped, and only the genuinely old ones are not", async () => {
+  // The stamp goes on before the entry splits into summary / persisted / abandoned, so there is no
+  // research path that produces an unstamped NEW record.
+  const h = harness();
+  h.game.seed("quest", { id: "q1", name: "N" });
+  h.game.seedBattle({ battleId: "b1", battleType: "COMBAT", createdAt: "t", attackedId: "a", defenderId: "d", attacker: {}, defender: {} }, []);
+  h.runner.plan({ items: [], capture: { after: [
+    { proc: "quests.get", input: { id: "q1" } },                                            // summary
+    { proc: "quests.get", input: { id: "q1" }, persist: "repo-safe" },                       // persisted
+    { proc: "quests.get", input: { id: "nope" }, persist: "repo-safe" },                     // failed read
+    { proc: "combat.getBattleEntries", input: { battleId: "b1" }, persist: "local-only" },   // query
+  ] } }, { jobId: "all" });
+  await h.runner.run("all");
+  const bundle = await h.bundle("all");
+  assert.equal(bundle.captures.length, 4);
+  for (const capture of bundle.captures) {
+    assert.deepEqual(capture.policy, capturePolicy(capture.proc), `${capture.proc} must be stamped`);
+  }
+  // the legacy control still holds: an old record is shown as carrying none
+  const old = await materialize({ getSnapshot: async () => ({ ...BASE_SNAPSHOT }) }, { ...BASE_CAPTURE });
+  assert.equal("policy" in old, false);
+});
+
+// ---------------------------------------------------------------- FN3-R1 (re-review)
+test("FN3-R1: a path that is also descended into is refused, not silently resolved", () => {
+  // Declaring both `id` and `id.deeper` cannot be satisfied: a value is a leaf or a structure, not
+  // both. The grouped traversal used to take the leaf and drop the deeper request with a green
+  // verdict, which is a declared field silently absent from the evidence.
+  const overlaps = [
+    ["id", "id.deeper"],
+    ["id.deeper", "id"],                                        // declaration order must not matter
+    ["tags", "tags.deeper"],                                    // scalar list
+    ["content.objectives.id", "content.objectives.id.deeper"],  // inside an object array
+    ["content", "content.objectives.id"],                       // structured terminal plus a leaf
+    ["id", "name", "id.a.b"],                                   // more than one segment deeper
+  ];
+  for (const projection of overlaps) {
+    assert.throws(
+      () => parseManifest({ capture: { after: [{ proc: "quests.get", input: { id: "q1" }, persist: "projected", projection }] } }),
+      /overlap/, JSON.stringify(projection));
+    assert.throws(
+      () => parseManifest({ capture: { after: [{ proc: "quests.get", input: { id: "q1" }, persist: "projected", projection }] } }),
+      ManifestError, JSON.stringify(projection));
+  }
+  // a shared PREFIX that is not itself declared stays legal: these are siblings, not an overlap
+  const ok = parseManifest({ capture: { after: [{ proc: "quests.get", input: { id: "q1" }, persist: "projected", projection: ["content.a", "content.b", "contentious"] }] } });
+  assert.deepEqual(ok.capture.after[0].projection, ["content.a", "content.b", "contentious"]);
+});
+
+test("FN3-R1: the projector records an unsatisfied deeper path rather than dropping it", () => {
+  // Defence in depth: even called directly, past the declaration gate, the projector never returns
+  // a green verdict while a requested path is absent from what it produced.
+  for (const [body, fields, missing] of [
+    [{ id: "q1" }, ["id", "id.deeper"], ["id.deeper"]],
+    [{ tags: ["a"] }, ["tags", "tags.deeper"], ["tags.deeper"]],
+    [{ content: { objectives: [{ id: "n1" }] } }, ["content.objectives.id", "content.objectives.id.deeper"], ["content.objectives.id.deeper"]],
+  ]) {
+    const r = projectBody(body, fields);
+    assert.equal(r.ok, false, JSON.stringify(fields));
+    assert.deepEqual(r.missing, missing);
+    assert.equal("data" in r, false, "and no partial object is emitted");
+  }
+});
+
+test("FN3-R1: an overlapping declaration cannot reach a green capture or export", async () => {
+  // The whole path, not just the validator: a retained declaration carrying an overlap is refused
+  // at the leak boundary too, because materialize re-validates rather than trusting it.
+  const snap = { key: "j::after::0", path: "quests.get", tier: "projected", projection: ["id", "id.deeper"],
+    data: { id: "q1" }, at: "t", bytes: 20 };
+  const capture = { phase: "after", proc: "quests.get", input: { id: "q1" }, ok: true, rows: 1, error: null,
+    persist: "projected", tier: "projected", projection: ["id", "id.deeper"], snapshotKey: "j::after::0",
+    persistOk: true, persistError: null };
+  const out = await materialize({ getSnapshot: async () => snap }, capture);
+  assert.equal(out.persistOk, false);
+  assert.match(out.persistError, /is not admissible/);
+  assert.match(out.persistError, /overlap/);
+  assert.ok(!("data" in out));
 });
 
 // ---------------------------------------------------------------- FN5

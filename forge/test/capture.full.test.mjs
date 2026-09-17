@@ -62,9 +62,13 @@ test("a legacy capture with no persist key parses, runs and exports exactly as b
   assert.equal(s.state, "DONE");
   assert.equal(s.outcome, "success");
   const bundle = await h.bundle("legacy");
-  assert.deepEqual(Object.keys(bundle.captures[0]).sort(), ["error", "input", "ok", "phase", "proc", "rows"]);
+  // `policy` joined this set in the correction pass: every research capture records the contract
+  // that admitted it, whether or not a body was kept (re-review FN4-R2). Everything else is as it
+  // was, and the two claims this test exists for are unchanged.
+  assert.deepEqual(Object.keys(bundle.captures[0]).sort(), ["error", "input", "ok", "phase", "policy", "proc", "rows"]);
   assert.ok(!("data" in bundle.captures[0]), "a summary capture never grows a body");
   assert.ok(!("persist" in bundle.captures[0]), "a summary capture is not annotated with a mode it did not ask for");
+  assert.equal(bundle.captures[0].policy.pin, "345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9");
 });
 
 test('an explicit persist "summary" is exactly equivalent to omitting the key', async () => {
@@ -75,7 +79,7 @@ test('an explicit persist "summary" is exactly equivalent to omitting the key', 
   const s = await h.runner.run("sum");
   assert.equal(s.outcome, "success");
   const bundle = await h.bundle("sum");
-  assert.deepEqual(Object.keys(bundle.captures[0]).sort(), ["error", "input", "ok", "phase", "proc", "rows"]);
+  assert.deepEqual(Object.keys(bundle.captures[0]).sort(), ["error", "input", "ok", "phase", "policy", "proc", "rows"]);
   assert.ok(!("data" in bundle.captures[0]));
   assert.ok(!("persistOk" in bundle.captures[0]));
 });

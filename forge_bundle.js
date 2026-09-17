@@ -317,6 +317,13 @@
       }
       if (!out.includes(f)) out.push(f);
     }
+    for (const a of out) {
+      for (const b of out) {
+        if (a !== b && b.startsWith(a + ".")) {
+          throw new ResearchError(`${path}: ${a} and ${b} overlap - ${a} is declared as a field and also descended into by ${b}, and a value cannot be both. Declare the leaves you want.`, { path, field: b });
+        }
+      }
+    }
     return out;
   }
   var own = (o, k) => o !== null && typeof o === "object" && Object.prototype.hasOwnProperty.call(o, k);
@@ -345,6 +352,7 @@
       const terminal = rests.filter((r) => !r.length);
       const deeper = rests.filter((r) => r.length);
       if (terminal.length) {
+        for (const rest of deeper) missing.add([...here, ...rest].join("."));
         if (isScalar(child)) {
           out[head] = child === void 0 ? null : child;
           continue;
@@ -374,19 +382,33 @@
     const data = Array.isArray(body) ? body.map((el) => projectInto(el, split, [], missing)) : projectInto(body, split, [], missing);
     return missing.size ? { ok: false, missing: [...missing] } : { ok: true, data };
   }
-  var REGISTRY_REVISION = fnv1a32(stableStringify({
-    pin: REGISTRY_PIN,
-    rows: RESEARCH_PATHS.map((path) => {
-      const r = RESEARCH_READS[path];
-      return {
-        path,
-        tier: r.tier,
-        project: r.project,
-        input: r.input ? { required: Object.keys(r.input.required), optional: Object.keys(r.input.optional) } : null,
-        page: r.page ?? null
-      };
-    })
-  }));
+  function specFacts(spec) {
+    return spec.t === "enum" || spec.t === "enum[]" ? { t: spec.t, values: [...spec.values] } : { t: spec.t };
+  }
+  function policyFacts() {
+    return {
+      pin: REGISTRY_PIN,
+      // global policy: the tier lattice, the default tier and the ceiling on any walk
+      tiers: [...TIERS],
+      defaultTier: DEFAULT_RESEARCH_TIER,
+      maxPages: MAX_PAGES,
+      rows: RESEARCH_PATHS.map((path) => {
+        const r = RESEARCH_READS[path];
+        const specs = (m) => Object.fromEntries(Object.entries(m).map(([k, v]) => [k, specFacts(v)]));
+        return {
+          path,
+          tier: r.tier,
+          project: r.project ? [...r.project] : null,
+          input: r.input ? { required: specs(r.input.required), optional: specs(r.input.optional) } : null,
+          page: r.page ? { ...r.page } : null
+        };
+      })
+    };
+  }
+  function revisionOf(facts) {
+    return fnv1a32(stableStringify(facts));
+  }
+  var REGISTRY_REVISION = revisionOf(policyFacts());
   function capturePolicy(path) {
     const r = requireRow(path);
     return Object.freeze({ pin: REGISTRY_PIN, registry: REGISTRY_REVISION, tier: r.tier, source: r.source });
@@ -5334,7 +5356,7 @@
           throw e;
         }
         if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path, phase, ordinal: i });
-        const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
+        const entry = { phase, proc: path, policy: capturePolicy(path), input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
         if (c.mode === "query") {
           entry.pages = r.pages;
           entry.complete = r.complete;
@@ -5431,6 +5453,7 @@
           phase,
           ordinal,
           proc: c.proc,
+          policy: capturePolicy(c.proc),
           input: c.input ?? null,
           persist: c.persist,
           tier: c.tier,
