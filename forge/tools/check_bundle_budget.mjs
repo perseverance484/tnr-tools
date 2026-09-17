@@ -19,8 +19,25 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // Fresh-main baseline before Phase 0 was raw 404,594, so the extraction cost ~8.7 KB raw for the
 // core modules, the host adapter, the repo-text store and the runner emitter.
 //
-// Headroom is ~4%: enough for ordinary change, small enough that a structural regression trips it.
-export const BUDGET = { raw: 430_000, gzip: 81_000 };
+// PHASE 1 RAISE. Integrated Phase 0 shipped at raw 417,370 / gzip 79,294, ~97% of the 430,000 /
+// 81,000 ceilings above. Phase 1 measures raw 446,372 / gzip 87,450: a delta of +29,002 raw and
+// +8,156 gzip. Where it went, measured rather than estimated:
+//
+//   ~24.6 KB raw   src/research/registry.mjs, which is new. It holds fifteen audited rows with their
+//                  source provenance and demand, the per-row input contracts that make a read
+//                  validated-before-transport, the projection engine and the paging contract. Its
+//                  comment density is 48%, in line with storage/captures.mjs at 50%, and the build
+//                  does not minify - so the file is large because the registry is, not because the
+//                  prose is unusual for this codebase.
+//   ~4.4 KB raw    tier handling spread across reader, manifest, runner, results, journal and the
+//                  two screens that report a tier.
+//
+// The new ceilings keep the SAME tightness Phase 0 ran at rather than buying comfortable room:
+// 446,372 / 460,000 is 97.0% and 87,450 / 90,000 is 97.2%, against Phase 0's 97.1% and 97.9%. A
+// structural regression still trips the gate on the commit that causes it, which is the whole point
+// of a ratchet. This raise is isolated in its own commit so it can be reviewed as the policy change
+// it is rather than as a line inside a feature.
+export const BUDGET = { raw: 460_000, gzip: 90_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;
