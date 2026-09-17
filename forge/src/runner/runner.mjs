@@ -94,6 +94,39 @@ export class Runner {
     this.pauseRequested = false;
     this.tabId = d.tabId ?? randomTab();
     this.clock = d.clock ?? (() => Date.now());
+    this._subs = new Set();
+  }
+
+  // ------------------------------------------------------------------ progress events (advisory)
+  /**
+   * Subscribe to structured progress events. ADVISORY ONLY, and the word is load-bearing:
+   *
+   *   - _emit writes nothing to the journal and performs no state transition;
+   *   - it is synchronous and never awaited, so a subscriber cannot delay, reorder or interleave a
+   *     request. Every emit sits between awaits that already existed, so the send sequence is
+   *     byte-for-byte what it was before this hook existed;
+   *   - every subscriber runs inside try/catch. A throwing subscriber is swallowed here rather
+   *     than unwinding the run, because a UI progress listener must never be able to fail a job
+   *     that is mid-mutation.
+   *
+   * Phase 0 adds this so the extracted core can drive a progress view without the view reaching
+   * into runner internals or polling. Nothing in execution reads it back.
+   *
+   * @param {(event: {type: string, at: number, jobId: string|null, [k: string]: any}) => void} fn
+   * @returns {() => void} unsubscribe
+   */
+  on(fn) {
+    if (typeof fn !== "function") throw new TypeError("Runner.on needs a function");
+    this._subs.add(fn);
+    return () => this._subs.delete(fn);
+  }
+
+  _emit(type, payload = {}) {
+    if (!this._subs.size) return;
+    const event = { type, at: this.clock(), ...payload };
+    for (const fn of [...this._subs]) {
+      try { fn(event); } catch { /* advisory: a listener must never affect the run */ }
+    }
   }
 
   // ------------------------------------------------------------------ auth gate
@@ -203,6 +236,7 @@ export class Runner {
     this._lease(jobId);
     this._syncIdmapFromJob(job);
     this.pauseRequested = false;
+    this._emit("job:start", { jobId, items: job.items.length, mode: "run" });
     try {
       if (manifest.capture.before.length && !job.capturesBefore) await this._captures(jobId, manifest.capture.before, "before");
       if (manifest.dedupNames) await this._dedupNames(jobId, order);
@@ -215,7 +249,9 @@ export class Runner {
         // the user makes it, because later items may reference the id it is waiting on
         if (item.state === "ORPHANED") throw new Paused("ORPHANED", { idx: i, detail: item.error ?? null });
         if (this.pauseRequested) throw new Paused("USER", { idx: i });
+        this._emit("item:start", { jobId, idx: i, name: item.name ?? null, entity: item.entity ?? null, phase: item.phase ?? null });
         await this._runItem(jobId, item, order[i], manifest);
+        this._emit("item:end", { jobId, idx: i, state: this.journal.get(jobId).items[i]?.state ?? null });
       }
       if (manifest.capture.after.length && !job.capturesAfter) await this._captures(jobId, manifest.capture.after, "after");
     } catch (e) {
@@ -235,7 +271,9 @@ export class Runner {
     this.journal.setJobState(jobId, unresolved.length ? "INCOMPLETE" : "DONE");
     this._releaseLease(jobId);
     if (this.reconciler && typeof this.reconciler.forget === "function" && !unresolved.length) this.reconciler.forget(jobId);
-    return this.summary(jobId);
+    const summary = this.summary(jobId);
+    this._emit("job:end", { jobId, state: summary.state ?? null });
+    return summary;
   }
 
   /** Reconcile SENT items through the reconciler, then run. */
@@ -630,6 +668,7 @@ export class Runner {
   _jobOf(item) { for (const [jobId, m] of this.manifests) if (m.order.some((o) => o === item || (o.idx === item.idx && this.journal.get(jobId)?.items[item.idx]?.srcId === item.srcId))) return jobId; return null; }
 
   _pause(jobId, reason, info) {
+    this._emit("job:paused", { jobId, reason, path: info.path ?? null, idx: info.idx ?? null });
     this.journal.setJobState(jobId, "PAUSED", { pause: { reason, path: info.path ?? null, until: info.until ?? null, idx: info.idx ?? null, detail: info.detail ?? null, httpStatus: info.httpStatus ?? null, authState: info.authState ?? null, authRefused: info.authRefused ?? false } });
     this._releaseLease(jobId);
     this.log(`paused: ${reason}${info.path ? " on " + info.path : ""}`);
