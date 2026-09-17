@@ -1,14 +1,20 @@
 # Forge Next Phase 1 — research capture tiers and audited research registry
 
-**Status:** DRAFT — blocked only on director rulings K-06 and K-17. Do not implement from this draft until both rulings are settled and this file is frozen as READY.
-
+**Status:** READY / FROZEN LANE-A IMPLEMENTATION CONTRACT  
+**Date:** 2026-09-17  
 **Repository:** `perseverance484/tnr-tools`  
-**Draft base:** `b0bae3bcd6e3d9cf76de48237892ac099fa7a60c`  
+**Implementation owner:** Fable / Claude Code  
+**Independent reviewer:** ChatGPT  
+**Suggested implementation branch:** `fable/forge-next-phase1`  
+**Draft/freeze base:** `b0bae3bcd6e3d9cf76de48237892ac099fa7a60c`  
 **Phase 0 integrated implementation:** `3130f9433810cca4f8eca78b80aeb4dc8eb7ddb0`  
 **Accepted planning source:** `claude/forge-next-planning-reconciled@ba51a28a99a7748e61de0c2768bd73ab9c65c856`  
-**Accepted Quest Studio reference:** `chatgpt/forge-quest-studio-foundation@5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15` — reference only; do not merge in Phase 1.  
+**Accepted Quest Studio reference:** `chatgpt/forge-quest-studio-foundation@5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15` — reference only; do not merge in Phase 1  
 **Current Forge generated-contract pin:** `345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9`  
-**Current upstream game-source head observed while drafting:** `studie-tech/TheNinjaRPG@1fd355ab92cec78148130e02c8d38834836c3181` — reverify at implementation start.
+**Upstream game-source head observed at freeze:** `studie-tech/TheNinjaRPG@1fd355ab92cec78148130e02c8d38834836c3181` — reverify at implementation start  
+**Live-game policy:** ZERO LIVE REQUESTS / ZERO LIVE WRITES
+
+This brief is the Phase 1 implementation contract. The director decisions that previously blocked it are now settled by `RUL-2026-09-17-001` and `RUL-2026-09-17-002`.
 
 ---
 
@@ -20,59 +26,77 @@ At Phase 1 completion:
 
 1. captures carry an explicit persistence tier;
 2. approved non-content research procedures are enumerated in a reviewed registry rather than inferred from endpoint existence;
-3. paged/filtered reads bind cache identity and provenance to the exact input actually sent;
-4. exported evidence distinguishes repo-safe full bodies, local-only full bodies, and selected-field projections according to the director-approved policy;
-5. missing/oversize/unpersistable data is represented honestly as non-success evidence rather than silently downgraded or omitted;
+3. paged/filtered reads bind cache identity and provenance to the exact canonical input actually sent;
+4. exported evidence distinguishes repo-safe full bodies, local-only full bodies, and selected-field projections;
+5. missing, oversize, failed or unpersistable data is represented honestly as non-success evidence rather than silently downgraded, truncated or omitted;
 6. no screen constructs transport calls or reads raw capture storage directly;
-7. no background polling is introduced;
-8. Phase 0 execution, recovery, auth, rate-budget, bundle, import-direction, and live-safety invariants remain green.
+7. no background polling or generic API browsing is introduced;
+8. Phase 0 execution, recovery, auth, rate-budget, bundle, import-direction and live-safety invariants remain green.
 
-This is a capability/evidence phase. It is not the visual-shell redesign.
-
----
-
-## 2. Director decisions required before freeze
-
-### K-06 — capture persistence tiers
-
-**Question:** Which capture classes may persist to the public repository?
-
-**Planning recommendation:** adopt three tiers:
-
-- **`repo-safe`** — an explicitly audited class whose exact body may be included in repository evidence;
-- **`local-only`** — the exact body may be retained in local IndexedDB for operator/research use, but the raw body must never enter a repository result, clipboard/export payload, public diagnostic dump, or GitHub commit;
-- **`projected`** — raw body remains local; repository evidence may contain only an explicitly declared allowlist of selected fields plus provenance/verdict metadata.
-
-Recommended policy if approved:
-
-- existing audited content-record point reads currently allowed for full persistence remain `repo-safe` unless separately reclassified;
-- newly approved non-content research reads default to `local-only`;
-- `projected` exports are fail-closed field projections: no wildcard, no implicit nested passthrough, and no fallback to a full body when projection fails;
-- tier widening requires a deliberate reviewed registry/policy change.
-
-### K-17 — approved research-read registry
-
-**Question:** Which non-content procedures may Forge read for research/parity?
-
-**Planning recommendation:** add only procedures that a committed, reviewed research manifest actually needs. Do not create a broad catalog merely because endpoints exist.
-
-Every approved row must record at least:
-
-- procedure path;
-- query/mutation kind — Phase 1 research registry is reads only;
-- auth requirement;
-- limiter status;
-- exact input/pagination contract relevant to Forge;
-- default capture tier;
-- source pin/provenance used to audit the row.
-
-Recommended default if approved: non-content research rows are `local-only` unless K-06 explicitly grants a broader class.
-
-**Implementation remains blocked until the director rules both K-06 and K-17.**
+This is a capability/evidence phase, not the visual-shell redesign.
 
 ---
 
-## 3. Scope
+## 2. Director-set policy
+
+### 2.1 Capture persistence tiers — ruled
+
+`RUL-2026-09-17-001` fixes these three classes:
+
+#### `repo-safe`
+
+- exact response body may enter repository/export evidence only for explicitly audited classes approved for that treatment;
+- current audited content-record point reads already allowed for full persistence remain repo-safe unless separately reclassified;
+- existing byte ceilings and honest failure semantics remain enforced;
+- a missing snapshot, failed read, oversize body or persistence failure is never converted into a green result.
+
+#### `local-only`
+
+- exact body may be retained in local IndexedDB for operator/research use;
+- raw body must not enter repository results, GitHub commits, clipboard/export payloads, public diagnostic dumps, error serialization, or another public-repository path;
+- newly approved non-content research reads default to this tier;
+- failure to retain the local body is visible as a persistence failure, not silently ignored.
+
+#### `projected`
+
+- raw body remains local;
+- repository/export evidence may contain only explicitly declared, validated field paths plus provenance/verdict metadata;
+- no wildcard, arbitrary object spread, implicit nested passthrough, or full-body fallback is allowed;
+- absent/invalid projected paths produce projection failure/drift evidence rather than substituting the full body.
+
+Tier widening requires a deliberate reviewed policy/registry edit.
+
+### 2.2 Research-read registry — ruled
+
+`RUL-2026-09-17-002` fixes a demand-driven, fail-closed registry:
+
+- add a non-content procedure only when a committed, reviewed research manifest/work package actually needs it;
+- Phase 1 research rows are queries only;
+- no generic endpoint explorer;
+- do not bulk-enable all public queries;
+- unknown/unapproved non-content paths fail before transport;
+- each row records procedure path, kind, auth class, limiter status, exact relevant input/pagination contract, default persistence tier and source-pin/provenance;
+- non-content rows default to `local-only` unless separately approved otherwise.
+
+These policies are settled. Do not re-ask K-06 or K-17.
+
+---
+
+## 3. Mandatory task start
+
+Before implementation:
+
+1. verify live `main` and record the exact base SHA;
+2. read `state/active-context.md`, `state/status.json`, `docs/00_INDEX.md`, `docs/RULINGS.md`, `CLAUDE.md`, `CHATGPT.md`, `docs/DEVELOPMENT_WORKFLOW.md`, `docs/agents/README.md`, `docs/workflows/IMPLEMENTATION_HANDOFF.md`, and this brief;
+3. read the selectively consolidated Forge Next planning sources under `docs/forge_next/` and the relevant Forge implementation/tests from integrated Phase 0;
+4. verify `studie-tech/TheNinjaRPG` current `main` and compare the specific research procedures you intend to add against Forge's declared generated-contract pin;
+5. do not silently adopt a new game-source pin or regenerated contract inside this task.
+
+If current upstream materially changes a procedure fact required by this phase, split a source-pin/adoption task rather than blending source versions.
+
+---
+
+## 4. Scope
 
 ### In scope
 
@@ -80,11 +104,12 @@ Recommended default if approved: non-content research rows are `local-only` unle
 - tier-aware capture materialization and result shaping;
 - explicit audited research-read registry;
 - bounded filtered/paged query support required by approved research manifests;
-- cache identity derived from canonical exact request input;
-- exact provenance of sent input, path, capture tier and timestamp;
+- exact request-input canonicalization used consistently for cache identity, transport and provenance;
+- local-only and projected persistence safeguards;
+- exact source/registry provenance;
 - honest capture/parity verdicts;
-- tests, fixtures, checked bundle, static gates and canonical Forge CI updates required by the capability;
-- minimal core/action/UI plumbing required to expose the capability without redesigning the shell.
+- minimal ForgeCore/action/UI plumbing needed to expose the capability without redesigning the shell;
+- tests, fixtures, checked bundle, static gates and canonical Forge CI changes required by the capability.
 
 ### Explicitly out of scope
 
@@ -95,258 +120,265 @@ Recommended default if approved: non-content research rows are `local-only` unle
 - Publish;
 - Project Workspace;
 - Builder retirement;
-- broad endpoint discovery or generic API explorer;
+- broad endpoint discovery;
+- generic API explorer;
 - background polling/watchers;
-- adopting upstream game-source drift merely because it exists;
-- any live-game request or write during implementation or review.
+- automatic game-source pin movement;
+- live-game requests or writes.
 
 ---
 
-## 4. Architecture and trust boundaries
+## 5. Architecture and trust boundaries
 
-### 4.1 Core remains the orchestration boundary
+### 5.1 ForgeCore remains the orchestration boundary
 
-Research/capture workflow state belongs behind ForgeCore actions/facts. Screens may render state and invoke actions; they may not construct tRPC requests, call `fetch`, bypass the audited reader/client, or query IndexedDB directly for raw research data.
+Research/capture workflow state belongs behind ForgeCore actions/facts. Screens may render state and invoke actions; they may not:
 
-The Phase 0 core API/state golden remains a ratchet. Any required Phase 1 widening must be explicit and reviewed.
+- construct raw tRPC requests;
+- call `fetch` directly;
+- bypass the audited reader/client/budget path;
+- query IndexedDB directly for raw research data.
 
-### 4.2 Source facts and persistence policy stay distinct
+The Phase 0 core API/state golden remains a ratchet. Any widening required by Phase 1 must be explicit, tested and reviewed.
 
-`forge/src/transport/procedures.mjs` continues to own audited transport facts such as kind/auth/limiter status.
+### 5.2 Source facts and persistence policy remain separate
 
-Do not silently turn those source facts into product/privacy policy. If a separate research/capture policy registry is useful, it may reference approved procedure rows and assign default tier/projection metadata. Its provenance and purpose must be explicit.
+`forge/src/transport/procedures.mjs` owns source-derived transport facts such as procedure kind, auth and limiter status.
 
-### 4.3 Registry grows only by evidence-backed need
+The research/persistence registry owns product/privacy admission and default tier. Do not infer repo-safety from `publicProcedure`, lack of auth, endpoint naming, or source discoverability.
 
-An endpoint does not become approved because it is useful or discoverable. A Phase 1 row exists only when an approved committed research manifest requires it and its source contract has been audited.
+### 5.3 Evidence-backed admission only
 
-Unknown/unapproved non-content paths fail closed before any request.
+A research row exists only when a committed/reviewed work package needs it and the procedure contract has been audited at the declared pin.
 
-### 4.4 No background polling
+No mutation may be admitted to the Phase 1 research registry.
 
-Phase 1 reads occur only from explicit operator/research actions represented in the work package/manifest. No interval polling, hidden refresh loop, subscription emulation, or continuous watcher is allowed.
+### 5.4 No hidden background activity
+
+Reads occur only from explicit operator/research actions represented in the manifest/work package. No interval polling, continuous watcher, subscription emulation or hidden refresh loop.
 
 ---
 
-## 5. Capture-tier contract
+## 6. Capture contract
 
-The final enum/naming follows the director ruling, but if K-06 adopts the recommendation the required semantics are:
-
-### `repo-safe`
-
-- exact body may be materialized into repository/export evidence;
-- current full-capture byte ceiling remains enforced;
-- missing snapshot, failed read, oversize body, or storage failure remains explicit non-success evidence;
-- never re-read merely to make an export greener.
-
-### `local-only`
-
-- exact body may be stored locally in the dedicated capture storage path;
-- exported/repository evidence contains provenance and verdict metadata, not the body;
-- no clipboard/export helper, result bundle, GitHub sync path, diagnostic dump or error object may accidentally serialize the raw body;
-- inability to retain the local body is reported honestly.
-
-### `projected`
-
-- raw body may remain local;
-- public/repository output includes only declared field paths;
-- projection field paths are explicit and validated before the request where possible;
-- no wildcard (`*`), arbitrary spread, implicit object copy, or nested fallback;
-- absent requested fields are represented as projection failure/drift according to the final result contract, never replaced by the full record.
-
-### Provenance required for every tier
-
-Repository/local evidence must preserve enough information to reconstruct what was asked and what policy applied, including:
+Every research capture must retain enough provenance to reconstruct the request and policy decision:
 
 - procedure path;
 - exact canonical input sent;
 - capture tier;
 - projection declaration when applicable;
-- capture occurrence identity / job identity;
-- read timestamp;
+- job/capture occurrence identity;
+- timestamp;
 - persistence verdict/error;
-- source/registry provenance necessary to identify the approved procedure contract.
+- registry/source provenance sufficient to identify the audited contract.
+
+### Repository/export safety
+
+The implementation must prove that local-only/projected raw bodies cannot leak through:
+
+- result bundles;
+- journal/result serialization;
+- GitHub sync;
+- clipboard/export helpers;
+- debug/error objects;
+- UI diagnostic payloads;
+- projection fallback paths.
+
+No re-read is allowed merely to make an export greener after an earlier capture/persistence failure.
 
 ---
 
-## 6. Filtered and paged read contract
+## 7. Filtered and paged read contract
 
-The current reader list cache uses a generic list identity and is not sufficient for arbitrary filters/pages. Phase 1 must make list/query caching input-aware.
+The current generic list-cache identity is insufficient for arbitrary filters/pages. Phase 1 makes query/list caching input-aware.
 
 Required properties:
 
-1. two list reads with different inputs can never alias in cache;
-2. equivalent canonical inputs may share a cache key only when their serialized transport meaning is equivalent;
-3. capture/journal provenance records the exact input that the transport sends;
-4. the input used for cache identity, provenance and transport must derive from one canonical representation rather than three independently rebuilt objects;
-5. paging must not silently duplicate or skip data because a helper reused an earlier page's cache entry;
-6. bounded page limits must be explicit; no unbounded crawl;
-7. rate-budget acquisition/observation continues through the existing audited budget/client path;
-8. partial/rate-limited/error pages retain honest per-page evidence and do not fabricate completeness.
-
-If the game procedure uses cursor, offset, page number, limit, filter, search, or compound input, implement only the audited shape needed by approved manifests. Do not invent a generic pagination abstraction that obscures procedure-specific contracts.
-
----
-
-## 7. Source/version discipline
-
-Phase 1 does not silently refresh Forge's generated/source pin.
-
-At implementation start:
-
-1. reverify `main` and current upstream `studie-tech/TheNinjaRPG` head;
-2. preserve the existing Forge declared pin unless a separately reviewed adoption task changes it;
-3. audit every additive research procedure at the declared pin and inspect current upstream for relevant drift;
-4. record file/line/source evidence for kind, auth, limiter and required input/result/pagination facts;
-5. if current upstream materially changes one of those facts, stop and split a pin-refresh/adoption task rather than blending source versions inside Phase 1.
-
-Generated contracts remain generated evidence; do not hand-edit around a source disagreement.
+1. two reads with different transport inputs never alias in cache;
+2. equivalent canonical inputs may reuse a cache entry only when their serialized transport meaning is equivalent;
+3. the input used for cache identity, provenance and transport derives from one canonical representation;
+4. exact stored provenance equals exact input sent;
+5. second-page requests cannot be satisfied by first-page cache identity;
+6. bounds are explicit; no unbounded crawl;
+7. budget acquire/observe remains on the existing audited path;
+8. partial, failed or rate-limited pages retain honest per-page evidence and may not be reported as complete;
+9. implement only audited procedure-specific cursor/offset/filter/search shapes required by approved manifests — do not create a generic abstraction that hides procedure-specific contracts.
 
 ---
 
 ## 8. Allowed implementation surface
 
-Phase 1 is an approved capability phase, so the generic planning shorthand that an execution-core seam should be empty does **not** mean these required lower-layer edits are forbidden. The allowed change surface is narrow and explicit:
+This phase may make focused, reviewable changes in:
 
 - `forge/src/transport/procedures.mjs` — additive audited procedure facts only;
 - `forge/src/budget/reader.mjs` — input-aware filtered/paged query support;
-- `forge/src/storage/captures.mjs` — capture tier/provenance storage primitives where required;
-- `forge/src/runner/manifest.mjs` — capture grammar for tier/projection/paging declarations where required;
+- `forge/src/storage/captures.mjs` — tier/provenance storage primitives as required;
+- `forge/src/runner/manifest.mjs` — capture grammar for tier/projection/paging declarations;
 - `forge/src/runner/runner.mjs` — bounded capture execution and verdict shaping only;
-- `forge/src/core/**` — research/capture orchestration/action/fact surface where required;
-- `forge/src/ui/**` — minimal plumbing only; no visual redesign;
-- `forge/tools/**`, `forge/test/**`, fixtures, `forge_bundle.js`, and canonical Forge CI as required;
-- concise policy/registry documentation or generated descriptors as required by provenance.
+- `forge/src/core/**` — research/capture orchestration/action/fact surface;
+- `forge/src/ui/**` — minimal plumbing only, no visual redesign;
+- `forge/tools/**`, `forge/test/**`, fixtures, `forge_bundle.js`, canonical Forge CI;
+- concise registry/policy documentation or generated descriptors needed for provenance.
 
-No unrelated execution-core redesign is authorized. Keep lower-layer edits focused and separately reviewable.
+No unrelated execution-core, auth, transport, reconciliation, journal or release-loader redesign is authorized.
 
-Do not modify Quest Studio code in this phase.
+Do not modify Quest Studio implementation in this phase.
 
 ---
 
-## 9. Acceptance tests and adversarial cases
+## 9. Required tests and adversarial cases
 
-Start from the integrated Phase 0 baseline: canonical Forge CI is green with 343/343 tests at Phase 0 completion.
+Start from integrated Phase 0: canonical Forge CI completed with 343/343 tests, 12 byte-identical screen fixtures, zero import/static-boundary violations, raw bundle 417,370 bytes and deterministic gzip 79,294 bytes.
 
 Phase 1 must add evidence for at least:
 
-### Registry / source facts
+### Registry/source facts
 
-- every new research path is explicitly approved by the registry;
+- every new research path is explicitly present in the approved registry;
 - an unapproved non-content path is refused before transport;
-- every added transport row has pinned tests/evidence for kind, auth and limiter status;
-- no mutation is admitted to the research-read registry.
+- every added transport row has evidence/tests for query kind, auth and limiter status;
+- no mutation can enter the research registry;
+- registry provenance names the source pin used for audit.
 
 ### Cache/paging
 
-- two list/filter/page calls with different inputs produce distinct cache entries;
+- different filter/page inputs produce distinct cache identities;
 - identical canonical inputs reuse only the intended cached result;
-- exact journal/capture input equals exact sent transport input;
-- second-page requests cannot be satisfied by first-page cache identity;
-- a 429 or partial page cannot be reported as a complete research capture;
-- configured bounds prevent an accidental unbounded crawl.
+- exact capture/journal input equals exact sent transport input;
+- page 2 cannot reuse page 1;
+- 429/partial/error page cannot become a complete-success result;
+- configured limits prevent unbounded crawl.
 
-### Tier behavior
+### Persistence tiers
 
-If K-06 adopts the recommended three tiers:
+- `repo-safe`: exact body round-trips into evidence only when the path/class is approved;
+- `local-only`: raw body is locally retained but absent from every repository/export path;
+- `projected`: only declared fields export, including nested-path tests;
+- no local-only/projected raw-body leak through errors/debug/clipboard/bundle/GitHub sync;
+- missing snapshot/storage failure is explicit non-success;
+- oversize body is explicit non-success and never truncates to green;
+- widening persistence class requires a registry/policy change visible to tests;
+- wildcard/implicit projection is rejected.
 
-- `repo-safe`: exact body round-trips into evidence when allowed;
-- `local-only`: raw body is retained locally but absent from every export/repository path;
-- `projected`: only the declared fields are exported, including nested-path tests;
-- local-only/projected raw bodies cannot leak through errors, debug metadata, clipboard/export, bundle journal, or GitHub sync;
-- missing snapshot/storage failure remains explicit non-success;
-- over-cap raw body remains explicit non-success and is never truncated into a green result;
-- changing a tier to a broader persistence class requires a registry/policy edit that tests can see.
+### Existing Phase 0 safety nets
 
-### Existing safety nets
-
-- all Phase 0 state/recovery/auth/reconcile/budget tests remain green;
+- all journal/recovery/auth/reconcile/budget suites remain green;
 - core API/state golden remains explicit;
 - import-direction and static network boundaries remain zero violations;
-- no new source reaches a live host outside the existing transport boundary;
+- no new live-host path outside the existing reviewed transport boundary;
 - envelope fixtures remain reproducible;
-- screen fixtures remain byte-identical unless the director separately approves an intentional Phase 1 operator-visible change;
-- checked `forge_bundle.js` is reproducible;
+- 12 screen fixtures remain byte-identical unless a separately approved operator-visible change is made;
+- checked `forge_bundle.js` remains reproducible;
 - runtime dependency audit remains green;
 - release pin remains clean.
+
+Do not weaken a Phase 0 gate to make Phase 1 fit.
 
 ---
 
 ## 10. Bundle budget
 
-Phase 0 finished at approximately:
+Phase 0 completed at:
 
-- raw: `417,370 / 430,000` bytes (97.1%);
-- deterministic gzip: `79,294 / 81,000` bytes (97.9%).
+- raw `417,370 / 430,000` bytes (97.1%);
+- deterministic gzip `79,294 / 81,000` bytes (97.9%).
 
-Phase 1 will probably exhaust the existing gzip headroom. Do not weaken or delete the budget gate to make the feature fit.
+Phase 1 may exhaust the remaining headroom. Do not silently raise or delete the gate.
 
 If a raise is required:
 
-- measure the feature delta first;
-- put the budget change in a separate focused commit;
-- justify the new ceiling from the measured Phase 1 product, not a round number chosen in advance;
-- keep a tight ratchet above the measured result;
-- report old/new raw and gzip measurements in the handoff.
+1. measure the feature delta first;
+2. put the budget change in a separate focused commit;
+3. justify the new ceiling from the measured product, not a round number chosen in advance;
+4. keep a tight ratchet above the measured result;
+5. report before/after raw and gzip measurements and the budget-ratchet commit SHA.
 
-This is an engineering control, not a director product decision, unless the change creates a material operator/distribution consequence.
-
----
-
-## 11. Live-game boundary
-
-Phase 1 implementation and independent review are **ZERO LIVE REQUESTS / ZERO LIVE WRITES**.
-
-Use:
-
-- pinned/public game source;
-- repository fixtures;
-- committed captures/results;
-- fake/in-process transport;
-- local IndexedDB substitutes;
-- static gates.
-
-Do not test a research endpoint against production merely to prove the registry works.
+This is an engineering control unless it creates a material product/distribution consequence.
 
 ---
 
-## 12. Completion / handoff contract
+## 11. Source/version discipline
 
-After K-06 and K-17 are ruled and this brief is frozen, Fable implements from a fresh branch based on the then-current `main`.
+At implementation start:
 
-At completion Fable returns an exact-SHA handoff containing at minimum:
+- reverify live `main`;
+- reverify current upstream game-source head;
+- preserve Forge's declared generated-contract pin unless a separately reviewed adoption task changes it;
+- audit every added research procedure at the declared pin;
+- inspect current upstream for relevant drift;
+- record source evidence for kind, auth, limiter and exact input/pagination facts;
+- stop and split source adoption if current upstream materially disagrees with the declared-pin contract needed by this task.
 
-- repository;
-- implementation branch;
-- exact base and merge-base;
-- frozen head;
-- changed surfaces;
-- source/game pin inspected and current upstream head inspected;
-- exact research registry additions and their evidence;
-- final capture-tier policy implemented;
-- pagination/cache-key contract implemented;
-- test counts and commands;
-- fixture/build/bundle reproducibility;
-- raw/gzip before/after and any budget-ratchet commit;
-- canonical Forge CI run/job;
-- known debt and intentionally unsupported research shapes;
-- browser checks not performed;
-- live requests: none;
-- live writes: none;
-- what explicitly has not begun.
+Generated contracts remain generated evidence. Do not hand-edit around a disagreement.
+
+---
+
+## 12. Live-game boundary
+
+Implementation and independent review are **ZERO LIVE REQUESTS / ZERO LIVE WRITES**.
+
+Use pinned/public source, repository fixtures, committed captures/results, fake/in-process transport, local IndexedDB substitutes and static gates.
+
+Do not contact production merely to prove a research endpoint or pagination path.
+
+---
+
+## 13. Quest Studio carry-forward only
+
+Quest Studio remains accepted at:
+
+`chatgpt/forge-quest-studio-foundation@5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15`
+
+Do not merge it into Phase 1.
+
+Preserve for later Phase S:
+
+- source-push build model;
+- Contents-write-only browser credential;
+- no Actions write;
+- no Workflows write;
+- trusted-main compiler boundary;
+- exact source revision;
+- `generated.manifestSha256` binding;
+- request-scoped persistence;
+- stale-result refusal;
+- zero-live compiler boundary.
+
+The final Studio review's N1–N4 follow-ups remain Phase-S/integration work, not Phase 1 scope.
+
+---
+
+## 14. Completion / handoff
+
+When implementation is complete, Fable freezes the exact SHA and returns a compact handoff containing:
+
+- Repository
+- Branch
+- Base
+- Merge-base
+- Frozen Head
+- Changed surfaces
+- Research registry additions and source evidence
+- Final tier policy implementation
+- Pagination/cache-key contract
+- Test counts and commands
+- Fixture status
+- Bundle/build reproducibility
+- Raw/gzip before/after and any budget-ratchet commit
+- Canonical Forge CI run/job
+- Game-source pin inspected and current upstream head inspected
+- Known debt / unsupported shapes
+- Browser checks not performed
+- Live requests: none
+- Live writes: none
+- What explicitly has not begun
 
 ChatGPT independently reviews the frozen SHA before integration.
 
-Do not begin Phase 2 automatically after implementation. Phase 1 closes only after reviewed integration to `main` and green canonical CI.
+Do not begin Phase 2 automatically. Phase 1 closes only after reviewed integration to fresh `main` and green canonical CI.
 
 ---
 
-## 13. Freeze gate
+## 15. Freeze statement
 
-This draft may become **READY / FROZEN** only after:
-
-1. director ruling K-06 is recorded durably;
-2. director ruling K-17 is recorded durably;
-3. this brief is updated to replace conditional/recommended tier language with the ruled policy;
-4. `main` is reverified and recorded as the implementation base target;
-5. any accepted Forge planning references required for future phases are preserved without merging stale operational snapshots.
+K-06 and K-17 are settled by `RUL-2026-09-17-001` and `RUL-2026-09-17-002`. The accepted planning sources needed for future phases are selectively consolidated under `docs/forge_next/` and `docs/design/` without merging stale operational state. This brief is therefore **READY / FROZEN** for Fable implementation from a newly verified `main`.
