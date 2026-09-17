@@ -20,10 +20,16 @@ import { fileURLToPath } from "node:url";
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "src");
 
-const NETWORK_ALLOWED = ["transport", "github.mjs", "main.mjs"];
+// main.mjs is NOT here: composition INJECTS fetchImpl (win.fetch.bind(win)) and never issues a
+// request itself, so allowlisting it only widened the gate for no behaviour. Removed on review.
+const NETWORK_ALLOWED = ["transport", "github.mjs"];
 const GAME_HOSTS = [/theninja-rpg\.com/i, /\bwww\.theninja\b/i];
-// `fetchImpl` is the injected seam every layer is supposed to use; a bare call is the smell.
-const BARE_FETCH = /(?<![.\w])fetch\s*\(/;
+// `fetchImpl` is the injected seam every layer is supposed to use; any other call is the smell.
+// Both the bare form and the qualified one: the original pattern excluded anything preceded by a
+// dot, so `globalThis.fetch("/api/...")` and `window.fetch(...)` sailed straight through it
+// (independent review F2). `fetchImpl(` and `.fetch.bind(` are deliberately NOT matched — the
+// first is the seam itself, the second is composition handing that seam over.
+const FETCH_CALL = /(?:(?:globalThis|window|self|top|parent)\s*\.\s*)?(?<![.\w])fetch\s*\(|\.\s*fetch\s*\(/;
 
 function walk(dir) {
   return readdirSync(dir, { withFileTypes: true })
@@ -43,7 +49,7 @@ export function checkBoundaries() {
     const code = strip(readFileSync(file, "utf8"));
 
     const mayNetwork = NETWORK_ALLOWED.includes(top) || NETWORK_ALLOWED.includes(rel);
-    if (!mayNetwork && BARE_FETCH.test(code)) {
+    if (!mayNetwork && FETCH_CALL.test(code)) {
       findings.push(`${rel}: issues a request outside the transport layer`);
     }
     for (const host of GAME_HOSTS) {

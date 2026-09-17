@@ -49,6 +49,33 @@ test("the gate catches a violation when one exists", () => {
   }
 });
 
+test("the gate catches a SIDE-EFFECT import, which named-import scanning misses", () => {
+  // `import "../ui/dom.mjs"` binds nothing but creates the same edge. The first version of this
+  // gate scanned only `... from "..."` and dynamic import(), so this form returned zero
+  // violations while a view was being pulled into the runner. Independent review F2.
+  const root = mkdtempSync(join(tmpdir(), "forge-imports-side-"));
+  try {
+    mkdirSync(join(root, "tools"), { recursive: true });
+    cpSync(join(FORGE, "src"), join(root, "src"), { recursive: true });
+    cpSync(join(FORGE, "tools", "check_imports.mjs"), join(root, "tools", "check_imports.mjs"));
+    writeFileSync(join(root, "src", "runner", "_side.mjs"), 'import "../ui/dom.mjs";\nexport const n = 1;\n');
+    writeFileSync(join(root, "src", "core", "_side.mjs"), 'import "../ui/styles.mjs";\nexport const n = 2;\n');
+
+    let failed = false, output = "";
+    try {
+      execFileSync(process.execPath, [join(root, "tools", "check_imports.mjs")], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+    } catch (e) {
+      failed = true;
+      output = String(e.stdout || "") + String(e.stderr || "");
+    }
+    assert.ok(failed, "a side-effect import into a view must fail the gate");
+    assert.match(output, /runner\/_side\.mjs \(execution\) imports/);
+    assert.match(output, /core\/_side\.mjs \(core\) imports/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test("the userscript host lives under hosts/, not in the view", async () => {
   const mod = await import("../src/hosts/userscript/takeover.mjs");
   for (const name of ["arm", "disarm", "isArmed", "mountHost", "entryTakeover", "onEntryPath", "pageAuthRuntime"]) {
