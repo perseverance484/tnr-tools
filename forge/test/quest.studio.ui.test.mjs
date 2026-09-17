@@ -216,8 +216,6 @@ test("Mission compile submits Quest Source, reads canonical result, and never pr
   assert.doesNotMatch(studio.shell.textContent, /Start live write|Publish now/);
 });
 
-test("real Mission profile sentinels render as awaiting ruling and block compile", async () => {
-
 test("editing a submitted Mission invalidates persisted build identity before reopen", async () => {
   const win = setupDom();
   const storage = new MemoryStorage();
@@ -261,6 +259,7 @@ test("editing a submitted Mission invalidates persisted build identity before re
   assert.match(reopened.shell.textContent, /No repository build has been requested for the current draft revision/);
 });
 
+test("real Mission profile sentinels render as awaiting ruling and block compile", async () => {
   const profiles = JSON.parse(readFileSync(join(REPO, "skills/building-tnr-content/data/48_DATA_mission_profiles.json"), "utf8"));
   const draft = newMissionDraft();
   Object.assign(draft, {

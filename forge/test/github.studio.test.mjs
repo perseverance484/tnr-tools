@@ -132,13 +132,12 @@ test("QuestStudioRepository changes repository build-request metadata on every c
   assert.notDeepEqual(written[0], written[1]);
 });
 
-test("QuestStudioRepository marks an older persisted result stale", async () => {
-
 test("QuestStudioRepository refuses build reads without an exact submitted source identity", async () => {
   const repo = new QuestStudioRepository({ github: { async json() { throw new Error("must not read"); } } });
   await assert.rejects(() => repo.buildResult("demo-mission"), /requires the exact submitted source commit/);
 });
 
+test("QuestStudioRepository marks an older persisted result stale", async () => {
   const result = {
     schemaVersion: 1,
     kind: "quest-build",
