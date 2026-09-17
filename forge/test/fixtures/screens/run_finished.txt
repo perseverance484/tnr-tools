@@ -1,0 +1,62 @@
+<section>
+  <div>
+    <b>
+      #text "push/45_fixture.json"
+    <span class="f-pill DONE">
+      #text "DONE"
+    <span class="f-mute">
+      #text " · started 0s ago"
+  <div class="f-bar">
+    <i style="width: 100%;">
+  <div class="f-banner ok">
+    <b>
+      #text "Verified. "
+    #text "every item read back equal on its asserted keys."
+  <div class="f-actions">
+    <button>
+      #text "Export bundle"
+  <h3>
+    #text "Budget (limited reads, per path, this minute)"
+  <div class="f-card">
+    <div class="f-kv">
+      <b>
+        #text "item.get"
+      <span>
+        #text "2 / 30 (server 60) · resets in 60s"
+    <div class="f-kv">
+      <b>
+        #text "item.getAllNames"
+      <span>
+        #text "1 / 30 (server 60) · resets in 60s"
+    <div class="f-kv">
+      <b>
+        #text "jutsu.get"
+      <span>
+        #text "2 / 30 (server 60) · resets in 60s"
+    <div class="f-kv">
+      <b>
+        #text "jutsu.getAllNames"
+      <span>
+        #text "1 / 30 (server 60) · resets in 60s"
+  <h3>
+    #text "Items"
+  <div class="f-row">
+    <div class="f-grow">
+      <div>
+        #text "0. Fixture Jutsu "
+        <span class="f-pill VERIFIED">
+          #text "VERIFIED"
+        <span class="f-mute">
+          #text " jutsu"
+      <div class="f-mono">
+        #text "fk0000000000000000001"
+  <div class="f-row">
+    <div class="f-grow">
+      <div>
+        #text "1. Fixture Item "
+        <span class="f-pill VERIFIED">
+          #text "VERIFIED"
+        <span class="f-mute">
+          #text " item"
+      <div class="f-mono">
+        #text "fk0000000000000000002"

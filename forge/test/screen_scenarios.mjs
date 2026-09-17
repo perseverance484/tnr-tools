@@ -1,0 +1,117 @@
+// The five released Forge screens, each rendered from a deterministic state.
+//
+// This is the byte-identity net for the Phase 0 extraction. Every scenario is built from a fixed
+// clock, a fixed tab id, an in-memory store and a fake game, and every identifier that would
+// otherwise carry a timestamp is passed in explicitly. Nothing here reaches the network.
+//
+// Adding a scenario is cheap and is the right response to finding an unguarded branch. Changing an
+// existing scenario is not: the fixtures exist so that a change in rendered output has to be an
+// intentional, reviewed act rather than a silent side effect of moving domain logic.
+
+import { JSDOM } from "jsdom";
+import { IDBFactory } from "fake-indexeddb";
+import { App } from "../src/ui/app.mjs";
+import { JobsScreen, ManifestsScreen, RunScreen, CapturesScreen, SettingsScreen } from "../src/ui/screens.mjs";
+import { composeForTest } from "./compose.mjs";
+import { MemoryStorage, fakeClock } from "./shim.mjs";
+import { FakeGame } from "./fakegame.mjs";
+import { serializeScreen } from "./serialize_screen.mjs";
+
+const MANIFEST = JSON.stringify({
+  items: [
+    { entity: "jutsu", slot: "create", name: "Fixture Jutsu", srcId: "fx-1", data: { name: "Fixture Jutsu", hidden: true } },
+    { entity: "item", slot: "create", name: "Fixture Item", srcId: "fx-2", data: { name: "Fixture Item", hidden: true } },
+  ],
+});
+
+const ENTRY = { name: "45_fixture.json", path: "push/45_fixture.json", sha: "fixturesha", size: 128, type: "file" };
+
+export function installDom() {
+  const d = new JSDOM("<!doctype html><html><head></head><body></body></html>", { url: "https://www.theninja-rpg.com/forge" });
+  const win = d.window;
+  win.confirm = () => true;
+  win.navigator.clipboard = { writeText: async () => {} };
+  for (const [k, v] of Object.entries({
+    document: win.document, window: win, navigator: win.navigator, location: win.location,
+    confirm: win.confirm, MutationObserver: win.MutationObserver, CSSStyleSheet: win.CSSStyleSheet,
+    HTMLElement: win.HTMLElement,
+  })) Object.defineProperty(globalThis, k, { value: v, configurable: true, writable: true });
+  return win;
+}
+
+function buildApp() {
+  const storage = new MemoryStorage();
+  const clock = fakeClock();
+  const d = composeForTest({ game: new FakeGame(), storage, idb: new IDBFactory(), clock });
+  d.github = {
+    list: async () => [ENTRY],
+    text: async () => MANIFEST,
+    put: async () => ({ sha: "committedsha" }),
+  };
+  const app = new App({ version: "fixture", storage, now: clock, ...d });
+  return { app, storage, clock };
+}
+
+async function selection(app) {
+  await app.loadPicker(true);
+  await app.selectManifest({ ...ENTRY, number: 45, text: MANIFEST, summary: null, loading: false });
+  return app.state.selected;
+}
+
+/**
+ * @returns {Promise<Array<{name: string, text: string}>>} canonical serialization per scenario,
+ *   in a stable order.
+ */
+export async function renderScenarios() {
+  const out = [];
+  const add = (name, rendered) => out.push({ name, text: serializeScreen(rendered) });
+
+  // ---- empty states: what the operator sees on a clean install -------------------------------
+  {
+    const { app } = buildApp();
+    app.mount(globalThis.document.body);
+    add("jobs_empty", JobsScreen(app));
+    add("captures_empty", CapturesScreen(app));
+    add("settings_default", SettingsScreen(app));
+    add("manifests_unloaded", ManifestsScreen(app));
+    app.state.jobId = null;
+    add("run_no_job", RunScreen(app));
+  }
+
+  // ---- manifests: picker loaded, and a manifest selected with its plan ------------------------
+  {
+    const { app } = buildApp();
+    app.mount(globalThis.document.body);
+    await app.loadPicker(true);
+    add("manifests_loaded", ManifestsScreen(app));
+    await selection(app);
+    add("manifests_selected", ManifestsScreen(app));
+  }
+
+  // ---- a planned job, before anything is sent -------------------------------------------------
+  {
+    const { app } = buildApp();
+    app.mount(globalThis.document.body);
+    await selection(app);
+    app.runner.plan(MANIFEST, { jobId: "fixture-job", manifestPath: ENTRY.path, manifestNumber: 45 });
+    app.state.jobId = "fixture-job";
+    add("run_planned", RunScreen(app));
+    add("jobs_with_planned_job", JobsScreen(app));
+  }
+
+  // ---- a job driven to completion against the fake game ----------------------------------------
+  {
+    const { app } = buildApp();
+    app.mount(globalThis.document.body);
+    await selection(app);
+    app.runner.plan(MANIFEST, { jobId: "fixture-done", manifestPath: ENTRY.path, manifestNumber: 45 });
+    await app.runner.run("fixture-done");
+    app.state.jobId = "fixture-done";
+    add("run_finished", RunScreen(app));
+    add("jobs_with_finished_job", JobsScreen(app));
+    add("captures_after_run", CapturesScreen(app));
+  }
+
+  out.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+  return out;
+}
