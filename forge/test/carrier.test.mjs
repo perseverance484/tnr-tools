@@ -12,7 +12,7 @@ import { JSDOM } from "jsdom";
 import { IDBFactory } from "fake-indexeddb";
 import { boot } from "../src/main.mjs";
 import { App } from "../src/ui/app.mjs";
-import { arm, disarm, isArmed, armHops, armFailure, mountHost, whenCarrierReady, carrierReadiness, carrierHydrated, alreadyMounted, ENTRY_PATH, CARRIER_PATH, MAX_HOPS, OVERLAY_CLASS } from "../src/ui/takeover.mjs";
+import { arm, disarm, isArmed, armHops, armFailure, mountHost, whenCarrierReady, carrierReadiness, carrierHydrated, alreadyMounted, ENTRY_PATH, CARRIER_PATH, MAX_HOPS, OVERLAY_CLASS } from "../src/hosts/userscript/takeover.mjs";
 import { stampHydrated, isStamped, hydrateLikeReact, parseShell, clientNavigate, SHELL } from "./carrier.mjs";
 
 const tick = (ms = 80) => new Promise((r) => setTimeout(r, ms));

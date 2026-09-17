@@ -15,7 +15,7 @@ import { Runner } from "./runner/runner.mjs";
 import { Reconciler } from "./reconcile/reconciler.mjs";
 import { Github } from "./github.mjs";
 import { App } from "./ui/app.mjs";
-import { entryTakeover, mountHost, whenBodyReady, whenCarrierReady, carrierReadiness, alreadyMounted, onEntryPath, pageAuthRuntime, arm, disarm, isArmed, armHops, armFailure, ENTRY_PATH, CARRIER_PATH, MAX_HOPS, MAX_HOST_LOSSES, CARRIER_GRACE_MS } from "./ui/takeover.mjs";
+import { entryTakeover, mountHost, whenBodyReady, whenCarrierReady, carrierReadiness, alreadyMounted, onEntryPath, pageAuthRuntime, arm, disarm, isArmed, armHops, armFailure, ENTRY_PATH, CARRIER_PATH, MAX_HOPS, MAX_HOST_LOSSES, CARRIER_GRACE_MS } from "./hosts/userscript/takeover.mjs";
 import { CSS, CSS_DOC } from "./ui/styles.mjs";
 import { h, installCss } from "./ui/dom.mjs";
 import FIELDS from "./runner/fields.json" with { type: "json" };
