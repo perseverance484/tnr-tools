@@ -18,6 +18,9 @@
 // yields one macrotask between the flush and the request so that IPC is queued before the
 // fetch is issued. This narrows the window; it does not make the flush a fsync.
 
+// The one place a capture record's tier is decided, legacy records included.
+import { captureTier } from "./captures.mjs";
+
 export const JOURNAL_VERSION = 1;
 export const KEY_PREFIX = "tnr_forge_job_v1:";
 export const MAX_TEXT = 512; // cap on error strings so one long message cannot blow the record
@@ -73,9 +76,11 @@ export function captureOk(capture) {
   // A paged walk that stopped on its bound with a full page in hand read SOME of the data. That is
   // not the thing the capture asked for, so it is never green (Phase 1 requirement 7.8).
   if (capture.complete === false) return false;
-  // `tier` is set on every capture that asked for a body to be kept, at any tier. A summary capture
-  // has none and is done once the read succeeded, exactly as before.
-  return !capture.tier || capture.persistOk === true;
+  // captureTier() answers for a pre-tier `persist: "full"` record too, so a Phase 0 capture whose
+  // body never landed stays a failure after an upgrade rather than becoming a success that never
+  // even looked for it (independent review FN1). A summary capture has no tier under either
+  // spelling and is done once the read succeeded, exactly as before.
+  return !captureTier(capture) || capture.persistOk === true;
 }
 
 export function jobOutcome(job) {
@@ -88,7 +93,7 @@ export function jobOutcome(job) {
   }
   if (job.items.some((it) => it.state === "FAILED")) return "failed";
   if (job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state) || it.state === "SKIPPED" || (it.verify && it.verify !== "match"))) return "unverified";
-  if (captures.some((capture) => capture && (capture.complete === false || (capture.tier && capture.persistOk !== true)))) return "unverified";
+  if (captures.some((capture) => capture && (capture.complete === false || (captureTier(capture) && capture.persistOk !== true)))) return "unverified";
   return "success";
 }
 

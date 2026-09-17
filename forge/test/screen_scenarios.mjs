@@ -34,7 +34,7 @@ const RESEARCH = JSON.stringify({
   capture: {
     after: [
       { proc: "gameAsset.get", input: { id: "fx-asset" }, persist: "repo-safe" },
-      { proc: "quests.get", input: { id: "fx-quest" }, persist: "projected", projection: ["id", "name", "content.objectives"] },
+      { proc: "quests.get", input: { id: "fx-quest" }, persist: "projected", projection: ["id", "name", "content.objectives.id"] },
       { proc: "combat.getBattleEntries", input: { battleId: "fx-battle", limit: 2 }, persist: "local-only", pages: 2 },
     ],
   },

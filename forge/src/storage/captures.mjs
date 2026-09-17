@@ -69,6 +69,29 @@ export const FULL_PERSIST_PATHS = REPO_SAFE_PATHS;
 /** Whether a procedure path may have its response body durably persisted into a bundle. */
 export function canPersistFull(path) { return FULL_PERSIST_PATHS.includes(path); }
 
+/**
+ * The tier a journaled capture record is to be read at, including records written before tiers
+ * existed. This is the ONE place that decision is made, because it has to give the same answer to
+ * the exporter, the outcome verdict and the screens - and in Phase 1 it briefly did not, which let a
+ * Phase 0 `persist: "full"` entry be treated as a capture that had asked for nothing (independent
+ * review FN1).
+ *
+ * The legacy mapping is deliberately narrow: ONLY `persist: "full"`, which is the exact shape
+ * runner.mjs wrote before this contract, maps to repo-safe. Anything else with no tier is a summary
+ * capture that kept no body. There is no blanket default, because a default would silently adopt
+ * whatever an unrecognised or malformed record happens to contain.
+ */
+export function captureTier(capture) {
+  if (!capture || typeof capture !== "object") return null;
+  if (typeof capture.tier === "string" && capture.tier) return capture.tier;
+  return capture.persist === "full" ? "repo-safe" : null;
+}
+
+/** True when this record predates tiers, so the caller knows to apply the conservative old rules. */
+export function isLegacyCapture(capture) {
+  return Boolean(capture && typeof capture === "object" && !capture.tier && capture.persist === "full");
+}
+
 /** The audited registry's opinion of a path, or null when it is not in the crud surface. */
 export function persistProcedureKind(path) { return PROCEDURES[path] ? PROCEDURES[path].kind : null; }
 
@@ -275,7 +298,7 @@ export class CaptureCache {
    * Deliberately NOT reachable from invalidateEntity/invalidateRecord/clear, all of which operate
    * on the read cache only. A snapshot is deleted explicitly, by job or by key.
    */
-  async putSnapshot({ key, jobId, phase, ordinal, path, id, input, data, tier = "repo-safe", projection = null, page = null }) {
+  async putSnapshot({ key, jobId, phase, ordinal, path, id, input, data, tier = "repo-safe", projection = null, page = null, policy = null }) {
     const rec = {
       key, jobId, phase, ordinal, path,
       id: id == null || id === "" ? null : String(id),
@@ -285,6 +308,9 @@ export class CaptureCache {
       // tier cannot retroactively make an already-stored body exportable under the old rule, and a
       // snapshot separated from its journal entry still knows it is local-only.
       tier,
+      // The policy that admitted the read travels WITH the body, so evidence and the contract that
+      // allowed it cannot be separated by a journal edit or a later registry change (review FN4).
+      policy,
       projection: projection ? [...projection] : null,
       page,
       input: input ?? null,

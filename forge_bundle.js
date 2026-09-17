@@ -4,6 +4,671 @@
 // real application route so ClerkProvider and the tRPC provider stay alive under it. Layers: storage, transport, budget, runner, reconcile, ui.
 // Pinned engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
 (() => {
+  // src/transport/procedures.mjs
+  var PROCEDURES = Object.freeze({
+    "ai.createAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "ai.getAiProfile": { kind: "query", limited: false, mcp: true, auth: "protected" },
+    "ai.toggleAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "ai.updateAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "bloodline.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "bloodline.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "bloodline.get": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "bloodline.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "bloodline.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "bloodline.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    // combat.* are the Phase 1 research additions, audited at the pin above against
+    // app/src/server/api/routers/combat.ts: getBattleEntries at :382 and getBattleHistory at :530.
+    // Both are protectedProcedure (trpc.ts:230, enforceUserIsAuthed + sentryMiddleware) and neither
+    // composes ratelimitMiddleware at its call site — the .use(ratelimitMiddleware) occurrences in
+    // that file are at :565, :898, :960, :1410 and :1506, none of which is either procedure — so
+    // `limited` is false for the same reason it is false for every other protected row here, and not
+    // by inference from the base builder. Both carry .meta({ mcp: { enabled: true } }).
+    // Admission to READ them is a separate question answered by research/registry.mjs, not by their
+    // presence in this table.
+    "combat.getBattleEntries": { kind: "query", limited: false, mcp: true, auth: "protected" },
+    "combat.getBattleHistory": { kind: "query", limited: false, mcp: true, auth: "protected" },
+    "gameAsset.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "gameAsset.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "gameAsset.get": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "gameAsset.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "gameAsset.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "gameAsset.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "item.clone": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "item.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "item.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "item.get": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "item.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "item.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "item.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "jutsu.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "jutsu.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "jutsu.get": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "jutsu.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "jutsu.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "jutsu.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "profile.cloneAi": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+    "profile.create": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "profile.delete": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "profile.getAi": { kind: "query", limited: false, mcp: true, auth: "protected" },
+    "profile.getAllAiNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "profile.updateAi": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "quests.checkRewards": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "quests.clone": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "quests.create": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "quests.delete": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
+    "quests.get": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "quests.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "quests.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
+    "quests.update": { kind: "mutation", limited: false, mcp: true, auth: "protected" }
+  });
+  function procedure(path) {
+    const p = PROCEDURES[path];
+    if (!p) throw new Error("unknown procedure: " + path + " (not in the audited crud surface)");
+    return p;
+  }
+  function isProtected(path) {
+    return procedure(path).auth === "protected";
+  }
+  var LIMITED_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].limited));
+  var MUTATION_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].kind === "mutation"));
+  var PROTECTED_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].auth === "protected"));
+
+  // src/storage/hash.mjs
+  function stableStringify(v) {
+    if (v && typeof v === "object" && typeof v.toJSON === "function") v = v.toJSON();
+    if (v === void 0) return "null";
+    if (v === null || typeof v !== "object") return JSON.stringify(v);
+    if (Array.isArray(v)) return "[" + v.map(stableStringify).join(",") + "]";
+    const keys = Object.keys(v).filter((k) => v[k] !== void 0).sort();
+    return "{" + keys.map((k) => JSON.stringify(k) + ":" + stableStringify(v[k])).join(",") + "}";
+  }
+  function fnv1a32(str) {
+    let h2 = 2166136261;
+    for (let i = 0; i < str.length; i++) {
+      h2 ^= str.charCodeAt(i);
+      h2 = Math.imul(h2, 16777619) >>> 0;
+    }
+    return h2.toString(16).padStart(8, "0");
+  }
+  function payloadHash(payload) {
+    return fnv1a32(stableStringify(payload === void 0 ? null : payload));
+  }
+
+  // src/research/registry.mjs
+  var TIERS = Object.freeze(["local-only", "projected", "repo-safe"]);
+  var DEFAULT_RESEARCH_TIER = "local-only";
+  function tierAtMost(tier, ceiling) {
+    const a = TIERS.indexOf(tier), b = TIERS.indexOf(ceiling);
+    return a >= 0 && b >= 0 && a <= b;
+  }
+  var REGISTRY_PIN = "345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9";
+  var STR = Object.freeze({ t: "string" });
+  var NUM = Object.freeze({ t: "number" });
+  var BOOL = Object.freeze({ t: "boolean" });
+  var oneOf = (...values) => Object.freeze({ t: "enum", values: Object.freeze(values) });
+  var manyOf = (...values) => Object.freeze({ t: "enum[]", values: Object.freeze(values) });
+  var BATTLE_TYPES = [
+    "ARENA",
+    "COMBAT",
+    "SPARRING",
+    "KAGE_AI",
+    "KAGE_PVP",
+    "CLAN_CHALLENGE",
+    "CLAN_BATTLE",
+    "SHRINE_WAR",
+    "TOURNAMENT",
+    "QUEST",
+    "RANDOM_ENCOUNTER",
+    "VILLAGE_PROTECTOR",
+    "TRAINING",
+    "RANKED_PVP",
+    "RANKED_SPARRING",
+    "RAID",
+    "OVERWORLD"
+  ];
+  var MAX_PAGES = 20;
+  var BY_ID = { required: { id: STR }, optional: {} };
+  var row = (r) => Object.freeze({
+    tier: DEFAULT_RESEARCH_TIER,
+    input: null,
+    // null means "this procedure takes no input"; undefined is sent
+    page: null,
+    // null means "not paged at source"; do not invent one
+    project: null,
+    // null means projection is not admitted for this path
+    ...r,
+    ...r.input ? { input: Object.freeze({ required: Object.freeze(r.input.required || {}), optional: Object.freeze(r.input.optional || {}) }) } : {}
+  });
+  var RESEARCH_READS = Object.freeze({
+    // ---- content record point reads: repo-safe, carried over verbatim (RUL-2026-09-17-001) -------
+    "gameAsset.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/gameAsset.ts get", demand: "push/02_one_perfect_crop_asset_probe.json" }),
+    "jutsu.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/jutsu.ts get", demand: "push/05_aerathiel_pvp_research_stage1.json" }),
+    "item.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/item.ts get", demand: "push/24_godstorm_tower_related_capture.json" }),
+    "bloodline.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/bloodline.ts get", demand: "push/21_night_parade_asset_followup.json" }),
+    "quests.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/quests.ts get", demand: "push/01_old_ghost_format_capture.json" }),
+    // profile.getAi is the one point read keyed on userId, not id (routers/profile.ts:1121).
+    "profile.getAi": row({ tier: "repo-safe", input: { required: { userId: STR }, optional: {} }, source: "routers/profile.ts:1121 getAi", demand: "push/04_one_perfect_crop_bandit_ai_probe.json" }),
+    "ai.getAiProfile": row({ tier: "repo-safe", input: BY_ID, source: "routers/ai.ts getAiProfile", demand: "push/25_godstorm_tower_combat_closure.json" }),
+    // ---- content name lists: input-free, local-only ---------------------------------------------
+    // These were readable in Phase 0 and their bodies were never persistable, so local-only is the
+    // tier they already had. Nothing here is widened; a row that should export needs a reviewed edit.
+    "jutsu.getAllNames": row({ source: "routers/jutsu.ts getAllNames", demand: "push/00_forge_readonly_smoke.json" }),
+    "quests.getAllNames": row({ source: "routers/quests.ts getAllNames", demand: "push/00_forge_readonly_smoke.json" }),
+    "item.getAllNames": row({ source: "routers/item.ts getAllNames", demand: "builder dedupNames live-name check" }),
+    "bloodline.getAllNames": row({ source: "routers/bloodline.ts getAllNames", demand: "builder dedupNames live-name check" }),
+    "gameAsset.getAllNames": row({ source: "routers/gameAsset.ts getAllNames", demand: "builder dedupNames live-name check" }),
+    "profile.getAllAiNames": row({ source: "routers/profile.ts getAllAiNames", demand: "builder dedupNames live-name check" }),
+    // ---- non-content research reads: NEW, demand-driven, local-only -----------------------------
+    // Both are protectedProcedure .query() with no ratelimitMiddleware composed at the call site,
+    // audited at REGISTRY_PIN and re-checked byte-identical at upstream 1fd355ab.
+    //
+    // getBattleHistory returns battleHistory rows joined WITH attacker/defender objects carrying
+    // username, userId and avatar (combat.ts:553-556). That is player data in a public repository if
+    // it is ever exported, which is exactly why the tier is local-only and why `project` is null:
+    // push/05 declares a `select` list, but admitting those fields for repository export is a
+    // privacy/publishing decision this implementation does not get to take. A reviewed registry edit
+    // adding `project` here is what turns push/05's select into an exportable projection.
+    "combat.getBattleHistory": row({
+      input: { required: {}, optional: { userId: STR, secondsBack: NUM, combatTypes: manyOf(...BATTLE_TYPES) } },
+      source: "app/src/server/api/routers/combat.ts:530-560 getBattleHistory",
+      demand: "push/05_aerathiel_pvp_research_stage1.json",
+      note: "no pagination at source: filtered, ordered createdAt desc, returns every matching row"
+    }),
+    // getBattleEntries is the one paged row: limit/offset, server default limit 30 and offset 0,
+    // ordered battleRound desc then battleVersion desc (combat.ts:396-421). The ordering is total and
+    // server-side, which is what makes offset paging reproducible rather than a best effort.
+    "combat.getBattleEntries": row({
+      input: {
+        required: { battleId: STR },
+        optional: { limit: NUM, offset: NUM, userFilter: oneOf("all", "user", "opponents"), showBasicActions: BOOL, refreshKey: NUM, checkBattle: BOOL }
+      },
+      // maxLimit is Forge's bound, not the server's: source accepts any number. 500 is the value the
+      // committed demand uses, so it is the measured working maximum rather than a round guess.
+      page: Object.freeze({ mode: "offset", limitKey: "limit", offsetKey: "offset", defaultLimit: 30, maxLimit: 500 }),
+      source: "app/src/server/api/routers/combat.ts:382-421 getBattleEntries",
+      demand: "push/06_aerathiel_pvp_battle_logs.json"
+    })
+  });
+  var RESEARCH_PATHS = Object.freeze(Object.keys(RESEARCH_READS));
+  var REPO_SAFE_PATHS = Object.freeze(RESEARCH_PATHS.filter((p) => RESEARCH_READS[p].tier === "repo-safe"));
+  var ResearchError = class extends Error {
+    constructor(message, info = {}) {
+      super(message);
+      this.name = "ResearchError";
+      Object.assign(this, info);
+    }
+  };
+  function researchRow(path) {
+    return RESEARCH_READS[path] || null;
+  }
+  function requireRow(path) {
+    const r = RESEARCH_READS[path];
+    if (!r) {
+      throw new ResearchError(
+        `${path} is not in the audited research-read registry, so Forge will not read it. Adding a row requires a committed manifest that needs it and a source audit at the declared pin.`,
+        { path }
+      );
+    }
+    return r;
+  }
+  function admissibleTiers(path) {
+    const ceiling = requireRow(path).tier;
+    return TIERS.slice(0, TIERS.indexOf(ceiling) + 1);
+  }
+  var typeName = (v) => Array.isArray(v) ? "array" : v === null ? "null" : typeof v;
+  function checkValue(where, spec, value) {
+    switch (spec.t) {
+      case "string":
+        if (typeof value !== "string" || !value) throw new ResearchError(`${where} must be a non-empty string, got ${typeName(value)}`);
+        return value;
+      case "number":
+        if (typeof value !== "number" || !Number.isFinite(value)) throw new ResearchError(`${where} must be a finite number, got ${typeName(value)}`);
+        return value;
+      case "boolean":
+        if (typeof value !== "boolean") throw new ResearchError(`${where} must be a boolean, got ${typeName(value)}`);
+        return value;
+      case "enum":
+        if (!spec.values.includes(value)) throw new ResearchError(`${where} must be one of ${spec.values.join(", ")}, got ${JSON.stringify(value)}`);
+        return value;
+      case "enum[]": {
+        if (!Array.isArray(value) || !value.length) throw new ResearchError(`${where} must be a non-empty array`);
+        for (const v of value) if (!spec.values.includes(v)) throw new ResearchError(`${where} contains ${JSON.stringify(v)}, which is not one of ${spec.values.join(", ")}`);
+        return [...value];
+      }
+      /* c8 ignore next */
+      default:
+        throw new ResearchError(`${where} has an unknown spec`);
+    }
+  }
+  function canonicalInput(path, input) {
+    const r = requireRow(path);
+    const given = input == null ? {} : input;
+    if (typeof given !== "object" || Array.isArray(given)) throw new ResearchError(`${path}: input must be an object`);
+    if (!r.input) {
+      const extra = Object.keys(given);
+      if (extra.length) throw new ResearchError(`${path} takes no input; remove ${extra.join(", ")}`, { path });
+      return null;
+    }
+    const { required, optional } = r.input;
+    const known = /* @__PURE__ */ new Set([...Object.keys(required), ...Object.keys(optional)]);
+    const unknown = Object.keys(given).filter((k) => !known.has(k));
+    if (unknown.length) {
+      throw new ResearchError(`${path}: input key(s) ${unknown.join(", ")} are not in the audited contract (allowed: ${[...known].join(", ")})`, { path, unknown });
+    }
+    const out = {};
+    for (const k of Object.keys(required)) {
+      if (!(k in given)) throw new ResearchError(`${path}: input.${k} is required`, { path, key: k });
+      out[k] = checkValue(`${path}: input.${k}`, required[k], given[k]);
+    }
+    for (const k of Object.keys(optional)) {
+      if (!(k in given) || given[k] === void 0) continue;
+      out[k] = checkValue(`${path}: input.${k}`, optional[k], given[k]);
+    }
+    return out;
+  }
+  function canonicalKey(input) {
+    return input === null ? "" : JSON.stringify(input);
+  }
+  function readMode(path) {
+    const r = requireRow(path);
+    if (!r.input) return "list";
+    const req = Object.keys(r.input.required), opt = Object.keys(r.input.optional);
+    return req.length === 1 && opt.length === 0 && !r.page ? "point" : "query";
+  }
+  function pointInput(path, id) {
+    const r = requireRow(path);
+    const keys = r.input ? Object.keys(r.input.required) : [];
+    if (keys.length !== 1) throw new ResearchError(`${path} is not a single-record point read`, { path });
+    return canonicalInput(path, { [keys[0]]: id });
+  }
+  function pageContract(path) {
+    return requireRow(path).page;
+  }
+  function pageInput(path, canonical, n) {
+    const p = requireRow(path).page;
+    if (!p) throw new ResearchError(`${path} is not paged at source; it cannot be read by page`, { path });
+    if (n === 0) return canonical;
+    const limit = canonical[p.limitKey] ?? p.defaultLimit;
+    return canonicalInput(path, { ...canonical, [p.offsetKey]: (canonical[p.offsetKey] ?? 0) + limit * n });
+  }
+  function pageSize(path, canonical) {
+    const p = requireRow(path).page;
+    return p ? canonical[p.limitKey] ?? p.defaultLimit : null;
+  }
+  var FIELD_RE = /^[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*$/;
+  var FORBIDDEN_SEGMENTS = /* @__PURE__ */ new Set(["__proto__", "prototype", "constructor"]);
+  function validateProjection(path, fields) {
+    const r = requireRow(path);
+    if (!Array.isArray(fields) || !fields.length) {
+      throw new ResearchError(`${path}: tier "projected" needs a non-empty projection (declare it as "projection" or "select")`, { path });
+    }
+    const narrowing = r.tier === "repo-safe";
+    if (!narrowing && !r.project) {
+      throw new ResearchError(`${path}: the registry admits no projected fields for this path, so nothing may be exported from it; widening that is a reviewed registry edit, not a manifest key`, { path });
+    }
+    const out = [];
+    for (const f of fields) {
+      if (typeof f !== "string" || !FIELD_RE.test(f)) {
+        throw new ResearchError(`${path}: ${JSON.stringify(f)} is not a declared field path; wildcards, indexes and spreads are not projections`, { path, field: f });
+      }
+      if (f.split(".").some((s) => FORBIDDEN_SEGMENTS.has(s))) throw new ResearchError(`${path}: ${f} is refused`, { path, field: f });
+      if (!narrowing && !r.project.includes(f)) {
+        throw new ResearchError(`${path}: ${f} is not in the registry's audited projectable fields (${r.project.join(", ")})`, { path, field: f });
+      }
+      if (!out.includes(f)) out.push(f);
+    }
+    return out;
+  }
+  var own = (o, k) => o !== null && typeof o === "object" && Object.prototype.hasOwnProperty.call(o, k);
+  var isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+  var isScalar = (v) => v === null || v === void 0 || ["string", "number", "boolean"].includes(typeof v);
+  var isScalarList = (v) => Array.isArray(v) && v.every(isScalar);
+  function projectInto(value, paths, prefix, missing) {
+    if (!isPlainObject(value)) {
+      for (const segs of paths) missing.add([...prefix, ...segs].join("."));
+      return null;
+    }
+    const out = {};
+    const groups = /* @__PURE__ */ new Map();
+    for (const segs of paths) {
+      const [head, ...rest] = segs;
+      if (!groups.has(head)) groups.set(head, []);
+      groups.get(head).push(rest);
+    }
+    for (const [head, rests] of groups) {
+      const here = [...prefix, head];
+      if (!own(value, head)) {
+        for (const rest of rests) missing.add([...here, ...rest].join("."));
+        continue;
+      }
+      const child = value[head];
+      const terminal = rests.filter((r) => !r.length);
+      const deeper = rests.filter((r) => r.length);
+      if (terminal.length) {
+        if (isScalar(child)) {
+          out[head] = child === void 0 ? null : child;
+          continue;
+        }
+        if (isScalarList(child)) {
+          out[head] = [...child];
+          continue;
+        }
+        missing.add(here.join("."));
+        continue;
+      }
+      if (Array.isArray(child)) {
+        out[head] = child.map((el) => projectInto(el, deeper, here, missing));
+        continue;
+      }
+      if (isPlainObject(child)) {
+        out[head] = projectInto(child, deeper, here, missing);
+        continue;
+      }
+      for (const rest of deeper) missing.add([...here, ...rest].join("."));
+    }
+    return out;
+  }
+  function projectBody(body, fields) {
+    const split = fields.map((f) => f.split("."));
+    const missing = /* @__PURE__ */ new Set();
+    const data = Array.isArray(body) ? body.map((el) => projectInto(el, split, [], missing)) : projectInto(body, split, [], missing);
+    return missing.size ? { ok: false, missing: [...missing] } : { ok: true, data };
+  }
+  var REGISTRY_REVISION = fnv1a32(stableStringify({
+    pin: REGISTRY_PIN,
+    rows: RESEARCH_PATHS.map((path) => {
+      const r = RESEARCH_READS[path];
+      return {
+        path,
+        tier: r.tier,
+        project: r.project,
+        input: r.input ? { required: Object.keys(r.input.required), optional: Object.keys(r.input.optional) } : null,
+        page: r.page ?? null
+      };
+    })
+  }));
+  function capturePolicy(path) {
+    const r = requireRow(path);
+    return Object.freeze({ pin: REGISTRY_PIN, registry: REGISTRY_REVISION, tier: r.tier, source: r.source });
+  }
+
+  // src/storage/captures.mjs
+  var DB_NAME = "tnr_forge";
+  var STORE = "captures";
+  var SNAPSHOT_STORE = "capture_snapshots";
+  var DB_VERSION = 2;
+  function captureKey(path, id) {
+    return `${path}:${id ?? ""}`;
+  }
+  function queryCaptureKey(path, queryKey) {
+    return `${path}?${queryKey ?? ""}`;
+  }
+  function snapshotKey(jobId, phase, ordinal) {
+    return `${jobId}::${phase}::${ordinal}`;
+  }
+  var FULL_PERSIST_PATHS = REPO_SAFE_PATHS;
+  function canPersistFull(path) {
+    return FULL_PERSIST_PATHS.includes(path);
+  }
+  function captureTier(capture) {
+    if (!capture || typeof capture !== "object") return null;
+    if (typeof capture.tier === "string" && capture.tier) return capture.tier;
+    return capture.persist === "full" ? "repo-safe" : null;
+  }
+  function isLegacyCapture(capture) {
+    return Boolean(capture && typeof capture === "object" && !capture.tier && capture.persist === "full");
+  }
+  var MAX_FULL_CAPTURE_BYTES = 512 * 1024;
+  var MAX_LOCAL_CAPTURE_BYTES = 8 * 1024 * 1024;
+  function tierCeiling(tier) {
+    return tier === "repo-safe" ? MAX_FULL_CAPTURE_BYTES : MAX_LOCAL_CAPTURE_BYTES;
+  }
+  var ENTITY_OF_PATH = Object.freeze({
+    jutsu: "jutsu",
+    item: "item",
+    bloodline: "bloodline",
+    gameAsset: "asset",
+    quests: "quest",
+    profile: "ai",
+    ai: "ai"
+  });
+  function entityOfPath(path) {
+    const router = String(path).split(".")[0];
+    return ENTITY_OF_PATH[router] ?? router;
+  }
+  function reqToPromise(req) {
+    return new Promise((resolve, reject) => {
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+  var CaptureCache = class {
+    /**
+     * @param {IDBFactory} idb  window.indexedDB or fake-indexeddb
+     * @param {() => number} clock
+     */
+    constructor(idb, clock = () => Date.now()) {
+      if (!idb || typeof idb.open !== "function") throw new Error("CaptureCache needs an IDBFactory");
+      this.idb = idb;
+      this.clock = clock;
+      this._db = null;
+    }
+    async _open() {
+      if (this._db) return this._db;
+      if (!this._opening) {
+        this._opening = (async () => {
+          const req = this.idb.open(DB_NAME, DB_VERSION);
+          req.onupgradeneeded = () => {
+            const db2 = req.result;
+            if (!db2.objectStoreNames.contains(STORE)) {
+              const store = db2.createObjectStore(STORE, { keyPath: "key" });
+              store.createIndex("entity", "entity", { unique: false });
+              store.createIndex("path", "path", { unique: false });
+            }
+            if (!db2.objectStoreNames.contains(SNAPSHOT_STORE)) {
+              const snaps = db2.createObjectStore(SNAPSHOT_STORE, { keyPath: "key" });
+              snaps.createIndex("jobId", "jobId", { unique: false });
+            }
+          };
+          const db = await new Promise((resolve, reject) => {
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = () => reject(req.error);
+            req.onblocked = () => reject(new Error("tnr_forge open blocked by another connection"));
+          });
+          db.onversionchange = () => {
+            db.close();
+            if (this._db === db) this._db = null;
+          };
+          db.onclose = () => {
+            if (this._db === db) this._db = null;
+          };
+          this._db = db;
+          return db;
+        })().finally(() => {
+          this._opening = null;
+        });
+      }
+      return this._opening;
+    }
+    async _tx(mode, fn, storeName = STORE) {
+      let db = await this._open();
+      let tx;
+      try {
+        tx = db.transaction(storeName, mode);
+      } catch (e) {
+        if (e && e.name === "InvalidStateError") {
+          this._db = null;
+          db = await this._open();
+          tx = db.transaction(storeName, mode);
+        } else throw e;
+      }
+      const store = tx.objectStore(storeName);
+      const result = await fn(store);
+      await new Promise((resolve, reject) => {
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+        tx.onabort = () => reject(tx.error);
+      });
+      return result;
+    }
+    /** Store a decoded response. */
+    async put({ path, id, input, data }) {
+      id = id == null || id === "" ? "" : String(id);
+      const rec = {
+        key: captureKey(path, id),
+        path,
+        id: id === "" ? null : id,
+        entity: entityOfPath(path),
+        input: input ?? null,
+        data,
+        at: new Date(this.clock()).toISOString(),
+        bytes: JSON.stringify(data ?? null).length
+      };
+      await this._tx("readwrite", (s) => reqToPromise(s.put(rec)));
+      return rec;
+    }
+    /**
+     * Store a decoded QUERY response under the exact input that produced it.
+     *
+     * `id` is deliberately null on these rows and the input lives in `query`. That is not cosmetic:
+     * invalidateRecord() drops every row of an entity whose id is null, which is how list captures
+     * already get invalidated by a write. A query row inherits that behaviour by being shaped like a
+     * list row, so a write to an entity cannot leave a stale filtered read of it behind.
+     */
+    async putQuery({ path, queryKey, input, data }) {
+      const rec = {
+        key: queryCaptureKey(path, queryKey),
+        path,
+        id: null,
+        query: queryKey ?? "",
+        entity: entityOfPath(path),
+        input: input ?? null,
+        data,
+        at: new Date(this.clock()).toISOString(),
+        bytes: JSON.stringify(data ?? null).length
+      };
+      await this._tx("readwrite", (s) => reqToPromise(s.put(rec)));
+      return rec;
+    }
+    async get(path, id) {
+      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(captureKey(path, id))));
+      return rec ?? null;
+    }
+    async getQuery(path, queryKey) {
+      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(queryCaptureKey(path, queryKey))));
+      return rec ?? null;
+    }
+    async has(path, id) {
+      return await this.get(path, id) != null;
+    }
+    async delete(path, id) {
+      await this._tx("readwrite", (s) => reqToPromise(s.delete(captureKey(path, id))));
+    }
+    /** Drop every capture belonging to an entity type (all paths, all ids). */
+    async invalidateEntity(entity) {
+      return this._tx("readwrite", async (s) => {
+        const idx = s.index("entity");
+        const keys = await reqToPromise(idx.getAllKeys(entity));
+        for (const k of keys) await reqToPromise(s.delete(k));
+        return keys.length;
+      });
+    }
+    /**
+     * Drop captures affected by a write to one record: that record's own gets on every path,
+     * plus every list capture for the entity (getAll, getAllNames), since lists carry names.
+     */
+    async invalidateRecord(entity, id) {
+      return this._tx("readwrite", async (s) => {
+        const idx = s.index("entity");
+        const recs = await reqToPromise(idx.getAll(entity));
+        let n = 0;
+        const want = id == null ? "" : String(id);
+        for (const r of recs) {
+          if (String(r.id ?? "") === want || r.id === null || r.id === "") {
+            await reqToPromise(s.delete(r.key));
+            n++;
+          }
+        }
+        return n;
+      });
+    }
+    async list() {
+      const recs = await this._tx("readonly", (s) => reqToPromise(s.getAll()));
+      return recs.map(({ key, path, id, entity, at, bytes, query }) => ({ key, path, id, entity, at, bytes, query: query ?? null }));
+    }
+    async size() {
+      const recs = await this.list();
+      return { count: recs.length, bytes: recs.reduce((a, r) => a + (r.bytes || 0), 0) };
+    }
+    async clear() {
+      await this._tx("readwrite", (s) => reqToPromise(s.clear()));
+    }
+    // ---------------------------------------------------------------- immutable capture snapshots
+    /**
+     * Store the exact decoded body of ONE full capture, under its occurrence key. Written once, from
+     * the body that read returned, and never rewritten by a later read of the same record: this is
+     * the copy the exported bundle is materialized from.
+     *
+     * Deliberately NOT reachable from invalidateEntity/invalidateRecord/clear, all of which operate
+     * on the read cache only. A snapshot is deleted explicitly, by job or by key.
+     */
+    async putSnapshot({ key, jobId, phase, ordinal, path, id, input, data, tier = "repo-safe", projection = null, page = null, policy = null }) {
+      const rec = {
+        key,
+        jobId,
+        phase,
+        ordinal,
+        path,
+        id: id == null || id === "" ? null : String(id),
+        entity: entityOfPath(path),
+        // The tier travels WITH the body. Export asks the snapshot what it is allowed to do with what
+        // it just read, rather than re-deriving it from the path — so a registry edit that narrows a
+        // tier cannot retroactively make an already-stored body exportable under the old rule, and a
+        // snapshot separated from its journal entry still knows it is local-only.
+        tier,
+        // The policy that admitted the read travels WITH the body, so evidence and the contract that
+        // allowed it cannot be separated by a journal edit or a later registry change (review FN4).
+        policy,
+        projection: projection ? [...projection] : null,
+        page,
+        input: input ?? null,
+        data,
+        at: new Date(this.clock()).toISOString(),
+        bytes: JSON.stringify(data ?? null).length
+      };
+      await this._tx("readwrite", (s) => reqToPromise(s.put(rec)), SNAPSHOT_STORE);
+      return rec;
+    }
+    async getSnapshot(key) {
+      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(key)), SNAPSHOT_STORE);
+      return rec ?? null;
+    }
+    async listSnapshots() {
+      const recs = await this._tx("readonly", (s) => reqToPromise(s.getAll()), SNAPSHOT_STORE);
+      return recs.map(({ key, jobId, phase, ordinal, path, id, entity, at, bytes, tier }) => ({ key, jobId, phase, ordinal, path, id, entity, at, bytes, tier: tier ?? "repo-safe" }));
+    }
+    async deleteSnapshot(key) {
+      await this._tx("readwrite", (s) => reqToPromise(s.delete(key)), SNAPSHOT_STORE);
+    }
+    /** Drop every snapshot belonging to one job, for when that job's record is deleted. */
+    async deleteSnapshotsForJob(jobId) {
+      return this._tx("readwrite", async (s) => {
+        const keys = await reqToPromise(s.index("jobId").getAllKeys(jobId));
+        for (const k of keys) await reqToPromise(s.delete(k));
+        return keys.length;
+      }, SNAPSHOT_STORE);
+    }
+    async clearSnapshots() {
+      await this._tx("readwrite", (s) => reqToPromise(s.clear()), SNAPSHOT_STORE);
+    }
+    close() {
+      if (this._db) {
+        this._db.close();
+        this._db = null;
+      }
+    }
+  };
+
   // src/storage/journal.mjs
   var JOURNAL_VERSION = 1;
   var KEY_PREFIX = "tnr_forge_job_v1:";
@@ -35,7 +700,7 @@
   function captureOk(capture) {
     if (!capture || capture.ok !== true) return false;
     if (capture.complete === false) return false;
-    return !capture.tier || capture.persistOk === true;
+    return !captureTier(capture) || capture.persistOk === true;
   }
   function jobOutcome(job) {
     if (!job || !Array.isArray(job.items)) return "open";
@@ -47,7 +712,7 @@
     }
     if (job.items.some((it) => it.state === "FAILED")) return "failed";
     if (job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state) || it.state === "SKIPPED" || it.verify && it.verify !== "match")) return "unverified";
-    if (captures.some((capture) => capture && (capture.complete === false || capture.tier && capture.persistOk !== true))) return "unverified";
+    if (captures.some((capture) => capture && (capture.complete === false || captureTier(capture) && capture.persistOk !== true))) return "unverified";
     return "success";
   }
   var JournalError = class extends Error {
@@ -366,612 +1031,6 @@
     job.v = v;
     return repairHistory(job);
   }
-
-  // src/transport/procedures.mjs
-  var PROCEDURES = Object.freeze({
-    "ai.createAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "ai.getAiProfile": { kind: "query", limited: false, mcp: true, auth: "protected" },
-    "ai.toggleAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "ai.updateAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "bloodline.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "bloodline.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "bloodline.get": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "bloodline.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "bloodline.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "bloodline.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    // combat.* are the Phase 1 research additions, audited at the pin above against
-    // app/src/server/api/routers/combat.ts: getBattleEntries at :382 and getBattleHistory at :530.
-    // Both are protectedProcedure (trpc.ts:230, enforceUserIsAuthed + sentryMiddleware) and neither
-    // composes ratelimitMiddleware at its call site — the .use(ratelimitMiddleware) occurrences in
-    // that file are at :565, :898, :960, :1410 and :1506, none of which is either procedure — so
-    // `limited` is false for the same reason it is false for every other protected row here, and not
-    // by inference from the base builder. Both carry .meta({ mcp: { enabled: true } }).
-    // Admission to READ them is a separate question answered by research/registry.mjs, not by their
-    // presence in this table.
-    "combat.getBattleEntries": { kind: "query", limited: false, mcp: true, auth: "protected" },
-    "combat.getBattleHistory": { kind: "query", limited: false, mcp: true, auth: "protected" },
-    "gameAsset.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "gameAsset.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "gameAsset.get": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "gameAsset.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "gameAsset.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "gameAsset.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "item.clone": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "item.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "item.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "item.get": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "item.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "item.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "item.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "jutsu.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "jutsu.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "jutsu.get": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "jutsu.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "jutsu.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "jutsu.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "profile.cloneAi": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    "profile.create": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
-    "profile.delete": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
-    "profile.getAi": { kind: "query", limited: false, mcp: true, auth: "protected" },
-    "profile.getAllAiNames": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "profile.updateAi": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
-    "quests.checkRewards": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
-    "quests.clone": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
-    "quests.create": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
-    "quests.delete": { kind: "mutation", limited: false, mcp: true, auth: "protected" },
-    "quests.get": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "quests.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "quests.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
-    "quests.update": { kind: "mutation", limited: false, mcp: true, auth: "protected" }
-  });
-  function procedure(path) {
-    const p = PROCEDURES[path];
-    if (!p) throw new Error("unknown procedure: " + path + " (not in the audited crud surface)");
-    return p;
-  }
-  function isProtected(path) {
-    return procedure(path).auth === "protected";
-  }
-  var LIMITED_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].limited));
-  var MUTATION_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].kind === "mutation"));
-  var PROTECTED_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].auth === "protected"));
-
-  // src/research/registry.mjs
-  var TIERS = Object.freeze(["local-only", "projected", "repo-safe"]);
-  var DEFAULT_RESEARCH_TIER = "local-only";
-  function tierAtMost(tier, ceiling) {
-    const a = TIERS.indexOf(tier), b = TIERS.indexOf(ceiling);
-    return a >= 0 && b >= 0 && a <= b;
-  }
-  var STR = Object.freeze({ t: "string" });
-  var NUM = Object.freeze({ t: "number" });
-  var BOOL = Object.freeze({ t: "boolean" });
-  var oneOf = (...values) => Object.freeze({ t: "enum", values: Object.freeze(values) });
-  var manyOf = (...values) => Object.freeze({ t: "enum[]", values: Object.freeze(values) });
-  var BATTLE_TYPES = [
-    "ARENA",
-    "COMBAT",
-    "SPARRING",
-    "KAGE_AI",
-    "KAGE_PVP",
-    "CLAN_CHALLENGE",
-    "CLAN_BATTLE",
-    "SHRINE_WAR",
-    "TOURNAMENT",
-    "QUEST",
-    "RANDOM_ENCOUNTER",
-    "VILLAGE_PROTECTOR",
-    "TRAINING",
-    "RANKED_PVP",
-    "RANKED_SPARRING",
-    "RAID",
-    "OVERWORLD"
-  ];
-  var MAX_PAGES = 20;
-  var BY_ID = { required: { id: STR }, optional: {} };
-  var row = (r) => Object.freeze({
-    tier: DEFAULT_RESEARCH_TIER,
-    input: null,
-    // null means "this procedure takes no input"; undefined is sent
-    page: null,
-    // null means "not paged at source"; do not invent one
-    project: null,
-    // null means projection is not admitted for this path
-    ...r,
-    ...r.input ? { input: Object.freeze({ required: Object.freeze(r.input.required || {}), optional: Object.freeze(r.input.optional || {}) }) } : {}
-  });
-  var RESEARCH_READS = Object.freeze({
-    // ---- content record point reads: repo-safe, carried over verbatim (RUL-2026-09-17-001) -------
-    "gameAsset.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/gameAsset.ts get", demand: "push/02_one_perfect_crop_asset_probe.json" }),
-    "jutsu.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/jutsu.ts get", demand: "push/05_aerathiel_pvp_research_stage1.json" }),
-    "item.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/item.ts get", demand: "push/24_godstorm_tower_related_capture.json" }),
-    "bloodline.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/bloodline.ts get", demand: "push/21_night_parade_asset_followup.json" }),
-    "quests.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/quests.ts get", demand: "push/01_old_ghost_format_capture.json" }),
-    // profile.getAi is the one point read keyed on userId, not id (routers/profile.ts:1121).
-    "profile.getAi": row({ tier: "repo-safe", input: { required: { userId: STR }, optional: {} }, source: "routers/profile.ts:1121 getAi", demand: "push/04_one_perfect_crop_bandit_ai_probe.json" }),
-    "ai.getAiProfile": row({ tier: "repo-safe", input: BY_ID, source: "routers/ai.ts getAiProfile", demand: "push/25_godstorm_tower_combat_closure.json" }),
-    // ---- content name lists: input-free, local-only ---------------------------------------------
-    // These were readable in Phase 0 and their bodies were never persistable, so local-only is the
-    // tier they already had. Nothing here is widened; a row that should export needs a reviewed edit.
-    "jutsu.getAllNames": row({ source: "routers/jutsu.ts getAllNames", demand: "push/00_forge_readonly_smoke.json" }),
-    "quests.getAllNames": row({ source: "routers/quests.ts getAllNames", demand: "push/00_forge_readonly_smoke.json" }),
-    "item.getAllNames": row({ source: "routers/item.ts getAllNames", demand: "builder dedupNames live-name check" }),
-    "bloodline.getAllNames": row({ source: "routers/bloodline.ts getAllNames", demand: "builder dedupNames live-name check" }),
-    "gameAsset.getAllNames": row({ source: "routers/gameAsset.ts getAllNames", demand: "builder dedupNames live-name check" }),
-    "profile.getAllAiNames": row({ source: "routers/profile.ts getAllAiNames", demand: "builder dedupNames live-name check" }),
-    // ---- non-content research reads: NEW, demand-driven, local-only -----------------------------
-    // Both are protectedProcedure .query() with no ratelimitMiddleware composed at the call site,
-    // audited at REGISTRY_PIN and re-checked byte-identical at upstream 1fd355ab.
-    //
-    // getBattleHistory returns battleHistory rows joined WITH attacker/defender objects carrying
-    // username, userId and avatar (combat.ts:553-556). That is player data in a public repository if
-    // it is ever exported, which is exactly why the tier is local-only and why `project` is null:
-    // push/05 declares a `select` list, but admitting those fields for repository export is a
-    // privacy/publishing decision this implementation does not get to take. A reviewed registry edit
-    // adding `project` here is what turns push/05's select into an exportable projection.
-    "combat.getBattleHistory": row({
-      input: { required: {}, optional: { userId: STR, secondsBack: NUM, combatTypes: manyOf(...BATTLE_TYPES) } },
-      source: "app/src/server/api/routers/combat.ts:530-560 getBattleHistory",
-      demand: "push/05_aerathiel_pvp_research_stage1.json",
-      note: "no pagination at source: filtered, ordered createdAt desc, returns every matching row"
-    }),
-    // getBattleEntries is the one paged row: limit/offset, server default limit 30 and offset 0,
-    // ordered battleRound desc then battleVersion desc (combat.ts:396-421). The ordering is total and
-    // server-side, which is what makes offset paging reproducible rather than a best effort.
-    "combat.getBattleEntries": row({
-      input: {
-        required: { battleId: STR },
-        optional: { limit: NUM, offset: NUM, userFilter: oneOf("all", "user", "opponents"), showBasicActions: BOOL, refreshKey: NUM, checkBattle: BOOL }
-      },
-      // maxLimit is Forge's bound, not the server's: source accepts any number. 500 is the value the
-      // committed demand uses, so it is the measured working maximum rather than a round guess.
-      page: Object.freeze({ mode: "offset", limitKey: "limit", offsetKey: "offset", defaultLimit: 30, maxLimit: 500 }),
-      source: "app/src/server/api/routers/combat.ts:382-421 getBattleEntries",
-      demand: "push/06_aerathiel_pvp_battle_logs.json"
-    })
-  });
-  var RESEARCH_PATHS = Object.freeze(Object.keys(RESEARCH_READS));
-  var REPO_SAFE_PATHS = Object.freeze(RESEARCH_PATHS.filter((p) => RESEARCH_READS[p].tier === "repo-safe"));
-  var ResearchError = class extends Error {
-    constructor(message, info = {}) {
-      super(message);
-      this.name = "ResearchError";
-      Object.assign(this, info);
-    }
-  };
-  function researchRow(path) {
-    return RESEARCH_READS[path] || null;
-  }
-  function requireRow(path) {
-    const r = RESEARCH_READS[path];
-    if (!r) {
-      throw new ResearchError(
-        `${path} is not in the audited research-read registry, so Forge will not read it. Adding a row requires a committed manifest that needs it and a source audit at the declared pin.`,
-        { path }
-      );
-    }
-    return r;
-  }
-  function admissibleTiers(path) {
-    const ceiling = requireRow(path).tier;
-    return TIERS.slice(0, TIERS.indexOf(ceiling) + 1);
-  }
-  var typeName = (v) => Array.isArray(v) ? "array" : v === null ? "null" : typeof v;
-  function checkValue(where, spec, value) {
-    switch (spec.t) {
-      case "string":
-        if (typeof value !== "string" || !value) throw new ResearchError(`${where} must be a non-empty string, got ${typeName(value)}`);
-        return value;
-      case "number":
-        if (typeof value !== "number" || !Number.isFinite(value)) throw new ResearchError(`${where} must be a finite number, got ${typeName(value)}`);
-        return value;
-      case "boolean":
-        if (typeof value !== "boolean") throw new ResearchError(`${where} must be a boolean, got ${typeName(value)}`);
-        return value;
-      case "enum":
-        if (!spec.values.includes(value)) throw new ResearchError(`${where} must be one of ${spec.values.join(", ")}, got ${JSON.stringify(value)}`);
-        return value;
-      case "enum[]": {
-        if (!Array.isArray(value) || !value.length) throw new ResearchError(`${where} must be a non-empty array`);
-        for (const v of value) if (!spec.values.includes(v)) throw new ResearchError(`${where} contains ${JSON.stringify(v)}, which is not one of ${spec.values.join(", ")}`);
-        return [...value];
-      }
-      /* c8 ignore next */
-      default:
-        throw new ResearchError(`${where} has an unknown spec`);
-    }
-  }
-  function canonicalInput(path, input) {
-    const r = requireRow(path);
-    const given = input == null ? {} : input;
-    if (typeof given !== "object" || Array.isArray(given)) throw new ResearchError(`${path}: input must be an object`);
-    if (!r.input) {
-      const extra = Object.keys(given);
-      if (extra.length) throw new ResearchError(`${path} takes no input; remove ${extra.join(", ")}`, { path });
-      return null;
-    }
-    const { required, optional } = r.input;
-    const known = /* @__PURE__ */ new Set([...Object.keys(required), ...Object.keys(optional)]);
-    const unknown = Object.keys(given).filter((k) => !known.has(k));
-    if (unknown.length) {
-      throw new ResearchError(`${path}: input key(s) ${unknown.join(", ")} are not in the audited contract (allowed: ${[...known].join(", ")})`, { path, unknown });
-    }
-    const out = {};
-    for (const k of Object.keys(required)) {
-      if (!(k in given)) throw new ResearchError(`${path}: input.${k} is required`, { path, key: k });
-      out[k] = checkValue(`${path}: input.${k}`, required[k], given[k]);
-    }
-    for (const k of Object.keys(optional)) {
-      if (!(k in given) || given[k] === void 0) continue;
-      out[k] = checkValue(`${path}: input.${k}`, optional[k], given[k]);
-    }
-    return out;
-  }
-  function canonicalKey(input) {
-    return input === null ? "" : JSON.stringify(input);
-  }
-  function readMode(path) {
-    const r = requireRow(path);
-    if (!r.input) return "list";
-    const req = Object.keys(r.input.required), opt = Object.keys(r.input.optional);
-    return req.length === 1 && opt.length === 0 && !r.page ? "point" : "query";
-  }
-  function pointInput(path, id) {
-    const r = requireRow(path);
-    const keys = r.input ? Object.keys(r.input.required) : [];
-    if (keys.length !== 1) throw new ResearchError(`${path} is not a single-record point read`, { path });
-    return canonicalInput(path, { [keys[0]]: id });
-  }
-  function pageContract(path) {
-    return requireRow(path).page;
-  }
-  function pageInput(path, canonical, n) {
-    const p = requireRow(path).page;
-    if (!p) throw new ResearchError(`${path} is not paged at source; it cannot be read by page`, { path });
-    if (n === 0) return canonical;
-    const limit = canonical[p.limitKey] ?? p.defaultLimit;
-    return canonicalInput(path, { ...canonical, [p.offsetKey]: (canonical[p.offsetKey] ?? 0) + limit * n });
-  }
-  function pageSize(path, canonical) {
-    const p = requireRow(path).page;
-    return p ? canonical[p.limitKey] ?? p.defaultLimit : null;
-  }
-  var FIELD_RE = /^[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*$/;
-  var FORBIDDEN_SEGMENTS = /* @__PURE__ */ new Set(["__proto__", "prototype", "constructor"]);
-  function validateProjection(path, fields) {
-    const r = requireRow(path);
-    if (!Array.isArray(fields) || !fields.length) {
-      throw new ResearchError(`${path}: tier "projected" needs a non-empty projection (declare it as "projection" or "select")`, { path });
-    }
-    const narrowing = r.tier === "repo-safe";
-    if (!narrowing && !r.project) {
-      throw new ResearchError(`${path}: the registry admits no projected fields for this path, so nothing may be exported from it; widening that is a reviewed registry edit, not a manifest key`, { path });
-    }
-    const out = [];
-    for (const f of fields) {
-      if (typeof f !== "string" || !FIELD_RE.test(f)) {
-        throw new ResearchError(`${path}: ${JSON.stringify(f)} is not a declared field path; wildcards, indexes and spreads are not projections`, { path, field: f });
-      }
-      if (f.split(".").some((s) => FORBIDDEN_SEGMENTS.has(s))) throw new ResearchError(`${path}: ${f} is refused`, { path, field: f });
-      if (!narrowing && !r.project.includes(f)) {
-        throw new ResearchError(`${path}: ${f} is not in the registry's audited projectable fields (${r.project.join(", ")})`, { path, field: f });
-      }
-      if (!out.includes(f)) out.push(f);
-    }
-    return out;
-  }
-  var own = (o, k) => o !== null && typeof o === "object" && Object.prototype.hasOwnProperty.call(o, k);
-  function pluck(obj, segments) {
-    let cur = obj;
-    for (const s of segments) {
-      if (!own(cur, s)) return { hit: false };
-      cur = cur[s];
-    }
-    return { hit: true, value: cur };
-  }
-  function assign(target, segments, value) {
-    let cur = target;
-    for (let i = 0; i < segments.length - 1; i++) {
-      const s = segments[i];
-      if (!own(cur, s) || cur[s] === null || typeof cur[s] !== "object") cur[s] = {};
-      cur = cur[s];
-    }
-    cur[segments[segments.length - 1]] = value;
-  }
-  function projectOne(body, split) {
-    if (body === null || typeof body !== "object" || Array.isArray(body)) return { ok: false, missing: split.map((s) => s.join(".")) };
-    const out = {};
-    const missing = [];
-    for (const segments of split) {
-      const r = pluck(body, segments);
-      if (!r.hit) {
-        missing.push(segments.join("."));
-        continue;
-      }
-      assign(out, segments, r.value === void 0 ? null : r.value);
-    }
-    return missing.length ? { ok: false, missing } : { ok: true, data: out };
-  }
-  function projectBody(body, fields) {
-    const split = fields.map((f) => f.split("."));
-    if (Array.isArray(body)) {
-      const out = [];
-      const missing = /* @__PURE__ */ new Set();
-      for (const el of body) {
-        const r = projectOne(el, split);
-        if (!r.ok) {
-          for (const m of r.missing) missing.add(m);
-          continue;
-        }
-        out.push(r.data);
-      }
-      return missing.size ? { ok: false, missing: [...missing] } : { ok: true, data: out };
-    }
-    return projectOne(body, split);
-  }
-
-  // src/storage/captures.mjs
-  var DB_NAME = "tnr_forge";
-  var STORE = "captures";
-  var SNAPSHOT_STORE = "capture_snapshots";
-  var DB_VERSION = 2;
-  function captureKey(path, id) {
-    return `${path}:${id ?? ""}`;
-  }
-  function queryCaptureKey(path, queryKey) {
-    return `${path}?${queryKey ?? ""}`;
-  }
-  function snapshotKey(jobId, phase, ordinal) {
-    return `${jobId}::${phase}::${ordinal}`;
-  }
-  var FULL_PERSIST_PATHS = REPO_SAFE_PATHS;
-  var MAX_FULL_CAPTURE_BYTES = 512 * 1024;
-  var MAX_LOCAL_CAPTURE_BYTES = 8 * 1024 * 1024;
-  function tierCeiling(tier) {
-    return tier === "repo-safe" ? MAX_FULL_CAPTURE_BYTES : MAX_LOCAL_CAPTURE_BYTES;
-  }
-  var ENTITY_OF_PATH = Object.freeze({
-    jutsu: "jutsu",
-    item: "item",
-    bloodline: "bloodline",
-    gameAsset: "asset",
-    quests: "quest",
-    profile: "ai",
-    ai: "ai"
-  });
-  function entityOfPath(path) {
-    const router = String(path).split(".")[0];
-    return ENTITY_OF_PATH[router] ?? router;
-  }
-  function reqToPromise(req) {
-    return new Promise((resolve, reject) => {
-      req.onsuccess = () => resolve(req.result);
-      req.onerror = () => reject(req.error);
-    });
-  }
-  var CaptureCache = class {
-    /**
-     * @param {IDBFactory} idb  window.indexedDB or fake-indexeddb
-     * @param {() => number} clock
-     */
-    constructor(idb, clock = () => Date.now()) {
-      if (!idb || typeof idb.open !== "function") throw new Error("CaptureCache needs an IDBFactory");
-      this.idb = idb;
-      this.clock = clock;
-      this._db = null;
-    }
-    async _open() {
-      if (this._db) return this._db;
-      if (!this._opening) {
-        this._opening = (async () => {
-          const req = this.idb.open(DB_NAME, DB_VERSION);
-          req.onupgradeneeded = () => {
-            const db2 = req.result;
-            if (!db2.objectStoreNames.contains(STORE)) {
-              const store = db2.createObjectStore(STORE, { keyPath: "key" });
-              store.createIndex("entity", "entity", { unique: false });
-              store.createIndex("path", "path", { unique: false });
-            }
-            if (!db2.objectStoreNames.contains(SNAPSHOT_STORE)) {
-              const snaps = db2.createObjectStore(SNAPSHOT_STORE, { keyPath: "key" });
-              snaps.createIndex("jobId", "jobId", { unique: false });
-            }
-          };
-          const db = await new Promise((resolve, reject) => {
-            req.onsuccess = () => resolve(req.result);
-            req.onerror = () => reject(req.error);
-            req.onblocked = () => reject(new Error("tnr_forge open blocked by another connection"));
-          });
-          db.onversionchange = () => {
-            db.close();
-            if (this._db === db) this._db = null;
-          };
-          db.onclose = () => {
-            if (this._db === db) this._db = null;
-          };
-          this._db = db;
-          return db;
-        })().finally(() => {
-          this._opening = null;
-        });
-      }
-      return this._opening;
-    }
-    async _tx(mode, fn, storeName = STORE) {
-      let db = await this._open();
-      let tx;
-      try {
-        tx = db.transaction(storeName, mode);
-      } catch (e) {
-        if (e && e.name === "InvalidStateError") {
-          this._db = null;
-          db = await this._open();
-          tx = db.transaction(storeName, mode);
-        } else throw e;
-      }
-      const store = tx.objectStore(storeName);
-      const result = await fn(store);
-      await new Promise((resolve, reject) => {
-        tx.oncomplete = () => resolve();
-        tx.onerror = () => reject(tx.error);
-        tx.onabort = () => reject(tx.error);
-      });
-      return result;
-    }
-    /** Store a decoded response. */
-    async put({ path, id, input, data }) {
-      id = id == null || id === "" ? "" : String(id);
-      const rec = {
-        key: captureKey(path, id),
-        path,
-        id: id === "" ? null : id,
-        entity: entityOfPath(path),
-        input: input ?? null,
-        data,
-        at: new Date(this.clock()).toISOString(),
-        bytes: JSON.stringify(data ?? null).length
-      };
-      await this._tx("readwrite", (s) => reqToPromise(s.put(rec)));
-      return rec;
-    }
-    /**
-     * Store a decoded QUERY response under the exact input that produced it.
-     *
-     * `id` is deliberately null on these rows and the input lives in `query`. That is not cosmetic:
-     * invalidateRecord() drops every row of an entity whose id is null, which is how list captures
-     * already get invalidated by a write. A query row inherits that behaviour by being shaped like a
-     * list row, so a write to an entity cannot leave a stale filtered read of it behind.
-     */
-    async putQuery({ path, queryKey, input, data }) {
-      const rec = {
-        key: queryCaptureKey(path, queryKey),
-        path,
-        id: null,
-        query: queryKey ?? "",
-        entity: entityOfPath(path),
-        input: input ?? null,
-        data,
-        at: new Date(this.clock()).toISOString(),
-        bytes: JSON.stringify(data ?? null).length
-      };
-      await this._tx("readwrite", (s) => reqToPromise(s.put(rec)));
-      return rec;
-    }
-    async get(path, id) {
-      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(captureKey(path, id))));
-      return rec ?? null;
-    }
-    async getQuery(path, queryKey) {
-      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(queryCaptureKey(path, queryKey))));
-      return rec ?? null;
-    }
-    async has(path, id) {
-      return await this.get(path, id) != null;
-    }
-    async delete(path, id) {
-      await this._tx("readwrite", (s) => reqToPromise(s.delete(captureKey(path, id))));
-    }
-    /** Drop every capture belonging to an entity type (all paths, all ids). */
-    async invalidateEntity(entity) {
-      return this._tx("readwrite", async (s) => {
-        const idx = s.index("entity");
-        const keys = await reqToPromise(idx.getAllKeys(entity));
-        for (const k of keys) await reqToPromise(s.delete(k));
-        return keys.length;
-      });
-    }
-    /**
-     * Drop captures affected by a write to one record: that record's own gets on every path,
-     * plus every list capture for the entity (getAll, getAllNames), since lists carry names.
-     */
-    async invalidateRecord(entity, id) {
-      return this._tx("readwrite", async (s) => {
-        const idx = s.index("entity");
-        const recs = await reqToPromise(idx.getAll(entity));
-        let n = 0;
-        const want = id == null ? "" : String(id);
-        for (const r of recs) {
-          if (String(r.id ?? "") === want || r.id === null || r.id === "") {
-            await reqToPromise(s.delete(r.key));
-            n++;
-          }
-        }
-        return n;
-      });
-    }
-    async list() {
-      const recs = await this._tx("readonly", (s) => reqToPromise(s.getAll()));
-      return recs.map(({ key, path, id, entity, at, bytes, query }) => ({ key, path, id, entity, at, bytes, query: query ?? null }));
-    }
-    async size() {
-      const recs = await this.list();
-      return { count: recs.length, bytes: recs.reduce((a, r) => a + (r.bytes || 0), 0) };
-    }
-    async clear() {
-      await this._tx("readwrite", (s) => reqToPromise(s.clear()));
-    }
-    // ---------------------------------------------------------------- immutable capture snapshots
-    /**
-     * Store the exact decoded body of ONE full capture, under its occurrence key. Written once, from
-     * the body that read returned, and never rewritten by a later read of the same record: this is
-     * the copy the exported bundle is materialized from.
-     *
-     * Deliberately NOT reachable from invalidateEntity/invalidateRecord/clear, all of which operate
-     * on the read cache only. A snapshot is deleted explicitly, by job or by key.
-     */
-    async putSnapshot({ key, jobId, phase, ordinal, path, id, input, data, tier = "repo-safe", projection = null, page = null }) {
-      const rec = {
-        key,
-        jobId,
-        phase,
-        ordinal,
-        path,
-        id: id == null || id === "" ? null : String(id),
-        entity: entityOfPath(path),
-        // The tier travels WITH the body. Export asks the snapshot what it is allowed to do with what
-        // it just read, rather than re-deriving it from the path — so a registry edit that narrows a
-        // tier cannot retroactively make an already-stored body exportable under the old rule, and a
-        // snapshot separated from its journal entry still knows it is local-only.
-        tier,
-        projection: projection ? [...projection] : null,
-        page,
-        input: input ?? null,
-        data,
-        at: new Date(this.clock()).toISOString(),
-        bytes: JSON.stringify(data ?? null).length
-      };
-      await this._tx("readwrite", (s) => reqToPromise(s.put(rec)), SNAPSHOT_STORE);
-      return rec;
-    }
-    async getSnapshot(key) {
-      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(key)), SNAPSHOT_STORE);
-      return rec ?? null;
-    }
-    async listSnapshots() {
-      const recs = await this._tx("readonly", (s) => reqToPromise(s.getAll()), SNAPSHOT_STORE);
-      return recs.map(({ key, jobId, phase, ordinal, path, id, entity, at, bytes, tier }) => ({ key, jobId, phase, ordinal, path, id, entity, at, bytes, tier: tier ?? "repo-safe" }));
-    }
-    async deleteSnapshot(key) {
-      await this._tx("readwrite", (s) => reqToPromise(s.delete(key)), SNAPSHOT_STORE);
-    }
-    /** Drop every snapshot belonging to one job, for when that job's record is deleted. */
-    async deleteSnapshotsForJob(jobId) {
-      return this._tx("readwrite", async (s) => {
-        const keys = await reqToPromise(s.index("jobId").getAllKeys(jobId));
-        for (const k of keys) await reqToPromise(s.delete(k));
-        return keys.length;
-      }, SNAPSHOT_STORE);
-    }
-    async clearSnapshots() {
-      await this._tx("readwrite", (s) => reqToPromise(s.clear()), SNAPSHOT_STORE);
-    }
-    close() {
-      if (this._db) {
-        this._db.close();
-        this._db = null;
-      }
-    }
-  };
 
   // src/storage/repotext.mjs
   var REPO_DB_NAME = "tnr_forge_repo";
@@ -1421,7 +1480,7 @@
   var getType = (payload) => Object.prototype.toString.call(payload).slice(8, -1);
   var isUndefined = (payload) => typeof payload === "undefined";
   var isNull = (payload) => payload === null;
-  var isPlainObject = (payload) => {
+  var isPlainObject2 = (payload) => {
     if (typeof payload !== "object" || payload === null)
       return false;
     if (payload === Object.prototype)
@@ -1430,7 +1489,7 @@
       return true;
     return Object.getPrototypeOf(payload) === Object.prototype;
   };
-  var isEmptyObject = (payload) => isPlainObject(payload) && Object.keys(payload).length === 0;
+  var isEmptyObject = (payload) => isPlainObject2(payload) && Object.keys(payload).length === 0;
   var isArray = (payload) => Array.isArray(payload);
   var isString = (payload) => typeof payload === "string";
   var isNumber = (payload) => typeof payload === "number" && !isNaN(payload);
@@ -1743,7 +1802,7 @@
       if (isArray(parent)) {
         const index = +key;
         parent = parent[index];
-      } else if (isPlainObject(parent)) {
+      } else if (isPlainObject2(parent)) {
         parent = parent[key];
       } else if (isSet(parent)) {
         const row2 = +key;
@@ -1769,7 +1828,7 @@
     const lastKey = path[path.length - 1];
     if (isArray(parent)) {
       parent[+lastKey] = mapper(parent[+lastKey]);
-    } else if (isPlainObject(parent)) {
+    } else if (isPlainObject2(parent)) {
       parent[lastKey] = mapper(parent[lastKey]);
     }
     if (isSet(parent)) {
@@ -1854,7 +1913,7 @@
     }
     return plain;
   }
-  var isDeep = (object, superJson) => isPlainObject(object) || isArray(object) || isMap(object) || isSet(object) || isError(object) || isInstanceOfRegisteredClass(object, superJson);
+  var isDeep = (object, superJson) => isPlainObject2(object) || isArray(object) || isMap(object) || isSet(object) || isError(object) || isInstanceOfRegisteredClass(object, superJson);
   function addIdentity(object, path, identities) {
     const existingSet = identities.get(object);
     if (existingSet) {
@@ -1931,7 +1990,7 @@
       transformedValue[index] = recursiveResult.transformedValue;
       if (isArray(recursiveResult.annotations)) {
         innerAnnotations[escapeKey(index)] = recursiveResult.annotations;
-      } else if (isPlainObject(recursiveResult.annotations)) {
+      } else if (isPlainObject2(recursiveResult.annotations)) {
         forEach(recursiveResult.annotations, (tree, key) => {
           innerAnnotations[escapeKey(index) + "." + key] = tree;
         });
@@ -1963,14 +2022,14 @@
       configurable: true
     });
   }
-  function isPlainObject2(value) {
+  function isPlainObject3(value) {
     return Object.getPrototypeOf(value) === Object.prototype && Object.prototype.toString.call(value) === "[object Object]";
   }
   function cloneRef(value, clones, sources, dests) {
     if (typeof value !== "object" || value === null)
       return value;
     const array = Array.isArray(value);
-    if (!array && !isPlainObject2(value))
+    if (!array && !isPlainObject3(value))
       return value;
     const existing = clones.get(value);
     if (existing !== void 0)
@@ -2725,7 +2784,12 @@
       this.stats.requests++;
       const [r] = await this.client.batch([{ path, input: canonical === null ? void 0 : canonical }]);
       if (r.ok) await this.cache.putQuery({ path, queryKey: key, input: canonical, data: r.data });
-      this.budget.observe([r], [path]);
+      try {
+        this.budget.observe([r], [path]);
+      } catch (e) {
+        e.page = { ...r, input: canonical, key };
+        throw e;
+      }
       return { ...r, input: canonical, key };
     }
     /**
@@ -2755,11 +2819,29 @@
       const size = paged ? pageSize(path, canonical) : null;
       const out = [];
       const rows = [];
+      const record = (n, pin, r) => ({
+        n,
+        input: pin,
+        key: r.key ?? canonicalKey(pin),
+        ok: !!r.ok,
+        cached: !!r.cached,
+        rows: Array.isArray(r.data) ? r.data.length : r.data == null ? 0 : 1,
+        at: r.at ?? null,
+        error: r.ok ? null : r.error && r.error.code || null
+      });
       for (let n = 0; n < want; n++) {
         const pin = n === 0 ? canonical : pageInput(path, canonical, n);
-        const r = await this._page(path, pin, { fresh });
+        let r;
+        try {
+          r = await this._page(path, pin, { fresh });
+        } catch (e) {
+          e.pages = [...out, e.page ? record(n, pin, e.page) : { n, input: pin, key: canonicalKey(pin), ok: false, cached: false, rows: 0, at: null, error: e.name === "RateLimited" ? "TOO_MANY_REQUESTS" : e.name || "ERROR" }];
+          e.walkComplete = false;
+          e.rowCount = rows.length;
+          throw e;
+        }
         const count = Array.isArray(r.data) ? r.data.length : r.data == null ? 0 : 1;
-        out.push({ n, input: pin, key: r.key, ok: r.ok, cached: !!r.cached, rows: count, at: r.at ?? null, error: r.ok ? null : r.error.code });
+        out.push(record(n, pin, r));
         if (!r.ok) {
           return { ok: false, complete: false, error: r.error, pages: out, data: null, tierPath: path, rowCount: rows.length };
         }
@@ -3215,27 +3297,6 @@
       return v;
     };
     return { value: walk(o, ""), unresolved };
-  }
-
-  // src/storage/hash.mjs
-  function stableStringify(v) {
-    if (v && typeof v === "object" && typeof v.toJSON === "function") v = v.toJSON();
-    if (v === void 0) return "null";
-    if (v === null || typeof v !== "object") return JSON.stringify(v);
-    if (Array.isArray(v)) return "[" + v.map(stableStringify).join(",") + "]";
-    const keys = Object.keys(v).filter((k) => v[k] !== void 0).sort();
-    return "{" + keys.map((k) => JSON.stringify(k) + ":" + stableStringify(v[k])).join(",") + "}";
-  }
-  function fnv1a32(str) {
-    let h2 = 2166136261;
-    for (let i = 0; i < str.length; i++) {
-      h2 ^= str.charCodeAt(i);
-      h2 = Math.imul(h2, 16777619) >>> 0;
-    }
-    return h2.toString(16).padStart(8, "0");
-  }
-  function payloadHash(payload) {
-    return fnv1a32(stableStringify(payload === void 0 ? null : payload));
   }
 
   // ../32b_DATA_pool.json
@@ -5265,7 +5326,13 @@
         const path = c.proc || c.procedure;
         const id = c.id ?? (c.input && (c.input.id ?? c.input.userId));
         this._requireAuth(path, null);
-        const r = c.mode === "query" ? await this.reader.query(path, c.input, { fresh: true, pages: c.pages }) : c.mode === "point" ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true });
+        let r;
+        try {
+          r = c.mode === "query" ? await this.reader.query(path, c.input, { fresh: true, pages: c.pages }) : c.mode === "point" ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true });
+        } catch (e) {
+          if (Array.isArray(e.pages) && e.pages.length) this._journalAttempt(jobId, key, c, phase, i, e);
+          throw e;
+        }
         if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path, phase, ordinal: i });
         const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
         if (c.mode === "query") {
@@ -5301,7 +5368,8 @@
      */
     async _persist(jobId, phase, ordinal, c, path, id, r) {
       const tier = c.tier;
-      const fields = { persist: c.persist, tier, snapshotKey: snapshotKey(jobId, phase, ordinal), persistOk: false, persistError: null };
+      const policy = capturePolicy(path);
+      const fields = { persist: c.persist, tier, policy, snapshotKey: snapshotKey(jobId, phase, ordinal), persistOk: false, persistError: null };
       if (tier === "projected") fields.projection = c.projection;
       if (!r.ok) {
         fields.persistError = "read failed; there is no body to persist";
@@ -5337,6 +5405,7 @@
           input: c.input ?? null,
           data: r.data,
           tier,
+          policy,
           projection: c.projection,
           page: c.mode === "query" ? { pages: r.pages, complete: r.complete } : null
         });
@@ -5346,6 +5415,35 @@
       }
       fields.persistOk = fields.persistError == null;
       return fields;
+    }
+    /**
+     * Record ONE abandoned capture attempt. Appended to `<phase>Attempts`, which is append-only: a
+     * capture that is paused and later resumed leaves both records, so "what was asked for and what
+     * came back" survives for the attempt that did not finish. It is deliberately NOT written into
+     * the phase's completed list, because that list is the resume cursor and adding to it would skip
+     * the capture on resume.
+     */
+    _journalAttempt(jobId, key, c, phase, ordinal, e) {
+      const job = this.journal.get(jobId);
+      const prior = Array.isArray(job[key + "Attempts"]) ? job[key + "Attempts"] : [];
+      this.journal.annotateJob(jobId, {
+        [key + "Attempts"]: [...prior, {
+          phase,
+          ordinal,
+          proc: c.proc,
+          input: c.input ?? null,
+          persist: c.persist,
+          tier: c.tier,
+          abandoned: true,
+          ok: false,
+          complete: false,
+          rows: typeof e.rowCount === "number" ? e.rowCount : 0,
+          error: e.name === "RateLimited" ? "TOO_MANY_REQUESTS" : e.name || "ERROR",
+          pages: e.pages,
+          persistOk: false,
+          persistError: `the walk stopped on ${e.name === "RateLimited" ? "a rate limit" : "a transport failure"} after ${e.pages.length} page(s); this attempt is incomplete and no body was persisted from it`
+        }]
+      });
     }
     // ------------------------------------------------------------------ helpers
     _m(jobId) {
@@ -6002,10 +6100,10 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     if ((job.state === "DONE" || job.state === "INCOMPLETE") && job.items.length === 0) {
       const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
       const failed = captures.filter((capture) => !capture.ok).length;
-      const full = captures.filter((capture) => capture.tier);
+      const full = captures.filter((capture) => captureTier(capture));
       const unpersisted = full.filter((capture) => capture.ok && capture.persistOk !== true);
-      const at = (tier) => full.filter((capture) => capture.tier === tier && capture.persistOk === true).length;
-      const persistLine = !full.length ? "" : full.every((capture) => capture.tier === "repo-safe") ? `, ${full.length - unpersisted.length}/${full.length} full record ${full.length === 1 ? "body" : "bodies"} persisted into the bundle` : `, ${full.length - unpersisted.length}/${full.length} bodies retained (${[
+      const at = (tier) => full.filter((capture) => captureTier(capture) === tier && capture.persistOk === true).length;
+      const persistLine = !full.length ? "" : full.every((capture) => captureTier(capture) === "repo-safe") ? `, ${full.length - unpersisted.length}/${full.length} full record ${full.length === 1 ? "body" : "bodies"} persisted into the bundle` : `, ${full.length - unpersisted.length}/${full.length} bodies retained (${[
         at("repo-safe") ? `${at("repo-safe")} in the bundle` : null,
         at("projected") ? `${at("projected")} projected` : null,
         at("local-only") ? `${at("local-only")} local-only, not exported` : null
@@ -6066,10 +6164,15 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const st = app.budget.status();
     const used = Object.entries(st.paths).filter(([, v]) => v.used > 0);
     root.appendChild(h("div", { class: "f-card" }, used.length ? used.map(([p, v]) => h("div", { class: "f-kv" }, h("b", {}, p), h("span", {}, `${v.used} / ${v.allowance} (server ${v.serverLimit}) \xB7 resets in ${fmtCountdown(app.now() + v.resetInMs, app.now())}`))) : h("span", { class: "f-mute" }, "nothing spent"), st.tripped ? h("div", { class: "f-err" }, `TRIPPED on ${st.tripped.path} until ${new Date(st.tripped.until).toLocaleTimeString()}`) : null));
-    const allCaptures = [...job.capturesBefore || [], ...job.capturesAfter || []];
-    const retained = allCaptures.filter((capture) => capture && capture.tier);
+    const allCaptures = [
+      ...job.capturesBefore || [],
+      ...job.capturesAfter || [],
+      ...job.capturesBeforeAttempts || [],
+      ...job.capturesAfterAttempts || []
+    ];
+    const retained = allCaptures.filter((capture) => captureTier(capture));
     if (retained.length) {
-      root.appendChild(h("h3", {}, retained.every((capture) => capture.tier === "repo-safe") ? "Full captures" : "Retained captures"));
+      root.appendChild(h("h3", {}, retained.every((capture) => captureTier(capture) === "repo-safe") ? "Full captures" : "Retained captures"));
       for (const capture of retained) {
         const walked = Array.isArray(capture.pages) ? capture.pages : null;
         root.appendChild(h("div", { class: "f-row" }, h(
@@ -6081,7 +6184,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
             `${capture.proc} `,
             h("span", { class: "f-pill " + (capture.persistOk === true ? "VERIFIED" : "FAILED") }, capture.persistOk === true ? "body persisted" : "not persisted"),
             // Where the body is allowed to go is said on the row, next to whether it got there.
-            capture.tier === "repo-safe" ? null : h("span", { class: "f-mute" }, ` \xB7 ${capture.tier}`),
+            captureTier(capture) === "repo-safe" ? null : h("span", { class: "f-mute" }, ` \xB7 ${captureTier(capture)}`),
+            capture.abandoned ? h("span", { class: "f-mute" }, " \xB7 abandoned attempt") : null,
             h("span", { class: "f-mute" }, capture.ok ? " \xB7 read ok" : " \xB7 read failed")
           ),
           h("div", { class: "f-mono" }, `${capture.snapshotKey || ""}${capture.input && capture.input.id ? " \xB7 " + capture.input.id : ""}`),
@@ -6278,9 +6382,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   function runHeadline(job, summary) {
     const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
     const outcome = jobOutcome(job);
-    const full = captures.filter((capture) => capture.tier);
+    const full = captures.filter((capture) => captureTier(capture));
     const partial = captures.filter((capture) => capture.complete === false).length;
-    const detail = job.items.length ? `${Object.entries(summary.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${summary.verify.match} verified, ${summary.verify.drift} drift, ${summary.verify.unread} unread` : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` \xB7 ${full.filter((capture) => capture.persistOk === true).length}/${full.length} ${full.every((capture) => capture.tier === "repo-safe") ? "full bodies persisted" : "bodies retained at their tier"}` : ""}${partial ? ` \xB7 ${partial} paged walk${partial === 1 ? "" : "s"} incomplete` : ""} \xB7 zero mutations`;
+    const detail = job.items.length ? `${Object.entries(summary.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${summary.verify.match} verified, ${summary.verify.drift} drift, ${summary.verify.unread} unread` : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` \xB7 ${full.filter((capture) => capture.persistOk === true).length}/${full.length} ${full.every((capture) => captureTier(capture) === "repo-safe") ? "full bodies persisted" : "bodies retained at their tier"}` : ""}${partial ? ` \xB7 ${partial} paged walk${partial === 1 ? "" : "s"} incomplete` : ""} \xB7 zero mutations`;
     const kind = outcome === "success" ? "ok" : outcome === "failed" ? "bad" : "warn";
     if (job.pause && job.pause.reason === "SESSION") {
       return {
@@ -6313,23 +6417,31 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (!Array.isArray(job[key])) continue;
       const resolved = [];
       for (const capture of job[key]) resolved.push(await materialize(cache, capture));
-      if (job[key].some((capture) => capture && capture.tier)) {
+      if (job[key].some((capture) => captureTier(capture))) {
         patch[key] = resolved.map(({ data, ...rest }) => rest);
       }
       out.push(...resolved);
+    }
+    for (const key of ["capturesBeforeAttempts", "capturesAfterAttempts"]) {
+      if (Array.isArray(job[key])) out.push(...job[key]);
     }
     if (Object.keys(patch).length) journal.annotateJob(jobId, patch);
     return out;
   }
   async function materialize(cache, capture) {
-    if (!capture || typeof capture !== "object" || !capture.tier) return capture;
-    const c = { ...capture, persistOk: false, persistError: null };
+    const asked = captureTier(capture);
+    if (!asked) return capture;
+    const c = { ...capture, tier: asked, persistOk: false, persistError: null };
     delete c.data;
     if (capture.ok !== true) {
       c.persistError = "read failed; there is no body to persist";
       return c;
     }
     if (capture.persistOk === false && capture.persistError) return { ...c, persistError: capture.persistError };
+    if (isLegacyCapture(capture) && !canPersistFull(capture.proc)) {
+      c.persistError = `this capture predates persistence tiers and names ${capture.proc}, which is not an approved repo-safe path; its body is not exported`;
+      return c;
+    }
     const key = capture.snapshotKey || null;
     if (!key) {
       c.persistError = "no capture snapshot key was journaled for this capture";
@@ -6346,8 +6458,10 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       c.persistError = `capture snapshot ${key} is gone, so the body cannot be exported without a second read; it was not re-read`;
       return c;
     }
-    const tier = TIERS[Math.min(TIERS.indexOf(capture.tier), TIERS.indexOf(rec.tier ?? capture.tier))] ?? "local-only";
+    const recTier = typeof rec.tier === "string" && rec.tier ? rec.tier : canPersistFull(rec.path) ? "repo-safe" : TIERS[0];
+    const tier = TIERS[Math.min(TIERS.indexOf(asked), TIERS.indexOf(recTier))] ?? TIERS[0];
     c.tier = tier;
+    if (rec.policy) c.policy = rec.policy;
     const bytes = typeof rec.bytes === "number" ? rec.bytes : JSON.stringify(rec.data ?? null).length;
     c.bytes = bytes;
     if (bytes > tierCeiling(tier)) {
@@ -6361,14 +6475,26 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       return c;
     }
     if (tier === "projected") {
-      const fields = Array.isArray(capture.projection) && capture.projection.length ? capture.projection : rec.projection;
-      if (!Array.isArray(fields) || !fields.length) {
-        c.persistError = "no projection was journaled for this projected capture, so nothing may be exported from it";
+      const retained = Array.isArray(rec.projection) ? rec.projection : null;
+      if (!retained || !retained.length) {
+        c.persistError = "no projection was retained with this capture's body, so nothing may be exported from it";
+        return c;
+      }
+      const claimed = Array.isArray(capture.projection) ? capture.projection : null;
+      if (claimed && (claimed.length !== retained.length || claimed.some((f, i) => f !== retained[i]))) {
+        c.persistError = `the journal declares a projection (${claimed.join(", ")}) that differs from the one retained with the body (${retained.join(", ")}); the retained declaration is authority, so nothing is exported`;
+        return c;
+      }
+      let fields;
+      try {
+        fields = validateProjection(rec.path, retained);
+      } catch (e) {
+        c.persistError = "the retained projection is not admissible: " + (e && e.message || String(e));
         return c;
       }
       const pr = projectBody(rec.data, fields);
       if (!pr.ok) {
-        c.persistError = `projection failed: ${pr.missing.join(", ")} ${pr.missing.length === 1 ? "is" : "are"} absent from the body. The full body is NOT substituted and NOT exported`;
+        c.persistError = `projection failed: ${pr.missing.join(", ")} ${pr.missing.length === 1 ? "is" : "are"} absent from the body or is not a declarable field. The full body is NOT substituted and NOT exported`;
         return c;
       }
       c.projection = [...fields];

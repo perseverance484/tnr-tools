@@ -10,7 +10,7 @@
 import { writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { RESEARCH_READS, RESEARCH_PATHS, REGISTRY_PIN, MAX_PAGES, readMode } from "../src/research/registry.mjs";
+import { RESEARCH_READS, RESEARCH_PATHS, REGISTRY_PIN, REGISTRY_REVISION, MAX_PAGES, readMode } from "../src/research/registry.mjs";
 import { PROCEDURES } from "../src/transport/procedures.mjs";
 
 const OUT = join(dirname(fileURLToPath(import.meta.url)), "..", "RESEARCH_REGISTRY.md");
@@ -37,6 +37,10 @@ refused before transport, whatever the game would answer (\`RUL-2026-09-17-002\`
 
 - **Source pin audited:** \`${REGISTRY_PIN}\` (\`studie-tech/TheNinjaRPG\`), the same pin
   \`forge/src/runner/fields.json\` and \`nested.json\` carry; \`tools/check_boundaries.mjs\` holds the three equal.
+- **Registry revision:** \`${REGISTRY_REVISION}\` — the content identity of the admission policy below
+  (pin, tiers, projectable allowlists, input contracts, paging bounds). Every capture is stamped with
+  this pair at the moment it is taken, so a saved capture names the exact contract that admitted it.
+  Editing any row changes it; it cannot be left stale by hand.
 - **Tier** is both the default and the ceiling. A manifest may ask for that tier or any narrower one
   (\`local-only\` < \`projected\` < \`repo-safe\`); widening one is a reviewed edit of the registry module,
   never a manifest key (\`RUL-2026-09-17-001\`).

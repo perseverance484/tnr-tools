@@ -1,8 +1,8 @@
 // Capture materialization and results-bundle assembly. Talks to the journal, the capture cache
 // and the repository; never to the DOM.
 
-import { tierCeiling } from "../storage/captures.mjs";
-import { TIERS, projectBody } from "../research/registry.mjs";
+import { tierCeiling, captureTier, isLegacyCapture, canPersistFull } from "../storage/captures.mjs";
+import { TIERS, projectBody, validateProjection } from "../research/registry.mjs";
 import { readGh } from "../storage/compat.mjs";
 import { GH } from "../github.mjs";
 import { jobOutcome } from "../storage/journal.mjs";
@@ -35,10 +35,18 @@ export async function resolveCaptures({ journal, cache }, jobId) {
     for (const capture of job[key]) resolved.push(await materialize(cache, capture));
     // Only a pass that actually re-checked something rewrites the journal: a job with no full
     // capture is untouched by exporting it, exactly as before this contract existed.
-    if (job[key].some((capture) => capture && capture.tier)) {
+    if (job[key].some((capture) => captureTier(capture))) {
       patch[key] = resolved.map(({ data, ...rest }) => rest); // the journal keeps the verdict, never the body
     }
     out.push(...resolved);
+  }
+  // Abandoned attempts are evidence too: a walk that was rate-limited part way through really did
+  // ask for those pages and really did get those answers. They are appended as recorded, never
+  // materialized - there is no snapshot behind an attempt that never finished, and they carry their
+  // own non-success verdict - so an exported bundle shows the paused attempt beside the completed
+  // read rather than quietly omitting it (independent review FN5).
+  for (const key of ["capturesBeforeAttempts", "capturesAfterAttempts"]) {
+    if (Array.isArray(job[key])) out.push(...job[key]);
   }
   if (Object.keys(patch).length) journal.annotateJob(jobId, patch);
   return out;
@@ -55,8 +63,12 @@ export async function resolveCaptures({ journal, cache }, jobId) {
  * is not there is reported missing, not fetched again to make the export greener.
  */
 export async function materialize(cache, capture) {
-  if (!capture || typeof capture !== "object" || !capture.tier) return capture;
-  const c = { ...capture, persistOk: false, persistError: null };
+  // captureTier() also recognises a Phase 0 `persist: "full"` record, which has no `tier` key. Asking
+  // it rather than reading capture.tier is what stops an upgraded journal's existing full captures
+  // from being mistaken for captures that asked for no body at all (independent review FN1).
+  const asked = captureTier(capture);
+  if (!asked) return capture;
+  const c = { ...capture, tier: asked, persistOk: false, persistError: null };
   delete c.data;
   if (capture.ok !== true) { c.persistError = "read failed; there is no body to persist"; return c; }
   // A failure the capture pass already recorded stands. It was decided with the body in hand - over
@@ -65,6 +77,13 @@ export async function materialize(cache, capture) {
   // below would infer from a snapshot that was deliberately never written. Export may downgrade a
   // success; it never overwrites a recorded reason, and it never upgrades a failure.
   if (capture.persistOk === false && capture.persistError) return { ...c, persistError: capture.persistError };
+  // A pre-tier record can only be one thing: a full capture of a path that was on the audited
+  // point-read allowlist at the time. If it names anything else it is not a record this code can
+  // honestly interpret, and guessing is how a body ends up somewhere it was never approved for.
+  if (isLegacyCapture(capture) && !canPersistFull(capture.proc)) {
+    c.persistError = `this capture predates persistence tiers and names ${capture.proc}, which is not an approved repo-safe path; its body is not exported`;
+    return c;
+  }
   const key = capture.snapshotKey || null;
   if (!key) { c.persistError = "no capture snapshot key was journaled for this capture"; return c; }
   let rec = null;
@@ -74,9 +93,15 @@ export async function materialize(cache, capture) {
 
   // The snapshot's own tier is authority, and where the two disagree the NARROWER one wins. A body
   // read under local-only stays local-only even if the journal entry beside it says otherwise,
-  // which is what makes a tampered or stale journal entry unable to widen an export.
-  const tier = TIERS[Math.min(TIERS.indexOf(capture.tier), TIERS.indexOf(rec.tier ?? capture.tier))] ?? "local-only";
+  // which is what makes a tampered or stale journal entry unable to widen an export. A snapshot
+  // written before tiers existed has no tier of its own: it is repo-safe only if its path is still
+  // an approved repo-safe one, and otherwise falls to the narrowest tier rather than to trust.
+  const recTier = typeof rec.tier === "string" && rec.tier ? rec.tier : (canPersistFull(rec.path) ? "repo-safe" : TIERS[0]);
+  const tier = TIERS[Math.min(TIERS.indexOf(asked), TIERS.indexOf(recTier))] ?? TIERS[0];
   c.tier = tier;
+  // Policy provenance travels with the BODY. A record that carries none predates the stamp and is
+  // shown as carrying none: export never fabricates one from today's registry (review FN4).
+  if (rec.policy) c.policy = rec.policy;
   const bytes = typeof rec.bytes === "number" ? rec.bytes : JSON.stringify(rec.data ?? null).length;
   c.bytes = bytes;
   if (bytes > tierCeiling(tier)) { c.persistError = `body is ${bytes} bytes, over the ${tierCeiling(tier)}-byte ${tier} capture ceiling; it is NOT truncated and NOT persisted`; return c; }
@@ -91,10 +116,30 @@ export async function materialize(cache, capture) {
     return c;
   }
   if (tier === "projected") {
-    const fields = Array.isArray(capture.projection) && capture.projection.length ? capture.projection : rec.projection;
-    if (!Array.isArray(fields) || !fields.length) { c.persistError = "no projection was journaled for this projected capture, so nothing may be exported from it"; return c; }
+    // THE RETAINED DECLARATION IS AUTHORITY. It was validated when the capture was taken and stored
+    // beside the body; the journal entry is mutable state that a stale write, an edit or a resumed
+    // job can change. Export used to prefer the journal's copy, which let a changed journal redirect
+    // the projection at an undeclared field and ship it (independent review FN2). The journal may
+    // now only AGREE; any difference is reported and nothing is exported.
+    const retained = Array.isArray(rec.projection) ? rec.projection : null;
+    if (!retained || !retained.length) {
+      c.persistError = "no projection was retained with this capture's body, so nothing may be exported from it";
+      return c;
+    }
+    const claimed = Array.isArray(capture.projection) ? capture.projection : null;
+    if (claimed && (claimed.length !== retained.length || claimed.some((f, i) => f !== retained[i]))) {
+      c.persistError = `the journal declares a projection (${claimed.join(", ")}) that differs from the one retained with the body (${retained.join(", ")}); the retained declaration is authority, so nothing is exported`;
+      return c;
+    }
+    // Re-validated at the leak boundary, not merely trusted because it was validated once. A
+    // declaration that is no longer admissible - a field the registry has since withdrawn, or a
+    // malformed path in a hand-edited store - must fail the export rather than be applied, and it
+    // must fail as a VERDICT rather than as an exception thrown into the export path.
+    let fields;
+    try { fields = validateProjection(rec.path, retained); }
+    catch (e) { c.persistError = "the retained projection is not admissible: " + ((e && e.message) || String(e)); return c; }
     const pr = projectBody(rec.data, fields);
-    if (!pr.ok) { c.persistError = `projection failed: ${pr.missing.join(", ")} ${pr.missing.length === 1 ? "is" : "are"} absent from the body. The full body is NOT substituted and NOT exported`; return c; }
+    if (!pr.ok) { c.persistError = `projection failed: ${pr.missing.join(", ")} ${pr.missing.length === 1 ? "is" : "are"} absent from the body or is not a declarable field. The full body is NOT substituted and NOT exported`; return c; }
     c.projection = [...fields];
     c.persistOk = true;
     c.data = pr.data;

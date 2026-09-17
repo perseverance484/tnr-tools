@@ -7,6 +7,7 @@
 import { AUTH } from "../transport/auth.mjs";
 import { protectedPathsFor } from "../runner/runner.mjs";
 import { jobOutcome } from "../storage/journal.mjs";
+import { captureTier } from "../storage/captures.mjs";
 
 // One results-bundle entry, in the shape harvests/inbox/ already holds, so the repository's
 // harvest.py reads a forge bundle natively (readiness brief section 9). The mapping is deliberate:
@@ -81,11 +82,11 @@ export function runHeadline(job, summary) {
   // Every capture that asked for a body to be KEPT, at any tier. The headline counts them together
   // because the operator's question is the same one either way — did the evidence actually land —
   // and the tier breakdown belongs on the screen, not in a toast.
-  const full = captures.filter((capture) => capture.tier);
+  const full = captures.filter((capture) => captureTier(capture));
   const partial = captures.filter((capture) => capture.complete === false).length;
   const detail = job.items.length
     ? `${Object.entries(summary.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} · ${summary.verify.match} verified, ${summary.verify.drift} drift, ${summary.verify.unread} unread`
-    : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` · ${full.filter((capture) => capture.persistOk === true).length}/${full.length} ${full.every((capture) => capture.tier === "repo-safe") ? "full bodies persisted" : "bodies retained at their tier"}` : ""}${partial ? ` · ${partial} paged walk${partial === 1 ? "" : "s"} incomplete` : ""} · zero mutations`;
+    : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` · ${full.filter((capture) => capture.persistOk === true).length}/${full.length} ${full.every((capture) => captureTier(capture) === "repo-safe") ? "full bodies persisted" : "bodies retained at their tier"}` : ""}${partial ? ` · ${partial} paged walk${partial === 1 ? "" : "s"} incomplete` : ""} · zero mutations`;
   const kind = outcome === "success" ? "ok" : outcome === "failed" ? "bad" : "warn";
   if (job.pause && job.pause.reason === "SESSION") {
     return {

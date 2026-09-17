@@ -4,6 +4,7 @@ import { h, replace, fmtAgo, fmtBytes, fmtCountdown } from "./dom.mjs";
 import { manifestNumber, manifestSummary } from "../github.mjs";
 import { readGh, writeGh } from "../storage/compat.mjs";
 import { jobOutcome } from "../storage/journal.mjs";
+import { captureTier } from "../storage/captures.mjs";
 
 const pill = (state) => h("span", { class: "f-pill " + state }, state);
 
@@ -189,7 +190,7 @@ export function RunScreen(app) {
   if ((job.state === "DONE" || job.state === "INCOMPLETE") && job.items.length === 0) {
     const captures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
     const failed = captures.filter((capture) => !capture.ok).length;
-    const full = captures.filter((capture) => capture.tier);
+    const full = captures.filter((capture) => captureTier(capture));
     const unpersisted = full.filter((capture) => capture.ok && capture.persistOk !== true);
     // Reading the record and shipping its exact body are two claims, and a full capture makes
     // both. They are reported separately so "the reads succeeded" can never stand in for
@@ -197,9 +198,9 @@ export function RunScreen(app) {
     // "persisted into the bundle" is only true of a repo-safe body. A local-only body is persisted
     // and is deliberately NOT in the bundle, and a projected one contributes its declared fields
     // and nothing else, so a run that mixes tiers says where each body actually went.
-    const at = (tier) => full.filter((capture) => capture.tier === tier && capture.persistOk === true).length;
+    const at = (tier) => full.filter((capture) => captureTier(capture) === tier && capture.persistOk === true).length;
     const persistLine = !full.length ? ""
-      : full.every((capture) => capture.tier === "repo-safe")
+      : full.every((capture) => captureTier(capture) === "repo-safe")
         ? `, ${full.length - unpersisted.length}/${full.length} full record ${full.length === 1 ? "body" : "bodies"} persisted into the bundle`
         : `, ${full.length - unpersisted.length}/${full.length} bodies retained (${[
             at("repo-safe") ? `${at("repo-safe")} in the bundle` : null,
@@ -256,19 +257,23 @@ export function RunScreen(app) {
   const st = app.budget.status();
   const used = Object.entries(st.paths).filter(([, v]) => v.used > 0);
   root.appendChild(h("div", { class: "f-card" }, used.length ? used.map(([p, v]) => h("div", { class: "f-kv" }, h("b", {}, p), h("span", {}, `${v.used} / ${v.allowance} (server ${v.serverLimit}) · resets in ${fmtCountdown(app.now() + v.resetInMs, app.now())}`))) : h("span", { class: "f-mute" }, "nothing spent"), st.tripped ? h("div", { class: "f-err" }, `TRIPPED on ${st.tripped.path} until ${new Date(st.tripped.until).toLocaleTimeString()}`) : null));
-  const allCaptures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
-  const retained = allCaptures.filter((capture) => capture && capture.tier);
+  // Abandoned attempts are listed with the completed captures: a paused job's screen should show
+  // what the walk actually asked for before it stopped, not go quiet about it (review FN5).
+  const allCaptures = [...(job.capturesBefore || []), ...(job.capturesAfter || []),
+                       ...(job.capturesBeforeAttempts || []), ...(job.capturesAfterAttempts || [])];
+  const retained = allCaptures.filter((capture) => captureTier(capture));
   if (retained.length) {
     // The heading only changes when there is something new to say. A run whose retained captures are
     // all repo-safe reads exactly as it did before tiers existed.
-    root.appendChild(h("h3", {}, retained.every((capture) => capture.tier === "repo-safe") ? "Full captures" : "Retained captures"));
+    root.appendChild(h("h3", {}, retained.every((capture) => captureTier(capture) === "repo-safe") ? "Full captures" : "Retained captures"));
     for (const capture of retained) {
       const walked = Array.isArray(capture.pages) ? capture.pages : null;
       root.appendChild(h("div", { class: "f-row" }, h("div", { class: "f-grow" },
         h("div", {}, `${capture.proc} `,
           h("span", { class: "f-pill " + (capture.persistOk === true ? "VERIFIED" : "FAILED") }, capture.persistOk === true ? "body persisted" : "not persisted"),
           // Where the body is allowed to go is said on the row, next to whether it got there.
-          capture.tier === "repo-safe" ? null : h("span", { class: "f-mute" }, ` · ${capture.tier}`),
+          captureTier(capture) === "repo-safe" ? null : h("span", { class: "f-mute" }, ` · ${captureTier(capture)}`),
+          capture.abandoned ? h("span", { class: "f-mute" }, " · abandoned attempt") : null,
           h("span", { class: "f-mute" }, capture.ok ? " · read ok" : " · read failed")),
         h("div", { class: "f-mono" }, `${capture.snapshotKey || ""}${capture.input && capture.input.id ? " · " + capture.input.id : ""}`),
         // A bounded walk names every page it actually asked for, so "43 rows" can never stand in
