@@ -1,0 +1,74 @@
+// Static boundary gate for Forge. Three properties, all checkable without running anything:
+//
+//   1. NETWORK CONFINEMENT. Only the transport layer and the GitHub client may issue a request.
+//      A fetch appearing in the runner, the core, storage, budget, reconcile, the UI or a host
+//      adapter means some layer learned to talk to the world directly, which defeats the
+//      FakeClient substitution every behaviour test depends on.
+//   2. NO HARDCODED GAME HOST. Forge runs as an overlay on the game's own origin and addresses it
+//      with relative paths. A literal game hostname in src is how a build starts reaching a live
+//      environment from a context that was never meant to.
+//   3. GENERATED-CONTRACT PIN AGREEMENT. fields.json and nested.json are derived from one pinned
+//      game-source commit. If they disagree, the app is validating against two different versions
+//      of the contract and the provenance is a fiction.
+//
+// The gate prints the population it scanned, so a clean result is a measurement rather than the
+// absence of a finding.
+
+import { readdirSync, readFileSync } from "node:fs";
+import { join, dirname, relative, sep } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "src");
+
+const NETWORK_ALLOWED = ["transport", "github.mjs", "main.mjs"];
+const GAME_HOSTS = [/theninja-rpg\.com/i, /\bwww\.theninja\b/i];
+// `fetchImpl` is the injected seam every layer is supposed to use; a bare call is the smell.
+const BARE_FETCH = /(?<![.\w])fetch\s*\(/;
+
+function walk(dir) {
+  return readdirSync(dir, { withFileTypes: true })
+    .flatMap((d) => (d.isDirectory() ? walk(join(dir, d.name)) : [join(dir, d.name)]))
+    .filter((f) => f.endsWith(".mjs"));
+}
+
+const strip = (t) => t.replace(/\/\/[^\n]*/g, "").replace(/\/\*[\s\S]*?\*\//g, "");
+
+export function checkBoundaries() {
+  const files = walk(SRC);
+  const findings = [];
+
+  for (const file of files) {
+    const rel = relative(SRC, file);
+    const top = rel.split(sep)[0];
+    const code = strip(readFileSync(file, "utf8"));
+
+    const mayNetwork = NETWORK_ALLOWED.includes(top) || NETWORK_ALLOWED.includes(rel);
+    if (!mayNetwork && BARE_FETCH.test(code)) {
+      findings.push(`${rel}: issues a request outside the transport layer`);
+    }
+    for (const host of GAME_HOSTS) {
+      if (host.test(code)) findings.push(`${rel}: hardcodes a live game host`);
+    }
+  }
+
+  // pin agreement
+  const pins = {};
+  for (const name of ["fields.json", "nested.json"]) {
+    const j = JSON.parse(readFileSync(join(SRC, "runner", name), "utf8"));
+    pins[name] = (j._provenance || j._meta || {}).pin ?? null;
+  }
+  const distinct = [...new Set(Object.values(pins))];
+  if (distinct.length !== 1 || !distinct[0]) {
+    findings.push(`generated contracts disagree on their source pin: ${JSON.stringify(pins)}`);
+  }
+
+  return { files: files.length, pin: distinct[0] ?? null, findings };
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const { files, pin, findings } = checkBoundaries();
+  console.log(`boundaries: ${files} modules scanned; generated-contract pin ${pin}`);
+  for (const f of findings) console.error("  VIOLATION " + f);
+  console.log(findings.length ? `${findings.length} violation(s)` : "0 violations");
+  process.exit(findings.length ? 1 : 0);
+}

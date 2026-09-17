@@ -657,6 +657,65 @@
     }
   };
 
+  // src/storage/repotext.mjs
+  var REPO_DB_NAME = "tnr_forge_repo";
+  var REPO_DB_VERSION = 1;
+  var STORE2 = "text";
+  function reqToPromise2(req) {
+    return new Promise((resolve, reject) => {
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error || new Error("IndexedDB request failed"));
+    });
+  }
+  var RepoTextCache = class {
+    constructor(idb, clock = () => Date.now()) {
+      this.idb = idb;
+      this.clock = clock;
+      this._db = null;
+    }
+    async _open() {
+      if (this._db) return this._db;
+      this._db = await new Promise((resolve, reject) => {
+        const req = this.idb.open(REPO_DB_NAME, REPO_DB_VERSION);
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains(STORE2)) db.createObjectStore(STORE2, { keyPath: "key" });
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error || new Error("could not open " + REPO_DB_NAME));
+      });
+      return this._db;
+    }
+    async _tx(mode, fn) {
+      const db = await this._open();
+      const tx = db.transaction(STORE2, mode);
+      const out = await fn(tx.objectStore(STORE2));
+      await new Promise((resolve, reject) => {
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error || new Error("repo text transaction failed"));
+        tx.onabort = () => reject(tx.error || new Error("repo text transaction aborted"));
+      });
+      return out;
+    }
+    /** @param {{path: string, id: string, data: any}} rec */
+    async put({ path, id, data }) {
+      const key = `${path}\0${id}`;
+      await this._tx("readwrite", (s) => reqToPromise2(s.put({ key, path, id, data, at: this.clock() })));
+      return key;
+    }
+    async get(path, id) {
+      const rec = await this._tx("readonly", (s) => reqToPromise2(s.get(`${path}\0${id}`)));
+      return rec ?? null;
+    }
+    async clear() {
+      await this._tx("readwrite", (s) => reqToPromise2(s.clear()));
+    }
+    async size() {
+      const recs = await this._tx("readonly", (s) => reqToPromise2(s.getAll()));
+      return { count: recs.length, bytes: recs.reduce((a, r) => a + JSON.stringify(r.data ?? null).length, 0) };
+    }
+  };
+
   // src/transport/session.mjs
   var SessionRefused = class extends Error {
     constructor(message) {
@@ -5668,8 +5727,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     return root;
   }
 
-  // src/ui/app.mjs
-  var SCREENS = { jobs: ["Jobs", JobsScreen], manifests: ["Manifests", ManifestsScreen], run: ["Run", RunScreen], captures: ["Captures", CapturesScreen], settings: ["Settings", SettingsScreen] };
+  // src/core/facts.mjs
   function harvestEntry(i) {
     const diffs = i.diffs || [];
     const assertedKeys = Array.isArray(i.asserted) ? i.asserted.length : i.assertedRules ? 1 : 0;
@@ -5694,6 +5752,372 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       id: i.entityId || i.targetId || null
     };
   }
+  function resumeBlockedReason(job, auth) {
+    if (!job || !job.pause || job.pause.reason !== "SESSION") return null;
+    if (!auth || auth.ready) return null;
+    return "TNR authentication is still unavailable. Sign in to the game and re-check the session; resuming now would send nothing.";
+  }
+  function blockedPaths(auth, plan, manifest) {
+    if (!auth) return [];
+    try {
+      return protectedPathsFor(plan, manifest).filter((path) => !auth.allows(path));
+    } catch {
+      return [];
+    }
+  }
+  function authFacts(auth, busy) {
+    if (!auth) return null;
+    const state = auth.state;
+    if (state === AUTH.READY) return { level: "ok", ready: true, probing: false, signedOut: false, detail: auth.detail ?? null };
+    if (state === AUTH.PROBING || busy) return { level: "info", ready: false, probing: true, signedOut: false, detail: auth.detail ?? null };
+    return { level: "bad", ready: false, probing: false, signedOut: state === AUTH.SIGNED_OUT, detail: auth.detail ?? null };
+  }
+  function runHeadline(job, summary) {
+    const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
+    const outcome = jobOutcome(job);
+    const full = captures.filter((capture) => capture.persist === "full");
+    const detail = job.items.length ? `${Object.entries(summary.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${summary.verify.match} verified, ${summary.verify.drift} drift, ${summary.verify.unread} unread` : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` \xB7 ${full.filter((capture) => capture.persistOk === true).length}/${full.length} full bodies persisted` : ""} \xB7 zero mutations`;
+    const kind = outcome === "success" ? "ok" : outcome === "failed" ? "bad" : "warn";
+    if (job.pause && job.pause.reason === "SESSION") {
+      return {
+        outcome,
+        kind: "bad",
+        ms: 12e3,
+        sessionPause: true,
+        text: `job PAUSED: TNR authentication unavailable${job.pause.path ? ` on ${job.pause.path}` : ""}. Nothing further was sent. Sign in and resume.`
+      };
+    }
+    return { outcome, kind, ms: 8e3, sessionPause: false, text: `job ${summary.state} (${outcome}): ${detail}` };
+  }
+  function postflight(job) {
+    return {
+      match: job.items.filter((i) => i.verify === "match").length,
+      diff: job.items.filter((i) => i.verify === "drift").length,
+      unverified: job.items.filter((i) => i.verify === "unread").length,
+      failed: job.items.filter((i) => i.state === "FAILED").length,
+      skipped: job.items.filter((i) => i.state === "SKIPPED").length,
+      unresolved: job.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length
+    };
+  }
+
+  // src/core/results.mjs
+  async function resolveCaptures({ journal, cache }, jobId) {
+    const job = journal.get(jobId);
+    const patch = {};
+    const out = [];
+    for (const key of ["capturesBefore", "capturesAfter"]) {
+      if (!Array.isArray(job[key])) continue;
+      const resolved = [];
+      for (const capture of job[key]) resolved.push(await materialize(cache, capture));
+      if (job[key].some((capture) => capture && capture.persist === "full")) {
+        patch[key] = resolved.map(({ data, ...rest }) => rest);
+      }
+      out.push(...resolved);
+    }
+    if (Object.keys(patch).length) journal.annotateJob(jobId, patch);
+    return out;
+  }
+  async function materialize(cache, capture) {
+    if (!capture || typeof capture !== "object" || capture.persist !== "full") return capture;
+    const c = { ...capture, persistOk: false, persistError: null };
+    delete c.data;
+    if (capture.ok !== true) {
+      c.persistError = "read failed; there is no body to persist";
+      return c;
+    }
+    if (capture.persistOk === false && capture.persistError) return { ...c, persistError: capture.persistError };
+    const key = capture.snapshotKey || null;
+    if (!key) {
+      c.persistError = "no capture snapshot key was journaled for this full capture";
+      return c;
+    }
+    let rec = null;
+    try {
+      rec = await cache.getSnapshot(key);
+    } catch (e) {
+      c.persistError = "capture snapshot read failed: " + (e && e.message || String(e));
+      return c;
+    }
+    if (!rec) {
+      c.persistError = `capture snapshot ${key} is gone, so the full body cannot be exported without a second read; it was not re-read`;
+      return c;
+    }
+    const bytes = typeof rec.bytes === "number" ? rec.bytes : JSON.stringify(rec.data ?? null).length;
+    c.bytes = bytes;
+    if (bytes > MAX_FULL_CAPTURE_BYTES) {
+      c.persistError = `body is ${bytes} bytes, over the ${MAX_FULL_CAPTURE_BYTES}-byte full-capture ceiling; it is NOT truncated and NOT persisted`;
+      return c;
+    }
+    c.persistOk = true;
+    c.at = rec.at ?? null;
+    c.data = rec.data;
+    return c;
+  }
+  function buildBundle({ version, storage, now }, job, captures) {
+    return {
+      builder: version,
+      at: new Date(now()).toISOString(),
+      cfg: "forge",
+      checks: null,
+      // `outcome` is the honest headline: an exported bundle is evidence, not a claim of success.
+      state: job.state,
+      outcome: jobOutcome(job),
+      postflight: postflight(job),
+      entries: job.items.map((i) => harvestEntry(i)),
+      captures,
+      idmap: JSON.parse(storage.getItem("tnr_bk_idmap_v1") || "{}"),
+      journal: job
+    };
+  }
+  function repoSyncReady(storage) {
+    const gh = readGh(storage);
+    return Boolean(gh.on && gh.pat);
+  }
+  var inboxPath = (name) => `${GH.inboxDir}/${name}`;
+
+  // src/core/core.mjs
+  var ForgeCore = class {
+    /**
+     * @param {object} d { version, storage, journal, cache, budget, reader, client, session, auth,
+     *                     runner, reconciler, github, validator, now }
+     */
+    constructor(d) {
+      Object.assign(this, d);
+      this.now = d.now ?? (() => Date.now());
+      this.authBusy = false;
+      this.state = { screen: "jobs", jobId: null, picker: null, selected: null, running: null, persisted: null };
+      this._listeners = /* @__PURE__ */ new Set();
+    }
+    // ------------------------------------------------------------------ notifications
+    /** @param {(n: {type: string, [k: string]: any}) => void} fn @returns {() => void} */
+    subscribe(fn) {
+      if (typeof fn !== "function") throw new TypeError("ForgeCore.subscribe needs a function");
+      this._listeners.add(fn);
+      return () => this._listeners.delete(fn);
+    }
+    notify(note) {
+      for (const fn of [...this._listeners]) {
+        try {
+          fn(note);
+        } catch {
+        }
+      }
+    }
+    /** Something went wrong in a named context. Returns the message so callers can also log it. */
+    fail(context, e) {
+      const msg = e instanceof JournalError ? `journal: ${e.message}` : e && e.message || String(e);
+      this.notify({ type: "error", context, text: `${context}: ${msg}`, level: "bad", ms: 9e3 });
+      return msg;
+    }
+    say(text, level = "info", ms = 4e3) {
+      this.notify({ type: "message", text, level, ms });
+    }
+    /** Ask the view to re-render. The core never renders; it only says that something moved. */
+    changed() {
+      this.notify({ type: "changed" });
+    }
+    // ------------------------------------------------------------------ auth
+    async establishAuth() {
+      return this._auth(() => this.auth.establish());
+    }
+    async recheckAuth() {
+      return this._auth(() => this.auth.probe());
+    }
+    async _auth(fn) {
+      if (!this.auth || this.authBusy) return this.auth ? this.auth.state : null;
+      this.authBusy = true;
+      this.changed();
+      try {
+        return await fn();
+      } finally {
+        this.authBusy = false;
+        this.changed();
+      }
+    }
+    resumeBlockedReason(job) {
+      return resumeBlockedReason(job, this.auth);
+    }
+    blockedPaths(plan, manifest) {
+      return blockedPaths(this.auth, plan, manifest);
+    }
+    // ------------------------------------------------------------------ picker
+    async loadPicker(force) {
+      if (this.state.picker && !force) return;
+      this.state.pickerError = null;
+      try {
+        const entries = (await this.github.list(GH.pushDir)).filter((e) => e.type === "file" && /\.json$/i.test(e.name)).map((e) => ({ ...e, number: manifestNumber(e.name), summary: null, loading: true }));
+        entries.sort((a, b) => (b.number ?? -1) - (a.number ?? -1) || a.name.localeCompare(b.name));
+        this.state.picker = entries;
+        this.state.pickerAt = new Date(this.now()).toISOString();
+        this.notify({ type: "picker" });
+        await Promise.all(entries.map(async (e) => {
+          try {
+            const key = `gh:${e.path}@${e.sha}`;
+            const store = this.repoCache ?? this.cache;
+            const hit = await store.get("github.contents", key);
+            const text = hit ? hit.data : await this.github.text(e.path);
+            if (!hit) await store.put({ path: "github.contents", id: key, data: text });
+            e.text = text;
+            e.summary = manifestSummary(text);
+          } catch (err) {
+            e.error = err.message;
+          }
+          e.loading = false;
+          this.notify({ type: "picker" });
+        }));
+      } catch (e) {
+        this.state.picker = this.state.picker || [];
+        this.state.pickerError = e.message;
+        this.notify({ type: "picker" });
+      }
+    }
+    async selectManifest(entry) {
+      try {
+        const text = entry.text ?? await this.github.text(entry.path);
+        const manifest = parseManifest(text);
+        const problems = [];
+        let plan = [];
+        try {
+          plan = planOrder(manifest, JSON.parse(this.storage.getItem("tnr_bk_idmap_v1") || "{}"));
+        } catch (e) {
+          problems.push(e.message);
+        }
+        for (const it of plan) {
+          const p = it.entity === "ai" || it.entity === "aiProfile" ? [] : this.validator.problems(it.entity, it.data, null);
+          for (const x of p) problems.push(`item ${it.idx} (${it.name}): ${x}`);
+        }
+        const images = [...new Set(plan.flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
+        this.state.selected = { entry, text, manifest, plan, problems, images };
+        this.state.selected.blocked = this.blockedPaths(plan, manifest);
+        this.changed();
+      } catch (e) {
+        this.fail("select manifest", e instanceof ManifestError ? e : e);
+      }
+    }
+    // ------------------------------------------------------------------ jobs
+    async startJob() {
+      const s = this.state.selected;
+      if (!s) return;
+      const blocked = this.blockedPaths(s.plan, s.manifest);
+      if (blocked.length) {
+        this.say(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9e3);
+        this.state.selected.blocked = blocked;
+        return this.changed();
+      }
+      const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
+      try {
+        this.runner.plan(s.text, { jobId, manifestPath: s.entry.path, manifestNumber: s.entry.number });
+      } catch (e) {
+        return this.fail("plan", e);
+      }
+      this.state.selected = null;
+      this.go("run", { jobId });
+      await this.drive(jobId, () => this.runner.run(jobId));
+    }
+    async resumeJob(jobId) {
+      const job = this.journal.get(jobId);
+      const blocked = this.resumeBlockedReason(job);
+      if (blocked) {
+        this.say(blocked, "bad", 9e3);
+        return this.changed();
+      }
+      if (!this.runner.manifests.has(jobId)) {
+        try {
+          const text = job.manifestPath ? await this.github.text(job.manifestPath) : null;
+          if (!text) throw new Error("no manifest path recorded; cannot resume");
+          this.runner.attach(jobId, text);
+        } catch (e) {
+          return this.fail("resume: fetch manifest", e);
+        }
+      }
+      this.go("run", { jobId });
+      const hasSent = job.items.some((i) => i.state === "SENT");
+      await this.drive(jobId, () => hasSent ? this.runner.resume(jobId) : this.runner.run(jobId));
+    }
+    go(screen, patch = {}) {
+      Object.assign(this.state, patch, { screen });
+      this.changed();
+    }
+    async drive(jobId, fn) {
+      if (this.state.running) return this.say("a job is already running", "warn");
+      this.state.running = jobId;
+      this.state.runningNote = "";
+      this.changed();
+      this.notify({ type: "driving", jobId });
+      try {
+        const s = await fn();
+        if (s.state === "DONE" || s.state === "INCOMPLETE") {
+          try {
+            await resolveCaptures(this, jobId);
+          } catch (e) {
+            this.fail("resolve full captures", e);
+          }
+        }
+        const job = this.journal.get(jobId);
+        const head = runHeadline(job, s);
+        this.say(head.text, head.kind, head.ms);
+        if (s.state === "DONE" || s.state === "INCOMPLETE") await this.exportJob(jobId, { auto: true });
+      } catch (e) {
+        this.fail("run", e);
+      } finally {
+        this.state.running = null;
+        this.notify({ type: "idle", jobId });
+        this.changed();
+      }
+    }
+    requestPause() {
+      this.runner.requestPause();
+      this.say("pausing after the current item finishes", "warn");
+    }
+    adopt(jobId, idx, id) {
+      try {
+        this.runner.adopt(jobId, idx, id);
+        this.changed();
+      } catch (e) {
+        this.fail("adopt", e);
+      }
+    }
+    skip(jobId, idx) {
+      try {
+        this.runner.skip(jobId, idx);
+        this.changed();
+      } catch (e) {
+        this.fail("skip", e);
+      }
+    }
+    resolveCaptures(jobId) {
+      return resolveCaptures(this, jobId);
+    }
+    /** Results bundle, committed via GitHub when Sync is on, otherwise handed to the view. */
+    async exportJob(jobId, { auto = false } = {}) {
+      let captures;
+      try {
+        captures = await resolveCaptures(this, jobId);
+      } catch (e) {
+        this.fail("resolve full captures", e);
+        const j = this.journal.get(jobId);
+        captures = [...j.capturesBefore || [], ...j.capturesAfter || []];
+      }
+      const job = this.journal.get(jobId);
+      const bundle = buildBundle(this, job, captures);
+      const name = `tnr_results_${Date.now()}.json`;
+      const text = JSON.stringify(bundle, null, 1);
+      const synced = repoSyncReady(this.storage);
+      if (synced) {
+        try {
+          const r = await this.github.put(inboxPath(name), text, `results: ${name} (forge)`);
+          this.say(`committed ${name}${r.sha ? " @" + r.sha.slice(0, 7) : ""}`, "ok");
+          return;
+        } catch (e) {
+          this.fail("commit results", e);
+        }
+      }
+      if (!auto || !synced) this.notify({ type: "export", text, name });
+    }
+  };
+
+  // src/ui/app.mjs
+  var SCREENS = { jobs: ["Jobs", JobsScreen], manifests: ["Manifests", ManifestsScreen], run: ["Run", RunScreen], captures: ["Captures", CapturesScreen], settings: ["Settings", SettingsScreen] };
   var App = class {
     /**
      * @param {object} d  { version, storage, journal, cache, budget, reader, client, session, runner, reconciler, github, validator, now }
@@ -5702,9 +6126,53 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       Object.assign(this, d);
       this.now = d.now ?? (() => Date.now());
       this.exit = d.exit ?? null;
-      this.authBusy = false;
-      this.state = { screen: "jobs", jobId: null, picker: null, selected: null, running: null, persisted: null };
+      this.core = d.core ?? new ForgeCore({ ...d, now: this.now });
+      this.state = this.core.state;
       this.root = null;
+      this._tick = null;
+      this._unsubscribe = this.core.subscribe((n) => this._onCore(n));
+    }
+    get authBusy() {
+      return this.core.authBusy;
+    }
+    set authBusy(v) {
+      this.core.authBusy = v;
+    }
+    /** Turn a core notification into pixels. This is the only place that decision is made. */
+    _onCore(n) {
+      switch (n.type) {
+        case "changed":
+          return this.refresh();
+        case "message":
+          return this.toast(n.text, n.level, n.ms);
+        case "error": {
+          this.toast(n.text, n.level, n.ms);
+          this.log(n.text);
+          return;
+        }
+        case "picker":
+          return void (this.state._renderPicker && this.state._renderPicker());
+        case "export":
+          return this.showExport(n.text, n.name);
+        // While a job runs the Run screen shows elapsed time and progress that nothing else pushes,
+        // so the view keeps its own repaint timer. It is presentation, which is why it lives here.
+        case "driving": {
+          if (this._tick) clearInterval(this._tick);
+          this._tick = setInterval(() => {
+            if (this.state.screen === "run") this.refresh();
+          }, 1500);
+          return;
+        }
+        case "idle": {
+          if (this._tick) {
+            clearInterval(this._tick);
+            this._tick = null;
+          }
+          return;
+        }
+        default:
+          return;
+      }
     }
     mount(container, doc = document) {
       installCss(CSS, doc);
@@ -5730,8 +6198,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       return this.root;
     }
     go(screen, patch = {}) {
-      Object.assign(this.state, patch, { screen });
-      this.refresh();
+      this.core.go(screen, patch);
     }
     refresh() {
       replace(this.$nav, Object.entries(SCREENS).map(([k, [label]]) => h("button", { "aria-current": this.state.screen === k ? "page" : null, onClick: () => this.go(k) }, label)));
@@ -5748,9 +6215,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       setTimeout(() => el.remove(), ms);
     }
     fail(context, e) {
-      const msg = e instanceof JournalError ? `journal: ${e.message}` : e && e.message || String(e);
-      this.toast(`${context}: ${msg}`, "bad", 9e3);
-      this.log(`${context}: ${msg}`);
+      this.core.fail(context, e);
     }
     log(msg) {
       (this.logs ??= []).push({ at: new Date(this.now()).toISOString(), msg });
@@ -5764,76 +6229,55 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         this._unwatchAuth();
         this._unwatchAuth = null;
       }
+      if (this._tick) {
+        clearInterval(this._tick);
+        this._tick = null;
+      }
       this.exit();
     }
     /** Wait for the page's auth runtime, then probe once. Called on mount. */
-    async establishAuth() {
-      return this._auth(() => this.auth.establish());
+    establishAuth() {
+      return this.core.establishAuth();
     }
     /** Operator-driven re-check, from the auth banner. */
-    async recheckAuth() {
-      return this._auth(() => this.auth.probe());
-    }
-    async _auth(fn) {
-      if (!this.auth || this.authBusy) return this.auth ? this.auth.state : null;
-      this.authBusy = true;
-      this.refresh();
-      try {
-        return await fn();
-      } finally {
-        this.authBusy = false;
-        this.refresh();
-      }
+    recheckAuth() {
+      return this.core.recheckAuth();
     }
     /**
      * The standing answer to "can Forge do protected work right now", on every screen. It is a
      * separate line from job outcomes on purpose: "signed out" and "the read failed" are different
-     * problems with different fixes, and 0.3.0 could only ever say the second one.
+     * problems with different fixes, and 0.3.0 could only ever say the second one. The reasoning is
+     * ForgeCore's (authFacts); only the markup is this function's.
      */
     authBanner() {
-      if (!this.auth) return null;
-      const state = this.auth.state;
+      const facts = authFacts(this.auth, this.authBusy);
+      if (!facts) return null;
       const recheck = h("button", { disabled: this.authBusy, onClick: () => this.recheckAuth() }, this.authBusy ? "Checking\u2026" : "Re-check");
-      if (state === AUTH.READY) {
+      if (facts.ready) {
         return h("div", { class: "f-banner ok" }, h("span", {}, "TNR session active. Protected reads and writes are available."), h("div", { class: "f-actions" }, recheck));
       }
-      if (state === AUTH.PROBING || this.authBusy) {
+      if (facts.probing) {
         return h("div", { class: "f-banner info" }, "Checking the TNR session\u2026");
       }
-      const signedOut = state === AUTH.SIGNED_OUT;
       return h(
         "div",
         { class: "f-banner bad" },
         h(
           "div",
           {},
-          h("b", {}, signedOut ? "TNR authentication unavailable. " : "TNR authentication not confirmed. "),
-          signedOut ? "The game refused a protected procedure for this browser session. Protected reads and writes are blocked and nothing protected will be sent." : "Forge could not confirm a signed-in session, so protected reads and writes are blocked. This is not a read failure."
+          h("b", {}, facts.signedOut ? "TNR authentication unavailable. " : "TNR authentication not confirmed. "),
+          facts.signedOut ? "The game refused a protected procedure for this browser session. Protected reads and writes are blocked and nothing protected will be sent." : "Forge could not confirm a signed-in session, so protected reads and writes are blocked. This is not a read failure."
         ),
         h("div", { class: "f-mute" }, "Sign in to The Ninja RPG in this browser (the page under Forge is the game itself \u2014 close Forge, sign in, reopen /forge), then re-check. Public capture-only manifests can still run."),
-        this.auth.detail ? h("div", { class: "f-mute" }, this.auth.detail) : null,
+        facts.detail ? h("div", { class: "f-mute" }, facts.detail) : null,
         h("div", { class: "f-actions" }, recheck)
       );
     }
-    /**
-     * Why Resume is not offered on a SESSION-paused job. A job that stopped because the game
-     * refused the session must not offer a green Resume that will immediately be refused again:
-     * the operator has to sign in and re-check first (independent review FPA-2). Returns null when
-     * resuming is fine.
-     */
     resumeBlockedReason(job) {
-      if (!job || !job.pause || job.pause.reason !== "SESSION") return null;
-      if (!this.auth || this.auth.ready) return null;
-      return "TNR authentication is still unavailable. Sign in to the game and re-check the session; resuming now would send nothing.";
+      return this.core.resumeBlockedReason(job);
     }
-    /** Protected procedures a selected manifest would need that the session cannot supply. */
     blockedPaths(plan, manifest) {
-      if (!this.auth) return [];
-      try {
-        return protectedPathsFor(plan, manifest).filter((path) => !this.auth.allows(path));
-      } catch {
-        return [];
-      }
+      return this.core.blockedPaths(plan, manifest);
     }
     confirm(text, fn) {
       if (globalThis.confirm ? globalThis.confirm(text) : true) Promise.resolve().then(fn).catch((e) => this.fail("action", e));
@@ -5857,270 +6301,33 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       ));
       this.$main.prepend(card);
     }
-    // ------------------------------------------------------------------ picker
-    async loadPicker(force) {
-      if (this.state.picker && !force) return;
-      this.state.pickerError = null;
-      try {
-        const entries = (await this.github.list(GH.pushDir)).filter((e) => e.type === "file" && /\.json$/i.test(e.name)).map((e) => ({ ...e, number: manifestNumber(e.name), summary: null, loading: true }));
-        entries.sort((a, b) => (b.number ?? -1) - (a.number ?? -1) || a.name.localeCompare(b.name));
-        this.state.picker = entries;
-        this.state.pickerAt = new Date(this.now()).toISOString();
-        this.state._renderPicker && this.state._renderPicker();
-        await Promise.all(entries.map(async (e) => {
-          try {
-            const key = `gh:${e.path}@${e.sha}`;
-            const hit = await this.cache.get("github.contents", key);
-            const text = hit ? hit.data : await this.github.text(e.path);
-            if (!hit) await this.cache.put({ path: "github.contents", id: key, data: text });
-            e.text = text;
-            e.summary = manifestSummary(text);
-          } catch (err) {
-            e.error = err.message;
-          }
-          e.loading = false;
-          this.state._renderPicker && this.state._renderPicker();
-        }));
-      } catch (e) {
-        this.state.picker = this.state.picker || [];
-        this.state.pickerError = e.message;
-        this.state._renderPicker && this.state._renderPicker();
-      }
+    // ------------------------------------------------------------------ forwarded actions
+    loadPicker(force) {
+      return this.core.loadPicker(force);
     }
-    async selectManifest(entry) {
-      try {
-        const text = entry.text ?? await this.github.text(entry.path);
-        const manifest = parseManifest(text);
-        const problems = [];
-        let plan = [];
-        try {
-          plan = planOrder(manifest, JSON.parse(this.storage.getItem("tnr_bk_idmap_v1") || "{}"));
-        } catch (e) {
-          problems.push(e.message);
-        }
-        for (const it of plan) {
-          const p = it.entity === "ai" || it.entity === "aiProfile" ? [] : this.validator.problems(it.entity, it.data, null);
-          for (const x of p) problems.push(`item ${it.idx} (${it.name}): ${x}`);
-        }
-        const images = [...new Set(plan.flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
-        this.state.selected = { entry, text, manifest, plan, problems, images };
-        this.state.selected.blocked = this.blockedPaths(plan, manifest);
-        this.refresh();
-      } catch (e) {
-        this.fail("select manifest", e instanceof ManifestError ? e : e);
-      }
+    selectManifest(entry) {
+      return this.core.selectManifest(entry);
     }
-    // ------------------------------------------------------------------ jobs
-    async startJob() {
-      const s = this.state.selected;
-      if (!s) return;
-      const blocked = this.blockedPaths(s.plan, s.manifest);
-      if (blocked.length) {
-        this.toast(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9e3);
-        this.state.selected.blocked = blocked;
-        return this.refresh();
-      }
-      const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
-      try {
-        this.runner.plan(s.text, { jobId, manifestPath: s.entry.path, manifestNumber: s.entry.number });
-      } catch (e) {
-        return this.fail("plan", e);
-      }
-      this.state.selected = null;
-      this.go("run", { jobId });
-      await this._drive(jobId, () => this.runner.run(jobId));
+    startJob() {
+      return this.core.startJob();
     }
-    async resumeJob(jobId) {
-      const job = this.journal.get(jobId);
-      const blocked = this.resumeBlockedReason(job);
-      if (blocked) {
-        this.toast(blocked, "bad", 9e3);
-        return this.refresh();
-      }
-      if (!this.runner.manifests.has(jobId)) {
-        try {
-          const text = job.manifestPath ? await this.github.text(job.manifestPath) : null;
-          if (!text) throw new Error("no manifest path recorded; cannot resume");
-          this.runner.attach(jobId, text);
-        } catch (e) {
-          return this.fail("resume: fetch manifest", e);
-        }
-      }
-      this.go("run", { jobId });
-      const hasSent = job.items.some((i) => i.state === "SENT");
-      await this._drive(jobId, () => hasSent ? this.runner.resume(jobId) : this.runner.run(jobId));
-    }
-    async _drive(jobId, fn) {
-      if (this.state.running) return this.toast("a job is already running", "warn");
-      this.state.running = jobId;
-      this.state.runningNote = "";
-      this.refresh();
-      const tick = setInterval(() => {
-        if (this.state.screen === "run") this.refresh();
-      }, 1500);
-      try {
-        const s = await fn();
-        if (s.state === "DONE" || s.state === "INCOMPLETE") {
-          try {
-            await this.resolveCaptures(jobId);
-          } catch (e) {
-            this.fail("resolve full captures", e);
-          }
-        }
-        const job = this.journal.get(jobId);
-        const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
-        const outcome = jobOutcome(job);
-        const full = captures.filter((capture) => capture.persist === "full");
-        const detail = job.items.length ? `${Object.entries(s.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${s.verify.match} verified, ${s.verify.drift} drift, ${s.verify.unread} unread` : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` \xB7 ${full.filter((capture) => capture.persistOk === true).length}/${full.length} full bodies persisted` : ""} \xB7 zero mutations`;
-        const kind = outcome === "success" ? "ok" : outcome === "failed" ? "bad" : "warn";
-        if (job.pause && job.pause.reason === "SESSION") {
-          this.toast(`job PAUSED: TNR authentication unavailable${job.pause.path ? ` on ${job.pause.path}` : ""}. Nothing further was sent. Sign in and resume.`, "bad", 12e3);
-        } else {
-          this.toast(`job ${s.state} (${outcome}): ${detail}`, kind, 8e3);
-        }
-        if (s.state === "DONE" || s.state === "INCOMPLETE") await this.exportJob(jobId, { auto: true });
-      } catch (e) {
-        this.fail("run", e);
-      } finally {
-        clearInterval(tick);
-        this.state.running = null;
-        this.refresh();
-      }
+    resumeJob(jobId) {
+      return this.core.resumeJob(jobId);
     }
     requestPause() {
-      this.runner.requestPause();
-      this.toast("pausing after the current item finishes", "warn");
+      return this.core.requestPause();
     }
     adopt(jobId, idx, id) {
-      try {
-        this.runner.adopt(jobId, idx, id);
-        this.refresh();
-      } catch (e) {
-        this.fail("adopt", e);
-      }
+      return this.core.adopt(jobId, idx, id);
     }
     skip(jobId, idx) {
-      try {
-        this.runner.skip(jobId, idx);
-        this.refresh();
-      } catch (e) {
-        this.fail("skip", e);
-      }
+      return this.core.skip(jobId, idx);
     }
-    /**
-     * Materialize every requested full capture body out of the IndexedDB capture cache, and write
-     * the VERDICT (not the body) back onto the job's own capture entries. Two things follow from
-     * doing it this way:
-     *
-     *   - the export never issues a read. The body it ships is the immutable snapshot the capture
-     *     pass committed from that read's own response; if it is not there, the export says so
-     *     rather than going back to the game for it. It is NOT read out of the path+id read cache,
-     *     which a later read or a write to the entity may legitimately have replaced or dropped
-     *     (independent review FFC-1);
-     *   - the journal stays compact and stays the record of truth. persistOk/persistError live on
-     *     the journal entry, so jobOutcome(), the run screen and the bundle all read one answer,
-     *     and the embedded `journal` in the bundle never duplicates the bodies beside it.
-     *
-     * Returns the export-ready capture list: summary entries exactly as journaled, full entries
-     * with `data` attached when, and only when, the body was materialized intact.
-     */
-    async resolveCaptures(jobId) {
-      const job = this.journal.get(jobId);
-      const patch = {};
-      const out = [];
-      for (const key of ["capturesBefore", "capturesAfter"]) {
-        if (!Array.isArray(job[key])) continue;
-        const resolved = [];
-        for (const capture of job[key]) resolved.push(await this._materialize(capture));
-        if (job[key].some((capture) => capture && capture.persist === "full")) {
-          patch[key] = resolved.map(({ data, ...rest }) => rest);
-        }
-        out.push(...resolved);
-      }
-      if (Object.keys(patch).length) this.journal.annotateJob(jobId, patch);
-      return out;
+    resolveCaptures(jobId) {
+      return this.core.resolveCaptures(jobId);
     }
-    async _materialize(capture) {
-      if (!capture || typeof capture !== "object" || capture.persist !== "full") return capture;
-      const c = { ...capture, persistOk: false, persistError: null };
-      delete c.data;
-      if (capture.ok !== true) {
-        c.persistError = "read failed; there is no body to persist";
-        return c;
-      }
-      if (capture.persistOk === false && capture.persistError) return { ...c, persistError: capture.persistError };
-      const key = capture.snapshotKey || null;
-      if (!key) {
-        c.persistError = "no capture snapshot key was journaled for this full capture";
-        return c;
-      }
-      let rec = null;
-      try {
-        rec = await this.cache.getSnapshot(key);
-      } catch (e) {
-        c.persistError = "capture snapshot read failed: " + (e && e.message || String(e));
-        return c;
-      }
-      if (!rec) {
-        c.persistError = `capture snapshot ${key} is gone, so the full body cannot be exported without a second read; it was not re-read`;
-        return c;
-      }
-      const bytes = typeof rec.bytes === "number" ? rec.bytes : JSON.stringify(rec.data ?? null).length;
-      c.bytes = bytes;
-      if (bytes > MAX_FULL_CAPTURE_BYTES) {
-        c.persistError = `body is ${bytes} bytes, over the ${MAX_FULL_CAPTURE_BYTES}-byte full-capture ceiling; it is NOT truncated and NOT persisted`;
-        return c;
-      }
-      c.persistOk = true;
-      c.at = rec.at ?? null;
-      c.data = rec.data;
-      return c;
-    }
-    /** Results bundle in the shape harvests/inbox/ already holds, committed via GitHub when Sync is on. */
-    async exportJob(jobId, { auto = false } = {}) {
-      let captures;
-      try {
-        captures = await this.resolveCaptures(jobId);
-      } catch (e) {
-        this.fail("resolve full captures", e);
-        const j = this.journal.get(jobId);
-        captures = [...j.capturesBefore || [], ...j.capturesAfter || []];
-      }
-      const job = this.journal.get(jobId);
-      const bundle = {
-        builder: this.version,
-        at: new Date(this.now()).toISOString(),
-        cfg: "forge",
-        checks: null,
-        // `outcome` is the honest headline: an exported bundle is evidence, not a claim of success.
-        state: job.state,
-        outcome: jobOutcome(job),
-        postflight: {
-          match: job.items.filter((i) => i.verify === "match").length,
-          diff: job.items.filter((i) => i.verify === "drift").length,
-          unverified: job.items.filter((i) => i.verify === "unread").length,
-          failed: job.items.filter((i) => i.state === "FAILED").length,
-          skipped: job.items.filter((i) => i.state === "SKIPPED").length,
-          unresolved: job.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length
-        },
-        entries: job.items.map((i) => harvestEntry(i)),
-        captures,
-        idmap: JSON.parse(this.storage.getItem("tnr_bk_idmap_v1") || "{}"),
-        journal: job
-      };
-      const name = `tnr_results_${Date.now()}.json`;
-      const text = JSON.stringify(bundle, null, 1);
-      const gh = readGh(this.storage);
-      if (gh.on && gh.pat) {
-        try {
-          const r = await this.github.put(`${GH.inboxDir}/${name}`, text, `results: ${name} (forge)`);
-          this.toast(`committed ${name}${r.sha ? " @" + r.sha.slice(0, 7) : ""}`, "ok");
-          return;
-        } catch (e) {
-          this.fail("commit results", e);
-        }
-      }
-      if (!auto || !(gh.on && gh.pat)) this.showExport(text, name);
+    exportJob(jobId, opts) {
+      return this.core.exportJob(jobId, opts);
     }
     async _persist() {
       try {
@@ -6134,7 +6341,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
   };
 
-  // src/ui/takeover.mjs
+  // src/hosts/userscript/takeover.mjs
   var ENTRY_PATH = "/forge";
   var CARRIER_PATH = "/";
   var ARM_KEY = "tnr_forge_armed_v1";
@@ -11481,6 +11688,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const deps = {};
     deps.journal = new Journal(storage, clock);
     deps.cache = new CaptureCache(indexedDB, clock);
+    deps.repoCache = new RepoTextCache(indexedDB, clock);
     deps.session = new CookieSession({ fetchImpl, origin: "" });
     deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`) });
     deps.auth = new AuthState({ client: deps.client, runtime, clock, state: authState });
@@ -11495,6 +11703,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       client: deps.client,
       reader: deps.reader,
       cache: deps.cache,
+      repoCache: deps.repoCache,
       budget: deps.budget,
       validator: deps.validator,
       uploader: deps.uploader,
