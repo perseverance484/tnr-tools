@@ -350,6 +350,19 @@ export function validateProjection(path, fields) {
     }
     if (!out.includes(f)) out.push(f);
   }
+  // A declaration that is a strict PREFIX of another declaration cannot be satisfied: the shorter
+  // path says "export this field", the longer says "descend into it", and a value cannot be both a
+  // leaf and a structure. Accepting the pair let the leaf win and the deeper request disappear with
+  // a green verdict - a declared field silently absent from the evidence (re-review FN3-R1). It is
+  // refused here rather than resolved, because either resolution would quietly discard something the
+  // manifest asked for.
+  for (const a of out) {
+    for (const b of out) {
+      if (a !== b && b.startsWith(a + ".")) {
+        throw new ResearchError(`${path}: ${a} and ${b} overlap - ${a} is declared as a field and also descended into by ${b}, and a value cannot be both. Declare the leaves you want.`, { path, field: b });
+      }
+    }
+  }
   return out;
 }
 
@@ -388,6 +401,11 @@ function projectInto(value, paths, prefix, missing) {
     const terminal = rests.filter((r) => !r.length);
     const deeper = rests.filter((r) => r.length);
     if (terminal.length) {
+      // Defence in depth for the overlap validateProjection now refuses: if a caller reaches here
+      // with both a terminal and a descendant of it, the descendant is UNSATISFIED and is recorded,
+      // never dropped. Taking the leaf and returning green is what made a declared field vanish from
+      // the evidence (re-review FN3-R1).
+      for (const rest of deeper) missing.add([...here, ...rest].join("."));
       if (isScalar(child)) { out[head] = child === undefined ? null : child; continue; }
       if (isScalarList(child)) { out[head] = [...child]; continue; }
       // a structure was named as a field; refuse rather than ship the subtree
@@ -448,17 +466,47 @@ export function registryProblems() {
  *
  * Derived rather than hand-maintained, so it cannot be forgotten during a registry edit.
  */
-export const REGISTRY_REVISION = fnv1a32(stableStringify({
-  pin: REGISTRY_PIN,
-  rows: RESEARCH_PATHS.map((path) => {
-    const r = RESEARCH_READS[path];
-    return {
-      path, tier: r.tier, project: r.project,
-      input: r.input ? { required: Object.keys(r.input.required), optional: Object.keys(r.input.optional) } : null,
-      page: r.page ?? null,
-    };
-  }),
-}));
+/** One input spec as plain serializable data: its kind and, for an enum, its exact members. */
+function specFacts(spec) {
+  return spec.t === "enum" || spec.t === "enum[]" ? { t: spec.t, values: [...spec.values] } : { t: spec.t };
+}
+
+/**
+ * EVERY fact that decides what a read may do, as plain data. This is the input the policy identity
+ * is derived from, and it has to be complete: the first version keyed on input KEY NAMES, so
+ * changing a field's type from number to boolean, or withdrawing an enum member, changed what Forge
+ * would admit while leaving the identity untouched (re-review FN4-R1). It now carries the full input
+ * specifications, the projectable allowlists, the per-row paging descriptors, and the global bounds
+ * and tier ordering that apply to every row.
+ *
+ * Exported so the sensitivity of the identity can be tested directly: a test mutates a copy of these
+ * facts and asserts the revision moves, which is the property that actually matters and which a
+ * shape assertion on the digest cannot check.
+ */
+export function policyFacts() {
+  return {
+    pin: REGISTRY_PIN,
+    // global policy: the tier lattice, the default tier and the ceiling on any walk
+    tiers: [...TIERS],
+    defaultTier: DEFAULT_RESEARCH_TIER,
+    maxPages: MAX_PAGES,
+    rows: RESEARCH_PATHS.map((path) => {
+      const r = RESEARCH_READS[path];
+      const specs = (m) => Object.fromEntries(Object.entries(m).map(([k, v]) => [k, specFacts(v)]));
+      return {
+        path, tier: r.tier,
+        project: r.project ? [...r.project] : null,
+        input: r.input ? { required: specs(r.input.required), optional: specs(r.input.optional) } : null,
+        page: r.page ? { ...r.page } : null,
+      };
+    }),
+  };
+}
+
+/** The identity of one set of policy facts. Stable under key order, sensitive to every value. */
+export function revisionOf(facts) { return fnv1a32(stableStringify(facts)); }
+
+export const REGISTRY_REVISION = revisionOf(policyFacts());
 
 /**
  * The policy identity to stamp onto a capture at the moment it is taken (brief section 6: a capture

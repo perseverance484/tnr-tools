@@ -644,7 +644,11 @@ export class Runner {
       // `input` is the CANONICAL input — the exact object that went on the wire, not the shape the
       // manifest happened to write it in (requirement 7.4). For a paged walk the per-page inputs are
       // journaled too, so "what was asked for" is recoverable page by page.
-      const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
+      // The policy that admitted this read is stamped on EVERY research record, before the entry
+      // splits into a summary, a persisted or an abandoned one. Stamping it only where a body was
+      // kept left ordinary summary captures unable to name the contract they ran under, which
+      // brief section 6 requires of every research capture (re-review FN4-R2).
+      const entry = { phase, proc: path, policy: capturePolicy(path), input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
       if (c.mode === "query") {
         entry.pages = r.pages;
         // A walk that stopped on its page bound with a full page in hand has more data behind it.
@@ -746,7 +750,8 @@ export class Runner {
     const prior = Array.isArray(job[key + "Attempts"]) ? job[key + "Attempts"] : [];
     this.journal.annotateJob(jobId, {
       [key + "Attempts"]: [...prior, {
-        phase, ordinal, proc: c.proc, input: c.input ?? null, persist: c.persist, tier: c.tier,
+        phase, ordinal, proc: c.proc, policy: capturePolicy(c.proc),
+        input: c.input ?? null, persist: c.persist, tier: c.tier,
         abandoned: true, ok: false, complete: false,
         rows: typeof e.rowCount === "number" ? e.rowCount : 0,
         error: e.name === "RateLimited" ? "TOO_MANY_REQUESTS" : e.name || "ERROR",
