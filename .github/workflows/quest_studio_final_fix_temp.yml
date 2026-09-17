@@ -1,0 +1,75 @@
+name: quest-studio-final-fix-temp
+
+on:
+  push:
+    paths:
+      - "state/quest_studio_final_fix.py"
+      - ".github/workflows/quest_studio_final_fix_temp.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  verify-and-commit:
+    if: github.ref == 'refs/heads/chatgpt/forge-quest-studio-final-fix'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/forge-quest-studio-final-fix
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: forge/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Apply final correction
+        run: python3 state/quest_studio_final_fix.py
+
+      - name: Worker contract and compiler gates
+        run: |
+          set -euo pipefail
+          python3 skills/building-tnr-content/scripts/quest_worker_contract_test.py
+          python3 skills/building-tnr-content/scripts/quest_compile.py --selftest
+          python3 skills/building-tnr-content/scripts/quest_compile_integration_test.py
+
+      - name: Forge tests and bundle
+        working-directory: forge
+        run: |
+          set -euo pipefail
+          npm ci
+          npm test
+          npm run fixtures
+          git diff --exit-code -- test/fixtures/envelope
+          npm run build
+
+      - name: Repository coherence
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/pack_skills.py
+          python3 skills/building-tnr-content/scripts/doctrinemap.py
+          python3 skills/building-tnr-content/scripts/render_doctrine.py --check
+          python3 skills/building-tnr-content/scripts/build_packs.py --check
+          python3 skills/building-tnr-content/scripts/lawmap.py .
+
+      - name: Commit tested non-workflow changes
+        run: |
+          set -euo pipefail
+          git config user.name "quest-studio-final-fix[bot]"
+          git config user.email "quest-studio-final-fix[bot]@users.noreply.github.com"
+          git add -- \
+            forge/test/github.studio.test.mjs \
+            forge/test/quest.studio.ui.test.mjs \
+            skills/building-tnr-content/scripts/quest_worker_contract_test.py \
+            docs/RULINGS.md \
+            docs/design/FORGE_NEXT_REPO_BACKED_STUDIO_ARCHITECTURE.md \
+            forge_bundle.js \
+            dist
+          git diff --cached --check
+          git diff --cached --quiet && { echo "No tested changes staged" >&2; exit 1; }
+          git commit -m "fix: close final Quest Studio review findings"
+          git push origin HEAD:chatgpt/forge-quest-studio-final-fix
