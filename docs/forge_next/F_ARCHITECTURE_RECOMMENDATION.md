@@ -190,7 +190,7 @@ RB §6 is the binding vocabulary (RB:150-183). Forge sends named requests rather
 | load project/source | partial | the source is read from the request branch; there is no project identity in Quest Source v1 (A.11 gap (i)) |
 | load subtype registry/policy | yes | the registry and the profiles are fetched when the Studio opens |
 | save draft revision | yes | branch-scoped write of the request document |
-| compile quest source | yes | workflow dispatch, dispatch-only, trusted-checkout separation |
+| compile quest source | yes | source-push trigger (RUL-2026-09-16-002; not workflow dispatch at the accepted SHA), trusted-checkout separation, pushed-ref worker-definition equality |
 | validate package | no | not a separate operation; validation rides inside compile |
 | search/reuse evidence | no | none |
 | generate artifact requirements | partial | the shot list is produced inside compile, not requestable on its own |
