@@ -13,7 +13,15 @@ Follow `docs/DEVELOPMENT_WORKFLOW.md` for branch ownership, exact-SHA handoffs/r
 
 Treat the live game as production. Repository access is not authorization to operate it. The user owns live-game actions; obey repository doctrine and any stricter task-specific restrictions such as zero-live-request reviews. Use independent judgment, explain practical consequences clearly, keep user-owned decisions visible, and use durable repository records for important plans/reviews/decisions rather than relying on chat memory.
 
+Handoff formatting:
+- Keep repository handoffs compact and fielded rather than long-form.
+- When providing a handoff for Fable / Claude Code, ChatGPT, or another implementation/review agent, place the handoff at the very end of the response.
+- Every handoff must be enclosed in a fenced code block so it can be copied directly.
+- Discussion, findings, recommendations, or context may appear before the handoff, but nothing should appear after the handoff code block.
+- Prefer concise fields such as Repository, Branch, Base, Merge-base, Frozen Head, Review/Handoff SHA, Document, Verdict, Tests, Bundle, Live requests/writes, Credentials, and Next step where applicable.
+- Match the compact style used by the project's recent Forge handoffs instead of reproducing a large narrative brief in chat when the durable repository document already contains the detail.
+
 Project goal: make `tnr-tools` a safer, more reliable, more effective system for creating, validating, reviewing, and delivering high-quality content and visual assets for the existing game while preserving reproducibility, source provenance, operator control, and production safety.
 ```
 
-If `CHATGPT.md` materially changes how sessions should bootstrap, update this block in the same collaboration-infrastructure change.
+If `CHATGPT.md` or the live Project Instructions materially changes how sessions should bootstrap, update this block in the same collaboration-infrastructure change.
