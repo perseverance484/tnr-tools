@@ -175,6 +175,46 @@ The SHA, not the branch name, is the audit target. Use `docs/workflows/IMPLEMENT
 
 For substantial ChatGPT → Claude Code work, implement from the committed approved task brief (normally the existing `state/prompt_<task>.md` pattern where appropriate), not from a lossy paraphrase of a chat. Issues can track work but are not the implementation contract.
 
+### 11.1 Handoff format — committed document plus an identity block
+
+Every handoff for review has two parts, and both are required. Neither substitutes for the other.
+
+**1. A committed handoff document** at `docs/handoffs/<TASK>_HANDOFF.md`, on the implementation branch, as the last substantive commit before the freeze. This is the durable artifact the reviewer reads and the record that outlives the conversation. It carries, in this order:
+
+- an identity table: repository, branch, base SHA, merge-base, frozen head SHA, governing contract SHA, prior reviewed SHA when this is a correction round, live requests, live writes, credentials used;
+- what was corrected or built, finding by finding when answering a review;
+- **evidence before conclusions** — reproduce a reported defect before fixing it, and show the reproduction;
+- exact commands and their exact results;
+- a commit table, one row per commit, with what each did;
+- measurements as a before/after table with deltas;
+- known debt, deviations, and open decisions;
+- checks **not** performed, named specifically — browser, device, live, session;
+- what explicitly has not begun.
+
+**2. An identity block returned in chat**, as a fenced code block, so the exact SHAs can be copied without opening the repository:
+
+```
+Branch:        <branch>
+Reviewed head: <prior SHA, on a correction round>
+FROZEN HEAD:   <exact SHA>
+Handoff:       docs/handoffs/<TASK>_HANDOFF.md
+Tests:         <before> -> <after>, <n> fail
+Live requests: none.  Live writes: none.
+```
+
+Add a line only when it carries information the reviewer needs — a fixture verdict, a bundle delta, a blocked action. Keep it short enough to read at a glance on a phone.
+
+### 11.2 Handoff honesty rules
+
+These are the part that makes a handoff worth reading.
+
+- **Stamp the real SHA.** The frozen head is the branch tip. If a stamp commit follows the handoff document, say so and say which SHA to review.
+- **Do not squash away a mistake.** A commit that was pushed red, a rewritten history, a stale artifact a gate caught — record it in the handoff, with the commit SHA, and say what it cost. A reviewer who finds an error that the handoff already owns can trust the rest of it.
+- **Never claim a check that was not run.** "Browser checks not performed" is a required section, not a formality, and it names the specific surfaces left unverified.
+- **State the blocked action.** When a gate, a credential or a permission prevents completion — a workflow the PAT cannot install, a rehearsal that needs the live game — the handoff says what is pending, who has to do it, and what is unenforced until they do.
+- **A measurement, not an absence.** "Zero violations" means nothing without the population scanned. Report both.
+- **Do not widen a credential to make a handoff cleaner.** The blocked action goes in the handoff.
+
 ## 12. Independent review loop
 
 ChatGPT reviews Fable's frozen Lane A SHA without modifying the Fable branch.
