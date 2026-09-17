@@ -124,7 +124,10 @@ flagged in section 7.
 All 12 Phase 0 screen fixtures remain byte-identical. One Phase 1 fixture moved,
 `manifests_selected_research.txt`, because its scenario now declares a leaf path.
 
-**Canonical Forge CI:** see section 8.
+**Canonical Forge CI: run `35263303607`, job `verify` (`105344127640`) — conclusion `success`**, on
+head `f34e5f8` (this handoff's own commit; the correction head `7bd8592` differs from it only by
+these two Markdown files). <https://github.com/perseverance484/tnr-tools/actions/runs/35263303607>
+All twelve steps ran and passed, none skipped.
 
 ## 6. Source and provenance
 
