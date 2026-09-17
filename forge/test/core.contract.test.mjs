@@ -120,3 +120,55 @@ test("rendering every screen adds no key and no function to core machine state",
   assert.equal(typeof app.view.renderPicker, "function", "the picker callback belongs to the view");
   assert.ok("pickerQuery" in app.view && "persisted" in app.view);
 });
+
+test("go() refuses an unknown patch key instead of minting core state", () => {
+  // The residual F1 defect: go(screen, patch) was Object.assign(this.state, patch, { screen }),
+  // so any shell could create a new machine-state key through the public API and neither the
+  // snapshot golden nor the render test would see it.
+  const c = core();
+  const before = Object.keys(c.state).sort();
+
+  for (const patch of [{ pickerQuery: "x" }, { persisted: true }, { renderPicker: () => {} }, { jobId: "ok", extra: 1 }]) {
+    assert.throws(() => c.go("jobs", patch), /refuses unknown state keys/, `go() accepted ${JSON.stringify(Object.keys(patch))}`);
+  }
+  assert.deepEqual(Object.keys(c.state).sort(), before, "a refused go() must leave state untouched");
+
+  // the permitted patch still works
+  c.go("run", { jobId: "j-1" });
+  assert.equal(c.state.screen, "run");
+  assert.equal(c.state.jobId, "j-1");
+  assert.deepEqual(Object.keys(c.state).sort(), before);
+});
+
+test("go() refuses an unknown screen and a non-object patch", () => {
+  const c = core();
+  for (const screen of ["dashboard", "", null, 42]) {
+    assert.throws(() => c.go(screen), /unknown screen/, `go() accepted screen ${JSON.stringify(screen)}`);
+  }
+  for (const patch of [null, [], "jobId"]) {
+    assert.throws(() => c.go("jobs", patch), TypeError);
+  }
+});
+
+test("the view cannot write core machine state, including during mount", async () => {
+  const { installDom } = await import("./screen_scenarios.mjs");
+  const { App } = await import("../src/ui/app.mjs");
+  installDom();
+  const storage = new MemoryStorage();
+  const clock = fakeClock();
+  const d = composeForTest({ game: new FakeGame(), storage, idb: new IDBFactory(), clock });
+  d.github = { list: async () => [], text: async () => "{}", put: async () => ({ sha: "s" }) };
+  const app = new App({ version: "contract", storage, now: clock, ...d });
+  app.mount(globalThis.document.body);
+
+  assert.throws(() => { app.state.screen = "run"; }, TypeError, "a known key must not be writable from the view");
+  assert.throws(() => { app.state.somethingNew = 1; }, TypeError, "a new key must not be writable from the view");
+  assert.throws(() => { delete app.state.jobId; }, TypeError, "the view must not delete machine state");
+  assert.throws(() => { Object.defineProperty(app.state, "x", { value: 1 }); }, TypeError);
+
+  // reads still work, and the action path still works
+  assert.equal(app.state.screen, "jobs");
+  app.go("run", { jobId: "j-2" });
+  assert.equal(app.state.screen, "run");
+  assert.deepEqual(Object.keys(app.core.state).sort(), [...STATE_KEYS].sort());
+});

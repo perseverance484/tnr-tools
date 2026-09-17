@@ -5876,6 +5876,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   var REQUIRED_DEPS = ["version", "storage", "journal", "cache", "repoCache", "runner", "github", "validator"];
   var OPTIONAL_DEPS = ["budget", "reader", "client", "session", "auth", "reconciler", "uploader", "now"];
   var STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "running", "runningNote"];
+  var SCREENS = ["jobs", "manifests", "run", "captures", "settings"];
+  var GO_PATCH_KEYS = ["jobId"];
   var ForgeCore = class {
     /**
      * @param {object} d see REQUIRED_DEPS / OPTIONAL_DEPS. Unknown keys are ignored; a missing
@@ -6082,8 +6084,17 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       const hasSent = job.items.some((i) => i.state === "SENT");
       await this.drive(jobId, () => hasSent ? this.runner.resume(jobId) : this.runner.run(jobId));
     }
+    /**
+     * Route to a screen, optionally carrying the job it is about. Fails closed on an unknown screen
+     * or an unknown patch key rather than silently creating machine state.
+     */
     go(screen, patch = {}) {
-      Object.assign(this.state, patch, { screen });
+      if (!SCREENS.includes(screen)) throw new Error(`unknown screen ${JSON.stringify(screen)}`);
+      if (patch === null || typeof patch !== "object" || Array.isArray(patch)) throw new TypeError("go() patch must be an object");
+      const unknown = Object.keys(patch).filter((k) => !GO_PATCH_KEYS.includes(k));
+      if (unknown.length) throw new Error(`go() refuses unknown state keys: ${unknown.join(", ")}; add a named action instead`);
+      for (const k of GO_PATCH_KEYS) if (k in patch) this.state[k] = patch[k];
+      this.state.screen = screen;
       this.changed();
     }
     async drive(jobId, fn) {
@@ -6165,7 +6176,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   };
 
   // src/ui/app.mjs
-  var SCREENS = { jobs: ["Jobs", JobsScreen], manifests: ["Manifests", ManifestsScreen], run: ["Run", RunScreen], captures: ["Captures", CapturesScreen], settings: ["Settings", SettingsScreen] };
+  var SCREENS2 = { jobs: ["Jobs", JobsScreen], manifests: ["Manifests", ManifestsScreen], run: ["Run", RunScreen], captures: ["Captures", CapturesScreen], settings: ["Settings", SettingsScreen] };
   var App = class {
     /**
      * @param {object} d  { version, storage, journal, cache, budget, reader, client, session, runner, reconciler, github, validator, now }
@@ -6180,9 +6191,27 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       this._tick = null;
       this._unsubscribe = this.core.subscribe((n) => this._onCore(n));
     }
-    /** Read-through to core machine state. The view renders from it and never adds keys to it. */
+    /**
+     * The view's read-only window onto core machine state. It used to hand back the mutable core
+     * object, so "the view never writes core state" was a claim about discipline rather than a
+     * property of the code — and `mount()` itself falsified it. Writes now throw.
+     */
     get state() {
-      return this.core.state;
+      if (!this._stateView || this._stateViewOf !== this.core.state) {
+        this._stateViewOf = this.core.state;
+        this._stateView = new Proxy(this.core.state, {
+          set(_t, k) {
+            throw new TypeError(`core machine state is read-only from the view; ${String(k)} must change through a core action`);
+          },
+          defineProperty(_t, k) {
+            throw new TypeError(`core machine state is read-only from the view; ${String(k)} must change through a core action`);
+          },
+          deleteProperty(_t, k) {
+            throw new TypeError(`core machine state is read-only from the view; ${String(k)} must change through a core action`);
+          }
+        });
+      }
+      return this._stateView;
     }
     get authBusy() {
       return this.core.authBusy;
@@ -6244,7 +6273,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (this.auth && typeof this.auth.onChange === "function") this._unwatchAuth = this.auth.onChange(() => this.refresh());
       container.appendChild(this.root);
       const open = this.journal.resumable();
-      if (open.length) this.state.screen = "jobs";
+      if (open.length) this.core.go("jobs");
       this.refresh();
       this._persist();
       return this.root;
@@ -6253,10 +6282,10 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       this.core.go(screen, patch);
     }
     refresh() {
-      replace(this.$nav, Object.entries(SCREENS).map(([k, [label]]) => h("button", { "aria-current": this.state.screen === k ? "page" : null, onClick: () => this.go(k) }, label)));
+      replace(this.$nav, Object.entries(SCREENS2).map(([k, [label]]) => h("button", { "aria-current": this.state.screen === k ? "page" : null, onClick: () => this.go(k) }, label)));
       if (this.$auth) replace(this.$auth, this.authBanner());
       try {
-        replace(this.$main, SCREENS[this.state.screen][1](this));
+        replace(this.$main, SCREENS2[this.state.screen][1](this));
       } catch (e) {
         replace(this.$main, h("div", { class: "f-banner bad" }, h("b", {}, "This screen failed to render. "), h("div", { class: "f-err" }, String(e && e.stack || e))));
       }

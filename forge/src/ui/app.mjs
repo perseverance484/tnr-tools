@@ -39,8 +39,22 @@ export class App {
     this._unsubscribe = this.core.subscribe((n) => this._onCore(n));
   }
 
-  /** Read-through to core machine state. The view renders from it and never adds keys to it. */
-  get state() { return this.core.state; }
+  /**
+   * The view's read-only window onto core machine state. It used to hand back the mutable core
+   * object, so "the view never writes core state" was a claim about discipline rather than a
+   * property of the code — and `mount()` itself falsified it. Writes now throw.
+   */
+  get state() {
+    if (!this._stateView || this._stateViewOf !== this.core.state) {
+      this._stateViewOf = this.core.state;
+      this._stateView = new Proxy(this.core.state, {
+        set(_t, k) { throw new TypeError(`core machine state is read-only from the view; ${String(k)} must change through a core action`); },
+        defineProperty(_t, k) { throw new TypeError(`core machine state is read-only from the view; ${String(k)} must change through a core action`); },
+        deleteProperty(_t, k) { throw new TypeError(`core machine state is read-only from the view; ${String(k)} must change through a core action`); },
+      });
+    }
+    return this._stateView;
+  }
 
   get authBusy() { return this.core.authBusy; }
   set authBusy(v) { this.core.authBusy = v; }
@@ -81,7 +95,7 @@ export class App {
     if (this.auth && typeof this.auth.onChange === "function") this._unwatchAuth = this.auth.onChange(() => this.refresh());
     container.appendChild(this.root);
     const open = this.journal.resumable();
-    if (open.length) this.state.screen = "jobs";
+    if (open.length) this.core.go("jobs"); // a core action, not a direct write into machine state
     this.refresh();
     this._persist();
     return this.root;

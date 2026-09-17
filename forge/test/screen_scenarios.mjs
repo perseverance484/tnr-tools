@@ -74,8 +74,7 @@ export async function renderScenarios() {
     add("captures_empty", CapturesScreen(app));
     add("settings_default", SettingsScreen(app));
     add("manifests_unloaded", ManifestsScreen(app));
-    app.state.jobId = null;
-    add("run_no_job", RunScreen(app));
+    add("run_no_job", RunScreen(app));  // no job selected: mount() leaves jobId null
   }
 
   // ---- manifests: picker loaded, and a manifest selected with its plan ------------------------
@@ -94,7 +93,7 @@ export async function renderScenarios() {
     app.mount(globalThis.document.body);
     await selection(app);
     app.runner.plan(MANIFEST, { jobId: "fixture-job", manifestPath: ENTRY.path, manifestNumber: 45 });
-    app.state.jobId = "fixture-job";
+    app.go("run", { jobId: "fixture-job" });
     add("run_planned", RunScreen(app));
     add("jobs_with_planned_job", JobsScreen(app));
   }
@@ -106,7 +105,7 @@ export async function renderScenarios() {
     await selection(app);
     app.runner.plan(MANIFEST, { jobId: "fixture-done", manifestPath: ENTRY.path, manifestNumber: 45 });
     await app.runner.run("fixture-done");
-    app.state.jobId = "fixture-done";
+    app.go("run", { jobId: "fixture-done" });
     add("run_finished", RunScreen(app));
     add("jobs_with_finished_job", JobsScreen(app));
     add("captures_after_run", CapturesScreen(app));
