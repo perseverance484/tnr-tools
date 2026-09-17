@@ -61,6 +61,8 @@ def main() -> int:
     require(text, "path: tools", "trusted compiler checkout is isolated under tools/", failures)
     require(text, "persist-credentials: false", "trusted compiler checkout cannot push", failures)
     require(text, "git -C tools rev-parse HEAD", "compiler revision is measured from trusted checkout", failures)
+    require(text, "name: Verify worker definition matches trusted main", "request worker definition is compared with trusted main", failures)
+    require(text, "cmp --silent request-definition/.github/workflows/quest_studio.yml tools/.github/workflows/quest_studio.yml", "worker drift comparison fails closed", failures)
     require(text, "name: Checkout authored request source", "request checkout exists", failures)
     require(text, "ref: ${{ steps.identity.outputs.source_sha }}", "request checkout is pinned to push SHA", failures)
     require(text, "path: request", "request checkout is isolated under request/", failures)
@@ -97,6 +99,8 @@ def main() -> int:
     require(text, 'RESULT_PATH="request/studio/results/$REQUEST_ID.build.json"', "result path is request-scoped", failures)
     require(text, 'BUILD_PATH="request/studio/builds/$REQUEST_ID"', "build path is request-scoped", failures)
     require(text, '[[ "$REMOTE_SHA" == "$SOURCE_SHA" ]]', "stale source result is refused before persistence", failures)
+    require(text, "if: ${{ always() && steps.identity.outcome == 'success' }}", "terminal compile failures still reach structured persistence", failures)
+    require(text, '"code": "compiler_no_result"', "missing compiler result gets a structured failure envelope", failures)
     require(text, 'git -C request add -- "studio/results/$REQUEST_ID.build.json" "studio/builds/$REQUEST_ID"', "git add allowlists generated paths", failures)
     forbid(text, "git -C tools push", "trusted compiler checkout is never pushed", failures)
 
