@@ -33,6 +33,22 @@ jobs:
         id: compiler
         run: echo "compiler_sha=$(git -C tools rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
+      - name: Checkout pushed worker definition
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: request-definition
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Verify worker definition matches trusted main
+        run: |
+          set -euo pipefail
+          cmp --silent request-definition/.github/workflows/quest_studio.yml tools/.github/workflows/quest_studio.yml || {
+            echo "request-branch Quest Studio worker differs from trusted main; refusing to compile" >&2
+            exit 2
+          }
+
       - name: Validate push identity
         id: identity
         env:
@@ -161,16 +177,51 @@ jobs:
           echo "compile_rc=$RC" >> "$GITHUB_OUTPUT"
 
       - name: Persist build result to request branch
+        if: ${{ always() && steps.identity.outcome == 'success' }}
         env:
           REQUEST_BRANCH: ${{ steps.identity.outputs.request_branch }}
           REQUEST_ID: ${{ steps.identity.outputs.request_id }}
           SOURCE_SHA: ${{ steps.identity.outputs.source_sha }}
+          COMPILER_SHA: ${{ steps.compiler.outputs.compiler_sha }}
           RUNNER_TEMP: ${{ runner.temp }}
         run: |
           set -euo pipefail
           TMP_ROOT="$RUNNER_TEMP/tnr-quest-studio/$REQUEST_ID"
           RESULT_PATH="request/studio/results/$REQUEST_ID.build.json"
           BUILD_PATH="request/studio/builds/$REQUEST_ID"
+
+          if [[ ! -f "$TMP_ROOT/build-result.json" ]]; then
+            mkdir -p "$TMP_ROOT/build"
+            python3 - "$TMP_ROOT/build-result.json" "$REQUEST_ID" "$SOURCE_SHA" "$COMPILER_SHA" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+          result_path, request_id, source_sha, compiler_sha = sys.argv[1:]
+          result = {
+              "schemaVersion": 1,
+              "kind": "quest-build",
+              "requestId": request_id,
+              "subtype": None,
+              "status": "failed",
+              "resolvedEngineType": None,
+              "blockers": [],
+              "errors": [{"code": "compiler_no_result", "message": "Quest Studio compiler step produced no structured result"}],
+              "warnings": [],
+              "generated": {},
+              "art": None,
+              "validation": None,
+              "provenance": {
+                  "sourceSha256": None,
+                  "sourceRevision": source_sha,
+                  "compilerRevision": compiler_sha,
+                  "registrySchemaVersion": None,
+                  "compiler": "skills/building-tnr-content/scripts/quest_compile.py",
+              },
+              "liveGameTouched": False,
+          }
+          Path(result_path).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+          PY
+          fi
 
           REMOTE_SHA="$(git -C request ls-remote origin "refs/heads/$REQUEST_BRANCH" | awk '{print $1}')"
           [[ "$REMOTE_SHA" == "$SOURCE_SHA" ]] || {
@@ -195,11 +246,13 @@ jobs:
           fi
 
       - name: Surface compiler failure after evidence is persisted
+        if: ${{ always() && steps.identity.outcome == 'success' }}
         env:
           COMPILE_RC: ${{ steps.compile.outputs.compile_rc }}
         run: |
           set -euo pipefail
-          [[ "$COMPILE_RC" == "0" ]] || {
-            echo "Quest Studio compiler returned $COMPILE_RC; structured failure result was persisted" >&2
-            exit "$COMPILE_RC"
+          RC="${COMPILE_RC:-4}"
+          [[ "$RC" == "0" ]] || {
+            echo "Quest Studio compiler returned $RC; structured failure result was persisted" >&2
+            exit "$RC"
           }
