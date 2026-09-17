@@ -1,8 +1,26 @@
 // DOM helpers. createElement and CSSOM only; no innerHTML anywhere (repo law).
 
+// The repo-law test greps src for these names, which catches a literal `el.innerHTML = x` but not
+// h(el, { [key]: value }) where `key` is computed at runtime. Both branches below would honour such
+// a key: the property branch assigns anything non-string, and the attribute branch would happily
+// setAttribute("srcdoc", ...) on an iframe. Neither is reachable from today's call sites, which is
+// exactly why it is worth closing now rather than after a future screen builds an attribute name.
+// Rejected for EVERY value type, so a non-string cannot slip past a string-shaped check.
+const HTML_SINKS = new Set(["innerHTML", "outerHTML", "srcdoc", "insertAdjacentHTML"]);
+const sinkKey = (k) => HTML_SINKS.has(k) || HTML_SINKS.has(String(k).toLowerCase());
+
+export class DomSinkError extends Error {
+  constructor(key) {
+    super(`refusing to assign the HTML sink ${JSON.stringify(key)}; build nodes with h()/append() instead`);
+    this.name = "DomSinkError";
+    this.key = key;
+  }
+}
+
 export function h(tag, attrs = {}, ...children) {
   const el = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs || {})) {
+    if (sinkKey(k)) throw new DomSinkError(k);
     if (v == null || v === false) continue;
     if (k === "class") el.className = v;
     else if (k === "style" && typeof v === "object") Object.assign(el.style, v);

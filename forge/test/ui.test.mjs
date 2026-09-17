@@ -16,6 +16,7 @@ import { Runner } from "../src/runner/runner.mjs";
 import { Reconciler } from "../src/reconcile/reconciler.mjs";
 import { CookieSession } from "../src/transport/session.mjs";
 import { App } from "../src/ui/app.mjs";
+import { h, DomSinkError } from "../src/ui/dom.mjs";
 import { entryTakeover, mountHost, onEntryPath, ENTRY_PATH, CARRIER_PATH } from "../src/ui/takeover.mjs";
 import { FakeGame, FakeClient } from "./fakegame.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
@@ -28,9 +29,25 @@ function walk(dir) { return readdirSync(dir, { withFileTypes: true }).flatMap((d
 
 test("repo law: no innerHTML / outerHTML / insertAdjacentHTML anywhere in src", () => {
   for (const f of walk(SRC)) {
-    const t = readFileSync(f, "utf8").replace(/\/\/[^\n]*/g, "");
+    // dom.mjs names the sinks once, in the deny-list that enforces this law. Enumerating them in
+    // order to refuse them is the opposite of using them, so that one declaration is stripped
+    // alongside comments; the guard itself is pinned by the test below.
+    const t = readFileSync(f, "utf8")
+      .replace(/\/\/[^\n]*/g, "")
+      .replace(/^const HTML_SINKS = new Set\(\[[^\]]*\]\);$/m, "");
     assert.ok(!/innerHTML|outerHTML|insertAdjacentHTML|document\.write/.test(t), f + " uses an HTML string sink");
   }
+});
+
+test("repo law: h() refuses every HTML sink, for every value type", () => {
+  dom();
+  for (const key of ["innerHTML", "outerHTML", "srcdoc", "insertAdjacentHTML"]) {
+    for (const value of ["<b>x</b>", 1, true, null, undefined, {}, () => {}]) {
+      assert.throws(() => h("div", { [key]: value }), DomSinkError, `${key} accepted a ${typeof value}`);
+    }
+  }
+  // the ordinary path is unaffected
+  assert.equal(h("div", { class: "f-x" }, "ok").className, "f-x");
 });
 
 function dom() {
