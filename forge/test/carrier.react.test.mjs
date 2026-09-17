@@ -16,7 +16,7 @@ import { renderToString } from "react-dom/server";
 import { hydrateRoot } from "react-dom/client";
 import { boot } from "../src/main.mjs";
 import { App } from "../src/ui/app.mjs";
-import { arm, isArmed, armHops, mountHost, carrierHydrated, OVERLAY_CLASS } from "../src/ui/takeover.mjs";
+import { arm, isArmed, armHops, mountHost, carrierHydrated, OVERLAY_CLASS } from "../src/hosts/userscript/takeover.mjs";
 
 const e = React.createElement;
 function Layout({ children }) {

@@ -17,7 +17,7 @@ import { Reconciler } from "../src/reconcile/reconciler.mjs";
 import { CookieSession } from "../src/transport/session.mjs";
 import { App } from "../src/ui/app.mjs";
 import { h, DomSinkError } from "../src/ui/dom.mjs";
-import { entryTakeover, mountHost, onEntryPath, ENTRY_PATH, CARRIER_PATH } from "../src/ui/takeover.mjs";
+import { entryTakeover, mountHost, onEntryPath, ENTRY_PATH, CARRIER_PATH } from "../src/hosts/userscript/takeover.mjs";
 import { FakeGame, FakeClient } from "./fakegame.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";

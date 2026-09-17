@@ -19,7 +19,7 @@ import { parseRouterDecls, forgeTable } from "../tools/auth_pin_diff.mjs";
 import { boot } from "../src/main.mjs";
 import { CSS, CSS_DOC } from "../src/ui/styles.mjs";
 import { App } from "../src/ui/app.mjs";
-import { ARM_KEY, isArmed, arm, armHops, disarm, mountHost, whenBodyReady, alreadyMounted, pageAuthRuntime, CARRIER_PATH, ENTRY_PATH, OVERLAY_CLASS } from "../src/ui/takeover.mjs";
+import { ARM_KEY, isArmed, arm, armHops, disarm, mountHost, whenBodyReady, alreadyMounted, pageAuthRuntime, CARRIER_PATH, ENTRY_PATH, OVERLAY_CLASS } from "../src/hosts/userscript/takeover.mjs";
 import { FakeGame, FakeClient, CrashSignal } from "./fakegame.mjs";
 import { MemoryStorage } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";

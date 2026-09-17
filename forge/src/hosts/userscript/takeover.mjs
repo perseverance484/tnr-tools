@@ -69,7 +69,7 @@
 // and the document reset is installed on the entry splash only, so the game page underneath is
 // returned exactly as it was when Forge is closed.
 
-import { h, clear } from "./dom.mjs";
+import { h, clear } from "../../ui/dom.mjs";
 
 export const ENTRY_PATH = "/forge";
 export const CARRIER_PATH = "/";
