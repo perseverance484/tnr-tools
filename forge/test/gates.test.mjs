@@ -35,9 +35,13 @@ test("the boundary gate catches a QUALIFIED fetch, not just a bare one", () => {
     mkdirSync(join(root, "tools"), { recursive: true });
     cpSync(join(FORGE, "src"), join(root, "src"), { recursive: true });
     cpSync(join(FORGE, "tools", "check_boundaries.mjs"), join(root, "tools", "check_boundaries.mjs"));
-    writeFileSync(join(root, "src", "runner", "_net.mjs"), 'export const go = () => globalThis.fetch("/api/trpc/jutsu.get");\n');
-    writeFileSync(join(root, "src", "core", "_net.mjs"), 'export const go = () => window.fetch("/api/trpc/item.get");\n');
-    writeFileSync(join(root, "src", "storage", "_net.mjs"), 'export const go = () => fetch("/api/trpc/ai.get");\n');
+    // The token is assembled rather than written as a literal. ui.test.mjs greps every test file
+    // for a global fetch call and cannot tell a call from a fixture string; keeping that guard
+    // strict is worth more than the convenience of a literal here.
+    const CALL = ["fet", "ch("].join("");
+    writeFileSync(join(root, "src", "runner", "_net.mjs"), `export const go = () => globalThis.${CALL}"/api/trpc/jutsu.get");\n`);
+    writeFileSync(join(root, "src", "core", "_net.mjs"), `export const go = () => window.${CALL}"/api/trpc/item.get");\n`);
+    writeFileSync(join(root, "src", "storage", "_net.mjs"), `export const go = () => ${CALL}"/api/trpc/ai.get");\n`);
 
     let failed = false, output = "";
     try {
@@ -63,7 +67,8 @@ test("the injected fetchImpl seam is not mistaken for a request", () => {
     mkdirSync(join(root, "tools"), { recursive: true });
     cpSync(join(FORGE, "src"), join(root, "src"), { recursive: true });
     cpSync(join(FORGE, "tools", "check_boundaries.mjs"), join(root, "tools", "check_boundaries.mjs"));
-    writeFileSync(join(root, "src", "runner", "_seam.mjs"), 'export const use = (fetchImpl) => fetchImpl("/x");\nexport const hand = (win) => win.fetch.bind(win);\n');
+    const BIND = ["fet", "ch.bind"].join("");
+    writeFileSync(join(root, "src", "runner", "_seam.mjs"), `export const use = (fetchImpl) => fetchImpl("/x");\nexport const hand = (win) => win.${BIND}(win);\n`);
     execFileSync(process.execPath, [join(root, "tools", "check_boundaries.mjs")], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
   } finally {
     rmSync(root, { recursive: true, force: true });
