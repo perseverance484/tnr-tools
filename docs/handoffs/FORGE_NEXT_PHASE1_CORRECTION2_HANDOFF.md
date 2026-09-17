@@ -123,7 +123,10 @@ regressions, and a control that cries wolf gets raised in a hurry by whoever is 
 Measured delta over the previous pass: +6,714 raw / +1,846 gzip. The new ceilings restore the
 tightness every prior pass ran at — 97.2% and 97.1%, against Phase 0's 97.1% / 97.9%.
 
-**Canonical Forge CI:** see section 8.
+**Canonical Forge CI: run `35267833732`, job `verify` (`105359335508`) — conclusion `success`**, on
+head `dccd627` (this handoff's own commit; the correction head `9133145` differs from it only by
+two Markdown files). <https://github.com/perseverance484/tnr-tools/actions/runs/35267833732>
+All twelve gate steps ran and passed, none skipped.
 
 ## 6. Source and provenance
 
