@@ -74,3 +74,46 @@ test("the injected fetchImpl seam is not mistaken for a request", () => {
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test("the view boundary gate refuses a screen that reaches raw research data or transport", () => {
+  // Phase 1 objective 6: no screen constructs a transport call or reads raw capture storage. Each
+  // of these is a way a screen could route a read around ForgeCore - and so around the auth gate,
+  // the budget and the tier policy - while every behaviour test kept passing.
+  const root = mkdtempSync(join(tmpdir(), "forge-view-"));
+  try {
+    mkdirSync(join(root, "tools"), { recursive: true });
+    cpSync(join(FORGE, "src"), join(root, "src"), { recursive: true });
+    cpSync(join(FORGE, "tools", "check_boundaries.mjs"), join(root, "tools", "check_boundaries.mjs"));
+    writeFileSync(join(root, "src", "ui", "_snap.mjs"), `export const go = (app, k) => app.cache.getSnapshot(k);\n`);
+    writeFileSync(join(root, "src", "ui", "_body.mjs"), `export const go = (app) => app.cache.get("jutsu.get", "j1");\n`);
+    writeFileSync(join(root, "src", "ui", "_read.mjs"), `export const go = (app, i) => app.reader.query("combat.getBattleEntries", i);\n`);
+    writeFileSync(join(root, "src", "hosts", "_wire.mjs"), `export const go = (d) => d.client.batch([{ path: "jutsu.get" }]);\n`);
+
+    let failed = false, output = "";
+    try {
+      execFileSync(process.execPath, [join(root, "tools", "check_boundaries.mjs")], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+    } catch (e) { failed = true; output = String(e.stdout || "") + String(e.stderr || ""); }
+    assert.ok(failed, "a view reaching raw research data must fail the gate");
+    assert.match(output, /ui\/_snap\.mjs: reads a capture snapshot body out of storage/);
+    assert.match(output, /ui\/_body\.mjs: reads or writes a cached response body directly/);
+    assert.match(output, /ui\/_read\.mjs: drives the budgeted reader directly/);
+    assert.match(output, /hosts\/_wire\.mjs: constructs a transport call directly/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("the Captures screen's metadata listings stay allowed, and carry no bodies", async () => {
+  // The gate above must not be so wide that the Captures screen cannot render. These are the calls
+  // it actually makes, and they are allowed precisely because the values they return have no `data`.
+  const { IDBFactory } = await import("fake-indexeddb");
+  const { CaptureCache } = await import("../src/storage/captures.mjs");
+  const cache = new CaptureCache(new IDBFactory(), () => 0);
+  await cache.put({ path: "jutsu.get", id: "j1", input: { id: "j1" }, data: { id: "j1", secret: "BODY" } });
+  await cache.putQuery({ path: "combat.getBattleEntries", queryKey: '{"battleId":"b1"}', input: { battleId: "b1" }, data: [{ secret: "BODY" }] });
+  await cache.putSnapshot({ key: "j::after::0", jobId: "j", phase: "after", ordinal: 0, path: "combat.getBattleEntries", id: null, input: null, data: [{ secret: "BODY" }], tier: "local-only" });
+  const seen = JSON.stringify({ list: await cache.list(), snaps: await cache.listSnapshots() });
+  assert.ok(!seen.includes("BODY"), "a metadata listing must never carry a response body");
+  assert.match(seen, /"tier":"local-only"/, "it does carry the tier, so a screen can say where a body is allowed to go");
+  cache.close();
+});

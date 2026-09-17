@@ -152,7 +152,7 @@ test("an unknown persist value is a manifest error, before any job is opened", (
   const bad = (persist) => ({ items: [], capture: { after: [{ proc: "gameAsset.get", input: { id: ASSET.id }, persist }] } });
   for (const persist of ["fields", "FULL", "true", "", 1, true, ["full"], { mode: "full" }]) {
     assert.throws(() => parseManifest(bad(persist)), ManifestError, `persist ${JSON.stringify(persist)} must be refused`);
-    assert.throws(() => parseManifest(bad(persist)), /persist must be "summary" or "full"/);
+    assert.throws(() => parseManifest(bad(persist)), /persist must be one of "summary", "full", "local-only", "projected", "repo-safe"/);
   }
   assert.throws(() => h.runner.plan(bad("fields"), { jobId: "never" }), ManifestError);
   assert.equal(h.journal.get("never"), null, "no job record may exist for a manifest that did not parse");
@@ -161,12 +161,22 @@ test("an unknown persist value is a manifest error, before any job is opened", (
 
 // ---------------------------------------------------------------- 7: the fail-closed allowlist
 test("full persistence is refused for list, mutation, unknown and un-audited procedures", () => {
+  // Every one of these is still refused at parse, before a job opens and before any transport.
+  // Phase 1 made the REASONS sharper and moved several of them earlier: a name list is refused
+  // because the registry caps it at local-only (or because it takes no input at all), and a list
+  // dump, a mutation or an unknown path is refused because it has no research-registry row to be
+  // read under. The guarantee the test holds — "persist: full cannot reach any of these" — is
+  // unchanged, and is asserted against the union of those reasons rather than one sentence.
+  const REFUSED = /(is only allowed for the audited content-record point reads|not in the audited research-read registry|the registry admits .* not "repo-safe"|takes no input)/;
   const refuse = (proc, input = { id: "x" }) => {
     assert.throws(
       () => parseManifest({ items: [], capture: { after: [{ proc, input, persist: "full" }] } }),
-      /persist "full" is only allowed for the audited content-record point reads/,
+      REFUSED,
       `${proc} must not be persistable`);
   };
+  // a name list with a legal (empty) input is still refused, on the tier rather than on the input
+  assert.throws(() => parseManifest({ items: [], capture: { after: [{ proc: "jutsu.getAllNames", input: {}, persist: "full" }] } }),
+    /the registry admits "local-only" for this path, not "repo-safe"/);
   for (const proc of ["jutsu.getAllNames", "gameAsset.getAllNames", "profile.getAllAiNames"]) refuse(proc);   // name lists
   for (const proc of ["jutsu.getAll", "item.getAll", "quests.getAll", "gameAsset.getAll"]) refuse(proc);      // list dumps
   for (const proc of ["jutsu.update", "gameAsset.create", "quests.delete", "profile.updateAi"]) refuse(proc); // mutations
@@ -176,10 +186,13 @@ test("full persistence is refused for list, mutation, unknown and un-audited pro
 });
 
 test('a full capture with no record id is refused: "full" is a point read or nothing', () => {
+  // The audited input contract now refuses each of these by name before the point-read rule is
+  // even reached: a missing required key, a key the contract does not have, and a value of the
+  // wrong type or an empty one. All still refused at parse, which is the claim.
   for (const input of [undefined, {}, { limit: 10 }, { id: "" }, { id: 7 }]) {
     assert.throws(
       () => parseManifest({ items: [], capture: { after: [{ proc: "gameAsset.get", input, persist: "full" }] } }),
-      /needs input\.id \(or input\.userId\)/);
+      /(input\.id is required|not in the audited contract|input\.id must be a non-empty string)/);
   }
   // profile.getAi is keyed by userId at source, so it is accepted under that spelling
   const m = parseManifest({ items: [], capture: { after: [{ proc: "profile.getAi", input: { userId: "ai1" }, persist: "full" }] } });
@@ -273,7 +286,7 @@ test("a full capture whose body exceeds the ceiling fails explicitly and is neve
   const [capture] = bundle.captures;
   assert.equal(capture.ok, true);
   assert.equal(capture.persistOk, false);
-  assert.match(capture.persistError, /over the \d+-byte full-capture ceiling/, "export keeps the reason the capture pass recorded");
+  assert.match(capture.persistError, /over the \d+-byte repo-safe capture ceiling/, "export keeps the reason the capture pass recorded");
   assert.match(capture.persistError, /NOT truncated/);
   assert.ok(!("data" in capture), "an oversized body is withheld whole, never shortened and relabelled");
   assert.equal(await h.cache.getSnapshot(snapshotKey("big", "after", 0)), null, "and nothing oversized was stored at all");
@@ -317,13 +330,22 @@ test("a job that also writes degrades to unverified when a requested body is mis
 });
 
 test("the selected-manifest label distinguishes full captures from summary captures", () => {
-  const cap = (persist) => ({ proc: "gameAsset.get", persist });
+  // Built through parseManifest rather than by hand: the label reads the normalized entry's TIER,
+  // and a hand-built stand-in could keep passing after the grammar that produces it had moved.
+  const label = (...entries) => captureLabel(parseManifest({ items: [], capture: { after: entries } }).capture.after);
+  const cap = (persist) => ({ proc: "gameAsset.get", input: { id: ASSET.id }, persist });
   assert.equal(captureLabel([]), "");
-  assert.equal(captureLabel([cap("summary")]), "1 capture");
-  assert.equal(captureLabel([cap("summary"), cap("summary")]), "2 captures");
-  assert.equal(captureLabel([cap("full")]), "1 full capture");
-  assert.equal(captureLabel(new Array(5).fill(cap("full"))), "5 full captures");
-  assert.equal(captureLabel([cap("full"), cap("summary"), cap("full")]), "3 captures (2 full)");
+  assert.equal(label(cap("summary")), "1 capture");
+  assert.equal(label(cap("summary"), cap("summary")), "2 captures");
+  assert.equal(label(cap("full")), "1 full capture");
+  assert.equal(label(...new Array(5).fill(cap("full"))), "5 full captures");
+  assert.equal(label(cap("full"), cap("summary"), cap("full")), "3 captures (2 full)");
+  // "repo-safe" is the same tier spelled its own way, so it must read identically to "full"
+  assert.equal(label(cap("repo-safe")), "1 full capture");
+  // and the narrower tiers are named, never folded into the plain count
+  const local = { proc: "combat.getBattleEntries", input: { battleId: "b1" }, persist: "local-only" };
+  assert.equal(label(local), "1 capture · 1 local-only");
+  assert.equal(label(cap("full"), local), "2 captures (1 full) · 1 local-only");
 });
 
 // ---------------------------------------------------------------- 13: the first real consumer

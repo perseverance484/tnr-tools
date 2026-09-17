@@ -1,0 +1,40 @@
+<section>
+  <div class="f-actions">
+    <input placeholder="search filename, number, title" type="search" value="">
+    <button>
+      #text "Refresh"
+  <div class="f-mute">
+    #text "1 file in push/ · listed 0s ago"
+  <div>
+    <div class="f-row f-tap">
+      <div class="f-grow">
+        <div>
+          <b>
+            #text "#46 "
+          #text "46_research.json"
+        <div class="f-mute">
+          #text "(untitled) · 0 items · 3 capture"
+  <div class="f-card">
+    <h2>
+      #text "46_research.json"
+    <div class="f-mute">
+      #text "0 items · 3 captures (1 full) · 1 local-only, 1 projected · manifest hash 1f252fda"
+    <div class="f-banner info">
+      #text "Read-only capture job. This sends queries only; zero mutations."
+    <div class="f-banner warn">
+      <b>
+        #text "1 full capture. "
+      #text "The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on. Still queries only; zero mutations. Paths: gameAsset.get."
+    <div class="f-banner info">
+      <b>
+        #text "1 local-only capture. "
+      #text "The exact body of each is kept in this browser's IndexedDB for research and is NOT written into the results bundle, a commit, or any export. Paths: combat.getBattleEntries."
+    <div class="f-banner info">
+      <b>
+        #text "1 projected capture. "
+      #text "The raw body stays local; only the declared fields are exported. Fields: id, name, content.objectives."
+    <div class="f-actions">
+      <button class="f-primary">
+        #text "Run captures"
+      <button>
+        #text "Clear"

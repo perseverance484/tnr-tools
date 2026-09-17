@@ -1,11 +1,14 @@
 // The capture cache. IndexedDB, because captures exceed the localStorage quota.
 // DB tnr_forge. TWO stores, with deliberately different lifetimes:
 //
-//   captures           the READ CACHE. Key `${path}:${idKey}` where idKey is the record id for
-//                      a get, or "" for a list procedure (getAll, getAllNames). One slot per
-//                      path+id, overwritten by the next read of that record and deleted by a
-//                      write to that entity. Its job is to save budget, and a cache that did not
-//                      go stale would be wrong.
+//   captures           the READ CACHE. Two key shapes, because two kinds of read live here:
+//                      `${path}:${idKey}` for a POINT read, where idKey is the record id or "" for
+//                      an input-free name list; and `${path}?${canonicalJson}` for a QUERY read,
+//                      where the key carries the exact canonical input that was sent. A query row's
+//                      identity is its input, so two filters or two pages of one procedure can never
+//                      share a slot (Phase 1 requirement 7.1). One slot per key, overwritten by the
+//                      next read of that key and deleted by a write to that entity. Its job is to
+//                      save budget, and a cache that did not go stale would be wrong.
 //   capture_snapshots  IMMUTABLE EVIDENCE. One record per `persist: "full"` capture OCCURRENCE,
 //                      keyed by job + phase + ordinal, holding the exact decoded body of that
 //                      specific read.
@@ -25,6 +28,7 @@
 // read is not made wrong by a later write, that is the whole point of keeping it.
 
 import { PROCEDURES } from "../transport/procedures.mjs";
+import { REPO_SAFE_PATHS } from "../research/registry.mjs";
 
 export const DB_NAME = "tnr_forge";
 export const STORE = "captures";
@@ -36,6 +40,17 @@ export const DB_VERSION = 2;
 export function captureKey(path, id) { return `${path}:${id ?? ""}`; }
 
 /**
+ * The cache identity of a QUERY read: the path plus the exact canonical serialization of the input
+ * that was sent (research/registry.mjs canonicalKey). `?` rather than `:` separates the two key
+ * families, so no query key can ever be mistaken for — or collide with — a point read's record id.
+ *
+ * The whole serialization is in the key rather than a digest of it. A 32-bit hash of an unbounded
+ * input space can collide, and a collision here would answer one filter's read with another's body
+ * under a green provenance, which is the exact aliasing requirement 7.1 forbids.
+ */
+export function queryCaptureKey(path, queryKey) { return `${path}?${queryKey ?? ""}`; }
+
+/**
  * The immutable identity of ONE full-capture occurrence. Job, phase and ordinal, because that is
  * what actually names the read: the nth capture of the before or after pass of this job. It is
  * deterministic, so a resumed pass that re-journals an entry addresses the same snapshot, and it
@@ -43,27 +58,13 @@ export function captureKey(path, id) { return `${path}:${id ?? ""}`; }
  */
 export function snapshotKey(jobId, phase, ordinal) { return `${jobId}::${phase}::${ordinal}`; }
 
-// ------------------------------------------------------------------ full persistence
-// A capture may ask for `persist: "full"`, which means the exact decoded response body is
-// written into the exported results bundle. That bundle is committed to this repository when
-// GitHub sync is on, so full persistence is fail-closed: only the audited TNR content-record
-// POINT READS below may ever be persisted in v1. List procedures, mutations, unknown paths and
-// anything protected/user/account/session shaped are refused before a job opens, and widening
-// this list is a separate reviewed change (task brief, "Full-mode safety boundary").
-//
-// The kinds come from the generated audited registry in transport/procedures.mjs; this list
-// names paths, it never restates their kind. "every full-persistence path is an audited
-// content-record point read, and nothing else is" in test/storage.captures.test.mjs holds both
-// halves of that relationship against the registry.
-export const FULL_PERSIST_PATHS = Object.freeze([
-  "gameAsset.get",
-  "jutsu.get",
-  "item.get",
-  "bloodline.get",
-  "quests.get",
-  "profile.getAi",
-  "ai.getAiProfile",
-]);
+// ------------------------------------------------------------------ persistence tiers
+// A capture declares the TIER its body is kept at (RUL-2026-09-17-001). The admission decision —
+// which paths exist at all, and what each one's ceiling is — belongs to research/registry.mjs, so
+// this file derives rather than restates it. The old FULL_PERSIST_PATHS name is kept because the
+// manifest grammar, the screens and the existing tests all speak it, but it is now exactly "the
+// rows the registry classifies repo-safe" rather than a second list that could drift from the first.
+export const FULL_PERSIST_PATHS = REPO_SAFE_PATHS;
 
 /** Whether a procedure path may have its response body durably persisted into a bundle. */
 export function canPersistFull(path) { return FULL_PERSIST_PATHS.includes(path); }
@@ -82,6 +83,18 @@ export function persistProcedureKind(path) { return PROCEDURES[path] ? PROCEDURE
 // and the Captures screen, so the ceiling keeps it rather than introducing a second unit; a body
 // of non-ASCII text is measured slightly small, well inside the headroom above.
 export const MAX_FULL_CAPTURE_BYTES = 512 * 1024;
+
+// The same defensive idea for a LOCAL-ONLY body, at a different number because it bounds a
+// different risk. Nothing local-only is ever committed, so the repository-commit argument above does
+// not apply; what is left is an IndexedDB store one runaway response could fill. 8 MiB is roughly
+// sixteen times the repo ceiling — comfortably above a 500-entry battle action log, which is the
+// largest research body the committed manifests actually ask for — and still an amount a browser
+// profile can hold without trouble. Exceeding it is an explicit persistence FAILURE, never a
+// shortened body presented as whole: there is no truncation path here either.
+export const MAX_LOCAL_CAPTURE_BYTES = 8 * 1024 * 1024;
+
+/** The byte ceiling that applies to a body kept at `tier`. */
+export function tierCeiling(tier) { return tier === "repo-safe" ? MAX_FULL_CAPTURE_BYTES : MAX_LOCAL_CAPTURE_BYTES; }
 
 // Which router prefix belongs to which entity. profile.* and ai.* both belong to "ai".
 export const ENTITY_OF_PATH = Object.freeze({
@@ -176,8 +189,35 @@ export class CaptureCache {
     return rec;
   }
 
+  /**
+   * Store a decoded QUERY response under the exact input that produced it.
+   *
+   * `id` is deliberately null on these rows and the input lives in `query`. That is not cosmetic:
+   * invalidateRecord() drops every row of an entity whose id is null, which is how list captures
+   * already get invalidated by a write. A query row inherits that behaviour by being shaped like a
+   * list row, so a write to an entity cannot leave a stale filtered read of it behind.
+   */
+  async putQuery({ path, queryKey, input, data }) {
+    const rec = {
+      key: queryCaptureKey(path, queryKey),
+      path, id: null, query: queryKey ?? "",
+      entity: entityOfPath(path),
+      input: input ?? null,
+      data,
+      at: new Date(this.clock()).toISOString(),
+      bytes: JSON.stringify(data ?? null).length,
+    };
+    await this._tx("readwrite", (s) => reqToPromise(s.put(rec)));
+    return rec;
+  }
+
   async get(path, id) {
     const rec = await this._tx("readonly", (s) => reqToPromise(s.get(captureKey(path, id))));
+    return rec ?? null;
+  }
+
+  async getQuery(path, queryKey) {
+    const rec = await this._tx("readonly", (s) => reqToPromise(s.get(queryCaptureKey(path, queryKey))));
     return rec ?? null;
   }
 
@@ -216,7 +256,7 @@ export class CaptureCache {
 
   async list() {
     const recs = await this._tx("readonly", (s) => reqToPromise(s.getAll()));
-    return recs.map(({ key, path, id, entity, at, bytes }) => ({ key, path, id, entity, at, bytes }));
+    return recs.map(({ key, path, id, entity, at, bytes, query }) => ({ key, path, id, entity, at, bytes, query: query ?? null }));
   }
 
   async size() {
@@ -235,11 +275,18 @@ export class CaptureCache {
    * Deliberately NOT reachable from invalidateEntity/invalidateRecord/clear, all of which operate
    * on the read cache only. A snapshot is deleted explicitly, by job or by key.
    */
-  async putSnapshot({ key, jobId, phase, ordinal, path, id, input, data }) {
+  async putSnapshot({ key, jobId, phase, ordinal, path, id, input, data, tier = "repo-safe", projection = null, page = null }) {
     const rec = {
       key, jobId, phase, ordinal, path,
       id: id == null || id === "" ? null : String(id),
       entity: entityOfPath(path),
+      // The tier travels WITH the body. Export asks the snapshot what it is allowed to do with what
+      // it just read, rather than re-deriving it from the path — so a registry edit that narrows a
+      // tier cannot retroactively make an already-stored body exportable under the old rule, and a
+      // snapshot separated from its journal entry still knows it is local-only.
+      tier,
+      projection: projection ? [...projection] : null,
+      page,
       input: input ?? null,
       data,
       at: new Date(this.clock()).toISOString(),
@@ -256,7 +303,7 @@ export class CaptureCache {
 
   async listSnapshots() {
     const recs = await this._tx("readonly", (s) => reqToPromise(s.getAll()), SNAPSHOT_STORE);
-    return recs.map(({ key, jobId, phase, ordinal, path, id, entity, at, bytes }) => ({ key, jobId, phase, ordinal, path, id, entity, at, bytes }));
+    return recs.map(({ key, jobId, phase, ordinal, path, id, entity, at, bytes, tier }) => ({ key, jobId, phase, ordinal, path, id, entity, at, bytes, tier: tier ?? "repo-safe" }));
   }
 
   async deleteSnapshot(key) {

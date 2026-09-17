@@ -25,7 +25,8 @@ import { NetworkError } from "../transport/client.mjs";
 import { TransportError } from "../transport/envelope.mjs";
 import { RateLimited } from "../budget/bucket.mjs";
 import { readIdmap, writeIdmap } from "../storage/compat.mjs";
-import { snapshotKey, MAX_FULL_CAPTURE_BYTES } from "../storage/captures.mjs";
+import { snapshotKey, tierCeiling } from "../storage/captures.mjs";
+import { projectBody } from "../research/registry.mjs";
 import { TERMINAL_ITEM_STATES, jobOutcome } from "../storage/journal.mjs";
 import { recipe, mergeForUpdate } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
@@ -617,15 +618,32 @@ export class Runner {
       const path = c.proc || c.procedure;
       const id = c.id ?? (c.input && (c.input.id ?? c.input.userId));
       this._requireAuth(path, null);
-      const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true }); // RateLimited/Network propagate to run()
+      // The read mode is the registry's, decided at parse: a point read of one record, an
+      // input-free name list, or a filtered/paged query. RateLimited/Network propagate to run().
+      const r = c.mode === "query"
+        ? await this.reader.query(path, c.input, { fresh: true, pages: c.pages })
+        : c.mode === "point"
+          ? await this.reader.get(path, id, { fresh: true })
+          : await this.reader.list(path, { fresh: true });
       // THE OBSERVED DEFECT (harvests/inbox/tnr_results_17890671*.json): five protected reads
       // came back UNAUTHORIZED, each was journaled as an ordinary failed read, the pass ran to
       // the end and the job reported "0/5 full bodies persisted · read failed". That reads as a
       // capture problem. It is an authentication problem, and it stops the pass here so the
       // remaining reads are not spent proving the same thing four more times.
       if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path, phase, ordinal: i });
+      // `input` is the CANONICAL input — the exact object that went on the wire, not the shape the
+      // manifest happened to write it in (requirement 7.4). For a paged walk the per-page inputs are
+      // journaled too, so "what was asked for" is recoverable page by page.
       const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
-      if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, c.input ?? null, r));
+      if (c.mode === "query") {
+        entry.pages = r.pages;
+        // A walk that stopped on its page bound with a full page in hand has more data behind it.
+        // Saying so here is what keeps a bounded read from being read later as a whole answer.
+        entry.complete = r.complete;
+        entry.rows = r.rowCount ?? entry.rows;
+        if (r.bounded) entry.bounded = r.bounded;
+      }
+      if (c.tier) Object.assign(entry, await this._persist(jobId, phase, i, c, path, id, r));
       out.push(entry);
       this.journal.annotateJob(jobId, { [key + "Partial"]: out }); // persisted incrementally
     }
@@ -634,32 +652,70 @@ export class Runner {
   }
 
   /**
-   * Commit ONE full capture's body to the immutable snapshot store and return the compact fields
-   * the journal keeps. The body written is `r.data` - the value this very read returned - so the
-   * snapshot cannot be anything other than the body of the read it belongs to. It is deliberately
-   * NOT fetched back out of the path+id read cache: that slot is overwritten by the next read of
-   * the record and deleted by a write to its entity, which is exactly how a capture.before body
-   * could be replaced by the after body before export (independent review FFC-1).
+   * Commit ONE capture's body to the immutable snapshot store at its declared TIER, and return the
+   * compact verdict fields the journal keeps.
    *
-   * Writing here rather than at export also means the check happens at read time, so a body that
-   * is oversized or that IndexedDB refuses shows up on the run screen instead of surprising the
-   * exporter. A failed read stores nothing and fabricates nothing.
+   * The body written is `r.data` — the value this very read returned — so the snapshot cannot be
+   * anything other than the body of the read it belongs to. It is deliberately NOT fetched back out
+   * of the read cache: that slot is overwritten by the next read of the same key and dropped by a
+   * write to its entity, which is exactly how a capture.before body could be replaced by the after
+   * body before export (independent review FFC-1).
+   *
+   * The tier is written ONTO the snapshot rather than re-derived at export. A body that was read
+   * under local-only stays local-only for its whole life, whatever a later registry edit says, and
+   * the exporter never has to ask a second authority what it is allowed to do with what it holds.
+   *
+   * Writing here rather than at export also means every check happens at read time — the byte
+   * ceiling, the projection, a storage refusal — so a failure shows on the run screen instead of
+   * surprising the exporter. A failed read stores nothing and fabricates nothing.
    */
-  async _persistFull(jobId, phase, ordinal, path, id, input, r) {
-    const fields = { persist: "full", snapshotKey: snapshotKey(jobId, phase, ordinal), persistOk: false, persistError: null };
+  async _persist(jobId, phase, ordinal, c, path, id, r) {
+    const tier = c.tier;
+    const fields = { persist: c.persist, tier, snapshotKey: snapshotKey(jobId, phase, ordinal), persistOk: false, persistError: null };
+    if (tier === "projected") fields.projection = c.projection;
     if (!r.ok) { fields.persistError = "read failed; there is no body to persist"; return fields; }
+    // A bounded or partial walk is not a body: persisting it would present part of an answer under
+    // a verdict that says the capture succeeded. It is recorded as the non-success it is.
+    if (c.mode === "query" && r.complete === false) {
+      fields.persistError = `the paged walk did not complete (${r.bounded || "a page was not read"}), so this is a partial result and is NOT persisted as a whole body`;
+      return fields;
+    }
     const bytes = JSON.stringify(r.data ?? null).length;
     fields.bytes = bytes;
+    const ceiling = tierCeiling(tier);
     // Over the ceiling is an explicit failure, and nothing is stored. Truncating and still calling
-    // it "full" is the one thing this must never do, so there is no shortening path here at all.
-    if (bytes > MAX_FULL_CAPTURE_BYTES) { fields.persistError = `body is ${bytes} bytes, over the ${MAX_FULL_CAPTURE_BYTES}-byte full-capture ceiling; it is NOT truncated and NOT persisted`; return fields; }
+    // it a persisted body is the one thing this must never do, so there is no shortening path here.
+    if (bytes > ceiling) {
+      fields.persistError = `body is ${bytes} bytes, over the ${ceiling}-byte ${tier} capture ceiling; it is NOT truncated and NOT persisted`;
+      return fields;
+    }
+    // The projection is computed with the body in hand so a missing declared path is reported by
+    // the run that read it, not discovered at export. The RAW body is what gets stored — projection
+    // is applied again at export from the same declaration, so there is exactly one projected value
+    // and it is derived, never a second copy that could drift from the evidence it came from.
+    if (tier === "projected") {
+      const pr = projectBody(r.data, c.projection);
+      fields.projectOk = pr.ok;
+      if (!pr.ok) {
+        fields.projectMissing = pr.missing;
+        fields.persistError = `projection failed: ${pr.missing.join(", ")} ${pr.missing.length === 1 ? "is" : "are"} absent from the body. The full body is NOT substituted and NOT exported`;
+        // The raw body is still retained locally: it is the evidence that the declared projection
+        // was wrong, and it is local-only by tier, so retaining it exports nothing.
+      }
+    }
     try {
-      await this.cache.putSnapshot({ key: fields.snapshotKey, jobId, phase, ordinal, path, id, input, data: r.data });
+      await this.cache.putSnapshot({
+        key: fields.snapshotKey, jobId, phase, ordinal, path, id,
+        input: c.input ?? null, data: r.data, tier,
+        projection: c.projection, page: c.mode === "query" ? { pages: r.pages, complete: r.complete } : null,
+      });
     } catch (e) {
       fields.persistError = "capture snapshot write failed: " + (e && e.message ? e.message : String(e));
       return fields;
     }
-    fields.persistOk = true;
+    // A projection failure is a persistence failure even though the write succeeded: the capture did
+    // not produce the evidence the manifest asked for, and no later step may upgrade it.
+    fields.persistOk = fields.persistError == null;
     return fields;
   }
 

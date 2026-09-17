@@ -1,0 +1,70 @@
+<section>
+  <div>
+    <b>
+      #text "push/46_research.json"
+    <span class="f-pill DONE">
+      #text "DONE"
+    <span class="f-mute">
+      #text " · started 0s ago"
+  <div class="f-bar">
+    <i style="width: 0%;">
+  <div class="f-banner ok">
+    <b>
+      #text "Read-only capture complete. "
+    #text "3/3 reads succeeded, 3/3 bodies retained (1 in the bundle, 1 projected, 1 local-only, not exported); zero mutations were sent."
+  <div class="f-actions">
+    <button>
+      #text "Export bundle"
+  <h3>
+    #text "Budget (limited reads, per path, this minute)"
+  <div class="f-card">
+    <div class="f-kv">
+      <b>
+        #text "gameAsset.get"
+      <span>
+        #text "1 / 30 (server 60) · resets in 60s"
+    <div class="f-kv">
+      <b>
+        #text "quests.get"
+      <span>
+        #text "1 / 30 (server 60) · resets in 60s"
+  <h3>
+    #text "Retained captures"
+  <div class="f-row">
+    <div class="f-grow">
+      <div>
+        #text "gameAsset.get "
+        <span class="f-pill VERIFIED">
+          #text "body persisted"
+        <span class="f-mute">
+          #text " · read ok"
+      <div class="f-mono">
+        #text "fixture-research::after::0 · fx-asset"
+  <div class="f-row">
+    <div class="f-grow">
+      <div>
+        #text "quests.get "
+        <span class="f-pill VERIFIED">
+          #text "body persisted"
+        <span class="f-mute">
+          #text " · projected"
+        <span class="f-mute">
+          #text " · read ok"
+      <div class="f-mono">
+        #text "fixture-research::after::1 · fx-quest"
+  <div class="f-row">
+    <div class="f-grow">
+      <div>
+        #text "combat.getBattleEntries "
+        <span class="f-pill VERIFIED">
+          #text "body persisted"
+        <span class="f-mute">
+          #text " · local-only"
+        <span class="f-mute">
+          #text " · read ok"
+      <div class="f-mono">
+        #text "fixture-research::after::2"
+      <div class="f-mute">
+        #text "2 page(s): #0 2 rows, #1 1 rows"
+  <h3>
+    #text "Items"

@@ -100,7 +100,9 @@ test("the auth class of every audited procedure is transcribed from source, not 
   assert.equal(isProtected("quests.update"), true);      // routers/quests.ts:700
   assert.equal(isProtected("gameAsset.get"), false);     // routers/asset.ts:147, publicProcedure
   assert.equal(isProtected("jutsu.getAllNames"), false); // routers/jutsu.ts:257, publicProcedure
-  assert.equal(PROTECTED_PATHS.length, 27);
+  assert.equal(isProtected("combat.getBattleEntries"), true);  // routers/combat.ts:382
+  assert.equal(isProtected("combat.getBattleHistory"), true);  // routers/combat.ts:530
+  assert.equal(PROTECTED_PATHS.length, 29);
   assert.throws(() => isProtected("jutsu.nope"), /unknown procedure/);
 });
 
@@ -118,7 +120,7 @@ test("the table's shape is an invariant: every mutation is protected, every publ
     }
   }
   // `limited` is a statement about the rate limiter, not about auth. They are exact complements
-  // across today's 43 rows, and that coincidence is exactly why auth is transcribed separately:
+  // across today's 45 rows, and that coincidence is exactly why auth is transcribed separately:
   // if this ever stops holding, it must be a deliberate edit rather than a silent gate move.
   for (const [path, p] of Object.entries(PROCEDURES)) assert.equal(p.limited, p.auth === "public", `${path}: limiter and auth class disagree`);
 });
