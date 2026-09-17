@@ -37,7 +37,20 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // structural regression still trips the gate on the commit that causes it, which is the whole point
 // of a ratchet. This raise is isolated in its own commit so it can be reviewed as the policy change
 // it is rather than as a line inside a feature.
-export const BUDGET = { raw: 460_000, gzip: 90_000 };
+//
+// RE-REVIEW CORRECTION RAISE. The FN3-R1/FN4-R1/FN4-R2 corrections measure raw 453,086 / gzip 89,296
+// against the 460,000 / 90,000 ceilings above: 98.5% and 99.2%. Passing, but 704 bytes of gzip
+// headroom is a tripwire rather than a ratchet - the next one-line comment would fail CI on a gate
+// that exists to catch STRUCTURAL regressions, and a control that cries wolf gets raised in a hurry
+// by whoever is unblocking a build. Raised deliberately here instead, in its own commit.
+//
+// The delta is small and measured: +6,714 raw / +1,846 gzip over the previous correction pass, for
+// the overlap check in validateProjection, the complete policy-facts derivation the registry
+// revision is now taken over, and the capture-time policy stamp on summary and abandoned records.
+//
+// New ceilings restore the tightness Phase 0 and the first correction ran at: 453,086 / 466,000 is
+// 97.2% and 89,296 / 92,000 is 97.1%, against Phase 0's 97.1% / 97.9%.
+export const BUDGET = { raw: 466_000, gzip: 92_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;
