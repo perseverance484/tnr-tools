@@ -9,6 +9,10 @@
 
 import { payloadHash, stableStringify, fnv1a32 } from "../storage/hash.mjs";
 import { canPersistFull, FULL_PERSIST_PATHS } from "../storage/captures.mjs";
+import {
+  TIERS, MAX_PAGES, ResearchError, requireRow, researchRow, admissibleTiers, tierAtMost,
+  canonicalInput, canonicalKey, readMode, validateProjection, pageContract,
+} from "../research/registry.mjs";
 import { collectRefs, REF_RE } from "./refs.mjs";
 import { resolvePoolCodes, stuckPoolCodes, kitProblems } from "./pool.mjs";
 import { lintManifest } from "./lints.mjs";
@@ -16,13 +20,25 @@ import { lintManifest } from "./lints.mjs";
 export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile"]);
 const SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
 
-// How durably a capture's response body is kept. "summary" is the historical behaviour: the
-// journal and the bundle carry only {phase, proc, input, ok, rows, error}. "full" additionally
-// puts the exact decoded body on the exported capture entry, sourced from the SAME read, out of
-// the IndexedDB capture cache. Omitting the key means "summary", so every manifest written
-// before this contract existed parses and runs unchanged.
-export const PERSIST_MODES = Object.freeze(["summary", "full"]);
+// How durably a capture's response body is kept.
+//
+//   summary      the historical behaviour and still the default: the journal and the bundle carry
+//                only {phase, proc, input, ok, rows, error} and no body is retained anywhere.
+//   full         the historical name for what is now the repo-safe tier, kept as an accepted alias
+//                so every manifest committed under push/ parses, hashes and runs unchanged.
+//   repo-safe    the exact decoded body goes into the exported bundle, sourced from the SAME read.
+//   local-only   the exact body is retained in IndexedDB for operator/research use and is absent
+//                from every repository/export path.
+//   projected    the raw body stays local; export carries only the declared, registry-audited
+//                fields. Requires a `projection` (or its `select` alias).
+//
+// Omitting the key means "summary", so a manifest written before any of this existed is unaffected.
+// Which of these a given path may actually ask for is the registry's decision, not this list's.
+export const PERSIST_MODES = Object.freeze(["summary", "full", ...TIERS]);
 export const DEFAULT_PERSIST = "summary";
+// "full" is the wire name of the repo-safe tier. One direction only: a manifest may write either,
+// and everything downstream reasons about the tier.
+export const TIER_OF_PERSIST = Object.freeze({ "full": "repo-safe", "repo-safe": "repo-safe", "local-only": "local-only", "projected": "projected" });
 
 export class ManifestError extends Error {
   constructor(message, info = {}) { super(message); this.name = "ManifestError"; Object.assign(this, info); }
@@ -88,6 +104,12 @@ export function parseManifest(source) {
     if (it.entity !== "ai" && it.entity !== "aiProfile") continue;
     for (const w of kitProblems(it.data).warnings) warnings.push(`item ${it.idx} (${it.name}): ${w}`);
   }
+  const allCaptures = [...capture.before, ...capture.after];
+  for (const c of allCaptures) {
+    if (c.declaredUnused) {
+      warnings.push(`capture ${c.proc}: a ${c.declaredUnused}-field projection is declared but persist is ${JSON.stringify(c.persist)}, so NO projection is applied and no body is exported; ask for persist "projected" to use it`);
+    }
+  }
   // `skipPreflight` is recorded but does NOT disable any of the above: see the header of lints.mjs.
   if (problems.length) throw new ManifestError("manifest problems:\n" + problems.join("\n"), { problems });
 
@@ -98,7 +120,10 @@ export function parseManifest(source) {
     dedupNames: !!m.dedupNames,
     readBack: m.readBack !== false,
     imgSizes,
-    fullCaptures: [...capture.before, ...capture.after].filter((c) => c.persist === "full").length,
+    fullCaptures: allCaptures.filter((c) => c.tier === "repo-safe").length,
+    // One count per tier, so a screen or a headline can say what a run is actually going to keep
+    // without re-deriving the policy from the entries.
+    tiers: Object.fromEntries(TIERS.map((x) => [x, allCaptures.filter((c) => c.tier === x).length])),
     // The hash is taken over the RAW manifest bodies, not the normalized ones, so the persistence
     // request is inside it by construction: `persist` is a key of the raw capture entry, and
     // flipping it changes the hash, which is what stops a job opened under one persistence
@@ -111,32 +136,78 @@ export function parseManifest(source) {
 }
 
 /**
- * Normalize and VALIDATE one capture entry. Everything that can make a full-persistence request
- * illegal is decided here, before a job is opened and therefore before any read is issued:
- * an unknown persist mode, a procedure outside the audited point-read allowlist, and a full
- * request with no record id to read. Fail-closed is the point; the bundle these bodies land in
- * is committed to a repository.
+ * Normalize and VALIDATE one capture entry. Everything that can make a capture illegal is decided
+ * HERE, at parse time — before a job is opened and therefore before any read is issued:
+ *
+ *   - the procedure must have a row in the audited research-read registry. Being in the source
+ *     procedure table is not admission; a path the game would answer is still refused when no
+ *     committed work package has demanded it (RUL-2026-09-17-002, fail closed before transport);
+ *   - the input is canonicalized against that row's audited contract, so an unknown key, a missing
+ *     required key or a value outside an enum never reaches the wire;
+ *   - the requested tier must be no wider than the row's ceiling. Widening is a registry edit;
+ *   - a projected capture must declare fields, and every field must be one the registry has
+ *     audited as projectable. No wildcard, no spread, no implicit nesting;
+ *   - a paged capture must be on a path that is actually paged at source, within MAX_PAGES.
+ *
+ * Fail-closed is the point: a repo-safe body lands in a bundle that is committed to a repository,
+ * and a local-only body must never get near one.
  */
 function normalizeCapture(c, phase, i) {
   const where = `capture.${phase}[${i}]`;
   if (!c || typeof c !== "object" || Array.isArray(c)) throw new ManifestError("capture entry missing proc");
   const proc = c.proc || c.procedure;
   if (!proc) throw new ManifestError("capture entry missing proc");
+  const fail = (msg, info = {}) => { throw new ManifestError(`${where} (${proc}): ${msg}`, { phase, idx: i, proc, ...info }); };
+
   const persist = c.persist === undefined || c.persist === null ? DEFAULT_PERSIST : c.persist;
   if (!PERSIST_MODES.includes(persist)) {
-    throw new ManifestError(`${where} (${proc}): persist must be ${PERSIST_MODES.map((p) => JSON.stringify(p)).join(" or ")}, got ${JSON.stringify(c.persist)}`, { phase, idx: i, proc, persist: c.persist });
+    fail(`persist must be one of ${PERSIST_MODES.map((m) => JSON.stringify(m)).join(", ")}, got ${JSON.stringify(c.persist)}`, { persist: c.persist });
   }
-  const input = c.input && typeof c.input === "object" && !Array.isArray(c.input) ? c.input : null;
-  const id = input ? (input.id ?? input.userId) : undefined;
-  if (persist === "full") {
-    if (!canPersistFull(proc)) {
-      throw new ManifestError(`${where} (${proc}): persist "full" is only allowed for the audited content-record point reads ${FULL_PERSIST_PATHS.join(", ")}`, { phase, idx: i, proc });
-    }
-    if (typeof id !== "string" || !id) {
-      throw new ManifestError(`${where} (${proc}): persist "full" needs input.id (or input.userId) naming one record`, { phase, idx: i, proc });
-    }
+  const tier = TIER_OF_PERSIST[persist] ?? null; // null for "summary": no body is kept at all
+
+  if (!researchRow(proc)) {
+    fail(`not in the audited research-read registry, so Forge will not read it. A row is added only when a committed, reviewed manifest needs the procedure and its contract has been audited at the declared source pin`);
   }
-  return { proc, input, persist, id: typeof id === "string" && id ? id : null };
+  const mode = readMode(proc);
+  let input, projection = null, pages = 1;
+  try { input = canonicalInput(proc, c.input); }
+  catch (e) { if (e instanceof ResearchError) fail(e.message.replace(proc + ": ", "")); throw e; }
+
+  if (tier && !tierAtMost(tier, requireRow(proc).tier)) {
+    fail(`the registry admits ${admissibleTiers(proc).map((x) => JSON.stringify(x)).join(" or ")} for this path, not ${JSON.stringify(tier)}; widening a tier is a reviewed registry edit, not a manifest key`, { tier });
+  }
+  // A projection declaration only means something under the projected tier. Declaring one and then
+  // asking for a different tier is an advisory rather than a refusal: push/05 carries exactly that
+  // shape today, and refusing it at parse would break a committed manifest to say something the
+  // operator can act on in a sentence.
+  const declared = Array.isArray(c.projection) ? c.projection : Array.isArray(c.select) ? c.select : null;
+  if (tier === "projected") {
+    if (!declared) fail(`tier "projected" needs a "projection" (or "select") list of field paths`);
+    try { projection = validateProjection(proc, declared); }
+    catch (e) { if (e instanceof ResearchError) fail(e.message.replace(proc + ": ", "")); throw e; }
+  }
+
+  if (c.pages !== undefined) {
+    if (!Number.isInteger(c.pages) || c.pages < 1) fail(`pages must be a positive integer, got ${JSON.stringify(c.pages)}`);
+    if (c.pages > MAX_PAGES) fail(`pages ${c.pages} is over the ${MAX_PAGES}-page ceiling`);
+    if (c.pages > 1 && !pageContract(proc)) fail(`is not paged at source, so it cannot be read across ${c.pages} pages`);
+    pages = c.pages;
+  }
+  // A repo-safe body is a record body committed to a repository, so it still needs to name ONE
+  // record: the historical rule, now expressed through the read mode the registry derives.
+  if (tier === "repo-safe" && mode !== "point") {
+    fail(`persist ${JSON.stringify(persist)} is only allowed for the audited content-record point reads ${FULL_PERSIST_PATHS.join(", ")}`);
+  }
+  const id = mode === "point" && input ? Object.values(input)[0] : null;
+  if (tier === "repo-safe" && (typeof id !== "string" || !id)) {
+    fail(`persist ${JSON.stringify(persist)} needs input.id (or input.userId) naming one record`);
+  }
+  return {
+    proc, input, persist, tier, mode, projection, pages, id,
+    // The cache identity of this read, computed from the same canonical input that will be sent.
+    queryKey: mode === "query" ? canonicalKey(input) : null,
+    declaredUnused: tier !== "projected" && declared ? declared.length : 0,
+  };
 }
 
 function normalizeItem(it, idx) {

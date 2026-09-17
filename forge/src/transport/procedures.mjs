@@ -16,7 +16,7 @@
 //          pinned SHA (e.g. profile.getAi -> routers/profile.ts:1121 "getAi: protectedProcedure").
 //          protectedProcedure = enforceUserIsAuthed + sentryMiddleware: it proves a logged-in user
 //          and nothing more (trpc.ts:213). It is recorded EXPLICITLY rather than derived from
-//          `limited`, even though the two are exact complements across all 43 rows here: `limited`
+//          `limited`, even though the two are exact complements across all 45 rows here: `limited`
 //          is a statement about the rate limiter, not about authentication, and item.splitStack
 //          proves a limiter can be composed onto a protected procedure. Deriving one from the
 //          other would make a future limiter change silently move the auth gate.
@@ -32,6 +32,17 @@ export const PROCEDURES = Object.freeze({
   "bloodline.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
   "bloodline.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
   "bloodline.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
+  // combat.* are the Phase 1 research additions, audited at the pin above against
+  // app/src/server/api/routers/combat.ts: getBattleEntries at :382 and getBattleHistory at :530.
+  // Both are protectedProcedure (trpc.ts:230, enforceUserIsAuthed + sentryMiddleware) and neither
+  // composes ratelimitMiddleware at its call site — the .use(ratelimitMiddleware) occurrences in
+  // that file are at :565, :898, :960, :1410 and :1506, none of which is either procedure — so
+  // `limited` is false for the same reason it is false for every other protected row here, and not
+  // by inference from the base builder. Both carry .meta({ mcp: { enabled: true } }).
+  // Admission to READ them is a separate question answered by research/registry.mjs, not by their
+  // presence in this table.
+  "combat.getBattleEntries": { kind: "query", limited: false, mcp: true, auth: "protected" },
+  "combat.getBattleHistory": { kind: "query", limited: false, mcp: true, auth: "protected" },
   "gameAsset.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "gameAsset.delete": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "gameAsset.get": { kind: "query", limited: true, mcp: true, auth: "public" },

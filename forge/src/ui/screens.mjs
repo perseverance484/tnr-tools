@@ -104,25 +104,40 @@ export function ManifestsScreen(app) {
 export function captureLabel(captures) {
   const n = captures.length;
   if (!n) return "";
-  const full = captures.filter((c) => c && c.persist === "full").length;
+  const at = (tier) => captures.filter((c) => c && c.tier === tier).length;
+  const full = at("repo-safe"), local = at("local-only"), projected = at("projected");
   const noun = `capture${n === 1 ? "" : "s"}`;
-  if (!full) return `${n} ${noun}`;
-  if (full === n) return `${n} full ${noun}`;
-  return `${n} ${noun} (${full} full)`;
+  const base = !full ? `${n} ${noun}` : full === n ? `${n} full ${noun}` : `${n} ${noun} (${full} full)`;
+  // The narrower tiers are named separately rather than folded into the count: "5 captures" and
+  // "5 captures, 5 local-only" promise different things about where the bodies end up, and a manifest
+  // is read BEFORE it is run precisely so the operator can see which one this is.
+  const extra = [local ? `${local} local-only` : null, projected ? `${projected} projected` : null].filter(Boolean);
+  return extra.length ? `${base} · ${extra.join(", ")}` : base;
 }
 
 function SelectedManifest(app) {
   const s = app.state.selected;
   const captures = [...s.manifest.capture.before, ...s.manifest.capture.after];
   const captureCount = captures.length;
-  const fullCount = captures.filter((c) => c.persist === "full").length;
+  const fullCount = captures.filter((c) => c.tier === "repo-safe").length;
+  const localCount = captures.filter((c) => c.tier === "local-only").length;
+  const projectedCount = captures.filter((c) => c.tier === "projected").length;
   const label = captureLabel(captures);
   const readOnly = s.plan.length === 0;
   const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` · ${label}` : ""} · manifest hash ${s.manifest.hash}`));
   if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
   if (fullCount) card.appendChild(h("div", { class: "f-banner warn" },
     h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
-    `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on. Still queries only; zero mutations. Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`));
+    `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on. Still queries only; zero mutations. Paths: ${[...new Set(captures.filter((c) => c.tier === "repo-safe").map((c) => c.proc))].join(", ")}.`));
+  // The tier is stated BEFORE the read runs, which is the point of saying it here rather than in
+  // the run summary: what a capture will do with the body is a decision the operator gets to see
+  // while it is still a decision.
+  if (localCount) card.appendChild(h("div", { class: "f-banner info" },
+    h("b", {}, `${localCount} local-only capture${localCount === 1 ? "" : "s"}. `),
+    `The exact body of each is kept in this browser's IndexedDB for research and is NOT written into the results bundle, a commit, or any export. Paths: ${[...new Set(captures.filter((c) => c.tier === "local-only").map((c) => c.proc))].join(", ")}.`));
+  if (projectedCount) card.appendChild(h("div", { class: "f-banner info" },
+    h("b", {}, `${projectedCount} projected capture${projectedCount === 1 ? "" : "s"}. `),
+    `The raw body stays local; only the declared fields are exported. Fields: ${[...new Set(captures.filter((c) => c.tier === "projected").flatMap((c) => c.projection || []))].join(", ")}.`));
   if (s.problems.length) card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, "Cannot run: "), h("div", { class: "f-err" }, s.problems.join("\n"))));
   const blocked = app.blockedPaths ? app.blockedPaths(s.plan, s.manifest) : [];
   if (blocked.length) card.appendChild(h("div", { class: "f-banner bad" },
@@ -174,12 +189,23 @@ export function RunScreen(app) {
   if ((job.state === "DONE" || job.state === "INCOMPLETE") && job.items.length === 0) {
     const captures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
     const failed = captures.filter((capture) => !capture.ok).length;
-    const full = captures.filter((capture) => capture.persist === "full");
+    const full = captures.filter((capture) => capture.tier);
     const unpersisted = full.filter((capture) => capture.ok && capture.persistOk !== true);
     // Reading the record and shipping its exact body are two claims, and a full capture makes
     // both. They are reported separately so "the reads succeeded" can never stand in for
     // "the bodies are in the bundle".
-    const persistLine = full.length ? `, ${full.length - unpersisted.length}/${full.length} full record ${full.length === 1 ? "body" : "bodies"} persisted into the bundle` : "";
+    // "persisted into the bundle" is only true of a repo-safe body. A local-only body is persisted
+    // and is deliberately NOT in the bundle, and a projected one contributes its declared fields
+    // and nothing else, so a run that mixes tiers says where each body actually went.
+    const at = (tier) => full.filter((capture) => capture.tier === tier && capture.persistOk === true).length;
+    const persistLine = !full.length ? ""
+      : full.every((capture) => capture.tier === "repo-safe")
+        ? `, ${full.length - unpersisted.length}/${full.length} full record ${full.length === 1 ? "body" : "bodies"} persisted into the bundle`
+        : `, ${full.length - unpersisted.length}/${full.length} bodies retained (${[
+            at("repo-safe") ? `${at("repo-safe")} in the bundle` : null,
+            at("projected") ? `${at("projected")} projected` : null,
+            at("local-only") ? `${at("local-only")} local-only, not exported` : null,
+          ].filter(Boolean).join(", ")})`;
     root.appendChild(outcome === "success"
       ? h("div", { class: "f-banner ok" }, h("b", {}, "Read-only capture complete. "), `${captures.length}/${captures.length} reads succeeded${persistLine}; zero mutations were sent.`)
       : h("div", { class: "f-banner bad" },
@@ -231,12 +257,23 @@ export function RunScreen(app) {
   const used = Object.entries(st.paths).filter(([, v]) => v.used > 0);
   root.appendChild(h("div", { class: "f-card" }, used.length ? used.map(([p, v]) => h("div", { class: "f-kv" }, h("b", {}, p), h("span", {}, `${v.used} / ${v.allowance} (server ${v.serverLimit}) · resets in ${fmtCountdown(app.now() + v.resetInMs, app.now())}`))) : h("span", { class: "f-mute" }, "nothing spent"), st.tripped ? h("div", { class: "f-err" }, `TRIPPED on ${st.tripped.path} until ${new Date(st.tripped.until).toLocaleTimeString()}`) : null));
   const allCaptures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
-  if (allCaptures.some((capture) => capture && capture.persist === "full")) {
-    root.appendChild(h("h3", {}, "Full captures"));
-    for (const capture of allCaptures.filter((capture) => capture.persist === "full")) {
+  const retained = allCaptures.filter((capture) => capture && capture.tier);
+  if (retained.length) {
+    // The heading only changes when there is something new to say. A run whose retained captures are
+    // all repo-safe reads exactly as it did before tiers existed.
+    root.appendChild(h("h3", {}, retained.every((capture) => capture.tier === "repo-safe") ? "Full captures" : "Retained captures"));
+    for (const capture of retained) {
+      const walked = Array.isArray(capture.pages) ? capture.pages : null;
       root.appendChild(h("div", { class: "f-row" }, h("div", { class: "f-grow" },
-        h("div", {}, `${capture.proc} `, h("span", { class: "f-pill " + (capture.persistOk === true ? "VERIFIED" : "FAILED") }, capture.persistOk === true ? "body persisted" : "not persisted"), h("span", { class: "f-mute" }, capture.ok ? " · read ok" : " · read failed")),
+        h("div", {}, `${capture.proc} `,
+          h("span", { class: "f-pill " + (capture.persistOk === true ? "VERIFIED" : "FAILED") }, capture.persistOk === true ? "body persisted" : "not persisted"),
+          // Where the body is allowed to go is said on the row, next to whether it got there.
+          capture.tier === "repo-safe" ? null : h("span", { class: "f-mute" }, ` · ${capture.tier}`),
+          h("span", { class: "f-mute" }, capture.ok ? " · read ok" : " · read failed")),
         h("div", { class: "f-mono" }, `${capture.snapshotKey || ""}${capture.input && capture.input.id ? " · " + capture.input.id : ""}`),
+        // A bounded walk names every page it actually asked for, so "43 rows" can never stand in
+        // for "all the rows": the page inputs are right there to compare.
+        walked ? h("div", { class: "f-mute" }, `${walked.length} page(s)${capture.complete === false ? " · INCOMPLETE, more rows exist" : ""}: ` + walked.map((pg) => `#${pg.n} ${pg.rows} rows${pg.ok ? "" : " " + pg.error}`).join(", ")) : null,
         capture.persistError ? h("div", { class: "f-err" }, capture.persistError) : null)));
     }
   }

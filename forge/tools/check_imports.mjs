@@ -2,7 +2,7 @@
 //
 // Required direction, one way only:
 //
-//     execution (runner, storage, transport, budget, reconcile)
+//     execution (runner, storage, transport, budget, reconcile, research)
 //         ↓
 //     core
 //         ↓
@@ -20,7 +20,11 @@ import { fileURLToPath } from "node:url";
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "src");
 
-const EXECUTION = ["runner", "storage", "transport", "budget", "reconcile"];
+// `research` is the Phase 1 research-read registry: product/privacy admission and persistence tier,
+// deliberately a layer of its own rather than a second opinion inside transport/. It sits in
+// execution because that is what it governs, and because putting it here means a view that imports
+// it is a violation like any other.
+const EXECUTION = ["runner", "storage", "transport", "budget", "reconcile", "research"];
 const VIEW = ["ui", "hosts"];
 
 function walk(dir) {

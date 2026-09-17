@@ -26,6 +26,21 @@ const MANIFEST = JSON.stringify({
 
 const ENTRY = { name: "45_fixture.json", path: "push/45_fixture.json", sha: "fixturesha", size: 128, type: "file" };
 
+// A capture-only research manifest exercising all three Phase 1 tiers plus a bounded paged walk.
+// The tier a capture will land in is operator-visible BEFORE the read runs, and what a paged walk
+// actually asked for is visible after it, so both are pinned byte for byte here.
+const RESEARCH = JSON.stringify({
+  items: [],
+  capture: {
+    after: [
+      { proc: "gameAsset.get", input: { id: "fx-asset" }, persist: "repo-safe" },
+      { proc: "quests.get", input: { id: "fx-quest" }, persist: "projected", projection: ["id", "name", "content.objectives"] },
+      { proc: "combat.getBattleEntries", input: { battleId: "fx-battle", limit: 2 }, persist: "local-only", pages: 2 },
+    ],
+  },
+});
+const RESEARCH_ENTRY = { name: "46_research.json", path: "push/46_research.json", sha: "researchsha", size: 256, type: "file" };
+
 export function installDom() {
   const d = new JSDOM("<!doctype html><html><head></head><body></body></html>", { url: "https://www.theninja-rpg.com/forge" });
   const win = d.window;
@@ -39,17 +54,28 @@ export function installDom() {
   return win;
 }
 
-function buildApp() {
+function buildApp({ entry = ENTRY, text = MANIFEST, seed = null } = {}) {
   const storage = new MemoryStorage();
   const clock = fakeClock();
-  const d = composeForTest({ game: new FakeGame(), storage, idb: new IDBFactory(), clock });
+  const game = new FakeGame();
+  if (seed) seed(game);
+  const d = composeForTest({ game, storage, idb: new IDBFactory(), clock });
   d.github = {
-    list: async () => [ENTRY],
-    text: async () => MANIFEST,
+    list: async () => [entry],
+    text: async () => text,
     put: async () => ({ sha: "committedsha" }),
   };
   const app = new App({ version: "fixture", storage, now: clock, ...d });
-  return { app, storage, clock };
+  return { app, storage, clock, game };
+}
+
+/** The records the research scenario reads, fixed so the rendered counts are deterministic. */
+function seedResearch(game) {
+  game.seed("asset", { id: "fx-asset", name: "Fixture Plate", type: "STATIC", image: "https://utfs.io/f/fx.webp", hidden: false });
+  game.seed("quest", { id: "fx-quest", name: "Fixture Quest", rank: "B", content: { objectives: [{ id: "n1", type: "dialog" }], reward: {} } });
+  game.seedBattle(
+    { battleId: "fx-battle", battleType: "COMBAT", createdAt: "2026-09-10T00:00:00.000Z", attackedId: "a", defenderId: "d", attacker: {}, defender: {} },
+    Array.from({ length: 3 }, (_, i) => ({ id: `fx-${i}`, battleId: "fx-battle", userId: "me", battleRound: 3 - i, battleVersion: 1 })));
 }
 
 async function selection(app) {
@@ -109,6 +135,22 @@ export async function renderScenarios() {
     add("run_finished", RunScreen(app));
     add("jobs_with_finished_job", JobsScreen(app));
     add("captures_after_run", CapturesScreen(app));
+  }
+
+  // ---- the Phase 1 research tiers, before and after the read ----------------------------------
+  {
+    const { app } = buildApp({ entry: RESEARCH_ENTRY, text: RESEARCH, seed: seedResearch });
+    app.mount(globalThis.document.body);
+    await app.loadPicker(true);
+    await app.selectManifest({ ...RESEARCH_ENTRY, number: 46, text: RESEARCH, summary: null, loading: false });
+    // what the operator is told about where each body will go, while it is still a decision
+    add("manifests_selected_research", ManifestsScreen(app));
+    app.runner.plan(RESEARCH, { jobId: "fixture-research", manifestPath: RESEARCH_ENTRY.path, manifestNumber: 46 });
+    await app.runner.run("fixture-research");
+    await app.resolveCaptures("fixture-research");
+    app.go("run", { jobId: "fixture-research" });
+    // ...and what it actually did, per tier and per page
+    add("run_finished_research", RunScreen(app));
   }
 
   out.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));

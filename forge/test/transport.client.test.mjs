@@ -26,17 +26,23 @@ function scriptedFetch(script) {
 }
 const resOf = (name) => ({ status: fx(name).exchanges[0].response.status, body: fx(name).exchanges[0].response.body });
 
-test("procedure table: 43 audited paths, limited set is exactly the publicProcedure reads", () => {
-  assert.equal(Object.keys(PROCEDURES).length, 43);
+test("procedure table: 45 audited paths, limited set is exactly the publicProcedure reads", () => {
+  // 43 at Phase 0 + the two Phase 1 combat research reads, audited at the same pin.
+  assert.equal(Object.keys(PROCEDURES).length, 45);
   assert.equal(LIMITED_PATHS.length, 16);
   for (const p of LIMITED_PATHS) assert.equal(PROCEDURES[p].kind, "query", p + " limited but not a query");
   for (const p of MUTATION_PATHS) assert.equal(PROCEDURES[p].limited, false, p + " is a mutation and must not be limited");
   // verification F4 corrections applied
   assert.equal(PROCEDURES["item.get"].mcp, true);
   assert.equal(PROCEDURES["profile.create"].mcp, true);
-  // the two protected reads are not limited
+  // the protected reads are not limited
   assert.equal(PROCEDURES["profile.getAi"].limited, false);
   assert.equal(PROCEDURES["ai.getAiProfile"].limited, false);
+  // Phase 1 additions: combat.ts:382 and :530, protectedProcedure .query(), neither composing
+  // ratelimitMiddleware at its call site, both .meta({ mcp: { enabled: true } }).
+  for (const p of ["combat.getBattleEntries", "combat.getBattleHistory"]) {
+    assert.deepEqual(PROCEDURES[p], { kind: "query", limited: false, mcp: true, auth: "protected" }, p);
+  }
   assert.throws(() => procedure("jutsu.nope"), /unknown procedure/);
 });
 

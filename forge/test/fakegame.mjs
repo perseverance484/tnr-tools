@@ -30,6 +30,14 @@ const ID_KEY = { ai: "userId" };
 export class FakeGame {
   constructor({ crashAt = Infinity, refuse = new Set(), limitPath = null, signedOut = false } = {}) {
     this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map() };
+    // The research surface, in the two shapes the audited combat rows return.
+    // history: battleHistory rows joined with attacker/defender {username, userId, avatar}
+    //          (combat.ts:553-556), newest first.
+    // actions: the battleAction log for one battle, already in the server's total order
+    //          (battleRound desc, battleVersion desc), so offset paging over it is reproducible
+    //          here for the same reason it is reproducible live.
+    this.history = [];
+    this.actions = new Map(); // battleId -> rows
     this.calls = [];
     this.crashAt = crashAt;
     this.refuse = refuse;        // set of paths that answer success:false
@@ -46,6 +54,8 @@ export class FakeGame {
   count(entity) { return this.tables[entity].size; }
   rows(entity) { return [...this.tables[entity].values()]; }
   seed(entity, row) { const k = ID_KEY[entity] ?? "id"; this.tables[entity].set(row[k], row); return row; }
+  /** Seed one battle: its history row and its action log. */
+  seedBattle(row, actions = []) { this.history.push(row); this.actions.set(row.battleId, actions); return row; }
 
   /** Handle one procedure call; returns a decoded element. */
   handle(path, input) {
@@ -74,6 +84,19 @@ export class FakeGame {
     } else if (proc === "getAllNames" || proc === "getAllAiNames") {
       const k = ID_KEY[TABLE[router]] ?? "id", nk = TABLE[router] === "ai" ? "username" : "name";
       result = ok([...table.values()].map((r) => ({ [k]: r[k], [nk]: r[nk] })));
+    } else if (path === "combat.getBattleHistory") {
+      // filter and order exactly as the resolver does; no pagination exists at source
+      const types = input && input.combatTypes;
+      result = ok(this.history.filter((r) => !types || types.includes(r.battleType))
+        .slice().sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt))));
+    } else if (path === "combat.getBattleEntries") {
+      const rows = this.actions.get(input.battleId) ?? [];
+      const limit = input.limit ?? 30;              // combat.ts:397
+      const offset = input.offset ?? 0;             // combat.ts:417
+      const filter = input.userFilter ?? "all";
+      const basics = input.showBasicActions ?? true;
+      const shown = rows.filter((r) => (filter === "all" || (filter === "user" ? r.userId === "me" : r.userId !== "me")) && (basics || !r.basic));
+      result = ok(shown.slice(offset, offset + limit));
     } else if (path === "ai.getAiProfile") {
       const p = this.tables.aiProfile.get(input.id); result = p ? ok(structuredClone(p)) : err("NOT_FOUND", "profile not found", 404);
     } else if (path === "ai.toggleAiProfile") {

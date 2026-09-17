@@ -70,7 +70,12 @@ const RESERVED = Object.freeze(["state", "idx", "sentAt", "confirmedAt", "verifi
 /** Did this capture deliver everything it promised - the read, and the body if it asked for one. */
 export function captureOk(capture) {
   if (!capture || capture.ok !== true) return false;
-  return capture.persist !== "full" || capture.persistOk === true;
+  // A paged walk that stopped on its bound with a full page in hand read SOME of the data. That is
+  // not the thing the capture asked for, so it is never green (Phase 1 requirement 7.8).
+  if (capture.complete === false) return false;
+  // `tier` is set on every capture that asked for a body to be kept, at any tier. A summary capture
+  // has none and is done once the read succeeded, exactly as before.
+  return !capture.tier || capture.persistOk === true;
 }
 
 export function jobOutcome(job) {
@@ -83,7 +88,7 @@ export function jobOutcome(job) {
   }
   if (job.items.some((it) => it.state === "FAILED")) return "failed";
   if (job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state) || it.state === "SKIPPED" || (it.verify && it.verify !== "match"))) return "unverified";
-  if (captures.some((capture) => capture && capture.persist === "full" && capture.persistOk !== true)) return "unverified";
+  if (captures.some((capture) => capture && (capture.complete === false || (capture.tier && capture.persistOk !== true)))) return "unverified";
   return "success";
 }
 
