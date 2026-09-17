@@ -4,6 +4,7 @@
 
 import { Journal } from "./storage/journal.mjs";
 import { CaptureCache } from "./storage/captures.mjs";
+import { RepoTextCache } from "./storage/repotext.mjs";
 import { CookieSession } from "./transport/session.mjs";
 import { AuthState, AUTH } from "./transport/auth.mjs";
 import { TrpcClient } from "./transport/client.mjs";
@@ -37,6 +38,8 @@ export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(
   const deps = {};
   deps.journal = new Journal(storage, clock);
   deps.cache = new CaptureCache(indexedDB, clock);
+  // Repository/manifest text lives in its OWN database, never in the capture DB (see repotext.mjs).
+  deps.repoCache = new RepoTextCache(indexedDB, clock);
   deps.session = new CookieSession({ fetchImpl, origin: "" });
   deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`) });
   // The auth gate is part of the shipped graph, not a UI decoration: the Runner consults it
@@ -49,7 +52,7 @@ export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(
   deps.uploader = new Uploader({ session: deps.session, fetchImpl });
   deps.validator = new Validator(FIELDS, NESTED);
   deps.runner = new Runner({
-    journal: deps.journal, client: deps.client, reader: deps.reader, cache: deps.cache,
+    journal: deps.journal, client: deps.client, reader: deps.reader, cache: deps.cache, repoCache: deps.repoCache,
     budget: deps.budget, validator: deps.validator, uploader: deps.uploader,
     reconciler: deps.reconciler, auth: deps.auth, storage, clock, tabId, log,
   });
