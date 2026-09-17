@@ -1,0 +1,47 @@
+<section>
+  <h2>
+    #text "GitHub"
+  <div class="f-card">
+    <div class="f-mute">
+      #text "Sent to api.github.com only. Never to the game. Stored in this browser under tnr_bk_gh_v1 (same key as the old builder)."
+    <input placeholder="fine-grained PAT (contents: write on tnr-tools only)" type="password" value="">
+    <label class="f-row">
+      <input :value="on" type="checkbox">
+      <span>
+        #text "Auto-commit results bundles to harvests/inbox/"
+    <div class="f-actions">
+      <button class="f-primary">
+        #text "Save"
+      <button class="f-danger">
+        #text "Forget"
+  <h2>
+    #text "Session"
+  <div class="f-card f-kv">
+    <b>
+      #text "game"
+    <span>
+      #text "{\"kind\":\"cookie\",\"origin\":\"(same-origin)\"}"
+    <b>
+      #text "auth"
+    <span>
+      #text "{\"state\":\"ready\",\"detail\":null,\"at\":null}"
+    <b>
+      #text "budget"
+    <span>
+      #text "30 / 60 per path per minute (margin 0.5)"
+    <b>
+      #text "persisted storage"
+    <span id="f-persist">
+      #text "unknown"
+  <h2>
+    #text "Journal"
+  <div class="f-card">
+    <div class="f-actions">
+      <button>
+        #text "Export journal as text"
+      <button class="f-danger">
+        #text "Delete finished jobs"
+  <h2>
+    #text "About"
+  <div class="f-card f-mute">
+    #text "forge fixture · pinned to studie-tech/TheNinjaRPG@345d18ac · journal v1 · keys tnr_forge_job_v1:*, tnr_forge_sendlog_v1, tnr_forge_snap_v1:*"
