@@ -86,7 +86,7 @@ The package was frozen at `claude/forge-next-planning-v3frzi@201a1e2ea57011440e1
 |---|---|---|
 | F1 (high) | The register escalated ordinary engineering mechanisms as director rulings, against `docs/workflows/DIRECTOR_DECISIONS.md` §1 | Accepted. `K_USER_DECISIONS.md` now carries an ownership class per entry and three index tables (§K.1). Fifteen entries moved to **engineering**, five are **split** with only the director half waiting, and each engineering entry states Fable's position instead of a question. No id changed |
 | F2 (high) | Phase 0 was blocked by K-13, K-14 and K-60, two of which say "Can defer: yes", and K-60 misread the one-writer rule | Accepted. Phase 0 now has four objective prerequisites and no director decision. The one-writer reading is corrected in K-60, in `G_ROADMAP.md` §G.2.0 and §G.4, in `J_MIGRATION_AND_RETIREMENT.md` and in `I_TEST_STRATEGY.md`: the rule reserves a branch to one writer, not a file to one branch. K-61 is answered by the default role model rather than held open |
-| F3 (medium) | The package studied `824c4d58`; the implementation froze later at `cda8ac76` | Accepted with the scope stated below. Provenance is restamped and measured; the final SHA's own evidence is **not** adopted as verified, because Fable has not reviewed it yet |
+| F3 (medium) | The package studied `824c4d58`; the implementation froze later at `cda8ac76`, and was finally accepted at `5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15` | Accepted with the scope stated below. Provenance is restamped and measured. The branch's evidence is no longer unreviewed: the independent review at `claude/quest-studio-final-review@82bb686370f3f8cbbe57068fe42b887c90fdf48d` verified it and returned APPROVE_WITH_NONBLOCKING_FOLLOWUP. Cite re-resolution now happens against the accepted SHA |
 | F4 (medium) | Audit-summary metadata was stale relative to the package's own final rows | Accepted. The evidence summary strings are regenerated from the rows by `evidence/gen_evidence_summary.py`, which any checkout can run, and the handoff now describes the actual frozen state |
 
 **A second pass.** An adversarial critique of this round found that the F1 and F2 edits had reached only the files in their own diff. `F_ARCHITECTURE_RECOMMENDATION.md` §F.3, §F.16 and §F.18, `H_RISK_REGISTER.md` R-22, and four wireframes still carried the corrected-away reading; the wireframes were corrected at their generator source and regenerated rather than hand-edited (`CLAUDE.md` §7). `docs/handoffs/FORGE_NEXT_PLANNING_HANDOFF.md` §1.1 records the full list.
@@ -103,9 +103,9 @@ What that means for the cites in this package was measured here, read-only, by d
 | `.github/workflows/quest_studio_ci.yml` | Two trigger paths added, a static "no live-game network path" guard over the worker and compiler, and a worker trust-boundary test step. Both line cites into this file, `:3-28` and `:47-74`, shift | The package's phase-0 proposal for a static no-live check now has an existing implementation on that branch to adopt and extend rather than to invent. The CI-duplication finding is unaffected: a second `npm ci` and `npm test` still run there and `npm audit` is still absent at `cda8ac76` (verified here) |
 | `forge/test/quest.studio.ui.test.mjs` | Regression cases added | The one cite, `:22-41`, still resolves |
 
-**What is deliberately not adopted.** The final handoff on that branch claims a larger evidence set: a 9/9 compiler selftest, a 308/308 Forge suite, a real Mission adapter integration, a multiline-draft regression, a path-traversal regression and a checked-bundle parity rebuild. Those are the implementing branch's own claims. Fable has not independently reviewed `cda8ac76`, and `CLAUDE.md` §12 puts that review before acceptance, so this package records them as claims pending review and upgrades no evidence tier on their account. The architectural criticisms the package makes of the seam — a second full-screen shell with its own palette, a mount outside the composition root, a missing promotion contract, no manifest hash in the envelope, invisible worker refusals — were checked against the final SHA above and none of them is retired by it.
+**What is deliberately not adopted.** The final handoff on that branch claims a larger evidence set: a 9/9 compiler selftest, a 308/308 Forge suite, a real Mission adapter integration, a multiline-draft regression, a path-traversal regression and a checked-bundle parity rebuild. Those were the implementing branch's own claims when this package was written. They have since been independently reviewed: the final target `5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15` was verified at `claude/quest-studio-final-review@82bb686370f3f8cbbe57068fe42b887c90fdf48d`, which independently reproduced the compiler selftest (9/9), the full Forge suite (315/315 on a Node version different from CI's), the Mission adapter integration, bundle reproducibility and the worker trust-boundary contract. Those specific claims are therefore reviewed rather than pending. Claims not re-verified there stay at their original tier. The architectural criticisms the package makes of the seam — a second full-screen shell with its own palette, a mount outside the composition root, a missing promotion contract, no manifest hash in the envelope, invisible worker refusals — were checked against the final SHA above and none of them is retired by it.
 
-**The reconciliation step, and where it belongs.** Before a phase-S brief is frozen, every `824c4d58:` cite in this package is re-resolved at the accepted Studio SHA and the three changed paths above are re-read in full. That is a prerequisite of the phase, listed in `G_ROADMAP.md` §G.0, not a correction that can be made now: the accepted SHA is not knowable until Fable's independent review of `cda8ac76` closes and any corrections it requires are applied by that branch's owner.
+**The reconciliation step, and where it belongs.** Before a phase-S brief is frozen, every `824c4d58:` cite in this package is re-resolved at the accepted Studio SHA and the three changed paths above are re-read in full. That is a prerequisite of the phase, listed in `G_ROADMAP.md` §G.0. **The accepted SHA is now known: `5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15`.** The re-resolution itself remains phase-S work rather than a correction made here, because it requires re-reading each cited path in full; what this reconciliation fixes is the pointer it re-resolves against.
 
 ### Baseline drift since the planning base
 
@@ -116,3 +116,48 @@ The package's base is `main@305a28f992e33194fbba279a3f32e698dfb2b67f` and that r
 - The upstream game head has also moved past `36c5873b`, which the review reports at `1e01028cdd68459b731001dc98d78bf1970cd7f1`; that has not been re-measured here and no source claim in this package rests on it, because every source claim is pinned to `345d18ac` or to `36c5873b` by name.
 
 None of this invalidates the frozen evidence, and none of it is silently absorbed. It is what the package's own standing gates exist for: R-05 re-runs the source-drift check per phase rather than once, and phase 0's first prerequisite is a re-measured baseline. The correct response is to re-run them when the phase-0 brief is written, not to restate 0.4.1 numbers here from a diff.
+
+### 00.7 Quest Studio: accepted SHA and what it fixes in this package
+
+**Accepted Quest Studio SHA:** `chatgpt/forge-quest-studio-foundation@5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15`
+**Independent review:** `claude/quest-studio-final-review@82bb686370f3f8cbbe57068fe42b887c90fdf48d` — **APPROVE_WITH_NONBLOCKING_FOLLOWUP**
+**Governing ruling:** `RUL-2026-09-16-002`
+
+This package was written against `824c4d58` and restamped against `cda8ac76`. Neither is the
+accepted target. Two rounds of independent review moved the implementation past both, and the
+corrections changed things this package asserts:
+
+| This package says | Accepted SHA |
+|---|---|
+| the worker is dispatch-triggered | **source-push**: Compile writes a fresh Quest Source revision to `studio/quest/*`, and that write is the build request. No browser `workflow_dispatch` path exists; `Github.dispatch()` was deleted |
+| browser credential scope is an open engineering question under K-26 | **Contents: write only. No Actions write. No Workflows write.** Fixed by `RUL-2026-09-16-002` |
+| the branch's evidence is unreviewed | reviewed and independently reproduced at the accepted SHA |
+
+**Security invariant carried forward into every downstream brief.** The browser GitHub credential
+must never hold **Workflows write**. Push-triggered workflow definitions are resolved from the
+pushed request ref, so a credential able to write `.github/workflows/` on a request branch could
+replace the worker definition and collapse the trusted-`main` compiler boundary. The worker also
+byte-compares its pushed-ref definition against trusted `main` and fails closed on drift, but that
+is defence in depth against accidental drift — it is **not** a substitute for the credential
+invariant, because an attacker who can replace the workflow can also remove the comparison.
+
+**K-26 note, not a ruling.** `RUL-2026-09-16-002` fixes the operator-device credential scope, which
+is the substance of K-26's director half. Whether that closes K-26 as recorded in
+`K_USER_DECISIONS.md` is the director's call; this reconciliation records the overlap and settles
+nothing. `G_ROADMAP.md` §G.0 precondition (b) is left as written.
+
+**Integration gate that survives acceptance.** The accepted SHA is behind operational `main`.
+Before integration: reconcile the drift deliberately rather than by blind merge; ensure both
+`RUL-2026-09-16-001` (One Perfect Crop) and `RUL-2026-09-16-002` survive it; then run one
+repository-only end-to-end `studio/quest/*` rehearsal once the seam exists on `main`, verifying
+trigger, worker-definition equality, compiler SHA provenance, request-scoped artifacts, a
+superseding second source push, and stale-build refusal. **Zero live-game contact.**
+
+**Non-blocking follow-ups inherited from the review**, to be folded into the unified
+implementation contract rather than actioned here: the worker contract test pins that the
+definition-equality check exists but not that it runs first; and a request branch carrying a stale
+worker definition fails closed with no evidence written to the branch, which Forge currently
+surfaces only as a poll timeout.
+
+Nothing else in this package changes. The ForgeCore architecture, the just-in-time
+director-decision model, and every settled director decision stand as written.
