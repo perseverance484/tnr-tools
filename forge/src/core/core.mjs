@@ -30,6 +30,14 @@ export const OPTIONAL_DEPS = ["budget", "reader", "client", "session", "auth", "
 // golden test proves none of it lands here.
 const STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "running", "runningNote"];
 
+// The screens a shell may route to, and the ONLY keys go() will accept in a patch. go() used to be
+// `Object.assign(this.state, patch, { screen })` with `patch` unconstrained, which meant any shell
+// could mint a new key on core machine state through the public API and neither the snapshot
+// golden (it copies a fixed key set) nor the render test (it exercises today's calls) would notice.
+// Found by independent re-review. Widening either list is now a deliberate edit of this file.
+export const SCREENS = ["jobs", "manifests", "run", "captures", "settings"];
+export const GO_PATCH_KEYS = ["jobId"];
+
 export class ForgeCore {
   /**
    * @param {object} d see REQUIRED_DEPS / OPTIONAL_DEPS. Unknown keys are ignored; a missing
@@ -200,7 +208,19 @@ export class ForgeCore {
     await this.drive(jobId, () => (hasSent ? this.runner.resume(jobId) : this.runner.run(jobId)));
   }
 
-  go(screen, patch = {}) { Object.assign(this.state, patch, { screen }); this.changed(); }
+  /**
+   * Route to a screen, optionally carrying the job it is about. Fails closed on an unknown screen
+   * or an unknown patch key rather than silently creating machine state.
+   */
+  go(screen, patch = {}) {
+    if (!SCREENS.includes(screen)) throw new Error(`unknown screen ${JSON.stringify(screen)}`);
+    if (patch === null || typeof patch !== "object" || Array.isArray(patch)) throw new TypeError("go() patch must be an object");
+    const unknown = Object.keys(patch).filter((k) => !GO_PATCH_KEYS.includes(k));
+    if (unknown.length) throw new Error(`go() refuses unknown state keys: ${unknown.join(", ")}; add a named action instead`);
+    for (const k of GO_PATCH_KEYS) if (k in patch) this.state[k] = patch[k];
+    this.state.screen = screen;
+    this.changed();
+  }
 
   async drive(jobId, fn) {
     if (this.state.running) return this.say("a job is already running", "warn");
