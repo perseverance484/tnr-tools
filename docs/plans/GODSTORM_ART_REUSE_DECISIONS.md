@@ -66,3 +66,36 @@ Key results:
 - Marrow plates 2 and 3 need readability review against the current exposure guidance; recovered size is 500x333. No originals were altered or automatically rejected/replaced. The detailed report distinguishes diagnostics from repository art-preflight execution.
 
 The current graph/encounter counts, rejected-asset decision, unresolved source-record/portrait IDs, reward decisions and live-operation boundaries are unchanged. The next asset would be a single Upper Court candidate after direction review, not an automatic three-image batch. Final art acceptance remains with dauntless.
+
+
+## AR-003 — Upper Court accepted and production-exported
+
+**Status:** ACCEPTED_BY_DIRECTOR / PRODUCTION_EXPORT COMPLETE LOCALLY. Runtime gameAsset creation and wiring are not complete.
+
+**Decision:** The user accepted the generated Stormcourt Upper Court composition on 2026-09-18. Preserve that composition as the main Stormcourt environment for the first 20 retained Court dialogs, subject to final runtime asset creation/wiring through the normal implementation lane.
+
+**Production filename:** `bg_godstorm_stormcourt_upper_court.webp`.
+
+**Source candidate:** `stormlit_gothic_tribunal_courtyard.png`, generated at 1536x1024 and accepted before export.
+
+**Production export evidence:**
+- output: 1536x1024 RGB WebP;
+- codec: lossy WebP, quality 85 / method 6, matching the current SCENE_BACKGROUND export mode;
+- bytes: 379,928 (371.0 KB);
+- SHA-256: `c0587d9fdeb8c4c75ecc6f5eaf0c08a0b783461299793c774f66f7aaab4f12b9`;
+- aspect: 1.500000, within the current 3:2 target tolerance;
+- minimum width: pass against 512px;
+- working ceiling: pass against 460,800 bytes;
+- hard cap: pass against 524,288 bytes;
+- alpha: flattened / none;
+- exposure diagnostic: median luminance 17, 54.28% of pixels below 20; inside the current background guidance rather than the reject band;
+- lower-left reserve diagnostic: median luminance 12;
+- client-size preview checked at 512x341 and composition remained readable with the lower-left overlay region usable.
+
+The ChatGPT execution environment did not have a repository checkout, so the repository's `artpreflight.py` and `chroma.py` files were not executed as commands. The export and the relevant current preflight checks were applied directly from the scripts/spec read at main `015583ba581388ed53770cb3a2ce7ad899cad6e3`. Before repository handoff/live wiring, rerun the actual current repository art preflight in a checkout and require zero errors. This execution limitation does not change the accepted visual direction or the exact output hash above.
+
+**Coverage intent:** Upper Court remains the planned background for Stormcourt dialogs `d6_1` through `d9_boss` (20 dialogs). Actual gameAsset ID and quest bindings do not yet exist.
+
+**Next asset:** Binding Dais — active, using the accepted Upper Court as the primary Stormcourt environment reference. Do not batch-generate the released-state variant until the active dais is reviewed.
+
+This acceptance does not approve rewards, the final binding-resolution prose, keeper portraits, missing Marrow avatars, publication, or live operation.
