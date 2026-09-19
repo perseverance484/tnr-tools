@@ -866,6 +866,12 @@ test("push/53 END TO END: its committed pack verifies 8/8 from the repository an
   assert.equal(Object.keys(m.imagePack.files).length, 8);
 
   const { execFileSync } = await import("node:child_process");
+  const { hasCommit, isShallow } = await import("../tools/make_image_pack.mjs");
+  if (!hasCommit(m.imagePack.ref)) {
+    // Same distinction the tool guard makes: a shallow clone cannot see the commit the pack names.
+    assert.ok(isShallow(), `commit ${m.imagePack.ref.slice(0, 12)} is missing from a COMPLETE clone`);
+    return;
+  }
   const repo = join(HERE, "..", "..");
   const git = { raw: async (path, ref) => {
     const buf = execFileSync("git", ["-C", repo, "cat-file", "blob", `${ref}:${path}`],

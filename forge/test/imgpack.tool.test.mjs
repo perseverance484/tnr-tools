@@ -11,7 +11,7 @@ import assert from "node:assert/strict";
 import { statSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildPack, resolveCommit, blobAt, sha256Hex, splicePack, roundTrips } from "../tools/make_image_pack.mjs";
+import { buildPack, resolveCommit, blobAt, sha256Hex, splicePack, roundTrips, hasCommit, isShallow } from "../tools/make_image_pack.mjs";
 
 const REPO = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 // A committed image with a stable path, used as a stand-in for a processed art drop.
@@ -135,6 +135,14 @@ test("push/53's COMMITTED pack matches the COMMITTED blobs, entry for entry", ()
   if (!pack) return; // the pack is staged separately from the Forge feature; nothing to check yet
 
   assert.match(pack.ref, /^[0-9a-f]{40}$/, "a pack binds an immutable commit");
+  if (!hasCommit(pack.ref)) {
+    // A shallow clone cannot see the commit the pack names, which is a fact about the checkout and
+    // not about the pack. CI fetches full history (.github/workflows/forge.yml) precisely so this
+    // guard can do its job; anywhere else, say why it could not rather than reporting a mismatch.
+    assert.ok(isShallow(), `commit ${pack.ref.slice(0, 12)} is missing from a COMPLETE clone; the pack names history this repository does not have`);
+    console.log(`  (skipped: shallow clone, ${pack.ref.slice(0, 12)} not present; run git fetch --unshallow to check the pack)`);
+    return;
+  }
   const names = Object.keys(pack.files);
   assert.equal(names.length, 8, "the Godstorm repair binds eight images");
   for (const name of names) {
