@@ -99,6 +99,38 @@ export function buildPack(manifest, { ref, root = null, map = {} }) {
   return { pack: { ref, files }, problems, notes };
 }
 
+/**
+ * Insert the pack into a manifest's text, preserving the repository's own formatting.
+ *
+ * INDENT 1, not 2. Every manifest under push/ is written at one space - the same width Forge's own
+ * bundle writer uses (`JSON.stringify(bundle, null, 1)`) - so re-serializing at that width reproduces
+ * the file byte for byte and the diff is the inserted block and nothing else. Writing indent 2 turned
+ * a twelve-line addition to push/53 into 2,762 insertions and 2,717 deletions: semantically identical,
+ * and useless to review. A manifest whose formatting does NOT round-trip is left to re-serialize
+ * wholesale rather than silently corrupted, and the caller is told.
+ *
+ * `imagePack` is placed immediately after `imgSizes`, the ledger it has to agree with, so the two
+ * read together.
+ *
+ * @returns {string} the new file text, newline-terminated
+ */
+export function splicePack(manifestText, pack) {
+  const manifest = JSON.parse(manifestText);
+  const next = {};
+  for (const k of Object.keys(manifest)) {
+    if (k === "imagePack") continue;              // replacing an existing pack keeps imgSizes' position
+    next[k] = manifest[k];
+    if (k === "imgSizes") next.imagePack = pack;
+  }
+  if (!next.imagePack) next.imagePack = pack;
+  return JSON.stringify(next, null, 1) + "\n";
+}
+
+/** Does re-serializing this text at the repository's width reproduce it exactly? */
+export function roundTrips(manifestText) {
+  return JSON.stringify(JSON.parse(manifestText), null, 1) + "\n" === manifestText;
+}
+
 function parseArgs(argv) {
   const out = { manifest: null, root: null, ref: "HEAD", write: false, map: {} };
   for (let i = 0; i < argv.length; i++) {
@@ -125,11 +157,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   for (const p of problems) console.error("  REFUSED " + p);
   if (!pack) { console.error(`${problems.length} problem(s); no pack written`); process.exit(1); }
   console.log(`pack: ${Object.keys(pack.files).length} file(s) bound to ${ref}`);
-  if (!args.write) { console.log(JSON.stringify({ imagePack: pack }, null, 2)); process.exit(0); }
-  // Key order: imagePack sits next to imgSizes, which is the ledger it must agree with.
-  const next = {};
-  for (const k of Object.keys(manifest)) { next[k] = manifest[k]; if (k === "imgSizes") next.imagePack = pack; }
-  if (!next.imagePack) next.imagePack = pack;
-  writeFileSync(args.manifest, JSON.stringify(next, null, 2) + "\n");
+  if (args.write && !roundTrips(text)) {
+    console.log("  note: this manifest is not written at the repository's one-space indent, so --write reformats it as well as adding the pack");
+  }
+  if (!args.write) { console.log(JSON.stringify({ imagePack: pack }, null, 1)); process.exit(0); }
+  writeFileSync(args.manifest, splicePack(text, pack));
   console.log(`wrote imagePack into ${relative(REPO, args.manifest) || args.manifest}`);
 }

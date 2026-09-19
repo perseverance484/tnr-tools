@@ -8,10 +8,10 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { statSync } from "node:fs";
+import { statSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildPack, resolveCommit, blobAt, sha256Hex } from "../tools/make_image_pack.mjs";
+import { buildPack, resolveCommit, blobAt, sha256Hex, splicePack, roundTrips } from "../tools/make_image_pack.mjs";
 
 const REPO = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 // A committed image with a stable path, used as a stand-in for a processed art drop.
@@ -87,4 +87,65 @@ test("a manifest with no @img reference is refused, not given an empty pack", ()
   const { pack, problems } = buildPack({ items: [{ entity: "jutsu", slot: "create", name: "J", srcId: "j", data: { name: "J", hidden: true } }] }, { ref, root: ART_DIR });
   assert.equal(pack, null);
   assert.match(problems[0], /no @img references/);
+});
+
+test("--write preserves the repository's formatting, so the diff is the inserted block and nothing else", () => {
+  // The defect this pins: writing at indent 2 turned a twelve-line addition to push/53 into 2,762
+  // insertions and 2,717 deletions. Semantically identical, and useless to review.
+  const manifest = {
+    _note: "fixture",
+    dedupNames: true,
+    imgSizes: { "a.webp": 10, "b.webp": 20 },
+    items: [{ entity: "asset", slot: "create", name: "A", srcId: "a", data: { name: "A", hidden: true, url: "@img:a.webp" } }],
+  };
+  const text = JSON.stringify(manifest, null, 1) + "\n";
+  assert.equal(roundTrips(text), true, "a push/ manifest is written at one space");
+
+  const pack = { ref: "a".repeat(40), files: { "a.webp": { path: "art/x/a.webp", sha256: "b".repeat(64), bytes: 10 } } };
+  const out = splicePack(text, pack);
+
+  // THE property, stated directly: strip the pack back out and the text is the original, byte for
+  // byte. Nothing else was re-indented, reordered or re-escaped.
+  const stripped = JSON.parse(out);
+  delete stripped.imagePack;
+  assert.equal(JSON.stringify(stripped, null, 1) + "\n", text,
+    "splicing the pack changed something other than the pack");
+  // and the addition really is small: the pack's own lines, not the whole file
+  const addedLines = out.split("\n").length - text.split("\n").length;
+  assert.ok(addedLines > 0 && addedLines < 20, `expected a small insertion, got ${addedLines} new lines`);
+
+  // and the pack sits next to the ledger it must agree with
+  const parsed = JSON.parse(out);
+  assert.deepEqual(Object.keys(parsed), ["_note", "dedupNames", "imgSizes", "imagePack", "items"]);
+  assert.deepEqual(parsed.imagePack, pack);
+  assert.equal(roundTrips(out), true, "the result is itself a well-formed push/ manifest");
+
+  // re-splicing is idempotent and does not stack a second pack or move imgSizes
+  assert.equal(splicePack(out, pack), out);
+});
+
+test("push/53's COMMITTED pack matches the COMMITTED blobs, entry for entry", () => {
+  // The guard that stops the pack drifting from the art. If anyone re-processes one of the eight
+  // Godstorm images and forgets to regenerate the pack, this fails here rather than on the
+  // operator's phone at Start. It reads the blob out of the commit the pack itself names, so it
+  // also proves that commit still holds those paths.
+  const manifestPath = join(REPO, "push", "53_godstorm_failed_items_repair.json");
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  const pack = manifest.imagePack;
+  if (!pack) return; // the pack is staged separately from the Forge feature; nothing to check yet
+
+  assert.match(pack.ref, /^[0-9a-f]{40}$/, "a pack binds an immutable commit");
+  const names = Object.keys(pack.files);
+  assert.equal(names.length, 8, "the Godstorm repair binds eight images");
+  for (const name of names) {
+    const e = pack.files[name];
+    const blob = blobAt(pack.ref, e.path);
+    assert.equal(blob.length, e.bytes, `${name}: the committed blob is ${blob.length} bytes, the pack says ${e.bytes}`);
+    assert.equal(sha256Hex(blob), e.sha256, `${name}: the committed blob's digest is not the one the pack names`);
+    assert.equal(manifest.imgSizes[name], e.bytes, `${name}: imgSizes and the pack disagree`);
+    // the bytes are a real WebP, not a renamed master
+    assert.equal(blob.subarray(0, 4).toString("latin1"), "RIFF", `${name} is not a RIFF container`);
+    assert.equal(blob.subarray(8, 12).toString("latin1"), "WEBP", `${name} is not a WebP`);
+    assert.ok(blob.length <= 512 * 1024, `${name} is over the 512KB presign ceiling`);
+  }
 });

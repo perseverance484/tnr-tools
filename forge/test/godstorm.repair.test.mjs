@@ -69,7 +69,17 @@ const GODSTORM_LEDGER = Object.freeze({
   "ai_godstorm_marrow_warden_of_the_first_dark.webp": 238510,
 });
 function godstormRepairText() {
-  if (existsSync(REPAIR_53)) return readFileSync(REPAIR_53, "utf8");
+  if (existsSync(REPAIR_53)) {
+    // WITHOUT its imagePack. This suite pins the MANUAL PICKER contract - the byte ledger that
+    // catches a device file whose name is right and whose bytes are not (defect D). push/53 now also
+    // binds those eight images to repository blobs, and a bound image deliberately cannot be
+    // satisfied by a device file at all, so leaving the pack in would turn these tests into a second,
+    // weaker copy of the pack gate instead of cover for the picker path that still exists for every
+    // unbound image. The pack path has its own cover in test/imgpack.test.mjs, including an
+    // end-to-end pass over this exact committed manifest and pack.
+    const { imagePack, ...unpacked } = JSON.parse(readFileSync(REPAIR_53, "utf8"));
+    return JSON.stringify(unpacked);
+  }
   return JSON.stringify({
     imgSizes: GODSTORM_LEDGER,
     items: Object.keys(GODSTORM_LEDGER).map((f, i) => ({
