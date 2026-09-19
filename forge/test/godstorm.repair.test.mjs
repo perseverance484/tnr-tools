@@ -24,18 +24,59 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { existsSync } from "node:fs";
 import { IDBFactory } from "fake-indexeddb";
 import { listInput } from "../src/budget/reader.mjs";
 import { deepEqualPayload } from "../src/runner/validate.mjs";
+import { parseManifest } from "../src/runner/manifest.mjs";
+import { imagePick, imagePicks, unusablePicks } from "../src/core/facts.mjs";
+import { ForgeCore } from "../src/core/core.mjs";
 import { FakeGame, rekey } from "./fakegame.mjs";
-import { MemoryStorage } from "./shim.mjs";
+import { MemoryStorage, fakeClock } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const RESULT = join(HERE, "..", "..", "harvests", "inbox", "tnr_results_1789829183863.json");
+const REPAIR_53 = join(HERE, "..", "..", "push", "53_godstorm_failed_items_repair.json");
 
 function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory() } = {}) {
   return composeForTest({ game, storage, idb });
+}
+
+/** A DOM-less core over the fake game, serving one manifest text. */
+function headlessCore(text) {
+  const storage = new MemoryStorage();
+  const clock = fakeClock();
+  const d = composeForTest({ game: new FakeGame(), storage, idb: new IDBFactory(), clock });
+  d.github = { list: async () => [], text: async () => text, put: async () => ({ sha: "s" }) };
+  const notes = [];
+  const core = new ForgeCore({ version: "test", storage, now: clock, ...d });
+  core.subscribe((n) => notes.push(n));
+  return { core, notes, storage, journal: d.journal };
+}
+
+// The eight images of the Godstorm repair, with the byte ledger of the processed .webp files the
+// operator must pick. Taken from push/53 when it is in the tree (it is prepared on the planning
+// branch), and otherwise reproduced here so the gate is tested in either checkout.
+const GODSTORM_LEDGER = Object.freeze({
+  "bg_godstorm_stormcourt_upper_court.webp": 379928,
+  "bg_godstorm_stormcourt_binding_dais_active.webp": 283000,
+  "bg_godstorm_stormcourt_binding_dais_released.webp": 256826,
+  "ai_godstorm_marrow_starless_monk.webp": 207410,
+  "ai_godstorm_marrow_hollow_lantern.webp": 196056,
+  "ai_godstorm_marrow_umbral_reaver.webp": 161650,
+  "ai_godstorm_marrow_nightveil_sentinel.webp": 115618,
+  "ai_godstorm_marrow_warden_of_the_first_dark.webp": 238510,
+});
+function godstormRepairText() {
+  if (existsSync(REPAIR_53)) return readFileSync(REPAIR_53, "utf8");
+  return JSON.stringify({
+    imgSizes: GODSTORM_LEDGER,
+    items: Object.keys(GODSTORM_LEDGER).map((f, i) => ({
+      entity: "asset", slot: "create", name: `Godstorm image ${i}`, srcId: `gs_img_${i}`,
+      data: { name: `Godstorm image ${i}`, hidden: true, type: "STATIC", url: `@img:${f}` },
+    })),
+  });
 }
 
 const asset = (name, srcId) => ({ entity: "asset", slot: "create", name, srcId, data: { name, hidden: true, type: "STATIC", url: "u" } });
@@ -291,4 +332,200 @@ test("deepEqualPayload normalises key order and undefined-vs-missing, and nothin
   eq([], []); eq({}, {}); eq(0, 0); eq("x", "x"); eq(null, null); eq(undefined, undefined);
   eq(new Date(5), new Date(5)); ne(new Date(5), new Date(6)); ne(new Date(5), 5);
   eq(NaN, NaN, "two unreadable numbers are not a drift report");
+});
+
+// ================================================================= defect B: manifest identity
+//
+// Manifests 50 and 51 differed only in `dedupNames` - one performing the live-name safety read
+// before its creates, one not - and both hashed to d5164ee3, so Forge refused to open 51 on the
+// grounds that job 50 was already open for "this manifest". The identity that decides whether two
+// jobs are the same job must therefore cover execution policy, not only bodies.
+
+const bodies = (extra = {}) => ({
+  items: [{ entity: "jutsu", slot: "create", name: "A", srcId: "a", data: { name: "A", description: "d", hidden: true } }],
+  ...extra,
+});
+
+test("B: two manifests differing only in dedupNames are one manifest by body and two by identity", () => {
+  const dedup = parseManifest(bodies({ dedupNames: true }));
+  const plain = parseManifest(bodies({ dedupNames: false }));
+  assert.equal(dedup.bodyHash, plain.bodyHash, "this is the collision: the bodies are identical");
+  assert.notEqual(dedup.hash, plain.hash, "and this is the fix: the runs are not");
+});
+
+test("B: every execution-affecting top-level key moves the identity; prose does not", () => {
+  const base = parseManifest(bodies());
+  const moves = {
+    dedupNames: bodies({ dedupNames: true }),
+    skipPreflight: bodies({ skipPreflight: true }),
+    imgSizes: bodies({ imgSizes: { "a.webp": 10 } }),
+  };
+  for (const [key, m] of Object.entries(moves)) {
+    assert.notEqual(parseManifest(m).hash, base.hash, `${key} changes what the run does`);
+  }
+  // readBack:false is refused outright on a manifest with items, so its identity is exercised on a
+  // capture-only manifest, where it is legal.
+  const capOnly = { items: [], capture: { after: [{ proc: "jutsu.getAllNames" }] } };
+  assert.notEqual(parseManifest({ ...capOnly, readBack: false }).hash, parseManifest(capOnly).hash);
+  // prose is not execution
+  assert.equal(parseManifest(bodies({ _note: "a wholly different explanation" })).hash, base.hash);
+});
+
+test("B: identity is the behaviour, not its spelling", () => {
+  const base = parseManifest(bodies()).hash;
+  assert.equal(parseManifest(bodies({ dedupNames: false })).hash, base, "an explicit default is the default");
+  assert.equal(parseManifest(bodies({ readBack: true, skipPreflight: false, imgSizes: {} })).hash, base);
+});
+
+test("B: a default-policy manifest keeps the identity it already had, so open jobs still attach", () => {
+  const legacy = { items: [], capture: { after: [{ proc: "jutsu.getAllNames", input: {} }] } };
+  const m = parseManifest(legacy);
+  assert.equal(m.hash, "c359fd86", "the pre-policy hash of a default-policy manifest is unchanged");
+  assert.equal(m.hash, m.bodyHash);
+});
+
+test("B: the committed Godstorm run's recorded hash is this manifest's BODY hash, and its identity has moved", () => {
+  const text = readFileSync(join(HERE, "..", "..", "push", "52_godstorm_two_pyramid_final_update_v4.json"), "utf8");
+  const m = parseManifest(text);
+  const journalHash = JSON.parse(readFileSync(RESULT, "utf8")).journal.manifestHash;
+  assert.equal(journalHash, "330fd853", "what the live run recorded");
+  assert.equal(m.bodyHash, journalHash, "which is the body hash, reproduced exactly");
+  assert.notEqual(m.hash, journalHash, "manifest 52 carries an imgSizes ledger, so its identity moves");
+});
+
+test("B: the incident itself - job 50 open, manifest 51 offered - now opens instead of being refused", () => {
+  const h = harness();
+  const fifty = parseManifest(bodies({ dedupNames: true }));
+  const fiftyOne = parseManifest(bodies({ dedupNames: false }));
+  h.journal.open({ jobId: "j50", manifestHash: fifty.hash, items: [{ entity: "jutsu", op: "create", name: "A", srcId: "a", payloadHash: "h" }] });
+  // the same manifest is still refused: that guard is the point of the hash
+  assert.throws(() => h.journal.open({ jobId: "j50b", manifestHash: fifty.hash, items: [{ entity: "jutsu", op: "create", name: "A", srcId: "a", payloadHash: "h" }] }),
+    /an open job for this manifest already exists/);
+  // a manifest that runs differently is a different manifest
+  const ok = h.journal.open({ jobId: "j51", manifestHash: fiftyOne.hash, items: [{ entity: "jutsu", op: "create", name: "A", srcId: "a", payloadHash: "h" }] });
+  assert.equal(ok.jobId, "j51");
+});
+
+test("B: attach refuses a policy-changed file, and names a pre-policy job for what it is", () => {
+  const h = harness();
+  const dedupText = JSON.stringify(bodies({ dedupNames: true }));
+  const plainText = JSON.stringify(bodies({ dedupNames: false }));
+  h.runner.plan(dedupText, { jobId: "att" });
+  // same file: fine
+  h.runner.attach("att", dedupText);
+  // policy flipped under an open job: refused
+  assert.throws(() => h.runner.attach("att", plainText), /manifest changed under job att/);
+
+  // a job opened by a bundle that hashed bodies alone: the file still matches that body hash, and
+  // the refusal must say so rather than accusing the operator of editing the manifest
+  const legacyJob = h.journal.open({ jobId: "old", manifestHash: parseManifest(dedupText).bodyHash, items: [{ entity: "jutsu", op: "create", name: "A", srcId: "a", payloadHash: "h" }] });
+  assert.ok(legacyJob);
+  assert.throws(() => h.runner.attach("old", dedupText), /opened before manifest identity covered execution policy/);
+  assert.throws(() => h.runner.attach("old", dedupText), /Export the job for evidence and start a fresh one/);
+});
+
+// ================================================================== defect D: the image picker
+//
+// The manifest asked for ai_godstorm_marrow_starless_monk.webp; the operator's device handed Forge
+// 1000014259.png at 1709179 bytes; the picker showed "picked"; five avatar edits then failed one
+// upload at a time inside a live run. The ledger binds the bytes (L17 exists because the Android
+// picker renames files), so bytes are checked and a rename is reported.
+
+const FILE = (name, size, type = "image/webp") => ({ name, size, type });
+const LEDGER = { "ai_godstorm_marrow_starless_monk.webp": 207410 };
+const PICK = "ai_godstorm_marrow_starless_monk.webp";
+
+test("D: the exact Godstorm failure is refused at selection, with the bytes named", () => {
+  const p = imagePick(PICK, FILE("1000014259.png", 1709179, "image/png"), LEDGER);
+  assert.equal(p.ok, false);
+  assert.equal(p.state, "refused");
+  assert.match(p.problems.join(" | "), /1709179 bytes; the manifest ledger says .* is 207410/);
+  assert.match(p.problems.join(" | "), /over the imageUploader ceiling of 524288/);
+  assert.match(p.problems.join(" | "), /image\/png; .* is a webp/);
+  assert.equal(p.picked.size, 1709179, "the physical bytes are carried, so a view can show them");
+});
+
+test("D: the exact processed WebP is accepted", () => {
+  const p = imagePick(PICK, FILE(PICK, 207410), LEDGER);
+  assert.equal(p.ok, true);
+  assert.equal(p.state, "ready");
+  assert.equal(p.renamed, false);
+  assert.deepEqual(p.problems, []);
+});
+
+test("D: right name, wrong byte count is refused", () => {
+  const p = imagePick(PICK, FILE(PICK, 207411), LEDGER);
+  assert.equal(p.ok, false);
+  assert.match(p.problems[0], /207411 bytes; the manifest ledger says/);
+});
+
+test("D: anything over the uploader ceiling is refused even if the ledger agrees with it", () => {
+  const p = imagePick("big.webp", FILE("big.webp", 600000), { "big.webp": 600000 });
+  assert.equal(p.ok, false);
+  assert.match(p.problems.join(" "), /over the imageUploader ceiling of 524288/);
+});
+
+test("D: an unledgered image is refused rather than trusted", () => {
+  const p = imagePick("nope.webp", FILE("nope.webp", 100), {});
+  assert.equal(p.ok, false);
+  assert.match(p.problems[0], /no imgSizes entry/);
+});
+
+test("D: a non-image, and an image of the wrong type, are refused", () => {
+  assert.equal(imagePick(PICK, FILE(PICK, 207410, "application/pdf"), LEDGER).ok, false);
+  assert.equal(imagePick(PICK, FILE(PICK, 207410, "image/png"), LEDGER).ok, false);
+  // a browser that reports no type at all is not evidence of anything; the ledger still binds
+  assert.equal(imagePick(PICK, FILE(PICK, 207410, ""), LEDGER).ok, true);
+});
+
+test("D: DOCUMENTED POLICY - a device-renamed file whose bytes match exactly is accepted, and said so", () => {
+  // L17 (runner/lints.mjs) requires a byte entry for every @img ref precisely BECAUSE "the Android
+  // picker matches a file by size when the name differs". Refusing on the name would break the
+  // operator path the ledger was introduced to survive, so the bytes bind and the rename is
+  // surfaced. If the reviewer wants the name to bind too, it is one condition here.
+  const p = imagePick(PICK, FILE("image_1234.webp", 207410), LEDGER);
+  assert.equal(p.ok, true);
+  assert.equal(p.renamed, true, "and the view is told, so the operator sees what they actually picked");
+});
+
+test("D: an unpicked image is missing, not refused, and replacing a bad pick clears it", () => {
+  const files = new Map();
+  const first = imagePicks([PICK], files, LEDGER);
+  assert.equal(first[0].state, "missing");
+  assert.equal(first[0].picked, null);
+  assert.equal(unusablePicks(first).length, 1);
+
+  files.set(PICK, FILE("1000014259.png", 1709179, "image/png"));
+  assert.equal(imagePicks([PICK], files, LEDGER)[0].state, "refused");
+
+  files.set(PICK, FILE(PICK, 207410));
+  const good = imagePicks([PICK], files, LEDGER);
+  assert.equal(good[0].state, "ready");
+  assert.deepEqual(unusablePicks(good), []);
+});
+
+test("D: the eight-image Godstorm repair cannot start with one wrong master PNG", async () => {
+  const text = godstormRepairText();
+  const { core, notes, journal } = headlessCore(text);
+  await core.selectManifest({ name: "53.json", path: "push/53_godstorm_failed_items_repair.json", number: 53, text });
+  assert.deepEqual(core.state.selected.problems, []);
+  assert.equal(core.state.selected.images.length, 8);
+
+  const sizes = core.state.selected.manifest.imgSizes;
+  for (const name of core.state.selected.images) core.runner.files.set(name, FILE(name, sizes[name]));
+  // ... and one of them is the original master, exactly as it was on the night
+  core.runner.files.set("ai_godstorm_marrow_starless_monk.webp", FILE("1000014259.png", 1709179, "image/png"));
+
+  await core.startJob();
+  assert.equal(core.state.jobId, null, "no job was opened");
+  assert.equal(journal.listJobs().length, 0, "and none was written to the journal");
+  const bad = notes.filter((n) => n.level === "bad").map((n) => n.text).join(" | ");
+  assert.match(bad, /image selection\(s\) do not match the manifest/);
+  assert.match(bad, /Nothing was sent/);
+
+  // fix the one file and the same job starts
+  core.runner.files.set("ai_godstorm_marrow_starless_monk.webp", FILE("ai_godstorm_marrow_starless_monk.webp", sizes["ai_godstorm_marrow_starless_monk.webp"]));
+  await core.selectManifest({ name: "53.json", path: "push/53_godstorm_failed_items_repair.json", number: 53, text });
+  await core.startJob();
+  assert.equal(journal.listJobs().length, 1, "the gate is a contract check, not a refusal to work");
 });

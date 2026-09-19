@@ -91,12 +91,22 @@ export function parseManifest(source) {
   // `skipPreflight` is recorded but does NOT disable any of the above: see the header of lints.mjs.
   if (problems.length) throw new ManifestError("manifest problems:\n" + problems.join("\n"), { problems });
 
-  return {
-    items, capture, warnings, poolResolved,
-    note: typeof m._note === "string" ? m._note : null,
-    skipPreflight: !!m.skipPreflight,
+  // EXECUTION POLICY. Every top-level key that can change what a run DOES, normalized so the
+  // value is the behaviour and not its spelling: a manifest that writes `"dedupNames": false`
+  // executes exactly like one that omits the key, and must therefore have the same identity.
+  // `_note` is prose and is deliberately absent.
+  const policy = {
     dedupNames: !!m.dedupNames,
     readBack: m.readBack !== false,
+    skipPreflight: !!m.skipPreflight,
+    imgSizes,
+  };
+  return {
+    items, capture, warnings, poolResolved, policy,
+    note: typeof m._note === "string" ? m._note : null,
+    skipPreflight: policy.skipPreflight,
+    dedupNames: policy.dedupNames,
+    readBack: policy.readBack,
     imgSizes,
     fullCaptures: [...capture.before, ...capture.after].filter((c) => c.persist === "full").length,
     // The hash is taken over the RAW manifest bodies, not the normalized ones, so the persistence
@@ -106,8 +116,40 @@ export function parseManifest(source) {
     // Hashing raw also means a manifest written before `persist` existed keeps the hash it
     // already had, so an open job survives this upgrade. `manifest hashing covers the
     // persistence request` in test/capture.full.test.mjs holds both halves of that.
-    hash: fnv1a32(stableStringify({ items: raw, capture: rawCapture })),
+    hash: manifestHash(raw, rawCapture, policy),
+    // The pre-policy identity, kept ONLY so attach() can recognise a job opened by a bundle that
+    // hashed bodies alone and say so precisely instead of "manifest changed". Never stored, never
+    // compared for equivalence.
+    bodyHash: fnv1a32(stableStringify({ items: raw, capture: rawCapture })),
   };
+}
+
+// The default execution policy. A manifest whose policy equals this one is, by definition, a
+// manifest whose execution is decided entirely by its bodies.
+const DEFAULT_POLICY = Object.freeze({ dedupNames: false, readBack: true, skipPreflight: false, imgSizes: {} });
+export function isDefaultPolicy(policy) {
+  return stableStringify(policy) === stableStringify(DEFAULT_POLICY);
+}
+
+/**
+ * The manifest's IDENTITY. It is what journal.open() refuses a duplicate of and what attach()
+ * compares before resuming, so it must mean "the same run", not "the same text".
+ *
+ * Bodies alone were not enough (independent brief, defect B). Manifests 50 and 51 differed only in
+ * `dedupNames` - one performing the live-name safety read before its creates and one not - and both
+ * hashed to d5164ee3, so Forge refused to open 51 on the grounds that 50 was already open. Execution
+ * policy that decides whether a job performs a safety read cannot be invisible to the guard that
+ * decides whether two jobs are the same job.
+ *
+ * The policy is folded in ONLY when it is non-default. That is not a trick to preserve hashes for
+ * their own sake: a manifest with default policy executes exactly as its bodies say, so its identity
+ * has not changed and a job opened under an older bundle still attaches. The compatibility break is
+ * confined to exactly the manifests where the guard was wrong - the ones carrying a policy - and
+ * attach() names that break rather than reporting it as an edited file.
+ */
+export function manifestHash(raw, rawCapture, policy) {
+  const body = { items: raw, capture: rawCapture };
+  return fnv1a32(stableStringify(isDefaultPolicy(policy) ? body : { ...body, policy }));
 }
 
 /**

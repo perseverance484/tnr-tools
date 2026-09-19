@@ -15,7 +15,7 @@ import { parseManifest, planOrder, ManifestError } from "../runner/manifest.mjs"
 import { collectRefs } from "../runner/refs.mjs";
 import { manifestNumber, manifestSummary, GH } from "../github.mjs";
 import { JournalError } from "../storage/journal.mjs";
-import { blockedPaths, resumeBlockedReason, runHeadline } from "./facts.mjs";
+import { blockedPaths, imagePicks, resumeBlockedReason, runHeadline, unusablePicks } from "./facts.mjs";
 import { resolveCaptures, buildBundle, repoSyncReady, inboxPath } from "./results.mjs";
 
 // The core's dependency contract, named rather than absorbed. `Object.assign(this, d)` used to
@@ -180,6 +180,16 @@ export class ForgeCore {
     if (blocked.length) {
       this.say(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9000);
       this.state.selected.blocked = blocked;
+      return this.changed();
+    }
+    // The image ledger, re-read at the moment of the tap for the same reason the auth gate is:
+    // the screen that disabled Start may have been drawn before the operator picked, replaced or
+    // lost a file. A shell that never drew the picker at all is gated here too - the check belongs
+    // to the machine, not to whoever is drawing it. This is the gate that would have stopped the
+    // five Godstorm avatar edits before the job opened instead of at their uploads.
+    const badImgs = unusablePicks(imagePicks(s.images, this.runner.files, s.manifest.imgSizes, "imageUploader"));
+    if (badImgs.length) {
+      this.say(`${badImgs.length} image selection(s) do not match the manifest: ${badImgs.map((p) => p.problems[0] ?? `${p.name} is not picked`).join("; ")}. Nothing was sent.`, "bad", 12000);
       return this.changed();
     }
     const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;

@@ -203,6 +203,15 @@ export class Runner {
     const job = this.journal.get(jobId);
     if (!job) throw new Error("no such job " + jobId);
     if (job.manifestHash && manifest.hash !== job.manifestHash) {
+      // One specific mismatch is not an edited file. A job opened by a bundle that hashed bodies
+      // alone recorded the pre-policy identity; this file still matches that, but its execution
+      // policy (dedupNames / readBack / skipPreflight / imgSizes) was never part of what the job
+      // recorded, so there is nothing to compare it against and resuming would be exactly the
+      // unsafe equivalence that let manifest 51 be mistaken for job 50. Refuse - and say which of
+      // the two things happened, because the operator's next move differs.
+      if (manifest.bodyHash === job.manifestHash) {
+        throw new Error(`job ${jobId} was opened before manifest identity covered execution policy (journal hash ${job.manifestHash} is this file's body hash). Its policy - dedupNames/readBack/skipPreflight/imgSizes - was never recorded, so it cannot be resumed safely under this bundle. Export the job for evidence and start a fresh one from the manifest.`);
+      }
       throw new Error(`manifest changed under job ${jobId}: journal hash ${job.manifestHash}, file hash ${manifest.hash}`);
     }
     const order = planOrder(manifest, readIdmap(this.storage));

@@ -20,7 +20,15 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // core modules, the host adapter, the repo-text store and the runner emitter.
 //
 // Headroom is ~4%: enough for ordinary change, small enough that a structural regression trips it.
-export const BUDGET = { raw: 430_000, gzip: 81_000 };
+//
+// RAISED for the Godstorm defects repair (docs/handoffs/GODSTORM_FORGE_DEFECTS_REPAIR_*). The four
+// fixes - the per-procedure list-input table, the structural rules comparison, the manifest
+// execution-policy identity and the image-pick contract - measured raw 424,642 / gzip 81,344,
+// which put gzip 344 bytes over the old ceiling. That is ~4.9 KB raw of new code and its comments
+// for four defects, not a structural regression, so the ratchet is stepped rather than the code
+// squeezed to fit. Deliberate and reviewable, which is what the paragraph above asks for; a
+// reviewer who disagrees should say so, because the next change inherits this headroom.
+export const BUDGET = { raw: 442_000, gzip: 84_600 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;
