@@ -6,11 +6,13 @@ You are **Fable / Claude Code**, the Lane A implementation owner for the first F
 
 ## Governing plan
 
-The implementation contract is:
+The implementation contract is the draft plan at:
+
+`chatgpt/forge-presentation-studio-plan@99f1aa8a6fe7cc7361aa613cdcad258bafb9c83e`
 
 `docs/plans/FORGE_PRESENTATION_STUDIO_UPGRADE_PLAN.md`
 
-Read it from the live repository. Do not implement from this prompt alone.
+Read that exact plan revision. Do not implement from this prompt alone. If the user changes the plan before implementation starts, stop and use the newly approved exact revision instead.
 
 ## Mandatory bootstrap
 
@@ -27,7 +29,7 @@ Before writing code:
    - `docs/DEVELOPMENT_WORKFLOW.md`
    - `docs/agents/README.md`
    - `docs/workflows/IMPLEMENTATION_HANDOFF.md`
-   - `docs/plans/FORGE_PRESENTATION_STUDIO_UPGRADE_PLAN.md`
+   - `docs/plans/FORGE_PRESENTATION_STUDIO_UPGRADE_PLAN.md` at the exact governing revision above
 3. inspect the current Forge 0.5.0 implementation/tests and current bundle-budget gate;
 4. inspect the completed Godstorm results/evidence and `art/godstorm/` used by the plan's golden fixture;
 5. inspect the current art workflow and existing repo-backed image-pack implementation;
