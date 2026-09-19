@@ -86,6 +86,13 @@ AVATARS = (
         "bytes": 207410,
         "sha256": "877eef3b0cecc914d4e3300e21cb50c87030093c5730d4feb54b71a7e7cdc870",
     },
+    {
+        "label": "Nightveil Sentinel avatar",
+        "ai_id": "YvinZCoMWiz0RY8ZBP5EW",
+        "file": "ai_godstorm_marrow_nightveil_sentinel.webp",
+        "bytes": 115618,
+        "sha256": "d5c5a8c8a2be20700a7df16b9ac38e4b9cd6a7a2917efa5d7d815d19deebd9e2",
+    },
 )
 
 
@@ -335,11 +342,11 @@ def main() -> None:
         "_note": (
             "Godstorm current-scope manifest, 2026-09-19. COMPLETE for currently "
             "safe executable writes only: create the three director-approved "
-            "Stormcourt SCENE_BACKGROUND assets, update the first three accepted "
+            "Stormcourt SCENE_BACKGROUND assets, update four accepted "
             "Marrow AI avatars, and apply the source-audited range-safe fallback "
             "correction to all 18 retained AI profiles. This intentionally does NOT "
             "mutate the two quests yet: exact player-facing copy, rewards/cadence/chest, "
-            "Nightveil Sentinel and Warden of the First Dark avatars, ten keeper "
+            "Warden of the First Dark avatar, ten keeper "
             "SCENE_CHARACTER assets, and the blank SCENE_CHARACTER are still "
             "unresolved. No quest graph/content write is safe until those release "
             "dependencies are frozen. See docs/plans/GODSTORM_MANIFEST_STAGING.md "
