@@ -270,3 +270,27 @@ Scene-character arrays remain empty in this push. Keeper/blank SCENE_CHARACTER w
 A static final integrity pass found zero errors: 53 objectives / 25 battles / 26 dialogs per quest, all nodes reachable, no dangling edges, all opponent arrays unchanged, no rejected StormCourtyard ID, no Tower/Dawnless/cash-out wording, five avatar edits, eighteen bounded profile edits and eight image references with byte ledgers.
 
 The exact final manifest was copied to `main` at commit `bad3a2d9efadc5015a538b494f49b346b67a9739` so Forge's normal `push/` listing can see it. This repository commit is staging only; the director remains the only live-game operator.
+
+
+## 11. Law 40 correction and blank scene-character wiring
+
+The first final manifest failed Forge preflight before any mutation because the prior audit used direct jutsu range as the AI distance gate. Engine Law 40 uses A* path length including both endpoints: an opponent-targeted SINGLE jutsu with combat range R requires exact `distance_lower_than = R + 1`. SELF-target and ALL-method jutsu take no distance gate.
+
+Corrected manifest: `push/50_godstorm_two_pyramid_final_update_v2.json`.
+
+Applied across all 18 retained AI profiles:
+- 10 specific offensive jutsu gates corrected to exact range+1;
+- 18 combo gates corrected to their shared range+1;
+- 18 distance conditions removed from SELF jutsu rules;
+- target/jutsu compatibility rechecked;
+- adjacent highest-damage fallback retained at path distance <=2;
+- zero remaining findings in the corrected static audit.
+
+Scene-character fallback now uses the existing catalogued asset:
+- `1YXbXYW2wz3GETVMb6DT6` — Blank Scene Character — `SCENE_CHARACTER` — hidden.
+- assigned to `content.sceneCharacters` for both quests;
+- assigned to all 52 retained dialog `sceneCharacters` arrays.
+
+The corrected manifest was staged to `main`. The invalid preflight-failing `push/49_godstorm_two_pyramid_final_update.json` was removed from `main` to prevent accidental execution. See `docs/reviews/REVIEW_2026-09-19_godstorm_ai_rule_safety_law40_correction.md`.
+
+This correction does not create keeper-specific scene-character portraits; the blank asset is the approved current fallback. No live game write is performed by repository staging.
