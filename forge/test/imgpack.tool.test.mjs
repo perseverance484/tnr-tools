@@ -11,9 +11,10 @@ import assert from "node:assert/strict";
 import { statSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildPack, resolveCommit, blobAt, sha256Hex, splicePack, roundTrips, hasCommit, isShallow } from "../tools/make_image_pack.mjs";
+import { buildPack, resolveCommit, blobAt, sha256Hex, splicePack, roundTrips, hasCommit, isShallow, findManifest } from "../tools/make_image_pack.mjs";
 
 const REPO = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
+
 // A committed image with a stable path, used as a stand-in for a processed art drop.
 const ART_DIR = "art/style_refs/scene_backgrounds";
 const ART_NAME = "drying_yard.webp";
@@ -129,7 +130,8 @@ test("push/53's COMMITTED pack matches the COMMITTED blobs, entry for entry", ()
   // Godstorm images and forgets to regenerate the pack, this fails here rather than on the
   // operator's phone at Start. It reads the blob out of the commit the pack itself names, so it
   // also proves that commit still holds those paths.
-  const manifestPath = join(REPO, "push", "53_godstorm_failed_items_repair.json");
+  const manifestPath = findManifest("53_godstorm_failed_items_repair.json");
+  assert.ok(manifestPath, "push/53 is neither staged nor archived; it has gone missing");
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
   const pack = manifest.imagePack;
   if (!pack) return; // the pack is staged separately from the Forge feature; nothing to check yet
