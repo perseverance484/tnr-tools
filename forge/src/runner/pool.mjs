@@ -25,7 +25,6 @@
 
 import POOL from "../../../32b_DATA_pool.json" with { type: "json" };
 
-export const POOL_META = Object.freeze(POOL._meta ?? {});
 export const POOL_RECORDS = Object.freeze(POOL.records ?? {});
 export const POOL_BY_ID = Object.freeze(Object.fromEntries(
   Object.entries(POOL_RECORDS).map(([code, r]) => [r.id, { ...r, code }]),

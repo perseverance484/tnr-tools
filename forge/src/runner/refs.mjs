@@ -9,8 +9,6 @@
 export const REF_RE = /^@(jutsu|ai|scene|item|quest|bloodline|img):(.+)$/;
 export const DOUBLED_RE = /^@\w+:@\w+:/; // law 45: a doubled prefix survives a naive sweep
 
-export function isRef(v) { return typeof v === "string" && REF_RE.test(v); }
-
 /** Walk any value and collect refs as {pfx, key, path}. */
 export function collectRefs(o, out = [], path = "") {
   if (Array.isArray(o)) o.forEach((x, i) => collectRefs(x, out, `${path}[${i}]`));
@@ -44,9 +42,4 @@ export function resolveRefs(o, lookup) {
     return v;
   };
   return { value: walk(o, ""), unresolved };
-}
-
-/** Does a string still contain any unresolved ref anywhere in a serialized payload? */
-export function hasRefLiteral(payload) {
-  return /@(jutsu|ai|scene|item|quest|bloodline|img):[^"]{1,80}/.test(JSON.stringify(payload) || "");
 }

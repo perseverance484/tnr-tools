@@ -16,7 +16,7 @@ import { collectRefs } from "../runner/refs.mjs";
 import { manifestNumber, manifestSummary, GH } from "../github.mjs";
 import { JournalError } from "../storage/journal.mjs";
 import { blockedPaths, imagePicks, resumeBlockedReason, runHeadline, unusablePicks } from "./facts.mjs";
-import { resolveCaptures, buildBundle, repoSyncReady, inboxPath } from "./results.mjs";
+import { resolveCaptures, buildBundle, bundleName, repoSyncReady, inboxPath } from "./results.mjs";
 import { prepareImagePack, commitImagePack, packGateProblems } from "./imagepack.mjs";
 import { packBinds } from "../runner/imgpack.mjs";
 
@@ -412,7 +412,7 @@ export class ForgeCore {
     }
     const job = this.journal.get(jobId); // read AFTER resolveCaptures so the embedded journal agrees
     const bundle = buildBundle(this, job, captures);
-    const name = `tnr_results_${Date.now()}.json`;
+    const name = bundleName(this.now);
     const text = JSON.stringify(bundle, null, 1);
     const synced = repoSyncReady(this.storage);
     if (synced) {
