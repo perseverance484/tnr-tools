@@ -5,6 +5,7 @@
 // host) ask the same questions without duplicating the reasoning or importing a view.
 
 import { AUTH } from "../transport/auth.mjs";
+import { SLUGS } from "../transport/upload.mjs";
 import { protectedPathsFor } from "../runner/runner.mjs";
 import { jobOutcome } from "../storage/journal.mjs";
 
@@ -38,6 +39,77 @@ export function harvestEntry(i) {
     id: i.entityId || i.targetId || null,
   };
 }
+
+// ------------------------------------------------------------------ image picks
+//
+// THE OBSERVED DEFECT (harvests/inbox/tnr_results_1789829183863.json, items 3-7). The manifest
+// asked for `ai_godstorm_marrow_starless_monk.webp`; the picker keys the chosen File by that
+// expected name and showed a green "picked" pill; what the operator had actually selected was the
+// unprocessed master `1000014259.png` at 1709179 bytes. All five avatar edits ran to their upload
+// and only then failed on the 524288-byte ceiling - after the job had started, one item at a time.
+// Nothing was corrupted, but the operator learned at the end of a live run what the picker could
+// have told them at the moment they tapped.
+//
+// The ledger is what binds. `imgSizes` already exists for exactly this: L17 makes a byte entry
+// mandatory for every @img ref BECAUSE "the Android picker matches a file by size when the name
+// differs" (runner/lints.mjs). So an exact byte match against the ledger is the contract, and a
+// differing physical filename is REPORTED rather than refused - refusing it would break the
+// documented picker behaviour the ledger was introduced to survive. A reviewer who wants the name
+// to bind as well should say so; it is one line here, and it costs the Android path.
+const EXT_MIME = Object.freeze({
+  webp: "image/webp", png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", gif: "image/gif", avif: "image/avif",
+});
+const extOf = (n) => { const m = /\.([A-Za-z0-9]+)$/.exec(String(n ?? "")); return m ? m[1].toLowerCase() : null; };
+
+/**
+ * Does this physical file satisfy the manifest's contract for this logical image?
+ * Pure: takes the facts, returns the verdict. Knows nothing about pills or buttons.
+ *
+ * @param {string} name       the manifest's logical filename (the @img key)
+ * @param {{name?: string, size?: number, type?: string}|null} file  the selected File, or null
+ * @param {object} imgSizes   the manifest's byte ledger
+ * @param {string} slug       upload slug whose ceiling applies
+ * @returns {{name, ok, state: "missing"|"ready"|"refused", expectedBytes, ceiling,
+ *            picked: {name, size, type}|null, renamed: boolean, problems: string[]}}
+ */
+export function imagePick(name, file, imgSizes = {}, slug = "imageUploader") {
+  const ceiling = (SLUGS[slug] ?? SLUGS.imageUploader).maxBytes;
+  const has = imgSizes && Object.prototype.hasOwnProperty.call(imgSizes, name);
+  const expectedBytes = has ? Number(imgSizes[name]) : null;
+  if (!file) return { name, ok: false, state: "missing", expectedBytes, ceiling, picked: null, renamed: false, problems: [] };
+  const picked = { name: file.name ?? null, size: Number(file.size), type: file.type || null };
+  const problems = [];
+  // 1. the ledger. Fail closed when there is none: an unledgered image cannot be checked at all,
+  //    and L17 already refuses that manifest, so reaching here means something else is wrong.
+  if (expectedBytes == null || !Number.isFinite(expectedBytes)) {
+    problems.push(`the manifest has no imgSizes entry for ${name}, so these bytes cannot be checked against it`);
+  } else if (picked.size !== expectedBytes) {
+    problems.push(`selected file is ${picked.size} bytes; the manifest ledger says ${name} is ${expectedBytes}`);
+  }
+  // 2. the uploader's own ceiling, checked here instead of mid-run. A ledger entry that is itself
+  //    over the ceiling is caught by this too.
+  if (Number.isFinite(picked.size) && picked.size > ceiling) {
+    problems.push(`selected file is ${picked.size} bytes, over the ${slug} ceiling of ${ceiling}`);
+  }
+  // 3. a light type check, only when the browser told us a type. An empty type is common and is
+  //    not evidence of anything.
+  const wantMime = EXT_MIME[extOf(name)] ?? null;
+  if (picked.type && !picked.type.startsWith("image/")) problems.push(`selected file is ${picked.type}, not an image`);
+  else if (picked.type && wantMime && picked.type !== wantMime) problems.push(`selected file is ${picked.type}; ${name} is a ${extOf(name)}`);
+  return {
+    name, ok: !problems.length, state: problems.length ? "refused" : "ready",
+    expectedBytes, ceiling, picked, renamed: !!(picked.name && picked.name !== name), problems,
+  };
+}
+
+/** Every image a manifest needs, against what the operator has actually picked. */
+export function imagePicks(names, files, imgSizes = {}, slug = "imageUploader") {
+  const get = files && typeof files.get === "function" ? (n) => files.get(n) : () => null;
+  return (names ?? []).map((n) => imagePick(n, get(n) ?? null, imgSizes, slug));
+}
+
+/** The picks that must stop a job from starting, with the reason already attached. */
+export function unusablePicks(picks) { return (picks ?? []).filter((p) => !p.ok); }
 
 /**
  * Why Resume is not offered on a SESSION-paused job. A job that stopped because the game refused

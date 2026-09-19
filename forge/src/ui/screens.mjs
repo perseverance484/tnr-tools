@@ -4,6 +4,7 @@ import { h, replace, fmtAgo, fmtBytes, fmtCountdown } from "./dom.mjs";
 import { manifestNumber, manifestSummary } from "../github.mjs";
 import { readGh, writeGh } from "../storage/compat.mjs";
 import { jobOutcome } from "../storage/journal.mjs";
+import { imagePicks, unusablePicks } from "../core/facts.mjs";
 
 const pill = (state) => h("span", { class: "f-pill " + state }, state);
 
@@ -138,17 +139,31 @@ function SelectedManifest(app) {
       h("div", { class: "f-grow" }, h("div", {}, `${it.idx}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} · ${it.op}${it.targetId ? " → " + it.targetId : ""}${it.deps?.length ? " · after " + it.deps.join(", ") : ""} · keys: ${Object.keys(it.data).join(", ").slice(0, 120)}`))));
   }
   const imgs = s.images || [];
+  // What the operator has actually selected, judged against the manifest's byte ledger BEFORE the
+  // job opens. The picker used to show a green "picked" pill for any file at all, which is how a
+  // 1.7 MB master PNG rode into a live run behind the name of a 207 KB .webp and failed five
+  // avatar edits one upload at a time (facts.imagePick).
+  const picks = imagePicks(imgs, app.runner.files, s.manifest.imgSizes, "imageUploader");
   if (imgs.length) {
     card.appendChild(h("h3", {}, `Images to pick (${imgs.length})`));
-    for (const name of imgs) {
-      const have = app.runner.files.has(name);
+    for (const p of picks) {
+      const name = p.name;
       const inp = h("input", { type: "file", accept: "image/*", style: { display: "none" }, onChange: (e) => { const f = e.target.files[0]; if (f) { app.runner.files.set(name, f); app.refresh(); } } });
-      card.appendChild(h("div", { class: "f-row" }, h("div", { class: "f-grow f-mono" }, name, " ", have ? h("span", { class: "f-pill VERIFIED" }, "picked") : h("span", { class: "f-pill FAILED" }, "missing")), h("button", { onClick: () => inp.click() }, "Pick"), inp));
+      const pillFor = { ready: ["VERIFIED", "picked"], refused: ["FAILED", "wrong file"], missing: ["FAILED", "missing"] }[p.state];
+      card.appendChild(h("div", { class: "f-row" },
+        h("div", { class: "f-grow" },
+          h("div", { class: "f-mono" }, name, " ", h("span", { class: "f-pill " + pillFor[0] }, pillFor[1])),
+          // the physical bytes, always, not only when they are wrong
+          p.picked ? h("div", { class: "f-mute f-mono" },
+            `selected: ${p.picked.name ?? "(unnamed)"} · ${fmtBytes(p.picked.size)}${p.expectedBytes != null ? ` · ledger ${fmtBytes(p.expectedBytes)}` : ""}${p.picked.type ? ` · ${p.picked.type}` : ""}`) : null,
+          p.renamed && p.ok ? h("div", { class: "f-mute" }, "the device renamed this file; its bytes match the ledger exactly") : null,
+          p.problems.length ? h("div", { class: "f-err" }, p.problems.join("\n")) : null),
+        h("button", { onClick: () => inp.click() }, p.picked ? "Replace" : "Pick"), inp));
     }
   }
-  const missingImgs = imgs.filter((n) => !app.runner.files.has(n));
+  const badImgs = unusablePicks(picks);
   card.appendChild(h("div", { class: "f-actions" },
-    h("button", { class: "f-primary", disabled: s.problems.length > 0 || missingImgs.length > 0 || blocked.length > 0, onClick: () => app.confirm(
+    h("button", { class: "f-primary", disabled: s.problems.length > 0 || badImgs.length > 0 || blocked.length > 0, onClick: () => app.confirm(
       readOnly
         ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.`
         : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,

@@ -196,12 +196,12 @@
      * Open a new job. items are specs: {entity, op, name, srcId, targetId, payloadHash}.
      * Refuses when a non-terminal job with the same manifestHash already exists: resume it.
      */
-    open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash, items, allowEmpty = false }) {
+    open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash: manifestHash2, items, allowEmpty = false }) {
       if (!jobId) throw new JournalError("jobId required");
       if (!Array.isArray(items) || !items.length && !allowEmpty) throw new JournalError("a job needs at least one item unless it is an explicit capture-only job");
       if (this._read(jobId)) throw new JournalError("job already exists: " + jobId, { jobId });
-      if (manifestHash) {
-        const dup = this.resumable().find((j) => j.manifestHash === manifestHash);
+      if (manifestHash2) {
+        const dup = this.resumable().find((j) => j.manifestHash === manifestHash2);
         if (dup) throw new JournalError(`an open job for this manifest already exists (${dup.jobId}); resume it instead`, { jobId: dup.jobId });
       }
       const job = {
@@ -209,7 +209,7 @@
         jobId,
         manifestPath: manifestPath ?? null,
         manifestNumber: manifestNumber2 ?? null,
-        manifestHash: manifestHash ?? null,
+        manifestHash: manifestHash2 ?? null,
         startedAt: nowIso(this.clock),
         updatedAt: null,
         state: "RUNNING",
@@ -4208,15 +4208,22 @@
       for (const w of kitProblems(it.data).warnings) warnings.push(`item ${it.idx} (${it.name}): ${w}`);
     }
     if (problems.length) throw new ManifestError("manifest problems:\n" + problems.join("\n"), { problems });
+    const policy = {
+      dedupNames: !!m.dedupNames,
+      readBack: m.readBack !== false,
+      skipPreflight: !!m.skipPreflight,
+      imgSizes
+    };
     return {
       items,
       capture,
       warnings,
       poolResolved,
+      policy,
       note: typeof m._note === "string" ? m._note : null,
-      skipPreflight: !!m.skipPreflight,
-      dedupNames: !!m.dedupNames,
-      readBack: m.readBack !== false,
+      skipPreflight: policy.skipPreflight,
+      dedupNames: policy.dedupNames,
+      readBack: policy.readBack,
       imgSizes,
       fullCaptures: [...capture.before, ...capture.after].filter((c) => c.persist === "full").length,
       // The hash is taken over the RAW manifest bodies, not the normalized ones, so the persistence
@@ -4226,8 +4233,20 @@
       // Hashing raw also means a manifest written before `persist` existed keeps the hash it
       // already had, so an open job survives this upgrade. `manifest hashing covers the
       // persistence request` in test/capture.full.test.mjs holds both halves of that.
-      hash: fnv1a32(stableStringify({ items: raw, capture: rawCapture }))
+      hash: manifestHash(raw, rawCapture, policy),
+      // The pre-policy identity, kept ONLY so attach() can recognise a job opened by a bundle that
+      // hashed bodies alone and say so precisely instead of "manifest changed". Never stored, never
+      // compared for equivalence.
+      bodyHash: fnv1a32(stableStringify({ items: raw, capture: rawCapture }))
     };
+  }
+  var DEFAULT_POLICY = Object.freeze({ dedupNames: false, readBack: true, skipPreflight: false, imgSizes: {} });
+  function isDefaultPolicy(policy) {
+    return stableStringify(policy) === stableStringify(DEFAULT_POLICY);
+  }
+  function manifestHash(raw, rawCapture, policy) {
+    const body = { items: raw, capture: rawCapture };
+    return fnv1a32(stableStringify(isDefaultPolicy(policy) ? body : { ...body, policy }));
   }
   function normalizeCapture(c, phase, i) {
     const where = `capture.${phase}[${i}]`;
@@ -4490,6 +4509,9 @@
       const job = this.journal.get(jobId);
       if (!job) throw new Error("no such job " + jobId);
       if (job.manifestHash && manifest.hash !== job.manifestHash) {
+        if (manifest.bodyHash === job.manifestHash) {
+          throw new Error(`job ${jobId} was opened before manifest identity covered execution policy (journal hash ${job.manifestHash} is this file's body hash). Its policy - dedupNames/readBack/skipPreflight/imgSizes - was never recorded, so it cannot be resumed safely under this bundle. Export the job for evidence and start a fresh one from the manifest.`);
+        }
         throw new Error(`manifest changed under job ${jobId}: journal hash ${job.manifestHash}, file hash ${manifest.hash}`);
       }
       const order = planOrder(manifest, readIdmap(this.storage));
@@ -5356,6 +5378,127 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
 .f-boot { ${TOKENS} padding:16px; background:var(--bg); color:var(--ink); min-height:100vh; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
 `;
 
+  // src/core/facts.mjs
+  function harvestEntry(i) {
+    const diffs = i.diffs || [];
+    const assertedKeys = Array.isArray(i.asserted) ? i.asserted.length : i.assertedRules ? 1 : 0;
+    const landed = i.state === "VERIFIED" || i.entityId && i.phase === "verify";
+    const state = i.state === "FAILED" ? "error" : i.state === "SKIPPED" ? "skipped" : landed ? "ok" : "pending";
+    return {
+      name: i.name,
+      srcId: i.srcId,
+      entity: i.entity,
+      slot: i.op === "create" ? "create" : "edit",
+      op: i.op,
+      state,
+      forgeState: i.state,
+      phase: i.phase,
+      detail: i.error || i.reconciled || "",
+      verdict: i.verify || null,
+      asserted: assertedKeys || diffs.length ? {
+        ok: Math.max(0, assertedKeys - diffs.length),
+        fail: diffs.map((d) => ({ k: d.key, c: "mismatch", d: [`sent ${JSON.stringify(d.sent)}  live ${JSON.stringify(d.live)}`] }))
+      } : null,
+      diffs,
+      id: i.entityId || i.targetId || null
+    };
+  }
+  var EXT_MIME = Object.freeze({
+    webp: "image/webp",
+    png: "image/png",
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    gif: "image/gif",
+    avif: "image/avif"
+  });
+  var extOf = (n) => {
+    const m = /\.([A-Za-z0-9]+)$/.exec(String(n ?? ""));
+    return m ? m[1].toLowerCase() : null;
+  };
+  function imagePick(name, file, imgSizes = {}, slug = "imageUploader") {
+    const ceiling = (SLUGS[slug] ?? SLUGS.imageUploader).maxBytes;
+    const has = imgSizes && Object.prototype.hasOwnProperty.call(imgSizes, name);
+    const expectedBytes = has ? Number(imgSizes[name]) : null;
+    if (!file) return { name, ok: false, state: "missing", expectedBytes, ceiling, picked: null, renamed: false, problems: [] };
+    const picked = { name: file.name ?? null, size: Number(file.size), type: file.type || null };
+    const problems = [];
+    if (expectedBytes == null || !Number.isFinite(expectedBytes)) {
+      problems.push(`the manifest has no imgSizes entry for ${name}, so these bytes cannot be checked against it`);
+    } else if (picked.size !== expectedBytes) {
+      problems.push(`selected file is ${picked.size} bytes; the manifest ledger says ${name} is ${expectedBytes}`);
+    }
+    if (Number.isFinite(picked.size) && picked.size > ceiling) {
+      problems.push(`selected file is ${picked.size} bytes, over the ${slug} ceiling of ${ceiling}`);
+    }
+    const wantMime = EXT_MIME[extOf(name)] ?? null;
+    if (picked.type && !picked.type.startsWith("image/")) problems.push(`selected file is ${picked.type}, not an image`);
+    else if (picked.type && wantMime && picked.type !== wantMime) problems.push(`selected file is ${picked.type}; ${name} is a ${extOf(name)}`);
+    return {
+      name,
+      ok: !problems.length,
+      state: problems.length ? "refused" : "ready",
+      expectedBytes,
+      ceiling,
+      picked,
+      renamed: !!(picked.name && picked.name !== name),
+      problems
+    };
+  }
+  function imagePicks(names, files, imgSizes = {}, slug = "imageUploader") {
+    const get = files && typeof files.get === "function" ? (n) => files.get(n) : () => null;
+    return (names ?? []).map((n) => imagePick(n, get(n) ?? null, imgSizes, slug));
+  }
+  function unusablePicks(picks) {
+    return (picks ?? []).filter((p) => !p.ok);
+  }
+  function resumeBlockedReason(job, auth) {
+    if (!job || !job.pause || job.pause.reason !== "SESSION") return null;
+    if (!auth || auth.ready) return null;
+    return "TNR authentication is still unavailable. Sign in to the game and re-check the session; resuming now would send nothing.";
+  }
+  function blockedPaths(auth, plan, manifest) {
+    if (!auth) return [];
+    try {
+      return protectedPathsFor(plan, manifest).filter((path) => !auth.allows(path));
+    } catch {
+      return [];
+    }
+  }
+  function authFacts(auth, busy) {
+    if (!auth) return null;
+    const state = auth.state;
+    if (state === AUTH.READY) return { level: "ok", ready: true, probing: false, signedOut: false, detail: auth.detail ?? null };
+    if (state === AUTH.PROBING || busy) return { level: "info", ready: false, probing: true, signedOut: false, detail: auth.detail ?? null };
+    return { level: "bad", ready: false, probing: false, signedOut: state === AUTH.SIGNED_OUT, detail: auth.detail ?? null };
+  }
+  function runHeadline(job, summary) {
+    const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
+    const outcome = jobOutcome(job);
+    const full = captures.filter((capture) => capture.persist === "full");
+    const detail = job.items.length ? `${Object.entries(summary.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${summary.verify.match} verified, ${summary.verify.drift} drift, ${summary.verify.unread} unread` : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` \xB7 ${full.filter((capture) => capture.persistOk === true).length}/${full.length} full bodies persisted` : ""} \xB7 zero mutations`;
+    const kind = outcome === "success" ? "ok" : outcome === "failed" ? "bad" : "warn";
+    if (job.pause && job.pause.reason === "SESSION") {
+      return {
+        outcome,
+        kind: "bad",
+        ms: 12e3,
+        sessionPause: true,
+        text: `job PAUSED: TNR authentication unavailable${job.pause.path ? ` on ${job.pause.path}` : ""}. Nothing further was sent. Sign in and resume.`
+      };
+    }
+    return { outcome, kind, ms: 8e3, sessionPause: false, text: `job ${summary.state} (${outcome}): ${detail}` };
+  }
+  function postflight(job) {
+    return {
+      match: job.items.filter((i) => i.verify === "match").length,
+      diff: job.items.filter((i) => i.verify === "drift").length,
+      unverified: job.items.filter((i) => i.verify === "unread").length,
+      failed: job.items.filter((i) => i.state === "FAILED").length,
+      skipped: job.items.filter((i) => i.state === "SKIPPED").length,
+      unresolved: job.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length
+    };
+  }
+
   // src/ui/screens.mjs
   var pill = (state) => h("span", { class: "f-pill " + state }, state);
   function JobsScreen(app) {
@@ -5515,10 +5658,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       ));
     }
     const imgs = s.images || [];
+    const picks = imagePicks(imgs, app.runner.files, s.manifest.imgSizes, "imageUploader");
     if (imgs.length) {
       card.appendChild(h("h3", {}, `Images to pick (${imgs.length})`));
-      for (const name of imgs) {
-        const have = app.runner.files.has(name);
+      for (const p of picks) {
+        const name = p.name;
         const inp = h("input", { type: "file", accept: "image/*", style: { display: "none" }, onChange: (e) => {
           const f = e.target.files[0];
           if (f) {
@@ -5526,16 +5670,35 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
             app.refresh();
           }
         } });
-        card.appendChild(h("div", { class: "f-row" }, h("div", { class: "f-grow f-mono" }, name, " ", have ? h("span", { class: "f-pill VERIFIED" }, "picked") : h("span", { class: "f-pill FAILED" }, "missing")), h("button", { onClick: () => inp.click() }, "Pick"), inp));
+        const pillFor = { ready: ["VERIFIED", "picked"], refused: ["FAILED", "wrong file"], missing: ["FAILED", "missing"] }[p.state];
+        card.appendChild(h(
+          "div",
+          { class: "f-row" },
+          h(
+            "div",
+            { class: "f-grow" },
+            h("div", { class: "f-mono" }, name, " ", h("span", { class: "f-pill " + pillFor[0] }, pillFor[1])),
+            // the physical bytes, always, not only when they are wrong
+            p.picked ? h(
+              "div",
+              { class: "f-mute f-mono" },
+              `selected: ${p.picked.name ?? "(unnamed)"} \xB7 ${fmtBytes(p.picked.size)}${p.expectedBytes != null ? ` \xB7 ledger ${fmtBytes(p.expectedBytes)}` : ""}${p.picked.type ? ` \xB7 ${p.picked.type}` : ""}`
+            ) : null,
+            p.renamed && p.ok ? h("div", { class: "f-mute" }, "the device renamed this file; its bytes match the ledger exactly") : null,
+            p.problems.length ? h("div", { class: "f-err" }, p.problems.join("\n")) : null
+          ),
+          h("button", { onClick: () => inp.click() }, p.picked ? "Replace" : "Pick"),
+          inp
+        ));
       }
     }
-    const missingImgs = imgs.filter((n) => !app.runner.files.has(n));
+    const badImgs = unusablePicks(picks);
     card.appendChild(h(
       "div",
       { class: "f-actions" },
       h("button", {
         class: "f-primary",
-        disabled: s.problems.length > 0 || missingImgs.length > 0 || blocked.length > 0,
+        disabled: s.problems.length > 0 || badImgs.length > 0 || blocked.length > 0,
         onClick: () => app.confirm(
           readOnly ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.` : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
           () => app.startJob()
@@ -5770,79 +5933,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       h("div", { class: "f-card f-mute" }, `forge ${app.version} \xB7 pinned to studie-tech/TheNinjaRPG@345d18ac \xB7 journal v1 \xB7 keys tnr_forge_job_v1:*, tnr_forge_sendlog_v1, tnr_forge_snap_v1:*`)
     );
     return root;
-  }
-
-  // src/core/facts.mjs
-  function harvestEntry(i) {
-    const diffs = i.diffs || [];
-    const assertedKeys = Array.isArray(i.asserted) ? i.asserted.length : i.assertedRules ? 1 : 0;
-    const landed = i.state === "VERIFIED" || i.entityId && i.phase === "verify";
-    const state = i.state === "FAILED" ? "error" : i.state === "SKIPPED" ? "skipped" : landed ? "ok" : "pending";
-    return {
-      name: i.name,
-      srcId: i.srcId,
-      entity: i.entity,
-      slot: i.op === "create" ? "create" : "edit",
-      op: i.op,
-      state,
-      forgeState: i.state,
-      phase: i.phase,
-      detail: i.error || i.reconciled || "",
-      verdict: i.verify || null,
-      asserted: assertedKeys || diffs.length ? {
-        ok: Math.max(0, assertedKeys - diffs.length),
-        fail: diffs.map((d) => ({ k: d.key, c: "mismatch", d: [`sent ${JSON.stringify(d.sent)}  live ${JSON.stringify(d.live)}`] }))
-      } : null,
-      diffs,
-      id: i.entityId || i.targetId || null
-    };
-  }
-  function resumeBlockedReason(job, auth) {
-    if (!job || !job.pause || job.pause.reason !== "SESSION") return null;
-    if (!auth || auth.ready) return null;
-    return "TNR authentication is still unavailable. Sign in to the game and re-check the session; resuming now would send nothing.";
-  }
-  function blockedPaths(auth, plan, manifest) {
-    if (!auth) return [];
-    try {
-      return protectedPathsFor(plan, manifest).filter((path) => !auth.allows(path));
-    } catch {
-      return [];
-    }
-  }
-  function authFacts(auth, busy) {
-    if (!auth) return null;
-    const state = auth.state;
-    if (state === AUTH.READY) return { level: "ok", ready: true, probing: false, signedOut: false, detail: auth.detail ?? null };
-    if (state === AUTH.PROBING || busy) return { level: "info", ready: false, probing: true, signedOut: false, detail: auth.detail ?? null };
-    return { level: "bad", ready: false, probing: false, signedOut: state === AUTH.SIGNED_OUT, detail: auth.detail ?? null };
-  }
-  function runHeadline(job, summary) {
-    const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
-    const outcome = jobOutcome(job);
-    const full = captures.filter((capture) => capture.persist === "full");
-    const detail = job.items.length ? `${Object.entries(summary.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${summary.verify.match} verified, ${summary.verify.drift} drift, ${summary.verify.unread} unread` : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` \xB7 ${full.filter((capture) => capture.persistOk === true).length}/${full.length} full bodies persisted` : ""} \xB7 zero mutations`;
-    const kind = outcome === "success" ? "ok" : outcome === "failed" ? "bad" : "warn";
-    if (job.pause && job.pause.reason === "SESSION") {
-      return {
-        outcome,
-        kind: "bad",
-        ms: 12e3,
-        sessionPause: true,
-        text: `job PAUSED: TNR authentication unavailable${job.pause.path ? ` on ${job.pause.path}` : ""}. Nothing further was sent. Sign in and resume.`
-      };
-    }
-    return { outcome, kind, ms: 8e3, sessionPause: false, text: `job ${summary.state} (${outcome}): ${detail}` };
-  }
-  function postflight(job) {
-    return {
-      match: job.items.filter((i) => i.verify === "match").length,
-      diff: job.items.filter((i) => i.verify === "drift").length,
-      unverified: job.items.filter((i) => i.verify === "unread").length,
-      failed: job.items.filter((i) => i.state === "FAILED").length,
-      skipped: job.items.filter((i) => i.state === "SKIPPED").length,
-      unresolved: job.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length
-    };
   }
 
   // src/core/results.mjs
@@ -6100,6 +6190,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (blocked.length) {
         this.say(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9e3);
         this.state.selected.blocked = blocked;
+        return this.changed();
+      }
+      const badImgs = unusablePicks(imagePicks(s.images, this.runner.files, s.manifest.imgSizes, "imageUploader"));
+      if (badImgs.length) {
+        this.say(`${badImgs.length} image selection(s) do not match the manifest: ${badImgs.map((p) => p.problems[0] ?? `${p.name} is not picked`).join("; ")}. Nothing was sent.`, "bad", 12e3);
         return this.changed();
       }
       const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
