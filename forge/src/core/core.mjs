@@ -17,7 +17,7 @@ import { manifestNumber, manifestSummary, GH } from "../github.mjs";
 import { JournalError } from "../storage/journal.mjs";
 import { blockedPaths, imagePicks, resumeBlockedReason, runHeadline, unusablePicks } from "./facts.mjs";
 import { resolveCaptures, buildBundle, repoSyncReady, inboxPath } from "./results.mjs";
-import { prepareImagePack, packGateProblems } from "./imagepack.mjs";
+import { prepareImagePack, commitImagePack, packGateProblems } from "./imagepack.mjs";
 import { packBinds } from "../runner/imgpack.mjs";
 
 // The core's dependency contract, named rather than absorbed. `Object.assign(this, d)` used to
@@ -204,29 +204,48 @@ export class ForgeCore {
   }
 
   /**
+   * The currency token a preparation commits against. Bumped by every act that changes which pack is
+   * authoritative — selecting a manifest, resuming a job. A preparation captures it on entry and
+   * installs nothing unless it is still the same number, which is what makes an in-flight pass for a
+   * manifest the operator has already navigated away from harmless rather than merely discarded
+   * (independent review F2).
+   */
+  _packEpoch = 0;
+
+  /**
    * Provenance belongs to the manifest currently open. A name the new pack does not bind must lose
    * both its record AND the File that record vouched for: otherwise selecting manifest B after
    * preparing manifest A leaves A's digest recorded under a shared logical filename, and the
    * content-keyed upload reuse would hand B the URL of A's picture.
    */
   _scopePackProvenance(pack) {
+    this._packEpoch += 1;
     for (const name of [...this.runner.imgProvenance.keys()]) {
       if (packBinds(pack, name)) continue;
       this.runner.imgProvenance.delete(name);
       this.runner.files.delete(name);
     }
+    return this._packEpoch;
   }
 
   async _prepareImages(s, force) {
     if (this.state.selected !== s) return null;
+    const epoch = this._packEpoch;
     this._preparing = true;
     this.changed();
     try {
       const result = await prepareImagePack(this, { pack: s.pack, names: s.images, force });
-      // The selection may have been cleared or replaced while the fetches were in flight; a stale
-      // result must not be written onto a different manifest.
-      if (this.state.selected !== s) return result;
-      s.packResult = result;
+      // THE COMMIT POINT, and the only one. Nothing above this line has touched runner state, so a
+      // pass that is no longer current installs nothing at all rather than writing first and being
+      // discarded afterwards — the race review F2 reproduced by holding one manifest's fetch open
+      // across a selection change.
+      if (this.state.selected !== s || this._packEpoch !== epoch) {
+        return { ref: result.ref, entries: result.entries, unbound: result.unbound, ok: false, stale: true };
+      }
+      commitImagePack(this.runner, { pack: s.pack, names: s.images, staged: result.staged });
+      // `staged` carries File objects and never reaches machine state: state.selected is snapshotted
+      // as JSON, and a dependency-shaped value there is exactly what the core golden watches for.
+      s.packResult = { ref: result.ref, entries: result.entries, unbound: result.unbound, ok: result.ok };
       const bad = result.entries.filter((e) => e.state !== "ready");
       if (!bad.length) {
         this.say(`${result.entries.length} repo-backed image(s) verified against ${s.pack.ref.slice(0, 7)}`, "ok");
@@ -306,13 +325,23 @@ export class ForgeCore {
     try {
       const attached = this.runner.manifests.get(jobId);
       const pack = attached && attached.manifest ? attached.manifest.imagePack : null;
-      this._scopePackProvenance(pack);
+      const epoch = this._scopePackProvenance(pack);
       if (pack) {
         const names = [...new Set((attached.order || []).flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
-        const result = await this._queuePack(() => prepareImagePack(this, { pack, names }));
+        const result = await this._queuePack(async () => {
+          const r = await prepareImagePack(this, { pack, names });
+          // Same commit discipline as selection: a resume whose preparation outlived a newer
+          // selection installs nothing, and the caller below refuses rather than running.
+          if (this._packEpoch !== epoch) return { ...r, ok: false, stale: true, staged: [] };
+          commitImagePack(this.runner, { pack, names, staged: r.staged });
+          return r;
+        });
         const bad = result.entries.filter((e) => e.state !== "ready");
-        if (bad.length) {
-          this.say(`resume refused: ${bad.length} repo-backed image(s) could not be verified: ${bad.map((e) => `${e.name}: ${e.error}`).join(" | ")}. Nothing was sent.`, "bad", 12000);
+        if (bad.length || result.stale) {
+          const detail = result.stale
+            ? "the selection changed while the images were being fetched, so nothing was installed"
+            : bad.map((e) => `${e.name}: ${e.error}`).join(" | ");
+          this.say(`resume refused: repo-backed image(s) could not be verified: ${detail}. Nothing was sent.`, "bad", 12000);
           return this.changed();
         }
       }
