@@ -1,13 +1,14 @@
 # Godstorm Forge defects — repair handoff
 
-**Status: IMPLEMENTED. Awaiting freeze SHA stamp; see the branch head.** Independent ChatGPT review
-requested on the exact head SHA recorded below. Lane A (code/tooling), `docs/DEVELOPMENT_WORKFLOW.md`.
+**Status: IMPLEMENTED. FROZEN.** Independent ChatGPT review requested on the exact head SHA recorded
+below. Lane A (code/tooling), `docs/DEVELOPMENT_WORKFLOW.md`.
 
 | | |
 |---|---|
 | Repository | `perseverance484/tnr-tools` |
 | Implementation branch | `claude/forge-godstorm-defects-repair-rxxwky` (assigned by the task) |
 | Base / merge-base | `8c47d52cbabd8bf712f8bb0f76da0f4ff9383dc3` (`main` at start, re-verified at close) |
+| Frozen head | `74083c1cf596b6e18944861c9b14c5a4fed26839` — the whole implementation. This stamp commit is the branch tip and changes only this line; review either, the trees differ by this file alone. |
 | Integration target | `main` |
 | Live game requests / writes | **none** |
 | Credentials used | repository auth for fetch/push only. No game credential, no session material. |
