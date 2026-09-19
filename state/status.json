@@ -1,13 +1,14 @@
 {
   "generated": "2026-09-19",
-  "session": "Forge repo-backed image packs: implementation, two independent review rounds, integration and 0.5.0 release",
+  "session": "Forge repo-backed image packs: implementation, two review rounds, integration, 0.5.0 release, and the push/53 Godstorm pack",
   "format_note": "PROJECTION of state/digest.json - edit the digest, run session_close.py",
-  "state_line": "FORGE 0.5.0 RELEASED WITH REPO-BACKED IMAGE PACKS. main@4d88ad03ecc8e59f84d0760c8c34db461c5b466f carries the reviewed and approved implementation (dcaa1465) plus the automatic loader pin; a manifest may now bind each @img to an immutable repository blob (path + 40-hex commit + SHA-256), Forge fetches and verifies those bytes when the manifest is opened, and Start is refused unless every bound image is the exact verified file. Canonical Forge CI and release-pin are green on dcaa1465. The push/53 Godstorm repair is NOT yet packable: its eight processed .webp files are not in the repository and cannot be authored from anything that is. No live TNR request or write was made in this session.",
+  "state_line": "FORGE 0.5.0 RELEASED AND push/53 IS BOUND. main@a2c528115bbd3f51270b396dbeb7cc72d02e0f39 carries the reviewed implementation, the automatic loader pin, the eight approved processed Godstorm .webp files at art/godstorm/, and push/53's imagePack binding all eight to commit 10fb25704dff1bab8105cd83631e0d524193ef0d by path and SHA-256. Forge CI is green on main and the two pack drift guards genuinely run there. validate.py on push/53: 0 errors. Everything up to the live run is done; the repair itself is dauntless's and has NOT been run. No live TNR request or write was made in this session.",
   "ruled_this_session": [
     "2026-09-19 APPROVED: Forge manifests may bind @img references to immutable repository blobs; ref must be a 40-hex commit, never a branch or tag.",
     "2026-09-19 APPROVED: a pack-bound image has no manual picker override; the manual picker remains only for images no pack binds.",
     "2026-09-19 APPROVED: integrate dcaa1465 to main and let release_pin.yml promote Forge to 0.5.0 (user authorised the merge and the release in session).",
     "2026-09-19 RULED (user): the eight processed Godstorm .webp files will be supplied by dauntless for commit; they are not to be re-derived from the committed lime-key originals.",
+    "2026-09-19 RULED (user): dauntless supplied the eight approved processed Godstorm .webp files; they are committed verbatim at art/godstorm/ and were not re-derived.",
     "2026-09-19 ACCEPTED (reviewer): the pre-upload re-hash is kept although identity alone would close F1; a separate Forge size pass should be planned before further substantial Forge features."
   ],
   "deployed": [
@@ -15,31 +16,33 @@
     "Repo-backed image packs live in the shipped bundle: runner/imgpack.mjs (contract), storage/assets.mjs (digest-keyed asset cache + content-keyed upload ledger), core/imagepack.mjs (prepare/commit/gate).",
     "forge/tools/make_image_pack.mjs authors a pack by reading blobs with git cat-file at a resolved commit, so an uncommitted file cannot be bound.",
     "Two independent review rounds closed: F1 (Start did not bind the verified File) and F2 (stale preparation could write into a newer selection), both corrected and re-reviewed CLOSED.",
-    "Forge bundle budget stepped twice within this feature to 470,000 raw / 92,000 gzip; the bundle is at ~96% of both."
+    "Forge bundle budget stepped twice within this feature to 470,000 raw / 92,000 gzip; the bundle is at ~96% of both.",
+    "art/godstorm/ holds the eight approved processed WebPs with a README recording their provenance, verification and the command that regenerates the pack.",
+    "push/53_godstorm_failed_items_repair.json now carries an imagePack binding all eight images to 10fb2570 by path + SHA-256; validate.py 0 errors, 9 pre-existing warnings.",
+    "make_image_pack.mjs --write writes at the repository's one-space indent, so a pack insertion is a 45-line diff instead of a 2,762-line reformat.",
+    "Two drift guards keep the committed pack honest against the committed blobs, and forge.yml checks out with fetch-depth 0 so they can actually run in CI."
   ],
   "in_progress": {
-    "godstorm_53_image_pack": "BLOCKED ON FILES. push/53_godstorm_failed_items_repair.json is byte-unchanged and carries no imagePack. Its eight processed .webp files (byte counts already in the manifest's imgSizes) are absent from the working tree, from main, and from all 90 remote branches. chatgpt/godstorm-source-art-pack and chatgpt/godstorm-art-recovery hold only unprocessed originals - 13 lime-key avatar PNGs the manifest's _note explicitly forbids, three Marrow Vault backgrounds and stormcourtyard.jpg - with zero filename and zero byte-count matches. dauntless supplies the eight approved files; then commit them, run make_image_pack.mjs --write, re-run validate.py, and require Forge to show 8/8 verified.",
+    "godstorm_53_run": "READY FOR THE OPERATOR. Nothing is blocked. dauntless updates/reinstalls the Forge loader, confirms the panel title reads 0.5.0, opens push/53, confirms all eight repo-backed images read verified, then taps Start. The play tap is the only act that touches the game and no agent performs it.",
     "forge_size_pass": "Reviewer-requested and not begun: two bundle-budget raises inside one feature is the signal. Plan a Forge size/consolidation pass before the next substantial Forge feature.",
-    "forge_next_phase1": "READY/FROZEN contract remains on main at state/prompt_forge_next_phase1.md; implementation still has not begun. Unaffected by this session.",
+    "forge_next_phase1": "READY/FROZEN contract remains on main at state/prompt_forge_next_phase1.md; implementation still has not begun.",
     "branch_cleanup": "Approved keep/delete plan remains on main at docs/reviews/FORGE_NEXT_BRANCH_CLEANUP_FINAL.md. Redundant refs still present.",
     "quest_studio_phase_s": "Accepted source chatgpt/forge-quest-studio-foundation@5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15 retained; not integrated."
   },
   "open_by_owner": {
     "dauntless": [
       "Update/reinstall the Forge loader and confirm the panel title shows 0.5.0 before trusting any smoke result; refreshing required resources alone does not update the loader.",
-      "Supply the eight approved processed Godstorm .webp files so the push/53 image pack can be generated.",
-      "After the pack is generated and validated, open push/53 in Forge and confirm all eight repo-backed images read verified before tapping Start.",
-      "Run the Godstorm repair. The play tap is the only act that touches the game; no agent performs it.",
+      "Open push/53 in Forge and confirm all eight repo-backed images read verified, then run the repair. The play tap is the only act that touches the game.",
       "Optionally delete redundant branch refs per docs/reviews/FORGE_NEXT_BRANCH_CLEANUP_FINAL.md."
     ],
     "claude": [
-      "On receipt of the eight .webp files: commit them to a durable art path, run make_image_pack.mjs --write against that commit, re-run validate.py from the skill data/ directory, and report the pack with its per-file digests.",
-      "Do not re-derive the eight files from the committed lime-key originals and do not rewrite imgSizes to match a re-processing.",
-      "Plan the Forge size pass before the next substantial Forge feature."
+      "On the results bundle from the repair: harvest and verify it, and do not treat a push echo as a read-back.",
+      "Plan the Forge size pass before the next substantial Forge feature.",
+      "If any of the eight art files is ever re-processed, regenerate the pack with make_image_pack.mjs; the two drift guards fail in CI until it is."
     ],
     "chatgpt": [
-      "No open item on image packs: correction round 1 returned APPROVED FOR INTEGRATION and both findings are CLOSED.",
-      "Optional: review the push/53 image pack once its eight blobs are committed and the pack is generated."
+      "No open item: correction round 1 returned APPROVED FOR INTEGRATION and both findings are CLOSED.",
+      "Optional: review the committed push/53 pack and the art commit."
     ],
     "legacy_content_state": [
       "The 2026-09-08 mission/law queue is still unreverified. lawmap.py reports 0 errors and 5 pre-existing classification warnings (laws 16d, 18, 37, 61, 69); these belong to the legacy law-provenance workstream and were deliberately not touched."
@@ -53,17 +56,19 @@
     "Legacy law-provenance issues, including laws 19/23/37, remain outside this work and must be reverified from their owning evidence."
   ],
   "verified": [
-    "main 28bba70d0e14f74a768193881b592b92326f2867 -> fast-forward to dcaa1465eb0eb58001ced42ac4b3f60f2a12d6db -> release-pin auto-commit 4d88ad03ecc8e59f84d0760c8c34db461c5b466f",
-    "canonical Forge CI run 35459192078 on dcaa1465eb0eb58001ced42ac4b3f60f2a12d6db -> completed success (the independently-run CI evidence both review rounds noted was missing for a frozen SHA)",
-    "release-pin run 35459191920 on dcaa1465 -> completed success; loader @version 0.5.0, @require pinned to dcaa1465, @x-release-pending removed",
-    "forge_loader_user.js @require target verified byte-identical to the committed forge_bundle.js via git cat-file | cmp",
-    "forge npm test 416 pass / 0 fail on released main; check_imports 0 violations; check_boundaries 0 violations; check_release_pin ok; bundle 451,847 raw / 88,356 gzip inside 470,000 / 92,000",
-    "doctrinemap.py 0 errors 0 warnings; render_doctrine.py --check all projections current; build_packs.py --check all packs and TOCs current; lawmap.py 0 errors, 5 pre-existing warnings",
-    "validate.py on push/53_godstorm_failed_items_repair.json -> 0 errors, 9 warnings (pre-existing build-order and law-36 advisories)",
-    "the eight Godstorm processed .webp files: 0 filename matches and 0 byte-count matches across the working tree and all 90 remote branches"
+    "main 28bba70 -> dcaa1465 (reviewed implementation) -> 4d88ad03 (release-pin auto-commit) -> 5aef6d59 (state) -> 10fb2570 (art) -> f52ca18f (pack) -> a2c528115bbd3f51270b396dbeb7cc72d02e0f39 (CI history fix)",
+    "canonical Forge CI: run 35459192078 on dcaa1465 success; run 35461146680 on a2c528115bbd3f51270b396dbeb7cc72d02e0f39 success (418 pass / 0 fail, skipped 0)",
+    "the two pack drift guards RAN in CI rather than skipping: 'push/53 END TO END' 52.7ms and 'COMMITTED pack matches the COMMITTED blobs' 28.7ms in run 35461146680",
+    "release-pin run 35459191920 success; loader @version 0.5.0, @require pinned to dcaa1465, @x-release-pending removed",
+    "jsDelivr serves the pinned bundle: HTTP 200, 451,847 bytes, byte-identical to main's forge_bundle.js, banner reads v0.5.0",
+    "the eight uploaded files verified before commit: names and bytes match push/53's imgSizes, SHA-256 matches the digest list shipped with them, valid RIFF/WEBP, all under the 524,288-byte ceiling",
+    "make_image_pack.mjs re-derived the same eight digests from the committed git blobs; manifest 49 at bad3a2d9 ledgered the same eight files with identical byte counts",
+    "validate.py on the packed push/53: 0 errors, 9 warnings (the same nine it carried before the pack)",
+    "doctrinemap 0 errors 0 warnings; render_doctrine --check current; build_packs --check current; lawmap 0 errors, 5 pre-existing warnings",
+    "shallow-clone behaviour verified against a real git clone --depth 1: guards skip with a diagnostic (41 pass) instead of failing (39 pass / 2 fail before the fix)"
   ],
   "token_ledger": [],
-  "next": "dauntless updates the Forge loader and confirms 0.5.0, then supplies the eight approved processed Godstorm .webp files. Claude then commits them, generates the push/53 imagePack from that commit with make_image_pack.mjs, re-runs validate.py, and hands the manifest back; dauntless confirms 8/8 verified in Forge and runs the repair. Plan the Forge size pass before the next substantial Forge feature. Do not start Forge Next Phase 2 or integrate Quest Studio.",
+  "next": "dauntless updates the Forge loader, confirms 0.5.0, opens push/53, confirms 8/8 repo-backed images verified, and runs the repair. Claude then harvests and verifies the results bundle. Plan the Forge size pass before the next substantial Forge feature. Do not start Forge Next Phase 2 or integrate Quest Studio.",
   "forge_next": {
     "phase_0": "COMPLETE / integrated",
     "phase_1": "READY / FROZEN; implementation not begun at closeout",
@@ -74,5 +79,5 @@
     "bundle_budget": "470,000 raw / 92,000 gzip; ~96% used; a size pass is requested and not begun"
   },
   "legacy_state_notice": "Global state before this closeout was a 2026-09-08 mission-flatten digest and was not reliable as current Forge state. It is archived verbatim; live/content claims from it must be reverified before use.",
-  "godstorm_53": "manifest staged and validated (0 errors); imagePack BLOCKED on the eight processed .webp files, which dauntless supplies"
+  "godstorm_53": "manifest bound and validated (0 errors); eight images committed at art/godstorm/; READY for the operator's run"
 }
