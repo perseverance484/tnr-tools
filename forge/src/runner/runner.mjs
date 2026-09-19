@@ -24,12 +24,13 @@ import { isProtected } from "../transport/procedures.mjs";
 import { NetworkError } from "../transport/client.mjs";
 import { TransportError } from "../transport/envelope.mjs";
 import { RateLimited } from "../budget/bucket.mjs";
+import { readInput, listInput } from "../budget/reader.mjs";
 import { readIdmap, writeIdmap } from "../storage/compat.mjs";
 import { snapshotKey, MAX_FULL_CAPTURE_BYTES } from "../storage/captures.mjs";
 import { TERMINAL_ITEM_STATES, jobOutcome } from "../storage/journal.mjs";
 import { recipe, mergeForUpdate } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
-import { diffAsserted } from "./validate.mjs";
+import { diffAsserted, deepEqualPayload } from "./validate.mjs";
 import { parseManifest, planOrder, toJournalSpecs } from "./manifest.mjs";
 
 // One tab drives a job at a time. Two runners over one localStorage would each read PLANNED and
@@ -541,7 +542,10 @@ export class Runner {
       const pr = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
       if (!pr.ok && classifyError(pr.error) === "SESSION") throw this._authRefused(pr.error, { idx: item.idx, path: "ai.getAiProfile" });
       if (pr.ok && pr.data) {
-        if (JSON.stringify(pr.data.rules ?? []) !== JSON.stringify(planned.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
+        // Structural, not textual. The server re-emits the rules in schema key order, so a
+        // stringify comparison here reported every landed Godstorm AI-profile write as drift
+        // while the two payloads were the same document (deepEqualPayload, validate.mjs).
+        if (!deepEqualPayload(planned.data.rules ?? [], pr.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
         if (planned.data.includeDefaultRules !== undefined && pr.data.includeDefaultRules !== planned.data.includeDefaultRules) diffs.push({ key: "includeDefaultRules", sent: planned.data.includeDefaultRules, live: pr.data.includeDefaultRules });
       } else { this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" }); return; }
     }
@@ -616,16 +620,24 @@ export class Runner {
       const c = list[i];
       const path = c.proc || c.procedure;
       const id = c.id ?? (c.input && (c.input.id ?? c.input.userId));
+      // A list capture's input is its FILTER (gameAsset.getAllNames takes {type, folderPrefix}).
+      // It used to be dropped on the floor - list() sent `undefined` whatever the manifest asked -
+      // while the journal still stamped the entry with the filter the operator wrote. That stamps
+      // an unfiltered answer with a filtered question, and "a filtered call's silence is not
+      // evidence of absence" is exactly the claim such a capture is read to support.
+      const capInput = c.input == null ? undefined : c.input;
       this._requireAuth(path, null);
-      const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true }); // RateLimited/Network propagate to run()
+      const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true, input: capInput }); // RateLimited/Network propagate to run()
       // THE OBSERVED DEFECT (harvests/inbox/tnr_results_17890671*.json): five protected reads
       // came back UNAUTHORIZED, each was journaled as an ordinary failed read, the pass ran to
       // the end and the job reported "0/5 full bodies persisted · read failed". That reads as a
       // capture problem. It is an authentication problem, and it stops the pass here so the
       // remaining reads are not spent proving the same thing four more times.
       if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path, phase, ordinal: i });
-      const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
-      if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, c.input ?? null, r));
+      // The input this read was ACTUALLY called with, never the one the manifest asked for.
+      const sentInput = (id != null ? readInput(path, id) : capInput === undefined ? listInput(path) : capInput) ?? null;
+      const entry = { phase, proc: path, input: sentInput, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
+      if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, sentInput, r));
       out.push(entry);
       this.journal.annotateJob(jobId, { [key + "Partial"]: out }); // persisted incrementally
     }

@@ -1,4 +1,4 @@
-// TNR forge bundle v0.4.1 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.4.2 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Entry: /forge (a providerless 404) arms the tab and hands off; Forge then mounts as an overlay on a
 // real application route so ClerkProvider and the tRPC provider stay alive under it. Layers: storage, transport, budget, runner, reconcile, ui.
@@ -2320,6 +2320,23 @@
     const f = INPUT_FOR[path];
     return f ? f(id) : { id };
   }
+  var LIST_INPUT_FOR = Object.freeze({
+    "gameAsset.getAllNames": () => ({})
+  });
+  function listInput(path) {
+    const f = LIST_INPUT_FOR[path];
+    return f ? f() : void 0;
+  }
+  function stableInput(v) {
+    if (Array.isArray(v)) return "[" + v.map(stableInput).join(",") + "]";
+    if (v && typeof v === "object") {
+      return "{" + Object.keys(v).filter((k) => v[k] !== void 0).sort().map((k) => JSON.stringify(k) + ":" + stableInput(v[k])).join(",") + "}";
+    }
+    return v === void 0 ? "undefined" : JSON.stringify(v) ?? "null";
+  }
+  function sameInput(a, b) {
+    return a === b || stableInput(a) === stableInput(b);
+  }
   var CachedReader = class {
     constructor({ client, cache, budget, maxBatch = 20 }) {
       this.client = client;
@@ -2373,11 +2390,22 @@
       }
       return out;
     }
-    /** A list procedure (getAll / getAllNames / getAllAiNames): cached under id "". */
-    async list(path, { fresh = false } = {}) {
+    /**
+     * A list procedure (getAllNames / getAllAiNames): cached under id "".
+     *
+     * The wire input is listInput(path) unless the caller supplies one. A caller-supplied input is
+     * a FILTER (a capture's {type, folderPrefix}), and it answers a different question than the
+     * default list does, so it is neither served from nor written into the single id-"" cache slot:
+     * one slot per path cannot hold two different answers, and the write-invalidation rule reads
+     * that slot by its empty id. A filtered list therefore always costs one token and is always
+     * fresh, which is the safe direction for a read whose whole purpose is evidence.
+     */
+    async list(path, { fresh = false, input } = {}) {
       if (procedure(path).kind !== "query") throw new Error("list is for queries: " + path);
       if (!/\.getAll(Ai)?Names$/.test(path)) throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
-      const hit = fresh ? null : await this.cache.get(path, "");
+      const sent = input === void 0 ? listInput(path) : input;
+      const cacheable = sameInput(sent, listInput(path));
+      const hit = fresh || !cacheable ? null : await this.cache.get(path, "");
       if (hit) {
         this.stats.hits++;
         return { ok: true, data: hit.data, cached: true, at: hit.at };
@@ -2385,8 +2413,8 @@
       this.stats.misses++;
       await this.budget.acquire(path, 1);
       this.stats.requests++;
-      const [r] = await this.client.batch([{ path, input: void 0 }]);
-      if (r.ok) await this.cache.put({ path, id: "", input: null, data: r.data });
+      const [r] = await this.client.batch([{ path, input: sent }]);
+      if (r.ok && cacheable) await this.cache.put({ path, id: "", input: sent ?? null, data: r.data });
       this.budget.observe([r], [path]);
       return r;
     }
@@ -2578,6 +2606,24 @@
     });
     return out;
   }
+  function deepEqualPayload(a, b) {
+    if (a === b) return true;
+    if (typeof a === "number" && typeof b === "number") return Number.isNaN(a) && Number.isNaN(b);
+    if (a instanceof Date || b instanceof Date) {
+      return a instanceof Date && b instanceof Date && a.getTime() === b.getTime();
+    }
+    if (Array.isArray(a) || Array.isArray(b)) {
+      if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) return false;
+      return a.every((x, i) => deepEqualPayload(x, b[i]));
+    }
+    if (a && b && typeof a === "object" && typeof b === "object") {
+      const ka = definedKeys(a);
+      if (ka.length !== definedKeys(b).length) return false;
+      return ka.every((k) => b[k] !== void 0 && deepEqualPayload(a[k], b[k]));
+    }
+    return false;
+  }
+  var definedKeys = (o) => Object.keys(o).filter((k) => o[k] !== void 0);
   function diffAsserted(entity, asserted, live) {
     const diffs = [];
     for (const k of Object.keys(asserted)) {
@@ -4754,7 +4800,7 @@
         const pr = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
         if (!pr.ok && classifyError(pr.error) === "SESSION") throw this._authRefused(pr.error, { idx: item.idx, path: "ai.getAiProfile" });
         if (pr.ok && pr.data) {
-          if (JSON.stringify(pr.data.rules ?? []) !== JSON.stringify(planned.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
+          if (!deepEqualPayload(planned.data.rules ?? [], pr.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
           if (planned.data.includeDefaultRules !== void 0 && pr.data.includeDefaultRules !== planned.data.includeDefaultRules) diffs.push({ key: "includeDefaultRules", sent: planned.data.includeDefaultRules, live: pr.data.includeDefaultRules });
         } else {
           this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" });
@@ -4830,11 +4876,13 @@
         const c = list[i];
         const path = c.proc || c.procedure;
         const id = c.id ?? (c.input && (c.input.id ?? c.input.userId));
+        const capInput = c.input == null ? void 0 : c.input;
         this._requireAuth(path, null);
-        const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true });
+        const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true, input: capInput });
         if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path, phase, ordinal: i });
-        const entry = { phase, proc: path, input: c.input ?? null, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
-        if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, c.input ?? null, r));
+        const sentInput = (id != null ? readInput(path, id) : capInput === void 0 ? listInput(path) : capInput) ?? null;
+        const entry = { phase, proc: path, input: sentInput, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
+        if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, sentInput, r));
         out.push(entry);
         this.journal.annotateJob(jobId, { [key + "Partial"]: out });
       }
@@ -5063,7 +5111,7 @@
       if (!prof.ok || !prof.data) return { action: "orphan", candidates: [], note: "ai.getAiProfile unavailable" };
       const want = ctx.planned ? ctx.planned.data.rules ?? [] : null;
       const wantDefault = ctx.planned ? ctx.planned.data.includeDefaultRules : void 0;
-      const rulesLanded = want && JSON.stringify(prof.data.rules ?? []) === JSON.stringify(want);
+      const rulesLanded = want && deepEqualPayload(want, prof.data.rules ?? []);
       const defaultLanded = wantDefault === void 0 || prof.data.includeDefaultRules === wantDefault;
       if (rulesLanded && defaultLanded) return { action: "confirm", entityId: item.entityId, phase: "verify", landed: true, note: "rules already landed" };
       return { action: "orphan", candidates: [], note: "rules may not have landed: profile rules differ" };
@@ -11755,7 +11803,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   };
 
   // src/main.mjs
-  var VERSION = "forge 0.4.1";
+  var VERSION = "forge 0.4.2";
   function compose({
     storage,
     indexedDB,
