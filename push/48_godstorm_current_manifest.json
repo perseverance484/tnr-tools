@@ -1,0 +1,1619 @@
+{
+ "_note": "Godstorm current-scope manifest, 2026-09-19. COMPLETE for currently safe executable writes only: create the three director-approved Stormcourt SCENE_BACKGROUND assets and apply the source-audited range-safe fallback correction to all 18 retained AI profiles. This intentionally does NOT mutate the two quests yet: exact player-facing copy, rewards/cadence/chest, five Marrow avatar files, ten keeper SCENE_CHARACTER assets, and the blank SCENE_CHARACTER are still unresolved. No quest graph/content write is safe until those release dependencies are frozen. See docs/plans/GODSTORM_MANIFEST_STAGING.md and docs/reviews/REVIEW_2026-09-19_godstorm_ai_rule_safety.md.",
+ "dedupNames": true,
+ "imgSizes": {
+  "bg_godstorm_stormcourt_upper_court.webp": 379928,
+  "bg_godstorm_stormcourt_binding_dais_active.webp": 283000,
+  "bg_godstorm_stormcourt_binding_dais_released.webp": 256826
+ },
+ "items": [
+  {
+   "name": "Godstorm Stormcourt Upper Court",
+   "entity": "asset",
+   "slot": "create",
+   "srcId": "godstorm_sc_upper",
+   "data": {
+    "name": "GodstormStormcourtUpperCourt",
+    "type": "SCENE_BACKGROUND",
+    "image": "@img:bg_godstorm_stormcourt_upper_court.webp",
+    "folder": "Godstorm",
+    "frames": 1,
+    "speed": 1,
+    "hidden": true,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "name": "Godstorm Stormcourt Binding Dais Active",
+   "entity": "asset",
+   "slot": "create",
+   "srcId": "godstorm_sc_dais_active",
+   "data": {
+    "name": "GodstormStormcourtBindingDaisActive",
+    "type": "SCENE_BACKGROUND",
+    "image": "@img:bg_godstorm_stormcourt_binding_dais_active.webp",
+    "folder": "Godstorm",
+    "frames": 1,
+    "speed": 1,
+    "hidden": true,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "name": "Godstorm Stormcourt Binding Dais Released",
+   "entity": "asset",
+   "slot": "create",
+   "srcId": "godstorm_sc_dais_released",
+   "data": {
+    "name": "GodstormStormcourtBindingDaisReleased",
+    "type": "SCENE_BACKGROUND",
+    "image": "@img:bg_godstorm_stormcourt_binding_dais_released.webp",
+    "folder": "Godstorm",
+    "frames": 1,
+    "speed": 1,
+    "hidden": true,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "name": "Umbral Reaver AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "9uDe65Qt90xnT-fM5vJZ7",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 3,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "Nrxc8m9utE9qaD_gWpLgf",
+        "wYVY0O5dJ3wmlPzeiasef",
+        "Vo8N1luCT0p48y7JzKe84",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "taxbZNdm1Q7YL5AxaRssW",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Hollow Lantern AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "IG5Mbfi_2lpUTnUU4_XhZ",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "LiVOnYq6qHzjB0XkIIA2e",
+        "Vo8N1luCT0p48y7JzKe84",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "taxbZNdm1Q7YL5AxaRssW",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Starless Monk AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "qQ6jMh8w6aiyr4pevwDh-",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "Vo8N1luCT0p48y7JzKe84",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Nightveil Sentinel AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "YvinZCoMWiz0RY8ZBP5EW",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "Vo8N1luCT0p48y7JzKe84",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Warden of the First Dark AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "oi4bHe3upEhLkI-ElJuMX",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "3v9c1SHlD2GLPF2HW1_Sc",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Keeper of Hushed Hours AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "s6LjnqhSW85pIxYRM76Fw",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "YiRdVytsdxFzZtqkEDs5Q",
+        "3v9c1SHlD2GLPF2HW1_Sc",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "cZrZDI-A4fL324nX1CGss",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "The Moth Tyrant AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "jGHpkz2pgLu8loti6pZZi",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "LiVOnYq6qHzjB0XkIIA2e",
+        "3v9c1SHlD2GLPF2HW1_Sc",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Chained Chorister AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "QV1PwoQR9JImZL2_fcOsk",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "wYVY0O5dJ3wmlPzeiasef",
+        "3v9c1SHlD2GLPF2HW1_Sc",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Warden of the Half Eclipse AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "3XMsIV6Yv4jy-uaJAe52f",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "3v9c1SHlD2GLPF2HW1_Sc",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "cZrZDI-A4fL324nX1CGss",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Hollow Lantern Ascendant AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "b8PGgZl8zNNr6UdWH9dBv",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "LiVOnYq6qHzjB0XkIIA2e",
+        "Vo8N1luCT0p48y7JzKe84",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "taxbZNdm1Q7YL5AxaRssW",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Starless Monk Ascendant AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "JU2BgfdcWsBYGeHUgHMi_",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "Vo8N1luCT0p48y7JzKe84",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Nightveil Sentinel Ascendant AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "9yLEi0OoYxcIL0a2XYkWk",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "Vo8N1luCT0p48y7JzKe84",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Umbral Reaver Ascendant AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "k4qMHSTHHZBVsijP5FJ6E",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 3,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "Nrxc8m9utE9qaD_gWpLgf",
+        "wYVY0O5dJ3wmlPzeiasef",
+        "Vo8N1luCT0p48y7JzKe84",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "taxbZNdm1Q7YL5AxaRssW",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "The Gloaming Judge AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "axTRSadaZbUepfT40-7cM",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "3v9c1SHlD2GLPF2HW1_Sc",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Widow of the Waning Moon AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "HEjtNpXmuU4ShrOOPg8XK",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "wYVY0O5dJ3wmlPzeiasef",
+        "3v9c1SHlD2GLPF2HW1_Sc",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "The Candlewright AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "pln436P8g2ocUBCHavcdb",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "LiVOnYq6qHzjB0XkIIA2e",
+        "3v9c1SHlD2GLPF2HW1_Sc",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "cZrZDI-A4fL324nX1CGss",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Herald of the Last Dusk AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "aL1Gf1JmVaP8iWi2zHJoO",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "3v9c1SHlD2GLPF2HW1_Sc",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "taxbZNdm1Q7YL5AxaRssW",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "name": "Sovereign Echo of the Godstorm AI profile safety",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "i8oFdDcneF7YE-8VpQsu3",
+   "data": {
+    "rules": [
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "I66lzvVHf8v4thxR6tEJn",
+        "o-4SCAhJ4LHdCwcBDgJrV"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 2,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action of given effect"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 2,
+        "target": "RANDOM_OPPONENT"
+       }
+      ]
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  }
+ ]
+}
