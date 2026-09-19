@@ -97,7 +97,7 @@ These five existing Marrow AI records still have the default avatar and remain o
 | Hollow Lantern | `IG5Mbfi_2lpUTnUU4_XhZ` | ACCEPTED / processed / wired as `ai_godstorm_marrow_hollow_lantern.webp`, SHA-256 `50d1786fb6f5c2a2350b04dd27ec1ff8b0e1d58237e98337c0a2065e226b6055` |
 | Starless Monk | `qQ6jMh8w6aiyr4pevwDh-` | ACCEPTED / processed / wired as `ai_godstorm_marrow_starless_monk.webp`, SHA-256 `877eef3b0cecc914d4e3300e21cb50c87030093c5730d4feb54b71a7e7cdc870` |
 | Nightveil Sentinel | `YvinZCoMWiz0RY8ZBP5EW` | USER-SUPPLIED / processed / wired as `ai_godstorm_marrow_nightveil_sentinel.webp`, SHA-256 `d5c5a8c8a2be20700a7df16b9ac38e4b9cd6a7a2917efa5d7d815d19deebd9e2` |
-| Warden of the First Dark | `oi4bHe3upEhLkI-ElJuMX` | PENDING new accepted AI_AVATAR |
+| Warden of the First Dark | `oi4bHe3upEhLkI-ElJuMX` | ACCEPTED / processed / wired as `ai_godstorm_marrow_warden_of_the_first_dark.webp`, SHA-256 `0d2bf09980ec6c99226d3528606cf07a112ccf0c843363f5d0761ae0ca997453` |
 
 Two rejected Umbral-generation attempts from the previous chat are not manifest inputs and must not be reused as TNR style references.
 
@@ -243,3 +243,30 @@ The director supplied the fourth missing Marrow avatar master for Nightveil Sent
 | Nightveil Sentinel | `ai_godstorm_marrow_nightveil_sentinel.webp` | 1429x1429 | 115,618 | `d5c5a8c8a2be20700a7df16b9ac38e4b9cd6a7a2917efa5d7d815d19deebd9e2` |
 
 The export is square, carries alpha, exceeds the 320px AI_AVATAR minimum and is below the 460,800-byte working ceiling. It is wired into `push/48_godstorm_current_manifest.json` as an existing-AI edit to `YvinZCoMWiz0RY8ZBP5EW.data.avatar` using the exact `@img` filename. The only remaining missing Marrow AI avatar slot is Warden of the First Dark.
+
+
+## 10. Final push manifest (2026-09-19)
+
+Director instructed finalization for immediate pyramid update.
+
+Final manifest: `push/49_godstorm_two_pyramid_final_update.json`.
+
+Contents:
+- three accepted Stormcourt SCENE_BACKGROUND creates;
+- five Marrow AI avatar edits;
+- eighteen retained AI-profile target/range safety edits;
+- two complete quest edits (Marrow Vaults and Stormcourt);
+- two full post-run quest captures.
+
+Quest changes freeze the current connected-setting Draft 2 copy, with the separately approved Marrow scene remap and accepted Stormcourt background allocation. All sixteen early cash-out dialogs are removed and the eight intermediate keeper routes are rewired. All fifty captured opponent arrays and combat configuration are preserved except the separately audited AI-profile safety edits.
+
+Reward handling for this immediate push is conservative:
+- preserve captured numeric full-clear money/token/prestige values;
+- preserve captured retry/attempt/completion settings;
+- remove item rewards from the two surviving victory dialogs because the keystones are excluded and the shared Endless Night Chest is Tower-branded.
+
+Scene-character arrays remain empty in this push. Keeper/blank SCENE_CHARACTER work is still a later visual enhancement and no runtime IDs are invented.
+
+A static final integrity pass found zero errors: 53 objectives / 25 battles / 26 dialogs per quest, all nodes reachable, no dangling edges, all opponent arrays unchanged, no rejected StormCourtyard ID, no Tower/Dawnless/cash-out wording, five avatar edits, eighteen bounded profile edits and eight image references with byte ledgers.
+
+The exact final manifest was copied to `main` at commit `bad3a2d9efadc5015a538b494f49b346b67a9739` so Forge's normal `push/` listing can see it. This repository commit is staging only; the director remains the only live-game operator.
