@@ -22,7 +22,7 @@ import { h, installCss } from "./ui/dom.mjs";
 import FIELDS from "./runner/fields.json" with { type: "json" };
 import NESTED from "./runner/nested.json" with { type: "json" };
 
-export const VERSION = "forge 0.4.1";
+export const VERSION = "forge 0.4.2";
 // Field sets for pre-send validation are bundled from src/runner/fields.json, derived from the
 // PINNED validators by tools/derive_fields.mjs. 45d (2026-08-26) is stale against the pin, so it
 // is not fetched at boot: the bundle validates against exactly the commit it was audited on.

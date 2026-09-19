@@ -21,7 +21,7 @@
 import { recipe } from "../runner/recipes.mjs";
 import { classifyError } from "../transport/outcome.mjs";
 import { AuthRefused } from "../transport/auth.mjs";
-import { diffAsserted, SERVER_OWNED } from "../runner/validate.mjs";
+import { diffAsserted, deepEqualPayload, SERVER_OWNED } from "../runner/validate.mjs";
 import { resolveRefs } from "../runner/refs.mjs";
 
 export const SNAP_PREFIX = "tnr_forge_snap_v1:";
@@ -147,7 +147,9 @@ export class Reconciler {
     if (!prof.ok || !prof.data) return { action: "orphan", candidates: [], note: "ai.getAiProfile unavailable" };
     const want = ctx.planned ? ctx.planned.data.rules ?? [] : null;
     const wantDefault = ctx.planned ? ctx.planned.data.includeDefaultRules : undefined;
-    const rulesLanded = want && JSON.stringify(prof.data.rules ?? []) === JSON.stringify(want);
+    // Same structural comparison the verify path uses: a resumed job must not declare a landed
+    // rules write ORPHANED because zod handed the object back in schema key order.
+    const rulesLanded = want && deepEqualPayload(want, prof.data.rules ?? []);
     const defaultLanded = wantDefault === undefined || prof.data.includeDefaultRules === wantDefault;
     if (rulesLanded && defaultLanded) return { action: "confirm", entityId: item.entityId, phase: "verify", landed: true, note: "rules already landed" };
     return { action: "orphan", candidates: [], note: "rules may not have landed: profile rules differ" };

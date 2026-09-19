@@ -210,6 +210,51 @@ function ruleProblems(rules) {
 }
 
 /**
+ * Deep equality for a payload the SERVER rebuilds before storing it.
+ *
+ * Two normalisations, and only two:
+ *
+ *   key order is not meaning.  A rules payload is validated by zod and re-emitted in SCHEMA key
+ *     order, so a condition sent as {type, value, target, description} reads back as
+ *     {type, description, value, target}. Comparing those with JSON.stringify calls a landed
+ *     write drift; it did, for all 18 Godstorm AI-profile corrections, whose exported sent and
+ *     live payloads parse to identical objects
+ *     (harvests/inbox/tnr_results_1789829183863.json).
+ *   a key carrying `undefined` is a key that is not there.  Neither survives the wire - superjson
+ *     drops it, zod strips it - so asserting one against the other asserts against nothing.
+ *
+ * EVERYTHING ELSE STAYS STRICT, because that is where real drift lives:
+ *   - array order is meaning: rule order decides which rule fires first, so a reordered rules
+ *     array is drift;
+ *   - a key present on one side with a real value and absent on the other is drift, in BOTH
+ *     directions. `null` is a real value the server stores and is not the same as absent;
+ *   - values are compared by type and value: 1 is not "1", 0 is not false.
+ *
+ * This is deliberately NOT eqLoose(): eqLoose compares an asserted field against a live DB ROW,
+ * where the live side legitimately carries server-owned columns nobody asserted, and it applies
+ * the ai numeric tolerance (law 71). A rules payload is a closed document that was sent whole
+ * and read back whole, so nothing about it may be one-sided.
+ */
+export function deepEqualPayload(a, b) {
+  if (a === b) return true;
+  if (typeof a === "number" && typeof b === "number") return Number.isNaN(a) && Number.isNaN(b);
+  if (a instanceof Date || b instanceof Date) {
+    return a instanceof Date && b instanceof Date && a.getTime() === b.getTime();
+  }
+  if (Array.isArray(a) || Array.isArray(b)) {
+    if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) return false;
+    return a.every((x, i) => deepEqualPayload(x, b[i]));
+  }
+  if (a && b && typeof a === "object" && typeof b === "object") {
+    const ka = definedKeys(a);
+    if (ka.length !== definedKeys(b).length) return false;
+    return ka.every((k) => b[k] !== undefined && deepEqualPayload(a[k], b[k]));
+  }
+  return false;
+}
+const definedKeys = (o) => Object.keys(o).filter((k) => o[k] !== undefined);
+
+/**
  * Diff only the keys the manifest asserted (spec section 8, R6). Returns [{key, sent, live}].
  * `''` sent vs null live is equal (server normalises empty strings to null on nullable columns).
  * Numbers within 0.5 are equal for ai (scaleUserStats re-normalises on every write, law 71).
