@@ -855,9 +855,43 @@ test("push/53: the eight Godstorm images bind to one commit, verify, and clear t
   assert.equal(s.images.filter((n) => n.startsWith("ai_")).length, 5);
 });
 
-test("push/53's committed text is unchanged by this feature: no pack, and it still parses", () => {
+test("push/53 END TO END: its committed pack verifies 8/8 from the repository and clears the Start gate", async () => {
+  // Not a synthetic pack over the real ledger this time - the REAL committed pack, with the bytes
+  // fetched out of git at the commit the pack names. This is the closest a socket-free test gets to
+  // what the operator will see when they open the repair in Forge.
   if (!existsSync(REPAIR_53)) return;
   const m = parseManifest(readFileSync(REPAIR_53, "utf8"));
-  assert.equal(m.imagePack, null, "binding push/53 needs its eight blobs committed first; nothing is invented here");
+  if (!m.imagePack) return; // the pack is staged separately from the Forge feature
   assert.equal(Object.keys(m.imgSizes).length, 8);
+  assert.equal(Object.keys(m.imagePack.files).length, 8);
+
+  const { execFileSync } = await import("node:child_process");
+  const repo = join(HERE, "..", "..");
+  const git = { raw: async (path, ref) => {
+    const buf = execFileSync("git", ["-C", repo, "cat-file", "blob", `${ref}:${path}`],
+      { encoding: "buffer", maxBuffer: 64 * 1024 * 1024, stdio: ["ignore", "pipe", "ignore"] });
+    return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
+  } };
+
+  const { core } = headlessCore("{}", git);
+  const names = Object.keys(m.imagePack.files);
+  const result = await prepareAndCommit(core, { pack: m.imagePack, names });
+  const bad = result.entries.filter((e) => e.state !== "ready");
+  assert.deepEqual(bad.map((e) => `${e.name}: ${e.error}`), [], "every bound image must verify from the repository");
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.unbound, [], "the repair leaves no image to the manual picker");
+
+  // both gates, together, exactly as startJob() reads them
+  assert.deepEqual(packGateProblems(m.imagePack, names, core.runner), []);
+  const { imagePicks, unusablePicks } = await import("../src/core/facts.mjs");
+  assert.deepEqual(unusablePicks(imagePicks(names, core.runner.files, m.imgSizes)), []);
+
+  // three backgrounds and five avatars, and each File carries the logical name @img resolves by
+  assert.equal(names.filter((n) => n.startsWith("bg_")).length, 3);
+  assert.equal(names.filter((n) => n.startsWith("ai_")).length, 5);
+  for (const n of names) {
+    const file = core.runner.files.get(n);
+    assert.equal(file.name, n);
+    assert.equal(await hexOf(await file.arrayBuffer()), m.imagePack.files[n].sha256);
+  }
 });
