@@ -1,6 +1,7 @@
 # Godstorm Forge defects repair — implementation handoff
 
-**Status: IMPLEMENTED. FROZEN.** Independent ChatGPT review requested on the head SHA stamped below.
+**Status: IMPLEMENTED. REVIEWED — APPROVED FOR INTEGRATION.** Independent review returned on the
+frozen head stamped below; the freeze is released and this document carries the outcome (§9).
 Lane A (code/tooling), `docs/DEVELOPMENT_WORKFLOW.md`. Implements the committed build contract
 `docs/handoffs/GODSTORM_FORGE_DEFECTS_REPAIR_HANDOFF.md` @
 `chatgpt/godstorm-two-pyramid-plan@4d5ee40c62dad55b30854f8bfa242cf6ef0936fb`.
@@ -17,6 +18,7 @@ Lane A (code/tooling), `docs/DEVELOPMENT_WORKFLOW.md`. Implements the committed 
 | Source pin moved | **no** (`345d18accf…`, unchanged; `check_boundaries` re-asserts it) |
 | Repair manifest run | **no** |
 | Credentials | repository auth for fetch/push only. No game credential, no session material. |
+| Independent review | `chatgpt/review-godstorm-forge-defects-repair@f378a6320c84490931d1eb3bf04a79c0e0c611e9` → `docs/reviews/REVIEW_2026-09-19_godstorm_forge_defects_repair.md` — **APPROVED FOR INTEGRATION** |
 
 ### Two deviations from the contract's letter, both deliberate
 
@@ -220,12 +222,12 @@ strengthens automatically once 53 is staged.
 
 ## 7. Risk / debt / what to attack hardest
 
-- **Contract debt 6 is only partial.** I audited the list procedures against the repository's own
-  generated contract (`@bdec2883`), not against current upstream (`@a670c9aa`). The contract verified
-  `asset.getAllNames` there directly; the other five name lists are unverified at the newer SHA. If
-  one of them has since gained a required input, it is one table entry away from correct — and that
-  is the same class of drift that caused this incident. This is the single most valuable thing a
-  reviewer with the checkout can close.
+- ~~**Contract debt 6 is only partial.**~~ **CLOSED BY REVIEW.** I had audited the list procedures
+  against the repository's own generated contract (`@bdec2883`) only, and flagged the other five name
+  lists as unverified at current upstream. The review audited all six at
+  `studie-tech/TheNinjaRPG@a670c9aaa741157dc66eacc949600ff2db0b48cd` and found that **only
+  `gameAsset.getAllNames` carries an input schema**, so the table is complete for the supported
+  surface. Regenerating the whole contract set remains open as its own deliberate pass.
 - **Contract debt 10 is not done** (a fixture for a partial multi-entity production run: creates fail,
   edits succeed, dependent quest ref resolution fails, captures still complete).
 - **`deepEqualPayload` is the drift detector now.** Strict both ways by design; if the server ever
@@ -260,3 +262,54 @@ strengthens automatically once 53 is staged.
 - No generated contract regenerated or adopted, no source pin moved, no upstream contract set
   imported. Nothing touched under `skills/`, `docs/DOCTRINE.md`, `docs/ENGINE_LAWS.md`, `state/`, or
   the harvest path.
+
+## 9. Post-review record
+
+**Verdict: APPROVED FOR INTEGRATION**, no merge-blocking defect surviving review
+(`chatgpt/review-godstorm-forge-defects-repair@f378a632`, review doc
+`docs/reviews/REVIEW_2026-09-19_godstorm_forge_defects_repair.md`). The review was performed against
+the frozen `82afbba8`, not the moving tip. Three of my own framings were refuted or refined and the
+review's reading stands on all three: the other name lists needed no input (§7 above, now closed); a
+filename mismatch is correctly not a blocker, against the L17 ledger workflow; and manifest 52 is
+correctly left unresumable rather than kept attachable.
+
+### CI evidence, which the review could not obtain
+
+Review §6 recorded that no GitHub Actions run was associated with the frozen SHA and therefore
+treated my command outputs as implementation evidence rather than independently rerun evidence. That
+gap is now closed, and the reason for it is mundane: GitHub runs a push's workflow on the **head** of
+the push, and `82afbba8` was pushed together with the stamp commit on top of it.
+
+Run [`35453117385`](https://github.com/perseverance484/tnr-tools/actions/runs/35453117385) — workflow
+`forge`, job `verify`, head `7d5153377c41738c34ade93f4d1dda6fc8e4b8f2`, **conclusion: success**, every
+step green: `npm ci`, `npm audit --omit=dev --audit-level=high`, `check_imports`, `check_boundaries`,
+`npm test`, fixture regeneration, checked-bundle verification, bundle-size budget, release-pin state.
+
+That tree is the reviewed tree **plus one line of this markdown file** (`git diff --stat 82afbba HEAD`
+→ one insertion, one deletion, in this document), so the machine-run evidence covers the reviewed
+implementation exactly. An earlier run, [`35451672887`](https://github.com/perseverance484/tnr-tools/actions/runs/35451672887),
+covers `74083c1` (defects A and C) and is also green.
+
+### Integration state at the time of writing
+
+`main` re-verified at `8c47d52cbabd8bf712f8bb0f76da0f4ff9383dc3` — unmoved since the base. This branch
+is **4 ahead, 0 behind**, so integration is a fast-forward with no conflict and nothing to rebase.
+Integration itself is the user's call and is not performed by this session.
+
+### Carried-forward debt, per the review's §7 (none blocking)
+
+1. the partial multi-entity failure fixture is still absent;
+2. bundle headroom is tight at ~96% of the stepped budget;
+3. rule `@ref` resolution debt remains, unexercised by manifest 53;
+4. no real-browser evidence: Firefox/Android picker, userscript update timing, real Clerk session,
+   live tRPC transport and the live rate limiter were exercised by neither side;
+5. image identity is byte-ledger based, so same-size/same-type wrong bytes stay theoretically
+   possible; a hash ledger would be a separate system change;
+6. the generated contract set as a whole remains behind upstream.
+
+### The operator sequence this unblocks
+
+Integrate → let `release_pin.yml` promote 0.4.2 and pin the immutable bundle → confirm the loader
+commit landed and the installed userscript updated → **verify the Forge panel reads 0.4.2** → stage
+`push/53_godstorm_failed_items_repair.json` through the content lane → run it with the exact processed
+`.webp` files. Running 53 against the old pinned bundle reproduces the original `BAD_REQUEST`.
