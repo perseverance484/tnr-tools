@@ -1,0 +1,56 @@
+<section>
+  <div class="f-actions">
+    <input placeholder="search filename, number, title" type="search" value="">
+    <button>
+      #text "Refresh"
+  <div class="f-mute">
+    #text "1 file in push/ · listed 0s ago"
+  <div>
+    <div class="f-row f-tap">
+      <div class="f-grow">
+        <div>
+          <b>
+            #text "#46 "
+          #text "46_pack_fixture.json"
+        <div class="f-mute">
+          #text "Fixture Asset · 1 item (1 create)"
+  <div class="f-card">
+    <h2>
+      #text "46_pack_fixture.json"
+    <div class="f-mute">
+      #text "1 items · manifest hash 6dec500e"
+    <div class="f-row">
+      <div class="f-grow">
+        <div>
+          #text "0. Fixture Asset"
+        <div class="f-mute">
+          #text "asset · create · keys: name, hidden, type, url"
+    <div class="f-banner bad">
+      <b>
+        #text "Repo-backed images: 0/1 verified. "
+      #text "Bound to perseverance484/tnr-tools at commit 28bba70d0e14. Forge fetched each file from that immutable commit and checked its SHA-256 against the manifest; nothing is uploaded unless the digest matches."
+      <div class="f-actions">
+        <button>
+          #text "Re-fetch from repository"
+    <h3>
+      #text "Images (1)"
+    <div class="f-row">
+      <div class="f-grow">
+        <div class="f-mono">
+          #text "fixture_icon.webp"
+          <span class="f-pill FAILED">
+            #text "not fetched"
+        <div class="f-mute f-mono">
+          #text "repo: art/fixtures/fixture_icon.webp @ 28bba70d0e14 · sha256 ab5f8b5cb9435354… · 32 B"
+        <div class="f-err">
+          #text "art/fixtures/fixture_icon.webp at 28bba70d0e14 hashes to 8c0cc17a04942cc4f8e0fe0b302606d3108860c126428ba2ceeb5f9ed41c2b05; the pack says ab5f8b5cb9435354c7b58603592d5faf081e17ceb05f7a7c67f4b666f12ca457. Nothing was uploaded and this image cannot be used; the manifest and the repository disagree about which file this is."
+    <div class="f-banner bad">
+      <b>
+        #text "Cannot run: repo-backed images are not verified. "
+      <div class="f-err">
+        #text "fixture_icon.webp is bound to art/fixtures/fixture_icon.webp at 28bba70d0e14 but has not been fetched and verified"
+    <div class="f-actions">
+      <button :disabled="true" class="f-primary" disabled="">
+        #text "Start job"
+      <button>
+        #text "Clear"

@@ -1,0 +1,51 @@
+<section>
+  <div class="f-actions">
+    <input placeholder="search filename, number, title" type="search" value="">
+    <button>
+      #text "Refresh"
+  <div class="f-mute">
+    #text "1 file in push/ · listed 0s ago"
+  <div>
+    <div class="f-row f-tap">
+      <div class="f-grow">
+        <div>
+          <b>
+            #text "#46 "
+          #text "46_pack_fixture.json"
+        <div class="f-mute">
+          #text "Fixture Asset · 1 item (1 create)"
+  <div class="f-card">
+    <h2>
+      #text "46_pack_fixture.json"
+    <div class="f-mute">
+      #text "1 items · manifest hash 6dec500e"
+    <div class="f-row">
+      <div class="f-grow">
+        <div>
+          #text "0. Fixture Asset"
+        <div class="f-mute">
+          #text "asset · create · keys: name, hidden, type, url"
+    <div class="f-banner ok">
+      <b>
+        #text "Repo-backed images: 1/1 verified. "
+      #text "Bound to perseverance484/tnr-tools at commit 28bba70d0e14. Forge fetched each file from that immutable commit and checked its SHA-256 against the manifest; nothing is uploaded unless the digest matches."
+      <div class="f-actions">
+        <button>
+          #text "Re-fetch from repository"
+    <h3>
+      #text "Images (1)"
+    <div class="f-row">
+      <div class="f-grow">
+        <div class="f-mono">
+          #text "fixture_icon.webp"
+          <span class="f-pill VERIFIED">
+            #text "verified"
+        <div class="f-mute f-mono">
+          #text "repo: art/fixtures/fixture_icon.webp @ 28bba70d0e14 · sha256 ab5f8b5cb9435354… · 32 B · verified from repo"
+        <div class="f-mute f-mono">
+          #text "selected: fixture_icon.webp · 32 B · ledger 32 B · image/webp"
+    <div class="f-actions">
+      <button class="f-primary">
+        #text "Start job"
+      <button>
+        #text "Clear"

@@ -5,6 +5,7 @@
 import { Journal } from "./storage/journal.mjs";
 import { CaptureCache } from "./storage/captures.mjs";
 import { RepoTextCache } from "./storage/repotext.mjs";
+import { AssetCache } from "./storage/assets.mjs";
 import { CookieSession } from "./transport/session.mjs";
 import { AuthState, AUTH } from "./transport/auth.mjs";
 import { TrpcClient } from "./transport/client.mjs";
@@ -22,7 +23,27 @@ import { h, installCss } from "./ui/dom.mjs";
 import FIELDS from "./runner/fields.json" with { type: "json" };
 import NESTED from "./runner/nested.json" with { type: "json" };
 
-export const VERSION = "forge 0.4.2";
+export const VERSION = "forge 0.5.0";
+
+/**
+ * SHA-256, the ONE environment primitive repo-backed image packs need. It lives here because this is
+ * the composition root: every other layer receives it as `digest` and is therefore testable without
+ * reaching for a global.
+ *
+ * WebCrypto needs a secure context. The game is HTTPS, so `crypto.subtle` is there in the browser
+ * Forge actually runs in - and where it is not, this throws instead of degrading. There is no
+ * fallback digest on purpose: a pack whose bytes cannot be verified must stop, because the ONLY
+ * thing that makes repository-supplied bytes safe to upload is that their digest was checked.
+ *
+ * @param {ArrayBuffer|Uint8Array} bytes
+ * @returns {Promise<ArrayBuffer>} the raw digest; imgpack.toHex() renders it
+ */
+export function sha256(bytes, subtle = globalThis.crypto && globalThis.crypto.subtle) {
+  if (!subtle || typeof subtle.digest !== "function") {
+    return Promise.reject(new Error("crypto.subtle is unavailable (WebCrypto needs a secure context), so repo-backed image bytes cannot be verified"));
+  }
+  return subtle.digest("SHA-256", bytes);
+}
 // Field sets for pre-send validation are bundled from src/runner/fields.json, derived from the
 // PINNED validators by tools/derive_fields.mjs. 45d (2026-08-26) is stale against the pin, so it
 // is not fetched at boot: the bundle validates against exactly the commit it was audited on.
@@ -34,12 +55,17 @@ export const VERSION = "forge 0.4.2";
  * client are injectable; every wiring decision lives here and nowhere else.
  */
 export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(), tabId,
-                          log = () => {}, client = null, sleep, runtime = null, authState = AUTH.UNKNOWN } = {}) {
+                          log = () => {}, client = null, sleep, runtime = null, authState = AUTH.UNKNOWN,
+                          digest = sha256 } = {}) {
   const deps = {};
   deps.journal = new Journal(storage, clock);
   deps.cache = new CaptureCache(indexedDB, clock);
   // Repository/manifest text lives in its OWN database, never in the capture DB (see repotext.mjs).
   deps.repoCache = new RepoTextCache(indexedDB, clock);
+  // Verified asset bytes, keyed by their own SHA-256, in a third database for the same
+  // rollback reason (storage/assets.mjs).
+  deps.assetCache = new AssetCache(indexedDB, clock);
+  deps.digest = digest;
   deps.session = new CookieSession({ fetchImpl, origin: "" });
   deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`) });
   // The auth gate is part of the shipped graph, not a UI decoration: the Runner consults it

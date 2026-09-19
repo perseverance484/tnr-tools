@@ -28,7 +28,19 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // for four defects, not a structural regression, so the ratchet is stepped rather than the code
 // squeezed to fit. Deliberate and reviewable, which is what the paragraph above asks for; a
 // reviewer who disagrees should say so, because the next change inherits this headroom.
-export const BUDGET = { raw: 442_000, gzip: 84_600 };
+//
+// RAISED for repo-backed image packs (docs/handoffs/FORGE_REPO_BACKED_IMAGE_PACKS.md). Measured by
+// this tool at raw 447,540 / gzip 86,927, against 424,642 / 81,344 for the bundle on main: +22.4 KB
+// raw, +5.5 KB gzip. That is three new modules and their reasoning - the manifest binding contract
+// (runner/imgpack.mjs), the content-addressed asset store (storage/assets.mjs), the fetch/verify
+// pass and the Start gate (core/imagepack.mjs) - plus the runner's content-keyed upload reuse and
+// the provenance rows on the manifests screen. Roughly half of it is comment: these files carry the
+// WHY of a provenance contract, and squeezing that out to hold a number would be the wrong trade.
+// No new dependency and no new runtime code fetch; the digest is WebCrypto, from the browser.
+// The ratchet is stepped to ~4% headroom, the same margin the Phase 0 freeze used, so ordinary
+// change fits and a structural regression still trips it. A reviewer who wants the step smaller
+// should say so, because the next change inherits this headroom.
+export const BUDGET = { raw: 465_000, gzip: 90_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

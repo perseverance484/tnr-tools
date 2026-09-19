@@ -182,6 +182,7 @@ export class App {
   clearSelection() { return this.core.clearSelection(); }
   loadPicker(force) { return this.core.loadPicker(force); }
   selectManifest(entry) { return this.core.selectManifest(entry); }
+  prepareImages(force) { return this.core.prepareImages(force); }
   startJob() { return this.core.startJob(); }
   resumeJob(jobId) { return this.core.resumeJob(jobId); }
   requestPause() { return this.core.requestPause(); }

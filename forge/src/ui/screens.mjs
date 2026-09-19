@@ -1,10 +1,12 @@
 // The five screens (spec section 11). Each is a function (app) => Element and re-renders on
 // app.refresh(). Errors are surfaced in the UI with context; nothing is only in the console.
 import { h, replace, fmtAgo, fmtBytes, fmtCountdown } from "./dom.mjs";
-import { manifestNumber, manifestSummary } from "../github.mjs";
+import { manifestNumber, manifestSummary, GH } from "../github.mjs";
 import { readGh, writeGh } from "../storage/compat.mjs";
 import { jobOutcome } from "../storage/journal.mjs";
 import { imagePicks, unusablePicks } from "../core/facts.mjs";
+import { packGateProblems } from "../core/imagepack.mjs";
+import { packBinds } from "../runner/imgpack.mjs";
 
 const pill = (state) => h("span", { class: "f-pill " + state }, state);
 
@@ -144,26 +146,53 @@ function SelectedManifest(app) {
   // 1.7 MB master PNG rode into a live run behind the name of a 207 KB .webp and failed five
   // avatar edits one upload at a time (facts.imagePick).
   const picks = imagePicks(imgs, app.runner.files, s.manifest.imgSizes, "imageUploader");
+  const pack = s.pack || null;
+  const packResult = s.packResult || null;
+  const packEntry = (name) => (packResult && packResult.entries ? packResult.entries.find((e) => e.name === name) : null) || null;
+  if (pack) {
+    const bound = imgs.filter((n) => packBinds(pack, n));
+    const ready = bound.filter((n) => (packEntry(n) || {}).state === "ready").length;
+    const kind = !packResult ? "info" : ready === bound.length ? "ok" : "bad";
+    card.appendChild(h("div", { class: "f-banner " + kind },
+      h("b", {}, `Repo-backed images: ${ready}/${bound.length} verified. `),
+      `Bound to ${GH.owner}/${GH.repo} at commit ${pack.ref.slice(0, 12)}. Forge fetched each file from that immutable commit and checked its SHA-256 against the manifest; nothing is uploaded unless the digest matches.`,
+      h("div", { class: "f-actions" },
+        h("button", { onClick: () => app.prepareImages(true) }, "Re-fetch from repository"))));
+  }
   if (imgs.length) {
-    card.appendChild(h("h3", {}, `Images to pick (${imgs.length})`));
+    card.appendChild(h("h3", {}, `Images (${imgs.length})`));
     for (const p of picks) {
       const name = p.name;
-      const inp = h("input", { type: "file", accept: "image/*", style: { display: "none" }, onChange: (e) => { const f = e.target.files[0]; if (f) { app.runner.files.set(name, f); app.refresh(); } } });
-      const pillFor = { ready: ["VERIFIED", "picked"], refused: ["FAILED", "wrong file"], missing: ["FAILED", "missing"] }[p.state];
+      const bound = packBinds(pack, name);
+      const e = bound ? packEntry(name) : null;
+      const inp = h("input", { type: "file", accept: "image/*", style: { display: "none" }, onChange: (ev) => { const f = ev.target.files[0]; if (f) { app.runner.files.set(name, f); app.refresh(); } } });
+      const pillFor = { ready: ["VERIFIED", bound ? "verified" : "picked"], refused: ["FAILED", "wrong file"], missing: ["FAILED", bound ? "not fetched" : "missing"] }[p.state];
       card.appendChild(h("div", { class: "f-row" },
         h("div", { class: "f-grow" },
           h("div", { class: "f-mono" }, name, " ", h("span", { class: "f-pill " + pillFor[0] }, pillFor[1])),
+          // Provenance, for a bound image, is the whole point: the path, the commit and the digest
+          // Forge actually computed, not a claim that it matched.
+          bound ? h("div", { class: "f-mute f-mono" },
+            `repo: ${pack.files[name].path} @ ${pack.ref.slice(0, 12)} · sha256 ${pack.files[name].sha256.slice(0, 16)}\u2026 · ${fmtBytes(pack.files[name].bytes)}${e && e.state === "ready" ? ` · verified from ${e.source}` : ""}`) : null,
           // the physical bytes, always, not only when they are wrong
           p.picked ? h("div", { class: "f-mute f-mono" },
             `selected: ${p.picked.name ?? "(unnamed)"} · ${fmtBytes(p.picked.size)}${p.expectedBytes != null ? ` · ledger ${fmtBytes(p.expectedBytes)}` : ""}${p.picked.type ? ` · ${p.picked.type}` : ""}`) : null,
           p.renamed && p.ok ? h("div", { class: "f-mute" }, "the device renamed this file; its bytes match the ledger exactly") : null,
+          e && e.error ? h("div", { class: "f-err" }, e.error) : null,
           p.problems.length ? h("div", { class: "f-err" }, p.problems.join("\n")) : null),
-        h("button", { onClick: () => inp.click() }, p.picked ? "Replace" : "Pick"), inp));
+        // A bound image has NO manual override. A provenance an operator can replace from a gallery
+        // is not provenance, so the only button is the one that fetches the named bytes again.
+        bound ? null : h("button", { onClick: () => inp.click() }, p.picked ? "Replace" : "Pick"),
+        bound ? null : inp));
     }
   }
   const badImgs = unusablePicks(picks);
+  // The same gate startJob() re-reads at the tap, shown here so Start is not merely greyed out.
+  const packProblems = packGateProblems(pack, imgs, app.runner);
+  if (packProblems.length) card.appendChild(h("div", { class: "f-banner bad" },
+    h("b", {}, "Cannot run: repo-backed images are not verified. "), h("div", { class: "f-err" }, packProblems.join("\n"))));
   card.appendChild(h("div", { class: "f-actions" },
-    h("button", { class: "f-primary", disabled: s.problems.length > 0 || badImgs.length > 0 || blocked.length > 0, onClick: () => app.confirm(
+    h("button", { class: "f-primary", disabled: s.problems.length > 0 || badImgs.length > 0 || blocked.length > 0 || packProblems.length > 0, onClick: () => app.confirm(
       readOnly
         ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.`
         : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
