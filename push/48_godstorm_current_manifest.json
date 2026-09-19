@@ -1,10 +1,13 @@
 {
- "_note": "Godstorm current-scope manifest, 2026-09-19. COMPLETE for currently safe executable writes only: create the three director-approved Stormcourt SCENE_BACKGROUND assets and apply the source-audited range-safe fallback correction to all 18 retained AI profiles. This intentionally does NOT mutate the two quests yet: exact player-facing copy, rewards/cadence/chest, five Marrow avatar files, ten keeper SCENE_CHARACTER assets, and the blank SCENE_CHARACTER are still unresolved. No quest graph/content write is safe until those release dependencies are frozen. See docs/plans/GODSTORM_MANIFEST_STAGING.md and docs/reviews/REVIEW_2026-09-19_godstorm_ai_rule_safety.md.",
+ "_note": "Godstorm current-scope manifest, 2026-09-19. COMPLETE for currently safe executable writes only: create the three director-approved Stormcourt SCENE_BACKGROUND assets, update the first three accepted Marrow AI avatars, and apply the source-audited range-safe fallback correction to all 18 retained AI profiles. This intentionally does NOT mutate the two quests yet: Nightveil Sentinel and Warden of the First Dark avatars, ten keeper SCENE_CHARACTER assets, the blank SCENE_CHARACTER, exact player-facing copy, and rewards/cadence/chest remain unresolved. No quest graph/content write is safe until those release dependencies are frozen. See docs/plans/GODSTORM_MANIFEST_STAGING.md and docs/reviews/REVIEW_2026-09-19_godstorm_ai_rule_safety.md.",
  "dedupNames": true,
  "imgSizes": {
   "bg_godstorm_stormcourt_upper_court.webp": 379928,
   "bg_godstorm_stormcourt_binding_dais_active.webp": 283000,
-  "bg_godstorm_stormcourt_binding_dais_released.webp": 256826
+  "bg_godstorm_stormcourt_binding_dais_released.webp": 256826,
+  "ai_godstorm_marrow_umbral_reaver.webp": 161650,
+  "ai_godstorm_marrow_hollow_lantern.webp": 196056,
+  "ai_godstorm_marrow_starless_monk.webp": 207410
  },
  "items": [
   {
@@ -56,6 +59,33 @@
     "hidden": true,
     "onInitialBattleField": false,
     "licenseDetails": "TNR"
+   }
+  },
+  {
+   "name": "Starless Monk avatar",
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "qQ6jMh8w6aiyr4pevwDh-",
+   "data": {
+    "avatar": "@img:ai_godstorm_marrow_starless_monk.webp"
+   }
+  },
+  {
+   "name": "Hollow Lantern avatar",
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "IG5Mbfi_2lpUTnUU4_XhZ",
+   "data": {
+    "avatar": "@img:ai_godstorm_marrow_hollow_lantern.webp"
+   }
+  },
+  {
+   "name": "Umbral Reaver avatar",
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "9uDe65Qt90xnT-fM5vJZ7",
+   "data": {
+    "avatar": "@img:ai_godstorm_marrow_umbral_reaver.webp"
    }
   },
   {
