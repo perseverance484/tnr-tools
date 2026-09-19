@@ -1,0 +1,195 @@
+# Godstorm two-pyramid manifest staging contract
+
+Updated: 2026-09-19
+Status: PARTIALLY FROZEN / NOT EXECUTABLE / ZERO LIVE REQUESTS OR WRITES
+Working branch: `chatgpt/godstorm-two-pyramid-plan`
+
+This file is the durable control sheet for assembling the eventual Forge mutation manifest for Marrow Vaults and Stormcourt. It does not itself authorize or perform a game mutation. Fable remains the normal manifest implementation owner unless the director explicitly assigns the executable payload to ChatGPT. The director alone operates the live game.
+
+## Repository / evidence state
+
+- Current live `main` verified at `9e1dafc3ee5c8884ce90c3530de4afba364fad24` on 2026-09-19.
+- Godstorm planning branch before this staging update: `348422a92584d7d043f561b9d7c0f26f4d153dea`.
+- Root graph capture: `harvests/inbox/tnr_results_1789401726302.json`.
+- Related AI/art/reward capture: `harvests/inbox/tnr_results_1789402842027.json`.
+- Combat-profile closure capture: `harvests/inbox/tnr_results_1789403623148.json`.
+- Captures describe the September 14 live state; they are not the revised state.
+- Current SCENE_BACKGROUND specification blob at main remains `688b4ed615e1cb1e11d46d4c9e35865824291033`, unchanged from the production checks used for the accepted environment exports.
+
+## 1. Manifest-ready quest identity and graph delta
+
+These fields are structurally approved and may be treated as frozen inputs to the eventual generator:
+
+| Field | Marrow Vaults | Stormcourt |
+| --- | --- | --- |
+| Existing quest ID | `2yvE9PUQqlD8lbYNfgX-b` | `OSADdXqostbyVliCxWk6k` |
+| Player-facing name | `Marrow Vaults` | `Stormcourt` |
+| Quest type | preserve `battlepyramid` | preserve `battlepyramid` |
+| Battles | 25 | 25 |
+| Keepers | 5 | 5 |
+| Successful route | full clear only | full clear only |
+| Mechanical relationship | existing quest | preserve existing Marrow prerequisite |
+| Cash-out | remove | remove |
+| Tower identity | remove | remove |
+
+Final revised target: 106 objectives total = 50 battles + 52 dialogs + four terminal nodes.
+
+Remove exactly these 16 dialogs:
+- Marrow: `d1_choice`, `d1_cash`, `d2_choice`, `d2_cash`, `d3_choice`, `d3_cash`, `d4_choice`, `d4_cash`.
+- Stormcourt: `d6_choice`, `d6_cash`, `d7_choice`, `d7_cash`, `d8_choice`, `d8_cash`, `d9_choice`, `d9_cash`.
+
+Reroute exactly these eight keeper success edges:
+- `b1_boss -> d2_1`
+- `b2_boss -> d3_1`
+- `b3_boss -> d4_1`
+- `b4_boss -> d5_1`
+- `b6_boss -> d7_1`
+- `b7_boss -> d8_1`
+- `b8_boss -> d9_1`
+- `b9_boss -> d10_1`
+
+Retain:
+- `b5_boss -> d5_victory -> win`
+- `b10_boss -> d10_victory -> win`
+- all 50 existing failure routes to `fall`
+- all 18 direct opponent AI identities and their captured battle order/configuration unless later balance work explicitly changes them.
+
+No travel node, automatic Stormcourt launch, merged tracker, new checkpoint system or new quest type is authorized.
+
+## 2. Approved background wiring
+
+### Marrow Vaults
+
+Existing assets:
+- M1: `7EmVo6GH5GL4YtQTDrbDR` — marrow vault 1.
+- M2: `oc0cXiMrcG_6kTUwNWRkn` — marrow vault 2.
+- M3: `IykL5XxwFF14BosCblZj8` — marrow vault 3.
+
+Director-approved remap:
+- `d1_1 -> M3`.
+- `d5_victory -> M2`.
+
+Other Marrow scene allocations remain as specified in Draft 2 until a later explicit change. The recovered Marrow files are legacy 500x333 sources; current art-preflight status is not claimed by this binding decision.
+
+### Stormcourt
+
+The unrelated SkychainMonastery `StormCourtyard` asset `cKHhHoboreP88iH5WjDe7` is explicitly excluded and must never resolve a Godstorm binding.
+
+Accepted new production assets:
+
+| Logical key | Production file | Coverage | SHA-256 | Runtime gameAsset ID |
+| --- | --- | --- | --- | --- |
+| SC_UPPER | `bg_godstorm_stormcourt_upper_court.webp` | `d6_1` through `d9_boss` (20 dialogs) | `c0587d9fdeb8c4c75ecc6f5eaf0c08a0b783461299793c774f66f7aaab4f12b9` | PENDING |
+| SC_DAIS_ACTIVE | `bg_godstorm_stormcourt_binding_dais_active.webp` | `d10_1` through `d10_boss` (5 dialogs) | `41ca12f9d21604151f754ded0df2211bed5b671dcc2dd7c954e53c5f17f36d70` | PENDING |
+| SC_DAIS_RELEASED | `bg_godstorm_stormcourt_binding_dais_released.webp` | `d10_victory` | `97fc11d4ad1c24beeaffaf2e7f8a589715806dce6d17290d0fa253694fd3ef18` | PENDING |
+
+All three are accepted compositions and locally production-exported at 1536x1024, flattened RGB, lossy WebP q85, exact 3:2, above the 512px minimum and below both current byte ceilings. Runtime IDs do not exist yet. Before gameAsset creation, place the exact binaries durably and run the repository's current `artpreflight.py` against those exact hashes.
+
+## 3. Character-art slots
+
+### AI avatar updates still required
+
+These five existing Marrow AI records still have the default avatar and remain open asset slots:
+
+| AI | Existing ID | Asset status |
+| --- | --- | --- |
+| Umbral Reaver | `9uDe65Qt90xnT-fM5vJZ7` | PENDING new accepted AI_AVATAR |
+| Hollow Lantern | `IG5Mbfi_2lpUTnUU4_XhZ` | PENDING new accepted AI_AVATAR |
+| Starless Monk | `qQ6jMh8w6aiyr4pevwDh-` | PENDING new accepted AI_AVATAR |
+| Nightveil Sentinel | `YvinZCoMWiz0RY8ZBP5EW` | PENDING new accepted AI_AVATAR |
+| Warden of the First Dark | `oi4bHe3upEhLkI-ElJuMX` | PENDING new accepted AI_AVATAR |
+
+Two rejected Umbral-generation attempts from the previous chat are not manifest inputs and must not be reused as TNR style references.
+
+### Scene-character records still required
+
+Ten keeper scene-character placements remain unresolved:
+- K1 Warden of the First Dark
+- K2 Keeper of Hushed Hours
+- K3 The Moth Tyrant
+- K4 Chained Chorister
+- K5 Warden of the Half Eclipse
+- K6 The Gloaming Judge
+- K7 Widow of the Waning Moon
+- K8 The Candlewright
+- K9 Herald of the Last Dusk
+- K10 Sovereign Echo of the Godstorm
+
+A single verified blank scene-character record is also still required for the 42 non-keeper dialogs plus the intended quest-level fallback. Older candidates `Q-_3WA5kibe_8gI2CgTKl` and `1YXbXYW2wz3GETVMb6DT6` are discovery candidates only until current record/type/pixels are verified.
+
+Do not write null IDs, planning aliases or fabricated IDs into an executable manifest.
+
+## 4. Copy status
+
+The structural story decisions are approved:
+- one connected structure;
+- Marrow below, Court above;
+- Marrow clear opens access upstairs;
+- no Tower branding;
+- no early cash-out;
+- Stormcourt ends this Godstorm release.
+
+The exact Draft 2 quest descriptions, all 52 dialog descriptions, battle labels/outcome wording and exact local-binding finale prose remain **editorial draft unless separately accepted**. Therefore the eventual executable quest-update payload must not be declared frozen merely because the graph and art map are ready.
+
+Current authored source: `docs/plans/GODSTORM_STANDALONE_COPY_AND_SCENE_MAP.md`.
+
+## 5. Reward fields intentionally open
+
+The manifest must not invent values for:
+- Marrow full-clear reward package;
+- Stormcourt full-clear reward package;
+- repeat period / completion count / attempt policy;
+- chest use, omission or replacement;
+- any new drop channel.
+
+The shared `Endless Night Chest` `HLycjzUcVwKZenBWpd0V-` is Tower-branded and cannot be silently reused/renamed. Content Admin/director decision remains required.
+
+## 6. Other unresolved implementation gates
+
+Before the mutation manifest can be frozen:
+- resolve three new Stormcourt gameAsset IDs after asset creation;
+- resolve five Marrow avatar image URLs after accepted production/upload;
+- resolve ten keeper SCENE_CHARACTER IDs and one blank SCENE_CHARACTER ID;
+- accept/freeze exact player-facing copy;
+- settle the two reward packages and cadence;
+- verify any external hub/menu/entry records that expose old Tower naming;
+- define protected handling for active trackers referencing the 16 removed dialogs;
+- preserve historical successful completions unless the director separately authorizes migration;
+- rerun current source/contract checks and graph validation at implementation time;
+- perform retained-AI functional/balance QA before release readiness;
+- rerun actual repository art preflight on every new binary;
+- independently review the frozen implementation SHA before live application.
+
+## 7. Asset intake procedure from this point
+
+For every new art file received by this chat:
+1. identify its intended logical slot and source/acceptance status;
+2. process it against the current target contract;
+3. inspect delivered-size output;
+4. record exact production filename, dimensions, format, byte size and SHA-256;
+5. run repository art preflight when a checkout/runtime is available;
+6. never invent a runtime ID;
+7. once the operator/Fable creates the game asset, replace the slot's PENDING runtime ID with the read-back ID;
+8. only then permit the quest manifest to reference that asset.
+
+Raw generated candidates, rejected images and review composites are never manifest dependencies.
+
+## 8. Current readiness snapshot
+
+| Surface | State |
+| --- | --- |
+| Two-quest release scope | FROZEN |
+| Graph deletion/reroute plan | FROZEN, implementation validation pending |
+| Marrow background remap | APPROVED |
+| Stormcourt environment compositions | 3/3 APPROVED |
+| Stormcourt environment production exports | 3/3 COMPLETE LOCALLY |
+| Stormcourt runtime background IDs | 0/3, PENDING |
+| Marrow missing AI avatars | 0/5 accepted in this workstream |
+| Keeper scene characters | 0/10 resolved runtime IDs |
+| Blank scene character | PENDING |
+| Exact player-facing copy | NOT FROZEN |
+| Rewards/cadence/chest | OPEN |
+| Executable mutation manifest | NOT YET CREATED |
+| Live requests/writes in this staging pass | ZERO |
+
+The next safe manifest progress comes from asset intake: each accepted avatar/portrait can be processed and its exact production metadata added immediately while the copy/reward decisions remain independent.
