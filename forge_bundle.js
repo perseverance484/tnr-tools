@@ -1,4 +1,4 @@
-// TNR forge bundle v0.4.2 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.5.0 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Entry: /forge (a providerless 404) arms the tab and hands off; Forge then mounts as an overlay on a
 // real application route so ClerkProvider and the tRPC provider stay alive under it. Layers: storage, transport, budget, runner, reconcile, ui.
@@ -715,6 +715,95 @@
       return { count: recs.length, bytes: recs.reduce((a, r) => a + JSON.stringify(r.data ?? null).length, 0) };
     }
   };
+
+  // src/storage/assets.mjs
+  var ASSET_DB_NAME = "tnr_forge_assets";
+  var ASSET_DB_VERSION = 1;
+  var STORE3 = "bytes";
+  var MAX_ASSET_BYTES = 2 * 1024 * 1024;
+  var ASSET_UPLOADS_KEY = "tnr_forge_asset_uploads_v1";
+  function reqToPromise3(req) {
+    return new Promise((resolve, reject) => {
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error || new Error("IndexedDB request failed"));
+    });
+  }
+  var AssetCache = class {
+    constructor(idb, clock = () => Date.now()) {
+      this.idb = idb;
+      this.clock = clock;
+      this._db = null;
+    }
+    async _open() {
+      if (this._db) return this._db;
+      this._db = await new Promise((resolve, reject) => {
+        const req = this.idb.open(ASSET_DB_NAME, ASSET_DB_VERSION);
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains(STORE3)) db.createObjectStore(STORE3, { keyPath: "sha256" });
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error || new Error("could not open " + ASSET_DB_NAME));
+      });
+      return this._db;
+    }
+    async _tx(mode, fn) {
+      const db = await this._open();
+      const tx = db.transaction(STORE3, mode);
+      const out = await fn(tx.objectStore(STORE3));
+      await new Promise((resolve, reject) => {
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error || new Error("asset transaction failed"));
+        tx.onabort = () => reject(tx.error || new Error("asset transaction aborted"));
+      });
+      return out;
+    }
+    /**
+     * @param {{sha256: string, bytes: ArrayBuffer, path?: string, ref?: string}} rec
+     * The caller has already verified that digest(bytes) === sha256; this store does not digest.
+     */
+    async put({ sha256: sha2562, bytes, path = null, ref = null }) {
+      const size = bytes.byteLength ?? bytes.length ?? 0;
+      if (size > MAX_ASSET_BYTES) throw new Error(`asset ${sha2562.slice(0, 12)} is ${size} bytes, over the ${MAX_ASSET_BYTES}-byte cache limit`);
+      await this._tx("readwrite", (s) => reqToPromise3(s.put({ sha256: sha2562, bytes, size, path, ref, at: this.clock() })));
+      return sha2562;
+    }
+    async get(sha2562) {
+      const rec = await this._tx("readonly", (s) => reqToPromise3(s.get(sha2562)));
+      return rec ?? null;
+    }
+    async delete(sha2562) {
+      await this._tx("readwrite", (s) => reqToPromise3(s.delete(sha2562)));
+    }
+    async clear() {
+      await this._tx("readwrite", (s) => reqToPromise3(s.clear()));
+    }
+    async size() {
+      const recs = await this._tx("readonly", (s) => reqToPromise3(s.getAll()));
+      return { count: recs.length, bytes: recs.reduce((a, r) => a + (r.size || 0), 0) };
+    }
+  };
+  function readJson(storage, key) {
+    const raw = storage.getItem(key);
+    if (raw == null || raw === "") return {};
+    let v;
+    try {
+      v = JSON.parse(raw);
+    } catch {
+      v = void 0;
+    }
+    if (!v || typeof v !== "object" || Array.isArray(v)) return {};
+    return v;
+  }
+  function readAssetUploads(storage) {
+    return readJson(storage, ASSET_UPLOADS_KEY);
+  }
+  function recordAssetUpload(storage, sha2562, url, { path = null, ref = null, at = Date.now() } = {}) {
+    const map = readAssetUploads(storage);
+    map[sha2562] = { url, at, path, ref };
+    storage.setItem(ASSET_UPLOADS_KEY, JSON.stringify(map));
+    return map;
+  }
 
   // src/transport/session.mjs
   var SessionRefused = class extends Error {
@@ -2675,7 +2764,7 @@
   // src/storage/compat.mjs
   var IDMAP_KEY = "tnr_bk_idmap_v1";
   var GH_KEY = "tnr_bk_gh_v1";
-  function readJson(storage, key, fallback) {
+  function readJson2(storage, key, fallback) {
     const raw = storage.getItem(key);
     if (raw == null || raw === "") return fallback;
     let v;
@@ -2694,13 +2783,13 @@
     return v;
   }
   function readIdmap(storage) {
-    return readJson(storage, IDMAP_KEY, {});
+    return readJson2(storage, IDMAP_KEY, {});
   }
   function writeIdmap(storage, idmap) {
     storage.setItem(IDMAP_KEY, JSON.stringify(idmap));
   }
   function readGh(storage) {
-    return readJson(storage, GH_KEY, {});
+    return readJson2(storage, GH_KEY, {});
   }
   function writeGh(storage, gh) {
     storage.setItem(GH_KEY, JSON.stringify(gh));
@@ -4143,9 +4232,123 @@
     for (const o of objs) if (o && o.id && !seen[o.id] && o.id !== first.id) W(it, `L12b orphan node ${o.id} (unreachable)`);
   }
 
+  // src/runner/imgpack.mjs
+  var IMG_NAME_RE = /^[A-Za-z0-9_.\-]+$/;
+  var COMMIT_RE = /^[0-9a-f]{40}$/;
+  var SHA256_RE = /^[0-9a-f]{64}$/;
+  var SEGMENT_RE = /^[A-Za-z0-9._-]+$/;
+  var EXT_MIME = Object.freeze({
+    webp: "image/webp",
+    png: "image/png",
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    gif: "image/gif",
+    avif: "image/avif"
+  });
+  var extOf = (n) => {
+    const m = /\.([A-Za-z0-9]+)$/.exec(String(n ?? ""));
+    return m ? m[1].toLowerCase() : null;
+  };
+  var mimeOf = (n) => EXT_MIME[extOf(n)] ?? "application/octet-stream";
+  function toHex(buf) {
+    const bytes = buf instanceof Uint8Array ? buf : new Uint8Array(buf);
+    let out = "";
+    for (let i = 0; i < bytes.length; i++) out += bytes[i].toString(16).padStart(2, "0");
+    return out;
+  }
+  function pathProblem(path) {
+    if (typeof path !== "string" || !path) return "path must be a non-empty string";
+    if (path.length > 255) return "path is longer than 255 characters";
+    if (path.includes("\\")) return "path contains a backslash";
+    if (/^[A-Za-z][A-Za-z0-9+.-]*:/.test(path)) return "path looks like a URL, not a repository path";
+    if (path.startsWith("/")) return "path must be repository-relative (no leading slash)";
+    const segments = path.split("/");
+    for (const s of segments) {
+      if (!s) return "path has an empty segment";
+      if (s === "." || s === "..") return `path segment ${JSON.stringify(s)} is not allowed`;
+      if (!SEGMENT_RE.test(s)) return `path segment ${JSON.stringify(s)} has characters outside [A-Za-z0-9._-]`;
+    }
+    return null;
+  }
+  function normalizeImagePack(raw, { imgSizes = {}, names = [] } = {}) {
+    const errors = [], warnings = [];
+    if (raw === void 0 || raw === null) return { pack: null, errors, warnings };
+    if (typeof raw !== "object" || Array.isArray(raw)) {
+      errors.push("imagePack must be an object {ref, files}");
+      return { pack: null, errors, warnings };
+    }
+    const ref = raw.ref;
+    if (typeof ref !== "string" || !COMMIT_RE.test(ref)) {
+      errors.push(`imagePack.ref must be a 40-hex commit sha (an immutable commit, not a branch or tag), got ${JSON.stringify(ref)}`);
+    }
+    const rawFiles = raw.files;
+    if (!rawFiles || typeof rawFiles !== "object" || Array.isArray(rawFiles)) {
+      errors.push("imagePack.files must be an object keyed by the logical @img filename");
+      return { pack: null, errors, warnings };
+    }
+    const referenced = new Set(names);
+    const files = {};
+    for (const name of Object.keys(rawFiles).sort()) {
+      const where = `imagePack.files[${JSON.stringify(name)}]`;
+      const e = rawFiles[name];
+      if (!IMG_NAME_RE.test(name)) {
+        errors.push(`${where}: ${JSON.stringify(name)} is not a legal @img filename`);
+        continue;
+      }
+      if (!e || typeof e !== "object" || Array.isArray(e)) {
+        errors.push(`${where} must be an object {path, sha256, bytes}`);
+        continue;
+      }
+      const problem = pathProblem(e.path);
+      if (problem) {
+        errors.push(`${where}: ${problem}`);
+        continue;
+      }
+      if (typeof e.sha256 !== "string" || !SHA256_RE.test(e.sha256)) {
+        errors.push(`${where}.sha256 must be 64 lowercase hex characters, got ${JSON.stringify(e.sha256)}`);
+        continue;
+      }
+      if (!Number.isInteger(e.bytes) || e.bytes <= 0) {
+        errors.push(`${where}.bytes must be a positive integer, got ${JSON.stringify(e.bytes)}`);
+        continue;
+      }
+      if (extOf(e.path) !== extOf(name)) {
+        errors.push(`${where}: repository file is a ${extOf(e.path) ?? "(no extension)"} but the @img name is a ${extOf(name) ?? "(no extension)"}; @img resolves by exact filename and the extension decides the upload's MIME`);
+        continue;
+      }
+      const ledger = Object.prototype.hasOwnProperty.call(imgSizes, name) ? Number(imgSizes[name]) : null;
+      if (ledger == null || !Number.isFinite(ledger)) {
+        errors.push(`${where}: no imgSizes entry for ${name}; a pack entry must agree with the manifest byte ledger (L17)`);
+        continue;
+      }
+      if (ledger !== e.bytes) {
+        errors.push(`${where}.bytes is ${e.bytes} but imgSizes says ${name} is ${ledger}; the manifest contradicts itself about which file this is`);
+        continue;
+      }
+      if (!referenced.has(name)) {
+        warnings.push(`imagePack binds ${name}, which no @img reference in this manifest uses; it will not be fetched`);
+      }
+      files[name] = { path: e.path, sha256: e.sha256, bytes: e.bytes };
+    }
+    if (!Object.keys(files).length && !errors.length) errors.push("imagePack.files is empty; remove the key instead");
+    if (errors.length) return { pack: null, errors, warnings };
+    return { pack: { ref, files }, errors, warnings };
+  }
+  function packBinds(pack, name) {
+    return !!(pack && pack.files && Object.prototype.hasOwnProperty.call(pack.files, name));
+  }
+  function packWork(pack, names) {
+    if (!pack) return [];
+    return [...new Set(names ?? [])].filter((n) => packBinds(pack, n)).sort().map((name) => ({ name, ref: pack.ref, ...pack.files[name] }));
+  }
+  function unboundNames(pack, names) {
+    return [...new Set(names ?? [])].filter((n) => !packBinds(pack, n));
+  }
+
   // src/runner/manifest.mjs
   var ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile"]);
   var SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
+  var IMG_REF_SCAN = /@img:([A-Za-z0-9_.\-]+)/g;
   var PERSIST_MODES = Object.freeze(["summary", "full"]);
   var DEFAULT_PERSIST = "summary";
   var ManifestError = class extends Error {
@@ -4203,6 +4406,10 @@
     const lint = lintManifest({ items, imgSizes });
     problems.push(...lint.errors);
     const warnings = [...lint.warnings];
+    const imgNames = [...new Set([...JSON.stringify(items).matchAll(IMG_REF_SCAN)].map((x) => x[1]))];
+    const packed = normalizeImagePack(m.imagePack, { imgSizes, names: imgNames });
+    problems.push(...packed.errors);
+    warnings.push(...packed.warnings);
     for (const it of items) {
       if (it.entity !== "ai" && it.entity !== "aiProfile") continue;
       for (const w of kitProblems(it.data).warnings) warnings.push(`item ${it.idx} (${it.name}): ${w}`);
@@ -4214,6 +4421,7 @@
       skipPreflight: !!m.skipPreflight,
       imgSizes
     };
+    if (packed.pack) policy.imagePack = packed.pack;
     return {
       items,
       capture,
@@ -4225,6 +4433,7 @@
       dedupNames: policy.dedupNames,
       readBack: policy.readBack,
       imgSizes,
+      imagePack: packed.pack,
       fullCaptures: [...capture.before, ...capture.after].filter((c) => c.persist === "full").length,
       // The hash is taken over the RAW manifest bodies, not the normalized ones, so the persistence
       // request is inside it by construction: `persist` is a key of the raw capture entry, and
@@ -4391,6 +4600,7 @@
       this.log = d.log ?? (() => {
       });
       this.files = /* @__PURE__ */ new Map();
+      this.imgProvenance = /* @__PURE__ */ new Map();
       this.manifests = /* @__PURE__ */ new Map();
       this.pauseRequested = false;
       this.tabId = d.tabId ?? randomTab();
@@ -4704,13 +4914,30 @@
       for (const r of refs) {
         if (r.pfx === "DOUBLED") throw new Error(`doubled ref prefix at ${r.path}: ${r.key}`);
         if (r.pfx === "img") {
-          if (!this.files.has(r.key) && !readIdmap(this.storage)[r.key]) throw new Error(`@img:${r.key} has no file picked`);
+          this._imgPreflight(r.key);
           continue;
         }
         if (!this._lookup(this.journal.get(this._jobOf(item)))(r.pfx, r.key)) throw new Error(`@${r.pfx}:${r.key} is not resolvable yet (at ${r.path})`);
       }
       const problems = this.validator.problems(item.entity, planned.data, null, { preCreate: true });
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
+    }
+    /**
+     * One `@img` ref, before anything is sent. A pack-backed image is satisfied ONLY by its verified
+     * bytes or by an upload of exactly those bytes; the name-keyed idmap is deliberately not consulted
+     * for it, because `tnr_bk_idmap_v1` maps a FILENAME to a URL and two different files have carried
+     * the same logical name across manifests. Reusing that URL would ship the previous image behind
+     * the new manifest's provenance, which is the one outcome a content-bound pack must make
+     * impossible. A picked (unbound) image keeps the historical behaviour exactly.
+     */
+    _imgPreflight(name) {
+      const prov = this.imgProvenance.get(name);
+      if (prov) {
+        if (this.files.has(name)) return;
+        if (readAssetUploads(this.storage)[prov.sha256]) return;
+        throw new Error(`@img:${name} is bound to ${prov.path} but its verified bytes are not loaded`);
+      }
+      if (!this.files.has(name) && !readIdmap(this.storage)[name]) throw new Error(`@img:${name} has no file picked`);
     }
     async _create(jobId, item, planned) {
       const rc = recipe(item.entity);
@@ -4998,14 +5225,25 @@
     async _resolved(data, jobId) {
       const refs = collectRefs(data).filter((r) => r.pfx === "img");
       for (const r of refs) {
+        const prov = this.imgProvenance.get(r.key) ?? null;
         const map = readIdmap(this.storage);
-        if (map[r.key]) continue;
+        if (prov) {
+          const known = readAssetUploads(this.storage)[prov.sha256];
+          if (known && known.url) {
+            if (map[r.key] !== known.url) {
+              map[r.key] = known.url;
+              writeIdmap(this.storage, map);
+            }
+            continue;
+          }
+        } else if (map[r.key]) continue;
         const file = this.files.get(r.key);
         if (!file) throw new Error(`@img:${r.key} has no file picked`);
         if (!this.uploader) throw new Error("no uploader configured for @img refs");
         const up = await this.uploader.upload(file);
         map[r.key] = up.ufsUrl;
         writeIdmap(this.storage, map);
+        if (prov) recordAssetUpload(this.storage, prov.sha256, up.ufsUrl, { path: prov.path, ref: prov.ref, at: this.clock() });
       }
       const job = jobId ? this.journal.get(jobId) : null;
       const { value, unresolved } = resolveRefs(data, this._lookup(job));
@@ -5403,7 +5641,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       id: i.entityId || i.targetId || null
     };
   }
-  var EXT_MIME = Object.freeze({
+  var EXT_MIME2 = Object.freeze({
     webp: "image/webp",
     png: "image/png",
     jpg: "image/jpeg",
@@ -5411,7 +5649,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     gif: "image/gif",
     avif: "image/avif"
   });
-  var extOf = (n) => {
+  var extOf2 = (n) => {
     const m = /\.([A-Za-z0-9]+)$/.exec(String(n ?? ""));
     return m ? m[1].toLowerCase() : null;
   };
@@ -5430,9 +5668,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     if (Number.isFinite(picked.size) && picked.size > ceiling) {
       problems.push(`selected file is ${picked.size} bytes, over the ${slug} ceiling of ${ceiling}`);
     }
-    const wantMime = EXT_MIME[extOf(name)] ?? null;
+    const wantMime = EXT_MIME2[extOf2(name)] ?? null;
     if (picked.type && !picked.type.startsWith("image/")) problems.push(`selected file is ${picked.type}, not an image`);
-    else if (picked.type && wantMime && picked.type !== wantMime) problems.push(`selected file is ${picked.type}; ${name} is a ${extOf(name)}`);
+    else if (picked.type && wantMime && picked.type !== wantMime) problems.push(`selected file is ${picked.type}; ${name} is a ${extOf2(name)}`);
     return {
       name,
       ok: !problems.length,
@@ -5497,6 +5735,147 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       skipped: job.items.filter((i) => i.state === "SKIPPED").length,
       unresolved: job.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length
     };
+  }
+
+  // src/core/imagepack.mjs
+  function makeFile(bytes, name, type) {
+    const F = globalThis.File;
+    if (typeof F === "function") return new F([bytes], name, { type });
+    const B = globalThis.Blob;
+    if (typeof B === "function") {
+      const blob = new B([bytes], { type });
+      return Object.defineProperties(blob, { name: { value: name }, lastModified: { value: 0 } });
+    }
+    throw new Error("this host has neither File nor Blob; repo-backed image packs need one to upload");
+  }
+  async function prepareImagePack({ github, assetCache, digest, runner, now = () => Date.now() }, { pack, names = [], force = false } = {}) {
+    const work = packWork(pack, names);
+    const unbound = unboundNames(pack, names);
+    for (const { name } of work) {
+      runner.files.delete(name);
+      runner.imgProvenance.delete(name);
+    }
+    const entries = [];
+    for (const want of work) entries.push(await one({ github, assetCache, digest, runner, now }, want, force));
+    return { ref: pack ? pack.ref : null, entries, unbound, ok: entries.every((e) => e.state === "ready") };
+  }
+  async function one(ctx, want, force) {
+    const { github, assetCache, digest, runner, now } = ctx;
+    const base = { name: want.name, path: want.path, ref: want.ref, sha256: want.sha256, bytes: want.bytes };
+    if (typeof digest !== "function") {
+      return {
+        ...base,
+        state: "error",
+        source: null,
+        size: null,
+        digest: null,
+        error: "SHA-256 is not available in this context, so repo-backed bytes cannot be verified; Forge will not use them unverified"
+      };
+    }
+    let cached = null;
+    if (!force) {
+      try {
+        cached = await assetCache.get(want.sha256);
+      } catch {
+        cached = null;
+      }
+    }
+    let source = cached ? "cache" : "repo";
+    let bytes;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      if (source === "cache") {
+        bytes = cached.bytes;
+      } else {
+        try {
+          bytes = await github.raw(want.path, want.ref);
+        } catch (e) {
+          return {
+            ...base,
+            state: "error",
+            source: "repo",
+            size: null,
+            digest: null,
+            error: `could not fetch ${want.path} at ${want.ref.slice(0, 12)}: ${e && e.message || e}`
+          };
+        }
+      }
+      const size = bytes.byteLength ?? bytes.length ?? 0;
+      let hex = null;
+      if (size === want.bytes) {
+        try {
+          hex = toHex(await digest(bytes));
+        } catch (e) {
+          return {
+            ...base,
+            state: "error",
+            source,
+            size,
+            digest: null,
+            error: `could not compute SHA-256 for ${want.name}: ${e && e.message || e}`
+          };
+        }
+      }
+      if (size === want.bytes && hex === want.sha256) {
+        if (source === "repo") {
+          try {
+            await assetCache.put({ sha256: want.sha256, bytes, path: want.path, ref: want.ref });
+          } catch {
+          }
+        }
+        let file;
+        try {
+          file = makeFile(bytes, want.name, mimeOf(want.name));
+        } catch (e) {
+          return { ...base, state: "error", source, size, digest: hex, error: e && e.message || String(e) };
+        }
+        runner.files.set(want.name, file);
+        runner.imgProvenance.set(want.name, { sha256: want.sha256, path: want.path, ref: want.ref, bytes: want.bytes, at: now() });
+        return { ...base, state: "ready", source, size, digest: hex, error: null };
+      }
+      const why = size !== want.bytes ? `is ${size} bytes; the pack says ${want.bytes}` : `hashes to ${hex}; the pack says ${want.sha256}`;
+      if (source === "cache") {
+        try {
+          await assetCache.delete(want.sha256);
+        } catch {
+        }
+        cached = null;
+        source = "repo";
+        continue;
+      }
+      return {
+        ...base,
+        state: "refused",
+        source,
+        size,
+        digest: hex,
+        error: `${want.path} at ${want.ref.slice(0, 12)} ${why}. Nothing was uploaded and this image cannot be used; the manifest and the repository disagree about which file this is.`
+      };
+    }
+    return { ...base, state: "error", source, size: null, digest: null, error: "verification did not settle" };
+  }
+  function packGateProblems(pack, names, runner) {
+    const problems = [];
+    for (const want of packWork(pack, names)) {
+      const prov = runner.imgProvenance.get(want.name) ?? null;
+      const file = runner.files.get(want.name) ?? null;
+      if (!prov || !file) {
+        problems.push(`${want.name} is bound to ${want.path} at ${want.ref.slice(0, 12)} but has not been fetched and verified`);
+        continue;
+      }
+      if (prov.sha256 !== want.sha256) {
+        problems.push(`${want.name} was verified as ${prov.sha256.slice(0, 12)} but the manifest now binds ${want.sha256.slice(0, 12)}`);
+        continue;
+      }
+      if (prov.ref !== want.ref || prov.path !== want.path) {
+        problems.push(`${want.name} was fetched from ${prov.path} at ${prov.ref.slice(0, 12)}, not ${want.path} at ${want.ref.slice(0, 12)}`);
+        continue;
+      }
+      const size = Number(file.size);
+      if (size !== want.bytes) {
+        problems.push(`${want.name} is holding ${size} bytes, not the ${want.bytes} the pack names`);
+      }
+    }
+    return problems;
   }
 
   // src/ui/screens.mjs
@@ -5659,18 +6038,39 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     const imgs = s.images || [];
     const picks = imagePicks(imgs, app.runner.files, s.manifest.imgSizes, "imageUploader");
+    const pack = s.pack || null;
+    const packResult = s.packResult || null;
+    const packEntry = (name) => (packResult && packResult.entries ? packResult.entries.find((e) => e.name === name) : null) || null;
+    if (pack) {
+      const bound = imgs.filter((n) => packBinds(pack, n));
+      const ready = bound.filter((n) => (packEntry(n) || {}).state === "ready").length;
+      const kind = !packResult ? "info" : ready === bound.length ? "ok" : "bad";
+      card.appendChild(h(
+        "div",
+        { class: "f-banner " + kind },
+        h("b", {}, `Repo-backed images: ${ready}/${bound.length} verified. `),
+        `Bound to ${GH.owner}/${GH.repo} at commit ${pack.ref.slice(0, 12)}. Forge fetched each file from that immutable commit and checked its SHA-256 against the manifest; nothing is uploaded unless the digest matches.`,
+        h(
+          "div",
+          { class: "f-actions" },
+          h("button", { onClick: () => app.prepareImages(true) }, "Re-fetch from repository")
+        )
+      ));
+    }
     if (imgs.length) {
-      card.appendChild(h("h3", {}, `Images to pick (${imgs.length})`));
+      card.appendChild(h("h3", {}, `Images (${imgs.length})`));
       for (const p of picks) {
         const name = p.name;
-        const inp = h("input", { type: "file", accept: "image/*", style: { display: "none" }, onChange: (e) => {
-          const f = e.target.files[0];
+        const bound = packBinds(pack, name);
+        const e = bound ? packEntry(name) : null;
+        const inp = h("input", { type: "file", accept: "image/*", style: { display: "none" }, onChange: (ev) => {
+          const f = ev.target.files[0];
           if (f) {
             app.runner.files.set(name, f);
             app.refresh();
           }
         } });
-        const pillFor = { ready: ["VERIFIED", "picked"], refused: ["FAILED", "wrong file"], missing: ["FAILED", "missing"] }[p.state];
+        const pillFor = { ready: ["VERIFIED", bound ? "verified" : "picked"], refused: ["FAILED", "wrong file"], missing: ["FAILED", bound ? "not fetched" : "missing"] }[p.state];
         card.appendChild(h(
           "div",
           { class: "f-row" },
@@ -5678,6 +6078,13 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
             "div",
             { class: "f-grow" },
             h("div", { class: "f-mono" }, name, " ", h("span", { class: "f-pill " + pillFor[0] }, pillFor[1])),
+            // Provenance, for a bound image, is the whole point: the path, the commit and the digest
+            // Forge actually computed, not a claim that it matched.
+            bound ? h(
+              "div",
+              { class: "f-mute f-mono" },
+              `repo: ${pack.files[name].path} @ ${pack.ref.slice(0, 12)} \xB7 sha256 ${pack.files[name].sha256.slice(0, 16)}\u2026 \xB7 ${fmtBytes(pack.files[name].bytes)}${e && e.state === "ready" ? ` \xB7 verified from ${e.source}` : ""}`
+            ) : null,
             // the physical bytes, always, not only when they are wrong
             p.picked ? h(
               "div",
@@ -5685,20 +6092,30 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
               `selected: ${p.picked.name ?? "(unnamed)"} \xB7 ${fmtBytes(p.picked.size)}${p.expectedBytes != null ? ` \xB7 ledger ${fmtBytes(p.expectedBytes)}` : ""}${p.picked.type ? ` \xB7 ${p.picked.type}` : ""}`
             ) : null,
             p.renamed && p.ok ? h("div", { class: "f-mute" }, "the device renamed this file; its bytes match the ledger exactly") : null,
+            e && e.error ? h("div", { class: "f-err" }, e.error) : null,
             p.problems.length ? h("div", { class: "f-err" }, p.problems.join("\n")) : null
           ),
-          h("button", { onClick: () => inp.click() }, p.picked ? "Replace" : "Pick"),
-          inp
+          // A bound image has NO manual override. A provenance an operator can replace from a gallery
+          // is not provenance, so the only button is the one that fetches the named bytes again.
+          bound ? null : h("button", { onClick: () => inp.click() }, p.picked ? "Replace" : "Pick"),
+          bound ? null : inp
         ));
       }
     }
     const badImgs = unusablePicks(picks);
+    const packProblems = packGateProblems(pack, imgs, app.runner);
+    if (packProblems.length) card.appendChild(h(
+      "div",
+      { class: "f-banner bad" },
+      h("b", {}, "Cannot run: repo-backed images are not verified. "),
+      h("div", { class: "f-err" }, packProblems.join("\n"))
+    ));
     card.appendChild(h(
       "div",
       { class: "f-actions" },
       h("button", {
         class: "f-primary",
-        disabled: s.problems.length > 0 || badImgs.length > 0 || blocked.length > 0,
+        disabled: s.problems.length > 0 || badImgs.length > 0 || blocked.length > 0 || packProblems.length > 0,
         onClick: () => app.confirm(
           readOnly ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.` : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
           () => app.startJob()
@@ -6011,7 +6428,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   var inboxPath = (name) => `${GH.inboxDir}/${name}`;
 
   // src/core/core.mjs
-  var REQUIRED_DEPS = ["version", "storage", "journal", "cache", "repoCache", "runner", "github", "validator"];
+  var REQUIRED_DEPS = ["version", "storage", "journal", "cache", "repoCache", "assetCache", "digest", "runner", "github", "validator"];
   var OPTIONAL_DEPS = ["budget", "reader", "client", "session", "auth", "reconciler", "uploader", "now"];
   var STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "running", "runningNote"];
   var SCREENS = ["jobs", "manifests", "run", "captures", "settings"];
@@ -6045,6 +6462,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "go",
         "loadPicker",
         "notify",
+        "prepareImages",
         "recheckAuth",
         "requestPause",
         "resolveCaptures",
@@ -6175,11 +6593,70 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           for (const x of p) problems.push(`item ${it.idx} (${it.name}): ${x}`);
         }
         const images = [...new Set(plan.flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
-        this.state.selected = { entry, text, manifest, plan, problems, images };
+        this.state.selected = { entry, text, manifest, plan, problems, images, pack: manifest.imagePack ?? null, packResult: null };
+        this._scopePackProvenance(this.state.selected.pack);
         this.state.selected.blocked = this.blockedPaths(plan, manifest);
         this.changed();
+        if (this.state.selected.pack) await this.prepareImages();
       } catch (e) {
         this.fail("select manifest", e instanceof ManifestError ? e : e);
+      }
+    }
+    /**
+     * Fetch and verify every repo-backed image the selected manifest binds. Safe to call again: it
+     * clears what it is about to replace first, so a re-fetch cannot leave a half-verified mixture.
+     * @param {boolean} [force]  ignore the content cache and go to the repository
+     */
+    async prepareImages(force = false) {
+      const s = this.state.selected;
+      if (!s || !s.pack) return null;
+      return this._queuePack(() => this._prepareImages(s, force));
+    }
+    /**
+     * One preparation at a time. Two of them racing would both write `runner.files`, and the loser's
+     * bytes could land under a name the winner had already verified. Queuing rather than dropping the
+     * second call also means a re-tap of Re-fetch while one is in flight actually happens.
+     */
+    _queuePack(fn) {
+      const next = () => fn();
+      this._packChain = (this._packChain ?? Promise.resolve()).then(next, next);
+      return this._packChain;
+    }
+    /**
+     * Provenance belongs to the manifest currently open. A name the new pack does not bind must lose
+     * both its record AND the File that record vouched for: otherwise selecting manifest B after
+     * preparing manifest A leaves A's digest recorded under a shared logical filename, and the
+     * content-keyed upload reuse would hand B the URL of A's picture.
+     */
+    _scopePackProvenance(pack) {
+      for (const name of [...this.runner.imgProvenance.keys()]) {
+        if (packBinds(pack, name)) continue;
+        this.runner.imgProvenance.delete(name);
+        this.runner.files.delete(name);
+      }
+    }
+    async _prepareImages(s, force) {
+      if (this.state.selected !== s) return null;
+      this._preparing = true;
+      this.changed();
+      try {
+        const result = await prepareImagePack(this, { pack: s.pack, names: s.images, force });
+        if (this.state.selected !== s) return result;
+        s.packResult = result;
+        const bad = result.entries.filter((e) => e.state !== "ready");
+        if (!bad.length) {
+          this.say(`${result.entries.length} repo-backed image(s) verified against ${s.pack.ref.slice(0, 7)}`, "ok");
+        } else {
+          this.say(`${bad.length} of ${result.entries.length} repo-backed image(s) could not be verified: ${bad.map((e) => `${e.name}: ${e.error}`).join(" | ")}`, "bad", 12e3);
+        }
+        return result;
+      } catch (e) {
+        this.fail("prepare repo-backed images", e);
+        if (this.state.selected === s) s.packResult = { ref: s.pack.ref, entries: [], unbound: [], ok: false, error: e && e.message || String(e) };
+        return null;
+      } finally {
+        this._preparing = false;
+        this.changed();
       }
     }
     // ------------------------------------------------------------------ jobs
@@ -6195,6 +6672,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       const badImgs = unusablePicks(imagePicks(s.images, this.runner.files, s.manifest.imgSizes, "imageUploader"));
       if (badImgs.length) {
         this.say(`${badImgs.length} image selection(s) do not match the manifest: ${badImgs.map((p) => p.problems[0] ?? `${p.name} is not picked`).join("; ")}. Nothing was sent.`, "bad", 12e3);
+        return this.changed();
+      }
+      const packProblems = packGateProblems(s.pack, s.images, this.runner);
+      if (packProblems.length) {
+        this.say(`${packProblems.length} repo-backed image(s) are not verified: ${packProblems.join("; ")}. Nothing was sent.`, "bad", 12e3);
         return this.changed();
       }
       const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
@@ -6222,6 +6704,22 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         } catch (e) {
           return this.fail("resume: fetch manifest", e);
         }
+      }
+      try {
+        const attached = this.runner.manifests.get(jobId);
+        const pack = attached && attached.manifest ? attached.manifest.imagePack : null;
+        this._scopePackProvenance(pack);
+        if (pack) {
+          const names = [...new Set((attached.order || []).flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
+          const result = await this._queuePack(() => prepareImagePack(this, { pack, names }));
+          const bad = result.entries.filter((e) => e.state !== "ready");
+          if (bad.length) {
+            this.say(`resume refused: ${bad.length} repo-backed image(s) could not be verified: ${bad.map((e) => `${e.name}: ${e.error}`).join(" | ")}. Nothing was sent.`, "bad", 12e3);
+            return this.changed();
+          }
+        }
+      } catch (e) {
+        return this.fail("resume: prepare repo-backed images", e);
       }
       this.go("run", { jobId });
       const hasSent = job.items.some((i) => i.state === "SENT");
@@ -6534,6 +7032,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     selectManifest(entry) {
       return this.core.selectManifest(entry);
+    }
+    prepareImages(force) {
+      return this.core.prepareImages(force);
     }
     startJob() {
       return this.core.startJob();
@@ -11898,7 +12399,13 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   };
 
   // src/main.mjs
-  var VERSION = "forge 0.4.2";
+  var VERSION = "forge 0.5.0";
+  function sha256(bytes, subtle = globalThis.crypto && globalThis.crypto.subtle) {
+    if (!subtle || typeof subtle.digest !== "function") {
+      return Promise.reject(new Error("crypto.subtle is unavailable (WebCrypto needs a secure context), so repo-backed image bytes cannot be verified"));
+    }
+    return subtle.digest("SHA-256", bytes);
+  }
   function compose({
     storage,
     indexedDB,
@@ -11910,12 +12417,15 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     client = null,
     sleep,
     runtime = null,
-    authState = AUTH.UNKNOWN
+    authState = AUTH.UNKNOWN,
+    digest = sha256
   } = {}) {
     const deps = {};
     deps.journal = new Journal(storage, clock);
     deps.cache = new CaptureCache(indexedDB, clock);
     deps.repoCache = new RepoTextCache(indexedDB, clock);
+    deps.assetCache = new AssetCache(indexedDB, clock);
+    deps.digest = digest;
     deps.session = new CookieSession({ fetchImpl, origin: "" });
     deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`) });
     deps.auth = new AuthState({ client: deps.client, runtime, clock, state: authState });

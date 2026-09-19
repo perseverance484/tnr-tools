@@ -1,6 +1,6 @@
 // Manifest parsing and planning. Accepts the shapes committed under push/: a top-level
 // `items` (legacy `jutsu`) array, optional `capture {before, after}`, `_note`, `skipPreflight`,
-// `dedupNames`, `readBack`, `imgSizes`. Each item is {entity, slot, name, srcId?, targetId?,
+// `dedupNames`, `readBack`, `imgSizes`, `imagePack`. Each item is {entity, slot, name, srcId?, targetId?,
 // data, phase?}. slot "create" creates; "edit" and "convert" both update.
 //
 // Planning produces an ORDERED list of item specs for the journal. Order is manifest order,
@@ -12,9 +12,12 @@ import { canPersistFull, FULL_PERSIST_PATHS } from "../storage/captures.mjs";
 import { collectRefs, REF_RE } from "./refs.mjs";
 import { resolvePoolCodes, stuckPoolCodes, kitProblems } from "./pool.mjs";
 import { lintManifest } from "./lints.mjs";
+import { normalizeImagePack } from "./imgpack.mjs";
 
 export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile"]);
 const SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
+// Same production as lints.mjs IMG_REF_RE; a fresh instance because /g regexes carry lastIndex.
+const IMG_REF_SCAN = /@img:([A-Za-z0-9_.\-]+)/g;
 
 // How durably a capture's response body is kept. "summary" is the historical behaviour: the
 // journal and the bundle carry only {phase, proc, input, ok, rows, error}. "full" additionally
@@ -84,6 +87,13 @@ export function parseManifest(source) {
   const lint = lintManifest({ items, imgSizes });
   problems.push(...lint.errors);
   const warnings = [...lint.warnings];
+  // The repo-backed image pack, validated HERE so a malformed binding can never open a job. The
+  // logical names it is cross-checked against are the ones the items actually reference, taken the
+  // same way L17 takes them (see imgpack.mjs for the five rules and why each is fatal).
+  const imgNames = [...new Set([...JSON.stringify(items).matchAll(IMG_REF_SCAN)].map((x) => x[1]))];
+  const packed = normalizeImagePack(m.imagePack, { imgSizes, names: imgNames });
+  problems.push(...packed.errors);
+  warnings.push(...packed.warnings);
   for (const it of items) {
     if (it.entity !== "ai" && it.entity !== "aiProfile") continue;
     for (const w of kitProblems(it.data).warnings) warnings.push(`item ${it.idx} (${it.name}): ${w}`);
@@ -101,6 +111,13 @@ export function parseManifest(source) {
     skipPreflight: !!m.skipPreflight,
     imgSizes,
   };
+  // `imagePack` decides WHICH BYTES a run uploads, so it belongs to execution identity: two
+  // manifests identical but for their pack are not the same run and must not be mistaken for one
+  // another by journal.open() or attach(). It is added as a key ONLY when a pack is present, and
+  // in normalized form, so (a) every manifest written before packs existed keeps the exact hash it
+  // already had - including one carrying a non-default policy, whose open jobs therefore still
+  // resume - and (b) re-spelling a pack (key order, whitespace) does not change identity.
+  if (packed.pack) policy.imagePack = packed.pack;
   return {
     items, capture, warnings, poolResolved, policy,
     note: typeof m._note === "string" ? m._note : null,
@@ -108,6 +125,7 @@ export function parseManifest(source) {
     dedupNames: policy.dedupNames,
     readBack: policy.readBack,
     imgSizes,
+    imagePack: packed.pack,
     fullCaptures: [...capture.before, ...capture.after].filter((c) => c.persist === "full").length,
     // The hash is taken over the RAW manifest bodies, not the normalized ones, so the persistence
     // request is inside it by construction: `persist` is a key of the raw capture entry, and
