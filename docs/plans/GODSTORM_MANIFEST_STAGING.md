@@ -193,3 +193,28 @@ Raw generated candidates, rejected images and review composites are never manife
 | Live requests/writes in this staging pass | ZERO |
 
 The next safe manifest progress comes from asset intake: each accepted avatar/portrait can be processed and its exact production metadata added immediately while the copy/reward decisions remain independent.
+
+
+## 9. AI rule-safety closure and current executable-scope manifest
+
+A current-source audit was completed on 2026-09-19 against `studie-tech/TheNinjaRPG@a670c9aaa741157dc66eacc949600ff2db0b48cd` using the full September 14 AI and AI-profile captures. Durable review: `docs/reviews/REVIEW_2026-09-19_godstorm_ai_rule_safety.md`.
+
+Result:
+- all 18 retained profiles resolve;
+- every specific/combo jutsu reference is equipped;
+- every SELF jutsu is action-targeted SELF;
+- every OTHER_USER jutsu used by a specific/combo rule is action-targeted RANDOM_OPPONENT;
+- every specific/combo offensive rule is guarded at or inside the minimum range of the action(s) it can select;
+- all 18 profiles carried one unsafe authored pattern: an unconditional `use_highest_power_action(effect=damage, target=RANDOM_OPPONENT)` fallback.
+
+Current game source does not range-filter `availableUserActions` against the profile-supplied target coordinate. If movement is checked but cannot produce a usable move/path, that unconditional fallback can select a damage action beyond its range and `performBattleAction` can reject/throw. The staged correction preserves every other rule and adds the engine-native adjacent guard `distance_lower_than <= 2` on RANDOM_OPPONENT to that one fallback in each profile. A second programmatic target/range pass over the corrected rule sets reports zero remaining issues in this audit class.
+
+The complete **currently safe executable scope** is checked in at `push/48_godstorm_current_manifest.json`:
+- 3 hidden SCENE_BACKGROUND creates using the three accepted production files and exact `imgSizes`;
+- 18 existing `aiProfile` edits applying only the bounded fallback correction;
+- 21 items total;
+- no quest mutation yet.
+
+“Currently safe executable scope” is deliberate. The quest graph delta is structurally frozen, but applying it while leaving old Tower/cash-out prose or inventing copy/reward/scene-character fields would create an incoherent intermediate quest. The quest edit remains withheld until the unresolved copy, reward/cadence/chest and scene-character slots are frozen. This is not permission to run item 48 against production; the director remains the only live-game operator.
+
+For the next manifest revision, accepted avatar/scene-character assets should be added to the same generator/pack and quest edits should be emitted only when every required player-facing field is settled. Do not remove the 18 profile corrections when later revisions supersede item 48.
