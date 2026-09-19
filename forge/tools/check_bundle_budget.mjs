@@ -6,6 +6,44 @@
 // reproducible across runs and machines.
 //
 // Raising the budget is allowed and is meant to be a deliberate, reviewed edit of this file.
+//
+// ---- history -------------------------------------------------------------------------------
+//
+// Phase 0 freeze:            raw 413,323 / gzip 77,998   ceiling 430,000 / 81,000
+// Godstorm defects repair:   raw 424,642 / gzip  81,344  ceiling stepped (gzip went 344 over)
+// Repo-backed image packs:   raw 447,540 / gzip  86,927  ceiling stepped
+// image-pack review F1/F2:   raw 451,847 / gzip  88,356  ceiling stepped AGAIN, to 470,000 / 92,000
+//
+// That second step inside one feature left the bundle at 96.1% raw and 96.0% gzip and is what the
+// reviewer objected to: two raises for one feature is a signal, not a measurement. The standing
+// question - whether Forge needed a size pass rather than another ceiling - was recorded as open
+// and is now answered below.
+//
+// ---- the size pass (Forge Presentation Studio P0) --------------------------------------------
+//
+// Three changes, no behaviour change, measured by this tool:
+//
+//   1. nested.json stores its 165 allowed key sets as 53 distinct ones named by index instead of
+//      165 literal arrays. Same contract, proven by digest against the pre-compaction content
+//      (test/runner.test.mjs); the bundle stopped carrying the same twenty key names seventy-six
+//      times.                                                   raw 451,847 -> 373,903  (gzip -255)
+//   2. Comments are stripped from the ARTIFACT at build time and the strip is proven equivalent to
+//      the unstripped build by esbuild's own parser (build.mjs). esbuild at minify:false drops
+//      `//` comments but keeps every `/** */` block, so ~34 KB raw of JSDoc that nothing at runtime
+//      reads was being shipped. forge/src keeps every word of it - this is the opposite of moving
+//      explanatory comments out of the code to save bytes.       raw 373,903 -> 339,690  (gzip -13,175)
+//   3. Dead exports removed (isRef, hasRefLiteral, POOL_META) and the results-bundle filename,
+//      which existed twice, now has one owner.                   raw 339,690 -> 339,669
+//
+// Net: raw 451,847 -> 339,669 (-24.8%), gzip 88,356 -> 74,926 (-15.2%). The ceiling below is set
+// from THAT measurement at the ~4% headroom the Phase 0 freeze used, so it is a ratchet against
+// the reduced product rather than a ceiling raised to fit the old one.
+//
+// NOT taken, and deliberately left as a decision rather than made here: full esbuild minification
+// measures raw 261,029 / gzip 61,525 on this build, and whitespace-only minification 301,678 /
+// 67,770. Either would buy far more headroom than the pass above, and both make the shipped
+// artifact unreadable. In a repository whose whole model is that the committed artifact can be
+// audited, that is a product decision for the director and the reviewer, not a size fix.
 
 import { readFileSync, statSync } from "node:fs";
 import { gzipSync } from "node:zlib";
@@ -14,46 +52,7 @@ import { fileURLToPath } from "node:url";
 
 const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_bundle.js");
 
-// Measured at the Phase 0 freeze by this tool: raw 413,323 / gzip 77,998. (zlib's gzipSync and the
-// gzip(1) CLI differ by a few bytes of header; this tool's number is the one the budget tracks.)
-// Fresh-main baseline before Phase 0 was raw 404,594, so the extraction cost ~8.7 KB raw for the
-// core modules, the host adapter, the repo-text store and the runner emitter.
-//
-// Headroom is ~4%: enough for ordinary change, small enough that a structural regression trips it.
-//
-// RAISED for the Godstorm defects repair (docs/handoffs/GODSTORM_FORGE_DEFECTS_REPAIR_*). The four
-// fixes - the per-procedure list-input table, the structural rules comparison, the manifest
-// execution-policy identity and the image-pick contract - measured raw 424,642 / gzip 81,344,
-// which put gzip 344 bytes over the old ceiling. That is ~4.9 KB raw of new code and its comments
-// for four defects, not a structural regression, so the ratchet is stepped rather than the code
-// squeezed to fit. Deliberate and reviewable, which is what the paragraph above asks for; a
-// reviewer who disagrees should say so, because the next change inherits this headroom.
-//
-// RAISED for repo-backed image packs (docs/handoffs/FORGE_REPO_BACKED_IMAGE_PACKS.md). Measured by
-// this tool at raw 447,540 / gzip 86,927, against 424,642 / 81,344 for the bundle on main: +22.4 KB
-// raw, +5.5 KB gzip. That is three new modules and their reasoning - the manifest binding contract
-// (runner/imgpack.mjs), the content-addressed asset store (storage/assets.mjs), the fetch/verify
-// pass and the Start gate (core/imagepack.mjs) - plus the runner's content-keyed upload reuse and
-// the provenance rows on the manifests screen. Roughly half of it is comment: these files carry the
-// WHY of a provenance contract, and squeezing that out to hold a number would be the wrong trade.
-// No new dependency and no new runtime code fetch; the digest is WebCrypto, from the browser.
-// The ratchet is stepped to ~4% headroom, the same margin the Phase 0 freeze used, so ordinary
-// change fits and a structural regression still trips it. A reviewer who wants the step smaller
-// should say so, because the next change inherits this headroom.
-//
-// STEPPED A SECOND TIME, in the same feature, for the independent review's F1/F2 corrections
-// (docs/reviews/REVIEW_2026-09-19_repo_backed_image_packs.md). The corrections measured raw 451,847
-// / gzip 88,356, which is 97.2% / 98.2% of the ceiling set above: still passing, but 1.6 KB of gzip
-// headroom is not a ratchet, it is a tripwire for whatever lands next. So the ceiling moves rather
-// than leaving the next unrelated commit to discover it.
-//
-// The added weight is the two-phase prepare/commit split, the File-identity binding, the epoch
-// currency check, and the runner's re-verification at the upload boundary - plus the reasoning for
-// each, which is where a reviewer of a provenance contract needs it. This is now the SECOND raise
-// for one feature, and review observation 2 already named shrinking headroom as a concern: the
-// standing question of whether Forge needs a size pass of its own is real and is NOT answered here.
-// It should be settled deliberately rather than by squeezing this change.
-export const BUDGET = { raw: 470_000, gzip: 92_000 };
+export const BUDGET = { raw: 354_000, gzip: 78_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

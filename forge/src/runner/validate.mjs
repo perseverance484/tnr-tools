@@ -49,15 +49,57 @@ export const AI_OMITTED = Object.freeze([
 /** Which 45d entity backs a manifest entity. */
 export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai" });
 
+/**
+ * Restore the per-discriminator key sets from nested.json's shared key-set table.
+ *
+ * The 165 allowed key sets at the pin are only 53 distinct arrays - every "absorb"-shaped effect
+ * tag allows the same keys - so the file stores each one ONCE in `sets` and every section names it
+ * by index. That is a storage encoding of the same contract, not a different contract: the
+ * expansion below is asserted byte-for-byte against the pre-compaction content in
+ * test/runner.test.mjs, which is the gate that keeps the two equivalent.
+ *
+ * FAILS CLOSED, and that matters more than the bytes it saves: an index this file does not define,
+ * a missing table, a section that is neither an index nor a map of them - any of those returns
+ * null, and a null nested surface makes the Validator refuse every nested writable structure
+ * rather than send it unchecked. A half-expanded table would be worse than no table at all.
+ *
+ * @param {object|null} raw  the parsed src/runner/nested.json
+ * @returns {object|null} {effects: {type: [keys]}, ...} or null when the table cannot be trusted
+ */
+export function expandNested(raw) {
+  if (!raw || typeof raw !== "object" || !Array.isArray(raw.sets) || !raw.effects) return null;
+  const at = (i) => (Number.isInteger(i) && i >= 0 && i < raw.sets.length && Array.isArray(raw.sets[i]) ? raw.sets[i] : null);
+  const out = {};
+  for (const [section, v] of Object.entries(raw)) {
+    if (section === "_meta" || section === "sets") continue;
+    if (typeof v === "number") {
+      const set = at(v);
+      if (!set) return null;
+      out[section] = set;
+      continue;
+    }
+    if (!v || typeof v !== "object" || Array.isArray(v)) return null;
+    const byValue = {};
+    for (const [discriminator, i] of Object.entries(v)) {
+      const set = at(i);
+      if (!set) return null;
+      byValue[discriminator] = set;
+    }
+    out[section] = byValue;
+  }
+  return out.effects ? out : null;
+}
+
 export class Validator {
   /**
    * @param {object} schemas  the parsed field file ({entities: {name: {fields: {...}}}}) or null
    * @param {object} [nested] src/runner/nested.json: the nested key surface derived from the same
-   *   pin by tools/derive_nested.mjs. Without it, nested checking FAILS CLOSED: a manifest that
-   *   carries any nested writable structure is refused rather than sent unchecked.
+   *   pin by tools/derive_nested.mjs, in its shared key-set encoding. Without it, nested checking
+   *   FAILS CLOSED: a manifest that carries any nested writable structure is refused rather than
+   *   sent unchecked - and so does a table expandNested() cannot trust.
    */
   constructor(schemas, nested = null) {
-    this.nested = nested && nested.effects ? nested : null;
+    this.nested = expandNested(nested);
     this.fields = {};
     const ents = schemas && schemas.entities ? schemas.entities : {};
     for (const [name, e] of Object.entries(ents)) {
