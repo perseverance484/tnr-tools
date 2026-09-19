@@ -27,7 +27,7 @@
 //
 // Zero network, zero game requests. It reads git and one manifest file.
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { dirname, join, relative } from "node:path";
@@ -63,6 +63,23 @@ export function blobAt(ref, path) {
 }
 
 export const sha256Hex = (buf) => createHash("sha256").update(buf).digest("hex");
+
+/**
+ * Where a manifest lives now, staged or archived.
+ *
+ * push/README.md requires a manifest to be ARCHIVED once it has been run: the builder and Forge
+ * pickers list push/, so a spent write-manifest left there is one tap away from being replayed - for
+ * push/53 that would mean three duplicate SCENE_BACKGROUND records. A guard that only looked in
+ * push/ would therefore switch itself off at exactly the moment the manifest became history worth
+ * keeping honest, so it looks in the spent-manifest archive too.
+ */
+export function findManifest(name) {
+  for (const rel of [join("push", name), join("archive", "spent-manifests", "push-2026-09-19", name)]) {
+    const p = join(REPO, rel);
+    if (existsSync(p)) return p;
+  }
+  return null;
+}
 
 /**
  * Can this clone see that commit at all? A shallow checkout (actions/checkout defaults to depth 1)

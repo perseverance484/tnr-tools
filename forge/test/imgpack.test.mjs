@@ -35,6 +35,8 @@ import { MemoryStorage, fakeClock } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
+// Resolved through the tool's finder so the end-to-end guard survives the manifest being archived
+// after its run, exactly as push/README.md requires.
 const REPAIR_53 = join(HERE, "..", "..", "push", "53_godstorm_failed_items_repair.json");
 const COMMIT = "28bba70d0e14f74a768193881b592b92326f2867"; // a real 40-hex commit, used as a literal ref
 
@@ -830,8 +832,10 @@ test("push/53: the eight Godstorm images bind to one commit, verify, and clear t
   // The real manifest text when it is in the tree, with a pack spliced in over its OWN imgSizes.
   // This is the shape the first production pack has to satisfy: three Stormcourt backgrounds and
   // five Marrow avatars, the eight files whose manual selection cost nine live writes.
-  if (!existsSync(REPAIR_53)) return; // the fixture is prepared on the planning branch
-  const raw = JSON.parse(readFileSync(REPAIR_53, "utf8"));
+  const { findManifest } = await import("../tools/make_image_pack.mjs");
+  const path53 = findManifest("53_godstorm_failed_items_repair.json");
+  if (!path53) return; // the fixture is prepared on the planning branch
+  const raw = JSON.parse(readFileSync(path53, "utf8"));
   assert.deepEqual(Object.keys(raw.imgSizes).sort(), Object.keys(GODSTORM).sort(),
     "push/53's ledger has moved; re-derive this fixture rather than editing the expectation");
   const names = Object.keys(raw.imgSizes);
@@ -859,8 +863,10 @@ test("push/53 END TO END: its committed pack verifies 8/8 from the repository an
   // Not a synthetic pack over the real ledger this time - the REAL committed pack, with the bytes
   // fetched out of git at the commit the pack names. This is the closest a socket-free test gets to
   // what the operator will see when they open the repair in Forge.
-  if (!existsSync(REPAIR_53)) return;
-  const m = parseManifest(readFileSync(REPAIR_53, "utf8"));
+  const { findManifest } = await import("../tools/make_image_pack.mjs");
+  const path53 = findManifest("53_godstorm_failed_items_repair.json");
+  if (!path53) return;
+  const m = parseManifest(readFileSync(path53, "utf8"));
   if (!m.imagePack) return; // the pack is staged separately from the Forge feature
   assert.equal(Object.keys(m.imgSizes).length, 8);
   assert.equal(Object.keys(m.imagePack.files).length, 8);
