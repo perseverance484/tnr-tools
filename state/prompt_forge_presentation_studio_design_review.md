@@ -29,7 +29,7 @@ Verify live `main` and read:
 - `docs/agents/ART_DIRECTOR.md`
 - `docs/agents/ENGINEERING_AUDITOR.md`
 - `docs/workflows/FABLE_REVIEW.md`
-- `docs/plans/FORGE_PRESENTATION_STUDIO_UPGRADE_PLAN.md`
+- `docs/plans/FORGE_PRESENTATION_STUDIO_UPGRADE_PLAN.md` from `chatgpt/forge-presentation-studio-plan@99f1aa8a6fe7cc7361aa613cdcad258bafb9c83e`
 
 Also inspect the current Forge implementation/tests, the current art-production workflow, and the completed Godstorm evidence/results needed to understand the golden fixture.
 
@@ -49,7 +49,7 @@ Key failures included:
 - operator corrections being spent on recovering facts rather than evaluating design;
 - earlier mobile image-selection pain that ultimately led to repo-backed image packs.
 
-The accepted plan treats presentation output as a deterministic derivative of canonical evidence, not as a freeform image-generation problem.
+The governing draft plan treats presentation output as a deterministic derivative of canonical evidence, not as a freeform image-generation problem.
 
 ## Your first assignment
 
