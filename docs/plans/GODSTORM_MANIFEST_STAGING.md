@@ -96,7 +96,7 @@ These five existing Marrow AI records still have the default avatar and remain o
 | Umbral Reaver | `9uDe65Qt90xnT-fM5vJZ7` | ACCEPTED / processed / wired as `ai_godstorm_marrow_umbral_reaver.webp`, SHA-256 `30693d5dc252f8ce61638a0b4c191523ef7df8461b8252ff309e21192154bfcc` |
 | Hollow Lantern | `IG5Mbfi_2lpUTnUU4_XhZ` | ACCEPTED / processed / wired as `ai_godstorm_marrow_hollow_lantern.webp`, SHA-256 `50d1786fb6f5c2a2350b04dd27ec1ff8b0e1d58237e98337c0a2065e226b6055` |
 | Starless Monk | `qQ6jMh8w6aiyr4pevwDh-` | ACCEPTED / processed / wired as `ai_godstorm_marrow_starless_monk.webp`, SHA-256 `877eef3b0cecc914d4e3300e21cb50c87030093c5730d4feb54b71a7e7cdc870` |
-| Nightveil Sentinel | `YvinZCoMWiz0RY8ZBP5EW` | PENDING new accepted AI_AVATAR |
+| Nightveil Sentinel | `YvinZCoMWiz0RY8ZBP5EW` | USER-SUPPLIED / processed / wired as `ai_godstorm_marrow_nightveil_sentinel.webp`, SHA-256 `d5c5a8c8a2be20700a7df16b9ac38e4b9cd6a7a2917efa5d7d815d19deebd9e2` |
 | Warden of the First Dark | `oi4bHe3upEhLkI-ElJuMX` | PENDING new accepted AI_AVATAR |
 
 Two rejected Umbral-generation attempts from the previous chat are not manifest inputs and must not be reused as TNR style references.
@@ -184,7 +184,7 @@ Raw generated candidates, rejected images and review composites are never manife
 | Stormcourt environment compositions | 3/3 APPROVED |
 | Stormcourt environment production exports | 3/3 COMPLETE LOCALLY |
 | Stormcourt runtime background IDs | 0/3, PENDING |
-| Marrow missing AI avatars | 3/5 accepted, processed and manifest-wired; Nightveil Sentinel + Warden of the First Dark pending |
+| Marrow missing AI avatars | 4/5 supplied, processed and manifest-wired; Warden of the First Dark pending |
 | Keeper scene characters | 0/10 resolved runtime IDs |
 | Blank scene character | PENDING |
 | Exact player-facing copy | NOT FROZEN |
@@ -211,9 +211,9 @@ Current game source does not range-filter `availableUserActions` against the pro
 
 The complete **currently safe executable scope** is checked in at `push/48_godstorm_current_manifest.json`:
 - 3 hidden SCENE_BACKGROUND creates using the three accepted production files and exact `imgSizes`;
-- 3 existing Marrow `ai` edits wiring the accepted Umbral Reaver, Hollow Lantern and Starless Monk avatars by exact `@img` filename;
+- 4 existing Marrow `ai` edits wiring Umbral Reaver, Hollow Lantern, Starless Monk and Nightveil Sentinel avatars by exact `@img` filename;
 - 18 existing `aiProfile` edits applying only the bounded fallback correction;
-- 24 items total;
+- 25 items total;
 - no quest mutation yet.
 
 “Currently safe executable scope” is deliberate. The quest graph delta is structurally frozen, but applying it while leaving old Tower/cash-out prose or inventing copy/reward/scene-character fields would create an incoherent intermediate quest. The quest edit remains withheld until the unresolved copy, reward/cadence/chest and scene-character slots are frozen. This is not permission to run item 48 against production; the director remains the only live-game operator.
@@ -232,3 +232,14 @@ The director supplied and accepted the first three missing Marrow avatar masters
 | Starless Monk | `ai_godstorm_marrow_starless_monk.webp` | 1477x1477 | 207,410 | `877eef3b0cecc914d4e3300e21cb50c87030093c5730d4feb54b71a7e7cdc870` |
 
 All three are square, carry alpha, exceed the 320px AI_AVATAR minimum and are below the 460,800-byte working ceiling. They are wired into `push/48_godstorm_current_manifest.json` as existing-AI edits to `data.avatar`; no runtime ID is needed for an AI avatar image because Forge uploads the file and resolves `@img:<filename>` directly to the avatar URL. The remaining missing Marrow AI avatar slots are Nightveil Sentinel and Warden of the First Dark.
+
+
+### Nightveil Sentinel avatar intake (2026-09-19)
+
+The director supplied the fourth missing Marrow avatar master for Nightveil Sentinel. The 1536x1536 lime-key source was processed through the same component-key path as the first three, cropped to the visible subject, transparently padded to exact 1:1 and exported as lossless WebP. The dark-background QC composite was inspected and showed a clean silhouette with no remaining lime field or obvious keyed holes.
+
+| AI | Production file | Output px | Bytes | SHA-256 |
+| --- | --- | ---: | ---: | --- |
+| Nightveil Sentinel | `ai_godstorm_marrow_nightveil_sentinel.webp` | 1429x1429 | 115,618 | `d5c5a8c8a2be20700a7df16b9ac38e4b9cd6a7a2917efa5d7d815d19deebd9e2` |
+
+The export is square, carries alpha, exceeds the 320px AI_AVATAR minimum and is below the 460,800-byte working ceiling. It is wired into `push/48_godstorm_current_manifest.json` as an existing-AI edit to `YvinZCoMWiz0RY8ZBP5EW.data.avatar` using the exact `@img` filename. The only remaining missing Marrow AI avatar slot is Warden of the First Dark.
