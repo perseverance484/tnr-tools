@@ -64,6 +64,31 @@ ART = (
 )
 
 
+AVATARS = (
+    {
+        "label": "Umbral Reaver avatar",
+        "ai_id": "9uDe65Qt90xnT-fM5vJZ7",
+        "file": "ai_godstorm_marrow_umbral_reaver.webp",
+        "bytes": 161650,
+        "sha256": "30693d5dc252f8ce61638a0b4c191523ef7df8461b8252ff309e21192154bfcc",
+    },
+    {
+        "label": "Hollow Lantern avatar",
+        "ai_id": "IG5Mbfi_2lpUTnUU4_XhZ",
+        "file": "ai_godstorm_marrow_hollow_lantern.webp",
+        "bytes": 196056,
+        "sha256": "50d1786fb6f5c2a2350b04dd27ec1ff8b0e1d58237e98337c0a2065e226b6055",
+    },
+    {
+        "label": "Starless Monk avatar",
+        "ai_id": "qQ6jMh8w6aiyr4pevwDh-",
+        "file": "ai_godstorm_marrow_starless_monk.webp",
+        "bytes": 207410,
+        "sha256": "877eef3b0cecc914d4e3300e21cb50c87030093c5730d4feb54b71a7e7cdc870",
+    },
+)
+
+
 def load(path: Path) -> dict:
     with path.open(encoding="utf-8") as fh:
         return json.load(fh)
@@ -269,6 +294,20 @@ def main() -> None:
             }
         )
 
+    for avatar in AVATARS:
+        if avatar["ai_id"] not in ids:
+            raise SystemExit(f"{avatar['label']}: AI is no longer retained")
+        img_sizes[avatar["file"]] = avatar["bytes"]
+        items.append(
+            {
+                "name": avatar["label"],
+                "entity": "ai",
+                "slot": "edit",
+                "targetId": avatar["ai_id"],
+                "data": {"avatar": f"@img:{avatar['file']}"},
+            }
+        )
+
     for ai_id in ids:
         ai = ai_by_id.get(ai_id)
         profile = profile_by_id.get(ai_id)
@@ -288,17 +327,19 @@ def main() -> None:
             }
         )
 
-    if len(items) != 21:
-        raise SystemExit(f"expected 21 manifest items, got {len(items)}")
+    expected = len(ART) + len(AVATARS) + len(ids)
+    if len(items) != expected:
+        raise SystemExit(f"expected {expected} manifest items, got {len(items)}")
 
     manifest = {
         "_note": (
             "Godstorm current-scope manifest, 2026-09-19. COMPLETE for currently "
             "safe executable writes only: create the three director-approved "
-            "Stormcourt SCENE_BACKGROUND assets and apply the source-audited "
-            "range-safe fallback correction to all 18 retained AI profiles. This "
-            "intentionally does NOT mutate the two quests yet: exact player-facing "
-            "copy, rewards/cadence/chest, five Marrow avatar files, ten keeper "
+            "Stormcourt SCENE_BACKGROUND assets, update the first three accepted "
+            "Marrow AI avatars, and apply the source-audited range-safe fallback "
+            "correction to all 18 retained AI profiles. This intentionally does NOT "
+            "mutate the two quests yet: exact player-facing copy, rewards/cadence/chest, "
+            "Nightveil Sentinel and Warden of the First Dark avatars, ten keeper "
             "SCENE_CHARACTER assets, and the blank SCENE_CHARACTER are still "
             "unresolved. No quest graph/content write is safe until those release "
             "dependencies are frozen. See docs/plans/GODSTORM_MANIFEST_STAGING.md "
@@ -312,7 +353,8 @@ def main() -> None:
     OUT.write_text(json.dumps(manifest, indent=1) + "\n", encoding="utf-8")
     print(
         f"wrote {OUT}: {len(items)} items "
-        f"({len(ART)} asset creates, {len(ids)} aiProfile edits)"
+        f"({len(ART)} asset creates, {len(AVATARS)} ai avatar edits, "
+        f"{len(ids)} aiProfile edits)"
     )
 
 
