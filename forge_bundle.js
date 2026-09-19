@@ -2795,6 +2795,119 @@
     storage.setItem(GH_KEY, JSON.stringify(gh));
   }
 
+  // src/runner/imgpack.mjs
+  var IMG_NAME_RE = /^[A-Za-z0-9_.\-]+$/;
+  var COMMIT_RE = /^[0-9a-f]{40}$/;
+  var SHA256_RE = /^[0-9a-f]{64}$/;
+  var SEGMENT_RE = /^[A-Za-z0-9._-]+$/;
+  var EXT_MIME = Object.freeze({
+    webp: "image/webp",
+    png: "image/png",
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    gif: "image/gif",
+    avif: "image/avif"
+  });
+  var extOf = (n) => {
+    const m = /\.([A-Za-z0-9]+)$/.exec(String(n ?? ""));
+    return m ? m[1].toLowerCase() : null;
+  };
+  var mimeOf = (n) => EXT_MIME[extOf(n)] ?? "application/octet-stream";
+  function toHex(buf) {
+    const bytes = buf instanceof Uint8Array ? buf : new Uint8Array(buf);
+    let out = "";
+    for (let i = 0; i < bytes.length; i++) out += bytes[i].toString(16).padStart(2, "0");
+    return out;
+  }
+  function pathProblem(path) {
+    if (typeof path !== "string" || !path) return "path must be a non-empty string";
+    if (path.length > 255) return "path is longer than 255 characters";
+    if (path.includes("\\")) return "path contains a backslash";
+    if (/^[A-Za-z][A-Za-z0-9+.-]*:/.test(path)) return "path looks like a URL, not a repository path";
+    if (path.startsWith("/")) return "path must be repository-relative (no leading slash)";
+    const segments = path.split("/");
+    for (const s of segments) {
+      if (!s) return "path has an empty segment";
+      if (s === "." || s === "..") return `path segment ${JSON.stringify(s)} is not allowed`;
+      if (!SEGMENT_RE.test(s)) return `path segment ${JSON.stringify(s)} has characters outside [A-Za-z0-9._-]`;
+    }
+    return null;
+  }
+  function normalizeImagePack(raw, { imgSizes = {}, names = [] } = {}) {
+    const errors = [], warnings = [];
+    if (raw === void 0 || raw === null) return { pack: null, errors, warnings };
+    if (typeof raw !== "object" || Array.isArray(raw)) {
+      errors.push("imagePack must be an object {ref, files}");
+      return { pack: null, errors, warnings };
+    }
+    const ref = raw.ref;
+    if (typeof ref !== "string" || !COMMIT_RE.test(ref)) {
+      errors.push(`imagePack.ref must be a 40-hex commit sha (an immutable commit, not a branch or tag), got ${JSON.stringify(ref)}`);
+    }
+    const rawFiles = raw.files;
+    if (!rawFiles || typeof rawFiles !== "object" || Array.isArray(rawFiles)) {
+      errors.push("imagePack.files must be an object keyed by the logical @img filename");
+      return { pack: null, errors, warnings };
+    }
+    const referenced = new Set(names);
+    const files = {};
+    for (const name of Object.keys(rawFiles).sort()) {
+      const where = `imagePack.files[${JSON.stringify(name)}]`;
+      const e = rawFiles[name];
+      if (!IMG_NAME_RE.test(name)) {
+        errors.push(`${where}: ${JSON.stringify(name)} is not a legal @img filename`);
+        continue;
+      }
+      if (!e || typeof e !== "object" || Array.isArray(e)) {
+        errors.push(`${where} must be an object {path, sha256, bytes}`);
+        continue;
+      }
+      const problem = pathProblem(e.path);
+      if (problem) {
+        errors.push(`${where}: ${problem}`);
+        continue;
+      }
+      if (typeof e.sha256 !== "string" || !SHA256_RE.test(e.sha256)) {
+        errors.push(`${where}.sha256 must be 64 lowercase hex characters, got ${JSON.stringify(e.sha256)}`);
+        continue;
+      }
+      if (!Number.isInteger(e.bytes) || e.bytes <= 0) {
+        errors.push(`${where}.bytes must be a positive integer, got ${JSON.stringify(e.bytes)}`);
+        continue;
+      }
+      if (extOf(e.path) !== extOf(name)) {
+        errors.push(`${where}: repository file is a ${extOf(e.path) ?? "(no extension)"} but the @img name is a ${extOf(name) ?? "(no extension)"}; @img resolves by exact filename and the extension decides the upload's MIME`);
+        continue;
+      }
+      const ledger = Object.prototype.hasOwnProperty.call(imgSizes, name) ? Number(imgSizes[name]) : null;
+      if (ledger == null || !Number.isFinite(ledger)) {
+        errors.push(`${where}: no imgSizes entry for ${name}; a pack entry must agree with the manifest byte ledger (L17)`);
+        continue;
+      }
+      if (ledger !== e.bytes) {
+        errors.push(`${where}.bytes is ${e.bytes} but imgSizes says ${name} is ${ledger}; the manifest contradicts itself about which file this is`);
+        continue;
+      }
+      if (!referenced.has(name)) {
+        warnings.push(`imagePack binds ${name}, which no @img reference in this manifest uses; it will not be fetched`);
+      }
+      files[name] = { path: e.path, sha256: e.sha256, bytes: e.bytes };
+    }
+    if (!Object.keys(files).length && !errors.length) errors.push("imagePack.files is empty; remove the key instead");
+    if (errors.length) return { pack: null, errors, warnings };
+    return { pack: { ref, files }, errors, warnings };
+  }
+  function packBinds(pack, name) {
+    return !!(pack && pack.files && Object.prototype.hasOwnProperty.call(pack.files, name));
+  }
+  function packWork(pack, names) {
+    if (!pack) return [];
+    return [...new Set(names ?? [])].filter((n) => packBinds(pack, n)).sort().map((name) => ({ name, ref: pack.ref, ...pack.files[name] }));
+  }
+  function unboundNames(pack, names) {
+    return [...new Set(names ?? [])].filter((n) => !packBinds(pack, n));
+  }
+
   // src/runner/recipes.mjs
   var RECIPES = Object.freeze({
     jutsu: {
@@ -4232,119 +4345,6 @@
     for (const o of objs) if (o && o.id && !seen[o.id] && o.id !== first.id) W(it, `L12b orphan node ${o.id} (unreachable)`);
   }
 
-  // src/runner/imgpack.mjs
-  var IMG_NAME_RE = /^[A-Za-z0-9_.\-]+$/;
-  var COMMIT_RE = /^[0-9a-f]{40}$/;
-  var SHA256_RE = /^[0-9a-f]{64}$/;
-  var SEGMENT_RE = /^[A-Za-z0-9._-]+$/;
-  var EXT_MIME = Object.freeze({
-    webp: "image/webp",
-    png: "image/png",
-    jpg: "image/jpeg",
-    jpeg: "image/jpeg",
-    gif: "image/gif",
-    avif: "image/avif"
-  });
-  var extOf = (n) => {
-    const m = /\.([A-Za-z0-9]+)$/.exec(String(n ?? ""));
-    return m ? m[1].toLowerCase() : null;
-  };
-  var mimeOf = (n) => EXT_MIME[extOf(n)] ?? "application/octet-stream";
-  function toHex(buf) {
-    const bytes = buf instanceof Uint8Array ? buf : new Uint8Array(buf);
-    let out = "";
-    for (let i = 0; i < bytes.length; i++) out += bytes[i].toString(16).padStart(2, "0");
-    return out;
-  }
-  function pathProblem(path) {
-    if (typeof path !== "string" || !path) return "path must be a non-empty string";
-    if (path.length > 255) return "path is longer than 255 characters";
-    if (path.includes("\\")) return "path contains a backslash";
-    if (/^[A-Za-z][A-Za-z0-9+.-]*:/.test(path)) return "path looks like a URL, not a repository path";
-    if (path.startsWith("/")) return "path must be repository-relative (no leading slash)";
-    const segments = path.split("/");
-    for (const s of segments) {
-      if (!s) return "path has an empty segment";
-      if (s === "." || s === "..") return `path segment ${JSON.stringify(s)} is not allowed`;
-      if (!SEGMENT_RE.test(s)) return `path segment ${JSON.stringify(s)} has characters outside [A-Za-z0-9._-]`;
-    }
-    return null;
-  }
-  function normalizeImagePack(raw, { imgSizes = {}, names = [] } = {}) {
-    const errors = [], warnings = [];
-    if (raw === void 0 || raw === null) return { pack: null, errors, warnings };
-    if (typeof raw !== "object" || Array.isArray(raw)) {
-      errors.push("imagePack must be an object {ref, files}");
-      return { pack: null, errors, warnings };
-    }
-    const ref = raw.ref;
-    if (typeof ref !== "string" || !COMMIT_RE.test(ref)) {
-      errors.push(`imagePack.ref must be a 40-hex commit sha (an immutable commit, not a branch or tag), got ${JSON.stringify(ref)}`);
-    }
-    const rawFiles = raw.files;
-    if (!rawFiles || typeof rawFiles !== "object" || Array.isArray(rawFiles)) {
-      errors.push("imagePack.files must be an object keyed by the logical @img filename");
-      return { pack: null, errors, warnings };
-    }
-    const referenced = new Set(names);
-    const files = {};
-    for (const name of Object.keys(rawFiles).sort()) {
-      const where = `imagePack.files[${JSON.stringify(name)}]`;
-      const e = rawFiles[name];
-      if (!IMG_NAME_RE.test(name)) {
-        errors.push(`${where}: ${JSON.stringify(name)} is not a legal @img filename`);
-        continue;
-      }
-      if (!e || typeof e !== "object" || Array.isArray(e)) {
-        errors.push(`${where} must be an object {path, sha256, bytes}`);
-        continue;
-      }
-      const problem = pathProblem(e.path);
-      if (problem) {
-        errors.push(`${where}: ${problem}`);
-        continue;
-      }
-      if (typeof e.sha256 !== "string" || !SHA256_RE.test(e.sha256)) {
-        errors.push(`${where}.sha256 must be 64 lowercase hex characters, got ${JSON.stringify(e.sha256)}`);
-        continue;
-      }
-      if (!Number.isInteger(e.bytes) || e.bytes <= 0) {
-        errors.push(`${where}.bytes must be a positive integer, got ${JSON.stringify(e.bytes)}`);
-        continue;
-      }
-      if (extOf(e.path) !== extOf(name)) {
-        errors.push(`${where}: repository file is a ${extOf(e.path) ?? "(no extension)"} but the @img name is a ${extOf(name) ?? "(no extension)"}; @img resolves by exact filename and the extension decides the upload's MIME`);
-        continue;
-      }
-      const ledger = Object.prototype.hasOwnProperty.call(imgSizes, name) ? Number(imgSizes[name]) : null;
-      if (ledger == null || !Number.isFinite(ledger)) {
-        errors.push(`${where}: no imgSizes entry for ${name}; a pack entry must agree with the manifest byte ledger (L17)`);
-        continue;
-      }
-      if (ledger !== e.bytes) {
-        errors.push(`${where}.bytes is ${e.bytes} but imgSizes says ${name} is ${ledger}; the manifest contradicts itself about which file this is`);
-        continue;
-      }
-      if (!referenced.has(name)) {
-        warnings.push(`imagePack binds ${name}, which no @img reference in this manifest uses; it will not be fetched`);
-      }
-      files[name] = { path: e.path, sha256: e.sha256, bytes: e.bytes };
-    }
-    if (!Object.keys(files).length && !errors.length) errors.push("imagePack.files is empty; remove the key instead");
-    if (errors.length) return { pack: null, errors, warnings };
-    return { pack: { ref, files }, errors, warnings };
-  }
-  function packBinds(pack, name) {
-    return !!(pack && pack.files && Object.prototype.hasOwnProperty.call(pack.files, name));
-  }
-  function packWork(pack, names) {
-    if (!pack) return [];
-    return [...new Set(names ?? [])].filter((n) => packBinds(pack, n)).sort().map((name) => ({ name, ref: pack.ref, ...pack.files[name] }));
-  }
-  function unboundNames(pack, names) {
-    return [...new Set(names ?? [])].filter((n) => !packBinds(pack, n));
-  }
-
   // src/runner/manifest.mjs
   var ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile"]);
   var SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
@@ -4588,6 +4588,8 @@
      * @param {import("../storage/captures.mjs").CaptureCache} d.cache
      * @param {import("./validate.mjs").Validator} d.validator
      * @param {object} [d.uploader]      {upload(file) -> {ufsUrl}}
+     * @param {(bytes: ArrayBuffer) => Promise<ArrayBuffer>} [d.digest]  SHA-256, for re-verifying a
+     *   pack-backed image immediately before its upload. Absent, a pack-backed upload fails closed.
      * @param {object} [d.reconciler]    {beforeCreate(job, item, entity), resolveSent(job, item, ctx)}
      * @param {Storage} d.storage        for the retained idmap
      * @param {object} [d.auth]          {assert(path), state} - the auth gate. Optional so a
@@ -4933,11 +4935,42 @@
     _imgPreflight(name) {
       const prov = this.imgProvenance.get(name);
       if (prov) {
-        if (this.files.has(name)) return;
         if (readAssetUploads(this.storage)[prov.sha256]) return;
-        throw new Error(`@img:${name} is bound to ${prov.path} but its verified bytes are not loaded`);
+        const file = this.files.get(name);
+        if (!file) throw new Error(`@img:${name} is bound to ${prov.path} but its verified bytes are not loaded`);
+        if (file !== prov.file) throw new Error(`@img:${name} is not holding the exact file that was verified against ${prov.sha256.slice(0, 12)}; nothing was sent`);
+        return;
       }
       if (!this.files.has(name) && !readIdmap(this.storage)[name]) throw new Error(`@img:${name} has no file picked`);
+    }
+    /**
+     * The bytes of a pack-backed image, re-verified at the moment of upload. This is the LAST barrier
+     * and the only one every item passes: `_preflight` runs for creates only, so the five Marrow avatar
+     * EDITS that push/53 exists to replay reach the uploader through here and nowhere else.
+     *
+     * Two checks, and neither is redundant (independent review F1):
+     *
+     *   identity  the File must be the object `commitImagePack` installed. The gate used to compare
+     *             provenance metadata and the file's SIZE, so a different file of identical length
+     *             swapped into `files` after verification was uploaded AND recorded in the
+     *             content-keyed upload ledger under the correct digest - poisoning every later job
+     *             for those bytes with the wrong URL.
+     *   digest    re-hashed anyway, immediately before the bytes leave. Identity alone is sound for a
+     *             real immutable File/Blob; this does not depend on that being true of whatever
+     *             file-like object a host or a future caller supplies. Hashing at most 512 KB (every
+     *             upload slug's ceiling) on the item's own send path is not a cost worth trading for
+     *             an assumption.
+     *
+     * Fails closed with no digest wired: repo-backed bytes are never uploaded unverified.
+     */
+    async _imgBytes(name, prov) {
+      const file = this.files.get(name);
+      if (!file) throw new Error(`@img:${name} is bound to ${prov.path} but its verified bytes are not loaded`);
+      if (file !== prov.file) throw new Error(`@img:${name} is not holding the exact file that was verified against ${prov.sha256.slice(0, 12)}; nothing was uploaded`);
+      if (typeof this.digest !== "function") throw new Error(`@img:${name} is repo-backed but no digest is wired, so its bytes cannot be re-verified; nothing was uploaded`);
+      const hex = toHex(await this.digest(await file.arrayBuffer()));
+      if (hex !== prov.sha256) throw new Error(`@img:${name} hashes to ${hex} at the moment of upload; the pack says ${prov.sha256}. Nothing was uploaded.`);
+      return file;
     }
     async _create(jobId, item, planned) {
       const rc = recipe(item.entity);
@@ -5227,6 +5260,7 @@
       for (const r of refs) {
         const prov = this.imgProvenance.get(r.key) ?? null;
         const map = readIdmap(this.storage);
+        let file;
         if (prov) {
           const known = readAssetUploads(this.storage)[prov.sha256];
           if (known && known.url) {
@@ -5236,9 +5270,12 @@
             }
             continue;
           }
-        } else if (map[r.key]) continue;
-        const file = this.files.get(r.key);
-        if (!file) throw new Error(`@img:${r.key} has no file picked`);
+          file = await this._imgBytes(r.key, prov);
+        } else {
+          if (map[r.key]) continue;
+          file = this.files.get(r.key);
+          if (!file) throw new Error(`@img:${r.key} has no file picked`);
+        }
         if (!this.uploader) throw new Error("no uploader configured for @img refs");
         const up = await this.uploader.upload(file);
         map[r.key] = up.ufsUrl;
@@ -5748,29 +5785,35 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     throw new Error("this host has neither File nor Blob; repo-backed image packs need one to upload");
   }
-  async function prepareImagePack({ github, assetCache, digest, runner, now = () => Date.now() }, { pack, names = [], force = false } = {}) {
+  async function prepareImagePack({ github, assetCache, digest, now = () => Date.now() }, { pack, names = [], force = false } = {}) {
     const work = packWork(pack, names);
     const unbound = unboundNames(pack, names);
-    for (const { name } of work) {
+    const entries = [];
+    const staged = [];
+    for (const want of work) {
+      const { entry, stage } = await one({ github, assetCache, digest, now }, want, force);
+      entries.push(entry);
+      if (stage) staged.push(stage);
+    }
+    return { ref: pack ? pack.ref : null, entries, unbound, ok: entries.length === staged.length, staged };
+  }
+  function commitImagePack(runner, { pack, names = [], staged = [] } = {}) {
+    for (const { name } of packWork(pack, names)) {
       runner.files.delete(name);
       runner.imgProvenance.delete(name);
     }
-    const entries = [];
-    for (const want of work) entries.push(await one({ github, assetCache, digest, runner, now }, want, force));
-    return { ref: pack ? pack.ref : null, entries, unbound, ok: entries.every((e) => e.state === "ready") };
+    for (const { name, file, prov } of staged) {
+      runner.files.set(name, file);
+      runner.imgProvenance.set(name, { ...prov, file });
+    }
+    return staged.length;
   }
   async function one(ctx, want, force) {
-    const { github, assetCache, digest, runner, now } = ctx;
+    const { github, assetCache, digest, now } = ctx;
     const base = { name: want.name, path: want.path, ref: want.ref, sha256: want.sha256, bytes: want.bytes };
+    const fail = (o) => ({ entry: { ...base, source: null, size: null, digest: null, ...o }, stage: null });
     if (typeof digest !== "function") {
-      return {
-        ...base,
-        state: "error",
-        source: null,
-        size: null,
-        digest: null,
-        error: "SHA-256 is not available in this context, so repo-backed bytes cannot be verified; Forge will not use them unverified"
-      };
+      return fail({ state: "error", error: "SHA-256 is not available in this context, so repo-backed bytes cannot be verified; Forge will not use them unverified" });
     }
     let cached = null;
     if (!force) {
@@ -5789,14 +5832,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         try {
           bytes = await github.raw(want.path, want.ref);
         } catch (e) {
-          return {
-            ...base,
-            state: "error",
-            source: "repo",
-            size: null,
-            digest: null,
-            error: `could not fetch ${want.path} at ${want.ref.slice(0, 12)}: ${e && e.message || e}`
-          };
+          return fail({ state: "error", source: "repo", error: `could not fetch ${want.path} at ${want.ref.slice(0, 12)}: ${e && e.message || e}` });
         }
       }
       const size = bytes.byteLength ?? bytes.length ?? 0;
@@ -5805,14 +5841,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         try {
           hex = toHex(await digest(bytes));
         } catch (e) {
-          return {
-            ...base,
-            state: "error",
-            source,
-            size,
-            digest: null,
-            error: `could not compute SHA-256 for ${want.name}: ${e && e.message || e}`
-          };
+          return fail({ state: "error", source, size, error: `could not compute SHA-256 for ${want.name}: ${e && e.message || e}` });
         }
       }
       if (size === want.bytes && hex === want.sha256) {
@@ -5826,11 +5855,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         try {
           file = makeFile(bytes, want.name, mimeOf(want.name));
         } catch (e) {
-          return { ...base, state: "error", source, size, digest: hex, error: e && e.message || String(e) };
+          return fail({ state: "error", source, size, digest: hex, error: e && e.message || String(e) });
         }
-        runner.files.set(want.name, file);
-        runner.imgProvenance.set(want.name, { sha256: want.sha256, path: want.path, ref: want.ref, bytes: want.bytes, at: now() });
-        return { ...base, state: "ready", source, size, digest: hex, error: null };
+        return {
+          entry: { ...base, state: "ready", source, size, digest: hex, error: null },
+          stage: { name: want.name, file, prov: { sha256: want.sha256, path: want.path, ref: want.ref, bytes: want.bytes, at: now() } }
+        };
       }
       const why = size !== want.bytes ? `is ${size} bytes; the pack says ${want.bytes}` : `hashes to ${hex}; the pack says ${want.sha256}`;
       if (source === "cache") {
@@ -5842,16 +5872,15 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         source = "repo";
         continue;
       }
-      return {
-        ...base,
+      return fail({
         state: "refused",
         source,
         size,
         digest: hex,
         error: `${want.path} at ${want.ref.slice(0, 12)} ${why}. Nothing was uploaded and this image cannot be used; the manifest and the repository disagree about which file this is.`
-      };
+      });
     }
-    return { ...base, state: "error", source, size: null, digest: null, error: "verification did not settle" };
+    return fail({ state: "error", source, error: "verification did not settle" });
   }
   function packGateProblems(pack, names, runner) {
     const problems = [];
@@ -5868,6 +5897,10 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
       if (prov.ref !== want.ref || prov.path !== want.path) {
         problems.push(`${want.name} was fetched from ${prov.path} at ${prov.ref.slice(0, 12)}, not ${want.path} at ${want.ref.slice(0, 12)}`);
+        continue;
+      }
+      if (!prov.file || file !== prov.file) {
+        problems.push(`${want.name} is no longer holding the exact file that was verified against ${want.sha256.slice(0, 12)}; re-fetch it from the repository`);
         continue;
       }
       const size = Number(file.size);
@@ -6623,26 +6656,40 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       return this._packChain;
     }
     /**
+     * The currency token a preparation commits against. Bumped by every act that changes which pack is
+     * authoritative — selecting a manifest, resuming a job. A preparation captures it on entry and
+     * installs nothing unless it is still the same number, which is what makes an in-flight pass for a
+     * manifest the operator has already navigated away from harmless rather than merely discarded
+     * (independent review F2).
+     */
+    _packEpoch = 0;
+    /**
      * Provenance belongs to the manifest currently open. A name the new pack does not bind must lose
      * both its record AND the File that record vouched for: otherwise selecting manifest B after
      * preparing manifest A leaves A's digest recorded under a shared logical filename, and the
      * content-keyed upload reuse would hand B the URL of A's picture.
      */
     _scopePackProvenance(pack) {
+      this._packEpoch += 1;
       for (const name of [...this.runner.imgProvenance.keys()]) {
         if (packBinds(pack, name)) continue;
         this.runner.imgProvenance.delete(name);
         this.runner.files.delete(name);
       }
+      return this._packEpoch;
     }
     async _prepareImages(s, force) {
       if (this.state.selected !== s) return null;
+      const epoch = this._packEpoch;
       this._preparing = true;
       this.changed();
       try {
         const result = await prepareImagePack(this, { pack: s.pack, names: s.images, force });
-        if (this.state.selected !== s) return result;
-        s.packResult = result;
+        if (this.state.selected !== s || this._packEpoch !== epoch) {
+          return { ref: result.ref, entries: result.entries, unbound: result.unbound, ok: false, stale: true };
+        }
+        commitImagePack(this.runner, { pack: s.pack, names: s.images, staged: result.staged });
+        s.packResult = { ref: result.ref, entries: result.entries, unbound: result.unbound, ok: result.ok };
         const bad = result.entries.filter((e) => e.state !== "ready");
         if (!bad.length) {
           this.say(`${result.entries.length} repo-backed image(s) verified against ${s.pack.ref.slice(0, 7)}`, "ok");
@@ -6708,13 +6755,19 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       try {
         const attached = this.runner.manifests.get(jobId);
         const pack = attached && attached.manifest ? attached.manifest.imagePack : null;
-        this._scopePackProvenance(pack);
+        const epoch = this._scopePackProvenance(pack);
         if (pack) {
           const names = [...new Set((attached.order || []).flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
-          const result = await this._queuePack(() => prepareImagePack(this, { pack, names }));
+          const result = await this._queuePack(async () => {
+            const r = await prepareImagePack(this, { pack, names });
+            if (this._packEpoch !== epoch) return { ...r, ok: false, stale: true, staged: [] };
+            commitImagePack(this.runner, { pack, names, staged: r.staged });
+            return r;
+          });
           const bad = result.entries.filter((e) => e.state !== "ready");
-          if (bad.length) {
-            this.say(`resume refused: ${bad.length} repo-backed image(s) could not be verified: ${bad.map((e) => `${e.name}: ${e.error}`).join(" | ")}. Nothing was sent.`, "bad", 12e3);
+          if (bad.length || result.stale) {
+            const detail = result.stale ? "the selection changed while the images were being fetched, so nothing was installed" : bad.map((e) => `${e.name}: ${e.error}`).join(" | ");
+            this.say(`resume refused: repo-backed image(s) could not be verified: ${detail}. Nothing was sent.`, "bad", 12e3);
             return this.changed();
           }
         }
@@ -12446,6 +12499,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       uploader: deps.uploader,
       reconciler: deps.reconciler,
       auth: deps.auth,
+      digest: deps.digest,
       storage,
       clock,
       tabId,

@@ -80,7 +80,7 @@ export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(
   deps.runner = new Runner({
     journal: deps.journal, client: deps.client, reader: deps.reader, cache: deps.cache, repoCache: deps.repoCache,
     budget: deps.budget, validator: deps.validator, uploader: deps.uploader,
-    reconciler: deps.reconciler, auth: deps.auth, storage, clock, tabId, log,
+    reconciler: deps.reconciler, auth: deps.auth, digest: deps.digest, storage, clock, tabId, log,
   });
   return deps;
 }

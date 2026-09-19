@@ -25,7 +25,7 @@ import { fileURLToPath } from "node:url";
 import { IDBFactory } from "fake-indexeddb";
 import { parseManifest, ManifestError } from "../src/runner/manifest.mjs";
 import { normalizeImagePack, packWork, pathProblem, toHex, unboundNames } from "../src/runner/imgpack.mjs";
-import { prepareImagePack, packGateProblems } from "../src/core/imagepack.mjs";
+import { prepareImagePack, commitImagePack, packGateProblems } from "../src/core/imagepack.mjs";
 import { AssetCache, readAssetUploads, ASSET_UPLOADS_KEY } from "../src/storage/assets.mjs";
 import { readIdmap, writeIdmap } from "../src/storage/compat.mjs";
 import { ForgeCore } from "../src/core/core.mjs";
@@ -131,7 +131,16 @@ function manifestWith(names, pack, { sizes = GODSTORM } = {}) {
   return JSON.stringify(m);
 }
 
-const ctxOf = (core) => ({ github: core.github, assetCache: core.assetCache, digest: core.digest, runner: core.runner, now: core.now });
+// Deliberately WITHOUT `runner`: prepareImagePack() must not be able to write runner state, and
+// handing it no runner is the cheapest structural proof that it does not try (review F2).
+const ctxOf = (core) => ({ github: core.github, assetCache: core.assetCache, digest: core.digest, now: core.now });
+
+/** Prepare, then commit — what ForgeCore does when the selection is still the current one. */
+async function prepareAndCommit(core, { pack, names, force = false }) {
+  const result = await prepareImagePack(ctxOf(core), { pack, names, force });
+  commitImagePack(core.runner, { pack, names, staged: result.staged });
+  return result;
+}
 
 // ================================================================== 1. the manifest contract
 
@@ -273,7 +282,7 @@ test("the happy path: bytes are fetched from the pinned commit, verified, cached
   const names = Object.keys(GODSTORM);
   const { pack, blobs } = await packFor(names);
   const { core } = headlessCore("{}", fakeRepo(blobs));
-  const result = await prepareImagePack(ctxOf(core), { pack, names });
+  const result = await prepareAndCommit(core, { pack, names });
 
   assert.equal(result.ok, true);
   assert.equal(result.ref, COMMIT);
@@ -289,10 +298,12 @@ test("the happy path: bytes are fetched from the pinned commit, verified, cached
     assert.equal(file.size, GODSTORM[e.name]);
     assert.equal(file.type, "image/webp");
     assert.equal(await hexOf(await file.arrayBuffer()), pack.files[e.name].sha256);
-    assert.deepEqual(core.runner.imgProvenance.get(e.name), {
-      sha256: pack.files[e.name].sha256, path: pack.files[e.name].path, ref: COMMIT, bytes: GODSTORM[e.name],
-      at: core.runner.imgProvenance.get(e.name).at,
+    const prov = core.runner.imgProvenance.get(e.name);
+    assert.deepEqual({ ...prov, at: null, file: null }, {
+      sha256: pack.files[e.name].sha256, path: pack.files[e.name].path, ref: COMMIT,
+      bytes: GODSTORM[e.name], at: null, file: null,
     });
+    assert.equal(prov.file, file, "provenance holds the EXACT verified File, which is what the gate binds");
   }
   assert.deepEqual(await core.assetCache.size(), { count: 8, bytes: Object.values(GODSTORM).reduce((a, b) => a + b, 0) });
   assert.equal(core.github.calls.length, 8, "one fetch per bound image, no more");
@@ -302,16 +313,16 @@ test("a second preparation is served from the content cache and issues no furthe
   const names = ["bg_godstorm_stormcourt_upper_court.webp", "ai_godstorm_marrow_umbral_reaver.webp"];
   const { pack, blobs } = await packFor(names);
   const { core } = headlessCore("{}", fakeRepo(blobs));
-  await prepareImagePack(ctxOf(core), { pack, names });
+  await prepareAndCommit(core, { pack, names });
   assert.equal(core.github.calls.length, 2);
 
-  const again = await prepareImagePack(ctxOf(core), { pack, names });
+  const again = await prepareAndCommit(core, { pack, names });
   assert.equal(again.ok, true);
   assert.deepEqual(again.entries.map((e) => e.source), ["cache", "cache"]);
   assert.equal(core.github.calls.length, 2, "a cache hit must not go back to the repository");
 
   // ...and force goes back anyway, for an operator who wants the repository re-read.
-  const forced = await prepareImagePack(ctxOf(core), { pack, names, force: true });
+  const forced = await prepareAndCommit(core, { pack, names, force: true });
   assert.deepEqual(forced.entries.map((e) => e.source), ["repo", "repo"]);
   assert.equal(core.github.calls.length, 4);
 });
@@ -329,7 +340,7 @@ test("CACHE IDENTITY IS THE DIGEST: the same blob under a different name and pat
   } };
   const blobs = new Map([[`${COMMIT}:art/one/${a}`, bytes], [`${COMMIT}:art/two/${b}`, bytes]]);
   const { core } = headlessCore("{}", fakeRepo(blobs));
-  const result = await prepareImagePack(ctxOf(core), { pack, names: [a, b] });
+  const result = await prepareAndCommit(core, { pack, names: [a, b] });
   assert.equal(result.ok, true);
   // packWork() sorts by logical name, so ...active is fetched and ...released hits its bytes.
   assert.deepEqual(result.entries.map((e) => [e.name, e.source]), [[a, "repo"], [b, "cache"]],
@@ -349,7 +360,7 @@ test("a repository blob whose digest differs is REFUSED, named, not cached and n
   const impostor = bytesOf(GODSTORM[name], 424242);
   const blobs = new Map([[`${COMMIT}:${pack.files[name].path}`, impostor]]);
   const { core } = headlessCore("{}", fakeRepo(blobs));
-  const result = await prepareImagePack(ctxOf(core), { pack, names: [name] });
+  const result = await prepareAndCommit(core, { pack, names: [name] });
 
   assert.equal(result.ok, false);
   const e = result.entries[0];
@@ -382,7 +393,7 @@ test("a CORRUPT cache entry is dropped and refetched once; it is never trusted f
   const { core } = headlessCore("{}", fakeRepo(blobs));
   // Poison the store directly: right key, wrong bytes. Only re-verifying on read catches this.
   await core.assetCache.put({ sha256: pack.files[name].sha256, bytes: bytesOf(GODSTORM[name], 31337), path: "x", ref: COMMIT });
-  const result = await prepareImagePack(ctxOf(core), { pack, names: [name] });
+  const result = await prepareAndCommit(core, { pack, names: [name] });
   assert.equal(result.ok, true);
   assert.equal(result.entries[0].source, "repo", "the corrupt hit was dropped and the repository re-read");
   assert.equal(core.github.calls.length, 1);
@@ -392,7 +403,7 @@ test("a CORRUPT cache entry is dropped and refetched once; it is never trusted f
   const bad = new Map([[`${COMMIT}:${pack.files[name].path}`, bytesOf(GODSTORM[name], 5)]]);
   const c2 = headlessCore("{}", fakeRepo(bad)).core;
   await c2.assetCache.put({ sha256: pack.files[name].sha256, bytes: bytesOf(GODSTORM[name], 6), path: "x", ref: COMMIT });
-  const r2 = await prepareImagePack(ctxOf(c2), { pack, names: [name] });
+  const r2 = await prepareAndCommit(c2, { pack, names: [name] });
   assert.equal(r2.entries[0].state, "refused");
   assert.equal(c2.github.calls.length, 1);
 });
@@ -403,7 +414,7 @@ test("one unreachable blob is reported without abandoning the other seven", asyn
   const missing = "ai_godstorm_marrow_umbral_reaver.webp";
   blobs.delete(`${COMMIT}:${pack.files[missing].path}`);
   const { core } = headlessCore("{}", fakeRepo(blobs));
-  const result = await prepareImagePack(ctxOf(core), { pack, names });
+  const result = await prepareAndCommit(core, { pack, names });
   assert.equal(result.ok, false);
   const failed = result.entries.filter((e) => e.state !== "ready");
   assert.equal(failed.length, 1);
@@ -418,6 +429,7 @@ test("with no digest available nothing is used, rather than used unverified", as
   const { pack, blobs } = await packFor([name]);
   const { core } = headlessCore("{}", fakeRepo(blobs));
   const result = await prepareImagePack({ ...ctxOf(core), digest: null }, { pack, names: [name] });
+  commitImagePack(core.runner, { pack, names: [name], staged: result.staged });
   assert.equal(result.entries[0].state, "error");
   assert.match(result.entries[0].error, /SHA-256 is not available/);
   assert.equal(core.runner.files.has(name), false);
@@ -430,9 +442,9 @@ test("preparation CLEARS a bound name first, so a failure cannot leave a stale f
   const { core } = headlessCore("{}", fakeRepo(new Map()));   // the blob is not there
   // whatever was loaded before - an earlier manifest, an earlier pack, a gallery pick
   core.runner.files.set(name, new File([bytesOf(GODSTORM[name], 2)], name, { type: "image/webp" }));
-  core.runner.imgProvenance.set(name, { sha256: "0".repeat(64), path: "art/old.webp", ref: COMMIT, bytes: GODSTORM[name] });
+  core.runner.imgProvenance.set(name, { sha256: "0".repeat(64), path: "art/old.webp", ref: COMMIT, bytes: GODSTORM[name], file: core.runner.files.get(name) });
 
-  const result = await prepareImagePack(ctxOf(core), { pack, names: [name] });
+  const result = await prepareAndCommit(core, { pack, names: [name] });
   assert.equal(result.ok, false);
   assert.equal(core.runner.files.has(name), false, "the stale File must not survive a failed re-fetch");
   assert.equal(core.runner.imgProvenance.has(name), false);
@@ -483,7 +495,7 @@ test("packGateProblems refuses provenance that no longer matches the pack", asyn
   const name = "ai_godstorm_marrow_warden_of_the_first_dark.webp";
   const { pack, blobs } = await packFor([name]);
   const { core } = headlessCore("{}", fakeRepo(blobs));
-  await prepareImagePack(ctxOf(core), { pack, names: [name] });
+  await prepareAndCommit(core, { pack, names: [name] });
   assert.deepEqual(packGateProblems(pack, [name], core.runner), []);
 
   // the manifest is re-selected under a pack naming DIFFERENT bytes; the loaded file is now wrong
@@ -496,9 +508,10 @@ test("packGateProblems refuses provenance that no longer matches the pack", asyn
   assert.match(packGateProblems(moved, [name], core.runner)[0],
     new RegExp(`was fetched from ${pack.files[name].path.replace(/\./g, "\\.")} at ${COMMIT.slice(0, 12)}, not .* at bbbbbbbbbbbb`));
 
-  // and a File swapped out from under a still-valid provenance record
+  // and a File swapped out from under a still-valid provenance record. Identity is what catches it
+  // now, so the refusal does not depend on the replacement being a different LENGTH.
   core.runner.files.set(name, new File([new Uint8Array(3)], name, { type: "image/webp" }));
-  assert.match(packGateProblems(pack, [name], core.runner)[0], /is holding 3 bytes, not the /);
+  assert.match(packGateProblems(pack, [name], core.runner)[0], /is no longer holding the exact file that was verified/);
 });
 
 test("NO BYPASS: a manifest whose pack cannot be verified opens no job and sends nothing", async () => {
@@ -556,6 +569,184 @@ test("the byte ledger still gates an UNBOUND image alongside the pack", async ()
   await core.startJob();
   assert.equal(core.state.jobId, null);
   assert.match(notes.filter((n) => n.type === "message").map((n) => n.text).join(" "), /do not match the manifest/);
+});
+
+// ------------------------------------------------------------------ F1: same-size swap
+
+test("F1: a SAME-SIZE swap after verification is refused by the Start gate, and nothing is uploaded", async () => {
+  // The case the feature exists for, and the one the first implementation let through: provenance
+  // metadata still matched and the length still matched, so the gate passed and _resolved uploaded
+  // the replacement - then recorded that upload under the CORRECT digest, poisoning the
+  // content-keyed ledger for every later job that legitimately wants those bytes.
+  const name = "ai_godstorm_marrow_starless_monk.webp";
+  const { pack, blobs } = await packFor([name]);
+  const text = manifestWith([name], pack);
+  const { core, storage, notes } = headlessCore(text, fakeRepo(blobs, { manifestText: text }));
+  const up = recordingUploader();
+  core.runner.uploader = up;
+  await core.selectManifest({ name: "x.json", path: "push/x.json", number: 120, text });
+  assert.deepEqual(packGateProblems(pack, [name], core.runner), []);
+  const verified = core.runner.files.get(name);
+
+  // Different bytes. EXACTLY the expected length. Same MIME. Same filename.
+  const impostor = new File([bytesOf(GODSTORM[name], 8675309)], name, { type: "image/webp" });
+  assert.equal(impostor.size, GODSTORM[name], "the swap must be the same length or it proves nothing");
+  assert.notEqual(await hexOf(await impostor.arrayBuffer()), pack.files[name].sha256);
+  core.runner.files.set(name, impostor);
+
+  // every SIZE-based check still passes, which is the whole point
+  const { imagePicks, unusablePicks } = await import("../src/core/facts.mjs");
+  assert.deepEqual(unusablePicks(imagePicks([name], core.runner.files, { [name]: GODSTORM[name] })), []);
+  // ...and the pack gate does not
+  assert.match(packGateProblems(pack, [name], core.runner)[0], /is no longer holding the exact file that was verified/);
+
+  await core.startJob();
+  assert.equal(core.state.jobId, null, "no job was opened");
+  assert.deepEqual(core.journal.listJobs(), []);
+  assert.equal(up.uploads.length, 0, "the replacement must not be uploaded");
+  assert.equal(storage.getItem(ASSET_UPLOADS_KEY), null, "and the content ledger must be untouched");
+  assert.match(notes.filter((n) => n.type === "message").map((n) => n.text).join(" "), /are not verified/);
+
+  // the ORIGINAL verified File still starts cleanly: this is a refusal, not a wedge
+  core.runner.files.set(name, verified);
+  assert.deepEqual(packGateProblems(pack, [name], core.runner), []);
+  await core.startJob();
+  assert.ok(core.state.jobId, "the verified file still opens a job");
+  assert.equal(up.uploads.length, 1);
+  assert.equal(up.uploads[0].digest, pack.files[name].sha256);
+  assert.deepEqual(Object.keys(readAssetUploads(storage)), [pack.files[name].sha256]);
+});
+
+test("F1: the runner refuses a same-size swap even when no preflight runs", async () => {
+  // _preflight is CREATE-only (runner.mjs: `item.op === "create" && item.state === "PLANNED"`), so
+  // for an EDIT - which is what push/53's five Marrow avatars are - _resolved is the only barrier the
+  // bytes pass. It is therefore tested directly, at the boundary where the upload actually happens.
+  const name = "ai_godstorm_marrow_umbral_reaver.webp";
+  const { pack, blobs } = await packFor([name]);
+  const text = manifestWith([name], pack);
+  const { core, storage } = headlessCore(text, fakeRepo(blobs, { manifestText: text }));
+  const up = recordingUploader();
+  core.runner.uploader = up;
+  await core.selectManifest({ name: "x.json", path: "push/x.json", number: 121, text });
+  const prov = core.runner.imgProvenance.get(name);
+
+  // (a) identity: a same-size impostor under a still-valid record
+  core.runner.files.set(name, new File([bytesOf(GODSTORM[name], 31)], name, { type: "image/webp" }));
+  await assert.rejects(() => core.runner._resolved({ avatar: `@img:${name}` }, null),
+    /is not holding the exact file that was verified/);
+  assert.equal(up.uploads.length, 0);
+  assert.equal(storage.getItem(ASSET_UPLOADS_KEY), null);
+
+  // (b) digest: a record whose own file is not the bytes it claims. Identity alone would accept
+  //     this; the re-hash at the upload boundary is what refuses it.
+  const wrong = new File([bytesOf(GODSTORM[name], 32)], name, { type: "image/webp" });
+  core.runner.files.set(name, wrong);
+  core.runner.imgProvenance.set(name, { ...prov, file: wrong });
+  await assert.rejects(() => core.runner._resolved({ avatar: `@img:${name}` }, null),
+    /hashes to [0-9a-f]{64} at the moment of upload; the pack says [0-9a-f]{64}\. Nothing was uploaded\./);
+  assert.equal(up.uploads.length, 0);
+  assert.equal(storage.getItem(ASSET_UPLOADS_KEY), null, "nothing may be recorded under a digest that was not uploaded");
+
+  // (c) no digest wired at all: fail closed rather than upload unverified bytes
+  core.runner.digest = null;
+  await assert.rejects(() => core.runner._resolved({ avatar: `@img:${name}` }, null),
+    /no digest is wired, so its bytes cannot be re-verified; nothing was uploaded/);
+  assert.equal(up.uploads.length, 0);
+});
+
+// ------------------------------------------------------------------ F2: the selection race
+
+test("F2: preparation alone writes nothing; only the commit installs", async () => {
+  const name = "bg_godstorm_stormcourt_upper_court.webp";
+  const { pack, blobs } = await packFor([name]);
+  const { core } = headlessCore("{}", fakeRepo(blobs));
+  const result = await prepareImagePack(ctxOf(core), { pack, names: [name] });
+  assert.equal(result.ok, true);
+  assert.equal(result.staged.length, 1);
+  assert.equal(core.runner.files.size, 0, "a preparation must not touch the runner");
+  assert.equal(core.runner.imgProvenance.size, 0);
+
+  commitImagePack(core.runner, { pack, names: [name], staged: result.staged });
+  assert.equal(core.runner.files.get(name), result.staged[0].file);
+  assert.deepEqual(packGateProblems(pack, [name], core.runner), []);
+});
+
+test("F2: a fetch still in flight when the selection changes installs NOTHING into the new manifest", async () => {
+  // The reviewer's repro. Manifest A binds shared.webp; manifest B references the same logical name
+  // but leaves it to the manual picker. Hold A's repository fetch open, select B, then release A.
+  const shared = "ai_godstorm_marrow_starless_monk.webp";
+  const { pack, blobs } = await packFor([shared]);
+  const aText = manifestWith([shared], pack);
+  const bText = manifestWith([shared], null);
+
+  let release;
+  const held = new Promise((r) => { release = r; });
+  const github = fakeRepo(blobs, { manifestText: aText });
+  const rawReal = github.raw;
+  github.raw = async (path, ref) => { await held; return rawReal(path, ref); };
+
+  const { core, storage } = headlessCore(aText, github);
+  const aPending = core.selectManifest({ name: "a.json", path: "push/a.json", number: 122, text: aText });
+  await Promise.resolve();                      // A's fetch is now awaiting `held`
+  assert.equal(core.runner.files.size, 0, "nothing is installed while the fetch is outstanding");
+
+  await core.selectManifest({ name: "b.json", path: "push/b.json", number: 123, text: bText });
+  assert.equal(core.state.selected.pack, null);
+
+  release();                                    // A's fetch completes, far too late
+  await aPending;
+  await core._packChain;
+
+  assert.equal(core.runner.imgProvenance.has(shared), false, "A's provenance must never appear under B");
+  assert.equal(core.runner.files.has(shared), false, "nor A's File, which B left to the manual picker");
+  assert.equal(core.state.selected.packResult, null, "and B's own state is untouched");
+
+  // Start stays blocked until the operator supplies B's file, and then runs on THAT file
+  const up = recordingUploader();
+  core.runner.uploader = up;
+  await core.startJob();
+  assert.equal(core.state.jobId, null, "Start is blocked: B's image is simply not picked");
+  const manual = new File([bytesOf(GODSTORM[shared], 4242)], shared, { type: "image/webp" });
+  core.runner.files.set(shared, manual);
+  await core.startJob();
+  assert.ok(core.state.jobId);
+  assert.equal(up.uploads.length, 1);
+  assert.equal(up.uploads[0].digest, await hexOf(await manual.arrayBuffer()), "B uploaded B's file, not A's");
+  assert.equal(storage.getItem(ASSET_UPLOADS_KEY), null, "an unbound image writes nothing to the content ledger");
+});
+
+test("F2: with OVERLAPPING packs the current selection always wins", async () => {
+  // Same race, but B binds the shared name too - to different bytes. A's late pass must not install
+  // its own File under a name B has bound, and B's own preparation must be what ends up loaded.
+  const shared = "ai_godstorm_marrow_hollow_lantern.webp";
+  const a = await packFor([shared], { dir: "art/a", seed: 11 });
+  const b = await packFor([shared], { dir: "art/b", seed: 22 });
+  assert.notEqual(a.pack.files[shared].sha256, b.pack.files[shared].sha256);
+  const aText = manifestWith([shared], a.pack);
+  const bText = manifestWith([shared], b.pack);
+
+  const blobs = new Map([...a.blobs, ...b.blobs]);
+  let release;
+  const held = new Promise((r) => { release = r; });
+  const github = fakeRepo(blobs, { manifestText: aText });
+  const rawReal = github.raw;
+  let first = true;
+  github.raw = async (path, ref) => { if (first) { first = false; await held; } return rawReal(path, ref); };
+
+  const { core } = headlessCore(aText, github);
+  const aPending = core.selectManifest({ name: "a.json", path: "push/a.json", number: 124, text: aText });
+  await Promise.resolve();
+  const bPending = core.selectManifest({ name: "b.json", path: "push/b.json", number: 125, text: bText });
+  release();
+  await Promise.all([aPending, bPending]);
+  await core._packChain;
+
+  const prov = core.runner.imgProvenance.get(shared);
+  assert.ok(prov, "B's own preparation installed");
+  assert.equal(prov.sha256, b.pack.files[shared].sha256, "the bytes loaded are B's, not A's");
+  assert.equal(prov.path, `art/b/${shared}`);
+  assert.deepEqual(packGateProblems(b.pack, [shared], core.runner), []);
+  assert.equal(packGateProblems(a.pack, [shared], core.runner).length, 1, "and they would not satisfy A");
 });
 
 // ================================================================== 4. upload identity

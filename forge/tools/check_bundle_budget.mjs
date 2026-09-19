@@ -40,7 +40,20 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // The ratchet is stepped to ~4% headroom, the same margin the Phase 0 freeze used, so ordinary
 // change fits and a structural regression still trips it. A reviewer who wants the step smaller
 // should say so, because the next change inherits this headroom.
-export const BUDGET = { raw: 465_000, gzip: 90_000 };
+//
+// STEPPED A SECOND TIME, in the same feature, for the independent review's F1/F2 corrections
+// (docs/reviews/REVIEW_2026-09-19_repo_backed_image_packs.md). The corrections measured raw 451,847
+// / gzip 88,356, which is 97.2% / 98.2% of the ceiling set above: still passing, but 1.6 KB of gzip
+// headroom is not a ratchet, it is a tripwire for whatever lands next. So the ceiling moves rather
+// than leaving the next unrelated commit to discover it.
+//
+// The added weight is the two-phase prepare/commit split, the File-identity binding, the epoch
+// currency check, and the runner's re-verification at the upload boundary - plus the reasoning for
+// each, which is where a reviewer of a provenance contract needs it. This is now the SECOND raise
+// for one feature, and review observation 2 already named shrinking headroom as a concern: the
+// standing question of whether Forge needs a size pass of its own is real and is NOT answered here.
+// It should be settled deliberately rather than by squeezing this change.
+export const BUDGET = { raw: 470_000, gzip: 92_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;
