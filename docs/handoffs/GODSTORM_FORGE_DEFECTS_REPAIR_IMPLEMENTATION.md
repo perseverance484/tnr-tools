@@ -11,7 +11,7 @@ Lane A (code/tooling), `docs/DEVELOPMENT_WORKFLOW.md`. Implements the committed 
 | Build contract | `chatgpt/godstorm-two-pyramid-plan@4d5ee40c62dad55b30854f8bfa242cf6ef0936fb` → `docs/handoffs/GODSTORM_FORGE_DEFECTS_REPAIR_HANDOFF.md` |
 | Implementation branch | `claude/forge-godstorm-defects-repair-rxxwky` |
 | Base / merge-base | `8c47d52cbabd8bf712f8bb0f76da0f4ff9383dc3` (`main`, re-verified at close) |
-| Frozen head | see the stamp commit at the branch tip |
+| Frozen head | `82afbba8d44b7a41c2bba122ef62280eddee812d` — the whole implementation (defects A and C landed at `74083c1cf596b6e18944861c9b14c5a4fed26839`). This stamp commit is the branch tip and changes only this line; review either, the trees differ by this file alone. |
 | Integration target | `main` |
 | Live game requests / writes | **none** |
 | Source pin moved | **no** (`345d18accf…`, unchanged; `check_boundaries` re-asserts it) |
