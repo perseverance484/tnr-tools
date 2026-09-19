@@ -65,6 +65,23 @@ export function blobAt(ref, path) {
 export const sha256Hex = (buf) => createHash("sha256").update(buf).digest("hex");
 
 /**
+ * Can this clone see that commit at all? A shallow checkout (actions/checkout defaults to depth 1)
+ * genuinely cannot answer "does the commit the pack names still hold these bytes", and that is a
+ * different fact from "the pack has drifted". Callers use it to say which of the two happened
+ * instead of reporting a missing object as a mismatch.
+ */
+export function hasCommit(ref) {
+  try { git(["cat-file", "-e", `${ref}^{commit}`], { quiet: true }); return true; }
+  catch { return false; }
+}
+
+/** Is this a shallow clone? Then history is absent by construction, not by error. */
+export function isShallow() {
+  try { return git(["rev-parse", "--is-shallow-repository"], { quiet: true }).trim() === "true"; }
+  catch { return false; }
+}
+
+/**
  * Build the pack. Pure apart from git and the manifest text it is handed.
  * @returns {{pack: object|null, problems: string[], notes: string[]}}
  */
