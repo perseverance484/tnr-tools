@@ -10,15 +10,23 @@
 //   3. GENERATED-CONTRACT PIN AGREEMENT. fields.json and nested.json are derived from one pinned
 //      game-source commit. If they disagree, the app is validating against two different versions
 //      of the contract and the provenance is a fiction.
+//   4. PRESENTATION CONTAINMENT. forge/presentation/ is repository-side tooling and must stay out
+//      of the userscript: nothing under src/ may import it, so it cannot reach the bundle by an
+//      import edge, and nothing in it may issue a request, because a dossier is built from
+//      committed evidence and a tool that can fetch is a tool that can be pointed at the game.
+//      It may read src/ - reusing the runner's image-pack contract is the point of one owner per
+//      contract - but never the other way round.
 //
 // The gate prints the population it scanned, so a clean result is a measurement rather than the
 // absence of a finding.
 
-import { readdirSync, readFileSync } from "node:fs";
+import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { join, dirname, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "src");
+const FORGE = join(dirname(fileURLToPath(import.meta.url)), "..");
+const SRC = join(FORGE, "src");
+const PRESENTATION = join(FORGE, "presentation");
 
 // main.mjs is NOT here: composition INJECTS fetchImpl (win.fetch.bind(win)) and never issues a
 // request itself, so allowlisting it only widened the gate for no behaviour. Removed on review.
@@ -57,6 +65,26 @@ export function checkBoundaries() {
     }
   }
 
+  // 4. presentation containment
+  for (const file of files) {
+    const rel = relative(SRC, file);
+    const code = strip(readFileSync(file, "utf8"));
+    if (/from\s*["'][^"']*\bpresentation\//.test(code) || /import\s*\(\s*["'][^"']*\bpresentation\//.test(code)) {
+      findings.push(`${rel}: imports forge/presentation, which would pull repository-side tooling into the bundle`);
+    }
+  }
+  // A tree with no presentation/ has nothing to contain, so an absent directory is zero files
+  // rather than a crash - the gate is also run against synthetic roots that hold only src/ and
+  // tools/. The count is returned, and presentation.boundary.test.mjs asserts it against what is
+  // actually on disk, so "scanned nothing" cannot pass for "found nothing".
+  const presentationFiles = existsSync(PRESENTATION) ? walk(PRESENTATION) : [];
+  for (const file of presentationFiles) {
+    const rel = relative(PRESENTATION, file);
+    const code = strip(readFileSync(file, "utf8"));
+    if (FETCH_CALL.test(code)) findings.push(`presentation/${rel}: issues a request; a dossier is built from committed evidence only`);
+    for (const host of GAME_HOSTS) if (host.test(code)) findings.push(`presentation/${rel}: hardcodes a live game host`);
+  }
+
   // pin agreement
   const pins = {};
   for (const name of ["fields.json", "nested.json"]) {
@@ -68,12 +96,12 @@ export function checkBoundaries() {
     findings.push(`generated contracts disagree on their source pin: ${JSON.stringify(pins)}`);
   }
 
-  return { files: files.length, pin: distinct[0] ?? null, findings };
+  return { files: files.length, presentationFiles: presentationFiles.length, pin: distinct[0] ?? null, findings };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const { files, pin, findings } = checkBoundaries();
-  console.log(`boundaries: ${files} modules scanned; generated-contract pin ${pin}`);
+  const { files, presentationFiles, pin, findings } = checkBoundaries();
+  console.log(`boundaries: ${files} src modules + ${presentationFiles} presentation modules scanned; generated-contract pin ${pin}`);
   for (const f of findings) console.error("  VIOLATION " + f);
   console.log(findings.length ? `${findings.length} violation(s)` : "0 violations");
   process.exit(findings.length ? 1 : 0);
