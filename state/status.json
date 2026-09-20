@@ -1,16 +1,9 @@
 {
   "generated": "2026-09-19",
-  "session": "Forge repo-backed image packs: implementation, two review rounds, 0.5.0 release, the push/53 pack, and the verified Godstorm repair run",
+  "session": "ChatGPT independent review of Forge Presentation Studio P0/P1 at frozen 8830443977122253a956fb77392a7d2925d6cb6f",
   "format_note": "PROJECTION of state/digest.json - edit the digest, run session_close.py",
-  "state_line": "GODSTORM REPAIR RUN AND VERIFIED ON FORGE 0.5.0. main@72de3d3dc26db96d3e792c0191404301f36ebeb2. Results harvests/inbox/tnr_results_1789842714086.json: state DONE, outcome success, 9/9 VERIFIED with verdict match, 0 drift, 0 unverified, 0 failed, 0 skipped; harvest.py verify -> verified (exit 0); all six requested full captures persisted. First production use of a repo-backed image pack, and the binding was checked end to end AFTER the run: each of the eight URLs the live records now serve was fetched and hashed, and all eight digests equal the pack's exactly. push/53 is archived as spent. The live run was dauntless's; this session made no live TNR request or write.",
-  "ruled_this_session": [
-    "2026-09-19 APPROVED: Forge manifests may bind @img references to immutable repository blobs; ref must be a 40-hex commit, never a branch or tag.",
-    "2026-09-19 APPROVED: a pack-bound image has no manual picker override; the manual picker remains only for images no pack binds.",
-    "2026-09-19 APPROVED: integrate dcaa1465 to main and let release_pin.yml promote Forge to 0.5.0 (user authorised the merge and the release in session).",
-    "2026-09-19 RULED (user): the eight processed Godstorm .webp files will be supplied by dauntless for commit; they are not to be re-derived from the committed lime-key originals.",
-    "2026-09-19 RULED (user): dauntless supplied the eight approved processed Godstorm .webp files; they are committed verbatim at art/godstorm/ and were not re-derived.",
-    "2026-09-19 ACCEPTED (reviewer): the pre-upload re-hash is kept although identity alone would close F1; a separate Forge size pass should be planned before further substantial Forge features."
-  ],
+  "state_line": "PRESENTATION STUDIO REVIEW: P0 passes; P1 CHANGES REQUESTED (F1-F7). Verified main/base/merge-base eefefd1afd67111a90c332951a8dd9f83cb99cbd; frozen Fable head 8830443977122253a956fb77392a7d2925d6cb6f. Review on chatgpt/review-forge-presentation-studio-p1, based on that exact head. docs/reviews/REVIEW_2026-09-20_forge_presentation_studio_p0_p1.md. No implementation integration; live-game requests/writes ZERO. Separate design proposal remains on chatgpt/forge-presentation-studio-design@4532ef917a1dfb40d00c554fd7f065e13216afc7.",
+  "ruled_this_session": [],
   "deployed": [
     "Forge 0.5.0 released: loader @version 0.5.0, @require pinned to forge_bundle.js at dcaa1465 via jsDelivr, @x-release-pending removed by release_pin.yml.",
     "Repo-backed image packs live in the shipped bundle: runner/imgpack.mjs (contract), storage/assets.mjs (digest-keyed asset cache + content-keyed upload ledger), core/imagepack.mjs (prepare/commit/gate).",
@@ -27,11 +20,12 @@
     "The pack drift guards resolve the manifest through findManifest(), so they keep checking it after archiving."
   ],
   "in_progress": {
-    "forge_size_pass": "Reviewer-requested and not begun: two bundle-budget raises inside one feature is the signal. Plan a Forge size/consolidation pass before the next substantial Forge feature.",
+    "forge_size_pass": "P0 implemented at 05e71564d693a8505f98df4400502abee7517a3c and passes independent review; not integrated. 339669 raw / 74926 gzip; ratchet 354000 / 78000.",
     "godstorm_publication": "The three new Stormcourt assets and the Stormcourt quest are live but HIDDEN, as doctrine requires. Publishing is a separate step that waits on the content admin's go-ahead and is dauntless's to perform.",
     "forge_next_phase1": "READY/FROZEN contract remains on main at state/prompt_forge_next_phase1.md; implementation still has not begun.",
     "branch_cleanup": "Approved keep/delete plan remains on main at docs/reviews/FORGE_NEXT_BRANCH_CLEANUP_FINAL.md. Redundant refs still present.",
-    "quest_studio_phase_s": "Accepted source chatgpt/forge-quest-studio-foundation@5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15 retained; not integrated."
+    "quest_studio_phase_s": "Accepted source chatgpt/forge-quest-studio-foundation@5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15 retained; not integrated.",
+    "forge_presentation_studio": "P1 frozen 8830443977122253a956fb77392a7d2925d6cb6f needs F1-F7 corrections. P2/P3 not begun; report docs/reviews/REVIEW_2026-09-20_forge_presentation_studio_p0_p1.md"
   },
   "open_by_owner": {
     "dauntless": [
@@ -40,11 +34,12 @@
       "Optionally delete redundant branch refs per docs/reviews/FORGE_NEXT_BRANCH_CLEANUP_FINAL.md."
     ],
     "claude": [
-      "Plan the Forge size pass before the next substantial Forge feature.",
+      "Correct review F1-F7 on the implementation branch, rerun gates, and return a new frozen SHA with base/merge-base/head. Do not begin P2 yet.",
       "If any of the eight files under art/godstorm/ is ever re-processed, regenerate the pack; the drift guards fail until it is, and for an archived manifest a failure means the art no longer matches what shipped live."
     ],
     "chatgpt": [
-      "No open item: image packs approved and integrated, both findings CLOSED, and the first production run is verified."
+      "Re-review P1 source/model/lint/spec/asset corrections as a unit when Fable returns a new frozen SHA.",
+      "Separate design contract/reference at 4532ef9 remains a proposal awaiting director acceptance before P2."
     ],
     "legacy_content_state": [
       "The 2026-09-08 mission/law queue is still unreverified. lawmap.py reports 0 errors and 5 pre-existing classification warnings (laws 16d, 18, 37, 61, 69), which belong to the legacy law-provenance workstream and were deliberately not touched."
@@ -58,17 +53,46 @@
     "Legacy law-provenance issues, including laws 19/23/37, remain outside this work and must be reverified from their owning evidence."
   ],
   "verified": [
-    "harvest.py verify harvests/inbox/tnr_results_1789842714086.json -> 'builder forge 0.5.0: 9 ok, 0 fail, 0 unverified, 0 skipped -> verified', exit 0",
-    "bundle self-report: state DONE, outcome success, postflight match 9 / diff 0 / unverified 0 / failed 0 / skipped 0; 6 full captures all persistOk true",
-    "the five live profile.getAi read-backs carry exactly the avatar URLs Forge recorded, per AI username",
-    "all EIGHT live asset URLs fetched and hashed: HTTP 200, byte counts equal the ledger, SHA-256 equal the pack's digests, avatars taken from the LIVE read-backs rather than from what Forge sent",
-    "hidden doctrine: the three new assets sent hidden true and 'hidden' is among the 9 asserted keys that read back as match; the quest's live read-back shows hidden true",
-    "push/53 archived; forge npm test 418 pass / 0 fail with the three push/53 guards still resolving and checking the archived manifest",
-    "main 28bba70 -> dcaa1465 -> 4d88ad03 -> 5aef6d59 -> 10fb2570 -> f52ca18f -> a2c52811 -> 72de3d33 (operator results commit) -> 72de3d3dc26db96d3e792c0191404301f36ebeb2",
-    "canonical Forge CI run 35461146680 on a2c52811 success, 418 pass, skipped 0, with both pack drift guards actually running (52.7ms and 28.7ms)"
+    "Ref checks: main/base/merge-base eefefd1afd67111a90c332951a8dd9f83cb99cbd; implementation remote head 8830443977122253a956fb77392a7d2925d6cb6f; exactly P0 05e7156 and P1 8830443.",
+    "Forge npm test: 481 passed, 0 failed, 0 skipped. Runtime npm audit: 0 vulnerabilities.",
+    "Build and envelope/screens fixtures regenerated with zero drift. Import/boundary/release-pin gates passed; presentation stays outside runtime bundle.",
+    "Bundle 339669 raw / 74926 gzip; P0 and P1 bundles identical; new ratchet 354000 / 78000.",
+    "Nested contract regenerated byte-identically from game-source pin 345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9. Independent expansion equals base main.",
+    "17 scratch control/adversarial cases completed; confirmed F1-F7. Nine compact report recipes independently executed and reproduced their false acceptances. Scratch files not committed.",
+    "Godstorm default CLI: correct 2 pyramids / 50 battles / 18 AIs / 10 keepers and current rewards; 0 fatal, 17 warnings. Strict exact-byte CLI: 13 fatal, 4 warnings; incomplete art resolution.",
+    "Recovery 1bca57eeb0c1836a49334dc2f49196a5a3db24c7: 19 file hashes/lengths/dimensions/decode checks passed, 2 indexed source digests matched frozen evidence; 13 remaining portrait URL joins and 2 quest listing images verified without CDN/game requests.",
+    "harvest.py verify harvests/inbox/tnr_results_1789842714086.json: 9 ok, 0 fail, 0 unverified, 0 skipped -> verified (exit 0); committed evidence only.",
+    "Session-open source guards: lawmap 0 errors / 5 pre-existing warnings; doctrine/packs current. Baseline validate.py parity adapter remains RED on checks:null (TypeError); outside implementation diff, not fixed or reported green.",
+    "Live-game requests 0; live-game writes 0; asset-CDN requests 0. Fable implementation branch untouched."
   ],
-  "token_ledger": [],
-  "next": "Godstorm is done and verified; publishing it is a separate step on the content admin's go-ahead. Plan the Forge size pass before the next substantial Forge feature. Do not start Forge Next Phase 2 or integrate Quest Studio.",
+  "token_ledger": [
+    {
+      "path": "state/digest.json",
+      "bytes": 10311,
+      "at": "00:43Z"
+    },
+    {
+      "path": "state/active-context.md",
+      "bytes": 5136,
+      "at": "00:43Z"
+    },
+    {
+      "path": "state/status.json",
+      "bytes": 9335,
+      "at": "00:43Z"
+    },
+    {
+      "path": "docs/00_INDEX.md",
+      "bytes": 8785,
+      "at": "00:43Z"
+    },
+    {
+      "path": "harvests/inbox/tnr_results_1789842714086.json",
+      "bytes": 207909,
+      "at": "00:43Z"
+    }
+  ],
+  "next": "Fable corrects F1-F7 and returns a new frozen P1 SHA for independent review. Preserve P0 and complete Godstorm facts; do not integrate 8830443 or begin P2. No director decision blocks these engineering fixes. Publishing remains separately user-owned.",
   "forge_next": {
     "phase_0": "COMPLETE / integrated",
     "phase_1": "READY / FROZEN; implementation not begun at closeout",
@@ -76,8 +100,20 @@
     "phase_2_plus": "not begun",
     "cleanup": "selective consolidation complete; redundant branch-ref deletion pending",
     "image_packs": "COMPLETE / integrated / released as 0.5.0 / first production run verified end to end by content",
-    "bundle_budget": "470,000 raw / 92,000 gzip; ~96% used; a size pass is requested and not begun"
+    "bundle_budget": "Current main 470000 raw / 92000 gzip. Reviewed P0 branch lowers to 354000 / 78000 with 339669 / 74926 measured; not integrated."
   },
   "legacy_state_notice": "Global state before this closeout was a 2026-09-08 mission-flatten digest and was not reliable as current Forge state. It is archived verbatim; live/content claims from it must be reverified before use.",
-  "godstorm_53": "RUN AND VERIFIED on Forge 0.5.0 (9/9 match); manifest archived; live content is hidden pending a publishing decision"
+  "godstorm_53": "RUN AND VERIFIED on Forge 0.5.0 (9/9 match); manifest archived; live content is hidden pending a publishing decision",
+  "forge_presentation_studio": {
+    "review": "CHANGES REQUESTED for P1; P0 passes",
+    "frozen_head": "8830443977122253a956fb77392a7d2925d6cb6f",
+    "base": "eefefd1afd67111a90c332951a8dd9f83cb99cbd",
+    "review_branch": "chatgpt/review-forge-presentation-studio-p1",
+    "report": "docs/reviews/REVIEW_2026-09-20_forge_presentation_studio_p0_p1.md",
+    "design_branch": "chatgpt/forge-presentation-studio-design",
+    "design_head": "4532ef917a1dfb40d00c554fd7f065e13216afc7",
+    "design_status": "proposal; director acceptance pending before P2",
+    "live_requests": 0,
+    "live_writes": 0
+  }
 }
