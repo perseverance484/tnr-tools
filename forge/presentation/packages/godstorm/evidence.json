@@ -1,0 +1,49 @@
+{
+ "schema": "tnr.presentation.evidence.v1",
+ "note": "The committed sources the Godstorm dossier is built from, and nothing else. This file selects records; it states no fact. Every number, name and image in the dossier is read out of the records below.",
+ "subject": {
+  "type": "event",
+  "title": "Godstorm",
+  "components": ["Marrow Vaults", "Stormcourt"]
+ },
+ "records": [
+  {
+   "id": "marrow-quest",
+   "kind": "quest",
+   "path": "harvests/inbox/tnr_results_1789829183863.json",
+   "questId": "2yvE9PUQqlD8lbYNfgX-b",
+   "note": "The `after` read-back of Marrow Vaults from 2026-09-19T14:46Z. That run FAILED on its image items, and its own Marrow Vaults quest update landed with verdict match and was captured here; the later 18:31 run did not touch Marrow Vaults, so this is still its current state. The loader reports the run outcome as a warning rather than discarding a capture that read back ok."
+  },
+  {
+   "id": "stormcourt-quest",
+   "kind": "quest",
+   "path": "harvests/inbox/tnr_results_1789842714086.json",
+   "questId": "OSADdXqostbyVliCxWk6k",
+   "note": "The `after` read-back of Stormcourt from the verified 2026-09-19T18:31Z repair run (9/9 VERIFIED, 0 drift). Stormcourt WAS updated by that run, so this capture supersedes the 14:46 one."
+  },
+  {
+   "id": "ai-2026-09-19",
+   "kind": "aiRecords",
+   "path": "harvests/inbox/tnr_results_1789842714086.json",
+   "note": "profile.getAi read-backs for the five Marrow recurring AIs after their avatars were replaced. Newest record wins per AI, so these five override the 09-14 bundle below."
+  },
+  {
+   "id": "ai-2026-09-14",
+   "kind": "aiRecords",
+   "path": "harvests/inbox/tnr_results_1789402842027.json",
+   "note": "The only selected source that names the other thirteen AIs. It also carries the five Marrow recurring AIs with their PRE-replacement avatars; those are superseded by ai-2026-09-19 and are what the registry's historical check compares against."
+  },
+  {
+   "id": "pack-push53",
+   "kind": "imagePack",
+   "path": "archive/spent-manifests/push-2026-09-19/53_godstorm_failed_items_repair.json",
+   "note": "The repo-backed image pack push/53 ran with: eight files under art/godstorm/ bound by repository path, the commit 10fb2570 that holds them, and their SHA-256. Parsed by the runner's own imagePack contract, not a second copy of it."
+  },
+  {
+   "id": "uploads-push53",
+   "kind": "uploads",
+   "path": "harvests/inbox/tnr_results_1789842714086.json",
+   "note": "The idmap of the same verified run: which URL each packed image became when it was uploaded. This is the link that ties a repository blob to the avatar a character actually serves."
+  }
+ ]
+}

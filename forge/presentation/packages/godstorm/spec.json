@@ -1,0 +1,58 @@
+{
+ "schema": "tnr.presentation.spec.v1",
+ "evidence": "evidence.json",
+ "template": "event-poster",
+ "title": "Godstorm",
+ "subtitle": "Two battle pyramids beneath and above the court",
+ "note": "Presentation choices only. There is no battle count, keeper count, reward amount or roster name in this file: the parser refuses those keys by name, and every one of them resolves from the dossier.",
+
+ "roles": {
+  "9uDe65Qt90xnT-fM5vJZ7": "recurring",
+  "IG5Mbfi_2lpUTnUU4_XhZ": "recurring",
+  "qQ6jMh8w6aiyr4pevwDh-": "recurring",
+  "YvinZCoMWiz0RY8ZBP5EW": "recurring",
+  "oi4bHe3upEhLkI-ElJuMX": "keeper",
+  "s6LjnqhSW85pIxYRM76Fw": "keeper",
+  "jGHpkz2pgLu8loti6pZZi": "keeper",
+  "QV1PwoQR9JImZL2_fcOsk": "keeper",
+  "3XMsIV6Yv4jy-uaJAe52f": "keeper",
+  "b8PGgZl8zNNr6UdWH9dBv": "ascendant",
+  "JU2BgfdcWsBYGeHUgHMi_": "ascendant",
+  "9yLEi0OoYxcIL0a2XYkWk": "ascendant",
+  "k4qMHSTHHZBVsijP5FJ6E": "ascendant",
+  "axTRSadaZbUepfT40-7cM": "keeper",
+  "HEjtNpXmuU4ShrOOPg8XK": "keeper",
+  "pln436P8g2ocUBCHavcdb": "keeper",
+  "aL1Gf1JmVaP8iWi2zHJoO": "keeper",
+  "i8oFdDcneF7YE-8VpQsu3": "finalBoss"
+ },
+
+ "roster": { "coverage": "all", "groupBy": "role" },
+
+ "locations": ["Marrow Vaults", "Stormcourt"],
+ "sceneDetail": false,
+
+ "assets": {
+  "ai:9uDe65Qt90xnT-fM5vJZ7": "art/godstorm/ai_godstorm_marrow_umbral_reaver.webp",
+  "ai:IG5Mbfi_2lpUTnUU4_XhZ": "art/godstorm/ai_godstorm_marrow_hollow_lantern.webp",
+  "ai:qQ6jMh8w6aiyr4pevwDh-": "art/godstorm/ai_godstorm_marrow_starless_monk.webp",
+  "ai:YvinZCoMWiz0RY8ZBP5EW": "art/godstorm/ai_godstorm_marrow_nightveil_sentinel.webp",
+  "ai:oi4bHe3upEhLkI-ElJuMX": "art/godstorm/ai_godstorm_marrow_warden_of_the_first_dark.webp"
+ },
+
+ "story": {
+  "marrow": {
+   "text": "The lower vaults beneath Stormcourt hold tally-marks of feedings, measurements and years: the Unbroken Thread kept the elder sister's captivity in a careful administrative hand. Deeper in, ritual chains hang over slabs and a low voice recites the binding verses, until the Warden of the Half Eclipse falls and the stair beyond the divided threshold stands open.",
+   "sourceObjectives": ["d1_1", "d4_1", "d5_victory"]
+  },
+  "stormcourt": {
+   "text": "The stair from Marrow Vaults opens into wind and rain, with scorched marks spread across the court at the height of a young girl. The wind circles rather than crosses it, every gust returning toward the central dais, until the Sovereign Echo collapses, the binding instruments fall silent and the thunder carries no voice.",
+   "sourceObjectives": ["d6_1", "d9_1", "d10_victory"]
+  }
+ },
+
+ "labels": {
+  "2yvE9PUQqlD8lbYNfgX-b": "Lower pyramid",
+  "OSADdXqostbyVliCxWk6k": "Upper pyramid"
+ }
+}
