@@ -1,6 +1,7 @@
 {
- "schema": "tnr.presentation.evidence.v1",
- "note": "The committed sources the Godstorm dossier is built from, and nothing else. This file selects records; it states no fact. Every number, name and image in the dossier is read out of the records below.",
+ "schema": "tnr.presentation.evidence.v2",
+ "note": "The committed sources the Godstorm dossier is built from, and nothing else. This file selects sources; it states no fact. Every number, name and image in the dossier is read out of the captures named below, each of which is admitted only if it read back ok, persisted in full, and answered about the entity it was asked about.",
+ "repoCommit": "eefefd1afd67111a90c332951a8dd9f83cb99cbd",
  "subject": {
   "type": "event",
   "title": "Godstorm",
@@ -11,39 +12,57 @@
    "id": "marrow-quest",
    "kind": "quest",
    "path": "harvests/inbox/tnr_results_1789829183863.json",
+   "sha256": "178109b3280935a1acb39df15b0733a58e9ee57f23535e13b0434109270584c6",
    "questId": "2yvE9PUQqlD8lbYNfgX-b",
-   "note": "The `after` read-back of Marrow Vaults from 2026-09-19T14:46Z. That run FAILED on its image items, and its own Marrow Vaults quest update landed with verdict match and was captured here; the later 18:31 run did not touch Marrow Vaults, so this is still its current state. The loader reports the run outcome as a warning rather than discarding a capture that read back ok."
+   "capture": { "phase": "after", "at": "2026-09-19T14:46:23.568Z", "snapshotKey": "52-mu8i2pd8::after::2" },
+   "note": "The after read-back of Marrow Vaults from 2026-09-19T14:46Z, pinned by snapshot key so no other capture in this file can stand in for it. That run FAILED on its image items; its own Marrow Vaults quest update landed with verdict match and this capture read back ok and persisted in full, and the later 18:31 run did not touch Marrow Vaults. The run outcome is reported as a warning; admission is decided per capture."
   },
   {
    "id": "stormcourt-quest",
    "kind": "quest",
    "path": "harvests/inbox/tnr_results_1789842714086.json",
+   "sha256": "a4b79cf9cbcc7f79008e52b3175d5f3218cea9027251dd15248bfba3e7b91670",
    "questId": "OSADdXqostbyVliCxWk6k",
-   "note": "The `after` read-back of Stormcourt from the verified 2026-09-19T18:31Z repair run (9/9 VERIFIED, 0 drift). Stormcourt WAS updated by that run, so this capture supersedes the 14:46 one."
+   "capture": { "phase": "after", "at": "2026-09-19T18:31:53.962Z", "snapshotKey": "53-mu8q43ck::after::5" },
+   "note": "The after read-back of Stormcourt from the verified 2026-09-19T18:31Z repair run (9/9 VERIFIED, 0 drift). Stormcourt WAS updated by that run, so this capture supersedes the 14:46 one."
   },
   {
    "id": "ai-2026-09-19",
    "kind": "aiRecords",
    "path": "harvests/inbox/tnr_results_1789842714086.json",
-   "note": "profile.getAi read-backs for the five Marrow recurring AIs after their avatars were replaced. Newest record wins per AI, so these five override the 09-14 bundle below."
+   "sha256": "a4b79cf9cbcc7f79008e52b3175d5f3218cea9027251dd15248bfba3e7b91670",
+   "capture": { "phase": "after" },
+   "note": "profile.getAi read-backs for the five Marrow recurring AIs after their avatars were replaced. Freshness is decided by each capture's own timestamp, so these five supersede the 09-14 record below for those five and for nothing else."
   },
   {
    "id": "ai-2026-09-14",
    "kind": "aiRecords",
    "path": "harvests/inbox/tnr_results_1789402842027.json",
-   "note": "The only selected source that names the other thirteen AIs. It also carries the five Marrow recurring AIs with their PRE-replacement avatars; those are superseded by ai-2026-09-19 and are what the registry's historical check compares against."
+   "sha256": "25224da3fde7acdc30284a5f750ddd84dce29bb43466d131af8742117d3fa4a7",
+   "capture": { "phase": "after" },
+   "note": "The only selected source that names the other thirteen AIs. It also carries the five Marrow recurring AIs with their PRE-replacement avatars; those lose on capture time, and they are what the registry's historical check compares a stale binding against."
+  },
+  {
+   "id": "assets-2026-09-14",
+   "kind": "assetRecords",
+   "path": "harvests/inbox/tnr_results_1789402842027.json",
+   "sha256": "25224da3fde7acdc30284a5f750ddd84dce29bb43466d131af8742117d3fa4a7",
+   "capture": { "phase": "after" },
+   "note": "gameAsset.get read-backs for the Marrow scene backgrounds. They are in the dossier as scene ART with their current images, never as locations; selecting them is what lets a binding to one be checked instead of silently ignored."
   },
   {
    "id": "pack-push53",
    "kind": "imagePack",
    "path": "archive/spent-manifests/push-2026-09-19/53_godstorm_failed_items_repair.json",
+   "sha256": "a9f9ab57ffc9787b5c1d79e53af0ab7cd07f6c11a7198bc06262dd5296724724",
    "note": "The repo-backed image pack push/53 ran with: eight files under art/godstorm/ bound by repository path, the commit 10fb2570 that holds them, and their SHA-256. Parsed by the runner's own imagePack contract, not a second copy of it."
   },
   {
    "id": "uploads-push53",
    "kind": "uploads",
    "path": "harvests/inbox/tnr_results_1789842714086.json",
-   "note": "The idmap of the same verified run: which URL each packed image became when it was uploaded. This is the link that ties a repository blob to the avatar a character actually serves."
+   "sha256": "a4b79cf9cbcc7f79008e52b3175d5f3218cea9027251dd15248bfba3e7b91670",
+   "note": "The idmap of the same verified run: which URL each packed image became when it was uploaded. This is the link that ties a repository blob to the art an entity actually serves."
   }
  ]
 }

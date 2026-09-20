@@ -44,8 +44,9 @@ export function buildFromSpecFile(specPath, { root, gitRoot = root, requireExact
   // that could point at an arbitrary repository path would be a way to smuggle a source in.
   const evidencePath = join(dirname(specPath), spec.evidence);
   const pkg = parseEvidence(readJson(evidencePath, "evidence package"));
-  const loaded = loadEvidence(pkg, { root });
-  const dossier = buildDossier(loaded, spec, { root, blobAtRef: blobAtRef ?? gitBlobReader(gitRoot) });
+  const reader = blobAtRef ?? gitBlobReader(gitRoot);
+  const loaded = loadEvidence(pkg, { root, blobAtRef: reader });
+  const dossier = buildDossier(loaded, spec, { root, blobAtRef: reader });
   const lint = lintPresentation(dossier, spec, { requireExactBytes });
   return { spec, dossier, lint };
 }
@@ -54,6 +55,7 @@ export function buildFromSpecFile(specPath, { root, gitRoot = root, requireExact
 export function summarize(dossier) {
   const lines = [];
   lines.push(`${dossier.subject.title} (${dossier.subject.type}) - dossier ${dossier.hash.slice(0, 12)}`);
+  lines.push(`  sources: ${dossier.sources.records.length} record(s) at ${dossier.sources.draft ? "DRAFT (uncommitted working tree)" : dossier.sources.repoCommit.slice(0, 12)}`);
   lines.push(`  components: ${dossier.subject.components.join(", ")}`);
   for (const e of dossier.encounters) {
     lines.push(`  ${e.name}: ${e.battles} battles, ${e.keepers} keepers - ${cadenceText(e.cadence)}`);
@@ -65,8 +67,8 @@ export function summarize(dossier) {
     lines.push(`  ${name} full clear (${r.fullClear ? r.fullClear.objectiveId : "-"}): ${fc}; ${r.intermediateCashOuts.length} intermediate cash-out(s), ${r.rewardItems.length} reward item(s)`);
   }
   const c = dossier.assets.coverage;
-  lines.push(`  art: ${c.exactBytes} exact-with-bytes, ${c.exactRemote} exact-remote, ${c.historical} historical, ${c.missing} missing, ${c.mismatch} mismatched, of ${c.total}`);
+  lines.push(`  art: ${c.exact} exact-current (${c.renderable} with verified bytes), ${c.derivative} derivative, ${c.historical} historical, ${c.mismatch} mismatched, ${c.missing} missing, of ${c.total}`);
   lines.push(`  locations: ${dossier.locations.map((l) => l.name).join(", ")} (${dossier.sceneAssets.length} scene asset(s), not locations)`);
-  for (const b of dossier.narrative) lines.push(`  narrative ${b.key}: ${b.sourceObjectives.length} anchor(s) in ${b.component}`);
+  for (const b of dossier.narrative) lines.push(`  narrative ${b.key}: ${b.sourceObjectives.length} anchor(s) in ${b.component}, source ${b.sourceDigest.slice(0, 12)}`);
   return lines.join("\n");
 }
