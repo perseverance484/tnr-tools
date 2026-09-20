@@ -23,7 +23,7 @@ import { h, installCss } from "./ui/dom.mjs";
 import FIELDS from "./runner/fields.json" with { type: "json" };
 import NESTED from "./runner/nested.json" with { type: "json" };
 
-export const VERSION = "forge 0.5.0";
+export const VERSION = "forge 0.5.1";
 
 /**
  * SHA-256, the ONE environment primitive repo-backed image packs need. It lives here because this is
