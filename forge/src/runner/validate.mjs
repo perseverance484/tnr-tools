@@ -49,15 +49,57 @@ export const AI_OMITTED = Object.freeze([
 /** Which 45d entity backs a manifest entity. */
 export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai" });
 
+/**
+ * Restore the per-discriminator key sets from nested.json's shared key-set table.
+ *
+ * The 165 allowed key sets at the pin are only 53 distinct arrays - every "absorb"-shaped effect
+ * tag allows the same keys - so the file stores each one ONCE in `sets` and every section names it
+ * by index. That is a storage encoding of the same contract, not a different contract: the
+ * expansion below is asserted byte-for-byte against the pre-compaction content in
+ * test/runner.test.mjs, which is the gate that keeps the two equivalent.
+ *
+ * FAILS CLOSED, and that matters more than the bytes it saves: an index this file does not define,
+ * a missing table, a section that is neither an index nor a map of them - any of those returns
+ * null, and a null nested surface makes the Validator refuse every nested writable structure
+ * rather than send it unchecked. A half-expanded table would be worse than no table at all.
+ *
+ * @param {object|null} raw  the parsed src/runner/nested.json
+ * @returns {object|null} {effects: {type: [keys]}, ...} or null when the table cannot be trusted
+ */
+export function expandNested(raw) {
+  if (!raw || typeof raw !== "object" || !Array.isArray(raw.sets) || !raw.effects) return null;
+  const at = (i) => (Number.isInteger(i) && i >= 0 && i < raw.sets.length && Array.isArray(raw.sets[i]) ? raw.sets[i] : null);
+  const out = {};
+  for (const [section, v] of Object.entries(raw)) {
+    if (section === "_meta" || section === "sets") continue;
+    if (typeof v === "number") {
+      const set = at(v);
+      if (!set) return null;
+      out[section] = set;
+      continue;
+    }
+    if (!v || typeof v !== "object" || Array.isArray(v)) return null;
+    const byValue = {};
+    for (const [discriminator, i] of Object.entries(v)) {
+      const set = at(i);
+      if (!set) return null;
+      byValue[discriminator] = set;
+    }
+    out[section] = byValue;
+  }
+  return out.effects ? out : null;
+}
+
 export class Validator {
   /**
    * @param {object} schemas  the parsed field file ({entities: {name: {fields: {...}}}}) or null
    * @param {object} [nested] src/runner/nested.json: the nested key surface derived from the same
-   *   pin by tools/derive_nested.mjs. Without it, nested checking FAILS CLOSED: a manifest that
-   *   carries any nested writable structure is refused rather than sent unchecked.
+   *   pin by tools/derive_nested.mjs, in its shared key-set encoding. Without it, nested checking
+   *   FAILS CLOSED: a manifest that carries any nested writable structure is refused rather than
+   *   sent unchecked - and so does a table expandNested() cannot trust.
    */
   constructor(schemas, nested = null) {
-    this.nested = nested && nested.effects ? nested : null;
+    this.nested = expandNested(nested);
     this.fields = {};
     const ents = schemas && schemas.entities ? schemas.entities : {};
     for (const [name, e] of Object.entries(ents)) {
@@ -208,6 +250,51 @@ function ruleProblems(rules) {
   });
   return out;
 }
+
+/**
+ * Deep equality for a payload the SERVER rebuilds before storing it.
+ *
+ * Two normalisations, and only two:
+ *
+ *   key order is not meaning.  A rules payload is validated by zod and re-emitted in SCHEMA key
+ *     order, so a condition sent as {type, value, target, description} reads back as
+ *     {type, description, value, target}. Comparing those with JSON.stringify calls a landed
+ *     write drift; it did, for all 18 Godstorm AI-profile corrections, whose exported sent and
+ *     live payloads parse to identical objects
+ *     (harvests/inbox/tnr_results_1789829183863.json).
+ *   a key carrying `undefined` is a key that is not there.  Neither survives the wire - superjson
+ *     drops it, zod strips it - so asserting one against the other asserts against nothing.
+ *
+ * EVERYTHING ELSE STAYS STRICT, because that is where real drift lives:
+ *   - array order is meaning: rule order decides which rule fires first, so a reordered rules
+ *     array is drift;
+ *   - a key present on one side with a real value and absent on the other is drift, in BOTH
+ *     directions. `null` is a real value the server stores and is not the same as absent;
+ *   - values are compared by type and value: 1 is not "1", 0 is not false.
+ *
+ * This is deliberately NOT eqLoose(): eqLoose compares an asserted field against a live DB ROW,
+ * where the live side legitimately carries server-owned columns nobody asserted, and it applies
+ * the ai numeric tolerance (law 71). A rules payload is a closed document that was sent whole
+ * and read back whole, so nothing about it may be one-sided.
+ */
+export function deepEqualPayload(a, b) {
+  if (a === b) return true;
+  if (typeof a === "number" && typeof b === "number") return Number.isNaN(a) && Number.isNaN(b);
+  if (a instanceof Date || b instanceof Date) {
+    return a instanceof Date && b instanceof Date && a.getTime() === b.getTime();
+  }
+  if (Array.isArray(a) || Array.isArray(b)) {
+    if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) return false;
+    return a.every((x, i) => deepEqualPayload(x, b[i]));
+  }
+  if (a && b && typeof a === "object" && typeof b === "object") {
+    const ka = definedKeys(a);
+    if (ka.length !== definedKeys(b).length) return false;
+    return ka.every((k) => b[k] !== undefined && deepEqualPayload(a[k], b[k]));
+  }
+  return false;
+}
+const definedKeys = (o) => Object.keys(o).filter((k) => o[k] !== undefined);
 
 /**
  * Diff only the keys the manifest asserted (spec section 8, R6). Returns [{key, sent, live}].

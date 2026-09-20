@@ -6,7 +6,7 @@ refused before transport, whatever the game would answer (`RUL-2026-09-17-002`).
 
 - **Source pin audited:** `345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9` (`studie-tech/TheNinjaRPG`), the same pin
   `forge/src/runner/fields.json` and `nested.json` carry; `tools/check_boundaries.mjs` holds the three equal.
-- **Registry revision:** `0657385d` — the content identity of the admission policy below
+- **Registry revision:** `2b643a51` — the content identity of the admission policy below
   (pin, tiers, projectable allowlists, input contracts, paging bounds). Every capture is stamped with
   this pair at the moment it is taken, so a saved capture names the exact contract that admitted it.
   Editing any row changes it; it cannot be left stale by hand.
@@ -31,8 +31,8 @@ refused before transport, whatever the game would answer (`RUL-2026-09-17-002`).
 | `quests.getAllNames` | query | public | yes | list | _(none)_ | — | `local-only` | push/00_forge_readonly_smoke.json | routers/quests.ts getAllNames |
 | `item.getAllNames` | query | public | yes | list | _(none)_ | — | `local-only` | builder dedupNames live-name check | routers/item.ts getAllNames |
 | `bloodline.getAllNames` | query | public | yes | list | _(none)_ | — | `local-only` | builder dedupNames live-name check | routers/bloodline.ts getAllNames |
-| `gameAsset.getAllNames` | query | public | yes | list | _(none)_ | — | `local-only` | builder dedupNames live-name check | routers/gameAsset.ts getAllNames |
 | `profile.getAllAiNames` | query | public | yes | list | _(none)_ | — | `local-only` | builder dedupNames live-name check | routers/profile.ts getAllAiNames |
+| `gameAsset.getAllNames` | query | public | yes | query | `type?` `folderPrefix?` | — | `local-only` | builder dedupNames live-name check; push/53 Godstorm repair | app/src/server/api/routers/asset.ts:50-57 getAllNames |
 | `combat.getBattleHistory` | query | protected | no | query | `userId?` `secondsBack?` `combatTypes?` | — | `local-only` | push/05_aerathiel_pvp_research_stage1.json | app/src/server/api/routers/combat.ts:530-560 getBattleHistory |
 | `combat.getBattleEntries` | query | protected | no | query | `battleId` `limit?` `offset?` `userFilter?` `showBasicActions?` `refreshKey?` `checkBattle?` | offset, default limit 30, max 500 | `local-only` | push/06_aerathiel_pvp_battle_logs.json | app/src/server/api/routers/combat.ts:382-421 getBattleEntries |
 

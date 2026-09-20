@@ -1,6 +1,6 @@
 // Manifest parsing and planning. Accepts the shapes committed under push/: a top-level
 // `items` (legacy `jutsu`) array, optional `capture {before, after}`, `_note`, `skipPreflight`,
-// `dedupNames`, `readBack`, `imgSizes`. Each item is {entity, slot, name, srcId?, targetId?,
+// `dedupNames`, `readBack`, `imgSizes`, `imagePack`. Each item is {entity, slot, name, srcId?, targetId?,
 // data, phase?}. slot "create" creates; "edit" and "convert" both update.
 //
 // Planning produces an ORDERED list of item specs for the journal. Order is manifest order,
@@ -16,9 +16,12 @@ import {
 import { collectRefs, REF_RE } from "./refs.mjs";
 import { resolvePoolCodes, stuckPoolCodes, kitProblems } from "./pool.mjs";
 import { lintManifest } from "./lints.mjs";
+import { normalizeImagePack } from "./imgpack.mjs";
 
 export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile"]);
 const SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
+// Same production as lints.mjs IMG_REF_RE; a fresh instance because /g regexes carry lastIndex.
+const IMG_REF_SCAN = /@img:([A-Za-z0-9_.\-]+)/g;
 
 // How durably a capture's response body is kept.
 //
@@ -100,6 +103,13 @@ export function parseManifest(source) {
   const lint = lintManifest({ items, imgSizes });
   problems.push(...lint.errors);
   const warnings = [...lint.warnings];
+  // The repo-backed image pack, validated HERE so a malformed binding can never open a job. The
+  // logical names it is cross-checked against are the ones the items actually reference, taken the
+  // same way L17 takes them (see imgpack.mjs for the five rules and why each is fatal).
+  const imgNames = [...new Set([...JSON.stringify(items).matchAll(IMG_REF_SCAN)].map((x) => x[1]))];
+  const packed = normalizeImagePack(m.imagePack, { imgSizes, names: imgNames });
+  problems.push(...packed.errors);
+  warnings.push(...packed.warnings);
   for (const it of items) {
     if (it.entity !== "ai" && it.entity !== "aiProfile") continue;
     for (const w of kitProblems(it.data).warnings) warnings.push(`item ${it.idx} (${it.name}): ${w}`);
@@ -113,13 +123,31 @@ export function parseManifest(source) {
   // `skipPreflight` is recorded but does NOT disable any of the above: see the header of lints.mjs.
   if (problems.length) throw new ManifestError("manifest problems:\n" + problems.join("\n"), { problems });
 
-  return {
-    items, capture, warnings, poolResolved,
-    note: typeof m._note === "string" ? m._note : null,
-    skipPreflight: !!m.skipPreflight,
+  // EXECUTION POLICY. Every top-level key that can change what a run DOES, normalized so the
+  // value is the behaviour and not its spelling: a manifest that writes `"dedupNames": false`
+  // executes exactly like one that omits the key, and must therefore have the same identity.
+  // `_note` is prose and is deliberately absent.
+  const policy = {
     dedupNames: !!m.dedupNames,
     readBack: m.readBack !== false,
+    skipPreflight: !!m.skipPreflight,
     imgSizes,
+  };
+  // `imagePack` decides WHICH BYTES a run uploads, so it belongs to execution identity: two
+  // manifests identical but for their pack are not the same run and must not be mistaken for one
+  // another by journal.open() or attach(). It is added as a key ONLY when a pack is present, and
+  // in normalized form, so (a) every manifest written before packs existed keeps the exact hash it
+  // already had - including one carrying a non-default policy, whose open jobs therefore still
+  // resume - and (b) re-spelling a pack (key order, whitespace) does not change identity.
+  if (packed.pack) policy.imagePack = packed.pack;
+  return {
+    items, capture, warnings, poolResolved, policy,
+    note: typeof m._note === "string" ? m._note : null,
+    skipPreflight: policy.skipPreflight,
+    dedupNames: policy.dedupNames,
+    readBack: policy.readBack,
+    imgSizes,
+    imagePack: packed.pack,
     fullCaptures: allCaptures.filter((c) => c.tier === "repo-safe").length,
     // One count per tier, so a screen or a headline can say what a run is actually going to keep
     // without re-deriving the policy from the entries.
@@ -131,8 +159,40 @@ export function parseManifest(source) {
     // Hashing raw also means a manifest written before `persist` existed keeps the hash it
     // already had, so an open job survives this upgrade. `manifest hashing covers the
     // persistence request` in test/capture.full.test.mjs holds both halves of that.
-    hash: fnv1a32(stableStringify({ items: raw, capture: rawCapture })),
+    hash: manifestHash(raw, rawCapture, policy),
+    // The pre-policy identity, kept ONLY so attach() can recognise a job opened by a bundle that
+    // hashed bodies alone and say so precisely instead of "manifest changed". Never stored, never
+    // compared for equivalence.
+    bodyHash: fnv1a32(stableStringify({ items: raw, capture: rawCapture })),
   };
+}
+
+// The default execution policy. A manifest whose policy equals this one is, by definition, a
+// manifest whose execution is decided entirely by its bodies.
+const DEFAULT_POLICY = Object.freeze({ dedupNames: false, readBack: true, skipPreflight: false, imgSizes: {} });
+export function isDefaultPolicy(policy) {
+  return stableStringify(policy) === stableStringify(DEFAULT_POLICY);
+}
+
+/**
+ * The manifest's IDENTITY. It is what journal.open() refuses a duplicate of and what attach()
+ * compares before resuming, so it must mean "the same run", not "the same text".
+ *
+ * Bodies alone were not enough (independent brief, defect B). Manifests 50 and 51 differed only in
+ * `dedupNames` - one performing the live-name safety read before its creates and one not - and both
+ * hashed to d5164ee3, so Forge refused to open 51 on the grounds that 50 was already open. Execution
+ * policy that decides whether a job performs a safety read cannot be invisible to the guard that
+ * decides whether two jobs are the same job.
+ *
+ * The policy is folded in ONLY when it is non-default. That is not a trick to preserve hashes for
+ * their own sake: a manifest with default policy executes exactly as its bodies say, so its identity
+ * has not changed and a job opened under an older bundle still attaches. The compatibility break is
+ * confined to exactly the manifests where the guard was wrong - the ones carrying a policy - and
+ * attach() names that break rather than reporting it as an edited file.
+ */
+export function manifestHash(raw, rawCapture, policy) {
+  const body = { items: raw, capture: rawCapture };
+  return fnv1a32(stableStringify(isDefaultPolicy(policy) ? body : { ...body, policy }));
 }
 
 /**

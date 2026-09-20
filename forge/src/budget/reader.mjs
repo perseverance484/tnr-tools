@@ -15,6 +15,35 @@ import { canonicalInput, canonicalKey, pointInput, pageContract, pageInput, page
  */
 export function readInput(path, id) { return pointInput(path, id); }
 
+/**
+ * The input a list procedure must be called with when the caller asks for no filter: the registry's
+ * canonical input for an EMPTY request. Five name lists declare no `.input()` at source and get
+ * `undefined`; gameAsset.getAllNames declares `z.object({type?, folderPrefix?})` with the OBJECT
+ * required, so it gets `{}` - the shape whose absence was the live BAD_REQUEST that killed the
+ * Godstorm Stormcourt creates at their pre-create name snapshot (harvests/inbox/
+ * tnr_results_1789829183863.json, items 0-2 and 27; asset.ts:50-57 at the pin).
+ *
+ * Derived from the audited row rather than kept as a second table here, so the shape Forge sends
+ * for a bare list and the shape the research registry validates a capture against cannot disagree.
+ * The members are deliberately NOT defaulted: dedupNames and the pre-create reconciliation snapshot
+ * need the unfiltered list under the plain `name`, and `folderPrefix: true` would hand back
+ * "folder/Name" and make every live name look new.
+ */
+export function listInput(path) { return canonicalInput(path, undefined) ?? undefined; }
+
+// Order-insensitive structural comparison, used only to decide whether a caller's list input is
+// the default one. Keys are sorted and undefined-valued keys dropped, so {} and {type: undefined}
+// are the same request.
+function stableInput(v) {
+  if (Array.isArray(v)) return "[" + v.map(stableInput).join(",") + "]";
+  if (v && typeof v === "object") {
+    return "{" + Object.keys(v).filter((k) => v[k] !== undefined).sort()
+      .map((k) => JSON.stringify(k) + ":" + stableInput(v[k])).join(",") + "}";
+  }
+  return v === undefined ? "undefined" : JSON.stringify(v) ?? "null";
+}
+function sameInput(a, b) { return a === b || stableInput(a) === stableInput(b); }
+
 export class CachedReader {
   constructor({ client, cache, budget, maxBatch = 20 }) {
     this.client = client; this.cache = cache; this.budget = budget; this.maxBatch = maxBatch;
@@ -69,18 +98,29 @@ export class CachedReader {
     return out;
   }
 
-  /** A list procedure (getAll / getAllNames / getAllAiNames): cached under id "". */
-  async list(path, { fresh = false } = {}) {
+  /**
+   * A list procedure (getAllNames / getAllAiNames): cached under id "".
+   *
+   * The wire input is listInput(path) unless the caller supplies one. A caller-supplied input is
+   * a FILTER (a capture's {type, folderPrefix}), and it answers a different question than the
+   * default list does, so it is neither served from nor written into the single id-"" cache slot:
+   * one slot per path cannot hold two different answers, and the write-invalidation rule reads
+   * that slot by its empty id. A filtered list therefore always costs one token and is always
+   * fresh, which is the safe direction for a read whose whole purpose is evidence.
+   */
+  async list(path, { fresh = false, input } = {}) {
     if (procedure(path).kind !== "query") throw new Error("list is for queries: " + path);
     // getAll takes a required {limit, cursor} input (jutsu.ts:266-285); only the name lists take none
     if (!/\.getAll(Ai)?Names$/.test(path)) throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
-    const hit = fresh ? null : await this.cache.get(path, "");
+    const sent = input === undefined ? listInput(path) : input;
+    const cacheable = sameInput(sent, listInput(path));
+    const hit = fresh || !cacheable ? null : await this.cache.get(path, "");
     if (hit) { this.stats.hits++; return { ok: true, data: hit.data, cached: true, at: hit.at }; }
     this.stats.misses++;
     await this.budget.acquire(path, 1);
     this.stats.requests++;
-    const [r] = await this.client.batch([{ path, input: undefined }]);
-    if (r.ok) await this.cache.put({ path, id: "", input: null, data: r.data });
+    const [r] = await this.client.batch([{ path, input: sent }]);
+    if (r.ok && cacheable) await this.cache.put({ path, id: "", input: sent ?? null, data: r.data });
     this.budget.observe([r], [path]);
     return r;
   }

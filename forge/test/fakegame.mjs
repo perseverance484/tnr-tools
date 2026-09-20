@@ -27,6 +27,19 @@ const PLACEHOLDER = {
 const TABLE = { jutsu: "jutsu", item: "item", bloodline: "bloodline", gameAsset: "asset", quests: "quest", profile: "ai", ai: "aiProfile" };
 const ID_KEY = { ai: "userId" };
 
+/**
+ * Rebuild every object in a payload with its keys in a DIFFERENT order, the way zod re-emits a
+ * validated document in schema order rather than the order the client sent. Semantically the same
+ * document, structurally re-keyed - which is precisely what turned 18 landed Godstorm AI-profile
+ * writes into reported "drift" against a JSON.stringify comparison
+ * (harvests/inbox/tnr_results_1789829183863.json: every recorded rules diff parses equal).
+ * Reversing is the cheapest re-keying that is deterministic and always different for >1 key.
+ */
+export const rekey = (v) => (Array.isArray(v) ? v.map(rekey)
+  : v && typeof v === "object" && !(v instanceof Date)
+    ? Object.fromEntries(Object.keys(v).reverse().map((k) => [k, rekey(v[k])]))
+    : v);
+
 export class FakeGame {
   constructor({ crashAt = Infinity, refuse = new Set(), limitPath = null, signedOut = false } = {}) {
     this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map() };
@@ -82,8 +95,20 @@ export class FakeGame {
              if (router === "profile") { if (jutsus) row.jutsus = jutsus.map((j) => ({ jutsuId: j })); if (items) row.items = items.flatMap((t) => t.ids.map((i) => ({ itemId: i, quantity: (row.items ?? []).find((r) => r.itemId === i)?.quantity ?? 1, dropChancePerc: Number(t.number) }))); }
              result = ok({ success: true, message: `Updated ${input.id}` }); }
     } else if (proc === "getAllNames" || proc === "getAllAiNames") {
+      // The name lists are NOT input-shape-equivalent. Only gameAsset.getAllNames declares an
+      // .input(), z.object({type?, folderPrefix?}), and that object schema is not itself
+      // .optional() (45f_DATA_procedures.json, routers/asset.getAllNames @ TheNinjaRPG bdec2883),
+      // so an absent input fails zod before the resolver runs. That is the live BAD_REQUEST that
+      // killed the three Godstorm Stormcourt asset creates at their pre-create snapshot; the
+      // other lists declare no input and ignore whatever arrives.
+      if (path === "gameAsset.getAllNames" && (input === null || typeof input !== "object" || Array.isArray(input))) {
+        return err("BAD_REQUEST", "[{\"code\":\"invalid_type\",\"expected\":\"object\",\"received\":\"undefined\",\"path\":[],\"message\":\"Required\"}]", 400);
+      }
       const k = ID_KEY[TABLE[router]] ?? "id", nk = TABLE[router] === "ai" ? "username" : "name";
-      result = ok([...table.values()].map((r) => ({ [k]: r[k], [nk]: r[nk] })));
+      let rows = [...table.values()];
+      if (path === "gameAsset.getAllNames" && input.type) rows = rows.filter((r) => r.type === input.type);
+      const name = (r) => (path === "gameAsset.getAllNames" && input.folderPrefix ? `${r.folder ?? ""}/${r[nk]}` : r[nk]);
+      result = ok(rows.map((r) => ({ [k]: r[k], [nk]: name(r) })));
     } else if (path === "combat.getBattleHistory") {
       // filter and order exactly as the resolver does; no pagination exists at source
       const types = input && input.combatTypes;
@@ -107,7 +132,8 @@ export class FakeGame {
     } else if (path === "ai.updateAiProfile") {
       const p = this.tables.aiProfile.get(input.id);
       if (!p) result = ok({ success: false, message: "profile not found" });
-      else { p.rules = structuredClone(input.rules); p.includeDefaultRules = input.includeDefaultRules; result = ok({ success: true, message: "Rules updated" }); }
+      // stored as the server stores it: same document, schema key order (see rekey above)
+      else { p.rules = rekey(structuredClone(input.rules)); p.includeDefaultRules = input.includeDefaultRules; result = ok({ success: true, message: "Rules updated" }); }
     } else {
       result = err("NOT_FOUND", "unknown procedure " + path, 404);
     }

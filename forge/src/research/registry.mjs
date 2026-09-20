@@ -71,6 +71,9 @@ const BATTLE_TYPES = [
   "RANKED_PVP", "RANKED_SPARRING", "RAID", "OVERWORLD",
 ];
 
+// app/drizzle/constants.ts:58-65 at the pin. Byte-identical at upstream b78eadb9.
+const GAME_ASSET_TYPES = ["STATIC", "ANIMATION", "SCENE_BACKGROUND", "SCENE_CHARACTER", "SFX", "MUSIC"];
+
 /**
  * Ceiling on how many pages one capture entry may walk. Requirement 7.6 is that bounds are
  * explicit and no read crawls without one; this is the outer bound a manifest cannot talk its way
@@ -112,15 +115,33 @@ export const RESEARCH_READS = Object.freeze({
   "profile.getAi": row({ tier: "repo-safe", input: { required: { userId: STR }, optional: {} }, source: "routers/profile.ts:1121 getAi", demand: "push/04_one_perfect_crop_bandit_ai_probe.json" }),
   "ai.getAiProfile": row({ tier: "repo-safe", input: BY_ID, source: "routers/ai.ts getAiProfile", demand: "push/25_godstorm_tower_combat_closure.json" }),
 
-  // ---- content name lists: input-free, local-only ---------------------------------------------
+  // ---- content name lists: local-only ---------------------------------------------------------
   // These were readable in Phase 0 and their bodies were never persistable, so local-only is the
   // tier they already had. Nothing here is widened; a row that should export needs a reviewed edit.
+  //
+  // Five declare no .input() at source, so `undefined` is the honest request and anything sent is
+  // ignored. gameAsset.getAllNames is NOT one of them - see its row.
   "jutsu.getAllNames": row({ source: "routers/jutsu.ts getAllNames", demand: "push/00_forge_readonly_smoke.json" }),
   "quests.getAllNames": row({ source: "routers/quests.ts getAllNames", demand: "push/00_forge_readonly_smoke.json" }),
   "item.getAllNames": row({ source: "routers/item.ts getAllNames", demand: "builder dedupNames live-name check" }),
   "bloodline.getAllNames": row({ source: "routers/bloodline.ts getAllNames", demand: "builder dedupNames live-name check" }),
-  "gameAsset.getAllNames": row({ source: "routers/gameAsset.ts getAllNames", demand: "builder dedupNames live-name check" }),
   "profile.getAllAiNames": row({ source: "routers/profile.ts getAllAiNames", demand: "builder dedupNames live-name check" }),
+  // The one name list with an input contract: .input(z.object({ type: z.enum(GameAssetTypes)
+  // .optional(), folderPrefix: z.boolean().optional() })) at asset.ts:50-57. BOTH MEMBERS are optional
+  // but THE OBJECT IS NOT, so `undefined` fails zod before the resolver runs and the server answers
+  // BAD_REQUEST - which is what killed the three Godstorm Stormcourt asset creates at their
+  // pre-create name snapshot (harvests/inbox/tnr_results_1789829183863.json, items 0-2 and 27;
+  // repaired on main at 74083c1). The Phase 1 registry first transcribed this row as input-free,
+  // which would have reproduced that failure; the row now carries the audited contract, so the
+  // canonical input for "no filter" is `{}` and a manifest filter is validated before transport.
+  // `folderPrefix: true` returns "folder/Name" instead of the plain name, so the dedupNames and
+  // reconciler callers deliberately send the unfiltered `{}` (budget/reader.mjs listInput).
+  "gameAsset.getAllNames": row({
+    input: { required: {}, optional: { type: oneOf(...GAME_ASSET_TYPES), folderPrefix: BOOL } },
+    source: "app/src/server/api/routers/asset.ts:50-57 getAllNames",
+    demand: "builder dedupNames live-name check; push/53 Godstorm repair",
+    note: "object required at source: undefined is BAD_REQUEST, {} is the unfiltered list",
+  }),
 
   // ---- non-content research reads: NEW, demand-driven, local-only -----------------------------
   // Both are protectedProcedure .query() with no ratelimitMiddleware composed at the call site,

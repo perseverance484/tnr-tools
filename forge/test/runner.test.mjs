@@ -8,7 +8,8 @@ import { CaptureCache } from "../src/storage/captures.mjs";
 import { readIdmap, IDMAP_KEY } from "../src/storage/compat.mjs";
 import { Budget } from "../src/budget/bucket.mjs";
 import { CachedReader } from "../src/budget/reader.mjs";
-import { Validator } from "../src/runner/validate.mjs";
+import { createHash } from "node:crypto";
+import { Validator, expandNested } from "../src/runner/validate.mjs";
 import { Runner, Paused } from "../src/runner/runner.mjs";
 import { parseManifest, planOrder, ManifestError } from "../src/runner/manifest.mjs";
 import { checkManifest } from "../tools/check_manifest.mjs";
@@ -370,3 +371,61 @@ test("the One Perfect Crop core manifest plans as three items, both AI through t
   assert.equal(report.plan.filter((it) => it.entity === "aiProfile").length, 0);
 });
 
+
+// ---- nested.json: the shared key-set table ---------------------------------------------------
+//
+// nested.json used to store all 165 allowed key sets literally, although only 53 of them are
+// distinct; it now stores each distinct set once and names it by index. That is a storage
+// encoding, not a contract change, and this is the gate that keeps it one: the digest below is of
+// the canonical JSON of the key surface as the file carried it BEFORE the compaction, computed
+// from that file at 451,847 raw bytes of bundle. If a re-derivation, a hand edit or a bug in
+// expandNested() moves one key, the digest moves with it.
+test("the shared key-set table expands to exactly the pre-compaction key surface", () => {
+  const expanded = expandNested(NESTED_KEYS);
+  assert.ok(expanded, "the committed nested.json must expand");
+  const canonical = JSON.stringify(expanded, Object.keys(expanded).sort());
+  // sort_keys canonicalisation, the same one the compaction was verified with
+  const stable = (v) => Array.isArray(v) ? v.map(stable)
+    : (v && typeof v === "object" ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, stable(v[k])])) : v);
+  assert.equal(createHash("sha256").update(JSON.stringify(stable(expanded))).digest("hex"),
+    "53d8bbcf3e07483e73065d589bb35c1b7ff64cad9680a0ee956a4e4f6a5dc0af",
+    "the expanded nested key surface no longer matches the pinned pre-compaction content");
+  assert.ok(canonical.length > 0);
+  // the shape the Validator reads, spot-checked against the pin rather than only against a digest
+  assert.equal(Object.keys(expanded.effects).length, 76);
+  assert.equal(Object.keys(expanded.objectives).length, 65);
+  assert.ok(expanded.objectives.start_battle.includes("opponentAIs"));
+  assert.ok(expanded.effects.damage.includes("power"));
+  assert.deepEqual(expanded.questContent, ["objectives", "reward", "sceneBackground", "sceneCharacters"]);
+  // the table really is shared: 165 discriminator values resolve to 53 distinct array objects,
+  // and same-shaped tags resolve to the IDENTICAL object, not to equal copies
+  const arrays = new Set();
+  let slots = 0;
+  for (const v of Object.values(expanded)) {
+    if (Array.isArray(v)) { slots += 1; arrays.add(v); continue; }
+    for (const set of Object.values(v)) { slots += 1; arrays.add(set); }
+  }
+  assert.equal(slots, 165, "the pin defines 165 key-set slots");
+  assert.equal(arrays.size, 53, "which are only 53 distinct key sets");
+});
+
+test("a nested table that cannot be trusted fails closed rather than half-expanding", () => {
+  const good = JSON.parse(JSON.stringify(NESTED_KEYS));
+  assert.ok(expandNested(good));
+  for (const [what, mutate] of [
+    ["no table at all", (n) => { delete n.sets; }],
+    ["an index past the end", (n) => { n.effects.damage = n.sets.length; }],
+    ["a negative index", (n) => { n.effects.damage = -1; }],
+    ["a non-integer index", (n) => { n.effects.damage = 1.5; }],
+    ["a hole in the table", (n) => { n.sets[3] = null; }],
+    ["a section that is neither index nor map", (n) => { n.objectives = "start_battle"; }],
+  ]) {
+    const broken = JSON.parse(JSON.stringify(NESTED_KEYS));
+    mutate(broken);
+    assert.equal(expandNested(broken), null, `${what} must expand to null`);
+    // and a Validator built on it refuses the nested structures instead of passing them through
+    const v = new Validator(SCHEMAS, broken);
+    const problems = v.problems("jutsu", { name: "x", effects: [{ type: "damage", power: 1 }] });
+    assert.ok(problems.some((p) => /refusing to send effects unchecked/.test(p)), `${what}: ${problems.join("; ")}`);
+  }
+});

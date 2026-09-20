@@ -171,7 +171,9 @@ test("full persistence is refused for list, mutation, unknown and un-audited pro
   // dump, a mutation or an unknown path is refused because it has no research-registry row to be
   // read under. The guarantee the test holds — "persist: full cannot reach any of these" — is
   // unchanged, and is asserted against the union of those reasons rather than one sentence.
-  const REFUSED = /(is only allowed for the audited content-record point reads|not in the audited research-read registry|the registry admits .* not "repo-safe"|takes no input)/;
+  // gameAsset.getAllNames is refused on its INPUT first: {id: "x"} is outside its audited contract
+  // ({type?, folderPrefix?}, asset.ts:50-57), which is checked before the tier is.
+  const REFUSED = /(is only allowed for the audited content-record point reads|not in the audited research-read registry|the registry admits .* not "repo-safe"|takes no input|not in the audited contract)/;
   const refuse = (proc, input = { id: "x" }) => {
     assert.throws(
       () => parseManifest({ items: [], capture: { after: [{ proc, input, persist: "full" }] } }),

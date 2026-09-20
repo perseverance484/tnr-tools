@@ -1,10 +1,11 @@
-// TNR forge bundle v0.4.1 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.5.1 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
+// Comments are stripped from this artifact by forge/tools/strip_comments.mjs and the strip is proven
+// equivalent to the unstripped build at build time; every comment is still in forge/src.
 // Entry: /forge (a providerless 404) arms the tab and hands off; Forge then mounts as an overlay on a
 // real application route so ClerkProvider and the tRPC provider stay alive under it. Layers: storage, transport, budget, runner, reconcile, ui.
 // Pinned engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
 (() => {
-  // src/transport/procedures.mjs
   var PROCEDURES = Object.freeze({
     "ai.createAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
     "ai.getAiProfile": { kind: "query", limited: false, mcp: true, auth: "protected" },
@@ -16,15 +17,6 @@
     "bloodline.getAll": { kind: "query", limited: true, mcp: true, auth: "public" },
     "bloodline.getAllNames": { kind: "query", limited: true, mcp: true, auth: "public" },
     "bloodline.update": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
-    // combat.* are the Phase 1 research additions, audited at the pin above against
-    // app/src/server/api/routers/combat.ts: getBattleEntries at :382 and getBattleHistory at :530.
-    // Both are protectedProcedure (trpc.ts:230, enforceUserIsAuthed + sentryMiddleware) and neither
-    // composes ratelimitMiddleware at its call site — the .use(ratelimitMiddleware) occurrences in
-    // that file are at :565, :898, :960, :1410 and :1506, none of which is either procedure — so
-    // `limited` is false for the same reason it is false for every other protected row here, and not
-    // by inference from the base builder. Both carry .meta({ mcp: { enabled: true } }).
-    // Admission to READ them is a separate question answered by research/registry.mjs, not by their
-    // presence in this table.
     "combat.getBattleEntries": { kind: "query", limited: false, mcp: true, auth: "protected" },
     "combat.getBattleHistory": { kind: "query", limited: false, mcp: true, auth: "protected" },
     "gameAsset.create": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
@@ -73,7 +65,6 @@
   var MUTATION_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].kind === "mutation"));
   var PROTECTED_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].auth === "protected"));
 
-  // src/storage/hash.mjs
   function stableStringify(v) {
     if (v && typeof v === "object" && typeof v.toJSON === "function") v = v.toJSON();
     if (v === void 0) return "null";
@@ -94,7 +85,6 @@
     return fnv1a32(stableStringify(payload === void 0 ? null : payload));
   }
 
-  // src/research/registry.mjs
   var TIERS = Object.freeze(["local-only", "projected", "repo-safe"]);
   var DEFAULT_RESEARCH_TIER = "local-only";
   function tierAtMost(tier, ceiling) {
@@ -126,64 +116,47 @@
     "RAID",
     "OVERWORLD"
   ];
+  var GAME_ASSET_TYPES = ["STATIC", "ANIMATION", "SCENE_BACKGROUND", "SCENE_CHARACTER", "SFX", "MUSIC"];
   var MAX_PAGES = 20;
   var BY_ID = { required: { id: STR }, optional: {} };
   var row = (r) => Object.freeze({
     tier: DEFAULT_RESEARCH_TIER,
     input: null,
-    // null means "this procedure takes no input"; undefined is sent
     page: null,
-    // null means "not paged at source"; do not invent one
     project: null,
-    // null means projection is not admitted for this path
     ...r,
     ...r.input ? { input: Object.freeze({ required: Object.freeze(r.input.required || {}), optional: Object.freeze(r.input.optional || {}) }) } : {}
   });
   var RESEARCH_READS = Object.freeze({
-    // ---- content record point reads: repo-safe, carried over verbatim (RUL-2026-09-17-001) -------
     "gameAsset.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/gameAsset.ts get", demand: "push/02_one_perfect_crop_asset_probe.json" }),
     "jutsu.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/jutsu.ts get", demand: "push/05_aerathiel_pvp_research_stage1.json" }),
     "item.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/item.ts get", demand: "push/24_godstorm_tower_related_capture.json" }),
     "bloodline.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/bloodline.ts get", demand: "push/21_night_parade_asset_followup.json" }),
     "quests.get": row({ tier: "repo-safe", input: BY_ID, source: "routers/quests.ts get", demand: "push/01_old_ghost_format_capture.json" }),
-    // profile.getAi is the one point read keyed on userId, not id (routers/profile.ts:1121).
     "profile.getAi": row({ tier: "repo-safe", input: { required: { userId: STR }, optional: {} }, source: "routers/profile.ts:1121 getAi", demand: "push/04_one_perfect_crop_bandit_ai_probe.json" }),
     "ai.getAiProfile": row({ tier: "repo-safe", input: BY_ID, source: "routers/ai.ts getAiProfile", demand: "push/25_godstorm_tower_combat_closure.json" }),
-    // ---- content name lists: input-free, local-only ---------------------------------------------
-    // These were readable in Phase 0 and their bodies were never persistable, so local-only is the
-    // tier they already had. Nothing here is widened; a row that should export needs a reviewed edit.
     "jutsu.getAllNames": row({ source: "routers/jutsu.ts getAllNames", demand: "push/00_forge_readonly_smoke.json" }),
     "quests.getAllNames": row({ source: "routers/quests.ts getAllNames", demand: "push/00_forge_readonly_smoke.json" }),
     "item.getAllNames": row({ source: "routers/item.ts getAllNames", demand: "builder dedupNames live-name check" }),
     "bloodline.getAllNames": row({ source: "routers/bloodline.ts getAllNames", demand: "builder dedupNames live-name check" }),
-    "gameAsset.getAllNames": row({ source: "routers/gameAsset.ts getAllNames", demand: "builder dedupNames live-name check" }),
     "profile.getAllAiNames": row({ source: "routers/profile.ts getAllAiNames", demand: "builder dedupNames live-name check" }),
-    // ---- non-content research reads: NEW, demand-driven, local-only -----------------------------
-    // Both are protectedProcedure .query() with no ratelimitMiddleware composed at the call site,
-    // audited at REGISTRY_PIN and re-checked byte-identical at upstream 1fd355ab.
-    //
-    // getBattleHistory returns battleHistory rows joined WITH attacker/defender objects carrying
-    // username, userId and avatar (combat.ts:553-556). That is player data in a public repository if
-    // it is ever exported, which is exactly why the tier is local-only and why `project` is null:
-    // push/05 declares a `select` list, but admitting those fields for repository export is a
-    // privacy/publishing decision this implementation does not get to take. A reviewed registry edit
-    // adding `project` here is what turns push/05's select into an exportable projection.
+    "gameAsset.getAllNames": row({
+      input: { required: {}, optional: { type: oneOf(...GAME_ASSET_TYPES), folderPrefix: BOOL } },
+      source: "app/src/server/api/routers/asset.ts:50-57 getAllNames",
+      demand: "builder dedupNames live-name check; push/53 Godstorm repair",
+      note: "object required at source: undefined is BAD_REQUEST, {} is the unfiltered list"
+    }),
     "combat.getBattleHistory": row({
       input: { required: {}, optional: { userId: STR, secondsBack: NUM, combatTypes: manyOf(...BATTLE_TYPES) } },
       source: "app/src/server/api/routers/combat.ts:530-560 getBattleHistory",
       demand: "push/05_aerathiel_pvp_research_stage1.json",
       note: "no pagination at source: filtered, ordered createdAt desc, returns every matching row"
     }),
-    // getBattleEntries is the one paged row: limit/offset, server default limit 30 and offset 0,
-    // ordered battleRound desc then battleVersion desc (combat.ts:396-421). The ordering is total and
-    // server-side, which is what makes offset paging reproducible rather than a best effort.
     "combat.getBattleEntries": row({
       input: {
         required: { battleId: STR },
         optional: { limit: NUM, offset: NUM, userFilter: oneOf("all", "user", "opponents"), showBasicActions: BOOL, refreshKey: NUM, checkBattle: BOOL }
       },
-      // maxLimit is Forge's bound, not the server's: source accepts any number. 500 is the value the
-      // committed demand uses, so it is the measured working maximum rather than a round guess.
       page: Object.freeze({ mode: "offset", limitKey: "limit", offsetKey: "offset", defaultLimit: 30, maxLimit: 500 }),
       source: "app/src/server/api/routers/combat.ts:382-421 getBattleEntries",
       demand: "push/06_aerathiel_pvp_battle_logs.json"
@@ -235,7 +208,6 @@
         for (const v of value) if (!spec.values.includes(v)) throw new ResearchError(`${where} contains ${JSON.stringify(v)}, which is not one of ${spec.values.join(", ")}`);
         return [...value];
       }
-      /* c8 ignore next */
       default:
         throw new ResearchError(`${where} has an unknown spec`);
     }
@@ -250,7 +222,7 @@
       return null;
     }
     const { required, optional } = r.input;
-    const known = /* @__PURE__ */ new Set([...Object.keys(required), ...Object.keys(optional)]);
+    const known =  new Set([...Object.keys(required), ...Object.keys(optional)]);
     const unknown = Object.keys(given).filter((k) => !known.has(k));
     if (unknown.length) {
       throw new ResearchError(`${path}: input key(s) ${unknown.join(", ")} are not in the audited contract (allowed: ${[...known].join(", ")})`, { path, unknown });
@@ -296,7 +268,7 @@
     return p ? canonical[p.limitKey] ?? p.defaultLimit : null;
   }
   var FIELD_RE = /^[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*$/;
-  var FORBIDDEN_SEGMENTS = /* @__PURE__ */ new Set(["__proto__", "prototype", "constructor"]);
+  var FORBIDDEN_SEGMENTS =  new Set(["__proto__", "prototype", "constructor"]);
   function validateProjection(path, fields) {
     const r = requireRow(path);
     if (!Array.isArray(fields) || !fields.length) {
@@ -336,7 +308,7 @@
       return null;
     }
     const out = {};
-    const groups = /* @__PURE__ */ new Map();
+    const groups =  new Map();
     for (const segs of paths) {
       const [head, ...rest] = segs;
       if (!groups.has(head)) groups.set(head, []);
@@ -378,7 +350,7 @@
   }
   function projectBody(body, fields) {
     const split = fields.map((f) => f.split("."));
-    const missing = /* @__PURE__ */ new Set();
+    const missing =  new Set();
     const data = Array.isArray(body) ? body.map((el) => projectInto(el, split, [], missing)) : projectInto(body, split, [], missing);
     return missing.size ? { ok: false, missing: [...missing] } : { ok: true, data };
   }
@@ -388,7 +360,6 @@
   function policyFacts() {
     return {
       pin: REGISTRY_PIN,
-      // global policy: the tier lattice, the default tier and the ceiling on any walk
       tiers: [...TIERS],
       defaultTier: DEFAULT_RESEARCH_TIER,
       maxPages: MAX_PAGES,
@@ -414,7 +385,6 @@
     return Object.freeze({ pin: REGISTRY_PIN, registry: REGISTRY_REVISION, tier: r.tier, source: r.source });
   }
 
-  // src/storage/captures.mjs
   var DB_NAME = "tnr_forge";
   var STORE = "captures";
   var SNAPSHOT_STORE = "capture_snapshots";
@@ -465,10 +435,6 @@
     });
   }
   var CaptureCache = class {
-    /**
-     * @param {IDBFactory} idb  window.indexedDB or fake-indexeddb
-     * @param {() => number} clock
-     */
     constructor(idb, clock = () => Date.now()) {
       if (!idb || typeof idb.open !== "function") throw new Error("CaptureCache needs an IDBFactory");
       this.idb = idb;
@@ -533,7 +499,6 @@
       });
       return result;
     }
-    /** Store a decoded response. */
     async put({ path, id, input, data }) {
       id = id == null || id === "" ? "" : String(id);
       const rec = {
@@ -549,14 +514,6 @@
       await this._tx("readwrite", (s) => reqToPromise(s.put(rec)));
       return rec;
     }
-    /**
-     * Store a decoded QUERY response under the exact input that produced it.
-     *
-     * `id` is deliberately null on these rows and the input lives in `query`. That is not cosmetic:
-     * invalidateRecord() drops every row of an entity whose id is null, which is how list captures
-     * already get invalidated by a write. A query row inherits that behaviour by being shaped like a
-     * list row, so a write to an entity cannot leave a stale filtered read of it behind.
-     */
     async putQuery({ path, queryKey, input, data }) {
       const rec = {
         key: queryCaptureKey(path, queryKey),
@@ -586,7 +543,6 @@
     async delete(path, id) {
       await this._tx("readwrite", (s) => reqToPromise(s.delete(captureKey(path, id))));
     }
-    /** Drop every capture belonging to an entity type (all paths, all ids). */
     async invalidateEntity(entity) {
       return this._tx("readwrite", async (s) => {
         const idx = s.index("entity");
@@ -595,10 +551,6 @@
         return keys.length;
       });
     }
-    /**
-     * Drop captures affected by a write to one record: that record's own gets on every path,
-     * plus every list capture for the entity (getAll, getAllNames), since lists carry names.
-     */
     async invalidateRecord(entity, id) {
       return this._tx("readwrite", async (s) => {
         const idx = s.index("entity");
@@ -625,15 +577,6 @@
     async clear() {
       await this._tx("readwrite", (s) => reqToPromise(s.clear()));
     }
-    // ---------------------------------------------------------------- immutable capture snapshots
-    /**
-     * Store the exact decoded body of ONE full capture, under its occurrence key. Written once, from
-     * the body that read returned, and never rewritten by a later read of the same record: this is
-     * the copy the exported bundle is materialized from.
-     *
-     * Deliberately NOT reachable from invalidateEntity/invalidateRecord/clear, all of which operate
-     * on the read cache only. A snapshot is deleted explicitly, by job or by key.
-     */
     async putSnapshot({ key, jobId, phase, ordinal, path, id, input, data, tier = "repo-safe", projection = null, page = null, policy = null }) {
       const rec = {
         key,
@@ -643,13 +586,7 @@
         path,
         id: id == null || id === "" ? null : String(id),
         entity: entityOfPath(path),
-        // The tier travels WITH the body. Export asks the snapshot what it is allowed to do with what
-        // it just read, rather than re-deriving it from the path — so a registry edit that narrows a
-        // tier cannot retroactively make an already-stored body exportable under the old rule, and a
-        // snapshot separated from its journal entry still knows it is local-only.
         tier,
-        // The policy that admitted the read travels WITH the body, so evidence and the contract that
-        // allowed it cannot be separated by a journal edit or a later registry change (review FN4).
         policy,
         projection: projection ? [...projection] : null,
         page,
@@ -672,7 +609,6 @@
     async deleteSnapshot(key) {
       await this._tx("readwrite", (s) => reqToPromise(s.delete(key)), SNAPSHOT_STORE);
     }
-    /** Drop every snapshot belonging to one job, for when that job's record is deleted. */
     async deleteSnapshotsForJob(jobId) {
       return this._tx("readwrite", async (s) => {
         const keys = await reqToPromise(s.index("jobId").getAllKeys(jobId));
@@ -691,7 +627,6 @@
     }
   };
 
-  // src/storage/journal.mjs
   var JOURNAL_VERSION = 1;
   var KEY_PREFIX = "tnr_forge_job_v1:";
   var MAX_TEXT = 512;
@@ -711,11 +646,9 @@
     PLANNED: ["SENT", "FAILED", "SKIPPED"],
     SENT: ["CONFIRMED", "ORPHANED", "FAILED"],
     CONFIRMED: ["SENT", "VERIFIED", "FAILED"],
-    // SENT again only for a later phase of the same item
     VERIFIED: [],
     FAILED: [],
     ORPHANED: ["CONFIRMED", "FAILED", "SKIPPED"],
-    // CONFIRMED = adopted by the user
     SKIPPED: []
   });
   var RESERVED = Object.freeze(["state", "idx", "sentAt", "confirmedAt", "verifiedAt", "createSentAt"]);
@@ -772,9 +705,7 @@
       entityId: spec.targetId ?? null,
       snapshotKey: null,
       sentAt: null,
-      // the LAST send of this item
       createSentAt: null,
-      // the create-phase send, never overwritten
       confirmedAt: null,
       verifiedAt: null,
       error: null
@@ -807,12 +738,6 @@
     return job;
   }
   var Journal = class {
-    /**
-     * @param {Storage} storage  a localStorage-compatible object
-     * @param {() => number} clock  epoch ms; injectable so tests are deterministic
-     * @param {object} [opts]
-     * @param {() => Promise<void>} [opts.yieldTask]  awaited between the SENT flush and the request
-     */
     constructor(storage, clock = () => Date.now(), { yieldTask = () => new Promise((r) => setTimeout(r, 0)) } = {}) {
       if (!storage || typeof storage.setItem !== "function") {
         throw new JournalError("Journal needs a Storage-like object");
@@ -821,7 +746,6 @@
       this.clock = clock;
       this.yieldTask = yieldTask;
     }
-    // ------------------------------------------------------------------ persistence
     _key(jobId) {
       return KEY_PREFIX + jobId;
     }
@@ -851,7 +775,6 @@
       }
       return validateJobShape(migrate(job));
     }
-    // ------------------------------------------------------------------ jobs
     listJobIds() {
       const ids = [];
       for (let i = 0; i < this.storage.length; i++) {
@@ -860,10 +783,6 @@
       }
       return ids;
     }
-    /**
-     * Readable jobs, newest first. A corrupt record never blocks the others: it is collected in
-     * this.broken (jobId, error, raw) so the UI can show it and the user can export it.
-     */
     listJobs() {
       const jobs = [];
       this.broken = [];
@@ -880,16 +799,12 @@
     get(jobId) {
       return this._read(jobId);
     }
-    /**
-     * Open a new job. items are specs: {entity, op, name, srcId, targetId, payloadHash}.
-     * Refuses when a non-terminal job with the same manifestHash already exists: resume it.
-     */
-    open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash, items, allowEmpty = false }) {
+    open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash: manifestHash2, items, allowEmpty = false }) {
       if (!jobId) throw new JournalError("jobId required");
       if (!Array.isArray(items) || !items.length && !allowEmpty) throw new JournalError("a job needs at least one item unless it is an explicit capture-only job");
       if (this._read(jobId)) throw new JournalError("job already exists: " + jobId, { jobId });
-      if (manifestHash) {
-        const dup = this.resumable().find((j) => j.manifestHash === manifestHash);
+      if (manifestHash2) {
+        const dup = this.resumable().find((j) => j.manifestHash === manifestHash2);
         if (dup) throw new JournalError(`an open job for this manifest already exists (${dup.jobId}); resume it instead`, { jobId: dup.jobId });
       }
       const job = {
@@ -897,7 +812,7 @@
         jobId,
         manifestPath: manifestPath ?? null,
         manifestNumber: manifestNumber2 ?? null,
-        manifestHash: manifestHash ?? null,
+        manifestHash: manifestHash2 ?? null,
         startedAt: nowIso(this.clock),
         updatedAt: null,
         state: "RUNNING",
@@ -917,7 +832,6 @@
       job.pause = state === "PAUSED" ? extra.pause ?? job.pause ?? { reason: "unspecified" } : null;
       return this._write(job);
     }
-    /** Delete a job record. Refused while any item is SENT (the record that a request left). */
     remove(jobId, { force = false } = {}) {
       const job = this._read(jobId);
       if (job && !force && job.items.some((it) => it.state === "SENT")) {
@@ -930,11 +844,6 @@
       if (!job) throw new JournalError("no such job: " + jobId, { jobId });
       return job;
     }
-    // ------------------------------------------------------------------ items
-    /**
-     * Transition one item. Validates against TRANSITIONS, applies patch, flushes synchronously.
-     * Returns the updated job. Throws JournalError on an illegal transition.
-     */
     transition(jobId, idx, to, patch = {}) {
       const job = this._mustRead(jobId);
       const item = job.items[idx];
@@ -963,13 +872,6 @@
       if (to === "VERIFIED") item.verifiedAt = at;
       return this._write(job);
     }
-    /**
-     * The write-ahead primitive. Flush SENT to disk, yield one task so the storage IPC is
-     * queued, THEN run the thunk that issues the request. If the flush throws, the thunk never
-     * runs and nothing left the device.
-     *
-     * @returns {Promise<any>} whatever the thunk resolves to
-     */
     async withSent(jobId, idx, patch, thunk) {
       if (typeof patch === "function") {
         thunk = patch;
@@ -979,7 +881,6 @@
       await this.yieldTask();
       return await thunk();
     }
-    /** Set non-reserved fields on an item without a state change. Still flushes. */
     annotate(jobId, idx, patch) {
       const job = this._mustRead(jobId);
       const item = job.items[idx];
@@ -989,33 +890,18 @@
       Object.assign(item, p);
       return this._write(job);
     }
-    /** Set job-level fields (captures, notes). Never items or state. */
     annotateJob(jobId, patch) {
       const job = this._mustRead(jobId);
       for (const k of ["items", "state", "jobId", "v"]) if (k in (patch || {})) throw new JournalError("annotateJob may not set " + k, { jobId });
       Object.assign(job, patch);
       return this._write(job);
     }
-    // ------------------------------------------------------------------ resume
-    /**
-     * Jobs that still have work: PAUSED, INCOMPLETE (verification outstanding), or RUNNING with any
-     * non-terminal item. DONE/ABORTED never. An INCOMPLETE job is resumable on purpose: re-reading a
-     * drifted or unread item is the only way it can ever become DONE, and re-reading is all a resume
-     * of it can do.
-     */
     resumable() {
       return this.listJobs().filter((job) => job.state === "PAUSED" || job.state === "INCOMPLETE" || job.state === "RUNNING" && job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state)));
     }
-    /** Items in SENT. These are ambiguous and must go through reconciliation, never retried. */
     ambiguous(jobId) {
       return this._mustRead(jobId).items.filter((it) => it.state === "SENT");
     }
-    /** Every entityId any job in this journal has recorded (for cross-job orphan reconciliation). */
-    /**
-     * Which item, in ANY job, already holds this entityId. Excludes the caller's own item.
-     * Adoption and reconciliation both consult it: two items pointing at one row means the second
-     * one's update overwrites the first one's content, and the server keeps no job provenance.
-     */
     findHolder(entity, entityId, { exceptJobId = null, exceptIdx = null } = {}) {
       if (!entityId) return null;
       for (const job of this.listJobs()) {
@@ -1027,11 +913,10 @@
       return null;
     }
     knownEntityIds(entity = null) {
-      const ids = /* @__PURE__ */ new Set();
+      const ids =  new Set();
       for (const job of this.listJobs()) for (const it of job.items) if (it.entityId && (!entity || it.entity === entity)) ids.add(it.entityId);
       return ids;
     }
-    // ------------------------------------------------------------------ export
     exportText() {
       const jobs = this.listJobs();
       return JSON.stringify({ exportedAt: nowIso(this.clock), version: JOURNAL_VERSION, jobs, broken: this.broken ?? [] }, null, 1);
@@ -1054,7 +939,6 @@
     return repairHistory(job);
   }
 
-  // src/storage/repotext.mjs
   var REPO_DB_NAME = "tnr_forge_repo";
   var REPO_DB_VERSION = 1;
   var STORE2 = "text";
@@ -1094,7 +978,6 @@
       });
       return out;
     }
-    /** @param {{path: string, id: string, data: any}} rec */
     async put({ path, id, data }) {
       const key = `${path}\0${id}`;
       await this._tx("readwrite", (s) => reqToPromise2(s.put({ key, path, id, data, at: this.clock() })));
@@ -1113,7 +996,90 @@
     }
   };
 
-  // src/transport/session.mjs
+  var ASSET_DB_NAME = "tnr_forge_assets";
+  var ASSET_DB_VERSION = 1;
+  var STORE3 = "bytes";
+  var MAX_ASSET_BYTES = 2 * 1024 * 1024;
+  var ASSET_UPLOADS_KEY = "tnr_forge_asset_uploads_v1";
+  function reqToPromise3(req) {
+    return new Promise((resolve, reject) => {
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error || new Error("IndexedDB request failed"));
+    });
+  }
+  var AssetCache = class {
+    constructor(idb, clock = () => Date.now()) {
+      this.idb = idb;
+      this.clock = clock;
+      this._db = null;
+    }
+    async _open() {
+      if (this._db) return this._db;
+      this._db = await new Promise((resolve, reject) => {
+        const req = this.idb.open(ASSET_DB_NAME, ASSET_DB_VERSION);
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains(STORE3)) db.createObjectStore(STORE3, { keyPath: "sha256" });
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error || new Error("could not open " + ASSET_DB_NAME));
+      });
+      return this._db;
+    }
+    async _tx(mode, fn) {
+      const db = await this._open();
+      const tx = db.transaction(STORE3, mode);
+      const out = await fn(tx.objectStore(STORE3));
+      await new Promise((resolve, reject) => {
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error || new Error("asset transaction failed"));
+        tx.onabort = () => reject(tx.error || new Error("asset transaction aborted"));
+      });
+      return out;
+    }
+    async put({ sha256: sha2562, bytes, path = null, ref = null }) {
+      const size = bytes.byteLength ?? bytes.length ?? 0;
+      if (size > MAX_ASSET_BYTES) throw new Error(`asset ${sha2562.slice(0, 12)} is ${size} bytes, over the ${MAX_ASSET_BYTES}-byte cache limit`);
+      await this._tx("readwrite", (s) => reqToPromise3(s.put({ sha256: sha2562, bytes, size, path, ref, at: this.clock() })));
+      return sha2562;
+    }
+    async get(sha2562) {
+      const rec = await this._tx("readonly", (s) => reqToPromise3(s.get(sha2562)));
+      return rec ?? null;
+    }
+    async delete(sha2562) {
+      await this._tx("readwrite", (s) => reqToPromise3(s.delete(sha2562)));
+    }
+    async clear() {
+      await this._tx("readwrite", (s) => reqToPromise3(s.clear()));
+    }
+    async size() {
+      const recs = await this._tx("readonly", (s) => reqToPromise3(s.getAll()));
+      return { count: recs.length, bytes: recs.reduce((a, r) => a + (r.size || 0), 0) };
+    }
+  };
+  function readJson(storage, key) {
+    const raw = storage.getItem(key);
+    if (raw == null || raw === "") return {};
+    let v;
+    try {
+      v = JSON.parse(raw);
+    } catch {
+      v = void 0;
+    }
+    if (!v || typeof v !== "object" || Array.isArray(v)) return {};
+    return v;
+  }
+  function readAssetUploads(storage) {
+    return readJson(storage, ASSET_UPLOADS_KEY);
+  }
+  function recordAssetUpload(storage, sha2562, url, { path = null, ref = null, at = Date.now() } = {}) {
+    const map = readAssetUploads(storage);
+    map[sha2562] = { url, at, path, ref };
+    storage.setItem(ASSET_UPLOADS_KEY, JSON.stringify(map));
+    return map;
+  }
+
   var SessionRefused = class extends Error {
     constructor(message) {
       super(message);
@@ -1122,21 +1088,14 @@
     }
   };
   var Session = class {
-    /** @returns {Promise<Response>} */
     async fetch(_url, _init) {
       throw new Error("Session.fetch not implemented");
     }
-    /** Human-readable, for the Settings screen. Must never include a secret. */
     describe() {
       return { kind: "abstract" };
     }
   };
   var CookieSession = class _CookieSession extends Session {
-    /**
-     * @param {object} opts
-     * @param {(url: string, init: object) => Promise<Response>} opts.fetchImpl  the page's fetch
-     * @param {string} [opts.origin]  "" for same-origin relative URLs (the userscript case)
-     */
     constructor({ fetchImpl, origin = "" } = {}) {
       super();
       if (typeof fetchImpl !== "function") throw new Error("CookieSession needs fetchImpl");
@@ -1144,7 +1103,7 @@
       this.origin = origin;
     }
     static ALLOWED_PATHS = /^\/api\/(trpc\/|uploadthing(\?|$))/;
-    static ALLOWED_HEADERS = /* @__PURE__ */ new Set(["content-type", "x-uploadthing-version", "accept"]);
+    static ALLOWED_HEADERS =  new Set(["content-type", "x-uploadthing-version", "accept"]);
     async fetch(url, init = {}) {
       if (typeof url !== "string" || !_CookieSession.ALLOWED_PATHS.test(url)) {
         throw new SessionRefused("CookieSession only issues same-origin /api/trpc and /api/uploadthing requests, got " + String(url).slice(0, 80));
@@ -1161,7 +1120,6 @@
     }
   };
 
-  // src/transport/outcome.mjs
   var NANOID_RE = /^[A-Za-z0-9_-]{21}$/;
   var OutcomeError = class extends Error {
     constructor(message, info = {}) {
@@ -1213,7 +1171,6 @@
     return "SERVER";
   }
 
-  // src/transport/auth.mjs
   var AUTH = Object.freeze({ UNKNOWN: "unknown", PROBING: "probing", READY: "ready", SIGNED_OUT: "signed_out" });
   var PROBE_PATH = "profile.getAi";
   var PROBE_ID = "forge-auth-probe-0000";
@@ -1235,15 +1192,6 @@
     }
   };
   var AuthState = class {
-    /**
-     * @param {object} d
-     * @param {{call: (path: string, input: object) => Promise<object>}} d.client  the tRPC client
-     * @param {() => ({loaded: boolean, signedIn: boolean|null}|null)} [d.runtime]  page auth runtime
-     *   reader. Returns null when the page publishes no auth runtime at all. Injected so no test
-     *   needs Clerk, and so this file never reaches for window itself.
-     * @param {() => number} [d.clock]
-     * @param {string} [d.state]  initial state; tests that are not about auth start READY.
-     */
     constructor({ client = null, runtime = null, clock = () => Date.now(), state = AUTH.UNKNOWN } = {}) {
       this.client = client;
       this.runtime = runtime;
@@ -1251,12 +1199,11 @@
       this.state = state;
       this.at = null;
       this.detail = null;
-      this.listeners = /* @__PURE__ */ new Set();
+      this.listeners =  new Set();
     }
     get ready() {
       return this.state === AUTH.READY;
     }
-    /** Is it already known that protected work cannot run? (UNKNOWN is blocked but not *known*.) */
     get signedOut() {
       return this.state === AUTH.SIGNED_OUT;
     }
@@ -1277,7 +1224,6 @@
       }
       return state;
     }
-    /** What the page's own auth runtime says right now. {present, loaded, signedIn}. */
     runtimeStatus() {
       if (typeof this.runtime !== "function") return { present: false, loaded: false, signedIn: null };
       let r = null;
@@ -1289,11 +1235,6 @@
       if (!r) return { present: false, loaded: false, signedIn: null };
       return { present: true, loaded: !!r.loaded, signedIn: r.signedIn === null || r.signedIn === void 0 ? null : !!r.signedIn };
     }
-    /**
-     * Wait for the page's auth runtime to finish loading, bounded. Resolves with the last status
-     * seen; a runtime that never appears resolves {present:false} rather than hanging, and the
-     * probe then decides. No request is issued here.
-     */
     async waitForRuntime({ timeoutMs = 15e3, pollMs = 100, sleep } = {}) {
       const wait = sleep ?? ((ms) => new Promise((r) => setTimeout(r, ms)));
       const deadline = this.clock() + timeoutMs;
@@ -1304,10 +1245,6 @@
       }
       return status;
     }
-    /**
-     * Establish the state against the server. One request, body discarded, nothing cached.
-     * Returns the new state.
-     */
     async probe() {
       if (!this.client) return this._set(AUTH.UNKNOWN, "no transport is wired for the auth check");
       const status = this.runtimeStatus();
@@ -1327,54 +1264,29 @@
       if (cls === "RATE_LIMITED") return this._set(AUTH.UNKNOWN, "the auth check was rate limited; sign-in state is unconfirmed");
       return this._set(AUTH.READY, "a protected procedure answered for this session");
     }
-    /** waitForRuntime + probe, in the order the boot sequence needs them. */
     async establish(opts = {}) {
       await this.waitForRuntime(opts);
       return this.probe();
     }
-    /**
-     * Record a SERVER-PROVEN refusal: a protected procedure came back UNAUTHORIZED (or the route
-     * handler's "Please complete registration"), so this session cannot do protected work whatever
-     * the page runtime or the last probe believed.
-     *
-     * This exists because a probe is a snapshot and a session can die a minute later (independent
-     * review FPA-2). Without it the standing banner kept saying "TNR session active" while the run
-     * screen said authentication was unavailable, and Resume would happily send the next protected
-     * request against a session the server had already refused. The server's answer is the most
-     * authoritative signal there is, so it wins over the probe, and the gate then blocks every
-     * protected path until probe() succeeds again.
-     *
-     * @returns {string} the new state
-     */
     refuse(detail = null) {
       return this._set(AUTH.SIGNED_OUT, detail ? String(detail).slice(0, 200) : "the game refused a protected procedure for this session");
     }
-    /**
-     * THE GATE. Throws AuthUnavailable when `path` is protected and the session is not established.
-     * Callers must call it BEFORE journaling a send, so a refusal can never leave an item SENT: a
-     * blocked mutation is a mutation that was never written down as sent, which is the whole point
-     * (brief section E). A public path is never gated - a signed-out capture-only job over public
-     * procedures still runs, exactly as the procedure guards allow.
-     */
     assert(path) {
       if (!isProtected(path)) return;
       if (this.state !== AUTH.READY) throw new AuthUnavailable(this.state, path);
     }
-    /** Non-throwing form, for the UI deciding whether to offer a button. */
     allows(path) {
       return !isProtected(path) || this.state === AUTH.READY;
     }
-    /** For the Settings screen. Deliberately has no room for a secret to appear in. */
     describe() {
       return { state: this.state, detail: this.detail, at: this.at };
     }
   };
 
-  // node_modules/superjson/dist/double-indexed-kv.js
   var DoubleIndexedKV = class {
     constructor() {
-      this.keyToValue = /* @__PURE__ */ new Map();
-      this.valueToKey = /* @__PURE__ */ new Map();
+      this.keyToValue =  new Map();
+      this.valueToKey =  new Map();
     }
     set(key, value) {
       this.keyToValue.set(key, value);
@@ -1392,7 +1304,6 @@
     }
   };
 
-  // node_modules/superjson/dist/registry.js
   var Registry = class {
     constructor(generateIdentifier) {
       this.generateIdentifier = generateIdentifier;
@@ -1418,11 +1329,10 @@
     }
   };
 
-  // node_modules/superjson/dist/class-registry.js
   var ClassRegistry = class extends Registry {
     constructor() {
       super((c) => c.name);
-      this.classToAllowedProps = /* @__PURE__ */ new Map();
+      this.classToAllowedProps =  new Map();
     }
     register(value, options) {
       if (typeof options === "object") {
@@ -1439,7 +1349,6 @@
     }
   };
 
-  // node_modules/superjson/dist/util.js
   function valuesOfObj(record) {
     if ("values" in Object) {
       return Object.values(record);
@@ -1482,7 +1391,6 @@
     return void 0;
   }
 
-  // node_modules/superjson/dist/custom-transformer-registry.js
   var CustomTransformerRegistry = class {
     constructor() {
       this.transfomers = {};
@@ -1498,7 +1406,6 @@
     }
   };
 
-  // node_modules/superjson/dist/is.js
   var getType = (payload) => Object.prototype.toString.call(payload).slice(8, -1);
   var isUndefined = (payload) => typeof payload === "undefined";
   var isNull = (payload) => payload === null;
@@ -1529,7 +1436,6 @@
   var isTypedArray = (payload) => ArrayBuffer.isView(payload) && !(payload instanceof DataView);
   var isURL = (payload) => payload instanceof URL;
 
-  // node_modules/superjson/dist/pathstringifier.js
   var escapeKey = (key) => key.replace(/\\/g, "\\\\").replace(/\./g, "\\.");
   var stringifyPath = (path) => path.map(String).map(escapeKey).join(".");
   var parsePath = (string, legacyPaths) => {
@@ -1566,7 +1472,6 @@
     return result;
   };
 
-  // node_modules/superjson/dist/transformer.js
   function simpleTransformation(isApplicable, annotation, transform, untransform) {
     return {
       isApplicable,
@@ -1614,8 +1519,6 @@
     simpleTransformation(
       isSet,
       "set",
-      // (sets only exist in es6+)
-      // eslint-disable-next-line es5/no-es6-methods
       (v) => [...v.values()],
       (v) => new Set(v)
     ),
@@ -1767,7 +1670,6 @@
     }
   };
 
-  // node_modules/superjson/dist/accessDeep.js
   var getNthKey = (value, n) => {
     if (n > value.size)
       throw new Error("index out of bounds");
@@ -1883,7 +1785,6 @@
     return object;
   };
 
-  // node_modules/superjson/dist/plainer.js
   var enableLegacyPaths = (version) => version < 1;
   function traverse(tree, walker2, version, origin = []) {
     if (!tree) {
@@ -1971,7 +1872,7 @@
       return isEmptyObject(result) ? void 0 : result;
     }
   }
-  var walker = (object, identities, superJson, dedupe, path = [], objectsInThisPath = [], seenObjects = /* @__PURE__ */ new Map()) => {
+  var walker = (object, identities, superJson, dedupe, path = [], objectsInThisPath = [], seenObjects =  new Map()) => {
     const primitive = isPrimitive(object);
     if (!primitive) {
       addIdentity(object, path, identities);
@@ -2031,7 +1932,6 @@
     return result;
   };
 
-  // node_modules/copy-anything/dist/index.js
   function assignProp(carry, key, newVal, originalObject) {
     if (Object.prototype.propertyIsEnumerable.call(originalObject, key)) {
       carry[key] = newVal;
@@ -2065,7 +1965,7 @@
   function copy(target, options = {}) {
     if (typeof target !== "object" || target === null)
       return target;
-    const clones = /* @__PURE__ */ new Map();
+    const clones =  new Map();
     const sources = [];
     const dests = [];
     const result = cloneRef(target, clones, sources, dests);
@@ -2113,11 +2013,7 @@
     return result;
   }
 
-  // node_modules/superjson/dist/index.js
   var SuperJSON = class {
-    /**
-     * @param dedupeReferentialEqualities  If true, SuperJSON will make sure only one instance of referentially equal objects are serialized and the rest are replaced with `null`.
-     */
     constructor({ dedupe = false } = {}) {
       this.classRegistry = new ClassRegistry();
       this.symbolRegistry = new Registry((s) => s.description ?? "");
@@ -2126,7 +2022,7 @@
       this.dedupe = dedupe;
     }
     serialize(object) {
-      const identities = /* @__PURE__ */ new Map();
+      const identities =  new Map();
       const output = walker(object, identities, this, this.dedupe);
       const res = {
         json: output.transformedValue
@@ -2200,7 +2096,6 @@
   var registerSymbol = SuperJSON.registerSymbol;
   var allowErrorProps = SuperJSON.allowErrorProps;
 
-  // src/transport/envelope.mjs
   var ENDPOINT = "/api/trpc";
   var TransportError = class extends Error {
     constructor(message, info = {}) {
@@ -2291,7 +2186,6 @@
     throw new TransportError(`batch element ${i} is neither result nor error`, { httpStatus: status, element: el });
   }
 
-  // src/transport/client.mjs
   var NetworkError = class extends Error {
     constructor(cause, info = {}) {
       const name = cause && cause.name ? cause.name + ": " : "";
@@ -2302,15 +2196,6 @@
     }
   };
   var TrpcClient = class {
-    /**
-     * @param {Session} session
-     * @param {object} [opts]
-     * @param {number} [opts.maxBatch=20]   items per HTTP request. The route handler has
-     *   maxDuration = 90 s per request; batching shares one request scope server-side, but every
-     *   procedure still pays its own limiter token, so batching is for latency, not budget.
-     * @param {number} [opts.maxUrlLength=8000]  GET batches longer than this are split.
-     * @param {(rec: object) => void} [opts.onExchange]  observer for the UI/journal (no secrets).
-     */
     constructor(session, { maxBatch = 20, maxUrlLength = 8e3, onExchange = null, endpoint } = {}) {
       if (!(session instanceof Session)) throw new TransportError("TrpcClient needs a Session");
       if (!Number.isInteger(maxBatch) || maxBatch < 1) throw new TransportError("maxBatch must be an integer >= 1");
@@ -2321,21 +2206,10 @@
       this.onExchange = onExchange;
       this.endpoint = endpoint;
     }
-    /** One call. Resolves to a decoded element {ok, data} | {ok:false, error}; rejects NetworkError. */
     async call(path, input) {
       const [r] = await this.batch([{ path, input }]);
       return r;
     }
-    /**
-     * Many calls. All must be the same kind (the adapter cannot mix GET and POST in one request).
-     * Returns decoded elements in input order. Splits by maxBatch and by URL length.
-     *
-     * The server runs the elements of one request CONCURRENTLY; never batch calls that depend on
-     * each other. The runner sends mutations one per request for exactly that reason.
-     *
-     * If a later chunk throws, the error carries `results` (what earlier chunks decoded) and
-     * `failedIndices`, so a caller never loses ids the server already minted.
-     */
     async batch(calls) {
       if (!calls.length) return [];
       const kinds = new Set(calls.map((c) => procedure(c.path).kind));
@@ -2422,13 +2296,10 @@
     }
   };
 
-  // src/transport/upload.mjs
   var UT_VERSION = "7.7.4";
   var SLUGS = Object.freeze({
     imageUploader: { mime: "image", maxBytes: 512 * 1024 },
-    // core.ts:89
     conceptArtFrameUploader: { mime: "image", maxBytes: 256 * 1024 },
-    // core.ts:95
     modelUploader: { mime: "model/gltf-binary", maxBytes: 256 * 1024 },
     tavernUploader: { mime: "image", maxBytes: 64 * 1024 }
   });
@@ -2440,12 +2311,6 @@
     }
   };
   var Uploader = class {
-    /**
-     * @param {object} o
-     * @param {import("./session.mjs").Session} o.session  same-origin, for the presign call
-     * @param {(url: string, init: object) => Promise<Response>} o.fetchImpl  plain fetch for the ingest host
-     * @param {string} [o.slug="imageUploader"]
-     */
     constructor({ session, fetchImpl, slug = "imageUploader" }) {
       if (!SLUGS[slug]) throw new UploadError("unknown slug " + slug);
       this.session = session;
@@ -2455,7 +2320,6 @@
     ceiling() {
       return SLUGS[this.slug].maxBytes;
     }
-    /** @param {File|Blob & {name?: string, lastModified?: number}} file  @returns {Promise<{ufsUrl: string, key: string}>} */
     async upload(file) {
       const max = this.ceiling();
       if (file.size > max) throw new UploadError(`${file.name ?? "file"} is ${file.size} bytes; ${this.slug} ceiling is ${max}`, { size: file.size, max });
@@ -2498,7 +2362,6 @@
     }
   };
 
-  // src/budget/bucket.mjs
   var SENDLOG_KEY = "tnr_forge_sendlog_v1";
   var SERVER_LIMIT = 60;
   var SERVER_WINDOW_MS = 6e4;
@@ -2527,21 +2390,17 @@
     _save(log) {
       this.storage.setItem(SENDLOG_KEY, JSON.stringify(log));
     }
-    // timestamps are kept for two windows: the previous bucket still weighs on the estimate
     _prune(arr, windowMs, now) {
       return arr.filter((t) => now - t < 2 * windowMs);
     }
-    /** Timestamps within the strict window for a path, oldest first. */
     inWindow(path, windowMs) {
       const now = this.clock();
       return this._prune(this._load()[path] || [], windowMs, now).filter((t) => now - t < windowMs).sort((a, b) => a - b);
     }
-    /** All retained timestamps (two windows) for a path. */
     recent(path, windowMs) {
       const now = this.clock();
       return this._prune(this._load()[path] || [], windowMs, now);
     }
-    /** Append n sends for path, prune, flush synchronously. Returns the count in the strict window after. */
     record(path, n, windowMs) {
       const now = this.clock();
       const log = this._load();
@@ -2551,7 +2410,6 @@
       this._save(log);
       return arr.filter((t) => now - t < windowMs).length;
     }
-    /** Persisted trip marker so a restart within the window still shows the countdown. */
     trip(path, until) {
       const log = this._load();
       log.__tripped = { path, until };
@@ -2570,14 +2428,6 @@
     }
   };
   var Budget = class {
-    /**
-     * @param {object} o
-     * @param {Storage} o.storage
-     * @param {() => number} [o.clock]
-     * @param {(ms: number) => Promise<void>} [o.sleep]
-     * @param {number} [o.margin]  fraction of the server limit to allow locally (0 < margin <= 1)
-     * @param {string[]} [o.limitedPaths]
-     */
     constructor({
       storage,
       clock = () => Date.now(),
@@ -2603,10 +2453,6 @@
     isLimited(path) {
       return this.limited.has(path);
     }
-    /**
-     * The server's own estimate for path at `now`, computed the way slidingWindowLimitScript does,
-     * from this client's sends alone. {prev, cur, weighted, strict, bucketStart}
-     */
     estimate(path, now = this.clock()) {
       const w = this.windowMs;
       const bucket = Math.floor(now / w);
@@ -2621,12 +2467,10 @@
       const weighted = Math.floor((1 - frac) * prev) + cur;
       return { prev, cur, weighted, strict, bucketStart: bucket * w, used: Math.max(weighted, strict) };
     }
-    /** How many more sends on path fit right now without waiting. */
     available(path) {
       if (!this.isLimited(path)) return Infinity;
       return Math.max(0, this.allowance - this.estimate(path).used);
     }
-    /** Earliest time at which n more sends fit under BOTH checks, assuming no other sends. */
     _wakeAt(path, n, now) {
       const w = this.windowMs, a = this.allowance;
       const est = this.estimate(path, now);
@@ -2652,12 +2496,6 @@
       }
       return Math.max(strictWake, weightedWake, now + 1);
     }
-    /**
-     * Acquire n tokens for path. Waits (never fails) until the local window has room, then records
-     * the sends WRITE-AHEAD and resolves. Unlimited paths resolve immediately and record nothing.
-     * A persisted trip (server 429 within the window) refuses with RateLimited: the caller must
-     * not send at all until `until`.
-     */
     async acquire(path, n = 1) {
       if (!this.isLimited(path)) return;
       if (n > this.allowance) throw new Error(`cannot acquire ${n} > allowance ${this.allowance} on ${path}; chunk smaller`);
@@ -2672,11 +2510,6 @@
       }
       this.log.record(path, n, this.windowMs);
     }
-    /**
-     * Inspect decoded batch results. If ANY index is TOO_MANY_REQUESTS, persist the trip and
-     * throw RateLimited for that index. Never retries. Call this AFTER caching any ok results,
-     * so the successful indices are not wasted.
-     */
     observe(results, paths) {
       for (let i = 0; i < results.length; i++) {
         const r = results[i];
@@ -2688,7 +2521,6 @@
         }
       }
     }
-    /** Live view for the Run screen. */
     status() {
       const now = this.clock();
       const out = {};
@@ -2709,9 +2541,21 @@
     }
   };
 
-  // src/budget/reader.mjs
   function readInput(path, id) {
     return pointInput(path, id);
+  }
+  function listInput(path) {
+    return canonicalInput(path, void 0) ?? void 0;
+  }
+  function stableInput(v) {
+    if (Array.isArray(v)) return "[" + v.map(stableInput).join(",") + "]";
+    if (v && typeof v === "object") {
+      return "{" + Object.keys(v).filter((k) => v[k] !== void 0).sort().map((k) => JSON.stringify(k) + ":" + stableInput(v[k])).join(",") + "}";
+    }
+    return v === void 0 ? "undefined" : JSON.stringify(v) ?? "null";
+  }
+  function sameInput(a, b) {
+    return a === b || stableInput(a) === stableInput(b);
   }
   var CachedReader = class {
     constructor({ client, cache, budget, maxBatch = 20 }) {
@@ -2721,15 +2565,10 @@
       this.maxBatch = maxBatch;
       this.stats = { hits: 0, misses: 0, requests: 0 };
     }
-    /** One record, cache-first. Returns the decoded element {ok, data|error}. */
     async get(path, id, { fresh = false } = {}) {
       const [r] = await this.getMany(path, [id], { fresh });
       return r;
     }
-    /**
-     * Many records of one path, cache-first, batched under the budget. Returns decoded elements
-     * in id order. Throws RateLimited if the server trips (after caching whatever succeeded).
-     */
     async getMany(path, ids, { fresh = false } = {}) {
       if (procedure(path).kind !== "query") throw new Error("getMany is for queries: " + path);
       const out = new Array(ids.length);
@@ -2766,11 +2605,12 @@
       }
       return out;
     }
-    /** A list procedure (getAll / getAllNames / getAllAiNames): cached under id "". */
-    async list(path, { fresh = false } = {}) {
+    async list(path, { fresh = false, input } = {}) {
       if (procedure(path).kind !== "query") throw new Error("list is for queries: " + path);
       if (!/\.getAll(Ai)?Names$/.test(path)) throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
-      const hit = fresh ? null : await this.cache.get(path, "");
+      const sent = input === void 0 ? listInput(path) : input;
+      const cacheable = sameInput(sent, listInput(path));
+      const hit = fresh || !cacheable ? null : await this.cache.get(path, "");
       if (hit) {
         this.stats.hits++;
         return { ok: true, data: hit.data, cached: true, at: hit.at };
@@ -2778,20 +2618,11 @@
       this.stats.misses++;
       await this.budget.acquire(path, 1);
       this.stats.requests++;
-      const [r] = await this.client.batch([{ path, input: void 0 }]);
-      if (r.ok) await this.cache.put({ path, id: "", input: null, data: r.data });
+      const [r] = await this.client.batch([{ path, input: sent }]);
+      if (r.ok && cacheable) await this.cache.put({ path, id: "", input: sent ?? null, data: r.data });
       this.budget.observe([r], [path]);
       return r;
     }
-    // ---------------------------------------------------------------- filtered / paged query reads
-    /**
-     * ONE page of a filtered or paged query, cache-first. The canonical input is both what is sent
-     * and what the cache row is keyed and stamped with, so the stored provenance is the request by
-     * construction rather than by a parallel bookkeeping step that could drift.
-     *
-     * Returns the decoded element with `input` (exactly what was sent) and `key` (its cache identity)
-     * attached, so a caller can journal the request without rebuilding it.
-     */
     async _page(path, canonical, { fresh = false } = {}) {
       const key = canonicalKey(canonical);
       if (!fresh) {
@@ -2814,19 +2645,6 @@
       }
       return { ...r, input: canonical, key };
     }
-    /**
-     * A filtered and optionally paged read of one audited research procedure.
-     *
-     * `pages` is an explicit bound and there is no mode in which it is absent: a walk stops at the
-     * requested page count, at the registry's MAX_PAGES ceiling, at the first short page, or at the
-     * first page that is not ok — whichever comes first. Nothing here loops until the server runs out.
-     *
-     * The result is deliberately not collapsible to "it worked". `pages[]` keeps one honest record per
-     * request — its exact input, whether it was served from cache, its row count and its error — and
-     * `complete` is false whenever the walk stopped for any reason other than reaching the natural end
-     * of the data. A partial or failed page therefore cannot be re-read later as a whole answer
-     * (requirement 7.8).
-     */
     async query(path, input, { fresh = false, pages = 1 } = {}) {
       requireRow(path);
       if (procedure(path).kind !== "query") throw new Error("query is for queries: " + path);
@@ -2877,7 +2695,6 @@
     }
   };
 
-  // src/runner/validate.mjs
   var AI_EXTRA_KEYS = Object.freeze(["jutsus", "items", "primaryElement", "secondaryElement", "rules", "includeDefaultRules"]);
   var AI_STRIPPED_OK = Object.freeze(["hidden"]);
   var SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updatedAt", "aiProfileId"]);
@@ -2897,15 +2714,32 @@
     "covertTrainingMinutes"
   ]);
   var SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai" });
+  function expandNested(raw) {
+    if (!raw || typeof raw !== "object" || !Array.isArray(raw.sets) || !raw.effects) return null;
+    const at = (i) => Number.isInteger(i) && i >= 0 && i < raw.sets.length && Array.isArray(raw.sets[i]) ? raw.sets[i] : null;
+    const out = {};
+    for (const [section, v] of Object.entries(raw)) {
+      if (section === "_meta" || section === "sets") continue;
+      if (typeof v === "number") {
+        const set = at(v);
+        if (!set) return null;
+        out[section] = set;
+        continue;
+      }
+      if (!v || typeof v !== "object" || Array.isArray(v)) return null;
+      const byValue = {};
+      for (const [discriminator, i] of Object.entries(v)) {
+        const set = at(i);
+        if (!set) return null;
+        byValue[discriminator] = set;
+      }
+      out[section] = byValue;
+    }
+    return out.effects ? out : null;
+  }
   var Validator = class {
-    /**
-     * @param {object} schemas  the parsed field file ({entities: {name: {fields: {...}}}}) or null
-     * @param {object} [nested] src/runner/nested.json: the nested key surface derived from the same
-     *   pin by tools/derive_nested.mjs. Without it, nested checking FAILS CLOSED: a manifest that
-     *   carries any nested writable structure is refused rather than sent unchecked.
-     */
     constructor(schemas, nested = null) {
-      this.nested = nested && nested.effects ? nested : null;
+      this.nested = expandNested(nested);
       this.fields = {};
       const ents = schemas && schemas.entities ? schemas.entities : {};
       for (const [name, e] of Object.entries(ents)) {
@@ -2917,19 +2751,12 @@
       const s = SCHEMA_ENTITY[entity];
       return s ? this.fields[s] ?? null : null;
     }
-    /**
-     * Validate the ASSERTED keys of one item's data before merge and send.
-     * @param {string} entity   manifest entity
-     * @param {object} data     the manifest's data (refs already resolved)
-     * @param {object|null} live  the live record when known (required for ai)
-     * @returns {string[]} problems (empty = ok)
-     */
     problems(entity, data, live = null, { preCreate = false } = {}) {
       const out = [];
       if (!data || typeof data !== "object") return ["data is not an object"];
       const keys = Object.keys(data);
       if (entity === "ai" || entity === "aiProfile") {
-        const allowed = /* @__PURE__ */ new Set([...AI_EXTRA_KEYS, ...AI_STRIPPED_OK]);
+        const allowed =  new Set([...AI_EXTRA_KEYS, ...AI_STRIPPED_OK]);
         if (entity === "ai") {
           const pinned = this.knownFields("ai");
           if (!pinned) out.push("no pinned insertAiSchema field set: cannot validate ai keys");
@@ -2938,7 +2765,7 @@
         if (live) for (const k of Object.keys(live)) allowed.add(k);
         for (const k of AI_OMITTED) allowed.delete(k);
         for (const k of SERVER_OWNED) allowed.delete(k);
-        const check = entity === "aiProfile" ? /* @__PURE__ */ new Set(["rules", "includeDefaultRules"]) : allowed;
+        const check = entity === "aiProfile" ?  new Set(["rules", "includeDefaultRules"]) : allowed;
         for (const k of keys) if (AI_OMITTED.includes(k) || entity === "ai" && SERVER_OWNED.includes(k)) out.push(`"${k}" is not writable on an ai (insertAiSchema omits it or the server owns it)`);
         for (const k of keys) if (!check.has(k) && !AI_OMITTED.includes(k) && !SERVER_OWNED.includes(k)) out.push(`unknown key "${k}" for ${entity}`);
         if (entity === "ai" && Array.isArray(data.items)) {
@@ -2955,20 +2782,6 @@
       for (const [k, v] of Object.entries(data)) if (typeof v === "string" && /^@\w+:@\w+:/.test(v)) out.push(`${k}: doubled ref prefix`);
       return out;
     }
-    /**
-     * Unknown keys INSIDE the writable nested structures (readiness brief section 6).
-     *
-     * Every one of these is parsed by a zod object, and a zod object strips what it does not know,
-     * so a misspelled key inside an effect tag, a quest objective or an AI rule is dropped silently
-     * and the mutation still answers success. The allowed key sets come from src/runner/nested.json,
-     * derived from the SAME pin as fields.json by tools/derive_nested.mjs.
-     *
-     * Keys only, never bounds: a bound the generator got wrong is the 45g.tag_power_max mistake, and
-     * a client that rejects payloads the server accepts is worse than one that does not.
-     *
-     * Fail closed: with no nested.json, or for a discriminator value the pin does not define, the
-     * structure is refused rather than sent unchecked.
-     */
     nestedProblems(entity, data) {
       const out = [];
       if (!data || typeof data !== "object") return out;
@@ -3063,6 +2876,24 @@
     });
     return out;
   }
+  function deepEqualPayload(a, b) {
+    if (a === b) return true;
+    if (typeof a === "number" && typeof b === "number") return Number.isNaN(a) && Number.isNaN(b);
+    if (a instanceof Date || b instanceof Date) {
+      return a instanceof Date && b instanceof Date && a.getTime() === b.getTime();
+    }
+    if (Array.isArray(a) || Array.isArray(b)) {
+      if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) return false;
+      return a.every((x, i) => deepEqualPayload(x, b[i]));
+    }
+    if (a && b && typeof a === "object" && typeof b === "object") {
+      const ka = definedKeys(a);
+      if (ka.length !== definedKeys(b).length) return false;
+      return ka.every((k) => b[k] !== void 0 && deepEqualPayload(a[k], b[k]));
+    }
+    return false;
+  }
+  var definedKeys = (o) => Object.keys(o).filter((k) => o[k] !== void 0);
   function diffAsserted(entity, asserted, live) {
     const diffs = [];
     for (const k of Object.keys(asserted)) {
@@ -3076,12 +2907,12 @@
         continue;
       }
       if (entity === "ai" && k === "items") {
-        const lm = /* @__PURE__ */ new Map();
+        const lm =  new Map();
         if (Array.isArray(live?.items)) for (const r of live.items) {
           if (typeof r === "string") lm.set(r, null);
           else if (r) lm.set(r.itemId ?? r.id, r.dropChancePerc ?? null);
         }
-        const sm = /* @__PURE__ */ new Map();
+        const sm =  new Map();
         for (const t of asserted.items ?? []) {
           if (typeof t === "string") sm.set(t, null);
           else if (t && Array.isArray(t.ids)) for (const id of t.ids) sm.set(id, t.number == null ? null : Number(t.number));
@@ -3111,10 +2942,9 @@
     return false;
   }
 
-  // src/storage/compat.mjs
   var IDMAP_KEY = "tnr_bk_idmap_v1";
   var GH_KEY = "tnr_bk_gh_v1";
-  function readJson(storage, key, fallback) {
+  function readJson2(storage, key, fallback) {
     const raw = storage.getItem(key);
     if (raw == null || raw === "") return fallback;
     let v;
@@ -3133,23 +2963,133 @@
     return v;
   }
   function readIdmap(storage) {
-    return readJson(storage, IDMAP_KEY, {});
+    return readJson2(storage, IDMAP_KEY, {});
   }
   function writeIdmap(storage, idmap) {
     storage.setItem(IDMAP_KEY, JSON.stringify(idmap));
   }
   function readGh(storage) {
-    return readJson(storage, GH_KEY, {});
+    return readJson2(storage, GH_KEY, {});
   }
   function writeGh(storage, gh) {
     storage.setItem(GH_KEY, JSON.stringify(gh));
   }
 
-  // src/runner/recipes.mjs
+  var IMG_NAME_RE = /^[A-Za-z0-9_.\-]+$/;
+  var COMMIT_RE = /^[0-9a-f]{40}$/;
+  var SHA256_RE = /^[0-9a-f]{64}$/;
+  var SEGMENT_RE = /^[A-Za-z0-9._-]+$/;
+  var EXT_MIME = Object.freeze({
+    webp: "image/webp",
+    png: "image/png",
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    gif: "image/gif",
+    avif: "image/avif"
+  });
+  var extOf = (n) => {
+    const m = /\.([A-Za-z0-9]+)$/.exec(String(n ?? ""));
+    return m ? m[1].toLowerCase() : null;
+  };
+  var mimeOf = (n) => EXT_MIME[extOf(n)] ?? "application/octet-stream";
+  function toHex(buf) {
+    const bytes = buf instanceof Uint8Array ? buf : new Uint8Array(buf);
+    let out = "";
+    for (let i = 0; i < bytes.length; i++) out += bytes[i].toString(16).padStart(2, "0");
+    return out;
+  }
+  function pathProblem(path) {
+    if (typeof path !== "string" || !path) return "path must be a non-empty string";
+    if (path.length > 255) return "path is longer than 255 characters";
+    if (path.includes("\\")) return "path contains a backslash";
+    if (/^[A-Za-z][A-Za-z0-9+.-]*:/.test(path)) return "path looks like a URL, not a repository path";
+    if (path.startsWith("/")) return "path must be repository-relative (no leading slash)";
+    const segments = path.split("/");
+    for (const s of segments) {
+      if (!s) return "path has an empty segment";
+      if (s === "." || s === "..") return `path segment ${JSON.stringify(s)} is not allowed`;
+      if (!SEGMENT_RE.test(s)) return `path segment ${JSON.stringify(s)} has characters outside [A-Za-z0-9._-]`;
+    }
+    return null;
+  }
+  function normalizeImagePack(raw, { imgSizes = {}, names = [] } = {}) {
+    const errors = [], warnings = [];
+    if (raw === void 0 || raw === null) return { pack: null, errors, warnings };
+    if (typeof raw !== "object" || Array.isArray(raw)) {
+      errors.push("imagePack must be an object {ref, files}");
+      return { pack: null, errors, warnings };
+    }
+    const ref = raw.ref;
+    if (typeof ref !== "string" || !COMMIT_RE.test(ref)) {
+      errors.push(`imagePack.ref must be a 40-hex commit sha (an immutable commit, not a branch or tag), got ${JSON.stringify(ref)}`);
+    }
+    const rawFiles = raw.files;
+    if (!rawFiles || typeof rawFiles !== "object" || Array.isArray(rawFiles)) {
+      errors.push("imagePack.files must be an object keyed by the logical @img filename");
+      return { pack: null, errors, warnings };
+    }
+    const referenced = new Set(names);
+    const files = {};
+    for (const name of Object.keys(rawFiles).sort()) {
+      const where = `imagePack.files[${JSON.stringify(name)}]`;
+      const e = rawFiles[name];
+      if (!IMG_NAME_RE.test(name)) {
+        errors.push(`${where}: ${JSON.stringify(name)} is not a legal @img filename`);
+        continue;
+      }
+      if (!e || typeof e !== "object" || Array.isArray(e)) {
+        errors.push(`${where} must be an object {path, sha256, bytes}`);
+        continue;
+      }
+      const problem = pathProblem(e.path);
+      if (problem) {
+        errors.push(`${where}: ${problem}`);
+        continue;
+      }
+      if (typeof e.sha256 !== "string" || !SHA256_RE.test(e.sha256)) {
+        errors.push(`${where}.sha256 must be 64 lowercase hex characters, got ${JSON.stringify(e.sha256)}`);
+        continue;
+      }
+      if (!Number.isInteger(e.bytes) || e.bytes <= 0) {
+        errors.push(`${where}.bytes must be a positive integer, got ${JSON.stringify(e.bytes)}`);
+        continue;
+      }
+      if (extOf(e.path) !== extOf(name)) {
+        errors.push(`${where}: repository file is a ${extOf(e.path) ?? "(no extension)"} but the @img name is a ${extOf(name) ?? "(no extension)"}; @img resolves by exact filename and the extension decides the upload's MIME`);
+        continue;
+      }
+      const ledger = Object.prototype.hasOwnProperty.call(imgSizes, name) ? Number(imgSizes[name]) : null;
+      if (ledger == null || !Number.isFinite(ledger)) {
+        errors.push(`${where}: no imgSizes entry for ${name}; a pack entry must agree with the manifest byte ledger (L17)`);
+        continue;
+      }
+      if (ledger !== e.bytes) {
+        errors.push(`${where}.bytes is ${e.bytes} but imgSizes says ${name} is ${ledger}; the manifest contradicts itself about which file this is`);
+        continue;
+      }
+      if (!referenced.has(name)) {
+        warnings.push(`imagePack binds ${name}, which no @img reference in this manifest uses; it will not be fetched`);
+      }
+      files[name] = { path: e.path, sha256: e.sha256, bytes: e.bytes };
+    }
+    if (!Object.keys(files).length && !errors.length) errors.push("imagePack.files is empty; remove the key instead");
+    if (errors.length) return { pack: null, errors, warnings };
+    return { pack: { ref, files }, errors, warnings };
+  }
+  function packBinds(pack, name) {
+    return !!(pack && pack.files && Object.prototype.hasOwnProperty.call(pack.files, name));
+  }
+  function packWork(pack, names) {
+    if (!pack) return [];
+    return [...new Set(names ?? [])].filter((n) => packBinds(pack, n)).sort().map((name) => ({ name, ref: pack.ref, ...pack.files[name] }));
+  }
+  function unboundNames(pack, names) {
+    return [...new Set(names ?? [])].filter((n) => !packBinds(pack, n));
+  }
+
   var RECIPES = Object.freeze({
     jutsu: {
       create: { path: "jutsu.create", input: () => void 0 },
-      // jutsu.ts:391
       get: "jutsu.get",
       update: "jutsu.update",
       names: "jutsu.getAllNames",
@@ -3160,7 +3100,6 @@
     },
     item: {
       create: { path: "item.create", input: (d) => ({ type: d.itemType ?? "CONSUMABLE" }) },
-      // item.ts:235-236
       get: "item.get",
       update: "item.update",
       names: "item.getAllNames",
@@ -3171,7 +3110,6 @@
     },
     bloodline: {
       create: { path: "bloodline.create", input: () => void 0 },
-      // bloodline.ts:144
       get: "bloodline.get",
       update: "bloodline.update",
       names: "bloodline.getAllNames",
@@ -3182,7 +3120,6 @@
     },
     asset: {
       create: { path: "gameAsset.create", input: () => void 0 },
-      // asset.ts:194
       get: "gameAsset.get",
       update: "gameAsset.update",
       names: "gameAsset.getAllNames",
@@ -3191,11 +3128,9 @@
       placeholder: () => "Placeholder",
       cacheEntity: "asset",
       placeholderIsAnonymous: true
-      // every orphan is named "Placeholder": the snapshot diff is the only signal
     },
     quest: {
       create: { path: "quests.create", input: () => void 0 },
-      // quests.ts:866
       get: "quests.get",
       update: "quests.update",
       names: "quests.getAllNames",
@@ -3206,7 +3141,6 @@
     },
     ai: {
       create: { path: "profile.create", input: () => void 0 },
-      // profile.ts:1138
       get: "profile.getAi",
       update: "profile.updateAi",
       names: "profile.getAllAiNames",
@@ -3216,8 +3150,6 @@
       cacheEntity: "ai"
     },
     aiProfile: {
-      // update-only. targetId is the AI's userId. Rules live on a separate row reached through
-      // profile.getAi().aiProfileId; ai.toggleAiProfile {aiId} creates that row when missing.
       get: "profile.getAi",
       names: "profile.getAllAiNames",
       idKey: "userId",
@@ -3241,8 +3173,7 @@
     for (const k of fields) if (src[k] !== void 0) out[k] = src[k];
     return out;
   }
-  var AI_OMIT = /* @__PURE__ */ new Set([
-    // omitted from insertAiSchema at schema.ts:2578-2591
+  var AI_OMIT =  new Set([
     "trainingStartedAt",
     "occupationSignupAt",
     "currentlyTraining",
@@ -3256,7 +3187,6 @@
     "covertTrainingType",
     "covertTrainingStartedAt",
     "covertTrainingMinutes",
-    // relation objects and routing keys that are not columns
     "rules",
     "includeDefaultRules"
   ]);
@@ -3277,7 +3207,6 @@
     return out;
   }
 
-  // src/runner/refs.mjs
   var REF_RE = /^@(jutsu|ai|scene|item|quest|bloodline|img):(.+)$/;
   var DOUBLED_RE = /^@\w+:@\w+:/;
   function collectRefs(o, out = [], path = "") {
@@ -3321,7 +3250,6 @@
     return { value: walk(o, ""), unresolved };
   }
 
-  // ../32b_DATA_pool.json
   var b_DATA_pool_default = {
     _meta: {
       source: "32_REGISTRY_shared_ai_pool.md",
@@ -4372,8 +4300,6 @@
     }
   };
 
-  // src/runner/pool.mjs
-  var POOL_META = Object.freeze(b_DATA_pool_default._meta ?? {});
   var POOL_RECORDS = Object.freeze(b_DATA_pool_default.records ?? {});
   var POOL_BY_ID = Object.freeze(Object.fromEntries(
     Object.entries(POOL_RECORDS).map(([code, r]) => [r.id, { ...r, code }])
@@ -4453,20 +4379,19 @@
     return { errors, warnings };
   }
 
-  // src/runner/lints.mjs
   var DATE_RE = /^\d{4}-\d{1,2}-\d{1,2}$/;
   var DASH_RE = /[–—]/;
   var IMG_REF_RE = /@img:([A-Za-z0-9_.\-]+)/g;
   var AI_CREATE_REQUIRED = ["rank", "regeneration", "preferredStat", "preferredGeneral1", "preferredGeneral2"];
-  var FORMULA_TAGS = /* @__PURE__ */ new Set(["damage", "pierce", "wound"]);
-  var PCT_TAGS = /* @__PURE__ */ new Set(["increasedamagegiven", "decreasedamagetaken", "increasedamagetaken"]);
+  var FORMULA_TAGS =  new Set(["damage", "pierce", "wound"]);
+  var PCT_TAGS =  new Set(["increasedamagegiven", "decreasedamagetaken", "increasedamagetaken"]);
   var DIRECTIONS = { redirection: ["push", "pull"], increasestat: ["offence", "defence", "both"], decreasestat: ["offence", "defence", "both"] };
   function lintManifest(manifest) {
     const errors = [], warnings = [];
     const items = manifest.items ?? [];
     const E = (it, m) => errors.push(`item ${it.idx} (${it.name}): ${m}`);
     const W = (it, m) => warnings.push(`item ${it.idx} (${it.name}): ${m}`);
-    const wrapped = /* @__PURE__ */ new Set();
+    const wrapped =  new Set();
     for (const it of items) {
       if (it.entity !== "item") continue;
       for (const f of Array.isArray(it.data.effects) ? it.data.effects : []) {
@@ -4526,7 +4451,7 @@
       }
     }
     const sizes = manifest.imgSizes ?? {};
-    const needed = /* @__PURE__ */ new Set();
+    const needed =  new Set();
     for (const m of JSON.stringify(items).matchAll(IMG_REF_RE)) if (!(m[1] in sizes)) needed.add(m[1]);
     for (const f of needed) errors.push(`L17 @img:${f} has no imgSizes byte entry`);
     return { errors, warnings };
@@ -4561,9 +4486,9 @@
     for (const o of objs) if (o && o.id && !seen[o.id] && o.id !== first.id) W(it, `L12b orphan node ${o.id} (unreachable)`);
   }
 
-  // src/runner/manifest.mjs
   var ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile"]);
   var SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
+  var IMG_REF_SCAN = /@img:([A-Za-z0-9_.\-]+)/g;
   var PERSIST_MODES = Object.freeze(["summary", "full", ...TIERS]);
   var DEFAULT_PERSIST = "summary";
   var TIER_OF_PERSIST = Object.freeze({ "full": "repo-safe", "repo-safe": "repo-safe", "local-only": "local-only", "projected": "projected" });
@@ -4593,7 +4518,7 @@
     if (!raw.length && !capture.before.length && !capture.after.length) throw new ManifestError("manifest has no items and no captures");
     const items = raw.map((it, i) => normalizeItem(it, i));
     const problems = [];
-    const srcIds = /* @__PURE__ */ new Set();
+    const srcIds =  new Set();
     for (const it of items) {
       if (it.op === "create" && !it.srcId) problems.push(`item ${it.idx} (${it.name}): a create needs srcId`);
       if (it.op === "update" && !it.targetId) problems.push(`item ${it.idx} (${it.name}): an edit needs targetId`);
@@ -4622,6 +4547,10 @@
     const lint = lintManifest({ items, imgSizes });
     problems.push(...lint.errors);
     const warnings = [...lint.warnings];
+    const imgNames = [...new Set([...JSON.stringify(items).matchAll(IMG_REF_SCAN)].map((x) => x[1]))];
+    const packed = normalizeImagePack(m.imagePack, { imgSizes, names: imgNames });
+    problems.push(...packed.errors);
+    warnings.push(...packed.warnings);
     for (const it of items) {
       if (it.entity !== "ai" && it.entity !== "aiProfile") continue;
       for (const w of kitProblems(it.data).warnings) warnings.push(`item ${it.idx} (${it.name}): ${w}`);
@@ -4633,29 +4562,38 @@
       }
     }
     if (problems.length) throw new ManifestError("manifest problems:\n" + problems.join("\n"), { problems });
+    const policy = {
+      dedupNames: !!m.dedupNames,
+      readBack: m.readBack !== false,
+      skipPreflight: !!m.skipPreflight,
+      imgSizes
+    };
+    if (packed.pack) policy.imagePack = packed.pack;
     return {
       items,
       capture,
       warnings,
       poolResolved,
+      policy,
       note: typeof m._note === "string" ? m._note : null,
-      skipPreflight: !!m.skipPreflight,
-      dedupNames: !!m.dedupNames,
-      readBack: m.readBack !== false,
+      skipPreflight: policy.skipPreflight,
+      dedupNames: policy.dedupNames,
+      readBack: policy.readBack,
       imgSizes,
+      imagePack: packed.pack,
       fullCaptures: allCaptures.filter((c) => c.tier === "repo-safe").length,
-      // One count per tier, so a screen or a headline can say what a run is actually going to keep
-      // without re-deriving the policy from the entries.
       tiers: Object.fromEntries(TIERS.map((x) => [x, allCaptures.filter((c) => c.tier === x).length])),
-      // The hash is taken over the RAW manifest bodies, not the normalized ones, so the persistence
-      // request is inside it by construction: `persist` is a key of the raw capture entry, and
-      // flipping it changes the hash, which is what stops a job opened under one persistence
-      // contract from being resumed under another (attach() compares this to job.manifestHash).
-      // Hashing raw also means a manifest written before `persist` existed keeps the hash it
-      // already had, so an open job survives this upgrade. `manifest hashing covers the
-      // persistence request` in test/capture.full.test.mjs holds both halves of that.
-      hash: fnv1a32(stableStringify({ items: raw, capture: rawCapture }))
+      hash: manifestHash(raw, rawCapture, policy),
+      bodyHash: fnv1a32(stableStringify({ items: raw, capture: rawCapture }))
     };
+  }
+  var DEFAULT_POLICY = Object.freeze({ dedupNames: false, readBack: true, skipPreflight: false, imgSizes: {} });
+  function isDefaultPolicy(policy) {
+    return stableStringify(policy) === stableStringify(DEFAULT_POLICY);
+  }
+  function manifestHash(raw, rawCapture, policy) {
+    const body = { items: raw, capture: rawCapture };
+    return fnv1a32(stableStringify(isDefaultPolicy(policy) ? body : { ...body, policy }));
   }
   function normalizeCapture(c, phase, i) {
     const where = `capture.${phase}[${i}]`;
@@ -4716,7 +4654,6 @@
       projection,
       pages,
       id,
-      // The cache identity of this read, computed from the same canonical input that will be sent.
       queryKey: mode === "query" ? canonicalKey(input) : null,
       declaredUnused: tier !== "projected" && declared ? declared.length : 0
     };
@@ -4761,7 +4698,7 @@
       return { it, deps };
     });
     const order = [];
-    const state = /* @__PURE__ */ new Map();
+    const state =  new Map();
     const byIdx = new Map(nodes.map((n) => [n.it.idx, n]));
     const sorted = [...nodes].sort((a, b) => (a.it.phase ?? 5) - (b.it.phase ?? 5) || a.it.idx - b.it.idx);
     function visit(n, stack) {
@@ -4787,7 +4724,6 @@
     }));
   }
 
-  // src/runner/runner.mjs
   var LEASE_PREFIX = "tnr_forge_lease_v1:";
   var LEASE_TTL_MS = 3e4;
   var LeaseHeld = class extends Error {
@@ -4808,7 +4744,7 @@
   };
   var isTransport = (e) => e instanceof NetworkError || e instanceof TransportError;
   function protectedPathsFor(order, manifest) {
-    const paths = /* @__PURE__ */ new Set();
+    const paths =  new Set();
     const captures = manifest && manifest.capture ? [...manifest.capture.before || [], ...manifest.capture.after || []] : [];
     for (const c of captures) {
       const path = c.proc || c.procedure;
@@ -4823,50 +4759,19 @@
     return [...paths];
   }
   var Runner = class {
-    /**
-     * @param {object} d  dependencies
-     * @param {import("../storage/journal.mjs").Journal} d.journal
-     * @param {import("../transport/client.mjs").TrpcClient} d.client
-     * @param {import("../budget/reader.mjs").CachedReader} d.reader
-     * @param {import("../storage/captures.mjs").CaptureCache} d.cache
-     * @param {import("./validate.mjs").Validator} d.validator
-     * @param {object} [d.uploader]      {upload(file) -> {ufsUrl}}
-     * @param {object} [d.reconciler]    {beforeCreate(job, item, entity), resolveSent(job, item, ctx)}
-     * @param {Storage} d.storage        for the retained idmap
-     * @param {object} [d.auth]          {assert(path), state} - the auth gate. Optional so a
-     *   harness can leave it out; when it is absent nothing is gated, exactly as before it existed.
-     * @param {(msg: string, item?: object) => void} [d.log]
-     */
     constructor(d) {
       for (const k of ["journal", "client", "reader", "cache", "validator", "storage"]) if (!d[k]) throw new Error("Runner needs " + k);
       Object.assign(this, d);
       this.log = d.log ?? (() => {
       });
-      this.files = /* @__PURE__ */ new Map();
-      this.manifests = /* @__PURE__ */ new Map();
+      this.files =  new Map();
+      this.imgProvenance =  new Map();
+      this.manifests =  new Map();
       this.pauseRequested = false;
       this.tabId = d.tabId ?? randomTab();
       this.clock = d.clock ?? (() => Date.now());
-      this._subs = /* @__PURE__ */ new Set();
+      this._subs =  new Set();
     }
-    // ------------------------------------------------------------------ progress events (advisory)
-    /**
-     * Subscribe to structured progress events. ADVISORY ONLY, and the word is load-bearing:
-     *
-     *   - _emit writes nothing to the journal and performs no state transition;
-     *   - it is synchronous and never awaited, so a subscriber cannot delay, reorder or interleave a
-     *     request. Every emit sits between awaits that already existed, so the send sequence is
-     *     byte-for-byte what it was before this hook existed;
-     *   - every subscriber runs inside try/catch. A throwing subscriber is swallowed here rather
-     *     than unwinding the run, because a UI progress listener must never be able to fail a job
-     *     that is mid-mutation.
-     *
-     * Phase 0 adds this so the extracted core can drive a progress view without the view reaching
-     * into runner internals or polling. Nothing in execution reads it back.
-     *
-     * @param {(event: {type: string, at: number, jobId: string|null, [k: string]: any}) => void} fn
-     * @returns {() => void} unsubscribe
-     */
     on(fn) {
       if (typeof fn !== "function") throw new TypeError("Runner.on needs a function");
       this._subs.add(fn);
@@ -4882,19 +4787,6 @@
         }
       }
     }
-    // ------------------------------------------------------------------ auth gate
-    /**
-     * Refuse a protected call while the game session is not established, BEFORE anything is
-     * journaled or sent (brief sections D and E). Two properties matter and both come from where
-     * this is called rather than from what it does:
-     *
-     *   - it runs before withSent(), so a refusal leaves the item in the state it was already in.
-     *     Nothing is marked SENT, so nothing enters reconciliation, and the mutation provably never
-     *     left the device. SENT semantics for real transport ambiguity are untouched;
-     *   - it keys off the procedure, not the job, so a public read still runs signed out. A
-     *     capture-only manifest over gameAsset.get is unaffected by a missing session, which is
-     *     what the procedure guards themselves already allow.
-     */
     _requireAuth(path, idx = null) {
       if (!this.auth || typeof this.auth.assert !== "function") return;
       try {
@@ -4904,17 +4796,9 @@
         throw new Paused("SESSION", { idx, path, detail: e.message, authState: e.state });
       }
     }
-    /** Every protected path a job would touch, so the gate can refuse before the first request. */
     _protectedPaths(order, manifest) {
       return protectedPathsFor(order, manifest);
     }
-    /**
-     * The server just proved this session is not authenticated. Invalidate the shared auth state
-     * BEFORE pausing, so that everything downstream - the banner, the Resume button, the next
-     * job's preflight - reads the server's answer rather than the last successful probe
-     * (independent review FPA-2). Returns the Paused the caller should throw, so that recording the
-     * refusal and stopping are one statement and cannot drift apart.
-     */
     _authRefused(error, info = {}) {
       const detail = error && error.message ? String(error.message) : "UNAUTHORIZED";
       if (this.auth && typeof this.auth.refuse === "function") {
@@ -4923,7 +4807,6 @@
       this.log(`the game refused ${info.path || "a protected procedure"} as unauthenticated; auth state invalidated`);
       return new Paused("SESSION", { detail, authState: "signed_out", ...info });
     }
-    // ------------------------------------------------------------------ lease
     _leaseKey(jobId) {
       return LEASE_PREFIX + jobId;
     }
@@ -4934,7 +4817,6 @@
         return null;
       }
     }
-    /** Take or refresh the lease for this tab; throws LeaseHeld if another tab's heartbeat is fresh. */
     _lease(jobId) {
       const cur = this._readLease(jobId);
       const now = this.clock();
@@ -4945,8 +4827,6 @@
       const cur = this._readLease(jobId);
       if (cur && cur.tab === this.tabId) this.storage.removeItem(this._leaseKey(jobId));
     }
-    // ------------------------------------------------------------------ lifecycle
-    /** Plan a manifest and open a job. Returns the journal job. Does not send anything. */
     plan(manifestSource, { jobId, manifestPath = null, manifestNumber: manifestNumber2 = null } = {}) {
       const manifest = parseManifest(manifestSource);
       const order = planOrder(manifest, readIdmap(this.storage));
@@ -4955,23 +4835,23 @@
       this.manifests.set(jobId, { manifest, order });
       return job;
     }
-    /** Attach the parsed manifest to an existing (resumed) job. */
     attach(jobId, manifestSource) {
       const manifest = parseManifest(manifestSource);
       const job = this.journal.get(jobId);
       if (!job) throw new Error("no such job " + jobId);
       if (job.manifestHash && manifest.hash !== job.manifestHash) {
+        if (manifest.bodyHash === job.manifestHash) {
+          throw new Error(`job ${jobId} was opened before manifest identity covered execution policy (journal hash ${job.manifestHash} is this file's body hash). Its policy - dedupNames/readBack/skipPreflight/imgSizes - was never recorded, so it cannot be resumed safely under this bundle. Export the job for evidence and start a fresh one from the manifest.`);
+        }
         throw new Error(`manifest changed under job ${jobId}: journal hash ${job.manifestHash}, file hash ${manifest.hash}`);
       }
       const order = planOrder(manifest, readIdmap(this.storage));
       if (order.length !== job.items.length) throw new Error("manifest item count differs from the journal");
       this.manifests.set(jobId, { manifest, order });
     }
-    /** Ask the loop to stop after the current item. */
     requestPause() {
       this.pauseRequested = true;
     }
-    /** Run every non-terminal item in order. Returns a summary. */
     async run(jobId) {
       const { manifest, order } = this._m(jobId);
       let job = this.journal.get(jobId);
@@ -5031,7 +4911,6 @@
       this._emit("job:end", { jobId, state: summary.state ?? null });
       return summary;
     }
-    /** Reconcile SENT items through the reconciler, then run. */
     async resume(jobId) {
       if (!this.reconciler) throw new Error("resume needs a reconciler");
       const { manifest, order } = this._m(jobId);
@@ -5074,11 +4953,6 @@
       }
       return this.run(jobId);
     }
-    /**
-     * User decision on an ORPHANED item: adopt an id. A phase-create orphan continues at update;
-     * an orphan that already had an id keeps its phase (the user is choosing to re-send THAT
-     * step, and the UI says so). Refuses ids already held by another item.
-     */
     adopt(jobId, idx, entityId) {
       const job = this.journal.get(jobId);
       const item = job.items[idx];
@@ -5102,7 +4976,6 @@
       for (const it of job.items) if (it.verify && verify[it.verify] !== void 0) verify[it.verify]++;
       return { jobId, state: job.state, outcome: jobOutcome(job), pause: job.pause, counts, verify, items: job.items.map((it) => ({ idx: it.idx, name: it.name, entity: it.entity, state: it.state, phase: it.phase, entityId: it.entityId, error: it.error ?? null, diffs: it.diffs ?? null, verify: it.verify ?? null })) };
     }
-    // ------------------------------------------------------------------ items
     async _runItem(jobId, item, planned, manifest) {
       const ent = item.entity;
       try {
@@ -5147,19 +5020,38 @@
         this.log(`item ${item.idx} failed: ${e && e.message}`, item);
       }
     }
-    /** Local checks before a create: refs resolvable, files picked, keys known. No request. */
     async _preflight(item, planned) {
       const refs = collectRefs(planned.data);
       for (const r of refs) {
         if (r.pfx === "DOUBLED") throw new Error(`doubled ref prefix at ${r.path}: ${r.key}`);
         if (r.pfx === "img") {
-          if (!this.files.has(r.key) && !readIdmap(this.storage)[r.key]) throw new Error(`@img:${r.key} has no file picked`);
+          this._imgPreflight(r.key);
           continue;
         }
         if (!this._lookup(this.journal.get(this._jobOf(item)))(r.pfx, r.key)) throw new Error(`@${r.pfx}:${r.key} is not resolvable yet (at ${r.path})`);
       }
       const problems = this.validator.problems(item.entity, planned.data, null, { preCreate: true });
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
+    }
+    _imgPreflight(name) {
+      const prov = this.imgProvenance.get(name);
+      if (prov) {
+        if (readAssetUploads(this.storage)[prov.sha256]) return;
+        const file = this.files.get(name);
+        if (!file) throw new Error(`@img:${name} is bound to ${prov.path} but its verified bytes are not loaded`);
+        if (file !== prov.file) throw new Error(`@img:${name} is not holding the exact file that was verified against ${prov.sha256.slice(0, 12)}; nothing was sent`);
+        return;
+      }
+      if (!this.files.has(name) && !readIdmap(this.storage)[name]) throw new Error(`@img:${name} has no file picked`);
+    }
+    async _imgBytes(name, prov) {
+      const file = this.files.get(name);
+      if (!file) throw new Error(`@img:${name} is bound to ${prov.path} but its verified bytes are not loaded`);
+      if (file !== prov.file) throw new Error(`@img:${name} is not holding the exact file that was verified against ${prov.sha256.slice(0, 12)}; nothing was uploaded`);
+      if (typeof this.digest !== "function") throw new Error(`@img:${name} is repo-backed but no digest is wired, so its bytes cannot be re-verified; nothing was uploaded`);
+      const hex = toHex(await this.digest(await file.arrayBuffer()));
+      if (hex !== prov.sha256) throw new Error(`@img:${name} hashes to ${hex} at the moment of upload; the pack says ${prov.sha256}. Nothing was uploaded.`);
+      return file;
     }
     async _create(jobId, item, planned) {
       const rc = recipe(item.entity);
@@ -5271,7 +5163,7 @@
         const pr = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
         if (!pr.ok && classifyError(pr.error) === "SESSION") throw this._authRefused(pr.error, { idx: item.idx, path: "ai.getAiProfile" });
         if (pr.ok && pr.data) {
-          if (JSON.stringify(pr.data.rules ?? []) !== JSON.stringify(planned.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
+          if (!deepEqualPayload(planned.data.rules ?? [], pr.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
           if (planned.data.includeDefaultRules !== void 0 && pr.data.includeDefaultRules !== planned.data.includeDefaultRules) diffs.push({ key: "includeDefaultRules", sent: planned.data.includeDefaultRules, live: pr.data.includeDefaultRules });
         } else {
           this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" });
@@ -5281,22 +5173,8 @@
       if (diffs.length) this.journal.annotate(jobId, item.idx, { diffs, verify: "drift", phase: "verify" });
       else this.journal.transition(jobId, item.idx, "VERIFIED", { diffs: [], verify: "match" });
     }
-    /**
-     * dedupNames: refuse to create a row whose name is already live (readiness brief 5b).
-     *
-     * Runs BEFORE the first create of the job, through the cache-first reader under the budget, so
-     * a collision fails while the only cost is a read. Only PLANNED creates are checked: an item
-     * this job already created owns its live name, and re-checking it would collide with itself.
-     * Only creates at all - an edit that re-asserts its own name would always match the live list,
-     * which is why the old builder's version could not be run over an edit manifest.
-     *
-     * A limited or failed read is NOT silently skipped the way the builder skipped it: RateLimited
-     * and transport errors propagate to run(), which pauses the job with the path and countdown, so
-     * the check is either performed or the job stops. A collision fails that item only; the rest of
-     * the manifest still runs, and the job's outcome reports the failure.
-     */
     async _dedupNames(jobId, order) {
-      const byEntity = /* @__PURE__ */ new Map();
+      const byEntity =  new Map();
       for (const it of this.journal.get(jobId).items) {
         if (it.op !== "create" || it.state !== "PLANNED") continue;
         const rc = recipe(it.entity);
@@ -5316,7 +5194,7 @@
           throw new Paused("NETWORK", { detail: `dedupNames: ${rc.names} failed: ${r.error.code} ${r.error.message}` });
         }
         const rows = Array.isArray(r.data) ? r.data : r.data && Array.isArray(r.data.data) ? r.data.data : [];
-        const live = /* @__PURE__ */ new Set();
+        const live =  new Set();
         for (const row2 of rows) {
           const v = row2 && (row2[rc.nameKey] ?? row2.name ?? row2.username);
           if (typeof v === "string") live.add(v.trim().toLowerCase());
@@ -5328,17 +5206,6 @@
         }
       }
     }
-    /**
-     * One capture pass. Reads are already incremental: the loop starts at out.length, and each
-     * answer is journaled before the next read, so a pause after N captures resumes at N+1 and
-     * never re-reads what is done. That is unchanged by persistence — `persist: "full"` adds no
-     * second read, it only decides how durably the body that read already produced is kept.
-     *
-     * The journal entry stays COMPACT whatever the mode: the body goes to IndexedDB and the journal
-     * carries only the persistence request, the immutable snapshot key that finds that body, and
-     * whether it was actually stored. The exporter materializes from that key
-     * (App.resolveCaptures); nothing here puts a body in localStorage.
-     */
     async _captures(jobId, list, phase) {
       const key = phase === "before" ? "capturesBefore" : "capturesAfter";
       const job = this.journal.get(jobId);
@@ -5370,24 +5237,6 @@
       this.journal.annotateJob(jobId, { [key]: out, [key + "Partial"]: null });
       return out;
     }
-    /**
-     * Commit ONE capture's body to the immutable snapshot store at its declared TIER, and return the
-     * compact verdict fields the journal keeps.
-     *
-     * The body written is `r.data` — the value this very read returned — so the snapshot cannot be
-     * anything other than the body of the read it belongs to. It is deliberately NOT fetched back out
-     * of the read cache: that slot is overwritten by the next read of the same key and dropped by a
-     * write to its entity, which is exactly how a capture.before body could be replaced by the after
-     * body before export (independent review FFC-1).
-     *
-     * The tier is written ONTO the snapshot rather than re-derived at export. A body that was read
-     * under local-only stays local-only for its whole life, whatever a later registry edit says, and
-     * the exporter never has to ask a second authority what it is allowed to do with what it holds.
-     *
-     * Writing here rather than at export also means every check happens at read time — the byte
-     * ceiling, the projection, a storage refusal — so a failure shows on the run screen instead of
-     * surprising the exporter. A failed read stores nothing and fabricates nothing.
-     */
     async _persist(jobId, phase, ordinal, c, path, id, r) {
       const tier = c.tier;
       const policy = capturePolicy(path);
@@ -5438,13 +5287,6 @@
       fields.persistOk = fields.persistError == null;
       return fields;
     }
-    /**
-     * Record ONE abandoned capture attempt. Appended to `<phase>Attempts`, which is append-only: a
-     * capture that is paused and later resumed leaves both records, so "what was asked for and what
-     * came back" survives for the attempt that did not finish. It is deliberately NOT written into
-     * the phase's completed list, because that list is the resume cursor and adding to it would skip
-     * the capture on resume.
-     */
     _journalAttempt(jobId, key, c, phase, ordinal, e) {
       const job = this.journal.get(jobId);
       const prior = Array.isArray(job[key + "Attempts"]) ? job[key + "Attempts"] : [];
@@ -5468,7 +5310,6 @@
         }]
       });
     }
-    // ------------------------------------------------------------------ helpers
     _m(jobId) {
       const m = this.manifests.get(jobId);
       if (!m) throw new Error("no manifest attached for job " + jobId + "; call plan() or attach()");
@@ -5505,7 +5346,6 @@
       map[srcId] = id;
       writeIdmap(this.storage, map);
     }
-    /** Re-derive idmap entries from the job's own items, so a crash between CONFIRMED and the idmap write cannot strand a @ref. */
     _syncIdmapFromJob(job) {
       let map = null;
       for (const it of job.items) if (it.srcId && it.entityId) {
@@ -5514,7 +5354,6 @@
       }
       if (map) writeIdmap(this.storage, map);
     }
-    /** Ref lookup: idmap first, then this job's own items by srcId. */
     _lookup(job) {
       const map = readIdmap(this.storage);
       return (pfx, key) => map[key] ?? (job ? job.items.find((it) => it.srcId === key && it.entityId)?.entityId : void 0);
@@ -5522,14 +5361,29 @@
     async _resolved(data, jobId) {
       const refs = collectRefs(data).filter((r) => r.pfx === "img");
       for (const r of refs) {
+        const prov = this.imgProvenance.get(r.key) ?? null;
         const map = readIdmap(this.storage);
-        if (map[r.key]) continue;
-        const file = this.files.get(r.key);
-        if (!file) throw new Error(`@img:${r.key} has no file picked`);
+        let file;
+        if (prov) {
+          const known = readAssetUploads(this.storage)[prov.sha256];
+          if (known && known.url) {
+            if (map[r.key] !== known.url) {
+              map[r.key] = known.url;
+              writeIdmap(this.storage, map);
+            }
+            continue;
+          }
+          file = await this._imgBytes(r.key, prov);
+        } else {
+          if (map[r.key]) continue;
+          file = this.files.get(r.key);
+          if (!file) throw new Error(`@img:${r.key} has no file picked`);
+        }
         if (!this.uploader) throw new Error("no uploader configured for @img refs");
         const up = await this.uploader.upload(file);
         map[r.key] = up.ufsUrl;
         writeIdmap(this.storage, map);
+        if (prov) recordAssetUpload(this.storage, prov.sha256, up.ufsUrl, { path: prov.path, ref: prov.ref, at: this.clock() });
       }
       const job = jobId ? this.journal.get(jobId) : null;
       const { value, unresolved } = resolveRefs(data, this._lookup(job));
@@ -5538,15 +5392,8 @@
     }
   };
 
-  // src/reconcile/reconciler.mjs
   var SNAP_PREFIX = "tnr_forge_snap_v1:";
   var Reconciler = class {
-    /**
-     * @param {object} o
-     * @param {Storage} o.storage
-     * @param {import("../budget/reader.mjs").CachedReader} o.reader
-     * @param {() => number} [o.clock]
-     */
     constructor({ storage, reader, clock = () => Date.now(), journal }) {
       if (!journal || typeof journal.knownEntityIds !== "function") throw new Error("Reconciler needs the journal: without it cross-job adoption cannot be excluded");
       if (!storage || !reader) throw new Error("Reconciler needs storage and reader");
@@ -5555,17 +5402,6 @@
       this.clock = clock;
       this.journal = journal;
     }
-    /**
-     * Every read in this file goes through here first.
-     *
-     * A failed read normally means "I cannot tell what happened", and the safe answer to that is
-     * ORPHANED: the user looks and decides. A read the server refused as UNAUTHENTICATED is a
-     * different thing entirely - it says nothing about the write, only about the session - and
-     * answering it with ORPHANED manufactures a decision out of a sign-in prompt (independent
-     * review round 2, surviving path B). So this one condition is raised to the Runner, which owns
-     * the auth state, instead of being folded into the orphan verdict. Every other failure keeps
-     * its existing behaviour exactly.
-     */
     _ensureSession(path, r) {
       if (!r.ok && classifyError(r.error) === "SESSION") throw new AuthRefused(path, r.error);
       return r;
@@ -5580,7 +5416,6 @@
         return null;
       }
     }
-    /** Called by the runner before every create; takes the snapshot once per (job, entity). */
     async beforeCreate(job, item, entity) {
       const key = this.snapKey(job.jobId, entity);
       if (this.storage.getItem(key)) return key;
@@ -5591,7 +5426,6 @@
       this.storage.setItem(key, JSON.stringify({ entity, at: new Date(this.clock()).toISOString(), path: rc.names, count: ids.length, ids }));
       return key;
     }
-    /** Drop a job's snapshots (after the job is DONE or removed). */
     forget(jobId) {
       const keys = [];
       for (let i = 0; i < this.storage.length; i++) {
@@ -5601,13 +5435,6 @@
       for (const k of keys) this.storage.removeItem(k);
       return keys.length;
     }
-    /**
-     * Decide what a SENT item became.
-     * @param {object} job     journal job
-     * @param {object} item    the SENT item
-     * @param {object} ctx     {planned} the planned item (data with refs unresolved is fine here)
-     * @returns {Promise<{action:"confirm", entityId?, phase?, landed?, note} | {action:"orphan", candidates, note}>}
-     */
     async resolveSent(job, item, ctx = {}) {
       const rc = recipe(item.entity);
       if (item.phase === "create" || !item.entityId) return this._resolveCreate(job, item, rc);
@@ -5657,14 +5484,13 @@
       if (!prof.ok || !prof.data) return { action: "orphan", candidates: [], note: "ai.getAiProfile unavailable" };
       const want = ctx.planned ? ctx.planned.data.rules ?? [] : null;
       const wantDefault = ctx.planned ? ctx.planned.data.includeDefaultRules : void 0;
-      const rulesLanded = want && JSON.stringify(prof.data.rules ?? []) === JSON.stringify(want);
+      const rulesLanded = want && deepEqualPayload(want, prof.data.rules ?? []);
       const defaultLanded = wantDefault === void 0 || prof.data.includeDefaultRules === wantDefault;
       if (rulesLanded && defaultLanded) return { action: "confirm", entityId: item.entityId, phase: "verify", landed: true, note: "rules already landed" };
       return { action: "orphan", candidates: [], note: "rules may not have landed: profile rules differ" };
     }
   };
 
-  // src/github.mjs
   var GH = Object.freeze({ owner: "perseverance484", repo: "tnr-tools", branch: "main", pushDir: "push", inboxDir: "harvests/inbox" });
   var GithubError = class extends Error {
     constructor(message, info = {}) {
@@ -5674,11 +5500,6 @@
     }
   };
   var Github = class {
-    /**
-     * @param {object} o
-     * @param {(url: string, init: object) => Promise<Response>} o.fetchImpl  a plain fetch (NOT the Session)
-     * @param {Storage} o.storage  where tnr_bk_gh_v1 lives
-     */
     constructor({ fetchImpl, storage, config = GH }) {
       this.fetchImpl = fetchImpl;
       this.storage = storage;
@@ -5697,7 +5518,6 @@
     _url(path, ref = this.cfg.branch) {
       return `https://api.github.com/repos/${this.cfg.owner}/${this.cfg.repo}/contents/${path}?ref=${encodeURIComponent(ref)}`;
     }
-    /** List a directory: [{name, path, sha, size, type}] */
     async list(dir = this.cfg.pushDir) {
       const r = await this.fetchImpl(this._url(dir), { headers: this._headers() });
       if (!r.ok) throw new GithubError(`list ${dir}: HTTP ${r.status}`, { status: r.status });
@@ -5705,7 +5525,6 @@
       if (!Array.isArray(j)) throw new GithubError(`${dir} is not a directory`);
       return j.map(({ name, path, sha, size, type }) => ({ name, path, sha, size, type }));
     }
-    /** Fetch a file's raw bytes. */
     async raw(path, ref) {
       const r = await this.fetchImpl(this._url(path, ref), { headers: this._headers("application/vnd.github.raw+json") });
       if (!r.ok) throw new GithubError(`fetch ${path}: HTTP ${r.status}`, { status: r.status });
@@ -5714,7 +5533,6 @@
     async text(path, ref) {
       return new TextDecoder().decode(await this.raw(path, ref));
     }
-    /** Create or update a file (sha-aware). Returns {sha, htmlUrl} or throws. */
     async put(path, contentText, message) {
       if (!this._pat()) throw new GithubError("no PAT stored; Settings > GitHub");
       let sha = null;
@@ -5764,8 +5582,7 @@
     }
   }
 
-  // src/ui/dom.mjs
-  var HTML_SINKS = /* @__PURE__ */ new Set(["innerHTML", "outerHTML", "srcdoc", "insertAdjacentHTML"]);
+  var HTML_SINKS =  new Set(["innerHTML", "outerHTML", "srcdoc", "insertAdjacentHTML"]);
   var sinkKey = (k) => HTML_SINKS.has(k) || HTML_SINKS.has(String(k).toLowerCase());
   var DomSinkError = class extends Error {
     constructor(key) {
@@ -5853,7 +5670,6 @@
     return s ? `${s}s` : "now";
   };
 
-  // src/ui/styles.mjs
   var TOKENS = `color-scheme: dark; --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8eaf0; --mute:#9aa3b2; --ok:#5fbf8a; --warn:#d9a441; --bad:#e0655f; --acc:#7aa2ff; --sent:#b08cff;`;
   var CSS_DOC = `
 html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-text-size-adjust:100%; }
@@ -5902,7 +5718,263 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
 .f-boot { ${TOKENS} padding:16px; background:var(--bg); color:var(--ink); min-height:100vh; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
 `;
 
-  // src/ui/screens.mjs
+  function harvestEntry(i) {
+    const diffs = i.diffs || [];
+    const assertedKeys = Array.isArray(i.asserted) ? i.asserted.length : i.assertedRules ? 1 : 0;
+    const landed = i.state === "VERIFIED" || i.entityId && i.phase === "verify";
+    const state = i.state === "FAILED" ? "error" : i.state === "SKIPPED" ? "skipped" : landed ? "ok" : "pending";
+    return {
+      name: i.name,
+      srcId: i.srcId,
+      entity: i.entity,
+      slot: i.op === "create" ? "create" : "edit",
+      op: i.op,
+      state,
+      forgeState: i.state,
+      phase: i.phase,
+      detail: i.error || i.reconciled || "",
+      verdict: i.verify || null,
+      asserted: assertedKeys || diffs.length ? {
+        ok: Math.max(0, assertedKeys - diffs.length),
+        fail: diffs.map((d) => ({ k: d.key, c: "mismatch", d: [`sent ${JSON.stringify(d.sent)}  live ${JSON.stringify(d.live)}`] }))
+      } : null,
+      diffs,
+      id: i.entityId || i.targetId || null
+    };
+  }
+  var EXT_MIME2 = Object.freeze({
+    webp: "image/webp",
+    png: "image/png",
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    gif: "image/gif",
+    avif: "image/avif"
+  });
+  var extOf2 = (n) => {
+    const m = /\.([A-Za-z0-9]+)$/.exec(String(n ?? ""));
+    return m ? m[1].toLowerCase() : null;
+  };
+  function imagePick(name, file, imgSizes = {}, slug = "imageUploader") {
+    const ceiling = (SLUGS[slug] ?? SLUGS.imageUploader).maxBytes;
+    const has = imgSizes && Object.prototype.hasOwnProperty.call(imgSizes, name);
+    const expectedBytes = has ? Number(imgSizes[name]) : null;
+    if (!file) return { name, ok: false, state: "missing", expectedBytes, ceiling, picked: null, renamed: false, problems: [] };
+    const picked = { name: file.name ?? null, size: Number(file.size), type: file.type || null };
+    const problems = [];
+    if (expectedBytes == null || !Number.isFinite(expectedBytes)) {
+      problems.push(`the manifest has no imgSizes entry for ${name}, so these bytes cannot be checked against it`);
+    } else if (picked.size !== expectedBytes) {
+      problems.push(`selected file is ${picked.size} bytes; the manifest ledger says ${name} is ${expectedBytes}`);
+    }
+    if (Number.isFinite(picked.size) && picked.size > ceiling) {
+      problems.push(`selected file is ${picked.size} bytes, over the ${slug} ceiling of ${ceiling}`);
+    }
+    const wantMime = EXT_MIME2[extOf2(name)] ?? null;
+    if (picked.type && !picked.type.startsWith("image/")) problems.push(`selected file is ${picked.type}, not an image`);
+    else if (picked.type && wantMime && picked.type !== wantMime) problems.push(`selected file is ${picked.type}; ${name} is a ${extOf2(name)}`);
+    return {
+      name,
+      ok: !problems.length,
+      state: problems.length ? "refused" : "ready",
+      expectedBytes,
+      ceiling,
+      picked,
+      renamed: !!(picked.name && picked.name !== name),
+      problems
+    };
+  }
+  function imagePicks(names, files, imgSizes = {}, slug = "imageUploader") {
+    const get = files && typeof files.get === "function" ? (n) => files.get(n) : () => null;
+    return (names ?? []).map((n) => imagePick(n, get(n) ?? null, imgSizes, slug));
+  }
+  function unusablePicks(picks) {
+    return (picks ?? []).filter((p) => !p.ok);
+  }
+  function resumeBlockedReason(job, auth) {
+    if (!job || !job.pause || job.pause.reason !== "SESSION") return null;
+    if (!auth || auth.ready) return null;
+    return "TNR authentication is still unavailable. Sign in to the game and re-check the session; resuming now would send nothing.";
+  }
+  function blockedPaths(auth, plan, manifest) {
+    if (!auth) return [];
+    try {
+      return protectedPathsFor(plan, manifest).filter((path) => !auth.allows(path));
+    } catch {
+      return [];
+    }
+  }
+  function authFacts(auth, busy) {
+    if (!auth) return null;
+    const state = auth.state;
+    if (state === AUTH.READY) return { level: "ok", ready: true, probing: false, signedOut: false, detail: auth.detail ?? null };
+    if (state === AUTH.PROBING || busy) return { level: "info", ready: false, probing: true, signedOut: false, detail: auth.detail ?? null };
+    return { level: "bad", ready: false, probing: false, signedOut: state === AUTH.SIGNED_OUT, detail: auth.detail ?? null };
+  }
+  function runHeadline(job, summary) {
+    const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
+    const outcome = jobOutcome(job);
+    const full = captures.filter((capture) => captureTier(capture));
+    const partial = captures.filter((capture) => capture.complete === false).length;
+    const detail = job.items.length ? `${Object.entries(summary.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${summary.verify.match} verified, ${summary.verify.drift} drift, ${summary.verify.unread} unread` : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` \xB7 ${full.filter((capture) => capture.persistOk === true).length}/${full.length} ${full.every((capture) => captureTier(capture) === "repo-safe") ? "full bodies persisted" : "bodies retained at their tier"}` : ""}${partial ? ` \xB7 ${partial} paged walk${partial === 1 ? "" : "s"} incomplete` : ""} \xB7 zero mutations`;
+    const kind = outcome === "success" ? "ok" : outcome === "failed" ? "bad" : "warn";
+    if (job.pause && job.pause.reason === "SESSION") {
+      return {
+        outcome,
+        kind: "bad",
+        ms: 12e3,
+        sessionPause: true,
+        text: `job PAUSED: TNR authentication unavailable${job.pause.path ? ` on ${job.pause.path}` : ""}. Nothing further was sent. Sign in and resume.`
+      };
+    }
+    return { outcome, kind, ms: 8e3, sessionPause: false, text: `job ${summary.state} (${outcome}): ${detail}` };
+  }
+  function postflight(job) {
+    return {
+      match: job.items.filter((i) => i.verify === "match").length,
+      diff: job.items.filter((i) => i.verify === "drift").length,
+      unverified: job.items.filter((i) => i.verify === "unread").length,
+      failed: job.items.filter((i) => i.state === "FAILED").length,
+      skipped: job.items.filter((i) => i.state === "SKIPPED").length,
+      unresolved: job.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length
+    };
+  }
+
+  function makeFile(bytes, name, type) {
+    const F = globalThis.File;
+    if (typeof F === "function") return new F([bytes], name, { type });
+    const B = globalThis.Blob;
+    if (typeof B === "function") {
+      const blob = new B([bytes], { type });
+      return Object.defineProperties(blob, { name: { value: name }, lastModified: { value: 0 } });
+    }
+    throw new Error("this host has neither File nor Blob; repo-backed image packs need one to upload");
+  }
+  async function prepareImagePack({ github, assetCache, digest, now = () => Date.now() }, { pack, names = [], force = false } = {}) {
+    const work = packWork(pack, names);
+    const unbound = unboundNames(pack, names);
+    const entries = [];
+    const staged = [];
+    for (const want of work) {
+      const { entry, stage } = await one({ github, assetCache, digest, now }, want, force);
+      entries.push(entry);
+      if (stage) staged.push(stage);
+    }
+    return { ref: pack ? pack.ref : null, entries, unbound, ok: entries.length === staged.length, staged };
+  }
+  function commitImagePack(runner, { pack, names = [], staged = [] } = {}) {
+    for (const { name } of packWork(pack, names)) {
+      runner.files.delete(name);
+      runner.imgProvenance.delete(name);
+    }
+    for (const { name, file, prov } of staged) {
+      runner.files.set(name, file);
+      runner.imgProvenance.set(name, { ...prov, file });
+    }
+    return staged.length;
+  }
+  async function one(ctx, want, force) {
+    const { github, assetCache, digest, now } = ctx;
+    const base = { name: want.name, path: want.path, ref: want.ref, sha256: want.sha256, bytes: want.bytes };
+    const fail = (o) => ({ entry: { ...base, source: null, size: null, digest: null, ...o }, stage: null });
+    if (typeof digest !== "function") {
+      return fail({ state: "error", error: "SHA-256 is not available in this context, so repo-backed bytes cannot be verified; Forge will not use them unverified" });
+    }
+    let cached = null;
+    if (!force) {
+      try {
+        cached = await assetCache.get(want.sha256);
+      } catch {
+        cached = null;
+      }
+    }
+    let source = cached ? "cache" : "repo";
+    let bytes;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      if (source === "cache") {
+        bytes = cached.bytes;
+      } else {
+        try {
+          bytes = await github.raw(want.path, want.ref);
+        } catch (e) {
+          return fail({ state: "error", source: "repo", error: `could not fetch ${want.path} at ${want.ref.slice(0, 12)}: ${e && e.message || e}` });
+        }
+      }
+      const size = bytes.byteLength ?? bytes.length ?? 0;
+      let hex = null;
+      if (size === want.bytes) {
+        try {
+          hex = toHex(await digest(bytes));
+        } catch (e) {
+          return fail({ state: "error", source, size, error: `could not compute SHA-256 for ${want.name}: ${e && e.message || e}` });
+        }
+      }
+      if (size === want.bytes && hex === want.sha256) {
+        if (source === "repo") {
+          try {
+            await assetCache.put({ sha256: want.sha256, bytes, path: want.path, ref: want.ref });
+          } catch {
+          }
+        }
+        let file;
+        try {
+          file = makeFile(bytes, want.name, mimeOf(want.name));
+        } catch (e) {
+          return fail({ state: "error", source, size, digest: hex, error: e && e.message || String(e) });
+        }
+        return {
+          entry: { ...base, state: "ready", source, size, digest: hex, error: null },
+          stage: { name: want.name, file, prov: { sha256: want.sha256, path: want.path, ref: want.ref, bytes: want.bytes, at: now() } }
+        };
+      }
+      const why = size !== want.bytes ? `is ${size} bytes; the pack says ${want.bytes}` : `hashes to ${hex}; the pack says ${want.sha256}`;
+      if (source === "cache") {
+        try {
+          await assetCache.delete(want.sha256);
+        } catch {
+        }
+        cached = null;
+        source = "repo";
+        continue;
+      }
+      return fail({
+        state: "refused",
+        source,
+        size,
+        digest: hex,
+        error: `${want.path} at ${want.ref.slice(0, 12)} ${why}. Nothing was uploaded and this image cannot be used; the manifest and the repository disagree about which file this is.`
+      });
+    }
+    return fail({ state: "error", source, error: "verification did not settle" });
+  }
+  function packGateProblems(pack, names, runner) {
+    const problems = [];
+    for (const want of packWork(pack, names)) {
+      const prov = runner.imgProvenance.get(want.name) ?? null;
+      const file = runner.files.get(want.name) ?? null;
+      if (!prov || !file) {
+        problems.push(`${want.name} is bound to ${want.path} at ${want.ref.slice(0, 12)} but has not been fetched and verified`);
+        continue;
+      }
+      if (prov.sha256 !== want.sha256) {
+        problems.push(`${want.name} was verified as ${prov.sha256.slice(0, 12)} but the manifest now binds ${want.sha256.slice(0, 12)}`);
+        continue;
+      }
+      if (prov.ref !== want.ref || prov.path !== want.path) {
+        problems.push(`${want.name} was fetched from ${prov.path} at ${prov.ref.slice(0, 12)}, not ${want.path} at ${want.ref.slice(0, 12)}`);
+        continue;
+      }
+      if (!prov.file || file !== prov.file) {
+        problems.push(`${want.name} is no longer holding the exact file that was verified against ${want.sha256.slice(0, 12)}; re-fetch it from the repository`);
+        continue;
+      }
+      const size = Number(file.size);
+      if (size !== want.bytes) {
+        problems.push(`${want.name} is holding ${size} bytes, not the ${want.bytes} the pack names`);
+      }
+    }
+    return problems;
+  }
+
   var pill = (state) => h("span", { class: "f-pill " + state }, state);
   function JobsScreen(app) {
     const jobs = app.journal.listJobs();
@@ -6076,27 +6148,80 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       ));
     }
     const imgs = s.images || [];
+    const picks = imagePicks(imgs, app.runner.files, s.manifest.imgSizes, "imageUploader");
+    const pack = s.pack || null;
+    const packResult = s.packResult || null;
+    const packEntry = (name) => (packResult && packResult.entries ? packResult.entries.find((e) => e.name === name) : null) || null;
+    if (pack) {
+      const bound = imgs.filter((n) => packBinds(pack, n));
+      const ready = bound.filter((n) => (packEntry(n) || {}).state === "ready").length;
+      const kind = !packResult ? "info" : ready === bound.length ? "ok" : "bad";
+      card.appendChild(h(
+        "div",
+        { class: "f-banner " + kind },
+        h("b", {}, `Repo-backed images: ${ready}/${bound.length} verified. `),
+        `Bound to ${GH.owner}/${GH.repo} at commit ${pack.ref.slice(0, 12)}. Forge fetched each file from that immutable commit and checked its SHA-256 against the manifest; nothing is uploaded unless the digest matches.`,
+        h(
+          "div",
+          { class: "f-actions" },
+          h("button", { onClick: () => app.prepareImages(true) }, "Re-fetch from repository")
+        )
+      ));
+    }
     if (imgs.length) {
-      card.appendChild(h("h3", {}, `Images to pick (${imgs.length})`));
-      for (const name of imgs) {
-        const have = app.runner.files.has(name);
-        const inp = h("input", { type: "file", accept: "image/*", style: { display: "none" }, onChange: (e) => {
-          const f = e.target.files[0];
+      card.appendChild(h("h3", {}, `Images (${imgs.length})`));
+      for (const p of picks) {
+        const name = p.name;
+        const bound = packBinds(pack, name);
+        const e = bound ? packEntry(name) : null;
+        const inp = h("input", { type: "file", accept: "image/*", style: { display: "none" }, onChange: (ev) => {
+          const f = ev.target.files[0];
           if (f) {
             app.runner.files.set(name, f);
             app.refresh();
           }
         } });
-        card.appendChild(h("div", { class: "f-row" }, h("div", { class: "f-grow f-mono" }, name, " ", have ? h("span", { class: "f-pill VERIFIED" }, "picked") : h("span", { class: "f-pill FAILED" }, "missing")), h("button", { onClick: () => inp.click() }, "Pick"), inp));
+        const pillFor = { ready: ["VERIFIED", bound ? "verified" : "picked"], refused: ["FAILED", "wrong file"], missing: ["FAILED", bound ? "not fetched" : "missing"] }[p.state];
+        card.appendChild(h(
+          "div",
+          { class: "f-row" },
+          h(
+            "div",
+            { class: "f-grow" },
+            h("div", { class: "f-mono" }, name, " ", h("span", { class: "f-pill " + pillFor[0] }, pillFor[1])),
+            bound ? h(
+              "div",
+              { class: "f-mute f-mono" },
+              `repo: ${pack.files[name].path} @ ${pack.ref.slice(0, 12)} \xB7 sha256 ${pack.files[name].sha256.slice(0, 16)}\u2026 \xB7 ${fmtBytes(pack.files[name].bytes)}${e && e.state === "ready" ? ` \xB7 verified from ${e.source}` : ""}`
+            ) : null,
+            p.picked ? h(
+              "div",
+              { class: "f-mute f-mono" },
+              `selected: ${p.picked.name ?? "(unnamed)"} \xB7 ${fmtBytes(p.picked.size)}${p.expectedBytes != null ? ` \xB7 ledger ${fmtBytes(p.expectedBytes)}` : ""}${p.picked.type ? ` \xB7 ${p.picked.type}` : ""}`
+            ) : null,
+            p.renamed && p.ok ? h("div", { class: "f-mute" }, "the device renamed this file; its bytes match the ledger exactly") : null,
+            e && e.error ? h("div", { class: "f-err" }, e.error) : null,
+            p.problems.length ? h("div", { class: "f-err" }, p.problems.join("\n")) : null
+          ),
+          bound ? null : h("button", { onClick: () => inp.click() }, p.picked ? "Replace" : "Pick"),
+          bound ? null : inp
+        ));
       }
     }
-    const missingImgs = imgs.filter((n) => !app.runner.files.has(n));
+    const badImgs = unusablePicks(picks);
+    const packProblems = packGateProblems(pack, imgs, app.runner);
+    if (packProblems.length) card.appendChild(h(
+      "div",
+      { class: "f-banner bad" },
+      h("b", {}, "Cannot run: repo-backed images are not verified. "),
+      h("div", { class: "f-err" }, packProblems.join("\n"))
+    ));
     card.appendChild(h(
       "div",
       { class: "f-actions" },
       h("button", {
         class: "f-primary",
-        disabled: s.problems.length > 0 || missingImgs.length > 0 || blocked.length > 0,
+        disabled: s.problems.length > 0 || badImgs.length > 0 || blocked.length > 0 || packProblems.length > 0,
         onClick: () => app.confirm(
           readOnly ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.` : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
           () => app.startJob()
@@ -6135,9 +6260,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "div",
         { class: "f-banner bad" },
         h("b", {}, failed ? "Read-only capture failed. " : "Read-only capture incomplete. "),
-        // read failures lead when there are any; otherwise the reason is the missing bodies.
-        // The read wording is the fallback, so no arithmetic on an empty full-capture list can
-        // produce a sentence about bodies nobody asked for.
         !failed && unpersisted.length ? `${captures.length}/${captures.length} reads succeeded, but ${unpersisted.length} of ${full.length} requested full ${full.length === 1 ? "body" : "bodies"} could not be persisted, so this bundle does not carry the record data the manifest asked for` : `${failed} of ${captures.length} reads failed`,
         "; zero mutations were sent.",
         unpersisted.length ? h("div", { class: "f-err" }, unpersisted.map((capture) => `${capture.proc} ${capture.snapshotKey || ""}: ${capture.persistError || "not persisted"}`).join("\n")) : null
@@ -6206,14 +6328,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
             {},
             `${capture.proc} `,
             h("span", { class: "f-pill " + (capture.persistOk === true ? "VERIFIED" : "FAILED") }, capture.persistOk === true ? "body persisted" : "not persisted"),
-            // Where the body is allowed to go is said on the row, next to whether it got there.
             captureTier(capture) === "repo-safe" ? null : h("span", { class: "f-mute" }, ` \xB7 ${captureTier(capture)}`),
             capture.abandoned ? h("span", { class: "f-mute" }, " \xB7 abandoned attempt") : null,
             h("span", { class: "f-mute" }, capture.ok ? " \xB7 read ok" : " \xB7 read failed")
           ),
           h("div", { class: "f-mono" }, `${capture.snapshotKey || ""}${capture.input && capture.input.id ? " \xB7 " + capture.input.id : ""}`),
-          // A bounded walk names every page it actually asked for, so "43 rows" can never stand in
-          // for "all the rows": the page inputs are right there to compare.
           walked ? h("div", { class: "f-mute" }, `${walked.length} page(s)${capture.complete === false ? " \xB7 INCOMPLETE, more rows exist" : ""}: ` + walked.map((pg) => `#${pg.n} ${pg.rows} rows${pg.ok ? "" : " " + pg.error}`).join(", ")) : null,
           capture.persistError ? h("div", { class: "f-err" }, capture.persistError) : null
         )));
@@ -6357,81 +6476,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     return root;
   }
 
-  // src/core/facts.mjs
-  function harvestEntry(i) {
-    const diffs = i.diffs || [];
-    const assertedKeys = Array.isArray(i.asserted) ? i.asserted.length : i.assertedRules ? 1 : 0;
-    const landed = i.state === "VERIFIED" || i.entityId && i.phase === "verify";
-    const state = i.state === "FAILED" ? "error" : i.state === "SKIPPED" ? "skipped" : landed ? "ok" : "pending";
-    return {
-      name: i.name,
-      srcId: i.srcId,
-      entity: i.entity,
-      slot: i.op === "create" ? "create" : "edit",
-      op: i.op,
-      state,
-      forgeState: i.state,
-      phase: i.phase,
-      detail: i.error || i.reconciled || "",
-      verdict: i.verify || null,
-      asserted: assertedKeys || diffs.length ? {
-        ok: Math.max(0, assertedKeys - diffs.length),
-        fail: diffs.map((d) => ({ k: d.key, c: "mismatch", d: [`sent ${JSON.stringify(d.sent)}  live ${JSON.stringify(d.live)}`] }))
-      } : null,
-      diffs,
-      id: i.entityId || i.targetId || null
-    };
-  }
-  function resumeBlockedReason(job, auth) {
-    if (!job || !job.pause || job.pause.reason !== "SESSION") return null;
-    if (!auth || auth.ready) return null;
-    return "TNR authentication is still unavailable. Sign in to the game and re-check the session; resuming now would send nothing.";
-  }
-  function blockedPaths(auth, plan, manifest) {
-    if (!auth) return [];
-    try {
-      return protectedPathsFor(plan, manifest).filter((path) => !auth.allows(path));
-    } catch {
-      return [];
-    }
-  }
-  function authFacts(auth, busy) {
-    if (!auth) return null;
-    const state = auth.state;
-    if (state === AUTH.READY) return { level: "ok", ready: true, probing: false, signedOut: false, detail: auth.detail ?? null };
-    if (state === AUTH.PROBING || busy) return { level: "info", ready: false, probing: true, signedOut: false, detail: auth.detail ?? null };
-    return { level: "bad", ready: false, probing: false, signedOut: state === AUTH.SIGNED_OUT, detail: auth.detail ?? null };
-  }
-  function runHeadline(job, summary) {
-    const captures = [...job.capturesBefore || [], ...job.capturesAfter || []];
-    const outcome = jobOutcome(job);
-    const full = captures.filter((capture) => captureTier(capture));
-    const partial = captures.filter((capture) => capture.complete === false).length;
-    const detail = job.items.length ? `${Object.entries(summary.counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${summary.verify.match} verified, ${summary.verify.drift} drift, ${summary.verify.unread} unread` : `${captures.filter((capture) => capture.ok).length}/${captures.length} captures read ok${full.length ? ` \xB7 ${full.filter((capture) => capture.persistOk === true).length}/${full.length} ${full.every((capture) => captureTier(capture) === "repo-safe") ? "full bodies persisted" : "bodies retained at their tier"}` : ""}${partial ? ` \xB7 ${partial} paged walk${partial === 1 ? "" : "s"} incomplete` : ""} \xB7 zero mutations`;
-    const kind = outcome === "success" ? "ok" : outcome === "failed" ? "bad" : "warn";
-    if (job.pause && job.pause.reason === "SESSION") {
-      return {
-        outcome,
-        kind: "bad",
-        ms: 12e3,
-        sessionPause: true,
-        text: `job PAUSED: TNR authentication unavailable${job.pause.path ? ` on ${job.pause.path}` : ""}. Nothing further was sent. Sign in and resume.`
-      };
-    }
-    return { outcome, kind, ms: 8e3, sessionPause: false, text: `job ${summary.state} (${outcome}): ${detail}` };
-  }
-  function postflight(job) {
-    return {
-      match: job.items.filter((i) => i.verify === "match").length,
-      diff: job.items.filter((i) => i.verify === "drift").length,
-      unverified: job.items.filter((i) => i.verify === "unread").length,
-      failed: job.items.filter((i) => i.state === "FAILED").length,
-      skipped: job.items.filter((i) => i.state === "SKIPPED").length,
-      unresolved: job.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length
-    };
-  }
-
-  // src/core/results.mjs
   async function resolveCaptures({ journal, cache }, jobId) {
     const job = journal.get(jobId);
     const patch = {};
@@ -6535,7 +6579,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       at: new Date(now()).toISOString(),
       cfg: "forge",
       checks: null,
-      // `outcome` is the honest headline: an exported bundle is evidence, not a claim of success.
       state: job.state,
       outcome: jobOutcome(job),
       postflight: postflight(job),
@@ -6545,24 +6588,19 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       journal: job
     };
   }
+  var bundleName = (now) => `tnr_results_${now()}.json`;
   function repoSyncReady(storage) {
     const gh = readGh(storage);
     return Boolean(gh.on && gh.pat);
   }
   var inboxPath = (name) => `${GH.inboxDir}/${name}`;
 
-  // src/core/core.mjs
-  var REQUIRED_DEPS = ["version", "storage", "journal", "cache", "repoCache", "runner", "github", "validator"];
+  var REQUIRED_DEPS = ["version", "storage", "journal", "cache", "repoCache", "assetCache", "digest", "runner", "github", "validator"];
   var OPTIONAL_DEPS = ["budget", "reader", "client", "session", "auth", "reconciler", "uploader", "now"];
   var STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "running", "runningNote"];
   var SCREENS = ["jobs", "manifests", "run", "captures", "settings"];
   var GO_PATCH_KEYS = ["jobId"];
   var ForgeCore = class {
-    /**
-     * @param {object} d see REQUIRED_DEPS / OPTIONAL_DEPS. Unknown keys are ignored; a missing
-     *   required dependency throws rather than degrading — `repoCache` in particular used to fall
-     *   back to the game capture cache, which silently reversed the Phase 0 storage isolation.
-     */
     constructor(d) {
       const missing = REQUIRED_DEPS.filter((k) => d[k] == null);
       if (missing.length) throw new Error(`ForgeCore is missing required dependencies: ${missing.join(", ")}`);
@@ -6570,9 +6608,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       this.now = d.now ?? (() => Date.now());
       this.authBusy = false;
       this.state = { screen: "jobs", jobId: null, picker: null, pickerAt: null, pickerError: null, selected: null, running: null, runningNote: "" };
-      this._listeners = /* @__PURE__ */ new Set();
+      this._listeners =  new Set();
     }
-    /** The public action surface. Pinned by the golden test so a shell cannot quietly grow one. */
     static get ACTIONS() {
       return [
         "adopt",
@@ -6586,6 +6623,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "go",
         "loadPicker",
         "notify",
+        "prepareImages",
         "recheckAuth",
         "requestPause",
         "resolveCaptures",
@@ -6599,27 +6637,18 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "subscribe"
       ];
     }
-    /**
-     * A serializable picture of machine state. This is what a shell renders from and what a headless
-     * host inspects: JSON only, no functions, no nodes, no dependency handles. If rendering can add
-     * a key here, the boundary has widened, which is exactly what the golden test watches for.
-     */
     snapshot() {
       const out = {};
       for (const k of STATE_KEYS) out[k] = this.state[k] === void 0 ? null : this.state[k];
       return JSON.parse(JSON.stringify(out));
     }
-    /** Machine-state keys, so a shell can assert it is not writing outside them. */
     static get STATE_KEYS() {
       return [...STATE_KEYS];
     }
-    /** Drop the current manifest selection. A screen must not assign state.selected itself. */
     clearSelection() {
       this.state.selected = null;
       this.changed();
     }
-    // ------------------------------------------------------------------ notifications
-    /** @param {(n: {type: string, [k: string]: any}) => void} fn @returns {() => void} */
     subscribe(fn) {
       if (typeof fn !== "function") throw new TypeError("ForgeCore.subscribe needs a function");
       this._listeners.add(fn);
@@ -6633,7 +6662,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         }
       }
     }
-    /** Something went wrong in a named context. Returns the message so callers can also log it. */
     fail(context, e) {
       const msg = e instanceof JournalError ? `journal: ${e.message}` : e && e.message || String(e);
       this.notify({ type: "error", context, text: `${context}: ${msg}`, level: "bad", ms: 9e3 });
@@ -6642,11 +6670,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     say(text, level = "info", ms = 4e3) {
       this.notify({ type: "message", text, level, ms });
     }
-    /** Ask the view to re-render. The core never renders; it only says that something moved. */
     changed() {
       this.notify({ type: "changed" });
     }
-    // ------------------------------------------------------------------ auth
     async establishAuth() {
       return this._auth(() => this.auth.establish());
     }
@@ -6670,7 +6696,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     blockedPaths(plan, manifest) {
       return blockedPaths(this.auth, plan, manifest);
     }
-    // ------------------------------------------------------------------ picker
     async loadPicker(force) {
       if (this.state.picker && !force) return;
       this.state.pickerError = null;
@@ -6716,14 +6741,63 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           for (const x of p) problems.push(`item ${it.idx} (${it.name}): ${x}`);
         }
         const images = [...new Set(plan.flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
-        this.state.selected = { entry, text, manifest, plan, problems, images };
+        this.state.selected = { entry, text, manifest, plan, problems, images, pack: manifest.imagePack ?? null, packResult: null };
+        this._scopePackProvenance(this.state.selected.pack);
         this.state.selected.blocked = this.blockedPaths(plan, manifest);
         this.changed();
+        if (this.state.selected.pack) await this.prepareImages();
       } catch (e) {
         this.fail("select manifest", e instanceof ManifestError ? e : e);
       }
     }
-    // ------------------------------------------------------------------ jobs
+    async prepareImages(force = false) {
+      const s = this.state.selected;
+      if (!s || !s.pack) return null;
+      return this._queuePack(() => this._prepareImages(s, force));
+    }
+    _queuePack(fn) {
+      const next = () => fn();
+      this._packChain = (this._packChain ?? Promise.resolve()).then(next, next);
+      return this._packChain;
+    }
+    _packEpoch = 0;
+    _scopePackProvenance(pack) {
+      this._packEpoch += 1;
+      for (const name of [...this.runner.imgProvenance.keys()]) {
+        if (packBinds(pack, name)) continue;
+        this.runner.imgProvenance.delete(name);
+        this.runner.files.delete(name);
+      }
+      return this._packEpoch;
+    }
+    async _prepareImages(s, force) {
+      if (this.state.selected !== s) return null;
+      const epoch = this._packEpoch;
+      this._preparing = true;
+      this.changed();
+      try {
+        const result = await prepareImagePack(this, { pack: s.pack, names: s.images, force });
+        if (this.state.selected !== s || this._packEpoch !== epoch) {
+          return { ref: result.ref, entries: result.entries, unbound: result.unbound, ok: false, stale: true };
+        }
+        commitImagePack(this.runner, { pack: s.pack, names: s.images, staged: result.staged });
+        s.packResult = { ref: result.ref, entries: result.entries, unbound: result.unbound, ok: result.ok };
+        const bad = result.entries.filter((e) => e.state !== "ready");
+        if (!bad.length) {
+          this.say(`${result.entries.length} repo-backed image(s) verified against ${s.pack.ref.slice(0, 7)}`, "ok");
+        } else {
+          this.say(`${bad.length} of ${result.entries.length} repo-backed image(s) could not be verified: ${bad.map((e) => `${e.name}: ${e.error}`).join(" | ")}`, "bad", 12e3);
+        }
+        return result;
+      } catch (e) {
+        this.fail("prepare repo-backed images", e);
+        if (this.state.selected === s) s.packResult = { ref: s.pack.ref, entries: [], unbound: [], ok: false, error: e && e.message || String(e) };
+        return null;
+      } finally {
+        this._preparing = false;
+        this.changed();
+      }
+    }
     async startJob() {
       const s = this.state.selected;
       if (!s) return;
@@ -6731,6 +6805,16 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (blocked.length) {
         this.say(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9e3);
         this.state.selected.blocked = blocked;
+        return this.changed();
+      }
+      const badImgs = unusablePicks(imagePicks(s.images, this.runner.files, s.manifest.imgSizes, "imageUploader"));
+      if (badImgs.length) {
+        this.say(`${badImgs.length} image selection(s) do not match the manifest: ${badImgs.map((p) => p.problems[0] ?? `${p.name} is not picked`).join("; ")}. Nothing was sent.`, "bad", 12e3);
+        return this.changed();
+      }
+      const packProblems = packGateProblems(s.pack, s.images, this.runner);
+      if (packProblems.length) {
+        this.say(`${packProblems.length} repo-backed image(s) are not verified: ${packProblems.join("; ")}. Nothing was sent.`, "bad", 12e3);
         return this.changed();
       }
       const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
@@ -6759,14 +6843,32 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           return this.fail("resume: fetch manifest", e);
         }
       }
+      try {
+        const attached = this.runner.manifests.get(jobId);
+        const pack = attached && attached.manifest ? attached.manifest.imagePack : null;
+        const epoch = this._scopePackProvenance(pack);
+        if (pack) {
+          const names = [...new Set((attached.order || []).flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
+          const result = await this._queuePack(async () => {
+            const r = await prepareImagePack(this, { pack, names });
+            if (this._packEpoch !== epoch) return { ...r, ok: false, stale: true, staged: [] };
+            commitImagePack(this.runner, { pack, names, staged: r.staged });
+            return r;
+          });
+          const bad = result.entries.filter((e) => e.state !== "ready");
+          if (bad.length || result.stale) {
+            const detail = result.stale ? "the selection changed while the images were being fetched, so nothing was installed" : bad.map((e) => `${e.name}: ${e.error}`).join(" | ");
+            this.say(`resume refused: repo-backed image(s) could not be verified: ${detail}. Nothing was sent.`, "bad", 12e3);
+            return this.changed();
+          }
+        }
+      } catch (e) {
+        return this.fail("resume: prepare repo-backed images", e);
+      }
       this.go("run", { jobId });
       const hasSent = job.items.some((i) => i.state === "SENT");
       await this.drive(jobId, () => hasSent ? this.runner.resume(jobId) : this.runner.run(jobId));
     }
-    /**
-     * Route to a screen, optionally carrying the job it is about. Fails closed on an unknown screen
-     * or an unknown patch key rather than silently creating machine state.
-     */
     go(screen, patch = {}) {
       if (!SCREENS.includes(screen)) throw new Error(`unknown screen ${JSON.stringify(screen)}`);
       if (patch === null || typeof patch !== "object" || Array.isArray(patch)) throw new TypeError("go() patch must be an object");
@@ -6826,7 +6928,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     resolveCaptures(jobId) {
       return resolveCaptures(this, jobId);
     }
-    /** Results bundle, committed via GitHub when Sync is on, otherwise handed to the view. */
     async exportJob(jobId, { auto = false } = {}) {
       let captures;
       try {
@@ -6838,7 +6939,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
       const job = this.journal.get(jobId);
       const bundle = buildBundle(this, job, captures);
-      const name = `tnr_results_${Date.now()}.json`;
+      const name = bundleName(this.now);
       const text = JSON.stringify(bundle, null, 1);
       const synced = repoSyncReady(this.storage);
       if (synced) {
@@ -6854,12 +6955,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
   };
 
-  // src/ui/app.mjs
   var SCREENS2 = { jobs: ["Jobs", JobsScreen], manifests: ["Manifests", ManifestsScreen], run: ["Run", RunScreen], captures: ["Captures", CapturesScreen], settings: ["Settings", SettingsScreen] };
   var App = class {
-    /**
-     * @param {object} d  { version, storage, journal, cache, budget, reader, client, session, runner, reconciler, github, validator, now }
-     */
     constructor(d) {
       Object.assign(this, d);
       this.now = d.now ?? (() => Date.now());
@@ -6870,11 +6967,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       this._tick = null;
       this._unsubscribe = this.core.subscribe((n) => this._onCore(n));
     }
-    /**
-     * The view's read-only window onto core machine state. It used to hand back the mutable core
-     * object, so "the view never writes core state" was a claim about discipline rather than a
-     * property of the code — and `mount()` itself falsified it. Writes now throw.
-     */
     get state() {
       if (!this._stateView || this._stateViewOf !== this.core.state) {
         this._stateViewOf = this.core.state;
@@ -6898,7 +6990,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     set authBusy(v) {
       this.core.authBusy = v;
     }
-    /** Turn a core notification into pixels. This is the only place that decision is made. */
     _onCore(n) {
       switch (n.type) {
         case "changed":
@@ -6914,8 +7005,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           return void (this.view.renderPicker && this.view.renderPicker());
         case "export":
           return this.showExport(n.text, n.name);
-        // While a job runs the Run screen shows elapsed time and progress that nothing else pushes,
-        // so the view keeps its own repaint timer. It is presentation, which is why it lives here.
         case "driving": {
           if (this._tick) clearInterval(this._tick);
           this._tick = setInterval(() => {
@@ -6980,8 +7069,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     log(msg) {
       (this.logs ??= []).push({ at: new Date(this.now()).toISOString(), msg });
     }
-    // ------------------------------------------------------------------ auth health (brief D)
-    /** Close the overlay and hand the carrier page back to the operator. */
     close() {
       if (!this.exit) return;
       if (this.state.running) return this.toast("a job is running; pause it before closing Forge", "warn");
@@ -6995,20 +7082,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
       this.exit();
     }
-    /** Wait for the page's auth runtime, then probe once. Called on mount. */
     establishAuth() {
       return this.core.establishAuth();
     }
-    /** Operator-driven re-check, from the auth banner. */
     recheckAuth() {
       return this.core.recheckAuth();
     }
-    /**
-     * The standing answer to "can Forge do protected work right now", on every screen. It is a
-     * separate line from job outcomes on purpose: "signed out" and "the read failed" are different
-     * problems with different fixes, and 0.3.0 could only ever say the second one. The reasoning is
-     * ForgeCore's (authFacts); only the markup is this function's.
-     */
     authBanner() {
       const facts = authFacts(this.auth, this.authBusy);
       if (!facts) return null;
@@ -7061,7 +7140,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       ));
       this.$main.prepend(card);
     }
-    // ------------------------------------------------------------------ forwarded actions
     clearSelection() {
       return this.core.clearSelection();
     }
@@ -7070,6 +7148,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     selectManifest(entry) {
       return this.core.selectManifest(entry);
+    }
+    prepareImages(force) {
+      return this.core.prepareImages(force);
     }
     startJob() {
       return this.core.startJob();
@@ -7104,7 +7185,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
   };
 
-  // src/hosts/userscript/takeover.mjs
   var ENTRY_PATH = "/forge";
   var CARRIER_PATH = "/";
   var ARM_KEY = "tnr_forge_armed_v1";
@@ -7415,7 +7495,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     };
   }
 
-  // src/runner/fields.json
   var fields_default = {
     _provenance: {
       generator: "forge/tools/derive_fields.mjs",
@@ -7828,7 +7907,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
   };
 
-  // src/runner/nested.json
   var nested_default = {
     _meta: {
       generated_by: "forge/tools/derive_nested.mjs",
@@ -7840,10 +7918,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         ai: "app/src/validators/ai.ts",
         base: "app/src/validators/base.ts"
       },
-      note: "Allowed KEY SETS only, per discriminator value. No types, bounds or enums: a bound this tool cannot see is the 45g.tag_power_max mistake, and a key set is checkable without zod."
+      note: "Allowed KEY SETS only, per discriminator value. No types, bounds or enums: a bound this tool cannot see is the 45g.tag_power_max mistake, and a key set is checkable without zod.",
+      format: "Shared key-set table. `sets` holds every distinct allowed key set once; each section value is an index into it (or a map of discriminator value -> index). forge/src/runner/validate.mjs expandNested() restores the per-discriminator key sets and FAILS CLOSED on an index this file does not define."
     },
-    effects: {
-      absorb: [
+    sets: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -7865,7 +7944,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      activatesagemode: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -7883,7 +7962,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      afterburn: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -7904,7 +7983,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      barrier: [
+      [
         "absorbPercentage",
         "appearAnimation",
         "appearSfx",
@@ -7925,115 +8004,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      buffprevent: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      cleanseprevent: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      cleanse: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      clearprevent: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      clear: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      clone: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      consume: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -8052,25 +8023,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      copy: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      damage: [
+      [
         "allowBloodlineDamageDecrease",
         "allowBloodlineDamageIncrease",
         "appearAnimation",
@@ -8095,25 +8048,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      debuffprevent: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      decreasecooldown: [
+      [
         "actionsAffected",
         "appearAnimation",
         "appearSfx",
@@ -8132,67 +8067,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      decreasedamagegiven: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      decreasedamagetaken: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      decreaseheal: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      decreasepoolcost: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -8211,84 +8086,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      decreasemaxpools: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "poolsAffected",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      decreasestat: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      disarm: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      drain: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "poolsAffected",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      elementalseal: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -8307,177 +8105,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      finalstand: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      fleeprevent: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      flee: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      healprevent: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      heal: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "poolsAffected",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      increasecooldown: [
-        "actionsAffected",
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      increasedamagegiven: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      increasedamagetaken: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      increaseheal: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      marriageslotincrease: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -8496,26 +8124,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      noncombatincreasereskins: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rank",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      injectjutsus: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -8534,85 +8143,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      increasepoolcost: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "poolsAffected",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      increasemaxpools: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "poolsAffected",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      increaserange: [
-        "actionsAffected",
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      increasestat: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      immunity: [
+      [
         "appearAnimation",
         "appearSfx",
         "blocks",
@@ -8631,82 +8162,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      lifesteal: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      mirror: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      moveprevent: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      move: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      noncombatconsumereward: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -8751,7 +8207,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      noncombatgainskill: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -8770,204 +8226,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      repair: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      onehitkillprevent: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      onehitkill: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      pierce: [
-        "allowBloodlineDamageDecrease",
-        "allowBloodlineDamageIncrease",
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "dmgModifier",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "residualModifier",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      poison: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "poolsAffected",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      recoil: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      redirection: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      reflect: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      removebloodline: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      robprevent: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      rob: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -8989,80 +8248,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      rollbloodline: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rank",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      rollsagemode: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      sealprevent: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      seal: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      shield: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -9081,43 +8267,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      stealth: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      stunprevent: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      stun: [
+      [
         "apReduction",
         "appearAnimation",
         "appearSfx",
@@ -9136,25 +8286,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      summonprevent: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      summon: [
+      [
         "aiHp",
         "aiId",
         "appearAnimation",
@@ -9175,121 +8307,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      timecompression: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      timedilation: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      unlockitemvariant: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      unknown: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      vamp: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      visual: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "friendlyFire",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ],
-      weakness: [
+      [
         "appearAnimation",
         "appearSfx",
         "calculation",
@@ -9313,30 +8331,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "timeTracker",
         "type"
       ],
-      wound: [
-        "appearAnimation",
-        "appearSfx",
-        "calculation",
-        "description",
-        "direction",
-        "disappearAnimation",
-        "disappearSfx",
-        "elements",
-        "friendlyFire",
-        "generalTypes",
-        "power",
-        "powerPerLevel",
-        "rounds",
-        "statTypes",
-        "staticAnimation",
-        "staticAssetPath",
-        "target",
-        "timeTracker",
-        "type"
-      ]
-    },
-    objectives: {
-      pvp_kills: [
+      [
         "attackers",
         "attackers_max_per_battle",
         "attackers_scale_gains",
@@ -9381,1942 +8376,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "task",
         "value"
       ],
-      arena_kills: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      minutes_passed: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      anbu_kills: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      tournaments_won: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      village_funds_earned: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      any_missions_completed: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      any_crimes_completed: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      days_as_kage: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      errands_total: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      a_missions_total: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      b_missions_total: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      c_missions_total: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      d_missions_total: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      a_crimes_total: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      b_crimes_total: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      c_crimes_total: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      d_crimes_total: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      minutes_training: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      stats_trained: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      days_in_village: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      jutsus_mastered: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      user_level: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      reputation_points: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      random_encounter_wins: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      spars_won: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      medical_experience: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      medical_experience_gained: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      crafting_experience: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      crafting_experience_gained: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      hunting_experience: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      hunting_experience_gained: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      gathering_experience: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      gathering_experience_gained: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      items_crafted: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      creatures_hunted: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      herbs_gathered: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      seeds_planted: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      plants_watered: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      plants_fertilized: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      plants_harvested: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      farming_collection_log: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      farming_level: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      students_trained: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task",
-        "value"
-      ],
-      fail_quest: [
+      [
         "description",
         "id",
         "latitude",
@@ -11356,47 +8416,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "successDescription",
         "task"
       ],
-      win_quest: [
-        "description",
-        "id",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task"
-      ],
-      reset_quest: [
+      [
         "description",
         "id",
         "latitude",
@@ -11437,7 +8457,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "successDescription",
         "task"
       ],
-      new_quest: [
+      [
         "description",
         "id",
         "latitude",
@@ -11478,7 +8498,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "successDescription",
         "task"
       ],
-      start_battle: [
+      [
         "completionOutcome",
         "description",
         "drawDescription",
@@ -11527,7 +8547,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "successDescription",
         "task"
       ],
-      move_to_location: [
+      [
         "attackers",
         "attackers_max_per_battle",
         "attackers_scale_gains",
@@ -11577,7 +8597,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "successDescription",
         "task"
       ],
-      collect_item: [
+      [
         "attackers",
         "attackers_max_per_battle",
         "attackers_scale_gains",
@@ -11631,7 +8651,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "successDescription",
         "task"
       ],
-      deliver_item: [
+      [
         "attackers",
         "attackers_max_per_battle",
         "attackers_scale_gains",
@@ -11684,7 +8704,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "successDescription",
         "task"
       ],
-      defeat_opponents: [
+      [
         "attackers",
         "attackers_max_per_battle",
         "attackers_scale_gains",
@@ -11743,7 +8763,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "successDescription",
         "task"
       ],
-      dialog: [
+      [
         "attackers",
         "attackers_max_per_battle",
         "attackers_scale_gains",
@@ -11788,57 +8808,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "successDescription",
         "task"
       ],
-      win_encounter_at_location: [
-        "attackers",
-        "attackers_max_per_battle",
-        "attackers_scale_gains",
-        "attackers_scaled_to_user",
-        "completed",
-        "description",
-        "hideLocation",
-        "id",
-        "image",
-        "latitude",
-        "locationType",
-        "longitude",
-        "nextObjectiveId",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "sectorList",
-        "sectorType",
-        "successDescription",
-        "task"
-      ],
-      open_raid: [
+      [
         "completionOutcome",
         "description",
         "drawDescription",
@@ -11888,57 +8858,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "successDescription",
         "task"
       ],
-      exclusive_raid: [
-        "completionOutcome",
-        "description",
-        "drawDescription",
-        "failDescription",
-        "failObjectiveId",
-        "fleeDescription",
-        "id",
-        "image",
-        "keepOriginalPools",
-        "latitude",
-        "longitude",
-        "nextObjectiveId",
-        "opponentAIs",
-        "opponent_scaled_to_user",
-        "overworldPlacementId",
-        "reward_anbupoints",
-        "reward_badges",
-        "reward_bloodlines",
-        "reward_clanpoints",
-        "reward_crafting_experience",
-        "reward_exp",
-        "reward_gathering_experience",
-        "reward_gathering_items",
-        "reward_gathering_items_ids",
-        "reward_hunter_items",
-        "reward_hunter_items_ids",
-        "reward_hunting_experience",
-        "reward_items",
-        "reward_jutsus",
-        "reward_medical_experience",
-        "reward_money",
-        "reward_prestige",
-        "reward_rank",
-        "reward_reputation",
-        "reward_sage_mastery_experience",
-        "reward_sage_modes",
-        "reward_seichi_silver",
-        "reward_skillpoints",
-        "reward_tokens",
-        "reward_village_membership",
-        "reward_war_damage",
-        "reward_war_healing",
-        "scaleGains",
-        "sceneBackground",
-        "sceneCharacters",
-        "sector",
-        "successDescription",
-        "task"
-      ],
-      craft_specific_item: [
+      [
         "craftItemIds",
         "description",
         "id",
@@ -11980,7 +8900,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "task",
         "value"
       ],
-      train_specific_jutsu: [
+      [
         "description",
         "id",
         "latitude",
@@ -12022,7 +8942,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "trainJutsuIds",
         "value"
       ],
-      complete_specific_quest: [
+      [
         "completeQuestIds",
         "description",
         "id",
@@ -12064,7 +8984,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "task",
         "value"
       ],
-      buy_item: [
+      [
         "buyItemIds",
         "description",
         "id",
@@ -12106,7 +9026,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "task",
         "value"
       ],
-      use_specific_item_combat: [
+      [
         "description",
         "id",
         "latitude",
@@ -12148,7 +9068,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "useItemIds",
         "value"
       ],
-      use_specific_jutsu_combat: [
+      [
         "description",
         "id",
         "latitude",
@@ -12190,7 +9110,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "useJutsuIds",
         "value"
       ],
-      tag_usage_win: [
+      [
         "description",
         "id",
         "latitude",
@@ -12232,7 +9152,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "task",
         "value"
       ],
-      damage_dealt: [
+      [
         "description",
         "id",
         "latitude",
@@ -12273,168 +9193,295 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "successDescription",
         "task",
         "value"
-      ]
-    },
-    aiConditions: {
-      health_below: [
+      ],
+      [
         "description",
         "type",
         "value"
       ],
-      specific_round: [
-        "description",
-        "type",
-        "value"
-      ],
-      round_greater_than: [
-        "description",
-        "type",
-        "value"
-      ],
-      round_lower_than: [
-        "description",
-        "type",
-        "value"
-      ],
-      distance_higher_than: [
+      [
         "description",
         "target",
         "type",
         "value"
       ],
-      distance_lower_than: [
-        "description",
-        "target",
-        "type",
-        "value"
-      ],
-      does_not_have_summon: [
+      [
         "description",
         "type"
       ],
-      has_effect: [
+      [
         "description",
         "effectType",
         "threshold",
         "type"
       ],
-      target_has_effect: [
+      [
         "description",
         "effectType",
         "target",
         "threshold",
         "type"
-      ]
-    },
-    aiActions: {
-      move_towards_opponent: [
+      ],
+      [
         "description",
         "target",
         "type"
       ],
-      end_turn: [
-        "description",
-        "type"
-      ],
-      use_specific_jutsu: [
+      [
         "description",
         "jutsuId",
         "target",
         "type"
       ],
-      use_specific_item: [
+      [
         "description",
         "itemId",
         "target",
         "type"
       ],
-      use_random_jutsu: [
-        "description",
-        "target",
-        "type"
-      ],
-      use_random_item: [
-        "description",
-        "target",
-        "type"
-      ],
-      use_highest_power_action: [
+      [
         "description",
         "effect",
         "target",
         "type"
       ],
-      use_highest_power_jutsu: [
-        "description",
-        "effect",
-        "target",
-        "type"
-      ],
-      use_highest_power_item: [
-        "description",
-        "effect",
-        "target",
-        "type"
-      ],
-      use_combo_action: [
+      [
         "comboIds",
         "description",
         "target",
         "type"
+      ],
+      [
+        "action",
+        "conditions"
+      ],
+      [
+        "nextObjectiveId",
+        "text"
+      ],
+      [
+        "ids",
+        "number",
+        "quantity"
+      ],
+      [
+        "reward_anbupoints",
+        "reward_badges",
+        "reward_bloodlines",
+        "reward_clanpoints",
+        "reward_crafting_experience",
+        "reward_exp",
+        "reward_gathering_experience",
+        "reward_gathering_items",
+        "reward_gathering_items_ids",
+        "reward_hunter_items",
+        "reward_hunter_items_ids",
+        "reward_hunting_experience",
+        "reward_items",
+        "reward_jutsus",
+        "reward_medical_experience",
+        "reward_money",
+        "reward_prestige",
+        "reward_rank",
+        "reward_reputation",
+        "reward_sage_mastery_experience",
+        "reward_sage_modes",
+        "reward_seichi_silver",
+        "reward_skillpoints",
+        "reward_tokens",
+        "reward_village_membership",
+        "reward_war_damage",
+        "reward_war_healing"
+      ],
+      [
+        "objectives",
+        "reward",
+        "sceneBackground",
+        "sceneCharacters"
       ]
+    ],
+    effects: {
+      absorb: 0,
+      activatesagemode: 1,
+      afterburn: 2,
+      barrier: 3,
+      buffprevent: 1,
+      cleanseprevent: 1,
+      cleanse: 1,
+      clearprevent: 1,
+      clear: 1,
+      clone: 1,
+      consume: 4,
+      copy: 1,
+      damage: 5,
+      debuffprevent: 1,
+      decreasecooldown: 6,
+      decreasedamagegiven: 2,
+      decreasedamagetaken: 2,
+      decreaseheal: 1,
+      decreasepoolcost: 7,
+      decreasemaxpools: 7,
+      decreasestat: 2,
+      disarm: 1,
+      drain: 7,
+      elementalseal: 8,
+      finalstand: 1,
+      fleeprevent: 1,
+      flee: 1,
+      healprevent: 1,
+      heal: 7,
+      increasecooldown: 6,
+      increasedamagegiven: 2,
+      increasedamagetaken: 2,
+      increaseheal: 1,
+      marriageslotincrease: 9,
+      noncombatincreasereskins: 9,
+      injectjutsus: 10,
+      increasepoolcost: 7,
+      increasemaxpools: 7,
+      increaserange: 6,
+      increasestat: 2,
+      immunity: 11,
+      lifesteal: 2,
+      mirror: 1,
+      moveprevent: 1,
+      move: 1,
+      noncombatconsumereward: 12,
+      noncombatgainskill: 13,
+      repair: 1,
+      onehitkillprevent: 1,
+      onehitkill: 1,
+      pierce: 5,
+      poison: 7,
+      recoil: 2,
+      redirection: 2,
+      reflect: 2,
+      removebloodline: 1,
+      robprevent: 1,
+      rob: 14,
+      rollbloodline: 9,
+      rollsagemode: 1,
+      sealprevent: 1,
+      seal: 1,
+      shield: 15,
+      stealth: 1,
+      stunprevent: 1,
+      stun: 16,
+      summonprevent: 1,
+      summon: 17,
+      timecompression: 2,
+      timedilation: 2,
+      unlockitemvariant: 1,
+      unknown: 1,
+      vamp: 1,
+      visual: 1,
+      weakness: 18,
+      wound: 2
     },
-    aiRule: [
-      "action",
-      "conditions"
-    ],
-    objectiveChoice: [
-      "nextObjectiveId",
-      "text"
-    ],
-    idsWithNumber: [
-      "ids",
-      "number",
-      "quantity"
-    ],
-    objectiveReward: [
-      "reward_anbupoints",
-      "reward_badges",
-      "reward_bloodlines",
-      "reward_clanpoints",
-      "reward_crafting_experience",
-      "reward_exp",
-      "reward_gathering_experience",
-      "reward_gathering_items",
-      "reward_gathering_items_ids",
-      "reward_hunter_items",
-      "reward_hunter_items_ids",
-      "reward_hunting_experience",
-      "reward_items",
-      "reward_jutsus",
-      "reward_medical_experience",
-      "reward_money",
-      "reward_prestige",
-      "reward_rank",
-      "reward_reputation",
-      "reward_sage_mastery_experience",
-      "reward_sage_modes",
-      "reward_seichi_silver",
-      "reward_skillpoints",
-      "reward_tokens",
-      "reward_village_membership",
-      "reward_war_damage",
-      "reward_war_healing"
-    ],
-    questContent: [
-      "objectives",
-      "reward",
-      "sceneBackground",
-      "sceneCharacters"
-    ]
+    objectives: {
+      pvp_kills: 19,
+      arena_kills: 19,
+      minutes_passed: 19,
+      anbu_kills: 19,
+      tournaments_won: 19,
+      village_funds_earned: 19,
+      any_missions_completed: 19,
+      any_crimes_completed: 19,
+      days_as_kage: 19,
+      errands_total: 19,
+      a_missions_total: 19,
+      b_missions_total: 19,
+      c_missions_total: 19,
+      d_missions_total: 19,
+      a_crimes_total: 19,
+      b_crimes_total: 19,
+      c_crimes_total: 19,
+      d_crimes_total: 19,
+      minutes_training: 19,
+      stats_trained: 19,
+      days_in_village: 19,
+      jutsus_mastered: 19,
+      user_level: 19,
+      reputation_points: 19,
+      random_encounter_wins: 19,
+      spars_won: 19,
+      medical_experience: 19,
+      medical_experience_gained: 19,
+      crafting_experience: 19,
+      crafting_experience_gained: 19,
+      hunting_experience: 19,
+      hunting_experience_gained: 19,
+      gathering_experience: 19,
+      gathering_experience_gained: 19,
+      items_crafted: 19,
+      creatures_hunted: 19,
+      herbs_gathered: 19,
+      seeds_planted: 19,
+      plants_watered: 19,
+      plants_fertilized: 19,
+      plants_harvested: 19,
+      farming_collection_log: 19,
+      farming_level: 19,
+      students_trained: 19,
+      fail_quest: 20,
+      win_quest: 20,
+      reset_quest: 21,
+      new_quest: 22,
+      start_battle: 23,
+      move_to_location: 24,
+      collect_item: 25,
+      deliver_item: 26,
+      defeat_opponents: 27,
+      dialog: 28,
+      win_encounter_at_location: 24,
+      open_raid: 29,
+      exclusive_raid: 29,
+      craft_specific_item: 30,
+      train_specific_jutsu: 31,
+      complete_specific_quest: 32,
+      buy_item: 33,
+      use_specific_item_combat: 34,
+      use_specific_jutsu_combat: 35,
+      tag_usage_win: 36,
+      damage_dealt: 37
+    },
+    aiConditions: {
+      health_below: 38,
+      specific_round: 38,
+      round_greater_than: 38,
+      round_lower_than: 38,
+      distance_higher_than: 39,
+      distance_lower_than: 39,
+      does_not_have_summon: 40,
+      has_effect: 41,
+      target_has_effect: 42
+    },
+    aiActions: {
+      move_towards_opponent: 43,
+      end_turn: 40,
+      use_specific_jutsu: 44,
+      use_specific_item: 45,
+      use_random_jutsu: 43,
+      use_random_item: 43,
+      use_highest_power_action: 46,
+      use_highest_power_jutsu: 46,
+      use_highest_power_item: 46,
+      use_combo_action: 47
+    },
+    aiRule: 48,
+    objectiveChoice: 49,
+    idsWithNumber: 50,
+    objectiveReward: 51,
+    questContent: 52
   };
 
-  // src/main.mjs
-  var VERSION = "forge 0.4.1";
+  var VERSION = "forge 0.5.1";
+  function sha256(bytes, subtle = globalThis.crypto && globalThis.crypto.subtle) {
+    if (!subtle || typeof subtle.digest !== "function") {
+      return Promise.reject(new Error("crypto.subtle is unavailable (WebCrypto needs a secure context), so repo-backed image bytes cannot be verified"));
+    }
+    return subtle.digest("SHA-256", bytes);
+  }
   function compose({
     storage,
     indexedDB,
@@ -12446,12 +9493,15 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     client = null,
     sleep,
     runtime = null,
-    authState = AUTH.UNKNOWN
+    authState = AUTH.UNKNOWN,
+    digest = sha256
   } = {}) {
     const deps = {};
     deps.journal = new Journal(storage, clock);
     deps.cache = new CaptureCache(indexedDB, clock);
     deps.repoCache = new RepoTextCache(indexedDB, clock);
+    deps.assetCache = new AssetCache(indexedDB, clock);
+    deps.digest = digest;
     deps.session = new CookieSession({ fetchImpl, origin: "" });
     deps.client = client ?? new TrpcClient(deps.session, { onExchange: (r) => log(`${r.kind} ${r.paths.join(",")} -> ${r.status ?? r.error}`) });
     deps.auth = new AuthState({ client: deps.client, runtime, clock, state: authState });
@@ -12472,6 +9522,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       uploader: deps.uploader,
       reconciler: deps.reconciler,
       auth: deps.auth,
+      digest: deps.digest,
       storage,
       clock,
       tabId,
@@ -12578,8 +9629,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         storage: win.localStorage,
         now: clock,
         ...deps,
-        // Step 5. release() disconnects the loss watchers before it removes the host, so Close is
-        // never mistaken for a loss; host is read at call time so a remounted host is the one released.
         exit: () => {
           disarm(win);
           host.release();

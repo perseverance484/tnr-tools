@@ -33,7 +33,13 @@ jobs:
       run:
         working-directory: forge
     steps:
+      # Full history, not the default depth-1. Two guards in the suite read a blob out of the commit
+      # that push/53's imagePack NAMES - which is an earlier commit than the one being tested - to
+      # prove the committed pack still matches the committed art. A shallow clone does not contain
+      # that commit, so those guards would be unable to check the one thing they exist for.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 24
