@@ -41,6 +41,23 @@ const RESEARCH = JSON.stringify({
 });
 const RESEARCH_ENTRY = { name: "46_research.json", path: "push/46_research.json", sha: "researchsha", size: 256, type: "file" };
 
+// A repo-backed image pack, small and deterministic so its digest is a fixture constant. 32 bytes of
+// a fixed pattern stand in for a processed .webp: the pack contract is about identity, not pixels.
+const PACK_BYTES = new Uint8Array(32).map((_, i) => (i * 7 + 3) & 0xff);
+const PACK_SHA = "ab5f8b5cb9435354c7b58603592d5faf081e17ceb05f7a7c67f4b666f12ca457"; // SHA-256 of PACK_BYTES
+const PACK_NAME = "fixture_icon.webp";
+const PACK_PATH = "art/fixtures/fixture_icon.webp";
+const PACK_REF = "28bba70d0e14f74a768193881b592b92326f2867";
+const PACK_ENTRY = { name: "46_pack_fixture.json", path: "push/46_pack_fixture.json", sha: "packsha", size: 256, type: "file" };
+
+function packManifest(sha = PACK_SHA) {
+  return JSON.stringify({
+    imgSizes: { [PACK_NAME]: PACK_BYTES.length },
+    imagePack: { ref: PACK_REF, files: { [PACK_NAME]: { path: PACK_PATH, sha256: sha, bytes: PACK_BYTES.length } } },
+    items: [{ entity: "asset", slot: "create", name: "Fixture Asset", srcId: "fx-img", data: { name: "Fixture Asset", hidden: true, type: "STATIC", url: `@img:${PACK_NAME}` } }],
+  });
+}
+
 export function installDom() {
   const d = new JSDOM("<!doctype html><html><head></head><body></body></html>", { url: "https://www.theninja-rpg.com/forge" });
   const win = d.window;
@@ -76,6 +93,26 @@ function seedResearch(game) {
   game.seedBattle(
     { battleId: "fx-battle", battleType: "COMBAT", createdAt: "2026-09-10T00:00:00.000Z", attackedId: "a", defenderId: "d", attacker: {}, defender: {} },
     Array.from({ length: 3 }, (_, i) => ({ id: `fx-${i}`, battleId: "fx-battle", userId: "me", battleRound: 3 - i, battleVersion: 1 })));
+}
+
+/**
+ * An app whose repository serves one packed manifest and its one blob. `serve` decides whether the
+ * blob's bytes are the ones the pack names, which is the difference between the verified banner and
+ * the refusal - the two states worth pinning.
+ */
+function buildPackApp({ serve = PACK_BYTES } = {}) {
+  const storage = new MemoryStorage();
+  const clock = fakeClock();
+  const d = composeForTest({ game: new FakeGame(), storage, idb: new IDBFactory(), clock });
+  const text = packManifest();
+  d.github = {
+    list: async () => [PACK_ENTRY],
+    text: async () => text,
+    put: async () => ({ sha: "committedsha" }),
+    raw: async () => serve.buffer.slice(serve.byteOffset, serve.byteOffset + serve.byteLength),
+  };
+  const app = new App({ version: "fixture", storage, now: clock, ...d });
+  return { app, text };
 }
 
 async function selection(app) {
@@ -151,6 +188,25 @@ export async function renderScenarios() {
     app.go("run", { jobId: "fixture-research" });
     // ...and what it actually did, per tier and per page
     add("run_finished_research", RunScreen(app));
+  }
+
+  // ---- a repo-backed image pack, verified and refused -----------------------------------------
+  {
+    const { app, text } = buildPackApp();
+    app.mount(globalThis.document.body);
+    await app.loadPicker(true);
+    await app.selectManifest({ ...PACK_ENTRY, number: 46, text, summary: null, loading: false });
+    add("manifests_pack_verified", ManifestsScreen(app));
+  }
+  {
+    // right length, wrong content: only the digest can tell these apart, and the screen has to say
+    // so rather than showing a green pill because the byte ledger agreed.
+    const wrong = new Uint8Array(PACK_BYTES.length).fill(9);
+    const { app, text } = buildPackApp({ serve: wrong });
+    app.mount(globalThis.document.body);
+    await app.loadPicker(true);
+    await app.selectManifest({ ...PACK_ENTRY, number: 46, text, summary: null, loading: false });
+    add("manifests_pack_refused", ManifestsScreen(app));
   }
 
   out.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));

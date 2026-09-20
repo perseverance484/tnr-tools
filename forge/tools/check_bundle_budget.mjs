@@ -6,6 +6,44 @@
 // reproducible across runs and machines.
 //
 // Raising the budget is allowed and is meant to be a deliberate, reviewed edit of this file.
+//
+// ---- history -------------------------------------------------------------------------------
+//
+// Phase 0 freeze:            raw 413,323 / gzip 77,998   ceiling 430,000 / 81,000
+// Godstorm defects repair:   raw 424,642 / gzip  81,344  ceiling stepped (gzip went 344 over)
+// Repo-backed image packs:   raw 447,540 / gzip  86,927  ceiling stepped
+// image-pack review F1/F2:   raw 451,847 / gzip  88,356  ceiling stepped AGAIN, to 470,000 / 92,000
+//
+// That second step inside one feature left the bundle at 96.1% raw and 96.0% gzip and is what the
+// reviewer objected to: two raises for one feature is a signal, not a measurement. The standing
+// question - whether Forge needed a size pass rather than another ceiling - was recorded as open
+// and is now answered below.
+//
+// ---- the size pass (Forge Presentation Studio P0) --------------------------------------------
+//
+// Three changes, no behaviour change, measured by this tool:
+//
+//   1. nested.json stores its 165 allowed key sets as 53 distinct ones named by index instead of
+//      165 literal arrays. Same contract, proven by digest against the pre-compaction content
+//      (test/runner.test.mjs); the bundle stopped carrying the same twenty key names seventy-six
+//      times.                                                   raw 451,847 -> 373,903  (gzip -255)
+//   2. Comments are stripped from the ARTIFACT at build time and the strip is proven equivalent to
+//      the unstripped build by esbuild's own parser (build.mjs). esbuild at minify:false drops
+//      `//` comments but keeps every `/** */` block, so ~34 KB raw of JSDoc that nothing at runtime
+//      reads was being shipped. forge/src keeps every word of it - this is the opposite of moving
+//      explanatory comments out of the code to save bytes.       raw 373,903 -> 339,690  (gzip -13,175)
+//   3. Dead exports removed (isRef, hasRefLiteral, POOL_META) and the results-bundle filename,
+//      which existed twice, now has one owner.                   raw 339,690 -> 339,669
+//
+// Net: raw 451,847 -> 339,669 (-24.8%), gzip 88,356 -> 74,926 (-15.2%). The ceiling below is set
+// from THAT measurement at the ~4% headroom the Phase 0 freeze used, so it is a ratchet against
+// the reduced product rather than a ceiling raised to fit the old one.
+//
+// NOT taken, and deliberately left as a decision rather than made here: full esbuild minification
+// measures raw 261,029 / gzip 61,525 on this build, and whitespace-only minification 301,678 /
+// 67,770. Either would buy far more headroom than the pass above, and both make the shipped
+// artifact unreadable. In a repository whose whole model is that the committed artifact can be
+// audited, that is a product decision for the director and the reviewer, not a size fix.
 
 import { readFileSync, statSync } from "node:fs";
 import { gzipSync } from "node:zlib";
@@ -14,43 +52,7 @@ import { fileURLToPath } from "node:url";
 
 const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_bundle.js");
 
-// Measured at the Phase 0 freeze by this tool: raw 413,323 / gzip 77,998. (zlib's gzipSync and the
-// gzip(1) CLI differ by a few bytes of header; this tool's number is the one the budget tracks.)
-// Fresh-main baseline before Phase 0 was raw 404,594, so the extraction cost ~8.7 KB raw for the
-// core modules, the host adapter, the repo-text store and the runner emitter.
-//
-// PHASE 1 RAISE. Integrated Phase 0 shipped at raw 417,370 / gzip 79,294, ~97% of the 430,000 /
-// 81,000 ceilings above. Phase 1 measures raw 446,372 / gzip 87,450: a delta of +29,002 raw and
-// +8,156 gzip. Where it went, measured rather than estimated:
-//
-//   ~24.6 KB raw   src/research/registry.mjs, which is new. It holds fifteen audited rows with their
-//                  source provenance and demand, the per-row input contracts that make a read
-//                  validated-before-transport, the projection engine and the paging contract. Its
-//                  comment density is 48%, in line with storage/captures.mjs at 50%, and the build
-//                  does not minify - so the file is large because the registry is, not because the
-//                  prose is unusual for this codebase.
-//   ~4.4 KB raw    tier handling spread across reader, manifest, runner, results, journal and the
-//                  two screens that report a tier.
-//
-// The new ceilings keep the SAME tightness Phase 0 ran at rather than buying comfortable room:
-// 446,372 / 460,000 is 97.0% and 87,450 / 90,000 is 97.2%, against Phase 0's 97.1% and 97.9%. A
-// structural regression still trips the gate on the commit that causes it, which is the whole point
-// of a ratchet. This raise is isolated in its own commit so it can be reviewed as the policy change
-// it is rather than as a line inside a feature.
-//
-// RE-REVIEW CORRECTION RAISE. The FN3-R1/FN4-R1/FN4-R2 corrections measure raw 453,086 / gzip 89,296
-// against the 460,000 / 90,000 ceilings above: 98.5% and 99.2%. Passing, but 704 bytes of gzip
-// headroom is a tripwire rather than a ratchet - the next one-line comment would fail CI on a gate
-// that exists to catch STRUCTURAL regressions, and a control that cries wolf gets raised in a hurry
-// by whoever is unblocking a build. Raised deliberately here instead, in its own commit.
-//
-// The delta is small and measured: +6,714 raw / +1,846 gzip over the previous correction pass, for
-// the overlap check in validateProjection, the complete policy-facts derivation the registry
-// revision is now taken over, and the capture-time policy stamp on summary and abandoned records.
-//
-// New ceilings restore the tightness Phase 0 and the first correction ran at: 453,086 / 466,000 is
-// 97.2% and 89,296 / 92,000 is 97.1%, against Phase 0's 97.1% / 97.9%.
-export const BUDGET = { raw: 466_000, gzip: 92_000 };
+export const BUDGET = { raw: 354_000, gzip: 78_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

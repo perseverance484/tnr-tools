@@ -161,14 +161,7 @@ function inlineArrayObjectKeys(name, field) {
   return [...out].sort();
 }
 
-const nested = {
-  _meta: {
-    generated_by: "forge/tools/derive_nested.mjs",
-    pin: PIN,
-    files: FILES,
-    note: "Allowed KEY SETS only, per discriminator value. No types, bounds or enums: a bound this "
-      + "tool cannot see is the 45g.tag_power_max mistake, and a key set is checkable without zod.",
-  },
+const derived = {
   effects: family("AllTags", "type"),
   objectives: family("AllObjectives", "task"),
   aiConditions: family("ZodAllAiConditions", "type"),
@@ -183,9 +176,44 @@ const nested = {
   questContent: ["objectives", "reward", "sceneBackground", "sceneCharacters"], // QuestValidatorRawSchema.content
 };
 
-for (const [k, v] of Object.entries(nested)) {
-  if (k === "_meta") continue;
+for (const [k, v] of Object.entries(derived)) {
   const n = Array.isArray(v) ? v.length : Object.keys(v).length;
   if (!n) throw new Error("derived nothing for " + k);
+}
+
+// SHARED KEY-SET TABLE. The 165 key sets at the pin are 53 distinct arrays: every effect tag that
+// takes the same shape allows the same keys. Emitting each one once and naming it by index is a
+// storage encoding of the same contract - forge/src/runner/validate.mjs expandNested() restores it,
+// and a round-trip test asserts the restored surface byte-for-byte. It is done here, in the
+// generator, so a re-derivation at this pin reproduces the committed file rather than reverting it.
+//
+// Allocation order is the traversal order below, which is deterministic, so the same source at the
+// same pin emits the same indices.
+const sets = [];
+const index = new Map();
+const ref = (keys) => {
+  const k = JSON.stringify(keys);
+  if (!index.has(k)) { index.set(k, sets.length); sets.push(keys); }
+  return index.get(k);
+};
+
+const nested = {
+  _meta: {
+    generated_by: "forge/tools/derive_nested.mjs",
+    pin: PIN,
+    files: FILES,
+    note: "Allowed KEY SETS only, per discriminator value. No types, bounds or enums: a bound this "
+      + "tool cannot see is the 45g.tag_power_max mistake, and a key set is checkable without zod.",
+    format: "Shared key-set table. `sets` holds every distinct allowed key set once; each section "
+      + "value is an index into it (or a map of discriminator value -> index). "
+      + "forge/src/runner/validate.mjs expandNested() restores the per-discriminator key sets and "
+      + "FAILS CLOSED on an index this file does not define.",
+  },
+  sets,
+};
+for (const [section, v] of Object.entries(derived)) {
+  nested[section] = Array.isArray(v)
+    ? ref(v)
+    : Object.fromEntries(Object.entries(v).map(([discriminator, keys]) => [discriminator, ref(keys)]));
 }
 process.stdout.write(JSON.stringify(nested, null, 1) + "\n");

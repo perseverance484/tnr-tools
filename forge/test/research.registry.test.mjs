@@ -191,6 +191,29 @@ test("read mode is derived from the row's own contract", () => {
   assert.equal(readMode("quests.getAllNames"), "list");
   assert.equal(readMode("combat.getBattleHistory"), "query");
   assert.equal(readMode("combat.getBattleEntries"), "query");
+  // the one name list with an input contract is a query, not an input-free list
+  assert.equal(readMode("gameAsset.getAllNames"), "query");
+});
+
+test("gameAsset.getAllNames carries the input contract its source schema actually has", () => {
+  // asset.ts:50-57 at the pin: z.object({ type: z.enum(GameAssetTypes).optional(),
+  // folderPrefix: z.boolean().optional() }). Members optional, OBJECT required. Sending `undefined`
+  // is the BAD_REQUEST that killed the Godstorm Stormcourt creates; the first Phase 1 registry
+  // transcribed this row as input-free and would have reproduced it.
+  assert.deepEqual(canonicalInput("gameAsset.getAllNames", undefined), {}, "no filter is the empty OBJECT, never undefined");
+  assert.deepEqual(canonicalInput("gameAsset.getAllNames", {}), {});
+  assert.deepEqual(canonicalInput("gameAsset.getAllNames", { type: "SCENE_BACKGROUND", folderPrefix: true }), { type: "SCENE_BACKGROUND", folderPrefix: true });
+  assert.deepEqual(canonicalInput("gameAsset.getAllNames", { folderPrefix: false }), { folderPrefix: false });
+  assert.throws(() => canonicalInput("gameAsset.getAllNames", { type: "PORTRAIT" }), /must be one of STATIC, ANIMATION, SCENE_BACKGROUND, SCENE_CHARACTER, SFX, MUSIC/);
+  assert.throws(() => canonicalInput("gameAsset.getAllNames", { folderPrefix: "yes" }), /must be a boolean/);
+  assert.throws(() => canonicalInput("gameAsset.getAllNames", { folder: "x" }), /not in the audited contract/);
+  // and the five input-free lists stay input-free: inventing an object for them is as wrong as
+  // omitting it here
+  for (const path of ["jutsu.getAllNames", "item.getAllNames", "bloodline.getAllNames", "quests.getAllNames", "profile.getAllAiNames"]) {
+    assert.equal(canonicalInput(path, undefined), null, `${path} declares no .input() at source`);
+    assert.equal(canonicalInput(path, {}), null);
+  }
+  assert.match(RESEARCH_READS["gameAsset.getAllNames"].source, /asset\.ts:50-57/);
 });
 
 // ---------------------------------------------------------------- 4: explicit paging bounds

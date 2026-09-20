@@ -15,11 +15,14 @@ import { composeForTest } from "./compose.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
 import { FakeGame } from "./fakegame.mjs";
 
+// Updated deliberately for repo-backed image packs: "prepareImages" is the one new action, and it
+// is an ACTION rather than something a screen does because fetching and verifying bound bytes is a
+// workflow decision that a headless host must be able to drive (core/imagepack.mjs).
 const ACTIONS = [
   "adopt", "blockedPaths", "changed", "clearSelection", "drive", "establishAuth", "exportJob",
-  "fail", "go", "loadPicker", "notify", "recheckAuth", "requestPause", "resolveCaptures",
-  "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip", "snapshot", "startJob",
-  "subscribe",
+  "fail", "go", "loadPicker", "notify", "prepareImages", "recheckAuth", "requestPause",
+  "resolveCaptures", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
+  "snapshot", "startJob", "subscribe",
 ];
 const STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "running", "runningNote"];
 

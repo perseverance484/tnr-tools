@@ -15,14 +15,19 @@ import { parseManifest, planOrder, ManifestError } from "../runner/manifest.mjs"
 import { collectRefs } from "../runner/refs.mjs";
 import { manifestNumber, manifestSummary, GH } from "../github.mjs";
 import { JournalError } from "../storage/journal.mjs";
-import { blockedPaths, resumeBlockedReason, runHeadline } from "./facts.mjs";
-import { resolveCaptures, buildBundle, repoSyncReady, inboxPath } from "./results.mjs";
+import { blockedPaths, imagePicks, resumeBlockedReason, runHeadline, unusablePicks } from "./facts.mjs";
+import { resolveCaptures, buildBundle, bundleName, repoSyncReady, inboxPath } from "./results.mjs";
+import { prepareImagePack, commitImagePack, packGateProblems } from "./imagepack.mjs";
+import { packBinds } from "../runner/imgpack.mjs";
 
 // The core's dependency contract, named rather than absorbed. `Object.assign(this, d)` used to
 // take whatever the composition handed over, which meant the seam could widen silently: a second
 // shell could pass a view helper and the core would keep it. Anything not on these lists is
 // ignored, so widening the surface is now a deliberate edit of this file.
-export const REQUIRED_DEPS = ["version", "storage", "journal", "cache", "repoCache", "runner", "github", "validator"];
+// `assetCache` and `digest` are REQUIRED, not optional. A repo-backed image pack whose digest
+// cannot be computed must fail, not fall back to using the bytes unverified, and a consumer that
+// forgets to wire them should learn that here rather than at the moment an operator taps Start.
+export const REQUIRED_DEPS = ["version", "storage", "journal", "cache", "repoCache", "assetCache", "digest", "runner", "github", "validator"];
 export const OPTIONAL_DEPS = ["budget", "reader", "client", "session", "auth", "reconciler", "uploader", "now"];
 
 // The machine state the core owns. Presentation state (a search box's contents, a render callback,
@@ -58,9 +63,9 @@ export class ForgeCore {
   static get ACTIONS() {
     return [
       "adopt", "blockedPaths", "changed", "clearSelection", "drive", "establishAuth", "exportJob",
-      "fail", "go", "loadPicker", "notify", "recheckAuth", "requestPause", "resolveCaptures",
-      "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip", "snapshot", "startJob",
-      "subscribe",
+      "fail", "go", "loadPicker", "notify", "prepareImages", "recheckAuth", "requestPause",
+      "resolveCaptures", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
+      "snapshot", "startJob", "subscribe",
     ];
   }
 
@@ -165,11 +170,101 @@ export class ForgeCore {
         for (const x of p) problems.push(`item ${it.idx} (${it.name}): ${x}`);
       }
       const images = [...new Set(plan.flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
-      this.state.selected = { entry, text, manifest, plan, problems, images };
+      this.state.selected = { entry, text, manifest, plan, problems, images, pack: manifest.imagePack ?? null, packResult: null };
+      this._scopePackProvenance(this.state.selected.pack);
       this.state.selected.blocked = this.blockedPaths(plan, manifest);
       this.changed();
+      // The operator flow is "open the manifest, Forge fetches and verifies, then Start". Opening is
+      // therefore where the fetch belongs - not Start, which must only ever GATE. A failure here is
+      // reported and leaves Start refused; it never throws out of selection.
+      if (this.state.selected.pack) await this.prepareImages();
     } catch (e) { this.fail("select manifest", e instanceof ManifestError ? e : e); }
   }
+
+  /**
+   * Fetch and verify every repo-backed image the selected manifest binds. Safe to call again: it
+   * clears what it is about to replace first, so a re-fetch cannot leave a half-verified mixture.
+   * @param {boolean} [force]  ignore the content cache and go to the repository
+   */
+  async prepareImages(force = false) {
+    const s = this.state.selected;
+    if (!s || !s.pack) return null;
+    return this._queuePack(() => this._prepareImages(s, force));
+  }
+
+  /**
+   * One preparation at a time. Two of them racing would both write `runner.files`, and the loser's
+   * bytes could land under a name the winner had already verified. Queuing rather than dropping the
+   * second call also means a re-tap of Re-fetch while one is in flight actually happens.
+   */
+  _queuePack(fn) {
+    const next = () => fn();
+    this._packChain = (this._packChain ?? Promise.resolve()).then(next, next);
+    return this._packChain;
+  }
+
+  /**
+   * The currency token a preparation commits against. Bumped by every act that changes which pack is
+   * authoritative — selecting a manifest, resuming a job. A preparation captures it on entry and
+   * installs nothing unless it is still the same number, which is what makes an in-flight pass for a
+   * manifest the operator has already navigated away from harmless rather than merely discarded
+   * (independent review F2).
+   */
+  _packEpoch = 0;
+
+  /**
+   * Provenance belongs to the manifest currently open. A name the new pack does not bind must lose
+   * both its record AND the File that record vouched for: otherwise selecting manifest B after
+   * preparing manifest A leaves A's digest recorded under a shared logical filename, and the
+   * content-keyed upload reuse would hand B the URL of A's picture.
+   */
+  _scopePackProvenance(pack) {
+    this._packEpoch += 1;
+    for (const name of [...this.runner.imgProvenance.keys()]) {
+      if (packBinds(pack, name)) continue;
+      this.runner.imgProvenance.delete(name);
+      this.runner.files.delete(name);
+    }
+    return this._packEpoch;
+  }
+
+  async _prepareImages(s, force) {
+    if (this.state.selected !== s) return null;
+    const epoch = this._packEpoch;
+    this._preparing = true;
+    this.changed();
+    try {
+      const result = await prepareImagePack(this, { pack: s.pack, names: s.images, force });
+      // THE COMMIT POINT, and the only one. Nothing above this line has touched runner state, so a
+      // pass that is no longer current installs nothing at all rather than writing first and being
+      // discarded afterwards — the race review F2 reproduced by holding one manifest's fetch open
+      // across a selection change.
+      if (this.state.selected !== s || this._packEpoch !== epoch) {
+        return { ref: result.ref, entries: result.entries, unbound: result.unbound, ok: false, stale: true };
+      }
+      commitImagePack(this.runner, { pack: s.pack, names: s.images, staged: result.staged });
+      // `staged` carries File objects and never reaches machine state: state.selected is snapshotted
+      // as JSON, and a dependency-shaped value there is exactly what the core golden watches for.
+      s.packResult = { ref: result.ref, entries: result.entries, unbound: result.unbound, ok: result.ok };
+      const bad = result.entries.filter((e) => e.state !== "ready");
+      if (!bad.length) {
+        this.say(`${result.entries.length} repo-backed image(s) verified against ${s.pack.ref.slice(0, 7)}`, "ok");
+      } else {
+        this.say(`${bad.length} of ${result.entries.length} repo-backed image(s) could not be verified: ${bad.map((e) => `${e.name}: ${e.error}`).join(" | ")}`, "bad", 12000);
+      }
+      return result;
+    } catch (e) {
+      // Fail closed and visibly. prepareImagePack() already reports per-image failures, so reaching
+      // here means something structural; the gate in startJob() refuses the job either way.
+      this.fail("prepare repo-backed images", e);
+      if (this.state.selected === s) s.packResult = { ref: s.pack.ref, entries: [], unbound: [], ok: false, error: (e && e.message) || String(e) };
+      return null;
+    } finally {
+      this._preparing = false;
+      this.changed();
+    }
+  }
+
 
   // ------------------------------------------------------------------ jobs
   async startJob() {
@@ -180,6 +275,26 @@ export class ForgeCore {
     if (blocked.length) {
       this.say(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9000);
       this.state.selected.blocked = blocked;
+      return this.changed();
+    }
+    // The image ledger, re-read at the moment of the tap for the same reason the auth gate is:
+    // the screen that disabled Start may have been drawn before the operator picked, replaced or
+    // lost a file. A shell that never drew the picker at all is gated here too - the check belongs
+    // to the machine, not to whoever is drawing it. This is the gate that would have stopped the
+    // five Godstorm avatar edits before the job opened instead of at their uploads.
+    const badImgs = unusablePicks(imagePicks(s.images, this.runner.files, s.manifest.imgSizes, "imageUploader"));
+    if (badImgs.length) {
+      this.say(`${badImgs.length} image selection(s) do not match the manifest: ${badImgs.map((p) => p.problems[0] ?? `${p.name} is not picked`).join("; ")}. Nothing was sent.`, "bad", 12000);
+      return this.changed();
+    }
+    // The pack gate, IN ADDITION to the ledger gate above and never instead of it. The byte ledger
+    // proves the file is the right SIZE; only this proves it is the right FILE. It is read from the
+    // runner's own maps at the moment of the tap, not from what the preparation reported when the
+    // screen was drawn, so a manifest re-selected under a new pack, a cleared cache or a preparation
+    // that silently failed cannot ride an earlier green report into a live run.
+    const packProblems = packGateProblems(s.pack, s.images, this.runner);
+    if (packProblems.length) {
+      this.say(`${packProblems.length} repo-backed image(s) are not verified: ${packProblems.join("; ")}. Nothing was sent.`, "bad", 12000);
       return this.changed();
     }
     const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
@@ -203,6 +318,34 @@ export class ForgeCore {
         this.runner.attach(jobId, text);
       } catch (e) { return this.fail("resume: fetch manifest", e); }
     }
+    // A reload empties runner.files, so a resumed job that still owes an image upload used to be
+    // unresumable without the operator finding the file again. A pack makes it deterministic: the
+    // bytes are named, so fetch and verify them before the run touches an item. attach() has already
+    // refused a manifest whose identity - pack included - differs from the one the job was opened on.
+    try {
+      const attached = this.runner.manifests.get(jobId);
+      const pack = attached && attached.manifest ? attached.manifest.imagePack : null;
+      const epoch = this._scopePackProvenance(pack);
+      if (pack) {
+        const names = [...new Set((attached.order || []).flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
+        const result = await this._queuePack(async () => {
+          const r = await prepareImagePack(this, { pack, names });
+          // Same commit discipline as selection: a resume whose preparation outlived a newer
+          // selection installs nothing, and the caller below refuses rather than running.
+          if (this._packEpoch !== epoch) return { ...r, ok: false, stale: true, staged: [] };
+          commitImagePack(this.runner, { pack, names, staged: r.staged });
+          return r;
+        });
+        const bad = result.entries.filter((e) => e.state !== "ready");
+        if (bad.length || result.stale) {
+          const detail = result.stale
+            ? "the selection changed while the images were being fetched, so nothing was installed"
+            : bad.map((e) => `${e.name}: ${e.error}`).join(" | ");
+          this.say(`resume refused: repo-backed image(s) could not be verified: ${detail}. Nothing was sent.`, "bad", 12000);
+          return this.changed();
+        }
+      }
+    } catch (e) { return this.fail("resume: prepare repo-backed images", e); }
     this.go("run", { jobId });
     const hasSent = job.items.some((i) => i.state === "SENT");
     await this.drive(jobId, () => (hasSent ? this.runner.resume(jobId) : this.runner.run(jobId)));
@@ -269,7 +412,7 @@ export class ForgeCore {
     }
     const job = this.journal.get(jobId); // read AFTER resolveCaptures so the embedded journal agrees
     const bundle = buildBundle(this, job, captures);
-    const name = `tnr_results_${Date.now()}.json`;
+    const name = bundleName(this.now);
     const text = JSON.stringify(bundle, null, 1);
     const synced = repoSyncReady(this.storage);
     if (synced) {

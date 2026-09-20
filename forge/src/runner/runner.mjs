@@ -25,12 +25,14 @@ import { NetworkError } from "../transport/client.mjs";
 import { TransportError } from "../transport/envelope.mjs";
 import { RateLimited } from "../budget/bucket.mjs";
 import { readIdmap, writeIdmap } from "../storage/compat.mjs";
+import { readAssetUploads, recordAssetUpload } from "../storage/assets.mjs";
+import { toHex } from "./imgpack.mjs";
 import { snapshotKey, tierCeiling } from "../storage/captures.mjs";
 import { projectBody, capturePolicy } from "../research/registry.mjs";
 import { TERMINAL_ITEM_STATES, jobOutcome } from "../storage/journal.mjs";
 import { recipe, mergeForUpdate } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
-import { diffAsserted } from "./validate.mjs";
+import { diffAsserted, deepEqualPayload } from "./validate.mjs";
 import { parseManifest, planOrder, toJournalSpecs } from "./manifest.mjs";
 
 // One tab drives a job at a time. Two runners over one localStorage would each read PLANNED and
@@ -80,6 +82,8 @@ export class Runner {
    * @param {import("../storage/captures.mjs").CaptureCache} d.cache
    * @param {import("./validate.mjs").Validator} d.validator
    * @param {object} [d.uploader]      {upload(file) -> {ufsUrl}}
+   * @param {(bytes: ArrayBuffer) => Promise<ArrayBuffer>} [d.digest]  SHA-256, for re-verifying a
+   *   pack-backed image immediately before its upload. Absent, a pack-backed upload fails closed.
    * @param {object} [d.reconciler]    {beforeCreate(job, item, entity), resolveSent(job, item, ctx)}
    * @param {Storage} d.storage        for the retained idmap
    * @param {object} [d.auth]          {assert(path), state} - the auth gate. Optional so a
@@ -90,7 +94,12 @@ export class Runner {
     for (const k of ["journal", "client", "reader", "cache", "validator", "storage"]) if (!d[k]) throw new Error("Runner needs " + k);
     Object.assign(this, d);
     this.log = d.log ?? (() => {});
-    this.files = new Map(); // name -> File, from the UI picker
+    this.files = new Map(); // name -> File, from the UI picker OR a repo-backed image pack
+    // name -> {sha256, path, ref, bytes, at} for the images a repo-backed pack supplied. Only a
+    // VERIFIED fetch writes here (core/imagepack.mjs), so its presence is the runner's own evidence
+    // that these bytes are the ones the manifest named - which is why the upload path below trusts
+    // content identity for a pack-backed image and the name-keyed idmap only for a picked one.
+    this.imgProvenance = new Map();
     this.manifests = new Map(); // jobId -> parsed manifest (data lives here, not in the journal)
     this.pauseRequested = false;
     this.tabId = d.tabId ?? randomTab();
@@ -203,6 +212,15 @@ export class Runner {
     const job = this.journal.get(jobId);
     if (!job) throw new Error("no such job " + jobId);
     if (job.manifestHash && manifest.hash !== job.manifestHash) {
+      // One specific mismatch is not an edited file. A job opened by a bundle that hashed bodies
+      // alone recorded the pre-policy identity; this file still matches that, but its execution
+      // policy (dedupNames / readBack / skipPreflight / imgSizes) was never part of what the job
+      // recorded, so there is nothing to compare it against and resuming would be exactly the
+      // unsafe equivalence that let manifest 51 be mistaken for job 50. Refuse - and say which of
+      // the two things happened, because the operator's next move differs.
+      if (manifest.bodyHash === job.manifestHash) {
+        throw new Error(`job ${jobId} was opened before manifest identity covered execution policy (journal hash ${job.manifestHash} is this file's body hash). Its policy - dedupNames/readBack/skipPreflight/imgSizes - was never recorded, so it cannot be resumed safely under this bundle. Export the job for evidence and start a fresh one from the manifest.`);
+      }
       throw new Error(`manifest changed under job ${jobId}: journal hash ${job.manifestHash}, file hash ${manifest.hash}`);
     }
     const order = planOrder(manifest, readIdmap(this.storage));
@@ -418,11 +436,63 @@ export class Runner {
     const refs = collectRefs(planned.data);
     for (const r of refs) {
       if (r.pfx === "DOUBLED") throw new Error(`doubled ref prefix at ${r.path}: ${r.key}`);
-      if (r.pfx === "img") { if (!this.files.has(r.key) && !readIdmap(this.storage)[r.key]) throw new Error(`@img:${r.key} has no file picked`); continue; }
+      if (r.pfx === "img") { this._imgPreflight(r.key); continue; }
       if (!this._lookup(this.journal.get(this._jobOf(item)))(r.pfx, r.key)) throw new Error(`@${r.pfx}:${r.key} is not resolvable yet (at ${r.path})`);
     }
     const problems = this.validator.problems(item.entity, planned.data, null, { preCreate: true });
     if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
+  }
+
+  /**
+   * One `@img` ref, before anything is sent. A pack-backed image is satisfied ONLY by its verified
+   * bytes or by an upload of exactly those bytes; the name-keyed idmap is deliberately not consulted
+   * for it, because `tnr_bk_idmap_v1` maps a FILENAME to a URL and two different files have carried
+   * the same logical name across manifests. Reusing that URL would ship the previous image behind
+   * the new manifest's provenance, which is the one outcome a content-bound pack must make
+   * impossible. A picked (unbound) image keeps the historical behaviour exactly.
+   */
+  _imgPreflight(name) {
+    const prov = this.imgProvenance.get(name);
+    if (prov) {
+      // A recorded upload of this exact content needs no local file at all.
+      if (readAssetUploads(this.storage)[prov.sha256]) return;
+      const file = this.files.get(name);
+      if (!file) throw new Error(`@img:${name} is bound to ${prov.path} but its verified bytes are not loaded`);
+      // Identity, not size. See _imgBytes() for why a size check is not enough.
+      if (file !== prov.file) throw new Error(`@img:${name} is not holding the exact file that was verified against ${prov.sha256.slice(0, 12)}; nothing was sent`);
+      return;
+    }
+    if (!this.files.has(name) && !readIdmap(this.storage)[name]) throw new Error(`@img:${name} has no file picked`);
+  }
+
+  /**
+   * The bytes of a pack-backed image, re-verified at the moment of upload. This is the LAST barrier
+   * and the only one every item passes: `_preflight` runs for creates only, so the five Marrow avatar
+   * EDITS that push/53 exists to replay reach the uploader through here and nowhere else.
+   *
+   * Two checks, and neither is redundant (independent review F1):
+   *
+   *   identity  the File must be the object `commitImagePack` installed. The gate used to compare
+   *             provenance metadata and the file's SIZE, so a different file of identical length
+   *             swapped into `files` after verification was uploaded AND recorded in the
+   *             content-keyed upload ledger under the correct digest - poisoning every later job
+   *             for those bytes with the wrong URL.
+   *   digest    re-hashed anyway, immediately before the bytes leave. Identity alone is sound for a
+   *             real immutable File/Blob; this does not depend on that being true of whatever
+   *             file-like object a host or a future caller supplies. Hashing at most 512 KB (every
+   *             upload slug's ceiling) on the item's own send path is not a cost worth trading for
+   *             an assumption.
+   *
+   * Fails closed with no digest wired: repo-backed bytes are never uploaded unverified.
+   */
+  async _imgBytes(name, prov) {
+    const file = this.files.get(name);
+    if (!file) throw new Error(`@img:${name} is bound to ${prov.path} but its verified bytes are not loaded`);
+    if (file !== prov.file) throw new Error(`@img:${name} is not holding the exact file that was verified against ${prov.sha256.slice(0, 12)}; nothing was uploaded`);
+    if (typeof this.digest !== "function") throw new Error(`@img:${name} is repo-backed but no digest is wired, so its bytes cannot be re-verified; nothing was uploaded`);
+    const hex = toHex(await this.digest(await file.arrayBuffer()));
+    if (hex !== prov.sha256) throw new Error(`@img:${name} hashes to ${hex} at the moment of upload; the pack says ${prov.sha256}. Nothing was uploaded.`);
+    return file;
   }
 
   async _create(jobId, item, planned) {
@@ -542,7 +612,10 @@ export class Runner {
       const pr = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
       if (!pr.ok && classifyError(pr.error) === "SESSION") throw this._authRefused(pr.error, { idx: item.idx, path: "ai.getAiProfile" });
       if (pr.ok && pr.data) {
-        if (JSON.stringify(pr.data.rules ?? []) !== JSON.stringify(planned.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
+        // Structural, not textual. The server re-emits the rules in schema key order, so a
+        // stringify comparison here reported every landed Godstorm AI-profile write as drift
+        // while the two payloads were the same document (deepEqualPayload, validate.mjs).
+        if (!deepEqualPayload(planned.data.rules ?? [], pr.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
         if (planned.data.includeDefaultRules !== undefined && pr.data.includeDefaultRules !== planned.data.includeDefaultRules) diffs.push({ key: "includeDefaultRules", sent: planned.data.includeDefaultRules, live: pr.data.includeDefaultRules });
       } else { this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" }); return; }
     }
@@ -813,13 +886,29 @@ export class Runner {
     // upload any @img refs first
     const refs = collectRefs(data).filter((r) => r.pfx === "img");
     for (const r of refs) {
+      const prov = this.imgProvenance.get(r.key) ?? null;
       const map = readIdmap(this.storage);
-      if (map[r.key]) continue;
-      const file = this.files.get(r.key);
-      if (!file) throw new Error(`@img:${r.key} has no file picked`);
+      let file;
+      if (prov) {
+        // Reuse is decided by CONTENT, not by filename: a recorded upload of this exact digest is
+        // the same image, and nothing else is. The idmap is still written so resolveRefs() can
+        // substitute the URL, but it is never read as permission to skip the upload.
+        const known = readAssetUploads(this.storage)[prov.sha256];
+        if (known && known.url) {
+          if (map[r.key] !== known.url) { map[r.key] = known.url; writeIdmap(this.storage, map); }
+          continue;
+        }
+        // Re-verified here, not trusted from the preparation that ran before the operator tapped.
+        file = await this._imgBytes(r.key, prov);
+      } else {
+        if (map[r.key]) continue;
+        file = this.files.get(r.key);
+        if (!file) throw new Error(`@img:${r.key} has no file picked`);
+      }
       if (!this.uploader) throw new Error("no uploader configured for @img refs");
       const up = await this.uploader.upload(file);
       map[r.key] = up.ufsUrl; writeIdmap(this.storage, map);
+      if (prov) recordAssetUpload(this.storage, prov.sha256, up.ufsUrl, { path: prov.path, ref: prov.ref, at: this.clock() });
     }
     const job = jobId ? this.journal.get(jobId) : null;
     const { value, unresolved } = resolveRefs(data, this._lookup(job));
