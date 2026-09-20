@@ -140,6 +140,27 @@ export function parseEvidence(raw) {
 
     return Object.freeze({ ...r, capture: capture ? Object.freeze(capture) : null });
   });
+
+  // ONE CURRENT RECORD PER QUEST (independent review R1). Unique record ids and one capture per
+  // record are not enough: two records may each be individually admissible and select the SAME
+  // quest. The dossier then counted the quest twice - three components, 75 battles - while its
+  // quest-keyed maps kept only the last and its rewards read the first, so an older capture could
+  // supply the name while a newer one supplied the structure. Nothing in the evidence says which
+  // is current, so this is refused here rather than resolved by position.
+  const byQuest = new Map();
+  for (const r of records) {
+    if (r.kind !== "quest") continue;
+    const prior = byQuest.get(r.questId);
+    if (prior) {
+      const where = (x) => `"${x.id}" (${x.path} ${JSON.stringify(x.capture)})`;
+      throw new PresentationError(
+        `evidence package selects quest ${r.questId} twice: ${where(prior)} and ${where(r)}. ` +
+        "A quest is one component with one current record; select the current capture once, and drop or re-scope the other.",
+      );
+    }
+    byQuest.set(r.questId, r);
+  }
+
   return Object.freeze({ ...raw, draft, repoCommit: draft ? null : raw.repoCommit, records: Object.freeze(records) });
 }
 
@@ -332,12 +353,15 @@ export function loadEvidence(pkg, { root, blobAtRef = null } = {}) {
         const prior = byEntity.get(id);
         if (!prior) { byEntity.set(id, entry); continue; }
         if (entry.capturedAt > prior.capturedAt) byEntity.set(id, entry);
-        else if (entry.capturedAt === prior.capturedAt && entry.url !== prior.url) {
-          throw new PresentationError(
-            `evidence "${r.id}": two captures of ${id} at the same instant (${entry.capturedAt}) disagree about its ${entry.field}; ` +
-            "nothing in the evidence decides which is current.",
-            { recordId: r.id },
-          );
+        else if (entry.capturedAt === prior.capturedAt) {
+          const disagreement = disagreesOn(prior, entry);
+          if (disagreement) {
+            throw new PresentationError(
+              `evidence "${r.id}": two captures of ${id} at the same instant (${entry.capturedAt}) disagree about its ${disagreement}; ` +
+              "nothing in the evidence decides which is current.",
+              { recordId: r.id },
+            );
+          }
         }
       }
       source.capturedAt = [...byEntity.values()].map((e) => e.capturedAt).sort().pop() ?? null;
@@ -371,6 +395,24 @@ export function loadEvidence(pkg, { root, blobAtRef = null } = {}) {
   return { subject: pkg.subject, repoCommit: pkg.repoCommit, draft: pkg.draft, records, sources, warnings };
 }
 
+/**
+ * What two equally-recent observations of one entity disagree about, if anything.
+ *
+ * EVERY fact the presentation consumes, not just the image (independent review R2). The first
+ * correction compared only the URL, so a duplicate capture at the same instant carrying a different
+ * NAME was coalesced silently and "Alternate Keeper" won by sitting first in the array. A snapshot
+ * key or a record position is not evidence that one name is current; equivalent observations may
+ * coalesce, disagreeing ones may not.
+ *
+ * @returns {string|null} the field they disagree about, or null when they are equivalent
+ */
+export function disagreesOn(a, b) {
+  for (const key of ["name", "url", "field"]) {
+    if (a[key] !== b[key]) return key === "url" ? (a.field ?? "image") : key;
+  }
+  return null;
+}
+
 /** Records of one kind, in package order. */
 export const ofKind = (loaded, kind) => [...loaded.records.values()].filter((r) => r.kind === kind);
 
@@ -390,11 +432,14 @@ export function currentByEntity(records) {
       const prior = best.get(e.entityId);
       if (!prior) { best.set(e.entityId, entry); continue; }
       if (entry.capturedAt > prior.capturedAt) best.set(e.entityId, entry);
-      else if (entry.capturedAt === prior.capturedAt && entry.url !== prior.url) {
-        conflicts.push(
-          `${e.entityId}: records "${prior.source}" and "${rec.id}" both observe it at ${entry.capturedAt} but disagree about its ${e.field}; ` +
-          "nothing in the evidence decides which is current",
-        );
+      else if (entry.capturedAt === prior.capturedAt) {
+        const disagreement = disagreesOn(prior, entry);
+        if (disagreement) {
+          conflicts.push(
+            `${e.entityId}: records "${prior.source}" and "${rec.id}" both observe it at ${entry.capturedAt} but disagree about its ${disagreement}; ` +
+            "nothing in the evidence decides which is current",
+          );
+        }
       }
     }
   }

@@ -20,9 +20,10 @@ None of those was carelessness. They happened because the presentation was assem
 was nearest — chat context, planning prose, scattered image files — and nothing in the pipeline was
 in a position to disagree with it. This library is that missing position.
 
-Independent review of the first frozen head (`docs/reviews/REVIEW_2026-09-20_forge_presentation_studio_p0_p1.md`)
-reproduced seven bypasses; the contracts below are the corrected ones, and the evidence and spec
-schemas are at **v2** because the shapes changed.
+Two independent reviews shaped the contracts below: the first
+(`docs/reviews/REVIEW_2026-09-20_forge_presentation_studio_p0_p1.md`) reproduced seven bypasses, the
+re-review (`..._p1_correction.md`) three residuals. Evidence and spec schemas are at **v2** because
+the shapes changed.
 
 ## The three rules everything here follows
 
@@ -43,6 +44,26 @@ A fourth rule runs underneath all of them: **only admissible captures are eviden
 known commit.** A record is admitted when a supported read actually happened, persisted in full,
 and answered about the entity it was asked about; the package names `repoCommit` and every record
 names its `sha256`, and both are checked before a single fact is derived.
+
+And a fifth: **selection must be unambiguous, never positional.** One current record per quest, one
+capture per selector, freshness by each capture's own timestamp, and two equally-recent observations
+that disagree about *any* fact a presentation consumes — name as much as image — are a conflict to
+resolve, not a race to win by array order.
+
+## The route is walked over success edges
+
+A quest record's edges come in two kinds: where the player goes on a win, and where they go on a
+loss. Almost everything a presentation says about *sequence* depends on keeping them apart.
+
+`successPath` is one traversal over success edges from the entry, entering only nodes that can still
+reach a `win_quest`, so membership and order come from the same walk and cannot drift. The full
+clear is the last payout on it; everything else is an intermediate, an optional branch, a failure
+payout or an unreachable remnant, each named separately. Cadence counts **route** battles only —
+an optional fight is listed, numbered `null`, and excluded from the rhythm of the clear.
+
+A loop through success edges on the route is refused: there is then no order in which a player walks
+it. A loop that exists only through a failure link is reported instead — the pinned flow validator
+rejects such a record, but the route itself is still well defined.
 
 ## Layout
 
@@ -129,6 +150,8 @@ fails and prints the current digest; update the summary and the digest together 
 
 - `test/presentation.golden.test.mjs` — the Godstorm golden fixture, every assertion of plan §8.
 - `test/presentation.adversarial.test.mjs` — the negative fixtures, each a mutation of the real
-  Godstorm evidence in a throwaway root rather than a hand-written miniature.
+  Godstorm evidence in a throwaway root rather than a hand-written miniature. Cases marked `F1`–`F7`
+  and `R1`–`R3` are the reviewers' own witnesses, kept in their shape so a re-review can check them
+  one for one.
 - `test/presentation.boundary.test.mjs` — containment, plus a check that the repository's approved
   Godstorm art still matches the pack byte for byte.

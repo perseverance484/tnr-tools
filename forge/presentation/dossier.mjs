@@ -44,18 +44,31 @@ export function buildDossier(loaded, spec, { root, blobAtRef = null } = {}) {
   const note = (path, recordId) => { provenance[path] = recordId; };
   const problems = [];
 
+  // ONE STRUCTURE PER QUEST, keyed rather than appended (independent review R1). parseEvidence
+  // refuses a package that selects a quest twice; this is the same invariant enforced where the
+  // damage happened, so a caller that builds a package by hand cannot inflate components, battles
+  // and keepers while the quest-keyed maps silently keep only the last record.
   const quests = {};
-  const structures = [];
+  const byQuestId = new Map();
   for (const rec of questRecords) {
+    const prior = byQuestId.get(rec.questId);
+    if (prior) {
+      throw new PresentationError(
+        `quest ${rec.questId} is selected by both "${prior.source}" and "${rec.id}"; a quest is one component with one current record`,
+      );
+    }
     quests[rec.questId] = rec.quest;
     const s = extractStructure(rec.quest, rec.id);
-    structures.push(s);
+    byQuestId.set(rec.questId, s);
     note(`structure.${s.questId}`, rec.id);
     note(`structure.${s.questId}.counts.battles`, rec.id);
     note(`structure.${s.questId}.counts.objectives`, rec.id);
     note(`structure.${s.questId}.hidden`, rec.id);
     note(`structure.${s.questId}.entryObjectiveId`, rec.id);
   }
+  // Every consumer reads from the SAME map, so structure, rewards, dialogue, images, locations and
+  // provenance can never be sourced to different records for one quest.
+  const structures = [...byQuestId.values()];
 
   // Current art/name per entity, resolved by CAPTURE time with conflicts refused rather than
   // broken by array order (F3). aiRecords and assetRecords share one merge because the question
@@ -78,7 +91,8 @@ export function buildDossier(loaded, spec, { root, blobAtRef = null } = {}) {
     return {
       questId: s.questId,
       name: s.name,
-      battles: s.encounters.length,
+      battles: s.counts.routeBattles,
+      offRouteBattles: s.counts.offRouteBattles,
       keepers: keepers.length,
       keeperObjectiveIds: keepers.map((e) => e.objectiveId),
       sequence: s.encounters.map((e) => ({ index: e.index, objectiveId: e.objectiveId, aiIds: e.aiIds, role: spec.roles[e.aiIds[0]] ?? null, onSuccessPath: e.onSuccessPath })),
@@ -89,11 +103,10 @@ export function buildDossier(loaded, spec, { root, blobAtRef = null } = {}) {
   });
 
   const rewards = {};
-  for (const rec of questRecords) {
-    const s = structures.find((x) => x.questId === rec.questId);
-    rewards[rec.questId] = extractRewards(rec.quest, s);
-    note(`rewards.${rec.questId}`, rec.id);
-    note(`rewards.${rec.questId}.fullClear`, rec.id);
+  for (const s of structures) {
+    rewards[s.questId] = extractRewards(quests[s.questId], s);
+    note(`rewards.${s.questId}`, s.source);
+    note(`rewards.${s.questId}.fullClear`, s.source);
   }
 
   // EVERY entity that needs art, not only the roster (F7): each AI, each component's listing image,
@@ -176,7 +189,7 @@ export function buildDossier(loaded, spec, { root, blobAtRef = null } = {}) {
       draft: loaded.draft,
       records: loaded.sources,
     },
-    structure: Object.fromEntries(structures.map((s) => [s.questId, s])),
+    structure: Object.fromEntries(byQuestId),
     encounters,
     roster: roster.entries,
     rewards,

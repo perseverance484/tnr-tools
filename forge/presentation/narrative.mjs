@@ -46,6 +46,14 @@ const ORDINARY = new Set([
   "deep", "deeper", "deepest", "far", "farther", "further", "near", "nearer", "high", "higher",
   "low", "lower", "first", "last", "next", "later", "earlier", "soon", "finally", "eventually",
   "meanwhile", "instead", "together", "once", "twice", "until", "since", "always", "never",
+  // sentence-opening connectives and adverbs. Checking sentence starts is what caught "Dawnless
+  // awaits below."; the cost is that ordinary openers have to be listed, and the reviewer found
+  // "Ultimately, " failing on an otherwise valid summary. This set is the bounded fix, and the
+  // limitation is real: a character actually named one of these words would pass the check.
+  "ultimately", "finally", "initially", "eventually", "afterwards", "afterward", "later",
+  "however", "therefore", "thus", "hence", "meanwhile", "moreover", "besides", "although",
+  "throughout", "everywhere", "elsewhere", "otherwise", "overall", "altogether", "briefly",
+  "already", "almost", "nearly", "often", "sometimes", "usually", "rarely", "perhaps",
   "player", "players", "battle", "battles", "boss", "keeper", "keepers", "floor", "floors",
   "enemy", "enemies", "fight", "fights", "reward", "rewards", "story", "event", "quest",
 ]);
