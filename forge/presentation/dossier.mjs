@@ -6,6 +6,10 @@
 // nothing, it restates nothing by hand, and rebuilding it from the same committed records produces
 // the same document.
 //
+// IT ALSO CARRIES ITS SOURCE LOCK. `sources.repoCommit` is the commit every selected record was
+// verified against; a draft build says so instead. A hash computed over whatever the working tree
+// held was provenance-shaped and proved nothing (independent review F3).
+//
 // LOCATIONS ARE THE PART TO READ TWICE (plan §5.5). A top-level location is a subject the content
 // model has - here, a quest that is a component of the event. A scene background is an IMAGE an
 // objective shows. The Godstorm poster listed Upper Court, Binding Dais Active and Binding Dais
@@ -15,14 +19,14 @@
 
 import { createHash } from "node:crypto";
 import { PresentationError } from "./errors.mjs";
-import { ofKind } from "./evidence.mjs";
+import { ofKind, currentByEntity, allObservations } from "./evidence.mjs";
 import { extractStructure, cadenceOf, cadenceText } from "./structure.mjs";
 import { extractRewards } from "./rewards.mjs";
 import { extractRoster, roleSequence, keepersOf } from "./roster.mjs";
 import { buildAssetRegistry } from "./assets.mjs";
 import { resolveNarrative } from "./narrative.mjs";
 
-export const DOSSIER_SCHEMA = "tnr.presentation.dossier.v1";
+export const DOSSIER_SCHEMA = "tnr.presentation.dossier.v2";
 
 /**
  * Build the dossier.
@@ -38,6 +42,7 @@ export function buildDossier(loaded, spec, { root, blobAtRef = null } = {}) {
 
   const provenance = {};
   const note = (path, recordId) => { provenance[path] = recordId; };
+  const problems = [];
 
   const quests = {};
   const structures = [];
@@ -49,17 +54,25 @@ export function buildDossier(loaded, spec, { root, blobAtRef = null } = {}) {
     note(`structure.${s.questId}.counts.battles`, rec.id);
     note(`structure.${s.questId}.counts.objectives`, rec.id);
     note(`structure.${s.questId}.hidden`, rec.id);
+    note(`structure.${s.questId}.entryObjectiveId`, rec.id);
   }
 
+  // Current art/name per entity, resolved by CAPTURE time with conflicts refused rather than
+  // broken by array order (F3). aiRecords and assetRecords share one merge because the question
+  // "which observation is current" has one answer regardless of entity class.
   const aiSources = ofKind(loaded, "aiRecords");
-  const roster = extractRoster(structures, aiSources, spec.roles);
+  const assetSources = ofKind(loaded, "assetRecords");
+  const ai = currentByEntity(aiSources);
+  const assets = currentByEntity(assetSources);
+  problems.push(...ai.conflicts, ...assets.conflicts);
+
+  const roster = extractRoster(structures, ai.best, spec.roles);
+  problems.push(...roster.problems);
   for (const e of roster.entries) if (e.source) note(`roster.ai:${e.aiId}.name`, e.source);
 
-  // Encounters: the sequence is evidence, the cadence is derived from it through the validated
-  // role annotations. Neither is authored.
   const encounters = structures.map((s) => {
     const roles = roleSequence(s, spec.roles);
-    const cadence = cadenceOf(roles);
+    const cadence = s.successPathLinear ? cadenceOf(roles) : { unit: [], repeats: 0, exact: false };
     const keepers = keepersOf(s, spec.roles);
     note(`encounters.${s.questId}.sequence`, s.source);
     return {
@@ -68,9 +81,10 @@ export function buildDossier(loaded, spec, { root, blobAtRef = null } = {}) {
       battles: s.encounters.length,
       keepers: keepers.length,
       keeperObjectiveIds: keepers.map((e) => e.objectiveId),
-      sequence: s.encounters.map((e) => ({ index: e.index, objectiveId: e.objectiveId, aiIds: e.aiIds, role: spec.roles[e.aiIds[0]] ?? null })),
+      sequence: s.encounters.map((e) => ({ index: e.index, objectiveId: e.objectiveId, aiIds: e.aiIds, role: spec.roles[e.aiIds[0]] ?? null, onSuccessPath: e.onSuccessPath })),
       cadence,
       cadenceText: cadenceText(cadence),
+      successPathLinear: s.successPathLinear,
     };
   });
 
@@ -82,15 +96,43 @@ export function buildDossier(loaded, spec, { root, blobAtRef = null } = {}) {
     note(`rewards.${rec.questId}.fullClear`, rec.id);
   }
 
-  // Every avatar observation, not just the newest, so the registry can tell a swap from stale art.
-  const observations = aiSources.flatMap((rec) => rec.ai.map((a) => ({ ...a, capturedAt: rec.capturedAt, source: rec.id })));
+  // EVERY entity that needs art, not only the roster (F7): each AI, each component's listing image,
+  // and each scene asset a selected record describes. A binding to anything else is reported by the
+  // registry rather than ignored.
+  const artEntities = [];
+  for (const e of roster.entries) {
+    const known = ai.best.get(e.aiId) || null;
+    artEntities.push({
+      entity: `ai:${e.aiId}`, entityId: e.aiId, kind: "ai", field: "avatar",
+      name: e.name, liveUrl: known ? known.url : null,
+      source: known ? known.source : null, capturedAt: known ? known.capturedAt : null,
+    });
+  }
+  for (const s of structures) {
+    artEntities.push({
+      entity: `quest:${s.questId}`, entityId: s.questId, kind: "quest", field: "image",
+      name: s.name, liveUrl: s.image,
+      source: s.source, capturedAt: (loaded.sources.find((x) => x.id === s.source) || {}).capturedAt ?? null,
+    });
+  }
+  // Scene assets belong to the registry only when this subject actually shows them. A selected
+  // capture may cover assets from a neighbouring workstream; counting those would inflate art
+  // readiness with images no tile will ever use.
+  const usedAssetIds = new Set(structures.flatMap((s) => [...s.sceneBackgroundIds, ...s.sceneCharacterIds]));
+  for (const [entityId, obs] of assets.best) {
+    if (!usedAssetIds.has(entityId) && !Object.prototype.hasOwnProperty.call(spec.assets, `asset:${entityId}`)) continue;
+    artEntities.push({
+      entity: `asset:${entityId}`, entityId, kind: "asset", field: obs.field,
+      name: obs.name, liveUrl: obs.url, source: obs.source, capturedAt: obs.capturedAt,
+    });
+  }
+
   const registry = buildAssetRegistry({
-    roster: roster.entries,
-    aiIndex: roster.byId,
+    entities: artEntities,
     packs: ofKind(loaded, "imagePack"),
     uploads: ofKind(loaded, "uploads"),
     bindings: spec.assets,
-    observations,
+    observations: [...allObservations(aiSources), ...allObservations(assetSources)],
     root,
     blobAtRef,
   });
@@ -99,19 +141,21 @@ export function buildDossier(loaded, spec, { root, blobAtRef = null } = {}) {
   const knownNames = [
     ...structures.map((s) => s.name),
     ...roster.entries.map((e) => e.name).filter(Boolean),
+    ...[...assets.best.values()].map((a) => a.name).filter(Boolean),
     loaded.subject.title,
     ...(loaded.subject.components ?? []),
   ];
   const narrative = resolveNarrative(structures, quests, spec.story, knownNames);
+  problems.push(...narrative.problems);
 
-  // Top-level locations: the components themselves, and nothing that is merely drawn.
   const locations = structures.map((s) => ({ key: `quest:${s.questId}`, name: s.name, kind: "component", source: s.source }));
   const sceneAssets = [];
   for (const s of structures) {
     const record = quests[s.questId];
+    const reachable = new Set(s.reachableIds);
     for (const id of s.sceneBackgroundIds) {
       const usedBy = (record.content.objectives || [])
-        .filter((o) => o.sceneBackground === id && s.reachableIds.includes(o.id))
+        .filter((o) => o.sceneBackground === id && reachable.has(o.id))
         .map((o) => o.id);
       sceneAssets.push({ key: `asset:${id}`, kind: "scene-background", component: s.questId, usedBy, source: s.source });
     }
@@ -128,26 +172,22 @@ export function buildDossier(loaded, spec, { root, blobAtRef = null } = {}) {
       components: structures.map((s) => s.name),
     },
     sources: {
+      repoCommit: loaded.repoCommit,
+      draft: loaded.draft,
       records: loaded.sources,
     },
     structure: Object.fromEntries(structures.map((s) => [s.questId, s])),
     encounters,
     roster: roster.entries,
     rewards,
-    dialogue: {
-      byComponent: Object.fromEntries(structures.map((s) => [s.questId, s.dialogIds])),
-    },
+    dialogue: { byComponent: Object.fromEntries(structures.map((s) => [s.questId, s.dialogIds])) },
     narrative: narrative.blocks,
     locations,
     sceneAssets,
-    assets: {
-      entries: registry.entries,
-      coverage: registry.coverage,
-      packFiles: registry.packFiles,
-    },
+    assets: { entries: registry.entries, coverage: registry.coverage, packFiles: registry.packFiles },
     provenance,
     warnings: [...loaded.warnings, ...narrative.warnings],
-    problems: [...roster.problems, ...narrative.problems],
+    problems,
     totals: {
       components: structures.length,
       battles: encounters.reduce((n, e) => n + e.battles, 0),
@@ -156,8 +196,6 @@ export function buildDossier(loaded, spec, { root, blobAtRef = null } = {}) {
     },
   };
 
-  // The dossier is content-addressed so a presentation can bind to the exact facts it was built
-  // from: two builds of the same records give the same hash, and a changed record changes it.
   dossier.hash = createHash("sha256").update(stableJson(dossier)).digest("hex");
   return dossier;
 }

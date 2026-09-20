@@ -19,13 +19,13 @@
 import { PresentationError } from "./errors.mjs";
 import { ROLES } from "./roster.mjs";
 
-export const SPEC_SCHEMA = "tnr.presentation.spec.v1";
+export const SPEC_SCHEMA = "tnr.presentation.spec.v2";
 
 const SPEC_KEYS = new Set([
   "schema", "evidence", "template", "title", "subtitle", "sections",
   "story", "roles", "roster", "locations", "sceneDetail", "assets", "labels", "note",
 ]);
-const STORY_KEYS = new Set(["text", "sourceObjectives"]);
+const STORY_KEYS = new Set(["text", "sourceObjectives", "sourceDigest"]);
 const ROSTER_KEYS = new Set(["coverage", "entries", "groupBy"]);
 const TEMPLATES = new Set(["event-poster", "staff-brief"]);
 const COVERAGE = new Set(["all", "selection"]);
@@ -93,7 +93,13 @@ export function parseSpec(raw) {
     for (const id of block.sourceObjectives) {
       if (typeof id !== "string" || !id) throw new PresentationError(`${where}: a source objective id must be a non-empty string`);
     }
-    story[key] = { text: block.text, sourceObjectives: [...block.sourceObjectives] };
+    // sourceDigest binds the summary to the VERSION of the dialogue it was reviewed against. The
+    // parser only checks its shape; whether it still matches is a question for the records, so
+    // narrative.mjs answers it - including the "absent" case, where it can print the current one.
+    if (block.sourceDigest != null && (typeof block.sourceDigest !== "string" || !/^[0-9a-f]{64}$/.test(block.sourceDigest))) {
+      throw new PresentationError(`${where}: sourceDigest must be 64 lowercase hex characters`);
+    }
+    story[key] = { text: block.text, sourceObjectives: [...block.sourceObjectives], sourceDigest: block.sourceDigest ?? null };
   }
 
   const roles = {};

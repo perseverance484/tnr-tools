@@ -20,6 +20,10 @@ None of those was carelessness. They happened because the presentation was assem
 was nearest — chat context, planning prose, scattered image files — and nothing in the pipeline was
 in a position to disagree with it. This library is that missing position.
 
+Independent review of the first frozen head (`docs/reviews/REVIEW_2026-09-20_forge_presentation_studio_p0_p1.md`)
+reproduced seven bypasses; the contracts below are the corrected ones, and the evidence and spec
+schemas are at **v2** because the shapes changed.
+
 ## The three rules everything here follows
 
 1. **Facts are derived.** Battle counts, keeper counts, roster membership, reward values, locations
@@ -29,28 +33,34 @@ in a position to disagree with it. This library is that missing position.
    and be reachable in the current capture, and the summary may not introduce proper nouns that
    appear nowhere in the selected evidence. An anchor check alone would not have caught the stale
    Tower/Dawnless wording, because stale prose can cite perfectly real ids.
-3. **Named art is exact pixels.** For an AI whose art shipped from this repository the whole chain
-   is checked offline: working-tree file → blob at the pack's immutable commit → the URL that blob
-   was uploaded as → the avatar the live record currently serves. No step consults a byte count,
-   which is why a wrong file of exactly the right size fails.
+3. **Named art is exact pixels.** For an entity whose art shipped from this repository the whole
+   chain is checked offline: working-tree file → blob at the pack's immutable commit → the URL that
+   blob was uploaded as → the art the live record currently serves. No step consults a byte count,
+   which is why a wrong file of exactly the right size fails — and an *unreadable* commit makes the
+   binding `unverified`, never verified.
+
+A fourth rule runs underneath all of them: **only admissible captures are evidence, and only at a
+known commit.** A record is admitted when a supported read actually happened, persisted in full,
+and answered about the entity it was asked about; the package names `repoCommit` and every record
+names its `sha256`, and both are checked before a single fact is derived.
 
 ## Layout
 
 | File | Owns |
 | --- | --- |
-| `evidence.mjs` | the evidence package schema and loader; every source is a committed repository path |
-| `structure.mjs` | objective-graph reachability, counts, encounter sequence, cadence derivation |
-| `rewards.mjs` | rewards from **reachable** nodes only; full clear vs intermediate cash-out |
+| `evidence.mjs` | the package schema, the source lock, capture admission and conflict-aware selection |
+| `structure.mjs` | graph-derived entry and order, reachability, the success path, cadence derivation |
+| `rewards.mjs` | rewards classified against the route to a win: full clear, intermediate, optional, failure, unreachable |
 | `roster.mjs` | the derived roster and the validation of the spec's role annotations |
-| `assets.mjs` | the exact asset registry and its five statuses |
-| `narrative.mjs` | anchor resolution and the unsupported-name check |
+| `assets.mjs` | the asset registry: WHICH art (status) and WHETHER we hold it (bytes), kept apart |
+| `narrative.mjs` | anchor resolution, the unsupported-name check, and the source fingerprint |
 | `spec.mjs` | the versioned spec parser, closed key set, facts refused by name |
 | `dossier.mjs` | assembly, provenance map, content-addressed hash |
 | `lint.mjs` | the fatal/warning rules of plan §4.5 |
 | `build.mjs` | spec file in, dossier plus lint out |
 | `gitblob.mjs` | the one place that shells out: `git cat-file` for a blob at a commit |
 
-`packages/godstorm/` holds the worked example: `evidence.json` selects six committed records,
+`packages/godstorm/` holds the worked example: `evidence.json` selects seven committed records at a pinned commit,
 `spec.json` carries only presentation choices.
 
 ## Boundary
@@ -65,21 +75,39 @@ in a position to disagree with it. This library is that missing position.
   image-pack contract, so there is one owner for those rules rather than a second copy.
 
 **Zero live requests.** Every source is a file under the repository root plus `git cat-file`, which
-reads the local object database. An entity whose only current art is a remote URL resolves as
-`exact-current-remote`: correct, provenanced, and explicitly not yet renderable. Materialising those
-into a content-addressed cache with digest verification is P2's job, and the lint says so.
+reads the local object database.
 
-## Asset statuses
+An entity whose only current art is a remote URL is `exact-current` with `bytes.bound: false`:
+correct, provenanced, and not renderable. **It does not follow that those bytes require a live
+fetch** — an earlier claim in this file said so and was wrong. `chatgpt/godstorm-art-recovery`
+carries a committed content-addressed archive
+(`art/godstorm_sources/capture-2026-09-14/index.json` at `1bca57eeb0c1836a49334dc2f49196a5a3db24c7`)
+whose entries join to the remaining portraits and to both listing images by entity id and captured
+URL. Wiring it in as a `sourceArchive` evidence kind is the named next step for this library and is
+deliberately not part of the correction pass; until then the lint says "resolve it from a committed
+source archive or materialise and hash it", which is the honest instruction.
+
+## Asset statuses, and byte availability
+
+Two independent axes, because conflating them is what let an unverifiable binding pass as
+renderable art.
+
+`status` — WHICH art this is:
 
 | Status | Means |
 | --- | --- |
-| `exact-current-bytes` | the whole chain holds; renderable deterministically offline |
-| `exact-current-remote` | current art from a committed capture, no repository bytes bound yet |
-| `historical-only` | these bytes are this entity's art, from **before** it was replaced |
-| `missing` | no selected evidence records any art for this entity |
-| `mismatch` | the bound bytes are not this entity's current art (a swap, or a working tree that has drifted from the commit the pack names) |
+| `exact-current` | the art this entity currently serves |
+| `approved-derivative` | an approved repository derivative rather than the live bytes |
+| `historical-only` | this entity's art, from **before** it was replaced |
+| `mismatch` | not this entity's current art: a swap, or a working tree that has drifted from the commit the pack names |
+| `missing` | no selected evidence records any art for it |
 
-`historical-only` and `mismatch` are separated deliberately: the remedies differ, and a single
+`bytes` — WHETHER we hold and verified those pixels: `{bound, path, ref, sha256, length, available,
+verified, verifiedAgainst, reason}`. `renderable` is `status === exact-current && bytes.verified`,
+and it is the only thing a deterministic renderer may consume. A bound asset that is not verified is
+a **fatal** lint finding, not a note: an absent verifier is not verification.
+
+`historical-only` and `mismatch` are kept apart deliberately — the remedies differ, and a single
 equality check cannot tell "stale" from "somebody else's".
 
 ## Use
@@ -91,8 +119,11 @@ node tools/presentation.mjs presentation/packages/godstorm/spec.json --require-e
 ```
 
 Exit 0 when the lint has no fatal finding. `--require-exact-bytes` is what a deterministic renderer
-must pass; on Godstorm it currently fails on the thirteen entities whose art is remote-only, which
-is the honest state of the evidence rather than a defect.
+must pass; on Godstorm it currently fails on the eighteen entities whose bytes are not bound, which
+is the honest state of the selected evidence rather than a defect.
+
+A spec's story blocks carry `sourceDigest`. When the dialogue behind an anchor changes, the build
+fails and prints the current digest; update the summary and the digest together after re-reading.
 
 ## Tests
 
