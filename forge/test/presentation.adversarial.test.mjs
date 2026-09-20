@@ -907,3 +907,236 @@ test("a spec may not invent a template, a role or a malformed digest", () => {
     story: { a: { text: "t", sourceObjectives: ["x"], sourceDigest: "nope" } },
   }), /sourceDigest must be 64 lowercase hex/);
 });
+
+// ---------------------------------------------------------------------------------------------
+// R1-R3, the residuals the re-review reproduced against ac792ef
+// ---------------------------------------------------------------------------------------------
+
+test("R1: one quest cannot be selected twice, however the duplicate is spelled", () => {
+  // No capture bytes, source refs or digests are touched in either case: both records are
+  // individually admissible. The first correction counted the quest twice - 3 components, 75
+  // battles, 15 keepers - while `structure` kept only the last and rewards read the first.
+  const dup = scenario({
+    evidence: (e) => {
+      const r = structuredClone(e.records.find((x) => x.id === "marrow-quest"));
+      r.id = "marrow-duplicate";
+      e.records.push(r);
+      return e;
+    },
+  });
+  assert.equal(dup.ok, false);
+  assert.match(dup.error.message, /selects quest 2yvE9PUQqlD8lbYNfgX-b twice/);
+  assert.match(dup.error.message, /"marrow-quest"/);
+  assert.match(dup.error.message, /"marrow-duplicate"/);
+  assert.match(dup.error.message, /a quest is one component with one current record/i);
+
+  // The sharper case: a genuinely older capture of Stormcourt, placed last, with the story block
+  // removed so no narrative digest can mask the selection behaviour.
+  const older = scenario({
+    evidence: (e) => {
+      const r = structuredClone(e.records.find((x) => x.id === "marrow-quest"));
+      r.id = "stormcourt-earlier";
+      r.questId = STORMCOURT;
+      r.capture = { phase: "after", at: "2026-09-19T14:46:23.796Z", snapshotKey: "52-mu8i2pd8::after::3" };
+      e.records.push(r);
+      return e;
+    },
+    spec: (s) => { delete s.story.stormcourt; return s; },
+  });
+  assert.equal(older.ok, false);
+  assert.match(older.error.message, /selects quest OSADdXqostbyVliCxWk6k twice/);
+  assert.match(older.error.message, /tnr_results_1789829183863\.json/, "the error must point at both captures");
+});
+
+test("R1: record order cannot decide which facts win", () => {
+  // The same overlap, reversed. A refusal that depended on position would pass one of these.
+  for (const last of [true, false]) {
+    const r = scenario({
+      evidence: (e) => {
+        const dupe = structuredClone(e.records.find((x) => x.id === "marrow-quest"));
+        dupe.id = "marrow-duplicate";
+        e.records = last ? [...e.records, dupe] : [dupe, ...e.records];
+        return e;
+      },
+    });
+    assert.equal(r.ok, false, `duplicate placed ${last ? "last" : "first"} must be refused`);
+    assert.match(r.error.message, /selects quest 2yvE9PUQqlD8lbYNfgX-b twice/);
+  }
+});
+
+test("R1: the dossier refuses a duplicated quest even when handed one directly", () => {
+  // parseEvidence is the gate, but the invariant belongs where the damage happened too: a caller
+  // assembling a package by hand must not be able to inflate the totals.
+  const r = scenario({
+    evidence: (e) => {
+      const dupe = structuredClone(e.records.find((x) => x.id === "marrow-quest"));
+      dupe.id = "marrow-duplicate";
+      e.records.push(dupe);
+      return e;
+    },
+  });
+  assert.equal(r.ok, false);
+  // and the golden totals are what a single selection yields
+  const good = scenario({});
+  assert.deepEqual(good.built.dossier.totals, { components: 2, battles: 50, keepers: 10, distinctAi: 18 });
+  assert.equal(good.built.dossier.locations.length, 2);
+});
+
+test("R2: a tied name disagreement is a conflict, not a coin toss", () => {
+  // Same entity id, same avatar, same instant, different name, different snapshot key. The first
+  // correction compared only the URL, so "Alternate Keeper" won by sitting first.
+  for (const [where, mutate] of [
+    ["within one record", (b) => {
+      const c = structuredClone(aiCapture(b, AI.wardenHalfEclipse));
+      c.snapshotKey = "different-snapshot";
+      c.data.username = "Alternate Keeper";
+      b.captures.unshift(c);
+      return b;
+    }],
+    ["last in the record", (b) => {
+      const c = structuredClone(aiCapture(b, AI.wardenHalfEclipse));
+      c.snapshotKey = "different-snapshot";
+      c.data.username = "Alternate Keeper";
+      b.captures.push(c);
+      return b;
+    }],
+  ]) {
+    const r = scenario({ files: { [AI_0914_BUNDLE]: mutate } });
+    assert.equal(r.ok, false, `${where} must be refused`);
+    assert.match(r.error.message, /at the same instant \(2026-09-14T16:20:36\.505Z\) disagree about its name/);
+  }
+});
+
+test("R2: a tied game-asset name disagreement is caught the same way", () => {
+  const r = scenario({
+    files: {
+      [AI_0914_BUNDLE]: (b) => {
+        const c = structuredClone(b.captures.find((x) => x.proc === "gameAsset.get" && x.input.id === "7EmVo6GH5GL4YtQTDrbDR"));
+        c.snapshotKey = "different-snapshot";
+        c.data.name = "renamed vault";
+        b.captures.unshift(c);
+        return b;
+      },
+    },
+  });
+  assert.equal(r.ok, false);
+  assert.match(r.error.message, /disagree about its name/);
+});
+
+test("R2: observations that agree may still coalesce", () => {
+  const r = scenario({
+    files: {
+      [AI_0914_BUNDLE]: (b) => {
+        const c = structuredClone(aiCapture(b, AI.wardenHalfEclipse));
+        c.snapshotKey = "a-second-identical-read";
+        b.captures.unshift(c);
+        return b;
+      },
+    },
+  });
+  assert.ok(r.ok, r.ok ? "" : String(r.error));
+  assert.equal(r.built.dossier.roster.find((e) => e.aiId === AI.wardenHalfEclipse).name, "Warden of the Half Eclipse");
+  assert.deepEqual(r.built.lint.fatal, [], fatalText(r.built));
+});
+
+test("R3: a cross-route failure link cannot reorder the route or move the full clear", () => {
+  // The reviewer's witness. Every success link is retained; b1_1 fails to d5_victory, and d3_1 pays
+  // 20,000. The all-edge BFS pulled d5_victory forward, so the LAST payout in that order was d3_1
+  // and the real 125,000 victory was demoted to an intermediate.
+  const r = scenario({
+    files: {
+      [MARROW_BUNDLE]: editQuest(MARROW, (q) => {
+        q.content.objectives.find((o) => o.id === "b1_1").failObjectiveId = "d5_victory";
+        q.content.objectives.find((o) => o.id === "d3_1").reward_money = 20000;
+        return q;
+      }),
+    },
+  });
+  assert.ok(r.ok, r.ok ? "" : String(r.error));
+  const s = r.built.dossier.structure[MARROW];
+  const rewards = r.built.dossier.rewards[MARROW];
+  assert.deepEqual(s.successPath.slice(0, 6), ["d1_1", "b1_1", "d1_2", "b1_2", "d1_3", "b1_3"],
+    "the route is walked over success edges; a failure link is not a step in it");
+  assert.equal(s.successPath[s.successPath.length - 1], "win");
+  assert.equal(rewards.fullClear.objectiveId, "d5_victory");
+  assert.deepEqual(rewards.fullClear.reward, { money: 125000, tokens: 25, prestige: 10 });
+  assert.deepEqual(rewards.intermediateCashOuts.map((n) => n.objectiveId), ["d3_1"]);
+  assert.equal(r.built.dossier.encounters.find((e) => e.questId === MARROW).cadenceText,
+    "4 recurring fights then 1 keeper fight, repeated 5 times");
+});
+
+test("R3: an optional battle is not part of the cadence", () => {
+  // The reviewer's witness. An opening choice leads to a battle that only reaches `fall`. The
+  // combined sequence reported five recurring fights before the first keeper - a run no player
+  // can make.
+  const r = scenario({
+    files: {
+      [MARROW_BUNDLE]: editQuest(MARROW, (q) => {
+        const o = structuredClone(q.content.objectives.find((x) => x.id === "b1_1"));
+        o.id = "optional_exit_battle";
+        o.nextObjectiveId = "fall";
+        q.content.objectives.push(o);
+        q.content.objectives[0].nextObjectiveId.unshift({ text: "Leave after fighting", nextObjectiveId: o.id });
+        return q;
+      }),
+    },
+  });
+  assert.ok(r.ok, r.ok ? "" : String(r.error));
+  const e = r.built.dossier.encounters.find((x) => x.questId === MARROW);
+  assert.equal(e.cadenceText, "4 recurring fights then 1 keeper fight, repeated 5 times");
+  assert.equal(e.battles, 25, "the presented sequence is the route");
+  assert.equal(e.offRouteBattles, 1, "and the optional battle is counted, not hidden");
+  assert.deepEqual(e.sequence.slice(0, 2).map((x) => x.objectiveId), ["b1_1", "b1_2"]);
+  const off = e.sequence.find((x) => x.objectiveId === "optional_exit_battle");
+  assert.equal(off.onSuccessPath, false);
+  assert.equal(off.index, null, "an off-route battle must not take a number in the sequence");
+  // it still counts as a reachable battle, and the roster still knows the AI it fields
+  assert.equal(r.built.dossier.structure[MARROW].counts.battles, 26);
+  assert.equal(r.built.dossier.structure[MARROW].counts.routeBattles, 25);
+});
+
+test("R3: a loop through success edges on the route is refused", () => {
+  const r = scenario({
+    files: {
+      [MARROW_BUNDLE]: editQuest(MARROW, (q) => {
+        q.content.objectives.find((o) => o.id === "d3_1").nextObjectiveId = [{ text: "Back", nextObjectiveId: "d1_2" }, { text: "Advance", nextObjectiveId: "b3_1" }];
+        return q;
+      }),
+    },
+  });
+  assert.equal(r.ok, false);
+  assert.match(r.error.message, /the route to completion loops through .* along success edges/);
+});
+
+test("R3: a rooted cycle that exists only through a failure link is reported, not refused", () => {
+  // The reviewer's hardening case. The pinned flow validator rejects a cycle, so the record is
+  // malformed - but the route a player walks is still perfectly well defined, so refusing the whole
+  // build would be the wrong answer.
+  const r = scenario({
+    files: {
+      [MARROW_BUNDLE]: editQuest(MARROW, (q) => {
+        q.content.objectives.find((o) => o.id === "b2_1").failObjectiveId = "b1_1";
+        return q;
+      }),
+    },
+  });
+  assert.ok(r.ok, r.ok ? "" : String(r.error));
+  assert.deepEqual(r.built.dossier.structure[MARROW].cycles, ["b1_1", "b2_1"]);
+  assert.match(warnText(r.built), /loops through b1_1, b2_1 once failure links are followed/);
+  assert.match(warnText(r.built), /the pinned flow validator rejects a cycle/);
+  assert.equal(r.built.dossier.encounters.find((e) => e.questId === MARROW).cadenceText,
+    "4 recurring fights then 1 keeper fight, repeated 5 times");
+  assert.deepEqual(r.built.lint.fatal, [], fatalText(r.built));
+});
+
+test("an ordinary sentence opener is not a stale name", () => {
+  // The reviewer's nonblocking case: prefixing the valid summary with "Ultimately, " was fatal.
+  const r = scenario({
+    spec: (s) => {
+      s.story.marrow.text = `Ultimately, ${s.story.marrow.text.charAt(0).toLowerCase()}${s.story.marrow.text.slice(1)}`;
+      return s;
+    },
+  });
+  assert.ok(r.ok, r.ok ? "" : String(r.error));
+  assert.deepEqual(r.built.lint.fatal, [], fatalText(r.built));
+});

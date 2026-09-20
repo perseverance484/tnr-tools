@@ -164,22 +164,14 @@ export function extractStructure(quest, recordId) {
     }
   }
 
-  // The SUCCESS PATH: nodes reachable from the entry along success edges only, that can also still
-  // reach a win_quest along success edges. Anything reachable but outside it is optional or a
-  // failure branch, and rewards.mjs must not read a full clear off it.
-  const forwardOnly = new Set();
-  const fq = [entryId];
-  forwardOnly.add(entryId);
-  while (fq.length) {
-    const o = byId.get(fq.shift());
-    for (const next of successEdges(o)) {
-      if (!byId.has(next) || forwardOnly.has(next)) continue;
-      forwardOnly.add(next);
-      fq.push(next);
-    }
-  }
+  // The SUCCESS ROUTE. Membership is not order (independent review R3). The first correction
+  // filtered the all-edge BFS order down to nodes that can reach a win, which gets the MEMBERSHIP
+  // right and the SEQUENCE wrong: one `failObjectiveId` pointing across the quest pulled the
+  // victory dialogue forward in the traversal, so the reward read off "the last node on the path"
+  // became a mid-route payout while the real 125,000 victory was demoted to an intermediate. A
+  // route the player walks is a walk over SUCCESS edges, so it is derived on that graph alone and
+  // the all-edge order is never reused for it.
   const reachesWin = new Set();
-  // reverse closure over success edges from every win terminal
   const predecessors = new Map();
   for (const o of objectives) {
     for (const next of successEdges(o)) {
@@ -198,10 +190,69 @@ export function extractStructure(quest, recordId) {
       wq.push(prev);
     }
   }
-  const successPath = order.filter((id) => forwardOnly.has(id) && reachesWin.has(id));
-  const successSet = new Set(successPath);
 
-  // Is the success path a single unbranched chain? Only then may a cadence be claimed for it.
+  // Forward-reachable at all, win or not: the difference between an OPTIONAL branch the player can
+  // choose and a node only a loss reaches. rewards.mjs needs both to classify a payout.
+  const forwardOnly = new Set([entryId]);
+  const fq = [entryId];
+  while (fq.length) {
+    for (const next of successEdges(byId.get(fq.shift()))) {
+      if (!byId.has(next) || forwardOnly.has(next)) continue;
+      forwardOnly.add(next);
+      fq.push(next);
+    }
+  }
+
+  // Walk forward from the entry over success edges, entering only nodes that still reach a win.
+  // The result is both the membership and the order, from one traversal, so the two cannot drift.
+  const successPath = [];
+  const successSet = new Set();
+  if (reachesWin.has(entryId)) {
+    const sq = [entryId];
+    successSet.add(entryId);
+    while (sq.length) {
+      const id = sq.shift();
+      successPath.push(id);
+      for (const next of successEdges(byId.get(id))) {
+        if (!byId.has(next) || successSet.has(next) || !reachesWin.has(next)) continue;
+        successSet.add(next);
+        sq.push(next);
+      }
+    }
+  }
+
+  // CYCLES. A `failObjectiveId` pointing back up the quest makes a rooted cycle the entry check
+  // cannot see: every node is still referenced and one start still exists. The pinned flow
+  // validator rejects such a record, so it is worth reporting - but a loop that exists only through
+  // a failure edge leaves the route a player walks perfectly well defined, so it is a WARNING.
+  // A cycle through SUCCESS edges on the route is different: there is then no order in which the
+  // route is walked, and inventing one is the thing this whole module exists not to do.
+  const cyclesOver = (edgesOf) => {
+    const found = new Set();
+    const state = new Map();
+    const visit = (id) => {
+      state.set(id, 1);
+      for (const next of edgesOf(byId.get(id))) {
+        if (!byId.has(next) || !reachable.has(next)) continue;
+        const st = state.get(next) ?? 0;
+        if (st === 1) { found.add(next); found.add(id); continue; }
+        if (st === 0) visit(next);
+      }
+      state.set(id, 2);
+    };
+    for (const id of order) if ((state.get(id) ?? 0) === 0) visit(id);
+    return found;
+  };
+  const cycleNodes = cyclesOver(successorsOf);
+  const routeCycles = [...cyclesOver(successEdges)].filter((id) => successSet.has(id)).sort();
+  if (routeCycles.length) {
+    throw new PresentationError(
+      `quest ${quest.id}: the route to completion loops through ${routeCycles.join(", ")} along success edges, ` +
+      "so there is no order in which a player walks it; a presentation must not invent one.",
+    );
+  }
+
+  // Is the route a single unbranched chain? Only then may a cadence be claimed for it.
   let linear = true;
   let branchAt = null;
   for (const id of successPath) {
@@ -210,15 +261,27 @@ export function extractStructure(quest, recordId) {
   }
 
   const reachableObjectives = order.map((id) => byId.get(id));
-  const encounters = reachableObjectives
-    .filter((o) => BATTLE_TASKS.has(o.task))
-    .map((o, i) => ({
+  // Encounters are ordered along the ROUTE, and battles that are not on it come after, unindexed
+  // and marked. Numbering an optional battle into the sequence is what made a 4+1 cadence read as
+  // five recurring fights before the first keeper, for a combined sequence no player can walk.
+  const routeBattles = successPath.map((id) => byId.get(id)).filter((o) => BATTLE_TASKS.has(o.task));
+  const offRouteBattles = reachableObjectives.filter((o) => BATTLE_TASKS.has(o.task) && !successSet.has(o.id));
+  const encounters = [
+    ...routeBattles.map((o, i) => ({
       index: i + 1,
       objectiveId: o.id,
       aiIds: opponentsOf(o),
-      onSuccessPath: successSet.has(o.id),
+      onSuccessPath: true,
       description: typeof o.description === "string" ? o.description : "",
-    }));
+    })),
+    ...offRouteBattles.map((o) => ({
+      index: null,
+      objectiveId: o.id,
+      aiIds: opponentsOf(o),
+      onSuccessPath: false,
+      description: typeof o.description === "string" ? o.description : "",
+    })),
+  ];
 
   const dialog = reachableObjectives.filter((o) => o.task === "dialog");
   const terminals = reachableObjectives.filter((o) => TERMINAL_TASKS.has(o.task));
@@ -238,6 +301,8 @@ export function extractStructure(quest, recordId) {
       objectives: objectives.length,
       reachableObjectives: reachableObjectives.length,
       battles: encounters.length,
+      routeBattles: routeBattles.length,
+      offRouteBattles: offRouteBattles.length,
       dialog: dialog.length,
       terminals: terminals.length,
       unreachable: objectives.length - reachableObjectives.length,
@@ -252,6 +317,7 @@ export function extractStructure(quest, recordId) {
     successPathLinear: linear,
     successPathBranchAt: branchAt,
     orphanStarts,
+    cycles: [...cycleNodes].sort(),
     reachedOnlyByFailure: [...viaFailure].filter((id) => !forwardOnly.has(id)),
     danglingLinks,
     // Scene assets are collected so the dossier can SAY they exist - and say that they are scene

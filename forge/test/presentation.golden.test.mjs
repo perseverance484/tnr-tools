@@ -38,9 +38,19 @@ test("two top-level structures, and they are Marrow Vaults and Stormcourt", () =
   }
 });
 
-test("25 battles each, 50 in total", () => {
-  assert.equal(dossier.structure[MARROW].counts.battles, 25);
-  assert.equal(dossier.structure[STORMCOURT].counts.battles, 25);
+test("25 battles each, 50 in total, and every one of them on the route", () => {
+  for (const questId of [MARROW, STORMCOURT]) {
+    const s = dossier.structure[questId];
+    assert.equal(s.counts.battles, 25);
+    assert.equal(s.counts.routeBattles, 25, `${s.name}: every battle must sit on the route to a win`);
+    assert.equal(s.counts.offRouteBattles, 0);
+    assert.deepEqual(s.cycles, [], `${s.name}: the objective graph must not loop`);
+    // the route is walked over success edges, ends at the win terminal, and every encounter is on it
+    assert.equal(s.successPath[0], s.entryObjectiveId);
+    assert.equal(s.successPath[s.successPath.length - 1], s.winIds[0]);
+    assert.deepEqual(s.encounters.filter((e) => !e.onSuccessPath), []);
+    assert.deepEqual(s.encounters.map((e) => e.index), s.encounters.map((_, i) => i + 1));
+  }
   assert.equal(dossier.totals.battles, 50);
 });
 

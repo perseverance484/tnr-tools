@@ -31,15 +31,18 @@ export function extractRoster(structures, currentById, roles = {}) {
   const appearances = new Map();
   const firstSeen = new Map();
   structures.forEach((s, componentIndex) => {
-    for (const e of s.encounters) {
+    // Off-route battles carry no route index, so they sort after every routed encounter of their
+    // component rather than poisoning the ordering with a NaN.
+    s.encounters.forEach((e, i) => {
+      const rank = componentIndex * 1e6 + (e.index ?? 500_000 + i);
       for (const aiId of e.aiIds) {
         if (!appearances.has(aiId)) {
           appearances.set(aiId, []);
-          firstSeen.set(aiId, componentIndex * 1e6 + e.index);
+          firstSeen.set(aiId, rank);
         }
-        appearances.get(aiId).push({ component: s.questId, objectiveId: e.objectiveId, index: e.index });
+        appearances.get(aiId).push({ component: s.questId, objectiveId: e.objectiveId, index: e.index, onSuccessPath: e.onSuccessPath });
       }
-    }
+    });
   });
 
   const problems = [];
@@ -80,9 +83,15 @@ export function extractRoster(structures, currentById, roles = {}) {
   return { entries, problems, unannotated, unknownAnnotations };
 }
 
-/** The role sequence of one structure's battles, for cadenceOf(). */
+/**
+ * The role sequence of one structure's ROUTE battles, for cadenceOf().
+ *
+ * Off-route battles are excluded on purpose (independent review R3): an optional fight the player
+ * may take instead of advancing is not part of the rhythm of the clear, and folding it in reported
+ * five recurring fights before the first keeper for a sequence nobody can walk.
+ */
 export function roleSequence(structure, roles) {
-  return structure.encounters.map((e) => {
+  return structure.encounters.filter((e) => e.onSuccessPath).map((e) => {
     const ids = e.aiIds;
     if (ids.length !== 1) return "mixed";
     const role = roles[ids[0]];
@@ -94,7 +103,7 @@ export function roleSequence(structure, roles) {
   });
 }
 
-/** Keeper-role battles of one structure. */
+/** Keeper-role battles on one structure's route. */
 export function keepersOf(structure, roles) {
-  return structure.encounters.filter((e) => e.aiIds.length === 1 && KEEPER_ROLES.includes(roles[e.aiIds[0]]));
+  return structure.encounters.filter((e) => e.onSuccessPath && e.aiIds.length === 1 && KEEPER_ROLES.includes(roles[e.aiIds[0]]));
 }

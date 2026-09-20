@@ -54,6 +54,9 @@ export function lintPresentation(dossier, spec, { requireExactBytes = false } = 
     if (s.danglingLinks.length) {
       out.push(finding(WARN, "dangling-link", `${s.name}: ${s.danglingLinks.length} objective link(s) point at an id the record does not contain (${s.danglingLinks.slice(0, 3).join(", ")})`));
     }
+    if (s.cycles.length) {
+      out.push(finding(WARN, "objective-cycle", `${s.name}: the objective graph loops through ${s.cycles.join(", ")} once failure links are followed; the pinned flow validator rejects a cycle, so this record is malformed even though the route to completion is still well defined`));
+    }
     if (s.orphanStarts.length) {
       out.push(finding(WARN, "orphan-objectives", `${s.name}: ${s.orphanStarts.length} objective(s) nothing points at and nothing reaches (${s.orphanStarts.join(", ")}); they are detached remnants, not part of this quest`));
     }
