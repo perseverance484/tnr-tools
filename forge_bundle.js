@@ -1,4 +1,4 @@
-// TNR forge bundle v0.5.0 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.5.1 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Comments are stripped from this artifact by forge/tools/strip_comments.mjs and the strip is proven
 // equivalent to the unstripped build at build time; every comment is still in forge/src.
@@ -8886,7 +8886,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     questContent: 52
   };
 
-  var VERSION = "forge 0.5.0";
+  var VERSION = "forge 0.5.1";
   function sha256(bytes, subtle = globalThis.crypto && globalThis.crypto.subtle) {
     if (!subtle || typeof subtle.digest !== "function") {
       return Promise.reject(new Error("crypto.subtle is unavailable (WebCrypto needs a secure context), so repo-backed image bytes cannot be verified"));
