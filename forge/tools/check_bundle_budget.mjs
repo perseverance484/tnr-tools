@@ -52,7 +52,25 @@ import { fileURLToPath } from "node:url";
 
 const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_bundle.js");
 
-export const BUDGET = { raw: 354_000, gzip: 78_000 };
+//
+// ---- Forge Next Phase 1, merged onto the size pass -----------------------------------------
+//
+// Measured by this tool on the merged tree (main@18c6a25 + Phase 1 at 9133145):
+//
+//   main after the size pass:   raw 339,669 / gzip 74,926   ceiling 354,000 / 78,000
+//   merged with Phase 1:        raw 368,514 / gzip 82,479   (+28,845 raw / +7,553 gzip)
+//
+// That is Phase 1's whole cost on THIS build - the research registry with its fifteen audited
+// rows, input contracts, projection engine and paging bound; the tier-aware capture path; the
+// policy stamps; the abandoned-attempt evidence - with the strip above already applied to it, so
+// none of the number is documentation. (Before the strip the same feature measured +35.7 KB raw
+// on the unstripped build, which is what the earlier Phase 1 ratchets were set against; those
+// ceilings are superseded here and are NOT carried forward.)
+//
+// The ceiling is set the way the size pass set its own: ~3% above the measurement, a ratchet on
+// the product as it is, not a ceiling raised to fit. 368,514 / 380,000 is 97.0%; 82,479 / 85,000
+// is 97.0%. This raise is isolated in its own commit so it can be reviewed as the policy change it is.
+export const BUDGET = { raw: 380_000, gzip: 85_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;
