@@ -509,12 +509,13 @@
         },
         {
           "kind": "decision",
-          "ref": "SUPERSEDED: the five-item candidate af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f carried two standalone aiProfile creates, which Forge 0.4.1 refuses at parse time before job creation or mutation. Corrected in place to three items with the rules on their owning ai entries; approved combat content, rule order, jutsu ids and the quest payload are unchanged. The rev-1 independent PASS does not carry over and a narrow re-review is owed",
+          "ref": "SUPERSEDED: the five-item candidate af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f carried two standalone aiProfile creates, which Forge 0.4.1 refused before job creation or mutation. Revision 2 moved the unchanged rule sets onto their owning ai creates; the corrected implementation at 6cce22e3fad0e08344cb2f3252bdf04909632983 passed the narrow independent re-review.",
           "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"
         },
         {
           "kind": "sha",
-          "ref": "af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f"
+          "ref": "6cce22e3fad0e08344cb2f3252bdf04909632983",
+          "note": "final corrected revision-2 implementation reviewed PASS and used for the hidden run"
         }
       ]
     },
