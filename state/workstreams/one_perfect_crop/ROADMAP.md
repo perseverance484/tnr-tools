@@ -5,9 +5,9 @@
 - **Slug:** `one_perfect_crop`
 - **Content type:** event
 - **Status:** ACTIVE
-- **Progress:** 7/16 settled - planned 2, ready 6, blocked 1, complete 7
+- **Progress:** 9/16 settled - planned 1, ready 5, blocked 1, complete 9
 
-Deliver a reviewed hidden core manifest now; finish art/admin in a later launch-final patch.
+Finish One Perfect Crop launch-final prose, art, scene wiring and admin content from the already reviewed and user-run hidden core, then complete final hidden readback before any publish decision.
 
 This roadmap is **coordination state, not canon.** It points at the authoritative sources below and never restates them. `docs/00_INDEX.md` remains the only precedence table; `state/active-context.md` and `state/status.json` remain the global session state.
 
@@ -20,6 +20,10 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `state/one_perfect_crop_combat_spec.md` | Exact combat contract. |
 | `state/one_perfect_crop_content_admin_open.md` | Deferred launch-final admin decisions. |
 | `docs/00_INDEX.md` | Precedence/evidence rules. |
+| `state/one_perfect_crop_launch_final_prose_patch.md` | Queued G1/G4 launch-final prose patch; do not apply as a separate hidden-core hotfix. |
+| `docs/reviews/ONE_PERFECT_CROP_CORE_MANIFEST_FORGE041_R2_REVIEW.md` | Durable PASS review of the corrected Forge 0.4.1 revision-2 manifest. |
+| `harvests/inbox/tnr_results_1789599042548.json` | User-run hidden-core Forge result/readback bundle. |
+| `docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md` | Readback closeout explaining the two non-content AI verifier drifts. |
 
 ## Tasks
 
@@ -37,10 +41,10 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `art.backgrounds` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes` | Node-to-background mapping. |
 | `admin.balance_and_eligibility` | READY | dauntless | `design.structure` | Deferred launch-final admin values. |
 | `build.final_freeze` | COMPLETE | ChatGPT | `prose.final`, `content.combat_ai_profiles` | state/prompt_one_perfect_crop.md. |
-| `build.manifest` | COMPLETE | Fable | `build.final_freeze` | Create two AIs, two profiles and the quest; no assets/items/jutsu. |
-| `review.manifest` | READY | ChatGPT | `build.manifest` | Graph/combat/placeholder/safety review. |
-| `production.run_and_readback` | PLANNED | dauntless | `review.manifest` | User-only hidden execution/readback. |
-| `launch.finalization` | PLANNED | shared | `art.intake_accepted_assets`, `art.scene_characters`, `art.combat_avatars`, `art.icons`, `art.backgrounds`, `admin.balance_and_eligibility`, `review.manifest` | Final art/admin patch and hidden readback. |
+| `build.manifest` | COMPLETE | Fable | `build.final_freeze` | Create two AIs carrying their rules plus the quest; no assets/items/jutsu. |
+| `review.manifest` | COMPLETE | ChatGPT | `build.manifest` | Graph/combat/placeholder/safety review. |
+| `production.run_and_readback` | COMPLETE | dauntless | `review.manifest` | User-only hidden execution/readback. |
+| `launch.finalization` | PLANNED | shared | `art.intake_accepted_assets`, `art.scene_characters`, `art.combat_avatars`, `art.icons`, `art.backgrounds`, `admin.balance_and_eligibility`, `review.manifest` | Queued G1/G4 prose edits, final art/scene wiring, Cabbage Seed/rewards/gates, launch-final patch and hidden readback. |
 
 ## Executable now
 
@@ -54,8 +58,6 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.backgrounds`
 - **`admin.balance_and_eligibility`** (READY) - Launch-final admin decisions
   - `python3 scripts/content_workstream.py init one_perfect_crop --task admin.balance_and_eligibility`
-- **`review.manifest`** (READY) - Exact-SHA core-manifest review
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task review.manifest`
 
 ## Blocked
 
@@ -70,12 +72,10 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 - `art.icons`: Final art acceptance is user-owned.
 - `art.backgrounds`: Any new-background decision is user-owned.
 - `admin.balance_and_eligibility`: Rewards, Cabbage Seed type/rarity/economics, repeatability and eligibility remain user-owned.
-- `production.run_and_readback`: Whether to run the hidden core manifest before launch finalization is user-owned.
 
 ## Waiting on dependencies
 
-- `production.run_and_readback` - waiting on `review.manifest` (READY)
-- `launch.finalization` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.icons` (READY), `art.backgrounds` (READY), `admin.balance_and_eligibility` (READY), `review.manifest` (READY)
+- `launch.finalization` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.icons` (READY), `art.backgrounds` (READY), `admin.balance_and_eligibility` (READY)
 
 ## Completed, with evidence
 
@@ -114,6 +114,18 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 - decision: Art, rewards, Cabbage Seed, repeatability and eligibility stay create-path placeholders; validate.py law 41 scoped to includeDefaultRules:false so the frozen three-rule profiles validate without skipPreflight
 - decision: SUPERSEDED: the five-item candidate af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f carried two standalone aiProfile creates, which Forge 0.4.1 refuses at parse time before job creation or mutation. Corrected in place to three items with the rules on their owning ai entries; approved combat content, rule order, jutsu ids and the quest payload are unchanged. The rev-1 independent PASS does not carry over and a narrow re-review is owed
 - sha: af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f
+
+### `review.manifest` - Exact-SHA core-manifest review (COMPLETE)
+
+- path: `docs/reviews/ONE_PERFECT_CROP_CORE_MANIFEST_FORGE041_R2_REVIEW.md`
+- sha: 6cce22e3fad0e08344cb2f3252bdf04909632983 - exact corrected Fable implementation SHA reviewed PASS
+- sha: fba3e54c86bfdb681ca9bd9c3b884d2c475add4f - durable ChatGPT revision-2 review commit
+
+### `production.run_and_readback` - Optional hidden core run/readback (COMPLETE)
+
+- capture: `harvests/inbox/tnr_results_1789599042548.json`
+- path: `docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md`
+- decision: Do not rerun manifest #47 as a new create job; the hidden-core records already exist. Forge's AI drift flags are documented verifier false positives, not a request for a repair write.
 
 ## Task detail
 
@@ -390,7 +402,7 @@ Build the validator-clean hidden core manifest.
 
 **Scope**
 
-- Create two AIs, two profiles and the quest; no assets/items/jutsu.
+- Create two AIs carrying their rules plus the quest; no assets/items/jutsu.
 
 **Required resources**
 
@@ -407,7 +419,7 @@ Build the validator-clean hidden core manifest.
 
 ### `review.manifest` - Exact-SHA core-manifest review
 
-**READY** - area review, owner ChatGPT, lead role Engineering Auditor
+**COMPLETE** - area review, owner ChatGPT, lead role Engineering Auditor
 
 Independently audit the frozen Fable SHA.
 
@@ -429,7 +441,7 @@ Independently audit the frozen Fable SHA.
 
 ### `production.run_and_readback` - Optional hidden core run/readback
 
-**PLANNED** - area production, owner dauntless, lead role Release Auditor
+**COMPLETE** - area production, owner dauntless, lead role Release Auditor
 
 Optionally execute only the reviewed hidden core manifest and verify fresh readback.
 
@@ -443,11 +455,11 @@ Optionally execute only the reviewed hidden core manifest and verify fresh readb
 
 **Deliverables**
 
-- Result/readback evidence if run.
+- Committed hidden-core Forge result/readback evidence and durable closeout analysis.
 
 **Completion gates**
 
-- Only user acts live and all records remain hidden.
+- User alone performed the live run; created records were read back and the hidden-core result was durably classified.
 
 ### `launch.finalization` - Launch-final art/admin patch and readiness
 
@@ -457,16 +469,20 @@ Replace placeholders and add final rewards/item/gates before publish.
 
 **Scope**
 
-- Final art/admin patch and hidden readback.
+- Queued G1/G4 prose edits, final art/scene wiring, Cabbage Seed/rewards/gates, launch-final patch and hidden readback.
 
 **Required resources**
 
 - `state/one_perfect_crop_core_manifest_override.md` - Defines deferred work.
+- `state/one_perfect_crop_launch_final_prose_patch.md` - Approved G1/G4 prose direction queued for the final quest edit.
+- `docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md` - Baseline hidden-core IDs/readback and verifier-noise classification.
 
 **Deliverables**
 
-- Reviewed launch-final patch and clean hidden readback.
+- Reviewed launch-final edit manifest covering queued prose, final art/scene wiring, Cabbage Seed/rewards/gates, followed by clean hidden readback.
 
 **Completion gates**
 
-- All deferred work is closed before any publish decision.
+- Queued G1/G4 prose patch is applied without graph/ID drift.
+- All deferred art/admin work is closed or explicitly accepted as final.
+- Launch-final hidden readback is clean before any publish decision.
