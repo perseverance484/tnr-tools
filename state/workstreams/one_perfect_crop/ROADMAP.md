@@ -5,7 +5,7 @@
 - **Slug:** `one_perfect_crop`
 - **Content type:** event
 - **Status:** ACTIVE
-- **Progress:** 7/16 settled - planned 2, ready 6, blocked 1, complete 7
+- **Progress:** 7/16 settled - planned 2, ready 5, in_progress 1, blocked 1, complete 7
 
 Deliver a reviewed hidden core manifest now; finish art/admin in a later launch-final patch.
 
@@ -31,7 +31,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `research.bandit_ai` | COMPLETE | shared | `design.structure` | Candidate review. |
 | `content.combat_ai_profiles` | COMPLETE | ChatGPT | `design.structure`, `research.bandit_ai` | Road Bandit and Harvest Boar combat contracts. |
 | `art.intake_accepted_assets` | BLOCKED | dauntless | `design.structure` | Accepted art intake. |
-| `art.scene_characters` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | Launch-final scene characters. |
+| `art.scene_characters` | IN_PROGRESS | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | Launch-final scene characters. |
 | `art.combat_avatars` | READY | ChatGPT | `design.structure`, `research.bandit_ai` | Launch-final AI avatars. |
 | `art.icons` | READY | ChatGPT | `design.structure` | Launch-final item icon. |
 | `art.backgrounds` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes` | Node-to-background mapping. |
@@ -44,8 +44,8 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 ## Executable now
 
-- **`art.scene_characters`** (READY) - Launch-final scene characters
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task art.scene_characters`
+- **`art.scene_characters`** (IN_PROGRESS) - Launch-final scene characters
+  - resume: Road Bandit candidate one_perfect_crop_road_bandit_scene.webp is generated, processed and QC-clean; Market Clerk reuse DM Mission Clerk is confirmed. Awaiting user visual acceptance and accepted-byte/native-preflight finalization.
 - **`art.combat_avatars`** (READY) - Launch-final combat avatars
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.combat_avatars`
 - **`art.icons`** (READY) - Launch-final Cabbage Seed icon
@@ -75,7 +75,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 ## Waiting on dependencies
 
 - `production.run_and_readback` - waiting on `review.manifest` (READY)
-- `launch.finalization` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.icons` (READY), `art.backgrounds` (READY), `admin.balance_and_eligibility` (READY), `review.manifest` (READY)
+- `launch.finalization` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (IN_PROGRESS), `art.combat_avatars` (READY), `art.icons` (READY), `art.backgrounds` (READY), `admin.balance_and_eligibility` (READY), `review.manifest` (READY)
 
 ## Completed, with evidence
 
@@ -251,7 +251,7 @@ Make accepted Ittetsu/Keeper/quest-icon bytes durable for launch finalization.
 
 ### `art.scene_characters` - Launch-final scene characters
 
-**READY** - area art, owner ChatGPT, lead role Image Production
+**IN_PROGRESS** - area art, owner ChatGPT, lead role Image Production
 
 Finish Road Bandit scene art and Market Clerk reuse.
 
