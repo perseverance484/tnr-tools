@@ -362,8 +362,9 @@ Logical IDs below are stable handoff labels. Fable may use these exact IDs as en
 
 - task: `win_quest`
 - completion text: `<i>Ittetsu and the shipment reached their destination. What happened after that is, thankfully, the market's problem.</i>`
-- guaranteed reward item: `Cabbage Seed x1`
-- all other reward numbers remain content-admin owned until explicitly supplied.
+- mechanical quest reward: none
+- the surviving seed in D5 remains narrative flavor only; do not create or grant a Cabbage Seed item
+- no Ryo, XP, token, or other standard-currency reward
 
 ---
 
