@@ -32,3 +32,19 @@ The submitted `Farming level 15` requirement remains unresolved. It must not be 
 ## Core-manifest consequence
 
 The core manifest is intentionally a reversible hidden skeleton with complete gameplay and combat content but temporary visual/admin defaults. It is suitable for repository integration and independent review. It is not, by itself, approval to publish or a claim that the event's rewards, eligibility, repeatability, item definition, or final art are complete.
+
+## Launch-final resolution — 2026-09-24
+
+The later content-admin decision closes the launch-final values that this hidden-core override intentionally deferred.
+
+For the final quest edit:
+
+- author no Ryo, XP, token, or other standard-currency reward;
+- do not create or grant a Cabbage Seed item; the surviving seed may remain narrative flavor only;
+- set `maxAttempts: 100`;
+- set `maxCompletes: 1`;
+- author no retry/attempt cooldown fields (`retryDelay` and `attemptDelay` remain unset);
+- disregard the submitted Farming level 15 eligibility requirement and author no substitute gate.
+
+This later launch-final resolution supersedes only the previously deferred admin/item requirements. It does not alter the hidden-core execution history, quest graph, combat contracts, scene-art requirements, or separate publish/unhide boundary.
+
