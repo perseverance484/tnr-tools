@@ -5,7 +5,7 @@
 - **Slug:** `one_perfect_crop`
 - **Content type:** event
 - **Status:** ACTIVE
-- **Progress:** 9/16 settled - planned 1, ready 5, blocked 1, complete 9
+- **Progress:** 11/16 settled - planned 1, ready 3, blocked 1, complete 10, skipped 1
 
 Finish One Perfect Crop launch-final prose, art, scene wiring and admin content from the already reviewed and user-run hidden core, then complete final hidden readback before any publish decision.
 
@@ -18,7 +18,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `state/one_perfect_crop_core_manifest_override.md` | Newest core-manifest ruling. |
 | `state/one_perfect_crop_prose_graph.md` | Frozen prose/graph. |
 | `state/one_perfect_crop_combat_spec.md` | Exact combat contract. |
-| `state/one_perfect_crop_content_admin_open.md` | Deferred launch-final admin decisions. |
+| `state/one_perfect_crop_content_admin_open.md` | Resolved launch-final admin decisions: no reward/item, maxAttempts 100, maxCompletes 1, no cooldown, no eligibility gate. |
 | `docs/00_INDEX.md` | Precedence/evidence rules. |
 | `state/one_perfect_crop_launch_final_prose_patch.md` | Queued G1/G4 launch-final prose patch; do not apply as a separate hidden-core hotfix. |
 | `docs/reviews/ONE_PERFECT_CROP_CORE_MANIFEST_FORGE041_R2_REVIEW.md` | Durable PASS review of the corrected Forge 0.4.1 revision-2 manifest. |
@@ -37,14 +37,14 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `art.intake_accepted_assets` | BLOCKED | dauntless | `design.structure` | Accepted art intake. |
 | `art.scene_characters` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | Launch-final scene characters. |
 | `art.combat_avatars` | READY | ChatGPT | `design.structure`, `research.bandit_ai` | Launch-final AI avatars. |
-| `art.icons` | READY | ChatGPT | `design.structure` | Launch-final item icon. |
+| `art.icons` | SKIPPED | ChatGPT | `design.structure` | No Cabbage Seed icon production. |
 | `art.backgrounds` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes` | Node-to-background mapping. |
-| `admin.balance_and_eligibility` | READY | dauntless | `design.structure` | Deferred launch-final admin values. |
+| `admin.balance_and_eligibility` | COMPLETE | dauntless | `design.structure` | No reward package; no Cabbage Seed item; maxAttempts 100; maxCompletes 1; no cooldown; no eligibility gate. |
 | `build.final_freeze` | COMPLETE | ChatGPT | `prose.final`, `content.combat_ai_profiles` | state/prompt_one_perfect_crop.md. |
 | `build.manifest` | COMPLETE | Fable | `build.final_freeze` | Create two AIs carrying their rules plus the quest; no assets/items/jutsu. |
 | `review.manifest` | COMPLETE | ChatGPT | `build.manifest` | Graph/combat/placeholder/safety review. |
 | `production.run_and_readback` | COMPLETE | dauntless | `review.manifest` | User-only hidden execution/readback. |
-| `launch.finalization` | PLANNED | shared | `art.intake_accepted_assets`, `art.scene_characters`, `art.combat_avatars`, `art.icons`, `art.backgrounds`, `admin.balance_and_eligibility`, `review.manifest` | Queued G1/G4 prose edits, final art/scene wiring, Cabbage Seed/rewards/gates, launch-final patch and hidden readback. |
+| `launch.finalization` | PLANNED | shared | `art.intake_accepted_assets`, `art.scene_characters`, `art.combat_avatars`, `art.icons`, `art.backgrounds`, `admin.balance_and_eligibility`, `review.manifest` | Queued G1/G4 prose edits, final accepted art/scene wiring, maxAttempts 100, maxCompletes 1, no cooldown, no rewards/item/eligibility gate, launch-final patch and hidden readback. |
 
 ## Executable now
 
@@ -52,12 +52,8 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.scene_characters`
 - **`art.combat_avatars`** (READY) - Launch-final combat avatars
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.combat_avatars`
-- **`art.icons`** (READY) - Launch-final Cabbage Seed icon
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task art.icons`
 - **`art.backgrounds`** (READY) - Launch-final scene wiring
   - `python3 scripts/content_workstream.py init one_perfect_crop --task art.backgrounds`
-- **`admin.balance_and_eligibility`** (READY) - Launch-final admin decisions
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task admin.balance_and_eligibility`
 
 ## Blocked
 
@@ -69,13 +65,11 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 - `art.scene_characters`: Final art acceptance is user-owned.
 - `art.combat_avatars`: Final art acceptance is user-owned.
-- `art.icons`: Final art acceptance is user-owned.
 - `art.backgrounds`: Any new-background decision is user-owned.
-- `admin.balance_and_eligibility`: Rewards, Cabbage Seed type/rarity/economics, repeatability and eligibility remain user-owned.
 
 ## Waiting on dependencies
 
-- `launch.finalization` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.icons` (READY), `art.backgrounds` (READY), `admin.balance_and_eligibility` (READY)
+- `launch.finalization` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.backgrounds` (READY)
 
 ## Completed, with evidence
 
@@ -98,6 +92,15 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 ### `content.combat_ai_profiles` - Implementation-exact combat spec (COMPLETE)
 
 - path: `state/one_perfect_crop_combat_spec.md`
+
+### `art.icons` - Launch-final Cabbage Seed icon (SKIPPED)
+
+- decision: Cabbage Seed item/icon work is skipped for launch-final; no mechanical Cabbage Seed reward will be authored.
+
+### `admin.balance_and_eligibility` - Launch-final admin decisions (COMPLETE)
+
+- path: `state/one_perfect_crop_content_admin_open.md`
+- decision: Launch-final: no Ryo/XP/token rewards; no Cabbage Seed item/reward; maxAttempts 100; maxCompletes 1; retryDelay and attemptDelay unset; no eligibility gate.
 
 ### `build.final_freeze` - Hidden core-manifest build freeze (COMPLETE)
 
@@ -307,13 +310,13 @@ Finish Road Bandit and Harvest Boar avatars.
 
 ### `art.icons` - Launch-final Cabbage Seed icon
 
-**READY** - area art, owner ChatGPT, lead role Image Production
+**SKIPPED** - area art, owner ChatGPT, lead role Image Production
 
-Finish the Cabbage Seed icon.
+Skipped by director: launch-final will not create a Cabbage Seed item or dedicated icon.
 
 **Scope**
 
-- Launch-final item icon.
+- No Cabbage Seed icon production.
 
 **Required resources**
 
@@ -321,11 +324,11 @@ Finish the Cabbage Seed icon.
 
 **Deliverables**
 
-- Accepted item icon.
+- No icon produced; task intentionally skipped by director decision.
 
 **Completion gates**
 
-- User accepts final icon.
+- Director skip decision is recorded in state/one_perfect_crop_content_admin_open.md.
 
 ### `art.backgrounds` - Launch-final scene wiring
 
@@ -351,21 +354,21 @@ Finish explicit launch-final background wiring.
 
 ### `admin.balance_and_eligibility` - Launch-final admin decisions
 
-**READY** - area admin, owner dauntless, lead role Content Designer
+**COMPLETE** - area admin, owner dauntless, lead role Content Designer
 
-Resolve rewards, Cabbage Seed economics, repeatability and eligibility for launch.
+Record the director-approved launch-final reward, repeatability and eligibility decisions.
 
 **Scope**
 
-- Deferred launch-final admin values.
+- No reward package; no Cabbage Seed item; maxAttempts 100; maxCompletes 1; no cooldown; no eligibility gate.
 
 **Required resources**
 
-- `state/one_perfect_crop_content_admin_open.md` - Open admin packet.
+- `state/one_perfect_crop_content_admin_open.md` - Resolved launch-final admin contract.
 
 **Deliverables**
 
-- Exact user-approved launch values.
+- Exact director-approved launch-final admin values.
 
 **Completion gates**
 
@@ -465,24 +468,26 @@ Optionally execute only the reviewed hidden core manifest and verify fresh readb
 
 **PLANNED** - area production, owner shared, lead role Release Auditor
 
-Replace placeholders and add final rewards/item/gates before publish.
+Apply queued prose, final art/scene wiring and resolved repeatability settings before publish.
 
 **Scope**
 
-- Queued G1/G4 prose edits, final art/scene wiring, Cabbage Seed/rewards/gates, launch-final patch and hidden readback.
+- Queued G1/G4 prose edits, final accepted art/scene wiring, maxAttempts 100, maxCompletes 1, no cooldown, no rewards/item/eligibility gate, launch-final patch and hidden readback.
 
 **Required resources**
 
 - `state/one_perfect_crop_core_manifest_override.md` - Defines deferred work.
 - `state/one_perfect_crop_launch_final_prose_patch.md` - Approved G1/G4 prose direction queued for the final quest edit.
 - `docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md` - Baseline hidden-core IDs/readback and verifier-noise classification.
+- `state/one_perfect_crop_content_admin_open.md` - Resolved launch-final reward/repeatability/eligibility contract.
 
 **Deliverables**
 
-- Reviewed launch-final edit manifest covering queued prose, final art/scene wiring, Cabbage Seed/rewards/gates, followed by clean hidden readback.
+- Reviewed launch-final edit manifest covering queued prose, final art/scene wiring and resolved quest admin fields, followed by clean hidden readback.
 
 **Completion gates**
 
 - Queued G1/G4 prose patch is applied without graph/ID drift.
-- All deferred art/admin work is closed or explicitly accepted as final.
+- Resolved admin decisions are copied exactly: no rewards/item/eligibility gate; maxAttempts 100; maxCompletes 1; no cooldown fields.
+- All remaining art/scene work is closed or explicitly accepted as final.
 - Launch-final hidden readback is clean before any publish decision.
