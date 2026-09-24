@@ -6,7 +6,7 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |
-| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 9/16 settled - planned 1, ready 5, blocked 1, complete 9 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
+| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 11/16 settled - planned 1, ready 3, blocked 1, complete 10, skipped 1 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
 
 ## One Perfect Crop
 
@@ -16,9 +16,7 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 - `art.scene_characters` (READY) - Launch-final scene characters
 - `art.combat_avatars` (READY) - Launch-final combat avatars
-- `art.icons` (READY) - Launch-final Cabbage Seed icon
 - `art.backgrounds` (READY) - Launch-final scene wiring
-- `admin.balance_and_eligibility` (READY) - Launch-final admin decisions
 
 **Blocked**
 
