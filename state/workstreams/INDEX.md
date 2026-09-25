@@ -6,20 +6,17 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |
-| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 11/16 settled - planned 1, ready 3, blocked 1, complete 10, skipped 1 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
+| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 13/16 settled - blocked 2, complete 11, skipped 2, superseded 1 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
 
 ## One Perfect Crop
 
 `state/workstreams/one_perfect_crop/roadmap.json`
 
-**Executable now**
-
-- `art.scene_characters` (READY) - Launch-final scene characters
-- `art.combat_avatars` (READY) - Launch-final combat avatars
-- `art.backgrounds` (READY) - Launch-final scene wiring
+**Executable now:** none.
 
 **Blocked**
 
-- `art.intake_accepted_assets` - Exact accepted bytes are not durable in the repository; this blocks launch finalization only.
+- `art.combat_avatars` - The accepted Harvest Boar source byte is not present in the repository, current conversation files, or available recent Library files. The exact accepted source must be recovered before repo-native processing/QC can finish the two-avatar pack.
+- `launch.finalization` - Launch-final generation cannot be frozen until the accepted Harvest Boar avatar source is recovered, processed, preflighted, and committed so imagePack can bind both accepted avatar bytes.
 
 Start a session: `python3 scripts/content_workstream.py init one_perfect_crop --task <id>`
