@@ -5,7 +5,7 @@
 - **Slug:** `one_perfect_crop`
 - **Content type:** event
 - **Status:** ACTIVE
-- **Progress:** 11/16 settled - planned 1, ready 3, blocked 1, complete 10, skipped 1
+- **Progress:** 13/16 settled - blocked 2, complete 11, skipped 2, superseded 1
 
 Finish One Perfect Crop launch-final prose, art, scene wiring and admin content from the already reviewed and user-run hidden core, then complete final hidden readback before any publish decision.
 
@@ -34,42 +34,27 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `research.asset_probes` | COMPLETE | dauntless | `design.structure` | Read-only captures. |
 | `research.bandit_ai` | COMPLETE | shared | `design.structure` | Candidate review. |
 | `content.combat_ai_profiles` | COMPLETE | ChatGPT | `design.structure`, `research.bandit_ai` | Road Bandit and Harvest Boar combat contracts. |
-| `art.intake_accepted_assets` | BLOCKED | dauntless | `design.structure` | Accepted art intake. |
-| `art.scene_characters` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | Launch-final scene characters. |
-| `art.combat_avatars` | READY | ChatGPT | `design.structure`, `research.bandit_ai` | Launch-final AI avatars. |
+| `art.intake_accepted_assets` | SUPERSEDED | dauntless | `design.structure` | Accepted art intake. |
+| `art.scene_characters` | SKIPPED | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | Launch-final scene characters. |
+| `art.combat_avatars` | BLOCKED | ChatGPT | `design.structure`, `research.bandit_ai` | Launch-final AI avatars. |
 | `art.icons` | SKIPPED | ChatGPT | `design.structure` | No Cabbage Seed icon production. |
-| `art.backgrounds` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes` | Node-to-background mapping. |
+| `art.backgrounds` | COMPLETE | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes` | Node-to-background mapping. |
 | `admin.balance_and_eligibility` | COMPLETE | dauntless | `design.structure` | No reward package; no Cabbage Seed item; maxAttempts 100; maxCompletes 1; no cooldown; no eligibility gate. |
 | `build.final_freeze` | COMPLETE | ChatGPT | `prose.final`, `content.combat_ai_profiles` | state/prompt_one_perfect_crop.md. |
 | `build.manifest` | COMPLETE | Fable | `build.final_freeze` | Create two AIs carrying their rules plus the quest; no assets/items/jutsu. |
 | `review.manifest` | COMPLETE | ChatGPT | `build.manifest` | Graph/combat/placeholder/safety review. |
 | `production.run_and_readback` | COMPLETE | dauntless | `review.manifest` | User-only hidden execution/readback. |
-| `launch.finalization` | PLANNED | shared | `art.intake_accepted_assets`, `art.scene_characters`, `art.combat_avatars`, `art.icons`, `art.backgrounds`, `admin.balance_and_eligibility`, `review.manifest` | Queued G1/G4 prose edits, final accepted art/scene wiring, maxAttempts 100, maxCompletes 1, no cooldown, no rewards/item/eligibility gate, launch-final patch and hidden readback. |
-
-## Executable now
-
-- **`art.scene_characters`** (READY) - Launch-final scene characters
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task art.scene_characters`
-- **`art.combat_avatars`** (READY) - Launch-final combat avatars
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task art.combat_avatars`
-- **`art.backgrounds`** (READY) - Launch-final scene wiring
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task art.backgrounds`
+| `launch.finalization` | BLOCKED | shared | `art.combat_avatars`, `art.backgrounds`, `admin.balance_and_eligibility`, `production.run_and_readback` | Queued G1/G4 prose edits, final accepted art/scene wiring, maxAttempts 100, maxCompletes 1, no cooldown, no rewards/item/eligibility gate, launch-final patch and hidden readback. |
 
 ## Blocked
 
-### `art.intake_accepted_assets` - Accepted-art repository intake
+### `art.combat_avatars` - Launch-final combat avatars
 
-- BLOCKER: Exact accepted bytes are not durable in the repository; this blocks launch finalization only.
+- BLOCKER: The accepted Harvest Boar source byte is not present in the repository, current conversation files, or available recent Library files. The exact accepted source must be recovered before repo-native processing/QC can finish the two-avatar pack.
 
-## Other open decisions
+### `launch.finalization` - Launch-final art/admin patch and readiness
 
-- `art.scene_characters`: Final art acceptance is user-owned.
-- `art.combat_avatars`: Final art acceptance is user-owned.
-- `art.backgrounds`: Any new-background decision is user-owned.
-
-## Waiting on dependencies
-
-- `launch.finalization` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.backgrounds` (READY)
+- BLOCKER: Launch-final generation cannot be frozen until the accepted Harvest Boar avatar source is recovered, processed, preflighted, and committed so imagePack can bind both accepted avatar bytes.
 
 ## Completed, with evidence
 
@@ -93,9 +78,22 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 - path: `state/one_perfect_crop_combat_spec.md`
 
+### `art.intake_accepted_assets` - Accepted-art repository intake (SUPERSEDED)
+
+- decision: The 2026-09-24 launch-final scope supersedes the older broad accepted-art intake gate; only the two battle AI avatars remain in launch scope.
+
+### `art.scene_characters` - Launch-final scene characters (SKIPPED)
+
+- decision: Scene-character production is skipped/nonblocking for launch finalization; Road Bandit scene character is explicitly skipped.
+
 ### `art.icons` - Launch-final Cabbage Seed icon (SKIPPED)
 
 - decision: Cabbage Seed item/icon work is skipped for launch-final; no mechanical Cabbage Seed reward will be authored.
+
+### `art.backgrounds` - Launch-final scene wiring (COMPLETE)
+
+- path: `state/workstreams/one_perfect_crop/launch_final_patch.json`
+- decision: Launch finalization reuses only already-captured scene/background ids; no new background generation is required.
 
 ### `admin.balance_and_eligibility` - Launch-final admin decisions (COMPLETE)
 
@@ -244,7 +242,7 @@ Freeze both AI records and AiProfiles.
 
 ### `art.intake_accepted_assets` - Accepted-art repository intake
 
-**BLOCKED** - area art, owner dauntless, lead role Image Production
+**SUPERSEDED** - area art, owner dauntless, lead role Image Production
 
 Make accepted Ittetsu/Keeper/quest-icon bytes durable for launch finalization.
 
@@ -266,7 +264,7 @@ Make accepted Ittetsu/Keeper/quest-icon bytes durable for launch finalization.
 
 ### `art.scene_characters` - Launch-final scene characters
 
-**READY** - area art, owner ChatGPT, lead role Image Production
+**SKIPPED** - area art, owner ChatGPT, lead role Image Production
 
 Finish Road Bandit scene art and Market Clerk reuse.
 
@@ -288,7 +286,7 @@ Finish Road Bandit scene art and Market Clerk reuse.
 
 ### `art.combat_avatars` - Launch-final combat avatars
 
-**READY** - area art, owner ChatGPT, lead role Image Production
+**BLOCKED** - area art, owner ChatGPT, lead role Image Production
 
 Finish Road Bandit and Harvest Boar avatars.
 
@@ -298,7 +296,9 @@ Finish Road Bandit and Harvest Boar avatars.
 
 **Required resources**
 
-- `state/plan_one_perfect_crop_finish.md` - Avatar requirements.
+- `state/plan_one_perfect_crop_finish.md` - Avatar requirements and filenames.
+- `state/one_perfect_crop_launch_final_scope.md` - Director-narrowed accepted art scope.
+- `state/workstreams/one_perfect_crop/launch_final_patch.json` - Machine launch-final avatar names and target ids.
 
 **Deliverables**
 
@@ -320,7 +320,7 @@ Skipped by director: launch-final will not create a Cabbage Seed item or dedicat
 
 **Required resources**
 
-- `state/plan_one_perfect_crop_finish.md` - Icon requirement.
+- `state/plan_one_perfect_crop_finish.md` - Historical icon requirement, superseded by director skip.
 
 **Deliverables**
 
@@ -332,7 +332,7 @@ Skipped by director: launch-final will not create a Cabbage Seed item or dedicat
 
 ### `art.backgrounds` - Launch-final scene wiring
 
-**READY** - area art, owner ChatGPT, lead role Art Director
+**COMPLETE** - area art, owner ChatGPT, lead role Art Director
 
 Finish explicit launch-final background wiring.
 
@@ -342,7 +342,8 @@ Finish explicit launch-final background wiring.
 
 **Required resources**
 
-- `state/one_perfect_crop_prose_graph.md` - Dialog nodes.
+- `state/one_perfect_crop_prose_graph.md` - Frozen dialog scene-family requirements.
+- `state/workstreams/one_perfect_crop/launch_final_patch.json` - Final non-generative background/scene reuse mapping.
 
 **Deliverables**
 
@@ -466,7 +467,7 @@ Optionally execute only the reviewed hidden core manifest and verify fresh readb
 
 ### `launch.finalization` - Launch-final art/admin patch and readiness
 
-**PLANNED** - area production, owner shared, lead role Release Auditor
+**BLOCKED** - area production, owner shared, lead role Release Auditor
 
 Apply queued prose, final art/scene wiring and resolved repeatability settings before publish.
 
@@ -476,10 +477,12 @@ Apply queued prose, final art/scene wiring and resolved repeatability settings b
 
 **Required resources**
 
-- `state/one_perfect_crop_core_manifest_override.md` - Defines deferred work.
-- `state/one_perfect_crop_launch_final_prose_patch.md` - Approved G1/G4 prose direction queued for the final quest edit.
-- `docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md` - Baseline hidden-core IDs/readback and verifier-noise classification.
-- `state/one_perfect_crop_content_admin_open.md` - Resolved launch-final reward/repeatability/eligibility contract.
+- `state/one_perfect_crop_launch_final_scope.md` - Operative 2026-09-24 director scope.
+- `state/workstreams/one_perfect_crop/launch_final_patch.json` - Machine closeout patch and scene wiring.
+- `state/one_perfect_crop_launch_final_prose_patch.md` - Approved G1/G4 prose direction.
+- `docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md` - Existing hidden target ids and clean quest baseline.
+- `state/one_perfect_crop_content_admin_open.md` - Resolved no-reward/repeatability/eligibility contract.
+- `push/54_one_perfect_crop_launch_final.gen.py` - Fail-closed EDIT/CLOSEOUT manifest generator.
 
 **Deliverables**
 
