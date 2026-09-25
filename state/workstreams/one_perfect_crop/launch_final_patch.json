@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "_provenance": [
+    "Derived launch-final implementation input; canonical decisions remain in state/one_perfect_crop_launch_final_scope.md, state/one_perfect_crop_launch_final_prose_patch.md, state/one_perfect_crop_content_admin_open.md, and docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md.",
+    "The prose strings below render the approved patch's narration/action angle-bracket notation through the frozen TNR <i>...</i> scene-formatting contract."
+  ],
+  "baselineManifest": "push/47_one_perfect_crop_core_manifest.json",
+  "liveTargets": {
+    "roadBanditAi": "dKEz_VsgZjrfbtxt4ldo8",
+    "harvestBoarAi": "2-gJmijAA8lGns_thDRjz",
+    "quest": "CZIZoHDAOWjxDtVaQwr6V"
+  },
+  "avatars": {
+    "roadBandit": {
+      "name": "one_perfect_crop_road_bandit_avatar.webp",
+      "path": "art/one_perfect_crop/one_perfect_crop_road_bandit_avatar.webp"
+    },
+    "harvestBoar": {
+      "name": "one_perfect_crop_harvest_boar_avatar.webp",
+      "path": "art/one_perfect_crop/one_perfect_crop_harvest_boar_avatar.webp"
+    }
+  },
+  "questAdmin": {
+    "maxAttempts": 100,
+    "maxCompletes": 1,
+    "reward": {},
+    "forbiddenAuthoredFields": [
+      "retryDelay",
+      "attemptDelay",
+      "requiredLevel",
+      "maxLevel",
+      "requiredVillage",
+      "requiredBloodlineId",
+      "requiredSageModeId",
+      "requiredSageRank",
+      "prerequisiteQuestId",
+      "medicalRank",
+      "huntingRank",
+      "gatheringRank"
+    ]
+  },
+  "prose": {
+    "opc_g1": {
+      "description": "\"I can repair the wheel properly, but it will take time.\" <br> <br> <i>Ittetsu checks the broken rim, then the road ahead. The cart can be made sound again if you stop here and do the job right. Or the good timber can be stripped down into a rough drag-sled and the shipment can start moving immediately.</i>",
+      "choices": [
+        {
+          "text": "Strip it down. We keep moving.",
+          "nextObjectiveId": "opc_g1_pass"
+        },
+        {
+          "text": "Take the time to repair it properly.",
+          "nextObjectiveId": "opc_f1_1"
+        }
+      ]
+    },
+    "opc_g1_pass": {
+      "description": "<i>Ittetsu breaks down the damaged wheel, using the sound timber and ironwork to brace a crude sled. It is ugly, but it is ready now.</i> <br> <br> \"Good enough.\" <br> <br> \"We can replace a cart. We cannot replace the hours.\""
+    },
+    "opc_f1_1": {
+      "description": "<i>Ittetsu works carefully. By the time the wheel is straight and the axle turns cleanly, the cart is in excellent shape again.</i> <br> <br> \"There. That will hold.\" <br> <br> <i>The repair is good. The day, however, has kept moving.</i>"
+    },
+    "opc_g4": {
+      "description": "<i>The market road is finally visible ahead when one side restraint snaps loose. A single flawless cabbage slips free, bounces once, and begins rolling toward the irrigation ditch below.</i> <br> <br> <i>Ittetsu freezes.</i> <br> <br> \"No—no, not that one.\" <br> <br> <i>For the first time all day, real alarm enters his voice.</i> <br> <br> \"That was the best head in the whole harvest.\" <br> <br> <i>Behind you, the main load shifts with a long wooden creak. One of the remaining ropes is sliding steadily through its knot. Nothing else has fallen yet.</i> <br> <br> <i>Ittetsu looks from the runaway cabbage to the load.</i> <br> <br> \"...Damn it.\"",
+      "choices": [
+        {
+          "text": "Hold the load.",
+          "nextObjectiveId": "opc_g4_pass"
+        },
+        {
+          "text": "Go after the cabbage.",
+          "nextObjectiveId": "opc_f4_1"
+        }
+      ]
+    },
+    "opc_g4_pass": {
+      "description": "<i>You seize the slipping rope and haul the main load back into place. Below, the perfect cabbage rolls through the grass and disappears into the irrigation ditch.</i> <br> <br> <i>Ittetsu watches it go.</i> <br> <br> \"...That was a beautiful cabbage.\" <br> <br> <i>He tightens the rope beside you, still staring downhill.</i> <br> <br> \"But one cabbage is not a harvest.\" <br> <br> \"Keep moving.\""
+    }
+  },
+  "sceneWiring": {
+    "backgrounds": {
+      "nmrMHmz9xWojzyIV2mAR8": [
+        "opc_o0",
+        "opc_g1",
+        "opc_g1_pass",
+        "opc_f1_1",
+        "opc_g3",
+        "opc_g3_pass",
+        "opc_f3_1",
+        "opc_f3_2",
+        "opc_g4",
+        "opc_g4_pass",
+        "opc_f4_1",
+        "opc_c1",
+        "opc_c1_1",
+        "opc_c1_win"
+      ],
+      "kmDsQUEHSub9GIX5ulO6i": [
+        "opc_f1_2",
+        "opc_g2",
+        "opc_g2_pass"
+      ],
+      "E4VJ-IeIQMwbmGGfKc-sn": [
+        "opc_f2_1",
+        "opc_f2_2",
+        "opc_f2_3",
+        "opc_f2_4",
+        "opc_f2_5"
+      ],
+      "cYu6VwVX55m6uq1oxlWc1": [
+        "opc_d1",
+        "opc_d2",
+        "opc_d3",
+        "opc_d4",
+        "opc_d5"
+      ]
+    },
+    "sceneCharactersDefault": [],
+    "sceneCharactersByObjective": {
+      "opc_d1": [
+        "XsLLy8awDAtaE6hXVIi_0"
+      ],
+      "opc_d2": [
+        "XsLLy8awDAtaE6hXVIi_0"
+      ],
+      "opc_d3": [
+        "XsLLy8awDAtaE6hXVIi_0"
+      ],
+      "opc_d4": [
+        "XsLLy8awDAtaE6hXVIi_0"
+      ],
+      "opc_d5": [
+        "XsLLy8awDAtaE6hXVIi_0"
+      ]
+    },
+    "_note": "All other dialog sceneCharacters stay explicitly empty under the 2026-09-24 battle-AI-only launch-final scope. The existing Market Clerk is reused in the market family because it requires no new art."
+  },
+  "afterCapture": [
+    {
+      "proc": "profile.getAi",
+      "input": {
+        "userId": "dKEz_VsgZjrfbtxt4ldo8"
+      },
+      "persist": "full"
+    },
+    {
+      "proc": "profile.getAi",
+      "input": {
+        "userId": "2-gJmijAA8lGns_thDRjz"
+      },
+      "persist": "full"
+    },
+    {
+      "proc": "quests.get",
+      "input": {
+        "id": "CZIZoHDAOWjxDtVaQwr6V"
+      },
+      "persist": "full"
+    }
+  ]
+}
