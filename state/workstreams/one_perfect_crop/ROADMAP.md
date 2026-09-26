@@ -5,7 +5,7 @@
 - **Slug:** `one_perfect_crop`
 - **Content type:** event
 - **Status:** ACTIVE
-- **Progress:** 13/16 settled - blocked 2, complete 11, skipped 2, superseded 1
+- **Progress:** 14/16 settled - review 1, complete 12, skipped 2, superseded 1
 
 Finish One Perfect Crop launch-final prose, art, scene wiring and admin content from the already reviewed and user-run hidden core, then complete final hidden readback before any publish decision.
 
@@ -36,7 +36,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `content.combat_ai_profiles` | COMPLETE | ChatGPT | `design.structure`, `research.bandit_ai` | Road Bandit and Harvest Boar combat contracts. |
 | `art.intake_accepted_assets` | SUPERSEDED | dauntless | `design.structure` | Accepted art intake. |
 | `art.scene_characters` | SKIPPED | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | Launch-final scene characters. |
-| `art.combat_avatars` | BLOCKED | ChatGPT | `design.structure`, `research.bandit_ai` | Launch-final AI avatars. |
+| `art.combat_avatars` | COMPLETE | ChatGPT | `design.structure`, `research.bandit_ai` | Repo-backed Road Bandit AI avatar. |
 | `art.icons` | SKIPPED | ChatGPT | `design.structure` | No Cabbage Seed icon production. |
 | `art.backgrounds` | COMPLETE | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes` | Node-to-background mapping. |
 | `admin.balance_and_eligibility` | COMPLETE | dauntless | `design.structure` | No reward package; no Cabbage Seed item; maxAttempts 100; maxCompletes 1; no cooldown; no eligibility gate. |
@@ -44,17 +44,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `build.manifest` | COMPLETE | Fable | `build.final_freeze` | Create two AIs carrying their rules plus the quest; no assets/items/jutsu. |
 | `review.manifest` | COMPLETE | ChatGPT | `build.manifest` | Graph/combat/placeholder/safety review. |
 | `production.run_and_readback` | COMPLETE | dauntless | `review.manifest` | User-only hidden execution/readback. |
-| `launch.finalization` | BLOCKED | shared | `art.combat_avatars`, `art.backgrounds`, `admin.balance_and_eligibility`, `production.run_and_readback` | Queued G1/G4 prose edits, final accepted art/scene wiring, maxAttempts 100, maxCompletes 1, no cooldown, no rewards/item/eligibility gate, launch-final patch and hidden readback. |
-
-## Blocked
-
-### `art.combat_avatars` - Launch-final combat avatars
-
-- BLOCKER: The accepted Harvest Boar source byte is not present in the repository, current conversation files, or available recent Library files. The exact accepted source must be recovered before repo-native processing/QC can finish the two-avatar pack.
-
-### `launch.finalization` - Launch-final art/admin patch and readiness
-
-- BLOCKER: Launch-final generation cannot be frozen until the accepted Harvest Boar avatar source is recovered, processed, preflighted, and committed so imagePack can bind both accepted avatar bytes.
+| `launch.finalization` | REVIEW | shared | `art.combat_avatars`, `art.backgrounds`, `admin.balance_and_eligibility`, `production.run_and_readback` | Queued G1/G4 prose edits, final Road Bandit art plus Harvest Boar avatar reuse, final scene wiring, maxAttempts 100, maxCompletes 1, no cooldown, no rewards/item/eligibility gate. |
 
 ## Completed, with evidence
 
@@ -85,6 +75,13 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 ### `art.scene_characters` - Launch-final scene characters (SKIPPED)
 
 - decision: Scene-character production is skipped/nonblocking for launch finalization; Road Bandit scene character is explicitly skipped.
+
+### `art.combat_avatars` - Launch-final combat avatars (COMPLETE)
+
+- path: `art/one_perfect_crop/one_perfect_crop_road_bandit_avatar.webp`
+- path: `state/one_perfect_crop_combat_avatars.md`
+- sha: ae2c51642c59a339326b7312f750543a1f50dcda - immutable Road Bandit imagePack commit
+- approval: 2026-09-26 director ruling: reuse the existing Wild Boar avatar for Harvest Boar; no separate Harvest Boar art is required.
 
 ### `art.icons` - Launch-final Cabbage Seed icon (SKIPPED)
 
@@ -286,13 +283,14 @@ Finish Road Bandit scene art and Market Clerk reuse.
 
 ### `art.combat_avatars` - Launch-final combat avatars
 
-**BLOCKED** - area art, owner ChatGPT, lead role Image Production
+**COMPLETE** - area art, owner ChatGPT, lead role Image Production
 
-Finish Road Bandit and Harvest Boar avatars.
+Finalize the Road Bandit avatar and the director-approved existing Wild Boar avatar reuse for Harvest Boar.
 
 **Scope**
 
-- Launch-final AI avatars.
+- Repo-backed Road Bandit AI avatar.
+- Existing Wild Boar avatar reused directly for Harvest Boar.
 
 **Required resources**
 
@@ -302,11 +300,13 @@ Finish Road Bandit and Harvest Boar avatars.
 
 **Deliverables**
 
-- Accepted AI avatars.
+- Accepted Road Bandit AI avatar committed and image-packable.
+- Director-approved Harvest Boar reuse value recorded without generating a new image.
 
 **Completion gates**
 
-- User accepts both avatars.
+- Road Bandit launch-final file satisfies the AI_AVATAR preflight/QC gate.
+- Director approval covers the Road Bandit avatar and Harvest Boar Wild Boar reuse.
 
 ### `art.icons` - Launch-final Cabbage Seed icon
 
@@ -467,13 +467,13 @@ Optionally execute only the reviewed hidden core manifest and verify fresh readb
 
 ### `launch.finalization` - Launch-final art/admin patch and readiness
 
-**BLOCKED** - area production, owner shared, lead role Release Auditor
+**REVIEW** - area production, owner shared, lead role Release Auditor
 
-Apply queued prose, final art/scene wiring and resolved repeatability settings before publish.
+Freeze and independently review the launch-final hidden EDIT/CLOSEOUT manifest before user-only execution/readback.
 
 **Scope**
 
-- Queued G1/G4 prose edits, final accepted art/scene wiring, maxAttempts 100, maxCompletes 1, no cooldown, no rewards/item/eligibility gate, launch-final patch and hidden readback.
+- Queued G1/G4 prose edits, final Road Bandit art plus Harvest Boar avatar reuse, final scene wiring, maxAttempts 100, maxCompletes 1, no cooldown, no rewards/item/eligibility gate.
 
 **Required resources**
 
@@ -486,11 +486,13 @@ Apply queued prose, final art/scene wiring and resolved repeatability settings b
 
 **Deliverables**
 
-- Reviewed launch-final edit manifest covering queued prose, final art/scene wiring and resolved quest admin fields, followed by clean hidden readback.
+- Frozen launch-final edit manifest covering queued prose, final art/scene wiring and resolved quest admin fields.
+- Independent exact-SHA review before any user-only hidden execution/readback.
 
 **Completion gates**
 
 - Queued G1/G4 prose patch is applied without graph/ID drift.
 - Resolved admin decisions are copied exactly: no rewards/item/eligibility gate; maxAttempts 100; maxCompletes 1; no cooldown fields.
-- All remaining art/scene work is closed or explicitly accepted as final.
-- Launch-final hidden readback is clean before any publish decision.
+- Road Bandit is immutable-repo-bound and Harvest Boar uses the director-approved existing Wild Boar avatar.
+- Exact manifest/generator/art/workstream gates pass at the frozen implementation SHA.
+- Independent review passes before user-only Forge execution/readback; publish/unhide remains separate.
