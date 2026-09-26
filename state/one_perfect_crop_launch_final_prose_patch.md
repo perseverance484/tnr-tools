@@ -68,7 +68,7 @@ G4 — The Perfect Cabbage
 
 Ittetsu freezes.
 
-"No—no, not that one."
+"No-no, not that one."
 
 <For the first time all day, real alarm enters his voice.>
 
