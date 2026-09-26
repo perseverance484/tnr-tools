@@ -41,6 +41,8 @@ COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 ROAD_AI = "dKEz_VsgZjrfbtxt4ldo8"
 BOAR_AI = "2-gJmijAA8lGns_thDRjz"
 QUEST_ID = "CZIZoHDAOWjxDtVaQwr6V"
+ROAD_SRC = "opc_ai_road_bandit"
+BOAR_SRC = "opc_ai_harvest_boar"
 MARKET_CLERK = "XsLLy8awDAtaE6hXVIi_0"
 WILD_BOAR_AVATAR = "https://utfs.io/f/Hzww9EQvYURJmjlQbElHE4IMO5Goa7cgLxPJ0VC6lU8vbt1A"
 
@@ -319,6 +321,7 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
                 "name": "One Perfect Crop — Road Bandit avatar",
                 "entity": "ai",
                 "slot": "edit",
+                "srcId": ROAD_SRC,
                 "targetId": ROAD_AI,
                 "data": {"avatar": "@img:" + road_name},
             },
@@ -326,6 +329,7 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
                 "name": "One Perfect Crop — Harvest Boar avatar",
                 "entity": "ai",
                 "slot": "edit",
+                "srcId": BOAR_SRC,
                 "targetId": BOAR_AI,
                 "data": {"avatar": boar_url},
             },
@@ -351,7 +355,7 @@ def verify_manifest(manifest: dict[str, Any], patch: dict[str, Any]) -> None:
         ("quest", "edit"),
     ]
     assert [i["targetId"] for i in items] == [ROAD_AI, BOAR_AI, QUEST_ID]
-    assert all("srcId" not in i for i in items)
+    assert [i.get("srcId") for i in items] == [ROAD_SRC, BOAR_SRC, None]
     assert all(i["slot"] != "create" for i in items)
 
     assert items[0]["data"] == {
