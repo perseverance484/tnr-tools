@@ -4,7 +4,8 @@ Build the One Perfect Crop launch-final EDIT/CLOSEOUT manifest.
 
 This generator never creates or runs live content. It edits the three already-created
 hidden records from the committed hidden-core readback, applies only the director-approved
-launch-final deltas, and binds the two accepted combat-avatar files to an immutable repo commit.
+launch-final deltas, binds the accepted Road Bandit avatar to an immutable repo commit,
+and reuses the director-approved existing Wild Boar avatar URL for Harvest Boar.
 
 Usage from repository root:
 
@@ -12,8 +13,9 @@ Usage from repository root:
     python3 push/54_one_perfect_crop_launch_final.gen.py --image-ref <40-hex-art-commit> --check
 
 The image ref is intentionally required. It must be an immutable commit that already contains
-both processed avatar files. This avoids a self-referential manifest commit and makes Forge's
-imagePack content binding independently reviewable.
+the processed Road Bandit avatar file. Harvest Boar reuses an existing live avatar URL and is
+therefore not part of imagePack. This avoids a self-referential manifest commit and makes
+Forge's new-image content binding independently reviewable.
 """
 from __future__ import annotations
 
@@ -40,6 +42,7 @@ ROAD_AI = "dKEz_VsgZjrfbtxt4ldo8"
 BOAR_AI = "2-gJmijAA8lGns_thDRjz"
 QUEST_ID = "CZIZoHDAOWjxDtVaQwr6V"
 MARKET_CLERK = "XsLLy8awDAtaE6hXVIi_0"
+WILD_BOAR_AVATAR = "https://utfs.io/f/Hzww9EQvYURJmjlQbElHE4IMO5Goa7cgLxPJ0VC6lU8vbt1A"
 
 # The final authored quest edit must not carry any substitute eligibility gate.
 # Optional delay fields are included here because the director explicitly requires them unset.
@@ -125,31 +128,31 @@ def edge_targets(obj: dict[str, Any]) -> list[str]:
 def build_image_pack(patch: dict[str, Any], image_ref: str) -> tuple[dict[str, int], dict[str, Any]]:
     img_sizes: dict[str, int] = {}
     files: dict[str, Any] = {}
-    for key in ("roadBandit", "harvestBoar"):
-        spec = patch["avatars"][key]
-        name, path = spec["name"], spec["path"]
-        if os.path.basename(path) != name:
-            raise AssertionError(f"{key}: path basename must equal logical @img name")
-        raw = committed_bytes(image_ref, path)
-        if not raw:
-            raise AssertionError(f"{key}: committed avatar is empty")
-        size = len(raw)
-        digest = hashlib.sha256(raw).hexdigest()
-        img_sizes[name] = size
-        files[name] = {"path": path, "sha256": digest, "bytes": size}
 
-        # When the file is present in the checkout, require exact byte identity with the
-        # immutable image-ref copy. This catches a dirty/uncommitted art substitution.
-        working = os.path.join(ROOT, path)
-        if os.path.exists(working):
-            with open(working, "rb") as fh:
-                now = fh.read()
-            if now != raw:
-                raise AssertionError(
-                    f"{path}: working bytes differ from immutable image ref {image_ref}"
-                )
+    spec = patch["avatars"]["roadBandit"]
+    name, path = spec["name"], spec["path"]
+    if os.path.basename(path) != name:
+        raise AssertionError("roadBandit: path basename must equal logical @img name")
+    raw = committed_bytes(image_ref, path)
+    if not raw:
+        raise AssertionError("roadBandit: committed avatar is empty")
+    size = len(raw)
+    digest = hashlib.sha256(raw).hexdigest()
+    img_sizes[name] = size
+    files[name] = {"path": path, "sha256": digest, "bytes": size}
 
-    return img_sizes, {"ref": image_ref, "files": dict(sorted(files.items()))}
+    # When the file is present in the checkout, require exact byte identity with the
+    # immutable image-ref copy. This catches a dirty/uncommitted art substitution.
+    working = os.path.join(ROOT, path)
+    if os.path.exists(working):
+        with open(working, "rb") as fh:
+            now = fh.read()
+        if now != raw:
+            raise AssertionError(
+                f"{path}: working bytes differ from immutable image ref {image_ref}"
+            )
+
+    return img_sizes, {"ref": image_ref, "files": files}
 
 
 def apply_patch(core: dict[str, Any], patch: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -301,7 +304,8 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
 
     img_sizes, image_pack = build_image_pack(patch, image_ref)
     road_name = patch["avatars"]["roadBandit"]["name"]
-    boar_name = patch["avatars"]["harvestBoar"]["name"]
+    boar_url = patch["avatars"]["harvestBoar"]["reuseUrl"]
+    assert boar_url == WILD_BOAR_AVATAR
 
     manifest = {
         "_note": (
@@ -323,7 +327,7 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
                 "entity": "ai",
                 "slot": "edit",
                 "targetId": BOAR_AI,
-                "data": {"avatar": "@img:" + boar_name},
+                "data": {"avatar": boar_url},
             },
             {
                 "name": "One Perfect Crop — launch-final quest closeout",
@@ -354,8 +358,9 @@ def verify_manifest(manifest: dict[str, Any], patch: dict[str, Any]) -> None:
         "avatar": "@img:" + patch["avatars"]["roadBandit"]["name"]
     }
     assert items[1]["data"] == {
-        "avatar": "@img:" + patch["avatars"]["harvestBoar"]["name"]
+        "avatar": patch["avatars"]["harvestBoar"]["reuseUrl"]
     }
+    assert items[1]["data"]["avatar"] == WILD_BOAR_AVATAR
 
     q = items[2]["data"]
     assert q["hidden"] is True
@@ -371,10 +376,7 @@ def verify_manifest(manifest: dict[str, Any], patch: dict[str, Any]) -> None:
     assert "@scene:" not in blob
     assert "skipPreflight" not in manifest
 
-    names = {
-        patch["avatars"]["roadBandit"]["name"],
-        patch["avatars"]["harvestBoar"]["name"],
-    }
+    names = {patch["avatars"]["roadBandit"]["name"]}
     assert set(manifest["imgSizes"]) == names
     assert set(manifest["imagePack"]["files"]) == names
     for name in names:
@@ -389,7 +391,7 @@ def verify_manifest(manifest: dict[str, Any], patch: dict[str, Any]) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--image-ref", required=True, help="immutable 40-hex commit containing both avatars")
+    ap.add_argument("--image-ref", required=True, help="immutable 40-hex commit containing the Road Bandit avatar")
     ap.add_argument(
         "--check",
         action="store_true",
@@ -416,7 +418,7 @@ def main() -> int:
         fh.write(rendered)
     print(
         f"{OUT}: {len(manifest['items'])} edit items, "
-        f"{len(manifest['imgSizes'])} immutable avatar bindings"
+        f"{len(manifest['imgSizes'])} immutable new-avatar binding(s)"
     )
     return 0
 
