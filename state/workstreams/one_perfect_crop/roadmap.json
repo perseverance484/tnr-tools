@@ -16,7 +16,8 @@
     "2026-09-16 revision-2 core manifest 6cce22e3fad0e08344cb2f3252bdf04909632983 passed narrow independent Forge 0.4.1 re-review; the durable review is docs/reviews/ONE_PERFECT_CROP_CORE_MANIFEST_FORGE041_R2_REVIEW.md.",
     "2026-09-16 dauntless executed the corrected hidden core. harvests/inbox/tnr_results_1789599042548.json records Road Bandit dKEz_VsgZjrfbtxt4ldo8, Harvest Boar 2-gJmijAA8lGns_thDRjz and quest CZIZoHDAOWjxDtVaQwr6V. Quest readback matched; AI postflight drift is documented verifier noise from server stat scaling and rule object-key ordering.",
     "2026-09-23 director requested the approved G1/G4 prose improvements be saved for the launch-final manifest rather than pushed separately. state/one_perfect_crop_launch_final_prose_patch.md is the queued patch packet.",
-    "2026-09-24 director resolution: no Ryo/XP/token reward package; no Cabbage Seed item or mechanical seed reward; maxAttempts 100, maxCompletes 1, no retry/attempt cooldown fields; disregard Farming level 15 and author no substitute eligibility gate. Cabbage Seed icon work is skipped."
+    "2026-09-24 director resolution: no Ryo/XP/token reward package; no Cabbage Seed item or mechanical seed reward; maxAttempts 100, maxCompletes 1, no retry/attempt cooldown fields; disregard Farming level 15 and author no substitute eligibility gate. Cabbage Seed icon work is skipped.",
+    "2026-09-26 director ruling: Harvest Boar reuses the existing Wild Boar avatar; no separate Harvest Boar image is generated or uploaded. Road Bandit is the only new launch-final imagePack asset."
   ],
   "resources": [
     {
@@ -296,15 +297,16 @@
       "id": "art.combat_avatars",
       "title": "Launch-final combat avatars",
       "area": "art",
-      "status": "BLOCKED",
+      "status": "COMPLETE",
       "owner": "ChatGPT",
       "depends_on": [
         "design.structure",
         "research.bandit_ai"
       ],
-      "objective": "Finish Road Bandit and Harvest Boar avatars.",
+      "objective": "Finalize the Road Bandit avatar and the director-approved existing Wild Boar avatar reuse for Harvest Boar.",
       "scope": [
-        "Launch-final AI avatars."
+        "Repo-backed Road Bandit AI avatar.",
+        "Existing Wild Boar avatar reused directly for Harvest Boar."
       ],
       "required_resources": [
         {
@@ -321,19 +323,31 @@
         }
       ],
       "deliverables": [
-        "Accepted AI avatars."
+        "Accepted Road Bandit AI avatar committed and image-packable.",
+        "Director-approved Harvest Boar reuse value recorded without generating a new image."
       ],
       "completion_gates": [
-        "User accepts both avatars."
+        "Road Bandit launch-final file satisfies the AI_AVATAR preflight/QC gate.",
+        "Director approval covers the Road Bandit avatar and Harvest Boar Wild Boar reuse."
       ],
       "lead_role": "Image Production",
-      "blockers": [
-        "The accepted Harvest Boar source byte is not present in the repository, current conversation files, or available recent Library files. The exact accepted source must be recovered before repo-native processing/QC can finish the two-avatar pack."
-      ],
       "evidence": [
         {
+          "kind": "path",
+          "ref": "art/one_perfect_crop/one_perfect_crop_road_bandit_avatar.webp"
+        },
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_combat_avatars.md"
+        },
+        {
+          "kind": "sha",
+          "ref": "ae2c51642c59a339326b7312f750543a1f50dcda",
+          "note": "immutable Road Bandit imagePack commit"
+        },
+        {
           "kind": "approval",
-          "ref": "Road Bandit AI avatar accepted by the director; recovered accepted source is being processed under the AI_AVATAR contract.",
+          "ref": "2026-09-26 director ruling: reuse the existing Wild Boar avatar for Harvest Boar; no separate Harvest Boar art is required.",
           "source": "state/one_perfect_crop_launch_final_scope.md"
         }
       ]
@@ -655,7 +669,7 @@
       "id": "launch.finalization",
       "title": "Launch-final art/admin patch and readiness",
       "area": "production",
-      "status": "BLOCKED",
+      "status": "REVIEW",
       "owner": "shared",
       "depends_on": [
         "art.combat_avatars",
@@ -663,9 +677,9 @@
         "admin.balance_and_eligibility",
         "production.run_and_readback"
       ],
-      "objective": "Apply queued prose, final art/scene wiring and resolved repeatability settings before publish.",
+      "objective": "Freeze and independently review the launch-final hidden EDIT/CLOSEOUT manifest before user-only execution/readback.",
       "scope": [
-        "Queued G1/G4 prose edits, final accepted art/scene wiring, maxAttempts 100, maxCompletes 1, no cooldown, no rewards/item/eligibility gate, launch-final patch and hidden readback."
+        "Queued G1/G4 prose edits, final Road Bandit art plus Harvest Boar avatar reuse, final scene wiring, maxAttempts 100, maxCompletes 1, no cooldown, no rewards/item/eligibility gate."
       ],
       "required_resources": [
         {
@@ -694,18 +708,17 @@
         }
       ],
       "deliverables": [
-        "Reviewed launch-final edit manifest covering queued prose, final art/scene wiring and resolved quest admin fields, followed by clean hidden readback."
+        "Frozen launch-final edit manifest covering queued prose, final art/scene wiring and resolved quest admin fields.",
+        "Independent exact-SHA review before any user-only hidden execution/readback."
       ],
       "completion_gates": [
         "Queued G1/G4 prose patch is applied without graph/ID drift.",
         "Resolved admin decisions are copied exactly: no rewards/item/eligibility gate; maxAttempts 100; maxCompletes 1; no cooldown fields.",
-        "All remaining art/scene work is closed or explicitly accepted as final.",
-        "Launch-final hidden readback is clean before any publish decision."
+        "Road Bandit is immutable-repo-bound and Harvest Boar uses the director-approved existing Wild Boar avatar.",
+        "Exact manifest/generator/art/workstream gates pass at the frozen implementation SHA.",
+        "Independent review passes before user-only Forge execution/readback; publish/unhide remains separate."
       ],
       "lead_role": "Release Auditor",
-      "blockers": [
-        "Launch-final generation cannot be frozen until the accepted Harvest Boar avatar source is recovered, processed, preflighted, and committed so imagePack can bind both accepted avatar bytes."
-      ],
       "evidence": [
         {
           "kind": "path",
@@ -717,7 +730,20 @@
         },
         {
           "kind": "path",
+          "ref": "state/one_perfect_crop_combat_avatars.md"
+        },
+        {
+          "kind": "path",
           "ref": "push/54_one_perfect_crop_launch_final.gen.py"
+        },
+        {
+          "kind": "path",
+          "ref": "push/54_one_perfect_crop_launch_final.json"
+        },
+        {
+          "kind": "sha",
+          "ref": "ae2c51642c59a339326b7312f750543a1f50dcda",
+          "note": "immutable Road Bandit imagePack ref"
         }
       ]
     }
