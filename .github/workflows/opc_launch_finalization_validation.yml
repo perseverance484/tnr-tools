@@ -1,0 +1,64 @@
+name: opc-launch-finalization-validation
+
+on:
+  push:
+    branches:
+      - chatgpt/opc-launch-finalization-ci-20260926
+    paths:
+      - ".github/workflows/opc_launch_finalization_validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 8d8df0c2dd0eb741d3125ea9ad5e0c903429b3fa
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install art preflight dependency
+        run: python3 -m pip install --disable-pip-version-check pillow
+
+      - name: Generator exactness
+        run: python3 push/54_one_perfect_crop_launch_final.gen.py --image-ref ae2c51642c59a339326b7312f750543a1f50dcda --check
+
+      - name: Content manifest validator
+        run: >
+          python3 skills/building-tnr-content/scripts/validate.py
+          push/54_one_perfect_crop_launch_final.json
+          --ctors skills/building-tnr-content/data/45c_DATA_constructors.json
+          --pool skills/building-tnr-content/data/32b_DATA_pool.json
+          --entities skills/building-tnr-content/data/45d_DATA_entity_schemas.json
+          --checks skills/building-tnr-content/data/45g_DATA_checks.json
+          --lints skills/building-tnr-content/data/45h_DATA_lints.json
+
+      - name: Forge offline manifest gate
+        run: node forge/tools/check_manifest.mjs push/54_one_perfect_crop_launch_final.json
+
+      - name: Road Bandit art preflight
+        run: >
+          python3 skills/producing-tnr-art/scripts/artpreflight.py
+          art/one_perfect_crop/one_perfect_crop_road_bandit_avatar.webp
+          --type AI_AVATAR
+          --spec skills/producing-tnr-art/data/25x_DATA_art_spec.json
+          --manifest push/54_one_perfect_crop_launch_final.json
+
+      - name: Workstream validator
+        run: python3 scripts/content_workstream.py validate --all
+
+      - name: Workstream render drift
+        run: python3 scripts/content_workstream.py render --all --check
+
+      - name: Workstream selftest
+        run: python3 scripts/content_workstream.py --selftest
