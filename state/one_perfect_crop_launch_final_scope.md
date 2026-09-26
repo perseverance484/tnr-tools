@@ -12,9 +12,13 @@ One Perfect Crop launch-final assumptions only where they conflict with the deci
 
 ### Art
 
-- Launch-final accepted art is **battle AI art only**:
-  - Road Bandit AI avatar — `one_perfect_crop_road_bandit_avatar.webp`
-  - Harvest Boar AI avatar — `one_perfect_crop_harvest_boar_avatar.webp`
+- Launch-final art remains **battle AI art only**:
+  - Road Bandit AI avatar — repo-backed `one_perfect_crop_road_bandit_avatar.webp`.
+  - Harvest Boar AI avatar — reuse the existing Wild Boar avatar; do not generate or upload a separate Harvest Boar image.
+- **2026-09-26 director ruling:** reuse the existing Wild Boar avatar for Harvest Boar.
+  The launch-final edit therefore sets Harvest Boar's avatar directly to
+  `https://utfs.io/f/Hzww9EQvYURJmjlQbElHE4IMO5Goa7cgLxPJ0VC6lU8vbt1A`.
+  This supersedes the earlier requirement for `one_perfect_crop_harvest_boar_avatar.webp`.
 - Skip the Road Bandit scene character entirely.
 - Scene-character work is nonblocking for launch finalization.
 - Do not generate or require Cabbage Seed art.
