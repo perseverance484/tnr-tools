@@ -1,8 +1,9 @@
 # One Perfect Crop — launch-final prose patch
 
-**Status:** QUEUED FOR `launch.finalization`; do not apply as a separate hidden-core hotfix.  
+**Status:** APPLIED IN `push/54_one_perfect_crop_launch_final.json`; do not apply as a separate hidden-core hotfix.  
 **Recorded:** 2026-09-23  
 **Scope:** G1 and G4 wording only. Graph edges, objective IDs, battle routing, rewards, art, and all other prose remain unchanged unless separately approved.
+**Applied:** launch-final EDIT/CLOSEOUT generator preserves the hidden-core graph and applies only these wording/choice-label deltas.
 
 ## Director-approved intent
 
