@@ -1,0 +1,29 @@
+name: opc-render-final
+
+on:
+  push:
+    branches:
+      - chatgpt/opc-render-final-20260927
+    paths:
+      - ".github/workflows/opc_render_final.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/opc-render-final-20260927
+      - run: python3 scripts/content_workstream.py render --all
+      - run: python3 scripts/content_workstream.py validate --all
+      - name: Commit generated projections
+        run: |
+          git config user.name "opc-render[bot]"
+          git config user.email "opc-render@users.noreply.github.com"
+          git add state/workstreams/one_perfect_crop/ROADMAP.md state/workstreams/INDEX.md
+          git diff --cached --quiet && exit 0
+          git commit -m "tmp: render revised OPC roadmap [skip ci]"
+          git push origin HEAD:chatgpt/opc-render-final-20260927
