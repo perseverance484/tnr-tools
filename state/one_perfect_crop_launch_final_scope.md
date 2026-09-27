@@ -32,6 +32,9 @@ One Perfect Crop launch-final assumptions only where they conflict with the deci
   restored as launch-final inputs rather than regenerated.
 - Do not generate or require Cabbage Seed art or a quest/listing icon for this launch.
 - Reuse already-captured backgrounds only where the existing repository evidence requires final wiring.
+- Engine/client law 48 allows only one scene character per dialog. Final wiring therefore shows
+  the local focal speaker instead of stacking Ittetsu with the Keeper or Market Clerk: Keeper on
+  Waystation dialogs, Market Clerk on D1-D2, and Ittetsu on the remaining dialogs including D3-D5.
 - The previously reviewed 3-edit launch-final candidate at
   `70a82ad7891064ba9e4718ecca4d8cdd143fce58` is superseded by this clarification and must not be executed.
 
