@@ -12,20 +12,28 @@ One Perfect Crop launch-final assumptions only where they conflict with the deci
 
 ### Art
 
-- Launch-final art remains **battle AI art only**:
+- **2026-09-27 director clarification:** the earlier "battle AI art only" ruling applied to
+  **new art production**, not to discarding scene-character art that had already been made and
+  accepted. Launch-final must therefore use the existing accepted Ittetsu and Waystation Keeper
+  scene assets.
+- Launch-final art set:
   - Road Bandit AI avatar — repo-backed `one_perfect_crop_road_bandit_avatar.webp`.
   - Harvest Boar AI avatar — reuse the existing Wild Boar avatar; do not generate or upload a separate Harvest Boar image.
+  - Ittetsu SCENE_CHARACTER — repo-backed `one_perfect_crop_ittetsu_scene.webp`, from the already-made accepted Ittetsu design.
+  - Waystation Keeper SCENE_CHARACTER — repo-backed `one_perfect_crop_waystation_keeper_scene.webp`, from the already-made accepted Keeper design.
+  - Market Clerk — reuse existing live gameAsset `XsLLy8awDAtaE6hXVIi_0`.
 - **2026-09-26 director ruling:** reuse the existing Wild Boar avatar for Harvest Boar.
   The launch-final edit therefore sets Harvest Boar's avatar directly to
   `https://utfs.io/f/Hzww9EQvYURJmjlQbElHE4IMO5Goa7cgLxPJ0VC6lU8vbt1A`.
   This supersedes the earlier requirement for `one_perfect_crop_harvest_boar_avatar.webp`.
-- Skip the Road Bandit scene character entirely.
-- Scene-character work is nonblocking for launch finalization.
-- Do not generate or require Cabbage Seed art.
-- Do not restore older Ittetsu, Waystation Keeper, quest-icon, Road Bandit scene-character,
-  or Cabbage Seed asset requirements as launch blockers.
-- Reuse already-captured backgrounds/scene assets only where the existing repository evidence
-  requires final wiring and no new art generation is needed.
+- Skip the Road Bandit scene character entirely; no Road Bandit SCENE_CHARACTER create or wiring.
+- Do not add a Harvest Boar scene character.
+- No additional scene-character generation is required; the accepted Ittetsu/Keeper assets are
+  restored as launch-final inputs rather than regenerated.
+- Do not generate or require Cabbage Seed art or a quest/listing icon for this launch.
+- Reuse already-captured backgrounds only where the existing repository evidence requires final wiring.
+- The previously reviewed 3-edit launch-final candidate at
+  `70a82ad7891064ba9e4718ecca4d8cdd143fce58` is superseded by this clarification and must not be executed.
 
 ### Rewards and item creation
 
@@ -60,9 +68,10 @@ The already-created hidden records are the launch-final edit targets:
 | Harvest Boar AI | `2-gJmijAA8lGns_thDRjz` |
 | One Perfect Crop quest | `CZIZoHDAOWjxDtVaQwr6V` |
 
-Do not rerun or recreate the hidden core. The launch-final manifest is an EDIT/CLOSEOUT manifest
-against these ids. Preserve the hidden-core graph, combat routing, AI records, and IDs except for
-the explicitly approved launch-final deltas.
+Do not rerun or recreate the hidden core. The launch-final manifest edits these three existing
+hidden records and creates only the two missing hidden SCENE_CHARACTER gameAssets for Ittetsu and
+the Waystation Keeper. Preserve the hidden-core graph, combat routing, AI records, and IDs except
+for the explicitly approved launch-final deltas.
 
 ## Launch-final quest deltas
 
@@ -74,9 +83,9 @@ The quest edit must:
 3. author no cooldown/delay fields and no eligibility gate;
 4. preserve an empty mechanical reward package;
 5. create/grant no Cabbage Seed;
-6. wire only existing non-generative background/scene reuse that remains required by the
-   frozen prose graph;
-7. remain hidden; publish/unhide is a separate director-owned action.
+6. wire the accepted Ittetsu/Waystation Keeper scene assets, existing Market Clerk, and existing
+   non-generative background reuse according to the frozen prose graph;
+7. keep the two new scene assets and the quest hidden; publish/unhide is a separate director-owned action.
 
 ## Safety boundary
 
