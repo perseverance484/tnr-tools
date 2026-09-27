@@ -298,11 +298,13 @@ def verify_structural_diff(
     for oid in patch["sceneWiring"]["backgrounds"]["nmrMHmz9xWojzyIV2mAR8"]:
         assert after_by[oid]["sceneCharacters"] == [ITTETSU_REF], oid
     for oid in patch["sceneWiring"]["backgrounds"]["kmDsQUEHSub9GIX5ulO6i"]:
-        assert after_by[oid]["sceneCharacters"] == [ITTETSU_REF, KEEPER_REF], oid
+        assert after_by[oid]["sceneCharacters"] == [KEEPER_REF], oid
     for oid in patch["sceneWiring"]["backgrounds"]["E4VJ-IeIQMwbmGGfKc-sn"]:
         assert after_by[oid]["sceneCharacters"] == [ITTETSU_REF], oid
-    for oid in patch["sceneWiring"]["backgrounds"]["cYu6VwVX55m6uq1oxlWc1"]:
-        assert after_by[oid]["sceneCharacters"] == [ITTETSU_REF, MARKET_CLERK], oid
+    assert after_by["opc_d1"]["sceneCharacters"] == [MARKET_CLERK]
+    assert after_by["opc_d2"]["sceneCharacters"] == [MARKET_CLERK]
+    for oid in ("opc_d3", "opc_d4", "opc_d5"):
+        assert after_by[oid]["sceneCharacters"] == [ITTETSU_REF], oid
 
     # Battle contracts and sealed loss routes remain exactly as the hidden core authored them.
     for oid in ("opc_f2_battle", "opc_c1_battle"):
@@ -348,40 +350,6 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
         "imagePack": image_pack,
         "items": [
             {
-                "name": "One Perfect Crop - Ittetsu scene character",
-                "entity": "asset",
-                "slot": "create",
-                "srcId": ITTETSU_SRC,
-                "data": {
-                    "name": ittetsu["name"],
-                    "type": "SCENE_CHARACTER",
-                    "image": "@img:" + ittetsu["filename"],
-                    "folder": "One Perfect Crop",
-                    "frames": 1,
-                    "speed": 1,
-                    "hidden": True,
-                    "onInitialBattleField": False,
-                    "licenseDetails": "TNR",
-                },
-            },
-            {
-                "name": "One Perfect Crop - Waystation Keeper scene character",
-                "entity": "asset",
-                "slot": "create",
-                "srcId": KEEPER_SRC,
-                "data": {
-                    "name": keeper["name"],
-                    "type": "SCENE_CHARACTER",
-                    "image": "@img:" + keeper["filename"],
-                    "folder": "One Perfect Crop",
-                    "frames": 1,
-                    "speed": 1,
-                    "hidden": True,
-                    "onInitialBattleField": False,
-                    "licenseDetails": "TNR",
-                },
-            },
-            {
                 "name": "One Perfect Crop - Road Bandit avatar",
                 "entity": "ai",
                 "slot": "edit",
@@ -404,6 +372,40 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
                 "targetId": QUEST_ID,
                 "data": quest_data,
             },
+            {
+                "name": ittetsu["name"],
+                "entity": "asset",
+                "slot": "create",
+                "srcId": ITTETSU_SRC,
+                "data": {
+                    "name": ittetsu["name"],
+                    "type": "SCENE_CHARACTER",
+                    "image": "@img:" + ittetsu["filename"],
+                    "folder": "One Perfect Crop",
+                    "frames": 1,
+                    "speed": 1,
+                    "hidden": True,
+                    "onInitialBattleField": False,
+                    "licenseDetails": "TNR",
+                },
+            },
+            {
+                "name": keeper["name"],
+                "entity": "asset",
+                "slot": "create",
+                "srcId": KEEPER_SRC,
+                "data": {
+                    "name": keeper["name"],
+                    "type": "SCENE_CHARACTER",
+                    "image": "@img:" + keeper["filename"],
+                    "folder": "One Perfect Crop",
+                    "frames": 1,
+                    "speed": 1,
+                    "hidden": True,
+                    "onInitialBattleField": False,
+                    "licenseDetails": "TNR",
+                },
+            },
         ],
         "capture": {"after": copy.deepcopy(patch["afterCapture"])},
     }
@@ -413,25 +415,43 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
 
 def verify_manifest(manifest: dict[str, Any], patch: dict[str, Any]) -> None:
     items = manifest["items"]
+    # Raw manifest order follows the repository validator's entity-order lint.
+    # Forge's planOrder then topologically lifts the scene creates ahead of the
+    # quest because the quest references their srcIds.
     assert [(i["entity"], i["slot"]) for i in items] == [
-        ("asset", "create"),
-        ("asset", "create"),
         ("ai", "edit"),
         ("ai", "edit"),
         ("quest", "edit"),
+        ("asset", "create"),
+        ("asset", "create"),
     ]
-    assert [i.get("targetId") for i in items] == [None, None, ROAD_AI, BOAR_AI, QUEST_ID]
+    assert [i.get("targetId") for i in items] == [ROAD_AI, BOAR_AI, QUEST_ID, None, None]
     assert [i.get("srcId") for i in items] == [
-        ITTETSU_SRC,
-        KEEPER_SRC,
         ROAD_SRC,
         BOAR_SRC,
         None,
+        ITTETSU_SRC,
+        KEEPER_SRC,
     ]
+
+    assert items[0]["data"] == {
+        "avatar": "@img:" + patch["avatars"]["roadBandit"]["name"]
+    }
+    assert items[1]["data"] == {
+        "avatar": patch["avatars"]["harvestBoar"]["reuseUrl"]
+    }
+    assert items[1]["data"]["avatar"] == WILD_BOAR_AVATAR
+
+    q = items[2]["data"]
+    assert q["hidden"] is True
+    assert q["maxAttempts"] == 100 and q["maxCompletes"] == 1
+    assert FORBIDDEN_QUEST_FIELDS.isdisjoint(q)
+    assert q["content"]["reward"] == {}
 
     ittetsu = patch["sceneAssets"]["ittetsu"]
     keeper = patch["sceneAssets"]["waystationKeeper"]
-    assert items[0]["data"] == {
+    assert items[3]["name"] == ittetsu["name"]
+    assert items[3]["data"] == {
         "name": ittetsu["name"],
         "type": "SCENE_CHARACTER",
         "image": "@img:" + ittetsu["filename"],
@@ -442,7 +462,8 @@ def verify_manifest(manifest: dict[str, Any], patch: dict[str, Any]) -> None:
         "onInitialBattleField": False,
         "licenseDetails": "TNR",
     }
-    assert items[1]["data"] == {
+    assert items[4]["name"] == keeper["name"]
+    assert items[4]["data"] == {
         "name": keeper["name"],
         "type": "SCENE_CHARACTER",
         "image": "@img:" + keeper["filename"],
@@ -453,19 +474,6 @@ def verify_manifest(manifest: dict[str, Any], patch: dict[str, Any]) -> None:
         "onInitialBattleField": False,
         "licenseDetails": "TNR",
     }
-    assert items[2]["data"] == {
-        "avatar": "@img:" + patch["avatars"]["roadBandit"]["name"]
-    }
-    assert items[3]["data"] == {
-        "avatar": patch["avatars"]["harvestBoar"]["reuseUrl"]
-    }
-    assert items[3]["data"]["avatar"] == WILD_BOAR_AVATAR
-
-    q = items[4]["data"]
-    assert q["hidden"] is True
-    assert q["maxAttempts"] == 100 and q["maxCompletes"] == 1
-    assert FORBIDDEN_QUEST_FIELDS.isdisjoint(q)
-    assert q["content"]["reward"] == {}
 
     creates = [i for i in items if i["slot"] == "create"]
     assert len(creates) == 2
@@ -478,6 +486,11 @@ def verify_manifest(manifest: dict[str, Any], patch: dict[str, Any]) -> None:
     assert "@scene:opc_sc_ittetsu" in blob
     assert "@scene:opc_sc_waystation_keeper" in blob
     assert "skipPreflight" not in manifest
+
+    # Law 48: no dialog may stack more than one scene character.
+    for obj in q["content"]["objectives"]:
+        if obj.get("task") == "dialog":
+            assert len(obj.get("sceneCharacters", [])) <= 1, obj["id"]
 
     names = {
         patch["avatars"]["roadBandit"]["name"],
