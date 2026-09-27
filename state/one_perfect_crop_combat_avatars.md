@@ -18,7 +18,7 @@ Launch-final uses the director-approved Road Bandit AI design.
 - launch-final format: lossless WebP with alpha
 - launch-final bytes: 11268
 - launch-final SHA-256: `fed328dc1fcfec1b5aeb4a452f2562d24b6495fa3bf7386abb4352d253aebf26`
-- immutable image-pack commit: `ae2c51642c59a339326b7312f750543a1f50dcda`
+- immutable launch-final image-pack commit: `6a4f439a77517b23935c17058c2ec644f280e91e`
 
 The launch-final file is a deterministic delivery-size derivative of the accepted transparent
 master, reduced with nearest-neighbour sampling and a constrained palette. It preserves the
@@ -34,20 +34,22 @@ Launch-final Harvest Boar avatar value:
 `https://utfs.io/f/Hzww9EQvYURJmjlQbElHE4IMO5Goa7cgLxPJ0VC6lU8vbt1A`
 
 That URL is treated as an existing-content reuse value, not an `@img` upload. It therefore does
-not appear in the launch-final `imagePack` or `imgSizes`; only the new Road Bandit file does.
+not appear in the launch-final `imagePack` or `imgSizes`. The imagePack also contains the two
+already-made accepted scene-character files documented in
+`state/one_perfect_crop_launch_final_art.md`.
 
 ## Manifest contract
 
-The launch-final manifest must:
+Combat-art assertions in the revised launch-final manifest remain:
 
-- edit the existing hidden Road Bandit AI and bind the repo-backed Road Bandit avatar through
+- edit the existing hidden Road Bandit AI and bind
   `@img:one_perfect_crop_road_bandit_avatar.webp`;
 - edit the existing hidden Harvest Boar AI and set its avatar directly to the approved Wild Boar
   URL above;
-- create no art/gameAsset records;
-- create no Cabbage Seed art;
-- create no scene-character art.
+- create no new AI and no Cabbage Seed art.
 
-The exact Road Bandit delivery file is release-gated with repo-native `artpreflight.py` against
-the launch-final manifest. Gate results belong in the implementation/review handoff rather than
-being copied into this source record.
+The revised launch-final manifest separately creates the two already-made accepted hidden
+SCENE_CHARACTER gameAssets. Their provenance and exact bytes are owned by
+`state/one_perfect_crop_launch_final_art.md`.
+
+Repo-native art preflight is a release gate and is reported in the frozen implementation handoff.
