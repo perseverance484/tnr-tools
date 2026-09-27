@@ -27,40 +27,6 @@
   },
   "items": [
     {
-      "name": "One Perfect Crop - Ittetsu scene character",
-      "entity": "asset",
-      "slot": "create",
-      "srcId": "opc_sc_ittetsu",
-      "data": {
-        "name": "OnePerfectCrop Scene - Ittetsu",
-        "type": "SCENE_CHARACTER",
-        "image": "@img:one_perfect_crop_ittetsu_scene.webp",
-        "folder": "One Perfect Crop",
-        "frames": 1,
-        "speed": 1,
-        "hidden": true,
-        "onInitialBattleField": false,
-        "licenseDetails": "TNR"
-      }
-    },
-    {
-      "name": "One Perfect Crop - Waystation Keeper scene character",
-      "entity": "asset",
-      "slot": "create",
-      "srcId": "opc_sc_waystation_keeper",
-      "data": {
-        "name": "OnePerfectCrop Scene - Waystation Keeper",
-        "type": "SCENE_CHARACTER",
-        "image": "@img:one_perfect_crop_waystation_keeper_scene.webp",
-        "folder": "One Perfect Crop",
-        "frames": 1,
-        "speed": 1,
-        "hidden": true,
-        "onInitialBattleField": false,
-        "licenseDetails": "TNR"
-      }
-    },
-    {
       "name": "One Perfect Crop - Road Bandit avatar",
       "entity": "ai",
       "slot": "edit",
@@ -187,7 +153,6 @@
               "successDescription": "",
               "sceneBackground": "kmDsQUEHSub9GIX5ulO6i",
               "sceneCharacters": [
-                "@scene:opc_sc_ittetsu",
                 "@scene:opc_sc_waystation_keeper"
               ],
               "attackers": [],
@@ -217,7 +182,6 @@
               "successDescription": "",
               "sceneBackground": "kmDsQUEHSub9GIX5ulO6i",
               "sceneCharacters": [
-                "@scene:opc_sc_ittetsu",
                 "@scene:opc_sc_waystation_keeper"
               ],
               "attackers": [],
@@ -243,7 +207,6 @@
               "successDescription": "",
               "sceneBackground": "kmDsQUEHSub9GIX5ulO6i",
               "sceneCharacters": [
-                "@scene:opc_sc_ittetsu",
                 "@scene:opc_sc_waystation_keeper"
               ],
               "attackers": [],
@@ -680,7 +643,6 @@
               "successDescription": "",
               "sceneBackground": "cYu6VwVX55m6uq1oxlWc1",
               "sceneCharacters": [
-                "@scene:opc_sc_ittetsu",
                 "XsLLy8awDAtaE6hXVIi_0"
               ],
               "attackers": [],
@@ -702,7 +664,6 @@
               "successDescription": "",
               "sceneBackground": "cYu6VwVX55m6uq1oxlWc1",
               "sceneCharacters": [
-                "@scene:opc_sc_ittetsu",
                 "XsLLy8awDAtaE6hXVIi_0"
               ],
               "attackers": [],
@@ -724,8 +685,7 @@
               "successDescription": "",
               "sceneBackground": "cYu6VwVX55m6uq1oxlWc1",
               "sceneCharacters": [
-                "@scene:opc_sc_ittetsu",
-                "XsLLy8awDAtaE6hXVIi_0"
+                "@scene:opc_sc_ittetsu"
               ],
               "attackers": [],
               "attackers_scale_gains": 1,
@@ -746,8 +706,7 @@
               "successDescription": "",
               "sceneBackground": "cYu6VwVX55m6uq1oxlWc1",
               "sceneCharacters": [
-                "@scene:opc_sc_ittetsu",
-                "XsLLy8awDAtaE6hXVIi_0"
+                "@scene:opc_sc_ittetsu"
               ],
               "attackers": [],
               "attackers_scale_gains": 1,
@@ -768,8 +727,7 @@
               "successDescription": "",
               "sceneBackground": "cYu6VwVX55m6uq1oxlWc1",
               "sceneCharacters": [
-                "@scene:opc_sc_ittetsu",
-                "XsLLy8awDAtaE6hXVIi_0"
+                "@scene:opc_sc_ittetsu"
               ],
               "attackers": [],
               "attackers_scale_gains": 1,
@@ -796,6 +754,40 @@
           "sceneBackground": "",
           "sceneCharacters": []
         }
+      }
+    },
+    {
+      "name": "OnePerfectCrop Scene - Ittetsu",
+      "entity": "asset",
+      "slot": "create",
+      "srcId": "opc_sc_ittetsu",
+      "data": {
+        "name": "OnePerfectCrop Scene - Ittetsu",
+        "type": "SCENE_CHARACTER",
+        "image": "@img:one_perfect_crop_ittetsu_scene.webp",
+        "folder": "One Perfect Crop",
+        "frames": 1,
+        "speed": 1,
+        "hidden": true,
+        "onInitialBattleField": false,
+        "licenseDetails": "TNR"
+      }
+    },
+    {
+      "name": "OnePerfectCrop Scene - Waystation Keeper",
+      "entity": "asset",
+      "slot": "create",
+      "srcId": "opc_sc_waystation_keeper",
+      "data": {
+        "name": "OnePerfectCrop Scene - Waystation Keeper",
+        "type": "SCENE_CHARACTER",
+        "image": "@img:one_perfect_crop_waystation_keeper_scene.webp",
+        "folder": "One Perfect Crop",
+        "frames": 1,
+        "speed": 1,
+        "hidden": true,
+        "onInitialBattleField": false,
+        "licenseDetails": "TNR"
       }
     }
   ],
