@@ -3,7 +3,8 @@
   "_provenance": [
     "Derived launch-final implementation input; canonical decisions remain in state/one_perfect_crop_launch_final_scope.md, state/one_perfect_crop_launch_final_prose_patch.md, state/one_perfect_crop_content_admin_open.md, and docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md.",
     "The prose strings below render the approved patch's narration/action angle-bracket notation through the frozen TNR <i>...</i> scene-formatting contract.",
-    "2026-09-26 director ruling: Harvest Boar reuses the existing Wild Boar avatar URL; only the Road Bandit avatar is repo-backed through imagePack."
+    "2026-09-26 director ruling: Harvest Boar reuses the existing Wild Boar avatar URL; only the Road Bandit avatar is repo-backed through imagePack.",
+    "2026-09-27 director clarification: battle-AI-only limited new generation; already-made accepted Ittetsu and Waystation Keeper scene assets are restored to launch-final and Road Bandit scene art remains skipped."
   ],
   "baselineManifest": "push/47_one_perfect_crop_core_manifest.json",
   "liveTargets": {
@@ -117,23 +118,97 @@
     },
     "sceneCharactersDefault": [],
     "sceneCharactersByObjective": {
+      "opc_o0": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_g1": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_g1_pass": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_f1_1": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_g3": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_g3_pass": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_f3_1": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_f3_2": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_g4": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_g4_pass": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_f4_1": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_c1": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_c1_1": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_c1_win": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_f1_2": [
+        "@scene:opc_sc_ittetsu",
+        "@scene:opc_sc_waystation_keeper"
+      ],
+      "opc_g2": [
+        "@scene:opc_sc_ittetsu",
+        "@scene:opc_sc_waystation_keeper"
+      ],
+      "opc_g2_pass": [
+        "@scene:opc_sc_ittetsu",
+        "@scene:opc_sc_waystation_keeper"
+      ],
+      "opc_f2_1": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_f2_2": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_f2_3": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_f2_4": [
+        "@scene:opc_sc_ittetsu"
+      ],
+      "opc_f2_5": [
+        "@scene:opc_sc_ittetsu"
+      ],
       "opc_d1": [
+        "@scene:opc_sc_ittetsu",
         "XsLLy8awDAtaE6hXVIi_0"
       ],
       "opc_d2": [
+        "@scene:opc_sc_ittetsu",
         "XsLLy8awDAtaE6hXVIi_0"
       ],
       "opc_d3": [
+        "@scene:opc_sc_ittetsu",
         "XsLLy8awDAtaE6hXVIi_0"
       ],
       "opc_d4": [
+        "@scene:opc_sc_ittetsu",
         "XsLLy8awDAtaE6hXVIi_0"
       ],
       "opc_d5": [
+        "@scene:opc_sc_ittetsu",
         "XsLLy8awDAtaE6hXVIi_0"
       ]
     },
-    "_note": "All other dialog sceneCharacters stay explicitly empty under the 2026-09-24 battle-AI-only launch-final scope. The existing Market Clerk is reused in the market family because it requires no new art."
+    "_note": "2026-09-27 final wiring: Ittetsu appears throughout; Waystation Keeper appears only in the waystation family; existing Market Clerk appears in D1-D5; Road Bandit scene character remains intentionally skipped; no Harvest Boar scene character."
   },
   "afterCapture": [
     {
@@ -157,5 +232,19 @@
       },
       "persist": "full"
     }
-  ]
+  ],
+  "sceneAssets": {
+    "ittetsu": {
+      "srcId": "opc_sc_ittetsu",
+      "name": "OnePerfectCrop Scene - Ittetsu",
+      "filename": "one_perfect_crop_ittetsu_scene.webp",
+      "path": "art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp"
+    },
+    "waystationKeeper": {
+      "srcId": "opc_sc_waystation_keeper",
+      "name": "OnePerfectCrop Scene - Waystation Keeper",
+      "filename": "one_perfect_crop_waystation_keeper_scene.webp",
+      "path": "art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp"
+    }
+  }
 }
