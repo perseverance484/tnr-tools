@@ -1,0 +1,32 @@
+name: opc-scene-finalize-generate
+
+on:
+  push:
+    branches:
+      - chatgpt/opc-scene-finalize-gen-20260927
+    paths:
+      - ".github/workflows/opc_scene_finalize_generate.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/opc-scene-finalize-gen-20260927
+          fetch-depth: 0
+      - name: Generate launch-final manifest
+        run: |
+          python3 push/54_one_perfect_crop_launch_final.gen.py --image-ref 6a4f439a77517b23935c17058c2ec644f280e91e
+          python3 push/54_one_perfect_crop_launch_final.gen.py --image-ref 6a4f439a77517b23935c17058c2ec644f280e91e --check
+      - name: Commit generated manifest
+        run: |
+          git config user.name "opc-gen[bot]"
+          git config user.email "opc-gen@users.noreply.github.com"
+          git add push/54_one_perfect_crop_launch_final.json
+          git diff --cached --quiet && exit 0
+          git commit -m "tmp: regenerate OPC scene-final launch manifest [skip ci]"
+          git push origin HEAD:chatgpt/opc-scene-finalize-gen-20260927
