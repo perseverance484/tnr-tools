@@ -5,7 +5,7 @@
 - **Slug:** `one_perfect_crop`
 - **Content type:** event
 - **Status:** ACTIVE
-- **Progress:** 14/16 settled - review 1, complete 12, skipped 2, superseded 1
+- **Progress:** 14/16 settled - review 1, complete 13, skipped 1, superseded 1
 
 Finish One Perfect Crop launch-final prose, art, scene wiring and admin content from the already reviewed and user-run hidden core, then complete final hidden readback before any publish decision.
 
@@ -24,6 +24,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `docs/reviews/ONE_PERFECT_CROP_CORE_MANIFEST_FORGE041_R2_REVIEW.md` | Durable PASS review of the corrected Forge 0.4.1 revision-2 manifest. |
 | `harvests/inbox/tnr_results_1789599042548.json` | User-run hidden-core Forge result/readback bundle. |
 | `docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md` | Readback closeout explaining the two non-content AI verifier drifts. |
+| `state/one_perfect_crop_launch_final_art.md` | Exact restored Ittetsu/Keeper source and derivative provenance for launch-final. |
 
 ## Tasks
 
@@ -35,7 +36,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `research.bandit_ai` | COMPLETE | shared | `design.structure` | Candidate review. |
 | `content.combat_ai_profiles` | COMPLETE | ChatGPT | `design.structure`, `research.bandit_ai` | Road Bandit and Harvest Boar combat contracts. |
 | `art.intake_accepted_assets` | SUPERSEDED | dauntless | `design.structure` | Accepted art intake. |
-| `art.scene_characters` | SKIPPED | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | Launch-final scene characters. |
+| `art.scene_characters` | COMPLETE | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | Ittetsu SCENE_CHARACTER from the accepted existing design. |
 | `art.combat_avatars` | COMPLETE | ChatGPT | `design.structure`, `research.bandit_ai` | Repo-backed Road Bandit AI avatar. |
 | `art.icons` | SKIPPED | ChatGPT | `design.structure` | No Cabbage Seed icon production. |
 | `art.backgrounds` | COMPLETE | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes` | Node-to-background mapping. |
@@ -44,7 +45,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `build.manifest` | COMPLETE | Fable | `build.final_freeze` | Create two AIs carrying their rules plus the quest; no assets/items/jutsu. |
 | `review.manifest` | COMPLETE | ChatGPT | `build.manifest` | Graph/combat/placeholder/safety review. |
 | `production.run_and_readback` | COMPLETE | dauntless | `review.manifest` | User-only hidden execution/readback. |
-| `launch.finalization` | REVIEW | shared | `art.combat_avatars`, `art.backgrounds`, `admin.balance_and_eligibility`, `production.run_and_readback` | Queued G1/G4 prose edits, final Road Bandit art plus Harvest Boar avatar reuse, final scene wiring, maxAttempts 100, maxCompletes 1, no cooldown, no rewards/item/eligibility gate. |
+| `launch.finalization` | REVIEW | shared | `art.combat_avatars`, `art.backgrounds`, `admin.balance_and_eligibility`, `production.run_and_readback` | Two hidden SCENE_CHARACTER creates for already-made accepted Ittetsu/Keeper art. |
 
 ## Completed, with evidence
 
@@ -70,18 +71,22 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 ### `art.intake_accepted_assets` - Accepted-art repository intake (SUPERSEDED)
 
-- decision: The 2026-09-24 launch-final scope supersedes the older broad accepted-art intake gate; only the two battle AI avatars remain in launch scope.
+- decision: The broad legacy intake gate is superseded by the operative launch-final scope. The current narrowed art set is owned by the dedicated combat-avatar and scene-character tasks; the old quest-icon requirement remains out of launch scope.
 
-### `art.scene_characters` - Launch-final scene characters (SKIPPED)
+### `art.scene_characters` - Launch-final scene characters (COMPLETE)
 
-- decision: Scene-character production is skipped/nonblocking for launch finalization; Road Bandit scene character is explicitly skipped.
+- path: `state/one_perfect_crop_launch_final_art.md`
+- path: `art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp`
+- path: `art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp`
+- sha: 6a4f439a77517b23935c17058c2ec644f280e91e - immutable launch-final three-file imagePack commit
+- approval: 2026-09-27 director clarification: use the already-made Ittetsu and Waystation Keeper scene art in launch-final.
 
 ### `art.combat_avatars` - Launch-final combat avatars (COMPLETE)
 
 - path: `art/one_perfect_crop/one_perfect_crop_road_bandit_avatar.webp`
 - path: `state/one_perfect_crop_combat_avatars.md`
-- sha: ae2c51642c59a339326b7312f750543a1f50dcda - immutable Road Bandit imagePack commit
 - approval: 2026-09-26 director ruling: reuse the existing Wild Boar avatar for Harvest Boar; no separate Harvest Boar art is required.
+- sha: 6a4f439a77517b23935c17058c2ec644f280e91e - immutable launch-final imagePack commit containing Road Bandit plus restored accepted scene art
 
 ### `art.icons` - Launch-final Cabbage Seed icon (SKIPPED)
 
@@ -261,25 +266,33 @@ Make accepted Ittetsu/Keeper/quest-icon bytes durable for launch finalization.
 
 ### `art.scene_characters` - Launch-final scene characters
 
-**SKIPPED** - area art, owner ChatGPT, lead role Image Production
+**COMPLETE** - area art, owner ChatGPT, lead role Image Production
 
-Finish Road Bandit scene art and Market Clerk reuse.
+Finalize already-made accepted Ittetsu and Waystation Keeper scene assets plus existing Market Clerk reuse; keep Road Bandit scene art skipped.
 
 **Scope**
 
-- Launch-final scene characters.
+- Ittetsu SCENE_CHARACTER from the accepted existing design.
+- Waystation Keeper SCENE_CHARACTER from the accepted existing design.
+- Existing Market Clerk reuse.
+- Road Bandit scene character intentionally skipped/nonblocking.
 
 **Required resources**
 
-- `state/plan_one_perfect_crop_finish.md` - Scene-art intent.
+- `state/one_perfect_crop_launch_final_scope.md` - 2026-09-27 director clarification restoring already-made accepted scene art.
+- `state/one_perfect_crop_launch_final_art.md` - Exact source/derivative provenance and immutable pack ref.
+- `state/workstreams/one_perfect_crop/launch_final_patch.json` - Exact objective-to-scene-character wiring.
 
 **Deliverables**
 
-- Accepted scene-character set.
+- Repo-backed accepted Ittetsu and Waystation Keeper scene files.
+- Explicit Ittetsu/Keeper/Market Clerk launch-final wiring with no Road Bandit scene asset.
 
 **Completion gates**
 
-- User accepts final scene art.
+- Director-approved existing Ittetsu and Keeper designs are used without redesign.
+- Both repo-backed scene files are release-gated by SCENE_CHARACTER artpreflight.
+- Road Bandit scene character remains absent.
 
 ### `art.combat_avatars` - Launch-final combat avatars
 
@@ -469,11 +482,14 @@ Optionally execute only the reviewed hidden core manifest and verify fresh readb
 
 **REVIEW** - area production, owner shared, lead role Release Auditor
 
-Freeze and independently review the launch-final hidden EDIT/CLOSEOUT manifest before user-only execution/readback.
+Independently review the revised art-final hidden closeout manifest before user-only execution/readback.
 
 **Scope**
 
-- Queued G1/G4 prose edits, final Road Bandit art plus Harvest Boar avatar reuse, final scene wiring, maxAttempts 100, maxCompletes 1, no cooldown, no rewards/item/eligibility gate.
+- Two hidden SCENE_CHARACTER creates for already-made accepted Ittetsu/Keeper art.
+- Road Bandit avatar edit and Harvest Boar Wild Boar-avatar reuse.
+- Final Ittetsu/Keeper/Market Clerk/background scene wiring.
+- Queued G1/G4 prose edits; maxAttempts 100; maxCompletes 1; no cooldown; no rewards/item/eligibility gate.
 
 **Required resources**
 
@@ -483,16 +499,18 @@ Freeze and independently review the launch-final hidden EDIT/CLOSEOUT manifest b
 - `docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md` - Existing hidden target ids and clean quest baseline.
 - `state/one_perfect_crop_content_admin_open.md` - Resolved no-reward/repeatability/eligibility contract.
 - `push/54_one_perfect_crop_launch_final.gen.py` - Fail-closed EDIT/CLOSEOUT manifest generator.
+- `state/one_perfect_crop_launch_final_art.md` - Restored accepted scene-art provenance and immutable pack.
 
 **Deliverables**
 
-- Frozen launch-final edit manifest covering queued prose, final art/scene wiring and resolved quest admin fields.
-- Independent exact-SHA review before any user-only hidden execution/readback.
+- Frozen revised launch-final manifest with two hidden scene-asset creates and three hidden-core edits.
+- Independent exact-SHA review of the revised candidate before any user-only hidden execution/readback.
 
 **Completion gates**
 
 - Queued G1/G4 prose patch is applied without graph/ID drift.
-- Resolved admin decisions are copied exactly: no rewards/item/eligibility gate; maxAttempts 100; maxCompletes 1; no cooldown fields.
-- Road Bandit is immutable-repo-bound and Harvest Boar uses the director-approved existing Wild Boar avatar.
-- Exact manifest/generator/art/workstream gates pass at the frozen implementation SHA.
-- Independent review passes before user-only Forge execution/readback; publish/unhide remains separate.
+- Resolved admin decisions are exact: no rewards/item/eligibility gate; maxAttempts 100; maxCompletes 1; no cooldown fields.
+- Ittetsu and Waystation Keeper are hidden SCENE_CHARACTER creates from the accepted repo-backed bytes; Road Bandit scene art remains absent.
+- Road Bandit AI uses the immutable repo-backed avatar and Harvest Boar uses the director-approved existing Wild Boar avatar.
+- All exact manifest/generator/art/workstream/Forge-offline gates pass at the frozen revised implementation SHA.
+- Fresh independent review passes before user-only Forge execution/readback; publish/unhide remains separate.
