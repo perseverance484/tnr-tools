@@ -6,7 +6,7 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |
-| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 14/16 settled - review 1, complete 12, skipped 2, superseded 1 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
+| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 14/16 settled - review 1, complete 13, skipped 1, superseded 1 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
 
 ## One Perfect Crop
 
