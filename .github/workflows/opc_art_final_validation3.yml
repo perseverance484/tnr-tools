@@ -1,0 +1,79 @@
+name: opc-art-final-validation3
+
+on:
+  push:
+    branches:
+      - chatgpt/opc-art-final-validation3-20260927
+    paths:
+      - ".github/workflows/opc_art_final_validation3.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 6757e0c2130d39a35753380ec4bcc8af85e765b8
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: python3 -m pip install --disable-pip-version-check pillow
+      - name: Generator exactness
+        run: python3 push/54_one_perfect_crop_launch_final.gen.py --image-ref 6a4f439a77517b23935c17058c2ec644f280e91e --check
+      - name: Content manifest validator
+        run: >
+          python3 skills/building-tnr-content/scripts/validate.py
+          push/54_one_perfect_crop_launch_final.json
+          --ctors skills/building-tnr-content/data/45c_DATA_constructors.json
+          --pool skills/building-tnr-content/data/32b_DATA_pool.json
+          --entities skills/building-tnr-content/data/45d_DATA_entity_schemas.json
+          --checks skills/building-tnr-content/data/45g_DATA_checks.json
+          --lints skills/building-tnr-content/data/45h_DATA_lints.json
+      - name: Forge offline manifest gate
+        run: node forge/tools/check_manifest.mjs push/54_one_perfect_crop_launch_final.json
+      - name: Road Bandit avatar preflight
+        run: >
+          python3 skills/producing-tnr-art/scripts/artpreflight.py
+          art/one_perfect_crop/one_perfect_crop_road_bandit_avatar.webp
+          --type AI_AVATAR
+          --spec skills/producing-tnr-art/data/25x_DATA_art_spec.json
+          --manifest push/54_one_perfect_crop_launch_final.json
+      - name: Restored scene-character preflight
+        run: >
+          python3 skills/producing-tnr-art/scripts/artpreflight.py
+          art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp
+          art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp
+          --type SCENE_CHARACTER
+          --spec skills/producing-tnr-art/data/25x_DATA_art_spec.json
+          --manifest push/54_one_perfect_crop_launch_final.json
+      - name: Exact art-byte contract
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from PIL import Image
+          expected = {
+            "art/one_perfect_crop/one_perfect_crop_road_bandit_avatar.webp": (11268,"fed328dc1fcfec1b5aeb4a452f2562d24b6495fa3bf7386abb4352d253aebf26",(320,320)),
+            "art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp": (24838,"13c978641f10a412c47185c1efa591e1a7cb0f1963ab4a530a0b1cb7170cea61",(341,512)),
+            "art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp": (25104,"a64b6a5f26a3264a31f5a787c14470d1eb84b423a4dc6920e7cdef50df3ae624",(341,512)),
+          }
+          for path,(size,digest,dims) in expected.items():
+              raw=Path(path).read_bytes()
+              assert len(raw)==size
+              assert sha256(raw).hexdigest()==digest
+              im=Image.open(path); im.load()
+              assert im.size==dims and im.mode=="RGBA"
+              if path.endswith("_scene.webp"):
+                  assert sum(im.getchannel("A").histogram()[1:255])==0
+          print("exact art-byte contract PASS")
+          PY
+      - run: python3 scripts/content_workstream.py validate --all
+      - run: python3 scripts/content_workstream.py render --all --check
+      - run: python3 scripts/content_workstream.py --selftest
