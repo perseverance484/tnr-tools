@@ -2,9 +2,10 @@
 """
 Build the One Perfect Crop launch-final EDIT/CLOSEOUT manifest.
 
-This generator never creates or runs live content. It edits the three already-created
-hidden records from the committed hidden-core readback, applies only the director-approved
-launch-final deltas, binds the accepted Road Bandit avatar to an immutable repo commit,
+This generator never runs live content. It edits the three already-created hidden records
+from the committed hidden-core readback, creates only the two already-made accepted hidden
+SCENE_CHARACTER assets (Ittetsu and Waystation Keeper), applies only the director-approved
+launch-final deltas, binds all three repo-backed art files to an immutable repo commit,
 and reuses the director-approved existing Wild Boar avatar URL for Harvest Boar.
 
 Usage from repository root:
@@ -13,9 +14,10 @@ Usage from repository root:
     python3 push/54_one_perfect_crop_launch_final.gen.py --image-ref <40-hex-art-commit> --check
 
 The image ref is intentionally required. It must be an immutable commit that already contains
-the processed Road Bandit avatar file. Harvest Boar reuses an existing live avatar URL and is
-therefore not part of imagePack. This avoids a self-referential manifest commit and makes
-Forge's new-image content binding independently reviewable.
+the processed Road Bandit avatar plus the accepted Ittetsu and Waystation Keeper scene files.
+Harvest Boar reuses an existing live avatar URL and is therefore not part of imagePack. This
+avoids a self-referential manifest commit and makes Forge's new-image content binding
+independently reviewable.
 """
 from __future__ import annotations
 
@@ -43,6 +45,10 @@ BOAR_AI = "2-gJmijAA8lGns_thDRjz"
 QUEST_ID = "CZIZoHDAOWjxDtVaQwr6V"
 ROAD_SRC = "opc_ai_road_bandit"
 BOAR_SRC = "opc_ai_harvest_boar"
+ITTETSU_SRC = "opc_sc_ittetsu"
+KEEPER_SRC = "opc_sc_waystation_keeper"
+ITTETSU_REF = "@scene:" + ITTETSU_SRC
+KEEPER_REF = "@scene:" + KEEPER_SRC
 MARKET_CLERK = "XsLLy8awDAtaE6hXVIi_0"
 WILD_BOAR_AVATAR = "https://utfs.io/f/Hzww9EQvYURJmjlQbElHE4IMO5Goa7cgLxPJ0VC6lU8vbt1A"
 
@@ -131,30 +137,38 @@ def build_image_pack(patch: dict[str, Any], image_ref: str) -> tuple[dict[str, i
     img_sizes: dict[str, int] = {}
     files: dict[str, Any] = {}
 
-    spec = patch["avatars"]["roadBandit"]
-    name, path = spec["name"], spec["path"]
-    if os.path.basename(path) != name:
-        raise AssertionError("roadBandit: path basename must equal logical @img name")
-    raw = committed_bytes(image_ref, path)
-    if not raw:
-        raise AssertionError("roadBandit: committed avatar is empty")
-    size = len(raw)
-    digest = hashlib.sha256(raw).hexdigest()
-    img_sizes[name] = size
-    files[name] = {"path": path, "sha256": digest, "bytes": size}
+    specs = [
+        ("roadBandit", patch["avatars"]["roadBandit"]["name"], patch["avatars"]["roadBandit"]["path"]),
+        ("ittetsu", patch["sceneAssets"]["ittetsu"]["filename"], patch["sceneAssets"]["ittetsu"]["path"]),
+        (
+            "waystationKeeper",
+            patch["sceneAssets"]["waystationKeeper"]["filename"],
+            patch["sceneAssets"]["waystationKeeper"]["path"],
+        ),
+    ]
+    for key, name, path in specs:
+        if os.path.basename(path) != name:
+            raise AssertionError(f"{key}: path basename must equal logical @img name")
+        raw = committed_bytes(image_ref, path)
+        if not raw:
+            raise AssertionError(f"{key}: committed art file is empty")
+        size = len(raw)
+        digest = hashlib.sha256(raw).hexdigest()
+        img_sizes[name] = size
+        files[name] = {"path": path, "sha256": digest, "bytes": size}
 
-    # When the file is present in the checkout, require exact byte identity with the
-    # immutable image-ref copy. This catches a dirty/uncommitted art substitution.
-    working = os.path.join(ROOT, path)
-    if os.path.exists(working):
-        with open(working, "rb") as fh:
-            now = fh.read()
-        if now != raw:
-            raise AssertionError(
-                f"{path}: working bytes differ from immutable image ref {image_ref}"
-            )
+        # When the file is present in the checkout, require exact byte identity with the
+        # immutable image-ref copy. This catches a dirty/uncommitted art substitution.
+        working = os.path.join(ROOT, path)
+        if os.path.exists(working):
+            with open(working, "rb") as fh:
+                now = fh.read()
+            if now != raw:
+                raise AssertionError(
+                    f"{path}: working bytes differ from immutable image ref {image_ref}"
+                )
 
-    return img_sizes, {"ref": image_ref, "files": files}
+    return img_sizes, {"ref": image_ref, "files": dict(sorted(files.items()))}
 
 
 def apply_patch(core: dict[str, Any], patch: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -269,15 +283,26 @@ def verify_structural_diff(
         if "choices" in delta:
             assert after_by[oid]["nextObjectiveId"] == delta["choices"], oid
 
-    # The only non-empty scene-character reuse is the already-captured Market Clerk.
+    # Scene-character wiring is exact: Ittetsu throughout, Keeper only at the
+    # waystation, Market Clerk only at market. Road Bandit scene art stays skipped.
+    expected_chars = patch["sceneWiring"]["sceneCharactersByObjective"]
     for obj in after:
         if obj.get("task") != "dialog":
             continue
+        oid = obj["id"]
         chars = obj.get("sceneCharacters")
-        assert isinstance(chars, list), obj["id"]
-        if chars:
-            assert chars == [MARKET_CLERK], obj["id"]
-            assert obj["id"] in {"opc_d1", "opc_d2", "opc_d3", "opc_d4", "opc_d5"}
+        assert isinstance(chars, list), oid
+        assert chars == expected_chars[oid], oid
+        assert set(chars) <= {ITTETSU_REF, KEEPER_REF, MARKET_CLERK}, oid
+
+    for oid in patch["sceneWiring"]["backgrounds"]["nmrMHmz9xWojzyIV2mAR8"]:
+        assert after_by[oid]["sceneCharacters"] == [ITTETSU_REF], oid
+    for oid in patch["sceneWiring"]["backgrounds"]["kmDsQUEHSub9GIX5ulO6i"]:
+        assert after_by[oid]["sceneCharacters"] == [ITTETSU_REF, KEEPER_REF], oid
+    for oid in patch["sceneWiring"]["backgrounds"]["E4VJ-IeIQMwbmGGfKc-sn"]:
+        assert after_by[oid]["sceneCharacters"] == [ITTETSU_REF], oid
+    for oid in patch["sceneWiring"]["backgrounds"]["cYu6VwVX55m6uq1oxlWc1"]:
+        assert after_by[oid]["sceneCharacters"] == [ITTETSU_REF, MARKET_CLERK], oid
 
     # Battle contracts and sealed loss routes remain exactly as the hidden core authored them.
     for oid in ("opc_f2_battle", "opc_c1_battle"):
@@ -306,19 +331,58 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
 
     img_sizes, image_pack = build_image_pack(patch, image_ref)
     road_name = patch["avatars"]["roadBandit"]["name"]
+    ittetsu = patch["sceneAssets"]["ittetsu"]
+    keeper = patch["sceneAssets"]["waystationKeeper"]
+    assert ittetsu["srcId"] == ITTETSU_SRC
+    assert keeper["srcId"] == KEEPER_SRC
     boar_url = patch["avatars"]["harvestBoar"]["reuseUrl"]
     assert boar_url == WILD_BOAR_AVATAR
 
     manifest = {
         "_note": (
-            "One Perfect Crop launch-final EDIT/CLOSEOUT against the three existing hidden "
-            "records. No creates, no publish/unhide, no replacement quest."
+            "One Perfect Crop launch-final closeout: create only the two already-made accepted "
+            "hidden scene-character assets, edit the three existing hidden core records, and "
+            "perform no publish/unhide."
         ),
         "imgSizes": img_sizes,
         "imagePack": image_pack,
         "items": [
             {
-                "name": "One Perfect Crop — Road Bandit avatar",
+                "name": "One Perfect Crop - Ittetsu scene character",
+                "entity": "asset",
+                "slot": "create",
+                "srcId": ITTETSU_SRC,
+                "data": {
+                    "name": ittetsu["name"],
+                    "type": "SCENE_CHARACTER",
+                    "image": "@img:" + ittetsu["filename"],
+                    "folder": "One Perfect Crop",
+                    "frames": 1,
+                    "speed": 1,
+                    "hidden": True,
+                    "onInitialBattleField": False,
+                    "licenseDetails": "TNR",
+                },
+            },
+            {
+                "name": "One Perfect Crop - Waystation Keeper scene character",
+                "entity": "asset",
+                "slot": "create",
+                "srcId": KEEPER_SRC,
+                "data": {
+                    "name": keeper["name"],
+                    "type": "SCENE_CHARACTER",
+                    "image": "@img:" + keeper["filename"],
+                    "folder": "One Perfect Crop",
+                    "frames": 1,
+                    "speed": 1,
+                    "hidden": True,
+                    "onInitialBattleField": False,
+                    "licenseDetails": "TNR",
+                },
+            },
+            {
+                "name": "One Perfect Crop - Road Bandit avatar",
                 "entity": "ai",
                 "slot": "edit",
                 "srcId": ROAD_SRC,
@@ -326,7 +390,7 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
                 "data": {"avatar": "@img:" + road_name},
             },
             {
-                "name": "One Perfect Crop — Harvest Boar avatar",
+                "name": "One Perfect Crop - Harvest Boar avatar",
                 "entity": "ai",
                 "slot": "edit",
                 "srcId": BOAR_SRC,
@@ -334,7 +398,7 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
                 "data": {"avatar": boar_url},
             },
             {
-                "name": "One Perfect Crop — launch-final quest closeout",
+                "name": "One Perfect Crop - launch-final quest closeout",
                 "entity": "quest",
                 "slot": "edit",
                 "targetId": QUEST_ID,
@@ -350,37 +414,76 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
 def verify_manifest(manifest: dict[str, Any], patch: dict[str, Any]) -> None:
     items = manifest["items"]
     assert [(i["entity"], i["slot"]) for i in items] == [
+        ("asset", "create"),
+        ("asset", "create"),
         ("ai", "edit"),
         ("ai", "edit"),
         ("quest", "edit"),
     ]
-    assert [i["targetId"] for i in items] == [ROAD_AI, BOAR_AI, QUEST_ID]
-    assert [i.get("srcId") for i in items] == [ROAD_SRC, BOAR_SRC, None]
-    assert all(i["slot"] != "create" for i in items)
+    assert [i.get("targetId") for i in items] == [None, None, ROAD_AI, BOAR_AI, QUEST_ID]
+    assert [i.get("srcId") for i in items] == [
+        ITTETSU_SRC,
+        KEEPER_SRC,
+        ROAD_SRC,
+        BOAR_SRC,
+        None,
+    ]
 
+    ittetsu = patch["sceneAssets"]["ittetsu"]
+    keeper = patch["sceneAssets"]["waystationKeeper"]
     assert items[0]["data"] == {
-        "avatar": "@img:" + patch["avatars"]["roadBandit"]["name"]
+        "name": ittetsu["name"],
+        "type": "SCENE_CHARACTER",
+        "image": "@img:" + ittetsu["filename"],
+        "folder": "One Perfect Crop",
+        "frames": 1,
+        "speed": 1,
+        "hidden": True,
+        "onInitialBattleField": False,
+        "licenseDetails": "TNR",
     }
     assert items[1]["data"] == {
+        "name": keeper["name"],
+        "type": "SCENE_CHARACTER",
+        "image": "@img:" + keeper["filename"],
+        "folder": "One Perfect Crop",
+        "frames": 1,
+        "speed": 1,
+        "hidden": True,
+        "onInitialBattleField": False,
+        "licenseDetails": "TNR",
+    }
+    assert items[2]["data"] == {
+        "avatar": "@img:" + patch["avatars"]["roadBandit"]["name"]
+    }
+    assert items[3]["data"] == {
         "avatar": patch["avatars"]["harvestBoar"]["reuseUrl"]
     }
-    assert items[1]["data"]["avatar"] == WILD_BOAR_AVATAR
+    assert items[3]["data"]["avatar"] == WILD_BOAR_AVATAR
 
-    q = items[2]["data"]
+    q = items[4]["data"]
     assert q["hidden"] is True
     assert q["maxAttempts"] == 100 and q["maxCompletes"] == 1
     assert FORBIDDEN_QUEST_FIELDS.isdisjoint(q)
     assert q["content"]["reward"] == {}
 
+    creates = [i for i in items if i["slot"] == "create"]
+    assert len(creates) == 2
+    assert all(i["entity"] == "asset" and i["data"]["hidden"] is True for i in creates)
+
     blob = stable_json(manifest)
     assert "Cabbage Seed" not in blob
     assert '"entity":"item"' not in blob
-    assert '"slot":"create"' not in blob
     assert "one_perfect_crop_road_bandit_scene" not in blob
-    assert "@scene:" not in blob
+    assert "@scene:opc_sc_ittetsu" in blob
+    assert "@scene:opc_sc_waystation_keeper" in blob
     assert "skipPreflight" not in manifest
 
-    names = {patch["avatars"]["roadBandit"]["name"]}
+    names = {
+        patch["avatars"]["roadBandit"]["name"],
+        ittetsu["filename"],
+        keeper["filename"],
+    }
     assert set(manifest["imgSizes"]) == names
     assert set(manifest["imagePack"]["files"]) == names
     for name in names:
@@ -395,7 +498,7 @@ def verify_manifest(manifest: dict[str, Any], patch: dict[str, Any]) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--image-ref", required=True, help="immutable 40-hex commit containing the Road Bandit avatar")
+    ap.add_argument("--image-ref", required=True, help="immutable 40-hex commit containing all three repo-backed launch-final art files")
     ap.add_argument(
         "--check",
         action="store_true",
@@ -421,8 +524,8 @@ def main() -> int:
     with open(OUT, "w", encoding="utf-8") as fh:
         fh.write(rendered)
     print(
-        f"{OUT}: {len(manifest['items'])} edit items, "
-        f"{len(manifest['imgSizes'])} immutable new-avatar binding(s)"
+        f"{OUT}: {len(manifest['items'])} items, "
+        f"{len(manifest['imgSizes'])} immutable repo-backed art binding(s)"
     )
     return 0
 
