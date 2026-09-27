@@ -1,0 +1,42 @@
+name: opc-scene-asset-stage-decode
+
+on:
+  push:
+    branches:
+      - chatgpt/opc-scene-asset-stage-20260927
+    paths:
+      - ".github/workflows/opc_scene_stage_decode.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/opc-scene-asset-stage-20260927
+          fetch-depth: 0
+
+      - name: Decode exact staged scene assets
+        run: |
+          set -euo pipefail
+          mkdir -p art/one_perfect_crop
+          cat .tmp/opc_scene_stage/ittetsu.part{0,1,2,3,4}.b64 | base64 -d > art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp
+          cat .tmp/opc_scene_stage/keeper.part{0,1,2,3,4}.b64 | base64 -d > art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp
+          test "$(wc -c < art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp)" -eq 24838
+          test "$(wc -c < art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp)" -eq 25104
+          echo "13c978641f10a412c47185c1efa591e1a7cb0f1963ab4a530a0b1cb7170cea61  art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp" | sha256sum -c -
+          echo "a64b6a5f26a3264a31f5a787c14470d1eb84b423a4dc6920e7cdef50df3ae624  art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp" | sha256sum -c -
+          file art/one_perfect_crop/*.webp
+
+      - name: Commit binary staging outputs
+        run: |
+          set -euo pipefail
+          git config user.name "opc-scene-stage[bot]"
+          git config user.email "opc-scene-stage@users.noreply.github.com"
+          git add art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp
+          git diff --cached --quiet && exit 0
+          git commit -m "tmp: decode OPC accepted scene assets [skip ci]"
+          git push origin HEAD:chatgpt/opc-scene-asset-stage-20260927
