@@ -25,7 +25,7 @@ jobs:
           mkdir -p art/one_perfect_crop
           sha256sum .tmp/opc_scene_stage/keeper.part{0,1,2,3,4}.b64
           cat .tmp/opc_scene_stage/ittetsu.part0_{0,1,2,3}.b64 .tmp/opc_scene_stage/ittetsu.part{1,2,3,4}.b64 | base64 -d > art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp
-          cat .tmp/opc_scene_stage/keeper.part{0,1,2,3,4}.b64 | base64 -d > art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp
+          cat .tmp/opc_scene_stage/keeper.part0.b64 .tmp/opc_scene_stage/keeper.part1_{0,1,2,3}.b64 .tmp/opc_scene_stage/keeper.part{2,3,4}.b64 | base64 -d > art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp
           test "$(wc -c < art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp)" -eq 24838
           test "$(wc -c < art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp)" -eq 25104
           echo "13c978641f10a412c47185c1efa591e1a7cb0f1963ab4a530a0b1cb7170cea61  art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp" | sha256sum -c -
