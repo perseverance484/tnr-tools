@@ -4,7 +4,8 @@
     "Derived launch-final implementation input; canonical decisions remain in state/one_perfect_crop_launch_final_scope.md, state/one_perfect_crop_launch_final_prose_patch.md, state/one_perfect_crop_content_admin_open.md, and docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md.",
     "The prose strings below render the approved patch's narration/action angle-bracket notation through the frozen TNR <i>...</i> scene-formatting contract.",
     "2026-09-26 director ruling: Harvest Boar reuses the existing Wild Boar avatar URL; only the Road Bandit avatar is repo-backed through imagePack.",
-    "2026-09-27 director clarification: battle-AI-only limited new generation; already-made accepted Ittetsu and Waystation Keeper scene assets are restored to launch-final and Road Bandit scene art remains skipped."
+    "2026-09-27 director clarification: battle-AI-only limited new generation; already-made accepted Ittetsu and Waystation Keeper scene assets are restored to launch-final and Road Bandit scene art remains skipped.",
+    "Engine/client law 48 permits one scene character per dialog; final wiring shows the local focal speaker rather than stacking characters at the same position."
   ],
   "baselineManifest": "push/47_one_perfect_crop_core_manifest.json",
   "liveTargets": {
@@ -160,18 +161,6 @@
       "opc_c1_win": [
         "@scene:opc_sc_ittetsu"
       ],
-      "opc_f1_2": [
-        "@scene:opc_sc_ittetsu",
-        "@scene:opc_sc_waystation_keeper"
-      ],
-      "opc_g2": [
-        "@scene:opc_sc_ittetsu",
-        "@scene:opc_sc_waystation_keeper"
-      ],
-      "opc_g2_pass": [
-        "@scene:opc_sc_ittetsu",
-        "@scene:opc_sc_waystation_keeper"
-      ],
       "opc_f2_1": [
         "@scene:opc_sc_ittetsu"
       ],
@@ -187,28 +176,32 @@
       "opc_f2_5": [
         "@scene:opc_sc_ittetsu"
       ],
+      "opc_f1_2": [
+        "@scene:opc_sc_waystation_keeper"
+      ],
+      "opc_g2": [
+        "@scene:opc_sc_waystation_keeper"
+      ],
+      "opc_g2_pass": [
+        "@scene:opc_sc_waystation_keeper"
+      ],
       "opc_d1": [
-        "@scene:opc_sc_ittetsu",
         "XsLLy8awDAtaE6hXVIi_0"
       ],
       "opc_d2": [
-        "@scene:opc_sc_ittetsu",
         "XsLLy8awDAtaE6hXVIi_0"
       ],
       "opc_d3": [
-        "@scene:opc_sc_ittetsu",
-        "XsLLy8awDAtaE6hXVIi_0"
+        "@scene:opc_sc_ittetsu"
       ],
       "opc_d4": [
-        "@scene:opc_sc_ittetsu",
-        "XsLLy8awDAtaE6hXVIi_0"
+        "@scene:opc_sc_ittetsu"
       ],
       "opc_d5": [
-        "@scene:opc_sc_ittetsu",
-        "XsLLy8awDAtaE6hXVIi_0"
+        "@scene:opc_sc_ittetsu"
       ]
     },
-    "_note": "2026-09-27 final wiring: Ittetsu appears throughout; Waystation Keeper appears only in the waystation family; existing Market Clerk appears in D1-D5; Road Bandit scene character remains intentionally skipped; no Harvest Boar scene character."
+    "_note": "Final law-48-compatible wiring: exactly one scene character per dialog. Ittetsu is shown on Pass Road, East Road, and D3-D5; Waystation Keeper is shown on the three Waystation dialogs; Market Clerk is shown on D1-D2. Road Bandit scene art remains skipped; no Harvest Boar scene character."
   },
   "afterCapture": [
     {
