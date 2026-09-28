@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 70a82ad7891064ba9e4718ecca4d8cdd143fce58
+          ref: ce748f6465fd6886e15b574ccc199d8464f95046
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
@@ -26,12 +26,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
+          cache: npm
+          cache-dependency-path: forge/package-lock.json
 
-      - name: Install art preflight dependency
+      - name: Install Python art dependency
         run: python3 -m pip install --disable-pip-version-check pillow
 
+      - name: Install Forge dependencies
+        run: npm ci --prefix forge
+
       - name: Generator exactness
-        run: python3 push/54_one_perfect_crop_launch_final.gen.py --image-ref ae2c51642c59a339326b7312f750543a1f50dcda --check
+        run: python3 push/54_one_perfect_crop_launch_final.gen.py --image-ref 6a4f439a77517b23935c17058c2ec644f280e91e --check
 
       - name: Content manifest validator
         run: >
@@ -46,11 +51,23 @@ jobs:
       - name: Forge offline manifest gate
         run: node forge/tools/check_manifest.mjs push/54_one_perfect_crop_launch_final.json
 
+      - name: Forge regression suite
+        run: npm test --prefix forge
+
       - name: Road Bandit art preflight
         run: >
           python3 skills/producing-tnr-art/scripts/artpreflight.py
           art/one_perfect_crop/one_perfect_crop_road_bandit_avatar.webp
           --type AI_AVATAR
+          --spec skills/producing-tnr-art/data/25x_DATA_art_spec.json
+          --manifest push/54_one_perfect_crop_launch_final.json
+
+      - name: Ittetsu and Keeper art preflight
+        run: >
+          python3 skills/producing-tnr-art/scripts/artpreflight.py
+          art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp
+          art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp
+          --type SCENE_CHARACTER
           --spec skills/producing-tnr-art/data/25x_DATA_art_spec.json
           --manifest push/54_one_perfect_crop_launch_final.json
 
