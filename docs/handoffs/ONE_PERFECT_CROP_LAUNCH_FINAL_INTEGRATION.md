@@ -11,7 +11,8 @@
 - reviewed manifest hash: `0b942400`
 - imagePack ref: `6a4f439a77517b23935c17058c2ec644f280e91e`
 - round-2 review: `docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R2_REVIEW.md`
-- post-review evidence head before this handoff: `5ccecf0386ddb23e8ec2bd71af75e76b8f972e99`
+- integration source / post-review evidence head: `5ccecf0386ddb23e8ec2bd71af75e76b8f972e99`
+- this handoff document is committed afterward for coordination only and is not required in the integration merge
 - main observed while preparing handoff: `5bbc030b1c20a3939f1586c9403a7213e591a420`
 - merge-base: `2f5c54ba4ec04596783a972f4c084b89d8087cec`
 
@@ -48,12 +49,12 @@ From a clean clone:
 git fetch origin --prune
 
 # Re-verify the refs. Do not integrate a moving target.
-test "$(git rev-parse origin/chatgpt/opc-launch-finalization-20260924)" = "<INTEGRATION_SOURCE_SHA>"
+git merge-base --is-ancestor 5ccecf0386ddb23e8ec2bd71af75e76b8f972e99 origin/chatgpt/opc-launch-finalization-20260924
 MAIN_NOW="$(git rev-parse origin/main)"
 echo "main=$MAIN_NOW"
 
 git checkout -B opc-launch-final-integration origin/main
-git merge --no-ff <INTEGRATION_SOURCE_SHA> -m "opc: integrate reviewed launch-final hidden package"
+git merge --no-ff 5ccecf0386ddb23e8ec2bd71af75e76b8f972e99 -m "opc: integrate reviewed launch-final hidden package"
 ```
 
 If `MAIN_NOW` is not `5bbc030b1c20a3939f1586c9403a7213e591a420`, inspect the
