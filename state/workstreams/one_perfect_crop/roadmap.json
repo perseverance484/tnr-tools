@@ -5,14 +5,22 @@
   "title": "One Perfect Crop",
   "content_type": "event",
   "status": "ACTIVE",
-  "objective": "Deliver a reviewed hidden core manifest now; finish art/admin in a later launch-final patch.",
+  "objective": "Finish One Perfect Crop launch-final prose, art, scene wiring and admin content from the already reviewed and user-run hidden core, then complete final hidden readback before any publish decision.",
   "notes": [
     "Re-audited from live main 6e09b15bb6f3d1c90ba416d14211b533f5b4a367 on 2026-09-16.",
     "2026-09-16 director ruling: missing art may use create-path placeholders in the hidden core build; no @img or asset entries are required.",
     "2026-09-16 director ruling: launch-final rewards, Cabbage Seed definition/economics, repeatability and eligibility are deferred; core implementation must not invent them.",
     "state/one_perfect_crop_core_manifest_override.md supersedes the older finish-plan art/admin-before-any-manifest gate only for the hidden core path.",
     "Publishing/unhiding remains blocked until launch.finalization; Farming level 15 must not be silently mapped to character level 15.",
-    "2026-09-16 Forge 0.4.1 blocker: the five-item candidate af0efc6 was refused at manifest selection ('aiProfile cannot be created directly; create an ai with rules'), before job creation and with no live mutation. push/47 is corrected in place to three items with each AI carrying its own rules; validate.py and selfcheck.py now enforce the same contract, and forge/tools/check_manifest.mjs runs Forge's own parser/planner/validator offline. The rev-1 review PASS is superseded for execution."
+    "2026-09-16 Forge 0.4.1 blocker: the five-item candidate af0efc6 was refused at manifest selection ('aiProfile cannot be created directly; create an ai with rules'), before job creation and with no live mutation. push/47 is corrected in place to three items with each AI carrying its own rules; validate.py and selfcheck.py now enforce the same contract, and forge/tools/check_manifest.mjs runs Forge's own parser/planner/validator offline. The rev-1 review PASS is superseded for execution.",
+    "2026-09-16 revision-2 core manifest 6cce22e3fad0e08344cb2f3252bdf04909632983 passed narrow independent Forge 0.4.1 re-review; the durable review is docs/reviews/ONE_PERFECT_CROP_CORE_MANIFEST_FORGE041_R2_REVIEW.md.",
+    "2026-09-16 dauntless executed the corrected hidden core. harvests/inbox/tnr_results_1789599042548.json records Road Bandit dKEz_VsgZjrfbtxt4ldo8, Harvest Boar 2-gJmijAA8lGns_thDRjz and quest CZIZoHDAOWjxDtVaQwr6V. Quest readback matched; AI postflight drift is documented verifier noise from server stat scaling and rule object-key ordering.",
+    "2026-09-23 director requested the approved G1/G4 prose improvements be saved for the launch-final manifest rather than pushed separately. state/one_perfect_crop_launch_final_prose_patch.md is the queued patch packet.",
+    "2026-09-24 director resolution: no Ryo/XP/token reward package; no Cabbage Seed item or mechanical seed reward; maxAttempts 100, maxCompletes 1, no retry/attempt cooldown fields; disregard Farming level 15 and author no substitute eligibility gate. Cabbage Seed icon work is skipped.",
+    "2026-09-26 director ruling: Harvest Boar reuses the existing Wild Boar avatar; no separate Harvest Boar image is generated or uploaded. Road Bandit is the only new launch-final imagePack asset.",
+    "2026-09-27 director clarification: battle-AI-only limited new art production; the already-made accepted Ittetsu and Waystation Keeper scene characters belong in launch-final. Road Bandit scene character remains skipped. The prior launch-final review at 70a82ad7891064ba9e4718ecca4d8cdd143fce58 is superseded and must not be executed.",
+    "2026-09-27 independent launch-final review BLOCKED 6757e0c2130d39a35753380ec4bcc8af85e765b8 on F1 idmap-dependent plan/re-attach ordering and F2 dedupNames:false. Correction sets quest phase 6, dedupNames:true, and adds empty/partial/full scene-idmap attach regression. 6757e0c2 and 70a82ad7 are non-executable.",
+    "2026-09-27 independent round-2 review PASS at b080825c46cdaf33c78f163821ddd3394fcfafd4 (manifest 0b942400): F1 planner-order and F2 dedupNames blockers CLOSED; 0 blocking and 0 surviving non-blocking findings. Hidden execution only is approved; publish/unhide remains separate and user-owned."
   ],
   "resources": [
     {
@@ -29,11 +37,31 @@
     },
     {
       "path": "state/one_perfect_crop_content_admin_open.md",
-      "why": "Deferred launch-final admin decisions."
+      "why": "Resolved launch-final admin decisions: no reward/item, maxAttempts 100, maxCompletes 1, no cooldown, no eligibility gate."
     },
     {
       "path": "docs/00_INDEX.md",
       "why": "Precedence/evidence rules."
+    },
+    {
+      "path": "state/one_perfect_crop_launch_final_prose_patch.md",
+      "why": "Queued G1/G4 launch-final prose patch; do not apply as a separate hidden-core hotfix."
+    },
+    {
+      "path": "docs/reviews/ONE_PERFECT_CROP_CORE_MANIFEST_FORGE041_R2_REVIEW.md",
+      "why": "Durable PASS review of the corrected Forge 0.4.1 revision-2 manifest."
+    },
+    {
+      "path": "harvests/inbox/tnr_results_1789599042548.json",
+      "why": "User-run hidden-core Forge result/readback bundle."
+    },
+    {
+      "path": "docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md",
+      "why": "Readback closeout explaining the two non-content AI verifier drifts."
+    },
+    {
+      "path": "state/one_perfect_crop_launch_final_art.md",
+      "why": "Exact restored Ittetsu/Keeper source and derivative provenance for launch-final."
     }
   ],
   "tasks": [
@@ -45,12 +73,28 @@
       "owner": "shared",
       "depends_on": [],
       "objective": "Freeze the event route and encounter architecture.",
-      "scope": ["Frozen PASS/FAIL structure."],
-      "required_resources": [{"path": "state/plan_one_perfect_crop_finish.md", "why": "Frozen structure."}],
-      "deliverables": ["Durable frozen structure."],
-      "completion_gates": ["Plan is frozen."],
+      "scope": [
+        "Frozen PASS/FAIL structure."
+      ],
+      "required_resources": [
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "Frozen structure."
+        }
+      ],
+      "deliverables": [
+        "Durable frozen structure."
+      ],
+      "completion_gates": [
+        "Plan is frozen."
+      ],
       "lead_role": "Content Designer",
-      "evidence": [{"kind": "path", "ref": "state/plan_one_perfect_crop_finish.md"}]
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/plan_one_perfect_crop_finish.md"
+        }
+      ]
     },
     {
       "id": "prose.final",
@@ -58,14 +102,32 @@
       "area": "prose",
       "status": "COMPLETE",
       "owner": "shared",
-      "depends_on": ["design.structure"],
+      "depends_on": [
+        "design.structure"
+      ],
       "objective": "Freeze all player-facing prose and graph edges.",
-      "scope": ["Frozen prose graph."],
-      "required_resources": [{"path": "state/one_perfect_crop_prose_graph.md", "why": "Frozen prose/graph."}],
-      "deliverables": ["Committed prose graph."],
-      "completion_gates": ["Wording and edges are frozen."],
+      "scope": [
+        "Frozen prose graph."
+      ],
+      "required_resources": [
+        {
+          "path": "state/one_perfect_crop_prose_graph.md",
+          "why": "Frozen prose/graph."
+        }
+      ],
+      "deliverables": [
+        "Committed prose graph."
+      ],
+      "completion_gates": [
+        "Wording and edges are frozen."
+      ],
       "lead_role": "Content Designer",
-      "evidence": [{"kind": "path", "ref": "state/one_perfect_crop_prose_graph.md"}]
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_prose_graph.md"
+        }
+      ]
     },
     {
       "id": "research.asset_probes",
@@ -73,14 +135,32 @@
       "area": "research",
       "status": "COMPLETE",
       "owner": "dauntless",
-      "depends_on": ["design.structure"],
+      "depends_on": [
+        "design.structure"
+      ],
       "objective": "Preserve reuse/reference evidence.",
-      "scope": ["Read-only captures."],
-      "required_resources": [{"path": "harvests/inbox/tnr_results_1789060167786.json", "why": "Reuse capture."}],
-      "deliverables": ["Durable capture evidence."],
-      "completion_gates": ["Capture exists."],
+      "scope": [
+        "Read-only captures."
+      ],
+      "required_resources": [
+        {
+          "path": "harvests/inbox/tnr_results_1789060167786.json",
+          "why": "Reuse capture."
+        }
+      ],
+      "deliverables": [
+        "Durable capture evidence."
+      ],
+      "completion_gates": [
+        "Capture exists."
+      ],
       "lead_role": "Engineering Auditor",
-      "evidence": [{"kind": "capture", "ref": "harvests/inbox/tnr_results_1789060167786.json"}]
+      "evidence": [
+        {
+          "kind": "capture",
+          "ref": "harvests/inbox/tnr_results_1789060167786.json"
+        }
+      ]
     },
     {
       "id": "research.bandit_ai",
@@ -88,14 +168,32 @@
       "area": "research",
       "status": "COMPLETE",
       "owner": "shared",
-      "depends_on": ["design.structure"],
+      "depends_on": [
+        "design.structure"
+      ],
       "objective": "Resolve Road Bandit reuse versus new AI.",
-      "scope": ["Candidate review."],
-      "required_resources": [{"path": "state/one_perfect_crop_bandit_resolution.md", "why": "Resolution."}],
-      "deliverables": ["Durable Road Bandit decision."],
-      "completion_gates": ["New generic AI/profile selected."],
+      "scope": [
+        "Candidate review."
+      ],
+      "required_resources": [
+        {
+          "path": "state/one_perfect_crop_bandit_resolution.md",
+          "why": "Resolution."
+        }
+      ],
+      "deliverables": [
+        "Durable Road Bandit decision."
+      ],
+      "completion_gates": [
+        "New generic AI/profile selected."
+      ],
       "lead_role": "Engineering Auditor",
-      "evidence": [{"kind": "path", "ref": "state/one_perfect_crop_bandit_resolution.md"}]
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_bandit_resolution.md"
+        }
+      ]
     },
     {
       "id": "content.combat_ai_profiles",
@@ -103,105 +201,310 @@
       "area": "design",
       "status": "COMPLETE",
       "owner": "ChatGPT",
-      "depends_on": ["design.structure", "research.bandit_ai"],
+      "depends_on": [
+        "design.structure",
+        "research.bandit_ai"
+      ],
       "objective": "Freeze both AI records and AiProfiles.",
-      "scope": ["Road Bandit and Harvest Boar combat contracts."],
-      "required_resources": [{"path": "state/one_perfect_crop_combat_spec.md", "why": "Exact combat spec."}],
-      "deliverables": ["Implementation-exact combat spec."],
-      "completion_gates": ["No combat values remain for Fable to choose."],
+      "scope": [
+        "Road Bandit and Harvest Boar combat contracts."
+      ],
+      "required_resources": [
+        {
+          "path": "state/one_perfect_crop_combat_spec.md",
+          "why": "Exact combat spec."
+        }
+      ],
+      "deliverables": [
+        "Implementation-exact combat spec."
+      ],
+      "completion_gates": [
+        "No combat values remain for Fable to choose."
+      ],
       "lead_role": "Content Designer",
-      "evidence": [{"kind": "path", "ref": "state/one_perfect_crop_combat_spec.md"}]
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_combat_spec.md"
+        }
+      ]
     },
     {
       "id": "art.intake_accepted_assets",
       "title": "Accepted-art repository intake",
       "area": "art",
-      "status": "BLOCKED",
+      "status": "SUPERSEDED",
       "owner": "dauntless",
-      "depends_on": ["design.structure"],
+      "depends_on": [
+        "design.structure"
+      ],
       "objective": "Make accepted Ittetsu/Keeper/quest-icon bytes durable for launch finalization.",
-      "scope": ["Accepted art intake."],
-      "required_resources": [{"path": "state/plan_one_perfect_crop_finish.md", "why": "Accepted filenames/designs."}],
-      "deliverables": ["Durable preflight-clean accepted art."],
-      "completion_gates": ["Exact bytes are durable."],
+      "scope": [
+        "Accepted art intake."
+      ],
+      "required_resources": [
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "Accepted filenames/designs."
+        }
+      ],
+      "deliverables": [
+        "Durable preflight-clean accepted art."
+      ],
+      "completion_gates": [
+        "Exact bytes are durable."
+      ],
       "lead_role": "Image Production",
-      "blockers": ["Exact accepted bytes are not durable in the repository; this blocks launch finalization only."],
-      "resume_note": "Core manifest may proceed with placeholders."
+      "evidence": [
+        {
+          "kind": "decision",
+          "ref": "The broad legacy intake gate is superseded by the operative launch-final scope. The current narrowed art set is owned by the dedicated combat-avatar and scene-character tasks; the old quest-icon requirement remains out of launch scope.",
+          "source": "state/one_perfect_crop_launch_final_scope.md"
+        }
+      ]
     },
     {
       "id": "art.scene_characters",
       "title": "Launch-final scene characters",
       "area": "art",
-      "status": "READY",
+      "status": "COMPLETE",
       "owner": "ChatGPT",
-      "depends_on": ["design.structure", "prose.final", "research.asset_probes", "research.bandit_ai"],
-      "objective": "Finish Road Bandit scene art and Market Clerk reuse.",
-      "scope": ["Launch-final scene characters."],
-      "required_resources": [{"path": "state/plan_one_perfect_crop_finish.md", "why": "Scene-art intent."}],
-      "deliverables": ["Accepted scene-character set."],
-      "completion_gates": ["User accepts final scene art."],
+      "depends_on": [
+        "design.structure",
+        "prose.final",
+        "research.asset_probes",
+        "research.bandit_ai"
+      ],
+      "objective": "Finalize already-made accepted Ittetsu and Waystation Keeper scene assets plus existing Market Clerk reuse; keep Road Bandit scene art skipped.",
+      "scope": [
+        "Ittetsu SCENE_CHARACTER from the accepted existing design.",
+        "Waystation Keeper SCENE_CHARACTER from the accepted existing design.",
+        "Existing Market Clerk reuse.",
+        "Road Bandit scene character intentionally skipped/nonblocking."
+      ],
+      "required_resources": [
+        {
+          "path": "state/one_perfect_crop_launch_final_scope.md",
+          "why": "2026-09-27 director clarification restoring already-made accepted scene art."
+        },
+        {
+          "path": "state/one_perfect_crop_launch_final_art.md",
+          "why": "Exact source/derivative provenance and immutable pack ref."
+        },
+        {
+          "path": "state/workstreams/one_perfect_crop/launch_final_patch.json",
+          "why": "Exact objective-to-scene-character wiring."
+        }
+      ],
+      "deliverables": [
+        "Repo-backed accepted Ittetsu and Waystation Keeper scene files.",
+        "Explicit Ittetsu/Keeper/Market Clerk launch-final wiring with no Road Bandit scene asset."
+      ],
+      "completion_gates": [
+        "Director-approved existing Ittetsu and Keeper designs are used without redesign.",
+        "Both repo-backed scene files are release-gated by SCENE_CHARACTER artpreflight.",
+        "Road Bandit scene character remains absent."
+      ],
       "lead_role": "Image Production",
-      "open_decisions": ["Final art acceptance is user-owned."]
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_launch_final_art.md"
+        },
+        {
+          "kind": "path",
+          "ref": "art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp"
+        },
+        {
+          "kind": "path",
+          "ref": "art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp"
+        },
+        {
+          "kind": "sha",
+          "ref": "6a4f439a77517b23935c17058c2ec644f280e91e",
+          "note": "immutable launch-final three-file imagePack commit"
+        },
+        {
+          "kind": "approval",
+          "ref": "2026-09-27 director clarification: use the already-made Ittetsu and Waystation Keeper scene art in launch-final.",
+          "source": "state/one_perfect_crop_launch_final_scope.md"
+        }
+      ]
     },
     {
       "id": "art.combat_avatars",
       "title": "Launch-final combat avatars",
       "area": "art",
-      "status": "READY",
+      "status": "COMPLETE",
       "owner": "ChatGPT",
-      "depends_on": ["design.structure", "research.bandit_ai"],
-      "objective": "Finish Road Bandit and Harvest Boar avatars.",
-      "scope": ["Launch-final AI avatars."],
-      "required_resources": [{"path": "state/plan_one_perfect_crop_finish.md", "why": "Avatar requirements."}],
-      "deliverables": ["Accepted AI avatars."],
-      "completion_gates": ["User accepts both avatars."],
+      "depends_on": [
+        "design.structure",
+        "research.bandit_ai"
+      ],
+      "objective": "Finalize the Road Bandit avatar and the director-approved existing Wild Boar avatar reuse for Harvest Boar.",
+      "scope": [
+        "Repo-backed Road Bandit AI avatar.",
+        "Existing Wild Boar avatar reused directly for Harvest Boar."
+      ],
+      "required_resources": [
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "Avatar requirements and filenames."
+        },
+        {
+          "path": "state/one_perfect_crop_launch_final_scope.md",
+          "why": "Director-narrowed accepted art scope."
+        },
+        {
+          "path": "state/workstreams/one_perfect_crop/launch_final_patch.json",
+          "why": "Machine launch-final avatar names and target ids."
+        }
+      ],
+      "deliverables": [
+        "Accepted Road Bandit AI avatar committed and image-packable.",
+        "Director-approved Harvest Boar reuse value recorded without generating a new image."
+      ],
+      "completion_gates": [
+        "Road Bandit launch-final file satisfies the AI_AVATAR preflight/QC gate.",
+        "Director approval covers the Road Bandit avatar and Harvest Boar Wild Boar reuse."
+      ],
       "lead_role": "Image Production",
-      "open_decisions": ["Final art acceptance is user-owned."]
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "art/one_perfect_crop/one_perfect_crop_road_bandit_avatar.webp"
+        },
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_combat_avatars.md"
+        },
+        {
+          "kind": "approval",
+          "ref": "2026-09-26 director ruling: reuse the existing Wild Boar avatar for Harvest Boar; no separate Harvest Boar art is required.",
+          "source": "state/one_perfect_crop_launch_final_scope.md"
+        },
+        {
+          "kind": "sha",
+          "ref": "6a4f439a77517b23935c17058c2ec644f280e91e",
+          "note": "immutable launch-final imagePack commit containing Road Bandit plus restored accepted scene art"
+        }
+      ]
     },
     {
       "id": "art.icons",
       "title": "Launch-final Cabbage Seed icon",
       "area": "art",
-      "status": "READY",
+      "status": "SKIPPED",
       "owner": "ChatGPT",
-      "depends_on": ["design.structure"],
-      "objective": "Finish the Cabbage Seed icon.",
-      "scope": ["Launch-final item icon."],
-      "required_resources": [{"path": "state/plan_one_perfect_crop_finish.md", "why": "Icon requirement."}],
-      "deliverables": ["Accepted item icon."],
-      "completion_gates": ["User accepts final icon."],
+      "depends_on": [
+        "design.structure"
+      ],
+      "objective": "Skipped by director: launch-final will not create a Cabbage Seed item or dedicated icon.",
+      "scope": [
+        "No Cabbage Seed icon production."
+      ],
+      "required_resources": [
+        {
+          "path": "state/plan_one_perfect_crop_finish.md",
+          "why": "Historical icon requirement, superseded by director skip."
+        }
+      ],
+      "deliverables": [
+        "No icon produced; task intentionally skipped by director decision."
+      ],
+      "completion_gates": [
+        "Director skip decision is recorded in state/one_perfect_crop_content_admin_open.md."
+      ],
       "lead_role": "Image Production",
-      "open_decisions": ["Final art acceptance is user-owned."]
+      "evidence": [
+        {
+          "kind": "decision",
+          "ref": "Cabbage Seed item/icon work is skipped for launch-final; no mechanical Cabbage Seed reward will be authored.",
+          "source": "state/one_perfect_crop_content_admin_open.md"
+        }
+      ]
     },
     {
       "id": "art.backgrounds",
       "title": "Launch-final scene wiring",
       "area": "art",
-      "status": "READY",
+      "status": "COMPLETE",
       "owner": "ChatGPT",
-      "depends_on": ["design.structure", "prose.final", "research.asset_probes"],
+      "depends_on": [
+        "design.structure",
+        "prose.final",
+        "research.asset_probes"
+      ],
       "objective": "Finish explicit launch-final background wiring.",
-      "scope": ["Node-to-background mapping."],
-      "required_resources": [{"path": "state/one_perfect_crop_prose_graph.md", "why": "Dialog nodes."}],
-      "deliverables": ["Launch-final scene wiring."],
-      "completion_gates": ["Every final dialog has explicit background assignment."],
+      "scope": [
+        "Node-to-background mapping."
+      ],
+      "required_resources": [
+        {
+          "path": "state/one_perfect_crop_prose_graph.md",
+          "why": "Frozen dialog scene-family requirements."
+        },
+        {
+          "path": "state/workstreams/one_perfect_crop/launch_final_patch.json",
+          "why": "Final non-generative background/scene reuse mapping."
+        }
+      ],
+      "deliverables": [
+        "Launch-final scene wiring."
+      ],
+      "completion_gates": [
+        "Every final dialog has explicit background assignment."
+      ],
       "lead_role": "Art Director",
-      "open_decisions": ["Any new-background decision is user-owned."]
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/workstreams/one_perfect_crop/launch_final_patch.json"
+        },
+        {
+          "kind": "decision",
+          "ref": "Launch finalization reuses only already-captured scene/background ids; no new background generation is required.",
+          "source": "state/one_perfect_crop_launch_final_scope.md"
+        }
+      ]
     },
     {
       "id": "admin.balance_and_eligibility",
       "title": "Launch-final admin decisions",
       "area": "admin",
-      "status": "READY",
+      "status": "COMPLETE",
       "owner": "dauntless",
-      "depends_on": ["design.structure"],
-      "objective": "Resolve rewards, Cabbage Seed economics, repeatability and eligibility for launch.",
-      "scope": ["Deferred launch-final admin values."],
-      "required_resources": [{"path": "state/one_perfect_crop_content_admin_open.md", "why": "Open admin packet."}],
-      "deliverables": ["Exact user-approved launch values."],
-      "completion_gates": ["No launch-final admin value remains unresolved."],
+      "depends_on": [
+        "design.structure"
+      ],
+      "objective": "Record the director-approved launch-final reward, repeatability and eligibility decisions.",
+      "scope": [
+        "No reward package; no Cabbage Seed item; maxAttempts 100; maxCompletes 1; no cooldown; no eligibility gate."
+      ],
+      "required_resources": [
+        {
+          "path": "state/one_perfect_crop_content_admin_open.md",
+          "why": "Resolved launch-final admin contract."
+        }
+      ],
+      "deliverables": [
+        "Exact director-approved launch-final admin values."
+      ],
+      "completion_gates": [
+        "No launch-final admin value remains unresolved."
+      ],
       "lead_role": "Content Designer",
-      "open_decisions": ["Rewards, Cabbage Seed type/rarity/economics, repeatability and eligibility remain user-owned."]
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_content_admin_open.md"
+        },
+        {
+          "kind": "decision",
+          "ref": "Launch-final: no Ryo/XP/token rewards; no Cabbage Seed item/reward; maxAttempts 100; maxCompletes 1; retryDelay and attemptDelay unset; no eligibility gate.",
+          "source": "state/one_perfect_crop_content_admin_open.md"
+        }
+      ]
     },
     {
       "id": "build.final_freeze",
@@ -209,19 +512,40 @@
       "area": "build",
       "status": "COMPLETE",
       "owner": "ChatGPT",
-      "depends_on": ["prose.final", "content.combat_ai_profiles"],
-      "objective": "Freeze a core build contract that defers art/admin without guessing them.",
-      "scope": ["state/prompt_one_perfect_crop.md."],
-      "required_resources": [
-        {"path": "state/one_perfect_crop_core_manifest_override.md", "why": "Director deferral strategy."},
-        {"path": "state/prompt_one_perfect_crop.md", "why": "Implementation contract."}
+      "depends_on": [
+        "prose.final",
+        "content.combat_ai_profiles"
       ],
-      "deliverables": ["Frozen Fable implementation brief."],
-      "completion_gates": ["Brief requires hidden placeholders and no invented admin/art values."],
+      "objective": "Freeze a core build contract that defers art/admin without guessing them.",
+      "scope": [
+        "state/prompt_one_perfect_crop.md."
+      ],
+      "required_resources": [
+        {
+          "path": "state/one_perfect_crop_core_manifest_override.md",
+          "why": "Director deferral strategy."
+        },
+        {
+          "path": "state/prompt_one_perfect_crop.md",
+          "why": "Implementation contract."
+        }
+      ],
+      "deliverables": [
+        "Frozen Fable implementation brief."
+      ],
+      "completion_gates": [
+        "Brief requires hidden placeholders and no invented admin/art values."
+      ],
       "lead_role": "Content Designer",
       "evidence": [
-        {"kind": "path", "ref": "state/prompt_one_perfect_crop.md"},
-        {"kind": "path", "ref": "state/one_perfect_crop_core_manifest_override.md"}
+        {
+          "kind": "path",
+          "ref": "state/prompt_one_perfect_crop.md"
+        },
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_core_manifest_override.md"
+        }
       ]
     },
     {
@@ -230,77 +554,282 @@
       "area": "build",
       "status": "COMPLETE",
       "owner": "Fable",
-      "depends_on": ["build.final_freeze"],
-      "objective": "Build the validator-clean hidden core manifest.",
-      "scope": ["Create two AIs, two profiles and the quest; no assets/items/jutsu."],
-      "required_resources": [
-        {"path": "state/prompt_one_perfect_crop.md", "why": "Exact build contract."},
-        {"path": "skills/building-tnr-content/scripts/validate.py", "why": "Mandatory validator."}
+      "depends_on": [
+        "build.final_freeze"
       ],
-      "deliverables": ["Committed manifest and exact-SHA handoff."],
-      "completion_gates": ["Validator exits zero and all creates are hidden."],
+      "objective": "Build the validator-clean hidden core manifest.",
+      "scope": [
+        "Create two AIs carrying their rules plus the quest; no assets/items/jutsu."
+      ],
+      "required_resources": [
+        {
+          "path": "state/prompt_one_perfect_crop.md",
+          "why": "Exact build contract."
+        },
+        {
+          "path": "skills/building-tnr-content/scripts/validate.py",
+          "why": "Mandatory validator."
+        }
+      ],
+      "deliverables": [
+        "Committed manifest and exact-SHA handoff."
+      ],
+      "completion_gates": [
+        "Validator exits zero and all creates are hidden."
+      ],
       "lead_role": "Engineering Auditor",
       "evidence": [
-        {"kind": "path", "ref": "push/47_one_perfect_crop_core_manifest.json"},
-        {"kind": "path", "ref": "push/47_one_perfect_crop_core_manifest.gen.py"},
-        {"kind": "path", "ref": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"},
-        {"kind": "validator",
-         "ref": "validate.py on push/47_one_perfect_crop_core_manifest.json: 0 errors, 2 warnings (AP-economy, ruled on by the combat spec); no skipPreflight; 3 creates, all hidden",
-         "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"},
-        {"kind": "validator",
-         "ref": "Forge 0.4.1 offline gate, forge/tools/check_manifest.mjs (real parseManifest + planOrder + pinned Validator): 3 planned items, both ai creates routed to the rules phase, 0 pre-send problems, exit 0. forge npm test 310 tests / 309 pass; the one failure is the release-loader marker test, already red at base a45b576 and untouched here",
-         "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"},
-        {"kind": "decision",
-         "ref": "Art, rewards, Cabbage Seed, repeatability and eligibility stay create-path placeholders; validate.py law 41 scoped to includeDefaultRules:false so the frozen three-rule profiles validate without skipPreflight",
-         "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"},
-        {"kind": "decision",
-         "ref": "SUPERSEDED: the five-item candidate af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f carried two standalone aiProfile creates, which Forge 0.4.1 refuses at parse time before job creation or mutation. Corrected in place to three items with the rules on their owning ai entries; approved combat content, rule order, jutsu ids and the quest payload are unchanged. The rev-1 independent PASS does not carry over and a narrow re-review is owed",
-         "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"},
-        {"kind": "sha", "ref": "af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f"}
+        {
+          "kind": "path",
+          "ref": "push/47_one_perfect_crop_core_manifest.json"
+        },
+        {
+          "kind": "path",
+          "ref": "push/47_one_perfect_crop_core_manifest.gen.py"
+        },
+        {
+          "kind": "path",
+          "ref": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"
+        },
+        {
+          "kind": "validator",
+          "ref": "validate.py on push/47_one_perfect_crop_core_manifest.json: 0 errors, 2 warnings (AP-economy, ruled on by the combat spec); no skipPreflight; 3 creates, all hidden",
+          "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"
+        },
+        {
+          "kind": "validator",
+          "ref": "Forge 0.4.1 offline gate, forge/tools/check_manifest.mjs (real parseManifest + planOrder + pinned Validator): 3 planned items, both ai creates routed to the rules phase, 0 pre-send problems, exit 0. forge npm test 310 tests / 309 pass; the one failure is the release-loader marker test, already red at base a45b576 and untouched here",
+          "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"
+        },
+        {
+          "kind": "decision",
+          "ref": "Art, rewards, Cabbage Seed, repeatability and eligibility stay create-path placeholders; validate.py law 41 scoped to includeDefaultRules:false so the frozen three-rule profiles validate without skipPreflight",
+          "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"
+        },
+        {
+          "kind": "decision",
+          "ref": "SUPERSEDED: the five-item candidate af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f carried two standalone aiProfile creates, which Forge 0.4.1 refused before job creation or mutation. Revision 2 moved the unchanged rule sets onto their owning ai creates; the corrected implementation at 6cce22e3fad0e08344cb2f3252bdf04909632983 passed the narrow independent re-review.",
+          "source": "docs/handoffs/ONE_PERFECT_CROP_CORE_MANIFEST_HANDOFF.md"
+        },
+        {
+          "kind": "sha",
+          "ref": "6cce22e3fad0e08344cb2f3252bdf04909632983",
+          "note": "final corrected revision-2 implementation reviewed PASS and used for the hidden run"
+        }
       ]
     },
     {
       "id": "review.manifest",
       "title": "Exact-SHA core-manifest review",
       "area": "review",
-      "status": "READY",
+      "status": "COMPLETE",
       "owner": "ChatGPT",
-      "depends_on": ["build.manifest"],
+      "depends_on": [
+        "build.manifest"
+      ],
       "objective": "Independently audit the frozen Fable SHA.",
-      "scope": ["Graph/combat/placeholder/safety review."],
-      "required_resources": [{"path": "state/prompt_one_perfect_crop.md", "why": "Review contract."}],
-      "deliverables": ["PASS or blocking findings."],
-      "completion_gates": ["Exact SHA passes independent validation and contract audit."],
-      "lead_role": "Engineering Auditor"
+      "scope": [
+        "Graph/combat/placeholder/safety review."
+      ],
+      "required_resources": [
+        {
+          "path": "state/prompt_one_perfect_crop.md",
+          "why": "Review contract."
+        }
+      ],
+      "deliverables": [
+        "PASS or blocking findings."
+      ],
+      "completion_gates": [
+        "Exact SHA passes independent validation and contract audit."
+      ],
+      "lead_role": "Engineering Auditor",
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "docs/reviews/ONE_PERFECT_CROP_CORE_MANIFEST_FORGE041_R2_REVIEW.md"
+        },
+        {
+          "kind": "sha",
+          "ref": "6cce22e3fad0e08344cb2f3252bdf04909632983",
+          "note": "exact corrected Fable implementation SHA reviewed PASS"
+        },
+        {
+          "kind": "sha",
+          "ref": "fba3e54c86bfdb681ca9bd9c3b884d2c475add4f",
+          "note": "durable ChatGPT revision-2 review commit"
+        }
+      ]
     },
     {
       "id": "production.run_and_readback",
       "title": "Optional hidden core run/readback",
       "area": "production",
-      "status": "PLANNED",
+      "status": "COMPLETE",
       "owner": "dauntless",
-      "depends_on": ["review.manifest"],
+      "depends_on": [
+        "review.manifest"
+      ],
       "objective": "Optionally execute only the reviewed hidden core manifest and verify fresh readback.",
-      "scope": ["User-only hidden execution/readback."],
-      "required_resources": [{"path": "docs/DOCTRINE.md", "why": "Live boundary/readback doctrine."}],
-      "deliverables": ["Result/readback evidence if run."],
-      "completion_gates": ["Only user acts live and all records remain hidden."],
+      "scope": [
+        "User-only hidden execution/readback."
+      ],
+      "required_resources": [
+        {
+          "path": "docs/DOCTRINE.md",
+          "why": "Live boundary/readback doctrine."
+        }
+      ],
+      "deliverables": [
+        "Committed hidden-core Forge result/readback evidence and durable closeout analysis."
+      ],
+      "completion_gates": [
+        "User alone performed the live run; created records were read back and the hidden-core result was durably classified."
+      ],
       "lead_role": "Release Auditor",
-      "open_decisions": ["Whether to run the hidden core manifest before launch finalization is user-owned."]
+      "evidence": [
+        {
+          "kind": "capture",
+          "ref": "harvests/inbox/tnr_results_1789599042548.json"
+        },
+        {
+          "kind": "path",
+          "ref": "docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md"
+        },
+        {
+          "kind": "decision",
+          "ref": "Do not rerun manifest #47 as a new create job; the hidden-core records already exist. Forge's AI drift flags are documented verifier false positives, not a request for a repair write.",
+          "source": "docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md"
+        }
+      ]
     },
     {
       "id": "launch.finalization",
       "title": "Launch-final art/admin patch and readiness",
       "area": "production",
-      "status": "PLANNED",
+      "status": "BLOCKED",
       "owner": "shared",
-      "depends_on": ["art.intake_accepted_assets", "art.scene_characters", "art.combat_avatars", "art.icons", "art.backgrounds", "admin.balance_and_eligibility", "review.manifest"],
-      "objective": "Replace placeholders and add final rewards/item/gates before publish.",
-      "scope": ["Final art/admin patch and hidden readback."],
-      "required_resources": [{"path": "state/one_perfect_crop_core_manifest_override.md", "why": "Defines deferred work."}],
-      "deliverables": ["Reviewed launch-final patch and clean hidden readback."],
-      "completion_gates": ["All deferred work is closed before any publish decision."],
-      "lead_role": "Release Auditor"
+      "depends_on": [
+        "art.combat_avatars",
+        "art.backgrounds",
+        "admin.balance_and_eligibility",
+        "production.run_and_readback"
+      ],
+      "objective": "Await the director-only hidden execution of the independently approved launch-final manifest, then perform full after-readback closeout before any publish decision.",
+      "scope": [
+        "Two hidden SCENE_CHARACTER creates for already-made accepted Ittetsu/Keeper art.",
+        "Road Bandit avatar edit and Harvest Boar Wild Boar-avatar reuse.",
+        "Final Ittetsu/Keeper/Market Clerk/background scene wiring.",
+        "Queued G1/G4 prose edits; maxAttempts 100; maxCompletes 1; no cooldown; no rewards/item/eligibility gate."
+      ],
+      "required_resources": [
+        {
+          "path": "state/one_perfect_crop_launch_final_scope.md",
+          "why": "Operative 2026-09-24 director scope."
+        },
+        {
+          "path": "state/workstreams/one_perfect_crop/launch_final_patch.json",
+          "why": "Machine closeout patch and scene wiring."
+        },
+        {
+          "path": "state/one_perfect_crop_launch_final_prose_patch.md",
+          "why": "Approved G1/G4 prose direction."
+        },
+        {
+          "path": "docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md",
+          "why": "Existing hidden target ids and clean quest baseline."
+        },
+        {
+          "path": "state/one_perfect_crop_content_admin_open.md",
+          "why": "Resolved no-reward/repeatability/eligibility contract."
+        },
+        {
+          "path": "push/54_one_perfect_crop_launch_final.gen.py",
+          "why": "Fail-closed EDIT/CLOSEOUT manifest generator."
+        },
+        {
+          "path": "state/one_perfect_crop_launch_final_art.md",
+          "why": "Restored accepted scene-art provenance and immutable pack."
+        },
+        {
+          "path": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R1_REVIEW.md",
+          "why": "Round-1 BLOCKED review, F1/F2 root cause and correction evidence."
+        },
+        {
+          "path": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R2_REVIEW.md",
+          "why": "Round-2 PASS review authorizing hidden execution of exact SHA b080825c."
+        }
+      ],
+      "deliverables": [
+        "Independently approved hidden launch-final manifest at b080825c46cdaf33c78f163821ddd3394fcfafd4.",
+        "Complete user-run Forge result bundle with full Road Bandit AI, Harvest Boar AI, and One Perfect Crop quest after-captures.",
+        "Durable launch-final closeout review before any publish/unhide decision."
+      ],
+      "completion_gates": [
+        "User executes only the reviewed push/54 manifest while all affected content remains hidden.",
+        "No retry/repair/live follow-up occurs on an unexpected Forge result before closeout review.",
+        "Full after-captures exist for both AI records and the quest.",
+        "Closeout review confirms avatars, scene assets/wiring, prose/admin, graph and hidden state match the reviewed manifest.",
+        "Publish/unhide remains a separate director-owned action after closeout."
+      ],
+      "lead_role": "Release Auditor",
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_launch_final_scope.md"
+        },
+        {
+          "kind": "path",
+          "ref": "state/workstreams/one_perfect_crop/launch_final_patch.json"
+        },
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_launch_final_art.md"
+        },
+        {
+          "kind": "path",
+          "ref": "state/one_perfect_crop_combat_avatars.md"
+        },
+        {
+          "kind": "path",
+          "ref": "push/54_one_perfect_crop_launch_final.gen.py"
+        },
+        {
+          "kind": "path",
+          "ref": "push/54_one_perfect_crop_launch_final.json"
+        },
+        {
+          "kind": "sha",
+          "ref": "6a4f439a77517b23935c17058c2ec644f280e91e",
+          "note": "immutable three-file launch-final imagePack ref"
+        },
+        {
+          "kind": "path",
+          "ref": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R1_REVIEW.md"
+        },
+        {
+          "kind": "validator",
+          "ref": "Correction gate at ce748f6465fd6886e15b574ccc199d8464f95046: generator exact; validate.py 0/0; Forge 5 planned/0 problems; full Forge tests 523/523 including OPC idmap/re-attach regression; artpreflight 0/0; workstream validate/render/selftest PASS.",
+          "source": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R1_REVIEW.md"
+        },
+        {
+          "kind": "path",
+          "ref": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R2_REVIEW.md"
+        },
+        {
+          "kind": "sha",
+          "ref": "b080825c46cdaf33c78f163821ddd3394fcfafd4",
+          "note": "exact implementation SHA independently reviewed PASS / approved-sound for hidden execution"
+        },
+        {
+          "kind": "approval",
+          "ref": "Round-2 independent review: PASS / APPROVED-SOUND FOR HIDDEN EXECUTION; F1/F2 closed; 0 blocking and 0 surviving non-blocking findings. Publish/unhide not authorized.",
+          "source": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R2_REVIEW.md"
+        }
+      ],
+      "blockers": [
+        "Waiting for the director to execute the reviewed b080825c launch-final manifest while hidden and return the complete Forge result bundle with all three full after-captures."
+      ]
     }
   ]
 }
