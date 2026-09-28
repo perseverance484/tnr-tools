@@ -18,7 +18,8 @@
     "2026-09-23 director requested the approved G1/G4 prose improvements be saved for the launch-final manifest rather than pushed separately. state/one_perfect_crop_launch_final_prose_patch.md is the queued patch packet.",
     "2026-09-24 director resolution: no Ryo/XP/token reward package; no Cabbage Seed item or mechanical seed reward; maxAttempts 100, maxCompletes 1, no retry/attempt cooldown fields; disregard Farming level 15 and author no substitute eligibility gate. Cabbage Seed icon work is skipped.",
     "2026-09-26 director ruling: Harvest Boar reuses the existing Wild Boar avatar; no separate Harvest Boar image is generated or uploaded. Road Bandit is the only new launch-final imagePack asset.",
-    "2026-09-27 director clarification: battle-AI-only limited new art production; the already-made accepted Ittetsu and Waystation Keeper scene characters belong in launch-final. Road Bandit scene character remains skipped. The prior launch-final review at 70a82ad7891064ba9e4718ecca4d8cdd143fce58 is superseded and must not be executed."
+    "2026-09-27 director clarification: battle-AI-only limited new art production; the already-made accepted Ittetsu and Waystation Keeper scene characters belong in launch-final. Road Bandit scene character remains skipped. The prior launch-final review at 70a82ad7891064ba9e4718ecca4d8cdd143fce58 is superseded and must not be executed.",
+    "2026-09-27 independent launch-final review BLOCKED 6757e0c2130d39a35753380ec4bcc8af85e765b8 on F1 idmap-dependent plan/re-attach ordering and F2 dedupNames:false. Correction sets quest phase 6, dedupNames:true, and adds empty/partial/full scene-idmap attach regression. 6757e0c2 and 70a82ad7 are non-executable."
   ],
   "resources": [
     {
@@ -713,7 +714,7 @@
         "admin.balance_and_eligibility",
         "production.run_and_readback"
       ],
-      "objective": "Independently review the revised art-final hidden closeout manifest before user-only execution/readback.",
+      "objective": "Obtain a fresh independent review of the corrected planner-stable, name-deduped art-final hidden closeout manifest before user-only execution/readback.",
       "scope": [
         "Two hidden SCENE_CHARACTER creates for already-made accepted Ittetsu/Keeper art.",
         "Road Bandit avatar edit and Harvest Boar Wild Boar-avatar reuse.",
@@ -748,18 +749,24 @@
         {
           "path": "state/one_perfect_crop_launch_final_art.md",
           "why": "Restored accepted scene-art provenance and immutable pack."
+        },
+        {
+          "path": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R1_REVIEW.md",
+          "why": "Round-1 BLOCKED review, F1/F2 root cause and correction evidence."
         }
       ],
       "deliverables": [
-        "Frozen revised launch-final manifest with two hidden scene-asset creates and three hidden-core edits.",
-        "Independent exact-SHA review of the revised candidate before any user-only hidden execution/readback."
+        "Frozen corrected launch-final manifest with two hidden scene-asset creates and three hidden-core edits.",
+        "Fresh independent exact-SHA review after the F1/F2 planner-order and name-dedup corrections."
       ],
       "completion_gates": [
         "Queued G1/G4 prose patch is applied without graph/ID drift.",
         "Resolved admin decisions are exact: no rewards/item/eligibility gate; maxAttempts 100; maxCompletes 1; no cooldown fields.",
         "Ittetsu and Waystation Keeper are hidden SCENE_CHARACTER creates from the accepted repo-backed bytes; Road Bandit scene art remains absent.",
         "Road Bandit AI uses the immutable repo-backed avatar and Harvest Boar uses the director-approved existing Wild Boar avatar.",
-        "All exact manifest/generator/art/workstream/Forge-offline gates pass at the frozen revised implementation SHA.",
+        "Manifest sets dedupNames:true before the two asset creates.",
+        "Quest edit is explicitly later-phase and the empty/partial/full scene-idmap regression proves plan/re-attach order is invariant.",
+        "All exact manifest/generator/art/workstream/Forge-offline/full-Forge-test gates pass at the frozen corrected implementation SHA.",
         "Fresh independent review passes before user-only Forge execution/readback; publish/unhide remains separate."
       ],
       "lead_role": "Release Auditor",
@@ -794,8 +801,13 @@
           "note": "immutable three-file launch-final imagePack ref"
         },
         {
-          "kind": "note",
-          "ref": "The prior 70a82ad7891064ba9e4718ecca4d8cdd143fce58 review is superseded by the 2026-09-27 restored-scene-art clarification."
+          "kind": "path",
+          "ref": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R1_REVIEW.md"
+        },
+        {
+          "kind": "validator",
+          "ref": "Correction gate at ce748f6465fd6886e15b574ccc199d8464f95046: generator exact; validate.py 0/0; Forge 5 planned/0 problems; full Forge tests 523/523 including OPC idmap/re-attach regression; artpreflight 0/0; workstream validate/render/selftest PASS.",
+          "source": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R1_REVIEW.md"
         }
       ]
     }
