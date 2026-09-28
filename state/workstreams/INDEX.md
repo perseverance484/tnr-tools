@@ -6,12 +6,16 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |
-| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 14/16 settled - review 1, complete 13, skipped 1, superseded 1 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
+| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 14/16 settled - blocked 1, complete 13, skipped 1, superseded 1 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
 
 ## One Perfect Crop
 
 `state/workstreams/one_perfect_crop/roadmap.json`
 
 **Executable now:** none.
+
+**Blocked**
+
+- `launch.finalization` - Waiting for the director to execute the reviewed b080825c launch-final manifest while hidden and return the complete Forge result bundle with all three full after-captures.
 
 Start a session: `python3 scripts/content_workstream.py init one_perfect_crop --task <id>`
