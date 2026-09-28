@@ -1,0 +1,70 @@
+name: opc-integration-gates-temp
+
+on:
+  push:
+    branches:
+      - "chatgpt/opc-launch-final-integration-check-20260928"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: forge/package-lock.json
+      - name: Install art dependency
+        run: python3 -m pip install --disable-pip-version-check pillow
+      - name: Verify immutable imagePack ancestry
+        run: git merge-base --is-ancestor 6a4f439a77517b23935c17058c2ec644f280e91e HEAD
+      - name: Generator exact
+        run: >-
+          python3 push/54_one_perfect_crop_launch_final.gen.py
+          --image-ref 6a4f439a77517b23935c17058c2ec644f280e91e
+          --check
+      - name: Content validator
+        run: >-
+          python3 skills/building-tnr-content/scripts/validate.py
+          push/54_one_perfect_crop_launch_final.json
+          --ctors skills/building-tnr-content/data/45c_DATA_constructors.json
+          --pool skills/building-tnr-content/data/32b_DATA_pool.json
+          --entities skills/building-tnr-content/data/45d_DATA_entity_schemas.json
+          --checks skills/building-tnr-content/data/45g_DATA_checks.json
+          --lints skills/building-tnr-content/data/45h_DATA_lints.json
+      - name: Forge offline manifest gate
+        run: node forge/tools/check_manifest.mjs push/54_one_perfect_crop_launch_final.json
+      - name: Forge dependencies
+        run: npm ci --prefix forge
+      - name: Forge full suite
+        run: npm test --prefix forge
+      - name: Road Bandit art preflight
+        run: >-
+          python3 skills/producing-tnr-art/scripts/artpreflight.py
+          art/one_perfect_crop/one_perfect_crop_road_bandit_avatar.webp
+          --type AI_AVATAR
+          --spec skills/producing-tnr-art/data/25x_DATA_art_spec.json
+          --manifest push/54_one_perfect_crop_launch_final.json
+      - name: Scene-character art preflight
+        run: >-
+          python3 skills/producing-tnr-art/scripts/artpreflight.py
+          art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp
+          art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp
+          --type SCENE_CHARACTER
+          --spec skills/producing-tnr-art/data/25x_DATA_art_spec.json
+          --manifest push/54_one_perfect_crop_launch_final.json
+      - name: Workstream validate
+        run: python3 scripts/content_workstream.py validate --all
+      - name: Workstream render drift
+        run: python3 scripts/content_workstream.py render --all --check
+      - name: Workstream selftest
+        run: python3 scripts/content_workstream.py --selftest
