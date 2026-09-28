@@ -50,3 +50,26 @@ planner/re-attach regression, and repository scrub before a new exact-SHA handof
 
 The reviewed SHA `6757e0c2130d39a35753380ec4bcc8af85e765b8` and the earlier
 `70a82ad7891064ba9e4718ecca4d8cdd143fce58` candidate are both non-executable.
+
+## Correction implemented
+
+The implementation branch now applies both required corrections:
+
+- top-level `dedupNames: true`;
+- explicit `phase: 6` on the quest edit, leaving the preceding AI edits and both scene creates
+  at the default phase;
+- `forge/test/runner.test.mjs` now loads the committed launch-final manifest and proves identical
+  plan order under empty, Ittetsu-only, Keeper-only and full scene-idmap states, then opens the job
+  under an empty idmap and re-attaches under each state to prove the positional journal still maps
+  to the same planned payloads.
+
+A correction-gate run at implementation commit
+`ce748f6465fd6886e15b574ccc199d8464f95046` passed generator exactness, validate.py
+(0 errors / 0 warnings), Forge offline planning (5 items / 0 pre-send problems), the full Forge
+test suite (523/523), Road Bandit artpreflight (0/0), Ittetsu+Keeper artpreflight (0/0),
+workstream validation/render drift, and workstream selftest. The corrected manifest hash at that
+gate was `0b942400`.
+
+This closes the implementation work for F1/F2 but does **not** convert this review to PASS.
+A new frozen SHA after durable closeout records must receive a fresh independent review before
+any hidden Forge execution.
