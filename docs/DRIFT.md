@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-09-27)
+# DRIFT.md - upstream contract drift (2026-09-28)
 
-Upstream: studie-tech/TheNinjaRPG@8e3cde418ad5f75ff84899837c496c8172def0b1
+Upstream: studie-tech/TheNinjaRPG@966ba24cbb321776233797ab368ece5d1bef5214
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -69,18 +69,18 @@ ADDITIONS
 no breaking changes: 58 addition(s), safe to adopt (exit 0)
 == 45d_DATA_entity_schemas ==
 CHANGES
-  now-required  item  isFarmFertilizer  optional -> required
-  now-required  item  farmYieldItemId  optional -> required
-  now-required  item  farmSellValue  optional -> required
-  now-required  item  farmTimeReductionSeconds  optional -> required
-  now-required  item  isFarmSeed  optional -> required
-  now-required  item  farmPlantExperience  optional -> required
   now-required  item  farmExtractSeedItemId  optional -> required
-  now-required  item  farmFertilizerExperience  optional -> required
-  now-required  item  farmExtractSeedCount  optional -> required
-  now-required  item  farmHarvestExperience  optional -> required
+  now-required  item  isFarmFertilizer  optional -> required
+  now-required  item  farmSellValue  optional -> required
   now-required  item  farmGrowTimeSeconds  optional -> required
+  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  farmPlantExperience  optional -> required
+  now-required  item  farmHarvestExperience  optional -> required
   now-required  item  farmMinLevel  optional -> required
+  now-required  item  farmExtractSeedCount  optional -> required
+  now-required  item  farmFertilizerExperience  optional -> required
+  now-required  item  farmYieldItemId  optional -> required
+  now-required  item  isFarmSeed  optional -> required
 ADDITIONS
   field  item  farmExtractSeedCount
   field  item  farmExtractSeedItemId
