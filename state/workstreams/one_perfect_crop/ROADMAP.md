@@ -482,7 +482,7 @@ Optionally execute only the reviewed hidden core manifest and verify fresh readb
 
 **REVIEW** - area production, owner shared, lead role Release Auditor
 
-Independently review the revised art-final hidden closeout manifest before user-only execution/readback.
+Obtain a fresh independent review of the corrected planner-stable, name-deduped art-final hidden closeout manifest before user-only execution/readback.
 
 **Scope**
 
@@ -500,11 +500,12 @@ Independently review the revised art-final hidden closeout manifest before user-
 - `state/one_perfect_crop_content_admin_open.md` - Resolved no-reward/repeatability/eligibility contract.
 - `push/54_one_perfect_crop_launch_final.gen.py` - Fail-closed EDIT/CLOSEOUT manifest generator.
 - `state/one_perfect_crop_launch_final_art.md` - Restored accepted scene-art provenance and immutable pack.
+- `docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R1_REVIEW.md` - Round-1 BLOCKED review, F1/F2 root cause and correction evidence.
 
 **Deliverables**
 
-- Frozen revised launch-final manifest with two hidden scene-asset creates and three hidden-core edits.
-- Independent exact-SHA review of the revised candidate before any user-only hidden execution/readback.
+- Frozen corrected launch-final manifest with two hidden scene-asset creates and three hidden-core edits.
+- Fresh independent exact-SHA review after the F1/F2 planner-order and name-dedup corrections.
 
 **Completion gates**
 
@@ -512,5 +513,7 @@ Independently review the revised art-final hidden closeout manifest before user-
 - Resolved admin decisions are exact: no rewards/item/eligibility gate; maxAttempts 100; maxCompletes 1; no cooldown fields.
 - Ittetsu and Waystation Keeper are hidden SCENE_CHARACTER creates from the accepted repo-backed bytes; Road Bandit scene art remains absent.
 - Road Bandit AI uses the immutable repo-backed avatar and Harvest Boar uses the director-approved existing Wild Boar avatar.
-- All exact manifest/generator/art/workstream/Forge-offline gates pass at the frozen revised implementation SHA.
+- Manifest sets dedupNames:true before the two asset creates.
+- Quest edit is explicitly later-phase and the empty/partial/full scene-idmap regression proves plan/re-attach order is invariant.
+- All exact manifest/generator/art/workstream/Forge-offline/full-Forge-test gates pass at the frozen corrected implementation SHA.
 - Fresh independent review passes before user-only Forge execution/readback; publish/unhide remains separate.
