@@ -5,7 +5,7 @@
 - **Slug:** `one_perfect_crop`
 - **Content type:** event
 - **Status:** ACTIVE
-- **Progress:** 14/16 settled - review 1, complete 13, skipped 1, superseded 1
+- **Progress:** 14/16 settled - blocked 1, complete 13, skipped 1, superseded 1
 
 Finish One Perfect Crop launch-final prose, art, scene wiring and admin content from the already reviewed and user-run hidden core, then complete final hidden readback before any publish decision.
 
@@ -45,7 +45,13 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `build.manifest` | COMPLETE | Fable | `build.final_freeze` | Create two AIs carrying their rules plus the quest; no assets/items/jutsu. |
 | `review.manifest` | COMPLETE | ChatGPT | `build.manifest` | Graph/combat/placeholder/safety review. |
 | `production.run_and_readback` | COMPLETE | dauntless | `review.manifest` | User-only hidden execution/readback. |
-| `launch.finalization` | REVIEW | shared | `art.combat_avatars`, `art.backgrounds`, `admin.balance_and_eligibility`, `production.run_and_readback` | Two hidden SCENE_CHARACTER creates for already-made accepted Ittetsu/Keeper art. |
+| `launch.finalization` | BLOCKED | shared | `art.combat_avatars`, `art.backgrounds`, `admin.balance_and_eligibility`, `production.run_and_readback` | Two hidden SCENE_CHARACTER creates for already-made accepted Ittetsu/Keeper art. |
+
+## Blocked
+
+### `launch.finalization` - Launch-final art/admin patch and readiness
+
+- BLOCKER: Waiting for the director to execute the reviewed b080825c launch-final manifest while hidden and return the complete Forge result bundle with all three full after-captures.
 
 ## Completed, with evidence
 
@@ -480,9 +486,9 @@ Optionally execute only the reviewed hidden core manifest and verify fresh readb
 
 ### `launch.finalization` - Launch-final art/admin patch and readiness
 
-**REVIEW** - area production, owner shared, lead role Release Auditor
+**BLOCKED** - area production, owner shared, lead role Release Auditor
 
-Obtain a fresh independent review of the corrected planner-stable, name-deduped art-final hidden closeout manifest before user-only execution/readback.
+Await the director-only hidden execution of the independently approved launch-final manifest, then perform full after-readback closeout before any publish decision.
 
 **Scope**
 
@@ -501,19 +507,18 @@ Obtain a fresh independent review of the corrected planner-stable, name-deduped 
 - `push/54_one_perfect_crop_launch_final.gen.py` - Fail-closed EDIT/CLOSEOUT manifest generator.
 - `state/one_perfect_crop_launch_final_art.md` - Restored accepted scene-art provenance and immutable pack.
 - `docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R1_REVIEW.md` - Round-1 BLOCKED review, F1/F2 root cause and correction evidence.
+- `docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R2_REVIEW.md` - Round-2 PASS review authorizing hidden execution of exact SHA b080825c.
 
 **Deliverables**
 
-- Frozen corrected launch-final manifest with two hidden scene-asset creates and three hidden-core edits.
-- Fresh independent exact-SHA review after the F1/F2 planner-order and name-dedup corrections.
+- Independently approved hidden launch-final manifest at b080825c46cdaf33c78f163821ddd3394fcfafd4.
+- Complete user-run Forge result bundle with full Road Bandit AI, Harvest Boar AI, and One Perfect Crop quest after-captures.
+- Durable launch-final closeout review before any publish/unhide decision.
 
 **Completion gates**
 
-- Queued G1/G4 prose patch is applied without graph/ID drift.
-- Resolved admin decisions are exact: no rewards/item/eligibility gate; maxAttempts 100; maxCompletes 1; no cooldown fields.
-- Ittetsu and Waystation Keeper are hidden SCENE_CHARACTER creates from the accepted repo-backed bytes; Road Bandit scene art remains absent.
-- Road Bandit AI uses the immutable repo-backed avatar and Harvest Boar uses the director-approved existing Wild Boar avatar.
-- Manifest sets dedupNames:true before the two asset creates.
-- Quest edit is explicitly later-phase and the empty/partial/full scene-idmap regression proves plan/re-attach order is invariant.
-- All exact manifest/generator/art/workstream/Forge-offline/full-Forge-test gates pass at the frozen corrected implementation SHA.
-- Fresh independent review passes before user-only Forge execution/readback; publish/unhide remains separate.
+- User executes only the reviewed push/54 manifest while all affected content remains hidden.
+- No retry/repair/live follow-up occurs on an unexpected Forge result before closeout review.
+- Full after-captures exist for both AI records and the quest.
+- Closeout review confirms avatars, scene assets/wiring, prose/admin, graph and hidden state match the reviewed manifest.
+- Publish/unhide remains a separate director-owned action after closeout.
