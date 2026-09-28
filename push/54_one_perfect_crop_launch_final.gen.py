@@ -346,6 +346,9 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
             "hidden scene-character assets, edit the three existing hidden core records, and "
             "perform no publish/unhide."
         ),
+        # Two SCENE_CHARACTER creates must refuse live-name collisions before
+        # any placeholder row can be created or remembered under its srcId.
+        "dedupNames": True,
         "imgSizes": img_sizes,
         "imagePack": image_pack,
         "items": [
@@ -369,6 +372,11 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
                 "name": "One Perfect Crop - launch-final quest closeout",
                 "entity": "quest",
                 "slot": "edit",
+                # Keep the planner order invariant across empty/partial/full retained
+                # idmap states. The scene creates stay at the default phase (5), while
+                # the quest always plans afterward even once @scene refs are already
+                # satisfied by persisted srcId mappings during attach/resume.
+                "phase": 6,
                 "targetId": QUEST_ID,
                 "data": quest_data,
             },
@@ -416,8 +424,8 @@ def build_manifest(image_ref: str) -> dict[str, Any]:
 def verify_manifest(manifest: dict[str, Any], patch: dict[str, Any]) -> None:
     items = manifest["items"]
     # Raw manifest order follows the repository validator's entity-order lint.
-    # Forge's planOrder then topologically lifts the scene creates ahead of the
-    # quest because the quest references their srcIds.
+    # The quest carries explicit phase 6 so Forge plans both scene creates before
+    # it regardless of whether either @scene srcId is already in the retained idmap.
     assert [(i["entity"], i["slot"]) for i in items] == [
         ("ai", "edit"),
         ("ai", "edit"),
@@ -425,7 +433,9 @@ def verify_manifest(manifest: dict[str, Any], patch: dict[str, Any]) -> None:
         ("asset", "create"),
         ("asset", "create"),
     ]
+    assert manifest["dedupNames"] is True
     assert [i.get("targetId") for i in items] == [ROAD_AI, BOAR_AI, QUEST_ID, None, None]
+    assert [i.get("phase") for i in items] == [None, None, 6, None, None]
     assert [i.get("srcId") for i in items] == [
         ROAD_SRC,
         BOAR_SRC,
