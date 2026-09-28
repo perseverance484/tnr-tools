@@ -68,6 +68,41 @@ test("planOrder: an item referencing @ai:boss is moved after the boss create; un
   assert.deepEqual(o2[0].deps, []);
 });
 
+test("OPC launch-final planner and re-attach order stay invariant as scene idmap fills", () => {
+  const text = readFileSync(new URL("../../push/54_one_perfect_crop_launch_final.json", import.meta.url), "utf8");
+  const parsed = parseManifest(text);
+  assert.equal(parsed.dedupNames, true, "the two scene creates must be name-deduped before any placeholder is sent");
+  assert.equal(parsed.items.find((it) => it.entity === "quest")?.phase, 6, "quest must stay in a later planner phase");
+
+  const states = [
+    ["empty", {}],
+    ["ittetsu-only", { opc_sc_ittetsu: "scene-ittetsu" }],
+    ["keeper-only", { opc_sc_waystation_keeper: "scene-keeper" }],
+    ["full", { opc_sc_ittetsu: "scene-ittetsu", opc_sc_waystation_keeper: "scene-keeper" }],
+  ];
+  const shape = (order) => order.map((it) => [it.idx, it.name, it.entity, it.srcId, it.targetId]);
+  const expected = shape(planOrder(parsed, {}));
+  assert.deepEqual(expected.map((x) => x[0]), [0, 1, 3, 4, 2], "AI edits, both scene creates, then quest");
+
+  for (const [label, idmap] of states) {
+    assert.deepEqual(shape(planOrder(parsed, idmap)), expected, label + " idmap must not reorder the plan");
+
+    // Model a reload after the job was opened under an empty idmap. The journal is
+    // positional, so attach must derive the exact same payload order after srcIds have
+    // been retained by earlier create phases.
+    const h = harness();
+    const jobId = "opc-order-" + label;
+    h.runner.plan(text, { jobId });
+    const journalShape = h.journal.get(jobId).items.map((it) => [it.name, it.entity, it.srcId, it.targetId]);
+    const persisted = h.storage.crash();
+    persisted.setItem(IDMAP_KEY, JSON.stringify(idmap));
+    const h2 = harness({ game: h.game, storage: persisted, idb: h.idb });
+    h2.runner.attach(jobId, text);
+    const attachedShape = h2.runner.manifests.get(jobId).order.map((it) => [it.name, it.entity, it.srcId, it.targetId]);
+    assert.deepEqual(attachedShape, journalShape, label + " idmap re-attach must preserve journal-to-plan positions");
+  }
+});
+
 test("mergeForUpdate picks the 45d field set from live ∪ asserted (relations dropped)", () => {
   const v = new Validator(SCHEMAS);
   const live = { id: "j", name: "old", description: "d", hidden: true, bloodline: { id: "rel" }, bloodlineId: null, createdAt: new Date(0), effects: [] };
