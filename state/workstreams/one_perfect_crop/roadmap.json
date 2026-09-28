@@ -19,7 +19,8 @@
     "2026-09-24 director resolution: no Ryo/XP/token reward package; no Cabbage Seed item or mechanical seed reward; maxAttempts 100, maxCompletes 1, no retry/attempt cooldown fields; disregard Farming level 15 and author no substitute eligibility gate. Cabbage Seed icon work is skipped.",
     "2026-09-26 director ruling: Harvest Boar reuses the existing Wild Boar avatar; no separate Harvest Boar image is generated or uploaded. Road Bandit is the only new launch-final imagePack asset.",
     "2026-09-27 director clarification: battle-AI-only limited new art production; the already-made accepted Ittetsu and Waystation Keeper scene characters belong in launch-final. Road Bandit scene character remains skipped. The prior launch-final review at 70a82ad7891064ba9e4718ecca4d8cdd143fce58 is superseded and must not be executed.",
-    "2026-09-27 independent launch-final review BLOCKED 6757e0c2130d39a35753380ec4bcc8af85e765b8 on F1 idmap-dependent plan/re-attach ordering and F2 dedupNames:false. Correction sets quest phase 6, dedupNames:true, and adds empty/partial/full scene-idmap attach regression. 6757e0c2 and 70a82ad7 are non-executable."
+    "2026-09-27 independent launch-final review BLOCKED 6757e0c2130d39a35753380ec4bcc8af85e765b8 on F1 idmap-dependent plan/re-attach ordering and F2 dedupNames:false. Correction sets quest phase 6, dedupNames:true, and adds empty/partial/full scene-idmap attach regression. 6757e0c2 and 70a82ad7 are non-executable.",
+    "2026-09-27 independent round-2 review PASS at b080825c46cdaf33c78f163821ddd3394fcfafd4 (manifest 0b942400): F1 planner-order and F2 dedupNames blockers CLOSED; 0 blocking and 0 surviving non-blocking findings. Hidden execution only is approved; publish/unhide remains separate and user-owned."
   ],
   "resources": [
     {
@@ -706,7 +707,7 @@
       "id": "launch.finalization",
       "title": "Launch-final art/admin patch and readiness",
       "area": "production",
-      "status": "REVIEW",
+      "status": "BLOCKED",
       "owner": "shared",
       "depends_on": [
         "art.combat_avatars",
@@ -714,7 +715,7 @@
         "admin.balance_and_eligibility",
         "production.run_and_readback"
       ],
-      "objective": "Obtain a fresh independent review of the corrected planner-stable, name-deduped art-final hidden closeout manifest before user-only execution/readback.",
+      "objective": "Await the director-only hidden execution of the independently approved launch-final manifest, then perform full after-readback closeout before any publish decision.",
       "scope": [
         "Two hidden SCENE_CHARACTER creates for already-made accepted Ittetsu/Keeper art.",
         "Road Bandit avatar edit and Harvest Boar Wild Boar-avatar reuse.",
@@ -753,21 +754,23 @@
         {
           "path": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R1_REVIEW.md",
           "why": "Round-1 BLOCKED review, F1/F2 root cause and correction evidence."
+        },
+        {
+          "path": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R2_REVIEW.md",
+          "why": "Round-2 PASS review authorizing hidden execution of exact SHA b080825c."
         }
       ],
       "deliverables": [
-        "Frozen corrected launch-final manifest with two hidden scene-asset creates and three hidden-core edits.",
-        "Fresh independent exact-SHA review after the F1/F2 planner-order and name-dedup corrections."
+        "Independently approved hidden launch-final manifest at b080825c46cdaf33c78f163821ddd3394fcfafd4.",
+        "Complete user-run Forge result bundle with full Road Bandit AI, Harvest Boar AI, and One Perfect Crop quest after-captures.",
+        "Durable launch-final closeout review before any publish/unhide decision."
       ],
       "completion_gates": [
-        "Queued G1/G4 prose patch is applied without graph/ID drift.",
-        "Resolved admin decisions are exact: no rewards/item/eligibility gate; maxAttempts 100; maxCompletes 1; no cooldown fields.",
-        "Ittetsu and Waystation Keeper are hidden SCENE_CHARACTER creates from the accepted repo-backed bytes; Road Bandit scene art remains absent.",
-        "Road Bandit AI uses the immutable repo-backed avatar and Harvest Boar uses the director-approved existing Wild Boar avatar.",
-        "Manifest sets dedupNames:true before the two asset creates.",
-        "Quest edit is explicitly later-phase and the empty/partial/full scene-idmap regression proves plan/re-attach order is invariant.",
-        "All exact manifest/generator/art/workstream/Forge-offline/full-Forge-test gates pass at the frozen corrected implementation SHA.",
-        "Fresh independent review passes before user-only Forge execution/readback; publish/unhide remains separate."
+        "User executes only the reviewed push/54 manifest while all affected content remains hidden.",
+        "No retry/repair/live follow-up occurs on an unexpected Forge result before closeout review.",
+        "Full after-captures exist for both AI records and the quest.",
+        "Closeout review confirms avatars, scene assets/wiring, prose/admin, graph and hidden state match the reviewed manifest.",
+        "Publish/unhide remains a separate director-owned action after closeout."
       ],
       "lead_role": "Release Auditor",
       "evidence": [
@@ -808,7 +811,24 @@
           "kind": "validator",
           "ref": "Correction gate at ce748f6465fd6886e15b574ccc199d8464f95046: generator exact; validate.py 0/0; Forge 5 planned/0 problems; full Forge tests 523/523 including OPC idmap/re-attach regression; artpreflight 0/0; workstream validate/render/selftest PASS.",
           "source": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R1_REVIEW.md"
+        },
+        {
+          "kind": "path",
+          "ref": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R2_REVIEW.md"
+        },
+        {
+          "kind": "sha",
+          "ref": "b080825c46cdaf33c78f163821ddd3394fcfafd4",
+          "note": "exact implementation SHA independently reviewed PASS / approved-sound for hidden execution"
+        },
+        {
+          "kind": "approval",
+          "ref": "Round-2 independent review: PASS / APPROVED-SOUND FOR HIDDEN EXECUTION; F1/F2 closed; 0 blocking and 0 surviving non-blocking findings. Publish/unhide not authorized.",
+          "source": "docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R2_REVIEW.md"
         }
+      ],
+      "blockers": [
+        "Waiting for the director to execute the reviewed b080825c launch-final manifest while hidden and return the complete Forge result bundle with all three full after-captures."
       ]
     }
   ]
