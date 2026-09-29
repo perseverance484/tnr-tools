@@ -1,0 +1,1788 @@
+{
+  "version": "1.0",
+  "title": "TNR Potency Chakra Mandala v1",
+  "status": "director-approved architecture; v1 taxonomy",
+  "tnr_tools_main": "1601f072af839402395eeab1326b1228747e0009",
+  "upstream_tnr_source": "9f01172038dbc412c837a7f97f7451eb87b6a234",
+  "budget": {
+    "total_skill_points": 30,
+    "cost_per_rank": 1,
+    "ranks_per_school": 10,
+    "minor_rank": 5,
+    "major_rank": 10,
+    "potency_per_rank_percentage": 0.5,
+    "theoretical_max_matching_potency_percent": 15
+  },
+  "rank_effect": {
+    "type": "increasepotency",
+    "calculation": "percentage",
+    "power": 0.5,
+    "powerPerLevel": 0,
+    "rounds": 100,
+    "target": "SELF"
+  },
+  "supported_tags": [
+    "damage",
+    "increasedamagegiven",
+    "decreasedamagegiven",
+    "increasedamagetaken",
+    "decreasedamagetaken",
+    "afterburn",
+    "lifesteal",
+    "reflect",
+    "increaseheal",
+    "heal"
+  ],
+  "base_elements": [
+    "Fire",
+    "Water",
+    "Wind",
+    "Earth",
+    "Lightning"
+  ],
+  "advanced_parentage": {
+    "Ice": [
+      "Water",
+      "Wind"
+    ],
+    "Crystal": [
+      "Fire",
+      "Earth"
+    ],
+    "Dust": [
+      "Wind",
+      "Earth"
+    ],
+    "Shadow": [
+      "Fire",
+      "Lightning"
+    ],
+    "Wood": [
+      "Water",
+      "Earth"
+    ],
+    "Scorch": [
+      "Fire",
+      "Wind"
+    ],
+    "Storm": [
+      "Water",
+      "Lightning"
+    ],
+    "Magnet": [
+      "Wind",
+      "Lightning"
+    ],
+    "Yin-Yang": [
+      "Fire",
+      "Lightning"
+    ],
+    "Lava": [
+      "Fire",
+      "Earth"
+    ],
+    "Explosion": [
+      "Earth",
+      "Lightning"
+    ],
+    "Light": [
+      "Fire",
+      "Wind",
+      "Lightning"
+    ],
+    "Boil": [
+      "Fire",
+      "Water"
+    ],
+    "Metal": [
+      "Earth",
+      "Lightning"
+    ],
+    "Sand": [
+      "Earth",
+      "Wind"
+    ]
+  },
+  "schools": [
+    {
+      "id": "nature.fire",
+      "name": "Fire",
+      "category": "foundation_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Fire",
+          "Crystal",
+          "Shadow",
+          "Scorch",
+          "Yin-Yang",
+          "Lava",
+          "Light",
+          "Boil"
+        ]
+      },
+      "prerequisites": [],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Ember Seal",
+      "major_name": "Inferno Seal"
+    },
+    {
+      "id": "nature.water",
+      "name": "Water",
+      "category": "foundation_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Water",
+          "Ice",
+          "Wood",
+          "Storm",
+          "Boil"
+        ]
+      },
+      "prerequisites": [],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Current Seal",
+      "major_name": "Tide Seal"
+    },
+    {
+      "id": "nature.wind",
+      "name": "Wind",
+      "category": "foundation_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Wind",
+          "Ice",
+          "Dust",
+          "Scorch",
+          "Magnet",
+          "Light",
+          "Sand"
+        ]
+      },
+      "prerequisites": [],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Gale Seal",
+      "major_name": "Tempest Seal"
+    },
+    {
+      "id": "nature.earth",
+      "name": "Earth",
+      "category": "foundation_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Earth",
+          "Crystal",
+          "Dust",
+          "Wood",
+          "Lava",
+          "Explosion",
+          "Metal",
+          "Sand"
+        ]
+      },
+      "prerequisites": [],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Stone Seal",
+      "major_name": "Mountain Seal"
+    },
+    {
+      "id": "nature.lightning",
+      "name": "Lightning",
+      "category": "foundation_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Lightning",
+          "Shadow",
+          "Storm",
+          "Magnet",
+          "Yin-Yang",
+          "Explosion",
+          "Light",
+          "Metal"
+        ]
+      },
+      "prerequisites": [],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Spark Seal",
+      "major_name": "Thunder Seal"
+    },
+    {
+      "id": "discipline.assault",
+      "name": "Assault",
+      "category": "foundation_discipline",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "damage",
+          "increasedamagegiven",
+          "increasedamagetaken",
+          "afterburn"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Striking Seal",
+      "major_name": "Apex Seal"
+    },
+    {
+      "id": "discipline.guard",
+      "name": "Guard",
+      "category": "foundation_discipline",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken",
+          "decreasedamagegiven",
+          "reflect"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Ward Seal",
+      "major_name": "Fortress Seal"
+    },
+    {
+      "id": "discipline.sustain",
+      "name": "Sustain",
+      "category": "foundation_discipline",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "heal",
+          "increaseheal",
+          "lifesteal"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Pulse Seal",
+      "major_name": "Life Seal"
+    },
+    {
+      "id": "specialization.impact",
+      "name": "Impact",
+      "category": "tag_specialization",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "damage"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "discipline.assault",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Crushing Seal",
+      "major_name": "Cataclysm Seal"
+    },
+    {
+      "id": "specialization.momentum",
+      "name": "Momentum",
+      "category": "tag_specialization",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "increasedamagegiven"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "discipline.assault",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Drive Seal",
+      "major_name": "Overrun Seal"
+    },
+    {
+      "id": "specialization.pressure",
+      "name": "Pressure",
+      "category": "tag_specialization",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "increasedamagetaken"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "discipline.assault",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Exposure Seal",
+      "major_name": "Break Seal"
+    },
+    {
+      "id": "specialization.attrition",
+      "name": "Attrition",
+      "category": "tag_specialization",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "afterburn"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "discipline.assault",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Smolder Seal",
+      "major_name": "Ruin Seal"
+    },
+    {
+      "id": "specialization.bulwark",
+      "name": "Bulwark",
+      "category": "tag_specialization",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "discipline.guard",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Iron Seal",
+      "major_name": "Unbroken Seal"
+    },
+    {
+      "id": "specialization.suppression",
+      "name": "Suppression",
+      "category": "tag_specialization",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "decreasedamagegiven"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "discipline.guard",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Restraint Seal",
+      "major_name": "Dominion Seal"
+    },
+    {
+      "id": "specialization.reversal",
+      "name": "Reversal",
+      "category": "tag_specialization",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "reflect"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "discipline.guard",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Mirror Seal",
+      "major_name": "Return Seal"
+    },
+    {
+      "id": "specialization.restoration",
+      "name": "Restoration",
+      "category": "tag_specialization",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "heal"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "discipline.sustain",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Mending Seal",
+      "major_name": "Renewal Seal"
+    },
+    {
+      "id": "specialization.grace",
+      "name": "Grace",
+      "category": "tag_specialization",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "increaseheal"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "discipline.sustain",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Flow Seal",
+      "major_name": "Abundance Seal"
+    },
+    {
+      "id": "specialization.predation",
+      "name": "Predation",
+      "category": "tag_specialization",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "lifesteal"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "discipline.sustain",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Fang Seal",
+      "major_name": "Hunger Seal"
+    },
+    {
+      "id": "advanced.ice",
+      "name": "Ice",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Ice"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "rank": 5
+        },
+        {
+          "school": "nature.wind",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Frost Seal",
+      "major_name": "Whiteout Seal"
+    },
+    {
+      "id": "advanced.crystal",
+      "name": "Crystal",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Crystal"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "rank": 5
+        },
+        {
+          "school": "nature.earth",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Facet Seal",
+      "major_name": "Prism Seal"
+    },
+    {
+      "id": "advanced.dust",
+      "name": "Dust",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Dust"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "rank": 5
+        },
+        {
+          "school": "nature.earth",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Drift Seal",
+      "major_name": "Erosion Seal"
+    },
+    {
+      "id": "advanced.shadow",
+      "name": "Shadow",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Shadow"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "rank": 5
+        },
+        {
+          "school": "nature.lightning",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Veil Seal",
+      "major_name": "Eclipse Seal"
+    },
+    {
+      "id": "advanced.wood",
+      "name": "Wood",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Wood"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "rank": 5
+        },
+        {
+          "school": "nature.earth",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Root Seal",
+      "major_name": "Ancient Grove"
+    },
+    {
+      "id": "advanced.scorch",
+      "name": "Scorch",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Scorch"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "rank": 5
+        },
+        {
+          "school": "nature.wind",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Heat-Haze Seal",
+      "major_name": "Sunscar Seal"
+    },
+    {
+      "id": "advanced.storm",
+      "name": "Storm",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Storm"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "rank": 5
+        },
+        {
+          "school": "nature.lightning",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Squall Seal",
+      "major_name": "Storm-Crown Seal"
+    },
+    {
+      "id": "advanced.magnet",
+      "name": "Magnet",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Magnet"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "rank": 5
+        },
+        {
+          "school": "nature.lightning",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Polarity Seal",
+      "major_name": "Iron-Orbit Seal"
+    },
+    {
+      "id": "advanced.yin-yang",
+      "name": "Yin-Yang",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Yin-Yang"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "rank": 5
+        },
+        {
+          "school": "nature.lightning",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Balance Seal",
+      "major_name": "Convergence Seal"
+    },
+    {
+      "id": "advanced.lava",
+      "name": "Lava",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Lava"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "rank": 5
+        },
+        {
+          "school": "nature.earth",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Magma Seal",
+      "major_name": "Caldera Seal"
+    },
+    {
+      "id": "advanced.explosion",
+      "name": "Explosion",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Explosion"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "rank": 5
+        },
+        {
+          "school": "nature.lightning",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Fuse Seal",
+      "major_name": "Detonation Seal"
+    },
+    {
+      "id": "advanced.light",
+      "name": "Light",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Light"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "rank": 5
+        },
+        {
+          "school": "nature.wind",
+          "rank": 5
+        },
+        {
+          "school": "nature.lightning",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Radiance Seal",
+      "major_name": "Dawn Seal"
+    },
+    {
+      "id": "advanced.boil",
+      "name": "Boil",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Boil"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "rank": 5
+        },
+        {
+          "school": "nature.water",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Steam Seal",
+      "major_name": "Pressure Seal"
+    },
+    {
+      "id": "advanced.metal",
+      "name": "Metal",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Metal"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "rank": 5
+        },
+        {
+          "school": "nature.lightning",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Forge Seal",
+      "major_name": "Adamant Seal"
+    },
+    {
+      "id": "advanced.sand",
+      "name": "Sand",
+      "category": "advanced_nature",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTag": "none",
+        "affectedElements": [
+          "Sand"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "rank": 5
+        },
+        {
+          "school": "nature.wind",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Dune Seal",
+      "major_name": "Desert-Crown Seal"
+    },
+    {
+      "id": "hidden.burning-edge",
+      "name": "Burning Edge",
+      "category": "hidden_art",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "damage"
+        ],
+        "affectedElements": [
+          "Fire"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "rank": 5
+        },
+        {
+          "school": "specialization.impact",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Burning Edge: Minor Seal",
+      "major_name": "Burning Edge: Master Seal"
+    },
+    {
+      "id": "hidden.cinder-doctrine",
+      "name": "Cinder Doctrine",
+      "category": "hidden_art",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "afterburn"
+        ],
+        "affectedElements": [
+          "Fire"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "rank": 5
+        },
+        {
+          "school": "specialization.attrition",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Cinder Doctrine: Minor Seal",
+      "major_name": "Cinder Doctrine: Master Seal"
+    },
+    {
+      "id": "hidden.riptide-mark",
+      "name": "Riptide Mark",
+      "category": "hidden_art",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "increasedamagetaken"
+        ],
+        "affectedElements": [
+          "Water"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "rank": 5
+        },
+        {
+          "school": "specialization.pressure",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Riptide Mark: Minor Seal",
+      "major_name": "Riptide Mark: Master Seal"
+    },
+    {
+      "id": "hidden.healing-current",
+      "name": "Healing Current",
+      "category": "hidden_art",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "heal"
+        ],
+        "affectedElements": [
+          "Water"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "rank": 5
+        },
+        {
+          "school": "specialization.restoration",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Healing Current: Minor Seal",
+      "major_name": "Healing Current: Master Seal"
+    },
+    {
+      "id": "hidden.gale-rhythm",
+      "name": "Gale Rhythm",
+      "category": "hidden_art",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "increasedamagegiven"
+        ],
+        "affectedElements": [
+          "Wind"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "rank": 5
+        },
+        {
+          "school": "specialization.momentum",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Gale Rhythm: Minor Seal",
+      "major_name": "Gale Rhythm: Master Seal"
+    },
+    {
+      "id": "hidden.quieting-wind",
+      "name": "Quieting Wind",
+      "category": "hidden_art",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "decreasedamagegiven"
+        ],
+        "affectedElements": [
+          "Wind"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "rank": 5
+        },
+        {
+          "school": "specialization.suppression",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Quieting Wind: Minor Seal",
+      "major_name": "Quieting Wind: Master Seal"
+    },
+    {
+      "id": "hidden.stone-body",
+      "name": "Stone Body",
+      "category": "hidden_art",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken"
+        ],
+        "affectedElements": [
+          "Earth"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "rank": 5
+        },
+        {
+          "school": "specialization.bulwark",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Stone Body: Minor Seal",
+      "major_name": "Stone Body: Master Seal"
+    },
+    {
+      "id": "hidden.rooted-grace",
+      "name": "Rooted Grace",
+      "category": "hidden_art",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "increaseheal"
+        ],
+        "affectedElements": [
+          "Earth"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "rank": 5
+        },
+        {
+          "school": "specialization.grace",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Rooted Grace: Minor Seal",
+      "major_name": "Rooted Grace: Master Seal"
+    },
+    {
+      "id": "hidden.storm-mirror",
+      "name": "Storm Mirror",
+      "category": "hidden_art",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "reflect"
+        ],
+        "affectedElements": [
+          "Lightning"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.lightning",
+          "rank": 5
+        },
+        {
+          "school": "specialization.reversal",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Storm Mirror: Minor Seal",
+      "major_name": "Storm Mirror: Master Seal"
+    },
+    {
+      "id": "hidden.predators-spark",
+      "name": "Predator's Spark",
+      "category": "hidden_art",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "lifesteal"
+        ],
+        "affectedElements": [
+          "Lightning"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.lightning",
+          "rank": 5
+        },
+        {
+          "school": "specialization.predation",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Predator's Spark: Minor Seal",
+      "major_name": "Predator's Spark: Master Seal"
+    },
+    {
+      "id": "pinnacle.inferno-doctrine",
+      "name": "Inferno Doctrine",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "damage",
+          "increasedamagegiven",
+          "increasedamagetaken",
+          "afterburn"
+        ],
+        "affectedElements": [
+          "Fire"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "rank": 10
+        },
+        {
+          "school": "discipline.assault",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Inferno Doctrine: Doctrine Seal",
+      "major_name": "Inferno Doctrine: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.ashen-aegis",
+      "name": "Ashen Aegis",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken",
+          "decreasedamagegiven",
+          "reflect"
+        ],
+        "affectedElements": [
+          "Fire"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "rank": 10
+        },
+        {
+          "school": "discipline.guard",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Ashen Aegis: Doctrine Seal",
+      "major_name": "Ashen Aegis: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.phoenix-current",
+      "name": "Phoenix Current",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "heal",
+          "increaseheal",
+          "lifesteal"
+        ],
+        "affectedElements": [
+          "Fire"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "rank": 10
+        },
+        {
+          "school": "discipline.sustain",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Phoenix Current: Doctrine Seal",
+      "major_name": "Phoenix Current: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.riptide-doctrine",
+      "name": "Riptide Doctrine",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "damage",
+          "increasedamagegiven",
+          "increasedamagetaken",
+          "afterburn"
+        ],
+        "affectedElements": [
+          "Water"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "rank": 10
+        },
+        {
+          "school": "discipline.assault",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Riptide Doctrine: Doctrine Seal",
+      "major_name": "Riptide Doctrine: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.abyssal-aegis",
+      "name": "Abyssal Aegis",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken",
+          "decreasedamagegiven",
+          "reflect"
+        ],
+        "affectedElements": [
+          "Water"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "rank": 10
+        },
+        {
+          "school": "discipline.guard",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Abyssal Aegis: Doctrine Seal",
+      "major_name": "Abyssal Aegis: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.endless-current",
+      "name": "Endless Current",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "heal",
+          "increaseheal",
+          "lifesteal"
+        ],
+        "affectedElements": [
+          "Water"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "rank": 10
+        },
+        {
+          "school": "discipline.sustain",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Endless Current: Doctrine Seal",
+      "major_name": "Endless Current: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.razor-tempest",
+      "name": "Razor Tempest",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "damage",
+          "increasedamagegiven",
+          "increasedamagetaken",
+          "afterburn"
+        ],
+        "affectedElements": [
+          "Wind"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "rank": 10
+        },
+        {
+          "school": "discipline.assault",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Razor Tempest: Doctrine Seal",
+      "major_name": "Razor Tempest: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.hollow-wind",
+      "name": "Hollow Wind",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken",
+          "decreasedamagegiven",
+          "reflect"
+        ],
+        "affectedElements": [
+          "Wind"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "rank": 10
+        },
+        {
+          "school": "discipline.guard",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Hollow Wind: Doctrine Seal",
+      "major_name": "Hollow Wind: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.breath-of-spring",
+      "name": "Breath of Spring",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "heal",
+          "increaseheal",
+          "lifesteal"
+        ],
+        "affectedElements": [
+          "Wind"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "rank": 10
+        },
+        {
+          "school": "discipline.sustain",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Breath of Spring: Doctrine Seal",
+      "major_name": "Breath of Spring: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.seismic-doctrine",
+      "name": "Seismic Doctrine",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "damage",
+          "increasedamagegiven",
+          "increasedamagetaken",
+          "afterburn"
+        ],
+        "affectedElements": [
+          "Earth"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "rank": 10
+        },
+        {
+          "school": "discipline.assault",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Seismic Doctrine: Doctrine Seal",
+      "major_name": "Seismic Doctrine: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.mountain-heart",
+      "name": "Mountain Heart",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken",
+          "decreasedamagegiven",
+          "reflect"
+        ],
+        "affectedElements": [
+          "Earth"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "rank": 10
+        },
+        {
+          "school": "discipline.guard",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Mountain Heart: Doctrine Seal",
+      "major_name": "Mountain Heart: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.stoneblood-cycle",
+      "name": "Stoneblood Cycle",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "heal",
+          "increaseheal",
+          "lifesteal"
+        ],
+        "affectedElements": [
+          "Earth"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "rank": 10
+        },
+        {
+          "school": "discipline.sustain",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Stoneblood Cycle: Doctrine Seal",
+      "major_name": "Stoneblood Cycle: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.thunderclap-doctrine",
+      "name": "Thunderclap Doctrine",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "damage",
+          "increasedamagegiven",
+          "increasedamagetaken",
+          "afterburn"
+        ],
+        "affectedElements": [
+          "Lightning"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.lightning",
+          "rank": 10
+        },
+        {
+          "school": "discipline.assault",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Thunderclap Doctrine: Doctrine Seal",
+      "major_name": "Thunderclap Doctrine: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.thunder-aegis",
+      "name": "Thunder Aegis",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken",
+          "decreasedamagegiven",
+          "reflect"
+        ],
+        "affectedElements": [
+          "Lightning"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.lightning",
+          "rank": 10
+        },
+        {
+          "school": "discipline.guard",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Thunder Aegis: Doctrine Seal",
+      "major_name": "Thunder Aegis: Perfected Seal"
+    },
+    {
+      "id": "pinnacle.living-current",
+      "name": "Living Current",
+      "category": "pinnacle_doctrine",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "heal",
+          "increaseheal",
+          "lifesteal"
+        ],
+        "affectedElements": [
+          "Lightning"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.lightning",
+          "rank": 10
+        },
+        {
+          "school": "discipline.sustain",
+          "rank": 10
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Living Current: Doctrine Seal",
+      "major_name": "Living Current: Perfected Seal"
+    },
+    {
+      "id": "special.balance",
+      "name": "Balanced Form",
+      "category": "tri_discipline",
+      "ranks": 10,
+      "cost_per_rank": 1,
+      "potency_per_rank_percentage": 0.5,
+      "scope": {
+        "affectedTags": [
+          "damage",
+          "increasedamagegiven",
+          "decreasedamagegiven",
+          "increasedamagetaken",
+          "decreasedamagetaken",
+          "afterburn",
+          "lifesteal",
+          "reflect",
+          "increaseheal",
+          "heal"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "discipline.assault",
+          "rank": 5
+        },
+        {
+          "school": "discipline.guard",
+          "rank": 5
+        },
+        {
+          "school": "discipline.sustain",
+          "rank": 5
+        }
+      ],
+      "minor_rank": 5,
+      "major_rank": 10,
+      "minor_name": "Equilibrium Seal",
+      "major_name": "Perfect Balance"
+    }
+  ]
+}
