@@ -1,0 +1,104 @@
+name: opc-asset-repair-validation
+
+on:
+  push:
+    branches:
+      - chatgpt/opc-asset-repair-ci-20260929
+    paths:
+      - ".github/workflows/opc_asset_repair_validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 6393c668d4457858dabb35a98b383729480d590a
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Content manifest validator
+        run: >
+          python3 skills/building-tnr-content/scripts/validate.py
+          push/55_one_perfect_crop_launch_final_asset_repair.json
+          --ctors skills/building-tnr-content/data/45c_DATA_constructors.json
+          --pool skills/building-tnr-content/data/32b_DATA_pool.json
+          --entities skills/building-tnr-content/data/45d_DATA_entity_schemas.json
+          --checks skills/building-tnr-content/data/45g_DATA_checks.json
+          --lints skills/building-tnr-content/data/45h_DATA_lints.json
+
+      - name: Forge offline manifest gate
+        run: node forge/tools/check_manifest.mjs push/55_one_perfect_crop_launch_final_asset_repair.json
+
+      - name: Repair contract assertions
+        run: |
+          python3 - <<'PY'
+          import json, re, subprocess
+          from pathlib import Path
+
+          manifest = json.load(open("push/55_one_perfect_crop_launch_final_asset_repair.json"))
+          result = json.load(open("harvests/inbox/tnr_results_1790603583693.json"))
+
+          assert len(manifest["items"]) == 2
+          assert all(x["entity"] == "asset" and x["slot"] == "edit" for x in manifest["items"])
+          assert [x["targetId"] for x in manifest["items"]] == [
+              "qFJk06nwwy0B9o2qZ1oZE",
+              "qiFtWf9G91kt4spFRA1VF",
+          ]
+          assert not any(x["entity"] in {"ai", "quest"} for x in manifest["items"])
+          assert not any(x["slot"] == "create" for x in manifest["items"])
+
+          by_target = {x["targetId"]: x["data"] for x in manifest["items"]}
+          expected = {
+              "qFJk06nwwy0B9o2qZ1oZE": (
+                  "OnePerfectCrop Scene - Ittetsu",
+                  result["idmap"]["one_perfect_crop_ittetsu_scene.webp"],
+              ),
+              "qiFtWf9G91kt4spFRA1VF": (
+                  "OnePerfectCrop Scene - Waystation Keeper",
+                  result["idmap"]["one_perfect_crop_waystation_keeper_scene.webp"],
+              ),
+          }
+          for target, (name, image) in expected.items():
+              d = by_target[target]
+              assert d == {
+                  "name": name,
+                  "type": "SCENE_CHARACTER",
+                  "image": image,
+                  "folder": "OnePerfectCrop",
+                  "frames": 1,
+                  "speed": 1,
+                  "hidden": True,
+                  "onInitialBattleField": False,
+                  "licenseDetails": "TNR",
+              }
+              assert re.fullmatch(r"[A-Za-z0-9]*", d["folder"])
+
+          assert manifest["capture"]["after"] == [
+              {"proc":"gameAsset.get","input":{"id":"qFJk06nwwy0B9o2qZ1oZE"},"persist":"full"},
+              {"proc":"gameAsset.get","input":{"id":"qiFtWf9G91kt4spFRA1VF"},"persist":"full"},
+              {"proc":"quests.get","input":{"id":"CZIZoHDAOWjxDtVaQwr6V"},"persist":"full"},
+          ]
+
+          assert not Path("push/54_one_perfect_crop_launch_final.json").exists()
+          archived = Path("archive/spent-manifests/push-2026-09-28/54_one_perfect_crop_launch_final.json").read_bytes()
+          historical = subprocess.check_output([
+              "git","show",
+              "9630ad574a20c45f1b5f2124956fb2efc2f09b29:push/54_one_perfect_crop_launch_final.json"
+          ])
+          assert archived == historical
+          print("repair contract exact; spent push/54 archived byte-identically")
+          PY
+
+      - name: Scrub
+        run: python3 scripts/scrub.py
