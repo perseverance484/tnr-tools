@@ -1,6 +1,7 @@
 # TNR Potency — Chakra Mandala v1
 
 **Status:** director-approved architecture; v1 taxonomy and balance specification  
+**Ruling:** `RUL-2026-09-29-001`  
 **TNR Tools baseline:** `1601f072af839402395eeab1326b1228747e0009`  
 **Current upstream TNR source inspected:** `9f01172038dbc412c837a7f97f7451eb87b6a234`  
 
