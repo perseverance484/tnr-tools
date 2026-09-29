@@ -1,6 +1,6 @@
-# TNR Potency Skill Tree — two-skill design, revision 2
+# TNR Potency Skill Tree — two-skill design, revision 2.1
 
-**Status:** the progression and five-category direction below are approved by RUL-2026-09-29-002. Hidden Arts are candidates for review. Advanced Arts retain the existing matrix as a review basis; optional generalists remain deferred. This is a design source, not a live-game manifest.
+**Status:** the progression and five-category direction below are approved by RUL-2026-09-29-002, with Absorb deferred by RUL-2026-09-29-003. Hidden Arts are candidates for review. Advanced Arts retain the existing matrix as a review basis; optional generalists remain deferred. This is a design source, not a live-game manifest.
 
 **Date:** 2026-09-29
 
@@ -41,10 +41,10 @@ Percentage Potency increases the qualifying tag's power proportionally. A power 
 - Hidden/Advanced intersections require both the element scope and the tag scope. Paired-specialization arts target either listed tag independently; they do not create a new interaction or trigger.
 - Upstream percentages from matching modifiers **add**, then multiply tag power. Non-jutsu actions are ignored; Potency is snapshotted on subsequent casts.
 - **Source mismatch to resolve:** upstream currently tests each effect tag's `elements`, not a jutsu-wide element. Heal and Increase Heal have no element field and fall back to None. Preserve the approved jutsu-level intent without claiming elemental healing already works. See POT-IMPL-02.
-- **Absorb:** approved under Sustain, but absent from upstream `PotencyTagTypes`. Assimilation and all Absorb-oriented paths depend on POT-IMPL-01. The name's presence in other engine enums does not establish Potency support.
+- **Absorb is deferred:** RUL-2026-09-29-003 removes it from the current design because upstream Potency does not support it. Assimilation, Hollow Palm and Empty Vessel are excluded from the active roster. Reintroduction requires a later user decision.
 - **Budget:** upstream has a global maximum of 100 SP and checks global activated-skill expenditure. It does not enforce this tree's separate 30-SP allocation. POT-IMPL-03 must be resolved before implementation.
 
-The current supported list is Damage, Increase Damage Given, Decrease Damage Given, Increase Damage Taken, Decrease Damage Taken, Afterburn, Lifesteal, Reflect, Increase Heal and Heal. The design adds Absorb to that intended coverage. Static Potency is not used.
+The current supported list is Damage, Increase Damage Given, Decrease Damage Given, Increase Damage Taken, Decrease Damage Taken, Afterburn, Lifesteal, Reflect, Increase Heal and Heal. The current design uses exactly that supported tag set. Static Potency is not used.
 
 ## 3. A — Foundation Schools: eight starters
 
@@ -59,9 +59,9 @@ Every Foundation is directly available. Skill I reaches a Minor unlock; Skill II
 | Lightning | All supported tags on Lightning jutsu | Relevant Special Elements and reviewed Hidden Arts | Lightning Advanced Arts |
 | Assault | Damage; Increase Damage Given; Increase Damage Taken; Afterburn, any element | Assault Specializations and reviewed direct Hidden gates | Assault Advanced Arts |
 | Guard | Decrease Damage Taken; Decrease Damage Given; Reflect, any element | Guard Specializations and reviewed direct Hidden gates | Guard Advanced Arts |
-| Sustain | Heal; Increase Heal; Lifesteal; **Absorb**, any element | Sustain Specializations and reviewed direct Hidden gates | Sustain Advanced Arts |
+| Sustain | Heal; Increase Heal; Lifesteal, any element | Sustain Specializations and reviewed direct Hidden gates | Sustain Advanced Arts |
 
-“Opens” means one prerequisite is satisfied; schools with multiple prerequisites require all of them. Absorb remains an upstream support gap.
+“Opens” means one prerequisite is satisfied; schools with multiple prerequisites require all of them. Absorb is excluded from the current design.
 
 ## 4. B — Special Elements: fifteen schools
 
@@ -89,7 +89,7 @@ The enum defines names, **not recipes**. The evidence below preserves the earlie
 
 Dust and Sand share proposed parentage; they still target different elements. `None` is the engine's non-elemental sentinel, not a sixteenth Special Element school. Special Elements are terminal unless a reviewed Hidden Art uses one as a prerequisite. No terminal Seal labels are needed.
 
-## 5. C — Specialization Schools: eleven exact-tag schools
+## 5. C — Specialization Schools: ten exact-tag schools
 
 Each requires its parent Discipline Minor. Skill I gives +2.5%; Skill II adds +2.5%. Total expenditure including the parent is 10 SP at Minor or 15 SP at Major. Specializations may unlock reviewed Hidden Arts at Minor; their Major purchase need not receive a Seal label.
 
@@ -105,11 +105,10 @@ Each requires its parent Discipline Minor. Skill I gives +2.5%; Skill II adds +2
 | Sustain | Restoration | Heal |
 | Sustain | Grace | Increase Heal |
 | Sustain | Predation | Lifesteal |
-| Sustain | Assimilation | **Absorb; requires upstream support** |
 
 ## 6. D — Hidden Arts: review roster
 
-The [full candidate roster](POTENCY_HIDDEN_ARTS_ROSTER_V2.md) proposes **18 original teachings**: eleven elemental intersections, four Special Element intersections and three paired-specialization arts. It includes meaningful Absorb paths and preserves/refines the previous ten concepts. Names, selectors and unlocks remain reviewable proposals.
+The [full candidate roster](POTENCY_HIDDEN_ARTS_ROSTER_V2.md) proposes **16 original teachings**: ten elemental intersections, four Special Element intersections and two paired-specialization arts. It preserves/refines the previous ten concepts; the two Absorb-dependent candidates are deferred. Names, selectors and unlocks remain reviewable proposals.
 
 | Route | Recursive prerequisites | Total at Hidden I / II |
 |---|---:|---:|
@@ -134,7 +133,7 @@ The retained basis is **five Nature Majors × three Discipline Majors = fifteen 
 | Earth | Seismic Doctrine | Mountain Heart | Stoneblood Cycle |
 | Lightning | Thunderclap Doctrine | Thunder Aegis | Living Current |
 
-These are retained name/scope candidates for final audit. No two have identical selectors: each changes the element, the discipline, or both. Elemental offense, defense/countering and recovery are represented. Distinct schema selectors alone do not prove useful live content exists for every intersection. All five Sustain Advanced Arts are only partially supported today: Lifesteal can be element-selected; Absorb needs support, and Heal / Increase Heal need elemental-scope reconciliation.
+These are retained name/scope candidates for final audit. No two have identical selectors: each changes the element, the discipline, or both. Elemental offense, defense/countering and recovery are represented. Distinct schema selectors alone do not prove useful live content exists for every intersection. All five Sustain Advanced Arts are only partially supported today: Lifesteal can be element-selected; Heal / Increase Heal need elemental-scope reconciliation.
 
 Advanced Arts reward a whole discipline within one element. Hidden Arts should instead support narrower mixed-element specialists or a deliberate paired-tag identity. Example: maxing Impact in a Burning Edge build gives more non-Fire Damage Potency than the Fire Assault Advanced route; maxing Fire instead would produce a scope-dominated alternative. The roster document records this comparison.
 
@@ -162,7 +161,7 @@ Use the approved dark navy-black ninja scenery, subdued gold ornamental border, 
 
 - Foundation: eight large cards in a symmetrical layout.
 - Special Elements: fifteen uniform cards, exact element, scope, unlocks and investment.
-- Specialization: three grouped columns for Assault, Guard and Sustain. Sustain now has four cards. Align card dimensions and row rhythm; do not stretch the three Guard cards to create uneven heights or invent a fourth school.
+- Specialization: three grouped columns for Assault, Guard and Sustain. Assault has four cards; Guard and Sustain have three each. Align card dimensions and row rhythm without stretching cards or inventing filler schools.
 - Hidden/Advanced: settle roster and unlocks before freezing card text and producing imagery.
 - Every card uses `0/2`, `1/2`, `2/2`, or two unambiguous purchase slots. Show Skill I / 5 SP / +2.5% / Minor and Skill II / 5 SP / +2.5% / Major. At completion show +5% total.
 - Distinguish a locked school, an available unpurchased school, and a completed school. Show every prerequisite and its current tier; distinguish individual skill cost from total school and path cost.
@@ -173,7 +172,7 @@ Use the approved dark navy-black ninja scenery, subdued gold ornamental border, 
 ## 10. Implementation and acceptance gates
 
 1. User review of Hidden Arts roster/effects/unlocks, Advanced Arts purpose and optional additions, final names and provisional Special Element topology.
-2. Resolve Absorb support, jutsu-versus-tag elemental matching (especially healing), and actual enforcement of the 30-SP budget. Do not drop intended coverage to make a manifest validate.
+2. Resolve jutsu-versus-tag elemental matching (especially healing), and actual enforcement of the 30-SP budget. Do not drop intended coverage to make a manifest validate.
 3. Verify content viability of each intended element/tag intersection from suitable repository evidence; no live census is claimed here.
 4. Future implementation must represent Skill II as requiring Skill I and school entry as an AND of the listed I/II purchases. Stable graph IDs are design IDs, not live record IDs.
 5. Expand multi-tag scopes into distinct singular `affectedTag` modifiers. Never combine overlapping wildcard and exact-tag modifiers from one purchase in a way that breaks the +2.5%-per-effect invariant.

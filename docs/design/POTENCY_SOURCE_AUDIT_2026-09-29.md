@@ -34,7 +34,7 @@ All links below are pinned to `9f01172038dbc412c837a7f97f7451eb87b6a234`.
 
 ## Implementation consequences, not design reversals
 
-**POT-IMPL-01 — Absorb:** add `absorb` to Potency selector/support handling, update dependent labels/exhaustive typing and validate the runtime scaling. Assimilation cannot function today. Sustain and elemental/Advanced schools must not claim full intended Absorb coverage before this change. This session does not modify upstream.
+**POT-IMPL-01 — Absorb, deferred:** RUL-2026-09-29-003 removes Absorb from the active design, including Sustain/Advanced tag scopes, Assimilation, Hollow Palm and Empty Vessel. Adding upstream support is no longer a dependency for this roster. The source finding remains historical evidence; reintroduction requires a later user decision.
 
 **POT-IMPL-02 — element semantics:** the approved description affects all supported tags on a jutsu of the selected element; the current resolver reads each tag individually. Sibling Fire Damage does not make an elementless Heal tag Fire. Elemental healing candidates and all five Sustain Advanced Arts are therefore incomplete in current upstream. The later implementation brief must define the intended jutsu classification and multi-element behavior, then reconcile validator/runtime handling without silently changing design intent. No metadata propagation or new schema field is assumed here.
 

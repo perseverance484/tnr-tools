@@ -1,16 +1,17 @@
 {
   "generated": "2026-09-29",
-  "session": "Potency Skill Tree: two-skill progression reconciliation and Hidden Arts roster proposal",
-  "state_line": "POTENCY DESIGN REVISION 2 RECORDED on chatgpt/potency-chakra-mandala-design-20260929. RUL-2026-09-29-002 supersedes the old progression and radial presentation: two 5-SP skills per school, +2.5% each, 30 Potency SP, +15% maximum overlap. Design graph has five categories and 67 schools including 18 Hidden Arts candidates and 15 retained Advanced Arts candidates. Hidden roster awaits dauntless review before imagery. Absorb support, elemental healing/jutsu scope and a separate 30-SP cap remain implementation gaps. Live-game requests/writes 0/0. Unrelated operational entries below are inherited history and were not re-audited in this session.",
+  "session": "Potency Skill Tree: defer unsupported Absorb and its dependent schools",
+  "state_line": "POTENCY DESIGN REVISION 2.1 RECORDED on chatgpt/potency-chakra-mandala-design-20260929. RUL-2026-09-29-002 supersedes the old progression and radial presentation: two 5-SP skills per school, +2.5% each, 30 Potency SP, +15% maximum overlap. Design graph has five categories and 64 schools including 16 Hidden Arts candidates and 15 retained Advanced Arts candidates. Hidden roster awaits dauntless review before imagery. RUL-2026-09-29-003 defers Absorb, Assimilation, Hollow Palm and Empty Vessel. Elemental healing/jutsu scope and a separate 30-SP cap remain implementation gaps. Live-game requests/writes 0/0. Unrelated operational entries below are inherited history and were not re-audited in this session.",
   "verified_at_close": [
     "lawmap -> 93 laws, 93 matrix rows, 77 citations across 35 files; 0 errors, 5 warnings",
     "doctrine projections -> all projections current (exit 0)",
     "packs/TOCs -> all packs and TOCs current (exit 0)",
     "Live refs at bootstrap: main and merge-base 1601f072af839402395eeab1326b1228747e0009; assigned design branch 36bc4cc7aa79321e52f8e90584933d5c747497a7; upstream 9f01172038dbc412c837a7f97f7451eb87b6a234.",
-    "Potency structural audit PASS: 67 unique schools, 67 affordable Majors, no dependency cycles, eleven allocation assertions and four Special Element tradeoff comparisons. Graph digest and limits recorded in docs/design/POTENCY_V2_VALIDATION_2026-09-29.md.",
+    "Potency structural audit PASS: 64 unique schools, 64 affordable Majors, no dependency cycles, ten allocation assertions and four Special Element tradeoff comparisons. Graph digest and limits recorded in docs/design/POTENCY_V2_VALIDATION_2026-09-29.md.",
     "Potency workstream validates and renders. Repository-wide workstream validation remains incomplete because unrelated sparse-checkout artifacts are absent; automatic approval review rejected their out-of-scope fetch.",
-    "Absorb is still absent from upstream PotencyTagTypes; Heal/Increase Heal lack elements; the purchase router has no dedicated Potency budget enforcement.",
-    "Hidden/Advanced names and unlocks remain proposals; no images generated, no manifests authored, no upstream code changed. Live-game requests 0; writes 0; asset-CDN requests 0."
+    "Absorb is excluded from this design because it is absent from the pinned upstream PotencyTagTypes; Heal/Increase Heal lack elements; the purchase router has no dedicated Potency budget enforcement.",
+    "Hidden/Advanced names and unlocks remain proposals; no images generated, no manifests authored, no upstream code changed. Live-game requests 0; writes 0; asset-CDN requests 0.",
+    "Absorb amendment checked against branch input 664437382ba33a16023ad8e2feae12d90371336f; active graph has no Absorb selector, removed-school prerequisite or outgoing unlock. RUL-2026-09-29-003 recorded."
   ],
   "in_progress": {
     "forge_size_pass": "COMPLETE / integrated at 05e7156 and released in Forge 0.5.1. Budget ratchet now 354000 raw/78000 gzip; measured 339669/74926.",
@@ -19,14 +20,15 @@
     "branch_cleanup": "Approved keep/delete plan remains on main at docs/reviews/FORGE_NEXT_BRANCH_CLEANUP_FINAL.md. Redundant refs still present.",
     "quest_studio_phase_s": "Accepted source chatgpt/forge-quest-studio-foundation@5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15 retained; not integrated.",
     "forge_presentation_studio": "P0/P1 COMPLETE / integrated and released in Forge 0.5.1. Design contract ACCEPTED (RUL-2026-09-20-001); decoration off, binaries uncommitted (RUL-2026-09-20-002/003). P2 renderer is QUEUED BEHIND Forge Next Phase 1 (RUL-2026-09-20-004); its brief is ChatGPT's to write and is unblocked. Art prerequisites still gate P2: source-archive resolution at 1bca57ee, the approved-derivative path, and MIME/dimensions - 5 of 23 registry entries have verified bytes today.",
-    "potency_skill_tree": "DESIGN RECONCILED; 18 Hidden Arts candidates ready for user review. See docs/design/POTENCY_HIDDEN_ARTS_ROSTER_V2.md and state/workstreams/potency_skill_tree/roadmap.json. Final acceptance, artwork and implementation have not occurred."
+    "potency_skill_tree": "DESIGN RECONCILED; 16 Hidden Arts candidates ready for user review. See docs/design/POTENCY_HIDDEN_ARTS_ROSTER_V2.md and state/workstreams/potency_skill_tree/roadmap.json. Final acceptance, artwork and implementation have not occurred."
   },
   "decisions": [
     "2026-09-20 ACCEPTED (user): the Presentation Studio design contract at chatgpt/forge-presentation-studio-design@4532ef91 is accepted as proposed, with its defaults - name Presentation Studio, Event poster + Staff brief, the 360px mobile floor and 1080px PNG master. RUL-2026-09-20-001.",
     "2026-09-20 RULED (user): optional generated decorative art stays OFF; no generative step exists anywhere in the presentation renderer. RUL-2026-09-20-002.",
     "2026-09-20 RULED (user): rendered posters/briefs/packages are generated deliverables and are NOT committed; the spec, source lock and bindings reproduce them. RUL-2026-09-20-003.",
     "2026-09-20 RULED (user): Forge Next Phase 1 is the next implementation work; Presentation Studio P2/P3 wait behind it. The P2 brief is queued, not blocked. RUL-2026-09-20-004.",
-    "2026-09-29 RULED (dauntless): RUL-2026-09-29-002 supersedes RUL-2026-09-29-001. Approved two-skill progression and five card-based categories; exact-element Foundations; Sustain includes Absorb intent; Light requires Fire/Lightning Minors. Hidden Arts roster must be reviewed before image generation."
+    "2026-09-29 RULED (dauntless): RUL-2026-09-29-002 supersedes RUL-2026-09-29-001. Approved two-skill progression and five card-based categories; exact-element Foundations; Sustain includes Absorb intent; Light requires Fire/Lightning Minors. Hidden Arts roster must be reviewed before image generation.",
+    "2026-09-29 RULED (dauntless): RUL-2026-09-29-003 defers unsupported Absorb. Sustain now covers Heal, Increase Heal and Lifesteal. Assimilation, Hollow Palm and Empty Vessel are excluded from the active design; progression is unchanged."
   ],
   "deployed": [
     "Forge 0.5.1 released by main@42cbcb8a06a168e594e303c812a61b3d1a1cbeb3: loader version 0.5.1, immutable bundle pin 13b313d8eaf0687907178ceedc406a7154e0a473, no pending marker. Installed browser uptake unverified in this checkpoint.",
@@ -49,7 +51,7 @@
       "Godstorm repair is complete and verified; nothing further is owed on it. The three new assets and the quest are live but hidden.",
       "Publishing the Godstorm content is a separate step and waits on the content admin's go-ahead.",
       "Optionally delete redundant branch refs per docs/reviews/FORGE_NEXT_BRANCH_CLEANUP_FINAL.md.",
-      "Review the 18 Hidden Arts names, selectors and unlocks, including four cross-discipline Special Element pairs. Boil/Metal/Sand mappings and final Advanced Arts choices remain open."
+      "Review the 16 Hidden Arts names, selectors and unlocks, including four cross-discipline Special Element pairs. Boil/Metal/Sand mappings and final Advanced Arts choices remain open."
     ],
     "claude": [
       "P0 size pass and P1 dossier/spec/lint are integrated and released; no further R1-R3 correction remains.",
@@ -132,10 +134,10 @@
       "live_writes": 0
     },
     "potency_skill_tree": {
-      "design_revision": "2.0",
-      "ruling": "RUL-2026-09-29-002",
+      "design_revision": "2.1",
+      "ruling": "RUL-2026-09-29-003",
       "branch": "chatgpt/potency-chakra-mandala-design-20260929",
-      "roster_status": "18 Hidden Arts candidates awaiting user review",
+      "roster_status": "16 Hidden Arts candidates awaiting user review",
       "source_audit": "docs/design/POTENCY_SOURCE_AUDIT_2026-09-29.md",
       "validation": "docs/design/POTENCY_V2_VALIDATION_2026-09-29.md",
       "live_requests": 0,
