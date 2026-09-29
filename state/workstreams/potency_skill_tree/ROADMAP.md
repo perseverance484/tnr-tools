@@ -24,7 +24,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | --- | --- | --- | --- | --- |
 | `design.revision` | COMPLETE | chatgpt | - | Revise the existing design and graph against RUL-2026-09-29-002 and current upstream, retaining valid research. |
 | `design.hidden_roster` | COMPLETE | chatgpt | `design.revision` | Candidate names, exact effects, prerequisites and recursive SP audit. |
-| `review.hidden_arts` | BLOCKED | dauntless | `design.hidden_roster` | Review eighteen candidates, names, effects, unlocks and Special Element opportunity costs before any Hidden Arts image. |
+| `review.hidden_arts` | BLOCKED | dauntless | `design.hidden_roster` | Review sixteen candidates, names, effects, unlocks and Special Element opportunity costs before any Hidden Arts image. |
 | `design.advanced_arts` | PLANNED | chatgpt | `review.hidden_arts` | Review the retained fifteen intersections, actual archetype/content coverage, names and optional generalist concepts. |
 | `art.core_refresh` | BLOCKED | chatgpt | `design.revision` | Inspect the approved visual references and replace obsolete investment text with the approved two-skill card copy. |
 | `art.hidden_arts` | BLOCKED | chatgpt | `review.hidden_arts` | Freeze exact mechanical card text and produce the reviewed Hidden Arts showcase in the approved visual shell. |
@@ -64,6 +64,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 - path: `docs/design/POTENCY_CHAKRA_MANDALA_V1_GRAPH.json`
 - path: `docs/design/POTENCY_SOURCE_AUDIT_2026-09-29.md`
 - decision: RUL-2026-09-29-002
+- decision: RUL-2026-09-29-003
 
 ### `design.hidden_roster` - Plan and audit the full Hidden Arts candidate roster (COMPLETE)
 
@@ -124,11 +125,11 @@ Prepare an original, affordable Hidden Arts roster for user review without gener
 
 **BLOCKED** - area review, owner dauntless
 
-Review eighteen candidates, names, effects, unlocks and Special Element opportunity costs before any Hidden Arts image.
+Review sixteen candidates, names, effects, unlocks and Special Element opportunity costs before any Hidden Arts image.
 
 **Scope**
 
-- Review eighteen candidates, names, effects, unlocks and Special Element opportunity costs before any Hidden Arts image.
+- Review sixteen candidates, names, effects, unlocks and Special Element opportunity costs before any Hidden Arts image.
 
 **Required resources**
 

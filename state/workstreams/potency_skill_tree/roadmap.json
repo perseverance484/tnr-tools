@@ -9,8 +9,9 @@
   "notes": [
     "Created because the live branch contained Potency design sources but no Potency roadmap. This coordinates the existing design; it does not create a new architecture.",
     "Working branch: chatgpt/potency-chakra-mandala-design-20260929. Zero live-game requests and writes.",
-    "Hidden roster planning is complete; its acceptance is a separate blocked task. A structural PASS does not resolve the three implementation gaps.",
-    "The old three showcase images are style-only references until their investment text is replaced. Their bytes were not inspected in this initialization."
+    "Hidden roster planning is complete; its acceptance is a separate blocked task. A structural PASS does not resolve the two remaining implementation gaps.",
+    "The old three showcase images are style-only references until their investment text is replaced. Their bytes were not inspected in this initialization.",
+    "2026-09-29 RUL-2026-09-29-003: Absorb and its three dependent schools are deferred. Current roster: 64 schools, including 10 Specializations and 16 Hidden Arts."
   ],
   "resources": [
     {
@@ -72,6 +73,11 @@
           "kind": "decision",
           "ref": "RUL-2026-09-29-002",
           "source": "docs/RULINGS.md"
+        },
+        {
+          "kind": "decision",
+          "ref": "RUL-2026-09-29-003",
+          "source": "docs/RULINGS.md"
         }
       ]
     },
@@ -126,9 +132,9 @@
       "depends_on": [
         "design.hidden_roster"
       ],
-      "objective": "Review eighteen candidates, names, effects, unlocks and Special Element opportunity costs before any Hidden Arts image.",
+      "objective": "Review sixteen candidates, names, effects, unlocks and Special Element opportunity costs before any Hidden Arts image.",
       "scope": [
-        "Review eighteen candidates, names, effects, unlocks and Special Element opportunity costs before any Hidden Arts image."
+        "Review sixteen candidates, names, effects, unlocks and Special Element opportunity costs before any Hidden Arts image."
       ],
       "required_resources": [
         {

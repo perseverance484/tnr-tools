@@ -331,7 +331,7 @@ Existing audited content-record point reads already approved for full persistenc
 
 **Domain:** Potency Skill Tree / progression / presentation
 
-**Status:** ACTIVE
+**Status:** ACTIVE except the Absorb inclusion, superseded by RUL-2026-09-29-003
 
 **Supersedes:** RUL-2026-09-29-001
 
@@ -346,3 +346,23 @@ Hidden Arts names, roster and unlocks remain candidates for review before showca
 **Rationale:** Two substantial purchases preserve the 30-SP / +15% invariant while making investment and unlocks legible. Selector breadth, prerequisite opportunity costs and overlap differentiate schools without increasing narrow-school percentages.
 
 **Canonical destination:** `docs/design/POTENCY_CHAKRA_MANDALA_V1.md` and its graph; Hidden Arts proposals in `docs/design/POTENCY_HIDDEN_ARTS_ROSTER_V2.md`; source gaps in `docs/design/POTENCY_SOURCE_AUDIT_2026-09-29.md`. Showcase outputs are design deliverables. No live-game requests, writes, publishing, or manifest implementation are authorized.
+
+---
+
+## RUL-2026-09-29-003 — Defer unsupported Absorb from the Potency design
+
+**Date:** 2026-09-29
+
+**Domain:** Potency Skill Tree / supported effect scope
+
+**Status:** ACTIVE
+
+**Supersedes:** the Absorb inclusion in RUL-2026-09-29-002 only
+
+**Ruling:** Per dauntless, remove Absorb for now because upstream Potency does not support it. Sustain and its Advanced Arts currently cover Heal, Increase Heal and Lifesteal. Defer Assimilation and the Absorb-dependent Hidden Arts Hollow Palm and Empty Vessel; do not replace their effects or invent filler schools. The active proposal now contains ten Specializations and sixteen Hidden Arts. Reintroduction requires a later user decision.
+
+The two-skill progression, purchase costs, Potency percentages, 30-SP budget, +15% overlap ceiling, five categories and all other current decisions are unchanged.
+
+**Rationale:** Keep the current design scoped to supported Potency tags instead of depending on an Absorb engine extension.
+
+**Canonical destination:** the existing Potency design document, graph and Hidden Arts roster; source audit retains the unsupported-tag evidence as deferred history. No live-game requests or writes are authorized.

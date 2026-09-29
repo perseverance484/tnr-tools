@@ -1,8 +1,8 @@
 {
-  "version": "2.0",
+  "version": "2.1",
   "title": "TNR Potency Skill Tree",
-  "status": "approved progression and core taxonomy; Hidden Arts roster and Advanced Arts candidates await review",
-  "ruling": "RUL-2026-09-29-002",
+  "status": "approved progression and Absorb deferral; sixteen Hidden Arts and fifteen Advanced Arts candidates await review",
+  "ruling": "RUL-2026-09-29-003",
   "supersedes_design_commit": "36bc4cc7aa79321e52f8e90584933d5c747497a7",
   "historical_filename_note": "Mandala/V1 filenames and existing advanced/pinnacle ID namespaces are stable references only; no radial topology remains.",
   "artifact_kind": "design_graph_not_live_manifest",
@@ -80,8 +80,7 @@
     "lifesteal",
     "reflect",
     "increaseheal",
-    "heal",
-    "absorb"
+    "heal"
   ],
   "base_elements": [
     "Fire",
@@ -153,10 +152,6 @@
     ]
   },
   "implementation_gaps": [
-    {
-      "id": "POT-IMPL-01",
-      "summary": "Add Absorb to upstream PotencyTagTypes and dependent labels/support handling before Assimilation and other Absorb scopes can function."
-    },
     {
       "id": "POT-IMPL-02",
       "summary": "Reconcile intended jutsu-element scope with per-tag matching. Heal and Increase Heal lack elements and are treated as None; elemental healing scopes currently cannot match schema-valid tags."
@@ -240,7 +235,6 @@
         "2": "Major Seal"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -302,7 +296,6 @@
         "2": "Major Seal"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -365,7 +358,6 @@
         "2": "Major Seal"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -417,8 +409,7 @@
           "advanced.metal",
           "advanced.sand",
           "hidden.stone-body",
-          "hidden.rooted-grace",
-          "hidden.hollow-palm"
+          "hidden.rooted-grace"
         ],
         "2": [
           "pinnacle.seismic-doctrine",
@@ -431,7 +422,6 @@
         "2": "Major Seal"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -496,7 +486,6 @@
         "2": "Major Seal"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -636,8 +625,7 @@
         "affectedTags": [
           "heal",
           "increaseheal",
-          "lifesteal",
-          "absorb"
+          "lifesteal"
         ],
         "affectedElements": []
       },
@@ -669,7 +657,6 @@
           "specialization.restoration",
           "specialization.grace",
           "specialization.predation",
-          "specialization.assimilation",
           "hidden.black-thread"
         ],
         "2": [
@@ -684,9 +671,7 @@
         "1": "Minor Seal",
         "2": "Major Seal"
       },
-      "implementation_gaps": [
-        "POT-IMPL-01"
-      ],
+      "implementation_gaps": [],
       "content_viability": "not_live_verified",
       "minimum_total_sp": {
         "minor": 5,
@@ -744,7 +729,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -805,7 +789,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -864,7 +847,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -925,7 +907,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -984,7 +965,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -1043,7 +1023,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -1102,7 +1081,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -1161,7 +1139,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -1220,7 +1197,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -1281,7 +1257,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -1340,7 +1315,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -1399,7 +1373,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -1458,7 +1431,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -1517,7 +1489,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -1576,7 +1547,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -2115,8 +2085,7 @@
       ],
       "unlocks": {
         "1": [
-          "hidden.predators-spark",
-          "hidden.empty-vessel"
+          "hidden.predators-spark"
         ],
         "2": []
       },
@@ -2125,63 +2094,6 @@
         "2": "Major"
       },
       "implementation_gaps": [],
-      "content_viability": "not_live_verified",
-      "minimum_total_sp": {
-        "minor": 10,
-        "major": 15
-      }
-    },
-    {
-      "id": "specialization.assimilation",
-      "name": "Assimilation",
-      "category": "specialization",
-      "subgroup": "Sustain",
-      "design_status": "approved_school_direction",
-      "prerequisite_status": "approved_direction",
-      "scope": {
-        "affectedTags": [
-          "absorb"
-        ],
-        "affectedElements": []
-      },
-      "prerequisites": [
-        {
-          "school": "discipline.sustain",
-          "skills_purchased": 1
-        }
-      ],
-      "skills": [
-        {
-          "number": 1,
-          "name": "Skill I",
-          "cost_sp": 5,
-          "potency_percentage": 2.5,
-          "tier_reached": "Minor",
-          "requires_own_skill": null
-        },
-        {
-          "number": 2,
-          "name": "Skill II",
-          "cost_sp": 5,
-          "potency_percentage": 2.5,
-          "tier_reached": "Major",
-          "requires_own_skill": 1
-        }
-      ],
-      "unlocks": {
-        "1": [
-          "hidden.hollow-palm",
-          "hidden.empty-vessel"
-        ],
-        "2": []
-      },
-      "tier_labels": {
-        "1": "Minor",
-        "2": "Major"
-      },
-      "implementation_gaps": [
-        "POT-IMPL-01"
-      ],
       "content_viability": "not_live_verified",
       "minimum_total_sp": {
         "minor": 10,
@@ -2799,68 +2711,6 @@
       }
     },
     {
-      "id": "hidden.hollow-palm",
-      "name": "Hollow Palm",
-      "category": "hidden_arts",
-      "subgroup": "elemental",
-      "design_status": "candidate_for_user_review",
-      "prerequisite_status": "candidate_for_user_review",
-      "scope": {
-        "affectedTags": [
-          "absorb"
-        ],
-        "affectedElements": [
-          "Earth"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.earth",
-          "skills_purchased": 1
-        },
-        {
-          "school": "specialization.assimilation",
-          "skills_purchased": 1
-        }
-      ],
-      "design_identity": "A receptive palm teaching focused on Earth Absorb.",
-      "skills": [
-        {
-          "number": 1,
-          "name": "Skill I",
-          "cost_sp": 5,
-          "potency_percentage": 2.5,
-          "tier_reached": "Minor",
-          "requires_own_skill": null
-        },
-        {
-          "number": 2,
-          "name": "Skill II",
-          "cost_sp": 5,
-          "potency_percentage": 2.5,
-          "tier_reached": "Major",
-          "requires_own_skill": 1
-        }
-      ],
-      "unlocks": {
-        "1": [],
-        "2": []
-      },
-      "tier_labels": {
-        "1": "Minor",
-        "2": "Major"
-      },
-      "implementation_gaps": [
-        "POT-IMPL-01"
-      ],
-      "content_viability": "not_live_verified",
-      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
-      "minimum_total_sp": {
-        "minor": 20,
-        "major": 25
-      }
-    },
-    {
       "id": "hidden.glass-lotus",
       "name": "Glass Lotus",
       "category": "hidden_arts",
@@ -3167,66 +3017,6 @@
       }
     },
     {
-      "id": "hidden.empty-vessel",
-      "name": "Empty Vessel",
-      "category": "hidden_arts",
-      "subgroup": "paired_specialization",
-      "design_status": "candidate_for_user_review",
-      "prerequisite_status": "candidate_for_user_review",
-      "scope": {
-        "affectedTags": [
-          "lifesteal",
-          "absorb"
-        ],
-        "affectedElements": []
-      },
-      "prerequisites": [
-        {
-          "school": "specialization.predation",
-          "skills_purchased": 1
-        },
-        {
-          "school": "specialization.assimilation",
-          "skills_purchased": 1
-        }
-      ],
-      "design_identity": "A recovery-through-contact school strengthening Lifesteal and Absorb independently across all jutsu.",
-      "skills": [
-        {
-          "number": 1,
-          "name": "Skill I",
-          "cost_sp": 5,
-          "potency_percentage": 2.5,
-          "tier_reached": "Minor",
-          "requires_own_skill": null
-        },
-        {
-          "number": 2,
-          "name": "Skill II",
-          "cost_sp": 5,
-          "potency_percentage": 2.5,
-          "tier_reached": "Major",
-          "requires_own_skill": 1
-        }
-      ],
-      "unlocks": {
-        "1": [],
-        "2": []
-      },
-      "tier_labels": {
-        "1": "Minor",
-        "2": "Major"
-      },
-      "implementation_gaps": [
-        "POT-IMPL-01"
-      ],
-      "content_viability": "not_live_verified",
-      "minimum_total_sp": {
-        "minor": 20,
-        "major": 25
-      }
-    },
-    {
       "id": "hidden.returning-needle",
       "name": "Returning Needle",
       "category": "hidden_arts",
@@ -3414,8 +3204,7 @@
         "affectedTags": [
           "heal",
           "increaseheal",
-          "lifesteal",
-          "absorb"
+          "lifesteal"
         ],
         "affectedElements": [
           "Fire"
@@ -3462,7 +3251,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -3602,8 +3390,7 @@
         "affectedTags": [
           "heal",
           "increaseheal",
-          "lifesteal",
-          "absorb"
+          "lifesteal"
         ],
         "affectedElements": [
           "Water"
@@ -3650,7 +3437,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -3790,8 +3576,7 @@
         "affectedTags": [
           "heal",
           "increaseheal",
-          "lifesteal",
-          "absorb"
+          "lifesteal"
         ],
         "affectedElements": [
           "Wind"
@@ -3838,7 +3623,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -3978,8 +3762,7 @@
         "affectedTags": [
           "heal",
           "increaseheal",
-          "lifesteal",
-          "absorb"
+          "lifesteal"
         ],
         "affectedElements": [
           "Earth"
@@ -4026,7 +3809,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -4166,8 +3948,7 @@
         "affectedTags": [
           "heal",
           "increaseheal",
-          "lifesteal",
-          "absorb"
+          "lifesteal"
         ],
         "affectedElements": [
           "Lightning"
@@ -4214,7 +3995,6 @@
         "2": "Major"
       },
       "implementation_gaps": [
-        "POT-IMPL-01",
         "POT-IMPL-02"
       ],
       "content_viability": "not_live_verified",
@@ -4226,5 +4006,19 @@
     }
   ],
   "live_game_requests": 0,
-  "live_game_writes": 0
+  "live_game_writes": 0,
+  "progression_ruling": "RUL-2026-09-29-002",
+  "deferred_features": [
+    {
+      "name": "Absorb",
+      "ruling": "RUL-2026-09-29-003",
+      "status": "excluded_from_current_design",
+      "reason": "Not supported by upstream Potency at the verified source pin. Reintroduction requires a later user decision.",
+      "excluded_school_ids": [
+        "hidden.empty-vessel",
+        "hidden.hollow-palm",
+        "specialization.assimilation"
+      ]
+    }
+  ]
 }
