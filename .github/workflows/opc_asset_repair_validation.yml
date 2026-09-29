@@ -100,5 +100,3 @@ jobs:
           print("repair contract exact; spent push/54 archived byte-identically")
           PY
 
-      - name: Scrub
-        run: python3 scripts/scrub.py
