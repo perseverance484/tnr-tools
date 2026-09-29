@@ -305,3 +305,21 @@ Existing audited content-record point reads already approved for full persistenc
 **Rationale:** Phase 1's contract at `state/prompt_forge_next_phase1.md` has been READY/FROZEN and unstarted the longest. The P1 presentation tooling is already integrated and useful on its own through `forge/tools/presentation.mjs`, so deferring the renderer costs no capability that exists today.
 
 **Canonical destination:** `state/digest.json` in-progress ordering and the Forge Next / Presentation Studio briefs. The art prerequisites recorded in `docs/reviews/FORGE_PRESENTATION_STUDIO_P0_P1_CLOSEOUT.md` still gate P2 whenever it starts.
+
+---
+
+## RUL-2026-09-29-001 — Potency Chakra Mandala architecture approved
+
+**Date:** 2026-09-29  
+**Domain:** skill tree / Potency / progression design  
+**Status:** ACTIVE  
+**Supersedes:** none
+
+**Ruling:** The Potency skill-tree architecture is the **Chakra Mandala** defined in `docs/design/POTENCY_CHAKRA_MANDALA_V1.md`. The Potency Mandala has a 30-SP allocation budget; no travel nodes; every school has 10 ranks; each rank costs 1 SP and grants +0.5% Percentage Potency to that school's selector; rank 5 is the Minor Seal and rank 10 is the Major Seal. Minor and Major are access breakpoints rather than hidden numeric spikes. Foundation schools are the five basic Nature schools plus Assault, Guard and Sustain. Further schools may require one or more Minor/Major breakpoints and remain governed by the same per-rank Potency invariant.
+
+**Balance invariant:** No purchased Mandala rank may contribute more than +0.5% Potency to one qualifying tag. Therefore, with 30 SP, the Mandala itself contributes at most +15% Potency to any single qualifying effect regardless of allocation topology. Narrower schools gain value from stacking scopes rather than from a larger per-rank number.
+
+**Rationale:** This removes filler travel-node math, makes every skill point legible, supports three fully maxed schools or broad hybrid allocations, and lets elemental, tag-based, advanced-element and Element × Tag specializations coexist under one bounded arithmetic system.
+
+**Canonical destination:** `docs/design/POTENCY_CHAKRA_MANDALA_V1.md` and `docs/design/POTENCY_CHAKRA_MANDALA_V1_GRAPH.json`. Advanced-element parentage is a v1 skill-tree topology and not a universal setting-lore declaration; provisional mappings called out in the design source remain subject to content-census verification before implementation.
+
