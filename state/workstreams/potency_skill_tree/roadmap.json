@@ -1,0 +1,326 @@
+{
+  "schema": "tnr.content_workstream",
+  "version": 1,
+  "slug": "potency_skill_tree",
+  "title": "Potency Skill Tree",
+  "content_type": "progression design",
+  "status": "ACTIVE",
+  "objective": "Reconcile approved progression, review Hidden and Advanced Arts, then produce card-based showcases before any separately authorized implementation.",
+  "notes": [
+    "Created because the live branch contained Potency design sources but no Potency roadmap. This coordinates the existing design; it does not create a new architecture.",
+    "Working branch: chatgpt/potency-chakra-mandala-design-20260929. Zero live-game requests and writes.",
+    "Hidden roster planning is complete; its acceptance is a separate blocked task. A structural PASS does not resolve the three implementation gaps.",
+    "The old three showcase images are style-only references until their investment text is replaced. Their bytes were not inspected in this initialization."
+  ],
+  "resources": [
+    {
+      "path": "docs/design/POTENCY_CHAKRA_MANDALA_V1.md",
+      "why": "Canonical design; legacy filename retained."
+    },
+    {
+      "path": "docs/design/POTENCY_CHAKRA_MANDALA_V1_GRAPH.json",
+      "why": "Machine-readable design graph, not a game manifest."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "design.revision",
+      "title": "Reconcile approved two-skill progression",
+      "area": "design",
+      "status": "COMPLETE",
+      "owner": "chatgpt",
+      "lead_role": "Content Designer",
+      "depends_on": [],
+      "objective": "Revise the existing design and graph against RUL-2026-09-29-002 and current upstream, retaining valid research.",
+      "scope": [
+        "Revise the existing design and graph against RUL-2026-09-29-002 and current upstream, retaining valid research."
+      ],
+      "required_resources": [
+        {
+          "path": "docs/design/POTENCY_CHAKRA_MANDALA_V1.md",
+          "why": "Governing Potency source for this task."
+        },
+        {
+          "path": "docs/design/POTENCY_CHAKRA_MANDALA_V1_GRAPH.json",
+          "why": "Governing Potency source for this task."
+        },
+        {
+          "path": "docs/RULINGS.md",
+          "why": "Governing Potency source for this task."
+        }
+      ],
+      "deliverables": [
+        "Reconcile approved two-skill progression"
+      ],
+      "completion_gates": [
+        "Durable source and reviewable evidence recorded; user decisions remain explicit."
+      ],
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "docs/design/POTENCY_CHAKRA_MANDALA_V1.md"
+        },
+        {
+          "kind": "path",
+          "ref": "docs/design/POTENCY_CHAKRA_MANDALA_V1_GRAPH.json"
+        },
+        {
+          "kind": "path",
+          "ref": "docs/design/POTENCY_SOURCE_AUDIT_2026-09-29.md"
+        },
+        {
+          "kind": "decision",
+          "ref": "RUL-2026-09-29-002",
+          "source": "docs/RULINGS.md"
+        }
+      ]
+    },
+    {
+      "id": "design.hidden_roster",
+      "title": "Plan and audit the full Hidden Arts candidate roster",
+      "area": "design",
+      "status": "COMPLETE",
+      "owner": "chatgpt",
+      "lead_role": "Content Designer",
+      "depends_on": [
+        "design.revision"
+      ],
+      "objective": "Prepare an original, affordable Hidden Arts roster for user review without generating a poster.",
+      "scope": [
+        "Candidate names, exact effects, prerequisites and recursive SP audit."
+      ],
+      "required_resources": [
+        {
+          "path": "docs/design/POTENCY_HIDDEN_ARTS_ROSTER_V2.md",
+          "why": "Current proposal and review questions."
+        },
+        {
+          "path": "docs/design/POTENCY_SOURCE_AUDIT_2026-09-29.md",
+          "why": "Keep design intent separate from engine support."
+        }
+      ],
+      "deliverables": [
+        "Full Hidden Arts candidate roster and structural audit."
+      ],
+      "completion_gates": [
+        "All intended tags represented and every recommended school affordable through Skill II.",
+        "Candidates clearly separated from acceptance; no poster generated."
+      ],
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "docs/design/POTENCY_HIDDEN_ARTS_ROSTER_V2.md"
+        },
+        {
+          "kind": "path",
+          "ref": "docs/design/POTENCY_V2_VALIDATION_2026-09-29.md"
+        }
+      ]
+    },
+    {
+      "id": "review.hidden_arts",
+      "title": "Review and settle Hidden Arts roster",
+      "area": "review",
+      "status": "BLOCKED",
+      "owner": "dauntless",
+      "depends_on": [
+        "design.hidden_roster"
+      ],
+      "objective": "Review eighteen candidates, names, effects, unlocks and Special Element opportunity costs before any Hidden Arts image.",
+      "scope": [
+        "Review eighteen candidates, names, effects, unlocks and Special Element opportunity costs before any Hidden Arts image."
+      ],
+      "required_resources": [
+        {
+          "path": "docs/design/POTENCY_CHAKRA_MANDALA_V1.md",
+          "why": "Governing design and implementation boundary."
+        }
+      ],
+      "deliverables": [
+        "Review and settle Hidden Arts roster"
+      ],
+      "completion_gates": [
+        "User-owned choices recorded in their canonical source; deliverables verified."
+      ],
+      "blockers": [
+        "Awaiting dauntless review of the proposed roster, effects and unlocks."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "design.advanced_arts",
+      "title": "Refine and settle Advanced Arts",
+      "area": "design",
+      "status": "PLANNED",
+      "owner": "chatgpt",
+      "depends_on": [
+        "review.hidden_arts"
+      ],
+      "objective": "Review the retained fifteen intersections, actual archetype/content coverage, names and optional generalist concepts.",
+      "scope": [
+        "Review the retained fifteen intersections, actual archetype/content coverage, names and optional generalist concepts."
+      ],
+      "required_resources": [
+        {
+          "path": "docs/design/POTENCY_CHAKRA_MANDALA_V1.md",
+          "why": "Governing design and implementation boundary."
+        }
+      ],
+      "deliverables": [
+        "Refine and settle Advanced Arts"
+      ],
+      "completion_gates": [
+        "User-owned choices recorded in their canonical source; deliverables verified."
+      ],
+      "blockers": [],
+      "evidence": []
+    },
+    {
+      "id": "art.core_refresh",
+      "title": "Refresh Foundation, Special Element and Specialization showcases",
+      "area": "art",
+      "status": "BLOCKED",
+      "owner": "chatgpt",
+      "depends_on": [
+        "design.revision"
+      ],
+      "objective": "Inspect the approved visual references and replace obsolete investment text with the approved two-skill card copy.",
+      "scope": [
+        "Inspect the approved visual references and replace obsolete investment text with the approved two-skill card copy."
+      ],
+      "required_resources": [
+        {
+          "path": "docs/design/POTENCY_CHAKRA_MANDALA_V1.md",
+          "why": "Governing design and implementation boundary."
+        }
+      ],
+      "deliverables": [
+        "Refresh Foundation, Special Element and Specialization showcases"
+      ],
+      "completion_gates": [
+        "User-owned choices recorded in their canonical source; deliverables verified."
+      ],
+      "blockers": [
+        "Exact prior reference images must be retrieved and inspected; no showcase production in the initialization task."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "art.hidden_arts",
+      "title": "Produce reviewed Hidden Arts showcase",
+      "area": "art",
+      "status": "BLOCKED",
+      "owner": "chatgpt",
+      "depends_on": [
+        "review.hidden_arts"
+      ],
+      "objective": "Freeze exact mechanical card text and produce the reviewed Hidden Arts showcase in the approved visual shell.",
+      "scope": [
+        "Freeze exact mechanical card text and produce the reviewed Hidden Arts showcase in the approved visual shell."
+      ],
+      "required_resources": [
+        {
+          "path": "docs/design/POTENCY_CHAKRA_MANDALA_V1.md",
+          "why": "Governing design and implementation boundary."
+        }
+      ],
+      "deliverables": [
+        "Produce reviewed Hidden Arts showcase"
+      ],
+      "completion_gates": [
+        "User-owned choices recorded in their canonical source; deliverables verified."
+      ],
+      "blockers": [
+        "Roster/effects/unlocks must be reviewed with dauntless first; inspect actual style references before production."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "art.advanced_arts",
+      "title": "Produce reviewed Advanced Arts showcase",
+      "area": "art",
+      "status": "PLANNED",
+      "owner": "chatgpt",
+      "depends_on": [
+        "design.advanced_arts"
+      ],
+      "objective": "Prepare exact card text and produce the accepted Advanced Arts showcase after names and coverage are settled.",
+      "scope": [
+        "Prepare exact card text and produce the accepted Advanced Arts showcase after names and coverage are settled."
+      ],
+      "required_resources": [
+        {
+          "path": "docs/design/POTENCY_CHAKRA_MANDALA_V1.md",
+          "why": "Governing design and implementation boundary."
+        }
+      ],
+      "deliverables": [
+        "Produce reviewed Advanced Arts showcase"
+      ],
+      "completion_gates": [
+        "User-owned choices recorded in their canonical source; deliverables verified."
+      ],
+      "blockers": [],
+      "evidence": []
+    },
+    {
+      "id": "implementation.readiness",
+      "title": "Prepare a separately authorized implementation handoff",
+      "area": "build",
+      "status": "PLANNED",
+      "owner": "chatgpt",
+      "depends_on": [
+        "review.hidden_arts",
+        "design.advanced_arts"
+      ],
+      "objective": "When authorized, resolve the documented source gaps and content viability, then prepare a concrete brief for Fable. No manifest or upstream change is part of this design session.",
+      "scope": [
+        "When authorized, resolve the documented source gaps and content viability, then prepare a concrete brief for Fable. No manifest or upstream change is part of this design session."
+      ],
+      "required_resources": [
+        {
+          "path": "docs/design/POTENCY_CHAKRA_MANDALA_V1.md",
+          "why": "Governing design and implementation boundary."
+        }
+      ],
+      "deliverables": [
+        "Prepare a separately authorized implementation handoff"
+      ],
+      "completion_gates": [
+        "User-owned choices recorded in their canonical source; deliverables verified."
+      ],
+      "blockers": [],
+      "evidence": []
+    },
+    {
+      "id": "production.readback",
+      "title": "User-owned hidden execution and readback",
+      "area": "production",
+      "status": "BLOCKED",
+      "owner": "dauntless",
+      "depends_on": [
+        "implementation.readiness"
+      ],
+      "objective": "Only after a separately implemented and reviewed build, let dauntless perform authorized hidden execution and assess its readback; publishing remains separate.",
+      "scope": [
+        "Only after a separately implemented and reviewed build, let dauntless perform authorized hidden execution and assess its readback; publishing remains separate."
+      ],
+      "required_resources": [
+        {
+          "path": "docs/design/POTENCY_CHAKRA_MANDALA_V1.md",
+          "why": "Governing design and implementation boundary."
+        }
+      ],
+      "deliverables": [
+        "User-owned hidden execution and readback"
+      ],
+      "completion_gates": [
+        "User-owned choices recorded in their canonical source; deliverables verified."
+      ],
+      "blockers": [
+        "No live requests/writes are authorized; implementation and review have not begun."
+      ],
+      "evidence": []
+    }
+  ]
+}
