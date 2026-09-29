@@ -7,6 +7,7 @@ Coordination projection for repository-backed content workstreams. This is **not
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |
 | One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 14/16 settled - blocked 1, complete 13, skipped 1, superseded 1 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
+| Potency Skill Tree | `potency_skill_tree` | progression design | ACTIVE | 2/9 settled - planned 3, blocked 4, complete 2 | [`ROADMAP.md`](potency_skill_tree/ROADMAP.md) |
 
 ## One Perfect Crop
 
@@ -19,3 +20,18 @@ Coordination projection for repository-backed content workstreams. This is **not
 - `launch.finalization` - Waiting for the director to execute the reviewed b080825c launch-final manifest while hidden and return the complete Forge result bundle with all three full after-captures.
 
 Start a session: `python3 scripts/content_workstream.py init one_perfect_crop --task <id>`
+
+## Potency Skill Tree
+
+`state/workstreams/potency_skill_tree/roadmap.json`
+
+**Executable now:** none.
+
+**Blocked**
+
+- `review.hidden_arts` - Awaiting dauntless review of the proposed roster, effects and unlocks.
+- `art.core_refresh` - Exact prior reference images must be retrieved and inspected; no showcase production in the initialization task.
+- `art.hidden_arts` - Roster/effects/unlocks must be reviewed with dauntless first; inspect actual style references before production.
+- `production.readback` - No live requests/writes are authorized; implementation and review have not begun.
+
+Start a session: `python3 scripts/content_workstream.py init potency_skill_tree --task <id>`

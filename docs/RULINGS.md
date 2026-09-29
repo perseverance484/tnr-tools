@@ -312,7 +312,7 @@ Existing audited content-record point reads already approved for full persistenc
 
 **Date:** 2026-09-29  
 **Domain:** skill tree / Potency / progression design  
-**Status:** ACTIVE  
+**Status:** SUPERSEDED by RUL-2026-09-29-002; historical text retained below
 **Supersedes:** none
 
 **Ruling:** The Potency skill-tree architecture is the **Chakra Mandala** defined in `docs/design/POTENCY_CHAKRA_MANDALA_V1.md`. The Potency Mandala has a 30-SP allocation budget; no travel nodes; every school has 10 ranks; each rank costs 1 SP and grants +0.5% Percentage Potency to that school's selector; rank 5 is the Minor Seal and rank 10 is the Major Seal. Minor and Major are access breakpoints rather than hidden numeric spikes. Foundation schools are the five basic Nature schools plus Assault, Guard and Sustain. Further schools may require one or more Minor/Major breakpoints and remain governed by the same per-rank Potency invariant.
@@ -323,3 +323,26 @@ Existing audited content-record point reads already approved for full persistenc
 
 **Canonical destination:** `docs/design/POTENCY_CHAKRA_MANDALA_V1.md` and `docs/design/POTENCY_CHAKRA_MANDALA_V1_GRAPH.json`. Advanced-element parentage is a v1 skill-tree topology and not a universal setting-lore declaration; provisional mappings called out in the design source remain subject to content-census verification before implementation.
 
+---
+
+## RUL-2026-09-29-002 — Potency two-skill progression and five card-based categories
+
+**Date:** 2026-09-29
+
+**Domain:** Potency Skill Tree / progression / presentation
+
+**Status:** ACTIVE
+
+**Supersedes:** RUL-2026-09-29-001
+
+**Ruling:** Per dauntless's session instruction, the Potency allocation has 30 SP. Every school has exactly two sequential purchases, each costing 5 SP and granting +2.5% Percentage Potency. Skill I reaches Minor; Skill II reaches Major. A completed school costs 10 SP and contributes +5%. At most six skills can be purchased, so the tree contributes at most +15% to one effect. There are no travel purchases or extra breakpoint bonuses.
+
+The current categories are Foundation, Special Elements, Specialization, Hidden Arts and Advanced Arts. The radial Mandala presentation is abandoned. Use aligned cards with 0/2, 1/2 or 2/2 investment, explicit purchase costs and effects, and no inspirational filler. Reserve Seal terminology for breakpoints that actually unlock schools. Historical filenames remain stable pointers, not a current presentation instruction.
+
+The eight Foundations are directly available. Nature Foundations target their exact basic element; the prior descendant-element resonance is not carried into the revised scope. Sustain includes Absorb as design intent, subject to upstream Potency support. Standard Special Elements require two elemental Foundation Minors; Light uses Fire + Lightning. Boil, Metal and Sand remain provisional topology, not verified universal recipes. The source enum defines valid names, not recipes.
+
+Hidden Arts names, roster and unlocks remain candidates for review before showcase generation. Advanced Arts reward Foundation Major investment; the existing element-by-discipline structure remains a design basis for audit, not automatic final acceptance of every name or optional generalist school.
+
+**Rationale:** Two substantial purchases preserve the 30-SP / +15% invariant while making investment and unlocks legible. Selector breadth, prerequisite opportunity costs and overlap differentiate schools without increasing narrow-school percentages.
+
+**Canonical destination:** `docs/design/POTENCY_CHAKRA_MANDALA_V1.md` and its graph; Hidden Arts proposals in `docs/design/POTENCY_HIDDEN_ARTS_ROSTER_V2.md`; source gaps in `docs/design/POTENCY_SOURCE_AUDIT_2026-09-29.md`. Showcase outputs are design deliverables. No live-game requests, writes, publishing, or manifest implementation are authorized.

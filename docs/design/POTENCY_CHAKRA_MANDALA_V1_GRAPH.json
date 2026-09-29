@@ -1,25 +1,62 @@
 {
-  "version": "1.0",
-  "title": "TNR Potency Chakra Mandala v1",
-  "status": "director-approved architecture; v1 taxonomy",
+  "version": "2.0",
+  "title": "TNR Potency Skill Tree",
+  "status": "approved progression and core taxonomy; Hidden Arts roster and Advanced Arts candidates await review",
+  "ruling": "RUL-2026-09-29-002",
+  "supersedes_design_commit": "36bc4cc7aa79321e52f8e90584933d5c747497a7",
+  "historical_filename_note": "Mandala/V1 filenames and existing advanced/pinnacle ID namespaces are stable references only; no radial topology remains.",
+  "artifact_kind": "design_graph_not_live_manifest",
   "tnr_tools_main": "1601f072af839402395eeab1326b1228747e0009",
+  "verified_design_branch_start": "36bc4cc7aa79321e52f8e90584933d5c747497a7",
   "upstream_tnr_source": "9f01172038dbc412c837a7f97f7451eb87b6a234",
+  "categories": [
+    {
+      "id": "foundation",
+      "label": "Foundation"
+    },
+    {
+      "id": "special_elements",
+      "label": "Special Elements"
+    },
+    {
+      "id": "specialization",
+      "label": "Specialization"
+    },
+    {
+      "id": "hidden_arts",
+      "label": "Hidden Arts"
+    },
+    {
+      "id": "advanced_arts",
+      "label": "Advanced Arts"
+    }
+  ],
   "budget": {
     "total_skill_points": 30,
-    "cost_per_rank": 1,
-    "ranks_per_school": 10,
-    "minor_rank": 5,
-    "major_rank": 10,
-    "potency_per_rank_percentage": 0.5,
+    "skills_per_school": 2,
+    "cost_per_skill": 5,
+    "minor_after_skill": 1,
+    "major_after_skill": 2,
+    "potency_per_skill_percentage": 2.5,
+    "completed_school_cost_sp": 10,
+    "completed_school_potency_percentage": 5,
+    "maximum_purchased_skills": 6,
     "theoretical_max_matching_potency_percent": 15
   },
-  "rank_effect": {
+  "skill_effect_intent": {
     "type": "increasepotency",
     "calculation": "percentage",
-    "power": 0.5,
+    "power": 2.5,
     "powerPerLevel": 0,
-    "rounds": 100,
     "target": "SELF"
+  },
+  "engine_mapping_notes": {
+    "multi_tag_selector": "affectedTags is a design union, not a runtime field. Future authoring expands to one singular affectedTag modifier per distinct tag. A purchase must match each effect at most once.",
+    "element_selector": "Within a modifier, element and specific tag are AND; multiple selected elements are OR. Across purchased modifiers, percentages add. Current element matching reads the individual effect tag, not a jutsu-wide label.",
+    "duration": "Legacy rounds:100 is an authoring candidate within schema bounds, not verified permanent passive behaviour. Combat attachment/lifetime needs implementation review.",
+    "sub_budget": "Router currently checks global user.skillPoints; no Potency-specific 30-SP cap is enforced.",
+    "stacking": "BATTLE_TAG_STACKING is true at source pin; preserve two purchase contributions and prevent duplicate expansion.",
+    "none": "None is the non-elemental sentinel, not a Special Element school."
   },
   "supported_tags": [
     "damage",
@@ -33,6 +70,19 @@
     "increaseheal",
     "heal"
   ],
+  "design_intended_tags": [
+    "damage",
+    "increasedamagegiven",
+    "decreasedamagegiven",
+    "increasedamagetaken",
+    "decreasedamagetaken",
+    "afterburn",
+    "lifesteal",
+    "reflect",
+    "increaseheal",
+    "heal",
+    "absorb"
+  ],
   "base_elements": [
     "Fire",
     "Water",
@@ -40,7 +90,7 @@
     "Earth",
     "Lightning"
   ],
-  "advanced_parentage": {
+  "special_element_prerequisites": {
     "Ice": [
       "Water",
       "Wind"
@@ -87,7 +137,6 @@
     ],
     "Light": [
       "Fire",
-      "Wind",
       "Lightning"
     ],
     "Boil": [
@@ -103,140 +152,363 @@
       "Wind"
     ]
   },
+  "implementation_gaps": [
+    {
+      "id": "POT-IMPL-01",
+      "summary": "Add Absorb to upstream PotencyTagTypes and dependent labels/support handling before Assimilation and other Absorb scopes can function."
+    },
+    {
+      "id": "POT-IMPL-02",
+      "summary": "Reconcile intended jutsu-element scope with per-tag matching. Heal and Increase Heal lack elements and are treated as None; elemental healing scopes currently cannot match schema-valid tags."
+    },
+    {
+      "id": "POT-IMPL-03",
+      "summary": "Enforce the 30-SP Potency allocation; current global budget permits more points."
+    }
+  ],
+  "deferred_schools": [
+    {
+      "legacy_id": "special.balance",
+      "name": "Balanced Form",
+      "status": "not_in_current_roster",
+      "reason": "Old three-Minor generalist route was not reaffirmed; do not silently classify it as a Major-gated Advanced Art."
+    },
+    {
+      "name": "Harmony",
+      "status": "concept_only",
+      "reason": "Needs distinct exact scope and affordable Major prerequisites. Three Foundation Majors consume all 30 SP before any Harmony purchase. Any-two-of-five prerequisites also need OR handling beyond current requiredSkillIds AND."
+    },
+    {
+      "name": "Unbroken Form",
+      "status": "concept_only",
+      "reason": "Avoid a second Guard school with an identical selector and no distinct purpose. Exact scope and Major gate require review."
+    }
+  ],
   "schools": [
     {
       "id": "nature.fire",
       "name": "Fire",
-      "category": "foundation_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
-        "affectedTag": "none",
+        "affectedTag": "all",
         "affectedElements": [
-          "Fire",
-          "Crystal",
-          "Shadow",
-          "Scorch",
-          "Yin-Yang",
-          "Lava",
-          "Light",
-          "Boil"
+          "Fire"
         ]
       },
+      "category": "foundation",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Ember Seal",
-      "major_name": "Inferno Seal"
+      "subgroup": "Nature",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "advanced.crystal",
+          "advanced.shadow",
+          "advanced.scorch",
+          "advanced.yin-yang",
+          "advanced.lava",
+          "advanced.light",
+          "advanced.boil",
+          "hidden.burning-edge",
+          "hidden.cinder-doctrine"
+        ],
+        "2": [
+          "pinnacle.inferno-doctrine",
+          "pinnacle.ashen-aegis",
+          "pinnacle.phoenix-current"
+        ]
+      },
+      "tier_labels": {
+        "1": "Minor Seal",
+        "2": "Major Seal"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 5,
+        "major": 10
+      }
     },
     {
       "id": "nature.water",
       "name": "Water",
-      "category": "foundation_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
-        "affectedTag": "none",
+        "affectedTag": "all",
         "affectedElements": [
-          "Water",
-          "Ice",
-          "Wood",
-          "Storm",
-          "Boil"
+          "Water"
         ]
       },
+      "category": "foundation",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Current Seal",
-      "major_name": "Tide Seal"
+      "subgroup": "Nature",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "advanced.ice",
+          "advanced.wood",
+          "advanced.storm",
+          "advanced.boil",
+          "hidden.riptide-mark",
+          "hidden.healing-current"
+        ],
+        "2": [
+          "pinnacle.riptide-doctrine",
+          "pinnacle.abyssal-aegis",
+          "pinnacle.endless-current"
+        ]
+      },
+      "tier_labels": {
+        "1": "Minor Seal",
+        "2": "Major Seal"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 5,
+        "major": 10
+      }
     },
     {
       "id": "nature.wind",
       "name": "Wind",
-      "category": "foundation_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
-        "affectedTag": "none",
+        "affectedTag": "all",
         "affectedElements": [
-          "Wind",
-          "Ice",
-          "Dust",
-          "Scorch",
-          "Magnet",
-          "Light",
-          "Sand"
+          "Wind"
         ]
       },
+      "category": "foundation",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Gale Seal",
-      "major_name": "Tempest Seal"
+      "subgroup": "Nature",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "advanced.ice",
+          "advanced.dust",
+          "advanced.scorch",
+          "advanced.magnet",
+          "advanced.sand",
+          "hidden.gale-rhythm",
+          "hidden.quieting-wind"
+        ],
+        "2": [
+          "pinnacle.razor-tempest",
+          "pinnacle.hollow-wind",
+          "pinnacle.breath-of-spring"
+        ]
+      },
+      "tier_labels": {
+        "1": "Minor Seal",
+        "2": "Major Seal"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 5,
+        "major": 10
+      }
     },
     {
       "id": "nature.earth",
       "name": "Earth",
-      "category": "foundation_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
-        "affectedTag": "none",
+        "affectedTag": "all",
         "affectedElements": [
-          "Earth",
-          "Crystal",
-          "Dust",
-          "Wood",
-          "Lava",
-          "Explosion",
-          "Metal",
-          "Sand"
+          "Earth"
         ]
       },
+      "category": "foundation",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Stone Seal",
-      "major_name": "Mountain Seal"
+      "subgroup": "Nature",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "advanced.crystal",
+          "advanced.dust",
+          "advanced.wood",
+          "advanced.lava",
+          "advanced.explosion",
+          "advanced.metal",
+          "advanced.sand",
+          "hidden.stone-body",
+          "hidden.rooted-grace",
+          "hidden.hollow-palm"
+        ],
+        "2": [
+          "pinnacle.seismic-doctrine",
+          "pinnacle.mountain-heart",
+          "pinnacle.stoneblood-cycle"
+        ]
+      },
+      "tier_labels": {
+        "1": "Minor Seal",
+        "2": "Major Seal"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 5,
+        "major": 10
+      }
     },
     {
       "id": "nature.lightning",
       "name": "Lightning",
-      "category": "foundation_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
-        "affectedTag": "none",
+        "affectedTag": "all",
         "affectedElements": [
-          "Lightning",
-          "Shadow",
-          "Storm",
-          "Magnet",
-          "Yin-Yang",
-          "Explosion",
-          "Light",
-          "Metal"
+          "Lightning"
         ]
       },
+      "category": "foundation",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Spark Seal",
-      "major_name": "Thunder Seal"
+      "subgroup": "Nature",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "advanced.shadow",
+          "advanced.storm",
+          "advanced.magnet",
+          "advanced.yin-yang",
+          "advanced.explosion",
+          "advanced.light",
+          "advanced.metal",
+          "hidden.storm-mirror",
+          "hidden.predators-spark"
+        ],
+        "2": [
+          "pinnacle.thunderclap-doctrine",
+          "pinnacle.thunder-aegis",
+          "pinnacle.living-current"
+        ]
+      },
+      "tier_labels": {
+        "1": "Minor Seal",
+        "2": "Major Seal"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 5,
+        "major": 10
+      }
     },
     {
       "id": "discipline.assault",
       "name": "Assault",
-      "category": "foundation_discipline",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "damage",
@@ -246,19 +518,59 @@
         ],
         "affectedElements": []
       },
+      "category": "foundation",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Striking Seal",
-      "major_name": "Apex Seal"
+      "subgroup": "Discipline",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "specialization.impact",
+          "specialization.momentum",
+          "specialization.pressure",
+          "specialization.attrition",
+          "hidden.furnace-vein"
+        ],
+        "2": [
+          "pinnacle.inferno-doctrine",
+          "pinnacle.riptide-doctrine",
+          "pinnacle.razor-tempest",
+          "pinnacle.seismic-doctrine",
+          "pinnacle.thunderclap-doctrine"
+        ]
+      },
+      "tier_labels": {
+        "1": "Minor Seal",
+        "2": "Major Seal"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 5,
+        "major": 10
+      }
     },
     {
       "id": "discipline.guard",
       "name": "Guard",
-      "category": "foundation_discipline",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "decreasedamagetaken",
@@ -267,1522 +579,3652 @@
         ],
         "affectedElements": []
       },
+      "category": "foundation",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Ward Seal",
-      "major_name": "Fortress Seal"
+      "subgroup": "Discipline",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "specialization.bulwark",
+          "specialization.suppression",
+          "specialization.reversal",
+          "hidden.glass-lotus",
+          "hidden.winter-shroud"
+        ],
+        "2": [
+          "pinnacle.ashen-aegis",
+          "pinnacle.abyssal-aegis",
+          "pinnacle.hollow-wind",
+          "pinnacle.mountain-heart",
+          "pinnacle.thunder-aegis"
+        ]
+      },
+      "tier_labels": {
+        "1": "Minor Seal",
+        "2": "Major Seal"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 5,
+        "major": 10
+      }
     },
     {
       "id": "discipline.sustain",
       "name": "Sustain",
-      "category": "foundation_discipline",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "heal",
           "increaseheal",
-          "lifesteal"
+          "lifesteal",
+          "absorb"
         ],
         "affectedElements": []
       },
+      "category": "foundation",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Pulse Seal",
-      "major_name": "Life Seal"
+      "subgroup": "Discipline",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "specialization.restoration",
+          "specialization.grace",
+          "specialization.predation",
+          "specialization.assimilation",
+          "hidden.black-thread"
+        ],
+        "2": [
+          "pinnacle.phoenix-current",
+          "pinnacle.endless-current",
+          "pinnacle.breath-of-spring",
+          "pinnacle.stoneblood-cycle",
+          "pinnacle.living-current"
+        ]
+      },
+      "tier_labels": {
+        "1": "Minor Seal",
+        "2": "Major Seal"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01"
+      ],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 5,
+        "major": 10
+      }
+    },
+    {
+      "id": "advanced.ice",
+      "name": "Ice",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Ice"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "carried_topology_proposal",
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.wind",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.winter-shroud"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.crystal",
+      "name": "Crystal",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Crystal"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "carried_topology_proposal",
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.earth",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.glass-lotus"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.dust",
+      "name": "Dust",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Dust"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "carried_topology_proposal",
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.earth",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.shadow",
+      "name": "Shadow",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Shadow"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "carried_topology_proposal",
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.lightning",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.black-thread"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.wood",
+      "name": "Wood",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Wood"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "carried_topology_proposal",
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.earth",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.scorch",
+      "name": "Scorch",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Scorch"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "carried_topology_proposal",
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.wind",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.storm",
+      "name": "Storm",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Storm"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "carried_topology_proposal",
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.lightning",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.magnet",
+      "name": "Magnet",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Magnet"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "carried_topology_proposal",
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.lightning",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.yin-yang",
+      "name": "Yin-Yang",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Yin-Yang"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "carried_topology_proposal",
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.lightning",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.lava",
+      "name": "Lava",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Lava"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "carried_topology_proposal",
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.earth",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.furnace-vein"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.explosion",
+      "name": "Explosion",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Explosion"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "carried_topology_proposal",
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.lightning",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.light",
+      "name": "Light",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Light"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_balance_revision",
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.lightning",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.boil",
+      "name": "Boil",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Boil"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "provisional_no_comparable_element_array_evidence",
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.water",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.metal",
+      "name": "Metal",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Metal"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "provisional_no_comparable_element_array_evidence",
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.lightning",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
+    },
+    {
+      "id": "advanced.sand",
+      "name": "Sand",
+      "scope": {
+        "affectedTag": "all",
+        "affectedElements": [
+          "Sand"
+        ]
+      },
+      "category": "special_elements",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "provisional_no_comparable_element_array_evidence",
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "skills_purchased": 1
+        },
+        {
+          "school": "nature.wind",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 15,
+        "major": 20
+      }
     },
     {
       "id": "specialization.impact",
       "name": "Impact",
-      "category": "tag_specialization",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "damage"
         ],
         "affectedElements": []
       },
+      "category": "specialization",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [
         {
           "school": "discipline.assault",
-          "rank": 5
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Crushing Seal",
-      "major_name": "Cataclysm Seal"
+      "subgroup": "Assault",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.burning-edge"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 10,
+        "major": 15
+      }
     },
     {
       "id": "specialization.momentum",
       "name": "Momentum",
-      "category": "tag_specialization",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "increasedamagegiven"
         ],
         "affectedElements": []
       },
+      "category": "specialization",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [
         {
           "school": "discipline.assault",
-          "rank": 5
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Drive Seal",
-      "major_name": "Overrun Seal"
+      "subgroup": "Assault",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.gale-rhythm"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 10,
+        "major": 15
+      }
     },
     {
       "id": "specialization.pressure",
       "name": "Pressure",
-      "category": "tag_specialization",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "increasedamagetaken"
         ],
         "affectedElements": []
       },
+      "category": "specialization",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [
         {
           "school": "discipline.assault",
-          "rank": 5
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Exposure Seal",
-      "major_name": "Break Seal"
+      "subgroup": "Assault",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.riptide-mark",
+          "hidden.returning-needle"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 10,
+        "major": 15
+      }
     },
     {
       "id": "specialization.attrition",
       "name": "Attrition",
-      "category": "tag_specialization",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "afterburn"
         ],
         "affectedElements": []
       },
+      "category": "specialization",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [
         {
           "school": "discipline.assault",
-          "rank": 5
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Smolder Seal",
-      "major_name": "Ruin Seal"
+      "subgroup": "Assault",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.cinder-doctrine"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 10,
+        "major": 15
+      }
     },
     {
       "id": "specialization.bulwark",
       "name": "Bulwark",
-      "category": "tag_specialization",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "decreasedamagetaken"
         ],
         "affectedElements": []
       },
+      "category": "specialization",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [
         {
           "school": "discipline.guard",
-          "rank": 5
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Iron Seal",
-      "major_name": "Unbroken Seal"
+      "subgroup": "Guard",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.stone-body"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 10,
+        "major": 15
+      }
     },
     {
       "id": "specialization.suppression",
       "name": "Suppression",
-      "category": "tag_specialization",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "decreasedamagegiven"
         ],
         "affectedElements": []
       },
+      "category": "specialization",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [
         {
           "school": "discipline.guard",
-          "rank": 5
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Restraint Seal",
-      "major_name": "Dominion Seal"
+      "subgroup": "Guard",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.quieting-wind"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 10,
+        "major": 15
+      }
     },
     {
       "id": "specialization.reversal",
       "name": "Reversal",
-      "category": "tag_specialization",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "reflect"
         ],
         "affectedElements": []
       },
+      "category": "specialization",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [
         {
           "school": "discipline.guard",
-          "rank": 5
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Mirror Seal",
-      "major_name": "Return Seal"
+      "subgroup": "Guard",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.storm-mirror",
+          "hidden.returning-needle"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 10,
+        "major": 15
+      }
     },
     {
       "id": "specialization.restoration",
       "name": "Restoration",
-      "category": "tag_specialization",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "heal"
         ],
         "affectedElements": []
       },
+      "category": "specialization",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [
         {
           "school": "discipline.sustain",
-          "rank": 5
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Mending Seal",
-      "major_name": "Renewal Seal"
+      "subgroup": "Sustain",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.healing-current",
+          "hidden.borrowed-breath"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 10,
+        "major": 15
+      }
     },
     {
       "id": "specialization.grace",
       "name": "Grace",
-      "category": "tag_specialization",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "increaseheal"
         ],
         "affectedElements": []
       },
+      "category": "specialization",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [
         {
           "school": "discipline.sustain",
-          "rank": 5
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Flow Seal",
-      "major_name": "Abundance Seal"
+      "subgroup": "Sustain",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.rooted-grace",
+          "hidden.borrowed-breath"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 10,
+        "major": 15
+      }
     },
     {
       "id": "specialization.predation",
       "name": "Predation",
-      "category": "tag_specialization",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
       "scope": {
         "affectedTags": [
           "lifesteal"
         ],
         "affectedElements": []
       },
+      "category": "specialization",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "prerequisites": [
         {
           "school": "discipline.sustain",
-          "rank": 5
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Fang Seal",
-      "major_name": "Hunger Seal"
+      "subgroup": "Sustain",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.predators-spark",
+          "hidden.empty-vessel"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 10,
+        "major": 15
+      }
     },
     {
-      "id": "advanced.ice",
-      "name": "Ice",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
+      "id": "specialization.assimilation",
+      "name": "Assimilation",
+      "category": "specialization",
+      "subgroup": "Sustain",
+      "design_status": "approved_school_direction",
+      "prerequisite_status": "approved_direction",
       "scope": {
-        "affectedTag": "none",
+        "affectedTags": [
+          "absorb"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "discipline.sustain",
+          "skills_purchased": 1
+        }
+      ],
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [
+          "hidden.hollow-palm",
+          "hidden.empty-vessel"
+        ],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01"
+      ],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 10,
+        "major": 15
+      }
+    },
+    {
+      "id": "hidden.burning-edge",
+      "name": "Burning Edge",
+      "category": "hidden_arts",
+      "subgroup": "elemental",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "damage"
+        ],
         "affectedElements": [
-          "Ice"
+          "Fire"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.impact",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "A concealed cutting school focused on Fire Damage.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
+    },
+    {
+      "id": "hidden.cinder-doctrine",
+      "name": "Cinder Sutra",
+      "category": "hidden_arts",
+      "subgroup": "elemental",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "afterburn"
+        ],
+        "affectedElements": [
+          "Fire"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.attrition",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "An ember-retention teaching focused on Fire Afterburn.",
+      "previous_candidate_name": "Cinder Doctrine",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
+    },
+    {
+      "id": "hidden.riptide-mark",
+      "name": "Riptide Mark",
+      "category": "hidden_arts",
+      "subgroup": "elemental",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "increasedamagetaken"
+        ],
+        "affectedElements": [
+          "Water"
         ]
       },
       "prerequisites": [
         {
           "school": "nature.water",
-          "rank": 5
+          "skills_purchased": 1
         },
         {
-          "school": "nature.wind",
-          "rank": 5
+          "school": "specialization.pressure",
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Frost Seal",
-      "major_name": "Whiteout Seal"
+      "design_identity": "A pressure-point marking school focused on Water Increase Damage Taken.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
     },
     {
-      "id": "advanced.crystal",
-      "name": "Crystal",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
+      "id": "hidden.healing-current",
+      "name": "Veiled Mending",
+      "category": "hidden_arts",
+      "subgroup": "elemental",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
       "scope": {
-        "affectedTag": "none",
+        "affectedTags": [
+          "heal"
+        ],
+        "affectedElements": [
+          "Water"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.restoration",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "A hidden field-medic teaching focused on Water Heal.",
+      "previous_candidate_name": "Healing Current",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
+    },
+    {
+      "id": "hidden.gale-rhythm",
+      "name": "Gale Step",
+      "category": "hidden_arts",
+      "subgroup": "elemental",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "increasedamagegiven"
+        ],
+        "affectedElements": [
+          "Wind"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.momentum",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "A breath-and-footwork teaching focused on Wind Increase Damage Given; grants no movement.",
+      "previous_candidate_name": "Gale Rhythm",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
+    },
+    {
+      "id": "hidden.quieting-wind",
+      "name": "Hush Veil",
+      "category": "hidden_arts",
+      "subgroup": "elemental",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "decreasedamagegiven"
+        ],
+        "affectedElements": [
+          "Wind"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.suppression",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "A force-dampening veil teaching focused on Wind Decrease Damage Given; grants no silence or stealth.",
+      "previous_candidate_name": "Quieting Wind",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
+    },
+    {
+      "id": "hidden.stone-body",
+      "name": "Stone Body",
+      "category": "hidden_arts",
+      "subgroup": "elemental",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken"
+        ],
+        "affectedElements": [
+          "Earth"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.bulwark",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "A body-conditioning school focused on Earth Decrease Damage Taken.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
+    },
+    {
+      "id": "hidden.rooted-grace",
+      "name": "Rooted Grace",
+      "category": "hidden_arts",
+      "subgroup": "elemental",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "increaseheal"
+        ],
+        "affectedElements": [
+          "Earth"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.grace",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "A stabilizing chakra teaching focused on Earth Increase Heal.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
+    },
+    {
+      "id": "hidden.storm-mirror",
+      "name": "Thunder Mirror",
+      "category": "hidden_arts",
+      "subgroup": "elemental",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "reflect"
+        ],
+        "affectedElements": [
+          "Lightning"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.lightning",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.reversal",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "A returning-force school focused on Lightning Reflect; Lightning is distinct from Storm.",
+      "previous_candidate_name": "Storm Mirror",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
+    },
+    {
+      "id": "hidden.predators-spark",
+      "name": "Pulse Thief",
+      "category": "hidden_arts",
+      "subgroup": "elemental",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "lifesteal"
+        ],
+        "affectedElements": [
+          "Lightning"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.lightning",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.predation",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "A pulse-siphoning school focused on Lightning Lifesteal; grants no separate theft effect.",
+      "previous_candidate_name": "Predator's Spark",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
+    },
+    {
+      "id": "hidden.hollow-palm",
+      "name": "Hollow Palm",
+      "category": "hidden_arts",
+      "subgroup": "elemental",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "absorb"
+        ],
+        "affectedElements": [
+          "Earth"
+        ]
+      },
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.assimilation",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "A receptive palm teaching focused on Earth Absorb.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
+    },
+    {
+      "id": "hidden.glass-lotus",
+      "name": "Glass Lotus",
+      "category": "hidden_arts",
+      "subgroup": "special_element",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "reflect",
+          "increasedamagetaken"
+        ],
         "affectedElements": [
           "Crystal"
         ]
       },
       "prerequisites": [
         {
-          "school": "nature.fire",
-          "rank": 5
+          "school": "advanced.crystal",
+          "skills_purchased": 1
         },
         {
-          "school": "nature.earth",
-          "rank": 5
+          "school": "discipline.guard",
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Facet Seal",
-      "major_name": "Prism Seal"
-    },
-    {
-      "id": "advanced.dust",
-      "name": "Dust",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTag": "none",
-        "affectedElements": [
-          "Dust"
-        ]
+      "design_identity": "A crystal counter-pressure school strengthening Crystal Reflect and Increase Damage Taken independently.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
       },
-      "prerequisites": [
-        {
-          "school": "nature.wind",
-          "rank": 5
-        },
-        {
-          "school": "nature.earth",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Drift Seal",
-      "major_name": "Erosion Seal"
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      },
+      "design_rationale": "One selected tag lies outside the prerequisite Discipline. A single-tag version is scope-dominated by completing the Special Element and Discipline parents at the same cost."
     },
     {
-      "id": "advanced.shadow",
-      "name": "Shadow",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
+      "id": "hidden.black-thread",
+      "name": "Black Thread",
+      "category": "hidden_arts",
+      "subgroup": "special_element",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
       "scope": {
-        "affectedTag": "none",
+        "affectedTags": [
+          "lifesteal",
+          "decreasedamagegiven"
+        ],
         "affectedElements": [
           "Shadow"
         ]
       },
       "prerequisites": [
         {
-          "school": "nature.fire",
-          "rank": 5
+          "school": "advanced.shadow",
+          "skills_purchased": 1
         },
         {
-          "school": "nature.lightning",
-          "rank": 5
+          "school": "discipline.sustain",
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Veil Seal",
-      "major_name": "Eclipse Seal"
+      "design_identity": "A concealed draining-and-weakening school strengthening Shadow Lifesteal and Decrease Damage Given independently; grants no tether or stealth.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      },
+      "design_rationale": "One selected tag lies outside the prerequisite Discipline. A single-tag version is scope-dominated by completing the Special Element and Discipline parents at the same cost."
     },
     {
-      "id": "advanced.wood",
-      "name": "Wood",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
+      "id": "hidden.winter-shroud",
+      "name": "Winter Shroud",
+      "category": "hidden_arts",
+      "subgroup": "special_element",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
       "scope": {
-        "affectedTag": "none",
+        "affectedTags": [
+          "decreasedamagegiven",
+          "afterburn"
+        ],
         "affectedElements": [
-          "Wood"
+          "Ice"
         ]
       },
       "prerequisites": [
         {
-          "school": "nature.water",
-          "rank": 5
+          "school": "advanced.ice",
+          "skills_purchased": 1
         },
         {
-          "school": "nature.earth",
-          "rank": 5
+          "school": "discipline.guard",
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Root Seal",
-      "major_name": "Ancient Grove"
-    },
-    {
-      "id": "advanced.scorch",
-      "name": "Scorch",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTag": "none",
-        "affectedElements": [
-          "Scorch"
-        ]
+      "design_identity": "A cold suppression-and-attrition school strengthening Ice Decrease Damage Given and Afterburn independently; grants no freeze or stun.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
       },
-      "prerequisites": [
-        {
-          "school": "nature.fire",
-          "rank": 5
-        },
-        {
-          "school": "nature.wind",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Heat-Haze Seal",
-      "major_name": "Sunscar Seal"
-    },
-    {
-      "id": "advanced.storm",
-      "name": "Storm",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTag": "none",
-        "affectedElements": [
-          "Storm"
-        ]
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
       },
-      "prerequisites": [
-        {
-          "school": "nature.water",
-          "rank": 5
-        },
-        {
-          "school": "nature.lightning",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Squall Seal",
-      "major_name": "Storm-Crown Seal"
-    },
-    {
-      "id": "advanced.magnet",
-      "name": "Magnet",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTag": "none",
-        "affectedElements": [
-          "Magnet"
-        ]
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
       },
-      "prerequisites": [
-        {
-          "school": "nature.wind",
-          "rank": 5
-        },
-        {
-          "school": "nature.lightning",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Polarity Seal",
-      "major_name": "Iron-Orbit Seal"
+      "design_rationale": "One selected tag lies outside the prerequisite Discipline. A single-tag version is scope-dominated by completing the Special Element and Discipline parents at the same cost."
     },
     {
-      "id": "advanced.yin-yang",
-      "name": "Yin-Yang",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
+      "id": "hidden.furnace-vein",
+      "name": "Furnace Vein",
+      "category": "hidden_arts",
+      "subgroup": "special_element",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
       "scope": {
-        "affectedTag": "none",
-        "affectedElements": [
-          "Yin-Yang"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.fire",
-          "rank": 5
-        },
-        {
-          "school": "nature.lightning",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Balance Seal",
-      "major_name": "Convergence Seal"
-    },
-    {
-      "id": "advanced.lava",
-      "name": "Lava",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTag": "none",
+        "affectedTags": [
+          "afterburn",
+          "lifesteal"
+        ],
         "affectedElements": [
           "Lava"
         ]
       },
       "prerequisites": [
         {
-          "school": "nature.fire",
-          "rank": 5
+          "school": "advanced.lava",
+          "skills_purchased": 1
         },
         {
-          "school": "nature.earth",
-          "rank": 5
+          "school": "discipline.assault",
+          "skills_purchased": 1
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Magma Seal",
-      "major_name": "Caldera Seal"
-    },
-    {
-      "id": "advanced.explosion",
-      "name": "Explosion",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTag": "none",
-        "affectedElements": [
-          "Explosion"
-        ]
+      "design_identity": "A heat-and-recovery school strengthening Lava Afterburn and Lifesteal independently; damage over time does not automatically trigger extra recovery.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
       },
-      "prerequisites": [
-        {
-          "school": "nature.earth",
-          "rank": 5
-        },
-        {
-          "school": "nature.lightning",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Fuse Seal",
-      "major_name": "Detonation Seal"
-    },
-    {
-      "id": "advanced.light",
-      "name": "Light",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTag": "none",
-        "affectedElements": [
-          "Light"
-        ]
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
       },
-      "prerequisites": [
-        {
-          "school": "nature.fire",
-          "rank": 5
-        },
-        {
-          "school": "nature.wind",
-          "rank": 5
-        },
-        {
-          "school": "nature.lightning",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Radiance Seal",
-      "major_name": "Dawn Seal"
-    },
-    {
-      "id": "advanced.boil",
-      "name": "Boil",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTag": "none",
-        "affectedElements": [
-          "Boil"
-        ]
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
       },
-      "prerequisites": [
-        {
-          "school": "nature.fire",
-          "rank": 5
-        },
-        {
-          "school": "nature.water",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Steam Seal",
-      "major_name": "Pressure Seal"
+      "design_rationale": "One selected tag lies outside the prerequisite Discipline. A single-tag version is scope-dominated by completing the Special Element and Discipline parents at the same cost."
     },
     {
-      "id": "advanced.metal",
-      "name": "Metal",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTag": "none",
-        "affectedElements": [
-          "Metal"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.earth",
-          "rank": 5
-        },
-        {
-          "school": "nature.lightning",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Forge Seal",
-      "major_name": "Adamant Seal"
-    },
-    {
-      "id": "advanced.sand",
-      "name": "Sand",
-      "category": "advanced_nature",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTag": "none",
-        "affectedElements": [
-          "Sand"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.earth",
-          "rank": 5
-        },
-        {
-          "school": "nature.wind",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Dune Seal",
-      "major_name": "Desert-Crown Seal"
-    },
-    {
-      "id": "hidden.burning-edge",
-      "name": "Burning Edge",
-      "category": "hidden_art",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
+      "id": "hidden.borrowed-breath",
+      "name": "Borrowed Breath",
+      "category": "hidden_arts",
+      "subgroup": "paired_specialization",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
       "scope": {
         "affectedTags": [
-          "damage"
-        ],
-        "affectedElements": [
-          "Fire"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.fire",
-          "rank": 5
-        },
-        {
-          "school": "specialization.impact",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Burning Edge: Minor Seal",
-      "major_name": "Burning Edge: Master Seal"
-    },
-    {
-      "id": "hidden.cinder-doctrine",
-      "name": "Cinder Doctrine",
-      "category": "hidden_art",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "afterburn"
-        ],
-        "affectedElements": [
-          "Fire"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.fire",
-          "rank": 5
-        },
-        {
-          "school": "specialization.attrition",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Cinder Doctrine: Minor Seal",
-      "major_name": "Cinder Doctrine: Master Seal"
-    },
-    {
-      "id": "hidden.riptide-mark",
-      "name": "Riptide Mark",
-      "category": "hidden_art",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "increasedamagetaken"
-        ],
-        "affectedElements": [
-          "Water"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.water",
-          "rank": 5
-        },
-        {
-          "school": "specialization.pressure",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Riptide Mark: Minor Seal",
-      "major_name": "Riptide Mark: Master Seal"
-    },
-    {
-      "id": "hidden.healing-current",
-      "name": "Healing Current",
-      "category": "hidden_art",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "heal"
-        ],
-        "affectedElements": [
-          "Water"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.water",
-          "rank": 5
-        },
-        {
-          "school": "specialization.restoration",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Healing Current: Minor Seal",
-      "major_name": "Healing Current: Master Seal"
-    },
-    {
-      "id": "hidden.gale-rhythm",
-      "name": "Gale Rhythm",
-      "category": "hidden_art",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "increasedamagegiven"
-        ],
-        "affectedElements": [
-          "Wind"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.wind",
-          "rank": 5
-        },
-        {
-          "school": "specialization.momentum",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Gale Rhythm: Minor Seal",
-      "major_name": "Gale Rhythm: Master Seal"
-    },
-    {
-      "id": "hidden.quieting-wind",
-      "name": "Quieting Wind",
-      "category": "hidden_art",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "decreasedamagegiven"
-        ],
-        "affectedElements": [
-          "Wind"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.wind",
-          "rank": 5
-        },
-        {
-          "school": "specialization.suppression",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Quieting Wind: Minor Seal",
-      "major_name": "Quieting Wind: Master Seal"
-    },
-    {
-      "id": "hidden.stone-body",
-      "name": "Stone Body",
-      "category": "hidden_art",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "decreasedamagetaken"
-        ],
-        "affectedElements": [
-          "Earth"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.earth",
-          "rank": 5
-        },
-        {
-          "school": "specialization.bulwark",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Stone Body: Minor Seal",
-      "major_name": "Stone Body: Master Seal"
-    },
-    {
-      "id": "hidden.rooted-grace",
-      "name": "Rooted Grace",
-      "category": "hidden_art",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
+          "heal",
           "increaseheal"
-        ],
-        "affectedElements": [
-          "Earth"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.earth",
-          "rank": 5
-        },
-        {
-          "school": "specialization.grace",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Rooted Grace: Minor Seal",
-      "major_name": "Rooted Grace: Master Seal"
-    },
-    {
-      "id": "hidden.storm-mirror",
-      "name": "Storm Mirror",
-      "category": "hidden_art",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "reflect"
-        ],
-        "affectedElements": [
-          "Lightning"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.lightning",
-          "rank": 5
-        },
-        {
-          "school": "specialization.reversal",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Storm Mirror: Minor Seal",
-      "major_name": "Storm Mirror: Master Seal"
-    },
-    {
-      "id": "hidden.predators-spark",
-      "name": "Predator's Spark",
-      "category": "hidden_art",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "lifesteal"
-        ],
-        "affectedElements": [
-          "Lightning"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.lightning",
-          "rank": 5
-        },
-        {
-          "school": "specialization.predation",
-          "rank": 5
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Predator's Spark: Minor Seal",
-      "major_name": "Predator's Spark: Master Seal"
-    },
-    {
-      "id": "pinnacle.inferno-doctrine",
-      "name": "Inferno Doctrine",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "damage",
-          "increasedamagegiven",
-          "increasedamagetaken",
-          "afterburn"
-        ],
-        "affectedElements": [
-          "Fire"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.fire",
-          "rank": 10
-        },
-        {
-          "school": "discipline.assault",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Inferno Doctrine: Doctrine Seal",
-      "major_name": "Inferno Doctrine: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.ashen-aegis",
-      "name": "Ashen Aegis",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "decreasedamagetaken",
-          "decreasedamagegiven",
-          "reflect"
-        ],
-        "affectedElements": [
-          "Fire"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.fire",
-          "rank": 10
-        },
-        {
-          "school": "discipline.guard",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Ashen Aegis: Doctrine Seal",
-      "major_name": "Ashen Aegis: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.phoenix-current",
-      "name": "Phoenix Current",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "heal",
-          "increaseheal",
-          "lifesteal"
-        ],
-        "affectedElements": [
-          "Fire"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.fire",
-          "rank": 10
-        },
-        {
-          "school": "discipline.sustain",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Phoenix Current: Doctrine Seal",
-      "major_name": "Phoenix Current: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.riptide-doctrine",
-      "name": "Riptide Doctrine",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "damage",
-          "increasedamagegiven",
-          "increasedamagetaken",
-          "afterburn"
-        ],
-        "affectedElements": [
-          "Water"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.water",
-          "rank": 10
-        },
-        {
-          "school": "discipline.assault",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Riptide Doctrine: Doctrine Seal",
-      "major_name": "Riptide Doctrine: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.abyssal-aegis",
-      "name": "Abyssal Aegis",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "decreasedamagetaken",
-          "decreasedamagegiven",
-          "reflect"
-        ],
-        "affectedElements": [
-          "Water"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.water",
-          "rank": 10
-        },
-        {
-          "school": "discipline.guard",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Abyssal Aegis: Doctrine Seal",
-      "major_name": "Abyssal Aegis: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.endless-current",
-      "name": "Endless Current",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "heal",
-          "increaseheal",
-          "lifesteal"
-        ],
-        "affectedElements": [
-          "Water"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.water",
-          "rank": 10
-        },
-        {
-          "school": "discipline.sustain",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Endless Current: Doctrine Seal",
-      "major_name": "Endless Current: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.razor-tempest",
-      "name": "Razor Tempest",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "damage",
-          "increasedamagegiven",
-          "increasedamagetaken",
-          "afterburn"
-        ],
-        "affectedElements": [
-          "Wind"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.wind",
-          "rank": 10
-        },
-        {
-          "school": "discipline.assault",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Razor Tempest: Doctrine Seal",
-      "major_name": "Razor Tempest: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.hollow-wind",
-      "name": "Hollow Wind",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "decreasedamagetaken",
-          "decreasedamagegiven",
-          "reflect"
-        ],
-        "affectedElements": [
-          "Wind"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.wind",
-          "rank": 10
-        },
-        {
-          "school": "discipline.guard",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Hollow Wind: Doctrine Seal",
-      "major_name": "Hollow Wind: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.breath-of-spring",
-      "name": "Breath of Spring",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "heal",
-          "increaseheal",
-          "lifesteal"
-        ],
-        "affectedElements": [
-          "Wind"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.wind",
-          "rank": 10
-        },
-        {
-          "school": "discipline.sustain",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Breath of Spring: Doctrine Seal",
-      "major_name": "Breath of Spring: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.seismic-doctrine",
-      "name": "Seismic Doctrine",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "damage",
-          "increasedamagegiven",
-          "increasedamagetaken",
-          "afterburn"
-        ],
-        "affectedElements": [
-          "Earth"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.earth",
-          "rank": 10
-        },
-        {
-          "school": "discipline.assault",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Seismic Doctrine: Doctrine Seal",
-      "major_name": "Seismic Doctrine: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.mountain-heart",
-      "name": "Mountain Heart",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "decreasedamagetaken",
-          "decreasedamagegiven",
-          "reflect"
-        ],
-        "affectedElements": [
-          "Earth"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.earth",
-          "rank": 10
-        },
-        {
-          "school": "discipline.guard",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Mountain Heart: Doctrine Seal",
-      "major_name": "Mountain Heart: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.stoneblood-cycle",
-      "name": "Stoneblood Cycle",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "heal",
-          "increaseheal",
-          "lifesteal"
-        ],
-        "affectedElements": [
-          "Earth"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.earth",
-          "rank": 10
-        },
-        {
-          "school": "discipline.sustain",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Stoneblood Cycle: Doctrine Seal",
-      "major_name": "Stoneblood Cycle: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.thunderclap-doctrine",
-      "name": "Thunderclap Doctrine",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "damage",
-          "increasedamagegiven",
-          "increasedamagetaken",
-          "afterburn"
-        ],
-        "affectedElements": [
-          "Lightning"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.lightning",
-          "rank": 10
-        },
-        {
-          "school": "discipline.assault",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Thunderclap Doctrine: Doctrine Seal",
-      "major_name": "Thunderclap Doctrine: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.thunder-aegis",
-      "name": "Thunder Aegis",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "decreasedamagetaken",
-          "decreasedamagegiven",
-          "reflect"
-        ],
-        "affectedElements": [
-          "Lightning"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.lightning",
-          "rank": 10
-        },
-        {
-          "school": "discipline.guard",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Thunder Aegis: Doctrine Seal",
-      "major_name": "Thunder Aegis: Perfected Seal"
-    },
-    {
-      "id": "pinnacle.living-current",
-      "name": "Living Current",
-      "category": "pinnacle_doctrine",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "heal",
-          "increaseheal",
-          "lifesteal"
-        ],
-        "affectedElements": [
-          "Lightning"
-        ]
-      },
-      "prerequisites": [
-        {
-          "school": "nature.lightning",
-          "rank": 10
-        },
-        {
-          "school": "discipline.sustain",
-          "rank": 10
-        }
-      ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Living Current: Doctrine Seal",
-      "major_name": "Living Current: Perfected Seal"
-    },
-    {
-      "id": "special.balance",
-      "name": "Balanced Form",
-      "category": "tri_discipline",
-      "ranks": 10,
-      "cost_per_rank": 1,
-      "potency_per_rank_percentage": 0.5,
-      "scope": {
-        "affectedTags": [
-          "damage",
-          "increasedamagegiven",
-          "decreasedamagegiven",
-          "increasedamagetaken",
-          "decreasedamagetaken",
-          "afterburn",
-          "lifesteal",
-          "reflect",
-          "increaseheal",
-          "heal"
         ],
         "affectedElements": []
       },
       "prerequisites": [
         {
+          "school": "specialization.restoration",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.grace",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "A field-medic school strengthening Heal and Increase Heal independently across all jutsu.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
+    },
+    {
+      "id": "hidden.empty-vessel",
+      "name": "Empty Vessel",
+      "category": "hidden_arts",
+      "subgroup": "paired_specialization",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "lifesteal",
+          "absorb"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "specialization.predation",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.assimilation",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "A recovery-through-contact school strengthening Lifesteal and Absorb independently across all jutsu.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01"
+      ],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 20,
+        "major": 25
+      }
+    },
+    {
+      "id": "hidden.returning-needle",
+      "name": "Returning Needle",
+      "category": "hidden_arts",
+      "subgroup": "paired_specialization",
+      "design_status": "candidate_for_user_review",
+      "prerequisite_status": "candidate_for_user_review",
+      "scope": {
+        "affectedTags": [
+          "increasedamagetaken",
+          "reflect"
+        ],
+        "affectedElements": []
+      },
+      "prerequisites": [
+        {
+          "school": "specialization.pressure",
+          "skills_purchased": 1
+        },
+        {
+          "school": "specialization.reversal",
+          "skills_purchased": 1
+        }
+      ],
+      "design_identity": "A counter-pressure school strengthening Increase Damage Taken and Reflect independently; reflection does not automatically inflict vulnerability.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.inferno-doctrine",
+      "name": "Inferno Doctrine",
+      "scope": {
+        "affectedTags": [
+          "damage",
+          "increasedamagegiven",
+          "increasedamagetaken",
+          "afterburn"
+        ],
+        "affectedElements": [
+          "Fire"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "skills_purchased": 2
+        },
+        {
           "school": "discipline.assault",
-          "rank": 5
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Assault",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.ashen-aegis",
+      "name": "Ashen Aegis",
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken",
+          "decreasedamagegiven",
+          "reflect"
+        ],
+        "affectedElements": [
+          "Fire"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "skills_purchased": 2
         },
         {
           "school": "discipline.guard",
-          "rank": 5
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Guard",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.phoenix-current",
+      "name": "Phoenix Current",
+      "scope": {
+        "affectedTags": [
+          "heal",
+          "increaseheal",
+          "lifesteal",
+          "absorb"
+        ],
+        "affectedElements": [
+          "Fire"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.fire",
+          "skills_purchased": 2
         },
         {
           "school": "discipline.sustain",
-          "rank": 5
+          "skills_purchased": 2
         }
       ],
-      "minor_rank": 5,
-      "major_rank": 10,
-      "minor_name": "Equilibrium Seal",
-      "major_name": "Perfect Balance"
+      "subgroup": "Sustain",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.riptide-doctrine",
+      "name": "Riptide Doctrine",
+      "scope": {
+        "affectedTags": [
+          "damage",
+          "increasedamagegiven",
+          "increasedamagetaken",
+          "afterburn"
+        ],
+        "affectedElements": [
+          "Water"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "skills_purchased": 2
+        },
+        {
+          "school": "discipline.assault",
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Assault",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.abyssal-aegis",
+      "name": "Abyssal Aegis",
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken",
+          "decreasedamagegiven",
+          "reflect"
+        ],
+        "affectedElements": [
+          "Water"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "skills_purchased": 2
+        },
+        {
+          "school": "discipline.guard",
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Guard",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.endless-current",
+      "name": "Endless Current",
+      "scope": {
+        "affectedTags": [
+          "heal",
+          "increaseheal",
+          "lifesteal",
+          "absorb"
+        ],
+        "affectedElements": [
+          "Water"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.water",
+          "skills_purchased": 2
+        },
+        {
+          "school": "discipline.sustain",
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Sustain",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.razor-tempest",
+      "name": "Razor Tempest",
+      "scope": {
+        "affectedTags": [
+          "damage",
+          "increasedamagegiven",
+          "increasedamagetaken",
+          "afterburn"
+        ],
+        "affectedElements": [
+          "Wind"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "skills_purchased": 2
+        },
+        {
+          "school": "discipline.assault",
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Assault",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.hollow-wind",
+      "name": "Hollow Wind",
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken",
+          "decreasedamagegiven",
+          "reflect"
+        ],
+        "affectedElements": [
+          "Wind"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "skills_purchased": 2
+        },
+        {
+          "school": "discipline.guard",
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Guard",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.breath-of-spring",
+      "name": "Breath of Spring",
+      "scope": {
+        "affectedTags": [
+          "heal",
+          "increaseheal",
+          "lifesteal",
+          "absorb"
+        ],
+        "affectedElements": [
+          "Wind"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.wind",
+          "skills_purchased": 2
+        },
+        {
+          "school": "discipline.sustain",
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Sustain",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.seismic-doctrine",
+      "name": "Seismic Doctrine",
+      "scope": {
+        "affectedTags": [
+          "damage",
+          "increasedamagegiven",
+          "increasedamagetaken",
+          "afterburn"
+        ],
+        "affectedElements": [
+          "Earth"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "skills_purchased": 2
+        },
+        {
+          "school": "discipline.assault",
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Assault",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.mountain-heart",
+      "name": "Mountain Heart",
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken",
+          "decreasedamagegiven",
+          "reflect"
+        ],
+        "affectedElements": [
+          "Earth"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "skills_purchased": 2
+        },
+        {
+          "school": "discipline.guard",
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Guard",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.stoneblood-cycle",
+      "name": "Stoneblood Cycle",
+      "scope": {
+        "affectedTags": [
+          "heal",
+          "increaseheal",
+          "lifesteal",
+          "absorb"
+        ],
+        "affectedElements": [
+          "Earth"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.earth",
+          "skills_purchased": 2
+        },
+        {
+          "school": "discipline.sustain",
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Sustain",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.thunderclap-doctrine",
+      "name": "Thunderclap Doctrine",
+      "scope": {
+        "affectedTags": [
+          "damage",
+          "increasedamagegiven",
+          "increasedamagetaken",
+          "afterburn"
+        ],
+        "affectedElements": [
+          "Lightning"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.lightning",
+          "skills_purchased": 2
+        },
+        {
+          "school": "discipline.assault",
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Assault",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.thunder-aegis",
+      "name": "Thunder Aegis",
+      "scope": {
+        "affectedTags": [
+          "decreasedamagetaken",
+          "decreasedamagegiven",
+          "reflect"
+        ],
+        "affectedElements": [
+          "Lightning"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.lightning",
+          "skills_purchased": 2
+        },
+        {
+          "school": "discipline.guard",
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Guard",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
+    },
+    {
+      "id": "pinnacle.living-current",
+      "name": "Living Current",
+      "scope": {
+        "affectedTags": [
+          "heal",
+          "increaseheal",
+          "lifesteal",
+          "absorb"
+        ],
+        "affectedElements": [
+          "Lightning"
+        ]
+      },
+      "category": "advanced_arts",
+      "design_status": "candidate_retained_for_review",
+      "prerequisite_status": "approved_direction",
+      "prerequisites": [
+        {
+          "school": "nature.lightning",
+          "skills_purchased": 2
+        },
+        {
+          "school": "discipline.sustain",
+          "skills_purchased": 2
+        }
+      ],
+      "subgroup": "Sustain",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Skill I",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Minor",
+          "requires_own_skill": null
+        },
+        {
+          "number": 2,
+          "name": "Skill II",
+          "cost_sp": 5,
+          "potency_percentage": 2.5,
+          "tier_reached": "Major",
+          "requires_own_skill": 1
+        }
+      ],
+      "unlocks": {
+        "1": [],
+        "2": []
+      },
+      "tier_labels": {
+        "1": "Minor",
+        "2": "Major"
+      },
+      "implementation_gaps": [
+        "POT-IMPL-01",
+        "POT-IMPL-02"
+      ],
+      "content_viability": "not_live_verified",
+      "element_matching_note": "Design intends jutsu-element scope; current resolver matches each effect tag elements. Do not infer inheritance from sibling effects or prerequisite elements.",
+      "minimum_total_sp": {
+        "minor": 25,
+        "major": 30
+      }
     }
-  ]
+  ],
+  "live_game_requests": 0,
+  "live_game_writes": 0
 }
