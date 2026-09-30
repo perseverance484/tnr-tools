@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-09-28)
+# DRIFT.md - upstream contract drift (2026-09-30)
 
-Upstream: studie-tech/TheNinjaRPG@966ba24cbb321776233797ab368ece5d1bef5214
+Upstream: studie-tech/TheNinjaRPG@271fe93be6139ac1e69b380d87cbf730c0f0cb5b
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -71,15 +71,15 @@ no breaking changes: 58 addition(s), safe to adopt (exit 0)
 CHANGES
   now-required  item  farmExtractSeedItemId  optional -> required
   now-required  item  isFarmFertilizer  optional -> required
-  now-required  item  farmSellValue  optional -> required
-  now-required  item  farmGrowTimeSeconds  optional -> required
-  now-required  item  farmTimeReductionSeconds  optional -> required
-  now-required  item  farmPlantExperience  optional -> required
-  now-required  item  farmHarvestExperience  optional -> required
   now-required  item  farmMinLevel  optional -> required
+  now-required  item  farmYieldItemId  optional -> required
   now-required  item  farmExtractSeedCount  optional -> required
   now-required  item  farmFertilizerExperience  optional -> required
-  now-required  item  farmYieldItemId  optional -> required
+  now-required  item  farmPlantExperience  optional -> required
+  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  farmHarvestExperience  optional -> required
+  now-required  item  farmGrowTimeSeconds  optional -> required
+  now-required  item  farmSellValue  optional -> required
   now-required  item  isFarmSeed  optional -> required
 ADDITIONS
   field  item  farmExtractSeedCount
@@ -114,6 +114,49 @@ BREAKING: 12 change(s) - DO NOT ADOPT (exit 1)
 ADDITIONS
   const-member  AvailableEffectTypes  decreasepotency
   const-member  AvailableEffectTypes  increasepotency
+  const-member  ContentAuditFocuses  animation
+  const-member  ContentAuditFocuses  balance
+  const-member  ContentAuditFocuses  consistency
+  const-member  ContentAuditFocuses  grammar
+  const-member  ContentAuditFocuses  new_content
+  const-member  ContentAuditFocuses  sound
+  const-member  ContentAuditFocuses  visual
+  const-member  ContentProposalBasisRoles  CONTEXT
+  const-member  ContentProposalBasisRoles  TARGET
+  const-member  ContentProposalCategories  ANIMATION
+  const-member  ContentProposalCategories  BALANCE
+  const-member  ContentProposalCategories  CONSISTENCY
+  const-member  ContentProposalCategories  GRAMMAR
+  const-member  ContentProposalCategories  NEW_CONTENT
+  const-member  ContentProposalCategories  SOUND
+  const-member  ContentProposalCategories  VISUAL
+  const-member  ContentProposalEntityTypes  AI
+  const-member  ContentProposalEntityTypes  BADGE
+  const-member  ContentProposalEntityTypes  BLOODLINE
+  const-member  ContentProposalEntityTypes  GAME_ASSET
+  const-member  ContentProposalEntityTypes  ITEM
+  const-member  ContentProposalEntityTypes  JUTSU
+  const-member  ContentProposalEntityTypes  QUEST
+  const-member  ContentProposalMediaKinds  ANIMATION
+  const-member  ContentProposalMediaKinds  IMAGE
+  const-member  ContentProposalMediaKinds  SFX
+  const-member  ContentProposalMediaSources  CATALOG
+  const-member  ContentProposalMediaSources  EPIDEMIC
+  const-member  ContentProposalMediaSources  GENERATED
+  const-member  ContentProposalOperations  CREATE
+  const-member  ContentProposalOperations  UPDATE
+  const-member  ContentProposalRejectReasons  FACTUALLY_WRONG
+  const-member  ContentProposalRejectReasons  NOT_AN_IMPROVEMENT
+  const-member  ContentProposalRejectReasons  OTHER
+  const-member  ContentProposalRejectReasons  STYLE_MISMATCH
+  const-member  ContentProposalRejectReasons  WRONG_CHANGE
+  const-member  ContentProposalSources  AGENT
+  const-member  ContentProposalSources  STAFF
+  const-member  ContentProposalStatuses  APPLIED
+  const-member  ContentProposalStatuses  OUTDATED
+  const-member  ContentProposalStatuses  PENDING
+  const-member  ContentProposalStatuses  REJECTED
+  const-member  ContentProposalStatuses  REVERTED
   const-member  ContentTypes  guide
   const-member  GUIDE_HUB_CATEGORY_ORDER  bloodlines
   const-member  GUIDE_HUB_CATEGORY_ORDER  combat
@@ -129,50 +172,7 @@ ADDITIONS
   const-member  GuideCategories  bloodlines
   const-member  GuideCategories  combat
   const-member  GuideCategories  economy
-  const-member  GuideCategories  farming
-  const-member  GuideCategories  getting-started
-  const-member  GuideCategories  ranks
-  const-member  GuideCategories  reference
-  const-member  GuideCategories  villages
-  const-member  GuideCategories  world
-  const-member  ItemTypes  COOKING
-  const-member  LIVE_ACTIVITY_KINDS  hospital
-  const-member  LIVE_ACTIVITY_KINDS  training
-  const-member  LIVE_ACTIVITY_KINDS  war
-  const-member  LOG_TYPES  guide
-  const-member  NonActionItemTypes  COOKING
-  const-member  OBJECTIVE_TAG_TYPES  decreasepotency
-  const-member  OBJECTIVE_TAG_TYPES  increasepotency
-  const-member  PUSH_CATEGORIES  clan
-  const-member  PUSH_CATEGORIES  combat
-  const-member  PUSH_CATEGORIES  recovery
-  const-member  PUSH_CATEGORIES  social
-  const-member  PUSH_CATEGORIES  system
-  const-member  PUSH_CATEGORIES  trade
-  const-member  PUSH_CATEGORIES  training
-  const-member  PUSH_CATEGORIES  war
-  const-member  PUSH_PLATFORMS  android
-  const-member  PUSH_PLATFORMS  ios
-  const-member  PUSH_PLATFORMS  web
-  const-member  PotencyTagTypes  afterburn
-  const-member  PotencyTagTypes  damage
-  const-member  PotencyTagTypes  decreasedamagegiven
-  const-member  PotencyTagTypes  decreasedamagetaken
-  const-member  PotencyTagTypes  heal
-  const-member  PotencyTagTypes  increasedamagegiven
-  const-member  PotencyTagTypes  increasedamagetaken
-  const-member  PotencyTagTypes  increaseheal
-  const-member  PotencyTagTypes  lifesteal
-  const-member  PotencyTagTypes  reflect
-  const-member  STORE_PLATFORMS  APPLE
-  const-member  STORE_PLATFORMS  GOOGLE
-  const-member  SimpleTasks  farming_collection_log
-  const-member  SimpleTasks  farming_level
-  const-member  SimpleTasks  plants_fertilized
-  const-member  SimpleTasks  plants_harvested
-  const-member  SimpleTasks  plants_watered
-  const-member  SimpleTasks  seeds_planted
-  ... 14 more
+  ... 59 more
 
-no breaking changes: 74 addition(s), safe to adopt (exit 0)
+no breaking changes: 119 addition(s), safe to adopt (exit 0)
 ~~~
