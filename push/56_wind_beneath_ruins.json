@@ -1,0 +1,506 @@
+{
+ "items": [
+  {
+   "name": "Current Sentinel",
+   "entity": "ai",
+   "slot": "create",
+   "srcId": "wbr_ai_current_sentinel",
+   "data": {
+    "username": "Current Sentinel",
+    "level": 22,
+    "rank": "GENIN",
+    "regeneration": 60,
+    "poolsMultiplier": 1,
+    "statsMultiplier": 1,
+    "isSummon": false,
+    "hidden": true,
+    "primaryElement": "Wind",
+    "secondaryElement": "",
+    "jutsus": [
+     "05rH3kZNXbtFq9a9iRl-W",
+     "SJwW0b5tO4PuBhNrLJIR2",
+     "d00wewEL2x6V3Th5gS0dh",
+     "A5HrHSzx4J3WM4Fln8Lbf",
+     "m-ur3A8TS8r5jGb84L9x7"
+    ],
+    "rules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "05rH3kZNXbtFq9a9iRl-W",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "SJwW0b5tO4PuBhNrLJIR2",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 4,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "d00wewEL2x6V3Th5gS0dh",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "A5HrHSzx4J3WM4Fln8Lbf",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "Move towards opponent",
+       "target": "RANDOM_OPPONENT"
+      }
+     }
+    ],
+    "includeDefaultRules": false,
+    "ninjutsuOffence": 100,
+    "ninjutsuDefence": 100,
+    "genjutsuOffence": 100,
+    "genjutsuDefence": 100,
+    "taijutsuOffence": 100,
+    "taijutsuDefence": 100,
+    "bukijutsuOffence": 100,
+    "bukijutsuDefence": 100,
+    "strength": 100,
+    "intelligence": 100,
+    "willpower": 100,
+    "speed": 100,
+    "preferredStat": "Ninjutsu",
+    "preferredGeneral1": "Intelligence",
+    "preferredGeneral2": "Speed"
+   }
+  },
+  {
+   "name": "The Wind Beneath the Ruins",
+   "entity": "quest",
+   "slot": "create",
+   "srcId": "wbr_quest",
+   "data": {
+    "name": "The Wind Beneath the Ruins",
+    "description": "A reconstruction survey in the Ruins of Current found tracks that belong to neither animal nor shinobi. Join Master Joren and his Genin team, enter the abandoned village, and find what is moving beneath the stones.",
+    "successDescription": "The survey returns to Akikaze with proof that something from Current's past is still active beneath the ruins.",
+    "questRank": "D",
+    "medicalRank": null,
+    "huntingRank": null,
+    "gatheringRank": null,
+    "requiredLevel": 20,
+    "maxLevel": 100,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "requiredVillage": null,
+    "requiredBloodlineId": null,
+    "requiredSageModeId": null,
+    "requiredSageRank": null,
+    "prerequisiteQuestId": null,
+    "tierLevel": null,
+    "questType": "mission",
+    "content": {
+     "objectives": [
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Morning comes softly over Akikaze. Silver light moves across the Windswept Grasslands while the wind threads through the wooden towers of the eastern gate.</i> <br> <br> A young Genin waits beneath the gate in a coat that looks suspiciously newer than the dust rubbed into its sleeves. Above him, a girl with a cloth over the lower half of her face sits on the railing. <br> <br> \"You are late,\" she says. <br> <br> \"The sun has barely risen,\" Sorei replies. <br> <br> \"It rose three minutes ago.\" <br> <br> \"That is not how time works.\" <br> <br> \"It is exactly how time works.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_gate",
+       "nextObjectiveId": [
+        {
+         "text": "Wait for the rest of the team.",
+         "nextObjectiveId": "wbr_team"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Master Joren approaches with the slow, unhurried pace of a man who expects the road to wait for him. Behind him comes Riku, a broad-shouldered Genin carrying enough food for a much longer journey.</i> <br> <br> Sorei eyes the pack. \"What is in there?\" <br> <br> \"Supplies.\" <br> <br> \"For what?\" <br> <br> \"The mission.\" <br> <br> \"We are going for one day.\" <br> <br> Riku frowns. \"People get hungry in one day.\" <br> <br> Mika glances toward you. \"I told them we should have brought a dog.\" <br> <br> Joren walks between everyone without comment. \"Walk.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_team",
+       "nextObjectiveId": [
+        {
+         "text": "Follow Joren north.",
+         "nextObjectiveId": "wbr_road"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Akikaze disappears behind rolling hills until only the tops of its watchtowers remain. Oakwood Forest darkens the western horizon, while the northern valleys rise toward country where the wind can tear young trees from the earth.</i> <br> <br> \"Where exactly are we going?\" Riku asks around a mouthful of breakfast. <br> <br> Joren does not slow. \"The Ruins of Current.\" <br> <br> Sorei looks north. \"My grandfather used to say a village does not disappear when its walls fall. It disappears when its children forget its name.\" <br> <br> Mika studies him for a moment. \"He said cheerful things, did he?\" <br> <br> \"Not often.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_road",
+       "nextObjectiveId": [
+        {
+         "text": "Continue toward Current.",
+         "nextObjectiveId": "wbr_ridge"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Shortly before midday, the road reaches a low ridge. Below lie the bones of Current. Grass has swallowed old streets and collapsed houses. Broken walls rise from the fields like weathered teeth, and one split tower leans over the eastern road.</i> <br> <br> Wind passes through the empty windows with a sound somewhere between a whistle and a sigh. Riku stops eating. <br> <br> Mika looks down into the ruins. \"What exactly are we doing here?\" <br> <br> \"Three nights ago a reconstruction team surveyed the northern quarter,\" Joren says. \"They found tracks.\" <br> <br> \"Animal?\" <br> <br> \"No.\" <br> <br> \"Shinobi?\" <br> <br> \"No.\" <br> <br> Joren watches the ruins. \"That is why we are here.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_ridge",
+       "nextObjectiveId": [
+        {
+         "text": "Descend into the ruins.",
+         "nextObjectiveId": "wbr_refuge"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The old road into Current is paved with pale stone broken by roots and weeds. Faded symbols remain on several slabs. Mika kneels beside one and brushes away the dirt.</i> <br> <br> \"This one means shelter.\" <br> <br> Joren glances down. \"Almost.\" <br> <br> Mika frowns. <br> <br> \"Refuge,\" he says. <br> <br> \"There is a difference?\" <br> <br> \"There usually is.\" <br> <br> <i>The team moves deeper between the broken buildings.</i>",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_refuge",
+       "nextObjectiveId": [
+        {
+         "text": "Keep searching.",
+         "nextObjectiveId": "wbr_quiet"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The deeper the team goes, the quieter the ruins become. The grass continues to bend. Loose cloth stirs at Sorei's sleeve. Yet no wind touches your face.</i> <br> <br> Sorei stops. Mika takes two more steps before looking back. <br> <br> \"What?\" <br> <br> He raises a hand and watches the grass. \"The wind.\" <br> <br> Riku looks around. \"What about it?\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_quiet",
+       "nextObjectiveId": [
+        {
+         "text": "Study the air around the team.",
+         "nextObjectiveId": "wbr_around"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The motion is unmistakable. Wind crosses the ruined street, divides around the team, and joins again beyond it without touching the space between.</i> <br> <br> Sorei's eyes track the moving grass. \"It is going around us.\" <br> <br> Joren turns slowly toward the collapsed buildings ahead. <br> <br> Mika's voice drops. \"Wind does not avoid people.\" <br> <br> \"No,\" Joren says. \"It avoids something else.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_around",
+       "nextObjectiveId": [
+        {
+         "text": "Listen.",
+         "nextObjectiveId": "wbr_clink"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Clink.</i> <br> <br> <i>Something shifts beneath the earth.</i> <br> <br> Riku lowers his pack. Mika's hand settles on the kunai at her thigh. <br> <br> <i>Clink.</i> <br> <br> Closer. <br> <br> At the end of the street, a roofless building sags beneath its own beams. The darkness below them looks deeper than the space should allow. Something scrapes against stone. <br> <br> Joren raises two fingers. The Genin spread out.",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_clink",
+       "nextObjectiveId": [
+        {
+         "text": "Take position.",
+         "nextObjectiveId": "wbr_hand"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>A hand presses out of the darkness beneath the collapsed building.</i> <br> <br> It is not armored. It is metal. <br> <br> Five narrow fingers close around the old stone, followed by an arm plated in black. Sand pours from its joints as something drags itself from beneath the ruins. Its head emerges last: a smooth dark mask with a single pale light opening at its center like an eye. <br> <br> The machine rises higher than anyone in the street.",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_hand",
+       "nextObjectiveId": [
+        {
+         "text": "Watch the machine.",
+         "nextObjectiveId": "wbr_mark"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Symbols have been cut into the machine's chest. Sorei stares at one of them and goes still.</i> <br> <br> \"I know that mark,\" he says. \"My grandfather carved it into the box he carried out of Current.\" <br> <br> The pale eye turns toward him and brightens. <br> <br> \"Sorei,\" Joren says quietly. <br> <br> The machine takes one step forward. Stone cracks beneath its foot. <br> <br> Joren moves between it and the Genin. \"Whatever you are thinking, think about it later.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_mark",
+       "nextObjectiveId": [
+        {
+         "text": "Ready yourself.",
+         "nextObjectiveId": "wbr_move"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The machine raises one arm. Wind rushes suddenly through the street, pulling dust from the stones. Pale light gathers inside the open metal palm.</i> <br> <br> Sorei reaches for his kunai. Mika lowers her stance. Riku drops the pack and finally stops worrying about breakfast. <br> <br> Joren does not look back. <br> <br> \"Move!\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_move",
+       "nextObjectiveId": [
+        {
+         "text": "Engage the Current Sentinel.",
+         "nextObjectiveId": "wbr_battle"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "start_battle",
+       "opponentAIs": [
+        {
+         "ids": [
+          "@ai:wbr_ai_current_sentinel"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "completionOutcome": "Win",
+       "failDescription": "The Current Sentinel forces the team back through the ruins.",
+       "fleeDescription": "You withdraw from the Current Sentinel.",
+       "drawDescription": "The fight with the Current Sentinel ends without a victor.",
+       "scaleGains": 1,
+       "id": "wbr_battle",
+       "opponent_scaled_to_user": true,
+       "keepOriginalPools": false,
+       "nextObjectiveId": "wbr_after",
+       "failObjectiveId": "wbr_retry"
+      },
+      {
+       "task": "reset_quest",
+       "resetObjectiveId": "wbr_move",
+       "description": "<i>The Sentinel drives the team back between the broken walls. Joren catches Sorei by the shoulder and pulls him clear as the pale light gathers again.</i> <br> <br> \"Reset your footing,\" Joren says. \"We do this together.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "id": "wbr_retry"
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The Sentinel finally collapses. Its pale eye flickers once, twice, and goes dark.</i> <br> <br> For one breath the ruins are perfectly still. Then the wind returns all at once. Dust lifts from the street, grass bends through the broken foundations, and loose cloth snaps sharply in the moving air. <br> <br> Riku looks down at the machine. \"Can I eat now?\" <br> <br> Mika nudges one metal finger with her boot. \"Ask it.\" <br> <br> Joren crouches beside the chest plate. \"Nobody touches anything until we know what woke it.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_after",
+       "nextObjectiveId": [
+        {
+         "text": "Examine the markings.",
+         "nextObjectiveId": "wbr_fragment"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Sorei kneels beside the dark chest plate but keeps his hands away from it.</i> <br> <br> \"It is the same mark,\" he says. \"Exactly the same.\" <br> <br> Joren studies the symbol, then removes a loose fragment from the shattered outer plate and wraps it in cloth. <br> <br> \"Then the reconstruction survey is over. This is an investigation now.\" <br> <br> His gaze moves across the buried foundations surrounding the street. <br> <br> \"One machine came out because we walked over it. We do not know how many more are still asleep.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_fragment",
+       "nextObjectiveId": [
+        {
+         "text": "Leave the ruins with the evidence.",
+         "nextObjectiveId": "wbr_return"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The ruins fall behind as the team returns toward Akikaze. Sorei is quieter than he was that morning. After a long while, he touches the new mark at his forehead.</i> <br> <br> \"I thought earning this meant I was ready.\" <br> <br> Joren keeps walking. \"No. It means someone decided you were ready to carry responsibility. Those are not the same thing.\" <br> <br> Mika glances sideways at Sorei. \"You looked less nervous when the machine was trying to kill us.\" <br> <br> \"I was busy.\" <br> <br> Riku shoulders his pack again. \"So can we eat now?\" <br> <br> Joren sighs. \"Walk.\"",
+       "successDescription": "",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "wbr_return",
+       "nextObjectiveId": [
+        {
+         "text": "Return to Akikaze.",
+         "nextObjectiveId": "wbr_win"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "win_quest",
+       "id": "wbr_win",
+       "description": "",
+       "successDescription": "<i>The team returns to Akikaze with a fragment of the machine and a warning: something built beneath Current survived the village that made it.</i>",
+       "sceneBackground": "",
+       "sceneCharacters": []
+      }
+     ],
+     "reward": {
+      "reward_hunter_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_gathering_items": false,
+      "reward_gathering_items_ids": [],
+      "reward_seichi_silver": 0,
+      "reward_money": 1100,
+      "reward_clanpoints": 100,
+      "reward_anbupoints": 0,
+      "reward_exp": 173,
+      "reward_tokens": 100,
+      "reward_prestige": 14,
+      "reward_reputation": 0,
+      "reward_skillpoints": 0,
+      "reward_rank": "NONE",
+      "reward_village_membership": "NONE",
+      "reward_items": [],
+      "reward_jutsus": [],
+      "reward_bloodlines": [],
+      "reward_sage_modes": [],
+      "reward_badges": [],
+      "reward_medical_experience": 0,
+      "reward_hunting_experience": 0,
+      "reward_crafting_experience": 0,
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0,
+      "reward_war_damage": 0,
+      "reward_war_healing": 0
+     },
+     "sceneBackground": "",
+     "sceneCharacters": []
+    },
+    "hidden": true,
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "consecutiveObjectives": true,
+    "endsAt": null,
+    "startsAt": null,
+    "raidBossMaxHealth": null,
+    "raidBossCurrentHealth": null
+   }
+  }
+ ]
+}

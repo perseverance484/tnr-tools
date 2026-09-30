@@ -5,9 +5,9 @@
 - **Slug:** `one_perfect_crop`
 - **Content type:** event
 - **Status:** ACTIVE
-- **Progress:** 7/16 settled - planned 2, ready 6, blocked 1, complete 7
+- **Progress:** 14/16 settled - blocked 1, complete 13, skipped 1, superseded 1
 
-Deliver a reviewed hidden core manifest now; finish art/admin in a later launch-final patch.
+Finish One Perfect Crop launch-final prose, art, scene wiring and admin content from the already reviewed and user-run hidden core, then complete final hidden readback before any publish decision.
 
 This roadmap is **coordination state, not canon.** It points at the authoritative sources below and never restates them. `docs/00_INDEX.md` remains the only precedence table; `state/active-context.md` and `state/status.json` remain the global session state.
 
@@ -18,8 +18,13 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `state/one_perfect_crop_core_manifest_override.md` | Newest core-manifest ruling. |
 | `state/one_perfect_crop_prose_graph.md` | Frozen prose/graph. |
 | `state/one_perfect_crop_combat_spec.md` | Exact combat contract. |
-| `state/one_perfect_crop_content_admin_open.md` | Deferred launch-final admin decisions. |
+| `state/one_perfect_crop_content_admin_open.md` | Resolved launch-final admin decisions: no reward/item, maxAttempts 100, maxCompletes 1, no cooldown, no eligibility gate. |
 | `docs/00_INDEX.md` | Precedence/evidence rules. |
+| `state/one_perfect_crop_launch_final_prose_patch.md` | Queued G1/G4 launch-final prose patch; do not apply as a separate hidden-core hotfix. |
+| `docs/reviews/ONE_PERFECT_CROP_CORE_MANIFEST_FORGE041_R2_REVIEW.md` | Durable PASS review of the corrected Forge 0.4.1 revision-2 manifest. |
+| `harvests/inbox/tnr_results_1789599042548.json` | User-run hidden-core Forge result/readback bundle. |
+| `docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md` | Readback closeout explaining the two non-content AI verifier drifts. |
+| `state/one_perfect_crop_launch_final_art.md` | Exact restored Ittetsu/Keeper source and derivative provenance for launch-final. |
 
 ## Tasks
 
@@ -30,52 +35,23 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `research.asset_probes` | COMPLETE | dauntless | `design.structure` | Read-only captures. |
 | `research.bandit_ai` | COMPLETE | shared | `design.structure` | Candidate review. |
 | `content.combat_ai_profiles` | COMPLETE | ChatGPT | `design.structure`, `research.bandit_ai` | Road Bandit and Harvest Boar combat contracts. |
-| `art.intake_accepted_assets` | BLOCKED | dauntless | `design.structure` | Accepted art intake. |
-| `art.scene_characters` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | Launch-final scene characters. |
-| `art.combat_avatars` | READY | ChatGPT | `design.structure`, `research.bandit_ai` | Launch-final AI avatars. |
-| `art.icons` | READY | ChatGPT | `design.structure` | Launch-final item icon. |
-| `art.backgrounds` | READY | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes` | Node-to-background mapping. |
-| `admin.balance_and_eligibility` | READY | dauntless | `design.structure` | Deferred launch-final admin values. |
+| `art.intake_accepted_assets` | SUPERSEDED | dauntless | `design.structure` | Accepted art intake. |
+| `art.scene_characters` | COMPLETE | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes`, `research.bandit_ai` | Ittetsu SCENE_CHARACTER from the accepted existing design. |
+| `art.combat_avatars` | COMPLETE | ChatGPT | `design.structure`, `research.bandit_ai` | Repo-backed Road Bandit AI avatar. |
+| `art.icons` | SKIPPED | ChatGPT | `design.structure` | No Cabbage Seed icon production. |
+| `art.backgrounds` | COMPLETE | ChatGPT | `design.structure`, `prose.final`, `research.asset_probes` | Node-to-background mapping. |
+| `admin.balance_and_eligibility` | COMPLETE | dauntless | `design.structure` | No reward package; no Cabbage Seed item; maxAttempts 100; maxCompletes 1; no cooldown; no eligibility gate. |
 | `build.final_freeze` | COMPLETE | ChatGPT | `prose.final`, `content.combat_ai_profiles` | state/prompt_one_perfect_crop.md. |
-| `build.manifest` | COMPLETE | Fable | `build.final_freeze` | Create two AIs, two profiles and the quest; no assets/items/jutsu. |
-| `review.manifest` | READY | ChatGPT | `build.manifest` | Graph/combat/placeholder/safety review. |
-| `production.run_and_readback` | PLANNED | dauntless | `review.manifest` | User-only hidden execution/readback. |
-| `launch.finalization` | PLANNED | shared | `art.intake_accepted_assets`, `art.scene_characters`, `art.combat_avatars`, `art.icons`, `art.backgrounds`, `admin.balance_and_eligibility`, `review.manifest` | Final art/admin patch and hidden readback. |
-
-## Executable now
-
-- **`art.scene_characters`** (READY) - Launch-final scene characters
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task art.scene_characters`
-- **`art.combat_avatars`** (READY) - Launch-final combat avatars
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task art.combat_avatars`
-- **`art.icons`** (READY) - Launch-final Cabbage Seed icon
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task art.icons`
-- **`art.backgrounds`** (READY) - Launch-final scene wiring
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task art.backgrounds`
-- **`admin.balance_and_eligibility`** (READY) - Launch-final admin decisions
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task admin.balance_and_eligibility`
-- **`review.manifest`** (READY) - Exact-SHA core-manifest review
-  - `python3 scripts/content_workstream.py init one_perfect_crop --task review.manifest`
+| `build.manifest` | COMPLETE | Fable | `build.final_freeze` | Create two AIs carrying their rules plus the quest; no assets/items/jutsu. |
+| `review.manifest` | COMPLETE | ChatGPT | `build.manifest` | Graph/combat/placeholder/safety review. |
+| `production.run_and_readback` | COMPLETE | dauntless | `review.manifest` | User-only hidden execution/readback. |
+| `launch.finalization` | BLOCKED | shared | `art.combat_avatars`, `art.backgrounds`, `admin.balance_and_eligibility`, `production.run_and_readback` | Two hidden SCENE_CHARACTER creates for already-made accepted Ittetsu/Keeper art. |
 
 ## Blocked
 
-### `art.intake_accepted_assets` - Accepted-art repository intake
+### `launch.finalization` - Launch-final art/admin patch and readiness
 
-- BLOCKER: Exact accepted bytes are not durable in the repository; this blocks launch finalization only.
-
-## Other open decisions
-
-- `art.scene_characters`: Final art acceptance is user-owned.
-- `art.combat_avatars`: Final art acceptance is user-owned.
-- `art.icons`: Final art acceptance is user-owned.
-- `art.backgrounds`: Any new-background decision is user-owned.
-- `admin.balance_and_eligibility`: Rewards, Cabbage Seed type/rarity/economics, repeatability and eligibility remain user-owned.
-- `production.run_and_readback`: Whether to run the hidden core manifest before launch finalization is user-owned.
-
-## Waiting on dependencies
-
-- `production.run_and_readback` - waiting on `review.manifest` (READY)
-- `launch.finalization` - waiting on `art.intake_accepted_assets` (BLOCKED), `art.scene_characters` (READY), `art.combat_avatars` (READY), `art.icons` (READY), `art.backgrounds` (READY), `admin.balance_and_eligibility` (READY), `review.manifest` (READY)
+- BLOCKER: Waiting for the director to execute the reviewed b080825c launch-final manifest while hidden and return the complete Forge result bundle with all three full after-captures.
 
 ## Completed, with evidence
 
@@ -99,6 +75,39 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 - path: `state/one_perfect_crop_combat_spec.md`
 
+### `art.intake_accepted_assets` - Accepted-art repository intake (SUPERSEDED)
+
+- decision: The broad legacy intake gate is superseded by the operative launch-final scope. The current narrowed art set is owned by the dedicated combat-avatar and scene-character tasks; the old quest-icon requirement remains out of launch scope.
+
+### `art.scene_characters` - Launch-final scene characters (COMPLETE)
+
+- path: `state/one_perfect_crop_launch_final_art.md`
+- path: `art/one_perfect_crop/one_perfect_crop_ittetsu_scene.webp`
+- path: `art/one_perfect_crop/one_perfect_crop_waystation_keeper_scene.webp`
+- sha: 6a4f439a77517b23935c17058c2ec644f280e91e - immutable launch-final three-file imagePack commit
+- approval: 2026-09-27 director clarification: use the already-made Ittetsu and Waystation Keeper scene art in launch-final.
+
+### `art.combat_avatars` - Launch-final combat avatars (COMPLETE)
+
+- path: `art/one_perfect_crop/one_perfect_crop_road_bandit_avatar.webp`
+- path: `state/one_perfect_crop_combat_avatars.md`
+- approval: 2026-09-26 director ruling: reuse the existing Wild Boar avatar for Harvest Boar; no separate Harvest Boar art is required.
+- sha: 6a4f439a77517b23935c17058c2ec644f280e91e - immutable launch-final imagePack commit containing Road Bandit plus restored accepted scene art
+
+### `art.icons` - Launch-final Cabbage Seed icon (SKIPPED)
+
+- decision: Cabbage Seed item/icon work is skipped for launch-final; no mechanical Cabbage Seed reward will be authored.
+
+### `art.backgrounds` - Launch-final scene wiring (COMPLETE)
+
+- path: `state/workstreams/one_perfect_crop/launch_final_patch.json`
+- decision: Launch finalization reuses only already-captured scene/background ids; no new background generation is required.
+
+### `admin.balance_and_eligibility` - Launch-final admin decisions (COMPLETE)
+
+- path: `state/one_perfect_crop_content_admin_open.md`
+- decision: Launch-final: no Ryo/XP/token rewards; no Cabbage Seed item/reward; maxAttempts 100; maxCompletes 1; retryDelay and attemptDelay unset; no eligibility gate.
+
 ### `build.final_freeze` - Hidden core-manifest build freeze (COMPLETE)
 
 - path: `state/prompt_one_perfect_crop.md`
@@ -112,8 +121,20 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 - validator: validate.py on push/47_one_perfect_crop_core_manifest.json: 0 errors, 2 warnings (AP-economy, ruled on by the combat spec); no skipPreflight; 3 creates, all hidden
 - validator: Forge 0.4.1 offline gate, forge/tools/check_manifest.mjs (real parseManifest + planOrder + pinned Validator): 3 planned items, both ai creates routed to the rules phase, 0 pre-send problems, exit 0. forge npm test 310 tests / 309 pass; the one failure is the release-loader marker test, already red at base a45b576 and untouched here
 - decision: Art, rewards, Cabbage Seed, repeatability and eligibility stay create-path placeholders; validate.py law 41 scoped to includeDefaultRules:false so the frozen three-rule profiles validate without skipPreflight
-- decision: SUPERSEDED: the five-item candidate af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f carried two standalone aiProfile creates, which Forge 0.4.1 refuses at parse time before job creation or mutation. Corrected in place to three items with the rules on their owning ai entries; approved combat content, rule order, jutsu ids and the quest payload are unchanged. The rev-1 independent PASS does not carry over and a narrow re-review is owed
-- sha: af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f
+- decision: SUPERSEDED: the five-item candidate af0efc6cb7657ea8bf95f6aae414ea2ff5391a2f carried two standalone aiProfile creates, which Forge 0.4.1 refused before job creation or mutation. Revision 2 moved the unchanged rule sets onto their owning ai creates; the corrected implementation at 6cce22e3fad0e08344cb2f3252bdf04909632983 passed the narrow independent re-review.
+- sha: 6cce22e3fad0e08344cb2f3252bdf04909632983 - final corrected revision-2 implementation reviewed PASS and used for the hidden run
+
+### `review.manifest` - Exact-SHA core-manifest review (COMPLETE)
+
+- path: `docs/reviews/ONE_PERFECT_CROP_CORE_MANIFEST_FORGE041_R2_REVIEW.md`
+- sha: 6cce22e3fad0e08344cb2f3252bdf04909632983 - exact corrected Fable implementation SHA reviewed PASS
+- sha: fba3e54c86bfdb681ca9bd9c3b884d2c475add4f - durable ChatGPT revision-2 review commit
+
+### `production.run_and_readback` - Optional hidden core run/readback (COMPLETE)
+
+- capture: `harvests/inbox/tnr_results_1789599042548.json`
+- path: `docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md`
+- decision: Do not rerun manifest #47 as a new create job; the hidden-core records already exist. Forge's AI drift flags are documented verifier false positives, not a request for a repair write.
 
 ## Task detail
 
@@ -229,7 +250,7 @@ Freeze both AI records and AiProfiles.
 
 ### `art.intake_accepted_assets` - Accepted-art repository intake
 
-**BLOCKED** - area art, owner dauntless, lead role Image Production
+**SUPERSEDED** - area art, owner dauntless, lead role Image Production
 
 Make accepted Ittetsu/Keeper/quest-icon bytes durable for launch finalization.
 
@@ -251,73 +272,86 @@ Make accepted Ittetsu/Keeper/quest-icon bytes durable for launch finalization.
 
 ### `art.scene_characters` - Launch-final scene characters
 
-**READY** - area art, owner ChatGPT, lead role Image Production
+**COMPLETE** - area art, owner ChatGPT, lead role Image Production
 
-Finish Road Bandit scene art and Market Clerk reuse.
+Finalize already-made accepted Ittetsu and Waystation Keeper scene assets plus existing Market Clerk reuse; keep Road Bandit scene art skipped.
 
 **Scope**
 
-- Launch-final scene characters.
+- Ittetsu SCENE_CHARACTER from the accepted existing design.
+- Waystation Keeper SCENE_CHARACTER from the accepted existing design.
+- Existing Market Clerk reuse.
+- Road Bandit scene character intentionally skipped/nonblocking.
 
 **Required resources**
 
-- `state/plan_one_perfect_crop_finish.md` - Scene-art intent.
+- `state/one_perfect_crop_launch_final_scope.md` - 2026-09-27 director clarification restoring already-made accepted scene art.
+- `state/one_perfect_crop_launch_final_art.md` - Exact source/derivative provenance and immutable pack ref.
+- `state/workstreams/one_perfect_crop/launch_final_patch.json` - Exact objective-to-scene-character wiring.
 
 **Deliverables**
 
-- Accepted scene-character set.
+- Repo-backed accepted Ittetsu and Waystation Keeper scene files.
+- Explicit Ittetsu/Keeper/Market Clerk launch-final wiring with no Road Bandit scene asset.
 
 **Completion gates**
 
-- User accepts final scene art.
+- Director-approved existing Ittetsu and Keeper designs are used without redesign.
+- Both repo-backed scene files are release-gated by SCENE_CHARACTER artpreflight.
+- Road Bandit scene character remains absent.
 
 ### `art.combat_avatars` - Launch-final combat avatars
 
-**READY** - area art, owner ChatGPT, lead role Image Production
+**COMPLETE** - area art, owner ChatGPT, lead role Image Production
 
-Finish Road Bandit and Harvest Boar avatars.
+Finalize the Road Bandit avatar and the director-approved existing Wild Boar avatar reuse for Harvest Boar.
 
 **Scope**
 
-- Launch-final AI avatars.
+- Repo-backed Road Bandit AI avatar.
+- Existing Wild Boar avatar reused directly for Harvest Boar.
 
 **Required resources**
 
-- `state/plan_one_perfect_crop_finish.md` - Avatar requirements.
+- `state/plan_one_perfect_crop_finish.md` - Avatar requirements and filenames.
+- `state/one_perfect_crop_launch_final_scope.md` - Director-narrowed accepted art scope.
+- `state/workstreams/one_perfect_crop/launch_final_patch.json` - Machine launch-final avatar names and target ids.
 
 **Deliverables**
 
-- Accepted AI avatars.
+- Accepted Road Bandit AI avatar committed and image-packable.
+- Director-approved Harvest Boar reuse value recorded without generating a new image.
 
 **Completion gates**
 
-- User accepts both avatars.
+- Road Bandit launch-final file satisfies the AI_AVATAR preflight/QC gate.
+- Director approval covers the Road Bandit avatar and Harvest Boar Wild Boar reuse.
 
 ### `art.icons` - Launch-final Cabbage Seed icon
 
-**READY** - area art, owner ChatGPT, lead role Image Production
+**SKIPPED** - area art, owner ChatGPT, lead role Image Production
 
-Finish the Cabbage Seed icon.
+Skipped by director: launch-final will not create a Cabbage Seed item or dedicated icon.
 
 **Scope**
 
-- Launch-final item icon.
+- No Cabbage Seed icon production.
 
 **Required resources**
 
-- `state/plan_one_perfect_crop_finish.md` - Icon requirement.
+- `state/plan_one_perfect_crop_finish.md` - Historical icon requirement, superseded by director skip.
 
 **Deliverables**
 
-- Accepted item icon.
+- No icon produced; task intentionally skipped by director decision.
 
 **Completion gates**
 
-- User accepts final icon.
+- Director skip decision is recorded in state/one_perfect_crop_content_admin_open.md.
 
 ### `art.backgrounds` - Launch-final scene wiring
 
-**READY** - area art, owner ChatGPT, lead role Art Director
+**COMPLETE** - area art, owner ChatGPT, lead role Art Director
 
 Finish explicit launch-final background wiring.
 
@@ -327,7 +361,8 @@ Finish explicit launch-final background wiring.
 
 **Required resources**
 
-- `state/one_perfect_crop_prose_graph.md` - Dialog nodes.
+- `state/one_perfect_crop_prose_graph.md` - Frozen dialog scene-family requirements.
+- `state/workstreams/one_perfect_crop/launch_final_patch.json` - Final non-generative background/scene reuse mapping.
 
 **Deliverables**
 
@@ -339,21 +374,21 @@ Finish explicit launch-final background wiring.
 
 ### `admin.balance_and_eligibility` - Launch-final admin decisions
 
-**READY** - area admin, owner dauntless, lead role Content Designer
+**COMPLETE** - area admin, owner dauntless, lead role Content Designer
 
-Resolve rewards, Cabbage Seed economics, repeatability and eligibility for launch.
+Record the director-approved launch-final reward, repeatability and eligibility decisions.
 
 **Scope**
 
-- Deferred launch-final admin values.
+- No reward package; no Cabbage Seed item; maxAttempts 100; maxCompletes 1; no cooldown; no eligibility gate.
 
 **Required resources**
 
-- `state/one_perfect_crop_content_admin_open.md` - Open admin packet.
+- `state/one_perfect_crop_content_admin_open.md` - Resolved launch-final admin contract.
 
 **Deliverables**
 
-- Exact user-approved launch values.
+- Exact director-approved launch-final admin values.
 
 **Completion gates**
 
@@ -390,7 +425,7 @@ Build the validator-clean hidden core manifest.
 
 **Scope**
 
-- Create two AIs, two profiles and the quest; no assets/items/jutsu.
+- Create two AIs carrying their rules plus the quest; no assets/items/jutsu.
 
 **Required resources**
 
@@ -407,7 +442,7 @@ Build the validator-clean hidden core manifest.
 
 ### `review.manifest` - Exact-SHA core-manifest review
 
-**READY** - area review, owner ChatGPT, lead role Engineering Auditor
+**COMPLETE** - area review, owner ChatGPT, lead role Engineering Auditor
 
 Independently audit the frozen Fable SHA.
 
@@ -429,7 +464,7 @@ Independently audit the frozen Fable SHA.
 
 ### `production.run_and_readback` - Optional hidden core run/readback
 
-**PLANNED** - area production, owner dauntless, lead role Release Auditor
+**COMPLETE** - area production, owner dauntless, lead role Release Auditor
 
 Optionally execute only the reviewed hidden core manifest and verify fresh readback.
 
@@ -443,30 +478,47 @@ Optionally execute only the reviewed hidden core manifest and verify fresh readb
 
 **Deliverables**
 
-- Result/readback evidence if run.
+- Committed hidden-core Forge result/readback evidence and durable closeout analysis.
 
 **Completion gates**
 
-- Only user acts live and all records remain hidden.
+- User alone performed the live run; created records were read back and the hidden-core result was durably classified.
 
 ### `launch.finalization` - Launch-final art/admin patch and readiness
 
-**PLANNED** - area production, owner shared, lead role Release Auditor
+**BLOCKED** - area production, owner shared, lead role Release Auditor
 
-Replace placeholders and add final rewards/item/gates before publish.
+Await the director-only hidden execution of the independently approved launch-final manifest, then perform full after-readback closeout before any publish decision.
 
 **Scope**
 
-- Final art/admin patch and hidden readback.
+- Two hidden SCENE_CHARACTER creates for already-made accepted Ittetsu/Keeper art.
+- Road Bandit avatar edit and Harvest Boar Wild Boar-avatar reuse.
+- Final Ittetsu/Keeper/Market Clerk/background scene wiring.
+- Queued G1/G4 prose edits; maxAttempts 100; maxCompletes 1; no cooldown; no rewards/item/eligibility gate.
 
 **Required resources**
 
-- `state/one_perfect_crop_core_manifest_override.md` - Defines deferred work.
+- `state/one_perfect_crop_launch_final_scope.md` - Operative 2026-09-24 director scope.
+- `state/workstreams/one_perfect_crop/launch_final_patch.json` - Machine closeout patch and scene wiring.
+- `state/one_perfect_crop_launch_final_prose_patch.md` - Approved G1/G4 prose direction.
+- `docs/reviews/ONE_PERFECT_CROP_HIDDEN_CORE_READBACK.md` - Existing hidden target ids and clean quest baseline.
+- `state/one_perfect_crop_content_admin_open.md` - Resolved no-reward/repeatability/eligibility contract.
+- `push/54_one_perfect_crop_launch_final.gen.py` - Fail-closed EDIT/CLOSEOUT manifest generator.
+- `state/one_perfect_crop_launch_final_art.md` - Restored accepted scene-art provenance and immutable pack.
+- `docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R1_REVIEW.md` - Round-1 BLOCKED review, F1/F2 root cause and correction evidence.
+- `docs/reviews/ONE_PERFECT_CROP_LAUNCH_FINAL_R2_REVIEW.md` - Round-2 PASS review authorizing hidden execution of exact SHA b080825c.
 
 **Deliverables**
 
-- Reviewed launch-final patch and clean hidden readback.
+- Independently approved hidden launch-final manifest at b080825c46cdaf33c78f163821ddd3394fcfafd4.
+- Complete user-run Forge result bundle with full Road Bandit AI, Harvest Boar AI, and One Perfect Crop quest after-captures.
+- Durable launch-final closeout review before any publish/unhide decision.
 
 **Completion gates**
 
-- All deferred work is closed before any publish decision.
+- User executes only the reviewed push/54 manifest while all affected content remains hidden.
+- No retry/repair/live follow-up occurs on an unexpected Forge result before closeout review.
+- Full after-captures exist for both AI records and the quest.
+- Closeout review confirms avatars, scene assets/wiring, prose/admin, graph and hidden state match the reviewed manifest.
+- Publish/unhide remains a separate director-owned action after closeout.

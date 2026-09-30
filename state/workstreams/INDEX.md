@@ -6,23 +6,16 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |
-| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 7/16 settled - planned 2, ready 6, blocked 1, complete 7 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
+| One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 14/16 settled - blocked 1, complete 13, skipped 1, superseded 1 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
 
 ## One Perfect Crop
 
 `state/workstreams/one_perfect_crop/roadmap.json`
 
-**Executable now**
-
-- `art.scene_characters` (READY) - Launch-final scene characters
-- `art.combat_avatars` (READY) - Launch-final combat avatars
-- `art.icons` (READY) - Launch-final Cabbage Seed icon
-- `art.backgrounds` (READY) - Launch-final scene wiring
-- `admin.balance_and_eligibility` (READY) - Launch-final admin decisions
-- `review.manifest` (READY) - Exact-SHA core-manifest review
+**Executable now:** none.
 
 **Blocked**
 
-- `art.intake_accepted_assets` - Exact accepted bytes are not durable in the repository; this blocks launch finalization only.
+- `launch.finalization` - Waiting for the director to execute the reviewed b080825c launch-final manifest while hidden and return the complete Forge result bundle with all three full after-captures.
 
 Start a session: `python3 scripts/content_workstream.py init one_perfect_crop --task <id>`
