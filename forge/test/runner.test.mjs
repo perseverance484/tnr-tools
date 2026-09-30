@@ -69,7 +69,9 @@ test("planOrder: an item referencing @ai:boss is moved after the boss create; un
 });
 
 test("OPC launch-final planner and re-attach order stay invariant as scene idmap fills", () => {
-  const text = readFileSync(new URL("../../push/54_one_perfect_crop_launch_final.json", import.meta.url), "utf8");
+  // push/54 is spent and was archived byte-identical (blob cb9da51) at 418874a; the archive is its
+  // durable home, so this pin cannot break the next time push/ is cleared.
+  const text = readFileSync(new URL("../../archive/spent-manifests/push-2026-09-28/54_one_perfect_crop_launch_final.json", import.meta.url), "utf8");
   const parsed = parseManifest(text);
   assert.equal(parsed.dedupNames, true, "the two scene creates must be name-deduped before any placeholder is sent");
   assert.equal(parsed.items.find((it) => it.entity === "quest")?.phase, 6, "quest must stay in a later planner phase");
