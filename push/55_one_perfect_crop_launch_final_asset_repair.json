@@ -1,0 +1,64 @@
+{
+  "_note": "One Perfect Crop launch-final repair: edit only the two existing hidden SCENE_CHARACTER placeholder rows created by spent push/54. Reuse the already-uploaded exact image URLs from the committed result bundle. No AI write, no quest write, no create, no image upload, no publish/unhide.",
+  "items": [
+    {
+      "name": "One Perfect Crop - repair Ittetsu scene asset",
+      "entity": "asset",
+      "slot": "edit",
+      "targetId": "qFJk06nwwy0B9o2qZ1oZE",
+      "data": {
+        "name": "OnePerfectCrop Scene - Ittetsu",
+        "type": "SCENE_CHARACTER",
+        "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJqpGORkWdkOZgJQ8mGRcdx3SsWvPelyYFTt5V",
+        "folder": "OnePerfectCrop",
+        "frames": 1,
+        "speed": 1,
+        "hidden": true,
+        "onInitialBattleField": false,
+        "licenseDetails": "TNR"
+      }
+    },
+    {
+      "name": "One Perfect Crop - repair Waystation Keeper scene asset",
+      "entity": "asset",
+      "slot": "edit",
+      "targetId": "qiFtWf9G91kt4spFRA1VF",
+      "data": {
+        "name": "OnePerfectCrop Scene - Waystation Keeper",
+        "type": "SCENE_CHARACTER",
+        "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJHM8ObaQvYURJhgs76VZtf9wxpMa13Cq0iOnr",
+        "folder": "OnePerfectCrop",
+        "frames": 1,
+        "speed": 1,
+        "hidden": true,
+        "onInitialBattleField": false,
+        "licenseDetails": "TNR"
+      }
+    }
+  ],
+  "capture": {
+    "after": [
+      {
+        "proc": "gameAsset.get",
+        "input": {
+          "id": "qFJk06nwwy0B9o2qZ1oZE"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "gameAsset.get",
+        "input": {
+          "id": "qiFtWf9G91kt4spFRA1VF"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "quests.get",
+        "input": {
+          "id": "CZIZoHDAOWjxDtVaQwr6V"
+        },
+        "persist": "full"
+      }
+    ]
+  }
+}
