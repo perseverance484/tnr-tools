@@ -1,5 +1,5 @@
 {
-  "_note": "READ-ONLY Ghost Ship retheme dependency capture, phase 2. Zero mutations. IDs are derived from the successful root capture harvests/inbox/tnr_results_1790826101573.json, with Ghostly Sovereign's Diadem added by explicit user direction as the assembled reward built from Fragment of the White Crown. Captures all 11 AIs directly used by the two Ghost Ship quest graphs, AI relation reads to detect reuse elsewhere, all 10 directly wired Ghost Ship scene assets, the four nonstandard direct reward items plus item relations, and the assembled crown item plus relations. Standard hunter/gatherer profession chests are intentionally excluded. Phase 3 must derive ai.getAiProfile, jutsu.get, equipped item dependencies, and jutsu/item relations from these captured AI records; do not infer from catalog names.",
+  "_note": "READ-ONLY Ghost Ship retheme dependency capture, phase 2. Zero mutations. IDs are derived from the successful root capture harvests/inbox/tnr_results_1790826101573.json, with Ghostly Sovereign's Diadem added by explicit user direction as the assembled reward built from Fragment of the White Crown. Full persistence is used only for Forge-audited content-record point reads. AI/item relation queries run in summary mode because Forge intentionally forbids durable full persistence for relation/list queries; their row counts are advisory reuse signals, not complete relation evidence. Captures all 11 AIs directly used by the two Ghost Ship quest graphs, all 10 directly wired Ghost Ship scene assets, the four nonstandard direct reward items, the assembled crown item, and summary relation checks. Standard hunter/gatherer profession chests are intentionally excluded. Phase 3 must derive ai.getAiProfile, jutsu.get, equipped item dependencies, and jutsu/item relations from captured AI records; do not infer from catalog names.",
   "capture": {
     "before": [],
     "after": [
@@ -15,7 +15,7 @@
         "input": {
           "aiId": "texZaFi42S3EvJZBwQ8cd"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "profile.getAi",
@@ -29,7 +29,7 @@
         "input": {
           "aiId": "wTgO-Q32caSSd0is1QIS7"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "profile.getAi",
@@ -43,7 +43,7 @@
         "input": {
           "aiId": "frc9LTxqQlM7mncG4VZGK"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "profile.getAi",
@@ -57,7 +57,7 @@
         "input": {
           "aiId": "AQi-bHJ-5tHXtxrnc0P9E"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "profile.getAi",
@@ -71,7 +71,7 @@
         "input": {
           "aiId": "0PZU_FvlbM3ErYGlD5r56"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "profile.getAi",
@@ -85,7 +85,7 @@
         "input": {
           "aiId": "v7T9_XdGMfP46em0dPuBc"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "profile.getAi",
@@ -99,7 +99,7 @@
         "input": {
           "aiId": "2OXJEXoktxJcjqMkE851g"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "profile.getAi",
@@ -113,7 +113,7 @@
         "input": {
           "aiId": "3V_gdHYaclMB1gTyOPAbV"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "profile.getAi",
@@ -127,7 +127,7 @@
         "input": {
           "aiId": "d6g0mOM7RBSsYI1hrUVT9"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "profile.getAi",
@@ -141,7 +141,7 @@
         "input": {
           "aiId": "QY69h271Nx9uHrBeR6jwW"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "profile.getAi",
@@ -155,7 +155,7 @@
         "input": {
           "aiId": "fDU9jCPZtH7YHbdQPO9RF"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "gameAsset.get",
@@ -239,7 +239,7 @@
         "input": {
           "itemId": "c5dUPtXmCedfKssqiwbpt"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "item.get",
@@ -253,7 +253,7 @@
         "input": {
           "itemId": "ONMLl57L7o0MivjhySHMA"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "item.get",
@@ -267,7 +267,7 @@
         "input": {
           "itemId": "XhilCv1Hq4eNt-Wddok-m"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "item.get",
@@ -281,7 +281,7 @@
         "input": {
           "itemId": "ayiRmSjWs05lMPyL3G-1d"
         },
-        "persist": "full"
+        "persist": "summary"
       },
       {
         "proc": "item.get",
@@ -295,7 +295,7 @@
         "input": {
           "itemId": "LnRVMzyVmVwgaKvTH52Zy"
         },
-        "persist": "full"
+        "persist": "summary"
       }
     ]
   },
