@@ -1,5 +1,5 @@
 {
-  "_note": "READ-ONLY Ghost Ship retheme dependency capture, phase 2. Zero mutations. IDs are derived only from the successful root capture harvests/inbox/tnr_results_1790826101573.json. Captures all 11 AIs directly used by the two Ghost Ship quest graphs, AI relation reads to detect reuse elsewhere, all 10 directly wired Ghost Ship scene assets, and the four nonstandard reward items plus item relations. Standard hunter/gatherer profession chests are intentionally excluded. Phase 3 must derive ai.getAiProfile, jutsu.get, equipped item dependencies, and jutsu/item relations from these captured AI records; do not infer from catalog names.",
+  "_note": "READ-ONLY Ghost Ship retheme dependency capture, phase 2. Zero mutations. IDs are derived from the successful root capture harvests/inbox/tnr_results_1790826101573.json, with Ghostly Sovereign's Diadem added by explicit user direction as the assembled reward built from Fragment of the White Crown. Captures all 11 AIs directly used by the two Ghost Ship quest graphs, AI relation reads to detect reuse elsewhere, all 10 directly wired Ghost Ship scene assets, the four nonstandard direct reward items plus item relations, and the assembled crown item plus relations. Standard hunter/gatherer profession chests are intentionally excluded. Phase 3 must derive ai.getAiProfile, jutsu.get, equipped item dependencies, and jutsu/item relations from these captured AI records; do not infer from catalog names.",
   "capture": {
     "before": [],
     "after": [
@@ -280,6 +280,20 @@
         "proc": "item.getItemRelations",
         "input": {
           "itemId": "ayiRmSjWs05lMPyL3G-1d"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.get",
+        "input": {
+          "id": "LnRVMzyVmVwgaKvTH52Zy"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.getItemRelations",
+        "input": {
+          "itemId": "LnRVMzyVmVwgaKvTH52Zy"
         },
         "persist": "full"
       }
