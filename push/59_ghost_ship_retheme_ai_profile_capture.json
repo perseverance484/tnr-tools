@@ -1,5 +1,5 @@
 {
-  "_note": "READ-ONLY Ghost Ship retheme combat closure, phase 3. Zero mutations. The 11 AI profile ids are derived directly from the successful profile.getAi records in harvests/inbox/tnr_results_1790826836406.json. Phase 2 already embeds the full equipped jutsu and item bodies for these AIs, so redundant jutsu.get/item.get reads are intentionally omitted. This capture closes only the AI behavior-rule baseline needed to preserve combat behavior during the retheme.",
+  "_note": "READ-ONLY Ghost Ship retheme combat/reward closure, phase 3. Zero mutations. The 11 AI profile ids are derived directly from the successful profile.getAi records in harvests/inbox/tnr_results_1790826836406.json. Phase 2 already embeds the full equipped jutsu and item bodies for these AIs, so redundant jutsu.get/item.get reads are intentionally omitted except for The White Crown (yTS9TSpr_QLnh_3zmEpGg), which is added explicitly after user clarification as the intended assembled reward for Fragment of the White Crown. Ghostly Sovereign's Diadem is treated as legacy live-state debris, not the intended reward progression. This capture closes the AI behavior-rule baseline plus the correct White Crown item record needed for the retheme.",
   "capture": {
     "before": [],
     "after": [
@@ -77,6 +77,13 @@
         "proc": "ai.getAiProfile",
         "input": {
           "id": "6G3McyVvLGIY1e4_sfTvU"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.get",
+        "input": {
+          "id": "yTS9TSpr_QLnh_3zmEpGg"
         },
         "persist": "full"
       }
