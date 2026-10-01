@@ -6,7 +6,7 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |
-| Ghost Ship / Skyglass Art | `ghost_ship_art` | event art | ACTIVE | 1/5 settled - planned 2, in_progress 1, blocked 1, complete 1 | [`ROADMAP.md`](ghost_ship_art/ROADMAP.md) |
+| Ghost Ship / Skyglass Art | `ghost_ship_art` | event art | ACTIVE | 1/6 settled - planned 2, in_progress 1, blocked 2, complete 1 | [`ROADMAP.md`](ghost_ship_art/ROADMAP.md) |
 | One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 14/16 settled - blocked 1, complete 13, skipped 1, superseded 1 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
 
 ## Ghost Ship / Skyglass Art
@@ -15,10 +15,11 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 **Executable now**
 
-- `art.prototype` (IN_PROGRESS) - Deck Warden avatar prototype
+- `design.engineering` (IN_PROGRESS) - Skyship and Skyglass engineering design
 
 **Blocked**
 
+- `art.prototype` - Final spectral treatment and replacement asset require visual review.
 - `art.avatars` - Replacement whole-echo prototype must establish the current visual language before remaining avatars resume.
 
 Start a session: `python3 scripts/content_workstream.py init ghost_ship_art --task <id>`

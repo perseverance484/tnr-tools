@@ -393,3 +393,15 @@ Existing audited content-record point reads already approved for full persistenc
 **Ruling:** dauntless requests a Skyglass-powered skyship visualization, taking broad inspiration from the crystal power system of Terry Brooks's skyships while retaining the approved TNR vessel. Narrative should fit the existing structure and roles with little individual backstory; no years-of-handwriting investigations or elaborate memory subplots. A clone/echo crew and malfunctioning curse seal are the user's favored options, not yet a final ruling that the original crew died.
 
 **Canonical destination:** `state/ghost_ship_skyglass_mechanism.md` recommends lost originals and complete chakra echoes formed by damaged preservation seals. The exterior study is a user-requested single-asset exception to the current avatar order; it requires visual review and does not replace the locked ship icon. No new quest branch, external release-key requirement or combat mechanic is authorized by this direction.
+
+## RUL-2026-10-01-008 — Engineer the skyship before further generation
+
+**Date:** 2026-10-01
+**Domain:** Ghost Ship / physical design and production order
+**Status:** ACTIVE WORK DIRECTION; engineering solutions remain proposed
+
+**Ruling:** dauntless calls the exterior a decent start and requests a deliberate engineering pass before more generator-led design. Define the physical Skyglass, its power system and the ship around it. The original classified military project had an unstable chakra Core, cloaking capability and the ability to call emergency copies of its crew; the ship was thought destroyed but continues operating years later. Terry Brooks's airships are an explicit analytical inspiration.
+
+**Clarification:** earlier suggestions about slipping out of time/reality did not select a precise temporal or spatial mechanism. RUL-006 must not be read as approval of the assistant's later refuge-space theory. The current proposal recommends physical concealment and a finite recharge cycle; that recommendation is not a user ruling.
+
+**Canonical destination:** `state/ghost_ship_skyship_engineering.md` and its two engineering sheets. Further Core/ship/character production waits on this design review. Exact dimensions, light-fed power conversion, hardware layout, failure sequence and original crew death remain proposals. Keep the locked icon as the existing visual reference; new construction details are not silently locked by prior pixels. Quest structure, shared kits, names and rewards remain unchanged.

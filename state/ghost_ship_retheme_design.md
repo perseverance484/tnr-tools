@@ -11,6 +11,8 @@
 
 ## Objective
 
+**Engineering-first follow-up (RUL-2026-10-01-008):** read `state/ghost_ship_skyship_engineering.md` before further art. It proposes the physical Core, energy source, ship arrangement and a damaged-cloak recharge cycle. This would replace the unapproved refuge-space mechanism; dimensions and material details are not yet canon. The original craft's cloaking and emergency-copy capabilities are user-fixed. The earlier exterior study is not an engineering lock.
+
 Retheme the two live Ghost Ship profession quests away from literal ghost pirates and toward a TNR-native lost-shinobi-warship legend, while preserving the existing 57-node adventure graph, profession reward structure, combat tuning and AI behavior.
 
 The Ghost Ship remains the public name because the vessel should not exist. It vanished decades ago and periodically reappears where no ship belongs, held aloft by a chakra-reactive crystal core and a hull-wide seal network.

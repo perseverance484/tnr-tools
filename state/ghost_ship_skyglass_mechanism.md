@@ -4,6 +4,8 @@
 **Baseline:** live main `df17803a9c4222025dba7e68c1919a372835fcd6`.
 **Owners:** Content Designer / Art Director; Fable implements after an approved freeze.
 
+**Engineering follow-up:** `state/ghost_ship_skyship_engineering.md` now owns the detailed proposed hardware and operating explanation. It recommends physical cloaking and a finite light-fed power cycle, replacing this brief's unapproved refuge-space mechanism. This file remains comparative-research background. Further production art waits on engineering review.
+
 ## Recommendation
 
 The original crew perished in the Skyglass incident. Their chakra impressions survived in the ship's preservation seals. Whenever the unstable vessel materializes, those seals form complete chakra echoes to man it. The echoes have their originals' identities, skills and habitual duties, but little reliable memory between appearances.
