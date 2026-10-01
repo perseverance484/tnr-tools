@@ -1,0 +1,289 @@
+{
+  "_note": "READ-ONLY Ghost Ship retheme dependency capture, phase 2. Zero mutations. IDs are derived only from the successful root capture harvests/inbox/tnr_results_1790826101573.json. Captures all 11 AIs directly used by the two Ghost Ship quest graphs, AI relation reads to detect reuse elsewhere, all 10 directly wired Ghost Ship scene assets, and the four nonstandard reward items plus item relations. Standard hunter/gatherer profession chests are intentionally excluded. Phase 3 must derive ai.getAiProfile, jutsu.get, equipped item dependencies, and jutsu/item relations from these captured AI records; do not infer from catalog names.",
+  "capture": {
+    "before": [],
+    "after": [
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "texZaFi42S3EvJZBwQ8cd"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiRelations",
+        "input": {
+          "aiId": "texZaFi42S3EvJZBwQ8cd"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "wTgO-Q32caSSd0is1QIS7"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiRelations",
+        "input": {
+          "aiId": "wTgO-Q32caSSd0is1QIS7"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "frc9LTxqQlM7mncG4VZGK"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiRelations",
+        "input": {
+          "aiId": "frc9LTxqQlM7mncG4VZGK"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "AQi-bHJ-5tHXtxrnc0P9E"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiRelations",
+        "input": {
+          "aiId": "AQi-bHJ-5tHXtxrnc0P9E"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "0PZU_FvlbM3ErYGlD5r56"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiRelations",
+        "input": {
+          "aiId": "0PZU_FvlbM3ErYGlD5r56"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "v7T9_XdGMfP46em0dPuBc"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiRelations",
+        "input": {
+          "aiId": "v7T9_XdGMfP46em0dPuBc"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "2OXJEXoktxJcjqMkE851g"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiRelations",
+        "input": {
+          "aiId": "2OXJEXoktxJcjqMkE851g"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "3V_gdHYaclMB1gTyOPAbV"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiRelations",
+        "input": {
+          "aiId": "3V_gdHYaclMB1gTyOPAbV"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "d6g0mOM7RBSsYI1hrUVT9"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiRelations",
+        "input": {
+          "aiId": "d6g0mOM7RBSsYI1hrUVT9"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "QY69h271Nx9uHrBeR6jwW"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiRelations",
+        "input": {
+          "aiId": "QY69h271Nx9uHrBeR6jwW"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "fDU9jCPZtH7YHbdQPO9RF"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiRelations",
+        "input": {
+          "aiId": "fDU9jCPZtH7YHbdQPO9RF"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "gameAsset.get",
+        "input": {
+          "id": "U2pjcM1_N-HdVf928Sn5z"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "gameAsset.get",
+        "input": {
+          "id": "1YXbXYW2wz3GETVMb6DT6"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "gameAsset.get",
+        "input": {
+          "id": "dFwyPzyhUZQjDBXpJRUDJ"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "gameAsset.get",
+        "input": {
+          "id": "6iwMYC8WTCGJTf2QIYfBz"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "gameAsset.get",
+        "input": {
+          "id": "ApkLYWJ3AFe8oyqQwk_8z"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "gameAsset.get",
+        "input": {
+          "id": "yufttCkG-KsefHKuz9Q2a"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "gameAsset.get",
+        "input": {
+          "id": "-eB0frmTJss6Uco6ZoM07"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "gameAsset.get",
+        "input": {
+          "id": "rX78pJPETsUL2JrsSvGHn"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "gameAsset.get",
+        "input": {
+          "id": "xm3F2YXkNPeLWHRAUnbmF"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "gameAsset.get",
+        "input": {
+          "id": "4Cu4EBaWRsGm5J_Ld1hTt"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.get",
+        "input": {
+          "id": "c5dUPtXmCedfKssqiwbpt"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.getItemRelations",
+        "input": {
+          "itemId": "c5dUPtXmCedfKssqiwbpt"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.get",
+        "input": {
+          "id": "ONMLl57L7o0MivjhySHMA"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.getItemRelations",
+        "input": {
+          "itemId": "ONMLl57L7o0MivjhySHMA"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.get",
+        "input": {
+          "id": "XhilCv1Hq4eNt-Wddok-m"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.getItemRelations",
+        "input": {
+          "itemId": "XhilCv1Hq4eNt-Wddok-m"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.get",
+        "input": {
+          "id": "ayiRmSjWs05lMPyL3G-1d"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.getItemRelations",
+        "input": {
+          "itemId": "ayiRmSjWs05lMPyL3G-1d"
+        },
+        "persist": "full"
+      }
+    ]
+  },
+  "items": []
+}
