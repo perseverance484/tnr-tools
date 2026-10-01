@@ -1,7 +1,7 @@
 {
   "schema": "tnr.ghost_ship_retheme_patch",
   "version": 1,
-  "status": "DRAFT_FOR_DIRECTOR_REVIEW",
+  "status": "APPROVED_DESIGN",
   "evidence": {
     "root": "harvests/inbox/tnr_results_1790826101573.json",
     "dependencies": "harvests/inbox/tnr_results_1790826836406.json",
@@ -11,8 +11,10 @@
     "Preserve both live quest ids, all objective ids, objective tasks, graph edges, battle opponents, scaling, coordinates, profession-specific reward chests, AI stats, jutsu mechanics, and AI profile rule logic unless explicitly changed below.",
     "Drowned Fleet is out of scope.",
     "Player-facing prose must contain no em dash or en dash.",
-    "Generic/shared jutsu keep their current names and records.",
-    "Top-level quest sceneBackground must be set deliberately during implementation rather than preserving the current empty string."
+    "Top-level quest sceneBackground must be set deliberately during implementation rather than preserving the current empty string.",
+    "Ghost Ship combatants migrate to the shared AI pool according to state/ghost_ship_shared_pool_migration.json; the previous 29-jutsu rename plan is superseded.",
+    "Legacy-only Ghost Ship jutsu are unequipped but not deleted in this pass. Deletion requires a later dependency audit.",
+    "The Skyglass Crown and Fragment of the Skyglass Crown keep their current live item ids and mechanics; this pass renames/rethemes those records rather than replacing them."
   ],
   "quests": {
     "6Ri-W5TtUrEMWpyYlnf_F": {
@@ -278,7 +280,7 @@
       ]
     },
     "b_kingE": {
-      "description": "The White Crown completes itself. Every seal on the Ghost Ship answers at once as the Crowned Captain steps down."
+      "description": "The Skyglass Crown completes itself. Every seal on the Ghost Ship answers at once as the Crowned Captain steps down."
     },
     "r_king_oath": {
       "description": "The Crowned Captain breaks your guard and the helm flashes white. The oath remains recorded. When you return to the dais, he is waiting at full synchronization."
@@ -293,7 +295,104 @@
       "description": "You defeat the Ghost Ship's most complete memory of its Captain. The vessel slips out of the world again, still following a mission no living shinobi remembers."
     }
   },
-  "jutsuRetheme": [
+  "itemChanges": {
+    "XhilCv1Hq4eNt-Wddok-m": {
+      "currentName": "Dead Man's Draught",
+      "proposedName": "Stillwater Tonic",
+      "description": "A concentrated restorative sealed for long-duration chakra operations aboard the Ghost Ship. One dose restores the body as quickly as it drains the bottle.",
+      "battleDescription": "%user drains the Stillwater Tonic in one measure."
+    },
+    "ayiRmSjWs05lMPyL3G-1d": {
+      "currentName": "Fragment of the White Crown",
+      "name": "Fragment of the Skyglass Crown",
+      "description": "A shard of the Skyglass Crown, threaded with dormant command seals. Five fragments resonate as if remembering a single shape.",
+      "battleDescription": "The fragment glimmers with pale Skyglass light."
+    },
+    "yTS9TSpr_QLnh_3zmEpGg": {
+      "currentName": "The White Crown",
+      "name": "The Skyglass Crown",
+      "description": "Five fragments restored into the command crown of the Skyglass Project. Its sealwork still answers a vessel that no longer exists anywhere it should.",
+      "battleDescription": "The Skyglass Crown kindles with pale seal-light upon %user's brow."
+    }
+  },
+  "legacyCleanup": {
+    "itemId": "LnRVMzyVmVwgaKvTH52Zy",
+    "name": "Ghostly Sovereign's Diadem",
+    "action": "Remove from Crowned Captain AI attachments. Do not repurpose it as the Skyglass Crown and do not expose it as loot. Leave the standalone hidden legacy item record otherwise untouched unless separately approved."
+  },
+  "lootCorrections": {
+    "QY69h271Nx9uHrBeR6jwW": {
+      "h-V9uiuxbL7lAWkO6nZWt": 0,
+      "MskL9ctwDbnkfmSK8j0-X": 0
+    },
+    "fDU9jCPZtH7YHbdQPO9RF": {
+      "ayiRmSjWs05lMPyL3G-1d": 20,
+      "h-V9uiuxbL7lAWkO6nZWt": 0,
+      "MskL9ctwDbnkfmSK8j0-X": 0
+    }
+  },
+  "questRewardCorrection": {
+    "node": "w_Co",
+    "removeItemId": "ayiRmSjWs05lMPyL3G-1d",
+    "reason": "Fragment of the Skyglass Crown is exclusively a 20% Crowned Captain AI drop; remove the existing 10% quest-completion roll from both Gather and Hunt."
+  },
+  "sceneAssetRenames": {
+    "U2pjcM1_N-HdVf928Sn5z": "Ghost Ship Deck",
+    "dFwyPzyhUZQjDBXpJRUDJ": "Ghost Ship Lower Hull",
+    "6iwMYC8WTCGJTf2QIYfBz": "Oathkeeper Portrait",
+    "ApkLYWJ3AFe8oyqQwk_8z": "Ghost Ship Chart Room",
+    "yufttCkG-KsefHKuz9Q2a": "Ghost Ship Hold",
+    "-eB0frmTJss6Uco6ZoM07": "Ghost Ship Helm",
+    "rX78pJPETsUL2JrsSvGHn": "Ghost Ship Cache Site",
+    "xm3F2YXkNPeLWHRAUnbmF": "Captain Portrait",
+    "4Cu4EBaWRsGm5J_Ld1hTt": "Crowned Captain Portrait"
+  },
+  "storyCanon": {
+    "publicLegend": "The Ghost Ship is called a ghost because it should not exist. Official records say the experimental warship was destroyed decades ago, yet it periodically materializes in the sky with no visible approach and vanishes again just as suddenly.",
+    "project": "The vessel was a forbidden shinobi engineering project built around a chakra-reactive Skyglass Core. A hull-wide seal lattice let it ignore terrain, remain airborne and strike from directions conventional defenses could not cover.",
+    "crewFate": "The Core was ordered to preserve command continuity and crew function through catastrophic damage. When the vessel was lost, the emergency lattice preserved chakra impressions instead of living bodies. The ship now reconstructs its crew as afterimages from stored patterns.",
+    "tragedy": "The afterimages do not age because they are not biologically living. They can remember food, warmth, sleep, shore leave and ordinary life, but the ship continually rebuilds them for duty rather than letting them live those experiences. Some follow routine without understanding it; higher-fidelity impressions know exactly how much time has passed.",
+    "menace": "The ship was feared because it could cross walls and mountains, appear above defended territory, and replace fallen crew from stored chakra patterns. Destroying a defender did not necessarily remove it from the next manifestation.",
+    "recurrence": "Damage to the Skyglass emergency lattice leaves the vessel slipping in and out of stable space. It reappears along fragments of old routes when the Core accumulates enough chakra to reconstruct the ship and crew again.",
+    "captain": "The Captain's normal reconstruction is highly stable but incomplete. The oathbound route causes the Core to rebuild the highest-fidelity command imprint through the Skyglass Crown, producing the Crowned Captain, who remembers the final project orders and understands what the crew became.",
+    "crown": "The Skyglass Crown was the Captain's command interface with the Skyglass Core. Its fragments retain the crown's seal pattern, which is why five fragments can be restored into the complete item."
+  },
+  "narrativeReveal": [
+    {
+      "stage": "arrival",
+      "reveal": "The ship materializes with no approach and is visibly held aloft by seal engineering."
+    },
+    {
+      "stage": "gangplank",
+      "reveal": "The Deck Warden is physically young but wears a uniform generations out of date."
+    },
+    {
+      "stage": "lower_hull",
+      "reveal": "The Core can reconstruct bodies incorrectly, producing the Core Horror from hull material and a damaged crew pattern."
+    },
+    {
+      "stage": "parley",
+      "reveal": "The Oathkeeper knows time has passed and distinguishes the living from the crew."
+    },
+    {
+      "stage": "wayfinder",
+      "reveal": "Charts contain decades of corrections, proving the ship has continued traveling after its supposed destruction."
+    },
+    {
+      "stage": "hold",
+      "reveal": "Rations and medicine remain untouched while the Arsenal Keeper has counted them for decades."
+    },
+    {
+      "stage": "captain",
+      "reveal": "The ship survived its destruction because Skyglass interpreted preservation orders literally."
+    },
+    {
+      "stage": "crowned_captain",
+      "reveal": "The original mission never reached a termination state, so the Core continues rebuilding vessel, command and crew."
+    }
+  ],
+  "sharedPoolMigration": "state/ghost_ship_shared_pool_migration.json",
+  "supersededJutsuRetheme": [
     {
       "id": "5c9EgF3dOsx9kelnQMfw5",
       "name": "Knotted Lash",
@@ -467,102 +566,6 @@
       "name": "Final Fathom",
       "description": "The Crowned Captain binds the target to the ship's deepest command seal.",
       "battleDescription": "%user locks %target beneath the Final Fathom, binding body and chakra under the ship's command."
-    }
-  ],
-  "itemChanges": {
-    "XhilCv1Hq4eNt-Wddok-m": {
-      "currentName": "Dead Man's Draught",
-      "proposedName": "Stillwater Tonic",
-      "description": "A concentrated restorative sealed for long-duration chakra operations aboard the Ghost Ship. One dose restores the body as quickly as it drains the bottle.",
-      "battleDescription": "%user drains the Stillwater Tonic in one measure."
-    },
-    "ayiRmSjWs05lMPyL3G-1d": {
-      "currentName": "Fragment of the White Crown",
-      "name": "Fragment of the White Crown",
-      "description": "A shard of the White Crown, threaded with dormant command seals. Five fragments resonate as if remembering a single shape.",
-      "battleDescription": "The fragment glimmers with pale seal-light."
-    },
-    "yTS9TSpr_QLnh_3zmEpGg": {
-      "currentName": "The White Crown",
-      "name": "The White Crown",
-      "description": "Five fragments restored into the command crown once worn by the Captain. Its sealwork still answers the Ghost Ship's distant core.",
-      "battleDescription": "The White Crown kindles with pale seal-light upon %user's brow."
-    }
-  },
-  "legacyCleanup": {
-    "itemId": "LnRVMzyVmVwgaKvTH52Zy",
-    "name": "Ghostly Sovereign's Diadem",
-    "action": "Remove from Crowned Captain AI attachments. Do not repurpose it as the White Crown and do not expose it as loot. Leave the standalone hidden legacy item record otherwise untouched unless separately approved."
-  },
-  "lootCorrections": {
-    "QY69h271Nx9uHrBeR6jwW": {
-      "h-V9uiuxbL7lAWkO6nZWt": 0,
-      "MskL9ctwDbnkfmSK8j0-X": 0
-    },
-    "fDU9jCPZtH7YHbdQPO9RF": {
-      "ayiRmSjWs05lMPyL3G-1d": 20,
-      "h-V9uiuxbL7lAWkO6nZWt": 0,
-      "MskL9ctwDbnkfmSK8j0-X": 0
-    }
-  },
-  "questRewardCorrection": {
-    "node": "w_Co",
-    "removeItemId": "ayiRmSjWs05lMPyL3G-1d",
-    "reason": "White Crown Fragment is exclusively a 20% Crowned Captain AI drop; remove the existing 10% quest-completion roll from both Gather and Hunt."
-  },
-  "sceneAssetRenames": {
-    "U2pjcM1_N-HdVf928Sn5z": "Ghost Ship Deck",
-    "dFwyPzyhUZQjDBXpJRUDJ": "Ghost Ship Lower Hull",
-    "6iwMYC8WTCGJTf2QIYfBz": "Oathkeeper Portrait",
-    "ApkLYWJ3AFe8oyqQwk_8z": "Ghost Ship Chart Room",
-    "yufttCkG-KsefHKuz9Q2a": "Ghost Ship Hold",
-    "-eB0frmTJss6Uco6ZoM07": "Ghost Ship Helm",
-    "rX78pJPETsUL2JrsSvGHn": "Ghost Ship Cache Site",
-    "xm3F2YXkNPeLWHRAUnbmF": "Captain Portrait",
-    "4Cu4EBaWRsGm5J_Ld1hTt": "Crowned Captain Portrait"
-  },
-  "storyCanon": {
-    "publicLegend": "The Ghost Ship is called a ghost because it should not exist. Official records say the experimental warship was destroyed decades ago, yet it periodically materializes in the sky with no visible approach and vanishes again just as suddenly.",
-    "project": "The vessel was a forbidden shinobi engineering project built around a chakra-reactive Skyglass Core. A hull-wide seal lattice let it ignore terrain, remain airborne and strike from directions conventional defenses could not cover.",
-    "crewFate": "The Core was ordered to preserve command continuity and crew function through catastrophic damage. When the vessel was lost, the emergency lattice preserved chakra impressions instead of living bodies. The ship now reconstructs its crew as afterimages from stored patterns.",
-    "tragedy": "The afterimages do not age because they are not biologically living. They can remember food, warmth, sleep, shore leave and ordinary life, but the ship continually rebuilds them for duty rather than letting them live those experiences. Some follow routine without understanding it; higher-fidelity impressions know exactly how much time has passed.",
-    "menace": "The ship was feared because it could cross walls and mountains, appear above defended territory, and replace fallen crew from stored chakra patterns. Destroying a defender did not necessarily remove it from the next manifestation.",
-    "recurrence": "Damage to the Skyglass emergency lattice leaves the vessel slipping in and out of stable space. It reappears along fragments of old routes when the Core accumulates enough chakra to reconstruct the ship and crew again.",
-    "captain": "The Captain's normal reconstruction is highly stable but incomplete. The oathbound route causes the Core to rebuild the highest-fidelity command imprint through the White Crown, producing the Crowned Captain, who remembers the final project orders and understands what the crew became.",
-    "crown": "The White Crown was the Captain's command interface with the Skyglass Core. Its fragments retain the crown's seal pattern, which is why five fragments can be restored into the complete item."
-  },
-  "narrativeReveal": [
-    {
-      "stage": "arrival",
-      "reveal": "The ship materializes with no approach and is visibly held aloft by seal engineering."
-    },
-    {
-      "stage": "gangplank",
-      "reveal": "The Deck Warden is physically young but wears a uniform generations out of date."
-    },
-    {
-      "stage": "lower_hull",
-      "reveal": "The Core can reconstruct bodies incorrectly, producing the Core Horror from hull material and a damaged crew pattern."
-    },
-    {
-      "stage": "parley",
-      "reveal": "The Oathkeeper knows time has passed and distinguishes the living from the crew."
-    },
-    {
-      "stage": "wayfinder",
-      "reveal": "Charts contain decades of corrections, proving the ship has continued traveling after its supposed destruction."
-    },
-    {
-      "stage": "hold",
-      "reveal": "Rations and medicine remain untouched while the Arsenal Keeper has counted them for decades."
-    },
-    {
-      "stage": "captain",
-      "reveal": "The ship survived its destruction because Skyglass interpreted preservation orders literally."
-    },
-    {
-      "stage": "crowned_captain",
-      "reveal": "The original mission never reached a termination state, so the Core continues rebuilding vessel, command and crew."
     }
   ]
 }
