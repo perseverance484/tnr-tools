@@ -60,7 +60,7 @@ The three interior routes continue that pattern:
 In scope:
 - quest names, descriptions, success text and all 57 objective descriptions/choice labels for both Gather and Hunt;
 - 11 direct Ghost Ship AI display names;
-- 29 Ghost Ship-specific AI jutsu names/descriptions/battle text;
+- shared AI-pool migration per `state/ghost_ship_shared_pool_migration.json`; the earlier bespoke jutsu retheme is superseded;
 - Ghost Ship scene-asset display names and replacement-art direction;
 - themed reward lore;
 - Skyglass Crown reward-loop correction;
@@ -215,19 +215,20 @@ Fresh successful captures:
 ## Next production sequence
 
 1. Director review of the exact machine patch and any final naming/lore adjustments.
-2. Art audit/production in separate context-safe packets:
-   - combat avatars/props;
-   - scene backgrounds/portraits;
-   - quest/item icons;
-   - jutsu icons only where old visuals materially conflict.
+2. Art audit/production in separate context-safe packets, one image with QC and user acceptance at a time:
+   - quest icon first, then Deck Warden avatar prototype;
+   - remaining combat avatars/props;
+   - scene portraits from locked identities and scene backgrounds;
+   - Skyglass reward item icons as needed.
+   No bespoke 29-jutsu icon set. See `state/ghost_ship_art_production.md` and `state/workstreams/ghost_ship_art/roadmap.json`.
 3. Freeze a Fable implementation brief from the approved patch + accepted art.
 4. Fable builds full-record edit manifest(s), preserving ids/mechanics and applying loot corrections.
 5. ChatGPT independently reviews the exact frozen implementation SHA/manifest.
 6. User alone executes hidden/live changes and returns readback.
 7. Readback audit before any publish/final acceptance decision.
 
-## Open content decision
+## Serum naming
 
-`Dead Man's Draught` is the remaining overt pirate-era reward name. The patch proposes **Stillwater Tonic** with TNR-native restorative lore. This remains open until explicitly accepted or replaced.
+Director-approved 2026-10-01: **Skyglass Serum** replaces `Dead Man's Draught`. The unaccepted Stillwater Tonic proposal is superseded. Preserve the existing item id and mechanics; use Skyglass Serum in art direction, planning and player-facing text. See RUL-2026-10-01-001.
 
 The shared-pool migration and Skyglass Crown naming are director-approved.

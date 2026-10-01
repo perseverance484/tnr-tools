@@ -1,0 +1,72 @@
+# Ghost Ship / Skyglass art production
+
+**Baseline:** live main verified 2026-10-01 at `df17803a9c4222025dba7e68c1919a372835fcd6`.
+**Lead:** Image Production; Art Director supporting. **Status:** quest icon candidate, awaiting dauntless acceptance.
+**Branch:** `chatgpt/ghost-ship-skyglass-art-20261001`. No live-game API requests or writes; only captured image URLs fetched.
+
+## Direction and sequence
+
+Follow `state/ghost_ship_retheme_design.md`, the shared-pool migration, and the current art spec. Forbidden shinobi warship, dark timber/iron seal lattice, pale white-blue Skyglass; crew are reconstructed chakra impressions. Tragic military duty without mortal life. Captain and Crowned Captain are increasingly stable, not increasingly decomposed. Skyglass Serum is approved.
+
+1. Quest listing icon, shared by Gather and Hunt.
+2. Deck Warden AI avatar prototype: young adult face, obsolete fitted naval-shinobi uniform, dark armor/wraps, utility harness, chakra hook, restrained white-blue reconstruction breaks. Keep the youthful face readable rather than covering it entirely.
+3. Remaining AI avatars/props, one at a time: Oathkeeper, Wayfinder, Arsenal Keeper, Sentinel, First Blade, The Captain, Crowned Captain, Core Horror, Seal Charge, Core Canister. Captain pair shares identity; hazards share core/seal construction.
+4. Scene portraits from locked Oathkeeper/Captain identities; then Deck, Lower Hull, Chart Room, Hold, Helm, Cache Site backgrounds. Reserve lower left; compose backgrounds at 3:2.
+5. Skyglass Crown, matching fragment, Skyglass Serum item icons. Reassess the fragment only after Crown lock.
+
+These are production recommendations, not new content or final visual approvals. No work on a bespoke 29-jutsu icon set. Core Rupture is a shared signature; art is optional only if the eventual shared record requires it.
+
+## Captured-art audit
+
+Sources: `harvests/inbox/tnr_results_1790826101573.json`, `tnr_results_1790826836406.json`, `tnr_results_1790828718767.json`. All 41 capture rows have successful full-body persistence; all three journals are DONE/success with zero mutation items. Audited 29 image-bearing direct records, 28 unique image URLs (both quests use the same icon). Individual style references were inspected separately; human audit contact sheets were not generation references.
+
+| Asset | Recommendation | Observed reason |
+|---|---|---|
+| Existing quest icon | Fully regenerate | Green ghost faces around a conventional sailing ship and whirlpool; no Skyglass engineering. |
+| Deck Warden, Oathkeeper, Wayfinder, Arsenal Keeper, First Blade, Captain pair | Fully regenerate | Skeletal undead, pirate hats/coats, decorative gold, green fire; incompatible identities and costume. |
+| Core Horror | Fully regenerate | Encrusted wooden undead body with green light; rebuild as a damaged human impression held together by hull timber/cable/seals. |
+| Sentinel | Fully regenerate; preserve broad silhouette idea only | Shell/stone construct is relevant, but horned monster/green magic treatment needs the new seal-frame language. |
+| Seal Charge, Core Canister | Fully regenerate | Literal red TNT/dynamite. Both 256px avatars are below the 320px minimum. |
+| Oathkeeper/Captain/Crowned Captain scene portraits | Fully regenerate | Same pirate/undead conflict. Captain portrait is 522,252 bytes, above the 450KiB working ceiling. |
+| All six backgrounds | Fully regenerate at 3:2 | All are 512x512 JPEG, stretched by scene client. Hold is treasure-piled; helm lacks control architecture. Deck/lower-hull/cache staging can inform new composition, not serve as ready exports. |
+| Blank Scene Character | Reuse unchanged | Intentional transparent suppressor, not missing artwork. |
+| Mystery Chest, Ornate Chest | Reuse shared reward art | Generic existing rewards outside the rename set; do not reskin shared records as Ghost Ship-specific supplies. |
+| Fragment of the Skyglass Crown | Potential minor retheme | Pale crown fragment with white flame could become crystalline sealwork; must match the new Crown. Current PNG needs WebP export. |
+| The Skyglass Crown | Fully regenerate | Central skull and ornate flame crown conflict with a crystalline command interface. |
+| Skyglass Serum | Fully regenerate | Skull bottle and warm amber pirate treatment; use a pre-modern sealed restorative vial with restrained Skyglass cues. |
+| Ghostly Sovereign's Diadem | Obsolete for this workstream | Legacy attachment slated for removal; image is a generic landscape placeholder. Do not redesign or delete the standalone record. |
+| Legacy-only jutsu art | No production | 29-jutsu rename plan superseded; 37 legacy-only jutsu are unequip/retirement candidates, not deletion targets. |
+
+`shotlist.py` was run against the extracted Gather quest: 57 objectives, six wired backgrounds, three real portraits plus the blank suppressor. It flags missing top-level `content.sceneBackground`; plan a deliberate global scene using the final Deck/entry plate. Existing wiring being reported SATISFIED does not imply visual suitability. No push manifest or new @img wiring was authored.
+
+## Current candidate and QA
+
+- File: `icon_ghost_ship_skyglass_d.webp`
+- Target: ICON, via `quest.image` raw URL; no new gameAsset record.
+- Export: 248x248, 63,048 bytes (61.6 KiB), lossless WebP, actual alpha.
+- SHA-256: `9edcb347e9f7a180cdfd45571eddc2de0486a843cf35c3caad1a36d0e8a1dda0`
+- Retained artifact: `libfile_b9b44d02e72c81918592acb62ff9b316`, exact filename above.
+- Acceptance: **CANDIDATE, NOT LOCKED**. Deck Warden has not been generated.
+- Built-in image generation used. Final chroma source 1254x1254; rawqc ACCEPT, key coverage 54.5%, border purity 100%. Source reduced with nearest-neighbor to spec-recommended 256px before bundled key/crop/pad/export.
+- `chroma.py --target ICON --qc ...` and `artpreflight.py --type ICON --spec ... --json`: **0 errors, 0 warnings**, 0% partial-alpha edges. Native dark composite and 125px client-size view inspected. Silhouette/crystal keel remain readable; thin rigging becomes secondary texture.
+- Earlier opaque/native-alpha exports are superseded and not deliverables. The opaque 256px export encountered the preflight alpha requirement; native alpha exceeded the soft-edge limit. Final flat-chroma generation resolves both without changing tool code or spec.
+
+Reference pack `style_refs.py verify --repo-root .`: 18/18 references, 2,223,333 bytes, provenance proven. Pack contains scene characters/backgrounds, no ICON or AI_AVATAR selector. Inspected Commander Okabe, Winter Crow, Pale Fang, Old Ghost and Canal Frontage for calibration; character references did not enter icon generation.
+
+Session bootstrap: lawmap 0 errors/5 pre-existing warnings; doctrine and pack projections current. The unrelated session parity adapter crashes on this capture-only bundle's `checks:null` (`validate.py:201`, TypeError). This is recorded, not reported green; capture success and art checks were verified independently. No tooling repair attempted.
+
+Ghost Ship roadmap validates. `validate --all` reports an unrelated pre-existing One Perfect Crop missing evidence path (`push/54_one_perfect_crop_launch_final.json`); the same failure is present at baseline. Do not edit that workstream in this art task.
+
+## Resume
+
+Present the processed icon for dauntless acceptance. Only an explicit lock marks it approved. Then initialize `art.prototype` and generate Deck Warden from the NINJA references, in a clean asset-class context. Use the preserved candidate rather than regenerating an approved image.
+
+## Prompt record
+
+Built-in image generation. Initial generation:
+
+Create one finished square TNR Ghost Ship quest-listing icon, 1024x1024. Open square pixel-art icon, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, dark background, strong readable silhouette, no frame, no text. Subject: ONE ancient experimental shinobi warship suspended in empty night air, complete compact three-quarter broadside silhouette. Dark timber armored hull with iron reinforcement ribs, two short masts with broad charcoal battened sails, a few clear chakra-conductive rigging lines. Pale icy-white and blue Skyglass crystal control structure embedded into the ship; restrained carved seal channels connect it along the keel and illuminate the underside. The white-blue seals are abstract geometric engineering marks, never lettering. A subtle short broken ripple beneath the keel suggests levitation, no ocean beneath it. Faint fractured afterimage of one trailing hull edge suggests a vessel materializing. The ship fills most of the square with clear breathing room; simple major forms must read at 125px. Tragic, mysterious, militarized, pre-modern Japanese-inspired forbidden engineering. Readable dark wood and metal planes, localized Skyglass highlights, hard pixel clusters and clean shadow shapes. Background near-black muted midnight blue, quiet and uncluttered. No people, no crew, no skulls or bones, no ghost faces, no pirate imagery, no flags, no treasure, no cannons, no gold ornament, no Western galleon castle, no moon, no whirlpool, no scenic horizon, no modern technology, no neon outlines, no bloom, no airbrush gradients, no blur, no decorative border, no words, no labels, no UI, no watermark, no asset sheet, no grid, no franchise insignia. This is an individual quest icon, not a scene background or a character.
+
+Final isolation edit used the initial image as its sole reference:
+
+Production isolation edit of the supplied warship icon. Preserve the ship's design, dark timber armor, charcoal battened sails, pale icy white-blue Skyglass crystals, carved hull channels and three-quarter silhouette. Put it on a TRUE SOLID FLAT pure #00FF00 lime green chroma field filling the ENTIRE square canvas, INCLUDING every opening through the rigging and between silhouette fragments. No gradient, no texture and no shadow on the green. Make the ship 82 percent of the canvas width and height, all edges well inside the canvas. Crisp pixel lineart, flat cel shading, limited palette. Hard opaque pixel boundaries, ZERO semi-transparent glow; crystal light is contained INSIDE the crystal and seal shapes only. Simplify the dissolving stern into a few substantial angular chunks and the levitation ripple into two short solid pale-blue marks. No tiny debris speckles, no outer aura, halo, bloom, fog or light field. Retain the single complete ship, no people, no pirate symbols, no text, no border, no frame, no multiple views. Square 1:1 canvas, true solid #00FF00 background.

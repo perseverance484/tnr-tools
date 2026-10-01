@@ -305,3 +305,18 @@ Existing audited content-record point reads already approved for full persistenc
 **Rationale:** Phase 1's contract at `state/prompt_forge_next_phase1.md` has been READY/FROZEN and unstarted the longest. The P1 presentation tooling is already integrated and useful on its own through `forge/tools/presentation.mjs`, so deferring the renderer costs no capability that exists today.
 
 **Canonical destination:** `state/digest.json` in-progress ordering and the Forge Next / Presentation Studio briefs. The art prerequisites recorded in `docs/reviews/FORGE_PRESENTATION_STUDIO_P0_P1_CLOSEOUT.md` still gate P2 whenever it starts.
+
+---
+
+## RUL-2026-10-01-001 — Ghost Ship restorative renamed Skyglass Serum
+
+**Date:** 2026-10-01
+**Domain:** Ghost Ship / Skyglass art and reward naming
+**Status:** ACTIVE
+**Supersedes:** none (replaces the unaccepted Stillwater Tonic proposal)
+
+**Ruling:** dauntless approved **Skyglass Serum** as the rename direction for `Dead Man's Draught`. Use it in art direction, planning and the eventual content patch. Existing record identity and mechanics remain unchanged.
+
+**Rationale:** Settles the last open reward/item name within the approved Skyglass direction.
+
+**Canonical destination:** `state/ghost_ship_retheme_design.md` and `state/ghost_ship_retheme_patch.json`. This ruling does not authorize a live-game write.
