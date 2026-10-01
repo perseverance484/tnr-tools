@@ -1,15 +1,17 @@
 # Ghost Ship / Skyglass art production
 
 **Baseline:** live main verified 2026-10-01 at `df17803a9c4222025dba7e68c1919a372835fcd6`.
-**Lead:** Image Production; Art Director supporting. **Status:** quest icon LOCKED; Deck Warden prototype candidate awaiting dauntless acceptance.
+**Lead:** Content Designer / Art Director during crew revision; Image Production resumes after direction review. **Status:** quest icon LOCKED; Deck Warden `_a` REJECTED for direction; revised elite/cursed roster proposed.
 **Branch:** `chatgpt/ghost-ship-skyglass-art-20261001`. No live-game API requests or writes; only captured image URLs fetched.
 
 ## Direction and sequence
 
 Follow `state/ghost_ship_retheme_design.md`, the shared-pool migration, and the current art spec. Forbidden shinobi warship, dark timber/iron seal lattice, pale white-blue Skyglass; crew are reconstructed chakra impressions. Tragic military duty without mortal life. Captain and Crowned Captain are increasingly stable, not increasingly decomposed. Skyglass Serum is approved.
 
+2026-10-01 correction: all personnel aboard the top-secret project at its disappearance were high-level operatives. The curse must be immediately visible, not reduced to ordinary shinobi with small glowing cracks. Read `state/ghost_ship_crew_direction.md` before further generation. Its proposed specialist duties and silhouettes await review; the approved premise is recorded in RUL-2026-10-01-003.
+
 1. Quest listing icon, shared by Gather and Hunt.
-2. Deck Warden AI avatar prototype: young adult face, obsolete fitted naval-shinobi uniform, dark armor/wraps, utility harness, chakra hook, restrained white-blue reconstruction breaks. Keep the youthful face readable rather than covering it entirely.
+2. Revised Deck Warden AI avatar prototype: elite boarding-security chief, archaic specialist armor and a major readable reconstruction failure. Preserve a glimpse of the unaged human face. Follow the pending revised brief after direction review; the ordinary-guard `_a` treatment is superseded.
 3. Remaining AI avatars/props, one at a time: Oathkeeper, Wayfinder, Arsenal Keeper, Sentinel, First Blade, The Captain, Crowned Captain, Core Horror, Seal Charge, Core Canister. Captain pair shares identity; hazards share core/seal construction.
 4. Scene portraits from locked Oathkeeper/Captain identities; then Deck, Lower Hull, Chart Room, Hold, Helm, Cache Site backgrounds. Reserve lower left; compose backgrounds at 3:2.
 5. Skyglass Crown, matching fragment, Skyglass Serum item icons. Reassess the fragment only after Crown lock.
@@ -67,24 +69,24 @@ Session bootstrap: lawmap 0 errors/5 pre-existing warnings; doctrine and pack pr
 
 Ghost Ship roadmap validates. `validate --all` reports an unrelated pre-existing One Perfect Crop missing evidence path (`push/54_one_perfect_crop_launch_final.json`); the same failure is present at baseline. Do not edit that workstream in this art task.
 
-## Deck Warden prototype and QA
+## Rejected Deck Warden prototype and historical QA
 
 - File: `art/ghost_ship/avatar_deck_warden_skyglass_a.webp`
 - Target: AI_AVATAR, existing Deck Warden AI record's avatar; no gameAsset record.
 - Export: 614x614, 144,720 bytes (141.3 KiB), lossless WebP, actual alpha.
 - SHA-256: `0a762a7f43770de08c3516a9faf3d67b243f80e1ac556d980ed096ea8d842304`
 - Retained artifact: `libfile_c80cfd855230819188dc5b0096d6a4c9`.
-- Acceptance: **CANDIDATE, NOT LOCKED**. No remaining avatars generated.
+- Disposition: **REJECTED / SUPERSEDED by dauntless's direction correction, 2026-10-01**. It reads as an ordinary enemy shinobi, not an elite operative of a cursed classified project. Retained for provenance only; do not package or use as a style anchor. No remaining avatars generated.
 - Built-in image generation; original 1254x1254. `rawqc.py --scaffold deck_warden_skyglass_a`: ACCEPT, lime coverage 77.8%, border purity 100%. Reduced to recommended 640x640 with nearest-neighbor before bundled crop/pad/export.
 - `chroma.py --target AI_AVATAR --spec ... --qc ...`: exact square 614x614; background 320,086px, holes 24px, remapped 15px. `artpreflight.py --type AI_AVATAR --spec ... --json`: **0 errors, 0 warnings**, 0% partial-alpha edges.
-- Native dark composite and 320px client-size view inspected: complete hands/feet, youthful human face, layered black wrap clothing/iron plates, practical boarding hook, restrained pale-blue geometric breaks at sleeve/calf. No skulls, pirate clothing, scenery, text or insignia. Small seal strokes become secondary at client size; the face, hook and broken edges remain readable. Final style/identity acceptance belongs to dauntless.
+- Historical native/320px QC found complete hands/feet, a youthful human face, layered black wrap clothing/iron plates, a practical hook and clean pale-blue edges. It missed the central direction failure: the ordinary silhouette and tiny reconstruction cues did not communicate the classified elite crew or cursed condition. Technical PASS is not artistic acceptance. The next candidate must pass the visual tests in `state/ghost_ship_crew_direction.md` before handover.
 - NINJA selector rerun and all four individual references inspected: Commander Okabe for facial/near detail only; Winter Crow, Pale Fang and Old Ghost for costume, silhouette and edge discipline. New asset-class generation carried no ship/scene image context.
 
 ## Resume
 
-Quest icon accepted; Deck Warden candidate delivered. Wait for dauntless acceptance or correction before any further asset. If accepted, lock the exact avatar bytes and initialize `art.avatars`; proposed next character is Oathkeeper. Use the locked ship source for later scenes rather than regenerating its design.
+Quest icon accepted. Deck Warden `_a` rejected for direction. Present the complete proposed roster/visual reset in `state/ghost_ship_crew_direction.md`; settle that direction before generating replacement `_b`. Do not ask to lock `_a` again. The replacement still requires normal technical QC and visual acceptance before proceeding to remaining avatars. Preserve the locked ship design in later scenes.
 
-## Deck Warden prompt record
+## Superseded Deck Warden prompt record (do not reuse)
 
 Create ONE original TNR game AI avatar, square 1:1, full body head to feet, centered with generous clean margins. Single ninja character in a compact dynamic combat guard, weight shifted and knees slightly bent. Crisp pixel lineart, flat cel shading, limited palette, soft even lighting, camera at eye level, flat 3/4 view, no low angle and no foreshortening, both arms held within the subject's own silhouette and touching nothing, at most one restrained elemental glow accent, as rim light on edges only.
 

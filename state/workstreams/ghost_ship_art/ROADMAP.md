@@ -5,7 +5,7 @@
 - **Slug:** `ghost_ship_art`
 - **Content type:** event art
 - **Status:** ACTIVE
-- **Progress:** 1/5 settled - planned 3, in_progress 1, complete 1
+- **Progress:** 1/5 settled - planned 3, blocked 1, complete 1
 
 Produce the approved Skyglass retheme assets sequentially; content implementation and live-game writes remain outside this art packet.
 
@@ -17,6 +17,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | --- | --- |
 | `state/ghost_ship_art_production.md` | Audit, production order, current candidate and resume gate. |
 | `state/ghost_ship_retheme_design.md` | Approved Skyglass fiction and roster. |
+| `state/ghost_ship_crew_direction.md` | Proposed specialist roster and cursed visual revision; replaces the rejected ordinary-guard prototype direction after review. |
 | `state/ghost_ship_retheme_patch.json` | Exact entity mapping and approved names. |
 | `state/ghost_ship_shared_pool_migration.json` | Active combat kits; excludes retiring bespoke jutsu art. |
 | `skills/producing-tnr-art/SKILL.md` | Production/QC and acceptance rhythm. |
@@ -28,26 +29,28 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | Task | Status | Owner | Depends on | Scope |
 | --- | --- | --- | --- | --- |
 | `art.quest_icon` | COMPLETE | chatgpt | - | One shared Gather/Hunt quest listing icon. |
-| `art.prototype` | IN_PROGRESS | chatgpt | `art.quest_icon` | One AI avatar to establish reconstructed naval-shinobi rendering. |
+| `art.prototype` | BLOCKED | chatgpt | `art.quest_icon` | Review the proposed specialist roster/visual reset, then produce one replacement Deck Warden avatar and obtain visual acceptance. |
 | `art.avatars` | PLANNED | chatgpt | `art.prototype` | Ten remaining AI avatars/props, one at a time. |
 | `art.scenes` | PLANNED | chatgpt | `art.avatars` | Three identity-matched portraits, six 3:2 backgrounds; preserve blank suppressor. |
 | `art.rewards` | PLANNED | chatgpt | `art.scenes` | Crown, matching fragment and Skyglass Serum as needed. |
 
-## Executable now
+## Blocked
 
-- **`art.prototype`** (IN_PROGRESS) - Deck Warden avatar prototype
-  - resume: Candidate avatar_deck_warden_skyglass_a.webp delivered: 614x614, 144720 bytes, rawqc ACCEPT, preflight 0 errors/0 warnings, native and 320px dark QC clean. Await dauntless acceptance before any further asset.
+### `art.prototype` - Deck Warden avatar prototype
+
+- BLOCKER: Revised roster duties and visual direction are proposed and await dauntless review.
+- OPEN DECISION (user-owned): Review the individual treatments in state/ghost_ship_crew_direction.md.
+- OPEN DECISION (user-owned): Final visual acceptance of the replacement prototype remains with dauntless.
 
 ## Other open decisions
 
-- `art.prototype`: Final visual acceptance remains with dauntless.
 - `art.avatars`: Final visual acceptance remains with dauntless.
 - `art.scenes`: Final visual acceptance remains with dauntless.
 - `art.rewards`: Final visual acceptance remains with dauntless.
 
 ## Waiting on dependencies
 
-- `art.avatars` - waiting on `art.prototype` (IN_PROGRESS)
+- `art.avatars` - waiting on `art.prototype` (BLOCKED)
 - `art.scenes` - waiting on `art.avatars` (PLANNED)
 - `art.rewards` - waiting on `art.scenes` (PLANNED)
 
@@ -86,17 +89,18 @@ Quest icon brand lock.
 
 ### `art.prototype` - Deck Warden avatar prototype
 
-**IN_PROGRESS** - area art, owner chatgpt, lead role Image Production
+**BLOCKED** - area art, owner chatgpt, lead role Image Production
 
-Deck Warden avatar prototype.
+Establish the elite, cursed reconstructed-crew visual language with one revised Deck Warden avatar.
 
 **Scope**
 
-- One AI avatar to establish reconstructed naval-shinobi rendering.
+- Review the proposed specialist roster/visual reset, then produce one replacement Deck Warden avatar and obtain visual acceptance.
 
 **Required resources**
 
 - `state/ghost_ship_art_production.md` - Task-specific audit, artifact state and production gates; read the workstream resources above.
+- `state/ghost_ship_crew_direction.md` - Concrete proposed replacement direction and the prototype visual acceptance tests.
 
 **Deliverables**
 
@@ -104,6 +108,7 @@ Deck Warden avatar prototype.
 
 **Completion gates**
 
+- Elite specialist identity and visibly cursed reconstruction read at client size, beyond merely technical compliance.
 - Art preflight zero errors and target-appropriate visual QC.
 - dauntless explicitly accepts each final asset.
 

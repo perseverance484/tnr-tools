@@ -10,7 +10,8 @@
     "Baseline df17803a9c4222025dba7e68c1919a372835fcd6.",
     "Skyglass Serum approved 2026-10-01, RUL-2026-10-01-001.",
     "No prior Ghost Ship roadmap existed at baseline; this packet points at the real committed design/capture sources.",
-    "Quest icon LOCKED by dauntless 2026-10-01; all scenes must preserve its ship design, RUL-2026-10-01-002."
+    "Quest icon LOCKED by dauntless 2026-10-01; all scenes must preserve its ship design, RUL-2026-10-01-002.",
+    "Crew revision 2026-10-01: everyone aboard was an elite operative of a top-secret project; cursed reconstruction must be visually central (RUL-2026-10-01-003). Deck Warden _a rejected; individual new treatments proposed."
   ],
   "resources": [
     {
@@ -20,6 +21,10 @@
     {
       "path": "state/ghost_ship_retheme_design.md",
       "why": "Approved Skyglass fiction and roster."
+    },
+    {
+      "path": "state/ghost_ship_crew_direction.md",
+      "why": "Proposed specialist roster and cursed visual revision; replaces the rejected ordinary-guard prototype direction after review."
     },
     {
       "path": "state/ghost_ship_retheme_patch.json",
@@ -89,33 +94,39 @@
       "id": "art.prototype",
       "title": "Deck Warden avatar prototype",
       "area": "art",
-      "status": "IN_PROGRESS",
+      "status": "BLOCKED",
       "owner": "chatgpt",
-      "objective": "Deck Warden avatar prototype.",
+      "objective": "Establish the elite, cursed reconstructed-crew visual language with one revised Deck Warden avatar.",
       "depends_on": [
         "art.quest_icon"
       ],
       "scope": [
-        "One AI avatar to establish reconstructed naval-shinobi rendering."
+        "Review the proposed specialist roster/visual reset, then produce one replacement Deck Warden avatar and obtain visual acceptance."
       ],
       "required_resources": [
         {
           "path": "state/ghost_ship_art_production.md",
           "why": "Task-specific audit, artifact state and production gates; read the workstream resources above."
+        },
+        {
+          "path": "state/ghost_ship_crew_direction.md",
+          "why": "Concrete proposed replacement direction and the prototype visual acceptance tests."
         }
       ],
       "deliverables": [
         "Processed candidate(s) with exact filenames, byte ledger and QC."
       ],
       "completion_gates": [
+        "Elite specialist identity and visibly cursed reconstruction read at client size, beyond merely technical compliance.",
         "Art preflight zero errors and target-appropriate visual QC.",
         "dauntless explicitly accepts each final asset."
       ],
       "lead_role": "Image Production",
       "open_decisions": [
-        "Final visual acceptance remains with dauntless."
+        "Review the individual treatments in state/ghost_ship_crew_direction.md.",
+        "Final visual acceptance of the replacement prototype remains with dauntless."
       ],
-      "resume_note": "Candidate avatar_deck_warden_skyglass_a.webp delivered: 614x614, 144720 bytes, rawqc ACCEPT, preflight 0 errors/0 warnings, native and 320px dark QC clean. Await dauntless acceptance before any further asset.",
+      "resume_note": "Deck Warden _a rejected for ordinary-shinobi direction despite technical PASS. Roster/visual reset delivered in state/ghost_ship_crew_direction.md. After direction review, generate a fresh _b, QC it, present and wait; never relock _a by default.",
       "evidence": [
         {
           "kind": "path",
@@ -124,7 +135,14 @@
         {
           "kind": "path",
           "ref": "art/ghost_ship/avatar_deck_warden_skyglass_a.webp"
+        },
+        {
+          "kind": "path",
+          "ref": "state/ghost_ship_crew_direction.md"
         }
+      ],
+      "blockers": [
+        "Revised roster duties and visual direction are proposed and await dauntless review."
       ]
     },
     {
