@@ -1,0 +1,86 @@
+{
+  "_note": "READ-ONLY Ghost Ship retheme combat closure, phase 3. Zero mutations. The 11 AI profile ids are derived directly from the successful profile.getAi records in harvests/inbox/tnr_results_1790826836406.json. Phase 2 already embeds the full equipped jutsu and item bodies for these AIs, so redundant jutsu.get/item.get reads are intentionally omitted. This capture closes only the AI behavior-rule baseline needed to preserve combat behavior during the retheme.",
+  "capture": {
+    "before": [],
+    "after": [
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "o1qPfPsuVXk7KzLaRz0n3"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "q1Rp9dPMlRMcD2JQmFiC7"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "zPHaNgwr2J4GQnPFHAWe8"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "zD6EHeSmnHpcbX4zBOWGn"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "RkkKzrFzJCVBggHTA8bNj"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "0LTa3ZM6eDCRkv4X_uwA-"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "3y6oASzyyRn5CdkeSlHk6"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "AJ8BnFvtpflf57-BsrJRe"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "IUgkMPWyf6jy7xbyTLBqX"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "BqRv9qUlDNLNCzi-Q45zT"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "6G3McyVvLGIY1e4_sfTvU"
+        },
+        "persist": "full"
+      }
+    ]
+  },
+  "items": []
+}
