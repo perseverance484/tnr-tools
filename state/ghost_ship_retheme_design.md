@@ -27,7 +27,7 @@ This is the TNR version of an immortality curse without literal undeath. The cre
 
 That condition also explains why the vessel was such a menace. A defender could be defeated and simply appear again the next time the Core rebuilt the ship. The crew could operate indefinitely without sleep or supplies, while the vessel itself could bypass the geography that normally protects settlements and strongholds.
 
-The **White Crown** was the Captain's command interface with Skyglass. It synchronized one shinobi with navigation, defensive seals, weapons, lift systems and crew-impression control. The ordinary Captain is already one of the Core's most stable reconstructions. The oathbound route causes Skyglass to rebuild the highest-fidelity command imprint through the White Crown, producing the Crowned Captain, who remembers the final project orders and understands why the ship never stopped.
+The **Skyglass Crown** was the Captain's command interface with Skyglass. It synchronized one shinobi with navigation, defensive seals, weapons, lift systems and crew-impression control. The ordinary Captain is already one of the Core's most stable reconstructions. The oathbound route causes Skyglass to rebuild the highest-fidelity command imprint through the Skyglass Crown, producing the Crowned Captain, who remembers the final project orders and understands why the ship never stopped.
 
 The broad tragedy can evoke the classic fantasy idea of immortality without mortal life, but the actual explanation, characters, reveals and dialogue remain original to TNR and rooted in forbidden shinobi engineering.
 
@@ -106,18 +106,18 @@ Five endings remain:
 4. direct Captain route;
 5. oathbound Crowned Captain route.
 
-## White Crown reward contract
+## Skyglass Crown reward contract
 
 Director-approved reward rule:
-- **Fragment of the White Crown**: 20% AI drop from Crowned Captain only;
+- **Fragment of the Skyglass Crown**: 20% AI drop from Crowned Captain only;
 - remove the existing 10% `w_Co` quest-completion fragment roll from both quests;
-- five fragments build **The White Crown**;
-- The White Crown is not a direct AI drop;
+- five fragments build **The Skyglass Crown**;
+- The Skyglass Crown is not a direct AI drop;
 - AI Heavy Armor and Cursed Dagger: 0% drop chance on both Captain AIs;
 - explosive-prop Heavy Armor is already 0% and stays 0%;
 - **Ghostly Sovereign's Diadem** is legacy debris, not the intended reward. Remove it from Crowned Captain attachments; leave the hidden standalone record otherwise untouched unless separately approved.
 
-Captured White Crown mechanics remain unchanged:
+Captured Skyglass Crown mechanics remain unchanged:
 - Legendary HEAD armor;
 - 5% decreased damage taken;
 - 20% increased damage given;
@@ -125,13 +125,29 @@ Captured White Crown mechanics remain unchanged:
 - two imbue slots;
 - craftable, tradable, PVE.
 
-## Jutsu policy
+## Shared AI-pool migration
 
-The 29 Ghost Ship-specific jutsu keep their live ids and mechanics. Their names/descriptions/battle text change according to `state/ghost_ship_retheme_patch.json`.
+The earlier plan to retheme 29 bespoke Ghost Ship jutsu is **superseded**.
 
-Generic/shared jutsu such as Guarded Stance, Braced Stance, Counter Stance, Battle Trance, Death's Door, Death's Grasp, Worldbreaker Chorus, Cataclysm Detonation, Unraveling Strike, Second Wind and Stolen Form are not renamed as part of this retheme.
+Ghost Ship combatants move onto the current shared AI jutsu pool according to `state/ghost_ship_shared_pool_migration.json`. Existing level, rank, stat ratios, stat/pool multipliers, regeneration and preferred-stat/general values remain unchanged for the initial migration. Combat identity comes from new shared-pool kits and rebuilt AI profiles.
 
-Because ids remain stable, captured AI profile rules can remain mechanically identical.
+Approved kit direction:
+- Deck Warden: close-pressure shared standard kit.
+- Core Horror: drain/control bruiser.
+- Oathkeeper: technical duelist.
+- Wayfinder: ranged control.
+- Arsenal Keeper: heavy bruiser.
+- Sentinel: earth defense/controller.
+- First Blade: Air-pool skirmisher.
+- The Captain: six-jutsu shared boss kit.
+- Crowned Captain: six-jutsu Sovereign/command boss kit.
+
+The two hazard props keep their delayed self-destruct behavior through one new **shared-pool** signature, **Core Rupture**, cloned mechanically from the captured legacy `Explosion!` record but created as a new shared record so unknown external consumers of the legacy jutsu are not silently renamed.
+
+All 37 legacy-only jutsu found on the captured Ghost Ship roster become **retirement candidates**, not deletion targets. The retheme only unequips them. A later dependency audit must prove a record has no remaining consumers before deletion.
+
+AI behavior profiles are rebuilt against the new kits with current range-gating doctrine. The operative exact kit/rule map is `state/ghost_ship_shared_pool_migration.json`.
+
 
 ## Prose policy
 
@@ -163,6 +179,14 @@ Crew presentation:
 - Crowned Captain is the most stable and visually authoritative reconstruction.
 
 Existing asset ids should be reused where practical and their names/images updated, so quest wiring remains stable. The art task should audit each current image before deciding reuse vs regeneration.
+
+## Crown naming
+
+The live records keep their ids but are renamed:
+- `ayiRmSjWs05lMPyL3G-1d`: **Fragment of the White Crown** -> **Fragment of the Skyglass Crown**
+- `yTS9TSpr_QLnh_3zmEpGg`: **The White Crown** -> **The Skyglass Crown**
+
+This makes the reward loop explicitly part of the forbidden-engineering story rather than leftover pirate mythology. The Crown remains the Captain's command interface with the Skyglass Core and keeps all captured mechanics unchanged.
 
 ## Scene identity
 
@@ -204,4 +228,6 @@ Fresh successful captures:
 
 ## Open content decision
 
-`Dead Man's Draught` is the remaining overt pirate-era reward name. The patch proposes **Stillwater Tonic** with TNR-native restorative lore. This is not yet treated as director-approved until explicitly accepted or replaced.
+`Dead Man's Draught` is the remaining overt pirate-era reward name. The patch proposes **Stillwater Tonic** with TNR-native restorative lore. This remains open until explicitly accepted or replaced.
+
+The shared-pool migration and Skyglass Crown naming are director-approved.
