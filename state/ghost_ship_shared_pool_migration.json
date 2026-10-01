@@ -1,0 +1,706 @@
+{
+  "schema": "tnr.ghost_ship_shared_pool_migration",
+  "version": 1,
+  "status": "APPROVED_DESIGN",
+  "evidence": {
+    "aiRecords": "harvests/inbox/tnr_results_1790826836406.json",
+    "aiProfiles": "harvests/inbox/tnr_results_1790828718767.json",
+    "sharedPool": "skills/building-tnr-content/data/32b_DATA_pool.json"
+  },
+  "doctrine": [
+    "Migrate Ghost Ship combatants to the current shared AI jutsu pool.",
+    "Preserve existing AI level, rank, stat ratios, statsMultiplier, poolsMultiplier, regeneration, preferredStat and preferredGeneral values unless a later balance pass explicitly changes them.",
+    "Use includeDefaultRules:false for the rebuilt profiles and end each normal combat profile with an unconditional move_towards_opponent fallback.",
+    "Every SINGLE enemy-targeted specific-jutsu rule uses the shared registry gate range+1. SELF rules have no distance condition. ALL-method Core Rupture has no distance condition.",
+    "Do not delete any legacy jutsu during the retheme. They become retirement candidates for a later dependency audit.",
+    "The two hazard props share one new shared-pool signature, Core Rupture."
+  ],
+  "promotedSharedSignature": {
+    "provisionalCode": "H01",
+    "name": "Core Rupture",
+    "purpose": "Reusable self-destructing hazard action for unstable chakra devices. This is a shared-pool expansion, not a Ghost Ship-only jutsu.",
+    "sourceShape": "Clone the captured mechanics of legacy Explosion! (nCQETf-HNnbRec1OSY2-R) into a new hidden AI jutsu; do not rename the legacy record because unknown external consumers have not been dependency-audited.",
+    "fields": {
+      "actionCostPerc": 100,
+      "cooldown": 3,
+      "range": 5,
+      "target": "OTHER_USER",
+      "method": "ALL",
+      "effects": [
+        {
+          "type": "pierce",
+          "power": 120,
+          "rounds": 0,
+          "calculation": "formula",
+          "statTypes": [
+            "Highest"
+          ],
+          "target": "INHERIT"
+        },
+        {
+          "type": "onehitkill",
+          "power": 100,
+          "rounds": 0,
+          "calculation": "static",
+          "target": "SELF"
+        },
+        {
+          "type": "stun",
+          "power": 100,
+          "rounds": 2,
+          "calculation": "static",
+          "target": "INHERIT"
+        }
+      ]
+    },
+    "description": "An unstable chakra core tears itself apart in a violent seal failure.",
+    "battleDescription": "%user ruptures in a surge of unstable chakra, blasting everything nearby."
+  },
+  "ai": {
+    "wTgO-Q32caSSd0is1QIS7": {
+      "name": "Seal Charge",
+      "kit": [
+        "@shared:Core Rupture"
+      ],
+      "includeDefaultRules": false,
+      "orderedRules": [
+        {
+          "conditions": [
+            {
+              "type": "round_greater_than",
+              "value": 2
+            }
+          ],
+          "action": {
+            "type": "use_specific_jutsu",
+            "jutsu": "@shared:Core Rupture",
+            "target": "RANDOM_OPPONENT"
+          }
+        },
+        {
+          "conditions": [],
+          "action": {
+            "type": "end_turn",
+            "target": "SELF"
+          }
+        }
+      ],
+      "preserve": [
+        "level",
+        "rank",
+        "statsMultiplier",
+        "poolsMultiplier",
+        "regeneration",
+        "preferredStat",
+        "preferredGeneral1",
+        "preferredGeneral2",
+        "stat ratios"
+      ],
+      "loot": {
+        "h-V9uiuxbL7lAWkO6nZWt": 0
+      }
+    },
+    "frc9LTxqQlM7mncG4VZGK": {
+      "name": "Core Canister",
+      "kit": [
+        "@shared:Core Rupture"
+      ],
+      "includeDefaultRules": false,
+      "orderedRules": [
+        {
+          "conditions": [
+            {
+              "type": "round_greater_than",
+              "value": 6
+            }
+          ],
+          "action": {
+            "type": "use_specific_jutsu",
+            "jutsu": "@shared:Core Rupture",
+            "target": "RANDOM_OPPONENT"
+          }
+        },
+        {
+          "conditions": [],
+          "action": {
+            "type": "end_turn",
+            "target": "SELF"
+          }
+        }
+      ],
+      "preserve": [
+        "level",
+        "rank",
+        "statsMultiplier",
+        "poolsMultiplier",
+        "regeneration",
+        "preferredStat",
+        "preferredGeneral1",
+        "preferredGeneral2",
+        "stat ratios"
+      ],
+      "loot": {
+        "h-V9uiuxbL7lAWkO6nZWt": 0
+      }
+    },
+    "texZaFi42S3EvJZBwQ8cd": {
+      "name": "Deck Warden",
+      "role": "close-pressure guard",
+      "kit": [
+        "S43",
+        "S08",
+        "S04",
+        "B37",
+        "S03"
+      ],
+      "includeDefaultRules": false,
+      "orderedRules": [
+        {
+          "jutsu": "B37",
+          "target": "SELF"
+        },
+        {
+          "jutsu": "S04",
+          "target": "RANDOM_OPPONENT",
+          "gate": 5
+        },
+        {
+          "jutsu": "S08",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "S43",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "S03",
+          "target": "RANDOM_OPPONENT",
+          "gate": 5
+        },
+        {
+          "action": "move_towards_opponent",
+          "target": "RANDOM_OPPONENT"
+        }
+      ]
+    },
+    "AQi-bHJ-5tHXtxrnc0P9E": {
+      "name": "Core Horror",
+      "role": "drain/control bruiser",
+      "kit": [
+        "B05",
+        "B29",
+        "S27",
+        "B22",
+        "B30"
+      ],
+      "includeDefaultRules": false,
+      "orderedRules": [
+        {
+          "jutsu": "B22",
+          "target": "SELF"
+        },
+        {
+          "jutsu": "B30",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "B05",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "B29",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "S27",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "action": "move_towards_opponent",
+          "target": "RANDOM_OPPONENT"
+        }
+      ]
+    },
+    "0PZU_FvlbM3ErYGlD5r56": {
+      "name": "Oathkeeper",
+      "role": "technical duelist",
+      "kit": [
+        "S04",
+        "B34",
+        "S31",
+        "B37",
+        "S08"
+      ],
+      "includeDefaultRules": false,
+      "orderedRules": [
+        {
+          "jutsu": "B37",
+          "target": "SELF"
+        },
+        {
+          "jutsu": "B34",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "S31",
+          "target": "RANDOM_OPPONENT",
+          "gate": 4
+        },
+        {
+          "jutsu": "S04",
+          "target": "RANDOM_OPPONENT",
+          "gate": 5
+        },
+        {
+          "jutsu": "S08",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "action": "move_towards_opponent",
+          "target": "RANDOM_OPPONENT"
+        }
+      ]
+    },
+    "v7T9_XdGMfP46em0dPuBc": {
+      "name": "Wayfinder",
+      "role": "ranged control",
+      "kit": [
+        "S06",
+        "S33",
+        "B08",
+        "S31",
+        "B21"
+      ],
+      "includeDefaultRules": false,
+      "orderedRules": [
+        {
+          "jutsu": "B21",
+          "target": "SELF"
+        },
+        {
+          "jutsu": "B08",
+          "target": "RANDOM_OPPONENT",
+          "gate": 5
+        },
+        {
+          "jutsu": "S33",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "S31",
+          "target": "RANDOM_OPPONENT",
+          "gate": 4
+        },
+        {
+          "jutsu": "S06",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "action": "move_towards_opponent",
+          "target": "RANDOM_OPPONENT"
+        }
+      ]
+    },
+    "2OXJEXoktxJcjqMkE851g": {
+      "name": "Arsenal Keeper",
+      "role": "heavy bruiser",
+      "kit": [
+        "S01",
+        "B33",
+        "S27",
+        "B23",
+        "S39"
+      ],
+      "includeDefaultRules": false,
+      "orderedRules": [
+        {
+          "jutsu": "B23",
+          "target": "SELF"
+        },
+        {
+          "jutsu": "B33",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "S27",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "S01",
+          "target": "RANDOM_OPPONENT",
+          "gate": 4
+        },
+        {
+          "jutsu": "S39",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "action": "move_towards_opponent",
+          "target": "RANDOM_OPPONENT"
+        }
+      ]
+    },
+    "3V_gdHYaclMB1gTyOPAbV": {
+      "name": "Sentinel",
+      "role": "earth defense/controller",
+      "kit": [
+        "EE01",
+        "EE02",
+        "EE03",
+        "B39",
+        "S33"
+      ],
+      "includeDefaultRules": false,
+      "orderedRules": [
+        {
+          "jutsu": "EE03",
+          "target": "SELF"
+        },
+        {
+          "conditions": [
+            {
+              "type": "health_below",
+              "value": 50
+            }
+          ],
+          "jutsu": "B39",
+          "target": "SELF"
+        },
+        {
+          "jutsu": "EE02",
+          "target": "RANDOM_OPPONENT",
+          "gate": 4
+        },
+        {
+          "jutsu": "S33",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "EE01",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "action": "move_towards_opponent",
+          "target": "RANDOM_OPPONENT"
+        }
+      ]
+    },
+    "d6g0mOM7RBSsYI1hrUVT9": {
+      "name": "First Blade",
+      "role": "air skirmisher",
+      "kit": [
+        "EA01",
+        "EA02",
+        "EA03",
+        "EA04",
+        "S04"
+      ],
+      "includeDefaultRules": false,
+      "orderedRules": [
+        {
+          "jutsu": "EA03",
+          "target": "SELF"
+        },
+        {
+          "jutsu": "EA04",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "EA02",
+          "target": "RANDOM_OPPONENT",
+          "gate": 4
+        },
+        {
+          "jutsu": "S04",
+          "target": "RANDOM_OPPONENT",
+          "gate": 5
+        },
+        {
+          "jutsu": "EA01",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "action": "move_towards_opponent",
+          "target": "RANDOM_OPPONENT"
+        }
+      ]
+    },
+    "QY69h271Nx9uHrBeR6jwW": {
+      "name": "The Captain",
+      "role": "boss pressure/control",
+      "kit": [
+        "B19",
+        "B14",
+        "B17",
+        "B05",
+        "S31",
+        "B33"
+      ],
+      "includeDefaultRules": false,
+      "orderedRules": [
+        {
+          "jutsu": "B19",
+          "target": "SELF"
+        },
+        {
+          "jutsu": "B17",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "B33",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "B05",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "S31",
+          "target": "RANDOM_OPPONENT",
+          "gate": 4
+        },
+        {
+          "jutsu": "B14",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "action": "move_towards_opponent",
+          "target": "RANDOM_OPPONENT"
+        }
+      ],
+      "loot": {
+        "h-V9uiuxbL7lAWkO6nZWt": 0,
+        "MskL9ctwDbnkfmSK8j0-X": 0
+      }
+    },
+    "fDU9jCPZtH7YHbdQPO9RF": {
+      "name": "Crowned Captain",
+      "role": "command/sovereign boss",
+      "kit": [
+        "B10",
+        "B11",
+        "B12",
+        "B16",
+        "B17",
+        "B07"
+      ],
+      "includeDefaultRules": false,
+      "orderedRules": [
+        {
+          "jutsu": "B10",
+          "target": "SELF"
+        },
+        {
+          "jutsu": "B16",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "B11",
+          "target": "RANDOM_OPPONENT",
+          "gate": 5
+        },
+        {
+          "jutsu": "B12",
+          "target": "RANDOM_OPPONENT",
+          "gate": 5
+        },
+        {
+          "jutsu": "B17",
+          "target": "RANDOM_OPPONENT",
+          "gate": 6
+        },
+        {
+          "jutsu": "B07",
+          "target": "RANDOM_OPPONENT",
+          "gate": 5
+        },
+        {
+          "action": "move_towards_opponent",
+          "target": "RANDOM_OPPONENT"
+        }
+      ],
+      "loot": {
+        "ayiRmSjWs05lMPyL3G-1d": 20,
+        "h-V9uiuxbL7lAWkO6nZWt": 0,
+        "MskL9ctwDbnkfmSK8j0-X": 0
+      },
+      "removeAttachment": "LnRVMzyVmVwgaKvTH52Zy"
+    }
+  },
+  "retirementPolicy": {
+    "actionNow": "Unequip legacy-only jutsu from Ghost Ship AIs. Do not delete or rename those records in this pass, except that the new Core Rupture is a new shared record and does not modify Explosion!.",
+    "later": "Run a dedicated dependency audit after the retheme readback. Delete only legacy jutsu proven to have no remaining consumers.",
+    "candidates": [
+      [
+        "1Iy2Vy5ZvCY9dQsc193NB",
+        "Guarded Stance"
+      ],
+      [
+        "5c9EgF3dOsx9kelnQMfw5",
+        "Ghostly Knotted Lash"
+      ],
+      [
+        "65D6rTaW7ZlUmZIL4ZMZ_",
+        "Ghostly Grapeshot Volley"
+      ],
+      [
+        "i1KbE0NbN1SWIwHuJgdoT",
+        "Braced Stance"
+      ],
+      [
+        "kb6zaZKbkv3U3Lgl0p1Dr",
+        "Ghostly Boarding Hook"
+      ],
+      [
+        "KIMeKemnXttwOv1Cf-IPS",
+        "Sharpened Focus"
+      ],
+      [
+        "lDRZckm05jQEUTyZ0qmGU",
+        "Ghostly Cutlass Slash"
+      ],
+      [
+        "wZ20uyFl9jXs31Yrp9t7T",
+        "Ghostly Chain Shot"
+      ],
+      [
+        "nCQETf-HNnbRec1OSY2-R",
+        "Explosion!"
+      ],
+      [
+        "1jXfTgrtGUaSfqTPSSa83",
+        "Ghostly Rigging Snare"
+      ],
+      [
+        "69KaUuqwYMxBtP8cnpSyt",
+        "Ghostly Powder Flash"
+      ],
+      [
+        "Jz4Lb55NcpwZn3nUK5PrJ",
+        "Ghostly Strangling Weed"
+      ],
+      [
+        "M17d487aZDuWfS5C_hgeN",
+        "Ghostly Hull-Crush Coil"
+      ],
+      [
+        "mL39bQRcyFtdPUlsJRNsA",
+        "Ghostly Tarred Harpoon"
+      ],
+      [
+        "LIGN4c83NNmv4ea655HGx",
+        "Ghostly Measured Verdict"
+      ],
+      [
+        "T3glZGcSd-jS8G-NB43GR",
+        "Counter Stance"
+      ],
+      [
+        "ZZk2cSkwhzUSdtq6XB72_",
+        "Ghostly White-Fire Riposte"
+      ],
+      [
+        "eMNSr1NWubD_IwVYppbkZ",
+        "Ghostly Chart-Pin Barrage"
+      ],
+      [
+        "yjsfRGaY1rUwG3FUWeHUW",
+        "Ghostly Redrawn Course"
+      ],
+      [
+        "bt-LJ22cM2gs_-iVtPsbW",
+        "Ghostly Coin-Weight Maul"
+      ],
+      [
+        "wMcoazoyXaEXViSCn5weF",
+        "Ghostly Crossed Out"
+      ],
+      [
+        "1ymzIUup_ErD_ruUkOmJV",
+        "Ghostly Grasp of the Buried"
+      ],
+      [
+        "84Ew66RUgE_yzTeb2X4d4",
+        "Ghostly Sand-Choke"
+      ],
+      [
+        "cRs0e3bzbw1zAQ8Z0ZPgA",
+        "Ghostly Burial Tide"
+      ],
+      [
+        "JtMuRYsk965ZZD1sSQlrL",
+        "Ghostly Shore-Break"
+      ],
+      [
+        "UrQra0Xfn18ZFEgL38yl1",
+        "Ghostly Tidal Grave"
+      ],
+      [
+        "HsHQylAuohwyOcMcCOtPA",
+        "Ghostly Undertow Chain"
+      ],
+      [
+        "jbdOPmLPLvGZjltPvFiAu",
+        "Ghostly Vault-Breaker"
+      ],
+      [
+        "MG9ZujAV8lK7--YxThVbQ",
+        "Battle Trance"
+      ],
+      [
+        "PqKTMl9XyNXLoJHIsQEas",
+        "Ghostly Dead Reckoning"
+      ],
+      [
+        "VTw2FVjsJXOZNr1NyPkoh",
+        "Ghostly Gale Cleaver"
+      ],
+      [
+        "YCDM4ZWOWY1d4nqwXpX0j",
+        "Ghostly Thunderhead Brand"
+      ],
+      [
+        "0Y10JpChssDwFUxNRk6p3",
+        "Death's Door"
+      ],
+      [
+        "PdD44PGaNv4MN5fOALhAF",
+        "Death's Grasp"
+      ],
+      [
+        "ddbIyVtoxdPQwLRXxSBq8",
+        "Ghostly Deep Six"
+      ],
+      [
+        "EQ93LX8wvuIAd5u75q_i1",
+        "Ghostly Shipwreck Delusion"
+      ],
+      [
+        "X2P22h8ApDmTZHjWpNO87",
+        "Ghostly Final Fathom"
+      ]
+    ]
+  }
+}
