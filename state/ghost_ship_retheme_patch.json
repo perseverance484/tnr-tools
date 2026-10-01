@@ -17,13 +17,13 @@
   "quests": {
     "6Ri-W5TtUrEMWpyYlnf_F": {
       "name": "Ghost Ship (Gather)",
-      "description": "The legendary Ghost Ship has appeared again, held aloft by a failing network of chakra seals. Board it before it vanishes, brave the crew it remembers, and escape with whatever the lost warship still guards.",
-      "successDescription": "The Ghost Ship slips back into legend, leaving only the spoils you carried away."
+      "description": "The legendary Ghost Ship has returned, a warship thought destroyed decades ago now hanging over the coast on a lattice of impossible seals. Board it before it vanishes, learn what the Skyglass Core preserved, and escape with whatever the lost project still guards.",
+      "successDescription": "The Ghost Ship fades from the sky as suddenly as it came. What you recovered is real. So are the signs that something aboard still remembers the old mission."
     },
     "HckXVOf-qk6ESU9t5rxLh": {
       "name": "Ghost Ship (Hunt)",
-      "description": "The legendary Ghost Ship has appeared again, held aloft by a failing network of chakra seals. Board it before it vanishes, brave the crew it remembers, and escape with whatever the lost warship still guards.",
-      "successDescription": "The Ghost Ship slips back into legend, leaving only the spoils you carried away."
+      "description": "The legendary Ghost Ship has returned, a warship thought destroyed decades ago now hanging over the coast on a lattice of impossible seals. Board it before it vanishes, learn what the Skyglass Core preserved, and escape with whatever the lost project still guards.",
+      "successDescription": "The Ghost Ship fades from the sky as suddenly as it came. What you recovered is real. So are the signs that something aboard still remembers the old mission."
     }
   },
   "aiRenames": {
@@ -41,7 +41,7 @@
   },
   "objectiveText": {
     "d_intro": {
-      "description": "The Ghost Ship crosses the moon without touching the sea. Pale seal-light pulses beneath its keel, and the air bends around a hull that vanished decades ago. Tonight it hangs low enough to board. Choose your way in.",
+      "description": "The Ghost Ship appears without approach. One moment the moon is clear; the next, a black hull hangs beneath it, seal-light burning through the keel where the sea should be. Every record says the vessel was destroyed decades ago. Tonight it lowers a gangplank.",
       "choices": [
         "Take the gangplank",
         "Climb beneath the hull",
@@ -49,7 +49,7 @@
       ]
     },
     "d_gang": {
-      "description": "The Deck Warden waits at the top of the gangplank beside two unstable seal charges. His outline flickers with pale script, then hardens into something solid enough to fight.",
+      "description": "At the top of the gangplank, the Deck Warden takes shape from pale script and old armor. Behind him, two seal charges hum beside the rail. His face is young. The uniform is generations out of date.",
       "choices": [
         "Break the deck watch"
       ]
@@ -61,10 +61,10 @@
       "description": "The Deck Warden drives you back over the rail. The ship does not pursue. Board again."
     },
     "c_climb": {
-      "description": "Climb the anchor chain beneath the hull, following the pulse of seal-light toward a maintenance breach."
+      "description": "Climb the anchor chain beneath the hull. The metal is warm with chakra, and every few breaths the ship seems to lose weight beneath your hands."
     },
     "d_bilgein": {
-      "description": "Inside the lower hull, broken seal-lines leak pale chakra into soaked timber and hanging cable. The mess folds inward and stands up. The Core Horror has mistaken wreckage for a body.",
+      "description": "Inside the lower hull, cracked seal-lines leak pale chakra into soaked timber and cable. The wreckage gathers itself around a half-formed human outline, as if the ship remembers a crew member badly. The Core Horror turns toward you.",
       "choices": [
         "Fight through it"
       ]
@@ -76,7 +76,7 @@
       "description": "The Horror collapses over you in timber, cable, and cold chakra. When the ship rebuilds the breach, you are back outside it. Climb again."
     },
     "d_parley": {
-      "description": "An Oathkeeper appears at the rail, pale script running across his coat and hands. He raises one palm. 'Answer true and walk aboard oathbound. Answer false and prove yourself by force. What does every traveler keep while every journey spends it?'",
+      "description": "The Oathkeeper appears at the rail in an officer's coat faded by no weather. Pale seal-script passes through his hands. 'Answer true and walk aboard oathbound. Answer false and prove yourself by force. What does every traveler keep while every journey spends it?'",
       "choices": [
         "Time",
         "Breath",
@@ -84,13 +84,13 @@
       ]
     },
     "d_oathpass": {
-      "description": "'True.' The Oathkeeper steps aside. Seal-lines brighten beneath your feet as the crew parts toward the helm. 'Oath accepted. The Captain will know.'",
+      "description": "'Time.' For the first time, the Oathkeeper smiles. 'We had plenty of that.' He steps aside as seal-lines brighten beneath your feet. 'Oath accepted. The Captain will know.'",
       "choices": [
         "Walk the oathbound path"
       ]
     },
     "d_duel": {
-      "description": "'False.' The Oathkeeper draws a narrow blade and salutes. 'Then let skill answer.'",
+      "description": "'Wrong.' The Oathkeeper draws a narrow blade and salutes. 'Then show me what the living learned while we were gone.'",
       "choices": [
         "Accept the duel"
       ]
@@ -102,7 +102,7 @@
       "description": "The Oathkeeper's blade finds you three times. He lowers it, unimpressed, and the ship's seals cast you back outside. Call again."
     },
     "d_deck": {
-      "description": "The deck stretches wider than the hull should allow. Seal-script crawls through the planks beneath dark sails while three routes open ahead: the chart room, the sealed hold, or the long walk to the helm.",
+      "description": "The deck is too wide for the hull beneath it. Empty mess tables are laid for a meal no one has touched, while crew afterimages repeat their stations between pulses of seal-light. Three routes open ahead: the chart room, the sealed hold, or the long walk to the helm.",
       "choices": [
         "Search the chart room",
         "Descend into the hold",
@@ -110,7 +110,7 @@
       ]
     },
     "d_quarters": {
-      "description": "The Wayfinder looks up from charts that cannot all describe the same world. Coastlines, mountains, and villages overlap in impossible positions. A coded route sheet hangs from his belt.",
+      "description": "The Wayfinder looks up from charts layered with decades of corrections. Some mark villages that did not exist when his uniform was new. Others show mountains from angles no ground navigator could have drawn. 'Still no home port,' he says.",
       "choices": [
         "Take the route sheet"
       ]
@@ -122,13 +122,13 @@
       "description": "Ink, seal-light, and false horizons swallow the room. When your sight returns, you are back on the deck. The chart room waits."
     },
     "d_map": {
-      "description": "You tear the coded route sheet free. Familiar landmarks are marked from impossible angles, but one hidden supply cache is clear enough to follow.",
+      "description": "Among the impossible routes is an old field cache, marked before the ship vanished. The ink is decades old. The Wayfinder's newest corrections are not.",
       "choices": [
         "Follow the route ashore"
       ]
     },
     "d_hold": {
-      "description": "Rows of sealed crates rise through the hold, each marked with old shinobi logistics codes. The Arsenal Keeper steps between you and the stores, a counterweight maul resting on one shoulder. 'Nothing leaves unaccounted.'",
+      "description": "Rows of sealed crates fill the hold. Inventory slates show the same quantities checked again and again across decades. The Arsenal Keeper stands among untouched rations and medicine. 'Nothing leaves unaccounted.'",
       "choices": [
         "Challenge the keeper"
       ]
@@ -193,16 +193,16 @@
       "description": "The Sentinel drives you into the sand and settles back over the buried seal frame. The cache remains."
     },
     "d_claim_A": {
-      "description": "The Sentinel breaks apart into sand and fading script. Beneath it sits a sealed field cache, intact after decades.",
+      "description": "The Sentinel breaks apart into sand and fading script. Beneath it sits a sealed field cache stamped with the same Skyglass project mark etched into the ship's keel.",
       "choices": [
         "Open the cache"
       ]
     },
     "w_A": {
-      "description": "You followed the old route correctly and recovered one of the Ghost Ship's forgotten field caches."
+      "description": "You recover a field cache left before the Ghost Ship vanished. Its supplies are old. The seal keeping them preserved is still active."
     },
     "d_crates": {
-      "description": "The hold is yours. Unsealed supply crates can be carried out now. Behind them, a black reinforcement door carries the Captain's personal seal and hums with a denser chakra signature.",
+      "description": "Unsealed supplies can be carried out now. Behind them, a black reinforcement door bears the Captain's personal seal. Nothing in the hold looks used, only counted.",
       "choices": [
         "Take the accessible supplies",
         "Break the sealed vault"
@@ -230,7 +230,7 @@
       "description": "You chose the sure supplies and escaped before the ship vanished again."
     },
     "d_vault": {
-      "description": "The Captain's seal breaks. Cold wind pours from a room that has no opening to the sky. The First Blade steps out, twin cleavers forming from the gale around his hands.",
+      "description": "The Captain's seal breaks. Cold wind spills from a room without windows. The First Blade steps out in the uniform of a dead era, twin cleavers forming from the gale. 'Finally,' he says. 'Something new.'",
       "choices": [
         "Face the First Blade"
       ]
@@ -251,7 +251,7 @@
       "description": "You broke the Captain's private seal and claimed what the ship had guarded from its own crew."
     },
     "d_king": {
-      "description": "At the command dais stands the Captain, almost solid beneath the pale glow of the core-link seals. He studies you as if no time has passed at all. 'You made it farther than most.'",
+      "description": "At the command dais stands the Captain, almost solid beneath the core-link seals. An empty ring of white crystal hangs above him. 'They built this ship to cross any wall and outlast any siege,' he says. 'No one asked what outlasting everything would cost.'",
       "choices": [
         "Challenge the Captain"
       ]
@@ -263,34 +263,34 @@
       "description": "The Captain ends the duel and the helm flashes white. A moment later you are back at the approach, the challenge still waiting."
     },
     "d_claim_C": {
-      "description": "The Captain lowers his weapon. The seal-light around him flickers, but his expression does not. 'Then take what you came for. You earned passage this far.'",
+      "description": "The Captain lowers his weapon. 'The ship died once. Skyglass disagreed.' Behind him, the command stores unlock.",
       "choices": [
         "Claim the command stores"
       ]
     },
     "w_C": {
-      "description": "You crossed the Ghost Ship from rail to helm and took your reward from the Captain himself."
+      "description": "You cross the Ghost Ship from rail to helm and defeat the Captain it remembers. The command stores open, but the ship itself shows no sign of ending."
     },
     "d_kingoath": {
-      "description": "The Captain turns before you reach the dais. The Oathkeeper's mark is already burning across the floor. 'Oathbound.' White crystal rises around his brow as the ship's seal network wakes in answer. 'Then face what the ship remembers best.'",
+      "description": "The Captain turns before you reach the dais. The Oathkeeper's mark burns across the floor. White crystal rises from the control ring and closes around his brow. 'The order was preserve command, preserve crew, keep the vessel airborne until the mission ended. The mission never ended.'",
       "choices": [
         "Face the Crowned Captain"
       ]
     },
     "b_kingE": {
-      "description": "The White Crown forms. The Crowned Captain steps down as every seal on the helm answers him."
+      "description": "The White Crown completes itself. Every seal on the Ghost Ship answers at once as the Crowned Captain steps down."
     },
     "r_king_oath": {
       "description": "The Crowned Captain breaks your guard and the helm flashes white. The oath remains recorded. When you return to the dais, he is waiting at full synchronization."
     },
     "d_claim_Co": {
-      "description": "The White Crown fractures into pale light as the Captain drops to one knee. He laughs once, breathless. 'Oath kept.' The command stores unlock behind him.",
+      "description": "White crystal fractures from his brow and hangs in the air as fading shards. The Captain drops to one knee. 'Now you understand why they feared us.' The command stores open behind him as the ship begins to fade.",
       "choices": [
         "Claim the oathbound reward"
       ]
     },
     "w_Co": {
-      "description": "You honored the ship's challenge and defeated the Captain at full synchronization. The Ghost Ship yields its richest stores before it fades."
+      "description": "You defeat the Ghost Ship's most complete memory of its Captain. The vessel slips out of the world again, still following a mission no living shinobi remembers."
     }
   },
   "jutsuRetheme": [
@@ -520,5 +520,49 @@
     "rX78pJPETsUL2JrsSvGHn": "Ghost Ship Cache Site",
     "xm3F2YXkNPeLWHRAUnbmF": "Captain Portrait",
     "4Cu4EBaWRsGm5J_Ld1hTt": "Crowned Captain Portrait"
-  }
+  },
+  "storyCanon": {
+    "publicLegend": "The Ghost Ship is called a ghost because it should not exist. Official records say the experimental warship was destroyed decades ago, yet it periodically materializes in the sky with no visible approach and vanishes again just as suddenly.",
+    "project": "The vessel was a forbidden shinobi engineering project built around a chakra-reactive Skyglass Core. A hull-wide seal lattice let it ignore terrain, remain airborne and strike from directions conventional defenses could not cover.",
+    "crewFate": "The Core was ordered to preserve command continuity and crew function through catastrophic damage. When the vessel was lost, the emergency lattice preserved chakra impressions instead of living bodies. The ship now reconstructs its crew as afterimages from stored patterns.",
+    "tragedy": "The afterimages do not age because they are not biologically living. They can remember food, warmth, sleep, shore leave and ordinary life, but the ship continually rebuilds them for duty rather than letting them live those experiences. Some follow routine without understanding it; higher-fidelity impressions know exactly how much time has passed.",
+    "menace": "The ship was feared because it could cross walls and mountains, appear above defended territory, and replace fallen crew from stored chakra patterns. Destroying a defender did not necessarily remove it from the next manifestation.",
+    "recurrence": "Damage to the Skyglass emergency lattice leaves the vessel slipping in and out of stable space. It reappears along fragments of old routes when the Core accumulates enough chakra to reconstruct the ship and crew again.",
+    "captain": "The Captain's normal reconstruction is highly stable but incomplete. The oathbound route causes the Core to rebuild the highest-fidelity command imprint through the White Crown, producing the Crowned Captain, who remembers the final project orders and understands what the crew became.",
+    "crown": "The White Crown was the Captain's command interface with the Skyglass Core. Its fragments retain the crown's seal pattern, which is why five fragments can be restored into the complete item."
+  },
+  "narrativeReveal": [
+    {
+      "stage": "arrival",
+      "reveal": "The ship materializes with no approach and is visibly held aloft by seal engineering."
+    },
+    {
+      "stage": "gangplank",
+      "reveal": "The Deck Warden is physically young but wears a uniform generations out of date."
+    },
+    {
+      "stage": "lower_hull",
+      "reveal": "The Core can reconstruct bodies incorrectly, producing the Core Horror from hull material and a damaged crew pattern."
+    },
+    {
+      "stage": "parley",
+      "reveal": "The Oathkeeper knows time has passed and distinguishes the living from the crew."
+    },
+    {
+      "stage": "wayfinder",
+      "reveal": "Charts contain decades of corrections, proving the ship has continued traveling after its supposed destruction."
+    },
+    {
+      "stage": "hold",
+      "reveal": "Rations and medicine remain untouched while the Arsenal Keeper has counted them for decades."
+    },
+    {
+      "stage": "captain",
+      "reveal": "The ship survived its destruction because Skyglass interpreted preservation orders literally."
+    },
+    {
+      "stage": "crowned_captain",
+      "reveal": "The original mission never reached a termination state, so the Core continues rebuilding vessel, command and crew."
+    }
+  ]
 }
