@@ -1,6 +1,6 @@
 # Ghost Ship crew: classified project revision
 
-**Status:** PROPOSED roster duties and visual designs; awaiting dauntless review. The underlying elite-crew/cursed-project correction is approved by the user, RUL-2026-10-01-003.
+**Status:** APPROVED by dauntless 2026-10-01: “Approved. Regenerate deck warden now.” RUL-2026-10-01-004 accepts these duties and visual treatments; individual generated assets still require visual acceptance.
 **Lead:** Content Designer with Art Director. **Baseline:** main `df17803a9c4222025dba7e68c1919a372835fcd6`, verified 2026-10-01.
 **Sources:** `state/ghost_ship_retheme_design.md`, `state/ghost_ship_retheme_patch.json`, `state/ghost_ship_shared_pool_migration.json`, and the locked ship in `state/ghost_ship_art_production.md`.
 
@@ -12,11 +12,11 @@ The cursed-ship feeling must be immediately visible. The approved explanation al
 
 The first Deck Warden avatar is **REJECTED / SUPERSEDED as a production candidate**. Its technical checks passed, but the healthy face, ordinary equipment and tiny glowing damage marks failed the elite/cursed brief. Do not use it as the crew style reference or package it. The approved ship remains LOCKED.
 
-## Proposed roster treatment
+## Approved roster treatment
 
 Retain the approved short names and exact record mappings. Redefine the people, equipment and failure states behind them:
 
-| Existing slot / name | Former project duty | Proposed silhouette and curse evidence | Existing combat role |
+| Existing slot / name | Former project duty | Approved silhouette and curse evidence | Existing combat role |
 |---|---|---|---|
 | Deck Warden | Boarding-security chief and close-quarters interception specialist. | Broad, compact, asymmetric guard armor; broken blank half-mask exposes one unaged eye and cheek. One upper-arm section is absent; the bracer and hand persist across a short seal-lattice gap. A short hooked interception blade replaces the casual belt-tool emphasis. | Close pressure |
 | Oathkeeper | Master of access seals, mission authorization and binding protocols; the project's voice during parley. | Narrow upright figure with layered forearm seal bindings and a rigid throat collar. The lower face resolves into a smooth seal-bound surface while the eyes retain human grief. Speech comes from a reconstruction whose lips no longer move. | Technical duelist |
@@ -30,7 +30,7 @@ Retain the approved short names and exact record mappings. Redefine the people, 
 | Seal Charge | Classified demolition device, not a crew member. | Compact lacquered seal casket compressed by iron clamps; pale light escapes only at a failing seal seam. | Delayed shared Core Rupture |
 | Core Canister | Classified chakra-containment hardware, not a crew member. | Tall ribbed containment vessel with a restrained pale crystal inside and a fractured retaining lattice. Visibly a different object from the squat charge. | Delayed shared Core Rupture |
 
-Sentinel's human imprint and Core Horror's former engineering post are proposed identities, not facts established by the captures. No additional NPC or encounter is introduced. Crowned Captain remains the Captain's alternate reconstruction.
+Sentinel's human imprint and Core Horror's former engineering post are approved new identities, not facts established by the legacy captures. No additional NPC or encounter is introduced. Crowned Captain remains the Captain's alternate reconstruction.
 
 ## Shared visual grammar
 
@@ -42,7 +42,7 @@ Sentinel's human imprint and Core Horror's former engineering post are proposed 
 
 ## Next prototype and acceptance test
 
-Deck Warden remains the best first prototype because the first encountered crew member must establish both elite status and the curse. Generate a fresh `avatar_deck_warden_skyglass_b.webp` only after this revised direction is settled; never overwrite the rejected `_a` or alter the locked quest icon.
+Deck Warden remains the first prototype because the first encountered crew member must establish both elite status and the curse. Regeneration is authorized. Begin with a fresh `avatar_deck_warden_skyglass_b.webp`, incrementing the suffix on correction; never overwrite the rejected `_a` or alter the locked quest icon.
 
 At the actual avatar display size, judge three things before technical acceptance: (1) specialist military silhouette, (2) an unmistakably incomplete person maintained by forbidden seal engineering, (3) enough unaged humanity to make the condition tragic. Small glowing scratches do not satisfy the second test. Then apply the unchanged raw-QC, export, dark-composite and preflight workflow from `producing-tnr-art`.
 
@@ -50,4 +50,4 @@ At the actual avatar display size, judge three things before technical acceptanc
 
 The historical operatives were elite; varying encounter strength can reflect how much of each stored impression survives. This is a narrative explanation, not an approval to change ranks, levels, stats or difficulty. Keep the 11 record slots, 57-node graph, five endings, shared-pool kits, reward contract and Skyglass Serum naming.
 
-After roster-direction approval, reconcile the exact quest prose and machine patch with the new duties before freezing the Fable handoff. Preserve the existing reveal beats: unaged face, reconstruction horror, remembered time, impossible charts, unused supplies, the duel, command continuity and the unfinished mission. No bespoke legacy-jutsu icon work and no live-game writes.
+Roster direction is approved. Reconcile the exact quest prose and machine patch with the new duties before freezing the Fable handoff; the immediate authorized task is Deck Warden art regeneration. Preserve the existing reveal beats: unaged face, reconstruction horror, remembered time, impossible charts, unused supplies, the duel, command continuity and the unfinished mission. No bespoke legacy-jutsu icon work and no live-game writes.

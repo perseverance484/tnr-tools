@@ -7,7 +7,7 @@
 **Evidence baseline:** main after the successful root/dependency/profile captures  
 **Machine content source:** `state/ghost_ship_retheme_patch.json`
 
-**Crew revision, 2026-10-01:** dauntless clarified that this was a top-secret military project and everyone aboard at its disappearance was a high-level operative. The cursed-ship condition must be visually central. See RUL-2026-10-01-003 and `state/ghost_ship_crew_direction.md` for the proposed specialist roster/visual revision. Those individual duties and designs await review; reconcile the machine patch after acceptance and before implementation freeze.
+**Approved crew revision, 2026-10-01:** this was a top-secret military project and everyone aboard at its disappearance was a high-level operative. The cursed-ship condition must be visually central. RUL-2026-10-01-004 approves the specialist duties and visual treatments in `state/ghost_ship_crew_direction.md` and authorizes Deck Warden regeneration. Reconcile the exact quest prose/machine patch with those accepted duties before implementation freeze; individual generated assets still require visual locks.
 
 ## Objective
 
@@ -80,7 +80,7 @@ Out of scope:
 
 ## Approved short names and record mapping
 
-The names and slots below remain approved. Their specialist duties and visual identities are being revised in `state/ghost_ship_crew_direction.md`; that proposal does not silently change combat tuning or the shared kits.
+The names and slots below remain approved. Their specialist duties and visual identities are approved in `state/ghost_ship_crew_direction.md`; combat tuning and the shared kits are unchanged.
 
 | Live id | Current | Retheme |
 |---|---|---|
@@ -184,7 +184,7 @@ Crew presentation:
 - the closer an impression is to the Captain's core memory, the more solid it appears;
 - Crowned Captain is the most stable and visually authoritative reconstruction.
 
-The exact ship design is locked by RUL-2026-10-01-002; `state/ghost_ship_art_production.md` points to its preserved source. The first Deck Warden candidate was rejected for direction despite passing technical QC. Detailed replacement treatments remain proposals in `state/ghost_ship_crew_direction.md`.
+The exact ship design is locked by RUL-2026-10-01-002; `state/ghost_ship_art_production.md` points to its preserved source. The first Deck Warden candidate was rejected for direction despite passing technical QC. Detailed replacement treatments are now approved in `state/ghost_ship_crew_direction.md`, under RUL-2026-10-01-004.
 
 Existing asset ids should be reused where practical and their names/images updated, so quest wiring remains stable. The art task should audit each current image before deciding reuse vs regeneration.
 

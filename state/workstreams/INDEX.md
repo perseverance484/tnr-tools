@@ -6,18 +6,16 @@ Coordination projection for repository-backed content workstreams. This is **not
 
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |
-| Ghost Ship / Skyglass Art | `ghost_ship_art` | event art | ACTIVE | 1/5 settled - planned 3, blocked 1, complete 1 | [`ROADMAP.md`](ghost_ship_art/ROADMAP.md) |
+| Ghost Ship / Skyglass Art | `ghost_ship_art` | event art | ACTIVE | 1/5 settled - planned 3, in_progress 1, complete 1 | [`ROADMAP.md`](ghost_ship_art/ROADMAP.md) |
 | One Perfect Crop | `one_perfect_crop` | event | ACTIVE | 14/16 settled - blocked 1, complete 13, skipped 1, superseded 1 | [`ROADMAP.md`](one_perfect_crop/ROADMAP.md) |
 
 ## Ghost Ship / Skyglass Art
 
 `state/workstreams/ghost_ship_art/roadmap.json`
 
-**Executable now:** none.
+**Executable now**
 
-**Blocked**
-
-- `art.prototype` - Revised roster duties and visual direction are proposed and await dauntless review.
+- `art.prototype` (IN_PROGRESS) - Deck Warden avatar prototype
 
 Start a session: `python3 scripts/content_workstream.py init ghost_ship_art --task <id>`
 
