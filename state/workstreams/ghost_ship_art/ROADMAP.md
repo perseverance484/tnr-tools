@@ -5,7 +5,7 @@
 - **Slug:** `ghost_ship_art`
 - **Content type:** event art
 - **Status:** ACTIVE
-- **Progress:** 2/5 settled - planned 2, in_progress 1, complete 2
+- **Progress:** 1/5 settled - planned 2, in_progress 1, blocked 1, complete 1
 
 Produce the approved Skyglass retheme assets sequentially; content implementation and live-game writes remain outside this art packet.
 
@@ -17,8 +17,8 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | --- | --- |
 | `state/ghost_ship_art_production.md` | Audit, production order, current candidate and resume gate. |
 | `state/ghost_ship_retheme_design.md` | Approved Skyglass fiction and roster. |
-| `state/ghost_ship_crew_direction.md` | Approved elite specialist roster, cursed visual grammar and replacement prototype acceptance tests. |
-| `state/ghost_ship_retheme_patch.json` | Exact entity mapping and approved names. |
+| `state/ghost_ship_crew_direction.md` | Current whole-echo direction, retained elite duties, proposed spectral treatment and replacement prototype acceptance tests. |
+| `state/ghost_ship_retheme_patch.json` | Exact entity mapping and names; narrative wording remains the previous baseline and needs reconciliation before implementation freeze. |
 | `state/ghost_ship_shared_pool_migration.json` | Active combat kits; excludes retiring bespoke jutsu art. |
 | `skills/producing-tnr-art/SKILL.md` | Production/QC and acceptance rhythm. |
 | `skills/producing-tnr-art/data/25x_DATA_art_spec.json` | Current style and per-client export authority. |
@@ -29,25 +29,32 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | Task | Status | Owner | Depends on | Scope |
 | --- | --- | --- | --- | --- |
 | `art.quest_icon` | COMPLETE | chatgpt | - | One shared Gather/Hunt quest listing icon. |
-| `art.prototype` | COMPLETE | chatgpt | `art.quest_icon` | Produce one replacement Deck Warden avatar under the approved elite/cursed crew direction, QC and obtain visual acceptance. |
-| `art.avatars` | IN_PROGRESS | chatgpt | `art.prototype` | Ten remaining AI avatars/props, one at a time. |
+| `art.prototype` | IN_PROGRESS | chatgpt | `art.quest_icon` | Revise the Deck Warden with complete anatomy and a readable chakra presence, then QC and obtain visual acceptance before continuing the roster. |
+| `art.avatars` | BLOCKED | chatgpt | `art.prototype` | Ten remaining AI avatars/props, one at a time. |
 | `art.scenes` | PLANNED | chatgpt | `art.avatars` | Three identity-matched portraits, six 3:2 backgrounds; preserve blank suppressor. |
 | `art.rewards` | PLANNED | chatgpt | `art.scenes` | Crown, matching fragment and Skyglass Serum as needed. |
 
 ## Executable now
 
-- **`art.avatars`** (IN_PROGRESS) - Remaining combatants and props
-  - resume: Oathkeeper avatar_oathkeeper_skyglass_b.webp delivered: 626x626, 122774 bytes, rawqc ACCEPT, preflight 0 errors/0 warnings, native/320px dark QC inspected. Await visual acceptance before Wayfinder. Deck Warden _b and ship icon remain locked.
+- **`art.prototype`** (IN_PROGRESS) - Deck Warden avatar prototype
+  - resume: Direction brief revised under RUL-2026-10-01-005. Proposed next test: Deck Warden _c, restoring the whole arm and adding cool tint, close blue-white aura and controlled echo contour. Historical _b approval and bytes are preserved; _b is held from current delivery pending revision and is only an equipment/identity reference. _a remains rejected.
+
+## Blocked
+
+### `art.avatars` - Remaining combatants and props
+
+- OPEN DECISION (user-owned): Replacement whole-echo prototype must establish the current visual language before remaining avatars resume.
+- OPEN DECISION (user-owned): Final visual acceptance remains with dauntless.
 
 ## Other open decisions
 
-- `art.avatars`: Final visual acceptance remains with dauntless.
+- `art.prototype`: Final spectral treatment and replacement asset require visual review.
 - `art.scenes`: Final visual acceptance remains with dauntless.
 - `art.rewards`: Final visual acceptance remains with dauntless.
 
 ## Waiting on dependencies
 
-- `art.scenes` - waiting on `art.avatars` (IN_PROGRESS)
+- `art.scenes` - waiting on `art.avatars` (BLOCKED)
 - `art.rewards` - waiting on `art.scenes` (PLANNED)
 
 ## Completed, with evidence
@@ -57,12 +64,6 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 - path: `state/ghost_ship_art_production.md`
 - path: `art/ghost_ship/icon_ghost_ship_skyglass_d.webp`
 - path: `art/ghost_ship/references/ghost_ship_skyglass_locked_source_d.webp`
-
-### `art.prototype` - Deck Warden avatar prototype (COMPLETE)
-
-- path: `state/ghost_ship_art_production.md`
-- path: `state/ghost_ship_crew_direction.md`
-- path: `art/ghost_ship/avatar_deck_warden_skyglass_b.webp`
 
 ## Task detail
 
@@ -91,18 +92,18 @@ Quest icon brand lock.
 
 ### `art.prototype` - Deck Warden avatar prototype
 
-**COMPLETE** - area art, owner chatgpt, lead role Image Production
+**IN_PROGRESS** - area art, owner chatgpt, lead role Image Production
 
-Establish the elite, cursed reconstructed-crew visual language with one revised Deck Warden avatar.
+Establish complete recurring chakra echoes while preserving the approved elite Deck Warden identity and equipment.
 
 **Scope**
 
-- Produce one replacement Deck Warden avatar under the approved elite/cursed crew direction, QC and obtain visual acceptance.
+- Revise the Deck Warden with complete anatomy and a readable chakra presence, then QC and obtain visual acceptance before continuing the roster.
 
 **Required resources**
 
 - `state/ghost_ship_art_production.md` - Task-specific audit, artifact state and production gates; read the workstream resources above.
-- `state/ghost_ship_crew_direction.md` - Approved replacement direction and prototype visual acceptance tests.
+- `state/ghost_ship_crew_direction.md` - Current whole-echo direction and proposed spectral treatment; prior body-gap instructions are superseded.
 
 **Deliverables**
 
@@ -110,13 +111,13 @@ Establish the elite, cursed reconstructed-crew visual language with one revised 
 
 **Completion gates**
 
-- Elite specialist identity and visibly cursed reconstruction read at client size, beyond merely technical compliance.
+- Elite specialist identity, complete anatomy and unmistakable chakra presence read at client size.
 - Art preflight zero errors and target-appropriate visual QC.
 - dauntless explicitly accepts each final asset.
 
 ### `art.avatars` - Remaining combatants and props
 
-**IN_PROGRESS** - area art, owner chatgpt, lead role Image Production
+**BLOCKED** - area art, owner chatgpt, lead role Image Production
 
 Remaining combatants and props.
 
@@ -127,8 +128,8 @@ Remaining combatants and props.
 **Required resources**
 
 - `state/ghost_ship_art_production.md` - Task-specific audit, artifact state and production gates; read the workstream resources above.
-- `state/ghost_ship_crew_direction.md` - Approved specialist duties, distinct silhouettes and cursed reconstruction treatments.
-- `art/ghost_ship/avatar_deck_warden_skyglass_b.webp` - Locked crew rendering/material reference; inspect before generation.
+- `state/ghost_ship_crew_direction.md` - Retained elite specialist duties and current complete-chakra-echo proposal.
+- `art/ghost_ship/avatar_deck_warden_skyglass_b.webp` - Previously approved equipment/identity reference only; missing-arm treatment is superseded. Use the eventual whole-echo prototype for current rendering guidance.
 
 **Deliverables**
 

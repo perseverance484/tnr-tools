@@ -13,7 +13,8 @@
     "Quest icon LOCKED by dauntless 2026-10-01; all scenes must preserve its ship design, RUL-2026-10-01-002.",
     "Crew revision 2026-10-01: everyone aboard was an elite operative of a top-secret project; cursed reconstruction must be visually central (RUL-2026-10-01-003). Deck Warden _a rejected; individual new treatments proposed.",
     "Revised roster duties and visual treatments approved 2026-10-01; Deck Warden regeneration explicitly authorized (RUL-2026-10-01-004).",
-    "Deck Warden _b LOCKED by dauntless 2026-10-01: Perfect. Approved. Proceed. Continue remaining avatars one at a time, Oathkeeper first."
+    "Deck Warden _b was explicitly approved 2026-10-01. Preserve that approval and its exact bytes; it is now held from the current delivery pack pending the whole-echo revision.",
+    "RUL-2026-10-01-005: complete recurring chakra echoes replace bodily gaps and body/hull fusion. Proposed tint, close aura and offset contours are the next visual test; the locked ship and elite specialist duties remain."
   ],
   "resources": [
     {
@@ -26,11 +27,11 @@
     },
     {
       "path": "state/ghost_ship_crew_direction.md",
-      "why": "Approved elite specialist roster, cursed visual grammar and replacement prototype acceptance tests."
+      "why": "Current whole-echo direction, retained elite duties, proposed spectral treatment and replacement prototype acceptance tests."
     },
     {
       "path": "state/ghost_ship_retheme_patch.json",
-      "why": "Exact entity mapping and approved names."
+      "why": "Exact entity mapping and names; narrative wording remains the previous baseline and needs reconciliation before implementation freeze."
     },
     {
       "path": "state/ghost_ship_shared_pool_migration.json",
@@ -96,14 +97,14 @@
       "id": "art.prototype",
       "title": "Deck Warden avatar prototype",
       "area": "art",
-      "status": "COMPLETE",
+      "status": "IN_PROGRESS",
       "owner": "chatgpt",
-      "objective": "Establish the elite, cursed reconstructed-crew visual language with one revised Deck Warden avatar.",
+      "objective": "Establish complete recurring chakra echoes while preserving the approved elite Deck Warden identity and equipment.",
       "depends_on": [
         "art.quest_icon"
       ],
       "scope": [
-        "Produce one replacement Deck Warden avatar under the approved elite/cursed crew direction, QC and obtain visual acceptance."
+        "Revise the Deck Warden with complete anatomy and a readable chakra presence, then QC and obtain visual acceptance before continuing the roster."
       ],
       "required_resources": [
         {
@@ -112,20 +113,22 @@
         },
         {
           "path": "state/ghost_ship_crew_direction.md",
-          "why": "Approved replacement direction and prototype visual acceptance tests."
+          "why": "Current whole-echo direction and proposed spectral treatment; prior body-gap instructions are superseded."
         }
       ],
       "deliverables": [
         "Processed candidate(s) with exact filenames, byte ledger and QC."
       ],
       "completion_gates": [
-        "Elite specialist identity and visibly cursed reconstruction read at client size, beyond merely technical compliance.",
+        "Elite specialist identity, complete anatomy and unmistakable chakra presence read at client size.",
         "Art preflight zero errors and target-appropriate visual QC.",
         "dauntless explicitly accepts each final asset."
       ],
       "lead_role": "Image Production",
-      "open_decisions": [],
-      "resume_note": "LOCKED: avatar_deck_warden_skyglass_b.webp, 628x628, 176406 bytes, explicit dauntless approval 2026-10-01 recorded in state/ghost_ship_art_production.md. _a remains rejected. Use _b as crew rendering/material reference.",
+      "open_decisions": [
+        "Final spectral treatment and replacement asset require visual review."
+      ],
+      "resume_note": "Direction brief revised under RUL-2026-10-01-005. Proposed next test: Deck Warden _c, restoring the whole arm and adding cool tint, close blue-white aura and controlled echo contour. Historical _b approval and bytes are preserved; _b is held from current delivery pending revision and is only an equipment/identity reference. _a remains rejected.",
       "evidence": [
         {
           "kind": "path",
@@ -145,7 +148,7 @@
       "id": "art.avatars",
       "title": "Remaining combatants and props",
       "area": "art",
-      "status": "IN_PROGRESS",
+      "status": "BLOCKED",
       "owner": "chatgpt",
       "objective": "Remaining combatants and props.",
       "depends_on": [
@@ -161,11 +164,11 @@
         },
         {
           "path": "state/ghost_ship_crew_direction.md",
-          "why": "Approved specialist duties, distinct silhouettes and cursed reconstruction treatments."
+          "why": "Retained elite specialist duties and current complete-chakra-echo proposal."
         },
         {
           "path": "art/ghost_ship/avatar_deck_warden_skyglass_b.webp",
-          "why": "Locked crew rendering/material reference; inspect before generation."
+          "why": "Previously approved equipment/identity reference only; missing-arm treatment is superseded. Use the eventual whole-echo prototype for current rendering guidance."
         }
       ],
       "deliverables": [
@@ -177,9 +180,10 @@
       ],
       "lead_role": "Image Production",
       "open_decisions": [
+        "Replacement whole-echo prototype must establish the current visual language before remaining avatars resume.",
         "Final visual acceptance remains with dauntless."
       ],
-      "resume_note": "Oathkeeper avatar_oathkeeper_skyglass_b.webp delivered: 626x626, 122774 bytes, rawqc ACCEPT, preflight 0 errors/0 warnings, native/320px dark QC inspected. Await visual acceptance before Wayfinder. Deck Warden _b and ship icon remain locked.",
+      "resume_note": "Oathkeeper _b was never visually accepted and is superseded by the complete-echo direction. Retain only possible uniform/gesture references; replacement must have a complete face and throat. Resume Oathkeeper after the revised Deck Warden prototype is accepted. The ship icon remains locked.",
       "evidence": [
         {
           "kind": "path",

@@ -1,17 +1,19 @@
 # Ghost Ship / Skyglass art production
 
 **Baseline:** live main verified 2026-10-01 at `df17803a9c4222025dba7e68c1919a372835fcd6`.
-**Lead:** Image Production; Art Director supporting. **Status:** quest icon and Deck Warden `_b` LOCKED; Oathkeeper `_b` candidate delivered, awaiting visual acceptance. Deck Warden `_a` remains rejected.
+**Lead:** Content Designer / Art Director for the current direction revision. **Status:** ship icon LOCKED; complete recurring chakra echoes requested (RUL-2026-10-01-005). Deck Warden `_b` retains prior approval but is held for revision; Oathkeeper `_b` is superseded as a current candidate.
 **Branch:** `chatgpt/ghost-ship-skyglass-art-20261001`. No live-game API requests or writes; only captured image URLs fetched.
 
 ## Direction and sequence
 
 Follow `state/ghost_ship_retheme_design.md`, the shared-pool migration, and the current art spec. Forbidden shinobi warship, dark timber/iron seal lattice, pale white-blue Skyglass; crew are reconstructed chakra impressions. Tragic military duty without mortal life. Captain and Crowned Captain are increasingly stable, not increasingly decomposed. Skyglass Serum is approved.
 
+**Current override:** the unstable vessel repeatedly summons complete chakra echoes, which pilot it. Missing limbs/throats, empty anatomical cavities and body/hull fusion are no longer production directions. The proposed replacement uses an ethereal tint, controlled pale aura and bounded afterimages. Read the current `state/ghost_ship_crew_direction.md`; older generation prompts below are provenance, not instructions to reuse. No pixels changed during this direction revision.
+
 2026-10-01 correction: all personnel aboard the top-secret project at its disappearance were high-level operatives. The curse must be immediately visible, not reduced to ordinary shinobi with small glowing cracks. Read `state/ghost_ship_crew_direction.md` before further generation. Its specialist duties and silhouettes are approved by RUL-2026-10-01-004; the premise is recorded in RUL-2026-10-01-003.
 
 1. Quest listing icon, shared by Gather and Hunt.
-2. Revised Deck Warden AI avatar prototype: elite boarding-security chief, archaic specialist armor and a major readable reconstruction failure. Preserve a glimpse of the unaged human face. Follow the approved revised brief; the ordinary-guard `_a` treatment is superseded.
+2. Whole-echo Deck Warden prototype: retain approved elite armor/mask identity, restore the complete arm and test a clear spectral treatment. The proposed next filename is `_c`; settle the effect before generation and obtain a new visual lock.
 3. Remaining AI avatars/props, one at a time: Oathkeeper, Wayfinder, Arsenal Keeper, Sentinel, First Blade, The Captain, Crowned Captain, Core Horror, Seal Charge, Core Canister. Captain pair shares identity; hazards share core/seal construction.
 4. Scene portraits from locked Oathkeeper/Captain identities; then Deck, Lower Hull, Chart Room, Hold, Helm, Cache Site backgrounds. Reserve lower left; compose backgrounds at 3:2.
 5. Skyglass Crown, matching fragment, Skyglass Serum item icons. Reassess the fragment only after Crown lock.
@@ -88,7 +90,7 @@ Ghost Ship roadmap validates. `validate --all` reports an unrelated pre-existing
 - Target: AI_AVATAR. Export: 628x628, 176,406 bytes (172.3 KiB), lossless WebP with actual alpha.
 - SHA-256: `6b32933892c795f46ce16cbac986ac588d151a5f2649fe009799e37ac578c918`
 - Retained artifact: `libfile_32aaf754decc8191be5969080605c71f`.
-- Acceptance: **LOCKED by dauntless 2026-10-01:** “Perfect. Approved. Proceed”. This is the crew rendering reference. Preserve its exact bytes, actual arm/weapon orientation, mask and equipment identity in any future depiction.
+- Historical acceptance: **approved by dauntless 2026-10-01:** “Perfect. Approved. Proceed”. Under subsequent RUL-2026-10-01-005, **HOLD from the current delivery pack pending whole-echo revision**. Preserve exact bytes and approval history. Use equipment/mask/weapon identity as reference; restore a complete arm in any proposed replacement.
 - Current AI_AVATAR target and house style read; all four selected NINJA references inspected individually. Fresh built-in generation, not an edit of rejected `_a`.
 - Raw source 1254x1254. `rawqc.py --scaffold deck_warden_skyglass_b`: ACCEPT, lime coverage 72.9%, border purity 100%. Reduced to the recommended 640x640 with nearest-neighbor before bundled processing.
 - `chroma.py --target AI_AVATAR --spec ... --qc ...`: background 297,938px, enclosed background 2,520px, no remap; exact square export. `artpreflight.py --type AI_AVATAR --spec ... --json`: **0 errors, 0 warnings**, 0% partial-alpha edges.
@@ -99,19 +101,19 @@ Ghost Ship roadmap validates. `validate --all` reports an unrelated pre-existing
 
 - File: `art/ghost_ship/avatar_oathkeeper_skyglass_b.webp`, AI_AVATAR for existing Oathkeeper `0PZU_FvlbM3ErYGlD5r56`.
 - Export: 626x626, 122,774 bytes (119.9 KiB), lossless WebP with actual alpha. SHA-256: `d707bb7cf7dca3b01f450fc87711d3569231e01a25b348713ac8d9c976ac92ee`.
-- Retained artifact: `libfile_81bacf2588948191a89c2e23f20304ff`; acceptance: **CANDIDATE, NOT LOCKED**.
+- Retained artifact: `libfile_81bacf2588948191a89c2e23f20304ff`; disposition: **SUPERSEDED current candidate under RUL-2026-10-01-005; never visually locked**.
 - AI_AVATAR spec/house clauses read. Inspected selected individual Commander Okabe and Winter Crow references plus the locked Deck Warden for crew materials/rendering; narrow Oathkeeper silhouette, gestures and curse remain distinct.
 - Generation `_a` passed rawqc (81.4% lime, 100% ring purity) but failed visual direction: ordinary mask-like lower face and insufficiently readable throat interruption. Not processed or delivered as a final. Built-in image editing corrected the lower face/throat while retaining the figure; exact prompts are in `art/ghost_ship/references/oathkeeper_prompt_record.json`.
 - `_b` rawqc ACCEPT: 1254x1254, lime coverage 81.8%, border purity 100%. Source reduced to recommended 640x640 with nearest-neighbor before bundled processing.
 - `chroma.py --target AI_AVATAR --spec ... --qc ...`: background 335,606px, holes 366px, remapped 47px. `artpreflight.py --type AI_AVATAR --spec ... --json`: **0 errors, 0 warnings**, 0% partial-alpha edges.
 - Native dark composite and 320px client-size view inspected. Smooth mouthless lower face, rigid collar and clearly absent throat joined by thin pale seal connections; two human eyes, an oath gesture and layered forearm bindings remain legible. Narrow split tabard distinguishes the silhouette from the Deck Warden. No green pocket survives in the throat opening; no text, insignia, gore or modern equipment. Body proportions and the complete hands/feet checked.
-- If accepted, preserve this identity for the later Oathkeeper scene portrait, including the mouthless face, missing throat, tied dark/gray hair, hand gesture and narrow armor silhouette. Do not generate that portrait before its avatar is locked.
+- The later Oathkeeper portrait must match a newly accepted whole-echo avatar. This candidate's narrow costume and gesture can inform that replacement, but its absent throat and mouthless anatomy are superseded.
 
 ## Resume
 
-Quest icon, revised roster direction and Deck Warden `_b` accepted. `art.prototype` is complete and `art.avatars` is in progress. Oathkeeper `_b` awaits dauntless's visual lock or correction. After acceptance, record its exact lock and produce Wayfinder next, one asset with QC and review at a time. Preserve the locked Deck Warden's rendering/material language and the locked ship design for scenes.
+Whole-echo direction brief delivered in `state/ghost_ship_crew_direction.md`; proposed aura/afterimage treatment awaits review. Revisit the prototype with an intact Deck Warden `_c` once that treatment is settled. Preserve the exact old assets and approval history; do not ask to approve Oathkeeper `_b`. Establish the new effect on one asset with QC/visual review before resuming the remaining avatars. The ship icon remains locked.
 
-## Regenerated Deck Warden `_b` prompt record
+## Historical Deck Warden `_b` prompt record (body-gap treatment superseded)
 
 ONE isolated TNR game AI avatar, full body, square 1:1. DECK WARDEN: an elite boarding-security chief from a lost, top-secret shinobi warship, now an incomplete chakra reconstruction condemned to continue guarding it. Visibly cursed, grave and formidable.
 

@@ -7,7 +7,7 @@
 **Evidence baseline:** main after the successful root/dependency/profile captures  
 **Machine content source:** `state/ghost_ship_retheme_patch.json`
 
-**Approved crew revision, 2026-10-01:** this was a top-secret military project and everyone aboard at its disappearance was a high-level operative. The cursed-ship condition must be visually central. RUL-2026-10-01-004 approves the specialist duties and visual treatments in `state/ghost_ship_crew_direction.md` and authorizes Deck Warden regeneration. Reconcile the exact quest prose/machine patch with those accepted duties before implementation freeze; individual generated assets still require visual locks.
+**Current crew revision, 2026-10-01:** elite specialist duties remain approved. RUL-2026-10-01-005 requests complete chakra echoes repeatedly summoned to pilot the unstable ship, replacing the prior missing-body treatment. `state/ghost_ship_crew_direction.md` owns the revised brief and proposed ethereal effect. Reconcile the exact quest prose/machine patch before implementation freeze; that machine file is still the preceding prose baseline. The locked ship is unchanged.
 
 ## Objective
 
@@ -25,9 +25,11 @@ Official records say the project was destroyed decades ago. The Ghost Ship is ca
 
 The project failed through a preservation system that worked too well. During catastrophic damage, the Skyglass emergency lattice was ordered to preserve command continuity, preserve crew function and keep the vessel operational until its mission ended. The mission never reached a termination state.
 
-The Core did not preserve living bodies. It preserved chakra impressions: combat habits, memories, personalities, routines and enough physical pattern to rebuild temporary bodies. When the ship reappears, it reconstructs its crew as afterimages from those stored patterns.
+The Core preserves chakra resonances: combat habits, memories, personalities and routines left by the original crew. The current revision treats each manifestation as a summoning of complete chakra-made echoes from those stored patterns. The echoes pilot the vessel, maintain its arrays and perform their old duties. The art need not settle the original people's ultimate fate.
 
-This is the TNR version of an immortality curse without literal undeath. The crew do not age because they are not biologically living. They remember food, warmth, sleep, shore leave and ordinary human pleasures, but the ship reconstructs them for duty rather than life. Some afterimages follow routine without fully understanding what happened. Higher-fidelity impressions know exactly how much time has passed and what they have become.
+This remains a TNR-native tragedy of recurring duty without ordinary life. The echoes do not age like biological people. They carry remembered food, warmth, sleep and shore leave, yet each manifestation summons them to service again. Some follow routine without understanding the loop; higher-fidelity impressions can know how much time has passed. Their nature is shown through a whole spectral figure, not missing anatomy.
+
+Proposed operating loop: as the unstable Skyglass lattice gains coherence, it summons the crew; the crew stabilize and pilot the ship. When coherence fails, the echoes disperse and the vessel slips out of stable space. A later manifestation summons them again. The existing unfinished-mission command remains the reason the cycle continues. Exact aura/afterimage treatment is under review in the crew brief.
 
 That condition also explains why the vessel was such a menace. A defender could be defeated and simply appear again the next time the Core rebuilt the ship. The crew could operate indefinitely without sleep or supplies, while the vessel itself could bypass the geography that normally protects settlements and strongholds.
 
@@ -40,8 +42,8 @@ The broad tragedy can evoke the classic fantasy idea of immortality without mort
 The story should be discovered rather than delivered as an opening exposition dump.
 
 1. **Arrival:** the ship materializes without approach. Seal-light under the keel immediately establishes that this is an impossible piece of engineering, not a normal haunted vessel.
-2. **Gangplank:** the Deck Warden shows an unaged human face beneath archaic specialist equipment and a visibly incomplete reconstruction. The first encounter must establish an elite operative caught in the ship's preservation failure.
-3. **Lower hull:** the Core Horror shows that Skyglass can reconstruct a crew pattern incorrectly, using damaged timber, cable and leaked chakra to fill missing information.
+2. **Gangplank:** the Deck Warden is a complete, unaged operative in archaic specialist equipment whose chakra tint and spectral contour reveal his summoned nature.
+3. **Lower hull:** the Core Horror shows an engineer's complete echo overwhelmed by unstable resonance, with overlapping contours and excessive chakra presence. This replaces the previous body/hull-fusion reveal.
 4. **Parley:** the Oathkeeper recognizes the difference between the living and the crew. His answer to the time riddle makes clear that he knows decades have passed.
 5. **Wayfinder:** charts contain decades of corrections, including settlements and routes that did not exist when the ship vanished. The Ghost Ship has been traveling for far longer than its official history allows.
 6. **Arsenal Keeper:** food, medicine and stores remain untouched while inventory has been checked again and again. The crew remembers the need for supplies but no longer consumes them.
@@ -51,7 +53,7 @@ The story should be discovered rather than delivered as an opening exposition du
 
 The three entry routes therefore show three different sides of the same mystery:
 - direct assault shows the military machine still defending itself;
-- hull infiltration shows the horror of damaged reconstruction;
+- hull infiltration shows the danger of unstable resonance;
 - parley shows the remaining humanity of the afterimages.
 
 The three interior routes continue that pattern:
@@ -80,7 +82,7 @@ Out of scope:
 
 ## Approved short names and record mapping
 
-The names and slots below remain approved. Their specialist duties and visual identities are approved in `state/ghost_ship_crew_direction.md`; combat tuning and the shared kits are unchanged.
+The names, slots and specialist duties below remain approved. Their visual presentation is under the complete-echo revision in `state/ghost_ship_crew_direction.md`; combat tuning and the shared kits are unchanged.
 
 | Live id | Current | Retheme |
 |---|---|---|
@@ -180,11 +182,11 @@ The ship is an ancient experimental shinobi warship, not a pirate vessel:
 Crew presentation:
 - elite personnel of a classified military project, with specialized fitted armor, protected seal instruments, masks and purpose-built weapons;
 - no tricorns, skull-and-crossbones, pirate coats or treasure-pageantry;
-- the cursed reconstruction must be visually central: readable incomplete sections, empty armor, displaced edges or altered faces maintained by pale sealwork; ordinary shinobi with small glowing cracks fail this brief;
-- the closer an impression is to the Captain's core memory, the more solid it appears;
+- chakra nature must be visually central: complete figures with a cool spectral tint, controlled pale aura and optional displaced contour; bodily gaps and hollow anatomy are retired from the direction;
+- the closer an impression is to the Captain's core memory, the steadier and more coherent its presentation;
 - Crowned Captain is the most stable and visually authoritative reconstruction.
 
-The exact ship design is locked by RUL-2026-10-01-002; `state/ghost_ship_art_production.md` points to its preserved source. The first Deck Warden candidate was rejected for direction despite passing technical QC. Detailed replacement treatments are now approved in `state/ghost_ship_crew_direction.md`, under RUL-2026-10-01-004.
+The exact ship design is locked by RUL-2026-10-01-002; `state/ghost_ship_art_production.md` points to its preserved source. Deck Warden `_b` was approved under the prior brief; preserve its bytes and approval history but hold it pending a complete-echo revision. Oathkeeper `_b` is superseded as a current candidate. See RUL-2026-10-01-005 and the crew brief for the current direction and proposed effect.
 
 Existing asset ids should be reused where practical and their names/images updated, so quest wiring remains stable. The art task should audit each current image before deciding reuse vs regeneration.
 

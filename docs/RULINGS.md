@@ -359,3 +359,16 @@ Existing audited content-record point reads already approved for full persistenc
 **Rationale:** This accepted direction establishes the classified project's caliber and the cursed reconstruction as the basis for the remaining art.
 
 **Canonical destination:** `state/ghost_ship_crew_direction.md` and `state/ghost_ship_art_production.md`. Direction approval is not automatic acceptance of a generated asset; retain one-at-a-time QC and visual locks. No live-game write is authorized.
+
+## RUL-2026-10-01-005 — Develop complete recurring chakra echoes
+
+**Date:** 2026-10-01
+**Domain:** Ghost Ship / Skyglass crew fiction and art
+**Status:** ACTIVE DIRECTION REVISION
+**Supersedes:** missing-body, absent-throat, hollow-anatomy and body/hull-fusion treatments from the prior crew direction; retains elite duties and the locked ship
+
+**Ruling:** dauntless requested a pivot toward chakra echoes/resonances left by the original crew. The unstable ship repeatedly summons the echoes, which pilot it. Develop complete chakra-based figures with an ethereal appearance or aura as the visual indicator. Do not use missing body parts to communicate their nature.
+
+**Rationale:** This shifts the supernatural identity to recurrent summoning and ship instability, without depicting bodily injury. It is not a guarantee about moderation/filter outcomes.
+
+**Canonical destination:** `state/ghost_ship_crew_direction.md` owns the revised brief and proposed controlled aura treatment; `state/ghost_ship_art_production.md` records candidate consequences. Preserve Deck Warden `_b`'s prior approval and bytes, but hold it pending an intact-echo revision. Oathkeeper `_b` is superseded as a current candidate. The exact new effect and replacement assets still require review. Combat tuning, shared-pool migration, names, rewards and ship continuity remain unchanged. No live-game write.
