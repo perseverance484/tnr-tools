@@ -5,7 +5,7 @@
 - **Slug:** `ghost_ship_art`
 - **Content type:** event art
 - **Status:** ACTIVE
-- **Progress:** 1/5 settled - planned 3, in_progress 1, complete 1
+- **Progress:** 2/5 settled - planned 2, in_progress 1, complete 2
 
 Produce the approved Skyglass retheme assets sequentially; content implementation and live-game writes remain outside this art packet.
 
@@ -29,27 +29,25 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | Task | Status | Owner | Depends on | Scope |
 | --- | --- | --- | --- | --- |
 | `art.quest_icon` | COMPLETE | chatgpt | - | One shared Gather/Hunt quest listing icon. |
-| `art.prototype` | IN_PROGRESS | chatgpt | `art.quest_icon` | Produce one replacement Deck Warden avatar under the approved elite/cursed crew direction, QC and obtain visual acceptance. |
-| `art.avatars` | PLANNED | chatgpt | `art.prototype` | Ten remaining AI avatars/props, one at a time. |
+| `art.prototype` | COMPLETE | chatgpt | `art.quest_icon` | Produce one replacement Deck Warden avatar under the approved elite/cursed crew direction, QC and obtain visual acceptance. |
+| `art.avatars` | IN_PROGRESS | chatgpt | `art.prototype` | Ten remaining AI avatars/props, one at a time. |
 | `art.scenes` | PLANNED | chatgpt | `art.avatars` | Three identity-matched portraits, six 3:2 backgrounds; preserve blank suppressor. |
 | `art.rewards` | PLANNED | chatgpt | `art.scenes` | Crown, matching fragment and Skyglass Serum as needed. |
 
 ## Executable now
 
-- **`art.prototype`** (IN_PROGRESS) - Deck Warden avatar prototype
-  - resume: Revised roster approved. Replacement avatar_deck_warden_skyglass_b.webp delivered: 628x628, 176406 bytes, rawqc ACCEPT, preflight 0 errors/0 warnings, native and 320px dark QC inspected. Await its visual lock/correction before any next asset; _a remains rejected.
+- **`art.avatars`** (IN_PROGRESS) - Remaining combatants and props
+  - resume: Oathkeeper avatar_oathkeeper_skyglass_b.webp delivered: 626x626, 122774 bytes, rawqc ACCEPT, preflight 0 errors/0 warnings, native/320px dark QC inspected. Await visual acceptance before Wayfinder. Deck Warden _b and ship icon remain locked.
 
 ## Other open decisions
 
-- `art.prototype`: Final visual acceptance of the replacement prototype remains with dauntless.
 - `art.avatars`: Final visual acceptance remains with dauntless.
 - `art.scenes`: Final visual acceptance remains with dauntless.
 - `art.rewards`: Final visual acceptance remains with dauntless.
 
 ## Waiting on dependencies
 
-- `art.avatars` - waiting on `art.prototype` (IN_PROGRESS)
-- `art.scenes` - waiting on `art.avatars` (PLANNED)
+- `art.scenes` - waiting on `art.avatars` (IN_PROGRESS)
 - `art.rewards` - waiting on `art.scenes` (PLANNED)
 
 ## Completed, with evidence
@@ -59,6 +57,12 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 - path: `state/ghost_ship_art_production.md`
 - path: `art/ghost_ship/icon_ghost_ship_skyglass_d.webp`
 - path: `art/ghost_ship/references/ghost_ship_skyglass_locked_source_d.webp`
+
+### `art.prototype` - Deck Warden avatar prototype (COMPLETE)
+
+- path: `state/ghost_ship_art_production.md`
+- path: `state/ghost_ship_crew_direction.md`
+- path: `art/ghost_ship/avatar_deck_warden_skyglass_b.webp`
 
 ## Task detail
 
@@ -87,7 +91,7 @@ Quest icon brand lock.
 
 ### `art.prototype` - Deck Warden avatar prototype
 
-**IN_PROGRESS** - area art, owner chatgpt, lead role Image Production
+**COMPLETE** - area art, owner chatgpt, lead role Image Production
 
 Establish the elite, cursed reconstructed-crew visual language with one revised Deck Warden avatar.
 
@@ -112,7 +116,7 @@ Establish the elite, cursed reconstructed-crew visual language with one revised 
 
 ### `art.avatars` - Remaining combatants and props
 
-**PLANNED** - area art, owner chatgpt, lead role Image Production
+**IN_PROGRESS** - area art, owner chatgpt, lead role Image Production
 
 Remaining combatants and props.
 
@@ -123,6 +127,8 @@ Remaining combatants and props.
 **Required resources**
 
 - `state/ghost_ship_art_production.md` - Task-specific audit, artifact state and production gates; read the workstream resources above.
+- `state/ghost_ship_crew_direction.md` - Approved specialist duties, distinct silhouettes and cursed reconstruction treatments.
+- `art/ghost_ship/avatar_deck_warden_skyglass_b.webp` - Locked crew rendering/material reference; inspect before generation.
 
 **Deliverables**
 
