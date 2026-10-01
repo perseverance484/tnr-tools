@@ -1,0 +1,30 @@
+{
+  "_note": "READ-ONLY Ghost Ship retheme root capture, phase 1. Zero mutations. Captures the exact current live records for the two Ghost Ship profession quests and The Drowned Fleet so objective graphs, rewards, referenced AI/item/jutsu/asset ids, visibility/gates, prose, and scene wiring can be audited before any retheme work. Phase 2 must be derived from these captured records; do not guess related ids from names alone.",
+  "capture": {
+    "before": [
+      {
+        "proc": "quests.get",
+        "input": {
+          "id": "6Ri-W5TtUrEMWpyYlnf_F"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "quests.get",
+        "input": {
+          "id": "HckXVOf-qk6ESU9t5rxLh"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "quests.get",
+        "input": {
+          "id": "n39gs_bqeLgXe6tLcqsPJ"
+        },
+        "persist": "full"
+      }
+    ],
+    "after": []
+  },
+  "items": []
+}
