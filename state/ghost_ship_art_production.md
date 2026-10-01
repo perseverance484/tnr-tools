@@ -1,17 +1,17 @@
 # Ghost Ship / Skyglass art production
 
 **Baseline:** live main verified 2026-10-01 at `df17803a9c4222025dba7e68c1919a372835fcd6`.
-**Lead:** Content Designer / Art Director during crew revision; Image Production resumes after direction review. **Status:** quest icon LOCKED; Deck Warden `_a` REJECTED for direction; revised elite/cursed roster proposed.
+**Lead:** Image Production; Art Director supporting. **Status:** quest icon LOCKED; elite/cursed roster direction APPROVED; regenerated Deck Warden `_b` is a candidate awaiting visual acceptance. `_a` remains rejected.
 **Branch:** `chatgpt/ghost-ship-skyglass-art-20261001`. No live-game API requests or writes; only captured image URLs fetched.
 
 ## Direction and sequence
 
 Follow `state/ghost_ship_retheme_design.md`, the shared-pool migration, and the current art spec. Forbidden shinobi warship, dark timber/iron seal lattice, pale white-blue Skyglass; crew are reconstructed chakra impressions. Tragic military duty without mortal life. Captain and Crowned Captain are increasingly stable, not increasingly decomposed. Skyglass Serum is approved.
 
-2026-10-01 correction: all personnel aboard the top-secret project at its disappearance were high-level operatives. The curse must be immediately visible, not reduced to ordinary shinobi with small glowing cracks. Read `state/ghost_ship_crew_direction.md` before further generation. Its proposed specialist duties and silhouettes await review; the approved premise is recorded in RUL-2026-10-01-003.
+2026-10-01 correction: all personnel aboard the top-secret project at its disappearance were high-level operatives. The curse must be immediately visible, not reduced to ordinary shinobi with small glowing cracks. Read `state/ghost_ship_crew_direction.md` before further generation. Its specialist duties and silhouettes are approved by RUL-2026-10-01-004; the premise is recorded in RUL-2026-10-01-003.
 
 1. Quest listing icon, shared by Gather and Hunt.
-2. Revised Deck Warden AI avatar prototype: elite boarding-security chief, archaic specialist armor and a major readable reconstruction failure. Preserve a glimpse of the unaged human face. Follow the pending revised brief after direction review; the ordinary-guard `_a` treatment is superseded.
+2. Revised Deck Warden AI avatar prototype: elite boarding-security chief, archaic specialist armor and a major readable reconstruction failure. Preserve a glimpse of the unaged human face. Follow the approved revised brief; the ordinary-guard `_a` treatment is superseded.
 3. Remaining AI avatars/props, one at a time: Oathkeeper, Wayfinder, Arsenal Keeper, Sentinel, First Blade, The Captain, Crowned Captain, Core Horror, Seal Charge, Core Canister. Captain pair shares identity; hazards share core/seal construction.
 4. Scene portraits from locked Oathkeeper/Captain identities; then Deck, Lower Hull, Chart Room, Hold, Helm, Cache Site backgrounds. Reserve lower left; compose backgrounds at 3:2.
 5. Skyglass Crown, matching fragment, Skyglass Serum item icons. Reassess the fragment only after Crown lock.
@@ -82,9 +82,36 @@ Ghost Ship roadmap validates. `validate --all` reports an unrelated pre-existing
 - Historical native/320px QC found complete hands/feet, a youthful human face, layered black wrap clothing/iron plates, a practical hook and clean pale-blue edges. It missed the central direction failure: the ordinary silhouette and tiny reconstruction cues did not communicate the classified elite crew or cursed condition. Technical PASS is not artistic acceptance. The next candidate must pass the visual tests in `state/ghost_ship_crew_direction.md` before handover.
 - NINJA selector rerun and all four individual references inspected: Commander Okabe for facial/near detail only; Winter Crow, Pale Fang and Old Ghost for costume, silhouette and edge discipline. New asset-class generation carried no ship/scene image context.
 
+## Regenerated Deck Warden `_b` and QA
+
+- File: `art/ghost_ship/avatar_deck_warden_skyglass_b.webp`
+- Target: AI_AVATAR. Export: 628x628, 176,406 bytes (172.3 KiB), lossless WebP with actual alpha.
+- SHA-256: `6b32933892c795f46ce16cbac986ac588d151a5f2649fe009799e37ac578c918`
+- Retained artifact: `libfile_32aaf754decc8191be5969080605c71f`.
+- Acceptance: **CANDIDATE, NOT LOCKED**. Roster direction was approved; this generated asset awaits dauntless's visual acceptance.
+- Current AI_AVATAR target and house style read; all four selected NINJA references inspected individually. Fresh built-in generation, not an edit of rejected `_a`.
+- Raw source 1254x1254. `rawqc.py --scaffold deck_warden_skyglass_b`: ACCEPT, lime coverage 72.9%, border purity 100%. Reduced to the recommended 640x640 with nearest-neighbor before bundled processing.
+- `chroma.py --target AI_AVATAR --spec ... --qc ...`: background 297,938px, enclosed background 2,520px, no remap; exact square export. `artpreflight.py --type AI_AVATAR --spec ... --json`: **0 errors, 0 warnings**, 0% partial-alpha edges.
+- Native dark composite and 320px client view inspected. The missing upper-arm section remains an obvious open gap after keying, with two pale seal connections and two suspended armor fragments. Broken blank mask exposes one human eye/cheek; layered specialist armor and an angular hooked blade establish the revised silhouette. No green pocket remains inside the arm gap. No gore, skull motifs, pirate clothing, modern equipment, text or insignia.
+- **Actual image orientation:** enlarged shoulder guard and missing arm are on viewer-right; hooked weapon is on viewer-left. The generation reversed the prompt's requested arm side. Side placement was not part of the user's direction lock; preserve the actual image if this candidate is accepted. The avatar has two visible seal connections, not the prompt's requested three.
+
 ## Resume
 
-Quest icon accepted. Deck Warden `_a` rejected for direction. Present the complete proposed roster/visual reset in `state/ghost_ship_crew_direction.md`; settle that direction before generating replacement `_b`. Do not ask to lock `_a` again. The replacement still requires normal technical QC and visual acceptance before proceeding to remaining avatars. Preserve the locked ship design in later scenes.
+Quest icon and revised roster direction accepted. Deck Warden `_a` rejected; replacement `_b` delivered after QC. Wait for dauntless's visual lock or correction on `_b` before any further asset. Do not ask to relock `_a`. If `_b` is accepted, lock its exact bytes and use its actual orientation/identity for future depictions. Preserve the locked ship design in later scenes.
+
+## Regenerated Deck Warden `_b` prompt record
+
+ONE isolated TNR game AI avatar, full body, square 1:1. DECK WARDEN: an elite boarding-security chief from a lost, top-secret shinobi warship, now an incomplete chakra reconstruction condemned to continue guarding it. Visibly cursed, grave and formidable.
+
+Broad compact silhouette, disciplined combat-ready stance, knees slightly bent, forearms close to the body. Bespoke asymmetric armor: overlapping blackened iron seal plates, a high protective neck cowl, a broad segmented guard on the viewer-left shoulder, dark lacquer fittings, tightly fitted near-black wrap clothing, bound forearms, short armored tassets and close shin guards. Premodern iron, cloth, leather and conductive cord; armor construction resembles the reinforcing ribs and seal plates of an ancient warship. One angular short hooked interception sword held low by the intact hand, close to the thigh. No casual belt hook.
+
+Head: close dark cowl around a BROKEN BLANK ash-gray half-mask. Only one natural human eye and a small patch of unaged cheek are visible through the missing mask section. Cold, exhausted vigilance. Most of the face concealed, no glamorous exposed hairstyle. No forehead band or symbol.
+
+CRUCIAL CURSE FEATURE: a substantial section of the viewer-left UPPER ARM DOES NOT EXIST. Between shoulder plate and armored elbow, show a clearly open hand-width gap filled with the green background. The detached bracer and gloved hand remain in a coherent guard pose, suspended by just three thin angular icy-white-blue seal connections spanning this empty space. No flesh, blood, bones or mechanical joint. Two solid dark armor fragments can hang within that gap. This major missing section must be readable when the entire figure is reduced to 320 pixels; small glowing cracks alone are insufficient. Rest of the figure largely complete. No second detached limb.
+
+Crisp pixel lineart, flat cel shading, limited palette, soft even lighting, camera at eye level, flat 3/4 view, no low angle and no foreshortening, both arms held within the subject's own silhouette and touching nothing, at most one restrained elemental glow accent, as rim light on edges only. Defined shadow shapes, flat mid-tones, no airbrush gradients and no bloom. Grounded adult proportions. Not chibi, not anime-scaled eyes. Fine pixel-edged contours and controlled dark material texture, painted figures with pixel discipline, not a chunky low-resolution sprite.
+
+True SOLID FLAT #00FF00 lime chroma background across the entire square and ALL empty openings, including the missing upper arm. No shadow on green. Full figure and weapon inside clear canvas margins. Hard opaque pixel boundaries. No aura, halo, fog, glow disc, light field, green spill, translucent glow or ghostly smoke. No scenery, ship, ground, extra character, text, UI, border, watermark, grid, labels, franchise insignia, headband, forehead protector, skull, skeletal face, pirate costume, treasure, gold ornament, modern tactical equipment, cybernetics, neon tubing or robotic joints.
 
 ## Superseded Deck Warden prompt record (do not reuse)
 

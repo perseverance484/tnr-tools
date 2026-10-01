@@ -346,3 +346,16 @@ Existing audited content-record point reads already approved for full persistenc
 **Rationale:** Technical image compliance did not establish the classified project's caliber or the tragedy of its reconstructed crew. Elite status and the curse must be visible in the design itself.
 
 **Canonical destination:** `state/ghost_ship_retheme_design.md` for the approved premise; `state/ghost_ship_crew_direction.md` for the proposed individual treatments; `state/ghost_ship_art_production.md` for candidate disposition. Individual new duties/silhouettes still require review. This ruling does not change combat balance, the shared-pool migration, the locked ship, or live-game records.
+
+## RUL-2026-10-01-004 — Elite cursed-crew roster and visual treatments approved
+
+**Date:** 2026-10-01
+**Domain:** Ghost Ship / Skyglass art production
+**Status:** ACTIVE
+**Supersedes:** the individual-treatment review gate left open by RUL-2026-10-01-003
+
+**Ruling:** dauntless approved the revised specialist roster and visual treatments in `state/ghost_ship_crew_direction.md` and explicitly requested immediate Deck Warden regeneration. Produce the elite boarding-security chief with asymmetric specialist armor, a broken half-mask, an unaged human glimpse and a missing upper-arm section maintained by a seal lattice. The approved short names, record slots and combat structure remain unchanged.
+
+**Rationale:** This accepted direction establishes the classified project's caliber and the cursed reconstruction as the basis for the remaining art.
+
+**Canonical destination:** `state/ghost_ship_crew_direction.md` and `state/ghost_ship_art_production.md`. Direction approval is not automatic acceptance of a generated asset; retain one-at-a-time QC and visual locks. No live-game write is authorized.
