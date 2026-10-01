@@ -43,7 +43,7 @@ The story should be discovered rather than delivered as an opening exposition du
 6. **Arsenal Keeper:** food, medicine and stores remain untouched while inventory has been checked again and again. The crew remembers the need for supplies but no longer consumes them.
 7. **First Blade:** one of the strongest crew impressions has spent decades waiting for something genuinely new to happen. His excitement at a living challenger makes the cost of endless reconstruction personal.
 8. **The Captain:** the player learns that the ship did not simply survive destruction. Skyglass rejected the loss condition and kept executing its preservation orders.
-9. **Crowned Captain:** the White Crown restores the deepest command memory. The final reveal is that the original mission never ended in the Core's logic, so vessel, Captain and crew are still being rebuilt to complete an order that no living shinobi remembers.
+9. **Crowned Captain:** the Skyglass Crown restores the deepest command memory. The final reveal is that the original mission never ended in the Core's logic, so vessel, Captain and crew are still being rebuilt to complete an order that no living shinobi remembers.
 
 The three entry routes therefore show three different sides of the same mystery:
 - direct assault shows the military machine still defending itself;
@@ -63,7 +63,7 @@ In scope:
 - 29 Ghost Ship-specific AI jutsu names/descriptions/battle text;
 - Ghost Ship scene-asset display names and replacement-art direction;
 - themed reward lore;
-- White Crown reward-loop correction;
+- Skyglass Crown reward-loop correction;
 - top-level quest scene-background repair;
 - AI loot-safety correction.
 
@@ -154,7 +154,7 @@ AI behavior profiles are rebuilt against the new kits with current range-gating 
 `state/ghost_ship_retheme_patch.json` contains replacement text for all 57 objective ids. Implementation must:
 - preserve every objective id, task, next/fail/reset edge and opponent block;
 - preserve Gather/Hunt location/sector differences;
-- preserve all profession chest reward arrays except the approved White Crown-fragment removal;
+- preserve all profession chest reward arrays except the approved Skyglass Crown-fragment removal;
 - use no em dash or en dash in player-facing text;
 - reproduce the complete live quest record when editing.
 
@@ -210,7 +210,7 @@ Both quests currently have an empty top-level `content.sceneBackground`. The fin
 Fresh successful captures:
 - `harvests/inbox/tnr_results_1790826101573.json` — both profession quests + Drowned Fleet comparison;
 - `harvests/inbox/tnr_results_1790826836406.json` — direct Ghost Ship AI/assets/items;
-- `harvests/inbox/tnr_results_1790828718767.json` — all 11 AI behavior profiles + intended White Crown record.
+- `harvests/inbox/tnr_results_1790828718767.json` — all 11 AI behavior profiles + intended Skyglass Crown record.
 
 ## Next production sequence
 
