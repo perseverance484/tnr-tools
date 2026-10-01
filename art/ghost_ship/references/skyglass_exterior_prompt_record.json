@@ -1,0 +1,32 @@
+{
+  "asset": "bg_ghost_ship_skyglass_exterior_a.webp",
+  "target": "SCENE_BACKGROUND",
+  "status": "AWAITING_VISUAL_ACCEPTANCE",
+  "date": "2026-10-01",
+  "tool": "image_gen.imagegen",
+  "prompt": "Create ONE original TNR game-art exterior visualization, a complete 3:2 landscape scene at 1536x1024. Use reference image 1 as the EXACT APPROVED SHIP DESIGN. References 2, 3 and 4 calibrate crisp pixel rendering, dark readable materials and restrained night exposure only; do not copy their buildings or compose a collage.\n\nPlace this same ancient experimental shinobi skyship hovering above a misty coastal inlet at night. The entire ship, both mast tips, bow, stern and keel must fit inside the image with comfortable margins. Ship occupies the center-right; leave the lower-left area quiet and open, with a low empty rocky shoreline and dark water. View from the same three-quarter broadside direction as the ship reference: bow at viewer-right, stern at viewer-left. Atmospheric clouds are discrete layered pixel shapes. No characters or creatures anywhere.\n\nPreserve the reference's deep dark-brown timber hull, curved black iron reinforcing ribs, pointed raised bow, two unequal charcoal battened sails (larger sail toward the bow, smaller toward the stern), mast arrangement, conducting rigging, central caged Skyglass crystal assembly, bow crystal housing and lowest keel crystal. Keep their relative positions and the recognizable silhouette. Keep the short trail of a few crystal fragments near the stern. This is a single coherent premodern military vessel of timber, forged iron, cord and cloth.\n\nShow clearly how it is powered: the pale white-blue Skyglass inside the EXISTING central cage is the main focal light; narrow angular seal channels connect that assembly through the deck and hull toward the keel crystal, while restrained luminous rigging links to the sails. The smaller existing crystal housings read as parts of the same power system. Add only subtle bounded angular levitation ripples beneath the keel. Do not add more masts, more sails, extra engines or a new giant crystal tower. Maintain the ship's original design instead of reinventing it. Render the vessel as weathered and mysterious, still operational, with a few slightly interrupted luminous seal segments suggesting instability.\n\nTNR house rendering: crisp pixel lineart, flat cel shading, limited palette, visible controlled pixel clusters, hard edges, defined shadow shapes and restrained dithering. Most material surfaces remain readable in mid-shadow. Crystal light is the one pale blue-white accent; restrained cool sky illumination separates the dark sails. The crystal power circuit is easy to read, not a vast foggy glow. No airbrush gradients, painterly blur, bloom, photorealism, depth-of-field blur or glossy 3D rendering. No pirate motifs, skulls, flags, treasure ornaments, cannons, propellers, smokestacks, metal sci-fi piping or modern machines. No green chroma background. No text, labels, arrows, diagrams, border, watermark, UI or panels. A single beautiful scene, no cutaways or inset images.",
+  "references": [
+    "art/ghost_ship/references/ghost_ship_skyglass_locked_source_d.webp",
+    "art/style_refs/scene_backgrounds/pass_road_dusk.webp",
+    "art/style_refs/scene_backgrounds/warehouse_loading_floor.webp",
+    "art/style_refs/scene_backgrounds/drying_yard.webp"
+  ],
+  "generation": "One exterior visualization; no people; locked ship geometry; background references supply rendering only.",
+  "export": {
+    "width": 1536,
+    "height": 1024,
+    "bytes": 219466,
+    "format": "WEBP",
+    "alpha": false,
+    "quality": 85,
+    "sha256": "107147189ede24a82f4a39965b96fe59462bd98c1ce7fa64ec0e1456e80d5fda",
+    "library_file_id": "libfile_2a200f7c841081918baa864a0120312f"
+  },
+  "qc": {
+    "raw": "ACCEPT",
+    "preflight_errors": 0,
+    "preflight_warnings": 0,
+    "visual_native": true,
+    "visual_client_width": 512
+  }
+}

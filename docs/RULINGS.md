@@ -372,3 +372,24 @@ Existing audited content-record point reads already approved for full persistenc
 **Rationale:** This shifts the supernatural identity to recurrent summoning and ship instability, without depicting bodily injury. It is not a guarantee about moderation/filter outcomes.
 
 **Canonical destination:** `state/ghost_ship_crew_direction.md` owns the revised brief and proposed controlled aura treatment; `state/ghost_ship_art_production.md` records candidate consequences. Preserve Deck Warden `_b`'s prior approval and bytes, but hold it pending an intact-echo revision. Oathkeeper `_b` is superseded as a current candidate. The exact new effect and replacement assets still require review. Combat tuning, shared-pool migration, names, rewards and ship continuity remain unchanged. No live-game write.
+
+## RUL-2026-10-01-006 — Critical incident and fractured crew continuity
+
+**Date:** 2026-10-01
+**Domain:** Ghost Ship / Skyglass origin and memory
+**Status:** ACTIVE PREMISE; explanatory mechanism remains proposed
+**Supersedes:** exact elapsed-time knowledge and any requirement that the original mission itself never finished
+
+**Ruling:** dauntless fixes the basis as a classified military vessel attacked after a mission, with Skyglass going critical. The Core powered flight and sustained crew vitals. The vessel was believed destroyed and the project suppressed; in truth it entered an unstable absence from ordinary reality. The ship repeatedly summons bound chakra echoes from ingrained crew memories. They retain little continuity between manifestations, while some recognize the passage of time without grasping the specifics of each incarnation. Players initially approach with limited knowledge.
+
+**Canonical destination:** `state/ghost_ship_retheme_design.md`; visual implications remain in the crew/art briefs. `state/ghost_ship_skyglass_mechanism.md` contains the requested comparative research and a proposed explanation. The original crew's fate and specific failed-seal mechanics remain proposals. Preserve the existing graph, encounters, names, rewards and locked ship. Reconcile superseded machine-patch prose before Fable's implementation freeze; no live-game writes.
+
+## RUL-2026-10-01-007 — Crystal-powered skyship and concise role-based narrative
+
+**Date:** 2026-10-01
+**Domain:** Ghost Ship / Skyglass design scope
+**Status:** ACTIVE DIRECTION; exact crew fate and failed-seal explanation proposed
+
+**Ruling:** dauntless requests a Skyglass-powered skyship visualization, taking broad inspiration from the crystal power system of Terry Brooks's skyships while retaining the approved TNR vessel. Narrative should fit the existing structure and roles with little individual backstory; no years-of-handwriting investigations or elaborate memory subplots. A clone/echo crew and malfunctioning curse seal are the user's favored options, not yet a final ruling that the original crew died.
+
+**Canonical destination:** `state/ghost_ship_skyglass_mechanism.md` recommends lost originals and complete chakra echoes formed by damaged preservation seals. The exterior study is a user-requested single-asset exception to the current avatar order; it requires visual review and does not replace the locked ship icon. No new quest branch, external release-key requirement or combat mechanic is authorized by this direction.
