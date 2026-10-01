@@ -1,0 +1,206 @@
+{
+  "schema": "tnr.content_workstream",
+  "version": 1,
+  "slug": "ghost_ship_art",
+  "title": "Ghost Ship / Skyglass Art",
+  "content_type": "event art",
+  "status": "ACTIVE",
+  "objective": "Produce the approved Skyglass retheme assets sequentially; content implementation and live-game writes remain outside this art packet.",
+  "notes": [
+    "Baseline df17803a9c4222025dba7e68c1919a372835fcd6.",
+    "Skyglass Serum approved 2026-10-01, RUL-2026-10-01-001.",
+    "No prior Ghost Ship roadmap existed at baseline; this packet points at the real committed design/capture sources."
+  ],
+  "resources": [
+    {
+      "path": "state/ghost_ship_art_production.md",
+      "why": "Audit, production order, current candidate and resume gate."
+    },
+    {
+      "path": "state/ghost_ship_retheme_design.md",
+      "why": "Approved Skyglass fiction and roster."
+    },
+    {
+      "path": "state/ghost_ship_retheme_patch.json",
+      "why": "Exact entity mapping and approved names."
+    },
+    {
+      "path": "state/ghost_ship_shared_pool_migration.json",
+      "why": "Active combat kits; excludes retiring bespoke jutsu art."
+    },
+    {
+      "path": "skills/producing-tnr-art/SKILL.md",
+      "why": "Production/QC and acceptance rhythm."
+    },
+    {
+      "path": "skills/producing-tnr-art/data/25x_DATA_art_spec.json",
+      "why": "Current style and per-client export authority."
+    },
+    {
+      "path": "skills/producing-tnr-art/data/style_refs.json",
+      "why": "Visual reference selection and provenance."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "art.quest_icon",
+      "title": "Quest icon brand lock",
+      "area": "art",
+      "status": "IN_PROGRESS",
+      "owner": "chatgpt",
+      "objective": "Quest icon brand lock.",
+      "depends_on": [],
+      "scope": [
+        "One shared Gather/Hunt quest listing icon."
+      ],
+      "required_resources": [
+        {
+          "path": "state/ghost_ship_art_production.md",
+          "why": "Task-specific audit, artifact state and production gates; read the workstream resources above."
+        }
+      ],
+      "deliverables": [
+        "Processed candidate(s) with exact filenames, byte ledger and QC."
+      ],
+      "completion_gates": [
+        "Art preflight zero errors and target-appropriate visual QC.",
+        "dauntless explicitly accepts each final asset."
+      ],
+      "lead_role": "Image Production",
+      "open_decisions": [
+        "Final visual acceptance remains with dauntless."
+      ],
+      "resume_note": "Candidate delivered; awaiting icon lock before Deck Warden. See state/ghost_ship_art_production.md for artifact identity and QC.",
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/ghost_ship_art_production.md"
+        }
+      ]
+    },
+    {
+      "id": "art.prototype",
+      "title": "Deck Warden avatar prototype",
+      "area": "art",
+      "status": "PLANNED",
+      "owner": "chatgpt",
+      "objective": "Deck Warden avatar prototype.",
+      "depends_on": [
+        "art.quest_icon"
+      ],
+      "scope": [
+        "One AI avatar to establish reconstructed naval-shinobi rendering."
+      ],
+      "required_resources": [
+        {
+          "path": "state/ghost_ship_art_production.md",
+          "why": "Task-specific audit, artifact state and production gates; read the workstream resources above."
+        }
+      ],
+      "deliverables": [
+        "Processed candidate(s) with exact filenames, byte ledger and QC."
+      ],
+      "completion_gates": [
+        "Art preflight zero errors and target-appropriate visual QC.",
+        "dauntless explicitly accepts each final asset."
+      ],
+      "lead_role": "Image Production",
+      "open_decisions": [
+        "Final visual acceptance remains with dauntless."
+      ]
+    },
+    {
+      "id": "art.avatars",
+      "title": "Remaining combatants and props",
+      "area": "art",
+      "status": "PLANNED",
+      "owner": "chatgpt",
+      "objective": "Remaining combatants and props.",
+      "depends_on": [
+        "art.prototype"
+      ],
+      "scope": [
+        "Ten remaining AI avatars/props, one at a time."
+      ],
+      "required_resources": [
+        {
+          "path": "state/ghost_ship_art_production.md",
+          "why": "Task-specific audit, artifact state and production gates; read the workstream resources above."
+        }
+      ],
+      "deliverables": [
+        "Processed candidate(s) with exact filenames, byte ledger and QC."
+      ],
+      "completion_gates": [
+        "Art preflight zero errors and target-appropriate visual QC.",
+        "dauntless explicitly accepts each final asset."
+      ],
+      "lead_role": "Image Production",
+      "open_decisions": [
+        "Final visual acceptance remains with dauntless."
+      ]
+    },
+    {
+      "id": "art.scenes",
+      "title": "Scene portraits and backgrounds",
+      "area": "art",
+      "status": "PLANNED",
+      "owner": "chatgpt",
+      "objective": "Scene portraits and backgrounds.",
+      "depends_on": [
+        "art.avatars"
+      ],
+      "scope": [
+        "Three identity-matched portraits, six 3:2 backgrounds; preserve blank suppressor."
+      ],
+      "required_resources": [
+        {
+          "path": "state/ghost_ship_art_production.md",
+          "why": "Task-specific audit, artifact state and production gates; read the workstream resources above."
+        }
+      ],
+      "deliverables": [
+        "Processed candidate(s) with exact filenames, byte ledger and QC."
+      ],
+      "completion_gates": [
+        "Art preflight zero errors and target-appropriate visual QC.",
+        "dauntless explicitly accepts each final asset."
+      ],
+      "lead_role": "Image Production",
+      "open_decisions": [
+        "Final visual acceptance remains with dauntless."
+      ]
+    },
+    {
+      "id": "art.rewards",
+      "title": "Skyglass reward icons",
+      "area": "art",
+      "status": "PLANNED",
+      "owner": "chatgpt",
+      "objective": "Skyglass reward icons.",
+      "depends_on": [
+        "art.scenes"
+      ],
+      "scope": [
+        "Crown, matching fragment and Skyglass Serum as needed."
+      ],
+      "required_resources": [
+        {
+          "path": "state/ghost_ship_art_production.md",
+          "why": "Task-specific audit, artifact state and production gates; read the workstream resources above."
+        }
+      ],
+      "deliverables": [
+        "Processed candidate(s) with exact filenames, byte ledger and QC."
+      ],
+      "completion_gates": [
+        "Art preflight zero errors and target-appropriate visual QC.",
+        "dauntless explicitly accepts each final asset."
+      ],
+      "lead_role": "Image Production",
+      "open_decisions": [
+        "Final visual acceptance remains with dauntless."
+      ]
+    }
+  ]
+}
