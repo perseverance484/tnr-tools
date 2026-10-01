@@ -320,3 +320,16 @@ Existing audited content-record point reads already approved for full persistenc
 **Rationale:** Settles the last open reward/item name within the approved Skyglass direction.
 
 **Canonical destination:** `state/ghost_ship_retheme_design.md` and `state/ghost_ship_retheme_patch.json`. This ruling does not authorize a live-game write.
+
+## RUL-2026-10-01-002 — Approved Skyglass ship governs scene continuity
+
+**Date:** 2026-10-01
+**Domain:** Ghost Ship / Skyglass visual continuity
+**Status:** ACTIVE
+**Supersedes:** none
+
+**Ruling:** dauntless approved `icon_ghost_ship_skyglass_d.webp` and required scene art to remain faithful to this ship design. Lock those exact bytes. Use its hull, sail plan, rigging, crystal placements and keel sealwork as the canonical vessel across viewpoints and interiors; do not redesign the ship while producing backgrounds.
+
+**Rationale:** The quest icon establishes a specific vessel, and subsequent scenes must depict that same vessel.
+
+**Canonical destination:** `state/ghost_ship_art_production.md` and the preserved reference files under `art/ghost_ship/`. This ruling does not authorize a live-game write.
