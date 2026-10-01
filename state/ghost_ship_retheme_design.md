@@ -15,11 +15,45 @@ The Ghost Ship remains the public name because the vessel should not exist. It v
 
 ## Core fiction
 
-The vessel was an experimental shinobi warship built around a chakra-reactive **Skyglass Core**. Seal arrays through the keel distribute chakra, reduce effective weight and hold the ship aloft. The project and its crew vanished, leaving the ship as folklore.
+The vessel was an experimental shinobi warship built around a chakra-reactive **Skyglass Core**. Seal arrays through the keel distributed chakra, reduced effective weight and allowed the ship to ignore terrain entirely. It was designed to cross mountains, walls and defended coastlines, appearing from directions ordinary military planning could not cover.
 
-The Core retains chakra impressions of the crew rather than literal souls. When the vessel reappears, the seal network reconstructs those impressions into temporary physical bodies. Player-facing UI uses short names; prose and art carry the echo/reconstruction explanation.
+Official records say the project was destroyed decades ago. The Ghost Ship is called a ghost because it should not exist. It periodically materializes in the sky with no visible approach, follows fragments of old routes, then slips out of the world again.
 
-The White Crown was the Captain's command interface with the ship. It synchronized one shinobi with navigation, defensive seals, weapons and crew-impression systems. The strongest stored reconstruction is the Captain at full Crown synchronization.
+The project failed through a preservation system that worked too well. During catastrophic damage, the Skyglass emergency lattice was ordered to preserve command continuity, preserve crew function and keep the vessel operational until its mission ended. The mission never reached a termination state.
+
+The Core did not preserve living bodies. It preserved chakra impressions: combat habits, memories, personalities, routines and enough physical pattern to rebuild temporary bodies. When the ship reappears, it reconstructs its crew as afterimages from those stored patterns.
+
+This is the TNR version of an immortality curse without literal undeath. The crew do not age because they are not biologically living. They remember food, warmth, sleep, shore leave and ordinary human pleasures, but the ship reconstructs them for duty rather than life. Some afterimages follow routine without fully understanding what happened. Higher-fidelity impressions know exactly how much time has passed and what they have become.
+
+That condition also explains why the vessel was such a menace. A defender could be defeated and simply appear again the next time the Core rebuilt the ship. The crew could operate indefinitely without sleep or supplies, while the vessel itself could bypass the geography that normally protects settlements and strongholds.
+
+The **White Crown** was the Captain's command interface with Skyglass. It synchronized one shinobi with navigation, defensive seals, weapons, lift systems and crew-impression control. The ordinary Captain is already one of the Core's most stable reconstructions. The oathbound route causes Skyglass to rebuild the highest-fidelity command imprint through the White Crown, producing the Crowned Captain, who remembers the final project orders and understands why the ship never stopped.
+
+The broad tragedy can evoke the classic fantasy idea of immortality without mortal life, but the actual explanation, characters, reveals and dialogue remain original to TNR and rooted in forbidden shinobi engineering.
+
+## Narrative reveal cadence
+
+The story should be discovered rather than delivered as an opening exposition dump.
+
+1. **Arrival:** the ship materializes without approach. Seal-light under the keel immediately establishes that this is an impossible piece of engineering, not a normal haunted vessel.
+2. **Gangplank:** the Deck Warden has a young face and a uniform generations out of date. The first hint is that the crew did not simply survive normally.
+3. **Lower hull:** the Core Horror shows that Skyglass can reconstruct a crew pattern incorrectly, using damaged timber, cable and leaked chakra to fill missing information.
+4. **Parley:** the Oathkeeper recognizes the difference between the living and the crew. His answer to the time riddle makes clear that he knows decades have passed.
+5. **Wayfinder:** charts contain decades of corrections, including settlements and routes that did not exist when the ship vanished. The Ghost Ship has been traveling for far longer than its official history allows.
+6. **Arsenal Keeper:** food, medicine and stores remain untouched while inventory has been checked again and again. The crew remembers the need for supplies but no longer consumes them.
+7. **First Blade:** one of the strongest crew impressions has spent decades waiting for something genuinely new to happen. His excitement at a living challenger makes the cost of endless reconstruction personal.
+8. **The Captain:** the player learns that the ship did not simply survive destruction. Skyglass rejected the loss condition and kept executing its preservation orders.
+9. **Crowned Captain:** the White Crown restores the deepest command memory. The final reveal is that the original mission never ended in the Core's logic, so vessel, Captain and crew are still being rebuilt to complete an order that no living shinobi remembers.
+
+The three entry routes therefore show three different sides of the same mystery:
+- direct assault shows the military machine still defending itself;
+- hull infiltration shows the horror of damaged reconstruction;
+- parley shows the remaining humanity of the afterimages.
+
+The three interior routes continue that pattern:
+- Wayfinder reveals impossible history;
+- Arsenal Keeper reveals a life of endless routine without mortal need;
+- the helm reveals the actual Skyglass failure and the Captain's role in it.
 
 ## Scope
 
