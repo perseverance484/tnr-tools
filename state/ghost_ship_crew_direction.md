@@ -40,9 +40,9 @@ Sentinel's human imprint and Core Horror's former engineering post are approved 
 - Use hard-edged missing areas, opaque afterimage fragments and restrained edge light. Preserve the TNR spec's dark palette and pixel discipline; no spectral fog, bloom, full-body neon, photographic decay or gore. The higher-fidelity command pair becomes more coherent rather than more damaged.
 - The approved ship remains the scene reference. Its intact dark structure and impossible operation can frame the tragedy without changing the locked hull or sail plan. Interior clues can include empty duty stations, untouched rations and repeatedly maintained seal fittings.
 
-## Next prototype and acceptance test
+## Locked prototype and continuing acceptance test
 
-Deck Warden remains the first prototype because the first encountered crew member must establish both elite status and the curse. Regeneration is authorized. Begin with a fresh `avatar_deck_warden_skyglass_b.webp`, incrementing the suffix on correction; never overwrite the rejected `_a` or alter the locked quest icon.
+Deck Warden `avatar_deck_warden_skyglass_b.webp` is LOCKED by dauntless 2026-10-01: “Perfect. Approved. Proceed”. Use it as the crew rendering/material reference. Its enlarged shoulder and missing upper arm are on viewer-right, with two pale seal connections; its weapon is on viewer-left. Preserve those actual details if depicting him again. The rejected `_a` is not a reference. Continue with Oathkeeper, one asset at a time.
 
 At the actual avatar display size, judge three things before technical acceptance: (1) specialist military silhouette, (2) an unmistakably incomplete person maintained by forbidden seal engineering, (3) enough unaged humanity to make the condition tragic. Small glowing scratches do not satisfy the second test. Then apply the unchanged raw-QC, export, dark-composite and preflight workflow from `producing-tnr-art`.
 
@@ -50,4 +50,4 @@ At the actual avatar display size, judge three things before technical acceptanc
 
 The historical operatives were elite; varying encounter strength can reflect how much of each stored impression survives. This is a narrative explanation, not an approval to change ranks, levels, stats or difficulty. Keep the 11 record slots, 57-node graph, five endings, shared-pool kits, reward contract and Skyglass Serum naming.
 
-Roster direction is approved. Reconcile the exact quest prose and machine patch with the new duties before freezing the Fable handoff; the immediate authorized task is Deck Warden art regeneration. Preserve the existing reveal beats: unaged face, reconstruction horror, remembered time, impossible charts, unused supplies, the duel, command continuity and the unfinished mission. No bespoke legacy-jutsu icon work and no live-game writes.
+Roster direction and Deck Warden prototype are approved. Reconcile the exact quest prose and machine patch with the new duties before freezing the Fable handoff; the current art packet is the remaining avatars/props, starting with Oathkeeper. Preserve the existing reveal beats: unaged face, reconstruction horror, remembered time, impossible charts, unused supplies, the duel, command continuity and the unfinished mission. No bespoke legacy-jutsu icon work and no live-game writes.

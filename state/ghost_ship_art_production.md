@@ -1,7 +1,7 @@
 # Ghost Ship / Skyglass art production
 
 **Baseline:** live main verified 2026-10-01 at `df17803a9c4222025dba7e68c1919a372835fcd6`.
-**Lead:** Image Production; Art Director supporting. **Status:** quest icon LOCKED; elite/cursed roster direction APPROVED; regenerated Deck Warden `_b` is a candidate awaiting visual acceptance. `_a` remains rejected.
+**Lead:** Image Production; Art Director supporting. **Status:** quest icon and Deck Warden `_b` LOCKED; Oathkeeper `_b` candidate delivered, awaiting visual acceptance. Deck Warden `_a` remains rejected.
 **Branch:** `chatgpt/ghost-ship-skyglass-art-20261001`. No live-game API requests or writes; only captured image URLs fetched.
 
 ## Direction and sequence
@@ -88,16 +88,28 @@ Ghost Ship roadmap validates. `validate --all` reports an unrelated pre-existing
 - Target: AI_AVATAR. Export: 628x628, 176,406 bytes (172.3 KiB), lossless WebP with actual alpha.
 - SHA-256: `6b32933892c795f46ce16cbac986ac588d151a5f2649fe009799e37ac578c918`
 - Retained artifact: `libfile_32aaf754decc8191be5969080605c71f`.
-- Acceptance: **CANDIDATE, NOT LOCKED**. Roster direction was approved; this generated asset awaits dauntless's visual acceptance.
+- Acceptance: **LOCKED by dauntless 2026-10-01:** “Perfect. Approved. Proceed”. This is the crew rendering reference. Preserve its exact bytes, actual arm/weapon orientation, mask and equipment identity in any future depiction.
 - Current AI_AVATAR target and house style read; all four selected NINJA references inspected individually. Fresh built-in generation, not an edit of rejected `_a`.
 - Raw source 1254x1254. `rawqc.py --scaffold deck_warden_skyglass_b`: ACCEPT, lime coverage 72.9%, border purity 100%. Reduced to the recommended 640x640 with nearest-neighbor before bundled processing.
 - `chroma.py --target AI_AVATAR --spec ... --qc ...`: background 297,938px, enclosed background 2,520px, no remap; exact square export. `artpreflight.py --type AI_AVATAR --spec ... --json`: **0 errors, 0 warnings**, 0% partial-alpha edges.
 - Native dark composite and 320px client view inspected. The missing upper-arm section remains an obvious open gap after keying, with two pale seal connections and two suspended armor fragments. Broken blank mask exposes one human eye/cheek; layered specialist armor and an angular hooked blade establish the revised silhouette. No green pocket remains inside the arm gap. No gore, skull motifs, pirate clothing, modern equipment, text or insignia.
 - **Actual image orientation:** enlarged shoulder guard and missing arm are on viewer-right; hooked weapon is on viewer-left. The generation reversed the prompt's requested arm side. Side placement was not part of the user's direction lock; preserve the actual image if this candidate is accepted. The avatar has two visible seal connections, not the prompt's requested three.
 
+## Oathkeeper `_b` and QA
+
+- File: `art/ghost_ship/avatar_oathkeeper_skyglass_b.webp`, AI_AVATAR for existing Oathkeeper `0PZU_FvlbM3ErYGlD5r56`.
+- Export: 626x626, 122,774 bytes (119.9 KiB), lossless WebP with actual alpha. SHA-256: `d707bb7cf7dca3b01f450fc87711d3569231e01a25b348713ac8d9c976ac92ee`.
+- Retained artifact: `libfile_81bacf2588948191a89c2e23f20304ff`; acceptance: **CANDIDATE, NOT LOCKED**.
+- AI_AVATAR spec/house clauses read. Inspected selected individual Commander Okabe and Winter Crow references plus the locked Deck Warden for crew materials/rendering; narrow Oathkeeper silhouette, gestures and curse remain distinct.
+- Generation `_a` passed rawqc (81.4% lime, 100% ring purity) but failed visual direction: ordinary mask-like lower face and insufficiently readable throat interruption. Not processed or delivered as a final. Built-in image editing corrected the lower face/throat while retaining the figure; exact prompts are in `art/ghost_ship/references/oathkeeper_prompt_record.json`.
+- `_b` rawqc ACCEPT: 1254x1254, lime coverage 81.8%, border purity 100%. Source reduced to recommended 640x640 with nearest-neighbor before bundled processing.
+- `chroma.py --target AI_AVATAR --spec ... --qc ...`: background 335,606px, holes 366px, remapped 47px. `artpreflight.py --type AI_AVATAR --spec ... --json`: **0 errors, 0 warnings**, 0% partial-alpha edges.
+- Native dark composite and 320px client-size view inspected. Smooth mouthless lower face, rigid collar and clearly absent throat joined by thin pale seal connections; two human eyes, an oath gesture and layered forearm bindings remain legible. Narrow split tabard distinguishes the silhouette from the Deck Warden. No green pocket survives in the throat opening; no text, insignia, gore or modern equipment. Body proportions and the complete hands/feet checked.
+- If accepted, preserve this identity for the later Oathkeeper scene portrait, including the mouthless face, missing throat, tied dark/gray hair, hand gesture and narrow armor silhouette. Do not generate that portrait before its avatar is locked.
+
 ## Resume
 
-Quest icon and revised roster direction accepted. Deck Warden `_a` rejected; replacement `_b` delivered after QC. Wait for dauntless's visual lock or correction on `_b` before any further asset. Do not ask to relock `_a`. If `_b` is accepted, lock its exact bytes and use its actual orientation/identity for future depictions. Preserve the locked ship design in later scenes.
+Quest icon, revised roster direction and Deck Warden `_b` accepted. `art.prototype` is complete and `art.avatars` is in progress. Oathkeeper `_b` awaits dauntless's visual lock or correction. After acceptance, record its exact lock and produce Wayfinder next, one asset with QC and review at a time. Preserve the locked Deck Warden's rendering/material language and the locked ship design for scenes.
 
 ## Regenerated Deck Warden `_b` prompt record
 
