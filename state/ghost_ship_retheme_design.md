@@ -7,6 +7,8 @@
 **Evidence baseline:** main after the successful root/dependency/profile captures  
 **Machine content source:** `state/ghost_ship_retheme_patch.json`
 
+**Crew revision, 2026-10-01:** dauntless clarified that this was a top-secret military project and everyone aboard at its disappearance was a high-level operative. The cursed-ship condition must be visually central. See RUL-2026-10-01-003 and `state/ghost_ship_crew_direction.md` for the proposed specialist roster/visual revision. Those individual duties and designs await review; reconcile the machine patch after acceptance and before implementation freeze.
+
 ## Objective
 
 Retheme the two live Ghost Ship profession quests away from literal ghost pirates and toward a TNR-native lost-shinobi-warship legend, while preserving the existing 57-node adventure graph, profession reward structure, combat tuning and AI behavior.
@@ -16,6 +18,8 @@ The Ghost Ship remains the public name because the vessel should not exist. It v
 ## Core fiction
 
 The vessel was an experimental shinobi warship built around a chakra-reactive **Skyglass Core**. Seal arrays through the keel distributed chakra, reduced effective weight and allowed the ship to ignore terrain entirely. It was designed to cross mountains, walls and defended coastlines, appearing from directions ordinary military planning could not cover.
+
+The project was top secret. Every person aboard when it vanished was a high-level operative selected for a specialist military duty. Deck security, navigation, stores and engineering were elite assignments. Present-day reconstruction quality does not define the original operative's standing.
 
 Official records say the project was destroyed decades ago. The Ghost Ship is called a ghost because it should not exist. It periodically materializes in the sky with no visible approach, follows fragments of old routes, then slips out of the world again.
 
@@ -36,7 +40,7 @@ The broad tragedy can evoke the classic fantasy idea of immortality without mort
 The story should be discovered rather than delivered as an opening exposition dump.
 
 1. **Arrival:** the ship materializes without approach. Seal-light under the keel immediately establishes that this is an impossible piece of engineering, not a normal haunted vessel.
-2. **Gangplank:** the Deck Warden has a young face and a uniform generations out of date. The first hint is that the crew did not simply survive normally.
+2. **Gangplank:** the Deck Warden shows an unaged human face beneath archaic specialist equipment and a visibly incomplete reconstruction. The first encounter must establish an elite operative caught in the ship's preservation failure.
 3. **Lower hull:** the Core Horror shows that Skyglass can reconstruct a crew pattern incorrectly, using damaged timber, cable and leaked chakra to fill missing information.
 4. **Parley:** the Oathkeeper recognizes the difference between the living and the crew. His answer to the time riddle makes clear that he knows decades have passed.
 5. **Wayfinder:** charts contain decades of corrections, including settlements and routes that did not exist when the ship vanished. The Ghost Ship has been traveling for far longer than its official history allows.
@@ -74,7 +78,9 @@ Out of scope:
 - publishing/unhiding;
 - live execution by ChatGPT or Fable.
 
-## Final short roster
+## Approved short names and record mapping
+
+The names and slots below remain approved. Their specialist duties and visual identities are being revised in `state/ghost_ship_crew_direction.md`; that proposal does not silently change combat tuning or the shared kits.
 
 | Live id | Current | Retheme |
 |---|---|---|
@@ -172,11 +178,13 @@ The ship is an ancient experimental shinobi warship, not a pirate vessel:
 - loose debris/crystal fragments affected by the lift field.
 
 Crew presentation:
-- shinobi field clothing, armor plates, utility harnesses, masks, weapons and seal tags;
+- elite personnel of a classified military project, with specialized fitted armor, protected seal instruments, masks and purpose-built weapons;
 - no tricorns, skull-and-crossbones, pirate coats or treasure-pageantry;
-- reconstructed crew may show pale seal-script, fractured edges, double-images and incomplete sections resolving into chakra;
+- the cursed reconstruction must be visually central: readable incomplete sections, empty armor, displaced edges or altered faces maintained by pale sealwork; ordinary shinobi with small glowing cracks fail this brief;
 - the closer an impression is to the Captain's core memory, the more solid it appears;
 - Crowned Captain is the most stable and visually authoritative reconstruction.
+
+The exact ship design is locked by RUL-2026-10-01-002; `state/ghost_ship_art_production.md` points to its preserved source. The first Deck Warden candidate was rejected for direction despite passing technical QC. Detailed replacement treatments remain proposals in `state/ghost_ship_crew_direction.md`.
 
 Existing asset ids should be reused where practical and their names/images updated, so quest wiring remains stable. The art task should audit each current image before deciding reuse vs regeneration.
 

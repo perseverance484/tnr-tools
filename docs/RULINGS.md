@@ -333,3 +333,16 @@ Existing audited content-record point reads already approved for full persistenc
 **Rationale:** The quest icon establishes a specific vessel, and subsequent scenes must depict that same vessel.
 
 **Canonical destination:** `state/ghost_ship_art_production.md` and the preserved reference files under `art/ghost_ship/`. This ruling does not authorize a live-game write.
+
+## RUL-2026-10-01-003 — Ghost Ship crew were elite classified-project operatives
+
+**Date:** 2026-10-01
+**Domain:** Ghost Ship / Skyglass crew fiction and visual direction
+**Status:** ACTIVE
+**Supersedes:** the ordinary-guard interpretation used for Deck Warden candidate `_a`; not the approved ship or roster record mapping
+
+**Ruling:** dauntless clarified that the vessel was a top-secret military project and anyone aboard when it vanished would have been a high-level operative. Redefine the roster's duties and visual designs around that premise and an unmistakably cursed ship with forbidden shinobi technology. The presented Deck Warden is not accepted as the crew direction.
+
+**Rationale:** Technical image compliance did not establish the classified project's caliber or the tragedy of its reconstructed crew. Elite status and the curse must be visible in the design itself.
+
+**Canonical destination:** `state/ghost_ship_retheme_design.md` for the approved premise; `state/ghost_ship_crew_direction.md` for the proposed individual treatments; `state/ghost_ship_art_production.md` for candidate disposition. Individual new duties/silhouettes still require review. This ruling does not change combat balance, the shared-pool migration, the locked ship, or live-game records.
