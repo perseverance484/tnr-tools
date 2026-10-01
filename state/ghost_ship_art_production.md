@@ -1,14 +1,14 @@
 # Ghost Ship / Skyglass art production
 
 **Baseline:** live main verified 2026-10-01 at `df17803a9c4222025dba7e68c1919a372835fcd6`.
-**Lead:** Content Designer / Art Director for the current direction revision. **Status:** ship icon LOCKED; complete recurring chakra echoes requested (RUL-2026-10-01-005). Deck Warden `_b` retains prior approval but is held for revision; Oathkeeper `_b` is superseded as a current candidate.
+**Lead:** Content Designer / Art Director, Image Production for the requested exterior study. **Status:** ship icon LOCKED; exterior study `_a` delivered for review. Complete recurring chakra echoes requested (RUL-2026-10-01-005). Deck Warden `_b` retains prior approval but is held for revision; Oathkeeper `_b` is superseded as a current candidate.
 **Branch:** `chatgpt/ghost-ship-skyglass-art-20261001`. No live-game API requests or writes; only captured image URLs fetched.
 
 ## Direction and sequence
 
 Follow `state/ghost_ship_retheme_design.md`, the shared-pool migration, and the current art spec. Forbidden shinobi warship, dark timber/iron seal lattice, pale white-blue Skyglass; crew are reconstructed chakra impressions. Tragic military duty without mortal life. Captain and Crowned Captain are increasingly stable, not increasingly decomposed. Skyglass Serum is approved.
 
-**Current override:** the unstable vessel repeatedly summons complete chakra echoes, which pilot it. Missing limbs/throats, empty anatomical cavities and body/hull fusion are no longer production directions. The proposed replacement uses an ethereal tint, controlled pale aura and bounded afterimages. Read the current `state/ghost_ship_crew_direction.md`; older generation prompts below are provenance, not instructions to reuse. No pixels changed during this direction revision.
+**Current override:** the unstable vessel repeatedly summons complete chakra echoes, which pilot it. Missing limbs/throats, empty anatomical cavities and body/hull fusion are no longer production directions. The proposed replacement uses an ethereal tint, controlled pale aura and bounded afterimages. Read the current `state/ghost_ship_crew_direction.md`; older generation prompts below are provenance, not instructions to reuse. RUL-2026-10-01-006 adds the post-mission critical incident and slipping memory continuity. RUL-2026-10-01-007 requests a concise existing-role narrative and one crystal-powered exterior visualization; read `state/ghost_ship_skyglass_mechanism.md` for the researched proposal. Greater visual coherence must not imply perfect chronological memory.
 
 2026-10-01 correction: all personnel aboard the top-secret project at its disappearance were high-level operatives. The curse must be immediately visible, not reduced to ordinary shinobi with small glowing cracks. Read `state/ghost_ship_crew_direction.md` before further generation. Its specialist duties and silhouettes are approved by RUL-2026-10-01-004; the premise is recorded in RUL-2026-10-01-003.
 
@@ -20,6 +20,8 @@ Follow `state/ghost_ship_retheme_design.md`, the shared-pool migration, and the 
 
 These are production recommendations, not new content or final visual approvals. No work on a bespoke 29-jutsu icon set. Core Rupture is a shared signature; art is optional only if the eventual shared record requires it.
 
+Current user-directed detour: one exterior study makes the locked vessel's Skyglass power system visible. This does not begin a batch of six backgrounds or remove the whole-echo prototype gate.
+
 ## Captured-art audit
 
 Sources: `harvests/inbox/tnr_results_1790826101573.json`, `tnr_results_1790826836406.json`, `tnr_results_1790828718767.json`. All 41 capture rows have successful full-body persistence; all three journals are DONE/success with zero mutation items. Audited 29 image-bearing direct records, 28 unique image URLs (both quests use the same icon). Individual style references were inspected separately; human audit contact sheets were not generation references.
@@ -28,7 +30,7 @@ Sources: `harvests/inbox/tnr_results_1790826101573.json`, `tnr_results_179082683
 |---|---|---|
 | Existing quest icon | Fully regenerate | Green ghost faces around a conventional sailing ship and whirlpool; no Skyglass engineering. |
 | Deck Warden, Oathkeeper, Wayfinder, Arsenal Keeper, First Blade, Captain pair | Fully regenerate | Skeletal undead, pirate hats/coats, decorative gold, green fire; incompatible identities and costume. |
-| Core Horror | Fully regenerate | Encrusted wooden undead body with green light; rebuild as a damaged human impression held together by hull timber/cable/seals. |
+| Core Horror | Fully regenerate | Encrusted wooden undead body with green light; replace with a complete engineer echo overwhelmed by unstable chakra resonance. Body/hull fusion is superseded. |
 | Sentinel | Fully regenerate; preserve broad silhouette idea only | Shell/stone construct is relevant, but horned monster/green magic treatment needs the new seal-frame language. |
 | Seal Charge, Core Canister | Fully regenerate | Literal red TNT/dynamite. Both 256px avatars are below the 320px minimum. |
 | Oathkeeper/Captain/Crowned Captain scene portraits | Fully regenerate | Same pirate/undead conflict. Captain portrait is 522,252 bytes, above the 450KiB working ceiling. |
@@ -111,7 +113,17 @@ Ghost Ship roadmap validates. `validate --all` reports an unrelated pre-existing
 
 ## Resume
 
-Whole-echo direction brief delivered in `state/ghost_ship_crew_direction.md`; proposed aura/afterimage treatment awaits review. Revisit the prototype with an intact Deck Warden `_c` once that treatment is settled. Preserve the exact old assets and approval history; do not ask to approve Oathkeeper `_b`. Establish the new effect on one asset with QC/visual review before resuming the remaining avatars. The ship icon remains locked.
+The requested exterior study `_a` is ready for visual review. The concise lost-crew / preservation-seal explanation remains a recommendation. After review, return to the intact Deck Warden `_c` and establish the aura/afterimage treatment on one avatar. Preserve the exact old assets and approval history; do not ask to approve Oathkeeper `_b`. The ship icon remains locked.
+
+## Skyglass exterior study `_a` and QA
+
+- File: `art/ghost_ship/bg_ghost_ship_skyglass_exterior_a.webp`; target SCENE_BACKGROUND, candidate visualization with no quest-slot assignment or game write.
+- Export: 1536x1024, 219,466 bytes (214.3 KiB), opaque WebP, q85. SHA-256: `107147189ede24a82f4a39965b96fe59462bd98c1ce7fa64ec0e1456e80d5fda`.
+- Retained artifact: `libfile_2a200f7c841081918baa864a0120312f`; **AWAITING VISUAL ACCEPTANCE**, not a replacement for the locked quest icon.
+- One built-in generation. Exact prompt and four individual reference paths: `art/ghost_ship/references/skyglass_exterior_prompt_record.json`. Locked ship source governs geometry; Pass Road Dusk, Warehouse Loading Floor and Drying Yard govern TNR scene rendering only. Each was inspected before generation. Reference pack verified 18/18 with capture provenance.
+- `rawqc.py --opaque`: ACCEPT, 1536x1024. Bundled `chroma.py --target SCENE_BACKGROUND --spec ... --qc ...`; `artpreflight.py --type SCENE_BACKGROUND --spec ... --json`: zero errors and zero warnings. No tool/spec edits.
+- Native composite and actual processed WebP at 512px client width inspected. Deep reinforced timber hull, two unequal battened sails, central crystal cage, bow/keel crystals, conducting rigging and stern fragments match the locked vessel. White-blue channels make the power path readable; levitation ripple separates hull from the water. Complete ship fits the canvas. Quiet lower-left foreground; no crew, creatures, pirate motifs, labels or UI.
+- Raw generated image is separately retained by the generation surface. This processed export is the review deliverable; no second asset generated during the study.
 
 ## Historical Deck Warden `_b` prompt record (body-gap treatment superseded)
 

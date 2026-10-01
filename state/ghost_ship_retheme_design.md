@@ -5,9 +5,9 @@
 **Implementation owner:** Fable / Claude Code after freeze  
 **Live-game actor:** dauntless only  
 **Evidence baseline:** main after the successful root/dependency/profile captures  
-**Machine content source:** `state/ghost_ship_retheme_patch.json`
+**Machine content source:** `state/ghost_ship_retheme_patch.json` (previous prose baseline; not implementation-ready under the current revisions)
 
-**Current crew revision, 2026-10-01:** elite specialist duties remain approved. RUL-2026-10-01-005 requests complete chakra echoes repeatedly summoned to pilot the unstable ship, replacing the prior missing-body treatment. `state/ghost_ship_crew_direction.md` owns the revised brief and proposed ethereal effect. Reconcile the exact quest prose/machine patch before implementation freeze; that machine file is still the preceding prose baseline. The locked ship is unchanged.
+**Current revision, 2026-10-01:** RUL-2026-10-01-005 establishes complete chakra echoes; RUL-2026-10-01-006 fixes the post-mission attack, Skyglass critical incident, suppressed loss and fragmented memory continuity. RUL-2026-10-01-007 calls for a crystal-powered ship visualization and a simple narrative within existing roles. The lost-original-crew / failed-preservation-seal explanation in `state/ghost_ship_skyglass_mechanism.md` is a proposal. Reconcile the machine patch before implementation freeze. The locked ship, elite duties and names remain unchanged.
 
 ## Objective
 
@@ -21,19 +21,17 @@ The vessel was an experimental shinobi warship built around a chakra-reactive **
 
 The project was top secret. Every person aboard when it vanished was a high-level operative selected for a specialist military duty. Deck security, navigation, stores and engineering were elite assignments. Present-day reconstruction quality does not define the original operative's standing.
 
-Official records say the project was destroyed decades ago. The Ghost Ship is called a ghost because it should not exist. It periodically materializes in the sky with no visible approach, follows fragments of old routes, then slips out of the world again.
+The ship was attacked after a mission and Skyglass went critical. Its military sponsors believed it destroyed and suppressed the project. The public legend contains sightings and contradictory rumors, not a complete account of classified engineering. The ship periodically materializes, follows fragments of old routes and disappears again.
 
-The project failed through a preservation system that worked too well. During catastrophic damage, the Skyglass emergency lattice was ordered to preserve command continuity, preserve crew function and keep the vessel operational until its mission ended. The mission never reached a termination state.
+Skyglass originally powered flight and sustained the crew's vitals. Its preservation function now continues beyond its intended limits, repeatedly forming complete chakra echoes from impressions ingrained in the ship. They pilot the vessel, maintain its arrays and perform their remembered duties. Their connection to the ship prevents ordinary independent lives ashore; the exact binding mechanism is proposed in the researched brief. The art need not settle the original people's ultimate fate.
 
-The Core preserves chakra resonances: combat habits, memories, personalities and routines left by the original crew. The current revision treats each manifestation as a summoning of complete chakra-made echoes from those stored patterns. The echoes pilot the vessel, maintain its arrays and perform their old duties. The art need not settle the original people's ultimate fate.
+Identity, training and habitual duty remain strong, while experiences between manifestations are sparse, disordered and hard to place. Some echoes recognize that decades have passed from changed geography, records or lingering impressions, yet cannot reliably distinguish one incarnation from another. Greater coherence does not grant a perfect elapsed-time count or uninterrupted memory. This supersedes that implication in the preceding draft.
 
-This remains a TNR-native tragedy of recurring duty without ordinary life. The echoes do not age like biological people. They carry remembered food, warmth, sleep and shore leave, yet each manifestation summons them to service again. Some follow routine without understanding the loop; higher-fidelity impressions can know how much time has passed. Their nature is shown through a whole spectral figure, not missing anatomy.
+The continuing emergency, rather than a necessarily unfinished combat objective, is the narrative focus. Proposed explanation: the originals perished, but a damaged preservation seal still forms their chakra echoes and leaves the ship intermittently absent from ordinary space. This fits a completed mission followed by an attack. Keep the cause brief; no external release-key quest, elaborate individual memory subplot or literal time travel is required. The precise mechanism and original crew's death await approval.
 
-Proposed operating loop: as the unstable Skyglass lattice gains coherence, it summons the crew; the crew stabilize and pilot the ship. When coherence fails, the echoes disperse and the vessel slips out of stable space. A later manifestation summons them again. The existing unfinished-mission command remains the reason the cycle continues. Exact aura/afterimage treatment is under review in the crew brief.
+The vessel remains a military threat: it bypasses terrain, carries high-level operatives and can summon defenders again. The proposed explanation preserves the actual hull and stores between appearances, while only the crew constructs are re-formed. Its fiction does not add infinite healing, instant respawns or new mechanics to the shared AI kits.
 
-That condition also explains why the vessel was such a menace. A defender could be defeated and simply appear again the next time the Core rebuilt the ship. The crew could operate indefinitely without sleep or supplies, while the vessel itself could bypass the geography that normally protects settlements and strongholds.
-
-The **Skyglass Crown** was the Captain's command interface with Skyglass. It synchronized one shinobi with navigation, defensive seals, weapons, lift systems and crew-impression control. The ordinary Captain is already one of the Core's most stable reconstructions. The oathbound route causes Skyglass to rebuild the highest-fidelity command imprint through the Skyglass Crown, producing the Crowned Captain, who remembers the final project orders and understands why the ship never stopped.
+The **Skyglass Crown** remains the Captain's command interface. The Captain is one of the most coherent echoes, and the oathbound route brings forth the most complete command impression. Proposed reveal: the Crown restores clarity about the critical incident and final preservation order, while his memory of the intervening manifestations remains fractured.
 
 The broad tragedy can evoke the classic fantasy idea of immortality without mortal life, but the actual explanation, characters, reveals and dialogue remain original to TNR and rooted in forbidden shinobi engineering.
 
@@ -44,12 +42,12 @@ The story should be discovered rather than delivered as an opening exposition du
 1. **Arrival:** the ship materializes without approach. Seal-light under the keel immediately establishes that this is an impossible piece of engineering, not a normal haunted vessel.
 2. **Gangplank:** the Deck Warden is a complete, unaged operative in archaic specialist equipment whose chakra tint and spectral contour reveal his summoned nature.
 3. **Lower hull:** the Core Horror shows an engineer's complete echo overwhelmed by unstable resonance, with overlapping contours and excessive chakra presence. This replaces the previous body/hull-fusion reveal.
-4. **Parley:** the Oathkeeper recognizes the difference between the living and the crew. His answer to the time riddle makes clear that he knows decades have passed.
-5. **Wayfinder:** charts contain decades of corrections, including settlements and routes that did not exist when the ship vanished. The Ghost Ship has been traveling for far longer than its official history allows.
-6. **Arsenal Keeper:** food, medicine and stores remain untouched while inventory has been checked again and again. The crew remembers the need for supplies but no longer consumes them.
-7. **First Blade:** one of the strongest crew impressions has spent decades waiting for something genuinely new to happen. His excitement at a living challenger makes the cost of endless reconstruction personal.
+4. **Parley:** the Oathkeeper recognizes the difference between the living and the crew. His response to the time riddle conveys awareness of elapsed years without a reliable count or sequence.
+5. **Wayfinder:** continues navigating remembered routes. Charts serve their existing quest purpose; no handwriting mystery or personal memory investigation is needed.
+6. **Arsenal Keeper:** guards the existing stores under remembered orders. Keep the military duty readable without adding a personal backstory.
+7. **First Blade:** a powerful operative retains the feeling of long repetition without an exact memory of it. His excitement at a living challenger makes that loss personal.
 8. **The Captain:** the player learns that the ship did not simply survive destruction. Skyglass rejected the loss condition and kept executing its preservation orders.
-9. **Crowned Captain:** the Skyglass Crown restores the deepest command memory. The final reveal is that the original mission never ended in the Core's logic, so vessel, Captain and crew are still being rebuilt to complete an order that no living shinobi remembers.
+9. **Crowned Captain:** the Skyglass Crown restores the deepest command memory. The final reveal concerns the damaged preservation seal still calling the crew to duty after the critical incident. The original mission may already have finished; no new release mechanic is required.
 
 The three entry routes therefore show three different sides of the same mystery:
 - direct assault shows the military machine still defending itself;

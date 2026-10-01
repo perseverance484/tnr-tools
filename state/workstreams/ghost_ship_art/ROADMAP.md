@@ -16,13 +16,16 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | Path | Why |
 | --- | --- |
 | `state/ghost_ship_art_production.md` | Audit, production order, current candidate and resume gate. |
-| `state/ghost_ship_retheme_design.md` | Approved Skyglass fiction and roster. |
+| `state/ghost_ship_retheme_design.md` | User-fixed fiction, roster and current proposed developments; distinguish these from the older machine-patch prose. |
 | `state/ghost_ship_crew_direction.md` | Current whole-echo direction, retained elite duties, proposed spectral treatment and replacement prototype acceptance tests. |
+| `state/ghost_ship_skyglass_mechanism.md` | User-fixed origin and memory constraints, sourced comparative research, proposed mechanism and exact quest continuity checks. |
 | `state/ghost_ship_retheme_patch.json` | Exact entity mapping and names; narrative wording remains the previous baseline and needs reconciliation before implementation freeze. |
 | `state/ghost_ship_shared_pool_migration.json` | Active combat kits; excludes retiring bespoke jutsu art. |
 | `skills/producing-tnr-art/SKILL.md` | Production/QC and acceptance rhythm. |
 | `skills/producing-tnr-art/data/25x_DATA_art_spec.json` | Current style and per-client export authority. |
 | `skills/producing-tnr-art/data/style_refs.json` | Visual reference selection and provenance. |
+| `art/ghost_ship/references/skyglass_exterior_prompt_record.json` | Exact exterior study prompt, ship/style references, export ledger and QA; awaiting visual acceptance. |
+| `art/ghost_ship/bg_ghost_ship_skyglass_exterior_a.webp` | User-requested early exterior study; reviewed technically and awaiting visual acceptance, with no quest-slot assignment. |
 
 ## Tasks
 
@@ -37,7 +40,7 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 ## Executable now
 
 - **`art.prototype`** (IN_PROGRESS) - Deck Warden avatar prototype
-  - resume: Direction brief revised under RUL-2026-10-01-005. Proposed next test: Deck Warden _c, restoring the whole arm and adding cool tint, close blue-white aura and controlled echo contour. Historical _b approval and bytes are preserved; _b is held from current delivery pending revision and is only an equipment/identity reference. _a remains rejected.
+  - resume: After the user-requested exterior study is reviewed, return to Deck Warden _c: complete arm, retained elite equipment, cool tint, close white-blue aura and controlled echo contour. Historical _b approval and bytes remain; it is held from current delivery. RUL-006/007 and the concise researched proposal establish origin/memory scope without elaborate personal backstories. Original crew death and precise seal mechanics remain proposed.
 
 ## Blocked
 

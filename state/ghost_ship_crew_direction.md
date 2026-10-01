@@ -2,7 +2,7 @@
 
 **Status:** ACTIVE DIRECTION REVISION, requested by dauntless 2026-10-01 (RUL-2026-10-01-005). Complete summoned chakra echoes replace missing-body imagery. The particular aura/afterimage treatment below is a proposal awaiting visual-direction review.
 **Lead:** Content Designer / Art Director, then Image Production.
-**Sources:** `state/ghost_ship_retheme_design.md`, `state/ghost_ship_art_production.md`, the existing record/name map and shared-pool migration.
+**Sources:** `state/ghost_ship_retheme_design.md`, `state/ghost_ship_skyglass_mechanism.md` (researched proposal), `state/ghost_ship_art_production.md`, the existing record/name map and shared-pool migration.
 
 ## What carries forward
 
@@ -10,7 +10,7 @@ The ship is a top-secret military project; its original personnel were all elite
 
 The vessel holds chakra resonances left by the original crew. Its unstable Skyglass system repeatedly summons complete chakra-made echoes from those stored patterns. The echoes man the helm, handle navigation, maintain the seal lattice and defend the vessel. They are recurring constructs with remembered personalities and habits, rather than injured survivors or revived bodies. The original crew's ultimate fate need not be settled by the art.
 
-Proposed loop: the lattice gathers coherence, summons the crew, and the crew stabilize and pilot the ship; when coherence fails, echoes disperse and the ship slips out of stable space. The next manifestation summons them again. More faithful echoes can retain memories across manifestations, preserving the existing time, chart and unfinished-mission reveals. The tragedy is repeated duty and limited continuity of life.
+Proposed loop: the lattice gathers coherence, summons the crew, and the crew stabilize and pilot the ship; when coherence fails, echoes disperse and the ship slips out of stable space. The next manifestation summons them again. Per RUL-2026-10-01-006, identity and trained skill persist more reliably than recent experience. Some sense that years have passed without recalling the sequence; even the Captain pair lack perfect chronology. Per RUL-2026-10-01-007, keep this to brief hints within existing roles, with no handwriting investigation or elaborate individual memory subplot. `state/ghost_ship_skyglass_mechanism.md` recommends originals lost in the incident and a damaged preservation seal; the original crew's fate remains a proposal.
 
 ## Proposed common visual treatment
 
