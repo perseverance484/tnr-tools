@@ -9,7 +9,8 @@
   "notes": [
     "Baseline df17803a9c4222025dba7e68c1919a372835fcd6.",
     "Skyglass Serum approved 2026-10-01, RUL-2026-10-01-001.",
-    "No prior Ghost Ship roadmap existed at baseline; this packet points at the real committed design/capture sources."
+    "No prior Ghost Ship roadmap existed at baseline; this packet points at the real committed design/capture sources.",
+    "Quest icon LOCKED by dauntless 2026-10-01; all scenes must preserve its ship design, RUL-2026-10-01-002."
   ],
   "resources": [
     {
@@ -46,7 +47,7 @@
       "id": "art.quest_icon",
       "title": "Quest icon brand lock",
       "area": "art",
-      "status": "IN_PROGRESS",
+      "status": "COMPLETE",
       "owner": "chatgpt",
       "objective": "Quest icon brand lock.",
       "depends_on": [],
@@ -67,14 +68,20 @@
         "dauntless explicitly accepts each final asset."
       ],
       "lead_role": "Image Production",
-      "open_decisions": [
-        "Final visual acceptance remains with dauntless."
-      ],
-      "resume_note": "Candidate delivered; awaiting icon lock before Deck Warden. See state/ghost_ship_art_production.md for artifact identity and QC.",
+      "open_decisions": [],
+      "resume_note": "LOCKED by dauntless 2026-10-01. Exact approved icon and source retained under art/ghost_ship; scene continuity documented in state/ghost_ship_art_production.md.",
       "evidence": [
         {
           "kind": "path",
           "ref": "state/ghost_ship_art_production.md"
+        },
+        {
+          "kind": "path",
+          "ref": "art/ghost_ship/icon_ghost_ship_skyglass_d.webp"
+        },
+        {
+          "kind": "path",
+          "ref": "art/ghost_ship/references/ghost_ship_skyglass_locked_source_d.webp"
         }
       ]
     },
@@ -82,7 +89,7 @@
       "id": "art.prototype",
       "title": "Deck Warden avatar prototype",
       "area": "art",
-      "status": "PLANNED",
+      "status": "IN_PROGRESS",
       "owner": "chatgpt",
       "objective": "Deck Warden avatar prototype.",
       "depends_on": [
@@ -107,6 +114,17 @@
       "lead_role": "Image Production",
       "open_decisions": [
         "Final visual acceptance remains with dauntless."
+      ],
+      "resume_note": "Candidate avatar_deck_warden_skyglass_a.webp delivered: 614x614, 144720 bytes, rawqc ACCEPT, preflight 0 errors/0 warnings, native and 320px dark QC clean. Await dauntless acceptance before any further asset.",
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/ghost_ship_art_production.md"
+        },
+        {
+          "kind": "path",
+          "ref": "art/ghost_ship/avatar_deck_warden_skyglass_a.webp"
+        }
       ]
     },
     {
@@ -164,7 +182,8 @@
       ],
       "completion_gates": [
         "Art preflight zero errors and target-appropriate visual QC.",
-        "dauntless explicitly accepts each final asset."
+        "dauntless explicitly accepts each final asset.",
+        "Ship structure, sail plan, crystal placements and sealwork remain faithful to the locked quest icon and source reference (RUL-2026-10-01-002)."
       ],
       "lead_role": "Image Production",
       "open_decisions": [

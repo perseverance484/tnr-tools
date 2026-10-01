@@ -1,7 +1,7 @@
 # Ghost Ship / Skyglass art production
 
 **Baseline:** live main verified 2026-10-01 at `df17803a9c4222025dba7e68c1919a372835fcd6`.
-**Lead:** Image Production; Art Director supporting. **Status:** quest icon candidate, awaiting dauntless acceptance.
+**Lead:** Image Production; Art Director supporting. **Status:** quest icon LOCKED; Deck Warden prototype candidate awaiting dauntless acceptance.
 **Branch:** `chatgpt/ghost-ship-skyglass-art-20261001`. No live-game API requests or writes; only captured image URLs fetched.
 
 ## Direction and sequence
@@ -39,14 +39,24 @@ Sources: `harvests/inbox/tnr_results_1790826101573.json`, `tnr_results_179082683
 
 `shotlist.py` was run against the extracted Gather quest: 57 objectives, six wired backgrounds, three real portraits plus the blank suppressor. It flags missing top-level `content.sceneBackground`; plan a deliberate global scene using the final Deck/entry plate. Existing wiring being reported SATISFIED does not imply visual suitability. No push manifest or new @img wiring was authored.
 
-## Current candidate and QA
+## Locked ship reference and scene continuity
+
+dauntless approved the processed icon on 2026-10-01: “Approved. Need to remain faithful to this ship design when making scene art.” This is the canonical vessel design for all scene art, not merely a palette reference (RUL-2026-10-01-002).
+
+Preserve its deep reinforced timber hull, iron ribs/bands, two unequal battened charcoal sails, conductive rigging, caged mid-deck Skyglass structure, bow crystal housing, keel crystal and angular underside sealwork. The approved view has the bow at right and stern at left; maintain the same physical arrangement when changing viewpoint, not a mirrored or redesigned vessel. Stern afterimage fragments and the restrained levitation ripple remain supporting cues.
+
+Use the approved source pixels as an individual reference for ship scenes. Do not add masts, replace the sail plan, move the crystal structures, or substitute a generic galleon. Interior scenes may reveal unseen construction, but must carry the same timber/iron structure, crystal geometry and seal-lattice engineering. Compare every background against the approved ship during QC. Preserve the locked icon unchanged.
+
+Repository reference files: `art/ghost_ship/icon_ghost_ship_skyglass_d.webp` (approved export) and `art/ghost_ship/references/ghost_ship_skyglass_locked_source_d.webp` (1254x1254 final chroma source, lossless WebP with exact decoded RGB pixel equality verified against the generated PNG; design reference only, not a game upload). Reference SHA-256: `6d96257b9f4d9db2cbdec1cf986b4a5bfada68199e898ae4e06e5bfd580e9b2d`.
+
+## Quest icon lock and QA
 
 - File: `icon_ghost_ship_skyglass_d.webp`
 - Target: ICON, via `quest.image` raw URL; no new gameAsset record.
 - Export: 248x248, 63,048 bytes (61.6 KiB), lossless WebP, actual alpha.
 - SHA-256: `9edcb347e9f7a180cdfd45571eddc2de0486a843cf35c3caad1a36d0e8a1dda0`
 - Retained artifact: `libfile_b9b44d02e72c81918592acb62ff9b316`, exact filename above.
-- Acceptance: **CANDIDATE, NOT LOCKED**. Deck Warden has not been generated.
+- Acceptance: **LOCKED by dauntless 2026-10-01**. Exact approved bytes and ship continuity are preserved.
 - Built-in image generation used. Final chroma source 1254x1254; rawqc ACCEPT, key coverage 54.5%, border purity 100%. Source reduced with nearest-neighbor to spec-recommended 256px before bundled key/crop/pad/export.
 - `chroma.py --target ICON --qc ...` and `artpreflight.py --type ICON --spec ... --json`: **0 errors, 0 warnings**, 0% partial-alpha edges. Native dark composite and 125px client-size view inspected. Silhouette/crystal keel remain readable; thin rigging becomes secondary texture.
 - Earlier opaque/native-alpha exports are superseded and not deliverables. The opaque 256px export encountered the preflight alpha requirement; native alpha exceeded the soft-edge limit. Final flat-chroma generation resolves both without changing tool code or spec.
@@ -57,11 +67,34 @@ Session bootstrap: lawmap 0 errors/5 pre-existing warnings; doctrine and pack pr
 
 Ghost Ship roadmap validates. `validate --all` reports an unrelated pre-existing One Perfect Crop missing evidence path (`push/54_one_perfect_crop_launch_final.json`); the same failure is present at baseline. Do not edit that workstream in this art task.
 
+## Deck Warden prototype and QA
+
+- File: `art/ghost_ship/avatar_deck_warden_skyglass_a.webp`
+- Target: AI_AVATAR, existing Deck Warden AI record's avatar; no gameAsset record.
+- Export: 614x614, 144,720 bytes (141.3 KiB), lossless WebP, actual alpha.
+- SHA-256: `0a762a7f43770de08c3516a9faf3d67b243f80e1ac556d980ed096ea8d842304`
+- Retained artifact: `libfile_c80cfd855230819188dc5b0096d6a4c9`.
+- Acceptance: **CANDIDATE, NOT LOCKED**. No remaining avatars generated.
+- Built-in image generation; original 1254x1254. `rawqc.py --scaffold deck_warden_skyglass_a`: ACCEPT, lime coverage 77.8%, border purity 100%. Reduced to recommended 640x640 with nearest-neighbor before bundled crop/pad/export.
+- `chroma.py --target AI_AVATAR --spec ... --qc ...`: exact square 614x614; background 320,086px, holes 24px, remapped 15px. `artpreflight.py --type AI_AVATAR --spec ... --json`: **0 errors, 0 warnings**, 0% partial-alpha edges.
+- Native dark composite and 320px client-size view inspected: complete hands/feet, youthful human face, layered black wrap clothing/iron plates, practical boarding hook, restrained pale-blue geometric breaks at sleeve/calf. No skulls, pirate clothing, scenery, text or insignia. Small seal strokes become secondary at client size; the face, hook and broken edges remain readable. Final style/identity acceptance belongs to dauntless.
+- NINJA selector rerun and all four individual references inspected: Commander Okabe for facial/near detail only; Winter Crow, Pale Fang and Old Ghost for costume, silhouette and edge discipline. New asset-class generation carried no ship/scene image context.
+
 ## Resume
 
-Present the processed icon for dauntless acceptance. Only an explicit lock marks it approved. Then initialize `art.prototype` and generate Deck Warden from the NINJA references, in a clean asset-class context. Use the preserved candidate rather than regenerating an approved image.
+Quest icon accepted; Deck Warden candidate delivered. Wait for dauntless acceptance or correction before any further asset. If accepted, lock the exact avatar bytes and initialize `art.avatars`; proposed next character is Oathkeeper. Use the locked ship source for later scenes rather than regenerating its design.
 
-## Prompt record
+## Deck Warden prompt record
+
+Create ONE original TNR game AI avatar, square 1:1, full body head to feet, centered with generous clean margins. Single ninja character in a compact dynamic combat guard, weight shifted and knees slightly bent. Crisp pixel lineart, flat cel shading, limited palette, soft even lighting, camera at eye level, flat 3/4 view, no low angle and no foreshortening, both arms held within the subject's own silhouette and touching nothing, at most one restrained elemental glow accent, as rim light on edges only.
+
+SUBJECT: Deck Warden, a reconstructed chakra impression of a young adult male shinobi naval guard from an ancient forbidden warship. A plainly human youthful face, weary focused eyes of normal size, pale natural skin, short black hair tied close at the nape, no headwear. Obsolete practical military uniform: near-black layered cross-wrap tunic, short neck cowl, small rectangular iron lamellar chest and shoulder plates, wrapped forearms, close leather utility harness, plain buckled belt, short split cloth tassets, dark gathered trousers, shin wraps and simple split-toe footwear. Compact hooked iron boarding tool secured at the belt, not a hook hand. Premodern cloth, iron, rope and leather. One very restrained icy-white-blue accent along a few armor seam edges. Small angular discontinuities at one sleeve edge and one calf show incomplete chakra reconstruction, edged by pale geometric seal strokes; most of the body is solid and stable, anatomically intact. A tragic soldier still following orders. No skeleton, no corpse, no fantasy pirate.
+
+TNR rendering calibration: articulated dark armor plates, broad flat cloth shadow shapes and fine pixel-edged contours; face and hands have clear adult anatomy, like a carefully painted game figure with pixel discipline, never chunky low-resolution sprite art. Near-black garment base with ONE accent colour per character. Cel shading with restrained painterly depth. Defined shadow shapes, flat mid-tones, no airbrush gradients and no bloom. Grounded adult proportions. Not chibi, not anime-scaled eyes.
+
+TRUE SOLID FLAT pure lime-green #00FF00 chroma field covering the entire canvas and every opening between limbs and equipment, no shadow on the green. Hard opaque pixel boundaries, not transparency or checkerboard. No aura, halo, light field, glow disc, green spill, fog, diffuse ghost glow or floating dust. No scenery, floor, ship, furniture or extra props. No text, UI, watermark, labels, frame, asset sheet, grid, multiple characters, headband, forehead protector, clan symbol, village mark, real-world logo, tricorn, pirate coat, skull, bones, treasure, gold ornament, modern clothing, zippers or firearms.
+
+## Quest icon prompt record
 
 Built-in image generation. Initial generation:
 

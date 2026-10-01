@@ -5,7 +5,7 @@
 - **Slug:** `ghost_ship_art`
 - **Content type:** event art
 - **Status:** ACTIVE
-- **Progress:** 0/5 settled - planned 4, in_progress 1
+- **Progress:** 1/5 settled - planned 3, in_progress 1, complete 1
 
 Produce the approved Skyglass retheme assets sequentially; content implementation and live-game writes remain outside this art packet.
 
@@ -27,20 +27,19 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 | Task | Status | Owner | Depends on | Scope |
 | --- | --- | --- | --- | --- |
-| `art.quest_icon` | IN_PROGRESS | chatgpt | - | One shared Gather/Hunt quest listing icon. |
-| `art.prototype` | PLANNED | chatgpt | `art.quest_icon` | One AI avatar to establish reconstructed naval-shinobi rendering. |
+| `art.quest_icon` | COMPLETE | chatgpt | - | One shared Gather/Hunt quest listing icon. |
+| `art.prototype` | IN_PROGRESS | chatgpt | `art.quest_icon` | One AI avatar to establish reconstructed naval-shinobi rendering. |
 | `art.avatars` | PLANNED | chatgpt | `art.prototype` | Ten remaining AI avatars/props, one at a time. |
 | `art.scenes` | PLANNED | chatgpt | `art.avatars` | Three identity-matched portraits, six 3:2 backgrounds; preserve blank suppressor. |
 | `art.rewards` | PLANNED | chatgpt | `art.scenes` | Crown, matching fragment and Skyglass Serum as needed. |
 
 ## Executable now
 
-- **`art.quest_icon`** (IN_PROGRESS) - Quest icon brand lock
-  - resume: Candidate delivered; awaiting icon lock before Deck Warden. See state/ghost_ship_art_production.md for artifact identity and QC.
+- **`art.prototype`** (IN_PROGRESS) - Deck Warden avatar prototype
+  - resume: Candidate avatar_deck_warden_skyglass_a.webp delivered: 614x614, 144720 bytes, rawqc ACCEPT, preflight 0 errors/0 warnings, native and 320px dark QC clean. Await dauntless acceptance before any further asset.
 
 ## Other open decisions
 
-- `art.quest_icon`: Final visual acceptance remains with dauntless.
 - `art.prototype`: Final visual acceptance remains with dauntless.
 - `art.avatars`: Final visual acceptance remains with dauntless.
 - `art.scenes`: Final visual acceptance remains with dauntless.
@@ -48,16 +47,23 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 ## Waiting on dependencies
 
-- `art.prototype` - waiting on `art.quest_icon` (IN_PROGRESS)
-- `art.avatars` - waiting on `art.prototype` (PLANNED)
+- `art.avatars` - waiting on `art.prototype` (IN_PROGRESS)
 - `art.scenes` - waiting on `art.avatars` (PLANNED)
 - `art.rewards` - waiting on `art.scenes` (PLANNED)
+
+## Completed, with evidence
+
+### `art.quest_icon` - Quest icon brand lock (COMPLETE)
+
+- path: `state/ghost_ship_art_production.md`
+- path: `art/ghost_ship/icon_ghost_ship_skyglass_d.webp`
+- path: `art/ghost_ship/references/ghost_ship_skyglass_locked_source_d.webp`
 
 ## Task detail
 
 ### `art.quest_icon` - Quest icon brand lock
 
-**IN_PROGRESS** - area art, owner chatgpt, lead role Image Production
+**COMPLETE** - area art, owner chatgpt, lead role Image Production
 
 Quest icon brand lock.
 
@@ -80,7 +86,7 @@ Quest icon brand lock.
 
 ### `art.prototype` - Deck Warden avatar prototype
 
-**PLANNED** - area art, owner chatgpt, lead role Image Production
+**IN_PROGRESS** - area art, owner chatgpt, lead role Image Production
 
 Deck Warden avatar prototype.
 
@@ -146,6 +152,7 @@ Scene portraits and backgrounds.
 
 - Art preflight zero errors and target-appropriate visual QC.
 - dauntless explicitly accepts each final asset.
+- Ship structure, sail plan, crystal placements and sealwork remain faithful to the locked quest icon and source reference (RUL-2026-10-01-002).
 
 ### `art.rewards` - Skyglass reward icons
 
