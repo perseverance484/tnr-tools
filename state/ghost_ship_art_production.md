@@ -6,6 +6,8 @@
 
 ## Direction and sequence
 
+**Current gate, RUL-2026-10-01-008:** engineering and physical design precede further image generation. `state/ghost_ship_skyship_engineering.md` owns the proposed construction and power system; two dimensioned design sheets are available for review. Exterior `_a` remains a starting study, not an engineered design lock. After this review, the recommended first image is one Core study from the agreed specification; the complete-echo Deck Warden remains the next character prototype.
+
 Follow `state/ghost_ship_retheme_design.md`, the shared-pool migration, and the current art spec. Forbidden shinobi warship, dark timber/iron seal lattice, pale white-blue Skyglass; crew are reconstructed chakra impressions. Tragic military duty without mortal life. Captain and Crowned Captain are increasingly stable, not increasingly decomposed. Skyglass Serum is approved.
 
 **Current override:** the unstable vessel repeatedly summons complete chakra echoes, which pilot it. Missing limbs/throats, empty anatomical cavities and body/hull fusion are no longer production directions. The proposed replacement uses an ethereal tint, controlled pale aura and bounded afterimages. Read the current `state/ghost_ship_crew_direction.md`; older generation prompts below are provenance, not instructions to reuse. RUL-2026-10-01-006 adds the post-mission critical incident and slipping memory continuity. RUL-2026-10-01-007 requests a concise existing-role narrative and one crystal-powered exterior visualization; read `state/ghost_ship_skyglass_mechanism.md` for the researched proposal. Greater visual coherence must not imply perfect chronological memory.
@@ -113,7 +115,7 @@ Ghost Ship roadmap validates. `validate --all` reports an unrelated pre-existing
 
 ## Resume
 
-The requested exterior study `_a` is ready for visual review. The concise lost-crew / preservation-seal explanation remains a recommendation. After review, return to the intact Deck Warden `_c` and establish the aura/afterimage treatment on one avatar. Preserve the exact old assets and approval history; do not ask to approve Oathkeeper `_b`. The ship icon remains locked.
+Engineering proposal v1 and the two design sheets are delivered for review under RUL-2026-10-01-008. Review the physical Core, finite power system and cloak cycle before further generation. Then make one controlled Core study; update ship guidance if approved construction changes require it, and return to intact Deck Warden `_c` as the next character. Preserve the exact old assets and approval history; do not ask to approve Oathkeeper `_b`. The existing icon remains the current visual lock, not proof of new engineering details.
 
 ## Skyglass exterior study `_a` and QA
 

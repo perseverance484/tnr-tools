@@ -16,7 +16,8 @@
     "Deck Warden _b was explicitly approved 2026-10-01. Preserve that approval and its exact bytes; it is now held from the current delivery pack pending the whole-echo revision.",
     "RUL-2026-10-01-005: complete recurring chakra echoes replace bodily gaps and body/hull fusion. Proposed tint, close aura and offset contours are the next visual test; the locked ship and elite specialist duties remain.",
     "RUL-2026-10-01-006 fixes a post-mission critical incident and fragmented memory continuity. Researched engineering explanation is a proposal in state/ghost_ship_skyglass_mechanism.md, not an implementation freeze.",
-    "RUL-2026-10-01-007: simple existing-role narrative and one user-requested exterior study. bg_ghost_ship_skyglass_exterior_a.webp passed QC and awaits visual acceptance; no change to the locked icon or avatar gate. Originals perishing and the damaged preservation seal remain recommendations."
+    "RUL-2026-10-01-007: simple existing-role narrative and one user-requested exterior study. bg_ghost_ship_skyglass_exterior_a.webp passed QC and awaits visual acceptance; no change to the locked icon or avatar gate. Originals perishing and the damaged preservation seal remain recommendations.",
+    "RUL-2026-10-01-008: design the actual skyship and Skyglass before more generation. Engineering v1 and two dimensioned sheets are proposed for review; light-fed power and the physical cloak cycle are not yet approved lore."
   ],
   "resources": [
     {
@@ -62,6 +63,10 @@
     {
       "path": "art/ghost_ship/bg_ghost_ship_skyglass_exterior_a.webp",
       "why": "User-requested early exterior study; reviewed technically and awaiting visual acceptance, with no quest-slot assignment."
+    },
+    {
+      "path": "state/ghost_ship_skyship_engineering.md",
+      "why": "Current physical engineering proposal, explicit assumptions, Core appearance, cloak/energy/crew limits, accident, drawing IDs and next-art gate."
     }
   ],
   "tasks": [
@@ -108,14 +113,65 @@
       ]
     },
     {
+      "id": "design.engineering",
+      "title": "Skyship and Skyglass engineering design",
+      "area": "design",
+      "status": "IN_PROGRESS",
+      "owner": "chatgpt",
+      "objective": "Define a coherent ship and physical Core before further image generation.",
+      "depends_on": [
+        "art.quest_icon"
+      ],
+      "scope": [
+        "Power source, physical Core assembly, arrangement, flight control, cloaking, emergency crew and the accident; preserve the existing quest structure."
+      ],
+      "required_resources": [
+        {
+          "path": "state/ghost_ship_skyship_engineering.md",
+          "why": "Current engineering proposal and two-sheet drawing provenance."
+        },
+        {
+          "path": "state/ghost_ship_art_production.md",
+          "why": "Existing ship lock and candidate status."
+        }
+      ],
+      "deliverables": [
+        "Engineering proposal with explicit assumptions and constraints.",
+        "Dimensioned ship arrangement and Core assembly sheets."
+      ],
+      "completion_gates": [
+        "Physical arrangement, power demands and failure sequence are internally consistent.",
+        "Rendered sheets checked for readable labels and page bounds.",
+        "dauntless accepts the engineering direction before dependent production art."
+      ],
+      "lead_role": "Content Designer",
+      "open_decisions": [
+        "Physical cloak/recharge cycle versus an additional true spatial-absence technique.",
+        "Light-fed Skyglass conversion, proposed dimensions and assembly.",
+        "Recommended original crew death and precise failure sequence."
+      ],
+      "resume_note": "Engineering proposal v1 and two PDF sheets delivered. No new generated art. Review the proposed system, then make one controlled Core study before resuming the whole-echo Deck Warden. Exact approved prior pixels remain intact.",
+      "evidence": [
+        {
+          "kind": "path",
+          "ref": "state/ghost_ship_skyship_engineering.md"
+        },
+        {
+          "kind": "path",
+          "ref": "state/ghost_ship_art_production.md"
+        }
+      ]
+    },
+    {
       "id": "art.prototype",
       "title": "Deck Warden avatar prototype",
       "area": "art",
-      "status": "IN_PROGRESS",
+      "status": "BLOCKED",
       "owner": "chatgpt",
       "objective": "Establish complete recurring chakra echoes while preserving the approved elite Deck Warden identity and equipment.",
       "depends_on": [
-        "art.quest_icon"
+        "art.quest_icon",
+        "design.engineering"
       ],
       "scope": [
         "Revise the Deck Warden with complete anatomy and a readable chakra presence, then QC and obtain visual acceptance before continuing the roster."
@@ -142,7 +198,7 @@
       "open_decisions": [
         "Final spectral treatment and replacement asset require visual review."
       ],
-      "resume_note": "After the user-requested exterior study is reviewed, return to Deck Warden _c: complete arm, retained elite equipment, cool tint, close white-blue aura and controlled echo contour. Historical _b approval and bytes remain; it is held from current delivery. RUL-006/007 and the concise researched proposal establish origin/memory scope without elaborate personal backstories. Original crew death and precise seal mechanics remain proposed.",
+      "resume_note": "RUL-008 places engineering review first. Then establish the physical Core in one controlled study and return to Deck Warden _c as the next character: complete anatomy, retained elite equipment and a clear chakra aura. Historical _b approval is preserved; the asset remains held from current delivery.",
       "evidence": [
         {
           "kind": "path",
@@ -240,7 +296,7 @@
       "open_decisions": [
         "Final visual acceptance remains with dauntless."
       ],
-      "resume_note": "User explicitly requested one early exterior visualization. art/ghost_ship/bg_ghost_ship_skyglass_exterior_a.webp passed export and native/client QC, and awaits visual review. It preserves the locked ship and is not assigned to a quest slot. Remaining scene production stays downstream of accepted avatars."
+      "resume_note": "Exterior _a is a decent starting study per dauntless, not an engineering lock. design.engineering now governs physical construction. Existing scene production remains downstream of the accepted character prototypes and ship design."
     },
     {
       "id": "art.rewards",

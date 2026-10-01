@@ -5,7 +5,7 @@
 - **Slug:** `ghost_ship_art`
 - **Content type:** event art
 - **Status:** ACTIVE
-- **Progress:** 1/5 settled - planned 2, in_progress 1, blocked 1, complete 1
+- **Progress:** 1/6 settled - planned 2, in_progress 1, blocked 2, complete 1
 
 Produce the approved Skyglass retheme assets sequentially; content implementation and live-game writes remain outside this art packet.
 
@@ -26,23 +26,29 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 | `skills/producing-tnr-art/data/style_refs.json` | Visual reference selection and provenance. |
 | `art/ghost_ship/references/skyglass_exterior_prompt_record.json` | Exact exterior study prompt, ship/style references, export ledger and QA; awaiting visual acceptance. |
 | `art/ghost_ship/bg_ghost_ship_skyglass_exterior_a.webp` | User-requested early exterior study; reviewed technically and awaiting visual acceptance, with no quest-slot assignment. |
+| `state/ghost_ship_skyship_engineering.md` | Current physical engineering proposal, explicit assumptions, Core appearance, cloak/energy/crew limits, accident, drawing IDs and next-art gate. |
 
 ## Tasks
 
 | Task | Status | Owner | Depends on | Scope |
 | --- | --- | --- | --- | --- |
 | `art.quest_icon` | COMPLETE | chatgpt | - | One shared Gather/Hunt quest listing icon. |
-| `art.prototype` | IN_PROGRESS | chatgpt | `art.quest_icon` | Revise the Deck Warden with complete anatomy and a readable chakra presence, then QC and obtain visual acceptance before continuing the roster. |
+| `design.engineering` | IN_PROGRESS | chatgpt | `art.quest_icon` | Power source, physical Core assembly, arrangement, flight control, cloaking, emergency crew and the accident; preserve the existing quest structure. |
+| `art.prototype` | BLOCKED | chatgpt | `art.quest_icon`, `design.engineering` | Revise the Deck Warden with complete anatomy and a readable chakra presence, then QC and obtain visual acceptance before continuing the roster. |
 | `art.avatars` | BLOCKED | chatgpt | `art.prototype` | Ten remaining AI avatars/props, one at a time. |
 | `art.scenes` | PLANNED | chatgpt | `art.avatars` | Three identity-matched portraits, six 3:2 backgrounds; preserve blank suppressor. |
 | `art.rewards` | PLANNED | chatgpt | `art.scenes` | Crown, matching fragment and Skyglass Serum as needed. |
 
 ## Executable now
 
-- **`art.prototype`** (IN_PROGRESS) - Deck Warden avatar prototype
-  - resume: After the user-requested exterior study is reviewed, return to Deck Warden _c: complete arm, retained elite equipment, cool tint, close white-blue aura and controlled echo contour. Historical _b approval and bytes remain; it is held from current delivery. RUL-006/007 and the concise researched proposal establish origin/memory scope without elaborate personal backstories. Original crew death and precise seal mechanics remain proposed.
+- **`design.engineering`** (IN_PROGRESS) - Skyship and Skyglass engineering design
+  - resume: Engineering proposal v1 and two PDF sheets delivered. No new generated art. Review the proposed system, then make one controlled Core study before resuming the whole-echo Deck Warden. Exact approved prior pixels remain intact.
 
 ## Blocked
+
+### `art.prototype` - Deck Warden avatar prototype
+
+- OPEN DECISION (user-owned): Final spectral treatment and replacement asset require visual review.
 
 ### `art.avatars` - Remaining combatants and props
 
@@ -51,7 +57,9 @@ This roadmap is **coordination state, not canon.** It points at the authoritativ
 
 ## Other open decisions
 
-- `art.prototype`: Final spectral treatment and replacement asset require visual review.
+- `design.engineering`: Physical cloak/recharge cycle versus an additional true spatial-absence technique.
+- `design.engineering`: Light-fed Skyglass conversion, proposed dimensions and assembly.
+- `design.engineering`: Recommended original crew death and precise failure sequence.
 - `art.scenes`: Final visual acceptance remains with dauntless.
 - `art.rewards`: Final visual acceptance remains with dauntless.
 
@@ -93,9 +101,35 @@ Quest icon brand lock.
 - Art preflight zero errors and target-appropriate visual QC.
 - dauntless explicitly accepts each final asset.
 
+### `design.engineering` - Skyship and Skyglass engineering design
+
+**IN_PROGRESS** - area design, owner chatgpt, lead role Content Designer
+
+Define a coherent ship and physical Core before further image generation.
+
+**Scope**
+
+- Power source, physical Core assembly, arrangement, flight control, cloaking, emergency crew and the accident; preserve the existing quest structure.
+
+**Required resources**
+
+- `state/ghost_ship_skyship_engineering.md` - Current engineering proposal and two-sheet drawing provenance.
+- `state/ghost_ship_art_production.md` - Existing ship lock and candidate status.
+
+**Deliverables**
+
+- Engineering proposal with explicit assumptions and constraints.
+- Dimensioned ship arrangement and Core assembly sheets.
+
+**Completion gates**
+
+- Physical arrangement, power demands and failure sequence are internally consistent.
+- Rendered sheets checked for readable labels and page bounds.
+- dauntless accepts the engineering direction before dependent production art.
+
 ### `art.prototype` - Deck Warden avatar prototype
 
-**IN_PROGRESS** - area art, owner chatgpt, lead role Image Production
+**BLOCKED** - area art, owner chatgpt, lead role Image Production
 
 Establish complete recurring chakra echoes while preserving the approved elite Deck Warden identity and equipment.
 
