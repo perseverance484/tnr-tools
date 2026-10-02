@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-10-01)
+# DRIFT.md - upstream contract drift (2026-10-02)
 
-Upstream: studie-tech/TheNinjaRPG@609f463e851fa1d21e90a6f228a156afd4e5c118
+Upstream: studie-tech/TheNinjaRPG@05ec30ea551dadb4ee1dc36e4fa60cc0893234a7
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -69,18 +69,18 @@ ADDITIONS
 no breaking changes: 58 addition(s), safe to adopt (exit 0)
 == 45d_DATA_entity_schemas ==
 CHANGES
-  now-required  item  isFarmSeed  optional -> required
-  now-required  item  farmYieldItemId  optional -> required
-  now-required  item  farmFertilizerExperience  optional -> required
-  now-required  item  isFarmFertilizer  optional -> required
-  now-required  item  farmExtractSeedCount  optional -> required
-  now-required  item  farmExtractSeedItemId  optional -> required
-  now-required  item  farmMinLevel  optional -> required
-  now-required  item  farmHarvestExperience  optional -> required
   now-required  item  farmGrowTimeSeconds  optional -> required
   now-required  item  farmPlantExperience  optional -> required
-  now-required  item  farmTimeReductionSeconds  optional -> required
   now-required  item  farmSellValue  optional -> required
+  now-required  item  isFarmFertilizer  optional -> required
+  now-required  item  farmHarvestExperience  optional -> required
+  now-required  item  isFarmSeed  optional -> required
+  now-required  item  farmMinLevel  optional -> required
+  now-required  item  farmExtractSeedCount  optional -> required
+  now-required  item  farmYieldItemId  optional -> required
+  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  farmFertilizerExperience  optional -> required
+  now-required  item  farmExtractSeedItemId  optional -> required
 ADDITIONS
   field  item  farmExtractSeedCount
   field  item  farmExtractSeedItemId
@@ -158,6 +158,8 @@ ADDITIONS
   const-member  ContentProposalStatuses  REJECTED
   const-member  ContentProposalStatuses  REVERTED
   const-member  ContentTypes  guide
+  const-member  FACTION_VILLAGE_TYPES  HIDEOUT
+  const-member  FACTION_VILLAGE_TYPES  TOWN
   const-member  GUIDE_HUB_CATEGORY_ORDER  bloodlines
   const-member  GUIDE_HUB_CATEGORY_ORDER  combat
   const-member  GUIDE_HUB_CATEGORY_ORDER  economy
@@ -170,9 +172,7 @@ ADDITIONS
   const-member  GUIDE_RESERVED_SLUGS  edit
   const-member  GUIDE_RESERVED_SLUGS  new
   const-member  GuideCategories  bloodlines
-  const-member  GuideCategories  combat
-  const-member  GuideCategories  economy
-  ... 59 more
+  ... 61 more
 
-no breaking changes: 119 addition(s), safe to adopt (exit 0)
+no breaking changes: 121 addition(s), safe to adopt (exit 0)
 ~~~
