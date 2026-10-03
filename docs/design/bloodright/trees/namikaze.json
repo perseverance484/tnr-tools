@@ -1,0 +1,1475 @@
+{
+  "title": "Namikaze — The Shearing Sky",
+  "revision": "Draft 1 / Namikaze classification / forked tree",
+  "bloodline": {
+    "id": "0Uc2Nfgg08kqGm78QAwZ4",
+    "review_id": "BR-048",
+    "name": "Namikaze",
+    "rank": "C",
+    "statClassification": "Highest",
+    "traits": null
+  },
+  "classification": {
+    "potency_classification": "Namikaze",
+    "label_kind": "bloodline-keyed extension",
+    "bloodline": "Namikaze",
+    "display_element": "Wind",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Namikaze jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
+    "census_collisions": [
+      "Aerathiel",
+      "Architect of the Hollow Script",
+      "Blissoo",
+      "Blue Blade Eyes",
+      "Blue Edge Eyes",
+      "Crust Almighty",
+      "Eyes of the Forsaken Heir",
+      "Eyes of the Forsaken King",
+      "First Flame",
+      "Houkyuken",
+      "Hyouga Yui",
+      "Itojinsei",
+      "Itzehecayan",
+      "Kyuko-sei",
+      "Manhattan Project",
+      "Sands of Time",
+      "Shakunetsu Sakura",
+      "Shiroi Youso",
+      "Solar Soul",
+      "Taiyo Kami",
+      "Teno Yuki",
+      "Testing Dummy 2.0",
+      "The Abbynomaly",
+      "Timeforged Enigma",
+      "Traveling Sun Praiser",
+      "True North",
+      "Youso Shiroi",
+      "Yūhi Ryūjin (夕陽竜神)"
+    ]
+  },
+  "emphasis": {
+    "primary": "Wind offense — Damage on Cutting Tempest, Tempest Shroud and Wind Step; self Increase Damage Given on Cutting Tempest (and the hidden Soaring Fujin)",
+    "secondary": "Pressure — Afterburn on Tempest Shroud's circle (enemy debuff, ally hazard)",
+    "tertiary": "Control — self Decrease Damage Taken on Tempest Shroud; enemy Decrease Damage Given on Wind Step's circle",
+    "rationale": "Five of the eight supported rows are offensive: three Wind Damage rows (Cutting Tempest 45, Tempest Shroud 40, Wind Step 40 at jutsu level 25) and two self Increase Damage Given rows (Cutting Tempest 35%, Wind-only; Soaring Fujin 21.25%, a hidden NORMAL-type cast), all sitting over a 15% + 0.15/level Wind Increase Damage Given passive, so offense is primary and gets a raw-power route plus a buff-weighted Foundation. Tempest Shroud carries three of the eight rows on one A-rank cast: its 35% Afterburn is a single enemy debuff whose value lands on every later non-pierce hit, so pressure is secondary with one route. Control is two universal 30% rows, self Decrease Damage Taken on Tempest Shroud and enemy Decrease Damage Given on Wind Step's ground circle, each held to the single-row +10 shape. Move and pool-cost rows are unsupported."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Wind at the Back",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Every stride is carried; the gale behind you lends its weight to the blade.",
+      "coverage_note": "Cutting Tempest self buff 35→38% (Wind hits, 2 rounds, CD 6); Soaring Fujin 21.25→24.25% (hidden NORMAL-type cast, broad stat filter).",
+      "parent_rule": "ALL",
+      "potency_classification": "Namikaze",
+      "scope": "Namikaze jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Cutting Tempest",
+          "Soaring Fujin"
+        ],
+        "effect_rows": 2,
+        "hidden_rows": 1
+      }
+    },
+    {
+      "id": "02",
+      "name": "Razor Crosswind",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Turn the breeze edge-on and it opens skin before it is felt.",
+      "coverage_note": "Cutting Tempest 45→47, Tempest Shroud 40→42, Wind Step 40→42 Wind power; three hits at 60 AP (CD 6/7/7), two of them circles.",
+      "parent_rule": "ALL",
+      "potency_classification": "Namikaze",
+      "scope": "Namikaze jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Cutting Tempest",
+          "Tempest Shroud",
+          "Wind Step"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "03",
+      "name": "Cleaving Cyclone",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "The whole sky leans into one cut.",
+      "coverage_note": "Same three Wind Damage rows; route total +5 (Cutting Tempest 50, Tempest Shroud 45, Wind Step 45). Move and pool-cost rows unsupported.",
+      "parent_rule": "ALL",
+      "potency_classification": "Namikaze",
+      "scope": "Namikaze jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Cutting Tempest",
+          "Tempest Shroud",
+          "Wind Step"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "04",
+      "name": "Searing Squall",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Fast air over an open wound burns hotter than any flame.",
+      "coverage_note": "Tempest Shroud Afterburn only: 35→38% for 2 rounds on everyone in the circle (ally hazard); value lands on every non-pierce hit taken.",
+      "parent_rule": "ALL",
+      "potency_classification": "Namikaze",
+      "scope": "Namikaze jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Tempest Shroud"
+        ],
+        "effect_rows": 1,
+        "ally_hazard_rows": [
+          "Tempest Shroud#2"
+        ]
+      }
+    },
+    {
+      "id": "05",
+      "name": "Fanning the Flames",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 7,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Feed the fire its favourite thing: more wind.",
+      "coverage_note": "Shroud Afterburn 38→45% (route +10); Cutting Tempest buff 38→40% and Soaring Fujin 24.25→26.25% with Wind at the Back.",
+      "parent_rule": "ALL",
+      "potency_classification": "Namikaze",
+      "scope": "Namikaze jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Cutting Tempest",
+          "Soaring Fujin",
+          "Tempest Shroud"
+        ],
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Tempest Shroud#2"
+        ],
+        "hidden_rows": 1
+      }
+    },
+    {
+      "id": "06",
+      "name": "Eye of the Storm",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "At the still centre nothing lands clean, and nothing thrown from inside flies true.",
+      "coverage_note": "Tempest Shroud self Decrease Damage Taken 30→32% (every non-pierce hit); Wind Step circle Decrease Damage Given 30→32% on enemies on its tiles.",
+      "parent_rule": "ALL",
+      "potency_classification": "Namikaze",
+      "scope": "Namikaze jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Tempest Shroud",
+          "Wind Step"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "07",
+      "name": "Windward Guard",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Stand where the gale breaks first and let it take the blow.",
+      "coverage_note": "Tempest Shroud Decrease Damage Taken only: 32→35% with Eye of the Storm; one self row, 2 rounds per 60 AP A-rank cast, CD 7.",
+      "parent_rule": "ALL",
+      "potency_classification": "Namikaze",
+      "scope": "Namikaze jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Tempest Shroud"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "08",
+      "name": "Heart of the Tempest",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Inside the wall of wind you are untouched, and everything you throw leaves faster.",
+      "coverage_note": "Decrease Damage Taken to route total 40% (+10); Cutting Tempest buff 35→37% (40% with Wind at the Back), Soaring Fujin 23.25%.",
+      "parent_rule": "ALL",
+      "potency_classification": "Namikaze",
+      "scope": "Namikaze jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Cutting Tempest",
+          "Soaring Fujin",
+          "Tempest Shroud"
+        ],
+        "effect_rows": 3,
+        "hidden_rows": 1
+      }
+    },
+    {
+      "id": "09",
+      "name": "Smothering Headwind",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Every swing thrown into the wind arrives spent.",
+      "coverage_note": "Wind Step Decrease Damage Given only: 32→35% with Eye of the Storm; enemies on the circle's tiles, re-applied each round, 2-round debuff.",
+      "parent_rule": "ALL",
+      "potency_classification": "Namikaze",
+      "scope": "Namikaze jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Wind Step"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "10",
+      "name": "Dead Calm",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "09"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "damage",
+          "flat": 1,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "When the air goes dead, so does the arm that swings through it.",
+      "coverage_note": "Wind Step suppression to route total 40% (+10); all three Wind Damage rows +1 (Cutting Tempest 46, Tempest Shroud 41, Wind Step 41).",
+      "parent_rule": "ALL",
+      "potency_classification": "Namikaze",
+      "scope": "Namikaze jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Cutting Tempest",
+          "Tempest Shroud",
+          "Wind Step"
+        ],
+        "effect_rows": 4
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Cleaving Cyclone",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "The +5 power route on all three Wind Damage rows (Cutting Tempest 50, Tempest Shroud 45, Wind Step 45), multiplied downstream by the Wind passive and by Cutting Tempest's own buff at 38%. Eye of the Storm is the fourth purchase because it hardens the two casts the rotation already uses (Shroud 32% Decrease Damage Taken, Wind Step 32% suppression) without re-buying offense; Searing Squall (Afterburn 38%) is the all-in alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Wind Step",
+          "row": 0,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wind Step",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wind Step",
+          "row": 2,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tempest Shroud",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tempest Shroud",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tempest Shroud",
+          "row": 2,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cutting Tempest",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 5,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cutting Tempest",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 3,
+          "final": 38.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Soaring Fujin",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 21.25,
+          "gain": 3,
+          "final": 24.25,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Soaring Fujin",
+          "row": 1,
+          "tag": "decreasepoolcost",
+          "label": "decreasepoolcost",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 18.75,
+          "gain": 0,
+          "final": 18.75,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Cleaving Cyclone"
+      ]
+    },
+    {
+      "name": "Fanning the Flames",
+      "archetype": "Burn pressure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "rationale": "Tempest Shroud's Afterburn at the route maximum 45% (+10) for 2 rounds on one target, so every non-pierce hit it takes from the player, allies or weapons adds up to 45% more, with both self buffs at +5 (Cutting Tempest 40%, Soaring Fujin 26.25%) feeding larger hits into the burn. Eye of the Storm is the fourth purchase for 32% self shield and 32% suppression; Razor Crosswind (47/42/42 power) is the offensive alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Wind Step",
+          "row": 0,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wind Step",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wind Step",
+          "row": 2,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tempest Shroud",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tempest Shroud",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tempest Shroud",
+          "row": 2,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cutting Tempest",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cutting Tempest",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Soaring Fujin",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 21.25,
+          "gain": 5,
+          "final": 26.25,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Soaring Fujin",
+          "row": 1,
+          "tag": "decreasepoolcost",
+          "label": "decreasepoolcost",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 18.75,
+          "gain": 0,
+          "final": 18.75,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Fanning the Flames"
+      ]
+    },
+    {
+      "name": "Heart of the Tempest",
+      "archetype": "Fortress",
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "01"
+      ],
+      "rationale": "Tempest Shroud's universal Decrease Damage Taken at the route maximum 40% (+10) for two rounds per A-rank cast, with Cutting Tempest's Wind buff at 40% from the capstone's secondary plus Wind at the Back, and Wind Step suppression at 32%. Wind at the Back is the fourth purchase because it compounds the self-buff secondary; Smothering Headwind (suppression 35%) is the defensive alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Wind Step",
+          "row": 0,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wind Step",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wind Step",
+          "row": 2,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tempest Shroud",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tempest Shroud",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 10,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tempest Shroud",
+          "row": 2,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cutting Tempest",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cutting Tempest",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Soaring Fujin",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 21.25,
+          "gain": 5,
+          "final": 26.25,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Soaring Fujin",
+          "row": 1,
+          "tag": "decreasepoolcost",
+          "label": "decreasepoolcost",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 18.75,
+          "gain": 0,
+          "final": 18.75,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Heart of the Tempest"
+      ]
+    },
+    {
+      "name": "Dead Calm",
+      "archetype": "Suppression",
+      "ids": [
+        "06",
+        "09",
+        "10",
+        "07"
+      ],
+      "rationale": "Wind Step's circle Decrease Damage Given at the route maximum 40% (+10) on every enemy standing in it, with Tempest Shroud's Decrease Damage Taken at 35% (+5) and all three Wind hits +1 power: a control build that blunts what the enemy deals and shrugs off what gets through while the kit's offense stays near base. Windward Guard is the fourth purchase for shield depth; Wind at the Back (buffs 38% / 24.25%) is the offensive alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 1,
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 5
+      },
+      "finals": [
+        {
+          "jutsu": "Wind Step",
+          "row": 0,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wind Step",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 1,
+          "final": 41.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wind Step",
+          "row": 2,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 10,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tempest Shroud",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 1,
+          "final": 41.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tempest Shroud",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 5,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tempest Shroud",
+          "row": 2,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cutting Tempest",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 1,
+          "final": 46.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cutting Tempest",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Soaring Fujin",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 21.25,
+          "gain": 0,
+          "final": 21.25,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Soaring Fujin",
+          "row": 1,
+          "tag": "decreasepoolcost",
+          "label": "decreasepoolcost",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 18.75,
+          "gain": 0,
+          "final": 18.75,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Dead Calm"
+      ]
+    }
+  ],
+  "narrow_kit_exception": null,
+  "design_notes": [
+    "Node split: root Wind at the Back (self-facing, +3 Increase Damage Given on both buff rows) forks into a Damage route (Razor Crosswind → Cleaving Cyclone) and a burn route (Searing Squall → Fanning the Flames). Root Eye of the Storm (control-facing, +2 Decrease Damage Taken on Tempest Shroud, +2 Decrease Damage Given on Wind Step's circle) forks into a shield route (Windward Guard → Heart of the Tempest) and a suppression route (Smothering Headwind → Dead Calm). 2 F / 4 H / 4 A; every capstone 3 BP deep; two capstones cost 5 or 6 BP.",
+    "Flats scale by coverage. Damage reaches three Wind rows (45/40/40) and keeps the reference ladder +2/+3 (max +5, not the +6 two-row kits use; Dead Calm's +1 lifts a suppression build to +1 only). Afterburn is one downstream row: 3+7 = +10 (35→45%). Decrease Damage Taken and Decrease Damage Given are one universal row each and take the single-row 2/3/5 shape (30→40%). Increase Damage Given reaches two rows, one hidden, so it is a +3 Foundation plus +2 capstone secondaries: max +5 (Cutting Tempest 40%, Soaring Fujin 26.25%).",
+    "Capstone secondaries never out-bid a Hidden Art on the same tag: Fanning the Flames and Heart of the Tempest add +2 self buff (no Hidden Art carries Increase Damage Given); Dead Calm adds +1 Damage under Razor Crosswind's +2. Row-weighted node values (Σ flat × rows reached): Foundations 6/4, Hidden Arts 6/3/3/3, Advanced Arts 9/11/9/8; full builds span 16–26 against Taiyo Kami's 20–31 on nine rows. Maxima over legal builds: Damage +5, IDG +5, Afterburn +10, DDT +10, DDG +10; not jointly attainable.",
+    "Matching at the pin (tags.ts getEfficiencyRatio): Cutting Tempest's buff row lists Wind with no stat or general filter, so it multiplies Wind hits only, including Wind normal jutsu, not element-less hits. Soaring Fujin's row lists Wind plus the Highest stat and all four general types, so it multiplies nearly every hit the caster lands. The three enemy/self percentage rows (Shroud DDT and Afterburn, Wind Step DDG) list all four stat types with no element, so they cover every non-pierce hit. Pierce ignores all of them; the Wind IDG passive multiplies the enhanced Damage rows.",
+    "Delivery and uptime: Tempest Shroud (A rank, 60 AP, CD 7, OTHER_USER circle, range 4) carries Damage, the self shield and the Afterburn, so every route touches it; its percentage rows last 2 rounds. Wind Step (D rank, 60 AP, CD 7) is an EMPTY_GROUND circle (range 5): its Damage hits enemies once and its suppression is re-applied each round to enemies standing on the tiles. Cutting Tempest (C rank, 60 AP, CD 6, single target) is the fastest cast and its 2-round buff windows the follow-up Wind hits. Soaring Fujin is a hidden SELF cast (60 AP, CD 6).",
+    "Fourth purchases: Burst (01,02,03) → Eye of the Storm or Searing Squall; Burn (01,04,05) → Eye of the Storm or Razor Crosswind; Fortress (06,07,08) → Wind at the Back or Smothering Headwind; Suppression (06,09,10) → Windward Guard or Wind at the Back. Six no-capstone hybrids (01,02,04,06; 01,02,06,07; 01,02,06,09; 01,04,06,07; 01,04,06,09; 01,06,07,09) stay distinct. Strongest unadvertised allocation by row weight: 01,02,04,05 (Damage +2, IDG +5, Afterburn +10) at 26, one above the advertised Burst build. Four examples: each capstone closes a different role."
+  ],
+  "risks": [
+    "Ally hazard: Tempest Shroud's Afterburn row is INHERIT-target on an AOE_CIRCLE_SPAWN with no friendly-fire value (treated as ALL), so allies and the caster standing in the circle also receive the debuff and take extra Afterburn damage from hits they suffer. Searing Squall and Fanning the Flames raise that to 38% and 45%. The Damage row is friendly-fire ENEMIES and the shield row targets SELF, so only the burn is hazardous; positioning decides.",
+    "Afterburn: Fanning the Flames puts the Shroud debuff at 45% for 2 rounds on everyone in the circle. Every non-pierce hit a debuffed target takes (kit, normal jutsu, weapons, allies) adds floor(damage × 45%), cumulative Afterburn per hit capped at 60% of the hit, so it saturates alongside other Afterburn sources. BATTLE_TAG_STACKING is on at the pin. Not a damage instance; downstream instances were not simulated.",
+    "Classification: Wind sits on rows of 28 other census bloodlines (Aerathiel, Houkyuken, Shiroi Youso and others), so the label is the bloodline-keyed extension 'Namikaze' (proposed whole-kit resolver plus a classification extension). With ['Wind'] today 5 of 8 supported rows match directly; the three element-less rows fall back to None, which also reaches other non-elemental jutsu. Normal-jutsu Wind collisions are unverified.",
+    "Increase Damage Given scope: Cutting Tempest's row carries elements ['Wind'] with no stat or general filter, so at the pin it multiplies Wind hits only (kit Damage rows, Wind normal jutsu); element-less basic attacks and weapons are not matched. Soaring Fujin's row (Wind, Highest stat, four general types) multiplies nearly every hit for 2 rounds, but it is a hidden NORMAL-type jutsu whose obtainability was not verified; if uncastable, IDG is one row and Wind at the Back is the weakest Foundation.",
+    "Shield and suppression delivery: Tempest Shroud's Decrease Damage Taken is a SELF row on an OTHER_USER circle spawn, so it needs a legal enemy target within range 4 and SELF-row handling on circle spawns was not separately source-verified. Wind Step's Decrease Damage Given reaches only enemies standing on the circle's tiles and is re-applied each round they stay; an enemy who steps off loses it after the 2-round debuff. Both ride 60 AP casts on CD 7.",
+    "Value decisions (user-owned): Decrease Damage Taken and Decrease Damage Given each reach +10 on a single universal row (30→40%), Afterburn +10, Damage +5 on three rows, Increase Damage Given +5. The brief says to adjust by coverage rather than rank, but this is a C-rank bloodline; lower control ladders (for example 2/3/4 = +9) remain available if the user prefers. No combat simulation was performed.",
+    "Damage is formula-calculated (sqrt stat scaling) and then multiplied by the Wind Increase Damage Given passive and Cutting Tempest's buff, so +5 raw power is not a linear +5 damage. Two of the three Damage rows are circle hits with friendly fire ENEMIES (no ally hazard). Wind Step's move and Soaring Fujin's pool-cost rows are unsupported and receive nothing; mobility is untouched.",
+    "Context not modelled: the bloodline's +10% Increase Damage Taken passive on Fire (a standing weakness) is untouched by any node; skill-tree and bloodline effects are suppressed in RANKED_PVP and RANKED_SPARRING at the pin, so no node applies there; normal-tree potency policy is not approved, so a combined stacking audit precedes implementation. The 14/14 non-dominance count treats every tag as a gain and ignores delivery; it is structural evidence only."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "decreasedamagegiven": 10,
+      "decreasedamagetaken": 10,
+      "afterburn": 10
+    },
+    "supported_rows_in_kit": 8,
+    "supported_rows_by_tag": {
+      "afterburn": 1,
+      "damage": 3,
+      "decreasedamagegiven": 1,
+      "decreasedamagetaken": 1,
+      "increasedamagegiven": 2
+    },
+    "tags_targeted_by_tree": [
+      "afterburn",
+      "damage",
+      "decreasedamagegiven",
+      "decreasedamagetaken",
+      "increasedamagegiven"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Draft 1 / Namikaze classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags of Namikaze jutsu inherit Namikaze potency eligibility; original combat elements and target scopes stay intact.",
+      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 3,
+        "afterburn": 3
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "afterburn": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 3
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 5,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 5,
+        "afterburn": 3
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 3
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 5,
+        "decreasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "decreasedamagetaken": 10
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 5
+      }
+    }
+  ]
+}

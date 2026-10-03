@@ -1,0 +1,1613 @@
+{
+  "title": "Oblivion Seal — Rites of Unmaking",
+  "revision": "Draft 1 / Shadow classification / forked tree",
+  "bloodline": {
+    "id": "wasIGmDuczwD9PB89gML6",
+    "review_id": "BR-053",
+    "name": "Oblivion Seal",
+    "rank": "A",
+    "statClassification": "Highest",
+    "traits": "Burst, Sustained DPS"
+  },
+  "classification": {
+    "potency_classification": "Shadow",
+    "label_kind": "element",
+    "bloodline": "Oblivion Seal",
+    "display_element": "Shadow",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Oblivion Seal jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": [
+      "Adorable Shadow of Death",
+      "Blood-Enchanted Eyes",
+      "Blood-Enshrined Eyes",
+      "Blood-Enthralled Eyes",
+      "Extinction Herald",
+      "Godstorm Eclipse",
+      "Infernal Reaper",
+      "Kusamochi: Mashumaro Executioner",
+      "Lilac Seductress",
+      "Night Parade of A Thousand Demons",
+      "Otaku of the Dark Maiden",
+      "Sacrament of Crimson Hunger",
+      "Shadow Weaver"
+    ]
+  },
+  "emphasis": {
+    "primary": "Damage (three Shadow attacks)",
+    "secondary": "Increase Damage Taken and Increase Damage Given (Shadowrend exposure, Cursed Beast Form empowerment)",
+    "tertiary": "Shadow Surge sustain (Decrease Damage Taken, Lifesteal)",
+    "rationale": "Three of the seven supported rows are Shadow Damage on 60 AP single-target casts (Cursed Beast Form 40, Curse Empowerment 40, Shadow Tether 50 at jutsu level 25) and the bloodline's traits are Burst and Sustained DPS, so offense is the declared primary and the Damage route reaches all three attacks. Shadowrend's 35% Increase Damage Taken (element-less, all four stat types listed) and Cursed Beast Form's 35% Increase Damage Given (Fire, Lightning, Shadow and element-less hits) are the two single-row amplifiers that make those attacks land harder; exposure gets a full route held to the +7 ceiling, empowerment is the Foundation-plus-capstone glue (+5 ceiling). Shadow Surge is the kit's only self-cast (40 AP ground circle) and carries both sustain rows, Decrease Damage Taken 35% and Lifesteal 40%; they are tertiary by kit identity but, being single rows, carry the largest flats (+10 each) under the same points-per-row logic as Taiyo Kami. No Afterburn, Reflect, Heal or Decrease Damage Given rows exist, so none is invented."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Brand of Oblivion",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "The seal brands both hands: the one that curses and the one that is cursed.",
+      "coverage_note": "Cursed Beast Form self buff 35→37% (Fire, Lightning, Shadow, element-less hits); Shadowrend exposure 35→37% (any non-pierce hit); 2 rounds.",
+      "parent_rule": "ALL",
+      "potency_classification": "Shadow",
+      "scope": "Oblivion Seal jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Cursed Beast Form",
+          "Shadowrend"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "02",
+      "name": "Umbral Claws",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "The beast's shadow lengthens, and its claws find more of you.",
+      "coverage_note": "Cursed Beast Form 40→42, Curse Empowerment 40→42, Shadow Tether 50→52 (Shadow, single target, range 4, 60 AP, cooldown 7). Pierce untouched.",
+      "parent_rule": "ALL",
+      "potency_classification": "Shadow",
+      "scope": "Oblivion Seal jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Curse Empowerment",
+          "Cursed Beast Form",
+          "Shadow Tether"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "03",
+      "name": "Absolute Erasure",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "What the seal unmakes, the world forgets.",
+      "coverage_note": "Same three Shadow damage rows; route total +5 (Cursed Beast Form 45, Curse Empowerment 45, Shadow Tether 55 at jutsu level 25).",
+      "parent_rule": "ALL",
+      "potency_classification": "Shadow",
+      "scope": "Oblivion Seal jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Curse Empowerment",
+          "Cursed Beast Form",
+          "Shadow Tether"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "04",
+      "name": "Unraveled Wards",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Shadowrend picks the knots of every ward loose.",
+      "coverage_note": "Shadowrend exposure only (+2 more: 39% with Brand of Oblivion); 2 rounds per 60 AP cast; every non-pierce hit from any source qualifies.",
+      "parent_rule": "ALL",
+      "potency_classification": "Shadow",
+      "scope": "Oblivion Seal jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Shadowrend"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "05",
+      "name": "Writ of Oblivion",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "The sentence is written on their skin and read by every blade.",
+      "coverage_note": "Shadowrend exposure to 42% (route +7) and Cursed Beast Form self buff to 40% (+5 with Brand of Oblivion); both 2-round windows, 60 AP casts.",
+      "parent_rule": "ALL",
+      "potency_classification": "Shadow",
+      "scope": "Oblivion Seal jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Cursed Beast Form",
+          "Shadowrend"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "06",
+      "name": "Umbral Refuge",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "lifesteal",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Step into the shadow you cast; it keeps you, and it feeds you.",
+      "coverage_note": "Shadow Surge circle: self Decrease Damage Taken 35→37% and Lifesteal 40→42%, active from the round after casting, only while standing in it.",
+      "parent_rule": "ALL",
+      "potency_classification": "Shadow",
+      "scope": "Oblivion Seal jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Shadow Surge"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "07",
+      "name": "Veil of Nothing",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Blows that reach into the void find less and less to strike.",
+      "coverage_note": "Shadow Surge self Decrease Damage Taken only (+3 more: 40% with Umbral Refuge); non-pierce hits; 2-round value re-applied inside the circle.",
+      "parent_rule": "ALL",
+      "potency_classification": "Shadow",
+      "scope": "Oblivion Seal jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Shadow Surge"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "08",
+      "name": "Sealed Against Ruin",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Nothing passes the seal that the sealbearer does not permit.",
+      "coverage_note": "Shadow Surge Decrease Damage Taken to 45% (route +10); Cursed Beast Form self buff +3 (38%, or 40% with Brand of Oblivion).",
+      "parent_rule": "ALL",
+      "potency_classification": "Shadow",
+      "scope": "Oblivion Seal jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Cursed Beast Form",
+          "Shadow Surge"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "09",
+      "name": "Hungering Shade",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "lifesteal",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "The circle drinks whatever the curse spills.",
+      "coverage_note": "Shadow Surge Lifesteal only (+3 more: 45% with Umbral Refuge); heals a share of every hit incl. Shadowrend's pierce; 60% cap shared w/ vamp.",
+      "parent_rule": "ALL",
+      "potency_classification": "Shadow",
+      "scope": "Oblivion Seal jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Shadow Surge"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "10",
+      "name": "Maw of Oblivion",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "09"
+      ],
+      "modifiers": [
+        {
+          "tag": "lifesteal",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Stand in the maw and let it swallow every wound you deal and every one you take.",
+      "coverage_note": "Shadow Surge Lifesteal to 50% (route +10, under the 60% cap) and its Decrease Damage Taken +2 (39% with Umbral Refuge; 42% with Veil).",
+      "parent_rule": "ALL",
+      "potency_classification": "Shadow",
+      "scope": "Oblivion Seal jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Shadow Surge"
+        ],
+        "effect_rows": 2
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Absolute Erasure",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "The Damage route puts +5 power on all three Shadow attacks (45/45/55 at jutsu level 25) and Brand of Oblivion adds +2 to both the self buff (37%) and Shadowrend's exposure (37%) that frame them. Umbral Refuge is the fourth purchase for a little circle sustain (37% / 42%); Unraveled Wards (01, 02, 03, 04) is the all-offense alternative at 39% exposure.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "lifesteal": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Shadowrend",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 58.0,
+          "gain": 0,
+          "final": 58.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadowrend",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cursed Beast Form",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cursed Beast Form",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Fire",
+            "Lightning",
+            "None",
+            "Shadow"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Curse Empowerment",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Curse Empowerment",
+          "row": 1,
+          "tag": "clearprevent",
+          "label": "clearprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Curse Empowerment",
+          "row": 2,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 110.0,
+          "gain": 0,
+          "final": 110.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Tether",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 5,
+          "final": 55.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Tether",
+          "row": 1,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Surge",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Surge",
+          "row": 1,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Surge",
+          "row": 2,
+          "tag": "lifesteal",
+          "label": "Lifesteal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Absolute Erasure"
+      ]
+    },
+    {
+      "name": "Writ of Oblivion",
+      "archetype": "Exposure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "rationale": "Shadowrend's exposure rises to 42% (+7) and Cursed Beast Form's self buff to 40% (+5): Shadowrend first, Cursed Beast Form second, then every non-pierce hit in the overlapping windows, from the kit, normal jutsu, weapons or allies, lands harder. Umbral Refuge rounds it out; Umbral Claws (01, 02, 04, 05) trades that sustain for +2 power on the three attacks.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 2,
+        "lifesteal": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Shadowrend",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 58.0,
+          "gain": 0,
+          "final": 58.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadowrend",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 7,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cursed Beast Form",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cursed Beast Form",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Fire",
+            "Lightning",
+            "None",
+            "Shadow"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Curse Empowerment",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Curse Empowerment",
+          "row": 1,
+          "tag": "clearprevent",
+          "label": "clearprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Curse Empowerment",
+          "row": 2,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 110.0,
+          "gain": 0,
+          "final": 110.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Tether",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Tether",
+          "row": 1,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Surge",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Surge",
+          "row": 1,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Surge",
+          "row": 2,
+          "tag": "lifesteal",
+          "label": "Lifesteal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Writ of Oblivion"
+      ]
+    },
+    {
+      "name": "Sealed Against Ruin",
+      "archetype": "Fortress",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "rationale": "Shadow Surge's circle shaves 45% (+10) off non-pierce hits while the caster stands in it, and the capstone's +3 self buff with Brand of Oblivion makes Cursed Beast Form a 40% window, so the fortress still presses the attack. Hungering Shade (06, 07, 08, 09) is the circle-only alternative: 45% reduction and 45% lifesteal with no Brand.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10,
+        "lifesteal": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Shadowrend",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 58.0,
+          "gain": 0,
+          "final": 58.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadowrend",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cursed Beast Form",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cursed Beast Form",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Fire",
+            "Lightning",
+            "None",
+            "Shadow"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Curse Empowerment",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Curse Empowerment",
+          "row": 1,
+          "tag": "clearprevent",
+          "label": "clearprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Curse Empowerment",
+          "row": 2,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 110.0,
+          "gain": 0,
+          "final": 110.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Tether",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Tether",
+          "row": 1,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Surge",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Surge",
+          "row": 1,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Surge",
+          "row": 2,
+          "tag": "lifesteal",
+          "label": "Lifesteal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Sealed Against Ruin"
+      ]
+    },
+    {
+      "name": "Maw of Oblivion",
+      "archetype": "Sustain",
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "rationale": "Lifesteal in the circle reaches 50% (+10, under the 60% leech cap) and heals a share of every hit including Shadowrend's pierce; the capstone's +2 reduction gives 39%, and Brand of Oblivion keeps the 37% buff and exposure in play. Veil of Nothing (06, 07, 09, 10) is the pure Surge turtle: 42% reduction, 50% lifesteal, no offense at all.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 4,
+        "lifesteal": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Shadowrend",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 58.0,
+          "gain": 0,
+          "final": 58.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadowrend",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cursed Beast Form",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cursed Beast Form",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Fire",
+            "Lightning",
+            "None",
+            "Shadow"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Curse Empowerment",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Curse Empowerment",
+          "row": 1,
+          "tag": "clearprevent",
+          "label": "clearprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Curse Empowerment",
+          "row": 2,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 110.0,
+          "gain": 0,
+          "final": 110.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Tether",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Tether",
+          "row": 1,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Surge",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Surge",
+          "row": 1,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Shadow Surge",
+          "row": 2,
+          "tag": "lifesteal",
+          "label": "Lifesteal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 10,
+          "final": 50.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Maw of Oblivion"
+      ]
+    }
+  ],
+  "narrow_kit_exception": null,
+  "design_notes": [
+    "Node split: the Damage route (+2 Hidden, +3 Advanced) reaches the three Shadow attacks exactly as Taiyo Kami's does and is the highest row-weighted build (23 on 7 rows; Taiyo 31 on 9). Single-row percentage tags carry the larger flats: Increase Damage Taken is held to the +7 ceiling (2/2/3); Decrease Damage Taken and Lifesteal reach +10 (2/3/5). Increase Damage Given is the Foundation-plus-capstone glue (+2, then +3 on two capstones; +5 ceiling) so no hybrid F+H+F+H allocation is dominated.",
+    "Capstone secondaries never sit on a sibling Hidden Art's tag: Writ of Oblivion and Sealed Against Ruin take +3 Increase Damage Given (no Hidden Art carries it), Maw of Oblivion takes +2 Decrease Damage Taken, below Veil of Nothing's +3, so the lifesteal capstone deepens the circle without out-bidding the fortress Hidden Art. Absolute Erasure is Damage-only, like Solar Cataclysm.",
+    "Passives and downstream reach: the bloodline passive (Increase Damage Given 25% + 0.15/level on Lightning, Fire, Shadow, None) is not a potency target, but Cursed Beast Form's buff row has the same element list, so the +5 glue raises the kit's Shadow attacks, Fire and Lightning jutsu, basic attacks and non-elemental jutsu during its 2-round window. Shadowrend's exposure lists all four stat types with no element, so at the pin every non-pierce hit from any source on the exposed target qualifies.",
+    "Delivery: all five jutsu are cooldown 7. Shadowrend, Cursed Beast Form, Curse Empowerment and Shadow Tether are 60 AP, single target, range 4; Shadow Surge is 40 AP, range 5, an EMPTY_GROUND circle whose Decrease Damage Taken and Lifesteal are self rows re-applied each round only to a caster standing in the tiles, from the round after the cast (its move row sorts last). Whether the exposure and buff windows overlap the attacks in practice was not verified against combat timing.",
+    "Fourth purchases: Burst takes Umbral Refuge (circle sustain) or Unraveled Wards (39% exposure); Exposure takes Umbral Refuge or Umbral Claws (+2 power); Fortress takes Brand of Oblivion (40% buff) or Hungering Shade (45% lifesteal, circle only); Sustain takes Brand of Oblivion or Veil of Nothing (42% reduction, circle only). All 14 full-budget allocations are reported by the validator; see the audit for dominance.",
+    "Ten nodes are justified by five supported tags on seven rows across four distinct roles (burst, exposure, fortress, sustain); no node is a reskin of another. Pierce (Shadowrend 58), wound, stun, clearprevent and move are unsupported and untouched; no Afterburn, Reflect, Heal, Increase Heal or Decrease Damage Given row exists, so none is invented."
+  ],
+  "risks": [
+    "Classification: Shadow is the single signature element but not exclusive in the census (13 collisions, including INCLUDE bloodlines Blood-Enchanted Eyes, Godstorm Eclipse, Night Parade and Shadow Weaver); the tree assumes a bloodline-scoped whole-kit classification, not a bare Shadow element match. Normal-jutsu Shadow use is unverified; the current resolver matches only 4 of 7 rows directly.",
+    "Shadow Surge uptime: both root-B rows are SELF rows on an EMPTY_GROUND AOE_CIRCLE_SPAWN. Per the ground-circle reading they reach the caster from the round after the cast and only while standing in the circle; the move row's exact relocation (power 1) was not read, so whether every cast lands the caster inside the circle is unproven. Five nodes depend on standing still; nothing was simulated.",
+    "Lifesteal budget: the 60%-of-pre-shield-damage leech cap is shared with vamp. 50% leaves 10 points of headroom, so any vamp from equipment or the main tree saturates the capstone's value. Lifesteal does include pierce hits, so Shadowrend's 58 pierce feeds it; healprevent on the caster blocks it entirely.",
+    "Increase Damage Taken reach: Shadowrend's exposure (element-less, all four stat types) amplifies every non-pierce hit the target takes for its 2 rounds from any source, including allies, weapons and normal jutsu, so the Exposure build's low row-weight (16) understates it. Damage modifiers skip pierce, so Shadowrend's own pierce row does not benefit from the exposure it applies.",
+    "Increase Damage Given stacking: the +5 glue adds statically to a 35% self buff that stacks with the bloodline passive (bloodline-sourced modifiers multiply and honour allowBloodlineDamageIncrease) and any main-tree or gear modifiers; BATTLE_TAG_STACKING is true at the pin. Combined final damage was not simulated.",
+    "Realized value: four of five casts cost 60 AP and all share cooldown 7, so the 2-round exposure and buff windows rarely cover all three attacks in one rotation; per-row numbers overstate per-round value. Whether a buff applied by Cursed Beast Form affects that same cast's damage row was not verified.",
+    "Shadowrend's pierce (58 at jutsu level 25) is the kit's largest hit and is unsupported; no node changes it. Only Lifesteal (root B) interacts with it."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "increasedamagetaken": 7,
+      "decreasedamagetaken": 10,
+      "lifesteal": 10
+    },
+    "supported_rows_in_kit": 7,
+    "supported_rows_by_tag": {
+      "damage": 3,
+      "decreasedamagetaken": 1,
+      "increasedamagegiven": 1,
+      "increasedamagetaken": 1,
+      "lifesteal": 1
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagetaken",
+      "increasedamagegiven",
+      "increasedamagetaken",
+      "lifesteal"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Draft 1 / Shadow classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags of Oblivion Seal jutsu inherit Shadow potency eligibility; original combat elements and target scopes stay intact.",
+      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 4
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "lifesteal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 7
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 4,
+        "decreasedamagetaken": 2,
+        "lifesteal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5,
+        "lifesteal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "lifesteal": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 2,
+        "lifesteal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 4,
+        "decreasedamagetaken": 5,
+        "lifesteal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 4,
+        "decreasedamagetaken": 2,
+        "lifesteal": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10,
+        "lifesteal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5,
+        "lifesteal": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 4,
+        "lifesteal": 10
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 3,
+        "decreasedamagetaken": 10,
+        "lifesteal": 5
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "decreasedamagetaken": 7,
+        "lifesteal": 10
+      }
+    }
+  ]
+}

@@ -1,0 +1,752 @@
+{
+  "kind": "bloodright_tree_validation",
+  "slug": "ha_yanagi",
+  "bloodline": {
+    "id": "uNZ2UMfA3BuX-J_1g0fHU",
+    "review_id": "BR-030",
+    "name": "Ha Yanagi",
+    "rank": "D",
+    "statClassification": "Genjutsu",
+    "traits": null
+  },
+  "revision": "Draft 1 / Ha Yanagi classification / forked tree",
+  "structure_errors": [],
+  "warnings": [],
+  "classification": {
+    "potency_classification": "Ha Yanagi",
+    "label_kind": "bloodline-keyed extension",
+    "bloodline": "Ha Yanagi",
+    "display_element": null,
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Ha Yanagi jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
+    "census_collisions": []
+  },
+  "examples": [
+    {
+      "name": "Grave Willow's Hush",
+      "archetype": "Suppression",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 8
+      },
+      "advanced_arts": [
+        "Grave Willow's Hush"
+      ]
+    },
+    {
+      "name": "Hollow at the Heart",
+      "archetype": "Exposure",
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "decreasedamagegiven": 6,
+        "increasedamagetaken": 8
+      },
+      "advanced_arts": [
+        "Hollow at the Heart"
+      ]
+    },
+    {
+      "name": "Nightmare in Bloom",
+      "archetype": "Burst",
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 8
+      },
+      "advanced_arts": [
+        "Nightmare in Bloom"
+      ]
+    },
+    {
+      "name": "Thousand-Leaf Dream",
+      "archetype": "Amplifier",
+      "ids": [
+        "06",
+        "09",
+        "10",
+        "01"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 2
+      },
+      "advanced_arts": [
+        "Thousand-Leaf Dream"
+      ]
+    }
+  ],
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 13,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 10,
+      "decreasedamagegiven": 8,
+      "increasedamagetaken": 8
+    },
+    "supported_rows_in_kit": 6,
+    "supported_rows_by_tag": {
+      "damage": 2,
+      "decreasedamagegiven": 2,
+      "increasedamagegiven": 1,
+      "increasedamagetaken": 1
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagegiven",
+      "increasedamagegiven",
+      "increasedamagetaken"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "node_values": [
+      {
+        "id": "01",
+        "name": "Mourning Boughs",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Petal Nightmare",
+          "Wailing Bark"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "02",
+        "name": "Veil of Falling Petals",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Petal Nightmare",
+          "Wailing Bark"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "Grave Willow's Hush",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Petal Nightmare",
+          "Wailing Bark"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "04",
+        "name": "Blight Takes Root",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Blighted Tree"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "05",
+        "name": "Hollow at the Heart",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 7,
+        "row_weighted_total": 9,
+        "covered_jutsu": [
+          "Blighted Tree",
+          "Petal Nightmare",
+          "Wailing Bark"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "06",
+        "name": "Whispering Canopy",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Wailing Bark"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "07",
+        "name": "Hardened Heartwood",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Blighted Tree",
+          "Petal Nightmare"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "08",
+        "name": "Nightmare in Bloom",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 5,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Blighted Tree",
+          "Petal Nightmare",
+          "Wailing Bark"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "09",
+        "name": "Rising Sap",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Wailing Bark"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "10",
+        "name": "Thousand-Leaf Dream",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 4,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Wailing Bark"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      }
+    ],
+    "strongest_full_build_by_row_weight": {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "decreasedamagegiven": 6,
+        "increasedamagetaken": 8
+      },
+      "raw_flat_total": 14,
+      "row_weighted_total": 20,
+      "advanced_arts": [
+        "05"
+      ],
+      "non_dominated": true
+    },
+    "lowest_value_node_by_row_weight": {
+      "id": "04",
+      "name": "Blight Takes Root",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 3,
+      "row_weighted_total": 3,
+      "covered_jutsu": [
+        "Blighted Tree"
+      ],
+      "covered_rows": 1,
+      "adverse_rows_amplified": [],
+      "tags_without_rows": []
+    },
+    "full_builds": [
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "bonuses": {
+          "decreasedamagegiven": 8,
+          "increasedamagetaken": 3
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 19,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 8
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 19,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "bonuses": {
+          "decreasedamagegiven": 6,
+          "increasedamagetaken": 8
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 20,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 4,
+          "increasedamagetaken": 3
+        },
+        "raw_flat_total": 10,
+        "row_weighted_total": 14,
+        "advanced_arts": [],
+        "non_dominated": false
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 4
+        },
+        "raw_flat_total": 9,
+        "row_weighted_total": 15,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 6,
+          "decreasedamagegiven": 4
+        },
+        "raw_flat_total": 10,
+        "row_weighted_total": 14,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 4,
+          "increasedamagetaken": 8
+        },
+        "raw_flat_total": 15,
+        "row_weighted_total": 19,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 3
+        },
+        "raw_flat_total": 10,
+        "row_weighted_total": 14,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 6,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 3
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 13,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 5,
+          "decreasedamagegiven": 2
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 19,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 6,
+          "decreasedamagegiven": 2
+        },
+        "raw_flat_total": 10,
+        "row_weighted_total": 14,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 10,
+          "decreasedamagegiven": 2
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 14,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 8
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 18,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 10
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 14,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      }
+    ],
+    "legal_allocations": {
+      "0": [
+        []
+      ],
+      "1": [
+        [
+          "01"
+        ],
+        [
+          "06"
+        ]
+      ],
+      "2": [
+        [
+          "01",
+          "02"
+        ],
+        [
+          "01",
+          "04"
+        ],
+        [
+          "01",
+          "06"
+        ],
+        [
+          "06",
+          "07"
+        ],
+        [
+          "06",
+          "09"
+        ]
+      ],
+      "3": [
+        [
+          "01",
+          "02",
+          "03"
+        ],
+        [
+          "01",
+          "02",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "06",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "06",
+          "09",
+          "10"
+        ]
+      ],
+      "4": [
+        [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "09",
+          "10"
+        ]
+      ]
+    }
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "combat_simulation_performed": false,
+  "live_mutations": 0
+}

@@ -266,6 +266,7 @@ class Row:
     method: Any
     range: Any
     ally_hazard: bool = False
+    enemy_hazard: bool = False
 
     def as_dict(self) -> dict:
         return asdict(self)
@@ -282,12 +283,21 @@ def kit_rows(kit: dict, level: int = DEFAULT_JUTSU_LEVEL, include_unsupported: b
                     continue
                 raw, eff = recipient_for(j, e)
                 role, adverse = role_for(tag, eff)
-                # Friendly fire: checkFriendlyFire (process.ts 154-183 at the pin) treats an absent
-                # friendlyFire as ALL, so a harmful row delivered by an area method or a ground
-                # target with friendlyFire None/ALL also lands on allies (and the caster) in the area.
-                area = str(j.get("method") or "").startswith("AOE_") or j.get("target") in ("GROUND", "EMPTY_GROUND")
-                hazard = bool(area and e.get("target", "INHERIT") in (None, "INHERIT") and tag in NEGATIVE_TAGS
+                # Friendly fire at the pin (process.ts 154-183): an absent friendlyFire is ALL.
+                # OTHER_USER/OPPONENT area methods apply INHERIT rows directly to each living
+                # non-caster user on the affected tiles (actions.ts 1029-1060; util.ts isValidMove
+                # excludes the caster), so a harmful row with friendlyFire None/ALL also lands on
+                # allies in the area, never on the caster. GROUND/EMPTY_GROUND INHERIT rows become
+                # ground effects re-applied each round to whoever stands on the tiles, caster and
+                # enemies included (process.ts 321-340); SELF-target rows on ground actions are
+                # realized on the caster at cast time (actions.ts 980-1004).
+                ground = j.get("target") in ("GROUND", "EMPTY_GROUND")
+                area = str(j.get("method") or "").startswith("AOE_") or ground
+                inherit = e.get("target", "INHERIT") in (None, "INHERIT")
+                hazard = bool(area and inherit and tag in NEGATIVE_TAGS
                               and e.get("friendlyFire") in (None, "ALL") and eff == "enemy")
+                enemy_hazard = bool(ground and inherit and tag in POSITIVE_TAGS
+                                    and e.get("friendlyFire") in (None, "ALL"))
                 rows.append(Row(
                     jutsu_id=j["id"], jutsu_name=j["name"], jutsu_rank=j.get("jutsuRank"),
                     jutsu_type=j.get("jutsuType"), bloodline_id_on_jutsu=j.get("bloodlineId"),
@@ -303,7 +313,7 @@ def kit_rows(kit: dict, level: int = DEFAULT_JUTSU_LEVEL, include_unsupported: b
                     usage=j.get("battleUsageType"), injectable=j.get("injectableInBattle"),
                     jutsu_hidden=j.get("hidden"), ap_cost=j.get("actionCostPerc"),
                     cooldown=j.get("cooldown"), method=j.get("method"), range=j.get("range"),
-                    ally_hazard=hazard,
+                    ally_hazard=hazard, enemy_hazard=enemy_hazard,
                 ))
     return rows
 

@@ -25,22 +25,22 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
-| Exploding Wood Serpent | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Wood | Highest / Highest | ALL | enemy | DAMAGE | ✓ |  |  |
-| Exploding Wood Serpent | 1 | recoil | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
-| Guardian's Grove | 0 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
-| Guardian's Grove | 1 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Wood | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  | **yes** |
-| Guardian's Grove | 2 | poison | percentage | 50% | 40 + 0.4/lvl | 2 | None | — | ALL | enemy | ENEMY DEBUFF |  |  | **yes** |
-| Forest Wisdom | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest / Highest | ALL | self | SELF BUFF | ✓ |  |  |
-| Forest Wisdom | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Earth, None, Water, Wood | — | none (=ALL) | self | SELF BUFF | ✓ |  |  |
-| Forest Wisdom | 2 | visual | static | 1 | 1 + 0/lvl | 0 | None | — | none (=ALL) | self | SELF DEBUFF |  | **yes** |  |
-| Wood Style: Wood Warrior Summon | 0 | summon | percentage | 70% | 60 + 0.4/lvl | 3 | None | — | ENEMIES | enemy | ENEMY BUFF |  | **yes** |  |
-| Wood Style: Wood Warrior Summon | 1 | visual | static | 1 | 1 + 0/lvl | 0 | None | — | none (=ALL) | self | SELF DEBUFF |  | **yes** |  |
-| Eternal Forest | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Wood | Highest / Highest | ALL | enemy | DAMAGE | ✓ |  |  |
-| Eternal Forest | 1 | wound | percentage | 25% | 15 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard | Enemy hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|---|
+| Exploding Wood Serpent | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Wood | Highest / Highest | ALL | enemy | DAMAGE | ✓ |  |  |  |
+| Exploding Wood Serpent | 1 | recoil | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |  |
+| Guardian's Grove | 0 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |  |
+| Guardian's Grove | 1 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Wood | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  | **yes** |  |
+| Guardian's Grove | 2 | poison | percentage | 50% | 40 + 0.4/lvl | 2 | None | — | ALL | enemy | ENEMY DEBUFF |  |  | **yes** |  |
+| Forest Wisdom | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest / Highest | ALL | self | SELF BUFF | ✓ |  |  |  |
+| Forest Wisdom | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Earth, None, Water, Wood | — | none (=ALL) | self | SELF BUFF | ✓ |  |  |  |
+| Forest Wisdom | 2 | visual | static | 1 | 1 + 0/lvl | 0 | None | — | none (=ALL) | self | SELF DEBUFF |  | **yes** |  |  |
+| Wood Style: Wood Warrior Summon | 0 | summon | percentage | 70% | 60 + 0.4/lvl | 3 | None | — | ENEMIES | enemy | ENEMY BUFF |  | **yes** |  |  |
+| Wood Style: Wood Warrior Summon | 1 | visual | static | 1 | 1 + 0/lvl | 0 | None | — | none (=ALL) | self | SELF DEBUFF |  | **yes** |  |  |
+| Eternal Forest | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Wood | Highest / Highest | ALL | enemy | DAMAGE | ✓ |  |  |  |
+| Eternal Forest | 1 | wound | percentage | 25% | 15 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |  |
 
-Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful INHERIT rows delivered by an area method or ground target with friendly fire none/ALL: allies inside the area also receive them (checkFriendlyFire treats an absent value as ALL); on OTHER_USER-target area jutsu the caster is never a target, on GROUND/EMPTY_GROUND spawns the ground effect is re-applied each round to whoever stands on the tiles, the caster included. `Enemy hazard` marks positive INHERIT rows on GROUND/EMPTY_GROUND spawns with friendly fire none/ALL: enemies standing on the tiles receive the buff too. SELF-target rows on ground actions are realized on the caster at cast time (actions.ts 980-1004), not through the tiles.
 
 ## Supported-row summary by tag
 

@@ -218,7 +218,8 @@
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "YiGS5Lgj5Y7zlj0HHcNy_",
@@ -265,7 +266,8 @@
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "8ca2KGTY6bCwhQf9eeI1v",
@@ -311,7 +313,8 @@
       "cooldown": 7,
       "method": "AOE_SPIRAL_SHOOT",
       "range": 5,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "8ca2KGTY6bCwhQf9eeI1v",
@@ -351,7 +354,8 @@
       "cooldown": 7,
       "method": "AOE_SPIRAL_SHOOT",
       "range": 5,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": true
     },
     {
       "jutsu_id": "8ca2KGTY6bCwhQf9eeI1v",
@@ -399,7 +403,8 @@
       "cooldown": 7,
       "method": "AOE_SPIRAL_SHOOT",
       "range": 5,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "XdkrW_LKgOUm98dw73IZf",
@@ -441,7 +446,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 0,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "XdkrW_LKgOUm98dw73IZf",
@@ -486,7 +492,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 0,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "XdkrW_LKgOUm98dw73IZf",
@@ -534,7 +541,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 0,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "d2BiYyD9O_6Qh33lbMsaI",
@@ -580,7 +588,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "d2BiYyD9O_6Qh33lbMsaI",
@@ -620,7 +629,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "Iiqy8-WriogHl1aMGLpgz",
@@ -666,7 +676,8 @@
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
       "range": 5,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "Iiqy8-WriogHl1aMGLpgz",
@@ -708,7 +719,8 @@
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
       "range": 5,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "Iiqy8-WriogHl1aMGLpgz",
@@ -748,7 +760,8 @@
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
       "range": 5,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": true
     }
   ],
   "supported_row_summary": [
@@ -857,6 +870,7 @@
   ],
   "adverse_supported_rows": [],
   "ally_hazard_supported_rows": [],
+  "enemy_hazard_supported_rows": [],
   "afterburn": {
     "application_rows": [],
     "downstream_note": "Afterburn is an enemy debuff (tags.ts afterburn handler at the pin): while active on following rounds, every instant damage consequence the debuffed target receives (any source, pierce excluded) adds floor(damage x percent) Afterburn damage, with the cumulative Afterburn on one hit capped at 60% of that hit. Potency raises the percent, not the duration. Downstream coverage is therefore every non-pierce hit landed on the target during the debuff, including normal jutsu, weapons and allies; it is not measured by the application-row count and was not simulated.",

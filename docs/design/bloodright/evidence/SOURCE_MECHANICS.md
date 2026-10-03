@@ -59,6 +59,15 @@ Ordering (`process.ts` 415–612): non-damage-modifier effects → damage modifi
 
 **Consequence:** baselines for injected children must be evaluated at level = inject power (100 or 110 in the captured kits, via `power + powerPerLevel × level` of the inject row), not at the planning level 25. Whether an injected child whose `bloodlineId` is empty inherits the bloodline's potency classification is an engine decision (gap register).
 
+## 4b. Delivery of effect rows by jutsu target (relevant to recipients and leakage)
+
+| Case | Behaviour at the pin | Lines |
+|---|---|---|
+| Row `target: SELF` on any jutsu | Realized directly on the caster at cast time (ground actions: `actions.ts` 980–1004; user-target actions: the `else if (tag.target === "SELF")` branch after 1060). Not positional. | actions.ts 980–1004, 1060–1075 |
+| `INHERIT` row on a GROUND / EMPTY_GROUND action | Becomes a ground effect on each affected tile (`actions.ts` 1006–1016); every round it is re-applied as a one-round user effect to whoever stands on the tile when `checkFriendlyFire` passes (absent `friendlyFire` = ALL, so caster, allies and enemies alike). A `move` row sorts last, so the caster reaches the tiles after the cast round. | actions.ts 1006–1016; process.ts 154–183, 321–340; util.ts 1218 |
+| `INHERIT` row on an OTHER_USER / OPPONENT action with an AOE method | Affected tiles come from the method (`AOE_CIRCLE_SPAWN` = radius-1 spiral, `util.ts` 2827–2828); each tile's user is resolved by `getTargetUser`, which for OTHER_USER keeps only living non-caster users (`isValidMove`, util.ts 2722–2760), and the row is applied once directly to that user when `checkFriendlyFire` passes. Allies inside the area receive harmful rows when `friendlyFire` is absent/ALL; the caster never does. No ground effect is created. | actions.ts 1029–1060; util.ts 2722–2760, 2827–2828, 2905–2911 |
+| `getEfficiencyRatio` sides | `realizeTag` copies the **casting** user's `highestOffence` onto every realized effect, so for an enemy-side debuff whose row lists `Highest`, the stat compared is the debuff caster's highest offence, not the target's; `BattleUserState.highestOffence` is a required field (types.ts 156). | tags.ts 75–115, 3477–3510; types.ts 156 |
+
 ## 5. Bloodline passives (context, not potency targets)
 
 Bloodline `effects` are realized onto the bearer at battle init with `fromType="bloodline"` and are suppressed in ranked modes (combat.ts 3053–3069). They are not jutsu rows and are not reached by Bloodright potency; they do interact with enhanced rows downstream (e.g. a bloodline IDG passive multiplies the damage that an enhanced Damage row produces).

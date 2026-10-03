@@ -113,6 +113,8 @@ def dossier_for(bid: str, snapshot: dict, roster: dict, level: int) -> dict:
                                      "recipient": r.recipient, "base": r.base} for r in sup if r.adverse],
         "ally_hazard_supported_rows": [{"jutsu": r.jutsu_name, "row": r.row, "tag": r.tag, "method": r.method,
                                         "jutsu_target": r.jutsu_target, "friendly_fire": r.friendly_fire} for r in sup if r.ally_hazard],
+        "enemy_hazard_supported_rows": [{"jutsu": r.jutsu_name, "row": r.row, "tag": r.tag, "method": r.method,
+                                         "jutsu_target": r.jutsu_target, "friendly_fire": r.friendly_fire} for r in sup if r.enemy_hazard],
         "afterburn": {
             "application_rows": [{"jutsu": r.jutsu_name, "row": r.row, "base": r.base, "rounds": r.rounds} for r in ab_rows],
             "downstream_note": (
@@ -148,11 +150,11 @@ def md_dossier(d: dict) -> str:
         out.append(f"| {j['name']} | {j['visibility']} | {j['jutsuType']} | {j['jutsuRank']} | {j['target']} | {j['range']} | {j['actionCostPerc']} | {j['cooldown']} | {j['method']} | {j['requiredBloodlineItemId'] or '—'} | {j['battleUsageType']} | {j['supported_effect_count']} / {j['effect_count']} |")
     out.append("\n## Effect rows\n")
     out.append("Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.\n")
-    out.append("| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |\n|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|")
+    out.append("| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard | Enemy hazard |\n|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|---|")
     for r in d["rows"]:
         filt = ", ".join(r["stat_types"] or []) + (" / " + ", ".join(r["general_types"]) if r["general_types"] else "")
-        out.append(f"| {r['jutsu_name']} | {r['row']} | {r['tag']} | {r['calculation']} | {fmt_num(r['base'], r['calculation'])} | {fmt_num(r['power'])} + {fmt_num(r['power_per_level'])}/lvl | {r['rounds'] if r['rounds'] is not None else '—'} | {', '.join(r['elements_effective'])} | {filt or '—'} | {r['friendly_fire'] or 'none (=ALL)'} | {r['recipient']} | {r['role']} | {'✓' if r['supported'] else ''} | {'**yes**' if r['adverse'] else ''} | {'**yes**' if r.get('ally_hazard') else ''} |")
-    out.append("\nStat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).")
+        out.append(f"| {r['jutsu_name']} | {r['row']} | {r['tag']} | {r['calculation']} | {fmt_num(r['base'], r['calculation'])} | {fmt_num(r['power'])} + {fmt_num(r['power_per_level'])}/lvl | {r['rounds'] if r['rounds'] is not None else '—'} | {', '.join(r['elements_effective'])} | {filt or '—'} | {r['friendly_fire'] or 'none (=ALL)'} | {r['recipient']} | {r['role']} | {'✓' if r['supported'] else ''} | {'**yes**' if r['adverse'] else ''} | {'**yes**' if r.get('ally_hazard') else ''} | {'**yes**' if r.get('enemy_hazard') else ''} |")
+    out.append("\nStat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful INHERIT rows delivered by an area method or ground target with friendly fire none/ALL: allies inside the area also receive them (checkFriendlyFire treats an absent value as ALL); on OTHER_USER-target area jutsu the caster is never a target, on GROUND/EMPTY_GROUND spawns the ground effect is re-applied each round to whoever stands on the tiles, the caster included. `Enemy hazard` marks positive INHERIT rows on GROUND/EMPTY_GROUND spawns with friendly fire none/ALL: enemies standing on the tiles receive the buff too. SELF-target rows on ground actions are realized on the caster at cast time (actions.ts 980-1004), not through the tiles.")
     out.append("\n## Supported-row summary by tag\n")
     out.append("| Tag | Rows | Jutsu | Roles | Bases @L | Repeated on one jutsu | Hidden | Item-gated | Mode-restricted | Adverse |\n|---|---:|---|---|---|---|---:|---:|---:|---|")
     for s in d["supported_row_summary"]:
@@ -161,6 +163,9 @@ def md_dossier(d: dict) -> str:
     if d["ally_hazard_supported_rows"]:
         out.append("> **Ally-hazard rows (area delivery, friendly fire none/ALL):** " + "; ".join(f"{a['jutsu']} row {a['row']} ({a['tag']}, {a['method']}, target {a['jutsu_target']})" for a in d["ally_hazard_supported_rows"]) +
                    ". Potency on these tags also raises what allies standing in the area receive; positioning, not the node, decides.\n")
+    if d["enemy_hazard_supported_rows"]:
+        out.append("> **Enemy-hazard rows (ground spawn, positive INHERIT row, friendly fire none/ALL):** " + "; ".join(f"{a['jutsu']} row {a['row']} ({a['tag']}, {a['method']}, target {a['jutsu_target']})" for a in d["enemy_hazard_supported_rows"]) +
+                   ". The ground effect is re-applied each round to whoever stands on the tiles, enemies included.\n")
     if d["adverse_supported_rows"]:
         out.append("> **Adverse rows:** " + "; ".join(f"{a['jutsu']} row {a['row']} ({a['tag']} on {a['recipient']}, {a['role']})" for a in d["adverse_supported_rows"]) +
                    ". A potency node on that tag also raises these rows; the resolver cannot exclude a row by jutsu.\n")

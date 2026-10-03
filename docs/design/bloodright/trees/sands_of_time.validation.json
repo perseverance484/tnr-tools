@@ -1,0 +1,796 @@
+{
+  "kind": "bloodright_tree_validation",
+  "slug": "sands_of_time",
+  "bloodline": {
+    "id": "yzbSbZ5rqRVIjiwN-farx",
+    "review_id": "BR-059",
+    "name": "Sands of Time",
+    "rank": "H",
+    "statClassification": "Highest",
+    "traits": "Tank, Control"
+  },
+  "revision": "Draft 1 / Sand classification / forked tree",
+  "structure_errors": [],
+  "warnings": [
+    "ally-hazard area rows amplified (friendly fire none/ALL): Timelapse#0"
+  ],
+  "classification": {
+    "potency_classification": "Sand",
+    "label_kind": "element",
+    "bloodline": "Sands of Time",
+    "display_element": "Sand",
+    "element_exclusive_within_census": true,
+    "applies_to": "existing supported tags of every Sands of Time jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": []
+  },
+  "examples": [
+    {
+      "name": "Erosion of Eternity",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "heal": 2
+      },
+      "advanced_arts": [
+        "Erosion of Eternity"
+      ]
+    },
+    {
+      "name": "The Inevitable Hour",
+      "archetype": "Exposure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 2,
+        "heal": 2
+      },
+      "advanced_arts": [
+        "The Inevitable Hour"
+      ]
+    },
+    {
+      "name": "Timeless Bastion",
+      "archetype": "Fortress",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10,
+        "heal": 5
+      },
+      "advanced_arts": [
+        "Timeless Bastion"
+      ]
+    },
+    {
+      "name": "Stilled Hourglass",
+      "archetype": "Suppression",
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 8,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 4,
+        "heal": 2
+      },
+      "advanced_arts": [
+        "Stilled Hourglass"
+      ]
+    }
+  ],
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "decreasedamagegiven": 8,
+      "increasedamagetaken": 7,
+      "decreasedamagetaken": 10,
+      "heal": 5
+    },
+    "supported_rows_in_kit": 9,
+    "supported_rows_by_tag": {
+      "damage": 3,
+      "decreasedamagegiven": 1,
+      "decreasedamagetaken": 1,
+      "heal": 1,
+      "increasedamagegiven": 1,
+      "increasedamagetaken": 2
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagegiven",
+      "decreasedamagetaken",
+      "heal",
+      "increasedamagegiven",
+      "increasedamagetaken"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "node_values": [
+      {
+        "id": "01",
+        "name": "Borrowed Hours",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 4,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Momentum Shift",
+          "Timeshift"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "02",
+        "name": "Grinding Sands",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Eternity Flux",
+          "Timelapse",
+          "Timeshift"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "Erosion of Eternity",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 3,
+        "row_weighted_total": 9,
+        "covered_jutsu": [
+          "Eternity Flux",
+          "Timelapse",
+          "Timeshift"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "04",
+        "name": "Brittle with Age",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Momentum Shift",
+          "Timeshift"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "05",
+        "name": "The Inevitable Hour",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 6,
+        "row_weighted_total": 9,
+        "covered_jutsu": [
+          "Momentum Shift",
+          "Timeshift"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "06",
+        "name": "Suspended Moment",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 4,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Cellular Regeneration",
+          "Timelapse"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "07",
+        "name": "Held in Stasis",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Timelapse"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "08",
+        "name": "Timeless Bastion",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 8,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Cellular Regeneration",
+          "Timelapse"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "09",
+        "name": "Leaden Seconds",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Timelapse"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "10",
+        "name": "Stilled Hourglass",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 7,
+        "row_weighted_total": 7,
+        "covered_jutsu": [
+          "Timelapse"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      }
+    ],
+    "strongest_full_build_by_row_weight": {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 7
+      },
+      "raw_flat_total": 14,
+      "row_weighted_total": 25,
+      "advanced_arts": [
+        "05"
+      ],
+      "non_dominated": true
+    },
+    "lowest_value_node_by_row_weight": {
+      "id": "07",
+      "name": "Held in Stasis",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 3,
+      "row_weighted_total": 3,
+      "covered_jutsu": [
+        "Timelapse"
+      ],
+      "covered_rows": 1,
+      "adverse_rows_amplified": [],
+      "tags_without_rows": []
+    },
+    "full_builds": [
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 4
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 25,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "heal": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 25,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 7
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 25,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 2,
+          "heal": 2
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 20,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5,
+          "heal": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 19,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 3,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "heal": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 19,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 7,
+          "decreasedamagetaken": 2,
+          "heal": 2
+        },
+        "raw_flat_total": 16,
+        "row_weighted_total": 23,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 5,
+          "heal": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 17,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 3,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 2,
+          "heal": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 17,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 10,
+          "heal": 5
+        },
+        "raw_flat_total": 19,
+        "row_weighted_total": 21,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 3,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5,
+          "heal": 2
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 16,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 8,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 4,
+          "heal": 2
+        },
+        "raw_flat_total": 18,
+        "row_weighted_total": 20,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        "bonuses": {
+          "decreasedamagegiven": 3,
+          "decreasedamagetaken": 10,
+          "heal": 5
+        },
+        "raw_flat_total": 18,
+        "row_weighted_total": 18,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "decreasedamagegiven": 8,
+          "decreasedamagetaken": 7,
+          "heal": 2
+        },
+        "raw_flat_total": 17,
+        "row_weighted_total": 17,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      }
+    ],
+    "legal_allocations": {
+      "0": [
+        []
+      ],
+      "1": [
+        [
+          "01"
+        ],
+        [
+          "06"
+        ]
+      ],
+      "2": [
+        [
+          "01",
+          "02"
+        ],
+        [
+          "01",
+          "04"
+        ],
+        [
+          "01",
+          "06"
+        ],
+        [
+          "06",
+          "07"
+        ],
+        [
+          "06",
+          "09"
+        ]
+      ],
+      "3": [
+        [
+          "01",
+          "02",
+          "03"
+        ],
+        [
+          "01",
+          "02",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "06",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "06",
+          "09",
+          "10"
+        ]
+      ],
+      "4": [
+        [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "09",
+          "10"
+        ]
+      ]
+    }
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "combat_simulation_performed": false,
+  "live_mutations": 0
+}

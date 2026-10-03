@@ -19,23 +19,23 @@ Explicit exclusions by instruction: Borrowed Awakening; custom/player-owned bloo
 | BR-001 | Adorable Shadow of Death | `Phd6cwjiN4sIENmia6czQ` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-002 | Aerathiel | `1C34syOOEKp6k3UKweYT6` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/aerathiel.json |
 | BR-003 | Amaterasu | `ArPAXYvrxg8EtmqOpFq4H` | A | yes | 4 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-004 | Ancient Tailed Demon | `Au5rBnnukEqUv_lRrk1yO` | B | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-004 | Ancient Tailed Demon | `Au5rBnnukEqUv_lRrk1yO` | B | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/ancient_tailed_demon.json |
 | BR-005 | Arashima | `9F6Ruhuf82gSzpZcsUaPW` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/arashima.json |
 | BR-006 | Architect of the Hollow Script | `IzKTFfoTZHguu_VCXmgnd` | H | yes | 6 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-007 | Astral Ascendant | `LakvRMOkB4LFgRwGwsW1I` | H | no | 0 / 4 | EXCLUDE | USER_CONFIRMED_NON_PUBLIC | outside approved batch |
-| BR-008 | Bakuhatsu | `RNUcHSH2c00IhOLc2C9aJ` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-008 | Bakuhatsu | `RNUcHSH2c00IhOLc2C9aJ` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/bakuhatsu.json |
 | BR-009 | Bakuhatsu Suru Nendo | `vuJ-b-Iv7Q2RVmziGdQod` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-010 | Blissoo | `cB2LWCWyLRHxgsbY0crJr` | H | yes | 11 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-011 | Blood-Enchanted Eyes | `ovZIWu28ANn-Cij5TjT8S` | S | no | 8 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/blood_enchanted_eyes.json |
 | BR-012 | Blood-Enshrined Eyes | `LIqkx9VV2tGzn0EF6y8bg` | H | no | 5 / 0 | EXCLUDE | USER_CONFIRMED_NON_PUBLIC | outside approved batch |
 | BR-013 | Blood-Enthralled Eyes | `guKdhtFSM0J1wttTRI90a` | H | no | 0 / 8 | EXCLUDE | USER_CONFIRMED_NON_PUBLIC | outside approved batch |
 | BR-014 | Blood-Stained Eyes | `FmR61ROjIJ_vNdb5PBSqw` | H | yes | 0 / 0 | EXCLUDE | NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT | outside approved batch |
-| BR-015 | Blue Blade Eyes | `clh4d6qo4000itb0hrx8t06wq` | S | no | 8 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-015 | Blue Blade Eyes | `clh4d6qo4000itb0hrx8t06wq` | S | no | 8 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/blue_blade_eyes.json |
 | BR-016 | Blue Edge Eyes | `mD1AIQrLGXcVJ0QlWj6zx` | H | no | 0 / 8 | EXCLUDE | USER_CONFIRMED_NON_PUBLIC | outside approved batch |
 | BR-017 | Celestial Mage | `BYHsb5sTgW9o3-aipl-M_` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-018 | Cosmic Ascendant | `osVXxtyW61gr-bx5v5ys2` | S | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-018 | Cosmic Ascendant | `osVXxtyW61gr-bx5v5ys2` | S | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/cosmic_ascendant.json |
 | BR-019 | Crust Almighty | `wEJqNdFjH6zJcjGrThQZD` | H | yes | 4 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-020 | Crystal Essence | `ssevlOGQ4JjPn2sHZtq0c` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-020 | Crystal Essence | `ssevlOGQ4JjPn2sHZtq0c` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/crystal_essence.json |
 | BR-021 | Dai Kenja | `Dqqw3zcIGDserD-qEE9QW` | D | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/dai_kenja.json |
 | BR-022 | DvEM | `bwmpYehPHzzKSd-g4C0GU` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-023 | Ethereal Monarch | `IxhIoLEmznqdcnc_6MCN9` | S | no | 6 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
@@ -44,68 +44,68 @@ Explicit exclusions by instruction: Borrowed Awakening; custom/player-owned bloo
 | BR-026 | Eyes of the Forsaken Heir | `IE8MT2NvaXecCq_Syug3O` | H | no | 0 / 5 | EXCLUDE | USER_CONFIRMED_NON_PUBLIC | outside approved batch |
 | BR-027 | Eyes of the Forsaken King | `r3nBY_Th4_ZAIUfhx1jdy` | S | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
 | BR-028 | First Flame | `KQ3nXVNIzhsvuzfcglbCZ` | H | yes | 8 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-029 | Godstorm Eclipse | `szai-IgtB7PLubojIIlh-` | H | no | 12 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
-| BR-030 | Ha Yanagi | `uNZ2UMfA3BuX-J_1g0fHU` | D | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-029 | Godstorm Eclipse | `szai-IgtB7PLubojIIlh-` | H | no | 12 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/godstorm_eclipse.json |
+| BR-030 | Ha Yanagi | `uNZ2UMfA3BuX-J_1g0fHU` | D | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/ha_yanagi.json |
 | BR-031 | Healius Maximus | `_tuf3em7IyO66dKcQvrUI` | A | yes | 0 / 0 | EXCLUDE | NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT | outside approved batch |
-| BR-032 | Heavenly Sonata | `clh4d6q6s000atb0h0qdqdh1z` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
-| BR-033 | Houkyuken | `ALoGrHuBY5Ml9bJG_DILe` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-032 | Heavenly Sonata | `clh4d6q6s000atb0h0qdqdh1z` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/heavenly_sonata.json |
+| BR-033 | Houkyuken | `ALoGrHuBY5Ml9bJG_DILe` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/houkyuken.json |
 | BR-034 | Hyouga Yui | `lPcN4q0dtX2muWT2KlXGg` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
 | BR-035 | Infernal Reaper | `q6--YgEXT6gsOQwVF3QV5` | A | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-036 | Itojinsei | `j4_9ypNqYq8Ifbqf-9D2r` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-036 | Itojinsei | `j4_9ypNqYq8Ifbqf-9D2r` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/itojinsei.json |
 | BR-037 | Itzehecayan | `ZK0wjM85dal1ClzAZrsN7` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-038 | Kuroganekai | `EsMuWPXZXBHaeMAhWCTr0` | D | yes | 0 / 0 | EXCLUDE | NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT | outside approved batch |
 | BR-039 | Kusamochi: Mashumaro Executioner | `MaDDM3qsFrNKQmb5HtIjl` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-040 | Kyuko-sei | `Y10fxyLR39IBJ3ICkAdEp` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
 | BR-041 | Lilac Seductress | `v6dzr97qkgkLzPQDHgl_x` | H | yes | 5 / 1 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-042 | Loup-Garou | `C4q1pAltRIEaI5WrNVAAC` | D | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
-| BR-043 | Lycanthropy | `_zHoQitqM_tiiqX7Egv-p` | B | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-042 | Loup-Garou | `C4q1pAltRIEaI5WrNVAAC` | D | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/loup_garou.json |
+| BR-043 | Lycanthropy | `_zHoQitqM_tiiqX7Egv-p` | B | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/lycanthropy.json |
 | BR-044 | Manhattan Project | `nkw4EmlzU0Qmctn_zm9O-` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-045 | Megumi Kijo | `tBhjGw6fPVKhAgdVElIzW` | B | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-045 | Megumi Kijo | `tBhjGw6fPVKhAgdVElIzW` | B | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/megumi_kijo.json |
 | BR-046 | Mother of Reptiles | `VXJmBOu5rFm8O4uNZklcE` | H | yes | 3 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-047 | Musashi Ken | `EZRt16BYzQRMiGSf_P7is` | D | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
-| BR-048 | Namikaze | `0Uc2Nfgg08kqGm78QAwZ4` | C | no | 3 / 1 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-047 | Musashi Ken | `EZRt16BYzQRMiGSf_P7is` | D | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/musashi_ken.json |
+| BR-048 | Namikaze | `0Uc2Nfgg08kqGm78QAwZ4` | C | no | 3 / 1 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/namikaze.json |
 | BR-049 | Nature's Blessing | `clh4d6qbf000ctb0h7o5amr0o` | B | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/natures_blessing.json |
 | BR-050 | Nejireru Funjin | `mwQrGHHLbLpinT8AaOHtg` | H | yes | 4 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-051 | Night Parade of A Thousand Demons | `r_99Xg8SIOYw2awCMSR7e` | H | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
 | BR-052 | Not Sigi's H Rank | `mElRvWiPjvZk_Iz96wclk` | D | yes | 0 / 0 | EXCLUDE | NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT | outside approved batch |
-| BR-053 | Oblivion Seal | `wasIGmDuczwD9PB89gML6` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-053 | Oblivion Seal | `wasIGmDuczwD9PB89gML6` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/oblivion_seal.json |
 | BR-054 | Otaku of the Dark Maiden | `poNc1FxJXo7cveWVUxY9L` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-055 | Primal Radiance | `ZewrhKT-qBQxT1eNoBWFP` | C | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-055 | Primal Radiance | `ZewrhKT-qBQxT1eNoBWFP` | C | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/primal_radiance.json |
 | BR-056 | Radiant Valor | `-uzeYe8Ai-fUBlUx7hE4F` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-057 | Reptilian | `z78aHAPRQfctiw7_qNXMx` | B | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-057 | Reptilian | `z78aHAPRQfctiw7_qNXMx` | B | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/reptilian.json |
 | BR-058 | Sacrament of Crimson Hunger | `oYLvdtz6Lc_WKKYofAlWz` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-059 | Sands of Time | `yzbSbZ5rqRVIjiwN-farx` | H | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-059 | Sands of Time | `yzbSbZ5rqRVIjiwN-farx` | H | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/sands_of_time.json |
 | BR-060 | Schrödinger’s Catboi | `bqyHv_VLB1xrKl4L2egK0` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-061 | Sea-King's Blessing | `juZy8qwituqM2Km6cOiL4` | C | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-061 | Sea-King's Blessing | `juZy8qwituqM2Km6cOiL4` | C | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/sea_kings_blessing.json |
 | BR-062 | Sea-Maiden’s Kiss | `oaddywXbL-tzw4CAyV752` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-063 | Shadow Weaver | `d0WYPbbsVx7Y_i0fddwxc` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
-| BR-064 | Shakunetsu Sakura | `aa1lZukkHpz6ihmcxLaei` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
-| BR-065 | Shinrai Ou | `xO4Dycx7FFEqxwvAEXBxY` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
-| BR-066 | Shinseina Ki | `vA8I_7iBNgvkuKOpnG1yD` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
-| BR-067 | Shiroi Youso | `vv45N2En3p8VrNcU2acd8` | S | no | 6 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-064 | Shakunetsu Sakura | `aa1lZukkHpz6ihmcxLaei` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/shakunetsu_sakura.json |
+| BR-065 | Shinrai Ou | `xO4Dycx7FFEqxwvAEXBxY` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/shinrai_ou.json |
+| BR-066 | Shinseina Ki | `vA8I_7iBNgvkuKOpnG1yD` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/shinseina_ki.json |
+| BR-067 | Shiroi Youso | `vv45N2En3p8VrNcU2acd8` | S | no | 6 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/shiroi_youso.json |
 | BR-068 | Sin of Envy | `ygGBHo-0rf9ns0uRmW-Lr` | H | yes | 0 / 0 | EXCLUDE | NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT | outside approved batch |
 | BR-069 | Sin of Lust | `oEdo6qsxeRjvkoxHy_b_n` | H | yes | 0 / 0 | EXCLUDE | NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT | outside approved batch |
 | BR-070 | Sin of Wrath | `Sair4cq7VGeP-J80uCxLm` | H | yes | 0 / 0 | EXCLUDE | NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT | outside approved batch |
 | BR-071 | Solar Soul | `MNtUqUHpHJV47snS1Jt-U` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-072 | Stormboat Willy | `0U2blEXqb6-WwYljMRG2J` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-073 | Subaku Blood | `yJ0Q3Vt0Vny_c6ypDmVA7` | D | yes | 0 / 0 | EXCLUDE | NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT | outside approved batch |
-| BR-074 | Suragu | `Ksb6ogNqc5mp4l_hRgPuW` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-074 | Suragu | `Ksb6ogNqc5mp4l_hRgPuW` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/suragu.json |
 | BR-075 | Taiyo Kami | `6C2t3jK35hvPoVocLiHEl` | A | no | 5 / 0 | REFERENCE | APPROVED_WORKED_EXAMPLE | worked reference (examples/taiyo_kami.*) |
 | BR-076 | Tengoku no Me | `9j1GyLM0qu1xKfRfIR1wE` | A | yes | 7 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-077 | Teno Yuki | `clh4d6qjs000gtb0hr357gjvv` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
-| BR-078 | Tenohira Musei | `18Byy1tMXkQETmB88JLl5` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-078 | Tenohira Musei | `18Byy1tMXkQETmB88JLl5` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/tenohira_musei.json |
 | BR-079 | Tenryūseigan | `ieDD4S_zzLMmVadUuD69s` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-080 | Tenshin Shoden Yami-Ryu | `1IJ5Rs88wAeOg0p2wjjUp` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-081 | Terra Nova | `AohWgMy9uYF14ivDlE-xq` | C | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-081 | Terra Nova | `AohWgMy9uYF14ivDlE-xq` | C | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/terra_nova.json |
 | BR-082 | Testing Dummy 2.0 | `H_drsFIZdi4e7UENANUnE` | H | yes | 1 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
-| BR-083 | Tetsugan | `T-MyR4yQ1_aVbaJDLoI07` | H | no | 11 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-083 | Tetsugan | `T-MyR4yQ1_aVbaJDLoI07` | H | no | 11 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/tetsugan.json |
 | BR-084 | The Abbynomaly | `i_Addlk4GvzV18B9LhcyV` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-085 | The Honored Path | `-ZNPq_GkRg1TZX_CbYhSX` | H | yes | 4 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-086 | Timeforged Enigma | `mOBVl90uPlid84d4p2Ovg` | A | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-087 | Traveling Sun Praiser | `VfwAR4EHg72_uVHpDBexI` | H | yes | 6 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-088 | True North | `vhciebSTiOh6h-i3mdjZ9` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-089 | Underworld Madness | `k5iA7YcVbQAjgquR3tXMo` | H | yes | 0 / 0 | EXCLUDE | NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT | outside approved batch |
-| BR-090 | Vaporia | `f7IgtcsLqomqmmBgAYS1O` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
+| BR-090 | Vaporia | `f7IgtcsLqomqmmBgAYS1O` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/vaporia.json |
 | BR-091 | Voltara Divine | `zOGMXO1nnBTEE0sAJRCuD` | C | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
 | BR-092 | Yaketsuku Netsu | `clh4d6qfn000etb0hydj4cdpl` | B | no | 3 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | approved; tree pending |
 | BR-093 | Yamauba Chigiri | `AgpFwXBxgLT7MBP5CScJX` | S | yes | 0 / 5 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |

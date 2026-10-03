@@ -1,0 +1,1629 @@
+{
+  "title": "Vaporia — Scald and Steam",
+  "revision": "Draft 1 / Boil classification / forked tree",
+  "bloodline": {
+    "id": "f7IgtcsLqomqmmBgAYS1O",
+    "review_id": "BR-090",
+    "name": "Vaporia",
+    "rank": "A",
+    "statClassification": "Taijutsu",
+    "traits": "High movement, Rush, Consistent Damage"
+  },
+  "classification": {
+    "potency_classification": "Boil",
+    "label_kind": "element",
+    "bloodline": "Vaporia",
+    "display_element": "Boil",
+    "element_exclusive_within_census": true,
+    "applies_to": "existing supported tags of every Vaporia jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": []
+  },
+  "emphasis": {
+    "primary": "Boil damage — Damage on three Taijutsu formula rows (Drowning Strike 40, Surfing Strike 45, Scorch Break 40)",
+    "secondary": "Liquid Ember Shell window — Afterburn (enemy) with Increase Damage Given and Lifesteal (self) on one 40 AP cast",
+    "tertiary": "Steam body — Decrease Damage Taken (Surfing Strike), Reflect (Scorch Break), Heal (Azure Dragon Palm); Drowning Strike's exposure as glue",
+    "rationale": "The kit's ten supported rows split 3/7: three Boil Taijutsu formula Damage rows (40, 45, 40 at jutsu level 25) on 60 AP area attacks, and seven single-row percentage or static tags. Liquid Ember Shell is the signature 40 AP cast: Lifesteal 40% and Increase Damage Given 35% on the caster plus Afterburn 35% on the target, all for 2 rounds, so the burn and sustain routes both deepen that one window. Surfing Strike's 30% Decrease Damage Taken, Scorch Break's 40% Reflect and Azure Dragon Palm's static Heal 25 (250 HP per tick) give a defensive face that a Taijutsu rusher with 'Consistent Damage' otherwise lacks; Drowning Strike's 35% Increase Damage Taken is a tile-bound exposure with friendly fire, kept small as root and capstone glue."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Rising Steam",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Heat climbs the blood, and the air around the quarry thickens.",
+      "coverage_note": "Liquid Ember Shell self buff 35→37% (2 rounds); Drowning Strike exposure 35→37% on its spiral tiles (ally hazard). 2 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Boil",
+      "scope": "Vaporia jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Drowning Strike",
+          "Liquid Ember Shell"
+        ],
+        "effect_rows": 2,
+        "ally_hazard_rows": [
+          "Drowning Strike#1"
+        ]
+      }
+    },
+    {
+      "id": "02",
+      "name": "Geyser Fist",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Pressure finds the smallest crack and bursts through it.",
+      "coverage_note": "Drowning Strike 40→42, Surfing Strike 45→47, Scorch Break 40→42 power; three Boil Taijutsu formula rows, all area deliveries.",
+      "parent_rule": "ALL",
+      "potency_classification": "Boil",
+      "scope": "Vaporia jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Drowning Strike",
+          "Scorch Break",
+          "Surfing Strike"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "03",
+      "name": "Caldera Burst",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "The whole basin boils over at once; nothing standing in it is spared.",
+      "coverage_note": "Route total +5: Drowning Strike 40→45, Surfing Strike 45→50, Scorch Break 40→45 power (Taiyo Kami's three-row figure). 3 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Boil",
+      "scope": "Vaporia jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Drowning Strike",
+          "Scorch Break",
+          "Surfing Strike"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "04",
+      "name": "Blistering Mist",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Steam clings where it lands and keeps on burning long after the blow.",
+      "coverage_note": "Liquid Ember Shell Afterburn 35→38% on its target (2 rounds); every non-pierce hit it takes adds that share, 60% cap per hit. 1 row.",
+      "parent_rule": "ALL",
+      "potency_classification": "Boil",
+      "scope": "Vaporia jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Liquid Ember Shell"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "05",
+      "name": "Boiling Point",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 7,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Past this heat there is no simmer left, only the roar.",
+      "coverage_note": "Afterburn 35→45% on the route; with Rising Steam, Liquid Ember Shell buff 35→40%, Drowning Strike exposure 35→40% (ally hazard). 3 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Boil",
+      "scope": "Vaporia jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Drowning Strike",
+          "Liquid Ember Shell"
+        ],
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Drowning Strike#1"
+        ]
+      }
+    },
+    {
+      "id": "06",
+      "name": "Vapor Shroud",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "heal",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "A veil of steam wraps the body; what it cannot turn aside, it mends.",
+      "coverage_note": "Surfing Strike Decrease Damage Taken 30→32% (self, 2 rounds); Azure Dragon Palm Heal 25→27 power = 270 HP per tick, 2 rounds. 2 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Boil",
+      "scope": "Vaporia jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Azure Dragon Palm",
+          "Surfing Strike"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "07",
+      "name": "Siphoned Heat",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "lifesteal",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Every wound dealt gives its warmth back to the one who made it.",
+      "coverage_note": "Liquid Ember Shell Lifesteal 40→43% (self, 2 rounds); draws from every hit, pierce included; shares the 60% leech cap with vamp. 1 row.",
+      "parent_rule": "ALL",
+      "potency_classification": "Boil",
+      "scope": "Vaporia jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Liquid Ember Shell"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "08",
+      "name": "Dew of the Dragon",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "lifesteal",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "heal",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "What rose as steam settles again as cool water on the dragon's scales.",
+      "coverage_note": "Lifesteal 40→48% on the route; with Vapor Shroud, Azure Dragon Palm Heal 25→30 power = 300 HP per tick (the +5 guardrail). 2 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Boil",
+      "scope": "Vaporia jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Azure Dragon Palm",
+          "Liquid Ember Shell"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "09",
+      "name": "Scalding Backlash",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "reflect",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Strike the kettle and the kettle answers with its contents.",
+      "coverage_note": "Scorch Break Reflect 40→43% (self, 2 rounds); returns that share of each hit taken, pierce included, 60% cap per hit. 1 row.",
+      "parent_rule": "ALL",
+      "potency_classification": "Boil",
+      "scope": "Vaporia jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Scorch Break"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "10",
+      "name": "Wall of Steam",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "09"
+      ],
+      "modifiers": [
+        {
+          "tag": "reflect",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Stand behind the boil and let the enemy learn what it costs to reach through.",
+      "coverage_note": "Reflect 40→48% on the route; with Vapor Shroud, Surfing Strike Decrease Damage Taken 30→35% (self, 2 rounds, pierce excluded). 2 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Boil",
+      "scope": "Vaporia jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Scorch Break",
+          "Surfing Strike"
+        ],
+        "effect_rows": 2
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Caldera Burst",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "The +5 power route on all three Boil attacks (Drowning Strike 40→45, Surfing Strike 45→50, Scorch Break 40→45) before the bloodline's Fire/Water/Boil/None Increase Damage Given passive and Liquid Ember Shell's own buff (37% with Rising Steam) multiply them. Rising Steam also puts Drowning Strike's exposure at 37% on its spiral tiles. Vapor Shroud is the fourth purchase for a rounded rusher (32% Decrease Damage Taken after Surfing Strike, 270 HP heal ticks after Azure Dragon Palm); Blistering Mist (Afterburn 38%) is the all-offence alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "heal": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Liquid Ember Shell",
+          "row": 0,
+          "tag": "lifesteal",
+          "label": "Lifesteal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Liquid Ember Shell",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Liquid Ember Shell",
+          "row": 2,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Drowning Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Drowning Strike",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Surfing Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 5,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Surfing Strike",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Surfing Strike",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Scorch Break",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Scorch Break",
+          "row": 1,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Azure Dragon Palm",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 58.0,
+          "gain": 0,
+          "final": 58.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Azure Dragon Palm",
+          "row": 1,
+          "tag": "heal",
+          "label": "Heal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 2,
+          "final": 27.0,
+          "calculation": "static",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Caldera Burst"
+      ]
+    },
+    {
+      "name": "Boiling Point",
+      "archetype": "Pressure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "rationale": "The Liquid Ember Shell pressure build: Afterburn 35→45% on the target for 2 rounds, so every non-pierce hit it takes from the caster, allies, weapons or normal jutsu adds 45% more (60% cap per hit), while the caster's own buff sits at 40% and Drowning Strike's exposure at 40% on its tiles. Vapor Shroud rounds it with 32% Decrease Damage Taken and 270 HP heal ticks; Geyser Fist (attacks 42/47/42) is the alternative fourth purchase for a build that gives up all mitigation.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10,
+        "heal": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Liquid Ember Shell",
+          "row": 0,
+          "tag": "lifesteal",
+          "label": "Lifesteal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Liquid Ember Shell",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Liquid Ember Shell",
+          "row": 2,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Drowning Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Drowning Strike",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Surfing Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Surfing Strike",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Surfing Strike",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Scorch Break",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Scorch Break",
+          "row": 1,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Azure Dragon Palm",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 58.0,
+          "gain": 0,
+          "final": 58.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Azure Dragon Palm",
+          "row": 1,
+          "tag": "heal",
+          "label": "Heal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 2,
+          "final": 27.0,
+          "calculation": "static",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Boiling Point"
+      ]
+    },
+    {
+      "name": "Dew of the Dragon",
+      "archetype": "Sustain",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "rationale": "Lifesteal 40→48% and Increase Damage Given 35→37% on the same Liquid Ember Shell cast: for 2 rounds every hit the caster lands, Azure Dragon Palm's 58-power pierce included, returns nearly half its damage as health, and Azure Dragon Palm's heal ticks reach 300 HP (the +5 guardrail). Rising Steam is the fourth purchase here so the leech window is also the damage window; Scalding Backlash (Reflect 43%) is the pure-sustain alternative. Damage power and Afterburn are untouched.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "lifesteal": 8,
+        "heal": 5
+      },
+      "finals": [
+        {
+          "jutsu": "Liquid Ember Shell",
+          "row": 0,
+          "tag": "lifesteal",
+          "label": "Lifesteal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 8,
+          "final": 48.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Liquid Ember Shell",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Liquid Ember Shell",
+          "row": 2,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Drowning Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Drowning Strike",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Surfing Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Surfing Strike",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Surfing Strike",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Scorch Break",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Scorch Break",
+          "row": 1,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Azure Dragon Palm",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 58.0,
+          "gain": 0,
+          "final": 58.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Azure Dragon Palm",
+          "row": 1,
+          "tag": "heal",
+          "label": "Heal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 5,
+          "final": 30.0,
+          "calculation": "static",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Dew of the Dragon"
+      ]
+    },
+    {
+      "name": "Wall of Steam",
+      "archetype": "Bulwark",
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "rationale": "The turtle: Scorch Break's Reflect 40→48% (up to 60% of each hit returned, pierce included) and Surfing Strike's Decrease Damage Taken 30→35% for their 2-round windows, with Liquid Ember Shell's Lifesteal at 43% and 270 HP heal ticks from Vapor Shroud. It carries no Rising Steam, so the build shows the offensive root is not a universal opener; Rising Steam in place of Siphoned Heat (buff 37%, exposure 37%) is the alternative fourth purchase. No Damage power, no Afterburn.",
+      "cost": 4,
+      "bonuses": {
+        "decreasedamagetaken": 5,
+        "lifesteal": 3,
+        "reflect": 8,
+        "heal": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Liquid Ember Shell",
+          "row": 0,
+          "tag": "lifesteal",
+          "label": "Lifesteal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 3,
+          "final": 43.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Liquid Ember Shell",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Liquid Ember Shell",
+          "row": 2,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Drowning Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Drowning Strike",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Surfing Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Surfing Strike",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 5,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Surfing Strike",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Scorch Break",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Scorch Break",
+          "row": 1,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 8,
+          "final": 48.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Azure Dragon Palm",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Boil"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 58.0,
+          "gain": 0,
+          "final": 58.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Azure Dragon Palm",
+          "row": 1,
+          "tag": "heal",
+          "label": "Heal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 2,
+          "final": 27.0,
+          "calculation": "static",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Wall of Steam"
+      ]
+    }
+  ],
+  "narrow_kit_exception": null,
+  "design_notes": [
+    "Node split: two roots mirror the kit's faces. Rising Steam (+2 IDG on the Shell, +2 IDT on Drowning Strike) forks into Geyser Fist → Caldera Burst (Damage +2/+3, three Boil rows) and Blistering Mist → Boiling Point (Afterburn +3/+7, +3 IDT, +3 IDG). Vapor Shroud (+2 DDT, +2 Heal) forks into Siphoned Heat → Dew of the Dragon (Lifesteal +3/+5, Heal +3) and Scalding Backlash → Wall of Steam (Reflect +3/+5, DDT +3). No capstone secondary shares a tag with a sibling Hidden Art.",
+    "Flats by coverage: Damage reaches three rows, so the route stops at +5 (Taiyo Kami's three-row figure), not the +6 of one- or two-row kits. Single-row tags: Afterburn 3+7 = +10 (the ceiling, as Eternal Noon); Lifesteal and Reflect 3+5 = +8, below Arashima's +10 lifesteal because both include pierce hits; IDG, IDT and DDT 2+3 = +5 each; Heal 2+3 = +5 (the guardrail; 250 → 300 HP per tick).",
+    "Delivery at the pin: SELF rows on area jutsu land directly on the caster once per cast (actions.ts 987–1002, 1062–1066), so Surfing Strike's DDT, Scorch Break's Reflect and the Shell's self rows are plain 2-round self buffs from the cast round, not ground effects. Drowning Strike's Damage and IDT are INHERIT rows on a GROUND spiral: ground effects on every tile within 4 of the caster, own tile excluded (util.ts 2893–2894), re-applied each round to whoever stands there (process.ts 296–340).",
+    "Interactions: the Shell's IDG and Lifesteal and Drowning Strike's IDT are Taijutsu-filtered but element-less, so they match every element-less hit of any stat type plus Taijutsu elemental hits, the three Boil attacks included; Surfing Strike's DDT and Scorch Break's Reflect list all four stat types. Damage modifiers and Afterburn skip pierce (Azure Dragon Palm's 58 pierce gets none); Lifesteal and Reflect include it. The bloodline IDG passive multiplies enhanced Damage rows downstream.",
+    "Uptime: every jutsu has cooldown 7. The Shell is 40 AP, range 4, single target, and needs a legal OTHER_USER target for its self rows to land; the Boil attacks and Azure Dragon Palm cost 60 AP (Drowning Strike: spiral radius 4 around the caster; Surfing Strike: radius-1 circle at range 5 plus a move; Scorch Break: radius-1 circle on a target, enemies only). Buff, IDT and Afterburn windows are 2 following rounds; the static Heal is read as two ticks of power ×10 HP.",
+    "Fourth purchases: Burst (01,02,03) adds Vapor Shroud (32% DDT, 270 HP ticks) or Blistering Mist (Afterburn 38%); Pressure (01,04,05) adds Vapor Shroud or Geyser Fist (attacks 42/47/42); Sustain (06,07,08) adds Rising Steam (IDG and IDT 37%) or Scalding Backlash (Reflect 43%); Bulwark (06,09,10) adds Siphoned Heat (Lifesteal 43%) or Rising Steam. 01,02,04,05 (attacks 42/47/42, Afterburn 45%, IDG and IDT 40%) is the strongest unadvertised pressure build, with no mitigation."
+  ],
+  "risks": [
+    "Classification: Boil is the single signature element on the three Damage rows (census-exclusive), but 7 of 10 supported rows are element-less and fall back to None: unreachable with affectedElements=['Boil'], reachable with None only along with every non-elemental row on any jutsu the player casts. Assumes the proposed bloodline-scoped label; normal-jutsu Boil use unverified.",
+    "Ally hazard (validator warns): Drowning Strike row 1 IDT is an INHERIT row on a GROUND spiral with friendly fire none (=ALL): allies within 4 of the caster at the cast, or stepping onto a spiral tile while the ground effect lasts, take the exposure too. Rising Steam (+2) and Boiling Point (+3) raise it on them to 37% / 40%; the Damage row (friendly fire ENEMIES) is unaffected. Positioning decides.",
+    "Lifesteal (user-owned value): Dew of the Dragon puts the Shell's Lifesteal at 48% for 2 rounds on every hit the caster lands, basic attacks, weapons, normal jutsu and Azure Dragon Palm's pierce included, sharing the 60%-of-pre-shield-damage leech budget with any vamp. +8 rather than Arashima's +10 keeps the sustain capstone below the burn capstone; +10 (+3/+7) would still fit the cap.",
+    "Afterburn: Boiling Point makes the Shell's Afterburn 45% on one target for 2 following rounds; each non-pierce hit it takes adds floor(damage × 0.45) up to a cumulative 60% of that hit, so a second Afterburn source saturates the cap and part of the +10 is lost. Not simulated. Casting the Shell on an ally for its self rows afterburns that ally.",
+    "Reflect: Wall of Steam returns 48% of each hit the caster takes during Scorch Break's 2-round window, pierce included, capped at 60% of pre-shield damage and bypassing shields; the self row needs a legal OTHER_USER target on the cast. The route carries no Damage, Afterburn or IDG, so the turtle is deliberately the weakest burst option. Realized value depends on incoming damage; not simulated.",
+    "Damage is formula-calculated (sqrt stat scaling on Taijutsu / Speed, Strength) and then multiplied by the bloodline's IDG passive, the Shell's buff and Drowning Strike's exposure, so +5 raw power is not a linear +5 damage. All three Damage rows are area deliveries, so the +5 is paid on every enemy hit and realized value scales with target count, which was not modelled.",
+    "Heal timing: Azure Dragon Palm's Heal is static power 25 with rounds 2, read as two ticks of power ×10 HP on the following rounds (250 → 270 → 300 HP per tick); tick count and pool were not simulated. It rides a 60 AP single-target cast whose 58-power pierce is unsupported, so +5 Heal is at most +100 HP per 7-round cycle: the lowest-value flat in the tree by HP.",
+    "Unsupported rows and scope: Surfing Strike's move and Azure Dragon Palm's pierce receive nothing; the kit has no hidden, item-gated, mode-restricted, injected or adverse rows, and the Water DDT passive is not a potency target. Skill-tree effects are skipped in ranked modes. Non-dominance of full allocations is arithmetic, not evidence of equal combat strength; no combat simulation."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "increasedamagetaken": 5,
+      "decreasedamagetaken": 5,
+      "afterburn": 10,
+      "lifesteal": 8,
+      "reflect": 8,
+      "heal": 5
+    },
+    "supported_rows_in_kit": 10,
+    "supported_rows_by_tag": {
+      "afterburn": 1,
+      "damage": 3,
+      "decreasedamagetaken": 1,
+      "heal": 1,
+      "increasedamagegiven": 1,
+      "increasedamagetaken": 1,
+      "lifesteal": 1,
+      "reflect": 1
+    },
+    "tags_targeted_by_tree": [
+      "afterburn",
+      "damage",
+      "decreasedamagetaken",
+      "heal",
+      "increasedamagegiven",
+      "increasedamagetaken",
+      "lifesteal",
+      "reflect"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Draft 1 / Boil classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags of Vaporia jutsu inherit Boil potency eligibility; original combat elements and target scopes stay intact.",
+      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "afterburn": 3
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "heal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "afterburn": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 3,
+        "heal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "lifesteal": 3,
+        "heal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "reflect": 3,
+        "heal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10,
+        "heal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 3,
+        "lifesteal": 3,
+        "heal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 3,
+        "reflect": 3,
+        "heal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "lifesteal": 8,
+        "heal": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "lifesteal": 3,
+        "reflect": 3,
+        "heal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5,
+        "reflect": 8,
+        "heal": 2
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "decreasedamagetaken": 2,
+        "lifesteal": 8,
+        "reflect": 3,
+        "heal": 5
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "decreasedamagetaken": 5,
+        "lifesteal": 3,
+        "reflect": 8,
+        "heal": 2
+      }
+    }
+  ]
+}
