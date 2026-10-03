@@ -205,5 +205,81 @@ class Recipients(unittest.TestCase):
         self.assertEqual(len(audit("Ethereal Monarch")["injected_children"]), 1)
 
 
+class RendererJutsuLabels(unittest.TestCase):
+    """Coverage-line labels must never collapse two jutsu to one word or echo the classification."""
+
+    def test_short_labels_when_unique_and_distinct_from_classification(self):
+        import render_tree as R
+        tree = {"classification": {"potency_classification": "Scorch", "display_element": None},
+                "nodes": [{"coverage": {"jutsu": ["Incandescent Nova", "Solar Reverb"]}}],
+                "examples": [{"finals": [{"jutsu": "Stellar Inferno"}]}]}
+        self.assertEqual(R.jutsu_labels(tree), {"Incandescent Nova": "Nova", "Solar Reverb": "Reverb", "Stellar Inferno": "Inferno"})
+
+    def test_full_names_when_short_labels_collide_or_match_classification(self):
+        import render_tree as R
+        tree = {"classification": {"potency_classification": "Storm", "display_element": "Storm"},
+                "nodes": [{"coverage": {"jutsu": ["Demons Strike", "Reapers Storm"], "effect_rows": 2}}],
+                "examples": [{"finals": [{"jutsu": "Death\u2019s Storm"}, {"jutsu": "Stormsinger"}]}]}
+        labels = R.jutsu_labels(tree)
+        self.assertEqual(labels["Reapers Storm"], "Reapers Storm")
+        self.assertEqual(labels["Death\u2019s Storm"], "Death\u2019s Storm")
+        self.assertEqual(labels["Demons Strike"], "Demons Strike")  # whole kit falls back together
+        self.assertEqual(R.coverage_line(tree["nodes"][0], labels), "Demons Strike · Reapers Storm")
+
+    def test_classification_echo_alone_forces_full_names(self):
+        import render_tree as R
+        tree = {"classification": {"potency_classification": "Wood"},
+                "nodes": [{"coverage": {"jutsu": ["Iron Wood", "Verdant Bastion"]}}], "examples": []}
+        self.assertEqual(R.jutsu_labels(tree), {"Iron Wood": "Iron Wood", "Verdant Bastion": "Verdant Bastion"})
+
+
+class RendererAdverseRows(unittest.TestCase):
+    """Adverse rows must be printed by their real recipient, not by the modifier's display role."""
+
+    def _node(self):
+        return {"id": "09", "name": "Cracked Vessel", "category": "Hidden Art", "cost": 1, "parents": ["06"],
+                "modifiers": [{"tag": "increasedamagetaken", "flat": 2, "display_role": "ENEMY DEBUFF",
+                               "row_roles": ["ENEMY DEBUFF", "SELF DEBUFF"]}],
+                "coverage": {"jutsu": ["Chakra Overload", "Overloaded Impact"], "effect_rows": 2,
+                             "adverse_rows": ["Overloaded Impact#2"]}}
+
+    def _tree(self):
+        finals = [{"jutsu": "Overloaded Impact", "row": 2, "tag": "increasedamagetaken", "recipient": "self",
+                   "role": "SELF DEBUFF", "adverse": True},
+                  {"jutsu": "Chakra Overload", "row": 1, "tag": "increasedamagetaken", "recipient": "enemy",
+                   "role": "ENEMY DEBUFF", "adverse": False}]
+        return {"classification": {"potency_classification": "Dai Kenja"}, "nodes": [self._node()],
+                "examples": [{"finals": finals}]}
+
+    def test_adverse_line_names_the_self_row_in_the_self_debuff_colour(self):
+        import render_tree as R
+        tree = self._tree()
+        labels = R.jutsu_labels(tree)
+        lines = R.adverse_lines(tree["nodes"][0], labels, R.finals_index(tree))
+        self.assertEqual(lines, [("Impact: self debuff (adverse)", L.ROLE_COLORS["SELF DEBUFF"])])
+        self.assertNotEqual(lines[0][1], L.ROLE_COLORS["ENEMY DEBUFF"])
+        # the card grows by one line so the prerequisite block never overlaps
+        self.assertEqual(R.card_height(tree["nodes"][0], 515, labels, R.finals_index(tree)) - R.card_height(self._node_without_adverse(), 515, labels), 30)
+
+    def _node_without_adverse(self):
+        n = self._node()
+        n["coverage"] = {"jutsu": n["coverage"]["jutsu"], "effect_rows": 2}
+        return n
+
+    def test_no_adverse_rows_means_no_extra_lines(self):
+        import render_tree as R
+        self.assertEqual(R.adverse_lines(self._node_without_adverse(), {}, {}), [])
+
+    def test_row_roles_fallback_without_finals(self):
+        import render_tree as R
+        self.assertEqual(R.adverse_lines(self._node(), {}, {}), [("Impact: self debuff (adverse)", L.ROLE_COLORS["SELF DEBUFF"])])
+
+    def test_scope_phrase(self):
+        import render_tree as R
+        self.assertEqual(R.scope_phrase({"potency_classification": "Scorch"}, {"name": "Taiyo Kami"}), "Scorch-classified Taiyo Kami jutsu")
+        self.assertEqual(R.scope_phrase({"potency_classification": "Dai Kenja"}, {"name": "Dai Kenja"}),
+                         "Dai Kenja jutsu (bloodline-keyed classification, proposed extension)")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -27,31 +27,33 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Ring of Spilled Blood | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Shadow | enemy | DAMAGE | ✓ |  |
-| Ring of Spilled Blood | 1 | decreasedamagegiven | percentage | 30% | 20 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Crimson Tithe | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Shadow | enemy | DAMAGE | ✓ |  |
-| Crimson Tithe | 1 | stun | static | 100 | 100 + 0/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Crimson Tithe | 2 | timecompression | percentage | 100% | 100 + 0/lvl | 1 | None | enemy | ENEMY DEBUFF |  |  |
-| Sanguine Plague | 0 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Fire, Lightning, None, Shadow, Water | enemy | ENEMY DEBUFF | ✓ |  |
-| Sanguine Plague | 1 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Sanguine Plague | 2 | debuffprevent | static | 100 | 100 + 0/lvl | 1 | None | self | SELF BUFF |  |  |
-| Reaper's Embrace | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Shadow | enemy | DAMAGE | ✓ |  |
-| Reaper's Embrace | 1 | move | static | 1 | 1 + 0/lvl | — | None | self | SELF BUFF |  |  |
-| Reaper's Embrace | 2 | vamp | percentage | 25% | 15 + 0.4/lvl | 0 | None | self | SELF BUFF |  |  |
-| Reaper's Embrace | 3 | decreasedamagetaken | percentage | 15% | 5 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Unholy Enhancement | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Unholy Enhancement | 1 | decreasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Crimson Impact | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Shadow | enemy | DAMAGE | ✓ |  |
-| Crimson Impact | 1 | lifesteal | percentage | 20% | 10 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Crimson Impact | 2 | shield | static | 100 | 90 + 0.4/lvl | 2 | None | self | SELF BUFF |  |  |
-| Crimson Impact | 3 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Hemocure | 0 | absorb | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF |  |  |
-| Hemocure | 1 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Hemocure | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Thousand Strike | 0 | pierce | formula | 70 | 60 + 0.4/lvl | 0 | Shadow | enemy | ENEMY DEBUFF |  |  |
-| Thousand Strike | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Ring of Spilled Blood | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Shadow | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Ring of Spilled Blood | 1 | decreasedamagegiven | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  | **yes** |
+| Crimson Tithe | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Shadow | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  |  |
+| Crimson Tithe | 1 | stun | static | 100 | 100 + 0/lvl | 2 | None | — | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Crimson Tithe | 2 | timecompression | percentage | 100% | 100 + 0/lvl | 1 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |
+| Sanguine Plague | 0 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Fire, Lightning, None, Shadow, Water | — | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Sanguine Plague | 1 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Sanguine Plague | 2 | debuffprevent | static | 100 | 100 + 0/lvl | 1 | None | — | FRIENDLY | self | SELF BUFF |  |  |  |
+| Reaper's Embrace | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Shadow | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Reaper's Embrace | 1 | move | static | 1 | 1 + 0/lvl | — | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Reaper's Embrace | 2 | vamp | percentage | 25% | 15 + 0.4/lvl | 0 | None | — | FRIENDLY | self | SELF BUFF |  |  |  |
+| Reaper's Embrace | 3 | decreasedamagetaken | percentage | 15% | 5 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | FRIENDLY | self | SELF BUFF | ✓ |  |  |
+| Unholy Enhancement | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |
+| Unholy Enhancement | 1 | decreasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Crimson Impact | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Shadow | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Crimson Impact | 1 | lifesteal | percentage | 20% | 10 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Crimson Impact | 2 | shield | static | 100 | 90 + 0.4/lvl | 2 | None | — | ALL | self | SELF BUFF |  |  |  |
+| Crimson Impact | 3 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  | **yes** |
+| Hemocure | 0 | absorb | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF |  |  |  |
+| Hemocure | 1 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Hemocure | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Thousand Strike | 0 | pierce | formula | 70 | 60 + 0.4/lvl | 0 | Shadow | Highest / Highest | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |
+| Thousand Strike | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 
@@ -66,6 +68,8 @@ Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective 
 | Lifesteal | 1 | Crimson Impact | SELF BUFF | 20 | — | 0 | 1 | 0 | — |
 
 Supported rows total: **15**. Unsupported tags present (no potency): absorb, debuffprevent, move, pierce, shield, stun, timecompression, vamp.
+
+> **Ally-hazard rows (area delivery, friendly fire none/ALL):** Ring of Spilled Blood row 1 (decreasedamagegiven, AOE_SPIRAL_SHOOT, target GROUND); Crimson Impact row 3 (increasedamagetaken, AOE_CIRCLE_SPAWN, target OTHER_USER). Potency on these tags also raises what allies standing in the area receive; positioning, not the node, decides.
 
 ## Selector / classification audit
 

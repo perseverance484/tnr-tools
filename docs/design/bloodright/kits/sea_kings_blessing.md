@@ -23,16 +23,18 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Sea King's Armor | 0 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Sea King's Armor | 1 | damage | formula | 38 | 28 + 0.4/lvl | 0 | Water | enemy | DAMAGE | ✓ |  |
-| Sea King's Armor | 2 | shield | static | 100 | 100 + 0/lvl | 2 | None | self | SELF BUFF |  |  |
-| Crushing Abyss | 0 | damage | formula | 38 | 28 + 0.4/lvl | 0 | Water | enemy | DAMAGE | ✓ |  |
-| Crushing Abyss | 1 | increasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Water Dome | 0 | absorb | percentage | 35% | 25 + 0.4/lvl | 2 | Water | self | SELF BUFF |  |  |
-| Water Dome | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Water | enemy | ENEMY DEBUFF | ✓ |  |
-| Water Dome | 2 | shield | static | 100 | 100 + 0/lvl | 2 | None | self | SELF BUFF |  |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Sea King's Armor | 0 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |
+| Sea King's Armor | 1 | damage | formula | 38 | 28 + 0.4/lvl | 0 | Water | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Sea King's Armor | 2 | shield | static | 100 | 100 + 0/lvl | 2 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Crushing Abyss | 0 | damage | formula | 38 | 28 + 0.4/lvl | 0 | Water | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Crushing Abyss | 1 | increasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Water Dome | 0 | absorb | percentage | 35% | 25 + 0.4/lvl | 2 | Water | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF |  |  |  |
+| Water Dome | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Water | — | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Water Dome | 2 | shield | static | 100 | 100 + 0/lvl | 2 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 

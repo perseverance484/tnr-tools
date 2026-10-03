@@ -25,21 +25,23 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Yozakura: Sakura Dragon Pearl | 0 | heal | static | 25 | 15 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Yozakura: Sakura Dragon Pearl | 1 | debuffprevent | static | 100 | 90 + 0.4/lvl | 2 | None | self | SELF BUFF |  |  |
-| Yozakura: Dancing Embers | 0 | pierce | formula | 60 | 50 + 0.4/lvl | 0 | Scorch | enemy | ENEMY DEBUFF |  |  |
-| Yozakura: Dancing Embers | 1 | wound | percentage | 30% | 20 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Yozakura: Dancing Embers | 2 | visual | static | 100 | 100 + 0/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Hiru-Sakura: Sakuragari | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Scorch | enemy | DAMAGE | ✓ |  |
-| Hiru-Sakura: Sakuragari | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Hiru-Sakura: Sakuragari | 2 | shield | static | 100 | 90 + 0.4/lvl | 2 | None | self | SELF BUFF |  |  |
-| Hiru-Sakura: Sakura-ame | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Scorch | enemy | DAMAGE | ✓ |  |
-| Hiru-Sakura: Sakura-ame | 1 | decreasedamagegiven | percentage | 30% | 20 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Hiru-Sakura: Sakura-ame | 2 | visual | static | 100 | 100 + 0/lvl | 1 | None | enemy | ENEMY DEBUFF |  |  |
-| Asazakura – Sakura Dragon Tree | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Fire, None, Scorch, Wind | self | SELF BUFF | ✓ |  |
-| Asazakura – Sakura Dragon Tree | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Yozakura: Sakura Dragon Pearl | 0 | heal | static | 25 | 15 + 0.4/lvl | 2 | None | — | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Yozakura: Sakura Dragon Pearl | 1 | debuffprevent | static | 100 | 90 + 0.4/lvl | 2 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Yozakura: Dancing Embers | 0 | pierce | formula | 60 | 50 + 0.4/lvl | 0 | Scorch | Highest / Highest | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Yozakura: Dancing Embers | 1 | wound | percentage | 30% | 20 + 0.4/lvl | 2 | None | Highest | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Yozakura: Dancing Embers | 2 | visual | static | 100 | 100 + 0/lvl | 2 | None | — | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Hiru-Sakura: Sakuragari | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Scorch | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  | **yes** |
+| Hiru-Sakura: Sakuragari | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  | **yes** |
+| Hiru-Sakura: Sakuragari | 2 | shield | static | 100 | 90 + 0.4/lvl | 2 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Hiru-Sakura: Sakura-ame | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Scorch | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  | **yes** |
+| Hiru-Sakura: Sakura-ame | 1 | decreasedamagegiven | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Hiru-Sakura: Sakura-ame | 2 | visual | static | 100 | 100 + 0/lvl | 1 | None | — | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Asazakura – Sakura Dragon Tree | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Fire, None, Scorch, Wind | — | FRIENDLY | self | SELF BUFF | ✓ |  |  |
+| Asazakura – Sakura Dragon Tree | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 
@@ -52,6 +54,8 @@ Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective 
 | Heal | 1 | Yozakura: Sakura Dragon Pearl | SELF BUFF | 25 | — | 0 | 0 | 0 | — |
 
 Supported rows total: **7**. Unsupported tags present (no potency): debuffprevent, pierce, shield, visual, wound.
+
+> **Ally-hazard rows (area delivery, friendly fire none/ALL):** Hiru-Sakura: Sakuragari row 0 (damage, AOE_CIRCLE_SPAWN, target OTHER_USER); Hiru-Sakura: Sakuragari row 1 (increasedamagetaken, AOE_CIRCLE_SPAWN, target OTHER_USER); Hiru-Sakura: Sakura-ame row 0 (damage, AOE_CIRCLE_SPAWN, target OTHER_USER). Potency on these tags also raises what allies standing in the area receive; positioning, not the node, decides.
 
 ## Selector / classification audit
 

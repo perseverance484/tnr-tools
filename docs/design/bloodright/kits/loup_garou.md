@@ -24,14 +24,16 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Nature's Hunter | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | None | enemy | DAMAGE | ✓ |  |
-| Nature's Hunter | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Nature's Hunter | 2 | heal | static | 25 | 20 + 0.2/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Summon Wolf Companion | 0 | summon | percentage | 75% | 65 + 0.4/lvl | 4 | None | enemy | ENEMY BUFF |  | **yes** |
-| Life reaver | 0 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Life reaver | 1 | absorb | percentage | 30% | 20 + 0.4/lvl | 2 | None | self | SELF BUFF |  |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Nature's Hunter | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | None | Taijutsu / Speed, Strength | ALL | enemy | DAMAGE | ✓ |  |  |
+| Nature's Hunter | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |
+| Nature's Hunter | 2 | heal | static | 25 | 20 + 0.2/lvl | 2 | None | — | ALL | self | SELF BUFF | ✓ |  |  |
+| Summon Wolf Companion | 0 | summon | percentage | 75% | 65 + 0.4/lvl | 4 | None | — | ENEMIES | enemy | ENEMY BUFF |  | **yes** |  |
+| Life reaver | 0 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Taijutsu | ALL | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Life reaver | 1 | absorb | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF |  |  |  |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 

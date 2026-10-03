@@ -24,16 +24,18 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Summoning: Reptile Zoo | 0 | summon | percentage | 60% | 35 + 1/lvl | 3 | None | self | SELF BUFF |  |  |
-| Summoning: Reptile Zoo | 1 | injectjutsus | static | 100 | 100 + 0/lvl | 2 | None | self | SELF BUFF |  |  |
-| Summoning: Reptile Zoo | 2 | visual | static | 1 | 1 + 0/lvl | — | None | self | SELF DEBUFF |  | **yes** |
-| Cool-Blooded Empowerment | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | ally | ALLY BUFF | ✓ |  |
-| Cool-Blooded Empowerment | 1 | lifesteal | percentage | 35% | 25 + 0.4/lvl | 2 | None | ally | ALLY BUFF | ✓ |  |
-| Cool-Blooded Empowerment | 2 | visual | static | 1 | 1 + 0/lvl | — | None | ally | ENEMY DEBUFF |  | **yes** |
-| Reptile Chimera | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Reptile Chimera | 1 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Summoning: Reptile Zoo | 0 | summon | percentage | 60% | 35 + 1/lvl | 3 | None | — | FRIENDLY | self | SELF BUFF |  |  |  |
+| Summoning: Reptile Zoo | 1 | injectjutsus | static | 100 | 100 + 0/lvl | 2 | None | — | ALL | self | SELF BUFF |  |  |  |
+| Summoning: Reptile Zoo | 2 | visual | static | 1 | 1 + 0/lvl | — | None | — | none (=ALL) | self | SELF DEBUFF |  | **yes** |  |
+| Cool-Blooded Empowerment | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest | FRIENDLY | ally | ALLY BUFF | ✓ |  |  |
+| Cool-Blooded Empowerment | 1 | lifesteal | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest | FRIENDLY | ally | ALLY BUFF | ✓ |  |  |
+| Cool-Blooded Empowerment | 2 | visual | static | 1 | 1 + 0/lvl | — | None | — | none (=ALL) | ally | ENEMY DEBUFF |  | **yes** |  |
+| Reptile Chimera | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Ninjutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Reptile Chimera | 1 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 

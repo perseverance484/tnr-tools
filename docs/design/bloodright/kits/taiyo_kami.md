@@ -25,19 +25,21 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Solar Reverb | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Scorch | enemy | DAMAGE | ✓ |  |
-| Solar Reverb | 1 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Incandescent Nova | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Scorch | enemy | DAMAGE | ✓ |  |
-| Incandescent Nova | 1 | wound | percentage | 25% | 15 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Celestial Ignition | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Celestial Ignition | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Fire, None, Scorch, Wind | self | SELF BUFF | ✓ |  |
-| Celestial Ignition | 2 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Radiant Embers | 0 | decreasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Radiant Embers | 1 | shield | static | 100 | 90 + 0.4/lvl | 2 | None | self | SELF BUFF |  |  |
-| Stellar Inferno | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Scorch | enemy | DAMAGE | ✓ |  |
-| Stellar Inferno | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Solar Reverb | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Scorch | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  | **yes** |
+| Solar Reverb | 1 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Incandescent Nova | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Scorch | Highest / Highest | ALL | enemy | DAMAGE | ✓ |  |  |
+| Incandescent Nova | 1 | wound | percentage | 25% | 15 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Celestial Ignition | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |
+| Celestial Ignition | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Fire, None, Scorch, Wind | — | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Celestial Ignition | 2 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Radiant Embers | 0 | decreasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Radiant Embers | 1 | shield | static | 100 | 90 + 0.4/lvl | 2 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Stellar Inferno | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Scorch | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Stellar Inferno | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  | **yes** |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 
@@ -51,6 +53,8 @@ Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective 
 | Afterburn | 1 | Solar Reverb | ENEMY DEBUFF | 35 | — | 0 | 0 | 0 | — |
 
 Supported rows total: **9**. Unsupported tags present (no potency): shield, wound.
+
+> **Ally-hazard rows (area delivery, friendly fire none/ALL):** Solar Reverb row 0 (damage, AOE_SPIRAL_SHOOT, target GROUND); Stellar Inferno row 1 (increasedamagetaken, AOE_CIRCLE_SPAWN, target OTHER_USER). Potency on these tags also raises what allies standing in the area receive; positioning, not the node, decides.
 
 ## Selector / classification audit
 

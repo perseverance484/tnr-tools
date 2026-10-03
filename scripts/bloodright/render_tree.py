@@ -73,24 +73,97 @@ def mod_text(m: dict) -> str:
     return f"+{flat}% {label}"
 
 
+ADVERSE_ROLES = ("SELF DEBUFF", "ENEMY BUFF")
+ADVERSE_COLOR = L.ROLE_COLORS["SELF DEBUFF"]
+
+
+def finals_index(tree: dict) -> dict[tuple[str, int], dict]:
+    """Map (jutsu, row) to the first example's finals row, which carries role/recipient/adverse per row."""
+    ex = tree.get("examples") or []
+    if not ex:
+        return {}
+    return {(fr["jutsu"], int(fr["row"])): fr for fr in ex[0].get("finals", [])}
+
+
+def adverse_lines(node: dict, labels: dict[str, str] | None = None, fidx: dict | None = None) -> list[tuple[str, str]]:
+    """One (text, colour) card line per adverse (jutsu, role) pair the node amplifies.
+
+    Recipients come from the validator's coverage.adverse_rows ("Jutsu#row") and the finals
+    row's role, never from the modifier's display_role, so a tag whose enemy row and self row
+    share a card is never printed as if every occurrence targeted the opponent.
+    """
+    labels = labels or {}
+    fidx = fidx or {}
+    fallback = next((r for m in node.get("modifiers", []) for r in m.get("row_roles", []) if r in ADVERSE_ROLES), "SELF DEBUFF")
+    out: list[tuple[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    for key in node.get("coverage", {}).get("adverse_rows", []):
+        jutsu, _, row = str(key).rpartition("#")
+        fr = fidx.get((jutsu, int(row))) if row.isdigit() else None
+        role = (fr or {}).get("role") or fallback
+        lab = labels.get(jutsu) or short_jutsu(jutsu)
+        if (lab, role) in seen:
+            continue
+        seen.add((lab, role))
+        out.append((f"{lab}: {role.lower()} (adverse)", L.ROLE_COLORS.get(role, ADVERSE_COLOR)))
+    return out
+
+
+def scope_phrase(cls: dict, bl: dict) -> str:
+    """'Scorch-classified Taiyo Kami jutsu', or the bloodline-keyed wording when the label is the bloodline name."""
+    label = str(cls.get("potency_classification") or "").strip()
+    name = str(bl.get("name") or "").strip()
+    if label.lower() == name.lower():
+        return f"{name} jutsu (bloodline-keyed classification, proposed extension)"
+    return f"{label}-classified {name} jutsu"
+
+
 def short_jutsu(name: str) -> str:
     # Last meaningful word(s) for compact coverage lines, mirroring "Nova · Reverb · Inferno".
     name = name.replace(":", "").replace("–", "").replace("—", "")
     parts = [p for p in name.split() if p.lower() not in ("the", "of", "a", "style", "release", "summoning", "mantle", "no")]
     if not parts:
         return name
+    if len(parts) >= 3:
+        return " ".join(parts[-2:])
     return parts[-1] if len(parts[-1]) > 2 else " ".join(parts[-2:])
 
 
-def coverage_line(node: dict) -> str:
+def jutsu_labels(tree: dict) -> dict[str, str]:
+    """Map every jutsu named by the tree to the label the SVG prints for it.
+
+    Short labels (the last meaningful word, as in "Nova · Reverb · Inferno") are used
+    only when every short label in the kit is unique and none equals the tree's potency
+    classification or display element. Otherwise the whole kit is printed with full
+    jutsu names, so "Reapers Storm" and "Death's Storm" never both collapse to "Storm"
+    in a Storm-classified tree and a jutsu label is never mistaken for the element.
+    """
+    names: set[str] = set()
+    for ex in tree.get("examples", []):
+        for fr in ex.get("finals", []):
+            names.add(fr["jutsu"])
+    for n in tree.get("nodes", []):
+        names.update(n.get("coverage", {}).get("jutsu", []))
+    cls = tree.get("classification", {}) or {}
+    reserved = {str(cls.get(k) or "").strip().lower() for k in ("potency_classification", "display_element")} - {"", "none"}
+    shorts = {nm: short_jutsu(nm) for nm in sorted(names)}
+    counts: dict[str, int] = {}
+    for s in shorts.values():
+        counts[s.lower()] = counts.get(s.lower(), 0) + 1
+    unambiguous = all(counts[s.lower()] == 1 and s.lower() not in reserved for s in shorts.values())
+    return shorts if unambiguous else {nm: nm for nm in shorts}
+
+
+def coverage_line(node: dict, labels: dict[str, str] | None = None) -> str:
     cov = node.get("coverage", {})
     j = cov.get("jutsu", [])
     if not j:
         return "No matching rows"
+    labels = labels or {}
     shorts = []
     seen = set()
     for name in j:
-        s = short_jutsu(name)
+        s = labels.get(name) or short_jutsu(name)
         if s in seen:
             s = name
         seen.add(s)
@@ -152,11 +225,11 @@ def layout(tree: dict):
     return pos, children, roots, by_id
 
 
-def card_height(node: dict, w: float) -> int:
+def card_height(node: dict, w: float, labels: dict[str, str] | None = None, fidx: dict | None = None) -> int:
     mods = node.get("modifiers", [])
     max_chars = int((w - 50) / (26 * CHAR_W))
-    cov_lines = wrap(coverage_line(node), max_chars)
-    h = 153 + 45 * max(0, len(mods) - 1) + 42 + 33 * len(cov_lines) + 95
+    cov_lines = wrap(coverage_line(node, labels), max_chars)
+    h = 153 + 45 * max(0, len(mods) - 1) + 42 + 33 * (len(cov_lines) + len(adverse_lines(node, labels, fidx))) + 95
     return max(330, int((h + 9) // 10 * 10))
 
 
@@ -166,11 +239,14 @@ def render_svg(tree: dict) -> str:
     audit = tree["audit"]
     nodes = tree["nodes"]
     pos, children, roots, by_id = layout(tree)
+    labels = jutsu_labels(tree)
+    fidx = finals_index(tree)
+    has_adverse = any(n.get("coverage", {}).get("adverse_rows") for n in nodes)
     depth_max = max(p["depth"] for p in pos.values())
     # layer heights
     layer_h = {}
     for d in range(1, depth_max + 1):
-        hs = [card_height(by_id[nid], p["w"]) for nid, p in pos.items() if p["depth"] == d]
+        hs = [card_height(by_id[nid], p["w"], labels, fidx) for nid, p in pos.items() if p["depth"] == d]
         layer_h[d] = max(hs) if hs else 330
     y0 = 450
     layer_y = {}
@@ -223,8 +299,11 @@ def render_svg(tree: dict) -> str:
             my += 45
         my += 2
         max_chars = int((w - 50) / (26 * CHAR_W))
-        for line in wrap(coverage_line(n), max_chars):
+        for line in wrap(coverage_line(n, labels), max_chars):
             g.append(t(x + 25, my + 28, line, 26, GREY))
+            my += 33
+        for line, colour in adverse_lines(n, labels, fidx):
+            g.append(t(x + 25, my + 28, line, 26, colour, 700))
             my += 33
         if n["parents"]:
             g.append(f'<path d="M{x + 24:g} {yy + h - 77} L{x + w - 24:g} {yy + h - 77}" fill="none" stroke="{DIVIDER}" stroke-width="2"/>')
@@ -256,9 +335,15 @@ def render_svg(tree: dict) -> str:
         band = f'{str(cls["potency_classification"]).upper()} CLASSIFICATION · BLOODLINE-KEYED (PROPOSED EXTENSION)'
     hdr.append(t(MARGIN + 40, 328, band, 30, "#e5bb69", 700))
     hdr.append(t(MARGIN + 40, 370, f'Every {bl["name"]} jutsu: existing supported tags qualify; combat scope stays unchanged.', 29, GREY))
-    hdr.append(t(MARGIN, 426, "SELF BUFF · YOURSELF OR ALLIES", 25, L.ROLE_COLORS["SELF BUFF"], 700))
-    hdr.append(t(MARGIN + 760, 426, "ENEMY DEBUFF · OPPONENT", 25, L.ROLE_COLORS["ENEMY DEBUFF"], 700))
-    hdr.append(t(MARGIN + 1580, 426, "DAMAGE · OPPONENT", 25, L.ROLE_COLORS["DAMAGE"], 700))
+    if has_adverse:
+        hdr.append(t(MARGIN, 426, "SELF BUFF · YOURSELF OR ALLIES", 25, L.ROLE_COLORS["SELF BUFF"], 700))
+        hdr.append(t(MARGIN + 600, 426, "ENEMY DEBUFF · OPPONENT", 25, L.ROLE_COLORS["ENEMY DEBUFF"], 700))
+        hdr.append(t(MARGIN + 1160, 426, "DAMAGE · OPPONENT", 25, L.ROLE_COLORS["DAMAGE"], 700))
+        hdr.append(t(W - MARGIN, 426, "ADVERSE · ALSO WORKS AGAINST YOU", 25, ADVERSE_COLOR, 700, "end"))
+    else:
+        hdr.append(t(MARGIN, 426, "SELF BUFF · YOURSELF OR ALLIES", 25, L.ROLE_COLORS["SELF BUFF"], 700))
+        hdr.append(t(MARGIN + 760, 426, "ENEMY DEBUFF · OPPONENT", 25, L.ROLE_COLORS["ENEMY DEBUFF"], 700))
+        hdr.append(t(MARGIN + 1580, 426, "DAMAGE · OPPONENT", 25, L.ROLE_COLORS["DAMAGE"], 700))
 
     # path labels + rules
     body = []
@@ -310,7 +395,10 @@ def render_svg(tree: dict) -> str:
         body.append(t(MARGIN + 1450, y + 35, bs, 28, GREY))
         y += 61
     y += 55
-    body.append(t(MARGIN, y, "IDG: Increase Damage Given · IDT: Increase Damage Taken · DDT: Decrease Damage Taken · DDG: Decrease Damage Given · AB: Afterburn · LS: Lifesteal · REF: Reflect · IH: Increase Heal", 24, GREY))
+    tags_used = [tg for tg in L.SUPPORTED_TAGS if tg not in ("damage", "heal") and any(ex.get("bonuses", {}).get(tg) for ex in examples)]
+    if not tags_used:
+        tags_used = [tg for tg in L.SUPPORTED_TAGS if tg not in ("damage", "heal") and any(m["tag"] == tg for n in nodes for m in n.get("modifiers", []))]
+    body.append(t(MARGIN, y, " · ".join(f'{L.TAG_ABBR[tg]}: {L.TAG_LABELS[tg]}' for tg in tags_used) or "Damage and Heal additions are raw power", 24, GREY))
     y += 48
     body.append(t(MARGIN, y, f'FINAL {bl["name"].upper()} TAG VALUES', 35, "#e5bb69", 700))
     y += 43
@@ -326,17 +414,22 @@ def render_svg(tree: dict) -> str:
         for i, fr in enumerate(base_rows):
             if not fr["supported"]:
                 continue
-            key = (fr["jutsu"], fr["tag"], fr["base"], fr["calculation"])
+            key = (fr["jutsu"], fr["tag"], fr["base"], fr["calculation"], bool(fr.get("adverse")))
             if key not in groups:
                 groups[key] = []
                 order.append(key)
             groups[key].append(i)
         for key in order:
             idxs = groups[key]
-            jutsu, tag, base, calc = key
-            lab = f'{short_jutsu(jutsu)} · {L.TAG_LABELS[tag]}' + (f' (each of {len(idxs)} effects)' if len(idxs) > 1 else "")
+            jutsu, tag, base, calc, adverse = key
+            lab = f'{labels.get(jutsu, jutsu)} · {L.TAG_LABELS[tag]}' + (f' (each of {len(idxs)} effects)' if len(idxs) > 1 else "")
+            colour = None
+            if adverse:
+                fr0 = base_rows[idxs[0]]
+                lab += f' · {fr0.get("recipient", "self")} (adverse)'
+                colour = L.ROLE_COLORS.get(fr0.get("role", ""), ADVERSE_COLOR)
             vals = [fmt_val(base, calc)] + [fmt_val(ex["finals"][idxs[0]]["final"], calc) for ex in finals_cols]
-            rows_tbl.append((lab, vals))
+            rows_tbl.append((lab, vals, colour))
     ncols = 1 + len(finals_cols)
     col_x0 = MARGIN + 1040
     step = (CONTENT_W - 1040) / max(1, ncols) if ncols > 1 else 250
@@ -347,18 +440,26 @@ def render_svg(tree: dict) -> str:
     for i, hname in enumerate(heads):
         body.append(t(col_x0 + 34 + i * step, y + 36, hname, head_size, WHITE, 700))
     y += 65
-    for i, (lab, vals) in enumerate(rows_tbl):
+    for i, (lab, vals, colour) in enumerate(rows_tbl):
         if i % 2 == 0:
             body.append(f'<rect x="{MARGIN}" y="{y}" width="{CONTENT_W}" height="48" rx="0" fill="{CARD}"/>')
-        body.append(t(MARGIN + 14, y + 34, lab, 26, GREY))
+        body.append(t(MARGIN + 14, y + 34, lab, 26, colour or GREY))
         for j, v in enumerate(vals):
-            body.append(t(col_x0 + 40 + j * step, y + 34, v, 29, "#e5bb69"))
+            body.append(t(col_x0 + 40 + j * step, y + 34, v, 29, colour or "#e5bb69"))
         y += 49
     y += 42
     body.append(t(MARGIN, y, "Static bonuses: a 35% tag with +5% becomes 40%. A 40 EP jutsu with +5 Damage becomes 45EP.", 25, GREY))
     y += 41
-    body.append(t(MARGIN, y, "Afterburn is an enemy debuff: while it lasts, damage the target takes adds Afterburn damage at the debuff percentage (60% cap per hit).", 24, GREY))
-    y += 36
+    tree_tags = {m["tag"] for n in nodes for m in n.get("modifiers", [])}
+    if "afterburn" in tree_tags:
+        body.append(t(MARGIN, y, "Afterburn is an enemy debuff: while it lasts, damage the target takes adds Afterburn damage at the debuff percentage (60% cap per hit).", 24, GREY))
+        y += 36
+    if "heal" in tree_tags:
+        body.append(t(MARGIN, y, "Heal additions are raw power: each +1 Heal power is +10 HP per tick of a static heal.", 24, GREY))
+        y += 36
+    if "lifesteal" in tree_tags or "reflect" in tree_tags:
+        body.append(t(MARGIN, y, "Lifesteal shares a 60%-of-hit leech budget with vamp; Reflect returns at most 60% of a hit.", 24, GREY))
+        y += 36
     body.append(t(MARGIN, y, "Proposed whole-kit potency classification. Current effect-element matching alone does not provide this inheritance.", 24, GREY))
     y += 36
     body.append(t(MARGIN, y, f'{audit["full_budget_allocations"]} legal four-skill allocations · {adv_n} Advanced Art{"s" if adv_n != 1 else ""} available · Combat tuning remains experimental', 24, "#e5bb69"))
@@ -377,7 +478,7 @@ def render_svg(tree: dict) -> str:
             parts.append(" then ".join(chain))
         desc_forks.append(f'{by_id[r]["name"]} forks into ' + ", or ".join(parts) + "." if parts else f'{by_id[r]["name"]} stands alone.')
     desc = (f'{len(nodes)} skills, {L.BP_CAP} purchases, one Advanced Art maximum. ' + " ".join(desc_forks) +
-            f' No paths converge. Bonuses affect existing supported tags on {cls["potency_classification"]}-classified {bl["name"]} jutsu.')
+            f' No paths converge. Bonuses affect existing supported tags on {scope_phrase(cls, bl)}.')
     meta = json.dumps(tree, ensure_ascii=True, separators=(",", ":"))
     defs = "".join(
         f'<marker id="arrow-{i}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="{c}"/></marker>'
@@ -413,7 +514,7 @@ def render_md(tree: dict, validation: dict | None) -> str:
     if tree.get("narrow_kit_exception"):
         out.append(f'> **Narrow-kit exception:** {tree["narrow_kit_exception"]}\n')
     out.append(f'All nodes cost 1 BP; the budget is {L.BP_CAP} BP acquired with silver; each skill is bought once; forks only. '
-               f'Bonuses are static additions to existing supported tags of {cls["potency_classification"]}-classified {bl["name"]} jutsu under the proposed classification behavior; no row\'s combat scope changes. Baselines at jutsu level {tree.get("evaluation_level")}.\n')
+               f'Bonuses are static additions to existing supported tags of {scope_phrase(cls, bl)} under the proposed classification behavior; no row\'s combat scope changes. Baselines at jutsu level {tree.get("evaluation_level")}.\n')
     out.append("## Skills\n")
     out.append("| ID | Skill | Tier | Requires | Exact bonus and recipient | Coverage (jutsu / rows) |\n|---|---|---|---|---|---|")
     for n in nodes:

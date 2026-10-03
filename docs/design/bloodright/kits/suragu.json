@@ -219,7 +219,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "TnoWY2ZOXkd3Ew6Gn0VOe",
@@ -263,7 +264,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "TnoWY2ZOXkd3Ew6Gn0VOe",
@@ -302,7 +304,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "_49a40szsCs74WtXQcMSY",
@@ -346,7 +349,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "_49a40szsCs74WtXQcMSY",
@@ -390,7 +394,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "dUyMUmOqPxBQ6u0Md6tR5",
@@ -436,7 +441,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "dUyMUmOqPxBQ6u0Md6tR5",
@@ -480,7 +486,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 4
+      "range": 4,
+      "ally_hazard": true
     },
     {
       "jutsu_id": "98Qji30as-AHzsAbke5Z_",
@@ -526,7 +533,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "98Qji30as-AHzsAbke5Z_",
@@ -570,7 +578,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "P7dryy19LnBbSh1_Tc9K1",
@@ -615,7 +624,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "P7dryy19LnBbSh1_Tc9K1",
@@ -659,7 +669,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "P7dryy19LnBbSh1_Tc9K1",
@@ -698,7 +709,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     }
   ],
   "supported_row_summary": [
@@ -846,6 +858,16 @@
     "wound"
   ],
   "adverse_supported_rows": [],
+  "ally_hazard_supported_rows": [
+    {
+      "jutsu": "Eruption Strike",
+      "row": 1,
+      "tag": "afterburn",
+      "method": "AOE_CIRCLE_SPAWN",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": null
+    }
+  ],
   "afterburn": {
     "application_rows": [
       {

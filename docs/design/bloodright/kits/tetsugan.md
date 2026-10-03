@@ -30,36 +30,38 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Tranquil Guard Flowing Form | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Metal | enemy | DAMAGE | ✓ |  |
-| Tranquil Guard Flowing Form | 1 | decreasedamagegiven | percentage | 30% | 20 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Tranquil Guard Flowing Form | 2 | shield | static | 100 | 100 + 0/lvl | 2 | None | self | SELF BUFF |  |  |
-| Enduring Resonance Ward | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Metal | enemy | DAMAGE | ✓ |  |
-| Enduring Resonance Ward | 1 | recoil | percentage | 40% | 30 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Pivoting Fortress | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Metal | enemy | DAMAGE | ✓ |  |
-| Pivoting Fortress | 1 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Phantom Slash | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Metal | enemy | DAMAGE | ✓ |  |
-| Phantom Slash | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Phantom Slash | 2 | recoil | percentage | 40% | 30 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Crimson Thrust | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Metal | enemy | DAMAGE | ✓ |  |
-| Crimson Thrust | 1 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Crimson Thrust | 2 | move | static | 1 | 1 + 0/lvl | — | None | self | SELF BUFF |  |  |
-| Shadow Pierce | 0 | pierce | formula | 60 | 50 + 0.4/lvl | 0 | Metal | enemy | ENEMY DEBUFF |  |  |
-| Shadow Pierce | 1 | wound | percentage | 30% | 20 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Middle Guard Stance | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Middle Guard Stance | 1 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Middle Guard Stance | 2 | debuffprevent | static | 100 | 90 + 0.4/lvl | 1 | None | self | SELF BUFF |  |  |
-| Equilibrium Guard Strike | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Metal | enemy | DAMAGE | ✓ |  |
-| Equilibrium Guard Strike | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Metal | enemy | ENEMY DEBUFF | ✓ |  |
-| Harmonious Slash | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Metal | enemy | DAMAGE | ✓ |  |
-| Harmonious Slash | 1 | reflect | percentage | 40% | 30 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Vacuum Fan | 0 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Metal | enemy | ENEMY DEBUFF | ✓ |  |
-| Vacuum Fan | 1 | redirection | static | 4 | 4 + 0/lvl | 0 | None | enemy | ENEMY DEBUFF |  |  |
-| Vacuum Fan | 2 | decreasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Inner Peace | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Inner Peace | 1 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Inner Peace | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Earth, Fire, Metal, None, Water | self | SELF BUFF | ✓ |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Tranquil Guard Flowing Form | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Metal | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  |  |
+| Tranquil Guard Flowing Form | 1 | decreasedamagegiven | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Tranquil Guard Flowing Form | 2 | shield | static | 100 | 100 + 0/lvl | 2 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Enduring Resonance Ward | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Metal | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  |  |
+| Enduring Resonance Ward | 1 | recoil | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Pivoting Fortress | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Metal | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  |  |
+| Pivoting Fortress | 1 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Phantom Slash | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Metal | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  |  |
+| Phantom Slash | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Phantom Slash | 2 | recoil | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Crimson Thrust | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Metal | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Crimson Thrust | 1 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Crimson Thrust | 2 | move | static | 1 | 1 + 0/lvl | — | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Shadow Pierce | 0 | pierce | formula | 60 | 50 + 0.4/lvl | 0 | Metal | Highest / Highest | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Shadow Pierce | 1 | wound | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Middle Guard Stance | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Middle Guard Stance | 1 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Middle Guard Stance | 2 | debuffprevent | static | 100 | 90 + 0.4/lvl | 1 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Equilibrium Guard Strike | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Metal | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  | **yes** |
+| Equilibrium Guard Strike | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Metal | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  | **yes** |
+| Harmonious Slash | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Metal | Highest / Highest | ALL | enemy | DAMAGE | ✓ |  |  |
+| Harmonious Slash | 1 | reflect | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Highest, Ninjutsu, Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |
+| Vacuum Fan | 0 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Metal | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Vacuum Fan | 1 | redirection | static | 4 | 4 + 0/lvl | 0 | None | — | none (=ALL) | enemy | ENEMY DEBUFF |  |  | **yes** |
+| Vacuum Fan | 2 | decreasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  | **yes** |
+| Inner Peace | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Inner Peace | 1 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Inner Peace | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Earth, Fire, Metal, None, Water | — | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 
@@ -74,6 +76,8 @@ Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective 
 | Reflect | 1 | Harmonious Slash | SELF BUFF | 40 | — | 0 | 1 | 0 | — |
 
 Supported rows total: **20**. Unsupported tags present (no potency): debuffprevent, move, pierce, recoil, redirection, shield, wound.
+
+> **Ally-hazard rows (area delivery, friendly fire none/ALL):** Equilibrium Guard Strike row 0 (damage, AOE_LINE_SHOOT, target OTHER_USER); Equilibrium Guard Strike row 1 (increasedamagetaken, AOE_LINE_SHOOT, target OTHER_USER); Vacuum Fan row 2 (decreasedamagegiven, AOE_SPIRAL_SHOOT, target OTHER_USER). Potency on these tags also raises what allies standing in the area receive; positioning, not the node, decides.
 
 ## Selector / classification audit
 

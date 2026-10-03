@@ -25,20 +25,22 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Liquid Ember Shell | 0 | lifesteal | percentage | 40% | 30 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Liquid Ember Shell | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Liquid Ember Shell | 2 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Drowning Strike | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Boil | enemy | DAMAGE | ✓ |  |
-| Drowning Strike | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Surfing Strike | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Boil | enemy | DAMAGE | ✓ |  |
-| Surfing Strike | 1 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Surfing Strike | 2 | move | static | 1 | 1 + 0/lvl | 0 | None | self | SELF BUFF |  |  |
-| Scorch Break | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Boil | enemy | DAMAGE | ✓ |  |
-| Scorch Break | 1 | reflect | percentage | 40% | 30 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Azure Dragon Palm | 0 | pierce | formula | 58 | 48 + 0.4/lvl | 0 | Boil | enemy | ENEMY DEBUFF |  |  |
-| Azure Dragon Palm | 1 | heal | static | 25 | 15 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Liquid Ember Shell | 0 | lifesteal | percentage | 40% | 30 + 0.4/lvl | 2 | None | Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Liquid Ember Shell | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Liquid Ember Shell | 2 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Drowning Strike | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Boil | Taijutsu / Speed, Strength | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Drowning Strike | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  | **yes** |
+| Surfing Strike | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Boil | Taijutsu / Speed, Strength | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Surfing Strike | 1 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Surfing Strike | 2 | move | static | 1 | 1 + 0/lvl | 0 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Scorch Break | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Boil | Taijutsu / Speed, Strength | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Scorch Break | 1 | reflect | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Azure Dragon Palm | 0 | pierce | formula | 58 | 48 + 0.4/lvl | 0 | Boil | Taijutsu / Speed, Strength | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Azure Dragon Palm | 1 | heal | static | 25 | 15 + 0.4/lvl | 2 | None | — | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 
@@ -54,6 +56,8 @@ Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective 
 | Heal | 1 | Azure Dragon Palm | SELF BUFF | 25 | — | 0 | 0 | 0 | — |
 
 Supported rows total: **10**. Unsupported tags present (no potency): move, pierce.
+
+> **Ally-hazard rows (area delivery, friendly fire none/ALL):** Drowning Strike row 1 (increasedamagetaken, AOE_SPIRAL_SHOOT, target GROUND). Potency on these tags also raises what allies standing in the area receive; positioning, not the node, decides.
 
 ## Selector / classification audit
 

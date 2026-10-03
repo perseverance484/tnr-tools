@@ -1,0 +1,1057 @@
+{
+  "kind": "bloodright_balance_matrix",
+  "method": "Same access budget (4 BP, 1 BP per once-only skill, forks only) for every tree. Raw flat total sums every static addition in a legal full allocation; row-weighted total multiplies each addition by the number of supported kit rows it reaches. Both are structural/arithmetic measures, not combat strength. Inherited kit strength (rank, row count, baseline values) is listed separately from the Bloodright additions.",
+  "reference": "Taiyo Kami (docs/design/bloodright/examples/taiyo_kami.json)",
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "approved_remaining": 43,
+  "trees_present": 5,
+  "approved_without_tree": [
+    {
+      "review_id": "BR-004",
+      "name": "Ancient Tailed Demon"
+    },
+    {
+      "review_id": "BR-008",
+      "name": "Bakuhatsu"
+    },
+    {
+      "review_id": "BR-015",
+      "name": "Blue Blade Eyes"
+    },
+    {
+      "review_id": "BR-018",
+      "name": "Cosmic Ascendant"
+    },
+    {
+      "review_id": "BR-020",
+      "name": "Crystal Essence"
+    },
+    {
+      "review_id": "BR-023",
+      "name": "Ethereal Monarch"
+    },
+    {
+      "review_id": "BR-027",
+      "name": "Eyes of the Forsaken King"
+    },
+    {
+      "review_id": "BR-029",
+      "name": "Godstorm Eclipse"
+    },
+    {
+      "review_id": "BR-030",
+      "name": "Ha Yanagi"
+    },
+    {
+      "review_id": "BR-032",
+      "name": "Heavenly Sonata"
+    },
+    {
+      "review_id": "BR-033",
+      "name": "Houkyuken"
+    },
+    {
+      "review_id": "BR-034",
+      "name": "Hyouga Yui"
+    },
+    {
+      "review_id": "BR-036",
+      "name": "Itojinsei"
+    },
+    {
+      "review_id": "BR-040",
+      "name": "Kyuko-sei"
+    },
+    {
+      "review_id": "BR-042",
+      "name": "Loup-Garou"
+    },
+    {
+      "review_id": "BR-043",
+      "name": "Lycanthropy"
+    },
+    {
+      "review_id": "BR-045",
+      "name": "Megumi Kijo"
+    },
+    {
+      "review_id": "BR-047",
+      "name": "Musashi Ken"
+    },
+    {
+      "review_id": "BR-048",
+      "name": "Namikaze"
+    },
+    {
+      "review_id": "BR-051",
+      "name": "Night Parade of A Thousand Demons"
+    },
+    {
+      "review_id": "BR-053",
+      "name": "Oblivion Seal"
+    },
+    {
+      "review_id": "BR-055",
+      "name": "Primal Radiance"
+    },
+    {
+      "review_id": "BR-057",
+      "name": "Reptilian"
+    },
+    {
+      "review_id": "BR-059",
+      "name": "Sands of Time"
+    },
+    {
+      "review_id": "BR-061",
+      "name": "Sea-King's Blessing"
+    },
+    {
+      "review_id": "BR-063",
+      "name": "Shadow Weaver"
+    },
+    {
+      "review_id": "BR-064",
+      "name": "Shakunetsu Sakura"
+    },
+    {
+      "review_id": "BR-065",
+      "name": "Shinrai Ou"
+    },
+    {
+      "review_id": "BR-066",
+      "name": "Shinseina Ki"
+    },
+    {
+      "review_id": "BR-067",
+      "name": "Shiroi Youso"
+    },
+    {
+      "review_id": "BR-074",
+      "name": "Suragu"
+    },
+    {
+      "review_id": "BR-077",
+      "name": "Teno Yuki"
+    },
+    {
+      "review_id": "BR-078",
+      "name": "Tenohira Musei"
+    },
+    {
+      "review_id": "BR-081",
+      "name": "Terra Nova"
+    },
+    {
+      "review_id": "BR-083",
+      "name": "Tetsugan"
+    },
+    {
+      "review_id": "BR-090",
+      "name": "Vaporia"
+    },
+    {
+      "review_id": "BR-091",
+      "name": "Voltara Divine"
+    },
+    {
+      "review_id": "BR-092",
+      "name": "Yaketsuku Netsu"
+    }
+  ],
+  "entries": [
+    {
+      "slug": "taiyo_kami",
+      "review_id": "BR-075",
+      "name": "Taiyo Kami",
+      "rank": "A",
+      "reference": true,
+      "jutsu_in_kit": 5,
+      "supported_rows": 9,
+      "supported_rows_by_tag": {
+        "damage": 3,
+        "afterburn": 1,
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 1,
+        "decreasedamagegiven": 1,
+        "increasedamagetaken": 1
+      },
+      "adverse_supported_rows": 0,
+      "classification": "Scorch",
+      "label_kind": null,
+      "census_collisions": 0,
+      "emphasis": {
+        "primary": null,
+        "secondary": null,
+        "tertiary": null
+      },
+      "nodes": 10,
+      "tiers": {
+        "F": 2,
+        "H": 4,
+        "A": 4
+      },
+      "structure_errors": [],
+      "full_budget_allocations": 14,
+      "non_dominated_full_allocations": 14,
+      "maximum_advanced_arts": 1,
+      "minimum_two_advanced_cost": 5,
+      "maximum_depth": 3,
+      "maximum_tag_bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 10,
+        "afterburn": 10
+      },
+      "max_full_build_raw_flat_total": 24,
+      "max_full_build_row_weighted_total": 31,
+      "strongest_full_build": {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "names": [
+          "Dawnheart",
+          "Crown of Cinders",
+          "Emberwake",
+          "Eternal Noon"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 5,
+          "afterburn": 10
+        }
+      },
+      "lowest_value_node": {
+        "name": "Emberwake",
+        "row_weighted_total": 3
+      },
+      "nodes_absent_from_non_dominated_builds": [],
+      "examples": [
+        {
+          "name": "Solar Cataclysm",
+          "archetype": "Burst",
+          "ids": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "raw_flat_total": 13,
+          "row_weighted_total": 25,
+          "bonuses": {
+            "damage": 5,
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2
+          }
+        },
+        {
+          "name": "Eternal Noon",
+          "archetype": "Burn pressure",
+          "ids": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "raw_flat_total": 24,
+          "row_weighted_total": 29,
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 5,
+            "decreasedamagetaken": 2,
+            "afterburn": 10
+          }
+        },
+        {
+          "name": "Sovereign Sun",
+          "archetype": "Fortified offense",
+          "ids": [
+            "01",
+            "06",
+            "07",
+            "08"
+          ],
+          "raw_flat_total": 19,
+          "row_weighted_total": 24,
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 10
+          }
+        },
+        {
+          "name": "Dying Light",
+          "archetype": "Suppression",
+          "ids": [
+            "06",
+            "07",
+            "09",
+            "10"
+          ],
+          "raw_flat_total": 20,
+          "row_weighted_total": 20,
+          "bonuses": {
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 5,
+            "decreasedamagetaken": 5
+          }
+        }
+      ],
+      "narrow_kit_exception": null,
+      "tags_not_targeted": [],
+      "vs_reference": {
+        "max_raw_flat_total_delta": 0,
+        "max_row_weighted_delta": 0,
+        "supported_rows_delta": 0
+      }
+    },
+    {
+      "slug": "aerathiel",
+      "review_id": "BR-002",
+      "name": "Aerathiel",
+      "rank": "A",
+      "reference": false,
+      "jutsu_in_kit": 5,
+      "supported_rows": 9,
+      "supported_rows_by_tag": {
+        "increasedamagetaken": 2,
+        "decreasedamagegiven": 1,
+        "damage": 3,
+        "increasedamagegiven": 2,
+        "reflect": 1
+      },
+      "adverse_supported_rows": 0,
+      "classification": "Dust",
+      "label_kind": "element",
+      "census_collisions": 2,
+      "emphasis": {
+        "primary": "Damage (Dust attacks)",
+        "secondary": "Increase Damage Taken (AOE exposure)",
+        "tertiary": "Reflect and Decrease Damage Given (Atomic Shield / Windshear control)"
+      },
+      "nodes": 10,
+      "tiers": {
+        "F": 2,
+        "H": 4,
+        "A": 4
+      },
+      "structure_errors": [],
+      "full_budget_allocations": 14,
+      "non_dominated_full_allocations": 14,
+      "maximum_advanced_arts": 1,
+      "minimum_two_advanced_cost": 5,
+      "maximum_depth": 3,
+      "maximum_tag_bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 7,
+        "reflect": 10
+      },
+      "max_full_build_raw_flat_total": 19,
+      "max_full_build_row_weighted_total": 30,
+      "strongest_full_build": {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "names": [
+          "Entropic Grasp",
+          "Particle Collapse",
+          "Hollowing Wind",
+          "Terminal Decay"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 7
+        }
+      },
+      "lowest_value_node": {
+        "name": "Particulate Ward",
+        "row_weighted_total": 3
+      },
+      "nodes_absent_from_non_dominated_builds": [],
+      "examples": [
+        {
+          "name": "Total Disintegration",
+          "archetype": "Burst",
+          "ids": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "raw_flat_total": 13,
+          "row_weighted_total": 27,
+          "bonuses": {
+            "damage": 5,
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "reflect": 2
+          }
+        },
+        {
+          "name": "Terminal Decay",
+          "archetype": "Pressure",
+          "ids": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "raw_flat_total": 14,
+          "row_weighted_total": 30,
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 5,
+            "increasedamagetaken": 7
+          }
+        },
+        {
+          "name": "Atomic Reprisal",
+          "archetype": "Fortified",
+          "ids": [
+            "01",
+            "06",
+            "07",
+            "08"
+          ],
+          "raw_flat_total": 19,
+          "row_weighted_total": 26,
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "reflect": 10
+          }
+        },
+        {
+          "name": "Requiem of Dust",
+          "archetype": "Suppression",
+          "ids": [
+            "01",
+            "06",
+            "09",
+            "10"
+          ],
+          "raw_flat_total": 18,
+          "row_weighted_total": 24,
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 4,
+            "reflect": 2
+          }
+        }
+      ],
+      "narrow_kit_exception": null,
+      "tags_not_targeted": [],
+      "vs_reference": {
+        "max_raw_flat_total_delta": -5,
+        "max_row_weighted_delta": -1,
+        "supported_rows_delta": 0
+      }
+    },
+    {
+      "slug": "arashima",
+      "review_id": "BR-005",
+      "name": "Arashima",
+      "rank": "A",
+      "reference": false,
+      "jutsu_in_kit": 5,
+      "supported_rows": 6,
+      "supported_rows_by_tag": {
+        "lifesteal": 1,
+        "increasedamagegiven": 1,
+        "decreasedamagetaken": 1,
+        "damage": 2,
+        "decreasedamagegiven": 1
+      },
+      "adverse_supported_rows": 0,
+      "classification": "Storm",
+      "label_kind": "element",
+      "census_collisions": 3,
+      "emphasis": {
+        "primary": "Lifesteal (sustain; the kit's identity, +10 ceiling)",
+        "secondary": "Decrease Damage Taken and Decrease Damage Given (co-primary fortress and suppression routes, +10 ceilings)",
+        "tertiary": "Damage (Storm AoE burst, +5 ceiling) and Increase Damage Given (glue across routes, +5 ceiling)"
+      },
+      "nodes": 10,
+      "tiers": {
+        "F": 2,
+        "H": 4,
+        "A": 4
+      },
+      "structure_errors": [],
+      "full_budget_allocations": 14,
+      "non_dominated_full_allocations": 14,
+      "maximum_advanced_arts": 1,
+      "minimum_two_advanced_cost": 5,
+      "maximum_depth": 3,
+      "maximum_tag_bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 10,
+        "lifesteal": 10
+      },
+      "max_full_build_raw_flat_total": 20,
+      "max_full_build_row_weighted_total": 20,
+      "strongest_full_build": {
+        "ids": [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        "names": [
+          "Tempest Hymn",
+          "Stillness in the Squall",
+          "Deadwind Dirge",
+          "Silence After Thunder"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 10,
+          "decreasedamagetaken": 4,
+          "lifesteal": 4
+        }
+      },
+      "lowest_value_node": {
+        "name": "Crimson Downpour",
+        "row_weighted_total": 3
+      },
+      "nodes_absent_from_non_dominated_builds": [],
+      "examples": [
+        {
+          "name": "Reaper's Harvest",
+          "archetype": "Sustain",
+          "ids": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "raw_flat_total": 19,
+          "row_weighted_total": 19,
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 2,
+            "lifesteal": 10
+          }
+        },
+        {
+          "name": "Sundered Sky",
+          "archetype": "Burst",
+          "ids": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "raw_flat_total": 13,
+          "row_weighted_total": 18,
+          "bonuses": {
+            "damage": 5,
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 2,
+            "lifesteal": 2
+          }
+        },
+        {
+          "name": "Unbroken Horizon",
+          "archetype": "Fortress",
+          "ids": [
+            "01",
+            "06",
+            "07",
+            "08"
+          ],
+          "raw_flat_total": 19,
+          "row_weighted_total": 19,
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 10,
+            "lifesteal": 2
+          }
+        },
+        {
+          "name": "Silence After Thunder",
+          "archetype": "Suppression",
+          "ids": [
+            "01",
+            "06",
+            "09",
+            "10"
+          ],
+          "raw_flat_total": 20,
+          "row_weighted_total": 20,
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 10,
+            "decreasedamagetaken": 4,
+            "lifesteal": 4
+          }
+        }
+      ],
+      "narrow_kit_exception": null,
+      "tags_not_targeted": [],
+      "vs_reference": {
+        "max_raw_flat_total_delta": -4,
+        "max_row_weighted_delta": -11,
+        "supported_rows_delta": -3
+      }
+    },
+    {
+      "slug": "blood_enchanted_eyes",
+      "review_id": "BR-011",
+      "name": "Blood-Enchanted Eyes",
+      "rank": "S",
+      "reference": false,
+      "jutsu_in_kit": 8,
+      "supported_rows": 15,
+      "supported_rows_by_tag": {
+        "damage": 4,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 3,
+        "afterburn": 1,
+        "decreasedamagetaken": 2,
+        "increasedamagegiven": 2,
+        "lifesteal": 1
+      },
+      "adverse_supported_rows": 0,
+      "classification": "Shadow",
+      "label_kind": "element",
+      "census_collisions": 13,
+      "emphasis": {
+        "primary": "Damage (Shadow; two castable rows per keystone)",
+        "secondary": "Enemy exposure (Increase Damage Taken + Afterburn)",
+        "tertiary": "Self sustain (Decrease Damage Taken, Lifesteal) with Increase/Decrease Damage Given support"
+      },
+      "nodes": 10,
+      "tiers": {
+        "F": 2,
+        "H": 4,
+        "A": 4
+      },
+      "structure_errors": [],
+      "full_budget_allocations": 14,
+      "non_dominated_full_allocations": 14,
+      "maximum_advanced_arts": 1,
+      "minimum_two_advanced_cost": 5,
+      "maximum_depth": 3,
+      "maximum_tag_bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 8,
+        "afterburn": 10,
+        "lifesteal": 8
+      },
+      "max_full_build_raw_flat_total": 21,
+      "max_full_build_row_weighted_total": 42,
+      "strongest_full_build": {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "names": [
+          "Scarlet Gaze",
+          "Opened Veins",
+          "Rite of Exsanguination",
+          "Iron in the Blood"
+        ],
+        "bonuses": {
+          "damage": 6,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2
+        }
+      },
+      "lowest_value_node": {
+        "name": "Carrion Fever",
+        "row_weighted_total": 3
+      },
+      "nodes_absent_from_non_dominated_builds": [],
+      "examples": [
+        {
+          "name": "Rite of Exsanguination",
+          "archetype": "Burst",
+          "ids": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "raw_flat_total": 14,
+          "row_weighted_total": 42,
+          "bonuses": {
+            "damage": 6,
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2
+          }
+        },
+        {
+          "name": "Red Pestilence",
+          "archetype": "Plague",
+          "ids": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "raw_flat_total": 21,
+          "row_weighted_total": 37,
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 5,
+            "decreasedamagetaken": 2,
+            "afterburn": 10
+          }
+        },
+        {
+          "name": "Feast of the Fallen",
+          "archetype": "Sustain",
+          "ids": [
+            "01",
+            "06",
+            "09",
+            "10"
+          ],
+          "raw_flat_total": 19,
+          "row_weighted_total": 32,
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2,
+            "lifesteal": 8
+          }
+        },
+        {
+          "name": "Deathless Vitality",
+          "archetype": "Fortress",
+          "ids": [
+            "01",
+            "06",
+            "07",
+            "08"
+          ],
+          "raw_flat_total": 17,
+          "row_weighted_total": 36,
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 5,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 8
+          }
+        }
+      ],
+      "narrow_kit_exception": null,
+      "tags_not_targeted": [],
+      "vs_reference": {
+        "max_raw_flat_total_delta": -3,
+        "max_row_weighted_delta": 11,
+        "supported_rows_delta": 6
+      }
+    },
+    {
+      "slug": "dai_kenja",
+      "review_id": "BR-021",
+      "name": "Dai Kenja",
+      "rank": "D",
+      "reference": false,
+      "jutsu_in_kit": 3,
+      "supported_rows": 6,
+      "supported_rows_by_tag": {
+        "damage": 1,
+        "increasedamagegiven": 1,
+        "increasedamagetaken": 2,
+        "decreasedamagegiven": 2
+      },
+      "adverse_supported_rows": 1,
+      "classification": "Dai Kenja",
+      "label_kind": "bloodline-keyed extension",
+      "census_collisions": 0,
+      "emphasis": {
+        "primary": "Overloaded Impact offense (Damage and Increase Damage Given)",
+        "secondary": "Decrease Damage Given (Chakra Overload / Chakra Cannon suppression)",
+        "tertiary": "Increase Damage Taken (Chakra Overload exposure; adverse on Overloaded Impact)"
+      },
+      "nodes": 10,
+      "tiers": {
+        "F": 2,
+        "H": 4,
+        "A": 4
+      },
+      "structure_errors": [],
+      "full_budget_allocations": 14,
+      "non_dominated_full_allocations": 13,
+      "maximum_advanced_arts": 1,
+      "minimum_two_advanced_cost": 5,
+      "maximum_depth": 3,
+      "maximum_tag_bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 8,
+        "increasedamagetaken": 5
+      },
+      "max_full_build_raw_flat_total": 14,
+      "max_full_build_row_weighted_total": 24,
+      "strongest_full_build": {
+        "ids": [
+          "06",
+          "07",
+          "09",
+          "10"
+        ],
+        "names": [
+          "Sage's Rebuke",
+          "Smothered Current",
+          "Cracked Vessel",
+          "Shattered Vessel"
+        ],
+        "bonuses": {
+          "decreasedamagegiven": 7,
+          "increasedamagetaken": 5
+        }
+      },
+      "lowest_value_node": {
+        "name": "Brimming Cup",
+        "row_weighted_total": 3
+      },
+      "nodes_absent_from_non_dominated_builds": [],
+      "examples": [
+        {
+          "name": "Breaking Point",
+          "archetype": "Burst",
+          "ids": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "raw_flat_total": 13,
+          "row_weighted_total": 15,
+          "bonuses": {
+            "damage": 6,
+            "increasedamagegiven": 5,
+            "decreasedamagegiven": 2
+          }
+        },
+        {
+          "name": "Boundless Reservoir",
+          "archetype": "Amplifier",
+          "ids": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "raw_flat_total": 12,
+          "row_weighted_total": 14,
+          "bonuses": {
+            "increasedamagegiven": 10,
+            "decreasedamagegiven": 2
+          }
+        },
+        {
+          "name": "Edict of Silence",
+          "archetype": "Suppression",
+          "ids": [
+            "01",
+            "06",
+            "07",
+            "08"
+          ],
+          "raw_flat_total": 11,
+          "row_weighted_total": 19,
+          "bonuses": {
+            "increasedamagegiven": 3,
+            "decreasedamagegiven": 8
+          }
+        },
+        {
+          "name": "Shattered Vessel",
+          "archetype": "Exposure",
+          "ids": [
+            "06",
+            "07",
+            "09",
+            "10"
+          ],
+          "raw_flat_total": 12,
+          "row_weighted_total": 24,
+          "bonuses": {
+            "decreasedamagegiven": 7,
+            "increasedamagetaken": 5
+          }
+        }
+      ],
+      "narrow_kit_exception": null,
+      "tags_not_targeted": [],
+      "vs_reference": {
+        "max_raw_flat_total_delta": -10,
+        "max_row_weighted_delta": -7,
+        "supported_rows_delta": -3
+      }
+    },
+    {
+      "slug": "natures_blessing",
+      "review_id": "BR-049",
+      "name": "Nature's Blessing",
+      "rank": "B",
+      "reference": false,
+      "jutsu_in_kit": 3,
+      "supported_rows": 5,
+      "supported_rows_by_tag": {
+        "heal": 1,
+        "increaseheal": 1,
+        "damage": 2,
+        "increasedamagetaken": 1
+      },
+      "adverse_supported_rows": 0,
+      "classification": "Wood",
+      "label_kind": "element",
+      "census_collisions": 1,
+      "emphasis": {
+        "primary": "Co-primary — Sustain (Verdant Bastion Heal and Increase Heal) and Wood damage (Nature's Fury, Nature's Curse)",
+        "secondary": "Exposure — Increase Damage Taken (Nature's Fury)",
+        "tertiary": "None — absorb and drain on Nature's Curse are unsupported"
+      },
+      "nodes": 8,
+      "tiers": {
+        "F": 2,
+        "H": 3,
+        "A": 3
+      },
+      "structure_errors": [],
+      "full_budget_allocations": 8,
+      "non_dominated_full_allocations": 7,
+      "maximum_advanced_arts": 1,
+      "minimum_two_advanced_cost": 5,
+      "maximum_depth": 3,
+      "maximum_tag_bonuses": {
+        "damage": 6,
+        "increasedamagetaken": 7,
+        "increaseheal": 8,
+        "heal": 5
+      },
+      "max_full_build_raw_flat_total": 16,
+      "max_full_build_row_weighted_total": 18,
+      "strongest_full_build": {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "names": [
+          "Thorn and Rot",
+          "Ironwood Lash",
+          "Old Growth's Wrath",
+          "Sap of the Grove"
+        ],
+        "bonuses": {
+          "damage": 6,
+          "increasedamagetaken": 2,
+          "increaseheal": 2,
+          "heal": 2
+        }
+      },
+      "lowest_value_node": {
+        "name": "Stripped Bark",
+        "row_weighted_total": 2
+      },
+      "nodes_absent_from_non_dominated_builds": [],
+      "examples": [
+        {
+          "name": "Old Growth's Wrath",
+          "archetype": "Burst",
+          "ids": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "raw_flat_total": 12,
+          "row_weighted_total": 18,
+          "bonuses": {
+            "damage": 6,
+            "increasedamagetaken": 2,
+            "increaseheal": 2,
+            "heal": 2
+          }
+        },
+        {
+          "name": "Blight and Harvest",
+          "archetype": "Exposure",
+          "ids": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "raw_flat_total": 15,
+          "row_weighted_total": 16,
+          "bonuses": {
+            "damage": 1,
+            "increasedamagetaken": 7,
+            "increaseheal": 5,
+            "heal": 2
+          }
+        },
+        {
+          "name": "Everbloom Sanctuary",
+          "archetype": "Sustain",
+          "ids": [
+            "01",
+            "06",
+            "07",
+            "08"
+          ],
+          "raw_flat_total": 16,
+          "row_weighted_total": 17,
+          "bonuses": {
+            "damage": 1,
+            "increasedamagetaken": 2,
+            "increaseheal": 8,
+            "heal": 5
+          }
+        }
+      ],
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Increase Damage Taken x1, Increase Heal x1, Heal x1). The enemy-facing root (Thorn and Rot) forks into a damage route and an exposure route; the self-facing root (Sap of the Grove) is a single Foundation → Hidden → Advanced chain. A second sustain Hidden Art or capstone under Sap of the Grove would breach the +5 Heal / +10 Increase Heal guardrails in a full build. A damage or exposure Hidden Art or capstone under Sap of the Grove is structurally possible (any two Advanced Arts would still cost at least 5 BP) but would duplicate the Thorn and Rot routes and open a second path to the Damage and Increase Damage Taken ceilings; the design declines that by choice so that Old Growth's Wrath and Blight and Harvest remain the only ways to +6 Damage and +7 IDT. Draft 1's Thorned Bloom (+2 Damage under Sap of the Grove, an exact twin of Ironwood Lash whose builds tied Ironwood Lash builds on every bonus vector) was removed for that reason. Three distinct complete builds (Burst, Exposure, Sustain) exist; Burst and Exposure each have two fourth-purchase choices, and Sustain's fourth purchase is always Thorn and Rot (06,07,08 plus 01 is legal and non-dominated).",
+      "tags_not_targeted": [],
+      "vs_reference": {
+        "max_raw_flat_total_delta": -8,
+        "max_row_weighted_delta": -13,
+        "supported_rows_delta": -4
+      }
+    }
+  ],
+  "combat_simulation_performed": false
+}

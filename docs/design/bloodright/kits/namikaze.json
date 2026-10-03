@@ -184,7 +184,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "AepwCWi31V5e0v6OgIp78",
@@ -229,7 +230,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "AepwCWi31V5e0v6OgIp78",
@@ -273,7 +275,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "OLlZlbG7AAlqyRMsQ8eqK",
@@ -318,7 +321,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "OLlZlbG7AAlqyRMsQ8eqK",
@@ -362,7 +366,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "OLlZlbG7AAlqyRMsQ8eqK",
@@ -406,7 +411,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 4
+      "range": 4,
+      "ally_hazard": true
     },
     {
       "jutsu_id": "YoAez7wDub1crgIRr5IGb",
@@ -451,7 +457,8 @@
       "ap_cost": 60,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "YoAez7wDub1crgIRr5IGb",
@@ -492,7 +499,8 @@
       "ap_cost": 60,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "DreyCm9Mq66LzAMDIZkJh",
@@ -540,7 +548,8 @@
       "ap_cost": 60,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 0
+      "range": 0,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "DreyCm9Mq66LzAMDIZkJh",
@@ -579,7 +588,8 @@
       "ap_cost": 60,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 0
+      "range": 0,
+      "ally_hazard": false
     }
   ],
   "supported_row_summary": [
@@ -705,6 +715,16 @@
     "move"
   ],
   "adverse_supported_rows": [],
+  "ally_hazard_supported_rows": [
+    {
+      "jutsu": "Tempest Shroud",
+      "row": 2,
+      "tag": "afterburn",
+      "method": "AOE_CIRCLE_SPAWN",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": null
+    }
+  ],
   "afterburn": {
     "application_rows": [
       {
