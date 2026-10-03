@@ -1,6 +1,6 @@
 {
   "title": "Terra Nova — Tectonic Creed",
-  "revision": "Draft 2 / Terra Nova classification / forked tree",
+  "revision": "Draft 3 / Terra Nova classification / forked tree",
   "bloodline": {
     "id": "AohWgMy9uYF14ivDlE-xq",
     "review_id": "BR-081",
@@ -190,7 +190,7 @@
         }
       ],
       "flavor": "What the mountain presses down stays pressed down.",
-      "coverage_note": "Fortitude suppression reaches 40% on the route (30% base); both Earth damage rows +1 (route total +2, 38→40). One 60 AP cast carries both.",
+      "coverage_note": "Fortitude suppression 40% on the route (30% base), live the 2 rounds after its hit; both Earth damage rows +1 (route +2, 38→40).",
       "parent_rule": "ALL",
       "potency_classification": "Terra Nova",
       "scope": "Terra Nova jutsu",
@@ -250,7 +250,7 @@
         }
       ],
       "flavor": "A wall is only as patient as the one who raised it.",
-      "coverage_note": "Earth Wall Decrease Damage Taken only (one self row, 2 rounds): 37→40% with Bedrock Stance. No element, four stat types: nearly all hits.",
+      "coverage_note": "Earth Wall Decrease Damage Taken (one self row, 2 rounds): 37→40% with Bedrock Stance. No element, four stat types: most non-pierce hits.",
       "parent_rule": "ALL",
       "potency_classification": "Terra Nova",
       "scope": "Terra Nova jutsu",
@@ -367,7 +367,7 @@
         "03",
         "06"
       ],
-      "rationale": "The +6 power route on both Earth attacks (Earthen Fortitude and Terra Spire 38→44, applied per target inside the spiral, before the bloodline's Earth damage passive multiplies them) with Fault Line's 32% suppression. Bedrock Stance is the fourth purchase so Earth Wall gives 37% Decrease Damage Taken and 37% Earth amplify; Burden of Stone (suppression 35%) is the attack-root-only alternative (both routes on Earthen Fortitude/Terra Spire; no Earth Wall purchase).",
+      "rationale": "The +6 power route on both Earth attacks (Earthen Fortitude and Terra Spire 38→44, applied per target inside the spiral, before the bloodline's Earth damage passive multiplies them) with Fault Line's 32% suppression. Bedrock Stance is the fourth purchase so Earth Wall gives 37% Decrease Damage Taken and 37% Earth amplify on the two rounds after its cast; Burden of Stone (suppression 35%) is the attack-root-only alternative (no Earth Wall purchase).",
       "cost": 4,
       "bonuses": {
         "damage": 6,
@@ -516,7 +516,7 @@
         "05",
         "06"
       ],
-      "rationale": "Earthen Fortitude as a control cast: one 60 AP hit at 40 power that leaves the target dealing 40% less damage for 2 rounds (30% base), to the caster and allies alike for any stat-based or element-less hit, pierce excluded. Terra Spire sits at 40. Bedrock Stance is the fourth purchase for Earth Wall at 37%/37%; Rending Strata (attacks 42) is the sharper alternative.",
+      "rationale": "Earthen Fortitude as a control cast: one 60 AP hit at 40 power, then the target deals 40% less damage (30% base, a subtraction of 40% of the staged base) on the two rounds after the hit, to the caster and allies alike for any stat-based or element-less hit, pierce excluded. Terra Spire sits at 40. Bedrock Stance is the fourth purchase for Earth Wall at 37%/37%; Rending Strata (attacks 42) is the sharper alternative.",
       "cost": 4,
       "bonuses": {
         "damage": 2,
@@ -665,7 +665,7 @@
         "07",
         "08"
       ],
-      "rationale": "Earth Wall as the centrepiece: Decrease Damage Taken 45% for 2 rounds (35% base) against every non-pierce hit whose stat resolves to one of the four stat types or that carries no element, Lightning included despite the bloodline's +10% Lightning weakness, with the Earth amplify at 39%. Fault Line is the fourth purchase (attacks 39, suppression 32%); Weight Behind the Blow (Earth amplify 42%) is the offensive alternative.",
+      "rationale": "Earth Wall as the centrepiece: Decrease Damage Taken 45% (35% base) on the two rounds after its cast, against every non-pierce hit whose stat resolves to one of the four stat types or that carries no element, Lightning included despite the bloodline's +10% Lightning weakness, with the Earth amplify at 39%. Fault Line is the fourth purchase (attacks 39, suppression 32%); Weight Behind the Blow (Earth amplify 42%) is the offensive alternative.",
       "cost": 4,
       "bonuses": {
         "damage": 1,
@@ -814,7 +814,7 @@
         "09",
         "10"
       ],
-      "rationale": "Earth Wall as a springboard: Increase Damage Given 45% for 2 rounds (35% base) on Earth-element damage only, which covers both bloodline attacks and any Earth normal jutsu but not basic attacks or non-Earth jutsu, with Decrease Damage Taken at 39%. Fault Line is the fourth purchase so the amplified attacks start at 39 power; Rampart Discipline (Decrease Damage Taken 42%) is the defensive alternative.",
+      "rationale": "Earth Wall as a springboard: Increase Damage Given 45% (35% base, added as 45% of the staged base) on the two rounds after its cast, on Earth-element damage only, which covers both bloodline attacks and any Earth normal jutsu but not basic attacks or non-Earth jutsu, with Decrease Damage Taken at 39%. Fault Line is the fourth purchase so the amplified attacks start at 39 power; Rampart Discipline (Decrease Damage Taken 42%) is the defensive alternative.",
       "cost": 4,
       "bonuses": {
         "damage": 1,
@@ -958,21 +958,21 @@
   "narrow_kit_exception": null,
   "design_notes": [
     "Node split: Fault Line raises both Earth damage rows and Fortitude's suppression, forking into Rending Strata → Continental Rift (damage) and Burden of Stone → Pressure of Ages (suppression). Bedrock Stance raises both Earth Wall rows, forking into Rampart Discipline → Unmoved Mountain (fortify) and Weight Behind the Blow → Landslide Momentum (amplify). 2 F / 4 H / 4 A; every capstone 3 BP deep; any two capstones 5–6 BP. Ten nodes because the four tags are four distinct roles.",
-    "Flats scale by coverage. Damage reaches 2 rows (Taiyo Kami: 3), so the route is 1+2+3 = +6 power at the guardrail (38→44 on both attacks). The three single-row percentage tags follow Taiyo's 2+3+5 = +10 shape (DDG 30→40%, DDT 35→45%, IDG 35→45%). Capstone secondaries (+1 Damage, +2 IDG, +2 DDT) stay below the sibling Hidden Art on the same tag. Each example build row-weights 18 (Nature's Blessing 16–18 on five rows; Taiyo Kami examples 20–29, all builds 16–31, on nine).",
+    "Reference reuse: topology and Hidden/Advanced flats copy Taiyo Kami nearly verbatim (+2/+3 Damage; 2+3+5 = +10 on DDG 30→40%, DDT 35→45%, IDG 35→45%); the kit splits the same way (attacks, self-cast). Departures: Fault Line adds +1 Damage on 2 damage rows (Taiyo: 3), route +6 (38→44); DDG on the attack root, IDG on the Wall root; no Afterburn/IDT; capstone secondaries +1 Damage/+2 IDG/+2 DDT, below each sibling Hidden Art. Examples row-weight 18 (Taiyo: examples 20–29, builds 16–31, nine rows).",
     "Matching (tags.ts getEfficiencyRatio, 3477–3510): the DDT and DDG rows list four stat types and no element, so their tag list includes None and they alter every non-pierce hit whose stat resolves to one of the four or that is element-less (basic attacks and weapons included). Earth Wall's IDG row has no stat types and elements ['Earth'] only, so its tag list is exactly ['Earth']: it amplifies Earth-element damage alone, never basic attacks or non-elemental jutsu.",
-    "Passives: the bloodline's Earth Increase Damage Given passive (15% + 0.15/level, bloodline-sourced, multiplicative) scales every enhanced Earth damage row, so +6 power is worth more than +6 after it. The +10% Lightning Increase Damage Taken passive is the kit's weakness; Earth Wall's DDT row (element-less, four stat types) does reduce Lightning hits while active, so the fortify route softens that weakness for 2 of every 7 rounds without removing it.",
-    "Delivery and uptime: all three jutsu have cooldown 7. Earth Wall is a 40 AP SELF cast (range 0) whose two buffs last 2 rounds from the following round, so both self routes have 2-in-7 uptime per cast. Earthen Fortitude (60 AP, range 4, single target) delivers the hit and the 2-round suppression together; Terra Spire (60 AP, range 4, AOE spiral) delivers Earth damage per target plus unsupported recoil and wound. Potency changes powers and percentages only.",
+    "Passives: the bloodline's Earth Increase Damage Given passive (15% + 0.15/level, fromType bloodline) multiplies every enhanced Earth damage row, so +6 power is worth more than +6 after it. The +10% Lightning Increase Damage Taken passive is the kit's weakness; Earth Wall's DDT row (element-less, four stat types) subtracts its share from Lightning hits on the two rounds after its cast, softening that weakness for 2 of every 7 rounds. Both passives are suppressed in ranked modes (§5).",
+    "Delivery and uptime: all three jutsu have cooldown 7. Earth Wall's (40 AP, SELF target) buffs are live on the two rounds after its cast round (§3b), never in it: 2-in-7 uptime for both self routes. Earthen Fortitude (60 AP, range 4, single target) lands its hit in the cast round and its suppression on the two rounds after. Terra Spire (60 AP) hits enemies on a radius-4 spiral around the caster with Earth damage and unsupported recoil; its wound also reaches allies. Potency changes values only.",
     "Fourth purchases: Burst → Bedrock Stance (Wall 37%/37%) or Burden of Stone (suppression 35%; attack-root only, no Earth Wall); Suppression → Bedrock Stance or Rending Strata (attacks 42); Fortified → Fault Line (attacks 39, suppression 32%) or Weight Behind the Blow (amplify 42%); Amplify → Fault Line or Rampart Discipline (DDT 42%). Strongest unadvertised build by row weight: 01,02,04,05 (DDG +10, Damage +4) ties the examples at 18. Lowest-value nodes: the three +3 single-row Hidden Arts."
   ],
   "risks": [
     "Classification: Earth is a basic element carried by 23 other census bloodlines and, unverified, by ordinary jutsu, so the label is the bloodline-keyed extension 'Terra Nova' (resolver change and extension). Under the current resolver an Earth modifier reaches the 3 Earth rows directly and the 2 element-less rows only via None, which also reaches every non-elemental row the player casts.",
     "Earth-only amplify (open user decision): Earth Wall's IDG row matches Earth damage alone (element list lacks None), so Landslide Momentum's 45% skips basic attacks and non-Earth jutsu. The draft keeps +5 (route +10, symmetric with DDT/DDG) because the scope is narrow; the alternative is +3 (route 2+3+3 = +8), leaving DDT as the only +10 self route and making the declared ordering real.",
-    "Broad self fortification: Unmoved Mountain puts Earth Wall's DDT at 45% for 2 rounds; the row matches every non-pierce hit whose stat resolves to one of the four stat types or that is element-less, so it also blunts Lightning hits against the kit's +10% Lightning weakness. BATTLE_TAG_STACKING is on at the pin, so it stacks with other DDT sources; one cast per 7 rounds limits self-stacking.",
+    "Broad fortification: Unmoved Mountain puts Earth Wall's DDT at 45% for 2 rounds, matching every non-pierce hit whose stat is one of the four or that is element-less, Lightning included. Same-tag effects all apply (process.ts 1109–1117), so 45% adds to any other DDT on the caster (plus a 30% source: 75% of staged base). Cooldown 7 exceeds the 2 rounds, so own casts never overlap.",
     "Suppression leakage: Pressure of Ages puts Earthen Fortitude's Decrease Damage Given at 40% for 2 rounds on one target; the debuff reduces that enemy's damage to the caster's allies as well (any stat-based or element-less hit, pierce excluded), so the route is worth more in team battles than one row suggests. It is a single-target 60 AP cast on cooldown 7; the kit has no area suppression.",
-    "Single-cast concentration: both Earth Wall routes raise rows of one 40 AP D-rank self cast (range 0, so no ally receives it), and both attack-root routes share Earthen Fortitude; the per-AP value of Earth Wall rises more than the damage route's. All four capstones depend on one jutsu each, so a prevented or sealed cast removes the whole route's value for that cooldown cycle.",
-    "Terra Spire's recoil and wound rows are unsupported and unchanged. The wound row lacks friendlyFire (treated as ALL), so allies in the spiral already receive it; the caster never does (OTHER_USER area rows reach only living non-caster users: actions.ts 1029-1060, 1226-1248). No node touches it, but the Damage route invites casting Spire into mixed groups. The damage row is friendly fire ENEMIES.",
-    "Highest-stat resolution: both damage rows use statTypes/generalTypes 'Highest', resolved through the caster's highestOffence (gap G16, not verified always defined). Their Earth element matches Earth Wall's amplify regardless, and the element-less DDT/DDG rows match element-less hits through None regardless, but an elemental enemy hit whose 'Highest' fails to resolve would not be blunted.",
-    "Damage is formula-calculated with sqrt stat scaling and is then multiplied by the Earth Increase Damage Given passive and by Earth Wall's amplify when active, so +6 raw power is not linear +6 damage. No combat simulation was performed; main-tree effects, equipment, AP, uptime and modifier delivery are outside this audit."
+    "Single-cast concentration: both Earth Wall routes raise rows of one 40 AP D-rank SELF-target cast (only the caster receives them), and both attack-root routes share Earthen Fortitude; Earth Wall's per-AP value rises more than the damage route's. All four capstones depend on one jutsu each, so a prevented or sealed cast removes the route's value for that cooldown cycle.",
+    "Terra Spire's recoil and wound rows are unsupported. The spiral is centred on the caster (radius 4, own tile removed; §3b); the wound row lacks friendlyFire (= ALL), so allies within it receive the wound and the caster never does (OTHER_USER area rows reach only living non-caster users: actions.ts 1029–1060, 1226–1248). No node touches it, but the Damage route invites casting Spire near allies.",
+    "Highest-stat resolution (§4b, G16): both damage rows list statTypes 'Highest', resolved from the caster's highestOffence, a required BattleUserState field (types.ts 156), so enemy DDT buffs and DDG debuffs with four-stat filters match and blunt the boosted hits. Their Earth element is what matches Earth Wall's amplify; only an elemental hit with no stat type escapes the four-stat DDT/DDG rows.",
+    "Damage is formula-calculated with sqrt stat scaling, then the Earth passive multiplies it, while Earth Wall's amplify (live from an earlier cast) adds 35–45% of the staged base, so +6 raw power is not linear +6 damage. No combat simulation was performed; main-tree effects, equipment, AP, uptime and modifier delivery are outside this audit."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1032,7 +1032,7 @@
       "increasedamagegiven"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 2 / Terra Nova classification / forked tree",
+    "revision": "Draft 3 / Terra Nova classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed potency classification behavior; not implemented or verified in the live engine.",

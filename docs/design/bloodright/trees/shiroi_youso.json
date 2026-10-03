@@ -1,6 +1,6 @@
 {
   "title": "Shiroi Youso — Confluence of Five",
-  "revision": "Draft 2 / Shiroi Youso bloodline-keyed classification / forked tree",
+  "revision": "Draft 3 / Shiroi Youso bloodline-keyed classification / forked tree",
   "bloodline": {
     "id": "vv45N2En3p8VrNcU2acd8",
     "review_id": "BR-067",
@@ -59,7 +59,7 @@
     "primary": "Elemental amplification (self Increase Damage Given on Fire Release and Wind Release; enemy Increase Damage Taken on Fire Release and Element Divine's area)",
     "secondary": "Burst and burn (Damage on Lightning Release 40 and Element Divine 45; Afterburn on the same two casts, 35% and 30%)",
     "tertiary": "Defensive control (self Decrease Damage Taken on Wind Release and Earth Release; static Heal on Water Release)",
-    "rationale": "Eleven supported rows sit on six casts and every percentage tag reaches exactly two of them: two 35% five-element self damage buffs (Fire Release, Wind Release), two 35% five-element exposures (Fire Release, Element Divine's area), two 35% all-stat self Decrease Damage Taken rows (Wind, Earth), two Afterburn rows (Lightning Release 35%, Element Divine 30%) and two Damage rows (40, 45) under a 25% + 0.15/level five-element Increase Damage Given passive. The kit's Burst and Combo Playmaking traits ride Lightning Release and Element Divine (60 AP each) after Fire Release's one-cast setup, so the offensive root carries amplification and forks into Damage and Afterburn; the Defensive Control trait lives in the two-round self Decrease Damage Taken buffs and the 25-power Water heal, so the defensive root forks into Decrease Damage Taken and a sustain route that ends in exposure."
+    "rationale": "Eleven supported rows sit on six casts and every percentage tag reaches exactly two of them: two 35% five-element self damage buffs (Fire Release, Wind Release), two 35% five-element exposures (Fire Release, Element Divine's area), two 35% all-stat self Decrease Damage Taken rows (Wind, Earth), two Afterburn rows (Lightning Release 35%, Element Divine 30%) and two Damage rows (40, 45) under a 25% + 0.15/level five-element Increase Damage Given passive. The kit's Burst and Combo Playmaking traits ride Lightning Release and Element Divine (60 AP each) cast in the round after Fire Release's setup (buffs act only after their cast round, SOURCE_MECHANICS §3b), so the offensive root carries amplification and forks into Damage and Afterburn; the Defensive Control trait lives in the two-round self Decrease Damage Taken buffs and the 25-power Water heal, so the defensive root forks into Decrease Damage Taken and a sustain route that ends in exposure."
   },
   "nodes": [
     {
@@ -402,7 +402,7 @@
         "03",
         "06"
       ],
-      "rationale": "The +6 power route on both Damage rows (Lightning Release 46, Element Divine 51) with Fivefold Kindling's 37% self buffs and 37% exposure feeding the same two casts and the two children Lightning Release injects (Element Divine injects nothing). Bedrock and Tide is the fourth purchase because it adds the 37% self DDT buffs and the heal (270 HP per tick) without re-touching the offensive rows; Charred Current (Afterburn 38%/33%) is the all-in alternative.",
+      "rationale": "The +6 power route on both Damage rows (Lightning Release 46, Element Divine 51). Fivefold Kindling's 37% self buffs and Fire Release's 37% exposure, cast a round earlier, add to both strikes and to the two children Lightning Release injects (Element Divine injects nothing; its own exposure helps only later hits). Bedrock and Tide is the fourth purchase because it adds the 37% self DDT buffs and the heal (270 HP per tick) without re-touching the offensive rows; Charred Current (Afterburn 38%/33%) is the all-in alternative.",
       "cost": 4,
       "bonuses": {
         "damage": 6,
@@ -788,7 +788,7 @@
         "05",
         "06"
       ],
-      "rationale": "Afterburn at the route maximum (Lightning Release 42%, Element Divine 37%) so every non-pierce hit on the target for two rounds, including the Planetary Devastation and Voltari casts that follow Lightning Release's stun, adds extra damage, with exposure at 39% on Fire Release and Element Divine and self buffs at 37%. Bedrock and Tide is the fourth purchase for the 37% self DDT buffs and the heal; Pale Lightning (42/47 power) is the offensive alternative.",
+      "rationale": "Afterburn at the route maximum (Lightning Release 42%, Element Divine 37%; together capped at 60% per hit), so in the two rounds after each cast every non-pierce hit on the target, including the Planetary Devastation and Voltari casts that follow Lightning Release's stun, adds extra damage, with exposure at 39% on Fire Release and Element Divine and self buffs at 37%. Bedrock and Tide is the fourth purchase for the 37% self DDT buffs and the heal; Pale Lightning (42/47 power) is the offensive alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -1174,7 +1174,7 @@
         "07",
         "08"
       ],
-      "rationale": "Both self Decrease Damage Taken buffs at the two-row maximum 42% (+7), realized on the caster at cast time with no positional condition, and both self damage buffs at 40% from the capstone's secondary plus Fivefold Kindling, with exposure at 37% and the heal at 270 HP per tick. Its opportunity cost is the forgone Damage and Afterburn routes, not mobility. Fivefold Kindling is the fourth purchase because it compounds the self-buff secondary; Tidal Mending (300 HP per tick) is the sustain alternative.",
+      "rationale": "Both self Decrease Damage Taken buffs at the two-row maximum 42% (+7), realized on the caster at cast time (no positional condition, SOURCE_MECHANICS §4b), and both self damage buffs at 40%, with exposure at 37% and the heal at 270 HP per tick. Its opportunity cost is the forgone Damage and Afterburn routes, not mobility. Fivefold Kindling is the fourth purchase because its +2 adds to the capstone's +3 self buff; Tidal Mending (300 HP per tick) is the sustain alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
@@ -1559,7 +1559,7 @@
         "09",
         "10"
       ],
-      "rationale": "Both enemy exposures at the two-row maximum 41% (+6) on Fire Release's single target and Element Divine's area, amplifying the player's, allies' and injected children's five-element hits, with 39% self DDT buffs and a 300 HP per tick heal cast on the caster. Tidal Mending is bought as the deliberate gate to this capstone (see design notes); Fivefold Kindling is the fourth purchase because it compounds exposure and adds the 37% self buffs; Gale Bulwark (42% DDT) is the anchor alternative.",
+      "rationale": "Both enemy exposures at the two-row maximum 41% (+6) on Fire Release's single target and Element Divine's area, adding to the player's, allies' and injected children's five-element hits in the two rounds after each cast, with 39% self DDT buffs and a 300 HP per tick heal on the caster. Tidal Mending is bought as the deliberate gate to this capstone (see design notes); Fivefold Kindling is the fourth purchase for +2 on both exposures and the 37% self buffs; Gale Bulwark (42% DDT) is the anchor alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -1938,21 +1938,21 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Node split: root Fivefold Kindling (+2 self Increase Damage Given, +2 exposure) forks into a Damage route (Pale Lightning → Divine Convergence) and an Afterburn route (Charred Current → White Immolation). Root Bedrock and Tide (+2 self Decrease Damage Taken, +2 Heal) forks into a DDT route (Gale Bulwark → Eye of the Tempest) and a sustain route ending in exposure (Tidal Mending → Pull of the Undertow). 2/4/4 nodes; every Advanced Art is 3 BP deep; any two cost 5 or 6 BP against the 4 BP cap.",
-    "Flats scaled by coverage. Every percentage tag reaches two rows, so each takes the two-row ladder: IDG +2/+3 (max +5, 40%), IDT +2/+2/+4 (max +6, 41%), DDT +2/+3/+2 (max +7, 42%). Afterburn +3/+4 (max +7: 42% and 37%) stays under the single-row +10 because Lightning Release 35% and Element Divine 30% already saturate the 60% per-hit cap together. Damage reaches two rows (40, 45), not Taiyo Kami's three, so it carries +2/+4 (max +6, the guardrail). Heal +2/+3 (max +5: +50 HP per tick on 250).",
-    "Capstone secondaries never out-bid a sibling Hidden Art on its own tag: White Immolation's +2 exposure and Pull of the Undertow's +2 DDT sit below Gale Bulwark's +3; Eye of the Tempest's +3 self buff has no Hidden Art competitor. Row-weighted node values: Foundations 8/6, Hidden Arts 4/6/6/3, Advanced Arts 8/12/10/12; full builds 21–32 against Taiyo Kami's 20–31 on nine rows. Maxima: Damage +6, IDG +5, IDT +6, DDT +7, Afterburn +7, Heal +5; not jointly attainable.",
-    "Main tree and passives: the IDG and IDT rows list the five elements with no stat filter, so (SOURCE_MECHANICS §3) they multiply five-element damage only: the kit's two Damage rows, the five injected children and any other five-element hit; element-less damage (basic attacks, non-elemental jutsu, element-less weapons) gets ratio 0. The DDT rows list all four stat types, no element: every non-pierce hit. The five-element IDG passive (25% + 0.15/level) stacks on top as a bloodline multiplier.",
-    "Delivery and uptime: all six casts are cooldown 7; Lightning Release and Element Divine cost 60 AP, the rest 40. Wind Release's DDT/IDG and Earth Release's DDT are SELF rows realized on the caster at cast time whatever the ground target (SOURCE_MECHANICS §4b); only the unsupported INHERIT rows (Wind's move, Earth's barrier) become ground effects. Water Release's heal is a 2-round effect on the caster, paid on the two following rounds. Fire Release carries a self buff and an exposure.",
+    "Shape: Fivefold Kindling (+2 IDG, +2 exposure) forks into Damage (Pale Lightning → Divine Convergence) and Afterburn (Charred Current → White Immolation); Bedrock and Tide (+2 DDT, +2 Heal) into DDT (Gale Bulwark → Eye of the Tempest) and sustain-to-exposure (Tidal Mending → Pull of the Undertow). This is Taiyo Kami's topology with four flats copied verbatim (Kindling = Dawnheart, Pale Lightning = Crown of Cinders, Charred Current = Emberwake, Gale Bulwark = Golden Mantle); departures follow.",
+    "Departures, scaled by coverage: every percentage tag reaches two rows, so each takes the two-row ladder: IDG +2/+3 (max +5, 40%), IDT +2/+2/+4 (max +6, 41%), DDT +2/+3/+2 (max +7, 42%; Sovereign Sun's +5 would reach +10 on two rows). Afterburn +3/+4 (max +7: 42%/37%), not Eternal Noon's +7, as 35% + 30% already pass the 60% per-hit cap. Damage +2/+4 (max +6) on two rows, not three. Heal +2/+3 (max +5) replaces DDG, which the kit lacks; the sustain capstone ends in exposure.",
+    "Capstone secondaries never out-bid a sibling Hidden Art on its own tag: Pull of the Undertow's +2 DDT sits below Gale Bulwark's +3; no Hidden Art carries IDT or IDG. Row-weighted node values: Foundations 8/6, Hidden Arts 4/6/6/3, Advanced Arts 8/12/10/12; full builds 21–32 against Taiyo Kami's 20–31 on nine rows. Maxima: Damage +6, IDG +5, IDT +6, DDT +7, Afterburn +7, Heal +5; not jointly attainable. Every Advanced Art is 3 BP deep; any two cost 5–6 BP.",
+    "Main tree and passives: the IDG and IDT rows list the five elements with no stat filter, so (SOURCE_MECHANICS §3) they add power/100 × staged base to five-element damage only: the kit's two Damage rows, the five injected children and any other five-element hit; element-less damage (basic attacks, non-elemental jutsu, element-less weapons) gets ratio 0. The DDT rows list all four stat types, no element: every non-pierce hit. Only the IDG passive (25% + 0.15/level, five-element) multiplies.",
+    "Delivery and uptime: all six casts are cooldown 7; Lightning Release and Element Divine cost 60 AP, the rest 40. Wind's DDT/IDG and Earth's DDT are SELF rows realized on the caster at cast time (§4b); only the unsupported INHERIT rows (Wind's move, Earth's barrier) become ground effects. Water's heal lands on the caster (SELF target, util.ts 2753). Every buff/debuff acts in the two rounds after its cast, never on its own cast's hit (§3b): Fire Release sets up the next round's strikes.",
     "Fourth purchases: Burst takes Bedrock and Tide or Charred Current; Burn pressure Bedrock and Tide or Pale Lightning; Fortified Fivefold Kindling or Tidal Mending; Control Fivefold Kindling or Gale Bulwark. Tidal Mending (+30 HP per tick on the single heal row) is the lowest row-weighted node (3 vs siblings 4/6/6), a gate to Pull of the Undertow. User-owned: (a) keep as a deliberate gate; (b) shift +1 Heal from Bedrock and Tide to it (+1/+4); (c) add a small second tag off the DDT lane."
   ],
   "risks": [
     "Ally hazard: Element Divine row 1 (Afterburn 30%) and row 2 (exposure 35%) are AOE_CIRCLE_SPAWN with friendly fire none (=ALL): allies inside the circle also receive the debuffs; the caster never does (OTHER_USER target, SOURCE_MECHANICS §4b). Kindling, Charred Current, White Immolation and Pull of the Undertow raise what allies there take; positioning decides. The Damage row is ENEMIES-only.",
     "Afterburn saturation: Lightning Release 35% and Element Divine 30% stack to 65% on one target, above the 60% per-hit cap, so the +7 route adds value only while a single Afterburn source is active. Downstream coverage (every non-pierce hit by anyone for 2 rounds, including the injected children cast into Lightning Release's 2-round stun) was not simulated; pierce hits take no Afterburn.",
-    "Leakage: with five-element IDG/IDT rows, the +5 self buff and +6 exposure reach only five-element damage: the player's other five-element jutsu (IDG) and anyone's five-element hits on the exposed target, allies included (IDT). Basic attacks, element-less weapons and non-elemental jutsu get ratio 0. Fire and Wind windows overlap to 80% self buff; Fire plus Element Divine exposures to 82%.",
-    "Delivery: Wind Release rows 0-1 and Earth Release row 0 are SELF rows on EMPTY_GROUND casts; Water Release's heal is INHERIT on a SELF-target cast: all four land on the caster at cast time, not positionally (SOURCE_MECHANICS §4b). Their cost is the forgone Damage/Afterburn routes; Eye of the Tempest holds both DDT (42%) and IDG (40%) maxima unconditionally: user-owned check (IDG +3 → +2?).",
+    "Leakage: the +5 self buff and +6 exposure reach only five-element damage: the player's other five-element jutsu (IDG) and anyone's five-element hits on the exposed target, allies included (IDT); basic attacks, element-less weapons and non-elemental jutsu get ratio 0. Same-tag rows add (§3b): overlapping Fire and Wind windows give 80% self buff, Fire plus Element Divine exposures 82%.",
+    "Delivery: Wind Release rows 0-1 and Earth Release row 0 are SELF rows on EMPTY_GROUND casts; Water Release's INHERIT heal is on a SELF-target cast (only the caster is valid, util.ts 2753): all four land on the caster at cast time (§4b). Their cost is the forgone Damage/Afterburn routes; Eye of the Tempest holds both DDT (42%) and IDG (40%) maxima unconditionally: user-owned check (IDG +3 → +2?).",
     "Injected children: Lightning, Fire and Water Release inject five SPECIAL children (empty bloodlineId; level = inject power 100/110) with Damage, DDG, IDG, Lifesteal and IDT rows. Inheritance is a gap-register decision; this tree counts none of them. If they inherit, Damage +6 reaches five more hits, IDG +5 Voltari's IDG row, IDT +6 Rising Water Slicer's IDT row; Lifesteal/DDG stay untargeted.",
     "Classification: Fire and Lightning both sit on Damage rows; neither isolates the kit (5 of 11 rows match either, 5 fall back to None). Collisions: Primal Radiance (INCLUDE) on Fire damage rows, Voltara Divine (INCLUDE) on Lightning damage rows; only the excluded non-public Youso Shiroi carries both. The bloodline-keyed label needs the classification extension; normal-jutsu collision unverified.",
-    "Heal scale: one static row, 25 power = 250 HP per tick on two following rounds; the +5 route adds 100 HP per 40 AP cast, small against high-level pools. Tidal Mending's value rests entirely on that cast, and Increase Heal is absent from the kit, so no node compounds it. Absorb (Water) and barrier (Earth) are unsupported and unchanged.",
+    "Heal scale: one static row, 25 power = 250 HP per tick on two following rounds; the +5 route adds 100 HP per 40 AP cast, small against high-level pools. Tidal Mending's value rests entirely on that cast, and Increase Heal is absent from the kit, so nothing in the tree amplifies it. Absorb (Water) and barrier (Earth) are unsupported and unchanged.",
     "Context: skill-tree and bloodline effects are suppressed in ranked PvP and ranked sparring; normal-tree potency policy is not approved, so a combined stacking audit precedes implementation. Lightning Release and Element Divine carry Damage and Afterburn and are touched by both offensive routes: the load-bearing casts. No combat simulation was performed; balance values remain user-owned."
   ],
   "progression": {
@@ -2019,7 +2019,7 @@
       "increasedamagetaken"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 2 / Shiroi Youso bloodline-keyed classification / forked tree",
+    "revision": "Draft 3 / Shiroi Youso bloodline-keyed classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed potency classification behavior; not implemented or verified in the live engine.",

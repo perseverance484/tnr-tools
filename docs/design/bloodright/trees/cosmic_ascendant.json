@@ -1,6 +1,6 @@
 {
   "title": "Cosmic Ascendant — Weight of the Stars",
-  "revision": "Draft 2 / Cosmic Ascendant classification / forked tree",
+  "revision": "Draft 3 / Cosmic Ascendant classification / forked tree",
   "bloodline": {
     "id": "osVXxtyW61gr-bx5v5ys2",
     "review_id": "BR-018",
@@ -24,7 +24,7 @@
     "primary": "Exposure into burst: Increase Damage Taken (2 rows, +5 ceiling) feeding Cosmic Explosion Damage (1 row, +6 ceiling)",
     "secondary": "Decrease Damage Taken (Defensive; 3 rows on Cosmic Chains, Cosmic Energy and Cosmic Aura; +6 ceiling)",
     "tertiary": "Cosmic Intent's Afterburn (+10 ceiling) and Lifesteal (+8 ceiling) as rival capstones; Increase Damage Given (+5) and Decrease Damage Given (+5) as glue",
-    "rationale": "Cosmic Ascendant is a rank S kit tagged Burst and Defensive with 10 supported rows on five jutsu. Its only Damage row is Cosmic Explosion (50 at level 25, 60 AP), so burst here is exposure first: Cosmic Intent and Cosmic Chains each carry a 35% Increase Damage Taken row that lists all four stat types with no element and therefore amplifies essentially every hit the target takes. Decrease Damage Taken sits on three separate 40 AP jutsu (Chains 35%, Energy 35%, Aura 30%, all 2 rounds on a 7-round cooldown), which is the broadest tag in the kit and the Defensive trait's engine. Cosmic Intent is the signature A-rank cast (IDT 35%, Afterburn 35%, Lifesteal 40% in one 40 AP action), so its burn and its leech are offered as two rival capstones a player cannot own together."
+    "rationale": "Cosmic Ascendant is a rank S kit tagged Burst and Defensive with 10 supported rows on five jutsu. Its only Damage row is Cosmic Explosion (50 at level 25, 60 AP), so burst here is exposure first: Cosmic Intent and Cosmic Chains each carry a 35% Increase Damage Taken row that lists all four stat types with no element and therefore amplifies every non-pierce hit the target takes. Decrease Damage Taken sits on three separate 40 AP jutsu (Chains 35%, Energy 35%, Aura 30%, all 2 rounds on a 7-round cooldown), which is the broadest tag in the kit and the Defensive trait's engine. Cosmic Intent is the signature A-rank cast (IDT 35%, Afterburn 35%, Lifesteal 40% in one 40 AP action), so its burn and its leech are offered as two rival capstones a player cannot own together."
   },
   "nodes": [
     {
@@ -356,7 +356,7 @@
         "03",
         "06"
       ],
-      "rationale": "Damage +6 takes Cosmic Explosion from 50 to 56 (60 AP, the kit's only damage row) and Celestial Alignment plus the capstone's +3 put Increase Damage Taken on Cosmic Intent and Cosmic Chains at 40%, so the Explosion lands into a target exposed by either 40 AP opener; the bloodline's own IDG passive (25% + 0.15/level across Earth, Fire, Lightning, None and Wind) multiplies that raw power downstream. Gravity Well is the fourth purchase for 2% DDT on three rows and 2% DDG. It is the pure burst option and leaves the burn at 35%, the leech at 40% and mitigation at its lowest.",
+      "rationale": "Damage +6 takes Cosmic Explosion from 50 to 56 (60 AP, the kit's only damage row) and Celestial Alignment plus the capstone's +3 put Increase Damage Taken on Cosmic Intent and Cosmic Chains at 40%, so an Explosion cast in a round after either 40 AP opener lands into that exposure; the bloodline's own IDG passive (25% + 0.15/level across Earth, Fire, Lightning, None and Wind) multiplies the enhanced hit downstream. Gravity Well is the fourth purchase for 2% DDT on three rows and 2% DDG. It is the pure burst option and leaves the burn at 35%, the leech at 40% and mitigation at its lowest.",
       "cost": 4,
       "bonuses": {
         "damage": 6,
@@ -872,7 +872,7 @@
         "07",
         "08"
       ],
-      "rationale": "Decrease Damage Taken +6 lifts Cosmic Chains and Cosmic Energy from 35% to 41% and Cosmic Aura from 30% to 36%: three separate 40 AP casts on 7-round cooldowns whose 2-round self buffs land at cast time and can be rotated for near-continuous mitigation. The capstone's +3 IDG with Celestial Alignment takes Energy's cast-time self IDG to 40% for the same two rounds, wherever its circle is placed. It is the tank who hits harder while guarded: Explosion stays at 50, Afterburn at 35% and Lifesteal at 40%, so it is clearly neither the burst nor the sustain build.",
+      "rationale": "Decrease Damage Taken +6 lifts Cosmic Chains and Cosmic Energy from 35% to 41% and Cosmic Aura from 30% to 36%: three separate 40 AP casts on 7-round cooldowns whose self buffs are realized at cast and live for the two following rounds, so staggered casts cover six rounds in every seven. The capstone's +3 IDG with Celestial Alignment takes Energy's self IDG to 40% for the same two rounds, wherever its circle is placed. It is the tank who hits harder while guarded: Explosion stays at 50, Afterburn at 35% and Lifesteal at 40%, so it is clearly neither the burst nor the sustain build.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
@@ -1129,7 +1129,7 @@
         "09",
         "10"
       ],
-      "rationale": "The leech route takes Cosmic Intent's Lifesteal from 40% to 48%, twelve points under the 60% cap shared with vamp, and draws from every damage instance the caster lands during its two rounds, pierce included, while the capstone's +3 DDG with Gravity Well dulls the struck enemy's own blows to 35%. Celestial Alignment adds 2% exposure and 2% IDG for the fourth purchase. The alternative fourth, Event Horizon instead of Celestial Alignment, is the tank-siphon variant (DDT 39%/34%, DDG 35%, no exposure).",
+      "rationale": "The leech route takes Cosmic Intent's Lifesteal from 40% to 48%, twelve points under the 60% cap shared with vamp, and draws from every damage instance the caster lands during the two rounds after Intent's cast, pierce included, while the capstone's +3 DDG with Gravity Well takes Cosmic Aura's Decrease Damage Given on its target to 35%. Celestial Alignment adds 2% exposure and 2% IDG for the fourth purchase. The alternative fourth, Event Horizon instead of Celestial Alignment, is the tank-siphon variant (DDT 39%/34%, DDG 35%, no exposure).",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -1381,10 +1381,10 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Node split: two Foundations each fork into two Hidden -> Advanced routes. Celestial Alignment (IDT on Intent and Chains, IDG on Energy) opens the Damage route (Collapsing Star -> Supernova Unbound) and the Afterburn route (Searing Starlight -> Light of Dead Stars); Gravity Well (DDT on Chains, Energy, Aura; DDG on Aura) opens the DDT route (Event Horizon -> Heart of the Singularity) and the Lifesteal route (Stellar Siphon -> Hunger of the Void). IDG and DDG sit only on Foundations and capstones.",
+    "Reference reuse: topology and both Foundations copy Taiyo Kami (Celestial Alignment = Dawnheart, Gravity Well = Sunward Oath, both +2/+2), as do Searing Starlight (+3 Afterburn) and the +7 Afterburn capstone. Departures: Damage 3/3 on one row (Taiyo 2/3 on three) with +3 IDT on its capstone; Light of Dead Stars drops Eternal Noon's IDG; DDT 2/2/2 on three rows (Taiyo 2/3/5 on one); the fourth route is Lifesteal, as DDG is one Aura row. Same tag families and Burst/Defensive split: the shape fits.",
     "Calibration: single-row Damage is 3/3 (+6, the guardrail): Cosmic Explosion is the kit's only damage row, where Taiyo's +5 reaches three. Three-row DDT is 2/2/2 (+6), the Tetsugan three-row convention, under Godstorm's two-row +7 and Taiyo's single-row +10; two-row IDT stops at +5. Afterburn 3/7 (+10), Lifesteal 3/5 (+8). Row-weighted: burn 30, fortress 29, burst 26, sustain 25 (Taiyo 31). Burst stays primary: its Damage and team-wide IDT sit at their ceilings, so row weight understates it.",
-    "Passives and main tree: the bloodline IDG passive (25% + 0.15/level on Earth, Fire, Lightning, None, Wind; Highest) multiplies the enhanced Explosion downstream. Both IDT rows and the IDG row list all four stat types with no element, so they match every element-less hit and elemental hits of any listed stat type: the exposure amplifies allies', weapon and normal-jutsu damage on that enemy; Energy's IDG raises the caster's own hits for two rounds. Lifesteal includes pierce; other tags skip it.",
-    "Delivery and uptime: all five jutsu have a 7-round cooldown and cost 40 AP except Cosmic Explosion (60 AP, range 4). Every buff and debuff row lasts 2 rounds. Cosmic Energy is an EMPTY_GROUND circle, but its IDG and DDT rows are target SELF and land on the caster at cast time wherever the circle is placed; only its unsupported move row is a positional INHERIT ground effect. Three DDT casts allow a Chains -> Energy -> Aura rotation for overlapping mitigation. Ranked modes skip skills.",
+    "Passives and main tree: the bloodline IDG passive (Highest; None among its five elements) multiplies the enhanced Explosion downstream. Both IDT rows and the IDG row list all four stat types with no element, so they match every element-less hit and elemental hits of any listed stat type: the exposure amplifies allies', weapon and normal-jutsu damage on that enemy; Energy's IDG raises the caster's own hits for two rounds. Lifesteal includes pierce; Afterburn and the four damage modifiers skip it.",
+    "Delivery and uptime: all five jutsu have a 7-round cooldown and cost 40 AP except Cosmic Explosion (60 AP, range 4); every buff/debuff row is live the two rounds after its cast round. Cosmic Energy is an EMPTY_GROUND circle, but its IDG and DDT rows are target SELF and land on the caster at cast time wherever the circle is placed; only its unsupported move row is positional (INHERIT ground). Staggered DDT casts cover six rounds in seven; overlap: Stacking risk. Ranked modes skip skills.",
     "Fourth-purchase choices: after any 3 BP route the natural fourth is the other Foundation. Unadvertised legal builds include 01+02+04+05 (burn with +3 Damage and 40% exposure, no mitigation), 01+02+03+04 (burst with 38% Afterburn), 06+07+08+09 (pure fortress: DDT +6, IDG +3, Lifesteal +3) and 06+07+09+10 (tank-siphon: Lifesteal +8, DDG +5, DDT +4). No-capstone hybrids such as 01+02+06+07 (+3 Damage, +4 DDT, +2 IDT/IDG/DDG) are legal; all 14 allocations are non-dominated, every node used.",
     "Four examples: each capstone answers a different role: Damage (Burst), Afterburn (pressure), DDT (Defensive) and Lifesteal (sustain); the Intent capstones are rivals. User-owned tuning left open: Supernova Unbound +3 vs +2 Damage (route +6 vs +5); Heart of the Singularity ships +2 DDT (three-row route +6), with +3 (route +7) as the explicit upgrade since Energy's DDT is an unconditional self buff; whether Light of Dead Stars should carry IDT given the burst capstone already does."
   ],
@@ -1393,10 +1393,10 @@
     "Resolver: under the current resolver all 10 supported rows fall back to None; nothing in this tree is reachable exclusively today. The tree assumes the proposed whole-kit classification and the bloodline-keyed label; the engine status is proposal_requires_resolver_adjustment_and_classification_extension.",
     "Exposure breadth: both IDT rows list Bukijutsu, Genjutsu, Ninjutsu and Taijutsu with no element, so getEfficiencyRatio matches essentially every non-pierce hit the target takes from anyone for two rounds. The +5 ceiling (40% on two 40 AP casts) is therefore a team-wide amplifier, not a bloodline-only one. Pierce hits are not amplified by IDT, DDT, IDG or DDG.",
     "Afterburn: the +10 route is one application row on a single-target 40 AP cast; its value is downstream on every non-pierce hit that one enemy takes for two rounds, capped at 60% of each hit, so other Afterburn sources saturate quickly. The kit has only one damage row of its own to feed it (Cosmic Explosion); the rest comes from weapons, normal jutsu and allies. Not simulated.",
-    "Lifesteal: the route tops out at 48%, twelve points under the 60%-of-pre-shield-damage leech budget shared with vamp; vamp from the normal tree or items can saturate the cap and waste part of the +8. It needs both combatants alive and is blocked by healprevent on the caster. The kit's own feed is one 60 AP damage row plus pierce from normal jutsu or weapons.",
-    "Ground circle: Cosmic Energy's IDG and DDT are SELF-target rows, realized on the caster at cast time (actions.ts 980-1004) whether or not the caster stands in the circle, so nothing here is positional. Only its unsupported move row is an INHERIT ground effect (enemy hazard: enemies on its tiles receive it). No ally-hazard rows exist (the harmful rows are all SINGLE-method on OTHER_USER casts).",
-    "Stacking: BATTLE_TAG_STACKING is true at the pin, so these potency effects stack with any other potency source; the combined budget with a future normal-tree potency policy is unaudited. The bloodline IDG passive multiplies the enhanced Explosion, and 2-round DDT buffs on three 40 AP casts can be overlapped; neither was modelled.",
-    "No combat simulation: non-dominance of the 14 allocations and row-weighted totals are per-row arithmetic, not evidence of equal combat strength. Collapsing Star reaches one jutsu (Explosion, 60 AP); the Burst example is 26 by row weight, below Burn pressure (30) and Fortress (29) above Sustain (25), so its +6 Damage sits at the guardrail by design. No adverse, hidden, gated or injected rows."
+    "Lifesteal: the route tops out at 48%, twelve points under the 60%-of-pre-shield-damage leech budget shared with vamp; vamp from the normal tree or items can saturate the cap and waste part of the +8. It needs both combatants alive and is blocked by healprevent on the caster. In-kit feed is Cosmic Explosion alone; the rest is normal jutsu, weapons and basic attacks, pierce included.",
+    "Delivery: Cosmic Energy's IDG and DDT are SELF rows realized on the caster at cast time (actions.ts 980-1004), in the circle or not; only its unsupported move row is an INHERIT ground effect (enemy hazard). Chains and Aura are OTHER_USER casts: their self DDT needs a living non-caster target in range 4; aimed at an ally, their IDT or DDG lands on that ally (§3b). No ally-hazard rows.",
+    "Stacking: same-tag effects all apply (process.ts 1109-1117); at the pin the damage pipeline compounds jutsu IDG/IDT/DDG/DDT (process.ts 469, 1732-1767; tags.ts adjusters only log, 478-540). Two IDT at 40%: x1.96 (base x1.82). Chains+Energy in one round (80 of 100 AP, util.ts 2520), Aura the next: all three DDT live, x0.59x0.59x0.64=0.22 (base 0.30), under the 90% reduction cap (constants.ts 3096).",
+    "No combat simulation: non-dominance of the 14 allocations and row-weighted totals are per-row arithmetic, not evidence of equal combat strength. Collapsing Star reaches one jutsu (Explosion, 60 AP); the Burst example is 26 by row weight, below Burn pressure (30) and Fortress (29), above Sustain (25), so its +6 Damage sits at the guardrail by design. No adverse, hidden, gated or injected rows."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1465,7 +1465,7 @@
       "lifesteal"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 2 / Cosmic Ascendant classification / forked tree",
+    "revision": "Draft 3 / Cosmic Ascendant classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed potency classification behavior; not implemented or verified in the live engine.",

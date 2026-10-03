@@ -9,11 +9,9 @@
     "statClassification": "Highest",
     "traits": "Burst Healing and Sustained Healing"
   },
-  "revision": "Draft 4 / Wood classification / forked tree",
+  "revision": "Draft 5 / Wood classification / forked tree",
   "structure_errors": [],
-  "warnings": [
-    "universal node: 01 (Thorn and Rot) appears in every legal full-budget allocation"
-  ],
+  "warnings": [],
   "classification": {
     "potency_classification": "Wood",
     "label_kind": "element",
@@ -90,9 +88,9 @@
     }
   ],
   "audit": {
-    "available_skills": 8,
+    "available_skills": 9,
     "foundation_count": 2,
-    "hidden_art_count": 3,
+    "hidden_art_count": 4,
     "advanced_art_count": 3,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
@@ -103,18 +101,18 @@
     "legal_allocations_by_size": {
       "0": 1,
       "1": 2,
-      "2": 4,
-      "3": 7,
-      "4": 8
+      "2": 5,
+      "3": 9,
+      "4": 12
     },
-    "full_budget_allocations": 8,
-    "non_dominated_full_allocations": 7,
+    "full_budget_allocations": 12,
+    "non_dominated_full_allocations": 11,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 6,
       "increasedamagetaken": 7,
-      "increaseheal": 8,
+      "increaseheal": 9,
       "heal": 5
     },
     "supported_rows_in_kit": 5,
@@ -245,6 +243,22 @@
           "Verdant Bastion"
         ],
         "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "09",
+        "name": "Bramble Warden",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Nature's Curse",
+          "Nature's Fury",
+          "Verdant Bastion"
+        ],
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -380,6 +394,24 @@
       {
         "ids": [
           "01",
+          "02",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 4,
+          "increasedamagetaken": 2,
+          "increaseheal": 3,
+          "heal": 2
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 15,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
           "04",
           "05",
           "06"
@@ -418,6 +450,24 @@
       {
         "ids": [
           "01",
+          "04",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagetaken": 4,
+          "increaseheal": 3,
+          "heal": 2
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 13,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
           "06",
           "07",
           "08"
@@ -430,6 +480,43 @@
         },
         "raw_flat_total": 16,
         "row_weighted_total": 17,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagetaken": 2,
+          "increaseheal": 6,
+          "heal": 2
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 14,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increaseheal": 9,
+          "heal": 5
+        },
+        "raw_flat_total": 15,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "08"
         ],
@@ -464,6 +551,10 @@
         [
           "06",
           "07"
+        ],
+        [
+          "06",
+          "09"
         ]
       ],
       "3": [
@@ -498,9 +589,19 @@
           "07"
         ],
         [
+          "01",
+          "06",
+          "09"
+        ],
+        [
           "06",
           "07",
           "08"
+        ],
+        [
+          "06",
+          "07",
+          "09"
         ]
       ],
       "4": [
@@ -536,6 +637,12 @@
         ],
         [
           "01",
+          "02",
+          "06",
+          "09"
+        ],
+        [
+          "01",
           "04",
           "05",
           "06"
@@ -548,9 +655,27 @@
         ],
         [
           "01",
+          "04",
+          "06",
+          "09"
+        ],
+        [
+          "01",
           "06",
           "07",
           "08"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "08",
+          "09"
         ]
       ]
     }
