@@ -11,19 +11,33 @@
   },
   "revision": "Draft 3 / Magnet classification / forked tree",
   "structure_errors": [],
-  "warnings": [],
+  "warnings": [
+    "route Inexorable Pull primary total +7% Increase Damage Taken is off the 5/10/15 bands without a route_band_rationale"
+  ],
   "classification": {
     "potency_classification": "Magnet",
     "label_kind": "element",
-    "bloodline": "Houkyuken",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Magnet"
+    ],
     "display_element": "Magnet",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Houkyuken jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Magnet jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [],
+    "shared_element_bloodlines": [
       "Itojinsei"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {

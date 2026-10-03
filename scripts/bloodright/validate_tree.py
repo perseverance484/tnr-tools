@@ -23,7 +23,6 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bloodright_lib as L  # noqa: E402
 
 TREES_DIR = os.path.join(L.DESIGN_DIR, "trees")
-REFERENCE_TREE = os.path.join(L.DESIGN_DIR, "examples", "taiyo_kami.json")
 
 PROGRESSION = {
     "currency": "Bloodright Point",
@@ -53,7 +52,7 @@ def find_kit(tree: dict, snapshot: dict, roster: dict) -> tuple[dict, dict]:
 def other_tree_names(exclude_path: str, bloodline_id: str | None = None, bloodline_name: str | None = None) -> dict[str, str]:
     """Node names used by every other tree (another file for a different bloodline)."""
     names: dict[str, str] = {}
-    paths = sorted(glob.glob(os.path.join(TREES_DIR, "*.json"))) + [REFERENCE_TREE]
+    paths = sorted(glob.glob(os.path.join(TREES_DIR, "*.json")))
     for p in paths:
         if os.path.abspath(p) == os.path.abspath(exclude_path) or p.endswith(".validation.json"):
             continue
@@ -99,6 +98,7 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
         rows_by_tag.setdefault(r.tag, []).append(r)
 
     errors.extend(L.validate_structure(tree))
+    errors.extend(f"stale pre-RUL-2026-10-03-005 wording in {h}" for h in L.stale_language(tree))
     nodes = L.parse_nodes(tree)
     by_id = {n.id: n for n in nodes}
 
@@ -108,19 +108,29 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
             tag = m.get("tag")
             if tag in L.SUPPORTED_TAGS and not rows_by_tag.get(tag):
                 errors.append(f"node {n.id} ({n.name}) targets {tag} but the kit has no supported {tag} row")
-    cls = tree.setdefault("classification", {})
     audit_cls = L.classification_audit(kit, rows, L.load_snapshot(), L.load_roster())
-    cls.setdefault("bloodline", bname)
-    cls.setdefault("potency_classification", audit_cls["proposed_label"])
-    cls["label_kind"] = cls.get("label_kind") or audit_cls["label_kind"]
-    cls["display_element"] = audit_cls.get("display_element")
-    cls["element_exclusive_within_census"] = audit_cls.get("element_exclusive_within_census")
-    cls.setdefault("applies_to", f"existing supported tags of every {bname} jutsu")
-    cls["changes_combat_elements"] = False
-    cls["engine_status"] = "proposal_requires_resolver_adjustment"
-    cls["census_collisions"] = sorted({c["name"].strip() for c in audit_cls["census_collisions_on_signature_elements"]})
-    if cls["label_kind"] == "bloodline-keyed extension":
-        cls["engine_status"] = "proposal_requires_resolver_adjustment_and_classification_extension"
+    prior = tree.get("classification") or {}
+    cls = {
+        "potency_classification": audit_cls["proposed_label"],
+        "label_kind": audit_cls["label_kind"],
+        "classification_status": audit_cls["classification_status"],
+        "qualifying_elements": audit_cls["qualifying_elements"],
+        "display_element": audit_cls.get("display_element"),
+        "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+        "applies_to": "",
+        "not_selectors": audit_cls["not_selectors"],
+        "kit_jutsu_by_authored_classification": audit_cls["kit_jutsu_by_authored_classification"],
+        "shared_element_bloodlines": sorted({c["name"].strip() for c in audit_cls["shared_element_bloodlines"]}),
+        "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+        "changes_combat_elements": False,
+        "preserves_row_filters": True,
+        "engine_status": audit_cls["engine_status"],
+    }
+    cls["applies_to"] = f"matching supported tags on all {L.scope_label(cls)} jutsu"
+    if prior.get("director_note"):
+        cls["director_note"] = prior["director_note"]
+    tree["classification"] = cls
+    membership = {m["jutsu"]: m["membership"] for m in audit_cls["kit_membership"]}
 
     tree["bloodline"] = {
         "id": b["id"], "review_id": (record or {}).get("review_id"), "name": bname, "rank": b.get("rank"),
@@ -142,7 +152,7 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
         n["parent_rule"] = "ALL"
         n["cost"] = L.NODE_COST
         n["potency_classification"] = label
-        n["scope"] = f"{bname} jutsu"
+        n["scope"] = f"all {L.scope_label(cls)} jutsu"
         if not errors:
             n["minimum_path_bp"] = L.depth(nid, by_id)
         cov_jutsu: set[str] = set()
@@ -152,6 +162,7 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
         gated_rows = 0
         hazard_rows = []
         enemy_rows = []
+        authored_rows = 0
         for m in n.get("modifiers", []):
             m["flat"] = int(m["flat"])
             role, roles = role_for_modifier(m["tag"], rows)
@@ -171,6 +182,8 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
                     hazard_rows.append(f"{r.jutsu_name}#{r.row}")
                 if r.enemy_hazard:
                     enemy_rows.append(f"{r.jutsu_name}#{r.row}")
+                if membership.get(r.jutsu_name) == "authored":
+                    authored_rows += 1
         n["coverage"] = {"jutsu": sorted(cov_jutsu), "effect_rows": cov_rows}
         if hazard_rows:
             n["coverage"]["ally_hazard_rows"] = sorted(set(hazard_rows))
@@ -183,6 +196,8 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
             n["coverage"]["hidden_rows"] = hidden_rows
         if gated_rows:
             n["coverage"]["item_gated_rows"] = gated_rows
+        if authored_rows:
+            n["coverage"]["rows_via_authored_classification"] = authored_rows
 
     # examples
     examples = tree.get("examples") or []
@@ -229,10 +244,11 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
     tree["audit"]["revision"] = tree.get("revision")
     tree["audit"]["source_snapshot"] = tree["snapshot"]["public_kit_snapshot"]
     tree["audit"]["limits"] = [
-        "Proposed potency classification behavior; not implemented or verified in the live engine.",
-        f"All existing supported tags of {bname} jutsu inherit {label} potency eligibility; original combat elements and target scopes stay intact.",
-        "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-        "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+        "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+        f"{L.scope_sentence(cls)} Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+        "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+        "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+        "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
         "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
         "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
         "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
@@ -247,10 +263,12 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
         warnings.append("fewer than 2 Advanced Arts without a narrow_kit_exception")
     if audit["nodes_absent_from_non_dominated_builds"]:
         warnings.append("nodes absent from every non-dominated full build: " + ", ".join(audit["nodes_absent_from_non_dominated_builds"]))
-    for t, v in audit["maximum_tag_bonuses"].items():
-        cap = 6 if t == "damage" else 12
-        if v > cap:
-            warnings.append(f"maximum {t} bonus {v} exceeds the planning guardrail {cap}")
+    c_err, c_warn, c_report = L.ceiling_findings(tree)
+    errors.extend(c_err)
+    warnings.extend(c_warn)
+    tree["audit"]["ceilings"] = c_report
+    if cls["label_kind"] != "element":
+        warnings.append(f"classification status: {cls['classification_status']} (director decision)")
     universal = [nid for nid in by_id if audit["full_builds"] and all(nid in b["ids"] for b in audit["full_builds"])]
     if universal:
         names = ", ".join(f"{nid} ({by_id[nid].name})" for nid in sorted(universal))

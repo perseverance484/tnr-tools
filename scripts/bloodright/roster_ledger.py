@@ -44,7 +44,7 @@ def build() -> str:
         bid = r["bloodline_id"]
         slug = L.slugify(r["name"])
         if bid in reference:
-            state = "worked reference (examples/taiyo_kami.*)"
+            state = "worked reference (trees/taiyo_kami.*, regenerated from the approved values; examples/ keeps the original handoff)"
         elif bid in approved:
             tpath = os.path.join(trees_dir, slug + ".json")
             state = f"tree: trees/{slug}.json" if os.path.exists(tpath) else "approved; tree pending"

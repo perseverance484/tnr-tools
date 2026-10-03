@@ -522,11 +522,49 @@
   },
   "classification_audit": {
     "signature_elements": [],
+    "qualifying_elements": [],
     "display_element": null,
     "proposed_label": "Ha Yanagi",
-    "label_kind": "bloodline-keyed extension",
-    "element_exclusive_within_census": false,
-    "note": "No non-None element on any damage/pierce row. No existing element can isolate this kit; a bloodline-keyed classification label (extension of the proposed resolver change) is required. Targeting 'None' would reach every non-elemental row in the game.",
+    "label_kind": "classification extension",
+    "classification_status": "requires classification extension",
+    "note": "No non-None element on any damage/pierce row, so no existing element identifies this kit. Requires a classification extension: a new jutsu classification (placeholder name 'Ha Yanagi') assigned to jutsu records. It is not a bloodline-id selector; which jutsu carry it is a director/engine decision. Targeting 'None' would reach every non-elemental row in the game.",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_membership": [
+      {
+        "jutsu": "Wailing Bark",
+        "jutsu_elements": [
+          "None"
+        ],
+        "membership": "authored",
+        "supported_rows": 2
+      },
+      {
+        "jutsu": "Blighted Tree",
+        "jutsu_elements": [
+          "None"
+        ],
+        "membership": "authored",
+        "supported_rows": 2
+      },
+      {
+        "jutsu": "Petal Nightmare",
+        "jutsu_elements": [
+          "None"
+        ],
+        "membership": "authored",
+        "supported_rows": 2
+      }
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Blighted Tree",
+      "Petal Nightmare",
+      "Wailing Bark"
+    ],
     "current_resolver_reach": [
       {
         "label": "None",
@@ -534,18 +572,18 @@
         "rows_falling_back_to_None": 6,
         "rows_with_other_elements_only": 0,
         "supported_rows_total": 6,
-        "exclusive_under_current_resolver": false,
-        "note": "Current resolver matches each effect row's own elements (absent list -> ['None']). Rows without the label are unreachable with affectedElements=[label]; reaching them needs affectedElements including 'None', which also reaches every non-elemental row on any jutsu the player can cast."
+        "note": "Current resolver matches each effect row's own elements (absent list -> ['None']); it has no jutsu-level classification. Rows on a qualifying jutsu that do not carry the element are unreachable today: ENGINE GAP, not a design question."
       }
     ],
-    "census_collisions_on_signature_elements": [],
+    "shared_element_bloodlines": [],
+    "shared_element_note": "Other captured bloodlines with jutsu of the qualifying element. Sharing is expected. Their bloodline jutsu are castable only by their own bloodline's owners (checkJutsuBloodline, app/src/libs/train.ts 185-188), so they do not widen what one owner can amplify; NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the element can.",
     "census_bloodlines_with_None_rows": 35,
-    "normal_jutsu_collision": "UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). Whether NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carry this element needs a read-only public jutsu listing capture requested from dauntless.",
+    "off_kit_coverage": "UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the qualifying element are in scope by rule; how many exist needs a read-only public jutsu listing capture.",
     "injected_children": [],
     "item_gated_jutsu": [],
     "mode_restricted_jutsu": [],
     "hidden_jutsu": [],
     "non_bloodline_type_jutsu_in_kit": [],
-    "engine_status": "proposal_requires_resolver_adjustment"
+    "engine_status": "proposal_requires_jutsu_classification_resolver_and_classification_extension"
   }
 }

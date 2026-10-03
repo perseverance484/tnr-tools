@@ -12,13 +12,24 @@
   "classification": {
     "potency_classification": "Yin-Yang",
     "label_kind": "element",
-    "bloodline": "Heavenly Sonata",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Yin-Yang"
+    ],
     "display_element": "Yin-Yang",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Heavenly Sonata jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Yin-Yang jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Celestial Harmony Shield",
+      "Harmonic Chamber"
+    ],
+    "shared_element_bloodlines": [
       "Celestial Mage",
       "DvEM",
       "Ethereal Monarch",
@@ -27,7 +38,11 @@
       "Tenohira Musei",
       "Tenryūseigan",
       "Tenshin Shoden Yami-Ryu"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Decrease Damage Taken and Decrease Damage Given (Celestial Harmony Shield fortress, Harmonic Chamber suppression)",
@@ -58,7 +73,7 @@
       "coverage_note": "Lullaby self buff 35→37% (4 stat types, element-less: any non-pierce hit); Interlude exposure 35→37% (Genjutsu or element-less hits).",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
-      "scope": "Heavenly Sonata jutsu",
+      "scope": "all Yin-Yang jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -87,7 +102,7 @@
       "coverage_note": "Foreboding Interlude 40→42, Frozen Melody 45→47, Lullaby 40→42 (Yin-Yang Genjutsu, range 4, 60 AP, cooldown 7); Melody: enemy-only circle.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
-      "scope": "Heavenly Sonata jutsu",
+      "scope": "all Yin-Yang jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -117,7 +132,7 @@
       "coverage_note": "Same three Yin-Yang damage rows; route total +5 (Foreboding Interlude 45, Frozen Melody 50, Lullaby 45 at jutsu level 25).",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
-      "scope": "Heavenly Sonata jutsu",
+      "scope": "all Yin-Yang jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -147,7 +162,7 @@
       "coverage_note": "Foreboding Interlude exposure only (39% with Opening Measure); live 2 rounds after each 60 AP cast; Genjutsu/element-less non-pierce hits.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
-      "scope": "Heavenly Sonata jutsu",
+      "scope": "all Yin-Yang jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -180,7 +195,7 @@
       "coverage_note": "Foreboding Interlude exposure to 42% (route +7) and Lullaby self buff to 40% (+5 with Opening Measure); both 2-round windows on 60 AP casts.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
-      "scope": "Heavenly Sonata jutsu",
+      "scope": "all Yin-Yang jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -212,14 +227,15 @@
       "coverage_note": "Celestial Harmony Shield self buff 35→37% reduction; Harmonic Chamber suppression 35→37% (every non-pierce hit the target deals); 2 rds.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
-      "scope": "Heavenly Sonata jutsu",
+      "scope": "all Yin-Yang jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Celestial Harmony Shield",
           "Harmonic Chamber"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -241,13 +257,14 @@
       "coverage_note": "Shield reduction only (40% with Harmonic Balance): SELF row realized on caster at cast, live 2 rounds after, any position; non-pierce.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
-      "scope": "Heavenly Sonata jutsu",
+      "scope": "all Yin-Yang jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Celestial Harmony Shield"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -274,14 +291,15 @@
       "coverage_note": "Shield reduction to 45% (route +10); Harmonic Chamber suppression +2 (39%; 42% with Muted Strings). The 100 shield row is unchanged.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
-      "scope": "Heavenly Sonata jutsu",
+      "scope": "all Yin-Yang jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Celestial Harmony Shield",
           "Harmonic Chamber"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -303,13 +321,14 @@
       "coverage_note": "Harmonic Chamber suppression only (+3 more: 40% with Harmonic Balance); 40 AP single target, range 4; every non-pierce hit the target deals.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
-      "scope": "Heavenly Sonata jutsu",
+      "scope": "all Yin-Yang jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Harmonic Chamber"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -336,14 +355,15 @@
       "coverage_note": "Harmonic Chamber suppression to 45% (route +10); Shield reduction +2 (39%; 42% with Wall of Sound). Drain, cleanseprevent unchanged.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
-      "scope": "Heavenly Sonata jutsu",
+      "scope": "all Yin-Yang jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Celestial Harmony Shield",
           "Harmonic Chamber"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     }
   ],
@@ -1387,15 +1407,114 @@
     "revision": "Draft 3 / Yin-Yang classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Heavenly Sonata jutsu inherit Yin-Yang potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Yin-Yang jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 10
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Fortissimo Finale",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Prelude to Ruin",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            2,
+            3
+          ],
+          "total": 7,
+          "on_band": false
+        },
+        {
+          "advanced_art": "08",
+          "name": "Celestial Sanctum",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Final Rest",
+          "primary_tag": "decreasedamagegiven",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {

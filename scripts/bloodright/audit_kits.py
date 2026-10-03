@@ -170,19 +170,27 @@ def md_dossier(d: dict) -> str:
         out.append("> **Adverse rows:** " + "; ".join(f"{a['jutsu']} row {a['row']} ({a['tag']} on {a['recipient']}, {a['role']})" for a in d["adverse_supported_rows"]) +
                    ". A potency node on that tag also raises these rows; the resolver cannot exclude a row by jutsu.\n")
     c = d["classification_audit"]
-    out.append("## Selector / classification audit\n")
+    out.append("## Potency classification audit (element-wide, RUL-2026-10-03-005)\n")
     out.append(f"- Signature elements on damage/pierce rows: {', '.join(c['signature_elements']) or 'none'}")
-    out.append(f"- Proposed potency classification label: **{c['proposed_label']}** ({c['label_kind']})")
+    out.append(f"- Proposed potency classification: **{c['proposed_label']}** ({c['label_kind']}; status: {c['classification_status']})")
+    out.append(f"- Qualifying elements: {', '.join(c['qualifying_elements']) or 'none (requires classification extension)'}")
     out.append(f"- {c['note']}")
+    out.append(f"- Not selectors: {'; '.join(c['not_selectors'])}.")
+    derived = [m for m in c["kit_membership"] if m["membership"] == "derived"]
+    authored = [m for m in c["kit_membership"] if m["membership"] == "authored"]
+    out.append(f"- Kit jutsu of the qualifying element by their own rows (derived, train.ts checkJutsuElements union): {', '.join(m['jutsu'] for m in derived) or 'none'}")
+    out.append(f"- Kit jutsu in scope only by authored jutsu classification (no qualifying element on any row): "
+               + (", ".join(f"{m['jutsu']} ({'/'.join(m['jutsu_elements'])})" for m in authored) or "none"))
     for rch in c["current_resolver_reach"]:
-        out.append(f"- Current resolver with `affectedElements=['{rch['label']}']`: {rch['rows_matching_label_directly']} of {rch['supported_rows_total']} supported rows match directly; {rch['rows_falling_back_to_None']} fall back to None; {rch['rows_with_other_elements_only']} carry other elements only. Exclusive under current resolver: no.")
-    if c["census_collisions_on_signature_elements"]:
-        out.append("- Census collisions on signature elements (other bloodlines carrying the element on any row): " +
-                   "; ".join(f"{x['name']} [{x['disposition']}] ({x['element']}: {x['rows']} rows, {x['damage_rows']} damage)" for x in c["census_collisions_on_signature_elements"]))
-    else:
-        out.append("- Census collisions on signature elements: none among the 95 captured bloodline kits.")
-    out.append(f"- Normal-jutsu collision: {c['normal_jutsu_collision']}")
-    out.append(f"- Item-gated jutsu: {', '.join(c['item_gated_jutsu']) or 'none'}")
+        out.append(f"- Current resolver with `affectedElements=['{rch['label']}']`: {rch['rows_matching_label_directly']} of {rch['supported_rows_total']} supported rows match directly; {rch['rows_falling_back_to_None']} fall back to None; {rch['rows_with_other_elements_only']} carry other elements only. {rch['note']}")
+    if c["shared_element_bloodlines"]:
+        out.append("- Other captured bloodlines with jutsu of the qualifying element (expected sharing): " +
+                   "; ".join(f"{x['name'].strip()} [{x['disposition']}] ({x['element']}: {x['rows']} rows, {x['damage_rows']} damage)" for x in c["shared_element_bloodlines"]))
+        out.append(f"  - {c['shared_element_note']}")
+    elif c["qualifying_elements"]:
+        out.append("- Other captured bloodlines with jutsu of the qualifying element: none among the 95 captured kits.")
+    out.append(f"- Off-kit coverage: {c['off_kit_coverage']}")
+    out.append(f"- Item-gated jutsu (castability only, not a potency selector): {', '.join(c['item_gated_jutsu']) or 'none'}")
     out.append(f"- Mode-restricted jutsu: {', '.join(c['mode_restricted_jutsu']) or 'none'}")
     out.append(f"- Hidden jutsu in kit: {', '.join(c['hidden_jutsu']) or 'none'}")
     out.append(f"- Non-BLOODLINE jutsu types in kit: {', '.join(c['non_bloodline_type_jutsu_in_kit']) or 'none'}")
@@ -192,7 +200,7 @@ def md_dossier(d: dict) -> str:
         for ic in c["injected_children"]:
             sup = ", ".join(f"{e['type']}{'('+','.join(e['elements'])+')' if e.get('elements') else ''}" for e in ic["child_effects"] if e["supported"])
             out.append(f"| {ic['parent_jutsu']} | {ic['child_name'] or '?'} | `{ic['child_id']}` | `{ic['child_bloodline_id'] if ic['child_bloodline_id'] is not None else '?'}` | {ic['child_type'] or '?'} | {'yes' if ic['child_resolved'] else 'no'} | {sup or '—'} |")
-        out.append("\nInjected children are cast as `jutsu` actions at the inject power as level (actions.ts handleInjectedJutsus), so the resolver would process them; whether they inherit the bloodline classification is an engine decision recorded in the gap register. Children with an empty `bloodlineId` are not bloodline jutsu.\n")
+        out.append("\nInjected children are cast as `jutsu` actions at the inject power as level (actions.ts handleInjectedJutsus), so the resolver would process them. Provenance is not a selector: a child qualifies when it is a jutsu of the qualifying element (its own rows, or an authored jutsu classification), like any other jutsu.\n")
     out.append("\n## Afterburn and downstream notes\n")
     ab = d["afterburn"]
     if ab["application_rows"]:
@@ -234,11 +242,11 @@ def main() -> int:
             L.write_text(mpath, md)
         c = d["classification_audit"]
         index_rows.append((d["review_id"], d["name"], d["rank"], d["disposition"], d["slug"], d["supported_rows_total"],
-                           c["proposed_label"], c["label_kind"], len(c["census_collisions_on_signature_elements"]),
+                           c["proposed_label"], c["classification_status"], len({x["name"] for x in c["shared_element_bloodlines"]}),
                            len(d["adverse_supported_rows"]), len(c["injected_children"]), len(c["item_gated_jutsu"])))
     idx_md = ["# Bloodright kit dossiers\n",
               f"Generated by `scripts/bloodright/audit_kits.py` from the committed snapshot (public {snapshot.get('public_retrieved_at')}, hidden inventory {snapshot.get('hidden_inventory_retrieved_at')}). Baselines at jutsu level {args.level}. Mechanics pin `{L.GAME_SOURCE_PIN}`.\n",
-              "| Review | Bloodline | Rank | Disposition | Dossier | Supported rows | Proposed label | Label kind | Census collisions | Adverse rows | Injected children | Item-gated jutsu |",
+              "| Review | Bloodline | Rank | Disposition | Dossier | Supported rows | Proposed classification | Status | Bloodlines sharing the element | Adverse rows | Injected children | Item-gated jutsu |",
               "|---|---|---|---|---|---:|---|---|---:|---:|---:|---:|"]
     for r in sorted(index_rows):
         idx_md.append(f"| {r[0]} | {r[1]} | {r[2]} | {r[3]} | [{r[4]}]({r[4]}.md) | {r[5]} | {r[6]} | {r[7]} | {r[8]} | {r[9]} | {r[10]} | {r[11]} |")

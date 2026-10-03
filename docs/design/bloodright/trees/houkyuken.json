@@ -12,15 +12,27 @@
   "classification": {
     "potency_classification": "Magnet",
     "label_kind": "element",
-    "bloodline": "Houkyuken",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Magnet"
+    ],
     "display_element": "Magnet",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Houkyuken jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Magnet jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [],
+    "shared_element_bloodlines": [
       "Itojinsei"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Magnet burst (Damage on four casts; self Increase Damage Given on Houkyuken: Magnetic Assignment and Houkyu Dance)",
@@ -51,7 +63,7 @@
       "coverage_note": "Self IDG 35→37% (Magnetic Assignment, Houkyu Dance; SELF rows, live after cast round); exposure 35→37% (Morning Star, Magnetic Assignment).",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Houkyuken jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -81,7 +93,7 @@
       "coverage_note": "Magnetic Pulse Strike 50→52, Houkyu Dance 45→47, Rising Star and Morning Star 40→42 power; four Magnet hits, 60 AP each, cooldown 7.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Houkyuken jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -112,7 +124,7 @@
       "coverage_note": "Same four Damage rows; route total +5 (55/50/45/45 power). Wound on Pulse Strike and move on Houkyu Dance are unsupported.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Houkyuken jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -143,7 +155,7 @@
       "coverage_note": "Both exposure rows 37→39% with Lodestone Draw: Morning Star (any non-pierce source), Magnetic Assignment (Lightning/Magnet/Wind/none).",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Houkyuken jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -177,7 +189,7 @@
       "coverage_note": "Exposure to route total 42% (+7; 84% when both debuffs sit on one target); self damage buffs 37→39% with Lodestone Draw.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Houkyuken jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -210,7 +222,7 @@
       "coverage_note": "Magnetic Assignment Decrease Damage Taken 35→37% (every non-pierce hit, 40 AP); Rising Star Reflect 40→42% (includes pierce hits).",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Houkyuken jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -239,7 +251,7 @@
       "coverage_note": "Magnetic Assignment Decrease Damage Taken only: 37→40% with Repelling Field; one universal row, 2 rounds per 40 AP cast, cooldown 7.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Houkyuken jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -272,7 +284,7 @@
       "coverage_note": "Decrease Damage Taken to route total 45% (+10); plus both self damage buffs 35→37% (39% with Lodestone Draw).",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Houkyuken jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -301,7 +313,7 @@
       "coverage_note": "Rising Star Reflect only: 42→45% with Repelling Field; one self row, 2 rounds per 60 AP single-target cast, under the 60% per-hit cap.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Houkyuken jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -334,7 +346,7 @@
       "coverage_note": "Reflect to route total 50% (+10; 60% per-hit cap untouched); Decrease Damage Taken 37→39% (42% with Magnetized Guard).",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Houkyuken jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -1409,15 +1421,114 @@
     "revision": "Draft 3 / Magnet classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Houkyuken jutsu inherit Magnet potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Magnet jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 10,
+        "reflect": 10
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10,
+        "reflect": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Starfall Hammer",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Inexorable Pull",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            2,
+            3
+          ],
+          "total": 7,
+          "on_band": false
+        },
+        {
+          "advanced_art": "08",
+          "name": "Absolute Alignment",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Violent Repulsion",
+          "primary_tag": "reflect",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {

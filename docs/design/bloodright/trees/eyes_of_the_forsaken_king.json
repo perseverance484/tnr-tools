@@ -12,20 +12,32 @@
   "classification": {
     "potency_classification": "Light",
     "label_kind": "element",
-    "bloodline": "Eyes of the Forsaken King",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Light"
+    ],
     "display_element": "Light",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Eyes of the Forsaken King jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Light jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [],
+    "shared_element_bloodlines": [
       "Architect of the Hollow Script",
       "Crust Almighty",
       "Eyes of the Forsaken Heir",
       "Radiant Valor",
       "Solar Soul",
       "Timeforged Enigma"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Burst and exposure (Damage, Increase Damage Taken)",
@@ -56,7 +68,7 @@
       "coverage_note": "illuminance self damage buff (35→37%, self at cast, 2 rounds); Chrono Stasis ×2 and Imperial Swords enemy exposure (35→37% each, 2 rounds).",
       "parent_rule": "ALL",
       "potency_classification": "Light",
-      "scope": "Eyes of the Forsaken King jutsu",
+      "scope": "all Light jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -86,7 +98,7 @@
       "coverage_note": "All three Damage rows: Lux 50→52 (AOE line; allies in it are hit), Shattered Reflection 40→42, Imperial Swords 40→42; all 60 AP casts.",
       "parent_rule": "ALL",
       "potency_classification": "Light",
-      "scope": "Eyes of the Forsaken King jutsu",
+      "scope": "all Light jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -119,7 +131,7 @@
       "coverage_note": "Same three Damage rows; route total +5 (Lux 55, Shattered Reflection 45, Imperial Swords 45). Lux's line still reaches allies in it.",
       "parent_rule": "ALL",
       "potency_classification": "Light",
-      "scope": "Eyes of the Forsaken King jutsu",
+      "scope": "all Light jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -152,7 +164,7 @@
       "coverage_note": "Imperial Swords Afterburn only (25→28%, the 2 rounds after each 60 AP cast); its value is every later non-pierce hit the target takes.",
       "parent_rule": "ALL",
       "potency_classification": "Light",
-      "scope": "Eyes of the Forsaken King jutsu",
+      "scope": "all Light jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -185,7 +197,7 @@
       "coverage_note": "Imperial Swords Afterburn route total +10 (35%); exposure +3 on Chrono Stasis ×2 and Imperial Swords (40% each with Gaze; 120% stacked).",
       "parent_rule": "ALL",
       "potency_classification": "Light",
-      "scope": "Eyes of the Forsaken King jutsu",
+      "scope": "all Light jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -217,7 +229,7 @@
       "coverage_note": "illuminance self damage reduction (30→32%, all non-pierce damage, 2 rounds); Lux self Reflect (40→42% of each hit incl. pierce, 2 rounds).",
       "parent_rule": "ALL",
       "potency_classification": "Light",
-      "scope": "Eyes of the Forsaken King jutsu",
+      "scope": "all Light jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -246,7 +258,7 @@
       "coverage_note": "illuminance self damage reduction only (32→35% with Mantle of Exile); one row, all non-pierce damage, 2 rounds per 40 AP cast.",
       "parent_rule": "ALL",
       "potency_classification": "Light",
-      "scope": "Eyes of the Forsaken King jutsu",
+      "scope": "all Light jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -279,7 +291,7 @@
       "coverage_note": "illuminance damage reduction route total +10 (40%) and self damage buff +3 (38%; 40% with Gaze of the Deposed); one 40 AP cast, 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Light",
-      "scope": "Eyes of the Forsaken King jutsu",
+      "scope": "all Light jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -307,7 +319,7 @@
       "coverage_note": "Lux self Reflect only (42→45% with Mantle of Exile); one row, every hit incl. pierce, 60% per-hit cap, 2 rounds per 60 AP cast, cooldown 7.",
       "parent_rule": "ALL",
       "potency_classification": "Light",
-      "scope": "Eyes of the Forsaken King jutsu",
+      "scope": "all Light jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -340,7 +352,7 @@
       "coverage_note": "Lux Reflect route total +10 (50%, near the 60% per-hit cap); exposure +2 on Chrono Stasis ×2 and Imperial Swords (37%; 39% with Gaze).",
       "parent_rule": "ALL",
       "potency_classification": "Light",
-      "scope": "Eyes of the Forsaken King jutsu",
+      "scope": "all Light jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -1517,15 +1529,116 @@
     "revision": "Draft 2 / Light classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Eyes of the Forsaken King jutsu inherit Light potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Light jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 10,
+        "afterburn": 10,
+        "reflect": 10
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10,
+        "afterburn": 15,
+        "reflect": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Throne of Broken Light",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Judgment of the Forsaken",
+          "primary_tag": "afterburn",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            0,
+            3,
+            7
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "08",
+          "name": "Kingdom of One",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Usurper's Reckoning",
+          "primary_tag": "reflect",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {

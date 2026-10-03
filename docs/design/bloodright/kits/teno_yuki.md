@@ -56,15 +56,20 @@ Supported rows total: **8**. Unsupported tags present (no potency): absorb, reco
 
 > **Ally-hazard rows (area delivery, friendly fire none/ALL):** Ice Palace row 0 (damage, AOE_CIRCLE_SPAWN, target OTHER_USER); Ice Palace row 1 (increasedamagetaken, AOE_CIRCLE_SPAWN, target OTHER_USER). Potency on these tags also raises what allies standing in the area receive; positioning, not the node, decides.
 
-## Selector / classification audit
+## Potency classification audit (element-wide, RUL-2026-10-03-005)
 
 - Signature elements on damage/pierce rows: Ice
-- Proposed potency classification label: **Ice** (element)
-- Single signature element on the kit's damage/pierce rows; usable as the classification label under the proposed whole-kit classification, provided the classification is bloodline-scoped (see census collisions) rather than a bare element match.
-- Current resolver with `affectedElements=['Ice']`: 5 of 8 supported rows match directly; 3 fall back to None; 0 carry other elements only. Exclusive under current resolver: no.
-- Census collisions on signature elements (other bloodlines carrying the element on any row): Blue Blade Eyes [INCLUDE] (Ice: 8 rows, 5 damage); Blue Edge Eyes [EXCLUDE] (Ice: 8 rows, 5 damage); First Flame [DEFER] (Ice: 8 rows, 5 damage); Hyouga Yui [INCLUDE] (Ice: 4 rows, 3 damage); Itzehecayan [DEFER] (Ice: 4 rows, 3 damage); The Abbynomaly [DEFER] (Ice: 3 rows, 2 damage); True North [DEFER] (Ice: 4 rows, 3 damage)
-- Normal-jutsu collision: UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). Whether NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carry this element needs a read-only public jutsu listing capture requested from dauntless.
-- Item-gated jutsu: none
+- Proposed potency classification: **Ice** (element; status: element)
+- Qualifying elements: Ice
+- Single signature element Ice on the kit's damage/pierce rows. Potency reaches matching supported tags on every Ice jutsu: this kit, other bloodlines' Ice jutsu and any NORMAL/SPECIAL/EVENT/FORBIDDEN or injected Ice jutsu. Sharing the element with other bloodlines is expected, not a collision.
+- Not selectors: bloodline id or bloodline ownership; equipment / required bloodline item (castability gate only); injected-child provenance; jutsu names (examples only).
+- Kit jutsu of the qualifying element by their own rows (derived, train.ts checkJutsuElements union): Imperial Freeze, Ice Coffin, Frostbound Ascendancy, Ice Palace
+- Kit jutsu in scope only by authored jutsu classification (no qualifying element on any row): Cryostorm Aegis (None)
+- Current resolver with `affectedElements=['Ice']`: 5 of 8 supported rows match directly; 3 fall back to None; 0 carry other elements only. Current resolver matches each effect row's own elements (absent list -> ['None']); it has no jutsu-level classification. Rows on a qualifying jutsu that do not carry the element are unreachable today: ENGINE GAP, not a design question.
+- Other captured bloodlines with jutsu of the qualifying element (expected sharing): Blue Blade Eyes [INCLUDE] (Ice: 8 rows, 5 damage); Blue Edge Eyes [EXCLUDE] (Ice: 8 rows, 5 damage); First Flame [DEFER] (Ice: 8 rows, 5 damage); Hyouga Yui [INCLUDE] (Ice: 4 rows, 3 damage); Itzehecayan [DEFER] (Ice: 4 rows, 3 damage); The Abbynomaly [DEFER] (Ice: 3 rows, 2 damage); True North [DEFER] (Ice: 4 rows, 3 damage)
+  - Other captured bloodlines with jutsu of the qualifying element. Sharing is expected. Their bloodline jutsu are castable only by their own bloodline's owners (checkJutsuBloodline, app/src/libs/train.ts 185-188), so they do not widen what one owner can amplify; NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the element can.
+- Off-kit coverage: UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the qualifying element are in scope by rule; how many exist needs a read-only public jutsu listing capture.
+- Item-gated jutsu (castability only, not a potency selector): none
 - Mode-restricted jutsu: none
 - Hidden jutsu in kit: none
 - Non-BLOODLINE jutsu types in kit: none

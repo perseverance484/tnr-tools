@@ -1,6 +1,6 @@
 {
-  "title": "Blood-Enchanted Eyes — Tithe of the Red Eye",
-  "revision": "Draft 4 / Shadow classification / forked tree",
+  "title": "Blood-Enchanted Eyes — Crimson Covenant",
+  "revision": "Final approved structure (RUL-2026-10-03-006) / Shadow classification / forked tree",
   "bloodline": {
     "id": "ovZIWu28ANn-Cij5TjT8S",
     "review_id": "BR-011",
@@ -9,36 +9,11 @@
     "statClassification": "Highest",
     "traits": "Burst Healing, Sustained Damage"
   },
-  "classification": {
-    "potency_classification": "Shadow",
-    "label_kind": "element",
-    "bloodline": "Blood-Enchanted Eyes",
-    "display_element": "Shadow",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Blood-Enchanted Eyes jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
-      "Adorable Shadow of Death",
-      "Blood-Enshrined Eyes",
-      "Blood-Enthralled Eyes",
-      "Extinction Herald",
-      "Godstorm Eclipse",
-      "Infernal Reaper",
-      "Kusamochi: Mashumaro Executioner",
-      "Lilac Seductress",
-      "Night Parade of A Thousand Demons",
-      "Oblivion Seal",
-      "Otaku of the Dark Maiden",
-      "Sacrament of Crimson Hunger",
-      "Shadow Weaver"
-    ]
-  },
   "emphasis": {
-    "primary": "Damage (Shadow; two castable rows per keystone)",
-    "secondary": "Enemy exposure (Increase Damage Taken + Afterburn)",
-    "tertiary": "Self sustain (Decrease Damage Taken, Lifesteal) with Increase/Decrease Damage Given support",
-    "rationale": "Damage is the kit's broadest supported tag: four Shadow rows (Ring of Spilled Blood 40, Crimson Tithe 40, Reaper's Embrace 50, Crimson Impact 40), three of them AoE, split two-and-two across the Wraith Pendant and Reaper's Ring keystones, so with a keystone equipped exactly two of them are castable (none without one). Increase Damage Taken reaches three enemy-debuff rows at 35% (Sanguine Plague on the Pendant side; Crimson Impact and Thousand Strike on the Ring side) and Sanguine Plague also carries the kit's only Afterburn row, so exposure is the secondary emphasis and the Pendant-side pressure route. The base kit's two 40 AP self casts, Unholy Enhancement (IDG 35, DDG 35) and Hemocure (DDT 35, IDG 35), are ungated and anchor the Foundations; Hemocure's DDT and Crimson Impact's Lifesteal 20% (Ring side) give the two sustain routes. Absorb, vamp, shield, stun, pierce and the other unsupported rows are untouched."
+    "primary": "Offense: Shadow Damage burst and Lifesteal sustain from Scarlet Gaze",
+    "secondary": "Defense: Decrease Damage Taken (Fortress) and Decrease Damage Given (Suppression) from Iron in the Blood",
+    "tertiary": "Increase Damage Given / Increase Damage Taken glue",
+    "rationale": "RUL-2026-10-03-006 fixes every name, value and edge. Scarlet Gaze opens the two offensive routes (Burst +5 Damage; Sustain Offense +5% Lifesteal with a +5% Increase Damage Given rider); Iron in the Blood opens the two defensive routes, which mirror each other (Fortress +10% Decrease Damage Taken with +5% Decrease Damage Given; Suppression +10% Decrease Damage Given with +5% Decrease Damage Taken). There is no Afterburn path in this revision: native Afterburn stays usable but unamplified. Potency reaches matching supported tags on all Shadow jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -60,10 +35,10 @@
         }
       ],
       "flavor": "The red eye opens; it sees where the blood runs thin, and it does not blink.",
-      "coverage_note": "IDG: Unholy Enhancement, Hemocure 35% (ungated, 40 AP). IDT: Sanguine Plague (Pendant), Crimson Impact, Thousand Strike (Ring) 35%; gated.",
+      "coverage_note": "Kit examples: Increase Damage Given 35% on Unholy Enhancement and Hemocure (self); Increase Damage Taken 35% on Sanguine Plague, Crimson Impact and Thousand Strike (enemy).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Blood-Enchanted Eyes jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -77,7 +52,8 @@
         "ally_hazard_rows": [
           "Crimson Impact#3"
         ],
-        "item_gated_rows": 3
+        "item_gated_rows": 3,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -96,10 +72,10 @@
         }
       ],
       "flavor": "Every cut the eye marks is a cut that bleeds a little longer.",
-      "coverage_note": "Damage 40/40 on Ring of Spilled Blood, Crimson Tithe (Wraith Pendant); 50/40 on Reaper's Embrace, Crimson Impact (Reaper's Ring).",
+      "coverage_note": "Kit examples: Shadow Damage on Ring of Spilled Blood 40, Crimson Tithe 40, Reaper's Embrace 50, Crimson Impact 40.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Blood-Enchanted Eyes jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -123,15 +99,15 @@
       "modifiers": [
         {
           "tag": "damage",
-          "flat": 4,
+          "flat": 3,
           "display_role": "DAMAGE"
         }
       ],
       "flavor": "What begins as a wound ends as an emptying. Nothing is left in the vessel.",
-      "coverage_note": "Same four Shadow Damage rows: 40 -> 46 and 50 -> 56 with Opened Veins; only the equipped keystone's pair is castable in a battle.",
+      "coverage_note": "Same Shadow Damage rows: 40 → 45 and 50 → 55 EP on the full route (+5 Damage).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Blood-Enchanted Eyes jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -145,8 +121,8 @@
       }
     },
     {
-      "id": "04",
-      "name": "Carrion Fever",
+      "id": "09",
+      "name": "Crimson Thirst",
       "category": "Hidden Art",
       "cost": 1,
       "parents": [
@@ -154,62 +130,60 @@
       ],
       "modifiers": [
         {
-          "tag": "afterburn",
-          "flat": 3,
-          "display_role": "ENEMY DEBUFF"
+          "tag": "lifesteal",
+          "flat": 2,
+          "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "The sickness in the blood wakes with every blow and feeds on the heat of it.",
-      "coverage_note": "Sanguine Plague row 1 Afterburn 35% (enemy, 2 rounds, 40 AP, Wraith Pendant); extra damage on each non-pierce hit the target takes.",
+      "flavor": "The eye drinks before the mouth does, and it is never satisfied.",
+      "coverage_note": "Kit example: Crimson Impact Lifesteal 20% (self, two rounds after the cast).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Blood-Enchanted Eyes jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
-          "Sanguine Plague"
+          "Crimson Impact"
         ],
         "effect_rows": 1,
         "item_gated_rows": 1
       }
     },
     {
-      "id": "05",
-      "name": "Red Pestilence",
+      "id": "10",
+      "name": "Feast of the Fallen",
       "category": "Advanced Art",
       "cost": 1,
       "parents": [
-        "04"
+        "09"
       ],
       "modifiers": [
         {
-          "tag": "afterburn",
-          "flat": 7,
-          "display_role": "ENEMY DEBUFF"
+          "tag": "lifesteal",
+          "flat": 3,
+          "display_role": "SELF BUFF"
         },
         {
-          "tag": "increasedamagetaken",
-          "flat": 3,
-          "display_role": "ENEMY DEBUFF"
+          "tag": "increasedamagegiven",
+          "flat": 5,
+          "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "Once the fever takes, the body fights for the enemy. Every strike lands twice.",
-      "coverage_note": "Sanguine Plague Afterburn 35 -> 45% with Carrion Fever (60% cap per hit); IDT 35 -> 40% on Plague, Crimson Impact, Thousand Strike.",
+      "flavor": "What is taken from the enemy is not returned. Every mouthful feeds the next blow.",
+      "coverage_note": "Crimson Impact Lifesteal 20 → 25% on the full route (+5%); Increase Damage Given 35 → 42% on Unholy Enhancement and Hemocure with Scarlet Gaze (+7%).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Blood-Enchanted Eyes jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Crimson Impact",
-          "Sanguine Plague",
-          "Thousand Strike"
+          "Hemocure",
+          "Unholy Enhancement"
         ],
-        "effect_rows": 4,
-        "ally_hazard_rows": [
-          "Crimson Impact#3"
-        ],
-        "item_gated_rows": 4
+        "effect_rows": 3,
+        "item_gated_rows": 1,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -231,10 +205,10 @@
         }
       ],
       "flavor": "The blood of the eye runs thick and heavy; blades slide off it and arms grow tired.",
-      "coverage_note": "DDT: Hemocure 35% (ungated), Reaper's Embrace 15% (Ring circle). DDG: Unholy Enhancement 35% (ungated), Ring of Spilled Blood 30% (Pendant).",
+      "coverage_note": "Kit examples: Decrease Damage Taken 35% on Hemocure and 15% on Reaper's Embrace (self); Decrease Damage Given 35% on Unholy Enhancement and 30% on Ring of Spilled Blood (enemy).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Blood-Enchanted Eyes jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -247,7 +221,8 @@
         "ally_hazard_rows": [
           "Ring of Spilled Blood#1"
         ],
-        "item_gated_rows": 2
+        "item_gated_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -261,15 +236,15 @@
       "modifiers": [
         {
           "tag": "decreasedamagetaken",
-          "flat": 2,
+          "flat": 3,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "Flesh knits before the blade has finished its pass.",
-      "coverage_note": "Hemocure row 1 DDT 35% (self, 2 rounds, 40 AP, no gate) and Reaper's Embrace row 3 DDT 15% (ally-area circle, Reaper's Ring).",
+      "coverage_note": "Kit examples: Hemocure Decrease Damage Taken 35% and Reaper's Embrace 15%.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Blood-Enchanted Eyes jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -277,7 +252,8 @@
           "Reaper's Embrace"
         ],
         "effect_rows": 2,
-        "item_gated_rows": 1
+        "item_gated_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -291,7 +267,7 @@
       "modifiers": [
         {
           "tag": "decreasedamagetaken",
-          "flat": 4,
+          "flat": 5,
           "display_role": "SELF BUFF"
         },
         {
@@ -301,10 +277,10 @@
         }
       ],
       "flavor": "The heart has forgotten how to stop; the arm that strikes it forgets its strength.",
-      "coverage_note": "Hemocure DDT 35 -> 43% and Embrace DDT 15 -> 23% on the full route; DDG 35 -> 40% on Unholy Enhancement, 30 -> 35% on Ring of Spilled Blood.",
+      "coverage_note": "Fortress: Hemocure 35 → 45% and Embrace 15 → 25% Decrease Damage Taken (+10%); Unholy Enhancement 35 → 40% and Ring of Spilled Blood 30 → 35% Decrease Damage Given (+5%).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Blood-Enchanted Eyes jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -317,12 +293,13 @@
         "ally_hazard_rows": [
           "Ring of Spilled Blood#1"
         ],
-        "item_gated_rows": 2
+        "item_gated_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
-      "id": "09",
-      "name": "Crimson Thirst",
+      "id": "04",
+      "name": "Carrion Fever",
       "category": "Hidden Art",
       "cost": 1,
       "parents": [
@@ -330,59 +307,69 @@
       ],
       "modifiers": [
         {
-          "tag": "lifesteal",
+          "tag": "decreasedamagegiven",
           "flat": 3,
-          "display_role": "SELF BUFF"
+          "display_role": "ENEMY DEBUFF"
         }
       ],
-      "flavor": "The eye drinks before the mouth does, and it is never satisfied.",
-      "coverage_note": "Crimson Impact row 1 Lifesteal 20% (self, 2 rounds, 60 AP AoE, Reaper's Ring); shares the 60% leech budget with Embrace's vamp.",
+      "flavor": "The sickness in the blood saps the arm that strikes; every blow lands a little weaker.",
+      "coverage_note": "Kit examples: Unholy Enhancement Decrease Damage Given 35% and Ring of Spilled Blood 30%.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Blood-Enchanted Eyes jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
-          "Crimson Impact"
+          "Ring of Spilled Blood",
+          "Unholy Enhancement"
         ],
-        "effect_rows": 1,
-        "item_gated_rows": 1
+        "effect_rows": 2,
+        "ally_hazard_rows": [
+          "Ring of Spilled Blood#1"
+        ],
+        "item_gated_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
-      "id": "10",
-      "name": "Feast of the Fallen",
+      "id": "05",
+      "name": "Red Pestilence",
       "category": "Advanced Art",
       "cost": 1,
       "parents": [
-        "09"
+        "04"
       ],
       "modifiers": [
         {
-          "tag": "lifesteal",
+          "tag": "decreasedamagegiven",
           "flat": 5,
-          "display_role": "SELF BUFF"
+          "display_role": "ENEMY DEBUFF"
         },
         {
-          "tag": "increasedamagegiven",
+          "tag": "decreasedamagetaken",
           "flat": 3,
           "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "What is taken from the enemy is not returned. Every mouthful feeds the next blow.",
-      "coverage_note": "Crimson Impact Lifesteal 20 -> 28% on the full route; IDG 35 -> 40% on Unholy Enhancement and Hemocure (both ungated) with Scarlet Gaze.",
+      "flavor": "Once the fever takes, the enemy's strength drains into the blood that binds them.",
+      "coverage_note": "Suppression: Unholy Enhancement 35 → 45% and Ring of Spilled Blood 30 → 40% Decrease Damage Given (+10%); Hemocure 35 → 40% and Embrace 15 → 20% Decrease Damage Taken (+5%).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Blood-Enchanted Eyes jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
-          "Crimson Impact",
           "Hemocure",
+          "Reaper's Embrace",
+          "Ring of Spilled Blood",
           "Unholy Enhancement"
         ],
-        "effect_rows": 3,
-        "item_gated_rows": 1
+        "effect_rows": 4,
+        "ally_hazard_rows": [
+          "Ring of Spilled Blood#1"
+        ],
+        "item_gated_rows": 2,
+        "rows_via_authored_classification": 2
       }
     }
   ],
@@ -396,10 +383,10 @@
         "03",
         "06"
       ],
-      "rationale": "Damage +6 lifts whichever keystone pair is equipped: Ring of Spilled Blood and Crimson Tithe to 46 on the Wraith Pendant, or Reaper's Embrace to 56 and Crimson Impact to 46 on the Reaper's Ring; the bloodline's Shadow/None IDG passive then multiplies the resulting damage. Scarlet Gaze is the required ancestor (+2% IDG on both ungated self buffs, +2% IDT on the exposure rows) and Iron in the Blood the fourth purchase for a little mitigation and suppression. It is the only example adding Damage power and gives up Afterburn, deep DDT and Lifesteal (castable 24 Pendant / 26 Ring, design note 3).",
+      "rationale": "+5 Damage on every Shadow Damage row the owner casts (40 → 45, 50 → 55 EP on the kit's four rows). Scarlet Gaze is the required ancestor (+2% IDG/IDT) and Iron in the Blood the fourth purchase (+2% DDT/DDG).",
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
@@ -418,8 +405,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 6,
-          "final": 46.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -454,8 +441,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 6,
-          "final": 46.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -566,8 +553,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 6,
-          "final": 56.0,
+          "gain": 5,
+          "final": 55.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -674,8 +661,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 6,
-          "final": 46.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -830,464 +817,22 @@
       ]
     },
     {
-      "name": "Red Pestilence",
-      "archetype": "Plague",
+      "name": "Feast of the Fallen",
+      "archetype": "Sustain Offense",
       "ids": [
         "01",
-        "04",
-        "05",
+        "09",
+        "10",
         "06"
       ],
-      "rationale": "The Wraith Pendant pressure build: Sanguine Plague's Afterburn goes 35% -> 45% and its exposure 35% -> 40%. For the two rounds after the cast, every non-pierce Shadow, Fire, Lightning, Water or element-less hit the plagued enemy takes (Ring of Spilled Blood, Crimson Tithe, basic attacks, allies' hits) gains 40% of its staged base, and every non-pierce hit with one of the four stat types or no element burns again at 45% (60% cap per hit). On the Reaper's Ring the IDT still lifts Crimson Impact and Thousand Strike, but Carrion Fever and the Afterburn half are dead. Iron in the Blood adds +2% DDT/DDG; no Damage power, and the capstone keeps two modifiers (design note 3; castable 25 Pendant / 20 Ring).",
+      "rationale": "+5% Lifesteal (Crimson Impact 20 → 25%) with +7% Increase Damage Given across the route (Unholy Enhancement and Hemocure 35 → 42%), so the hits the leech reads are larger. Lifesteal includes pierce and shares the 60% leech budget with Embrace's 25% vamp (50% together, under the cap). Iron in the Blood is the fourth purchase.",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 2,
-        "decreasedamagegiven": 2,
-        "increasedamagetaken": 5,
-        "decreasedamagetaken": 2,
-        "afterburn": 10
-      },
-      "finals": [
-        {
-          "jutsu": "Ring of Spilled Blood",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Shadow"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Ring of Spilled Blood",
-          "row": 1,
-          "tag": "decreasedamagegiven",
-          "label": "Decrease Damage Given",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 30.0,
-          "gain": 2,
-          "final": 32.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Crimson Tithe",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Shadow"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Crimson Tithe",
-          "row": 1,
-          "tag": "stun",
-          "label": "stun",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 100.0,
-          "gain": 0,
-          "final": 100.0,
-          "calculation": "static",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Crimson Tithe",
-          "row": 2,
-          "tag": "timecompression",
-          "label": "timecompression",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 100.0,
-          "gain": 0,
-          "final": 100.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Sanguine Plague",
-          "row": 0,
-          "tag": "increasedamagetaken",
-          "label": "Increase Damage Taken",
-          "combat_elements": [
-            "Fire",
-            "Lightning",
-            "None",
-            "Shadow",
-            "Water"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Sanguine Plague",
-          "row": 1,
-          "tag": "afterburn",
-          "label": "Afterburn",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 10,
-          "final": 45.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Sanguine Plague",
-          "row": 2,
-          "tag": "debuffprevent",
-          "label": "debuffprevent",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 100.0,
-          "gain": 0,
-          "final": 100.0,
-          "calculation": "static",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Reaper's Embrace",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Shadow"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 50.0,
-          "gain": 0,
-          "final": 50.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Reaper's Embrace",
-          "row": 1,
-          "tag": "move",
-          "label": "move",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 1.0,
-          "gain": 0,
-          "final": 1.0,
-          "calculation": "static",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Reaper's Embrace",
-          "row": 2,
-          "tag": "vamp",
-          "label": "vamp",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 25.0,
-          "gain": 0,
-          "final": 25.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Reaper's Embrace",
-          "row": 3,
-          "tag": "decreasedamagetaken",
-          "label": "Decrease Damage Taken",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 15.0,
-          "gain": 2,
-          "final": 17.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Unholy Enhancement",
-          "row": 0,
-          "tag": "increasedamagegiven",
-          "label": "Increase Damage Given",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Unholy Enhancement",
-          "row": 1,
-          "tag": "decreasedamagegiven",
-          "label": "Decrease Damage Given",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Crimson Impact",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Shadow"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Crimson Impact",
-          "row": 1,
-          "tag": "lifesteal",
-          "label": "Lifesteal",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 20.0,
-          "gain": 0,
-          "final": 20.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Crimson Impact",
-          "row": 2,
-          "tag": "shield",
-          "label": "shield",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 100.0,
-          "gain": 0,
-          "final": 100.0,
-          "calculation": "static",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Crimson Impact",
-          "row": 3,
-          "tag": "increasedamagetaken",
-          "label": "Increase Damage Taken",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Hemocure",
-          "row": 0,
-          "tag": "absorb",
-          "label": "absorb",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 0,
-          "final": 35.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Hemocure",
-          "row": 1,
-          "tag": "decreasedamagetaken",
-          "label": "Decrease Damage Taken",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Hemocure",
-          "row": 2,
-          "tag": "increasedamagegiven",
-          "label": "Increase Damage Given",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Thousand Strike",
-          "row": 0,
-          "tag": "pierce",
-          "label": "pierce",
-          "combat_elements": [
-            "Shadow"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 70.0,
-          "gain": 0,
-          "final": 70.0,
-          "calculation": "formula",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Thousand Strike",
-          "row": 1,
-          "tag": "increasedamagetaken",
-          "label": "Increase Damage Taken",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        }
-      ],
-      "advanced_arts": [
-        "Red Pestilence"
-      ]
-    },
-    {
-      "name": "Feast of the Fallen",
-      "archetype": "Sustain",
-      "ids": [
-        "01",
-        "06",
-        "09",
-        "10"
-      ],
-      "rationale": "The Reaper's Ring sustain build: Crimson Impact's Lifesteal goes 20% -> 28% for the two rounds after its cast, and every hit in that window heals more: Reaper's Embrace at its base 50, Thousand Strike's 70-power pierce (lifesteal includes pierce, tags.ts 2028-2050), normal jutsu and basic attacks. The capstone's +3% IDG with Scarlet Gaze takes Unholy Enhancement and Hemocure (both ungated) from 35% to 40%, enlarging the non-pierce hits the leech reads. Scarlet Gaze adds +2% IDT on Impact and Thousand Strike, Iron in the Blood +2% DDT/DDG. With Embrace's 25% vamp a hit leeches 53%, under the 60% cap. On the Wraith Pendant the Lifesteal half is dead (castable 18 Pendant / 28 Ring).",
-      "cost": 4,
-      "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 7,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "lifesteal": 8
+        "lifesteal": 5
       },
       "finals": [
         {
@@ -1522,8 +1067,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 7,
+          "final": 42.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1576,8 +1121,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 20.0,
-          "gain": 8,
-          "final": 28.0,
+          "gain": 5,
+          "final": 25.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1666,8 +1211,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 7,
+          "final": 42.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1722,13 +1267,13 @@
         "07",
         "08"
       ],
-      "rationale": "The keystone-independent build: Hemocure, a 40 AP self cast with no item gate, gives 43% DDT for the two rounds after its cast, and the capstone's +3% DDG with Iron in the Blood takes Unholy Enhancement's suppression to 40% (Ring of Spilled Blood's spiral to 35% on the Pendant). On the Ring, Reaper's Embrace's ally circle rises to 23% DDT, covering the caster from the round after the cast while they stay at its centre. Beyond Scarlet Gaze's +2% IDG/IDT it adds no offence. Swapping Scarlet Gaze for Crimson Thirst gives the Ring-only turtle (43% DDT, 40% DDG, 23% Lifesteal), dominated on the Pendant (castable 24 Pendant / 29 Ring).",
+      "rationale": "+10% Decrease Damage Taken (Hemocure 35 → 45%, Embrace 15 → 25%) with +5% Decrease Damage Given support; Scarlet Gaze is the fourth purchase for +2% IDG/IDT.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagegiven": 5,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 8
+        "decreasedamagetaken": 10
       },
       "finals": [
         {
@@ -1945,8 +1490,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 15.0,
-          "gain": 8,
-          "final": 23.0,
+          "gain": 10,
+          "final": 25.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -2089,8 +1634,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 8,
-          "final": 43.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -2153,27 +1698,501 @@
       "advanced_arts": [
         "Deathless Vitality"
       ]
+    },
+    {
+      "name": "Red Pestilence",
+      "archetype": "Suppression",
+      "ids": [
+        "01",
+        "06",
+        "04",
+        "05"
+      ],
+      "rationale": "+10% Decrease Damage Given on the enemy (Unholy Enhancement 35 → 45%, Ring of Spilled Blood 30 → 40%) with +5% Decrease Damage Taken support; Scarlet Gaze is the fourth purchase.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5
+      },
+      "finals": [
+        {
+          "jutsu": "Ring of Spilled Blood",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ring of Spilled Blood",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 10,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Crimson Tithe",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Crimson Tithe",
+          "row": 1,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Crimson Tithe",
+          "row": 2,
+          "tag": "timecompression",
+          "label": "timecompression",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Sanguine Plague",
+          "row": 0,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Fire",
+            "Lightning",
+            "None",
+            "Shadow",
+            "Water"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Sanguine Plague",
+          "row": 1,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Sanguine Plague",
+          "row": 2,
+          "tag": "debuffprevent",
+          "label": "debuffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Reaper's Embrace",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Reaper's Embrace",
+          "row": 1,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Reaper's Embrace",
+          "row": 2,
+          "tag": "vamp",
+          "label": "vamp",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Reaper's Embrace",
+          "row": 3,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 15.0,
+          "gain": 5,
+          "final": 20.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Unholy Enhancement",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Unholy Enhancement",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Crimson Impact",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Crimson Impact",
+          "row": 1,
+          "tag": "lifesteal",
+          "label": "Lifesteal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 20.0,
+          "gain": 0,
+          "final": 20.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Crimson Impact",
+          "row": 2,
+          "tag": "shield",
+          "label": "shield",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Crimson Impact",
+          "row": 3,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Hemocure",
+          "row": 0,
+          "tag": "absorb",
+          "label": "absorb",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Hemocure",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Hemocure",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Thousand Strike",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Shadow"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 70.0,
+          "gain": 0,
+          "final": 70.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Thousand Strike",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Red Pestilence"
+      ]
     }
   ],
-  "narrow_kit_exception": null,
   "design_notes": [
-    "Reference reuse: Taiyo Kami's topology and most flats are reused nearly verbatim (Foundations +2 IDG/IDT and +2 DDT/DDG, Opened Veins +2 Damage, Carrion Fever +3 and Red Pestilence +7 AB with +3 IDT); it fits: the kit has the same three glue tags and four route tags. Departures: Rite +4 Damage (two castable rows); Red Pestilence drops the IDG secondary; Closed Wounds +2, Deathless Vitality +4 DDT/+3 DDG (two DDT rows); Lifesteal (Crimson Thirst +3, Feast +5/+3 IDG) replaces the DDG route.",
-    "Keystones: the pin has one KEYSTONE equip slot (ItemSlots, drizzle/constants.ts 455; items/page.tsx 1461), battle init resolves one keystone (routers/combat.ts 3217-3224) and a gated jutsu needs its item equipped in every battle type (train.ts 221-242; combat.ts 3179). So the Wraith Pendant jutsu (Ring of Spilled Blood, Crimson Tithe, Sanguine Plague) and the Reaper's Ring jutsu (Reaper's Embrace, Crimson Impact, Thousand Strike) never share a battle; Unholy Enhancement and Hemocure are ungated.",
-    "Calibration counts flat x rows castable on one side (Pendant: Damage 2, IDG 2, DDG 2, IDT 1, DDT 1, AB 1; Ring: Damage 2, IDG 2, DDG 1, IDT 2, DDT 2, LS 1). Examples: Burst 24 Pendant / 26 Ring, Plague 25/20, Sustain 18/28, Fortress 24/29; strongest per side 25 and 29 vs Taiyo Kami's 31 on 9 rows. The audit's all-row 42 (01+02+03+06) sums both sides' rows, which never co-exist. Red Pestilence keeps two modifiers: a +3 IDG secondary would lift Plague to 31 and dominate the Pendant.",
-    "User decisions (OPEN_DECISIONS D5/D8): the two ungated jutsu are self buffs, so a keystone is the kit's normal state and the gate discount is 'one side only' plus the two-modifier Red Pestilence, not a flat haircut. Damage +6 on four fully gated rows sits at the guardrail ceiling against D5(b)'s wording. Options: Rite +3 (Damage +5), Red Pestilence AB +5 (AB +8), Feast LS +4 (LS +7). On the Ring the Fortress (29) edges Sustain (28) because Embrace's 15% DDT circle counts at full weight (risk 8).",
-    "Downstream: jutsu IDG/IDT/DDG/DDT rows add power/100 x staged base and same-tag rows sum (Impact + Thousand Strike IDT 35% + 35% = 70%); only the bloodline passive (IDG 25% + 0.15/level) multiplies. 10 of the 11 buff/debuff rows carry four stat types and no element, so they match the kit's Shadow Damage (tags.ts 3477-3510), basic attacks, element-less hits and hits of those stats; Plague's IDT is element-only. IDG/IDT/DDG/DDT never touch Thousand Strike's pierce (process.ts 416-431, 563-566).",
-    "Fourth purchase: usually the other Foundation. All 14 full builds are non-dominated over all rows; per keystone side four are dominated (each buys the off-side single-row Hidden Art without its capstone: Carrion Fever is dead on the Ring, Crimson Thirst on the Pendant); the four examples are not. Side-robust hybrid: 01+02+06+07 (+2 Damage, +4 DDT, +2 IDG/IDT/DDG). Unadvertised: 01+02+03+04 (Pendant burst, 21), 01+02+04+05 (Pendant burn, 23), 06+07+09+10 (Ring leech turtle, 24)."
+    "Exact director structure (RUL-2026-10-03-006): edges 01→02→03, 01→09→10, 06→07→08, 06→04→05; names, tiers and values are copied from the ruling. Damage +5 and Lifesteal +5% sit exactly at the hard ceilings; Decrease Damage Taken and Decrease Damage Given reach +10% at most in any legal allocation; Increase Damage Given peaks at +7% (Scarlet Gaze + Feast of the Fallen), Increase Damage Taken at +2%.",
+    "Scope: matching supported tags on all Shadow jutsu (RUL-2026-10-03-005). Other bloodlines' Shadow jutsu are castable only by their own owners (train.ts 185-188); NORMAL/SPECIAL/EVENT/FORBIDDEN Shadow jutsu would qualify, and how many exist is unverified. Unholy Enhancement and Hemocure carry no element on any row, so they are Shadow jutsu only through an authored jutsu classification (ENGINE_GAP_REGISTER G1).",
+    "Equipment gates castability only. Six kit jutsu need a keystone to be cast (one keystone per battle at the pin), but no node lists an item as a prerequisite and no bonus is limited by one.",
+    "No Afterburn path in this revision: Sanguine Plague's 35% Afterburn row stays usable but unamplified."
   ],
   "risks": [
-    "Classification: Shadow is not exclusive in the census. Thirteen other bloodlines carry Shadow rows (approved: Godstorm Eclipse, Night Parade of A Thousand Demons, Oblivion Seal, Shadow Weaver; excluded siblings Blood-Enshrined and Blood-Enthralled Eyes); normal-jutsu Shadow use is unverified. The tree assumes a bloodline-scoped classification; a bare element match would leak.",
-    "Resolver: 10 of 15 supported rows (every IDG, DDG, DDT, Afterburn and Lifesteal row; Impact and Thousand Strike IDT) have no element and fall back to None, unreachable without the proposed classification; reaching them via None would hit every element-less row the player casts. Potency stacks (BATTLE_TAG_STACKING true), so the budget with a future normal-tree potency is unaudited.",
-    "Gates: every Damage, IDT, Afterburn and Lifesteal row needs a keystone (Wraith Pendant 1wJsQWvK2L0fhziIE4gnA or Reaper's Ring heZTbHCjEACrJ-_Vrulq4), one per battle at the pin (items/page.tsx 1461; routers/combat.ts 3217-3224), so Plague and Sustain never share a battle. Without one only Unholy Enhancement and Hemocure act. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING.",
-    "Lifesteal: Crimson Impact's 20% (28% on the route) acts in the two rounds after its cast and includes pierce (process.ts 563-583; tags.ts 2028-2050), so Reaper's Embrace and Thousand Strike both feed it. It shares one 60%-of-pre-shield leech budget with vamp: with Embrace's 25% vamp a hit leeches 53%, seven points of headroom. Healprevent on the caster blocks it.",
-    "Afterburn: one application row (Sanguine Plague, 2 rounds, Pendant side). 45% is under the 60% per-hit cap, but a second Afterburn source on the target saturates it quickly. Its value depends on how many non-pierce hits land in the two rounds after the cast (pierce is skipped, tags.ts 1993-1995) and was not simulated.",
-    "Efficiency ratio (ENGINE_GAP_REGISTER G16): design note 5's ratio-1 reads assume highestOffence is set at battle init; types.ts 156 declares it required on BattleUserState, but its population was not traced (undefined would push the literal 'Highest', matching nothing). A damage effect with an element and no stat type would miss the four-stat rows; none exists in this kit.",
-    "Ally hazards (absent friendlyFire = ALL, process.ts 154-183): Ring of Spilled Blood's DDG is a 2-round ground effect on the radius-4 spiral; the caster's tile is excluded at cast (util.ts 2895), but allies on it, and the caster if they step in later, lose 30% damage given (+2/+5 by node). Crimson Impact's IDT hits allies adjacent to the target (+2/+5); Unholy Enhancement's DDG hits an ally target.",
-    "Delivery: every jutsu has a 7-round cooldown and buffs act only in the two rounds after their cast. Reaper's Embrace's 15% DDT circle (FRIENDLY ground) covers the caster from the round after the cast, once the move row (sorts last) puts them at the centre, and only while they stay, so the row is worth less than counted. Unholy Enhancement needs a legal OTHER_USER target. No combat simulation."
+    "Resolver: most buff/debuff rows on the kit carry no element, so the current row-element resolver cannot reach them; the tree depends on the proposed jutsu-classification resolver.",
+    "Lifesteal: Crimson Impact's 25% at the route end plus Reaper's Embrace's 25% vamp leaves ten points under the shared 60% leech budget.",
+    "Ally hazards (friendly fire absent = ALL): Ring of Spilled Blood's ground Decrease Damage Given and Crimson Impact's area Increase Damage Taken also reach allies in the area.",
+    "Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed."
   ],
+  "classification": {
+    "potency_classification": "Shadow",
+    "label_kind": "element",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Shadow"
+    ],
+    "display_element": "Shadow",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Shadow jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Hemocure",
+      "Unholy Enhancement"
+    ],
+    "shared_element_bloodlines": [
+      "Adorable Shadow of Death",
+      "Blood-Enshrined Eyes",
+      "Blood-Enthralled Eyes",
+      "Extinction Herald",
+      "Godstorm Eclipse",
+      "Infernal Reaper",
+      "Kusamochi: Mashumaro Executioner",
+      "Lilac Seductress",
+      "Night Parade of A Thousand Demons",
+      "Oblivion Seal",
+      "Otaku of the Dark Maiden",
+      "Sacrament of Crimson Hunger",
+      "Shadow Weaver"
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
+  },
   "progression": {
     "currency": "Bloodright Point",
     "abbreviation": "BP",
@@ -2209,17 +2228,16 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 13,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
-      "increasedamagegiven": 5,
-      "decreasedamagegiven": 5,
-      "increasedamagetaken": 5,
-      "decreasedamagetaken": 8,
-      "afterburn": 10,
-      "lifesteal": 8
+      "damage": 5,
+      "increasedamagegiven": 7,
+      "decreasedamagegiven": 10,
+      "increasedamagetaken": 2,
+      "decreasedamagetaken": 10,
+      "lifesteal": 5
     },
     "supported_rows_in_kit": 15,
     "supported_rows_by_tag": {
@@ -2232,7 +2250,6 @@
       "lifesteal": 1
     },
     "tags_targeted_by_tree": [
-      "afterburn",
       "damage",
       "decreasedamagegiven",
       "decreasedamagetaken",
@@ -2240,35 +2257,124 @@
       "increasedamagetaken",
       "lifesteal"
     ],
-    "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 4 / Shadow classification / forked tree",
+    "supported_tags_in_kit_not_targeted": [
+      "afterburn"
+    ],
+    "revision": "Final approved structure (RUL-2026-10-03-006) / Shadow classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Blood-Enchanted Eyes jutsu inherit Shadow potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Shadow jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 7,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10,
+        "lifesteal": 5
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10,
+        "lifesteal": 5
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Rite of Exsanguination",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Red Pestilence",
+          "primary_tag": "decreasedamagegiven",
+          "path": [
+            "06",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "08",
+          "name": "Deathless Vitality",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Feast of the Fallen",
+          "primary_tag": "lifesteal",
+          "path": [
+            "01",
+            "09",
+            "10"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
-    {
-      "ids": [
-        "01",
-        "02",
-        "03",
-        "04"
-      ],
-      "bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "afterburn": 3
-      }
-    },
     {
       "ids": [
         "01",
@@ -2277,7 +2383,7 @@
         "06"
       ],
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
@@ -2288,14 +2394,14 @@
       "ids": [
         "01",
         "02",
-        "04",
-        "05"
+        "03",
+        "09"
       ],
       "bonuses": {
-        "damage": 2,
+        "damage": 5,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
-        "afterburn": 10
+        "increasedamagetaken": 2,
+        "lifesteal": 2
       }
     },
     {
@@ -2308,10 +2414,9 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 2,
-        "decreasedamagegiven": 2,
+        "decreasedamagegiven": 5,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "afterburn": 3
+        "decreasedamagetaken": 2
       }
     },
     {
@@ -2326,7 +2431,7 @@
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 4
+        "decreasedamagetaken": 5
       }
     },
     {
@@ -2342,7 +2447,21 @@
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "lifesteal": 3
+        "lifesteal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 7,
+        "increasedamagetaken": 2,
+        "lifesteal": 5
       }
     },
     {
@@ -2354,10 +2473,9 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "decreasedamagegiven": 2,
-        "increasedamagetaken": 5,
-        "decreasedamagetaken": 2,
-        "afterburn": 10
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5
       }
     },
     {
@@ -2369,10 +2487,9 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "decreasedamagegiven": 2,
+        "decreasedamagegiven": 5,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 4,
-        "afterburn": 3
+        "decreasedamagetaken": 5
       }
     },
     {
@@ -2384,11 +2501,10 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "decreasedamagegiven": 2,
+        "decreasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "afterburn": 3,
-        "lifesteal": 3
+        "lifesteal": 2
       }
     },
     {
@@ -2402,7 +2518,7 @@
         "increasedamagegiven": 2,
         "decreasedamagegiven": 5,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 8
+        "decreasedamagetaken": 10
       }
     },
     {
@@ -2416,8 +2532,8 @@
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 4,
-        "lifesteal": 3
+        "decreasedamagetaken": 5,
+        "lifesteal": 2
       }
     },
     {
@@ -2428,38 +2544,35 @@
         "10"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 7,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "lifesteal": 8
+        "lifesteal": 5
       }
     },
     {
       "ids": [
+        "04",
+        "05",
         "06",
-        "07",
-        "08",
-        "09"
+        "07"
       ],
       "bonuses": {
-        "decreasedamagegiven": 5,
-        "decreasedamagetaken": 8,
-        "lifesteal": 3
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 8
       }
     },
     {
       "ids": [
+        "04",
         "06",
         "07",
-        "09",
-        "10"
+        "08"
       ],
       "bonuses": {
-        "increasedamagegiven": 3,
-        "decreasedamagegiven": 2,
-        "decreasedamagetaken": 4,
-        "lifesteal": 8
+        "decreasedamagegiven": 8,
+        "decreasedamagetaken": 10
       }
     }
   ]

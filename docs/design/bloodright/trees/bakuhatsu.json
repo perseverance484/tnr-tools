@@ -12,15 +12,29 @@
   "classification": {
     "potency_classification": "Explosion",
     "label_kind": "element",
-    "bloodline": "Bakuhatsu",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Explosion"
+    ],
     "display_element": "Explosion",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Bakuhatsu jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Explosion jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Blast Shield"
+    ],
+    "shared_element_bloodlines": [
       "Bakuhatsu Suru Nendo"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Damage (Explosion area attacks)",
@@ -51,7 +65,7 @@
       "coverage_note": "Charge 4 Explosion and Howitzer Crash self buffs (35→37%); Charge 4 Explosion exposure debuff (35→37%). 3 rows, no gates.",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
-      "scope": "Bakuhatsu jutsu",
+      "scope": "all Explosion jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -80,7 +94,7 @@
       "coverage_note": "Inferno Cataclysm, Kinetic Nova and Howitzer Crash Explosion damage (40/50/40 → 42/52/42 power). 3 area rows, all 60 AP, cooldown 7.",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
-      "scope": "Bakuhatsu jutsu",
+      "scope": "all Explosion jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -110,7 +124,7 @@
       "coverage_note": "The same three Explosion damage rows; with Shaped Charge the route adds +5 power (Kinetic Nova 50→55, Cataclysm and Howitzer 40→45).",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
-      "scope": "Bakuhatsu jutsu",
+      "scope": "all Explosion jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -140,7 +154,7 @@
       "coverage_note": "Both Increase Damage Given self buffs (35→38%, 40% with Primed Fuse): Charge 4 Explosion and Howitzer Crash, each realized at cast time.",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
-      "scope": "Bakuhatsu jutsu",
+      "scope": "all Explosion jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -172,14 +186,15 @@
       "coverage_note": "Blast Shield damage reduction (35→37%; caster-only self buff, 2 rounds) and Charge 4 Explosion Afterburn (35→37%). 2 rows, 40 AP each.",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
-      "scope": "Bakuhatsu jutsu",
+      "scope": "all Explosion jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Blast Shield",
           "Charge 4 Explosion"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -201,13 +216,14 @@
       "coverage_note": "Blast Shield Decrease Damage Taken only (single caster-only row, 2 rounds per 40 AP cast): 35→38% alone, 40% with Smoke and Shrapnel.",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
-      "scope": "Bakuhatsu jutsu",
+      "scope": "all Explosion jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Blast Shield"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -234,7 +250,7 @@
       "coverage_note": "Blast Shield reduction route total 45%; both Increase Damage Given rows +2 (Charge 4 Explosion, Howitzer Crash: 37%, 39% with Fuse).",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
-      "scope": "Bakuhatsu jutsu",
+      "scope": "all Explosion jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -242,7 +258,8 @@
           "Charge 4 Explosion",
           "Howitzer Crash"
         ],
-        "effect_rows": 3
+        "effect_rows": 3,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -264,7 +281,7 @@
       "coverage_note": "Charge 4 Explosion Afterburn only (single target, range 4, 40 AP, 2 rounds): 35→38% alone, 40% with Smoke and Shrapnel.",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
-      "scope": "Bakuhatsu jutsu",
+      "scope": "all Explosion jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -297,7 +314,7 @@
       "coverage_note": "Charge 4 Explosion Afterburn route total 45% and its exposure +3 (38%, 40% with Primed Fuse); one 40 AP cast raises both debuffs.",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
-      "scope": "Bakuhatsu jutsu",
+      "scope": "all Explosion jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -1117,15 +1134,97 @@
     "revision": "Draft 3 / Explosion classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Bakuhatsu jutsu inherit Explosion potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Explosion jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 10,
+        "afterburn": 10
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10,
+        "afterburn": 15
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Ground Zero",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "07",
+          "name": "Siege Battery",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "05",
+            "06",
+            "07"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "09",
+          "name": "Chain Reaction",
+          "primary_tag": "afterburn",
+          "path": [
+            "05",
+            "08",
+            "09"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {

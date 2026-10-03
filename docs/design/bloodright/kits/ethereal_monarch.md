@@ -60,15 +60,20 @@ Stat/general filters on an element-less row are not binding at the pin: `getEffi
 
 Supported rows total: **10**. Unsupported tags present (no potency): clearprevent, consume, debuffprevent, injectjutsus, pierce, seal, visual.
 
-## Selector / classification audit
+## Potency classification audit (element-wide, RUL-2026-10-03-005)
 
 - Signature elements on damage/pierce rows: Yin-Yang
-- Proposed potency classification label: **Yin-Yang** (element)
-- Single signature element on the kit's damage/pierce rows; usable as the classification label under the proposed whole-kit classification, provided the classification is bloodline-scoped (see census collisions) rather than a bare element match.
-- Current resolver with `affectedElements=['Yin-Yang']`: 2 of 10 supported rows match directly; 8 fall back to None; 0 carry other elements only. Exclusive under current resolver: no.
-- Census collisions on signature elements (other bloodlines carrying the element on any row): Celestial Mage [DEFER] (Yin-Yang: 4 rows, 4 damage); DvEM [DEFER] (Yin-Yang: 3 rows, 3 damage); Ethereal Regent [EXCLUDE] (Yin-Yang: 4 rows, 4 damage); Heavenly Sonata [INCLUDE] (Yin-Yang: 3 rows, 3 damage); Manhattan Project [DEFER] (Yin-Yang: 5 rows, 4 damage); Tenohira Musei [INCLUDE] (Yin-Yang: 4 rows, 3 damage); Tenryūseigan [DEFER] (Yin-Yang: 4 rows, 4 damage); Tenshin Shoden Yami-Ryu [DEFER] (Yin-Yang: 4 rows, 4 damage)
-- Normal-jutsu collision: UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). Whether NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carry this element needs a read-only public jutsu listing capture requested from dauntless.
-- Item-gated jutsu: none
+- Proposed potency classification: **Yin-Yang** (element; status: element)
+- Qualifying elements: Yin-Yang
+- Single signature element Yin-Yang on the kit's damage/pierce rows. Potency reaches matching supported tags on every Yin-Yang jutsu: this kit, other bloodlines' Yin-Yang jutsu and any NORMAL/SPECIAL/EVENT/FORBIDDEN or injected Yin-Yang jutsu. Sharing the element with other bloodlines is expected, not a collision.
+- Not selectors: bloodline id or bloodline ownership; equipment / required bloodline item (castability gate only); injected-child provenance; jutsu names (examples only).
+- Kit jutsu of the qualifying element by their own rows (derived, train.ts checkJutsuElements union): Tamashī no Sakeme, Founder’s Wrath, Celestial Sealing
+- Kit jutsu in scope only by authored jutsu classification (no qualifying element on any row): Stardust (None), Heavenly Constructs (None), Starlight Veil (None)
+- Current resolver with `affectedElements=['Yin-Yang']`: 2 of 10 supported rows match directly; 8 fall back to None; 0 carry other elements only. Current resolver matches each effect row's own elements (absent list -> ['None']); it has no jutsu-level classification. Rows on a qualifying jutsu that do not carry the element are unreachable today: ENGINE GAP, not a design question.
+- Other captured bloodlines with jutsu of the qualifying element (expected sharing): Celestial Mage [DEFER] (Yin-Yang: 4 rows, 4 damage); DvEM [DEFER] (Yin-Yang: 3 rows, 3 damage); Ethereal Regent [EXCLUDE] (Yin-Yang: 4 rows, 4 damage); Heavenly Sonata [INCLUDE] (Yin-Yang: 3 rows, 3 damage); Manhattan Project [DEFER] (Yin-Yang: 5 rows, 4 damage); Tenohira Musei [INCLUDE] (Yin-Yang: 4 rows, 3 damage); Tenryūseigan [DEFER] (Yin-Yang: 4 rows, 4 damage); Tenshin Shoden Yami-Ryu [DEFER] (Yin-Yang: 4 rows, 4 damage)
+  - Other captured bloodlines with jutsu of the qualifying element. Sharing is expected. Their bloodline jutsu are castable only by their own bloodline's owners (checkJutsuBloodline, app/src/libs/train.ts 185-188), so they do not widen what one owner can amplify; NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the element can.
+- Off-kit coverage: UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the qualifying element are in scope by rule; how many exist needs a read-only public jutsu listing capture.
+- Item-gated jutsu (castability only, not a potency selector): none
 - Mode-restricted jutsu: none
 - Hidden jutsu in kit: none
 - Non-BLOODLINE jutsu types in kit: Stardust (SPECIAL)
@@ -79,7 +84,7 @@ Supported rows total: **10**. Unsupported tags present (no potency): clearpreven
 |---|---|---|---|---|---|---|
 | Heavenly Constructs | Stardust | `0_ip_8I2Dh_Ti2mYUcuAu` | `IxhIoLEmznqdcnc_6MCN9` | SPECIAL | yes | increasedamagegiven, increasedamagetaken, afterburn |
 
-Injected children are cast as `jutsu` actions at the inject power as level (actions.ts handleInjectedJutsus), so the resolver would process them; whether they inherit the bloodline classification is an engine decision recorded in the gap register. Children with an empty `bloodlineId` are not bloodline jutsu.
+Injected children are cast as `jutsu` actions at the inject power as level (actions.ts handleInjectedJutsus), so the resolver would process them. Provenance is not a selector: a child qualifies when it is a jutsu of the qualifying element (its own rows, or an authored jutsu classification), like any other jutsu.
 
 
 ## Afterburn and downstream notes

@@ -17,13 +17,23 @@
   "classification": {
     "potency_classification": "Ice",
     "label_kind": "element",
-    "bloodline": "Teno Yuki",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Ice"
+    ],
     "display_element": "Ice",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Teno Yuki jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Ice jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Cryostorm Aegis"
+    ],
+    "shared_element_bloodlines": [
       "Blue Blade Eyes",
       "Blue Edge Eyes",
       "First Flame",
@@ -31,7 +41,11 @@
       "Itzehecayan",
       "The Abbynomaly",
       "True North"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {

@@ -33,6 +33,13 @@ DIVIDER = "#394858"
 BRANCH_COLORS = ["#e5bb69", "#9ac1ca", "#b8d98d", "#d9a6e0"]
 FONT = "DejaVu Sans, sans-serif"
 CHAR_W = 0.56  # approximate average glyph width as a fraction of font size
+CHAR_W_BOLD = 0.63
+
+
+def fit(text: str, max_w: float, size: int, bold: bool = True) -> int:
+    """Largest font size <= size at which text fits max_w (approximate glyph widths)."""
+    need = len(str(text)) * (CHAR_W_BOLD if bold else CHAR_W)
+    return size if need * size <= max_w else max(18, int(max_w / need))
 
 
 def t(x, y, s, size, fill, weight=400, anchor="start"):
@@ -63,14 +70,13 @@ def fmt_val(v: float, calc: str) -> str:
 
 
 def mod_text(m: dict) -> str:
-    tag = m["tag"]
-    flat = m["flat"]
-    label = L.TAG_LABELS[tag]
-    if tag == "damage":
-        return f"+{flat} Damage power"
-    if tag == "heal":
-        return f"+{flat} Heal power"
-    return f"+{flat}% {label}"
+    return L.mod_text(m["tag"], m["flat"])
+
+
+def static_heal_rows(examples: list[dict]) -> bool:
+    """True when the kit has a static-calculation Heal row (its +N adds raw heal power)."""
+    return any(fr["tag"] == "heal" and fr.get("calculation") == "static"
+               for ex in examples[:1] for fr in ex.get("finals", []))
 
 
 ADVERSE_ROLES = ("SELF DEBUFF", "ENEMY BUFF")
@@ -107,15 +113,6 @@ def adverse_lines(node: dict, labels: dict[str, str] | None = None, fidx: dict |
         seen.add((lab, role))
         out.append((f"{lab}: {role.lower()} (adverse)", L.ROLE_COLORS.get(role, ADVERSE_COLOR)))
     return out
-
-
-def scope_phrase(cls: dict, bl: dict) -> str:
-    """'Scorch-classified Taiyo Kami jutsu', or the bloodline-keyed wording when the label is the bloodline name."""
-    label = str(cls.get("potency_classification") or "").strip()
-    name = str(bl.get("name") or "").strip()
-    if label.lower() == name.lower():
-        return f"{name} jutsu (bloodline-keyed classification, proposed extension)"
-    return f"{label}-classified {name} jutsu"
 
 
 def short_jutsu(name: str) -> str:
@@ -184,9 +181,8 @@ def layout(tree: dict):
             children[n["parents"][0]].append(n["id"])
         else:
             roots.append(n["id"])
-    for k in children:
-        children[k].sort()
-    roots.sort()
+    # Children and roots keep the source JSON order, so the author controls left-to-right
+    # route order (trees listed in id order render exactly as before).
 
     def leaves(nid):
         ch = children[nid]
@@ -291,11 +287,11 @@ def render_svg(tree: dict) -> str:
         g.append(t(x + 25, yy + 43, n["category"].upper(), 26, color if not adv else "#e5bb69", 700))
         g.append(t(x + w - 25, yy + 43, f'{n["cost"]} BP', 28, WHITE, 700, "end"))
         name_size = 42 if n["category"] == "Foundation" and w > 700 else 35
-        g.append(t(x + 25, yy + 99, n["name"], name_size, WHITE, 700))
+        g.append(t(x + 25, yy + 99, n["name"], fit(n["name"], w - 50, name_size), WHITE, 700))
         my = yy + 153
         for m in n.get("modifiers", []):
             role = m.get("display_role", "SELF BUFF")
-            g.append(t(x + 25, my, mod_text(m), 31, L.ROLE_COLORS.get(role, GREY), 700))
+            g.append(t(x + 25, my, mod_text(m), fit(mod_text(m), w - 50, 31), L.ROLE_COLORS.get(role, GREY), 700))
             my += 45
         my += 2
         max_chars = int((w - 50) / (26 * CHAR_W))
@@ -323,18 +319,19 @@ def render_svg(tree: dict) -> str:
     title = tree.get("title", "")
     sub = title.split("—", 1)[1].strip() if "—" in title else title
     hdr.append(t(MARGIN, 175, sub or bl["name"], 72, WHITE, 700))
-    hdr.append(t(MARGIN, 226, f'{tree.get("revision", "")} · Foundations support. Hidden Arts focus. Advanced Arts define.', 31, GREY))
+    hdr.append(t(MARGIN, 246, "Foundations support. Hidden Arts focus. Advanced Arts define.", 31, GREY))
     hdr.append(t(W - MARGIN, 105, f'{len(nodes)} SKILLS  /  {L.BP_CAP} PURCHASES', 36, "#e5bb69", 700, "end"))
     hdr.append(t(W - MARGIN, 156, "1 BP each · Acquire points with silver", 29, GREY, 400, "end"))
     hdr.append(t(W - MARGIN, 205, "Only your current bloodline unlocks", 28, GREY, 400, "end"))
     hdr.append(f'<rect x="{MARGIN}" y="282" width="{CONTENT_W}" height="112" rx="14" fill="{CARD}" stroke="{DIVIDER}" stroke-width="2"/>')
     kind = cls.get("label_kind", "")
-    if kind == "element":
-        band = f'{str(cls["potency_classification"]).upper()} POTENCY CLASSIFICATION'
-    else:
-        band = f'{str(cls["potency_classification"]).upper()} CLASSIFICATION · BLOODLINE-KEYED (PROPOSED EXTENSION)'
+    band = f'{str(cls["potency_classification"]).upper()} POTENCY CLASSIFICATION'
+    if kind == "multi-element":
+        band += " · DIRECTOR REVIEW"
+    elif kind == "classification extension":
+        band = f'{str(cls["potency_classification"]).upper()} CLASSIFICATION · REQUIRES CLASSIFICATION EXTENSION'
     hdr.append(t(MARGIN + 40, 328, band, 30, "#e5bb69", 700))
-    hdr.append(t(MARGIN + 40, 370, f'Every {bl["name"]} jutsu: existing supported tags qualify; combat scope stays unchanged.', 29, GREY))
+    hdr.append(t(MARGIN + 40, 370, L.scope_sentence(cls) + " Combat scopes stay unchanged.", 29, GREY))
     if has_adverse:
         hdr.append(t(MARGIN, 426, "SELF BUFF · YOURSELF OR ALLIES", 25, L.ROLE_COLORS["SELF BUFF"], 700))
         hdr.append(t(MARGIN + 600, 426, "ENEMY DEBUFF · OPPONENT", 25, L.ROLE_COLORS["ENEMY DEBUFF"], 700))
@@ -391,16 +388,16 @@ def render_svg(tree: dict) -> str:
         body.append(t(MARGIN + 400, y + 35, desc, 29, "#e5bb69"))
         bon = ex.get("bonuses", {})
         top = sorted(bon.items(), key=lambda kv: -kv[1])[:3]
-        bs = " / ".join((f'+{v} Damage' if k == "damage" else f'+{v} Heal' if k == "heal" else f'+{v}% {L.TAG_ABBR[k]}') for k, v in top)
+        bs = " / ".join(L.mod_text(k, v, abbr=True) for k, v in top)
         body.append(t(MARGIN + 1450, y + 35, bs, 28, GREY))
         y += 61
     y += 55
-    tags_used = [tg for tg in L.SUPPORTED_TAGS if tg not in ("damage", "heal") and any(ex.get("bonuses", {}).get(tg) for ex in examples)]
+    tags_used = [tg for tg in L.SUPPORTED_TAGS if tg != "damage" and any(ex.get("bonuses", {}).get(tg) for ex in examples)]
     if not tags_used:
-        tags_used = [tg for tg in L.SUPPORTED_TAGS if tg not in ("damage", "heal") and any(m["tag"] == tg for n in nodes for m in n.get("modifiers", []))]
-    body.append(t(MARGIN, y, " · ".join(f'{L.TAG_ABBR[tg]}: {L.TAG_LABELS[tg]}' for tg in tags_used) or "Damage and Heal additions are raw power", 24, GREY))
+        tags_used = [tg for tg in L.SUPPORTED_TAGS if tg != "damage" and any(m["tag"] == tg for n in nodes for m in n.get("modifiers", []))]
+    body.append(t(MARGIN, y, " · ".join(f'{L.TAG_ABBR[tg]}: {L.TAG_LABELS[tg]}' for tg in tags_used) or "Damage additions are raw EP", 24, GREY))
     y += 48
-    body.append(t(MARGIN, y, f'FINAL {bl["name"].upper()} TAG VALUES', 35, "#e5bb69", 700))
+    body.append(t(MARGIN, y, f'FINAL TAG VALUES ON THE {bl["name"].upper()} KIT', 35, "#e5bb69", 700))
     y += 43
     body.append(t(MARGIN, y, f'Jutsu level {tree.get("evaluation_level", L.DEFAULT_JUTSU_LEVEL)} · main-tree bonuses and bloodline passives excluded', 27, GREY))
     y += 27
@@ -435,10 +432,10 @@ def render_svg(tree: dict) -> str:
     step = (CONTENT_W - 1040) / max(1, ncols) if ncols > 1 else 250
     body.append(f'<rect x="{MARGIN}" y="{y}" width="{CONTENT_W}" height="60" rx="0" fill="#263240"/>')
     body.append(t(MARGIN + 14, y + 36, "EXISTING EFFECT", 24, WHITE, 700))
-    heads = ["BASE"] + [(ex.get("archetype") or ex.get("name") or "").upper()[:16] for ex in finals_cols]
+    heads = ["BASE"] + [(ex.get("archetype") or ex.get("name") or "").upper() for ex in finals_cols]
     head_size = 24 if ncols <= 3 else 21
     for i, hname in enumerate(heads):
-        body.append(t(col_x0 + 34 + i * step, y + 36, hname, head_size, WHITE, 700))
+        body.append(t(col_x0 + 34 + i * step, y + 36, hname, fit(hname, step - 12, head_size), WHITE, 700))
     y += 65
     for i, (lab, vals, colour) in enumerate(rows_tbl):
         if i % 2 == 0:
@@ -454,15 +451,17 @@ def render_svg(tree: dict) -> str:
     if "afterburn" in tree_tags:
         body.append(t(MARGIN, y, "Afterburn is an enemy debuff: while it lasts, damage the target takes adds Afterburn damage at the debuff percentage (60% cap per hit).", 24, GREY))
         y += 36
-    if "heal" in tree_tags:
-        body.append(t(MARGIN, y, "Heal additions are raw power: each +1 Heal power is +10 HP per tick of a static heal.", 24, GREY))
+    if "heal" in tree_tags and static_heal_rows(examples):
+        body.append(t(MARGIN, y, "On a static Heal effect each +1% Heal adds 1 heal power, which heals 10 HP per tick (display conflict under review).", 24, GREY))
         y += 36
     if "lifesteal" in tree_tags or "reflect" in tree_tags:
         body.append(t(MARGIN, y, "Lifesteal shares a 60%-of-hit leech budget with vamp; Reflect returns at most 60% of a hit.", 24, GREY))
         y += 36
-    body.append(t(MARGIN, y, "Proposed whole-kit potency classification. Current effect-element matching alone does not provide this inheritance.", 24, GREY))
+    body.append(t(MARGIN, y, "Proposed behavior: needs a jutsu-classification potency resolver. The current resolver matches each effect's own elements.", 24, GREY))
     y += 36
     body.append(t(MARGIN, y, f'{audit["full_budget_allocations"]} legal four-skill allocations · {adv_n} Advanced Art{"s" if adv_n != 1 else ""} available · Combat tuning remains experimental', 24, "#e5bb69"))
+    y += 36
+    body.append(t(MARGIN, y, str(tree.get("revision", "")), 22, GREY))
     H = y + 40
 
     desc_forks = []
@@ -478,7 +477,7 @@ def render_svg(tree: dict) -> str:
             parts.append(" then ".join(chain))
         desc_forks.append(f'{by_id[r]["name"]} forks into ' + ", or ".join(parts) + "." if parts else f'{by_id[r]["name"]} stands alone.')
     desc = (f'{len(nodes)} skills, {L.BP_CAP} purchases, one Advanced Art maximum. ' + " ".join(desc_forks) +
-            f' No paths converge. Bonuses affect existing supported tags on {scope_phrase(cls, bl)}.')
+            f' No paths converge. {L.scope_sentence(cls)}')
     meta = json.dumps(tree, ensure_ascii=True, separators=(",", ":"))
     defs = "".join(
         f'<marker id="arrow-{i}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="{c}"/></marker>'
@@ -514,9 +513,10 @@ def render_md(tree: dict, validation: dict | None) -> str:
     if tree.get("narrow_kit_exception"):
         out.append(f'> **Narrow-kit exception:** {tree["narrow_kit_exception"]}\n')
     out.append(f'All nodes cost 1 BP; the budget is {L.BP_CAP} BP acquired with silver; each skill is bought once; forks only. '
-               f'Bonuses are static additions to existing supported tags of {scope_phrase(cls, bl)} under the proposed classification behavior; no row\'s combat scope changes. Baselines at jutsu level {tree.get("evaluation_level")}.\n')
+               f'{L.scope_sentence(cls)} Bonuses are static additions under the proposed element-wide classification; no row\'s combat scope, recipient or filters change. '
+               f'Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level {tree.get("evaluation_level")}.\n')
     out.append("## Skills\n")
-    out.append("| ID | Skill | Tier | Requires | Exact bonus and recipient | Coverage (jutsu / rows) |\n|---|---|---|---|---|---|")
+    out.append("| ID | Skill | Tier | Requires | Exact bonus and recipient | Kit coverage (example jutsu / rows) |\n|---|---|---|---|---|---|")
     for n in nodes:
         req = by_id[n["parents"][0]]["name"] if n["parents"] else "None"
         bonus = "; ".join(f'{mod_text(m)} ({m.get("display_role", "").lower()})' for m in n["modifiers"])
@@ -536,7 +536,7 @@ def render_md(tree: dict, validation: dict | None) -> str:
     out.append("|---|---|" + "|".join("---:" for _ in tags_present) + "|")
     for ex in tree.get("examples", []):
         names = ", ".join(by_id[i]["name"] for i in ex["ids"])
-        vals = " | ".join((f'+{ex["bonuses"].get(t, 0)}' + ("" if t in ("damage", "heal") else "%")) if ex["bonuses"].get(t) else "—" for t in tags_present)
+        vals = " | ".join(f'+{ex["bonuses"][t]}{L.unit(t)}' if ex["bonuses"].get(t) else "—" for t in tags_present)
         out.append(f'| {ex.get("name")} ({ex.get("archetype")}) | {names} | {vals} |')
     out.append("\nAbbreviations: " + " · ".join(f'{L.TAG_ABBR[t]} = {L.TAG_LABELS[t]}' for t in tags_present) + ". Values are per-matching-row static additions, not final combat percentages.\n")
     for ex in tree.get("examples", []):
@@ -556,7 +556,15 @@ def render_md(tree: dict, validation: dict | None) -> str:
     la = audit["legal_allocations_by_size"]
     out.append(f'- Legal prerequisite-closed allocations by size: ' + ", ".join(f'{k}: {v}' for k, v in la.items()))
     out.append(f'- Full-budget allocations: {audit["full_budget_allocations"]}; numerically non-dominated (per-tag totals): {audit["non_dominated_full_allocations"]}; all nodes appear in a non-dominated build: {audit["all_nodes_in_non_dominated_builds"]}')
-    out.append(f'- Maximum individually achievable additions: ' + ", ".join(f'{L.TAG_LABELS[k]} +{v}{"" if k in ("damage","heal") else "%"}' for k, v in audit["maximum_tag_bonuses"].items()) + " (not jointly attainable)")
+    out.append(f'- Maximum individually achievable additions over every legal allocation: ' + ", ".join(L.mod_text(k, v) for k, v in audit["maximum_tag_bonuses"].items()) + " (not jointly attainable)")
+    ce = audit.get("ceilings") or {}
+    if ce:
+        out.append("- Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.")
+        for r in ce.get("routes", []):
+            band = "on band" if r.get("on_band") else ("off band: " + r["band_rationale"] if r.get("band_rationale") else "off band")
+            out.append(f'  - Route {r["name"]}: {L.mod_text(r["primary_tag"], r["total"])} ({" + ".join(str(x) for x in r["steps"])}; {band})')
+        for e in ce.get("director_exceptions", []):
+            out.append(f'  - Director-review exception: {L.TAG_LABELS.get(e.get("tag"), e.get("tag"))} up to +{e.get("max")}% ({e.get("status") or "pending director review"}): {e.get("reason")}')
     out.append(f'- Supported rows in kit: {audit["supported_rows_in_kit"]} (' + ", ".join(f'{L.TAG_ABBR[k]} {v}' for k, v in audit["supported_rows_by_tag"].items()) + ")")
     if audit.get("supported_tags_in_kit_not_targeted"):
         out.append(f'- Supported tags present but not targeted: {", ".join(audit["supported_tags_in_kit_not_targeted"])}')
@@ -575,7 +583,7 @@ def render_md(tree: dict, validation: dict | None) -> str:
     out.append("\n### All legal full-budget allocations\n")
     out.append("| # | Nodes | Bonuses |\n|---:|---|---|")
     for i, b in enumerate(tree.get("legal_full_budget_builds", []), 1):
-        bon = ", ".join(f'{L.TAG_ABBR[k]} +{v}' for k, v in b["bonuses"].items() if v)
+        bon = ", ".join(L.mod_text(k, v, abbr=True) for k, v in b["bonuses"].items() if v)
         out.append(f'| {i} | {", ".join(by_id[x]["name"] for x in b["ids"])} | {bon} |')
     if tree.get("design_notes"):
         out.append("\n## Design notes\n")

@@ -47,15 +47,18 @@ Stat/general filters on an element-less row are not binding at the pin: `getEffi
 
 Supported rows total: **4**. Unsupported tags present (no potency): injectjutsus, summon, visual.
 
-## Selector / classification audit
+## Potency classification audit (element-wide, RUL-2026-10-03-005)
 
 - Signature elements on damage/pierce rows: none
-- Proposed potency classification label: **Reptilian** (bloodline-keyed extension)
-- No non-None element on any damage/pierce row. No existing element can isolate this kit; a bloodline-keyed classification label (extension of the proposed resolver change) is required. Targeting 'None' would reach every non-elemental row in the game.
-- Current resolver with `affectedElements=['None']`: 4 of 4 supported rows match directly; 4 fall back to None; 0 carry other elements only. Exclusive under current resolver: no.
-- Census collisions on signature elements: none among the 95 captured bloodline kits.
-- Normal-jutsu collision: UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). Whether NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carry this element needs a read-only public jutsu listing capture requested from dauntless.
-- Item-gated jutsu: none
+- Proposed potency classification: **Reptilian** (classification extension; status: requires classification extension)
+- Qualifying elements: none (requires classification extension)
+- No non-None element on any damage/pierce row, so no existing element identifies this kit. Requires a classification extension: a new jutsu classification (placeholder name 'Reptilian') assigned to jutsu records. It is not a bloodline-id selector; which jutsu carry it is a director/engine decision. Targeting 'None' would reach every non-elemental row in the game.
+- Not selectors: bloodline id or bloodline ownership; equipment / required bloodline item (castability gate only); injected-child provenance; jutsu names (examples only).
+- Kit jutsu of the qualifying element by their own rows (derived, train.ts checkJutsuElements union): none
+- Kit jutsu in scope only by authored jutsu classification (no qualifying element on any row): Summoning: Reptile Zoo (None), Cool-Blooded Empowerment (None), Reptile Chimera (None)
+- Current resolver with `affectedElements=['None']`: 4 of 4 supported rows match directly; 4 fall back to None; 0 carry other elements only. Current resolver matches each effect row's own elements (absent list -> ['None']); it has no jutsu-level classification. Rows on a qualifying jutsu that do not carry the element are unreachable today: ENGINE GAP, not a design question.
+- Off-kit coverage: UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the qualifying element are in scope by rule; how many exist needs a read-only public jutsu listing capture.
+- Item-gated jutsu (castability only, not a potency selector): none
 - Mode-restricted jutsu: Summoning: Reptile Zoo (PVP)
 - Hidden jutsu in kit: none
 - Non-BLOODLINE jutsu types in kit: none
@@ -66,7 +69,7 @@ Supported rows total: **4**. Unsupported tags present (no potency): injectjutsus
 |---|---|---|---|---|---|---|
 | Summoning: Reptile Zoo | Summoning: Reptile King | `VnLuKCX1hXm1Hqf0k__XB` | `` | SPECIAL | yes | — |
 
-Injected children are cast as `jutsu` actions at the inject power as level (actions.ts handleInjectedJutsus), so the resolver would process them; whether they inherit the bloodline classification is an engine decision recorded in the gap register. Children with an empty `bloodlineId` are not bloodline jutsu.
+Injected children are cast as `jutsu` actions at the inject power as level (actions.ts handleInjectedJutsus), so the resolver would process them. Provenance is not a selector: a child qualifies when it is a jutsu of the qualifying element (its own rows, or an authored jutsu classification), like any other jutsu.
 
 
 ## Afterburn and downstream notes

@@ -12,18 +12,34 @@
   "revision": "Draft 3 / Sand classification / forked tree",
   "structure_errors": [],
   "warnings": [
+    "route The Inevitable Hour primary total +7% Increase Damage Taken is off the 5/10/15 bands without a route_band_rationale",
+    "route Stilled Hourglass primary total +8% Decrease Damage Given is off the 5/10/15 bands without a route_band_rationale",
     "ally-hazard area rows amplified (friendly fire none/ALL): Timelapse#0"
   ],
   "classification": {
     "potency_classification": "Sand",
     "label_kind": "element",
-    "bloodline": "Sands of Time",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Sand"
+    ],
     "display_element": "Sand",
-    "element_exclusive_within_census": true,
-    "applies_to": "existing supported tags of every Sands of Time jutsu",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Sand jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Cellular Regeneration"
+    ],
+    "shared_element_bloodlines": [],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
     "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": []
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {

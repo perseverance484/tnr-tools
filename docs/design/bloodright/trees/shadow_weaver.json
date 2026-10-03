@@ -12,13 +12,23 @@
   "classification": {
     "potency_classification": "Shadow",
     "label_kind": "element",
-    "bloodline": "Shadow Weaver",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Shadow"
+    ],
     "display_element": "Shadow",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Shadow Weaver jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Shadow jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Shadow Shell"
+    ],
+    "shared_element_bloodlines": [
       "Adorable Shadow of Death",
       "Blood-Enchanted Eyes",
       "Blood-Enshrined Eyes",
@@ -32,7 +42,11 @@
       "Oblivion Seal",
       "Otaku of the Dark Maiden",
       "Sacrament of Crimson Hunger"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Damage (four Shadow Bukijutsu attacks, +5 ceiling)",
@@ -63,7 +77,7 @@
       "coverage_note": "Domain, Step and Shell self buffs 35→37% (2 rounds); Severance's Decrease Damage Given 30→32% on every non-pierce hit the target deals.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Shadow Weaver jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -72,7 +86,8 @@
           "Shadow Shell",
           "Shadow Step"
         ],
-        "effect_rows": 4
+        "effect_rows": 4,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -94,7 +109,7 @@
       "coverage_note": "Domain, Severance, Step and Dance 40→42 (Shadow, Bukijutsu; 60 AP, cooldown 7). Domain spiral and Step circle strike enemies only.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Shadow Weaver jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -125,7 +140,7 @@
       "coverage_note": "Same four Shadow damage rows; route total +5 (Domain, Severance, Step and Dance 45 at jutsu level 25).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Shadow Weaver jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -156,7 +171,7 @@
       "coverage_note": "Severance's Decrease Damage Given only (+3 more: 35% with Loom of Dusk); 2 rounds per 60 AP cast; all four stat types, pierce excluded.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Shadow Weaver jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -189,7 +204,7 @@
       "coverage_note": "Severance's debuff to 40% (route +10); Domain, Step and Shell self buffs +3 (40% with Loom of Dusk). Both are 2-round windows.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Shadow Weaver jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -198,7 +213,8 @@
           "Shadow Shell",
           "Shadow Step"
         ],
-        "effect_rows": 4
+        "effect_rows": 4,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -218,13 +234,14 @@
       "coverage_note": "Shadow Shell's self Decrease Damage Taken 35→38% (40 AP self cast, 2 rounds); all four stat types, every non-pierce hit taken.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Shadow Weaver jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Shadow Shell"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -246,13 +263,14 @@
       "coverage_note": "Shadow Shell's Decrease Damage Taken only (+3 more: 41% with Cloak of Woven Night); non-pierce hits; 2 rounds per 40 AP cast.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Shadow Weaver jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Shadow Shell"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -279,7 +297,7 @@
       "coverage_note": "Shadow Shell's reduction to 45% (route +10); Domain, Step and Shell self buffs +2 (37%, or 40% with Umbral Whetstone).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Shadow Weaver jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -287,7 +305,8 @@
           "Shadow Shell",
           "Shadow Step"
         ],
-        "effect_rows": 4
+        "effect_rows": 4,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -309,7 +328,7 @@
       "coverage_note": "Domain, Step and Shell self buffs +3 (38%; 40% with Loom of Dusk or Seamless Shroud); Fire, Lightning, Shadow and element-less hits.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Shadow Weaver jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -317,7 +336,8 @@
           "Shadow Shell",
           "Shadow Step"
         ],
-        "effect_rows": 3
+        "effect_rows": 3,
+        "rows_via_authored_classification": 1
       }
     }
   ],
@@ -1243,15 +1263,95 @@
     "revision": "Draft 1 / Shadow classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Shadow Weaver jutsu inherit Shadow potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Shadow jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 10
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Night Unraveled",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Strings Cut Short",
+          "primary_tag": "decreasedamagegiven",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "08",
+          "name": "Seamless Shroud",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            3,
+            3,
+            4
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {
