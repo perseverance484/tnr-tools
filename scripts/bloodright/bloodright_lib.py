@@ -265,6 +265,7 @@ class Row:
     cooldown: Any
     method: Any
     range: Any
+    ally_hazard: bool = False
 
     def as_dict(self) -> dict:
         return asdict(self)
@@ -281,6 +282,12 @@ def kit_rows(kit: dict, level: int = DEFAULT_JUTSU_LEVEL, include_unsupported: b
                     continue
                 raw, eff = recipient_for(j, e)
                 role, adverse = role_for(tag, eff)
+                # Friendly fire: checkFriendlyFire (process.ts 154-183 at the pin) treats an absent
+                # friendlyFire as ALL, so a harmful row delivered by an area method or a ground
+                # target with friendlyFire None/ALL also lands on allies (and the caster) in the area.
+                area = str(j.get("method") or "").startswith("AOE_") or j.get("target") in ("GROUND", "EMPTY_GROUND")
+                hazard = bool(area and e.get("target", "INHERIT") in (None, "INHERIT") and tag in NEGATIVE_TAGS
+                              and e.get("friendlyFire") in (None, "ALL") and eff == "enemy")
                 rows.append(Row(
                     jutsu_id=j["id"], jutsu_name=j["name"], jutsu_rank=j.get("jutsuRank"),
                     jutsu_type=j.get("jutsuType"), bloodline_id_on_jutsu=j.get("bloodlineId"),
@@ -296,6 +303,7 @@ def kit_rows(kit: dict, level: int = DEFAULT_JUTSU_LEVEL, include_unsupported: b
                     usage=j.get("battleUsageType"), injectable=j.get("injectableInBattle"),
                     jutsu_hidden=j.get("hidden"), ap_cost=j.get("actionCostPerc"),
                     cooldown=j.get("cooldown"), method=j.get("method"), range=j.get("range"),
+                    ally_hazard=hazard,
                 ))
     return rows
 

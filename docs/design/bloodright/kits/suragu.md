@@ -25,20 +25,22 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Lava Wave | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Earth, Fire, Lava, None | self | SELF BUFF | ✓ |  |
-| Lava Wave | 1 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Lava Wave | 2 | move | static | 1 | 1 + 0/lvl | — | None | self | SELF BUFF |  |  |
-| Blow of Devastation | 0 | recoil | percentage | 40% | 30 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Blow of Devastation | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Eruption Strike | 0 | pierce | formula | 58 | 48 + 0.4/lvl | 0 | Lava | enemy | ENEMY DEBUFF |  |  |
-| Eruption Strike | 1 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Magma Slayer | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Lava | enemy | DAMAGE | ✓ |  |
-| Magma Slayer | 1 | wound | percentage | 30% | 20 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Infernal Stream | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Lava | enemy | DAMAGE | ✓ |  |
-| Infernal Stream | 1 | lifesteal | percentage | 40% | 30 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Infernal Stream | 2 | poison | percentage | 50% | 40 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Lava Wave | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Earth, Fire, Lava, None | — | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Lava Wave | 1 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | FRIENDLY | self | SELF BUFF | ✓ |  |  |
+| Lava Wave | 2 | move | static | 1 | 1 + 0/lvl | — | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Blow of Devastation | 0 | recoil | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Blow of Devastation | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Eruption Strike | 0 | pierce | formula | 58 | 48 + 0.4/lvl | 0 | Lava | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |
+| Eruption Strike | 1 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  | **yes** |
+| Magma Slayer | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Lava | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Magma Slayer | 1 | wound | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Infernal Stream | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Lava | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Infernal Stream | 1 | lifesteal | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Infernal Stream | 2 | poison | percentage | 50% | 40 + 0.4/lvl | 2 | None | — | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 
@@ -52,6 +54,8 @@ Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective 
 | Lifesteal | 1 | Infernal Stream | SELF BUFF | 40 | — | 0 | 0 | 0 | — |
 
 Supported rows total: **7**. Unsupported tags present (no potency): move, pierce, poison, recoil, wound.
+
+> **Ally-hazard rows (area delivery, friendly fire none/ALL):** Eruption Strike row 1 (afterburn, AOE_CIRCLE_SPAWN, target OTHER_USER). Potency on these tags also raises what allies standing in the area receive; positioning, not the node, decides.
 
 ## Selector / classification audit
 

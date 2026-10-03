@@ -216,7 +216,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 5
+      "range": 5,
+      "ally_hazard": true
     },
     {
       "jutsu_id": "VmoEzExhfgtzme2b5RuzJ",
@@ -260,7 +261,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 5
+      "range": 5,
+      "ally_hazard": true
     },
     {
       "jutsu_id": "VmoEzExhfgtzme2b5RuzJ",
@@ -299,7 +301,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 5
+      "range": 5,
+      "ally_hazard": true
     },
     {
       "jutsu_id": "UgYXqNIJNjLGkAS5b5udH",
@@ -344,7 +347,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 4
+      "range": 4,
+      "ally_hazard": true
     },
     {
       "jutsu_id": "UgYXqNIJNjLGkAS5b5udH",
@@ -391,7 +395,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 4
+      "range": 4,
+      "ally_hazard": true
     },
     {
       "jutsu_id": "FGSJC-7Zd0BYh7-tvsUdH",
@@ -432,7 +437,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 0
+      "range": 0,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "FGSJC-7Zd0BYh7-tvsUdH",
@@ -476,7 +482,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 0
+      "range": 0,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "FGSJC-7Zd0BYh7-tvsUdH",
@@ -523,7 +530,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 0
+      "range": 0,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "Zr6Zo2NcXxWuL13ufQsHw",
@@ -568,7 +576,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "Zr6Zo2NcXxWuL13ufQsHw",
@@ -612,7 +621,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "egtCp5UC5pRwxz7egJm7J",
@@ -657,7 +667,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "egtCp5UC5pRwxz7egJm7J",
@@ -701,7 +712,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     }
   ],
   "supported_row_summary": [
@@ -829,6 +841,40 @@
     "wound"
   ],
   "adverse_supported_rows": [],
+  "ally_hazard_supported_rows": [
+    {
+      "jutsu": "Windshear Decay",
+      "row": 0,
+      "tag": "increasedamagetaken",
+      "method": "AOE_CIRCLE_SPAWN",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": null
+    },
+    {
+      "jutsu": "Windshear Decay",
+      "row": 1,
+      "tag": "decreasedamagegiven",
+      "method": "AOE_CIRCLE_SPAWN",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": null
+    },
+    {
+      "jutsu": "Death's March",
+      "row": 0,
+      "tag": "damage",
+      "method": "AOE_CIRCLE_SPAWN",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ALL"
+    },
+    {
+      "jutsu": "Death's March",
+      "row": 1,
+      "tag": "increasedamagetaken",
+      "method": "AOE_CIRCLE_SPAWN",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": null
+    }
+  ],
   "afterburn": {
     "application_rows": [],
     "downstream_note": "Afterburn is an enemy debuff (tags.ts afterburn handler at the pin): while active on following rounds, every instant damage consequence the debuffed target receives (any source, pierce excluded) adds floor(damage x percent) Afterburn damage, with the cumulative Afterburn on one hit capped at 60% of that hit. Potency raises the percent, not the duration. Downstream coverage is therefore every non-pierce hit landed on the target during the debuff, including normal jutsu, weapons and allies; it is not measured by the application-row count and was not simulated.",

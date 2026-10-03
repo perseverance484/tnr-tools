@@ -182,7 +182,8 @@
       "ap_cost": 40,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "tu7lVHdSMNq6vUcAXz6Dj",
@@ -226,7 +227,8 @@
       "ap_cost": 40,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "j2An9ofh66SL3XC08tnoL",
@@ -270,7 +272,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "j2An9ofh66SL3XC08tnoL",
@@ -314,7 +317,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "_wLE7LmkK889IeKev9O_d",
@@ -358,7 +362,8 @@
       "ap_cost": 60,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "_wLE7LmkK889IeKev9O_d",
@@ -402,7 +407,8 @@
       "ap_cost": 60,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     }
   ],
   "supported_row_summary": [
@@ -501,6 +507,7 @@
   "supported_rows_total": 6,
   "unsupported_tags_present": [],
   "adverse_supported_rows": [],
+  "ally_hazard_supported_rows": [],
   "afterburn": {
     "application_rows": [],
     "downstream_note": "Afterburn is an enemy debuff (tags.ts afterburn handler at the pin): while active on following rounds, every instant damage consequence the debuffed target receives (any source, pierce excluded) adds floor(damage x percent) Afterburn damage, with the cumulative Afterburn on one hit capped at 60% of that hit. Potency raises the percent, not the duration. Downstream coverage is therefore every non-pierce hit landed on the target during the debuff, including normal jutsu, weapons and allies; it is not measured by the application-row count and was not simulated.",

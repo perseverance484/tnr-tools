@@ -25,20 +25,22 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Magnetic Pulse Strike | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Magnet | enemy | DAMAGE | ✓ |  |
-| Magnetic Pulse Strike | 1 | wound | percentage | 25% | 15 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Rising Star | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Magnet | enemy | DAMAGE | ✓ |  |
-| Rising Star | 1 | reflect | percentage | 40% | 30 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Morning Star | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Magnet | enemy | DAMAGE | ✓ |  |
-| Morning Star | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Houkyuken: Magnetic Assignment | 0 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Houkyuken: Magnetic Assignment | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Houkyuken: Magnetic Assignment | 2 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Lightning, Magnet, None, Wind | enemy | ENEMY DEBUFF | ✓ |  |
-| Houkyu Dance | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Magnet | enemy | DAMAGE | ✓ |  |
-| Houkyu Dance | 1 | move | static | 1 | 1 + 0/lvl | 0 | None | self | SELF BUFF |  |  |
-| Houkyu Dance | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Lightning, Magnet, None, Wind | self | SELF BUFF | ✓ |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Magnetic Pulse Strike | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Magnet | Taijutsu / Speed, Strength | none (=ALL) | enemy | DAMAGE | ✓ |  |  |
+| Magnetic Pulse Strike | 1 | wound | percentage | 25% | 15 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Rising Star | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Magnet | Taijutsu / Speed, Strength | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Rising Star | 1 | reflect | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |
+| Morning Star | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Magnet | Taijutsu / Speed, Strength | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Morning Star | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Houkyuken: Magnetic Assignment | 0 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |
+| Houkyuken: Magnetic Assignment | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Houkyuken: Magnetic Assignment | 2 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Lightning, Magnet, None, Wind | — | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Houkyu Dance | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Magnet | Taijutsu / Speed, Strength | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Houkyu Dance | 1 | move | static | 1 | 1 + 0/lvl | 0 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Houkyu Dance | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Lightning, Magnet, None, Wind | — | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 

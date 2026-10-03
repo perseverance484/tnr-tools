@@ -25,18 +25,20 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Summoning: Jade | 0 | summon | percentage | 60% | 50 + 0.4/lvl | 4 | None | self | SELF BUFF |  |  |
-| Kōsai Shippū | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Crystal | enemy | DAMAGE | ✓ |  |
-| Kōsai Shippū | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Crystal, Earth, Fire, None | self | SELF BUFF | ✓ |  |
-| Prism | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Crystal | enemy | DAMAGE | ✓ |  |
-| Prism | 1 | wound | percentage | 25% | 15 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Crystal Sphere | 0 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Crystal Sphere | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Crystal Cave | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Crystal | enemy | DAMAGE | ✓ |  |
-| Crystal Cave | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Crystal, Earth, Fire, None | enemy | ENEMY DEBUFF | ✓ |  |
-| Crystal Cave | 2 | reflect | percentage | 40% | 30 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Summoning: Jade | 0 | summon | percentage | 60% | 50 + 0.4/lvl | 4 | None | — | ALL | self | SELF BUFF |  |  |  |
+| Kōsai Shippū | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Crystal | Ninjutsu / Intelligence, Willpower | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Kōsai Shippū | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Crystal, Earth, Fire, None | Ninjutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Prism | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Crystal | Ninjutsu / Intelligence, Willpower | ALL | enemy | DAMAGE | ✓ |  |  |
+| Prism | 1 | wound | percentage | 25% | 15 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Crystal Sphere | 0 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |
+| Crystal Sphere | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Ninjutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Crystal Cave | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Crystal | Ninjutsu / Intelligence, Willpower | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Crystal Cave | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Crystal, Earth, Fire, None | — | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Crystal Cave | 2 | reflect | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 

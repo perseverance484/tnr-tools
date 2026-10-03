@@ -177,7 +177,8 @@
       "ap_cost": 60,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "hpL9HJyo1CLMRDX9QWNIS",
@@ -218,7 +219,8 @@
       "ap_cost": 60,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "hpL9HJyo1CLMRDX9QWNIS",
@@ -262,7 +264,8 @@
       "ap_cost": 60,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "X5vTPwSEcnEsBXRiAYTfy",
@@ -306,7 +309,8 @@
       "ap_cost": 40,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "X5vTPwSEcnEsBXRiAYTfy",
@@ -347,7 +351,8 @@
       "ap_cost": 40,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "X5vTPwSEcnEsBXRiAYTfy",
@@ -386,7 +391,8 @@
       "ap_cost": 40,
       "cooldown": 6,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "ohlJeeZdmv7Q8GA64HS7i",
@@ -430,7 +436,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 4
+      "range": 4,
+      "ally_hazard": true
     },
     {
       "jutsu_id": "ohlJeeZdmv7Q8GA64HS7i",
@@ -474,7 +481,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 4
+      "range": 4,
+      "ally_hazard": true
     }
   ],
   "supported_row_summary": [
@@ -592,6 +600,16 @@
       "role": "SELF DEBUFF",
       "recipient": "self",
       "base": 25.0
+    }
+  ],
+  "ally_hazard_supported_rows": [
+    {
+      "jutsu": "Chakra Cannon",
+      "row": 1,
+      "tag": "decreasedamagegiven",
+      "method": "AOE_CIRCLE_SPAWN",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ALL"
     }
   ],
   "afterburn": {

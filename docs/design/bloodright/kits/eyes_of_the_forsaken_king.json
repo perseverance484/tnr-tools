@@ -207,7 +207,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "F1kCgwwTAtZZkn_tdqrp5",
@@ -246,7 +247,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "HeyLZuk1IdXK0a3fpPJyD",
@@ -291,7 +293,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_LINE_SHOOT",
-      "range": 4
+      "range": 4,
+      "ally_hazard": true
     },
     {
       "jutsu_id": "HeyLZuk1IdXK0a3fpPJyD",
@@ -335,7 +338,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_LINE_SHOOT",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "8wl2YvOZB_WwZx4FXzrlm",
@@ -384,7 +388,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "8wl2YvOZB_WwZx4FXzrlm",
@@ -428,7 +433,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "8wl2YvOZB_WwZx4FXzrlm",
@@ -467,7 +473,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "F8MfmoTkyLFxRZjHsUMnq",
@@ -511,7 +518,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "F8MfmoTkyLFxRZjHsUMnq",
@@ -560,7 +568,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "F8MfmoTkyLFxRZjHsUMnq",
@@ -609,7 +618,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 5
+      "range": 5,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "l2QF2aUCJO8M9jeSoQscp",
@@ -654,7 +664,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "l2QF2aUCJO8M9jeSoQscp",
@@ -698,7 +709,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "l2QF2aUCJO8M9jeSoQscp",
@@ -742,7 +754,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     }
   ],
   "supported_row_summary": [
@@ -892,6 +905,16 @@
     "timedilation"
   ],
   "adverse_supported_rows": [],
+  "ally_hazard_supported_rows": [
+    {
+      "jutsu": "Lux",
+      "row": 0,
+      "tag": "damage",
+      "method": "AOE_LINE_SHOOT",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": null
+    }
+  ],
   "afterburn": {
     "application_rows": [
       {

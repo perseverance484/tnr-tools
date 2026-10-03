@@ -23,16 +23,18 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Voltara Blitz | 0 | move | static | 1 | 1 + 0/lvl | — | None | self | SELF BUFF |  |  |
-| Voltara Blitz | 1 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Voltara Blitz | 2 | pierce | formula | 56 | 46 + 0.4/lvl | 0 | None | enemy | ENEMY DEBUFF |  |  |
-| Luminous Illusion Bind | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Lightning | enemy | DAMAGE | ✓ |  |
-| Luminous Illusion Bind | 1 | stun | static | 100 | 90 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Luminous Illusion Bind | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Lightning | self | SELF BUFF | ✓ |  |
-| Ethereal Dragon's Whispers | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Lightning | enemy | DAMAGE | ✓ |  |
-| Ethereal Dragon's Whispers | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Voltara Blitz | 0 | move | static | 1 | 1 + 0/lvl | — | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Voltara Blitz | 1 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |
+| Voltara Blitz | 2 | pierce | formula | 56 | 46 + 0.4/lvl | 0 | None | Highest / Highest | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |
+| Luminous Illusion Bind | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Lightning | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Luminous Illusion Bind | 1 | stun | static | 100 | 90 + 0.4/lvl | 2 | None | — | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |
+| Luminous Illusion Bind | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Lightning | — | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Ethereal Dragon's Whispers | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Lightning | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Ethereal Dragon's Whispers | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 

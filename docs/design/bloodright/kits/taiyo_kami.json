@@ -217,7 +217,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_SPIRAL_SHOOT",
-      "range": 4
+      "range": 4,
+      "ally_hazard": true
     },
     {
       "jutsu_id": "RvLZQOgJE8D3QtX3LY07_",
@@ -261,7 +262,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_SPIRAL_SHOOT",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "B6xrDMv4TckvKn_5aImdT",
@@ -306,7 +308,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "B6xrDMv4TckvKn_5aImdT",
@@ -350,7 +353,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "zLa_tASqn4gRa8FYjUoTu",
@@ -394,7 +398,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 0
+      "range": 0,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "zLa_tASqn4gRa8FYjUoTu",
@@ -441,7 +446,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 0
+      "range": 0,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "zLa_tASqn4gRa8FYjUoTu",
@@ -485,7 +491,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 0
+      "range": 0,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "H78qBo2-pkuh4_h4lutoR",
@@ -529,7 +536,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "H78qBo2-pkuh4_h4lutoR",
@@ -568,7 +576,8 @@
       "ap_cost": 40,
       "cooldown": 7,
       "method": "SINGLE",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "VCRI7Y24RtnzGndzN-Awe",
@@ -613,7 +622,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 4
+      "range": 4,
+      "ally_hazard": false
     },
     {
       "jutsu_id": "VCRI7Y24RtnzGndzN-Awe",
@@ -657,7 +667,8 @@
       "ap_cost": 60,
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
-      "range": 4
+      "range": 4,
+      "ally_hazard": true
     }
   ],
   "supported_row_summary": [
@@ -805,6 +816,24 @@
     "wound"
   ],
   "adverse_supported_rows": [],
+  "ally_hazard_supported_rows": [
+    {
+      "jutsu": "Solar Reverb",
+      "row": 0,
+      "tag": "damage",
+      "method": "AOE_SPIRAL_SHOOT",
+      "jutsu_target": "GROUND",
+      "friendly_fire": null
+    },
+    {
+      "jutsu": "Stellar Inferno",
+      "row": 1,
+      "tag": "increasedamagetaken",
+      "method": "AOE_CIRCLE_SPAWN",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": null
+    }
+  ],
   "afterburn": {
     "application_rows": [
       {

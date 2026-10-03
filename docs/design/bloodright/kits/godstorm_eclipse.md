@@ -31,38 +31,40 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Event Horizon Gate | 0 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Event Horizon Gate | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Event Horizon Gate | 2 | redirection | static | 4 | 4 + 0/lvl | 0 | None | enemy | ENEMY DEBUFF |  |  |
-| Godstorm Mantle: Storm-God's Heart | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Storm | enemy | DAMAGE | ✓ |  |
-| Godstorm Mantle: Storm-God's Heart | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Godstorm Mantle: Heavenbreaker Verdict | 0 | pierce | formula | 60 | 50 + 0.4/lvl | 0 | Storm | enemy | ENEMY DEBUFF |  |  |
-| Godstorm Mantle: Heavenbreaker Verdict | 1 | wound | percentage | 30% | 20 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Godstorm Mantle: Raijin's Cage | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Storm | enemy | DAMAGE | ✓ |  |
-| Godstorm Mantle: Raijin's Cage | 1 | stun | static | 100 | 90 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Godstorm Mantle: Tempest | 0 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Godstorm Mantle: Tempest | 1 | lifesteal | percentage | 40% | 30 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Godstorm Mantle: Tempest | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Godstorm Mantle: Sky-Splitting Wall | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Godstorm Mantle: Sky-Splitting Wall | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Godstorm Mantle: Sky-Splitting Wall | 2 | debuffprevent | static | 100 | 90 + 0.4/lvl | 1 | None | self | SELF BUFF |  |  |
-| Godstorm Mantle: Thunder-Crowned Bulwark | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Godstorm Mantle: Thunder-Crowned Bulwark | 1 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Godstorm Mantle: Thunder-Crowned Bulwark | 2 | move | static | 1 | 1 + 0/lvl | — | None | self | SELF BUFF |  |  |
-| Obsidian Tomb | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Shadow | enemy | DAMAGE | ✓ |  |
-| Obsidian Tomb | 1 | buffprevent | static | 100 | 90 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Obsidian Tomb | 2 | debuffprevent | static | 100 | 90 + 0.4/lvl | 1 | None | self | SELF BUFF |  |  |
-| Midnight Verdict | 0 | pierce | formula | 66 | 56 + 0.4/lvl | 0 | Shadow | enemy | ENEMY DEBUFF |  |  |
-| Midnight Verdict | 1 | stun | static | 100 | 90 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Corona Devourer Palm | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Shadow | enemy | DAMAGE | ✓ |  |
-| Corona Devourer Palm | 1 | recoil | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Marrow Eclipse Mantle | 0 | absorb | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF |  |  |
-| Marrow Eclipse Mantle | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Black Sun Cataract | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Shadow | enemy | DAMAGE | ✓ |  |
-| Black Sun Cataract | 1 | drain | static | 250 | 250 + 0/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Black Sun Cataract | 2 | wound | percentage | 30% | 20 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Event Horizon Gate | 0 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | FRIENDLY | self | SELF BUFF | ✓ |  |  |
+| Event Horizon Gate | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  | **yes** |
+| Event Horizon Gate | 2 | redirection | static | 4 | 4 + 0/lvl | 0 | None | — | none (=ALL) | enemy | ENEMY DEBUFF |  |  | **yes** |
+| Godstorm Mantle: Storm-God's Heart | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Storm | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Godstorm Mantle: Storm-God's Heart | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Godstorm Mantle: Heavenbreaker Verdict | 0 | pierce | formula | 60 | 50 + 0.4/lvl | 0 | Storm | Highest / Highest | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |
+| Godstorm Mantle: Heavenbreaker Verdict | 1 | wound | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Godstorm Mantle: Raijin's Cage | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Storm | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Godstorm Mantle: Raijin's Cage | 1 | stun | static | 100 | 90 + 0.4/lvl | 2 | None | — | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |
+| Godstorm Mantle: Tempest | 0 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Godstorm Mantle: Tempest | 1 | lifesteal | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Godstorm Mantle: Tempest | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Godstorm Mantle: Sky-Splitting Wall | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Godstorm Mantle: Sky-Splitting Wall | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Godstorm Mantle: Sky-Splitting Wall | 2 | debuffprevent | static | 100 | 90 + 0.4/lvl | 1 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Godstorm Mantle: Thunder-Crowned Bulwark | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Godstorm Mantle: Thunder-Crowned Bulwark | 1 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Godstorm Mantle: Thunder-Crowned Bulwark | 2 | move | static | 1 | 1 + 0/lvl | — | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Obsidian Tomb | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Shadow | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  |  |
+| Obsidian Tomb | 1 | buffprevent | static | 100 | 90 + 0.4/lvl | 2 | None | — | none (=ALL) | enemy | ENEMY DEBUFF |  |  |  |
+| Obsidian Tomb | 2 | debuffprevent | static | 100 | 90 + 0.4/lvl | 1 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Midnight Verdict | 0 | pierce | formula | 66 | 56 + 0.4/lvl | 0 | Shadow | Highest / Highest | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |
+| Midnight Verdict | 1 | stun | static | 100 | 90 + 0.4/lvl | 2 | None | — | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |
+| Corona Devourer Palm | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Shadow | Highest / Highest | none (=ALL) | enemy | DAMAGE | ✓ |  | **yes** |
+| Corona Devourer Palm | 1 | recoil | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF |  |  | **yes** |
+| Marrow Eclipse Mantle | 0 | absorb | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | self | SELF BUFF |  |  |  |
+| Marrow Eclipse Mantle | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest | none (=ALL) | self | SELF BUFF | ✓ |  |  |
+| Black Sun Cataract | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Shadow | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
+| Black Sun Cataract | 1 | drain | static | 250 | 250 + 0/lvl | 2 | None | — | none (=ALL) | enemy | ENEMY DEBUFF |  |  | **yes** |
+| Black Sun Cataract | 2 | wound | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 
@@ -76,6 +78,8 @@ Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective 
 | Lifesteal | 1 | Godstorm Mantle: Tempest | SELF BUFF | 40 | — | 0 | 1 | 0 | — |
 
 Supported rows total: **16**. Unsupported tags present (no potency): absorb, buffprevent, debuffprevent, drain, move, pierce, recoil, redirection, stun, wound.
+
+> **Ally-hazard rows (area delivery, friendly fire none/ALL):** Event Horizon Gate row 1 (increasedamagetaken, AOE_CIRCLE_SPAWN, target OTHER_USER); Corona Devourer Palm row 0 (damage, AOE_SPIRAL_SHOOT, target GROUND). Potency on these tags also raises what allies standing in the area receive; positioning, not the node, decides.
 
 ## Selector / classification audit
 

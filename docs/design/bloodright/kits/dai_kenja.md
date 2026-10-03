@@ -24,16 +24,18 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|
-| Overloaded Impact | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | None | enemy | DAMAGE | ✓ |  |
-| Overloaded Impact | 1 | increasedamagegiven | percentage | 30% | 20 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
-| Overloaded Impact | 2 | increasedamagetaken | percentage | 25% | 20 + 0.2/lvl | 2 | None | self | SELF DEBUFF | ✓ | **yes** |
-| Chakra Overload | 0 | decreasedamagegiven | percentage | 25% | 15 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Chakra Overload | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
-| Chakra Overload | 2 | increasepoolcost | percentage | 100% | 80 + 0.8/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
-| Chakra Cannon | 0 | pierce | formula | 58 | 48 + 0.4/lvl | 0 | None | enemy | ENEMY DEBUFF |  |  |
-| Chakra Cannon | 1 | decreasedamagegiven | percentage | 30% | 20 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
+| Overloaded Impact | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | None | Ninjutsu / Intelligence, Willpower | ALL | enemy | DAMAGE | ✓ |  |  |
+| Overloaded Impact | 1 | increasedamagegiven | percentage | 30% | 20 + 0.4/lvl | 2 | None | Ninjutsu | ALL | self | SELF BUFF | ✓ |  |  |
+| Overloaded Impact | 2 | increasedamagetaken | percentage | 25% | 20 + 0.2/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF DEBUFF | ✓ | **yes** |  |
+| Chakra Overload | 0 | decreasedamagegiven | percentage | 25% | 15 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Chakra Overload | 1 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | Ninjutsu | ALL | enemy | ENEMY DEBUFF | ✓ |  |  |
+| Chakra Overload | 2 | increasepoolcost | percentage | 100% | 80 + 0.8/lvl | 2 | None | — | ALL | enemy | ENEMY DEBUFF |  |  |  |
+| Chakra Cannon | 0 | pierce | formula | 58 | 48 + 0.4/lvl | 0 | None | Ninjutsu / Intelligence, Willpower | ALL | enemy | ENEMY DEBUFF |  |  | **yes** |
+| Chakra Cannon | 1 | decreasedamagegiven | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | enemy | ENEMY DEBUFF | ✓ |  | **yes** |
+
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
 
 ## Supported-row summary by tag
 
@@ -45,6 +47,8 @@ Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective 
 | Increase Damage Taken | 2 | Chakra Overload, Overloaded Impact | ENEMY DEBUFF, SELF DEBUFF | 25, 35 | — | 0 | 0 | 0 | Overloaded Impact#2 |
 
 Supported rows total: **6**. Unsupported tags present (no potency): increasepoolcost, pierce.
+
+> **Ally-hazard rows (area delivery, friendly fire none/ALL):** Chakra Cannon row 1 (decreasedamagegiven, AOE_CIRCLE_SPAWN, target OTHER_USER). Potency on these tags also raises what allies standing in the area receive; positioning, not the node, decides.
 
 > **Adverse rows:** Overloaded Impact row 2 (increasedamagetaken on self, SELF DEBUFF). A potency node on that tag also raises these rows; the resolver cannot exclude a row by jutsu.
 

@@ -1,0 +1,1648 @@
+{
+  "title": "Aerathiel — Litany of Dust",
+  "revision": "Draft 2 / Dust classification / forked tree",
+  "bloodline": {
+    "id": "1C34syOOEKp6k3UKweYT6",
+    "review_id": "BR-002",
+    "name": "Aerathiel",
+    "rank": "A",
+    "statClassification": "Highest",
+    "traits": "Sustained Damage over time."
+  },
+  "classification": {
+    "potency_classification": "Dust",
+    "label_kind": "element",
+    "bloodline": "Aerathiel",
+    "display_element": "Dust",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Aerathiel jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": [
+      "Kyuko-sei",
+      "Nejireru Funjin"
+    ]
+  },
+  "emphasis": {
+    "primary": "Damage (Dust attacks)",
+    "secondary": "Increase Damage Taken (AOE exposure)",
+    "tertiary": "Reflect and Decrease Damage Given (Atomic Shield / Windshear control)",
+    "rationale": "Three of the nine supported rows are Dust damage (Death's March 40, Decaying Touch 40, Particle Cannon 50 at jutsu level 25), so the kit's declared role is sustained offense. Increase Damage Taken reaches two AOE rows (Windshear Decay and Death's March) that can both sit on one target, so it is the second emphasis but carries smaller flats than a single-row tag. The kit's only self cast, Atomic Shield, carries two Increase Damage Given rows and the single Reflect row; the only suppression row is Windshear Decay's Decrease Damage Given. There are no heal, lifesteal, Decrease Damage Taken or Afterburn rows, so no sustain route is invented."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Entropic Grasp",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Every touch loosens the bonds that hold a body together.",
+      "coverage_note": "Atomic Shield's two self damage buffs (35→37%) and the Windshear Decay / Death's March exposure debuffs (35→37%). 4 rows, no gates.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Aerathiel jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Atomic Shield",
+          "Death's March",
+          "Windshear Decay"
+        ],
+        "effect_rows": 4,
+        "ally_hazard_rows": [
+          "Death's March#1",
+          "Windshear Decay#0"
+        ]
+      }
+    },
+    {
+      "id": "02",
+      "name": "Particle Collapse",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Matter gives way one particle at a time.",
+      "coverage_note": "Death's March, Decaying Touch and Particle Cannon Dust damage rows (40/40/50 → 42/42/52 power). 3 rows, all 60 AP, cooldown 7.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Aerathiel jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Death's March",
+          "Decaying Touch",
+          "Particle Cannon"
+        ],
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Death's March#0"
+        ]
+      }
+    },
+    {
+      "id": "03",
+      "name": "Total Disintegration",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Nothing remains to bury.",
+      "coverage_note": "The same three Dust damage rows; with Particle Collapse the route adds +5 power (Particle Cannon 50→55, the AOE Death's March 40→45).",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Aerathiel jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Death's March",
+          "Decaying Touch",
+          "Particle Cannon"
+        ],
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Death's March#0"
+        ]
+      }
+    },
+    {
+      "id": "04",
+      "name": "Hollowing Wind",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "The gale scours away whatever once turned a blade.",
+      "coverage_note": "Windshear Decay and Death's March Increase Damage Taken (2 AOE rows, 2 rounds each): 35→38% alone, 40% with Entropic Grasp.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Aerathiel jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Death's March",
+          "Windshear Decay"
+        ],
+        "effect_rows": 2,
+        "ally_hazard_rows": [
+          "Death's March#1",
+          "Windshear Decay#0"
+        ]
+      }
+    },
+    {
+      "id": "05",
+      "name": "Terminal Decay",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Once decay begins, it does not stop.",
+      "coverage_note": "Both exposure rows (+2) and both Atomic Shield damage buffs (+3); with Entropic Grasp and Hollowing Wind the route totals IDT +7 and IDG +5.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Aerathiel jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Atomic Shield",
+          "Death's March",
+          "Windshear Decay"
+        ],
+        "effect_rows": 4,
+        "ally_hazard_rows": [
+          "Death's March#1",
+          "Windshear Decay#0"
+        ]
+      }
+    },
+    {
+      "id": "06",
+      "name": "Scouring Veil",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "reflect",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "A curtain of grit that blunts the blow and bites back.",
+      "coverage_note": "Atomic Shield Reflect (40→42%) and Windshear Decay Decrease Damage Given (35→37%). 2 rows: one 40 AP self cast, one 40 AP AOE debuff.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Aerathiel jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Atomic Shield",
+          "Windshear Decay"
+        ],
+        "effect_rows": 2,
+        "ally_hazard_rows": [
+          "Windshear Decay#1"
+        ]
+      }
+    },
+    {
+      "id": "07",
+      "name": "Particulate Ward",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "reflect",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Dust thickens into a shell that remembers every strike.",
+      "coverage_note": "Atomic Shield Reflect only (single row, 2 rounds per 40 AP cast); reflected damage is capped at 60% of each hit taken.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Aerathiel jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Atomic Shield"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "08",
+      "name": "Atomic Reprisal",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "reflect",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "What strikes the shield returns, and the shield-bearer strikes harder.",
+      "coverage_note": "All three Atomic Shield rows now enhanced: Reflect route total 50% (under the 60% per-hit cap); both damage buffs +3 (38%, 40% with Grasp).",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Aerathiel jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Atomic Shield"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "09",
+      "name": "Withering Gale",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Arms grow heavy in the dust-laden wind.",
+      "coverage_note": "Windshear Decay Decrease Damage Given only (single AOE row, range 5, 40 AP, 2 rounds); the jutsu's pull row is unsupported and unchanged.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Aerathiel jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Windshear Decay"
+        ],
+        "effect_rows": 1,
+        "ally_hazard_rows": [
+          "Windshear Decay#1"
+        ]
+      }
+    },
+    {
+      "id": "10",
+      "name": "Requiem of Dust",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "09"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "The march ends where the wind lays everything down.",
+      "coverage_note": "Windshear Decay suppression (route total 45%) plus both exposure rows +2; both Windshear Decay debuff rows are raised by one 40 AP AOE cast.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Aerathiel jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Death's March",
+          "Windshear Decay"
+        ],
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Death's March#1",
+          "Windshear Decay#0",
+          "Windshear Decay#1"
+        ]
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Total Disintegration",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "The +5 power route on all three Dust attacks (Particle Cannon 55, Death's March and Decaying Touch 45) with Entropic Grasp's amplify/expose support. Scouring Veil is the fourth purchase because it opens the control root without competing for the damage rows; Hollowing Wind (exposure +5 total) is the offensive alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "reflect": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Windshear Decay",
+          "row": 0,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Windshear Decay",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Windshear Decay",
+          "row": 2,
+          "tag": "redirection",
+          "label": "redirection",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 4.0,
+          "gain": 0,
+          "final": 4.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Death's March",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Death's March",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Dust",
+            "Earth",
+            "None",
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Atomic Shield",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Atomic Shield",
+          "row": 1,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Atomic Shield",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Dust",
+            "Earth",
+            "None",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Decaying Touch",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Decaying Touch",
+          "row": 1,
+          "tag": "recoil",
+          "label": "recoil",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Particle Cannon",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 5,
+          "final": 55.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Particle Cannon",
+          "row": 1,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Total Disintegration"
+      ]
+    },
+    {
+      "name": "Terminal Decay",
+      "archetype": "Pressure",
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "rationale": "Exposure first: Windshear Decay and Death's March Increase Damage Taken reach 42% each (84% when both sit on one target; the +7 route maximum matches the reference's Increase Damage Taken reach) while Atomic Shield's two damage buffs reach 40%. Particle Collapse is the fourth purchase because Death's March both damages and exposes; Scouring Veil is the defensive alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 7
+      },
+      "finals": [
+        {
+          "jutsu": "Windshear Decay",
+          "row": 0,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 7,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Windshear Decay",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Windshear Decay",
+          "row": 2,
+          "tag": "redirection",
+          "label": "redirection",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 4.0,
+          "gain": 0,
+          "final": 4.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Death's March",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Death's March",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Dust",
+            "Earth",
+            "None",
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 7,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Atomic Shield",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Atomic Shield",
+          "row": 1,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Atomic Shield",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Dust",
+            "Earth",
+            "None",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Decaying Touch",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Decaying Touch",
+          "row": 1,
+          "tag": "recoil",
+          "label": "recoil",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Particle Cannon",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 2,
+          "final": 52.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Particle Cannon",
+          "row": 1,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Terminal Decay"
+      ]
+    },
+    {
+      "name": "Atomic Reprisal",
+      "archetype": "Fortified",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "rationale": "Atomic Shield as the centrepiece: Reflect 50% and both damage buffs 40% from one 40 AP cast, with Windshear and Death's March exposure at 37%. Entropic Grasp is the fourth purchase because it stacks Increase Damage Given to +5; Withering Gale (suppression +5) is the control alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "reflect": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Windshear Decay",
+          "row": 0,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Windshear Decay",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Windshear Decay",
+          "row": 2,
+          "tag": "redirection",
+          "label": "redirection",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 4.0,
+          "gain": 0,
+          "final": 4.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Death's March",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Death's March",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Dust",
+            "Earth",
+            "None",
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Atomic Shield",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Atomic Shield",
+          "row": 1,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 10,
+          "final": 50.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Atomic Shield",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Dust",
+            "Earth",
+            "None",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Decaying Touch",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Decaying Touch",
+          "row": 1,
+          "tag": "recoil",
+          "label": "recoil",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Particle Cannon",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Particle Cannon",
+          "row": 1,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Atomic Reprisal"
+      ]
+    },
+    {
+      "name": "Requiem of Dust",
+      "archetype": "Suppression",
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "rationale": "Windshear Decay as an AOE control cast: Decrease Damage Given 45% and Increase Damage Taken 39% on every target standing in the radius-1 circle, which can be placed up to 5 tiles away, with Death's March exposure also 39%. Entropic Grasp is the fourth purchase for exposure +4 and a small amplify; Particulate Ward (Reflect 45%) is the defensive alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 4,
+        "reflect": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Windshear Decay",
+          "row": 0,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Windshear Decay",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Windshear Decay",
+          "row": 2,
+          "tag": "redirection",
+          "label": "redirection",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 4.0,
+          "gain": 0,
+          "final": 4.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Death's March",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Death's March",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Dust",
+            "Earth",
+            "None",
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Atomic Shield",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Atomic Shield",
+          "row": 1,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Atomic Shield",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Dust",
+            "Earth",
+            "None",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Decaying Touch",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Decaying Touch",
+          "row": 1,
+          "tag": "recoil",
+          "label": "recoil",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Particle Cannon",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Particle Cannon",
+          "row": 1,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Requiem of Dust"
+      ]
+    }
+  ],
+  "narrow_kit_exception": null,
+  "design_notes": [
+    "Node split: the two roots mirror the kit's two support casts. Entropic Grasp (offence) raises Atomic Shield's two Increase Damage Given rows and the two AOE exposure rows; Scouring Veil (control) raises Atomic Shield's Reflect row and Windshear Decay's Decrease Damage Given row. Each root forks into two Hidden Art → Advanced Art routes (Damage and Exposure under Entropic Grasp; Reflect and Suppression under Scouring Veil): 2 Foundations, 4 Hidden Arts, 4 Advanced Arts, every Advanced Art 3 BP deep, any two Advanced Arts 5–6 BP.",
+    "Flats are scaled by coverage, not rank. Damage reaches three rows and mirrors the reference (+2 Hidden, +3 Advanced, max +5). Increase Damage Taken reaches two AOE rows that can both be active on one target (base 35% + 35%), so its route maximum is held to +7 (Entropic Grasp +2, Hollowing Wind +3, Terminal Decay +2: 42% per row, 84% combined), the same reach as the reference's single-row Increase Damage Taken maximum rather than the +10 single-row ladder; Terminal Decay pairs that +2 with +3 Increase Damage Given so the Advanced Art still earns its cost across four rows. Increase Damage Given has two rows on one cast and is held to +5 max (37/40%), as in the reference. Reflect and Decrease Damage Given are single rows and carry the reference +2/+3/+5 ladder (max +10: Reflect 50%, Decrease Damage Given 45%). Requiem of Dust's secondary Increase Damage Taken is +2 rather than the calibration's +3 so that a capstone never outbids the Hidden Art that owns the tag (Hollowing Wind +3).",
+    "Main tree and passives: Atomic Shield row 0 is filtered to the Highest stat and row 2 to Dust/Earth/None/Wind elements, so the enhanced buffs also multiply normal jutsu and weapon hits that pass those filters during the two-round window. Enemy Increase Damage Taken / Decrease Damage Given rows change damage from every source, including allies and weapons. The bloodline passive Increase Damage Given (25 + 0.15/level on Wind/Earth/Dust/None) multiplies the enhanced damage rows downstream; the 15% Wind Decrease Damage Taken passive is untouched. Skill-tree and bloodline effects are suppressed in ranked PvP and ranked sparring at the pin.",
+    "Delivery and uptime: all five jutsu have cooldown 7. The three damage casts cost 60 AP (Death's March is an AOE circle spawn at range 4; Decaying Touch and Particle Cannon are single-target at range 4). Windshear Decay is a 40 AP AOE circle spawn at range 5 carrying two 2-round debuffs; Atomic Shield is a 40 AP self cast with 2-round buffs. Realised value of every percentage node therefore depends on casting the support jutsu inside its window; no rotation was simulated.",
+    "Fourth purchase choices: Burst takes Scouring Veil (+2 Reflect, +2 DDG) or Hollowing Wind (IDT +5 total); Pressure takes Particle Collapse (+2 Damage) or Scouring Veil; Fortified takes Entropic Grasp (IDG +5, IDT +2) or Withering Gale (DDG +5); Suppression takes Entropic Grasp (IDT +4, IDG +2) or Particulate Ward (Reflect +5). Hybrids with no Advanced Art (for example Entropic Grasp, Particle Collapse, Scouring Veil, Withering Gale) spread smaller gains across four tags. All 14 legal full allocations are numerically non-dominated: Draft 1's one trap purchase (Entropic Grasp, Hollowing Wind, Scouring Veil, Withering Gale, beaten on every axis by the Requiem of Dust build) is removed by giving Hollowing Wind +3 and Requiem of Dust +2 on Increase Damage Taken, so that two-root hybrid reaches IDT +5 against the Requiem build's +4. Every node appears in at least one non-dominated full build.",
+    "Reflect at the route maximum (50%) stays below the engine's 60%-of-hit cap; reflected damage bypasses shield absorption. No heal, lifesteal, Decrease Damage Taken or Afterburn rows exist in this kit, so there is no sustain or burn route and none is invented."
+  ],
+  "risks": [
+    "Single-cast concentration: Requiem of Dust raises both Windshear Decay debuff rows (Decrease Damage Given 45%, Increase Damage Taken 37–39%) from one 40 AP AOE cast; Atomic Reprisal raises all three Atomic Shield rows (Reflect 50%, two damage buffs 38–40%) from one 40 AP self cast. Per-AP value of those two D/A-rank support casts rises more than the damage route's.",
+    "Increase Damage Taken stacking: Windshear Decay and Death's March each apply a separate 2-round exposure debuff and BATTLE_TAG_STACKING is on at the pin, so one target can carry 70% base exposure and 84% at the route maximum (+7 each; row-weighted +14 against the reference's largest single-tag concentration, Damage +5 × 3 rows = 15). The route maximum was lowered from Draft 1's +8 on review to stay at or below the reference's Increase Damage Taken reach; no combat simulation was run.",
+    "Leakage: Atomic Shield's Increase Damage Given rows multiply normal jutsu and weapon damage that passes their stat (Highest) or element (Dust/Earth/None/Wind) filters while the buff is active; enemy-side exposure and suppression alter damage from allies and weapons as well. Restricted casting scope does not restrict downstream benefit.",
+    "Friendly fire on the AOE rows: at the pin, INHERIT-target rows of an AOE_CIRCLE_SPAWN action become ground effects on the radius-1 spiral around the chosen tile (util.ts 2827–2828; actions.ts 1006–1016) and are applied to whoever stands on each tile when checkFriendlyFire passes (process.ts 321–337), which it does for allies and the caster alike when friendlyFire is null or ALL (process.ts 173–175). Death's March row 0 Damage carries friendlyFire ALL; Death's March row 1 and Windshear Decay rows 0–1 carry null. The Damage route (+5) therefore also raises damage dealt to allies or the caster standing inside the circle, and the Exposure and Suppression routes raise the debuffs landing on allies there; positioning, not the tree, decides who receives them. The kit dossier marks all four rows non-adverse because recipient_for consults friendlyFire only for GROUND/EMPTY_GROUND/CHARACTER jutsu targets, not OTHER_USER AOE circles (scripts/bloodright/bloodright_lib.py 184–201); the same unflagged pattern exists on the Taiyo Kami reference (Stellar Inferno). This is a dossier-tooling gap to record in ENGINE_GAP_REGISTER.md at the cross-roster pass; it is not fixed by this tree.",
+    "Reflect value is downstream: it depends on how many non-pierce hits the bearer takes during the two-round window and is capped at 60% of each hit; at 50% the cap is not reached, but realised value was not simulated.",
+    "Classification: the Dust label collides with Kyuko-sei (INCLUDE) and Nejireru Funjin (DEFER) in the census, and the normal-jutsu Dust collision is unverified, so eligibility must be bloodline-scoped rather than a bare element match. Under the current resolver only 5 of 9 supported rows match Dust directly; the other 4 (Atomic Shield rows 0–1, Windshear Decay rows 0–1) fall back to None and need the proposed whole-kit classification.",
+    "Unsupported rows (Windshear Decay redirection pull, Decaying Touch recoil, Particle Cannon wound) are unchanged by every node; the trait text 'sustained damage over time' is not reflected in any supported DoT row, so no node addresses it.",
+    "Ranked PvP and ranked sparring suppress skill-tree effects at the pin, so the whole tree is inert there. Normal-tree potency policy is not approved; a combined stacking audit is still required before any implementation."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "decreasedamagegiven": 10,
+      "increasedamagetaken": 7,
+      "reflect": 10
+    },
+    "supported_rows_in_kit": 9,
+    "supported_rows_by_tag": {
+      "damage": 3,
+      "decreasedamagegiven": 1,
+      "increasedamagegiven": 2,
+      "increasedamagetaken": 2,
+      "reflect": 1
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagegiven",
+      "increasedamagegiven",
+      "increasedamagetaken",
+      "reflect"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Draft 2 / Dust classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags of Aerathiel jutsu inherit Dust potency eligibility; original combat elements and target scopes stay intact.",
+      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "reflect": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 7
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "reflect": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "reflect": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "reflect": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 7,
+        "reflect": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "reflect": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "reflect": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "reflect": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "reflect": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 4,
+        "reflect": 2
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 5,
+        "reflect": 10
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "reflect": 5
+      }
+    }
+  ]
+}
