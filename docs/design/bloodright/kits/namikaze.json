@@ -1,0 +1,979 @@
+{
+  "kind": "bloodright_kit_dossier",
+  "review_id": "BR-048",
+  "bloodline_id": "0Uc2Nfgg08kqGm78QAwZ4",
+  "name": "Namikaze",
+  "slug": "namikaze",
+  "rank": "C",
+  "hidden": false,
+  "statClassification": "Highest",
+  "traits": null,
+  "regenIncrease": 100,
+  "disposition": "INCLUDE",
+  "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30",
+    "public_retrieved_at": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_inventory_retrieved_at": "2026-09-30T05:01:22.371804+00:00",
+    "kind": "mechanical_projection_of_captured_records_not_a_live_refresh"
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "passives": [
+    {
+      "type": "increasedamagegiven",
+      "power": 15,
+      "powerPerLevel": 0.15,
+      "target": "INHERIT",
+      "elements": [
+        "Wind"
+      ],
+      "statTypes": [],
+      "generalTypes": [],
+      "calculation": "percentage",
+      "direction": "offence"
+    },
+    {
+      "type": "increasedamagetaken",
+      "power": 10,
+      "powerPerLevel": 0,
+      "target": "INHERIT",
+      "elements": [
+        "Fire"
+      ],
+      "statTypes": null,
+      "generalTypes": null,
+      "calculation": "percentage",
+      "direction": "offence"
+    }
+  ],
+  "jutsu": [
+    {
+      "id": "AepwCWi31V5e0v6OgIp78",
+      "name": "Wind Step",
+      "visibility": "public",
+      "jutsuType": "BLOODLINE",
+      "jutsuRank": "D",
+      "statClassification": "Highest",
+      "target": "EMPTY_GROUND",
+      "range": 5,
+      "cooldown": 7,
+      "actionCostPerc": 60,
+      "chakraCost": 350,
+      "staminaCost": 350,
+      "method": "AOE_CIRCLE_SPAWN",
+      "requiredLevel": 4,
+      "jutsuWeapon": "NONE",
+      "requiredBloodlineItemId": null,
+      "battleUsageType": "BOTH",
+      "injectableInBattle": false,
+      "hidden": false,
+      "bloodlineId": "0Uc2Nfgg08kqGm78QAwZ4",
+      "effect_count": 3,
+      "supported_effect_count": 2
+    },
+    {
+      "id": "OLlZlbG7AAlqyRMsQ8eqK",
+      "name": "Tempest Shroud",
+      "visibility": "public",
+      "jutsuType": "BLOODLINE",
+      "jutsuRank": "A",
+      "statClassification": "Highest",
+      "target": "OTHER_USER",
+      "range": 4,
+      "cooldown": 7,
+      "actionCostPerc": 60,
+      "chakraCost": 350,
+      "staminaCost": 350,
+      "method": "AOE_CIRCLE_SPAWN",
+      "requiredLevel": 1,
+      "jutsuWeapon": "NONE",
+      "requiredBloodlineItemId": null,
+      "battleUsageType": "BOTH",
+      "injectableInBattle": false,
+      "hidden": false,
+      "bloodlineId": "0Uc2Nfgg08kqGm78QAwZ4",
+      "effect_count": 3,
+      "supported_effect_count": 3
+    },
+    {
+      "id": "YoAez7wDub1crgIRr5IGb",
+      "name": "Cutting Tempest",
+      "visibility": "public",
+      "jutsuType": "BLOODLINE",
+      "jutsuRank": "C",
+      "statClassification": "Highest",
+      "target": "OTHER_USER",
+      "range": 4,
+      "cooldown": 6,
+      "actionCostPerc": 60,
+      "chakraCost": 350,
+      "staminaCost": 350,
+      "method": "SINGLE",
+      "requiredLevel": 1,
+      "jutsuWeapon": "NONE",
+      "requiredBloodlineItemId": null,
+      "battleUsageType": "BOTH",
+      "injectableInBattle": false,
+      "hidden": false,
+      "bloodlineId": "0Uc2Nfgg08kqGm78QAwZ4",
+      "effect_count": 2,
+      "supported_effect_count": 2
+    },
+    {
+      "id": "DreyCm9Mq66LzAMDIZkJh",
+      "name": "Soaring Fujin",
+      "visibility": "hidden",
+      "jutsuType": "NORMAL",
+      "jutsuRank": "D",
+      "statClassification": "Highest",
+      "target": "SELF",
+      "range": 0,
+      "cooldown": 6,
+      "actionCostPerc": 60,
+      "chakraCost": 100,
+      "staminaCost": 100,
+      "method": "SINGLE",
+      "requiredLevel": 1,
+      "jutsuWeapon": "NONE",
+      "requiredBloodlineItemId": null,
+      "battleUsageType": "BOTH",
+      "injectableInBattle": false,
+      "hidden": true,
+      "bloodlineId": "0Uc2Nfgg08kqGm78QAwZ4",
+      "effect_count": 2,
+      "supported_effect_count": 1
+    }
+  ],
+  "rows": [
+    {
+      "jutsu_id": "AepwCWi31V5e0v6OgIp78",
+      "jutsu_name": "Wind Step",
+      "jutsu_rank": "D",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "0Uc2Nfgg08kqGm78QAwZ4",
+      "row": 0,
+      "tag": "move",
+      "label": "move",
+      "calculation": "static",
+      "base": 1.0,
+      "power": 1,
+      "power_per_level": 0,
+      "rounds": null,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "EMPTY_GROUND",
+      "friendly_fire": null,
+      "recipient_raw": "area_all",
+      "recipient": "self",
+      "role": "SELF BUFF",
+      "adverse": false,
+      "stat_types": null,
+      "general_types": null,
+      "direction": "offence",
+      "supported": false,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "AOE_CIRCLE_SPAWN",
+      "range": 5
+    },
+    {
+      "jutsu_id": "AepwCWi31V5e0v6OgIp78",
+      "jutsu_name": "Wind Step",
+      "jutsu_rank": "D",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "0Uc2Nfgg08kqGm78QAwZ4",
+      "row": 1,
+      "tag": "damage",
+      "label": "Damage",
+      "calculation": "formula",
+      "base": 40.0,
+      "power": 30,
+      "power_per_level": 0.4,
+      "rounds": 0,
+      "elements": [
+        "Wind"
+      ],
+      "elements_effective": [
+        "Wind"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "EMPTY_GROUND",
+      "friendly_fire": "ENEMIES",
+      "recipient_raw": "area_enemies",
+      "recipient": "enemy",
+      "role": "DAMAGE",
+      "adverse": false,
+      "stat_types": [
+        "Highest"
+      ],
+      "general_types": [
+        "Highest"
+      ],
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "AOE_CIRCLE_SPAWN",
+      "range": 5
+    },
+    {
+      "jutsu_id": "AepwCWi31V5e0v6OgIp78",
+      "jutsu_name": "Wind Step",
+      "jutsu_rank": "D",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "0Uc2Nfgg08kqGm78QAwZ4",
+      "row": 2,
+      "tag": "decreasedamagegiven",
+      "label": "Decrease Damage Given",
+      "calculation": "percentage",
+      "base": 30.0,
+      "power": 20,
+      "power_per_level": 0.4,
+      "rounds": 2,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "EMPTY_GROUND",
+      "friendly_fire": "ENEMIES",
+      "recipient_raw": "area_enemies",
+      "recipient": "enemy",
+      "role": "ENEMY DEBUFF",
+      "adverse": false,
+      "stat_types": [
+        "Bukijutsu",
+        "Genjutsu",
+        "Ninjutsu",
+        "Taijutsu"
+      ],
+      "general_types": null,
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "AOE_CIRCLE_SPAWN",
+      "range": 5
+    },
+    {
+      "jutsu_id": "OLlZlbG7AAlqyRMsQ8eqK",
+      "jutsu_name": "Tempest Shroud",
+      "jutsu_rank": "A",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "0Uc2Nfgg08kqGm78QAwZ4",
+      "row": 0,
+      "tag": "damage",
+      "label": "Damage",
+      "calculation": "formula",
+      "base": 40.0,
+      "power": 30,
+      "power_per_level": 0.4,
+      "rounds": 0,
+      "elements": [
+        "Wind"
+      ],
+      "elements_effective": [
+        "Wind"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ENEMIES",
+      "recipient_raw": "enemy",
+      "recipient": "enemy",
+      "role": "DAMAGE",
+      "adverse": false,
+      "stat_types": [
+        "Highest"
+      ],
+      "general_types": [
+        "Highest"
+      ],
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "AOE_CIRCLE_SPAWN",
+      "range": 4
+    },
+    {
+      "jutsu_id": "OLlZlbG7AAlqyRMsQ8eqK",
+      "jutsu_name": "Tempest Shroud",
+      "jutsu_rank": "A",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "0Uc2Nfgg08kqGm78QAwZ4",
+      "row": 1,
+      "tag": "decreasedamagetaken",
+      "label": "Decrease Damage Taken",
+      "calculation": "percentage",
+      "base": 30.0,
+      "power": 20,
+      "power_per_level": 0.4,
+      "rounds": 2,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "SELF",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ALL",
+      "recipient_raw": "self",
+      "recipient": "self",
+      "role": "SELF BUFF",
+      "adverse": false,
+      "stat_types": [
+        "Bukijutsu",
+        "Genjutsu",
+        "Ninjutsu",
+        "Taijutsu"
+      ],
+      "general_types": null,
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "AOE_CIRCLE_SPAWN",
+      "range": 4
+    },
+    {
+      "jutsu_id": "OLlZlbG7AAlqyRMsQ8eqK",
+      "jutsu_name": "Tempest Shroud",
+      "jutsu_rank": "A",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "0Uc2Nfgg08kqGm78QAwZ4",
+      "row": 2,
+      "tag": "afterburn",
+      "label": "Afterburn",
+      "calculation": "percentage",
+      "base": 35.0,
+      "power": 25,
+      "power_per_level": 0.4,
+      "rounds": 2,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": null,
+      "recipient_raw": "enemy",
+      "recipient": "enemy",
+      "role": "ENEMY DEBUFF",
+      "adverse": false,
+      "stat_types": [
+        "Bukijutsu",
+        "Genjutsu",
+        "Ninjutsu",
+        "Taijutsu"
+      ],
+      "general_types": null,
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "AOE_CIRCLE_SPAWN",
+      "range": 4
+    },
+    {
+      "jutsu_id": "YoAez7wDub1crgIRr5IGb",
+      "jutsu_name": "Cutting Tempest",
+      "jutsu_rank": "C",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "0Uc2Nfgg08kqGm78QAwZ4",
+      "row": 0,
+      "tag": "damage",
+      "label": "Damage",
+      "calculation": "formula",
+      "base": 45.0,
+      "power": 35,
+      "power_per_level": 0.4,
+      "rounds": 0,
+      "elements": [
+        "Wind"
+      ],
+      "elements_effective": [
+        "Wind"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ENEMIES",
+      "recipient_raw": "enemy",
+      "recipient": "enemy",
+      "role": "DAMAGE",
+      "adverse": false,
+      "stat_types": [
+        "Highest"
+      ],
+      "general_types": [
+        "Highest"
+      ],
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 6,
+      "method": "SINGLE",
+      "range": 4
+    },
+    {
+      "jutsu_id": "YoAez7wDub1crgIRr5IGb",
+      "jutsu_name": "Cutting Tempest",
+      "jutsu_rank": "C",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "0Uc2Nfgg08kqGm78QAwZ4",
+      "row": 1,
+      "tag": "increasedamagegiven",
+      "label": "Increase Damage Given",
+      "calculation": "percentage",
+      "base": 35.0,
+      "power": 25,
+      "power_per_level": 0.4,
+      "rounds": 2,
+      "elements": [
+        "Wind"
+      ],
+      "elements_effective": [
+        "Wind"
+      ],
+      "target": "SELF",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ALL",
+      "recipient_raw": "self",
+      "recipient": "self",
+      "role": "SELF BUFF",
+      "adverse": false,
+      "stat_types": [],
+      "general_types": null,
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 6,
+      "method": "SINGLE",
+      "range": 4
+    },
+    {
+      "jutsu_id": "DreyCm9Mq66LzAMDIZkJh",
+      "jutsu_name": "Soaring Fujin",
+      "jutsu_rank": "D",
+      "jutsu_type": "NORMAL",
+      "bloodline_id_on_jutsu": "0Uc2Nfgg08kqGm78QAwZ4",
+      "row": 0,
+      "tag": "increasedamagegiven",
+      "label": "Increase Damage Given",
+      "calculation": "percentage",
+      "base": 21.25,
+      "power": 15,
+      "power_per_level": 0.25,
+      "rounds": 2,
+      "elements": [
+        "Wind"
+      ],
+      "elements_effective": [
+        "Wind"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "SELF",
+      "friendly_fire": "ALL",
+      "recipient_raw": "self",
+      "recipient": "self",
+      "role": "SELF BUFF",
+      "adverse": false,
+      "stat_types": [
+        "Highest"
+      ],
+      "general_types": [
+        "Speed",
+        "Strength",
+        "Intelligence",
+        "Willpower"
+      ],
+      "direction": "offence",
+      "supported": true,
+      "visibility": "hidden",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": true,
+      "ap_cost": 60,
+      "cooldown": 6,
+      "method": "SINGLE",
+      "range": 0
+    },
+    {
+      "jutsu_id": "DreyCm9Mq66LzAMDIZkJh",
+      "jutsu_name": "Soaring Fujin",
+      "jutsu_rank": "D",
+      "jutsu_type": "NORMAL",
+      "bloodline_id_on_jutsu": "0Uc2Nfgg08kqGm78QAwZ4",
+      "row": 1,
+      "tag": "decreasepoolcost",
+      "label": "decreasepoolcost",
+      "calculation": "percentage",
+      "base": 18.75,
+      "power": 15,
+      "power_per_level": 0.15,
+      "rounds": 3,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "SELF",
+      "friendly_fire": "ALL",
+      "recipient_raw": "self",
+      "recipient": "self",
+      "role": "SELF BUFF",
+      "adverse": false,
+      "stat_types": null,
+      "general_types": null,
+      "direction": "defence",
+      "supported": false,
+      "visibility": "hidden",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": true,
+      "ap_cost": 60,
+      "cooldown": 6,
+      "method": "SINGLE",
+      "range": 0
+    }
+  ],
+  "supported_row_summary": [
+    {
+      "tag": "damage",
+      "label": "Damage",
+      "rows": 3,
+      "jutsu": [
+        "Cutting Tempest",
+        "Tempest Shroud",
+        "Wind Step"
+      ],
+      "roles": [
+        "DAMAGE"
+      ],
+      "recipients": [
+        "enemy"
+      ],
+      "bases_at_level": [
+        40.0,
+        45.0
+      ],
+      "adverse_rows": [],
+      "hidden_rows": 0,
+      "item_gated_rows": 0,
+      "mode_restricted_rows": 0,
+      "repeated_on_same_jutsu": []
+    },
+    {
+      "tag": "increasedamagegiven",
+      "label": "Increase Damage Given",
+      "rows": 2,
+      "jutsu": [
+        "Cutting Tempest",
+        "Soaring Fujin"
+      ],
+      "roles": [
+        "SELF BUFF"
+      ],
+      "recipients": [
+        "self"
+      ],
+      "bases_at_level": [
+        21.25,
+        35.0
+      ],
+      "adverse_rows": [],
+      "hidden_rows": 1,
+      "item_gated_rows": 0,
+      "mode_restricted_rows": 0,
+      "repeated_on_same_jutsu": []
+    },
+    {
+      "tag": "decreasedamagegiven",
+      "label": "Decrease Damage Given",
+      "rows": 1,
+      "jutsu": [
+        "Wind Step"
+      ],
+      "roles": [
+        "ENEMY DEBUFF"
+      ],
+      "recipients": [
+        "enemy"
+      ],
+      "bases_at_level": [
+        30.0
+      ],
+      "adverse_rows": [],
+      "hidden_rows": 0,
+      "item_gated_rows": 0,
+      "mode_restricted_rows": 0,
+      "repeated_on_same_jutsu": []
+    },
+    {
+      "tag": "decreasedamagetaken",
+      "label": "Decrease Damage Taken",
+      "rows": 1,
+      "jutsu": [
+        "Tempest Shroud"
+      ],
+      "roles": [
+        "SELF BUFF"
+      ],
+      "recipients": [
+        "self"
+      ],
+      "bases_at_level": [
+        30.0
+      ],
+      "adverse_rows": [],
+      "hidden_rows": 0,
+      "item_gated_rows": 0,
+      "mode_restricted_rows": 0,
+      "repeated_on_same_jutsu": []
+    },
+    {
+      "tag": "afterburn",
+      "label": "Afterburn",
+      "rows": 1,
+      "jutsu": [
+        "Tempest Shroud"
+      ],
+      "roles": [
+        "ENEMY DEBUFF"
+      ],
+      "recipients": [
+        "enemy"
+      ],
+      "bases_at_level": [
+        35.0
+      ],
+      "adverse_rows": [],
+      "hidden_rows": 0,
+      "item_gated_rows": 0,
+      "mode_restricted_rows": 0,
+      "repeated_on_same_jutsu": []
+    }
+  ],
+  "supported_rows_total": 8,
+  "unsupported_tags_present": [
+    "decreasepoolcost",
+    "move"
+  ],
+  "adverse_supported_rows": [],
+  "afterburn": {
+    "application_rows": [
+      {
+        "jutsu": "Tempest Shroud",
+        "row": 2,
+        "base": 35.0,
+        "rounds": 2
+      }
+    ],
+    "downstream_note": "Afterburn is an enemy debuff (tags.ts afterburn handler at the pin): while active on following rounds, every instant damage consequence the debuffed target receives (any source, pierce excluded) adds floor(damage x percent) Afterburn damage, with the cumulative Afterburn on one hit capped at 60% of that hit. Potency raises the percent, not the duration. Downstream coverage is therefore every non-pierce hit landed on the target during the debuff, including normal jutsu, weapons and allies; it is not measured by the application-row count and was not simulated.",
+    "kit_instant_damage_rows_that_can_be_enhanced": 3
+  },
+  "classification_audit": {
+    "signature_elements": [
+      "Wind"
+    ],
+    "display_element": "Wind",
+    "proposed_label": "Namikaze",
+    "label_kind": "bloodline-keyed extension",
+    "element_exclusive_within_census": false,
+    "note": "Single signature element Wind is a basic element carried on rows of many bloodlines and ordinary jutsu; using it as the classification label would leak broadly. A bloodline-keyed classification label is required; the element is kept as the display element only.",
+    "current_resolver_reach": [
+      {
+        "label": "Wind",
+        "rows_matching_label_directly": 5,
+        "rows_falling_back_to_None": 3,
+        "rows_with_other_elements_only": 0,
+        "supported_rows_total": 8,
+        "exclusive_under_current_resolver": false,
+        "note": "Current resolver matches each effect row's own elements (absent list -> ['None']). Rows without the label are unreachable with affectedElements=[label]; reaching them needs affectedElements including 'None', which also reaches every non-elemental row on any jutsu the player can cast."
+      }
+    ],
+    "census_collisions_on_signature_elements": [
+      {
+        "element": "Wind",
+        "bloodline_id": "1C34syOOEKp6k3UKweYT6",
+        "name": "Aerathiel",
+        "disposition": "INCLUDE",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "IzKTFfoTZHguu_VCXmgnd",
+        "name": "Architect of the Hollow Script",
+        "disposition": "DEFER",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "cB2LWCWyLRHxgsbY0crJr",
+        "name": "Blissoo",
+        "disposition": "DEFER",
+        "rows": 6,
+        "damage_rows": 1
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "clh4d6qo4000itb0hrx8t06wq",
+        "name": "Blue Blade Eyes",
+        "disposition": "INCLUDE",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "mD1AIQrLGXcVJ0QlWj6zx",
+        "name": "Blue Edge Eyes",
+        "disposition": "EXCLUDE",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "wEJqNdFjH6zJcjGrThQZD",
+        "name": "Crust Almighty",
+        "disposition": "DEFER",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "IE8MT2NvaXecCq_Syug3O",
+        "name": "Eyes of the Forsaken Heir",
+        "disposition": "EXCLUDE",
+        "rows": 3,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "r3nBY_Th4_ZAIUfhx1jdy",
+        "name": "Eyes of the Forsaken King",
+        "disposition": "INCLUDE",
+        "rows": 3,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "KQ3nXVNIzhsvuzfcglbCZ",
+        "name": "First Flame",
+        "disposition": "DEFER",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "ALoGrHuBY5Ml9bJG_DILe",
+        "name": "Houkyuken",
+        "disposition": "INCLUDE",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "lPcN4q0dtX2muWT2KlXGg",
+        "name": "Hyouga Yui",
+        "disposition": "INCLUDE",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "j4_9ypNqYq8Ifbqf-9D2r",
+        "name": "Itojinsei",
+        "disposition": "INCLUDE",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "ZK0wjM85dal1ClzAZrsN7",
+        "name": "Itzehecayan",
+        "disposition": "DEFER",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "Y10fxyLR39IBJ3ICkAdEp",
+        "name": "Kyuko-sei",
+        "disposition": "INCLUDE",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "nkw4EmlzU0Qmctn_zm9O-",
+        "name": "Manhattan Project",
+        "disposition": "DEFER",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "yzbSbZ5rqRVIjiwN-farx",
+        "name": "Sands of Time",
+        "disposition": "INCLUDE",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "aa1lZukkHpz6ihmcxLaei",
+        "name": "Shakunetsu Sakura",
+        "disposition": "INCLUDE",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "vv45N2En3p8VrNcU2acd8",
+        "name": "Shiroi Youso",
+        "disposition": "INCLUDE",
+        "rows": 5,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "MNtUqUHpHJV47snS1Jt-U",
+        "name": "Solar Soul",
+        "disposition": "DEFER",
+        "rows": 3,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "6C2t3jK35hvPoVocLiHEl",
+        "name": "Taiyo Kami",
+        "disposition": "REFERENCE",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "clh4d6qjs000gtb0hr357gjvv",
+        "name": "Teno Yuki",
+        "disposition": "INCLUDE",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "H_drsFIZdi4e7UENANUnE",
+        "name": "Testing Dummy 2.0",
+        "disposition": "DEFER",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "i_Addlk4GvzV18B9LhcyV",
+        "name": "The Abbynomaly",
+        "disposition": "DEFER",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "mOBVl90uPlid84d4p2Ovg",
+        "name": "Timeforged Enigma",
+        "disposition": "DEFER",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "VfwAR4EHg72_uVHpDBexI",
+        "name": "Traveling Sun Praiser",
+        "disposition": "DEFER",
+        "rows": 5,
+        "damage_rows": 1
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "vhciebSTiOh6h-i3mdjZ9",
+        "name": "True North",
+        "disposition": "DEFER",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "71-FjS5NcjX0ZnXuQfg53",
+        "name": "Youso Shiroi",
+        "disposition": "EXCLUDE",
+        "rows": 5,
+        "damage_rows": 0
+      },
+      {
+        "element": "Wind",
+        "bloodline_id": "XMd7Yo_-CjJdpCK5eoApq",
+        "name": "Yūhi Ryūjin (夕陽竜神)",
+        "disposition": "DEFER",
+        "rows": 5,
+        "damage_rows": 1
+      }
+    ],
+    "census_bloodlines_with_None_rows": 35,
+    "normal_jutsu_collision": "UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). Whether NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carry this element needs a read-only public jutsu listing capture requested from dauntless.",
+    "injected_children": [],
+    "item_gated_jutsu": [],
+    "mode_restricted_jutsu": [],
+    "hidden_jutsu": [
+      "Soaring Fujin"
+    ],
+    "non_bloodline_type_jutsu_in_kit": [
+      "Soaring Fujin (NORMAL)"
+    ],
+    "engine_status": "proposal_requires_resolver_adjustment"
+  }
+}

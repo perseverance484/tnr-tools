@@ -1,0 +1,587 @@
+{
+  "kind": "bloodright_kit_dossier",
+  "review_id": "BR-049",
+  "bloodline_id": "clh4d6qbf000ctb0h7o5amr0o",
+  "name": "Nature's Blessing",
+  "slug": "natures_blessing",
+  "rank": "B",
+  "hidden": false,
+  "statClassification": "Highest",
+  "traits": "Burst Healing and Sustained Healing",
+  "regenIncrease": 100,
+  "disposition": "INCLUDE",
+  "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30",
+    "public_retrieved_at": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_inventory_retrieved_at": "2026-09-30T05:01:22.371804+00:00",
+    "kind": "mechanical_projection_of_captured_records_not_a_live_refresh"
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "passives": [
+    {
+      "type": "absorb",
+      "power": 10,
+      "powerPerLevel": 0,
+      "target": "INHERIT",
+      "elements": [],
+      "statTypes": [
+        "Ninjutsu",
+        "Genjutsu",
+        "Taijutsu",
+        "Bukijutsu"
+      ],
+      "generalTypes": [
+        "Strength",
+        "Intelligence",
+        "Willpower",
+        "Speed"
+      ],
+      "calculation": "percentage",
+      "direction": "defence"
+    },
+    {
+      "type": "increasedamagegiven",
+      "power": 20,
+      "powerPerLevel": 0.15,
+      "target": "INHERIT",
+      "elements": [
+        "Water",
+        "Earth",
+        "Wood",
+        "None"
+      ],
+      "statTypes": null,
+      "generalTypes": null,
+      "calculation": "percentage",
+      "direction": "offence"
+    },
+    {
+      "type": "increasedamagetaken",
+      "power": 10,
+      "powerPerLevel": 0,
+      "target": "INHERIT",
+      "elements": [
+        "Fire"
+      ],
+      "statTypes": null,
+      "generalTypes": null,
+      "calculation": "percentage",
+      "direction": "offence"
+    }
+  ],
+  "jutsu": [
+    {
+      "id": "dowpQ_c7jljb8CRUgaHQf",
+      "name": "Verdant Bastion",
+      "visibility": "public",
+      "jutsuType": "BLOODLINE",
+      "jutsuRank": "A",
+      "statClassification": "Highest",
+      "target": "GROUND",
+      "range": 0,
+      "cooldown": 7,
+      "actionCostPerc": 40,
+      "chakraCost": 350,
+      "staminaCost": 350,
+      "method": "AOE_CIRCLE_SPAWN",
+      "requiredLevel": 1,
+      "jutsuWeapon": "NONE",
+      "requiredBloodlineItemId": null,
+      "battleUsageType": "BOTH",
+      "injectableInBattle": false,
+      "hidden": false,
+      "bloodlineId": "clh4d6qbf000ctb0h7o5amr0o",
+      "effect_count": 2,
+      "supported_effect_count": 2
+    },
+    {
+      "id": "SI1hrhBeNyvrDWf3_RCmS",
+      "name": "Nature's Fury",
+      "visibility": "public",
+      "jutsuType": "BLOODLINE",
+      "jutsuRank": "B",
+      "statClassification": "Highest",
+      "target": "OTHER_USER",
+      "range": 4,
+      "cooldown": 7,
+      "actionCostPerc": 60,
+      "chakraCost": 350,
+      "staminaCost": 350,
+      "method": "SINGLE",
+      "requiredLevel": 1,
+      "jutsuWeapon": "NONE",
+      "requiredBloodlineItemId": null,
+      "battleUsageType": "BOTH",
+      "injectableInBattle": false,
+      "hidden": false,
+      "bloodlineId": "clh4d6qbf000ctb0h7o5amr0o",
+      "effect_count": 2,
+      "supported_effect_count": 2
+    },
+    {
+      "id": "bFdJqGQmpzitAJNo7sb9t",
+      "name": "Nature's Curse",
+      "visibility": "public",
+      "jutsuType": "BLOODLINE",
+      "jutsuRank": "B",
+      "statClassification": "Highest",
+      "target": "OTHER_USER",
+      "range": 4,
+      "cooldown": 7,
+      "actionCostPerc": 60,
+      "chakraCost": 350,
+      "staminaCost": 350,
+      "method": "SINGLE",
+      "requiredLevel": 1,
+      "jutsuWeapon": "NONE",
+      "requiredBloodlineItemId": null,
+      "battleUsageType": "BOTH",
+      "injectableInBattle": false,
+      "hidden": false,
+      "bloodlineId": "clh4d6qbf000ctb0h7o5amr0o",
+      "effect_count": 3,
+      "supported_effect_count": 1
+    }
+  ],
+  "rows": [
+    {
+      "jutsu_id": "dowpQ_c7jljb8CRUgaHQf",
+      "jutsu_name": "Verdant Bastion",
+      "jutsu_rank": "A",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "clh4d6qbf000ctb0h7o5amr0o",
+      "row": 0,
+      "tag": "heal",
+      "label": "Heal",
+      "calculation": "static",
+      "base": 40.0,
+      "power": 30,
+      "power_per_level": 0.4,
+      "rounds": 1,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "SELF",
+      "jutsu_target": "GROUND",
+      "friendly_fire": "ALL",
+      "recipient_raw": "self",
+      "recipient": "self",
+      "role": "SELF BUFF",
+      "adverse": false,
+      "stat_types": null,
+      "general_types": null,
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 40,
+      "cooldown": 7,
+      "method": "AOE_CIRCLE_SPAWN",
+      "range": 0
+    },
+    {
+      "jutsu_id": "dowpQ_c7jljb8CRUgaHQf",
+      "jutsu_name": "Verdant Bastion",
+      "jutsu_rank": "A",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "clh4d6qbf000ctb0h7o5amr0o",
+      "row": 1,
+      "tag": "increaseheal",
+      "label": "Increase Heal",
+      "calculation": "percentage",
+      "base": 30.0,
+      "power": 20,
+      "power_per_level": 0.4,
+      "rounds": 2,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "GROUND",
+      "friendly_fire": "FRIENDLY",
+      "recipient_raw": "area_allies",
+      "recipient": "self",
+      "role": "SELF BUFF",
+      "adverse": false,
+      "stat_types": null,
+      "general_types": null,
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 40,
+      "cooldown": 7,
+      "method": "AOE_CIRCLE_SPAWN",
+      "range": 0
+    },
+    {
+      "jutsu_id": "SI1hrhBeNyvrDWf3_RCmS",
+      "jutsu_name": "Nature's Fury",
+      "jutsu_rank": "B",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "clh4d6qbf000ctb0h7o5amr0o",
+      "row": 0,
+      "tag": "damage",
+      "label": "Damage",
+      "calculation": "formula",
+      "base": 40.0,
+      "power": 30,
+      "power_per_level": 0.4,
+      "rounds": 0,
+      "elements": [
+        "Wood"
+      ],
+      "elements_effective": [
+        "Wood"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ALL",
+      "recipient_raw": "enemy",
+      "recipient": "enemy",
+      "role": "DAMAGE",
+      "adverse": false,
+      "stat_types": [
+        "Highest"
+      ],
+      "general_types": [
+        "Highest"
+      ],
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "SINGLE",
+      "range": 4
+    },
+    {
+      "jutsu_id": "SI1hrhBeNyvrDWf3_RCmS",
+      "jutsu_name": "Nature's Fury",
+      "jutsu_rank": "B",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "clh4d6qbf000ctb0h7o5amr0o",
+      "row": 1,
+      "tag": "increasedamagetaken",
+      "label": "Increase Damage Taken",
+      "calculation": "percentage",
+      "base": 35.0,
+      "power": 25,
+      "power_per_level": 0.4,
+      "rounds": 2,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ALL",
+      "recipient_raw": "enemy",
+      "recipient": "enemy",
+      "role": "ENEMY DEBUFF",
+      "adverse": false,
+      "stat_types": [
+        "Bukijutsu",
+        "Genjutsu",
+        "Ninjutsu",
+        "Taijutsu"
+      ],
+      "general_types": null,
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "SINGLE",
+      "range": 4
+    },
+    {
+      "jutsu_id": "bFdJqGQmpzitAJNo7sb9t",
+      "jutsu_name": "Nature's Curse",
+      "jutsu_rank": "B",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "clh4d6qbf000ctb0h7o5amr0o",
+      "row": 0,
+      "tag": "damage",
+      "label": "Damage",
+      "calculation": "formula",
+      "base": 40.0,
+      "power": 30,
+      "power_per_level": 0.4,
+      "rounds": 0,
+      "elements": [
+        "Wood"
+      ],
+      "elements_effective": [
+        "Wood"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ENEMIES",
+      "recipient_raw": "enemy",
+      "recipient": "enemy",
+      "role": "DAMAGE",
+      "adverse": false,
+      "stat_types": [
+        "Highest"
+      ],
+      "general_types": [
+        "Highest"
+      ],
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "SINGLE",
+      "range": 4
+    },
+    {
+      "jutsu_id": "bFdJqGQmpzitAJNo7sb9t",
+      "jutsu_name": "Nature's Curse",
+      "jutsu_rank": "B",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "clh4d6qbf000ctb0h7o5amr0o",
+      "row": 1,
+      "tag": "absorb",
+      "label": "absorb",
+      "calculation": "percentage",
+      "base": 30.0,
+      "power": 20,
+      "power_per_level": 0.4,
+      "rounds": 2,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "SELF",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ALL",
+      "recipient_raw": "self",
+      "recipient": "self",
+      "role": "SELF BUFF",
+      "adverse": false,
+      "stat_types": [
+        "Ninjutsu",
+        "Genjutsu",
+        "Taijutsu",
+        "Bukijutsu"
+      ],
+      "general_types": null,
+      "direction": "defence",
+      "supported": false,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "SINGLE",
+      "range": 4
+    },
+    {
+      "jutsu_id": "bFdJqGQmpzitAJNo7sb9t",
+      "jutsu_name": "Nature's Curse",
+      "jutsu_rank": "B",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "clh4d6qbf000ctb0h7o5amr0o",
+      "row": 2,
+      "tag": "drain",
+      "label": "drain",
+      "calculation": "static",
+      "base": 200.0,
+      "power": 200,
+      "power_per_level": 0,
+      "rounds": 2,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": null,
+      "recipient_raw": "enemy",
+      "recipient": "enemy",
+      "role": "ENEMY DEBUFF",
+      "adverse": false,
+      "stat_types": null,
+      "general_types": null,
+      "direction": "offence",
+      "supported": false,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "SINGLE",
+      "range": 4
+    }
+  ],
+  "supported_row_summary": [
+    {
+      "tag": "damage",
+      "label": "Damage",
+      "rows": 2,
+      "jutsu": [
+        "Nature's Curse",
+        "Nature's Fury"
+      ],
+      "roles": [
+        "DAMAGE"
+      ],
+      "recipients": [
+        "enemy"
+      ],
+      "bases_at_level": [
+        40.0
+      ],
+      "adverse_rows": [],
+      "hidden_rows": 0,
+      "item_gated_rows": 0,
+      "mode_restricted_rows": 0,
+      "repeated_on_same_jutsu": []
+    },
+    {
+      "tag": "increasedamagetaken",
+      "label": "Increase Damage Taken",
+      "rows": 1,
+      "jutsu": [
+        "Nature's Fury"
+      ],
+      "roles": [
+        "ENEMY DEBUFF"
+      ],
+      "recipients": [
+        "enemy"
+      ],
+      "bases_at_level": [
+        35.0
+      ],
+      "adverse_rows": [],
+      "hidden_rows": 0,
+      "item_gated_rows": 0,
+      "mode_restricted_rows": 0,
+      "repeated_on_same_jutsu": []
+    },
+    {
+      "tag": "increaseheal",
+      "label": "Increase Heal",
+      "rows": 1,
+      "jutsu": [
+        "Verdant Bastion"
+      ],
+      "roles": [
+        "SELF BUFF"
+      ],
+      "recipients": [
+        "self"
+      ],
+      "bases_at_level": [
+        30.0
+      ],
+      "adverse_rows": [],
+      "hidden_rows": 0,
+      "item_gated_rows": 0,
+      "mode_restricted_rows": 0,
+      "repeated_on_same_jutsu": []
+    },
+    {
+      "tag": "heal",
+      "label": "Heal",
+      "rows": 1,
+      "jutsu": [
+        "Verdant Bastion"
+      ],
+      "roles": [
+        "SELF BUFF"
+      ],
+      "recipients": [
+        "self"
+      ],
+      "bases_at_level": [
+        40.0
+      ],
+      "adverse_rows": [],
+      "hidden_rows": 0,
+      "item_gated_rows": 0,
+      "mode_restricted_rows": 0,
+      "repeated_on_same_jutsu": []
+    }
+  ],
+  "supported_rows_total": 5,
+  "unsupported_tags_present": [
+    "absorb",
+    "drain"
+  ],
+  "adverse_supported_rows": [],
+  "afterburn": {
+    "application_rows": [],
+    "downstream_note": "Afterburn is an enemy debuff (tags.ts afterburn handler at the pin): while active on following rounds, every instant damage consequence the debuffed target receives (any source, pierce excluded) adds floor(damage x percent) Afterburn damage, with the cumulative Afterburn on one hit capped at 60% of that hit. Potency raises the percent, not the duration. Downstream coverage is therefore every non-pierce hit landed on the target during the debuff, including normal jutsu, weapons and allies; it is not measured by the application-row count and was not simulated.",
+    "kit_instant_damage_rows_that_can_be_enhanced": 2
+  },
+  "classification_audit": {
+    "signature_elements": [
+      "Wood"
+    ],
+    "display_element": "Wood",
+    "proposed_label": "Wood",
+    "label_kind": "element",
+    "element_exclusive_within_census": false,
+    "note": "Single signature element on the kit's damage/pierce rows; usable as the classification label under the proposed whole-kit classification, provided the classification is bloodline-scoped (see census collisions) rather than a bare element match.",
+    "current_resolver_reach": [
+      {
+        "label": "Wood",
+        "rows_matching_label_directly": 2,
+        "rows_falling_back_to_None": 3,
+        "rows_with_other_elements_only": 0,
+        "supported_rows_total": 5,
+        "exclusive_under_current_resolver": false,
+        "note": "Current resolver matches each effect row's own elements (absent list -> ['None']). Rows without the label are unreachable with affectedElements=[label]; reaching them needs affectedElements including 'None', which also reaches every non-elemental row on any jutsu the player can cast."
+      }
+    ],
+    "census_collisions_on_signature_elements": [
+      {
+        "element": "Wood",
+        "bloodline_id": "vA8I_7iBNgvkuKOpnG1yD",
+        "name": "Shinseina Ki",
+        "disposition": "INCLUDE",
+        "rows": 4,
+        "damage_rows": 3
+      }
+    ],
+    "census_bloodlines_with_None_rows": 35,
+    "normal_jutsu_collision": "UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). Whether NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carry this element needs a read-only public jutsu listing capture requested from dauntless.",
+    "injected_children": [],
+    "item_gated_jutsu": [],
+    "mode_restricted_jutsu": [],
+    "hidden_jutsu": [],
+    "non_bloodline_type_jutsu_in_kit": [],
+    "engine_status": "proposal_requires_resolver_adjustment"
+  }
+}
