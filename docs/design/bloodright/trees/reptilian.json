@@ -1,6 +1,6 @@
 {
   "title": "Reptilian — Cold Blood and Scale",
-  "revision": "Draft 3 / Reptilian classification / forked tree",
+  "revision": "Draft 4 / Reptilian classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
   "bloodline": {
     "id": "z78aHAPRQfctiw7_qNXMx",
     "review_id": "BR-057",
@@ -11,20 +11,34 @@
   },
   "classification": {
     "potency_classification": "Reptilian",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Reptilian",
+    "label_kind": "classification extension",
+    "classification_status": "requires classification extension",
+    "qualifying_elements": [],
     "display_element": null,
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Reptilian jutsu",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Reptilian-classified jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Cool-Blooded Empowerment",
+      "Reptile Chimera",
+      "Summoning: Reptile Zoo"
+    ],
+    "shared_element_bloodlines": [],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
     "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": []
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver_and_classification_extension"
   },
   "emphasis": {
     "primary": "Increase Damage Given — two stacking 35% rows (Reptile Chimera self, Cool-Blooded Empowerment circle)",
-    "secondary": "Decrease Damage Taken — Reptile Chimera hide (single row, +10 ceiling)",
-    "tertiary": "Lifesteal — Cool-Blooded Empowerment feeding (single ally/self row, +10 ceiling)",
-    "rationale": "Four supported rows sit on two 40 AP, cooldown-7 buffs: Reptile Chimera (A-rank, SELF) carries 35% Increase Damage Given (Ninjutsu-filtered, element-less) and 35% Decrease Damage Taken (all four stat types); Cool-Blooded Empowerment (D-rank, ALLY, radius-1 circle) carries 35% Increase Damage Given and 35% Lifesteal (Highest-filtered, element-less), each live for the 2 rounds after its cast round. The caster is a legal ALLY target at the pin, so both IDG rows can sit on the caster at once; IDG is primary by coverage; its +7 two-row route (above Taiyo Kami's two-row +5) is an open user decision isolated in design note 2; flats stay at the Draft 1 values (option c) pending the user's ruling. Mitigation and lifesteal are single rows and take the Taiyo Kami +10 single-row shape. Summoning: Reptile Zoo (summon, injectjutsus, visual; PVP only) and its injected Reptile King are unsupported."
+    "secondary": "Decrease Damage Taken — Reptile Chimera hide (single row, +10% route)",
+    "tertiary": "Lifesteal — Cool-Blooded Empowerment feeding (single ally/self row, +5% hard ceiling)",
+    "rationale": "Four supported rows sit on two 40 AP, cooldown-7 buffs: Reptile Chimera (A-rank, SELF) carries 35% Increase Damage Given (Ninjutsu-filtered, element-less) and 35% Decrease Damage Taken (all four stat types); Cool-Blooded Empowerment (D-rank, ALLY, radius-1 circle) carries 35% Increase Damage Given and 35% Lifesteal (Highest-filtered, element-less), each live for the 2 rounds after its cast round. The caster is a legal ALLY target at the pin, so both IDG rows can sit on the caster at once; IDG is primary by coverage, and because the two rows compound on the caster its route is held to +5% (×1.40 × 1.40 = ×1.96 when both buffs overlap, against ×1.8225 unenhanced; the same per-row weight as the single-row +10% Decrease Damage Taken route). Lifesteal is a single row capped at +5%. Potency reaches matching supported tags on all jutsu of the proposed Reptilian classification (RUL-2026-10-03-005). Summoning: Reptile Zoo (summon, injectjutsus, visual; PVP only) and its injected Reptile King are unsupported."
   },
   "nodes": [
     {
@@ -50,17 +64,18 @@
         }
       ],
       "flavor": "The blood remembers every beast it has been and lends their strength to its bearer.",
-      "coverage_note": "Reptile Chimera IDG and DDT 35→37%; Cool-Blooded Empowerment IDG 35→37% (circle: same-village allies, caster); 2 rounds per 40 AP cast.",
+      "coverage_note": "Reptile Chimera IDG and DDT 35 → 37%; Cool-Blooded Empowerment IDG 35 → 37% (circle: same-village allies, caster); 2 rounds per 40 AP cast.",
       "parent_rule": "ALL",
       "potency_classification": "Reptilian",
-      "scope": "Reptilian jutsu",
+      "scope": "all Reptilian-classified jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Cool-Blooded Empowerment",
           "Reptile Chimera"
         ],
-        "effect_rows": 3
+        "effect_rows": 3,
+        "rows_via_authored_classification": 3
       }
     },
     {
@@ -74,7 +89,7 @@
       "modifiers": [
         {
           "tag": "increasedamagegiven",
-          "flat": 2,
+          "flat": 1,
           "display_role": "SELF BUFF",
           "row_roles": [
             "ALLY BUFF",
@@ -83,17 +98,18 @@
         }
       ],
       "flavor": "Nothing in the swamp hunts the hunter. It learns to strike first.",
-      "coverage_note": "Both IDG rows (+2: 39%); element-less non-pierce hits, plus elemental hits of Ninjutsu (Chimera) or the caster's highest stat (Empowerment).",
+      "coverage_note": "Both IDG rows (+1% more: 38% with Chimeric Blood); element-less non-pierce hits, plus elemental hits of Ninjutsu (Chimera) or the caster's highest stat (Empowerment).",
       "parent_rule": "ALL",
       "potency_classification": "Reptilian",
-      "scope": "Reptilian jutsu",
+      "scope": "all Reptilian-classified jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Cool-Blooded Empowerment",
           "Reptile Chimera"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -107,7 +123,7 @@
       "modifiers": [
         {
           "tag": "increasedamagegiven",
-          "flat": 3,
+          "flat": 2,
           "display_role": "SELF BUFF",
           "row_roles": [
             "ALLY BUFF",
@@ -121,17 +137,18 @@
         }
       ],
       "flavor": "Three sets of jaws close at once, and whatever they tear is swallowed.",
-      "coverage_note": "Both IDG rows to 42% (route +7); Cool-Blooded Empowerment Lifesteal 35→37% (+2, below Serpent's Thirst). Each window 2 rounds.",
+      "coverage_note": "Both IDG rows to 40% (route +5%); Cool-Blooded Empowerment Lifesteal 35 → 37% (+2%, equal to Serpent's Thirst). Each window 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Reptilian",
-      "scope": "Reptilian jutsu",
+      "scope": "all Reptilian-classified jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Cool-Blooded Empowerment",
           "Reptile Chimera"
         ],
-        "effect_rows": 3
+        "effect_rows": 3,
+        "rows_via_authored_classification": 3
       }
     },
     {
@@ -150,16 +167,17 @@
         }
       ],
       "flavor": "Each shed skin leaves the next one thicker.",
-      "coverage_note": "Reptile Chimera Decrease Damage Taken only (+3 more: 40% with Chimeric Blood); every stat-typed non-pierce hit; 2 rounds per cast.",
+      "coverage_note": "Reptile Chimera Decrease Damage Taken only (+3% more: 40% with Chimeric Blood); every stat-typed non-pierce hit; 2 rounds per cast.",
       "parent_rule": "ALL",
       "potency_classification": "Reptilian",
-      "scope": "Reptilian jutsu",
+      "scope": "all Reptilian-classified jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Reptile Chimera"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -183,17 +201,18 @@
         }
       ],
       "flavor": "Blades skate off the carapace; what little bleeds is drunk back.",
-      "coverage_note": "Reptile Chimera DDT to 45% (route +10); Cool-Blooded Empowerment Lifesteal +2 (37%, circle recipients). Pierce bypasses DDT.",
+      "coverage_note": "Reptile Chimera DDT to 45% (route +10%); Cool-Blooded Empowerment Lifesteal +2% (37%, circle recipients). Pierce bypasses DDT.",
       "parent_rule": "ALL",
       "potency_classification": "Reptilian",
-      "scope": "Reptilian jutsu",
+      "scope": "all Reptilian-classified jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Cool-Blooded Empowerment",
           "Reptile Chimera"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -205,21 +224,22 @@
       "modifiers": [
         {
           "tag": "lifesteal",
-          "flat": 3,
+          "flat": 1,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "The brood shares one cold blood, and what one drinks warms them all.",
-      "coverage_note": "Cool-Blooded Empowerment Lifesteal 35→38% for same-village allies in the radius-1 circle (caster included); 2 rounds; 60% leech cap.",
+      "coverage_note": "Cool-Blooded Empowerment Lifesteal 35 → 36% for same-village allies in the radius-1 circle (caster included); 2 rounds; 60% leech cap.",
       "parent_rule": "ALL",
       "potency_classification": "Reptilian",
-      "scope": "Reptilian jutsu",
+      "scope": "all Reptilian-classified jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Cool-Blooded Empowerment"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -233,21 +253,22 @@
       "modifiers": [
         {
           "tag": "lifesteal",
-          "flat": 3,
+          "flat": 2,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "A serpent does not stop at the first mouthful.",
-      "coverage_note": "Same Lifesteal row (+3 more: 41% with Blood of the Brood); includes pierce hits the recipient lands; needs both combatants alive.",
+      "coverage_note": "Same Lifesteal row (+2% more: 38% with Blood of the Brood); includes pierce hits the recipient lands; needs both combatants alive.",
       "parent_rule": "ALL",
       "potency_classification": "Reptilian",
-      "scope": "Reptilian jutsu",
+      "scope": "all Reptilian-classified jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Cool-Blooded Empowerment"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -261,7 +282,7 @@
       "modifiers": [
         {
           "tag": "lifesteal",
-          "flat": 4,
+          "flat": 2,
           "display_role": "SELF BUFF"
         },
         {
@@ -271,17 +292,18 @@
         }
       ],
       "flavor": "The brood feeds until its hide is too thick to bite through.",
-      "coverage_note": "Cool-Blooded Empowerment Lifesteal to 45% (route +10, under the 60% cap); Reptile Chimera DDT +2 (37%, or 39% with Chimeric Blood).",
+      "coverage_note": "Cool-Blooded Empowerment Lifesteal to 40% (route +5%, the hard ceiling); Reptile Chimera DDT +2% (37%, or 39% with Chimeric Blood).",
       "parent_rule": "ALL",
       "potency_classification": "Reptilian",
-      "scope": "Reptilian jutsu",
+      "scope": "all Reptilian-classified jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Cool-Blooded Empowerment",
           "Reptile Chimera"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     }
   ],
@@ -295,10 +317,10 @@
         "03",
         "04"
       ],
-      "rationale": "The offense build: both Increase Damage Given rows reach 42%, so the caster's own Reptile Chimera window and the circle's buff on allies (and on the caster standing in it) land harder; Hardened Scales makes Chimera's hide 40%, so the same 40 AP cast is also the mitigation window; the +2 Lifesteal secondary adds a trickle of sustain. Blood of the Brood is the alternative fourth purchase (circle lifesteal 40%, hide 37%) for a player who fights beside allies.",
+      "rationale": "The offense build: both Increase Damage Given rows reach 40% (+5%), so the caster's own Reptile Chimera window and the circle's buff on allies (and on the caster standing in it) land harder; Hardened Scales makes Chimera's hide 40%, so the same 40 AP cast is also the mitigation window; the +2% Lifesteal secondary (37%) adds a trickle of sustain. Blood of the Brood is the alternative fourth purchase (circle lifesteal 38%, hide 37%) for a player who fights beside allies.",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 5,
         "decreasedamagetaken": 5,
         "lifesteal": 2
       },
@@ -369,8 +391,8 @@
           "role": "ALLY BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -423,8 +445,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -461,12 +483,12 @@
         "05",
         "06"
       ],
-      "rationale": "The survival build: Reptile Chimera's Decrease Damage Taken reaches 45% for its 2-round window every 7 rounds, its Increase Damage Given 37%, and Cool-Blooded Empowerment's Lifesteal 40% (+2 from the capstone, +3 from Blood of the Brood) for same-village allies in the circle (caster included). Apex Instinct is the alternative fourth purchase (IDG 39% on both rows, no extra lifesteal) for a solo player who wants the hide and a sharper bite.",
+      "rationale": "The survival build: Reptile Chimera's Decrease Damage Taken reaches 45% (+10%) for its 2-round window every 7 rounds, its Increase Damage Given 37%, and Cool-Blooded Empowerment's Lifesteal 38% (+2% from the capstone, +1% from Blood of the Brood) for same-village allies in the circle (caster included). Apex Instinct is the alternative fourth purchase (IDG 38% on both rows, no extra lifesteal) for a solo player who wants the hide and a sharper bite.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagetaken": 10,
-        "lifesteal": 5
+        "lifesteal": 3
       },
       "finals": [
         {
@@ -553,8 +575,8 @@
           "role": "ALLY BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 3,
+          "final": 38.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -627,12 +649,12 @@
         "07",
         "08"
       ],
-      "rationale": "The lifesteal build: Cool-Blooded Empowerment's Lifesteal reaches 45% for every same-village ally in the circle, caster included, leaving 15 points of headroom under the 60% leech budget for the bloodline's own 10% Ninjutsu passive; the capstone's +2 Decrease Damage Taken and Chimeric Blood's +2 take Chimera's hide to 39% and its buff to 37%. Chimeric Blood is the only legal fourth purchase; the route trades the Chimera routes' depth for the strongest team sustain.",
+      "rationale": "The lifesteal build: Cool-Blooded Empowerment's Lifesteal reaches 40% (+5%, the hard ceiling) for every same-village ally in the circle, caster included, leaving 20 points of the 60% leech budget, 10 of them taken by the bloodline's own Ninjutsu passive on the caster; the capstone's +2% Decrease Damage Taken and Chimeric Blood's +2% take Chimera's hide to 39% and its buff to 37%. Chimeric Blood is the only legal fourth purchase; the route trades the Chimera routes' depth for team sustain.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagetaken": 4,
-        "lifesteal": 10
+        "lifesteal": 5
       },
       "finals": [
         {
@@ -719,8 +741,8 @@
           "role": "ALLY BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 10,
-          "final": 45.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -785,24 +807,23 @@
       ]
     }
   ],
-  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on four rows (Increase Damage Given x2 on Reptile Chimera and Cool-Blooded Empowerment; Decrease Damage Taken x1 on Reptile Chimera; Lifesteal x1 on Cool-Blooded Empowerment); Summoning: Reptile Zoo and its injected Reptile King carry only summon, injectjutsus and visual rows. The self-facing root (Chimeric Blood) forks into an Increase Damage Given route and a Decrease Damage Taken route; the circle-facing root (Blood of the Brood) is a single lifesteal chain already at the +10 single-row guardrail. Chimeric Blood is therefore a universal node (in all 8 legal 4 BP builds), kept because no 1 BP leaf under Blood of the Brood has a distinct role: Lifesteal cannot rise past +10; to beat Chimeric Blood in the 06,07,08 closure a leaf needs IDG +3, which opens a second path to the IDG maximum (06,09,01,02 reaches +7), or DDT +3, which twins Hardened Scales on the same row and leaves 01,04,06,09 (IDG 2, DDT 8, LS 3) dominated by Fortress; smaller flats leave that closure dominated by Pack sustain. A mirrored layout would only move the universal node to the other root. Three distinct complete builds (Predation, Fortress, Pack sustain) exist; Predation and Fortress each have two fourth-purchase choices, Pack sustain's is always Chimeric Blood. 8 legal full-budget allocations, all 8 numerically non-dominated (three capstone-less hybrids only by one lifesteal point; design note 5).",
+  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on four rows (Increase Damage Given x2 on Reptile Chimera and Cool-Blooded Empowerment; Decrease Damage Taken x1 on Reptile Chimera; Lifesteal x1 on Cool-Blooded Empowerment); Summoning: Reptile Zoo and its injected Reptile King carry only summon, injectjutsus and visual rows. The self-facing root (Chimeric Blood) forks into an Increase Damage Given route and a Decrease Damage Taken route; the circle-facing root (Blood of the Brood) is a single lifesteal chain already at the +5% hard ceiling. Chimeric Blood is therefore a universal node (in all 8 legal 4 BP builds), kept because no 1 BP leaf under Blood of the Brood has a distinct role: Lifesteal cannot rise past +5%; a leaf that beats Chimeric Blood in the 06,07,08 closure needs Increase Damage Given +3% or more, which opens a second path above the +5% IDG route (06,09,01,02 reaches +6%), or Decrease Damage Taken +3%, which twins Hardened Scales on the same row; smaller flats leave that closure dominated by, or tied with, Pack sustain. A mirrored layout would only move the universal node to the other root. Three distinct complete builds (Predation, Fortress, Pack sustain) exist; Predation and Fortress each have two fourth-purchase choices, Pack sustain's is always Chimeric Blood.",
   "design_notes": [
-    "Node split: Chimeric Blood (self-facing; both Reptile Chimera rows plus the circle's IDG row) forks into Apex Instinct → Jaws of the Chimera (Increase Damage Given 2/2/3 = +7 on two rows) and Hardened Scales → Basilisk Carapace (Decrease Damage Taken 2/3/5 = +10 on one row). Blood of the Brood (circle-facing) runs one chain, Serpent's Thirst → Feast of Scales (Lifesteal 3/3/4 = +10 on one row). 2/3/3 Foundations/Hidden/Advanced; every Advanced Art is 3 BP deep; any two cost 5 or 6 BP.",
-    "USER DECISION (open): IDG ceiling. 01/02/03 = +7 on two rows that stack on the caster (+14), above Taiyo Kami's two-row +5. (a) Hold +5 (01 +2/02 +1/03 +2): Predation 17 row-weighted (4.25/row, 124%); peak becomes Fortress 19 (138%). (b) Keep +7, drop the +2 capstone secondaries: Predation 19 (138%); (a)+(b): peak 17. (c) Keep Draft 1 (21, 5.25/row, 153%) and rule Reptilian, Lycanthropy and Shinseina Ki (+7 two-row IDG) as one roster decision. Flats stay at (c) pending the user's ruling.",
-    "Passives: the Ninjutsu IDG passive (20 + 0.15/lvl, multiplicative) and the 10% Ninjutsu Lifesteal passive stack with the rows. Both IDG rows are jutsu-sourced and element-less, so each adds its percentage of the staged base to every element-less non-pierce hit of any stat type plus elemental hits of its stat (§3); both cast in one round (80% AP) add 70% → 84% over the next 2 rounds (Predation). DDT lists all four stat types, so it blunts Genjutsu hits the 10% Genjutsu IDT passive worsens.",
+    "Node split: Chimeric Blood (self-facing; both Reptile Chimera rows plus the circle's IDG row) forks into Apex Instinct → Jaws of the Chimera (Increase Damage Given 2/1/2 = +5% on two rows) and Hardened Scales → Basilisk Carapace (Decrease Damage Taken 2/3/5 = +10% on one row). Blood of the Brood (circle-facing) runs one chain, Serpent's Thirst → Feast of Scales (Lifesteal 1/2/2 = +5% on one row). 2/3/3 Foundations/Hidden/Advanced; every Advanced Art is 3 BP deep; any two cost 5 or 6 BP.",
+    "Recalibration (RUL-2026-10-03-005): Predation moves from +7% to the +5% band (Apex Instinct +2% → +1%, Jaws of the Chimera +3% → +2%), so each row reaches 40% and the two compound to ×1.96 on the caster (×1.8225 at base; ×2.10 at +10%). The +10% band (2/3/5) was not taken because every purchase lands on one of only four rows: it would put Predation at 27 row-weighted (6.75 per row, about twice Taiyo Kami's 3.44) against 17 for Fortress. Lifesteal is cut to the +5% hard ceiling: Blood of the Brood +3% → +1%, Serpent's Thirst +3% → +2%, Feast of Scales +4% → +2% (Empowerment 35 → 40%). Fortress is unchanged at +10% Decrease Damage Taken. Maxima over every legal allocation: Increase Damage Given +5%, Decrease Damage Taken +10%, Lifesteal +5% (the capstones' +2% secondaries reach 3% with Blood of the Brood).",
+    "Passives: the Ninjutsu IDG passive (20 + 0.15/lvl, multiplicative) and the 10% Ninjutsu Lifesteal passive stack with the rows. Both IDG rows are jutsu-sourced and element-less, so each multiplies every element-less non-pierce hit of any stat type plus elemental hits of its stat (§3, §3b); both cast in one round (80% AP) compound to ×1.96 over the next 2 rounds on Predation (×1.8225 unenhanced), and the Ninjutsu passive multiplies last. DDT lists all four stat types, so it blunts Genjutsu hits the 10% Genjutsu IDT passive worsens.",
     "Delivery: both carriers: 40 AP, cooldown 7, 350 chakra/stamina; windows are 2 following rounds, so at most 2 of 7 rounds carry enhanced value. Reptile Chimera is SELF, range 0. Cool-Blooded Empowerment is ALLY, range 4, AOE_CIRCLE_SPAWN: the clicked tile must hold a living same-side user (the caster's own tile qualifies: util.ts 2750–2752); its rows apply once at cast as user effects to every same-village user within radius 1 (actions.ts 1239–1240; friendlyFire FRIENDLY). Not a ground effect.",
-    "Fourth purchases: Predation (01,02,03) adds Hardened Scales (hide 40%) or Blood of the Brood (lifesteal 40%); Fortress (01,04,05) adds Blood of the Brood (lifesteal 40%) or Apex Instinct (IDG 39%); Pack sustain (06,07,08) only Chimeric Blood. Capstone-less hybrids (01,02,04,06; 01,02,06,07; 01,04,06,07) are legal and numerically non-dominated by one lifesteal point each (+1 LS against +5 DDT or +3 two-row IDG); not recommended builds. Row-weighted peak 21, raw 14 (design note 2).",
-    "Reference reuse: the DDT route copies Taiyo Kami's Sunward Oath → Golden Mantle → Sovereign Sun (2/3/5) nearly verbatim; Chimeric Blood keeps Dawnheart's two-tag +2 shape. Departures: Basilisk Carapace's secondary is +2 Lifesteal, not +3 IDG, so no capstone out-bids a sibling +3 Hidden Art; Blood of the Brood carries one tag at +3, so the lifesteal chain is 3/3/4; IDG runs 2/2/3 on two stacking rows (Taiyo stops at +5; note 2). It fits: DDT and Lifesteal are single rows like Taiyo's DDT."
+    "Fourth purchases: Predation (01,02,03) adds Hardened Scales (hide 40%) or Blood of the Brood (lifesteal 38%); Fortress (01,04,05) adds Blood of the Brood (lifesteal 38%) or Apex Instinct (IDG 38%); Pack sustain (06,07,08) only Chimeric Blood. Capstone-less hybrids are enumerated by the validator; see the audit.",
+    "Reference reuse: the DDT route copies Taiyo Kami's Sunward Oath → Golden Mantle → Sovereign Sun (2/3/5) nearly verbatim; Chimeric Blood keeps Dawnheart's two-tag +2% shape. Departures: Basilisk Carapace's secondary is +2% Lifesteal, not +3% IDG; Blood of the Brood carries one tag, so the lifesteal chain is 1/2/2 under the +5% ceiling; IDG runs 2/1/2 on two stacking rows."
   ],
   "risks": [
-    "Classification: every supported row is element-less, so no existing element isolates this kit; under the current resolver the rows are reachable only with affectedElements including None, which also reaches every non-elemental row on any jutsu the player casts. The tree assumes the proposed bloodline-keyed classification extension (label Reptilian). Normal-jutsu collision is unverified.",
-    "IDG stacking: Reptile Chimera and Cool-Blooded Empowerment can both buff the caster in one window (the caster is a legal ALLY target); same-tag effects from different jutsu all apply and add (§3b; process.ts 1109–1117), so Predation's rows add 42% + 42% = 84% of the staged base (70% unenhanced, +14 points) before the multiplicative Ninjutsu passive. Combined final damage was not simulated.",
-    "Lifesteal budget: lifesteal and vamp share one 60%-of-damage leech budget per hit. The route reaches 45% on Cool-Blooded Empowerment; a caster inside the circle adds the 10% Ninjutsu passive (55%), so any vamp or lifesteal from the main tree or items saturates the capstone. The buffed user heals from their own hits (pierce included); both must be alive; healprevent on the recipient blocks it.",
+    "Classification (director decision): no row carries a non-None element, so no existing element identifies this kit. The proposal needs a classification extension: a new jutsu classification (placeholder 'Reptilian') assigned to jutsu records. It is not a bloodline-id selector; which jutsu carry it is a director/engine decision, and targeting None would reach every non-elemental row in the game. All three kit jutsu qualify only through that authored classification (ENGINE_GAP_REGISTER G1). Off-kit coverage is unverified.",
+    "IDG stacking: Reptile Chimera and Cool-Blooded Empowerment can both buff the caster in one window (the caster is a legal ALLY target); same-tag effects from different jutsu all apply, each as its own multiplier (§3b; process.ts 1692–1825), so Predation's rows give ×1.40 × 1.40 = ×1.96 (×1.8225 unenhanced) before the Ninjutsu passive multiplies last. Combined final damage was not simulated.",
+    "Lifesteal budget: lifesteal and vamp share one 60%-of-damage leech budget per hit. The route reaches 40% on Cool-Blooded Empowerment; a caster inside the circle adds the 10% Ninjutsu passive (50%), so vamp or lifesteal from the main tree or items quickly fills the last 10 points. The buffed user heals from their own hits (pierce included); both must be alive; healprevent on the recipient blocks it.",
     "Highest resolution: Cool-Blooded Empowerment's rows carry statTypes [Highest], which realizeTag resolves from the caster's highestOffence (G16), so on an ally the ratio tests the caster's highest stat, not the ally's. Element-less rows still match every element-less hit of any stat type and exclude only elemental hits of another stat. highestOffence is a required field (types.ts 156; §4b).",
     "Team dependence and village check: the circle buffs land on same-village users (getTargetUser compares villageId), so an ally from another village is not reached even though the tile filter accepts any same-side user; in a 1v1 the circle reaches only the caster. Blood of the Brood's chain therefore carries less value solo (single recipient) than in team fights.",
-    "Summoning: Reptile Zoo (PVP only) and its injected Reptile King (SPECIAL, empty bloodlineId, summon row only) have no supported rows; no node changes them, and the injected child is not counted under open decision D4 option (a). The 10% Genjutsu Increase Damage Taken passive remains a standing weakness outside the Chimera window.",
-    "Per-row intensity: the strongest full build is row-weighted 21 on 4 rows (5.25 per row against Taiyo Kami's 3.44), above the balance matrix's 125% outlier line, because every purchase lands on one of four rows; raw additions (14) are the lowest among drafted trees. Isolated as a user decision with options (a)/(b)/(c) in design note 2; flats are not retuned pending that ruling.",
-    "No adverse supported rows, hidden rows, item gates or ally-hazard rows exist in this kit; the unsupported visual rows (adverse) are untouched by every node. Neither buff acts in its cast round (§3b): a cast in round N is live in rounds N+1 and N+2, so hits in the 80% AP double-cast round get no bonus. Uptime against real opponents was not simulated."
+    "Summoning: Reptile Zoo (PVP only) and its injected Reptile King (SPECIAL, empty bloodlineId, summon row only) have no supported rows; no node changes them, and injection provenance is not a selector. The 10% Genjutsu Increase Damage Taken passive remains a standing weakness outside the Chimera window.",
+    "No adverse supported rows, hidden rows, item gates or ally-hazard rows exist in this kit; the unsupported visual rows (adverse) are untouched by every node. Neither buff acts in its cast round (§3b): a cast in round N is live in rounds N+1 and N+2, so hits in the 80% AP double-cast round get no bonus. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. Uptime against real opponents was not simulated."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -839,13 +860,13 @@
       "4": 8
     },
     "full_budget_allocations": 8,
-    "non_dominated_full_allocations": 8,
+    "non_dominated_full_allocations": 5,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 7,
+      "increasedamagegiven": 5,
       "decreasedamagetaken": 10,
-      "lifesteal": 10
+      "lifesteal": 5
     },
     "supported_rows_in_kit": 4,
     "supported_rows_by_tag": {
@@ -859,18 +880,96 @@
       "lifesteal"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 3 / Reptilian classification / forked tree",
+    "revision": "Draft 4 / Reptilian classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Reptilian jutsu inherit Reptilian potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Reptilian-classified jutsu (requires classification extension). Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "increasedamagegiven": 5,
+        "decreasedamagetaken": 10,
+        "lifesteal": 5
+      },
+      "ceilings": {
+        "increasedamagegiven": 10,
+        "decreasedamagetaken": 10,
+        "lifesteal": 5
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Jaws of the Chimera",
+          "primary_tag": "increasedamagegiven",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            2,
+            1,
+            2
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Basilisk Carapace",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "08",
+          "name": "Feast of Scales",
+          "primary_tag": "lifesteal",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            1,
+            2,
+            2
+          ],
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {
@@ -881,7 +980,7 @@
         "04"
       ],
       "bonuses": {
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 5,
         "decreasedamagetaken": 5,
         "lifesteal": 2
       }
@@ -894,9 +993,9 @@
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 5,
         "decreasedamagetaken": 2,
-        "lifesteal": 5
+        "lifesteal": 3
       }
     },
     {
@@ -907,7 +1006,7 @@
         "05"
       ],
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 3,
         "decreasedamagetaken": 10,
         "lifesteal": 2
       }
@@ -920,9 +1019,9 @@
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 3,
         "decreasedamagetaken": 5,
-        "lifesteal": 3
+        "lifesteal": 1
       }
     },
     {
@@ -933,9 +1032,9 @@
         "07"
       ],
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 3,
         "decreasedamagetaken": 2,
-        "lifesteal": 6
+        "lifesteal": 3
       }
     },
     {
@@ -948,7 +1047,7 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagetaken": 10,
-        "lifesteal": 5
+        "lifesteal": 3
       }
     },
     {
@@ -961,7 +1060,7 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagetaken": 5,
-        "lifesteal": 6
+        "lifesteal": 3
       }
     },
     {
@@ -974,7 +1073,7 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagetaken": 4,
-        "lifesteal": 10
+        "lifesteal": 5
       }
     }
   ]

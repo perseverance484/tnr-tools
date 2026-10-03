@@ -9,21 +9,35 @@
     "statClassification": "Highest",
     "traits": "Burst Healing and Sustained Healing"
   },
-  "revision": "Draft 5 / Wood classification / forked tree",
+  "revision": "Draft 6 / Wood classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [],
   "classification": {
     "potency_classification": "Wood",
     "label_kind": "element",
-    "bloodline": "Nature's Blessing",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Wood"
+    ],
     "display_element": "Wood",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Nature's Blessing jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Wood jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Verdant Bastion"
+    ],
+    "shared_element_bloodlines": [
       "Shinseina Ki"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {
@@ -37,7 +51,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagetaken": 2,
         "increaseheal": 2,
         "heal": 2
@@ -57,8 +71,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "increaseheal": 5,
         "heal": 2
       },
@@ -77,7 +90,6 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagetaken": 2,
         "increaseheal": 8,
         "heal": 5
@@ -110,8 +122,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
-      "increasedamagetaken": 7,
+      "damage": 5,
+      "increasedamagetaken": 10,
       "increaseheal": 9,
       "heal": 5
     },
@@ -135,13 +147,12 @@
         "name": "Thorn and Rot",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 3,
-        "row_weighted_total": 4,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
-          "Nature's Curse",
           "Nature's Fury"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -180,8 +191,8 @@
         "name": "Stripped Bark",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
         "covered_jutsu": [
           "Nature's Fury"
         ],
@@ -194,8 +205,8 @@
         "name": "Blight and Harvest",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 6,
+        "raw_flat_total": 8,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Nature's Fury",
           "Verdant Bastion"
@@ -266,28 +277,27 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "02",
-        "03",
+        "04",
+        "05",
         "06"
       ],
       "bonuses": {
-        "damage": 6,
-        "increasedamagetaken": 2,
-        "increaseheal": 2,
+        "increasedamagetaken": 10,
+        "increaseheal": 5,
         "heal": 2
       },
-      "raw_flat_total": 12,
-      "row_weighted_total": 18,
+      "raw_flat_total": 17,
+      "row_weighted_total": 17,
       "advanced_arts": [
-        "03"
+        "05"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "04",
-      "name": "Stripped Bark",
-      "category": "Hidden Art",
-      "depth": 2,
+      "id": "01",
+      "name": "Thorn and Rot",
+      "category": "Foundation",
+      "depth": 1,
       "raw_flat_total": 2,
       "row_weighted_total": 2,
       "covered_jutsu": [
@@ -306,11 +316,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 6,
-          "increasedamagetaken": 4
+          "damage": 5,
+          "increasedamagetaken": 5
         },
         "raw_flat_total": 10,
-        "row_weighted_total": 16,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "03"
         ],
@@ -324,13 +334,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagetaken": 2,
           "increaseheal": 2,
           "heal": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 18,
+        "raw_flat_total": 11,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "03"
         ],
@@ -344,12 +354,12 @@
           "05"
         ],
         "bonuses": {
-          "damage": 3,
-          "increasedamagetaken": 7,
+          "damage": 2,
+          "increasedamagetaken": 10,
           "increaseheal": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 16,
+        "raw_flat_total": 15,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "05"
         ],
@@ -363,13 +373,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 3,
-          "increasedamagetaken": 4,
+          "damage": 2,
+          "increasedamagetaken": 5,
           "increaseheal": 2,
           "heal": 2
         },
         "raw_flat_total": 11,
-        "row_weighted_total": 14,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -381,13 +391,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagetaken": 2,
           "increaseheal": 5,
           "heal": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 15,
+        "raw_flat_total": 11,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -399,13 +409,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 4,
+          "damage": 3,
           "increasedamagetaken": 2,
           "increaseheal": 3,
           "heal": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 15,
+        "raw_flat_total": 10,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -417,13 +427,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagetaken": 7,
+          "increasedamagetaken": 10,
           "increaseheal": 5,
           "heal": 2
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 16,
+        "raw_flat_total": 17,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "05"
         ],
@@ -437,13 +446,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "increaseheal": 5,
           "heal": 2
         },
         "raw_flat_total": 12,
-        "row_weighted_total": 13,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": false
       },
@@ -455,13 +463,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagetaken": 4,
+          "damage": 1,
+          "increasedamagetaken": 5,
           "increaseheal": 3,
           "heal": 2
         },
         "raw_flat_total": 11,
-        "row_weighted_total": 13,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -473,13 +481,12 @@
           "08"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagetaken": 2,
           "increaseheal": 8,
           "heal": 5
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 17,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "08"
         ],
@@ -493,13 +500,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 2,
+          "damage": 1,
           "increasedamagetaken": 2,
           "increaseheal": 6,
           "heal": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 14,
+        "raw_flat_total": 11,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },

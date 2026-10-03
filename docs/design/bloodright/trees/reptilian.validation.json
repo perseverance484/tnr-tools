@@ -9,21 +9,36 @@
     "statClassification": "Ninjutsu",
     "traits": "Summoning "
   },
-  "revision": "Draft 3 / Reptilian classification / forked tree",
+  "revision": "Draft 4 / Reptilian classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [
+    "classification status: requires classification extension (director decision)",
     "universal node: 01 (Chimeric Blood) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
   ],
   "classification": {
     "potency_classification": "Reptilian",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Reptilian",
+    "label_kind": "classification extension",
+    "classification_status": "requires classification extension",
+    "qualifying_elements": [],
     "display_element": null,
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Reptilian jutsu",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Reptilian-classified jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Cool-Blooded Empowerment",
+      "Reptile Chimera",
+      "Summoning: Reptile Zoo"
+    ],
+    "shared_element_bloodlines": [],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
     "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": []
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver_and_classification_extension"
   },
   "examples": [
     {
@@ -37,7 +52,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 5,
         "decreasedamagetaken": 5,
         "lifesteal": 2
       },
@@ -58,7 +73,7 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagetaken": 10,
-        "lifesteal": 5
+        "lifesteal": 3
       },
       "advanced_arts": [
         "Basilisk Carapace"
@@ -77,7 +92,7 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagetaken": 4,
-        "lifesteal": 10
+        "lifesteal": 5
       },
       "advanced_arts": [
         "Feast of Scales"
@@ -103,13 +118,13 @@
       "4": 8
     },
     "full_budget_allocations": 8,
-    "non_dominated_full_allocations": 8,
+    "non_dominated_full_allocations": 5,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 7,
+      "increasedamagegiven": 5,
       "decreasedamagetaken": 10,
-      "lifesteal": 10
+      "lifesteal": 5
     },
     "supported_rows_in_kit": 4,
     "supported_rows_by_tag": {
@@ -144,8 +159,8 @@
         "name": "Apex Instinct",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 1,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Cool-Blooded Empowerment",
           "Reptile Chimera"
@@ -159,8 +174,8 @@
         "name": "Jaws of the Chimera",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 8,
+        "raw_flat_total": 4,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Cool-Blooded Empowerment",
           "Reptile Chimera"
@@ -203,8 +218,8 @@
         "name": "Blood of the Brood",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 1,
+        "row_weighted_total": 1,
         "covered_jutsu": [
           "Cool-Blooded Empowerment"
         ],
@@ -217,8 +232,8 @@
         "name": "Serpent's Thirst",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Cool-Blooded Empowerment"
         ],
@@ -231,8 +246,8 @@
         "name": "Feast of Scales",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 6,
+        "raw_flat_total": 4,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Cool-Blooded Empowerment",
           "Reptile Chimera"
@@ -246,30 +261,30 @@
       "ids": [
         "01",
         "02",
-        "03",
-        "04"
+        "04",
+        "05"
       ],
       "bonuses": {
-        "increasedamagegiven": 7,
-        "decreasedamagetaken": 5,
+        "increasedamagegiven": 3,
+        "decreasedamagetaken": 10,
         "lifesteal": 2
       },
-      "raw_flat_total": 14,
-      "row_weighted_total": 21,
+      "raw_flat_total": 15,
+      "row_weighted_total": 18,
       "advanced_arts": [
-        "03"
+        "05"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "04",
-      "name": "Hardened Scales",
-      "category": "Hidden Art",
-      "depth": 2,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "id": "06",
+      "name": "Blood of the Brood",
+      "category": "Foundation",
+      "depth": 1,
+      "raw_flat_total": 1,
+      "row_weighted_total": 1,
       "covered_jutsu": [
-        "Reptile Chimera"
+        "Cool-Blooded Empowerment"
       ],
       "covered_rows": 1,
       "adverse_rows_amplified": [],
@@ -284,12 +299,12 @@
           "04"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 5,
           "decreasedamagetaken": 5,
           "lifesteal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 21,
+        "raw_flat_total": 12,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "03"
         ],
@@ -303,12 +318,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 5,
           "decreasedamagetaken": 2,
-          "lifesteal": 5
+          "lifesteal": 3
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 21,
+        "raw_flat_total": 10,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "03"
         ],
@@ -322,12 +337,12 @@
           "05"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 3,
           "decreasedamagetaken": 10,
           "lifesteal": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 20,
+        "raw_flat_total": 15,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "05"
         ],
@@ -341,14 +356,14 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 3,
           "decreasedamagetaken": 5,
-          "lifesteal": 3
+          "lifesteal": 1
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 16,
+        "raw_flat_total": 9,
+        "row_weighted_total": 12,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -358,14 +373,14 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 3,
           "decreasedamagetaken": 2,
-          "lifesteal": 6
+          "lifesteal": 3
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 16,
+        "raw_flat_total": 8,
+        "row_weighted_total": 11,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -377,10 +392,10 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagetaken": 10,
-          "lifesteal": 5
+          "lifesteal": 3
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 19,
+        "raw_flat_total": 15,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "05"
         ],
@@ -396,12 +411,12 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagetaken": 5,
-          "lifesteal": 6
+          "lifesteal": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 15,
+        "raw_flat_total": 10,
+        "row_weighted_total": 12,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -413,10 +428,10 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagetaken": 4,
-          "lifesteal": 10
+          "lifesteal": 5
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 18,
+        "raw_flat_total": 11,
+        "row_weighted_total": 13,
         "advanced_arts": [
           "08"
         ],

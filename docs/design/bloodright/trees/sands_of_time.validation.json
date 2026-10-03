@@ -9,11 +9,9 @@
     "statClassification": "Highest",
     "traits": "Tank, Control"
   },
-  "revision": "Draft 3 / Sand classification / forked tree",
+  "revision": "Draft 4 / Sand classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [
-    "route The Inevitable Hour primary total +7% Increase Damage Taken is off the 5/10/15 bands without a route_band_rationale",
-    "route Stilled Hourglass primary total +8% Decrease Damage Given is off the 5/10/15 bands without a route_band_rationale",
     "ally-hazard area rows amplified (friendly fire none/ALL): Timelapse#0"
   ],
   "classification": {
@@ -75,7 +73,7 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 2,
         "heal": 2
       },
@@ -115,7 +113,7 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
-        "decreasedamagegiven": 8,
+        "decreasedamagegiven": 10,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 4,
         "heal": 2
@@ -150,8 +148,8 @@
     "maximum_tag_bonuses": {
       "damage": 5,
       "increasedamagegiven": 5,
-      "decreasedamagegiven": 8,
-      "increasedamagetaken": 7,
+      "decreasedamagegiven": 10,
+      "increasedamagetaken": 10,
       "decreasedamagetaken": 10,
       "heal": 5
     },
@@ -226,8 +224,8 @@
         "name": "Brittle with Age",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Momentum Shift",
           "Timeshift"
@@ -241,8 +239,8 @@
         "name": "The Inevitable Hour",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 9,
+        "raw_flat_total": 8,
+        "row_weighted_total": 13,
         "covered_jutsu": [
           "Momentum Shift",
           "Timeshift"
@@ -314,8 +312,8 @@
         "name": "Stilled Hourglass",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 7,
+        "raw_flat_total": 9,
+        "row_weighted_total": 9,
         "covered_jutsu": [
           "Timelapse"
         ],
@@ -334,10 +332,10 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       },
-      "raw_flat_total": 14,
-      "row_weighted_total": 25,
+      "raw_flat_total": 17,
+      "row_weighted_total": 31,
       "advanced_arts": [
         "05"
       ],
@@ -368,10 +366,10 @@
         "bonuses": {
           "damage": 5,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 25,
+        "raw_flat_total": 12,
+        "row_weighted_total": 27,
         "advanced_arts": [
           "03"
         ],
@@ -408,10 +406,10 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 25,
+        "raw_flat_total": 17,
+        "row_weighted_total": 31,
         "advanced_arts": [
           "05"
         ],
@@ -427,12 +425,12 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
           "heal": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 20,
+        "raw_flat_total": 13,
+        "row_weighted_total": 22,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -484,12 +482,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 5,
-          "increasedamagetaken": 7,
+          "increasedamagetaken": 10,
           "decreasedamagetaken": 2,
           "heal": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 23,
+        "raw_flat_total": 19,
+        "row_weighted_total": 29,
         "advanced_arts": [
           "05"
         ],
@@ -504,12 +502,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 5,
           "heal": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 17,
+        "raw_flat_total": 14,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -523,12 +521,12 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 3,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
           "heal": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 17,
+        "raw_flat_total": 14,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -580,13 +578,13 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 8,
+          "decreasedamagegiven": 10,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 4,
           "heal": 2
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 20,
+        "raw_flat_total": 20,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "10"
         ],
@@ -619,12 +617,12 @@
           "10"
         ],
         "bonuses": {
-          "decreasedamagegiven": 8,
+          "decreasedamagegiven": 10,
           "decreasedamagetaken": 7,
           "heal": 2
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
+        "raw_flat_total": 19,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "10"
         ],

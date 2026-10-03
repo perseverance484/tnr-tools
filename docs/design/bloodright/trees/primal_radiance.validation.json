@@ -9,19 +9,27 @@
     "statClassification": "Highest",
     "traits": null
   },
-  "revision": "Draft 3 / Primal Radiance classification / forked tree",
+  "revision": "Draft 4 / Fire classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [],
   "classification": {
-    "potency_classification": "Primal Radiance",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Primal Radiance",
+    "potency_classification": "Fire",
+    "label_kind": "element",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Fire"
+    ],
     "display_element": "Fire",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Primal Radiance jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Fire jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [],
+    "shared_element_bloodlines": [
       "Adorable Shadow of Death",
       "Amaterasu",
       "Architect of the Hollow Script",
@@ -51,7 +59,11 @@
       "Traveling Sun Praiser",
       "Youso Shiroi",
       "Yūhi Ryūjin (夕陽竜神)"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {
@@ -65,7 +77,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -85,7 +97,6 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
@@ -106,7 +117,6 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 4,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10
@@ -126,7 +136,6 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 10,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 4
@@ -159,7 +168,7 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
+      "damage": 5,
       "increasedamagegiven": 10,
       "increasedamagetaken": 5,
       "decreasedamagetaken": 10,
@@ -187,14 +196,12 @@
         "name": "Hunter's Brand",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 3,
-        "row_weighted_total": 4,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
-          "Fire Style: Beast",
-          "Fire Style: Squirrel",
           "Primal Incineration"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -338,26 +345,25 @@
         "06"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
         "afterburn": 10
       },
-      "raw_flat_total": 20,
-      "row_weighted_total": 21,
+      "raw_flat_total": 19,
+      "row_weighted_total": 19,
       "advanced_arts": [
         "05"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "04",
-      "name": "Smoldering Trail",
-      "category": "Hidden Art",
-      "depth": 2,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "id": "01",
+      "name": "Hunter's Brand",
+      "category": "Foundation",
+      "depth": 1,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
       "covered_jutsu": [
         "Primal Incineration"
       ],
@@ -374,12 +380,12 @@
           "04"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagetaken": 2,
           "afterburn": 3
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 17,
+        "raw_flat_total": 10,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "03"
         ],
@@ -393,13 +399,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 18,
+        "raw_flat_total": 11,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "03"
         ],
@@ -413,12 +419,12 @@
           "05"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagetaken": 5,
           "afterburn": 10
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 21,
+        "raw_flat_total": 17,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "05"
         ],
@@ -432,14 +438,14 @@
           "06"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 3
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 15,
+        "raw_flat_total": 11,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -451,13 +457,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 15,
+        "raw_flat_total": 11,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -469,13 +475,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 15,
+        "raw_flat_total": 11,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -487,14 +493,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
           "afterburn": 10
         },
-        "raw_flat_total": 20,
-        "row_weighted_total": 21,
+        "raw_flat_total": 19,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "05"
         ],
@@ -508,14 +513,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5,
           "afterburn": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 14,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -527,14 +531,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 14,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -546,13 +549,12 @@
           "08"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 4,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 18,
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "08"
         ],
@@ -566,13 +568,12 @@
           "09"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 14,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -584,13 +585,12 @@
           "10"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 10,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 4
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 18,
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "10"
         ],
