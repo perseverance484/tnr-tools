@@ -1,6 +1,50 @@
 {
-  "status": "AWAITING_USER_ROSTER_SORTING",
-  "approved_remaining_ids": [],
+  "status": "APPROVED_FOR_DRAFT_PLANNING",
+  "approved_remaining_ids": [
+    "1C34syOOEKp6k3UKweYT6",
+    "Au5rBnnukEqUv_lRrk1yO",
+    "9F6Ruhuf82gSzpZcsUaPW",
+    "RNUcHSH2c00IhOLc2C9aJ",
+    "ovZIWu28ANn-Cij5TjT8S",
+    "clh4d6qo4000itb0hrx8t06wq",
+    "osVXxtyW61gr-bx5v5ys2",
+    "ssevlOGQ4JjPn2sHZtq0c",
+    "Dqqw3zcIGDserD-qEE9QW",
+    "IxhIoLEmznqdcnc_6MCN9",
+    "r3nBY_Th4_ZAIUfhx1jdy",
+    "szai-IgtB7PLubojIIlh-",
+    "uNZ2UMfA3BuX-J_1g0fHU",
+    "clh4d6q6s000atb0h0qdqdh1z",
+    "ALoGrHuBY5Ml9bJG_DILe",
+    "lPcN4q0dtX2muWT2KlXGg",
+    "j4_9ypNqYq8Ifbqf-9D2r",
+    "Y10fxyLR39IBJ3ICkAdEp",
+    "C4q1pAltRIEaI5WrNVAAC",
+    "_zHoQitqM_tiiqX7Egv-p",
+    "tBhjGw6fPVKhAgdVElIzW",
+    "EZRt16BYzQRMiGSf_P7is",
+    "0Uc2Nfgg08kqGm78QAwZ4",
+    "clh4d6qbf000ctb0h7o5amr0o",
+    "r_99Xg8SIOYw2awCMSR7e",
+    "wasIGmDuczwD9PB89gML6",
+    "ZewrhKT-qBQxT1eNoBWFP",
+    "z78aHAPRQfctiw7_qNXMx",
+    "yzbSbZ5rqRVIjiwN-farx",
+    "juZy8qwituqM2Km6cOiL4",
+    "d0WYPbbsVx7Y_i0fddwxc",
+    "aa1lZukkHpz6ihmcxLaei",
+    "xO4Dycx7FFEqxwvAEXBxY",
+    "vA8I_7iBNgvkuKOpnG1yD",
+    "vv45N2En3p8VrNcU2acd8",
+    "Ksb6ogNqc5mp4l_hRgPuW",
+    "clh4d6qjs000gtb0hr357gjvv",
+    "18Byy1tMXkQETmB88JLl5",
+    "AohWgMy9uYF14ivDlE-xq",
+    "T-MyR4yQ1_aVbaJDLoI07",
+    "f7IgtcsLqomqmmBgAYS1O",
+    "zOGMXO1nnBTEE0sAJRCuD",
+    "clh4d6qfn000etb0hydj4cdpl"
+  ],
   "explicit_exclusions": [
     "Borrowed Awakening",
     "custom/player-owned bloodlines",
@@ -24,7 +68,8 @@
     "Borrowed Awakening is excluded by user instruction but its bloodline identity was not resolved in this census; no ID has been invented.",
     "Six visible H-rank records have hidden-only kits. They are not empty kits.",
     "Public kits are from 2026-10-01; hidden inventory and kits are from 2026-09-30. Refresh before implementation.",
-    "Counts are linked records, not a certification of independent acquisition, item availability or mode legality."
+    "Counts are linked records, not a certification of independent acquisition, item availability or mode legality.",
+    "The 35 other hidden records are deferred outside this approved public batch; this is not a finding that every hidden record is custom or permanently ineligible."
   ],
   "records": [
     {
@@ -37,10 +82,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -50,7 +95,11 @@
         "HCe8aC01xAF6L8RzqXbsb",
         "SUY0Xd2CfDC4RppvQcv-M"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-002",
@@ -62,10 +111,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -75,7 +124,11 @@
         "Zr6Zo2NcXxWuL13ufQsHw",
         "egtCp5UC5pRwxz7egJm7J"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-003",
@@ -87,10 +140,10 @@
       "public_jutsu_count": 4,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -99,7 +152,11 @@
         "kFM4bHXIE8CyYZChySioN",
         "U3LhGFgu1NhumPjluTQxW"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-004",
@@ -111,10 +168,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -122,7 +179,11 @@
         "hU8tLHHzMEd_QKQR0c7hB",
         "m13kAq0iWJdcl48r-kbIM"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-005",
@@ -134,10 +195,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -147,7 +208,11 @@
         "A0ukvl7zTXHCLUhTTIeL4",
         "KBxDNqaJs_aiMB0kluRC_"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-006",
@@ -159,10 +224,10 @@
       "public_jutsu_count": 6,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -173,7 +238,11 @@
         "6z15KSDBJPuu7dxYn1PWF",
         "pIWtCmdWvHdx2csl1tgVb"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-007",
@@ -185,10 +254,10 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 4,
       "group": "VISIBLE_H_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability. Linked jutsu exist, but all are hidden.",
+      "reason": "User explicitly excluded this bloodline because it is not public.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
@@ -197,7 +266,11 @@
         "fXyQObyGzdF-t0LFPjee2",
         "nprFbPDU23z14Zgf3HgXN",
         "nN_KAEfsAqxEkwXgglo85"
-      ]
+      ],
+      "capture_review_reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability. Linked jutsu exist, but all are hidden.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "USER_CONFIRMED_NON_PUBLIC",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-008",
@@ -209,10 +282,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -222,7 +295,11 @@
         "rOqCTqNBSW_A-QYesFBw9",
         "hW4IV1Hp59BqVFx0u-gTd"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-009",
@@ -234,10 +311,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -247,7 +324,11 @@
         "ciutEMx0X3R_2XEgk0EXu",
         "Jw8-5iTGV5cgVaENUnkGl"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-010",
@@ -259,10 +340,10 @@
       "public_jutsu_count": 11,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -278,7 +359,11 @@
         "eKAI8bZQvR_1M45Y_FFHh",
         "ht2NYLeTXTMs2CXJhzRVr"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-011",
@@ -290,10 +375,10 @@
       "public_jutsu_count": 8,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -306,7 +391,11 @@
         "9VRW6hqSoQuz5PA203jFE",
         "znPva-HIAz4EkyuKm2oh0"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-012",
@@ -318,10 +407,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "VISIBLE_H_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability.",
+      "reason": "User explicitly excluded this bloodline because it is not public.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -331,7 +420,11 @@
         "nWYURXb6gVLvjnVRHsj2_",
         "tkCD_En4j-IMOMxWz-F4h"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "USER_CONFIRMED_NON_PUBLIC",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-013",
@@ -343,10 +436,10 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 8,
       "group": "VISIBLE_H_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability. Linked jutsu exist, but all are hidden.",
+      "reason": "User explicitly excluded this bloodline because it is not public.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
@@ -359,7 +452,11 @@
         "Yybc7rG-gXE2kDFDUAUFp",
         "nLGUc1jtYEm9SF_RUfe_y",
         "ThirQfzXTn6Dx1p2bF4hB"
-      ]
+      ],
+      "capture_review_reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability. Linked jutsu exist, but all are hidden.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "USER_CONFIRMED_NON_PUBLIC",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-014",
@@ -371,14 +468,18 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 0,
       "group": "NO_LINKED_JUTSU",
-      "suggested_disposition": "EXCLUDE_IF_CONFIRMED",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "reason": "No linked bloodline jutsu in the supplied snapshot; excluded from this batch under the existing rule. Reconsider only with evidence and a roster amendment.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "capture_suggested_disposition": "EXCLUDE_IF_CONFIRMED",
+      "decision_basis": "NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-015",
@@ -390,10 +491,10 @@
       "public_jutsu_count": 8,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -406,7 +507,11 @@
         "gIEy7THAZdXgcak5zs5U6",
         "0tPhVC7G21Ej99YSICtJO"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-016",
@@ -418,10 +523,10 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 8,
       "group": "VISIBLE_H_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability. Linked jutsu exist, but all are hidden.",
+      "reason": "User explicitly excluded this bloodline because it is not public.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
@@ -434,7 +539,11 @@
         "Mi_LE06EkP3SKv4eZxbwa",
         "jpfW93U6h4-ZbQlEu7V38",
         "QQVIGriltkhhpJ1qaqVMd"
-      ]
+      ],
+      "capture_review_reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability. Linked jutsu exist, but all are hidden.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "USER_CONFIRMED_NON_PUBLIC",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-017",
@@ -446,10 +555,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -459,7 +568,11 @@
         "W33sWXvjVhVN48j3N5ZIu",
         "_bAMXhvLHe5R4i4E7coLL"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-018",
@@ -471,10 +584,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -484,7 +597,11 @@
         "m6KFrBr3sNwSfYjFPqVpr",
         "3tMv0YG_Bagu7JCNyBEUg"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-019",
@@ -496,10 +613,10 @@
       "public_jutsu_count": 4,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -508,7 +625,11 @@
         "J1niuyO-b1luzXVnNJsN-",
         "pnIRw3Fa1Zc4A5ssXTr-q"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-020",
@@ -520,10 +641,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -533,7 +654,11 @@
         "zKK0rjIJqbpSiTw7McDAv",
         "AggTDO90TarIRTPqGdvvY"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-021",
@@ -545,10 +670,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -556,7 +681,11 @@
         "X5vTPwSEcnEsBXRiAYTfy",
         "ohlJeeZdmv7Q8GA64HS7i"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-022",
@@ -568,10 +697,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -581,7 +710,11 @@
         "oV5b8Dhc7ii1wFWhvh7GT",
         "O7OrsmIG5PRewRKSZYBc0"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-023",
@@ -593,10 +726,10 @@
       "public_jutsu_count": 6,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -607,7 +740,11 @@
         "xPfjuu4WMe786wDVaizik",
         "nvMSommJJLlG5xwT7nQ6b"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-024",
@@ -619,10 +756,10 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 5,
       "group": "VISIBLE_H_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability. Linked jutsu exist, but all are hidden.",
+      "reason": "User explicitly excluded this bloodline because it is not public.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
@@ -632,7 +769,11 @@
         "yFGjsffV6qP_hg4y0i2gJ",
         "tpguUE2yX8g5MZe0x6iVh",
         "HqYMTf3u0THuo-7r6dULI"
-      ]
+      ],
+      "capture_review_reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability. Linked jutsu exist, but all are hidden.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "USER_CONFIRMED_NON_PUBLIC",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-025",
@@ -644,10 +785,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -657,7 +798,11 @@
         "KCdNjrbSbrE2kbpJhxRuI",
         "ZZCt9880dDvxFAO7Bd4Vx"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-026",
@@ -669,10 +814,10 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 5,
       "group": "VISIBLE_H_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability. Linked jutsu exist, but all are hidden.",
+      "reason": "User explicitly excluded this bloodline because it is not public.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
@@ -682,7 +827,11 @@
         "Kl_23tgKbUZVfMlNMCiif",
         "_qKjyIKbWXoVR8KVNjQ_N",
         "xIe5xySMvGGROYb1eMemR"
-      ]
+      ],
+      "capture_review_reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability. Linked jutsu exist, but all are hidden.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "USER_CONFIRMED_NON_PUBLIC",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-027",
@@ -694,10 +843,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -707,7 +856,11 @@
         "F8MfmoTkyLFxRZjHsUMnq",
         "l2QF2aUCJO8M9jeSoQscp"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-028",
@@ -719,10 +872,10 @@
       "public_jutsu_count": 8,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -735,7 +888,11 @@
         "iQaepLHgk5pQ3efMm8whM",
         "NUrtaPLg9lXnQwWTeIxca"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-029",
@@ -747,10 +904,10 @@
       "public_jutsu_count": 12,
       "hidden_jutsu_count": 0,
       "group": "VISIBLE_H_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -767,7 +924,11 @@
         "zgljNf3IpK_BWTZqXIFms",
         "JkfpOhOtToB102ttvK1L8"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-030",
@@ -779,10 +940,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -790,7 +951,11 @@
         "j2An9ofh66SL3XC08tnoL",
         "_wLE7LmkK889IeKev9O_d"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-031",
@@ -802,14 +967,18 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 0,
       "group": "NO_LINKED_JUTSU",
-      "suggested_disposition": "EXCLUDE_IF_CONFIRMED",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "reason": "No linked bloodline jutsu in the supplied snapshot; excluded from this batch under the existing rule. Reconsider only with evidence and a roster amendment.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "capture_suggested_disposition": "EXCLUDE_IF_CONFIRMED",
+      "decision_basis": "NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-032",
@@ -821,10 +990,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -834,7 +1003,11 @@
         "FbcVM68Nq7ma3Q2W6Fz7o",
         "DIlxlbKXu3SOd6Y3M9jRr"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-033",
@@ -846,10 +1019,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -859,7 +1032,11 @@
         "8Xoc-IdRz5pX4zT9LWOSc",
         "qVO2qvGMSDpP_XFqiLDWy"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-034",
@@ -871,10 +1048,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -884,7 +1061,11 @@
         "i-dNeCHi0REjY-5N8JwX1",
         "zzi8FmIN6Ycp06V_k6B_y"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-035",
@@ -896,10 +1077,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -909,7 +1090,11 @@
         "Wbww9msvex8fl_lTtHxXg",
         "ZIg3GOlVdM8evE3-g1bRy"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-036",
@@ -921,10 +1106,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -934,7 +1119,11 @@
         "MPdM_YflOOnuSqyIhj0sf",
         "5BIEYE1r1-Tdi0LONTeOX"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-037",
@@ -946,10 +1135,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -959,7 +1148,11 @@
         "pyRve6rA75hofkJKcAUm0",
         "nvx8XngNlfvud-0RRgs1T"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-038",
@@ -971,14 +1164,18 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 0,
       "group": "NO_LINKED_JUTSU",
-      "suggested_disposition": "EXCLUDE_IF_CONFIRMED",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "reason": "No linked bloodline jutsu in the supplied snapshot; excluded from this batch under the existing rule. Reconsider only with evidence and a roster amendment.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "capture_suggested_disposition": "EXCLUDE_IF_CONFIRMED",
+      "decision_basis": "NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-039",
@@ -990,10 +1187,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1003,7 +1200,11 @@
         "17z4ZrL9FR72nLjgJ0qRg",
         "okEjYlegY_V2Fd46oOHf4"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-040",
@@ -1015,10 +1216,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1028,7 +1229,11 @@
         "pFixz1mmXhakevvnVobkB",
         "IKv0cRCVTFpFCCEbAbuA7"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-041",
@@ -1040,10 +1245,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 1,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1055,7 +1260,11 @@
       ],
       "hidden_jutsu_ids": [
         "cioTTqCNM0F4JEzEXJYXK"
-      ]
+      ],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-042",
@@ -1067,10 +1276,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1078,7 +1287,11 @@
         "TnSBletMXONOwkt_3sfnj",
         "jGkCBZsJ1TuyUUwIlSyqh"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-043",
@@ -1090,10 +1303,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1101,7 +1314,11 @@
         "owBFLBZjXwEx8twhdbPPI",
         "mUtFEv_071Qjs6Ta1L6Zr"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-044",
@@ -1113,10 +1330,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1126,7 +1343,11 @@
         "i2pullnHGfJTDZ-gdJsDW",
         "tiWKegQz8XZ7aIhQ1Cd_k"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-045",
@@ -1138,10 +1359,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1149,7 +1370,11 @@
         "-YhHk0ic9Yg-clF8RdeNP",
         "tRRmsLHOXMAec5cIxrPQ7"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-046",
@@ -1161,10 +1386,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1172,7 +1397,11 @@
         "HQmAR7BnpJ8tJ8JeA8Wis",
         "kgGrmQNeD1bJHz53rKejt"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-047",
@@ -1184,10 +1413,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1195,7 +1424,11 @@
         "5O0DO8qhBhbJvDE98zFUT",
         "JUOFX1iuHSd_sZPNi3H69"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-048",
@@ -1207,10 +1440,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 1,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1220,7 +1453,11 @@
       ],
       "hidden_jutsu_ids": [
         "DreyCm9Mq66LzAMDIZkJh"
-      ]
+      ],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-049",
@@ -1232,10 +1469,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1243,7 +1480,11 @@
         "SI1hrhBeNyvrDWf3_RCmS",
         "bFdJqGQmpzitAJNo7sb9t"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-050",
@@ -1255,10 +1496,10 @@
       "public_jutsu_count": 4,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1267,7 +1508,11 @@
         "Atr1WS1otBcQHe3aJ3Aa8",
         "V5lRk5oM3J-n73Vy3gPlF"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-051",
@@ -1279,10 +1524,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "VISIBLE_H_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1292,7 +1537,11 @@
         "CBcRFjQB4mxsJNnVIA9Pk",
         "6Y4wBoFOoT-oaYK-9pt1B"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-052",
@@ -1304,14 +1553,18 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 0,
       "group": "NO_LINKED_JUTSU",
-      "suggested_disposition": "EXCLUDE_IF_CONFIRMED",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "reason": "No linked bloodline jutsu in the supplied snapshot; excluded from this batch under the existing rule. Reconsider only with evidence and a roster amendment.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "capture_suggested_disposition": "EXCLUDE_IF_CONFIRMED",
+      "decision_basis": "NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-053",
@@ -1323,10 +1576,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1336,7 +1589,11 @@
         "e0mf1_sZFZbEk9bGHd2d1",
         "_39qOgDWBatZyxE0xidYx"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-054",
@@ -1348,10 +1605,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1361,7 +1618,11 @@
         "AnGS09-L5o402EWY_d_vS",
         "g_a4qc7eTbyIViIOCD9xm"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-055",
@@ -1373,10 +1634,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1384,7 +1645,11 @@
         "3umC9IO-yHR_Qa6TQB56W",
         "p6DJTebNsbYcMQ2Sw0o2-"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-056",
@@ -1396,10 +1661,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1409,7 +1674,11 @@
         "riK0AGn1Zc13fgXh2c49s",
         "6X0vyMNes561A8FJ99npX"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-057",
@@ -1421,10 +1690,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1432,7 +1701,11 @@
         "EnPA4L0hUSPC48VG3qfZl",
         "je0VOoDBn4ybzXLw4Iy2L"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-058",
@@ -1444,10 +1717,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1457,7 +1730,11 @@
         "664OLNQoqNM1Xu5QT5C2J",
         "IJrqLyYMYEcG9taQJdKiv"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-059",
@@ -1469,10 +1746,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "VISIBLE_H_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1482,7 +1759,11 @@
         "Dj7EonLMR4F6COCmsYwhF",
         "rVCyLZzMWdhi9HBb8374D"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-060",
@@ -1494,10 +1775,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1507,7 +1788,11 @@
         "LR-LUQjt2v0rg56uKpJdC",
         "lIMJ2-ylj0QS53zMerXVu"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-061",
@@ -1519,10 +1804,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1530,7 +1815,11 @@
         "-w7xRCVcBU5KT_C1i7TXA",
         "F-lCitIYBmYrXZ3845HwW"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-062",
@@ -1542,10 +1831,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1555,7 +1844,11 @@
         "-gP5jnkT_Z-7Js6YNDBST",
         "70M9cOgySI2UKfl-EnVpt"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-063",
@@ -1567,10 +1860,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1580,7 +1873,11 @@
         "u1z88YVy83npU-N81PjLe",
         "8lFpRbDkOxI2-UiyiwDuO"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-064",
@@ -1592,10 +1889,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1605,7 +1902,11 @@
         "9FS7OFnZi9pZdK1mFTqOd",
         "NE7lnF28TDy-r3pNlYctv"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-065",
@@ -1617,10 +1918,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1630,7 +1931,11 @@
         "d2BiYyD9O_6Qh33lbMsaI",
         "Iiqy8-WriogHl1aMGLpgz"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-066",
@@ -1642,10 +1947,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1655,7 +1960,11 @@
         "LnzsA7WDqi06AU0s7yrVP",
         "D3t1nlaVAw8kLfjDO5Wvy"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-067",
@@ -1667,10 +1976,10 @@
       "public_jutsu_count": 6,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1681,7 +1990,11 @@
         "s5-TZdhcRS0GyepXrYN_O",
         "d8Z1S1yA_jJ6zU24LOQdX"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-068",
@@ -1693,14 +2006,18 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 0,
       "group": "NO_LINKED_JUTSU",
-      "suggested_disposition": "EXCLUDE_IF_CONFIRMED",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "reason": "No linked bloodline jutsu in the supplied snapshot; excluded from this batch under the existing rule. Reconsider only with evidence and a roster amendment.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "capture_suggested_disposition": "EXCLUDE_IF_CONFIRMED",
+      "decision_basis": "NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-069",
@@ -1712,14 +2029,18 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 0,
       "group": "NO_LINKED_JUTSU",
-      "suggested_disposition": "EXCLUDE_IF_CONFIRMED",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "reason": "No linked bloodline jutsu in the supplied snapshot; excluded from this batch under the existing rule. Reconsider only with evidence and a roster amendment.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "capture_suggested_disposition": "EXCLUDE_IF_CONFIRMED",
+      "decision_basis": "NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-070",
@@ -1731,14 +2052,18 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 0,
       "group": "NO_LINKED_JUTSU",
-      "suggested_disposition": "EXCLUDE_IF_CONFIRMED",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "reason": "No linked bloodline jutsu in the supplied snapshot; excluded from this batch under the existing rule. Reconsider only with evidence and a roster amendment.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "capture_suggested_disposition": "EXCLUDE_IF_CONFIRMED",
+      "decision_basis": "NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-071",
@@ -1750,10 +2075,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1763,7 +2088,11 @@
         "cnVYN8nBYqUOdO4JBS_xj",
         "--4VH-OvQdMZg5nH_bs8s"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-072",
@@ -1775,10 +2104,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1788,7 +2117,11 @@
         "XBN-N95eRnezr9SDX5VAb",
         "HqJRzmbzyHA5iDbVD19b2"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-073",
@@ -1800,14 +2133,18 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 0,
       "group": "NO_LINKED_JUTSU",
-      "suggested_disposition": "EXCLUDE_IF_CONFIRMED",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "reason": "No linked bloodline jutsu in the supplied snapshot; excluded from this batch under the existing rule. Reconsider only with evidence and a roster amendment.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "capture_suggested_disposition": "EXCLUDE_IF_CONFIRMED",
+      "decision_basis": "NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-074",
@@ -1819,10 +2156,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1832,7 +2169,11 @@
         "98Qji30as-AHzsAbke5Z_",
         "P7dryy19LnBbSh1_Tc9K1"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-075",
@@ -1847,7 +2188,7 @@
       "suggested_disposition": "REFERENCE",
       "owner_decision": "REFERENCE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Existing Taiyo Kami reference; not part of remaining design work.",
+      "reason": "Taiyo Kami remains the worked reference; no replacement tree requested.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1857,7 +2198,11 @@
         "H78qBo2-pkuh4_h4lutoR",
         "VCRI7Y24RtnzGndzN-Awe"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Existing Taiyo Kami reference; not part of remaining design work.",
+      "capture_suggested_disposition": "REFERENCE",
+      "decision_basis": "APPROVED_WORKED_EXAMPLE",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-076",
@@ -1869,10 +2214,10 @@
       "public_jutsu_count": 7,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1884,7 +2229,11 @@
         "ML-GEoey-Rrd4P02ErZVw",
         "9QfsU1lMov3aJRp7ZNjxu"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-077",
@@ -1896,10 +2245,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1909,7 +2258,11 @@
         "SAxgVk0HyWuAYPqcJ6al1",
         "1Ds-JuqAFyZ0UivUev2Xe"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-078",
@@ -1921,10 +2274,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1934,7 +2287,11 @@
         "S5Yn5g5CMZE3OnTVFG_3-",
         "Y7xLmI39li5ZOIL76ZZp-"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-079",
@@ -1946,10 +2303,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1959,7 +2316,11 @@
         "FgmIkbsSAulI9c4PZgAyE",
         "a7Xsm5Zcz9AbKUu_BBlHU"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-080",
@@ -1971,10 +2332,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -1984,7 +2345,11 @@
         "PzzWw2b0KFr1CBFyrYP2a",
         "zB_kltN_vkqlD_3wWrgjO"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-081",
@@ -1996,10 +2361,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -2007,7 +2372,11 @@
         "gnNpBL2iUH4HHvhr_STpe",
         "TlGiHPdhXbiLMMW7Y4LW0"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-082",
@@ -2019,16 +2388,20 @@
       "public_jutsu_count": 1,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
         "PsRn-GoR0HoIM1AHWpXXu"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-083",
@@ -2040,10 +2413,10 @@
       "public_jutsu_count": 11,
       "hidden_jutsu_count": 0,
       "group": "VISIBLE_H_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -2059,7 +2432,11 @@
         "QE05DhEhb09fhnC1573Vj",
         "sav_H5tjyeHUIlGNPKC3h"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-084",
@@ -2071,10 +2448,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -2084,7 +2461,11 @@
         "VDlEcF_uGVORTDrLSuujZ",
         "Xd10FzZws6hT-jQiAM7Nb"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-085",
@@ -2096,10 +2477,10 @@
       "public_jutsu_count": 4,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -2108,7 +2489,11 @@
         "OJSPwyyzVNtgKlFwE-4KK",
         "R1JS1xUbHPVBqCyV0TZPC"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-086",
@@ -2120,10 +2505,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -2133,7 +2518,11 @@
         "BfVKLSctKLv92HXky3TQ8",
         "wHuNOr_TvalRNAI6fKG2F"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-087",
@@ -2145,10 +2534,10 @@
       "public_jutsu_count": 6,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -2159,7 +2548,11 @@
         "DjB5A9_aQskTds7A2vnZZ",
         "WCkXkE9Whj6TK5GTBCgP2"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-088",
@@ -2171,10 +2564,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -2184,7 +2577,11 @@
         "1KxjCTcti4vHa7jatrrgZ",
         "r4EI9lxnK3A-k1ntnyWcl"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-089",
@@ -2196,14 +2593,18 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 0,
       "group": "NO_LINKED_JUTSU",
-      "suggested_disposition": "EXCLUDE_IF_CONFIRMED",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "reason": "No linked bloodline jutsu in the supplied snapshot; excluded from this batch under the existing rule. Reconsider only with evidence and a roster amendment.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "No linked non-AI bloodline jutsu in either visibility query in the supplied snapshot.",
+      "capture_suggested_disposition": "EXCLUDE_IF_CONFIRMED",
+      "decision_basis": "NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-090",
@@ -2215,10 +2616,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -2228,7 +2629,11 @@
         "6v7dfraXRVo5K3NbgixzT",
         "pBsG-Jw4TTkSjxfqzjG6b"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-091",
@@ -2240,10 +2645,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -2251,7 +2656,11 @@
         "yQ1-XsKw2qLiTydKSbOif",
         "jqJYGCmhORvehz5rxC7Ft"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-092",
@@ -2263,10 +2672,10 @@
       "public_jutsu_count": 3,
       "hidden_jutsu_count": 0,
       "group": "CORE_CANDIDATE",
-      "suggested_disposition": "INCLUDE_CANDIDATE",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "INCLUDE",
+      "owner_decision": "INCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "reason": "Approved for draft planning in the remaining public-bloodline cohort.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -2274,7 +2683,11 @@
         "Lg_thN-MB8FRAr_Agf9tn",
         "FimDQpYL0LWRv8U81ZP9H"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Visible D–S record with a public native kit; standard/custom status still user-reviewed.",
+      "capture_suggested_disposition": "INCLUDE_CANDIDATE",
+      "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+      "remaining_design_eligible": true
     },
     {
       "review_id": "BR-093",
@@ -2286,10 +2699,10 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 5,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
@@ -2299,7 +2712,11 @@
         "uuEsLeUF8ioGqB1LysbGz",
         "za9bG9JZeoH33n28wF0h3",
         "J_occ0LcuvtbKyx3CUZ6x"
-      ]
+      ],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-094",
@@ -2311,10 +2728,10 @@
       "public_jutsu_count": 0,
       "hidden_jutsu_count": 6,
       "group": "VISIBLE_H_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "EXCLUDE",
+      "owner_decision": "EXCLUDE",
       "is_custom": "NOT_RECORDED",
-      "reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability. Linked jutsu exist, but all are hidden.",
+      "reason": "User explicitly excluded this bloodline because it is not public.",
       "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [],
@@ -2325,7 +2742,11 @@
         "rBf0tFBlAvBxN1orUNdXT",
         "nVqtXi-ZPHvof8S2KdM4R",
         "70uui9rD6yuynS2znlUja"
-      ]
+      ],
+      "capture_review_reason": "H rank is not proof of custom status; confirm standard/custom/variant and availability. Linked jutsu exist, but all are hidden.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "USER_CONFIRMED_NON_PUBLIC",
+      "remaining_design_eligible": false
     },
     {
       "review_id": "BR-095",
@@ -2337,10 +2758,10 @@
       "public_jutsu_count": 5,
       "hidden_jutsu_count": 0,
       "group": "HIDDEN_REVIEW",
-      "suggested_disposition": "HOLD",
-      "owner_decision": "PENDING",
+      "suggested_disposition": "DEFER",
+      "owner_decision": "DEFER",
       "is_custom": "NOT_RECORDED",
-      "reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "reason": "Hidden inventory record outside the approved public-bloodline batch. Custom ownership and permanent eligibility remain unclassified; this does not block approved work.",
       "public_kit_snapshot": "2026-09-30T05:01:22.371804+00:00",
       "hidden_kit_snapshot": "2026-09-30",
       "public_jutsu_ids": [
@@ -2350,7 +2771,99 @@
         "d5Uj9MHmF0oSPvQs1ij3z",
         "fr6xjb6uhXD7KNhKiU1g5"
       ],
-      "hidden_jutsu_ids": []
+      "hidden_jutsu_ids": [],
+      "capture_review_reason": "Hidden record with linked jutsu; confirm custom/test/retired/standard status.",
+      "capture_suggested_disposition": "HOLD",
+      "decision_basis": "OUTSIDE_APPROVED_PUBLIC_BATCH",
+      "remaining_design_eligible": false
     }
-  ]
+  ],
+  "reference_ids": [
+    "6C2t3jK35hvPoVocLiHEl"
+  ],
+  "excluded_ids": [
+    "LakvRMOkB4LFgRwGwsW1I",
+    "LIqkx9VV2tGzn0EF6y8bg",
+    "guKdhtFSM0J1wttTRI90a",
+    "FmR61ROjIJ_vNdb5PBSqw",
+    "mD1AIQrLGXcVJ0QlWj6zx",
+    "pj-ZGciQypDd1wblmjaQt",
+    "IE8MT2NvaXecCq_Syug3O",
+    "_tuf3em7IyO66dKcQvrUI",
+    "EsMuWPXZXBHaeMAhWCTr0",
+    "mElRvWiPjvZk_Iz96wclk",
+    "ygGBHo-0rf9ns0uRmW-Lr",
+    "oEdo6qsxeRjvkoxHy_b_n",
+    "Sair4cq7VGeP-J80uCxLm",
+    "yJ0Q3Vt0Vny_c6ypDmVA7",
+    "k5iA7YcVbQAjgquR3tXMo",
+    "71-FjS5NcjX0ZnXuQfg53"
+  ],
+  "deferred_ids": [
+    "Phd6cwjiN4sIENmia6czQ",
+    "ArPAXYvrxg8EtmqOpFq4H",
+    "IzKTFfoTZHguu_VCXmgnd",
+    "vuJ-b-Iv7Q2RVmziGdQod",
+    "cB2LWCWyLRHxgsbY0crJr",
+    "BYHsb5sTgW9o3-aipl-M_",
+    "wEJqNdFjH6zJcjGrThQZD",
+    "bwmpYehPHzzKSd-g4C0GU",
+    "IKWn7RPaThizqzBmToiRQ",
+    "KQ3nXVNIzhsvuzfcglbCZ",
+    "q6--YgEXT6gsOQwVF3QV5",
+    "ZK0wjM85dal1ClzAZrsN7",
+    "MaDDM3qsFrNKQmb5HtIjl",
+    "v6dzr97qkgkLzPQDHgl_x",
+    "nkw4EmlzU0Qmctn_zm9O-",
+    "VXJmBOu5rFm8O4uNZklcE",
+    "mwQrGHHLbLpinT8AaOHtg",
+    "poNc1FxJXo7cveWVUxY9L",
+    "-uzeYe8Ai-fUBlUx7hE4F",
+    "oYLvdtz6Lc_WKKYofAlWz",
+    "bqyHv_VLB1xrKl4L2egK0",
+    "oaddywXbL-tzw4CAyV752",
+    "MNtUqUHpHJV47snS1Jt-U",
+    "0U2blEXqb6-WwYljMRG2J",
+    "9j1GyLM0qu1xKfRfIR1wE",
+    "ieDD4S_zzLMmVadUuD69s",
+    "1IJ5Rs88wAeOg0p2wjjUp",
+    "H_drsFIZdi4e7UENANUnE",
+    "i_Addlk4GvzV18B9LhcyV",
+    "-ZNPq_GkRg1TZX_CbYhSX",
+    "mOBVl90uPlid84d4p2Ovg",
+    "VfwAR4EHg72_uVHpDBexI",
+    "vhciebSTiOh6h-i3mdjZ9",
+    "AgpFwXBxgLT7MBP5CScJX",
+    "XMd7Yo_-CjJdpCK5eoApq"
+  ],
+  "approval": {
+    "owner": "dauntless",
+    "local_date": "2026-10-02",
+    "timezone": "America/Chicago",
+    "scope": "39 core candidates and four approved public H-rank bloodlines; Taiyo Kami remains the reference.",
+    "named_non_public_exclusions": [
+      "Astral Ascendant",
+      "Blood-Enshrined Eyes",
+      "Blood-Enthralled Eyes",
+      "Blue Edge Eyes",
+      "Ethereal Regent",
+      "Eyes of the Forsaken Heir",
+      "Youso Shiroi"
+    ],
+    "explicit_public_h_inclusions": [
+      "Godstorm Eclipse",
+      "Night Parade of A Thousand Demons",
+      "Sands of Time",
+      "Tetsugan"
+    ],
+    "requires_reapproval_for_listed_ids": false,
+    "deferred_records_block_approved_work": false,
+    "new_or_changed_membership_requires_roster_amendment": true
+  },
+  "decision_counts": {
+    "DEFER": 35,
+    "INCLUDE": 43,
+    "EXCLUDE": 16,
+    "REFERENCE": 1
+  }
 }

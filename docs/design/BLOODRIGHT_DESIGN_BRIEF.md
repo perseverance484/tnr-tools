@@ -1,7 +1,7 @@
 # Bloodright: bloodline refinement through meaningful choices
 
 **Design handoff for Claude / Fable 5.1 Ultracode.**  
-**Status:** experimental design direction established; Taiyo Kami is the worked example; all-roster eligibility and new-tree tuning await user review.  
+**Status:** experimental design direction established; 43 remaining public bloodlines approved for draft planning; Taiyo Kami is the worked example. Final new-tree tuning remains subject to user review.  
 **Scope:** planning, evidence and readable tree designs. This document does not authorize a release or engine implementation.
 
 ## 1. Purpose and boundary
@@ -158,9 +158,11 @@ Current mechanical sources reviewed at `studie-tech/TheNinjaRPG@16498fd776fad9c9
 
 ## 8. Eligibility and acceptance
 
-The roster is a user-sorted allowlist, not “every record returned by an endpoint.” Borrowed Awakening, custom bloodlines and bloodlines with no bloodline jutsu are excluded. Test/dummy records, hidden kits, unavailable variants and aliases are explicitly reviewed. Hidden and H-rank flags alone cannot decide eligibility.
+The roster is a user-sorted allowlist, not “every record returned by an endpoint.” Borrowed Awakening, custom bloodlines and bloodlines with no bloodline jutsu are excluded. The user approved the remaining public cohort on 2026-10-02 America/Chicago: 39 core candidates plus Godstorm Eclipse, Night Parade of A Thousand Demons, Sands of Time and Tetsugan. Taiyo Kami is the separate reference.
 
-See [ROSTER_REVIEW.md](bloodright/ROSTER_REVIEW.md) and `bloodright/roster.json`. No all-roster design batch begins until the approved IDs are recorded. Taiyo Kami remains the reference and is excluded from the remaining-work count.
+The user explicitly excluded Astral Ascendant, Blood-Enshrined Eyes, Blood-Enthralled Eyes, Blue Edge Eyes, Ethereal Regent, Eyes of the Forsaken Heir and Youso Shiroi because they are not public. Shiroi Youso remains included. The 35 other hidden records are not part of this approved public batch; do not infer custom ownership from that status. The nine no-linked-jutsu records are excluded from this snapshot-based scope under the earlier no-jutsu rule. New evidence may justify a future roster amendment, not silent inclusion.
+
+See [ROSTER_REVIEW.md](bloodright/ROSTER_REVIEW.md) and `bloodright/roster.json` for all 95 dispositions and the 43 approved remaining IDs. The eligibility gate is resolved for that batch; begin without requesting approval again. Deferred or newly found records do not block approved work.
 
 Final acceptance requires complete coverage of approved IDs, meaningful legal choices, exact tag coverage, transparent engine dependencies and comparable balance evidence. Unsupported assumptions remain visible rather than being described as implemented features. Silver pricing, reset/swap policy, unresolved classifications, normal-tree potency policy and final tuning are still user decisions.
 

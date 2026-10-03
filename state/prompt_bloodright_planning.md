@@ -1,7 +1,7 @@
 # Bloodright: plan the remaining eligible bloodline trees
 
 **Recipient:** Claude on Fable 5.1 Ultracode, as requested by dauntless.  
-**Status:** PLANNING BRIEF READY; ROSTER AWAITING USER SORTING.  
+**Status:** READY TO BEGIN — 43 remaining bloodlines approved; Taiyo Kami is the reference.  
 **Repository:** `perseverance484/tnr-tools`.  
 **Reviewed main:** `03f2931297940ac29faa7c255c94bc15e477323f` (2026-10-03 UTC / 2026-10-02 America/Chicago).  
 **Work:** Design proposals and local analysis only. No engine implementation, production manifests, game writes, deployment or image generation.
@@ -12,7 +12,7 @@ Read `CLAUDE.md`, `state/active-context.md`, `state/status.json`, `docs/00_INDEX
 
 Use the supplied committed handoff as the task contract. The reviewed main's state files describe other work and do not contain this session's Bloodright design. Earlier Potency/Mandala designs, 20/30 normal-SP budgets, incremental purchases, elemental attunement schools, generic specializations and mixed Fire/Scorch trees are superseded **for this proposal**. Do not restore them from an older branch or report. Repository governance and source-evidence rules still apply.
 
-Work on your own `fable/bloodright-planning-*` branch. Never write to the handoff's active `chatgpt/*` branch. Import only the handoff files from the final handoff SHA or branch supplied by dauntless; do not merge the old Potency implementation/design history just to obtain an example. Re-verify current refs before starting and preserve unrelated work.
+Work on your own `fable/bloodright-planning-*` branch from current `main`. Never write to the handoff's active `chatgpt/*` branch. Import `state/prompt_bloodright_planning.md`, `docs/design/BLOODRIGHT_DESIGN_BRIEF.md` and `docs/design/bloodright/` from the final handoff SHA supplied by dauntless. Reconcile only the new Bloodright entries from `docs/RULINGS.md` into current ruling history; never replace the whole current file or shared state with an older copy. Do not merge old Potency implementation/design history just to obtain an example. Re-verify current refs before starting and preserve unrelated work.
 
 ## Assignment
 
@@ -20,13 +20,17 @@ Produce individually themed Bloodright skill-tree proposals for **every bloodlin
 
 The user explicitly delegates **draft design work** to you. You may propose node names, paths and numbers within this brief without stopping for approval on each draft. The user retains final balance acceptance. Do not promote proposals into game canon, rewrite jutsu, or implement the engine to make a proposal work.
 
-## Phase 0: roster before trees
+## Phase 0: load the approved roster
 
 The supplied census contains 95 letter-ranked records: 51 visible and 44 hidden. Its public kits were captured on 2026-10-01; hidden inventory/jutsu evidence is from 2026-09-30. It is a review input, not a certified current complete roster. The listing used by the capture excludes null-rank records. Visibility and rank do not prove that a bloodline is standard, custom, obtainable or retired.
 
 Exclude Borrowed Awakening, custom/player-owned bloodlines, and bloodlines with no bloodline jutsu, as instructed. Also flag test/dummy records and obsolete variants for sorting. Never infer custom ownership from a name, H rank or `hidden` alone. Do not treat a hidden kit as a missing kit. Keep distinct IDs distinct until the user confirms they are aliases or variants.
 
-`roster.json` initially has an empty `approved_remaining_ids` list. Obtain the user's classification, record include/exclude/hold decisions and reasons by stable bloodline ID, and freeze the approved roster. **Do not begin the all-bloodline design batch while that gate remains open.** You can complete the source review and evidence-gap list first. If the user has already sorted it in a later committed revision, use that revision without asking again.
+The user completed the public-bloodline review on 2026-10-02 America/Chicago. `roster.json` now contains **43 `approved_remaining_ids`**: the 39 core candidates plus **Godstorm Eclipse, Night Parade of A Thousand Demons, Sands of Time and Tetsugan**. Taiyo Kami is the separate worked reference. **The roster gate is closed: begin planning these approved IDs without asking the user to sort them again.**
+
+Explicitly exclude **Astral Ascendant, Blood-Enshrined Eyes, Blood-Enthralled Eyes, Blue Edge Eyes, Ethereal Regent, Eyes of the Forsaken Heir and Youso Shiroi**: the user confirmed these are not public bloodlines. Do not confuse excluded Youso Shiroi with included Shiroi Youso, or the excluded eye variants with Blood-Enchanted Eyes and Blue Blade Eyes.
+
+The nine no-linked-jutsu records remain outside scope under the earlier no-jutsu rule; this is snapshot-based, not proof of permanent absence. The other 35 hidden records remain outside this approved public batch, without inventing a custom-ownership classification. Any future exception or newly discovered eligible record needs a separate roster amendment; it does not block work on the 43 approved entries. Never silently add the entire census to the allowlist.
 
 Resolve missing records through existing captures and repository evidence first. If those cannot establish the complete population, request the specific read-only capture needed from dauntless. Do not use live account/session credentials, run the game, or issue live-game writes. Do not silently use a failed query as proof that a kit is empty.
 
