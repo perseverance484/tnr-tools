@@ -1,0 +1,773 @@
+{
+  "kind": "bloodright_kit_dossier",
+  "review_id": "BR-091",
+  "bloodline_id": "zOGMXO1nnBTEE0sAJRCuD",
+  "name": "Voltara Divine",
+  "slug": "voltara_divine",
+  "rank": "C",
+  "hidden": false,
+  "statClassification": "Highest",
+  "traits": null,
+  "regenIncrease": 100,
+  "disposition": "INCLUDE",
+  "decision_basis": "USER_APPROVED_REMAINING_PUBLIC_COHORT",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30",
+    "public_retrieved_at": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_inventory_retrieved_at": "2026-09-30T05:01:22.371804+00:00",
+    "kind": "mechanical_projection_of_captured_records_not_a_live_refresh"
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "passives": [
+    {
+      "type": "increasedamagegiven",
+      "power": 15,
+      "powerPerLevel": 0.15,
+      "target": "INHERIT",
+      "elements": [
+        "Lightning"
+      ],
+      "statTypes": null,
+      "generalTypes": null,
+      "calculation": "percentage",
+      "direction": "offence"
+    },
+    {
+      "type": "increasedamagetaken",
+      "power": 10,
+      "powerPerLevel": 0,
+      "target": "INHERIT",
+      "elements": [
+        "Wind"
+      ],
+      "statTypes": null,
+      "generalTypes": null,
+      "calculation": "percentage",
+      "direction": "offence"
+    }
+  ],
+  "jutsu": [
+    {
+      "id": "AZSGf7Qqu2ZLSRXnYX4TD",
+      "name": "Voltara Blitz",
+      "visibility": "public",
+      "jutsuType": "BLOODLINE",
+      "jutsuRank": "D",
+      "statClassification": "Highest",
+      "target": "EMPTY_GROUND",
+      "range": 4,
+      "cooldown": 7,
+      "actionCostPerc": 60,
+      "chakraCost": 350,
+      "staminaCost": 350,
+      "method": "AOE_CIRCLE_SPAWN",
+      "requiredLevel": 1,
+      "jutsuWeapon": "NONE",
+      "requiredBloodlineItemId": null,
+      "battleUsageType": "BOTH",
+      "injectableInBattle": false,
+      "hidden": false,
+      "bloodlineId": "zOGMXO1nnBTEE0sAJRCuD",
+      "effect_count": 3,
+      "supported_effect_count": 1
+    },
+    {
+      "id": "yQ1-XsKw2qLiTydKSbOif",
+      "name": "Luminous Illusion Bind",
+      "visibility": "public",
+      "jutsuType": "BLOODLINE",
+      "jutsuRank": "D",
+      "statClassification": "Highest",
+      "target": "OTHER_USER",
+      "range": 4,
+      "cooldown": 6,
+      "actionCostPerc": 60,
+      "chakraCost": 350,
+      "staminaCost": 350,
+      "method": "SINGLE",
+      "requiredLevel": 1,
+      "jutsuWeapon": "NONE",
+      "requiredBloodlineItemId": null,
+      "battleUsageType": "BOTH",
+      "injectableInBattle": false,
+      "hidden": false,
+      "bloodlineId": "zOGMXO1nnBTEE0sAJRCuD",
+      "effect_count": 3,
+      "supported_effect_count": 2
+    },
+    {
+      "id": "jqJYGCmhORvehz5rxC7Ft",
+      "name": "Ethereal Dragon's Whispers",
+      "visibility": "public",
+      "jutsuType": "BLOODLINE",
+      "jutsuRank": "B",
+      "statClassification": "Highest",
+      "target": "OTHER_USER",
+      "range": 3,
+      "cooldown": 7,
+      "actionCostPerc": 60,
+      "chakraCost": 350,
+      "staminaCost": 350,
+      "method": "SINGLE",
+      "requiredLevel": 1,
+      "jutsuWeapon": "NONE",
+      "requiredBloodlineItemId": null,
+      "battleUsageType": "BOTH",
+      "injectableInBattle": false,
+      "hidden": false,
+      "bloodlineId": "zOGMXO1nnBTEE0sAJRCuD",
+      "effect_count": 2,
+      "supported_effect_count": 2
+    }
+  ],
+  "rows": [
+    {
+      "jutsu_id": "AZSGf7Qqu2ZLSRXnYX4TD",
+      "jutsu_name": "Voltara Blitz",
+      "jutsu_rank": "D",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "zOGMXO1nnBTEE0sAJRCuD",
+      "row": 0,
+      "tag": "move",
+      "label": "move",
+      "calculation": "static",
+      "base": 1.0,
+      "power": 1,
+      "power_per_level": 0,
+      "rounds": null,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "EMPTY_GROUND",
+      "friendly_fire": null,
+      "recipient_raw": "area_all",
+      "recipient": "self",
+      "role": "SELF BUFF",
+      "adverse": false,
+      "stat_types": null,
+      "general_types": null,
+      "direction": "offence",
+      "supported": false,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "AOE_CIRCLE_SPAWN",
+      "range": 4
+    },
+    {
+      "jutsu_id": "AZSGf7Qqu2ZLSRXnYX4TD",
+      "jutsu_name": "Voltara Blitz",
+      "jutsu_rank": "D",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "zOGMXO1nnBTEE0sAJRCuD",
+      "row": 1,
+      "tag": "decreasedamagetaken",
+      "label": "Decrease Damage Taken",
+      "calculation": "percentage",
+      "base": 30.0,
+      "power": 20,
+      "power_per_level": 0.4,
+      "rounds": 2,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "SELF",
+      "jutsu_target": "EMPTY_GROUND",
+      "friendly_fire": "ALL",
+      "recipient_raw": "self",
+      "recipient": "self",
+      "role": "SELF BUFF",
+      "adverse": false,
+      "stat_types": [
+        "Bukijutsu",
+        "Genjutsu",
+        "Ninjutsu",
+        "Taijutsu"
+      ],
+      "general_types": null,
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "AOE_CIRCLE_SPAWN",
+      "range": 4
+    },
+    {
+      "jutsu_id": "AZSGf7Qqu2ZLSRXnYX4TD",
+      "jutsu_name": "Voltara Blitz",
+      "jutsu_rank": "D",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "zOGMXO1nnBTEE0sAJRCuD",
+      "row": 2,
+      "tag": "pierce",
+      "label": "pierce",
+      "calculation": "formula",
+      "base": 56.0,
+      "power": 46,
+      "power_per_level": 0.4,
+      "rounds": 0,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "EMPTY_GROUND",
+      "friendly_fire": "ENEMIES",
+      "recipient_raw": "area_enemies",
+      "recipient": "enemy",
+      "role": "ENEMY DEBUFF",
+      "adverse": false,
+      "stat_types": [
+        "Highest"
+      ],
+      "general_types": [
+        "Highest"
+      ],
+      "direction": "offence",
+      "supported": false,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "AOE_CIRCLE_SPAWN",
+      "range": 4
+    },
+    {
+      "jutsu_id": "yQ1-XsKw2qLiTydKSbOif",
+      "jutsu_name": "Luminous Illusion Bind",
+      "jutsu_rank": "D",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "zOGMXO1nnBTEE0sAJRCuD",
+      "row": 0,
+      "tag": "damage",
+      "label": "Damage",
+      "calculation": "formula",
+      "base": 40.0,
+      "power": 30,
+      "power_per_level": 0.4,
+      "rounds": 0,
+      "elements": [
+        "Lightning"
+      ],
+      "elements_effective": [
+        "Lightning"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ENEMIES",
+      "recipient_raw": "enemy",
+      "recipient": "enemy",
+      "role": "DAMAGE",
+      "adverse": false,
+      "stat_types": [
+        "Highest"
+      ],
+      "general_types": [
+        "Highest"
+      ],
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 6,
+      "method": "SINGLE",
+      "range": 4
+    },
+    {
+      "jutsu_id": "yQ1-XsKw2qLiTydKSbOif",
+      "jutsu_name": "Luminous Illusion Bind",
+      "jutsu_rank": "D",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "zOGMXO1nnBTEE0sAJRCuD",
+      "row": 1,
+      "tag": "stun",
+      "label": "stun",
+      "calculation": "static",
+      "base": 100.0,
+      "power": 90,
+      "power_per_level": 0.4,
+      "rounds": 2,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ENEMIES",
+      "recipient_raw": "enemy",
+      "recipient": "enemy",
+      "role": "ENEMY DEBUFF",
+      "adverse": false,
+      "stat_types": null,
+      "general_types": null,
+      "direction": "offence",
+      "supported": false,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 6,
+      "method": "SINGLE",
+      "range": 4
+    },
+    {
+      "jutsu_id": "yQ1-XsKw2qLiTydKSbOif",
+      "jutsu_name": "Luminous Illusion Bind",
+      "jutsu_rank": "D",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "zOGMXO1nnBTEE0sAJRCuD",
+      "row": 2,
+      "tag": "increasedamagegiven",
+      "label": "Increase Damage Given",
+      "calculation": "percentage",
+      "base": 35.0,
+      "power": 25,
+      "power_per_level": 0.4,
+      "rounds": 2,
+      "elements": [
+        "Lightning"
+      ],
+      "elements_effective": [
+        "Lightning"
+      ],
+      "target": "SELF",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": null,
+      "recipient_raw": "self",
+      "recipient": "self",
+      "role": "SELF BUFF",
+      "adverse": false,
+      "stat_types": null,
+      "general_types": null,
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 6,
+      "method": "SINGLE",
+      "range": 4
+    },
+    {
+      "jutsu_id": "jqJYGCmhORvehz5rxC7Ft",
+      "jutsu_name": "Ethereal Dragon's Whispers",
+      "jutsu_rank": "B",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "zOGMXO1nnBTEE0sAJRCuD",
+      "row": 0,
+      "tag": "damage",
+      "label": "Damage",
+      "calculation": "formula",
+      "base": 50.0,
+      "power": 40,
+      "power_per_level": 0.4,
+      "rounds": 0,
+      "elements": [
+        "Lightning"
+      ],
+      "elements_effective": [
+        "Lightning"
+      ],
+      "target": "INHERIT",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": "ENEMIES",
+      "recipient_raw": "enemy",
+      "recipient": "enemy",
+      "role": "DAMAGE",
+      "adverse": false,
+      "stat_types": [
+        "Highest"
+      ],
+      "general_types": [
+        "Highest"
+      ],
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "SINGLE",
+      "range": 3
+    },
+    {
+      "jutsu_id": "jqJYGCmhORvehz5rxC7Ft",
+      "jutsu_name": "Ethereal Dragon's Whispers",
+      "jutsu_rank": "B",
+      "jutsu_type": "BLOODLINE",
+      "bloodline_id_on_jutsu": "zOGMXO1nnBTEE0sAJRCuD",
+      "row": 1,
+      "tag": "increasedamagegiven",
+      "label": "Increase Damage Given",
+      "calculation": "percentage",
+      "base": 35.0,
+      "power": 25,
+      "power_per_level": 0.4,
+      "rounds": 2,
+      "elements": [],
+      "elements_effective": [
+        "None"
+      ],
+      "target": "SELF",
+      "jutsu_target": "OTHER_USER",
+      "friendly_fire": null,
+      "recipient_raw": "self",
+      "recipient": "self",
+      "role": "SELF BUFF",
+      "adverse": false,
+      "stat_types": [
+        "Bukijutsu",
+        "Genjutsu",
+        "Ninjutsu",
+        "Taijutsu"
+      ],
+      "general_types": null,
+      "direction": "offence",
+      "supported": true,
+      "visibility": "public",
+      "item_gate": null,
+      "usage": "BOTH",
+      "injectable": false,
+      "jutsu_hidden": false,
+      "ap_cost": 60,
+      "cooldown": 7,
+      "method": "SINGLE",
+      "range": 3
+    }
+  ],
+  "supported_row_summary": [
+    {
+      "tag": "damage",
+      "label": "Damage",
+      "rows": 2,
+      "jutsu": [
+        "Ethereal Dragon's Whispers",
+        "Luminous Illusion Bind"
+      ],
+      "roles": [
+        "DAMAGE"
+      ],
+      "recipients": [
+        "enemy"
+      ],
+      "bases_at_level": [
+        40.0,
+        50.0
+      ],
+      "adverse_rows": [],
+      "hidden_rows": 0,
+      "item_gated_rows": 0,
+      "mode_restricted_rows": 0,
+      "repeated_on_same_jutsu": []
+    },
+    {
+      "tag": "increasedamagegiven",
+      "label": "Increase Damage Given",
+      "rows": 2,
+      "jutsu": [
+        "Ethereal Dragon's Whispers",
+        "Luminous Illusion Bind"
+      ],
+      "roles": [
+        "SELF BUFF"
+      ],
+      "recipients": [
+        "self"
+      ],
+      "bases_at_level": [
+        35.0
+      ],
+      "adverse_rows": [],
+      "hidden_rows": 0,
+      "item_gated_rows": 0,
+      "mode_restricted_rows": 0,
+      "repeated_on_same_jutsu": []
+    },
+    {
+      "tag": "decreasedamagetaken",
+      "label": "Decrease Damage Taken",
+      "rows": 1,
+      "jutsu": [
+        "Voltara Blitz"
+      ],
+      "roles": [
+        "SELF BUFF"
+      ],
+      "recipients": [
+        "self"
+      ],
+      "bases_at_level": [
+        30.0
+      ],
+      "adverse_rows": [],
+      "hidden_rows": 0,
+      "item_gated_rows": 0,
+      "mode_restricted_rows": 0,
+      "repeated_on_same_jutsu": []
+    }
+  ],
+  "supported_rows_total": 5,
+  "unsupported_tags_present": [
+    "move",
+    "pierce",
+    "stun"
+  ],
+  "adverse_supported_rows": [],
+  "afterburn": {
+    "application_rows": [],
+    "downstream_note": "Afterburn is an enemy debuff (tags.ts afterburn handler at the pin): while active on following rounds, every instant damage consequence the debuffed target receives (any source, pierce excluded) adds floor(damage x percent) Afterburn damage, with the cumulative Afterburn on one hit capped at 60% of that hit. Potency raises the percent, not the duration. Downstream coverage is therefore every non-pierce hit landed on the target during the debuff, including normal jutsu, weapons and allies; it is not measured by the application-row count and was not simulated.",
+    "kit_instant_damage_rows_that_can_be_enhanced": 2
+  },
+  "classification_audit": {
+    "signature_elements": [
+      "Lightning"
+    ],
+    "display_element": "Lightning",
+    "proposed_label": "Voltara Divine",
+    "label_kind": "bloodline-keyed extension",
+    "element_exclusive_within_census": false,
+    "note": "Single signature element Lightning is a basic element carried on rows of many bloodlines and ordinary jutsu; using it as the classification label would leak broadly. A bloodline-keyed classification label is required; the element is kept as the display element only.",
+    "current_resolver_reach": [
+      {
+        "label": "Lightning",
+        "rows_matching_label_directly": 3,
+        "rows_falling_back_to_None": 2,
+        "rows_with_other_elements_only": 0,
+        "supported_rows_total": 5,
+        "exclusive_under_current_resolver": false,
+        "note": "Current resolver matches each effect row's own elements (absent list -> ['None']). Rows without the label are unreachable with affectedElements=[label]; reaching them needs affectedElements including 'None', which also reaches every non-elemental row on any jutsu the player can cast."
+      }
+    ],
+    "census_collisions_on_signature_elements": [
+      {
+        "element": "Lightning",
+        "bloodline_id": "Phd6cwjiN4sIENmia6czQ",
+        "name": "Adorable Shadow of Death",
+        "disposition": "DEFER",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "IzKTFfoTZHguu_VCXmgnd",
+        "name": "Architect of the Hollow Script",
+        "disposition": "DEFER",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "RNUcHSH2c00IhOLc2C9aJ",
+        "name": "Bakuhatsu",
+        "disposition": "INCLUDE",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "cB2LWCWyLRHxgsbY0crJr",
+        "name": "Blissoo",
+        "disposition": "DEFER",
+        "rows": 9,
+        "damage_rows": 2
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "ovZIWu28ANn-Cij5TjT8S",
+        "name": "Blood-Enchanted Eyes",
+        "disposition": "INCLUDE",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "guKdhtFSM0J1wttTRI90a",
+        "name": "Blood-Enthralled Eyes",
+        "disposition": "EXCLUDE",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "IKWn7RPaThizqzBmToiRQ",
+        "name": "Extinction Herald",
+        "disposition": "DEFER",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "IE8MT2NvaXecCq_Syug3O",
+        "name": "Eyes of the Forsaken Heir",
+        "disposition": "EXCLUDE",
+        "rows": 3,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "r3nBY_Th4_ZAIUfhx1jdy",
+        "name": "Eyes of the Forsaken King",
+        "disposition": "INCLUDE",
+        "rows": 3,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "ALoGrHuBY5Ml9bJG_DILe",
+        "name": "Houkyuken",
+        "disposition": "INCLUDE",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "q6--YgEXT6gsOQwVF3QV5",
+        "name": "Infernal Reaper",
+        "disposition": "DEFER",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "j4_9ypNqYq8Ifbqf-9D2r",
+        "name": "Itojinsei",
+        "disposition": "INCLUDE",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "wasIGmDuczwD9PB89gML6",
+        "name": "Oblivion Seal",
+        "disposition": "INCLUDE",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "poNc1FxJXo7cveWVUxY9L",
+        "name": "Otaku of the Dark Maiden",
+        "disposition": "DEFER",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "d0WYPbbsVx7Y_i0fddwxc",
+        "name": "Shadow Weaver",
+        "disposition": "INCLUDE",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "xO4Dycx7FFEqxwvAEXBxY",
+        "name": "Shinrai Ou",
+        "disposition": "INCLUDE",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "vv45N2En3p8VrNcU2acd8",
+        "name": "Shiroi Youso",
+        "disposition": "INCLUDE",
+        "rows": 6,
+        "damage_rows": 1
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "MNtUqUHpHJV47snS1Jt-U",
+        "name": "Solar Soul",
+        "disposition": "DEFER",
+        "rows": 3,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "18Byy1tMXkQETmB88JLl5",
+        "name": "Tenohira Musei",
+        "disposition": "INCLUDE",
+        "rows": 1,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "H_drsFIZdi4e7UENANUnE",
+        "name": "Testing Dummy 2.0",
+        "disposition": "DEFER",
+        "rows": 2,
+        "damage_rows": 1
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "mOBVl90uPlid84d4p2Ovg",
+        "name": "Timeforged Enigma",
+        "disposition": "DEFER",
+        "rows": 2,
+        "damage_rows": 0
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "VfwAR4EHg72_uVHpDBexI",
+        "name": "Traveling Sun Praiser",
+        "disposition": "DEFER",
+        "rows": 6,
+        "damage_rows": 2
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "71-FjS5NcjX0ZnXuQfg53",
+        "name": "Youso Shiroi",
+        "disposition": "EXCLUDE",
+        "rows": 6,
+        "damage_rows": 1
+      },
+      {
+        "element": "Lightning",
+        "bloodline_id": "XMd7Yo_-CjJdpCK5eoApq",
+        "name": "Yūhi Ryūjin (夕陽竜神)",
+        "disposition": "DEFER",
+        "rows": 4,
+        "damage_rows": 1
+      }
+    ],
+    "census_bloodlines_with_None_rows": 35,
+    "normal_jutsu_collision": "UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). Whether NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carry this element needs a read-only public jutsu listing capture requested from dauntless.",
+    "injected_children": [],
+    "item_gated_jutsu": [],
+    "mode_restricted_jutsu": [],
+    "hidden_jutsu": [],
+    "non_bloodline_type_jutsu_in_kit": [],
+    "engine_status": "proposal_requires_resolver_adjustment"
+  }
+}

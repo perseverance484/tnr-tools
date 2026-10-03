@@ -1,0 +1,89 @@
+# Ethereal Monarch — Bloodright kit dossier
+
+**Review id:** BR-023 · **Bloodline id:** `IxhIoLEmznqdcnc_6MCN9` · **Rank:** S · **Stat classification:** Highest · **Traits:** Control, Sustained Damage,  · **Disposition:** INCLUDE
+
+Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory 2026-09-30. Baselines evaluated at **jutsu level 25** (power + powerPerLevel × level). Mechanics read at `studie-tech/TheNinjaRPG@16498fd776fad9c91e4b84efed4380fe3a487050`. This is a projection of captured records, not a live readback.
+
+## Passive bloodline effects (context only; not potency targets)
+
+| Type | Power | Per level | Target | Elements | Stat types | Calc |
+|---|---:|---:|---|---|---|---|
+| increasedamagegiven | 25 | 0.15 | INHERIT | Water, Fire, Wind, Yin-Yang, None | — | percentage |
+
+## Jutsu in kit
+
+| Jutsu | Vis | Type | Rank | Target | Range | AP% | CD | Method | Item gate | Usage | Supported rows / total |
+|---|---|---|---|---|---:|---:|---:|---|---|---|---|
+| Stardust | public | SPECIAL | D | OTHER_USER | 4 | 40 | 7 | SINGLE | — | BOTH | 3 / 3 |
+| Tamashī no Sakeme | public | BLOODLINE | A | OTHER_USER | 4 | 60 | 7 | SINGLE | — | BOTH | 1 / 2 |
+| Founder’s Wrath | public | BLOODLINE | A | OTHER_USER | 4 | 60 | 7 | AOE_CIRCLE_SPAWN | — | BOTH | 1 / 2 |
+| Celestial Sealing | public | BLOODLINE | B | OTHER_USER | 4 | 60 | 7 | SINGLE | — | BOTH | 2 / 3 |
+| Heavenly Constructs | public | BLOODLINE | C | SELF | 0 | 40 | 7 | SINGLE | — | BOTH | 1 / 3 |
+| Starlight Veil | public | BLOODLINE | D | SELF | 0 | 40 | 7 | SINGLE | — | BOTH | 2 / 4 |
+
+## Effect rows
+
+Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
+
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Recipient | Role | ✓ | Adverse |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|
+| Stardust | 0 | increasedamagegiven | percentage | 35% | 35 + 0/lvl | 2 | None | self | SELF BUFF | ✓ |  |
+| Stardust | 1 | increasedamagetaken | percentage | 35% | 35 + 0/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
+| Stardust | 2 | afterburn | percentage | 30% | 30 + 0/lvl | 2 | None | enemy | ENEMY DEBUFF | ✓ |  |
+| Tamashī no Sakeme | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Yin-Yang | enemy | DAMAGE | ✓ |  |
+| Tamashī no Sakeme | 1 | consume | percentage | 60% | 50 + 0.4/lvl | 0 | None | enemy | ENEMY BUFF |  | **yes** |
+| Founder’s Wrath | 0 | pierce | formula | 66 | 56 + 0.4/lvl | 0 | Yin-Yang | enemy | ENEMY DEBUFF |  |  |
+| Founder’s Wrath | 1 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
+| Celestial Sealing | 0 | seal | static | 100 | 90 + 0.4/lvl | 2 | None | enemy | ENEMY DEBUFF |  |  |
+| Celestial Sealing | 1 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Yin-Yang | enemy | DAMAGE | ✓ |  |
+| Celestial Sealing | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
+| Heavenly Constructs | 0 | debuffprevent | static | 100 | 90 + 0.4/lvl | 2 | None | self | SELF BUFF |  |  |
+| Heavenly Constructs | 1 | reflect | percentage | 40% | 30 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
+| Heavenly Constructs | 2 | injectjutsus | static | 110 | 100 + 0.4/lvl | 2 | None | self | SELF BUFF |  |  |
+| Starlight Veil | 0 | decreasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
+| Starlight Veil | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | self | SELF BUFF | ✓ |  |
+| Starlight Veil | 2 | visual | static | 1 | 1 + 0/lvl | 0 | None | self | SELF DEBUFF |  | **yes** |
+| Starlight Veil | 3 | clearprevent | static | 100 | 90 + 0.4/lvl | 1 | None | self | SELF BUFF |  |  |
+
+## Supported-row summary by tag
+
+| Tag | Rows | Jutsu | Roles | Bases @L | Repeated on one jutsu | Hidden | Item-gated | Mode-restricted | Adverse |
+|---|---:|---|---|---|---|---:|---:|---:|---|
+| Damage | 2 | Celestial Sealing, Tamashī no Sakeme | DAMAGE | 40, 50 | — | 0 | 0 | 0 | — |
+| Increase Damage Given | 3 | Celestial Sealing, Stardust, Starlight Veil | SELF BUFF | 35 | — | 0 | 0 | 0 | — |
+| Increase Damage Taken | 1 | Stardust | ENEMY DEBUFF | 35 | — | 0 | 0 | 0 | — |
+| Decrease Damage Taken | 2 | Founder’s Wrath, Starlight Veil | SELF BUFF | 30, 35 | — | 0 | 0 | 0 | — |
+| Afterburn | 1 | Stardust | ENEMY DEBUFF | 30 | — | 0 | 0 | 0 | — |
+| Reflect | 1 | Heavenly Constructs | SELF BUFF | 40 | — | 0 | 0 | 0 | — |
+
+Supported rows total: **10**. Unsupported tags present (no potency): clearprevent, consume, debuffprevent, injectjutsus, pierce, seal, visual.
+
+## Selector / classification audit
+
+- Signature elements on damage/pierce rows: Yin-Yang
+- Proposed potency classification label: **Yin-Yang** (element)
+- Single signature element on the kit's damage/pierce rows; usable as the classification label under the proposed whole-kit classification, provided the classification is bloodline-scoped (see census collisions) rather than a bare element match.
+- Current resolver with `affectedElements=['Yin-Yang']`: 2 of 10 supported rows match directly; 8 fall back to None; 0 carry other elements only. Exclusive under current resolver: no.
+- Census collisions on signature elements (other bloodlines carrying the element on any row): Celestial Mage [DEFER] (Yin-Yang: 4 rows, 4 damage); DvEM [DEFER] (Yin-Yang: 3 rows, 3 damage); Ethereal Regent [EXCLUDE] (Yin-Yang: 4 rows, 4 damage); Heavenly Sonata [INCLUDE] (Yin-Yang: 3 rows, 3 damage); Manhattan Project [DEFER] (Yin-Yang: 5 rows, 4 damage); Tenohira Musei [INCLUDE] (Yin-Yang: 4 rows, 3 damage); Tenryūseigan [DEFER] (Yin-Yang: 4 rows, 4 damage); Tenshin Shoden Yami-Ryu [DEFER] (Yin-Yang: 4 rows, 4 damage)
+- Normal-jutsu collision: UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). Whether NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carry this element needs a read-only public jutsu listing capture requested from dauntless.
+- Item-gated jutsu: none
+- Mode-restricted jutsu: none
+- Hidden jutsu in kit: none
+- Non-BLOODLINE jutsu types in kit: Stardust (SPECIAL)
+
+### Injected children
+
+| Parent | Child | Child id | Child bloodlineId | Child type | Resolved | Child supported rows |
+|---|---|---|---|---|---|---|
+| Heavenly Constructs | Stardust | `0_ip_8I2Dh_Ti2mYUcuAu` | `IxhIoLEmznqdcnc_6MCN9` | SPECIAL | yes | increasedamagegiven, increasedamagetaken, afterburn |
+
+Injected children are cast as `jutsu` actions at the inject power as level (actions.ts handleInjectedJutsus), so the resolver would process them; whether they inherit the bloodline classification is an engine decision recorded in the gap register. Children with an empty `bloodlineId` are not bloodline jutsu.
+
+
+## Afterburn and downstream notes
+
+Application rows: Stardust row 2 (30%, 2 rounds).
+Afterburn is an enemy debuff (tags.ts afterburn handler at the pin): while active on following rounds, every instant damage consequence the debuffed target receives (any source, pierce excluded) adds floor(damage x percent) Afterburn damage, with the cumulative Afterburn on one hit capped at 60% of that hit. Potency raises the percent, not the duration. Downstream coverage is therefore every non-pierce hit landed on the target during the debuff, including normal jutsu, weapons and allies; it is not measured by the application-row count and was not simulated.
+
+Lifesteal and vamp share one 60%-of-pre-shield-damage leech budget per hit; Reflect and Absorb are each capped at 60% of pre-shield damage; static Heal power is ×10 HP per tick; percentage-valued tags are hard-capped at 100 by `getPower`. See `evidence/SOURCE_MECHANICS.md`.
+
