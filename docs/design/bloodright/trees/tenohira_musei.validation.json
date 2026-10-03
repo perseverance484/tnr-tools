@@ -9,12 +9,9 @@
     "statClassification": "Highest",
     "traits": "Defensive and Control"
   },
-  "revision": "Draft 3 / Yin-Yang classification / forked tree",
+  "revision": "Draft 4 / Yin-Yang classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
-  "warnings": [
-    "route Tipping the Balance primary total +7% Increase Damage Given is off the 5/10/15 bands without a route_band_rationale",
-    "route Stillness Breaks primary total +7% Increase Damage Taken is off the 5/10/15 bands without a route_band_rationale"
-  ],
+  "warnings": [],
   "classification": {
     "potency_classification": "Yin-Yang",
     "label_kind": "element",
@@ -82,7 +79,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 10,
         "decreasedamagegiven": 4,
         "increasedamagetaken": 2
       },
@@ -122,7 +119,7 @@
       "bonuses": {
         "damage": 2,
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       },
       "advanced_arts": [
         "Stillness Breaks"
@@ -153,9 +150,9 @@
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 5,
-      "increasedamagegiven": 7,
+      "increasedamagegiven": 10,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 7
+      "increasedamagetaken": 10
     },
     "supported_rows_in_kit": 8,
     "supported_rows_by_tag": {
@@ -239,8 +236,8 @@
         "name": "Tipping the Balance",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
-        "row_weighted_total": 6,
+        "raw_flat_total": 7,
+        "row_weighted_total": 12,
         "covered_jutsu": [
           "Moonlit Inferno",
           "Silent Rift",
@@ -300,8 +297,8 @@
         "name": "Bared to the Moon",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Moonlit Inferno",
           "Yin-Yang Cascade"
@@ -315,8 +312,8 @@
         "name": "Stillness Breaks",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 12,
+        "raw_flat_total": 7,
+        "row_weighted_total": 16,
         "covered_jutsu": [
           "Moonlit Inferno",
           "Silent Palm Strike",
@@ -339,10 +336,10 @@
         "damage": 2,
         "increasedamagegiven": 3,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       },
-      "raw_flat_total": 14,
-      "row_weighted_total": 28,
+      "raw_flat_total": 17,
+      "row_weighted_total": 34,
       "advanced_arts": [
         "10"
       ],
@@ -410,11 +407,11 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 10,
           "decreasedamagegiven": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 22,
+        "raw_flat_total": 14,
+        "row_weighted_total": 28,
         "advanced_arts": [
           "05"
         ],
@@ -467,10 +464,10 @@
           "damage": 2,
           "increasedamagegiven": 3,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 22,
+        "raw_flat_total": 12,
+        "row_weighted_total": 24,
         "advanced_arts": [],
         "non_dominated": false
       },
@@ -482,12 +479,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 10,
           "decreasedamagegiven": 4,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 22,
+        "raw_flat_total": 16,
+        "row_weighted_total": 28,
         "advanced_arts": [
           "05"
         ],
@@ -520,10 +517,10 @@
         "bonuses": {
           "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 20,
+        "raw_flat_total": 12,
+        "row_weighted_total": 22,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -556,10 +553,10 @@
         "bonuses": {
           "increasedamagegiven": 3,
           "decreasedamagegiven": 5,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 19,
+        "raw_flat_total": 13,
+        "row_weighted_total": 21,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -574,10 +571,10 @@
           "damage": 2,
           "increasedamagegiven": 3,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 28,
+        "raw_flat_total": 17,
+        "row_weighted_total": 34,
         "advanced_arts": [
           "10"
         ],
@@ -593,10 +590,10 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 10,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 22,
+        "raw_flat_total": 17,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "08"
         ],
@@ -612,10 +609,10 @@
         "bonuses": {
           "damage": 2,
           "decreasedamagegiven": 5,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 25,
+        "raw_flat_total": 17,
+        "row_weighted_total": 31,
         "advanced_arts": [
           "10"
         ],

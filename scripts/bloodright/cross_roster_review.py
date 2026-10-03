@@ -31,6 +31,13 @@ OUT_JSON = os.path.join(L.DESIGN_DIR, "cross_roster_review.json")
 REVIEW_LOG = os.path.join(L.DESIGN_DIR, "review_log.json")
 
 
+def _prod(vals):
+    out = 1.0
+    for v in vals:
+        out *= v
+    return out
+
+
 def load_entries():
     snap = L.load_snapshot()
     roster = L.load_roster()
@@ -113,10 +120,18 @@ def build():
             if len(rows) < 2:
                 continue
             add = e["audit"]["maximum_tag_bonuses"].get(tag, 0)
-            out.append({"bloodline": e["name"], "rows": len(rows), "base_stack": round(sum(r.base for r in rows), 1),
-                        "max_stack": round(sum(min(100.0, r.base + add) for r in rows), 1), "addition": add,
+            # computeDamagePacket (process.ts 1692-1825): stage-2 increases multiply in turn,
+            # percentage reductions apply sequentially as (1 - p); the 90% DR floor is ignored here.
+            if tag in ("increasedamagegiven", "increasedamagetaken"):
+                comb = lambda vals: _prod(1 + v / 100 for v in vals)
+            else:
+                comb = lambda vals: _prod(1 - v / 100 for v in vals)
+            out.append({"bloodline": e["name"], "rows": len(rows),
+                        "base_multiplier": round(comb([r.base for r in rows]), 3),
+                        "max_multiplier": round(comb([min(100.0, r.base + add) for r in rows]), 3), "addition": add,
                         "jutsu": sorted({r.jutsu_name for r in rows})})
-        return sorted(out, key=lambda x: -x["max_stack"])
+        rev = tag in ("increasedamagegiven", "increasedamagetaken")
+        return sorted(out, key=lambda x: -x["max_multiplier"] if rev else x["max_multiplier"])
     data["stacked_enemy_exposure"] = stack("increasedamagetaken", "enemy")
     data["stacked_self_idg"] = stack("increasedamagegiven", "self")
     data["stacked_self_ddt"] = stack("decreasedamagetaken", "self")
@@ -226,13 +241,14 @@ def md(d):
                    ["Bloodline", "Rows", "Max addition", "Max single-row final", "Summed finals", "Recipient"])
         out.append("")
     out.append("## 4. Stacking (same-tag rows on one recipient all apply — process.ts 1109–1117)\n")
+    out.append("Jutsu-sourced percentage increases compound and reductions apply sequentially (`computeDamagePacket`, process.ts 1692–1825; SOURCE_MECHANICS §3b), so the table gives the combined damage multiplier: ×Π(1 + p) for Increase Damage Given/Taken and ×Π(1 − p) for Decrease Damage Taken/Given, before the 90% reduction floor.\n")
     for key, title in (("stacked_enemy_exposure", "Enemy Increase Damage Taken"), ("stacked_self_idg", "Self Increase Damage Given"),
                        ("stacked_self_ddt", "Self Decrease Damage Taken"), ("stacked_enemy_ddg", "Enemy Decrease Damage Given")):
         lst = d[key]
         out.append(f"**{title}** — kits with two or more rows on that recipient ({len(lst)})\n")
         if lst:
-            out += tbl(lst[:10], [lambda x: x["bloodline"], lambda x: x["rows"], lambda x: x["base_stack"], lambda x: x["addition"], lambda x: x["max_stack"], lambda x: ", ".join(x["jutsu"])],
-                       ["Bloodline", "Rows", "Base stack %", "Tree max addition", "Stack at max %", "Jutsu"])
+            out += tbl(lst[:10], [lambda x: x["bloodline"], lambda x: x["rows"], lambda x: f"×{x['base_multiplier']}", lambda x: f"+{x['addition']}%", lambda x: f"×{x['max_multiplier']}", lambda x: ", ".join(x["jutsu"])],
+                       ["Bloodline", "Rows", "Base combined multiplier", "Tree max addition per row", "Combined multiplier at max", "Jutsu"])
         out.append("\nStack figures assume every row is active together; cooldowns, AP and the cast-round rule (no buff or debuff acts in its own cast round) usually prevent that.\n")
     out.append(f"Percentage rows pushed past the 100 cap by any legal build: {len(d['percentage_rows_over_100'])}.\n")
     out.append("## 3b. Ceilings and route bands (RUL-2026-10-03-005)\n")
@@ -260,9 +276,9 @@ def md(d):
                                          lambda x: f"{x['percentage_rows']} / {x['percentage_base_sum']}", lambda x: x["added_max_row_weighted"], lambda x: f"{x['added_share_of_inherited_pct']}%"],
                ["Bloodline", "Rank", "Jutsu", "Supported rows", "Damage rows / base sum", "% rows / base sum", "Added (max row-weighted)", "Added share"])
     out.append("\n## 7. Interactions outside the tree\n")
-    out.append("- **Main tree:** skill-tree potency effects stack with Bloodright under `BATTLE_TAG_STACKING`; broad normal-tree potency is not approved (OPEN_DECISIONS D7). Main-tree IDG/IDT/DDT effects add to the same staged base as the kit's rows; their combined budget is unaudited.")
-    out.append("- **Bloodline passives:** the passive IDG (fromType bloodline) multiplies the running damage after jutsu-sourced additions, so a Damage-power addition is worth more on kits whose passive covers that element. Passives are not potency targets.")
-    out.append("- **Cast-round rule:** no buff or debuff acts in its own cast round (tags.ts handler gates), so a jutsu's own IDG/IDT/Afterburn row never boosts its own hit; realized value depends on sequencing across rounds.")
+    out.append("- **Main tree:** skill-tree potency effects stack with Bloodright under `BATTLE_TAG_STACKING`; broad normal-tree potency is not approved (OPEN_DECISIONS D7). Main-tree IDG/IDT/DDT effects are stage-1 multipliers in the same pipeline as the kit's rows (SOURCE_MECHANICS §3b); their combined budget is unaudited.")
+    out.append("- **Bloodline passives:** the passive IDG (fromType bloodline) multiplies the running damage last, after the jutsu-sourced multipliers, so a flat Damage addition is worth more on kits whose passive covers that element. Passives are not potency targets.")
+    out.append("- **Cast-round rule:** no buff or debuff acts in its own cast round (tags.ts handler gates; process.ts 1520–1523 for the damage-modifier pipeline), so a jutsu's own IDG/IDT/Afterburn row never boosts its own hit; realized value depends on sequencing across rounds.")
     out.append("- **Ranked modes:** skill-tree and bloodline effects are skipped in RANKED_PVP and RANKED_SPARRING, so Bloodright is inert there (OPEN_DECISIONS D6).")
     out.append("- **Equipment:** item-gated jutsu need their item to be cast; the item is never a potency selector. Keystones are exclusive per battle, weapons may not be (ENGINE_GAP_REGISTER G7).")
     rl = d.get("review_log") or {}
