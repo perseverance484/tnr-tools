@@ -336,3 +336,134 @@ Existing audited content-record point reads already approved for full persistenc
 
 **Canonical destination:** `docs/design/BLOODRIGHT_DESIGN_BRIEF.md` and the Taiyo Kami JSON/SVG reference under `docs/design/bloodright/examples/`. This records the user's mechanic correction and display contract, not a new claim that all proc interactions have been source-verified.
 
+---
+
+## RUL-2026-10-03-001 — Ethereal Monarch is the Bloodright poster presentation reference
+
+**Date:** 2026-10-03  
+**Domain:** Bloodright / poster presentation  
+**Status:** SUPERSEDED  
+**Supersedes:** none
+
+**Ruling:** The user-approved **Ethereal Monarch — Mandate of Heaven** poster is the primary ("holy grail") presentation reference for future Bloodright posters. Future Bloodright showcase posters should follow its overall visual language: integrated bloodline-driven hero art, vertical top-down skill flow, restrained dark cards with selective glow and ornament, the BLOODRIGHT → bloodline name → epithet title convention, generous spacing and readable statistics. The presentation standard also preserves the later refinements from the approval sequence: one tagline maximum, lean reference notes, scope mentioned once, and no visible source SHA, bloodline ID, `forked tree` label or generic tag primers.
+
+The approved reference is preserved in the user's persistent Library as `/TNR/Bloodright References/Ethereal_Monarch_Mandate_of_Heaven_Holy_Grail.png`. It is visual/presentation evidence only; pinned tree JSON and its validation remain mechanical authority for names, values, roles and prerequisites.
+
+**Rationale:** The Ethereal Monarch poster best matched the desired Bloodright identity and readability after iterative comparison with the earlier Taiyo Kami and Aerathiel work. Making it the explicit presentation reference prevents future sessions from drifting back toward side-to-side diagrams, generic infographic art or excess explanatory copy while keeping mechanics source-driven.
+
+**Canonical destination:** `docs/workflows/BLOODRIGHT_POSTERS.md`, routed from `docs/workflows/ART_PRODUCTION.md`.
+
+
+---
+
+## RUL-2026-10-03-002 — Ethereal Monarch reference governs information presentation, not universal art style
+
+**Date:** 2026-10-03  
+**Domain:** Bloodright / poster presentation  
+**Status:** SUPERSEDED  
+**Supersedes:** RUL-2026-10-03-001
+
+**Ruling:** The approved **Ethereal Monarch — Mandate of Heaven** poster remains the primary Bloodright reference for **information presentation**: top-down skill flow, tier hierarchy, prerequisite clarity, rules/legend placement, Bloodright naming hierarchy, readable full skill/effect text, lean reference notes, one scope mention and one tagline maximum. It is **not** a universal visual-style template.
+
+Future Bloodright posters may vary their palette, typography style, card materials/shapes, ornament, glow, illustration treatment, hero-art composition, environmental motifs and other aesthetic choices according to the target bloodline's theme. In particular, celestial/thematic typography effects and dark restrained cards are not required constraints. The exact bloodline image remains the identity reference, while pinned design JSON remains mechanical authority.
+
+**Rationale:** The user approved Ethereal Monarch because of how clearly it organizes and communicates Bloodright information, not because every bloodline should share its celestial-regal art direction. Locking theme-specific styling would flatten bloodline identity and misread the purpose of the approved reference.
+
+**Canonical destination:** `docs/workflows/BLOODRIGHT_POSTERS.md`, routed from `docs/workflows/ART_PRODUCTION.md`.
+
+
+---
+
+## RUL-2026-10-03-003 — Bloodright Damage ceiling and rounded path-total baseline
+
+**Date:** 2026-10-03  
+**Domain:** Bloodright / balance baseline  
+**Status:** SUPERSEDED  
+**Supersedes:** none
+
+**Ruling:** For the current 4-BP Bloodright model, **flat Damage potency may never exceed +5 total in any legal allocation**. The ceiling is evaluated across the complete legal 4-purchase build, not only along the advertised three-node route; fourth purchases and capstone secondaries must not push Damage above +5.
+
+For route design generally, prefer clean cumulative totals in **5-point increments** such as +5, +10 or +15 rather than irregular maxima such as +6, +7 or +8. This is a design preference, not permission to raise every tag to the next band: the chosen band still depends on coverage, leverage, caps, recipient and delivery. Departures from a round total require a concrete balance reason rather than arithmetic convenience.
+
+For a dedicated Damage route, the default shape is **+2 Damage on the Hidden Art and +3 Damage on the Advanced Art = +5 total**, unless an approved design has a different distribution that still respects the +5 legal-build ceiling.
+
+**Rationale:** Flat Damage directly increases jutsu EP and scales broadly across qualifying attacks, so +10 is far beyond the intended potency budget and even the current Blood-Enchanted Eyes Draft 3 maximum of +6 is too high. Clean +5/+10/+15 route targets are easier for players to understand and easier to compare across bloodlines, while retaining room to assign different ceilings to tags with different combat leverage.
+
+**Canonical destination:** the next Bloodright planning/balance revision and its validators. Existing frozen Fable design commits remain historical evidence and are not silently rewritten.
+
+---
+
+## RUL-2026-10-03-004 — Bloodright reference hierarchy: Ethereal structure, Taiyo rendering, target theme
+
+**Date:** 2026-10-03  
+**Domain:** Bloodright / poster presentation  
+**Status:** ACTIVE  
+**Supersedes:** RUL-2026-10-03-002
+
+**Ruling:** Future Bloodright posters use three separate reference authorities: **Ethereal Monarch — Mandate of Heaven** for information architecture and top-down presentation; **Taiyo Kami — Covenant of the Sun** for rendering/art-style discipline; and the exact target bloodline image for the poster's theme, palette, motifs, atmosphere and identity.
+
+Taiyo Kami's role is rendering consistency, not visual cloning. Preserve its polished stylized-anime/fantasy finish, crisp readable silhouettes, controlled detail, clean anatomy/faces, defined luminous effects and coherent saturation. Do not import its fox, solar/fire imagery, orange-gold palette, shrine setting or exact card/frame language into unrelated bloodlines. Likewise, Ethereal Monarch's celestial-regal visual language is not a universal requirement.
+
+**Rationale:** Ethereal Monarch established the preferred way to communicate Bloodright information, while Taiyo Kami established the preferred illustration/rendering quality. Separating those functions allows each bloodline to have a distinct visual identity without letting the art style drift into photorealism, grimdark painterliness, faux pixel art or other inconsistent rendering modes.
+
+**Canonical destination:** `docs/workflows/BLOODRIGHT_POSTERS.md`, routed from `docs/workflows/ART_PRODUCTION.md`.
+
+
+---
+
+## RUL-2026-10-03-005 — Bloodright element-wide potency scope and balance ceilings
+
+**Date:** 2026-10-03  
+**Domain:** Bloodright / mechanics and balance baseline  
+**Status:** ACTIVE  
+**Supersedes:** RUL-2026-10-03-003
+
+**Ruling:** Bloodright potency is **classification-element wide**, not bloodline-ID scoped. A Bloodright modifier applies to every jutsu of the Bloodright's qualifying element/classification that carries the matching supported tag. Jutsu names, bloodline ownership and equipment sources may describe where effects currently appear, but they are not additional potency selectors. Equipment gates continue to determine whether a jutsu can be cast; they do not narrow Bloodright eligibility.
+
+For player-facing Bloodright modifiers, every modifier except flat Damage is displayed with a `%` sign. Flat Damage remains raw EP/power addition.
+
+Balance ceilings for the current 4-BP model:
+- **Damage:** hard maximum **+5 total** in any legal allocation.
+- **Lifesteal:** hard maximum **+5% total**.
+- **Afterburn:** hard maximum **+15% total**.
+- **All other supported tags:** target/ceiling **+10% total where possible**. A design that needs to exceed +10% requires a concrete balance reason and director review rather than silent arithmetic drift.
+- Prefer finished path totals that land cleanly on **+5 / +10 / +15** bands where the kit supports that structure.
+
+A dedicated Damage path should normally use **+2 Damage on the Hidden Art + +3 Damage on the Advanced Art = +5 total**.
+
+**Rationale:** The element/classification is the actual potency identity the user wants Bloodright to modify. Equipment provenance and bloodline membership should not become hidden selectors. The ceilings keep raw Damage and leech under control while allowing high-leverage single-row mechanics such as Afterburn a larger but explicit band, and rounded path totals are easier to compare and communicate.
+
+**Canonical destination:** Bloodright design brief, tree generator/validator, balance matrix and all generated trees on the active Fable Bloodright branch. Engine implementation remains a separate future task; where the current resolver is row-element-based rather than jutsu-classification-based, document the required resolver adjustment instead of narrowing the design back to bloodline-only behavior.
+
+---
+
+## RUL-2026-10-03-006 — Blood-Enchanted Eyes final approved four-path structure
+
+**Date:** 2026-10-03  
+**Domain:** Bloodright / Blood-Enchanted Eyes  
+**Status:** ACTIVE  
+**Supersedes:** none
+
+**Ruling:** Blood-Enchanted Eyes uses the user-approved title **Crimson Covenant**, replacing **Tithe of the Red Eye** everywhere in the design source and generated outputs.
+
+Its final approved four-path tree is:
+
+- **Scarlet Gaze** — Foundation — +2% Increase Damage Given; +2% Increase Damage Taken.
+  - **Opened Veins** — Hidden Art — +2 Damage.
+    - **Rite of Exsanguination** — Advanced Art — +3 Damage.
+  - **Crimson Thirst** — Hidden Art — +2% Lifesteal.
+    - **Feast of the Fallen** — Advanced Art — +3% Lifesteal; +5% Increase Damage Given.
+
+- **Iron in the Blood** — Foundation — +2% Decrease Damage Taken; +2% Decrease Damage Given.
+  - **Closed Wounds** — Hidden Art — +3% Decrease Damage Taken.
+    - **Deathless Vitality** — Advanced Art — +5% Decrease Damage Taken; +3% Decrease Damage Given.
+  - **Carrion Fever** — Hidden Art — +3% Decrease Damage Given.
+    - **Red Pestilence** — Advanced Art — +5% Decrease Damage Given; +3% Decrease Damage Taken.
+
+The two Scarlet Gaze branches are offensive: **Burst** and **Sustain Offense**. The two Iron in the Blood branches are defensive: **Fortress** and **Suppression**. Blood-Enchanted Eyes has **no dedicated Afterburn Bloodright path** in this revision; native Afterburn remains usable but unamplified by this tree.
+
+Potency scope is matching supported tags on **all Shadow jutsu** under RUL-2026-10-03-005. Wraith Pendant / Reaper's Ring provenance is not printed as a skill prerequisite or potency limitation.
+
+**Rationale:** This gives the bloodline two clearly offensive and two clearly defensive commitments, restores the intended Damage route, keeps Lifesteal as the second offensive identity, and makes the defensive half mirror cleanly: Fortress reaches +10% Decrease Damage Taken with +5% Decrease Damage Given support, while Suppression reaches +10% Decrease Damage Given with +5% Decrease Damage Taken support. It also keeps Damage and Lifesteal at the new +5 ceilings.
+
+**Canonical destination:** `docs/design/bloodright/trees/blood_enchanted_eyes.json` and its generated Markdown/SVG/validation, plus the cross-roster balance outputs on the active Fable branch.
