@@ -1,6 +1,6 @@
 {
   "title": "Godstorm Eclipse — Throne of the Black Sun",
-  "revision": "Draft 2 / Godstorm Eclipse classification / forked tree",
+  "revision": "Draft 3 / Shadow + Storm classification (multi-element, director review) / forked tree (RUL-2026-10-03-005 recalibration)",
   "bloodline": {
     "id": "szai-IgtB7PLubojIIlh-",
     "review_id": "BR-029",
@@ -10,15 +10,30 @@
     "traits": "Sustain / Burst Heavy / Tank"
   },
   "classification": {
-    "potency_classification": "Godstorm Eclipse",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Godstorm Eclipse",
+    "potency_classification": "Shadow + Storm",
+    "label_kind": "multi-element",
+    "classification_status": "multi-element: director review",
+    "qualifying_elements": [
+      "Shadow",
+      "Storm"
+    ],
     "display_element": null,
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Godstorm Eclipse jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Shadow and Storm jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Event Horizon Gate",
+      "Godstorm Mantle: Sky-Splitting Wall",
+      "Godstorm Mantle: Tempest",
+      "Godstorm Mantle: Thunder-Crowned Bulwark",
+      "Marrow Eclipse Mantle"
+    ],
+    "shared_element_bloodlines": [
       "Adorable Shadow of Death",
       "Arashima",
       "Blood-Enchanted Eyes",
@@ -35,13 +50,17 @@
       "Shadow Weaver",
       "Shinrai Ou",
       "Stormboat Willy"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Damage (Burst Heavy; five Shadow/Storm damage rows, +5 ceiling)",
-    "secondary": "Lifesteal (Sustain, Tempest, +10 ceiling) and Decrease Damage Taken (Tank, Gate and Bulwark, +7 ceiling)",
-    "tertiary": "Afterburn pressure (Tempest, +10 ceiling); Increase Damage Given (+5 on four rows) and Increase Damage Taken (+5 on three rows) as glue",
-    "rationale": "Godstorm Eclipse is a rank H kit whose traits read Sustain / Burst Heavy / Tank. Five of its twelve jutsu carry a Damage row (Raijin's Cage 50; Storm-God's Heart, Black Sun Cataract and Corona Devourer Palm 45; Obsidian Tomb 40, all 60 AP on a 7-round cooldown), so burst is the primary emphasis and the deepest raw-power route. Godstorm Mantle: Tempest is the sustain engine (Afterburn 35%, Lifesteal 40% and IDG 35% on one 40 AP cast) and anchors both the lifesteal and the burn routes, while Event Horizon Gate and Thunder-Crowned Bulwark carry the two DDT rows that anchor the tank route. IDG (four self-buff rows) and IDT (three enemy-debuff rows) are confined to Foundation 01 and to capstone secondaries so no capstone duplicates a sibling Hidden Art and every full-budget allocation stays non-dominated."
+    "primary": "Damage (Burst Heavy; five Shadow/Storm Damage rows, +5 Damage)",
+    "secondary": "Decrease Damage Taken (Tank: Gate and Bulwark, +10%) and Lifesteal (Sustain: Tempest, +5%)",
+    "tertiary": "Afterburn pressure (Tempest, +10%); Increase Damage Given (+5% on four rows) and Increase Damage Taken (+5% on three rows) as glue",
+    "rationale": "Godstorm Eclipse is a rank H kit whose traits read Sustain / Burst Heavy / Tank. Five of its twelve jutsu carry a Damage row (Raijin's Cage 50; Storm-God's Heart, Black Sun Cataract and Corona Devourer Palm 45; Obsidian Tomb 40 EP, all 60 AP on a 7-round cooldown), so burst is the primary emphasis. Godstorm Mantle: Tempest is the sustain engine (Afterburn 35%, Lifesteal 40% and Increase Damage Given 35% on one 40 AP cast) and anchors both the Lifesteal and the burn routes, while Event Horizon Gate and Thunder-Crowned Bulwark carry the two Decrease Damage Taken rows that anchor the Tank route. Increase Damage Given (four self-buff rows) and Increase Damage Taken (three enemy-debuff rows) are confined to Black Sun Rising and capstone secondaries. Potency reaches matching supported tags on all Shadow and Storm jutsu (RUL-2026-10-03-005; multi-element, director review)."
   },
   "nodes": [
     {
@@ -63,10 +82,10 @@
         }
       ],
       "flavor": "The eclipse crowns the storm, and whatever it looks upon is laid bare.",
-      "coverage_note": "IDG 35% on Wall, Tempest, Bulwark and Marrow Mantle (self, 2 rounds); IDT 35% on Gate (ally hazard), Wall and Storm-God's Heart.",
+      "coverage_note": "Increase Damage Given 35 → 37% on Wall, Tempest, Bulwark and Marrow Mantle (self, 2 rounds); exposure 35 → 37% on Gate (ally hazard), Wall and Storm-God's Heart.",
       "parent_rule": "ALL",
-      "potency_classification": "Godstorm Eclipse",
-      "scope": "Godstorm Eclipse jutsu",
+      "potency_classification": "Shadow + Storm",
+      "scope": "all Shadow and Storm jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -81,7 +100,8 @@
         "ally_hazard_rows": [
           "Event Horizon Gate#1"
         ],
-        "item_gated_rows": 7
+        "item_gated_rows": 7,
+        "rows_via_authored_classification": 6
       }
     },
     {
@@ -100,10 +120,10 @@
         }
       ],
       "flavor": "Thunder is not a sound. It is the whole weight of the sky coming down.",
-      "coverage_note": "Damage on Raijin's Cage 50, Storm-God's Heart 45, Black Sun Cataract 45, Corona Devourer Palm 45 (ally hazard), Obsidian Tomb 40; all 60 AP.",
+      "coverage_note": "Damage on Raijin's Cage 50 → 52, Storm-God's Heart, Black Sun Cataract and Corona Devourer Palm (ally hazard) 45 → 47, Obsidian Tomb 40 → 42 EP; all 60 AP.",
       "parent_rule": "ALL",
-      "potency_classification": "Godstorm Eclipse",
-      "scope": "Godstorm Eclipse jutsu",
+      "potency_classification": "Shadow + Storm",
+      "scope": "all Shadow and Storm jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -136,10 +156,10 @@
         }
       ],
       "flavor": "For one breath the sun is gone, and only the storm-god's judgement remains.",
-      "coverage_note": "Same five Damage rows, 40/45/50 -> 45/50/55 on the full route; the Verdicts' pierce rows are unsupported and unchanged.",
+      "coverage_note": "Route total +5 Damage on the same five rows: Raijin's Cage 55, Heart, Cataract and Palm 50, Tomb 45 EP. The Verdicts' pierce rows are unsupported.",
       "parent_rule": "ALL",
-      "potency_classification": "Godstorm Eclipse",
-      "scope": "Godstorm Eclipse jutsu",
+      "potency_classification": "Shadow + Storm",
+      "scope": "all Shadow and Storm jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -172,17 +192,18 @@
         }
       ],
       "flavor": "The air itself keeps the lightning's grudge long after the flash.",
-      "coverage_note": "Tempest row 0 Afterburn 35% -> 38% (enemy, 2 rounds, 40 AP); every non-pierce hit that target takes while burning feeds it.",
+      "coverage_note": "Tempest row 0 Afterburn 35 → 38% (enemy, 2 rounds, 40 AP); every non-pierce hit that target takes while burning feeds it.",
       "parent_rule": "ALL",
-      "potency_classification": "Godstorm Eclipse",
-      "scope": "Godstorm Eclipse jutsu",
+      "potency_classification": "Shadow + Storm",
+      "scope": "all Shadow and Storm jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Godstorm Mantle: Tempest"
         ],
         "effect_rows": 1,
-        "item_gated_rows": 1
+        "item_gated_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -206,10 +227,10 @@
         }
       ],
       "flavor": "The eclipse passes; the burning ring it leaves behind does not forgive.",
-      "coverage_note": "Tempest Afterburn 35% -> 45% on the route (60% per-hit cap); IDT on Gate (ally hazard), Wall, Heart: 35% -> 40% with Black Sun Rising.",
+      "coverage_note": "Tempest Afterburn route total +10% (35 → 45%; 60% per-hit cap); exposure on Gate (ally hazard), Wall and Heart 35 → 40% with Black Sun Rising.",
       "parent_rule": "ALL",
-      "potency_classification": "Godstorm Eclipse",
-      "scope": "Godstorm Eclipse jutsu",
+      "potency_classification": "Shadow + Storm",
+      "scope": "all Shadow and Storm jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -222,7 +243,8 @@
         "ally_hazard_rows": [
           "Event Horizon Gate#1"
         ],
-        "item_gated_rows": 4
+        "item_gated_rows": 4,
+        "rows_via_authored_classification": 3
       }
     },
     {
@@ -236,27 +258,22 @@
           "tag": "decreasedamagetaken",
           "flat": 2,
           "display_role": "SELF BUFF"
-        },
-        {
-          "tag": "lifesteal",
-          "flat": 2,
-          "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "The storm lives in the bone, and the bone drinks back whatever the storm costs.",
-      "coverage_note": "DDT 35% on Event Horizon Gate and Thunder-Crowned Bulwark, Lifesteal 40% on Tempest; all self rows on the caster at cast, 2 rounds.",
+      "flavor": "The storm lives in the bone, and the bone does not break beneath it.",
+      "coverage_note": "Decrease Damage Taken 35 → 37% on Event Horizon Gate and Thunder-Crowned Bulwark; both self rows land on the caster at cast, 2 rounds. Opens the Tank and Sustain routes.",
       "parent_rule": "ALL",
-      "potency_classification": "Godstorm Eclipse",
-      "scope": "Godstorm Eclipse jutsu",
+      "potency_classification": "Shadow + Storm",
+      "scope": "all Shadow and Storm jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Event Horizon Gate",
-          "Godstorm Mantle: Tempest",
           "Godstorm Mantle: Thunder-Crowned Bulwark"
         ],
-        "effect_rows": 3,
-        "item_gated_rows": 3
+        "effect_rows": 2,
+        "item_gated_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -270,15 +287,15 @@
       "modifiers": [
         {
           "tag": "decreasedamagetaken",
-          "flat": 2,
+          "flat": 3,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "Cooled from godfire, the Eclipse's hide turns blades the way glass turns light.",
-      "coverage_note": "Gate and Bulwark DDT 35% -> 39% with Stormgod's Marrow; SELF rows on the caster at cast, not positional; pierce untouched.",
+      "coverage_note": "Gate and Bulwark Decrease Damage Taken 40% with Stormgod's Marrow; SELF rows on the caster at cast, not positional; pierce untouched.",
       "parent_rule": "ALL",
-      "potency_classification": "Godstorm Eclipse",
-      "scope": "Godstorm Eclipse jutsu",
+      "potency_classification": "Shadow + Storm",
+      "scope": "all Shadow and Storm jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -286,7 +303,8 @@
           "Godstorm Mantle: Thunder-Crowned Bulwark"
         ],
         "effect_rows": 2,
-        "item_gated_rows": 2
+        "item_gated_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -300,7 +318,7 @@
       "modifiers": [
         {
           "tag": "decreasedamagetaken",
-          "flat": 3,
+          "flat": 5,
           "display_role": "SELF BUFF"
         },
         {
@@ -310,10 +328,10 @@
         }
       ],
       "flavor": "Immovable beneath the whole weight of the sky, and the sky answers to it.",
-      "coverage_note": "Gate and Bulwark DDT 35% -> 42% on the route; IDG on Wall, Tempest, Bulwark, Marrow Mantle 35% -> 40% with Black Sun Rising.",
+      "coverage_note": "Tank route total +10%: Gate and Bulwark Decrease Damage Taken 35 → 45%; Increase Damage Given on Wall, Tempest, Bulwark, Marrow Mantle 40% with Black Sun Rising.",
       "parent_rule": "ALL",
-      "potency_classification": "Godstorm Eclipse",
-      "scope": "Godstorm Eclipse jutsu",
+      "potency_classification": "Shadow + Storm",
+      "scope": "all Shadow and Storm jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -324,7 +342,8 @@
           "Marrow Eclipse Mantle"
         ],
         "effect_rows": 6,
-        "item_gated_rows": 6
+        "item_gated_rows": 6,
+        "rows_via_authored_classification": 6
       }
     },
     {
@@ -338,22 +357,23 @@
       "modifiers": [
         {
           "tag": "lifesteal",
-          "flat": 3,
+          "flat": 2,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "The moon does not merely cover the sun. It feeds.",
-      "coverage_note": "Tempest row 1 Lifesteal 40% -> 45% with Stormgod's Marrow (self, 2 rounds); shares the 60% leech cap with vamp; pierce hits count.",
+      "coverage_note": "Tempest row 1 Lifesteal 40 → 42% (self, 2 rounds); shares the 60% leech budget with vamp; pierce hits count.",
       "parent_rule": "ALL",
-      "potency_classification": "Godstorm Eclipse",
-      "scope": "Godstorm Eclipse jutsu",
+      "potency_classification": "Shadow + Storm",
+      "scope": "all Shadow and Storm jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Godstorm Mantle: Tempest"
         ],
         "effect_rows": 1,
-        "item_gated_rows": 1
+        "item_gated_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -367,7 +387,7 @@
       "modifiers": [
         {
           "tag": "lifesteal",
-          "flat": 5,
+          "flat": 3,
           "display_role": "SELF BUFF"
         },
         {
@@ -382,10 +402,10 @@
         }
       ],
       "flavor": "What the eclipse swallows, the storm-god keeps for good.",
-      "coverage_note": "All three Tempest rows: Lifesteal 40% -> 50% on the route, Afterburn 35% -> 37%, IDG 35% -> 37% (also Wall, Bulwark, Marrow Mantle).",
+      "coverage_note": "Lifesteal route total +5% (Tempest 40 → 45%, the hard ceiling); Tempest Afterburn 35 → 37%; Increase Damage Given 37% on Wall, Tempest, Bulwark, Marrow Mantle.",
       "parent_rule": "ALL",
-      "potency_classification": "Godstorm Eclipse",
-      "scope": "Godstorm Eclipse jutsu",
+      "potency_classification": "Shadow + Storm",
+      "scope": "all Shadow and Storm jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -395,7 +415,8 @@
           "Marrow Eclipse Mantle"
         ],
         "effect_rows": 6,
-        "item_gated_rows": 6
+        "item_gated_rows": 6,
+        "rows_via_authored_classification": 6
       }
     }
   ],
@@ -409,14 +430,13 @@
         "03",
         "06"
       ],
-      "rationale": "Damage +5 lifts all five Shadow and Storm attacks (Raijin's Cage 50 -> 55; Storm-God's Heart, Black Sun Cataract and Corona Devourer Palm 45 -> 50; Obsidian Tomb 40 -> 45), and the bloodline's own IDG passive (25% + 0.15/level across Shadow, Storm and None) multiplies that raw power downstream. Black Sun Rising is the required ancestor and adds 2% IDG on four self buffs and 2% exposure on three debuffs; Stormgod's Marrow is the fourth purchase for 2% DDT and 2% lifesteal. It is the pure burst option and gives up the deep sustain, the tank route and the burn entirely.",
+      "rationale": "+5 Damage lifts all five Shadow and Storm attacks (Raijin's Cage 50 → 55 EP; Storm-God's Heart, Black Sun Cataract and Corona Devourer Palm 45 → 50; Obsidian Tomb 40 → 45), and the bloodline's Increase Damage Given passive (25% + 0.15/level on seven elements incl. Shadow, Storm and None) multiplies that raw power downstream. Black Sun Rising is the required ancestor (four self damage buffs and three exposure rows at 37%); Stormgod's Marrow is the fourth purchase for 37% Decrease Damage Taken on Gate and Bulwark. The pure burst option: it gives up the sustain, tank and burn routes.",
       "cost": 4,
       "bonuses": {
         "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "lifesteal": 2
+        "decreasedamagetaken": 2
       },
       "finals": [
         {
@@ -611,8 +631,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 40.0,
-          "gain": 2,
-          "final": 42.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -973,14 +993,13 @@
         "05",
         "06"
       ],
-      "rationale": "Tempest's Afterburn goes from 35% to 45% for the two rounds after its cast, so every non-pierce hit the burning target takes (the kit's five damage rows, weapons, normal jutsu, allies) carries up to 45% extra inside the 60% per-hit cap; the capstone's +3 IDT with Black Sun Rising takes Gate, Wall and Storm-God's Heart exposure to 40% (Gate's also reaches allies in its circle). Stormgod's Marrow rounds it out with 2% DDT and 2% lifesteal. This is single-target pressure: the burn follows only the one enemy Tempest struck, and raw damage power is untouched.",
+      "rationale": "Tempest's Afterburn goes from 35% to 45% (+10%) for the two rounds after its cast, so every non-pierce hit the burning target takes (the kit's five Damage rows, weapons, normal jutsu, allies) carries up to 45% extra inside the 60% per-hit cap; the capstone's +3% exposure with Black Sun Rising takes Gate, Wall and Storm-God's Heart to 40% (Gate's also reaches allies in its circle). Stormgod's Marrow rounds it out with 37% Decrease Damage Taken. Single-target pressure: the burn follows only the one enemy Tempest struck, and Damage is untouched.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
-        "afterburn": 10,
-        "lifesteal": 2
+        "afterburn": 10
       },
       "finals": [
         {
@@ -1175,8 +1194,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 40.0,
-          "gain": 2,
-          "final": 42.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1537,13 +1556,12 @@
         "07",
         "08"
       ],
-      "rationale": "The DDT route takes Event Horizon Gate's and Thunder-Crowned Bulwark's 35% mitigation to 42%. Both are self buffs realized on the caster at cast and live for the next two rounds wherever it stands; cast in the same round they add (42% + 42% of the staged base, pierce excluded). The capstone's +3 IDG with Black Sun Rising lifts all four self damage buffs (Wall, Tempest, Bulwark, Marrow Mantle) to 40%, the tree's IDG ceiling. It is the tank who hits back: lifesteal stays at 42%, Afterburn at 35% and Damage power is untouched.",
+      "rationale": "The Tank route takes Event Horizon Gate's and Thunder-Crowned Bulwark's 35% mitigation to 45% (+10%). Both are self buffs realized on the caster at cast and live for the next two rounds wherever it stands; cast in the same round they add (45% + 45% of the staged base, pierce excluded). The capstone's +3% Increase Damage Given with Black Sun Rising lifts all four self damage buffs (Wall, Tempest, Bulwark, Marrow Mantle) to 40%, the tree's maximum. The tank who hits back: Lifesteal stays at 40%, Afterburn at 35% and Damage is untouched.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 7,
-        "lifesteal": 2
+        "decreasedamagetaken": 10
       },
       "finals": [
         {
@@ -1558,8 +1576,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1738,8 +1756,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 40.0,
-          "gain": 2,
-          "final": 42.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1846,8 +1864,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -2100,14 +2118,14 @@
         "09",
         "10"
       ],
-      "rationale": "The lifesteal route takes Tempest's leech from 40% to 50%, ten points under the 60% cap shared with vamp, and for the two rounds after Tempest's cast it draws from every damage row the caster lands, including the unsupported 60- and 66-power pierce Verdicts. Its small Tempest secondaries plus Black Sun Rising leave IDG at 39% on four rows, Afterburn at 37% and exposure at 37%. The alternative fourth purchase, Obsidian Skin instead of Black Sun Rising, is the tank-sustain variant (DDT 39%, no exposure, IDG 37%).",
+      "rationale": "The Lifesteal route takes Tempest's leech from 40% to 45% (+5%, the hard ceiling), fifteen points under the 60% budget shared with vamp, and for the two rounds after Tempest's cast it draws from every damage row the caster lands, including the unsupported 60 and 66 pierce Verdicts. Its Tempest secondaries plus Black Sun Rising leave Increase Damage Given at 39% on four rows, Afterburn at 37% and exposure at 37%; Stormgod's Marrow adds 37% Decrease Damage Taken. Alternative fourth purchase: Obsidian Skin instead of Black Sun Rising (Decrease Damage Taken 40%, no exposure, Increase Damage Given 37%).",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 4,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 2,
-        "lifesteal": 10
+        "lifesteal": 5
       },
       "finals": [
         {
@@ -2302,8 +2320,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 40.0,
-          "gain": 10,
-          "final": 50.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -2658,21 +2676,22 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Node split: two Foundations each fork into two Hidden -> Advanced routes mapping onto the four non-glue tags and the traits: Damage (Burst Heavy, 5 rows), Afterburn (pressure, Tempest row 0), DDT (Tank, Gate and Bulwark) and Lifesteal (Sustain, Tempest row 1). IDG and IDT appear only on Foundation 01 and as capstone secondaries, never on a Hidden Art, and Eater of Suns' +2 Afterburn sits below Charged Firmament's +3, so all 14 full-budget allocations are non-dominated and every node is used.",
-    "Reference reuse: Black Sun Rising, Hammer of the Heavens, Total Eclipse and Charged Firmament copy Taiyo Kami's Dawnheart, Crown of Cinders, Solar Cataclysm and Emberwake flats verbatim, and Lingering Corona is Eternal Noon minus its +3 IDG. The shape fits: the kit has Taiyo's burst, Afterburn, IDG/IDT and DDT rows. Departures: Lifesteal replaces DDG (no DDG rows here); the DDT route is +2/+2/+3 = +7 (Taiyo +10) because it reaches two rows; IDG reaches four rows, so its maximum stays +5 (01+08).",
-    "Calibration: per-row Damage gains match Taiyo (+5 is +10-12.5% on 40-50 power rows), but Damage +5 reaches five rows (row-weighted 25, Taiyo 15) and the strongest build (01+02+03+06) is 45 against Taiyo's 31, or 2.8 vs 3.4 per supported row (16 vs 9). User-owned options: Total Eclipse +3 (full route Tomb 45, Heart/Cataract/Palm 50, Cage 55) or +2 (44/49/54; the maximum then moves to 43, 01+02+04+05); DDT route +7 or Taiyo's +10; whether Black Sun Rising keeps IDT given the Gate ally hazard.",
-    "Passives: the bloodline IDG passive (25% + 0.15/level on seven elements incl. None, Shadow, Storm) multiplies the enhanced Damage rows, while kit IDG/IDT/DDT rows add power/100 of the staged base (§3b). The four IDG self buffs carry no element ('Highest' stats; Bulwark all four), so they also raise basic attacks, weapons and element-less jutsu; the three IDT debuffs raise allies' hits on that enemy. Lifesteal counts the Verdicts' pierce hits; Afterburn, IDG, IDT and DDT skip pierce.",
-    "Delivery and uptime: all 12 jutsu are item-gated (Eclipse Marrow, Godstorm Aegis; see risks); cooldowns are 7 rounds, damage rows cost 60 AP, buff casts 40 AP. Every DDT, IDG and Lifesteal row lands on the caster at cast and is live the two rounds after, wherever it stands (§3b, §4b): Gate's DDT and Bulwark's IDG/DDT are SELF rows, not circle or tile effects (Bulwark's only positional row is its unsupported move). No buff helps a hit in its cast round. Ranked modes skip skill effects.",
-    "Fourth purchases: after any 3 BP route the natural fourth is the other Foundation; four examples, one per capstone and trait. Pillar of Heaven (01+06+07+08) is the only IDG +5 build and one of two at DDT +7 (with 06+07+08+09), mirroring Sovereign Sun's +5 DDT/+3 IDG; accepted because it holds no Damage power and its IDG is four 40 AP self buffs (option: shift part of it to Eater of Suns). Also legal: 01+02+04+05 (strongest burn), 06+07+09+10 (tank-sustain), 01+02+06+09 (no-capstone hybrid)."
+    "Node split: two Foundations each fork into two Hidden → Advanced routes mapped onto the traits: Damage (Burst Heavy, 5 rows), Afterburn (pressure, Tempest row 0), Decrease Damage Taken (Tank, Gate and Bulwark) and Lifesteal (Sustain, Tempest row 1). Increase Damage Given and Increase Damage Taken appear only on Black Sun Rising and as capstone secondaries, never on a Hidden Art, and Eater of Suns' +2% Afterburn sits below Charged Firmament's +3%, so all 14 full-budget allocations are non-dominated and every node is used.",
+    "Routes (RUL-2026-10-03-005): Burst +5 Damage (Hammer of the Heavens +2, Total Eclipse +3); Burn pressure +10% Afterburn (Charged Firmament +3%, Lingering Corona +7%); Tank +10% Decrease Damage Taken (Stormgod's Marrow +2%, Obsidian Skin +3%, Pillar of Heaven +5%); Sustain +5% Lifesteal (Devouring Eclipse +2%, Eater of Suns +3%). Glue maxima over every legal allocation: Increase Damage Given +5%, Increase Damage Taken +5%; not jointly attainable.",
+    "Recalibration from Draft 2: Lifesteal is hard-capped at +5%, so Stormgod's Marrow drops its +2% Lifesteal (it is now a Decrease Damage Taken gate), Devouring Eclipse goes +3% → +2% and Eater of Suns +5% → +3% (Sustain +10% → +5%; Tempest 45%, not 50%). The Tank route moves from +7% (2/2/3) to the +10% band (Obsidian Skin +2% → +3%, Pillar of Heaven +3% → +5%). Damage, Afterburn and glue values are unchanged.",
+    "Reference reuse: Black Sun Rising, Hammer of the Heavens, Total Eclipse, Charged Firmament, Obsidian Skin and Pillar of Heaven carry Taiyo Kami's Dawnheart, Crown of Cinders, Solar Cataclysm, Emberwake, Golden Mantle and Sovereign Sun values; Lingering Corona is Eternal Noon without its +3% Increase Damage Given; Stormgod's Marrow is Sunward Oath without Decrease Damage Given (the kit has no such row); Lifesteal replaces the Suppression route.",
+    "Passives: the bloodline Increase Damage Given passive (25% + 0.15/level on seven elements incl. None, Shadow, Storm) multiplies the enhanced Damage rows, while kit IDG/IDT/DDT rows add power/100 of the staged base (§3b). The four IDG self buffs carry no element ('Highest' stats; Bulwark all four), so they also raise basic attacks, weapons and element-less jutsu; the three IDT debuffs raise allies' hits on that enemy. Lifesteal counts the Verdicts' pierce hits; Afterburn, IDG, IDT and DDT skip pierce.",
+    "Delivery and uptime: cooldowns are 7 rounds, Damage rows cost 60 AP, buff casts 40 AP. Every DDT, IDG and Lifesteal row lands on the caster at cast and is live the two rounds after, wherever it stands (§3b, §4b): Gate's DDT and Bulwark's IDG/DDT are SELF rows, not circle or tile effects (Bulwark's only positional row is its unsupported move). No buff helps a hit in its cast round. Ranked modes skip skill-tree effects.",
+    "Fourth purchases: after any 3 BP route the natural fourth is the other Foundation; four examples, one per capstone and trait. Pillar of Heaven (01+06+07+08) is the only Increase Damage Given +5% build and one of two at Decrease Damage Taken +10% (with 06+07+08+09). Also legal: 01+02+04+05 (burn with +2 Damage), 06+07+09+10 (tank-sustain), 01+02+06+09 (no-capstone hybrid)."
   ],
   "risks": [
-    "Classification: Shadow and Storm both sit on the kit's damage rows and neither is exclusive in the census (Shadow: Blood-Enchanted Eyes, Oblivion Seal, Shadow Weaver, Night Parade and deferred/excluded kits; Storm: Arashima, Shinrai Ou, Stormboat Willy), so a bloodline-keyed classification extension is required, not a bare element label. Non-bloodline jutsu carrying Shadow or Storm: unverified.",
-    "Resolver: 11 of the 16 supported rows carry no element and fall back to None under the current resolver; affectedElements=['Shadow'] matches only 3 rows directly and ['Storm'] only 2. Reaching the rest today would need None, which also reaches every non-elemental row on any jutsu the player casts. The tree assumes the proposed whole-kit classification.",
-    "Ally hazard (validator warns): Gate row 1 IDT (friendly fire none; raised by 01, 05) lands once at cast on every non-caster user in its radius-1 circle, so allies there take it for two rounds; the caster never does, and Gate's SELF DDT offsets nothing (§4b). Corona Palm row 0 Damage (raised by 02, 03) is a GROUND spiral of radius 4 around the caster, own tile excluded, hitting allies on its tiles.",
-    "Item gates (all supported rows): Eclipse Marrow (ZaTCUYIgRUoB2CBRo7pLY) gates Gate, Tomb, Midnight Verdict, Corona Palm, Marrow Mantle, Cataract; Godstorm Aegis (g0hPGnF9lLYauTsjxqpAZ) the six Godstorm Mantle jutsu (answers/names_item.json). Gating is uniform (no per-tag down-weighting); Eclipse Marrow alone loses Tempest's two routes, Godstorm Aegis alone keeps 2 Damage rows and 1 DDT row.",
-    "Lifesteal: the route tops out at 50%, ten points under the 60%-of-pre-shield-damage leech budget shared with vamp; vamp from the normal tree or items can saturate the cap and waste part of the +10. It needs both combatants alive and is blocked by healprevent on the caster. Pierce hits (Heavenbreaker 60, Midnight Verdict 66) feed lifesteal at full ratio: the sustain route's unlisted upside.",
-    "Afterburn: the +10 route is one application row on a single-target 40 AP cast; its value is downstream on every non-pierce hit that one enemy takes for two rounds, capped at 60% of each hit, so other Afterburn sources saturate quickly, and the kit's own pierce Verdicts never feed it. Not simulated.",
-    "Stacking: BATTLE_TAG_STACKING is true at the pin, so these modifiers stack with other potency sources (budget with a future normal-tree policy unaudited). Same-tag kit effects all apply and add (§3b): two live 40% IDG buffs add 80% of the staged base, Gate and Bulwark DDT at 42% remove 84% (70% without the tree), and the bloodline passive multiplies on top. Overlap uptime and AP were not modelled.",
+    "Classification (multi-element, director review): Shadow and Storm both sit on the kit's Damage rows. The proposal lists both signature elements as qualifying, so potency reaches matching supported tags on all Shadow and all Storm jutsu, whatever their source; choosing one element, both, or a classification extension is the director's decision. Sharing either element with other bloodlines is expected. Gate, Tempest, Wall, Bulwark and Marrow Mantle carry no Shadow or Storm row, so in-kit they qualify only through an authored jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit coverage is unverified.",
+    "Resolver: 11 of the 16 supported rows carry no element, so the current row-element resolver cannot reach them (['Shadow'] matches 3 rows directly, ['Storm'] 2); the tree depends on the proposed jutsu-classification resolver.",
+    "Ally hazard (validator warns): Gate row 1 exposure (friendly fire none; raised by Black Sun Rising and Lingering Corona) lands once at cast on every non-caster user in its radius-1 circle, so allies there take it for two rounds; the caster never does, and Gate's SELF DDT offsets nothing (§4b). Corona Palm row 0 Damage (raised by Hammer of the Heavens and Total Eclipse) is a GROUND spiral of radius 4 around the caster, own tile excluded, hitting allies on its tiles.",
+    "Equipment gates castability only: every kit jutsu needs Eclipse Marrow or Godstorm Aegis equipped to be cast, but no node lists an item as a prerequisite and no bonus is limited by one. Which keystone is worn decides which rows are castable: Eclipse Marrow alone leaves no castable Tempest row (no Afterburn or Lifesteal), Godstorm Aegis alone keeps two Damage rows and one Decrease Damage Taken row.",
+    "Lifesteal: the route tops out at 45% (+5%, the hard ceiling), fifteen points under the 60%-of-pre-shield-damage leech budget shared with vamp; vamp from the normal tree or items can still saturate it. It needs both combatants alive and is blocked by healprevent on the caster. Pierce hits (Heavenbreaker 60, Midnight Verdict 66) feed Lifesteal at full ratio.",
+    "Afterburn: the +10% route is one application row on a single-target 40 AP cast (45% at the maximum); its value is downstream on every non-pierce hit that one enemy takes for two rounds, capped at 60% of each hit, so other Afterburn sources saturate quickly, and the kit's own pierce Verdicts never feed it. Not simulated.",
+    "Stacking: BATTLE_TAG_STACKING is true at the pin, so these modifiers stack with other potency sources (budget with a future normal-tree policy unaudited). Same-tag kit effects all apply and add (§3b): two live 40% IDG buffs add 80% of the staged base, Gate and Bulwark DDT at 45% remove 90% (70% without the tree), and the bloodline passive multiplies on top. Overlap uptime and AP were not modelled.",
     "No combat simulation: non-dominance of the 14 allocations and the row-weighted totals are arithmetic over per-row additions, not evidence of equal combat strength. AoE target counts (Heart and Cataract circles, Corona spiral), the Cage stun, Tomb's buff prevention, uptime, AP and the Bulwark move row were not modelled. No adverse, hidden, mode-restricted or injected rows exist here."
   ],
   "progression": {
@@ -2717,9 +2736,9 @@
       "damage": 5,
       "increasedamagegiven": 5,
       "increasedamagetaken": 5,
-      "decreasedamagetaken": 7,
+      "decreasedamagetaken": 10,
       "afterburn": 10,
-      "lifesteal": 10
+      "lifesteal": 5
     },
     "supported_rows_in_kit": 16,
     "supported_rows_by_tag": {
@@ -2739,18 +2758,119 @@
       "lifesteal"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 2 / Godstorm Eclipse classification / forked tree",
+    "revision": "Draft 3 / Shadow + Storm classification (multi-element, director review) / forked tree (RUL-2026-10-03-005 recalibration)",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Godstorm Eclipse jutsu inherit Godstorm Eclipse potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Shadow and Storm jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 10,
+        "afterburn": 10,
+        "lifesteal": 5
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10,
+        "afterburn": 15,
+        "lifesteal": 5
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Total Eclipse",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Lingering Corona",
+          "primary_tag": "afterburn",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            0,
+            3,
+            7
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "08",
+          "name": "Pillar of Heaven",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Eater of Suns",
+          "primary_tag": "lifesteal",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {
@@ -2778,8 +2898,7 @@
         "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "lifesteal": 2
+        "decreasedamagetaken": 2
       }
     },
     {
@@ -2808,8 +2927,7 @@
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "afterburn": 3,
-        "lifesteal": 2
+        "afterburn": 3
       }
     },
     {
@@ -2823,8 +2941,7 @@
         "damage": 2,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 4,
-        "lifesteal": 2
+        "decreasedamagetaken": 5
       }
     },
     {
@@ -2839,7 +2956,7 @@
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "lifesteal": 5
+        "lifesteal": 2
       }
     },
     {
@@ -2853,8 +2970,7 @@
         "increasedamagegiven": 2,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
-        "afterburn": 10,
-        "lifesteal": 2
+        "afterburn": 10
       }
     },
     {
@@ -2867,9 +2983,8 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 4,
-        "afterburn": 3,
-        "lifesteal": 2
+        "decreasedamagetaken": 5,
+        "afterburn": 3
       }
     },
     {
@@ -2884,7 +2999,7 @@
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 3,
-        "lifesteal": 5
+        "lifesteal": 2
       }
     },
     {
@@ -2897,8 +3012,7 @@
       "bonuses": {
         "increasedamagegiven": 5,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 7,
-        "lifesteal": 2
+        "decreasedamagetaken": 10
       }
     },
     {
@@ -2911,8 +3025,8 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 4,
-        "lifesteal": 5
+        "decreasedamagetaken": 5,
+        "lifesteal": 2
       }
     },
     {
@@ -2927,7 +3041,7 @@
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 2,
-        "lifesteal": 10
+        "lifesteal": 5
       }
     },
     {
@@ -2939,8 +3053,8 @@
       ],
       "bonuses": {
         "increasedamagegiven": 3,
-        "decreasedamagetaken": 7,
-        "lifesteal": 5
+        "decreasedamagetaken": 10,
+        "lifesteal": 2
       }
     },
     {
@@ -2952,9 +3066,9 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "decreasedamagetaken": 4,
+        "decreasedamagetaken": 5,
         "afterburn": 2,
-        "lifesteal": 10
+        "lifesteal": 5
       }
     }
   ]

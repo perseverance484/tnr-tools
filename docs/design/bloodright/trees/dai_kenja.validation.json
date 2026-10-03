@@ -9,23 +9,38 @@
     "statClassification": "Ninjutsu",
     "traits": null
   },
-  "revision": "Draft 4 / Dai Kenja classification / forked tree",
+  "revision": "Draft 5 / Dai Kenja classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [
     "node 09 (Cracked Vessel) also amplifies adverse rows: Overloaded Impact#2",
     "node 10 (Shattered Vessel) also amplifies adverse rows: Overloaded Impact#2",
+    "classification status: requires classification extension (director decision)",
     "ally-hazard area rows amplified (friendly fire none/ALL): Chakra Cannon#1"
   ],
   "classification": {
     "potency_classification": "Dai Kenja",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Dai Kenja",
+    "label_kind": "classification extension",
+    "classification_status": "requires classification extension",
+    "qualifying_elements": [],
     "display_element": null,
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Dai Kenja jutsu",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Dai Kenja-classified jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Chakra Cannon",
+      "Chakra Overload",
+      "Overloaded Impact"
+    ],
+    "shared_element_bloodlines": [],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
     "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": []
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver_and_classification_extension"
   },
   "examples": [
     {
@@ -39,8 +54,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 5,
+        "damage": 5,
+        "increasedamagegiven": 4,
         "decreasedamagegiven": 2
       },
       "advanced_arts": [
@@ -76,8 +91,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 3,
-        "decreasedamagegiven": 8
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10
       },
       "advanced_arts": [
         "Edict of Silence"
@@ -94,7 +109,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "decreasedamagegiven": 7,
+        "decreasedamagegiven": 8,
         "increasedamagetaken": 5
       },
       "advanced_arts": [
@@ -125,9 +140,9 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
+      "damage": 5,
       "increasedamagegiven": 10,
-      "decreasedamagegiven": 8,
+      "decreasedamagegiven": 10,
       "increasedamagetaken": 5
     },
     "supported_rows_in_kit": 6,
@@ -150,8 +165,8 @@
         "name": "Brimming Cup",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Overloaded Impact"
         ],
@@ -164,8 +179,8 @@
         "name": "Chakra Surcharge",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Overloaded Impact"
         ],
@@ -206,8 +221,8 @@
         "name": "Boundless Reservoir",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
-        "row_weighted_total": 4,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
           "Overloaded Impact"
         ],
@@ -235,8 +250,8 @@
         "name": "Smothered Current",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Chakra Cannon",
           "Chakra Overload"
@@ -250,8 +265,8 @@
         "name": "Edict of Silence",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
-        "row_weighted_total": 8,
+        "raw_flat_total": 5,
+        "row_weighted_total": 10,
         "covered_jutsu": [
           "Chakra Cannon",
           "Chakra Overload"
@@ -314,11 +329,11 @@
         "10"
       ],
       "bonuses": {
-        "decreasedamagegiven": 7,
+        "decreasedamagegiven": 8,
         "increasedamagetaken": 5
       },
-      "raw_flat_total": 12,
-      "row_weighted_total": 24,
+      "raw_flat_total": 13,
+      "row_weighted_total": 26,
       "advanced_arts": [
         "10"
       ],
@@ -329,8 +344,8 @@
       "name": "Brimming Cup",
       "category": "Foundation",
       "depth": 1,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
       "covered_jutsu": [
         "Overloaded Impact"
       ],
@@ -347,11 +362,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 6,
-          "increasedamagegiven": 8
+          "damage": 5,
+          "increasedamagegiven": 7
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [
           "03"
         ],
@@ -365,12 +380,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 6,
-          "increasedamagegiven": 5,
+          "damage": 5,
+          "increasedamagegiven": 4,
           "decreasedamagegiven": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 15,
+        "raw_flat_total": 11,
+        "row_weighted_total": 13,
         "advanced_arts": [
           "03"
         ],
@@ -384,11 +399,11 @@
           "05"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 10
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 13,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [
           "05"
         ],
@@ -402,12 +417,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 3,
-          "increasedamagegiven": 6,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 13,
+        "raw_flat_total": 9,
+        "row_weighted_total": 11,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -419,11 +434,11 @@
           "07"
         ],
         "bonuses": {
-          "damage": 3,
-          "increasedamagegiven": 3,
-          "decreasedamagegiven": 4
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 5
         },
-        "raw_flat_total": 10,
+        "raw_flat_total": 9,
         "row_weighted_total": 14,
         "advanced_arts": [],
         "non_dominated": true
@@ -436,13 +451,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 3,
-          "increasedamagegiven": 3,
+          "damage": 2,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 14,
+        "raw_flat_total": 8,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -472,11 +487,11 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 6,
-          "decreasedamagegiven": 4
+          "increasedamagegiven": 5,
+          "decreasedamagegiven": 5
         },
         "raw_flat_total": 10,
-        "row_weighted_total": 14,
+        "row_weighted_total": 15,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -488,12 +503,12 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 6,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 14,
+        "raw_flat_total": 9,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -505,11 +520,11 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 3,
-          "decreasedamagegiven": 8
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 10
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 19,
+        "raw_flat_total": 12,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "08"
         ],
@@ -523,12 +538,12 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 3,
-          "decreasedamagegiven": 4,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 5,
           "increasedamagetaken": 2
         },
         "raw_flat_total": 9,
-        "row_weighted_total": 15,
+        "row_weighted_total": 16,
         "advanced_arts": [],
         "non_dominated": false
       },
@@ -540,12 +555,12 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
           "increasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 23,
+        "raw_flat_total": 12,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "10"
         ],
@@ -559,11 +574,11 @@
           "09"
         ],
         "bonuses": {
-          "decreasedamagegiven": 8,
+          "decreasedamagegiven": 10,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 20,
+        "raw_flat_total": 12,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "08"
         ],
@@ -577,11 +592,11 @@
           "10"
         ],
         "bonuses": {
-          "decreasedamagegiven": 7,
+          "decreasedamagegiven": 8,
           "increasedamagetaken": 5
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 24,
+        "raw_flat_total": 13,
+        "row_weighted_total": 26,
         "advanced_arts": [
           "10"
         ],
