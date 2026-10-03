@@ -43,7 +43,9 @@ Reset/refund cost, BP retention after a bloodline swap, acquisition pacing and s
 
 Only existing supported effect rows are enhanced. A node selects the bloodline's potency element/classification and a supported tag, or all supported tags if explicitly justified. Jutsu names on a card describe the resulting coverage; they are **not** individual-jutsu selectors.
 
-All bonuses are static. A 35% tag with +5% becomes 40%, not 36.75%. The player-facing symbol is `%`; explain static addition in the notes. Damage uses raw **Damage power**, not a percentage of final damage. A 40-power attack with +5 Damage power becomes 45 power.
+All bonuses are static. A 35% tag with +5% becomes 40%, not 36.75%. The player-facing symbol is `%`; explain static addition in the notes. Damage uses raw **Damage power**, not a percentage of final damage. Use this player-facing example: **A 40 EP jutsu with +5 Damage becomes 45EP.**
+
+Afterburn is an **enemy debuff**, not a damage instance. For its existing round duration, damage you deal causes extra Afterburn damage at the debuff's percentage. Afterburn potency increases that percentage; it does not add a standalone hit or extend the duration. Count both the application row and the subsequent damage instances it can enhance; verify proc interactions in source rather than assuming recursion or exclusions.
 
 The potency effect therefore uses static arithmetic even when the modified tag is percentage-valued. Preserve the distinction between the modifier's calculation mode and the affected tag's calculation mode. Level-scaled baseline power must be evaluated at the declared jutsu level before applying the flat increase; display percentage caps where relevant.
 
@@ -76,8 +78,8 @@ All ten nodes cost 1 BP. All bonuses affect existing supported tags of Scorch-cl
 | 01 | Dawnheart | Foundation | None | +2% Increase Damage Given (self buff); +2% Increase Damage Taken (enemy debuff) |
 | 02 | Crown of Cinders | Hidden Art | 01 | +2 Damage power (damage to enemy) |
 | 03 | Solar Cataclysm | Advanced Art | 02 | +3 Damage power (damage to enemy) |
-| 04 | Emberwake | Hidden Art | 01 | +3% Afterburn (damage to enemy) |
-| 05 | Eternal Noon | Advanced Art | 04 | +7% Afterburn (damage); +3% Increase Damage Taken (enemy debuff); +3% Increase Damage Given (self buff) |
+| 04 | Emberwake | Hidden Art | 01 | +3% Afterburn (enemy debuff) |
+| 05 | Eternal Noon | Advanced Art | 04 | +7% Afterburn (enemy debuff); +3% Increase Damage Taken (enemy debuff); +3% Increase Damage Given (self buff) |
 | 06 | Sunward Oath | Foundation | None | +2% Decrease Damage Taken (self buff); +2% Decrease Damage Given (enemy debuff) |
 | 07 | Golden Mantle | Hidden Art | 06 | +3% Decrease Damage Taken (self buff) |
 | 08 | Sovereign Sun | Advanced Art | 07 | +5% Decrease Damage Taken (self buff); +3% Increase Damage Given (self buff) |
@@ -92,7 +94,7 @@ The supplied content snapshot is dated 2026-10-01, with baseline values evaluate
 
 | Jutsu | Supported rows at level 25 | Coverage notes |
 |---|---|---|
-| Solar Reverb | Damage 40; Afterburn 35% | Damage nodes affect this and two other attacks; Afterburn nodes affect this row |
+| Solar Reverb | Damage 40; Afterburn 35% | Damage nodes affect this and two other attacks; Afterburn nodes strengthen its enemy debuff, which can enhance multiple subsequent damage instances |
 | Incandescent Nova | Damage 50 | Its Wound 25% is unchanged |
 | Stellar Inferno | Damage 40; Increase Damage Taken 35% | Exposure is applied to the enemy |
 | Celestial Ignition | Increase Damage Given 35% twice; Decrease Damage Taken 35% | Both distinct damage-given rows gain potency; retain their original stat/element filters |
@@ -102,7 +104,7 @@ All five records have cooldown 7 in the snapshot. The three damage actions cost 
 
 ### Complete four-purchase examples
 
-| Build | Purchases | Damage power | Self IDG | Enemy IDT | Afterburn | Self DDT | Enemy DDG |
+| Build | Purchases | Damage power | Self IDG | Enemy IDT | Enemy Afterburn | Self DDT | Enemy DDG |
 |---|---|---:|---:|---:|---:|---:|---:|
 | Burst | 01, 02, 03, 06 | +5 | +2% | +2% | — | +2% | +2% |
 | Burn pressure | 01, 04, 05, 06 | — | +5% | +5% | +10% | +2% | +2% |
@@ -119,7 +121,7 @@ Use the same access budget and opportunity-cost rules, not the same raw numbers 
 
 1. Identify the baseline kit, role, offense scaling, limitations and actual supported rows. Do not invent a missing heal/reflect/burn tag to produce a familiar archetype.
 2. Propose a primary emphasis, a secondary emphasis and lesser support. The earlier 10/5/3 idea is a design heuristic, not an entitlement to +10 Damage or every tertiary stat. Taiyo Kami's reviewed result is the stronger reference.
-3. Count affected jutsu, effect rows and available casts, including repeated buffs and reachable injected actions. Damage affecting three attacks can justify a smaller number than Afterburn affecting one row. Duration, action cost, cooldown, range, target restrictions, items and mode legality change realized value.
+3. Count affected jutsu, effect rows and available casts, including repeated buffs and reachable injected actions. Separate application coverage from downstream coverage: Afterburn may be applied by one jutsu yet enhance multiple damage instances during its duration. Do not infer its value from the number of application rows alone. Duration, action cost, cooldown, range, target restrictions, items and mode legality change realized value.
 4. Calculate exact before/after powers at the same declared jutsu level. Distinguish raw powers, percentage-valued tags, and their later combat multiplication. Consider caps and loss of marginal value near 100%.
 5. Enumerate every affordable prerequisite-closed allocation, including hybrids with no Advanced Art. Find the strongest unadvertised combinations and the worst-value purchases.
 6. Compare the added benefit against the unmodified bloodline and peer trees. Equalize meaningful marginal opportunity without pretending different bloodline ranks and native kits were equally strong beforehand.
@@ -133,7 +135,9 @@ The initial target is 2–3 genuinely distinct full-budget options for each appr
 
 Every node shows a unique thematic name, tier, 1 BP cost, exact supported tag names, static values, eligibility scope and prerequisites. Describe the affected jutsu fully in the accompanying dossier. Only abbreviate in tables with a visible key.
 
-Use separate color **and** text/icon signals for self buffs, ally support when applicable, enemy debuffs and damage. Taiyo Kami uses teal self buffs, rose enemy debuffs and amber damage. Derive the recipient from the actual effect target; do not globally assume every occurrence of a tag targets the same side. Increase Damage Taken in Taiyo Kami is an enemy debuff.
+Use a shared text/icon legend and matching effect-text colors: Taiyo Kami uses teal self buffs, rose enemy debuffs and amber direct damage. **Afterburn and Increase Damage Taken are enemy debuffs.** Derive recipients from the actual effect targets; do not globally assume every occurrence of a tag targets the same side. Do not repeat Self Buff, Enemy Debuff or Damage role labels on the individual cards. Remove visible skill numbers from card titles and prerequisite labels; retain stable internal IDs in JSON and audit tables.
+
+Poster notes should explain static addition and use the EP example above. Omit the redundant notes “Existing supported tags only,” “Original scope preserved” and “Damage bonuses add power.” This is a presentation cleanup, not a change to the technical eligibility or combat-scope rules.
 
 Use clear top-down forks and visually distinct Advanced Arts. Deterministic SVGs are the source for accurate trees; themed generated posters are later presentation work. Match the approved hybrid's readability if art is eventually requested: dark calm cards, selective bright theme art, no ornate clutter over text. No joke names such as Kaboom in serious trees.
 
