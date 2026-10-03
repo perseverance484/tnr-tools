@@ -24,20 +24,20 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
-| Wind Step | 0 | move | static | 1 | 1 + 0/lvl | — | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
-| Wind Step | 1 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Wind | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
-| Wind Step | 2 | decreasedamagegiven | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
-| Tempest Shroud | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Wind | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
-| Tempest Shroud | 1 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |
-| Tempest Shroud | 2 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  | **yes** |
-| Cutting Tempest | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Wind | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
-| Cutting Tempest | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Wind | — | ALL | self | SELF BUFF | ✓ |  |  |
-| Soaring Fujin | 0 | increasedamagegiven | percentage | 21.25% | 15 + 0.25/lvl | 2 | Wind | Highest / Speed, Strength, Intelligence, Willpower | ALL | self | SELF BUFF | ✓ |  |  |
-| Soaring Fujin | 1 | decreasepoolcost | percentage | 18.75% | 15 + 0.15/lvl | 3 | None | — | ALL | self | SELF BUFF |  |  |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard | Enemy hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|---|
+| Wind Step | 0 | move | static | 1 | 1 + 0/lvl | — | None | — | none (=ALL) | self | SELF BUFF |  |  |  | **yes** |
+| Wind Step | 1 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Wind | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |  |
+| Wind Step | 2 | decreasedamagegiven | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |  |
+| Tempest Shroud | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Wind | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |  |
+| Tempest Shroud | 1 | decreasedamagetaken | percentage | 30% | 20 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |  |
+| Tempest Shroud | 2 | afterburn | percentage | 35% | 25 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | none (=ALL) | enemy | ENEMY DEBUFF | ✓ |  | **yes** |  |
+| Cutting Tempest | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Wind | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |  |
+| Cutting Tempest | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Wind | — | ALL | self | SELF BUFF | ✓ |  |  |  |
+| Soaring Fujin | 0 | increasedamagegiven | percentage | 21.25% | 15 + 0.25/lvl | 2 | Wind | Highest / Speed, Strength, Intelligence, Willpower | ALL | self | SELF BUFF | ✓ |  |  |  |
+| Soaring Fujin | 1 | decreasepoolcost | percentage | 18.75% | 15 + 0.15/lvl | 3 | None | — | ALL | self | SELF BUFF |  |  |  |  |
 
-Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful INHERIT rows delivered by an area method or ground target with friendly fire none/ALL: allies inside the area also receive them (checkFriendlyFire treats an absent value as ALL); on OTHER_USER-target area jutsu the caster is never a target, on GROUND/EMPTY_GROUND spawns the ground effect is re-applied each round to whoever stands on the tiles, the caster included. `Enemy hazard` marks positive INHERIT rows on GROUND/EMPTY_GROUND spawns with friendly fire none/ALL: enemies standing on the tiles receive the buff too. SELF-target rows on ground actions are realized on the caster at cast time (actions.ts 980-1004), not through the tiles.
 
 ## Supported-row summary by tag
 

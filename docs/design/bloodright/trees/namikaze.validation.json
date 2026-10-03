@@ -1,0 +1,812 @@
+{
+  "kind": "bloodright_tree_validation",
+  "slug": "namikaze",
+  "bloodline": {
+    "id": "0Uc2Nfgg08kqGm78QAwZ4",
+    "review_id": "BR-048",
+    "name": "Namikaze",
+    "rank": "C",
+    "statClassification": "Highest",
+    "traits": null
+  },
+  "revision": "Draft 1 / Namikaze classification / forked tree",
+  "structure_errors": [],
+  "warnings": [
+    "ally-hazard area rows amplified (friendly fire none/ALL): Tempest Shroud#2"
+  ],
+  "classification": {
+    "potency_classification": "Namikaze",
+    "label_kind": "bloodline-keyed extension",
+    "bloodline": "Namikaze",
+    "display_element": "Wind",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Namikaze jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
+    "census_collisions": [
+      "Aerathiel",
+      "Architect of the Hollow Script",
+      "Blissoo",
+      "Blue Blade Eyes",
+      "Blue Edge Eyes",
+      "Crust Almighty",
+      "Eyes of the Forsaken Heir",
+      "Eyes of the Forsaken King",
+      "First Flame",
+      "Houkyuken",
+      "Hyouga Yui",
+      "Itojinsei",
+      "Itzehecayan",
+      "Kyuko-sei",
+      "Manhattan Project",
+      "Sands of Time",
+      "Shakunetsu Sakura",
+      "Shiroi Youso",
+      "Solar Soul",
+      "Taiyo Kami",
+      "Teno Yuki",
+      "Testing Dummy 2.0",
+      "The Abbynomaly",
+      "Timeforged Enigma",
+      "Traveling Sun Praiser",
+      "True North",
+      "Youso Shiroi",
+      "Yūhi Ryūjin (夕陽竜神)"
+    ]
+  },
+  "examples": [
+    {
+      "name": "Cleaving Cyclone",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 2
+      },
+      "advanced_arts": [
+        "Cleaving Cyclone"
+      ]
+    },
+    {
+      "name": "Fanning the Flames",
+      "archetype": "Burn pressure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 10
+      },
+      "advanced_arts": [
+        "Fanning the Flames"
+      ]
+    },
+    {
+      "name": "Heart of the Tempest",
+      "archetype": "Fortress",
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "01"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      },
+      "advanced_arts": [
+        "Heart of the Tempest"
+      ]
+    },
+    {
+      "name": "Dead Calm",
+      "archetype": "Suppression",
+      "ids": [
+        "06",
+        "09",
+        "10",
+        "07"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 1,
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 5
+      },
+      "advanced_arts": [
+        "Dead Calm"
+      ]
+    }
+  ],
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "decreasedamagegiven": 10,
+      "decreasedamagetaken": 10,
+      "afterburn": 10
+    },
+    "supported_rows_in_kit": 8,
+    "supported_rows_by_tag": {
+      "afterburn": 1,
+      "damage": 3,
+      "decreasedamagegiven": 1,
+      "decreasedamagetaken": 1,
+      "increasedamagegiven": 2
+    },
+    "tags_targeted_by_tree": [
+      "afterburn",
+      "damage",
+      "decreasedamagegiven",
+      "decreasedamagetaken",
+      "increasedamagegiven"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "node_values": [
+      {
+        "id": "01",
+        "name": "Wind at the Back",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Cutting Tempest",
+          "Soaring Fujin"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "02",
+        "name": "Razor Crosswind",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Cutting Tempest",
+          "Tempest Shroud",
+          "Wind Step"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "Cleaving Cyclone",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 3,
+        "row_weighted_total": 9,
+        "covered_jutsu": [
+          "Cutting Tempest",
+          "Tempest Shroud",
+          "Wind Step"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "04",
+        "name": "Searing Squall",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Tempest Shroud"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "05",
+        "name": "Fanning the Flames",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 9,
+        "row_weighted_total": 11,
+        "covered_jutsu": [
+          "Cutting Tempest",
+          "Soaring Fujin",
+          "Tempest Shroud"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "06",
+        "name": "Eye of the Storm",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 4,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Tempest Shroud",
+          "Wind Step"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "07",
+        "name": "Windward Guard",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Tempest Shroud"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "08",
+        "name": "Heart of the Tempest",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 7,
+        "row_weighted_total": 9,
+        "covered_jutsu": [
+          "Cutting Tempest",
+          "Soaring Fujin",
+          "Tempest Shroud"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "09",
+        "name": "Smothering Headwind",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Wind Step"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "10",
+        "name": "Dead Calm",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 6,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Cutting Tempest",
+          "Tempest Shroud",
+          "Wind Step"
+        ],
+        "covered_rows": 4,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      }
+    ],
+    "strongest_full_build_by_row_weight": {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "afterburn": 10
+      },
+      "raw_flat_total": 17,
+      "row_weighted_total": 26,
+      "advanced_arts": [
+        "05"
+      ],
+      "non_dominated": true
+    },
+    "lowest_value_node_by_row_weight": {
+      "id": "04",
+      "name": "Searing Squall",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 3,
+      "row_weighted_total": 3,
+      "covered_jutsu": [
+        "Tempest Shroud"
+      ],
+      "covered_rows": 1,
+      "adverse_rows_amplified": [],
+      "tags_without_rows": []
+    },
+    "full_builds": [
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 3,
+          "afterburn": 3
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 24,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 25,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 5,
+          "afterburn": 10
+        },
+        "raw_flat_total": 17,
+        "row_weighted_total": 26,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 2,
+          "afterburn": 3
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 19,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 19,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 5,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 19,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 2,
+          "afterburn": 10
+        },
+        "raw_flat_total": 19,
+        "row_weighted_total": 24,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 5,
+          "afterburn": 3
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 16,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 5,
+          "decreasedamagetaken": 2,
+          "afterburn": 3
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 16,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 10
+        },
+        "raw_flat_total": 17,
+        "row_weighted_total": 22,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 5,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 16,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increasedamagegiven": 3,
+          "decreasedamagegiven": 10,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 16,
+        "row_weighted_total": 21,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 5,
+          "decreasedamagetaken": 10
+        },
+        "raw_flat_total": 17,
+        "row_weighted_total": 19,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "decreasedamagegiven": 10,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 16,
+        "row_weighted_total": 18,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      }
+    ],
+    "legal_allocations": {
+      "0": [
+        []
+      ],
+      "1": [
+        [
+          "01"
+        ],
+        [
+          "06"
+        ]
+      ],
+      "2": [
+        [
+          "01",
+          "02"
+        ],
+        [
+          "01",
+          "04"
+        ],
+        [
+          "01",
+          "06"
+        ],
+        [
+          "06",
+          "07"
+        ],
+        [
+          "06",
+          "09"
+        ]
+      ],
+      "3": [
+        [
+          "01",
+          "02",
+          "03"
+        ],
+        [
+          "01",
+          "02",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "06",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "06",
+          "09",
+          "10"
+        ]
+      ],
+      "4": [
+        [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "09",
+          "10"
+        ]
+      ]
+    }
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "combat_simulation_performed": false,
+  "live_mutations": 0
+}

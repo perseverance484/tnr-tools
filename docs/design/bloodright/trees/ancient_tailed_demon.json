@@ -1,0 +1,1154 @@
+{
+  "title": "Ancient Tailed Demon — Rites of the Sealed",
+  "revision": "Draft 1 / Ancient Tailed Demon classification / forked tree",
+  "bloodline": {
+    "id": "Au5rBnnukEqUv_lRrk1yO",
+    "review_id": "BR-004",
+    "name": "Ancient Tailed Demon",
+    "rank": "B",
+    "statClassification": "Highest",
+    "traits": "Sustained Damage"
+  },
+  "classification": {
+    "potency_classification": "Ancient Tailed Demon",
+    "label_kind": "bloodline-keyed extension",
+    "bloodline": "Ancient Tailed Demon",
+    "display_element": null,
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Ancient Tailed Demon jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
+    "census_collisions": []
+  },
+  "emphasis": {
+    "primary": "Enemy pressure — Afterburn and Increase Damage Taken on Demonic Embrace",
+    "secondary": "Sustained damage — Increase Damage Given on Demonic Vitae; burst — Damage on Ancient Demon Roar",
+    "tertiary": "Defense — Decrease Damage Taken on Demonic Vitae",
+    "rationale": "The kit is three casts with one supported row per tag: Demonic Embrace carries the two enemy debuffs (Afterburn 35%, Increase Damage Taken 35%, 2 rounds, 40 AP), Demonic Vitae the two self buffs (Increase Damage Given 35% for 3 rounds, Decrease Damage Taken 25% for 2 rounds, 40 AP) and Ancient Demon Roar the only damage (45 power area hit, 60 AP). The Sustained Damage trait and the bloodline's own damage-given passive make pressure and empowerment the natural emphasis; Roar burst is a real but single-cast alternative; mitigation is tertiary because its row is the weakest (25%) and shortest (2 rounds) in the kit."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Demon's Grasp",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "A claw closes around the prey, and what it touches begins to smoulder.",
+      "coverage_note": "Demonic Embrace only: Afterburn 35→37% and exposure 35→37% on one target for 2 rounds. 40 AP, range 4, CD 7. No gates.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ancient Tailed Demon",
+      "scope": "Ancient Tailed Demon jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Demonic Embrace"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "02",
+      "name": "Rending Bellow",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "The roar that cracked the old mountains has not grown quieter in its cage.",
+      "coverage_note": "Ancient Demon Roar damage only: 45→48 power at jutsu level 25 (one row, area spawn, 60 AP, range 4, CD 7). Wound row unchanged.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ancient Tailed Demon",
+      "scope": "Ancient Tailed Demon jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Ancient Demon Roar"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "03",
+      "name": "Howl of Annihilation",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "One breath, and the field remembers why the ancients sealed it away.",
+      "coverage_note": "Roar 48→51 power (the +6 single-row guardrail); Demonic Embrace exposure +2 (39% with Demon's Grasp) so the follow-up lands harder.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ancient Tailed Demon",
+      "scope": "Ancient Tailed Demon jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Ancient Demon Roar",
+          "Demonic Embrace"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "04",
+      "name": "Festering Brand",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Flesh the demon marks does not stop burning when the claw lets go.",
+      "coverage_note": "Demonic Embrace Afterburn only: 37→40% with Demon's Grasp; adds to every non-pierce hit the target takes for 2 rounds.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ancient Tailed Demon",
+      "scope": "Ancient Tailed Demon jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Demonic Embrace"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "05",
+      "name": "Consuming Malice",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Hatred older than the villages, poured into a single victim.",
+      "coverage_note": "Demonic Embrace: Afterburn 40→45% and exposure 37→40% on the route (both rows, one target, 2 rounds). Below the 60% per-hit cap.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ancient Tailed Demon",
+      "scope": "Ancient Tailed Demon jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Demonic Embrace"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "06",
+      "name": "Demon's Marrow",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "The blood runs black and hot, and the host grows harder to kill.",
+      "coverage_note": "Demonic Vitae only: damage given 35→37% (3 rounds), damage taken 25→27% (2 rounds), self. 40 AP, CD 7. Covers your every hit.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ancient Tailed Demon",
+      "scope": "Ancient Tailed Demon jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Demonic Vitae"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "07",
+      "name": "Scarred Hide",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "A thousand years of wounds, and every one of them closed over.",
+      "coverage_note": "Demonic Vitae Decrease Damage Taken only: 27→30% for 2 rounds (non-pierce hits of any stat type). One self cast per 7 rounds.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ancient Tailed Demon",
+      "scope": "Ancient Tailed Demon jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Demonic Vitae"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "08",
+      "name": "Unyielding Husk",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "What the host cannot dodge, the demon simply refuses to feel.",
+      "coverage_note": "Demonic Vitae: damage taken 30→35% (the +10 route) and damage given +2 (39% with Demon's Marrow). Pierce still passes through.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ancient Tailed Demon",
+      "scope": "Ancient Tailed Demon jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Demonic Vitae"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "09",
+      "name": "Boiling Ichor",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Let a little more of it loose, and every strike carries the heat.",
+      "coverage_note": "Demonic Vitae Increase Damage Given only: 37→40% for 3 rounds, on all your damage (jutsu, weapons, basics) while it lasts.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ancient Tailed Demon",
+      "scope": "Ancient Tailed Demon jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Demonic Vitae"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "10",
+      "name": "Primordial Rampage",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "09"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "The seal holds, barely. Everything within reach learns what that costs.",
+      "coverage_note": "Demonic Vitae: damage given 40→45% (the +10 route, 3 rounds) and damage taken +2 (29% with Demon's Marrow). One cast per 7 rounds.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ancient Tailed Demon",
+      "scope": "Ancient Tailed Demon jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Demonic Vitae"
+        ],
+        "effect_rows": 2
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Howl of Annihilation",
+      "archetype": "Roar burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "The only way to +6 Damage power: Ancient Demon Roar 45→51 at jutsu level 25 on every enemy in its circle, with Demonic Embrace's exposure at 39% (Demon's Grasp +2, Howl +2) and Afterburn at 37% to set the roar up. Demon's Marrow is the fourth purchase so Demonic Vitae gives 37% damage and 27% mitigation around the cast; Festering Brand (Afterburn 40%) is the all-offence alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 4,
+        "decreasedamagetaken": 2,
+        "afterburn": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Demonic Vitae",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demonic Vitae",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 2,
+          "final": 27.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demonic Embrace",
+          "row": 0,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demonic Embrace",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ancient Demon Roar",
+          "row": 0,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ancient Demon Roar",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 6,
+          "final": 51.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Howl of Annihilation"
+      ]
+    },
+    {
+      "name": "Consuming Malice",
+      "archetype": "Burn pressure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "rationale": "Demonic Embrace as the signature cast: Afterburn 45% and exposure 40% on one target for 2 rounds, so every non-pierce hit it takes from the kit, normal jutsu, weapons and allies is amplified twice (the +10 Afterburn ceiling; IDT +5, under Taiyo Kami's +7). Roar stays at 45 power. Demon's Marrow adds Vitae 37%/27% as the fourth purchase; Rending Bellow (Roar 48) is the alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Demonic Vitae",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demonic Vitae",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 2,
+          "final": 27.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demonic Embrace",
+          "row": 0,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demonic Embrace",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ancient Demon Roar",
+          "row": 0,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ancient Demon Roar",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Consuming Malice"
+      ]
+    },
+    {
+      "name": "Unyielding Husk",
+      "archetype": "Fortified",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "rationale": "Demonic Vitae's mitigation reaches 35% for 2 rounds (the +10 route; the kit's only answer to the bloodline's own 5% damage-taken passive) with its damage buff at 39%. Demon's Grasp is the fourth purchase (Embrace 37%/37%); Boiling Ichor instead gives Vitae 42% damage with no Embrace gain. Fortified is never the best burst: Roar stays at 45.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10,
+        "afterburn": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Demonic Vitae",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demonic Vitae",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 10,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demonic Embrace",
+          "row": 0,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demonic Embrace",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ancient Demon Roar",
+          "row": 0,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ancient Demon Roar",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Unyielding Husk"
+      ]
+    },
+    {
+      "name": "Primordial Rampage",
+      "archetype": "Empowered",
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "rationale": "The sustained-damage build: Demonic Vitae's Increase Damage Given reaches 45% for 3 of every 7 rounds on all the caster's damage (the +10 route), with mitigation at 29%. Demon's Grasp adds Embrace 37%/37% so the empowered window has an exposed target; Scarred Hide (Vitae 32% mitigation) is the all-Vitae alternative (06,07,09,10).",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 4,
+        "afterburn": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Demonic Vitae",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demonic Vitae",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 4,
+          "final": 29.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demonic Embrace",
+          "row": 0,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demonic Embrace",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ancient Demon Roar",
+          "row": 0,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ancient Demon Roar",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Primordial Rampage"
+      ]
+    }
+  ],
+  "narrow_kit_exception": null,
+  "design_notes": [
+    "Node split: the two roots follow the two support casts. Demon's Grasp (enemy side) raises both Demonic Embrace rows and forks into Rending Bellow → Howl of Annihilation (Roar damage) and Festering Brand → Consuming Malice (Afterburn pressure). Demon's Marrow (self side) raises both Demonic Vitae rows and forks into Scarred Hide → Unyielding Husk (mitigation) and Boiling Ichor → Primordial Rampage (damage given). 2/4/4; every capstone is 3 BP deep; any two capstones cost 5 (shared root) or 6 BP.",
+    "Ten nodes on five rows is sustainable because every supported tag is a single, ungated, always-castable row and the four routes sit on four different tags (Damage, Afterburn, DDT, IDG); no route duplicates another and none breaches a guardrail. IDT is the exception: it shares Demonic Embrace with Afterburn and amplifies the same hits, so a separate IDT route would be a second pressure route. It is held to the Foundation (+2) plus capstone secondaries (+2 Howl, +3 Malice), maximum +5 in a build.",
+    "Flats scale by coverage: every tag reaches one row, so route maxima sit at the single-row guardrails: Damage +6 (Taiyo Kami: +5 over 3 rows; here 45→51 on one 60 AP area hit), Afterburn +10 (35→45%), DDT +10 (25→35%), IDG +10 (35→45%). Hidden Arts are +3 single-row commitments; capstones carry +5 primary and a +2 secondary that stays below the sibling Hidden Art's +3 on the same tag, so two-Hidden hybrids (e.g. 01,06,07,09) stay non-dominated. Strongest build by row weight: 19 (Taiyo 31).",
+    "Interaction with the kit: the Vitae IDG row lists all four stat types plus Highest, and the DDT, Afterburn and IDT rows all four stat types, none with an element, so each already matches every non-pierce hit of any stat type (SOURCE_MECHANICS §3); the nodes raise percentages, not reach. The bloodline's own IDG passive (20% + 0.15/lvl, bloodline-sourced, multiplicative) then scales the enhanced Roar; its 5% IDT passive is a standing self-weakness that only the Scarred Hide route offsets.",
+    "Delivery and uptime: all three jutsu have cooldown 7. Demonic Vitae (SELF, 40 AP) gives 3 rounds of IDG but only 2 of DDT, so the mitigation routes buy a shorter window than the damage routes. Demonic Embrace (single target, range 4, 40 AP) lasts 2 rounds on one enemy. Ancient Demon Roar (AOE_CIRCLE_SPAWN, range 4, 60 AP) is the kit's only damage; its damage row has friendly fire ENEMIES, its unsupported Wound row has friendly fire none (ally hazard, unchanged by any node).",
+    "Fourth-purchase choices: every capstone route is 3 BP, so the fourth purchase is normally the other Foundation (the four examples) or a sibling Hidden Art (01,02,03,04 adds Afterburn 40%; 01,04,05,02 adds Roar 48; 06,07,08,09 and 06,07,09,10 are all-Vitae with no Embrace gain). Fourteen legal full builds exist; the tooling checks their non-dominance arithmetically only."
+  ],
+  "risks": [
+    "Classification: no element isolates this kit (every row is element-less). The tree requires the bloodline-keyed classification extension; under the current resolver a modifier would need affectedElements including None, which reaches every non-elemental row on any jutsu the player casts. Whether NORMAL/SPECIAL/EVENT jutsu could collide is unverified (no non-bloodline catalog in the repository).",
+    "Afterburn at 45% on the pressure route: it adds floor(hit × 45%) to every non-pierce hit the target takes for 2 rounds from any source, capped cumulatively at 60% of each hit, so it saturates when another Afterburn source (main tree, items, allies) is also on the target. Downstream value was not simulated; it scales with how many hits land in the window, not with the one application row.",
+    "Broad exposure and leakage: Demonic Embrace's IDT row and Demonic Vitae's IDG row have no element and list all stat types, so the raised percentages apply to the caster's and allies' normal jutsu, weapons and basic attacks too, not only bloodline jutsu. This is the rows' existing reach; potency widens the number, not the scope. BATTLE_TAG_STACKING is on, so they stack with other sources.",
+    "Pierce: IDG, IDT and DDT do not modify pierce hits and Afterburn skips them, so the whole tree is blind to pierce damage. Only Rending Bellow / Howl of Annihilation (raw Roar power) is unaffected by that.",
+    "Value decisions (user-owned): IDG +10 on a 3-round all-damage self buff (Boiling Ichor +3, Primordial Rampage +5) sits at the percentage guardrail; +8 (3/3) is the fallback if the Empowered build proves strongest in play. Damage +6 on one area hit is at the Damage guardrail; +5 (2/3) is the Taiyo-shaped fallback.",
+    "Ally hazard: Ancient Demon Roar's Wound row (35%, friendly fire none) lands on allies and the caster inside the circle. It is unsupported and no node touches it, but the Roar route encourages casting Roar more, so the hazard is used more often. No supported row in the kit is an ally hazard.",
+    "Ranked modes: skill-tree and bloodline effects are skipped in RANKED_PVP and RANKED_SPARRING at the pin (combat.ts 3053–3078), so no node does anything there.",
+    "No combat simulation. Non-dominance is arithmetic on per-tag flats; main-tree effects, equipment, AP economy, actual hit counts in the Embrace window and the bloodline's 5% damage-taken passive were not modelled. Percentage caps are not approached (highest value 45%)."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 6,
+      "increasedamagegiven": 10,
+      "increasedamagetaken": 5,
+      "decreasedamagetaken": 10,
+      "afterburn": 10
+    },
+    "supported_rows_in_kit": 5,
+    "supported_rows_by_tag": {
+      "afterburn": 1,
+      "damage": 1,
+      "decreasedamagetaken": 1,
+      "increasedamagegiven": 1,
+      "increasedamagetaken": 1
+    },
+    "tags_targeted_by_tree": [
+      "afterburn",
+      "damage",
+      "decreasedamagetaken",
+      "increasedamagegiven",
+      "increasedamagetaken"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Draft 1 / Ancient Tailed Demon classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags of Ancient Tailed Demon jutsu inherit Ancient Tailed Demon potency eligibility; original combat elements and target scopes stay intact.",
+      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 6,
+        "increasedamagetaken": 4,
+        "afterburn": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 4,
+        "decreasedamagetaken": 2,
+        "afterburn": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagetaken": 5,
+        "afterburn": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5,
+        "afterburn": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5,
+        "afterburn": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10,
+        "afterburn": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5,
+        "afterburn": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 4,
+        "afterburn": 2
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 7,
+        "decreasedamagetaken": 10
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 10,
+        "decreasedamagetaken": 7
+      }
+    }
+  ]
+}

@@ -25,23 +25,23 @@ Evidence: public kit snapshot 2026-10-01T14:58:45.422376+00:00; hidden inventory
 
 Supported rows are marked ✓. `Elements (eff.)` shows the resolver's effective element list (absent → None). Recipient/role are derived from the row target, the jutsu target, friendly fire and engine polarity; **adverse** rows are ones potency would make worse for the caster.
 
-| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard |
-|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|
-| Storm Style: Daibutsu Thunder | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Storm | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
-| Storm Style: Daibutsu Thunder | 1 | recoil | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu / Highest | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |
-| Izanagi's Hammer | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Storm | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
-| Izanagi's Hammer | 1 | move | static | 1 | 1 + 0/lvl | 0 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
-| Izanagi's Hammer | 2 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Lightning, None, Storm, Water | — | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |
-| Indra's Storm Cloak | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest | ALL | self | SELF BUFF | ✓ |  |  |
-| Indra's Storm Cloak | 1 | reflect | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |
-| Indra's Storm Cloak | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Lightning, None, Storm, Water | — | none (=ALL) | self | SELF BUFF | ✓ |  |  |
-| Storm Style: Divine Railgun | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Storm | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
-| Storm Style: Divine Railgun | 1 | stun | static | 100 | 90 + 0.4/lvl | 2 | None | — | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |
-| Strike: Raijin | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Storm | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |
-| Strike: Raijin | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest | none (=ALL) | self | SELF BUFF | ✓ |  |  |
-| Strike: Raijin | 2 | move | static | 1 | 1 + 0/lvl | 0 | None | — | none (=ALL) | self | SELF BUFF |  |  |  |
+| Jutsu | Row | Tag | Calc | Base @L | Power + per level | Rounds | Elements (eff.) | Stat / general filter | Friendly fire | Recipient | Role | ✓ | Adverse | Ally hazard | Enemy hazard |
+|---|---:|---|---|---:|---|---:|---|---|---|---|---|---|---|---|---|
+| Storm Style: Daibutsu Thunder | 0 | damage | formula | 50 | 40 + 0.4/lvl | 0 | Storm | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |  |
+| Storm Style: Daibutsu Thunder | 1 | recoil | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu / Highest | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |  |
+| Izanagi's Hammer | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Storm | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |  |
+| Izanagi's Hammer | 1 | move | static | 1 | 1 + 0/lvl | 0 | None | — | none (=ALL) | self | SELF BUFF |  |  |  | **yes** |
+| Izanagi's Hammer | 2 | increasedamagetaken | percentage | 35% | 25 + 0.4/lvl | 2 | Lightning, None, Storm, Water | — | ENEMIES | enemy | ENEMY DEBUFF | ✓ |  |  |  |
+| Indra's Storm Cloak | 0 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest | ALL | self | SELF BUFF | ✓ |  |  |  |
+| Indra's Storm Cloak | 1 | reflect | percentage | 40% | 30 + 0.4/lvl | 2 | None | Bukijutsu, Genjutsu, Ninjutsu, Taijutsu | ALL | self | SELF BUFF | ✓ |  |  |  |
+| Indra's Storm Cloak | 2 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | Lightning, None, Storm, Water | — | none (=ALL) | self | SELF BUFF | ✓ |  |  |  |
+| Storm Style: Divine Railgun | 0 | damage | formula | 45 | 35 + 0.4/lvl | 0 | Storm | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |  |
+| Storm Style: Divine Railgun | 1 | stun | static | 100 | 90 + 0.4/lvl | 2 | None | — | ENEMIES | enemy | ENEMY DEBUFF |  |  |  |  |
+| Strike: Raijin | 0 | damage | formula | 40 | 30 + 0.4/lvl | 0 | Storm | Highest / Highest | ENEMIES | enemy | DAMAGE | ✓ |  |  |  |
+| Strike: Raijin | 1 | increasedamagegiven | percentage | 35% | 25 + 0.4/lvl | 2 | None | Highest | none (=ALL) | self | SELF BUFF | ✓ |  |  |  |
+| Strike: Raijin | 2 | move | static | 1 | 1 + 0/lvl | 0 | None | — | none (=ALL) | self | SELF BUFF |  |  |  | **yes** |
 
-Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful rows delivered by an area method or ground target with friendly fire none/ALL: allies and the caster inside the area also receive them (checkFriendlyFire treats an absent value as ALL).
+Stat/general filters on an element-less row are not binding at the pin: `getEfficiencyRatio` pushes `None` for an empty element list on both sides, so such a row matches every element-less damage effect of any stat type (basic attacks, non-elemental jutsu) and excludes only elemental damage of a non-listed stat type (SOURCE_MECHANICS.md §3). `Ally hazard` marks harmful INHERIT rows delivered by an area method or ground target with friendly fire none/ALL: allies inside the area also receive them (checkFriendlyFire treats an absent value as ALL); on OTHER_USER-target area jutsu the caster is never a target, on GROUND/EMPTY_GROUND spawns the ground effect is re-applied each round to whoever stands on the tiles, the caster included. `Enemy hazard` marks positive INHERIT rows on GROUND/EMPTY_GROUND spawns with friendly fire none/ALL: enemies standing on the tiles receive the buff too. SELF-target rows on ground actions are realized on the caster at cast time (actions.ts 980-1004), not through the tiles.
 
 ## Supported-row summary by tag
 

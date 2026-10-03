@@ -184,7 +184,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "M5GVeVe-pzPkkzmAun1zr",
@@ -224,7 +225,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "M5GVeVe-pzPkkzmAun1zr",
@@ -269,7 +271,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "owBFLBZjXwEx8twhdbPPI",
@@ -311,7 +314,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 0,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "owBFLBZjXwEx8twhdbPPI",
@@ -351,7 +355,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 0,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "mUtFEv_071Qjs6Ta1L6Zr",
@@ -396,7 +401,8 @@
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "mUtFEv_071Qjs6Ta1L6Zr",
@@ -436,7 +442,8 @@
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": true
     },
     {
       "jutsu_id": "mUtFEv_071Qjs6Ta1L6Zr",
@@ -481,7 +488,8 @@
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     }
   ],
   "supported_row_summary": [
@@ -563,6 +571,7 @@
   ],
   "adverse_supported_rows": [],
   "ally_hazard_supported_rows": [],
+  "enemy_hazard_supported_rows": [],
   "afterburn": {
     "application_rows": [],
     "downstream_note": "Afterburn is an enemy debuff (tags.ts afterburn handler at the pin): while active on following rounds, every instant damage consequence the debuffed target receives (any source, pierce excluded) adds floor(damage x percent) Afterburn damage, with the cumulative Afterburn on one hit capped at 60% of that hit. Potency raises the percent, not the duration. Downstream coverage is therefore every non-pierce hit landed on the target during the debuff, including normal jutsu, weapons and allies; it is not measured by the application-row count and was not simulated.",

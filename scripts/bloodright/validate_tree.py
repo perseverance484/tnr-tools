@@ -151,6 +151,7 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
         hidden_rows = 0
         gated_rows = 0
         hazard_rows = []
+        enemy_rows = []
         for m in n.get("modifiers", []):
             m["flat"] = int(m["flat"])
             role, roles = role_for_modifier(m["tag"], rows)
@@ -168,9 +169,13 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
                     gated_rows += 1
                 if r.ally_hazard:
                     hazard_rows.append(f"{r.jutsu_name}#{r.row}")
+                if r.enemy_hazard:
+                    enemy_rows.append(f"{r.jutsu_name}#{r.row}")
         n["coverage"] = {"jutsu": sorted(cov_jutsu), "effect_rows": cov_rows}
         if hazard_rows:
             n["coverage"]["ally_hazard_rows"] = sorted(set(hazard_rows))
+        if enemy_rows:
+            n["coverage"]["enemy_hazard_rows"] = sorted(set(enemy_rows))
         if adverse_rows:
             n["coverage"]["adverse_rows"] = sorted(set(adverse_rows))
             warnings.append(f"node {nid} ({n['name']}) also amplifies adverse rows: {', '.join(sorted(set(adverse_rows)))}")
@@ -252,6 +257,9 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
     hazard_all = sorted({h for n in tree.get("nodes", []) for h in n.get("coverage", {}).get("ally_hazard_rows", [])})
     if hazard_all:
         warnings.append("ally-hazard area rows amplified (friendly fire none/ALL): " + ", ".join(hazard_all))
+    enemy_all = sorted({h for n in tree.get("nodes", []) for h in n.get("coverage", {}).get("enemy_hazard_rows", [])})
+    if enemy_all:
+        warnings.append("enemy-hazard ground rows amplified (positive row, friendly fire none/ALL): " + ", ".join(enemy_all))
     untargeted = audit["supported_tags_in_kit_not_targeted"]
     if untargeted:
         warnings.append("supported tags present in kit but not targeted by any node: " + ", ".join(untargeted))

@@ -1,0 +1,1685 @@
+{
+  "title": "Itojinsei — The Iron Loom",
+  "revision": "Draft 1 / Magnet classification / forked tree",
+  "bloodline": {
+    "id": "j4_9ypNqYq8Ifbqf-9D2r",
+    "review_id": "BR-036",
+    "name": "Itojinsei",
+    "rank": "A",
+    "statClassification": "Bukijutsu",
+    "traits": "Control"
+  },
+  "classification": {
+    "potency_classification": "Magnet",
+    "label_kind": "element",
+    "bloodline": "Itojinsei",
+    "display_element": "Magnet",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Itojinsei jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": [
+      "Houkyuken"
+    ]
+  },
+  "emphasis": {
+    "primary": "Magnet burst (Damage on all four casts: Iron Web Entrapment, Wire Blast Plus, Spiraling Wires, Lightning Threads)",
+    "secondary": "Enemy suppression (Decrease Damage Given on Wire Blast Plus and Eternal Embrace)",
+    "tertiary": "Wielder amplification and exposure (self Increase Damage Given on Spiraling Wires and Eternal Embrace; Increase Damage Taken on Lightning Threads)",
+    "rationale": "Nine supported rows sit on five casts, all cooldown 7: four Magnet Bukijutsu Damage rows (Iron Web Entrapment 45; Wire Blast Plus, Spiraling Wires and Lightning Threads 40) carry the burst, and two 35% self Increase Damage Given rows (Spiraling Wires, Bukijutsu-filtered with no element; Eternal Embrace's circle, Lightning/Magnet/None/Wind) stack over a 25% + 0.15/level Increase Damage Given passive. The Control trait reaches potency through two universal Decrease Damage Given rows (Wire Blast Plus 30%, an ally-hazard circle; Eternal Embrace 35%) and one 35% Increase Damage Taken row on Lightning Threads (Lightning/Magnet/None/Wind). The kit has no Decrease Damage Taken, Reflect, Lifesteal or Heal row, so the tree offers no defensive route: root Taut Filament carries the burst and amplifier routes, root Tangling Snare the suppression and exposure routes; row-weighted full builds run 19–32 against the Taiyo Kami reference's 20–31 on nine rows."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Taut Filament",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Draw the wire tight and every tremor on the line is yours to read.",
+      "coverage_note": "Self damage buffs 35→37% (Spiraling Wires; Eternal Embrace circle); Lightning Threads exposure 35→37%. Three rows, all 2 rounds.",
+      "parent_rule": "ALL",
+      "potency_classification": "Magnet",
+      "scope": "Itojinsei jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Eternal Embrace",
+          "Lightning Threads",
+          "Spiraling Wires"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "02",
+      "name": "Razor Strands",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Fine enough to vanish, keen enough to part iron.",
+      "coverage_note": "Iron Web Entrapment 45→47; Wire Blast Plus, Spiraling Wires, Lightning Threads 40→42 power; four Magnet hits, 60 AP each, cooldown 7.",
+      "parent_rule": "ALL",
+      "potency_classification": "Magnet",
+      "scope": "Itojinsei jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Iron Web Entrapment",
+          "Lightning Threads",
+          "Spiraling Wires",
+          "Wire Blast Plus"
+        ],
+        "effect_rows": 4
+      }
+    },
+    {
+      "id": "03",
+      "name": "Severing Lattice",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Where the web closes, nothing leaves in one piece.",
+      "coverage_note": "Same four Damage rows; route total +5 (50/45/45/45 power). Stun, redirection and decrease-heal riders are unsupported.",
+      "parent_rule": "ALL",
+      "potency_classification": "Magnet",
+      "scope": "Itojinsei jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Iron Web Entrapment",
+          "Lightning Threads",
+          "Spiraling Wires",
+          "Wire Blast Plus"
+        ],
+        "effect_rows": 4
+      }
+    },
+    {
+      "id": "04",
+      "name": "Threadbound Vigor",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Each strand feeds the wielder's arm; the pull becomes the strike.",
+      "coverage_note": "Both self buffs 37→39% with Taut Filament: Spiraling Wires (Bukijutsu or element-less hits), Eternal Embrace (Lightning/Magnet/Wind/none).",
+      "parent_rule": "ALL",
+      "potency_classification": "Magnet",
+      "scope": "Itojinsei jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Eternal Embrace",
+          "Spiraling Wires"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "05",
+      "name": "Weaver Ascendant",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "The loom no longer needs hands. It needs only a will.",
+      "coverage_note": "Self buffs to route total 42% (+7; 84% when both windows overlap); Lightning Threads exposure 37→39% with Taut Filament.",
+      "parent_rule": "ALL",
+      "potency_classification": "Magnet",
+      "scope": "Itojinsei jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Eternal Embrace",
+          "Lightning Threads",
+          "Spiraling Wires"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "06",
+      "name": "Tangling Snare",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "A caught thing fights the wire, and the wire does not tire.",
+      "coverage_note": "Wire Blast Plus 30→33% and Eternal Embrace 35→38% Decrease Damage Given on every non-pierce hit; the Wire Blast circle is an ally hazard.",
+      "parent_rule": "ALL",
+      "potency_classification": "Magnet",
+      "scope": "Itojinsei jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Eternal Embrace",
+          "Wire Blast Plus"
+        ],
+        "effect_rows": 2,
+        "ally_hazard_rows": [
+          "Wire Blast Plus#1"
+        ]
+      }
+    },
+    {
+      "id": "07",
+      "name": "Constricting Coils",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Every struggle draws the knot a little tighter.",
+      "coverage_note": "Both suppression rows 33→35% / 38→40% with Tangling Snare; two-round enemy debuffs on a 60 AP circle and a 40 AP circle.",
+      "parent_rule": "ALL",
+      "potency_classification": "Magnet",
+      "scope": "Itojinsei jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Eternal Embrace",
+          "Wire Blast Plus"
+        ],
+        "effect_rows": 2,
+        "ally_hazard_rows": [
+          "Wire Blast Plus#1"
+        ]
+      }
+    },
+    {
+      "id": "08",
+      "name": "Iron Cocoon",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 4,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Wrapped, stilled, and kept: a silence spun from steel.",
+      "coverage_note": "Suppression to route total 39% / 44% (+9); Lightning Threads exposure 35→37% (39% with Taut Filament).",
+      "parent_rule": "ALL",
+      "potency_classification": "Magnet",
+      "scope": "Itojinsei jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Eternal Embrace",
+          "Lightning Threads",
+          "Wire Blast Plus"
+        ],
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Wire Blast Plus#1"
+        ]
+      }
+    },
+    {
+      "id": "09",
+      "name": "Conductive Seam",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Lightning runs the thread and finds the fault beneath the skin.",
+      "coverage_note": "Lightning Threads exposure only: 35→38% (40% with Taut Filament); one row, 2 rounds per 60 AP single-target cast, cooldown 7.",
+      "parent_rule": "ALL",
+      "potency_classification": "Magnet",
+      "scope": "Itojinsei jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Lightning Threads"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "10",
+      "name": "Galvanic Marionette",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "09"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Strung and sparking, the enemy dances to a current not its own.",
+      "coverage_note": "Exposure to route total 43% (45% with Taut Filament, +10); suppression 33→35% / 38→40% (37% / 42% with Constricting Coils).",
+      "parent_rule": "ALL",
+      "potency_classification": "Magnet",
+      "scope": "Itojinsei jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Eternal Embrace",
+          "Lightning Threads",
+          "Wire Blast Plus"
+        ],
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Wire Blast Plus#1"
+        ]
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Severing Lattice",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "The +5 power route on all four Magnet Damage rows (Iron Web Entrapment 50; Wire Blast Plus, Spiraling Wires and Lightning Threads 45) with both self buffs and the exposure row at 37%. Tangling Snare is the fourth purchase because the burst rotation already casts Wire Blast Plus and Eternal Embrace, so their suppression rises to 33%/38% without re-buying offense; Threadbound Vigor (buffs 39%) is the all-in alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 3,
+        "increasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Iron Web Entrapment",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 5,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Iron Web Entrapment",
+          "row": 1,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wire Blast Plus",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wire Blast Plus",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 3,
+          "final": 33.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Spiraling Wires",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Spiraling Wires",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Spiraling Wires",
+          "row": 2,
+          "tag": "redirection",
+          "label": "redirection",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 4.0,
+          "gain": 0,
+          "final": 4.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Lightning Threads",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Lightning Threads",
+          "row": 1,
+          "tag": "decreaseheal",
+          "label": "decreaseheal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Lightning Threads",
+          "row": 2,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Lightning",
+            "Magnet",
+            "None",
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Embrace",
+          "row": 0,
+          "tag": "buffprevent",
+          "label": "buffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Embrace",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 3,
+          "final": 38.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Embrace",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Lightning",
+            "Magnet",
+            "None",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Severing Lattice"
+      ]
+    },
+    {
+      "name": "Weaver Ascendant",
+      "archetype": "Amplifier",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "rationale": "Both self Increase Damage Given rows at the route maximum 42% (+7; 84% when Spiraling Wires and Eternal Embrace overlap) over the 25% + 0.15/level passive, multiplying weapon, basic and element-less hits as well as the kit's own Magnet strikes, with Lightning Threads' exposure at 39%. Tangling Snare is the fourth purchase so the same two casts also suppress at 33%/38%; Razor Strands (47/42/42/42 power) is the burst alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 7,
+        "decreasedamagegiven": 3,
+        "increasedamagetaken": 4
+      },
+      "finals": [
+        {
+          "jutsu": "Iron Web Entrapment",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Iron Web Entrapment",
+          "row": 1,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wire Blast Plus",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wire Blast Plus",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 3,
+          "final": 33.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Spiraling Wires",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Spiraling Wires",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 7,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Spiraling Wires",
+          "row": 2,
+          "tag": "redirection",
+          "label": "redirection",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 4.0,
+          "gain": 0,
+          "final": 4.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Lightning Threads",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Lightning Threads",
+          "row": 1,
+          "tag": "decreaseheal",
+          "label": "decreaseheal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Lightning Threads",
+          "row": 2,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Lightning",
+            "Magnet",
+            "None",
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Embrace",
+          "row": 0,
+          "tag": "buffprevent",
+          "label": "buffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Embrace",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 3,
+          "final": 38.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Embrace",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Lightning",
+            "Magnet",
+            "None",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 7,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Weaver Ascendant"
+      ]
+    },
+    {
+      "name": "Iron Cocoon",
+      "archetype": "Suppression",
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "01"
+      ],
+      "rationale": "Both universal Decrease Damage Given rows at the route maximum (+9): Wire Blast Plus 39%, Eternal Embrace 44%, two-round windows that blunt every non-pierce hit the target throws at the caster or allies. Taut Filament is the fourth purchase because it compounds the capstone's exposure secondary (39%) and lifts both self buffs to 37%; Conductive Seam (exposure 40%) is the control alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 9,
+        "increasedamagetaken": 4
+      },
+      "finals": [
+        {
+          "jutsu": "Iron Web Entrapment",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Iron Web Entrapment",
+          "row": 1,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wire Blast Plus",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wire Blast Plus",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 9,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Spiraling Wires",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Spiraling Wires",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Spiraling Wires",
+          "row": 2,
+          "tag": "redirection",
+          "label": "redirection",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 4.0,
+          "gain": 0,
+          "final": 4.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Lightning Threads",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Lightning Threads",
+          "row": 1,
+          "tag": "decreaseheal",
+          "label": "decreaseheal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Lightning Threads",
+          "row": 2,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Lightning",
+            "Magnet",
+            "None",
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Embrace",
+          "row": 0,
+          "tag": "buffprevent",
+          "label": "buffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Embrace",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 9,
+          "final": 44.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Embrace",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Lightning",
+            "Magnet",
+            "None",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Iron Cocoon"
+      ]
+    },
+    {
+      "name": "Galvanic Marionette",
+      "archetype": "Exposure",
+      "ids": [
+        "06",
+        "09",
+        "10",
+        "01"
+      ],
+      "rationale": "Lightning Threads' Increase Damage Taken at the route maximum 45% (+10), amplifying every same-element or element-less non-pierce hit from the player, weapons and allies for two rounds per cast, with both suppression rows at 35%/40% from the capstone's secondary plus Tangling Snare. Taut Filament is the fourth purchase for the last +2 exposure and 37% self buffs; Constricting Coils (suppression 37%/42%, exposure 43%) is the lockdown alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Iron Web Entrapment",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Iron Web Entrapment",
+          "row": 1,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wire Blast Plus",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wire Blast Plus",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 5,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Spiraling Wires",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Spiraling Wires",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Spiraling Wires",
+          "row": 2,
+          "tag": "redirection",
+          "label": "redirection",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 4.0,
+          "gain": 0,
+          "final": 4.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Lightning Threads",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Magnet"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Lightning Threads",
+          "row": 1,
+          "tag": "decreaseheal",
+          "label": "decreaseheal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Lightning Threads",
+          "row": 2,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Lightning",
+            "Magnet",
+            "None",
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Embrace",
+          "row": 0,
+          "tag": "buffprevent",
+          "label": "buffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Embrace",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Embrace",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Lightning",
+            "Magnet",
+            "None",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Galvanic Marionette"
+      ]
+    }
+  ],
+  "narrow_kit_exception": null,
+  "design_notes": [
+    "Node split: root Taut Filament (+2 self Increase Damage Given on two rows, +2 exposure on one) forks into a Damage route (Razor Strands → Severing Lattice) and an amplifier route (Threadbound Vigor → Weaver Ascendant). Root Tangling Snare (+3 Decrease Damage Given on two rows, the one broadly useful control tag outside the offense root) forks into a suppression route (Constricting Coils → Iron Cocoon) and an exposure route (Conductive Seam → Galvanic Marionette). 2/4/4 nodes; every Advanced Art is 3 BP deep; any two cost 5 or 6 BP.",
+    "Flats scaled by coverage. Damage reaches four Magnet rows (45/40/40/40) and keeps the reference ladder +2/+3 (max +5: Iron Web 50, the rest 45), row-weighted 20 against Taiyo Kami's 15. Increase Damage Given reaches two stacking self rows that leak beyond the kit: +2/+2/+3 (max +7, 42%), the two-row ceiling. Decrease Damage Given reaches two universal rows, one an ally hazard: +3/+2/+4 (max +9; 39%/44%), under the single-row +10. Increase Damage Taken is one row: +2 root, +3/+5 route, max +10 (45%) only with both roots.",
+    "Capstone secondaries never out-bid a sibling Hidden Art on its own tag: Weaver Ascendant and Iron Cocoon add +2 exposure under Conductive Seam's +3; Galvanic Marionette adds +2 suppression, equal to Constricting Coils' +2 and below the root's +3; Severing Lattice is single-tag. Row-weighted node values: Foundations 6/6, Hidden Arts 8/4/4/3, Advanced Arts 12/8/10/9; full builds 19–32 (Taiyo Kami 20–31). Maxima over all legal builds: Damage +5, IDG +7, IDT +10, DDG +9; not jointly attainable.",
+    "Main tree, passives, pierce: Spiraling Wires' self Increase Damage Given row is Bukijutsu/Speed/Strength-filtered with no element, so at the pin (SOURCE_MECHANICS §3) it multiplies every Bukijutsu, Speed/Strength or element-less hit, weapons and basic attacks included; Eternal Embrace's row (Lightning/Magnet/None/Wind) multiplies same-element and element-less hits. Both stack on the 25% + 0.15/level IDG passive, which also multiplies the enhanced Magnet Damage rows. The DDG rows list all four stat types with no element and reach every non-pierce hit; no modifier here touches pierce.",
+    "Delivery and uptime: every cast is cooldown 7 and every percentage row lasts 2 rounds. Iron Web Entrapment (A, line, range 4), Wire Blast Plus (D, circle spawn, range 4), Spiraling Wires (C, single, range 5) and Lightning Threads (A, single, range 4) all cost 60 AP, so one Damage cast lands per round. Eternal Embrace is the only cheap cast: a 40 AP B-rank circle spawn on an enemy (range 5) with two supported rows; its self buff row needs a legal enemy target. Lightning Threads is the single exposure carrier: one row, 2 rounds per 7.",
+    "Fourth purchases: Burst takes Tangling Snare (suppression 33%/38%) or Threadbound Vigor (buffs 39%); Amplifier takes Tangling Snare or Razor Strands (47/42/42/42 power); Suppression takes Taut Filament (buffs 37%, exposure 39%) or Conductive Seam (exposure 40%); Exposure takes Taut Filament (exposure 45%) or Constricting Coils (suppression 37%/42%, exposure 43%). All 14 legal full allocations are non-dominated on tag totals and every node appears in one. Four examples: each capstone closes a different role."
+  ],
+  "risks": [
+    "Self-buff leakage: neither Increase Damage Given row has a binding filter at the pin (Spiraling Wires: Bukijutsu/Speed/Strength, no element; Eternal Embrace: Lightning/Magnet/None/Wind), so the +7 maximum raises matching normal jutsu, weapons and basic attacks in each two-round window, and both rows stack on the caster (84%) over the 25% + 0.15/level passive. Uptime not simulated.",
+    "Ally hazard: Wire Blast Plus row 1 (Decrease Damage Given) is an AOE_CIRCLE_SPAWN with friendly fire none (=ALL), so allies and the caster standing in the circle also lose damage given; the suppression route takes it from 30% to 39%. Eternal Embrace's row is friendly fire ENEMIES. Positioning, not the node, decides who is suppressed.",
+    "Exposure concentration: Increase Damage Taken has one row (Lightning Threads, A rank, 60 AP, range 4, single target, 2 rounds) and the full route reaches 45% (+10), amplifying the player's, weapons' and allies' same-element or element-less non-pierce hits. The whole value rides one cast per seven rounds; pierce hits are unaffected (modifiers run before pierce).",
+    "Damage concentration: +5 power lands on four Magnet rows at once, so the burst route is row-weighted 20 against the reference's 15 and the strongest full build (Severing Lattice + Tangling Snare) reads 32 against Taiyo Kami's 31 on nine rows. All four hits cost 60 AP on cooldown 7, so one lands per round; the final value is user-owned and no combat simulation was performed.",
+    "Eternal Embrace delivery: its self Increase Damage Given row sits on an OTHER_USER AOE_CIRCLE_SPAWN (B rank, 40 AP, range 5) and needs a legal enemy target; the dossier marks it self, and the batch-1 lesson says a spawn's effect is re-applied to whoever stands in it. SELF-row handling on an enemy-targeted spawn was not separately source-verified. Its buffprevent row is unsupported.",
+    "Classification: Magnet is the single signature element on all four Damage rows, but Houkyuken [INCLUDE] carries Magnet on 6 rows (4 damage), so the label works only as a bloodline-scoped whole-kit classification, not a bare element match. Under the current resolver 6 of 9 supported rows match Magnet directly; the three element-less rows fall back to None. Normal-jutsu collision unverified.",
+    "No defensive route: the kit has no Decrease Damage Taken, Reflect, Lifesteal or Heal row, and the 15% Lightning Decrease Damage Taken passive is not a jutsu row, so every build is offense or control; stun (Iron Web Entrapment), redirection (Spiraling Wires), decrease-heal (Lightning Threads) and buffprevent (Eternal Embrace) receive nothing. Galvanic Marionette's +2 suppression equals, not undercuts, Constricting Coils' +2.",
+    "Context: skill-tree and bloodline effects are suppressed in ranked PvP and ranked sparring; normal-tree potency policy is not approved, so a combined stacking audit is required before implementation. The dominance count treats every tag as a gain and ignores delivery, so 14/14 non-dominated is structural evidence only. No combat simulation was performed; balance values remain user-owned."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 13,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 7,
+      "decreasedamagegiven": 9,
+      "increasedamagetaken": 10
+    },
+    "supported_rows_in_kit": 9,
+    "supported_rows_by_tag": {
+      "damage": 4,
+      "decreasedamagegiven": 2,
+      "increasedamagegiven": 2,
+      "increasedamagetaken": 1
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagegiven",
+      "increasedamagegiven",
+      "increasedamagetaken"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Draft 1 / Magnet classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags of Itojinsei jutsu inherit Magnet potency eligibility; original combat elements and target scopes stay intact.",
+      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 3,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 7,
+        "increasedamagetaken": 4
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 4,
+        "decreasedamagegiven": 3,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 3,
+        "increasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 7,
+        "decreasedamagegiven": 3,
+        "increasedamagetaken": 4
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 4,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 4,
+        "decreasedamagegiven": 3,
+        "increasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 9,
+        "increasedamagetaken": 4
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 10
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "decreasedamagegiven": 9,
+        "increasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "decreasedamagegiven": 7,
+        "increasedamagetaken": 8
+      }
+    }
+  ]
+}

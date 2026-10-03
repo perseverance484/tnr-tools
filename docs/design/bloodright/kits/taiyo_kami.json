@@ -218,7 +218,8 @@
       "cooldown": 7,
       "method": "AOE_SPIRAL_SHOOT",
       "range": 4,
-      "ally_hazard": true
+      "ally_hazard": true,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "RvLZQOgJE8D3QtX3LY07_",
@@ -263,7 +264,8 @@
       "cooldown": 7,
       "method": "AOE_SPIRAL_SHOOT",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "B6xrDMv4TckvKn_5aImdT",
@@ -309,7 +311,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "B6xrDMv4TckvKn_5aImdT",
@@ -354,7 +357,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "zLa_tASqn4gRa8FYjUoTu",
@@ -399,7 +403,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 0,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "zLa_tASqn4gRa8FYjUoTu",
@@ -447,7 +452,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 0,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "zLa_tASqn4gRa8FYjUoTu",
@@ -492,7 +498,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 0,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "H78qBo2-pkuh4_h4lutoR",
@@ -537,7 +544,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "H78qBo2-pkuh4_h4lutoR",
@@ -577,7 +585,8 @@
       "cooldown": 7,
       "method": "SINGLE",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "VCRI7Y24RtnzGndzN-Awe",
@@ -623,7 +632,8 @@
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
       "range": 4,
-      "ally_hazard": false
+      "ally_hazard": false,
+      "enemy_hazard": false
     },
     {
       "jutsu_id": "VCRI7Y24RtnzGndzN-Awe",
@@ -668,7 +678,8 @@
       "cooldown": 7,
       "method": "AOE_CIRCLE_SPAWN",
       "range": 4,
-      "ally_hazard": true
+      "ally_hazard": true,
+      "enemy_hazard": false
     }
   ],
   "supported_row_summary": [
@@ -834,6 +845,7 @@
       "friendly_fire": null
     }
   ],
+  "enemy_hazard_supported_rows": [],
   "afterburn": {
     "application_rows": [
       {

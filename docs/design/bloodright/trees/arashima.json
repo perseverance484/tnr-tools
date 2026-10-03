@@ -1,6 +1,6 @@
 {
   "title": "Arashima — Reaper's Tempest",
-  "revision": "Draft 2 / Storm classification / forked tree",
+  "revision": "Draft 3 / Storm classification / forked tree",
   "bloodline": {
     "id": "9F6Ruhuf82gSzpZcsUaPW",
     "review_id": "BR-005",
@@ -200,7 +200,7 @@
         }
       ],
       "flavor": "At the heart of the tempest there is a calm that belongs to Arashima alone.",
-      "coverage_note": "Stormsinger row 2 DDT 35% (self, 2 rounds) and Death's Storm row 1 DDG 30% (enemy, AoE, 2 rounds, debuff-prevent gated).",
+      "coverage_note": "Stormsinger row 2 DDT 35% (self, 2 rounds) and Death's Storm row 1 DDG 30% (enemy, AoE, 2 rounds, debuff-prevent gated; ally hazard).",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "Arashima jutsu",
@@ -232,7 +232,7 @@
         }
       ],
       "flavor": "Years of standing in the gale leave skin the wind no longer bites.",
-      "coverage_note": "Stormsinger row 2 DDT 35% (self, 2 rounds); four stat types listed, so it covers every incoming damage row with a stat type, plus pierce.",
+      "coverage_note": "Stormsinger row 2 DDT 35% (self, 2 rounds); four stat types, so it covers every incoming damage row with a stat type; pierce bypasses DDT.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "Arashima jutsu",
@@ -293,7 +293,7 @@
         }
       ],
       "flavor": "The wind after Death's Storm carries the strength out of every arm it touches.",
-      "coverage_note": "Death's Storm row 1 DDG 30% enemy debuff, 2 rounds, every enemy in the circle; needs the 60 AP cast to land and is debuff-prevent gated.",
+      "coverage_note": "Death's Storm row 1 DDG 30%, 2 rounds, everyone in the circle (allies too: ally hazard); needs the 60 AP cast, debuff-prevent gated.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "Arashima jutsu",
@@ -334,7 +334,7 @@
         }
       ],
       "flavor": "When the thunder stops, only the Arashima still has the will to strike.",
-      "coverage_note": "Death's Storm DDG 30% -> 40% on the full route; Stormsinger DDT and Lifesteal +2 each; secondaries stay below the sibling Hidden Arts (+3).",
+      "coverage_note": "Death's Storm DDG 30% -> 40% on the full route (ally hazard in the circle); Stormsinger DDT and Lifesteal +2 each, below the +3 Hidden Arts.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "Arashima jutsu",
@@ -361,7 +361,7 @@
         "05",
         "06"
       ],
-      "rationale": "The full lifesteal route takes Stormsinger from 40% to 50% leech and 35% to 40% IDG for the same two-round window. The enhanced IDG lifts every Arashima Storm hit and any normal jutsu that uses your highest offence stat or carries no element; the enhanced leech draws from nearly every damage row (its row lists all four stat types), including Death's Storm's 58-power pierce, which the engine feeds into lifesteal at full ratio. Stillness in the Squall is the fourth purchase: it adds 2% DDT on the same cast and 2% DDG on Death's Storm, rounding a duelist who out-sustains the exchange rather than ending it quickly.",
+      "rationale": "The full lifesteal route takes Stormsinger from 40% to 50% leech and 35% to 40% IDG for the same two-round window. The enhanced IDG lifts both Storm Damage rows and any normal jutsu that uses your highest offence stat or carries no element (not Death's Storm's pierce, which bypasses damage modifiers); the enhanced leech draws from nearly every damage row (its row lists all four stat types), including Death's Storm's 58-power pierce, which the engine feeds into lifesteal at full ratio. Stillness in the Squall is the fourth purchase: it adds 2% DDT on the same cast and 2% DDG on Death's Storm, rounding a duelist who out-sustains the exchange rather than ending it quickly.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
@@ -1314,7 +1314,7 @@
   "design_notes": [
     "Node split: four routes map one-to-one onto the kit's four distinct non-glue tags (Lifesteal, Damage, DDT, DDG). Increase Damage Given appears only on Foundation 01 and as a +3 secondary on the lifesteal and DDT capstones, never on a Hidden Art, so no capstone secondary equals a sibling Hidden Art's value and all 14 full-budget allocations stay numerically non-dominated. Silence After Thunder's secondaries (+2 DDT, +2 Lifesteal) are deliberately one point below the +3 Hidden Arts for the same reason.",
     "Calibration against Taiyo Kami: Foundations +2/+2, Hidden Arts +2 Damage (2 rows) or +3 on a single-row percentage tag, capstones +3 Damage or +5 primary with a +3 (or two +2) secondaries. Damage reaches two rows here instead of Taiyo's three, so the +5 total is relatively slightly stronger per row (45 -> 50, +11%) and comparable per kit; a +3 Hidden Art (total +6) is the obvious tuning lever if the burst route under-performs in review.",
-    "Interaction with the main tree and passives: Stormsinger's IDG, DDT and Lifesteal rows are self buffs with two-round durations, so enhancing them also reaches normal jutsu and weapons used inside that window, subject to efficiency matching (see risks): the Lifesteal and DDT rows list all four stat types and so reach every damage row that declares a stat type plus all pierce (including Death's Storm's own unsupported pierce row, which the engine feeds into lifesteal), while the IDG row's single 'Highest' stat type reaches the kit's Storm rows and any damage row that uses the caster's highest offence stat or carries no element. The bloodline's own IDG passive (25% + 0.15/level on Water/Lightning/Storm/None) multiplies the enhanced Damage rows downstream. Death's Storm's DDG is an enemy debuff, so it also softens enemy normal jutsu against allies. None of these downstream effects were simulated.",
+    "Interaction with the main tree and passives: Stormsinger's IDG, DDT and Lifesteal rows are self buffs with two-round durations, so enhancing them also reaches normal jutsu and weapons used inside that window, subject to efficiency matching (see risks): the Lifesteal row lists all four stat types and so draws from every damage row that declares a stat type plus all pierce (including Death's Storm's own unsupported pierce row, which the engine feeds into lifesteal); the DDT row lists the same four stat types and reduces every incoming damage row that declares a stat type but never pierce, which the engine applies after the damage-modifier pass (so no IDG, DDT or DDG node touches a pierce hit); the IDG row's single 'Highest' stat type reaches the kit's two Storm Damage rows and any damage row that uses the caster's highest offence stat or carries no element. The bloodline's own IDG passive (25% + 0.15/level on Water/Lightning/Storm/None) multiplies the enhanced Damage rows downstream. Death's Storm's DDG is an enemy debuff, so it also softens enemy normal jutsu (not enemy pierce) against allies. None of these downstream effects were simulated.",
     "Delivery and uptime: every Stormsinger-row node shares one 40 AP cast with a 7-round cooldown and a 2-round buff, so a sustain or fortress build's realised value is capped by that window; the Damage rows cost 60 AP on 7-round cooldowns and are AoE circle spawns, so their raw-power bonus is paid once per enemy hit; DDG requires landing the 60 AP Death's Storm and is debuff-prevent gated. Skill-tree effects (and therefore Bloodright potency) are skipped in RANKED_PVP and RANKED_SPARRING at the pin.",
     "Fourth-purchase choices: after any 3 BP route the natural fourth is the other Foundation (+2/+2 on two more rows). Hybrids with no Advanced Art (e.g. 01+02+04+06: +2 Damage, +5 Lifesteal, +2 IDG/DDT/DDG) and the all-defence 06+07+09+10 (+7 DDT, +10 DDG, +2 Lifesteal) are legal and non-dominated; 01+02+04+05 is the strongest unadvertised sustain build (+2 Damage, +10 Lifesteal, +5 IDG) at the cost of any mitigation.",
     "Presentation: the renderer prints full jutsu names for this kit because 'Reapers Storm' and 'Death's Storm' would both abbreviate to 'Storm', which is also the classification label; JSON and Markdown always carried full names.",
@@ -1324,10 +1324,11 @@
     "Classification: Storm is not exclusive in the census (Godstorm Eclipse, Shinrai Ou and deferred Stormboat Willy carry Storm damage rows), and whether any NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carries Storm is unverified. The tree assumes a bloodline-scoped whole-kit classification; a bare element match would leak to those kits.",
     "Resolver: 4 of the 6 supported rows (all Stormsinger rows and Death's Storm DDG) have no element and fall back to None under the current resolver, so they are unreachable without the proposed classification change; reaching them with affectedElements including None would also reach every non-elemental row on any jutsu the player casts.",
     "Lifesteal cap: lifesteal and vamp share one 60%-of-pre-shield-damage leech budget per hit. The route tops out at 50%, leaving 10 points of headroom; a player who also carries vamp from the normal tree or items may saturate the cap and lose part of the +10. Lifesteal requires both combatants alive and is blocked by healprevent on the caster. Verified at the pin: pierce is written through damageUser as consequence.damage with 'pierce' among its types (tags.ts 1539, 1566–1615); process.ts 563–585 runs pierce before the post-damage pass so that lifesteal includes it; the lifesteal handler (tags.ts 2028–2054) has no pierce exclusion, unlike recoil (1958–1959) and afterburn (1993–1994); and getEfficiencyRatio returns 1 for any pierce effect (3478–3479). Stormsinger's enhanced leech therefore also draws from Death's Storm's 58-power pierce at full ratio; at 50% it stays inside the cap.",
-    "Efficiency matching (verified at the pin, tags.ts 3477–3510 and 97): a 'Highest' stat type resolves to the caster's highest offence stat, which realizeTag copies onto the effect from the user, and an effect with no elements carries the tag 'None'. Stormsinger's IDG row (statTypes ['Highest'], no elements) therefore matches the kit's own Storm damage rows (statTypes ['Highest'] on the same caster) and any damage row that uses that stat type or carries no element, but not a normal jutsu that uses a different single stat type and carries an element. The Lifesteal and DDT rows list all four stat types, so they match every damage row that declares a stat type and all pierce (ratio forced to 1), missing only a stat-less elemental row. Per-row stat types are auditable in docs/design/bloodright/evidence/kit_snapshot.json; the kit dossier tables do not yet print them (extending audit_kits.py to emit statTypes/generalTypes for every kit is a tooling follow-up outside this tree's correction scope).",
+    "Efficiency matching (verified at the pin, tags.ts 3477–3510 and 97): a 'Highest' stat type resolves to the caster's highest offence stat, which realizeTag copies onto the effect from the user, and an effect with no elements carries the tag 'None'. Stormsinger's IDG row (statTypes ['Highest'], no elements) therefore matches the kit's own Storm damage rows (statTypes ['Highest'] on the same caster) and any damage row that uses that stat type or carries no element, but not a normal jutsu that uses a different single stat type and carries an element. The Lifesteal row lists all four stat types, so it matches every damage row that declares a stat type and all pierce (ratio forced to 1), missing only a stat-less elemental row; the DDT row lists the same four stat types and matches every incoming damage row that declares a stat type but never pierce: process.ts 418–432 and 563–575 apply pierce after the damage-modifier pass (480), so adjustDamageTaken (tags.ts 1002–1065) never sees a pierce consequence; IDG and DDG likewise never touch pierce. Per-row stat types are auditable in docs/design/bloodright/evidence/kit_snapshot.json; the kit dossier tables do not yet print them (extending audit_kits.py to emit statTypes/generalTypes for every kit is a tooling follow-up outside this tree's correction scope).",
     "Stacking: BATTLE_TAG_STACKING is true at the pin, so a Bloodright potency effect stacks with any other potency source rather than being deduplicated; the combined budget with a future normal-tree potency policy is unaudited.",
-    "No adverse rows, hidden rows, item gates, mode restrictions or injected children exist in this kit; the unsupported drain, pierce, poison, increasepoolcost, shield and move rows are unchanged by every node.",
-    "No combat simulation: non-dominance of the 14 allocations is an arithmetic result over per-row additions, not evidence of equal combat strength; AoE target counts, uptime, AP economy and the Storm IDG passive's multiplication were not modelled."
+    "No adverse rows, hidden rows, item gates, mode restrictions or injected children exist in this kit (the one ally-hazard row is covered below); the unsupported drain, pierce, poison, increasepoolcost, shield and move rows are unchanged by every node.",
+    "No combat simulation: non-dominance of the 14 allocations is an arithmetic result over per-row additions, not evidence of equal combat strength; AoE target counts, uptime, AP economy and the Storm IDG passive's multiplication were not modelled.",
+    "Ally hazard: Death's Storm row 1 DDG is an AOE_CIRCLE_SPAWN row with friendly fire none (=ALL), so allies, and the caster if inside the circle, also take the debuff for its 2 rounds; nodes 06, 09 and 10 raise it on them too (30% -> up to 40%). The pierce row (friendly fire ENEMIES) is unaffected. Positioning decides; the route is worth less when allies share the circle. Not simulated."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1390,7 +1391,7 @@
       "lifesteal"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 2 / Storm classification / forked tree",
+    "revision": "Draft 3 / Storm classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed potency classification behavior; not implemented or verified in the live engine.",

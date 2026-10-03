@@ -1,0 +1,788 @@
+{
+  "kind": "bloodright_tree_validation",
+  "slug": "crystal_essence",
+  "bloodline": {
+    "id": "ssevlOGQ4JjPn2sHZtq0c",
+    "review_id": "BR-020",
+    "name": "Crystal Essence",
+    "rank": "A",
+    "statClassification": "Ninjutsu",
+    "traits": "Defensive, Sustained Damage"
+  },
+  "revision": "Draft 1 / Crystal classification / forked tree",
+  "structure_errors": [],
+  "warnings": [],
+  "classification": {
+    "potency_classification": "Crystal",
+    "label_kind": "element",
+    "bloodline": "Crystal Essence",
+    "display_element": "Crystal",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Crystal Essence jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": [
+      "Sea-Maiden’s Kiss"
+    ]
+  },
+  "examples": [
+    {
+      "name": "Splintered Mountain Heart",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 4
+      },
+      "advanced_arts": [
+        "Splintered Mountain Heart"
+      ]
+    },
+    {
+      "name": "Break Along the Flaw",
+      "archetype": "Exposure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "02"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 7
+      },
+      "advanced_arts": [
+        "Break Along the Flaw"
+      ]
+    },
+    {
+      "name": "Adamant Core",
+      "archetype": "Bastion",
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "01"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10,
+        "reflect": 2
+      },
+      "advanced_arts": [
+        "Adamant Core"
+      ]
+    },
+    {
+      "name": "Entombed in Crystal",
+      "archetype": "Reprisal",
+      "ids": [
+        "06",
+        "09",
+        "10",
+        "01"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "reflect": 10
+      },
+      "advanced_arts": [
+        "Entombed in Crystal"
+      ]
+    }
+  ],
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "increasedamagetaken": 7,
+      "decreasedamagetaken": 10,
+      "reflect": 10
+    },
+    "supported_rows_in_kit": 8,
+    "supported_rows_by_tag": {
+      "damage": 3,
+      "decreasedamagetaken": 1,
+      "increasedamagegiven": 1,
+      "increasedamagetaken": 2,
+      "reflect": 1
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagetaken",
+      "increasedamagegiven",
+      "increasedamagetaken",
+      "reflect"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "node_values": [
+      {
+        "id": "01",
+        "name": "Prismatic Focus",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 4,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Crystal Cave",
+          "Crystal Sphere",
+          "Kōsai Shippū"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "02",
+        "name": "Razor Lattice",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Crystal Cave",
+          "Kōsai Shippū",
+          "Prism"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "Splintered Mountain Heart",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 3,
+        "row_weighted_total": 9,
+        "covered_jutsu": [
+          "Crystal Cave",
+          "Kōsai Shippū",
+          "Prism"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "04",
+        "name": "Flaw in the Stone",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Crystal Cave",
+          "Crystal Sphere"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "05",
+        "name": "Break Along the Flaw",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 6,
+        "row_weighted_total": 9,
+        "covered_jutsu": [
+          "Crystal Cave",
+          "Crystal Sphere",
+          "Kōsai Shippū"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "06",
+        "name": "Jade Lattice",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 4,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Crystal Cave",
+          "Crystal Sphere"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "07",
+        "name": "Flawless Sphere",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Crystal Sphere"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "08",
+        "name": "Adamant Core",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 8,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Crystal Sphere",
+          "Kōsai Shippū"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "09",
+        "name": "Light Turned Back",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Crystal Cave"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "10",
+        "name": "Entombed in Crystal",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 8,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Crystal Cave",
+          "Kōsai Shippū"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      }
+    ],
+    "strongest_full_build_by_row_weight": {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 7
+      },
+      "raw_flat_total": 14,
+      "row_weighted_total": 25,
+      "advanced_arts": [
+        "05"
+      ],
+      "non_dominated": true
+    },
+    "lowest_value_node_by_row_weight": {
+      "id": "07",
+      "name": "Flawless Sphere",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 3,
+      "row_weighted_total": 3,
+      "covered_jutsu": [
+        "Crystal Sphere"
+      ],
+      "covered_rows": 1,
+      "adverse_rows_amplified": [],
+      "tags_without_rows": []
+    },
+    "full_builds": [
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 4
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 25,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "reflect": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 25,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 7
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 25,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 2,
+          "reflect": 2
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 20,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5,
+          "reflect": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 19,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "reflect": 5
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 19,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 7,
+          "decreasedamagetaken": 2,
+          "reflect": 2
+        },
+        "raw_flat_total": 16,
+        "row_weighted_total": 23,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 5,
+          "reflect": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 17,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 2,
+          "reflect": 5
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 17,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 10,
+          "reflect": 2
+        },
+        "raw_flat_total": 19,
+        "row_weighted_total": 21,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5,
+          "reflect": 5
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 16,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "reflect": 10
+        },
+        "raw_flat_total": 19,
+        "row_weighted_total": 21,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 3,
+          "decreasedamagetaken": 10,
+          "reflect": 5
+        },
+        "raw_flat_total": 18,
+        "row_weighted_total": 18,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 3,
+          "decreasedamagetaken": 5,
+          "reflect": 10
+        },
+        "raw_flat_total": 18,
+        "row_weighted_total": 18,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      }
+    ],
+    "legal_allocations": {
+      "0": [
+        []
+      ],
+      "1": [
+        [
+          "01"
+        ],
+        [
+          "06"
+        ]
+      ],
+      "2": [
+        [
+          "01",
+          "02"
+        ],
+        [
+          "01",
+          "04"
+        ],
+        [
+          "01",
+          "06"
+        ],
+        [
+          "06",
+          "07"
+        ],
+        [
+          "06",
+          "09"
+        ]
+      ],
+      "3": [
+        [
+          "01",
+          "02",
+          "03"
+        ],
+        [
+          "01",
+          "02",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "06",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "06",
+          "09",
+          "10"
+        ]
+      ],
+      "4": [
+        [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "09",
+          "10"
+        ]
+      ]
+    }
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "combat_simulation_performed": false,
+  "live_mutations": 0
+}

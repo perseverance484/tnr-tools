@@ -1,0 +1,820 @@
+{
+  "kind": "bloodright_tree_validation",
+  "slug": "blue_blade_eyes",
+  "bloodline": {
+    "id": "clh4d6qo4000itb0hrx8t06wq",
+    "review_id": "BR-015",
+    "name": "Blue Blade Eyes",
+    "rank": "S",
+    "statClassification": "Highest",
+    "traits": "Control, Burst"
+  },
+  "revision": "Draft 1 / Ice classification / forked tree",
+  "structure_errors": [],
+  "warnings": [
+    "ally-hazard area rows amplified (friendly fire none/ALL): Icebound Might#0"
+  ],
+  "classification": {
+    "potency_classification": "Ice",
+    "label_kind": "element",
+    "bloodline": "Blue Blade Eyes",
+    "display_element": "Ice",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Blue Blade Eyes jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": [
+      "Blue Edge Eyes",
+      "First Flame",
+      "Hyouga Yui",
+      "Itzehecayan",
+      "Teno Yuki",
+      "The Abbynomaly",
+      "True North"
+    ]
+  },
+  "examples": [
+    {
+      "name": "Stroke That Splits Stone Burst",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      },
+      "advanced_arts": [
+        "Stroke That Splits Stone"
+      ]
+    },
+    {
+      "name": "Numb to the Marrow Suppression",
+      "archetype": "Suppression",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 9,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      },
+      "advanced_arts": [
+        "Numb to the Marrow"
+      ]
+    },
+    {
+      "name": "Glacier Does Not Yield Bulwark",
+      "archetype": "Bulwark",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 8
+      },
+      "advanced_arts": [
+        "Glacier Does Not Yield"
+      ]
+    },
+    {
+      "name": "Winter Takes Its Due Drain",
+      "archetype": "Drain",
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 5,
+        "lifesteal": 8
+      },
+      "advanced_arts": [
+        "Winter Takes Its Due"
+      ]
+    }
+  ],
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "decreasedamagegiven": 9,
+      "increasedamagetaken": 5,
+      "decreasedamagetaken": 8,
+      "lifesteal": 8
+    },
+    "supported_rows_in_kit": 16,
+    "supported_rows_by_tag": {
+      "damage": 5,
+      "decreasedamagegiven": 1,
+      "decreasedamagetaken": 2,
+      "increasedamagegiven": 4,
+      "increasedamagetaken": 3,
+      "lifesteal": 1
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagegiven",
+      "decreasedamagetaken",
+      "increasedamagegiven",
+      "increasedamagetaken",
+      "lifesteal"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "node_values": [
+      {
+        "id": "01",
+        "name": "Sapphire Edge",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 4,
+        "row_weighted_total": 10,
+        "covered_jutsu": [
+          "Arctic Frost",
+          "Blue Crimson",
+          "Glacial Volley",
+          "Icebound Might",
+          "Quintessential Flake"
+        ],
+        "covered_rows": 5,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "02",
+        "name": "Honed Crescent",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 10,
+        "covered_jutsu": [
+          "Blade Resonance",
+          "Blue Crimson",
+          "Glacial Volley",
+          "Ice Shackles",
+          "Icebound Might"
+        ],
+        "covered_rows": 5,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "Stroke That Splits Stone",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 3,
+        "row_weighted_total": 15,
+        "covered_jutsu": [
+          "Blade Resonance",
+          "Blue Crimson",
+          "Glacial Volley",
+          "Ice Shackles",
+          "Icebound Might"
+        ],
+        "covered_rows": 5,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "04",
+        "name": "Frostbitten Grip",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Icebound Might"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "05",
+        "name": "Numb to the Marrow",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 7,
+        "row_weighted_total": 16,
+        "covered_jutsu": [
+          "Arctic Frost",
+          "Blue Crimson",
+          "Glacial Volley",
+          "Icebound Might",
+          "Quintessential Flake"
+        ],
+        "covered_rows": 5,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "06",
+        "name": "Unblinking Sapphire",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 4,
+        "row_weighted_total": 10,
+        "covered_jutsu": [
+          "Arctic Frost",
+          "Blade Resonance",
+          "Quintessential Flake",
+          "Sapphire Command"
+        ],
+        "covered_rows": 5,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "07",
+        "name": "Hoarfrost Bulwark",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Quintessential Flake",
+          "Sapphire Command"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "08",
+        "name": "Glacier Does Not Yield",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 6,
+        "row_weighted_total": 15,
+        "covered_jutsu": [
+          "Arctic Frost",
+          "Blade Resonance",
+          "Quintessential Flake",
+          "Sapphire Command"
+        ],
+        "covered_rows": 5,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "09",
+        "name": "Thirst of the Frost",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Arctic Frost"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "10",
+        "name": "Winter Takes Its Due",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 8,
+        "row_weighted_total": 14,
+        "covered_jutsu": [
+          "Arctic Frost",
+          "Blade Resonance",
+          "Sapphire Command"
+        ],
+        "covered_rows": 4,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      }
+    ],
+    "strongest_full_build_by_row_weight": {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      },
+      "raw_flat_total": 13,
+      "row_weighted_total": 45,
+      "advanced_arts": [
+        "03"
+      ],
+      "non_dominated": true
+    },
+    "lowest_value_node_by_row_weight": {
+      "id": "04",
+      "name": "Frostbitten Grip",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 3,
+      "row_weighted_total": 3,
+      "covered_jutsu": [
+        "Icebound Might"
+      ],
+      "covered_rows": 1,
+      "adverse_rows_amplified": [],
+      "tags_without_rows": []
+    },
+    "full_builds": [
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 5
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 38,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 45,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 5,
+          "decreasedamagegiven": 9
+        },
+        "raw_flat_total": 16,
+        "row_weighted_total": 39,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 5,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 33,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 36,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "lifesteal": 3
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 33,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "decreasedamagegiven": 9,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 18,
+        "row_weighted_total": 39,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 5,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 29,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 5,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "lifesteal": 3
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 26,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 8
+        },
+        "raw_flat_total": 17,
+        "row_weighted_total": 41,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5,
+          "lifesteal": 3
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 29,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 2,
+          "lifesteal": 8
+        },
+        "raw_flat_total": 19,
+        "row_weighted_total": 37,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 8,
+          "lifesteal": 3
+        },
+        "raw_flat_total": 16,
+        "row_weighted_total": 34,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 5,
+          "lifesteal": 8
+        },
+        "raw_flat_total": 18,
+        "row_weighted_total": 33,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      }
+    ],
+    "legal_allocations": {
+      "0": [
+        []
+      ],
+      "1": [
+        [
+          "01"
+        ],
+        [
+          "06"
+        ]
+      ],
+      "2": [
+        [
+          "01",
+          "02"
+        ],
+        [
+          "01",
+          "04"
+        ],
+        [
+          "01",
+          "06"
+        ],
+        [
+          "06",
+          "07"
+        ],
+        [
+          "06",
+          "09"
+        ]
+      ],
+      "3": [
+        [
+          "01",
+          "02",
+          "03"
+        ],
+        [
+          "01",
+          "02",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "06",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "06",
+          "09",
+          "10"
+        ]
+      ],
+      "4": [
+        [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "09",
+          "10"
+        ]
+      ]
+    }
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "combat_simulation_performed": false,
+  "live_mutations": 0
+}

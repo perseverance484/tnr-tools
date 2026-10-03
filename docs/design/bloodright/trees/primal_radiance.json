@@ -1,0 +1,1329 @@
+{
+  "title": "Primal Radiance — The Burning Hunt",
+  "revision": "Draft 1 / Primal Radiance classification / forked tree",
+  "bloodline": {
+    "id": "ZewrhKT-qBQxT1eNoBWFP",
+    "review_id": "BR-055",
+    "name": "Primal Radiance",
+    "rank": "C",
+    "statClassification": "Highest",
+    "traits": null
+  },
+  "classification": {
+    "potency_classification": "Primal Radiance",
+    "label_kind": "bloodline-keyed extension",
+    "bloodline": "Primal Radiance",
+    "display_element": "Fire",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Primal Radiance jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
+    "census_collisions": [
+      "Adorable Shadow of Death",
+      "Amaterasu",
+      "Architect of the Hollow Script",
+      "Blissoo",
+      "Blood-Enchanted Eyes",
+      "Blood-Enthralled Eyes",
+      "Crust Almighty",
+      "Crystal Essence",
+      "Extinction Herald",
+      "Eyes of the Forsaken Heir",
+      "Eyes of the Forsaken King",
+      "Infernal Reaper",
+      "Manhattan Project",
+      "Oblivion Seal",
+      "Otaku of the Dark Maiden",
+      "Sea-Maiden’s Kiss",
+      "Shadow Weaver",
+      "Shakunetsu Sakura",
+      "Shiroi Youso",
+      "Solar Soul",
+      "Suragu",
+      "Taiyo Kami",
+      "Tenohira Musei",
+      "Testing Dummy 2.0",
+      "Tetsugan",
+      "Timeforged Enigma",
+      "Traveling Sun Praiser",
+      "Youso Shiroi",
+      "Yūhi Ryūjin (夕陽竜神)"
+    ]
+  },
+  "emphasis": {
+    "primary": "Offense — Fire damage (Fire Style: Beast, Fire Style: Squirrel) and Beast's self Increase Damage Given",
+    "secondary": "Pressure — Afterburn and Increase Damage Taken (Primal Incineration)",
+    "tertiary": "Defense — Decrease Damage Taken (Fire Style: Squirrel circle)",
+    "rationale": "Four of the six supported rows are offensive: the two Fire damage rows (Beast 50, Squirrel 40 at jutsu level 25) and Beast's 35% self Increase Damage Given, plus the bloodline's own Fire Increase Damage Given passive multiplying them, so offense is primary and is given both a raw-power route and a buff-window route. Primal Incineration is the kit's only opener (40 AP, D-rank): its Afterburn 35% and Fire-filtered exposure 35% are single rows whose value lands on every later hit the target takes, so pressure is secondary with one route. Defense is a single 30% Decrease Damage Taken row on Squirrel's ground circle, conditional on standing inside it; it is tertiary and gets one route held to Taiyo Kami's single-row +10 shape. Wound and move are unsupported."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Hunter's Brand",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "damage",
+          "flat": 1,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Every quarry the beast marks is already half-burned.",
+      "coverage_note": "Primal Incineration exposure 35→37% (Fire or element-less hits, 2 rounds); Beast 50→51 and Squirrel 40→41 Fire damage. 3 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Primal Radiance",
+      "scope": "Primal Radiance jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Fire Style: Beast",
+          "Fire Style: Squirrel",
+          "Primal Incineration"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "02",
+      "name": "Fang and Ember",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Teeth of ember, breath of wildfire.",
+      "coverage_note": "Beast and Squirrel Fire damage rows only (51→53 and 41→43 with Hunter's Brand). Both 60 AP, range 4; Squirrel is a ground circle, CD 6.",
+      "parent_rule": "ALL",
+      "potency_classification": "Primal Radiance",
+      "scope": "Primal Radiance jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Fire Style: Beast",
+          "Fire Style: Squirrel"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "03",
+      "name": "Apex Conflagration",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "When the alpha roars, the whole forest catches.",
+      "coverage_note": "The same two damage rows; the route totals +6 power (Beast 50→56, Squirrel 40→46) before the bloodline's Fire damage passive.",
+      "parent_rule": "ALL",
+      "potency_classification": "Primal Radiance",
+      "scope": "Primal Radiance jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Fire Style: Beast",
+          "Fire Style: Squirrel"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "04",
+      "name": "Smoldering Trail",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Where the hunted beast ran, the ground still smolders.",
+      "coverage_note": "Primal Incineration Afterburn only (one 2-round enemy debuff, 40 AP, CD 7): 35→38%. Value lands on every non-pierce hit the target takes.",
+      "parent_rule": "ALL",
+      "potency_classification": "Primal Radiance",
+      "scope": "Primal Radiance jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Primal Incineration"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "05",
+      "name": "Pyre of the Hunted",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 7,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "The hunt ends on a pyre the prey built with its own flight.",
+      "coverage_note": "Incineration Afterburn 38→45% and exposure 37→40% with Hunter's Brand; one 40 AP cast carries both for 2 rounds on one target.",
+      "parent_rule": "ALL",
+      "potency_classification": "Primal Radiance",
+      "scope": "Primal Radiance jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Primal Incineration"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "06",
+      "name": "Hide and Fang",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Thick pelt, sharp fang, both lit from within.",
+      "coverage_note": "Squirrel circle Decrease Damage Taken 30→32% (while standing in it, from the next round); Beast self Increase Damage Given 35→37%.",
+      "parent_rule": "ALL",
+      "potency_classification": "Primal Radiance",
+      "scope": "Primal Radiance jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Fire Style: Beast",
+          "Fire Style: Squirrel"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "07",
+      "name": "Radiant Hide",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "A hide that drinks the flame it stands in.",
+      "coverage_note": "Squirrel Decrease Damage Taken only (element-less row, all four stat types: every non-pierce hit): 32→35% with Hide and Fang.",
+      "parent_rule": "ALL",
+      "potency_classification": "Primal Radiance",
+      "scope": "Primal Radiance jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Fire Style: Squirrel"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "08",
+      "name": "Den of Embers",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Within the burning den, nothing reaches the beast.",
+      "coverage_note": "Squirrel circle 35→40% Decrease Damage Taken (the +10 route ceiling) and Beast Increase Damage Given 37→39%.",
+      "parent_rule": "ALL",
+      "potency_classification": "Primal Radiance",
+      "scope": "Primal Radiance jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Fire Style: Beast",
+          "Fire Style: Squirrel"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "09",
+      "name": "Kindled Fury",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Fury stoked until the blood itself glows.",
+      "coverage_note": "Beast Increase Damage Given only (self, 2 rounds after a 60 AP cast, Fire or element-less hits): 37→40% with Hide and Fang.",
+      "parent_rule": "ALL",
+      "potency_classification": "Primal Radiance",
+      "scope": "Primal Radiance jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Fire Style: Beast"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "10",
+      "name": "Primal Rampage",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "09"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "The radiant beast unbound, and nothing left to hold it.",
+      "coverage_note": "Beast Increase Damage Given 40→45% (the +10 route ceiling) and Squirrel circle Decrease Damage Taken 32→34%.",
+      "parent_rule": "ALL",
+      "potency_classification": "Primal Radiance",
+      "scope": "Primal Radiance jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Fire Style: Beast",
+          "Fire Style: Squirrel"
+        ],
+        "effect_rows": 2
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Apex Conflagration",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "The +6 power route on both Fire attacks (Beast 50→56, Squirrel 40→46 before the bloodline's Fire Increase Damage Given passive multiplies them) with Hunter's Brand's 37% exposure. Hide and Fang is the fourth purchase so Beast's self buff reaches 37% and the Squirrel circle 32%; Smoldering Trail (Afterburn 38%) is the all-pressure alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Primal Incineration",
+          "row": 0,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Primal Incineration",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Beast",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 6,
+          "final": 56.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Beast",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Beast",
+          "row": 2,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Squirrel",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 6,
+          "final": 46.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Squirrel",
+          "row": 1,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Squirrel",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Apex Conflagration"
+      ]
+    },
+    {
+      "name": "Pyre of the Hunted",
+      "archetype": "Burn pressure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "rationale": "One 40 AP Primal Incineration cast marks a target with 45% Afterburn and 40% exposure for 2 rounds: every non-pierce hit it then takes (Beast, Squirrel, normal jutsu, weapons, allies) adds 45% Afterburn damage up to the 60% per-hit cap, and Fire or element-less hits are amplified a further 40%. Attacks sit at 51 and 41. Hide and Fang adds Beast 37% and circle 32%; Fang and Ember (attacks 53 / 43) is the sharper alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Primal Incineration",
+          "row": 0,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Primal Incineration",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Beast",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 1,
+          "final": 51.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Beast",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Beast",
+          "row": 2,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Squirrel",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 1,
+          "final": 41.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Squirrel",
+          "row": 1,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Squirrel",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Pyre of the Hunted"
+      ]
+    },
+    {
+      "name": "Den of Embers",
+      "archetype": "Fortified",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "rationale": "The Squirrel circle as a stronghold: 40% Decrease Damage Taken on every non-pierce hit while the caster stands inside it (from the round after the cast), with Beast's self buff at 39%. Hunter's Brand keeps the enemy-facing face alive (exposure 37%, attacks 51 / 41); Kindled Fury (Beast 42%) is the all-self alternative that stays under one root.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Primal Incineration",
+          "row": 0,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Primal Incineration",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Beast",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 1,
+          "final": 51.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Beast",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Beast",
+          "row": 2,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Squirrel",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 1,
+          "final": 41.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Squirrel",
+          "row": 1,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Squirrel",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 10,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Den of Embers"
+      ]
+    },
+    {
+      "name": "Primal Rampage",
+      "archetype": "Buff window",
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "rationale": "Beast's self Increase Damage Given at 45% for the 2 rounds after each 60 AP cast, multiplying Squirrel, normal jutsu, weapons and basic attacks that are Fire or element-less, with the circle at 34%. Hunter's Brand gives the setup cast a 37% exposure to stack the window on; Radiant Hide (circle 37%) is the sturdier alternative fourth purchase.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 4
+      },
+      "finals": [
+        {
+          "jutsu": "Primal Incineration",
+          "row": 0,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Primal Incineration",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Beast",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 1,
+          "final": 51.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Beast",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Beast",
+          "row": 2,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Squirrel",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Fire"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 1,
+          "final": 41.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Squirrel",
+          "row": 1,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Fire Style: Squirrel",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 4,
+          "final": 34.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Primal Rampage"
+      ]
+    }
+  ],
+  "narrow_kit_exception": null,
+  "design_notes": [
+    "Node split: the roots mirror the kit's two faces. Hunter's Brand (enemy-facing: Incineration exposure plus both Fire damage rows) forks into Fang and Ember → Apex Conflagration (raw damage) and Smoldering Trail → Pyre of the Hunted (burn). Hide and Fang (self-facing: Squirrel circle DDT plus Beast IDG) forks into Radiant Hide → Den of Embers (defense) and Kindled Fury → Primal Rampage (buff window). 2 F / 4 H / 4 A; every capstone 3 BP deep; two capstones cost 5 or 6 BP.",
+    "Flats scale by coverage, not rank. Damage reaches 2 rows (Taiyo: 3), so the route totals +6 (1+2+3, the guardrail): Beast 50→56, Squirrel 40→46. Afterburn is 3+7 = +10 (35→45%). Increase Damage Taken is one Fire-filtered row and reaches only +5 (Brand +2, Pyre +3; 35→40%), under Taiyo's +7. DDT and IDG are each one self-buff row and take Taiyo's single-row 2/3/5 shape (+10: circle 30→40%, Beast 35→45%); capstone secondaries are +2, one below the sibling Hidden Art, so no hybrid is dominated.",
+    "Passives and main tree: the Fire IDG passive (15 + 0.15/lvl; bloodline sources multiply) scales the enhanced Fire damage rows. Beast's IDG is jutsu-sourced and, via its Fire element and Highest stat filter, boosts every qualifying hit the caster lands for 2 rounds: Squirrel, normal jutsu, weapons, basic attacks. Incineration's exposure and Afterburn amplify kit, normal, weapon and ally hits on the target. Squirrel's element-less four-stat DDT row covers nearly every non-pierce hit.",
+    "Delivery and uptime: Primal Incineration is 40 AP, CD 7, single target; both debuffs last 2 rounds per 7-round cooldown. Beast is 60 AP, CD 7, single target; its self buff lasts 2 rounds. Squirrel is 60 AP, CD 6, an EMPTY_GROUND circle: its DDT is re-applied each round to whoever stands on the tiles, reaches the caster from the round after the cast (the move row sorts last) and only while they stay inside; spawn duration is not in the dossier. Potency changes percentages and powers only.",
+    "Fourth purchases: Burst (01,02,03) → Hide and Fang (circle 32%, Beast 37%) or Smoldering Trail (Afterburn 38%); Burn (01,04,05) → Hide and Fang or Fang and Ember (attacks 53 / 43); Fortified (06,07,08) → Hunter's Brand (exposure 37%, attacks 51 / 41) or Kindled Fury (Beast 42%); Buff window (06,09,10) → Hunter's Brand or Radiant Hide (circle 37%). Six no-Advanced hybrids: 01,02,04,06; 01,02,06,07; 01,02,06,09; 01,04,06,07; 01,04,06,09; 01,06,07,09. All 14 full allocations are non-dominated.",
+    "Strongest unadvertised allocation by row weight (Σ flat × rows reached): 01,02,04,05 (Damage +3, exposure +5, Afterburn +10) scores 21, level with the advertised Burn build; Burst, Fortified and Buff window score 18 each. Taiyo Kami's full builds span 20–31 on 9 rows, so the scale is proportionate to 6 rows. Lowest row-weighted nodes: Smoldering Trail, Radiant Hide, Kindled Fury (3 each), single-row Hidden Arts whose value is downstream (Afterburn) or window-wide (the self buffs)."
+  ],
+  "risks": [
+    "Classification: Fire sits on rows of 29 other census bloodlines, so the label is the bloodline-keyed extension 'Primal Radiance' (proposed whole-kit resolver plus a classification extension). With ['Fire'] today, 4 of 6 rows match directly; the two element-less rows (Afterburn, Squirrel DDT) fall back to None, which also reaches other non-elemental jutsu. Normal-jutsu Fire collisions unverified.",
+    "Afterburn: Pyre of the Hunted puts Incineration's Afterburn at 45% for 2 rounds on one target. Every non-pierce hit it takes (kit, normal jutsu, weapons, allies) adds floor(damage × 45%), cumulative Afterburn per hit capped at 60% of the hit, so it saturates alongside other Afterburn sources. BATTLE_TAG_STACKING is on at the pin. Not a damage instance; downstream instances were not simulated.",
+    "Exposure scope: Incineration's Increase Damage Taken row carries elements ['Fire'] with a Highest stat filter, so it amplifies Fire or element-less hits (and hits sharing the resolved Highest stat; which side's stats resolve 'Highest' for a target-side debuff was not verified). Pierce hits are excluded. Maximum +5 (40%) for 2 rounds per 40 AP cast on CD 7.",
+    "IDG leakage: Beast's self buff (elements Fire, stat Highest) multiplies every qualifying hit the caster lands for 2 rounds, so Primal Rampage's 45% is a window-wide multiplier on Squirrel, normal jutsu, weapons and basic attacks, not kit-only. Jutsu-sourced, additive with other jutsu/skill modifiers; the Fire passive multiplies on top. Pierce excluded; realized only inside the 2-round window.",
+    "DDT delivery: Squirrel's row sits on an EMPTY_GROUND circle spawn with friendly fire ALL (target SELF). The dossier derives the recipient as self, but allies on the tiles may also receive it (beneficial leakage, unverified); it reaches the caster from the round after the cast, only while standing inside; spawn duration was not read. Den of Embers' 40% has conditional uptime tied to a 60 AP cast.",
+    "Value decisions (user-owned): Increase Damage Given and Decrease Damage Taken both reach +10 on single rows (Beast 45%, circle 40%), Damage +6 on 2 rows at the guardrail, Afterburn +10. The brief says to adjust by coverage rather than rank, but this is a C-rank bloodline; lower self-buff ceilings (for example 2/3/4 = +9) remain available if the user prefers. No combat simulation was performed.",
+    "Damage is formula-calculated (sqrt stat scaling) and then multiplied by the Fire Increase Damage Given passive, so +6 raw power is not a linear +6 damage. Squirrel's damage row is an area hit with friendly fire ENEMIES (no ally hazard); Beast's wound 25% and Squirrel's move are unsupported and receive nothing.",
+    "Context not modelled: the bloodline's +10% Increase Damage Taken passive on Water (a standing weakness) is untouched by any node; skill-tree and bloodline effects are suppressed in RANKED_PVP and RANKED_SPARRING at the pin, so no Bloodright node applies there. Main-tree effects, equipment, AP, uptime and modifier delivery are outside this audit."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 6,
+      "increasedamagegiven": 10,
+      "increasedamagetaken": 5,
+      "decreasedamagetaken": 10,
+      "afterburn": 10
+    },
+    "supported_rows_in_kit": 6,
+    "supported_rows_by_tag": {
+      "afterburn": 1,
+      "damage": 2,
+      "decreasedamagetaken": 1,
+      "increasedamagegiven": 1,
+      "increasedamagetaken": 1
+    },
+    "tags_targeted_by_tree": [
+      "afterburn",
+      "damage",
+      "decreasedamagetaken",
+      "increasedamagegiven",
+      "increasedamagetaken"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Draft 1 / Primal Radiance classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags of Primal Radiance jutsu inherit Primal Radiance potency eligibility; original combat elements and target scopes stay intact.",
+      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 6,
+        "increasedamagetaken": 2,
+        "afterburn": 3
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagetaken": 5,
+        "afterburn": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 3
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5,
+        "afterburn": 3
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 3
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 4
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 7,
+        "decreasedamagetaken": 10
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 10,
+        "decreasedamagetaken": 7
+      }
+    }
+  ]
+}
