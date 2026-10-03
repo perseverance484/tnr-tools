@@ -50,6 +50,21 @@ Every claim here is **source-verified** (file and line cited) unless marked othe
 
 Ordering (`process.ts` 415–612): non-damage-modifier effects → damage modifiers → pierce → post-damage family (wound, afterburn, reflect, recoil, lifesteal, absorb) → heal adjusters → consequences applied.
 
+## 3b. Timing, stacking and arithmetic of buff/debuff rows (cross-roster facts)
+
+| Fact | Lines |
+|---|---|
+| `realizeTag` marks every new effect `isNew = true`, `castThisRound = true` and copies the **caster's** `highestOffence`/`highestDefence`/`highestGenerals` onto it. | tags.ts 95–100 |
+| Every modifier handler acts only when `!effect.isNew && !effect.castThisRound`: absorb (137), adjustStats (605), adjustDamageGiven (925, IDG/DDG), adjustDamageTaken (1010, IDT/DDT), adjustHealGiven (1117, increase/decreaseHeal), reflect (1839), recoil (1955), afterburn (1989), lifesteal (2039). **A buff or debuff therefore never modifies anything in the round it is cast** — not its own jutsu's damage row, not a second action the caster takes that round. | tags.ts 137, 605, 925, 1010, 1117, 1839, 1955, 1989, 2039 |
+| At round advance, effects not cast this round lose one round; all effects then clear `isNew`/`castThisRound`. A `rounds: 2` buff/debuff is therefore live during the **two rounds after the cast round**. | util.ts 2567–2577 |
+| Consequence: a jutsu that carries both a damage row and its own IDG/IDT row never applies that row to its own hit; a strike benefits only from rows realized in an earlier round (its own earlier cast, another jutsu, or an ally). | (follows from the rows above) |
+| General effect stacking: with `BATTLE_TAG_STACKING = true`, `applySingleEffect` applies every active effect (`cacheCheck` is always true), so two same-tag effects on one target — from different jutsu, from a recast, or from different casters — all apply. | process.ts 1109–1117; app/drizzle/constants.ts 1562 |
+| Jutsu-sourced percentage IDG/DDG/IDT/DDT **add** `power/100 × baseDamageForModifiers` to the hit (so two 35% rows add 70% of the staged base); only `fromType = "bloodline"` modifiers multiply the running damage. Bloodright potency raises the row's percentage; the addition stays additive. | tags.ts 917–970, 1004–1060 |
+| OTHER_USER-target jutsu may be aimed at any living non-caster user, allies included (`isValidMove`). On an ally target, rows with `friendlyFire: ENEMIES` are withheld; rows with none/ALL land on the ally; `target: SELF` rows are still realized on the caster. | util.ts 2747–2749; actions.ts 1029–1068 |
+| OPPONENT-target jutsu need a different-direction user; ALLY-target jutsu need a same-direction user (the caster qualifies as a same-direction user for ALLY). | util.ts 2744–2752 |
+| `AOE_SPIRAL_SHOOT` covers a spiral of radius = action range centred on the **caster's** tile, with the caster's own tile removed; `AOE_CIRCLE_SPAWN` is a radius-1 spiral on the clicked tile; `AOE_CIRCLE_SHOOT` is a ring around the caster. EMPTY_GROUND requires only the clicked tile to be unoccupied. | util.ts 2827–2828, 2891–2895, 2756–2757 |
+| `target: SELF` rows on area actions are realized once per cast (deduplicated by `getEffectStackKey` through `appliedEffects`), however many tiles are hit. | actions.ts 1000–1004, 1062–1066 |
+
 ## 4. Injected jutsu and action level
 
 | Fact | Lines |

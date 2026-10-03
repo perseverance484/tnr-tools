@@ -69,6 +69,10 @@ Abbreviations: DMG = Damage · DDG = Decrease Damage Given · IH = Increase Heal
 - Strongest full build by row-weighted total: Hagmother's Welcome, Numbing Lullaby, Cradle of the Kijo, Mountain Hag's Mercy (raw +17, row-weighted 18)
 - Lowest row-weighted node: Numbing Lullaby (3)
 
+Validator warnings:
+
+- universal node: 01 (Hagmother's Welcome) appears in every legal full-budget allocation
+
 ### All legal full-budget allocations
 
 | # | Nodes | Bonuses |

@@ -1,0 +1,992 @@
+{
+  "title": "Voltara Divine — Litany of Lightning",
+  "revision": "Draft 1 / Voltara Divine classification / forked tree",
+  "bloodline": {
+    "id": "zOGMXO1nnBTEE0sAJRCuD",
+    "review_id": "BR-091",
+    "name": "Voltara Divine",
+    "rank": "C",
+    "statClassification": "Highest",
+    "traits": null
+  },
+  "classification": {
+    "potency_classification": "Voltara Divine",
+    "label_kind": "bloodline-keyed extension",
+    "bloodline": "Voltara Divine",
+    "display_element": "Lightning",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Voltara Divine jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
+    "census_collisions": [
+      "Adorable Shadow of Death",
+      "Architect of the Hollow Script",
+      "Bakuhatsu",
+      "Blissoo",
+      "Blood-Enchanted Eyes",
+      "Blood-Enthralled Eyes",
+      "Extinction Herald",
+      "Eyes of the Forsaken Heir",
+      "Eyes of the Forsaken King",
+      "Houkyuken",
+      "Infernal Reaper",
+      "Itojinsei",
+      "Oblivion Seal",
+      "Otaku of the Dark Maiden",
+      "Shadow Weaver",
+      "Shinrai Ou",
+      "Shiroi Youso",
+      "Solar Soul",
+      "Tenohira Musei",
+      "Testing Dummy 2.0",
+      "Timeforged Enigma",
+      "Traveling Sun Praiser",
+      "Youso Shiroi",
+      "Yūhi Ryūjin (夕陽竜神)"
+    ]
+  },
+  "emphasis": {
+    "primary": "Lightning amplification — Increase Damage Given (Luminous Illusion Bind, Ethereal Dragon's Whispers; two self rows)",
+    "secondary": "Lightning damage — Bind and Whispers (two formula rows at 40 and 50)",
+    "tertiary": "Guard — Decrease Damage Taken (Voltara Blitz; one row)",
+    "rationale": "Five supported rows sit on three casts. Both Lightning strikes carry a 35% self Increase Damage Given row for 2 rounds: Bind's is Lightning-elemented and amplifies only Lightning hits, Whispers' lists all four stat types with no element and amplifies every non-pierce hit; they stack under BATTLE_TAG_STACKING and sit over a 15% Lightning Increase Damage Given passive, so self amplification is the bloodline's identity and takes the primary route. The two Highest-stat formula hits (Bind 40 at rank D, cooldown 6; Whispers 50 at rank B, cooldown 7; 60 AP each, single target) are the kit's only direct damage and take the raw-power route. Voltara Blitz's single 30% self Decrease Damage Taken row (all four stat types, realized on the caster at cast, 2 rounds, 60 AP, cooldown 7) is the only defensive lever and the only answer to the bloodline's 10% Wind Increase Damage Taken passive, so it carries one chain as tertiary. Blitz's move and pierce rows and Bind's stun are unsupported."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Anointed by Lightning",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "The storm chose this blood before birth; every pulse carries its blessing.",
+      "coverage_note": "Both self damage buffs 35→37% for 2 rounds: Bind's (Lightning hits only) and Whispers' (every non-pierce hit, any stat type). 2 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Voltara Divine",
+      "scope": "Voltara Divine jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Ethereal Dragon's Whispers",
+          "Luminous Illusion Bind"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "02",
+      "name": "Dragon's Whispered Wrath",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "What the ethereal dragon whispers, the sky repeats as thunder.",
+      "coverage_note": "Luminous Illusion Bind 40→42 and Ethereal Dragon's Whispers 50→52 power; two Lightning formula hits, 60 AP, cooldowns 6 and 7.",
+      "parent_rule": "ALL",
+      "potency_classification": "Voltara Divine",
+      "scope": "Voltara Divine jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Ethereal Dragon's Whispers",
+          "Luminous Illusion Bind"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "03",
+      "name": "Ethereal Dragon Unbound",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "No seal, no sky, no prayer holds the dragon once it has been named.",
+      "coverage_note": "Route total +5: Bind 40→45, Whispers 50→55 (46/56 with Halo of Static, the two-row Damage guardrail). 2 rows, no gates or hidden rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Voltara Divine",
+      "scope": "Voltara Divine jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Ethereal Dragon's Whispers",
+          "Luminous Illusion Bind"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "04",
+      "name": "Luminous Conduit",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Light runs through the body as through wire, losing nothing on the way.",
+      "coverage_note": "Both self buffs 35→39% with Anointed by Lightning; Bind's row amplifies Lightning hits, Whispers' row every non-pierce hit. 2 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Voltara Divine",
+      "scope": "Voltara Divine jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Ethereal Dragon's Whispers",
+          "Luminous Illusion Bind"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "05",
+      "name": "Apotheosis of Thunder",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "The faithful do not wield the lightning. They become it.",
+      "coverage_note": "Route total +7: both self buffs 35→42% (2 rounds each); plus Voltara Blitz Decrease Damage Taken 30→32% (34% with Halo of Static). 3 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Voltara Divine",
+      "scope": "Voltara Divine jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Ethereal Dragon's Whispers",
+          "Luminous Illusion Bind",
+          "Voltara Blitz"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "06",
+      "name": "Halo of Static",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "damage",
+          "flat": 1,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Where the blitz ends, a ring of charged air lingers and refuses to break.",
+      "coverage_note": "Voltara Blitz Decrease Damage Taken 30→32% (self at cast, all four stat types, 2 rounds, cooldown 7); Bind and Whispers +1 power. 3 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Voltara Divine",
+      "scope": "Voltara Divine jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Ethereal Dragon's Whispers",
+          "Luminous Illusion Bind",
+          "Voltara Blitz"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "07",
+      "name": "Aegis of Living Light",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "A mantle of living light; blows arrive softened, as if through a dream.",
+      "coverage_note": "Voltara Blitz Decrease Damage Taken only: 32→35% with Halo of Static; one element-less row against every non-pierce hit, 2 rounds per cast.",
+      "parent_rule": "ALL",
+      "potency_classification": "Voltara Divine",
+      "scope": "Voltara Divine jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Voltara Blitz"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "08",
+      "name": "Unassailable Radiance",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "damage",
+          "flat": 1,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Radiance so complete that harm itself hesitates at the threshold.",
+      "coverage_note": "Route total +10: Blitz guard 30→40% for 2 rounds; plus Bind and Whispers +1 power (42/52 with Halo of Static). 3 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Voltara Divine",
+      "scope": "Voltara Divine jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Ethereal Dragon's Whispers",
+          "Luminous Illusion Bind",
+          "Voltara Blitz"
+        ],
+        "effect_rows": 3
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Ethereal Dragon Unbound",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "The +6 power route on both Lightning strikes (Bind 40→46, Whispers 50→56, before the 15% Lightning Increase Damage Given passive and the kit's own buffs multiply them) with both self buffs at 37% and Blitz's guard at 32%. Halo of Static is the fourth purchase because it supplies the last point of power and the guard; Luminous Conduit (buffs 39%, strikes 45/55) is the all-offence alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Voltara Blitz",
+          "row": 0,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Voltara Blitz",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Voltara Blitz",
+          "row": 2,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 56.0,
+          "gain": 0,
+          "final": 56.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Luminous Illusion Bind",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Lightning"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 6,
+          "final": 46.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Luminous Illusion Bind",
+          "row": 1,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Luminous Illusion Bind",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Lightning"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Dragon's Whispers",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Lightning"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 6,
+          "final": 56.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Dragon's Whispers",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Ethereal Dragon Unbound"
+      ]
+    },
+    {
+      "name": "Apotheosis of Thunder",
+      "archetype": "Tempo",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "rationale": "The +7 route on both Increase Damage Given rows (Bind and Whispers 35→42%, self, 2 rounds each): inside Whispers' window every non-pierce hit the caster lands is amplified, weapons, basic attacks and normal jutsu included; inside Bind's window every Lightning hit, so the kit's own strikes (41 and 51 power from Halo of Static) can carry both. Blitz's guard reaches 34% from the capstone and the root; Dragon's Whispered Wrath (strikes 42/52, guard 32%) is the alternative fourth purchase.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 7,
+        "decreasedamagetaken": 4
+      },
+      "finals": [
+        {
+          "jutsu": "Voltara Blitz",
+          "row": 0,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Voltara Blitz",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 4,
+          "final": 34.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Voltara Blitz",
+          "row": 2,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 56.0,
+          "gain": 0,
+          "final": 56.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Luminous Illusion Bind",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Lightning"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 1,
+          "final": 41.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Luminous Illusion Bind",
+          "row": 1,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Luminous Illusion Bind",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Lightning"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 7,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Dragon's Whispers",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Lightning"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 1,
+          "final": 51.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Dragon's Whispers",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 7,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Apotheosis of Thunder"
+      ]
+    },
+    {
+      "name": "Unassailable Radiance",
+      "archetype": "Guard",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "rationale": "Voltara Blitz's Decrease Damage Taken at 40% for its 2 rounds every 7-round cooldown, against every non-pierce hit of any stat type including the Wind hits the bloodline's own passive makes 10% heavier, with the strikes at 42 and 52 power and both self buffs at 37%. Anointed by Lightning is the only possible fourth purchase; the build has no second route.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Voltara Blitz",
+          "row": 0,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Voltara Blitz",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 10,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Voltara Blitz",
+          "row": 2,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 56.0,
+          "gain": 0,
+          "final": 56.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Luminous Illusion Bind",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Lightning"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Luminous Illusion Bind",
+          "row": 1,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Luminous Illusion Bind",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Lightning"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Dragon's Whispers",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Lightning"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 2,
+          "final": 52.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Dragon's Whispers",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Unassailable Radiance"
+      ]
+    }
+  ],
+  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on five rows (Increase Damage Given x2, Damage x2, Decrease Damage Taken x1); Blitz's move and pierce and Bind's stun are unsupported. Anointed by Lightning forks into a damage route (Dragon's Whispered Wrath → Ethereal Dragon Unbound, +6 with Halo of Static, the two-row Damage guardrail) and an amplification route (Luminous Conduit → Apotheosis of Thunder, +7 on two self rows that can stack, the two-row ceiling Lycanthropy and Tenohira Musei use). Decrease Damage Taken is one row, so Halo of Static runs a single chain (Aegis of Living Light → Unassailable Radiance, 30→40%, the Taiyo Kami +10 shape); a fourth Advanced Art would need a second branch under Halo of Static that twins Dragon's Whispered Wrath or Luminous Conduit on the same rows, or a guard capstone past +10, and Draft 1 declines both so that each route is the only way to its tag maximum. Because the guard side has three nodes, every legal 4 BP build contains Anointed by Lightning; a mirrored layout only moves the universal node to the other root. Three distinct complete builds exist (Burst, Tempo, Guard); Burst and Tempo each have two fourth-purchase choices, Guard's fourth purchase is always Anointed by Lightning. 8 legal full allocations, all 8 non-dominated, every node in at least one.",
+  "design_notes": [
+    "Node split: 2 Foundations, 3 Hidden Arts, 3 Advanced Arts. Anointed by Lightning (IDG +2, both self rows) forks into Dragon's Whispered Wrath → Ethereal Dragon Unbound (Damage +2/+3) and Luminous Conduit → Apotheosis of Thunder (IDG +2, then IDG +3 with DDT +2). Halo of Static (DDT +2 on Blitz, Damage +1 on both strikes) runs one chain: Aegis of Living Light → Unassailable Radiance (DDT +3, then DDT +5 with Damage +1). Each Advanced Art is 3 BP deep; two cost 5 BP under one root, 6 across roots.",
+    "Flats by coverage: Damage reaches two rows (40 and 50), so the route totals +6 (1+2+3; 40→46, 50→56), the two-row guardrail Musashi Ken and Sea-King's Blessing use; the +1 sits on the guard root so Burst's fourth purchase weighs power plus guard against more amplification. IDG reaches two self rows that stack, so it takes 2+2+3 = +7 (35→42% per row), the two-row ceiling of Lycanthropy and Tenohira Musei. DDT is one row and takes 2+3+5 = +10 (30→40%), the Golden Mantle / Sovereign Sun shape.",
+    "Interactions: Bind's IDG row carries Lightning and no stat types, so it matches only Lightning damage (the kit's strikes and any Lightning jutsu), never basic attacks or element-less jutsu. Whispers' IDG and Blitz's DDT have no element and list all four stat types, so they match every non-pierce hit of any stat type. Each adds power/100 × the staged base per hit; the 15% Lightning IDG passive is bloodline-sourced and multiplies in its own stage. Pierce, Blitz's own included, is untouched.",
+    "Delivery and uptime: all three casts cost 60 AP, so no two land in one round. Bind (range 4, cooldown 6) and Whispers (range 3, cooldown 7) realize the SELF buff on the caster at cast but need a living enemy in range, so the buff only comes with a strike. Cast back to back, the 2-round windows overlap one round, when a Lightning hit takes both rows (70% base, 84% on Tempo). Blitz (cooldown 7) realizes its DDT on the caster at cast, not through the tiles; its move row carries the caster in.",
+    "Fourth purchases: Burst (01,02,03) takes Halo of Static (strikes 46/56, guard 32%) or Luminous Conduit (strikes 45/55, buffs 39%); Tempo (01,04,05) takes Halo of Static (guard 34%, strikes 41/51) or Dragon's Whispered Wrath (strikes 42/52, guard 32%); Guard (06,07,08) can only add Anointed by Lightning (buffs 37%). Hybrids 01,02,04,06; 01,02,06,07 and 01,04,06,07 are non-dominated too. 8 full allocations, 8 non-dominated, every node in one.",
+    "Row-weighted value: the Tempo builds (01,02,04,05 and 01,04,05,06) are the strongest full allocations at 20; Burst, Guard and the all-offence 01,02,03,04 run 18, the hybrids 15–16. Sea-King's Blessing and Lycanthropy peak at 20 on five rows, Musashi Ken at 24 on six, Taiyo Kami at 31 on nine. Lowest-value purchases are Aegis of Living Light (3 on one row) and the two roots (4 each): the guard chain is the price of the only defensive lever, and no root gates anything that out-bids a sibling."
+  ],
+  "risks": [
+    "Classification: Lightning is a basic element on rows of 24 census bloodlines, so the tree needs the proposed bloodline-keyed label; under the current resolver with affectedElements=['Lightning'] only 3 of 5 supported rows match directly, and Whispers' IDG and Blitz's DDT fall back to None, which also reaches every non-elemental row the player casts. Normal-jutsu Lightning collision is unverified.",
+    "Broad self amplification (user-owned): Apotheosis of Thunder puts Whispers' IDG at 42% for 2 rounds on every non-pierce hit the caster lands (weapons, basic attacks, normal jutsu) and Bind's at 42% on every Lightning hit, with the 15% Lightning passive on top; a Lightning hit in the one-round overlap takes +84 points of staged base. +6 or +5 (Taiyo Kami's two-row figure) are the lighter options.",
+    "Buffs ride enemy-targeted casts: both IDG rows and the Damage rows sit on OTHER_USER jutsu, so with no living enemy inside range 4 (Bind) or range 3 (Whispers) neither the strike nor the self buff happens. The amplification route's realized uptime is bounded by the two cooldowns (6 and 7), not by the 2-round windows, and was not simulated.",
+    "Universal opener: every legal full build contains Anointed by Lightning because the guard side has three nodes. Moving the amplification chain under Halo of Static only makes that root universal instead; on five rows and three tags the brief's preference for no mandatory opener cannot be met without a twinned Hidden Art.",
+    "Guard is one row at 2 rounds in 7: Unassailable Radiance puts Blitz's DDT at 40% against every non-pierce hit of any stat type, Wind included, but Blitz is a 60 AP displacement cast (the move row carries the caster in), so the guard also commits position. It stacks with other DDT sources; the bloodline's own 10% Wind IDT passive is unchanged. +8 (capstone +3) is the lighter alternative.",
+    "Damage is formula-calculated (sqrt Highest-stat scaling) and then multiplied by the Lightning IDG passive and any active buff, so +6 raw power is not a linear +6 damage; the bases are rank-C 40 and 50. Each row fires at most once per 6 or 7 rounds, and Ethereal Dragon Unbound is the lowest-weight capstone (+3 on two rows). No combat simulation was performed.",
+    "Unsupported rows and modes: Blitz's move and 56-power pierce and Bind's 100% stun receive nothing, and the pierce is outside every IDG and DDT modifier too; the passives (15% Lightning IDG, 10% Wind IDT) are not jutsu rows. Skill-tree and bloodline effects are skipped in ranked PvP / sparring at the pin. No hidden, item-gated, mode-restricted, adverse or hazard supported rows exist in this kit."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 8,
+    "foundation_count": 2,
+    "hidden_art_count": 3,
+    "advanced_art_count": 3,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 4,
+      "3": 7,
+      "4": 8
+    },
+    "full_budget_allocations": 8,
+    "non_dominated_full_allocations": 8,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 6,
+      "increasedamagegiven": 7,
+      "decreasedamagetaken": 10
+    },
+    "supported_rows_in_kit": 5,
+    "supported_rows_by_tag": {
+      "damage": 2,
+      "decreasedamagetaken": 1,
+      "increasedamagegiven": 2
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagetaken",
+      "increasedamagegiven"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Draft 1 / Voltara Divine classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags of Voltara Divine jutsu inherit Voltara Divine potency eligibility; original combat elements and target scopes stay intact.",
+      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 4
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 7,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagegiven": 4,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 7,
+        "decreasedamagetaken": 4
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 4,
+        "decreasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      }
+    }
+  ]
+}

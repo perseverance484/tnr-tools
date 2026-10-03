@@ -1,0 +1,847 @@
+{
+  "title": "Yaketsuku Netsu — Scorch and Steel",
+  "revision": "Draft 1 / Yaketsuku Netsu classification / forked tree",
+  "bloodline": {
+    "id": "clh4d6qfn000etb0hydj4cdpl",
+    "review_id": "BR-092",
+    "name": "Yaketsuku Netsu",
+    "rank": "B",
+    "statClassification": "Bukijutsu",
+    "traits": "Sustained DPS"
+  },
+  "classification": {
+    "potency_classification": "Yaketsuku Netsu",
+    "label_kind": "bloodline-keyed extension",
+    "bloodline": "Yaketsuku Netsu",
+    "display_element": null,
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Yaketsuku Netsu jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
+    "census_collisions": []
+  },
+  "emphasis": {
+    "primary": "Damage — both attacks (Forgotten Ember Blade, Forbidden Chakra Fury; two formula rows at 40)",
+    "secondary": "Increase Damage Given — Forgotten Ember Blade's self heat (single row, +10 ceiling)",
+    "tertiary": "Increase Damage Taken — Forbidden Chakra Fury's exposure (single enemy row, +8 ceiling)",
+    "rationale": "The kit's four supported rows sit on two C-rank, 60 AP, range-4 single-target attacks: Forgotten Ember Blade (cooldown 6) deals 40 formula damage (Bukijutsu / Speed, Strength) and gives the caster 30% Increase Damage Given for 2 rounds (Bukijutsu-filtered, element-less); Forbidden Chakra Fury (cooldown 7) deals 40 formula damage (Highest) and leaves the target with 30% Increase Damage Taken for 2 rounds (four stat types, element-less). Damage is the only two-row tag and is always on, so it is primary; the self heat is the bloodline's identity (its passive is a Bukijutsu Increase Damage Given of 22 + 0.15 per level) and takes the single-row +10 shape; the exposure row is held to +8 because it amplifies every non-pierce source, allies included. Chakra Shield (absorb 30%, shield 100) is unsupported, so the tree has no defensive route."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Heat in the Steel",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 1,
+          "display_role": "DAMAGE"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "The forgotten ember never went out. It waited in the steel for a hand to wake it.",
+      "coverage_note": "Forgotten Ember Blade and Forbidden Chakra Fury 40→41 power; Ember Blade Increase Damage Given 30→32% (self, 2 rounds). 3 of 4 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yaketsuku Netsu",
+      "scope": "Yaketsuku Netsu jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Forbidden Chakra Fury",
+          "Forgotten Ember Blade"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "02",
+      "name": "Searing Edge",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Where the edge passes, the air itself blisters.",
+      "coverage_note": "Both attacks 40→43 power with Heat in the Steel; formula hits (Bukijutsu / Highest), single-target, range 4; no gates, no hidden rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yaketsuku Netsu",
+      "scope": "Yaketsuku Netsu jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Forbidden Chakra Fury",
+          "Forgotten Ember Blade"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "03",
+      "name": "Blade That Never Cools",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Quench it in blood, quench it in rain; the heat only climbs.",
+      "coverage_note": "Route total +6: Ember Blade and Chakra Fury 40→46 power on every cast (60 AP, cooldowns 6 and 7). 2 rows, the kit's only hits.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yaketsuku Netsu",
+      "scope": "Yaketsuku Netsu jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Forbidden Chakra Fury",
+          "Forgotten Ember Blade"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "04",
+      "name": "Fever Pitch",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Every swing feeds the heat, and the heat feeds the next swing.",
+      "coverage_note": "Ember Blade Increase Damage Given 30→35% with Heat in the Steel (self, 2 rounds per 6-round cooldown); element-less hits of any stat. 1 row.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yaketsuku Netsu",
+      "scope": "Yaketsuku Netsu jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Forgotten Ember Blade"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "05",
+      "name": "White-Hot Blood",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Past red, past fear, the blood runs white and nothing it touches survives.",
+      "coverage_note": "Route total +10: Ember Blade Increase Damage Given 30→40% (self, 2 rounds); lifts weapons, basic attacks and normal jutsu; no pierce. 1 row.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yaketsuku Netsu",
+      "scope": "Yaketsuku Netsu jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Forgotten Ember Blade"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "06",
+      "name": "Blistered Guard",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Fury leaves the skin raw, and raw skin remembers every blow that follows.",
+      "coverage_note": "Chakra Fury Increase Damage Taken 30→32% (enemy, 2 rounds per 7-round cooldown); four stat types, element-less: every non-pierce hit. 1 row.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yaketsuku Netsu",
+      "scope": "Yaketsuku Netsu jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Forbidden Chakra Fury"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "07",
+      "name": "Heat Finds the Seam",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Armor has seams. Heat finds every one of them.",
+      "coverage_note": "Chakra Fury Increase Damage Taken 30→35% with Blistered Guard (enemy debuff, 2 rounds); hits from allies and normal jutsu count too. 1 row.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yaketsuku Netsu",
+      "scope": "Yaketsuku Netsu jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Forbidden Chakra Fury"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "08",
+      "name": "Nothing Left Forbidden",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "damage",
+          "flat": 1,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "The seal is gone. What was held back is held back no more.",
+      "coverage_note": "Route total +8: Chakra Fury Increase Damage Taken 30→38% (enemy, 2 rounds); both attacks +1 power (42 with Heat in the Steel). 3 rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yaketsuku Netsu",
+      "scope": "Yaketsuku Netsu jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Forbidden Chakra Fury",
+          "Forgotten Ember Blade"
+        ],
+        "effect_rows": 3
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Blade That Never Cools",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "The +6 power route on both hits (Forgotten Ember Blade and Forbidden Chakra Fury 40→46 at jutsu level 25, before the bloodline's Bukijutsu Increase Damage Given passive and the kit's own buffs multiply them) with Heat in the Steel's 32% heat on Ember Blade. Blistered Guard is the fourth purchase (Chakra Fury's exposure 32%); Fever Pitch (heat 35%) is the all-self alternative. No uptime dependency: the power is on every cast.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Forgotten Ember Blade",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 6,
+          "final": 46.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Forgotten Ember Blade",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Forbidden Chakra Fury",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 6,
+          "final": 46.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Forbidden Chakra Fury",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Chakra Shield",
+          "row": 0,
+          "tag": "absorb",
+          "label": "absorb",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 0,
+          "final": 30.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Chakra Shield",
+          "row": 1,
+          "tag": "shield",
+          "label": "shield",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Blade That Never Cools"
+      ]
+    },
+    {
+      "name": "White-Hot Blood",
+      "archetype": "Heat",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "rationale": "The +10 route on Forgotten Ember Blade's self heat (30→40% for 2 rounds per 6-round cooldown): every element-less hit the caster lands inside the window, including weapon and basic attacks and normal jutsu, is amplified, on top of the Bukijutsu Increase Damage Given passive. Both attacks sit at 41 from Heat in the Steel. Blistered Guard adds the 32% exposure; Searing Edge (attacks 43) is the alternative fourth purchase.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Forgotten Ember Blade",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 1,
+          "final": 41.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Forgotten Ember Blade",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 10,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Forbidden Chakra Fury",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 1,
+          "final": 41.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Forbidden Chakra Fury",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Chakra Shield",
+          "row": 0,
+          "tag": "absorb",
+          "label": "absorb",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 0,
+          "final": 30.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Chakra Shield",
+          "row": 1,
+          "tag": "shield",
+          "label": "shield",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "White-Hot Blood"
+      ]
+    },
+    {
+      "name": "Nothing Left Forbidden",
+      "archetype": "Exposure",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "rationale": "The +8 route on Forbidden Chakra Fury's exposure (30→38% on the target for 2 rounds per 7-round cooldown): every non-pierce hit the target takes in the window, from the caster, allies, weapons or normal jutsu, is amplified. Both attacks reach 42 (Heat in the Steel + the capstone's +1) and Ember Blade's heat 32%. Heat in the Steel is the only fourth purchase, since the chain holds three nodes; the build suits team fights where allies share the window.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 8
+      },
+      "finals": [
+        {
+          "jutsu": "Forgotten Ember Blade",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Forgotten Ember Blade",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Forbidden Chakra Fury",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Forbidden Chakra Fury",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 8,
+          "final": 38.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Chakra Shield",
+          "row": 0,
+          "tag": "absorb",
+          "label": "absorb",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 0,
+          "final": 30.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Chakra Shield",
+          "row": 1,
+          "tag": "shield",
+          "label": "shield",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Nothing Left Forbidden"
+      ]
+    }
+  ],
+  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on four rows (Damage x2 on Forgotten Ember Blade and Forbidden Chakra Fury; Increase Damage Given x1 on Ember Blade; Increase Damage Taken x1 on Chakra Fury); Chakra Shield's absorb and shield are not potency targets. Heat in the Steel forks into a damage route (Searing Edge → Blade That Never Cools, +6 at the two-row Damage guardrail) and a heat route (Fever Pitch → White-Hot Blood, +10 on the single self row); Blistered Guard → Heat Finds the Seam → Nothing Left Forbidden is a single chain on the kit's only enemy debuff (+8). A fourth route would need a fourth tag the kit does not have. A second Hidden Art under Blistered Guard was rejected: a +2 Damage node is a twin of Searing Edge, and a +2 or +3 Increase Damage Given node twins Fever Pitch and opens a second path toward the heat maximum. The consequence is that Heat in the Steel sits in every legal full build and the exposure route's fourth purchase is always Heat in the Steel, while Burst and Heat each have two fourth-purchase choices. Three distinct complete builds exist, one per Advanced Art, plus three no-Advanced hybrids.",
+  "design_notes": [
+    "Node split: 2 Foundations, 3 Hidden Arts, 3 Advanced Arts. Heat in the Steel (Damage +1 on both attacks, Increase Damage Given +2 on Ember Blade's heat; 3 of 4 rows) forks into Searing Edge → Blade That Never Cools (Damage +2/+3) and Fever Pitch → White-Hot Blood (IDG +3/+5). Blistered Guard → Heat Finds the Seam → Nothing Left Forbidden (IDT +2/+3/+3, capstone also Damage +1) is a separate chain. Each Advanced Art is 3 BP deep; any two cost 5 or 6 BP, so a build holds at most one.",
+    "Flats by coverage: Damage reaches 2 rows, so the route totals +6 (1+2+3; 40→46 on both attacks), the Lycanthropy shape at the guardrail. Increase Damage Given is one self row and takes Taiyo Kami's single-row 2+3+5 = +10 shape (its DDT chain): 30→40%. Increase Damage Taken is one enemy row but amplifies every non-pierce source, allies included, so its chain is held to 2+3+3 = +8 (30→38%), one above Taiyo Kami's single-row IDT peak; the capstone's +1 Damage stays under Searing Edge.",
+    "Interactions: Ember Blade's heat row is Bukijutsu-filtered but element-less, so the filter is not binding: it matches every element-less hit of any stat type (basic attacks, weapons, non-elemental jutsu) and excludes only elemental damage of a non-Bukijutsu stat type; it adds power/100 × the staged base per hit and skips pierce. The Bukijutsu IDG passive (22 + 0.15/level) multiplies in its own stage. Chakra Fury's exposure row lists four stat types, no element: every non-pierce hit counts.",
+    "Delivery and uptime: both attacks are OTHER_USER single-target casts at range 4 for 60 AP (Ember Blade cooldown 6, Chakra Fury cooldown 7). The heat is a SELF-target row realized on the caster at cast time; the exposure is INHERIT on the struck enemy. Both last 2 rounds, so Ember Blade then Chakra Fury on consecutive rounds overlaps the windows for one round. The Damage route has no uptime dependency; the heat and exposure routes are worth what lands inside a 2-round window.",
+    "Fourth purchases and allocations: Burst → Blistered Guard (exposure 32%) or Fever Pitch (heat 35%); Heat → Blistered Guard (exposure 32%) or Searing Edge (attacks 43); Exposure → Heat in the Steel only. No-Advanced hybrids: 01,02,04,06 (attacks 43, heat 35%, exposure 32%), 01,02,06,07 (43, 32%, 35%) and 01,04,06,07 (41, 35%, 35%). The validator enumerates 8 legal full allocations; all 8 are numerically non-dominated and every node appears in at least one; 3 of the 8 hold no Advanced Art.",
+    "Row-weighted value: 01,02,03,04 is the strongest full allocation at 17 (Damage +6 on two rows, IDG +5), then 01,02,03,06 and 01,02,04,05 at 16; Lycanthropy peaks at 20 on five rows and Taiyo Kami at 31 on nine. Lowest-value purchase by row weight is Blistered Guard (+2 on one row), accepted as the exposure root in the Taiyo Kami single-tag Foundation shape; it is also the cheapest way for the two 01-rooted builds to touch the enemy debuff."
+  ],
+  "risks": [
+    "Classification: no row carries an element, so the tree needs the proposed bloodline-keyed label (Yaketsuku Netsu); under the current resolver all 4 supported rows fall back to None, which also reaches every non-elemental row on any jutsu the player casts (35 census bloodlines carry None rows). Whether NORMAL/SPECIAL/EVENT jutsu collide is unverified.",
+    "Heat breadth (user-owned value): White-Hot Blood puts Ember Blade's self Increase Damage Given at 40% for 2 rounds per 6-round cooldown, on every element-less hit including weapon and basic attacks and normal jutsu, on top of the Bukijutsu IDG passive (22 + 0.15/level, multiplicative stage) and any main-tree or gear IDG. BATTLE_TAG_STACKING is on at the pin. +8 (2+3+3) is the fallback.",
+    "Exposure breadth: Nothing Left Forbidden puts Chakra Fury's Increase Damage Taken at 38% on the target for 2 rounds; the row lists four stat types and no element, so every non-pierce hit from allies, weapons and normal jutsu is amplified, and the realized value in team fights scales with ally output. Held to +8 for that reason; +7 (2+2+3) is the Taiyo Kami ceiling if the user prefers it.",
+    "Universal opener: every legal full build contains Heat in the Steel because the exposure chain has three nodes. A mirrored layout (IDT + Damage root with the heat chain apart) only moves the universal node to the other root; the brief's preference for no mandatory opener cannot be met on four rows without a duplicate-tag filler node.",
+    "Damage is formula-calculated (sqrt stat scaling: Ember Blade on Bukijutsu / Speed, Strength; Chakra Fury on Highest) and then multiplied by the Bukijutsu IDG passive, the kit's own buffs and any exposure on the target, so +6 raw power is not linear +6 damage; realized value depends on stats. Both attacks need a target in range 4 for the heat row to be cast at all. No combat simulation.",
+    "Unsupported rows and modes: Chakra Shield's absorb 30% and shield 100 receive nothing, so the tree cannot serve the kit's defence; the 5% reflect passive and the Ninjutsu-filtered Increase Damage Taken passive on the bearer are not jutsu rows. Skill-tree and bloodline effects are skipped in ranked PvP / sparring at the pin.",
+    "Uptime: the heat and exposure routes are 2-round windows on 60 AP casts with cooldowns 6 and 7, so their value depends on fitting hits inside them; alternating the two attacks gives one round with both active per cycle. Whether the buff rows are realized when the hit misses or is prevented was not verified (SELF rows are realized at cast time; INHERIT rows follow the action's target resolution)."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 8,
+    "foundation_count": 2,
+    "hidden_art_count": 3,
+    "advanced_art_count": 3,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 4,
+      "3": 7,
+      "4": 8
+    },
+    "full_budget_allocations": 8,
+    "non_dominated_full_allocations": 8,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 6,
+      "increasedamagegiven": 10,
+      "increasedamagetaken": 8
+    },
+    "supported_rows_in_kit": 4,
+    "supported_rows_by_tag": {
+      "damage": 2,
+      "increasedamagegiven": 1,
+      "increasedamagetaken": 1
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "increasedamagegiven",
+      "increasedamagetaken"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Draft 1 / Yaketsuku Netsu classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags of Yaketsuku Netsu jutsu inherit Yaketsuku Netsu potency eligibility; original combat elements and target scopes stay intact.",
+      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagegiven": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 3,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 8
+      }
+    }
+  ]
+}

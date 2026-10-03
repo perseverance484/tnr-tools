@@ -251,6 +251,13 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
         cap = 6 if t == "damage" else 12
         if v > cap:
             warnings.append(f"maximum {t} bonus {v} exceeds the planning guardrail {cap}")
+    universal = [nid for nid in by_id if audit["full_builds"] and all(nid in b["ids"] for b in audit["full_builds"])]
+    if universal:
+        names = ", ".join(f"{nid} ({by_id[nid].name})" for nid in sorted(universal))
+        msg = f"universal node: {names} appears in every legal full-budget allocation"
+        if tree.get("narrow_kit_exception") and "universal" in str(tree.get("narrow_kit_exception")).lower():
+            msg += " (acknowledged in narrow_kit_exception)"
+        warnings.append(msg)
     for nv in audit["node_values"]:
         if nv["tags_without_rows"]:
             errors.append(f"node {nv['id']} targets tags with no rows: {nv['tags_without_rows']}")

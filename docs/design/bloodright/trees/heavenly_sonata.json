@@ -1,6 +1,6 @@
 {
   "title": "Heavenly Sonata — Music of the Spheres",
-  "revision": "Draft 1 / Yin-Yang classification / forked tree",
+  "revision": "Draft 2 / Yin-Yang classification / forked tree",
   "bloodline": {
     "id": "clh4d6q6s000atb0h0qdqdh1z",
     "review_id": "BR-032",
@@ -33,7 +33,7 @@
     "primary": "Decrease Damage Taken and Decrease Damage Given (Celestial Harmony Shield fortress, Harmonic Chamber suppression)",
     "secondary": "Damage (three Yin-Yang Genjutsu attacks)",
     "tertiary": "Increase Damage Taken and Increase Damage Given (Foreboding Interlude exposure, Lullaby empowerment)",
-    "rationale": "Heavenly Sonata is a Defensive/Tank Genjutsu kit whose two 40 AP casts carry its identity: Celestial Harmony Shield's self circle (Decrease Damage Taken 35% beside an unsupported 100 shield) and Harmonic Chamber's lock (Decrease Damage Given 35% beside unsupported drain 210 and cleanseprevent); both rows list all four stat types with no element, so at the pin they touch every non-pierce hit, and as single rows they carry the largest flats (+10 ceilings). Three of the seven supported rows are Yin-Yang Genjutsu Damage on 60 AP casts (Foreboding Interlude 40, Frozen Melody 45, Lullaby 40 at jutsu level 25), so offense is a full secondary route at the Taiyo Kami +5 scale. Foreboding Interlude's 35% exposure (Genjutsu-filtered, element-less) and Lullaby's 35% self buff (all four stat types, element-less) are the tertiary amplifiers: exposure gets a route held to +7, empowerment is Foundation-plus-capstone glue capped at +5 because that buff reaches every hit the caster lands. No Afterburn, Lifesteal, Reflect, Heal or Increase Heal row exists, so none is invented."
+    "rationale": "Heavenly Sonata is a Defensive/Tank Genjutsu kit whose two 40 AP casts carry its identity: Celestial Harmony Shield's 2-round self buff (Decrease Damage Taken 35%, realized on the caster at cast, beside an unsupported 100 shield) and Harmonic Chamber's lock (Decrease Damage Given 35% beside unsupported drain 210 and cleanseprevent); both rows list all four stat types with no element, so at the pin they touch every non-pierce hit, and as single rows they carry the largest flats (+10 ceilings). Three of the seven supported rows are Yin-Yang Genjutsu Damage on 60 AP casts (Foreboding Interlude 40, Frozen Melody 45, Lullaby 40 at jutsu level 25), so offense is a full secondary route at the Taiyo Kami +5 scale. Foreboding Interlude's 35% exposure (Genjutsu-filtered, element-less) and Lullaby's 35% self buff (all four stat types, element-less) are the tertiary amplifiers: exposure gets a route held to +7, empowerment is Foundation-plus-capstone glue capped at +5 because that buff reaches every hit the caster lands. No Afterburn, Lifesteal, Reflect, Heal or Increase Heal row exists, so none is invented."
   },
   "nodes": [
     {
@@ -209,7 +209,7 @@
         }
       ],
       "flavor": "Yin answers yang: every note has its silence, every blow its shelter.",
-      "coverage_note": "Celestial Harmony Shield self circle 35→37% reduction; Harmonic Chamber suppression 35→37% (every non-pierce hit the target deals); 2 rds.",
+      "coverage_note": "Celestial Harmony Shield self buff 35→37% reduction; Harmonic Chamber suppression 35→37% (every non-pierce hit the target deals); 2 rds.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
       "scope": "Heavenly Sonata jutsu",
@@ -238,7 +238,7 @@
         }
       ],
       "flavor": "Layer upon layer of chorus, until no blade can find the singer.",
-      "coverage_note": "Celestial Harmony Shield reduction only (+3 more: 40% with Harmonic Balance); 40 AP self circle, re-applied while standing in it; non-pierce",
+      "coverage_note": "Celestial Harmony Shield reduction only (+3 more: 40% with Harmonic Balance); 2-round self buff at cast, any position; non-pierce only.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
       "scope": "Heavenly Sonata jutsu",
@@ -271,7 +271,7 @@
         }
       ],
       "flavor": "Within the shield's hymn the caster stands untouched, as in a chapel of light.",
-      "coverage_note": "Shield circle reduction to 45% (route +10); Harmonic Chamber suppression +2 (39%; 42% with Muted Strings). The 100 shield row is unchanged.",
+      "coverage_note": "Shield reduction to 45% (route +10); Harmonic Chamber suppression +2 (39%; 42% with Muted Strings). The 100 shield row is unchanged.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
       "scope": "Heavenly Sonata jutsu",
@@ -300,7 +300,7 @@
         }
       ],
       "flavor": "The chamber swallows the enemy's song until only a murmur escapes.",
-      "coverage_note": "Harmonic Chamber suppression only (+3 more: 40% with Harmonic Balance); 40 AP single target, range 4; all four stat types: every non-pierce",
+      "coverage_note": "Harmonic Chamber suppression only (+3 more: 40% with Harmonic Balance); 40 AP single target, range 4; every non-pierce hit the target deals.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
       "scope": "Heavenly Sonata jutsu",
@@ -333,7 +333,7 @@
         }
       ],
       "flavor": "The last rest in the score: no note, no breath, no strength left to strike.",
-      "coverage_note": "Harmonic Chamber suppression to 45% (route +10); Shield circle reduction +2 (39%; 42% with Wall of Sound). Drain, cleanseprevent unchanged.",
+      "coverage_note": "Harmonic Chamber suppression to 45% (route +10); Shield reduction +2 (39%; 42% with Wall of Sound). Drain, cleanseprevent unchanged.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
       "scope": "Heavenly Sonata jutsu",
@@ -357,7 +357,7 @@
         "03",
         "06"
       ],
-      "rationale": "The Damage route puts +5 power on all three Yin-Yang attacks (Foreboding Interlude 45, Frozen Melody 50, Lullaby 45 at jutsu level 25) and Opening Measure adds +2 to the Lullaby self buff (37%) and Interlude exposure (37%) that frame them. Harmonic Balance is the fourth purchase for 37% reduction in the Shield circle and 37% suppression from Chamber; Dissonant Chord (01, 02, 03, 04) is the all-offense alternative at 39% exposure.",
+      "rationale": "The Damage route puts +5 power on all three Yin-Yang attacks (Foreboding Interlude 45, Frozen Melody 50, Lullaby 45 at jutsu level 25) and Opening Measure adds +2 to the Lullaby self buff (37%) and Interlude exposure (37%) that frame them. Harmonic Balance is the fourth purchase for 37% reduction from the Shield's self buff and 37% suppression from Chamber; Dissonant Chord (01, 02, 03, 04) is the all-offense alternative at 39% exposure.",
       "cost": 4,
       "bonuses": {
         "damage": 5,
@@ -836,7 +836,7 @@
         "08",
         "09"
       ],
-      "rationale": "The pure tank: Celestial Harmony Shield's circle shaves 45% (+10) off non-pierce hits while the caster stands in it, and Harmonic Chamber's suppression reaches 42% (+7 from Harmonic Balance, the capstone and Muted Strings) so the locked target hits everyone softer. No offense at all; Opening Measure (01, 06, 07, 08) is the alternative that keeps 37% buff and exposure in play at 39% suppression.",
+      "rationale": "The pure tank: Celestial Harmony Shield's 2-round self buff shaves 45% (+10) off non-pierce hits the caster takes, wherever the caster stands, and Harmonic Chamber's suppression reaches 42% (+7 from Harmonic Balance, the capstone and Muted Strings) so the locked target hits everyone softer. No offense at all; Opening Measure (01, 06, 07, 08) is the alternative that keeps 37% buff and exposure in play at 39% suppression.",
       "cost": 4,
       "bonuses": {
         "decreasedamagegiven": 7,
@@ -1073,7 +1073,7 @@
         "09",
         "10"
       ],
-      "rationale": "Harmonic Chamber's suppression reaches 45% (+10) on a 40 AP cast that also drains and blocks cleansing, so for 2 rounds the target's every non-pierce hit against anyone is nearly halved; the capstone's +2 reduction gives 39% in the Shield circle, and Opening Measure keeps the 37% buff and exposure in play. Wall of Sound (06, 07, 09, 10) is the circle-and-chamber turtle: 42% reduction, 45% suppression, no offense.",
+      "rationale": "Harmonic Chamber's suppression reaches 45% (+10) on a 40 AP cast that also drains and blocks cleansing, so for 2 rounds the target's every non-pierce hit against anyone is nearly halved; the capstone's +2 reduction gives 39% on the Shield's self buff, and Opening Measure keeps the 37% buff and exposure in play. Wall of Sound (06, 07, 09, 10) is the shield-and-chamber turtle: 42% reduction, 45% suppression, no offense.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -1309,18 +1309,19 @@
     "Node split: the Damage route (+2 Hidden, +3 Advanced) reaches the three Yin-Yang attacks as Taiyo Kami's does and is the highest row-weighted build (23 on 7 rows; Taiyo 31 on 9). Single-row percentage tags carry the larger flats: Increase Damage Taken is held to +7 (2/2/3); Decrease Damage Taken and Decrease Damage Given reach +10 (2/3/5). Increase Damage Given is glue only (+2 Foundation, +3 on Prelude to Ruin; +5 ceiling) because Lullaby's buff reaches every hit the caster lands.",
     "Capstone secondaries: the tank capstones each take +2 of the other's tag (Celestial Sanctum +2 Decrease Damage Given, Final Rest +2 Decrease Damage Taken), below the sibling Hidden Arts' +3, so the fortress/suppression hybrid (01, 06, 07, 09) is never dominated and neither tank capstone is an offensive buy. Prelude to Ruin takes +3 Increase Damage Given; Fortissimo Finale is Damage-only. An Increase Damage Taken secondary on Final Rest would dominate 01, 04, 06, 09; rejected.",
     "Downstream reach: the bloodline passive (Increase Damage Given 25% + 0.15/level on Fire, Lightning, Yin-Yang, None) is not a potency target but multiplies the enhanced Yin-Yang damage. Lullaby's buff and Harmonic Chamber's suppression list all four stat types, no element: the buff raises every hit the caster lands and the suppression lowers every non-pierce hit the target deals. Interlude's exposure lists only Genjutsu: Yin-Yang Genjutsu and element-less hits, not elemental Nin/Tai/Buki.",
-    "Delivery: all five jutsu are cooldown 7. Foreboding Interlude, Frozen Melody and Lullaby are 60 AP, range 4 (Melody is an enemy-only AOE_CIRCLE_SPAWN with an unsupported 2-round stun; Lullaby's self buff still needs an enemy target in range). Celestial Harmony Shield and Harmonic Chamber are 40 AP; the Shield is a SELF AOE_CIRCLE_SPAWN, range 0, no move row, so its reduction is re-applied each round to a caster standing in the circle; cast-round application and window overlaps were not verified.",
-    "Fourth purchases: Burst takes Harmonic Balance (37%/37% defensive glue) or Dissonant Chord (39% exposure); Exposure takes Harmonic Balance or Rising Crescendo (+2 power); Fortress takes Muted Strings (42% suppression, pure tank) or Opening Measure (37% buff and exposure); Suppression takes Opening Measure or Wall of Sound (42% reduction, circle only). All 14 full-budget allocations are reported by the validator; see the audit for dominance.",
+    "Delivery: all five jutsu are cooldown 7. Foreboding Interlude, Frozen Melody and Lullaby are 60 AP, range 4 (Melody is an enemy-only AOE_CIRCLE_SPAWN with an unsupported 2-round stun; Lullaby's self buff still needs an enemy target in range). Celestial Harmony Shield and Harmonic Chamber are 40 AP; the Shield's reduction row has target SELF, so it is a 2-round self buff realized on the caster at cast (SOURCE_MECHANICS 4b), not through the circle tiles; window overlaps were not verified.",
+    "Fourth purchases: Burst takes Harmonic Balance (37%/37% defensive glue) or Dissonant Chord (39% exposure); Exposure takes Harmonic Balance or Rising Crescendo (+2 power); Fortress takes Muted Strings (42% suppression, pure tank) or Opening Measure (37% buff and exposure); Suppression takes Opening Measure or Wall of Sound (42% reduction, Shield only). All 14 full-budget allocations are reported by the validator; see the audit for dominance.",
     "Ten nodes are justified by five supported tags on seven rows across four distinct roles (burst, exposure, fortress, suppression); no node is a reskin of another, and four examples are given because each Advanced Art is a different tag and role. Stun, drain, shield, buffprevent and cleanseprevent are unsupported and untouched; no Afterburn, Lifesteal, Reflect, Heal or Increase Heal row exists, so none is invented."
   ],
   "risks": [
     "Classification: Yin-Yang is the single signature element but not exclusive in the census (8 collisions: INCLUDE Ethereal Monarch, Tenohira Musei; DEFER Celestial Mage, DvEM, Manhattan Project, Tenryūseigan, Tenshin Shoden Yami-Ryu; EXCLUDE Ethereal Regent); the tree assumes bloodline-scoped classification. Normal-jutsu Yin-Yang use is unverified; the resolver matches 3 of 7 rows directly.",
-    "Shield circle uptime: the Decrease Damage Taken row is a SELF row on an AOE_CIRCLE_SPAWN (range 0, no move row). Per the ground-circle reading it is re-applied each round only while the caster stands in the tiles; whether a SELF-target spawn applies on the cast round was not read. Harmonic Balance, Wall of Sound, Celestial Sanctum and Final Rest's +2 depend on standing still; not simulated.",
+    "Shield cast-round effect: the Decrease Damage Taken row has target SELF, so it is realized on the caster at cast as a 2-round self buff (actions.ts 980-1004, 1060+; SOURCE_MECHANICS 4b), not through the circle tiles; no ground effect exists, so no standing-still uptime cost and no enemy hazard. Whether the effect, new on the cast round, already reduces damage taken that round was not read.",
     "Breadth of the tank rows: Harmonic Chamber's suppression and the Shield's reduction list all four stat types with no element, so at the pin every non-pierce hit qualifies. 45% suppression on a 40 AP cast lowers the target's damage against allies too for 2 rounds, with cleanseprevent (1 round) guarding it from removal and drain 210 beside it; the PvP value of that lock was not simulated.",
     "Increase Damage Given stacking: the +5 glue adds statically to Lullaby's 35% self buff, which stacks with the bloodline passive (bloodline sources multiply and honour allowBloodlineDamageIncrease) and any main-tree or gear modifiers; BATTLE_TAG_STACKING is true at the pin. The row lists all four stat types with no element, so the buff reaches every hit the caster lands for 2 rounds. Not simulated.",
     "Exposure reach: Foreboding Interlude's row lists only Genjutsu with no element, so it amplifies the kit's Yin-Yang Genjutsu attacks and every element-less hit from any source (basic attacks, weapons, non-elemental jutsu) but not elemental non-Genjutsu hits from allies or normal jutsu. Damage modifiers skip pierce. The Exposure build's row weight (16) understates its reach on a Genjutsu caster.",
     "Realized value: three of five casts are 60 AP on cooldown 7, so Interlude's 2-round exposure and Lullaby's 2-round buff rarely cover all three attacks in one rotation; per-row numbers overstate per-round value. Whether the self buff applied by Lullaby affects that same cast's damage row was not verified.",
-    "Frozen Melody is an AOE_CIRCLE_SPAWN with friendly fire ENEMIES, so it is not an ally hazard; its stun is unsupported and unchanged. It is the kit's only multi-target reach, so +5 on its 45 damage is the largest raw gain in the tree. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING at the pin."
+    "Frozen Melody is an AOE_CIRCLE_SPAWN with friendly fire ENEMIES, so it is not an ally hazard; its stun is unsupported and unchanged. It is the kit's only multi-target reach, so +5 on its 45 damage is the largest raw gain in the tree. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING at the pin.",
+    "Dissonant Chord value: +2 Increase Damage Taken is the lowest row-weighted node (2) and the only +2 single-row Hidden Art; (01, 04) is the weakest 2-BP state. Held at +2 because the exposure amplifies allies' Genjutsu and element-less hits, not only the caster's, keeping the route at Taiyo Kami's +7 IDT with a +3/+3 capstone. Dissonant Chord +3 / Prelude to Ruin +2 IDT, +3 IDG is a user decision."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1383,7 +1384,7 @@
       "increasedamagetaken"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 1 / Yin-Yang classification / forked tree",
+    "revision": "Draft 2 / Yin-Yang classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed potency classification behavior; not implemented or verified in the live engine.",

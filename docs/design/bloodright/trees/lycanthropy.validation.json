@@ -9,9 +9,11 @@
     "statClassification": "Taijutsu",
     "traits": "Healing and Sustain"
   },
-  "revision": "Draft 1 / Lycanthropy classification / forked tree",
+  "revision": "Draft 2 / Lycanthropy classification / forked tree",
   "structure_errors": [],
-  "warnings": [],
+  "warnings": [
+    "universal node: 01 (The Beast Within) appears in every legal full-budget allocation"
+  ],
   "classification": {
     "potency_classification": "Lycanthropy",
     "label_kind": "bloodline-keyed extension",
@@ -31,13 +33,12 @@
         "01",
         "02",
         "03",
-        "06"
+        "04"
       ],
       "cost": 4,
       "bonuses": {
         "damage": 6,
-        "increasedamagegiven": 2,
-        "heal": 2
+        "increasedamagegiven": 4
       },
       "advanced_arts": [
         "Jaws of the Alpha"
@@ -48,15 +49,14 @@
       "archetype": "Frenzy",
       "ids": [
         "01",
+        "02",
         "04",
-        "05",
-        "06"
+        "05"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
-        "increasedamagegiven": 7,
-        "heal": 2
+        "damage": 3,
+        "increasedamagegiven": 7
       },
       "advanced_arts": [
         "Red Moon Rising"

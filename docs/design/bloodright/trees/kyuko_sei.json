@@ -1,0 +1,1623 @@
+{
+  "title": "Kyuko-sei — Ash of Dying Stars",
+  "revision": "Draft 1 / Dust classification / forked tree",
+  "bloodline": {
+    "id": "Y10fxyLR39IBJ3ICkAdEp",
+    "review_id": "BR-040",
+    "name": "Kyuko-sei",
+    "rank": "A",
+    "statClassification": "Ninjutsu",
+    "traits": "Burst, Control "
+  },
+  "classification": {
+    "potency_classification": "Dust",
+    "label_kind": "element",
+    "bloodline": "Kyuko-sei",
+    "display_element": "Dust",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Kyuko-sei jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": [
+      "Aerathiel",
+      "Nejireru Funjin"
+    ]
+  },
+  "emphasis": {
+    "primary": "Damage (Dust attacks on all four strikes)",
+    "secondary": "Increase Damage Taken (Temporal Erosion / Abysmal End exposure) with Increase Damage Given as glue",
+    "tertiary": "Decrease Damage Taken (Temporal Erosion guard) and Decrease Damage Given (Ethereal Particle Storm suppression)",
+    "rationale": "Four of the ten supported rows are Dust damage (Temporal Erosion, Singularity and Resonance 40, Ethereal Particle Storm 50 at jutsu level 25), all 60 AP on cooldown 7, so the Burst trait is served by the Damage route. Increase Damage Taken reaches two rows that can stack on one target (Temporal Erosion single-target, Abysmal End area) and Increase Damage Given reaches two self buffs whose filters include the kit's own Ninjutsu Dust attacks, so exposure is the pressure route and amplify is the glue. The kit's only guard (Temporal Erosion Decrease Damage Taken 30%) and only suppression (Ethereal Particle Storm Decrease Damage Given 30%) are single rows riding on 60 AP attacks, so they carry the single-row ladders as the Control routes. There are no Afterburn, Lifesteal, Reflect or Heal rows and Mirror and Move are unsupported, so no sustain or burn route is invented."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Weight of Eons",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "What the hollow star touches grows old before it can resist.",
+      "coverage_note": "Abysmal End and Singularity self amplify (35→37%); Temporal Erosion and Abysmal End exposure (35→37%). 4 rows, 2 rounds each.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Kyuko-sei jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Abysmal End",
+          "Singularity",
+          "Temporal Erosion"
+        ],
+        "effect_rows": 4,
+        "ally_hazard_rows": [
+          "Abysmal End#0"
+        ]
+      }
+    },
+    {
+      "id": "02",
+      "name": "Shattered Firmament",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "The sky cracks, and dust that was once a star pours through.",
+      "coverage_note": "Temporal Erosion, Singularity and Resonance 40→42, Ethereal Particle Storm 50→52 Dust power. 4 rows, all 60 AP, cooldown 7.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Kyuko-sei jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Ethereal Particle Storm",
+          "Resonance",
+          "Singularity",
+          "Temporal Erosion"
+        ],
+        "effect_rows": 4
+      }
+    },
+    {
+      "id": "03",
+      "name": "Heat Death",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Every fire goes out. Yours merely goes first.",
+      "coverage_note": "The same four Dust damage rows; with Shattered Firmament the route adds +5 power (Particle Storm 55, the other three 45).",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Kyuko-sei jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Ethereal Particle Storm",
+          "Resonance",
+          "Singularity",
+          "Temporal Erosion"
+        ],
+        "effect_rows": 4
+      }
+    },
+    {
+      "id": "04",
+      "name": "Aeons Laid Bare",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Armor is only time that has not yet passed.",
+      "coverage_note": "Temporal Erosion (single) and Abysmal End (area) exposure, 2 rounds: 35→40% with Weight of Eons; both can sit on one target.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Kyuko-sei jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Abysmal End",
+          "Temporal Erosion"
+        ],
+        "effect_rows": 2,
+        "ally_hazard_rows": [
+          "Abysmal End#0"
+        ]
+      }
+    },
+    {
+      "id": "05",
+      "name": "Collapse of Ages",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Centuries fold into a single falling instant.",
+      "coverage_note": "Both exposure rows +2 (route total +7: 42% each, 84% stacked on one target) and both self amplify rows +3 (route total +5: 40%).",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Kyuko-sei jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Abysmal End",
+          "Singularity",
+          "Temporal Erosion"
+        ],
+        "effect_rows": 4,
+        "ally_hazard_rows": [
+          "Abysmal End#0"
+        ]
+      }
+    },
+    {
+      "id": "06",
+      "name": "Hush of the Void",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Where the star once burned there is only quiet, and quiet does not bleed.",
+      "coverage_note": "Temporal Erosion self guard (30→32%) and Ethereal Particle Storm suppression (30→32%). 2 single-target rows, 60 AP, 2 rounds.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Kyuko-sei jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Ethereal Particle Storm",
+          "Temporal Erosion"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "07",
+      "name": "Dilated Moment",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "A heartbeat stretched until the blow arrives too late.",
+      "coverage_note": "Temporal Erosion Decrease Damage Taken only (single self row, 2 rounds per 60 AP cast): 35% with Hush of the Void.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Kyuko-sei jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Temporal Erosion"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "08",
+      "name": "Outlasting Eternity",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "When the last light fails, you are still standing there.",
+      "coverage_note": "Temporal Erosion guard reaches 40% (route total +10); Abysmal End and Singularity amplify +3 (38%, 40% with Weight of Eons).",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Kyuko-sei jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Abysmal End",
+          "Singularity",
+          "Temporal Erosion"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "09",
+      "name": "Dimming of Stars",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "One by one the enemy's fires gutter and go dark.",
+      "coverage_note": "Ethereal Particle Storm Decrease Damage Given only (single-target, 60 AP, 2 rounds): 35% with Hush of the Void.",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Kyuko-sei jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Ethereal Particle Storm"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "10",
+      "name": "All Returns to Dust",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "09"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Stars, mountains, names: the dust keeps none of them.",
+      "coverage_note": "Particle Storm suppression 40% (route total +10); Temporal Erosion and Abysmal End exposure +2 (37%, 39% with Weight of Eons).",
+      "parent_rule": "ALL",
+      "potency_classification": "Dust",
+      "scope": "Kyuko-sei jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Abysmal End",
+          "Ethereal Particle Storm",
+          "Temporal Erosion"
+        ],
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Abysmal End#0"
+        ]
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Heat Death",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "The +5 power route on all four Dust attacks (Ethereal Particle Storm 55; Temporal Erosion, Singularity and Resonance 45) with Weight of Eons' amplify and exposure at 37%. Hush of the Void is the fourth purchase because it opens the control root (guard and suppression 32%) without competing for the damage rows; Aeons Laid Bare (exposure 40% on both rows) is the offensive alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Temporal Erosion",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Temporal Erosion",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Temporal Erosion",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Abysmal End",
+          "row": 0,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Abysmal End",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Singularity",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Singularity",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Dust",
+            "Earth",
+            "None",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Singularity",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Resonance",
+          "row": 0,
+          "tag": "mirror",
+          "label": "mirror",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Resonance",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Particle Storm",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 5,
+          "final": 55.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Particle Storm",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Heat Death"
+      ]
+    },
+    {
+      "name": "Collapse of Ages",
+      "archetype": "Pressure",
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "rationale": "Exposure first: Temporal Erosion and Abysmal End Increase Damage Taken reach 42% each (84% when both sit on one target) while both self amplify rows reach 40%. Shattered Firmament is the fourth purchase because the exposed target is then struck by the kit's own +2 attacks (42/42/42/52); Hush of the Void is the defensive alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 7
+      },
+      "finals": [
+        {
+          "jutsu": "Temporal Erosion",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Temporal Erosion",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 7,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Temporal Erosion",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 0,
+          "final": 30.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Abysmal End",
+          "row": 0,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 7,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Abysmal End",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Singularity",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Singularity",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Dust",
+            "Earth",
+            "None",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Singularity",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Resonance",
+          "row": 0,
+          "tag": "mirror",
+          "label": "mirror",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Resonance",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Particle Storm",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 2,
+          "final": 52.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Particle Storm",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 0,
+          "final": 30.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Collapse of Ages"
+      ]
+    },
+    {
+      "name": "Outlasting Eternity",
+      "archetype": "Fortress",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "rationale": "Temporal Erosion as the centrepiece: its guard reaches 40% and its exposure 37% from one 60 AP cast, both amplify rows reach 40%, and Particle Storm's suppression sits at 32%. Weight of Eons is the fourth purchase because it stacks Increase Damage Given to +5; Dimming of Stars (suppression 35%) is the control alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Temporal Erosion",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Temporal Erosion",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Temporal Erosion",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 10,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Abysmal End",
+          "row": 0,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Abysmal End",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Singularity",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Singularity",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Dust",
+            "Earth",
+            "None",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Singularity",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Resonance",
+          "row": 0,
+          "tag": "mirror",
+          "label": "mirror",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Resonance",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Particle Storm",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Particle Storm",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Outlasting Eternity"
+      ]
+    },
+    {
+      "name": "All Returns to Dust",
+      "archetype": "Suppression",
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "rationale": "Ethereal Particle Storm as the control cast: 50 Dust damage plus 40% Decrease Damage Given on its target, with both exposure rows at 39%, the guard at 32% and both amplify rows at 37%. Weight of Eons is the fourth purchase for exposure +4 and a small amplify; Dilated Moment (guard 35%) is the defensive alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 4,
+        "decreasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Temporal Erosion",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Temporal Erosion",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Temporal Erosion",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Abysmal End",
+          "row": 0,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Abysmal End",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Singularity",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Singularity",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Dust",
+            "Earth",
+            "None",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Singularity",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Resonance",
+          "row": 0,
+          "tag": "mirror",
+          "label": "mirror",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Resonance",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Particle Storm",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Dust"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ethereal Particle Storm",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 10,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "All Returns to Dust"
+      ]
+    }
+  ],
+  "narrow_kit_exception": null,
+  "design_notes": [
+    "Node split: the two roots mirror the kit's two support axes. Weight of Eons (offence) raises both self amplify rows (Abysmal End, Singularity) and both exposure rows (Temporal Erosion, Abysmal End); Hush of the Void (control) raises the single guard row (Temporal Erosion) and single suppression row (Ethereal Particle Storm). Each root forks into two Hidden Art → Advanced Art routes (Damage and Exposure; Guard and Suppression): 2/4/4, every Advanced Art 3 BP deep, any two Advanced Arts 5–6 BP.",
+    "Flats scale by coverage, not rank. Damage reaches four rows and keeps the +2 Hidden / +3 Advanced ladder (max +5; row-weighted 20 vs the reference's 15, as in Houkyuken and Itojinsei). Exposure has two stackable rows, so its route maximum is +7 (+2/+3/+2: 42% per row, 84% combined); amplify has two rows and is held to +5 (40%). Guard and suppression are single rows on the +2/+3/+5 ladder (max +10: 40%). All Returns to Dust's secondary exposure (+2) never outbids Aeons Laid Bare (+3).",
+    "Filters: Abysmal End's amplify and exposure rows are Ninjutsu-filtered and element-less, so they match every element-less hit of any stat type plus any Ninjutsu-general damage (the kit's own Dust attacks); Singularity's amplify lists Dust/Earth/None/Wind; Temporal Erosion's exposure adds Intelligence/Willpower. The guard and suppression rows list every general type and match effectively every non-pierce hit. The passive Increase Damage Given multiplies the enhanced damage rows downstream.",
+    "Delivery: all five jutsu have cooldown 7. Temporal Erosion, Resonance and Particle Storm are 60 AP single-target casts at range 4. Singularity is a 60 AP ground circle at range 5: its damage reaches enemies on the tiles (friendly fire ENEMIES), its self amplify lands on the caster. Abysmal End is a 40 AP circle at range 4: exposure is applied once to each living non-caster user in the circle. Percentage rows last 2 rounds; guard and suppression ride on attacks. No rotation simulated.",
+    "Fourth purchases: Burst takes Hush of the Void (guard, suppression +2) or Aeons Laid Bare (exposure +5); Pressure takes Shattered Firmament (+2 Damage) or Hush of the Void; Fortress takes Weight of Eons (amplify +5, exposure +2) or Dimming of Stars (suppression +5); Suppression takes Weight of Eons (exposure +4, amplify +2) or Dilated Moment (guard +5). No-Advanced hybrids spread smaller gains across more tags. All 14 legal full builds are non-dominated; every node appears in one.",
+    "Weaknesses kept: the defensive capstone Outlasting Eternity adds no Damage power and no Damage node carries a defensive secondary, so the Fortress build is not also the best burst purchase. The guard lasts 2 rounds per 7-round Temporal Erosion cooldown, so a Fortress build is a timing build rather than a permanent wall, and the control root's Foundation reaches only two rows against the offence root's four."
+  ],
+  "risks": [
+    "Friendly fire on Abysmal End's exposure row (dossier 'Ally hazard'; validator warning accepted): the jutsu targets OTHER_USER with AOE_CIRCLE_SPAWN, so allies in the radius-1 circle also receive the Increase Damage Taken debuff when friendly fire is none/ALL; the caster is never a target. Weight of Eons, Aeons Laid Bare, Collapse of Ages and All Returns to Dust raise what allies there take.",
+    "Exposure stacking: Temporal Erosion and Abysmal End each apply a separate 2-round Increase Damage Taken and BATTLE_TAG_STACKING is on at the pin, so one target can carry 70% base exposure and 84% at the +7 route maximum (row-weighted +14, the same reach as Aerathiel's two-row exposure). No combat simulation was run.",
+    "Damage on four rows: the +5 route is row-weighted 20 against the reference's 15, and Resonance's row is raised although its Mirror identity is unsupported. The strongest hybrid (Weight of Eons, Shattered Firmament, Heat Death, Aeons Laid Bare) is row-weighted 34 against the reference's 31. Held at +5 for roster consistency; Heat Death +2 is the reversible trim.",
+    "Leakage: the self amplify rows multiply normal jutsu and weapon hits that pass their filters (Abysmal End: Ninjutsu-general or element-less; Singularity: Dust/Earth/Wind or element-less) while active; exposure and suppression also alter damage from allies and weapons, and Particle Storm's suppression matches effectively every non-pierce source. Pierce ignores all four tags.",
+    "Single-cast concentration: Temporal Erosion carries Damage, the only guard row and one exposure row, so the hybrid Weight of Eons / Shattered Firmament / Hush of the Void / Dilated Moment raises all three rows of one 60 AP cast; Collapse of Ages raises both Abysmal End rows from one 40 AP cast, so that B-rank support cast gains the most per AP. The 40% guard lasts 2 rounds per 7-round cooldown.",
+    "Classification: Dust collides with Aerathiel (INCLUDE) and Nejireru Funjin (DEFER) and the normal-jutsu Dust collision is unverified, so eligibility must be bloodline-scoped, not a bare element match. Under the current resolver only 5 of 10 supported rows match Dust directly (the four damage rows and Singularity's amplify); the other five fall back to None and need the whole-kit classification.",
+    "Unsupported rows (Resonance Mirror 100%, Singularity Move 1) are unchanged by every node; the dossier's enemy-hazard flag on the Move row concerns that unsupported row only. Ranked PvP and ranked sparring suppress skill-tree effects at the pin, so the whole tree is inert there. Normal-tree potency policy is not approved; a combined stacking audit is still required before any implementation."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "decreasedamagegiven": 10,
+      "increasedamagetaken": 7,
+      "decreasedamagetaken": 10
+    },
+    "supported_rows_in_kit": 10,
+    "supported_rows_by_tag": {
+      "damage": 4,
+      "decreasedamagegiven": 1,
+      "decreasedamagetaken": 1,
+      "increasedamagegiven": 2,
+      "increasedamagetaken": 2
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagegiven",
+      "decreasedamagetaken",
+      "increasedamagegiven",
+      "increasedamagetaken"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Draft 1 / Dust classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags of Kyuko-sei jutsu inherit Dust potency eligibility; original combat elements and target scopes stay intact.",
+      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 7
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 4,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 5,
+        "decreasedamagetaken": 10
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5
+      }
+    }
+  ]
+}
