@@ -9,7 +9,7 @@
     "statClassification": "Highest",
     "traits": "Summoning "
   },
-  "revision": "Draft 1 / Shadow classification / forked tree",
+  "revision": "Draft 2 / Shadow classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [
     "ally-hazard area rows amplified (friendly fire none/ALL): Oni Hammer Swing#1"
@@ -17,13 +17,25 @@
   "classification": {
     "potency_classification": "Shadow",
     "label_kind": "element",
-    "bloodline": "Night Parade of A Thousand Demons",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Shadow"
+    ],
     "display_element": "Shadow",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Night Parade of A Thousand Demons jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Shadow jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Herald of the Black Night",
+      "Otherworldly Conduit",
+      "Summoning: Underworld Gate"
+    ],
+    "shared_element_bloodlines": [
       "Adorable Shadow of Death",
       "Blood-Enchanted Eyes",
       "Blood-Enshrined Eyes",
@@ -37,7 +49,11 @@
       "Otaku of the Dark Maiden",
       "Sacrament of Crimson Hunger",
       "Shadow Weaver"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {
@@ -53,7 +69,7 @@
       "bonuses": {
         "increasedamagegiven": 5,
         "decreasedamagetaken": 5,
-        "lifesteal": 8
+        "lifesteal": 5
       },
       "advanced_arts": [
         "Feast of a Thousand Mouths"
@@ -70,9 +86,9 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "lifesteal": 2
       },
@@ -91,9 +107,10 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -111,9 +128,9 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       },
       "advanced_arts": [
         "Toll of the Night Bell"
@@ -139,16 +156,16 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 13,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
+      "damage": 5,
       "increasedamagegiven": 5,
       "decreasedamagegiven": 5,
-      "increasedamagetaken": 7,
+      "increasedamagetaken": 10,
       "decreasedamagetaken": 10,
-      "lifesteal": 8
+      "lifesteal": 5
     },
     "supported_rows_in_kit": 7,
     "supported_rows_by_tag": {
@@ -188,8 +205,8 @@
         "name": "Hungry Ghost's Draught",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Otherworldly Conduit"
         ],
@@ -202,8 +219,8 @@
         "name": "Feast of a Thousand Mouths",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 8,
+        "raw_flat_total": 6,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Otherworldly Conduit"
         ],
@@ -244,13 +261,13 @@
         "name": "Oni's Heavy Hand",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 3,
+        "raw_flat_total": 4,
         "row_weighted_total": 4,
         "covered_jutsu": [
-          "Oni Hammer Swing",
-          "Possessing Yurei"
+          "Herald of the Black Night",
+          "Oni Hammer Swing"
         ],
-        "covered_rows": 3,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -303,8 +320,8 @@
         "name": "Toll of the Night Bell",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 7,
+        "raw_flat_total": 8,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Herald of the Black Night",
           "Oni Hammer Swing"
@@ -317,21 +334,20 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "02",
-        "03",
-        "06"
+        "06",
+        "09",
+        "10"
       ],
       "bonuses": {
-        "damage": 1,
-        "increasedamagegiven": 5,
-        "decreasedamagegiven": 2,
-        "decreasedamagetaken": 2,
-        "lifesteal": 8
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 2
       },
-      "raw_flat_total": 18,
+      "raw_flat_total": 19,
       "row_weighted_total": 19,
       "advanced_arts": [
-        "03"
+        "10"
       ],
       "non_dominated": true
     },
@@ -340,8 +356,8 @@
       "name": "Hungry Ghost's Draught",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
       "covered_jutsu": [
         "Otherworldly Conduit"
       ],
@@ -360,10 +376,10 @@
         "bonuses": {
           "increasedamagegiven": 5,
           "decreasedamagetaken": 5,
-          "lifesteal": 8
+          "lifesteal": 5
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "03"
         ],
@@ -377,14 +393,14 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "lifesteal": 8
+          "lifesteal": 5
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 19,
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "03"
         ],
@@ -400,10 +416,10 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagetaken": 10,
-          "lifesteal": 5
+          "lifesteal": 4
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "05"
         ],
@@ -417,16 +433,16 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 5,
-          "lifesteal": 3
+          "lifesteal": 2
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 14,
+        "row_weighted_total": 13,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -436,14 +452,15 @@
           "07"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "lifesteal": 3
+          "lifesteal": 2
         },
         "raw_flat_total": 12,
-        "row_weighted_total": 15,
+        "row_weighted_total": 14,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -455,15 +472,14 @@
           "09"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 3,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
-          "lifesteal": 3
+          "lifesteal": 2
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 14,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -475,13 +491,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 10,
           "lifesteal": 2
         },
-        "raw_flat_total": 17,
+        "raw_flat_total": 18,
         "row_weighted_total": 18,
         "advanced_arts": [
           "05"
@@ -496,12 +512,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 12,
+        "raw_flat_total": 13,
         "row_weighted_total": 15,
         "advanced_arts": [],
         "non_dominated": true
@@ -514,13 +531,12 @@
           "09"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 3,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
+        "raw_flat_total": 14,
         "row_weighted_total": 14,
         "advanced_arts": [],
         "non_dominated": true
@@ -533,12 +549,13 @@
           "08"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
+        "raw_flat_total": 13,
         "row_weighted_total": 18,
         "advanced_arts": [
           "08"
@@ -553,13 +570,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 3,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
+        "raw_flat_total": 13,
         "row_weighted_total": 15,
         "advanced_arts": [],
         "non_dominated": true
@@ -572,14 +589,13 @@
           "10"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
-          "increasedamagetaken": 7,
+          "increasedamagetaken": 10,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 18,
+        "raw_flat_total": 19,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "10"
         ],
@@ -593,11 +609,11 @@
           "09"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 3
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 11,
+        "raw_flat_total": 12,
         "row_weighted_total": 17,
         "advanced_arts": [
           "08"
@@ -612,12 +628,12 @@
           "10"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "decreasedamagegiven": 5,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 18,
+        "raw_flat_total": 17,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "10"
         ],

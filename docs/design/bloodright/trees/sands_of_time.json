@@ -1,6 +1,6 @@
 {
   "title": "Sands of Time — Dominion of Hours",
-  "revision": "Draft 3 / Sand classification / forked tree",
+  "revision": "Draft 4 / Sand classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "bloodline": {
     "id": "yzbSbZ5rqRVIjiwN-farx",
     "review_id": "BR-059",
@@ -38,7 +38,7 @@
     "primary": "Control — Increase Damage Taken (Timeshift, Momentum Shift; two enemy rows) and Decrease Damage Given (Timelapse circle)",
     "secondary": "Tank — Decrease Damage Taken (Timelapse self row) and Heal (Cellular Regeneration)",
     "tertiary": "Sand damage (Timeshift 40, Eternity Flux 50, Timelapse 40) and the Momentum Shift self Increase Damage Given",
-    "rationale": "Sands of Time is a rank H Tank / Control kit whose nine supported rows split 3 Damage, 2 Increase Damage Taken and one each of Increase Damage Given, Decrease Damage Given, Decrease Damage Taken and Heal. Control is primary because it owns the kit's only two-row tag (Timeshift's 35% IDT lists all four stat types and no element; Momentum Shift's 35% IDT lists Earth/None/Sand/Wind) and the only area debuff (Timelapse's 30% Decrease Damage Given on every enemy in the circle), both of which also amplify or blunt what allies deal and take. Tank is secondary: Timelapse's self Decrease Damage Taken (30%, four stat types, no element) and Cellular Regeneration's static Heal 25 (250 HP per tick for 2 ticks) are the kit's only self rows apart from Momentum Shift's IDG. Damage is tertiary by role even though it reaches three rows and takes the Taiyo-standard +5 route; stun, timecompression and barrier are unsupported and receive nothing."
+    "rationale": "Sands of Time is a rank H Tank / Control kit whose nine supported rows split 3 Damage, 2 Increase Damage Taken and one each of Increase Damage Given, Decrease Damage Given, Decrease Damage Taken and Heal. Control is primary because it owns the kit's only two-row tag (Timeshift's 35% IDT lists all four stat types and no element; Momentum Shift's 35% IDT lists Earth/None/Sand/Wind) and the only area debuff (Timelapse's 30% Decrease Damage Given on every enemy in the circle), both of which also amplify or blunt what allies deal and take. Tank is secondary: Timelapse's self Decrease Damage Taken (30%, four stat types, no element) and Cellular Regeneration's static Heal 25 (250 HP per tick for 2 ticks) are the kit's only self rows apart from Momentum Shift's IDG. Damage is tertiary by role even though it reaches three rows and takes the default +5 route. Routes: Burst +5 Damage, Exposure +10% Increase Damage Taken, Fortress +10% Decrease Damage Taken, Suppression +10% Decrease Damage Given. Potency reaches matching supported tags on all Sand jutsu (RUL-2026-10-03-005); stun, timecompression and barrier are unsupported and receive nothing."
   },
   "nodes": [
     {
@@ -60,7 +60,7 @@
         }
       ],
       "flavor": "Every second stolen from them is a second lent to you.",
-      "coverage_note": "IDT 35→37% on Timeshift (four stat types) and Momentum Shift (Earth/None/Sand/Wind); IDG 35→37% on Momentum Shift's self row. 2 rounds.",
+      "coverage_note": "IDT 35 → 37% on Timeshift (four stat types) and Momentum Shift (Earth/None/Sand/Wind); IDG 35 → 37% on Momentum Shift's self row. 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
       "scope": "all Sand jutsu",
@@ -89,7 +89,7 @@
         }
       ],
       "flavor": "Mountains were worn to dust this way. Flesh takes far less time.",
-      "coverage_note": "Sand damage on Timeshift 40→42 and Eternity Flux 50→52 (single target) and Timelapse 40→42 (circle, ally hazard); 60 AP, CD 7.",
+      "coverage_note": "Sand Damage on Timeshift 40 → 42 and Eternity Flux 50 → 52 EP (single target) and Timelapse 40 → 42 EP (circle, ally hazard); 60 AP, CD 7.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
       "scope": "all Sand jutsu",
@@ -122,7 +122,7 @@
         }
       ],
       "flavor": "Given enough sand, even eternity wears thin.",
-      "coverage_note": "Same three Sand damage rows; route total +5 (Timeshift 45, Eternity Flux 55, Timelapse 45). Stun and timecompression unchanged.",
+      "coverage_note": "Same three Sand Damage rows; route total +5 Damage (Timeshift 45, Eternity Flux 55, Timelapse 45 EP). Stun and timecompression unchanged.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
       "scope": "all Sand jutsu",
@@ -150,12 +150,12 @@
       "modifiers": [
         {
           "tag": "increasedamagetaken",
-          "flat": 2,
+          "flat": 3,
           "display_role": "ENEMY DEBUFF"
         }
       ],
       "flavor": "Centuries pass in a heartbeat, and bone remembers every one of them.",
-      "coverage_note": "Timeshift and Momentum Shift IDT 37→39% with Borrowed Hours (enemy, 2 rounds after the cast); allies' hits on that target gain too.",
+      "coverage_note": "Timeshift and Momentum Shift IDT 37 → 40% with Borrowed Hours (enemy, 2 rounds after the cast); allies' hits on that target gain too.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
       "scope": "all Sand jutsu",
@@ -179,7 +179,7 @@
       "modifiers": [
         {
           "tag": "increasedamagetaken",
-          "flat": 3,
+          "flat": 5,
           "display_role": "ENEMY DEBUFF"
         },
         {
@@ -189,7 +189,7 @@
         }
       ],
       "flavor": "Nothing outruns the hour that was always coming.",
-      "coverage_note": "IDT route total +7: Timeshift and Momentum Shift 35→42%; IDG 35→40% on Momentum Shift's self row with Borrowed Hours. Pierce excluded.",
+      "coverage_note": "IDT route total +10%: Timeshift and Momentum Shift 35 → 45%; IDG 35 → 40% on Momentum Shift's self row with Borrowed Hours. Pierce excluded.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
       "scope": "all Sand jutsu",
@@ -221,7 +221,7 @@
         }
       ],
       "flavor": "Between one grain and the next, the world forgets to hurt you.",
-      "coverage_note": "Timelapse self DDT 30→32% (four stat types, no element, 2 rounds); Cellular Regeneration heal 25→27 power = 270 HP per tick, 2 ticks.",
+      "coverage_note": "Timelapse self DDT 30 → 32% (four stat types, no element, 2 rounds); Cellular Regeneration Heal 25 → 27 = 270 HP per tick, 2 ticks.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
       "scope": "all Sand jutsu",
@@ -251,7 +251,7 @@
         }
       ],
       "flavor": "The blow arrives; the moment it should land never does.",
-      "coverage_note": "Timelapse DDT only: 32→35% with Suspended Moment. Self-targeted row, so it lands on the caster wherever the circle is placed.",
+      "coverage_note": "Timelapse DDT only: 32 → 35% with Suspended Moment. Self-targeted row, so it lands on the caster wherever the circle is placed.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
       "scope": "all Sand jutsu",
@@ -284,7 +284,7 @@
         }
       ],
       "flavor": "Stand still long enough and time learns to flow around you.",
-      "coverage_note": "Timelapse DDT route total +10 (30→40%); Cellular Regeneration heal route total +5 (25→30 power = 300 HP per tick, 600 per cast).",
+      "coverage_note": "Timelapse DDT route total +10% (30 → 40%); Cellular Regeneration Heal +5% with Suspended Moment (25 → 30 = 300 HP per tick, 600 per cast).",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
       "scope": "all Sand jutsu",
@@ -314,7 +314,7 @@
         }
       ],
       "flavor": "Their arms grow heavy with every second they cannot spend.",
-      "coverage_note": "Timelapse DDG only (enemies inside the circle, four stat types, no element, 2 rounds): 30→33%. 60 AP, range 4, CD 7.",
+      "coverage_note": "Timelapse DDG only (enemies inside the circle, four stat types, no element, 2 rounds): 30 → 33%. 60 AP, range 4, CD 7.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
       "scope": "all Sand jutsu",
@@ -337,7 +337,7 @@
       "modifiers": [
         {
           "tag": "decreasedamagegiven",
-          "flat": 5,
+          "flat": 7,
           "display_role": "ENEMY DEBUFF"
         },
         {
@@ -347,7 +347,7 @@
         }
       ],
       "flavor": "When the sand stops falling, so does everything inside the glass.",
-      "coverage_note": "Timelapse DDG route total +8 (30→38%) on every enemy in the circle; DDT +2 (34% with Suspended Moment, 37% with Held in Stasis).",
+      "coverage_note": "Timelapse DDG route total +10% (30 → 40%) on every enemy in the circle; DDT +2% (34% with Suspended Moment, 37% with Held in Stasis).",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
       "scope": "all Sand jutsu",
@@ -370,7 +370,7 @@
         "03",
         "06"
       ],
-      "rationale": "Damage +5 on all three Sand rows (Timeshift 45, Eternity Flux 55, Timelapse 45), multiplied downstream by the Earth/None/Sand/Wind IDG passive; Borrowed Hours adds the exposure and self-amp glue, and Suspended Moment the fourth purchase (Timelapse DDT 32%, heal 270 per tick) so the burst caster keeps a little of the kit's Tank identity. Brittle with Age (IDT 39%) is the alternative fourth.",
+      "rationale": "+5 Damage on all three Sand rows (Timeshift 45, Eternity Flux 55, Timelapse 45 EP), multiplied downstream by the Earth/None/Sand/Wind IDG passive; Borrowed Hours adds the exposure and self-amp glue (37%), and Suspended Moment the fourth purchase (Timelapse DDT 32%, heal 270 per tick) so the burst caster keeps a little of the kit's Tank identity. Brittle with Age (IDT 40%) is the alternative fourth.",
       "cost": 4,
       "bonuses": {
         "damage": 5,
@@ -613,11 +613,11 @@
         "05",
         "06"
       ],
-      "rationale": "The Control build: IDT +7 puts Timeshift and Momentum Shift at 42% on the target for the two rounds after each cast. Timeshift's row amplifies nearly every non-pierce hit it takes (caster, weapons, normal jutsu, allies), Momentum Shift's only Earth/Sand/Wind or element-less ones; a hit matching both gains 84% of its staged base. IDG +5 lifts Momentum Shift's self buff to 40%. Suspended Moment is the fourth purchase; Grinding Sands (Sand damage +2) is the offensive alternative.",
+      "rationale": "The Control build: IDT +10% puts Timeshift and Momentum Shift at 45% on the target for the two rounds after each cast. Timeshift's row amplifies nearly every non-pierce hit it takes (caster, weapons, normal jutsu, allies), Momentum Shift's only Earth/Sand/Wind or element-less ones; a hit matching both takes ×1.45 × 1.45 ≈ ×2.10. IDG +5% lifts Momentum Shift's self buff to 40%. Suspended Moment is the fourth purchase; Grinding Sands (Sand Damage +2) is the offensive alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 2,
         "heal": 2
       },
@@ -706,8 +706,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -817,8 +817,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -855,7 +855,7 @@
         "07",
         "08"
       ],
-      "rationale": "The Tank build: Timelapse's self DDT reaches 40% (route +10) for 2 of every 7 rounds and Cellular Regeneration heals 300 HP per tick (600 per cast, route +5 at the guardrail). Borrowed Hours is the fourth purchase so the fortress still exposes its target (37%) and amplifies its own hits (37%); Leaden Seconds (DDG 33%) is the no-exposure alternative.",
+      "rationale": "The Tank build: Timelapse's self DDT reaches 40% (route +10%) for 2 of every 7 rounds and Cellular Regeneration heals 300 HP per tick (600 per cast, +5% Heal). Borrowed Hours is the fourth purchase so the fortress still exposes its target (37%) and amplifies its own hits (37%); Leaden Seconds (DDG 33%) is the no-exposure alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -1097,11 +1097,11 @@
         "09",
         "10"
       ],
-      "rationale": "Area control: Timelapse's Decrease Damage Given reaches 38% on every enemy standing in the circle, its self DDT 34%, while Borrowed Hours raises Timeshift/Momentum Shift exposure (37%) and the caster's IDG (37%). Held in Stasis instead of Borrowed Hours (06,07,09,10) gives the Timelapse-centred build: DDG 38%, DDT 37%, heal 270 per tick, no exposure.",
+      "rationale": "Area control: Timelapse's Decrease Damage Given reaches 40% (+10%) on every enemy standing in the circle, its self DDT 34%, while Borrowed Hours raises Timeshift/Momentum Shift exposure (37%) and the caster's IDG (37%). Held in Stasis instead of Borrowed Hours (06,07,09,10) gives the Timelapse-centred build: DDG 40%, DDT 37%, heal 270 per tick, no exposure.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
-        "decreasedamagegiven": 8,
+        "decreasedamagegiven": 10,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 4,
         "heal": 2
@@ -1137,8 +1137,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 30.0,
-          "gain": 8,
-          "final": 38.0,
+          "gain": 10,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1334,22 +1334,21 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Topology and five flats reuse Taiyo Kami: Borrowed Hours, Grinding Sands, Erosion of Eternity, Held in Stasis, Leaden Seconds = Dawnheart, Crown of Cinders, Solar Cataclysm, Golden Mantle, Ashen Verdict. Departures: no Afterburn rows, so Brittle with Age → The Inevitable Hour is two-row IDT (+2, then +3 IDT/+3 IDG); Heal replaces DDG on Suspended Moment and IDG on Timeless Bastion; Stilled Hourglass adds DDT +2, not IDT. It fits: three damage rows, exposure/self-amp, a self DDT, an area DDG.",
-    "Calibration: Damage (3 rows, as Taiyo Kami) takes Taiyo's 2+3 = +5, not +6: tertiary. Two-row IDT takes +7 (2+2+3), Taiyo's single-row Stellar Inferno flat: 14 row-weighted vs Taiyo's 7 (its two-row IDG stops at +5), a user-owned lever (see Row weight). Single-row DDT is Taiyo's 2+3+5 = +10; single-row DDG is 3+5 = +8 as Timelapse hits every enemy in the circle. IDG and Heal are glue, +5 each. Capstone secondaries stay below the sibling Hidden Art (Stilled Hourglass DDT +2 < Held in Stasis +3).",
-    "Row weight: strongest full builds score 25 (01,02,03,04; 01,02,04,05; 01,02,03,06) vs Taiyo Kami's 31 on nine rows; all 14 full allocations non-dominated, each node in one. Lowest-value: Held in Stasis and Leaden Seconds (+3, one row), Taiyo's Golden Mantle/Ashen Verdict shape. Levers (user-owned): if rank H reads conservative, Erosion of Eternity +4 Damage (route +6) or Stilled Hourglass +7 DDG (route +10); if two-row IDT (14 row-weighted vs 7) reads too strong, hold it at +5 (2+2+1 or 2+1+2).",
-    "Matching (getEfficiencyRatio, tags.ts 3477–3510; G15/G16): Timeshift IDT and Timelapse DDG/DDT list four stat types, no element: every non-pierce hit of those stats or with no element. Momentum Shift IDT (Earth/None/Sand/Wind, no stat filter): same-element and element-less hits only. Momentum Shift IDG ('Highest', no element): element-less hits plus highest-stat elemental hits. Kit rows add power/100 × staged base, same-tag rows sum (§3b); only the bloodline IDG passive multiplies Sand damage.",
+    "Topology and five flats reuse Taiyo Kami: Borrowed Hours, Grinding Sands, Erosion of Eternity, Held in Stasis, Leaden Seconds = Dawnheart, Crown of Cinders, Solar Cataclysm, Golden Mantle, Ashen Verdict. Departures: no Afterburn rows, so Brittle with Age → The Inevitable Hour is two-row IDT (2/3/5 with +3% IDG on the capstone); Heal replaces DDG on Suspended Moment and IDG on Timeless Bastion; Stilled Hourglass adds DDT +2%, not IDT. It fits: three damage rows, exposure/self-amp, a self DDT, an area DDG.",
+    "Recalibration (RUL-2026-10-03-005): Damage (3 rows, as Taiyo Kami) keeps the default +5 (2/3). Two-row IDT moves from +7% to +10% (Brittle with Age +2% → +3%, The Inevitable Hour +3% → +5%; 35 → 45%). Single-row DDG moves from +8% to +10% (Stilled Hourglass +5% → +7% after Leaden Seconds' +3%, Taiyo's Afterburn 3/7 split, as Suspended Moment carries no DDG; 30 → 40%). Single-row DDT is Taiyo's 2/3/5 = +10%. IDG and Heal are +5% glue. Capstone secondaries stay below the sibling Hidden Art (Stilled Hourglass DDT +2% < Held in Stasis +3%). Maxima over every legal allocation: Damage +5, Increase Damage Taken +10%, Decrease Damage Taken +10%, Decrease Damage Given +10%, Increase Damage Given +5%, Heal +5%.",
+    "Matching (getEfficiencyRatio, tags.ts 3477–3510; G15/G16): Timeshift IDT and Timelapse DDG/DDT list four stat types, no element: every non-pierce hit of those stats or with no element. Momentum Shift IDT (Earth/None/Sand/Wind, no stat filter): same-element and element-less hits only. Momentum Shift IDG ('Highest', no element): element-less hits plus highest-stat elemental hits. Each live kit row is its own multiplier: increases ×(1 + p/100) one after another, reductions ×(1 − p/100) in sequence with a floor at 10% of the boosted damage (§3b); the bloodline IDG passive multiplies last.",
     "Delivery: cooldown 7 everywhere; buff/debuff rows act the two rounds after the cast round, never in it (§3b; 2-in-7 uptime), so Timeshift's IDT never amplifies its own hit. Timelapse (60 AP, range 4, radius-1 circle on any other user): Sand damage to every other user inside (allies too, never the caster), DDG enemies only, SELF DDT. Timeshift, Eternity Flux: 60 AP hits. Momentum Shift (40 AP): target debuff, caster buff. Cellular Regeneration (40 AP): SELF heal, 250 HP ticks the next two rounds.",
-    "Fourth purchases: Burst → Suspended Moment or Brittle with Age (IDT 39%); Exposure → Suspended Moment or Grinding Sands; Fortress → Borrowed Hours or Leaden Seconds (DDG 33%); Suppression → Borrowed Hours or Held in Stasis (06,07,09,10: DDG 38%, DDT 37%, heal 270 per tick; the Timelapse-centred build). No-capstone hybrids such as 01,02,04,06 and 01,02,06,09 are legal and non-dominated. Four examples because each capstone answers a distinct role: burst, exposure, tank, area suppression."
+    "Fourth purchases: Burst → Suspended Moment or Brittle with Age (IDT 40%); Exposure → Suspended Moment or Grinding Sands; Fortress → Borrowed Hours or Leaden Seconds (DDG 33%); Suppression → Borrowed Hours or Held in Stasis (06,07,09,10: DDG 40%, DDT 37%, heal 270 per tick; the Timelapse-centred build). Four examples because each capstone answers a distinct role: burst, exposure, tank, area suppression."
   ],
   "risks": [
-    "Classification: Sand is the single signature element on all three damage rows and no other of the 95 census kits carries it; whether any non-bloodline jutsu carries Sand is unverified. Under the current resolver a Sand modifier reaches 4 of 9 rows directly; the other 5 fall back to None, which also reaches every non-elemental row the player casts. Assumes the proposed whole-kit classification.",
-    "Ally hazard (validator warns): Timelapse row 0 Sand damage is an OTHER_USER circle, friendly fire none (= ALL): allies inside take the hit; the caster never does (actions.ts 1029-1060). The circle can be centred on any other user, ally included; only enemies get the DDG row and DDT is SELF-targeted, so the Suspended Moment routes carry no hazard. Grinding Sands/Erosion of Eternity raise it 40→45.",
-    "Exposure: The Inevitable Hour puts both IDT rows at 42% for the two rounds after each cast. Timeshift's amplifies nearly every non-pierce hit the enemy takes (caster, weapons, normal jutsu, allies); Momentum Shift's only Earth/Sand/Wind or element-less hits. Stacking is on (process.ts 1109-1117): with both live a hit matching both gains 84% of its staged base, plus other IDT sources.",
-    "Area suppression leakage: Stilled Hourglass puts Decrease Damage Given at 38% on every enemy inside the Timelapse circle for 2 rounds, cutting their damage to the caster's allies as well (four stat types or element-less, pierce excluded). The route is worth more in team battles than one row suggests, which is why it stops at +8 rather than Taiyo's +10; raising it is a user-owned decision.",
-    "Broad self rows: Timeless Bastion puts Timelapse's self DDT at 40% for 2 rounds against nearly every non-pierce hit; Borrowed Hours plus The Inevitable Hour put Momentum Shift's IDG at 40%, raising basic attacks, weapons and element-less jutsu while active. Same-tag DDT/IDG sources add their percentages (process.ts 1109-1117); a future normal-tree potency budget is unaudited.",
-    "Heal: static heal is ×10 HP per tick, so the +5 route adds 50 HP per tick (600 per cast vs 500 at level 25). The SELF-target row on the EMPTY_GROUND spiral is realized on the caster at cast time (actions.ts 980-1004), not through the tiles, so it is not positional; with rounds 2 it ticks on the two following rounds only (tags.ts 1721-1775; util.ts 2567-2577). Healprevent blocks it.",
+    "Classification: Sand is the single signature element and no other captured kit carries it (sharing would be expected under RUL-2026-10-03-005). 4 of 9 kit rows carry Sand; the other five need the proposed jutsu-classification resolver, and Cellular Regeneration carries no element on any row, so in-kit it qualifies only through an authored Sand jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Sand coverage is unverified.",
+    "Ally hazard (validator warns): Timelapse row 0 Sand damage is an OTHER_USER circle, friendly fire none (= ALL): allies inside take the hit; the caster never does (actions.ts 1029-1060). The circle can be centred on any other user, ally included; only enemies get the DDG row and DDT is SELF-targeted, so the Suspended Moment routes carry no hazard. Grinding Sands/Erosion of Eternity raise it 40 → 45 EP.",
+    "Exposure: The Inevitable Hour puts both IDT rows at 45% for the two rounds after each cast. Timeshift's amplifies nearly every non-pierce hit the enemy takes (caster, weapons, normal jutsu, allies); Momentum Shift's only Earth/Sand/Wind or element-less hits. Stacking is on (process.ts 1109-1117) and the rows compound (§3b): a hit matching both takes ×1.45 × 1.45 ≈ ×2.10 (×1.8225 at base), and any other IDT source multiplies again.",
+    "Area suppression reach: Stilled Hourglass puts Decrease Damage Given at 40% on every enemy inside the Timelapse circle for 2 rounds, cutting their damage to the caster's allies as well (four stat types or element-less, pierce excluded). The route is worth more in team battles than one row suggests.",
+    "Broad self rows: Timeless Bastion puts Timelapse's self DDT at 40% for 2 rounds against nearly every non-pierce hit; Borrowed Hours plus The Inevitable Hour put Momentum Shift's IDG at 40%, raising basic attacks, weapons and element-less jutsu while active. Same-tag DDT/IDG sources all apply, each as its own multiplier (§3b); a future normal-tree potency budget is unaudited.",
+    "Heal: static heal is ×10 HP per tick, so the +5% Heal maximum adds 50 HP per tick (600 per cast vs 500 at level 25). The SELF-target row on the EMPTY_GROUND spiral is realized on the caster at cast time (actions.ts 980-1004), not through the tiles, so it is not positional; with rounds 2 it ticks on the two following rounds only (tags.ts 1721-1775; util.ts 2567-2577). Healprevent blocks it.",
     "Highest-stat resolution (G16): Sand damage rows and Momentum Shift's IDG use 'Highest', resolved via the caster's highestOffence (realizeTag copies it onto each effect); highestOffence is a required BattleUserState field (types.ts 156). If undefined, both sides push the literal 'Highest': the IDG row would still match element-less hits and the kit's own Sand rows, not other elemental jutsu.",
-    "No combat simulation: 14/14 non-dominance and row weights are arithmetic, not equal combat strength. Stun, timecompression, the barrier, circle target counts, AP, uptime and delivery were not modelled. Both Suspended Moment routes ride on one 60 AP Timelapse cast; a sealed or prevented cast removes their value for that cycle. Ranked modes skip skill effects."
+    "No combat simulation: non-dominance and row weights are arithmetic, not equal combat strength. Stun, timecompression, the barrier, circle target counts, AP, uptime and delivery were not modelled. Both Suspended Moment routes ride on one 60 AP Timelapse cast; a sealed or prevented cast removes their value for that cycle. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1392,8 +1391,8 @@
     "maximum_tag_bonuses": {
       "damage": 5,
       "increasedamagegiven": 5,
-      "decreasedamagegiven": 8,
-      "increasedamagetaken": 7,
+      "decreasedamagegiven": 10,
+      "increasedamagetaken": 10,
       "decreasedamagetaken": 10,
       "heal": 5
     },
@@ -1415,7 +1414,7 @@
       "increasedamagetaken"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 3 / Sand classification / forked tree",
+    "revision": "Draft 4 / Sand classification / forked tree (RUL-2026-10-03-005 recalibration)",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -1432,8 +1431,8 @@
       "maximum_over_all_legal_allocations": {
         "damage": 5,
         "increasedamagegiven": 5,
-        "decreasedamagegiven": 8,
-        "increasedamagetaken": 7,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
         "heal": 5
       },
@@ -1485,11 +1484,11 @@
           ],
           "steps": [
             2,
-            2,
-            3
+            3,
+            5
           ],
-          "total": 7,
-          "on_band": false
+          "total": 10,
+          "on_band": true
         },
         {
           "advanced_art": "08",
@@ -1520,10 +1519,10 @@
           "steps": [
             0,
             3,
-            5
+            7
           ],
-          "total": 8,
-          "on_band": false
+          "total": 10,
+          "on_band": true
         }
       ],
       "director_exceptions": []
@@ -1540,7 +1539,7 @@
       "bonuses": {
         "damage": 5,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 4
+        "increasedamagetaken": 5
       }
     },
     {
@@ -1568,7 +1567,7 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       }
     },
     {
@@ -1581,7 +1580,7 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 4,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
         "heal": 2
       }
@@ -1626,7 +1625,7 @@
       ],
       "bonuses": {
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 2,
         "heal": 2
       }
@@ -1640,7 +1639,7 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 4,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 5,
         "heal": 2
       }
@@ -1655,7 +1654,7 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagegiven": 3,
-        "increasedamagetaken": 4,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
         "heal": 2
       }
@@ -1698,7 +1697,7 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "decreasedamagegiven": 8,
+        "decreasedamagegiven": 10,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 4,
         "heal": 2
@@ -1725,7 +1724,7 @@
         "10"
       ],
       "bonuses": {
-        "decreasedamagegiven": 8,
+        "decreasedamagegiven": 10,
         "decreasedamagetaken": 7,
         "heal": 2
       }

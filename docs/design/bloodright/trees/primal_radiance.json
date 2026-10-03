@@ -1,6 +1,6 @@
 {
   "title": "Primal Radiance — The Burning Hunt",
-  "revision": "Draft 3 / Primal Radiance classification / forked tree",
+  "revision": "Draft 4 / Fire classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "bloodline": {
     "id": "ZewrhKT-qBQxT1eNoBWFP",
     "review_id": "BR-055",
@@ -10,15 +10,23 @@
     "traits": null
   },
   "classification": {
-    "potency_classification": "Primal Radiance",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Primal Radiance",
+    "potency_classification": "Fire",
+    "label_kind": "element",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Fire"
+    ],
     "display_element": "Fire",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Primal Radiance jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Fire jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [],
+    "shared_element_bloodlines": [
       "Adorable Shadow of Death",
       "Amaterasu",
       "Architect of the Hollow Script",
@@ -48,13 +56,17 @@
       "Traveling Sun Praiser",
       "Youso Shiroi",
       "Yūhi Ryūjin (夕陽竜神)"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Offense — Fire damage (Fire Style: Beast, Fire Style: Squirrel) and Beast's self Increase Damage Given",
     "secondary": "Pressure — Afterburn and Increase Damage Taken (Primal Incineration)",
     "tertiary": "Defense — Decrease Damage Taken (Fire Style: Squirrel self buff)",
-    "rationale": "Three of the six supported rows are directly offensive: the two Fire damage rows (Beast 50, Squirrel 40 at jutsu level 25) and Beast's 35% self Increase Damage Given, with the bloodline's own Fire Increase Damage Given passive multiplying Fire hits, so offense is primary and gets both a raw-power route and a buff-window route. Primal Incineration is the kit's only opener (40 AP, D-rank): its Afterburn 35% and Fire-filtered exposure 35% are single rows live for the two rounds after the cast round and paid out on later hits the target takes, so pressure is secondary with one route. Defense is a single 30% Decrease Damage Taken self buff on Fire Style: Squirrel, realized on the caster at cast time regardless of position and live for the two rounds after the cast round (60 AP, CD 6); as the kit's only defensive row it is tertiary with one route, held to Taiyo Kami's single-row +10 shape pending the user's value decision (risk 6). Wound and move are unsupported."
+    "rationale": "Three of the six supported rows are directly offensive: the two Fire Damage rows (Beast 50, Squirrel 40 EP at jutsu level 25) and Beast's 35% self Increase Damage Given, with the bloodline's own Fire Increase Damage Given passive multiplying Fire hits, so offense is primary and gets both a Damage route and a buff-window route. Primal Incineration is the kit's only opener (40 AP, D-rank): its Afterburn 35% and Fire-filtered exposure 35% are single rows live for the two rounds after the cast round and paid out on later hits the target takes, so pressure is secondary with one route. Defense is a single 30% Decrease Damage Taken self buff on Fire Style: Squirrel, realized on the caster at cast time regardless of position and live for the two rounds after the cast round (60 AP, CD 6); as the kit's only defensive row it is tertiary with one route in Taiyo Kami's single-row +10% shape. Potency reaches matching supported tags on all Fire jutsu (RUL-2026-10-03-005). Wound and move are unsupported."
   },
   "nodes": [
     {
@@ -68,26 +80,19 @@
           "tag": "increasedamagetaken",
           "flat": 2,
           "display_role": "ENEMY DEBUFF"
-        },
-        {
-          "tag": "damage",
-          "flat": 1,
-          "display_role": "DAMAGE"
         }
       ],
       "flavor": "Every quarry the beast marks is already half-burned.",
-      "coverage_note": "Incineration exposure 35→37% (Fire hits, or hits on the caster's highest offence stat; 2 rounds); Beast 50→51, Squirrel 40→41. 3 rows.",
+      "coverage_note": "Primal Incineration exposure 35 → 37% (Fire hits, or hits on the caster's highest offence stat; 2 rounds). 1 row.",
       "parent_rule": "ALL",
-      "potency_classification": "Primal Radiance",
-      "scope": "Primal Radiance jutsu",
+      "potency_classification": "Fire",
+      "scope": "all Fire jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
-          "Fire Style: Beast",
-          "Fire Style: Squirrel",
           "Primal Incineration"
         ],
-        "effect_rows": 3
+        "effect_rows": 1
       }
     },
     {
@@ -106,10 +111,10 @@
         }
       ],
       "flavor": "Teeth of ember, breath of wildfire.",
-      "coverage_note": "Beast and Squirrel Fire damage rows only (51→53 and 41→43 with Hunter's Brand). Both 60 AP, range 4; Squirrel is a ground circle, CD 6.",
+      "coverage_note": "Beast and Squirrel Fire Damage rows only (50 → 52 and 40 → 42 EP). Both 60 AP, range 4; Squirrel is a ground circle, CD 6.",
       "parent_rule": "ALL",
-      "potency_classification": "Primal Radiance",
-      "scope": "Primal Radiance jutsu",
+      "potency_classification": "Fire",
+      "scope": "all Fire jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -135,10 +140,10 @@
         }
       ],
       "flavor": "When the alpha roars, the whole forest catches.",
-      "coverage_note": "The same two damage rows; the route totals +6 power (Beast 50→56, Squirrel 40→46) before the bloodline's Fire damage passive.",
+      "coverage_note": "The same two Damage rows; route total +5 Damage (Beast 50 → 55, Squirrel 40 → 45 EP) before the bloodline's Fire damage passive.",
       "parent_rule": "ALL",
-      "potency_classification": "Primal Radiance",
-      "scope": "Primal Radiance jutsu",
+      "potency_classification": "Fire",
+      "scope": "all Fire jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -164,10 +169,10 @@
         }
       ],
       "flavor": "Where the hunted beast ran, the ground still smolders.",
-      "coverage_note": "Primal Incineration Afterburn only (one 2-round enemy debuff, 40 AP, CD 7): 35→38%. Value lands on every non-pierce hit the target takes.",
+      "coverage_note": "Primal Incineration Afterburn only (one 2-round enemy debuff, 40 AP, CD 7): 35 → 38%. Value lands on every non-pierce hit the target takes.",
       "parent_rule": "ALL",
-      "potency_classification": "Primal Radiance",
-      "scope": "Primal Radiance jutsu",
+      "potency_classification": "Fire",
+      "scope": "all Fire jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -197,10 +202,10 @@
         }
       ],
       "flavor": "The hunt ends on a pyre the prey built with its own flight.",
-      "coverage_note": "Incineration Afterburn 38→45% and exposure 37→40% with Hunter's Brand; one 40 AP cast carries both for 2 rounds on one target.",
+      "coverage_note": "Incineration Afterburn 38 → 45% (route +10%) and exposure 37 → 40% with Hunter's Brand; one 40 AP cast carries both for 2 rounds on one target.",
       "parent_rule": "ALL",
-      "potency_classification": "Primal Radiance",
-      "scope": "Primal Radiance jutsu",
+      "potency_classification": "Fire",
+      "scope": "all Fire jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -228,10 +233,10 @@
         }
       ],
       "flavor": "Thick pelt, sharp fang, both lit from within.",
-      "coverage_note": "Squirrel self DDT 30→32% (realized on the caster at cast, live the next 2 rounds, any position); Beast self Increase Damage Given 35→37%.",
+      "coverage_note": "Squirrel self Decrease Damage Taken 30 → 32% (realized on the caster at cast, live the next 2 rounds, any position); Beast self Increase Damage Given 35 → 37%.",
       "parent_rule": "ALL",
-      "potency_classification": "Primal Radiance",
-      "scope": "Primal Radiance jutsu",
+      "potency_classification": "Fire",
+      "scope": "all Fire jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -257,10 +262,10 @@
         }
       ],
       "flavor": "A pelt of living flame that swallows every blow.",
-      "coverage_note": "Squirrel Decrease Damage Taken only (element-less row, all four stat types: every non-pierce hit): 32→35% with Hide and Fang.",
+      "coverage_note": "Squirrel Decrease Damage Taken only (element-less row, all four stat types: every non-pierce hit): 32 → 35% with Hide and Fang.",
       "parent_rule": "ALL",
-      "potency_classification": "Primal Radiance",
-      "scope": "Primal Radiance jutsu",
+      "potency_classification": "Fire",
+      "scope": "all Fire jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -290,10 +295,10 @@
         }
       ],
       "flavor": "Within the burning den, nothing reaches the beast.",
-      "coverage_note": "Squirrel self Decrease Damage Taken 35→40% (the +10 route ceiling; 2 rounds per 60 AP cast) and Beast Increase Damage Given 37→39%.",
+      "coverage_note": "Squirrel self Decrease Damage Taken 35 → 40% (route +10%; 2 rounds per 60 AP cast) and Beast Increase Damage Given 37 → 39%.",
       "parent_rule": "ALL",
-      "potency_classification": "Primal Radiance",
-      "scope": "Primal Radiance jutsu",
+      "potency_classification": "Fire",
+      "scope": "all Fire jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -319,10 +324,10 @@
         }
       ],
       "flavor": "Fury stoked until the blood itself glows.",
-      "coverage_note": "Beast self IDG only (live 2 rounds after each 60 AP cast; Fire hits or hits on the caster's highest offence stat or general): 37→40%.",
+      "coverage_note": "Beast self Increase Damage Given only (live 2 rounds after each 60 AP cast; Fire hits or hits on the caster's highest offence stat or general): 37 → 40%.",
       "parent_rule": "ALL",
-      "potency_classification": "Primal Radiance",
-      "scope": "Primal Radiance jutsu",
+      "potency_classification": "Fire",
+      "scope": "all Fire jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -352,10 +357,10 @@
         }
       ],
       "flavor": "The radiant beast unbound, and nothing left to hold it.",
-      "coverage_note": "Beast Increase Damage Given 40→45% (the +10 route ceiling) and Squirrel self Decrease Damage Taken 32→34%.",
+      "coverage_note": "Beast Increase Damage Given 40 → 45% (route +10%) and Squirrel self Decrease Damage Taken 32 → 34%.",
       "parent_rule": "ALL",
-      "potency_classification": "Primal Radiance",
-      "scope": "Primal Radiance jutsu",
+      "potency_classification": "Fire",
+      "scope": "all Fire jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -376,10 +381,10 @@
         "03",
         "06"
       ],
-      "rationale": "The +6 power route on both Fire attacks (Beast 50→56, Squirrel 40→46 before the bloodline's Fire Increase Damage Given passive multiplies them) with Hunter's Brand's 37% exposure. Hide and Fang is the fourth purchase so Beast's self buff reaches 37% and Squirrel's self DDT 32%; Smoldering Trail (Afterburn 38%) is the all-pressure alternative.",
+      "rationale": "The +5 Damage route on both Fire attacks (Beast 50 → 55, Squirrel 40 → 45 EP before the bloodline's Fire Increase Damage Given passive multiplies them) with Hunter's Brand's 37% exposure. Hide and Fang is the fourth purchase so Beast's self buff reaches 37% and Squirrel's self DDT 32%; Smoldering Trail (Afterburn 38%) is the all-pressure alternative.",
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -433,8 +438,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 6,
-          "final": 56.0,
+          "gain": 5,
+          "final": 55.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -487,8 +492,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 6,
-          "final": 46.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -543,10 +548,9 @@
         "05",
         "06"
       ],
-      "rationale": "One 40 AP Primal Incineration cast marks a target with 45% Afterburn and 40% exposure for the 2 rounds after the cast round: every non-pierce hit it takes then (Beast, Squirrel, normal jutsu, weapons, allies) adds 45% Afterburn damage up to the 60% per-hit cap, and Fire hits, plus hits whose resolved stat type equals the caster's highest offence stat (e.g. the caster's basic attacks), gain a further 40% of their staged base. Attacks sit at 51 and 41. Hide and Fang adds Beast 37% and Squirrel DDT 32%; Fang and Ember (attacks 53 / 43) is the sharper alternative.",
+      "rationale": "One 40 AP Primal Incineration cast marks a target with 45% Afterburn (+10%) and 40% exposure for the 2 rounds after the cast round: every non-pierce hit it takes then (Beast, Squirrel, normal jutsu, weapons, allies) adds 45% Afterburn damage up to the 60% per-hit cap, and Fire hits, plus hits whose resolved stat type equals the caster's highest offence stat (e.g. the caster's basic attacks), are further multiplied by 1.40. Hide and Fang adds Beast 37% and Squirrel DDT 32%; Fang and Ember (attacks 52 / 42 EP) is the sharper alternative.",
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
@@ -601,8 +605,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 1,
-          "final": 51.0,
+          "gain": 0,
+          "final": 50.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -655,8 +659,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 1,
-          "final": 41.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -711,10 +715,9 @@
         "07",
         "08"
       ],
-      "rationale": "The beast as its own stronghold: each 60 AP Squirrel cast (CD 6) realizes 40% Decrease Damage Taken on the caster at cast time, live on every non-pierce hit for the 2 rounds after the cast round wherever anyone stands; Beast's self buff sits at 39%. Hunter's Brand keeps the enemy-facing face alive (exposure 37%, attacks 51 / 41); Kindled Fury (Beast 42%) is the all-self alternative that stays under one root.",
+      "rationale": "The beast as its own stronghold: each 60 AP Squirrel cast (CD 6) realizes 40% Decrease Damage Taken (+10%) on the caster at cast time, live on every non-pierce hit for the 2 rounds after the cast round wherever anyone stands; Beast's self buff sits at 39%. Hunter's Brand keeps the enemy-facing face alive (exposure 37%); Kindled Fury (Beast 42%) is the all-self alternative that stays under one root.",
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 4,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10
@@ -768,8 +771,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 1,
-          "final": 51.0,
+          "gain": 0,
+          "final": 50.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -822,8 +825,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 1,
-          "final": 41.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -878,10 +881,9 @@
         "09",
         "10"
       ],
-      "rationale": "Beast's self Increase Damage Given at 45% for the 2 rounds after each 60 AP cast (never Beast's own hit, CD 7) adds 45% of the staged base to Squirrel and other Fire hits and to hits on the caster's highest offence stat or general (basic attacks always); non-Fire hits sharing neither are excluded. Squirrel's self DDT sits at 34%. An Incineration cast timed with Beast lays Hunter's Brand's 37% exposure under the window; Radiant Hide (DDT 37%) is the sturdier alternative fourth purchase.",
+      "rationale": "Beast's self Increase Damage Given at 45% (+10%) for the 2 rounds after each 60 AP cast (never Beast's own hit, CD 7) multiplies Squirrel and other Fire hits by 1.45, and hits on the caster's highest offence stat or general (basic attacks always); non-Fire hits sharing neither are excluded. Squirrel's self DDT sits at 34%. An Incineration cast timed with Beast lays Hunter's Brand's 37% exposure under the window; Radiant Hide (DDT 37%) is the sturdier alternative fourth purchase.",
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 10,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 4
@@ -935,8 +937,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 1,
-          "final": 51.0,
+          "gain": 0,
+          "final": 50.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -989,8 +991,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 1,
-          "final": 41.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -1039,21 +1041,21 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Node split: the roots mirror the kit's two faces. Hunter's Brand (enemy-facing: Incineration exposure plus both Fire damage rows) forks into Fang and Ember → Apex Conflagration (raw damage) and Smoldering Trail → Pyre of the Hunted (burn). Hide and Fang (self-facing: Squirrel self DDT plus Beast IDG) forks into Radiant Hide → Den of Embers (defense) and Kindled Fury → Primal Rampage (buff window). 2 F / 4 H / 4 A; every capstone 3 BP deep; two capstones cost 5 or 6 BP.",
-    "Reference reuse: flats follow Taiyo Kami nearly verbatim (Damage 2/3, Afterburn 3/7 with IDT +3, DDT 2/3/5). Departures: Hunter's Brand pairs IDT +2 with Damage +1 (this kit's IDG is a self buff); Hide and Fang pairs DDT with IDG (no DDG row); Pyre drops Eternal Noon's IDG +3; the fourth route is IDG 2/3/5 instead of DDG. It fits: each tag is one or two rows. On the self routes each capstone's +2 secondary sits one below the sibling Hidden Art's +3; non-dominance (14/14) is the audit's.",
-    "Passives: the Fire IDG passive (15 + 0.15/lvl, Fire only; bloodline-sourced, it multiplies) scales the Fire damage rows. Beast's IDG row (Fire, stat and general Highest) adds to the caster's Fire hits and hits sharing the caster's highest offence stat or general (§3; tags.ts 3407-3416). Incineration's exposure (Fire, stat Highest) covers Fire hits and hits on the debuff caster's highest offence stat (§4b). Afterburn and Squirrel's DDT (no element, all four stats) cover every non-pierce hit.",
+    "Node split: the roots mirror the kit's two faces. Hunter's Brand (enemy-facing: Incineration exposure) forks into Fang and Ember → Apex Conflagration (Damage) and Smoldering Trail → Pyre of the Hunted (burn). Hide and Fang (self-facing: Squirrel self DDT plus Beast IDG) forks into Radiant Hide → Den of Embers (defense) and Kindled Fury → Primal Rampage (buff window). 2 F / 4 H / 4 A; every capstone 3 BP deep; two capstones cost 5 or 6 BP.",
+    "Reference reuse: flats follow Taiyo Kami nearly verbatim (Damage 2/3, Afterburn 3/7 with IDT +3%, DDT 2/3/5). Departures: Hunter's Brand carries only +2% IDT (this kit's IDG is a self buff on the other root); Hide and Fang pairs DDT with IDG (no DDG row); Pyre drops Eternal Noon's IDG +3%; the fourth route is IDG 2/3/5 instead of DDG. On the self routes each capstone's +2% secondary sits one below the sibling Hidden Art's +3%.",
+    "Recalibration (RUL-2026-10-03-005): Hunter's Brand drops its +1 Damage, so Burst is the default +5 Damage (Fang and Ember +2, Apex Conflagration +3); every other value is unchanged. Routes: Burst +5 Damage, Burn pressure +10% Afterburn, Fortified +10% Decrease Damage Taken, Buff window +10% Increase Damage Given. Maxima over every legal allocation: Damage +5, Afterburn +10%, Increase Damage Given +10%, Decrease Damage Taken +10%, Increase Damage Taken +5%.",
+    "Passives: the Fire IDG passive (15 + 0.15/lvl, Fire only; bloodline-sourced, it multiplies) scales the Fire Damage rows. Beast's IDG row (Fire, stat and general Highest) multiplies the caster's Fire hits and hits sharing the caster's highest offence stat or general (§3; tags.ts 3407-3416). Incineration's exposure (Fire, stat Highest) covers Fire hits and hits on the debuff caster's highest offence stat (§4b). Afterburn and Squirrel's DDT (no element, all four stats) cover every non-pierce hit.",
     "Delivery and uptime: Incineration is 40 AP, CD 7, single target; Beast 60 AP, CD 7, single target; Squirrel 60 AP, CD 6, an EMPTY_GROUND circle. Each buff/debuff row is live in the 2 rounds after its cast round, never in it (§3b): no strike benefits from its own row, and Beast's CD 7 keeps its hit outside its IDG. Squirrel's DDT row has target SELF: realized on the caster at cast time (§4b, actions.ts 980-1004), no positioning, no leak. Only its damage and unsupported move rows are positional.",
-    "Fourth purchases: Burst (01,02,03) → Hide and Fang (Squirrel DDT 32%, Beast 37%) or Smoldering Trail (Afterburn 38%); Burn (01,04,05) → Hide and Fang or Fang and Ember (attacks 53 / 43); Fortified (06,07,08) → Hunter's Brand (exposure 37%, attacks 51 / 41) or Kindled Fury (Beast 42%); Buff window (06,09,10) → Hunter's Brand or Radiant Hide (DDT 37%). Six no-Advanced hybrids: 01,02,04,06; 01,02,06,07; 01,02,06,09; 01,04,06,07; 01,04,06,09; 01,06,07,09. All 14 full allocations are non-dominated.",
-    "Row-weighted scale (Σ flat × rows reached): 01,02,04,05 and the Burn build 01,04,05,06 score 21 (3.5 per row); Burst, Fortified and Buff window 18; median 17 (2.8). Taiyo Kami's 14 full builds span 16–31 on 9 rows (max 3.4 per row, median 20.5 = 2.3), so this C-rank tree sits at Taiyo's per-row ceiling; its single-row IDG reaches +10 against Taiyo's per-tag IDG max of +5. Values unchanged pending the user's decision (risk 6). Lowest nodes: Smoldering Trail, Radiant Hide, Kindled Fury (3 each)."
+    "Fourth purchases: Burst (01,02,03) → Hide and Fang (Squirrel DDT 32%, Beast 37%) or Smoldering Trail (Afterburn 38%); Burn (01,04,05) → Hide and Fang or Fang and Ember (attacks 52 / 42 EP); Fortified (06,07,08) → Hunter's Brand (exposure 37%) or Kindled Fury (Beast 42%); Buff window (06,09,10) → Hunter's Brand or Radiant Hide (DDT 37%). Six no-Advanced hybrids: 01,02,04,06; 01,02,06,07; 01,02,06,09; 01,04,06,07; 01,04,06,09; 01,06,07,09."
   ],
   "risks": [
-    "Classification: Fire sits on rows of 29 other census bloodlines, so the label is the bloodline-keyed extension 'Primal Radiance' (proposed whole-kit resolver plus a classification extension). With ['Fire'] today, 4 of 6 rows match directly; the two element-less rows (Afterburn, Squirrel DDT) fall back to None, which also reaches other non-elemental jutsu. Normal-jutsu Fire collisions unverified.",
+    "Classification: Fire is shared with many other bloodlines (expected under RUL-2026-10-03-005). 4 of 6 kit rows carry Fire; the two element-less rows (Incineration's Afterburn, Squirrel's DDT) sit on Fire jutsu and need the proposed jutsu-classification resolver. Off-kit Fire coverage is unverified.",
     "Afterburn: Pyre of the Hunted puts Incineration's Afterburn at 45% on one target for the 2 rounds after the cast round. Every non-pierce hit it then takes (kit, normal jutsu, weapons, allies) adds floor(damage × 45%); other Afterburn sources add (§3b) under the 60%-of-hit cumulative cap, so they saturate quickly. Not a damage instance; downstream instances were not simulated.",
-    "Exposure: Incineration's IDT row has elements ['Fire'], stat Highest; a non-empty element list pushes no 'None' (SOURCE_MECHANICS.md §3), so it amplifies Fire hits plus hits resolving to the debuff caster's highest offence stat (realizeTag copies the caster's highestOffence, §4b): the caster's basic attacks match, an ally's non-Fire hit only on that stat. Pierce excluded. Max +5 (40%), 2 rounds.",
-    "IDG scope: Beast's self buff (Fire, stat and general Highest) adds 45% (Primal Rampage) of the staged base, for the 2 rounds after the cast, to the caster's Fire hits and hits sharing the caster's highest offence stat or general (basic attacks always): window-wide, not kit-only. Jutsu-sourced: other jutsu or skill IDG adds to it; only the Fire passive multiplies. Pierce excluded.",
-    "DDT delivery: Squirrel's DDT row has target SELF on an EMPTY_GROUND spawn. Per §4b a SELF row on a ground action is realized on the caster at cast time, not through the tiles (no positioning, no leak), and per §3b it is live for the 2 rounds after the cast round. Den of Embers' 40% thus has plain per-cast uptime (60 AP, CD 6), like Beast's IDG; its +10 ceiling is a user decision (risk 6).",
-    "Value decisions (user-owned): IDG and DDT both reach +10 on single unconditional 2-round self buffs (Beast 45%, Squirrel 40%), Damage +6 on 2 rows, Afterburn +10; strongest build 21/6 rows (3.5 per row), at Taiyo Kami's 31/9 ceiling (note 6). C-rank bloodline; the brief adjusts by coverage, not rank. Lowering the self-buff routes to 2/3/4 (+9) is the ready alternative. No combat simulation.",
-    "Damage is formula-calculated (sqrt stat scaling) and then multiplied by the Fire Increase Damage Given passive, so +6 raw power is not a linear +6 damage. Squirrel's damage row is an area hit with friendly fire ENEMIES (no ally hazard); Beast's wound 25% and Squirrel's move are unsupported and receive nothing.",
+    "Exposure: Incineration's IDT row has elements ['Fire'], stat Highest; a non-empty element list pushes no 'None' (SOURCE_MECHANICS.md §3), so it amplifies Fire hits plus hits resolving to the debuff caster's highest offence stat (realizeTag copies the caster's highestOffence, §4b): the caster's basic attacks match, an ally's non-Fire hit only on that stat. Pierce excluded. Maximum +5% (40%), 2 rounds.",
+    "IDG scope: Beast's self buff (Fire, stat and general Highest) multiplies by 1.45 (Primal Rampage), for the 2 rounds after the cast, the caster's Fire hits and hits sharing the caster's highest offence stat or general (basic attacks always): window-wide, not kit-only. Jutsu-sourced: other jutsu or skill IDG applies as its own multiplier, and the Fire passive multiplies last (§3b). Pierce excluded.",
+    "DDT delivery: Squirrel's DDT row has target SELF on an EMPTY_GROUND spawn. Per §4b a SELF row on a ground action is realized on the caster at cast time, not through the tiles (no positioning, no leak), and per §3b it is live for the 2 rounds after the cast round. Den of Embers' 40% thus has plain per-cast uptime (60 AP, CD 6), like Beast's IDG.",
+    "Self-buff strength: Increase Damage Given and Decrease Damage Taken both reach the +10% default ceiling on single unconditional 2-round self buffs (Beast 45%, Squirrel 40%) on a C-rank bloodline; the brief adjusts by coverage, not rank. No combat simulation.",
+    "Damage is formula-calculated (sqrt stat scaling) and then multiplied by the Fire Increase Damage Given passive, so +5 raw EP is not a linear +5 damage. Squirrel's damage row is an area hit with friendly fire ENEMIES (no ally hazard); Beast's wound 25% and Squirrel's move are unsupported and receive nothing.",
     "Context not modelled: the bloodline's +10% Increase Damage Taken passive on Water (a standing weakness) is untouched by any node; skill-tree and bloodline effects are suppressed in RANKED_PVP and RANKED_SPARRING at the pin, so no Bloodright node applies there. Main-tree effects, equipment, AP, uptime and modifier delivery are outside this audit."
   ],
   "progression": {
@@ -1095,7 +1097,7 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
+      "damage": 5,
       "increasedamagegiven": 10,
       "increasedamagetaken": 5,
       "decreasedamagetaken": 10,
@@ -1117,18 +1119,117 @@
       "increasedamagetaken"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 3 / Primal Radiance classification / forked tree",
+    "revision": "Draft 4 / Fire classification / forked tree (RUL-2026-10-03-005 recalibration)",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Primal Radiance jutsu inherit Primal Radiance potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Fire jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 10,
+        "afterburn": 10
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10,
+        "afterburn": 15
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Apex Conflagration",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Pyre of the Hunted",
+          "primary_tag": "afterburn",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            0,
+            3,
+            7
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "08",
+          "name": "Den of Embers",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Primal Rampage",
+          "primary_tag": "increasedamagegiven",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {
@@ -1139,7 +1240,7 @@
         "04"
       ],
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagetaken": 2,
         "afterburn": 3
       }
@@ -1152,7 +1253,7 @@
         "06"
       ],
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -1166,7 +1267,7 @@
         "05"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagetaken": 5,
         "afterburn": 10
       }
@@ -1179,7 +1280,7 @@
         "06"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
@@ -1194,7 +1295,7 @@
         "07"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 5
@@ -1208,7 +1309,7 @@
         "09"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -1222,7 +1323,6 @@
         "06"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
@@ -1237,7 +1337,6 @@
         "07"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 5,
@@ -1252,7 +1351,6 @@
         "09"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
@@ -1267,7 +1365,6 @@
         "08"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 4,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10
@@ -1281,7 +1378,6 @@
         "09"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 5
@@ -1295,7 +1391,6 @@
         "10"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 10,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 4

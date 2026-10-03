@@ -9,19 +9,29 @@
     "statClassification": "Highest",
     "traits": "Burst, Sustained DPS"
   },
-  "revision": "Draft 3 / Shadow classification / forked tree",
+  "revision": "Draft 4 / Shadow classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [],
   "classification": {
     "potency_classification": "Shadow",
     "label_kind": "element",
-    "bloodline": "Oblivion Seal",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Shadow"
+    ],
     "display_element": "Shadow",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Oblivion Seal jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Shadow jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Shadow Surge"
+    ],
+    "shared_element_bloodlines": [
       "Adorable Shadow of Death",
       "Blood-Enchanted Eyes",
       "Blood-Enshrined Eyes",
@@ -35,7 +45,11 @@
       "Otaku of the Dark Maiden",
       "Sacrament of Crimson Hunger",
       "Shadow Weaver"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {
@@ -52,8 +66,7 @@
         "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "lifesteal": 2
+        "decreasedamagetaken": 2
       },
       "advanced_arts": [
         "Absolute Erasure"
@@ -71,9 +84,8 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7,
-        "decreasedamagetaken": 2,
-        "lifesteal": 2
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 2
       },
       "advanced_arts": [
         "Writ of Oblivion"
@@ -92,8 +104,7 @@
       "bonuses": {
         "increasedamagegiven": 5,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 10,
-        "lifesteal": 2
+        "decreasedamagetaken": 10
       },
       "advanced_arts": [
         "Sealed Against Ruin"
@@ -110,10 +121,10 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 4,
-        "lifesteal": 10
+        "lifesteal": 5
       },
       "advanced_arts": [
         "Maw of Oblivion"
@@ -145,9 +156,9 @@
     "maximum_tag_bonuses": {
       "damage": 5,
       "increasedamagegiven": 5,
-      "increasedamagetaken": 7,
+      "increasedamagetaken": 10,
       "decreasedamagetaken": 10,
-      "lifesteal": 10
+      "lifesteal": 5
     },
     "supported_rows_in_kit": 7,
     "supported_rows_by_tag": {
@@ -218,8 +229,8 @@
         "name": "Unraveled Wards",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
         "covered_jutsu": [
           "Shadowrend"
         ],
@@ -232,8 +243,8 @@
         "name": "Writ of Oblivion",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 6,
+        "raw_flat_total": 8,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Cursed Beast Form",
           "Shadowrend"
@@ -247,12 +258,12 @@
         "name": "Umbral Refuge",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 4,
-        "row_weighted_total": 4,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Shadow Surge"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -290,8 +301,8 @@
         "name": "Hungering Shade",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Shadow Surge"
         ],
@@ -304,12 +315,13 @@
         "name": "Maw of Oblivion",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 7,
+        "raw_flat_total": 8,
+        "row_weighted_total": 8,
         "covered_jutsu": [
+          "Cursed Beast Form",
           "Shadow Surge"
         ],
-        "covered_rows": 2,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -319,31 +331,29 @@
         "01",
         "02",
         "03",
-        "06"
+        "04"
       ],
       "bonuses": {
         "damage": 5,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "lifesteal": 2
+        "increasedamagetaken": 5
       },
-      "raw_flat_total": 13,
-      "row_weighted_total": 23,
+      "raw_flat_total": 12,
+      "row_weighted_total": 22,
       "advanced_arts": [
         "03"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "04",
-      "name": "Unraveled Wards",
-      "category": "Hidden Art",
-      "depth": 2,
+      "id": "06",
+      "name": "Umbral Refuge",
+      "category": "Foundation",
+      "depth": 1,
       "raw_flat_total": 2,
       "row_weighted_total": 2,
       "covered_jutsu": [
-        "Shadowrend"
+        "Shadow Surge"
       ],
       "covered_rows": 1,
       "adverse_rows_amplified": [],
@@ -360,10 +370,10 @@
         "bonuses": {
           "damage": 5,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 21,
+        "raw_flat_total": 12,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "03"
         ],
@@ -380,11 +390,10 @@
           "damage": 5,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "lifesteal": 2
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 23,
+        "raw_flat_total": 11,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "03"
         ],
@@ -400,10 +409,10 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 18,
+        "raw_flat_total": 17,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "05"
         ],
@@ -419,12 +428,11 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
-          "decreasedamagetaken": 2,
-          "lifesteal": 2
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 16,
+        "raw_flat_total": 11,
+        "row_weighted_total": 15,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -439,11 +447,10 @@
           "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 5,
-          "lifesteal": 2
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 17,
+        "raw_flat_total": 11,
+        "row_weighted_total": 15,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -459,10 +466,10 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "lifesteal": 5
+          "lifesteal": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 17,
+        "raw_flat_total": 10,
+        "row_weighted_total": 14,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -475,12 +482,11 @@
         ],
         "bonuses": {
           "increasedamagegiven": 5,
-          "increasedamagetaken": 7,
-          "decreasedamagetaken": 2,
-          "lifesteal": 2
+          "increasedamagetaken": 10,
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 16,
+        "raw_flat_total": 17,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "05"
         ],
@@ -495,12 +501,11 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
-          "decreasedamagetaken": 5,
-          "lifesteal": 2
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 13,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -513,12 +518,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
-          "lifesteal": 5
+          "lifesteal": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 13,
+        "raw_flat_total": 11,
+        "row_weighted_total": 11,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -532,11 +537,10 @@
         "bonuses": {
           "increasedamagegiven": 5,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 10,
-          "lifesteal": 2
+          "decreasedamagetaken": 10
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 19,
+        "raw_flat_total": 17,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "08"
         ],
@@ -553,10 +557,10 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5,
-          "lifesteal": 5
+          "lifesteal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "raw_flat_total": 11,
+        "row_weighted_total": 11,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -568,13 +572,13 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 4,
-          "lifesteal": 10
+          "lifesteal": 5
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "10"
         ],
@@ -590,10 +594,10 @@
         "bonuses": {
           "increasedamagegiven": 3,
           "decreasedamagetaken": 10,
-          "lifesteal": 5
+          "lifesteal": 2
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "08"
         ],
@@ -607,11 +611,12 @@
           "10"
         ],
         "bonuses": {
+          "increasedamagegiven": 3,
           "decreasedamagetaken": 7,
-          "lifesteal": 10
+          "lifesteal": 5
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "10"
         ],

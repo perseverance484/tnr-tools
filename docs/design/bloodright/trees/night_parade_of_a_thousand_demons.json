@@ -1,6 +1,6 @@
 {
   "title": "Night Parade of A Thousand Demons — The Lantern Procession",
-  "revision": "Draft 1 / Shadow classification / forked tree",
+  "revision": "Draft 2 / Shadow classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "bloodline": {
     "id": "r_99Xg8SIOYw2awCMSR7e",
     "review_id": "BR-051",
@@ -12,13 +12,25 @@
   "classification": {
     "potency_classification": "Shadow",
     "label_kind": "element",
-    "bloodline": "Night Parade of A Thousand Demons",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Shadow"
+    ],
     "display_element": "Shadow",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Night Parade of A Thousand Demons jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Shadow jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Herald of the Black Night",
+      "Otherworldly Conduit",
+      "Summoning: Underworld Gate"
+    ],
+    "shared_element_bloodlines": [
       "Adorable Shadow of Death",
       "Blood-Enchanted Eyes",
       "Blood-Enshrined Eyes",
@@ -32,13 +44,17 @@
       "Otaku of the Dark Maiden",
       "Sacrament of Crimson Hunger",
       "Shadow Weaver"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Otherworldly Conduit self buffs: Decrease Damage Taken (+10 route) and Lifesteal (+8 route), with Increase Damage Given as the +5 glue",
-    "secondary": "Damage on the two Shadow hits, Possessing Yurei and Oni Hammer Swing (+6, the two-row guardrail)",
-    "tertiary": "Enemy debuffs: Herald of the Black Night exposure (Increase Damage Taken, +7 ceiling) with Oni Hammer Swing suppression (Decrease Damage Given, +5, ally hazard)",
-    "rationale": "Three of the seven supported rows ride one 40 AP self cast, Otherworldly Conduit (Increase Damage Given 35%, Decrease Damage Taken 35%, Lifesteal 40% at jutsu level 25, 2 rounds, realized on the caster at cast time), so the Conduit is the kit's engine and root A buffs it: Decrease Damage Taken and Lifesteal each take a route, Increase Damage Given is Foundation-plus-capstone glue. The two Shadow damage rows (Possessing Yurei single target, Oni Hammer Swing radius-1 circle; 45 power, 60 AP, cooldown 7) are the only direct damage and take the raw-power route under root B, which also carries Oni Hammer Swing's 30% Decrease Damage Given rider. Herald of the Black Night's 35% Increase Damage Taken (element-less, all four stat types, friendly fire ENEMIES, radius-1 circle at range 5 for 40 AP) is the kit's pressure tag and the fourth route; it amplifies every non-pierce hit on exposed enemies from any source, the summoned Underworld Gate ally included, so it is held to the Taiyo Kami +7 ceiling. Stun, buffprevent and summon are unsupported and untouched."
+    "primary": "Otherworldly Conduit self buffs: Decrease Damage Taken (+10% route) and Lifesteal (+5% route), with Increase Damage Given as +5% glue",
+    "secondary": "Damage on the two Shadow hits, Possessing Yurei and Oni Hammer Swing (+5)",
+    "tertiary": "Enemy debuffs: Herald of the Black Night exposure (Increase Damage Taken, +10% route) with Oni Hammer Swing suppression (Decrease Damage Given, +5%, ally hazard)",
+    "rationale": "Three of the seven supported rows ride one 40 AP self cast, Otherworldly Conduit (Increase Damage Given 35%, Decrease Damage Taken 35%, Lifesteal 40% at jutsu level 25, 2 rounds, realized on the caster at cast time), so the Conduit is the kit's engine and root A buffs it: Decrease Damage Taken and Lifesteal each take a route, Increase Damage Given is Foundation-plus-capstone glue. The two Shadow Damage rows (Possessing Yurei single target, Oni Hammer Swing radius-1 circle; 45 EP, 60 AP, cooldown 7) are the only direct damage and take the Damage route under root B, whose Foundation carries the two enemy debuffs: Oni Hammer Swing's 30% Decrease Damage Given and Herald of the Black Night's 35% Increase Damage Taken (element-less, all four stat types, friendly fire ENEMIES, radius-1 circle at range 5 for 40 AP). The Herald's exposure is the fourth route; it amplifies every non-pierce hit on exposed enemies from any source, the summoned Underworld Gate ally included. Potency reaches matching supported tags on all Shadow jutsu (RUL-2026-10-03-005). Stun, buffprevent and summon are unsupported and untouched."
   },
   "nodes": [
     {
@@ -60,16 +76,17 @@
         }
       ],
       "flavor": "At the hour of the ox the veil thins, and what crosses it walks beside you.",
-      "coverage_note": "Otherworldly Conduit self buffs: Increase Damage Given 35→37%, Decrease Damage Taken 35→37%; one 40 AP self cast, 2 rounds, non-pierce hits.",
+      "coverage_note": "Otherworldly Conduit self buffs: Increase Damage Given 35 → 37%, Decrease Damage Taken 35 → 37%; one 40 AP self cast, 2 rounds, non-pierce hits.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Night Parade of A Thousand Demons jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Otherworldly Conduit"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -83,21 +100,22 @@
       "modifiers": [
         {
           "tag": "lifesteal",
-          "flat": 3,
+          "flat": 2,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "The hungry dead drink what you spill, and leave a share for the one who opened the way.",
-      "coverage_note": "Otherworldly Conduit Lifesteal only, 40→43%: a share of every hit you land (pierce included) for 2 rounds; 60% leech cap shared with vamp.",
+      "coverage_note": "Otherworldly Conduit Lifesteal only, 40 → 42%: a share of every hit you land (pierce included) for 2 rounds; 60% leech cap shared with vamp.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Night Parade of A Thousand Demons jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Otherworldly Conduit"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -111,7 +129,7 @@
       "modifiers": [
         {
           "tag": "lifesteal",
-          "flat": 5,
+          "flat": 3,
           "display_role": "SELF BUFF"
         },
         {
@@ -121,16 +139,17 @@
         }
       ],
       "flavor": "A thousand mouths at the table, and every one of them feeds you.",
-      "coverage_note": "Conduit Lifesteal to 48% (route +8, under the 60% leech cap) and its Increase Damage Given +3 (40% with Hour of the Ox); same 40 AP cast.",
+      "coverage_note": "Conduit Lifesteal to 45% (route +5%, the hard ceiling; 15 points under the 60% leech cap) and its Increase Damage Given +3% (40% with Hour of the Ox); same 40 AP cast.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Night Parade of A Thousand Demons jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Otherworldly Conduit"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -149,16 +168,17 @@
         }
       ],
       "flavor": "An oni's hide turns the blade that would have split a lesser thing.",
-      "coverage_note": "Otherworldly Conduit Decrease Damage Taken only: 37→40% with Hour of the Ox; every non-pierce hit of any stat type, 2 rounds per 40 AP cast.",
+      "coverage_note": "Otherworldly Conduit Decrease Damage Taken only: 37 → 40% with Hour of the Ox; every non-pierce hit of any stat type, 2 rounds per 40 AP cast.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Night Parade of A Thousand Demons jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Otherworldly Conduit"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -182,16 +202,17 @@
         }
       ],
       "flavor": "Yomi's gate is barred from the inside; what stands behind it does not come to harm.",
-      "coverage_note": "Conduit Decrease Damage Taken to 45% (route +10) and Lifesteal +2 (42%, or 45% with Hungry Ghost's Draught); one 40 AP self cast, 2 rounds.",
+      "coverage_note": "Conduit Decrease Damage Taken to 45% (route +10%) and Lifesteal +2% (42%, or 44% with Hungry Ghost's Draught); one 40 AP self cast, 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Night Parade of A Thousand Demons jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Otherworldly Conduit"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -202,31 +223,32 @@
       "parents": [],
       "modifiers": [
         {
-          "tag": "damage",
-          "flat": 1,
-          "display_role": "DAMAGE"
+          "tag": "decreasedamagegiven",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
         },
         {
-          "tag": "decreasedamagegiven",
+          "tag": "increasedamagetaken",
           "flat": 2,
           "display_role": "ENEMY DEBUFF"
         }
       ],
       "flavor": "The oni does not lift the hammer. The hammer lifts the oni, and comes down.",
-      "coverage_note": "Possessing Yurei and Oni Hammer Swing Damage 45→46 (Shadow, 60 AP); Hammer Decrease Damage Given 30→32% on its radius-1 circle, allies too.",
+      "coverage_note": "Oni Hammer Swing Decrease Damage Given 30 → 32% on its radius-1 circle (allies too); Herald of the Black Night exposure 35 → 37% on its circle (enemies only).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Night Parade of A Thousand Demons jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
-          "Oni Hammer Swing",
-          "Possessing Yurei"
+          "Herald of the Black Night",
+          "Oni Hammer Swing"
         ],
-        "effect_rows": 3,
+        "effect_rows": 2,
         "ally_hazard_rows": [
           "Oni Hammer Swing#1"
-        ]
+        ],
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -245,10 +267,10 @@
         }
       ],
       "flavor": "A yurei's fingers close where the heart used to be, and do not let go.",
-      "coverage_note": "Possessing Yurei (single target) and Oni Hammer Swing (radius-1 circle) 46→48 power with Oni's Heavy Hand; Shadow, range 4, 60 AP, CD 7.",
+      "coverage_note": "Possessing Yurei (single target) and Oni Hammer Swing (radius-1 circle) Shadow Damage 45 → 47 EP; range 4, 60 AP, CD 7.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Night Parade of A Thousand Demons jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -274,10 +296,10 @@
         }
       ],
       "flavor": "The lanterns bob, the drums roll, and the whole procession walks over you.",
-      "coverage_note": "Same two Shadow damage rows; route total +6 (45→51 at jutsu level 25, the two-row guardrail). Yurei's stun and the Hammer's rider unchanged.",
+      "coverage_note": "Same two Shadow Damage rows; route total +5 Damage (45 → 50 EP at jutsu level 25). Yurei's stun and the Hammer's rider unchanged.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Night Parade of A Thousand Demons jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -303,16 +325,17 @@
         }
       ],
       "flavor": "The herald names you to the parade, and the parade remembers.",
-      "coverage_note": "Herald of the Black Night exposure only, 35→38%: radius-1 circle at range 5 (friendly fire ENEMIES), 40 AP; every non-pierce hit, 2 rounds.",
+      "coverage_note": "Herald of the Black Night exposure only, 37 → 40% with Oni's Heavy Hand: radius-1 circle at range 5 (friendly fire ENEMIES), 40 AP; every non-pierce hit, 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Night Parade of A Thousand Demons jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Herald of the Black Night"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -326,7 +349,7 @@
       "modifiers": [
         {
           "tag": "increasedamagetaken",
-          "flat": 4,
+          "flat": 5,
           "display_role": "ENEMY DEBUFF"
         },
         {
@@ -336,10 +359,10 @@
         }
       ],
       "flavor": "When the night bell tolls, every hand raised against you weakens and every wound deepens.",
-      "coverage_note": "Herald exposure to 42% (route +7) and Oni Hammer Swing Decrease Damage Given +3 (35% with Oni's Heavy Hand; allies in its circle too).",
+      "coverage_note": "Herald exposure to 45% (route +10%) and Oni Hammer Swing Decrease Damage Given +3% (35% with Oni's Heavy Hand; allies in its circle too).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
-      "scope": "Night Parade of A Thousand Demons jutsu",
+      "scope": "all Shadow jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -349,7 +372,8 @@
         "effect_rows": 2,
         "ally_hazard_rows": [
           "Oni Hammer Swing#1"
-        ]
+        ],
+        "rows_via_authored_classification": 1
       }
     }
   ],
@@ -363,12 +387,12 @@
         "03",
         "04"
       ],
-      "rationale": "The whole Conduit, raised: one 40 AP self cast now gives Lifesteal 48% (+8, under the 60% leech cap), Increase Damage Given 40% (+5) and Decrease Damage Taken 40% (+5) for 2 rounds, so every hit the caster lands in the window hits harder and heals more while taking less. Hide of the Oni is the fourth purchase because it deepens the same cast; Oni's Heavy Hand (01, 02, 03, 06) trades that for 46 power on both Shadow hits and a 32% Hammer suppression.",
+      "rationale": "The whole Conduit, raised: one 40 AP self cast now gives Lifesteal 45% (+5%, the hard ceiling, under the 60% leech cap), Increase Damage Given 40% (+5%) and Decrease Damage Taken 40% (+5%) for 2 rounds, so every hit the caster lands in the window hits harder and heals more while taking less. Hide of the Oni is the fourth purchase because it deepens the same cast; Oni's Heavy Hand (01, 02, 03, 06) trades that for a 32% Hammer suppression and 37% Herald exposure.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
         "decreasedamagetaken": 5,
-        "lifesteal": 8
+        "lifesteal": 5
       },
       "finals": [
         {
@@ -491,8 +515,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 40.0,
-          "gain": 8,
-          "final": 48.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -565,12 +589,12 @@
         "05",
         "06"
       ],
-      "rationale": "Decrease Damage Taken on the Conduit reaches 45% (+10, the Golden Mantle / Sovereign Sun shape) against every non-pierce hit of any stat type, with Lifesteal 42% and Increase Damage Given 37% from the same cast. Oni's Heavy Hand is the cross-root fourth purchase: both Shadow hits at 46 and the Hammer's suppression at 32%, so the fortress still answers. Hungry Ghost's Draught (01, 02, 04, 05) is the pure-Conduit alternative at 45% reduction and 45% lifesteal.",
+      "rationale": "Decrease Damage Taken on the Conduit reaches 45% (+10%, the Golden Mantle / Sovereign Sun shape) against every non-pierce hit of any stat type, with Lifesteal 42% and Increase Damage Given 37% from the same cast. Oni's Heavy Hand is the cross-root fourth purchase: the Hammer's suppression at 32% and the Herald's exposure at 37%. Hungry Ghost's Draught (01, 02, 04, 05) is the pure-Conduit alternative at 45% reduction and 44% lifesteal.",
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "lifesteal": 2
       },
@@ -587,8 +611,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 45.0,
-          "gain": 1,
-          "final": 46.0,
+          "gain": 0,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -623,8 +647,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 45.0,
-          "gain": 1,
-          "final": 46.0,
+          "gain": 0,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -749,8 +773,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 0,
-          "final": 35.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -769,12 +793,13 @@
         "08",
         "01"
       ],
-      "rationale": "The two-row Damage route in full: Possessing Yurei and Oni Hammer Swing 45→51 power (+6) before the bloodline's Increase Damage Given passive and the Conduit buff multiply them, with the Hammer's suppression at 32%. Hour of the Ox is the fourth purchase so the Conduit frames the hits (37% given, 37% taken); Marked by the Herald (06, 07, 08, 09) is the all-offence alternative that exposes the targets at 38% first.",
+      "rationale": "The two-row Damage route in full: Possessing Yurei and Oni Hammer Swing 45 → 50 EP (+5) before the bloodline's Increase Damage Given passive and the Conduit buff multiply them, with the Hammer's suppression at 32% and the Herald's exposure at 37%. Hour of the Ox is the fourth purchase so the Conduit frames the hits (37% given, 37% taken); Marked by the Herald (06, 07, 08, 09) is the all-offence alternative that exposes the targets at 40% first.",
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       },
       "finals": [
@@ -790,8 +815,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 45.0,
-          "gain": 6,
-          "final": 51.0,
+          "gain": 5,
+          "final": 50.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -826,8 +851,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 45.0,
-          "gain": 6,
-          "final": 51.0,
+          "gain": 5,
+          "final": 50.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -952,8 +977,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 0,
-          "final": 35.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -972,12 +997,12 @@
         "10",
         "07"
       ],
-      "rationale": "Herald of the Black Night exposes every enemy in its circle at 42% (+7) for 2 rounds and the Hammer's suppression reaches 35% (+5): the marked take more from every source, the kit, normal jutsu, weapons, allies and the Underworld Gate summon, and deal less back. Grip of the Yurei is the fourth purchase (both hits 48) so the caster has something heavier to land in the window; Hour of the Ox (06, 09, 10, 01) is the Conduit alternative.",
+      "rationale": "Herald of the Black Night exposes every enemy in its circle at 45% (+10%) for 2 rounds and the Hammer's suppression reaches 35% (+5%): the marked take more from every source, the kit, normal jutsu, weapons, allies and the Underworld Gate summon, and deal less back. Grip of the Yurei is the fourth purchase (both hits 47 EP) so the caster has something heavier to land in the window; Hour of the Ox (06, 09, 10, 01) is the Conduit alternative.",
       "cost": 4,
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       },
       "finals": [
         {
@@ -992,8 +1017,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 45.0,
-          "gain": 3,
-          "final": 48.0,
+          "gain": 2,
+          "final": 47.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -1028,8 +1053,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 45.0,
-          "gain": 3,
-          "final": 48.0,
+          "gain": 2,
+          "final": 47.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -1154,8 +1179,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1168,22 +1193,23 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Node split: two roots, four Hidden Arts, four Advanced Arts, every capstone 3 BP deep, two capstones 5 BP under one root or 6 across roots. Root A (Hour of the Ox, +2 IDG and +2 DDT on the Conduit) forks into Lifesteal (3, then 5 with +3 IDG) and Decrease Damage Taken (3, then 5 with +2 Lifesteal). Root B (Oni's Heavy Hand, +1 Damage on both Shadow hits and +2 DDG on the Hammer) forks into Damage (2, then 3) and Increase Damage Taken (3, then 4 with +3 DDG).",
-    "Flats by coverage: Damage reaches two 45-power rows, so the route totals +6 (1+2+3; 45→51), the two-row guardrail Musashi Ken and Lycanthropy use. Single rows carry the larger flats: Decrease Damage Taken 2+3+5 = +10 (35→45%), Lifesteal 3+5 = +8 (40→48%, 12 points under the leech cap), Increase Damage Taken 3+4 = +7 (35→42%, the Taiyo Kami / Oblivion Seal exposure ceiling; the Herald exposes a whole circle to every source). Decrease Damage Given stays at +5 (30→35%); its row is an ally hazard.",
-    "Capstone secondaries never out-bid a sibling Hidden Art: Barred Gate of Yomi takes +2 Lifesteal, below Hungry Ghost's Draught's +3; Feast of a Thousand Mouths takes +3 Increase Damage Given, a tag no Hidden Art carries (+5 ceiling with Hour of the Ox); Toll of the Night Bell takes +3 Decrease Damage Given, which only the root carries. March of a Thousand Demons is Damage-only, like Solar Cataclysm. Strongest full build by row weight is 19 on 7 rows (Oblivion Seal 23 on 7, Taiyo Kami 31 on 9).",
-    "Interactions: every non-damage supported row is element-less and lists all four stat types, so at the pin the Conduit's buffs, the Herald's exposure and the Hammer's suppression match every non-pierce hit of any stat type (Lifesteal also counts pierce). The bloodline passive (Increase Damage Given 25% + 0.15/level; Earth, None, Shadow, Water, Wind) is not a potency target; it multiplies in its own stage and stacks with the Conduit buff under BATTLE_TAG_STACKING. Damage modifiers skip pierce.",
-    "Delivery and uptime: the Conduit is a SELF cast, so its three rows are realized on the caster at cast time (not positional); 40 AP, cooldown 7, 2 rounds, so at most 2 of 7 rounds. Herald of the Black Night (OTHER_USER, AOE_CIRCLE_SPAWN radius 1, range 5, 40 AP, cooldown 7) applies its exposure once to each living enemy on the tiles; the caster is never a target. Oni Hammer Swing (OPPONENT, same method, range 4, 60 AP) damages enemies only; its DDG rider (friendly fire none) reaches allies too.",
-    "Fourth purchases: Sustain (01, 02, 03) takes Hide of the Oni (40% reduction) or Oni's Heavy Hand (46 power, 32% suppression); Fortress (01, 04, 05) takes Oni's Heavy Hand or Hungry Ghost's Draught (45% lifesteal); Burst (06, 07, 08) takes Hour of the Ox (37% given / taken) or Marked by the Herald (38% exposure); Pressure (06, 09, 10) takes Grip of the Yurei (48 power) or Hour of the Ox. Capstone-less hybrids (e.g. 01, 02, 04, 06 or 01, 06, 07, 09) are enumerated by the validator; see the audit."
+    "Node split: two roots, four Hidden Arts, four Advanced Arts, every capstone 3 BP deep, two capstones 5 BP under one root or 6 across roots. Root A (Hour of the Ox, +2% Increase Damage Given and +2% Decrease Damage Taken on the Conduit) forks into Lifesteal (+2%, then +3% with +3% Increase Damage Given) and Decrease Damage Taken (+3%, then +5% with +2% Lifesteal). Root B (Oni's Heavy Hand, +2% Decrease Damage Given on the Hammer and +2% Increase Damage Taken on the Herald) forks into Damage (+2, then +3) and Increase Damage Taken (+3%, then +5% with +3% Decrease Damage Given).",
+    "Recalibration (RUL-2026-10-03-005): Oni's Heavy Hand trades its +1 Damage for +2% Increase Damage Taken, so Burst is the default +5 Damage (Grip of the Yurei +2, March of a Thousand Demons +3; 45 → 50 EP); Lifesteal drops to the +5% hard ceiling (Hungry Ghost's Draught +3% → +2%, Feast of a Thousand Mouths +5% → +3%; 40 → 45%); Toll of the Night Bell's Increase Damage Taken rises from +4% to +5%, so with the Foundation's +2% Pressure lands on +10% (35 → 45%). Fortress is unchanged at +10% Decrease Damage Taken (2/3/5; 35 → 45%).",
+    "Maxima over every legal allocation: Damage +5, Lifesteal +5% (Feast route; Barred Gate of Yomi's +2% with Hungry Ghost's Draught reaches 4%), Increase Damage Taken +10%, Decrease Damage Taken +10%, Increase Damage Given +5%, Decrease Damage Given +5%.",
+    "Capstone secondaries never out-bid a sibling Hidden Art: Barred Gate of Yomi's +2% Lifesteal equals Hungry Ghost's Draught; Feast of a Thousand Mouths takes +3% Increase Damage Given, a tag no Hidden Art carries; Toll of the Night Bell takes +3% Decrease Damage Given, which otherwise only the root carries. March of a Thousand Demons is Damage-only, like Solar Cataclysm.",
+    "Interactions: every non-damage supported row is element-less and lists all four stat types, so at the pin the Conduit's buffs, the Herald's exposure and the Hammer's suppression match every non-pierce hit of any stat type (Lifesteal also counts pierce). The bloodline passive (Increase Damage Given 25% + 0.15/level; Earth, None, Shadow, Water, Wind) is not a potency target; it multiplies last (fromType bloodline) and compounds with the Conduit buff, which is its own stage-2 multiplier (§3b). Damage modifiers skip pierce.",
+    "Delivery and uptime: the Conduit is a SELF cast, so its three rows are realized on the caster at cast time (not positional); 40 AP, cooldown 7, 2 rounds, so at most 2 of 7 rounds. Herald of the Black Night (OTHER_USER, AOE_CIRCLE_SPAWN radius 1, range 5, 40 AP, cooldown 7) applies its exposure once to each living enemy on the tiles; the caster is never a target. Oni Hammer Swing (OPPONENT, same method, range 4, 60 AP) damages enemies only; its Decrease Damage Given rider (friendly fire none) reaches allies too.",
+    "Fourth purchases: Sustain (01, 02, 03) takes Hide of the Oni (40% reduction) or Oni's Heavy Hand (32% suppression, 37% exposure); Fortress (01, 04, 05) takes Oni's Heavy Hand or Hungry Ghost's Draught (44% lifesteal); Burst (06, 07, 08) takes Hour of the Ox (37% given / taken) or Marked by the Herald (40% exposure); Pressure (06, 09, 10) takes Grip of the Yurei (47 EP) or Hour of the Ox. Capstone-less hybrids are enumerated by the validator; see the audit."
   ],
   "risks": [
-    "Classification: Shadow is the single signature element but not exclusive in the census (13 collisions, incl. INCLUDE bloodlines Blood-Enchanted Eyes, Godstorm Eclipse, Oblivion Seal and Shadow Weaver); the tree assumes a bloodline-scoped whole-kit classification, not a bare Shadow match. The current resolver matches only the 2 damage rows; 5 fall back to None. Normal-jutsu Shadow use: unverified.",
-    "Ally hazard (accepted, small): Oni Hammer Swing row 1 (Decrease Damage Given 30%) is an INHERIT row on an OPPONENT AOE_CIRCLE_SPAWN with friendly fire none, so allies on the radius-1 tiles around the target receive the suppression too; the caster never does. Oni's Heavy Hand (+2) and Toll of the Night Bell (+3) raise it to 35% for allies and enemies alike. Positioning decides; solo it is gain.",
-    "Increase Damage Taken reach: the Herald's exposure (element-less, all four stat types) amplifies every non-pierce hit each exposed enemy takes for 2 rounds from any source (allies, weapons, normal jutsu, the Underworld Gate summon), and one cast can expose several enemies, so the Pressure build's row weight (18) understates it. +7 matches Taiyo Kami's Stellar Inferno ceiling; +8 (3+5) is heavier.",
-    "Lifesteal budget: the 60%-of-pre-shield-damage leech cap is shared with vamp, so 48% leaves 12 points of headroom and any vamp from equipment or the main tree erodes the capstone's value. healprevent on the caster blocks it entirely; the kit itself applies none. Lifesteal includes pierce hits, which the kit does not have, so only weapons or normal jutsu with pierce feed it that way.",
-    "Increase Damage Given stacking: the +5 glue adds statically to the Conduit's 35% self buff, which stacks with the bloodline passive (bloodline-sourced modifiers multiply and honour allowBloodlineDamageIncrease) and any main-tree or gear modifiers; BATTLE_TAG_STACKING is true at the pin. Combined final damage was not simulated.",
-    "Realized value: all five jutsu share cooldown 7 and both damage casts cost 60 AP, so the Conduit's 2-round window rarely covers both hits and the Herald's exposure in one rotation; per-row numbers overstate per-round value. Whether a Conduit buff affects a hit cast in the same round, and whether the exposure lands before the hits, was not verified against combat timing. Nothing was simulated.",
-    "Damage is formula-calculated (sqrt scaling on Highest / Highest) and then multiplied by the Increase Damage Given passive, the Conduit buff and any exposure, so +6 raw power is not a linear +6 damage; March of a Thousand Demons is the lowest-weight capstone (+3 on two rows). Each Damage row fires at most once per 7 rounds.",
-    "Unsupported rows and modes: Possessing Yurei's stun, Herald of the Black Night's buffprevent (itself an ally-hazard row, unchanged by any node) and the Underworld Gate summon receive nothing. Skill-tree and bloodline effects are skipped in ranked PvP and ranked sparring at the pin, so no node applies there."
+    "Classification: Shadow is shared with other bloodlines (expected under RUL-2026-10-03-005). 2 of 7 kit rows carry Shadow; the other five need the proposed jutsu-classification resolver, and Otherworldly Conduit, Herald of the Black Night and Summoning: Underworld Gate carry no element on any row, so in-kit they qualify only through an authored Shadow jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Shadow coverage is unverified.",
+    "Ally hazard (accepted, small): Oni Hammer Swing row 1 (Decrease Damage Given 30%) is an INHERIT row on an OPPONENT AOE_CIRCLE_SPAWN with friendly fire none, so allies on the radius-1 tiles around the target receive the suppression too; the caster never does. Oni's Heavy Hand (+2%) and Toll of the Night Bell (+3%) raise it to 35% for allies and enemies alike. Positioning decides; solo it is gain.",
+    "Increase Damage Taken reach: the Herald's exposure (element-less, all four stat types) amplifies every non-pierce hit each exposed enemy takes for 2 rounds from any source (allies, weapons, normal jutsu, the Underworld Gate summon), and one cast can expose several enemies, so per-row weight understates the Pressure route's +10% (35 → 45%). Oni's Heavy Hand's +2% also reaches every root-B build.",
+    "Lifesteal budget: the 60%-of-pre-shield-damage leech cap is shared with vamp, so 45% leaves 15 points of headroom and any vamp from equipment or the main tree erodes the capstone's value. healprevent on the caster blocks it entirely; the kit itself applies none. Lifesteal includes pierce hits, which the kit does not have, so only weapons or normal jutsu with pierce feed it that way.",
+    "Increase Damage Given stacking: the +5% glue raises the Conduit's 35% self buff to 40% (×1.40 on matching hits instead of ×1.35), which compounds with the bloodline passive (applied last, honouring allowBloodlineDamageIncrease), any exposure on the target and any main-tree or gear modifiers, each its own multiplier (§3b). Combined final damage was not simulated.",
+    "Realized value: all five jutsu share cooldown 7 and both damage casts cost 60 AP, so the Conduit's 2-round window rarely covers both hits and the Herald's exposure in one rotation; per-row numbers overstate per-round value. Buffs and debuffs act only in the rounds after their cast round (SOURCE_MECHANICS §3b). Nothing was simulated.",
+    "Damage is formula-calculated (sqrt scaling on Highest / Highest) and then multiplied by the Increase Damage Given passive, the Conduit buff and any exposure, so +5 raw EP is not a linear +5 damage. Each Damage row fires at most once per 7 rounds.",
+    "Unsupported rows and modes: Possessing Yurei's stun, Herald of the Black Night's buffprevent (itself an ally-hazard row, unchanged by any node) and the Underworld Gate summon receive nothing. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING, so no node applies there."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1220,16 +1246,16 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 13,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
+      "damage": 5,
       "increasedamagegiven": 5,
       "decreasedamagegiven": 5,
-      "increasedamagetaken": 7,
+      "increasedamagetaken": 10,
       "decreasedamagetaken": 10,
-      "lifesteal": 8
+      "lifesteal": 5
     },
     "supported_rows_in_kit": 7,
     "supported_rows_by_tag": {
@@ -1249,18 +1275,119 @@
       "lifesteal"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 1 / Shadow classification / forked tree",
+    "revision": "Draft 2 / Shadow classification / forked tree (RUL-2026-10-03-005 recalibration)",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Night Parade of A Thousand Demons jutsu inherit Shadow potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Shadow jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10,
+        "lifesteal": 5
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10,
+        "lifesteal": 5
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Feast of a Thousand Mouths",
+          "primary_tag": "lifesteal",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Barred Gate of Yomi",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "08",
+          "name": "March of a Thousand Demons",
+          "primary_tag": "damage",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Toll of the Night Bell",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {
@@ -1273,7 +1400,7 @@
       "bonuses": {
         "increasedamagegiven": 5,
         "decreasedamagetaken": 5,
-        "lifesteal": 8
+        "lifesteal": 5
       }
     },
     {
@@ -1284,11 +1411,11 @@
         "06"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "lifesteal": 8
+        "lifesteal": 5
       }
     },
     {
@@ -1301,7 +1428,7 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagetaken": 10,
-        "lifesteal": 5
+        "lifesteal": 4
       }
     },
     {
@@ -1312,11 +1439,11 @@
         "06"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 5,
-        "lifesteal": 3
+        "lifesteal": 2
       }
     },
     {
@@ -1327,11 +1454,12 @@
         "07"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "lifesteal": 3
+        "lifesteal": 2
       }
     },
     {
@@ -1342,12 +1470,11 @@
         "09"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 3,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
-        "lifesteal": 3
+        "lifesteal": 2
       }
     },
     {
@@ -1358,9 +1485,9 @@
         "06"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "lifesteal": 2
       }
@@ -1373,9 +1500,10 @@
         "07"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 5
       }
     },
@@ -1387,10 +1515,9 @@
         "09"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 3,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 5
       }
     },
@@ -1402,9 +1529,10 @@
         "08"
       ],
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       }
     },
@@ -1416,10 +1544,10 @@
         "09"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 3,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2
       }
     },
@@ -1431,10 +1559,9 @@
         "10"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 2
       }
     },
@@ -1446,9 +1573,9 @@
         "09"
       ],
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 3
+        "increasedamagetaken": 5
       }
     },
     {
@@ -1459,9 +1586,9 @@
         "10"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       }
     }
   ]
