@@ -1,7 +1,7 @@
 # Bloodright: bloodline refinement through meaningful choices
 
 **Design handoff for Claude / Fable 5.1 Ultracode.**  
-**Status:** experimental design direction established; 43 remaining public bloodlines approved for draft planning; Taiyo Kami is the worked example. Final new-tree tuning remains subject to user review.  
+**Status:** experimental design direction established; 43 remaining public bloodlines approved for draft planning; Taiyo Kami is the worked example. Potency scope and balance ceilings follow RUL-2026-10-03-005; Blood-Enchanted Eyes follows RUL-2026-10-03-006. Final new-tree tuning remains subject to user review.  
 **Scope:** planning, evidence and readable tree designs. This document does not authorize a release or engine implementation.
 
 ## 1. Purpose and boundary
@@ -13,7 +13,7 @@ Bloodright should complement offensive, defensive and balanced cores rather than
 | System | Owns | Does not own in this proposal |
 |---|---|---|
 | Normal skill tree | General combat effects, general utility, broadly accessible character development and the core build | Bloodline-exclusive potency packages or a second free copy of Bloodright's bonuses |
-| Bloodright | Static potency increases to existing supported tags in the current bloodline's eligible jutsu; thematic specialization and tradeoffs | New jutsu, extra tags, passive-stat replacement, AP/cooldown changes, universal elemental coverage, damage-type conversions or unsupported mechanics |
+| Bloodright | Static potency increases to existing supported tags on jutsu of the current bloodline's qualifying element/classification; thematic specialization and tradeoffs | New jutsu, extra tags, passive-stat replacement, AP/cooldown changes, damage-type conversions or unsupported mechanics |
 
 Ordinary skills can still influence the outcome of a Bloodright-enhanced jutsu through their normal combat effects. That interaction must be modeled. Broad/non-bloodline potency on the normal tree is **not yet approved**; if proposed later, it needs a combined budget and stacking audit. Do not assume it is absent from a future implementation merely because it is outside this planning pass.
 
@@ -41,9 +41,9 @@ Reset/refund cost, BP retention after a bloodline swap, acquisition pacing and s
 
 ## 3. How potency works in this design
 
-Only existing supported effect rows are enhanced. A node selects the bloodline's potency element/classification and a supported tag, or all supported tags if explicitly justified. Jutsu names on a card describe the resulting coverage; they are **not** individual-jutsu selectors.
+Only existing supported effect rows are enhanced. A node selects the bloodline's potency element/classification and a supported tag, or all supported tags if explicitly justified. Jutsu names on a card describe example coverage; they are **not** selectors.
 
-All bonuses are static. A 35% tag with +5% becomes 40%, not 36.75%. The player-facing symbol is `%`; explain static addition in the notes. Damage uses raw **Damage power**, not a percentage of final damage. Use this player-facing example: **A 40 EP jutsu with +5 Damage becomes 45EP.**
+All bonuses are static. A 35% tag with +5% becomes 40%, not 36.75%. Every modifier except flat Damage is displayed with `%` (“+5% Afterburn”, “+3% Lifesteal”, “+3% Heal”); explain static addition in the notes. Damage is a raw EP addition shown as “+2 Damage”, never “Damage %”. Use this player-facing example: **A 40 EP jutsu with +5 Damage becomes 45EP.** On a static-calculation Heal row a +1% Heal display adds 1 heal power (10 HP per tick); that display conflict is recorded in `bloodright/OPEN_DECISIONS.md` rather than reverted.
 
 Afterburn is an **enemy debuff**, not a damage instance. For its existing round duration, damage you deal causes extra Afterburn damage at the debuff's percentage. Afterburn potency increases that percentage; it does not add a standalone hit or extend the duration. Count both the application row and the subsequent damage instances it can enhance; verify proc interactions in source rather than assuming recursion or exclusions.
 
@@ -53,31 +53,31 @@ Current supported tags: Damage, Increase Damage Given, Decrease Damage Given, In
 
 Audit every matching row. If a jutsu has two Increase Damage Given rows, both receive the qualifying modifier. A +5% node does not mean +5% final damage, and two boosted rows must not be collapsed into one for balance accounting.
 
-### Potency identity versus combat scope
+### Potency identity versus combat scope (RUL-2026-10-03-005)
 
-The current experimental Taiyo Kami model classifies every Taiyo Kami jutsu as Scorch **for potency eligibility**, allowing its existing supported effect rows to qualify. This must preserve each row's original combat scope. A broad defensive effect must not become Scorch-only defense just to make it match potency.
+Bloodright potency is **classification-element wide**, not bloodline-ID scoped. A modifier applies to matching supported tags on **every jutsu of the Bloodright's qualifying element/classification**: the bloodline's own jutsu, other bloodlines' jutsu of that element, NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu and injected jutsu alike. Shared elements are expected, not collisions. Taiyo Kami's scope reads: *Bonuses apply to matching supported tags on all Scorch jutsu.*
 
-Element-based potency targeting already exists. It is wrong to claim that all bloodline-specific targeting inherently requires a new engine feature. However, the supplied current resolver matches each effect row's `elements`; it does not inherit a separate whole-jutsu potency identity. **Full-kit classification without changing the rows' combat scopes is the specific proposed resolver change.**
+Bloodline id, bloodline ownership, equipment sources, injected-child provenance and jutsu names are **not** selectors. Equipment gates still decide whether a jutsu can be cast; they never narrow eligibility. Each row keeps its original combat scope: recipient, element, stat and general-type filters are unchanged. A broad defensive effect must not become element-only defense just to make it match potency.
 
-At the reviewed source pin, an absent/empty effect element list falls back to `None` inside potency matching. Do not repeat the older claim that all unassigned rows are necessarily unreachable. Targeting `None` still reaches other matching unassigned/non-elemental jutsu and is not an exclusive bloodline selector.
+The qualifying element is the kit's signature element (the non-None element on its damage/pierce rows). A kit with several signature elements is a **multi-element** classification for director review; a kit with none **requires a classification extension** (a new jutsu classification, never a bloodline-id selector). Targeting `None` would reach every non-elemental row in the game and is not an option. The source's only jutsu-level element derivation is the union of a jutsu's row elements (`checkJutsuElements`, `app/src/libs/train.ts` 189–198); kit jutsu with no qualifying element on any row qualify only through an authored jutsu classification, and the classification table lists them.
 
-For each bloodline, establish whether an exclusive usable classification exists. Check shared elements, reskins, special variants, normal jutsu and injected children. If the classification cannot isolate the intended kit, mark the tree's scope as blocked or require a separately specified classification extension. Never hide an unsupported jutsu-ID/bloodline-ID filter in the arithmetic model.
+The current resolver matches each effect row's own `elements` (absent/empty → `None`); it has no jutsu-level classification. **A jutsu-classification potency resolver is the required engine change** (ENGINE_GAP_REGISTER G1/G2). It is an engine gap, not a design question, and the design is not narrowed back to bloodline-only behavior to fit the current resolver. Off-kit coverage stays “unverified” until a non-bloodline jutsu catalog is captured.
 
-Broader Fire and unrestricted bonuses are outside this version. The earlier +5% narrow / +3% broad / +2% unrestricted rule was an earlier scope experiment, not a universal node budget to reintroduce. A broad selector with the same effect and value can dominate a narrow one.
+The earlier +5% narrow / +3% broad / +2% unrestricted rule was an earlier scope experiment, not a universal node budget to reintroduce.
 
 ## 4. Taiyo Kami reference: Covenant of the Sun
 
-The SVG and structured example are the current reference. They incorporate the latest correction: **Solar Cataclysm has only +3 Damage power; Eternal Noon also receives +3% Increase Damage Given.** Keep this correction when creating new showcases.
+The generated `bloodright/trees/taiyo_kami.{json,md,svg}` projection is the current reference; its values are copied unchanged from the approved handoff, which stays under `bloodright/examples/` as historical evidence (earlier scope wording and Damage label). It keeps the latest correction: **Solar Cataclysm has only +3 Damage; Eternal Noon also receives +3% Increase Damage Given.** Taiyo Kami is a calibration reference, not a template.
 
-![Taiyo Kami Bloodright tree](bloodright/examples/taiyo_kami.svg)
+![Taiyo Kami Bloodright tree](bloodright/trees/taiyo_kami.svg)
 
-All ten nodes cost 1 BP. All bonuses affect existing supported tags of Scorch-classified Taiyo Kami jutsu under the proposed classification behavior. No row's original combat scope changes.
+All ten nodes cost 1 BP. Bonuses apply to matching supported tags on all Scorch jutsu under the proposed classification behavior. No row's original combat scope changes. Route identities: Burst +5 Damage, Burn pressure +10% Afterburn, Fortified offense +10% Decrease Damage Taken, Suppression +10% Decrease Damage Given.
 
 | ID | Skill | Tier | Requires | Exact bonus and recipient |
 |---|---|---|---|---|
 | 01 | Dawnheart | Foundation | None | +2% Increase Damage Given (self buff); +2% Increase Damage Taken (enemy debuff) |
-| 02 | Crown of Cinders | Hidden Art | 01 | +2 Damage power (damage to enemy) |
-| 03 | Solar Cataclysm | Advanced Art | 02 | +3 Damage power (damage to enemy) |
+| 02 | Crown of Cinders | Hidden Art | 01 | +2 Damage (damage to enemy) |
+| 03 | Solar Cataclysm | Advanced Art | 02 | +3 Damage (damage to enemy) |
 | 04 | Emberwake | Hidden Art | 01 | +3% Afterburn (enemy debuff) |
 | 05 | Eternal Noon | Advanced Art | 04 | +7% Afterburn (enemy debuff); +3% Increase Damage Taken (enemy debuff); +3% Increase Damage Given (self buff) |
 | 06 | Sunward Oath | Foundation | None | +2% Decrease Damage Taken (self buff); +2% Decrease Damage Given (enemy debuff) |
@@ -104,7 +104,7 @@ All five records have cooldown 7 in the snapshot. The three damage actions cost 
 
 ### Complete four-purchase examples
 
-| Build | Purchases | Damage power | Self IDG | Enemy IDT | Enemy Afterburn | Self DDT | Enemy DDG |
+| Build | Purchases | Damage | Self IDG | Enemy IDT | Enemy Afterburn | Self DDT | Enemy DDG |
 |---|---|---:|---:|---:|---:|---:|---:|
 | Burst | 01, 02, 03, 06 | +5 | +2% | +2% | — | +2% | +2% |
 | Burn pressure | 01, 04, 05, 06 | — | +5% | +5% | +10% | +2% | +2% |
@@ -113,11 +113,22 @@ All five records have cooldown 7 in the snapshot. The three damage actions cost 
 
 IDG = Increase Damage Given; IDT = Increase Damage Taken; DDT = Decrease Damage Taken; DDG = Decrease Damage Given. These are per-matching-row potency additions, not final combat percentages. Example: the burn build makes Reverb's Afterburn 45%, Inferno's exposure 40%, and **each** Ignition damage buff 40%.
 
-These examples do not exhaust the tree. There are 14 legal full-budget allocations. All 14 were numerically non-dominated in the existing per-effect delta audit, and every node appeared in at least one of them. Maximum individually achievable additions are Damage +5 power, IDG +5%, IDT +7%, Afterburn +10%, DDT +10%, DDG +10%; those maxima are not all jointly attainable. This is a structural/arithmetic result, **not proof of equal combat strength**. Main-tree effects, equipment, passives, uptime and delivery were not simulated.
+These examples do not exhaust the tree. There are 14 legal full-budget allocations. All 14 were numerically non-dominated in the existing per-effect delta audit, and every node appeared in at least one of them. Maximum individually achievable additions are +5 Damage, IDG +5%, IDT +7%, Afterburn +10%, DDT +10%, DDG +10%; those maxima are not all jointly attainable. This is a structural/arithmetic result, **not proof of equal combat strength**. Main-tree effects, equipment, passives, uptime and delivery were not simulated.
 
 ## 5. Balance method for the remaining roster
 
 Use the same access budget and opportunity-cost rules, not the same raw numbers for every bloodline. Start from a declared finished kit and then divide its improvement across nodes.
+
+**Ceilings (RUL-2026-10-03-005), evaluated over every legal prerequisite-closed allocation, not only the advertised routes:**
+
+| Tag | Ceiling |
+|---|---|
+| Damage | hard maximum +5 |
+| Lifesteal | hard maximum +5% |
+| Afterburn | hard maximum +15% |
+| Every other supported tag | +10%; exceeding it needs a recorded reason and a director-review exception (`director_exceptions` in the tree JSON), never silent arithmetic |
+
+Prefer primary route totals of +5 / +10 / +15. A route's primary is its Advanced Art's first modifier summed along its path; an irregular total needs a recorded `route_band_rationale`. Glue tags need not land on bands. The default Damage route is Hidden Art +2, Advanced Art +3. The earlier guardrails (Damage 6, other tags 12) are obsolete.
 
 1. Identify the baseline kit, role, offense scaling, limitations and actual supported rows. Do not invent a missing heal/reflect/burn tag to produce a familiar archetype.
 2. Propose a primary emphasis, a secondary emphasis and lesser support. The earlier 10/5/3 idea is a design heuristic, not an entitlement to +10 Damage or every tertiary stat. Taiyo Kami's reviewed result is the stronger reference.
@@ -133,7 +144,7 @@ The initial target is 2–3 genuinely distinct full-budget options for each appr
 
 ## 6. Presentation contract
 
-Every node shows a unique thematic name, tier, 1 BP cost, exact supported tag names, static values, eligibility scope and prerequisites. Describe the affected jutsu fully in the accompanying dossier. Only abbreviate in tables with a visible key.
+Every node shows a unique thematic name, tier, 1 BP cost, exact supported tag names, static values (`%` on every non-Damage modifier) and prerequisites; the eligibility scope is stated once for the tree (“Bonuses apply to matching supported tags on all Shadow jutsu.”). Describe the affected jutsu fully in the accompanying dossier. Only abbreviate in tables with a visible key.
 
 Use a shared text/icon legend and matching effect-text colors: Taiyo Kami uses teal self buffs, rose enemy debuffs and amber direct damage. **Afterburn and Increase Damage Taken are enemy debuffs.** Derive recipients from the actual effect targets; do not globally assume every occurrence of a tag targets the same side. Do not repeat Self Buff, Enemy Debuff or Damage role labels on the individual cards. Remove visible skill numbers from card titles and prerequisite labels; retain stable internal IDs in JSON and audit tables.
 
@@ -146,8 +157,8 @@ Use clear top-down forks and visually distinct Advanced Arts. Deterministic SVGs
 | Area | Current evidence / required decision |
 |---|---|
 | Element + tag selectors | Existing potency supports element matching combined with a specific tag or all supported tags |
-| Whole-kit potency classification | Proposed; needs classification inheritance separated from combat-row element scopes |
-| Exclusive eligibility | Audit each bloodline's actual selector coverage; shared/nonexistent classification is a blocker, not an excuse to broaden scope silently |
+| Jutsu-classification potency resolver | Proposed; matches the jutsu's qualifying element/classification while each row keeps its own combat scope and filters (G1/G2) |
+| Classification coverage | Shared elements are expected. Multi-element kits need a director choice; kits with no signature element need a classification extension; kit jutsu with no qualifying element on any row need an authored jutsu classification; off-kit coverage is unverified |
 | BP and silver | Current purchase path checks ordinary `user.skillPoints` and `costSkillPoints`; this review did not establish a separate BP ledger or silver acquisition path |
 | Current-bloodline gate | Server-side activation/eligibility and swap behavior must be specified; folders alone do not enforce this |
 | Prerequisites | Current purchase path checks every required skill ID; a single-parent fork fits that rule |
@@ -164,7 +175,7 @@ The user explicitly excluded Astral Ascendant, Blood-Enshrined Eyes, Blood-Enthr
 
 See [ROSTER_REVIEW.md](bloodright/ROSTER_REVIEW.md) and `bloodright/roster.json` for all 95 dispositions and the 43 approved remaining IDs. The eligibility gate is resolved for that batch; begin without requesting approval again. Deferred or newly found records do not block approved work.
 
-Final acceptance requires complete coverage of approved IDs, meaningful legal choices, exact tag coverage, transparent engine dependencies and comparable balance evidence. Unsupported assumptions remain visible rather than being described as implemented features. Silver pricing, reset/swap policy, unresolved classifications, normal-tree potency policy and final tuning are still user decisions.
+Final acceptance requires complete coverage of approved IDs, meaningful legal choices, exact tag coverage, transparent engine dependencies and comparable balance evidence. Unsupported assumptions remain visible rather than being described as implemented features. Silver pricing, reset/refund and BP retention on swap, multi-element and classification-extension choices, any exception above the ceilings, normal-tree potency policy and final tuning are still user decisions.
 
 ## 9. Repository and evidence notes
 

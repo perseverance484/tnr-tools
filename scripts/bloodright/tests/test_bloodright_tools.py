@@ -288,6 +288,96 @@ class RendererAdverseRows(unittest.TestCase):
 
 
 
+class ReferenceTrees(unittest.TestCase):
+    """Generated trees that encode director rulings must match them exactly."""
+
+    def _tree(self, slug):
+        return L.load_json(os.path.join(L.TREES_DIR, slug + ".json"))
+
+    def _mods(self, tree):
+        return {n["id"]: (n["name"], n["category"], tuple(n["parents"]), tuple((m["tag"], m["flat"]) for m in n["modifiers"]))
+                for n in tree["nodes"]}
+
+    def test_taiyo_projection_preserves_handoff_values(self):
+        hand = L.load_json(REFERENCE)
+        proj = self._tree("taiyo_kami")
+        self.assertEqual(self._mods(proj), self._mods(hand))
+        self.assertEqual([e["ids"] for e in proj["examples"]], [e["ids"] for e in hand["examples"]])
+        self.assertEqual(proj["classification"]["qualifying_elements"], ["Scorch"])
+        self.assertEqual(proj["classification"]["applies_to"], "matching supported tags on all Scorch jutsu")
+        routes = {r["name"]: (r["primary_tag"], r["total"]) for r in proj["audit"]["ceilings"]["routes"]}
+        self.assertEqual(routes, {"Solar Cataclysm": ("damage", 5), "Eternal Noon": ("afterburn", 10),
+                                  "Sovereign Sun": ("decreasedamagetaken", 10), "Dying Light": ("decreasedamagegiven", 10)})
+
+    def test_blood_enchanted_eyes_matches_rul_2026_10_03_006(self):
+        t = self._tree("blood_enchanted_eyes")
+        self.assertEqual(t["title"], "Blood-Enchanted Eyes — Crimson Covenant")
+        want = {
+            "01": ("Scarlet Gaze", "Foundation", (), (("increasedamagegiven", 2), ("increasedamagetaken", 2))),
+            "02": ("Opened Veins", "Hidden Art", ("01",), (("damage", 2),)),
+            "03": ("Rite of Exsanguination", "Advanced Art", ("02",), (("damage", 3),)),
+            "09": ("Crimson Thirst", "Hidden Art", ("01",), (("lifesteal", 2),)),
+            "10": ("Feast of the Fallen", "Advanced Art", ("09",), (("lifesteal", 3), ("increasedamagegiven", 5))),
+            "06": ("Iron in the Blood", "Foundation", (), (("decreasedamagetaken", 2), ("decreasedamagegiven", 2))),
+            "07": ("Closed Wounds", "Hidden Art", ("06",), (("decreasedamagetaken", 3),)),
+            "08": ("Deathless Vitality", "Advanced Art", ("07",), (("decreasedamagetaken", 5), ("decreasedamagegiven", 3))),
+            "04": ("Carrion Fever", "Hidden Art", ("06",), (("decreasedamagegiven", 3),)),
+            "05": ("Red Pestilence", "Advanced Art", ("04",), (("decreasedamagegiven", 5), ("decreasedamagetaken", 3))),
+        }
+        self.assertEqual(self._mods(t), want)
+        self.assertNotIn("afterburn", {m["tag"] for n in t["nodes"] for m in n["modifiers"]})
+        self.assertEqual(t["classification"]["qualifying_elements"], ["Shadow"])
+        self.assertEqual(t["classification"]["applies_to"], "matching supported tags on all Shadow jutsu")
+        self.assertEqual({e["archetype"] for e in t["examples"]}, {"Burst", "Sustain Offense", "Fortress", "Suppression"})
+        mx = t["audit"]["ceilings"]["maximum_over_all_legal_allocations"]
+        self.assertEqual((mx["damage"], mx["lifesteal"], mx["decreasedamagetaken"], mx["decreasedamagegiven"]), (5, 5, 10, 10))
+        # the keystones are castability gates, never prerequisites or printed scope
+        for ext in (".json", ".md", ".svg"):
+            txt = open(os.path.join(L.TREES_DIR, "blood_enchanted_eyes" + ext), encoding="utf-8").read()
+            self.assertNotIn("Tithe of the Red Eye", txt)
+            if ext == ".svg":
+                self.assertNotIn("Wraith Pendant", txt.split('<metadata')[0])
+                self.assertNotIn("Reaper's Ring", txt.split('<metadata')[0])
+                self.assertIn("Bonuses apply to matching supported tags on all Shadow jutsu.", txt)
+
+    def test_ethereal_monarch_director_correction(self):
+        t = self._tree("ethereal_monarch")
+        m = self._mods(t)
+        self.assertEqual(t["title"], "Ethereal Monarch — Mandate of Heaven")
+        self.assertEqual(m["03"][0], "Ethereal Coronation")
+        self.assertEqual(m["03"][3], (("damage", 3),))
+        self.assertEqual(m["05"][0], "Rain of Fallen Stars")
+        self.assertEqual(m["05"][3], (("afterburn", 7), ("increasedamagetaken", 3), ("increasedamagegiven", 3)))
+        self.assertEqual(L.ceiling_findings(t)[0], [])
+
+    def test_every_tree_is_within_the_ceilings(self):
+        import glob
+        for p in sorted(glob.glob(os.path.join(L.TREES_DIR, "*.json"))):
+            if p.endswith(".validation.json"):
+                continue
+            t = L.load_json(p)
+            errs = L.ceiling_findings(t)[0]
+            self.assertEqual(errs, [], os.path.basename(p))
+            self.assertEqual(L.stale_language(t), [], os.path.basename(p))
+
+    def test_no_bloodline_id_selector_in_classification(self):
+        import glob
+        for p in sorted(glob.glob(os.path.join(L.TREES_DIR, "*.json"))):
+            if p.endswith(".validation.json"):
+                continue
+            t = L.load_json(p)
+            c = t["classification"]
+            name = t["bloodline"]["name"]
+            self.assertNotIn("bloodline", c, os.path.basename(p))  # no bloodline key inside the selector
+            self.assertTrue(c["applies_to"].startswith("matching supported tags on all "), p)
+            self.assertIn("bloodline id or bloodline ownership", " ".join(c["not_selectors"]))
+            self.assertTrue(any("equipment" in x for x in c["not_selectors"]))
+            if c["label_kind"] != "classification extension":
+                self.assertNotIn(name, c["applies_to"], p)
+                for n in t["nodes"]:
+                    self.assertNotIn(name, n["scope"], p)
+
+
 class ScopeAndDisplay(unittest.TestCase):
     """RUL-2026-10-03-005: element-wide scope and % display on every non-Damage modifier."""
 

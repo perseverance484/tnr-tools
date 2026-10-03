@@ -4,7 +4,8 @@
 **Status:** READY TO BEGIN — 43 remaining bloodlines approved; Taiyo Kami is the reference.  
 **Repository:** `perseverance484/tnr-tools`.  
 **Reviewed main:** `03f2931297940ac29faa7c255c94bc15e477323f` (2026-10-03 UTC / 2026-10-02 America/Chicago).  
-**Work:** Design proposals and local analysis only. No engine implementation, production manifests, game writes, deployment or image generation.
+**Work:** Design proposals and local analysis only. No engine implementation, production manifests, game writes, deployment or image generation.  
+**Amended 2026-10-03 by RUL-2026-10-03-005/006:** potency is element-wide: every jutsu of the qualifying element/classification qualifies, shared elements are expected, and bloodline id, equipment, injection provenance and jutsu names are not selectors. That supersedes the exclusivity/collision audit in Phase 1 and the leakage report in Phase 3; report each tree's classification status and off-kit coverage instead. Ceilings over every legal allocation: Damage +5, Lifesteal +5%, Afterburn +15%, every other tag +10% unless a director-review exception is recorded. Every non-Damage modifier displays `%`. Blood-Enchanted Eyes follows RUL-2026-10-03-006. The operative text lives in `docs/design/BLOODRIGHT_DESIGN_BRIEF.md`.
 
 ## Start here
 
