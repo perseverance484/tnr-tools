@@ -1,6 +1,6 @@
 {
   "title": "Aerathiel — Litany of Dust",
-  "revision": "Draft 4 / Dust classification / forked tree",
+  "revision": "Draft 5 / Dust classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "bloodline": {
     "id": "1C34syOOEKp6k3UKweYT6",
     "review_id": "BR-002",
@@ -41,7 +41,7 @@
     "primary": "Damage (Dust attacks)",
     "secondary": "Increase Damage Taken (AOE exposure)",
     "tertiary": "Reflect and Decrease Damage Given (Atomic Shield / Windshear control)",
-    "rationale": "Three of the nine supported rows are Dust damage (Death's March 40, Decaying Touch 40, Particle Cannon 50 at jutsu level 25), so the kit's declared role is sustained offense. Increase Damage Taken reaches two AOE rows (Windshear Decay and Death's March) that can both sit on one target, so it is the second emphasis but carries smaller flats than a single-row tag. The kit's only self cast, Atomic Shield, carries two Increase Damage Given rows and the single Reflect row; the only suppression row is Windshear Decay's Decrease Damage Given. There are no heal, lifesteal, Decrease Damage Taken or Afterburn rows, so no sustain route is invented."
+    "rationale": "Three of the nine supported rows are Dust Damage (Death's March 40, Decaying Touch 40, Particle Cannon 50 EP at jutsu level 25), so the kit's declared role is sustained offense. Increase Damage Taken reaches two AOE rows (Windshear Decay and Death's March) that can both sit on one target, so exposure is the second emphasis. The kit's only self cast, Atomic Shield, carries two Increase Damage Given rows and the single Reflect row; the only suppression row is Windshear Decay's Decrease Damage Given. There are no heal, lifesteal, Decrease Damage Taken or Afterburn rows, so no sustain or burn route is invented."
   },
   "nodes": [
     {
@@ -63,7 +63,7 @@
         }
       ],
       "flavor": "Every touch loosens the bonds that hold a body together.",
-      "coverage_note": "Atomic Shield's two self damage buffs (35→37%) and the Windshear Decay / Death's March exposure debuffs (35→37%). 4 rows, no gates.",
+      "coverage_note": "Atomic Shield's two self damage buffs 35 → 37% and the Windshear Decay / Death's March exposure debuffs 35 → 37%.",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
       "scope": "all Dust jutsu",
@@ -98,7 +98,7 @@
         }
       ],
       "flavor": "Matter gives way one particle at a time.",
-      "coverage_note": "Death's March, Decaying Touch and Particle Cannon Dust damage rows (40/40/50 → 42/42/52 power). 3 rows, all 60 AP, cooldown 7.",
+      "coverage_note": "Dust Damage on Death's March and Decaying Touch 40 → 42 EP and Particle Cannon 50 → 52 EP (all 60 AP, cooldown 7).",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
       "scope": "all Dust jutsu",
@@ -131,7 +131,7 @@
         }
       ],
       "flavor": "Nothing remains to bury.",
-      "coverage_note": "The same three Dust damage rows; with Particle Collapse the route adds +5 power (Particle Cannon 50→55, the AOE Death's March 40→45).",
+      "coverage_note": "Damage route total +5: Particle Cannon 50 → 55 EP, Death's March and Decaying Touch 40 → 45 EP.",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
       "scope": "all Dust jutsu",
@@ -164,7 +164,7 @@
         }
       ],
       "flavor": "The gale scours away whatever once turned a blade.",
-      "coverage_note": "Windshear Decay and Death's March Increase Damage Taken (2 AOE rows, 2 rounds): 35→40% with prerequisite Entropic Grasp; 42% at route max.",
+      "coverage_note": "Windshear Decay and Death's March Increase Damage Taken (two AOE rows, 2 rounds) 35 → 40% with Entropic Grasp.",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
       "scope": "all Dust jutsu",
@@ -193,7 +193,7 @@
       "modifiers": [
         {
           "tag": "increasedamagetaken",
-          "flat": 2,
+          "flat": 5,
           "display_role": "ENEMY DEBUFF"
         },
         {
@@ -203,7 +203,7 @@
         }
       ],
       "flavor": "Once decay begins, it does not stop.",
-      "coverage_note": "Both exposure rows (+2) and both Atomic Shield damage buffs (+3); with Entropic Grasp and Hollowing Wind the route totals IDT +7 and IDG +5.",
+      "coverage_note": "Pressure route total +10% Increase Damage Taken: Windshear Decay and Death's March 35 → 45%; Atomic Shield's two damage buffs +3% (40% with Entropic Grasp).",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
       "scope": "all Dust jutsu",
@@ -241,7 +241,7 @@
         }
       ],
       "flavor": "A curtain of grit that blunts the blow and bites back.",
-      "coverage_note": "Atomic Shield Reflect (40→42%) and Windshear Decay Decrease Damage Given (35→37%). 2 rows: one 40 AP self cast, one 40 AP AOE debuff.",
+      "coverage_note": "Atomic Shield Reflect 40 → 42% (40 AP self cast) and Windshear Decay Decrease Damage Given 35 → 37% (40 AP AOE debuff).",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
       "scope": "all Dust jutsu",
@@ -274,7 +274,7 @@
         }
       ],
       "flavor": "Dust thickens into a shell that remembers every strike.",
-      "coverage_note": "Atomic Shield Reflect only (single row, 2 rounds per 40 AP cast); reflected damage is capped at 60% of each hit taken.",
+      "coverage_note": "Atomic Shield Reflect 45% with Scouring Veil (one row, 2 rounds per cast); reflected damage is capped at 60% of each hit taken.",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
       "scope": "all Dust jutsu",
@@ -307,7 +307,7 @@
         }
       ],
       "flavor": "What strikes the shield returns, and the shield-bearer strikes harder.",
-      "coverage_note": "All three Atomic Shield rows now enhanced: Reflect route total 50% (under the 60% per-hit cap); both damage buffs +3 (38%, 40% with Grasp).",
+      "coverage_note": "Reflect route total +10% (Atomic Shield 40 → 50%, under the 60% per-hit cap); both Atomic Shield damage buffs +3% (40% with Entropic Grasp).",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
       "scope": "all Dust jutsu",
@@ -335,7 +335,7 @@
         }
       ],
       "flavor": "Arms grow heavy in the dust-laden wind.",
-      "coverage_note": "Windshear Decay Decrease Damage Given only (single AOE row, range 5, 40 AP, 2 rounds); the jutsu's pull row is unsupported and unchanged.",
+      "coverage_note": "Windshear Decay Decrease Damage Given 40% with Scouring Veil (one AOE row, range 5, 40 AP, 2 rounds); its redirection row is unsupported.",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
       "scope": "all Dust jutsu",
@@ -372,7 +372,7 @@
         }
       ],
       "flavor": "The march ends where the wind lays everything down.",
-      "coverage_note": "Windshear Decay suppression (route total 45%) plus both exposure rows +2; both Windshear Decay debuff rows are raised by one 40 AP AOE cast.",
+      "coverage_note": "Suppression route total +10% (Windshear Decay 35 → 45%) plus both exposure rows +2% (39% with Entropic Grasp).",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
       "scope": "all Dust jutsu",
@@ -402,7 +402,7 @@
         "03",
         "06"
       ],
-      "rationale": "The +5 power route on all three Dust attacks (Particle Cannon 55, Death's March and Decaying Touch 45) with Entropic Grasp's amplify/expose support from earlier casts. Scouring Veil is the fourth purchase because it opens the control root without competing for the damage rows; Hollowing Wind (exposure +5 total) is the offensive alternative.",
+      "rationale": "+5 Damage on all three Dust attacks (Particle Cannon 50 → 55, Death's March and Decaying Touch 40 → 45 EP), with Entropic Grasp's 37% amplify and exposure from earlier casts. Scouring Veil is the fourth purchase (Reflect 42%, Decrease Damage Given 37%); Hollowing Wind (exposure 40%) is the offensive alternative.",
       "cost": 4,
       "bonuses": {
         "damage": 5,
@@ -648,12 +648,12 @@
         "04",
         "05"
       ],
-      "rationale": "Exposure first: Windshear Decay and Death's March Increase Damage Taken reach 42% each (adding 84% of the staged base when both sit on one target) while Atomic Shield's two damage buffs reach 40%. Particle Collapse is the fourth purchase because the exposed target's next hits are the kit's own Dust strikes (Particle Cannon, Decaying Touch); Scouring Veil is the defensive alternative.",
+      "rationale": "Exposure first: Windshear Decay and Death's March Increase Damage Taken reach 45% each (×1.45 × 1.45 on a matching hit when both sit on one target) while Atomic Shield's two damage buffs reach 40%. Particle Collapse is the fourth purchase (Dust strikes 42 / 52 EP) because the exposed target's next hits are the kit's own Dust strikes; Scouring Veil is the defensive alternative.",
       "cost": 4,
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       },
       "finals": [
         {
@@ -668,8 +668,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -743,8 +743,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -892,7 +892,7 @@
         "07",
         "08"
       ],
-      "rationale": "Atomic Shield as the centrepiece: Reflect 50% and both damage buffs 40% for the two rounds after one 40 AP cast, with Windshear and Death's March exposure at 37%. Entropic Grasp is the fourth purchase because it stacks Increase Damage Given to +5; Withering Gale (suppression +5) is the control alternative.",
+      "rationale": "Atomic Shield as the centrepiece: Reflect 50% and both damage buffs 40% for the two rounds after one 40 AP cast, with Windshear Decay and Death's March exposure at 37%. Entropic Grasp is the fourth purchase because it lifts Increase Damage Given to +5%; Withering Gale (Decrease Damage Given 40%) is the control alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
@@ -1137,7 +1137,7 @@
         "09",
         "10"
       ],
-      "rationale": "Windshear Decay as an AOE control cast: Decrease Damage Given 45% and Increase Damage Taken 39% on every non-caster user in the radius-1 circle (placed up to 5 tiles away; allies there too), with Death's March exposure also 39%. Entropic Grasp is the fourth purchase for exposure +4 and a small amplify; Particulate Ward (Reflect 45%) is the defensive alternative.",
+      "rationale": "Windshear Decay as an AOE control cast: Decrease Damage Given 45% and Increase Damage Taken 39% on every non-caster user in the radius-1 circle (placed up to 5 tiles away; allies there too), with Death's March exposure also 39%. Entropic Grasp is the fourth purchase for exposure +4% and a small amplify; Particulate Ward (Reflect 45%) is the defensive alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -1376,22 +1376,21 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Node split: the roots mirror the kit's two support casts. Entropic Grasp (offence) raises Atomic Shield's two Increase Damage Given rows and the two AOE exposure rows; Scouring Veil (control) raises Atomic Shield's Reflect row and Windshear Decay's Decrease Damage Given row. Each root forks into two Hidden Art → Advanced Art routes (Damage and Exposure; Reflect and Suppression): every Advanced Art is 3 BP deep and any two cost 5–6 BP.",
-    "Reference reuse: flats copy Taiyo Kami nearly verbatim (Entropic Grasp = Dawnheart; the Damage route = Crown of Cinders/Solar Cataclysm; Withering Gale = Ashen Verdict; the Reflect route reuses the DDT ladder +2/+3/+5 with +3 IDG), because the kit has the same shape: three Dust damage rows, two IDG rows, single-row DDG. Departures: no Afterburn or DDT rows, so Hollowing Wind is IDT +3 and Terminal Decay IDT +2/IDG +3; Requiem's IDT is +2, not +5, so a capstone never outbids Hollowing Wind.",
-    "Filters (§3, register G15): Atomic Shield row 0 (Highest stat, no element) matches the caster's highest-offence-stat hits and every element-less hit; row 2 matches Dust/Earth/Wind and element-less hits, so the kit's Dust strikes and element-less weapon or basic hits take both buffs (+70% of staged base, 80% at IDG +5). Windshear Decay rows 0–1 match any stat-based or element-less hit; Death's March row 1 only Dust/Earth/Wind or element-less hits. The passive IDG multiplies downstream.",
+    "Node split: the roots mirror the kit's two support casts. Entropic Grasp (offence) raises Atomic Shield's two Increase Damage Given rows and the two AOE exposure rows; Scouring Veil (control) raises Atomic Shield's Reflect row and Windshear Decay's Decrease Damage Given row. Each root forks into two Hidden Art → Advanced Art routes (Burst and Pressure; Fortified and Suppression): every Advanced Art is 3 BP deep and any two cost 5–6 BP.",
+    "Routes: Burst +5 Damage (Particle Collapse +2, Total Disintegration +3); Pressure +10% Increase Damage Taken (Entropic Grasp +2%, Hollowing Wind +3%, Terminal Decay +5%); Fortified +10% Reflect (Scouring Veil +2%, Particulate Ward +3%, Atomic Reprisal +5%); Suppression +10% Decrease Damage Given (Scouring Veil +2%, Withering Gale +3%, Requiem of Dust +5%). Glue maxima over every legal allocation: Increase Damage Given +5% (Entropic Grasp plus Terminal Decay's or Atomic Reprisal's +3%); Requiem's +2% Increase Damage Taken secondary keeps Pressure the only +10% exposure route.",
+    "Filters (§3, register G15): Atomic Shield row 0 (Highest stat, no element) matches the caster's highest-offence-stat hits and every element-less hit; row 2 matches Dust/Earth/Wind and element-less hits, so the kit's Dust strikes and element-less weapon or basic hits take both buffs, which compound (×1.35 × 1.35 unmodified, ×1.40 × 1.40 at Increase Damage Given +5%; SOURCE_MECHANICS §3b). Windshear Decay rows 0–1 match any stat-based or element-less hit; Death's March row 1 only Dust/Earth/Wind or element-less hits. The passive Increase Damage Given multiplies downstream.",
     "Delivery and timing (§3b): all five jutsu have cooldown 7. The damage casts cost 60 AP (Death's March a range-4 circle spawn; Decaying Touch and Particle Cannon single-target, range 4); Windshear Decay is a 40 AP range-5 circle spawn, Atomic Shield a 40 AP self cast. Each buff/debuff row is live in the two rounds after its cast round, never in it: Death's March's exposure never boosts its own hit, and Shield's buffs help only later strikes. No rotation was simulated.",
-    "Fourth purchase: Burst takes Scouring Veil (Reflect/DDG +2) or Hollowing Wind (IDT +5); Pressure takes Particle Collapse (+2 Damage) or Scouring Veil; Fortified takes Entropic Grasp (IDG +5, IDT +2) or Withering Gale (DDG +5); Suppression takes Entropic Grasp (IDT +4, IDG +2) or Particulate Ward (Reflect +5). Hybrids without an Advanced Art spread smaller gains over four tags. All 14 legal full builds are non-dominated, every node is in one, and neither Foundation is universal (12 of 14 each).",
-    "Value option (user-owned, not applied): Requiem's IDT secondary could rise to +3 only with Hollowing Wind at +4, or the Entropic Grasp + Hollowing Wind + Scouring Veil + Withering Gale hybrid becomes dominated by the Requiem build; that lifts the IDT route maximum to +8, above the two-row ceiling. No heal, lifesteal, Decrease Damage Taken or Afterburn rows exist in this kit, so no sustain or burn route is invented."
+    "Fourth purchase: Burst takes Scouring Veil (Reflect and Decrease Damage Given +2%) or Hollowing Wind (exposure +5%); Pressure takes Particle Collapse (+2 Damage) or Scouring Veil; Fortified takes Entropic Grasp (Increase Damage Given +5%, exposure +2%) or Withering Gale (Decrease Damage Given +5%); Suppression takes Entropic Grasp (exposure +4%, Increase Damage Given +2%) or Particulate Ward (Reflect +5%). All 14 legal full builds are non-dominated, every node is in one, and neither Foundation is universal (12 of 14 each)."
   ],
   "risks": [
-    "Single-cast concentration: Requiem of Dust raises both Windshear Decay debuff rows (Decrease Damage Given 45%, Increase Damage Taken 37–39%) from one 40 AP AOE cast; Atomic Reprisal raises all three Atomic Shield rows (Reflect 50%, two damage buffs 38–40%) from one 40 AP self cast. Per-AP value of those two D/A-rank support casts rises more than the damage route's.",
-    "Exposure stacking (§3b, process.ts 1109–1117): Windshear Decay and Death's March apply separate 2-round IDT debuffs that both apply and add, so one target takes +70% of the staged base (84% at the +7 route max; row-weighted 14 against the reference's largest single-tag concentration, Damage +5 × 3 rows = 15). The two windows overlap for at most two rounds per cooldown-7 cycle; not simulated.",
-    "Leakage: in the two rounds after Atomic Shield both enhanced IDG rows add to the caster's normal jutsu and weapon hits (Highest-stat or element-less for row 0; Dust/Earth/Wind or element-less for row 2). Windshear Decay's exposure (row 0) raises what the target takes from allies and weapons too; its suppression (row 1) lowers the target's own jutsu and weapon damage against the caster's side.",
-    "Friendly fire (validator WARN accepted): Death's March and Windshear Decay are OTHER_USER AOE_CIRCLE_SPAWN casts whose INHERIT rows land once on each living non-caster user in the radius-1 circle when friendlyFire is none/ALL (§4b, G16), so the Damage, Exposure and Suppression routes also raise what allies there receive; the caster is never a target. Positioning, not the tree, decides.",
+    "Single-cast concentration: Requiem of Dust raises both Windshear Decay debuff rows (Decrease Damage Given 45%, Increase Damage Taken 37–39%) from one 40 AP AOE cast; Atomic Reprisal raises all three Atomic Shield rows (Reflect 50%, two damage buffs 38–40%) from one 40 AP self cast.",
+    "Exposure stacking (§3b, process.ts 1109–1117): Windshear Decay and Death's March apply separate 2-round Increase Damage Taken debuffs that both apply and compound (SOURCE_MECHANICS §3b), so a matching hit on a target under both takes ×1.35 × 1.35 ≈ ×1.82 unmodified and ×1.45 × 1.45 ≈ ×2.10 at the +10% Pressure route maximum. The two windows overlap for at most two rounds per cooldown-7 cycle; not simulated.",
+    "Row reach: in the two rounds after Atomic Shield both enhanced Increase Damage Given rows apply to the caster's normal jutsu and weapon hits (Highest-stat or element-less for row 0; Dust/Earth/Wind or element-less for row 2). Windshear Decay's exposure (row 0) raises what the target takes from allies and weapons too; its suppression (row 1) lowers the target's own jutsu and weapon damage against the caster's side.",
+    "Friendly fire (validator WARN accepted): Death's March and Windshear Decay are OTHER_USER AOE_CIRCLE_SPAWN casts whose INHERIT rows land once on each living non-caster user in the radius-1 circle when friendlyFire is none/ALL (§4b, G16), so the Burst, Pressure and Suppression routes also raise what allies there receive; the caster is never a target. Positioning, not the tree, decides.",
     "Reflect value is downstream: it depends on how many hits the bearer takes during the two-round window, including pierce hits (which bypass the row's stat filter, tags.ts 3478–3479), and is capped at 60% of each pre-shield hit; at 50% the cap is not reached, but realised value was not simulated.",
-    "Classification: the Dust label collides with Kyuko-sei (INCLUDE) and Nejireru Funjin (DEFER), and the normal-jutsu Dust collision is unverified, so eligibility must be bloodline-scoped. Under the current resolver 5 of 9 supported rows match Dust; the other 4 (Atomic Shield rows 0–1, Windshear Decay rows 0–1) fall back to None and need the proposed whole-kit classification.",
-    "Unsupported rows (Windshear Decay redirection pull, Decaying Touch recoil, Particle Cannon wound) are unchanged by every node; the trait text 'sustained damage over time' is not reflected in any supported DoT row, so no node addresses it.",
-    "Ranked PvP and ranked sparring suppress skill-tree effects at the pin, so the whole tree is inert there. Normal-tree potency policy is not approved; a combined main-tree plus Bloodright potency audit is still required before any implementation."
+    "Classification: Dust is shared with Kyuko-sei and Nejireru Funjin (expected under RUL-2026-10-03-005). 5 of 9 kit rows carry Dust; Atomic Shield rows 0–1 and Windshear Decay rows 0–1 need the proposed jutsu-classification resolver, and Windshear Decay (no Dust row) additionally needs an authored Dust jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Dust coverage is unverified.",
+    "Unsupported rows (Windshear Decay redirection, Decaying Touch recoil, Particle Cannon wound) are unchanged by every node; the trait text 'sustained damage over time' is not reflected in any supported damage-over-time row, so no node addresses it.",
+    "Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1435,7 +1434,7 @@
       "damage": 5,
       "increasedamagegiven": 5,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 7,
+      "increasedamagetaken": 10,
       "reflect": 10
     },
     "supported_rows_in_kit": 9,
@@ -1454,7 +1453,7 @@
       "reflect"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 4 / Dust classification / forked tree",
+    "revision": "Draft 5 / Dust classification / forked tree (RUL-2026-10-03-005 recalibration)",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -1472,7 +1471,7 @@
         "damage": 5,
         "increasedamagegiven": 5,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "reflect": 10
       },
       "ceilings": {
@@ -1523,10 +1522,10 @@
           "steps": [
             2,
             3,
-            2
+            5
           ],
-          "total": 7,
-          "on_band": false
+          "total": 10,
+          "on_band": true
         },
         {
           "advanced_art": "08",
@@ -1605,7 +1604,7 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       }
     },
     {
@@ -1663,7 +1662,7 @@
       "bonuses": {
         "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "reflect": 2
       }
     },

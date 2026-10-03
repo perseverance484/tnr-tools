@@ -9,19 +9,35 @@
     "statClassification": "Highest",
     "traits": "Sustained Damage"
   },
-  "revision": "Draft 3 / Ancient Tailed Demon classification / forked tree",
+  "revision": "Draft 4 / Ancient Tailed Demon classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
-  "warnings": [],
+  "warnings": [
+    "classification status: requires classification extension (director decision)"
+  ],
   "classification": {
     "potency_classification": "Ancient Tailed Demon",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Ancient Tailed Demon",
+    "label_kind": "classification extension",
+    "classification_status": "requires classification extension",
+    "qualifying_elements": [],
     "display_element": null,
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Ancient Tailed Demon jutsu",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Ancient Tailed Demon-classified jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Ancient Demon Roar",
+      "Demonic Embrace",
+      "Demonic Vitae"
+    ],
+    "shared_element_bloodlines": [],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
     "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": []
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver_and_classification_extension"
   },
   "examples": [
     {
@@ -35,7 +51,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 4,
         "decreasedamagetaken": 2,
@@ -129,7 +145,7 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
+      "damage": 5,
       "increasedamagegiven": 10,
       "increasedamagetaken": 5,
       "decreasedamagetaken": 10,
@@ -171,8 +187,8 @@
         "name": "Rending Bellow",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Ancient Demon Roar"
         ],
@@ -319,8 +335,8 @@
       "name": "Rending Bellow",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
       "covered_jutsu": [
         "Ancient Demon Roar"
       ],
@@ -337,12 +353,12 @@
           "04"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagetaken": 4,
           "afterburn": 5
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 15,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "03"
         ],
@@ -356,14 +372,14 @@
           "06"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
           "increasedamagetaken": 4,
           "decreasedamagetaken": 2,
           "afterburn": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 16,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "03"
         ],
@@ -377,12 +393,12 @@
           "05"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagetaken": 5,
           "afterburn": 10
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "raw_flat_total": 17,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "05"
         ],
@@ -396,14 +412,14 @@
           "06"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 5
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "raw_flat_total": 13,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -415,14 +431,14 @@
           "07"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5,
           "afterburn": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "raw_flat_total": 13,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -434,14 +450,14 @@
           "09"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "raw_flat_total": 13,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },

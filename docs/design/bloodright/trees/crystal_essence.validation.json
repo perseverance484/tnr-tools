@@ -9,11 +9,9 @@
     "statClassification": "Ninjutsu",
     "traits": "Defensive, Sustained Damage"
   },
-  "revision": "Draft 2 / Crystal classification / forked tree",
+  "revision": "Draft 3 / Crystal classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
-  "warnings": [
-    "route Break Along the Flaw primary total +7% Increase Damage Taken is off the 5/10/15 bands without a route_band_rationale"
-  ],
+  "warnings": [],
   "classification": {
     "potency_classification": "Crystal",
     "label_kind": "element",
@@ -56,7 +54,7 @@
       "bonuses": {
         "damage": 5,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 4
+        "increasedamagetaken": 5
       },
       "advanced_arts": [
         "Splintered Mountain Heart"
@@ -75,7 +73,7 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       },
       "advanced_arts": [
         "Break Along the Flaw"
@@ -147,7 +145,7 @@
     "maximum_tag_bonuses": {
       "damage": 5,
       "increasedamagegiven": 5,
-      "increasedamagetaken": 7,
+      "increasedamagetaken": 10,
       "decreasedamagetaken": 10,
       "reflect": 10
     },
@@ -221,8 +219,8 @@
         "name": "Flaw in the Stone",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Crystal Cave",
           "Crystal Sphere"
@@ -236,8 +234,8 @@
         "name": "Break Along the Flaw",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 9,
+        "raw_flat_total": 8,
+        "row_weighted_total": 13,
         "covered_jutsu": [
           "Crystal Cave",
           "Crystal Sphere",
@@ -331,10 +329,10 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       },
-      "raw_flat_total": 14,
-      "row_weighted_total": 25,
+      "raw_flat_total": 17,
+      "row_weighted_total": 31,
       "advanced_arts": [
         "05"
       ],
@@ -365,10 +363,10 @@
         "bonuses": {
           "damage": 5,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 25,
+        "raw_flat_total": 12,
+        "row_weighted_total": 27,
         "advanced_arts": [
           "03"
         ],
@@ -405,10 +403,10 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 25,
+        "raw_flat_total": 17,
+        "row_weighted_total": 31,
         "advanced_arts": [
           "05"
         ],
@@ -424,12 +422,12 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 20,
+        "raw_flat_total": 13,
+        "row_weighted_total": 22,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -480,12 +478,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 5,
-          "increasedamagetaken": 7,
+          "increasedamagetaken": 10,
           "decreasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 23,
+        "raw_flat_total": 19,
+        "row_weighted_total": 29,
         "advanced_arts": [
           "05"
         ],
@@ -500,12 +498,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 5,
           "reflect": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 17,
+        "raw_flat_total": 14,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -518,12 +516,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
           "reflect": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 17,
+        "raw_flat_total": 14,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
