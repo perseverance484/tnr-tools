@@ -1,0 +1,545 @@
+{
+  "kind": "bloodright_tree_validation",
+  "slug": "yaketsuku_netsu",
+  "bloodline": {
+    "id": "clh4d6qfn000etb0hydj4cdpl",
+    "review_id": "BR-092",
+    "name": "Yaketsuku Netsu",
+    "rank": "B",
+    "statClassification": "Bukijutsu",
+    "traits": "Sustained DPS"
+  },
+  "revision": "Draft 1 / Yaketsuku Netsu classification / forked tree",
+  "structure_errors": [],
+  "warnings": [
+    "universal node: 01 (Heat in the Steel) appears in every legal full-budget allocation"
+  ],
+  "classification": {
+    "potency_classification": "Yaketsuku Netsu",
+    "label_kind": "bloodline-keyed extension",
+    "bloodline": "Yaketsuku Netsu",
+    "display_element": null,
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Yaketsuku Netsu jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
+    "census_collisions": []
+  },
+  "examples": [
+    {
+      "name": "Blade That Never Cools",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2
+      },
+      "advanced_arts": [
+        "Blade That Never Cools"
+      ]
+    },
+    {
+      "name": "White-Hot Blood",
+      "archetype": "Heat",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 2
+      },
+      "advanced_arts": [
+        "White-Hot Blood"
+      ]
+    },
+    {
+      "name": "Nothing Left Forbidden",
+      "archetype": "Exposure",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 8
+      },
+      "advanced_arts": [
+        "Nothing Left Forbidden"
+      ]
+    }
+  ],
+  "audit": {
+    "available_skills": 8,
+    "foundation_count": 2,
+    "hidden_art_count": 3,
+    "advanced_art_count": 3,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 4,
+      "3": 7,
+      "4": 8
+    },
+    "full_budget_allocations": 8,
+    "non_dominated_full_allocations": 8,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 6,
+      "increasedamagegiven": 10,
+      "increasedamagetaken": 8
+    },
+    "supported_rows_in_kit": 4,
+    "supported_rows_by_tag": {
+      "damage": 2,
+      "increasedamagegiven": 1,
+      "increasedamagetaken": 1
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "increasedamagegiven",
+      "increasedamagetaken"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "node_values": [
+      {
+        "id": "01",
+        "name": "Heat in the Steel",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 3,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Forbidden Chakra Fury",
+          "Forgotten Ember Blade"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "02",
+        "name": "Searing Edge",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Forbidden Chakra Fury",
+          "Forgotten Ember Blade"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "Blade That Never Cools",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Forbidden Chakra Fury",
+          "Forgotten Ember Blade"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "04",
+        "name": "Fever Pitch",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Forgotten Ember Blade"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "05",
+        "name": "White-Hot Blood",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
+        "covered_jutsu": [
+          "Forgotten Ember Blade"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "06",
+        "name": "Blistered Guard",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
+        "covered_jutsu": [
+          "Forbidden Chakra Fury"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "07",
+        "name": "Heat Finds the Seam",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Forbidden Chakra Fury"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "08",
+        "name": "Nothing Left Forbidden",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 4,
+        "row_weighted_total": 5,
+        "covered_jutsu": [
+          "Forbidden Chakra Fury",
+          "Forgotten Ember Blade"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      }
+    ],
+    "strongest_full_build_by_row_weight": {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 5
+      },
+      "raw_flat_total": 11,
+      "row_weighted_total": 17,
+      "advanced_arts": [
+        "03"
+      ],
+      "non_dominated": true
+    },
+    "lowest_value_node_by_row_weight": {
+      "id": "06",
+      "name": "Blistered Guard",
+      "category": "Foundation",
+      "depth": 1,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
+      "covered_jutsu": [
+        "Forbidden Chakra Fury"
+      ],
+      "covered_rows": 1,
+      "adverse_rows_amplified": [],
+      "tags_without_rows": []
+    },
+    "full_builds": [
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "bonuses": {
+          "damage": 6,
+          "increasedamagegiven": 5
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 17,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 6,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2
+        },
+        "raw_flat_total": 10,
+        "row_weighted_total": 16,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "bonuses": {
+          "damage": 3,
+          "increasedamagegiven": 10
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 16,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 3,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 2
+        },
+        "raw_flat_total": 10,
+        "row_weighted_total": 13,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 3,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 5
+        },
+        "raw_flat_total": 10,
+        "row_weighted_total": 13,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increasedamagegiven": 10,
+          "increasedamagetaken": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 14,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 5
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 12,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 8
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 14,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      }
+    ],
+    "legal_allocations": {
+      "0": [
+        []
+      ],
+      "1": [
+        [
+          "01"
+        ],
+        [
+          "06"
+        ]
+      ],
+      "2": [
+        [
+          "01",
+          "02"
+        ],
+        [
+          "01",
+          "04"
+        ],
+        [
+          "01",
+          "06"
+        ],
+        [
+          "06",
+          "07"
+        ]
+      ],
+      "3": [
+        [
+          "01",
+          "02",
+          "03"
+        ],
+        [
+          "01",
+          "02",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "06",
+          "07"
+        ],
+        [
+          "06",
+          "07",
+          "08"
+        ]
+      ],
+      "4": [
+        [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "08"
+        ]
+      ]
+    }
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "combat_simulation_performed": false,
+  "live_mutations": 0
+}

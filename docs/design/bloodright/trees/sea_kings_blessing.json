@@ -1,6 +1,6 @@
 {
   "title": "Sea-King's Blessing — Dominion of the Deep",
-  "revision": "Draft 1 / Sea-King's Blessing classification / forked tree",
+  "revision": "Draft 2 / Sea-King's Blessing classification / forked tree",
   "bloodline": {
     "id": "juZy8qwituqM2Km6cOiL4",
     "review_id": "BR-061",
@@ -217,7 +217,7 @@
         }
       ],
       "flavor": "Brine finds every cut. After the sea-king marks you, so does everything else.",
-      "coverage_note": "Abyss exposure 30→32% (enemies in the circle, all stat types, no element); Dome exposure 35→37% (Water and element-less hits). 2 rows.",
+      "coverage_note": "Abyss exposure 30→32% (enemies in the circle, all stat types, no element); Dome exposure 35→37% (Water hits only). 2 rows.",
       "parent_rule": "ALL",
       "potency_classification": "Sea-King's Blessing",
       "scope": "Sea-King's Blessing jutsu",
@@ -280,7 +280,7 @@
         }
       ],
       "flavor": "The deep has a king, and the king has run out of mercy.",
-      "coverage_note": "Route total +7: Abyss exposure 37%, Dome exposure 42% (2 rounds each, additive if both are up); +1 power on both Water hits.",
+      "coverage_note": "Route total +7: Abyss exposure 37%, Dome exposure 42% (2 rounds each, additive on Water hits if both are up); +1 power on both Water hits.",
       "parent_rule": "ALL",
       "potency_classification": "Sea-King's Blessing",
       "scope": "Sea-King's Blessing jutsu",
@@ -637,7 +637,7 @@
         "07",
         "08"
       ],
-      "rationale": "+7 on both exposure rows: Abyss 37% (all stat types, enemies in the circle), Dome 42% (Water and element-less hits, 40 AP, cooldown 6), additive when both sit on one target. Scales of the Deep is the only legal fourth purchase and adds +1 power (hits 40/40 with the capstone's +1) and Armor reduction 32%.",
+      "rationale": "+7 on both exposure rows: Abyss 37% (all stat types, enemies in the circle), Dome 42% (Water hits only, 40 AP, cooldown 6), additive on Water hits when both sit on one target. Scales of the Deep is the only legal fourth purchase and adds +1 power (hits 40/40 with the capstone's +1) and Armor reduction 32%.",
       "cost": 4,
       "bonuses": {
         "damage": 2,
@@ -795,23 +795,23 @@
       ]
     }
   ],
-  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on five rows (Damage x2, Increase Damage Taken x2, Decrease Damage Taken x1), so it supports exactly three routes: Scales of the Deep forks into a Water damage route (Grip of the Riptide → Weight of the Trench, +6 at the Damage guardrail) and an Armor route (Deepwater Carapace → Hull of the Leviathan, +10 on the single reduction row); Salt in the Wound → Dragged Under → Wrath of the Sea-King is a single chain on the kit's two enemy debuffs (+7, the two-row ceiling). A fourth route needs a fourth tag the kit does not have (absorb and shield are not potency targets). The consequence is that Scales of the Deep is in every legal full build and the exposure route's fourth purchase is always Scales of the Deep, while Burst and Bulwark each have two fourth-purchase choices. Three distinct complete builds exist, one per Advanced Art.",
+  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on five rows (Damage x2, Increase Damage Taken x2, Decrease Damage Taken x1), so it supports exactly three routes: Scales of the Deep forks into a Water damage route (Grip of the Riptide → Weight of the Trench, +6 at the Damage guardrail) and an Armor route (Deepwater Carapace → Hull of the Leviathan, +10 on the single reduction row); Salt in the Wound → Dragged Under → Wrath of the Sea-King is a single chain on the kit's two enemy debuffs (+7, the two-row ceiling). A fourth route needs a fourth tag the kit does not have (absorb and shield are not potency targets). The consequence is that Scales of the Deep is in every legal full build and the exposure route's fourth purchase is always Scales of the Deep, while Burst and Bulwark each have two fourth-purchase choices. Three named capstone builds exist, one per Advanced Art; eight legal full allocations in total (five with a capstone, three hybrids).",
   "design_notes": [
     "Node split: 2 Foundations, 3 Hidden Arts, 3 Advanced Arts. Scales of the Deep (Damage +1 on both hits, Decrease Damage Taken +2 on Armor; 3 of 5 rows) is the self-side root and forks into Grip of the Riptide → Weight of the Trench (Damage +2/+3) and Deepwater Carapace → Hull of the Leviathan (DDT +3/+5 with Damage +1). Salt in the Wound → Dragged Under → Wrath of the Sea-King (IDT +2/+2/+3 with Damage +1) is the enemy-side chain. Every Advanced Art is 3 BP deep; any two cost 5 or 6 BP.",
     "Flats by coverage: Damage reaches two rows, so the route totals +6 (1+2+3; 38→44 on both hits), at the guardrail, one above Taiyo Kami's three-row +5. Increase Damage Taken reaches two rows (one broad, one Water-filtered), so its route stops at the two-row ceiling +7 (2+2+3; 30→37%, 35→42%). Decrease Damage Taken is one row and takes the single-row shape (2+3+5 = +10; 30→40%), Taiyo Kami's DDT line. Both capstone secondaries are Damage +1, below Grip of the Riptide's +2.",
-    "Interactions: Armor's DDT row and Abyss's IDT row list all four stat types with no element, so they match every non-pierce hit regardless of element (Highest resolves to one of the four). Dome's IDT row carries Water and no stat filter: Water and element-less hits (basic attacks, weapons, plain jutsu). IDT rows add power/100 × the staged base per hit and stack additively; the bloodline's Water IDG passive (15 + 0.15/level) multiplies the two Water hits on top.",
+    "Interactions: Armor's DDT row and Abyss's IDT row list all four stat types with no element, so they match every non-pierce hit of any element (Highest resolves to one of the four). Dome's IDT row carries Water and no stat filter: Water damage only (the caster's two hits, allies' Water jutsu), not basic attacks, weapons or plain jutsu. IDT rows add power/100 × the staged base per hit and stack additively; the bloodline's Water IDG passive (15 + 0.15/level) multiplies the two Water hits on top.",
     "Delivery and uptime: all three jutsu target OTHER_USER at range 4. Sea King's Armor (60 AP, cooldown 7, SINGLE) hits the target for Water damage and gives the caster DDT 30% plus an unsupported 100 shield for two rounds. Crushing Abyss (60 AP, cooldown 7) spawns a circle on the target: Water hit plus 30% exposure to enemies in it; friendly fire ENEMIES on both rows, so no ally hazard. Water Dome (40 AP, cooldown 6, SINGLE) exposes the target 35% and gives the caster unsupported absorb and shield. Buffs and debuffs last 2 rounds.",
     "Fourth purchases: Burst (01,02,03) finishes with Salt in the Wound (exposure 32/37%) or Deepwater Carapace (Armor 35%); Bulwark (01,04,05) with Salt in the Wound or Grip of the Riptide (hits 42/42); Exposure (01,06,07,08) only with Scales of the Deep. No-capstone hybrids: 01,02,04,06 (41/41, 35%, 32/37%), 01,02,06,07 (41/41, 32%, 34/39%) and 01,04,06,07 (39/39, 35%, 34/39%); 01,02,03,04 and 01,02,04,05 stay inside the first root. 8 legal full allocations, all non-dominated, every node used.",
-    "Row-weighted value: 01,06,07,08 is the strongest full allocation at 20 (IDT +7 on two rows, Damage +2 on two, DDT +2 on one), against Taiyo Kami's 31 on nine rows and Shinseina Ki's 26 on six; per supported row (4.0) it sits between them. Lowest-value purchases by row weight are Deepwater Carapace (+3 on one row) and Salt in the Wound (+2 on two rows); Carapace's value is defensive uptime on a 60 AP cast, Salt's is downstream on every hit the exposed enemy takes."
+    "Row-weighted value: 01,06,07,08 is the strongest full allocation at 20 (IDT +7 on two rows, Damage +2 on two, DDT +2 on one), against Taiyo Kami's 31 on nine rows and Shinseina Ki's 26 on six; per supported row (4.0) it sits between them. Lowest-value purchases by row weight are Deepwater Carapace (+3 on one row) and Salt in the Wound (+2 on two rows); Carapace's value is defensive uptime on a 60 AP cast, Salt's is downstream on hits the exposed enemy takes (any under Abyss, Water under Dome)."
   ],
   "risks": [
     "Classification: Water is a basic element carried by 23 census bloodlines (Shinrai Ou, Tetsugan, Shiroi Youso, Teno Yuki and other INCLUDE kits among them) and whether NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carry it is unverified. The tree assumes the bloodline-keyed classification extension; a bare Water element match would leak every node to other Water rows and vice versa.",
     "Resolver: 2 of 5 supported rows (Armor's DDT, Abyss's IDT) have no element and fall back to None under the current resolver, so affectedElements=['Water'] cannot reach them; reaching them through None would also reach every element-less row on any jutsu the player casts. The three Water rows match directly.",
-    "Exposure breadth (user-owned value): with Wrath of the Sea-King both debuffs can sit on one target: Abyss 37% + Dome 42% = 79 points of Increase Damage Taken for two rounds (65 at base), additive per hit, and Abyss's row amplifies allies' hits as well as the caster's. BATTLE_TAG_STACKING is on at the pin. Trim the capstone to +2 (route +6) if double exposure proves too strong.",
-    "Universal opener: every legal full build contains Scales of the Deep because the exposure chain has no other prerequisite-closed fourth purchase. A second Hidden Art under Salt in the Wound was rejected: Damage +2 twins Grip of the Riptide, IDT +2 is dominated by the opener as a fourth purchase, IDT +3 duplicates Dragged Under's totals at 4 BP. Shinseina Ki, Lycanthropy and Shinrai Ou precedent.",
+    "Exposure breadth (user-owned value): with Wrath of the Sea-King both debuffs can sit on one target: Abyss 37% + Dome 42% = 79 points of IDT for two rounds (65 at base) on Water hits only (the caster's two hits, allies' Water jutsu); other allies' hits get Abyss's 37% alone. BATTLE_TAG_STACKING is on at the pin. Trim the capstone to +2 (route +6) if double exposure proves too strong.",
+    "Universal opener: every legal full build contains Scales of the Deep because the exposure chain has no other legal fourth purchase. A second Hidden Art under Salt in the Wound was rejected: Damage +2 twins Grip of the Riptide, IDT +2 would push the two-row IDT route to +9, above its +7 ceiling, IDT +3 duplicates Dragged Under's totals at 4 BP. Shinseina Ki, Lycanthropy and Shinrai Ou precedent.",
     "DDT breadth: Armor's reduction lists all four stat types with no element, so +10 makes it 40% against effectively every non-pierce hit for two of every seven rounds; pierce bypasses it, and the bloodline's Earth Increase Damage Taken 10% passive still applies outside the buff, so the Earth weakness stays. Armor's own 100 shield and Dome's absorb are unsupported and unchanged.",
     "Damage is formula-calculated (sqrt stat scaling) and then multiplied by the bloodline's Water IDG passive and any exposure on the target, so +6 raw power is not linear +6 damage; realized value depends on stats and enemy state. Rank C kit with two 60 AP hits on cooldown 7; no combat simulation was performed.",
-    "Dome's Water-filtered exposure: per the batch-1 reading of getEfficiencyRatio, an element-list row matches same-element and element-less damage, so Dome's 42% would not amplify an ally's Fire or Earth jutsu; if the engine instead requires an element overlap only, Dome's row reaches Water hits alone and Wrath of the Sea-King's realized value drops. Re-read the source before implementation.",
+    "Dome's Water-filtered exposure: the row lists Water with no stat filter, so under getEfficiencyRatio (SOURCE_MECHANICS.md §3) its tag list is [Water]: it matches Water damage only, since an element-list row reaches element-less hits only when its list includes None. Basic attacks, weapons and non-Water jutsu are unaffected by Dome's 42%; only Abyss's row (four stat types, no element) is broad.",
     "Ranked modes: skill-tree and bloodline effects are skipped in RANKED_PVP and RANKED_SPARRING at the pin, so no node applies there."
   ],
   "progression": {
@@ -869,7 +869,7 @@
       "increasedamagetaken"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 1 / Sea-King's Blessing classification / forked tree",
+    "revision": "Draft 2 / Sea-King's Blessing classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed potency classification behavior; not implemented or verified in the live engine.",

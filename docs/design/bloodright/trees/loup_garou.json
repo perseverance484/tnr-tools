@@ -1,6 +1,6 @@
 {
   "title": "Loup-Garou — Blood and Moon",
-  "revision": "Draft 1 / Loup-Garou classification / forked tree",
+  "revision": "Draft 2 / Loup-Garou classification / forked tree",
   "bloodline": {
     "id": "C4q1pAltRIEaI5WrNVAAC",
     "review_id": "BR-042",
@@ -24,7 +24,7 @@
     "primary": "Self amplification — Increase Damage Given (Nature's Hunter self buff)",
     "secondary": "Exposure — Increase Damage Taken (Life reaver) and Damage (Nature's Hunter)",
     "tertiary": "Sustain — Heal (Nature's Hunter)",
-    "rationale": "The kit has four supported rows, one per tag, on two single-target jutsu with cooldown 6: Nature's Hunter (A-rank, 60 AP) carries Damage 40, a 35% Increase Damage Given self buff for 2 rounds and a static Heal 25 (250 HP per tick) for 2 rounds; Life reaver (C-rank, 40 AP) carries a 35% Increase Damage Taken debuff for 2 rounds. The bloodline is Taijutsu with a 15% Taijutsu Increase Damage Given passive, so the self buff is the lever that scales every element-less or Taijutsu hit the wolf lands in its window and is primary. Exposure is the other 2-round window and the one damage row is a single hit every 6 rounds, so they share second place; Heal is held at the +5 guardrail (+50 HP per tick) as tertiary. Absorb on Life reaver and the Wolf Companion summon are unsupported."
+    "rationale": "The kit has four supported rows, one per tag, on two single-target jutsu with cooldown 6: Nature's Hunter (A-rank, 60 AP, Jonin-gated) carries Damage 40, a 35% Increase Damage Given self buff and a static Heal 25 (250 HP per tick), both for the 2 rounds after the cast; Life reaver (C-rank, 40 AP) carries a 35% Increase Damage Taken debuff for the 2 rounds after its cast. Buffs and debuffs never touch their cast round (tags.ts 925/1010) and cooldown 6 keeps the next Nature's Hunter outside the window, so the self buff never reaches the kit's own hit: it is primary because, on a Taijutsu bloodline with a 15% Taijutsu Increase Damage Given passive, it scales every element-less or Taijutsu basic attack, weapon and normal-jutsu hit the wolf lands in those two rounds. Exposure is the other 2-round window and does reach Nature's Hunter when it is cast the round after Life reaver; the one damage row is a single hit every 6 rounds, so they share second place. Heal is held at the +5 guardrail (+50 HP per tick) as tertiary. Absorb on Life reaver and the Wolf Companion summon are unsupported."
   },
   "nodes": [
     {
@@ -46,7 +46,7 @@
         }
       ],
       "flavor": "One drop on the wind and the quarry is already chosen.",
-      "coverage_note": "Life reaver exposure 35→37% (one target, 2 rounds); Nature's Hunter damage 40→41 power. 2 rows, no gates, no adverse rows.",
+      "coverage_note": "Life reaver exposure 35→37% (1 target, 2 rounds); Nature's Hunter damage 40→41 (Jonin-gated jutsu). 2 rows, no item gates, no adverse rows.",
       "parent_rule": "ALL",
       "potency_classification": "Loup-Garou",
       "scope": "Loup-Garou jutsu",
@@ -224,7 +224,7 @@
         }
       ],
       "flavor": "Reason leaves with the first taste of blood; only hunger steers the claws.",
-      "coverage_note": "Nature's Hunter self buff 35→40% with Hunter's Moon; raises every element-less or Taijutsu non-pierce hit the caster lands for 2 rounds.",
+      "coverage_note": "Nature's Hunter self buff 35→40% with Hunter's Moon; raises element-less or Taijutsu non-pierce hits the caster lands in the 2 rounds after.",
       "parent_rule": "ALL",
       "potency_classification": "Loup-Garou",
       "scope": "Loup-Garou jutsu",
@@ -280,7 +280,7 @@
         "03",
         "06"
       ],
-      "rationale": "The +6 power route on Nature's Hunter (40→46 before the Taijutsu Increase Damage Given passive and the buff multiply it) with Scent of Blood's 37% exposure. Hunter's Moon is the fourth purchase so the same cast also buffs 37% and heals 270 HP per tick; Run to Ground (exposure 40%) is the all-offence alternative.",
+      "rationale": "The +6 power route on Nature's Hunter (40→46 raw; the 15% Taijutsu passive then multiplies the hit by 1.15, and Scent of Blood's 37% exposure adds to it when Life reaver was cast the round before). Nature's Hunter's own buff never reaches this hit: it is live only on the two rounds after the cast. Hunter's Moon is the fourth purchase so the same cast also buffs 37% for the following two rounds and heals 270 HP per tick; Run to Ground (exposure 40%) is the all-offence alternative.",
       "cost": 4,
       "bonuses": {
         "damage": 6,
@@ -411,7 +411,7 @@
         "05",
         "06"
       ],
-      "rationale": "Life reaver's exposure at 42% for 2 rounds on one target, amplifying the wolf's and its allies' element-less or Taijutsu hits, with Nature's Hunter's self buff at 40% (3 from the capstone, 2 from Hunter's Moon) and 270 HP heal ticks. Rending Claws (damage 43) is the alternative fourth purchase for a solo hunter.",
+      "rationale": "Life reaver's exposure at 42% for the 2 rounds after its cast on one target, amplifying the wolf's and its allies' element-less or Taijutsu hits there, including Nature's Hunter when it follows a round later; then Nature's Hunter's own buff at 40% (3 from the capstone, 2 from Hunter's Moon) and 270 HP heal ticks for the 2 rounds after that. Rending Claws (damage 43) is the alternative fourth purchase for a solo hunter.",
       "cost": 4,
       "bonuses": {
         "damage": 1,
@@ -542,7 +542,7 @@
         "07",
         "08"
       ],
-      "rationale": "Nature's Hunter's self buff at 43% and heal at 300 HP per tick for its 2 rounds: the werewolf hits harder with everything and shrugs off the trade. Scent of Blood is the only possible fourth purchase (37% exposure, 41 damage); the build has no second route.",
+      "rationale": "Nature's Hunter's self buff at 43% and heal at 300 HP per tick for the 2 rounds after the cast: the werewolf hits harder with every basic attack, weapon and normal jutsu in that window and shrugs off the trade. The buff never reaches Nature's Hunter's own hit, so this route's value is wholly on non-kit hits. Scent of Blood is the only possible fourth purchase (37% exposure, 41 damage); the build has no second route.",
       "cost": 4,
       "bonuses": {
         "damage": 1,
@@ -670,18 +670,19 @@
     "Node split: the roots mirror the kit's two faces. Scent of Blood (enemy-facing) raises Life reaver's exposure and Nature's Hunter's hit, then forks into Rending Claws → Killing Bite (damage) and Run to Ground → The Pack Closes (exposure). Hunter's Moon (self-facing) raises both of Nature's Hunter's self rows and runs one chain through Feral Frenzy → Beast Unchained. 2 Foundations, 3 Hidden Arts, 3 Advanced Arts; every Advanced Art is 3 BP deep; any two cost 5 BP (shared root) or 6 BP.",
     "Damage and IDT flats: Damage reaches one 40-power row, so the route is 1+2+3 = +6 (the guardrail; Dai Kenja's single damage row uses the same total) and the Foundation's +1 is the sliver that keeps the Taiyo +2/+3 Hidden/Advanced shape. Increase Damage Taken is a single row but broad exposure, so it is held to Taiyo Kami's +7 IDT ceiling (2+3+2, 35→42%): the Hidden Art at the single-row +3, the capstone's +2 IDT paired with +3 IDG as in Taiyo's Eternal Noon.",
     "IDG and Heal flats: Increase Damage Given is single-row and the bloodline's theme stat (15% Taijutsu passive), so the Frenzy chain carries 2+3+3 = +8 (35→43%), below the +10 guardrail that Dai Kenja's single IDG row uses, with +3 on The Pack Closes as that route's secondary (maximum 5 there with Hunter's Moon). Heal is single-row raw power at the +5 guardrail (2 on the Foundation, 3 on the capstone): 25→30 power, 250→300 HP per tick, so the self chain cannot be deeper than three nodes.",
-    "Main tree and passives: the 15% Taijutsu IDG passive and Nature's Hunter's own buff each add percentage points of the staged base to a qualifying hit, so +6 power on the 40 row is worth more than +6 after them. The self buff (statTypes Taijutsu, no element) multiplies every element-less damage effect of any stat type the caster deals in its 2 rounds (basic attacks, weapons, non-elemental jutsu) plus Taijutsu elemental hits; not other elemental hits or pierce. Life reaver's exposure filters alike",
-    "Delivery and uptime: both carriers are single-target, range 4, cooldown 6, 350 chakra and 350 stamina. Nature's Hunter costs 60 AP and Life reaver 40 AP, so both fit one round, but whether a same-round buff or debuff already applies to that round's hits was not verified; windows are 2 following rounds. One cast per 6 rounds means at most 2 of 6 rounds carry the buff, heal ticks or exposure. Heal is static ×10 (250 HP per tick); the 10% Increase Heal passive adjusts heal_hp: ~275 now, 330 at +5",
+    "Main tree and passives: the 15% Taijutsu passive is bloodline-sourced, so it multiplies the damage by 1.15 (tags.ts 937-960; gated on allowBloodlineDamageIncrease, true on the Hunter hit); jutsu-sourced buffs and exposure add power/100 of the staged base. +6 raw on the 40 row thus beats +6 final damage. Nature's Hunter's buff never reaches its own hit; it matches element-less hits of any stat type plus Taijutsu elemental hits, never pierce. Life reaver's exposure filters alike.",
+    "Delivery and uptime: both carriers single-target, range 4, cooldown 6; 350 chakra/stamina base, -10 per jutsu level (100 at level 25, floor 0). Buffs/debuffs skip their cast round (tags.ts 925/1010) and live on the 2 following rounds: cast Life reaver (40 AP) in round R, Nature's Hunter (60 AP) in R+1 or R+2 so the hit lands inside the exposure; buff and heal ticks then cover the next 2 rounds. Each window: 2 of 6 rounds. Heal ticks 250 HP (275 after the 10% Increase Heal passive; 330 at +5).",
     "Fourth purchases: Burst (01,02,03) takes Hunter's Moon for a rounded cast (37% buff, 270 HP ticks) or Run to Ground for 40% exposure and no sustain. Exposure (01,04,05) takes Hunter's Moon (buff 40%, heal 270) or Rending Claws (damage 43). Frenzy (06,07,08) can only add Scent of Blood. The hybrids 01,02,04,06 and 01,02,06,07 are legal and non-dominated; 01,04,06,07 is dominated by The Pack Closes build, as expected when a hybrid skips its capstone. Nothing changes AP, cooldown or the summon."
   ],
   "risks": [
     "Classification: every supported row is element-less, so no existing element isolates this kit. Under the current resolver these rows are reachable only with affectedElements including None, which also reaches every non-elemental row on any jutsu the player casts. The tree assumes the proposed bloodline-keyed classification extension (label Loup-Garou). Normal-jutsu collision is unverified.",
-    "Broad self amplification: Beast Unchained puts Nature's Hunter's Increase Damage Given at 43% for 2 rounds; that percentage multiplies every element-less or Taijutsu non-pierce hit the caster lands in the window from any source (basic attacks, weapons, normal jutsu), not only the kit. BATTLE_TAG_STACKING is on at the pin, so it stacks with the 15% Taijutsu passive and other IDG sources.",
-    "Broad enemy exposure: The Pack Closes puts Life reaver's Increase Damage Taken at 42% for 2 rounds on one target; the added points amplify every qualifying hit from the kit, normal jutsu, weapons and allies (element-less hits of any stat type, Taijutsu elemental hits, pierce excluded). It stacks with other exposure on that target. One cast per 6 rounds limits self-stacking.",
-    "Value decision (user-owned): IDG route maximum is +8, not the +10 guardrail Dai Kenja's single IDG row uses, so the self-facing capstone does not out-bid the exposure capstone on the theme stat; +10 (Feral Frenzy +3, Beast Unchained +5) stays inside the guardrail if a stronger Frenzy route is preferred. IDT is held at Taiyo Kami's +7; +8 (Run to Ground +3, The Pack Closes +3) is the alternative.",
-    "Damage is formula-calculated (sqrt stat scaling on Taijutsu / Speed, Strength) and then multiplied by the Taijutsu IDG passive and any active buff or exposure, so +6 raw power is not a linear +6 damage. The damage route is one hit every 6 rounds, so Killing Bite is the weakest capstone in reach (6 raw on 1 row) and is kept only because the kit has no other burst lever.",
+    "Broad self amplification: Beast Unchained puts Nature's Hunter's Increase Damage Given at 43% for the 2 rounds after the cast; it adds 43% of the staged base to every element-less or Taijutsu non-pierce hit the caster lands there (basic attacks, weapons, normal jutsu) and never to the kit's own hit. BATTLE_TAG_STACKING is on, so it stacks with the 15% Taijutsu passive and other IDG sources.",
+    "Broad enemy exposure: The Pack Closes puts Life reaver's Increase Damage Taken at 42% on one target for the 2 rounds after its cast; the added points amplify every qualifying hit from the kit, normal jutsu, weapons and allies (element-less hits of any stat type, Taijutsu elemental hits, pierce excluded). It stacks with other exposure on that target. One cast per 6 rounds limits self-stacking.",
+    "Value decision (user-owned): node for node both capstones carry +3 IDG, but at build level the self route stacks the IDG maximum (+8) and the only Heal maximum (+5) in Beast Unchained (row-weighted 16 vs 15); the exposure route (+7 IDT, +5 IDG, no Heal) is the counterweight. In-guardrail alternatives: IDG +10 (Feral Frenzy +3, Beast Unchained +5) or IDT +8 (Run to Ground +3, The Pack Closes +3).",
+    "Damage route (user-owned): the hit is formula-calculated, x1.15 by the Taijutsu passive, raised by live exposure, never by its own buff; +6 raw is not +6 damage. One hit per 6 rounds leaves Killing Bite the weakest capstone (row-weighted 12 vs 15/16; bare +3 on one row; Dai Kenja's Breaking Point pairs +3 Damage with +2 IDG). Option: a +2 secondary (IDG or IDT) on Killing Bite, Damage kept at +6.",
     "Heal timing and ticks: Nature's Hunter's Heal has rounds 2, so by the heal handler it applies on following rounds, read here as two ticks of power ×10 HP; the tick count and whether the 10% Increase Heal passive adjusts each tick were not simulated. Heal is a self row on an OTHER_USER jutsu, so it needs a legal enemy target to be cast.",
-    "Unsupported rows: the Wolf Companion summon (75% at level 25, marked adverse in the dossier as an enemy-side summon row) and Life reaver's 30% absorb receive nothing. No ally-hazard, hidden, item-gated or mode-restricted rows exist in this kit. No combat simulation was performed."
+    "Unsupported rows: the Wolf Companion summon (75% at level 25, marked adverse in the dossier as an enemy-side summon row) and Life reaver's 30% absorb receive nothing. No ally-hazard, hidden, item-gated or mode-restricted rows exist in this kit. No combat simulation was performed.",
+    "Rank gate: Nature's Hunter is requiredRank JONIN in the snapshot (Life reaver GENIN), so Hunter's Moon, Feral Frenzy, Beast Unchained, Rending Claws and Killing Bite are inert below Jonin, and Scent of Blood, Run to Ground and The Pack Closes act only through Life reaver's exposure until then. A realized-value restriction, not an item gate: the kit has no item gates."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -741,7 +742,7 @@
       "increasedamagetaken"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 1 / Loup-Garou classification / forked tree",
+    "revision": "Draft 2 / Loup-Garou classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed potency classification behavior; not implemented or verified in the live engine.",

@@ -1,6 +1,6 @@
 {
   "title": "Oblivion Seal — Rites of Unmaking",
-  "revision": "Draft 1 / Shadow classification / forked tree",
+  "revision": "Draft 2 / Shadow classification / forked tree",
   "bloodline": {
     "id": "wasIGmDuczwD9PB89gML6",
     "review_id": "BR-053",
@@ -38,7 +38,7 @@
     "primary": "Damage (three Shadow attacks)",
     "secondary": "Increase Damage Taken and Increase Damage Given (Shadowrend exposure, Cursed Beast Form empowerment)",
     "tertiary": "Shadow Surge sustain (Decrease Damage Taken, Lifesteal)",
-    "rationale": "Three of the seven supported rows are Shadow Damage on 60 AP single-target casts (Cursed Beast Form 40, Curse Empowerment 40, Shadow Tether 50 at jutsu level 25) and the bloodline's traits are Burst and Sustained DPS, so offense is the declared primary and the Damage route reaches all three attacks. Shadowrend's 35% Increase Damage Taken (element-less, all four stat types listed) and Cursed Beast Form's 35% Increase Damage Given (Fire, Lightning, Shadow and element-less hits) are the two single-row amplifiers that make those attacks land harder; exposure gets a full route held to the +7 ceiling, empowerment is the Foundation-plus-capstone glue (+5 ceiling). Shadow Surge is the kit's only self-cast (40 AP ground circle) and carries both sustain rows, Decrease Damage Taken 35% and Lifesteal 40%; they are tertiary by kit identity but, being single rows, carry the largest flats (+10 each) under the same points-per-row logic as Taiyo Kami. No Afterburn, Reflect, Heal or Decrease Damage Given rows exist, so none is invented."
+    "rationale": "Three of the seven supported rows are Shadow Damage on 60 AP single-target casts (Cursed Beast Form 40, Curse Empowerment 40, Shadow Tether 50 at jutsu level 25) and the bloodline's traits are Burst and Sustained DPS, so offense is the declared primary and the Damage route reaches all three attacks. Shadowrend's 35% Increase Damage Taken (element-less, all four stat types listed) and Cursed Beast Form's 35% Increase Damage Given (Fire, Lightning, Shadow and element-less hits) are the two single-row amplifiers that make those attacks land harder; exposure gets a full route held to the +7 ceiling, empowerment is the Foundation-plus-capstone glue (+5 ceiling). Shadow Surge is the kit's only self-cast (40 AP, cooldown 7); its Decrease Damage Taken 35% and Lifesteal 40% are SELF rows realized on the caster at cast time as unconditional 2-round buffs, not circle effects. They are tertiary by kit identity but, being single rows, carry the largest flats (+10 each). Decrease Damage Taken mirrors Taiyo Kami's Sovereign Sun route on Celestial Ignition (the same 2/3/5 shape on a 40 AP unconditional self-cast); Lifesteal has no reference analogue, so its +10 is set against the 60% leech cap (50% leaves 10 points of vamp headroom) and is recorded as an open decision in risks. No Afterburn, Reflect, Heal or Decrease Damage Given rows exist, so none is invented."
   },
   "nodes": [
     {
@@ -213,8 +213,8 @@
           "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "Step into the shadow you cast; it keeps you, and it feeds you.",
-      "coverage_note": "Shadow Surge circle: self Decrease Damage Taken 35→37% and Lifesteal 40→42%, active from the round after casting, only while standing in it.",
+      "flavor": "The shadow you cast keeps you, and it feeds you.",
+      "coverage_note": "Shadow Surge cast-time self buffs: Decrease Damage Taken 35→37% and Lifesteal 40→42% on the caster for 2 rounds (40 AP, cooldown 7).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
       "scope": "Oblivion Seal jutsu",
@@ -242,7 +242,7 @@
         }
       ],
       "flavor": "Blows that reach into the void find less and less to strike.",
-      "coverage_note": "Shadow Surge self Decrease Damage Taken only (+3 more: 40% with Umbral Refuge); non-pierce hits; 2-round value re-applied inside the circle.",
+      "coverage_note": "Shadow Surge self Decrease Damage Taken only (+3 more: 40% with Umbral Refuge); non-pierce hits; a 2-round cast-time buff, not positional.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
       "scope": "Oblivion Seal jutsu",
@@ -303,8 +303,8 @@
           "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "The circle drinks whatever the curse spills.",
-      "coverage_note": "Shadow Surge Lifesteal only (+3 more: 45% with Umbral Refuge); heals a share of every hit incl. Shadowrend's pierce; 60% cap shared w/ vamp.",
+      "flavor": "The shade drinks whatever the curse spills.",
+      "coverage_note": "Shadow Surge Lifesteal only (+3 more: 45% with Umbral Refuge); a share of every hit heals, including Shadowrend's pierce; 60% cap with vamp.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
       "scope": "Oblivion Seal jutsu",
@@ -336,8 +336,8 @@
           "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "Stand in the maw and let it swallow every wound you deal and every one you take.",
-      "coverage_note": "Shadow Surge Lifesteal to 50% (route +10, under the 60% cap) and its Decrease Damage Taken +2 (39% with Umbral Refuge; 42% with Veil).",
+      "flavor": "Open the maw and let it swallow every wound you deal and every one you take.",
+      "coverage_note": "Shadow Surge Lifesteal to 50% (route +10, under the 60% cap) and Decrease Damage Taken +2 (39% with Refuge; 42% with Veil); cast-time buffs.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
       "scope": "Oblivion Seal jutsu",
@@ -360,7 +360,7 @@
         "03",
         "06"
       ],
-      "rationale": "The Damage route puts +5 power on all three Shadow attacks (45/45/55 at jutsu level 25) and Brand of Oblivion adds +2 to both the self buff (37%) and Shadowrend's exposure (37%) that frame them. Umbral Refuge is the fourth purchase for a little circle sustain (37% / 42%); Unraveled Wards (01, 02, 03, 04) is the all-offense alternative at 39% exposure.",
+      "rationale": "The Damage route puts +5 power on all three Shadow attacks (45/45/55 at jutsu level 25) and Brand of Oblivion adds +2 to both the self buff (37%) and Shadowrend's exposure (37%) that frame them. Umbral Refuge is the fourth purchase for a little Surge sustain (37% reduction / 42% lifesteal, 2-round self buffs); Unraveled Wards (01, 02, 03, 04) is the all-offense alternative at 39% exposure.",
       "cost": 4,
       "bonuses": {
         "damage": 5,
@@ -845,7 +845,7 @@
         "07",
         "08"
       ],
-      "rationale": "Shadow Surge's circle shaves 45% (+10) off non-pierce hits while the caster stands in it, and the capstone's +3 self buff with Brand of Oblivion makes Cursed Beast Form a 40% window, so the fortress still presses the attack. Hungering Shade (06, 07, 08, 09) is the circle-only alternative: 45% reduction and 45% lifesteal with no Brand.",
+      "rationale": "Shadow Surge's self buff shaves 45% (+10) off non-pierce hits for its 2 rounds after each 40 AP cast, and the capstone's +3 self buff with Brand of Oblivion makes Cursed Beast Form a 40% window, so the fortress still presses the attack. Hungering Shade (06, 07, 08, 09) is the Surge-heavy alternative: 45% reduction, 45% lifesteal and a 38% Cursed Beast Form buff, with no exposure.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
@@ -1087,7 +1087,7 @@
         "09",
         "10"
       ],
-      "rationale": "Lifesteal in the circle reaches 50% (+10, under the 60% leech cap) and heals a share of every hit including Shadowrend's pierce; the capstone's +2 reduction gives 39%, and Brand of Oblivion keeps the 37% buff and exposure in play. Veil of Nothing (06, 07, 09, 10) is the pure Surge turtle: 42% reduction, 50% lifesteal, no offense at all.",
+      "rationale": "Shadow Surge's Lifesteal reaches 50% (+10, under the 60% leech cap) for its 2 rounds and heals a share of every hit including Shadowrend's pierce; the capstone's +2 reduction gives 39%, and Brand of Oblivion keeps the 37% buff and exposure in play. Veil of Nothing (06, 07, 09, 10) is the pure Surge turtle: 42% reduction, 50% lifesteal, no offense at all.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -1324,20 +1324,21 @@
   "narrow_kit_exception": null,
   "design_notes": [
     "Node split: the Damage route (+2 Hidden, +3 Advanced) reaches the three Shadow attacks exactly as Taiyo Kami's does and is the highest row-weighted build (23 on 7 rows; Taiyo 31 on 9). Single-row percentage tags carry the larger flats: Increase Damage Taken is held to the +7 ceiling (2/2/3); Decrease Damage Taken and Lifesteal reach +10 (2/3/5). Increase Damage Given is the Foundation-plus-capstone glue (+2, then +3 on two capstones; +5 ceiling) so no hybrid F+H+F+H allocation is dominated.",
-    "Capstone secondaries never sit on a sibling Hidden Art's tag: Writ of Oblivion and Sealed Against Ruin take +3 Increase Damage Given (no Hidden Art carries it), Maw of Oblivion takes +2 Decrease Damage Taken, below Veil of Nothing's +3, so the lifesteal capstone deepens the circle without out-bidding the fortress Hidden Art. Absolute Erasure is Damage-only, like Solar Cataclysm.",
+    "Capstone secondaries never sit on a sibling Hidden Art's tag: Writ of Oblivion and Sealed Against Ruin take +3 Increase Damage Given (no Hidden Art carries it); Maw of Oblivion takes +2 Decrease Damage Taken, below Veil of Nothing's +3. Absolute Erasure is Damage-only, like Solar Cataclysm. Unraveled Wards is held to +2 on purpose: the exposure route is capped at +7, and after Brand's +2 and Writ's +3 primary, +2 is the remainder; 2/3/2 would rank the Hidden Art above its capstone.",
     "Passives and downstream reach: the bloodline passive (Increase Damage Given 25% + 0.15/level on Lightning, Fire, Shadow, None) is not a potency target, but Cursed Beast Form's buff row has the same element list, so the +5 glue raises the kit's Shadow attacks, Fire and Lightning jutsu, basic attacks and non-elemental jutsu during its 2-round window. Shadowrend's exposure lists all four stat types with no element, so at the pin every non-pierce hit from any source on the exposed target qualifies.",
-    "Delivery: all five jutsu are cooldown 7. Shadowrend, Cursed Beast Form, Curse Empowerment and Shadow Tether are 60 AP, single target, range 4; Shadow Surge is 40 AP, range 5, an EMPTY_GROUND circle whose Decrease Damage Taken and Lifesteal are self rows re-applied each round only to a caster standing in the tiles, from the round after the cast (its move row sorts last). Whether the exposure and buff windows overlap the attacks in practice was not verified against combat timing.",
-    "Fourth purchases: Burst takes Umbral Refuge (circle sustain) or Unraveled Wards (39% exposure); Exposure takes Umbral Refuge or Umbral Claws (+2 power); Fortress takes Brand of Oblivion (40% buff) or Hungering Shade (45% lifesteal, circle only); Sustain takes Brand of Oblivion or Veil of Nothing (42% reduction, circle only). All 14 full-budget allocations are reported by the validator; see the audit for dominance.",
+    "Delivery: all five jutsu are cooldown 7. Shadowrend, Cursed Beast Form, Curse Empowerment and Shadow Tether are 60 AP, single target, range 4. Shadow Surge is a 40 AP, range 5 EMPTY_GROUND circle, but its Decrease Damage Taken and Lifesteal are SELF rows realized on the caster at cast time (actions.ts 980-1004) as unconditional 2-round buffs; the unsupported move row is the only positional row. Whether the buff and exposure windows overlap the attacks was not verified against combat timing.",
+    "Fourth purchases: Burst takes Umbral Refuge (Surge sustain) or Unraveled Wards (39% exposure); Exposure takes Umbral Refuge or Umbral Claws (+2 power); Fortress takes Brand of Oblivion (40% buff) or Hungering Shade (45% lifesteal, 38% buff, no exposure); Sustain takes Brand of Oblivion or Veil of Nothing (42% reduction, no offense). All 14 full-budget allocations are reported by the validator; see the audit for dominance.",
     "Ten nodes are justified by five supported tags on seven rows across four distinct roles (burst, exposure, fortress, sustain); no node is a reskin of another. Pierce (Shadowrend 58), wound, stun, clearprevent and move are unsupported and untouched; no Afterburn, Reflect, Heal, Increase Heal or Decrease Damage Given row exists, so none is invented."
   ],
   "risks": [
     "Classification: Shadow is the single signature element but not exclusive in the census (13 collisions, including INCLUDE bloodlines Blood-Enchanted Eyes, Godstorm Eclipse, Night Parade and Shadow Weaver); the tree assumes a bloodline-scoped whole-kit classification, not a bare Shadow element match. Normal-jutsu Shadow use is unverified; the current resolver matches only 4 of 7 rows directly.",
-    "Shadow Surge uptime: both root-B rows are SELF rows on an EMPTY_GROUND AOE_CIRCLE_SPAWN. Per the ground-circle reading they reach the caster from the round after the cast and only while standing in the circle; the move row's exact relocation (power 1) was not read, so whether every cast lands the caster inside the circle is unproven. Five nodes depend on standing still; nothing was simulated.",
+    "Shadow Surge timing: Decrease Damage Taken and Lifesteal are SELF rows, realized on the caster at cast time for 2 rounds, not tied to the circle. Whether that window counts the cast round, and so whether a 40 AP Surge followed by a 60 AP attack in the same rotation lands inside it, was not verified; the move row (power 1) is unsupported and irrelevant to potency. Nothing was simulated.",
     "Lifesteal budget: the 60%-of-pre-shield-damage leech cap is shared with vamp. 50% leaves 10 points of headroom, so any vamp from equipment or the main tree saturates the capstone's value. Lifesteal does include pierce hits, so Shadowrend's 58 pierce feeds it; healprevent on the caster blocks it entirely.",
     "Increase Damage Taken reach: Shadowrend's exposure (element-less, all four stat types) amplifies every non-pierce hit the target takes for its 2 rounds from any source, including allies, weapons and normal jutsu, so the Exposure build's low row-weight (16) understates it. Damage modifiers skip pierce, so Shadowrend's own pierce row does not benefit from the exposure it applies.",
     "Increase Damage Given stacking: the +5 glue adds statically to a 35% self buff that stacks with the bloodline passive (bloodline-sourced modifiers multiply and honour allowBloodlineDamageIncrease) and any main-tree or gear modifiers; BATTLE_TAG_STACKING is true at the pin. Combined final damage was not simulated.",
     "Realized value: four of five casts cost 60 AP and all share cooldown 7, so the 2-round exposure and buff windows rarely cover all three attacks in one rotation; per-row numbers overstate per-round value. Whether a buff applied by Cursed Beast Form affects that same cast's damage row was not verified.",
-    "Shadowrend's pierce (58 at jutsu level 25) is the kit's largest hit and is unsupported; no node changes it. Only Lifesteal (root B) interacts with it."
+    "Shadowrend's pierce (58 at jutsu level 25) is the kit's largest hit and is unsupported; no node changes it. Only Lifesteal (root B) interacts with it.",
+    "Open decision (user-owned): Lifesteal +10 makes Maw of Oblivion an unconditional 50% leech on every hit, Shadowrend's 58 pierce included, for 2 rounds per 40 AP, cooldown-7 cast; it is within the +10% guardrail but has no Taiyo Kami analogue. Kept at 2/3/5 pending ruling; the trim option is 2/3/4 (+9, 49%)."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1400,7 +1401,7 @@
       "lifesteal"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 1 / Shadow classification / forked tree",
+    "revision": "Draft 2 / Shadow classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed potency classification behavior; not implemented or verified in the live engine.",

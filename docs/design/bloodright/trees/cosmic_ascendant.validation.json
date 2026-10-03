@@ -9,7 +9,7 @@
     "statClassification": "Highest",
     "traits": "Burst, Defensive "
   },
-  "revision": "Draft 1 / Cosmic Ascendant classification / forked tree",
+  "revision": "Draft 2 / Cosmic Ascendant classification / forked tree",
   "structure_errors": [],
   "warnings": [],
   "classification": {
@@ -80,7 +80,7 @@
         "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 7
+        "decreasedamagetaken": 6
       },
       "advanced_arts": [
         "Heart of the Singularity"
@@ -135,7 +135,7 @@
       "increasedamagegiven": 5,
       "decreasedamagegiven": 5,
       "increasedamagetaken": 5,
-      "decreasedamagetaken": 7,
+      "decreasedamagetaken": 6,
       "afterburn": 10,
       "lifesteal": 8
     },
@@ -272,8 +272,8 @@
         "name": "Heart of the Singularity",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 12,
+        "raw_flat_total": 5,
+        "row_weighted_total": 9,
         "covered_jutsu": [
           "Cosmic Aura",
           "Cosmic Chains",
@@ -316,20 +316,21 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "06",
-        "07",
-        "08"
+        "04",
+        "05",
+        "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 7
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10
       },
-      "raw_flat_total": 16,
-      "row_weighted_total": 32,
+      "raw_flat_total": 21,
+      "row_weighted_total": 30,
       "advanced_arts": [
-        "08"
+        "05"
       ],
       "non_dominated": true
     },
@@ -539,10 +540,10 @@
           "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 7
+          "decreasedamagetaken": 6
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 32,
+        "raw_flat_total": 15,
+        "row_weighted_total": 29,
         "advanced_arts": [
           "08"
         ],
@@ -598,11 +599,11 @@
         "bonuses": {
           "increasedamagegiven": 3,
           "decreasedamagegiven": 2,
-          "decreasedamagetaken": 7,
+          "decreasedamagetaken": 6,
           "lifesteal": 3
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 29,
+        "raw_flat_total": 14,
+        "row_weighted_total": 26,
         "advanced_arts": [
           "08"
         ],

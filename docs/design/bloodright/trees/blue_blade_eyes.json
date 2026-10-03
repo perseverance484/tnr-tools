@@ -1,6 +1,6 @@
 {
   "title": "Blue Blade Eyes — Edge of Sapphire",
-  "revision": "Draft 1 / Ice classification / forked tree",
+  "revision": "Draft 2 / Ice classification / forked tree",
   "bloodline": {
     "id": "clh4d6qo4000itb0hrx8t06wq",
     "review_id": "BR-015",
@@ -261,7 +261,7 @@
         }
       ],
       "flavor": "Hoarfrost thickens on the skin until steel slides off it.",
-      "coverage_note": "DDT 37→40% with Unblinking Sapphire on Sapphire Command and Quintessential Flake's tile (from the next round); both ungated 40 AP casts.",
+      "coverage_note": "DDT 37→40% with Unblinking Sapphire on Sapphire Command and Quintessential Flake (both self rows, cast round); both ungated 40 AP casts.",
       "parent_rule": "ALL",
       "potency_classification": "Ice",
       "scope": "Blue Blade Eyes jutsu",
@@ -1242,7 +1242,7 @@
         "07",
         "08"
       ],
-      "rationale": "The only route with no weapon dependency: both ungated Decrease Damage Taken rows reach 43% (Sapphire Command self buff; Quintessential Flake's tile from the round after the dash) and the three exposure rows reach 40% (Sapphire Command ungated; Blade Resonance, Arctic Frost on the Blue Blade). Sapphire Edge is the fourth purchase for 37% self damage buffs and 32% suppression; Thirst of the Frost (lifesteal 43%) is the sustain alternative.",
+      "rationale": "The only route with no weapon dependency: both ungated Decrease Damage Taken rows reach 43% (both self buffs applied on the cast round for two rounds; Quintessential Flake's is not tile-bound) and the three exposure rows reach 40% (Sapphire Command ungated; Blade Resonance, Arctic Frost on the Blue Blade). Sapphire Edge is the fourth purchase for 37% self damage buffs and 32% suppression; Thirst of the Frost (lifesteal 43%) is the sustain alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -2090,19 +2090,19 @@
   "narrow_kit_exception": null,
   "design_notes": [
     "Node split: Sapphire Edge (IDG + DDG) is the Threefold Gaze root, forking into raw power (Honed Crescent → Stroke That Splits Stone) and suppression (Frostbitten Grip → Numb to the Marrow). Unblinking Sapphire (IDT + DDT, both on the ungated Sapphire Command) is the ungated / Blue Blade root, forking into guard (Hoarfrost Bulwark → Glacier Does Not Yield) and drain (Thirst of the Frost → Winter Takes Its Due). 2F/4H/4A; every Advanced Art is 3 BP deep; any two Advanced Arts cost 5 or 6 BP.",
-    "Calibration by coverage: Damage +2/+3 (max +5) because it reaches five rows (25 row-weighted; Taiyo 15 on three). IDG glue only (+2 Foundation, +3 capstone secondary; max +5 on four rows). IDT glue only (+2 Foundation, +3 on either root-B capstone; max +5 on three rows). DDT +2/+3/+3 = +8 on two ungated rows (43%). DDG +2/+3/+4 = +9 on one gated AOE row (39%), under Taiyo's +10 per D5(b). Lifesteal +3/+5 = +8 on one gated row (48%). Foundations 10 row-weighted each; capstones 14–16.",
+    "Calibration by coverage: Damage +2/+3 (max +5): all five Ice rows are gated and only three (Gaze) or two (Blue Blade) are castable per weapon, so +5 on the castable set matches Taiyo's +5 on three ungated rows; that castable-count discount is how D5(b) is applied. IDG/IDT glue only (+2 Foundation, +3 capstone secondary; max +5). DDT +2/+3/+3 = +8 on two ungated rows (43%). DDG +2/+3/+4 = +9 on one gated AOE row (39%), under Taiyo's +10 per D5(b). Lifesteal +3/+5 = +8 on one gated row (48%).",
     "Item gates (D5): six of eight jutsu need The Threefold Gaze (Icebound Might, Glacial Volley, Ice Shackles) or The Blue Blade (Blade Resonance, Blue Crimson, Arctic Frost); both are HAND-slot weapons (41_INDEX_item.json), not keystones; dual wielding was not read at the pin. Castable rows: Gaze = Damage 3, IDG 2, DDG 1, IDT 1, DDT 2; Blue Blade = Damage 2, IDG 3, IDT 3, DDT 2, Lifesteal 1; no weapon = IDG 1, IDT 1, DDT 2. The ungated jutsu are buffs: no attack without a weapon.",
     "Resolver: the 25% + 0.15/level IDG passive multiplies enhanced Damage rows downstream. Nine of eleven buff/debuff rows have a stat filter but no element, so getEfficiencyRatio (SOURCE_MECHANICS §3) matches them to every element-less hit and to elemental hits of a listed stat type; they act on Ice hits, normal jutsu, weapons and basic attacks alike. Blade Resonance IDT and Arctic Frost IDG carry Earth/Ice/None/Water/Wind. IDG/IDT/DDG/DDT skip pierce; lifesteal includes it.",
-    "Delivery: every jutsu has cooldown 7; damage casts cost 60 AP, the rest 40 AP; percentage rows last 2 rounds. Quintessential Flake targets EMPTY_GROUND with a move row that sorts last, so its guard and damage buff reach the caster from the following round and only while standing on the tile. Icebound Might's AOE Damage row (friendly fire none = ALL) is the one ally-hazard row; its suppression row is ENEMIES-only. Sapphire Command's exposure lands on whichever single unit it is cast on.",
-    "Fourth purchases: Burst takes Unblinking Sapphire (37% exposure/guard) or Frostbitten Grip (35% suppression); Suppression takes Unblinking Sapphire or Honed Crescent (+2 power); Bulwark takes Sapphire Edge (37% buffs) or Thirst of the Frost (43% leech); Drain takes Hoarfrost Bulwark (40% guard) or Sapphire Edge. All 14 full-budget allocations are non-dominated and every node is used. Strongest unadvertised: Stroke That Splits Stone + Frostbitten Grip (+5 power, 35% suppression, no guard)."
+    "Delivery: cooldown 7 on every jutsu; damage casts cost 60 AP, the rest 40 AP; percentage rows last 2 rounds. Quintessential Flake targets EMPTY_GROUND, but its guard and damage buff are SELF rows applied to the caster at cast time, not through the tile (actions.ts 980-1004); only the unsupported move row is tile-based (sorts last; the caster relocates after the cast). Icebound Might's AOE Damage row (friendly fire none = ALL) is the one ally-hazard row; its suppression row is ENEMIES-only.",
+    "Fourth purchases: Burst adds Unblinking Sapphire or Frostbitten Grip; Suppression adds Unblinking Sapphire or Honed Crescent; Bulwark adds Sapphire Edge or Thirst of the Frost; Drain adds Hoarfrost Bulwark or Sapphire Edge. All 14 allocations are non-dominated; every node is used. Strongest unadvertised by row weight (39): Sapphire Edge, Honed Crescent, Frostbitten Grip, Numb to the Marrow; Stroke That Splits Stone + Frostbitten Grip is the strongest unadvertised Damage build."
   ],
   "risks": [
     "Classification: Ice is not exclusive: Hyouga Yui and Teno Yuki (INCLUDE), Blue Edge Eyes (EXCLUDE) and five DEFER records carry Ice rows; the normal-jutsu collision is unverified. Today 7 of 16 supported rows match Ice directly and 9 fall back to None, which also reaches non-elemental rows on any jutsu. The tree assumes a bloodline-scoped classification and is inert or leaky without it.",
     "Item gates: 12 of 16 supported rows need The Threefold Gaze or The Blue Blade (HAND-slot weapons). All Damage, DDG and Lifesteal rows are gated: Burst gets +5 on three rows (Gaze) or two (Blue Blade), Suppression needs the Gaze, Drain the Blue Blade; only Bulwark is fully ungated. If both can be wielded at once (not read at the pin), all five Damage rows are live; trim the capstone to +2.",
-    "Ally hazard: Icebound Might row 0 (Damage, AOE_CIRCLE_SPAWN, friendly fire none = ALL) hits allies and the caster in the circle; Honed Crescent and Stroke That Splits Stone raise that to 42/45 for all inside. Blue Crimson's Damage row is ENEMIES-only (its wound hazard is unsupported). Sapphire Command's exposure row (friendly fire none, single target) exposes an ally at 37–40% if cast on one.",
-    "IDG stacking: four separate self rows each reach 40% at the route maximum, BATTLE_TAG_STACKING is true at the pin, and the 25% + 0.15/level passive multiplies on top; a Blue Blade caster can stack three of them in one window for 160 AP. Flats were held to +5 total; the ceiling was not simulated. Normal-tree potency policy is unapproved, so a combined stacking audit is still required.",
+    "Ally hazard: Icebound Might row 0 (Damage, AOE_CIRCLE_SPAWN, friendly fire none = ALL) hits allies in the circle, never the caster; Honed Crescent and Stroke That Splits Stone raise that to 42/45 for allies inside. Blue Crimson's Damage row is ENEMIES-only (its wound row is unsupported). Sapphire Command's exposure row (friendly fire none, single target) exposes an ally at 37–40% if cast on one.",
+    "IDG stacking: four separate self rows each reach 40% at the route maximum, BATTLE_TAG_STACKING is true at the pin, and the 25% + 0.15/level passive multiplies on top; a Blue Blade caster can stack three of them in one window for 140 AP (200 AP for all four if dual-wielded). Flats held at +5; not simulated. Normal-tree potency is unapproved; a combined stacking audit is still required.",
     "Lifesteal: Arctic Frost's leech reaches 48% of every hit landed in its two-round window (all four stat types, no element: Ice hits, normal jutsu, weapons and basic attacks qualify; pierce included). It shares the 60%-of-pre-shield-damage budget with vamp; the kit has no vamp row, so other leech saturates after 12 more points. Needs both combatants alive; healprevent on the caster blocks it.",
-    "Suppression and guard: DDG is one AOE row on a 60 AP, cooldown-7, Gaze-gated cast (39% at the maximum; value depends on enemies in the circle). DDT is two 35% rows on 40 AP casts; both at the route maximum give 86% reduction on matching hits in the overlapping rounds, which is why the route stops at +8. Quintessential Flake's guard needs the caster to stay on the spawned tile.",
+    "Suppression and guard: DDG is one AOE row on a 60 AP, cooldown-7, Gaze-gated cast (39% at the maximum; value depends on enemies in the circle). DDT is two 35% SELF rows on 40 AP casts applied on the cast round (Quintessential Flake's is not tile-bound), so the overlap is reliable: at the route maximum they give 86% reduction on matching hits in shared rounds, which is why the route stops at +8.",
     "No adverse rows, hidden rows, mode restrictions or injected children exist; the unsupported shield, buffprevent, stun, wound, move and redirection rows are unchanged and pierce is absent. Skill-tree and bloodline effects are suppressed in ranked modes. No combat simulation: non-dominance of the 14 allocations is an arithmetic result over per-row additions, not evidence of equal combat strength.",
     "Rank context: Blue Blade Eyes is an S-rank bloodline with a 28.75% Increase Damage Given passive at jutsu level 25 and a 100 regen bonus; this tree equalises marginal opportunity against the reference, not final strength. Cross-bloodline comparison is deferred to the roster review."
   ],
@@ -2170,7 +2170,7 @@
       "lifesteal"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 1 / Ice classification / forked tree",
+    "revision": "Draft 2 / Ice classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed potency classification behavior; not implemented or verified in the live engine.",

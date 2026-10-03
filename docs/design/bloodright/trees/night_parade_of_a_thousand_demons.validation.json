@@ -1,0 +1,805 @@
+{
+  "kind": "bloodright_tree_validation",
+  "slug": "night_parade_of_a_thousand_demons",
+  "bloodline": {
+    "id": "r_99Xg8SIOYw2awCMSR7e",
+    "review_id": "BR-051",
+    "name": "Night Parade of A Thousand Demons",
+    "rank": "H",
+    "statClassification": "Highest",
+    "traits": "Summoning "
+  },
+  "revision": "Draft 1 / Shadow classification / forked tree",
+  "structure_errors": [],
+  "warnings": [
+    "ally-hazard area rows amplified (friendly fire none/ALL): Oni Hammer Swing#1"
+  ],
+  "classification": {
+    "potency_classification": "Shadow",
+    "label_kind": "element",
+    "bloodline": "Night Parade of A Thousand Demons",
+    "display_element": "Shadow",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Night Parade of A Thousand Demons jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": [
+      "Adorable Shadow of Death",
+      "Blood-Enchanted Eyes",
+      "Blood-Enshrined Eyes",
+      "Blood-Enthralled Eyes",
+      "Extinction Herald",
+      "Godstorm Eclipse",
+      "Infernal Reaper",
+      "Kusamochi: Mashumaro Executioner",
+      "Lilac Seductress",
+      "Oblivion Seal",
+      "Otaku of the Dark Maiden",
+      "Sacrament of Crimson Hunger",
+      "Shadow Weaver"
+    ]
+  },
+  "examples": [
+    {
+      "name": "Feast of a Thousand Mouths",
+      "archetype": "Sustain",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagetaken": 5,
+        "lifesteal": 8
+      },
+      "advanced_arts": [
+        "Feast of a Thousand Mouths"
+      ]
+    },
+    {
+      "name": "Barred Gate of Yomi",
+      "archetype": "Fortress",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 10,
+        "lifesteal": 2
+      },
+      "advanced_arts": [
+        "Barred Gate of Yomi"
+      ]
+    },
+    {
+      "name": "March of a Thousand Demons",
+      "archetype": "Burst",
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "01"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 6,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 2
+      },
+      "advanced_arts": [
+        "March of a Thousand Demons"
+      ]
+    },
+    {
+      "name": "Toll of the Night Bell",
+      "archetype": "Pressure",
+      "ids": [
+        "06",
+        "09",
+        "10",
+        "07"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 3,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 7
+      },
+      "advanced_arts": [
+        "Toll of the Night Bell"
+      ]
+    }
+  ],
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 6,
+      "increasedamagegiven": 5,
+      "decreasedamagegiven": 5,
+      "increasedamagetaken": 7,
+      "decreasedamagetaken": 10,
+      "lifesteal": 8
+    },
+    "supported_rows_in_kit": 7,
+    "supported_rows_by_tag": {
+      "damage": 2,
+      "decreasedamagegiven": 1,
+      "decreasedamagetaken": 1,
+      "increasedamagegiven": 1,
+      "increasedamagetaken": 1,
+      "lifesteal": 1
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagegiven",
+      "decreasedamagetaken",
+      "increasedamagegiven",
+      "increasedamagetaken",
+      "lifesteal"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "node_values": [
+      {
+        "id": "01",
+        "name": "Hour of the Ox",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 4,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Otherworldly Conduit"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "02",
+        "name": "Hungry Ghost's Draught",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Otherworldly Conduit"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "Feast of a Thousand Mouths",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 8,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Otherworldly Conduit"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "04",
+        "name": "Hide of the Oni",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Otherworldly Conduit"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "05",
+        "name": "Barred Gate of Yomi",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 7,
+        "row_weighted_total": 7,
+        "covered_jutsu": [
+          "Otherworldly Conduit"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "06",
+        "name": "Oni's Heavy Hand",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 3,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Oni Hammer Swing",
+          "Possessing Yurei"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "07",
+        "name": "Grip of the Yurei",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Oni Hammer Swing",
+          "Possessing Yurei"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "08",
+        "name": "March of a Thousand Demons",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Oni Hammer Swing",
+          "Possessing Yurei"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "09",
+        "name": "Marked by the Herald",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Herald of the Black Night"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "10",
+        "name": "Toll of the Night Bell",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 7,
+        "row_weighted_total": 7,
+        "covered_jutsu": [
+          "Herald of the Black Night",
+          "Oni Hammer Swing"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      }
+    ],
+    "strongest_full_build_by_row_weight": {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 2,
+        "lifesteal": 8
+      },
+      "raw_flat_total": 18,
+      "row_weighted_total": 19,
+      "advanced_arts": [
+        "03"
+      ],
+      "non_dominated": true
+    },
+    "lowest_value_node_by_row_weight": {
+      "id": "02",
+      "name": "Hungry Ghost's Draught",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 3,
+      "row_weighted_total": 3,
+      "covered_jutsu": [
+        "Otherworldly Conduit"
+      ],
+      "covered_rows": 1,
+      "adverse_rows_amplified": [],
+      "tags_without_rows": []
+    },
+    "full_builds": [
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "decreasedamagetaken": 5,
+          "lifesteal": 8
+        },
+        "raw_flat_total": 18,
+        "row_weighted_total": 18,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increasedamagegiven": 5,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 2,
+          "lifesteal": 8
+        },
+        "raw_flat_total": 18,
+        "row_weighted_total": 19,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagetaken": 10,
+          "lifesteal": 5
+        },
+        "raw_flat_total": 17,
+        "row_weighted_total": 17,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 5,
+          "lifesteal": 3
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 14,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 3,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 2,
+          "lifesteal": 3
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 15,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 3,
+          "decreasedamagetaken": 2,
+          "lifesteal": 3
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 14,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 10,
+          "lifesteal": 2
+        },
+        "raw_flat_total": 17,
+        "row_weighted_total": 18,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 3,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 15,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 3,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 14,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "damage": 6,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 18,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 3,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 3,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 15,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 5,
+          "increasedamagetaken": 7,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 17,
+        "row_weighted_total": 18,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 6,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 3
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 17,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "damage": 3,
+          "decreasedamagegiven": 5,
+          "increasedamagetaken": 7
+        },
+        "raw_flat_total": 15,
+        "row_weighted_total": 18,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      }
+    ],
+    "legal_allocations": {
+      "0": [
+        []
+      ],
+      "1": [
+        [
+          "01"
+        ],
+        [
+          "06"
+        ]
+      ],
+      "2": [
+        [
+          "01",
+          "02"
+        ],
+        [
+          "01",
+          "04"
+        ],
+        [
+          "01",
+          "06"
+        ],
+        [
+          "06",
+          "07"
+        ],
+        [
+          "06",
+          "09"
+        ]
+      ],
+      "3": [
+        [
+          "01",
+          "02",
+          "03"
+        ],
+        [
+          "01",
+          "02",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "06",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "06",
+          "09",
+          "10"
+        ]
+      ],
+      "4": [
+        [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "09",
+          "10"
+        ]
+      ]
+    }
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "combat_simulation_performed": false,
+  "live_mutations": 0
+}

@@ -1,0 +1,1572 @@
+{
+  "title": "Teno Yuki — Court of Heaven's Snow",
+  "revision": "Draft 1 / Ice classification / forked tree",
+  "bloodline": {
+    "id": "clh4d6qjs000gtb0hr357gjvv",
+    "review_id": "BR-077",
+    "name": "Teno Yuki",
+    "rank": "A",
+    "statClassification": "Genjutsu",
+    "traits": "Control, Defensive"
+  },
+  "classification": {
+    "potency_classification": "Ice",
+    "label_kind": "element",
+    "bloodline": "Teno Yuki",
+    "display_element": "Ice",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Teno Yuki jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": [
+      "Blue Blade Eyes",
+      "Blue Edge Eyes",
+      "First Flame",
+      "Hyouga Yui",
+      "Itzehecayan",
+      "The Abbynomaly",
+      "True North"
+    ]
+  },
+  "emphasis": {
+    "primary": "Control (Increase Damage Taken 35% on Ice Palace's circle; Decrease Damage Given 30% on Ice Coffin)",
+    "secondary": "Burst offense (Damage on three Ice rows at 40/40/45; Increase Damage Given 35% on Frostbound Ascendancy)",
+    "tertiary": "Self preservation (Decrease Damage Taken 35% and Heal 25 on Cryostorm Aegis)",
+    "rationale": "Teno Yuki is an A-rank Genjutsu bloodline with the Control and Defensive traits, and its supported rows split the same way: two enemy debuffs on the 60 AP attack casts (Ice Palace exposure, Ice Coffin suppression), three Ice Damage rows at 45/40/40 (Imperial Freeze, Ice Coffin, Ice Palace) under a 25% + 0.15/level Increase Damage Given passive, a single 35% self damage buff on Frostbound Ascendancy, and the kit's only guard and heal both on the 40 AP Cryostorm Aegis. Control is declared primary because exposure and suppression are the rows that make the Genjutsu kit a pressure tool; Damage is the broadest tag (three rows) and anchors the burst route; the Aegis rows are the tertiary sustain route. Stun, absorb and recoil are unsupported and untouched."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "First Snow of Heaven",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "The first flakes settle without a sound; by morning the court belongs to winter.",
+      "coverage_note": "IDG 35→37% on Frostbound Ascendancy (self, at cast); IDT 35→37% on Ice Palace's circle (enemy, 2 rounds; allies inside also exposed).",
+      "parent_rule": "ALL",
+      "potency_classification": "Ice",
+      "scope": "Teno Yuki jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Frostbound Ascendancy",
+          "Ice Palace"
+        ],
+        "effect_rows": 2,
+        "ally_hazard_rows": [
+          "Ice Palace#1"
+        ]
+      }
+    },
+    {
+      "id": "02",
+      "name": "Killing Frost",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "One cold night is enough. Nothing green survives it.",
+      "coverage_note": "Damage 45→47 on Imperial Freeze; 40→42 on Ice Coffin and Ice Palace (Ice, Genjutsu-scaled, 60 AP). Palace's row hits allies in the circle.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ice",
+      "scope": "Teno Yuki jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Ice Coffin",
+          "Ice Palace",
+          "Imperial Freeze"
+        ],
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Ice Palace#0"
+        ]
+      }
+    },
+    {
+      "id": "03",
+      "name": "Reign of Absolute Zero",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "At the bottom of the cold nothing moves, nothing resists, nothing is spared.",
+      "coverage_note": "Route total +5: Imperial Freeze 45→50, Ice Coffin and Ice Palace 40→45 on the same three Ice Damage rows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ice",
+      "scope": "Teno Yuki jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Ice Coffin",
+          "Ice Palace",
+          "Imperial Freeze"
+        ],
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Ice Palace#0"
+        ]
+      }
+    },
+    {
+      "id": "04",
+      "name": "Hairline Fracture",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Every surface the frost touches is already fractured; it only waits for the blow.",
+      "coverage_note": "Ice Palace IDT 37→40% with First Snow of Heaven (one AOE row, 2 rounds, 60 AP, cooldown 7); the kit's only exposure row.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ice",
+      "scope": "Teno Yuki jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Ice Palace"
+        ],
+        "effect_rows": 1,
+        "ally_hazard_rows": [
+          "Ice Palace#1"
+        ]
+      }
+    },
+    {
+      "id": "05",
+      "name": "Court of Splintered Ice",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "The palace shatters around the condemned; every shard carries the sovereign's will.",
+      "coverage_note": "Ice Palace IDT 45% on the full route (Ice, Water, Wind and element-less hits); Frostbound Ascendancy IDG 40% with First Snow of Heaven.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ice",
+      "scope": "Teno Yuki jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Frostbound Ascendancy",
+          "Ice Palace"
+        ],
+        "effect_rows": 2,
+        "ally_hazard_rows": [
+          "Ice Palace#1"
+        ]
+      }
+    },
+    {
+      "id": "06",
+      "name": "Vigil of Winter",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "The watch is kept in silence and frost; the gate does not open.",
+      "coverage_note": "DDT 35→37% on Cryostorm Aegis (self, 40 AP, 2 rounds); DDG 30→32% on Ice Coffin (single enemy, 60 AP, 2 rounds).",
+      "parent_rule": "ALL",
+      "potency_classification": "Ice",
+      "scope": "Teno Yuki jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Cryostorm Aegis",
+          "Ice Coffin"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "07",
+      "name": "Permafrost Mantle",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Ground that has not thawed in a thousand years does not give way to a blade.",
+      "coverage_note": "Cryostorm Aegis DDT 37→40% with Vigil of Winter (one self row, all four stat types, no element: every non-pierce hit taken).",
+      "parent_rule": "ALL",
+      "potency_classification": "Ice",
+      "scope": "Teno Yuki jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Cryostorm Aegis"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "08",
+      "name": "Still Heart of Winter",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "heal",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Beneath the snow the heart slows, mends, and endures until the thaw that never comes.",
+      "coverage_note": "Cryostorm Aegis DDT 45% on the full route; its Heal 25→28 power (250→280 HP per tick on the two following rounds), both on one 40 AP cast.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ice",
+      "scope": "Teno Yuki jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Cryostorm Aegis"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "09",
+      "name": "Cold Saps the Will",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Numb hands, slow thoughts, a blow that lands without conviction.",
+      "coverage_note": "Ice Coffin DDG 32→35% with Vigil of Winter (one single-target row, 2 rounds, 60 AP); the kit's only suppression row.",
+      "parent_rule": "ALL",
+      "potency_classification": "Ice",
+      "scope": "Teno Yuki jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Ice Coffin"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "10",
+      "name": "Silence of Falling Snow",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "09"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "heal",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Snow deadens every sound. The enemy's fury arrives as a whisper; you are already healing.",
+      "coverage_note": "Ice Coffin DDG 40% on the full route (one single-target row); Cryostorm Aegis Heal 25→27 power (270 HP per tick, two ticks per cast).",
+      "parent_rule": "ALL",
+      "potency_classification": "Ice",
+      "scope": "Teno Yuki jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Cryostorm Aegis",
+          "Ice Coffin"
+        ],
+        "effect_rows": 2
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Reign of Absolute Zero Burst",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "The +5 power route on all three Ice Damage rows (Imperial Freeze 45→50, Ice Coffin and Ice Palace 40→45) with Frostbound Ascendancy's self buff at 37% and Ice Palace's exposure at 37%, so the Palace-then-Freeze sequence lands on an exposed, Genjutsu-scaled target. Vigil of Winter is the fourth purchase for a 37% Aegis guard and 32% Coffin suppression; Hairline Fracture (Palace exposure 40%) is the all-offense alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Cryostorm Aegis",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cryostorm Aegis",
+          "row": 1,
+          "tag": "heal",
+          "label": "Heal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "static",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Imperial Freeze",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Ice"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 5,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Imperial Freeze",
+          "row": 1,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Coffin",
+          "row": 0,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Coffin",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Ice"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Frostbound Ascendancy",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Ice",
+            "None",
+            "Water",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Frostbound Ascendancy",
+          "row": 1,
+          "tag": "absorb",
+          "label": "absorb",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Frostbound Ascendancy",
+          "row": 2,
+          "tag": "recoil",
+          "label": "recoil",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Palace",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Ice"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Palace",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Ice",
+            "None",
+            "Water",
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Reign of Absolute Zero"
+      ]
+    },
+    {
+      "name": "Court of Splintered Ice Exposure",
+      "archetype": "Exposure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "rationale": "Ice Palace exposes every enemy in its circle at 45% for two rounds while Frostbound Ascendancy's self buff sits at 40% on top of the bloodline passive, multiplying every Ice, Water, Wind or element-less hit the caster and allies land in the window. Vigil of Winter is the fourth purchase for 37% guard and 32% suppression; Killing Frost (+2 power on three rows) is the offensive alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Cryostorm Aegis",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cryostorm Aegis",
+          "row": 1,
+          "tag": "heal",
+          "label": "Heal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "static",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Imperial Freeze",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Ice"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Imperial Freeze",
+          "row": 1,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Coffin",
+          "row": 0,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Coffin",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Ice"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Frostbound Ascendancy",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Ice",
+            "None",
+            "Water",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Frostbound Ascendancy",
+          "row": 1,
+          "tag": "absorb",
+          "label": "absorb",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Frostbound Ascendancy",
+          "row": 2,
+          "tag": "recoil",
+          "label": "recoil",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Palace",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Ice"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Palace",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Ice",
+            "None",
+            "Water",
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Court of Splintered Ice"
+      ]
+    },
+    {
+      "name": "Still Heart of Winter Bulwark",
+      "archetype": "Bulwark",
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "01"
+      ],
+      "rationale": "Cryostorm Aegis becomes a 45% guard against every non-pierce hit for two rounds and heals 280 HP on each of the two following rounds, all from one 40 AP cast. First Snow of Heaven is the fourth purchase so the kit keeps 37% exposure and a 37% self damage buff for the counterattack; Cold Saps the Will (Coffin suppression 35%) is the pure-defense alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10,
+        "heal": 3
+      },
+      "finals": [
+        {
+          "jutsu": "Cryostorm Aegis",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cryostorm Aegis",
+          "row": 1,
+          "tag": "heal",
+          "label": "Heal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 3,
+          "final": 28.0,
+          "calculation": "static",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Imperial Freeze",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Ice"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Imperial Freeze",
+          "row": 1,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Coffin",
+          "row": 0,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Coffin",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Ice"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Frostbound Ascendancy",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Ice",
+            "None",
+            "Water",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Frostbound Ascendancy",
+          "row": 1,
+          "tag": "absorb",
+          "label": "absorb",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Frostbound Ascendancy",
+          "row": 2,
+          "tag": "recoil",
+          "label": "recoil",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Palace",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Ice"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Palace",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Ice",
+            "None",
+            "Water",
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Still Heart of Winter"
+      ]
+    },
+    {
+      "name": "Silence of Falling Snow Suppression",
+      "archetype": "Suppression",
+      "ids": [
+        "06",
+        "09",
+        "10",
+        "01"
+      ],
+      "rationale": "Ice Coffin cuts the frozen target's output by 40% of base on every matching hit for two rounds and the Aegis heal rises to 270 HP per tick, the Control trait's own build. First Snow of Heaven is the fourth purchase for 37% exposure and 37% self damage buff; Permafrost Mantle (Aegis guard 40%) is the alternative that stacks suppression with guard in the same window.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "heal": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Cryostorm Aegis",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Cryostorm Aegis",
+          "row": 1,
+          "tag": "heal",
+          "label": "Heal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 2,
+          "final": 27.0,
+          "calculation": "static",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Imperial Freeze",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Ice"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 0,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Imperial Freeze",
+          "row": 1,
+          "tag": "stun",
+          "label": "stun",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Coffin",
+          "row": 0,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 10,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Coffin",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Ice"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Frostbound Ascendancy",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Ice",
+            "None",
+            "Water",
+            "Wind"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Frostbound Ascendancy",
+          "row": 1,
+          "tag": "absorb",
+          "label": "absorb",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Frostbound Ascendancy",
+          "row": 2,
+          "tag": "recoil",
+          "label": "recoil",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Palace",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Ice"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Ice Palace",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Ice",
+            "None",
+            "Water",
+            "Wind"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Silence of Falling Snow"
+      ]
+    }
+  ],
+  "narrow_kit_exception": null,
+  "design_notes": [
+    "Node split: First Snow of Heaven (IDG + IDT) is the attack root, forking into raw power (Killing Frost → Reign of Absolute Zero, three Ice rows) and exposure (Hairline Fracture → Court of Splintered Ice, the Ice Palace row). Vigil of Winter (DDT + DDG) is the defensive root, forking into guard (Permafrost Mantle → Still Heart of Winter, both Aegis rows) and suppression (Cold Saps the Will → Silence of Falling Snow, the Coffin row). 2F/4H/4A; capstones 3 BP deep; any two cost 5-6 BP.",
+    "Calibration by coverage: Damage +2/+3 (max +5) on three rows matches Taiyo's three-row figure (15 row-weighted). IDT, DDT and DDG are single rows and run +2/+3/+5 to +10 (45/45/40%), Taiyo's single-row DDT/DDG scale; IDT is a full route here because Ice Palace is the only exposure row. IDG is glue (+2 root, +3 capstone secondary; max +5 = 40%) because it stacks on the 28.75% passive at level 25. Heal is a secondary only (+3 / +2, max +3): static ×10 gives 280 HP per tick, a small absolute value.",
+    "Resolver reads: Aegis DDT and Coffin DDG list all four stat types with no element, so the filter is not binding (SOURCE_MECHANICS §3): they act on every non-pierce hit taken or dealt. Frostbound IDG and Ice Palace IDT carry Ice/None/Water/Wind with no stat types, so they match Ice, Water, Wind and element-less hits (basic attacks, normal jutsu, weapons) by caster or allies and skip pierce. The Damage rows are Ice Genjutsu formula rows; the 25% + 0.15/level IDG passive multiplies them downstream.",
+    "Delivery: all five jutsu have cooldown 7; the three attacks cost 60 AP, Cryostorm Aegis and Frostbound Ascendancy 40 AP; percentage rows last 2 rounds. Frostbound's IDG row is target SELF, so it is realized on the caster at cast time regardless of the spiral spawn (actions.ts 980-1004); its absorb and recoil rows are unsupported. Ice Palace is AOE_CIRCLE_SPAWN radius 1 on OTHER_USER: both rows land once on each living non-caster in the circle. Aegis heal ticks on the two following rounds.",
+    "Fourth purchases: Burst takes Vigil of Winter (37% guard, 32% suppression) or Hairline Fracture (40% exposure); Exposure takes Vigil of Winter or Killing Frost (+2 power); Bulwark takes First Snow of Heaven (37% exposure and self buff) or Cold Saps the Will (35% suppression); Suppression takes First Snow of Heaven or Permafrost Mantle (40% guard). Strongest unadvertised allocation by row weight: Reign of Absolute Zero + Hairline Fracture (+5 power, 40% exposure, no guard).",
+    "Relation to the Taiyo reference: Teno Yuki shares five of Taiyo's six supported tags, so the two-root/four-capstone frame recurs; the Teno-specific choices are that no tag crosses roots (attack root = Damage/IDG/IDT, defensive root = DDT/DDG/Heal, so every mixed build is non-dominated), Heal replaces Afterburn as the defensive capstones' secondary, and IDT is a dedicated route. Tag stacking is on at the pin (BATTLE_TAG_STACKING), so repeated casts within a window add; not simulated."
+  ],
+  "risks": [
+    "Classification: Ice is not exclusive. Blue Blade Eyes and Hyouga Yui (INCLUDE), Blue Edge Eyes (EXCLUDE) and four DEFER records carry Ice rows; the normal-jutsu collision is unverified. Today 5 of 8 supported rows match Ice directly and 3 (Aegis DDT and Heal, Coffin DDG) fall back to None, which also reaches non-elemental rows on any jutsu. The tree needs a bloodline-scoped classification.",
+    "Ally hazard: Ice Palace rows 0 (Damage) and 1 (IDT) are AOE_CIRCLE_SPAWN with friendly fire none (= ALL). Killing Frost and Reign of Absolute Zero raise the hit on allies in the circle to 42/45; First Snow of Heaven, Hairline Fracture and Court of Splintered Ice expose allies inside at up to 45% for two rounds. The caster is never a target (OTHER_USER). Positioning, not the node, decides.",
+    "Exposure downstream: a 45% Ice Palace debuff adds 45% of base to every non-pierce Ice, Water, Wind or element-less hit the target takes from the caster or allies for two rounds, so its realized value scales with party damage and enemies in the circle. Flats were held to the Taiyo single-row ceiling (+10); no group-content simulation was performed.",
+    "Guard and suppression overlap: Aegis DDT and Coffin DDG in overlapping rounds subtract both percentages of base from matching hits (100 AP across two casts). The two routes cannot be bought together (6 BP), so one build caps at 45% + 35% (Still Heart of Winter + Cold Saps the Will) or 40% + 40% (Silence of Falling Snow + Permafrost Mantle). Not simulated against the 15% Water-only DDT passive.",
+    "Heal: Cryostorm Aegis heals 250 HP per tick at level 25; the route maxima add 30 (Still Heart of Winter) or 20 (Silence of Falling Snow) per tick on the two following rounds. This is a small absolute value against late-game pools, which is why Heal is only a capstone secondary; healprevent on the caster blocks it. Tag stacking is on at the pin, so two Aegis casts in a window stack.",
+    "Offense stacking: Frostbound Ascendancy's 40% self IDG (Ice/None/Water/Wind, no stat filter) and the 25% + 0.15/level bloodline IDG passive both act on the kit's Damage rows and on normal jutsu, weapons and basic attacks in its two-round window; bloodline-sourced modifiers multiply, jutsu-sourced ones add. Normal-tree potency policy is unapproved, so a combined stacking audit is still required.",
+    "No adverse rows, hidden jutsu, item gates, mode restrictions or injected children exist. Stun (Imperial Freeze), absorb and recoil (Frostbound Ascendancy) are unsupported and unchanged; no pierce, lifesteal, reflect or afterburn rows. Ranked modes suppress skill-tree and bloodline effects. No combat simulation: non-dominance of the 14 allocations is arithmetic over per-row additions only.",
+    "Rank and shape: Teno Yuki is A-rank with a 28.75% Increase Damage Given passive at jutsu level 25 and a 100 regen bonus; the tree equalises marginal opportunity against the Taiyo reference, not final strength, and its six-tag frame is structurally close to Taiyo's because the kits share five tags. Cross-bloodline comparison (including the other Ice kits) is deferred to the roster review."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "decreasedamagegiven": 10,
+      "increasedamagetaken": 10,
+      "decreasedamagetaken": 10,
+      "heal": 3
+    },
+    "supported_rows_in_kit": 8,
+    "supported_rows_by_tag": {
+      "damage": 3,
+      "decreasedamagegiven": 1,
+      "decreasedamagetaken": 1,
+      "heal": 1,
+      "increasedamagegiven": 1,
+      "increasedamagetaken": 1
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagegiven",
+      "decreasedamagetaken",
+      "heal",
+      "increasedamagegiven",
+      "increasedamagetaken"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Draft 1 / Ice classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags of Teno Yuki jutsu inherit Ice potency eligibility; original combat elements and target scopes stay intact.",
+      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10,
+        "heal": 3
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "heal": 2
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "decreasedamagegiven": 5,
+        "decreasedamagetaken": 10,
+        "heal": 3
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 5,
+        "heal": 2
+      }
+    }
+  ]
+}

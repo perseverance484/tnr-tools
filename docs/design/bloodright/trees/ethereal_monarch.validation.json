@@ -1,0 +1,815 @@
+{
+  "kind": "bloodright_tree_validation",
+  "slug": "ethereal_monarch",
+  "bloodline": {
+    "id": "IxhIoLEmznqdcnc_6MCN9",
+    "review_id": "BR-023",
+    "name": "Ethereal Monarch",
+    "rank": "S",
+    "statClassification": "Highest",
+    "traits": "Control, Sustained Damage, "
+  },
+  "revision": "Draft 1 / Yin-Yang classification / forked tree",
+  "structure_errors": [],
+  "warnings": [],
+  "classification": {
+    "potency_classification": "Yin-Yang",
+    "label_kind": "element",
+    "bloodline": "Ethereal Monarch",
+    "display_element": "Yin-Yang",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Ethereal Monarch jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": [
+      "Celestial Mage",
+      "DvEM",
+      "Ethereal Regent",
+      "Heavenly Sonata",
+      "Manhattan Project",
+      "Tenohira Musei",
+      "Tenryūseigan",
+      "Tenshin Shoden Yami-Ryu"
+    ]
+  },
+  "examples": [
+    {
+      "name": "Ethereal Coronation",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "reflect": 2
+      },
+      "advanced_arts": [
+        "Ethereal Coronation"
+      ]
+    },
+    {
+      "name": "Rain of Fallen Stars",
+      "archetype": "Burn pressure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10,
+        "reflect": 2
+      },
+      "advanced_arts": [
+        "Rain of Fallen Stars"
+      ]
+    },
+    {
+      "name": "Immovable Throne",
+      "archetype": "Fortified",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 7,
+        "reflect": 2
+      },
+      "advanced_arts": [
+        "Immovable Throne"
+      ]
+    },
+    {
+      "name": "Monarch's Retribution",
+      "archetype": "Mirror",
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 4,
+        "reflect": 10
+      },
+      "advanced_arts": [
+        "Monarch's Retribution"
+      ]
+    }
+  ],
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "increasedamagetaken": 5,
+      "decreasedamagetaken": 7,
+      "afterburn": 10,
+      "reflect": 10
+    },
+    "supported_rows_in_kit": 10,
+    "supported_rows_by_tag": {
+      "afterburn": 1,
+      "damage": 2,
+      "decreasedamagetaken": 2,
+      "increasedamagegiven": 3,
+      "increasedamagetaken": 1,
+      "reflect": 1
+    },
+    "tags_targeted_by_tree": [
+      "afterburn",
+      "damage",
+      "decreasedamagetaken",
+      "increasedamagegiven",
+      "increasedamagetaken",
+      "reflect"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "node_values": [
+      {
+        "id": "01",
+        "name": "Sovereign's Decree",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Celestial Sealing",
+          "Stardust",
+          "Starlight Veil"
+        ],
+        "covered_rows": 4,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "02",
+        "name": "Tear in the Soul",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Celestial Sealing",
+          "Tamashī no Sakeme"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "Ethereal Coronation",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 5,
+        "row_weighted_total": 12,
+        "covered_jutsu": [
+          "Celestial Sealing",
+          "Stardust",
+          "Starlight Veil",
+          "Tamashī no Sakeme"
+        ],
+        "covered_rows": 5,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "04",
+        "name": "Stardust Afterglow",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Stardust"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "05",
+        "name": "Rain of Fallen Stars",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 12,
+        "row_weighted_total": 16,
+        "covered_jutsu": [
+          "Celestial Sealing",
+          "Stardust",
+          "Starlight Veil"
+        ],
+        "covered_rows": 5,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "06",
+        "name": "Veil of the Monarch",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 4,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Founder’s Wrath",
+          "Heavenly Constructs",
+          "Starlight Veil"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "07",
+        "name": "Woven Starlight",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Founder’s Wrath",
+          "Starlight Veil"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "08",
+        "name": "Immovable Throne",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 5,
+        "row_weighted_total": 13,
+        "covered_jutsu": [
+          "Celestial Sealing",
+          "Founder’s Wrath",
+          "Stardust",
+          "Starlight Veil"
+        ],
+        "covered_rows": 5,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "09",
+        "name": "Mirrored Construct",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Heavenly Constructs"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "10",
+        "name": "Monarch's Retribution",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 10,
+        "row_weighted_total": 12,
+        "covered_jutsu": [
+          "Founder’s Wrath",
+          "Heavenly Constructs",
+          "Stardust",
+          "Starlight Veil"
+        ],
+        "covered_rows": 4,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      }
+    ],
+    "strongest_full_build_by_row_weight": {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10,
+        "reflect": 2
+      },
+      "raw_flat_total": 23,
+      "row_weighted_total": 33,
+      "advanced_arts": [
+        "05"
+      ],
+      "non_dominated": true
+    },
+    "lowest_value_node_by_row_weight": {
+      "id": "04",
+      "name": "Stardust Afterglow",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 3,
+      "row_weighted_total": 3,
+      "covered_jutsu": [
+        "Stardust"
+      ],
+      "covered_rows": 1,
+      "adverse_rows_amplified": [],
+      "tags_without_rows": []
+    },
+    "full_builds": [
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 2,
+          "afterburn": 3
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 27,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "reflect": 2
+        },
+        "raw_flat_total": 15,
+        "row_weighted_total": 30,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 5,
+          "afterburn": 10
+        },
+        "raw_flat_total": 21,
+        "row_weighted_total": 31,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "afterburn": 3,
+          "reflect": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 21,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5,
+          "reflect": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 24,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "reflect": 5
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 21,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 2,
+          "afterburn": 10,
+          "reflect": 2
+        },
+        "raw_flat_total": 23,
+        "row_weighted_total": 33,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5,
+          "afterburn": 3,
+          "reflect": 2
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 23,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "afterburn": 3,
+          "reflect": 5
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 20,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 7,
+          "reflect": 2
+        },
+        "raw_flat_total": 16,
+        "row_weighted_total": 33,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5,
+          "reflect": 5
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 23,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 4,
+          "reflect": 10
+        },
+        "raw_flat_total": 21,
+        "row_weighted_total": 29,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 3,
+          "decreasedamagetaken": 7,
+          "reflect": 5
+        },
+        "raw_flat_total": 15,
+        "row_weighted_total": 28,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagetaken": 3,
+          "decreasedamagetaken": 7,
+          "reflect": 10
+        },
+        "raw_flat_total": 20,
+        "row_weighted_total": 27,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      }
+    ],
+    "legal_allocations": {
+      "0": [
+        []
+      ],
+      "1": [
+        [
+          "01"
+        ],
+        [
+          "06"
+        ]
+      ],
+      "2": [
+        [
+          "01",
+          "02"
+        ],
+        [
+          "01",
+          "04"
+        ],
+        [
+          "01",
+          "06"
+        ],
+        [
+          "06",
+          "07"
+        ],
+        [
+          "06",
+          "09"
+        ]
+      ],
+      "3": [
+        [
+          "01",
+          "02",
+          "03"
+        ],
+        [
+          "01",
+          "02",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "06",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "06",
+          "09",
+          "10"
+        ]
+      ],
+      "4": [
+        [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "09",
+          "10"
+        ]
+      ]
+    }
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "combat_simulation_performed": false,
+  "live_mutations": 0
+}

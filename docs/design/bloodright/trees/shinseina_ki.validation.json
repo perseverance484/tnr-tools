@@ -9,9 +9,10 @@
     "statClassification": "Highest",
     "traits": "Burst"
   },
-  "revision": "Draft 1 / Wood classification / forked tree",
+  "revision": "Draft 2 / Wood classification / forked tree",
   "structure_errors": [],
   "warnings": [
+    "universal node: 01 (Hallowed Seed) appears in every legal full-budget allocation",
     "ally-hazard area rows amplified (friendly fire none/ALL): Guardian's Grove#1"
   ],
   "classification": {
@@ -35,13 +36,12 @@
         "01",
         "02",
         "03",
-        "06"
+        "04"
       ],
       "cost": 4,
       "bonuses": {
         "damage": 6,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2
+        "increasedamagegiven": 4
       },
       "advanced_arts": [
         "The Forest Devours"
@@ -52,15 +52,14 @@
       "archetype": "Amplification",
       "ids": [
         "01",
+        "02",
         "04",
-        "05",
-        "06"
+        "05"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
-        "increasedamagegiven": 7,
-        "increasedamagetaken": 2
+        "damage": 3,
+        "increasedamagegiven": 7
       },
       "advanced_arts": [
         "Heartwood Awakened"

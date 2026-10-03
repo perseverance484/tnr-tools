@@ -1,0 +1,1993 @@
+{
+  "title": "Ethereal Monarch — Mandate of Heaven",
+  "revision": "Draft 1 / Yin-Yang classification / forked tree",
+  "bloodline": {
+    "id": "IxhIoLEmznqdcnc_6MCN9",
+    "review_id": "BR-023",
+    "name": "Ethereal Monarch",
+    "rank": "S",
+    "statClassification": "Highest",
+    "traits": "Control, Sustained Damage, "
+  },
+  "classification": {
+    "potency_classification": "Yin-Yang",
+    "label_kind": "element",
+    "bloodline": "Ethereal Monarch",
+    "display_element": "Yin-Yang",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Ethereal Monarch jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": [
+      "Celestial Mage",
+      "DvEM",
+      "Ethereal Regent",
+      "Heavenly Sonata",
+      "Manhattan Project",
+      "Tenohira Musei",
+      "Tenryūseigan",
+      "Tenshin Shoden Yami-Ryu"
+    ]
+  },
+  "emphasis": {
+    "primary": "Increase Damage Given (three stacking 35% self buffs: Starlight Veil, Celestial Sealing, Stardust) and Damage (Tamashī no Sakeme 50, Celestial Sealing 40)",
+    "secondary": "Decrease Damage Taken (Starlight Veil 35%, Founder's Wrath 30%) and Reflect (Heavenly Constructs 40%)",
+    "tertiary": "Stardust's enemy debuffs: Increase Damage Taken 35% and Afterburn 30% (reached through Heavenly Constructs' inject window)",
+    "rationale": "Ten supported rows sit on six casts: two Yin-Yang Damage rows (Tamashī no Sakeme 50, Celestial Sealing 40, both 60 AP), three element-less all-stat 35% Increase Damage Given self buffs (Starlight Veil, Celestial Sealing, Stardust), two all-stat Decrease Damage Taken self rows (Starlight Veil 35%, Founder's Wrath 30%), one Reflect (Heavenly Constructs 40%) and Stardust's two enemy debuffs (Increase Damage Taken 35%, Afterburn 30%), under a 25% + 0.15/level five-element Increase Damage Given passive. The Sustained Damage trait rides the three stacking self buffs and the two attacks, so the offensive root carries amplification and exposure and forks into a Damage route and a Stardust burn route; the Control trait and the kit's self-only mitigation live in Starlight Veil, Founder's Wrath and Heavenly Constructs, so the defensive root forks into a Decrease Damage Taken route and a Reflect route. Stardust is a rank-D SPECIAL jutsu with the bloodline's own bloodlineId, cast only through Heavenly Constructs' two-round inject (open decision D4 option (a)), so its three rows are counted but the tags that live only on it (Afterburn, Increase Damage Taken) carry the lighter weight."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Sovereign's Decree",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "The Monarch's word carries weight in every court, and the heavens enforce it.",
+      "coverage_note": "Self damage buffs on Starlight Veil, Celestial Sealing and Stardust 35→37%; Stardust exposure 35→37% (inject window of Heavenly Constructs).",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "Ethereal Monarch jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Celestial Sealing",
+          "Stardust",
+          "Starlight Veil"
+        ],
+        "effect_rows": 4
+      }
+    },
+    {
+      "id": "02",
+      "name": "Tear in the Soul",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "What the Monarch rends does not knit back together.",
+      "coverage_note": "Tamashī no Sakeme 50→52 and Celestial Sealing 40→42 power (Yin-Yang, 60 AP, cooldown 7); Founder's Wrath pierce is not a Damage row.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "Ethereal Monarch jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Celestial Sealing",
+          "Tamashī no Sakeme"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "03",
+      "name": "Ethereal Coronation",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Crowned beyond the veil, the Monarch strikes with the authority of the sky.",
+      "coverage_note": "Route total +5: Tamashī no Sakeme 55, Celestial Sealing 45 power; the three self damage buffs +2 (39% with Sovereign's Decree).",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "Ethereal Monarch jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Celestial Sealing",
+          "Stardust",
+          "Starlight Veil",
+          "Tamashī no Sakeme"
+        ],
+        "effect_rows": 5
+      }
+    },
+    {
+      "id": "04",
+      "name": "Stardust Afterglow",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Stardust does not settle; it smolders on whatever it touches.",
+      "coverage_note": "Stardust Afterburn debuff 30→33% for 2 rounds (Heavenly Constructs' inject window); raises the percent per non-pierce hit, not the duration.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "Ethereal Monarch jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Stardust"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "05",
+      "name": "Rain of Fallen Stars",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 7,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "When the Monarch is angered, the firmament itself comes down.",
+      "coverage_note": "Stardust Afterburn route total +10 (40%); Stardust exposure +3 (40% with Decree); self damage buffs on Veil, Sealing, Stardust +2 (39%).",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "Ethereal Monarch jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Celestial Sealing",
+          "Stardust",
+          "Starlight Veil"
+        ],
+        "effect_rows": 5
+      }
+    },
+    {
+      "id": "06",
+      "name": "Veil of the Monarch",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "reflect",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Starlight gathers around the throne, and nothing reaches it unanswered.",
+      "coverage_note": "Self Decrease Damage Taken on Starlight Veil 35→37% and Founder's Wrath 30→32%; Heavenly Constructs Reflect 40→42%; all 2-round windows.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "Ethereal Monarch jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Founder’s Wrath",
+          "Heavenly Constructs",
+          "Starlight Veil"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "07",
+      "name": "Woven Starlight",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Thread by thread the veil thickens until blades lose their way inside it.",
+      "coverage_note": "Both self DDT rows +3 more: Starlight Veil 40%, Founder's Wrath 35% with Veil of the Monarch; all four stat types, every non-pierce hit.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "Ethereal Monarch jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Founder’s Wrath",
+          "Starlight Veil"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "08",
+      "name": "Immovable Throne",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Seated beyond the reach of blades, the Monarch's every decree lands harder.",
+      "coverage_note": "DDT route total +7: Starlight Veil 42%, Founder's Wrath 37%; self damage buffs on Veil, Sealing and Stardust +3 (40% with Decree).",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "Ethereal Monarch jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Celestial Sealing",
+          "Founder’s Wrath",
+          "Stardust",
+          "Starlight Veil"
+        ],
+        "effect_rows": 5
+      }
+    },
+    {
+      "id": "09",
+      "name": "Mirrored Construct",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "reflect",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "The constructs of heaven are polished to a sheen that returns every blow.",
+      "coverage_note": "Heavenly Constructs Reflect only (+3 more: 45% with Veil of the Monarch); 2 rounds per 40 AP cast; includes pierce hits; 60%-of-hit cap.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "Ethereal Monarch jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Heavenly Constructs"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "10",
+      "name": "Monarch's Retribution",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "09"
+      ],
+      "modifiers": [
+        {
+          "tag": "reflect",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Strike the throne and the throne strikes back, then marks you for what follows.",
+      "coverage_note": "Reflect route total +10 (50%, under the 60% cap); Stardust exposure +3 (40% with Decree; inject window); both self DDT rows +2 (39%/34%).",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "Ethereal Monarch jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Founder’s Wrath",
+          "Heavenly Constructs",
+          "Stardust",
+          "Starlight Veil"
+        ],
+        "effect_rows": 4
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Ethereal Coronation",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "The +5 power route on both Damage rows (Tamashī no Sakeme 55, Celestial Sealing 45) with the three self damage buffs at 39% (Decree +2, Coronation +2) feeding those same casts and every other non-pierce hit, plus Stardust's exposure at 37%. Veil of the Monarch is the fourth purchase because it opens the kit's own mitigation (Starlight Veil 37%, Founder's Wrath 32%) and Reflect 42% without re-touching the offensive rows; Stardust Afterglow (Afterburn 33%) is the all-in alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "reflect": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Stardust",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Stardust",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Stardust",
+          "row": 2,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 0,
+          "final": 30.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tamashī no Sakeme",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 5,
+          "final": 55.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tamashī no Sakeme",
+          "row": 1,
+          "tag": "consume",
+          "label": "consume",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY BUFF",
+          "adverse": true,
+          "base": 60.0,
+          "gain": 0,
+          "final": 60.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Founder’s Wrath",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 66.0,
+          "gain": 0,
+          "final": 66.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Founder’s Wrath",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Celestial Sealing",
+          "row": 0,
+          "tag": "seal",
+          "label": "seal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Celestial Sealing",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Celestial Sealing",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Heavenly Constructs",
+          "row": 0,
+          "tag": "debuffprevent",
+          "label": "debuffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Heavenly Constructs",
+          "row": 1,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Heavenly Constructs",
+          "row": 2,
+          "tag": "injectjutsus",
+          "label": "injectjutsus",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 110.0,
+          "gain": 0,
+          "final": 110.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 2,
+          "tag": "visual",
+          "label": "visual",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF DEBUFF",
+          "adverse": true,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 3,
+          "tag": "clearprevent",
+          "label": "clearprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Ethereal Coronation"
+      ]
+    },
+    {
+      "name": "Rain of Fallen Stars",
+      "archetype": "Burn pressure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "rationale": "Afterburn at the route maximum on Stardust (40%) so every non-pierce hit the marked target takes for two rounds adds extra damage, with Stardust's exposure at 40% (+5) and the three self damage buffs at 39%: the Heavenly Constructs → Stardust → Tamashī no Sakeme sequence. Founder's Wrath pierce takes no Afterburn. Veil of the Monarch is the fourth purchase for 37%/32% Decrease Damage Taken and 42% Reflect; Tear in the Soul (52/42 power) is the offensive alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10,
+        "reflect": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Stardust",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Stardust",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Stardust",
+          "row": 2,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 10,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tamashī no Sakeme",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tamashī no Sakeme",
+          "row": 1,
+          "tag": "consume",
+          "label": "consume",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY BUFF",
+          "adverse": true,
+          "base": 60.0,
+          "gain": 0,
+          "final": 60.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Founder’s Wrath",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 66.0,
+          "gain": 0,
+          "final": 66.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Founder’s Wrath",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Celestial Sealing",
+          "row": 0,
+          "tag": "seal",
+          "label": "seal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Celestial Sealing",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Celestial Sealing",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Heavenly Constructs",
+          "row": 0,
+          "tag": "debuffprevent",
+          "label": "debuffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Heavenly Constructs",
+          "row": 1,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Heavenly Constructs",
+          "row": 2,
+          "tag": "injectjutsus",
+          "label": "injectjutsus",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 110.0,
+          "gain": 0,
+          "final": 110.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 2,
+          "tag": "visual",
+          "label": "visual",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF DEBUFF",
+          "adverse": true,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 3,
+          "tag": "clearprevent",
+          "label": "clearprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Rain of Fallen Stars"
+      ]
+    },
+    {
+      "name": "Immovable Throne",
+      "archetype": "Fortified",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "rationale": "Both self Decrease Damage Taken rows at the two-row maximum (+7: Starlight Veil 42%, Founder's Wrath 37%) and the three self damage buffs at the three-row maximum 40% (Decree +2, Throne +3), with Stardust's exposure at 37% and Reflect 42%. Sovereign's Decree is the fourth purchase because it compounds the capstone's damage-buff secondary; Mirrored Construct (Reflect 45%) is the defensive alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 7,
+        "reflect": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Stardust",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Stardust",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Stardust",
+          "row": 2,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 0,
+          "final": 30.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tamashī no Sakeme",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tamashī no Sakeme",
+          "row": 1,
+          "tag": "consume",
+          "label": "consume",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY BUFF",
+          "adverse": true,
+          "base": 60.0,
+          "gain": 0,
+          "final": 60.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Founder’s Wrath",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 66.0,
+          "gain": 0,
+          "final": 66.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Founder’s Wrath",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 7,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Celestial Sealing",
+          "row": 0,
+          "tag": "seal",
+          "label": "seal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Celestial Sealing",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Celestial Sealing",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Heavenly Constructs",
+          "row": 0,
+          "tag": "debuffprevent",
+          "label": "debuffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Heavenly Constructs",
+          "row": 1,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Heavenly Constructs",
+          "row": 2,
+          "tag": "injectjutsus",
+          "label": "injectjutsus",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 110.0,
+          "gain": 0,
+          "final": 110.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 7,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 2,
+          "tag": "visual",
+          "label": "visual",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF DEBUFF",
+          "adverse": true,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 3,
+          "tag": "clearprevent",
+          "label": "clearprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Immovable Throne"
+      ]
+    },
+    {
+      "name": "Monarch's Retribution",
+      "archetype": "Mirror",
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "rationale": "Reflect at the route maximum (Heavenly Constructs 50%, ten points under the 60%-of-hit cap) returned on every hit taken, pierce included, for two rounds per 40 AP cast, with Stardust's exposure at 40% (+5) so the counter-strike and the retaliation that follows land harder; the self DDT rows sit at 39%/34% and the damage buffs at 37%. Sovereign's Decree is the fourth purchase; Woven Starlight (42%/37% DDT) is the anchor alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 4,
+        "reflect": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Stardust",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Stardust",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Stardust",
+          "row": 2,
+          "tag": "afterburn",
+          "label": "Afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 0,
+          "final": 30.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tamashī no Sakeme",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Tamashī no Sakeme",
+          "row": 1,
+          "tag": "consume",
+          "label": "consume",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY BUFF",
+          "adverse": true,
+          "base": 60.0,
+          "gain": 0,
+          "final": 60.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Founder’s Wrath",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 66.0,
+          "gain": 0,
+          "final": 66.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Founder’s Wrath",
+          "row": 1,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 4,
+          "final": 34.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Celestial Sealing",
+          "row": 0,
+          "tag": "seal",
+          "label": "seal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Celestial Sealing",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Celestial Sealing",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Heavenly Constructs",
+          "row": 0,
+          "tag": "debuffprevent",
+          "label": "debuffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Heavenly Constructs",
+          "row": 1,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 10,
+          "final": 50.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Heavenly Constructs",
+          "row": 2,
+          "tag": "injectjutsus",
+          "label": "injectjutsus",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 110.0,
+          "gain": 0,
+          "final": 110.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 2,
+          "tag": "visual",
+          "label": "visual",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF DEBUFF",
+          "adverse": true,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Starlight Veil",
+          "row": 3,
+          "tag": "clearprevent",
+          "label": "clearprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Monarch's Retribution"
+      ]
+    }
+  ],
+  "narrow_kit_exception": null,
+  "design_notes": [
+    "Node split: root Sovereign's Decree (+2 self Increase Damage Given on three rows, +2 Stardust exposure) forks into a Damage route (Tear in the Soul → Ethereal Coronation) and a Stardust burn route (Stardust Afterglow → Rain of Fallen Stars). Root Veil of the Monarch (+2 Decrease Damage Taken on two rows, +2 Reflect) forks into a DDT route (Woven Starlight → Immovable Throne) and a Reflect route (Mirrored Construct → Monarch's Retribution). 2/4/4 nodes; any two Advanced Arts cost 5–6 BP.",
+    "Flats scaled by coverage. Increase Damage Given reaches three rows that stack on the caster, so it is held to +5 (Decree +2 plus one capstone secondary; 35% → 40%). Damage reaches two rows (50, 40): +2/+3, max +5 (55, 45). Decrease Damage Taken reaches two rows: +2/+3/+2, max +7 (42%, 37%). Reflect, Afterburn and exposure are single rows: Reflect +2/+3/+5 (max +10: 50%), Afterburn +3/+7 (max +10: 40%), exposure +2 plus one +3 secondary (max +5: 40%). Maxima are not jointly attainable.",
+    "Capstone secondaries never out-bid a sibling Hidden Art on its tag: Monarch's Retribution's +2 DDT sits below Woven Starlight's +3; no Hidden Art carries IDG or exposure, so those +2/+3 secondaries have no competitor. Immovable Throne follows Shiroi Youso's Eye of the Tempest shape (primary +2 after a +3 Hidden Art, heavier three-row secondary). Row-weighted node values: Foundations 8/6, Hidden Arts 4/3/6/3, Advanced Arts 12/16/13/12; full builds 20–33 against Taiyo Kami's 20–31 on nine rows.",
+    "Main tree and passives: every IDG, exposure and DDT row lists all four stat types with no element, so (SOURCE_MECHANICS §3) each matches every non-pierce hit of any stat type: the Yin-Yang attacks, basic attacks, weapons and normal jutsu. The 25% + 0.15/level Water/Fire/Wind/Yin-Yang/None passive multiplies on top as a bloodline modifier. Pierce (Founder's Wrath 66) ignores damage modifiers and takes no Afterburn; Reflect does return pierce hits. Unsupported rows are untouched.",
+    "Delivery and uptime: all six casts are cooldown 7; Tamashī no Sakeme, Founder's Wrath and Celestial Sealing cost 60 AP, the rest 40. Every window is 2 rounds. Starlight Veil, Heavenly Constructs and Founder's Wrath's DDT row are target SELF and realize on the caster at cast time (not positional, no ally hazard). Stardust exists only in Heavenly Constructs' 2-round inject (level 110; rows have no per-level scaling, so 35/35/30 hold): burn and exposure need Constructs, Stardust, then the attacks.",
+    "Fourth purchases: Burst takes Veil of the Monarch or Stardust Afterglow; Burn pressure Veil of the Monarch or Tear in the Soul; Fortified Sovereign's Decree or Mirrored Construct; Mirror Sovereign's Decree or Woven Starlight. Capstone-less hybrids (e.g. 01,02,04,06 or 01,06,07,09) are legal. All 14 legal full allocations are numerically non-dominated and every node appears in one (validator audit). Stardust Afterglow and Mirrored Construct are the lowest row-weighted nodes (3): one row each."
+  ],
+  "risks": [
+    "Injected child (open decision D4): Stardust's three rows (IDG, exposure, Afterburn) count because its bloodlineId is the Ethereal Monarch id (option (a)). Under option (c) Sovereign's Decree loses its exposure half, the burn route (Afterglow, Rain) loses its primaries and the +3 exposure secondaries on Rain and Retribution go unrealized: the tree needs re-cutting.",
+    "Inject timing: Stardust is cast as a jutsu action at level 110 (the inject power) for the 2 rounds after Heavenly Constructs; its rows carry 0 per level, so the 35%/35%/30% baselines equal the level-25 figures. Whether Stardust is equippable outside that window, how its cooldown 7 behaves across repeated injects, and whether a same-round cast precedes the attacks were not verified.",
+    "Classification: Yin-Yang sits on both Damage rows; 2 of 10 supported rows match it directly and 8 fall back to None, so the label isolates nothing and must be bloodline-scoped. Census collisions: Heavenly Sonata, Tenohira Musei (INCLUDE); Celestial Mage, DvEM, Manhattan Project, Tenryūseigan, Tenshin Shoden Yami-Ryu (DEFER); Ethereal Regent (EXCLUDE). Normal-jutsu overlap unverified.",
+    "Leakage: the IDG rows are element-less with all four stat types, so the +5 self buff raises basic attacks, weapons and normal jutsu in its windows, stacking when Starlight Veil, Celestial Sealing and Stardust overlap: three rows at 40% in Fortified against 35% unmodified, over the 25% + 0.15/level passive. The all-stat Stardust exposure also raises allies' hits. Not simulated.",
+    "Afterburn: one application row (Stardust 30% → 40% at the route maximum); value comes from every non-pierce hit the target takes for 2 rounds, from anyone, so team fights realize more than one row suggests; Founder's Wrath pierce contributes nothing. 40% leaves 20 points under the 60% per-hit cap, so a main-tree or item Afterburn source stacks before saturating. Downstream instances not simulated.",
+    "Reflect: Heavenly Constructs reaches 50% at the route maximum, capped at 60% of pre-shield damage per hit, returned to the attacker and bypassing shields; it does not reduce damage taken. The window is 2 rounds per 40 AP cast on cooldown 7, so Mirror realizes value only while the caster is hit inside that window; pierce hits are reflected.",
+    "Adverse and unsupported rows: Tamashī no Sakeme's consume (enemy buff, adverse) and Starlight Veil's visual (adverse) are unsupported and untouched by every node; seal, debuffprevent, injectjutsus, pierce and clearprevent are unchanged. No supported row is adverse, hidden, item-gated, mode-restricted or an ally/enemy hazard. Founder's Wrath's pierce circle hits enemies only.",
+    "Context: skill-tree and bloodline effects are suppressed in ranked PvP and ranked sparring; normal-tree potency policy is not approved, so a combined stacking audit precedes implementation. Row-weighted peak 33 on 10 rows (3.3 per row against Taiyo Kami's 3.44); no combat simulation was performed; balance values remain user-owned."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "increasedamagetaken": 5,
+      "decreasedamagetaken": 7,
+      "afterburn": 10,
+      "reflect": 10
+    },
+    "supported_rows_in_kit": 10,
+    "supported_rows_by_tag": {
+      "afterburn": 1,
+      "damage": 2,
+      "decreasedamagetaken": 2,
+      "increasedamagegiven": 3,
+      "increasedamagetaken": 1,
+      "reflect": 1
+    },
+    "tags_targeted_by_tree": [
+      "afterburn",
+      "damage",
+      "decreasedamagetaken",
+      "increasedamagegiven",
+      "increasedamagetaken",
+      "reflect"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Draft 1 / Yin-Yang classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags of Ethereal Monarch jutsu inherit Yin-Yang potency eligibility; original combat elements and target scopes stay intact.",
+      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 2,
+        "afterburn": 3
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "reflect": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 5,
+        "afterburn": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 3,
+        "reflect": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5,
+        "reflect": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "reflect": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10,
+        "reflect": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5,
+        "afterburn": 3,
+        "reflect": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "afterburn": 3,
+        "reflect": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 7,
+        "reflect": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5,
+        "reflect": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 4,
+        "reflect": 10
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 3,
+        "decreasedamagetaken": 7,
+        "reflect": 5
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagetaken": 3,
+        "decreasedamagetaken": 7,
+        "reflect": 10
+      }
+    }
+  ]
+}

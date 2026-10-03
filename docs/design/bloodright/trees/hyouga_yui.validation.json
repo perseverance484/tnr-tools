@@ -1,0 +1,786 @@
+{
+  "kind": "bloodright_tree_validation",
+  "slug": "hyouga_yui",
+  "bloodline": {
+    "id": "lPcN4q0dtX2muWT2KlXGg",
+    "review_id": "BR-034",
+    "name": "Hyouga Yui",
+    "rank": "A",
+    "statClassification": "Highest",
+    "traits": "AOE Ground Control "
+  },
+  "revision": "Draft 1 / Ice classification / forked tree",
+  "structure_errors": [],
+  "warnings": [],
+  "classification": {
+    "potency_classification": "Ice",
+    "label_kind": "element",
+    "bloodline": "Hyouga Yui",
+    "display_element": "Ice",
+    "element_exclusive_within_census": false,
+    "applies_to": "existing supported tags of every Hyouga Yui jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment",
+    "census_collisions": [
+      "Blue Blade Eyes",
+      "Blue Edge Eyes",
+      "First Flame",
+      "Itzehecayan",
+      "Teno Yuki",
+      "The Abbynomaly",
+      "True North"
+    ]
+  },
+  "examples": [
+    {
+      "name": "Buried in the Avalanche",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 3,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      },
+      "advanced_arts": [
+        "Buried in the Avalanche"
+      ]
+    },
+    {
+      "name": "The Glacier Advances",
+      "archetype": "Amplifier",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 7,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 4
+      },
+      "advanced_arts": [
+        "The Glacier Advances"
+      ]
+    },
+    {
+      "name": "Nine Hells Opened",
+      "archetype": "Exposure",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 3,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 2
+      },
+      "advanced_arts": [
+        "Nine Hells Opened"
+      ]
+    },
+    {
+      "name": "Locked in Cocytus",
+      "archetype": "Lake warden",
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 7
+      },
+      "advanced_arts": [
+        "Locked in Cocytus"
+      ]
+    }
+  ],
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 13,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 7,
+      "increasedamagetaken": 7,
+      "decreasedamagetaken": 7
+    },
+    "supported_rows_in_kit": 9,
+    "supported_rows_by_tag": {
+      "damage": 3,
+      "decreasedamagetaken": 2,
+      "increasedamagegiven": 2,
+      "increasedamagetaken": 2
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagetaken",
+      "increasedamagegiven",
+      "increasedamagetaken"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "node_values": [
+      {
+        "id": "01",
+        "name": "Permafrost Heart",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Cerulean Storm: Avalanche",
+          "Glacier's Will"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "02",
+        "name": "Weight of the Avalanche",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Cerulean Storm: Avalanche",
+          "Glacial Shatter: Purgatory",
+          "Nine Hell's Spear"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "Buried in the Avalanche",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 3,
+        "row_weighted_total": 9,
+        "covered_jutsu": [
+          "Cerulean Storm: Avalanche",
+          "Glacial Shatter: Purgatory",
+          "Nine Hell's Spear"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "04",
+        "name": "Deepening Frost",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Cerulean Storm: Avalanche",
+          "Glacier's Will"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "05",
+        "name": "The Glacier Advances",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Cerulean Storm: Avalanche",
+          "Glacial Descent: Cocytus",
+          "Glacier's Will"
+        ],
+        "covered_rows": 4,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "06",
+        "name": "Cocytus Vigil",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Glacial Descent: Cocytus",
+          "Glacier's Will",
+          "Nine Hell's Spear"
+        ],
+        "covered_rows": 4,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "07",
+        "name": "Cracks in the Ice",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Glacial Descent: Cocytus",
+          "Nine Hell's Spear"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "08",
+        "name": "Nine Hells Opened",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 4,
+        "row_weighted_total": 10,
+        "covered_jutsu": [
+          "Cerulean Storm: Avalanche",
+          "Glacial Descent: Cocytus",
+          "Glacial Shatter: Purgatory",
+          "Nine Hell's Spear"
+        ],
+        "covered_rows": 5,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "09",
+        "name": "Rime Mantle",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Glacial Descent: Cocytus",
+          "Glacier's Will"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "10",
+        "name": "Locked in Cocytus",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Glacial Descent: Cocytus",
+          "Glacier's Will",
+          "Nine Hell's Spear"
+        ],
+        "covered_rows": 4,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      }
+    ],
+    "strongest_full_build_by_row_weight": {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 3,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 2
+      },
+      "raw_flat_total": 14,
+      "row_weighted_total": 30,
+      "advanced_arts": [
+        "08"
+      ],
+      "non_dominated": true
+    },
+    "lowest_value_node_by_row_weight": {
+      "id": "04",
+      "name": "Deepening Frost",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 2,
+      "row_weighted_total": 4,
+      "covered_jutsu": [
+        "Cerulean Storm: Avalanche",
+        "Glacier's Will"
+      ],
+      "covered_rows": 2,
+      "adverse_rows_amplified": [],
+      "tags_without_rows": []
+    },
+    "full_builds": [
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 5
+        },
+        "raw_flat_total": 10,
+        "row_weighted_total": 25,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 5,
+          "increasedamagegiven": 3,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 29,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 7,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 24,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 24,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 3,
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 26,
+        "advanced_arts": [],
+        "non_dominated": false
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 3,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 26,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 7,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 4
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 26,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 24,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 24,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 3,
+          "increasedamagetaken": 7,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 30,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 3,
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 26,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 3,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 7
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 28,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagetaken": 7,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 30,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "06",
+          "07",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagetaken": 7,
+          "decreasedamagetaken": 7
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 28,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      }
+    ],
+    "legal_allocations": {
+      "0": [
+        []
+      ],
+      "1": [
+        [
+          "01"
+        ],
+        [
+          "06"
+        ]
+      ],
+      "2": [
+        [
+          "01",
+          "02"
+        ],
+        [
+          "01",
+          "04"
+        ],
+        [
+          "01",
+          "06"
+        ],
+        [
+          "06",
+          "07"
+        ],
+        [
+          "06",
+          "09"
+        ]
+      ],
+      "3": [
+        [
+          "01",
+          "02",
+          "03"
+        ],
+        [
+          "01",
+          "02",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "06",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "06",
+          "09",
+          "10"
+        ]
+      ],
+      "4": [
+        [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "04",
+          "06",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        [
+          "06",
+          "07",
+          "08",
+          "09"
+        ],
+        [
+          "06",
+          "07",
+          "09",
+          "10"
+        ]
+      ]
+    }
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "combat_simulation_performed": false,
+  "live_mutations": 0
+}
