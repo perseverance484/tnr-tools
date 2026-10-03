@@ -342,9 +342,10 @@ def render_svg(tree: dict) -> str:
     step = (CONTENT_W - 1040) / max(1, ncols) if ncols > 1 else 250
     body.append(f'<rect x="{MARGIN}" y="{y}" width="{CONTENT_W}" height="60" rx="0" fill="#263240"/>')
     body.append(t(MARGIN + 14, y + 36, "EXISTING EFFECT", 24, WHITE, 700))
-    heads = ["BASE"] + [(ex.get("archetype") or ex.get("name") or "").upper()[:14] for ex in finals_cols]
+    heads = ["BASE"] + [(ex.get("archetype") or ex.get("name") or "").upper()[:16] for ex in finals_cols]
+    head_size = 24 if ncols <= 3 else 21
     for i, hname in enumerate(heads):
-        body.append(t(col_x0 + 34 + i * step, y + 36, hname, 24, WHITE, 700))
+        body.append(t(col_x0 + 34 + i * step, y + 36, hname, head_size, WHITE, 700))
     y += 65
     for i, (lab, vals) in enumerate(rows_tbl):
         if i % 2 == 0:
