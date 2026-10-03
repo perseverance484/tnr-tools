@@ -1,0 +1,1254 @@
+{
+  "title": "Taiyo Kami \u2014 Covenant of the Sun",
+  "revision": "Idea 1 / Scorch classification / forked tree v3",
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "classification": {
+    "bloodline": "Taiyo Kami",
+    "potency_classification": "Scorch",
+    "applies_to": "existing supported tags of every Taiyo Kami jutsu",
+    "changes_combat_elements": false,
+    "engine_status": "proposal_requires_resolver_adjustment"
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Dawnheart",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "parent_rule": "ALL",
+      "potency_classification": "Scorch",
+      "scope": "Taiyo Kami jutsu",
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "minimum_path_bp": 1,
+      "coverage": {
+        "taiyo_jutsu": [
+          "Celestial Ignition",
+          "Stellar Inferno"
+        ],
+        "taiyo_effect_rows": 3
+      }
+    },
+    {
+      "id": "02",
+      "name": "Crown of Cinders",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "parent_rule": "ALL",
+      "potency_classification": "Scorch",
+      "scope": "Taiyo Kami jutsu",
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "minimum_path_bp": 2,
+      "coverage": {
+        "taiyo_jutsu": [
+          "Incandescent Nova",
+          "Solar Reverb",
+          "Stellar Inferno"
+        ],
+        "taiyo_effect_rows": 3
+      }
+    },
+    {
+      "id": "03",
+      "name": "Solar Cataclysm",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "parent_rule": "ALL",
+      "potency_classification": "Scorch",
+      "scope": "Taiyo Kami jutsu",
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "minimum_path_bp": 3,
+      "coverage": {
+        "taiyo_jutsu": [
+          "Incandescent Nova",
+          "Solar Reverb",
+          "Stellar Inferno"
+        ],
+        "taiyo_effect_rows": 3
+      }
+    },
+    {
+      "id": "04",
+      "name": "Emberwake",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "parent_rule": "ALL",
+      "potency_classification": "Scorch",
+      "scope": "Taiyo Kami jutsu",
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 3,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "minimum_path_bp": 2,
+      "coverage": {
+        "taiyo_jutsu": [
+          "Solar Reverb"
+        ],
+        "taiyo_effect_rows": 1
+      }
+    },
+    {
+      "id": "05",
+      "name": "Eternal Noon",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "parent_rule": "ALL",
+      "potency_classification": "Scorch",
+      "scope": "Taiyo Kami jutsu",
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 7,
+          "display_role": "DAMAGE"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "minimum_path_bp": 3,
+      "coverage": {
+        "taiyo_jutsu": [
+          "Celestial Ignition",
+          "Solar Reverb",
+          "Stellar Inferno"
+        ],
+        "taiyo_effect_rows": 4
+      }
+    },
+    {
+      "id": "06",
+      "name": "Sunward Oath",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "parent_rule": "ALL",
+      "potency_classification": "Scorch",
+      "scope": "Taiyo Kami jutsu",
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "minimum_path_bp": 1,
+      "coverage": {
+        "taiyo_jutsu": [
+          "Celestial Ignition",
+          "Radiant Embers"
+        ],
+        "taiyo_effect_rows": 2
+      }
+    },
+    {
+      "id": "07",
+      "name": "Golden Mantle",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "parent_rule": "ALL",
+      "potency_classification": "Scorch",
+      "scope": "Taiyo Kami jutsu",
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "minimum_path_bp": 2,
+      "coverage": {
+        "taiyo_jutsu": [
+          "Celestial Ignition"
+        ],
+        "taiyo_effect_rows": 1
+      }
+    },
+    {
+      "id": "08",
+      "name": "Sovereign Sun",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "parent_rule": "ALL",
+      "potency_classification": "Scorch",
+      "scope": "Taiyo Kami jutsu",
+      "modifiers": [
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 5,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "minimum_path_bp": 3,
+      "coverage": {
+        "taiyo_jutsu": [
+          "Celestial Ignition"
+        ],
+        "taiyo_effect_rows": 3
+      }
+    },
+    {
+      "id": "09",
+      "name": "Ashen Verdict",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "parent_rule": "ALL",
+      "potency_classification": "Scorch",
+      "scope": "Taiyo Kami jutsu",
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "minimum_path_bp": 2,
+      "coverage": {
+        "taiyo_jutsu": [
+          "Radiant Embers"
+        ],
+        "taiyo_effect_rows": 1
+      }
+    },
+    {
+      "id": "10",
+      "name": "Dying Light",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "09"
+      ],
+      "parent_rule": "ALL",
+      "potency_classification": "Scorch",
+      "scope": "Taiyo Kami jutsu",
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "minimum_path_bp": 3,
+      "coverage": {
+        "taiyo_jutsu": [
+          "Radiant Embers",
+          "Stellar Inferno"
+        ],
+        "taiyo_effect_rows": 2
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Solar Cataclysm",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "afterburn": 0,
+        "decreasedamagetaken": 2,
+        "decreasedamagegiven": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Solar Reverb",
+          "row": 0,
+          "tag": "damage",
+          "combat_elements": [
+            "Scorch"
+          ],
+          "potency_classification": "Scorch",
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula"
+        },
+        {
+          "jutsu": "Solar Reverb",
+          "row": 1,
+          "tag": "afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Incandescent Nova",
+          "row": 0,
+          "tag": "damage",
+          "combat_elements": [
+            "Scorch"
+          ],
+          "potency_classification": "Scorch",
+          "base": 50.0,
+          "gain": 5,
+          "final": 55.0,
+          "calculation": "formula"
+        },
+        {
+          "jutsu": "Incandescent Nova",
+          "row": 1,
+          "tag": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Celestial Ignition",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Celestial Ignition",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "combat_elements": [
+            "Fire",
+            "None",
+            "Scorch",
+            "Wind"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Celestial Ignition",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Radiant Embers",
+          "row": 0,
+          "tag": "decreasedamagegiven",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Radiant Embers",
+          "row": 1,
+          "tag": "shield",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static"
+        },
+        {
+          "jutsu": "Stellar Inferno",
+          "row": 0,
+          "tag": "damage",
+          "combat_elements": [
+            "Scorch"
+          ],
+          "potency_classification": "Scorch",
+          "base": 40.0,
+          "gain": 5,
+          "final": 45.0,
+          "calculation": "formula"
+        },
+        {
+          "jutsu": "Stellar Inferno",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage"
+        }
+      ]
+    },
+    {
+      "name": "Eternal Noon",
+      "archetype": "Burn pressure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 0,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "afterburn": 10,
+        "decreasedamagetaken": 2,
+        "decreasedamagegiven": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Solar Reverb",
+          "row": 0,
+          "tag": "damage",
+          "combat_elements": [
+            "Scorch"
+          ],
+          "potency_classification": "Scorch",
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula"
+        },
+        {
+          "jutsu": "Solar Reverb",
+          "row": 1,
+          "tag": "afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Incandescent Nova",
+          "row": 0,
+          "tag": "damage",
+          "combat_elements": [
+            "Scorch"
+          ],
+          "potency_classification": "Scorch",
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula"
+        },
+        {
+          "jutsu": "Incandescent Nova",
+          "row": 1,
+          "tag": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Celestial Ignition",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Celestial Ignition",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "combat_elements": [
+            "Fire",
+            "None",
+            "Scorch",
+            "Wind"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Celestial Ignition",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Radiant Embers",
+          "row": 0,
+          "tag": "decreasedamagegiven",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Radiant Embers",
+          "row": 1,
+          "tag": "shield",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static"
+        },
+        {
+          "jutsu": "Stellar Inferno",
+          "row": 0,
+          "tag": "damage",
+          "combat_elements": [
+            "Scorch"
+          ],
+          "potency_classification": "Scorch",
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula"
+        },
+        {
+          "jutsu": "Stellar Inferno",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage"
+        }
+      ]
+    },
+    {
+      "name": "Sovereign Sun",
+      "archetype": "Fortified offense",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 0,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "afterburn": 0,
+        "decreasedamagetaken": 10,
+        "decreasedamagegiven": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Solar Reverb",
+          "row": 0,
+          "tag": "damage",
+          "combat_elements": [
+            "Scorch"
+          ],
+          "potency_classification": "Scorch",
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula"
+        },
+        {
+          "jutsu": "Solar Reverb",
+          "row": 1,
+          "tag": "afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Incandescent Nova",
+          "row": 0,
+          "tag": "damage",
+          "combat_elements": [
+            "Scorch"
+          ],
+          "potency_classification": "Scorch",
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula"
+        },
+        {
+          "jutsu": "Incandescent Nova",
+          "row": 1,
+          "tag": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Celestial Ignition",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Celestial Ignition",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "combat_elements": [
+            "Fire",
+            "None",
+            "Scorch",
+            "Wind"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Celestial Ignition",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Radiant Embers",
+          "row": 0,
+          "tag": "decreasedamagegiven",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Radiant Embers",
+          "row": 1,
+          "tag": "shield",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static"
+        },
+        {
+          "jutsu": "Stellar Inferno",
+          "row": 0,
+          "tag": "damage",
+          "combat_elements": [
+            "Scorch"
+          ],
+          "potency_classification": "Scorch",
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula"
+        },
+        {
+          "jutsu": "Stellar Inferno",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage"
+        }
+      ]
+    },
+    {
+      "name": "Dying Light",
+      "archetype": "Suppression",
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 0,
+        "increasedamagegiven": 0,
+        "increasedamagetaken": 5,
+        "afterburn": 0,
+        "decreasedamagetaken": 5,
+        "decreasedamagegiven": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Solar Reverb",
+          "row": 0,
+          "tag": "damage",
+          "combat_elements": [
+            "Scorch"
+          ],
+          "potency_classification": "Scorch",
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula"
+        },
+        {
+          "jutsu": "Solar Reverb",
+          "row": 1,
+          "tag": "afterburn",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Incandescent Nova",
+          "row": 0,
+          "tag": "damage",
+          "combat_elements": [
+            "Scorch"
+          ],
+          "potency_classification": "Scorch",
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula"
+        },
+        {
+          "jutsu": "Incandescent Nova",
+          "row": 1,
+          "tag": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Celestial Ignition",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Celestial Ignition",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "combat_elements": [
+            "Fire",
+            "None",
+            "Scorch",
+            "Wind"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Celestial Ignition",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Radiant Embers",
+          "row": 0,
+          "tag": "decreasedamagegiven",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage"
+        },
+        {
+          "jutsu": "Radiant Embers",
+          "row": 1,
+          "tag": "shield",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static"
+        },
+        {
+          "jutsu": "Stellar Inferno",
+          "row": 0,
+          "tag": "damage",
+          "combat_elements": [
+            "Scorch"
+          ],
+          "potency_classification": "Scorch",
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula"
+        },
+        {
+          "jutsu": "Stellar Inferno",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "combat_elements": [
+            "None"
+          ],
+          "potency_classification": "Scorch",
+          "base": 35.0,
+          "gain": 5,
+          "final": 40.0,
+          "calculation": "percentage"
+        }
+      ]
+    }
+  ],
+  "audit": {
+    "revision": "Idea 1 / Scorch classification / forked tree v3",
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
+    "all_nodes_in_non_dominated_builds": true,
+    "maximum_tag_bonuses": {
+      "damage": 5,
+      "increasedamagegiven": 5,
+      "increasedamagetaken": 7,
+      "afterburn": 10,
+      "decreasedamagetaken": 10,
+      "decreasedamagegiven": 10
+    },
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed potency classification behavior; not implemented or verified in the live engine.",
+      "All existing supported tags inherit Scorch potency eligibility; original combat elements and target scopes stay intact.",
+      "Both Increase Damage Given effect rows on Celestial Ignition receive each matching modifier.",
+      "Damage reaches three jutsu; values are raw power, not final-damage percentages.",
+      "Wound and Shield are unsupported and receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ]
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "afterburn": 3,
+        "decreasedamagetaken": 0,
+        "decreasedamagegiven": 0
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "afterburn": 0,
+        "decreasedamagetaken": 2,
+        "decreasedamagegiven": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "afterburn": 10,
+        "decreasedamagetaken": 0,
+        "decreasedamagegiven": 0
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "afterburn": 3,
+        "decreasedamagetaken": 2,
+        "decreasedamagegiven": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "afterburn": 0,
+        "decreasedamagetaken": 5,
+        "decreasedamagegiven": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "afterburn": 0,
+        "decreasedamagetaken": 2,
+        "decreasedamagegiven": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 0,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "afterburn": 10,
+        "decreasedamagetaken": 2,
+        "decreasedamagegiven": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 0,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "afterburn": 3,
+        "decreasedamagetaken": 5,
+        "decreasedamagegiven": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 0,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "afterburn": 3,
+        "decreasedamagetaken": 2,
+        "decreasedamagegiven": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "damage": 0,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "afterburn": 0,
+        "decreasedamagetaken": 10,
+        "decreasedamagegiven": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 0,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "afterburn": 0,
+        "decreasedamagetaken": 5,
+        "decreasedamagegiven": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "damage": 0,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 7,
+        "afterburn": 0,
+        "decreasedamagetaken": 2,
+        "decreasedamagegiven": 10
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "damage": 0,
+        "increasedamagegiven": 3,
+        "increasedamagetaken": 0,
+        "afterburn": 0,
+        "decreasedamagetaken": 10,
+        "decreasedamagegiven": 5
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "damage": 0,
+        "increasedamagegiven": 0,
+        "increasedamagetaken": 5,
+        "afterburn": 0,
+        "decreasedamagetaken": 5,
+        "decreasedamagegiven": 10
+      }
+    }
+  ]
+}
