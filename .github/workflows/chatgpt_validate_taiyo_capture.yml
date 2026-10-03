@@ -1,0 +1,21 @@
+name: chatgpt validate Taiyo Kami capture
+
+on:
+  push:
+    branches:
+      - "chatgpt/taiyo-kami-capture-20261002"
+    paths:
+      - "push/60_taiyo_kami_jutsu_capture.json"
+      - ".github/workflows/chatgpt_validate_taiyo_capture.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate capture manifest
+        working-directory: skills/building-tnr-content/data
+        run: python3 ../scripts/validate.py ../../../push/60_taiyo_kami_jutsu_capture.json
