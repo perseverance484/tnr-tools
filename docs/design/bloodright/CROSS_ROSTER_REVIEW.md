@@ -57,7 +57,7 @@ Row-weighted total = Σ (addition × supported rows of that tag). It favours kit
 | Ethereal Monarch | Sovereign's Decree, Tear in the Soul, Stardust Afterglow, Rain of Fallen Stars | 21 | 31 | DMG +2, IDG +4, IDT +5, AB +10 |
 | Eyes of the Forsaken King | Gaze of the Deposed, Searing Afterimage, Judgment of the Forsaken, Mantle of Exile | 21 | 31 | IDG +2, IDT +5, DDT +2, AB +10, REF +2 |
 
-Dominated legal full builds across the roster: 10 — Dai Kenja: Brimming Cup, Sage's Rebuke, Smothered Current, Cracked Vessel; Ha Yanagi: Mourning Boughs, Veil of Falling Petals, Blight Takes Root, Whispering Canopy; Hyouga Yui: Permafrost Heart, Weight of the Avalanche, Cocytus Vigil, Cracks in the Ice; Itojinsei: Taut Filament, Tangling Snare, Constricting Coils, Conductive Seam; Loup-Garou: Scent of Blood, Run to Ground, Hunter's Moon, Feral Frenzy; Musashi Ken: Drawn Steel, Second Sword, Reading the Field, Unbroken Guard; Nature's Blessing: Thorn and Rot, Stripped Bark, Sap of the Grove, Deepening Roots; Shadow Weaver: Loom of Dusk, Frayed Resolve, Cloak of Woven Night, Umbral Whetstone; Tenohira Musei: Waxing Crescent, Unspoken Blow, Waning Crescent, Bared to the Moon; Tenohira Musei: Waxing Crescent, Held Breath, Waning Crescent, Hushed Inferno. A dominated build is legal but worse on every tag than another legal build of the same tree.
+Dominated legal full builds across the roster: 14 — Dai Kenja: Brimming Cup, Sage's Rebuke, Smothered Current, Cracked Vessel; Ha Yanagi: Mourning Boughs, Veil of Falling Petals, Blight Takes Root, Whispering Canopy; Hyouga Yui: Permafrost Heart, Weight of the Avalanche, Cocytus Vigil, Cracks in the Ice; Itojinsei: Taut Filament, Tangling Snare, Constricting Coils, Conductive Seam; Loup-Garou: Scent of Blood, Run to Ground, Hunter's Moon, Feral Frenzy; Musashi Ken: Drawn Steel, Single Stroke, Reading the Field, Unbroken Guard; Musashi Ken: Drawn Steel, Single Stroke, Reading the Field, Answering Cut; Musashi Ken: Drawn Steel, Second Sword, Reading the Field, Unbroken Guard; Musashi Ken: Drawn Steel, Reading the Field, Unbroken Guard, Answering Cut; Nature's Blessing: Thorn and Rot, Stripped Bark, Sap of the Grove, Deepening Roots; Shadow Weaver: Loom of Dusk, Frayed Resolve, Cloak of Woven Night, Umbral Whetstone; Tenohira Musei: Waxing Crescent, Unspoken Blow, Waning Crescent, Bared to the Moon; Tenohira Musei: Waxing Crescent, Held Breath, Waning Crescent, Hushed Inferno; Voltara Divine: Anointed by Lightning, Dragon's Whispered Wrath, Halo of Static, Heaven's Retort. A dominated build is legal but worse on every tag than another legal build of the same tree.
 
 ## 2. Worst-value purchases
 
@@ -85,11 +85,11 @@ Dominated legal full builds across the roster: 10 — Dai Kenja: Brimming Cup, S
 | Oblivion Seal | Unraveled Wards | Hidden Art | 2 | 2 |
 | Shinseina Ki | Grasping Roots | Foundation | 2 | 2 |
 | Yaketsuku Netsu | Blistered Guard | Foundation | 2 | 2 |
+| Nature's Blessing | Bramble Warden | Hidden Art | 3 | 2 |
 | Taiyo Kami | Emberwake | Hidden Art | 3 | 3 |
 | Taiyo Kami | Golden Mantle | Hidden Art | 3 | 3 |
 | Taiyo Kami | Ashen Verdict | Hidden Art | 3 | 3 |
 | Aerathiel | Particulate Ward | Hidden Art | 3 | 3 |
-| Aerathiel | Withering Gale | Hidden Art | 3 | 3 |
 
 ## 3. Tag ceilings against engine caps
 
@@ -143,8 +143,8 @@ Per tag: the highest single-row final and the summed finals at the best legal bu
 
 | Bloodline | Rows | Max addition | Max single-row final | Summed finals | Recipient |
 |---|---|---|---|---|---|
+| Nature's Blessing | 1 | 9 | 39.0 | 39.0 | self |
 | Megumi Kijo | 1 | 8 | 38.0 | 38.0 | self |
-| Nature's Blessing | 1 | 8 | 38.0 | 38.0 | self |
 
 **Damage** — top 6 of 43 trees
 
@@ -248,9 +248,9 @@ Percentage rows pushed past the 100 cap by any legal build: 0.
 | Loup-Garou | D | Loup-Garou (ext) | 0 | 0/4 (4 None) | — | — | — | Scent of Blood | 0 | 0 | — | — |
 | Lycanthropy | B | Lycanthropy (ext) | 0 | 0/5 (5 None) | — | — | — | The Beast Within | 0 | 0 | — | — |
 | Megumi Kijo | B | Megumi Kijo (ext) | 0 | 0/5 (5 None) | — | — | — | Hagmother's Welcome | 0 | 0 | — | — |
-| Musashi Ken | D | Musashi Ken (ext) | 0 | 0/6 (6 None) | — | — | — | Drawn Steel | 0 | 0 | — | — |
+| Musashi Ken | D | Musashi Ken (ext) | 0 | 0/6 (6 None) | — | — | — | — | 0 | 0 | — | — |
 | Namikaze | C | Namikaze (ext) | 28 | 0/8 (3 None) | — | — | — | — | 1 | 0 | — | — |
-| Nature's Blessing | B | Wood (element) | 1 | 2/5 (3 None) | — | — | — | Thorn and Rot | 0 | 0 | — | — |
+| Nature's Blessing | B | Wood (element) | 1 | 2/5 (3 None) | — | — | — | — | 0 | 0 | — | — |
 | Night Parade of A Thousand Demons | H | Shadow (element) | 13 | 2/7 (5 None) | — | — | — | — | 1 | 0 | — | — |
 | Oblivion Seal | A | Shadow (element) | 13 | 4/7 (3 None) | — | — | — | — | 0 | 0 | — | — |
 | Primal Radiance | C | Primal Radiance (ext) | 29 | 0/6 (2 None) | — | — | — | — | 0 | 0 | — | — |
@@ -268,7 +268,7 @@ Percentage rows pushed past the 100 cap by any legal build: 0.
 | Terra Nova | C | Terra Nova (ext) | 23 | 0/5 (2 None) | — | — | — | — | 0 | 0 | — | — |
 | Tetsugan | H | Metal (element) | 0 | 10/20 (10 None) | afterburn, damage, reflect | — | — | — | 3 | 0 | — | Inner Peace increasedamagegiven |
 | Vaporia | A | Boil (element) | 0 | 3/10 (7 None) | — | — | — | — | 1 | 0 | — | — |
-| Voltara Divine | C | Voltara Divine (ext) | 24 | 0/5 (2 None) | — | — | — | Anointed by Lightning | 0 | 0 | — | — |
+| Voltara Divine | C | Voltara Divine (ext) | 24 | 0/5 (2 None) | — | — | — | — | 0 | 0 | — | — |
 | Yaketsuku Netsu | B | Yaketsuku Netsu (ext) | 0 | 0/4 (4 None) | — | — | — | Heat in the Steel | 0 | 0 | — | — |
 
 `Rows matching label now` shows how much of each kit the current resolver would reach with `affectedElements=[label]`; the remainder needs the proposed whole-kit classification (ENGINE_GAP_REGISTER G1–G2). Broad basic-element leakage is avoided only if the classification is bloodline-scoped.

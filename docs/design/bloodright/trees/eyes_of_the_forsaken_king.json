@@ -1,6 +1,6 @@
 {
   "title": "Eyes of the Forsaken King — Court in Exile",
-  "revision": "Draft 1 / Light classification / forked tree",
+  "revision": "Draft 2 / Light classification / forked tree",
   "bloodline": {
     "id": "r3nBY_Th4_ZAIUfhx1jdy",
     "review_id": "BR-027",
@@ -149,7 +149,7 @@
         }
       ],
       "flavor": "Look away; the image stays, and it burns.",
-      "coverage_note": "Imperial Swords Afterburn only (25→28%, 2 rounds per 60 AP cast); its value is every non-pierce hit the target takes in the window.",
+      "coverage_note": "Imperial Swords Afterburn only (25→28%, the 2 rounds after each 60 AP cast); its value is every later non-pierce hit the target takes.",
       "parent_rule": "ALL",
       "potency_classification": "Light",
       "scope": "Eyes of the Forsaken King jutsu",
@@ -214,7 +214,7 @@
         }
       ],
       "flavor": "Stripped of the crown, he kept the light it cast.",
-      "coverage_note": "illuminance self damage reduction (30→32%, all damage, 2 rounds); Lux self Reflect (40→42% of each hit incl. pierce, 2 rounds per cast).",
+      "coverage_note": "illuminance self damage reduction (30→32%, all non-pierce damage, 2 rounds); Lux self Reflect (40→42% of each hit incl. pierce, 2 rounds).",
       "parent_rule": "ALL",
       "potency_classification": "Light",
       "scope": "Eyes of the Forsaken King jutsu",
@@ -243,7 +243,7 @@
         }
       ],
       "flavor": "A king without a kingdom still refuses to kneel.",
-      "coverage_note": "illuminance self damage reduction only (32→35% with Mantle of Exile); one row, all damage, on the caster at cast, 2 rounds per 40 AP cast.",
+      "coverage_note": "illuminance self damage reduction only (32→35% with Mantle of Exile); one row, all non-pierce damage, 2 rounds per 40 AP cast.",
       "parent_rule": "ALL",
       "potency_classification": "Light",
       "scope": "Eyes of the Forsaken King jutsu",
@@ -632,7 +632,7 @@
         "05",
         "06"
       ],
-      "rationale": "Imperial Swords as the pressure cast: its Afterburn reaches 35% and all three exposure rows reach 40% (Chrono Stasis lands two at once, Imperial Swords the third), so every non-pierce hit on the marked target is amplified and burns. Mantle of Exile is the fourth purchase for a small defensive floor; Edge of the Regalia (+2 Damage) is the offensive alternative.",
+      "rationale": "Imperial Swords as the pressure cast: its Afterburn reaches 35% and all three exposure rows reach 40% (Chrono Stasis lands two at once, Imperial Swords the third), so every non-pierce hit on the marked target in the two rounds after the casts is amplified and burns (Imperial Swords' own hit is not). Mantle of Exile is the fourth purchase for a small defensive floor; Edge of the Regalia (+2 Damage) is the offensive alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -902,7 +902,7 @@
         "07",
         "08"
       ],
-      "rationale": "illuminance as a two-round fortress buff: damage reduction 40% and damage buff 40% on one 40 AP cast, with exposure at 37% and reflect at 42%. Gaze of the Deposed is the fourth purchase because it lifts both of illuminance's rows and the exposure rows; Mirrored Crown (reflect 45%) is the defensive alternative.",
+      "rationale": "illuminance as a two-round fortress buff: damage reduction 40% and damage buff 40% for the two rounds after one 40 AP cast, with exposure at 37% and reflect at 42%. Gaze of the Deposed is the fourth purchase because it lifts both of illuminance's rows and the exposure rows; Mirrored Crown (reflect 45%) is the defensive alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
@@ -1434,17 +1434,17 @@
   "narrow_kit_exception": null,
   "design_notes": [
     "Node split: Gaze of the Deposed (damage buff + exposure) forks into a raw-power route (Edge of the Regalia → Throne of Broken Light) and an Afterburn route (Searing Afterimage → Judgment of the Forsaken). Mantle of Exile (reduction + Reflect) forks into a reduction route (Halo of the Unbowed → Kingdom of One) and a reflect route (Mirrored Crown → Usurper's Reckoning). 2 Foundations, 4 Hidden Arts, 4 Advanced Arts; every capstone is 3 BP deep; any two capstones cost 5 or 6 BP (budget 4).",
-    "Flats follow coverage. Damage reaches three rows, so it takes +2/+3 (max +5: Lux 55, Shattered Reflection 45, Imperial Swords 45). Exposure reaches three rows that stack on one target (Chrono Stasis lands 70% at once, Imperial Swords adds 35%), so it is held to +2 Foundation plus a +3 or +2 capstone secondary (max +5: 40% per row, 120% stacked). Afterburn, reduction and Reflect are single rows at +3/+7 and +2/+3/+5 (max +10: 35%, 40%, 50%); the damage buff is one row at +2/+3 (max +5, 40%).",
-    "Interactions: illuminance's damage buff (Fire/Light/Lightning/Wind/None, no stat filter) multiplies Light hits, basic attacks, and non-elemental and Fire/Lightning/Wind jutsu and weapons for two rounds; the bloodline passive (damage buff 25% + 0.15/level, same elements; bloodline-sourced, so it multiplies) stacks on top. Chrono Stasis row 0 and Imperial Swords row 2 (all four stat types, no element) amplify every non-pierce hit from any attacker; Chrono Stasis row 1 excludes Water/Earth hits.",
-    "Delivery and uptime: the three damage casts cost 60 AP on cooldown 7 at range 4 (Lux is an AOE line). illuminance is a 40 AP EMPTY_GROUND circle at range 5; its buff rows are SELF, realized on the caster at cast (actions.ts 980-1004), not through the tiles. Chrono Stasis is a 40 AP single-target cast at range 5 carrying both exposure rows. Lux's reflect row is SELF and applies at cast. Stacked exposure figures are ceilings (100 AP for both casts); nothing was simulated.",
+    "Flats follow coverage and copy Taiyo Kami's on 8 of 10 nodes (same kit shape: three 60 AP Damage casts, one Afterburn row, single-row self buffs). Damage (3 rows) +2/+3, max +5 (Lux 55, others 45); Afterburn +3/+7, DDT and Reflect +2/+3/+5, max +10 (35%, 40%, 50%); IDG one row, max +5 (40%). Departures: Reflect replaces DDG (no DDG row); Judgment drops Eternal Noon's +3 IDG; exposure reaches three stacking rows, so it stops at +5 (Taiyo +7; 40% per row, 120% stacked); Usurper has +2 IDT, not +5.",
+    "Interactions: illuminance's damage buff (no stat filter) adds 35% (40% at route maximum) of the staged base to the caster's Light, Fire, Lightning, Wind and element-less hits in the 2 rounds after its cast; the bloodline passive (25% + 0.15/level, same elements) is bloodline-sourced and multiplies on top. Chrono Stasis row 0 and Imperial Swords row 2 (four stat types, no element) add to every non-pierce hit on the target; Chrono Stasis row 1 skips Water, Earth and other unlisted elements.",
+    "Delivery and uptime: the three damage casts cost 60 AP on cooldown 7 at range 4 (Lux is an AOE line). illuminance is a 40 AP EMPTY_GROUND circle at range 5; its buff rows are SELF, realized on the caster at cast (actions.ts 980-1004), not through the tiles. Chrono Stasis is a 40 AP single-target cast at range 5 carrying both exposure rows. Lux's reflect row is SELF too (live the 2 rounds after cast). Stacked exposure figures are ceilings (100 AP for both casts); nothing was simulated.",
     "Fourth purchase choices: Burst takes Mantle of Exile (reduction 32%, reflect 42%) or Searing Afterimage (Afterburn 28%); Burn pressure takes Mantle of Exile or Edge of the Regalia (+2 Damage); Fortress takes Gaze of the Deposed (buff 40%, exposure 37%) or Mirrored Crown (reflect 45%); Counter takes Halo of the Unbowed (reduction 35%) or Gaze of the Deposed (exposure 39%, buff 37%). All 14 legal full-budget allocations are numerically non-dominated and every node appears in at least one.",
     "Capstone secondaries: Judgment of the Forsaken carries exposure +3 because Imperial Swords holds both the Afterburn row and an exposure row (burn and mark on one cast). Kingdom of One carries damage buff +3 so both of illuminance's self rows reach 40% on one cast. Usurper's Reckoning carries exposure +2, below the pressure capstone's +3, so the defensive capstone is not the best offensive purchase and the three-row exposure maximum stays at +5. No secondary out-bids a sibling Hidden Art (+3)."
   ],
   "risks": [
-    "Ally hazard (Lux#0; validator warning 'ally-hazard area rows amplified'): Lux targets OTHER_USER with AOE_LINE_SHOOT and its damage row has no friendly-fire value (ALL at the pin), so allies standing in the line take Lux's 50 damage, 52 with Edge of the Regalia and 55 with Throne of Broken Light; positioning, not the node, decides. Imperial Swords is ENEMIES-only; the others are single-target.",
-    "Exposure stacking: BATTLE_TAG_STACKING is on at the pin, so Chrono Stasis's two Increase Damage Taken rows (70% base together) and Imperial Swords' row (35%) stack on one target to 105% base and 120% at the +5 route maximum, and the Afterburn 35% rides on the amplified hits. The exposure flats were held to +2/+3/+2 for this reason; realised value was not simulated.",
-    "Reflect near cap: Lux's reflect reaches 50% at the route maximum against the engine's 60% per-hit cap (process.ts), so a main-tree or equipment reflect source stacking on it saturates quickly; the buff lasts 2 rounds per 60 AP Lux cast on cooldown 7, so the Counter build's value depends on being hit inside that window.",
-    "Leakage and pierce: illuminance's damage buff multiplies non-bloodline Fire/Lightning/Wind and non-elemental hits in its window; enemy-side exposure and Afterburn amplify allies' and weapons' damage against the marked target. Stat filters on element-less rows are not binding (SOURCE_MECHANICS section 3). Damage modifiers never touch pierce hits; Reflect includes pierce; Afterburn skips it.",
+    "Ally hazard (Lux#0, validator warning): Lux's AOE line damage row has no friendlyFire value (ALL at the pin), so allies in the line take 50 damage (52 with Edge of the Regalia, 55 with Throne); positioning decides. Shattered Reflection, Chrono Stasis and Imperial Swords (damage ENEMIES-only) are single-target; illuminance's supported rows are SELF, so its ground circle carries no amplified hazard.",
+    "Exposure stacking (SOURCE_MECHANICS §3b): Chrono Stasis's two IDT rows (70%) and Imperial Swords' row (35%) all apply to one target and add to 105% of the staged base, 120% at the +5 route maximum, in the two rounds after their casts (not on Imperial Swords' own hit); Afterburn 35% is taken from the amplified hits. Exposure flats were held to +2/+3/+2 for this reason; not simulated.",
+    "Reflect near cap: Lux's reflect reaches 50% at the route maximum against the engine's 60% per-hit cap (process.ts), so a main-tree or equipment reflect source stacking on it saturates quickly; the buff lasts 2 rounds per 60 AP Lux cast on cooldown 7, so the Counter build's value depends on being hit inside that window. Lux must be aimed at a living non-caster user to realize it.",
+    "Leakage and pierce: illuminance's damage buff also adds to the caster's non-bloodline Fire/Lightning/Wind and element-less hits in its window; enemy-side exposure and Afterburn amplify allies' and weapons' damage against the marked target. Stat filters on element-less rows are not binding (SOURCE_MECHANICS §3). Damage modifiers never touch pierce hits; Reflect includes pierce; Afterburn skips it.",
     "Classification: Light is shared with six census bloodlines (Architect of the Hollow Script, Crust Almighty, Eyes of the Forsaken Heir [excluded], Radiant Valor, Solar Soul, Timeforged Enigma), so the label must be bloodline-scoped. Under the current resolver 5 of 10 supported rows match Light and 5 fall back to None (reaching non-elemental rows on any jutsu). Normal-jutsu collision unverified.",
     "Afterburn: one application row (Imperial Swords, 25% for 2 rounds per 60 AP cast); its value is downstream, depends on hits landed in the window, skips pierce, and the 60% per-hit cap means stacked Afterburn sources saturate. No proc or uptime simulation was performed.",
     "Rank context: an S-rank bloodline whose native kit (three 60 AP damage casts, triple exposure, a 25%+ damage-buff passive) is strong before any node; the tree equalises marginal opportunity, not final strength; cross-bloodline comparison is deferred to the roster review. Ranked modes suppress skill-tree effects; normal-tree potency policy is unapproved, so a stacking audit precedes implementation.",
@@ -1514,7 +1514,7 @@
       "reflect"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 1 / Light classification / forked tree",
+    "revision": "Draft 2 / Light classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed potency classification behavior; not implemented or verified in the live engine.",

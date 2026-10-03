@@ -1,6 +1,6 @@
 {
   "title": "Hyouga Yui — Nine Hells Frozen",
-  "revision": "Draft 1 / Ice classification / forked tree",
+  "revision": "Draft 2 / Ice classification / forked tree",
   "bloodline": {
     "id": "lPcN4q0dtX2muWT2KlXGg",
     "review_id": "BR-034",
@@ -31,8 +31,8 @@
   "emphasis": {
     "primary": "Area burst (Damage on the three Ice circle strikes: Nine Hell's Spear 45, Glacial Shatter: Purgatory 45, Cerulean Storm: Avalanche 40)",
     "secondary": "Ground control (Increase Damage Taken 35% on Glacial Descent: Cocytus and Nine Hell's Spear's circle; Decrease Damage Taken 35% on Cocytus and 30% on Glacier's Will's tiles)",
-    "tertiary": "Self amplification (Increase Damage Given 35% on Cerulean Storm: Avalanche and Glacier's Will over the 25% + 0.15/level bloodline passive)",
-    "rationale": "Damage is the broadest tag: three Ice rows at 40/45 power on radius-1 circle strikes (Nine Hell's Spear, Glacial Shatter: Purgatory, Cerulean Storm: Avalanche), all ENEMIES-only, so burst is the primary and the AOE trait's home. The Ground Control trait lives in Glacial Descent: Cocytus (35% exposure and 35% guard on one 40 AP cast), Nine Hell's Spear's 35% circle exposure and Glacier's Will's 30% ground guard, so Increase Damage Taken and Decrease Damage Taken form the secondary. Increase Damage Given sits on two 35% self rows (Avalanche, Glacier's Will) above a bloodline passive of the same tag and is the tertiary amplifier route. Wound, shield and move are unsupported and untouched."
+    "tertiary": "Self amplification (Increase Damage Given 35% on Cerulean Storm: Avalanche and Glacier's Will beside the 25% + 0.15/level bloodline passive); same +7 ladder as the secondaries, ranked by role, not size",
+    "rationale": "Damage is the broadest tag: three Ice rows at 40/45 power on radius-1 circle strikes (Nine Hell's Spear, Glacial Shatter: Purgatory, Cerulean Storm: Avalanche), all ENEMIES-only, so burst is the primary and the AOE trait's home. The Ground Control trait lives in Glacial Descent: Cocytus (35% exposure and 35% guard on one 40 AP cast), Nine Hell's Spear's 35% circle exposure and Glacier's Will's 30% ground guard, so Increase Damage Taken and Decrease Damage Taken form the secondary. Increase Damage Given sits on two 35% self rows (Avalanche, Glacier's Will) beside a bloodline passive of the same tag. All three percentage ladders stop at +7 on two rows, so below Damage the tiers are co-equal in size: control ranks above IDG because it spans two tags and its exposure lifts allies' hits, while IDG serves the caster alone; trimming IDG to +6 so the order is arithmetic is a user-owned option (design notes). Wound, shield and move are unsupported and untouched."
   },
   "nodes": [
     {
@@ -49,7 +49,7 @@
         }
       ],
       "flavor": "The cold settles in the chest first. Everything after it strikes harder.",
-      "coverage_note": "Self damage buffs 35→38% on Cerulean Storm: Avalanche (Ice/Water/Wind/element-less hits) and Glacier's Will (all four stat types); 2 rounds.",
+      "coverage_note": "Self damage buffs 35→38%: Avalanche's (Ice/Water/Wind/element-less hits), Glacier's Will's (every non-pierce hit); 2 rounds after cast.",
       "parent_rule": "ALL",
       "potency_classification": "Ice",
       "scope": "Hyouga Yui jutsu",
@@ -138,7 +138,7 @@
         }
       ],
       "flavor": "Frost does not stop at the skin. It keeps going down.",
-      "coverage_note": "Both self damage buffs 38→40% with Permafrost Heart: Avalanche after its 60 AP strike, Glacier's Will at cast time; 2 rounds each.",
+      "coverage_note": "IDG 38→40% with Permafrost Heart; both rows land on the caster at cast, Avalanche's with its 60 AP strike, Glacier's Will's with its 40 AP.",
       "parent_rule": "ALL",
       "potency_classification": "Ice",
       "scope": "Hyouga Yui jutsu",
@@ -172,7 +172,7 @@
         }
       ],
       "flavor": "A glacier moves a hand's width a day and nothing in its path survives the year.",
-      "coverage_note": "IDG route total +7: both self buffs 42%. Guard 35→37% on Cocytus (self, at cast) and 30→32% on Glacier's Will's tiles from the next round.",
+      "coverage_note": "IDG route total +7: both self buffs 42%. Guard 35→37% on Cocytus (self, at cast) and 30→32% on Glacier's Will's tiles (positional).",
       "parent_rule": "ALL",
       "potency_classification": "Ice",
       "scope": "Hyouga Yui jutsu",
@@ -235,7 +235,7 @@
         }
       ],
       "flavor": "Every surface has a seam. The cold finds it and widens it.",
-      "coverage_note": "Exposure 37→40% with Cocytus Vigil: Cocytus's single target and every enemy in Spear's circle take more from every non-pierce hit, 2 rounds.",
+      "coverage_note": "Exposure 37→40% with Cocytus Vigil: Spear's circle vs every non-pierce hit; Cocytus's target vs element-less and caster's-highest-stat hits.",
       "parent_rule": "ALL",
       "potency_classification": "Ice",
       "scope": "Hyouga Yui jutsu",
@@ -359,7 +359,7 @@
         "03",
         "06"
       ],
-      "rationale": "The +5 power route on all three Ice circle strikes (Nine Hell's Spear and Glacial Shatter: Purgatory 45→50, Cerulean Storm: Avalanche 40→45, enemies only) with Permafrost Heart's 38% self buffs multiplying them on top of the bloodline passive. Cocytus Vigil is the fourth purchase because it opens the 40 AP support casts (exposure 37% on Cocytus and Spear's circle, guard 37%/32%) without re-touching the strike rows; Deepening Frost (40% self buffs) is the all-in alternative.",
+      "rationale": "The +5 power route on all three Ice circle strikes (Nine Hell's Spear and Glacial Shatter: Purgatory 45→50, Cerulean Storm: Avalanche 40→45, enemies only), with Permafrost Heart's 38% self buffs adding to strikes cast in the two rounds after Avalanche or Glacier's Will (never Avalanche's own hit) before the passive multiplies. Cocytus Vigil is the fourth purchase because it raises the two 40 AP supports and Spear's circle exposure (exposure 37%, guard 37%/32%) without re-touching the strike rows; Deepening Frost (40% self buffs) is the all-in alternative.",
       "cost": 4,
       "bonuses": {
         "damage": 5,
@@ -601,7 +601,7 @@
         "05",
         "06"
       ],
-      "rationale": "Both self damage buffs at the two-row maximum 42% (+7): Avalanche's buff covers Ice, Water, Wind and element-less hits, Glacier's Will's covers all four stat types, and the two windows overlap for a round when cast back to back, multiplying every strike, weapon and normal jutsu in them over the passive. Cocytus Vigil is the fourth purchase so the capstone's guard secondary compounds (Cocytus 39%, Glacier's Will 34%) and exposure reaches 37%; Weight of the Avalanche (+2 power) is the offensive alternative.",
+      "rationale": "Both self damage buffs at the two-row maximum 42% (+7): Avalanche's covers Ice, Water, Wind and element-less hits, Glacier's Will's every non-pierce hit. Cast in one turn (60 + 40 AP) they are live together for the next two rounds and add 84% of the staged base to every hit matching both, strikes, weapons and normal jutsu alike, before the passive multiplies; Avalanche's own hit takes neither. Cocytus Vigil is the fourth purchase so the capstone's guard secondary adds up (Cocytus 39%, Glacier's Will 34%) and exposure reaches 37%; Weight of the Avalanche (+2 power) is the offensive alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 7,
@@ -842,7 +842,7 @@
         "07",
         "08"
       ],
-      "rationale": "Both exposures at the two-row maximum 42% (+7): Cocytus marks a single target and Nine Hell's Spear marks every enemy in its circle, and both raise what allies' and weapons' non-pierce hits do for two rounds, not only the caster's. The capstone also carries +2 power on the three strikes (47/47/42). Permafrost Heart is the fourth purchase for 38% self buffs; Rime Mantle (guard 40%/35%) is the defensive alternative.",
+      "rationale": "Both exposures at the two-row maximum 42% (+7), live for the two rounds after the cast: Nine Hell's Spear marks every enemy in its circle against every non-pierce hit, allies' and weapons' as well as the caster's; Cocytus marks one target against element-less hits and elemental hits of the caster's highest offence stat. The capstone also carries +2 power on the three strikes (47/47/42). Permafrost Heart is the fourth purchase for 38% self buffs; Rime Mantle (guard 40%/35%) is the defensive alternative.",
       "cost": 4,
       "bonuses": {
         "damage": 2,
@@ -1318,22 +1318,22 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Node split: Permafrost Heart (+3 self Increase Damage Given) forks into a Damage route (Weight of the Avalanche → Buried in the Avalanche) and an amplifier route (Deepening Frost → The Glacier Advances). Cocytus Vigil (+2 exposure, +2 guard: both rows of Glacial Descent: Cocytus) forks into exposure (Cracks in the Ice → Nine Hells Opened) and guard (Rime Mantle → Locked in Cocytus). 2/4/4 nodes; every Advanced Art is 3 BP deep; any two cost 5 or 6 BP.",
-    "Calibration by coverage: Damage +2/+3 (max +5 on three rows, as Taiyo Kami). Every percentage tag reaches two rows, so each ladder stops at +7: IDG 3/2/2, IDT 2/3/2, DDT 2/3/2 (42% on the 35% rows, 37% on Glacier's Will's 30%). Capstone secondaries are +2, below the +3 Hidden Arts on IDT and DDT; Nine Hells Opened's +2 power ties Weight of the Avalanche across roots (the one dominated hybrid). Row-weighted: Foundations 6/8, Hidden Arts 4–6, Advanced Arts 8–10; full builds 24–30 (Taiyo 20–31).",
-    "Why a single-tag root: the self side carries only Increase Damage Given (Avalanche, Glacier's Will) and Decrease Damage Taken (Cocytus, Glacier's Will). Putting DDT in both roots would let guard reach +9 on two rows at 4 BP, and IDT in both would do the same for exposure, so Permafrost Heart takes IDG alone at +3 and the Cocytus root owns both control tags. The IDG route reaches +5 at 2 BP and +7 at 3 BP, the same ceiling as the other two percentage ladders.",
-    "Resolver (SOURCE_MECHANICS §3): Avalanche's IDG row lists Ice/None/Water/Wind and multiplies those elements plus element-less hits; Glacier's Will's IDG and both DDT rows list all four stat types, no element, so they act on every non-pierce hit given or taken; Spear's exposure covers every non-pierce hit from anyone; Cocytus's (Highest, no element) covers element-less hits plus elemental hits of the caster's highest stat. All four tags skip pierce. The IDG passive multiplies downstream.",
-    "Delivery: every cast is cooldown 7. Strikes cost 60 AP, range 4, radius-1 circle around an OTHER_USER target, friendly fire ENEMIES. Cocytus is 40 AP, single OPPONENT, range 4: IDT on the target, DDT on the caster at cast. Glacier's Will is 40 AP, EMPTY_GROUND, range 5: its IDG row targets SELF and lands at cast; its DDT row is INHERIT, friendly fire FRIENDLY: a ground circle re-applied each round to caster and allies on the tiles from the round after the cast. Rows last 2 rounds.",
-    "Fourth purchases: Burst takes Cocytus Vigil (37% exposure/guard) or Deepening Frost (40% self buffs); Amplifier takes Cocytus Vigil or Weight of the Avalanche (+2 power); Exposure takes Permafrost Heart (38% self buffs) or Rime Mantle (guard); Lake warden takes Cracks in the Ice or Permafrost Heart. 13 of 14 full allocations are non-dominated; every node appears in one. Strongest unadvertised by row weight: 06,07,08,09 (30: exposure 42%, guard 40%/35%, +2 power); 01,02,03,04 is all-offence (25)."
+    "Node split: Permafrost Heart (+3 self Increase Damage Given) forks into a Damage route (Weight of the Avalanche → Buried in the Avalanche) and an amplifier route (Deepening Frost → The Glacier Advances). Cocytus Vigil (+2 exposure, +2 guard) forks into exposure (Cracks in the Ice → Nine Hells Opened) and guard (Rime Mantle → Locked in Cocytus). Taiyo Kami's 2/4/4 fork and +2/+3 Damage route are reused; the IDG-only root and +2/+2 capstones depart because each percentage tag reaches two rows.",
+    "Calibration by coverage: Damage +2/+3 (max +5 on three rows). Each percentage tag reaches two rows, so each ladder stops at +7: IDG 3/2/2, IDT 2/3/2, DDT 2/3/2 (42% on the 35% rows, 37% on Glacier's Will's 30%). Row-weighted: Foundations 6/8, Hidden Arts 4–6, Advanced Arts 8–10; full builds 24–30 (Taiyo 16–31; the higher floor follows from every percentage tag covering two rows). Deepening Frost (+2 on two rows, 4) is deliberately the thin step and exists chiefly as the amplifier route's gate.",
+    "Why a single-tag root: the self side carries only IDG (Avalanche, Glacier's Will) and DDT (Cocytus, Glacier's Will). DDT in both roots would let guard reach +9 on two rows at 4 BP, and IDT in both would do the same for exposure, so Permafrost Heart takes IDG alone at +3 and the Cocytus root owns both control tags. The IDG route reaches +5 at 2 BP and +7 at 3 BP; any two Advanced Arts cost 5 or 6 BP.",
+    "Resolver (SOURCE_MECHANICS §3, §3b): Avalanche's IDG row (Ice/None/Water/Wind) adds to Ice, Water, Wind and element-less hits; Glacier's Will's IDG and both DDT rows (four stat types, no element) act on every non-pierce hit given or taken, as does Spear's exposure; Cocytus's (Highest, no element) covers element-less hits plus elemental hits of the caster's highest offence stat. Kit rows add power/100 × staged base and sum when live; only the passive multiplies. IDG, IDT and DDT skip pierce.",
+    "Delivery: all cooldown 7. Strikes: 60 AP, range 4, radius-1 circle on an OTHER_USER target, friendly fire ENEMIES. Cocytus: 40 AP, OPPONENT, IDT on the target, DDT on the caster. Glacier's Will: 40 AP, EMPTY_GROUND, range 5; IDG row SELF; DDT row an INHERIT FRIENDLY ground circle re-applied each round to caster and allies on the tiles; move row sorts last (§4b). Buff/debuff rows are live in the two rounds after the cast round, never in it (§3b), so no strike takes its own jutsu's buff.",
+    "Fourth purchases: Burst takes Cocytus Vigil or Deepening Frost; Amplifier, Cocytus Vigil or Weight of the Avalanche; Exposure, Permafrost Heart or Rime Mantle; Lake warden, Cracks in the Ice or Permafrost Heart. 13 of 14 full builds are non-dominated; strongest 06,07,08,09 (30). User-owned value options: IDG 3/2/1 (max +6, tier order arithmetic); IDG 2/3/2 (Deepening Frost 6, Permafrost Heart 4); Nine Hells Opened +1 power, not +2 (14 of 14 non-dominated, full builds 24–29)."
   ],
   "risks": [
     "Classification: Ice is not exclusive. Blue Blade Eyes and Teno Yuki (INCLUDE), Blue Edge Eyes (EXCLUDE) and five DEFER records carry Ice rows; the normal-jutsu collision is unverified. Today 4 of 9 supported rows match Ice directly and 5 fall back to None, which reaches non-elemental rows on any jutsu. The tree assumes a bloodline-scoped classification and is inert or leaky without it.",
-    "IDG stacking: both 35% self rows reach 42% at the maximum, BATTLE_TAG_STACKING is true at the pin and the 25% + 0.15/level passive multiplies on top; Avalanche and Glacier's Will cast on consecutive rounds overlap for a round at 84% plus passive. Glacier's Will's row (all stat types, no element) also multiplies basic attacks, weapons and normal jutsu. Not simulated; normal-tree potency unapproved.",
-    "Exposure leakage: Spear's exposure row (all stat types, no element) raises every non-pierce hit from the caster, allies and weapons on every enemy in its circle for 2 rounds; Cocytus's (Highest, no element) raises element-less hits and elemental hits of the caster's highest-offence stat on one target. Both on one enemy at the maximum reach 84%. Pierce hits take no exposure or guard.",
-    "Guard scale: Cocytus's 35% self guard and Glacier's Will's 30% ground guard reach 42% and 37%; cast on consecutive rounds they overlap for a round at 79% on matching non-pierce hits, so the ladder stops at +7. Glacier's Will's guard is positional (stand on the circle from the round after the cast) and covers allies there; its FRIENDLY re-application follows the dossier, not a new source read.",
+    "IDG stacking: both 35% self rows reach 42%. Avalanche (60 AP) and Glacier's Will (40 AP) fit one 100 AP turn (ENGINE_LAWS 61), so both are live for the same two rounds and add 84% of the staged base on hits matching both (§3b) before the 25% + 0.15/level passive multiplies. Glacier's Will's row also reaches basic attacks, weapons and normal jutsu. Not simulated; normal-tree potency unapproved.",
+    "Exposure leakage: Spear's exposure (no element) raises every non-pierce hit from the caster, allies and weapons on every enemy in its circle; Cocytus's (Highest, no element) raises element-less hits and elemental hits of the caster's highest offence stat on one target. Spear and Cocytus fit one turn (60 + 40 AP), so one enemy can carry 84% for two rounds. Pierce hits take no exposure or guard.",
+    "Guard scale: Cocytus's 35% self guard and Glacier's Will's 30% ground guard reach 42% and 37%; both fit one turn (40 + 40 AP), so a caster on the circle can hold 79% on non-pierce hits while both are live; the ladder stops at +7. The ground guard is positional and covers allies on the tiles; its FRIENDLY re-application and first active round follow the dossier and §4b, not a process.ts read.",
     "Ally hazard: none on supported rows. All three Damage rows and Spear's exposure are friendly fire ENEMIES; Cocytus is an OPPONENT-target single cast; Glacier's Will's supported rows are SELF or FRIENDLY. The kit's only ally-hazard row is Spear's wound (friendly fire none) and its only enemy-hazard row is Glacier's Will's move; both are unsupported and unchanged.",
     "Dominated allocation: 01,02,06,07 (power +2, self buff +3, exposure +5, guard +2) is dominated by 01,06,07,08, because Nine Hells Opened carries the same +2 power as Weight of the Avalanche; a player wanting both Hidden Arts' effects should buy the exposure capstone instead. Every node still appears in a non-dominated full build; 13 of 14 are non-dominated.",
     "Delivery: three 60 AP strikes and two 40 AP supports, all cooldown 7, so a route's full value is realized over a seven-round cycle and the ladders pay only inside 2-round windows. Glacial Shatter: Purgatory is a D-rank record with the same 45 power as the A-rank Spear, so the +5 power route raises it equally. No injected children, item gates, hidden jutsu or mode restrictions exist.",
-    "Context: skill-tree and bloodline effects are suppressed in ranked PvP and ranked sparring. The 15% Wind Decrease Damage Taken passive is a bloodline effect, not a jutsu row, and is untouched. Hyouga Yui is A-rank with a 28.75% IDG passive at jutsu level 25; this tree equalises marginal opportunity against the reference, not final strength. No combat simulation; balance values remain user-owned."
+    "Context: skill-tree and bloodline effects are suppressed in ranked PvP and sparring. The 15% Wind Decrease Damage Taken passive is a bloodline effect and is untouched. The IDG passive is 25% + 0.15/level (28.75% if scaled at level 25; level basis unverified). The tree equalises marginal opportunity against the reference, not final strength. No combat simulation; balance values remain user-owned."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1393,7 +1393,7 @@
       "increasedamagetaken"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 1 / Ice classification / forked tree",
+    "revision": "Draft 2 / Ice classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed potency classification behavior; not implemented or verified in the live engine.",

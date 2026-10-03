@@ -1,6 +1,6 @@
 {
   "title": "Godstorm Eclipse — Throne of the Black Sun",
-  "revision": "Draft 1 / Godstorm Eclipse classification / forked tree",
+  "revision": "Draft 2 / Godstorm Eclipse classification / forked tree",
   "bloodline": {
     "id": "szai-IgtB7PLubojIIlh-",
     "review_id": "BR-029",
@@ -244,7 +244,7 @@
         }
       ],
       "flavor": "The storm lives in the bone, and the bone drinks back whatever the storm costs.",
-      "coverage_note": "DDT 35% on Event Horizon Gate (circle, friendlies inside) and Thunder-Crowned Bulwark (ground); Lifesteal 40% on Tempest (self, 2 rounds).",
+      "coverage_note": "DDT 35% on Event Horizon Gate and Thunder-Crowned Bulwark, Lifesteal 40% on Tempest; all self rows on the caster at cast, 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Godstorm Eclipse",
       "scope": "Godstorm Eclipse jutsu",
@@ -275,7 +275,7 @@
         }
       ],
       "flavor": "Cooled from godfire, the Eclipse's hide turns blades the way glass turns light.",
-      "coverage_note": "Gate and Bulwark DDT 35% -> 39% with Stormgod's Marrow; Gate only while inside its circle, Bulwark from the round after stepping in.",
+      "coverage_note": "Gate and Bulwark DDT 35% -> 39% with Stormgod's Marrow; SELF rows on the caster at cast, not positional; pierce untouched.",
       "parent_rule": "ALL",
       "potency_classification": "Godstorm Eclipse",
       "scope": "Godstorm Eclipse jutsu",
@@ -973,7 +973,7 @@
         "05",
         "06"
       ],
-      "rationale": "Tempest's Afterburn goes from 35% to 45% for its two rounds, so every non-pierce hit the burning target takes (the kit's five damage rows, weapons, normal jutsu, allies) carries up to 45% extra inside the 60% per-hit cap; the capstone's +3 IDT with Black Sun Rising takes Gate, Wall and Storm-God's Heart exposure to 40%. Stormgod's Marrow rounds it out with 2% DDT and 2% lifesteal. This is single-target pressure: the burn follows only the one enemy Tempest struck, and raw damage power is untouched.",
+      "rationale": "Tempest's Afterburn goes from 35% to 45% for the two rounds after its cast, so every non-pierce hit the burning target takes (the kit's five damage rows, weapons, normal jutsu, allies) carries up to 45% extra inside the 60% per-hit cap; the capstone's +3 IDT with Black Sun Rising takes Gate, Wall and Storm-God's Heart exposure to 40% (Gate's also reaches allies in its circle). Stormgod's Marrow rounds it out with 2% DDT and 2% lifesteal. This is single-target pressure: the burn follows only the one enemy Tempest struck, and raw damage power is untouched.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -1537,7 +1537,7 @@
         "07",
         "08"
       ],
-      "rationale": "The DDT route takes Event Horizon Gate's and Thunder-Crowned Bulwark's 35% mitigation to 42% while you stand in them, and the capstone's +3 IDG with Black Sun Rising lifts all four self damage buffs (Wall, Tempest, Bulwark, Marrow Mantle) to 40%. It is the tank who hits back: lifesteal stays at 42% and Afterburn at 35%, so it is clearly neither the sustain nor the burn build, and its mitigation is positional (inside the Gate circle, on the Bulwark tiles).",
+      "rationale": "The DDT route takes Event Horizon Gate's and Thunder-Crowned Bulwark's 35% mitigation to 42%. Both are self buffs realized on the caster at cast and live for the next two rounds wherever it stands; cast in the same round they add (42% + 42% of the staged base, pierce excluded). The capstone's +3 IDG with Black Sun Rising lifts all four self damage buffs (Wall, Tempest, Bulwark, Marrow Mantle) to 40%, the tree's IDG ceiling. It is the tank who hits back: lifesteal stays at 42%, Afterburn at 35% and Damage power is untouched.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
@@ -2100,7 +2100,7 @@
         "09",
         "10"
       ],
-      "rationale": "The lifesteal route takes Tempest's leech from 40% to 50%, ten points under the 60% cap shared with vamp, and draws from every damage row the caster lands, including the unsupported 60- and 66-power pierce Verdicts. Its small Tempest secondaries plus Black Sun Rising leave IDG at 39% on four rows, Afterburn at 37% and exposure at 37%. The alternative fourth purchase, Obsidian Skin instead of Black Sun Rising, is the tank-sustain variant (DDT 39%, no exposure, IDG 37%).",
+      "rationale": "The lifesteal route takes Tempest's leech from 40% to 50%, ten points under the 60% cap shared with vamp, and for the two rounds after Tempest's cast it draws from every damage row the caster lands, including the unsupported 60- and 66-power pierce Verdicts. Its small Tempest secondaries plus Black Sun Rising leave IDG at 39% on four rows, Afterburn at 37% and exposure at 37%. The alternative fourth purchase, Obsidian Skin instead of Black Sun Rising, is the tank-sustain variant (DDT 39%, no exposure, IDG 37%).",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 4,
@@ -2659,20 +2659,20 @@
   "narrow_kit_exception": null,
   "design_notes": [
     "Node split: two Foundations each fork into two Hidden -> Advanced routes mapping onto the four non-glue tags and the traits: Damage (Burst Heavy, 5 rows), Afterburn (pressure, Tempest row 0), DDT (Tank, Gate and Bulwark) and Lifesteal (Sustain, Tempest row 1). IDG and IDT appear only on Foundation 01 and as capstone secondaries, never on a Hidden Art, and Eater of Suns' +2 Afterburn sits below Charged Firmament's +3, so all 14 full-budget allocations are non-dominated and every node is used.",
-    "Calibration: Foundations +2/+2; Hidden Arts +2 Damage (5 rows), +2 DDT (2 rows) or +3 on a single-row tag; capstones +3 Damage or +5/+7 primary with +2/+3 secondaries. Per-row gains match Taiyo Kami (Damage +5 is +10-12.5% on 40-50 power rows), but 16 supported rows against Taiyo's 9 put the row-weighted strongest build at 45 (01+02+03+06) against 31. Scaling: two-row DDT capped at +7 (Taiyo +10), four-row IDG and three-row IDT at +5. Lever if burst reads too strong: Total Eclipse to +2 Damage.",
-    "Passives and main tree: the bloodline IDG passive (25% + 0.15/level on Fire, Lightning, None, Shadow, Storm, Water, Wind) multiplies every enhanced Damage row downstream. The four IDG self buffs carry no element and 'Highest' (Bulwark: all four) stat types, so while active they also raise basic attacks, weapons and element-less normal jutsu; the three IDT debuffs amplify allies' non-pierce hits on that enemy. Lifesteal includes the Verdicts' 60/66 pierce rows; Afterburn and IDG/IDT skip pierce.",
-    "Delivery and uptime: all 12 jutsu are item-gated behind two items (Eclipse set: Gate, Tomb, Midnight Verdict, Corona Palm, Marrow Mantle, Cataract; Mantle set: Heart, Heavenbreaker, Cage, Tempest, Wall, Bulwark); cooldowns are 7 rounds, damage rows cost 60 AP, buffs 40 AP for 2 rounds. Gate's DDT reaches only friendlies inside the circle spawned on the enemy, who also take its IDT; Bulwark's rows apply from the round after stepping onto its tiles, while you stay. Ranked modes skip skill effects.",
-    "Fourth-purchase choices: after any 3 BP route the natural fourth is the other Foundation. Unadvertised legal builds include 01+02+04+05 (the strongest burn: +2 Damage, +10 Afterburn, +5 IDT, no mitigation), 01+02+03+04 (burst with 3% Afterburn), 06+07+08+09 (pure fortress: +7 DDT, +5 lifesteal, +3 IDG) and 06+07+09+10 (tank-sustain: +10 lifesteal, +4 DDT). No-capstone hybrids such as 01+02+06+09 (+2 Damage, +5 lifesteal, +2 IDG/IDT/DDT) are legal and non-dominated.",
-    "Four examples are given because each capstone answers a different trait or role (burst, pressure, tank, sustain) with its own Advanced Art; the pressure route's value is downstream on the five non-pierce damage rows and is not measured by its single application row. User-owned tuning left open: Total Eclipse +3 vs +2 Damage; whether the two-row DDT route should match Taiyo's +10 rather than +7; whether Black Sun Rising should carry IDT at all given the Gate ally-hazard row."
+    "Reference reuse: Black Sun Rising, Hammer of the Heavens, Total Eclipse and Charged Firmament copy Taiyo Kami's Dawnheart, Crown of Cinders, Solar Cataclysm and Emberwake flats verbatim, and Lingering Corona is Eternal Noon minus its +3 IDG. The shape fits: the kit has Taiyo's burst, Afterburn, IDG/IDT and DDT rows. Departures: Lifesteal replaces DDG (no DDG rows here); the DDT route is +2/+2/+3 = +7 (Taiyo +10) because it reaches two rows; IDG reaches four rows, so its maximum stays +5 (01+08).",
+    "Calibration: per-row Damage gains match Taiyo (+5 is +10-12.5% on 40-50 power rows), but Damage +5 reaches five rows (row-weighted 25, Taiyo 15) and the strongest build (01+02+03+06) is 45 against Taiyo's 31, or 2.8 vs 3.4 per supported row (16 vs 9). User-owned options: Total Eclipse +3 (full route Tomb 45, Heart/Cataract/Palm 50, Cage 55) or +2 (44/49/54; the maximum then moves to 43, 01+02+04+05); DDT route +7 or Taiyo's +10; whether Black Sun Rising keeps IDT given the Gate ally hazard.",
+    "Passives: the bloodline IDG passive (25% + 0.15/level on seven elements incl. None, Shadow, Storm) multiplies the enhanced Damage rows, while kit IDG/IDT/DDT rows add power/100 of the staged base (§3b). The four IDG self buffs carry no element ('Highest' stats; Bulwark all four), so they also raise basic attacks, weapons and element-less jutsu; the three IDT debuffs raise allies' hits on that enemy. Lifesteal counts the Verdicts' pierce hits; Afterburn, IDG, IDT and DDT skip pierce.",
+    "Delivery and uptime: all 12 jutsu are item-gated (Eclipse Marrow, Godstorm Aegis; see risks); cooldowns are 7 rounds, damage rows cost 60 AP, buff casts 40 AP. Every DDT, IDG and Lifesteal row lands on the caster at cast and is live the two rounds after, wherever it stands (§3b, §4b): Gate's DDT and Bulwark's IDG/DDT are SELF rows, not circle or tile effects (Bulwark's only positional row is its unsupported move). No buff helps a hit in its cast round. Ranked modes skip skill effects.",
+    "Fourth purchases: after any 3 BP route the natural fourth is the other Foundation; four examples, one per capstone and trait. Pillar of Heaven (01+06+07+08) is the only IDG +5 build and one of two at DDT +7 (with 06+07+08+09), mirroring Sovereign Sun's +5 DDT/+3 IDG; accepted because it holds no Damage power and its IDG is four 40 AP self buffs (option: shift part of it to Eater of Suns). Also legal: 01+02+04+05 (strongest burn), 06+07+09+10 (tank-sustain), 01+02+06+09 (no-capstone hybrid)."
   ],
   "risks": [
     "Classification: Shadow and Storm both sit on the kit's damage rows and neither is exclusive in the census (Shadow: Blood-Enchanted Eyes, Oblivion Seal, Shadow Weaver, Night Parade and deferred/excluded kits; Storm: Arashima, Shinrai Ou, Stormboat Willy), so a bloodline-keyed classification extension is required, not a bare element label. Non-bloodline jutsu carrying Shadow or Storm: unverified.",
     "Resolver: 11 of the 16 supported rows carry no element and fall back to None under the current resolver; affectedElements=['Shadow'] matches only 3 rows directly and ['Storm'] only 2. Reaching the rest today would need None, which also reaches every non-elemental row on any jutsu the player casts. The tree assumes the proposed whole-kit classification.",
-    "Ally hazard (validator warns): Event Horizon Gate row 1 IDT (circle on the enemy, friendly fire none) is raised by Black Sun Rising and Lingering Corona; Corona Devourer Palm row 0 Damage (ground spiral, friendly fire none) by Hammer of the Heavens and Total Eclipse. Allies and the caster inside those areas take the enhanced effect; positioning decides. Inside the Gate circle, DDT and IDT offset.",
-    "Item gates: every supported row sits on an item-gated jutsu (two item ids gate six jutsu each), so the tree's realized value depends on holding both items. Gating is uniform across tags, so no per-tag down-weighting was applied, but the Eclipse set alone removes Tempest and with it the whole Afterburn and Lifesteal routes; the Mantle set alone leaves two of the five Damage rows and one DDT row.",
+    "Ally hazard (validator warns): Gate row 1 IDT (friendly fire none; raised by 01, 05) lands once at cast on every non-caster user in its radius-1 circle, so allies there take it for two rounds; the caster never does, and Gate's SELF DDT offsets nothing (§4b). Corona Palm row 0 Damage (raised by 02, 03) is a GROUND spiral of radius 4 around the caster, own tile excluded, hitting allies on its tiles.",
+    "Item gates (all supported rows): Eclipse Marrow (ZaTCUYIgRUoB2CBRo7pLY) gates Gate, Tomb, Midnight Verdict, Corona Palm, Marrow Mantle, Cataract; Godstorm Aegis (g0hPGnF9lLYauTsjxqpAZ) the six Godstorm Mantle jutsu (answers/names_item.json). Gating is uniform (no per-tag down-weighting); Eclipse Marrow alone loses Tempest's two routes, Godstorm Aegis alone keeps 2 Damage rows and 1 DDT row.",
     "Lifesteal: the route tops out at 50%, ten points under the 60%-of-pre-shield-damage leech budget shared with vamp; vamp from the normal tree or items can saturate the cap and waste part of the +10. It needs both combatants alive and is blocked by healprevent on the caster. Pierce hits (Heavenbreaker 60, Midnight Verdict 66) feed lifesteal at full ratio: the sustain route's unlisted upside.",
     "Afterburn: the +10 route is one application row on a single-target 40 AP cast; its value is downstream on every non-pierce hit that one enemy takes for two rounds, capped at 60% of each hit, so other Afterburn sources saturate quickly, and the kit's own pierce Verdicts never feed it. Not simulated.",
-    "Stacking: BATTLE_TAG_STACKING is true at the pin, so these potency effects stack with any other potency source; the combined budget with a future normal-tree potency policy is unaudited. The bloodline IDG passive multiplies the enhanced Damage rows and four separate 2-round IDG buffs at 40% can be overlapped by alternating 40 AP casts; neither was modelled.",
+    "Stacking: BATTLE_TAG_STACKING is true at the pin, so these modifiers stack with other potency sources (budget with a future normal-tree policy unaudited). Same-tag kit effects all apply and add (§3b): two live 40% IDG buffs add 80% of the staged base, Gate and Bulwark DDT at 42% remove 84% (70% without the tree), and the bloodline passive multiplies on top. Overlap uptime and AP were not modelled.",
     "No combat simulation: non-dominance of the 14 allocations and the row-weighted totals are arithmetic over per-row additions, not evidence of equal combat strength. AoE target counts (Heart and Cataract circles, Corona spiral), the Cage stun, Tomb's buff prevention, uptime, AP and the Bulwark move row were not modelled. No adverse, hidden, mode-restricted or injected rows exist here."
   ],
   "progression": {
@@ -2739,7 +2739,7 @@
       "lifesteal"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 1 / Godstorm Eclipse classification / forked tree",
+    "revision": "Draft 2 / Godstorm Eclipse classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed potency classification behavior; not implemented or verified in the live engine.",
