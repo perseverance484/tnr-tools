@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-10-02)
+# DRIFT.md - upstream contract drift (2026-10-03)
 
-Upstream: studie-tech/TheNinjaRPG@05ec30ea551dadb4ee1dc36e4fa60cc0893234a7
+Upstream: studie-tech/TheNinjaRPG@1f04ae763890980c61c05cdf49aee56b9b80aee4
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -69,18 +69,18 @@ ADDITIONS
 no breaking changes: 58 addition(s), safe to adopt (exit 0)
 == 45d_DATA_entity_schemas ==
 CHANGES
-  now-required  item  farmGrowTimeSeconds  optional -> required
-  now-required  item  farmPlantExperience  optional -> required
-  now-required  item  farmSellValue  optional -> required
+  now-required  item  farmExtractSeedItemId  optional -> required
+  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  farmExtractSeedCount  optional -> required
+  now-required  item  farmYieldItemId  optional -> required
   now-required  item  isFarmFertilizer  optional -> required
   now-required  item  farmHarvestExperience  optional -> required
   now-required  item  isFarmSeed  optional -> required
+  now-required  item  farmPlantExperience  optional -> required
   now-required  item  farmMinLevel  optional -> required
-  now-required  item  farmExtractSeedCount  optional -> required
-  now-required  item  farmYieldItemId  optional -> required
-  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  farmSellValue  optional -> required
+  now-required  item  farmGrowTimeSeconds  optional -> required
   now-required  item  farmFertilizerExperience  optional -> required
-  now-required  item  farmExtractSeedItemId  optional -> required
 ADDITIONS
   field  item  farmExtractSeedCount
   field  item  farmExtractSeedItemId
@@ -172,7 +172,7 @@ ADDITIONS
   const-member  GUIDE_RESERVED_SLUGS  edit
   const-member  GUIDE_RESERVED_SLUGS  new
   const-member  GuideCategories  bloodlines
-  ... 61 more
+  ... 67 more
 
-no breaking changes: 121 addition(s), safe to adopt (exit 0)
+no breaking changes: 127 addition(s), safe to adopt (exit 0)
 ~~~
