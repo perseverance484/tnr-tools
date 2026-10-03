@@ -86,6 +86,8 @@ def tree_entry(path: str, snapshot: dict, roster: dict, is_reference: bool) -> d
         "maximum_tag_bonuses": audit.get("maximum_tag_bonuses"),
         "max_full_build_raw_flat_total": max((b["raw_flat_total"] for b in audit.get("full_builds", [])), default=None),
         "max_full_build_row_weighted_total": strongest["row_weighted_total"] if strongest else None,
+        "max_row_weighted_per_supported_row": (round(strongest["row_weighted_total"] / len(sup), 2) if strongest and sup else None),
+        "median_full_build_row_weighted_total": (sorted(b["row_weighted_total"] for b in audit["full_builds"])[len(audit["full_builds"]) // 2] if audit.get("full_builds") else None),
         "strongest_full_build": {"ids": strongest["ids"], "names": [by_id[i].name for i in strongest["ids"]],
                                  "bonuses": strongest["bonuses"]} if strongest else None,
         "lowest_value_node": {"name": weakest["name"], "row_weighted_total": weakest["row_weighted_total"]} if weakest else None,
@@ -148,8 +150,8 @@ def md_matrix(m: dict) -> str:
                    f"{e['tiers']['F']}/{e['tiers']['H']}/{e['tiers']['A']} | {e['full_budget_allocations']} | {e['non_dominated_full_allocations']} | "
                    f"{e['maximum_advanced_arts']} | {e['minimum_two_advanced_cost']} | {e['maximum_depth']} | {len(e['structure_errors'])} |")
     out.append("\n## Added strength (Bloodright only)\n")
-    out.append("| Bloodline | Emphasis (P / S / T) | Max per-tag additions | Max raw total | Δ vs ref | Max row-weighted | Δ vs ref | Strongest full build | Lowest node |")
-    out.append("|---|---|---|---:|---:|---:|---:|---|---|")
+    out.append("| Bloodline | Emphasis (P / S / T) | Max per-tag additions | Max raw total | Δ vs ref | Max row-weighted | Δ vs ref | Per supported row | Median build | Strongest full build | Lowest node |")
+    out.append("|---|---|---|---:|---:|---:|---:|---:|---:|---|---|")
     for e in m["entries"]:
         em = e["emphasis"]
         emtxt = " / ".join(str(em.get(k) or "—") for k in ("primary", "secondary", "tertiary"))
@@ -159,7 +161,7 @@ def md_matrix(m: dict) -> str:
         lw = e["lowest_value_node"]
         lwt = f"{lw['name']} ({lw['row_weighted_total']})" if lw else "—"
         out.append(f"| {e['name']} | {emtxt} | {mx} | {e['max_full_build_raw_flat_total']} | {e['vs_reference']['max_raw_flat_total_delta']:+d} | "
-                   f"{e['max_full_build_row_weighted_total']} | {e['vs_reference']['max_row_weighted_delta']:+d} | {sbt} | {lwt} |")
+                   f"{e['max_full_build_row_weighted_total']} | {e['vs_reference']['max_row_weighted_delta']:+d} | {e['max_row_weighted_per_supported_row']} | {e['median_full_build_row_weighted_total']} | {sbt} | {lwt} |")
     out.append("\n## Example builds\n")
     out.append("| Bloodline | Build | Purchases | Raw total | Row-weighted | Bonuses |\n|---|---|---|---:|---:|---|")
     for e in m["entries"]:
@@ -181,6 +183,15 @@ def md_matrix(m: dict) -> str:
             bits.append(f"classification label shared with {e['census_collisions']} other census bloodline(s)")
         if bits:
             out.append(f"- **{e['name']}:** " + "; ".join(bits))
+    # outliers by per-row intensity
+    vals = [(e["max_row_weighted_per_supported_row"], e["name"]) for e in m["entries"] if e["max_row_weighted_per_supported_row"] is not None]
+    if vals:
+        ref = next((v for v, n in vals if n == m["entries"][0]["name"]), None)
+        hi = [f"{n} ({v})" for v, n in sorted(vals, reverse=True) if ref is not None and v > ref * 1.25]
+        lo = [f"{n} ({v})" for v, n in sorted(vals) if ref is not None and v < ref * 0.75]
+        out.append(f"\n## Outliers by per-row intensity (reference {ref})\n")
+        out.append("- Above 125% of the reference: " + (", ".join(hi) or "none"))
+        out.append("- Below 75% of the reference: " + (", ".join(lo) or "none"))
     out.append("\nReading guide: a higher row-weighted total means the same static additions touch more effect rows; it says nothing about delivery, uptime, action cost, duration, caps (percentage tags cap at 100; Afterburn, Reflect and the lifesteal/vamp leech budget cap at 60% of a hit) or the combat multiplication that follows. Mechanical legality and numerical non-dominance do not prove combat balance.\n")
     return "\n".join(out) + "\n"
 
