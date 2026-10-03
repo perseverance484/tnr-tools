@@ -22,6 +22,7 @@ OUT = os.path.join(L.DESIGN_DIR, "PLANNING_STATUS.md")
 TREES = os.path.join(L.DESIGN_DIR, "trees")
 BLOCKERS = os.path.join(L.DESIGN_DIR, "blockers.json")
 BATCHES = os.path.join(L.DESIGN_DIR, "batches.json")
+REVIEW_LOG = os.path.join(L.DESIGN_DIR, "review_log.json")
 
 
 def build() -> str:
@@ -31,6 +32,7 @@ def build() -> str:
     blockers = L.load_json(BLOCKERS) if os.path.exists(BLOCKERS) else {}
     batches = L.load_json(BATCHES) if os.path.exists(BATCHES) else {}
     slug_batch = {s: b for b, lst in batches.items() for s in lst}
+    review = L.load_json(REVIEW_LOG) if os.path.exists(REVIEW_LOG) else {}
     rows = []
     totals = {"complete": 0, "complete_with_warnings": 0, "blocked": 0, "not_begun": 0, "invalid": 0}
     for bid in roster["approved_remaining_ids"]:
@@ -56,6 +58,11 @@ def build() -> str:
                       f"{t.get('classification', {}).get('potency_classification')} ({(t.get('classification', {}).get('label_kind') or '').replace('bloodline-keyed extension', 'ext')})")
             if t.get("narrow_kit_exception"):
                 detail += "; narrow-kit exception"
+            rv = review.get(slug)
+            if rv:
+                detail += f"; review: {rv.get('final_review')}"
+                if rv.get("open_major"):
+                    detail += " (open: " + " / ".join(rv["open_major"]) + ")"
             if warns:
                 detail += "; warnings: " + " / ".join(warns)
             rows.append((rec["review_id"], name, rec["rank"], slug_batch.get(slug, "—"), state, detail, f"[tree]({'trees/' + slug + '.md'}) · [svg]({'trees/' + slug + '.svg'}) · [dossier]({'kits/' + slug + '.md'})"))
