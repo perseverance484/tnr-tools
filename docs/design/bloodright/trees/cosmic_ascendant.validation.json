@@ -9,19 +9,37 @@
     "statClassification": "Highest",
     "traits": "Burst, Defensive "
   },
-  "revision": "Draft 3 / Cosmic Ascendant classification / forked tree",
+  "revision": "Draft 4 / Cosmic Ascendant classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
-  "warnings": [],
+  "warnings": [
+    "classification status: requires classification extension (director decision)"
+  ],
   "classification": {
     "potency_classification": "Cosmic Ascendant",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Cosmic Ascendant",
+    "label_kind": "classification extension",
+    "classification_status": "requires classification extension",
+    "qualifying_elements": [],
     "display_element": null,
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Cosmic Ascendant jutsu",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Cosmic Ascendant-classified jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Cosmic Aura",
+      "Cosmic Chains",
+      "Cosmic Energy",
+      "Cosmic Explosion",
+      "Cosmic Intent"
+    ],
+    "shared_element_bloodlines": [],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
     "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": []
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver_and_classification_extension"
   },
   "examples": [
     {
@@ -35,7 +53,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 5,
@@ -80,7 +98,7 @@
         "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 6
+        "decreasedamagetaken": 10
       },
       "advanced_arts": [
         "Heart of the Singularity"
@@ -98,10 +116,10 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
-        "decreasedamagegiven": 5,
+        "decreasedamagegiven": 7,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "lifesteal": 8
+        "lifesteal": 5
       },
       "advanced_arts": [
         "Hunger of the Void"
@@ -131,13 +149,13 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
+      "damage": 5,
       "increasedamagegiven": 5,
-      "decreasedamagegiven": 5,
+      "decreasedamagegiven": 7,
       "increasedamagetaken": 5,
-      "decreasedamagetaken": 6,
+      "decreasedamagetaken": 10,
       "afterburn": 10,
-      "lifesteal": 8
+      "lifesteal": 5
     },
     "supported_rows_in_kit": 10,
     "supported_rows_by_tag": {
@@ -181,8 +199,8 @@
         "name": "Collapsing Star",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Cosmic Explosion"
         ],
@@ -256,8 +274,8 @@
         "name": "Event Horizon",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 6,
+        "raw_flat_total": 3,
+        "row_weighted_total": 9,
         "covered_jutsu": [
           "Cosmic Aura",
           "Cosmic Chains",
@@ -272,8 +290,8 @@
         "name": "Heart of the Singularity",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 9,
+        "raw_flat_total": 8,
+        "row_weighted_total": 18,
         "covered_jutsu": [
           "Cosmic Aura",
           "Cosmic Chains",
@@ -288,8 +306,8 @@
         "name": "Stellar Siphon",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Cosmic Intent"
         ],
@@ -316,21 +334,20 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "04",
-        "05",
-        "06"
+        "06",
+        "07",
+        "08"
       ],
       "bonuses": {
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 5,
-        "decreasedamagetaken": 2,
-        "afterburn": 10
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10
       },
-      "raw_flat_total": 21,
-      "row_weighted_total": 30,
+      "raw_flat_total": 19,
+      "row_weighted_total": 41,
       "advanced_arts": [
-        "05"
+        "08"
       ],
       "non_dominated": true
     },
@@ -339,8 +356,8 @@
       "name": "Collapsing Star",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
       "covered_jutsu": [
         "Cosmic Explosion"
       ],
@@ -357,13 +374,13 @@
           "04"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
           "increasedamagetaken": 5,
           "afterburn": 3
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 21,
+        "raw_flat_total": 15,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "03"
         ],
@@ -377,14 +394,14 @@
           "06"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 5,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 26,
+        "raw_flat_total": 16,
+        "row_weighted_total": 25,
         "advanced_arts": [
           "03"
         ],
@@ -398,13 +415,13 @@
           "05"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 5,
           "afterburn": 10
         },
-        "raw_flat_total": 20,
-        "row_weighted_total": 25,
+        "raw_flat_total": 19,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "05"
         ],
@@ -418,15 +435,15 @@
           "06"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 3
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 20,
+        "raw_flat_total": 13,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -438,14 +455,14 @@
           "07"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4
+          "decreasedamagetaken": 5
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 23,
+        "row_weighted_total": 25,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -457,15 +474,15 @@
           "09"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "lifesteal": 3
+          "lifesteal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 20,
+        "raw_flat_total": 12,
+        "row_weighted_total": 18,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -501,11 +518,11 @@
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4,
+          "decreasedamagetaken": 5,
           "afterburn": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 23,
+        "raw_flat_total": 14,
+        "row_weighted_total": 26,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -522,10 +539,10 @@
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 3,
-          "lifesteal": 3
+          "lifesteal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 20,
+        "raw_flat_total": 13,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -540,10 +557,10 @@
           "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 6
+          "decreasedamagetaken": 10
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 29,
+        "raw_flat_total": 19,
+        "row_weighted_total": 41,
         "advanced_arts": [
           "08"
         ],
@@ -560,11 +577,11 @@
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4,
-          "lifesteal": 3
+          "decreasedamagetaken": 5,
+          "lifesteal": 2
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 23,
+        "row_weighted_total": 25,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -577,13 +594,13 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 5,
+          "decreasedamagegiven": 7,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "lifesteal": 8
+          "lifesteal": 5
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 25,
+        "raw_flat_total": 18,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "10"
         ],
@@ -599,11 +616,11 @@
         "bonuses": {
           "increasedamagegiven": 3,
           "decreasedamagegiven": 2,
-          "decreasedamagetaken": 6,
-          "lifesteal": 3
+          "decreasedamagetaken": 10,
+          "lifesteal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 26,
+        "raw_flat_total": 17,
+        "row_weighted_total": 37,
         "advanced_arts": [
           "08"
         ],
@@ -617,12 +634,12 @@
           "10"
         ],
         "bonuses": {
-          "decreasedamagegiven": 5,
-          "decreasedamagetaken": 4,
-          "lifesteal": 8
+          "decreasedamagegiven": 7,
+          "decreasedamagetaken": 5,
+          "lifesteal": 5
         },
         "raw_flat_total": 17,
-        "row_weighted_total": 25,
+        "row_weighted_total": 27,
         "advanced_arts": [
           "10"
         ],

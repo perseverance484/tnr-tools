@@ -9,7 +9,7 @@
     "statClassification": "Highest",
     "traits": "AoE Control "
   },
-  "revision": "Draft 3 / Explosion classification / forked tree",
+  "revision": "Draft 4 / Explosion classification / forked tree (RUL-2026-10-03-005 recalibration; Increase Damage Given route added)",
   "structure_errors": [],
   "warnings": [],
   "classification": {
@@ -60,6 +60,25 @@
       ]
     },
     {
+      "name": "Critical Mass",
+      "archetype": "Empowered",
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "10"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 2
+      },
+      "advanced_arts": [
+        "Critical Mass"
+      ]
+    },
+    {
       "name": "Chain Reaction",
       "archetype": "Pressure",
       "ids": [
@@ -101,10 +120,10 @@
     }
   ],
   "audit": {
-    "available_skills": 9,
+    "available_skills": 10,
     "foundation_count": 2,
     "hidden_art_count": 4,
-    "advanced_art_count": 3,
+    "advanced_art_count": 4,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
     "maximum_advanced_arts": 1,
@@ -115,16 +134,16 @@
       "0": 1,
       "1": 2,
       "2": 5,
-      "3": 9,
-      "4": 12
+      "3": 10,
+      "4": 14
     },
-    "full_budget_allocations": 12,
-    "non_dominated_full_allocations": 12,
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 5,
-      "increasedamagegiven": 5,
+      "increasedamagegiven": 10,
       "increasedamagetaken": 5,
       "decreasedamagetaken": 10,
       "afterburn": 10
@@ -200,6 +219,21 @@
         "depth": 2,
         "raw_flat_total": 3,
         "row_weighted_total": 6,
+        "covered_jutsu": [
+          "Charge 4 Explosion",
+          "Howitzer Crash"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "10",
+        "name": "Critical Mass",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 5,
+        "row_weighted_total": 10,
         "covered_jutsu": [
           "Charge 4 Explosion",
           "Howitzer Crash"
@@ -286,18 +320,18 @@
       "ids": [
         "01",
         "02",
-        "03",
-        "04"
+        "04",
+        "10"
       ],
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 5,
+        "damage": 2,
+        "increasedamagegiven": 10,
         "increasedamagetaken": 2
       },
-      "raw_flat_total": 12,
-      "row_weighted_total": 27,
+      "raw_flat_total": 14,
+      "row_weighted_total": 28,
       "advanced_arts": [
-        "03"
+        "10"
       ],
       "non_dominated": true
     },
@@ -379,6 +413,25 @@
         "ids": [
           "01",
           "02",
+          "04",
+          "10"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 10,
+          "increasedamagetaken": 2
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 28,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
           "05",
           "06"
         ],
@@ -447,6 +500,26 @@
         "raw_flat_total": 14,
         "row_weighted_total": 19,
         "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "05",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 10,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "afterburn": 2
+        },
+        "raw_flat_total": 16,
+        "row_weighted_total": 26,
+        "advanced_arts": [
+          "10"
+        ],
         "non_dominated": true
       },
       {
@@ -603,6 +676,11 @@
         ],
         [
           "01",
+          "04",
+          "10"
+        ],
+        [
+          "01",
           "05",
           "06"
         ],
@@ -649,6 +727,12 @@
         [
           "01",
           "02",
+          "04",
+          "10"
+        ],
+        [
+          "01",
+          "02",
           "05",
           "06"
         ],
@@ -669,6 +753,12 @@
           "04",
           "05",
           "08"
+        ],
+        [
+          "01",
+          "04",
+          "05",
+          "10"
         ],
         [
           "01",

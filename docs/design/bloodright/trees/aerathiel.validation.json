@@ -9,10 +9,9 @@
     "statClassification": "Highest",
     "traits": "Sustained Damage over time."
   },
-  "revision": "Draft 4 / Dust classification / forked tree",
+  "revision": "Draft 5 / Dust classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [
-    "route Terminal Decay primary total +7% Increase Damage Taken is off the 5/10/15 bands without a route_band_rationale",
     "ally-hazard area rows amplified (friendly fire none/ALL): Death's March#0, Death's March#1, Windshear Decay#0, Windshear Decay#1"
   ],
   "classification": {
@@ -78,7 +77,7 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       },
       "advanced_arts": [
         "Terminal Decay"
@@ -151,7 +150,7 @@
       "damage": 5,
       "increasedamagegiven": 5,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 7,
+      "increasedamagetaken": 10,
       "reflect": 10
     },
     "supported_rows_in_kit": 9,
@@ -239,8 +238,8 @@
         "name": "Terminal Decay",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 10,
+        "raw_flat_total": 8,
+        "row_weighted_total": 16,
         "covered_jutsu": [
           "Atomic Shield",
           "Death's March",
@@ -333,10 +332,10 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       },
-      "raw_flat_total": 14,
-      "row_weighted_total": 30,
+      "raw_flat_total": 17,
+      "row_weighted_total": 36,
       "advanced_arts": [
         "05"
       ],
@@ -407,10 +406,10 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 30,
+        "raw_flat_total": 17,
+        "row_weighted_total": 36,
         "advanced_arts": [
           "05"
         ],
@@ -483,11 +482,11 @@
         "bonuses": {
           "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 7,
+          "increasedamagetaken": 10,
           "reflect": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 28,
+        "raw_flat_total": 19,
+        "row_weighted_total": 34,
         "advanced_arts": [
           "05"
         ],
