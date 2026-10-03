@@ -1,6 +1,6 @@
 {
   "title": "Shinrai Ou — Throne of Thunder",
-  "revision": "Draft 3 / Storm classification / forked tree",
+  "revision": "Draft 4 / Storm classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "bloodline": {
     "id": "xO4Dycx7FFEqxwvAEXBxY",
     "review_id": "BR-065",
@@ -12,23 +12,35 @@
   "classification": {
     "potency_classification": "Storm",
     "label_kind": "element",
-    "bloodline": "Shinrai Ou",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Storm"
+    ],
     "display_element": "Storm",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Shinrai Ou jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Storm jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [],
+    "shared_element_bloodlines": [
       "Arashima",
       "Godstorm Eclipse",
       "Stormboat Willy"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Damage (Storm burst on all four attacks, +6 ceiling)",
-    "secondary": "Increase Damage Taken (Izanagi's Hammer exposure, +10 ceiling) and Reflect (Indra's Storm Cloak, +10 ceiling)",
-    "tertiary": "Increase Damage Given (glue across routes, +5 ceiling on a doubled-row cast)",
-    "rationale": "Shinrai Ou is a rank-A Burst kit: four of its five jutsu are Storm damage rows (Daibutsu Thunder 50, Divine Railgun 45, Izanagi's Hammer 40, Strike: Raijin 40, all 60 AP / cooldown 7), so raw Storm power is the primary emphasis and the deepest commitment. Its only supported enemy debuff is Hammer's 35% Increase Damage Taken on area enemies, which anchors the exposure route; its only defensive row is the Storm Cloak's 40% Reflect, which anchors the bulwark route. Increase Damage Given has three rows (two on the Cloak, one on Raijin) whose percentages add to each other, with the bloodline's own IDG passive multiplying on top, so it is kept as Foundation and capstone-secondary glue capped at +5 rather than given a route of its own."
+    "primary": "Damage (Storm burst on all four attacks; +5 Damage route)",
+    "secondary": "Increase Damage Taken (Izanagi's Hammer exposure, +10% route) and Reflect (Indra's Storm Cloak, +10% route)",
+    "tertiary": "Increase Damage Given (glue across routes, +5% at most on a doubled-row cast)",
+    "rationale": "Shinrai Ou is a rank-A Burst kit: four of its five jutsu are Storm damage rows (Daibutsu Thunder 50, Divine Railgun 45, Izanagi's Hammer 40, Strike: Raijin 40 EP, all 60 AP / cooldown 7), so the Damage route is the primary emphasis and the deepest commitment. Its only supported enemy debuff is Hammer's 35% Increase Damage Taken on area enemies, which anchors the Exposure route; its only defensive row is the Storm Cloak's 40% Reflect, which anchors the Bulwark route. Increase Damage Given has three rows (two on the Cloak, one on Raijin) which compound with each other when their windows overlap, with the bloodline's own Increase Damage Given passive multiplying last, so it is kept as Foundation and capstone-secondary glue at +5% at most rather than given a route of its own. Potency reaches matching supported tags on all Storm jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -50,10 +62,10 @@
         }
       ],
       "flavor": "Heaven names its king in thunder; the storm answers before the title is spoken.",
-      "coverage_note": "Storm Cloak IDG rows 0 and 2 and Raijin IDG (35%, self, 2 rounds); Hammer exposure (35%, area enemies, 2 rounds). No gates, no adverse rows.",
+      "coverage_note": "Storm Cloak Increase Damage Given rows 0 and 2 and Raijin's 35 → 37% (self, 2 rounds); Hammer exposure 35 → 37% (area enemies, 2 rounds).",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
-      "scope": "Shinrai Ou jutsu",
+      "scope": "all Storm jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -80,10 +92,10 @@
         }
       ],
       "flavor": "The thunderbolt is forged again and again until nothing it strikes stays standing.",
-      "coverage_note": "Damage on Daibutsu Thunder 50, Divine Railgun 45, Izanagi's Hammer 40 and Strike: Raijin 40; all Storm, 60 AP, cooldown 7.",
+      "coverage_note": "Daibutsu Thunder 50 → 52, Divine Railgun 45 → 47, Izanagi's Hammer and Strike: Raijin 40 → 42 EP; all Storm, 60 AP, cooldown 7.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
-      "scope": "Shinrai Ou jutsu",
+      "scope": "all Storm jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -111,10 +123,10 @@
         }
       ],
       "flavor": "When the king's patience ends, the sky itself is the weapon.",
-      "coverage_note": "Same four Storm damage rows; the route total of +5 (+6 with Raiment of Storms) lifts Daibutsu Thunder to 55 or 56 power.",
+      "coverage_note": "Burst: the same four Storm Damage rows +5 on the full route (Daibutsu Thunder 55, Divine Railgun 50, Hammer and Raijin 45 EP).",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
-      "scope": "Shinrai Ou jutsu",
+      "scope": "all Storm jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -142,10 +154,10 @@
         }
       ],
       "flavor": "Mark the foe as the tallest thing on the field and let the storm choose.",
-      "coverage_note": "Hammer exposure row only: 35% IDT on Lightning/None/Storm/Water hits, enemies on its range-5 spiral tiles, 2 rounds after the cast.",
+      "coverage_note": "Hammer exposure row only: +3% (40% with Mandate of Thunder) on Lightning/None/Storm/Water hits against enemies on its spiral tiles, 2 rounds after the cast.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
-      "scope": "Shinrai Ou jutsu",
+      "scope": "all Storm jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -175,10 +187,10 @@
         }
       ],
       "flavor": "The exposed are not struck once; every bolt that follows finds them first.",
-      "coverage_note": "Hammer exposure reaches 45% with the full route; +3 IDG also lifts Cloak rows 0 and 2 and Raijin's self buff to 40% with Mandate.",
+      "coverage_note": "Exposure: Hammer 35 → 45% Increase Damage Taken on the full route (+10%); +3% Increase Damage Given lifts Cloak rows 0 and 2 and Raijin's self buff to 40% with Mandate.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
-      "scope": "Shinrai Ou jutsu",
+      "scope": "all Storm jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -200,28 +212,19 @@
           "tag": "reflect",
           "flat": 2,
           "display_role": "SELF BUFF"
-        },
-        {
-          "tag": "damage",
-          "flat": 1,
-          "display_role": "DAMAGE"
         }
       ],
       "flavor": "A cloak of living lightning: it bites whoever touches it and sharpens every bolt.",
-      "coverage_note": "Storm Cloak Reflect 40% (self, 2 rounds, all four stat types) and +1 raw power on all four Storm damage rows.",
+      "coverage_note": "Storm Cloak Reflect 40 → 42% (self, 2 rounds, all four stat types). No Damage here, so the Damage route stays at +5.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
-      "scope": "Shinrai Ou jutsu",
+      "scope": "all Storm jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
-          "Indra's Storm Cloak",
-          "Izanagi's Hammer",
-          "Storm Style: Daibutsu Thunder",
-          "Storm Style: Divine Railgun",
-          "Strike: Raijin"
+          "Indra's Storm Cloak"
         ],
-        "effect_rows": 5
+        "effect_rows": 1
       }
     },
     {
@@ -240,10 +243,10 @@
         }
       ],
       "flavor": "Strike the storm and the storm strikes back, charge for charge.",
-      "coverage_note": "Storm Cloak Reflect row only (40% of each hit returned, pierce included, 60% cap); 40 AP self cast, cooldown 7, 2 rounds.",
+      "coverage_note": "Storm Cloak Reflect row only: +3% (45% with Raiment of Storms; pierce included, 60% cap); 40 AP self cast, cooldown 7, 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
-      "scope": "Shinrai Ou jutsu",
+      "scope": "all Storm jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -273,10 +276,10 @@
         }
       ],
       "flavor": "Every blow against the king is a confession, and the sky passes sentence.",
-      "coverage_note": "Storm Cloak Reflect reaches 50% with the route; +3 IDG lifts Cloak rows 0 and 2 and Raijin's buff to 40% with Mandate of Thunder.",
+      "coverage_note": "Bulwark: Storm Cloak Reflect 40 → 50% on the full route (+10%); +3% Increase Damage Given lifts Cloak rows 0 and 2 and Raijin's buff to 40% with Mandate of Thunder.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
-      "scope": "Shinrai Ou jutsu",
+      "scope": "all Storm jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -297,10 +300,10 @@
         "03",
         "06"
       ],
-      "rationale": "The full damage route plus Raiment of Storms puts +6 raw power on every Storm attack: Daibutsu Thunder 50 -> 56, Divine Railgun 45 -> 51, Izanagi's Hammer and Strike: Raijin 40 -> 46. Damage power is static, so each hit gains it whenever it lands. Mandate of Thunder adds +2 to Cloak rows 0 and 2, Raijin's IDG and Hammer's exposure, each live in the two rounds after its cast, and Raiment adds 2% Reflect to the Cloak window. Lightning Rod is the alternative fourth purchase (exposure 40% instead of Reflect and the sixth damage point) for a player who leans on Hammer openers.",
+      "rationale": "The full Damage route puts +5 Damage on every Storm attack: Daibutsu Thunder 50 → 55, Divine Railgun 45 → 50, Izanagi's Hammer and Strike: Raijin 40 → 45 EP. Mandate of Thunder adds +2% to Cloak rows 0 and 2, Raijin's buff and Hammer's exposure (37% each), each live in the two rounds after its cast, and Raiment of Storms adds +2% Reflect to the Cloak window (42%). Lightning Rod is the alternative fourth purchase (exposure 40% instead of Reflect) for a player who leans on Hammer openers.",
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "reflect": 2
@@ -318,8 +321,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 6,
-          "final": 56.0,
+          "gain": 5,
+          "final": 55.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -354,8 +357,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 6,
-          "final": 46.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -468,8 +471,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 45.0,
-          "gain": 6,
-          "final": 51.0,
+          "gain": 5,
+          "final": 50.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -504,8 +507,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 6,
-          "final": 46.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -560,7 +563,7 @@
         "04",
         "05"
       ],
-      "rationale": "The exposure route takes Hammer's area Increase Damage Taken from 35% to 45%. It is live in the two rounds after Hammer's cast, never on Hammer's own hit, and adds 45% of the staged base (not 35%) to every non-pierce Storm, Lightning, Water or element-less hit the exposed enemies take, from the caster or allies. The capstone's +3 IDG with Mandate lifts both Cloak rows and Raijin's self buff to 40%, and Vajra Tempering adds +2 power to all four Storm attacks. Raiment of Storms is the alternative fourth purchase for a Reflect-leaning caster.",
+      "rationale": "The Exposure route takes Hammer's area Increase Damage Taken from 35% to 45%. It is live in the two rounds after Hammer's cast, never on Hammer's own hit, and amplifies every non-pierce Storm, Lightning, Water or element-less hit the exposed enemies take, from the caster or allies. The capstone's +3% with Mandate lifts both Cloak buff rows and Raijin's self buff to 40%, and Vajra Tempering adds +2 Damage to all four Storm attacks. Raiment of Storms is the alternative fourth purchase for a Reflect-leaning caster.",
       "cost": 4,
       "bonuses": {
         "damage": 2,
@@ -822,10 +825,9 @@
         "07",
         "08"
       ],
-      "rationale": "The bulwark route takes Indra's Storm Cloak from 40% to 50% Reflect for the two rounds after its cast, ten points under the 60% per-hit cap, and its capstone's +3 IDG with Mandate lifts both Cloak IDG rows and Raijin's buff to 40%, so the 40 AP cast improves both what the caster deals and what attackers get back. Raiment's +1 power on the four Storm attacks is incidental. Mandate of Thunder is the only closed fourth purchase for this route (the universal node; see the narrow-kit exception), and the IDG and exposure it adds are what a Cloak duelist uses next.",
+      "rationale": "The Bulwark route takes Indra's Storm Cloak from 40% to 50% Reflect for the two rounds after its cast, ten points under the 60% per-hit cap, and its capstone's +3% with Mandate lifts both Cloak buff rows and Raijin's buff to 40%, so the 40 AP cast improves both what the caster deals and what attackers get back. Mandate of Thunder is the only closed fourth purchase for this route (the universal node; see the narrow-kit exception), and its exposure (37%) is what a Cloak duelist uses next.",
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "reflect": 10
@@ -843,8 +845,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 1,
-          "final": 51.0,
+          "gain": 0,
+          "final": 50.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -879,8 +881,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 1,
-          "final": 41.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -993,8 +995,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 45.0,
-          "gain": 1,
-          "final": 46.0,
+          "gain": 0,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -1029,8 +1031,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 1,
-          "final": 41.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -1077,23 +1079,21 @@
       ]
     }
   ],
-  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on nine rows (Damage x4, Increase Damage Given x3, Increase Damage Taken x1, Reflect x1). Mandate of Thunder forks into a damage route and an exposure route; Raiment of Storms carries a single Reflect chain. IDG gets no route of its own: two of its three rows sit on the same 40 AP Storm Cloak cast and the bloodline's IDG passive multiplies on top, so a dedicated route would push IDG past Taiyo Kami's doubled-row +5 or only mirror the Reflect capstone's secondary. Mandate of Thunder is therefore a universal node (in all 8 legal full builds): Raiment's 3-BP chain needs a fourth purchase and Mandate is the only prerequisite-closed one. A leaf Hidden Art under Raiment would be filler; every single-tag version was checked against the legal builds: +1 or +2 IDG and +2 IDT leave 06, 07, 08 plus the leaf dominated by 01, 06, 07, 08; +3 IDG lifts IDG to +6; +1 or +2 Damage leaves 01, 02, 06 plus the leaf dominated by the Burst build (+2 also twins Vajra Tempering's builds); +3 IDT twins Lightning Rod's builds and +4 IDT dominates both Lightning Rod hybrids; any Reflect lifts Reflect past +10. Only a split leaf (+1 Damage with +1 IDG or +1/+2 IDT) avoids all of these, and a one- or two-point sliver of tags other nodes already own has no role of its own. Burst and Exposure each keep two fourth-purchase choices; Bulwark has one. Three distinct complete builds exist.",
+  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on nine rows (Damage x4, Increase Damage Given x3, Increase Damage Taken x1, Reflect x1). Mandate of Thunder forks into a Damage route and an Exposure route; Raiment of Storms carries a single Reflect chain. Increase Damage Given gets no route of its own: two of its three rows sit on the same 40 AP Storm Cloak cast and the bloodline's Increase Damage Given passive multiplies on top, so it stays glue at +5% at most. Mandate of Thunder is therefore a universal node (in all 8 legal full builds): Raiment's 3-BP chain needs a fourth purchase and Mandate is the only prerequisite-closed one. A Hidden Art leaf under Raiment would be filler; each single-tag version was checked against the legal builds: a Reflect leaf lifts Reflect past +10%; an Increase Damage Given leaf at +1% or +2% leaves 06, 07, 08 plus the leaf dominated by 01, 06, 07, 08, and at +3% or more lifts the stacking buff rows past the +5% glue level; an Increase Damage Taken leaf at +1% or +2% is dominated the same way, at +3% twins Lightning Rod's builds and at +4% or +5% dominates both Lightning Rod hybrids; a Damage leaf at +1 or +2 is dominated or twinned by Vajra Tempering's builds, at +3 twins the Burst build (01, 02, 03, 06) and dominates Vajra Tempering's hybrids, and at +4 or more exceeds +5 Damage. A split leaf would be a one- or two-point sliver of tags other nodes already own, with no role of its own. Burst and Exposure each keep two fourth-purchase choices; Bulwark has one. Three distinct complete builds exist.",
   "design_notes": [
-    "Reference reuse: Mandate, Vajra Tempering and Thunder King's Wrath copy Taiyo Kami's Dawnheart, Crown of Cinders and Solar Cataclysm flats verbatim (+2 IDG/+2 IDT, +2 Damage, +3 Damage); Thunder Answers Thunder mirrors Sovereign Sun (+5/+3 IDG). It fits: same rank A / Highest / Burst profile and nine supported rows. Departures: Damage reaches four rows (Taiyo three) and Raiment adds +1, so it tops at +6 (Taiyo +5); no Afterburn, DDT or DDG rows, so IDT and Reflect each run 2/3/5 to +10.",
-    "Main tree and passives: both Cloak IDG rows match the kit's Storm hits (row 0 via its Highest stat filter, row 2 via Storm) and add to Raijin's IDG: three 35% rows add 105% of the staged base (120% at the +5 ceiling), and the bloodline passive IDG (25 + 0.15/lvl) multiplies on top. Enhanced IDG also reaches normal jutsu and weapons (row 0 and Raijin: Highest-stat or element-less hits; row 2: Storm, Lightning, Water or element-less). Skill-tree effects are off in RANKED_PVP and RANKED_SPARRING.",
-    "Uptime: cooldown 7 on all five jutsu (attacks 60 AP, Cloak 40 AP) outlasts every two-round window. Each buff and the exposure is live only in the two rounds after its cast, never on its own jutsu's hit, so Raijin's IDG and Hammer's exposure feed the other attacks, normal jutsu and weapons, not their own next cast. Staggered Cloak and Raijin casts give about four of seven rounds of enhanced IDG. Both IDG sources land on the caster at cast time; Hammer's exposure sits on its tiles.",
-    "Fourth-purchase choices: Burst (01, 02, 03) finishes with Lightning Rod (exposure 40%) or Raiment of Storms (Reflect 42%, Damage +6); Exposure (01, 04, 05) finishes with Vajra Tempering (Damage +2) or Raiment of Storms; Bulwark (06, 07, 08) finishes only with Mandate of Thunder (see the narrow-kit exception). Hybrids without a capstone (for example 01, 02, 04, 06 or 01, 02, 06, 07) spread +2 to +5 across all four tags and stay non-dominated.",
-    "Reflect and untouched rows: the Cloak Reflect row lists all four stat types and no element, so it matches effectively every hit the caster takes, pierce included; the return bypasses shields, and other Reflect sources add to it up to the 60%-of-hit cap (50% leaves ten points). Daibutsu's recoil 40%, Railgun's stun 100 and the two move rows are unsupported and unchanged; the bloodline passives (IDG; 15% Decrease Damage Taken against Lightning) are not potency targets.",
-    "Value options (user-owned; flats unchanged): Burst (01, 02, 03, 06) is row-weighted 34 and Exposure (01, 02, 04, 05) 33 against Taiyo Kami's 31. Damage: (a) Thunder King's Wrath +2 (ceiling +5, Burst 30); (b) drop Raiment's +1 Damage (Burst 30; a +1 IDT swap makes 01, 04, 05, 06 IDT +11, a +1 IDG swap makes 01, 06, 07, 08 IDG +6); (c) keep +6 (OPEN_DECISIONS D8). Exposure: Judgement from Above +3 IDT (route +8, Hammer 43%, Exposure 31) or keep +10 on the one team row (D14)."
+    "Reference reuse: Mandate, Vajra Tempering and Thunder King's Wrath use Taiyo Kami's Dawnheart, Crown of Cinders and Solar Cataclysm flats (+2% Increase Damage Given / +2% Increase Damage Taken, +2 Damage, +3 Damage); Thunder Answers Thunder mirrors Sovereign Sun (+5% / +3% Increase Damage Given). Routes: Burst +5 Damage; Exposure +10% Increase Damage Taken (Mandate +2%, Lightning Rod +3%, Judgement from Above +5%); Bulwark +10% Reflect (Raiment +2%, Galvanic Rebuke +3%, Thunder Answers Thunder +5%). Raiment of Storms carries no Damage (its former +1 was removed under RUL-2026-10-03-005), so no allocation exceeds +5 Damage; Increase Damage Given peaks at +5%.",
+    "Main tree and passives: both Cloak Increase Damage Given rows match the kit's Storm hits (row 0 via its Highest stat filter, row 2 via Storm) and compound with Raijin's: three 35% rows multiply a hit all three match by ×1.35³ ≈ ×2.46 (×1.40³ ≈ ×2.74 at the +5% maximum), and the bloodline passive (25 + 0.15/lvl) multiplies last. The buffs also reach normal jutsu and weapons (row 0 and Raijin: Highest-stat or element-less hits; row 2: Storm, Lightning, Water or element-less).",
+    "Uptime: cooldown 7 on all five jutsu (attacks 60 AP, Cloak 40 AP) outlasts every two-round window. Each buff and the exposure is live only in the two rounds after its cast, never on its own jutsu's hit, so Raijin's buff and Hammer's exposure feed the other attacks, normal jutsu and weapons, not their own next cast. Staggered Cloak and Raijin casts give about four of seven rounds of enhanced Increase Damage Given. Both buff sources land on the caster at cast time; Hammer's exposure sits on its tiles.",
+    "Fourth-purchase choices: Burst (01, 02, 03) finishes with Lightning Rod (exposure 40%) or Raiment of Storms (Reflect 42%); Exposure (01, 04, 05) finishes with Vajra Tempering (+2 Damage) or Raiment of Storms (Reflect 42%); Bulwark (06, 07, 08) finishes only with Mandate of Thunder (see the narrow-kit exception). Hybrids without a capstone (01, 02, 04, 06 and 01, 02, 06, 07) spread +2 to +5 across four tags and stay non-dominated.",
+    "Reflect and untouched rows: the Cloak Reflect row lists all four stat types and no element, so it matches effectively every hit the caster takes, pierce included; the return bypasses shields, and other Reflect sources add to it up to the 60%-of-hit cap (50% leaves ten points). Daibutsu's recoil 40%, Railgun's stun 100 and the two move rows are unsupported and unchanged; the bloodline passives (Increase Damage Given; 15% Decrease Damage Taken against Lightning) are not potency targets."
   ],
   "risks": [
-    "Classification: Storm is not exclusive in the census (Arashima and Godstorm Eclipse are INCLUDE kits with Storm damage rows; Stormboat Willy is deferred), and whether any NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carries Storm is unverified. The tree assumes a bloodline-scoped whole-kit classification; a bare element match would leak every node to those kits.",
-    "Resolver: 3 of the 9 supported rows (Storm Cloak IDG row 0, Storm Cloak Reflect, Raijin IDG) have no element and fall back to None under the current resolver, so they are unreachable without the proposed classification change; reaching them with affectedElements including None would also reach every element-less row on any jutsu the player casts.",
-    "IDG stacking: with both Cloak rows and Raijin live, three 35% rows add 105% of the staged base before the multiplying bloodline passive; the +5 ceiling adds 15 more points (120%). Each row stays far below the 100 cap, but the combined per-hit amplification is high and was not simulated against peer kits.",
-    "Open balance decisions (user-owned, not applied): Burst (01, 02, 03, 06) puts Damage +6 on all four damage rows, row-weighted 34 against Taiyo Kami's 31 (+5 on three rows). Exposure takes Hammer's team-amplifying area IDT to +10 (45%; allies' matching non-pierce hits gain too), at the guardrail and above Taiyo's +7; row-weighted 33. Options: design note 6 (OPEN_DECISIONS D8, D14).",
-    "Reflect cap and uptime: other Reflect sources (main tree, items) add to the Cloak's 50% and could saturate the 60%-of-pre-shield-damage cap, wasting part of the +10. Reflect pays only when the caster is hit in the two rounds after the Cloak's cast (tags.ts reflect: !isNew && !castThisRound), so the bulwark is a duelist's build with no Decrease Damage Taken row to pair. Not simulated.",
-    "Universal node: Mandate of Thunder is in all 8 legal full-budget builds because the bulwark chain has no other prerequisite-closed fourth purchase, so the 4-BP budget carries 3 BP of real choice. Accepted under the narrow-kit exception, which records why every leaf under Raiment of Storms would be filler (dominated, a twin, or past a ceiling).",
-    "Delivery: Daibutsu Thunder (radius-1 spawn on an OTHER_USER target), Raijin (ground circle spawn) and Hammer (spiral around the caster) are area deliveries; realized hits and exposure depend on positioning. Every harmful row is friendly fire ENEMIES, so no ally hazards; Daibutsu or Railgun aimed at an ally withholds its ENEMIES rows from that ally. Recoil and stun are unsupported."
+    "Classification: Storm is the single qualifying element; sharing it with Arashima, Godstorm Eclipse and Stormboat Willy is expected (RUL-2026-10-03-005). 6 of 9 kit rows carry Storm; the 3 element-less rows (Storm Cloak rows 0 and 1, Raijin's buff) need the proposed jutsu-classification resolver (matching None instead would reach every element-less row on any jutsu). Off-kit Storm coverage (NORMAL/SPECIAL/EVENT/FORBIDDEN) is unverified.",
+    "Increase Damage Given stacking: with both Cloak rows and Raijin live, three 35% rows compound to ×1.35³ ≈ ×2.46 on a hit all three match, before the bloodline passive multiplies; at the +5% maximum it is ×1.40³ ≈ ×2.74. Each row stays far below the 100 cap, but the combined per-hit amplification is high and was not simulated against peer kits.",
+    "Exposure: Hammer's area Increase Damage Taken reaches 45% at the +10% route maximum, and allies' matching non-pierce hits on the exposed enemies gain too. Not simulated.",
+    "Reflect cap and uptime: other Reflect sources (main tree, items) add to the Cloak's 50% and could saturate the 60%-of-pre-shield-damage cap, wasting part of the +10%. Reflect pays only when the caster is hit in the two rounds after the Cloak's cast (tags.ts reflect: !isNew && !castThisRound), so Bulwark is a duelist's build with no Decrease Damage Taken row to pair. Not simulated.",
+    "Universal node: Mandate of Thunder is in all 8 legal full-budget builds because the Bulwark chain has no other prerequisite-closed fourth purchase, so the 4-BP budget carries 3 BP of real choice. Accepted under the narrow-kit exception, which records why every leaf under Raiment of Storms would be filler (dominated, a twin, or past a ceiling or the glue level).",
+    "Delivery: Daibutsu Thunder (radius-1 spawn on an OTHER_USER target), Raijin (ground circle spawn) and Hammer (spiral around the caster) are area deliveries; realized hits and exposure depend on positioning. Every harmful row is friendly fire ENEMIES, so no ally hazards. Skill-tree effects are off in RANKED_PVP and RANKED_SPARRING; no combat simulation was performed."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1134,7 +1134,7 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
+      "damage": 5,
       "increasedamagegiven": 5,
       "increasedamagetaken": 10,
       "reflect": 10
@@ -1153,18 +1153,98 @@
       "reflect"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 3 / Storm classification / forked tree",
+    "revision": "Draft 4 / Storm classification / forked tree (RUL-2026-10-03-005 recalibration)",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Shinrai Ou jutsu inherit Storm potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Storm jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 10,
+        "reflect": 10
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "reflect": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Thunder King's Wrath",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Judgement from Above",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "08",
+          "name": "Thunder Answers Thunder",
+          "primary_tag": "reflect",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {
@@ -1188,7 +1268,7 @@
         "06"
       ],
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "reflect": 2
@@ -1215,7 +1295,7 @@
         "06"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2,
         "increasedamagetaken": 5,
         "reflect": 2
@@ -1229,7 +1309,7 @@
         "07"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "reflect": 5
@@ -1243,7 +1323,6 @@
         "06"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 5,
         "increasedamagetaken": 10,
         "reflect": 2
@@ -1257,7 +1336,6 @@
         "07"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "increasedamagetaken": 5,
         "reflect": 5
@@ -1271,7 +1349,6 @@
         "08"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "reflect": 10

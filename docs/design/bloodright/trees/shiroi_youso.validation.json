@@ -9,21 +9,34 @@
     "statClassification": "Highest",
     "traits": "Burst, Defensive Control, Combo Playmaking"
   },
-  "revision": "Draft 3 / Shiroi Youso bloodline-keyed classification / forked tree",
+  "revision": "Draft 4 / Fire + Lightning multi-element classification (director review) / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [
+    "classification status: multi-element: director review (director decision)",
     "ally-hazard area rows amplified (friendly fire none/ALL): Element Divine#1, Element Divine#2"
   ],
   "classification": {
-    "potency_classification": "Shiroi Youso",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Shiroi Youso",
+    "potency_classification": "Fire + Lightning",
+    "label_kind": "multi-element",
+    "classification_status": "multi-element: director review",
+    "qualifying_elements": [
+      "Fire",
+      "Lightning"
+    ],
     "display_element": null,
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Shiroi Youso jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Fire and Lightning jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Earth Release",
+      "Water Release"
+    ],
+    "shared_element_bloodlines": [
       "Adorable Shadow of Death",
       "Amaterasu",
       "Architect of the Hollow Script",
@@ -58,7 +71,11 @@
       "Voltara Divine",
       "Youso Shiroi",
       "Yūhi Ryūjin (夕陽竜神)"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {
@@ -72,7 +89,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
@@ -96,7 +113,7 @@
         "increasedamagegiven": 2,
         "increasedamagetaken": 4,
         "decreasedamagetaken": 2,
-        "afterburn": 7,
+        "afterburn": 10,
         "heal": 2
       },
       "advanced_arts": [
@@ -116,7 +133,7 @@
       "bonuses": {
         "increasedamagegiven": 5,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 7,
+        "decreasedamagetaken": 10,
         "heal": 2
       },
       "advanced_arts": [
@@ -135,7 +152,7 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 6,
+        "increasedamagetaken": 7,
         "decreasedamagetaken": 4,
         "heal": 5
       },
@@ -167,11 +184,11 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
+      "damage": 5,
       "increasedamagegiven": 5,
-      "increasedamagetaken": 6,
-      "decreasedamagetaken": 7,
-      "afterburn": 7,
+      "increasedamagetaken": 7,
+      "decreasedamagetaken": 10,
+      "afterburn": 10,
       "heal": 5
     },
     "supported_rows_in_kit": 11,
@@ -229,8 +246,8 @@
         "name": "Divine Convergence",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
-        "row_weighted_total": 8,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Element Divine",
           "Lightning Release"
@@ -259,8 +276,8 @@
         "name": "White Immolation",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 12,
+        "raw_flat_total": 9,
+        "row_weighted_total": 18,
         "covered_jutsu": [
           "Element Divine",
           "Fire Release",
@@ -306,8 +323,8 @@
         "name": "Eye of the Tempest",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 10,
+        "raw_flat_total": 8,
+        "row_weighted_total": 16,
         "covered_jutsu": [
           "Earth Release",
           "Fire Release",
@@ -336,8 +353,8 @@
         "name": "Pull of the Undertow",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 12,
+        "raw_flat_total": 7,
+        "row_weighted_total": 14,
         "covered_jutsu": [
           "Earth Release",
           "Element Divine",
@@ -360,11 +377,11 @@
         "increasedamagegiven": 2,
         "increasedamagetaken": 4,
         "decreasedamagetaken": 2,
-        "afterburn": 7,
+        "afterburn": 10,
         "heal": 2
       },
-      "raw_flat_total": 17,
-      "row_weighted_total": 32,
+      "raw_flat_total": 20,
+      "row_weighted_total": 38,
       "advanced_arts": [
         "05"
       ],
@@ -393,13 +410,13 @@
           "04"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "afterburn": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 26,
+        "raw_flat_total": 12,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "03"
         ],
@@ -413,14 +430,14 @@
           "06"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "heal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 26,
+        "raw_flat_total": 13,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "03"
         ],
@@ -437,10 +454,10 @@
           "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 4,
-          "afterburn": 7
+          "afterburn": 10
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 30,
+        "raw_flat_total": 18,
+        "row_weighted_total": 36,
         "advanced_arts": [
           "05"
         ],
@@ -515,11 +532,11 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 4,
           "decreasedamagetaken": 2,
-          "afterburn": 7,
+          "afterburn": 10,
           "heal": 2
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 32,
+        "raw_flat_total": 20,
+        "row_weighted_total": 38,
         "advanced_arts": [
           "05"
         ],
@@ -573,11 +590,11 @@
         "bonuses": {
           "increasedamagegiven": 5,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 7,
+          "decreasedamagetaken": 10,
           "heal": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 30,
+        "raw_flat_total": 19,
+        "row_weighted_total": 36,
         "advanced_arts": [
           "08"
         ],
@@ -610,12 +627,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 6,
+          "increasedamagetaken": 7,
           "decreasedamagetaken": 4,
           "heal": 5
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 29,
+        "raw_flat_total": 18,
+        "row_weighted_total": 31,
         "advanced_arts": [
           "10"
         ],
@@ -630,11 +647,11 @@
         ],
         "bonuses": {
           "increasedamagegiven": 3,
-          "decreasedamagetaken": 7,
+          "decreasedamagetaken": 10,
           "heal": 5
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 25,
+        "raw_flat_total": 18,
+        "row_weighted_total": 31,
         "advanced_arts": [
           "08"
         ],
@@ -648,12 +665,12 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 7,
           "heal": 5
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 27,
+        "raw_flat_total": 17,
+        "row_weighted_total": 29,
         "advanced_arts": [
           "10"
         ],

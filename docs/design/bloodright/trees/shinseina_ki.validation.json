@@ -9,7 +9,7 @@
     "statClassification": "Highest",
     "traits": "Burst"
   },
-  "revision": "Draft 3 / Wood classification / forked tree",
+  "revision": "Draft 4 / Wood classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [
     "universal node: 01 (Hallowed Seed) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)",
@@ -18,15 +18,29 @@
   "classification": {
     "potency_classification": "Wood",
     "label_kind": "element",
-    "bloodline": "Shinseina Ki",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Wood"
+    ],
     "display_element": "Wood",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Shinseina Ki jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Wood jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Wood Style: Wood Warrior Summon"
+    ],
+    "shared_element_bloodlines": [
       "Nature's Blessing"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {
@@ -40,8 +54,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 4
+        "damage": 5,
+        "increasedamagegiven": 5
       },
       "advanced_arts": [
         "The Forest Devours"
@@ -58,8 +72,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 3,
-        "increasedamagegiven": 7
+        "damage": 2,
+        "increasedamagegiven": 10
       },
       "advanced_arts": [
         "Heartwood Awakened"
@@ -76,7 +90,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
+        "damage": 1,
         "increasedamagegiven": 2,
         "increasedamagetaken": 10
       },
@@ -108,8 +122,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
-      "increasedamagegiven": 7,
+      "damage": 5,
+      "increasedamagegiven": 10,
       "increasedamagetaken": 10
     },
     "supported_rows_in_kit": 6,
@@ -130,15 +144,12 @@
         "name": "Hallowed Seed",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 3,
-        "row_weighted_total": 7,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
-          "Eternal Forest",
-          "Exploding Wood Serpent",
-          "Forest Wisdom",
-          "Guardian's Grove"
+          "Forest Wisdom"
         ],
-        "covered_rows": 5,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -179,8 +190,8 @@
         "name": "Rooted in Wisdom",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Forest Wisdom"
         ],
@@ -193,8 +204,8 @@
         "name": "Heartwood Awakened",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 5,
+        "row_weighted_total": 10,
         "covered_jutsu": [
           "Forest Wisdom"
         ],
@@ -251,17 +262,17 @@
       "ids": [
         "01",
         "02",
-        "03",
-        "04"
+        "04",
+        "05"
       ],
       "bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 4
+        "damage": 2,
+        "increasedamagegiven": 10
       },
-      "raw_flat_total": 10,
+      "raw_flat_total": 12,
       "row_weighted_total": 26,
       "advanced_arts": [
-        "03"
+        "05"
       ],
       "non_dominated": true
     },
@@ -288,11 +299,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 6,
-          "increasedamagegiven": 4
+          "damage": 5,
+          "increasedamagegiven": 5
         },
         "raw_flat_total": 10,
-        "row_weighted_total": 26,
+        "row_weighted_total": 25,
         "advanced_arts": [
           "03"
         ],
@@ -306,12 +317,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 24,
+        "raw_flat_total": 9,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "03"
         ],
@@ -325,11 +336,11 @@
           "05"
         ],
         "bonuses": {
-          "damage": 3,
-          "increasedamagegiven": 7
+          "damage": 2,
+          "increasedamagegiven": 10
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 23,
+        "raw_flat_total": 12,
+        "row_weighted_total": 26,
         "advanced_arts": [
           "05"
         ],
@@ -343,12 +354,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 3,
-          "increasedamagegiven": 4,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2
         },
         "raw_flat_total": 9,
-        "row_weighted_total": 19,
+        "row_weighted_total": 18,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -360,12 +371,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 18,
+        "raw_flat_total": 9,
+        "row_weighted_total": 15,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -377,12 +388,11 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 10,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 19,
+        "raw_flat_total": 12,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "05"
         ],
@@ -396,12 +406,11 @@
           "07"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 5
         },
         "raw_flat_total": 10,
-        "row_weighted_total": 16,
+        "row_weighted_total": 15,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -413,12 +422,12 @@
           "08"
         ],
         "bonuses": {
-          "damage": 2,
+          "damage": 1,
           "increasedamagegiven": 2,
           "increasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 20,
+        "raw_flat_total": 13,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "08"
         ],
