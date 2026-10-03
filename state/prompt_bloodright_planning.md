@@ -56,7 +56,7 @@ Place design outputs under `docs/design/bloodright/`:
 
 1. Final approved roster and exclusion ledger, with every census record accounted for and newly discovered records added.
 2. A source/kit dossier per approved bloodline.
-3. One structured tree JSON plus readable Markdown and a deterministic SVG per proposed tree. SVGs show costs, tiers, full effect names/values, scope, target roles and unambiguous prerequisite arrows.
+3. One structured tree JSON plus readable Markdown and a deterministic SVG per proposed tree. SVGs show costs, tiers, full effect names/values, scope and unambiguous prerequisite arrows. Use a shared target-role legend and matching text colors, without repeated role labels or skill numbers on cards. Afterburn is an enemy debuff that enhances subsequent damage instances during its duration; audit that downstream coverage as well as its application row.
 4. Two or three complete build examples per tree, with all 4 purchases and before/after effect-row tables. Explain genuine narrow-kit exceptions.
 5. A cross-bloodline balance matrix and validation results, including all legal allocations and the strongest found combinations.
 6. An engine-gap register and open user decisions, separate from design deliverables.

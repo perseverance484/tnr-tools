@@ -1,6 +1,6 @@
 {
   "title": "Taiyo Kami \u2014 Covenant of the Sun",
-  "revision": "Idea 1 / Scorch classification / forked tree v3",
+  "revision": "Idea 1 / Scorch classification / forked tree v4",
   "progression": {
     "currency": "Bloodright Point",
     "abbreviation": "BP",
@@ -120,7 +120,7 @@
         {
           "tag": "afterburn",
           "flat": 3,
-          "display_role": "DAMAGE"
+          "display_role": "ENEMY DEBUFF"
         }
       ],
       "minimum_path_bp": 2,
@@ -146,7 +146,7 @@
         {
           "tag": "afterburn",
           "flat": 7,
-          "display_role": "DAMAGE"
+          "display_role": "ENEMY DEBUFF"
         },
         {
           "tag": "increasedamagetaken",
@@ -986,7 +986,7 @@
     }
   ],
   "audit": {
-    "revision": "Idea 1 / Scorch classification / forked tree v3",
+    "revision": "Idea 1 / Scorch classification / forked tree v4",
     "available_skills": 10,
     "foundation_count": 2,
     "hidden_art_count": 4,
@@ -1020,6 +1020,8 @@
       "All existing supported tags inherit Scorch potency eligibility; original combat elements and target scopes stay intact.",
       "Both Increase Damage Given effect rows on Celestial Ignition receive each matching modifier.",
       "Damage reaches three jutsu; values are raw power, not final-damage percentages.",
+      "Afterburn is an enemy debuff: for its existing duration, damage you deal causes extra Afterburn damage at its percentage. It is not itself a damage instance.",
+      "Afterburn application-row coverage does not measure all downstream damage instances enhanced; no proc, recursion or uptime simulation was performed.",
       "Wound and Shield are unsupported and receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
