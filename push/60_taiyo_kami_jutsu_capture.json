@@ -1,0 +1,44 @@
+{
+  "_note": "READ-ONLY TAIYO KAMI CAPTURE PHASE 1. Five candidate bloodline jutsu are point-read as exact full bodies. Their IDs were programmatically resolved by exact name from harvests/seed/40_INDEX_jutsu.json at main be04892d4483f782a0c64f32b8b647abbb98716e. The returned live bloodlineId values are the gate: phase 2 may capture the Taiyo Kami bloodline only after these records agree on one id. Do not infer or hand-transcribe a bloodline id. Zero mutations.",
+  "capture": {
+    "before": [
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "RvLZQOgJE8D3QtX3LY07_"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "B6xrDMv4TckvKn_5aImdT"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "zLa_tASqn4gRa8FYjUoTu"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "H78qBo2-pkuh4_h4lutoR"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "VCRI7Y24RtnzGndzN-Awe"
+        },
+        "persist": "full"
+      }
+    ],
+    "after": []
+  },
+  "items": []
+}
