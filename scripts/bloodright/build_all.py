@@ -40,6 +40,8 @@ def main() -> int:
     else:
         print("no trees under docs/design/bloodright/trees")
     rc = max(rc, run([os.path.join(HERE, "balance_matrix.py")] + flag))
+    rc = max(rc, run([os.path.join(HERE, "roster_ledger.py")] + flag))
+    rc = max(rc, run([os.path.join(HERE, "classification_table.py")] + flag))
     print("build_all:", "OK" if rc == 0 else f"exit {rc}")
     return rc
 
