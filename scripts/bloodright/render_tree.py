@@ -33,7 +33,7 @@ DIVIDER = "#394858"
 BRANCH_COLORS = ["#e5bb69", "#9ac1ca", "#b8d98d", "#d9a6e0"]
 FONT = "DejaVu Sans, sans-serif"
 CHAR_W = 0.56  # approximate average glyph width as a fraction of font size
-CHAR_W_BOLD = 0.63
+CHAR_W_BOLD = 0.68
 
 
 def fit(text: str, max_w: float, size: int, bold: bool = True) -> int:

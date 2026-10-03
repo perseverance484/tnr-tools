@@ -18,7 +18,7 @@ Every claim here is **source-verified** (file and line cited) unless marked othe
 | Stacking: `BATTLE_TAG_STACKING = true` at this pin, so duplicate potency keys are **not** collapsed; the dedup branch only runs when stacking is off, and even then bloodline, sage-mode and pre-battle gear (armor/accessory) sources bypass it. Stack key includes type, creator, target, fromType, affectedTag, calculation and sorted elements. | potency.ts 84–95; app/drizzle/constants.ts 1562, 3108–3112; util.ts 1103–1110 |
 | Modifier percentage amounts are clamped to 100 before use; flat amounts are not clamped. | potency.ts 101–104 |
 
-**Consequence for Bloodright:** a skill-tree entry whose `effects` hold an `increasepotency` tag is exactly the existing delivery vehicle. What does **not** exist is a whole-kit classification: the resolver reads each row's own `elements`, so a Taiyo Kami buff row with no elements is reachable only through `None`, which also reaches every other non-elemental row on any jutsu the player casts. The brief's "classification inheritance" is the proposed resolver change.
+**Consequence for Bloodright:** a skill-tree entry whose `effects` hold an `increasepotency` tag is exactly the existing delivery vehicle. What does **not** exist is a jutsu-level classification: the resolver reads each row's own `elements`, so a Taiyo Kami buff row with no elements is reachable only through `None`, which also reaches every other non-elemental row on any jutsu the player casts. The element-wide jutsu-classification resolver of RUL-2026-10-03-005 is the proposed change (ENGINE_GAP_REGISTER G1).
 
 ## 2. Skill tree — purchase, prerequisites, realization
 
@@ -74,7 +74,7 @@ Ordering (`process.ts` 415–612): non-damage-modifier effects → damage modifi
 
 **Consequence:** baselines for injected children must be evaluated at level = inject power (100 or 110 in the captured kits, via `power + powerPerLevel × level` of the inject row), not at the planning level 25. Whether an injected child whose `bloodlineId` is empty inherits the bloodline's potency classification is an engine decision (gap register).
 
-## 4b. Delivery of effect rows by jutsu target (relevant to recipients and leakage)
+## 4b. Delivery of effect rows by jutsu target (relevant to recipients and ally/enemy hazards)
 
 | Case | Behaviour at the pin | Lines |
 |---|---|---|

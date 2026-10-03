@@ -1,7 +1,7 @@
 {
   "kind": "bloodright_balance_matrix",
   "method": "Same access budget (4 BP, 1 BP per once-only skill, forks only) for every tree. Raw flat total sums every static addition in a legal full allocation; row-weighted total multiplies each addition by the number of supported kit rows it reaches. Both are structural/arithmetic measures, not combat strength. Inherited kit strength (rank, row count, baseline values) is listed separately from the Bloodright additions.",
-  "reference": "Taiyo Kami (docs/design/bloodright/examples/taiyo_kami.json)",
+  "reference": "Taiyo Kami (docs/design/bloodright/trees/taiyo_kami.json; approved values, regenerated)",
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "approved_remaining": 43,
   "trees_present": 43,
@@ -25,8 +25,35 @@
       },
       "adverse_supported_rows": 0,
       "classification": "Scorch",
-      "label_kind": null,
-      "census_collisions": 0,
+      "label_kind": "element",
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Solar Cataclysm",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Eternal Noon",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Sovereign Sun",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Dying Light",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": null,
         "secondary": null,
@@ -182,7 +209,34 @@
       "adverse_supported_rows": 0,
       "classification": "Dust",
       "label_kind": "element",
-      "census_collisions": 2,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Total Disintegration",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Terminal Decay",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Atomic Reprisal",
+          "primary_tag": "reflect",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Requiem of Dust",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Damage (Dust attacks)",
         "secondary": "Increase Damage Taken (AOE exposure)",
@@ -204,12 +258,12 @@
         "damage": 5,
         "increasedamagegiven": 5,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "reflect": 10
       },
       "max_full_build_raw_flat_total": 19,
-      "max_full_build_row_weighted_total": 30,
-      "max_row_weighted_per_supported_row": 3.33,
+      "max_full_build_row_weighted_total": 36,
+      "max_row_weighted_per_supported_row": 4.0,
       "median_full_build_row_weighted_total": 24,
       "strongest_full_build": {
         "ids": [
@@ -227,7 +281,7 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         }
       },
       "lowest_value_node": {
@@ -264,12 +318,12 @@
             "04",
             "05"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 30,
+          "raw_flat_total": 17,
+          "row_weighted_total": 36,
           "bonuses": {
             "damage": 2,
             "increasedamagegiven": 5,
-            "increasedamagetaken": 7
+            "increasedamagetaken": 10
           }
         },
         {
@@ -313,7 +367,7 @@
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -5,
-        "max_row_weighted_delta": -1,
+        "max_row_weighted_delta": 5,
         "supported_rows_delta": 0
       }
     },
@@ -334,8 +388,35 @@
       },
       "adverse_supported_rows": 0,
       "classification": "Ancient Tailed Demon",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 0,
+      "label_kind": "classification extension",
+      "classification_status": "requires classification extension",
+      "routes": [
+        {
+          "name": "Howl of Annihilation",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Consuming Malice",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Unyielding Husk",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Primordial Rampage",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Enemy pressure — Afterburn and Increase Damage Taken on Demonic Embrace",
         "secondary": "Sustained damage — Increase Damage Given on Demonic Vitae; burst — Damage on Ancient Demon Roar",
@@ -354,7 +435,7 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 10,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 10,
@@ -363,7 +444,7 @@
       "max_full_build_raw_flat_total": 19,
       "max_full_build_row_weighted_total": 19,
       "max_row_weighted_per_supported_row": 3.8,
-      "median_full_build_row_weighted_total": 16,
+      "median_full_build_row_weighted_total": 15,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -386,7 +467,7 @@
       },
       "lowest_value_node": {
         "name": "Rending Bellow",
-        "row_weighted_total": 3
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -399,10 +480,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 16,
+          "raw_flat_total": 15,
+          "row_weighted_total": 15,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "increasedamagetaken": 4,
             "decreasedamagetaken": 2,
@@ -490,11 +571,38 @@
       "adverse_supported_rows": 0,
       "classification": "Storm",
       "label_kind": "element",
-      "census_collisions": 3,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Sundered Sky",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Reaper's Harvest",
+          "primary_tag": "lifesteal",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Unbroken Horizon",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Silence After Thunder",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Lifesteal (sustain; the kit's identity, +10 ceiling)",
-        "secondary": "Decrease Damage Taken and Decrease Damage Given (co-primary fortress and suppression routes, +10 ceilings)",
-        "tertiary": "Damage (Storm AoE burst, +5 ceiling) and Increase Damage Given (glue across routes, +5 ceiling)"
+        "primary": "Lifesteal (sustain; the kit's identity, at the +5% hard ceiling)",
+        "secondary": "Decrease Damage Taken and Decrease Damage Given (fortress and suppression routes, +10% each)",
+        "tertiary": "Damage (Storm AoE burst, +5) and Increase Damage Given (glue across routes, up to +8%)"
       },
       "nodes": 10,
       "tiers": {
@@ -510,38 +618,38 @@
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
         "damage": 5,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 8,
         "decreasedamagegiven": 10,
         "decreasedamagetaken": 10,
-        "lifesteal": 10
+        "lifesteal": 5
       },
-      "max_full_build_raw_flat_total": 20,
-      "max_full_build_row_weighted_total": 20,
-      "max_row_weighted_per_supported_row": 3.33,
-      "median_full_build_row_weighted_total": 18,
+      "max_full_build_raw_flat_total": 17,
+      "max_full_build_row_weighted_total": 17,
+      "max_row_weighted_per_supported_row": 2.83,
+      "median_full_build_row_weighted_total": 17,
       "strongest_full_build": {
         "ids": [
           "01",
-          "06",
-          "09",
-          "10"
+          "04",
+          "05",
+          "06"
         ],
         "names": [
           "Tempest Hymn",
-          "Stillness in the Squall",
-          "Deadwind Dirge",
-          "Silence After Thunder"
+          "Crimson Downpour",
+          "Reaper's Harvest",
+          "Stillness in the Squall"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
-          "decreasedamagegiven": 10,
-          "decreasedamagetaken": 4,
-          "lifesteal": 4
+          "increasedamagegiven": 8,
+          "decreasedamagegiven": 2,
+          "decreasedamagetaken": 2,
+          "lifesteal": 5
         }
       },
       "lowest_value_node": {
         "name": "Crimson Downpour",
-        "row_weighted_total": 3
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -554,13 +662,13 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 19,
-          "row_weighted_total": 19,
+          "raw_flat_total": 17,
+          "row_weighted_total": 17,
           "bonuses": {
-            "increasedamagegiven": 5,
+            "increasedamagegiven": 8,
             "decreasedamagegiven": 2,
             "decreasedamagetaken": 2,
-            "lifesteal": 10
+            "lifesteal": 5
           }
         },
         {
@@ -572,14 +680,13 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 13,
-          "row_weighted_total": 18,
+          "raw_flat_total": 12,
+          "row_weighted_total": 17,
           "bonuses": {
             "damage": 5,
-            "increasedamagegiven": 2,
+            "increasedamagegiven": 3,
             "decreasedamagegiven": 2,
-            "decreasedamagetaken": 2,
-            "lifesteal": 2
+            "decreasedamagetaken": 2
           }
         },
         {
@@ -591,13 +698,12 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 19,
-          "row_weighted_total": 19,
+          "raw_flat_total": 17,
+          "row_weighted_total": 17,
           "bonuses": {
             "increasedamagegiven": 5,
             "decreasedamagegiven": 2,
-            "decreasedamagetaken": 10,
-            "lifesteal": 2
+            "decreasedamagetaken": 10
           }
         },
         {
@@ -609,21 +715,20 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 20,
-          "row_weighted_total": 20,
+          "raw_flat_total": 17,
+          "row_weighted_total": 17,
           "bonuses": {
-            "increasedamagegiven": 2,
+            "increasedamagegiven": 3,
             "decreasedamagegiven": 10,
-            "decreasedamagetaken": 4,
-            "lifesteal": 4
+            "decreasedamagetaken": 4
           }
         }
       ],
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -4,
-        "max_row_weighted_delta": -11,
+        "max_raw_flat_total_delta": -7,
+        "max_row_weighted_delta": -14,
         "supported_rows_delta": -3
       }
     },
@@ -645,51 +750,78 @@
       "adverse_supported_rows": 0,
       "classification": "Explosion",
       "label_kind": "element",
-      "census_collisions": 1,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Ground Zero",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Siege Battery",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Chain Reaction",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Critical Mass",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Damage (Explosion area attacks)",
         "secondary": "Afterburn and Increase Damage Taken (Charge 4 Explosion pressure)",
-        "tertiary": "Decrease Damage Taken and Increase Damage Given (Blast Shield / charge buffs)"
+        "tertiary": "Increase Damage Given and Decrease Damage Taken (charge self buffs / Blast Shield)"
       },
-      "nodes": 9,
+      "nodes": 10,
       "tiers": {
         "F": 2,
         "H": 4,
-        "A": 3
+        "A": 4
       },
       "structure_errors": [],
-      "full_budget_allocations": 12,
-      "non_dominated_full_allocations": 12,
+      "full_budget_allocations": 14,
+      "non_dominated_full_allocations": 14,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
         "damage": 5,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 10,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 10,
         "afterburn": 10
       },
       "max_full_build_raw_flat_total": 19,
-      "max_full_build_row_weighted_total": 27,
-      "max_row_weighted_per_supported_row": 3.38,
-      "median_full_build_row_weighted_total": 19,
+      "max_full_build_row_weighted_total": 28,
+      "max_row_weighted_per_supported_row": 3.5,
+      "median_full_build_row_weighted_total": 21,
       "strongest_full_build": {
         "ids": [
           "01",
           "02",
-          "03",
-          "04"
+          "04",
+          "10"
         ],
         "names": [
           "Primed Fuse",
           "Shaped Charge",
-          "Ground Zero",
-          "Powder Keg"
+          "Powder Keg",
+          "Critical Mass"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 5,
+          "damage": 2,
+          "increasedamagegiven": 10,
           "increasedamagetaken": 2
         }
       },
@@ -713,6 +845,23 @@
           "bonuses": {
             "damage": 5,
             "increasedamagegiven": 5,
+            "increasedamagetaken": 2
+          }
+        },
+        {
+          "name": "Critical Mass",
+          "archetype": "Empowered",
+          "ids": [
+            "01",
+            "02",
+            "04",
+            "10"
+          ],
+          "raw_flat_total": 14,
+          "row_weighted_total": 28,
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 10,
             "increasedamagetaken": 2
           }
         },
@@ -753,11 +902,11 @@
           }
         }
       ],
-      "narrow_kit_exception": "Nine nodes rather than ten. The kit's five supported tags (Damage 3 rows, Increase Damage Given 2, Increase Damage Taken 1, Decrease Damage Taken 1, Afterburn 1) give three distinct Advanced routes (burst, pressure, fortified). A fourth capstone was available above Powder Keg on Increase Damage Given, but +3 there would push the two-row tag to +8 in a full build, above the reference's +5 for two rows, so the tag is deliberately held at +5 (design note 2); an Increase Damage Taken capstone would sit on the same Charge 4 Explosion cast, target and two-round window as the Afterburn route and duplicate the pressure route rather than add a choice. Powder Keg is kept as a leaf Hidden Art so the burst route has an all-in fourth purchase and the charge buffs have an owner. Three complete builds are distinct.",
+      "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -5,
-        "max_row_weighted_delta": -4,
+        "max_row_weighted_delta": -3,
         "supported_rows_delta": -1
       }
     },
@@ -781,11 +930,38 @@
       "adverse_supported_rows": 0,
       "classification": "Shadow",
       "label_kind": "element",
-      "census_collisions": 13,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Rite of Exsanguination",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Red Pestilence",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Deathless Vitality",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Feast of the Fallen",
+          "primary_tag": "lifesteal",
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Damage (Shadow; two castable rows per keystone)",
-        "secondary": "Enemy exposure (Increase Damage Taken + Afterburn)",
-        "tertiary": "Self sustain (Decrease Damage Taken, Lifesteal) with Increase/Decrease Damage Given support"
+        "primary": "Offense: Shadow Damage burst and Lifesteal sustain from Scarlet Gaze",
+        "secondary": "Defense: Decrease Damage Taken (Fortress) and Decrease Damage Given (Suppression) from Iron in the Blood",
+        "tertiary": "Increase Damage Given / Increase Damage Taken glue"
       },
       "nodes": 10,
       "tiers": {
@@ -795,47 +971,45 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 14,
-      "non_dominated_full_allocations": 14,
+      "non_dominated_full_allocations": 13,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 5,
-        "decreasedamagegiven": 5,
-        "increasedamagetaken": 5,
-        "decreasedamagetaken": 8,
-        "afterburn": 10,
-        "lifesteal": 8
+        "damage": 5,
+        "increasedamagegiven": 7,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10,
+        "lifesteal": 5
       },
-      "max_full_build_raw_flat_total": 21,
-      "max_full_build_row_weighted_total": 42,
-      "max_row_weighted_per_supported_row": 2.8,
-      "median_full_build_row_weighted_total": 30,
+      "max_full_build_raw_flat_total": 19,
+      "max_full_build_row_weighted_total": 40,
+      "max_row_weighted_per_supported_row": 2.67,
+      "median_full_build_row_weighted_total": 33,
       "strongest_full_build": {
         "ids": [
           "01",
-          "02",
-          "03",
+          "04",
+          "05",
           "06"
         ],
         "names": [
           "Scarlet Gaze",
-          "Opened Veins",
-          "Rite of Exsanguination",
+          "Carrion Fever",
+          "Red Pestilence",
           "Iron in the Blood"
         ],
         "bonuses": {
-          "damage": 6,
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 2,
+          "decreasedamagegiven": 10,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 2
+          "decreasedamagetaken": 5
         }
       },
       "lowest_value_node": {
-        "name": "Carrion Fever",
-        "row_weighted_total": 3
+        "name": "Crimson Thirst",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -848,10 +1022,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 42,
+          "raw_flat_total": 13,
+          "row_weighted_total": 38,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
@@ -859,41 +1033,22 @@
           }
         },
         {
-          "name": "Red Pestilence",
-          "archetype": "Plague",
+          "name": "Feast of the Fallen",
+          "archetype": "Sustain Offense",
           "ids": [
             "01",
-            "04",
-            "05",
+            "09",
+            "10",
             "06"
           ],
-          "raw_flat_total": 21,
-          "row_weighted_total": 37,
+          "raw_flat_total": 18,
+          "row_weighted_total": 33,
           "bonuses": {
-            "increasedamagegiven": 2,
-            "decreasedamagegiven": 2,
-            "increasedamagetaken": 5,
-            "decreasedamagetaken": 2,
-            "afterburn": 10
-          }
-        },
-        {
-          "name": "Feast of the Fallen",
-          "archetype": "Sustain",
-          "ids": [
-            "01",
-            "06",
-            "09",
-            "10"
-          ],
-          "raw_flat_total": 19,
-          "row_weighted_total": 32,
-          "bonuses": {
-            "increasedamagegiven": 5,
+            "increasedamagegiven": 7,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
-            "lifesteal": 8
+            "lifesteal": 5
           }
         },
         {
@@ -905,21 +1060,41 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 36,
+          "raw_flat_total": 19,
+          "row_weighted_total": 40,
           "bonuses": {
             "increasedamagegiven": 2,
             "decreasedamagegiven": 5,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 8
+            "decreasedamagetaken": 10
+          }
+        },
+        {
+          "name": "Red Pestilence",
+          "archetype": "Suppression",
+          "ids": [
+            "01",
+            "06",
+            "04",
+            "05"
+          ],
+          "raw_flat_total": 19,
+          "row_weighted_total": 40,
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 5
           }
         }
       ],
       "narrow_kit_exception": null,
-      "tags_not_targeted": [],
+      "tags_not_targeted": [
+        "afterburn"
+      ],
       "vs_reference": {
-        "max_raw_flat_total_delta": -3,
-        "max_row_weighted_delta": 11,
+        "max_raw_flat_total_delta": -5,
+        "max_row_weighted_delta": 9,
         "supported_rows_delta": 6
       }
     },
@@ -942,7 +1117,34 @@
       "adverse_supported_rows": 0,
       "classification": "Ice",
       "label_kind": "element",
-      "census_collisions": 7,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Stroke That Splits Stone",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Numb to the Marrow",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Glacier Does Not Yield",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Winter Takes Its Due",
+          "primary_tag": "lifesteal",
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Burst offense (Damage on five Ice rows; Increase Damage Given on four self rows)",
         "secondary": "Control (Increase Damage Taken on three enemy rows; Decrease Damage Given on Icebound Might)",
@@ -963,39 +1165,38 @@
       "maximum_tag_bonuses": {
         "damage": 5,
         "increasedamagegiven": 5,
-        "decreasedamagegiven": 9,
-        "increasedamagetaken": 5,
-        "decreasedamagetaken": 8,
-        "lifesteal": 8
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 10,
+        "lifesteal": 5
       },
       "max_full_build_raw_flat_total": 19,
       "max_full_build_row_weighted_total": 45,
       "max_row_weighted_per_supported_row": 2.81,
-      "median_full_build_row_weighted_total": 36,
+      "median_full_build_row_weighted_total": 37,
       "strongest_full_build": {
         "ids": [
           "01",
-          "02",
-          "03",
-          "06"
+          "06",
+          "07",
+          "08"
         ],
         "names": [
           "Sapphire Edge",
-          "Honed Crescent",
-          "Stroke That Splits Stone",
-          "Unblinking Sapphire"
+          "Unblinking Sapphire",
+          "Hoarfrost Bulwark",
+          "Glacier Does Not Yield"
         ],
         "bonuses": {
-          "damage": 5,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 2
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 10
         }
       },
       "lowest_value_node": {
-        "name": "Frostbitten Grip",
-        "row_weighted_total": 3
+        "name": "Thirst of the Frost",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -1027,11 +1228,11 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 18,
-          "row_weighted_total": 39,
+          "raw_flat_total": 19,
+          "row_weighted_total": 40,
           "bonuses": {
             "increasedamagegiven": 5,
-            "decreasedamagegiven": 9,
+            "decreasedamagegiven": 10,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           }
@@ -1045,13 +1246,13 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 41,
+          "raw_flat_total": 19,
+          "row_weighted_total": 45,
           "bonuses": {
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 5,
-            "decreasedamagetaken": 8
+            "decreasedamagetaken": 10
           }
         },
         {
@@ -1063,12 +1264,12 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 18,
-          "row_weighted_total": 33,
+          "raw_flat_total": 17,
+          "row_weighted_total": 36,
           "bonuses": {
-            "increasedamagetaken": 5,
+            "increasedamagetaken": 7,
             "decreasedamagetaken": 5,
-            "lifesteal": 8
+            "lifesteal": 5
           }
         }
       ],
@@ -1099,12 +1300,39 @@
       },
       "adverse_supported_rows": 0,
       "classification": "Cosmic Ascendant",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 0,
+      "label_kind": "classification extension",
+      "classification_status": "requires classification extension",
+      "routes": [
+        {
+          "name": "Supernova Unbound",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Light of Dead Stars",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Heart of the Singularity",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Hunger of the Void",
+          "primary_tag": "lifesteal",
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Exposure into burst: Increase Damage Taken (2 rows, +5 ceiling) feeding Cosmic Explosion Damage (1 row, +6 ceiling)",
-        "secondary": "Decrease Damage Taken (Defensive; 3 rows on Cosmic Chains, Cosmic Energy and Cosmic Aura; +6 ceiling)",
-        "tertiary": "Cosmic Intent's Afterburn (+10 ceiling) and Lifesteal (+8 ceiling) as rival capstones; Increase Damage Given (+5) and Decrease Damage Given (+5) as glue"
+        "primary": "Exposure into burst: Increase Damage Taken (2 rows, up to +5%) feeding Cosmic Explosion Damage (1 row, +5)",
+        "secondary": "Decrease Damage Taken (Defensive; 3 rows on Cosmic Chains, Cosmic Energy and Cosmic Aura; +10%)",
+        "tertiary": "Cosmic Intent's Afterburn (+10%) and Lifesteal (+5%) as rival Advanced Arts; Increase Damage Given (+5%) and Decrease Damage Given (+7%) as glue"
       },
       "nodes": 10,
       "tiers": {
@@ -1119,42 +1347,41 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 5,
-        "decreasedamagegiven": 5,
+        "decreasedamagegiven": 7,
         "increasedamagetaken": 5,
-        "decreasedamagetaken": 6,
+        "decreasedamagetaken": 10,
         "afterburn": 10,
-        "lifesteal": 8
+        "lifesteal": 5
       },
       "max_full_build_raw_flat_total": 21,
-      "max_full_build_row_weighted_total": 30,
-      "max_row_weighted_per_supported_row": 3.0,
+      "max_full_build_row_weighted_total": 41,
+      "max_row_weighted_per_supported_row": 4.1,
       "median_full_build_row_weighted_total": 25,
       "strongest_full_build": {
         "ids": [
           "01",
-          "04",
-          "05",
-          "06"
+          "06",
+          "07",
+          "08"
         ],
         "names": [
           "Celestial Alignment",
-          "Searing Starlight",
-          "Light of Dead Stars",
-          "Gravity Well"
+          "Gravity Well",
+          "Event Horizon",
+          "Heart of the Singularity"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 5,
-          "decreasedamagetaken": 2,
-          "afterburn": 10
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 10
         }
       },
       "lowest_value_node": {
         "name": "Collapsing Star",
-        "row_weighted_total": 3
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -1167,10 +1394,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 26,
+          "raw_flat_total": 16,
+          "row_weighted_total": 25,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 5,
@@ -1205,13 +1432,13 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 29,
+          "raw_flat_total": 19,
+          "row_weighted_total": 41,
           "bonuses": {
             "increasedamagegiven": 5,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 6
+            "decreasedamagetaken": 10
           }
         },
         {
@@ -1223,14 +1450,14 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 19,
-          "row_weighted_total": 25,
+          "raw_flat_total": 18,
+          "row_weighted_total": 24,
           "bonuses": {
             "increasedamagegiven": 2,
-            "decreasedamagegiven": 5,
+            "decreasedamagegiven": 7,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
-            "lifesteal": 8
+            "lifesteal": 5
           }
         }
       ],
@@ -1238,7 +1465,7 @@
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -3,
-        "max_row_weighted_delta": -1,
+        "max_row_weighted_delta": 10,
         "supported_rows_delta": 1
       }
     },
@@ -1260,11 +1487,38 @@
       "adverse_supported_rows": 0,
       "classification": "Crystal",
       "label_kind": "element",
-      "census_collisions": 1,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Splintered Mountain Heart",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Break Along the Flaw",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Adamant Core",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Entombed in Crystal",
+          "primary_tag": "reflect",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Damage (Crystal burst on all three attacks, +5 ceiling)",
-        "secondary": "Increase Damage Taken (Crystal Sphere and Crystal Cave exposure, two rows, +7 ceiling)",
-        "tertiary": "Decrease Damage Taken (Crystal Sphere, +10 ceiling) and Reflect (Crystal Cave, +10 ceiling), with Increase Damage Given as route glue (+5 ceiling on Kōsai Shippū)"
+        "primary": "Damage (Crystal burst on all three attacks, +5)",
+        "secondary": "Increase Damage Taken (Crystal Sphere and Crystal Cave exposure, two rows, +10%)",
+        "tertiary": "Decrease Damage Taken (Crystal Sphere, +10%) and Reflect (Crystal Cave, +10%), with Increase Damage Given as route glue (up to +5% on Kōsai Shippū)"
       },
       "nodes": 10,
       "tiers": {
@@ -1281,14 +1535,14 @@
       "maximum_tag_bonuses": {
         "damage": 5,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
         "reflect": 10
       },
       "max_full_build_raw_flat_total": 19,
-      "max_full_build_row_weighted_total": 25,
-      "max_row_weighted_per_supported_row": 3.12,
-      "median_full_build_row_weighted_total": 20,
+      "max_full_build_row_weighted_total": 31,
+      "max_row_weighted_per_supported_row": 3.88,
+      "median_full_build_row_weighted_total": 21,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -1305,7 +1559,7 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         }
       },
       "lowest_value_node": {
@@ -1323,12 +1577,12 @@
             "03",
             "04"
           ],
-          "raw_flat_total": 11,
-          "row_weighted_total": 25,
+          "raw_flat_total": 12,
+          "row_weighted_total": 27,
           "bonuses": {
             "damage": 5,
             "increasedamagegiven": 2,
-            "increasedamagetaken": 4
+            "increasedamagetaken": 5
           }
         },
         {
@@ -1340,12 +1594,12 @@
             "05",
             "02"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 25,
+          "raw_flat_total": 17,
+          "row_weighted_total": 31,
           "bonuses": {
             "damage": 2,
             "increasedamagegiven": 5,
-            "increasedamagetaken": 7
+            "increasedamagetaken": 10
           }
         },
         {
@@ -1389,7 +1643,7 @@
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -5,
-        "max_row_weighted_delta": -6,
+        "max_row_weighted_delta": 0,
         "supported_rows_delta": -1
       }
     },
@@ -1409,8 +1663,35 @@
       },
       "adverse_supported_rows": 1,
       "classification": "Dai Kenja",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 0,
+      "label_kind": "classification extension",
+      "classification_status": "requires classification extension",
+      "routes": [
+        {
+          "name": "Breaking Point",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Boundless Reservoir",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Edict of Silence",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Shattered Vessel",
+          "primary_tag": "increasedamagetaken",
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Overloaded Impact offense (Damage and Increase Damage Given)",
         "secondary": "Decrease Damage Given (Chakra Overload / Chakra Cannon suppression)",
@@ -1429,14 +1710,14 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 10,
-        "decreasedamagegiven": 8,
+        "decreasedamagegiven": 10,
         "increasedamagetaken": 5
       },
-      "max_full_build_raw_flat_total": 14,
-      "max_full_build_row_weighted_total": 24,
-      "max_row_weighted_per_supported_row": 4.0,
+      "max_full_build_raw_flat_total": 13,
+      "max_full_build_row_weighted_total": 26,
+      "max_row_weighted_per_supported_row": 4.33,
       "median_full_build_row_weighted_total": 14,
       "strongest_full_build": {
         "ids": [
@@ -1452,13 +1733,13 @@
           "Shattered Vessel"
         ],
         "bonuses": {
-          "decreasedamagegiven": 7,
+          "decreasedamagegiven": 8,
           "increasedamagetaken": 5
         }
       },
       "lowest_value_node": {
         "name": "Brimming Cup",
-        "row_weighted_total": 3
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -1471,11 +1752,11 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 13,
-          "row_weighted_total": 15,
+          "raw_flat_total": 11,
+          "row_weighted_total": 13,
           "bonuses": {
-            "damage": 6,
-            "increasedamagegiven": 5,
+            "damage": 5,
+            "increasedamagegiven": 4,
             "decreasedamagegiven": 2
           }
         },
@@ -1504,11 +1785,11 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 11,
-          "row_weighted_total": 19,
+          "raw_flat_total": 12,
+          "row_weighted_total": 22,
           "bonuses": {
-            "increasedamagegiven": 3,
-            "decreasedamagegiven": 8
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 10
           }
         },
         {
@@ -1520,10 +1801,10 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 24,
+          "raw_flat_total": 13,
+          "row_weighted_total": 26,
           "bonuses": {
-            "decreasedamagegiven": 7,
+            "decreasedamagegiven": 8,
             "increasedamagetaken": 5
           }
         }
@@ -1531,8 +1812,8 @@
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -10,
-        "max_row_weighted_delta": -7,
+        "max_raw_flat_total_delta": -11,
+        "max_row_weighted_delta": -5,
         "supported_rows_delta": -3
       }
     },
@@ -1555,9 +1836,36 @@
       "adverse_supported_rows": 0,
       "classification": "Yin-Yang",
       "label_kind": "element",
-      "census_collisions": 8,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Ethereal Coronation",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Rain of Fallen Stars",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Immovable Throne",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Monarch's Retribution",
+          "primary_tag": "reflect",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Increase Damage Given (three stacking 35% self buffs: Starlight Veil, Celestial Sealing, Stardust) and Damage (Tamashī no Sakeme 50, Celestial Sealing 40)",
+        "primary": "Damage (Tamashī no Sakeme 50, Celestial Sealing 40) and Increase Damage Given (three 35% self buffs: Starlight Veil, Celestial Sealing, Stardust)",
         "secondary": "Decrease Damage Taken (Starlight Veil 35%, Founder's Wrath 30%) and Reflect (Heavenly Constructs 40%)",
         "tertiary": "Stardust's enemy debuffs: Increase Damage Taken 35% and Afterburn 30% (reached through Heavenly Constructs' inject window)"
       },
@@ -1577,32 +1885,31 @@
         "damage": 5,
         "increasedamagegiven": 5,
         "increasedamagetaken": 5,
-        "decreasedamagetaken": 7,
+        "decreasedamagetaken": 10,
         "afterburn": 10,
         "reflect": 10
       },
-      "max_full_build_raw_flat_total": 23,
-      "max_full_build_row_weighted_total": 33,
-      "max_row_weighted_per_supported_row": 3.3,
-      "median_full_build_row_weighted_total": 27,
+      "max_full_build_raw_flat_total": 24,
+      "max_full_build_row_weighted_total": 39,
+      "max_row_weighted_per_supported_row": 3.9,
+      "median_full_build_row_weighted_total": 24,
       "strongest_full_build": {
         "ids": [
           "01",
-          "04",
-          "05",
-          "06"
+          "06",
+          "07",
+          "08"
         ],
         "names": [
           "Sovereign's Decree",
-          "Stardust Afterglow",
-          "Rain of Fallen Stars",
-          "Veil of the Monarch"
+          "Veil of the Monarch",
+          "Woven Starlight",
+          "Immovable Throne"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
-          "increasedamagetaken": 5,
-          "decreasedamagetaken": 2,
-          "afterburn": 10,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 10,
           "reflect": 2
         }
       },
@@ -1621,11 +1928,11 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 30,
+          "raw_flat_total": 13,
+          "row_weighted_total": 24,
           "bonuses": {
             "damage": 5,
-            "increasedamagegiven": 4,
+            "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "reflect": 2
@@ -1640,10 +1947,10 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 23,
-          "row_weighted_total": 33,
+          "raw_flat_total": 24,
+          "row_weighted_total": 36,
           "bonuses": {
-            "increasedamagegiven": 4,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 5,
             "decreasedamagetaken": 2,
             "afterburn": 10,
@@ -1659,12 +1966,12 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 33,
+          "raw_flat_total": 19,
+          "row_weighted_total": 39,
           "bonuses": {
             "increasedamagegiven": 5,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 7,
+            "decreasedamagetaken": 10,
             "reflect": 2
           }
         },
@@ -1690,8 +1997,8 @@
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -1,
-        "max_row_weighted_delta": 2,
+        "max_raw_flat_total_delta": 0,
+        "max_row_weighted_delta": 8,
         "supported_rows_delta": 1
       }
     },
@@ -1714,7 +2021,34 @@
       "adverse_supported_rows": 0,
       "classification": "Light",
       "label_kind": "element",
-      "census_collisions": 6,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Throne of Broken Light",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Judgment of the Forsaken",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Kingdom of One",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Usurper's Reckoning",
+          "primary_tag": "reflect",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Burst and exposure (Damage, Increase Damage Taken)",
         "secondary": "Afterburn pressure through Imperial Swords",
@@ -1869,13 +2203,40 @@
         "increasedamagegiven": 4
       },
       "adverse_supported_rows": 0,
-      "classification": "Godstorm Eclipse",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 16,
+      "classification": "Shadow + Storm",
+      "label_kind": "multi-element",
+      "classification_status": "multi-element: director review",
+      "routes": [
+        {
+          "name": "Total Eclipse",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Lingering Corona",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Pillar of Heaven",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Eater of Suns",
+          "primary_tag": "lifesteal",
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Damage (Burst Heavy; five Shadow/Storm damage rows, +5 ceiling)",
-        "secondary": "Lifesteal (Sustain, Tempest, +10 ceiling) and Decrease Damage Taken (Tank, Gate and Bulwark, +7 ceiling)",
-        "tertiary": "Afterburn pressure (Tempest, +10 ceiling); Increase Damage Given (+5 on four rows) and Increase Damage Taken (+5 on three rows) as glue"
+        "primary": "Damage (Burst Heavy; five Shadow/Storm Damage rows, +5 Damage)",
+        "secondary": "Decrease Damage Taken (Tank: Gate and Bulwark, +10%) and Lifesteal (Sustain: Tempest, +5%)",
+        "tertiary": "Afterburn pressure (Tempest, +10%); Increase Damage Given (+5% on four rows) and Increase Damage Taken (+5% on three rows) as glue"
       },
       "nodes": 10,
       "tiers": {
@@ -1893,38 +2254,36 @@
         "damage": 5,
         "increasedamagegiven": 5,
         "increasedamagetaken": 5,
-        "decreasedamagetaken": 7,
+        "decreasedamagetaken": 10,
         "afterburn": 10,
-        "lifesteal": 10
+        "lifesteal": 5
       },
-      "max_full_build_raw_flat_total": 21,
-      "max_full_build_row_weighted_total": 45,
-      "max_row_weighted_per_supported_row": 2.81,
+      "max_full_build_raw_flat_total": 19,
+      "max_full_build_row_weighted_total": 46,
+      "max_row_weighted_per_supported_row": 2.88,
       "median_full_build_row_weighted_total": 34,
       "strongest_full_build": {
         "ids": [
           "01",
-          "02",
-          "03",
-          "06"
+          "06",
+          "07",
+          "08"
         ],
         "names": [
           "Black Sun Rising",
-          "Hammer of the Heavens",
-          "Total Eclipse",
-          "Stormgod's Marrow"
+          "Stormgod's Marrow",
+          "Obsidian Skin",
+          "Pillar of Heaven"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "lifesteal": 2
+          "decreasedamagetaken": 10
         }
       },
       "lowest_value_node": {
-        "name": "Charged Firmament",
-        "row_weighted_total": 3
+        "name": "Devouring Eclipse",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -1937,14 +2296,13 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 13,
-          "row_weighted_total": 45,
+          "raw_flat_total": 11,
+          "row_weighted_total": 43,
           "bonuses": {
             "damage": 5,
             "increasedamagegiven": 2,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 2,
-            "lifesteal": 2
+            "decreasedamagetaken": 2
           }
         },
         {
@@ -1956,14 +2314,13 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 21,
-          "row_weighted_total": 39,
+          "raw_flat_total": 19,
+          "row_weighted_total": 37,
           "bonuses": {
             "increasedamagegiven": 2,
             "increasedamagetaken": 5,
             "decreasedamagetaken": 2,
-            "afterburn": 10,
-            "lifesteal": 2
+            "afterburn": 10
           }
         },
         {
@@ -1975,13 +2332,12 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 42,
+          "raw_flat_total": 17,
+          "row_weighted_total": 46,
           "bonuses": {
             "increasedamagegiven": 5,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 7,
-            "lifesteal": 2
+            "decreasedamagetaken": 10
           }
         },
         {
@@ -1993,22 +2349,22 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 20,
-          "row_weighted_total": 38,
+          "raw_flat_total": 15,
+          "row_weighted_total": 33,
           "bonuses": {
             "increasedamagegiven": 4,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "afterburn": 2,
-            "lifesteal": 10
+            "lifesteal": 5
           }
         }
       ],
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -3,
-        "max_row_weighted_delta": 14,
+        "max_raw_flat_total_delta": -5,
+        "max_row_weighted_delta": 15,
         "supported_rows_delta": 7
       }
     },
@@ -2028,11 +2384,38 @@
       },
       "adverse_supported_rows": 0,
       "classification": "Ha Yanagi",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 0,
+      "label_kind": "classification extension",
+      "classification_status": "requires classification extension",
+      "routes": [
+        {
+          "name": "Grave Willow's Hush",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Hollow at the Heart",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Nightmare in Bloom",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Thousand-Leaf Dream",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Enemy debuff control: Decrease Damage Given (Wailing Bark, Petal Nightmare) and Increase Damage Taken (Blighted Tree)",
-        "secondary": "Raw power on the two damage casts (Blighted Tree formula 40, Petal Nightmare static 40)",
+        "secondary": "Damage on the two damage casts (Blighted Tree formula 40, Petal Nightmare static 40 EP)",
         "tertiary": "Self amplification: the single Increase Damage Given row on Wailing Bark"
       },
       "nodes": 10,
@@ -2043,20 +2426,20 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 14,
-      "non_dominated_full_allocations": 13,
+      "non_dominated_full_allocations": 14,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
         "damage": 5,
         "increasedamagegiven": 10,
-        "decreasedamagegiven": 8,
-        "increasedamagetaken": 8
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10
       },
-      "max_full_build_raw_flat_total": 15,
-      "max_full_build_row_weighted_total": 20,
-      "max_row_weighted_per_supported_row": 3.33,
-      "median_full_build_row_weighted_total": 15,
+      "max_full_build_raw_flat_total": 17,
+      "max_full_build_row_weighted_total": 24,
+      "max_row_weighted_per_supported_row": 4.0,
+      "median_full_build_row_weighted_total": 17,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -2071,8 +2454,8 @@
           "Hollow at the Heart"
         ],
         "bonuses": {
-          "decreasedamagegiven": 6,
-          "increasedamagetaken": 8
+          "decreasedamagegiven": 7,
+          "increasedamagetaken": 10
         }
       },
       "lowest_value_node": {
@@ -2090,11 +2473,11 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 11,
-          "row_weighted_total": 19,
+          "raw_flat_total": 13,
+          "row_weighted_total": 23,
           "bonuses": {
             "increasedamagegiven": 3,
-            "decreasedamagegiven": 8
+            "decreasedamagegiven": 10
           }
         },
         {
@@ -2106,11 +2489,11 @@
             "04",
             "05"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 20,
+          "raw_flat_total": 17,
+          "row_weighted_total": 24,
           "bonuses": {
-            "decreasedamagegiven": 6,
-            "increasedamagetaken": 8
+            "decreasedamagegiven": 7,
+            "increasedamagetaken": 10
           }
         },
         {
@@ -2149,8 +2532,8 @@
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -9,
-        "max_row_weighted_delta": -11,
+        "max_raw_flat_total_delta": -7,
+        "max_row_weighted_delta": -7,
         "supported_rows_delta": -3
       }
     },
@@ -2172,7 +2555,34 @@
       "adverse_supported_rows": 0,
       "classification": "Yin-Yang",
       "label_kind": "element",
-      "census_collisions": 8,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Fortissimo Finale",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Prelude to Ruin",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Celestial Sanctum",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Final Rest",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Decrease Damage Taken and Decrease Damage Given (Celestial Harmony Shield fortress, Harmonic Chamber suppression)",
         "secondary": "Damage (three Yin-Yang Genjutsu attacks)",
@@ -2194,10 +2604,10 @@
         "damage": 5,
         "increasedamagegiven": 5,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 10
       },
-      "max_full_build_raw_flat_total": 18,
+      "max_full_build_raw_flat_total": 19,
       "max_full_build_row_weighted_total": 23,
       "max_row_weighted_per_supported_row": 3.29,
       "median_full_build_row_weighted_total": 17,
@@ -2224,7 +2634,7 @@
       },
       "lowest_value_node": {
         "name": "Dissonant Chord",
-        "row_weighted_total": 2
+        "row_weighted_total": 3
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -2256,12 +2666,12 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 16,
+          "raw_flat_total": 19,
+          "row_weighted_total": 19,
           "bonuses": {
             "increasedamagegiven": 5,
             "decreasedamagegiven": 2,
-            "increasedamagetaken": 7,
+            "increasedamagetaken": 10,
             "decreasedamagetaken": 2
           }
         },
@@ -2303,7 +2713,7 @@
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -6,
+        "max_raw_flat_total_delta": -5,
         "max_row_weighted_delta": -8,
         "supported_rows_delta": -2
       }
@@ -2326,7 +2736,34 @@
       "adverse_supported_rows": 0,
       "classification": "Magnet",
       "label_kind": "element",
-      "census_collisions": 1,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Starfall Hammer",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Inexorable Pull",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Absolute Alignment",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Violent Repulsion",
+          "primary_tag": "reflect",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Magnet burst (Damage on four casts; self Increase Damage Given on Houkyuken: Magnetic Assignment and Houkyu Dance)",
         "secondary": "Enemy exposure (Increase Damage Taken on Morning Star and Houkyuken: Magnetic Assignment)",
@@ -2347,33 +2784,31 @@
       "maximum_tag_bonuses": {
         "damage": 5,
         "increasedamagegiven": 4,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
         "reflect": 10
       },
       "max_full_build_raw_flat_total": 18,
-      "max_full_build_row_weighted_total": 32,
-      "max_row_weighted_per_supported_row": 3.2,
+      "max_full_build_row_weighted_total": 36,
+      "max_row_weighted_per_supported_row": 3.6,
       "median_full_build_row_weighted_total": 23,
       "strongest_full_build": {
         "ids": [
           "01",
           "02",
-          "03",
-          "06"
+          "04",
+          "05"
         ],
         "names": [
           "Lodestone Draw",
           "Polarized Fist",
-          "Starfall Hammer",
-          "Repelling Field"
+          "Reversed Polarity",
+          "Inexorable Pull"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "reflect": 2
+          "damage": 2,
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 10
         }
       },
       "lowest_value_node": {
@@ -2410,11 +2845,11 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 26,
+          "raw_flat_total": 18,
+          "row_weighted_total": 32,
           "bonuses": {
             "increasedamagegiven": 4,
-            "increasedamagetaken": 7,
+            "increasedamagetaken": 10,
             "decreasedamagetaken": 2,
             "reflect": 2
           }
@@ -2458,7 +2893,7 @@
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -6,
-        "max_row_weighted_delta": 1,
+        "max_row_weighted_delta": 5,
         "supported_rows_delta": 1
       }
     },
@@ -2479,11 +2914,38 @@
       "adverse_supported_rows": 0,
       "classification": "Ice",
       "label_kind": "element",
-      "census_collisions": 7,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Buried in the Avalanche",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "The Glacier Advances",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Nine Hells Opened",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Locked in Cocytus",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Area burst (Damage on the three Ice circle strikes: Nine Hell's Spear 45, Glacial Shatter: Purgatory 45, Cerulean Storm: Avalanche 40)",
+        "primary": "Area burst (Damage on the three Ice circle strikes: Nine Hell's Spear 45, Glacial Shatter: Purgatory 45, Cerulean Storm: Avalanche 40 EP)",
         "secondary": "Ground control (Increase Damage Taken 35% on Glacial Descent: Cocytus and Nine Hell's Spear's circle; Decrease Damage Taken 35% on Cocytus and 30% on Glacier's Will's tiles)",
-        "tertiary": "Self amplification (Increase Damage Given 35% on Cerulean Storm: Avalanche and Glacier's Will beside the 25% + 0.15/level bloodline passive); same +7 ladder as the secondaries, ranked by role, not size"
+        "tertiary": "Self amplification (Increase Damage Given 35% on Cerulean Storm: Avalanche and Glacier's Will beside the 25% + 0.15/level bloodline passive); same +10% band as the secondaries, ranked by role, not size"
       },
       "nodes": 10,
       "tiers": {
@@ -2499,14 +2961,14 @@
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
         "damage": 5,
-        "increasedamagegiven": 7,
-        "increasedamagetaken": 7,
-        "decreasedamagetaken": 7
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10
       },
-      "max_full_build_raw_flat_total": 14,
-      "max_full_build_row_weighted_total": 30,
-      "max_row_weighted_per_supported_row": 3.33,
-      "median_full_build_row_weighted_total": 26,
+      "max_full_build_raw_flat_total": 17,
+      "max_full_build_row_weighted_total": 36,
+      "max_row_weighted_per_supported_row": 4.0,
+      "median_full_build_row_weighted_total": 29,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -2523,7 +2985,7 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 3,
-          "increasedamagetaken": 7,
+          "increasedamagetaken": 10,
           "decreasedamagetaken": 2
         }
       },
@@ -2560,10 +3022,10 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 13,
-          "row_weighted_total": 26,
+          "raw_flat_total": 16,
+          "row_weighted_total": 32,
           "bonuses": {
-            "increasedamagegiven": 7,
+            "increasedamagegiven": 10,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 4
           }
@@ -2577,12 +3039,12 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 30,
+          "raw_flat_total": 17,
+          "row_weighted_total": 36,
           "bonuses": {
             "damage": 2,
             "increasedamagegiven": 3,
-            "increasedamagetaken": 7,
+            "increasedamagetaken": 10,
             "decreasedamagetaken": 2
           }
         },
@@ -2595,19 +3057,19 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 28,
+          "raw_flat_total": 17,
+          "row_weighted_total": 34,
           "bonuses": {
             "increasedamagetaken": 7,
-            "decreasedamagetaken": 7
+            "decreasedamagetaken": 10
           }
         }
       ],
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -10,
-        "max_row_weighted_delta": -1,
+        "max_raw_flat_total_delta": -7,
+        "max_row_weighted_delta": 5,
         "supported_rows_delta": 0
       }
     },
@@ -2628,7 +3090,34 @@
       "adverse_supported_rows": 0,
       "classification": "Magnet",
       "label_kind": "element",
-      "census_collisions": 1,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Severing Lattice",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Weaver Ascendant",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Iron Cocoon",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Galvanic Marionette",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Magnet burst (Damage on all four casts: Iron Web Entrapment, Wire Blast Plus, Spiraling Wires, Lightning Threads)",
         "secondary": "Enemy suppression (Decrease Damage Given on Wire Blast Plus and Eternal Embrace)",
@@ -2642,37 +3131,36 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 14,
-      "non_dominated_full_allocations": 13,
+      "non_dominated_full_allocations": 14,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
         "damage": 5,
-        "increasedamagegiven": 7,
-        "decreasedamagegiven": 9,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
         "increasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 17,
-      "max_full_build_row_weighted_total": 32,
-      "max_row_weighted_per_supported_row": 3.56,
+      "max_full_build_row_weighted_total": 30,
+      "max_row_weighted_per_supported_row": 3.33,
       "median_full_build_row_weighted_total": 24,
       "strongest_full_build": {
         "ids": [
           "01",
           "02",
-          "03",
-          "06"
+          "04",
+          "05"
         ],
         "names": [
           "Taut Filament",
           "Razor Strands",
-          "Severing Lattice",
-          "Tangling Snare"
+          "Threadbound Vigor",
+          "Weaver Ascendant"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
-          "decreasedamagegiven": 3,
+          "damage": 2,
+          "increasedamagegiven": 10,
           "increasedamagetaken": 2
         }
       },
@@ -2691,12 +3179,12 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 32,
+          "raw_flat_total": 11,
+          "row_weighted_total": 30,
           "bonuses": {
             "damage": 5,
             "increasedamagegiven": 2,
-            "decreasedamagegiven": 3,
+            "decreasedamagegiven": 2,
             "increasedamagetaken": 2
           }
         },
@@ -2709,11 +3197,11 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 24,
+          "raw_flat_total": 16,
+          "row_weighted_total": 28,
           "bonuses": {
-            "increasedamagegiven": 7,
-            "decreasedamagegiven": 3,
+            "increasedamagegiven": 10,
+            "decreasedamagegiven": 2,
             "increasedamagetaken": 4
           }
         },
@@ -2726,11 +3214,11 @@
             "08",
             "01"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 26,
+          "raw_flat_total": 16,
+          "row_weighted_total": 28,
           "bonuses": {
             "increasedamagegiven": 2,
-            "decreasedamagegiven": 9,
+            "decreasedamagegiven": 10,
             "increasedamagetaken": 4
           }
         },
@@ -2743,11 +3231,11 @@
             "10",
             "01"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 24,
+          "raw_flat_total": 16,
+          "row_weighted_total": 22,
           "bonuses": {
             "increasedamagegiven": 2,
-            "decreasedamagegiven": 5,
+            "decreasedamagegiven": 4,
             "increasedamagetaken": 10
           }
         }
@@ -2756,7 +3244,7 @@
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -7,
-        "max_row_weighted_delta": 1,
+        "max_row_weighted_delta": -1,
         "supported_rows_delta": 0
       }
     },
@@ -2778,7 +3266,34 @@
       "adverse_supported_rows": 0,
       "classification": "Dust",
       "label_kind": "element",
-      "census_collisions": 2,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Heat Death",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Collapse of Ages",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Outlasting Eternity",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "All Returns to Dust",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Damage (Dust attacks on all four strikes)",
         "secondary": "Increase Damage Taken (Temporal Erosion / Abysmal End exposure) with Increase Damage Given as glue",
@@ -2800,30 +3315,30 @@
         "damage": 5,
         "increasedamagegiven": 5,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 19,
-      "max_full_build_row_weighted_total": 34,
-      "max_row_weighted_per_supported_row": 3.4,
+      "max_full_build_row_weighted_total": 38,
+      "max_row_weighted_per_supported_row": 3.8,
       "median_full_build_row_weighted_total": 24,
       "strongest_full_build": {
         "ids": [
           "01",
           "02",
-          "03",
-          "04"
+          "04",
+          "05"
         ],
         "names": [
           "Weight of Eons",
           "Shattered Firmament",
-          "Heat Death",
-          "Aeons Laid Bare"
+          "Aeons Laid Bare",
+          "Collapse of Ages"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5
+          "damage": 2,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 10
         }
       },
       "lowest_value_node": {
@@ -2860,12 +3375,12 @@
             "04",
             "05"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 32,
+          "raw_flat_total": 17,
+          "row_weighted_total": 38,
           "bonuses": {
             "damage": 2,
             "increasedamagegiven": 5,
-            "increasedamagetaken": 7
+            "increasedamagetaken": 10
           }
         },
         {
@@ -2909,7 +3424,7 @@
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -5,
-        "max_row_weighted_delta": 3,
+        "max_row_weighted_delta": 7,
         "supported_rows_delta": 1
       }
     },
@@ -2929,8 +3444,29 @@
       },
       "adverse_supported_rows": 0,
       "classification": "Loup-Garou",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 0,
+      "label_kind": "classification extension",
+      "classification_status": "requires classification extension",
+      "routes": [
+        {
+          "name": "Killing Bite",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "The Pack Closes",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Beast Unchained",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Self amplification — Increase Damage Given (Nature's Hunter self buff)",
         "secondary": "Exposure — Increase Damage Taken (Life reaver) and Damage (Nature's Hunter)",
@@ -2949,37 +3485,36 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 8,
-        "increasedamagetaken": 7,
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 10,
         "heal": 5
       },
-      "max_full_build_raw_flat_total": 16,
-      "max_full_build_row_weighted_total": 16,
-      "max_row_weighted_per_supported_row": 4.0,
-      "median_full_build_row_weighted_total": 13,
+      "max_full_build_raw_flat_total": 17,
+      "max_full_build_row_weighted_total": 17,
+      "max_row_weighted_per_supported_row": 4.25,
+      "median_full_build_row_weighted_total": 12,
       "strongest_full_build": {
         "ids": [
           "01",
-          "06",
-          "07",
-          "08"
+          "04",
+          "05",
+          "06"
         ],
         "names": [
           "Scent of Blood",
-          "Hunter's Moon",
-          "Feral Frenzy",
-          "Beast Unchained"
+          "Run to Ground",
+          "The Pack Closes",
+          "Hunter's Moon"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 8,
-          "increasedamagetaken": 2,
-          "heal": 5
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 10,
+          "heal": 2
         }
       },
       "lowest_value_node": {
-        "name": "Rending Claws",
+        "name": "Scent of Blood",
         "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
@@ -2993,10 +3528,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 12,
+          "raw_flat_total": 11,
+          "row_weighted_total": 11,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "heal": 2
@@ -3011,12 +3546,11 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 15,
+          "raw_flat_total": 17,
+          "row_weighted_total": 17,
           "bonuses": {
-            "damage": 1,
             "increasedamagegiven": 5,
-            "increasedamagetaken": 7,
+            "increasedamagetaken": 10,
             "heal": 2
           }
         },
@@ -3029,21 +3563,20 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 16,
+          "raw_flat_total": 17,
+          "row_weighted_total": 17,
           "bonuses": {
-            "damage": 1,
-            "increasedamagegiven": 8,
+            "increasedamagegiven": 10,
             "increasedamagetaken": 2,
             "heal": 5
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported rows, one per tag (Damage, Increase Damage Given and Heal on Nature's Hunter; Increase Damage Taken on Life reaver); the Wolf Companion summon and Life reaver's absorb are unsupported. Scent of Blood is a universal node (in all 8 legal 4-BP builds) because Hunter's Moon roots a 3-node chain, and no leaf Hidden Art under Hunter's Moon earns its cost: Heal there breaches the +5 guardrail beside Beast Unchained; IDG lifts the declared primary above +8 and duplicates Feral Frenzy; Damage +2 or IDT +3 reproduces Rending Claws' or Run to Ground's bonus vectors in the mixed builds (IDT +3 also lifts 01,04,06,leaf to IDT +8); Damage +3 or IDT +2 opens a second path to the +6/+7 maximum; smaller flats leave the leaf builds dominated; a Damage/IDT pair re-sells Scent of Blood. So every build buys Scent of Blood (Frenzy's only exposure). Three distinct complete builds (Burst, Exposure, Frenzy) exist; Burst and Exposure each have two fourth-purchase choices, Frenzy's is always Scent of Blood. 8 legal full-budget allocations, every node in a non-dominated one.",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported rows, one per tag, on two casts (Damage, Increase Damage Given and Heal on Nature's Hunter; Increase Damage Taken on Life reaver); the Wolf Companion summon and Life reaver's absorb are unsupported. Three distinct routes exist: Burst (Damage), Exposure (Increase Damage Taken) and Frenzy (Increase Damage Given, with Heal as the secondary on the same Nature's Hunter self window). A fourth route or a leaf Hidden Art under Hunter's Moon would either repeat an existing single-row vector (Damage, Increase Damage Given or Increase Damage Taken) or split Heal from the buff it shares a cast and window with, leaving a capstone on one static row worth 10 HP per tick per +1%; that filler is declined. Scent of Blood is a universal node (in all 8 legal 4-BP builds) because Hunter's Moon roots a single 3-node chain. Burst and Exposure each have two fourth-purchase choices; Frenzy's is always Scent of Blood.",
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -8,
-        "max_row_weighted_delta": -15,
+        "max_raw_flat_total_delta": -7,
+        "max_row_weighted_delta": -14,
         "supported_rows_delta": -5
       }
     },
@@ -3062,8 +3595,23 @@
       },
       "adverse_supported_rows": 0,
       "classification": "Lycanthropy",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 0,
+      "label_kind": "classification extension",
+      "classification_status": "requires classification extension",
+      "routes": [
+        {
+          "name": "Jaws of the Alpha",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Red Moon Rising",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Frenzy — Increase Damage Given (Frenzy Assault, Feral Wrath; two self rows)",
         "secondary": "Taijutsu damage — Moonlit Fury and Feral Wrath (two formula rows)",
@@ -3082,30 +3630,30 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 7,
+        "damage": 5,
+        "increasedamagegiven": 10,
         "heal": 5
       },
-      "max_full_build_raw_flat_total": 10,
-      "max_full_build_row_weighted_total": 20,
-      "max_row_weighted_per_supported_row": 4.0,
-      "median_full_build_row_weighted_total": 18,
+      "max_full_build_raw_flat_total": 12,
+      "max_full_build_row_weighted_total": 24,
+      "max_row_weighted_per_supported_row": 4.8,
+      "median_full_build_row_weighted_total": 16,
       "strongest_full_build": {
         "ids": [
           "01",
           "02",
-          "03",
-          "04"
+          "04",
+          "05"
         ],
         "names": [
           "The Beast Within",
           "Gnashing Fangs",
-          "Jaws of the Alpha",
-          "Blood on the Wind"
+          "Blood on the Wind",
+          "Red Moon Rising"
         ],
         "bonuses": {
-          "damage": 6,
-          "increasedamagegiven": 4
+          "damage": 2,
+          "increasedamagegiven": 10
         }
       },
       "lowest_value_node": {
@@ -3126,8 +3674,8 @@
           "raw_flat_total": 10,
           "row_weighted_total": 20,
           "bonuses": {
-            "damage": 6,
-            "increasedamagegiven": 4
+            "damage": 5,
+            "increasedamagegiven": 5
           }
         },
         {
@@ -3139,11 +3687,11 @@
             "04",
             "05"
           ],
-          "raw_flat_total": 10,
-          "row_weighted_total": 20,
+          "raw_flat_total": 12,
+          "row_weighted_total": 24,
           "bonuses": {
-            "damage": 3,
-            "increasedamagegiven": 7
+            "damage": 2,
+            "increasedamagegiven": 10
           }
         },
         {
@@ -3158,17 +3706,16 @@
           "raw_flat_total": 10,
           "row_weighted_total": 15,
           "bonuses": {
-            "damage": 1,
-            "increasedamagegiven": 4,
+            "increasedamagegiven": 5,
             "heal": 5
           }
         }
       ],
-      "narrow_kit_exception": "Seven nodes and two Advanced Arts rather than ten and four: three supported tags on five rows (Damage x2, Increase Damage Given x2, Heal x1). The Beast Within forks into a damage route (Gnashing Fangs → Jaws of the Alpha, +6 at the Damage guardrail) and a frenzy route (Blood on the Wind → Red Moon Rising, +7 on two stacking self rows). Heal is one static row (400 HP once per 7 rounds) with a +5 guardrail, so it carries only a side chain (Moonbound Vigor +2 → Lick the Wound +3; 420 → 450 HP). That chain is accepted low-value trait representation for Healing and Sustain, not evidence that filler was avoided: Moonbound Vigor is a Foundation only because the chain needs a root, covers one row of one jutsu and is not broadly useful support in the brief's section 2 sense; both nodes are the lowest row-weighted purchases at their depth (2 and 3 against 6, 4 and 4). A Heal capstone (+10 to +20 HP per cast) was declined, and a Damage or IDG capstone behind Heal purchases would open a second path to +6 Damage or +7 IDG. Universal node accepted: The Beast Within is in all 7 legal 4 BP builds. One leaf Hidden Art under Moonbound Vigor would leave that root three nodes deep, so it still has no 4 BP closure without The Beast Within; the leaf could only carry Heal (no headroom above +5) or Damage/IDG on the same two rows Gnashing Fangs and Blood on the Wind already cover, so it would be filler. A mirrored layout only moves the universal node to the other root. Three distinct complete builds exist (Burst, Frenzy, Sustain hybrid). Keeping the Heal chain is a user-owned shape decision; the alternatives are in risks.",
+      "narrow_kit_exception": "Seven nodes and two Advanced Arts rather than ten and four: three supported tags on five rows (Damage x2, Increase Damage Given x2, Heal x1). The Beast Within forks into a Damage route (Gnashing Fangs → Jaws of the Alpha, +5) and a frenzy route (Blood on the Wind → Red Moon Rising, +10% on two self rows that compound). Heal is one static row (400 HP once per 7 rounds), so it carries only a side chain (Moonbound Vigor +2% → Lick the Wound +3%; 400 → 450 HP). That chain is accepted low-value trait representation for Healing and Sustain, not evidence that filler was avoided: Moonbound Vigor is a Foundation only because the chain needs a root, covers one row of one jutsu and is not broadly useful support in the brief's section 2 sense; both nodes are the lowest row-weighted purchases at their depth (2 against 4 among Foundations; 3 against 4 and 6 among Hidden Arts). A Heal capstone was declined: each +1% on the static row is 10 HP once per 7 rounds, so even +5% more is 50 HP per cast; a Damage or IDG capstone behind the Heal chain would twin the existing routes on the same two rows. Universal node accepted: The Beast Within is in all 7 legal 4 BP builds. One leaf Hidden Art under Moonbound Vigor would leave that root three nodes deep, so it still has no 4 BP closure without The Beast Within; the leaf could only carry Heal, Damage or IDG on rows Lick the Wound, Gnashing Fangs and Blood on the Wind already cover, so it would be filler. A mirrored layout only moves the universal node to the other root. Three distinct complete builds exist (Burst, Frenzy, Sustain hybrid). Keeping the Heal chain is a user-owned shape decision; the alternatives are in risks.",
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -14,
-        "max_row_weighted_delta": -11,
+        "max_raw_flat_total_delta": -12,
+        "max_row_weighted_delta": -7,
         "supported_rows_delta": -4
       }
     },
@@ -3188,8 +3735,29 @@
       },
       "adverse_supported_rows": 0,
       "classification": "Megumi Kijo",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 0,
+      "label_kind": "classification extension",
+      "classification_status": "requires classification extension",
+      "routes": [
+        {
+          "name": "Appetite of Oblivion",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Cradle of the Kijo",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Laughter That Mends",
+          "primary_tag": "heal",
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Genjutsu damage — Damage on Phantom Realm Oblivion and Onibaba's Laughter (2 rows)",
         "secondary": "Control — Decrease Damage Given on Phantom Realm Oblivion (1 row)",
@@ -3208,15 +3776,15 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
+        "damage": 5,
         "decreasedamagegiven": 10,
         "increaseheal": 8,
         "heal": 5
       },
-      "max_full_build_raw_flat_total": 17,
-      "max_full_build_row_weighted_total": 18,
-      "max_row_weighted_per_supported_row": 3.6,
-      "median_full_build_row_weighted_total": 17,
+      "max_full_build_raw_flat_total": 16,
+      "max_full_build_row_weighted_total": 16,
+      "max_row_weighted_per_supported_row": 3.2,
+      "median_full_build_row_weighted_total": 15,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -3231,15 +3799,14 @@
           "Mountain Hag's Mercy"
         ],
         "bonuses": {
-          "damage": 1,
           "decreasedamagegiven": 10,
           "increaseheal": 2,
           "heal": 4
         }
       },
       "lowest_value_node": {
-        "name": "Numbing Lullaby",
-        "row_weighted_total": 3
+        "name": "Hagmother's Welcome",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -3252,10 +3819,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 18,
+          "raw_flat_total": 11,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "decreasedamagegiven": 2,
             "increaseheal": 2,
             "heal": 2
@@ -3270,10 +3837,9 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 18,
+          "raw_flat_total": 16,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 1,
             "decreasedamagegiven": 10,
             "increaseheal": 2,
             "heal": 4
@@ -3288,21 +3854,20 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 17,
+          "raw_flat_total": 15,
+          "row_weighted_total": 15,
           "bonuses": {
-            "damage": 1,
             "decreasedamagegiven": 2,
             "increaseheal": 8,
             "heal": 5
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Decrease Damage Given x1, Increase Heal x1, Heal x1). The enemy-facing root (Hagmother's Welcome) forks into a damage route and a suppression route; the self-facing root (Mountain Hag's Mercy) is a single Foundation → Hidden → Advanced chain. A fourth route would have to split Heal from Increase Heal: a Heal-led Hidden Art under Mercy (+3) would already sit at the +5 guardrail with the Foundation's +2, so it could carry no capstone, and an Increase Heal-led second route would duplicate Nursed by Demon Hands. A Damage or Decrease Damage Given Hidden Art under Mercy is structurally legal (any two Advanced Arts would still cost 5 BP or more) but would duplicate the Welcome routes and open a second path to the +6 Damage / +10 DDG ceilings, so it is declined by choice. Three distinct complete builds exist (Burst, Suppression, Sustain); Burst and Suppression each have two fourth-purchase choices, and Sustain's fourth purchase is always Hagmother's Welcome (01,06,07,08 is legal and non-dominated).",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Decrease Damage Given x1, Increase Heal x1, Heal x1). The enemy-facing root (Hagmother's Welcome) forks into a damage route and a suppression route; the self-facing root (Mountain Hag's Mercy) is a single Foundation → Hidden → Advanced chain. A fourth route would have to split Heal from Increase Heal into two capstones on one row each: Heal is one static row that ticks once per 7 rounds (10 HP per +1%), and an Increase Heal-led second route would duplicate Nursed by Demon Hands, so the kit's thin sustain stays one shared route. A Damage or Decrease Damage Given Hidden Art under Mercy is structurally legal (any two Advanced Arts would still cost 5 BP or more) but would duplicate the Welcome routes on the same rows, so it is declined by choice. Three distinct complete builds exist (Burst, Suppression, Sustain); Burst and Suppression each have two fourth-purchase choices, and Sustain's fourth purchase is always Hagmother's Welcome (01,06,07,08 is legal and non-dominated), so Hagmother's Welcome is a universal node (in all 8 legal 4-BP builds) because Mercy roots a single 3-node chain.",
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -7,
-        "max_row_weighted_delta": -13,
+        "max_raw_flat_total_delta": -8,
+        "max_row_weighted_delta": -15,
         "supported_rows_delta": -4
       }
     },
@@ -3321,8 +3886,29 @@
       },
       "adverse_supported_rows": 0,
       "classification": "Musashi Ken",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 0,
+      "label_kind": "classification extension",
+      "classification_status": "requires classification extension",
+      "routes": [
+        {
+          "name": "Cut of No Return",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Two Heavens as One",
+          "primary_tag": "increasedamagegiven",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Victory in the Sheath",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Bukijutsu tempo — Increase Damage Given (Heiho, Iaido, Iaijutsu; three self rows)",
         "secondary": "Quick-draw damage — Iaido and Iaijutsu (two formula rows)",
@@ -3341,36 +3927,36 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 6,
+        "damage": 5,
+        "increasedamagegiven": 5,
         "decreasedamagetaken": 10
       },
-      "max_full_build_raw_flat_total": 15,
-      "max_full_build_row_weighted_total": 24,
-      "max_row_weighted_per_supported_row": 4.0,
-      "median_full_build_row_weighted_total": 20,
+      "max_full_build_raw_flat_total": 13,
+      "max_full_build_row_weighted_total": 21,
+      "max_row_weighted_per_supported_row": 3.5,
+      "median_full_build_row_weighted_total": 17,
       "strongest_full_build": {
         "ids": [
           "01",
-          "06",
-          "07",
-          "08"
+          "02",
+          "04",
+          "05"
         ],
         "names": [
           "Drawn Steel",
-          "Reading the Field",
-          "Unbroken Guard",
-          "Victory in the Sheath"
+          "Single Stroke",
+          "Second Sword",
+          "Two Heavens as One"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 4,
-          "decreasedamagetaken": 10
+          "damage": 2,
+          "increasedamagegiven": 5,
+          "decreasedamagetaken": 2
         }
       },
       "lowest_value_node": {
-        "name": "Unbroken Guard",
-        "row_weighted_total": 3
+        "name": "Reading the Field",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -3383,10 +3969,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 10,
-          "row_weighted_total": 20,
+          "raw_flat_total": 9,
+          "row_weighted_total": 18,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "decreasedamagetaken": 2
           }
@@ -3400,11 +3986,10 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 11,
-          "row_weighted_total": 24,
+          "raw_flat_total": 9,
+          "row_weighted_total": 19,
           "bonuses": {
-            "damage": 1,
-            "increasedamagegiven": 6,
+            "increasedamagegiven": 5,
             "decreasedamagetaken": 4
           }
         },
@@ -3417,20 +4002,19 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 24,
+          "raw_flat_total": 13,
+          "row_weighted_total": 19,
           "bonuses": {
-            "damage": 1,
-            "increasedamagegiven": 4,
+            "increasedamagegiven": 3,
             "decreasedamagetaken": 10
           }
         }
       ],
-      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on six rows (Increase Damage Given x3, Damage x2, Decrease Damage Taken x1); Iaijutsu's move row is unsupported. Drawn Steel forks into a damage route (+6 with Reading the Field, the two-row Damage guardrail) and a tempo route (+6 on three self rows that add). Decrease Damage Taken is one row, so Reading the Field runs a single guard chain (35→45%, the Taiyo Kami +10 shape) plus one leaf, Answering Cut (Damage +2). A fourth Advanced Art would twin the Damage or tempo capstone on the same rows and open a second path to that tag's maximum, or push guard past +10. The leaf gives the guard side a 4 BP build without Drawn Steel, so no node is in every build. Three distinct complete builds (Burst, Tempo, Guard), each with two fourth-purchase choices.",
+      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on six rows (Increase Damage Given x3, Damage x2, Decrease Damage Taken x1); Iaijutsu's move row is unsupported. Drawn Steel forks into a Damage route (+5 on two strikes) and a tempo route (+5% on three self rows that compound). Decrease Damage Taken is one row, so Reading the Field runs a single guard chain (35 → 45%, +10%) plus one leaf, Answering Cut (Damage +2). A fourth Advanced Art would twin the Damage or tempo capstone on the same rows, or push guard past +10%. The leaf gives the guard side a 4 BP build without Drawn Steel, so no node is in every build. Three distinct complete builds (Burst, Tempo, Guard), each with two fourth-purchase choices.",
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -9,
-        "max_row_weighted_delta": -7,
+        "max_raw_flat_total_delta": -11,
+        "max_row_weighted_delta": -10,
         "supported_rows_delta": -3
       }
     },
@@ -3450,9 +4034,36 @@
         "increasedamagegiven": 2
       },
       "adverse_supported_rows": 0,
-      "classification": "Namikaze",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 28,
+      "classification": "Wind",
+      "label_kind": "element",
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Cleaving Cyclone",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Fanning the Flames",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Heart of the Tempest",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Dead Calm",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Wind offense — Damage on Cutting Tempest, Tempest Shroud and Wind Step; self Increase Damage Given on Cutting Tempest (and the hidden Soaring Fujin)",
         "secondary": "Pressure — Afterburn on Tempest Shroud's circle (enemy debuff, ally hazard)",
@@ -3602,9 +4213,30 @@
       "adverse_supported_rows": 0,
       "classification": "Wood",
       "label_kind": "element",
-      "census_collisions": 1,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Old Growth's Wrath",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Blight and Harvest",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Everbloom Sanctuary",
+          "primary_tag": "heal",
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Co-primary — Sustain (Verdant Bastion Heal and Increase Heal) and Wood damage (Nature's Fury, Nature's Curse)",
+        "primary": "Co-primary — Sustain (Verdant Bastion Heal and Increase Heal) and Wood Damage (Nature's Fury, Nature's Curse)",
         "secondary": "Exposure — Increase Damage Taken (Nature's Fury)",
         "tertiary": "None — absorb and drain on Nature's Curse are unsupported"
       },
@@ -3621,37 +4253,36 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
-        "increasedamagetaken": 7,
+        "damage": 5,
+        "increasedamagetaken": 10,
         "increaseheal": 9,
         "heal": 5
       },
-      "max_full_build_raw_flat_total": 16,
-      "max_full_build_row_weighted_total": 18,
-      "max_row_weighted_per_supported_row": 3.6,
-      "median_full_build_row_weighted_total": 16,
+      "max_full_build_raw_flat_total": 17,
+      "max_full_build_row_weighted_total": 17,
+      "max_row_weighted_per_supported_row": 3.4,
+      "median_full_build_row_weighted_total": 15,
       "strongest_full_build": {
         "ids": [
           "01",
-          "02",
-          "03",
+          "04",
+          "05",
           "06"
         ],
         "names": [
           "Thorn and Rot",
-          "Ironwood Lash",
-          "Old Growth's Wrath",
+          "Stripped Bark",
+          "Blight and Harvest",
           "Sap of the Grove"
         ],
         "bonuses": {
-          "damage": 6,
-          "increasedamagetaken": 2,
-          "increaseheal": 2,
+          "increasedamagetaken": 10,
+          "increaseheal": 5,
           "heal": 2
         }
       },
       "lowest_value_node": {
-        "name": "Stripped Bark",
+        "name": "Thorn and Rot",
         "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
@@ -3665,10 +4296,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 18,
+          "raw_flat_total": 11,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagetaken": 2,
             "increaseheal": 2,
             "heal": 2
@@ -3683,11 +4314,10 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 16,
+          "raw_flat_total": 17,
+          "row_weighted_total": 17,
           "bonuses": {
-            "damage": 1,
-            "increasedamagetaken": 7,
+            "increasedamagetaken": 10,
             "increaseheal": 5,
             "heal": 2
           }
@@ -3701,21 +4331,20 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 17,
+          "raw_flat_total": 15,
+          "row_weighted_total": 15,
           "bonuses": {
-            "damage": 1,
             "increasedamagetaken": 2,
             "increaseheal": 8,
             "heal": 5
           }
         }
       ],
-      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Increase Damage Taken x1, Increase Heal x1, Heal x1). A fourth Advanced Art under Sap of the Grove would need a second sustain capstone (any Heal flat breaches +5, which Sap of the Grove and Everbloom Sanctuary already reach) or a damage/exposure capstone duplicating the Thorn and Rot routes and opening a second path to +6 Damage or +7 IDT. Instead the grove root carries one leaf, Bramble Warden, so it has its own 4 BP build and no node is universal: a pure Damage leaf would twin Ironwood Lash (Draft 1's Thorned Bloom tied it on every bonus vector), a pure Increase Heal leaf ties or loses to Deepening Roots, and a pure IDT leaf loses to Thorn and Rot's builds.",
+      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Increase Damage Taken x1, Increase Heal x1, Heal x1), and both sustain rows sit on the one Verdant Bastion cast, which the Sustain route already carries. A fourth Advanced Art under Sap of the Grove would either split that single cast into a second sustain capstone or repeat a Thorn and Rot route (a second path to the +5 Damage or +10% Increase Damage Taken maximum). Instead the grove root carries one leaf, Bramble Warden (+1 Damage, +1% Increase Heal), so that root has its own 4 BP build and no node is universal.",
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -8,
-        "max_row_weighted_delta": -13,
+        "max_raw_flat_total_delta": -7,
+        "max_row_weighted_delta": -14,
         "supported_rows_delta": -4
       }
     },
@@ -3738,11 +4367,38 @@
       "adverse_supported_rows": 0,
       "classification": "Shadow",
       "label_kind": "element",
-      "census_collisions": 13,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Feast of a Thousand Mouths",
+          "primary_tag": "lifesteal",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Barred Gate of Yomi",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "March of a Thousand Demons",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Toll of the Night Bell",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Otherworldly Conduit self buffs: Decrease Damage Taken (+10 route) and Lifesteal (+8 route), with Increase Damage Given as the +5 glue",
-        "secondary": "Damage on the two Shadow hits, Possessing Yurei and Oni Hammer Swing (+6, the two-row guardrail)",
-        "tertiary": "Enemy debuffs: Herald of the Black Night exposure (Increase Damage Taken, +7 ceiling) with Oni Hammer Swing suppression (Decrease Damage Given, +5, ally hazard)"
+        "primary": "Otherworldly Conduit self buffs: Decrease Damage Taken (+10% route) and Lifesteal (+5% route), with Increase Damage Given as +5% glue",
+        "secondary": "Damage on the two Shadow hits, Possessing Yurei and Oni Hammer Swing (+5)",
+        "tertiary": "Enemy debuffs: Herald of the Black Night exposure (Increase Damage Taken, +10% route) with Oni Hammer Swing suppression (Decrease Damage Given, +5%, ally hazard)"
       },
       "nodes": 10,
       "tiers": {
@@ -3752,46 +4408,45 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 14,
-      "non_dominated_full_allocations": 14,
+      "non_dominated_full_allocations": 13,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 5,
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
-        "lifesteal": 8
+        "lifesteal": 5
       },
-      "max_full_build_raw_flat_total": 18,
+      "max_full_build_raw_flat_total": 19,
       "max_full_build_row_weighted_total": 19,
       "max_row_weighted_per_supported_row": 2.71,
-      "median_full_build_row_weighted_total": 17,
+      "median_full_build_row_weighted_total": 16,
       "strongest_full_build": {
         "ids": [
           "01",
-          "02",
-          "03",
-          "06"
+          "06",
+          "09",
+          "10"
         ],
         "names": [
           "Hour of the Ox",
-          "Hungry Ghost's Draught",
-          "Feast of a Thousand Mouths",
-          "Oni's Heavy Hand"
+          "Oni's Heavy Hand",
+          "Marked by the Herald",
+          "Toll of the Night Bell"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 5,
-          "decreasedamagegiven": 2,
-          "decreasedamagetaken": 2,
-          "lifesteal": 8
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 5,
+          "increasedamagetaken": 10,
+          "decreasedamagetaken": 2
         }
       },
       "lowest_value_node": {
         "name": "Hungry Ghost's Draught",
-        "row_weighted_total": 3
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -3804,12 +4459,12 @@
             "03",
             "04"
           ],
-          "raw_flat_total": 18,
-          "row_weighted_total": 18,
+          "raw_flat_total": 15,
+          "row_weighted_total": 15,
           "bonuses": {
             "increasedamagegiven": 5,
             "decreasedamagetaken": 5,
-            "lifesteal": 8
+            "lifesteal": 5
           }
         },
         {
@@ -3821,12 +4476,12 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 17,
+          "raw_flat_total": 18,
           "row_weighted_total": 18,
           "bonuses": {
-            "damage": 1,
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
             "decreasedamagetaken": 10,
             "lifesteal": 2
           }
@@ -3840,12 +4495,13 @@
             "08",
             "01"
           ],
-          "raw_flat_total": 12,
+          "raw_flat_total": 13,
           "row_weighted_total": 18,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           }
         },
@@ -3858,19 +4514,19 @@
             "10",
             "07"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 18,
+          "raw_flat_total": 17,
+          "row_weighted_total": 19,
           "bonuses": {
-            "damage": 3,
+            "damage": 2,
             "decreasedamagegiven": 5,
-            "increasedamagetaken": 7
+            "increasedamagetaken": 10
           }
         }
       ],
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -6,
+        "max_raw_flat_total_delta": -5,
         "max_row_weighted_delta": -12,
         "supported_rows_delta": -2
       }
@@ -3893,7 +4549,34 @@
       "adverse_supported_rows": 0,
       "classification": "Shadow",
       "label_kind": "element",
-      "census_collisions": 13,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Absolute Erasure",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Writ of Oblivion",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Sealed Against Ruin",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Maw of Oblivion",
+          "primary_tag": "lifesteal",
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Damage (three Shadow attacks)",
         "secondary": "Increase Damage Taken and Increase Damage Given (Shadowrend exposure, Cursed Beast Form empowerment)",
@@ -3914,37 +4597,35 @@
       "maximum_tag_bonuses": {
         "damage": 5,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
-        "lifesteal": 10
+        "lifesteal": 5
       },
-      "max_full_build_raw_flat_total": 19,
-      "max_full_build_row_weighted_total": 23,
-      "max_row_weighted_per_supported_row": 3.29,
-      "median_full_build_row_weighted_total": 17,
+      "max_full_build_raw_flat_total": 17,
+      "max_full_build_row_weighted_total": 22,
+      "max_row_weighted_per_supported_row": 3.14,
+      "median_full_build_row_weighted_total": 15,
       "strongest_full_build": {
         "ids": [
           "01",
           "02",
           "03",
-          "06"
+          "04"
         ],
         "names": [
           "Brand of Oblivion",
           "Umbral Claws",
           "Absolute Erasure",
-          "Umbral Refuge"
+          "Unraveled Wards"
         ],
         "bonuses": {
           "damage": 5,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "lifesteal": 2
+          "increasedamagetaken": 5
         }
       },
       "lowest_value_node": {
-        "name": "Unraveled Wards",
+        "name": "Umbral Refuge",
         "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
@@ -3958,14 +4639,13 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 13,
-          "row_weighted_total": 23,
+          "raw_flat_total": 11,
+          "row_weighted_total": 21,
           "bonuses": {
             "damage": 5,
             "increasedamagegiven": 2,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 2,
-            "lifesteal": 2
+            "decreasedamagetaken": 2
           }
         },
         {
@@ -3977,13 +4657,12 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 16,
+          "raw_flat_total": 17,
+          "row_weighted_total": 17,
           "bonuses": {
             "increasedamagegiven": 5,
-            "increasedamagetaken": 7,
-            "decreasedamagetaken": 2,
-            "lifesteal": 2
+            "increasedamagetaken": 10,
+            "decreasedamagetaken": 2
           }
         },
         {
@@ -3995,13 +4674,12 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 19,
-          "row_weighted_total": 19,
+          "raw_flat_total": 17,
+          "row_weighted_total": 17,
           "bonuses": {
             "increasedamagegiven": 5,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 10,
-            "lifesteal": 2
+            "decreasedamagetaken": 10
           }
         },
         {
@@ -4013,21 +4691,21 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 18,
-          "row_weighted_total": 18,
+          "raw_flat_total": 16,
+          "row_weighted_total": 16,
           "bonuses": {
-            "increasedamagegiven": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 4,
-            "lifesteal": 10
+            "lifesteal": 5
           }
         }
       ],
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -5,
-        "max_row_weighted_delta": -8,
+        "max_raw_flat_total_delta": -7,
+        "max_row_weighted_delta": -9,
         "supported_rows_delta": -2
       }
     },
@@ -4047,9 +4725,36 @@
         "decreasedamagetaken": 1
       },
       "adverse_supported_rows": 0,
-      "classification": "Primal Radiance",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 29,
+      "classification": "Fire",
+      "label_kind": "element",
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Apex Conflagration",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Pyre of the Hunted",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Den of Embers",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Primal Rampage",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Offense — Fire damage (Fire Style: Beast, Fire Style: Squirrel) and Beast's self Increase Damage Given",
         "secondary": "Pressure — Afterburn and Increase Damage Taken (Primal Incineration)",
@@ -4068,16 +4773,16 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 10,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 10,
         "afterburn": 10
       },
-      "max_full_build_raw_flat_total": 20,
-      "max_full_build_row_weighted_total": 21,
-      "max_row_weighted_per_supported_row": 3.5,
-      "median_full_build_row_weighted_total": 17,
+      "max_full_build_raw_flat_total": 19,
+      "max_full_build_row_weighted_total": 19,
+      "max_row_weighted_per_supported_row": 3.17,
+      "median_full_build_row_weighted_total": 16,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -4092,7 +4797,6 @@
           "Hide and Fang"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
@@ -4100,8 +4804,8 @@
         }
       },
       "lowest_value_node": {
-        "name": "Smoldering Trail",
-        "row_weighted_total": 3
+        "name": "Hunter's Brand",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -4114,10 +4818,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 18,
+          "raw_flat_total": 11,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
@@ -4132,10 +4836,9 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 20,
-          "row_weighted_total": 21,
+          "raw_flat_total": 19,
+          "row_weighted_total": 19,
           "bonuses": {
-            "damage": 1,
             "increasedamagegiven": 2,
             "increasedamagetaken": 5,
             "decreasedamagetaken": 2,
@@ -4151,10 +4854,9 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 18,
+          "raw_flat_total": 16,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 1,
             "increasedamagegiven": 4,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 10
@@ -4169,10 +4871,9 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 18,
+          "raw_flat_total": 16,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 1,
             "increasedamagegiven": 10,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 4
@@ -4182,8 +4883,8 @@
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -4,
-        "max_row_weighted_delta": -10,
+        "max_raw_flat_total_delta": -5,
+        "max_row_weighted_delta": -12,
         "supported_rows_delta": -3
       }
     },
@@ -4202,12 +4903,33 @@
       },
       "adverse_supported_rows": 0,
       "classification": "Reptilian",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 0,
+      "label_kind": "classification extension",
+      "classification_status": "requires classification extension",
+      "routes": [
+        {
+          "name": "Jaws of the Chimera",
+          "primary_tag": "increasedamagegiven",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Basilisk Carapace",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Feast of Scales",
+          "primary_tag": "lifesteal",
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Increase Damage Given — two stacking 35% rows (Reptile Chimera self, Cool-Blooded Empowerment circle)",
-        "secondary": "Decrease Damage Taken — Reptile Chimera hide (single row, +10 ceiling)",
-        "tertiary": "Lifesteal — Cool-Blooded Empowerment feeding (single ally/self row, +10 ceiling)"
+        "secondary": "Decrease Damage Taken — Reptile Chimera hide (single row, +10% route)",
+        "tertiary": "Lifesteal — Cool-Blooded Empowerment feeding (single ally/self row, +5% hard ceiling)"
       },
       "nodes": 8,
       "tiers": {
@@ -4217,41 +4939,41 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 8,
-      "non_dominated_full_allocations": 8,
+      "non_dominated_full_allocations": 5,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 5,
         "decreasedamagetaken": 10,
-        "lifesteal": 10
+        "lifesteal": 5
       },
-      "max_full_build_raw_flat_total": 17,
-      "max_full_build_row_weighted_total": 21,
-      "max_row_weighted_per_supported_row": 5.25,
-      "median_full_build_row_weighted_total": 19,
+      "max_full_build_raw_flat_total": 15,
+      "max_full_build_row_weighted_total": 18,
+      "max_row_weighted_per_supported_row": 4.5,
+      "median_full_build_row_weighted_total": 15,
       "strongest_full_build": {
         "ids": [
           "01",
           "02",
-          "03",
-          "04"
+          "04",
+          "05"
         ],
         "names": [
           "Chimeric Blood",
           "Apex Instinct",
-          "Jaws of the Chimera",
-          "Hardened Scales"
+          "Hardened Scales",
+          "Basilisk Carapace"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
-          "decreasedamagetaken": 5,
+          "increasedamagegiven": 3,
+          "decreasedamagetaken": 10,
           "lifesteal": 2
         }
       },
       "lowest_value_node": {
-        "name": "Hardened Scales",
-        "row_weighted_total": 3
+        "name": "Blood of the Brood",
+        "row_weighted_total": 1
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -4264,10 +4986,10 @@
             "03",
             "04"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 21,
+          "raw_flat_total": 12,
+          "row_weighted_total": 17,
           "bonuses": {
-            "increasedamagegiven": 7,
+            "increasedamagegiven": 5,
             "decreasedamagetaken": 5,
             "lifesteal": 2
           }
@@ -4281,12 +5003,12 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 19,
+          "raw_flat_total": 15,
+          "row_weighted_total": 17,
           "bonuses": {
             "increasedamagegiven": 2,
             "decreasedamagetaken": 10,
-            "lifesteal": 5
+            "lifesteal": 3
           }
         },
         {
@@ -4298,20 +5020,20 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 18,
+          "raw_flat_total": 11,
+          "row_weighted_total": 13,
           "bonuses": {
             "increasedamagegiven": 2,
             "decreasedamagetaken": 4,
-            "lifesteal": 10
+            "lifesteal": 5
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on four rows (Increase Damage Given x2 on Reptile Chimera and Cool-Blooded Empowerment; Decrease Damage Taken x1 on Reptile Chimera; Lifesteal x1 on Cool-Blooded Empowerment); Summoning: Reptile Zoo and its injected Reptile King carry only summon, injectjutsus and visual rows. The self-facing root (Chimeric Blood) forks into an Increase Damage Given route and a Decrease Damage Taken route; the circle-facing root (Blood of the Brood) is a single lifesteal chain already at the +10 single-row guardrail. Chimeric Blood is therefore a universal node (in all 8 legal 4 BP builds), kept because no 1 BP leaf under Blood of the Brood has a distinct role: Lifesteal cannot rise past +10; to beat Chimeric Blood in the 06,07,08 closure a leaf needs IDG +3, which opens a second path to the IDG maximum (06,09,01,02 reaches +7), or DDT +3, which twins Hardened Scales on the same row and leaves 01,04,06,09 (IDG 2, DDT 8, LS 3) dominated by Fortress; smaller flats leave that closure dominated by Pack sustain. A mirrored layout would only move the universal node to the other root. Three distinct complete builds (Predation, Fortress, Pack sustain) exist; Predation and Fortress each have two fourth-purchase choices, Pack sustain's is always Chimeric Blood. 8 legal full-budget allocations, all 8 numerically non-dominated (three capstone-less hybrids only by one lifesteal point; design note 5).",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on four rows (Increase Damage Given x2 on Reptile Chimera and Cool-Blooded Empowerment; Decrease Damage Taken x1 on Reptile Chimera; Lifesteal x1 on Cool-Blooded Empowerment); Summoning: Reptile Zoo and its injected Reptile King carry only summon, injectjutsus and visual rows. The self-facing root (Chimeric Blood) forks into an Increase Damage Given route and a Decrease Damage Taken route; the circle-facing root (Blood of the Brood) is a single lifesteal chain already at the +5% hard ceiling. Chimeric Blood is therefore a universal node (in all 8 legal 4 BP builds), kept because no 1 BP leaf under Blood of the Brood has a distinct role: Lifesteal cannot rise past +5%; a leaf that beats Chimeric Blood in the 06,07,08 closure needs Increase Damage Given +3% or more, which opens a second path above the +5% IDG route (06,09,01,02 reaches +6%), or Decrease Damage Taken +3%, which twins Hardened Scales on the same row; smaller flats leave that closure dominated by, or tied with, Pack sustain. A mirrored layout would only move the universal node to the other root. Three distinct complete builds (Predation, Fortress, Pack sustain) exist; Predation and Fortress each have two fourth-purchase choices, Pack sustain's is always Chimeric Blood.",
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -7,
-        "max_row_weighted_delta": -10,
+        "max_raw_flat_total_delta": -9,
+        "max_row_weighted_delta": -13,
         "supported_rows_delta": -5
       }
     },
@@ -4334,7 +5056,34 @@
       "adverse_supported_rows": 0,
       "classification": "Sand",
       "label_kind": "element",
-      "census_collisions": 0,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Erosion of Eternity",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "The Inevitable Hour",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Timeless Bastion",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Stilled Hourglass",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Control — Increase Damage Taken (Timeshift, Momentum Shift; two enemy rows) and Decrease Damage Given (Timelapse circle)",
         "secondary": "Tank — Decrease Damage Taken (Timelapse self row) and Heal (Cellular Regeneration)",
@@ -4355,15 +5104,15 @@
       "maximum_tag_bonuses": {
         "damage": 5,
         "increasedamagegiven": 5,
-        "decreasedamagegiven": 8,
-        "increasedamagetaken": 7,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
         "heal": 5
       },
-      "max_full_build_raw_flat_total": 19,
-      "max_full_build_row_weighted_total": 25,
-      "max_row_weighted_per_supported_row": 2.78,
-      "median_full_build_row_weighted_total": 20,
+      "max_full_build_raw_flat_total": 20,
+      "max_full_build_row_weighted_total": 31,
+      "max_row_weighted_per_supported_row": 3.44,
+      "median_full_build_row_weighted_total": 21,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -4380,7 +5129,7 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         }
       },
       "lowest_value_node": {
@@ -4417,11 +5166,11 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 23,
+          "raw_flat_total": 19,
+          "row_weighted_total": 29,
           "bonuses": {
             "increasedamagegiven": 5,
-            "increasedamagetaken": 7,
+            "increasedamagetaken": 10,
             "decreasedamagetaken": 2,
             "heal": 2
           }
@@ -4453,11 +5202,11 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 18,
-          "row_weighted_total": 20,
+          "raw_flat_total": 20,
+          "row_weighted_total": 22,
           "bonuses": {
             "increasedamagegiven": 2,
-            "decreasedamagegiven": 8,
+            "decreasedamagegiven": 10,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 4,
             "heal": 2
@@ -4467,8 +5216,8 @@
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -5,
-        "max_row_weighted_delta": -6,
+        "max_raw_flat_total_delta": -4,
+        "max_row_weighted_delta": 0,
         "supported_rows_delta": 0
       }
     },
@@ -4486,13 +5235,34 @@
         "increasedamagetaken": 2
       },
       "adverse_supported_rows": 0,
-      "classification": "Sea-King's Blessing",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 23,
+      "classification": "Water",
+      "label_kind": "element",
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Weight of the Trench",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Hull of the Leviathan",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Wrath of the Sea-King",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Increase Damage Taken — Crushing Abyss's broad circle exposure and Water Dome's Water-only exposure (two rows, +7 ceiling)",
-        "secondary": "Water damage — Sea King's Armor and Crushing Abyss (two formula rows at 38, +6 ceiling)",
-        "tertiary": "Decrease Damage Taken — Sea King's Armor's self reduction (one row, +10 ceiling)"
+        "primary": "Increase Damage Taken — Crushing Abyss's broad circle exposure and Water Dome's Water-only exposure (two rows, +10% route)",
+        "secondary": "Water Damage — Sea King's Armor and Crushing Abyss (two formula rows at 38 EP, +5 route)",
+        "tertiary": "Decrease Damage Taken — Sea King's Armor's self reduction (one row, +10% route)"
       },
       "nodes": 8,
       "tiers": {
@@ -4507,14 +5277,14 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
-        "increasedamagetaken": 7,
+        "damage": 5,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 10
       },
-      "max_full_build_raw_flat_total": 14,
-      "max_full_build_row_weighted_total": 20,
-      "max_row_weighted_per_supported_row": 4.0,
-      "median_full_build_row_weighted_total": 18,
+      "max_full_build_raw_flat_total": 13,
+      "max_full_build_row_weighted_total": 24,
+      "max_row_weighted_per_supported_row": 4.8,
+      "median_full_build_row_weighted_total": 16,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -4529,14 +5299,14 @@
           "Wrath of the Sea-King"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagetaken": 7,
+          "damage": 1,
+          "increasedamagetaken": 10,
           "decreasedamagetaken": 2
         }
       },
       "lowest_value_node": {
-        "name": "Deepwater Carapace",
-        "row_weighted_total": 3
+        "name": "Scales of the Deep",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -4549,10 +5319,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 10,
-          "row_weighted_total": 18,
+          "raw_flat_total": 9,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           }
@@ -4566,10 +5336,10 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 18,
+          "raw_flat_total": 13,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 2,
+            "damage": 1,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 10
           }
@@ -4583,20 +5353,20 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 11,
-          "row_weighted_total": 20,
+          "raw_flat_total": 13,
+          "row_weighted_total": 24,
           "bonuses": {
-            "damage": 2,
-            "increasedamagetaken": 7,
+            "damage": 1,
+            "increasedamagetaken": 10,
             "decreasedamagetaken": 2
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on five rows (Damage x2, Increase Damage Taken x2, Decrease Damage Taken x1), so it supports exactly three routes: Scales of the Deep forks into a Water damage route (Grip of the Riptide → Weight of the Trench, +6 at the Damage guardrail) and an Armor route (Deepwater Carapace → Hull of the Leviathan, +10 on the single reduction row); Salt in the Wound → Dragged Under → Wrath of the Sea-King is a single chain on the kit's two enemy debuffs (+7, the two-row ceiling). A fourth route needs a fourth tag the kit does not have (absorb and shield are not potency targets). Universal node accepted: Scales of the Deep is in all 8 legal full builds, because no 1 BP leaf Hidden Art under Salt in the Wound has a distinct role. Any IDT on the leaf lifts 06,07,08,leaf above the +7 ceiling; without IDT, the leaf must carry Damage +2 or more or DDT +3 or more for 06,07,08,leaf to escape domination by 01,06,07,08 (Damage +2, IDT +7, DDT +2), and either one makes 01,04,06,leaf or 01,02,06,leaf equal or dominate 01,02,04,06 (Damage +3, IDT +2, DDT +5) (all leaf flats up to Damage +4, IDT +4, DDT +5 enumerated; none passes). A mirrored layout would only move the universal node to the other root. So the exposure route's fourth purchase is always Scales of the Deep, while Burst and Bulwark each have two. Three named capstone builds exist, one per Advanced Art; eight legal full allocations in total (five with a capstone, three hybrids).",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on five rows (Damage x2, Increase Damage Taken x2, Decrease Damage Taken x1), so it supports exactly three routes: Scales of the Deep forks into a Water Damage route (Grip of the Riptide → Weight of the Trench, +5 Damage) and an Armor route (Deepwater Carapace → Hull of the Leviathan, +10% on the single reduction row); Salt in the Wound → Dragged Under → Wrath of the Sea-King is a single chain on the kit's two enemy debuffs (+10%). A fourth route needs a fourth tag the kit does not have (absorb and shield are not potency targets). Universal node accepted: Scales of the Deep is in all 8 legal full builds, because no 1 BP leaf Hidden Art under Salt in the Wound has a distinct role. Any Increase Damage Taken on the leaf lifts 06,07,08,leaf above +10%, and Damage +4 opens a second path above +5 Damage; every other leaf up to Damage +3 and Decrease Damage Taken +5% leaves at least one full build dominated or twinned (all enumerated). A mirrored layout would only move the universal node to the other root. So the exposure route's fourth purchase is always Scales of the Deep, while Burst and Bulwark each have two.",
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -10,
-        "max_row_weighted_delta": -11,
+        "max_raw_flat_total_delta": -11,
+        "max_row_weighted_delta": -7,
         "supported_rows_delta": -4
       }
     },
@@ -4617,11 +5387,32 @@
       "adverse_supported_rows": 0,
       "classification": "Shadow",
       "label_kind": "element",
-      "census_collisions": 13,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Night Unraveled",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Strings Cut Short",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Seamless Shroud",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Damage (four Shadow Bukijutsu attacks, +5 ceiling)",
-        "secondary": "Increase Damage Given (three self-buff rows on Domain, Step and Shell, +5 ceiling)",
-        "tertiary": "Decrease Damage Given (Severance, +10 ceiling) and Decrease Damage Taken (Shell, +10 ceiling)"
+        "primary": "Damage (four 40-power Shadow Bukijutsu attacks; +5 Damage route)",
+        "secondary": "Increase Damage Given glue on three stacking self buffs (Domain, Step, Shell; +5% at most)",
+        "tertiary": "Decrease Damage Given (Severance, +10% route) and Decrease Damage Taken (Shell, +10% route)"
       },
       "nodes": 9,
       "tiers": {
@@ -4722,7 +5513,7 @@
           }
         }
       ],
-      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on nine rows (Damage x4, Increase Damage Given x3, Decrease Damage Given x1, Decrease Damage Taken x1). The offensive root (Loom of Dusk) forks into a damage route and a suppression route; the defensive root (Cloak of Woven Night) carries the fortress chain and one Hidden Art leaf. Increase Damage Given is the only tag left for a fourth route and is deliberately not given one: it reaches three stacking rows, so it is held to the +5 that Taiyo Kami's two-row Increase Damage Given tolerates, and that +5 is already spent by the Foundation share (+2), the capstone secondaries (+3 / +2) and Umbral Whetstone (+3); a fourth capstone would either breach that ceiling or restate the Damage, Decrease Damage Given or Decrease Damage Taken capstones under a new name. Umbral Whetstone exists so that the defensive root completes a full build (06, 07, 08, 09) without Loom of Dusk; it is +3 while Seamless Shroud's secondary is +2 so that build is not dominated by 01, 06, 07, 08. Three distinct complete builds exist, one per Advanced Art.",
+      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on nine rows (Damage x4, Increase Damage Given x3, Decrease Damage Given x1, Decrease Damage Taken x1); Damage, Decrease Damage Given and Decrease Damage Taken each get a route. Increase Damage Given is the only tag left for a fourth route and is deliberately kept as glue at +5% at most: its three 35% self buffs stack with each other and with the bloodline's Increase Damage Given passive, and Domain's and Step's rows also raise Fire, Lightning and element-less hits, so a dedicated route toward +10% would lift three overlapping buffs at once. Any other fourth capstone would restate the Damage, Decrease Damage Given or Decrease Damage Taken capstones under a new name. Umbral Whetstone exists so that the defensive root completes a full build (06, 07, 08, 09) without Loom of Dusk; it is +3% while Seamless Shroud's secondary is +2% so that build is not dominated by 01, 06, 07, 08. Three distinct complete builds exist, one per Advanced Art.",
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -6,
@@ -4748,7 +5539,34 @@
       "adverse_supported_rows": 0,
       "classification": "Scorch",
       "label_kind": "element",
-      "census_collisions": 1,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Dragon in Full Blossom",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Scorching Hanami",
+          "primary_tag": "increasedamagetaken",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Conflagration in Bloom",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Deluge of Burning Petals",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Scorch area damage on the Hiru-Sakura circles (Sakuragari, Sakura-ame)",
         "secondary": "Increase Damage Taken exposure (Sakuragari circle, Sakura Dragon Tree) and the Sakura Dragon Tree self Increase Damage Given",
@@ -4767,40 +5585,38 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 10,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 6,
+        "increasedamagetaken": 5,
         "heal": 5
       },
-      "max_full_build_raw_flat_total": 18,
-      "max_full_build_row_weighted_total": 22,
-      "max_row_weighted_per_supported_row": 3.14,
-      "median_full_build_row_weighted_total": 18,
+      "max_full_build_raw_flat_total": 17,
+      "max_full_build_row_weighted_total": 19,
+      "max_row_weighted_per_supported_row": 2.71,
+      "median_full_build_row_weighted_total": 16,
       "strongest_full_build": {
         "ids": [
           "01",
-          "04",
-          "05",
-          "06"
+          "02",
+          "03",
+          "04"
         ],
         "names": [
           "Ember Dragon's Roots",
-          "Branded by Petals",
-          "Scorching Hanami",
-          "Falling Ember Petals"
+          "Kindled Boughs",
+          "Dragon in Full Blossom",
+          "Branded by Petals"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 4,
-          "decreasedamagegiven": 2,
-          "increasedamagetaken": 6,
-          "heal": 2
+          "increasedamagegiven": 10,
+          "increasedamagetaken": 2,
+          "heal": 5
         }
       },
       "lowest_value_node": {
-        "name": "Kindled Boughs",
-        "row_weighted_total": 3
+        "name": "Falling Ember Petals",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -4813,10 +5629,10 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 18,
+          "raw_flat_total": 11,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
             "heal": 2
@@ -4831,13 +5647,12 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 22,
+          "raw_flat_total": 13,
+          "row_weighted_total": 18,
           "bonuses": {
-            "damage": 1,
             "increasedamagegiven": 4,
             "decreasedamagegiven": 2,
-            "increasedamagetaken": 6,
+            "increasedamagetaken": 5,
             "heal": 2
           }
         },
@@ -4867,10 +5682,10 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 18,
+          "raw_flat_total": 13,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 4,
+            "damage": 3,
             "decreasedamagegiven": 10
           }
         }
@@ -4878,8 +5693,8 @@
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -6,
-        "max_row_weighted_delta": -9,
+        "max_raw_flat_total_delta": -7,
+        "max_row_weighted_delta": -12,
         "supported_rows_delta": -2
       }
     },
@@ -4900,11 +5715,32 @@
       "adverse_supported_rows": 0,
       "classification": "Storm",
       "label_kind": "element",
-      "census_collisions": 3,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Thunder King's Wrath",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Judgement from Above",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Thunder Answers Thunder",
+          "primary_tag": "reflect",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Damage (Storm burst on all four attacks, +6 ceiling)",
-        "secondary": "Increase Damage Taken (Izanagi's Hammer exposure, +10 ceiling) and Reflect (Indra's Storm Cloak, +10 ceiling)",
-        "tertiary": "Increase Damage Given (glue across routes, +5 ceiling on a doubled-row cast)"
+        "primary": "Damage (Storm burst on all four attacks; +5 Damage route)",
+        "secondary": "Increase Damage Taken (Izanagi's Hammer exposure, +10% route) and Reflect (Indra's Storm Cloak, +10% route)",
+        "tertiary": "Increase Damage Given (glue across routes, +5% at most on a doubled-row cast)"
       },
       "nodes": 8,
       "tiers": {
@@ -4919,38 +5755,37 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 5,
         "increasedamagetaken": 10,
         "reflect": 10
       },
-      "max_full_build_raw_flat_total": 18,
-      "max_full_build_row_weighted_total": 34,
-      "max_row_weighted_per_supported_row": 3.78,
-      "median_full_build_row_weighted_total": 31,
+      "max_full_build_raw_flat_total": 17,
+      "max_full_build_row_weighted_total": 33,
+      "max_row_weighted_per_supported_row": 3.67,
+      "median_full_build_row_weighted_total": 27,
       "strongest_full_build": {
         "ids": [
           "01",
           "02",
-          "03",
-          "06"
+          "04",
+          "05"
         ],
         "names": [
           "Mandate of Thunder",
           "Vajra Tempering",
-          "Thunder King's Wrath",
-          "Raiment of Storms"
+          "Lightning Rod",
+          "Judgement from Above"
         ],
         "bonuses": {
-          "damage": 6,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "reflect": 2
+          "damage": 2,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 10
         }
       },
       "lowest_value_node": {
-        "name": "Lightning Rod",
-        "row_weighted_total": 3
+        "name": "Raiment of Storms",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -4963,10 +5798,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 34,
+          "raw_flat_total": 11,
+          "row_weighted_total": 30,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "reflect": 2
@@ -4998,21 +5833,20 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 18,
-          "row_weighted_total": 31,
+          "raw_flat_total": 17,
+          "row_weighted_total": 27,
           "bonuses": {
-            "damage": 1,
             "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "reflect": 10
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on nine rows (Damage x4, Increase Damage Given x3, Increase Damage Taken x1, Reflect x1). Mandate of Thunder forks into a damage route and an exposure route; Raiment of Storms carries a single Reflect chain. IDG gets no route of its own: two of its three rows sit on the same 40 AP Storm Cloak cast and the bloodline's IDG passive multiplies on top, so a dedicated route would push IDG past Taiyo Kami's doubled-row +5 or only mirror the Reflect capstone's secondary. Mandate of Thunder is therefore a universal node (in all 8 legal full builds): Raiment's 3-BP chain needs a fourth purchase and Mandate is the only prerequisite-closed one. A leaf Hidden Art under Raiment would be filler; every single-tag version was checked against the legal builds: +1 or +2 IDG and +2 IDT leave 06, 07, 08 plus the leaf dominated by 01, 06, 07, 08; +3 IDG lifts IDG to +6; +1 or +2 Damage leaves 01, 02, 06 plus the leaf dominated by the Burst build (+2 also twins Vajra Tempering's builds); +3 IDT twins Lightning Rod's builds and +4 IDT dominates both Lightning Rod hybrids; any Reflect lifts Reflect past +10. Only a split leaf (+1 Damage with +1 IDG or +1/+2 IDT) avoids all of these, and a one- or two-point sliver of tags other nodes already own has no role of its own. Burst and Exposure each keep two fourth-purchase choices; Bulwark has one. Three distinct complete builds exist.",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on nine rows (Damage x4, Increase Damage Given x3, Increase Damage Taken x1, Reflect x1). Mandate of Thunder forks into a Damage route and an Exposure route; Raiment of Storms carries a single Reflect chain. Increase Damage Given gets no route of its own: two of its three rows sit on the same 40 AP Storm Cloak cast and the bloodline's Increase Damage Given passive multiplies on top, so it stays glue at +5% at most. Mandate of Thunder is therefore a universal node (in all 8 legal full builds): Raiment's 3-BP chain needs a fourth purchase and Mandate is the only prerequisite-closed one. A Hidden Art leaf under Raiment would be filler; each single-tag version was checked against the legal builds: a Reflect leaf lifts Reflect past +10%; an Increase Damage Given leaf at +1% or +2% leaves 06, 07, 08 plus the leaf dominated by 01, 06, 07, 08, and at +3% or more lifts the stacking buff rows past the +5% glue level; an Increase Damage Taken leaf at +1% or +2% is dominated the same way, at +3% twins Lightning Rod's builds and at +4% or +5% dominates both Lightning Rod hybrids; a Damage leaf at +1 or +2 is dominated or twinned by Vajra Tempering's builds, at +3 twins the Burst build (01, 02, 03, 06) and dominates Vajra Tempering's hybrids, and at +4 or more exceeds +5 Damage. A split leaf would be a one- or two-point sliver of tags other nodes already own, with no role of its own. Burst and Exposure each keep two fourth-purchase choices; Bulwark has one. Three distinct complete builds exist.",
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -6,
-        "max_row_weighted_delta": 3,
+        "max_raw_flat_total_delta": -7,
+        "max_row_weighted_delta": 2,
         "supported_rows_delta": 0
       }
     },
@@ -5032,11 +5866,32 @@
       "adverse_supported_rows": 0,
       "classification": "Wood",
       "label_kind": "element",
-      "census_collisions": 1,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "The Forest Devours",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Heartwood Awakened",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Judgement of the Grove",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Wood damage — Exploding Wood Serpent, Guardian's Grove, Eternal Forest (three formula rows, +6 ceiling)",
-        "secondary": "Increase Damage Given — Forest Wisdom's two self rows on one 40 AP cast (+7 ceiling)",
-        "tertiary": "Increase Damage Taken — Guardian's Grove's area exposure (one row, +10 ceiling)"
+        "primary": "Wood damage — Exploding Wood Serpent, Guardian's Grove, Eternal Forest (three formula rows, +5 Damage route)",
+        "secondary": "Increase Damage Given — Forest Wisdom's two self rows on one 40 AP cast (+10% route)",
+        "tertiary": "Increase Damage Taken — Guardian's Grove's area exposure (one row, +10% route)"
       },
       "nodes": 8,
       "tiers": {
@@ -5051,30 +5906,30 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 7,
+        "damage": 5,
+        "increasedamagegiven": 10,
         "increasedamagetaken": 10
       },
-      "max_full_build_raw_flat_total": 14,
+      "max_full_build_raw_flat_total": 13,
       "max_full_build_row_weighted_total": 26,
       "max_row_weighted_per_supported_row": 4.33,
-      "median_full_build_row_weighted_total": 20,
+      "median_full_build_row_weighted_total": 21,
       "strongest_full_build": {
         "ids": [
           "01",
           "02",
-          "03",
-          "04"
+          "04",
+          "05"
         ],
         "names": [
           "Hallowed Seed",
           "Fangs of Heartwood",
-          "The Forest Devours",
-          "Rooted in Wisdom"
+          "Rooted in Wisdom",
+          "Heartwood Awakened"
         ],
         "bonuses": {
-          "damage": 6,
-          "increasedamagegiven": 4
+          "damage": 2,
+          "increasedamagegiven": 10
         }
       },
       "lowest_value_node": {
@@ -5093,10 +5948,10 @@
             "04"
           ],
           "raw_flat_total": 10,
-          "row_weighted_total": 26,
+          "row_weighted_total": 25,
           "bonuses": {
-            "damage": 6,
-            "increasedamagegiven": 4
+            "damage": 5,
+            "increasedamagegiven": 5
           }
         },
         {
@@ -5108,11 +5963,11 @@
             "04",
             "05"
           ],
-          "raw_flat_total": 10,
-          "row_weighted_total": 23,
+          "raw_flat_total": 12,
+          "row_weighted_total": 26,
           "bonuses": {
-            "damage": 3,
-            "increasedamagegiven": 7
+            "damage": 2,
+            "increasedamagegiven": 10
           }
         },
         {
@@ -5124,19 +5979,19 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 20,
+          "raw_flat_total": 13,
+          "row_weighted_total": 17,
           "bonuses": {
-            "damage": 2,
+            "damage": 1,
             "increasedamagegiven": 2,
             "increasedamagetaken": 10
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on six rows (Damage x3, Increase Damage Given x2, Increase Damage Taken x1), so it supports exactly three routes: Hallowed Seed forks into a Wood damage route (+6) and a Forest Wisdom route (+7 on two always-together self rows); Grasping Roots → Rootbound Prey → Judgement of the Grove is a single chain on the only enemy debuff. Hallowed Seed is therefore a universal node (all 8 legal full builds). A leaf Hidden Art under Grasping Roots, to give that root a 4-BP closure without it, would be filler: every candidate was run through the validator. Damage +1, IDG +2 or Damage +1/IDG +1 leave 06,07,08,09 dominated by 01,06,07,08; Damage +2 is a twin of Fangs of Heartwood (01,06,07,09 = 01,02,06,07; 01,04,06,09 = 01,02,04,06) and its 01,02,06,09 is dominated by 01,02,03,06; Damage +3 or IDG +3 opens a second path to the Damage +6 or IDG +7 maximum; any IDT leaf breaks the +10 guardrail; Damage +2/IDG +1 or Damage +1/IDG +2 out-bid Fangs of Heartwood's hybrids (01,02,04,06 and 01,02,06,07 or 01,04,06,07 become dominated). The layout is kept: Burst and Amplification each have two fourth-purchase choices, the exposure route has one, and three distinct complete builds exist, one per Advanced Art.",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on six rows (Damage x3, Increase Damage Given x2, Increase Damage Taken x1), so it supports exactly three routes: Hallowed Seed forks into a Wood Damage route (+5) and a Forest Wisdom route (+10% on two always-together self rows); Grasping Roots → Rootbound Prey → Judgement of the Grove is a single chain on the only enemy debuff. Hallowed Seed is therefore a universal node (all 8 legal full builds). A Hidden Art leaf under Grasping Roots, to give that root a 4-BP closure without it, would be filler; every single-tag candidate was checked against the legal builds: any Increase Damage Taken leaf breaks the +10% ceiling; an Increase Damage Given leaf at +1% leaves 06, 07, 08 plus the leaf dominated, at +2% twins 01, 06, 07, 08, at +3% or +4% twins or dominates Rooted in Wisdom's hybrids, and at +5% twins Heartwood Awakened's build 01, 04, 05, 06; a Damage leaf at +1 serves only 06, 07, 08 plus the leaf (its three hybrids are dominated), at +2 twins Fangs of Heartwood's hybrids, at +3 twins 01, 02, 03, 06 and at +4 or more exceeds +5 Damage. The layout is kept: Burst and Amplification each have two fourth-purchase choices, the exposure route has one, and three distinct complete builds exist, one per Advanced Art.",
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -10,
+        "max_raw_flat_total_delta": -11,
         "max_row_weighted_delta": -5,
         "supported_rows_delta": -3
       }
@@ -5158,9 +6013,36 @@
         "heal": 1
       },
       "adverse_supported_rows": 0,
-      "classification": "Shiroi Youso",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 34,
+      "classification": "Fire + Lightning",
+      "label_kind": "multi-element",
+      "classification_status": "multi-element: director review",
+      "routes": [
+        {
+          "name": "Divine Convergence",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "White Immolation",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Eye of the Tempest",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Pull of the Undertow",
+          "primary_tag": "increasedamagetaken",
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Elemental amplification (self Increase Damage Given on Fire Release and Wind Release; enemy Increase Damage Taken on Fire Release and Element Divine's area)",
         "secondary": "Burst and burn (Damage on Lightning Release 40 and Element Divine 45; Afterburn on the same two casts, 35% and 30%)",
@@ -5179,16 +6061,16 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 6,
-        "decreasedamagetaken": 7,
-        "afterburn": 7,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 10,
+        "afterburn": 10,
         "heal": 5
       },
-      "max_full_build_raw_flat_total": 17,
-      "max_full_build_row_weighted_total": 32,
-      "max_row_weighted_per_supported_row": 2.91,
+      "max_full_build_raw_flat_total": 20,
+      "max_full_build_row_weighted_total": 38,
+      "max_row_weighted_per_supported_row": 3.45,
       "median_full_build_row_weighted_total": 26,
       "strongest_full_build": {
         "ids": [
@@ -5207,7 +6089,7 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 4,
           "decreasedamagetaken": 2,
-          "afterburn": 7,
+          "afterburn": 10,
           "heal": 2
         }
       },
@@ -5226,10 +6108,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 26,
+          "raw_flat_total": 13,
+          "row_weighted_total": 24,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
@@ -5245,13 +6127,13 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 32,
+          "raw_flat_total": 20,
+          "row_weighted_total": 38,
           "bonuses": {
             "increasedamagegiven": 2,
             "increasedamagetaken": 4,
             "decreasedamagetaken": 2,
-            "afterburn": 7,
+            "afterburn": 10,
             "heal": 2
           }
         },
@@ -5264,12 +6146,12 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 30,
+          "raw_flat_total": 19,
+          "row_weighted_total": 36,
           "bonuses": {
             "increasedamagegiven": 5,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 7,
+            "decreasedamagetaken": 10,
             "heal": 2
           }
         },
@@ -5282,11 +6164,11 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 29,
+          "raw_flat_total": 18,
+          "row_weighted_total": 31,
           "bonuses": {
             "increasedamagegiven": 2,
-            "increasedamagetaken": 6,
+            "increasedamagetaken": 7,
             "decreasedamagetaken": 4,
             "heal": 5
           }
@@ -5295,8 +6177,8 @@
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -7,
-        "max_row_weighted_delta": 1,
+        "max_raw_flat_total_delta": -4,
+        "max_row_weighted_delta": 7,
         "supported_rows_delta": 2
       }
     },
@@ -5319,11 +6201,38 @@
       "adverse_supported_rows": 0,
       "classification": "Lava",
       "label_kind": "element",
-      "census_collisions": 1,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Pyroclastic Surge",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "The Mountain Wakes",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Heart of the Caldera",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Unquenchable Furnace",
+          "primary_tag": "lifesteal",
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Infernal Stream sustain and burst (Lifesteal +10 ceiling, Damage +5 on two Lava rows; the burst capstone also deepens leech)",
-        "secondary": "Decrease Damage Taken on Lava Wave (+10 ceiling) and Afterburn pressure on Eruption Strike (+10 ceiling)",
-        "tertiary": "Increase Damage Given (Lava Wave) and Increase Damage Taken (Blow of Devastation) as glue, +5 each"
+        "primary": "Infernal Stream sustain and burst (Lifesteal +5% route, Damage +5 on two Lava rows; the burst capstone also deepens leech)",
+        "secondary": "Decrease Damage Taken on Lava Wave (+10% route) and Afterburn pressure on Eruption Strike (+10% route)",
+        "tertiary": "Increase Damage Given (Lava Wave) and Increase Damage Taken (Blow of Devastation) as glue, +5% each at most"
       },
       "nodes": 10,
       "tiers": {
@@ -5343,36 +6252,35 @@
         "increasedamagetaken": 5,
         "decreasedamagetaken": 10,
         "afterburn": 10,
-        "lifesteal": 10
+        "lifesteal": 5
       },
-      "max_full_build_raw_flat_total": 24,
+      "max_full_build_raw_flat_total": 22,
       "max_full_build_row_weighted_total": 24,
       "max_row_weighted_per_supported_row": 3.43,
-      "median_full_build_row_weighted_total": 18,
+      "median_full_build_row_weighted_total": 13,
       "strongest_full_build": {
         "ids": [
           "01",
+          "02",
           "04",
-          "05",
-          "06"
+          "05"
         ],
         "names": [
           "Magma Vein",
+          "Scalding Tide",
           "Clinging Slag",
-          "The Mountain Wakes",
-          "Cooling Crust"
+          "The Mountain Wakes"
         ],
         "bonuses": {
+          "damage": 2,
           "increasedamagegiven": 5,
           "increasedamagetaken": 5,
-          "decreasedamagetaken": 2,
-          "afterburn": 10,
-          "lifesteal": 2
+          "afterburn": 10
         }
       },
       "lowest_value_node": {
-        "name": "Clinging Slag",
-        "row_weighted_total": 3
+        "name": "Cooling Crust",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -5385,14 +6293,14 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 20,
+          "raw_flat_total": 12,
+          "row_weighted_total": 17,
           "bonuses": {
             "damage": 5,
             "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
-            "lifesteal": 4
+            "lifesteal": 1
           }
         },
         {
@@ -5404,14 +6312,13 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 24,
-          "row_weighted_total": 24,
+          "raw_flat_total": 22,
+          "row_weighted_total": 22,
           "bonuses": {
             "increasedamagegiven": 5,
             "increasedamagetaken": 5,
             "decreasedamagetaken": 2,
-            "afterburn": 10,
-            "lifesteal": 2
+            "afterburn": 10
           }
         },
         {
@@ -5423,13 +6330,12 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 19,
-          "row_weighted_total": 19,
+          "raw_flat_total": 17,
+          "row_weighted_total": 17,
           "bonuses": {
             "increasedamagegiven": 5,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 10,
-            "lifesteal": 2
+            "decreasedamagetaken": 10
           }
         },
         {
@@ -5441,20 +6347,20 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 18,
-          "row_weighted_total": 18,
+          "raw_flat_total": 13,
+          "row_weighted_total": 13,
           "bonuses": {
             "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 4,
-            "lifesteal": 10
+            "lifesteal": 5
           }
         }
       ],
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": 0,
+        "max_raw_flat_total_delta": -2,
         "max_row_weighted_delta": -7,
         "supported_rows_delta": -2
       }
@@ -5478,7 +6384,34 @@
       "adverse_supported_rows": 0,
       "classification": "Ice",
       "label_kind": "element",
-      "census_collisions": 7,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Reign of Absolute Zero",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Court of Splintered Ice",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Still Heart of Winter",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Silence of Falling Snow",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Control by identity (Increase Damage Taken 35% on Ice Palace's circle; Decrease Damage Given 30% on Ice Coffin)",
         "secondary": "Burst offense, the broadest coverage and heaviest route (Damage on three Ice rows at 45/40/40; Increase Damage Given 35% on Frostbound Ascendancy)",
@@ -5636,7 +6569,34 @@
       "adverse_supported_rows": 0,
       "classification": "Yin-Yang",
       "label_kind": "element",
-      "census_collisions": 8,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Deafening Silence",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Tipping the Balance",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Eclipse in Hand",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Stillness Breaks",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Yin-Yang offense (Damage on three casts; self Increase Damage Given on Silent Rift and Yin-Yang Cascade)",
         "secondary": "Enemy exposure (Increase Damage Taken on Moonlit Inferno and Yin-Yang Cascade)",
@@ -5656,14 +6616,14 @@
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
         "damage": 5,
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 10,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 17,
-      "max_full_build_row_weighted_total": 28,
-      "max_row_weighted_per_supported_row": 3.5,
-      "median_full_build_row_weighted_total": 22,
+      "max_full_build_row_weighted_total": 34,
+      "max_row_weighted_per_supported_row": 4.25,
+      "median_full_build_row_weighted_total": 24,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -5681,7 +6641,7 @@
           "damage": 2,
           "increasedamagegiven": 3,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         }
       },
       "lowest_value_node": {
@@ -5717,10 +6677,10 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 13,
-          "row_weighted_total": 22,
+          "raw_flat_total": 16,
+          "row_weighted_total": 28,
           "bonuses": {
-            "increasedamagegiven": 7,
+            "increasedamagegiven": 10,
             "decreasedamagegiven": 4,
             "increasedamagetaken": 2
           }
@@ -5751,12 +6711,12 @@
             "10",
             "07"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 25,
+          "raw_flat_total": 17,
+          "row_weighted_total": 31,
           "bonuses": {
             "damage": 2,
             "decreasedamagegiven": 5,
-            "increasedamagetaken": 7
+            "increasedamagetaken": 10
           }
         }
       ],
@@ -5764,7 +6724,7 @@
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -7,
-        "max_row_weighted_delta": -3,
+        "max_row_weighted_delta": 3,
         "supported_rows_delta": -1
       }
     },
@@ -5783,9 +6743,36 @@
         "increasedamagegiven": 1
       },
       "adverse_supported_rows": 0,
-      "classification": "Terra Nova",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 23,
+      "classification": "Earth",
+      "label_kind": "element",
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Continental Rift",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Pressure of Ages",
+          "primary_tag": "decreasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Unmoved Mountain",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Landslide Momentum",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Damage (Earth attacks: Earthen Fortitude, Terra Spire)",
         "secondary": "Decrease Damage Taken (Earth Wall fortification)",
@@ -5804,38 +6791,36 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 10,
         "decreasedamagegiven": 10,
         "decreasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 17,
-      "max_full_build_row_weighted_total": 18,
-      "max_row_weighted_per_supported_row": 3.6,
-      "median_full_build_row_weighted_total": 17,
+      "max_full_build_row_weighted_total": 17,
+      "max_row_weighted_per_supported_row": 3.4,
+      "median_full_build_row_weighted_total": 16,
       "strongest_full_build": {
         "ids": [
-          "01",
           "06",
           "07",
-          "08"
+          "08",
+          "09"
         ],
         "names": [
-          "Fault Line",
           "Bedrock Stance",
           "Rampart Discipline",
-          "Unmoved Mountain"
+          "Unmoved Mountain",
+          "Weight Behind the Blow"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 4,
-          "decreasedamagegiven": 2,
+          "increasedamagegiven": 7,
           "decreasedamagetaken": 10
         }
       },
       "lowest_value_node": {
-        "name": "Burden of Stone",
-        "row_weighted_total": 3
+        "name": "Fault Line",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -5848,10 +6833,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 18,
+          "raw_flat_total": 11,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
             "decreasedamagetaken": 2
@@ -5866,10 +6851,10 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 18,
+          "raw_flat_total": 15,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 2,
+            "damage": 1,
             "increasedamagegiven": 2,
             "decreasedamagegiven": 10,
             "decreasedamagetaken": 2
@@ -5884,10 +6869,9 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 18,
+          "raw_flat_total": 16,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 1,
             "increasedamagegiven": 4,
             "decreasedamagegiven": 2,
             "decreasedamagetaken": 10
@@ -5902,10 +6886,9 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 18,
+          "raw_flat_total": 16,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 1,
             "increasedamagegiven": 10,
             "decreasedamagegiven": 2,
             "decreasedamagetaken": 4
@@ -5916,7 +6899,7 @@
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -7,
-        "max_row_weighted_delta": -13,
+        "max_row_weighted_delta": -14,
         "supported_rows_delta": -4
       }
     },
@@ -5940,9 +6923,36 @@
       "adverse_supported_rows": 0,
       "classification": "Metal",
       "label_kind": "element",
-      "census_collisions": 0,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Hammer and Anvil",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Every Blow Returned",
+          "primary_tag": "reflect",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "One Cut Decides",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Branding Iron",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Damage (seven Metal weapon strikes, +5 ceiling)",
+        "primary": "Damage (seven Metal weapon strikes, +5 route)",
         "secondary": "Decrease Damage Taken and Increase Damage Given (the Middle Guard Stance / Inner Peace / Pivoting Fortress stance buffs)",
         "tertiary": "Increase Damage Taken and Afterburn exposure (Phantom Slash, Equilibrium Guard Strike, Vacuum Fan, Crimson Thrust); Reflect and Decrease Damage Given counter-play (Harmonious Slash, Tranquil Guard, Vacuum Fan)"
       },
@@ -5963,14 +6973,14 @@
         "increasedamagegiven": 5,
         "decreasedamagegiven": 5,
         "increasedamagetaken": 5,
-        "decreasedamagetaken": 6,
+        "decreasedamagetaken": 10,
         "afterburn": 10,
-        "reflect": 8
+        "reflect": 10
       },
       "max_full_build_raw_flat_total": 21,
       "max_full_build_row_weighted_total": 57,
       "max_row_weighted_per_supported_row": 2.85,
-      "median_full_build_row_weighted_total": 39,
+      "median_full_build_row_weighted_total": 41,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -6026,13 +7036,13 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 43,
+          "raw_flat_total": 19,
+          "row_weighted_total": 55,
           "bonuses": {
             "increasedamagegiven": 5,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 6
+            "decreasedamagetaken": 10
           }
         },
         {
@@ -6063,14 +7073,14 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 19,
-          "row_weighted_total": 36,
+          "raw_flat_total": 21,
+          "row_weighted_total": 38,
           "bonuses": {
             "increasedamagegiven": 2,
             "decreasedamagegiven": 5,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
-            "reflect": 8
+            "reflect": 10
           }
         }
       ],
@@ -6103,9 +7113,36 @@
       "adverse_supported_rows": 0,
       "classification": "Boil",
       "label_kind": "element",
-      "census_collisions": 0,
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Caldera Burst",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Boiling Point",
+          "primary_tag": "afterburn",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Dew of the Dragon",
+          "primary_tag": "lifesteal",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Wall of Steam",
+          "primary_tag": "reflect",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Boil damage — Damage on three Taijutsu formula rows (Drowning Strike 40, Surfing Strike 45, Scorch Break 40)",
+        "primary": "Boil damage — Damage on three Taijutsu formula rows (Drowning Strike 40, Surfing Strike 45, Scorch Break 40 EP)",
         "secondary": "Liquid Ember Shell window — Afterburn (enemy) with Increase Damage Given and Lifesteal (self) on one 40 AP cast",
         "tertiary": "Steam body — Decrease Damage Taken (Surfing Strike), Reflect (Scorch Break), Heal (Azure Dragon Palm); Drowning Strike's exposure as glue"
       },
@@ -6127,9 +7164,9 @@
         "increasedamagetaken": 5,
         "decreasedamagetaken": 5,
         "afterburn": 10,
-        "lifesteal": 8,
-        "reflect": 8,
-        "heal": 5
+        "lifesteal": 5,
+        "reflect": 10,
+        "heal": 7
       },
       "max_full_build_raw_flat_total": 24,
       "max_full_build_row_weighted_total": 26,
@@ -6156,8 +7193,8 @@
         }
       },
       "lowest_value_node": {
-        "name": "Blistering Mist",
-        "row_weighted_total": 3
+        "name": "Siphoned Heat",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -6208,14 +7245,14 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 19,
-          "row_weighted_total": 19,
+          "raw_flat_total": 18,
+          "row_weighted_total": 18,
           "bonuses": {
             "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
-            "lifesteal": 8,
-            "heal": 5
+            "lifesteal": 5,
+            "heal": 7
           }
         },
         {
@@ -6227,12 +7264,12 @@
             "09",
             "10"
           ],
-          "raw_flat_total": 18,
-          "row_weighted_total": 18,
+          "raw_flat_total": 19,
+          "row_weighted_total": 19,
           "bonuses": {
             "decreasedamagetaken": 5,
-            "lifesteal": 3,
-            "reflect": 8,
+            "lifesteal": 2,
+            "reflect": 10,
             "heal": 2
           }
         }
@@ -6259,12 +7296,33 @@
         "increasedamagegiven": 2
       },
       "adverse_supported_rows": 0,
-      "classification": "Voltara Divine",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 24,
+      "classification": "Lightning",
+      "label_kind": "element",
+      "classification_status": "element",
+      "routes": [
+        {
+          "name": "Ethereal Dragon Unbound",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "Apotheosis of Thunder",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Unassailable Radiance",
+          "primary_tag": "decreasedamagetaken",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
         "primary": "Lightning amplification — Increase Damage Given (Luminous Illusion Bind, Ethereal Dragon's Whispers; two self rows)",
-        "secondary": "Lightning damage — Bind and Whispers (two formula rows at 40 and 50)",
+        "secondary": "Lightning damage — Bind and Whispers (two formula rows at 40 and 50 EP)",
         "tertiary": "Guard — Decrease Damage Taken (Voltara Blitz; one row)"
       },
       "nodes": 9,
@@ -6275,41 +7333,41 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 12,
-      "non_dominated_full_allocations": 11,
+      "non_dominated_full_allocations": 9,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 7,
+        "damage": 5,
+        "increasedamagegiven": 10,
         "decreasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 14,
-      "max_full_build_row_weighted_total": 20,
-      "max_row_weighted_per_supported_row": 4.0,
-      "median_full_build_row_weighted_total": 18,
+      "max_full_build_row_weighted_total": 26,
+      "max_row_weighted_per_supported_row": 5.2,
+      "median_full_build_row_weighted_total": 16,
       "strongest_full_build": {
         "ids": [
           "01",
+          "02",
           "04",
-          "05",
-          "06"
+          "05"
         ],
         "names": [
           "Anointed by Lightning",
+          "Dragon's Whispered Wrath",
           "Luminous Conduit",
-          "Apotheosis of Thunder",
-          "Halo of Static"
+          "Apotheosis of Thunder"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 7,
-          "decreasedamagetaken": 4
+          "damage": 2,
+          "increasedamagegiven": 10,
+          "decreasedamagetaken": 2
         }
       },
       "lowest_value_node": {
-        "name": "Aegis of Living Light",
-        "row_weighted_total": 3
+        "name": "Halo of Static",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -6322,10 +7380,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 10,
-          "row_weighted_total": 18,
+          "raw_flat_total": 9,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "decreasedamagetaken": 2
           }
@@ -6339,11 +7397,10 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 20,
+          "raw_flat_total": 14,
+          "row_weighted_total": 24,
           "bonuses": {
-            "damage": 1,
-            "increasedamagegiven": 7,
+            "increasedamagegiven": 10,
             "decreasedamagetaken": 4
           }
         },
@@ -6356,19 +7413,19 @@
             "08",
             "09"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 18,
+          "raw_flat_total": 13,
+          "row_weighted_total": 16,
           "bonuses": {
-            "damage": 4,
+            "damage": 3,
             "decreasedamagetaken": 10
           }
         }
       ],
-      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on five rows (Increase Damage Given x2, Damage x2, Decrease Damage Taken x1); Blitz's move and pierce and Bind's stun are unsupported. A fourth Advanced Art would need a second capstone on the same rows: a twin of the Damage or amplification route, which opens a second path to that tag's maximum, or a guard capstone past +10. Instead Halo of Static carries one leaf, Heaven's Retort (Damage +2), so the guard root has its own 4 BP build and no node is universal. 12 legal full allocations, 11 non-dominated, every node in at least one.",
+      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on five rows (Increase Damage Given x2, Damage x2, Decrease Damage Taken x1); Blitz's move and pierce and Bind's stun are unsupported. A fourth Advanced Art would need a second capstone on the same rows: a twin of the Damage or amplification route, which opens a second path to that tag's maximum, or a guard capstone past +10%. Instead Halo of Static carries one leaf, Heaven's Retort (Damage +2), so the guard root has its own 4 BP build and no node is universal. 12 legal full allocations, 9 non-dominated, every node in at least one.",
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -10,
-        "max_row_weighted_delta": -11,
+        "max_row_weighted_delta": -5,
         "supported_rows_delta": -4
       }
     },
@@ -6387,12 +7444,33 @@
       },
       "adverse_supported_rows": 0,
       "classification": "Yaketsuku Netsu",
-      "label_kind": "bloodline-keyed extension",
-      "census_collisions": 0,
+      "label_kind": "classification extension",
+      "classification_status": "requires classification extension",
+      "routes": [
+        {
+          "name": "Blade That Never Cools",
+          "primary_tag": "damage",
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "name": "White-Hot Blood",
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "name": "Nothing Left Forbidden",
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": [],
       "emphasis": {
-        "primary": "Damage — both attacks (Forgotten Ember Blade, Forbidden Chakra Fury; two formula rows at 40)",
-        "secondary": "Increase Damage Given — Forgotten Ember Blade's self heat (single row, +10 ceiling)",
-        "tertiary": "Increase Damage Taken — Forbidden Chakra Fury's exposure (single enemy row, +8 ceiling)"
+        "primary": "Damage — both attacks (Forgotten Ember Blade, Forbidden Chakra Fury; two formula rows at 40 EP)",
+        "secondary": "Increase Damage Given — Forgotten Ember Blade's self heat (single row, +10% route)",
+        "tertiary": "Increase Damage Taken — Forbidden Chakra Fury's exposure (single enemy row, +10% route)"
       },
       "nodes": 8,
       "tiers": {
@@ -6407,13 +7485,13 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 10,
-        "increasedamagetaken": 8
+        "increasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 13,
-      "max_full_build_row_weighted_total": 17,
-      "max_row_weighted_per_supported_row": 4.25,
+      "max_full_build_row_weighted_total": 15,
+      "max_row_weighted_per_supported_row": 3.75,
       "median_full_build_row_weighted_total": 14,
       "strongest_full_build": {
         "ids": [
@@ -6429,12 +7507,12 @@
           "Fever Pitch"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 5
         }
       },
       "lowest_value_node": {
-        "name": "Blistered Guard",
+        "name": "Heat in the Steel",
         "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
@@ -6448,10 +7526,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 10,
-          "row_weighted_total": 16,
+          "raw_flat_total": 9,
+          "row_weighted_total": 14,
           "bonuses": {
-            "damage": 6,
+            "damage": 5,
             "increasedamagegiven": 2,
             "increasedamagetaken": 2
           }
@@ -6465,10 +7543,9 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 13,
-          "row_weighted_total": 14,
+          "raw_flat_total": 12,
+          "row_weighted_total": 12,
           "bonuses": {
-            "damage": 1,
             "increasedamagegiven": 10,
             "increasedamagetaken": 2
           }
@@ -6482,20 +7559,20 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 12,
+          "raw_flat_total": 13,
           "row_weighted_total": 14,
           "bonuses": {
-            "damage": 2,
+            "damage": 1,
             "increasedamagegiven": 2,
-            "increasedamagetaken": 8
+            "increasedamagetaken": 10
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four: the kit has three supported tags on four rows (Damage x2 on Forgotten Ember Blade and Forbidden Chakra Fury; Increase Damage Given x1 on Ember Blade; Increase Damage Taken x1 on Chakra Fury); Chakra Shield's absorb and shield are not potency targets. Universal opener accepted as a design choice, not a four-row impossibility: Heat in the Steel is in all 8 legal full builds because Blistered Guard has one child. A leaf Hidden Art under Blistered Guard was enumerated and rejected as filler, since the kit has no fourth role: +1 Damage/+1 IDG leaves 06,07,08,09 (Damage +2, IDG +1, IDT +8) dominated by 01,06,07,08 (+2/+2/+8), so the opener stays in every non-dominated build; +1 Damage/+2 IDG copies Heat in the Steel; +2 Damage or +3 IDG twin Searing Edge or Fever Pitch (11 of 12 builds non-dominated); any IDT flat lifts the exposure maximum above +8. The +2 Damage leaf remains an open user decision (design notes).",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four: the kit has three supported tags on four rows (Damage x2 on Forgotten Ember Blade and Forbidden Chakra Fury; Increase Damage Given x1 on Ember Blade; Increase Damage Taken x1 on Chakra Fury); Chakra Shield's absorb and shield are not potency targets. Universal opener accepted as a design choice, not a four-row impossibility: Heat in the Steel is in all 8 legal full builds because Blistered Guard has one child. A leaf Hidden Art under Blistered Guard would end it but has no fourth role to serve: a Damage or Increase Damage Given leaf twins Searing Edge or Fever Pitch, a mixed +1/+1 leaf is filler, and any Increase Damage Taken flat lifts the exposure maximum above +10%. A +2 Damage leaf remains a user-visible layout option (design notes).",
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -11,
-        "max_row_weighted_delta": -14,
+        "max_row_weighted_delta": -16,
         "supported_rows_delta": -5
       }
     }

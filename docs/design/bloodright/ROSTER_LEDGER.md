@@ -90,7 +90,7 @@ Explicit exclusions by instruction: Borrowed Awakening; custom/player-owned bloo
 | BR-072 | Stormboat Willy | `0U2blEXqb6-WwYljMRG2J` | H | yes | 5 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-073 | Subaku Blood | `yJ0Q3Vt0Vny_c6ypDmVA7` | D | yes | 0 / 0 | EXCLUDE | NO_JUTSU_RULE_APPLIED_TO_SNAPSHOT | outside approved batch |
 | BR-074 | Suragu | `Ksb6ogNqc5mp4l_hRgPuW` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/suragu.json |
-| BR-075 | Taiyo Kami | `6C2t3jK35hvPoVocLiHEl` | A | no | 5 / 0 | REFERENCE | APPROVED_WORKED_EXAMPLE | worked reference (examples/taiyo_kami.*) |
+| BR-075 | Taiyo Kami | `6C2t3jK35hvPoVocLiHEl` | A | no | 5 / 0 | REFERENCE | APPROVED_WORKED_EXAMPLE | worked reference (trees/taiyo_kami.*, regenerated from the approved values; examples/ keeps the original handoff) |
 | BR-076 | Tengoku no Me | `9j1GyLM0qu1xKfRfIR1wE` | A | yes | 7 / 0 | DEFER | OUTSIDE_APPROVED_PUBLIC_BATCH | outside approved batch |
 | BR-077 | Teno Yuki | `clh4d6qjs000gtb0hr357gjvv` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/teno_yuki.json |
 | BR-078 | Tenohira Musei | `18Byy1tMXkQETmB88JLl5` | A | no | 5 / 0 | INCLUDE | USER_APPROVED_REMAINING_PUBLIC_COHORT | tree: trees/tenohira_musei.json |
