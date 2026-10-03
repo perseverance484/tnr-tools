@@ -79,15 +79,19 @@ Supported rows total: **20**. Unsupported tags present (no potency): debuffpreve
 
 > **Ally-hazard rows (area delivery, friendly fire none/ALL):** Equilibrium Guard Strike row 0 (damage, AOE_LINE_SHOOT, target OTHER_USER); Equilibrium Guard Strike row 1 (increasedamagetaken, AOE_LINE_SHOOT, target OTHER_USER); Vacuum Fan row 2 (decreasedamagegiven, AOE_SPIRAL_SHOOT, target OTHER_USER). Potency on these tags also raises what allies standing in the area receive; positioning, not the node, decides.
 
-## Selector / classification audit
+## Potency classification audit (element-wide, RUL-2026-10-03-005)
 
 - Signature elements on damage/pierce rows: Metal
-- Proposed potency classification label: **Metal** (element)
-- Single signature element on the kit's damage/pierce rows; usable as the classification label under the proposed whole-kit classification, provided the classification is bloodline-scoped (see census collisions) rather than a bare element match.
-- Current resolver with `affectedElements=['Metal']`: 10 of 20 supported rows match directly; 10 fall back to None; 0 carry other elements only. Exclusive under current resolver: no.
-- Census collisions on signature elements: none among the 95 captured bloodline kits.
-- Normal-jutsu collision: UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). Whether NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carry this element needs a read-only public jutsu listing capture requested from dauntless.
-- Item-gated jutsu: Crimson Thrust, Enduring Resonance Ward, Equilibrium Guard Strike, Harmonious Slash, Inner Peace, Phantom Slash, Pivoting Fortress, Shadow Pierce, Tranquil Guard Flowing Form
+- Proposed potency classification: **Metal** (element; status: element)
+- Qualifying elements: Metal
+- Single signature element Metal on the kit's damage/pierce rows. Potency reaches matching supported tags on every Metal jutsu: this kit, other bloodlines' Metal jutsu and any NORMAL/SPECIAL/EVENT/FORBIDDEN or injected Metal jutsu. Sharing the element with other bloodlines is expected, not a collision.
+- Not selectors: bloodline id or bloodline ownership; equipment / required bloodline item (castability gate only); injected-child provenance; jutsu names (examples only).
+- Kit jutsu of the qualifying element by their own rows (derived, train.ts checkJutsuElements union): Tranquil Guard Flowing Form, Enduring Resonance Ward, Pivoting Fortress, Phantom Slash, Crimson Thrust, Shadow Pierce, Equilibrium Guard Strike, Harmonious Slash, Vacuum Fan, Inner Peace
+- Kit jutsu in scope only by authored jutsu classification (no qualifying element on any row): Middle Guard Stance (None)
+- Current resolver with `affectedElements=['Metal']`: 10 of 20 supported rows match directly; 10 fall back to None; 0 carry other elements only. Current resolver matches each effect row's own elements (absent list -> ['None']); it has no jutsu-level classification. Rows on a qualifying jutsu that do not carry the element are unreachable today: ENGINE GAP, not a design question.
+- Other captured bloodlines with jutsu of the qualifying element: none among the 95 captured kits.
+- Off-kit coverage: UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the qualifying element are in scope by rule; how many exist needs a read-only public jutsu listing capture.
+- Item-gated jutsu (castability only, not a potency selector): Crimson Thrust, Enduring Resonance Ward, Equilibrium Guard Strike, Harmonious Slash, Inner Peace, Phantom Slash, Pivoting Fortress, Shadow Pierce, Tranquil Guard Flowing Form
 - Mode-restricted jutsu: none
 - Hidden jutsu in kit: none
 - Non-BLOODLINE jutsu types in kit: none

@@ -10,15 +10,23 @@
     "traits": null
   },
   "classification": {
-    "potency_classification": "Namikaze",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Namikaze",
+    "potency_classification": "Wind",
+    "label_kind": "element",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Wind"
+    ],
     "display_element": "Wind",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Namikaze jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Wind jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [],
+    "shared_element_bloodlines": [
       "Aerathiel",
       "Architect of the Hollow Script",
       "Blissoo",
@@ -47,7 +55,11 @@
       "True North",
       "Youso Shiroi",
       "Yūhi Ryūjin (夕陽竜神)"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Wind offense — Damage on Cutting Tempest, Tempest Shroud and Wind Step; self Increase Damage Given on Cutting Tempest (and the hidden Soaring Fujin)",
@@ -72,8 +84,8 @@
       "flavor": "Every stride is carried; the gale behind you lends its weight to the blade.",
       "coverage_note": "Cutting Tempest self buff 35→38% (Wind hits, 2 rounds, CD 6); Soaring Fujin 21.25→24.25% (hidden NORMAL-type cast, broad stat filter).",
       "parent_rule": "ALL",
-      "potency_classification": "Namikaze",
-      "scope": "Namikaze jutsu",
+      "potency_classification": "Wind",
+      "scope": "all Wind jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -102,8 +114,8 @@
       "flavor": "Turn the breeze edge-on and it opens skin before it is felt.",
       "coverage_note": "Cutting Tempest 45→47, Tempest Shroud 40→42, Wind Step 40→42 Wind power; three hits at 60 AP (CD 6/7/7), two of them circles.",
       "parent_rule": "ALL",
-      "potency_classification": "Namikaze",
-      "scope": "Namikaze jutsu",
+      "potency_classification": "Wind",
+      "scope": "all Wind jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -132,8 +144,8 @@
       "flavor": "The whole sky leans into one cut.",
       "coverage_note": "Same three Wind Damage rows; route total +5 (Cutting Tempest 50, Tempest Shroud 45, Wind Step 45). Move and pool-cost rows unsupported.",
       "parent_rule": "ALL",
-      "potency_classification": "Namikaze",
-      "scope": "Namikaze jutsu",
+      "potency_classification": "Wind",
+      "scope": "all Wind jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -162,8 +174,8 @@
       "flavor": "Fast air over an open wound burns hotter than any flame.",
       "coverage_note": "Tempest Shroud Afterburn only: 35→38% for 2 rounds on every other user in the circle, allies included; value lands on every non-pierce hit.",
       "parent_rule": "ALL",
-      "potency_classification": "Namikaze",
-      "scope": "Namikaze jutsu",
+      "potency_classification": "Wind",
+      "scope": "all Wind jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -198,8 +210,8 @@
       "flavor": "Feed the fire its favourite thing: more wind.",
       "coverage_note": "Shroud Afterburn 38→45% (route +10); Cutting Tempest buff 38→40% and Soaring Fujin 24.25→26.25% with Wind at the Back.",
       "parent_rule": "ALL",
-      "potency_classification": "Namikaze",
-      "scope": "Namikaze jutsu",
+      "potency_classification": "Wind",
+      "scope": "all Wind jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -235,8 +247,8 @@
       "flavor": "At the still centre nothing lands clean, and nothing thrown from inside flies true.",
       "coverage_note": "Tempest Shroud self Decrease Damage Taken 30→32% (non-pierce hits); Wind Step circle Decrease Damage Given 30→32% on enemies on its tiles.",
       "parent_rule": "ALL",
-      "potency_classification": "Namikaze",
-      "scope": "Namikaze jutsu",
+      "potency_classification": "Wind",
+      "scope": "all Wind jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -264,8 +276,8 @@
       "flavor": "Stand where the gale breaks first and let it take the blow.",
       "coverage_note": "Tempest Shroud Decrease Damage Taken only: 32→35% with Eye of the Storm; one self row, 2 rounds per 60 AP A-rank cast, CD 7.",
       "parent_rule": "ALL",
-      "potency_classification": "Namikaze",
-      "scope": "Namikaze jutsu",
+      "potency_classification": "Wind",
+      "scope": "all Wind jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -297,8 +309,8 @@
       "flavor": "Inside the wall of wind you are untouched, and everything you throw leaves faster.",
       "coverage_note": "Decrease Damage Taken to route total 40% (+10); Cutting Tempest buff 35→37% (40% with Wind at the Back), Soaring Fujin 23.25%.",
       "parent_rule": "ALL",
-      "potency_classification": "Namikaze",
-      "scope": "Namikaze jutsu",
+      "potency_classification": "Wind",
+      "scope": "all Wind jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -328,8 +340,8 @@
       "flavor": "Every swing thrown into the wind arrives spent.",
       "coverage_note": "Wind Step Decrease Damage Given only: 32→35% with Eye of the Storm; 2-round circle re-applies a one-round debuff per round to enemies on it.",
       "parent_rule": "ALL",
-      "potency_classification": "Namikaze",
-      "scope": "Namikaze jutsu",
+      "potency_classification": "Wind",
+      "scope": "all Wind jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -361,8 +373,8 @@
       "flavor": "When the air goes dead, so does the arm that swings through it.",
       "coverage_note": "Wind Step suppression to route total 40% (+10); all three Wind Damage rows +1 (Cutting Tempest 46, Tempest Shroud 41, Wind Step 41).",
       "parent_rule": "ALL",
-      "potency_classification": "Namikaze",
-      "scope": "Namikaze jutsu",
+      "potency_classification": "Wind",
+      "scope": "all Wind jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -1269,15 +1281,114 @@
     "revision": "Draft 3 / Namikaze classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Namikaze jutsu inherit Namikaze potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Wind jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 10,
+        "afterburn": 10
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 10,
+        "afterburn": 15
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Cleaving Cyclone",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Fanning the Flames",
+          "primary_tag": "afterburn",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            0,
+            3,
+            7
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "08",
+          "name": "Heart of the Tempest",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Dead Calm",
+          "primary_tag": "decreasedamagegiven",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {

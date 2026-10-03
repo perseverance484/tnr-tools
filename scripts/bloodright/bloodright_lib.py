@@ -26,6 +26,10 @@ from typing import Any
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 DESIGN_DIR = os.path.join(REPO_ROOT, "docs", "design", "bloodright")
 SNAPSHOT_PATH = os.path.join(DESIGN_DIR, "evidence", "kit_snapshot.json")
+TREES_DIR = os.path.join(DESIGN_DIR, "trees")
+# Generated projection of the approved Taiyo Kami reference values (the original handoff
+# files under examples/ are historical evidence). It is not one of the approved 43.
+REFERENCE_TREE = os.path.join(TREES_DIR, "taiyo_kami.json")
 ROSTER_PATH = os.path.join(DESIGN_DIR, "roster.json")
 
 GAME_SOURCE_PIN = "16498fd776fad9c91e4b84efed4380fe3a487050"
@@ -92,6 +96,13 @@ NEGATIVE_TAGS = {
     "copy",
 }
 
+# Balance ceilings for the 4-BP model (RUL-2026-10-03-005), evaluated over every legal
+# prerequisite-closed allocation. Hard ceilings can never be exceeded; any other supported
+# tag above DEFAULT_CEILING needs a recorded reason and a director-review exception.
+HARD_CEILINGS = {"damage": 5, "lifesteal": 5, "afterburn": 15}
+DEFAULT_CEILING = 10
+ROUTE_BANDS = (5, 10, 15)
+
 TIERS = ("Foundation", "Hidden Art", "Advanced Art")
 BASIC_ELEMENTS = {"Fire", "Water", "Wind", "Earth", "Lightning"}
 
@@ -105,6 +116,76 @@ ROLE_COLORS = {
 }
 
 JOKE_WORDS = {"kaboom", "boom", "lol", "yolo", "pew", "bonk", "zap", "oops", "lmao", "meme"}
+
+# Selectors the classification model must never use (RUL-2026-10-03-005).
+NOT_SELECTORS = (
+    "bloodline id or bloodline ownership",
+    "equipment / required bloodline item (castability gate only)",
+    "injected-child provenance",
+    "jutsu names (examples only)",
+)
+
+
+def short_kind(kind: str | None) -> str:
+    return {"element": "element", "multi-element": "multi", "classification extension": "ext"}.get(kind or "", kind or "")
+
+
+# Wording that encodes the superseded bloodline-scoped model or old display units
+# (RUL-2026-10-03-005/006). Authored tree prose must not use it.
+STALE_PHRASES = (
+    "bloodline-scoped", "bloodline scoped", "bloodline-keyed", "census collision", "whole-kit classification",
+    "damage power", "heal power", "planning guardrail", "tithe of the red eye",
+)
+PROSE_FIELDS = ("title", "flavor", "coverage_note", "rationale", "primary", "secondary", "tertiary",
+                "narrow_kit_exception", "design_notes", "risks", "name", "archetype")
+
+
+def stale_language(tree: dict) -> list[str]:
+    """Return 'field: phrase' for every stale phrase found in authored prose."""
+    hits: list[str] = []
+
+    def scan(where: str, val: Any) -> None:
+        if isinstance(val, str):
+            low = val.lower()
+            for ph in STALE_PHRASES:
+                if ph in low:
+                    hits.append(f"{where}: {ph!r}")
+        elif isinstance(val, list):
+            for i, v in enumerate(val):
+                scan(f"{where}[{i}]", v)
+        elif isinstance(val, dict):
+            for k, v in val.items():
+                if k in PROSE_FIELDS or k in ("emphasis",):
+                    scan(f"{where}.{k}", v)
+
+    for k in ("title", "emphasis", "narrow_kit_exception", "design_notes", "risks"):
+        if k in tree:
+            scan(k, tree[k])
+    for n in tree.get("nodes", []):
+        scan(f"node {n.get('id')}", {k: n.get(k) for k in ("name", "flavor", "coverage_note") if k in n})
+    for e in tree.get("examples", []):
+        scan(f"example {e.get('name')}", {k: e.get(k) for k in ("name", "archetype", "rationale") if k in e})
+    for k, v in (tree.get("route_band_rationale") or {}).items():
+        scan(f"route_band_rationale.{k}", v)
+    for e in tree.get("director_exceptions") or []:
+        scan("director_exceptions", e.get("reason"))
+    return hits
+
+
+def ceiling_for(tag: str) -> int:
+    return HARD_CEILINGS.get(tag, DEFAULT_CEILING)
+
+
+def unit(tag: str) -> str:
+    """Display unit: flat Damage is raw EP; every other modifier is shown with %."""
+    return "" if tag == "damage" else "%"
+
+
+def mod_text(tag: str, flat: int, abbr: bool = False) -> str:
+    """'+2 Damage', '+3% Lifesteal' (or '+3% LS' with abbr)."""
+    if tag == "damage":
+        return f"+{flat} Damage"
+    return f"+{flat}% {TAG_ABBR[tag] if abbr else TAG_LABELS[tag]}"
 
 
 # ---------------------------------------------------------------------------
@@ -391,40 +472,72 @@ def census_element_users(snapshot: dict, roster: dict) -> dict[str, list[dict]]:
     return {k: sorted(v.values(), key=lambda z: z["name"]) for k, v in users.items()}
 
 
+def jutsu_elements(jutsu: dict) -> list[str]:
+    """A jutsu's own elements: the union of its effect-row elements, ['None'] when empty.
+
+    Mirrors checkJutsuElements (app/src/libs/train.ts 189-198 at the pin), the source's only
+    jutsu-level element derivation.
+    """
+    els: list[str] = []
+    for e in jutsu.get("effects", []):
+        for x in (e.get("elements") or []):
+            if x not in els:
+                els.append(x)
+    return sorted(els) or ["None"]
+
+
 def classification_audit(kit: dict, rows: list[Row], snapshot: dict, roster: dict) -> dict:
+    """Element-wide potency classification (RUL-2026-10-03-005).
+
+    The qualifying element is the kit's signature element (the non-None element on its
+    damage/pierce rows). Potency then reaches every jutsu of that element that carries a
+    matching supported tag, wherever it comes from; bloodline id, equipment, injected-child
+    provenance and jutsu names are never selectors. Shared elements are expected.
+    """
     b = kit["bloodline"]
     bname = b["name"].strip()
     sig = signature_elements(rows)
     sup = [r for r in rows if r.supported]
     users = census_element_users(snapshot, roster)
-    if len(sig) == 1 and sig[0] in BASIC_ELEMENTS:
-        label = bname
-        kind = "bloodline-keyed extension"
-        note = (f"Single signature element {sig[0]} is a basic element carried on rows of many "
-                "bloodlines and ordinary jutsu; using it as the classification label would leak "
-                "broadly. A bloodline-keyed classification label is required; the element is kept "
-                "as the display element only.")
-    elif len(sig) == 1:
+    if len(sig) == 1:
+        qualifying = list(sig)
         label = sig[0]
         kind = "element"
-        note = ("Single signature element on the kit's damage/pierce rows; usable as the "
-                "classification label under the proposed whole-kit classification, provided the "
-                "classification is bloodline-scoped (see census collisions) rather than a bare "
-                "element match.")
-    elif len(sig) == 0:
-        label = bname
-        kind = "bloodline-keyed extension"
-        note = ("No non-None element on any damage/pierce row. No existing element can "
-                "isolate this kit; a bloodline-keyed classification label (extension of the "
-                "proposed resolver change) is required. Targeting 'None' would reach every "
-                "non-elemental row in the game.")
+        status = "element"
+        note = (f"Single signature element {sig[0]} on the kit's damage/pierce rows. Potency reaches "
+                f"matching supported tags on every {sig[0]} jutsu: this kit, other bloodlines' "
+                f"{sig[0]} jutsu and any NORMAL/SPECIAL/EVENT/FORBIDDEN or injected {sig[0]} jutsu. "
+                "Sharing the element with other bloodlines is expected, not a collision.")
+    elif len(sig) > 1:
+        qualifying = list(sig)
+        label = " + ".join(sig)
+        kind = "multi-element"
+        status = "multi-element: director review"
+        note = ("Several signature elements (" + ", ".join(sig) + ") on damage/pierce rows. The "
+                "proposal lists every signature element as qualifying, which reaches every jutsu of "
+                "any of them; choosing one element, all of them, or a classification extension is a "
+                "director decision.")
     else:
+        qualifying = []
         label = bname
-        kind = "bloodline-keyed extension"
-        note = ("Multiple signature elements (" + ", ".join(sig) + ") on damage/pierce rows; "
-                "no single element isolates the kit. A bloodline-keyed classification label is "
-                "required unless the user accepts one element as the classification key and "
-                "documents the uncovered rows.")
+        kind = "classification extension"
+        status = "requires classification extension"
+        note = ("No non-None element on any damage/pierce row, so no existing element identifies "
+                "this kit. Requires a classification extension: a new jutsu classification "
+                f"(placeholder name '{bname}') assigned to jutsu records. It is not a bloodline-id "
+                "selector; which jutsu carry it is a director/engine decision. Targeting 'None' "
+                "would reach every non-elemental row in the game.")
+
+    members = []
+    for vis, key in (("public", "public_jutsu"), ("hidden", "hidden_jutsu")):
+        for j in kit.get(key, []):
+            jel = jutsu_elements(j)
+            derived = bool(qualifying) and any(x in jel for x in qualifying)
+            members.append({
+                "jutsu": j["name"], "jutsu_elements": jel,
+                "membership": "derived" if derived else "authored",
+                "supported_rows": sum(1 for e in j.get("effects", []) if e.get("type") in SUPPORTED_TAGS),
+            })
 
     def reach(lbl: str) -> dict:
         direct = [r for r in sup if lbl in r.elements_effective]
@@ -436,42 +549,69 @@ def classification_audit(kit: dict, rows: list[Row], snapshot: dict, roster: dic
             "rows_falling_back_to_None": len(none_fallback),
             "rows_with_other_elements_only": len(other),
             "supported_rows_total": len(sup),
-            "exclusive_under_current_resolver": False,
             "note": ("Current resolver matches each effect row's own elements (absent list -> "
-                     "['None']). Rows without the label are unreachable with affectedElements=[label]; "
-                     "reaching them needs affectedElements including 'None', which also reaches every "
-                     "non-elemental row on any jutsu the player can cast."),
+                     "['None']); it has no jutsu-level classification. Rows on a qualifying jutsu "
+                     "that do not carry the element are unreachable today: ENGINE GAP, not a "
+                     "design question."),
         }
 
-    collisions = []
-    for el in (sig if sig else []):
+    shared = []
+    for el in qualifying:
         for u in users.get(el, []):
             if u["bloodline_id"] != b["id"]:
-                collisions.append({"element": el, **u})
-    none_users = len(users.get("None", []))
-    exclusive = (len(sig) == 1 and not collisions and sig[0] not in BASIC_ELEMENTS)
+                shared.append({"element": el, **u})
     return {
         "signature_elements": sig,
+        "qualifying_elements": qualifying,
         "display_element": sig[0] if len(sig) == 1 else None,
         "proposed_label": label,
         "label_kind": kind,
-        "element_exclusive_within_census": exclusive,
+        "classification_status": status,
         "note": note,
-        "current_resolver_reach": [reach(x) for x in (sig or ["None"])],
-        "census_collisions_on_signature_elements": collisions,
-        "census_bloodlines_with_None_rows": none_users,
-        "normal_jutsu_collision": (
+        "not_selectors": list(NOT_SELECTORS),
+        "kit_membership": members,
+        "kit_jutsu_by_authored_classification": sorted(m["jutsu"] for m in members if m["membership"] == "authored"),
+        "current_resolver_reach": [reach(x) for x in (qualifying or ["None"])],
+        "shared_element_bloodlines": shared,
+        "shared_element_note": (
+            "Other captured bloodlines with jutsu of the qualifying element. Sharing is expected. "
+            "Their bloodline jutsu are castable only by their own bloodline's owners "
+            "(checkJutsuBloodline, app/src/libs/train.ts 185-188), so they do not widen what one "
+            "owner can amplify; NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the element can."),
+        "census_bloodlines_with_None_rows": len(users.get("None", [])),
+        "off_kit_coverage": (
             "UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows "
-            "(harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI "
-            "jutsu only). Whether NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carry this element needs a "
-            "read-only public jutsu listing capture requested from dauntless."),
+            "(harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu "
+            "only). NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the qualifying element are in scope "
+            "by rule; how many exist needs a read-only public jutsu listing capture."),
         "injected_children": injected_children(kit, snapshot),
         "item_gated_jutsu": sorted({r.jutsu_name for r in rows if r.item_gate}),
         "mode_restricted_jutsu": sorted({f"{r.jutsu_name} ({r.usage})" for r in rows if r.usage not in (None, "BOTH")}),
         "hidden_jutsu": sorted({r.jutsu_name for r in rows if r.visibility == "hidden"}),
         "non_bloodline_type_jutsu_in_kit": sorted({f"{r.jutsu_name} ({r.jutsu_type})" for r in rows if r.jutsu_type != "BLOODLINE"}),
-        "engine_status": "proposal_requires_resolver_adjustment",
+        "engine_status": engine_status_for(kind),
     }
+
+
+def engine_status_for(kind: str) -> str:
+    if kind == "classification extension":
+        return "proposal_requires_jutsu_classification_resolver_and_classification_extension"
+    return "proposal_requires_jutsu_classification_resolver"
+
+
+def scope_label(cls: dict) -> str:
+    """'Shadow', 'Shadow and Storm', or 'Dai Kenja-classified'."""
+    q = list(cls.get("qualifying_elements") or [])
+    if q:
+        return q[0] if len(q) == 1 else ", ".join(q[:-1]) + " and " + q[-1]
+    return f'{cls.get("potency_classification")}-classified'
+
+
+def scope_sentence(cls: dict) -> str:
+    s = f"Bonuses apply to matching supported tags on all {scope_label(cls)} jutsu."
+    if cls.get("label_kind") == "classification extension":
+        s = s[:-1] + " (requires classification extension)."
+    return s
 
 
 # ---------------------------------------------------------------------------
@@ -640,6 +780,94 @@ def validate_structure(tree: dict) -> list[str]:
     return errors
 
 
+def max_over_legal(by_id: dict[str, Node]) -> dict[str, int]:
+    """Per-tag maximum over every legal prerequisite-closed allocation of any size."""
+    mx = {t: 0 for t in SUPPORTED_TAGS}
+    for lst in enumerate_legal(by_id).values():
+        for ids in lst:
+            for t, v in bonuses_for(set(ids), by_id).items():
+                mx[t] = max(mx[t], v)
+    return {t: v for t, v in mx.items() if v}
+
+
+def route_totals(by_id: dict[str, Node]) -> list[dict]:
+    """One route per Advanced Art: its primary tag is the Advanced Art's first modifier tag,
+    summed over the Advanced Art's prerequisite path."""
+    out = []
+    for n in sorted(by_id.values(), key=lambda z: z.id):
+        if n.category != "Advanced Art" or not n.modifiers:
+            continue
+        tag = n.modifiers[0]["tag"]
+        path = sorted(closure(n.id, by_id), key=lambda i: depth(i, by_id))
+        steps = [sum(int(m["flat"]) for m in by_id[i].modifiers if m["tag"] == tag) for i in path]
+        out.append({"advanced_art": n.id, "name": n.name, "primary_tag": tag, "path": path,
+                    "steps": steps, "total": sum(steps)})
+    return out
+
+
+def ceiling_findings(tree: dict) -> tuple[list[str], list[str], dict]:
+    """Ceiling and band checks (RUL-2026-10-03-005) over all legal allocations.
+
+    Returns (errors, warnings, report). Damage > 5, Lifesteal > 5% and Afterburn > 15% are
+    invalid. Any other tag above +10% is invalid unless tree.director_exceptions records
+    {tag, max, reason, status}; a recorded exception is reported as a warning until the
+    director approves it. Route primary totals off the 5/10/15 bands warn unless
+    tree.route_band_rationale[<advanced art id>] gives a reason.
+    """
+    errors: list[str] = []
+    warnings: list[str] = []
+    by_id = {n.id: n for n in parse_nodes(tree)}
+    mx = max_over_legal(by_id)
+    exc = {}
+    for e in tree.get("director_exceptions") or []:
+        exc[e.get("tag")] = e
+    for tag, e in exc.items():
+        if tag in HARD_CEILINGS:
+            errors.append(f"director_exceptions cannot lift the hard {TAG_LABELS.get(tag, tag)} ceiling {mod_text(tag, HARD_CEILINGS[tag])}")
+        elif tag not in SUPPORTED_TAGS:
+            errors.append(f"director_exceptions names unsupported tag {tag!r}")
+        elif mx.get(tag, 0) <= DEFAULT_CEILING:
+            warnings.append(f"director exception for {TAG_LABELS[tag]} is unused: legal maximum {mod_text(tag, mx.get(tag, 0))} is within +{DEFAULT_CEILING}%")
+    for tag, v in mx.items():
+        cap = ceiling_for(tag)
+        if v <= cap:
+            continue
+        if tag in HARD_CEILINGS:
+            errors.append(f"maximum {TAG_LABELS[tag]} {mod_text(tag, v)} in a legal allocation exceeds the hard ceiling {mod_text(tag, cap)}")
+            continue
+        e = exc.get(tag)
+        if not e or not str(e.get("reason") or "").strip() or int(e.get("max") or 0) < v:
+            errors.append(f"maximum {TAG_LABELS[tag]} {mod_text(tag, v)} in a legal allocation exceeds +{cap}% without a recorded director-review exception")
+        else:
+            warnings.append(f"maximum {TAG_LABELS[tag]} {mod_text(tag, v)} exceeds +{cap}% under a director-review exception "
+                            f"({e.get('status') or 'pending director review'}): {e['reason']}")
+    rationale = tree.get("route_band_rationale") or {}
+    routes = route_totals(by_id)
+    for r in routes:
+        why = str(rationale.get(r["advanced_art"]) or "").strip()
+        r["on_band"] = r["total"] in ROUTE_BANDS
+        if why:
+            r["band_rationale"] = why
+        if not r["on_band"] and not why:
+            warnings.append(f"route {r['name']} primary total {mod_text(r['primary_tag'], r['total'])} is off the 5/10/15 bands "
+                            "without a route_band_rationale")
+        if r["primary_tag"] == "damage" and r["steps"][-2:] != [2, 3] and not why:
+            warnings.append(f"Damage route {r['name']} uses {'/'.join(str(x) for x in r['steps'])} rather than the default Hidden +2 / Advanced +3")
+    for k in rationale:
+        if k not in by_id or by_id[k].category != "Advanced Art":
+            errors.append(f"route_band_rationale key {k!r} is not an Advanced Art id")
+    report = {
+        "maximum_over_all_legal_allocations": mx,
+        "ceilings": {t: ceiling_for(t) for t in mx},
+        "hard_ceilings": dict(HARD_CEILINGS),
+        "default_ceiling": DEFAULT_CEILING,
+        "route_bands": list(ROUTE_BANDS),
+        "routes": routes,
+        "director_exceptions": list(tree.get("director_exceptions") or []),
+    }
+    return errors, warnings, report
+
+
 def audit_tree(tree: dict, rows: list[Row]) -> dict:
     """Full audit: assumes validate_structure returned no errors."""
     nodes = parse_nodes(tree)
@@ -660,10 +888,7 @@ def audit_tree(tree: dict, rows: list[Row]) -> dict:
     for k, lst in legal.items():
         for ids in lst:
             max_adv = max(max_adv, sum(1 for i in ids if by_id[i].category == "Advanced Art"))
-    max_tag = {t: 0 for t in SUPPORTED_TAGS}
-    for ids, bon in full_bonus:
-        for t in SUPPORTED_TAGS:
-            max_tag[t] = max(max_tag[t], bon.get(t, 0))
+    max_tag = max_over_legal(by_id)
     rows_by_tag: dict[str, list[Row]] = {}
     for r in sup_rows:
         rows_by_tag.setdefault(r.tag, []).append(r)
@@ -711,7 +936,7 @@ def audit_tree(tree: dict, rows: list[Row]) -> dict:
         "non_dominated_full_allocations": len(non_dom),
         "all_nodes_in_non_dominated_builds": len(unused) == 0,
         "nodes_absent_from_non_dominated_builds": unused,
-        "maximum_tag_bonuses": {t: v for t, v in max_tag.items() if v},
+        "maximum_tag_bonuses": {t: max_tag[t] for t in SUPPORTED_TAGS if max_tag.get(t)},
         "supported_rows_in_kit": len(sup_rows),
         "supported_rows_by_tag": {t: len(v) for t, v in sorted(rows_by_tag.items())},
         "tags_targeted_by_tree": sorted({m["tag"] for n in nodes for m in n.modifiers}),

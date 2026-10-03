@@ -892,11 +892,69 @@
     "signature_elements": [
       "Magnet"
     ],
+    "qualifying_elements": [
+      "Magnet"
+    ],
     "display_element": "Magnet",
     "proposed_label": "Magnet",
     "label_kind": "element",
-    "element_exclusive_within_census": false,
-    "note": "Single signature element on the kit's damage/pierce rows; usable as the classification label under the proposed whole-kit classification, provided the classification is bloodline-scoped (see census collisions) rather than a bare element match.",
+    "classification_status": "element",
+    "note": "Single signature element Magnet on the kit's damage/pierce rows. Potency reaches matching supported tags on every Magnet jutsu: this kit, other bloodlines' Magnet jutsu and any NORMAL/SPECIAL/EVENT/FORBIDDEN or injected Magnet jutsu. Sharing the element with other bloodlines is expected, not a collision.",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_membership": [
+      {
+        "jutsu": "Iron Web Entrapment",
+        "jutsu_elements": [
+          "Magnet"
+        ],
+        "membership": "derived",
+        "supported_rows": 1
+      },
+      {
+        "jutsu": "Wire Blast Plus",
+        "jutsu_elements": [
+          "Magnet"
+        ],
+        "membership": "derived",
+        "supported_rows": 2
+      },
+      {
+        "jutsu": "Spiraling Wires",
+        "jutsu_elements": [
+          "Magnet"
+        ],
+        "membership": "derived",
+        "supported_rows": 2
+      },
+      {
+        "jutsu": "Lightning Threads",
+        "jutsu_elements": [
+          "Lightning",
+          "Magnet",
+          "None",
+          "Wind"
+        ],
+        "membership": "derived",
+        "supported_rows": 2
+      },
+      {
+        "jutsu": "Eternal Embrace",
+        "jutsu_elements": [
+          "Lightning",
+          "Magnet",
+          "None",
+          "Wind"
+        ],
+        "membership": "derived",
+        "supported_rows": 2
+      }
+    ],
+    "kit_jutsu_by_authored_classification": [],
     "current_resolver_reach": [
       {
         "label": "Magnet",
@@ -904,11 +962,10 @@
         "rows_falling_back_to_None": 3,
         "rows_with_other_elements_only": 0,
         "supported_rows_total": 9,
-        "exclusive_under_current_resolver": false,
-        "note": "Current resolver matches each effect row's own elements (absent list -> ['None']). Rows without the label are unreachable with affectedElements=[label]; reaching them needs affectedElements including 'None', which also reaches every non-elemental row on any jutsu the player can cast."
+        "note": "Current resolver matches each effect row's own elements (absent list -> ['None']); it has no jutsu-level classification. Rows on a qualifying jutsu that do not carry the element are unreachable today: ENGINE GAP, not a design question."
       }
     ],
-    "census_collisions_on_signature_elements": [
+    "shared_element_bloodlines": [
       {
         "element": "Magnet",
         "bloodline_id": "ALoGrHuBY5Ml9bJG_DILe",
@@ -918,13 +975,14 @@
         "damage_rows": 4
       }
     ],
+    "shared_element_note": "Other captured bloodlines with jutsu of the qualifying element. Sharing is expected. Their bloodline jutsu are castable only by their own bloodline's owners (checkJutsuBloodline, app/src/libs/train.ts 185-188), so they do not widen what one owner can amplify; NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the element can.",
     "census_bloodlines_with_None_rows": 35,
-    "normal_jutsu_collision": "UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). Whether NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carry this element needs a read-only public jutsu listing capture requested from dauntless.",
+    "off_kit_coverage": "UNVERIFIED: the repository holds no non-bloodline jutsu catalog with effect rows (harvests/seed/40_INDEX_jutsu.json is an id/name index; inbox bundles carry AI jutsu only). NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the qualifying element are in scope by rule; how many exist needs a read-only public jutsu listing capture.",
     "injected_children": [],
     "item_gated_jutsu": [],
     "mode_restricted_jutsu": [],
     "hidden_jutsu": [],
     "non_bloodline_type_jutsu_in_kit": [],
-    "engine_status": "proposal_requires_resolver_adjustment"
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   }
 }

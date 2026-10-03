@@ -198,11 +198,23 @@ class Recipients(unittest.TestCase):
             return L.classification_audit(kit, L.kit_rows(kit), snap, roster)
         self.assertEqual(audit("Taiyo Kami")["proposed_label"], "Scorch")
         self.assertEqual(audit("Vaporia")["label_kind"], "element")
-        self.assertTrue(audit("Vaporia")["element_exclusive_within_census"])
-        self.assertEqual(audit("Primal Radiance")["label_kind"], "bloodline-keyed extension")  # basic Fire
-        self.assertEqual(audit("Ancient Tailed Demon")["label_kind"], "bloodline-keyed extension")  # None only
-        self.assertEqual(audit("Shiroi Youso")["label_kind"], "bloodline-keyed extension")  # multi-element
+        # basic elements are ordinary element classifications now; sharing is expected
+        self.assertEqual(audit("Primal Radiance")["label_kind"], "element")
+        self.assertEqual(audit("Primal Radiance")["qualifying_elements"], ["Fire"])
+        self.assertEqual(audit("Ancient Tailed Demon")["classification_status"], "requires classification extension")
+        self.assertEqual(audit("Ancient Tailed Demon")["qualifying_elements"], [])
+        self.assertEqual(audit("Godstorm Eclipse")["classification_status"], "multi-element: director review")
+        self.assertEqual(audit("Godstorm Eclipse")["qualifying_elements"], ["Shadow", "Storm"])
         self.assertEqual(len(audit("Ethereal Monarch")["injected_children"]), 1)
+        bee = audit("Blood-Enchanted Eyes")
+        self.assertEqual(bee["qualifying_elements"], ["Shadow"])
+        self.assertTrue(bee["shared_element_bloodlines"])  # other Shadow bloodlines: expected, not a blocker
+        self.assertNotIn("census_collisions_on_signature_elements", bee)
+
+    def test_jutsu_elements_mirror_check_jutsu_elements(self):
+        self.assertEqual(L.jutsu_elements({"effects": [{"elements": ["Shadow"]}, {"elements": None}, {}]}), ["Shadow"])
+        self.assertEqual(L.jutsu_elements({"effects": [{"elements": []}, {}]}), ["None"])
+        self.assertEqual(L.jutsu_elements({"effects": [{"elements": ["Wind", "Fire"]}, {"elements": ["Fire"]}]}), ["Fire", "Wind"])
 
 
 class RendererJutsuLabels(unittest.TestCase):
@@ -274,11 +286,123 @@ class RendererAdverseRows(unittest.TestCase):
         import render_tree as R
         self.assertEqual(R.adverse_lines(self._node(), {}, {}), [("Impact: self debuff (adverse)", L.ROLE_COLORS["SELF DEBUFF"])])
 
-    def test_scope_phrase(self):
-        import render_tree as R
-        self.assertEqual(R.scope_phrase({"potency_classification": "Scorch"}, {"name": "Taiyo Kami"}), "Scorch-classified Taiyo Kami jutsu")
-        self.assertEqual(R.scope_phrase({"potency_classification": "Dai Kenja"}, {"name": "Dai Kenja"}),
-                         "Dai Kenja jutsu (bloodline-keyed classification, proposed extension)")
+
+
+class ScopeAndDisplay(unittest.TestCase):
+    """RUL-2026-10-03-005: element-wide scope and % display on every non-Damage modifier."""
+
+    def test_scope_sentence_is_element_wide(self):
+        self.assertEqual(L.scope_sentence({"qualifying_elements": ["Shadow"], "label_kind": "element"}),
+                         "Bonuses apply to matching supported tags on all Shadow jutsu.")
+        self.assertEqual(L.scope_sentence({"qualifying_elements": ["Shadow", "Storm"], "label_kind": "multi-element"}),
+                         "Bonuses apply to matching supported tags on all Shadow and Storm jutsu.")
+        self.assertEqual(L.scope_sentence({"qualifying_elements": [], "label_kind": "classification extension",
+                                           "potency_classification": "Dai Kenja"}),
+                         "Bonuses apply to matching supported tags on all Dai Kenja-classified jutsu (requires classification extension).")
+
+    def test_percent_display(self):
+        self.assertEqual(L.mod_text("damage", 2), "+2 Damage")
+        self.assertEqual(L.mod_text("afterburn", 5), "+5% Afterburn")
+        self.assertEqual(L.mod_text("lifesteal", 3), "+3% Lifesteal")
+        self.assertEqual(L.mod_text("heal", 3), "+3% Heal")
+        self.assertEqual(L.mod_text("increaseheal", 3), "+3% Increase Heal")
+        self.assertEqual(L.mod_text("reflect", 4, abbr=True), "+4% REF")
+        for tag in L.SUPPORTED_TAGS:
+            txt = L.mod_text(tag, 1)
+            self.assertEqual(txt.endswith("Damage") and "%" not in txt, tag == "damage", txt)
+
+    def test_rendered_outputs_never_print_damage_percent_or_raw_power(self):
+        import glob
+        for p in glob.glob(os.path.join(L.TREES_DIR, "*.svg")) + glob.glob(os.path.join(L.TREES_DIR, "*.md")):
+            txt = open(p, encoding="utf-8").read()
+            for bad in ("% Damage<", "Damage power", "Heal power", "Damage %"):
+                self.assertNotIn(bad, txt, f"{os.path.basename(p)} prints {bad!r}")
+
+
+def _tree_with(mods_by_id, extra=None):
+    """Taiyo shape: F1→H2→A3, F1→H4→A5, F6→H7→A8, F6→H9→A10."""
+    shape = {"01": ("Foundation", []), "02": ("Hidden Art", ["01"]), "03": ("Advanced Art", ["02"]),
+             "04": ("Hidden Art", ["01"]), "05": ("Advanced Art", ["04"]), "06": ("Foundation", []),
+             "07": ("Hidden Art", ["06"]), "08": ("Advanced Art", ["07"]), "09": ("Hidden Art", ["06"]),
+             "10": ("Advanced Art", ["09"])}
+    names = {"01": "Alpha", "02": "Bravo", "03": "Charlie", "04": "Delta", "05": "Echo", "06": "Foxtrot",
+             "07": "Golf", "08": "Hotel", "09": "India", "10": "Juliet"}
+    nodes = []
+    for i, (cat, par) in shape.items():
+        mods = [{"tag": t, "flat": f} for t, f in mods_by_id.get(i, [("increasedamagegiven", 1)])]
+        nodes.append({"id": i, "name": names[i], "category": cat, "cost": 1, "parents": par, "modifiers": mods})
+    t = {"title": "t", "nodes": nodes, "examples": []}
+    t.update(extra or {})
+    return t
+
+
+class Ceilings(unittest.TestCase):
+    def test_damage_hard_ceiling_five_over_any_allocation(self):
+        ok = _tree_with({"02": [("damage", 2)], "03": [("damage", 3)]})
+        self.assertEqual(L.ceiling_findings(ok)[0], [])
+        # a Foundation +1 Damage pushes the 4-purchase route to 6: invalid
+        bad = _tree_with({"01": [("damage", 1)], "02": [("damage", 2)], "03": [("damage", 3)]})
+        errs = L.ceiling_findings(bad)[0]
+        self.assertTrue(any("Damage +6 Damage" in e and "hard ceiling +5 Damage" in e for e in errs), errs)
+        # a fourth purchase on another branch also counts
+        bad2 = _tree_with({"02": [("damage", 2)], "03": [("damage", 3)], "04": [("damage", 1)]})
+        self.assertTrue(L.ceiling_findings(bad2)[0])
+
+    def test_lifesteal_hard_ceiling_five(self):
+        self.assertEqual(L.ceiling_findings(_tree_with({"04": [("lifesteal", 2)], "05": [("lifesteal", 3)]}))[0], [])
+        errs = L.ceiling_findings(_tree_with({"04": [("lifesteal", 3)], "05": [("lifesteal", 5)]}))[0]
+        self.assertTrue(any("+8% Lifesteal" in e and "hard ceiling +5% Lifesteal" in e for e in errs), errs)
+
+    def test_afterburn_hard_ceiling_fifteen(self):
+        self.assertEqual(L.ceiling_findings(_tree_with({"04": [("afterburn", 5)], "05": [("afterburn", 10)]}))[0], [])
+        errs = L.ceiling_findings(_tree_with({"01": [("afterburn", 1)], "04": [("afterburn", 5)], "05": [("afterburn", 10)]}))[0]
+        self.assertTrue(any("+16% Afterburn" in e for e in errs), errs)
+
+    def test_hard_ceiling_cannot_be_excepted(self):
+        t = _tree_with({"02": [("damage", 3)], "03": [("damage", 3)]},
+                       {"director_exceptions": [{"tag": "damage", "max": 6, "reason": "x", "status": "pending director review"}]})
+        errs = L.ceiling_findings(t)[0]
+        self.assertTrue(any("cannot lift the hard Damage ceiling" in e for e in errs), errs)
+        self.assertTrue(any("exceeds the hard ceiling" in e for e in errs), errs)
+
+    def test_other_tag_over_ten_needs_reviewed_exception(self):
+        mods = {"06": [("decreasedamagetaken", 2)], "07": [("decreasedamagetaken", 3)], "08": [("decreasedamagetaken", 7)]}
+        errs, warns, _ = L.ceiling_findings(_tree_with(mods))
+        self.assertTrue(any("+12% Decrease Damage Taken" in e and "director-review exception" in e for e in errs), errs)
+        t = _tree_with(mods, {"director_exceptions": [{"tag": "decreasedamagetaken", "max": 12,
+                                                        "reason": "single low-uptime row", "status": "pending director review"}]})
+        errs, warns, _ = L.ceiling_findings(t)
+        self.assertEqual(errs, [])
+        self.assertTrue(any("director-review exception (pending director review)" in w for w in warns), warns)
+        # an exception below the real maximum does not cover it
+        t2 = _tree_with(mods, {"director_exceptions": [{"tag": "decreasedamagetaken", "max": 11, "reason": "r"}]})
+        self.assertTrue(L.ceiling_findings(t2)[0])
+        # an exception without a reason is not an exception
+        t3 = _tree_with(mods, {"director_exceptions": [{"tag": "decreasedamagetaken", "max": 12, "reason": ""}]})
+        self.assertTrue(L.ceiling_findings(t3)[0])
+
+    def test_ten_percent_is_allowed_without_exception(self):
+        mods = {"06": [("decreasedamagetaken", 2)], "07": [("decreasedamagetaken", 3)], "08": [("decreasedamagetaken", 5)]}
+        errs, warns, rep = L.ceiling_findings(_tree_with(mods))
+        self.assertEqual(errs, [])
+        self.assertEqual(rep["maximum_over_all_legal_allocations"]["decreasedamagetaken"], 10)
+
+    def test_irregular_route_warns_without_rationale(self):
+        mods = {"06": [("decreasedamagetaken", 2)], "07": [("decreasedamagetaken", 3)], "08": [("decreasedamagetaken", 2)]}
+        errs, warns, _ = L.ceiling_findings(_tree_with(mods))
+        self.assertEqual(errs, [])
+        self.assertTrue(any("route Hotel primary total +7% Decrease Damage Taken is off the 5/10/15 bands" in w for w in warns), warns)
+        errs, warns, rep = L.ceiling_findings(_tree_with(mods, {"route_band_rationale": {"08": "single 2-round row"}}))
+        self.assertFalse(any("route Hotel" in w for w in warns), warns)
+        self.assertEqual(next(r for r in rep["routes"] if r["advanced_art"] == "08")["band_rationale"], "single 2-round row")
+        self.assertTrue(L.ceiling_findings(_tree_with(mods, {"route_band_rationale": {"07": "x"}}))[0])
+
+    def test_two_advanced_arts_cost_more_than_four(self):
+        by = {x.id: x for x in L.parse_nodes(_tree_with({}))}
+        adv = [i for i, x in by.items() if x.category == "Advanced Art"]
+        import itertools
+        for a, b in itertools.combinations(adv, 2):
+            self.assertGreater(len(L.closure(a, by) | L.closure(b, by)), L.BP_CAP)
 
 
 if __name__ == "__main__":

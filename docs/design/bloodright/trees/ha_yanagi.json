@@ -11,14 +11,28 @@
   },
   "classification": {
     "potency_classification": "Ha Yanagi",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Ha Yanagi",
+    "label_kind": "classification extension",
+    "classification_status": "requires classification extension",
+    "qualifying_elements": [],
     "display_element": null,
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Ha Yanagi jutsu",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Ha Yanagi-classified jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Blighted Tree",
+      "Petal Nightmare",
+      "Wailing Bark"
+    ],
+    "shared_element_bloodlines": [],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
     "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": []
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver_and_classification_extension"
   },
   "emphasis": {
     "primary": "Enemy debuff control: Decrease Damage Given (Wailing Bark, Petal Nightmare) and Increase Damage Taken (Blighted Tree)",
@@ -44,14 +58,15 @@
       "coverage_note": "Wailing Bark (35→37%) and Petal Nightmare (30→32%) Decrease Damage Given; enemy, 2 rounds, all four stat types; both sum on one target.",
       "parent_rule": "ALL",
       "potency_classification": "Ha Yanagi",
-      "scope": "Ha Yanagi jutsu",
+      "scope": "all Ha Yanagi-classified jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Petal Nightmare",
           "Wailing Bark"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -73,14 +88,15 @@
       "coverage_note": "Both suppression rows again (39/34% with Mourning Boughs); a 40 AP and a 60 AP single-target cast, cooldown 6 each.",
       "parent_rule": "ALL",
       "potency_classification": "Ha Yanagi",
-      "scope": "Ha Yanagi jutsu",
+      "scope": "all Ha Yanagi-classified jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Petal Nightmare",
           "Wailing Bark"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -102,14 +118,15 @@
       "coverage_note": "Both suppression rows; route total +8 (Wailing Bark 43%, Petal Nightmare 38%; 81% when both debuffs overlap on one target).",
       "parent_rule": "ALL",
       "potency_classification": "Ha Yanagi",
-      "scope": "Ha Yanagi jutsu",
+      "scope": "all Ha Yanagi-classified jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Petal Nightmare",
           "Wailing Bark"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -131,13 +148,14 @@
       "coverage_note": "Blighted Tree exposure only (30→33%, cooldown 7), live the 2 rounds after the cast, not on its own hit; every non-pierce hit, any attacker.",
       "parent_rule": "ALL",
       "potency_classification": "Ha Yanagi",
-      "scope": "Ha Yanagi jutsu",
+      "scope": "all Ha Yanagi-classified jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Blighted Tree"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -164,7 +182,7 @@
       "coverage_note": "Blighted Tree exposure route total +8 (38%), plus +2 on both suppression rows (39/34% with Mourning Boughs). Three enemy rows.",
       "parent_rule": "ALL",
       "potency_classification": "Ha Yanagi",
-      "scope": "Ha Yanagi jutsu",
+      "scope": "all Ha Yanagi-classified jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -172,7 +190,8 @@
           "Petal Nightmare",
           "Wailing Bark"
         ],
-        "effect_rows": 3
+        "effect_rows": 3,
+        "rows_via_authored_classification": 3
       }
     },
     {
@@ -192,13 +211,14 @@
       "coverage_note": "Wailing Bark self damage buff (35→38%, 2 rounds after each 40 AP cast, cooldown 6); all four stat types: every non-pierce hit you land.",
       "parent_rule": "ALL",
       "potency_classification": "Ha Yanagi",
-      "scope": "Ha Yanagi jutsu",
+      "scope": "all Ha Yanagi-classified jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Wailing Bark"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -220,14 +240,15 @@
       "coverage_note": "Blighted Tree (formula) and Petal Nightmare (static) Damage, 40→42 power each; two 60 AP single-target casts at range 4.",
       "parent_rule": "ALL",
       "potency_classification": "Ha Yanagi",
-      "scope": "Ha Yanagi jutsu",
+      "scope": "all Ha Yanagi-classified jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Blighted Tree",
           "Petal Nightmare"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -254,7 +275,7 @@
       "coverage_note": "Both Damage rows (route total 45 power each) and the Wailing Bark self buff (+2: 40% with Whispering Canopy).",
       "parent_rule": "ALL",
       "potency_classification": "Ha Yanagi",
-      "scope": "Ha Yanagi jutsu",
+      "scope": "all Ha Yanagi-classified jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -262,7 +283,8 @@
           "Petal Nightmare",
           "Wailing Bark"
         ],
-        "effect_rows": 3
+        "effect_rows": 3,
+        "rows_via_authored_classification": 3
       }
     },
     {
@@ -284,13 +306,14 @@
       "coverage_note": "Wailing Bark self damage buff only (38→41% with Whispering Canopy); one row, the 2 rounds after the cast, every non-pierce hit you land.",
       "parent_rule": "ALL",
       "potency_classification": "Ha Yanagi",
-      "scope": "Ha Yanagi jutsu",
+      "scope": "all Ha Yanagi-classified jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Wailing Bark"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -312,13 +335,14 @@
       "coverage_note": "Same self buff; route total +10 (35→45%, 2 rounds per 40 AP cast, cooldown 6). No other row touched.",
       "parent_rule": "ALL",
       "potency_classification": "Ha Yanagi",
-      "scope": "Ha Yanagi jutsu",
+      "scope": "all Ha Yanagi-classified jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Wailing Bark"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     }
   ],
@@ -920,15 +944,112 @@
     "revision": "Draft 2 / Ha Yanagi classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Ha Yanagi jutsu inherit Ha Yanagi potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Ha Yanagi-classified jutsu (requires classification extension). Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 8,
+        "increasedamagetaken": 8
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Grave Willow's Hush",
+          "primary_tag": "decreasedamagegiven",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            2,
+            2,
+            4
+          ],
+          "total": 8,
+          "on_band": false
+        },
+        {
+          "advanced_art": "05",
+          "name": "Hollow at the Heart",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            0,
+            3,
+            5
+          ],
+          "total": 8,
+          "on_band": false
+        },
+        {
+          "advanced_art": "08",
+          "name": "Nightmare in Bloom",
+          "primary_tag": "damage",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Thousand-Leaf Dream",
+          "primary_tag": "increasedamagegiven",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            3,
+            3,
+            4
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {

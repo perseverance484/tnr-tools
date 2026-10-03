@@ -12,15 +12,27 @@
   "classification": {
     "potency_classification": "Magnet",
     "label_kind": "element",
-    "bloodline": "Itojinsei",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Magnet"
+    ],
     "display_element": "Magnet",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Itojinsei jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Magnet jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [],
+    "shared_element_bloodlines": [
       "Houkyuken"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Magnet burst (Damage on all four casts: Iron Web Entrapment, Wire Blast Plus, Spiraling Wires, Lightning Threads)",
@@ -51,7 +63,7 @@
       "coverage_note": "Self damage buffs 35→37% (Spiraling Wires; Eternal Embrace); Lightning Threads exposure 35→37%. Three rows, all 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Itojinsei jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -81,7 +93,7 @@
       "coverage_note": "Iron Web Entrapment 45→47; Wire Blast Plus, Spiraling Wires, Lightning Threads 40→42 power; four Magnet hits, 60 AP each, cooldown 7.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Itojinsei jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -112,7 +124,7 @@
       "coverage_note": "Same four Damage rows; route total +5 (50/45/45/45 power). Stun, redirection and decrease-heal riders are unsupported.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Itojinsei jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -143,7 +155,7 @@
       "coverage_note": "Both self buffs 37→39% with Taut Filament: Spiraling Wires (Bukijutsu or element-less hits), Eternal Embrace (Lightning/Magnet/Wind/none).",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Itojinsei jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -177,7 +189,7 @@
       "coverage_note": "Self buffs to route total 42% (+7; 84% when both windows overlap); Lightning Threads exposure 37→39% with Taut Filament.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Itojinsei jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -205,7 +217,7 @@
       "coverage_note": "Wire Blast Plus 30→33% and Eternal Embrace 35→38% Decrease Damage Given on every non-pierce hit; the Wire Blast circle is an ally hazard.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Itojinsei jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -237,7 +249,7 @@
       "coverage_note": "Both suppression rows 33→35% / 38→40% with Tangling Snare; two-round enemy debuffs on a 60 AP circle and a 40 AP circle.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Itojinsei jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -274,7 +286,7 @@
       "coverage_note": "Suppression to route total 39% / 44% (+9); Lightning Threads exposure 35→37% (39% with Taut Filament).",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Itojinsei jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -307,7 +319,7 @@
       "coverage_note": "Lightning Threads exposure only: 35→38% (40% with Taut Filament); one row, 2 rounds per 60 AP single-target cast, cooldown 7.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Itojinsei jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -340,7 +352,7 @@
       "coverage_note": "Exposure to route total 43% (45% with Taut Filament, +10); suppression 33→35% / 38→40% (37% / 42% with Constricting Coils).",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
-      "scope": "Itojinsei jutsu",
+      "scope": "all Magnet jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -1486,15 +1498,112 @@
     "revision": "Draft 3 / Magnet classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Itojinsei jutsu inherit Magnet potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Magnet jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 7,
+        "decreasedamagegiven": 9,
+        "increasedamagetaken": 10
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Severing Lattice",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Weaver Ascendant",
+          "primary_tag": "increasedamagegiven",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            2,
+            3
+          ],
+          "total": 7,
+          "on_band": false
+        },
+        {
+          "advanced_art": "08",
+          "name": "Iron Cocoon",
+          "primary_tag": "decreasedamagegiven",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            3,
+            2,
+            4
+          ],
+          "total": 9,
+          "on_band": false
+        },
+        {
+          "advanced_art": "10",
+          "name": "Galvanic Marionette",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            0,
+            3,
+            5
+          ],
+          "total": 8,
+          "on_band": false
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {

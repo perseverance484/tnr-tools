@@ -9,21 +9,33 @@
     "statClassification": "Highest",
     "traits": "Burst Healing, Sustained Damage"
   },
-  "revision": "Draft 4 / Shadow classification / forked tree",
+  "revision": "Final approved structure (RUL-2026-10-03-006) / Shadow classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "ally-hazard area rows amplified (friendly fire none/ALL): Crimson Impact#3, Ring of Spilled Blood#1"
+    "ally-hazard area rows amplified (friendly fire none/ALL): Crimson Impact#3, Ring of Spilled Blood#1",
+    "supported tags present in kit but not targeted by any node: afterburn"
   ],
   "classification": {
     "potency_classification": "Shadow",
     "label_kind": "element",
-    "bloodline": "Blood-Enchanted Eyes",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Shadow"
+    ],
     "display_element": "Shadow",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Blood-Enchanted Eyes jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Shadow jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Hemocure",
+      "Unholy Enhancement"
+    ],
+    "shared_element_bloodlines": [
       "Adorable Shadow of Death",
       "Blood-Enshrined Eyes",
       "Blood-Enthralled Eyes",
@@ -37,7 +49,11 @@
       "Otaku of the Dark Maiden",
       "Sacrament of Crimson Hunger",
       "Shadow Weaver"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {
@@ -51,7 +67,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
@@ -62,42 +78,21 @@
       ]
     },
     {
-      "name": "Red Pestilence",
-      "archetype": "Plague",
+      "name": "Feast of the Fallen",
+      "archetype": "Sustain Offense",
       "ids": [
         "01",
-        "04",
-        "05",
+        "09",
+        "10",
         "06"
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 2,
-        "decreasedamagegiven": 2,
-        "increasedamagetaken": 5,
-        "decreasedamagetaken": 2,
-        "afterburn": 10
-      },
-      "advanced_arts": [
-        "Red Pestilence"
-      ]
-    },
-    {
-      "name": "Feast of the Fallen",
-      "archetype": "Sustain",
-      "ids": [
-        "01",
-        "06",
-        "09",
-        "10"
-      ],
-      "cost": 4,
-      "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 7,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "lifesteal": 8
+        "lifesteal": 5
       },
       "advanced_arts": [
         "Feast of the Fallen"
@@ -117,10 +112,30 @@
         "increasedamagegiven": 2,
         "decreasedamagegiven": 5,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 8
+        "decreasedamagetaken": 10
       },
       "advanced_arts": [
         "Deathless Vitality"
+      ]
+    },
+    {
+      "name": "Red Pestilence",
+      "archetype": "Suppression",
+      "ids": [
+        "01",
+        "06",
+        "04",
+        "05"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 5
+      },
+      "advanced_arts": [
+        "Red Pestilence"
       ]
     }
   ],
@@ -143,17 +158,16 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 13,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
-      "increasedamagegiven": 5,
-      "decreasedamagegiven": 5,
-      "increasedamagetaken": 5,
-      "decreasedamagetaken": 8,
-      "afterburn": 10,
-      "lifesteal": 8
+      "damage": 5,
+      "increasedamagegiven": 7,
+      "decreasedamagegiven": 10,
+      "increasedamagetaken": 2,
+      "decreasedamagetaken": 10,
+      "lifesteal": 5
     },
     "supported_rows_in_kit": 15,
     "supported_rows_by_tag": {
@@ -166,7 +180,6 @@
       "lifesteal": 1
     },
     "tags_targeted_by_tree": [
-      "afterburn",
       "damage",
       "decreasedamagegiven",
       "decreasedamagetaken",
@@ -174,7 +187,9 @@
       "increasedamagetaken",
       "lifesteal"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "afterburn"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -216,8 +231,8 @@
         "name": "Rite of Exsanguination",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
-        "row_weighted_total": 16,
+        "raw_flat_total": 3,
+        "row_weighted_total": 12,
         "covered_jutsu": [
           "Crimson Impact",
           "Crimson Tithe",
@@ -229,32 +244,32 @@
         "tags_without_rows": []
       },
       {
-        "id": "04",
-        "name": "Carrion Fever",
+        "id": "09",
+        "name": "Crimson Thirst",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
-          "Sanguine Plague"
+          "Crimson Impact"
         ],
         "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
       {
-        "id": "05",
-        "name": "Red Pestilence",
+        "id": "10",
+        "name": "Feast of the Fallen",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 10,
-        "row_weighted_total": 16,
+        "raw_flat_total": 8,
+        "row_weighted_total": 13,
         "covered_jutsu": [
           "Crimson Impact",
-          "Sanguine Plague",
-          "Thousand Strike"
+          "Hemocure",
+          "Unholy Enhancement"
         ],
-        "covered_rows": 4,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -280,8 +295,8 @@
         "name": "Closed Wounds",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Hemocure",
           "Reaper's Embrace"
@@ -295,8 +310,8 @@
         "name": "Deathless Vitality",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 14,
+        "raw_flat_total": 8,
+        "row_weighted_total": 16,
         "covered_jutsu": [
           "Hemocure",
           "Reaper's Embrace",
@@ -308,32 +323,34 @@
         "tags_without_rows": []
       },
       {
-        "id": "09",
-        "name": "Crimson Thirst",
+        "id": "04",
+        "name": "Carrion Fever",
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
-          "Crimson Impact"
+          "Ring of Spilled Blood",
+          "Unholy Enhancement"
         ],
-        "covered_rows": 1,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
       {
-        "id": "10",
-        "name": "Feast of the Fallen",
+        "id": "05",
+        "name": "Red Pestilence",
         "category": "Advanced Art",
         "depth": 3,
         "raw_flat_total": 8,
-        "row_weighted_total": 11,
+        "row_weighted_total": 16,
         "covered_jutsu": [
-          "Crimson Impact",
           "Hemocure",
+          "Reaper's Embrace",
+          "Ring of Spilled Blood",
           "Unholy Enhancement"
         ],
-        "covered_rows": 3,
+        "covered_rows": 4,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -341,33 +358,32 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "02",
-        "03",
+        "04",
+        "05",
         "06"
       ],
       "bonuses": {
-        "damage": 6,
         "increasedamagegiven": 2,
-        "decreasedamagegiven": 2,
+        "decreasedamagegiven": 10,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2
+        "decreasedamagetaken": 5
       },
-      "raw_flat_total": 14,
-      "row_weighted_total": 42,
+      "raw_flat_total": 19,
+      "row_weighted_total": 40,
       "advanced_arts": [
-        "03"
+        "05"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "04",
-      "name": "Carrion Fever",
+      "id": "09",
+      "name": "Crimson Thirst",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
       "covered_jutsu": [
-        "Sanguine Plague"
+        "Crimson Impact"
       ],
       "covered_rows": 1,
       "adverse_rows_amplified": [],
@@ -379,16 +395,17 @@
           "01",
           "02",
           "03",
-          "04"
+          "06"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "afterburn": 3
+          "decreasedamagetaken": 2
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 37,
+        "row_weighted_total": 38,
         "advanced_arts": [
           "03"
         ],
@@ -399,17 +416,16 @@
           "01",
           "02",
           "03",
-          "06"
+          "09"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 2
+          "lifesteal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 42,
+        "raw_flat_total": 11,
+        "row_weighted_total": 32,
         "advanced_arts": [
           "03"
         ],
@@ -420,38 +436,17 @@
           "01",
           "02",
           "04",
-          "05"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
-          "afterburn": 10
-        },
-        "raw_flat_total": 19,
-        "row_weighted_total": 37,
-        "advanced_arts": [
-          "05"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
           "06"
         ],
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 2,
+          "decreasedamagegiven": 5,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "afterburn": 3
+          "decreasedamagetaken": 2
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 29,
+        "row_weighted_total": 32,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -467,10 +462,10 @@
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 30,
+        "raw_flat_total": 13,
+        "row_weighted_total": 32,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -487,11 +482,31 @@
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "lifesteal": 3
+          "lifesteal": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 29,
+        "raw_flat_total": 12,
+        "row_weighted_total": 28,
         "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 7,
+          "increasedamagetaken": 2,
+          "lifesteal": 5
+        },
+        "raw_flat_total": 16,
+        "row_weighted_total": 33,
+        "advanced_arts": [
+          "10"
+        ],
         "non_dominated": true
       },
       {
@@ -503,13 +518,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 2,
-          "increasedamagetaken": 5,
-          "decreasedamagetaken": 2,
-          "afterburn": 10
+          "decreasedamagegiven": 10,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 21,
-        "row_weighted_total": 37,
+        "raw_flat_total": 19,
+        "row_weighted_total": 40,
         "advanced_arts": [
           "05"
         ],
@@ -524,15 +538,14 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 2,
+          "decreasedamagegiven": 5,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4,
-          "afterburn": 3
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 25,
+        "raw_flat_total": 14,
+        "row_weighted_total": 30,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -543,14 +556,13 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 2,
+          "decreasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "afterburn": 3,
-          "lifesteal": 3
+          "lifesteal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 24,
+        "raw_flat_total": 13,
+        "row_weighted_total": 26,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -565,91 +577,88 @@
           "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
           "increasedamagetaken": 2,
+          "decreasedamagetaken": 10
+        },
+        "raw_flat_total": 19,
+        "row_weighted_total": 40,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5,
+          "lifesteal": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 26,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 7,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "lifesteal": 5
+        },
+        "raw_flat_total": 18,
+        "row_weighted_total": 33,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "04",
+          "05",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "decreasedamagegiven": 10,
           "decreasedamagetaken": 8
         },
-        "raw_flat_total": 17,
+        "raw_flat_total": 18,
+        "row_weighted_total": 36,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "04",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "decreasedamagegiven": 8,
+          "decreasedamagetaken": 10
+        },
+        "raw_flat_total": 18,
         "row_weighted_total": 36,
         "advanced_arts": [
           "08"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "06",
-          "07",
-          "09"
-        ],
-        "bonuses": {
-          "increasedamagegiven": 2,
-          "decreasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 4,
-          "lifesteal": 3
-        },
-        "raw_flat_total": 13,
-        "row_weighted_total": 25,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "06",
-          "09",
-          "10"
-        ],
-        "bonuses": {
-          "increasedamagegiven": 5,
-          "decreasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "lifesteal": 8
-        },
-        "raw_flat_total": 19,
-        "row_weighted_total": 32,
-        "advanced_arts": [
-          "10"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "06",
-          "07",
-          "08",
-          "09"
-        ],
-        "bonuses": {
-          "decreasedamagegiven": 5,
-          "decreasedamagetaken": 8,
-          "lifesteal": 3
-        },
-        "raw_flat_total": 16,
-        "row_weighted_total": 29,
-        "advanced_arts": [
-          "08"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "06",
-          "07",
-          "09",
-          "10"
-        ],
-        "bonuses": {
-          "increasedamagegiven": 3,
-          "decreasedamagegiven": 2,
-          "decreasedamagetaken": 4,
-          "lifesteal": 8
-        },
-        "raw_flat_total": 17,
-        "row_weighted_total": 26,
-        "advanced_arts": [
-          "10"
         ],
         "non_dominated": true
       }
@@ -673,19 +682,19 @@
         ],
         [
           "01",
-          "04"
+          "06"
         ],
         [
           "01",
+          "09"
+        ],
+        [
+          "04",
           "06"
         ],
         [
           "06",
           "07"
-        ],
-        [
-          "06",
-          "09"
         ]
       ],
       "3": [
@@ -697,17 +706,12 @@
         [
           "01",
           "02",
-          "04"
-        ],
-        [
-          "01",
-          "02",
           "06"
         ],
         [
           "01",
-          "04",
-          "05"
+          "02",
+          "09"
         ],
         [
           "01",
@@ -725,19 +729,24 @@
           "09"
         ],
         [
+          "01",
+          "09",
+          "10"
+        ],
+        [
+          "04",
+          "05",
+          "06"
+        ],
+        [
+          "04",
+          "06",
+          "07"
+        ],
+        [
           "06",
           "07",
           "08"
-        ],
-        [
-          "06",
-          "07",
-          "09"
-        ],
-        [
-          "06",
-          "09",
-          "10"
         ]
       ],
       "4": [
@@ -745,19 +754,13 @@
           "01",
           "02",
           "03",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "03",
           "06"
         ],
         [
           "01",
           "02",
-          "04",
-          "05"
+          "03",
+          "09"
         ],
         [
           "01",
@@ -776,6 +779,12 @@
           "02",
           "06",
           "09"
+        ],
+        [
+          "01",
+          "02",
+          "09",
+          "10"
         ],
         [
           "01",
@@ -814,16 +823,16 @@
           "10"
         ],
         [
+          "04",
+          "05",
           "06",
-          "07",
-          "08",
-          "09"
+          "07"
         ],
         [
+          "04",
           "06",
           "07",
-          "09",
-          "10"
+          "08"
         ]
       ]
     }

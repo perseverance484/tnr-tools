@@ -1,143 +1,145 @@
-# Blood-Enchanted Eyes — Tithe of the Red Eye
+# Blood-Enchanted Eyes — Crimson Covenant
 
-**Bloodline:** Blood-Enchanted Eyes (BR-011, rank S, `ovZIWu28ANn-Cij5TjT8S`) · **Revision:** Draft 4 / Shadow classification / forked tree · **Classification:** Shadow (element) · **Engine status:** proposal_requires_resolver_adjustment
+**Bloodline:** Blood-Enchanted Eyes (BR-011, rank S, `ovZIWu28ANn-Cij5TjT8S`) · **Revision:** Final approved structure (RUL-2026-10-03-006) / Shadow classification / forked tree · **Classification:** Shadow (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
-**Emphasis:** primary Damage (Shadow; two castable rows per keystone) · secondary Enemy exposure (Increase Damage Taken + Afterburn) · tertiary Self sustain (Decrease Damage Taken, Lifesteal) with Increase/Decrease Damage Given support.
+**Emphasis:** primary Offense: Shadow Damage burst and Lifesteal sustain from Scarlet Gaze · secondary Defense: Decrease Damage Taken (Fortress) and Decrease Damage Given (Suppression) from Iron in the Blood · tertiary Increase Damage Given / Increase Damage Taken glue.
 
-Damage is the kit's broadest supported tag: four Shadow rows (Ring of Spilled Blood 40, Crimson Tithe 40, Reaper's Embrace 50, Crimson Impact 40), three of them AoE, split two-and-two across the Wraith Pendant and Reaper's Ring keystones, so with a keystone equipped exactly two of them are castable (none without one). Increase Damage Taken reaches three enemy-debuff rows at 35% (Sanguine Plague on the Pendant side; Crimson Impact and Thousand Strike on the Ring side) and Sanguine Plague also carries the kit's only Afterburn row, so exposure is the secondary emphasis and the Pendant-side pressure route. The base kit's two 40 AP self casts, Unholy Enhancement (IDG 35, DDG 35) and Hemocure (DDT 35, IDG 35), are ungated and anchor the Foundations; Hemocure's DDT and Crimson Impact's Lifesteal 20% (Ring side) give the two sustain routes. Absorb, vamp, shield, stun, pierce and the other unsupported rows are untouched.
+RUL-2026-10-03-006 fixes every name, value and edge. Scarlet Gaze opens the two offensive routes (Burst +5 Damage; Sustain Offense +5% Lifesteal with a +5% Increase Damage Given rider); Iron in the Blood opens the two defensive routes, which mirror each other (Fortress +10% Decrease Damage Taken with +5% Decrease Damage Given; Suppression +10% Decrease Damage Given with +5% Decrease Damage Taken). There is no Afterburn path in this revision: native Afterburn stays usable but unamplified. Potency reaches matching supported tags on all Shadow jutsu (RUL-2026-10-03-005).
 
-All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses are static additions to existing supported tags of Shadow-classified Blood-Enchanted Eyes jutsu under the proposed classification behavior; no row's combat scope changes. Baselines at jutsu level 25.
+All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Shadow jutsu. Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
 
 ## Skills
 
-| ID | Skill | Tier | Requires | Exact bonus and recipient | Coverage (jutsu / rows) |
+| ID | Skill | Tier | Requires | Exact bonus and recipient | Kit coverage (example jutsu / rows) |
 |---|---|---|---|---|---|
 | 01 | Scarlet Gaze | Foundation | None | +2% Increase Damage Given (self buff); +2% Increase Damage Taken (enemy debuff) | Crimson Impact, Hemocure, Sanguine Plague, Thousand Strike, Unholy Enhancement / 5 |
-| 02 | Opened Veins | Hidden Art | Scarlet Gaze | +2 Damage power (damage) | Crimson Impact, Crimson Tithe, Reaper's Embrace, Ring of Spilled Blood / 4 |
-| 03 | Rite of Exsanguination | Advanced Art | Opened Veins | +4 Damage power (damage) | Crimson Impact, Crimson Tithe, Reaper's Embrace, Ring of Spilled Blood / 4 |
-| 04 | Carrion Fever | Hidden Art | Scarlet Gaze | +3% Afterburn (enemy debuff) | Sanguine Plague / 1 |
-| 05 | Red Pestilence | Advanced Art | Carrion Fever | +7% Afterburn (enemy debuff); +3% Increase Damage Taken (enemy debuff) | Crimson Impact, Sanguine Plague, Thousand Strike / 4 |
+| 02 | Opened Veins | Hidden Art | Scarlet Gaze | +2 Damage (damage) | Crimson Impact, Crimson Tithe, Reaper's Embrace, Ring of Spilled Blood / 4 |
+| 03 | Rite of Exsanguination | Advanced Art | Opened Veins | +3 Damage (damage) | Crimson Impact, Crimson Tithe, Reaper's Embrace, Ring of Spilled Blood / 4 |
+| 09 | Crimson Thirst | Hidden Art | Scarlet Gaze | +2% Lifesteal (self buff) | Crimson Impact / 1 |
+| 10 | Feast of the Fallen | Advanced Art | Crimson Thirst | +3% Lifesteal (self buff); +5% Increase Damage Given (self buff) | Crimson Impact, Hemocure, Unholy Enhancement / 3 |
 | 06 | Iron in the Blood | Foundation | None | +2% Decrease Damage Taken (self buff); +2% Decrease Damage Given (enemy debuff) | Hemocure, Reaper's Embrace, Ring of Spilled Blood, Unholy Enhancement / 4 |
-| 07 | Closed Wounds | Hidden Art | Iron in the Blood | +2% Decrease Damage Taken (self buff) | Hemocure, Reaper's Embrace / 2 |
-| 08 | Deathless Vitality | Advanced Art | Closed Wounds | +4% Decrease Damage Taken (self buff); +3% Decrease Damage Given (enemy debuff) | Hemocure, Reaper's Embrace, Ring of Spilled Blood, Unholy Enhancement / 4 |
-| 09 | Crimson Thirst | Hidden Art | Iron in the Blood | +3% Lifesteal (self buff) | Crimson Impact / 1 |
-| 10 | Feast of the Fallen | Advanced Art | Crimson Thirst | +5% Lifesteal (self buff); +3% Increase Damage Given (self buff) | Crimson Impact, Hemocure, Unholy Enhancement / 3 |
+| 07 | Closed Wounds | Hidden Art | Iron in the Blood | +3% Decrease Damage Taken (self buff) | Hemocure, Reaper's Embrace / 2 |
+| 08 | Deathless Vitality | Advanced Art | Closed Wounds | +5% Decrease Damage Taken (self buff); +3% Decrease Damage Given (enemy debuff) | Hemocure, Reaper's Embrace, Ring of Spilled Blood, Unholy Enhancement / 4 |
+| 04 | Carrion Fever | Hidden Art | Iron in the Blood | +3% Decrease Damage Given (enemy debuff) | Ring of Spilled Blood, Unholy Enhancement / 2 |
+| 05 | Red Pestilence | Advanced Art | Carrion Fever | +5% Decrease Damage Given (enemy debuff); +3% Decrease Damage Taken (self buff) | Hemocure, Reaper's Embrace, Ring of Spilled Blood, Unholy Enhancement / 4 |
 
-Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09→10. Advanced Arts: 4; any two cost at least 5 BP including prerequisites (cap 4); maximum affordable Advanced Arts: 1.
+Connections: 01→02, 02→03, 01→09, 09→10, 06→07, 07→08, 06→04, 04→05. Advanced Arts: 4; any two cost at least 5 BP including prerequisites (cap 4); maximum affordable Advanced Arts: 1.
 
-- **Scarlet Gaze** — The red eye opens; it sees where the blood runs thin, and it does not blink. IDG: Unholy Enhancement, Hemocure 35% (ungated, 40 AP). IDT: Sanguine Plague (Pendant), Crimson Impact, Thousand Strike (Ring) 35%; gated.
-- **Opened Veins** — Every cut the eye marks is a cut that bleeds a little longer. Damage 40/40 on Ring of Spilled Blood, Crimson Tithe (Wraith Pendant); 50/40 on Reaper's Embrace, Crimson Impact (Reaper's Ring).
-- **Rite of Exsanguination** — What begins as a wound ends as an emptying. Nothing is left in the vessel. Same four Shadow Damage rows: 40 -> 46 and 50 -> 56 with Opened Veins; only the equipped keystone's pair is castable in a battle.
-- **Carrion Fever** — The sickness in the blood wakes with every blow and feeds on the heat of it. Sanguine Plague row 1 Afterburn 35% (enemy, 2 rounds, 40 AP, Wraith Pendant); extra damage on each non-pierce hit the target takes.
-- **Red Pestilence** — Once the fever takes, the body fights for the enemy. Every strike lands twice. Sanguine Plague Afterburn 35 -> 45% with Carrion Fever (60% cap per hit); IDT 35 -> 40% on Plague, Crimson Impact, Thousand Strike.
-- **Iron in the Blood** — The blood of the eye runs thick and heavy; blades slide off it and arms grow tired. DDT: Hemocure 35% (ungated), Reaper's Embrace 15% (Ring circle). DDG: Unholy Enhancement 35% (ungated), Ring of Spilled Blood 30% (Pendant).
-- **Closed Wounds** — Flesh knits before the blade has finished its pass. Hemocure row 1 DDT 35% (self, 2 rounds, 40 AP, no gate) and Reaper's Embrace row 3 DDT 15% (ally-area circle, Reaper's Ring).
-- **Deathless Vitality** — The heart has forgotten how to stop; the arm that strikes it forgets its strength. Hemocure DDT 35 -> 43% and Embrace DDT 15 -> 23% on the full route; DDG 35 -> 40% on Unholy Enhancement, 30 -> 35% on Ring of Spilled Blood.
-- **Crimson Thirst** — The eye drinks before the mouth does, and it is never satisfied. Crimson Impact row 1 Lifesteal 20% (self, 2 rounds, 60 AP AoE, Reaper's Ring); shares the 60% leech budget with Embrace's vamp.
-- **Feast of the Fallen** — What is taken from the enemy is not returned. Every mouthful feeds the next blow. Crimson Impact Lifesteal 20 -> 28% on the full route; IDG 35 -> 40% on Unholy Enhancement and Hemocure (both ungated) with Scarlet Gaze.
+- **Scarlet Gaze** — The red eye opens; it sees where the blood runs thin, and it does not blink. Kit examples: Increase Damage Given 35% on Unholy Enhancement and Hemocure (self); Increase Damage Taken 35% on Sanguine Plague, Crimson Impact and Thousand Strike (enemy).
+- **Opened Veins** — Every cut the eye marks is a cut that bleeds a little longer. Kit examples: Shadow Damage on Ring of Spilled Blood 40, Crimson Tithe 40, Reaper's Embrace 50, Crimson Impact 40.
+- **Rite of Exsanguination** — What begins as a wound ends as an emptying. Nothing is left in the vessel. Same Shadow Damage rows: 40 → 45 and 50 → 55 EP on the full route (+5 Damage).
+- **Crimson Thirst** — The eye drinks before the mouth does, and it is never satisfied. Kit example: Crimson Impact Lifesteal 20% (self, two rounds after the cast).
+- **Feast of the Fallen** — What is taken from the enemy is not returned. Every mouthful feeds the next blow. Crimson Impact Lifesteal 20 → 25% on the full route (+5%); Increase Damage Given 35 → 42% on Unholy Enhancement and Hemocure with Scarlet Gaze (+7%).
+- **Iron in the Blood** — The blood of the eye runs thick and heavy; blades slide off it and arms grow tired. Kit examples: Decrease Damage Taken 35% on Hemocure and 15% on Reaper's Embrace (self); Decrease Damage Given 35% on Unholy Enhancement and 30% on Ring of Spilled Blood (enemy).
+- **Closed Wounds** — Flesh knits before the blade has finished its pass. Kit examples: Hemocure Decrease Damage Taken 35% and Reaper's Embrace 15%.
+- **Deathless Vitality** — The heart has forgotten how to stop; the arm that strikes it forgets its strength. Fortress: Hemocure 35 → 45% and Embrace 15 → 25% Decrease Damage Taken (+10%); Unholy Enhancement 35 → 40% and Ring of Spilled Blood 30 → 35% Decrease Damage Given (+5%).
+- **Carrion Fever** — The sickness in the blood saps the arm that strikes; every blow lands a little weaker. Kit examples: Unholy Enhancement Decrease Damage Given 35% and Ring of Spilled Blood 30%.
+- **Red Pestilence** — Once the fever takes, the enemy's strength drains into the blood that binds them. Suppression: Unholy Enhancement 35 → 45% and Ring of Spilled Blood 30 → 40% Decrease Damage Given (+10%); Hemocure 35 → 40% and Embrace 15 → 20% Decrease Damage Taken (+5%).
 
 ## Complete four-purchase examples
 
-| Build | Purchases | DMG | IDG | DDG | IDT | DDT | AB | LS |
-|---|---|---:|---:|---:|---:|---:|---:|---:|
-| Rite of Exsanguination (Burst) | Scarlet Gaze, Opened Veins, Rite of Exsanguination, Iron in the Blood | +6 | +2% | +2% | +2% | +2% | — | — |
-| Red Pestilence (Plague) | Scarlet Gaze, Carrion Fever, Red Pestilence, Iron in the Blood | — | +2% | +2% | +5% | +2% | +10% | — |
-| Feast of the Fallen (Sustain) | Scarlet Gaze, Iron in the Blood, Crimson Thirst, Feast of the Fallen | — | +5% | +2% | +2% | +2% | — | +8% |
-| Deathless Vitality (Fortress) | Scarlet Gaze, Iron in the Blood, Closed Wounds, Deathless Vitality | — | +2% | +5% | +2% | +8% | — | — |
+| Build | Purchases | DMG | IDG | DDG | IDT | DDT | LS |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Rite of Exsanguination (Burst) | Scarlet Gaze, Opened Veins, Rite of Exsanguination, Iron in the Blood | +5 | +2% | +2% | +2% | +2% | — |
+| Feast of the Fallen (Sustain Offense) | Scarlet Gaze, Crimson Thirst, Feast of the Fallen, Iron in the Blood | — | +7% | +2% | +2% | +2% | +5% |
+| Deathless Vitality (Fortress) | Scarlet Gaze, Iron in the Blood, Closed Wounds, Deathless Vitality | — | +2% | +5% | +2% | +10% | — |
+| Red Pestilence (Suppression) | Scarlet Gaze, Iron in the Blood, Carrion Fever, Red Pestilence | — | +2% | +10% | +2% | +5% | — |
 
-Abbreviations: DMG = Damage · IDG = Increase Damage Given · DDG = Decrease Damage Given · IDT = Increase Damage Taken · DDT = Decrease Damage Taken · AB = Afterburn · LS = Lifesteal. Values are per-matching-row static additions, not final combat percentages.
+Abbreviations: DMG = Damage · IDG = Increase Damage Given · DDG = Decrease Damage Given · IDT = Increase Damage Taken · DDT = Decrease Damage Taken · LS = Lifesteal. Values are per-matching-row static additions, not final combat percentages.
 
-- **Rite of Exsanguination:** Damage +6 lifts whichever keystone pair is equipped: Ring of Spilled Blood and Crimson Tithe to 46 on the Wraith Pendant, or Reaper's Embrace to 56 and Crimson Impact to 46 on the Reaper's Ring; the bloodline's Shadow/None IDG passive then multiplies the resulting damage. Scarlet Gaze is the required ancestor (+2% IDG on both ungated self buffs, +2% IDT on the exposure rows) and Iron in the Blood the fourth purchase for a little mitigation and suppression. It is the only example adding Damage power and gives up Afterburn, deep DDT and Lifesteal (castable 24 Pendant / 26 Ring, design note 3).
-- **Red Pestilence:** The Wraith Pendant pressure build: Sanguine Plague's Afterburn goes 35% -> 45% and its exposure 35% -> 40%. For the two rounds after the cast, every non-pierce Shadow, Fire, Lightning, Water or element-less hit the plagued enemy takes (Ring of Spilled Blood, Crimson Tithe, basic attacks, allies' hits) gains 40% of its staged base, and every non-pierce hit with one of the four stat types or no element burns again at 45% (60% cap per hit). On the Reaper's Ring the IDT still lifts Crimson Impact and Thousand Strike, but Carrion Fever and the Afterburn half are dead. Iron in the Blood adds +2% DDT/DDG; no Damage power, and the capstone keeps two modifiers (design note 3; castable 25 Pendant / 20 Ring).
-- **Feast of the Fallen:** The Reaper's Ring sustain build: Crimson Impact's Lifesteal goes 20% -> 28% for the two rounds after its cast, and every hit in that window heals more: Reaper's Embrace at its base 50, Thousand Strike's 70-power pierce (lifesteal includes pierce, tags.ts 2028-2050), normal jutsu and basic attacks. The capstone's +3% IDG with Scarlet Gaze takes Unholy Enhancement and Hemocure (both ungated) from 35% to 40%, enlarging the non-pierce hits the leech reads. Scarlet Gaze adds +2% IDT on Impact and Thousand Strike, Iron in the Blood +2% DDT/DDG. With Embrace's 25% vamp a hit leeches 53%, under the 60% cap. On the Wraith Pendant the Lifesteal half is dead (castable 18 Pendant / 28 Ring).
-- **Deathless Vitality:** The keystone-independent build: Hemocure, a 40 AP self cast with no item gate, gives 43% DDT for the two rounds after its cast, and the capstone's +3% DDG with Iron in the Blood takes Unholy Enhancement's suppression to 40% (Ring of Spilled Blood's spiral to 35% on the Pendant). On the Ring, Reaper's Embrace's ally circle rises to 23% DDT, covering the caster from the round after the cast while they stay at its centre. Beyond Scarlet Gaze's +2% IDG/IDT it adds no offence. Swapping Scarlet Gaze for Crimson Thirst gives the Ring-only turtle (43% DDT, 40% DDG, 23% Lifesteal), dominated on the Pendant (castable 24 Pendant / 29 Ring).
+- **Rite of Exsanguination:** +5 Damage on every Shadow Damage row the owner casts (40 → 45, 50 → 55 EP on the kit's four rows). Scarlet Gaze is the required ancestor (+2% IDG/IDT) and Iron in the Blood the fourth purchase (+2% DDT/DDG).
+- **Feast of the Fallen:** +5% Lifesteal (Crimson Impact 20 → 25%) with +7% Increase Damage Given across the route (Unholy Enhancement and Hemocure 35 → 42%), so the hits the leech reads are larger. Lifesteal includes pierce and shares the 60% leech budget with Embrace's 25% vamp (50% together, under the cap). Iron in the Blood is the fourth purchase.
+- **Deathless Vitality:** +10% Decrease Damage Taken (Hemocure 35 → 45%, Embrace 15 → 25%) with +5% Decrease Damage Given support; Scarlet Gaze is the fourth purchase for +2% IDG/IDT.
+- **Red Pestilence:** +10% Decrease Damage Given on the enemy (Unholy Enhancement 35 → 45%, Ring of Spilled Blood 30 → 40%) with +5% Decrease Damage Taken support; Scarlet Gaze is the fourth purchase.
 
 ## Before/after effect rows
 
-| Jutsu | Row | Tag | Recipient | Base | Burst | Plague | Sustain | Fortress |
+| Jutsu | Row | Tag | Recipient | Base | Burst | Sustain Offense | Fortress | Suppression |
 |---|---:|---|---|---:|---:|---:|---:|---:|
-| Ring of Spilled Blood | 0 | Damage | enemy | 40 | 46 (+6) | 40 | 40 | 40 |
-| Ring of Spilled Blood | 1 | Decrease Damage Given | enemy | 30% | 32% (+2) | 32% (+2) | 32% (+2) | 35% (+5) |
-| Crimson Tithe | 0 | Damage | enemy | 40 | 46 (+6) | 40 | 40 | 40 |
+| Ring of Spilled Blood | 0 | Damage | enemy | 40 | 45 (+5) | 40 | 40 | 40 |
+| Ring of Spilled Blood | 1 | Decrease Damage Given | enemy | 30% | 32% (+2) | 32% (+2) | 35% (+5) | 40% (+10) |
+| Crimson Tithe | 0 | Damage | enemy | 40 | 45 (+5) | 40 | 40 | 40 |
 | Crimson Tithe | 1 | stun (unsupported) | enemy | 100 | 100 | 100 | 100 | 100 |
 | Crimson Tithe | 2 | timecompression (unsupported) | enemy | 100% | 100% | 100% | 100% | 100% |
-| Sanguine Plague | 0 | Increase Damage Taken | enemy | 35% | 37% (+2) | 40% (+5) | 37% (+2) | 37% (+2) |
-| Sanguine Plague | 1 | Afterburn | enemy | 35% | 35% | 45% (+10) | 35% | 35% |
+| Sanguine Plague | 0 | Increase Damage Taken | enemy | 35% | 37% (+2) | 37% (+2) | 37% (+2) | 37% (+2) |
+| Sanguine Plague | 1 | Afterburn | enemy | 35% | 35% | 35% | 35% | 35% |
 | Sanguine Plague | 2 | debuffprevent (unsupported) | self | 100 | 100 | 100 | 100 | 100 |
-| Reaper's Embrace | 0 | Damage | enemy | 50 | 56 (+6) | 50 | 50 | 50 |
+| Reaper's Embrace | 0 | Damage | enemy | 50 | 55 (+5) | 50 | 50 | 50 |
 | Reaper's Embrace | 1 | move (unsupported) | self | 1 | 1 | 1 | 1 | 1 |
 | Reaper's Embrace | 2 | vamp (unsupported) | self | 25% | 25% | 25% | 25% | 25% |
-| Reaper's Embrace | 3 | Decrease Damage Taken | self | 15% | 17% (+2) | 17% (+2) | 17% (+2) | 23% (+8) |
-| Unholy Enhancement | 0 | Increase Damage Given | self | 35% | 37% (+2) | 37% (+2) | 40% (+5) | 37% (+2) |
-| Unholy Enhancement | 1 | Decrease Damage Given | enemy | 35% | 37% (+2) | 37% (+2) | 37% (+2) | 40% (+5) |
-| Crimson Impact | 0 | Damage | enemy | 40 | 46 (+6) | 40 | 40 | 40 |
-| Crimson Impact | 1 | Lifesteal | self | 20% | 20% | 20% | 28% (+8) | 20% |
+| Reaper's Embrace | 3 | Decrease Damage Taken | self | 15% | 17% (+2) | 17% (+2) | 25% (+10) | 20% (+5) |
+| Unholy Enhancement | 0 | Increase Damage Given | self | 35% | 37% (+2) | 42% (+7) | 37% (+2) | 37% (+2) |
+| Unholy Enhancement | 1 | Decrease Damage Given | enemy | 35% | 37% (+2) | 37% (+2) | 40% (+5) | 45% (+10) |
+| Crimson Impact | 0 | Damage | enemy | 40 | 45 (+5) | 40 | 40 | 40 |
+| Crimson Impact | 1 | Lifesteal | self | 20% | 20% | 25% (+5) | 20% | 20% |
 | Crimson Impact | 2 | shield (unsupported) | self | 100 | 100 | 100 | 100 | 100 |
-| Crimson Impact | 3 | Increase Damage Taken | enemy | 35% | 37% (+2) | 40% (+5) | 37% (+2) | 37% (+2) |
+| Crimson Impact | 3 | Increase Damage Taken | enemy | 35% | 37% (+2) | 37% (+2) | 37% (+2) | 37% (+2) |
 | Hemocure | 0 | absorb (unsupported) | self | 35% | 35% | 35% | 35% | 35% |
-| Hemocure | 1 | Decrease Damage Taken | self | 35% | 37% (+2) | 37% (+2) | 37% (+2) | 43% (+8) |
-| Hemocure | 2 | Increase Damage Given | self | 35% | 37% (+2) | 37% (+2) | 40% (+5) | 37% (+2) |
+| Hemocure | 1 | Decrease Damage Taken | self | 35% | 37% (+2) | 37% (+2) | 45% (+10) | 40% (+5) |
+| Hemocure | 2 | Increase Damage Given | self | 35% | 37% (+2) | 42% (+7) | 37% (+2) | 37% (+2) |
 | Thousand Strike | 0 | pierce (unsupported) | enemy | 70 | 70 | 70 | 70 | 70 |
-| Thousand Strike | 1 | Increase Damage Taken | enemy | 35% | 37% (+2) | 40% (+5) | 37% (+2) | 37% (+2) |
+| Thousand Strike | 1 | Increase Damage Taken | enemy | 35% | 37% (+2) | 37% (+2) | 37% (+2) | 37% (+2) |
 
 ## Allocation audit
 
 - Legal prerequisite-closed allocations by size: 0: 1, 1: 2, 2: 5, 3: 10, 4: 14
-- Full-budget allocations: 14; numerically non-dominated (per-tag totals): 14; all nodes appear in a non-dominated build: True
-- Maximum individually achievable additions: Damage +6, Increase Damage Given +5%, Decrease Damage Given +5%, Increase Damage Taken +5%, Decrease Damage Taken +8%, Afterburn +10%, Lifesteal +8% (not jointly attainable)
+- Full-budget allocations: 14; numerically non-dominated (per-tag totals): 13; all nodes appear in a non-dominated build: True
+- Maximum individually achievable additions over every legal allocation: +5 Damage, +7% Increase Damage Given, +10% Decrease Damage Given, +2% Increase Damage Taken, +10% Decrease Damage Taken, +5% Lifesteal (not jointly attainable)
+- Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.
+  - Route Rite of Exsanguination: +5 Damage (0 + 2 + 3; on band)
+  - Route Red Pestilence: +10% Decrease Damage Given (2 + 3 + 5; on band)
+  - Route Deathless Vitality: +10% Decrease Damage Taken (2 + 3 + 5; on band)
+  - Route Feast of the Fallen: +5% Lifesteal (0 + 2 + 3; on band)
 - Supported rows in kit: 15 (AB 1, DMG 4, DDG 2, DDT 2, IDG 2, IDT 3, LS 1)
-- Strongest full build by row-weighted total: Scarlet Gaze, Opened Veins, Rite of Exsanguination, Iron in the Blood (raw +14, row-weighted 42)
-- Lowest row-weighted node: Carrion Fever (3)
+- Supported tags present but not targeted: afterburn
+- Strongest full build by row-weighted total: Scarlet Gaze, Carrion Fever, Red Pestilence, Iron in the Blood (raw +19, row-weighted 40)
+- Lowest row-weighted node: Crimson Thirst (2)
 
 Validator warnings:
 
 - ally-hazard area rows amplified (friendly fire none/ALL): Crimson Impact#3, Ring of Spilled Blood#1
+- supported tags present in kit but not targeted by any node: afterburn
 
 ### All legal full-budget allocations
 
 | # | Nodes | Bonuses |
 |---:|---|---|
-| 1 | Scarlet Gaze, Opened Veins, Rite of Exsanguination, Carrion Fever | DMG +6, IDG +2, IDT +2, AB +3 |
-| 2 | Scarlet Gaze, Opened Veins, Rite of Exsanguination, Iron in the Blood | DMG +6, IDG +2, DDG +2, IDT +2, DDT +2 |
-| 3 | Scarlet Gaze, Opened Veins, Carrion Fever, Red Pestilence | DMG +2, IDG +2, IDT +5, AB +10 |
-| 4 | Scarlet Gaze, Opened Veins, Carrion Fever, Iron in the Blood | DMG +2, IDG +2, DDG +2, IDT +2, DDT +2, AB +3 |
-| 5 | Scarlet Gaze, Opened Veins, Iron in the Blood, Closed Wounds | DMG +2, IDG +2, DDG +2, IDT +2, DDT +4 |
-| 6 | Scarlet Gaze, Opened Veins, Iron in the Blood, Crimson Thirst | DMG +2, IDG +2, DDG +2, IDT +2, DDT +2, LS +3 |
-| 7 | Scarlet Gaze, Carrion Fever, Red Pestilence, Iron in the Blood | IDG +2, DDG +2, IDT +5, DDT +2, AB +10 |
-| 8 | Scarlet Gaze, Carrion Fever, Iron in the Blood, Closed Wounds | IDG +2, DDG +2, IDT +2, DDT +4, AB +3 |
-| 9 | Scarlet Gaze, Carrion Fever, Iron in the Blood, Crimson Thirst | IDG +2, DDG +2, IDT +2, DDT +2, AB +3, LS +3 |
-| 10 | Scarlet Gaze, Iron in the Blood, Closed Wounds, Deathless Vitality | IDG +2, DDG +5, IDT +2, DDT +8 |
-| 11 | Scarlet Gaze, Iron in the Blood, Closed Wounds, Crimson Thirst | IDG +2, DDG +2, IDT +2, DDT +4, LS +3 |
-| 12 | Scarlet Gaze, Iron in the Blood, Crimson Thirst, Feast of the Fallen | IDG +5, DDG +2, IDT +2, DDT +2, LS +8 |
-| 13 | Iron in the Blood, Closed Wounds, Deathless Vitality, Crimson Thirst | DDG +5, DDT +8, LS +3 |
-| 14 | Iron in the Blood, Closed Wounds, Crimson Thirst, Feast of the Fallen | IDG +3, DDG +2, DDT +4, LS +8 |
+| 1 | Scarlet Gaze, Opened Veins, Rite of Exsanguination, Iron in the Blood | +5 Damage, +2% IDG, +2% DDG, +2% IDT, +2% DDT |
+| 2 | Scarlet Gaze, Opened Veins, Rite of Exsanguination, Crimson Thirst | +5 Damage, +2% IDG, +2% IDT, +2% LS |
+| 3 | Scarlet Gaze, Opened Veins, Carrion Fever, Iron in the Blood | +2 Damage, +2% IDG, +5% DDG, +2% IDT, +2% DDT |
+| 4 | Scarlet Gaze, Opened Veins, Iron in the Blood, Closed Wounds | +2 Damage, +2% IDG, +2% DDG, +2% IDT, +5% DDT |
+| 5 | Scarlet Gaze, Opened Veins, Iron in the Blood, Crimson Thirst | +2 Damage, +2% IDG, +2% DDG, +2% IDT, +2% DDT, +2% LS |
+| 6 | Scarlet Gaze, Opened Veins, Crimson Thirst, Feast of the Fallen | +2 Damage, +7% IDG, +2% IDT, +5% LS |
+| 7 | Scarlet Gaze, Carrion Fever, Red Pestilence, Iron in the Blood | +2% IDG, +10% DDG, +2% IDT, +5% DDT |
+| 8 | Scarlet Gaze, Carrion Fever, Iron in the Blood, Closed Wounds | +2% IDG, +5% DDG, +2% IDT, +5% DDT |
+| 9 | Scarlet Gaze, Carrion Fever, Iron in the Blood, Crimson Thirst | +2% IDG, +5% DDG, +2% IDT, +2% DDT, +2% LS |
+| 10 | Scarlet Gaze, Iron in the Blood, Closed Wounds, Deathless Vitality | +2% IDG, +5% DDG, +2% IDT, +10% DDT |
+| 11 | Scarlet Gaze, Iron in the Blood, Closed Wounds, Crimson Thirst | +2% IDG, +2% DDG, +2% IDT, +5% DDT, +2% LS |
+| 12 | Scarlet Gaze, Iron in the Blood, Crimson Thirst, Feast of the Fallen | +7% IDG, +2% DDG, +2% IDT, +2% DDT, +5% LS |
+| 13 | Carrion Fever, Red Pestilence, Iron in the Blood, Closed Wounds | +10% DDG, +8% DDT |
+| 14 | Carrion Fever, Iron in the Blood, Closed Wounds, Deathless Vitality | +8% DDG, +10% DDT |
 
 ## Design notes
 
-- Reference reuse: Taiyo Kami's topology and most flats are reused nearly verbatim (Foundations +2 IDG/IDT and +2 DDT/DDG, Opened Veins +2 Damage, Carrion Fever +3 and Red Pestilence +7 AB with +3 IDT); it fits: the kit has the same three glue tags and four route tags. Departures: Rite +4 Damage (two castable rows); Red Pestilence drops the IDG secondary; Closed Wounds +2, Deathless Vitality +4 DDT/+3 DDG (two DDT rows); Lifesteal (Crimson Thirst +3, Feast +5/+3 IDG) replaces the DDG route.
-- Keystones: the pin has one KEYSTONE equip slot (ItemSlots, drizzle/constants.ts 455; items/page.tsx 1461), battle init resolves one keystone (routers/combat.ts 3217-3224) and a gated jutsu needs its item equipped in every battle type (train.ts 221-242; combat.ts 3179). So the Wraith Pendant jutsu (Ring of Spilled Blood, Crimson Tithe, Sanguine Plague) and the Reaper's Ring jutsu (Reaper's Embrace, Crimson Impact, Thousand Strike) never share a battle; Unholy Enhancement and Hemocure are ungated.
-- Calibration counts flat x rows castable on one side (Pendant: Damage 2, IDG 2, DDG 2, IDT 1, DDT 1, AB 1; Ring: Damage 2, IDG 2, DDG 1, IDT 2, DDT 2, LS 1). Examples: Burst 24 Pendant / 26 Ring, Plague 25/20, Sustain 18/28, Fortress 24/29; strongest per side 25 and 29 vs Taiyo Kami's 31 on 9 rows. The audit's all-row 42 (01+02+03+06) sums both sides' rows, which never co-exist. Red Pestilence keeps two modifiers: a +3 IDG secondary would lift Plague to 31 and dominate the Pendant.
-- User decisions (OPEN_DECISIONS D5/D8): the two ungated jutsu are self buffs, so a keystone is the kit's normal state and the gate discount is 'one side only' plus the two-modifier Red Pestilence, not a flat haircut. Damage +6 on four fully gated rows sits at the guardrail ceiling against D5(b)'s wording. Options: Rite +3 (Damage +5), Red Pestilence AB +5 (AB +8), Feast LS +4 (LS +7). On the Ring the Fortress (29) edges Sustain (28) because Embrace's 15% DDT circle counts at full weight (risk 8).
-- Downstream: jutsu IDG/IDT/DDG/DDT rows add power/100 x staged base and same-tag rows sum (Impact + Thousand Strike IDT 35% + 35% = 70%); only the bloodline passive (IDG 25% + 0.15/level) multiplies. 10 of the 11 buff/debuff rows carry four stat types and no element, so they match the kit's Shadow Damage (tags.ts 3477-3510), basic attacks, element-less hits and hits of those stats; Plague's IDT is element-only. IDG/IDT/DDG/DDT never touch Thousand Strike's pierce (process.ts 416-431, 563-566).
-- Fourth purchase: usually the other Foundation. All 14 full builds are non-dominated over all rows; per keystone side four are dominated (each buys the off-side single-row Hidden Art without its capstone: Carrion Fever is dead on the Ring, Crimson Thirst on the Pendant); the four examples are not. Side-robust hybrid: 01+02+06+07 (+2 Damage, +4 DDT, +2 IDG/IDT/DDG). Unadvertised: 01+02+03+04 (Pendant burst, 21), 01+02+04+05 (Pendant burn, 23), 06+07+09+10 (Ring leech turtle, 24).
+- Exact director structure (RUL-2026-10-03-006): edges 01→02→03, 01→09→10, 06→07→08, 06→04→05; names, tiers and values are copied from the ruling. Damage +5 and Lifesteal +5% sit exactly at the hard ceilings; Decrease Damage Taken and Decrease Damage Given reach +10% at most in any legal allocation; Increase Damage Given peaks at +7% (Scarlet Gaze + Feast of the Fallen), Increase Damage Taken at +2%.
+- Scope: matching supported tags on all Shadow jutsu (RUL-2026-10-03-005). Other bloodlines' Shadow jutsu are castable only by their own owners (train.ts 185-188); NORMAL/SPECIAL/EVENT/FORBIDDEN Shadow jutsu would qualify, and how many exist is unverified. Unholy Enhancement and Hemocure carry no element on any row, so they are Shadow jutsu only through an authored jutsu classification (ENGINE_GAP_REGISTER G1).
+- Equipment gates castability only. Six kit jutsu need a keystone to be cast (one keystone per battle at the pin), but no node lists an item as a prerequisite and no bonus is limited by one.
+- No Afterburn path in this revision: Sanguine Plague's 35% Afterburn row stays usable but unamplified.
 
 ## Risks and unproven interactions
 
-- Classification: Shadow is not exclusive in the census. Thirteen other bloodlines carry Shadow rows (approved: Godstorm Eclipse, Night Parade of A Thousand Demons, Oblivion Seal, Shadow Weaver; excluded siblings Blood-Enshrined and Blood-Enthralled Eyes); normal-jutsu Shadow use is unverified. The tree assumes a bloodline-scoped classification; a bare element match would leak.
-- Resolver: 10 of 15 supported rows (every IDG, DDG, DDT, Afterburn and Lifesteal row; Impact and Thousand Strike IDT) have no element and fall back to None, unreachable without the proposed classification; reaching them via None would hit every element-less row the player casts. Potency stacks (BATTLE_TAG_STACKING true), so the budget with a future normal-tree potency is unaudited.
-- Gates: every Damage, IDT, Afterburn and Lifesteal row needs a keystone (Wraith Pendant 1wJsQWvK2L0fhziIE4gnA or Reaper's Ring heZTbHCjEACrJ-_Vrulq4), one per battle at the pin (items/page.tsx 1461; routers/combat.ts 3217-3224), so Plague and Sustain never share a battle. Without one only Unholy Enhancement and Hemocure act. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING.
-- Lifesteal: Crimson Impact's 20% (28% on the route) acts in the two rounds after its cast and includes pierce (process.ts 563-583; tags.ts 2028-2050), so Reaper's Embrace and Thousand Strike both feed it. It shares one 60%-of-pre-shield leech budget with vamp: with Embrace's 25% vamp a hit leeches 53%, seven points of headroom. Healprevent on the caster blocks it.
-- Afterburn: one application row (Sanguine Plague, 2 rounds, Pendant side). 45% is under the 60% per-hit cap, but a second Afterburn source on the target saturates it quickly. Its value depends on how many non-pierce hits land in the two rounds after the cast (pierce is skipped, tags.ts 1993-1995) and was not simulated.
-- Efficiency ratio (ENGINE_GAP_REGISTER G16): design note 5's ratio-1 reads assume highestOffence is set at battle init; types.ts 156 declares it required on BattleUserState, but its population was not traced (undefined would push the literal 'Highest', matching nothing). A damage effect with an element and no stat type would miss the four-stat rows; none exists in this kit.
-- Ally hazards (absent friendlyFire = ALL, process.ts 154-183): Ring of Spilled Blood's DDG is a 2-round ground effect on the radius-4 spiral; the caster's tile is excluded at cast (util.ts 2895), but allies on it, and the caster if they step in later, lose 30% damage given (+2/+5 by node). Crimson Impact's IDT hits allies adjacent to the target (+2/+5); Unholy Enhancement's DDG hits an ally target.
-- Delivery: every jutsu has a 7-round cooldown and buffs act only in the two rounds after their cast. Reaper's Embrace's 15% DDT circle (FRIENDLY ground) covers the caster from the round after the cast, once the move row (sorts last) puts them at the centre, and only while they stay, so the row is worth less than counted. Unholy Enhancement needs a legal OTHER_USER target. No combat simulation.
+- Resolver: most buff/debuff rows on the kit carry no element, so the current row-element resolver cannot reach them; the tree depends on the proposed jutsu-classification resolver.
+- Lifesteal: Crimson Impact's 25% at the route end plus Reaper's Embrace's 25% vamp leaves ten points under the shared 60% leech budget.
+- Ally hazards (friendly fire absent = ALL): Ring of Spilled Blood's ground Decrease Damage Given and Crimson Impact's area Increase Damage Taken also reach allies in the area.
+- Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed.
 
 ## Limits
 
-- Proposed potency classification behavior; not implemented or verified in the live engine.
-- All existing supported tags of Blood-Enchanted Eyes jutsu inherit Shadow potency eligibility; original combat elements and target scopes stay intact.
-- Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.
-- Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.
+- Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).
+- Bonuses apply to matching supported tags on all Shadow jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.
+- Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.
+- Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.
+- Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.
 - Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.
 - Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.
 - No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.

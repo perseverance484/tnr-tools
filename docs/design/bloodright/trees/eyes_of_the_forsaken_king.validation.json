@@ -17,20 +17,32 @@
   "classification": {
     "potency_classification": "Light",
     "label_kind": "element",
-    "bloodline": "Eyes of the Forsaken King",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Light"
+    ],
     "display_element": "Light",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Eyes of the Forsaken King jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Light jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [],
+    "shared_element_bloodlines": [
       "Architect of the Hollow Script",
       "Crust Almighty",
       "Eyes of the Forsaken Heir",
       "Radiant Valor",
       "Solar Soul",
       "Timeforged Enigma"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {

@@ -15,13 +15,23 @@
   "classification": {
     "potency_classification": "Shadow",
     "label_kind": "element",
-    "bloodline": "Shadow Weaver",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Shadow"
+    ],
     "display_element": "Shadow",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Shadow Weaver jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Shadow jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Shadow Shell"
+    ],
+    "shared_element_bloodlines": [
       "Adorable Shadow of Death",
       "Blood-Enchanted Eyes",
       "Blood-Enshrined Eyes",
@@ -35,7 +45,11 @@
       "Oblivion Seal",
       "Otaku of the Dark Maiden",
       "Sacrament of Crimson Hunger"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {

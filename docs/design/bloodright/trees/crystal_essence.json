@@ -12,15 +12,30 @@
   "classification": {
     "potency_classification": "Crystal",
     "label_kind": "element",
-    "bloodline": "Crystal Essence",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Crystal"
+    ],
     "display_element": "Crystal",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Crystal Essence jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Crystal jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Crystal Sphere",
+      "Summoning: Jade"
+    ],
+    "shared_element_bloodlines": [
       "Sea-Maiden’s Kiss"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Damage (Crystal burst on all three attacks, +5 ceiling)",
@@ -51,7 +66,7 @@
       "coverage_note": "Shippū IDG 35% (self, 2 rounds) and exposure on Crystal Sphere (single) and Crystal Cave (area enemies), 35% for 2 rounds. No gates.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
-      "scope": "Crystal Essence jutsu",
+      "scope": "all Crystal jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -59,7 +74,8 @@
           "Crystal Sphere",
           "Kōsai Shippū"
         ],
-        "effect_rows": 3
+        "effect_rows": 3,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -81,7 +97,7 @@
       "coverage_note": "Damage on Prism 50, Kōsai Shippū 40 and Crystal Cave 40; all Crystal, Ninjutsu, 60 AP, cooldown 7. Prism's wound row is untouched.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
-      "scope": "Crystal Essence jutsu",
+      "scope": "all Crystal jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -111,7 +127,7 @@
       "coverage_note": "Same three Crystal damage rows; the route total of +5 lifts Prism to 55 and Kōsai Shippū and Crystal Cave to 45.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
-      "scope": "Crystal Essence jutsu",
+      "scope": "all Crystal jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -141,14 +157,15 @@
       "coverage_note": "Both exposure rows: Crystal Sphere (single target, None/Ninjutsu filter) and Crystal Cave (area enemies, Crystal/Earth/Fire/None), 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
-      "scope": "Crystal Essence jutsu",
+      "scope": "all Crystal jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Crystal Cave",
           "Crystal Sphere"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -175,7 +192,7 @@
       "coverage_note": "Exposure reaches 42% on Sphere and Cave with the full route; +3 IDG lifts Shippū's self buff to 40% with Prismatic Focus.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
-      "scope": "Crystal Essence jutsu",
+      "scope": "all Crystal jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -183,7 +200,8 @@
           "Crystal Sphere",
           "Kōsai Shippū"
         ],
-        "effect_rows": 3
+        "effect_rows": 3,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -208,14 +226,15 @@
       "coverage_note": "Crystal Sphere DDT 35% (self, 2 rounds, 40 AP) and Crystal Cave Reflect 40% (self, 2 rounds); both element-less, all four stat types.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
-      "scope": "Crystal Essence jutsu",
+      "scope": "all Crystal jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Crystal Cave",
           "Crystal Sphere"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -237,13 +256,14 @@
       "coverage_note": "Crystal Sphere DDT row only (35%, self, 2 rounds, nearly every non-pierce hit); the same 40 AP cast carries the exposure half unchanged.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
-      "scope": "Crystal Essence jutsu",
+      "scope": "all Crystal jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Crystal Sphere"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -270,14 +290,15 @@
       "coverage_note": "Sphere DDT reaches 45% with the route; +3 IDG lifts Shippū's self buff to 38%, or 40% with Prismatic Focus.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
-      "scope": "Crystal Essence jutsu",
+      "scope": "all Crystal jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Crystal Sphere",
           "Kōsai Shippū"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -299,7 +320,7 @@
       "coverage_note": "Crystal Cave Reflect row only (40% of each hit returned, pierce included, 60% cap); 2 rounds after a 60 AP area cast, cooldown 7.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
-      "scope": "Crystal Essence jutsu",
+      "scope": "all Crystal jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -332,7 +353,7 @@
       "coverage_note": "Cave Reflect reaches 50% with the route; the +3 IDG rides Shippū's self buff (38%, or 40% with Prismatic Focus), not the Cave.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
-      "scope": "Crystal Essence jutsu",
+      "scope": "all Crystal jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -1262,15 +1283,114 @@
     "revision": "Draft 2 / Crystal classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Crystal Essence jutsu inherit Crystal potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Crystal jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 10,
+        "reflect": 10
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10,
+        "reflect": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Splintered Mountain Heart",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Break Along the Flaw",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            2,
+            3
+          ],
+          "total": 7,
+          "on_band": false
+        },
+        {
+          "advanced_art": "08",
+          "name": "Adamant Core",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Entombed in Crystal",
+          "primary_tag": "reflect",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {

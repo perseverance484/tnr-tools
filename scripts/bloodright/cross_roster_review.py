@@ -3,12 +3,13 @@
 
   python3 scripts/bloodright/cross_roster_review.py [--check]
 
-Recomputes, from every normalized tree plus the Taiyo Kami reference and the
+Recomputes, from every normalized tree (Taiyo Kami as the reference row) and the
 committed kit snapshot, the roster-wide checks the planning brief asks for:
 strongest found combinations, worst-value purchases, stacked exposure and
 self-amplification, sustain/reflect/afterburn ceilings against engine caps,
-percentage caps, delivery and item constraints, injection, universal nodes,
-classification leakage, and inherited versus added strength. Writes
+percentage caps, RUL-2026-10-03-005 ceilings and route bands, delivery and item
+constraints, injection, universal nodes, element-wide classification status, and
+inherited versus added strength. Writes
 CROSS_ROSTER_REVIEW.md and cross_roster_review.json. Arithmetic only; no
 combat simulation.
 """
@@ -23,8 +24,8 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bloodright_lib as L  # noqa: E402
 
-TREES = os.path.join(L.DESIGN_DIR, "trees")
-REF = os.path.join(L.DESIGN_DIR, "examples", "taiyo_kami.json")
+TREES = L.TREES_DIR
+REF = L.REFERENCE_TREE
 OUT_MD = os.path.join(L.DESIGN_DIR, "CROSS_ROSTER_REVIEW.md")
 OUT_JSON = os.path.join(L.DESIGN_DIR, "cross_roster_review.json")
 REVIEW_LOG = os.path.join(L.DESIGN_DIR, "review_log.json")
@@ -34,11 +35,12 @@ def load_entries():
     snap = L.load_snapshot()
     roster = L.load_roster()
     idx = L.census_index(snap, roster)
-    paths = [REF] + sorted(p for p in glob.glob(os.path.join(TREES, "*.json")) if not p.endswith(".validation.json"))
+    paths = [REF] + sorted(p for p in glob.glob(os.path.join(TREES, "*.json"))
+                           if not p.endswith(".validation.json") and os.path.abspath(p) != os.path.abspath(REF))
     out = []
     for p in paths:
         t = L.load_json(p)
-        bid = (t.get("bloodline") or {}).get("id") or "6C2t3jK35hvPoVocLiHEl"
+        bid = t["bloodline"]["id"]
         kit = idx[bid]["kit"]
         rec = idx[bid]["record"]
         rows = L.kit_rows(kit, t.get("evaluation_level", L.DEFAULT_JUTSU_LEVEL))
@@ -127,6 +129,18 @@ def build():
                 if r.supported and r.calculation == "percentage" and r.base + b["bonuses"].get(r.tag, 0) > 100:
                     caps.append({"bloodline": e["name"], "jutsu": r.jutsu_name, "row": r.row, "tag": r.tag})
     data["percentage_rows_over_100"] = caps
+    # 3b. RUL-2026-10-03-005 ceilings and route bands over every legal allocation
+    ceil = []
+    for e in entries:
+        errs, warns, rep = L.ceiling_findings(e["tree"])
+        ceil.append({"bloodline": e["name"], "reference": e["reference"],
+                     "maximum": rep["maximum_over_all_legal_allocations"],
+                     "over_ceiling": [t for t, v in rep["maximum_over_all_legal_allocations"].items() if v > L.ceiling_for(t)],
+                     "routes": [{"name": r["name"], "primary_tag": r["primary_tag"], "total": r["total"],
+                                 "steps": r["steps"], "on_band": r["on_band"], "band_rationale": r.get("band_rationale")}
+                                for r in rep["routes"]],
+                     "director_exceptions": rep["director_exceptions"], "errors": errs})
+    data["ceilings"] = ceil
     # 4. delivery / gates / injection / universal / adverse / hazards / classification
     deliv = []
     for e in entries:
@@ -137,10 +151,13 @@ def build():
         inj = L.injected_children(e["kit"], snap)
         universal = [n for n in e["by_id"] if e["audit"]["full_builds"] and all(n in b["ids"] for b in e["audit"]["full_builds"])]
         cls = e["tree"].get("classification", {})
+        qual = cls.get("qualifying_elements") or []
         deliv.append({"bloodline": e["name"], "rank": e["kit"]["bloodline"].get("rank"),
                       "label": cls.get("potency_classification"), "label_kind": cls.get("label_kind"),
-                      "census_collisions": len(cls.get("census_collisions") or []),
-                      "rows_matching_label_directly": sum(1 for r in sup if cls.get("potency_classification") in r.elements_effective),
+                      "classification_status": cls.get("classification_status"),
+                      "shared_element_bloodlines": len(cls.get("shared_element_bloodlines") or []),
+                      "authored_classification_jutsu": cls.get("kit_jutsu_by_authored_classification") or [],
+                      "rows_matching_label_directly": sum(1 for r in sup if any(q in r.elements_effective for q in qual)),
                       "rows_none_fallback": sum(1 for r in sup if r.elements_effective == ["None"]),
                       "supported_rows": len(sup),
                       "tags_only_on_gated_rows": gated_tags, "tags_with_hidden_rows": hidden_tags,
@@ -178,7 +195,7 @@ def md(d):
         for r in rows:
             o.append("| " + " | ".join(str(c(r)) for c in cols) + " |")
         return o
-    bon = lambda b: ", ".join(f"{L.TAG_ABBR[k]} +{v}" for k, v in b["bonuses"].items())
+    bon = lambda b: ", ".join(L.mod_text(k, v, abbr=True) for k, v in b["bonuses"].items())
     out.append("## 1. Strongest found combinations\n")
     out.append("Row-weighted total = Σ (addition × supported rows of that tag). It favours kits with many rows; per-row intensity divides by the kit's supported rows.\n")
     out.append("**By row-weighted total**\n")
@@ -218,15 +235,25 @@ def md(d):
                        ["Bloodline", "Rows", "Base stack %", "Tree max addition", "Stack at max %", "Jutsu"])
         out.append("\nStack figures assume every row is active together; cooldowns, AP and the cast-round rule (no buff or debuff acts in its own cast round) usually prevent that.\n")
     out.append(f"Percentage rows pushed past the 100 cap by any legal build: {len(d['percentage_rows_over_100'])}.\n")
+    out.append("## 3b. Ceilings and route bands (RUL-2026-10-03-005)\n")
+    out.append("Maximum per tag over every legal prerequisite-closed allocation. Hard ceilings: Damage +5, Lifesteal +5%, Afterburn +15%; every other tag +10% unless a director-review exception is recorded. Routes are scored by each Advanced Art's first modifier tag summed along its path; preferred totals are +5/+10/+15.\n")
+    out += tbl(d["ceilings"], [lambda x: x["bloodline"] + (" (reference)" if x["reference"] else ""),
+                               lambda x: ", ".join(L.mod_text(k, v, abbr=True) for k, v in x["maximum"].items()),
+                               lambda x: ", ".join(x["over_ceiling"]) or "—",
+                               lambda x: "; ".join(f"{r['name']} {L.mod_text(r['primary_tag'], r['total'], abbr=True)}" + ("" if r["on_band"] else " (off band)") for r in x["routes"]),
+                               lambda x: ", ".join(f"{L.TAG_ABBR.get(z.get('tag'), z.get('tag'))} ≤ +{z.get('max')}%" for z in x["director_exceptions"]) or "—"],
+               ["Bloodline", "Maximum over legal allocations", "Over ceiling", "Routes", "Director-review exceptions"])
+    out.append("")
     out.append("## 5. Delivery, scope and classification\n")
-    out += tbl(d["delivery_and_scope"], [lambda x: x["bloodline"], lambda x: x["rank"], lambda x: f"{x['label']} ({(x['label_kind'] or '').replace('bloodline-keyed extension', 'ext')})",
-                                         lambda x: x["census_collisions"], lambda x: f"{x['rows_matching_label_directly']}/{x['supported_rows']} ({x['rows_none_fallback']} None)",
+    out += tbl(d["delivery_and_scope"], [lambda x: x["bloodline"], lambda x: x["rank"], lambda x: f"{x['label']} ({L.short_kind(x['label_kind'])})",
+                                         lambda x: x["shared_element_bloodlines"], lambda x: ", ".join(x["authored_classification_jutsu"]) or "—",
+                                         lambda x: f"{x['rows_matching_label_directly']}/{x['supported_rows']} ({x['rows_none_fallback']} None)",
                                          lambda x: ", ".join(x["tags_only_on_gated_rows"]) or "—", lambda x: ", ".join(x["mode_restricted"]) or "—",
                                          lambda x: "; ".join(x["injected_children"]) or "—", lambda x: ", ".join(x["universal_nodes"]) or "—",
                                          lambda x: len(x["ally_hazard_rows"]), lambda x: len(x["enemy_hazard_rows"]), lambda x: ", ".join(x["adverse_rows"]) or "—",
                                          lambda x: ", ".join(x["repeated_rows_on_one_jutsu"]) or "—"],
-               ["Bloodline", "Rank", "Label", "Census collisions", "Rows matching label now", "Tags only on gated rows", "Mode-restricted", "Injected children", "Universal node", "Ally-hazard rows", "Enemy-hazard rows", "Adverse rows", "Repeated rows"])
-    out.append("\n`Rows matching label now` shows how much of each kit the current resolver would reach with `affectedElements=[label]`; the remainder needs the proposed whole-kit classification (ENGINE_GAP_REGISTER G1–G2). Broad basic-element leakage is avoided only if the classification is bloodline-scoped.\n")
+               ["Bloodline", "Rank", "Classification", "Bloodlines sharing the element", "Kit jutsu needing authored classification", "Kit rows matching the element now", "Tags only on gated rows", "Mode-restricted", "Injected children", "Universal node", "Ally-hazard rows", "Enemy-hazard rows", "Adverse rows", "Repeated rows"])
+    out.append("\nPotency is element-wide (RUL-2026-10-03-005): every jutsu of the qualifying element qualifies, so sharing an element with other bloodlines is expected, not a collision. `Kit rows matching the element now` shows how much of each kit the current row-element resolver would reach; the rest needs the proposed jutsu-classification resolver (ENGINE_GAP_REGISTER G1–G2), and kit jutsu whose own rows carry no qualifying element additionally need an authored jutsu classification. Off-kit coverage (NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the element) is unverified. Item gates decide castability only.\n")
     out.append("## 6. Inherited strength versus Bloodright additions\n")
     out.append("Inherited strength is the kit as captured (rank, rows, baseline values at jutsu level 25). The added column is the strongest legal build's row-weighted addition; the share compares it with the kit's summed baselines. Ranks and native kits were not equal beforehand; Bloodright equalises marginal opportunity, not final strength.\n")
     out += tbl(d["inherited_vs_added"], [lambda x: x["bloodline"], lambda x: x["rank"], lambda x: x["jutsu"], lambda x: x["supported_rows"], lambda x: f"{x['damage_rows']} / {x['damage_base_sum']}",
@@ -237,7 +264,7 @@ def md(d):
     out.append("- **Bloodline passives:** the passive IDG (fromType bloodline) multiplies the running damage after jutsu-sourced additions, so a Damage-power addition is worth more on kits whose passive covers that element. Passives are not potency targets.")
     out.append("- **Cast-round rule:** no buff or debuff acts in its own cast round (tags.ts handler gates), so a jutsu's own IDG/IDT/Afterburn row never boosts its own hit; realized value depends on sequencing across rounds.")
     out.append("- **Ranked modes:** skill-tree and bloodline effects are skipped in RANKED_PVP and RANKED_SPARRING, so Bloodright is inert there (OPEN_DECISIONS D6).")
-    out.append("- **Equipment:** item-gated jutsu need their item; keystones are exclusive per battle, weapons may not be (ENGINE_GAP_REGISTER G7).")
+    out.append("- **Equipment:** item-gated jutsu need their item to be cast; the item is never a potency selector. Keystones are exclusive per battle, weapons may not be (ENGINE_GAP_REGISTER G7).")
     rl = d.get("review_log") or {}
     if rl:
         out.append("\n## 8. Review state\n")

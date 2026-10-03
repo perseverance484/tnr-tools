@@ -4,8 +4,8 @@
 Usage:
   python3 scripts/bloodright/balance_matrix.py [--check]
 
-Reads every normalized tree under docs/design/bloodright/trees/ plus the
-Taiyo Kami reference, recomputes allocation audits with the shared library and
+Reads every normalized tree under docs/design/bloodright/trees/ (Taiyo Kami
+is the reference row), recomputes allocation audits with the shared library and
 writes balance_matrix.json and BALANCE_MATRIX.md. Structural and arithmetic
 comparison only; no combat simulation.
 """
@@ -20,8 +20,8 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bloodright_lib as L  # noqa: E402
 
-TREES_DIR = os.path.join(L.DESIGN_DIR, "trees")
-REFERENCE_TREE = os.path.join(L.DESIGN_DIR, "examples", "taiyo_kami.json")
+TREES_DIR = L.TREES_DIR
+REFERENCE_TREE = L.REFERENCE_TREE
 OUT_JSON = os.path.join(L.DESIGN_DIR, "balance_matrix.json")
 OUT_MD = os.path.join(L.DESIGN_DIR, "BALANCE_MATRIX.md")
 
@@ -71,7 +71,10 @@ def tree_entry(path: str, snapshot: dict, roster: dict, is_reference: bool) -> d
         "adverse_supported_rows": sum(1 for r in sup if r.adverse),
         "classification": cls.get("potency_classification"),
         "label_kind": cls.get("label_kind"),
-        "census_collisions": len(cls.get("census_collisions", []) or []),
+        "classification_status": cls.get("classification_status"),
+        "routes": [{"name": r["name"], "primary_tag": r["primary_tag"], "total": r["total"], "on_band": r["total"] in L.ROUTE_BANDS}
+                   for r in L.route_totals(by_id)] if not errors else [],
+        "director_exceptions": tree.get("director_exceptions") or [],
         "emphasis": {k: em.get(k) for k in ("primary", "secondary", "tertiary")},
         "nodes": len(nodes),
         "tiers": {"F": sum(1 for n in nodes if n.category == "Foundation"),
@@ -103,7 +106,7 @@ def build_matrix() -> dict:
     roster = L.load_roster()
     entries = [tree_entry(REFERENCE_TREE, snapshot, roster, True)]
     for p in sorted(glob.glob(os.path.join(TREES_DIR, "*.json"))):
-        if p.endswith(".validation.json"):
+        if p.endswith(".validation.json") or os.path.abspath(p) == os.path.abspath(REFERENCE_TREE):
             continue
         entries.append(tree_entry(p, snapshot, roster, False))
     approved = set(roster["approved_remaining_ids"])
@@ -125,7 +128,7 @@ def build_matrix() -> dict:
                    "by the number of supported kit rows it reaches. Both are structural/arithmetic measures, not combat "
                    "strength. Inherited kit strength (rank, row count, baseline values) is listed separately from the "
                    "Bloodright additions."),
-        "reference": "Taiyo Kami (docs/design/bloodright/examples/taiyo_kami.json)",
+        "reference": "Taiyo Kami (docs/design/bloodright/trees/taiyo_kami.json; approved values, regenerated)",
         "game_source_pin": L.GAME_SOURCE_PIN,
         "approved_remaining": len(approved),
         "trees_present": len(entries) - 1,
@@ -146,7 +149,7 @@ def md_matrix(m: dict) -> str:
     for e in m["entries"]:
         tag = " (reference)" if e["reference"] else ""
         out.append(f"| {e['name']}{tag} | {e['rank']} | {e['jutsu_in_kit']} | {e['supported_rows']} | {e['adverse_supported_rows']} | "
-                   f"{e['classification']} ({(e['label_kind'] or '').replace('bloodline-keyed extension','ext')}) | "
+                   f"{e['classification']} ({L.short_kind(e['label_kind'])}) | "
                    f"{e['tiers']['F']}/{e['tiers']['H']}/{e['tiers']['A']} | {e['full_budget_allocations']} | {e['non_dominated_full_allocations']} | "
                    f"{e['maximum_advanced_arts']} | {e['minimum_two_advanced_cost']} | {e['maximum_depth']} | {len(e['structure_errors'])} |")
     out.append("\n## Added strength (Bloodright only)\n")
@@ -155,9 +158,9 @@ def md_matrix(m: dict) -> str:
     for e in m["entries"]:
         em = e["emphasis"]
         emtxt = " / ".join(str(em.get(k) or "—") for k in ("primary", "secondary", "tertiary"))
-        mx = ", ".join(f"{L.TAG_ABBR[k]} +{v}" for k, v in (e["maximum_tag_bonuses"] or {}).items())
+        mx = ", ".join(L.mod_text(k, v, abbr=True) for k, v in (e["maximum_tag_bonuses"] or {}).items())
         sb = e["strongest_full_build"]
-        sbt = (", ".join(sb["names"]) + " (" + ", ".join(f"{L.TAG_ABBR[k]} +{v}" for k, v in sb["bonuses"].items() if v) + ")") if sb else "—"
+        sbt = (", ".join(sb["names"]) + " (" + ", ".join(L.mod_text(k, v, abbr=True) for k, v in sb["bonuses"].items() if v) + ")") if sb else "—"
         lw = e["lowest_value_node"]
         lwt = f"{lw['name']} ({lw['row_weighted_total']})" if lw else "—"
         out.append(f"| {e['name']} | {emtxt} | {mx} | {e['max_full_build_raw_flat_total']} | {e['vs_reference']['max_raw_flat_total_delta']:+d} | "
@@ -166,7 +169,7 @@ def md_matrix(m: dict) -> str:
     out.append("| Bloodline | Build | Purchases | Raw total | Row-weighted | Bonuses |\n|---|---|---|---:|---:|---|")
     for e in m["entries"]:
         for ex in e["examples"]:
-            bon = ", ".join(f"{L.TAG_ABBR[k]} +{v}" for k, v in ex["bonuses"].items())
+            bon = ", ".join(L.mod_text(k, v, abbr=True) for k, v in ex["bonuses"].items())
             out.append(f"| {e['name']} | {ex['name']} ({ex['archetype']}) | {', '.join(ex['ids'])} | {ex['raw_flat_total']} | {ex['row_weighted_total']} | {bon} |")
     out.append("\n## Coverage gaps and exceptions\n")
     for e in m["entries"]:
@@ -179,8 +182,13 @@ def md_matrix(m: dict) -> str:
             bits.append("narrow-kit exception: " + e["narrow_kit_exception"])
         if e["adverse_supported_rows"]:
             bits.append(f"{e['adverse_supported_rows']} adverse supported row(s) in kit")
-        if e["census_collisions"]:
-            bits.append(f"classification label shared with {e['census_collisions']} other census bloodline(s)")
+        if e["label_kind"] != "element":
+            bits.append(f"classification: {e['classification_status']}")
+        off = [r for r in e["routes"] if not r["on_band"]]
+        if off:
+            bits.append("routes off the 5/10/15 bands: " + ", ".join(f"{r['name']} {L.mod_text(r['primary_tag'], r['total'], abbr=True)}" for r in off))
+        if e["director_exceptions"]:
+            bits.append("director-review exceptions: " + ", ".join(f"{L.TAG_ABBR.get(x.get('tag'), x.get('tag'))} up to +{x.get('max')}%" for x in e["director_exceptions"]))
         if bits:
             out.append(f"- **{e['name']}:** " + "; ".join(bits))
     # outliers by per-row intensity

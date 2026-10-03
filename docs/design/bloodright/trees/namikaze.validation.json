@@ -15,15 +15,23 @@
     "ally-hazard area rows amplified (friendly fire none/ALL): Tempest Shroud#2"
   ],
   "classification": {
-    "potency_classification": "Namikaze",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Namikaze",
+    "potency_classification": "Wind",
+    "label_kind": "element",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Wind"
+    ],
     "display_element": "Wind",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Namikaze jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Wind jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [],
+    "shared_element_bloodlines": [
       "Aerathiel",
       "Architect of the Hollow Script",
       "Blissoo",
@@ -52,7 +60,11 @@
       "True North",
       "Youso Shiroi",
       "Yūhi Ryūjin (夕陽竜神)"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {

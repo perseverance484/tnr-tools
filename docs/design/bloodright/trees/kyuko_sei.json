@@ -12,16 +12,30 @@
   "classification": {
     "potency_classification": "Dust",
     "label_kind": "element",
-    "bloodline": "Kyuko-sei",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Dust"
+    ],
     "display_element": "Dust",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Kyuko-sei jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Dust jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Abysmal End"
+    ],
+    "shared_element_bloodlines": [
       "Aerathiel",
       "Nejireru Funjin"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Damage (Dust attacks on all four strikes)",
@@ -52,7 +66,7 @@
       "coverage_note": "Abysmal End and Singularity self amplify (35→37%); Temporal Erosion and Abysmal End exposure (35→37%). 4 rows, 2 rounds each.",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
-      "scope": "Kyuko-sei jutsu",
+      "scope": "all Dust jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -63,7 +77,8 @@
         "effect_rows": 4,
         "ally_hazard_rows": [
           "Abysmal End#0"
-        ]
+        ],
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -85,7 +100,7 @@
       "coverage_note": "Temporal Erosion, Singularity and Resonance 40→42, Ethereal Particle Storm 50→52 Dust power. 4 rows, all 60 AP, cooldown 7.",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
-      "scope": "Kyuko-sei jutsu",
+      "scope": "all Dust jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -116,7 +131,7 @@
       "coverage_note": "The same four Dust damage rows; with Shattered Firmament the route adds +5 power (Particle Storm 55, the other three 45).",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
-      "scope": "Kyuko-sei jutsu",
+      "scope": "all Dust jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -147,7 +162,7 @@
       "coverage_note": "Temporal Erosion (single) and Abysmal End (area) exposure, 2 rounds: 35→40% with Weight of Eons; both can sit on one target.",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
-      "scope": "Kyuko-sei jutsu",
+      "scope": "all Dust jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -157,7 +172,8 @@
         "effect_rows": 2,
         "ally_hazard_rows": [
           "Abysmal End#0"
-        ]
+        ],
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -184,7 +200,7 @@
       "coverage_note": "Both exposure rows +2 (route total +7: 42% each, 84% stacked on one target) and both self amplify rows +3 (route total +5: 40%).",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
-      "scope": "Kyuko-sei jutsu",
+      "scope": "all Dust jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -195,7 +211,8 @@
         "effect_rows": 4,
         "ally_hazard_rows": [
           "Abysmal End#0"
-        ]
+        ],
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -220,7 +237,7 @@
       "coverage_note": "Temporal Erosion self guard (30→32%) and Ethereal Particle Storm suppression (30→32%). 2 single-target rows, 60 AP, 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
-      "scope": "Kyuko-sei jutsu",
+      "scope": "all Dust jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -249,7 +266,7 @@
       "coverage_note": "Temporal Erosion Decrease Damage Taken only (single self row, 2 rounds per 60 AP cast): 35% with Hush of the Void.",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
-      "scope": "Kyuko-sei jutsu",
+      "scope": "all Dust jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -282,7 +299,7 @@
       "coverage_note": "Temporal Erosion guard reaches 40% (route total +10); Abysmal End and Singularity amplify +3 (38%, 40% with Weight of Eons).",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
-      "scope": "Kyuko-sei jutsu",
+      "scope": "all Dust jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -290,7 +307,8 @@
           "Singularity",
           "Temporal Erosion"
         ],
-        "effect_rows": 3
+        "effect_rows": 3,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -312,7 +330,7 @@
       "coverage_note": "Ethereal Particle Storm Decrease Damage Given only (single-target, 60 AP, 2 rounds): 35% with Hush of the Void.",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
-      "scope": "Kyuko-sei jutsu",
+      "scope": "all Dust jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -345,7 +363,7 @@
       "coverage_note": "Particle Storm suppression 40% (route total +10); Temporal Erosion and Abysmal End exposure +2 (37%, 39% with Weight of Eons).",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
-      "scope": "Kyuko-sei jutsu",
+      "scope": "all Dust jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -356,7 +374,8 @@
         "effect_rows": 3,
         "ally_hazard_rows": [
           "Abysmal End#0"
-        ]
+        ],
+        "rows_via_authored_classification": 1
       }
     }
   ],
@@ -1412,15 +1431,114 @@
     "revision": "Draft 1 / Dust classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Kyuko-sei jutsu inherit Dust potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Dust jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 10
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Heat Death",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Collapse of Ages",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            3,
+            2
+          ],
+          "total": 7,
+          "on_band": false
+        },
+        {
+          "advanced_art": "08",
+          "name": "Outlasting Eternity",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "All Returns to Dust",
+          "primary_tag": "decreasedamagegiven",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {

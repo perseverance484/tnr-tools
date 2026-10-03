@@ -12,13 +12,27 @@
   "classification": {
     "potency_classification": "Metal",
     "label_kind": "element",
-    "bloodline": "Tetsugan",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Metal"
+    ],
     "display_element": "Metal",
-    "element_exclusive_within_census": true,
-    "applies_to": "existing supported tags of every Tetsugan jutsu",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Metal jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Middle Guard Stance"
+    ],
+    "shared_element_bloodlines": [],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
     "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": []
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Damage (seven Metal weapon strikes, +5 ceiling)",
@@ -49,7 +63,7 @@
       "coverage_note": "Middle Guard Stance and Inner Peace buffs 35→37% (IDG 3 rows, DDT 2 rows); Pivoting Fortress guard 30→32%. 6 rows; IP and PF gated.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
-      "scope": "Tetsugan jutsu",
+      "scope": "all Metal jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -58,7 +72,8 @@
           "Pivoting Fortress"
         ],
         "effect_rows": 6,
-        "item_gated_rows": 4
+        "item_gated_rows": 4,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -80,7 +95,7 @@
       "coverage_note": "Decrease Damage Taken only: Middle Guard Stance and Inner Peace 35→39% with Tempered Stance, Pivoting Fortress 30→34%. 3 self rows.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
-      "scope": "Tetsugan jutsu",
+      "scope": "all Metal jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -89,7 +104,8 @@
           "Pivoting Fortress"
         ],
         "effect_rows": 3,
-        "item_gated_rows": 2
+        "item_gated_rows": 2,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -116,7 +132,7 @@
       "coverage_note": "Route totals: Decrease Damage Taken +6 (Fortress 36%, Stance and Inner Peace 41%); Increase Damage Given +5 (Stance and both IP rows 40%).",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
-      "scope": "Tetsugan jutsu",
+      "scope": "all Metal jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -125,7 +141,8 @@
           "Pivoting Fortress"
         ],
         "effect_rows": 6,
-        "item_gated_rows": 4
+        "item_gated_rows": 4,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -147,7 +164,7 @@
       "coverage_note": "Harmonious Slash Reflect only (one self row, 40→43%, 2 rounds per 60 AP sword strike; gated). Returned damage caps at 60% of each hit.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
-      "scope": "Tetsugan jutsu",
+      "scope": "all Metal jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -181,7 +198,7 @@
       "coverage_note": "Harmonious Slash Reflect 48% on the route; Decrease Damage Given +3 on Tranquil Guard Flowing Form (gated) and Vacuum Fan (ally hazard).",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
-      "scope": "Tetsugan jutsu",
+      "scope": "all Metal jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -218,7 +235,7 @@
       "coverage_note": "Exposure 35→37%: Phantom Slash (gated), Equilibrium Strike (gated; ally hazard), Vacuum Fan. Suppression +2: Tranquil Guard (gated), Fan.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
-      "scope": "Tetsugan jutsu",
+      "scope": "all Metal jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -254,7 +271,7 @@
       "coverage_note": "All seven Metal damage rows 40/45/50 → 42/47/52: Tranquil Guard, Resonance Ward, Fortress, Phantom, Crimson, Equilibrium, Harmonious.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
-      "scope": "Tetsugan jutsu",
+      "scope": "all Metal jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -292,7 +309,7 @@
       "coverage_note": "Same seven Metal rows; route adds +5 (Phantom Slash 50→55, Equilibrium Strike and Harmonious Slash 45→50, the other four 40→45). All gated.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
-      "scope": "Tetsugan jutsu",
+      "scope": "all Metal jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -330,7 +347,7 @@
       "coverage_note": "Crimson Thrust Afterburn only (dagger-gated ground circle, range 5, CD 6, enemies only, 2 rounds): 35→38%; fed by every non-pierce hit.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
-      "scope": "Tetsugan jutsu",
+      "scope": "all Metal jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -364,7 +381,7 @@
       "coverage_note": "Crimson Thrust (dagger-gated) Afterburn 45% on route, 60% hit cap; exposure 40%: Phantom (gated), Equilibrium (gated; ally hazard), Fan.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
-      "scope": "Tetsugan jutsu",
+      "scope": "all Metal jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -2599,15 +2616,118 @@
     "revision": "Draft 3 / Metal classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Tetsugan jutsu inherit Metal potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Metal jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 6,
+        "afterburn": 10,
+        "reflect": 8
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10,
+        "afterburn": 15,
+        "reflect": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Hammer and Anvil",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            2,
+            2,
+            2
+          ],
+          "total": 6,
+          "on_band": false
+        },
+        {
+          "advanced_art": "05",
+          "name": "Every Blow Returned",
+          "primary_tag": "reflect",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            0,
+            3,
+            5
+          ],
+          "total": 8,
+          "on_band": false
+        },
+        {
+          "advanced_art": "08",
+          "name": "One Cut Decides",
+          "primary_tag": "damage",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Branding Iron",
+          "primary_tag": "afterburn",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            0,
+            3,
+            7
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {

@@ -12,13 +12,27 @@
   "classification": {
     "potency_classification": "Sand",
     "label_kind": "element",
-    "bloodline": "Sands of Time",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Sand"
+    ],
     "display_element": "Sand",
-    "element_exclusive_within_census": true,
-    "applies_to": "existing supported tags of every Sands of Time jutsu",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Sand jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Cellular Regeneration"
+    ],
+    "shared_element_bloodlines": [],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
     "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": []
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Control — Increase Damage Taken (Timeshift, Momentum Shift; two enemy rows) and Decrease Damage Given (Timelapse circle)",
@@ -49,7 +63,7 @@
       "coverage_note": "IDT 35→37% on Timeshift (four stat types) and Momentum Shift (Earth/None/Sand/Wind); IDG 35→37% on Momentum Shift's self row. 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
-      "scope": "Sands of Time jutsu",
+      "scope": "all Sand jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -78,7 +92,7 @@
       "coverage_note": "Sand damage on Timeshift 40→42 and Eternity Flux 50→52 (single target) and Timelapse 40→42 (circle, ally hazard); 60 AP, CD 7.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
-      "scope": "Sands of Time jutsu",
+      "scope": "all Sand jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -111,7 +125,7 @@
       "coverage_note": "Same three Sand damage rows; route total +5 (Timeshift 45, Eternity Flux 55, Timelapse 45). Stun and timecompression unchanged.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
-      "scope": "Sands of Time jutsu",
+      "scope": "all Sand jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -144,7 +158,7 @@
       "coverage_note": "Timeshift and Momentum Shift IDT 37→39% with Borrowed Hours (enemy, 2 rounds after the cast); allies' hits on that target gain too.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
-      "scope": "Sands of Time jutsu",
+      "scope": "all Sand jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -178,7 +192,7 @@
       "coverage_note": "IDT route total +7: Timeshift and Momentum Shift 35→42%; IDG 35→40% on Momentum Shift's self row with Borrowed Hours. Pierce excluded.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
-      "scope": "Sands of Time jutsu",
+      "scope": "all Sand jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -210,14 +224,15 @@
       "coverage_note": "Timelapse self DDT 30→32% (four stat types, no element, 2 rounds); Cellular Regeneration heal 25→27 power = 270 HP per tick, 2 ticks.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
-      "scope": "Sands of Time jutsu",
+      "scope": "all Sand jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Cellular Regeneration",
           "Timelapse"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -239,7 +254,7 @@
       "coverage_note": "Timelapse DDT only: 32→35% with Suspended Moment. Self-targeted row, so it lands on the caster wherever the circle is placed.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
-      "scope": "Sands of Time jutsu",
+      "scope": "all Sand jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -272,14 +287,15 @@
       "coverage_note": "Timelapse DDT route total +10 (30→40%); Cellular Regeneration heal route total +5 (25→30 power = 300 HP per tick, 600 per cast).",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
-      "scope": "Sands of Time jutsu",
+      "scope": "all Sand jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Cellular Regeneration",
           "Timelapse"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -301,7 +317,7 @@
       "coverage_note": "Timelapse DDG only (enemies inside the circle, four stat types, no element, 2 rounds): 30→33%. 60 AP, range 4, CD 7.",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
-      "scope": "Sands of Time jutsu",
+      "scope": "all Sand jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -334,7 +350,7 @@
       "coverage_note": "Timelapse DDG route total +8 (30→38%) on every enemy in the circle; DDT +2 (34% with Suspended Moment, 37% with Held in Stasis).",
       "parent_rule": "ALL",
       "potency_classification": "Sand",
-      "scope": "Sands of Time jutsu",
+      "scope": "all Sand jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -1402,15 +1418,116 @@
     "revision": "Draft 3 / Sand classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Sands of Time jutsu inherit Sand potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Sand jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 8,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 10,
+        "heal": 5
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "decreasedamagetaken": 10,
+        "heal": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Erosion of Eternity",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "The Inevitable Hour",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            2,
+            3
+          ],
+          "total": 7,
+          "on_band": false
+        },
+        {
+          "advanced_art": "08",
+          "name": "Timeless Bastion",
+          "primary_tag": "decreasedamagetaken",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Stilled Hourglass",
+          "primary_tag": "decreasedamagegiven",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            0,
+            3,
+            5
+          ],
+          "total": 8,
+          "on_band": false
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {

@@ -1,29 +1,29 @@
 {
   "kind": "bloodright_tree_validation",
-  "slug": "teno_yuki",
+  "slug": "taiyo_kami",
   "bloodline": {
-    "id": "clh4d6qjs000gtb0hr357gjvv",
-    "review_id": "BR-077",
-    "name": "Teno Yuki",
+    "id": "6C2t3jK35hvPoVocLiHEl",
+    "review_id": "BR-075",
+    "name": "Taiyo Kami",
     "rank": "A",
-    "statClassification": "Genjutsu",
-    "traits": "Control, Defensive"
+    "statClassification": "Highest",
+    "traits": "Burst"
   },
-  "revision": "Draft 2 / Ice classification / forked tree",
+  "revision": "approved reference (handoff v4 values) regenerated under RUL-2026-10-03-005",
   "structure_errors": [],
   "warnings": [
-    "ally-hazard area rows amplified (friendly fire none/ALL): Ice Palace#0, Ice Palace#1"
+    "ally-hazard area rows amplified (friendly fire none/ALL): Solar Reverb#0, Stellar Inferno#1"
   ],
   "classification": {
-    "potency_classification": "Ice",
+    "potency_classification": "Scorch",
     "label_kind": "element",
     "classification_status": "element",
     "qualifying_elements": [
-      "Ice"
+      "Scorch"
     ],
-    "display_element": "Ice",
+    "display_element": "Scorch",
     "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
-    "applies_to": "matching supported tags on all Ice jutsu",
+    "applies_to": "matching supported tags on all Scorch jutsu",
     "not_selectors": [
       "bloodline id or bloodline ownership",
       "equipment / required bloodline item (castability gate only)",
@@ -31,16 +31,10 @@
       "jutsu names (examples only)"
     ],
     "kit_jutsu_by_authored_classification": [
-      "Cryostorm Aegis"
+      "Radiant Embers"
     ],
     "shared_element_bloodlines": [
-      "Blue Blade Eyes",
-      "Blue Edge Eyes",
-      "First Flame",
-      "Hyouga Yui",
-      "Itzehecayan",
-      "The Abbynomaly",
-      "True North"
+      "Shakunetsu Sakura"
     ],
     "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
     "changes_combat_elements": false,
@@ -49,7 +43,7 @@
   },
   "examples": [
     {
-      "name": "Reign of Absolute Zero Burst",
+      "name": "Solar Cataclysm",
       "archetype": "Burst",
       "ids": [
         "01",
@@ -66,12 +60,12 @@
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
-        "Reign of Absolute Zero"
+        "Solar Cataclysm"
       ]
     },
     {
-      "name": "Court of Splintered Ice Exposure",
-      "archetype": "Exposure",
+      "name": "Eternal Noon",
+      "archetype": "Burn pressure",
       "ids": [
         "01",
         "04",
@@ -82,53 +76,51 @@
       "bonuses": {
         "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 10,
-        "decreasedamagetaken": 2
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10
       },
       "advanced_arts": [
-        "Court of Splintered Ice"
+        "Eternal Noon"
       ]
     },
     {
-      "name": "Still Heart of Winter Bulwark",
-      "archetype": "Bulwark",
+      "name": "Sovereign Sun",
+      "archetype": "Fortified offense",
       "ids": [
+        "01",
         "06",
         "07",
-        "08",
-        "01"
+        "08"
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 10,
-        "heal": 3
+        "decreasedamagetaken": 10
       },
       "advanced_arts": [
-        "Still Heart of Winter"
+        "Sovereign Sun"
       ]
     },
     {
-      "name": "Silence of Falling Snow Suppression",
+      "name": "Dying Light",
       "archetype": "Suppression",
       "ids": [
         "06",
+        "07",
         "09",
-        "10",
-        "01"
+        "10"
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 2,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "heal": 2
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 5
       },
       "advanced_arts": [
-        "Silence of Falling Snow"
+        "Dying Light"
       ]
     }
   ],
@@ -158,24 +150,24 @@
       "damage": 5,
       "increasedamagegiven": 5,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 10,
+      "increasedamagetaken": 7,
       "decreasedamagetaken": 10,
-      "heal": 3
+      "afterburn": 10
     },
-    "supported_rows_in_kit": 8,
+    "supported_rows_in_kit": 9,
     "supported_rows_by_tag": {
+      "afterburn": 1,
       "damage": 3,
       "decreasedamagegiven": 1,
       "decreasedamagetaken": 1,
-      "heal": 1,
-      "increasedamagegiven": 1,
+      "increasedamagegiven": 2,
       "increasedamagetaken": 1
     },
     "tags_targeted_by_tree": [
+      "afterburn",
       "damage",
       "decreasedamagegiven",
       "decreasedamagetaken",
-      "heal",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
@@ -183,30 +175,30 @@
     "node_values": [
       {
         "id": "01",
-        "name": "First Snow of Heaven",
+        "name": "Dawnheart",
         "category": "Foundation",
         "depth": 1,
         "raw_flat_total": 4,
-        "row_weighted_total": 4,
+        "row_weighted_total": 6,
         "covered_jutsu": [
-          "Frostbound Ascendancy",
-          "Ice Palace"
+          "Celestial Ignition",
+          "Stellar Inferno"
         ],
-        "covered_rows": 2,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
       {
         "id": "02",
-        "name": "Killing Frost",
+        "name": "Crown of Cinders",
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 2,
         "row_weighted_total": 6,
         "covered_jutsu": [
-          "Ice Coffin",
-          "Ice Palace",
-          "Imperial Freeze"
+          "Incandescent Nova",
+          "Solar Reverb",
+          "Stellar Inferno"
         ],
         "covered_rows": 3,
         "adverse_rows_amplified": [],
@@ -214,15 +206,15 @@
       },
       {
         "id": "03",
-        "name": "Reign of Absolute Zero",
+        "name": "Solar Cataclysm",
         "category": "Advanced Art",
         "depth": 3,
         "raw_flat_total": 3,
         "row_weighted_total": 9,
         "covered_jutsu": [
-          "Ice Coffin",
-          "Ice Palace",
-          "Imperial Freeze"
+          "Incandescent Nova",
+          "Solar Reverb",
+          "Stellar Inferno"
         ],
         "covered_rows": 3,
         "adverse_rows_amplified": [],
@@ -230,13 +222,13 @@
       },
       {
         "id": "04",
-        "name": "Hairline Fracture",
+        "name": "Emberwake",
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 3,
         "row_weighted_total": 3,
         "covered_jutsu": [
-          "Ice Palace"
+          "Solar Reverb"
         ],
         "covered_rows": 1,
         "adverse_rows_amplified": [],
@@ -244,29 +236,30 @@
       },
       {
         "id": "05",
-        "name": "Court of Splintered Ice",
+        "name": "Eternal Noon",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 8,
+        "raw_flat_total": 13,
+        "row_weighted_total": 16,
         "covered_jutsu": [
-          "Frostbound Ascendancy",
-          "Ice Palace"
+          "Celestial Ignition",
+          "Solar Reverb",
+          "Stellar Inferno"
         ],
-        "covered_rows": 2,
+        "covered_rows": 4,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
       {
         "id": "06",
-        "name": "Vigil of Winter",
+        "name": "Sunward Oath",
         "category": "Foundation",
         "depth": 1,
         "raw_flat_total": 4,
         "row_weighted_total": 4,
         "covered_jutsu": [
-          "Cryostorm Aegis",
-          "Ice Coffin"
+          "Celestial Ignition",
+          "Radiant Embers"
         ],
         "covered_rows": 2,
         "adverse_rows_amplified": [],
@@ -274,13 +267,13 @@
       },
       {
         "id": "07",
-        "name": "Permafrost Mantle",
+        "name": "Golden Mantle",
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 3,
         "row_weighted_total": 3,
         "covered_jutsu": [
-          "Cryostorm Aegis"
+          "Celestial Ignition"
         ],
         "covered_rows": 1,
         "adverse_rows_amplified": [],
@@ -288,27 +281,27 @@
       },
       {
         "id": "08",
-        "name": "Still Heart of Winter",
+        "name": "Sovereign Sun",
         "category": "Advanced Art",
         "depth": 3,
         "raw_flat_total": 8,
-        "row_weighted_total": 8,
+        "row_weighted_total": 11,
         "covered_jutsu": [
-          "Cryostorm Aegis"
+          "Celestial Ignition"
         ],
-        "covered_rows": 2,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
       {
         "id": "09",
-        "name": "Cold Saps the Will",
+        "name": "Ashen Verdict",
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 3,
         "row_weighted_total": 3,
         "covered_jutsu": [
-          "Ice Coffin"
+          "Radiant Embers"
         ],
         "covered_rows": 1,
         "adverse_rows_amplified": [],
@@ -316,14 +309,14 @@
       },
       {
         "id": "10",
-        "name": "Silence of Falling Snow",
+        "name": "Dying Light",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 7,
+        "raw_flat_total": 10,
+        "row_weighted_total": 10,
         "covered_jutsu": [
-          "Cryostorm Aegis",
-          "Ice Coffin"
+          "Radiant Embers",
+          "Stellar Inferno"
         ],
         "covered_rows": 2,
         "adverse_rows_amplified": [],
@@ -334,32 +327,31 @@
       "ids": [
         "01",
         "02",
-        "03",
-        "06"
+        "04",
+        "05"
       ],
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
-        "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "afterburn": 10
       },
-      "raw_flat_total": 13,
-      "row_weighted_total": 23,
+      "raw_flat_total": 22,
+      "row_weighted_total": 31,
       "advanced_arts": [
-        "03"
+        "05"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
       "id": "04",
-      "name": "Hairline Fracture",
+      "name": "Emberwake",
       "category": "Hidden Art",
       "depth": 2,
       "raw_flat_total": 3,
       "row_weighted_total": 3,
       "covered_jutsu": [
-        "Ice Palace"
+        "Solar Reverb"
       ],
       "covered_rows": 1,
       "adverse_rows_amplified": [],
@@ -376,10 +368,11 @@
         "bonuses": {
           "damage": 5,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 5
+          "increasedamagetaken": 2,
+          "afterburn": 3
         },
         "raw_flat_total": 12,
-        "row_weighted_total": 22,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "03"
         ],
@@ -400,7 +393,7 @@
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 23,
+        "row_weighted_total": 25,
         "advanced_arts": [
           "03"
         ],
@@ -416,10 +409,11 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 10
+          "increasedamagetaken": 5,
+          "afterburn": 10
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 21,
+        "raw_flat_total": 22,
+        "row_weighted_total": 31,
         "advanced_arts": [
           "05"
         ],
@@ -436,11 +430,12 @@
           "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 5,
-          "decreasedamagetaken": 2
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "afterburn": 3
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 17,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -459,7 +454,7 @@
           "decreasedamagetaken": 5
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 17,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -478,7 +473,7 @@
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 17,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -492,11 +487,12 @@
         "bonuses": {
           "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 10,
-          "decreasedamagetaken": 2
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 2,
+          "afterburn": 10
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 19,
+        "raw_flat_total": 24,
+        "row_weighted_total": 29,
         "advanced_arts": [
           "05"
         ],
@@ -512,11 +508,12 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 5,
-          "decreasedamagetaken": 5
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5,
+          "afterburn": 3
         },
         "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "row_weighted_total": 16,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -530,11 +527,12 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
-          "increasedamagetaken": 5,
-          "decreasedamagetaken": 2
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "afterburn": 3
         },
         "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "row_weighted_total": 16,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -546,14 +544,13 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 10,
-          "heal": 3
+          "decreasedamagetaken": 10
         },
         "raw_flat_total": 19,
-        "row_weighted_total": 19,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "08"
         ],
@@ -573,7 +570,7 @@
           "decreasedamagetaken": 5
         },
         "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "row_weighted_total": 16,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -587,12 +584,11 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 10,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "heal": 2
+          "increasedamagetaken": 7,
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "raw_flat_total": 21,
+        "row_weighted_total": 23,
         "advanced_arts": [
           "10"
         ],
@@ -606,12 +602,12 @@
           "09"
         ],
         "bonuses": {
+          "increasedamagegiven": 3,
           "decreasedamagegiven": 5,
-          "decreasedamagetaken": 10,
-          "heal": 3
+          "decreasedamagetaken": 10
         },
         "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "08"
         ],
@@ -626,11 +622,11 @@
         ],
         "bonuses": {
           "decreasedamagegiven": 10,
-          "decreasedamagetaken": 5,
-          "heal": 2
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
+        "raw_flat_total": 20,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "10"
         ],
