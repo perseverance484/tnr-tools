@@ -1,6 +1,6 @@
 {
   "title": "Shinseina Ki — Sacred Heartwood",
-  "revision": "Draft 3 / Wood classification / forked tree",
+  "revision": "Draft 4 / Wood classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "bloodline": {
     "id": "vA8I_7iBNgvkuKOpnG1yD",
     "review_id": "BR-066",
@@ -12,21 +12,35 @@
   "classification": {
     "potency_classification": "Wood",
     "label_kind": "element",
-    "bloodline": "Shinseina Ki",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Wood"
+    ],
     "display_element": "Wood",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Shinseina Ki jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Wood jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Wood Style: Wood Warrior Summon"
+    ],
+    "shared_element_bloodlines": [
       "Nature's Blessing"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Wood damage — Exploding Wood Serpent, Guardian's Grove, Eternal Forest (three formula rows, +6 ceiling)",
-    "secondary": "Increase Damage Given — Forest Wisdom's two self rows on one 40 AP cast (+7 ceiling)",
-    "tertiary": "Increase Damage Taken — Guardian's Grove's area exposure (one row, +10 ceiling)",
-    "rationale": "Shinseina Ki is a rank-A Burst kit whose six supported rows split 3/2/1: three Wood formula damage rows (Exploding Wood Serpent 40, Guardian's Grove 40, Eternal Forest 50 at jutsu level 25; all 60 AP, cooldown 7), two 35% self Increase Damage Given rows that both ride the single 40 AP Forest Wisdom cast and are live together for the two rounds after it, and one 35% Increase Damage Taken row on Guardian's Grove's circle. Raw Wood power is the primary route because it is the kit's own output and its Burst trait; the doubled Forest Wisdom buff is the secondary route because every point lands twice and also lifts normal jutsu, weapons and basic attacks; Grove's exposure is the tertiary route because it is the kit's only enemy debuff and amplifies allies' hits as well. Recoil, poison, wound, summon and visual rows are unsupported, and Wood Warrior Summon (PVP only) carries no supported row."
+    "primary": "Wood damage — Exploding Wood Serpent, Guardian's Grove, Eternal Forest (three formula rows, +5 Damage route)",
+    "secondary": "Increase Damage Given — Forest Wisdom's two self rows on one 40 AP cast (+10% route)",
+    "tertiary": "Increase Damage Taken — Guardian's Grove's area exposure (one row, +10% route)",
+    "rationale": "Shinseina Ki is a rank-A Burst kit whose six supported rows split 3/2/1: three Wood formula damage rows (Exploding Wood Serpent 40, Guardian's Grove 40, Eternal Forest 50 EP at jutsu level 25; all 60 AP, cooldown 7), two 35% self Increase Damage Given rows that both ride the single 40 AP Forest Wisdom cast and are live together for the two rounds after it, and one 35% Increase Damage Taken row on Guardian's Grove's circle. Wood Damage is the primary route because it is the kit's own output and its Burst trait; the doubled Forest Wisdom buff is the secondary route because every point lands twice and also lifts normal jutsu, weapons and basic attacks; Grove's exposure is the tertiary route because it is the kit's only enemy debuff and amplifies allies' hits as well. Recoil, poison, wound, summon and visual rows are unsupported, and Wood Warrior Summon (PVP only) carries no supported row. Potency reaches matching supported tags on all Wood jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -37,33 +51,22 @@
       "parents": [],
       "modifiers": [
         {
-          "tag": "damage",
-          "flat": 1,
-          "display_role": "DAMAGE"
-        },
-        {
           "tag": "increasedamagegiven",
           "flat": 2,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "From one blessed seed the whole forest follows, and every branch remembers it.",
-      "coverage_note": "Serpent and Grove 40→41, Eternal Forest 50→51 power; Forest Wisdom IDG rows 0 and 1 35→37% (self, 2 rounds). 5 of 6 rows.",
+      "coverage_note": "Forest Wisdom Increase Damage Given rows 0 and 1 35 → 37% (self, 2 rounds, one 40 AP cast).",
       "parent_rule": "ALL",
       "potency_classification": "Wood",
-      "scope": "Shinseina Ki jutsu",
+      "scope": "all Wood jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
-          "Eternal Forest",
-          "Exploding Wood Serpent",
-          "Forest Wisdom",
-          "Guardian's Grove"
+          "Forest Wisdom"
         ],
-        "effect_rows": 5,
-        "ally_hazard_rows": [
-          "Guardian's Grove#1"
-        ]
+        "effect_rows": 2
       }
     },
     {
@@ -82,10 +85,10 @@
         }
       ],
       "flavor": "Heartwood does not splinter. It bites, and what it bites it holds.",
-      "coverage_note": "All three Wood damage rows: Serpent 40→43, Grove 40→43, Eternal Forest 50→53 with Hallowed Seed. Grove's circle also hits allies in it.",
+      "coverage_note": "All three Wood Damage rows: Serpent and Grove 40 → 42, Eternal Forest 50 → 52 EP. Grove's circle also hits allies in it.",
       "parent_rule": "ALL",
       "potency_classification": "Wood",
-      "scope": "Shinseina Ki jutsu",
+      "scope": "all Wood jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -115,10 +118,10 @@
         }
       ],
       "flavor": "Trunks close like jaws, and the field is forest again before the scream ends.",
-      "coverage_note": "Route total +6: Serpent 40→46, Grove 40→46, Eternal Forest 50→56 power; three Wood formula hits, 60 AP each, cooldown 7.",
+      "coverage_note": "Burst: Serpent and Grove 40 → 45, Eternal Forest 50 → 55 EP on the full route (+5 Damage); three Wood formula hits, 60 AP each, cooldown 7.",
       "parent_rule": "ALL",
       "potency_classification": "Wood",
-      "scope": "Shinseina Ki jutsu",
+      "scope": "all Wood jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -143,15 +146,15 @@
       "modifiers": [
         {
           "tag": "increasedamagegiven",
-          "flat": 2,
+          "flat": 3,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "Age is not years but rings; the sage reads them and strikes where the grain runs.",
-      "coverage_note": "Forest Wisdom rows 0 and 1 35→39% with Hallowed Seed (self, 2 rounds, one 40 AP cast); both rows are active together. 2 rows.",
+      "coverage_note": "Forest Wisdom rows 0 and 1 35 → 40% with Hallowed Seed (self, 2 rounds, one 40 AP cast); both rows are active together.",
       "parent_rule": "ALL",
       "potency_classification": "Wood",
-      "scope": "Shinseina Ki jutsu",
+      "scope": "all Wood jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -171,15 +174,15 @@
       "modifiers": [
         {
           "tag": "increasedamagegiven",
-          "flat": 3,
+          "flat": 5,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "The sacred tree opens its eyes, and its will moves through every limb at once.",
-      "coverage_note": "Route +7: Forest Wisdom rows 35→42% (self, next 2 rounds): +14 on kit and element-less hits; other Wood/Earth/Water +7 if not highest stat.",
+      "coverage_note": "Amplification: both Forest Wisdom rows 35 → 45% on the full route (+10%): they compound to ×1.45 × 1.45 ≈ ×2.10 (×1.82 at base) on kit and element-less hits; other Wood/Earth/Water hits get row 1's ×1.45 alone if not the highest stat.",
       "parent_rule": "ALL",
       "potency_classification": "Wood",
-      "scope": "Shinseina Ki jutsu",
+      "scope": "all Wood jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -202,10 +205,10 @@
         }
       ],
       "flavor": "Roots find the ankle first. After that, everything else finds the mark.",
-      "coverage_note": "Guardian's Grove exposure 35→37% (enemy debuff, 2 rounds, enemies in the circle, range 4, 60 AP, cooldown 7). 1 row.",
+      "coverage_note": "Guardian's Grove exposure 35 → 37% (enemies in the circle, 2 rounds; range 4, 60 AP, cooldown 7).",
       "parent_rule": "ALL",
       "potency_classification": "Wood",
-      "scope": "Shinseina Ki jutsu",
+      "scope": "all Wood jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -230,10 +233,10 @@
         }
       ],
       "flavor": "Held fast in living timber, the prey can only watch the canopy lean in.",
-      "coverage_note": "Grove exposure 35→40% with Grasping Roots, live 2 rounds after the cast; all stat types, no element: every non-pierce hit counts. 1 row.",
+      "coverage_note": "Grove exposure 35 → 40% with Grasping Roots, live 2 rounds after the cast; all stat types, no element: every non-pierce hit counts.",
       "parent_rule": "ALL",
       "potency_classification": "Wood",
-      "scope": "Shinseina Ki jutsu",
+      "scope": "all Wood jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -263,10 +266,10 @@
         }
       ],
       "flavor": "The grove has deliberated long enough. Its sentence arrives from every side.",
-      "coverage_note": "Grove exposure reaches 45% with the route; +1 power on Serpent, Grove and Eternal Forest (42/42/52 with Hallowed Seed).",
+      "coverage_note": "Exposure: Grove 35 → 45% Increase Damage Taken on the full route (+10%); +1 Damage on Serpent, Grove and Eternal Forest (41 / 41 / 51 EP).",
       "parent_rule": "ALL",
       "potency_classification": "Wood",
-      "scope": "Shinseina Ki jutsu",
+      "scope": "all Wood jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -291,11 +294,11 @@
         "03",
         "04"
       ],
-      "rationale": "The full Wood route puts +6 raw power on every kit hit: Exploding Wood Serpent and Guardian's Grove 40→46, Eternal Forest 50→56 at jutsu level 25. A Forest Wisdom cast in an earlier round (39% on both rows with Rooted in Wisdom) adds its share of the staged base to the hits of the next two rounds, and the bloodline's Wood/Earth/Water IDG passive multiplies the result. Rooted in Wisdom is the fourth purchase because +2% on two always-together buff rows lifts every own hit; Grasping Roots (Grove exposure 37%) is the team-play alternative, worth more only when allies hit the enemies caught in the circle.",
+      "rationale": "The full Wood route puts +5 Damage on every kit hit: Exploding Wood Serpent and Guardian's Grove 40 → 45, Eternal Forest 50 → 55 EP at jutsu level 25. A Forest Wisdom cast in an earlier round (40% on both rows with Rooted in Wisdom) multiplies the hits of the next two rounds (×1.40 × 1.40 ≈ ×1.96 on hits both rows match), and the bloodline's Wood/Earth/Water passive multiplies the result. Rooted in Wisdom is the fourth purchase because +3% on two always-together buff rows lifts every own hit; Grasping Roots (Grove exposure 37%) is the team-play alternative, worth more only when allies hit the enemies caught in the circle.",
       "cost": 4,
       "bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 4
+        "damage": 5,
+        "increasedamagegiven": 5
       },
       "finals": [
         {
@@ -310,8 +313,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 6,
-          "final": 46.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -364,8 +367,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 6,
-          "final": 46.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -400,8 +403,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 4,
-          "final": 39.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -421,8 +424,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 4,
-          "final": 39.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -493,8 +496,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 6,
-          "final": 56.0,
+          "gain": 5,
+          "final": 55.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -531,11 +534,11 @@
         "04",
         "05"
       ],
-      "rationale": "The +7 route takes both Forest Wisdom rows from 35% to 42% for the two rounds after the 40 AP cast: +14 points over base on the kit's Wood hits and on every element-less hit (basic attacks, weapons, non-elemental jutsu); other Wood, Earth or Water hits get +14 with the caster's highest stat, else +7 from row 1 only. At most one 60 AP kit hit lands per round. Fangs of Heartwood is the fourth purchase (hits 43/43/53) so the buffed window has more to amplify; Grasping Roots (Grove exposure 37%) is the team-play alternative, which assumes allies hit the exposed enemies.",
+      "rationale": "The +10% route takes both Forest Wisdom rows from 35% to 45% for the two rounds after the 40 AP cast: the two rows compound to ×1.45 × 1.45 ≈ ×2.10 (×1.82 at base) on the kit's Wood hits and on every element-less hit (basic attacks, weapons, non-elemental jutsu); other Wood, Earth or Water hits get ×2.10 with the caster's highest stat, else ×1.45 from row 1 only. At most one 60 AP kit hit lands per round. Fangs of Heartwood is the fourth purchase (hits 42 / 42 / 52 EP) so the buffed window has more to amplify; Grasping Roots (Grove exposure 37%) is the team-play alternative, which assumes allies hit the exposed enemies.",
       "cost": 4,
       "bonuses": {
-        "damage": 3,
-        "increasedamagegiven": 7
+        "damage": 2,
+        "increasedamagegiven": 10
       },
       "finals": [
         {
@@ -550,8 +553,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 3,
-          "final": 43.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -604,8 +607,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 3,
-          "final": 43.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -638,193 +641,6 @@
           ],
           "recipient": "self",
           "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Forest Wisdom",
-          "row": 1,
-          "tag": "increasedamagegiven",
-          "label": "Increase Damage Given",
-          "combat_elements": [
-            "Earth",
-            "None",
-            "Water",
-            "Wood"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Forest Wisdom",
-          "row": 2,
-          "tag": "visual",
-          "label": "visual",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF DEBUFF",
-          "adverse": true,
-          "base": 1.0,
-          "gain": 0,
-          "final": 1.0,
-          "calculation": "static",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Wood Style: Wood Warrior Summon",
-          "row": 0,
-          "tag": "summon",
-          "label": "summon",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY BUFF",
-          "adverse": true,
-          "base": 70.0,
-          "gain": 0,
-          "final": 70.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Wood Style: Wood Warrior Summon",
-          "row": 1,
-          "tag": "visual",
-          "label": "visual",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF DEBUFF",
-          "adverse": true,
-          "base": 1.0,
-          "gain": 0,
-          "final": 1.0,
-          "calculation": "static",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Eternal Forest",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Wood"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 50.0,
-          "gain": 3,
-          "final": 53.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Eternal Forest",
-          "row": 1,
-          "tag": "wound",
-          "label": "wound",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 25.0,
-          "gain": 0,
-          "final": 25.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        }
-      ],
-      "advanced_arts": [
-        "Heartwood Awakened"
-      ]
-    },
-    {
-      "name": "Judgement of the Grove",
-      "archetype": "Exposure",
-      "ids": [
-        "01",
-        "06",
-        "07",
-        "08"
-      ],
-      "rationale": "The exposure route takes Guardian's Grove's area Increase Damage Taken from 35% to 45% for the two rounds after the cast (Grove's own hit is not amplified), so every non-pierce hit the caught enemies take then, Serpent or Eternal Forest from the caster or any ally's hit, gains ten more points of the staged base; the capstone's +1 power with Hallowed Seed puts the three Wood hits at 42/42/52 and Forest Wisdom at 37% on both rows. Hallowed Seed, the universal node, is the only prerequisite-closed fourth purchase (see the narrow-kit exception).",
-      "cost": 4,
-      "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 10
-      },
-      "finals": [
-        {
-          "jutsu": "Exploding Wood Serpent",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Wood"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 2,
-          "final": 42.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Exploding Wood Serpent",
-          "row": 1,
-          "tag": "recoil",
-          "label": "recoil",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Guardian's Grove",
-          "row": 0,
-          "tag": "increasedamagetaken",
-          "label": "Increase Damage Taken",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
           "gain": 10,
@@ -834,60 +650,6 @@
           "capped_at_100": false
         },
         {
-          "jutsu": "Guardian's Grove",
-          "row": 1,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Wood"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 2,
-          "final": 42.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Guardian's Grove",
-          "row": 2,
-          "tag": "poison",
-          "label": "poison",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 50.0,
-          "gain": 0,
-          "final": 50.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Forest Wisdom",
-          "row": 0,
-          "tag": "increasedamagegiven",
-          "label": "Increase Damage Given",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
           "jutsu": "Forest Wisdom",
           "row": 1,
           "tag": "increasedamagegiven",
@@ -902,8 +664,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1000,26 +762,265 @@
         }
       ],
       "advanced_arts": [
+        "Heartwood Awakened"
+      ]
+    },
+    {
+      "name": "Judgement of the Grove",
+      "archetype": "Exposure",
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "rationale": "The exposure route takes Guardian's Grove's area Increase Damage Taken from 35% to 45% for the two rounds after the cast (Grove's own hit is not amplified), so every non-pierce hit the caught enemies take then, Serpent or Eternal Forest from the caster or any ally's hit, is multiplied by ×1.45 instead of ×1.35; the capstone's +1 Damage puts the three Wood hits at 41 / 41 / 51 EP and Hallowed Seed puts Forest Wisdom at 37% on both rows. Hallowed Seed, the universal node, is the only prerequisite-closed fourth purchase (see the narrow-kit exception).",
+      "cost": 4,
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 10
+      },
+      "finals": [
+        {
+          "jutsu": "Exploding Wood Serpent",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wood"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 1,
+          "final": 41.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Exploding Wood Serpent",
+          "row": 1,
+          "tag": "recoil",
+          "label": "recoil",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Guardian's Grove",
+          "row": 0,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Guardian's Grove",
+          "row": 1,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wood"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 1,
+          "final": 41.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Guardian's Grove",
+          "row": 2,
+          "tag": "poison",
+          "label": "poison",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Forest Wisdom",
+          "row": 0,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Forest Wisdom",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Earth",
+            "None",
+            "Water",
+            "Wood"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Forest Wisdom",
+          "row": 2,
+          "tag": "visual",
+          "label": "visual",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF DEBUFF",
+          "adverse": true,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wood Style: Wood Warrior Summon",
+          "row": 0,
+          "tag": "summon",
+          "label": "summon",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY BUFF",
+          "adverse": true,
+          "base": 70.0,
+          "gain": 0,
+          "final": 70.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Wood Style: Wood Warrior Summon",
+          "row": 1,
+          "tag": "visual",
+          "label": "visual",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF DEBUFF",
+          "adverse": true,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Forest",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Wood"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 1,
+          "final": 51.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Forest",
+          "row": 1,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
         "Judgement of the Grove"
       ]
     }
   ],
-  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on six rows (Damage x3, Increase Damage Given x2, Increase Damage Taken x1), so it supports exactly three routes: Hallowed Seed forks into a Wood damage route (+6) and a Forest Wisdom route (+7 on two always-together self rows); Grasping Roots → Rootbound Prey → Judgement of the Grove is a single chain on the only enemy debuff. Hallowed Seed is therefore a universal node (all 8 legal full builds). A leaf Hidden Art under Grasping Roots, to give that root a 4-BP closure without it, would be filler: every candidate was run through the validator. Damage +1, IDG +2 or Damage +1/IDG +1 leave 06,07,08,09 dominated by 01,06,07,08; Damage +2 is a twin of Fangs of Heartwood (01,06,07,09 = 01,02,06,07; 01,04,06,09 = 01,02,04,06) and its 01,02,06,09 is dominated by 01,02,03,06; Damage +3 or IDG +3 opens a second path to the Damage +6 or IDG +7 maximum; any IDT leaf breaks the +10 guardrail; Damage +2/IDG +1 or Damage +1/IDG +2 out-bid Fangs of Heartwood's hybrids (01,02,04,06 and 01,02,06,07 or 01,04,06,07 become dominated). The layout is kept: Burst and Amplification each have two fourth-purchase choices, the exposure route has one, and three distinct complete builds exist, one per Advanced Art.",
+  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on six rows (Damage x3, Increase Damage Given x2, Increase Damage Taken x1), so it supports exactly three routes: Hallowed Seed forks into a Wood Damage route (+5) and a Forest Wisdom route (+10% on two always-together self rows); Grasping Roots → Rootbound Prey → Judgement of the Grove is a single chain on the only enemy debuff. Hallowed Seed is therefore a universal node (all 8 legal full builds). A Hidden Art leaf under Grasping Roots, to give that root a 4-BP closure without it, would be filler; every single-tag candidate was checked against the legal builds: any Increase Damage Taken leaf breaks the +10% ceiling; an Increase Damage Given leaf at +1% leaves 06, 07, 08 plus the leaf dominated, at +2% twins 01, 06, 07, 08, at +3% or +4% twins or dominates Rooted in Wisdom's hybrids, and at +5% twins Heartwood Awakened's build 01, 04, 05, 06; a Damage leaf at +1 serves only 06, 07, 08 plus the leaf (its three hybrids are dominated), at +2 twins Fangs of Heartwood's hybrids, at +3 twins 01, 02, 03, 06 and at +4 or more exceeds +5 Damage. The layout is kept: Burst and Amplification each have two fourth-purchase choices, the exposure route has one, and three distinct complete builds exist, one per Advanced Art.",
   "design_notes": [
-    "Node split: 2 Foundations, 3 Hidden Arts, 3 Advanced Arts. Hallowed Seed (Damage +1 on three rows, IDG +2 on both Forest Wisdom rows; 5 of 6 rows) forks into Fangs of Heartwood → The Forest Devours (Damage +2/+3) and Rooted in Wisdom → Heartwood Awakened (IDG +2/+3). Grasping Roots → Rootbound Prey → Judgement of the Grove (IDT +2/+3/+5, Damage +1 on the capstone) is the enemy-facing chain. Every Advanced Art is 3 BP deep; any two cost 5 or 6 BP, so a build holds at most one.",
-    "Reference reuse: the Damage chain copies Taiyo Kami's Crown of Cinders → Solar Cataclysm (+2/+3) and the IDT chain its Sunward Oath → Golden Mantle → Sovereign Sun +2/+3/+5 ladder, fitting three formula hits and one exposure row. Departures: Hallowed Seed adds Damage +1 (route +6, one above Taiyo's +5; user-owned: 60 AP hits on cooldown 7, one per round); the IDG chain is single-tag (+7 on two always-together rows); Judgement's secondary is Damage +1 (IDG +2 would dominate 01,04,06,07).",
-    "Interactions (SOURCE_MECHANICS §3/§3b): Forest Wisdom row 0 (no element, Highest filter) matches the kit's Wood hits, every element-less hit of any stat (basic attacks, weapons, normal jutsu) and any elemental hit of the caster's highest stat; row 1 (Earth/None/Water/Wood) matches those elements and None. Each row adds power/100 × the staged base and same-tag rows all apply, so both IDG rows and Grove's exposure add (35+35+35% at base); only the bloodline IDG passive (25+0.15/level) multiplies.",
+    "Node split: 2 Foundations, 3 Hidden Arts, 3 Advanced Arts. Hallowed Seed (+2% Increase Damage Given on both Forest Wisdom rows) forks into Fangs of Heartwood → The Forest Devours (+2 / +3 Damage) and Rooted in Wisdom → Heartwood Awakened (+3% / +5% Increase Damage Given). Grasping Roots → Rootbound Prey → Judgement of the Grove (+2% / +3% / +5% Increase Damage Taken, +1 Damage on the capstone) is the enemy-facing chain. Every Advanced Art is 3 BP deep; any two cost 5 or 6 BP, so a build holds at most one.",
+    "Recalibration under RUL-2026-10-03-005: Hallowed Seed's +1 Damage was removed, so the Damage route is the default +5 (Fangs of Heartwood +2, The Forest Devours +3) and no allocation exceeds +5 Damage (Judgement of the Grove's +1 cannot join the full Damage route). The Forest Wisdom route moves from +7% to the +10% band (Hallowed Seed +2%, Rooted in Wisdom +3%, Heartwood Awakened +5%); the exposure chain keeps its +2% / +3% / +5% ladder to +10%.",
+    "Interactions (SOURCE_MECHANICS §3/§3b): Forest Wisdom row 0 (no element, Highest filter) matches the kit's Wood hits, every element-less hit of any stat (basic attacks, weapons, normal jutsu) and any elemental hit of the caster's highest stat; row 1 (Earth/None/Water/Wood) matches those elements and None. Each matching row multiplies the hit by 1 + power/100 and same-tag rows all apply, so both Increase Damage Given rows and Grove's exposure compound (×1.35³ ≈ ×2.46 at base); the bloodline passive (25+0.15/level) multiplies last (SOURCE_MECHANICS §3b).",
     "Delivery and timing: every jutsu has cooldown 7, and buff/debuff rows act only in the two rounds after their cast round (§3b). Forest Wisdom is a 40 AP SELF cast realized on the caster; it lifts hits in the next two rounds, never a hit in its own round. Serpent and Eternal Forest are 60 AP single-target hits at range 4. Guardian's Grove is a 60 AP radius-1 circle on an OTHER_USER target at range 4, applied once to each non-caster in it; its exposure never amplifies its own damage row.",
-    "Fourth purchases: Burst (01,02,03) finishes with Rooted in Wisdom (buffs 39%; advertised, solo-strongest) or Grasping Roots (exposure 37%; team play); Amplification (01,04,05) with Fangs of Heartwood (hits 43/43/53; advertised) or Grasping Roots; Exposure (01,06,07,08) only with Hallowed Seed. No-capstone hybrids: 01,02,04,06 (43/43/53, 39%, 37%), 01,02,06,07 (43/43/53, 37%, 40%), 01,04,06,07 (41/41/51, 39%, 40%). 8 legal full allocations, all non-dominated, every node in one.",
-    "Values held for user decision (OPEN_DECISIONS D8); strongest build 01,02,03,04 is 26 row-weighted on six rows (4.33/row; Taiyo Kami 3.44). Trim levers, not re-validated: Damage +6 → The Forest Devours +2 (route +5). IDG +7 on two always-together rows realizes +14 per cast over a multiplying passive (Taiyo two-row +5) → Heartwood Awakened +2 (route +6). IDT +10 on one area row also amplifies allies' hits (Taiyo single-target +7) → Judgement of the Grove +3 (route +8)."
+    "Fourth purchases: Burst (01, 02, 03) finishes with Rooted in Wisdom (buffs 40%; solo-strongest) or Grasping Roots (exposure 37%; team play); Amplification (01, 04, 05) with Fangs of Heartwood (hits 42 / 42 / 52 EP) or Grasping Roots; Exposure (01, 06, 07, 08) only with Hallowed Seed. No-capstone hybrids: 01, 02, 04, 06 (42 / 42 / 52 EP, buffs 40%, exposure 37%), 01, 02, 06, 07 (42 / 42 / 52 EP, buffs 37%, exposure 40%), 01, 04, 06, 07 (buffs 40%, exposure 40%). 8 legal full allocations, all non-dominated, every node in one."
   ],
   "risks": [
-    "Classification: Wood is not exclusive in the census (Nature's Blessing is an INCLUDE kit with two Wood damage rows), and whether any NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu carries Wood is unverified. The tree assumes a bloodline-scoped whole-kit classification; a bare element match would leak the Damage nodes to Nature's Blessing and vice versa.",
-    "Resolver: 2 of the 6 supported rows (Forest Wisdom row 0 and Grove's exposure) have no element and fall back to None under the current resolver, so they are unreachable with affectedElements=['Wood'] without the proposed classification change; reaching them through None would also reach every element-less row on any jutsu the player casts.",
-    "Ally hazard: Guardian's Grove row 1 (Wood damage, AOE_CIRCLE_SPAWN, OTHER_USER) has friendly fire absent (= ALL) and the poison row explicit ALL, so allies in the circle take both; the ENEMIES exposure row skips them and the caster is never a target. Hallowed Seed, Fangs of Heartwood, The Forest Devours and Judgement of the Grove raise it (up to 46); positioning, not the node, decides.",
-    "Ceilings pending user acceptance (design note 6): Heartwood Awakened puts both Forest Wisdom rows at 42%, +14 over base on the kit's Wood hits and every element-less hit for two rounds, over the multiplying IDG passive (BATTLE_TAG_STACKING on at the pin). Judgement of the Grove makes Grove's area exposure 45% for two rounds and amplifies allies' non-pierce hits as well as the caster's.",
-    "Universal opener: every legal full build contains Hallowed Seed because the exposure chain has no other prerequisite-closed fourth purchase. Every leaf candidate under Grasping Roots was validated and rejected as dominated, a Fangs of Heartwood twin, a second path to a maximum or a guardrail breach (narrow-kit exception), so the brief's preference for no mandatory opener is not met.",
-    "Damage is formula-calculated (sqrt stat scaling), then Forest Wisdom and Grove's exposure add their percentages of the staged base and the bloodline's IDG passive multiplies, so +6 raw power is not linear +6 damage; realized value depends on stats. Serpent's recoil 40% and Eternal Forest's wound 25% are unsupported and unchanged. No combat simulation was performed.",
+    "Classification: Wood is the single qualifying element; sharing it with Nature's Blessing is expected (RUL-2026-10-03-005). 4 of 6 kit rows carry Wood; Forest Wisdom row 0 and Grove's exposure are element-less and need the proposed jutsu-classification resolver. Wood Warrior Summon carries no Wood row, so it would qualify only through an authored jutsu classification (ENGINE_GAP_REGISTER G1), though it has no supported row. Off-kit Wood coverage (NORMAL/SPECIAL/EVENT/FORBIDDEN) is unverified.",
+    "Ally hazard: Guardian's Grove row 1 (Wood damage, AOE_CIRCLE_SPAWN, OTHER_USER) has friendly fire absent (= ALL) and the poison row explicit ALL, so allies in the circle take both; the ENEMIES exposure row skips them and the caster is never a target. Fangs of Heartwood, The Forest Devours and Judgement of the Grove raise it (up to 45 EP); positioning, not the node, decides.",
+    "Increase Damage Given stacking: Heartwood Awakened's route puts both Forest Wisdom rows at 45%, compounding to ×1.45 × 1.45 ≈ ×2.10 (×1.82 at base) on hits both rows match (the kit's Wood hits and every element-less hit) for two rounds, before the passive multiplies last (BATTLE_TAG_STACKING on at the pin). Judgement of the Grove makes Grove's area exposure 45% for two rounds and amplifies allies' non-pierce hits as well as the caster's. Not simulated.",
+    "Universal opener: every legal full build contains Hallowed Seed because the exposure chain has no other prerequisite-closed fourth purchase. Every single-tag leaf under Grasping Roots was checked and rejected as dominated, a twin, a sliver serving one build, or a ceiling breach (narrow-kit exception), so the brief's preference for no mandatory opener is not met.",
+    "Damage is formula-calculated (sqrt stat scaling), then Forest Wisdom and Grove's exposure multiply it in turn and the bloodline passive multiplies last, so +5 Damage is not a linear +5; realized value depends on stats. Serpent's recoil 40% and Eternal Forest's wound 25% are unsupported and unchanged. No combat simulation was performed.",
     "Ranked modes: skill-tree and bloodline effects are skipped in RANKED_PVP and RANKED_SPARRING at the pin, so no node applies there. Wood Warrior Summon is PVP-only and carries no supported row (summon and visual are not potency targets), so the kit's A-rank jutsu receives nothing from any node."
   ],
   "progression": {
@@ -1061,8 +1062,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
-      "increasedamagegiven": 7,
+      "damage": 5,
+      "increasedamagegiven": 10,
       "increasedamagetaken": 10
     },
     "supported_rows_in_kit": 6,
@@ -1077,18 +1078,96 @@
       "increasedamagetaken"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 3 / Wood classification / forked tree",
+    "revision": "Draft 4 / Wood classification / forked tree (RUL-2026-10-03-005 recalibration)",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Shinseina Ki jutsu inherit Wood potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Wood jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 10
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "The Forest Devours",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Heartwood Awakened",
+          "primary_tag": "increasedamagegiven",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "08",
+          "name": "Judgement of the Grove",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {
@@ -1099,8 +1178,8 @@
         "04"
       ],
       "bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 4
+        "damage": 5,
+        "increasedamagegiven": 5
       }
     },
     {
@@ -1111,7 +1190,7 @@
         "06"
       ],
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2
       }
@@ -1124,8 +1203,8 @@
         "05"
       ],
       "bonuses": {
-        "damage": 3,
-        "increasedamagegiven": 7
+        "damage": 2,
+        "increasedamagegiven": 10
       }
     },
     {
@@ -1136,8 +1215,8 @@
         "06"
       ],
       "bonuses": {
-        "damage": 3,
-        "increasedamagegiven": 4,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2
       }
     },
@@ -1149,7 +1228,7 @@
         "07"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2,
         "increasedamagetaken": 5
       }
@@ -1162,8 +1241,7 @@
         "06"
       ],
       "bonuses": {
-        "damage": 1,
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 10,
         "increasedamagetaken": 2
       }
     },
@@ -1175,8 +1253,7 @@
         "07"
       ],
       "bonuses": {
-        "damage": 1,
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 5
       }
     },
@@ -1188,7 +1265,7 @@
         "08"
       ],
       "bonuses": {
-        "damage": 2,
+        "damage": 1,
         "increasedamagegiven": 2,
         "increasedamagetaken": 10
       }

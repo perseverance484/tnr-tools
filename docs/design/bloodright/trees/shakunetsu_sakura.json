@@ -1,6 +1,6 @@
 {
   "title": "Shakunetsu Sakura — Dragon of Falling Petals",
-  "revision": "Draft 1 / Scorch classification / forked tree",
+  "revision": "Draft 2 / Scorch classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "bloodline": {
     "id": "aa1lZukkHpz6ihmcxLaei",
     "review_id": "BR-064",
@@ -12,21 +12,35 @@
   "classification": {
     "potency_classification": "Scorch",
     "label_kind": "element",
-    "bloodline": "Shakunetsu Sakura",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Scorch"
+    ],
     "display_element": "Scorch",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Shakunetsu Sakura jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Scorch jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Yozakura: Sakura Dragon Pearl"
+    ],
+    "shared_element_bloodlines": [
       "Taiyo Kami"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
     "primary": "Scorch area damage on the Hiru-Sakura circles (Sakuragari, Sakura-ame)",
     "secondary": "Increase Damage Taken exposure (Sakuragari circle, Sakura Dragon Tree) and the Sakura Dragon Tree self Increase Damage Given",
     "tertiary": "Decrease Damage Given suppression (Sakura-ame) and Heal (Sakura Dragon Pearl)",
-    "rationale": "Seven supported rows on four of the five casts. The two A-rank Hiru-Sakura circles carry the only Damage rows (Sakuragari 40, Sakura-ame 50 Scorch power at jutsu level 25, one hit on every user inside the radius-1 area) and are the declared primary; the kit's Damage Over Time trait lives on Dancing Embers' unsupported wound. Increase Damage Taken is the broadest tag by reach (two 35% rows on the Sakuragari circle and the Sakura Dragon Tree, all four stat types and no element, so every non-pierce hit on the exposed target is amplified), and the D-rank 40 AP Sakura Dragon Tree also carries the kit's single 35% self Increase Damage Given (Fire, None, Scorch, Wind) on top of the bloodline's same-element passive, so those two share the secondary. Decrease Damage Given (Sakura-ame 30%, enemies only) and the Sakura Dragon Pearl's 25-power Heal (250 HP per tick) are single rows and take the lesser routes."
+    "rationale": "Seven supported rows on four of the five casts. The two A-rank Hiru-Sakura circles carry the only Damage rows (Sakuragari 40 and Sakura-ame 50 EP at jutsu level 25, one hit on every user inside the radius-1 area) and are the declared primary; the kit's Damage Over Time trait lives on Dancing Embers' unsupported wound. Increase Damage Taken is the broadest tag by reach (two 35% rows on the Sakuragari circle and the Sakura Dragon Tree, all four stat types and no element, so every non-pierce hit on the exposed target is amplified), and the D-rank 40 AP Sakura Dragon Tree also carries the kit's single 35% self Increase Damage Given (Fire, None, Scorch, Wind) on top of the bloodline's same-element passive, so those two share the secondary. Decrease Damage Given (Sakura-ame 30%, enemies only) and the Sakura Dragon Pearl's static 25 Heal (250 HP per tick) are single rows. Potency reaches matching supported tags on all Scorch jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -48,17 +62,18 @@
         }
       ],
       "flavor": "Night pearl and morning bough: the dragon stirs before the blossoms burn.",
-      "coverage_note": "Sakura Dragon Tree self damage buff 35→37% (2 rounds per 40 AP cast); Sakura Dragon Pearl Heal 25→27 power (270 HP per tick). 2 rows.",
+      "coverage_note": "Sakura Dragon Tree self damage buff 35 → 37% (2 rounds per 40 AP cast); Sakura Dragon Pearl Heal 25 → 27 (270 HP per tick).",
       "parent_rule": "ALL",
       "potency_classification": "Scorch",
-      "scope": "Shakunetsu Sakura jutsu",
+      "scope": "all Scorch jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Asazakura – Sakura Dragon Tree",
           "Yozakura: Sakura Dragon Pearl"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -77,10 +92,10 @@
         }
       ],
       "flavor": "Every branch of the dragon tree catches, and the heat carries into each strike.",
-      "coverage_note": "Sakura Dragon Tree self buff only (one row, 2 rounds): 37→40% with Ember Dragon's Roots; Scorch, Fire, Wind and element-less hits.",
+      "coverage_note": "Sakura Dragon Tree self buff only: 37 → 40% with Ember Dragon's Roots; Scorch, Fire, Wind and element-less hits.",
       "parent_rule": "ALL",
       "potency_classification": "Scorch",
-      "scope": "Shakunetsu Sakura jutsu",
+      "scope": "all Scorch jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -110,17 +125,18 @@
         }
       ],
       "flavor": "At the height of its bloom the dragon burns brightest and does not tire.",
-      "coverage_note": "Sakura Dragon Tree self buff 40→45% (the +10 route maximum); Sakura Dragon Pearl Heal 27→30 power (300 HP per tick, the +5 guardrail).",
+      "coverage_note": "Amplifier: Sakura Dragon Tree self buff 35 → 45% on the full route (+10%); Sakura Dragon Pearl Heal 25 → 30 with Ember Dragon's Roots (300 HP per tick).",
       "parent_rule": "ALL",
       "potency_classification": "Scorch",
-      "scope": "Shakunetsu Sakura jutsu",
+      "scope": "all Scorch jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Asazakura – Sakura Dragon Tree",
           "Yozakura: Sakura Dragon Pearl"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -139,10 +155,10 @@
         }
       ],
       "flavor": "Where a scorched petal lands, the mark stays and every blow finds it.",
-      "coverage_note": "Exposure on the Sakuragari circle (ally hazard) and Sakura Dragon Tree, 35→37% for 2 rounds; amplifies every non-pierce hit on the target.",
+      "coverage_note": "Exposure on the Sakuragari circle (ally hazard) and the Sakura Dragon Tree, 35 → 37% for 2 rounds; amplifies every non-pierce hit on the target.",
       "parent_rule": "ALL",
       "potency_classification": "Scorch",
-      "scope": "Shakunetsu Sakura jutsu",
+      "scope": "all Scorch jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -166,7 +182,7 @@
       "modifiers": [
         {
           "tag": "increasedamagetaken",
-          "flat": 4,
+          "flat": 3,
           "display_role": "ENEMY DEBUFF"
         },
         {
@@ -176,10 +192,10 @@
         }
       ],
       "flavor": "The blossom-viewing turns to a hunt, and the dragon watches it burn.",
-      "coverage_note": "Both exposure rows 37→41% (route +6; Sakuragari circle is an ally hazard); Sakura Dragon Tree self buff 37→39% with Ember Dragon's Roots.",
+      "coverage_note": "Both exposure rows 35 → 40% on the full route (+5%; Sakuragari circle is an ally hazard); Sakura Dragon Tree self buff 37 → 39% with Ember Dragon's Roots.",
       "parent_rule": "ALL",
       "potency_classification": "Scorch",
-      "scope": "Shakunetsu Sakura jutsu",
+      "scope": "all Scorch jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -200,32 +216,22 @@
       "parents": [],
       "modifiers": [
         {
-          "tag": "damage",
-          "flat": 1,
-          "display_role": "DAMAGE"
-        },
-        {
           "tag": "decreasedamagegiven",
           "flat": 2,
           "display_role": "ENEMY DEBUFF"
         }
       ],
       "flavor": "Petals drift down already alight, and whatever they settle on burns.",
-      "coverage_note": "Sakuragari and Sakura-ame Scorch area damage 40→41 / 50→51 (ally hazard); Sakura-ame Decrease Damage Given 30→32% (enemies only). 3 rows.",
+      "coverage_note": "Sakura-ame Decrease Damage Given 30 → 32% (enemies only, 2 rounds). No Damage here, so the Damage route stays at +5.",
       "parent_rule": "ALL",
       "potency_classification": "Scorch",
-      "scope": "Shakunetsu Sakura jutsu",
+      "scope": "all Scorch jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
-          "Hiru-Sakura: Sakura-ame",
-          "Hiru-Sakura: Sakuragari"
+          "Hiru-Sakura: Sakura-ame"
         ],
-        "effect_rows": 3,
-        "ally_hazard_rows": [
-          "Hiru-Sakura: Sakura-ame#0",
-          "Hiru-Sakura: Sakuragari#0"
-        ]
+        "effect_rows": 1
       }
     },
     {
@@ -244,10 +250,10 @@
         }
       ],
       "flavor": "The ground beneath the blossoms is a carpet of embers.",
-      "coverage_note": "Sakuragari and Sakura-ame Scorch area damage only (60 AP, range 4, cooldown 7): 41→43 / 51→53 with Falling Ember Petals. Ally hazard.",
+      "coverage_note": "Sakuragari and Sakura-ame Scorch area damage 40 → 42 / 50 → 52 EP (60 AP, range 4, cooldown 7). Ally hazard.",
       "parent_rule": "ALL",
       "potency_classification": "Scorch",
-      "scope": "Shakunetsu Sakura jutsu",
+      "scope": "all Scorch jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -277,10 +283,10 @@
         }
       ],
       "flavor": "The whole orchard goes up at once.",
-      "coverage_note": "The same two Scorch area damage rows; the route totals +6 power (Sakuragari 40→46, Sakura-ame 50→56), then the Scorch IDG passive applies.",
+      "coverage_note": "Burst: Sakuragari 40 → 45 and Sakura-ame 50 → 55 EP on the full route (+5 Damage), before the Scorch Increase Damage Given passive applies.",
       "parent_rule": "ALL",
       "potency_classification": "Scorch",
-      "scope": "Shakunetsu Sakura jutsu",
+      "scope": "all Scorch jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -310,10 +316,10 @@
         }
       ],
       "flavor": "Blossom rain thick enough to choke the breath from a strike.",
-      "coverage_note": "Sakura-ame Decrease Damage Given only (one row, 2 rounds, enemies inside the circle): 32→35% with Falling Ember Petals.",
+      "coverage_note": "Sakura-ame Decrease Damage Given only (2 rounds, enemies inside the circle): 32 → 35% with Falling Ember Petals.",
       "parent_rule": "ALL",
       "potency_classification": "Scorch",
-      "scope": "Shakunetsu Sakura jutsu",
+      "scope": "all Scorch jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -343,10 +349,10 @@
         }
       ],
       "flavor": "Under the burning rain nothing they throw lands whole, and the petals keep scalding.",
-      "coverage_note": "Sakura-ame suppression 35→40% (route +10); Sakuragari and Sakura-ame Scorch area damage +1 (44/54 with Burning Petal Carpet). Ally hazard.",
+      "coverage_note": "Suppression: Sakura-ame 30 → 40% Decrease Damage Given on the full route (+10%); Sakuragari and Sakura-ame area damage +1 (41 / 51 EP, or 43 / 53 with Burning Petal Carpet). Ally hazard.",
       "parent_rule": "ALL",
       "potency_classification": "Scorch",
-      "scope": "Shakunetsu Sakura jutsu",
+      "scope": "all Scorch jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -371,10 +377,10 @@
         "07",
         "08"
       ],
-      "rationale": "The +6 power route on both Scorch circles (Sakuragari 40→46, Sakura-ame 50→56 at jutsu level 25, one hit on every user inside the radius-1 area, before the bloodline's Scorch damage passive multiplies) with Sakura-ame's suppression at 32%. Ember Dragon's Roots is the fourth purchase so the Sakura Dragon Tree buff sits at 37% and the Pearl ticks 270 HP; Smothering Petal Rain (suppression 35%) is the all-control alternative.",
+      "rationale": "+5 Damage on both Scorch circles (Sakuragari 40 → 45, Sakura-ame 50 → 55 EP at jutsu level 25, one hit on every user inside the radius-1 area, before the bloodline's Scorch damage passive multiplies) with Sakura-ame's suppression at 32%. Ember Dragon's Roots is the fourth purchase so the Sakura Dragon Tree buff sits at 37% and the Pearl ticks 270 HP; Smothering Petal Rain (suppression 35%) is the all-control alternative.",
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "heal": 2
@@ -482,8 +488,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 6,
-          "final": 46.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -536,8 +542,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 6,
-          "final": 56.0,
+          "gain": 5,
+          "final": 55.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -631,13 +637,12 @@
         "05",
         "06"
       ],
-      "rationale": "Both Increase Damage Taken rows reach 41% for 2 rounds (Sakuragari circle on everyone inside it, Sakura Dragon Tree on one target), amplifying every non-pierce hit the exposed target takes from the kit, normal jutsu, weapons and allies; the Sakura Dragon Tree self buff is 39% and the Pearl ticks 270 HP. Falling Ember Petals is the fourth purchase (circles 41/51, suppression 32%); Kindled Boughs (self buff 42%) is the all-dragon alternative.",
+      "rationale": "Both Increase Damage Taken rows reach 40% for 2 rounds (Sakuragari circle on everyone inside it, Sakura Dragon Tree on one target; compounding to ×1.96 on a target caught by both), amplifying every non-pierce hit the exposed target takes from the kit, normal jutsu, weapons and allies; the Sakura Dragon Tree self buff is 39% and the Pearl ticks 270 HP. Falling Ember Petals is the fourth purchase (suppression 32%); Kindled Boughs (self buff 42%) is the all-dragon alternative.",
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 4,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 6,
+        "increasedamagetaken": 5,
         "heal": 2
       },
       "finals": [
@@ -743,8 +748,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 1,
-          "final": 41.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -761,8 +766,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 6,
-          "final": 41.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -797,8 +802,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 1,
-          "final": 51.0,
+          "gain": 0,
+          "final": 50.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -872,8 +877,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 6,
-          "final": 41.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -892,7 +897,7 @@
         "03",
         "04"
       ],
-      "rationale": "Sakura Dragon Tree as a two-round amplifier: its self Increase Damage Given reaches 45% and multiplies every Scorch, Fire, Wind or element-less hit landed in the window, including the circles, normal jutsu and basic attacks, with the Pearl at 300 HP per tick. Branded by Petals is the fourth purchase so both exposure rows sit at 37%; Falling Ember Petals (circles 41/51, suppression 32%) is the alternative.",
+      "rationale": "Sakura Dragon Tree as a two-round amplifier: its self Increase Damage Given reaches 45% and multiplies every Scorch, Fire, Wind or element-less hit landed in the window, including the circles, normal jutsu and basic attacks, with the Pearl at 300 HP per tick. Branded by Petals is the fourth purchase so both exposure rows sit at 37%; Falling Ember Petals (suppression 32%) is the alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 10,
@@ -1151,10 +1156,10 @@
         "09",
         "10"
       ],
-      "rationale": "Sakura-ame's Decrease Damage Given at the +10 route maximum (30→40% on every enemy inside the circle, 2 rounds) with a sliver of area damage on both circles. Burning Petal Carpet is the fourth purchase (circles 44/54); Ember Dragon's Roots (circles 42/52, self buff 37%, Pearl 270 HP) is the alternative.",
+      "rationale": "Sakura-ame's Decrease Damage Given at the +10% route maximum (30 → 40% on every enemy inside the circle, 2 rounds) with +3 Damage on both circles (43 / 53 EP). Burning Petal Carpet is the fourth purchase; Ember Dragon's Roots (circles 41 / 51 EP, self buff 37%, Pearl 270 HP) is the alternative.",
       "cost": 4,
       "bonuses": {
-        "damage": 4,
+        "damage": 3,
         "decreasedamagegiven": 10
       },
       "finals": [
@@ -1260,8 +1265,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 4,
-          "final": 44.0,
+          "gain": 3,
+          "final": 43.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -1314,8 +1319,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 4,
-          "final": 54.0,
+          "gain": 3,
+          "final": 53.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -1404,21 +1409,20 @@
   "narrow_kit_exception": null,
   "design_notes": [
     "Node split: two roots mirror the kit's two faces. Ember Dragon's Roots (Pearl, Dragon Tree) forks into Kindled Boughs → Dragon in Full Blossom (Increase Damage Given) and Branded by Petals → Scorching Hanami (Increase Damage Taken). Falling Ember Petals (the two Hiru-Sakura circles) forks into Burning Petal Carpet → Conflagration in Bloom (Damage) and Smothering Petal Rain → Deluge of Burning Petals (Decrease Damage Given). 2F/4H/4A; every Advanced Art is 3 BP deep; any two cost 5 or 6 BP.",
-    "Flats scale by coverage. Damage reaches two rows: 1+2+3 = +6 (the guardrail). Increase Damage Given is one self row: 2/3/5 = +10 (35→45%). Increase Damage Taken reaches two rows that stack on one target, so it stops at +6 (2+4, 35→41%), under the +7 ceiling. Decrease Damage Given is one enemy row: 2/3/5 = +10 (30→40%). Heal is one raw-power row: 2+3 = +5 (300 HP a tick). Capstone secondaries under-bid the Hidden Art on their tag (IDG +2 < Kindled Boughs +3; Damage +1 < Burning Petal Carpet +2).",
-    "Interactions: the Dragon Tree buff row (Fire, None, Scorch, Wind) multiplies the Scorch circles, element-less hits (basic attacks, weapons) and Fire/Wind jutsu in its 2-round window; the bloodline's same-element IDG passive (25 + 0.15/level) stacks on top. Both IDT rows list all four stat types and no element, so every hit on the exposed target, from the player, allies or weapons, is amplified. Pierce runs after the modifier pass and is neither raised nor amplified.",
+    "Routes: Amplifier +10% Increase Damage Given (Ember Dragon's Roots +2%, Kindled Boughs +3%, Dragon in Full Blossom +5%; 35 → 45%); Burst +5 Damage (Burning Petal Carpet +2, Conflagration in Bloom +3); Suppression +10% Decrease Damage Given (Falling Ember Petals +2%, Smothering Petal Rain +3%, Deluge of Burning Petals +5%; 30 → 40%); Exposure +5% Increase Damage Taken (Branded by Petals +2%, Scorching Hanami +3%), held to the 5 band because its two rows stack on one target (35 → 40% each; on a target caught by both they compound, ×1.40 × 1.40 ≈ ×1.96). Falling Ember Petals carries no Damage, so no allocation exceeds +5 Damage; Heal peaks at +5% (Roots +2%, Dragon in Full Blossom +3%; Pearl 25 → 30, 300 HP a tick). Capstone secondaries under-bid the Hidden Art on their tag (Increase Damage Given +2% < Kindled Boughs +3%; Damage +1 < Burning Petal Carpet +2).",
+    "Interactions: the Dragon Tree buff row (Fire, None, Scorch, Wind) multiplies the Scorch circles, element-less hits (basic attacks, weapons) and Fire/Wind jutsu in its 2-round window; the bloodline's same-element Increase Damage Given passive (25 + 0.15/level) multiplies last. Both Increase Damage Taken rows list all four stat types and no element, so every hit on the exposed target, from the player, allies or weapons, is amplified. Pierce runs after the modifier pass and is neither raised nor amplified.",
     "Delivery: every cast has cooldown 7. Sakuragari and Sakura-ame are 60 AP OTHER_USER AOE_CIRCLE_SPAWN casts at range 4; per the batch-1 Aerathiel read, their INHERIT rows land once on every other living user in the radius-1 circle, with no ground effect: one Scorch hit and 2-round debuffs per user. The Dragon Tree is a 40 AP single-target cast at range 5 (legal target needed; self buff and enemy exposure together). The Pearl is a 40 AP self cast; its Heal ticks on following rounds.",
-    "Fourth purchases: Burst → Ember Dragon's Roots (buff 37%, Pearl 270) or Smothering Petal Rain (suppression 35%); Exposure → Falling Ember Petals (circles 41/51, suppression 32%) or Kindled Boughs (buff 42%); Amplifier → Branded by Petals (exposure 37%) or Falling Ember Petals; Suppression → Burning Petal Carpet (circles 44/54) or Ember Dragon's Roots (circles 42/52). No-capstone hybrids: 01,02,04,06 (buff 40%, exposure 37%) and 01,06,07,09 (circles 43/53, suppression 35%).",
-    "Row weight (Σ flat × rows reached): the strongest full builds are 01,04,05,06 (22) and 01,02,04,05 (21) on 7 rows, 3.1 per row against Taiyo Kami's 31 on 9 rows (3.4). Burst builds score 17–18 because Damage reaches two rows, but each Damage point lands on every user in a circle and the Scorch passive multiplies it, so the metric undervalues area damage. All 14 legal full allocations are non-dominated and every node appears in at least one (audit). Not simulated."
+    "Fourth purchases: Burst → Ember Dragon's Roots (buff 37%, Pearl 270 HP) or Smothering Petal Rain (suppression 35%); Exposure → Falling Ember Petals (suppression 32%) or Kindled Boughs (buff 42%); Amplifier → Branded by Petals (exposure 37%) or Falling Ember Petals (suppression 32%); Suppression → Burning Petal Carpet (circles 43 / 53 EP) or Ember Dragon's Roots (circles 41 / 51 EP). No-capstone hybrids: 01, 02, 04, 06 (buff 40%, exposure 37%) and 01, 06, 07, 09 (circles 42 / 52 EP, suppression 35%)."
   ],
   "risks": [
-    "Classification: Scorch is not exclusive in the census (Taiyo Kami carries 4 Scorch rows, 3 damage). Under the current resolver a Scorch modifier reaches the 3 Scorch rows directly and the 4 element-less rows only via None, which also reaches other non-elemental jutsu; the tree assumes the proposed bloodline-scoped whole-kit classification. NORMAL/SPECIAL/EVENT jutsu carrying Scorch is unverified.",
-    "Ally hazard: Sakuragari rows 0 (Damage) and 1 (exposure) and Sakura-ame row 0 (Damage) are AOE_CIRCLE_SPAWN rows with no friendlyFire value (=ALL), so allies inside the radius-1 circle take the enhanced Scorch hit and exposure too; the caster is never a target (batch-1 read). Nodes 06/07/08/10 (Damage) and 04/05 (IDT) raise that; positioning decides. Sakura-ame's suppression row is ENEMIES only.",
-    "Exposure stacking: the Sakuragari circle and the Dragon Tree each apply a separate 2-round Increase Damage Taken debuff and BATTLE_TAG_STACKING is on at the pin, so a target caught by both carries 70% base and 82% at the route maximum, amplifying every non-pierce hit from the player, allies and weapons. The route is held to +6 and both IDT nodes sit on one branch for this reason; not simulated.",
-    "Increase Damage Given leakage: the Sakura Dragon Tree self buff (Fire, None, Scorch, Wind) multiplies normal jutsu, weapons and basic attacks in its window, not only kit casts, and stacks with the bloodline's same-element passive (about 29% at level 25) as separate effects; 45% is far below the 100 cap. Restricted casting scope does not restrict downstream benefit.",
+    "Classification: Scorch is the single qualifying element; sharing it with Taiyo Kami is expected (RUL-2026-10-03-005). 3 of 7 kit rows carry Scorch; the 4 element-less rows need the proposed jutsu-classification resolver, and Sakura Dragon Pearl carries no Scorch row, so in-kit it qualifies only through an authored jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Scorch coverage (NORMAL/SPECIAL/EVENT/FORBIDDEN) is unverified.",
+    "Ally hazard: Sakuragari rows 0 (Damage) and 1 (exposure) and Sakura-ame row 0 (Damage) are AOE_CIRCLE_SPAWN rows with no friendlyFire value (=ALL), so allies inside the radius-1 circle take the enhanced Scorch hit and exposure too; the caster is never a target (batch-1 read). Nodes 07, 08 and 10 (Damage) and 04 and 05 (Increase Damage Taken) raise that; positioning decides. Sakura-ame's suppression row is ENEMIES only.",
+    "Exposure stacking: the Sakuragari circle and the Dragon Tree each apply a separate 2-round Increase Damage Taken debuff and BATTLE_TAG_STACKING is on at the pin, so on a target caught by both the two rows compound: every non-pierce hit from the player, allies and weapons is multiplied by ×1.35 × 1.35 ≈ ×1.82 at base and ×1.40 × 1.40 ≈ ×1.96 at the +5% route maximum. The route is held to +5% and both exposure nodes sit on one branch for this reason; not simulated.",
+    "Increase Damage Given reach: the Sakura Dragon Tree self buff (Fire, None, Scorch, Wind) multiplies normal jutsu, weapons and basic attacks in its window, not only kit casts, and the bloodline's same-element passive (about 29% at level 25) multiplies after it; 45% is far below the 100 cap.",
     "Area delivery: the dossier footnote calls AOE_CIRCLE_SPAWN rows re-applied ground effects reaching the caster; the batch-1 Aerathiel read found OTHER_USER circles apply INHERIT rows once, directly to users in the radius-1 area, with no ground effect and the caster excluded. This tree follows that read, unverified here; if the circles persist, the Damage route is worth more than stated.",
     "Unsupported rows: Dancing Embers (pierce 60, wound 30%), the Pearl's debuffprevent, Sakuragari's self shield and the visual rows receive no bonus. Because pierce bypasses the damage-modifier pass, the Amplifier and Exposure routes do not raise the pierce hit and the Suppression route does not reduce enemy pierce; the kit's B-rank attack is outside every node.",
-    "Heal: the Pearl's Heal row has rounds 2 and applies on following rounds (static, ×10 HP per power), so +5 is 300 HP per tick against 250; tick count per cast and healprevent were not simulated. Heal appears only on the dragon root (Foundation +2, Dragon in Full Blossom +3), so the Amplifier capstone carries the whole sustain gain; the row is small enough that this is accepted rather than split.",
-    "Rank and modes: an A-rank bloodline whose Damage rows are formula-calculated (sqrt stat scaling) and then multiplied by the Scorch IDG passive, so +6 raw power is not a linear +6. Skill-tree and bloodline effects are suppressed in ranked PvP and ranked sparring; normal-tree potency policy is not approved, so a combined stacking audit precedes any implementation. No combat simulation was performed."
+    "Heal: the Pearl's Heal row is static (×10 HP per tick) and applies on following rounds, so +5% Heal at the maximum is 300 HP per tick against 250; tick count per cast and healprevent were not simulated. Heal appears only on the dragon root (Foundation +2%, Dragon in Full Blossom +3%).",
+    "Damage rows are formula-calculated (sqrt stat scaling) and then multiplied by the Scorch Increase Damage Given passive, so +5 Damage is not a linear +5. Skill-tree and bloodline effects are suppressed in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1459,10 +1463,10 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
+      "damage": 5,
       "increasedamagegiven": 10,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 6,
+      "increasedamagetaken": 5,
       "heal": 5
     },
     "supported_rows_in_kit": 7,
@@ -1481,18 +1485,117 @@
       "increasedamagetaken"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 1 / Scorch classification / forked tree",
+    "revision": "Draft 2 / Scorch classification / forked tree (RUL-2026-10-03-005 recalibration)",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Shakunetsu Sakura jutsu inherit Scorch potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Scorch jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 5,
+        "heal": 5
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10,
+        "heal": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Dragon in Full Blossom",
+          "primary_tag": "increasedamagegiven",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Scorching Hanami",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "08",
+          "name": "Conflagration in Bloom",
+          "primary_tag": "damage",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Deluge of Burning Petals",
+          "primary_tag": "decreasedamagegiven",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {
@@ -1516,7 +1619,6 @@
         "06"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 10,
         "decreasedamagegiven": 2,
         "heal": 5
@@ -1531,7 +1633,7 @@
       ],
       "bonuses": {
         "increasedamagegiven": 7,
-        "increasedamagetaken": 6,
+        "increasedamagetaken": 5,
         "heal": 2
       }
     },
@@ -1543,7 +1645,6 @@
         "06"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
@@ -1558,7 +1659,7 @@
         "07"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "heal": 2
@@ -1572,7 +1673,6 @@
         "09"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 5,
         "decreasedamagegiven": 5,
         "heal": 2
@@ -1586,10 +1686,9 @@
         "06"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 4,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 6,
+        "increasedamagetaken": 5,
         "heal": 2
       }
     },
@@ -1601,7 +1700,7 @@
         "07"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
@@ -1616,7 +1715,6 @@
         "09"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 5,
         "increasedamagetaken": 2,
@@ -1631,7 +1729,7 @@
         "08"
       ],
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "heal": 2
@@ -1645,7 +1743,7 @@
         "09"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 5,
         "heal": 2
@@ -1659,7 +1757,7 @@
         "10"
       ],
       "bonuses": {
-        "damage": 2,
+        "damage": 1,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 10,
         "heal": 2
@@ -1673,7 +1771,7 @@
         "09"
       ],
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "decreasedamagegiven": 5
       }
     },
@@ -1685,7 +1783,7 @@
         "10"
       ],
       "bonuses": {
-        "damage": 4,
+        "damage": 3,
         "decreasedamagegiven": 10
       }
     }

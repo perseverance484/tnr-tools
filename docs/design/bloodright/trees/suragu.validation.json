@@ -9,7 +9,7 @@
     "statClassification": "Highest",
     "traits": "Sustained DPS"
   },
-  "revision": "Draft 3 / Lava classification / forked tree",
+  "revision": "Draft 4 / Lava classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [
     "ally-hazard area rows amplified (friendly fire none/ALL): Eruption Strike#1"
@@ -17,15 +17,29 @@
   "classification": {
     "potency_classification": "Lava",
     "label_kind": "element",
-    "bloodline": "Suragu",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Lava"
+    ],
     "display_element": "Lava",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Suragu jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Lava jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Blow of Devastation"
+    ],
+    "shared_element_bloodlines": [
       "Amaterasu"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {
@@ -43,7 +57,7 @@
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "lifesteal": 4
+        "lifesteal": 1
       },
       "advanced_arts": [
         "Pyroclastic Surge"
@@ -63,8 +77,7 @@
         "increasedamagegiven": 5,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
-        "afterburn": 10,
-        "lifesteal": 2
+        "afterburn": 10
       },
       "advanced_arts": [
         "The Mountain Wakes"
@@ -83,8 +96,7 @@
       "bonuses": {
         "increasedamagegiven": 5,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 10,
-        "lifesteal": 2
+        "decreasedamagetaken": 10
       },
       "advanced_arts": [
         "Heart of the Caldera"
@@ -104,7 +116,7 @@
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 4,
-        "lifesteal": 10
+        "lifesteal": 5
       },
       "advanced_arts": [
         "Unquenchable Furnace"
@@ -139,7 +151,7 @@
       "increasedamagetaken": 5,
       "decreasedamagetaken": 10,
       "afterburn": 10,
-      "lifesteal": 10
+      "lifesteal": 5
     },
     "supported_rows_in_kit": 7,
     "supported_rows_by_tag": {
@@ -195,8 +207,8 @@
         "name": "Pyroclastic Surge",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 8,
+        "raw_flat_total": 4,
+        "row_weighted_total": 7,
         "covered_jutsu": [
           "Infernal Stream",
           "Magma Slayer"
@@ -240,13 +252,12 @@
         "name": "Cooling Crust",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 4,
-        "row_weighted_total": 4,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
-          "Infernal Stream",
           "Lava Wave"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -283,8 +294,8 @@
         "name": "Molten Draught",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Infernal Stream"
         ],
@@ -297,8 +308,8 @@
         "name": "Unquenchable Furnace",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 7,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
           "Infernal Stream",
           "Lava Wave"
@@ -311,18 +322,17 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
+        "02",
         "04",
-        "05",
-        "06"
+        "05"
       ],
       "bonuses": {
+        "damage": 2,
         "increasedamagegiven": 5,
         "increasedamagetaken": 5,
-        "decreasedamagetaken": 2,
-        "afterburn": 10,
-        "lifesteal": 2
+        "afterburn": 10
       },
-      "raw_flat_total": 24,
+      "raw_flat_total": 22,
       "row_weighted_total": 24,
       "advanced_arts": [
         "05"
@@ -330,14 +340,14 @@
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "04",
-      "name": "Clinging Slag",
-      "category": "Hidden Art",
-      "depth": 2,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "id": "06",
+      "name": "Cooling Crust",
+      "category": "Foundation",
+      "depth": 1,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
       "covered_jutsu": [
-        "Eruption Strike"
+        "Lava Wave"
       ],
       "covered_rows": 1,
       "adverse_rows_amplified": [],
@@ -356,10 +366,10 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "afterburn": 3,
-          "lifesteal": 2
+          "lifesteal": 1
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 19,
+        "raw_flat_total": 13,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "03"
         ],
@@ -377,10 +387,10 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "lifesteal": 4
+          "lifesteal": 1
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 20,
+        "raw_flat_total": 12,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "03"
         ],
@@ -418,11 +428,10 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "afterburn": 3,
-          "lifesteal": 2
+          "afterburn": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 15,
+        "raw_flat_total": 11,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -437,11 +446,10 @@
           "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 5,
-          "lifesteal": 2
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 15,
+        "raw_flat_total": 11,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -457,10 +465,10 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "lifesteal": 5
+          "lifesteal": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 15,
+        "raw_flat_total": 10,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -475,11 +483,10 @@
           "increasedamagegiven": 5,
           "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
-          "afterburn": 10,
-          "lifesteal": 2
+          "afterburn": 10
         },
-        "raw_flat_total": 24,
-        "row_weighted_total": 24,
+        "raw_flat_total": 22,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "05"
         ],
@@ -496,11 +503,10 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5,
-          "afterburn": 3,
-          "lifesteal": 2
+          "afterburn": 3
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -516,10 +522,10 @@
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 3,
-          "lifesteal": 5
+          "lifesteal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "raw_flat_total": 11,
+        "row_weighted_total": 11,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -533,11 +539,10 @@
         "bonuses": {
           "increasedamagegiven": 5,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 10,
-          "lifesteal": 2
+          "decreasedamagetaken": 10
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 19,
+        "raw_flat_total": 17,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "08"
         ],
@@ -554,10 +559,10 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5,
-          "lifesteal": 5
+          "lifesteal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "raw_flat_total": 11,
+        "row_weighted_total": 11,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -572,10 +577,10 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 4,
-          "lifesteal": 10
+          "lifesteal": 5
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "raw_flat_total": 13,
+        "row_weighted_total": 13,
         "advanced_arts": [
           "10"
         ],
@@ -591,10 +596,10 @@
         "bonuses": {
           "increasedamagegiven": 3,
           "decreasedamagetaken": 10,
-          "lifesteal": 5
+          "lifesteal": 2
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "08"
         ],
@@ -609,10 +614,10 @@
         ],
         "bonuses": {
           "decreasedamagetaken": 7,
-          "lifesteal": 10
+          "lifesteal": 5
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [
           "10"
         ],

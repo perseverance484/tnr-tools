@@ -9,7 +9,7 @@
     "statClassification": "Highest",
     "traits": "Burst"
   },
-  "revision": "Draft 3 / Storm classification / forked tree",
+  "revision": "Draft 4 / Storm classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [
     "universal node: 01 (Mandate of Thunder) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
@@ -17,17 +17,29 @@
   "classification": {
     "potency_classification": "Storm",
     "label_kind": "element",
-    "bloodline": "Shinrai Ou",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Storm"
+    ],
     "display_element": "Storm",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Shinrai Ou jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Storm jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [],
+    "shared_element_bloodlines": [
       "Arashima",
       "Godstorm Eclipse",
       "Stormboat Willy"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {
@@ -41,7 +53,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "reflect": 2
@@ -80,7 +92,6 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "reflect": 10
@@ -113,7 +124,7 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
+      "damage": 5,
       "increasedamagegiven": 5,
       "increasedamagetaken": 10,
       "reflect": 10
@@ -218,16 +229,12 @@
         "name": "Raiment of Storms",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
-          "Indra's Storm Cloak",
-          "Izanagi's Hammer",
-          "Storm Style: Daibutsu Thunder",
-          "Storm Style: Divine Railgun",
-          "Strike: Raijin"
+          "Indra's Storm Cloak"
         ],
-        "covered_rows": 5,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -265,31 +272,30 @@
       "ids": [
         "01",
         "02",
-        "03",
-        "06"
+        "04",
+        "05"
       ],
       "bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "reflect": 2
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 10
       },
-      "raw_flat_total": 12,
-      "row_weighted_total": 34,
+      "raw_flat_total": 17,
+      "row_weighted_total": 33,
       "advanced_arts": [
-        "03"
+        "05"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "04",
-      "name": "Lightning Rod",
-      "category": "Hidden Art",
-      "depth": 2,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "id": "06",
+      "name": "Raiment of Storms",
+      "category": "Foundation",
+      "depth": 1,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
       "covered_jutsu": [
-        "Izanagi's Hammer"
+        "Indra's Storm Cloak"
       ],
       "covered_rows": 1,
       "adverse_rows_amplified": [],
@@ -323,13 +329,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 34,
+        "raw_flat_total": 11,
+        "row_weighted_total": 30,
         "advanced_arts": [
           "03"
         ],
@@ -362,13 +368,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 5,
           "reflect": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 25,
+        "raw_flat_total": 11,
+        "row_weighted_total": 21,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -380,13 +386,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "reflect": 5
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 25,
+        "raw_flat_total": 11,
+        "row_weighted_total": 21,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -398,13 +404,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 5,
           "increasedamagetaken": 10,
           "reflect": 2
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 31,
+        "raw_flat_total": 17,
+        "row_weighted_total": 27,
         "advanced_arts": [
           "05"
         ],
@@ -418,13 +423,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "increasedamagetaken": 5,
           "reflect": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 20,
+        "raw_flat_total": 12,
+        "row_weighted_total": 16,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -436,13 +440,12 @@
           "08"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "reflect": 10
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 31,
+        "raw_flat_total": 17,
+        "row_weighted_total": 27,
         "advanced_arts": [
           "08"
         ],
