@@ -68,20 +68,39 @@ These are the parts of the Ethereal Monarch reference that should carry across B
 
 ## Theme-driven visual direction
 
-The **visual direction is bloodline-specific and may vary substantially** from the Ethereal Monarch
-reference. Treat theme as a fresh art-direction problem for every bloodline.
+Use three distinct references for three distinct jobs:
 
-- Use the exact bloodline image as identity evidence and derive an appropriate visual world from it.
-- Palette, typography style, card shape/material, border language, ornament density, illustration
-  style, hero-art placement, lighting, glow, texture, environmental motifs and supernatural effects
-  are all flexible.
-- Cards do not have to be dark, typography does not have to be celestial/regal, and ornament/glow
-  does not have to resemble Ethereal Monarch.
-- The hero image may dominate, recede, frame the tree, sit behind it or be handled another way if the
-  theme benefits from a different composition.
-- Secondary approved posters such as Taiyo Kami or Aerathiel may inform a particular theme, but no
-  previous poster should override the chosen bloodline's own identity.
-- The invariant is **information clarity and hierarchy**, not aesthetic sameness.
+1. **Ethereal Monarch — Mandate of Heaven** controls **information presentation only**: hierarchy,
+   grouping, top-down flow, spacing and what belongs on the poster.
+2. **Taiyo Kami — Covenant of the Sun** is the primary **rendering/art-style reference**:
+   persistent Library file `/TNR/Bloodright References/Taiyo_Kami_Rendering_Style_Reference.png`,
+   SHA-256 `d6c575b8b11769ce69c6d117114ddc4cc057f631adc7c2d1d883b23bad020547`.
+3. The **target bloodline image** controls subject identity, palette, motifs, atmosphere and thematic
+   direction.
+
+Before generation, open and visually inspect both persistent poster references and the exact target
+bloodline image.
+
+Taiyo Kami's role is to stabilize **rendering discipline**, not to make every poster solar or visually
+identical. Preserve its polished stylized-anime/fantasy finish: crisp readable silhouettes, controlled
+high-detail rendering, clean faces/anatomy, strong focal hierarchy, luminous effects with defined
+edges, saturated-but-coherent color, and a finished illustrated quality rather than photorealism,
+grimdark painterliness or faux pixel-art noise.
+
+Everything theme-specific remains flexible:
+
+- palette, typography treatment, card shape/material, frame language, ornament density, hero-art
+  placement, environmental motifs and supernatural effects;
+- whether the composition feels regal, ominous, organic, industrial, spectral, martial, serene, etc.;
+- whether cards are dark or light, metallic or paper-like, ornate or restrained;
+- how much the hero art dominates the poster.
+
+Do not copy Taiyo Kami's fox, solar/fire motifs, orange-gold palette, shrine setting or exact frames
+unless the target bloodline independently calls for them. Do not copy Ethereal Monarch's celestial
+palace, regal typography or navy/gold language unless the target calls for them.
+
+The invariant is **consistent rendering quality plus clear information hierarchy**, not aesthetic
+sameness.
 
 ## Naming and identity discipline
 
@@ -89,9 +108,9 @@ reference. Treat theme as a fresh art-direction problem for every bloodline.
   the user-approved rename is recorded in the design source that owns it.
 - The exact bloodline image controls visual identity. Do not substitute a similarly named or related
   bloodline.
-- Ethereal Monarch remains the primary reference for **information presentation**, not for universal
-  art style. Taiyo Kami, Aerathiel or another approved poster may be a useful secondary visual
-  reference when it better suits the target bloodline's theme.
+- Ethereal Monarch remains the primary reference for **information presentation**.
+- Taiyo Kami is the primary reference for **rendering/art style**.
+- The exact target bloodline image remains the primary reference for **theme and identity**.
 
 ## QA before delivery
 
