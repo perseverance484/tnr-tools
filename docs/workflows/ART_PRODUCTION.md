@@ -4,6 +4,8 @@ Use when ChatGPT is helping the user direct, generate, edit, process, review, or
 
 This workflow coordinates ChatGPT's Art Director / Image Production roles with the repository's existing `skills/producing-tnr-art/` production authority. It does not duplicate the art spec.
 
+**Bloodright showcase posters are a specialized presentation exception.** For those, read and follow `docs/workflows/BLOODRIGHT_POSTERS.md` first. Its approved Ethereal Monarch poster is the primary Bloodright presentation reference; the normal in-game raw-art prohibition on text/UI does not apply to the composed showcase poster itself.
+
 ## 1. Establish the target
 
 Identify:
