@@ -305,3 +305,34 @@ Existing audited content-record point reads already approved for full persistenc
 **Rationale:** Phase 1's contract at `state/prompt_forge_next_phase1.md` has been READY/FROZEN and unstarted the longest. The P1 presentation tooling is already integrated and useful on its own through `forge/tools/presentation.mjs`, so deferring the renderer costs no capability that exists today.
 
 **Canonical destination:** `state/digest.json` in-progress ordering and the Forge Next / Presentation Studio briefs. The art prerequisites recorded in `docs/reviews/FORGE_PRESENTATION_STUDIO_P0_P1_CLOSEOUT.md` still gate P2 whenever it starts.
+
+---
+
+## RUL-2026-10-02-001 — Bloodright public planning cohort approved
+
+**Date:** 2026-10-02 (America/Chicago)  
+**Domain:** Bloodright / planning eligibility  
+**Status:** ACTIVE  
+**Supersedes:** the pending public-roster gate in the initial Bloodright handoff
+
+**Ruling:** Exclude Astral Ascendant, Blood-Enshrined Eyes, Blood-Enthralled Eyes, Blue Edge Eyes, Ethereal Regent, Eyes of the Forsaken Heir and Youso Shiroi: dauntless confirmed these are not public bloodlines. Include the other four from the reviewed H-rank list: Godstorm Eclipse, Night Parade of A Thousand Demons, Sands of Time and Tetsugan. Together with the 39 core candidates, this establishes 43 remaining public bloodlines for draft planning; Taiyo Kami stays the worked reference. The distinct public Shiroi Youso remains included. Existing exclusions for Borrowed Awakening, custom/player-owned bloodlines and bloodlines without bloodline jutsu remain in force.
+
+**Rationale:** The user's classification resolves ambiguous record visibility without treating H rank or a hidden flag as proof of custom ownership. The other hidden records are outside the approved public batch, not silently admitted by the words “the rest.” They can be reconsidered through a separate roster amendment and do not block planning the approved IDs.
+
+**Canonical destination:** `docs/design/bloodright/roster.json` owns the exact approved IDs and dispositions; `state/prompt_bloodright_planning.md` owns the planning assignment. This approves drafting, not final numerical balance, implementation or release.
+
+---
+
+## RUL-2026-10-02-002 — Bloodright Afterburn semantics and card presentation
+
+**Date:** 2026-10-02 (America/Chicago)  
+**Domain:** Bloodright / effect semantics and presentation  
+**Status:** ACTIVE  
+**Supersedes:** Afterburn-as-direct-damage labels in the early Taiyo Kami poster
+
+**Ruling:** Afterburn is an enemy debuff lasting its existing round duration. Damage dealt while it applies causes additional Afterburn damage at the debuff percentage; the debuff is not itself a damage instance. Its potency changes that percentage, not duration. Show it with the enemy-debuff color. Use a shared role legend and matching text colors without repeating Self Buff/Enemy Debuff/Damage role labels or skill numbers on cards. Keep stable internal IDs. Remove the redundant supported-tag/scope-preservation footer notes. Replace “Damage bonuses add power” with “A 40 EP jutsu with +5 Damage becomes 45EP.” Retain the static-percentage example: a 35% tag with +5% becomes 40%.
+
+**Rationale:** Application-row count alone understates Afterburn's downstream coverage; analysis must account for the damage instances it can enhance. The card cleanup improves readability without changing eligibility, combat scopes, numeric bonuses or prerequisites.
+
+**Canonical destination:** `docs/design/BLOODRIGHT_DESIGN_BRIEF.md` and the Taiyo Kami JSON/SVG reference under `docs/design/bloodright/examples/`. This records the user's mechanic correction and display contract, not a new claim that all proc interactions have been source-verified.
+

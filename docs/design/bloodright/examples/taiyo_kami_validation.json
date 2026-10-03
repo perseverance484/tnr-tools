@@ -1,0 +1,42 @@
+{
+  "revision": "Idea 1 / Scorch classification / forked tree v4",
+  "available_skills": 10,
+  "foundation_count": 2,
+  "hidden_art_count": 4,
+  "advanced_art_count": 4,
+  "bloodright_point_cap": 4,
+  "cost_per_skill": 1,
+  "maximum_advanced_arts": 1,
+  "minimum_two_advanced_cost": 5,
+  "maximum_parents_per_node": 1,
+  "legal_allocations_by_size": {
+    "0": 1,
+    "1": 2,
+    "2": 5,
+    "3": 10,
+    "4": 14
+  },
+  "full_budget_allocations": 14,
+  "non_dominated_full_allocations": 14,
+  "all_nodes_in_non_dominated_builds": true,
+  "maximum_tag_bonuses": {
+    "damage": 5,
+    "increasedamagegiven": 5,
+    "increasedamagetaken": 7,
+    "afterburn": 10,
+    "decreasedamagetaken": 10,
+    "decreasedamagegiven": 10
+  },
+  "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+  "limits": [
+    "Proposed potency classification behavior; not implemented or verified in the live engine.",
+    "All existing supported tags inherit Scorch potency eligibility; original combat elements and target scopes stay intact.",
+    "Both Increase Damage Given effect rows on Celestial Ignition receive each matching modifier.",
+    "Damage reaches three jutsu; values are raw power, not final-damage percentages.",
+    "Afterburn is an enemy debuff: for its existing duration, damage you deal causes extra Afterburn damage at its percentage. It is not itself a damage instance.",
+    "Afterburn application-row coverage does not measure all downstream damage instances enhanced; no proc, recursion or uptime simulation was performed.",
+    "Wound and Shield are unsupported and receive no bonuses.",
+    "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+    "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+  ]
+}
