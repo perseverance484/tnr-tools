@@ -9,11 +9,9 @@
     "statClassification": "Genjutsu",
     "traits": null
   },
-  "revision": "Draft 2 / Ha Yanagi classification / forked tree",
+  "revision": "Draft 3 / Ha Yanagi classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [
-    "route Grave Willow's Hush primary total +8% Decrease Damage Given is off the 5/10/15 bands without a route_band_rationale",
-    "route Hollow at the Heart primary total +8% Increase Damage Taken is off the 5/10/15 bands without a route_band_rationale",
     "classification status: requires classification extension (director decision)"
   ],
   "classification": {
@@ -54,7 +52,7 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 3,
-        "decreasedamagegiven": 8
+        "decreasedamagegiven": 10
       },
       "advanced_arts": [
         "Grave Willow's Hush"
@@ -71,8 +69,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "decreasedamagegiven": 6,
-        "increasedamagetaken": 8
+        "decreasedamagegiven": 7,
+        "increasedamagetaken": 10
       },
       "advanced_arts": [
         "Hollow at the Heart"
@@ -134,14 +132,14 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 13,
+    "non_dominated_full_allocations": 14,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 5,
       "increasedamagegiven": 10,
-      "decreasedamagegiven": 8,
-      "increasedamagetaken": 8
+      "decreasedamagegiven": 10,
+      "increasedamagetaken": 10
     },
     "supported_rows_in_kit": 6,
     "supported_rows_by_tag": {
@@ -178,8 +176,8 @@
         "name": "Veil of Falling Petals",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Petal Nightmare",
           "Wailing Bark"
@@ -193,8 +191,8 @@
         "name": "Grave Willow's Hush",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
-        "row_weighted_total": 8,
+        "raw_flat_total": 5,
+        "row_weighted_total": 10,
         "covered_jutsu": [
           "Petal Nightmare",
           "Wailing Bark"
@@ -222,8 +220,8 @@
         "name": "Hollow at the Heart",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 9,
+        "raw_flat_total": 9,
+        "row_weighted_total": 11,
         "covered_jutsu": [
           "Blighted Tree",
           "Petal Nightmare",
@@ -315,11 +313,11 @@
         "05"
       ],
       "bonuses": {
-        "decreasedamagegiven": 6,
-        "increasedamagetaken": 8
+        "decreasedamagegiven": 7,
+        "increasedamagetaken": 10
       },
-      "raw_flat_total": 14,
-      "row_weighted_total": 20,
+      "raw_flat_total": 17,
+      "row_weighted_total": 24,
       "advanced_arts": [
         "05"
       ],
@@ -348,11 +346,11 @@
           "04"
         ],
         "bonuses": {
-          "decreasedamagegiven": 8,
+          "decreasedamagegiven": 10,
           "increasedamagetaken": 3
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 19,
+        "raw_flat_total": 13,
+        "row_weighted_total": 23,
         "advanced_arts": [
           "03"
         ],
@@ -367,10 +365,10 @@
         ],
         "bonuses": {
           "increasedamagegiven": 3,
-          "decreasedamagegiven": 8
+          "decreasedamagegiven": 10
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 19,
+        "raw_flat_total": 13,
+        "row_weighted_total": 23,
         "advanced_arts": [
           "03"
         ],
@@ -384,11 +382,11 @@
           "05"
         ],
         "bonuses": {
-          "decreasedamagegiven": 6,
-          "increasedamagetaken": 8
+          "decreasedamagegiven": 7,
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 20,
+        "raw_flat_total": 17,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "05"
         ],
@@ -403,13 +401,13 @@
         ],
         "bonuses": {
           "increasedamagegiven": 3,
-          "decreasedamagegiven": 4,
+          "decreasedamagegiven": 5,
           "increasedamagetaken": 3
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 14,
+        "raw_flat_total": 11,
+        "row_weighted_total": 16,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -421,10 +419,10 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 3,
-          "decreasedamagegiven": 4
+          "decreasedamagegiven": 5
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 15,
+        "raw_flat_total": 10,
+        "row_weighted_total": 17,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -437,10 +435,10 @@
         ],
         "bonuses": {
           "increasedamagegiven": 6,
-          "decreasedamagegiven": 4
+          "decreasedamagegiven": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 14,
+        "raw_flat_total": 11,
+        "row_weighted_total": 16,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -454,10 +452,10 @@
         "bonuses": {
           "increasedamagegiven": 3,
           "decreasedamagegiven": 4,
-          "increasedamagetaken": 8
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 19,
+        "raw_flat_total": 17,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "05"
         ],

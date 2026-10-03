@@ -9,11 +9,9 @@
     "statClassification": "Taijutsu",
     "traits": "Burst, Control "
   },
-  "revision": "Draft 3 / Magnet classification / forked tree",
+  "revision": "Draft 4 / Magnet classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
-  "warnings": [
-    "route Inexorable Pull primary total +7% Increase Damage Taken is off the 5/10/15 bands without a route_band_rationale"
-  ],
+  "warnings": [],
   "classification": {
     "potency_classification": "Magnet",
     "label_kind": "element",
@@ -73,7 +71,7 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 4,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 2,
         "reflect": 2
       },
@@ -145,7 +143,7 @@
     "maximum_tag_bonuses": {
       "damage": 5,
       "increasedamagegiven": 4,
-      "increasedamagetaken": 7,
+      "increasedamagetaken": 10,
       "decreasedamagetaken": 10,
       "reflect": 10
     },
@@ -221,8 +219,8 @@
         "name": "Reversed Polarity",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Houkyuken: Magnetic Assignment",
           "Morning Star"
@@ -236,8 +234,8 @@
         "name": "Inexorable Pull",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 10,
+        "raw_flat_total": 7,
+        "row_weighted_total": 14,
         "covered_jutsu": [
           "Houkyu Dance",
           "Houkyuken: Magnetic Assignment",
@@ -325,20 +323,18 @@
       "ids": [
         "01",
         "02",
-        "03",
-        "06"
+        "04",
+        "05"
       ],
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "reflect": 2
+        "damage": 2,
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 10
       },
-      "raw_flat_total": 13,
-      "row_weighted_total": 32,
+      "raw_flat_total": 16,
+      "row_weighted_total": 36,
       "advanced_arts": [
-        "03"
+        "05"
       ],
       "non_dominated": true
     },
@@ -367,10 +363,10 @@
         "bonuses": {
           "damage": 5,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 32,
+        "raw_flat_total": 12,
+        "row_weighted_total": 34,
         "advanced_arts": [
           "03"
         ],
@@ -407,10 +403,10 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 4,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 30,
+        "raw_flat_total": 16,
+        "row_weighted_total": 36,
         "advanced_arts": [
           "05"
         ],
@@ -426,12 +422,12 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 24,
+        "raw_flat_total": 13,
+        "row_weighted_total": 26,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -482,12 +478,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 4,
-          "increasedamagetaken": 7,
+          "increasedamagetaken": 10,
           "decreasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 26,
+        "raw_flat_total": 18,
+        "row_weighted_total": 32,
         "advanced_arts": [
           "05"
         ],
@@ -502,12 +498,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 5,
           "reflect": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 19,
+        "raw_flat_total": 14,
+        "row_weighted_total": 21,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -520,12 +516,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
           "reflect": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 19,
+        "raw_flat_total": 14,
+        "row_weighted_total": 21,
         "advanced_arts": [],
         "non_dominated": true
       },

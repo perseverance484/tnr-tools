@@ -9,21 +9,37 @@
     "statClassification": "Highest",
     "traits": "Sustain / Burst Heavy / Tank"
   },
-  "revision": "Draft 2 / Godstorm Eclipse classification / forked tree",
+  "revision": "Draft 3 / Shadow + Storm classification (multi-element, director review) / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [
+    "classification status: multi-element: director review (director decision)",
     "ally-hazard area rows amplified (friendly fire none/ALL): Corona Devourer Palm#0, Event Horizon Gate#1"
   ],
   "classification": {
-    "potency_classification": "Godstorm Eclipse",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Godstorm Eclipse",
+    "potency_classification": "Shadow + Storm",
+    "label_kind": "multi-element",
+    "classification_status": "multi-element: director review",
+    "qualifying_elements": [
+      "Shadow",
+      "Storm"
+    ],
     "display_element": null,
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Godstorm Eclipse jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Shadow and Storm jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Event Horizon Gate",
+      "Godstorm Mantle: Sky-Splitting Wall",
+      "Godstorm Mantle: Tempest",
+      "Godstorm Mantle: Thunder-Crowned Bulwark",
+      "Marrow Eclipse Mantle"
+    ],
+    "shared_element_bloodlines": [
       "Adorable Shadow of Death",
       "Arashima",
       "Blood-Enchanted Eyes",
@@ -40,7 +56,11 @@
       "Shadow Weaver",
       "Shinrai Ou",
       "Stormboat Willy"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {
@@ -57,8 +77,7 @@
         "damage": 5,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "lifesteal": 2
+        "decreasedamagetaken": 2
       },
       "advanced_arts": [
         "Total Eclipse"
@@ -78,8 +97,7 @@
         "increasedamagegiven": 2,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
-        "afterburn": 10,
-        "lifesteal": 2
+        "afterburn": 10
       },
       "advanced_arts": [
         "Lingering Corona"
@@ -98,8 +116,7 @@
       "bonuses": {
         "increasedamagegiven": 5,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 7,
-        "lifesteal": 2
+        "decreasedamagetaken": 10
       },
       "advanced_arts": [
         "Pillar of Heaven"
@@ -120,7 +137,7 @@
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 2,
-        "lifesteal": 10
+        "lifesteal": 5
       },
       "advanced_arts": [
         "Eater of Suns"
@@ -153,9 +170,9 @@
       "damage": 5,
       "increasedamagegiven": 5,
       "increasedamagetaken": 5,
-      "decreasedamagetaken": 7,
+      "decreasedamagetaken": 10,
       "afterburn": 10,
-      "lifesteal": 10
+      "lifesteal": 5
     },
     "supported_rows_in_kit": 16,
     "supported_rows_by_tag": {
@@ -267,14 +284,13 @@
         "name": "Stormgod's Marrow",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 4,
-        "row_weighted_total": 6,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Event Horizon Gate",
-          "Godstorm Mantle: Tempest",
           "Godstorm Mantle: Thunder-Crowned Bulwark"
         ],
-        "covered_rows": 3,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -283,8 +299,8 @@
         "name": "Obsidian Skin",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Event Horizon Gate",
           "Godstorm Mantle: Thunder-Crowned Bulwark"
@@ -298,8 +314,8 @@
         "name": "Pillar of Heaven",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 18,
+        "raw_flat_total": 8,
+        "row_weighted_total": 22,
         "covered_jutsu": [
           "Event Horizon Gate",
           "Godstorm Mantle: Sky-Splitting Wall",
@@ -316,8 +332,8 @@
         "name": "Devouring Eclipse",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Godstorm Mantle: Tempest"
         ],
@@ -330,8 +346,8 @@
         "name": "Eater of Suns",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 9,
-        "row_weighted_total": 15,
+        "raw_flat_total": 7,
+        "row_weighted_total": 13,
         "covered_jutsu": [
           "Godstorm Mantle: Sky-Splitting Wall",
           "Godstorm Mantle: Tempest",
@@ -346,31 +362,29 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "02",
-        "03",
-        "06"
+        "06",
+        "07",
+        "08"
       ],
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "lifesteal": 2
+        "decreasedamagetaken": 10
       },
-      "raw_flat_total": 13,
-      "row_weighted_total": 45,
+      "raw_flat_total": 17,
+      "row_weighted_total": 46,
       "advanced_arts": [
-        "03"
+        "08"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "04",
-      "name": "Charged Firmament",
+      "id": "09",
+      "name": "Devouring Eclipse",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
       "covered_jutsu": [
         "Godstorm Mantle: Tempest"
       ],
@@ -410,11 +424,10 @@
           "damage": 5,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "lifesteal": 2
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 45,
+        "raw_flat_total": 11,
+        "row_weighted_total": 43,
         "advanced_arts": [
           "03"
         ],
@@ -452,11 +465,10 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "afterburn": 3,
-          "lifesteal": 2
+          "afterburn": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 33,
+        "raw_flat_total": 11,
+        "row_weighted_total": 31,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -471,10 +483,9 @@
           "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4,
-          "lifesteal": 2
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 12,
+        "raw_flat_total": 11,
         "row_weighted_total": 34,
         "advanced_arts": [],
         "non_dominated": true
@@ -491,10 +502,10 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "lifesteal": 5
+          "lifesteal": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 33,
+        "raw_flat_total": 10,
+        "row_weighted_total": 30,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -509,11 +520,10 @@
           "increasedamagegiven": 2,
           "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
-          "afterburn": 10,
-          "lifesteal": 2
+          "afterburn": 10
         },
-        "raw_flat_total": 21,
-        "row_weighted_total": 39,
+        "raw_flat_total": 19,
+        "row_weighted_total": 37,
         "advanced_arts": [
           "05"
         ],
@@ -529,11 +539,10 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4,
-          "afterburn": 3,
-          "lifesteal": 2
+          "decreasedamagetaken": 5,
+          "afterburn": 3
         },
-        "raw_flat_total": 13,
+        "raw_flat_total": 12,
         "row_weighted_total": 27,
         "advanced_arts": [],
         "non_dominated": true
@@ -550,10 +559,10 @@
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 3,
-          "lifesteal": 5
+          "lifesteal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 26,
+        "raw_flat_total": 11,
+        "row_weighted_total": 23,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -567,11 +576,10 @@
         "bonuses": {
           "increasedamagegiven": 5,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 7,
-          "lifesteal": 2
+          "decreasedamagetaken": 10
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 42,
+        "raw_flat_total": 17,
+        "row_weighted_total": 46,
         "advanced_arts": [
           "08"
         ],
@@ -587,11 +595,11 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4,
-          "lifesteal": 5
+          "decreasedamagetaken": 5,
+          "lifesteal": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 27,
+        "raw_flat_total": 11,
+        "row_weighted_total": 26,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -607,10 +615,10 @@
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 2,
-          "lifesteal": 10
+          "lifesteal": 5
         },
-        "raw_flat_total": 20,
-        "row_weighted_total": 38,
+        "raw_flat_total": 15,
+        "row_weighted_total": 33,
         "advanced_arts": [
           "10"
         ],
@@ -625,11 +633,11 @@
         ],
         "bonuses": {
           "increasedamagegiven": 3,
-          "decreasedamagetaken": 7,
-          "lifesteal": 5
+          "decreasedamagetaken": 10,
+          "lifesteal": 2
         },
         "raw_flat_total": 15,
-        "row_weighted_total": 31,
+        "row_weighted_total": 34,
         "advanced_arts": [
           "08"
         ],
@@ -644,12 +652,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "decreasedamagetaken": 4,
+          "decreasedamagetaken": 5,
           "afterburn": 2,
-          "lifesteal": 10
+          "lifesteal": 5
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 28,
+        "raw_flat_total": 14,
+        "row_weighted_total": 25,
         "advanced_arts": [
           "10"
         ],

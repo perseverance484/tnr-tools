@@ -9,13 +9,9 @@
     "statClassification": "Highest",
     "traits": "AOE Ground Control "
   },
-  "revision": "Draft 2 / Ice classification / forked tree",
+  "revision": "Draft 3 / Ice classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
-  "warnings": [
-    "route The Glacier Advances primary total +7% Increase Damage Given is off the 5/10/15 bands without a route_band_rationale",
-    "route Nine Hells Opened primary total +7% Increase Damage Taken is off the 5/10/15 bands without a route_band_rationale",
-    "route Locked in Cocytus primary total +7% Decrease Damage Taken is off the 5/10/15 bands without a route_band_rationale"
-  ],
+  "warnings": [],
   "classification": {
     "potency_classification": "Ice",
     "label_kind": "element",
@@ -82,7 +78,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 10,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 4
       },
@@ -103,7 +99,7 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 3,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -122,7 +118,7 @@
       "cost": 4,
       "bonuses": {
         "increasedamagetaken": 7,
-        "decreasedamagetaken": 7
+        "decreasedamagetaken": 10
       },
       "advanced_arts": [
         "Locked in Cocytus"
@@ -153,9 +149,9 @@
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 5,
-      "increasedamagegiven": 7,
-      "increasedamagetaken": 7,
-      "decreasedamagetaken": 7
+      "increasedamagegiven": 10,
+      "increasedamagetaken": 10,
+      "decreasedamagetaken": 10
     },
     "supported_rows_in_kit": 9,
     "supported_rows_by_tag": {
@@ -239,8 +235,8 @@
         "name": "The Glacier Advances",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
-        "row_weighted_total": 8,
+        "raw_flat_total": 7,
+        "row_weighted_total": 14,
         "covered_jutsu": [
           "Cerulean Storm: Avalanche",
           "Glacial Descent: Cocytus",
@@ -286,8 +282,8 @@
         "name": "Nine Hells Opened",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
-        "row_weighted_total": 10,
+        "raw_flat_total": 7,
+        "row_weighted_total": 16,
         "covered_jutsu": [
           "Cerulean Storm: Avalanche",
           "Glacial Descent: Cocytus",
@@ -318,8 +314,8 @@
         "name": "Locked in Cocytus",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
-        "row_weighted_total": 8,
+        "raw_flat_total": 7,
+        "row_weighted_total": 14,
         "covered_jutsu": [
           "Glacial Descent: Cocytus",
           "Glacier's Will",
@@ -340,11 +336,11 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 3,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 2
       },
-      "raw_flat_total": 14,
-      "row_weighted_total": 30,
+      "raw_flat_total": 17,
+      "row_weighted_total": 36,
       "advanced_arts": [
         "08"
       ],
@@ -413,11 +409,11 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 10,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 24,
+        "raw_flat_total": 14,
+        "row_weighted_total": 30,
         "advanced_arts": [
           "05"
         ],
@@ -485,12 +481,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 10,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 4
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 26,
+        "raw_flat_total": 16,
+        "row_weighted_total": 32,
         "advanced_arts": [
           "05"
         ],
@@ -540,11 +536,11 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 3,
-          "increasedamagetaken": 7,
+          "increasedamagetaken": 10,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 30,
+        "raw_flat_total": 17,
+        "row_weighted_total": 36,
         "advanced_arts": [
           "08"
         ],
@@ -577,10 +573,10 @@
         "bonuses": {
           "increasedamagegiven": 3,
           "increasedamagetaken": 4,
-          "decreasedamagetaken": 7
+          "decreasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 28,
+        "raw_flat_total": 17,
+        "row_weighted_total": 34,
         "advanced_arts": [
           "10"
         ],
@@ -595,11 +591,11 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagetaken": 7,
+          "increasedamagetaken": 10,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 30,
+        "raw_flat_total": 17,
+        "row_weighted_total": 36,
         "advanced_arts": [
           "08"
         ],
@@ -614,10 +610,10 @@
         ],
         "bonuses": {
           "increasedamagetaken": 7,
-          "decreasedamagetaken": 7
+          "decreasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 28,
+        "raw_flat_total": 17,
+        "row_weighted_total": 34,
         "advanced_arts": [
           "10"
         ],

@@ -1,6 +1,6 @@
 {
   "title": "Dai Kenja — Doctrine of Overflow",
-  "revision": "Draft 4 / Dai Kenja classification / forked tree",
+  "revision": "Draft 5 / Dai Kenja classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
   "bloodline": {
     "id": "Dqqw3zcIGDserD-qEE9QW",
     "review_id": "BR-021",
@@ -11,20 +11,34 @@
   },
   "classification": {
     "potency_classification": "Dai Kenja",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Dai Kenja",
+    "label_kind": "classification extension",
+    "classification_status": "requires classification extension",
+    "qualifying_elements": [],
     "display_element": null,
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Dai Kenja jutsu",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Dai Kenja-classified jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Chakra Cannon",
+      "Chakra Overload",
+      "Overloaded Impact"
+    ],
+    "shared_element_bloodlines": [],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
     "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": []
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver_and_classification_extension"
   },
   "emphasis": {
     "primary": "Overloaded Impact offense (Damage and Increase Damage Given)",
     "secondary": "Decrease Damage Given (Chakra Overload / Chakra Cannon suppression)",
     "tertiary": "Increase Damage Taken (Chakra Overload exposure; adverse on Overloaded Impact)",
-    "rationale": "The kit has six supported rows on three casts. Overloaded Impact carries the only Damage row (40 power at level 25) and the only Increase Damage Given row (30% self, Ninjutsu filter with no element, so it also admits every non-elemental hit; live only in the two rounds after the cast, so it never helps its own hit), making offense through that cast the primary in two separate forms: more power on the hit, or a stronger amplifier for the hits that follow; the bloodline's 15% passive multiplies under the same matching. Decrease Damage Given is the broadest tag (25% on Chakra Overload, 30% on the AOE Chakra Cannon, all stat types) and is secondary, so root B holds the heavier four-purchase builds by row weight (19–24 against 13–15 on root A) while root A holds the largest single-row flats (+6 Damage, +10 Increase Damage Given). Increase Damage Taken reaches Chakra Overload's 35% enemy exposure but also the adverse 25% self exposure on Overloaded Impact, so it is a small, explicitly accepted tertiary route; Chakra Cannon's pierce and Chakra Overload's pool-cost row are unsupported and untouched."
+    "rationale": "Six supported rows on three casts, none carrying an element. Overloaded Impact holds the only Damage row (40 EP at jutsu level 25) and the only Increase Damage Given row (30% self; Ninjutsu filter with no element, so it also admits every non-elemental hit, and it is live only in the two rounds after the cast), so offense through that cast is primary in two forms: +5 Damage on the hit (Burst) or a +10% amplifier for the hits that follow (Amplifier). Decrease Damage Given is the broadest tag (25% on Chakra Overload, 30% on the AOE Chakra Cannon, all stat types) and is the secondary +10% Suppression route. Increase Damage Taken reaches Chakra Overload's 35% enemy exposure but also the adverse 25% self exposure on Overloaded Impact, so it is a small, explicitly accepted +5% Exposure route. Chakra Cannon's pierce and Chakra Overload's pool-cost row are unsupported. Potency reaches matching supported tags on all Dai Kenja-classified jutsu (RUL-2026-10-03-005; requires a classification extension)."
   },
   "nodes": [
     {
@@ -36,21 +50,22 @@
       "modifiers": [
         {
           "tag": "increasedamagegiven",
-          "flat": 3,
+          "flat": 2,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "A sage's chakra fills the cup past its rim and keeps pouring.",
-      "coverage_note": "Overloaded Impact self damage buff (30→33%); adds to Ninjutsu or non-elemental hits in the 2 rounds after each cast, never its own hit.",
+      "coverage_note": "Overloaded Impact self damage buff 30 → 32%; adds to Ninjutsu or non-elemental hits in the 2 rounds after each cast, never its own hit.",
       "parent_rule": "ALL",
       "potency_classification": "Dai Kenja",
-      "scope": "Dai Kenja jutsu",
+      "scope": "all Dai Kenja-classified jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
           "Overloaded Impact"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -64,21 +79,22 @@
       "modifiers": [
         {
           "tag": "damage",
-          "flat": 3,
+          "flat": 2,
           "display_role": "DAMAGE"
         }
       ],
       "flavor": "Every impact carries more than the body was meant to hold.",
-      "coverage_note": "Overloaded Impact Damage only (40→43 power); single row, 60 AP, cooldown 6, single target at range 4. Chakra Cannon's pierce is unsupported.",
+      "coverage_note": "Overloaded Impact Damage only (40 → 42 EP); one 60 AP single-target cast at range 4, cooldown 6. Chakra Cannon's pierce is unsupported.",
       "parent_rule": "ALL",
       "potency_classification": "Dai Kenja",
-      "scope": "Dai Kenja jutsu",
+      "scope": "all Dai Kenja-classified jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Overloaded Impact"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -102,16 +118,17 @@
         }
       ],
       "flavor": "Push the overload one breath further than wisdom allows.",
-      "coverage_note": "Overloaded Impact Damage (route 46 power) and its self buff (+2, 35% with Brimming Cup); the buff acts after the cast round, not on this hit",
+      "coverage_note": "Route total +5 Damage: Overloaded Impact 40 → 45 EP; its self buff +2% (34% with Brimming Cup), live after the cast round, never on this hit.",
       "parent_rule": "ALL",
       "potency_classification": "Dai Kenja",
-      "scope": "Dai Kenja jutsu",
+      "scope": "all Dai Kenja-classified jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Overloaded Impact"
         ],
-        "effect_rows": 2
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -130,16 +147,17 @@
         }
       ],
       "flavor": "Open every channel; let the current run where it will.",
-      "coverage_note": "Overloaded Impact self damage buff only (33→36% with Brimming Cup); one row, Ninjutsu or non-elemental hits, 2 rounds after each cast.",
+      "coverage_note": "Overloaded Impact self damage buff only (35% with Brimming Cup); Ninjutsu or non-elemental hits in the 2 rounds after each cast.",
       "parent_rule": "ALL",
       "potency_classification": "Dai Kenja",
-      "scope": "Dai Kenja jutsu",
+      "scope": "all Dai Kenja-classified jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
           "Overloaded Impact"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -153,21 +171,22 @@
       "modifiers": [
         {
           "tag": "increasedamagegiven",
-          "flat": 4,
+          "flat": 5,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "There is no bottom to the well the Great Sage draws from.",
-      "coverage_note": "Same self damage buff; route total +10 (30→40%, Ninjutsu or non-elemental hits, 2 rounds after each 60 AP cast, cooldown 6). No other row.",
+      "coverage_note": "Same self buff; route total +10% (30 → 40%) for the 2 rounds after each 60 AP cast, cooldown 6. No other row.",
       "parent_rule": "ALL",
       "potency_classification": "Dai Kenja",
-      "scope": "Dai Kenja jutsu",
+      "scope": "all Dai Kenja-classified jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
           "Overloaded Impact"
         ],
-        "effect_rows": 1
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -184,10 +203,10 @@
         }
       ],
       "flavor": "A word from the sage, and the enemy's chakra falters.",
-      "coverage_note": "Chakra Overload (25→27%, enemies) and Chakra Cannon AOE (30→32%, any non-caster in circle) Decrease Damage Given, all stats, 2 rounds.",
+      "coverage_note": "Decrease Damage Given on Chakra Overload 25 → 27% (enemies) and Chakra Cannon 30 → 32% (any non-caster in its circle); all stat types, 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Dai Kenja",
-      "scope": "Dai Kenja jutsu",
+      "scope": "all Dai Kenja-classified jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
@@ -197,7 +216,8 @@
         "effect_rows": 2,
         "ally_hazard_rows": [
           "Chakra Cannon#1"
-        ]
+        ],
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -211,15 +231,15 @@
       "modifiers": [
         {
           "tag": "decreasedamagegiven",
-          "flat": 2,
+          "flat": 3,
           "display_role": "ENEMY DEBUFF"
         }
       ],
       "flavor": "Their flow is pinched to a trickle under the sage's hand.",
-      "coverage_note": "Both Decrease Damage Given rows (+2 more: 29/34%); both debuffs stack on one target when both casts land; Cannon hits allies in its circle.",
+      "coverage_note": "Both Decrease Damage Given rows +3% more (30% / 35% with Sage's Rebuke); the two debuffs add on one target when both casts land.",
       "parent_rule": "ALL",
       "potency_classification": "Dai Kenja",
-      "scope": "Dai Kenja jutsu",
+      "scope": "all Dai Kenja-classified jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -229,7 +249,8 @@
         "effect_rows": 2,
         "ally_hazard_rows": [
           "Chakra Cannon#1"
-        ]
+        ],
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -243,15 +264,15 @@
       "modifiers": [
         {
           "tag": "decreasedamagegiven",
-          "flat": 4,
+          "flat": 5,
           "display_role": "ENEMY DEBUFF"
         }
       ],
       "flavor": "The sage speaks once; the enemy's power answers in a whisper.",
-      "coverage_note": "Both suppression rows; route total +8 (Chakra Overload 33%, Chakra Cannon 38%; 71% stacked on one target). Cannon hits allies in its circle.",
+      "coverage_note": "Route total +10%: Chakra Overload 25 → 35%, Chakra Cannon 30 → 40% (75% when both sit on one target). Cannon also reaches allies in its circle.",
       "parent_rule": "ALL",
       "potency_classification": "Dai Kenja",
-      "scope": "Dai Kenja jutsu",
+      "scope": "all Dai Kenja-classified jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -261,7 +282,8 @@
         "effect_rows": 2,
         "ally_hazard_rows": [
           "Chakra Cannon#1"
-        ]
+        ],
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -284,10 +306,10 @@
         }
       ],
       "flavor": "Overload leaves fissures in the vessel, yours and theirs.",
-      "coverage_note": "Chakra Overload enemy exposure (35→37%, Ninjutsu or non-elemental) AND adverse Overloaded Impact self exposure (25→27%, all damage).",
+      "coverage_note": "Chakra Overload enemy exposure 35 → 37% (Ninjutsu or non-elemental hits) and the adverse Overloaded Impact self exposure 25 → 27% (all damage).",
       "parent_rule": "ALL",
       "potency_classification": "Dai Kenja",
-      "scope": "Dai Kenja jutsu",
+      "scope": "all Dai Kenja-classified jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
@@ -297,7 +319,8 @@
         "effect_rows": 2,
         "adverse_rows": [
           "Overloaded Impact#2"
-        ]
+        ],
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -325,10 +348,10 @@
         }
       ],
       "flavor": "What is overfilled must break; the sage chooses when.",
-      "coverage_note": "Enemy exposure route +5 (40%), self exposure 30% (adverse); both Decrease Damage Given rows +3 (route 30/35%); Cannon hits allies in circle.",
+      "coverage_note": "Exposure route total +5%: Chakra Overload 40%, adverse self exposure 30%; both Decrease Damage Given rows +3% (30% / 35% with Sage's Rebuke).",
       "parent_rule": "ALL",
       "potency_classification": "Dai Kenja",
-      "scope": "Dai Kenja jutsu",
+      "scope": "all Dai Kenja-classified jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
@@ -342,7 +365,8 @@
         ],
         "adverse_rows": [
           "Overloaded Impact#2"
-        ]
+        ],
+        "rows_via_authored_classification": 4
       }
     }
   ],
@@ -356,11 +380,11 @@
         "03",
         "06"
       ],
-      "rationale": "The +6 power route on the kit's only Damage row (Overloaded Impact 40→46), plus the self buff at 35% for the two rounds after the cast (never on the cast's own hit). Sage's Rebuke is the fourth purchase because it opens the control root (27/32% suppression) without touching the single Overloaded Impact rows again; Flooded Meridians (buff 38%) is the all-in alternative.",
+      "rationale": "+5 Damage on the kit's only Damage row (Overloaded Impact 40 → 45 EP) and its self buff at 34% for the two rounds after the cast, never on the cast's own hit. Sage's Rebuke is the fourth purchase because it opens the control root (Decrease Damage Given 27% / 32%) without touching Overloaded Impact again; Flooded Meridians (buff 37%) is the all-in alternative.",
       "cost": 4,
       "bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 5,
+        "damage": 5,
+        "increasedamagegiven": 4,
         "decreasedamagegiven": 2
       },
       "finals": [
@@ -376,8 +400,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 6,
-          "final": 46.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -394,8 +418,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 30.0,
-          "gain": 5,
-          "final": 35.0,
+          "gain": 4,
+          "final": 34.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -522,7 +546,7 @@
         "05",
         "06"
       ],
-      "rationale": "Overloaded Impact as a two-round amplifier: its self Increase Damage Given reaches 40% and adds 40% of the staged base to every Ninjutsu or non-elemental hit (normal jutsu, basic attacks, weapons) landed in the two rounds after the cast, never to the cast's own hit. Sage's Rebuke is the fourth purchase for a small suppression floor; Chakra Surcharge (43 power) is the offensive alternative.",
+      "rationale": "Overloaded Impact as a two-round amplifier: its self Increase Damage Given reaches 40% (+10%) and adds 40% of the staged base to every Ninjutsu or non-elemental hit (normal jutsu, basic attacks, weapons) landed in the two rounds after the cast, never to the cast's own hit. Sage's Rebuke is the fourth purchase for a small suppression floor (27% / 32%); Chakra Surcharge (42 EP) is the offensive alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 10,
@@ -687,11 +711,11 @@
         "07",
         "08"
       ],
-      "rationale": "Both Decrease Damage Given rows at the route maximum (Chakra Overload 33% on enemies, Chakra Cannon 38% on any non-caster in its AOE circle), adding to 71% on a target carrying both debuffs (casts in the same or consecutive rounds). Brimming Cup is the fourth purchase because it raises the self damage buff to 33% for no exposure cost; Cracked Vessel (+2 exposure, adverse) is the aggressive alternative.",
+      "rationale": "Both Decrease Damage Given rows at the route maximum (+10%: Chakra Overload 35% on enemies, Chakra Cannon 40% on any non-caster in its circle), adding to 75% on a target carrying both debuffs (casts in the same or consecutive rounds). Brimming Cup is the fourth purchase because it raises the self buff to 32% at no exposure cost; Cracked Vessel (exposure 37%, adverse self 27%) is the aggressive alternative.",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 3,
-        "decreasedamagegiven": 8
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10
       },
       "finals": [
         {
@@ -724,8 +748,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 30.0,
-          "gain": 3,
-          "final": 33.0,
+          "gain": 2,
+          "final": 32.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -760,8 +784,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 25.0,
-          "gain": 8,
-          "final": 33.0,
+          "gain": 10,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -832,8 +856,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 30.0,
-          "gain": 8,
-          "final": 38.0,
+          "gain": 10,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -852,10 +876,10 @@
         "09",
         "10"
       ],
-      "rationale": "The overload gamble: Chakra Overload's enemy exposure (Ninjutsu or non-elemental damage, from every attacker) reaches 40% while Overloaded Impact's own self exposure (all damage) rises to 30%, and both suppression rows sit at +7 (32/37%). Smothered Current is the fourth purchase because it compounds the control casts; Brimming Cup (buff 33%) is the offensive alternative.",
+      "rationale": "The overload gamble: Chakra Overload's enemy exposure (Ninjutsu or non-elemental damage, from every attacker) reaches 40% (+5%) while Overloaded Impact's own self exposure (all damage) rises to 30%, and both suppression rows sit at +8% (33% / 38%). Smothered Current is the fourth purchase because it compounds the control casts; Brimming Cup (buff 32%) is the offensive alternative.",
       "cost": 4,
       "bonuses": {
-        "decreasedamagegiven": 7,
+        "decreasedamagegiven": 8,
         "increasedamagetaken": 5
       },
       "finals": [
@@ -925,8 +949,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 25.0,
-          "gain": 7,
-          "final": 32.0,
+          "gain": 8,
+          "final": 33.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -997,8 +1021,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 30.0,
-          "gain": 7,
-          "final": 37.0,
+          "gain": 8,
+          "final": 38.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1011,22 +1035,22 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Node split mirrors the kit's two sides. Brimming Cup (self) opens Overloaded Impact, forking into raw power (Chakra Surcharge → Breaking Point) and self buff (Flooded Meridians → Boundless Reservoir); Sage's Rebuke (enemy) opens Chakra Overload / Chakra Cannon, forking into suppression (Smothered Current → Edict of Silence) and exposure (Cracked Vessel → Shattered Vessel). Every Advanced Art is 3 BP deep. Boundless Reservoir and Edict are single-tag: their roots hold no second non-adverse tag.",
-    "Flats scale with coverage. Damage reaches one row (Overloaded Impact 40): +3/+3 (max 46 power), not the reference's +2/+3 over three rows. Increase Damage Given is one 30% self row: single-row ladder +3/+3/+4 (max 40%). Decrease Damage Given has two enemy rows that stack on one target (25%, 30%): +2/+2/+4 (max +8: 33/38%, 71% combined). Increase Damage Taken has one enemy and one adverse self row: one route at +2/+3 (max +5). Per-tag maxima are within guardrails and not jointly attainable.",
-    "Timing (SOURCE_MECHANICS §3b): Overloaded Impact's self buff is inert in its cast round (adjustDamageGiven skips new or cast-this-round effects, tags.ts 925; flags clear at round advance, util.ts 2567–2577), so it never touches its own hit, and cooldown 6 outlives it. In the two rounds after the cast the enhanced 33–40% adds that share of the staged base to every Ninjutsu or non-elemental hit (getEfficiencyRatio, tags.ts 3477–3510). Only the 15% bloodline passive multiplies.",
-    "Delivery and uptime: Overloaded Impact is 60 AP, cooldown 6, one single-target hit at range 4; its buff and self exposure live two rounds in every six. Chakra Overload is 40 AP single target, cooldown 6; Chakra Cannon a 60 AP AOE circle, cooldown 7. Both suppression debuffs sit on one target only when the casts land in the same or consecutive rounds (100 AP in all), so 71% is a ceiling. Ranked PvP and ranked sparring suppress tree effects. Nothing was simulated.",
-    "Fourth purchases: Burst takes Sage's Rebuke (27/32%) or Flooded Meridians (buff 38%); Amplifier, Sage's Rebuke or Chakra Surcharge (43 power); Suppression, Brimming Cup (buff 33%) or Cracked Vessel (exposure 37%, self 27%); Exposure, Smothered Current or Brimming Cup. Counting IDT as a gain, 13 of 14 full builds are non-dominated; IDT-neutral, 8 are and neither Vessel node appears, so Cracked Vessel earns its place as the Shattered Vessel gate. Adverse-aware dominance is tooling debt.",
-    "Tuning for review (OPEN_DECISIONS D11; values user-owned, unchanged): Shattered Vessel is the largest node (raw 6, row-weighted 12, 9 without the adverse row) against Edict of Silence 4/8, Breaking Point 5/5 and Boundless Reservoir 4/4; its full build scores 24 (19 without the adverse row; 4.0 per row vs Taiyo Kami's 3.4) while root A's score 13–15. Options: cut Shattered Vessel's DDG secondary to +2 (Exposure build 31/36%) or raise Edict of Silence to +5 (max DDG +9)."
+    "Node split mirrors the kit's two sides. Brimming Cup (self) opens Overloaded Impact and forks into raw power (Chakra Surcharge → Breaking Point) and self buff (Flooded Meridians → Boundless Reservoir); Sage's Rebuke (enemy) opens Chakra Overload / Chakra Cannon and forks into suppression (Smothered Current → Edict of Silence) and exposure (Cracked Vessel → Shattered Vessel). Every Advanced Art is 3 BP deep.",
+    "Routes (RUL-2026-10-03-005): Burst +5 Damage (Chakra Surcharge +2, Breaking Point +3); Amplifier +10% Increase Damage Given (Brimming Cup +2%, Flooded Meridians +3%, Boundless Reservoir +5%); Suppression +10% Decrease Damage Given (Sage's Rebuke +2%, Smothered Current +3%, Edict of Silence +5%); Exposure +5% Increase Damage Taken (Cracked Vessel +2%, Shattered Vessel +3%). Maxima over every legal allocation: Damage +5, Increase Damage Given +10%, Decrease Damage Given +10%, Increase Damage Taken +5%; not jointly attainable.",
+    "Recalibration from Draft 4: Chakra Surcharge +3 → +2 Damage (hard +5 ceiling; was +6), Brimming Cup +3% → +2% and Boundless Reservoir +4% → +5% (Amplifier stays +10%), Smothered Current +2% → +3% and Edict of Silence +4% → +5% (Suppression +8% → +10%, on band). Exposure stays +5%: the adverse self row keeps it small.",
+    "Timing (SOURCE_MECHANICS §3b): Overloaded Impact's self buff is inert in its cast round (tags.ts 925; util.ts 2567–2577), so it never touches its own hit, and cooldown 6 outlives it. In the two rounds after the cast the enhanced 32–40% adds that share of the staged base to every Ninjutsu or non-elemental hit (getEfficiencyRatio, tags.ts 3477–3510). Only the 15% bloodline passive multiplies.",
+    "Delivery and uptime: Overloaded Impact is 60 AP, cooldown 6, one single-target hit at range 4; its buff and self exposure live two rounds in every six. Chakra Overload is 40 AP single target, cooldown 6; Chakra Cannon a 60 AP AOE circle, cooldown 7. Both suppression debuffs sit on one target only when the casts land in the same or consecutive rounds (100 AP in all), so 75% is a ceiling. Nothing was simulated.",
+    "Fourth purchases: Burst takes Sage's Rebuke (27% / 32%) or Flooded Meridians (buff 37%); Amplifier, Sage's Rebuke or Chakra Surcharge (42 EP); Suppression, Brimming Cup (buff 32%) or Cracked Vessel (exposure 37%, self 27%); Exposure, Smothered Current or Brimming Cup. Counting Increase Damage Taken as a gain, 13 of 14 full builds are non-dominated; IDT-neutral, 8 are and neither Vessel node appears, so Cracked Vessel earns its place as the Shattered Vessel gate. Adverse-aware dominance is tooling debt."
   ],
   "risks": [
-    "Adverse row accepted (D11): IDT nodes also raise Overloaded Impact's self exposure (all damage; 27% Cracked Vessel, 30% Shattered Vessel) in the two rounds after each cast, atop the 5% IDT passive. Only the exposure route has the tag; the enemy row (Chakra Overload, Ninjutsu or non-elemental, 35→40%) needs its own 40 AP cast. Fallback: drop Shattered Vessel, keep Cracked Vessel as a leaf (max +2).",
-    "Ally hazard (Chakra Cannon#1; warning kept): Cannon is an OTHER_USER AOE circle with friendlyFire ALL, so an ally in the circle (never the caster) gets its two-round suppression at the enhanced 32–38% (actions.ts 1029–1060; process.ts 154–183); every DDG node raises it; positioning decides. Chakra Overload's DDG is ENEMIES-only; its ALL exposure row lands on an ally only if aimed at one.",
-    "Single-cast concentration: all five root-A nodes modify Overloaded Impact only (one 60 AP single-target cast, cooldown 6). The Burst route adds +6 power to one hit per cycle; the Amplifier route pays only on Ninjutsu or non-elemental hits landed in the two rounds after that cast, never on the cast's own hit.",
-    "Suppression stacking: Chakra Overload and Chakra Cannon apply separate two-round Decrease Damage Given debuffs; with BATTLE_TAG_STACKING on, every same-tag effect applies and the percentages add (process.ts 1109–1117), so one target's hits lose 55% of their staged base at baseline and 71% at the route maximum, more with an allied Dai Kenja. Flats were cut to +2/+2/+4 for this; not simulated.",
-    "Leakage: the self buff adds to every Ninjutsu or non-elemental hit the caster lands in the two rounds after its cast (normal jutsu, basic attacks, weapons); enemy-side suppression and exposure alter damage from allies and weapons too. Restricted casting scope does not restrict downstream benefit; stat filters on element-less rows are not binding (SOURCE_MECHANICS §3, getEfficiencyRatio).",
-    "Classification: no row in this kit carries an element, so the proposed 'Dai Kenja' label is a bloodline-keyed extension with no existing element to fall back on. Under the current resolver all 6 supported rows fall back to None, which would also reach every non-elemental row on any jutsu the player casts; the normal-jutsu collision is unverified. The tree is inert until that extension exists.",
-    "Unsupported rows: Chakra Cannon's pierce (58 at level 25) and Chakra Overload's increasepoolcost (100%) receive no bonus; because pierce is processed after the damage-modifier pass at the pin, the Amplifier and Exposure routes do not raise the pierce hit and the Suppression route does not reduce enemy pierce.",
-    "Rank context: Dai Kenja is a D-rank bloodline with B/C/A-rank jutsu, weaker unmodified than the A-rank reference; the tree equalises marginal opportunity, not final strength, and cross-bloodline comparison is deferred to the roster review. Normal-tree potency policy is not approved, so a combined stacking audit is required before implementation. No combat simulation was performed."
+    "Adverse row accepted (OPEN_DECISIONS D11, ENGINE_GAP_REGISTER G14): Increase Damage Taken nodes also raise Overloaded Impact's self exposure (all damage; 27% with Cracked Vessel, 30% with Shattered Vessel) in the two rounds after each cast, atop the 5% IDT passive. Only the Exposure route carries the tag; the enemy row (Chakra Overload, Ninjutsu or non-elemental, 35 → 40%) needs its own 40 AP cast.",
+    "Ally hazard (Chakra Cannon#1): Cannon is an OTHER_USER AOE circle with friendly fire ALL, so an ally in the circle (never the caster) receives its two-round suppression at the enhanced 32–40% (actions.ts 1029–1060; process.ts 154–183); every Decrease Damage Given node raises it, and positioning decides. Chakra Overload's suppression is ENEMIES-only; its ALL exposure row lands on an ally only if aimed at one.",
+    "Single-cast concentration: all five root-A nodes modify Overloaded Impact only (one 60 AP single-target cast, cooldown 6). The Burst route adds +5 Damage to one hit per cycle; the Amplifier route pays only on Ninjutsu or non-elemental hits landed in the two rounds after that cast.",
+    "Suppression stacking: Chakra Overload and Chakra Cannon apply separate two-round Decrease Damage Given debuffs; with BATTLE_TAG_STACKING on, every same-tag effect applies and the percentages add (process.ts 1109–1117), so one target's hits lose 55% of their staged base at baseline and 75% at the +10% route maximum, more with an allied Dai Kenja. Not simulated.",
+    "Downstream reach: the self buff adds to every Ninjutsu or non-elemental hit the caster lands in its window (normal jutsu, basic attacks, weapons); enemy-side suppression and exposure alter damage from allies and weapons too. Stat filters on element-less rows are not binding (SOURCE_MECHANICS §3, getEfficiencyRatio).",
+    "Classification: no kit row carries an element, so the tree requires a classification extension. 'Dai Kenja' is the placeholder name of a new jutsu classification assigned to jutsu records, not a bloodline-id selector; which jutsu carry it is a director/engine decision. Potency reaches matching supported tags on every jutsu given that classification, whatever its source; all three kit jutsu qualify only through it (ENGINE_GAP_REGISTER G1). Off-kit coverage is unverified.",
+    "Unsupported rows: Chakra Cannon's pierce (58 at level 25) and Chakra Overload's increasepoolcost (100%) receive no bonus; pierce is processed after the damage-modifier pass, so the Amplifier and Exposure routes do not raise the pierce hit and the Suppression route does not reduce enemy pierce.",
+    "Rank context: Dai Kenja is a D-rank bloodline with B/C/A-rank jutsu; the tree equalises marginal opportunity, not final strength. Normal-tree potency policy is not approved, so a combined stacking audit precedes implementation. Skill-tree effects are skipped in ranked PvP and ranked sparring. No combat simulation was performed."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1067,9 +1091,9 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
+      "damage": 5,
       "increasedamagegiven": 10,
-      "decreasedamagegiven": 8,
+      "decreasedamagegiven": 10,
       "increasedamagetaken": 5
     },
     "supported_rows_in_kit": 6,
@@ -1086,18 +1110,115 @@
       "increasedamagetaken"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 4 / Dai Kenja classification / forked tree",
+    "revision": "Draft 5 / Dai Kenja classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
-      "Proposed potency classification behavior; not implemented or verified in the live engine.",
-      "All existing supported tags of Dai Kenja jutsu inherit Dai Kenja potency eligibility; original combat elements and target scopes stay intact.",
-      "Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
-      "Damage values are raw power, not final-damage percentages; percentage-valued tags are capped at 100.",
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Dai Kenja-classified jutsu (requires classification extension). Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
       "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
       "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
       "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
       "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
-    ]
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 5
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Breaking Point",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        },
+        {
+          "advanced_art": "05",
+          "name": "Boundless Reservoir",
+          "primary_tag": "increasedamagegiven",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "08",
+          "name": "Edict of Silence",
+          "primary_tag": "decreasedamagegiven",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Shattered Vessel",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            0,
+            2,
+            3
+          ],
+          "total": 5,
+          "on_band": true
+        }
+      ],
+      "director_exceptions": []
+    }
   },
   "legal_full_budget_builds": [
     {
@@ -1108,8 +1229,8 @@
         "04"
       ],
       "bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 8
+        "damage": 5,
+        "increasedamagegiven": 7
       }
     },
     {
@@ -1120,8 +1241,8 @@
         "06"
       ],
       "bonuses": {
-        "damage": 6,
-        "increasedamagegiven": 5,
+        "damage": 5,
+        "increasedamagegiven": 4,
         "decreasedamagegiven": 2
       }
     },
@@ -1133,7 +1254,7 @@
         "05"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 10
       }
     },
@@ -1145,8 +1266,8 @@
         "06"
       ],
       "bonuses": {
-        "damage": 3,
-        "increasedamagegiven": 6,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2
       }
     },
@@ -1158,9 +1279,9 @@
         "07"
       ],
       "bonuses": {
-        "damage": 3,
-        "increasedamagegiven": 3,
-        "decreasedamagegiven": 4
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5
       }
     },
     {
@@ -1171,8 +1292,8 @@
         "09"
       ],
       "bonuses": {
-        "damage": 3,
-        "increasedamagegiven": 3,
+        "damage": 2,
+        "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2
       }
@@ -1197,8 +1318,8 @@
         "07"
       ],
       "bonuses": {
-        "increasedamagegiven": 6,
-        "decreasedamagegiven": 4
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 5
       }
     },
     {
@@ -1209,7 +1330,7 @@
         "09"
       ],
       "bonuses": {
-        "increasedamagegiven": 6,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2
       }
@@ -1222,8 +1343,8 @@
         "08"
       ],
       "bonuses": {
-        "increasedamagegiven": 3,
-        "decreasedamagegiven": 8
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10
       }
     },
     {
@@ -1234,8 +1355,8 @@
         "09"
       ],
       "bonuses": {
-        "increasedamagegiven": 3,
-        "decreasedamagegiven": 4,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
         "increasedamagetaken": 2
       }
     },
@@ -1247,7 +1368,7 @@
         "10"
       ],
       "bonuses": {
-        "increasedamagegiven": 3,
+        "increasedamagegiven": 2,
         "decreasedamagegiven": 5,
         "increasedamagetaken": 5
       }
@@ -1260,7 +1381,7 @@
         "09"
       ],
       "bonuses": {
-        "decreasedamagegiven": 8,
+        "decreasedamagegiven": 10,
         "increasedamagetaken": 2
       }
     },
@@ -1272,7 +1393,7 @@
         "10"
       ],
       "bonuses": {
-        "decreasedamagegiven": 7,
+        "decreasedamagegiven": 8,
         "increasedamagetaken": 5
       }
     }

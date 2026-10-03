@@ -9,11 +9,9 @@
     "statClassification": "Genjutsu",
     "traits": "Defensive, Tank"
   },
-  "revision": "Draft 3 / Yin-Yang classification / forked tree",
+  "revision": "Draft 4 / Yin-Yang classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
-  "warnings": [
-    "route Prelude to Ruin primary total +7% Increase Damage Taken is off the 5/10/15 bands without a route_band_rationale"
-  ],
+  "warnings": [],
   "classification": {
     "potency_classification": "Yin-Yang",
     "label_kind": "element",
@@ -84,7 +82,7 @@
       "bonuses": {
         "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 7,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -156,7 +154,7 @@
       "damage": 5,
       "increasedamagegiven": 5,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 7,
+      "increasedamagetaken": 10,
       "decreasedamagetaken": 10
     },
     "supported_rows_in_kit": 7,
@@ -228,8 +226,8 @@
         "name": "Dissonant Chord",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
         "covered_jutsu": [
           "Foreboding Interlude"
         ],
@@ -242,8 +240,8 @@
         "name": "Prelude to Ruin",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 6,
+        "raw_flat_total": 8,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Foreboding Interlude",
           "Lullaby"
@@ -352,8 +350,8 @@
       "name": "Dissonant Chord",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 2,
-      "row_weighted_total": 2,
+      "raw_flat_total": 3,
+      "row_weighted_total": 3,
       "covered_jutsu": [
         "Foreboding Interlude"
       ],
@@ -372,10 +370,10 @@
         "bonuses": {
           "damage": 5,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 21,
+        "raw_flat_total": 12,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "03"
         ],
@@ -412,10 +410,10 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 18,
+        "raw_flat_total": 17,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "05"
         ],
@@ -432,11 +430,11 @@
           "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 16,
+        "raw_flat_total": 13,
+        "row_weighted_total": 17,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -488,11 +486,11 @@
         "bonuses": {
           "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 7,
+          "increasedamagetaken": 10,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 16,
+        "raw_flat_total": 19,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "05"
         ],
@@ -508,11 +506,11 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 13,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -526,11 +524,11 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 13,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [],
         "non_dominated": true
       },
