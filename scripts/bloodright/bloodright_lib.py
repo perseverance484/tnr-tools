@@ -135,6 +135,9 @@ def short_kind(kind: str | None) -> str:
 STALE_PHRASES = (
     "bloodline-scoped", "bloodline scoped", "bloodline-keyed", "census collision", "whole-kit classification",
     "damage power", "heal power", "planning guardrail", "tithe of the red eye",
+    # jutsu damage modifiers compound in computeDamagePacket; they do not add a share of a
+    # staged base (SOURCE_MECHANICS §3b, corrected 2026-10-03)
+    "staged base",
 )
 PROSE_FIELDS = ("title", "flavor", "coverage_note", "rationale", "primary", "secondary", "tertiary",
                 "narrow_kit_exception", "design_notes", "risks", "name", "archetype")
