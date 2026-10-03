@@ -9,19 +9,29 @@
     "statClassification": "Highest",
     "traits": null
   },
-  "revision": "Draft 2 / Voltara Divine classification / forked tree",
+  "revision": "Draft 3 / Lightning classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [],
   "classification": {
-    "potency_classification": "Voltara Divine",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Voltara Divine",
+    "potency_classification": "Lightning",
+    "label_kind": "element",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Lightning"
+    ],
     "display_element": "Lightning",
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Voltara Divine jutsu",
-    "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": [
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Lightning jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Voltara Blitz"
+    ],
+    "shared_element_bloodlines": [
       "Adorable Shadow of Death",
       "Architect of the Hollow Script",
       "Bakuhatsu",
@@ -46,7 +56,11 @@
       "Traveling Sun Praiser",
       "Youso Shiroi",
       "Yūhi Ryūjin (夕陽竜神)"
-    ]
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "examples": [
     {
@@ -60,7 +74,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "decreasedamagetaken": 2
       },
@@ -79,8 +93,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 10,
         "decreasedamagetaken": 4
       },
       "advanced_arts": [
@@ -98,7 +111,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 4,
+        "damage": 3,
         "decreasedamagetaken": 10
       },
       "advanced_arts": [
@@ -125,12 +138,12 @@
       "4": 12
     },
     "full_budget_allocations": 12,
-    "non_dominated_full_allocations": 11,
+    "non_dominated_full_allocations": 9,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
-      "increasedamagegiven": 7,
+      "damage": 5,
+      "increasedamagegiven": 10,
       "decreasedamagetaken": 10
     },
     "supported_rows_in_kit": 5,
@@ -196,8 +209,8 @@
         "name": "Luminous Conduit",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Ethereal Dragon's Whispers",
           "Luminous Illusion Bind"
@@ -211,8 +224,8 @@
         "name": "Apotheosis of Thunder",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 8,
+        "raw_flat_total": 7,
+        "row_weighted_total": 12,
         "covered_jutsu": [
           "Ethereal Dragon's Whispers",
           "Luminous Illusion Bind",
@@ -227,14 +240,12 @@
         "name": "Halo of Static",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 3,
-        "row_weighted_total": 4,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
-          "Ethereal Dragon's Whispers",
-          "Luminous Illusion Bind",
           "Voltara Blitz"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -287,29 +298,29 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
+        "02",
         "04",
-        "05",
-        "06"
+        "05"
       ],
       "bonuses": {
-        "damage": 1,
-        "increasedamagegiven": 7,
-        "decreasedamagetaken": 4
+        "damage": 2,
+        "increasedamagegiven": 10,
+        "decreasedamagetaken": 2
       },
-      "raw_flat_total": 12,
-      "row_weighted_total": 20,
+      "raw_flat_total": 14,
+      "row_weighted_total": 26,
       "advanced_arts": [
         "05"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "07",
-      "name": "Aegis of Living Light",
-      "category": "Hidden Art",
-      "depth": 2,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "id": "06",
+      "name": "Halo of Static",
+      "category": "Foundation",
+      "depth": 1,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
       "covered_jutsu": [
         "Voltara Blitz"
       ],
@@ -327,10 +338,10 @@
         ],
         "bonuses": {
           "damage": 5,
-          "increasedamagegiven": 4
+          "increasedamagegiven": 5
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 18,
+        "raw_flat_total": 10,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "03"
         ],
@@ -344,12 +355,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 18,
+        "raw_flat_total": 9,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "03"
         ],
@@ -364,11 +375,11 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 10,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 20,
+        "raw_flat_total": 14,
+        "row_weighted_total": 26,
         "advanced_arts": [
           "05"
         ],
@@ -382,14 +393,14 @@
           "06"
         ],
         "bonuses": {
-          "damage": 3,
-          "increasedamagegiven": 4,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 9,
         "row_weighted_total": 16,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -399,12 +410,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 15,
+        "raw_flat_total": 9,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -416,12 +427,12 @@
           "09"
         ],
         "bonuses": {
-          "damage": 5,
+          "damage": 4,
           "increasedamagegiven": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 16,
+        "raw_flat_total": 8,
+        "row_weighted_total": 14,
         "advanced_arts": [],
         "non_dominated": false
       },
@@ -433,12 +444,11 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 10,
           "decreasedamagetaken": 4
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 20,
+        "raw_flat_total": 14,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "05"
         ],
@@ -452,8 +462,7 @@
           "07"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 5,
           "decreasedamagetaken": 5
         },
         "raw_flat_total": 10,
@@ -469,14 +478,14 @@
           "09"
         ],
         "bonuses": {
-          "damage": 3,
-          "increasedamagegiven": 4,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 9,
         "row_weighted_total": 16,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -486,12 +495,12 @@
           "08"
         ],
         "bonuses": {
-          "damage": 2,
+          "damage": 1,
           "increasedamagegiven": 2,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 18,
+        "raw_flat_total": 13,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "08"
         ],
@@ -505,12 +514,12 @@
           "09"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 15,
+        "raw_flat_total": 9,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -522,11 +531,11 @@
           "09"
         ],
         "bonuses": {
-          "damage": 4,
+          "damage": 3,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 18,
+        "raw_flat_total": 13,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "08"
         ],

@@ -1,6 +1,6 @@
 {
   "title": "Tetsugan — Discipline of Iron",
-  "revision": "Draft 3 / Metal classification / forked tree",
+  "revision": "Draft 4 / Metal classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "bloodline": {
     "id": "T-MyR4yQ1_aVbaJDLoI07",
     "review_id": "BR-083",
@@ -35,10 +35,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Damage (seven Metal weapon strikes, +5 ceiling)",
+    "primary": "Damage (seven Metal weapon strikes, +5 route)",
     "secondary": "Decrease Damage Taken and Increase Damage Given (the Middle Guard Stance / Inner Peace / Pivoting Fortress stance buffs)",
     "tertiary": "Increase Damage Taken and Afterburn exposure (Phantom Slash, Equilibrium Guard Strike, Vacuum Fan, Crimson Thrust); Reflect and Decrease Damage Given counter-play (Harmonious Slash, Tranquil Guard, Vacuum Fan)",
-    "rationale": "Seven of the twenty supported rows are Metal damage (Phantom Slash 50; Equilibrium Guard Strike and Harmonious Slash 45; Tranquil Guard Flowing Form, Enduring Resonance Ward, Pivoting Fortress and Crimson Thrust 40 at jutsu level 25, all 60 AP), split across the kit's staff, dagger and sword styles, so a weapon-school offense is the primary emphasis. The two 40 AP self stances carry three Increase Damage Given rows (Inner Peace twice) and, with Pivoting Fortress, three Decrease Damage Taken rows, which makes a stance-fortification route the natural second emphasis; both tags are held under the reference maxima because the two stances can be stacked. Exposure (three Increase Damage Taken rows plus Crimson Thrust's single Afterburn row) and counter-play (Harmonious Slash's single Reflect row plus two Decrease Damage Given rows) are the tertiary routes. No heal, lifesteal or increase-heal row exists, so no sustain route is invented."
+    "rationale": "Seven of the twenty supported rows are Metal damage (Phantom Slash 50 EP; Equilibrium Guard Strike and Harmonious Slash 45; Tranquil Guard Flowing Form, Enduring Resonance Ward, Pivoting Fortress and Crimson Thrust 40 at jutsu level 25, all 60 AP), split across the kit's staff, dagger and sword styles, so a weapon-school offense is the primary emphasis. The two 40 AP self stances carry three Increase Damage Given rows (Inner Peace twice) and, with Pivoting Fortress, three Decrease Damage Taken rows, which makes a stance-fortification route the natural second emphasis. Exposure (three Increase Damage Taken rows plus Crimson Thrust's single Afterburn row) and counter-play (Harmonious Slash's single Reflect row plus two Decrease Damage Given rows) are the tertiary routes. No heal, lifesteal or increase-heal row exists, so no sustain route is invented. Potency reaches matching supported tags on all Metal jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -60,7 +60,7 @@
         }
       ],
       "flavor": "Breathe. Settle the feet. Let the iron in the blood go still.",
-      "coverage_note": "Middle Guard Stance and Inner Peace buffs 35→37% (IDG 3 rows, DDT 2 rows); Pivoting Fortress guard 30→32%. 6 rows; IP and PF gated.",
+      "coverage_note": "Middle Guard Stance and Inner Peace buffs 35 → 37% (Increase Damage Given 3 rows, Decrease Damage Taken 2 rows); Pivoting Fortress guard 30 → 32%. Inner Peace and Pivoting Fortress are item-gated.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
       "scope": "all Metal jutsu",
@@ -87,12 +87,12 @@
       "modifiers": [
         {
           "tag": "decreasedamagetaken",
-          "flat": 2,
+          "flat": 3,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "Steel folded a thousand times does not break on the first blow.",
-      "coverage_note": "Decrease Damage Taken only: Middle Guard Stance and Inner Peace 35→39% with Tempered Stance, Pivoting Fortress 30→34%. 3 self rows.",
+      "coverage_note": "Decrease Damage Taken only: Middle Guard Stance and Inner Peace 40% with Tempered Stance, Pivoting Fortress 35%. 3 self rows.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
       "scope": "all Metal jutsu",
@@ -119,7 +119,7 @@
       "modifiers": [
         {
           "tag": "decreasedamagetaken",
-          "flat": 2,
+          "flat": 5,
           "display_role": "SELF BUFF"
         },
         {
@@ -129,7 +129,7 @@
         }
       ],
       "flavor": "Take the blow on the anvil; answer it with the hammer.",
-      "coverage_note": "Route totals: Decrease Damage Taken +6 (Fortress 36%, Stance and Inner Peace 41%); Increase Damage Given +5 (Stance and both IP rows 40%).",
+      "coverage_note": "Fortified route total +10% Decrease Damage Taken (Middle Guard Stance and Inner Peace 35 → 45%, Pivoting Fortress 30 → 40%); Increase Damage Given +3% (Stance and both Inner Peace rows 40% with Tempered Stance).",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
       "scope": "all Metal jutsu",
@@ -161,7 +161,7 @@
         }
       ],
       "flavor": "A good parry rings. A perfect one sings back.",
-      "coverage_note": "Harmonious Slash Reflect only (one self row, 40→43%, 2 rounds per 60 AP sword strike; gated). Returned damage caps at 60% of each hit.",
+      "coverage_note": "Harmonious Slash Reflect only (one self row, 40 → 43%, 2 rounds per 60 AP sword strike; gated). Returned damage caps at 60% of each hit.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
       "scope": "all Metal jutsu",
@@ -185,7 +185,7 @@
       "modifiers": [
         {
           "tag": "reflect",
-          "flat": 5,
+          "flat": 7,
           "display_role": "SELF BUFF"
         },
         {
@@ -195,7 +195,7 @@
         }
       ],
       "flavor": "What is aimed at the iron eye comes back along the same line.",
-      "coverage_note": "Harmonious Slash Reflect 48% on the route; Decrease Damage Given +3 on Tranquil Guard Flowing Form (gated) and Vacuum Fan (ally hazard).",
+      "coverage_note": "Counter route total +10%: Harmonious Slash Reflect 40 → 50%; Decrease Damage Given +3% on Tranquil Guard Flowing Form (gated) and Vacuum Fan (ally hazard).",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
       "scope": "all Metal jutsu",
@@ -232,7 +232,7 @@
         }
       ],
       "flavor": "The iron eye sees where the guard is thin and names the opening aloud.",
-      "coverage_note": "Exposure 35→37%: Phantom Slash (gated), Equilibrium Strike (gated; ally hazard), Vacuum Fan. Suppression +2: Tranquil Guard (gated), Fan.",
+      "coverage_note": "Exposure 35 → 37%: Phantom Slash (gated), Equilibrium Strike (gated; ally hazard), Vacuum Fan. Suppression +2%: Tranquil Guard (gated), Fan.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
       "scope": "all Metal jutsu",
@@ -268,7 +268,7 @@
         }
       ],
       "flavor": "An edge is only as sharp as the patience that honed it.",
-      "coverage_note": "All seven Metal damage rows 40/45/50 → 42/47/52: Tranquil Guard, Resonance Ward, Fortress, Phantom, Crimson, Equilibrium, Harmonious.",
+      "coverage_note": "All seven Metal Damage rows 40/45/50 → 42/47/52 EP: Tranquil Guard, Resonance Ward, Fortress, Phantom, Crimson, Equilibrium, Harmonious.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
       "scope": "all Metal jutsu",
@@ -306,7 +306,7 @@
         }
       ],
       "flavor": "The school teaches one cut. It has never needed a second.",
-      "coverage_note": "Same seven Metal rows; route adds +5 (Phantom Slash 50→55, Equilibrium Strike and Harmonious Slash 45→50, the other four 40→45). All gated.",
+      "coverage_note": "Same seven Metal rows; route total +5 Damage (Phantom Slash 50 → 55 EP, Equilibrium Strike and Harmonious Slash 45 → 50, the other four 40 → 45). All gated.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
       "scope": "all Metal jutsu",
@@ -344,7 +344,7 @@
         }
       ],
       "flavor": "Where the steel bites the ground, the sparks keep burning.",
-      "coverage_note": "Crimson Thrust Afterburn only (dagger-gated ground circle, range 5, CD 6, enemies only, 2 rounds): 35→38%; fed by every non-pierce hit.",
+      "coverage_note": "Crimson Thrust Afterburn only (dagger-gated ground circle, range 5, cooldown 6, enemies only, 2 rounds): 35 → 38%; fed by every non-pierce hit.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
       "scope": "all Metal jutsu",
@@ -378,7 +378,7 @@
         }
       ],
       "flavor": "The mark of hot iron, pressed into the enemy's guard.",
-      "coverage_note": "Crimson Thrust (dagger-gated) Afterburn 45% on route, 60% hit cap; exposure 40%: Phantom (gated), Equilibrium (gated; ally hazard), Fan.",
+      "coverage_note": "Burn route total +10%: Crimson Thrust (dagger-gated) Afterburn 35 → 45%, 60% hit cap; exposure 40% with Eye of Iron: Phantom (gated), Equilibrium (gated; ally hazard), Fan.",
       "parent_rule": "ALL",
       "potency_classification": "Metal",
       "scope": "all Metal jutsu",
@@ -408,7 +408,7 @@
         "07",
         "08"
       ],
-      "rationale": "Damage +5 on every one of the seven Metal weapon strikes (Phantom Slash 55; Equilibrium Guard Strike and Harmonious Slash 50; Tranquil Guard, Resonance Ward, Pivoting Fortress and Crimson Thrust 45), multiplied downstream by the bloodline's own Increase Damage Given passive. Eye of Iron is the required root (exposure and suppression +2); Tempered Stance is the fourth purchase for +2 on both stance buffs. Sparks from the Forge (Afterburn 38%) is the all-offence alternative fourth purchase. It gives up the fortified stances, the reflect and the burn.",
+      "rationale": "+5 Damage on every one of the seven Metal weapon strikes (Phantom Slash 55 EP; Equilibrium Guard Strike and Harmonious Slash 50; Tranquil Guard, Resonance Ward, Pivoting Fortress and Crimson Thrust 45), multiplied downstream by the bloodline's own Increase Damage Given passive. Eye of Iron is the required root (exposure and suppression +2%); Tempered Stance is the fourth purchase for +2% on both stance buffs. Sparks from the Forge (Afterburn 38%) is the all-offence alternative fourth purchase. It gives up the fortified stances, the reflect and the burn.",
       "cost": 4,
       "bonuses": {
         "damage": 5,
@@ -940,13 +940,13 @@
         "03",
         "06"
       ],
-      "rationale": "The stance route: Decrease Damage Taken reaches 41% on Middle Guard Stance and Inner Peace and 36% on Pivoting Fortress, while Increase Damage Given reaches 40% on Middle Guard Stance and on both Inner Peace rows, all from 40 AP self casts (Pivoting Fortress rides a 60 AP strike). Eye of Iron is the fourth purchase for +2 exposure and suppression; Resonant Parry (Reflect 43%) is the all-defence alternative. Raw damage power is untouched, so it is not the burst build.",
+      "rationale": "The stance route: Decrease Damage Taken reaches 45% on Middle Guard Stance and Inner Peace and 40% on Pivoting Fortress, while Increase Damage Given reaches 40% on Middle Guard Stance and on both Inner Peace rows, all from 40 AP self casts (Pivoting Fortress rides a 60 AP strike). Eye of Iron is the fourth purchase for +2% exposure and suppression; Resonant Parry (Reflect 43%) is the all-defence alternative. Damage is untouched, so it is not the burst build.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 6
+        "decreasedamagetaken": 10
       },
       "finals": [
         {
@@ -1069,8 +1069,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 30.0,
-          "gain": 6,
-          "final": 36.0,
+          "gain": 10,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1249,8 +1249,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 6,
-          "final": 41.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1429,8 +1429,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 6,
-          "final": 41.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1471,7 +1471,7 @@
         "09",
         "10"
       ],
-      "rationale": "Crimson Thrust's Afterburn goes from 35% to 45% for its two rounds on any enemy standing in the circle, so every non-pierce hit those targets take (the seven Metal strikes, weapons, normal jutsu, allies) carries up to 45% extra within the 60% per-hit cap; the capstone's +3 exposure with Eye of Iron takes Phantom Slash, Equilibrium Guard Strike and Vacuum Fan to 40%. Tempered Stance is the fourth purchase; Honed Edge (Damage +2) is the all-offence alternative. Single application row, dagger-gated, raw damage untouched.",
+      "rationale": "Crimson Thrust's Afterburn goes from 35% to 45% for its two rounds on any enemy standing in the circle, so every non-pierce hit those targets take (the seven Metal strikes, weapons, normal jutsu, allies) carries up to 45% extra within the 60% per-hit cap; the capstone's +3% exposure with Eye of Iron takes Phantom Slash, Equilibrium Guard Strike and Vacuum Fan to 40%. Tempered Stance is the fourth purchase; Honed Edge (Damage +2) is the all-offence alternative. Single application row, dagger-gated, Damage untouched.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -2003,14 +2003,14 @@
         "05",
         "06"
       ],
-      "rationale": "Harmonious Slash's Reflect rises from 40% to 48% for two rounds after each 60 AP sword strike, twelve points under the 60% per-hit cap, and the capstone's +3 suppression with Eye of Iron takes Tranquil Guard Flowing Form to 35% and Vacuum Fan to 40% Decrease Damage Given. Tempered Stance adds +2 to the stance buffs as the fourth purchase; Folded Steel (Decrease Damage Taken +4) is the all-defence alternative. The whole route is inert without the sword-style item that gates Harmonious Slash.",
+      "rationale": "Harmonious Slash's Reflect rises from 40% to 50% for two rounds after each 60 AP sword strike, ten points under the 60% per-hit cap, and the capstone's +3% suppression with Eye of Iron takes Tranquil Guard Flowing Form to 35% and Vacuum Fan to 40% Decrease Damage Given. Tempered Stance adds +2% to the stance buffs as the fourth purchase; Folded Steel (Decrease Damage Taken +5%) is the all-defence alternative. The whole route is inert without the sword-style item that gates Harmonious Slash.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "reflect": 8
+        "reflect": 10
       },
       "finals": [
         {
@@ -2403,8 +2403,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 40.0,
-          "gain": 8,
-          "final": 48.0,
+          "gain": 10,
+          "final": 50.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -2529,21 +2529,21 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Node split: Tempered Stance (self IDG/DDT) forks into Guard (DDT) and Counter (Reflect); Eye of Iron (enemy IDT/DDG) into Blade (Damage) and Burn (Afterburn); 14 full builds, none dominated. Blade 2/3 and Burn 3/7 + IDT 3 reuse Taiyo Kami's Crown of Cinders/Solar Cataclysm and Emberwake/Eternal Noon flats (one damage family, one burn row). Departures: Branding Iron drops Eternal Noon's IDG +3 (a second path to the IDG +5 maximum); DDT 2/2/2, not 2/3/5, for stacked stances; Reflect route new.",
-    "Calibration by coverage: Damage reaches seven rows (reference 3), all item-gated, so the ladder is 2/3 (+5, the reference ceiling), not the +6 smaller kits use; 2/3 vs 2/2 is an open user decision (risk 3). DDT is held to +6 (2/2/2) on the multiplicative stance arithmetic in risk 2 (x0.824 in the overlap window; Taiyo's single-row +10 is x0.846). IDG, IDT and DDG stop at +5 (Foundation +2, capstone +3) on no Hidden Art, so no capstone outbids a sibling. Afterburn 3/7 (45%); Reflect 3/5 (48%).",
+    "Node split: Tempered Stance (self IDG/DDT) forks into Guard (DDT) and Counter (Reflect); Eye of Iron (enemy IDT/DDG) into Blade (Damage) and Burn (Afterburn); 14 full builds, none dominated. Blade 2/3, Burn 3/7 + IDT 3 and Guard 2/3/5 reuse Taiyo Kami's Crown of Cinders/Solar Cataclysm, Emberwake/Eternal Noon and Sunward Oath/Golden Mantle/Sovereign Sun flats. Departures: Branding Iron drops Eternal Noon's IDG +3% (a second path to the IDG maximum), and the Reflect route is new (3/7, mirroring Branding Iron).",
+    "Routes: Burst +5 Damage (Honed Edge +2, One Cut Decides +3; seven rows, all item-gated); Fortified +10% Decrease Damage Taken (Tempered Stance +2%, Folded Steel +3%, Hammer and Anvil +5%; three self rows); Burn +10% Afterburn (Sparks from the Forge +3%, Branding Iron +7%; 35 → 45%); Counter +10% Reflect (Resonant Parry +3%, Every Blow Returned +7%; 40 → 50%). Glue tags IDG, IDT and DDG stop at +5% (Foundation +2%, capstone +3%) on no Hidden Art, so no capstone outbids a sibling. Recalibration: Fortified rises from +6% (2/2/2) and Counter from +8% to the +10% band; stacking on three DDT rows is in risks.",
     "Filters (getEfficiencyRatio returns 1 on any shared stat/general/element tag): Middle Guard Stance row 0 and Inner Peace row 0 are Highest-filtered and element-less, so they apply to element-less hits and to hits of the user's highest stat; Inner Peace row 2 lists Earth/Fire/Metal/None/Water. The DDT rows, Phantom Slash exposure and both suppression rows are element-less with stat filters. Equilibrium Strike and Vacuum Fan exposure carry Metal plus four stats: any stat-typed hit.",
     "Passives and delivery: the passive IDG (25 + 0.15/level on Earth/Fire/Metal/None/Water) multiplies the enhanced damage rows downstream; nothing touches Shadow Pierce's pierce row. The seven damage casts are 60 AP, cooldown 7 (Crimson Thrust 6: an EMPTY_GROUND circle at range 5, re-applied each round to enemies standing in it). Middle Guard Stance and Inner Peace are 40 AP self casts, cooldown 7, two-round buffs. Vacuum Fan: 40 AP spiral, range 5. No rotation simulated.",
-    "Fourth purchase choices: Burst takes Tempered Stance (stance buffs +2) or Sparks from the Forge (Afterburn +3); Fortified takes Eye of Iron or Resonant Parry (Reflect +3); Burn takes Tempered Stance or Honed Edge (all-offence 06/07/09/10: Damage +2, Afterburn +10, exposure +5); Counter takes Eye of Iron or Folded Steel (all-defence 01/02/04/05: DDT +4, Reflect +8, suppression +3). No-capstone hybrids spread +2/+3 across five or six tags. Four examples: each capstone anchors a role.",
-    "Gates: three bloodline items gate nine of eleven jutsu and align with the records' jutsuWeapon values (staff: Tranquil Guard, Resonance Ward, Pivoting Fortress; dagger: Phantom Slash, Crimson Thrust, Shadow Pierce; sword: Equilibrium Guard Strike, Harmonious Slash, Inner Peace). Every damage row, the Afterburn row, the Reflect row and two of three IDG/DDT rows sit behind a gate; only Middle Guard Stance and Vacuum Fan are free. Open decisions: Damage ladder (risk 3); DDT ceiling (risk 2)."
+    "Fourth purchase choices: Burst takes Tempered Stance (stance buffs +2%) or Sparks from the Forge (Afterburn +3%); Fortified takes Eye of Iron or Resonant Parry (Reflect +3%); Burn takes Tempered Stance or Honed Edge (all-offence 06/07/09/10: Damage +2, Afterburn +10%, exposure +5%); Counter takes Eye of Iron or Folded Steel (all-defence 01/02/04/05: DDT +5%, Reflect +10%, suppression +3%). No-capstone hybrids spread small flats across five or six tags. Four examples: each capstone anchors a role.",
+    "Gates: three bloodline items gate nine of eleven jutsu and align with the records' jutsuWeapon values (staff: Tranquil Guard, Resonance Ward, Pivoting Fortress; dagger: Phantom Slash, Crimson Thrust, Shadow Pierce; sword: Equilibrium Guard Strike, Harmonious Slash, Inner Peace). Every damage row, the Afterburn row, the Reflect row and two of three IDG/DDT rows sit behind a gate; only Middle Guard Stance and Vacuum Fan are free. Equipment gates castability only; no node is limited by an item."
   ],
   "risks": [
     "Item gates: the Counter route is inert without the sword-style item (Harmonious Slash holds the only Reflect row); the Burn route's Afterburn is inert without the dagger-style item (Crimson Thrust); the Blade route needs all three items for full coverage. Whether equipping the matching weapon type is also required was not read at the pin; this projection evaluates effect rows only.",
     "Ally hazard (validator warning accepted): Equilibrium Guard Strike rows 0–1 (damage, exposure; line, friendly fire none) and Vacuum Fan row 2 (suppression; spiral, friendly fire none). Honed Edge and One Cut Decides raise the line's damage to allies in it; Eye of Iron and Branding Iron raise their exposure; Eye of Iron and Every Blow Returned raise suppression on allies in the spiral.",
-    "Stance stacking (process.ts 469, 1692-1830; constants.ts 3096): jutsu IDG and DDT rows multiply sequentially (floor 10% of post-system-DR damage, DMG_REDUCTION_CAP 0.9), not add. Stance over Inner Peace: DDT x0.4225 (57.7% less), three IDG rows x2.46; Fortified route DDT 41% x0.348, IDG 40% x2.74. +6 DDT is x0.824 in the window, +5 IDG x1.115 on every damage source, not only bloodline strikes.",
-    "Seven-row damage: +5 is the reference per-cast gain, but Tetsugan lands a bloodline strike every round (seven 60 AP casts, CD 6-7) where Taiyo Kami lands three per seven, so realised per-battle uplift is about 2.3x the reference; Honed Edge alone (+2 x 7 = 14 row-weighted) rivals the other three Advanced Arts (11/15/16). Open user decision: 2/3 (+5, drafted) or 2/2 (+4, parity default).",
+    "Stance stacking (process.ts 468–476, 1692–1770; constants.ts 3096): in the damage pipeline jutsu IDG rows multiply and percentage DDT rows apply as sequential reductions, floored at 10% of post-system-DR damage (DMG_REDUCTION_CAP 0.9). Both stances at base leave x0.4225 of a hit and three IDG rows give x2.46; at the Fortified maximum (DDT 45%, IDG 40%) x0.3025 and x2.74, and Pivoting Fortress at 40% can add a third reduction. The IDG rise applies to every damage source, not only bloodline strikes. Not simulated.",
+    "Seven-row damage: +5 Damage is the reference per-cast gain (Hidden +2 / Advanced +3), but Tetsugan lands a bloodline strike every round (seven 60 AP casts, cooldown 6–7) where Taiyo Kami lands three per seven, so realised per-battle uplift is about 2.3x the reference. Not simulated.",
     "Afterburn is downstream: one ground-circle application row (Crimson Thrust, 2 rounds, enemies only, re-applied to any enemy standing in the circle); its value comes from every non-pierce hit the burning target takes, allies and weapons included, capped at 60% of each hit; other Afterburn sources saturate at that cap. Shadow Pierce's pierce row does not feed it. No proc or uptime simulation.",
-    "Leakage: the stance buffs raise or blunt normal jutsu, weapon and basic hits passing their stat filters in the two-round window (Inner Peace row 2 only for Earth/Fire/Metal/Water or element-less hits); enemy-side exposure and suppression alter allied and weapon damage too, and the Metal-plus-four-stat exposure rows match any stat-typed hit. Casting scope does not limit downstream benefit.",
-    "Classification: Metal has no census collision among the 95 captured kits, but the normal-jutsu Metal collision is unverified, so eligibility must stay bloodline-scoped. Under the current resolver only 10 of 20 supported rows match Metal directly (seven damage rows, Inner Peace row 2, the two Metal-tagged exposure rows); the other 10 fall back to None and need the proposed whole-kit classification.",
+    "Downstream reach: the stance buffs raise or blunt normal jutsu, weapon and basic hits passing their stat filters in the two-round window (Inner Peace row 2 only for Earth/Fire/Metal/Water or element-less hits); enemy-side exposure and suppression alter allied and weapon damage too, and the Metal-plus-four-stat exposure rows match any stat-typed hit. Casting scope does not limit downstream benefit.",
+    "Classification: no other captured bloodline has Metal jutsu; ordinary Metal jutsu are in scope by rule and unverified. 10 of 20 supported kit rows carry Metal (seven damage rows, Inner Peace row 2, the two Metal-tagged exposure rows); the other 10 need the proposed jutsu-classification resolver, and Middle Guard Stance (no Metal row) qualifies in-kit only through an authored Metal jutsu classification (ENGINE_GAP_REGISTER G1).",
     "Ranked PvP and ranked sparring suppress skill-tree effects at the pin, so the tree is inert there. Reflect value depends on hits taken (pierce included) inside each two-round window and was not simulated. Normal-tree potency policy is not approved; a combined potency budget with the main tree still needs review before any implementation."
   ],
   "progression": {
@@ -2589,9 +2589,9 @@
       "increasedamagegiven": 5,
       "decreasedamagegiven": 5,
       "increasedamagetaken": 5,
-      "decreasedamagetaken": 6,
+      "decreasedamagetaken": 10,
       "afterburn": 10,
-      "reflect": 8
+      "reflect": 10
     },
     "supported_rows_in_kit": 20,
     "supported_rows_by_tag": {
@@ -2613,7 +2613,7 @@
       "reflect"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 3 / Metal classification / forked tree",
+    "revision": "Draft 4 / Metal classification / forked tree (RUL-2026-10-03-005 recalibration)",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -2632,9 +2632,9 @@
         "increasedamagegiven": 5,
         "decreasedamagegiven": 5,
         "increasedamagetaken": 5,
-        "decreasedamagetaken": 6,
+        "decreasedamagetaken": 10,
         "afterburn": 10,
-        "reflect": 8
+        "reflect": 10
       },
       "ceilings": {
         "damage": 5,
@@ -2668,11 +2668,11 @@
           ],
           "steps": [
             2,
-            2,
-            2
+            3,
+            5
           ],
-          "total": 6,
-          "on_band": false
+          "total": 10,
+          "on_band": true
         },
         {
           "advanced_art": "05",
@@ -2686,10 +2686,10 @@
           "steps": [
             0,
             3,
-            5
+            7
           ],
-          "total": 8,
-          "on_band": false
+          "total": 10,
+          "on_band": true
         },
         {
           "advanced_art": "08",
@@ -2739,7 +2739,7 @@
       ],
       "bonuses": {
         "increasedamagegiven": 5,
-        "decreasedamagetaken": 6,
+        "decreasedamagetaken": 10,
         "reflect": 3
       }
     },
@@ -2754,7 +2754,7 @@
         "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 6
+        "decreasedamagetaken": 10
       }
     },
     {
@@ -2767,8 +2767,8 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagegiven": 3,
-        "decreasedamagetaken": 4,
-        "reflect": 8
+        "decreasedamagetaken": 5,
+        "reflect": 10
       }
     },
     {
@@ -2782,7 +2782,7 @@
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 4,
+        "decreasedamagetaken": 5,
         "reflect": 3
       }
     },
@@ -2798,7 +2798,7 @@
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 4
+        "decreasedamagetaken": 5
       }
     },
     {
@@ -2812,7 +2812,7 @@
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 4,
+        "decreasedamagetaken": 5,
         "afterburn": 3
       }
     },
@@ -2828,7 +2828,7 @@
         "decreasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "reflect": 8
+        "reflect": 10
       }
     },
     {
