@@ -9,10 +9,9 @@
     "statClassification": "Ninjutsu",
     "traits": "Burst, Control "
   },
-  "revision": "Draft 1 / Dust classification / forked tree",
+  "revision": "Draft 2 / Dust classification / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
   "warnings": [
-    "route Collapse of Ages primary total +7% Increase Damage Taken is off the 5/10/15 bands without a route_band_rationale",
     "ally-hazard area rows amplified (friendly fire none/ALL): Abysmal End#0"
   ],
   "classification": {
@@ -78,7 +77,7 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 10
       },
       "advanced_arts": [
         "Collapse of Ages"
@@ -151,7 +150,7 @@
       "damage": 5,
       "increasedamagegiven": 5,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 7,
+      "increasedamagetaken": 10,
       "decreasedamagetaken": 10
     },
     "supported_rows_in_kit": 10,
@@ -241,8 +240,8 @@
         "name": "Collapse of Ages",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 10,
+        "raw_flat_total": 8,
+        "row_weighted_total": 16,
         "covered_jutsu": [
           "Abysmal End",
           "Singularity",
@@ -332,18 +331,18 @@
       "ids": [
         "01",
         "02",
-        "03",
-        "04"
+        "04",
+        "05"
       ],
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 5
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 10
       },
-      "raw_flat_total": 12,
-      "row_weighted_total": 34,
+      "raw_flat_total": 17,
+      "row_weighted_total": 38,
       "advanced_arts": [
-        "03"
+        "05"
       ],
       "non_dominated": true
     },
@@ -412,10 +411,10 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 32,
+        "raw_flat_total": 17,
+        "row_weighted_total": 38,
         "advanced_arts": [
           "05"
         ],
@@ -488,11 +487,11 @@
         "bonuses": {
           "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 7,
+          "increasedamagetaken": 10,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 28,
+        "raw_flat_total": 19,
+        "row_weighted_total": 34,
         "advanced_arts": [
           "05"
         ],

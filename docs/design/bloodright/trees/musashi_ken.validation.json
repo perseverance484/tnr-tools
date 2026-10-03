@@ -9,19 +9,35 @@
     "statClassification": "Bukijutsu",
     "traits": null
   },
-  "revision": "Draft 3 / Musashi Ken classification / forked tree",
+  "revision": "Draft 4 / Musashi Ken classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
   "structure_errors": [],
-  "warnings": [],
+  "warnings": [
+    "classification status: requires classification extension (director decision)"
+  ],
   "classification": {
     "potency_classification": "Musashi Ken",
-    "label_kind": "bloodline-keyed extension",
-    "bloodline": "Musashi Ken",
+    "label_kind": "classification extension",
+    "classification_status": "requires classification extension",
+    "qualifying_elements": [],
     "display_element": null,
-    "element_exclusive_within_census": false,
-    "applies_to": "existing supported tags of every Musashi Ken jutsu",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Musashi Ken-classified jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Heiho",
+      "Iaido",
+      "Iaijutsu"
+    ],
+    "shared_element_bloodlines": [],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
     "changes_combat_elements": false,
-    "engine_status": "proposal_requires_resolver_adjustment_and_classification_extension",
-    "census_collisions": []
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver_and_classification_extension"
   },
   "examples": [
     {
@@ -35,7 +51,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 6,
+        "damage": 5,
         "increasedamagegiven": 2,
         "decreasedamagetaken": 2
       },
@@ -54,8 +70,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
-        "increasedamagegiven": 6,
+        "increasedamagegiven": 5,
         "decreasedamagetaken": 4
       },
       "advanced_arts": [
@@ -73,8 +88,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 3,
         "decreasedamagetaken": 10
       },
       "advanced_arts": [
@@ -105,8 +119,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 6,
-      "increasedamagegiven": 6,
+      "damage": 5,
+      "increasedamagegiven": 5,
       "decreasedamagetaken": 10
     },
     "supported_rows_in_kit": 6,
@@ -173,8 +187,8 @@
         "name": "Second Sword",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 6,
+        "raw_flat_total": 1,
+        "row_weighted_total": 3,
         "covered_jutsu": [
           "Heiho",
           "Iaido",
@@ -205,14 +219,12 @@
         "name": "Reading the Field",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 3,
-        "row_weighted_total": 4,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
-          "Heiho",
-          "Iaido",
-          "Iaijutsu"
+          "Heiho"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -235,8 +247,8 @@
         "name": "Victory in the Sheath",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 11,
+        "raw_flat_total": 6,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Heiho",
           "Iaido",
@@ -265,29 +277,29 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "06",
-        "07",
-        "08"
+        "02",
+        "04",
+        "05"
       ],
       "bonuses": {
-        "damage": 1,
-        "increasedamagegiven": 4,
-        "decreasedamagetaken": 10
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "decreasedamagetaken": 2
       },
-      "raw_flat_total": 15,
-      "row_weighted_total": 24,
+      "raw_flat_total": 9,
+      "row_weighted_total": 21,
       "advanced_arts": [
-        "08"
+        "05"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "07",
-      "name": "Unbroken Guard",
-      "category": "Hidden Art",
-      "depth": 2,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "id": "06",
+      "name": "Reading the Field",
+      "category": "Foundation",
+      "depth": 1,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
       "covered_jutsu": [
         "Heiho"
       ],
@@ -305,10 +317,10 @@
         ],
         "bonuses": {
           "damage": 5,
-          "increasedamagegiven": 4
+          "increasedamagegiven": 3
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 22,
+        "raw_flat_total": 8,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "03"
         ],
@@ -322,12 +334,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 6,
+          "damage": 5,
           "increasedamagegiven": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 20,
+        "raw_flat_total": 9,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "03"
         ],
@@ -342,11 +354,11 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagegiven": 6,
+          "increasedamagegiven": 5,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 24,
+        "raw_flat_total": 9,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "05"
         ],
@@ -360,14 +372,14 @@
           "06"
         ],
         "bonuses": {
-          "damage": 3,
-          "increasedamagegiven": 4,
+          "damage": 2,
+          "increasedamagegiven": 3,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 20,
+        "raw_flat_total": 7,
+        "row_weighted_total": 15,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -377,14 +389,14 @@
           "07"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 17,
+        "raw_flat_total": 9,
+        "row_weighted_total": 15,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -394,12 +406,12 @@
           "09"
         ],
         "bonuses": {
-          "damage": 5,
+          "damage": 4,
           "increasedamagegiven": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 18,
+        "raw_flat_total": 8,
+        "row_weighted_total": 16,
         "advanced_arts": [],
         "non_dominated": false
       },
@@ -411,12 +423,11 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 6,
+          "increasedamagegiven": 5,
           "decreasedamagetaken": 4
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 24,
+        "raw_flat_total": 9,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "05"
         ],
@@ -430,12 +441,11 @@
           "07"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 3,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 19,
+        "raw_flat_total": 8,
+        "row_weighted_total": 14,
         "advanced_arts": [],
         "non_dominated": false
       },
@@ -447,14 +457,14 @@
           "09"
         ],
         "bonuses": {
-          "damage": 3,
-          "increasedamagegiven": 4,
+          "damage": 2,
+          "increasedamagegiven": 3,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 20,
+        "raw_flat_total": 7,
+        "row_weighted_total": 15,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -464,12 +474,11 @@
           "08"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 3,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 24,
+        "raw_flat_total": 13,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "08"
         ],
@@ -483,14 +492,14 @@
           "09"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 17,
+        "raw_flat_total": 9,
+        "row_weighted_total": 15,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -500,12 +509,12 @@
           "09"
         ],
         "bonuses": {
-          "damage": 3,
-          "increasedamagegiven": 2,
+          "damage": 2,
+          "increasedamagegiven": 1,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 22,
+        "raw_flat_total": 13,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "08"
         ],
