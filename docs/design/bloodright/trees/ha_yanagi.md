@@ -1,12 +1,12 @@
 # Ha Yanagi — Lament of the Willow
 
-**Bloodline:** Ha Yanagi (BR-030, rank D, `uNZ2UMfA3BuX-J_1g0fHU`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ha Yanagi classification / forked tree · **Classification:** Ha Yanagi (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
+**Bloodline:** Ha Yanagi (BR-030, rank D, `uNZ2UMfA3BuX-J_1g0fHU`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Ha Yanagi classification / forked tree · **Classification:** Ha Yanagi (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
 
 **Emphasis:** primary Enemy debuff control: Decrease Damage Given (Wailing Bark, Petal Nightmare) and Increase Damage Taken (Blighted Tree) · secondary Self amplification: the Wailing Bark Increase Damage Given row, which multiplies every non-pierce hit the caster lands in its window · tertiary None: Damage is left unamplified. Its one meaningful row is Blighted Tree's formula 40 EP hit; Petal Nightmare's Damage row is static, 40 raw HP outside the EP ladder.
 
 Three of the kit's six supported rows are enemy debuffs. Mourning Boughs answers "How do I wither the enemy: blunt their blows or open them to every strike?": Grave Willow's Hush takes both compounding Decrease Damage Given rows to +10% (Wailing Bark 45%, Petal Nightmare 40%), and Hollow at the Heart takes the single Blighted Tree exposure row to +8% (30 → 38%, ×1.062); that capstone carries no suppression rider, but its route keeps Mourning Boughs' +2% Decrease Damage Given (+5% with Veil of Falling Petals). Whispering Canopy answers "How do I make my own blows land harder?" with one chain: Thousand-Leaf Dream takes the one Wailing Bark self buff to 45%. No node targets Damage: Blighted Tree's formula 40 EP hit is its one meaningful row, and Petal Nightmare's static row deals 40 raw HP. Every percentage row lists all four stat types and no element, so each reaches every non-pierce hit, not Genjutsu only. Potency reaches matching supported tags on all Ha Yanagi-classified jutsu (RUL-2026-10-03-005; requires a classification extension).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

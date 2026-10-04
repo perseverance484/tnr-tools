@@ -1,12 +1,12 @@
 # Aerathiel — Litany of Dust
 
-**Bloodline:** Aerathiel (BR-002, rank A, `1C34syOOEKp6k3UKweYT6`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Dust classification / forked tree · **Classification:** Dust (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Aerathiel (BR-002, rank A, `1C34syOOEKp6k3UKweYT6`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Dust classification / forked tree · **Classification:** Dust (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Atomic Shield: sustained self amplification of every Dust strike in its window, or retaliation (Scouring Veil) · secondary Enemy decay: exposure or suppression from Windshear Decay and Death's March (Entropic Grasp) · tertiary Damage unamplified: no node adds flat Damage (Particle Cannon stays 50, Death's March and Decaying Touch 40).
 
 The tree splits by cast. Scouring Veil answers "How do I turn my Atomic Shield into the weapon: strike harder, or strike back?": Particle Collapse and Total Disintegration lift the Shield's two compounding damage buffs 35 → 43% (sustained amplification, ≈ ×1.122 on each Dust strike in the window), while Atomic Reprisal lifts the Shield's Reflect to 50% (retaliation). Entropic Grasp answers "How do I make the enemy decay: open them to every blow, or too weak to land their own?": Terminal Decay lifts both exposure debuffs to 43% (exposure, ≈ ×1.122 from any attacker), Requiem of Dust lifts Windshear Decay's suppression to 45%. Damage is left unamplified: the trait is sustained damage over time, not burst, and Particle Cannon shares the 60 AP, cooldown-7 profile of the two 40 strikes, so no build lifts it past the Nuke tier. Potency reaches matching supported tags on all Dust jutsu (RUL-2026-10-03-005).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

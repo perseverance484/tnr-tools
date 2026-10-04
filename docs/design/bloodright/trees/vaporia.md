@@ -1,12 +1,12 @@
 # Vaporia — Scald and Steam
 
-**Bloodline:** Vaporia (BR-090, rank A, `f7IgtcsLqomqmmBgAYS1O`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Boil classification / forked tree · **Classification:** Boil (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Vaporia (BR-090, rank A, `f7IgtcsLqomqmmBgAYS1O`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Boil classification / forked tree · **Classification:** Boil (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Rush offense from Rising Steam: +2 Damage on the three Boil attacks (Drowning Strike 40, Surfing Strike 45, Scorch Break 40 EP) with Drowning Strike's spiral exposure on the payoff, or Afterburn branded on the Liquid Ember Shell's target · secondary Outlasting the exchange from Vapor Shroud: Lifesteal with an Azure Dragon Palm Heal rider, or Reflect behind Decrease Damage Taken · tertiary Foundation glue: Increase Damage Given and Increase Damage Taken on Rising Steam, Decrease Damage Taken on Vapor Shroud.
 
 The kit's ten supported rows are three Boil Taijutsu formula Damage rows (40/45/40 EP at jutsu level 25) on 60 AP area attacks and seven single-row tags, three of them on one 40 AP Liquid Ember Shell cast (Lifesteal 40% and Increase Damage Given 35% on the caster, Afterburn 35% on the target). Rising Steam answers "How do I make the rush hit harder: scald everyone around me or brand one target?": the steady-edge route commits +1 Damage on Geyser Fist and Caldera Burst adds +1 Damage more (+2 on all three attacks, no tier crossing) with Drowning Strike's spiral exposure at 40%, Boiling Point brands the Shell's target with +10% Afterburn. Vapor Shroud answers "How do I outlast the exchange: heal through my own hits or punish theirs?": Dew of the Dragon reaches the +5% Lifesteal ceiling with a palm Heal rider, Wall of Steam returns 50% of incoming hits behind 35% Decrease Damage Taken. Potency reaches matching supported tags on all Boil jutsu (RUL-2026-10-03-005).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

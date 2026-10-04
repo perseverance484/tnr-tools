@@ -1,12 +1,12 @@
 # Reptilian — Cold Blood and Scale
 
-**Bloodline:** Reptilian (BR-057, rank B, `z78aHAPRQfctiw7_qNXMx`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Reptilian classification / forked tree · **Classification:** Reptilian (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
+**Bloodline:** Reptilian (BR-057, rank B, `z78aHAPRQfctiw7_qNXMx`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Reptilian classification / forked tree · **Classification:** Reptilian (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
 
 **Emphasis:** primary Increase Damage Given — two 35% rows that compound on a caster carrying both buffs (Reptile Chimera self, Cool-Blooded Empowerment circle) · secondary Decrease Damage Taken — Reptile Chimera hide (single row, +10% Fortress route) · tertiary Lifesteal — Cool-Blooded Empowerment circle (single row, +5% hard ceiling) with an Increase Damage Given rider.
 
 Four supported rows sit on two 40 AP, cooldown-7 buffs, each live for the 2 rounds after its cast: Reptile Chimera (SELF) carries 35% Increase Damage Given and 35% Decrease Damage Taken; Cool-Blooded Empowerment (ALLY, radius-1 circle, caster included) carries 35% Increase Damage Given and 35% Lifesteal. Each tag has one route that maximizes it: Jaws of the Chimera takes both IDG rows to 42% (a caster carrying both buffs goes from ×1.82 to ×2.02); Basilisk Carapace takes the hide to 45% (hits ×0.65 → ×0.55); Feast of Scales takes the circle's Lifesteal to the 40% ceiling with a +2% IDG rider on both IDG rows. No row deals damage, so no node carries flat Damage. Potency reaches matching supported tags on all jutsu of the proposed Reptilian classification (RUL-2026-10-03-005). Summoning: Reptile Zoo (summon, injectjutsus, visual; PVP only) and its injected Reptile King are unsupported.
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

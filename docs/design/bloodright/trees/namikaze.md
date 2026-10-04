@@ -1,12 +1,12 @@
 # Namikaze — The Shearing Sky
 
-**Bloodline:** Namikaze (BR-048, rank C, `0Uc2Nfgg08kqGm78QAwZ4`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Wind classification / forked tree · **Classification:** Wind (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Namikaze (BR-048, rank C, `0Uc2Nfgg08kqGm78QAwZ4`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Wind classification / forked tree · **Classification:** Wind (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Wind offense from Wind at the Back — self Increase Damage Given on Cutting Tempest and the hidden Soaring Fujin, paid off by a controlled +2 Damage on the three Wind hits · secondary Pressure — Afterburn on Tempest Shroud's circle (enemy debuff, ally hazard), landing on every later non-pierce hit the target takes · tertiary Control from Eye of the Storm — self Decrease Damage Taken on Tempest Shroud (Fortress) or enemy Decrease Damage Given on Wind Step's circle (Suppression).
 
 2026-10-04 rebalance under BALANCE_REVIEW_METHOD.md. Wind at the Back answers "How do I turn the wind into killing pressure: cut harder myself, or make every hit on them burn?": Cleaving Cyclone sharpens both self buffs on its Hidden Art (Razor Crosswind) and pays off with +2 Damage (Cutting Tempest 45 → 47, the two circles 40 → 42; no kit row crosses a tier); Fanning the Flames takes Tempest Shroud's Afterburn 35 → 45%. Eye of the Storm answers "How do I win the exchange defensively: weather their blows, or smother them?": Heart of the Tempest takes Shroud's self Decrease Damage Taken 30 → 40% and Dead Calm takes Wind Step's Decrease Damage Given 30 → 40%. Move and pool-cost rows are unsupported. Potency reaches matching supported tags on all Wind jutsu (RUL-2026-10-03-005).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

@@ -1,12 +1,12 @@
 # Godstorm Eclipse — Throne of the Black Sun
 
-**Bloodline:** Godstorm Eclipse (BR-029, rank H, `szai-IgtB7PLubojIIlh-`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Shadow + Storm classification / forked tree · **Classification:** Shadow + Storm (multi-element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Godstorm Eclipse (BR-029, rank H, `szai-IgtB7PLubojIIlh-`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Shadow + Storm classification / forked tree · **Classification:** Shadow + Storm (multi-element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Burst (Burst Heavy): Hammer of the Heavens sets up exposure (Increase Damage Taken on Event Horizon Gate, Sky-Splitting Wall and Storm-God's Heart, 35 → 37%) and Total Eclipse pays it off with +2 Damage on all five strikes (Raijin's Cage 50 → 52; Heart, Palm and Cataract 45 → 47; Tomb 40 → 42) · secondary Sustained self-amplification (Storm-God Ascendant: Increase Damage Given 35 → 40% on Wall, Tempest, Bulwark and Marrow Mantle) and endurance: Decrease Damage Taken on Gate or Bulwark (Pillar of Heaven, +10%) and Tempest Lifesteal (Eater of Suns, +5%) · tertiary Riders: Lifesteal on the fortress (+2%) and Afterburn on the leech (Tempest 35 → 38%).
 
 Godstorm Eclipse is a rank H kit whose traits read Sustain / Burst Heavy / Tank, split across two keystones worn one at a time: Eclipse Marrow is needed to cast Gate, Marrow Mantle and the Shadow attacks (Tomb 40, Palm 45, Cataract 45, Midnight Verdict pierce); Godstorm Aegis is needed to cast the six Godstorm Mantle jutsu (Wall, Tempest, Bulwark, Heart 45, Raijin's Cage 50, Heavenbreaker Verdict pierce). Burst Heavy keeps a Burst route on the director pattern (RUL-2026-10-04-001/002): a percentage setup on the Hidden Art and a controlled +2 Damage payoff on the Advanced Art. Raijin's Cage shares the Storm element with Storm-God's Heart and potency is element-wide, so the payoff also takes Raijin's Cage 50 → 52. Black Sun Rising answers "How do I hit harder: crack the target open for the heavy strike, or amplify every hit I land?" (Total Eclipse / Storm-God Ascendant); Stormgod's Marrow answers "How do I outlast them: refuse the blow, or drink it back?" (Pillar of Heaven / Eater of Suns). Potency reaches matching supported tags on all Shadow and Storm jutsu (RUL-2026-10-03-005; multi-element, director review).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

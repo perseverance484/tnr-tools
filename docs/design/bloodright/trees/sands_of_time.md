@@ -1,12 +1,12 @@
 # Sands of Time — Dominion of Hours
 
-**Bloodline:** Sands of Time (BR-059, rank H, `yzbSbZ5rqRVIjiwN-farx`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Sand classification / forked tree · **Classification:** Sand (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Sands of Time (BR-059, rank H, `yzbSbZ5rqRVIjiwN-farx`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Sand classification / forked tree · **Classification:** Sand (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Control — Increase Damage Taken (Timeshift, Momentum Shift; two enemy rows) and Decrease Damage Given (Timelapse circle) · secondary Tank — Decrease Damage Taken (Timelapse self row) and Heal (Cellular Regeneration) · tertiary Self-amplification — Momentum Shift's self Increase Damage Given (one row) on the caster's own hits against every target in its window; Sand Damage (Timeshift 40, Timelapse 40, Eternity Flux 50) is left unamplified.
 
 Sands of Time is a rank H Tank / Control kit built from paired rows: Momentum Shift marks the target (35% Increase Damage Taken) and buffs the caster (35% Increase Damage Given); Timelapse weakens every enemy in its circle (30% Decrease Damage Given) and shields the caster (30% Decrease Damage Taken). Timeshift adds a second, broad 35% exposure row and Cellular Regeneration a static Heal 25 (250 HP per tick). The tree follows those pairs: an offensive Foundation on Momentum Shift (strike harder myself or age the target) and a defensive Foundation on Timelapse (shelter myself or weaken them). Routes: Sustained amplification +10% Increase Damage Given on Momentum Shift's self row, Exposure +8% Increase Damage Taken, Fortress +10% Decrease Damage Taken with +5% Heal, Suppression +10% Decrease Damage Given. Damage stays unamplified: the Traits are Tank and Control, and the 50 row is Eternity Flux's, a C-rank stun cast (60 AP, cooldown 7), not a signature finisher. Stun, timecompression and barrier are unsupported and receive nothing.
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

@@ -1,12 +1,12 @@
 # Voltara Divine — Litany of Lightning
 
-**Bloodline:** Voltara Divine (BR-091, rank C, `zOGMXO1nnBTEE0sAJRCuD`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Lightning classification / forked tree · **Classification:** Lightning (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Voltara Divine (BR-091, rank C, `zOGMXO1nnBTEE0sAJRCuD`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Lightning classification / forked tree · **Classification:** Lightning (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Lightning amplification — Increase Damage Given (Luminous Illusion Bind, Ethereal Dragon's Whispers; two self rows) · secondary Lightning burst — Damage (Bind 40, Whispers 50 EP): a controlled +2 payoff on each strike's own cast, Whispers 50 → 52 above the Nuke tier · tertiary Blitz guard — Decrease Damage Taken (Voltara Blitz; one self row, the fortress route).
 
 Five supported rows sit on three casts. Both Lightning strikes carry a 35% self Increase Damage Given row that is live the two rounds after the cast and never on its own hit: Bind's carries Lightning and amplifies only Lightning hits, Whispers' carries no element and lists all four stat types, so it amplifies every non-pierce hit the caster lands; one cast therefore drives many later hits, and the 15% Lightning passive multiplies last. That is the bloodline's highest-leverage lever and takes the primary route. The two strikes (Bind 40 EP, Whispers 50 EP; 60 AP each, so never in one turn; cooldowns 6 and 7, single target) take a controlled +2 Damage on the burst route, the only bonus that acts on a strike's own cast. Voltara Blitz (60 AP, cooldown 7) carries the caster in and leaves a 30% self Decrease Damage Taken row for 2 rounds, the kit's only defence and its only answer to the 10% Wind Increase Damage Taken passive; it roots the fortress route and opens the burst sequence (Blitz, Bind, Whispers). Blitz's move and pierce rows and Bind's stun are unsupported.
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

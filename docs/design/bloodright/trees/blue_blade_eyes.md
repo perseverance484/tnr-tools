@@ -1,12 +1,12 @@
 # Blue Blade Eyes — Edge of Sapphire
 
-**Bloodline:** Blue Blade Eyes (BR-015, rank S, `clh4d6qo4000itb0hrx8t06wq`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ice classification / forked tree · **Classification:** Ice (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Blue Blade Eyes (BR-015, rank S, `clh4d6qo4000itb0hrx8t06wq`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Ice classification / forked tree · **Classification:** Ice (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary The trade of blows (Sapphire Edge): Burst sets up the four self damage buffs and pays off with +2 Damage on the five Ice attacks, or Suppression takes Icebound Might's circle to 40% Decrease Damage Given · secondary Outlasting the fight (Unblinking Sapphire): a Decrease Damage Taken fortress on the two weaponless casts, or Arctic Frost's Lifesteal drain with exposure · tertiary Increase Damage Given and Increase Damage Taken held to +5%, because four and three rows compound with one another and with the 28.75% passive: ×1.157 on the four self buffs, ×1.115 on the three exposure rows (Blood-Enchanted Eyes' exposure maximum).
 
 Fable proposal (2026-10-04 batch rebalance, roster pass). Sapphire Edge answers "How do I win the trade of blows: sharpen mine or dull theirs?": Burst takes the four self damage buffs to 40% on Honed Crescent and pays off with a controlled +2 Damage on Stroke That Splits Stone (40 → 42 and 45 → 47 EP, no tier change), and Suppression (Numb to the Marrow) takes Icebound Might's circle to 40% Decrease Damage Given with a light guard rider. Unblinking Sapphire answers "How do I outlast them: refuse their blows, or drink them dry?": Fortress (Glacier Does Not Yield) takes both guard rows to 45%, and Drain (Winter Takes Its Due) takes Arctic Frost's Lifesteal to the 45% ceiling with exposure 35 → 40% on three rows (×1.115). Shield, stun, buffprevent, wound, move and redirection are unsupported and untouched. Potency reaches matching supported tags on all Ice jutsu (RUL-2026-10-03-005).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

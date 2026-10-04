@@ -1,6 +1,6 @@
 # Dai Kenja — Doctrine of Overflow
 
-**Bloodline:** Dai Kenja (BR-021, rank D, `Dqqw3zcIGDserD-qEE9QW`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Dai Kenja classification / forked tree · **Classification:** Dai Kenja (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
+**Bloodline:** Dai Kenja (BR-021, rank D, `Dqqw3zcIGDserD-qEE9QW`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Dai Kenja classification / forked tree · **Classification:** Dai Kenja (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
 
 **Emphasis:** primary Overloaded Impact's window: Increase Damage Given on the caster's hits in the two rounds after the strike · secondary Decrease Damage Given suppression on Chakra Overload and Chakra Cannon · tertiary Exposure into the strike: Chakra Overload's Increase Damage Taken (adverse on Overloaded Impact) paid off by a controlled +2 Damage.
 

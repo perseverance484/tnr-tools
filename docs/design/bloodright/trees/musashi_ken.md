@@ -1,12 +1,12 @@
 # Musashi Ken — The Drawn Blade
 
-**Bloodline:** Musashi Ken (BR-047, rank D, `EZRt16BYzQRMiGSf_P7is`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Musashi Ken classification / forked tree · **Classification:** Musashi Ken (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
+**Bloodline:** Musashi Ken (BR-047, rank D, `EZRt16BYzQRMiGSf_P7is`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Musashi Ken classification / forked tree · **Classification:** Musashi Ken (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
 
 **Emphasis:** primary Bukijutsu tempo — Increase Damage Given (Heiho, Iaido, Iaijutsu; three self rows that compound) · secondary The draw — Damage on Iaido and Iaijutsu (two 38 EP Light-tier strikes) · tertiary Guard — Decrease Damage Taken (Heiho; one row).
 
 Six supported rows on three casts. Every jutsu carries a 35% self Increase Damage Given row for 2 rounds; each lands on the caster at cast time, acts only in the two rounds after, and compounds with the others on every element-less hit, so self amplification is the kit's highest-leverage lever and the Tempo route's job. The two 38 EP Bukijutsu / Speed, Strength strikes (Iaido single target, Iaijutsu ground circle; 60 AP, cooldown 7) are the only Damage rows and sit in the Light tier, so the steady edge stops at the batch's +2 flat-Damage limit (38 → 40, Light → Normal) and the Normal-tier step comes from the capstone. Heiho's single 35% Decrease Damage Taken row is the only defensive lever; it carries the Fortress chain and the steady edge's small guard rider. Iaijutsu's move row is unsupported.
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|
