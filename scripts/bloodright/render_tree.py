@@ -600,7 +600,12 @@ def render_md(tree: dict, validation: dict | None) -> str:
             out.append("\nValidator warnings:\n")
             for w in validation["warnings"]:
                 out.append(f'- {w}')
-    if validation and validation.get("damage_thresholds", {}).get("rows"):
+    if validation and validation.get("damage_thresholds", {}).get("rows") and not validation["damage_thresholds"].get("damage_totals_reachable"):
+        dt = validation["damage_thresholds"]
+        out.append("\n### Damage tiers (base → final)\n")
+        out.append("No node adds flat Damage; every Damage row keeps its base (" +
+                   ", ".join(f'{r["jutsu"]} {r["base"]:g} ({r["tier"]})' for r in dt["rows"]) + ").")
+    if validation and validation.get("damage_thresholds", {}).get("rows") and validation["damage_thresholds"].get("damage_totals_reachable"):
         dt = validation["damage_thresholds"]
         out.append("\n### Damage tiers (base → final)\n")
         out.append("Player-jutsu tiers: 38 Light, 40 Normal, 45 High, 50 Nuke; anything above 50 is past the ladder. Each column is a flat Damage total some legal allocation reaches.\n")

@@ -9,7 +9,7 @@
     "statClassification": "Highest",
     "traits": "Sustained DPS"
   },
-  "revision": "Draft 4 / Lava classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Lava classification / forked tree",
   "structure_errors": [],
   "warnings": [
     "ally-hazard area rows amplified (friendly fire none/ALL): Eruption Strike#1"
@@ -49,15 +49,14 @@
         "01",
         "02",
         "03",
-        "06"
+        "04"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
+        "damage": 2,
+        "increasedamagegiven": 8,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "lifesteal": 1
+        "afterburn": 3
       },
       "advanced_arts": [
         "Pyroclastic Surge"
@@ -70,13 +69,12 @@
         "01",
         "04",
         "05",
-        "06"
+        "02"
       ],
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
-        "increasedamagetaken": 5,
-        "decreasedamagetaken": 2,
+        "increasedamagetaken": 2,
         "afterburn": 10
       },
       "advanced_arts": [
@@ -85,7 +83,7 @@
     },
     {
       "name": "Heart of the Caldera",
-      "archetype": "Fortified off.",
+      "archetype": "Fortress",
       "ids": [
         "01",
         "06",
@@ -94,7 +92,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10
       },
@@ -146,9 +144,9 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 5,
-      "increasedamagetaken": 5,
+      "damage": 2,
+      "increasedamagegiven": 8,
+      "increasedamagetaken": 2,
       "decreasedamagetaken": 10,
       "afterburn": 10,
       "lifesteal": 5
@@ -192,13 +190,12 @@
         "name": "Scalding Tide",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
         "covered_jutsu": [
-          "Infernal Stream",
-          "Magma Slayer"
+          "Lava Wave"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -207,10 +204,11 @@
         "name": "Pyroclastic Surge",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
+        "raw_flat_total": 5,
         "row_weighted_total": 7,
         "covered_jutsu": [
           "Infernal Stream",
+          "Lava Wave",
           "Magma Slayer"
         ],
         "covered_rows": 3,
@@ -236,14 +234,12 @@
         "name": "The Mountain Wakes",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 13,
-        "row_weighted_total": 13,
+        "raw_flat_total": 7,
+        "row_weighted_total": 7,
         "covered_jutsu": [
-          "Blow of Devastation",
-          "Eruption Strike",
-          "Lava Wave"
+          "Eruption Strike"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -280,8 +276,8 @@
         "name": "Heart of the Caldera",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 8,
+        "raw_flat_total": 7,
+        "row_weighted_total": 7,
         "covered_jutsu": [
           "Lava Wave"
         ],
@@ -327,13 +323,12 @@
         "05"
       ],
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "afterburn": 10
       },
-      "raw_flat_total": 22,
-      "row_weighted_total": 24,
+      "raw_flat_total": 17,
+      "row_weighted_total": 17,
       "advanced_arts": [
         "05"
       ],
@@ -362,14 +357,13 @@
           "04"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
+          "damage": 2,
+          "increasedamagegiven": 8,
           "increasedamagetaken": 2,
-          "afterburn": 3,
-          "lifesteal": 1
+          "afterburn": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 18,
+        "raw_flat_total": 15,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "03"
         ],
@@ -383,14 +377,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
+          "damage": 2,
+          "increasedamagegiven": 8,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "lifesteal": 1
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 17,
+        "raw_flat_total": 14,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "03"
         ],
@@ -404,13 +397,12 @@
           "05"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 2,
           "afterburn": 10
         },
-        "raw_flat_total": 22,
-        "row_weighted_total": 24,
+        "raw_flat_total": 17,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "05"
         ],
@@ -424,14 +416,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 3
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 13,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -443,13 +434,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 13,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -461,14 +451,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "lifesteal": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 12,
+        "raw_flat_total": 11,
+        "row_weighted_total": 11,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -480,13 +469,13 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
-          "increasedamagetaken": 5,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 10
         },
-        "raw_flat_total": 22,
-        "row_weighted_total": 22,
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "05"
         ],
@@ -537,12 +526,12 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "08"
         ],
@@ -594,12 +583,12 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 2,
           "decreasedamagetaken": 10,
           "lifesteal": 2
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 15,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "08"
         ],
@@ -798,6 +787,265 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [
+      2
+    ],
+    "rows": [
+      {
+        "jutsu": "Magma Slayer",
+        "row": 0,
+        "base": 45.0,
+        "tier": "High",
+        "elements": [
+          "Lava"
+        ],
+        "method": "SINGLE",
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Infernal Stream",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Lava"
+        ],
+        "method": "SINGLE",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Pyroclastic Surge",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 8,
+        "increasedamagetaken": 2
+      },
+      "path_row_weighted": 14,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Clinging Slag",
+          "category": "Hidden Art",
+          "adds": {
+            "afterburn": 3
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 8,
+            "increasedamagetaken": 2,
+            "afterburn": 3
+          },
+          "raw_total": 15,
+          "row_weighted": 17
+        },
+        {
+          "id": "06",
+          "name": "Cooling Crust",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 8,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 16
+        }
+      ],
+      "highest_diagnostic_fourth": "04"
+    },
+    {
+      "advanced_art": "05",
+      "name": "The Mountain Wakes",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "afterburn": 10
+      },
+      "path_row_weighted": 14,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Scalding Tide",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "increasedamagetaken": 2,
+            "afterburn": 10
+          },
+          "raw_total": 17,
+          "row_weighted": 17
+        },
+        {
+          "id": "06",
+          "name": "Cooling Crust",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2,
+            "afterburn": 10
+          },
+          "raw_total": 16,
+          "row_weighted": 16
+        }
+      ],
+      "highest_diagnostic_fourth": "02"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Heart of the Caldera",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Magma Vein",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 4,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 16,
+          "row_weighted": 16
+        },
+        {
+          "id": "09",
+          "name": "Molten Draught",
+          "category": "Hidden Art",
+          "adds": {
+            "lifesteal": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 10,
+            "lifesteal": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 14
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "10",
+      "name": "Unquenchable Furnace",
+      "path": [
+        "06",
+        "09",
+        "10"
+      ],
+      "path_bonuses": {
+        "decreasedamagetaken": 4,
+        "lifesteal": 5
+      },
+      "path_row_weighted": 9,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Magma Vein",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 4,
+            "lifesteal": 5
+          },
+          "raw_total": 13,
+          "row_weighted": 13
+        },
+        {
+          "id": "07",
+          "name": "Igneous Shell",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "decreasedamagetaken": 7,
+            "lifesteal": 5
+          },
+          "raw_total": 12,
+          "row_weighted": 12
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,
