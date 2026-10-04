@@ -62,7 +62,7 @@
   "examples": [
     {
       "name": "Continental Rift",
-      "archetype": "Steady edge",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
@@ -72,6 +72,7 @@
       "cost": 4,
       "bonuses": {
         "damage": 2,
+        "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "decreasedamagetaken": 2
       },
@@ -117,7 +118,7 @@
     },
     {
       "name": "Landslide Momentum",
-      "archetype": "Amplify",
+      "archetype": "Sustained amplification",
       "ids": [
         "06",
         "07",
@@ -153,7 +154,7 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 11,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
@@ -196,13 +197,12 @@
         "name": "Rending Strata",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 1,
+        "raw_flat_total": 2,
         "row_weighted_total": 2,
         "covered_jutsu": [
-          "Earthen Fortitude",
-          "Terra Spire"
+          "Earth Wall"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -211,8 +211,8 @@
         "name": "Continental Rift",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 1,
-        "row_weighted_total": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Earthen Fortitude",
           "Terra Spire"
@@ -362,10 +362,11 @@
         ],
         "bonuses": {
           "damage": 2,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 5
         },
-        "raw_flat_total": 7,
-        "row_weighted_total": 9,
+        "raw_flat_total": 9,
+        "row_weighted_total": 11,
         "advanced_arts": [
           "03"
         ],
@@ -380,11 +381,12 @@
         ],
         "bonuses": {
           "damage": 2,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 6,
-        "row_weighted_total": 8,
+        "raw_flat_total": 8,
+        "row_weighted_total": 10,
         "advanced_arts": [
           "03"
         ],
@@ -398,10 +400,10 @@
           "05"
         ],
         "bonuses": {
-          "damage": 1,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 10
         },
-        "raw_flat_total": 11,
+        "raw_flat_total": 12,
         "row_weighted_total": 12,
         "advanced_arts": [
           "05"
@@ -416,14 +418,14 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 8,
+        "raw_flat_total": 9,
         "row_weighted_total": 9,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -433,14 +435,14 @@
           "07"
         ],
         "bonuses": {
-          "damage": 1,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 8,
+        "raw_flat_total": 9,
         "row_weighted_total": 9,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -450,15 +452,14 @@
           "09"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 8,
+        "raw_flat_total": 9,
         "row_weighted_total": 9,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -778,7 +779,6 @@
   },
   "damage_thresholds": {
     "damage_totals_reachable": [
-      1,
       2
     ],
     "rows": [
@@ -792,19 +792,6 @@
         ],
         "method": "SINGLE",
         "steps": [
-          {
-            "added": 1,
-            "final": 39.0,
-            "tier_before": "Light",
-            "tier_after": "Light",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
           {
             "added": 2,
             "final": 40.0,
@@ -831,19 +818,6 @@
         ],
         "method": "AOE_SPIRAL_SHOOT",
         "steps": [
-          {
-            "added": 1,
-            "final": 39.0,
-            "tier_before": "Light",
-            "tier_after": "Light",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
           {
             "added": 2,
             "final": 40.0,
@@ -886,9 +860,10 @@
       ],
       "path_bonuses": {
         "damage": 2,
+        "increasedamagegiven": 2,
         "decreasedamagegiven": 2
       },
-      "path_row_weighted": 6,
+      "path_row_weighted": 8,
       "fourths": [
         {
           "id": "04",
@@ -899,10 +874,11 @@
           },
           "bonuses": {
             "damage": 2,
+            "increasedamagegiven": 2,
             "decreasedamagegiven": 5
           },
-          "raw_total": 7,
-          "row_weighted": 9
+          "raw_total": 9,
+          "row_weighted": 11
         },
         {
           "id": "06",
@@ -913,11 +889,12 @@
           },
           "bonuses": {
             "damage": 2,
+            "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
             "decreasedamagetaken": 2
           },
-          "raw_total": 6,
-          "row_weighted": 8
+          "raw_total": 8,
+          "row_weighted": 10
         }
       ],
       "highest_diagnostic_fourth": "04"
@@ -940,13 +917,13 @@
           "name": "Rending Strata",
           "category": "Hidden Art",
           "adds": {
-            "damage": 1
+            "increasedamagegiven": 2
           },
           "bonuses": {
-            "damage": 1,
+            "increasedamagegiven": 2,
             "decreasedamagegiven": 10
           },
-          "raw_total": 11,
+          "raw_total": 12,
           "row_weighted": 12
         },
         {
