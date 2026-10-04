@@ -12,7 +12,7 @@
   "revision": "Fable proposal — 2026-10-04 batch rebalance / Magnet classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "supported tags present in kit but not targeted by any node: damage"
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Magnetic Pulse Strike 50 -> 52"
   ],
   "classification": {
     "potency_classification": "Magnet",
@@ -51,7 +51,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "reflect": 2
@@ -140,7 +141,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 8,
+      "damage": 2,
+      "increasedamagegiven": 4,
       "increasedamagetaken": 8,
       "decreasedamagetaken": 10,
       "reflect": 10
@@ -154,14 +156,13 @@
       "reflect": 1
     },
     "tags_targeted_by_tree": [
+      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "reflect"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "node_values": [
       {
         "id": "01",
@@ -199,13 +200,15 @@
         "name": "Starfall Hammer",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
+        "raw_flat_total": 2,
         "row_weighted_total": 8,
         "covered_jutsu": [
           "Houkyu Dance",
-          "Houkyuken: Magnetic Assignment"
+          "Magnetic Pulse Strike",
+          "Morning Star",
+          "Rising Star"
         ],
-        "covered_rows": 2,
+        "covered_rows": 4,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -356,10 +359,11 @@
           "04"
         ],
         "bonuses": {
-          "increasedamagegiven": 8,
+          "damage": 2,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 4
         },
-        "raw_flat_total": 12,
+        "raw_flat_total": 10,
         "row_weighted_total": 24,
         "advanced_arts": [
           "03"
@@ -374,12 +378,13 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 8,
+          "damage": 2,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 14,
+        "raw_flat_total": 12,
         "row_weighted_total": 24,
         "advanced_arts": [
           "03"
@@ -785,7 +790,9 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [],
+    "damage_totals_reachable": [
+      2
+    ],
     "rows": [
       {
         "jutsu": "Magnetic Pulse Strike",
@@ -796,7 +803,22 @@
           "Magnet"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Rising Star",
@@ -807,7 +829,22 @@
           "Magnet"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Morning Star",
@@ -818,7 +855,22 @@
           "Magnet"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Houkyu Dance",
@@ -829,11 +881,40 @@
           "Magnet"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       }
     ],
-    "tier_crossings": [],
-    "above_nuke": []
+    "tier_crossings": [
+      [
+        "Magnetic Pulse Strike",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Magnetic Pulse Strike",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
   },
   "fourth_bp": [
     {
@@ -845,7 +926,8 @@
         "03"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 2
       },
       "path_row_weighted": 20,
@@ -858,10 +940,11 @@
             "increasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagegiven": 8,
+            "damage": 2,
+            "increasedamagegiven": 4,
             "increasedamagetaken": 4
           },
-          "raw_total": 12,
+          "raw_total": 10,
           "row_weighted": 24
         },
         {
@@ -873,12 +956,13 @@
             "reflect": 2
           },
           "bonuses": {
-            "increasedamagegiven": 8,
+            "damage": 2,
+            "increasedamagegiven": 4,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "reflect": 2
           },
-          "raw_total": 14,
+          "raw_total": 12,
           "row_weighted": 24
         }
       ],

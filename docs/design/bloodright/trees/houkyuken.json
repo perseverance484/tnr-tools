@@ -35,10 +35,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Offense from Lodestone Draw: Burst on the two self damage buffs (Increase Damage Given on Houkyuken: Magnetic Assignment and Houkyu Dance) or Exposure on the two enemy debuffs (Increase Damage Taken on Morning Star and Houkyuken: Magnetic Assignment)",
+    "primary": "Offense from Lodestone Draw: Burst (Polarized Fist's self Increase Damage Given setup on Houkyuken: Magnetic Assignment and Houkyu Dance, paid off by Starfall Hammer's +2 Damage on all four Magnet strikes) or Exposure (Increase Damage Taken on Morning Star and Houkyuken: Magnetic Assignment)",
     "secondary": "Defense from Repelling Field: Fortress (Decrease Damage Taken on Houkyuken: Magnetic Assignment) or Retaliation (Reflect on Rising Star)",
-    "tertiary": "No flat Damage: Magnetic Pulse Strike is a 50 EP Nuke, so any Damage bonus would pass the Nuke tier",
-    "rationale": "Ten supported rows sit on five casts. The four Magnet Taijutsu Damage rows (Magnetic Pulse Strike 50, Houkyu Dance 45, Rising Star and Morning Star 40 EP) are left at base because even +1 Damage lifts Pulse Strike past the 50 Nuke tier; Burst is carried instead by the two 35% self Increase Damage Given rows, which compound on a hit both cover. Lodestone Draw answers \"How do I make each blow land harder: strengthen my own fist, or drag the target onto it?\" with Burst (own hits on every target) and Exposure (every attacker's hits on the marked target). Repelling Field answers \"How do I answer the blows aimed at me: blunt them, or throw them back?\" with Fortress on the one universal Decrease Damage Taken row and Retaliation on the one Reflect row. Potency reaches matching supported tags on all Magnet jutsu (RUL-2026-10-03-005)."
+    "tertiary": "Flat Damage only as Starfall Hammer's controlled +2 payoff: Magnetic Pulse Strike 50 → 52 (above the Nuke tier; director review), Houkyu Dance 45 → 47, Rising Star and Morning Star 40 → 42 EP",
+    "rationale": "Ten supported rows sit on five casts. The four Magnet Taijutsu Damage rows (Magnetic Pulse Strike 50, Houkyu Dance 45, Rising Star and Morning Star 40 EP) take only a controlled +2 at the end of the Burst route, after a percentage setup on the two 35% self Increase Damage Given rows: the Blood-Enchanted Eyes and Shakunetsu Sakura pattern (RUL-2026-10-04-001/002). Lodestone Draw answers \"How do I make each blow land harder: strengthen my own fist, or drag the target onto it?\" with Burst (+2 Damage on every own strike, window or not) and Exposure (every attacker's hits on the marked target). Repelling Field answers \"How do I answer the blows aimed at me: blunt them, or throw them back?\" with Fortress on the one universal Decrease Damage Taken row and Retaliation on the one Reflect row. Potency reaches matching supported tags on all Magnet jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -90,7 +90,7 @@
         }
       ],
       "flavor": "Charge the knuckles with the field, and every blow that follows lands heavier.",
-      "coverage_note": "Both self damage buffs 37 → 39% with Lodestone Draw (Magnetic Assignment, Houkyu Dance); they compound on a hit both cover.",
+      "coverage_note": "Setup: both self damage buffs 37 → 39% with Lodestone Draw (Magnetic Assignment, Houkyu Dance; ×1.39² ≈ ×1.93 on a hit both cover); Starfall Hammer pays it off.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
       "scope": "all Magnet jutsu",
@@ -113,13 +113,13 @@
       ],
       "modifiers": [
         {
-          "tag": "increasedamagegiven",
-          "flat": 4,
-          "display_role": "SELF BUFF"
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
         }
       ],
       "flavor": "A star does not fall by accident. It is pulled down.",
-      "coverage_note": "Burst: both self damage buffs 35 → 43% on the full route (×1.43² ≈ ×2.04 on a hit both cover, ×1.82 at base). No Damage row moves; Magnetic Pulse Strike stays 50 EP.",
+      "coverage_note": "Burst payoff: +2 Damage on all four Magnet strikes, live on every cast: Magnetic Pulse Strike 50 → 52 (above the 50 Nuke tier; director review), Houkyu Dance 45 → 47, Rising Star and Morning Star 40 → 42 EP.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
       "scope": "all Magnet jutsu",
@@ -127,9 +127,11 @@
       "coverage": {
         "jutsu": [
           "Houkyu Dance",
-          "Houkyuken: Magnetic Assignment"
+          "Magnetic Pulse Strike",
+          "Morning Star",
+          "Rising Star"
         ],
-        "effect_rows": 2
+        "effect_rows": 4
       }
     },
     {
@@ -177,7 +179,7 @@
         }
       ],
       "flavor": "Nothing with iron in its blood escapes the draw.",
-      "coverage_note": "Exposure: both enemy rows 35 → 43% on the full route (×1.43² ≈ ×2.04 on a hit both cover) for every non-pierce hit the target takes, the party's included.",
+      "coverage_note": "Exposure: both enemy rows 35 → 43% on the full route, raising non-pierce hits on the target from every attacker, the party's included. Morning Star covers every such hit; Magnetic Assignment covers Lightning, Magnet, Wind and element-less hits (×1.43² ≈ ×2.04 where both apply, ×1.43 otherwise).",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
       "scope": "all Magnet jutsu",
@@ -333,7 +335,7 @@
         }
       ],
       "flavor": "The closer the enemy presses, the harder the field hurls them away.",
-      "coverage_note": "Retaliation: Rising Star Reflect 40 → 50% on the full route (under the 60% per-hit cap); Magnetic Assignment Decrease Damage Taken 39% with Repelling Field (42% with Magnetized Guard).",
+      "coverage_note": "Retaliation: Rising Star Reflect 40 → 50% on the full route (under the 60% per-hit cap); Magnetic Assignment Decrease Damage Taken 39% with Repelling Field (42% with Magnetized Guard), which also trims the post-mitigation damage Reflect returns.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
       "scope": "all Magnet jutsu",
@@ -357,10 +359,11 @@
         "03",
         "06"
       ],
-      "rationale": "Both self damage buffs 35 → 43% (Magnetic Assignment, Houkyu Dance; ×1.43² ≈ ×2.04 on a hit both cover) with exposure 37% on Morning Star and Magnetic Assignment. Repelling Field is the fourth purchase (Magnetic Assignment Decrease Damage Taken 37%, Rising Star Reflect 42%); Reversed Polarity (exposure 39%) is the all-in alternative. No Damage row moves: Pulse Strike stays 50 EP.",
+      "rationale": "+2 Damage on all four Magnet strikes (Pulse Strike 52, Houkyu Dance 47, Rising Star and Morning Star 42 EP) on every cast, over both self damage buffs at 39% (×1.39² ≈ ×1.93 on a hit both cover, ×1.82 at base) and exposure 37% for the two rounds after their casts. Repelling Field is the fourth purchase (Magnetic Assignment Decrease Damage Taken 37%, Rising Star Reflect 42%); Reversed Polarity (exposure 39%) is the all-in alternative.",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "reflect": 2
@@ -378,8 +381,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 0,
-          "final": 50.0,
+          "gain": 2,
+          "final": 52.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -414,8 +417,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -450,8 +453,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -504,8 +507,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 8,
-          "final": 43.0,
+          "gain": 4,
+          "final": 39.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -543,8 +546,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 45.0,
-          "gain": 0,
-          "final": 45.0,
+          "gain": 2,
+          "final": 47.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -582,8 +585,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 8,
-          "final": 43.0,
+          "gain": 4,
+          "final": 39.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -602,7 +605,7 @@
         "05",
         "02"
       ],
-      "rationale": "Both exposure rows 35 → 43% with both self buffs 39% from Polarized Fist as the fourth purchase: ×1.43² × 1.39² ≈ ×3.95 on a kit strike under all four rows (×3.32 at base), and the exposure half also raises allies' non-pierce hits on the target. This is the strongest offense allocation; Starfall Hammer with Reversed Polarity mirrors it for own hits on every target. Repelling Field is the defensive alternative.",
+      "rationale": "Both exposure rows 35 → 43% with both self buffs 39% from Polarized Fist as the fourth purchase: ×1.43² × 1.39² ≈ ×3.95 on a kit strike under all four rows (×3.32 at base), and the exposure half also raises allies' non-pierce hits on the target. This is the strongest in-window offense; Starfall Hammer with Reversed Polarity reaches ×1.39⁴ ≈ ×3.73 before its +2 Damage (×3.88 on Pulse Strike, ×3.92 on a 40 EP strike) but keeps the +2 outside the windows. Repelling Field is the defensive alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 4,
@@ -845,7 +848,7 @@
         "08",
         "01"
       ],
-      "rationale": "Magnetic Assignment's universal Decrease Damage Taken 35 → 45% for the two rounds after each 40 AP cast (incoming ×0.55, ×0.65 at base), with both self damage buffs 39% from the capstone rider and Lodestone Draw as the fourth purchase, exposure 37% and Reflect 42%. Like Poles Repel (Reflect 45%) is the all-defense alternative.",
+      "rationale": "Magnetic Assignment's universal Decrease Damage Taken 35 → 45% for the two rounds after each 40 AP cast (incoming ×0.55 against ×0.65 at base, ≈ ×0.846), with both self damage buffs 39% from the capstone rider and Lodestone Draw as the fourth purchase (≈ ×1.09 own damage on a fully covered strike), exposure 37% and Reflect 42%: the tree's strongest 1v1 allocation. Like Poles Repel (Reflect 45%) is the all-defense alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 4,
@@ -1090,7 +1093,7 @@
         "10",
         "07"
       ],
-      "rationale": "Rising Star Reflect 40 → 50% (60% per-hit cap untouched) with Magnetic Assignment Decrease Damage Taken 42% (+7%): every blow in the window costs the attacker half of what lands while the kit's strikes stay at base. Magnetized Guard is the fourth purchase; Lodestone Draw (buffs and exposure 37%) is the offensive alternative.",
+      "rationale": "Rising Star Reflect 40 → 50% (60% per-hit cap untouched) with Magnetic Assignment Decrease Damage Taken 42% (+7%): every blow in the window costs the attacker half of what lands while the kit's strikes stay at base. Per 100 incoming before mitigation it takes 58 and returns 29, against 65 and 26 at base. Magnetized Guard is the fourth purchase; Lodestone Draw (buffs and exposure 37%) is the offensive alternative.",
       "cost": 4,
       "bonuses": {
         "decreasedamagetaken": 7,
@@ -1326,22 +1329,26 @@
     }
   ],
   "narrow_kit_exception": null,
+  "above_nuke_rationale": "Starfall Hammer's +2 Damage lifts Magnetic Pulse Strike 50 → 52, past the 50 Nuke tier, as the controlled payoff of a deliberate burst route (Polarized Fist's +2% Increase Damage Given setup, then +2 Damage): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). No legal allocation exceeds +2 Damage; the other rows stay in tier (45 → 47, 40 → 42). Fable proposal, flagged for director review.",
   "design_notes": [
-    "Structure unchanged (edges 01→02→03, 01→04→05, 06→07→08, 06→09→10). Maxima over every legal allocation: Increase Damage Given +8% (01+02+03), Increase Damage Taken +8% (01+04+05), Decrease Damage Taken +10%, Reflect +10%; no Damage. Not jointly attainable.",
-    "2026-10-04 rebalance: the +5 Damage Burst route (Polarized Fist +2, Starfall Hammer +3) is removed. It lifted Rising Star and Morning Star 40 → 45, Houkyu Dance 45 → 50 and Magnetic Pulse Strike 50 → 55, and even +1 passes the Nuke tier on Pulse Strike. Burst now pays off on the two compounding self buffs (2/2/4). Exposure comes down from +10% (Draft 4 raised it to reach the band) to +8% and Inexorable Pull drops its Increase Damage Given rider, so each offense capstone owns one tag.",
-    "Offense is sized by multiplier, not printed total: +8% on two compounding rows is ×1.43² ≈ ×2.04 against ×1.82 at base (+12%). The strongest offense allocation, a capstone plus the sibling Hidden Art, is ×1.43² × 1.39² ≈ ×3.95 on a kit strike under all four rows against ×3.32 at base (+19%). The offense Hidden Arts are +2% (not +3%) so that this obvious fourth adds only +2% of the other tag.",
-    "Defense keeps the single-row pattern: +10% on the one Decrease Damage Taken row and the one Reflect row, each with a +2% rider. Absolute Alignment's rider is Increase Damage Given (Magnetic Assignment carries the shield and the self buff on one cast), which keeps Fortress distinct from Retaliation at 4 BP instead of mirroring it.",
+    "Structure unchanged (edges 01→02→03, 01→04→05, 06→07→08, 06→09→10). Maxima over every legal allocation: Damage +2 (Starfall Hammer only), Increase Damage Given +4%, Increase Damage Taken +8% (01+04+05), Decrease Damage Taken +10%, Reflect +10%. Not jointly attainable.",
+    "2026-10-04 rebalance. First pass: the pre-batch +5 Damage Burst route (Polarized Fist +2, Starfall Hammer +3) lifted Rising Star and Morning Star 40 → 45, Houkyu Dance 45 → 50 and Magnetic Pulse Strike 50 → 55 and was cut; Exposure came down from +10% to +8% and Inexorable Pull lost its Increase Damage Given rider. Roster pass: the pure +4% Increase Damage Given Starfall Hammer that replaced Burst mirrored Exposure (both ×3.95 at 4 BP), so Burst returns in the director pattern: Polarized Fist's +2% Increase Damage Given setup, then Starfall Hammer's controlled +2 Damage (RUL-2026-10-04-001/002; above_nuke_rationale).",
+    "Damage tiers: the +2 reaches all four Magnet strikes in one step: Magnetic Pulse Strike 50 → 52 (past the Nuke tier; director review), Houkyu Dance 45 → 47, Rising Star and Morning Star 40 → 42. No lower tier is crossed. It is +2, not +3, because four rows move together (Arashima's 45 → 47 default).",
+    "Offense is sized by multiplier: +8% exposure on two compounding rows is ×1.43² ≈ ×2.04 against ×1.82 at base. On a fully covered own strike, Exposure + Polarized Fist is ×1.43² × 1.39² ≈ ×3.95 (×3.32 at base, +19%) and Burst + Reversed Polarity ×1.39⁴ ≈ ×3.73 before its +2 Damage (×3.88 to ×3.92 after). Burst gives up a little in-window peak for +2 Damage on every strike, window or not, across Houkyu Dance's whole area and through a debuff cleanse. Both Hidden Arts stay +2% so each offense route's obvious fourth adds no more than Lodestone Draw already does.",
+    "Defense keeps the single-row pattern: +10% on the one Decrease Damage Taken row and the one Reflect row, each with a +2% rider (Arashima's Unbroken Horizon, RUL-2026-10-04-003, is the same +10% on one 35% row). Decrease Damage Taken works on (1 − p): 35 → 45% makes incoming ×0.55/0.65 ≈ ×0.846 (about +18% effective HP) per window, more than either offense route adds at 3 BP (×1.14 to ×1.16 on a fully covered strike). Fortress + Lodestone Draw (01+06+07+08) pairs that with ×1.39² × 1.37² / 1.35⁴ ≈ ×1.09 own damage, an outgoing/incoming ratio of about 1.29 against 1.17 to 1.19 for every offense build with either fourth: it is the strongest 1v1 allocation. Absolute Alignment's Increase Damage Given rider (one Magnetic Assignment cast carries the shield and the self buff) keeps Fortress distinct from Retaliation.",
+    "Reflect reads post-mitigation damage (the post-damage family runs after the damage modifiers; SOURCE_MECHANICS §3, process.ts 415-612), so Decrease Damage Taken trims what Reflect returns while Magnetic Assignment's window is live. Per 100 incoming before mitigation: base takes 65 and returns 26; the Retaliation route (Decrease Damage Taken 39%, Reflect 50%) takes 61 and returns 30.5 (+17%, not the +25% the Reflect print suggests); with Magnetized Guard 58 and 29 (+12%); Fortress + Like Poles Repel 55 and 24.75, below base. Violent Repulsion keeps its rider because a counter-tank has to survive the window it punishes.",
     "Fourth purchases: Burst takes Reversed Polarity (all-in) or Repelling Field; Exposure Polarized Fist (all-in) or Repelling Field; Fortress Lodestone Draw or Like Poles Repel; Retaliation Magnetized Guard or Lodestone Draw. 13 of 14 full allocations are non-dominated on tag totals: 01+02+06+07 is dominated by the Fortress build with Lodestone Draw because Absolute Alignment's rider equals Polarized Fist; every node still appears in a non-dominated build.",
     "Filters and order: Magnetic Assignment's self Increase Damage Given row is Taijutsu-filtered with no element, so at the pin (SOURCE_MECHANICS §3) it raises every Taijutsu or element-less hit; Houkyu Dance's row (Lightning/Magnet/None/Wind) raises Lightning, Magnet, Wind and element-less hits. Both compound (computeDamagePacket, §3b) and the 25% + 0.15/level bloodline passive applies last. Increase Damage Given, Increase Damage Taken and Decrease Damage Taken never touch pierce.",
-    "Delivery: every cast has cooldown 7 and every percentage row is live the two rounds after its cast round, never in it (§3b). Magnetic Assignment (D rank, 40 AP, OTHER_USER, range 4) carries three supported rows and every route touches it; a fully covered strike needs Magnetic Assignment plus Houkyu Dance (Burst) or Morning Star (Exposure) in the two rounds before it."
+    "Delivery: every cast has cooldown 7 and every percentage row is live the two rounds after its cast round, never in it (§3b); flat Damage needs no window. Magnetic Assignment (D rank, 40 AP, OTHER_USER, range 4) carries three supported rows; a fully covered strike needs Magnetic Assignment plus Houkyu Dance (Burst) or Morning Star (Exposure) in the two rounds before it."
   ],
   "risks": [
-    "Self-buff reach: Magnetic Assignment's Increase Damage Given row is effectively unfiltered at the pin (any Taijutsu or element-less hit), so the +8% maximum (43% per row) also raises matching normal jutsu, weapons and basic attacks in each window, over the 25% + 0.15/level passive.",
+    "Self-buff reach: Magnetic Assignment's Increase Damage Given row is effectively unfiltered at the pin (any Taijutsu or element-less hit), so the +4% maximum (39% per row) also raises matching normal jutsu, weapons and basic attacks in each window, over the 25% + 0.15/level passive.",
     "Exposure stacking: Morning Star's Increase Damage Taken (all four stat types, no element) and Magnetic Assignment's (Lightning/Magnet/None/Wind) are separate two-round debuffs that compound on one target: ×1.35² ≈ ×1.82 at base, ×1.43² ≈ ×2.04 at the +8% maximum, for hits from the player, allies and weapons (pierce excluded). Both rows are friendly fire none: either cast aimed at an ally puts its exposure on that ally (§3b).",
+    "Damage concentration: +2 Damage lands on four Magnet strikes at once; each costs 60 AP on cooldown 7, so at most one lands per round. Magnetic Pulse Strike at 52 sits above the 50 Nuke tier (director review). Off-kit Magnet Damage rows gain +2 too; their count is unverified.",
     "Reflect concentration: one row (Rising Star, 60 AP, range 4); the route takes it to 50%, under the 60% per-hit cap. It returns pierce damage, bypasses shield absorption and answers every attacker in the two-round window, so its value grows with the number of attackers; aimed at an ally the ENEMIES-only hit is withheld but the SELF Reflect still lands (§3b).",
     "Houkyu Dance delivery: its Increase Damage Given row is target SELF on an EMPTY_GROUND AOE_CIRCLE_SPAWN jutsu, realized on the caster at cast (actions.ts 980-1004; SOURCE_MECHANICS §4b), so the buff never depends on standing in the circle. The unsupported move row touches no potency row.",
-    "Classification: element-wide Magnet scope (RUL-2026-10-03-005); sharing Magnet with Itojinsei is expected. Only 6 of the 10 supported rows carry Magnet; the four element-less rows need the proposed jutsu-classification resolver (ENGINE_GAP_REGISTER G1). Off-kit Magnet coverage is unverified.",
-    "Unamplified: Damage (all four rows), wound (Magnetic Pulse Strike), move (Houkyu Dance) and the 15% Lightning Decrease Damage Taken passive receive nothing, so the Burst trait is served by percentage rows only.",
+    "Classification: element-wide Magnet scope (RUL-2026-10-03-005); sharing Magnet with Itojinsei is expected. The tree targets all 10 supported rows. Six carry Magnet (the four Damage rows, Houkyu Dance's Increase Damage Given and Magnetic Assignment's Increase Damage Taken); the four element-less rows need the proposed jutsu-classification resolver (ENGINE_GAP_REGISTER G1). Under the current resolver Starfall Hammer's +2 Damage works in full, Burst's and Exposure's percentage steps each reach one of their two rows, and both defense primaries (Magnetic Assignment Decrease Damage Taken, Rising Star Reflect) do nothing. Off-kit Magnet coverage is unverified.",
+    "Unamplified: wound (Magnetic Pulse Strike), move (Houkyu Dance) and the 15% Lightning Decrease Damage Taken passive receive nothing, so the Control trait is served only through exposure.",
     "Skill-tree and bloodline effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed; balance values remain user-owned."
   ],
   "progression": {
@@ -1383,7 +1390,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 8,
+      "damage": 2,
+      "increasedamagegiven": 4,
       "increasedamagetaken": 8,
       "decreasedamagetaken": 10,
       "reflect": 10
@@ -1397,14 +1405,13 @@
       "reflect": 1
     },
     "tags_targeted_by_tree": [
+      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "reflect"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "revision": "Fable proposal — 2026-10-04 batch rebalance / Magnet classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
@@ -1420,12 +1427,14 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 8,
         "decreasedamagetaken": 10,
         "reflect": 10
       },
       "ceilings": {
+        "damage": 5,
         "increasedamagegiven": 10,
         "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
@@ -1446,18 +1455,18 @@
         {
           "advanced_art": "03",
           "name": "Starfall Hammer",
-          "primary_tag": "increasedamagegiven",
+          "primary_tag": "damage",
           "path": [
             "01",
             "02",
             "03"
           ],
           "steps": [
-            2,
-            2,
-            4
+            0,
+            0,
+            2
           ],
-          "total": 8,
+          "total": 2,
           "on_band": false
         },
         {
@@ -1524,7 +1533,8 @@
         "04"
       ],
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 4
       }
     },
@@ -1536,7 +1546,8 @@
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "reflect": 2
@@ -1713,16 +1724,17 @@
       "06": "How do I answer the blows aimed at me: blunt them, or throw them back?"
     },
     "route_identities": {
-      "03": "burst: a self-amplified strike window (own hits on every target)",
+      "03": "burst: self-amplification setup, controlled +2 Damage payoff on every strike",
       "05": "exposure: mark one target for every attacker",
       "08": "fortress: the Magnetic Assignment window as armour that still swings",
       "10": "retaliation: every blow in the window costs the attacker"
     },
-    "director_review": "none",
+    "director_review": "Magnetic Pulse Strike 50 → 52 under Starfall Hammer (above the Nuke tier; the controlled +2 payoff of the RUL-2026-10-04-001/002 pattern, see above_nuke_rationale). Exposure stays +8% on two compounding team-wide rows (roster two-row exposure question). Fortress + Lodestone Draw is the strongest 1v1 allocation (concerns).",
     "concerns": [
-      "No flat Damage on a Burst-trait kit: Magnetic Pulse Strike is 50 EP, so any Damage bonus passes the Nuke tier. If the director prefers the Blood-Enchanted Eyes pattern (+2 Damage payoff; Pulse Strike 50 → 52, Houkyu Dance 45 → 47), Starfall Hammer is where it would go in place of its +4% Increase Damage Given.",
-      "Burst and Exposure converge at 4 BP: a capstone plus the sibling Hidden Art gives the same ×3.95 on a fully set-up solo strike. They differ only in reach (own hits on every target, Houkyu Dance's area included, against every attacker's hits on the marked target); party-size effects were not simulated.",
-      "Retaliation keeps Reflect at +10% (50%) on one row; its value scales with the number of attackers in the window and was not simulated."
+      "Inside a fully set-up single-target window Exposure + Polarized Fist (≈ ×3.95) still leads Burst + Reversed Polarity (×3.88 to ×3.92), and non-Magnet or allied hits favour Exposure further. Burst's niche is +2 Damage on every own strike regardless of window, across Houkyu Dance's area and through a debuff cleanse. Party size and window uptime were not simulated.",
+      "Fortress + Lodestone Draw is the strongest 1v1 allocation: ×1.09 own damage with ×0.846 incoming in each Magnetic Assignment window (outgoing/incoming ≈ 1.29 against 1.17 to 1.19 for the offense builds). Kept on Arashima's Unbroken Horizon precedent. Dropping Absolute Alignment's +2% Increase Damage Given rider (≈ 1.25) or stepping Decrease Damage Taken 2/3/3 (≈ 1.25; ≈ 1.21 with both) narrows the gap but does not close it, because the (1 − p) leverage drives it.",
+      "Exposure is +8% on two compounding team-wide rows, the batch's two-row exposure convention; the director templates hold exposure near +5%. If the director wants template-level exposure, Houkyuken should move together with the other two-row exposure trees, not alone.",
+      "Retaliation keeps Reflect at +10% (50%) on one row; its value scales with the number of attackers in the window and was not simulated, and its Decrease Damage Taken rider trims what Reflect returns (design notes)."
     ]
   }
 }

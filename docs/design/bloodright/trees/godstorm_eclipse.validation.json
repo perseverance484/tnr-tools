@@ -9,12 +9,12 @@
     "statClassification": "Highest",
     "traits": "Sustain / Burst Heavy / Tank"
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Shadow + Storm classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Shadow + Storm classification / forked tree",
   "structure_errors": [],
   "warnings": [
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Godstorm Mantle: Raijin's Cage 50 -> 52",
     "classification status: multi-element: director review (director decision)",
-    "ally-hazard area rows amplified (friendly fire none/ALL): Event Horizon Gate#1",
-    "supported tags present in kit but not targeted by any node: afterburn, damage"
+    "ally-hazard area rows amplified (friendly fire none/ALL): Corona Devourer Palm#0, Event Horizon Gate#1"
   ],
   "classification": {
     "potency_classification": "Shadow + Storm",
@@ -66,7 +66,7 @@
   "examples": [
     {
       "name": "Total Eclipse",
-      "archetype": "Exposure",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
@@ -75,8 +75,9 @@
       ],
       "cost": 4,
       "bonuses": {
+        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 8,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -85,7 +86,7 @@
     },
     {
       "name": "Storm-God Ascendant",
-      "archetype": "Amplify",
+      "archetype": "Self-amplification",
       "ids": [
         "01",
         "02",
@@ -94,8 +95,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 7,
-        "increasedamagetaken": 4
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5
       },
       "advanced_arts": [
         "Storm-God Ascendant"
@@ -132,9 +133,10 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
+        "afterburn": 3,
         "lifesteal": 5
       },
       "advanced_arts": [
@@ -161,13 +163,15 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 12,
+    "non_dominated_full_allocations": 13,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 7,
-      "increasedamagetaken": 8,
+      "damage": 2,
+      "increasedamagegiven": 5,
+      "increasedamagetaken": 5,
       "decreasedamagetaken": 10,
+      "afterburn": 3,
       "lifesteal": 5
     },
     "supported_rows_in_kit": 16,
@@ -180,15 +184,14 @@
       "lifesteal": 1
     },
     "tags_targeted_by_tree": [
+      "afterburn",
+      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "lifesteal"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "afterburn",
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "node_values": [
       {
         "id": "01",
@@ -214,8 +217,8 @@
         "name": "Hammer of the Heavens",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 6,
+        "raw_flat_total": 3,
+        "row_weighted_total": 9,
         "covered_jutsu": [
           "Event Horizon Gate",
           "Godstorm Mantle: Sky-Splitting Wall",
@@ -230,14 +233,16 @@
         "name": "Total Eclipse",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
-        "row_weighted_total": 12,
+        "raw_flat_total": 2,
+        "row_weighted_total": 10,
         "covered_jutsu": [
-          "Event Horizon Gate",
-          "Godstorm Mantle: Sky-Splitting Wall",
-          "Godstorm Mantle: Storm-God's Heart"
+          "Black Sun Cataract",
+          "Corona Devourer Palm",
+          "Godstorm Mantle: Raijin's Cage",
+          "Godstorm Mantle: Storm-God's Heart",
+          "Obsidian Tomb"
         ],
-        "covered_rows": 3,
+        "covered_rows": 5,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -246,8 +251,8 @@
         "name": "Charged Firmament",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 8,
+        "raw_flat_total": 1,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Godstorm Mantle: Sky-Splitting Wall",
           "Godstorm Mantle: Tempest",
@@ -263,8 +268,8 @@
         "name": "Storm-God Ascendant",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 12,
+        "raw_flat_total": 2,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Godstorm Mantle: Sky-Splitting Wall",
           "Godstorm Mantle: Tempest",
@@ -341,14 +346,11 @@
         "category": "Advanced Art",
         "depth": 3,
         "raw_flat_total": 6,
-        "row_weighted_total": 15,
+        "row_weighted_total": 6,
         "covered_jutsu": [
-          "Godstorm Mantle: Sky-Splitting Wall",
-          "Godstorm Mantle: Tempest",
-          "Godstorm Mantle: Thunder-Crowned Bulwark",
-          "Marrow Eclipse Mantle"
+          "Godstorm Mantle: Tempest"
         ],
-        "covered_rows": 5,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -358,14 +360,16 @@
         "01",
         "02",
         "03",
-        "04"
+        "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 4,
-        "increasedamagetaken": 8
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2
       },
-      "raw_flat_total": 12,
-      "row_weighted_total": 40,
+      "raw_flat_total": 11,
+      "row_weighted_total": 37,
       "advanced_arts": [
         "03"
       ],
@@ -394,11 +398,12 @@
           "04"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
-          "increasedamagetaken": 8
+          "damage": 2,
+          "increasedamagegiven": 3,
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 40,
+        "raw_flat_total": 10,
+        "row_weighted_total": 37,
         "advanced_arts": [
           "03"
         ],
@@ -412,12 +417,13 @@
           "06"
         ],
         "bonuses": {
+          "damage": 2,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 8,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 36,
+        "raw_flat_total": 11,
+        "row_weighted_total": 37,
         "advanced_arts": [
           "03"
         ],
@@ -431,11 +437,11 @@
           "05"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
-          "increasedamagetaken": 4
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 40,
+        "raw_flat_total": 10,
+        "row_weighted_total": 35,
         "advanced_arts": [
           "05"
         ],
@@ -449,12 +455,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
-          "increasedamagetaken": 4,
+          "increasedamagegiven": 3,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 10,
-        "row_weighted_total": 32,
+        "row_weighted_total": 31,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -467,11 +473,11 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 30,
+        "raw_flat_total": 12,
+        "row_weighted_total": 33,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -484,12 +490,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
           "lifesteal": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 26,
+        "raw_flat_total": 11,
+        "row_weighted_total": 29,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -501,12 +507,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 38,
+        "raw_flat_total": 9,
+        "row_weighted_total": 30,
         "advanced_arts": [
           "05"
         ],
@@ -520,12 +526,12 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 3,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 32,
+        "raw_flat_total": 10,
+        "row_weighted_total": 28,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -537,15 +543,15 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 3,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "lifesteal": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 28,
+        "raw_flat_total": 9,
+        "row_weighted_total": 24,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -593,13 +599,14 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
+          "afterburn": 3,
           "lifesteal": 5
         },
         "raw_flat_total": 14,
-        "row_weighted_total": 35,
+        "row_weighted_total": 26,
         "advanced_arts": [
           "10"
         ],
@@ -631,12 +638,12 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagegiven": 3,
           "decreasedamagetaken": 5,
+          "afterburn": 3,
           "lifesteal": 5
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 27,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "10"
         ],
@@ -818,7 +825,9 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [],
+    "damage_totals_reachable": [
+      2
+    ],
     "rows": [
       {
         "jutsu": "Godstorm Mantle: Storm-God's Heart",
@@ -829,7 +838,22 @@
           "Storm"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Godstorm Mantle: Raijin's Cage",
@@ -840,7 +864,22 @@
           "Storm"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Obsidian Tomb",
@@ -851,7 +890,22 @@
           "Shadow"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Corona Devourer Palm",
@@ -862,7 +916,22 @@
           "Shadow"
         ],
         "method": "AOE_SPIRAL_SHOOT",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Black Sun Cataract",
@@ -873,11 +942,40 @@
           "Shadow"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       }
     ],
-    "tier_crossings": [],
-    "above_nuke": []
+    "tier_crossings": [
+      [
+        "Godstorm Mantle: Raijin's Cage",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Godstorm Mantle: Raijin's Cage",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
   },
   "fourth_bp": [
     {
@@ -889,24 +987,26 @@
         "03"
       ],
       "path_bonuses": {
+        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 8
+        "increasedamagetaken": 5
       },
-      "path_row_weighted": 32,
+      "path_row_weighted": 33,
       "fourths": [
         {
           "id": "04",
           "name": "Charged Firmament",
           "category": "Hidden Art",
           "adds": {
-            "increasedamagegiven": 2
+            "increasedamagegiven": 1
           },
           "bonuses": {
-            "increasedamagegiven": 4,
-            "increasedamagetaken": 8
+            "damage": 2,
+            "increasedamagegiven": 3,
+            "increasedamagetaken": 5
           },
-          "raw_total": 12,
-          "row_weighted": 40
+          "raw_total": 10,
+          "row_weighted": 37
         },
         {
           "id": "06",
@@ -916,15 +1016,16 @@
             "decreasedamagetaken": 2
           },
           "bonuses": {
+            "damage": 2,
             "increasedamagegiven": 2,
-            "increasedamagetaken": 8,
+            "increasedamagetaken": 5,
             "decreasedamagetaken": 2
           },
-          "raw_total": 12,
-          "row_weighted": 36
+          "raw_total": 11,
+          "row_weighted": 37
         }
       ],
-      "highest_diagnostic_fourth": "04"
+      "highest_diagnostic_fourth": "06"
     },
     {
       "advanced_art": "05",
@@ -935,24 +1036,24 @@
         "05"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2
       },
-      "path_row_weighted": 34,
+      "path_row_weighted": 26,
       "fourths": [
         {
           "id": "02",
           "name": "Hammer of the Heavens",
           "category": "Hidden Art",
           "adds": {
-            "increasedamagetaken": 2
+            "increasedamagetaken": 3
           },
           "bonuses": {
-            "increasedamagegiven": 7,
-            "increasedamagetaken": 4
+            "increasedamagegiven": 5,
+            "increasedamagetaken": 5
           },
-          "raw_total": 11,
-          "row_weighted": 40
+          "raw_total": 10,
+          "row_weighted": 35
         },
         {
           "id": "06",
@@ -962,12 +1063,12 @@
             "decreasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagegiven": 7,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           },
-          "raw_total": 11,
-          "row_weighted": 38
+          "raw_total": 9,
+          "row_weighted": 30
         }
       ],
       "highest_diagnostic_fourth": "02"
@@ -1029,11 +1130,11 @@
         "10"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 3,
         "decreasedamagetaken": 2,
+        "afterburn": 3,
         "lifesteal": 5
       },
-      "path_row_weighted": 21,
+      "path_row_weighted": 12,
       "fourths": [
         {
           "id": "01",
@@ -1044,13 +1145,14 @@
             "increasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagegiven": 5,
+            "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
+            "afterburn": 3,
             "lifesteal": 5
           },
           "raw_total": 14,
-          "row_weighted": 35
+          "row_weighted": 26
         },
         {
           "id": "07",
@@ -1060,12 +1162,12 @@
             "decreasedamagetaken": 3
           },
           "bonuses": {
-            "increasedamagegiven": 3,
             "decreasedamagetaken": 5,
+            "afterburn": 3,
             "lifesteal": 5
           },
           "raw_total": 13,
-          "row_weighted": 27
+          "row_weighted": 18
         }
       ],
       "highest_diagnostic_fourth": "01"

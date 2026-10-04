@@ -12,7 +12,8 @@
   "revision": "Fable proposal — 2026-10-04 batch rebalance / Light classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "supported tags present in kit but not targeted by any node: damage"
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Lux 50 -> 52",
+    "ally-hazard area rows amplified (friendly fire none/ALL): Lux#0"
   ],
   "classification": {
     "potency_classification": "Light",
@@ -47,7 +48,7 @@
   "examples": [
     {
       "name": "Throne of Broken Light",
-      "archetype": "Self-amplification",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
@@ -56,7 +57,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "afterburn": 3
       },
@@ -145,7 +147,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 10,
+      "damage": 2,
+      "increasedamagegiven": 5,
       "increasedamagetaken": 2,
       "decreasedamagetaken": 10,
       "afterburn": 10,
@@ -162,14 +165,13 @@
     },
     "tags_targeted_by_tree": [
       "afterburn",
+      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "reflect"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "node_values": [
       {
         "id": "01",
@@ -206,12 +208,14 @@
         "name": "Throne of Broken Light",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 5,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
         "covered_jutsu": [
-          "illuminance"
+          "Imperial Swords",
+          "Lux",
+          "Shattered Reflection"
         ],
-        "covered_rows": 1,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -359,12 +363,13 @@
           "04"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "afterburn": 3
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 19,
+        "raw_flat_total": 12,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "03"
         ],
@@ -378,13 +383,14 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 20,
+        "raw_flat_total": 13,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "03"
         ],
@@ -794,7 +800,9 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [],
+    "damage_totals_reachable": [
+      2
+    ],
     "rows": [
       {
         "jutsu": "Shattered Reflection",
@@ -805,7 +813,22 @@
           "Light"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Lux",
@@ -816,7 +839,22 @@
           "Light"
         ],
         "method": "AOE_LINE_SHOOT",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Imperial Swords",
@@ -827,11 +865,40 @@
           "Light"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       }
     ],
-    "tier_crossings": [],
-    "above_nuke": []
+    "tier_crossings": [
+      [
+        "Lux",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Lux",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
   },
   "fourth_bp": [
     {
@@ -843,10 +910,11 @@
         "03"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2
       },
-      "path_row_weighted": 16,
+      "path_row_weighted": 17,
       "fourths": [
         {
           "id": "04",
@@ -856,12 +924,13 @@
             "afterburn": 3
           },
           "bonuses": {
-            "increasedamagegiven": 10,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "afterburn": 3
           },
-          "raw_total": 15,
-          "row_weighted": 19
+          "raw_total": 12,
+          "row_weighted": 20
         },
         {
           "id": "06",
@@ -872,13 +941,14 @@
             "reflect": 2
           },
           "bonuses": {
-            "increasedamagegiven": 10,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "reflect": 2
           },
-          "raw_total": 16,
-          "row_weighted": 20
+          "raw_total": 13,
+          "row_weighted": 21
         }
       ],
       "highest_diagnostic_fourth": "06"
