@@ -1,0 +1,33 @@
+name: ChatGPT jellyfish manifest validation
+
+on:
+  push:
+    branches:
+      - chatgpt/jellyfish-beach-quest-20261004
+    paths:
+      - "push/61_jellyfish_coast_quest.gen.py"
+      - ".github/workflows/chatgpt_validate_jellyfish.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate candidate manifest
+        run: python3 push/61_jellyfish_coast_quest.gen.py
+      - name: Validate candidate manifest
+        working-directory: skills/building-tnr-content/data
+        run: python3 ../scripts/validate.py ../../../push/61_jellyfish_coast_quest.json
+      - name: Print manifest evidence
+        run: |
+          sha256sum push/61_jellyfish_coast_quest.json
+          echo "BEGIN_MANIFEST"
+          cat push/61_jellyfish_coast_quest.json
+          echo "END_MANIFEST"
