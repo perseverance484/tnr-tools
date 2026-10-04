@@ -510,6 +510,26 @@ def render_md(tree: dict, validation: dict | None) -> str:
         out.append(f'**Emphasis:** primary {em.get("primary")} · secondary {em.get("secondary")} · tertiary {em.get("tertiary")}.')
         if em.get("rationale"):
             out.append(f'\n{em["rationale"]}\n')
+    dr = tree.get("design_review") or {}
+    if dr:
+        out.append(f'**Review status:** {dr.get("status", "")}\n')
+        fs = dr.get("foundation_sentences") or {}
+        ri = dr.get("route_identities") or {}
+        if fs or ri:
+            out.append("| Node | Tier | Foundation sentence / route identity |\n|---|---|---|")
+            for nid, txt in fs.items():
+                if nid in by_id:
+                    out.append(f'| {by_id[nid]["name"]} | Foundation | {txt} |')
+            for nid, txt in ri.items():
+                if nid in by_id:
+                    out.append(f'| {by_id[nid]["name"]} | Advanced Art | {txt} |')
+            out.append("")
+        if dr.get("director_review") and dr["director_review"] != "none":
+            out.append(f'**Director review recommended:** {dr["director_review"]}\n')
+        for c in dr.get("concerns") or []:
+            out.append(f'- Concern: {c}')
+        if dr.get("concerns"):
+            out.append("")
     if tree.get("narrow_kit_exception"):
         out.append(f'> **Narrow-kit exception:** {tree["narrow_kit_exception"]}\n')
     out.append(f'All nodes cost 1 BP; the budget is {L.BP_CAP} BP acquired with silver; each skill is bought once; forks only. '
