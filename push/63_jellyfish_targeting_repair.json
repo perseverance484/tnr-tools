@@ -1,0 +1,205 @@
+{
+ "_note": "Jellyfish Coast targeting repair after target audit of all equipped shared-pool jutsu. Only Springguard and Surging Overflow are self-targeted; their use_specific_jutsu actions are corrected to SELF. All opponent-target jutsu retain RANDOM_OPPONENT with exact pool range gates.",
+ "items": [
+  {
+   "name": "Shallows Jellyfish - targeting repair",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "Bxyqw_A-xt_C2QWXnBB0t",
+   "data": {
+    "rules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+       "target": "SELF"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 4,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "UAgYZvo_7DUtmBsBAaAar",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "Move towards opponent",
+       "target": "RANDOM_OPPONENT"
+      }
+     }
+    ],
+    "includeDefaultRules": false
+   }
+  },
+  {
+   "name": "Royal Jellyfish - targeting repair",
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "fviJBCJMx8YAnT91TjK7B",
+   "data": {
+    "rules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "AicYoMMpZmHAykb_5hYtY",
+       "target": "SELF"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "nOYLPmN3TXj6wEe_oE6HQ",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "-45phqE2baTGC--lNSEx9",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "RPdeeWhFI5AIUUpJXwUlf",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 4,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "UAgYZvo_7DUtmBsBAaAar",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "ZvPl6uyJfwF5EjmLHouQR",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "Move towards opponent",
+       "target": "RANDOM_OPPONENT"
+      }
+     }
+    ],
+    "includeDefaultRules": false
+   }
+  }
+ ]
+}
