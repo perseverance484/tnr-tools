@@ -9,10 +9,11 @@
     "statClassification": "Ninjutsu",
     "traits": "Burst, Control "
   },
-  "revision": "Draft 2 / Dust classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Dust classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "ally-hazard area rows amplified (friendly fire none/ALL): Abysmal End#0"
+    "ally-hazard area rows amplified (friendly fire none/ALL): Abysmal End#0",
+    "supported tags present in kit but not targeted by any node: damage"
   ],
   "classification": {
     "potency_classification": "Dust",
@@ -47,15 +48,14 @@
       "name": "Heat Death",
       "archetype": "Burst",
       "ids": [
-        "01",
+        "06",
         "02",
         "03",
-        "06"
+        "01"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 8,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -65,38 +65,17 @@
       ]
     },
     {
-      "name": "Collapse of Ages",
-      "archetype": "Pressure",
-      "ids": [
-        "01",
-        "02",
-        "04",
-        "05"
-      ],
-      "cost": 4,
-      "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 10
-      },
-      "advanced_arts": [
-        "Collapse of Ages"
-      ]
-    },
-    {
       "name": "Outlasting Eternity",
       "archetype": "Fortress",
       "ids": [
-        "01",
         "06",
         "07",
-        "08"
+        "08",
+        "02"
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
-        "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagegiven": 4,
         "decreasedamagetaken": 10
       },
       "advanced_arts": [
@@ -104,19 +83,37 @@
       ]
     },
     {
+      "name": "Collapse of Ages",
+      "archetype": "Exposure",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "09"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 8
+      },
+      "advanced_arts": [
+        "Collapse of Ages"
+      ]
+    },
+    {
       "name": "All Returns to Dust",
       "archetype": "Suppression",
       "ids": [
         "01",
-        "06",
         "09",
-        "10"
+        "10",
+        "06"
       ],
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 4,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -147,10 +144,9 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 5,
+      "increasedamagegiven": 8,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 10,
+      "increasedamagetaken": 8,
       "decreasedamagetaken": 10
     },
     "supported_rows_in_kit": 10,
@@ -162,27 +158,28 @@
       "increasedamagetaken": 2
     },
     "tags_targeted_by_tree": [
-      "damage",
       "decreasedamagegiven",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
-        "id": "01",
-        "name": "Weight of Eons",
+        "id": "06",
+        "name": "Hush of the Void",
         "category": "Foundation",
         "depth": 1,
         "raw_flat_total": 4,
-        "row_weighted_total": 8,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Abysmal End",
           "Singularity",
           "Temporal Erosion"
         ],
-        "covered_rows": 4,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -192,14 +189,12 @@
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 2,
-        "row_weighted_total": 8,
+        "row_weighted_total": 4,
         "covered_jutsu": [
-          "Ethereal Particle Storm",
-          "Resonance",
-          "Singularity",
-          "Temporal Erosion"
+          "Abysmal End",
+          "Singularity"
         ],
-        "covered_rows": 4,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -208,59 +203,11 @@
         "name": "Heat Death",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 12,
-        "covered_jutsu": [
-          "Ethereal Particle Storm",
-          "Resonance",
-          "Singularity",
-          "Temporal Erosion"
-        ],
-        "covered_rows": 4,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "04",
-        "name": "Aeons Laid Bare",
-        "category": "Hidden Art",
-        "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
-        "covered_jutsu": [
-          "Abysmal End",
-          "Temporal Erosion"
-        ],
-        "covered_rows": 2,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "05",
-        "name": "Collapse of Ages",
-        "category": "Advanced Art",
-        "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 16,
-        "covered_jutsu": [
-          "Abysmal End",
-          "Singularity",
-          "Temporal Erosion"
-        ],
-        "covered_rows": 4,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "06",
-        "name": "Hush of the Void",
-        "category": "Foundation",
-        "depth": 1,
         "raw_flat_total": 4,
-        "row_weighted_total": 4,
+        "row_weighted_total": 8,
         "covered_jutsu": [
-          "Ethereal Particle Storm",
-          "Temporal Erosion"
+          "Abysmal End",
+          "Singularity"
         ],
         "covered_rows": 2,
         "adverse_rows_amplified": [],
@@ -285,14 +232,58 @@
         "name": "Outlasting Eternity",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 11,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
+        "covered_jutsu": [
+          "Temporal Erosion"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "01",
+        "name": "Weight of Eons",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 4,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Abysmal End",
-          "Singularity",
+          "Ethereal Particle Storm",
           "Temporal Erosion"
         ],
         "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "04",
+        "name": "Aeons Laid Bare",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Abysmal End",
+          "Temporal Erosion"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "05",
+        "name": "Collapse of Ages",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Abysmal End",
+          "Temporal Erosion"
+        ],
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -315,14 +306,12 @@
         "name": "All Returns to Dust",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 9,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Abysmal End",
-          "Ethereal Particle Storm",
-          "Temporal Erosion"
+          "Ethereal Particle Storm"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -331,18 +320,19 @@
       "ids": [
         "01",
         "02",
-        "04",
-        "05"
+        "03",
+        "06"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 10
+        "increasedamagegiven": 8,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
       },
-      "raw_flat_total": 17,
-      "row_weighted_total": 38,
+      "raw_flat_total": 14,
+      "row_weighted_total": 24,
       "advanced_arts": [
-        "05"
+        "03"
       ],
       "non_dominated": true
     },
@@ -366,57 +356,18 @@
           "01",
           "02",
           "03",
-          "04"
-        ],
-        "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5
-        },
-        "raw_flat_total": 12,
-        "row_weighted_total": 34,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "03",
           "06"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 8,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 32,
+        "raw_flat_total": 14,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "03"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
-          "05"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
-          "increasedamagetaken": 10
-        },
-        "raw_flat_total": 17,
-        "row_weighted_total": 38,
-        "advanced_arts": [
-          "05"
         ],
         "non_dominated": true
       },
@@ -428,14 +379,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 4,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 26,
+        "raw_flat_total": 12,
+        "row_weighted_total": 20,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -447,14 +397,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 4,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 23,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -466,14 +415,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 4,
           "decreasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 23,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -485,13 +433,31 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 10,
+          "increasedamagetaken": 8,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 34,
+        "raw_flat_total": 14,
+        "row_weighted_total": 24,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "05",
+          "09"
+        ],
+        "bonuses": {
+          "decreasedamagegiven": 5,
+          "increasedamagetaken": 8
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "05"
         ],
@@ -507,11 +473,11 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 21,
+        "raw_flat_total": 13,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -525,12 +491,30 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 21,
+        "raw_flat_total": 13,
+        "row_weighted_total": 19,
         "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "04",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "decreasedamagegiven": 10,
+          "increasedamagetaken": 4
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 18,
+        "advanced_arts": [
+          "10"
+        ],
         "non_dominated": true
       },
       {
@@ -541,13 +525,13 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 26,
+        "raw_flat_total": 16,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "08"
         ],
@@ -581,11 +565,11 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 10,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 24,
+        "raw_flat_total": 16,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "10"
         ],
@@ -593,39 +577,37 @@
       },
       {
         "ids": [
+          "02",
+          "03",
           "06",
-          "07",
-          "08",
-          "09"
+          "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 3,
-          "decreasedamagegiven": 5,
-          "decreasedamagetaken": 10
-        },
-        "raw_flat_total": 18,
-        "row_weighted_total": 21,
-        "advanced_arts": [
-          "08"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "06",
-          "07",
-          "09",
-          "10"
-        ],
-        "bonuses": {
-          "decreasedamagegiven": 10,
-          "increasedamagetaken": 2,
+          "increasedamagegiven": 8,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 19,
+        "raw_flat_total": 13,
+        "row_weighted_total": 21,
         "advanced_arts": [
-          "10"
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "02",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 4,
+          "decreasedamagetaken": 10
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 18,
+        "advanced_arts": [
+          "08"
         ],
         "non_dominated": true
       }
@@ -645,10 +627,6 @@
       "2": [
         [
           "01",
-          "02"
-        ],
-        [
-          "01",
           "04"
         ],
         [
@@ -656,25 +634,19 @@
           "06"
         ],
         [
-          "06",
-          "07"
+          "01",
+          "09"
+        ],
+        [
+          "02",
+          "06"
         ],
         [
           "06",
-          "09"
+          "07"
         ]
       ],
       "3": [
-        [
-          "01",
-          "02",
-          "03"
-        ],
-        [
-          "01",
-          "02",
-          "04"
-        ],
         [
           "01",
           "02",
@@ -692,6 +664,11 @@
         ],
         [
           "01",
+          "04",
+          "09"
+        ],
+        [
+          "01",
           "06",
           "07"
         ],
@@ -701,19 +678,24 @@
           "09"
         ],
         [
+          "01",
+          "09",
+          "10"
+        ],
+        [
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "02",
+          "06",
+          "07"
+        ],
+        [
           "06",
           "07",
           "08"
-        ],
-        [
-          "06",
-          "07",
-          "09"
-        ],
-        [
-          "06",
-          "09",
-          "10"
         ]
       ],
       "4": [
@@ -721,19 +703,7 @@
           "01",
           "02",
           "03",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "03",
           "06"
-        ],
-        [
-          "01",
-          "02",
-          "04",
-          "05"
         ],
         [
           "01",
@@ -762,6 +732,12 @@
         [
           "01",
           "04",
+          "05",
+          "09"
+        ],
+        [
+          "01",
+          "04",
           "06",
           "07"
         ],
@@ -770,6 +746,12 @@
           "04",
           "06",
           "09"
+        ],
+        [
+          "01",
+          "04",
+          "09",
+          "10"
         ],
         [
           "01",
@@ -790,20 +772,266 @@
           "10"
         ],
         [
+          "02",
+          "03",
           "06",
-          "07",
-          "08",
-          "09"
+          "07"
         ],
         [
+          "02",
           "06",
           "07",
-          "09",
-          "10"
+          "08"
         ]
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [],
+    "rows": [
+      {
+        "jutsu": "Temporal Erosion",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Dust"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      },
+      {
+        "jutsu": "Singularity",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Dust"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": []
+      },
+      {
+        "jutsu": "Resonance",
+        "row": 1,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Dust"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      },
+      {
+        "jutsu": "Ethereal Particle Storm",
+        "row": 0,
+        "base": 50.0,
+        "tier": "Nuke",
+        "elements": [
+          "Dust"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Heat Death",
+      "path": [
+        "06",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 8,
+        "decreasedamagetaken": 2
+      },
+      "path_row_weighted": 18,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Weight of Eons",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 8,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 24
+        },
+        {
+          "id": "07",
+          "name": "Dilated Moment",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 8,
+            "decreasedamagetaken": 5
+          },
+          "raw_total": 13,
+          "row_weighted": 21
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "05",
+      "name": "Collapse of Ages",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 8
+      },
+      "path_row_weighted": 18,
+      "fourths": [
+        {
+          "id": "06",
+          "name": "Hush of the Void",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 8,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 24
+        },
+        {
+          "id": "09",
+          "name": "Dimming of Stars",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagegiven": 3
+          },
+          "bonuses": {
+            "decreasedamagegiven": 5,
+            "increasedamagetaken": 8
+          },
+          "raw_total": 13,
+          "row_weighted": 21
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Outlasting Eternity",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      },
+      "path_row_weighted": 14,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Weight of Eons",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 16,
+          "row_weighted": 20
+        },
+        {
+          "id": "02",
+          "name": "Shattered Firmament",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 4,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 14,
+          "row_weighted": 18
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "10",
+      "name": "All Returns to Dust",
+      "path": [
+        "01",
+        "09",
+        "10"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2
+      },
+      "path_row_weighted": 14,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Aeons Laid Bare",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 4
+          },
+          "raw_total": 14,
+          "row_weighted": 18
+        },
+        {
+          "id": "06",
+          "name": "Hush of the Void",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 16,
+          "row_weighted": 20
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

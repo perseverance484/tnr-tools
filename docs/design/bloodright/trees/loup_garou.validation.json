@@ -9,7 +9,7 @@
     "statClassification": "Taijutsu",
     "traits": null
   },
-  "revision": "Draft 4 / Loup-Garou classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Loup-Garou classification / forked tree",
   "structure_errors": [],
   "warnings": [
     "classification status: requires classification extension (director decision)",
@@ -52,10 +52,10 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
+        "damage": 3,
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "heal": 2
+        "heal": 5
       },
       "advanced_arts": [
         "Killing Bite"
@@ -72,7 +72,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 10,
         "heal": 2
       },
@@ -93,7 +93,7 @@
       "bonuses": {
         "increasedamagegiven": 10,
         "increasedamagetaken": 2,
-        "heal": 5
+        "heal": 2
       },
       "advanced_arts": [
         "Beast Unchained"
@@ -119,11 +119,11 @@
       "4": 8
     },
     "full_budget_allocations": 8,
-    "non_dominated_full_allocations": 7,
+    "non_dominated_full_allocations": 8,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
+      "damage": 3,
       "increasedamagegiven": 10,
       "increasedamagetaken": 10,
       "heal": 5
@@ -162,8 +162,8 @@
         "name": "Rending Claws",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 2,
+        "raw_flat_total": 1,
+        "row_weighted_total": 1,
         "covered_jutsu": [
           "Nature's Hunter"
         ],
@@ -176,12 +176,12 @@
         "name": "Killing Bite",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
           "Nature's Hunter"
         ],
-        "covered_rows": 1,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -204,13 +204,12 @@
         "name": "The Pack Closes",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 8,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Life reaver",
-          "Nature's Hunter"
+          "Life reaver"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -247,12 +246,12 @@
         "name": "Beast Unchained",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 8,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
           "Nature's Hunter"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -265,26 +264,26 @@
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 10,
         "heal": 2
       },
-      "raw_flat_total": 17,
-      "row_weighted_total": 17,
+      "raw_flat_total": 14,
+      "row_weighted_total": 14,
       "advanced_arts": [
         "05"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "01",
-      "name": "Scent of Blood",
-      "category": "Foundation",
-      "depth": 1,
-      "raw_flat_total": 2,
-      "row_weighted_total": 2,
+      "id": "02",
+      "name": "Rending Claws",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 1,
+      "row_weighted_total": 1,
       "covered_jutsu": [
-        "Life reaver"
+        "Nature's Hunter"
       ],
       "covered_rows": 1,
       "adverse_rows_amplified": [],
@@ -299,11 +298,12 @@
           "04"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagetaken": 5
+          "damage": 3,
+          "increasedamagetaken": 5,
+          "heal": 3
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 10,
+        "raw_flat_total": 11,
+        "row_weighted_total": 11,
         "advanced_arts": [
           "03"
         ],
@@ -317,13 +317,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 5,
+          "damage": 3,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "heal": 2
+          "heal": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 11,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [
           "03"
         ],
@@ -337,12 +337,11 @@
           "05"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 3,
+          "damage": 1,
           "increasedamagetaken": 10
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 15,
+        "raw_flat_total": 11,
+        "row_weighted_total": 11,
         "advanced_arts": [
           "05"
         ],
@@ -356,13 +355,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
+          "damage": 1,
           "increasedamagegiven": 2,
           "increasedamagetaken": 5,
           "heal": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 11,
+        "raw_flat_total": 10,
+        "row_weighted_total": 10,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -374,13 +373,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
+          "damage": 1,
           "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "heal": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 11,
+        "raw_flat_total": 10,
+        "row_weighted_total": 10,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -392,12 +391,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 2,
           "increasedamagetaken": 10,
           "heal": 2
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "05"
         ],
@@ -418,7 +417,7 @@
         "raw_flat_total": 12,
         "row_weighted_total": 12,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -430,10 +429,10 @@
         "bonuses": {
           "increasedamagegiven": 10,
           "increasedamagetaken": 2,
-          "heal": 5
+          "heal": 2
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "08"
         ],
@@ -559,6 +558,186 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [
+      1,
+      3
+    ],
+    "rows": [
+      {
+        "jutsu": "Nature's Hunter",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "None"
+        ],
+        "method": "SINGLE",
+        "steps": [
+          {
+            "added": 1,
+            "final": 41.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 6,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
+          {
+            "added": 3,
+            "final": 43.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Killing Bite",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "damage": 3,
+        "increasedamagetaken": 2,
+        "heal": 3
+      },
+      "path_row_weighted": 8,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Run to Ground",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagetaken": 3
+          },
+          "bonuses": {
+            "damage": 3,
+            "increasedamagetaken": 5,
+            "heal": 3
+          },
+          "raw_total": 11,
+          "row_weighted": 11
+        },
+        {
+          "id": "06",
+          "name": "Hunter's Moon",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "heal": 2
+          },
+          "bonuses": {
+            "damage": 3,
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "heal": 5
+          },
+          "raw_total": 12,
+          "row_weighted": 12
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "05",
+      "name": "The Pack Closes",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagetaken": 10
+      },
+      "path_row_weighted": 10,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Rending Claws",
+          "category": "Hidden Art",
+          "adds": {
+            "damage": 1
+          },
+          "bonuses": {
+            "damage": 1,
+            "increasedamagetaken": 10
+          },
+          "raw_total": 11,
+          "row_weighted": 11
+        },
+        {
+          "id": "06",
+          "name": "Hunter's Moon",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "heal": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 10,
+            "heal": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 14
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Beast Unchained",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 10,
+        "heal": 2
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Scent of Blood",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 10,
+            "increasedamagetaken": 2,
+            "heal": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 14
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

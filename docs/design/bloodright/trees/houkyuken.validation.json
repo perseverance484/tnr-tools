@@ -9,9 +9,11 @@
     "statClassification": "Taijutsu",
     "traits": "Burst, Control "
   },
-  "revision": "Draft 4 / Magnet classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Magnet classification / forked tree",
   "structure_errors": [],
-  "warnings": [],
+  "warnings": [
+    "supported tags present in kit but not targeted by any node: damage"
+  ],
   "classification": {
     "potency_classification": "Magnet",
     "label_kind": "element",
@@ -49,8 +51,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 8,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "reflect": 2
@@ -66,14 +67,12 @@
         "01",
         "04",
         "05",
-        "06"
+        "02"
       ],
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 4,
-        "increasedamagetaken": 10,
-        "decreasedamagetaken": 2,
-        "reflect": 2
+        "increasedamagetaken": 8
       },
       "advanced_arts": [
         "Inexorable Pull"
@@ -81,7 +80,7 @@
     },
     {
       "name": "Absolute Alignment",
-      "archetype": "Bulwark",
+      "archetype": "Fortress",
       "ids": [
         "06",
         "07",
@@ -101,7 +100,7 @@
     },
     {
       "name": "Violent Repulsion",
-      "archetype": "Counterstrike",
+      "archetype": "Retaliation",
       "ids": [
         "06",
         "09",
@@ -137,13 +136,12 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 13,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 4,
-      "increasedamagetaken": 10,
+      "increasedamagegiven": 8,
+      "increasedamagetaken": 8,
       "decreasedamagetaken": 10,
       "reflect": 10
     },
@@ -156,13 +154,14 @@
       "reflect": 1
     },
     "tags_targeted_by_tree": [
-      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "reflect"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -186,14 +185,12 @@
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 2,
-        "row_weighted_total": 8,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Houkyu Dance",
-          "Magnetic Pulse Strike",
-          "Morning Star",
-          "Rising Star"
+          "Houkyuken: Magnetic Assignment"
         ],
-        "covered_rows": 4,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -202,15 +199,13 @@
         "name": "Starfall Hammer",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 12,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Houkyu Dance",
-          "Magnetic Pulse Strike",
-          "Morning Star",
-          "Rising Star"
+          "Houkyuken: Magnetic Assignment"
         ],
-        "covered_rows": 4,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -219,8 +214,8 @@
         "name": "Reversed Polarity",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Houkyuken: Magnetic Assignment",
           "Morning Star"
@@ -234,14 +229,13 @@
         "name": "Inexorable Pull",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 14,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
         "covered_jutsu": [
-          "Houkyu Dance",
           "Houkyuken: Magnetic Assignment",
           "Morning Star"
         ],
-        "covered_rows": 4,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -322,19 +316,20 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "02",
-        "04",
-        "05"
+        "06",
+        "07",
+        "08"
       ],
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 4,
-        "increasedamagetaken": 10
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10,
+        "reflect": 2
       },
-      "raw_flat_total": 16,
-      "row_weighted_total": 36,
+      "raw_flat_total": 18,
+      "row_weighted_total": 24,
       "advanced_arts": [
-        "05"
+        "08"
       ],
       "non_dominated": true
     },
@@ -361,12 +356,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5
+          "increasedamagegiven": 8,
+          "increasedamagetaken": 4
         },
         "raw_flat_total": 12,
-        "row_weighted_total": 34,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "03"
         ],
@@ -380,14 +374,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 8,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 32,
+        "raw_flat_total": 14,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "03"
         ],
@@ -401,12 +394,11 @@
           "05"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 4,
-          "increasedamagetaken": 10
+          "increasedamagetaken": 8
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 36,
+        "raw_flat_total": 12,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "05"
         ],
@@ -420,14 +412,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 26,
+        "raw_flat_total": 12,
+        "row_weighted_total": 20,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -439,16 +430,15 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5,
           "reflect": 2
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 23,
+        "row_weighted_total": 19,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -458,14 +448,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "reflect": 5
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 23,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -477,13 +466,13 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
-          "increasedamagetaken": 10,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 8,
           "decreasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 32,
+        "raw_flat_total": 14,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "05"
         ],
@@ -498,12 +487,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 5,
           "reflect": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 21,
+        "raw_flat_total": 13,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -516,12 +505,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2,
           "reflect": 5
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 21,
+        "raw_flat_total": 13,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -795,6 +784,254 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [],
+    "rows": [
+      {
+        "jutsu": "Magnetic Pulse Strike",
+        "row": 0,
+        "base": 50.0,
+        "tier": "Nuke",
+        "elements": [
+          "Magnet"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      },
+      {
+        "jutsu": "Rising Star",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Magnet"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      },
+      {
+        "jutsu": "Morning Star",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Magnet"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      },
+      {
+        "jutsu": "Houkyu Dance",
+        "row": 0,
+        "base": 45.0,
+        "tier": "High",
+        "elements": [
+          "Magnet"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": []
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Starfall Hammer",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 8,
+        "increasedamagetaken": 2
+      },
+      "path_row_weighted": 20,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Reversed Polarity",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 8,
+            "increasedamagetaken": 4
+          },
+          "raw_total": 12,
+          "row_weighted": 24
+        },
+        {
+          "id": "06",
+          "name": "Repelling Field",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagetaken": 2,
+            "reflect": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 8,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2,
+            "reflect": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 24
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "05",
+      "name": "Inexorable Pull",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 8
+      },
+      "path_row_weighted": 20,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Polarized Fist",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 4,
+            "increasedamagetaken": 8
+          },
+          "raw_total": 12,
+          "row_weighted": 24
+        },
+        {
+          "id": "06",
+          "name": "Repelling Field",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagetaken": 2,
+            "reflect": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 8,
+            "decreasedamagetaken": 2,
+            "reflect": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 24
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Absolute Alignment",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 10,
+        "reflect": 2
+      },
+      "path_row_weighted": 16,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Lodestone Draw",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 4,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 10,
+            "reflect": 2
+          },
+          "raw_total": 18,
+          "row_weighted": 24
+        },
+        {
+          "id": "09",
+          "name": "Like Poles Repel",
+          "category": "Hidden Art",
+          "adds": {
+            "reflect": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 10,
+            "reflect": 5
+          },
+          "raw_total": 17,
+          "row_weighted": 19
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "10",
+      "name": "Violent Repulsion",
+      "path": [
+        "06",
+        "09",
+        "10"
+      ],
+      "path_bonuses": {
+        "decreasedamagetaken": 4,
+        "reflect": 10
+      },
+      "path_row_weighted": 14,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Lodestone Draw",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 4,
+            "reflect": 10
+          },
+          "raw_total": 18,
+          "row_weighted": 22
+        },
+        {
+          "id": "07",
+          "name": "Magnetized Guard",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "decreasedamagetaken": 7,
+            "reflect": 10
+          },
+          "raw_total": 17,
+          "row_weighted": 17
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

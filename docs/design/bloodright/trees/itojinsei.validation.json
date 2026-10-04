@@ -9,7 +9,7 @@
     "statClassification": "Bukijutsu",
     "traits": "Control"
   },
-  "revision": "Draft 4 / Magnet classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Magnet classification / forked tree",
   "structure_errors": [],
   "warnings": [
     "ally-hazard area rows amplified (friendly fire none/ALL): Wire Blast Plus#1"
@@ -51,7 +51,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
+        "damage": 3,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2
@@ -71,9 +71,9 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 10,
+        "increasedamagegiven": 8,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 4
+        "increasedamagetaken": 2
       },
       "advanced_arts": [
         "Weaver Ascendant"
@@ -105,12 +105,11 @@
         "06",
         "09",
         "10",
-        "01"
+        "07"
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 2,
-        "decreasedamagegiven": 4,
+        "decreasedamagegiven": 7,
         "increasedamagetaken": 10
       },
       "advanced_arts": [
@@ -141,8 +140,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 10,
+      "damage": 3,
+      "increasedamagegiven": 8,
       "decreasedamagegiven": 10,
       "increasedamagetaken": 10
     },
@@ -181,8 +180,8 @@
         "name": "Razor Strands",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 8,
+        "raw_flat_total": 1,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Iron Web Entrapment",
           "Lightning Threads",
@@ -198,8 +197,8 @@
         "name": "Severing Lattice",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 12,
+        "raw_flat_total": 2,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Iron Web Entrapment",
           "Lightning Threads",
@@ -215,8 +214,8 @@
         "name": "Threadbound Vigor",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Eternal Embrace",
           "Spiraling Wires"
@@ -230,14 +229,13 @@
         "name": "Weaver Ascendant",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 12,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Eternal Embrace",
-          "Lightning Threads",
           "Spiraling Wires"
         ],
-        "covered_rows": 3,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -322,19 +320,19 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "02",
-        "04",
-        "05"
+        "06",
+        "07",
+        "08"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 10,
-        "increasedamagetaken": 2
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 4
       },
-      "raw_flat_total": 14,
-      "row_weighted_total": 30,
+      "raw_flat_total": 16,
+      "row_weighted_total": 28,
       "advanced_arts": [
-        "05"
+        "08"
       ],
       "non_dominated": true
     },
@@ -361,11 +359,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 5
+          "damage": 3,
+          "increasedamagegiven": 4
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 30,
+        "raw_flat_total": 7,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "03"
         ],
@@ -379,13 +377,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 5,
+          "damage": 3,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 30,
+        "raw_flat_total": 9,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "03"
         ],
@@ -399,12 +397,11 @@
           "05"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 10,
-          "increasedamagetaken": 2
+          "damage": 1,
+          "increasedamagegiven": 8
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 30,
+        "raw_flat_total": 9,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "05"
         ],
@@ -418,13 +415,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
+          "damage": 1,
+          "increasedamagegiven": 4,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 24,
+        "raw_flat_total": 9,
+        "row_weighted_total": 18,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -436,13 +433,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
+          "damage": 1,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 24,
+        "raw_flat_total": 10,
+        "row_weighted_total": 20,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -454,13 +451,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 2,
+          "damage": 1,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 21,
+        "raw_flat_total": 10,
+        "row_weighted_total": 17,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -472,12 +469,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "increasedamagegiven": 8,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 28,
+        "raw_flat_total": 12,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "05"
         ],
@@ -491,12 +488,12 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 4,
           "decreasedamagegiven": 5,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 22,
+        "raw_flat_total": 11,
+        "row_weighted_total": 20,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -508,12 +505,12 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 4,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 5
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 19,
+        "raw_flat_total": 11,
+        "row_weighted_total": 17,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -783,6 +780,361 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [
+      1,
+      3
+    ],
+    "rows": [
+      {
+        "jutsu": "Iron Web Entrapment",
+        "row": 0,
+        "base": 45.0,
+        "tier": "High",
+        "elements": [
+          "Magnet"
+        ],
+        "method": "AOE_LINE_SHOOT",
+        "steps": [
+          {
+            "added": 1,
+            "final": 46.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 7,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
+          {
+            "added": 3,
+            "final": 48.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Wire Blast Plus",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Magnet"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": [
+          {
+            "added": 1,
+            "final": 41.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 7,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
+          {
+            "added": 3,
+            "final": 43.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Spiraling Wires",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Magnet"
+        ],
+        "method": "SINGLE",
+        "steps": [
+          {
+            "added": 1,
+            "final": 41.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 7,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
+          {
+            "added": 3,
+            "final": 43.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Lightning Threads",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Magnet"
+        ],
+        "method": "SINGLE",
+        "steps": [
+          {
+            "added": 1,
+            "final": 41.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 7,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
+          {
+            "added": 3,
+            "final": 43.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Severing Lattice",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "damage": 3,
+        "increasedamagegiven": 2
+      },
+      "path_row_weighted": 16,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Threadbound Vigor",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "damage": 3,
+            "increasedamagegiven": 4
+          },
+          "raw_total": 7,
+          "row_weighted": 20
+        },
+        {
+          "id": "06",
+          "name": "Tangling Snare",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "damage": 3,
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "raw_total": 9,
+          "row_weighted": 22
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "05",
+      "name": "Weaver Ascendant",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 8
+      },
+      "path_row_weighted": 16,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Razor Strands",
+          "category": "Hidden Art",
+          "adds": {
+            "damage": 1
+          },
+          "bonuses": {
+            "damage": 1,
+            "increasedamagegiven": 8
+          },
+          "raw_total": 9,
+          "row_weighted": 20
+        },
+        {
+          "id": "06",
+          "name": "Tangling Snare",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 8,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "raw_total": 12,
+          "row_weighted": 22
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Iron Cocoon",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 4
+      },
+      "path_row_weighted": 24,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Taut Filament",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 4
+          },
+          "raw_total": 16,
+          "row_weighted": 28
+        },
+        {
+          "id": "09",
+          "name": "Conductive Seam",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagetaken": 3
+          },
+          "bonuses": {
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 7
+          },
+          "raw_total": 17,
+          "row_weighted": 27
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "10",
+      "name": "Galvanic Marionette",
+      "path": [
+        "06",
+        "09",
+        "10"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 4,
+        "increasedamagetaken": 10
+      },
+      "path_row_weighted": 18,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Taut Filament",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 4,
+            "increasedamagetaken": 10
+          },
+          "raw_total": 16,
+          "row_weighted": 22
+        },
+        {
+          "id": "07",
+          "name": "Constricting Coils",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagegiven": 3
+          },
+          "bonuses": {
+            "decreasedamagegiven": 7,
+            "increasedamagetaken": 10
+          },
+          "raw_total": 17,
+          "row_weighted": 24
+        }
+      ],
+      "highest_diagnostic_fourth": "07"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

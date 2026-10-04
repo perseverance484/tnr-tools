@@ -9,11 +9,12 @@
     "statClassification": "Highest",
     "traits": "Sustain / Burst Heavy / Tank"
   },
-  "revision": "Draft 3 / Shadow + Storm classification (multi-element, director review) / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Shadow + Storm classification / forked tree",
   "structure_errors": [],
   "warnings": [
     "classification status: multi-element: director review (director decision)",
-    "ally-hazard area rows amplified (friendly fire none/ALL): Corona Devourer Palm#0, Event Horizon Gate#1"
+    "ally-hazard area rows amplified (friendly fire none/ALL): Event Horizon Gate#1",
+    "supported tags present in kit but not targeted by any node: afterburn, damage"
   ],
   "classification": {
     "potency_classification": "Shadow + Storm",
@@ -65,7 +66,7 @@
   "examples": [
     {
       "name": "Total Eclipse",
-      "archetype": "Burst",
+      "archetype": "Exposure",
       "ids": [
         "01",
         "02",
@@ -74,9 +75,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 8,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -84,28 +84,26 @@
       ]
     },
     {
-      "name": "Lingering Corona",
-      "archetype": "Burn pressure",
+      "name": "Storm-God Ascendant",
+      "archetype": "Amplify",
       "ids": [
         "01",
+        "02",
         "04",
-        "05",
-        "06"
+        "05"
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
-        "decreasedamagetaken": 2,
-        "afterburn": 10
+        "increasedamagegiven": 7,
+        "increasedamagetaken": 4
       },
       "advanced_arts": [
-        "Lingering Corona"
+        "Storm-God Ascendant"
       ]
     },
     {
       "name": "Pillar of Heaven",
-      "archetype": "Fortified off.",
+      "archetype": "Fortress",
       "ids": [
         "01",
         "06",
@@ -114,9 +112,10 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 10
+        "decreasedamagetaken": 10,
+        "lifesteal": 2
       },
       "advanced_arts": [
         "Pillar of Heaven"
@@ -133,10 +132,9 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "afterburn": 2,
         "lifesteal": 5
       },
       "advanced_arts": [
@@ -163,15 +161,13 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 12,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 5,
-      "increasedamagetaken": 5,
+      "increasedamagegiven": 7,
+      "increasedamagetaken": 8,
       "decreasedamagetaken": 10,
-      "afterburn": 10,
       "lifesteal": 5
     },
     "supported_rows_in_kit": 16,
@@ -184,14 +180,15 @@
       "lifesteal": 1
     },
     "tags_targeted_by_tree": [
-      "afterburn",
-      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "lifesteal"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "afterburn",
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -218,15 +215,13 @@
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 2,
-        "row_weighted_total": 10,
+        "row_weighted_total": 6,
         "covered_jutsu": [
-          "Black Sun Cataract",
-          "Corona Devourer Palm",
-          "Godstorm Mantle: Raijin's Cage",
-          "Godstorm Mantle: Storm-God's Heart",
-          "Obsidian Tomb"
+          "Event Horizon Gate",
+          "Godstorm Mantle: Sky-Splitting Wall",
+          "Godstorm Mantle: Storm-God's Heart"
         ],
-        "covered_rows": 5,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -235,16 +230,14 @@
         "name": "Total Eclipse",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 15,
+        "raw_flat_total": 4,
+        "row_weighted_total": 12,
         "covered_jutsu": [
-          "Black Sun Cataract",
-          "Corona Devourer Palm",
-          "Godstorm Mantle: Raijin's Cage",
-          "Godstorm Mantle: Storm-God's Heart",
-          "Obsidian Tomb"
+          "Event Horizon Gate",
+          "Godstorm Mantle: Sky-Splitting Wall",
+          "Godstorm Mantle: Storm-God's Heart"
         ],
-        "covered_rows": 5,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -253,27 +246,30 @@
         "name": "Charged Firmament",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 8,
         "covered_jutsu": [
-          "Godstorm Mantle: Tempest"
+          "Godstorm Mantle: Sky-Splitting Wall",
+          "Godstorm Mantle: Tempest",
+          "Godstorm Mantle: Thunder-Crowned Bulwark",
+          "Marrow Eclipse Mantle"
         ],
-        "covered_rows": 1,
+        "covered_rows": 4,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
       {
         "id": "05",
-        "name": "Lingering Corona",
+        "name": "Storm-God Ascendant",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 10,
-        "row_weighted_total": 16,
+        "raw_flat_total": 3,
+        "row_weighted_total": 12,
         "covered_jutsu": [
-          "Event Horizon Gate",
           "Godstorm Mantle: Sky-Splitting Wall",
-          "Godstorm Mantle: Storm-God's Heart",
-          "Godstorm Mantle: Tempest"
+          "Godstorm Mantle: Tempest",
+          "Godstorm Mantle: Thunder-Crowned Bulwark",
+          "Marrow Eclipse Mantle"
         ],
         "covered_rows": 4,
         "adverse_rows_amplified": [],
@@ -314,16 +310,14 @@
         "name": "Pillar of Heaven",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 22,
+        "raw_flat_total": 7,
+        "row_weighted_total": 12,
         "covered_jutsu": [
           "Event Horizon Gate",
-          "Godstorm Mantle: Sky-Splitting Wall",
           "Godstorm Mantle: Tempest",
-          "Godstorm Mantle: Thunder-Crowned Bulwark",
-          "Marrow Eclipse Mantle"
+          "Godstorm Mantle: Thunder-Crowned Bulwark"
         ],
-        "covered_rows": 6,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -346,15 +340,15 @@
         "name": "Eater of Suns",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 13,
+        "raw_flat_total": 6,
+        "row_weighted_total": 15,
         "covered_jutsu": [
           "Godstorm Mantle: Sky-Splitting Wall",
           "Godstorm Mantle: Tempest",
           "Godstorm Mantle: Thunder-Crowned Bulwark",
           "Marrow Eclipse Mantle"
         ],
-        "covered_rows": 6,
+        "covered_rows": 5,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -362,19 +356,18 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "06",
-        "07",
-        "08"
+        "02",
+        "03",
+        "04"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 10
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 8
       },
-      "raw_flat_total": 17,
-      "row_weighted_total": 46,
+      "raw_flat_total": 12,
+      "row_weighted_total": 40,
       "advanced_arts": [
-        "08"
+        "03"
       ],
       "non_dominated": true
     },
@@ -401,13 +394,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "afterburn": 3
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 8
         },
         "raw_flat_total": 12,
-        "row_weighted_total": 42,
+        "row_weighted_total": 40,
         "advanced_arts": [
           "03"
         ],
@@ -421,13 +412,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 5,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 8,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 43,
+        "raw_flat_total": 12,
+        "row_weighted_total": 36,
         "advanced_arts": [
           "03"
         ],
@@ -441,13 +431,11 @@
           "05"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
-          "afterburn": 10
+          "increasedamagegiven": 7,
+          "increasedamagetaken": 4
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 43,
+        "raw_flat_total": 11,
+        "row_weighted_total": 40,
         "advanced_arts": [
           "05"
         ],
@@ -461,14 +449,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "afterburn": 3
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 31,
+        "raw_flat_total": 10,
+        "row_weighted_total": 32,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -480,13 +466,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 5
         },
         "raw_flat_total": 11,
-        "row_weighted_total": 34,
+        "row_weighted_total": 30,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -498,14 +483,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2,
           "lifesteal": 2
         },
         "raw_flat_total": 10,
-        "row_weighted_total": 30,
+        "row_weighted_total": 26,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -517,13 +501,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
-          "decreasedamagetaken": 2,
-          "afterburn": 10
+          "increasedamagegiven": 7,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 37,
+        "raw_flat_total": 11,
+        "row_weighted_total": 38,
         "advanced_arts": [
           "05"
         ],
@@ -537,13 +520,12 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 5,
-          "afterburn": 3
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 27,
+        "raw_flat_total": 11,
+        "row_weighted_total": 32,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -555,16 +537,15 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "afterburn": 3,
           "lifesteal": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 23,
+        "raw_flat_total": 10,
+        "row_weighted_total": 28,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -574,12 +555,13 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 10
+          "decreasedamagetaken": 10,
+          "lifesteal": 2
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 46,
+        "raw_flat_total": 16,
+        "row_weighted_total": 36,
         "advanced_arts": [
           "08"
         ],
@@ -601,7 +583,7 @@
         "raw_flat_total": 11,
         "row_weighted_total": 26,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -611,14 +593,13 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
-          "afterburn": 2,
           "lifesteal": 5
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 33,
+        "raw_flat_total": 14,
+        "row_weighted_total": 35,
         "advanced_arts": [
           "10"
         ],
@@ -632,12 +613,11 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 3,
           "decreasedamagetaken": 10,
-          "lifesteal": 2
+          "lifesteal": 4
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 34,
+        "raw_flat_total": 14,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "08"
         ],
@@ -651,13 +631,12 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 3,
           "decreasedamagetaken": 5,
-          "afterburn": 2,
           "lifesteal": 5
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 25,
+        "raw_flat_total": 13,
+        "row_weighted_total": 27,
         "advanced_arts": [
           "10"
         ],
@@ -838,6 +817,261 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [],
+    "rows": [
+      {
+        "jutsu": "Godstorm Mantle: Storm-God's Heart",
+        "row": 0,
+        "base": 45.0,
+        "tier": "High",
+        "elements": [
+          "Storm"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": []
+      },
+      {
+        "jutsu": "Godstorm Mantle: Raijin's Cage",
+        "row": 0,
+        "base": 50.0,
+        "tier": "Nuke",
+        "elements": [
+          "Storm"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      },
+      {
+        "jutsu": "Obsidian Tomb",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      },
+      {
+        "jutsu": "Corona Devourer Palm",
+        "row": 0,
+        "base": 45.0,
+        "tier": "High",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "AOE_SPIRAL_SHOOT",
+        "steps": []
+      },
+      {
+        "jutsu": "Black Sun Cataract",
+        "row": 0,
+        "base": 45.0,
+        "tier": "High",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": []
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Total Eclipse",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 8
+      },
+      "path_row_weighted": 32,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Charged Firmament",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 4,
+            "increasedamagetaken": 8
+          },
+          "raw_total": 12,
+          "row_weighted": 40
+        },
+        {
+          "id": "06",
+          "name": "Stormgod's Marrow",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 8,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 12,
+          "row_weighted": 36
+        }
+      ],
+      "highest_diagnostic_fourth": "04"
+    },
+    {
+      "advanced_art": "05",
+      "name": "Storm-God Ascendant",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 7,
+        "increasedamagetaken": 2
+      },
+      "path_row_weighted": 34,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Hammer of the Heavens",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 7,
+            "increasedamagetaken": 4
+          },
+          "raw_total": 11,
+          "row_weighted": 40
+        },
+        {
+          "id": "06",
+          "name": "Stormgod's Marrow",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 7,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 11,
+          "row_weighted": 38
+        }
+      ],
+      "highest_diagnostic_fourth": "02"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Pillar of Heaven",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "decreasedamagetaken": 10,
+        "lifesteal": 2
+      },
+      "path_row_weighted": 22,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Black Sun Rising",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 10,
+            "lifesteal": 2
+          },
+          "raw_total": 16,
+          "row_weighted": 36
+        },
+        {
+          "id": "09",
+          "name": "Devouring Eclipse",
+          "category": "Hidden Art",
+          "adds": {
+            "lifesteal": 2
+          },
+          "bonuses": {
+            "decreasedamagetaken": 10,
+            "lifesteal": 4
+          },
+          "raw_total": 14,
+          "row_weighted": 24
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "10",
+      "name": "Eater of Suns",
+      "path": [
+        "06",
+        "09",
+        "10"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 3,
+        "decreasedamagetaken": 2,
+        "lifesteal": 5
+      },
+      "path_row_weighted": 21,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Black Sun Rising",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2,
+            "lifesteal": 5
+          },
+          "raw_total": 14,
+          "row_weighted": 35
+        },
+        {
+          "id": "07",
+          "name": "Obsidian Skin",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 3,
+            "decreasedamagetaken": 5,
+            "lifesteal": 5
+          },
+          "raw_total": 13,
+          "row_weighted": 27
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,
