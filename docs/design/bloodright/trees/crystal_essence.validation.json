@@ -12,7 +12,7 @@
   "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Crystal classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "Damage above the 50 Nuke tier in a legal allocation (director review): Prism 50 -> 52"
+    "supported tags present in kit but not targeted by any node: damage"
   ],
   "classification": {
     "potency_classification": "Crystal",
@@ -45,7 +45,7 @@
   "examples": [
     {
       "name": "Splintered Mountain Heart",
-      "archetype": "Burst",
+      "archetype": "Sustained amplification",
       "ids": [
         "01",
         "02",
@@ -54,9 +54,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 5
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 4
       },
       "advanced_arts": [
         "Splintered Mountain Heart"
@@ -144,8 +143,7 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 2,
-      "increasedamagegiven": 5,
+      "increasedamagegiven": 10,
       "increasedamagetaken": 8,
       "decreasedamagetaken": 10,
       "reflect": 10
@@ -159,13 +157,14 @@
       "reflect": 1
     },
     "tags_targeted_by_tree": [
-      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "reflect"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -202,14 +201,12 @@
         "name": "Splintered Mountain Heart",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 2,
-        "row_weighted_total": 6,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Crystal Cave",
-          "Kōsai Shippū",
-          "Prism"
+          "Kōsai Shippū"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -218,8 +215,8 @@
         "name": "Flaw in the Stone",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Crystal Cave",
           "Crystal Sphere"
@@ -233,8 +230,8 @@
         "name": "Break Along the Flaw",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Crystal Cave",
           "Crystal Sphere"
@@ -358,12 +355,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
-          "increasedamagetaken": 5
+          "increasedamagegiven": 10,
+          "increasedamagetaken": 4
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 21,
+        "raw_flat_total": 14,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "03"
         ],
@@ -377,14 +373,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 10,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 19,
+        "raw_flat_total": 16,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "03"
         ],
@@ -417,12 +412,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 5,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 19,
+        "raw_flat_total": 13,
+        "row_weighted_total": 17,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -491,12 +486,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 5,
           "reflect": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 19,
+        "raw_flat_total": 13,
+        "row_weighted_total": 17,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -509,12 +504,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2,
           "reflect": 5
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 19,
+        "raw_flat_total": 13,
+        "row_weighted_total": 17,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -788,9 +783,7 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [
-      2
-    ],
+    "damage_totals_reachable": [],
     "rows": [
       {
         "jutsu": "Kōsai Shippū",
@@ -801,22 +794,7 @@
           "Crystal"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "01",
-              "02",
-              "03"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Prism",
@@ -827,22 +805,7 @@
           "Crystal"
         ],
         "method": "SINGLE",
-        "steps": [
-          {
-            "added": 2,
-            "final": 52.0,
-            "tier_before": "Nuke",
-            "tier_after": "above Nuke",
-            "tier_change": true,
-            "above_nuke": true,
-            "allocations": 3,
-            "smallest_allocation": [
-              "01",
-              "02",
-              "03"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Crystal Cave",
@@ -853,40 +816,11 @@
           "Crystal"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "01",
-              "02",
-              "03"
-            ]
-          }
-        ]
+        "steps": []
       }
     ],
-    "tier_crossings": [
-      [
-        "Prism",
-        0,
-        2
-      ]
-    ],
-    "above_nuke": [
-      {
-        "jutsu": "Prism",
-        "row": 0,
-        "base": 50.0,
-        "added": 2,
-        "final": 52.0
-      }
-    ]
+    "tier_crossings": [],
+    "above_nuke": []
   },
   "fourth_bp": [
     {
@@ -898,26 +832,24 @@
         "03"
       ],
       "path_bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 10,
         "increasedamagetaken": 2
       },
-      "path_row_weighted": 15,
+      "path_row_weighted": 14,
       "fourths": [
         {
           "id": "04",
           "name": "Flaw in the Stone",
           "category": "Hidden Art",
           "adds": {
-            "increasedamagetaken": 3
+            "increasedamagetaken": 2
           },
           "bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 5,
-            "increasedamagetaken": 5
+            "increasedamagegiven": 10,
+            "increasedamagetaken": 4
           },
-          "raw_total": 12,
-          "row_weighted": 21
+          "raw_total": 14,
+          "row_weighted": 18
         },
         {
           "id": "06",
@@ -928,17 +860,16 @@
             "reflect": 2
           },
           "bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 5,
+            "increasedamagegiven": 10,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "reflect": 2
           },
-          "raw_total": 13,
-          "row_weighted": 19
+          "raw_total": 16,
+          "row_weighted": 18
         }
       ],
-      "highest_diagnostic_fourth": "04"
+      "highest_diagnostic_fourth": "06"
     },
     {
       "advanced_art": "05",

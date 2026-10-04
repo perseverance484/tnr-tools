@@ -2,27 +2,26 @@
 
 **Bloodline:** Primal Radiance (BR-055, rank C, `ZewrhKT-qBQxT1eNoBWFP`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Fire classification / forked tree · **Classification:** Fire (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
-**Emphasis:** primary Offense, three ways to kill: Primal Incineration's brand, Afterburn over exposure (Pyre of the Hunted); a controlled +2 Damage on both Fire strikes (Apex Conflagration); Fire Style: Beast's self Increase Damage Given (Primal Rampage) · secondary Defense: Fire Style: Squirrel's self Decrease Damage Taken (Den of Embers) · tertiary Exposure held at +2% (Hunter's Brand) so the brand does not enlarge its own Afterburn.
+**Emphasis:** primary Offense, three ways to kill: Primal Incineration's brand, burned (Pyre of the Hunted, Afterburn) or laid open (Apex Conflagration, exposure); Fire Style: Beast's self Increase Damage Given (Primal Rampage) · secondary Defense: Fire Style: Squirrel's self Decrease Damage Taken (Den of Embers) · tertiary Damage unamplified: Fire Style: Beast stays at 50 (Nuke) and Fire Style: Squirrel at 40.
 
-Six supported rows: two Fire Damage rows (Fire Style: Beast 50, Fire Style: Squirrel 40 EP at jutsu level 25) and one row each of Afterburn and Increase Damage Taken (Primal Incineration's brand), Increase Damage Given (Beast's self buff) and Decrease Damage Taken (Squirrel's self buff). Hunter's Brand answers "How do I bring down the marked prey: burn it out or strike it down?" with Pyre of the Hunted (Afterburn 45% over 37% exposure) and Apex Conflagration (Beast 50 → 52, Squirrel 40 → 42 EP after Fang and Ember's 37% self buff; the Shakunetsu Sakura 50 → 52 precedent). Hide and Fang answers "How do I empower the beast itself: armour it or enrage it?" with Den of Embers (Squirrel 40%) and Primal Rampage (Beast 45%). Potency reaches matching supported tags on all Fire jutsu (RUL-2026-10-03-005); wound and move are unsupported.
+Six supported rows: two Fire Damage rows (Fire Style: Beast 50, Fire Style: Squirrel 40 EP at jutsu level 25) and one row each of Afterburn and Increase Damage Taken (Primal Incineration's brand), Increase Damage Given (Beast's self buff) and Decrease Damage Taken (Squirrel's self buff). Damage is left unamplified: the kit lists no traits, and Beast's own 35% self buff is live only in the 2 rounds after its cast, so Beast opens the window that Squirrel lands in rather than finishing. Hunter's Brand answers "How do I bring down the marked prey: burn it out or lay it open?" with Pyre of the Hunted (Afterburn 45% over 37% exposure) and Apex Conflagration (exposure 45%, ×1.074, after Fang and Ember's 37% self buff). Hide and Fang answers "How do I empower the beast itself: armour it or enrage it?" with Den of Embers (Squirrel 40%) and Primal Rampage (Beast 45%). Potency reaches matching supported tags on all Fire jutsu (RUL-2026-10-03-005); wound and move are unsupported.
 
 **Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|
-| Hunter's Brand | Foundation | How do I bring down the marked prey: burn it out or strike it down? |
+| Hunter's Brand | Foundation | How do I bring down the marked prey: burn it out or lay it open? |
 | Hide and Fang | Foundation | How do I empower the beast itself: armour it or enrage it? |
-| Apex Conflagration | Advanced Art | burst: self-amplification setup, controlled +2 Damage payoff on both Fire strikes, always on, Beast's own hit included |
-| Pyre of the Hunted | Advanced Art | exposure: the branded prey takes more from every hit (Afterburn), allies' included |
+| Apex Conflagration | Advanced Art | exposure: the brand lays the prey open, so every Fire or highest-stat hit on it lands harder, allies' included; Fang and Ember sharpens the caster's own |
+| Pyre of the Hunted | Advanced Art | burn: every non-pierce hit on the branded prey adds Afterburn, allies' included |
 | Den of Embers | Advanced Art | fortress |
 | Primal Rampage | Advanced Art | sustained amplification: the caster's hits land harder on every target in Beast's window |
 
-**Director review recommended:** Fire Style: Beast 50 → 52 (Squirrel 40 → 42) under Apex Conflagration, above the 50 Nuke tier; restored as a controlled burst payoff on the RUL-2026-10-04-002 precedent (Shakunetsu Sakura: the same 40/50 Damage tier pair, Scorch: Sakuragari 40 → 42, Sakura-ame 50 → 52, approved at +2) and RUL-2026-10-04-001, with an above_nuke_rationale. Fire is far more widely shared than Scorch, so the +2 also lifts any off-kit 50 EP Fire row to 52 (count unverified). The setup is +2% self Increase Damage Given, not the anchors' exposure setups (Shakunetsu's Burning Petal Carpet +2% Increase Damage Taken, Blood-Enchanted Eyes' Opened Veins +3%): here either would be a legal fourth for Pyre of the Hunted and stack exposure under its 45% Afterburn (a Squirrel hit on the mark ≈ ×2.74 at +3%, ≈ ×2.72 at +2%). Confirm the 50 → 52 with its wider Fire reach, Fang and Ember sharing Beast's self-buff row with Kindled Fury, and that Primal Rampage's thin in-window lead over Apex Conflagration (concerns) is enough.
+**Director review recommended:** Roster questions: DQ-B (Apex Conflagration +10% exposure on one row, Primal Incineration 35 → 45%, ×1.074).
 
-- Concern: Fang and Ember (+2%) and Kindled Fury (+3%) amplify the same row, Beast's self buff, on different roots (a departure from roster rule R4). Afterburn and Decrease Damage Taken already own Hidden Arts; an Increase Damage Taken setup would feed Pyre of the Hunted's mark, which R1 forbids (Blood-Enchanted Eyes' +3% gives ≈ ×2.74); a flat commit would put Beast at 51 in four builds without the capstone. Precedent for a shared row: Arashima's self Increase Damage Given setup into +2 Damage (RUL-2026-10-04-003) and Shakunetsu Sakura's two +3% Increase Damage Given Hidden Arts. Hide and Fang carries no Increase Damage Given, so the two never meet under a capstone (at most +5% in the no-Advanced hybrid 01+02+06+09); Fang and Ember is also Pyre of the Hunted's sharper fourth (Beast 37%).
-- Concern: Apex Conflagration and Primal Rampage split by timing, not size. Inside Beast's window Rampage + Hunter's Brand leads Apex + Hide and Fang on every caster hit (Squirrel off the mark ×1.45 against ×1.44, on the mark ×2.68 against ×2.66; basic attacks and non-Fire highest-stat hits ×1.45 against ×1.37); outside it, and on Beast's own strike, Apex's +2 still applies (Squirrel ×1.05, Beast ×1.04, against ×1.00), while Rampage's +10% is live only in the 2 rounds after each Beast cast (cooldown 7). Exposure (37%) and Squirrel's reduction (32%) are identical. The in-window lead on the kit's Fire strikes is thin (about 1%); director to confirm the split is enough. Not simulated.
-- Concern: Pyre of the Hunted with Fang and Ember and Apex Conflagration with Smoldering Trail both reach ×2.72 on a Squirrel hit on the mark, ahead of Primal Rampage with Hunter's Brand (×2.68), each by giving up Squirrel's 32%; Pyre leads for allies' hits (×1.45 Afterburn on any non-pierce hit), Apex off the mark outside Beast's window (×1.05), Rampage off the mark inside it (×1.45). Not simulated.
-- Concern: Increase Damage Taken reaches only +2% (Hunter's Brand): exposure is kept near base so the brand's setup does not compound its own Afterburn payoff.
+- Concern: Apex Conflagration and Pyre of the Hunted pay off the same Primal Incineration cast through different rows, and split by coverage, not size: with Hide and Fang both reach ×2.68 on a caster Squirrel on the mark in Beast's window; Pyre leads outside that window (×1.99 against ×1.96 on a Fire hit on the mark) and on hits outside the exposure filter (×1.45 against ×1.35); Apex + Smoldering Trail leads Pyre + Fang and Ember on Fire and highest-stat hits on the mark (×2.00 against ×1.99), and exposure also raises residual damage. Not simulated.
+- Concern: Apex Conflagration with Smoldering Trail carries exposure 45% under Afterburn 38% (≈ ×2.00 on a Fire or highest-stat hit on the mark, ×1.82 unmodified): the reverse of the stack R12 bounds, which keeps exposure at +2% beside Pyre of the Hunted's 45% Afterburn.
+- Concern: Fang and Ember (+2%) and Kindled Fury (+3%) amplify Beast's self buff on different roots; neither is a legal fourth for the other's route (not a twin under refined R4), and they meet only in the no-Advanced hybrid 01+02+06+09 (+5%).
 - Concern: Two of four routes (Pyre of the Hunted, Den of Embers) amplify element-less rows the current row-element resolver cannot reach; they depend on the proposed jutsu-classification resolver.
 
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Fire jutsu. Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
@@ -33,7 +32,7 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 |---|---|---|---|---|---|
 | 01 | Hunter's Brand | Foundation | None | +2% Increase Damage Taken (enemy debuff) | Primal Incineration / 1 |
 | 02 | Fang and Ember | Hidden Art | Hunter's Brand | +2% Increase Damage Given (self buff) | Fire Style: Beast / 1 |
-| 03 | Apex Conflagration | Advanced Art | Fang and Ember | +2 Damage (damage) | Fire Style: Beast, Fire Style: Squirrel / 2 |
+| 03 | Apex Conflagration | Advanced Art | Fang and Ember | +8% Increase Damage Taken (enemy debuff) | Primal Incineration / 1 |
 | 04 | Smoldering Trail | Hidden Art | Hunter's Brand | +3% Afterburn (enemy debuff) | Primal Incineration / 1 |
 | 05 | Pyre of the Hunted | Advanced Art | Smoldering Trail | +7% Afterburn (enemy debuff) | Primal Incineration / 1 |
 | 06 | Hide and Fang | Foundation | None | +2% Decrease Damage Taken (self buff) | Fire Style: Squirrel / 1 |
@@ -44,11 +43,11 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 
 Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09→10. Advanced Arts: 4; any two cost at least 5 BP including prerequisites (cap 4); maximum affordable Advanced Arts: 1.
 
-- **Hunter's Brand** — Every quarry the beast marks is already half-burned. Primal Incineration exposure 35 → 37% on one target for 2 rounds (Fire hits and hits on the caster's highest offence stat). Roots the brand (Smoldering Trail) and the strike (Fang and Ember); Primal Rampage's offensive fourth and Den of Embers' team-only alternative.
-- **Fang and Ember** — Teeth of ember, breath of wildfire. Commits to the kill: Fire Style: Beast self Increase Damage Given 35 → 37%, live the 2 rounds after each 60 AP cast, so the Squirrel that follows lands harder. Also Pyre of the Hunted's sharper fourth.
-- **Apex Conflagration** — When the alpha roars, the whole forest catches. Burst: Fire Style: Beast 50 → 52 and Fire Style: Squirrel 40 → 42 EP (+2 Damage; Beast above the 50 Nuke tier, see above_nuke_rationale). Raw power needs no window, so it reaches Beast's own strike (×1.04), which its self buff never does, and every strike outside Beast's window; inside it Squirrel lands ×1.05 × 1.37 ≈ ×1.44 after Fang and Ember.
+- **Hunter's Brand** — Every quarry the beast marks is already half-burned. Primal Incineration exposure 35 → 37% on one target for 2 rounds (Fire hits and hits on the caster's highest offence stat). Roots the burn (Smoldering Trail) and the exposure (Fang and Ember); Primal Rampage's offensive fourth and Den of Embers' team-only alternative.
+- **Fang and Ember** — Teeth of ember, breath of wildfire. Commits the caster's strike (Apex Conflagration's setup): Fire Style: Beast self Increase Damage Given 35 → 37%, live the 2 rounds after each 60 AP cast, so the Squirrel that follows lands harder on the mark. Also Pyre of the Hunted's sharper fourth.
+- **Apex Conflagration** — When the alpha roars, the quarry stands open to every fang. Exposure: Primal Incineration exposure 35 → 45% on the full route (+10%, ×1.074; Shakunetsu Sakura's anchor ×1.075) for the 2 rounds after one 40 AP cast: every Fire or highest-stat hit on the target, allies' included, lands ×1.45 (×1.35 unmodified). Fang and Ember's 37% self buff stacks on the caster's own strikes in Beast's window; Afterburn stays at 35%.
 - **Smoldering Trail** — Where the hunted beast ran, the ground still smolders. Commits to the brand: Primal Incineration Afterburn 35 → 38% (one 40 AP cast, cooldown 7, live the 2 rounds after it), added to every non-pierce hit the target takes, allies' included.
-- **Pyre of the Hunted** — The hunt ends on a pyre the prey built with its own flight. Exposure: Primal Incineration Afterburn 35 → 45% on the full route (+10%) over Hunter's Brand's 37% exposure; a Fire or highest-stat hit on the target lands ×1.37, then burns for 45% (×1.37 × 1.45 ≈ ×1.99; ×1.82 unmodified), allies' hits included.
+- **Pyre of the Hunted** — The hunt ends on a pyre the prey built with its own flight. Burn: Primal Incineration Afterburn 35 → 45% on the full route (+10%) over Hunter's Brand's 37% exposure; a Fire or highest-stat hit on the target lands ×1.37, then burns for 45% (×1.37 × 1.45 ≈ ×1.99; ×1.82 unmodified), allies' hits included.
 - **Hide and Fang** — The pelt catches first; the fang waits for its spark. Fire Style: Squirrel self Decrease Damage Taken 30 → 32%, live the 2 rounds after each 60 AP cast. Roots the hide (Radiant Hide) and the fury (Kindled Fury); the sturdy fourth for Pyre of the Hunted and Apex Conflagration.
 - **Radiant Hide** — A pelt of living flame that swallows every blow. Squirrel self Decrease Damage Taken 32 → 35% with Hide and Fang (no element, all four stat types: every non-pierce hit).
 - **Den of Embers** — Within the burning den, nothing reaches the beast. Fortress: Squirrel self Decrease Damage Taken 30 → 40% on the full route (+10%), incoming hits ×0.60 (×0.70 unmodified) for the 2 rounds after each 60 AP cast. One effect; Beast's self buff stays at its base 35%.
@@ -57,30 +56,30 @@ Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09�
 
 ## Complete four-purchase examples
 
-| Build | Purchases | DMG | IDG | IDT | DDT | AB |
-|---|---|---:|---:|---:|---:|---:|
-| Apex Conflagration (Burst) | Hunter's Brand, Fang and Ember, Apex Conflagration, Hide and Fang | +2 | +2% | +2% | +2% | — |
-| Pyre of the Hunted (Exposure brand) | Hunter's Brand, Smoldering Trail, Pyre of the Hunted, Hide and Fang | — | — | +2% | +2% | +10% |
-| Primal Rampage (Fury window) | Hunter's Brand, Hide and Fang, Kindled Fury, Primal Rampage | — | +10% | +2% | +2% | — |
-| Den of Embers (Fortress) | Hide and Fang, Radiant Hide, Den of Embers, Kindled Fury | — | +3% | — | +10% | — |
+| Build | Purchases | IDG | IDT | DDT | AB |
+|---|---|---:|---:|---:|---:|
+| Apex Conflagration (Exposure) | Hunter's Brand, Fang and Ember, Apex Conflagration, Hide and Fang | +2% | +10% | +2% | — |
+| Pyre of the Hunted (Burning brand) | Hunter's Brand, Smoldering Trail, Pyre of the Hunted, Hide and Fang | — | +2% | +2% | +10% |
+| Primal Rampage (Fury window) | Hunter's Brand, Hide and Fang, Kindled Fury, Primal Rampage | +10% | +2% | +2% | — |
+| Den of Embers (Fortress) | Hide and Fang, Radiant Hide, Den of Embers, Kindled Fury | +3% | — | +10% | — |
 
-Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Damage Taken · DDT = Decrease Damage Taken · AB = Afterburn. Values are per-matching-row static additions, not final combat percentages.
+Abbreviations: IDG = Increase Damage Given · IDT = Increase Damage Taken · DDT = Decrease Damage Taken · AB = Afterburn. Values are per-matching-row static additions, not final combat percentages.
 
-- **Apex Conflagration:** Fire Style: Beast 50 → 52 and Fire Style: Squirrel 40 → 42 EP (Apex Conflagration +2 Damage) over Hunter's Brand's 37% exposure and Fang and Ember's 37% self buff. Cast Incineration and Beast in one 100 AP turn and the next round's Squirrel lands ×1.05 × 1.37 × 1.37 × 1.35 ≈ ×2.66 on the mark (×2.46 unmodified); a Beast cast on a mark laid the round before lands ×1.04 × 1.37 × 1.35 ≈ ×1.92 (×1.82), and outside Beast's window the +2 still lands (Squirrel ×1.05, Beast ×1.04). Hide and Fang adds Squirrel 32%; Smoldering Trail (Afterburn 38%) is the all-in fourth (Squirrel ≈ ×2.72 on the mark, Beast ≈ ×1.97).
+- **Apex Conflagration:** One 40 AP Primal Incineration lays a target open for the 2 rounds after the cast: exposure 45% (Hunter's Brand +2%, Apex Conflagration +8%; ×1.074), so every Fire or highest-stat hit on it, allies' included, lands ×1.45; Fang and Ember adds Beast 37% for the caster's own strikes. Cast Incineration and Beast in one 100 AP turn and the next round's Squirrel lands ×1.37 × 1.45 × 1.35 ≈ ×2.68 on the mark (×2.46 unmodified), level with Pyre of the Hunted and Primal Rampage; Hide and Fang adds Squirrel 32%. Smoldering Trail is the all-in fourth (Afterburn 38%, ≈ ×2.74) without Squirrel's 32%.
 - **Pyre of the Hunted:** One 40 AP Primal Incineration marks a target for the 2 rounds after the cast: Afterburn 45% (Smoldering Trail +3%, Pyre of the Hunted +7%) over 37% exposure (Hunter's Brand). Every non-pierce hit on it, allies' included, burns for 45%; Fire and highest-stat hits are first raised ×1.37 (×1.37 × 1.45 ≈ ×1.99). Hide and Fang is the sturdy fourth (Squirrel 32%): cast Incineration and Beast in one 100 AP turn and the next round's Squirrel lands ×1.35 × 1.37 × 1.45 ≈ ×2.68 on the mark (×2.46 unmodified). Fang and Ember is the sharp one (Beast 37%, ≈ ×2.72) without Squirrel's 32%.
 - **Primal Rampage:** Beast's self buff reaches 45% (Kindled Fury +3%, Primal Rampage +7%): for the 2 rounds after each 60 AP cast every caster Fire hit, and every hit on the caster's highest offence stat or general, lands ×1.45 on any target (never Beast's own hit, cooldown 7); Hide and Fang adds Squirrel 32%. Hunter's Brand is the offensive fourth (exposure 37%; a Squirrel hit on the mark ×1.45 × 1.37 × 1.35 ≈ ×2.68 with Incineration's unmodified 35% Afterburn); Radiant Hide (Squirrel 35%) is the sturdier one.
 - **Den of Embers:** Squirrel's self reduction reaches 40% (Hide and Fang +2%, Radiant Hide +3%, Den of Embers +5%), realized on the caster at cast and live on every non-pierce hit for the 2 rounds after each 60 AP cast (cooldown 6): incoming hits ×0.60. Kindled Fury is the fourth that keeps the beast fighting (Beast 38%); Hunter's Brand (exposure 37%) is the team-only alternative, ahead of Kindled Fury only for allies' Fire or highest-stat hits on the mark (×1.37 against ×1.35).
 
 ## Before/after effect rows
 
-| Jutsu | Row | Tag | Recipient | Base | Burst | Exposure brand | Fury window | Fortress |
+| Jutsu | Row | Tag | Recipient | Base | Exposure | Burning brand | Fury window | Fortress |
 |---|---:|---|---|---:|---:|---:|---:|---:|
 | Primal Incineration | 0 | Afterburn | enemy | 35% | 35% | 45% (+10) | 35% | 35% |
-| Primal Incineration | 1 | Increase Damage Taken | enemy | 35% | 37% (+2) | 37% (+2) | 37% (+2) | 35% |
-| Fire Style: Beast | 0 | Damage | enemy | 50 | 52 (+2) | 50 | 50 | 50 |
+| Primal Incineration | 1 | Increase Damage Taken | enemy | 35% | 45% (+10) | 37% (+2) | 37% (+2) | 35% |
+| Fire Style: Beast | 0 | Damage | enemy | 50 | 50 | 50 | 50 | 50 |
 | Fire Style: Beast | 1 | Increase Damage Given | self | 35% | 37% (+2) | 35% | 45% (+10) | 38% (+3) |
 | Fire Style: Beast | 2 | wound (unsupported) | enemy | 25% | 25% | 25% | 25% | 25% |
-| Fire Style: Squirrel | 0 | Damage | enemy | 40 | 42 (+2) | 40 | 40 | 40 |
+| Fire Style: Squirrel | 0 | Damage | enemy | 40 | 40 | 40 | 40 | 40 |
 | Fire Style: Squirrel | 1 | move (unsupported) | self | 1 | 1 | 1 | 1 | 1 |
 | Fire Style: Squirrel | 2 | Decrease Damage Taken | self | 30% | 32% (+2) | 32% (+2) | 32% (+2) | 40% (+10) |
 
@@ -88,30 +87,24 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Dam
 
 - Legal prerequisite-closed allocations by size: 0: 1, 1: 2, 2: 5, 3: 10, 4: 14
 - Full-budget allocations: 14; numerically non-dominated (per-tag totals): 11; all nodes appear in a non-dominated build: True
-- Maximum individually achievable additions over every legal allocation: +2 Damage, +10% Increase Damage Given, +2% Increase Damage Taken, +10% Decrease Damage Taken, +10% Afterburn (not jointly attainable)
+- Maximum individually achievable additions over every legal allocation: +10% Increase Damage Given, +10% Increase Damage Taken, +10% Decrease Damage Taken, +10% Afterburn (not jointly attainable)
 - Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.
-  - Route Apex Conflagration: +2 Damage (0 + 0 + 2; off band)
+  - Route Apex Conflagration: +10% Increase Damage Taken (2 + 0 + 8; on band)
   - Route Pyre of the Hunted: +10% Afterburn (0 + 3 + 7; on band)
   - Route Den of Embers: +10% Decrease Damage Taken (2 + 3 + 5; on band)
   - Route Primal Rampage: +10% Increase Damage Given (0 + 3 + 7; on band)
 - Supported rows in kit: 6 (AB 1, DMG 2, DDT 1, IDG 1, IDT 1)
-- Strongest full build by row-weighted total: Hide and Fang, Radiant Hide, Kindled Fury, Primal Rampage (raw +15, row-weighted 15)
+- Supported tags present but not targeted: damage
+- Strongest full build by row-weighted total: Hunter's Brand, Fang and Ember, Apex Conflagration, Smoldering Trail (raw +15, row-weighted 15)
 - Lowest row-weighted node: Hunter's Brand (2)
 
 Validator warnings:
 
-- Damage above the 50 Nuke tier in a legal allocation (director review): Fire Style: Beast 50 -> 52
+- supported tags present in kit but not targeted by any node: damage
 
 ### Damage tiers (base → final)
 
-Player-jutsu tiers: 38 Light, 40 Normal, 45 High, 50 Nuke; anything above 50 is past the ladder. Each column is a flat Damage total some legal allocation reaches.
-
-| Jutsu | Row | Base (tier) | +2 Damage |
-|---|---:|---|---|
-| Fire Style: Beast | 0 | 50 (Nuke) | **52 (above Nuke)** |
-| Fire Style: Squirrel | 0 | 40 (Normal) | 42 (Normal) |
-
-Above-Nuke rationale: Apex Conflagration's +2 Damage lifts Fire Style: Beast 50 → 52 (Fire Style: Squirrel 40 → 42), past the 50 Nuke tier, as the payoff of a deliberate burst route (Hunter's Brand exposure → Fang and Ember self buff → Apex Conflagration). Precedent: RUL-2026-10-04-002, Shakunetsu Sakura, with the same 40/50 Damage tier pair (Scorch: Sakuragari 40 → 42, Sakura-ame 50 → 52 under Conflagration in Bloom's +2), and RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52). The reach differs: Fire is a far more widely shared element than Scorch (29 other bloodlines against Scorch's one), so Apex's +2 also lifts any off-kit 50 EP Fire row the owner casts to 52 (count unverified). Only builds holding Apex Conflagration exceed 50, by at most +2. Fable proposal; flagged for director review.
+No node adds flat Damage; every Damage row keeps its base (Fire Style: Beast 50 (Nuke), Fire Style: Squirrel 40 (Normal)).
 
 ### Fourth-BP audit
 
@@ -119,8 +112,8 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 | Advanced Art | Path package | Fourth purchase | Full package | Row-weighted |
 |---|---|---|---|---:|
-| Apex Conflagration | +2 Damage, +2% IDG, +2% IDT | Smoldering Trail *(highest diagnostic)* | +2 Damage, +2% IDG, +2% IDT, +3% AB | 11 |
-| Apex Conflagration | +2 Damage, +2% IDG, +2% IDT | Hide and Fang | +2 Damage, +2% IDG, +2% IDT, +2% DDT | 10 |
+| Apex Conflagration | +2% IDG, +10% IDT | Smoldering Trail *(highest diagnostic)* | +2% IDG, +10% IDT, +3% AB | 15 |
+| Apex Conflagration | +2% IDG, +10% IDT | Hide and Fang | +2% IDG, +10% IDT, +2% DDT | 14 |
 | Pyre of the Hunted | +2% IDT, +10% AB | Fang and Ember | +2% IDG, +2% IDT, +10% AB | 14 |
 | Pyre of the Hunted | +2% IDT, +10% AB | Hide and Fang *(highest diagnostic)* | +2% IDT, +2% DDT, +10% AB | 14 |
 | Den of Embers | +10% DDT | Hunter's Brand | +2% IDT, +10% DDT | 12 |
@@ -132,8 +125,8 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 | # | Nodes | Bonuses |
 |---:|---|---|
-| 1 | Hunter's Brand, Fang and Ember, Apex Conflagration, Smoldering Trail | +2 Damage, +2% IDG, +2% IDT, +3% AB |
-| 2 | Hunter's Brand, Fang and Ember, Apex Conflagration, Hide and Fang | +2 Damage, +2% IDG, +2% IDT, +2% DDT |
+| 1 | Hunter's Brand, Fang and Ember, Apex Conflagration, Smoldering Trail | +2% IDG, +10% IDT, +3% AB |
+| 2 | Hunter's Brand, Fang and Ember, Apex Conflagration, Hide and Fang | +2% IDG, +10% IDT, +2% DDT |
 | 3 | Hunter's Brand, Fang and Ember, Smoldering Trail, Pyre of the Hunted | +2% IDG, +2% IDT, +10% AB |
 | 4 | Hunter's Brand, Fang and Ember, Smoldering Trail, Hide and Fang | +2% IDG, +2% IDT, +2% DDT, +3% AB |
 | 5 | Hunter's Brand, Fang and Ember, Hide and Fang, Radiant Hide | +2% IDG, +2% IDT, +5% DDT |
@@ -149,17 +142,17 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 ## Design notes
 
-- 2026-10-04 rebalance, roster pass (BALANCE_REVIEW_METHOD.md; roster rule R1). The first pass deleted the burst branch because any flat Damage lifts Fire Style: Beast past 50, which shrank the tree to 8 nodes and made Hide and Fang universal. Restored on the director pattern: Fang and Ember is now a +2% Increase Damage Given setup (was +2 Damage) and Apex Conflagration a +2 Damage payoff (was +3): Beast 50 → 52, Squirrel 40 → 42 EP, never 55 or 45. Final review: Hide and Fang's +2% Increase Damage Given moved into Primal Rampage (+5% → +7%; the route stays +10%), so Apex Conflagration's Hide and Fang fourth no longer stacks Beast's self-buff row (39% → 37%) and Primal Rampage leads inside Beast's window. Kept from the first pass: single-effect capstones (Pyre of the Hunted without its +3% exposure rider, Den of Embers without +2% Increase Damage Given, Primal Rampage without +2% Decrease Damage Taken) and every other value.
-- Why a self-amplification setup (a departure from roster rule R4): Afterburn and Decrease Damage Taken already own Hidden Arts (Smoldering Trail, Radiant Hide). An Increase Damage Taken setup would sit under Hunter's Brand and feed Pyre of the Hunted's mark, which roster rule R1 forbids: as Pyre's fourth, Blood-Enchanted Eyes' +3% (Opened Veins) puts exposure at 40% under 45% Afterburn (a Squirrel hit on the mark ×1.40 × 1.35 × 1.45 ≈ ×2.74), and Shakunetsu Sakura's +2% (Burning Petal Carpet) matches Fang and Ember's ≈ ×2.72 while also raising every ally's Fire or highest-stat hit on the mark. A +1 Damage commit would lift Beast to 51 in four 4 BP builds without the capstone, Pyre's among them. Fang and Ember therefore shares Kindled Fury's row (Beast's self buff) on the other root at a lower value, as Arashima's Gathering Thunderhead (+2% Increase Damage Given into Sundered Sky's +2 Damage, RUL-2026-10-04-003) shares its sibling route's Increase Damage Given row and Shakunetsu Sakura carries two +3% Increase Damage Given Hidden Arts (Kindled Boughs, Blossom Dominion). Hide and Fang carries no Increase Damage Given, so the row never takes two of the tree's sources under a capstone; as Pyre's fourth Fang and Ember gives Beast 37%, the value Pyre + Hide and Fang reached before the final review, so Pyre's ceiling does not rise.
-- Maxima over every legal allocation: Afterburn +10%, Increase Damage Given +10%, Decrease Damage Taken +10%, Increase Damage Taken +2%, Damage +2 (above 50 only with Apex Conflagration). Exposure stays at the Foundation: Afterburn reads the already-raised hit, so exposure under the burn enlarges its own payoff.
-- Filters (§3): Beast's self buff (Fire; stat and general Highest) multiplies the caster's Fire hits and hits sharing the caster's highest offence stat or general. Incineration's exposure (Fire; stat Highest) covers Fire hits and hits on the debuff caster's highest offence stat (§4b). Afterburn and Squirrel's reduction carry no element and list all four stat types: every non-pierce hit. Damage is linear in power (powerEffect, tags.ts 1436-1462), so +2 is ×1.04 on Beast and ×1.05 on Squirrel. The bloodline's Fire Increase Damage Given passive (15% + 0.15 per level) multiplies last.
+- 2026-10-04 rebalance, final cleanup (BALANCE_REVIEW_METHOD.md; roster rule R1′). The kit lists no traits and Fire Style: Beast is not its finisher: Beast's row 1 (self Increase Damage Given 35%) is live only in the 2 rounds after its cast, so the D-rank, 60 AP, cooldown 7 Beast opens the window that Fire Style: Squirrel (B rank, cooldown 6) lands in, and Primal Incineration is a pure brand. Damage is therefore unamplified (Beast stays 50, Squirrel 40) and Apex Conflagration changes from +2 Damage to +8% Increase Damage Taken, so the brand's two rows pay off on two routes: Pyre of the Hunted burns the prey out, Apex Conflagration lays it open. Kept: Fang and Ember (+2% self Increase Damage Given, now Apex's setup), the single-effect capstones and every other value.
+- Why Fang and Ember stays a self-amplification setup: an Increase Damage Taken setup would be a legal fourth for Pyre of the Hunted and raise exposure under its 45% Afterburn, which the tree chooses to hold at Hunter's Brand's +2% (R12 would allow up to +5%; the setup would also feed Pyre's mark, the fourth-BP pattern the method rejects), and a flat Damage commit is not used on a 50-row kit (R9). Fang and Ember and Kindled Fury share Beast's self-buff row on different roots; neither is a legal fourth for the other's route, so they never stack under a capstone (refined R4: not a twin). Apex's route carries +2% Increase Damage Given against Primal Rampage's +10%; its payoff is exposure, not a second amplification route.
+- Maxima over every legal allocation: Increase Damage Given +10%, Increase Damage Taken +10%, Decrease Damage Taken +10%, Afterburn +10%, Damage none. Allocations holding Pyre of the Hunted reach exposure +2% (R12 ≤ +5%); allocations holding Apex Conflagration reach Afterburn +3% (Smoldering Trail). Top offensive package (Increase Damage Given × Taken, all windows live): ×1.090 (Apex Conflagration with Fang and Ember; Primal Rampage with Hunter's Brand), under Blood-Enchanted Eyes' ×1.234.
+- Filters (§3): Beast's self buff (Fire; stat and general Highest) multiplies the caster's Fire hits and hits sharing the caster's highest offence stat or general. Incineration's exposure (Fire; stat Highest) covers Fire hits and hits on the debuff caster's highest offence stat (§4b), direct and residual; Afterburn adds to instant hits only. Afterburn and Squirrel's reduction carry no element and list all four stat types: every non-pierce hit. The bloodline's Fire Increase Damage Given passive (15% + 0.15 per level) multiplies last.
 - Delivery (§3b, §4b): Incineration is 40 AP, cooldown 7, single target, range 4; Beast 60 AP, cooldown 7, single target; Squirrel 60 AP, cooldown 6, an empty-ground circle whose SELF reduction is realized on the caster at cast (no positioning). Every buff and debuff is live only in the 2 rounds after its cast, so Beast never raises its own hit and a Beast cast in Incineration's round is not exposed.
-- Fourth purchases: Apex Conflagration takes Hide and Fang (Squirrel 32%) or Smoldering Trail (Afterburn 38%); Pyre of the Hunted takes Hide and Fang (Squirrel 32%) or Fang and Ember (Beast 37%); Primal Rampage takes Hunter's Brand (exposure 37%) or Radiant Hide (Squirrel 35%); Den of Embers takes Kindled Fury (Beast 38%) or, for allies' hits on the mark, Hunter's Brand. With Incineration and Beast live, a Squirrel hit on the mark lands ×2.72 under Pyre + Fang and Ember and under Apex + Smoldering Trail, ×2.68 under Pyre + Hide and Fang and under Rampage + Hunter's Brand, ×2.66 under Apex + Hide and Fang, ×2.52 under Den + Kindled Fury (×2.46 unmodified). Pyre leads for allies on the mark (any non-pierce hit ×1.45); Rampage inside Beast's window off the mark (Squirrel ×1.45 against Apex's ×1.44; basic attacks and non-Fire highest-stat hits ×1.45 against ×1.37); Apex off the mark, on Beast's own strike (×1.04 against ×1.00) and on every strike outside Beast's window, where the +2 still applies (Squirrel ×1.05, Beast ×1.04, against ×1.00). No fourth makes a route automatic.
+- Fourth purchases: Apex Conflagration takes Hide and Fang (Squirrel 32%) or Smoldering Trail (Afterburn 38%); Pyre of the Hunted takes Hide and Fang (Squirrel 32%) or Fang and Ember (Beast 37%); Primal Rampage takes Hunter's Brand (exposure 37%) or Radiant Hide (Squirrel 35%); Den of Embers takes Kindled Fury (Beast 38%) or, for allies' hits on the mark, Hunter's Brand. With Incineration and Beast live, a Squirrel hit on the mark lands ×2.74 under Apex + Smoldering Trail, ×2.72 under Pyre + Fang and Ember, ×2.68 under Apex + Hide and Fang, Pyre + Hide and Fang and Rampage + Hunter's Brand, ×2.52 under Den + Kindled Fury (×2.46 unmodified). Pyre leads on hits outside the exposure filter (×1.45 against ×1.35–1.38) and on Fire hits on the mark outside Beast's window (×1.99 against Apex + Hide and Fang's ×1.96); Apex + Smoldering Trail leads on Fire and highest-stat hits on the mark (×2.00 against ×1.99); Rampage leads off the mark in Beast's window (×1.45 against ×1.37). No fourth makes a route automatic.
 
 ## Risks and unproven interactions
 
-- Classification: Fire is shared with many other bloodlines (expected under RUL-2026-10-03-005). The two Damage rows, the exposure and Beast's self buff carry Fire; Incineration's Afterburn and Squirrel's reduction carry no element and need the proposed jutsu-classification resolver. Off-kit Fire coverage is unverified.
-- Damage reach: Apex Conflagration's +2 reaches every Fire Damage row the owner casts, off-kit Fire jutsu included (another 50 EP Fire jutsu also becomes 52). Only the capstone exceeds 50; see above_nuke_rationale.
+- Classification: Fire is shared with many other bloodlines (expected under RUL-2026-10-03-005). Incineration's exposure and Beast's self buff carry Fire; Incineration's Afterburn and Squirrel's reduction carry no element and need the proposed jutsu-classification resolver. Off-kit Fire coverage is unverified.
+- Exposure: Apex Conflagration puts Incineration's exposure at 45% (×1.074) on one target for the 2 rounds after the cast; every Fire or highest-stat hit it takes, allies' and off-kit Fire jutsu included, lands ×1.45. With Smoldering Trail as the fourth, Afterburn 38% reads the raised hit (≈ ×2.00 on such a hit). Damage rows are untouched: Beast stays at the 50 Nuke tier.
 - Afterburn: Pyre of the Hunted puts Incineration's Afterburn at 45% on one target for the 2 rounds after the cast. Every non-pierce hit it takes (kit, normal jutsu, weapons, basic attacks, allies) adds floor(damage × 45%); other Afterburn sources add under the 60%-of-hit cumulative cap, so 15 points remain. Not a damage instance; downstream hits were not simulated.
 - Reach: Beast's 45% self buff multiplies matching caster hits on every target in its window (Squirrel's circle, basic attacks, off-kit Fire jutsu), and the bloodline Fire passive multiplies last. Squirrel's reduction is caster-only.
 - Friendly fire: Incineration may be aimed at an ally (OTHER_USER); its Afterburn (friendly fire none = ALL) then lands on the ally, while the exposure (ENEMIES) is withheld. Beast's wound and Squirrel's move are unsupported and untouched.

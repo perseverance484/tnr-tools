@@ -12,7 +12,7 @@
   "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Fire classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "Damage above the 50 Nuke tier in a legal allocation (director review): Fire Style: Beast 50 -> 52"
+    "supported tags present in kit but not targeted by any node: damage"
   ],
   "classification": {
     "potency_classification": "Fire",
@@ -70,7 +70,7 @@
   "examples": [
     {
       "name": "Apex Conflagration",
-      "archetype": "Burst",
+      "archetype": "Exposure",
       "ids": [
         "01",
         "02",
@@ -79,9 +79,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -90,7 +89,7 @@
     },
     {
       "name": "Pyre of the Hunted",
-      "archetype": "Exposure brand",
+      "archetype": "Burning brand",
       "ids": [
         "01",
         "04",
@@ -168,9 +167,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 2,
       "increasedamagegiven": 10,
-      "increasedamagetaken": 2,
+      "increasedamagetaken": 10,
       "decreasedamagetaken": 10,
       "afterburn": 10
     },
@@ -184,12 +182,13 @@
     },
     "tags_targeted_by_tree": [
       "afterburn",
-      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -224,13 +223,12 @@
         "name": "Apex Conflagration",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 8,
+        "row_weighted_total": 8,
         "covered_jutsu": [
-          "Fire Style: Beast",
-          "Fire Style: Squirrel"
+          "Primal Incineration"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -335,19 +333,20 @@
     ],
     "strongest_full_build_by_row_weight": {
       "ids": [
-        "06",
-        "07",
-        "09",
-        "10"
+        "01",
+        "02",
+        "03",
+        "04"
       ],
       "bonuses": {
-        "increasedamagegiven": 10,
-        "decreasedamagetaken": 5
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 10,
+        "afterburn": 3
       },
       "raw_flat_total": 15,
       "row_weighted_total": 15,
       "advanced_arts": [
-        "10"
+        "03"
       ],
       "non_dominated": true
     },
@@ -374,13 +373,12 @@
           "04"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 10,
           "afterburn": 3
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 11,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "03"
         ],
@@ -394,13 +392,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 10,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 8,
-        "row_weighted_total": 10,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "03"
         ],
@@ -797,9 +794,7 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [
-      2
-    ],
+    "damage_totals_reachable": [],
     "rows": [
       {
         "jutsu": "Fire Style: Beast",
@@ -810,22 +805,7 @@
           "Fire"
         ],
         "method": "SINGLE",
-        "steps": [
-          {
-            "added": 2,
-            "final": 52.0,
-            "tier_before": "Nuke",
-            "tier_after": "above Nuke",
-            "tier_change": true,
-            "above_nuke": true,
-            "allocations": 3,
-            "smallest_allocation": [
-              "01",
-              "02",
-              "03"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Fire Style: Squirrel",
@@ -836,40 +816,11 @@
           "Fire"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "01",
-              "02",
-              "03"
-            ]
-          }
-        ]
+        "steps": []
       }
     ],
-    "tier_crossings": [
-      [
-        "Fire Style: Beast",
-        0,
-        2
-      ]
-    ],
-    "above_nuke": [
-      {
-        "jutsu": "Fire Style: Beast",
-        "row": 0,
-        "base": 50.0,
-        "added": 2,
-        "final": 52.0
-      }
-    ]
+    "tier_crossings": [],
+    "above_nuke": []
   },
   "fourth_bp": [
     {
@@ -881,11 +832,10 @@
         "03"
       ],
       "path_bonuses": {
-        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2
+        "increasedamagetaken": 10
       },
-      "path_row_weighted": 8,
+      "path_row_weighted": 12,
       "fourths": [
         {
           "id": "04",
@@ -895,13 +845,12 @@
             "afterburn": 3
           },
           "bonuses": {
-            "damage": 2,
             "increasedamagegiven": 2,
-            "increasedamagetaken": 2,
+            "increasedamagetaken": 10,
             "afterburn": 3
           },
-          "raw_total": 9,
-          "row_weighted": 11
+          "raw_total": 15,
+          "row_weighted": 15
         },
         {
           "id": "06",
@@ -911,13 +860,12 @@
             "decreasedamagetaken": 2
           },
           "bonuses": {
-            "damage": 2,
             "increasedamagegiven": 2,
-            "increasedamagetaken": 2,
+            "increasedamagetaken": 10,
             "decreasedamagetaken": 2
           },
-          "raw_total": 8,
-          "row_weighted": 10
+          "raw_total": 14,
+          "row_weighted": 14
         }
       ],
       "highest_diagnostic_fourth": "04"
