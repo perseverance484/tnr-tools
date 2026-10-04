@@ -35,10 +35,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Rush offense from Rising Steam: Drowning Strike's spiral exposure into +2 Damage on the three Boil attacks (Drowning Strike 40, Surfing Strike 45, Scorch Break 40 EP), or Afterburn branded on the Liquid Ember Shell's target",
+    "primary": "Rush offense from Rising Steam: +2 Damage on the three Boil attacks (Drowning Strike 40, Surfing Strike 45, Scorch Break 40 EP) with Drowning Strike's spiral exposure on the payoff, or Afterburn branded on the Liquid Ember Shell's target",
     "secondary": "Outlasting the exchange from Vapor Shroud: Lifesteal with an Azure Dragon Palm Heal rider, or Reflect behind Decrease Damage Taken",
     "tertiary": "Foundation glue: Increase Damage Given and Increase Damage Taken on Rising Steam, Decrease Damage Taken on Vapor Shroud",
-    "rationale": "The kit's ten supported rows are three Boil Taijutsu formula Damage rows (40/45/40 EP at jutsu level 25) on 60 AP area attacks and seven single-row tags, three of them on one 40 AP Liquid Ember Shell cast (Lifesteal 40% and Increase Damage Given 35% on the caster, Afterburn 35% on the target). Rising Steam answers \"How do I make the rush hit harder: scald everyone around me or brand one target?\": Caldera Burst sets up Drowning Strike's spiral exposure and pays off with a controlled +2 Damage on all three attacks (no tier crossing), Boiling Point brands the Shell's target with +10% Afterburn. Vapor Shroud answers \"How do I outlast the exchange: heal through my own hits or punish theirs?\": Dew of the Dragon reaches the +5% Lifesteal ceiling with a palm Heal rider, Wall of Steam returns 50% of incoming hits behind 35% Decrease Damage Taken. Potency reaches matching supported tags on all Boil jutsu (RUL-2026-10-03-005)."
+    "rationale": "The kit's ten supported rows are three Boil Taijutsu formula Damage rows (40/45/40 EP at jutsu level 25) on 60 AP area attacks and seven single-row tags, three of them on one 40 AP Liquid Ember Shell cast (Lifesteal 40% and Increase Damage Given 35% on the caster, Afterburn 35% on the target). Rising Steam answers \"How do I make the rush hit harder: scald everyone around me or brand one target?\": the Burst route commits +1 Damage on Geyser Fist and Caldera Burst pays off with +1 Damage more (+2 on all three attacks, no tier crossing) and Drowning Strike's spiral exposure at 40%, Boiling Point brands the Shell's target with +10% Afterburn. Vapor Shroud answers \"How do I outlast the exchange: heal through my own hits or punish theirs?\": Dew of the Dragon reaches the +5% Lifesteal ceiling with a palm Heal rider, Wall of Steam returns 50% of incoming hits behind 35% Decrease Damage Taken. Potency reaches matching supported tags on all Boil jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -87,25 +87,24 @@
       ],
       "modifiers": [
         {
-          "tag": "increasedamagetaken",
-          "flat": 3,
-          "display_role": "ENEMY DEBUFF"
+          "tag": "damage",
+          "flat": 1,
+          "display_role": "DAMAGE"
         }
       ],
-      "flavor": "The ground erupts around the fist and scalds every guard open.",
-      "coverage_note": "Exposure set-up: Drowning Strike Increase Damage Taken 37 → 40% with Rising Steam on every spiral tile within 4 of the caster (2 rounds; ally hazard).",
+      "flavor": "Steam bursts from the ground beneath the fist and lends every blow its heat.",
+      "coverage_note": "Burst commit: the three Boil attacks +1 Damage on the cast itself (Drowning Strike and Scorch Break 40 → 41, Surfing Strike 45 → 46 EP). A flat commit, not the spiral exposure: exposure here would be Boiling Point's obvious fourth and multiply its Afterburn.",
       "parent_rule": "ALL",
       "potency_classification": "Boil",
       "scope": "all Boil jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
-          "Drowning Strike"
+          "Drowning Strike",
+          "Scorch Break",
+          "Surfing Strike"
         ],
-        "effect_rows": 1,
-        "ally_hazard_rows": [
-          "Drowning Strike#1"
-        ]
+        "effect_rows": 3
       }
     },
     {
@@ -119,12 +118,17 @@
       "modifiers": [
         {
           "tag": "damage",
-          "flat": 2,
+          "flat": 1,
           "display_role": "DAMAGE"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
         }
       ],
       "flavor": "The whole basin boils over at once; nothing standing in it is spared.",
-      "coverage_note": "Burst payoff: +2 Damage on all three Boil attacks (Drowning Strike 40 → 42, Surfing Strike 45 → 47, Scorch Break 40 → 42 EP; no tier crossing). Surfing Strike and Scorch Break cast in the two rounds after Drowning Strike land on the route's 40% exposure against targets still on its spiral tiles; Drowning Strike's own hit never does.",
+      "coverage_note": "Burst payoff, route total +2 Damage: Drowning Strike and Scorch Break 40 → 42, Surfing Strike 45 → 47 EP (no tier crossing); with Rising Steam, Drowning Strike's spiral exposure 35 → 40% on every tile within 4 of the caster (2 rounds; ally hazard). Surfing Strike and Scorch Break cast in the two rounds after Drowning Strike meet that 40% on targets still on the tiles; Drowning Strike's own hit never does.",
       "parent_rule": "ALL",
       "potency_classification": "Boil",
       "scope": "all Boil jutsu",
@@ -135,7 +139,10 @@
           "Scorch Break",
           "Surfing Strike"
         ],
-        "effect_rows": 3
+        "effect_rows": 4,
+        "ally_hazard_rows": [
+          "Drowning Strike#1"
+        ]
       }
     },
     {
@@ -359,7 +366,7 @@
         "03",
         "04"
       ],
-      "rationale": "Exposure into a controlled raw-Damage payoff: Drowning Strike's spiral exposure 35 → 40% (Rising Steam +2%, Geyser Fist +3%; ally hazard), then +2 Damage on all three Boil attacks (Drowning Strike and Scorch Break 40 → 42, Surfing Strike 45 → 47 EP; no tier crossing); Surfing Strike and Scorch Break in the two rounds after Drowning Strike hit into the 40% exposure, with the Shell buff at 37%. Blistering Mist is the strongest fourth purchase (Afterburn 38%); Vapor Shroud (Decrease Damage Taken 32%) is the defensive alternative.",
+      "rationale": "A +1 Damage commit into the area payoff: +2 Damage on all three Boil attacks (Drowning Strike and Scorch Break 40 → 42, Surfing Strike 45 → 47 EP; no tier crossing) and Drowning Strike's spiral exposure 35 → 40% (Rising Steam +2%, Caldera Burst +3%; ally hazard); Surfing Strike and Scorch Break in the two rounds after Drowning Strike hit into the 40% exposure, with the Shell buff at 37%. Blistering Mist is the strongest fourth purchase (Afterburn 38%); Vapor Shroud (Decrease Damage Taken 32%) is the defensive alternative.",
       "cost": 4,
       "bonuses": {
         "damage": 2,
@@ -598,7 +605,7 @@
         "05",
         "06"
       ],
-      "rationale": "Brand one target: Liquid Ember Shell's Afterburn 35 → 45% for 2 rounds, so every matching non-pierce hit it takes, allies' included, adds 45% more (60% cap per hit); Rising Steam puts the Shell buff and Drowning Strike's exposure at 37%. Vapor Shroud is the fourth purchase here (Decrease Damage Taken 32%); Geyser Fist (exposure 40%) is the all-offence alternative.",
+      "rationale": "Brand one target: Liquid Ember Shell's Afterburn 35 → 45% for 2 rounds, so every matching non-pierce hit it takes, allies' included, adds 45% more (60% cap per hit); Rising Steam puts the Shell buff and Drowning Strike's exposure at 37%. Vapor Shroud is the fourth purchase here (Decrease Damage Taken 32%); Geyser Fist (+1 Damage on the three Boil attacks, exposure stays 37%) is the all-offence alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -1309,21 +1316,21 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Graph unchanged: 01→02→03, 01→04→05, 06→07→08, 06→09→10. 2026-10-04 re-cut under BALANCE_REVIEW_METHOD.md: Geyser Fist +2 Damage → +3% Increase Damage Taken and Caldera Burst +3 → +2 Damage, because the +5 route lifted Drowning Strike and Scorch Break 40 → 45 (a full tier) and Surfing Strike 45 → 50 (semi-nuke to Nuke); Boiling Point drops its +3% Increase Damage Taken / +3% Increase Damage Given riders for a single +7% Afterburn, since the riders multiplied the burn and Geyser Fist's +2 Damage made 01,02,04,05 the strongest build; Vapor Shroud drops its +2% Heal glue.",
-    "Roster pass (2026-10-04): no value changes. No 50 EP Damage row (R1 n/a); Caldera Burst is a flat-Damage payoff after a percentage set-up, the director pattern (R2); exposure +5% and Afterburn +10% each reach one row (R3); Geyser Fist is the kit's only exposure node, so no twin (R4); +2 on 40/45 rows, no tier crossing (R5); flat Damage only on the Advanced Art (R6); 10 nodes, 2-4-4, neither Foundation universal (R7). Prose corrected: Lifesteal reads matching hits only, Drowning Strike's own hit never meets its exposure, +5% (not 45%) is the Lifesteal ceiling.",
-    "Maxima over every legal allocation: Damage +2 (40 → 42, 45 → 47), Increase Damage Given +2%, Increase Damage Taken +5%, Decrease Damage Taken +5%, Afterburn +10%, Lifesteal +5%, Reflect +10%, Heal +5%. No capstone shares a tag with its sibling Hidden Art.",
+    "Graph unchanged: 01→02→03, 01→04→05, 06→07→08, 06→09→10. 2026-10-04 re-cut under BALANCE_REVIEW_METHOD.md: the pre-batch +5 route (Geyser Fist +2, Caldera Burst +3 Damage) lifted Drowning Strike and Scorch Break 40 → 45 (a full tier) and Surfing Strike 45 → 50 (semi-nuke to Nuke), so it was cut to +2; Boiling Point drops its +3% Increase Damage Taken / +3% Increase Damage Given riders for a single +7% Afterburn, since the riders multiplied the burn and Geyser Fist's +2 Damage made 01,02,04,05 the strongest build; Vapor Shroud drops its +2% Heal glue. Roster pass: no value changes; prose corrected (Lifesteal reads matching hits only, Drowning Strike's own hit never meets its exposure, +5% is the Lifesteal ceiling).",
+    "Final review: the first pass made Geyser Fist a +3% Increase Damage Taken set-up (Caldera Burst +2 Damage), which undid its own Boiling Point fix: Geyser Fist was Boiling Point's obvious fourth, so 01,02,04,05 again laid 40% exposure under the 45% Afterburn, ×1.40 × 1.45 ≈ ×2.03 on every matching hit the brand reads, allies' included (the R1 pattern). Geyser Fist becomes a +1 Damage commit and Caldera Burst carries +1 Damage with the +3% exposure, so Burst's 3-BP package is unchanged (+2 Damage, +2% Increase Damage Given, +5% Increase Damage Taken) and exposure past Rising Steam's 37% is Burst-only. Conventions: no 50 EP row (R1 n/a); Caldera Burst carries the flat-Damage payoff (R2); exposure +5% and Afterburn +10% each reach one row (R3); no twin Hidden Arts (R4); +2 on 40/45 rows, no tier crossing (R5); 10 nodes, 2-4-4, neither Foundation universal (R7). R6 departure: Geyser Fist keeps +1 Damage on a Hidden Art because no percentage set-up passes the fourth-BP audit: exposure and the Shell's Increase Damage Given both multiply the sibling Afterburn, and Decrease Damage Taken, Lifesteal, Reflect and Heal are the defensive branch's tags. A bare +1 capstone would copy the commit and leave Burst + Blistering Mist 2.6% behind Burn + Geyser Fist on the kit's attacks (108.8 against 111.6 EP-equivalent), so Caldera Burst pairs its +1 with the exposure.",
+    "Maxima over every legal allocation: Damage +2 (40 → 42, 45 → 47; builds with Geyser Fist but not Caldera Burst stop at +1, 41 / 46), Increase Damage Given +2%, Increase Damage Taken +5% (Burst only; +2% elsewhere), Decrease Damage Taken +5%, Afterburn +10%, Lifesteal +5%, Reflect +10%, Heal +5%. No capstone shares a tag with its sibling Hidden Art.",
     "Delivery at the pin: SELF rows land on the caster once per cast (actions.ts 980–1004, 1062–1066), so Surfing Strike's Decrease Damage Taken, Scorch Break's Reflect and the Shell's Lifesteal and Increase Damage Given are plain 2-round self buffs. Drowning Strike's rows are INHERIT rows on a GROUND spiral of radius 4 around the caster (own tile excluded); its 2-round exposure is a ground effect re-applied each round to whoever stands on a tile.",
     "Interactions: the Shell's three rows and Drowning Strike's exposure are Taijutsu-filtered but element-less, so they match every element-less hit of any stat type plus Taijutsu elemental hits, the three Boil attacks included; Afterburn reads the hit after Increase Damage Given and Increase Damage Taken. Damage modifiers and Afterburn skip pierce; Lifesteal and Reflect include it. The bloodline Increase Damage Given passive multiplies last.",
     "Uptime: every jutsu has cooldown 7. The Shell is 40 AP, single target, and needs a legal OTHER_USER target for its self rows; the Boil attacks and Azure Dragon Palm cost 60 AP. Buff, exposure and Afterburn windows are the 2 rounds after the cast.",
-    "Fourth purchases: Burst (01,02,03) + Blistering Mist or Vapor Shroud; Burn (01,04,05) + Geyser Fist or Vapor Shroud; Sustain (06,07,08) + Rising Steam or Scalding Backlash; Retaliation (06,09,10) + Siphoned Heat or Rising Steam. The strongest are the offensive siblings: on a Shell-branded target standing in the spiral, during the Shell buff, Burst + Blistering Mist gives ×1.37 × 1.40 × 1.38 ≈ ×2.65 plus +2 EP on the follow-up attacks and Burn + Geyser Fist ×1.37 × 1.40 × 1.45 ≈ ×2.78 on every matching hit, against the kit's own ×1.35 × 1.35 × 1.35 ≈ ×2.46; both give up all mitigation. Retaliation + Rising Steam is the highest row-weighted build only because Rising Steam touches two glue rows; it stacks no tag with the capstone."
+    "Fourth purchases: Burst (01,02,03) + Blistering Mist or Vapor Shroud; Burn (01,04,05) + Geyser Fist or Vapor Shroud; Sustain (06,07,08) + Rising Steam or Scalding Backlash; Retaliation (06,09,10) + Siphoned Heat or Rising Steam. The strongest are the offensive siblings. On a Shell-branded target standing in the spiral, during the Shell buff (Shell and Drowning Strike fit one 100 AP round), Burst + Blistering Mist gives ×1.37 × 1.40 × 1.38 ≈ ×2.65 on 42 EP follow-ups (111.2 EP-equivalent on a 40 EP base) and Burn + Geyser Fist ×1.37 × 1.37 × 1.45 ≈ ×2.72 on 41 EP (111.6), against the kit's ×1.35 × 1.35 × 1.35 ≈ ×2.46 (98.4). Allies' hits on that target take ×1.37 × 1.45 ≈ ×1.99 under Burn (×2.03 with the old Geyser Fist) against ×1.40 × 1.38 ≈ ×1.93 under Burst; every other target in the spiral takes 80.6 from a Burst follow-up on a 40 EP base against 77.0 under Burn. Both give up all mitigation. Retaliation + Rising Steam is the highest row-weighted build only because Rising Steam touches two glue rows; it stacks no tag with the capstone."
   ],
   "risks": [
     "Classification: Boil is the single signature element on the three Damage rows and no other captured bloodline has Boil jutsu; ordinary Boil jutsu are in scope by rule and unverified. 3 of 10 supported kit rows carry Boil; the other seven need the proposed jutsu-classification resolver, and Liquid Ember Shell (no Boil row) qualifies in-kit only through an authored Boil jutsu classification (ENGINE_GAP_REGISTER G1).",
-    "Ally hazard (validator warns): Drowning Strike's Increase Damage Taken is an INHERIT ground row with friendly fire none (=ALL); allies on a spiral tile, and the caster if it steps onto one, take the exposure too. Rising Steam (+2%) and Geyser Fist (+3%) raise it to 37% / 40%; the Damage row (friendly fire ENEMIES) is unaffected. Positioning decides.",
+    "Ally hazard (validator warns): Drowning Strike's Increase Damage Taken is an INHERIT ground row with friendly fire none (=ALL); allies on a spiral tile, and the caster if it steps onto one, take the exposure too. Rising Steam (+2%) and Caldera Burst (+3%) raise it to 37% / 40%; the Damage row (friendly fire ENEMIES) is unaffected. Positioning decides.",
     "Afterburn: Boiling Point makes the Shell's Afterburn 45% on one target for 2 rounds; a second Afterburn source saturates the 60% per-hit cap and wastes part of the +10%. Casting the Shell on an ally for its self rows afterburns that ally. Not simulated.",
     "Lifesteal: Dew of the Dragon's 45% reads every matching hit the caster lands in the Shell window (element-less hits of any stat type, Taijutsu elemental hits, and pierce; a non-Taijutsu elemental hit returns nothing) within the 60%-of-pre-shield-damage leech budget shared with vamp; +5% is the hard ceiling.",
     "Reflect: Wall of Steam returns 50% of each hit taken during Scorch Break's window, pierce included and bypassing shields; realized value depends on incoming damage. Not simulated.",
-    "Damage: Caldera Burst's +2 is formula power on three area attacks, multiplied by the Shell's buff and the bloodline passive, and on the two follow-up attacks by the exposure; realized value scales with target count, which was not modelled.",
+    "Damage: Burst's +2 (Geyser Fist +1, Caldera Burst +1) is formula power on three area attacks, multiplied by the Shell's buff and the bloodline passive, and on the two follow-up attacks by Caldera Burst's exposure; realized value scales with target count, which was not modelled.",
     "Heal: Azure Dragon Palm's static 25 is two ticks of 250 HP; Dew's +5% makes them 300 HP, +100 HP per 7-round cycle, a rider rather than a route.",
     "Unsupported rows and scope: Surfing Strike's move and Azure Dragon Palm's pierce receive nothing; no hidden, item-gated, mode-restricted, injected or adverse rows; the Water Decrease Damage Taken passive is not a potency target. Skill-tree effects are skipped in ranked modes. No combat simulation."
   ],
@@ -1454,8 +1461,8 @@
           ],
           "steps": [
             0,
-            0,
-            2
+            1,
+            1
           ],
           "total": 2,
           "on_band": false
@@ -1552,8 +1559,9 @@
         "05"
       ],
       "bonuses": {
+        "damage": 1,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "afterburn": 10
       }
     },
@@ -1565,8 +1573,9 @@
         "06"
       ],
       "bonuses": {
+        "damage": 1,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 3
       }
@@ -1579,8 +1588,9 @@
         "07"
       ],
       "bonuses": {
+        "damage": 1,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "lifesteal": 2
       }
@@ -1593,8 +1603,9 @@
         "09"
       ],
       "bonuses": {
+        "damage": 1,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "reflect": 3
       }
@@ -1722,15 +1733,17 @@
       "06": "How do I outlast the exchange: heal through my own hits or punish theirs?"
     },
     "route_identities": {
-      "03": "area burst: spiral exposure set up, controlled +2 Damage payoff",
+      "03": "area burst: +1 Damage commit, then +1 Damage with the spiral exposure (+2 Damage, 40% exposure)",
       "05": "branded-target attrition (Afterburn)",
       "08": "sustain (Lifesteal with a palm Heal rider)",
       "10": "retaliation fortress (Reflect behind Decrease Damage Taken)"
     },
     "director_review": "none",
     "concerns": [
-      "Geyser Fist raises Drowning Strike's ally-hazard exposure to 40% on everyone standing in the spiral, allies and a caster who steps onto it included.",
+      "Caldera Burst raises Drowning Strike's ally-hazard exposure to 40% on everyone standing in the spiral, allies and a caster who steps onto it included; every other build stops at 37%.",
       "Caldera Burst depends on sequencing: its 40% exposure reaches only Surfing Strike and Scorch Break cast in the two rounds after Drowning Strike against targets still on the spiral tiles; Drowning Strike's own 42 EP hit never meets it.",
+      "Geyser Fist carries +1 flat Damage on a Hidden Art, against the roster's flat-Damage-on-Advanced convention (R6), because the Burst's percentage set-up (spiral exposure) multiplied the sibling Afterburn as Boiling Point's obvious fourth (R1). It gives Burn a real fourth choice: +1 EP on its own three attacks or Decrease Damage Taken 32%.",
+      "Burst + Blistering Mist still pairs Caldera Burst's 40% exposure with a 38% Afterburn, but Blistering Mist adds only +3% (×1.38 / 1.35 ≈ ×1.022). On one target the two offensive builds are level on the kit's attacks (Burn + Geyser Fist 111.6, Burst + Blistering Mist 111.2 EP-equivalent on a 40 EP base); Burn leads on allies' hits (×1.99 against ×1.93), Burst on every other target in the spiral (80.6 against 77.0 per 40 EP follow-up). Not simulated.",
       "Burn and Sustain both deepen the one Liquid Ember Shell cast; their realized value depends on sequencing and was not simulated."
     ]
   }

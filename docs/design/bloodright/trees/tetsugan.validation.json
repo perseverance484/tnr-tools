@@ -111,7 +111,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "decreasedamagegiven": 5,
+        "decreasedamagegiven": 2,
         "decreasedamagetaken": 5,
         "reflect": 10
       },
@@ -145,7 +145,7 @@
     "maximum_tag_bonuses": {
       "damage": 2,
       "increasedamagegiven": 3,
-      "decreasedamagegiven": 5,
+      "decreasedamagegiven": 2,
       "increasedamagetaken": 4,
       "decreasedamagetaken": 8,
       "afterburn": 10,
@@ -241,14 +241,12 @@
         "name": "Every Blow Returned",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 10,
-        "row_weighted_total": 13,
+        "raw_flat_total": 7,
+        "row_weighted_total": 7,
         "covered_jutsu": [
-          "Harmonious Slash",
-          "Tranquil Guard Flowing Form",
-          "Vacuum Fan"
+          "Harmonious Slash"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -417,12 +415,12 @@
           "05"
         ],
         "bonuses": {
-          "decreasedamagegiven": 5,
+          "decreasedamagegiven": 2,
           "decreasedamagetaken": 5,
           "reflect": 10
         },
-        "raw_flat_total": 20,
-        "row_weighted_total": 35,
+        "raw_flat_total": 17,
+        "row_weighted_total": 29,
         "advanced_arts": [
           "05"
         ],
@@ -490,13 +488,13 @@
           "06"
         ],
         "bonuses": {
-          "decreasedamagegiven": 5,
+          "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "reflect": 10
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 32,
+        "raw_flat_total": 16,
+        "row_weighted_total": 26,
         "advanced_arts": [
           "05"
         ],
@@ -1076,11 +1074,11 @@
         "05"
       ],
       "path_bonuses": {
-        "decreasedamagegiven": 5,
+        "decreasedamagegiven": 2,
         "decreasedamagetaken": 2,
         "reflect": 10
       },
-      "path_row_weighted": 26,
+      "path_row_weighted": 20,
       "fourths": [
         {
           "id": "02",
@@ -1090,12 +1088,12 @@
             "decreasedamagetaken": 3
           },
           "bonuses": {
-            "decreasedamagegiven": 5,
+            "decreasedamagegiven": 2,
             "decreasedamagetaken": 5,
             "reflect": 10
           },
-          "raw_total": 20,
-          "row_weighted": 35
+          "raw_total": 17,
+          "row_weighted": 29
         },
         {
           "id": "06",
@@ -1105,13 +1103,13 @@
             "increasedamagetaken": 2
           },
           "bonuses": {
-            "decreasedamagegiven": 5,
+            "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "reflect": 10
           },
-          "raw_total": 19,
-          "row_weighted": 32
+          "raw_total": 16,
+          "row_weighted": 26
         }
       ],
       "highest_diagnostic_fourth": "02"
