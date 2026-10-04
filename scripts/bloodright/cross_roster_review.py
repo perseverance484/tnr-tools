@@ -252,7 +252,7 @@ def md(d):
         out.append("\nStack figures assume every row is active together; cooldowns, AP and the cast-round rule (no buff or debuff acts in its own cast round) usually prevent that.\n")
     out.append(f"Percentage rows pushed past the 100 cap by any legal build: {len(d['percentage_rows_over_100'])}.\n")
     out.append("## 3b. Ceilings and route bands (RUL-2026-10-03-005)\n")
-    out.append("Maximum per tag over every legal prerequisite-closed allocation. Hard ceilings: Damage +5, Lifesteal +5%, Afterburn +15%; every other tag +10% unless a director-review exception is recorded. Routes are scored by each Advanced Art's first modifier tag summed along its path; preferred totals are +5/+10/+15.\n")
+    out.append("Maximum per tag over every legal prerequisite-closed allocation. Hard ceilings: Damage +5, Lifesteal +5%, Afterburn +15%; every other tag +10% unless a director-review exception is recorded. Each route is shown by its Advanced Art's first modifier tag summed along its path. The +5/+10/+15 bands are guardrails, not targets (BALANCE_REVIEW_METHOD.md); \"off band\" is informational. Damage tiers, fourth purchases and route overlap are in REBALANCE_AUDIT.md.\n")
     out += tbl(d["ceilings"], [lambda x: x["bloodline"] + (" (reference)" if x["reference"] else ""),
                                lambda x: ", ".join(L.mod_text(k, v, abbr=True) for k, v in x["maximum"].items()),
                                lambda x: ", ".join(x["over_ceiling"]) or "—",

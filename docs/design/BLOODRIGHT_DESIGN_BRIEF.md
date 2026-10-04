@@ -128,7 +128,7 @@ Use the same access budget and opportunity-cost rules, not the same raw numbers 
 | Afterburn | hard maximum +15% |
 | Every other supported tag | +10%; exceeding it needs a recorded reason and a director-review exception (`director_exceptions` in the tree JSON), never silent arithmetic |
 
-Prefer primary route totals of +5 / +10 / +15. A route's primary is its Advanced Art's first modifier summed along its path; an irregular total needs a recorded `route_band_rationale`. Glue tags need not land on bands. The default Damage route is Hidden Art +2, Advanced Art +3. The earlier guardrails (Damage 6, other tags 12) are obsolete.
+The +5 / +10 / +15 totals are **guardrails and warning thresholds, not targets** (`bloodright/BALANCE_REVIEW_METHOD.md`, 2026-10-04): balance follows meaningful opportunity cost, not equal-looking printed totals. +5 Damage is not the normal Damage route and Hidden +2 / Advanced +3 is no longer a default; flat Damage is judged base → final on every affected row against the player-jutsu tiers (38 Light, 40 Normal, 45 High, 50 Nuke), and any result above 50 needs a recorded `above_nuke_rationale` and director review. Use the method's Foundation Sentence Test, Advanced-Art identity test and fourth-BP audit; row-weighted totals are diagnostics only. The earlier guardrails (Damage 6, other tags 12) are obsolete.
 
 1. Identify the baseline kit, role, offense scaling, limitations and actual supported rows. Do not invent a missing heal/reflect/burn tag to produce a familiar archetype.
 2. Propose a primary emphasis, a secondary emphasis and lesser support. The earlier 10/5/3 idea is a design heuristic, not an entitlement to +10 Damage or every tertiary stat. Taiyo Kami's reviewed result is the stronger reference.

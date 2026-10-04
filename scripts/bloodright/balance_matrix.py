@@ -186,7 +186,7 @@ def md_matrix(m: dict) -> str:
             bits.append(f"classification: {e['classification_status']}")
         off = [r for r in e["routes"] if not r["on_band"]]
         if off:
-            bits.append("routes off the 5/10/15 bands: " + ", ".join(f"{r['name']} {L.mod_text(r['primary_tag'], r['total'], abbr=True)}" for r in off))
+            bits.append("route totals off the 5/10/15 guardrail bands (informational; bands are not targets): " + ", ".join(f"{r['name']} {L.mod_text(r['primary_tag'], r['total'], abbr=True)}" for r in off))
         if e["director_exceptions"]:
             bits.append("director-review exceptions: " + ", ".join(f"{L.TAG_ABBR.get(x.get('tag'), x.get('tag'))} up to +{x.get('max')}%" for x in e["director_exceptions"]))
         if bits:
@@ -200,6 +200,7 @@ def md_matrix(m: dict) -> str:
         out.append(f"\n## Outliers by per-row intensity (reference {ref})\n")
         out.append("- Above 125% of the reference: " + (", ".join(hi) or "none"))
         out.append("- Below 75% of the reference: " + (", ".join(lo) or "none"))
+    out.append("\nRow-weighted totals are diagnostics, not objectives (BALANCE_REVIEW_METHOD.md): use them to spot suspicious differences, then judge real combat leverage.")
     out.append("\nReading guide: a higher row-weighted total means the same static additions touch more effect rows; it says nothing about delivery, uptime, action cost, duration, caps (percentage tags cap at 100; Afterburn, Reflect and the lifesteal/vamp leech budget cap at 60% of a hit) or the combat multiplication that follows. Mechanical legality and numerical non-dominance do not prove combat balance.\n")
     return "\n".join(out) + "\n"
 
