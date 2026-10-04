@@ -13,13 +13,13 @@ Shinrai Ou is a rank-A Burst kit whose four Storm attacks are 50, 45, 40 and 40 
 | Mandate of Thunder | Foundation | How do I make my thunder land harder: charge myself or expose them? |
 | Raiment of Storms | Foundation | How do I make attackers pay for striking me? |
 | Thunder King's Wrath | Advanced Art | burst: self-charge setup on the Hidden Art, controlled +2 Damage payoff on all four Storm attacks |
-| Judgement from Above | Advanced Art | exposure: Hammer marks the field and every matching hit on it lands harder, allies' included |
+| Judgement from Above | Advanced Art | exposure: Hammer marks each enemy on its spiral tiles; every matching hit on the marked target lands harder, allies' included |
 | Thunder Answers Thunder | Advanced Art | retaliation: the Storm Cloak returns half of every blow |
 
-**Director review recommended:** Roster questions: DQ-A (Thunder King's Wrath +2 Damage after the Vajra Tempering setup, Storm Style: Daibutsu Thunder 50 → 52, kept for the dossier's Burst trait); DQ-B (Judgement from Above +10% exposure on one area row, Izanagi's Hammer 35 → 45%, ×1.074).
+**Director review recommended:** Roster questions: DQ-A (Thunder King's Wrath +2 Damage after the Vajra Tempering setup, Storm Style: Daibutsu Thunder 50 → 52, kept for the dossier's Burst trait; see above_nuke_rationale); DQ-B (Judgement from Above +10% Increase Damage Taken on 1 row: Izanagi's Hammer 35 → 45%; ≈ ×1.074, against Shakunetsu Sakura ×1.075 and Blood-Enchanted Eyes ×1.115).
 
 - Concern: Thunder King's Wrath's +2 Damage lifts Daibutsu Thunder 50 → 52, past the Nuke tier, under the Blood-Enchanted Eyes / Shakunetsu Sakura precedent; kept because the dossier's Traits line is Burst (DQ-A).
-- Concern: The three-row Increase Damage Given stack is one of the roster's two fastest (one 100 AP turn, no item gate), so it is held at +4% (×1.09 on a hit in all three windows), below the +5% of slower stacks. With the Damage payoff and Lightning Rod the Burst package is about ×1.18 on Daibutsu Thunder in an all-windows-live model, just under Blood-Enchanted Eyes' Rite of Exsanguination route (≈ ×1.19) and under its ×1.234 top package.
+- Concern: The three-row Increase Damage Given stack is one of the roster's two fastest (one 100 AP turn, no item gate), so it is held at +4% (×1.09 on a hit inside both buff windows), below the +5% of slower stacks. With the Damage payoff and Lightning Rod the Burst package is about ×1.18 on Daibutsu Thunder in an all-windows-live model, just under Blood-Enchanted Eyes' Rite of Exsanguination route (≈ ×1.19) and under its ×1.234 top package.
 - Concern: Judgement from Above is single-row area team exposure at +10% (Hammer 35 → 45%, ×1.074 per matching hit), the same compounded lift as Shakunetsu Sakura's Conflagration in Bloom (×1.075) and under Blood-Enchanted Eyes' ×1.115 exposure maximum; a primary exposure route at +7% or more is roster question DQ-B.
 - Concern: Mandate of Thunder is universal, so the Retaliation route's fourth purchase is forced; the kit has no second defensive tag for a leaf under Raiment of Storms.
 - Concern: The Reflect row and two of the three Increase Damage Given rows are element-less and depend on the proposed jutsu-classification resolver.

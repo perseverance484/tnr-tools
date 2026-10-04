@@ -64,7 +64,7 @@
   "examples": [
     {
       "name": "Weight of the Trench",
-      "archetype": "Steady edge",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
@@ -74,7 +74,7 @@
       "cost": 4,
       "bonuses": {
         "damage": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 4,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -137,7 +137,7 @@
       "4": 8
     },
     "full_budget_allocations": 8,
-    "non_dominated_full_allocations": 8,
+    "non_dominated_full_allocations": 7,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
@@ -177,11 +177,11 @@
         "name": "Grip of the Riptide",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 1,
-        "row_weighted_total": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Crushing Abyss",
-          "Sea King's Armor"
+          "Water Dome"
         ],
         "covered_rows": 2,
         "adverse_rows_amplified": [],
@@ -192,8 +192,8 @@
         "name": "Weight of the Trench",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 1,
-        "row_weighted_total": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Crushing Abyss",
           "Sea King's Armor"
@@ -318,10 +318,11 @@
         ],
         "bonuses": {
           "damage": 2,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 7,
-        "row_weighted_total": 9,
+        "raw_flat_total": 9,
+        "row_weighted_total": 13,
         "advanced_arts": [
           "03"
         ],
@@ -336,11 +337,11 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 6,
-        "row_weighted_total": 10,
+        "raw_flat_total": 8,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "03"
         ],
@@ -354,11 +355,11 @@
           "05"
         ],
         "bonuses": {
-          "damage": 1,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 12,
+        "raw_flat_total": 12,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "05"
         ],
@@ -372,12 +373,11 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 8,
-        "row_weighted_total": 11,
+        "raw_flat_total": 9,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -389,14 +389,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 6,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 7,
-        "row_weighted_total": 12,
+        "raw_flat_total": 8,
+        "row_weighted_total": 14,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -572,7 +571,6 @@
   },
   "damage_thresholds": {
     "damage_totals_reachable": [
-      1,
       2
     ],
     "rows": [
@@ -586,19 +584,6 @@
         ],
         "method": "SINGLE",
         "steps": [
-          {
-            "added": 1,
-            "final": 39.0,
-            "tier_before": "Light",
-            "tier_after": "Light",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 6,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
           {
             "added": 2,
             "final": 40.0,
@@ -625,19 +610,6 @@
         ],
         "method": "AOE_CIRCLE_SPAWN",
         "steps": [
-          {
-            "added": 1,
-            "final": 39.0,
-            "tier_before": "Light",
-            "tier_after": "Light",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 6,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
           {
             "added": 2,
             "final": 40.0,
@@ -680,9 +652,10 @@
       ],
       "path_bonuses": {
         "damage": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       },
-      "path_row_weighted": 6,
+      "path_row_weighted": 10,
       "fourths": [
         {
           "id": "04",
@@ -693,10 +666,11 @@
           },
           "bonuses": {
             "damage": 2,
+            "increasedamagetaken": 2,
             "decreasedamagetaken": 5
           },
-          "raw_total": 7,
-          "row_weighted": 9
+          "raw_total": 9,
+          "row_weighted": 13
         },
         {
           "id": "06",
@@ -707,11 +681,11 @@
           },
           "bonuses": {
             "damage": 2,
-            "increasedamagetaken": 2,
+            "increasedamagetaken": 4,
             "decreasedamagetaken": 2
           },
-          "raw_total": 6,
-          "row_weighted": 10
+          "raw_total": 8,
+          "row_weighted": 14
         }
       ],
       "highest_diagnostic_fourth": "06"
@@ -734,14 +708,14 @@
           "name": "Grip of the Riptide",
           "category": "Hidden Art",
           "adds": {
-            "damage": 1
+            "increasedamagetaken": 2
           },
           "bonuses": {
-            "damage": 1,
+            "increasedamagetaken": 2,
             "decreasedamagetaken": 10
           },
-          "raw_total": 11,
-          "row_weighted": 12
+          "raw_total": 12,
+          "row_weighted": 14
         },
         {
           "id": "06",
