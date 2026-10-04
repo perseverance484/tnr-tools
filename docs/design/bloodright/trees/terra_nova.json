@@ -1,6 +1,6 @@
 {
   "title": "Terra Nova — Tectonic Creed",
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Earth classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Earth classification / forked tree",
   "bloodline": {
     "id": "AohWgMy9uYF14ivDlE-xq",
     "review_id": "BR-081",
@@ -105,7 +105,7 @@
         }
       ],
       "flavor": "Layer by layer, the earth is torn open.",
-      "coverage_note": "Both Earth Damage rows (Earthen Fortitude single target, Terra Spire spiral around the caster) 38 → 39 EP, still Light tier. A commitment step; Continental Rift carries the step to the 40 Normal line.",
+      "coverage_note": "Kit examples: Earthen Fortitude (single target) and Terra Spire (spiral around the caster) Damage 38 → 39 EP, still Light. A small commit: each of the kit's three percentage tags already has its own route, so a percentage setup here would copy another route's Hidden Art.",
       "parent_rule": "ALL",
       "potency_classification": "Earth",
       "scope": "all Earth jutsu",
@@ -134,7 +134,7 @@
         }
       ],
       "flavor": "When the plates move, nothing built upon them survives.",
-      "coverage_note": "Burst: both Earth Damage rows 38 → 40 EP on the full route (+2 Damage), reaching the 40 Normal line on every cast; no other allocation passes 39. The Earth damage passive multiplies the result.",
+      "coverage_note": "Burst: the kit's two Earth Damage rows 38 → 40 EP on the full route (+2 Damage), Light into Normal on every cast; no other allocation passes 39. The Earth damage passive multiplies the result.",
       "parent_rule": "ALL",
       "potency_classification": "Earth",
       "scope": "all Earth jutsu",
@@ -944,11 +944,12 @@
   "narrow_kit_exception": null,
   "design_notes": [
     "Structure kept: Fault Line (Earthen Fortitude's suppression) forks into Rending Strata → Continental Rift (burst) and Burden of Stone → Pressure of Ages (suppression); Bedrock Stance (both Earth Wall rows) forks into Rampart Discipline → Unmoved Mountain (fortress) and Weight Behind the Blow → Landslide Momentum (amplification). 2 F / 4 H / 4 A; every capstone 3 BP deep; any two capstones cost 5–6 BP. An offense/defense split (Damage with Increase Damage Given, Decrease Damage Taken with Decrease Damage Given) was considered and rejected: raw Damage and the Earth Wall amplify multiply each other, so one Foundation would let a capstone plus its sibling Hidden Art stack both.",
-    "2026-10-04 rebalance: Burst cut from +5 Damage (Rending Strata +2, Continental Rift +3; 38 → 43 on both attacks, one an area spiral) to +2 (Rending Strata +1, Continental Rift +1; 38 → 39 → 40), so the Hidden Art no longer crosses the 40 Normal line and Landslide Momentum owns the wall's window (calibration below). Pressure of Ages' +1 Damage rider is removed with no replacement, so no build outside Burst passes 39 EP and the suppression capstone does not out-guard the fortress. Unmoved Mountain's +2% Increase Damage Given and Landslide Momentum's +2% Decrease Damage Taken riders are removed: each fed its sibling Hidden Art's tag, so both capstones' best fourth purchase converged on the same all-Earth-Wall package (45%/42% against 42%/45%).",
+    "2026-10-04 rebalance: Burst cut from +5 Damage (Rending Strata +2, Continental Rift +3; 38 → 43 on both attacks, one an area spiral) to +2 (Rending Strata +1, Continental Rift +1; 38 → 39 → 40), so the Hidden Art no longer crosses the 40 Normal line and Landslide Momentum owns the wall's window (calibration below). Pressure of Ages' +1 Damage rider is removed, so no build outside Burst passes 39 EP; an interim +2% Decrease Damage Taken rider was also dropped, because with Bedrock Stance it let suppression beat the fortress at its own job (0.60 × 0.61 = 0.366 of the struck enemy's damage against Unmoved Mountain plus Fault Line's 0.374). Unmoved Mountain's +2% Increase Damage Given and Landslide Momentum's +2% Decrease Damage Taken riders are removed: each fed its sibling Hidden Art's tag on the same Earth Wall cast, so both capstones' best fourth purchase converged on the same all-Earth-Wall package (45%/42% against 42%/45%).",
     "Calibration (uptime-aware): Burst's +2 EP is ×40 / 38 ≈ ×1.053 on every Earth cast, in or out of the window. Landslide Momentum's +10% is ×1.45 / 1.35 ≈ ×1.074 on Earth hits in Earth Wall's two-round window only. Inside the window Burst plus Bedrock Stance gives (B + 2) × 1.37 against Landslide Momentum's 1.45B; break-even is B ≈ 34 EP, so Landslide Momentum leads on every player-tier row (38: 54.8 against 55.1; 50: 71.2 against 72.5) and Burst leads everywhere else. At the earlier +3, (B + 3) × 1.37 ≥ 1.45B up to B ≈ 51.4 EP, so Burst out-hit Landslide Momentum even inside its own window. Defense: Unmoved Mountain's 45% is ×0.55 / 0.65 ≈ ×0.85 damage taken in the window; Pressure of Ages' 40% is ×0.60 / 0.70 ≈ ×0.86 on one enemy's hits for two rounds. With both windows aligned (Earth Wall 40 AP plus Earthen Fortitude 60 AP fit in one round), Unmoved plus Fault Line takes 0.68 × 0.55 = 0.374 of the struck enemy's damage against Pressure plus Bedrock Stance's 0.60 × 0.63 = 0.378, and 0.55 against 0.63 from anyone else.",
-    "Rending Strata keeps a +1 Damage commit (38 → 39, Light) because each non-Damage alternative fails: any Increase Damage Given re-merges the multiplying pair (even +1% puts Burst plus Bedrock Stance at 40 × 1.38 = 55.2, over Landslide Momentum's 55.1 in its own window); any Decrease Damage Given lets Pressure of Ages plus Rending Strata pass +10% and makes the sibling Hidden Art Pressure's best fourth; Decrease Damage Taken is Earth Wall's defensive row and fits neither half of Fault Line's sentence.",
+    "Rending Strata keeps a +1 Damage commit (38 → 39, Light), splitting the Light-row +2 as +1 / +1 instead of the director pattern's percentage setup, because every percentage setup here would copy another route's Hidden Art: Increase Damage Given repeats Weight Behind the Blow on Earth Wall's row and re-merges the multiplying pair (even +1% puts Burst plus Bedrock Stance at 40 × 1.38 = 55.2, over Landslide Momentum's 55.1 in its own window); Decrease Damage Given repeats its sibling Burden of Stone, pushes Pressure of Ages plus Rending Strata past +10% and becomes Pressure's best fourth; Decrease Damage Taken repeats Rampart Discipline and fits neither half of Fault Line's sentence. The kit has no fifth supported tag.",
     "Matching (tags.ts getEfficiencyRatio 3477–3510): the Decrease Damage Taken and Decrease Damage Given rows list four stat types and no element, so they alter every non-pierce hit whose stat resolves to one of the four or that is element-less (basic attacks and weapons included). Earth Wall's Increase Damage Given row has elements ['Earth'] and no stat type: it amplifies Earth-element damage only.",
     "Delivery: all three jutsu have cooldown 7. Earth Wall (40 AP, SELF) buffs are live on the two rounds after its cast (§3b), never in it: 2-in-7 uptime for both wall routes, though both kit attacks share cooldown 7 and can be timed into the window each cycle. Earthen Fortitude (60 AP, range 4, single target) hits in its cast round and suppresses on the two rounds after. Terra Spire (60 AP) hits enemies on a radius-4 spiral around the caster. The Earth damage passive (15% + 0.15/level, fromType bloodline) multiplies last; the +10% Lightning Increase Damage Taken passive is the kit's weakness. Both passives are suppressed in ranked modes (§5).",
+    "One effect per capstone. The anchors give their defensive capstones riders, but there both defensive tags sit under one Foundation; here Decrease Damage Given (Earthen Fortitude, Fault Line) and Decrease Damage Taken (Earth Wall, Bedrock Stance) sit under different ones, so mirrored riders would be cross-family and pull the two defensive 4-BP builds together (Pressure plus Bedrock Stance 0.60 × 0.61 = 0.366, Unmoved plus Fault Line 0.66 × 0.55 = 0.363). Landslide Momentum stays a bare +10%: at +8% (38 × 1.43 = 54.3) it would trail Burst plus Bedrock Stance (54.8) inside its own window, and each possible rider fails: Damage re-merges the multiplying pair, Decrease Damage Taken feeds Rampart Discipline on the same cast, and Decrease Damage Given is Fault Line's cross-family tag.",
     "Fourth purchases: Burst → Bedrock Stance (wall 37%/37%; 54.8 in the window) or Burden of Stone (suppression 35%); Suppression → Bedrock Stance (Decrease Damage Taken 37%, amplify 37%) or Rending Strata (39 EP); Fortress → Fault Line (suppression 32%) or Weight Behind the Blow (amplify 40%); Amplification → Rampart Discipline (Decrease Damage Taken 40%) or Fault Line (suppression 32%)."
   ],
   "risks": [
@@ -1020,7 +1021,7 @@
       "increasedamagegiven"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Fable proposal — 2026-10-04 batch rebalance / Earth classification / forked tree",
+    "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Earth classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -1321,16 +1322,17 @@
       "06": "How do I use Earth Wall's two rounds: hold behind it, or strike from it?"
     },
     "route_identities": {
-      "03": "burst: raw Damage on every Earth strike, no setup window",
+      "03": "burst: a +2 Damage payoff on every Earth strike (38 → 40), no setup window",
       "05": "suppression: the struck enemy hits softer for the whole party",
       "08": "fortress: take less from nearly every hit in the wall's window",
       "10": "sustained amplification: Earth hits timed into the wall's window land hardest"
     },
     "director_review": "none",
     "concerns": [
-      "Off-kit flat Damage is unverified: Continental Rift's +2 reaches every Earth Damage row, so an off-kit Earth row at 50 would read 52; the validator checks kit rows only.",
-      "Landslide Momentum's in-window lead over Burst plus Bedrock Stance is narrow on the kit's 38 EP attacks (55.1 against 54.8 EP-equivalent, about 0.5%) and widens with base (72.5 against 71.2 on a 50 row); Burst leads 40 to 38 outside the window. Not simulated.",
-      "Burst is two +1 Damage steps (×1.026 each): its value is uptime, not size. Rending Strata keeps the +1 commit because every non-Damage alternative breaks the window split, the +10% Decrease Damage Given ceiling or Fault Line's sentence (design notes).",
+      "Off-kit flat Damage is unverified: Continental Rift's +2 reaches every Earth Damage row, so an off-kit Earth row at 45 or 50 would read 47 or 52; the validator checks kit rows only.",
+      "Landslide Momentum's in-window lead over Burst plus Bedrock Stance is narrow on the kit's 38 EP attacks (55.1 against 54.8 EP-equivalent, about 0.5%) and widens with base (72.5 against 71.2 on a 50 row); Burst leads 40 to 38 outside the window. Landslide plus Fault Line differs from Burst plus Bedrock Stance only by +8% Earth amplify in the window against +2 Damage on every cast, so it is close to dominated; Landslide's real fourth is Rampart Discipline (Decrease Damage Taken 40% against 37%). Not simulated.",
+      "Hidden-Art flat Damage: Rending Strata's +1 (×1.026) is a small commit rather than a percentage setup, because each of the kit's three percentage tags already has its own route and a setup would copy that route's Hidden Art (design notes). Burst's value is uptime, not size: +2 EP (×1.053) on every Earth cast, Light 38 into Normal 40.",
+      "Defense reads lighter than the anchors: Pressure of Ages and Unmoved Mountain carry no rider, unlike Blood-Enchanted Eyes and Arashima. Kept because the two defensive tags sit on different jutsu under different Foundations, so riders would be cross-family and converge the two defensive builds (0.366 against 0.363). Landslide Momentum is likewise a bare single-row +10%, which it needs to own Earth Wall's window.",
       "Two of four routes (Pressure of Ages, Unmoved Mountain) amplify element-less rows that the current row-element resolver cannot reach; they depend on the proposed jutsu-classification resolver."
     ]
   }

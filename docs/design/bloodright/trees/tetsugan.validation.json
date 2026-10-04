@@ -12,8 +12,8 @@
   "revision": "Fable proposal — 2026-10-04 batch rebalance / Metal classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "ally-hazard area rows amplified (friendly fire none/ALL): Equilibrium Guard Strike#1, Vacuum Fan#2",
-    "supported tags present in kit but not targeted by any node: damage"
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Phantom Slash 50 -> 52",
+    "ally-hazard area rows amplified (friendly fire none/ALL): Equilibrium Guard Strike#0, Equilibrium Guard Strike#1, Vacuum Fan#2"
   ],
   "classification": {
     "potency_classification": "Metal",
@@ -43,7 +43,7 @@
   "examples": [
     {
       "name": "One Cut Decides",
-      "archetype": "Self-amplification",
+      "archetype": "Burst",
       "ids": [
         "06",
         "07",
@@ -52,7 +52,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 3,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -73,7 +74,7 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 3,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 4,
         "afterburn": 10
       },
       "advanced_arts": [
@@ -142,9 +143,10 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 8,
+      "damage": 2,
+      "increasedamagegiven": 3,
       "decreasedamagegiven": 5,
-      "increasedamagetaken": 5,
+      "increasedamagetaken": 4,
       "decreasedamagetaken": 8,
       "afterburn": 10,
       "reflect": 10
@@ -161,15 +163,14 @@
     },
     "tags_targeted_by_tree": [
       "afterburn",
+      "damage",
       "decreasedamagegiven",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "reflect"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "node_values": [
       {
         "id": "01",
@@ -287,13 +288,18 @@
         "name": "One Cut Decides",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 15,
+        "raw_flat_total": 2,
+        "row_weighted_total": 14,
         "covered_jutsu": [
-          "Inner Peace",
-          "Middle Guard Stance"
+          "Crimson Thrust",
+          "Enduring Resonance Ward",
+          "Equilibrium Guard Strike",
+          "Harmonious Slash",
+          "Phantom Slash",
+          "Pivoting Fortress",
+          "Tranquil Guard Flowing Form"
         ],
-        "covered_rows": 3,
+        "covered_rows": 7,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -316,8 +322,8 @@
         "name": "Branding Iron",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 10,
-        "row_weighted_total": 16,
+        "raw_flat_total": 9,
+        "row_weighted_total": 13,
         "covered_jutsu": [
           "Crimson Thrust",
           "Equilibrium Guard Strike",
@@ -337,13 +343,14 @@
         "08"
       ],
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 3,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       },
-      "raw_flat_total": 14,
-      "row_weighted_total": 40,
+      "raw_flat_total": 11,
+      "row_weighted_total": 39,
       "advanced_arts": [
         "08"
       ],
@@ -541,13 +548,14 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 8,
+          "damage": 2,
+          "increasedamagegiven": 3,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 40,
+        "raw_flat_total": 11,
+        "row_weighted_total": 39,
         "advanced_arts": [
           "08"
         ],
@@ -581,12 +589,12 @@
         ],
         "bonuses": {
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2,
           "afterburn": 10
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 35,
+        "raw_flat_total": 18,
+        "row_weighted_total": 32,
         "advanced_arts": [
           "10"
         ],
@@ -600,12 +608,13 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 8,
+          "damage": 2,
+          "increasedamagegiven": 3,
           "increasedamagetaken": 2,
           "afterburn": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 33,
+        "raw_flat_total": 10,
+        "row_weighted_total": 32,
         "advanced_arts": [
           "08"
         ],
@@ -620,11 +629,11 @@
         ],
         "bonuses": {
           "increasedamagegiven": 3,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "afterburn": 10
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 34,
+        "raw_flat_total": 17,
+        "row_weighted_total": 31,
         "advanced_arts": [
           "10"
         ],
@@ -806,7 +815,9 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [],
+    "damage_totals_reachable": [
+      2
+    ],
     "rows": [
       {
         "jutsu": "Tranquil Guard Flowing Form",
@@ -817,7 +828,22 @@
           "Metal"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "06",
+              "07",
+              "08"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Enduring Resonance Ward",
@@ -828,7 +854,22 @@
           "Metal"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "06",
+              "07",
+              "08"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Pivoting Fortress",
@@ -839,7 +880,22 @@
           "Metal"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "06",
+              "07",
+              "08"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Phantom Slash",
@@ -850,7 +906,22 @@
           "Metal"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "06",
+              "07",
+              "08"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Crimson Thrust",
@@ -861,7 +932,22 @@
           "Metal"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "06",
+              "07",
+              "08"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Equilibrium Guard Strike",
@@ -872,7 +958,22 @@
           "Metal"
         ],
         "method": "AOE_LINE_SHOOT",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "06",
+              "07",
+              "08"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Harmonious Slash",
@@ -883,11 +984,40 @@
           "Metal"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "06",
+              "07",
+              "08"
+            ]
+          }
+        ]
       }
     ],
-    "tier_crossings": [],
-    "above_nuke": []
+    "tier_crossings": [
+      [
+        "Phantom Slash",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Phantom Slash",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
   },
   "fourth_bp": [
     {
@@ -995,10 +1125,11 @@
         "08"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 3,
         "increasedamagetaken": 2
       },
-      "path_row_weighted": 30,
+      "path_row_weighted": 29,
       "fourths": [
         {
           "id": "01",
@@ -1009,13 +1140,14 @@
             "decreasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagegiven": 8,
+            "damage": 2,
+            "increasedamagegiven": 3,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           },
-          "raw_total": 14,
-          "row_weighted": 40
+          "raw_total": 11,
+          "row_weighted": 39
         },
         {
           "id": "09",
@@ -1025,12 +1157,13 @@
             "afterburn": 3
           },
           "bonuses": {
-            "increasedamagegiven": 8,
+            "damage": 2,
+            "increasedamagegiven": 3,
             "increasedamagetaken": 2,
             "afterburn": 3
           },
-          "raw_total": 13,
-          "row_weighted": 33
+          "raw_total": 10,
+          "row_weighted": 32
         }
       ],
       "highest_diagnostic_fourth": "01"
@@ -1044,10 +1177,10 @@
         "10"
       ],
       "path_bonuses": {
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 4,
         "afterburn": 10
       },
-      "path_row_weighted": 25,
+      "path_row_weighted": 22,
       "fourths": [
         {
           "id": "01",
@@ -1059,12 +1192,12 @@
           },
           "bonuses": {
             "decreasedamagegiven": 2,
-            "increasedamagetaken": 5,
+            "increasedamagetaken": 4,
             "decreasedamagetaken": 2,
             "afterburn": 10
           },
-          "raw_total": 19,
-          "row_weighted": 35
+          "raw_total": 18,
+          "row_weighted": 32
         },
         {
           "id": "07",
@@ -1075,11 +1208,11 @@
           },
           "bonuses": {
             "increasedamagegiven": 3,
-            "increasedamagetaken": 5,
+            "increasedamagetaken": 4,
             "afterburn": 10
           },
-          "raw_total": 18,
-          "row_weighted": 34
+          "raw_total": 17,
+          "row_weighted": 31
         }
       ],
       "highest_diagnostic_fourth": "01"
